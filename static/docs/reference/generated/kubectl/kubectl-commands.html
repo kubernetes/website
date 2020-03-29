@@ -45,7 +45,7 @@ inspect them.</p>
 <p>Create a resource from a file or from stdin.</p>
 <p> JSON and YAML formats are accepted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ create -f FILENAME</code></p>
+<p><code>$ kubectl create -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -127,7 +127,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -177,7 +177,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -241,7 +241,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -266,7 +266,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterRoleBinding for a particular ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -330,7 +330,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -372,7 +372,7 @@ inspect them.</p>
 <p> When creating a configmap based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key.</p>
 <p> When creating a configmap based on a directory, each file whose basename is a valid key in the directory will be packaged into the configmap.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -442,7 +442,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -471,7 +471,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a cronjob with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cronjob NAME --image=image --schedule=&#39;0/5 * * * ?&#39; -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl create cronjob NAME --image=image --schedule=&#39;0/5 * * * ?&#39; -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -529,7 +529,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -548,7 +548,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a deployment with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ deployment NAME --image=image [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create deployment NAME --image=image [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -600,7 +600,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -629,7 +629,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a job with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl create job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -681,7 +681,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -700,7 +700,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a namespace with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ namespace NAME [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create namespace NAME [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -746,7 +746,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -770,7 +770,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a pod disruption budget with the specified name, selector, and desired minimum available pods</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -834,7 +834,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -863,7 +863,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a priorityclass with the specified name, value, globalDefault and description</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -927,7 +927,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -957,7 +957,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a resourcequota with the specified name, hard limits and optional scopes</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1015,7 +1015,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1049,7 +1049,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a role with single rule.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1101,7 +1101,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1126,7 +1126,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a RoleBinding for a particular Role or ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1196,7 +1196,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1210,7 +1210,7 @@ inspect them.</p>
 <h2 id="-em-secret-em-"><em>secret</em></h2>
 <p>Create a secret using specified subcommand.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ secret</code></p>
+<p><code>$ kubectl create secret</code></p>
 <hr>
 <h2 id="-em-secret-docker-registry-em-"><em>secret docker-registry</em></h2>
 <blockquote class="code-block example">
@@ -1227,7 +1227,7 @@ inspect them.</p>
   nodes to pull images on your behalf, they have to have the credentials.  You can provide this information
   by creating a dockercfg secret and attaching it to your service account.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1309,7 +1309,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1351,7 +1351,7 @@ inspect them.</p>
 <p> When creating a secret based on a file, the key will default to the basename of the file, and the value will default to the file content. If the basename is an invalid key or you wish to chose your own, you may specify an alternate key.</p>
 <p> When creating a secret based on a directory, each file whose basename is a valid key in the directory will be packaged into the secret. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1421,7 +1421,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -1447,7 +1447,7 @@ inspect them.</p>
 <p>Create a TLS secret from the given public/private key pair.</p>
 <p> The public/private key pair must exist before hand. The public key certificate must be .PEM encoded and match the given private key.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1511,7 +1511,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1525,7 +1525,7 @@ inspect them.</p>
 <h2 id="-em-service-em-"><em>service</em></h2>
 <p>Create a service using specified subcommand.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ service</code></p>
+<p><code>$ kubectl create service</code></p>
 <hr>
 <h2 id="-em-service-clusterip-em-"><em>service clusterip</em></h2>
 <blockquote class="code-block example">
@@ -1540,7 +1540,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterIP service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1598,7 +1598,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1618,7 +1618,7 @@ inspect them.</p>
 <p>Create an ExternalName service with the specified name.</p>
 <p> ExternalName service references to an external DNS address instead of only pods, which will allow application authors to reference services that exist off platform, on other clusters, or locally.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ externalname NAME --external-name external.name [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create externalname NAME --external-name external.name [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1676,7 +1676,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1695,7 +1695,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a LoadBalancer service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ loadbalancer NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create loadbalancer NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1747,7 +1747,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1766,7 +1766,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a NodePort service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ nodeport NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create nodeport NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1824,7 +1824,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1843,7 +1843,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a service account with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ serviceaccount NAME [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl create serviceaccount NAME [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1889,7 +1889,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1962,7 +1962,7 @@ inspect them.</p>
 <p> By specifying the output as &#39;template&#39; and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resources.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
+<p><code>$ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2038,7 +2038,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns [<a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a>], golang template [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>] and jsonpath template [<a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a>]. </td>
+<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns <span>[</span><a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>output-watch-events</td>
@@ -2092,7 +2092,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>use-openapi-print-columns</td>
@@ -2163,7 +2163,7 @@ inspect them.</p>
 </code></pre>
 <p>Create and run a particular image in a pod.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--dry-run=server|client] [--overrides=inline-json] [--command] -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--dry-run=server|client] [--overrides=inline-json] [--command] -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2341,7 +2341,7 @@ inspect them.</p>
 <td>restart</td>
 <td></td>
 <td>Always</td>
-<td>The restart policy for this Pod.  Legal values [Always, OnFailure, Never].  If set to &#39;Always&#39; a deployment is created, if set to &#39;OnFailure&#39; a job is created, if set to &#39;Never&#39;, a regular pod is created. For the latter two --replicas must be 1.  Default &#39;Always&#39;, for CronJobs <code>Never</code>. </td>
+<td>The restart policy for this Pod.  Legal values <span>[</span>Always, OnFailure, Never<span>]</span>.  If set to &#39;Always&#39; a deployment is created, if set to &#39;OnFailure&#39; a job is created, if set to &#39;Never&#39;, a regular pod is created. For the latter two --replicas must be 1.  Default &#39;Always&#39;, for CronJobs <code>Never</code>. </td>
 </tr>
 <tr>
 <td>rm</td>
@@ -2389,7 +2389,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -2453,7 +2453,7 @@ inspect them.</p>
 <p> Possible resources include (case insensitive):</p>
 <p> pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]</code></p>
+<p><code>$ kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2595,7 +2595,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -2653,7 +2653,7 @@ inspect them.</p>
 <p> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.</p>
 <p> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
+<p><code>$ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2803,7 +2803,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> JSON and YAML formats are accepted.</p>
 <p> Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current state is. See <a href="https://issues.k8s.io/34274">https://issues.k8s.io/34274</a>.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ apply (-f FILENAME | -k DIRECTORY)</code></p>
+<p><code>$ kubectl apply (-f FILENAME | -k DIRECTORY)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2939,7 +2939,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -2979,7 +2979,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
 <p> In the event an error occurs while updating, a temporary file will be created on disk that contains your unapplied changes. The most common error when updating a resource is another editor changing the resource on the server. When this occurs, you will have to apply your changes to the newer version of the resource, or update your temporary saved copy to include the latest resource version.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ edit-last-applied (RESOURCE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl apply edit-last-applied (RESOURCE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3031,7 +3031,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>windows-line-endings</td>
@@ -3060,7 +3060,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>Set the latest last-applied-configuration annotations by setting it to match the contents of a file. This results in the last-applied-configuration being updated as though &#39;kubectl apply -f<file> &#39; was run, without updating any other parts of the object.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-last-applied -f FILENAME</code></p>
+<p><code>$ kubectl apply set-last-applied -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3106,7 +3106,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3125,7 +3125,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>View the latest last-applied-configuration annotations by type/name or file.</p>
 <p> The default output will be printed to stdout in YAML format. One can use -o option to change output format.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3212,7 +3212,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Attempting to set an annotation that already exists will fail unless --overwrite is set. If --resource-version is specified and does not match the current resource version on the server the command will fail.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
+<p><code>$ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3306,7 +3306,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3325,7 +3325,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Creates an autoscaler that automatically chooses and sets the number of pods that run in a kubernetes cluster.</p>
 <p> Looks up a Deployment, ReplicaSet, StatefulSet, or ReplicationController by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]</code></p>
+<p><code>$ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3419,7 +3419,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3444,7 +3444,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The command takes filename, directory, or URL as input, and convert it into format of version specified by --output-version flag. If target version is not specified or not supported, convert to latest version.</p>
 <p> The default output will be printed to stdout in YAML format. One can use -o option to change to output destination.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ convert -f FILENAME</code></p>
+<p><code>$ kubectl convert -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3502,7 +3502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3530,7 +3530,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Exit status: 0 No differences were found. 1 Differences were found. &gt;1 Kubectl or diff failed with an error.</p>
 <p> Note: KUBECTL_EXTERNAL_DIFF, if used, is expected to follow that convention.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ diff -f FILENAME</code></p>
+<p><code>$ kubectl diff -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3609,7 +3609,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
 <p> In the event an error occurs while updating, a temporary file will be created on disk that contains your unapplied changes. The most common error when updating a resource is another editor changing the resource on the server. When this occurs, you will have to apply your changes to the newer version of the resource, or update your temporary saved copy to include the latest resource version.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ edit (RESOURCE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl edit (RESOURCE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3673,7 +3673,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3710,7 +3710,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.</p>
 <p> kubectl kustomize somedir</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kustomize &lt;dir&gt;</code></p>
+<p><code>$ kubectl kustomize &lt;dir&gt;</code></p>
 <hr>
 <h1 id="label">label</h1>
 <blockquote class="code-block example">
@@ -3751,7 +3751,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <li>If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
+<p><code>$ kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3851,7 +3851,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3885,7 +3885,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Update field(s) of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.</p>
 <p> JSON and YAML formats are accepted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ patch (-f FILENAME | TYPE NAME) -p PATCH</code></p>
+<p><code>$ kubectl patch (-f FILENAME | TYPE NAME) -p PATCH</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3955,13 +3955,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
 <td></td>
 <td>strategic</td>
-<td>The type of patch being provided; one of [json merge strategic] </td>
+<td>The type of patch being provided; one of <span>[</span>json merge strategic<span>]</span> </td>
 </tr>
 </tbody>
 </table>
@@ -3991,7 +3991,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> JSON and YAML formats are accepted. If replacing an existing resource, the complete resource spec must be provided. This can be obtained by</p>
 <p>  $ kubectl get TYPE NAME -o yaml</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ replace -f FILENAME</code></p>
+<p><code>$ kubectl replace -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4073,7 +4073,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4115,7 +4115,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <li>statefulsets</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ rollout SUBCOMMAND</code></p>
+<p><code>$ kubectl rollout SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-history-em-"><em>history</em></h2>
 <blockquote class="code-block example">
@@ -4130,7 +4130,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>View previous rollout revisions and configurations.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ history (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout history (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4182,7 +4182,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4196,7 +4196,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Mark the provided resource as paused</p>
 <p> Paused resources will not be reconciled by a controller. Use &quot;kubectl rollout resume&quot; to resume a paused resource. Currently only deployments support being paused.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ pause RESOURCE</code></p>
+<p><code>$ kubectl rollout pause RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4242,7 +4242,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4261,7 +4261,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Restart a resource.</p>
 <p>   Resource will be rollout restarted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ restart RESOURCE</code></p>
+<p><code>$ kubectl rollout restart RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4307,7 +4307,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4321,7 +4321,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Resume a paused resource</p>
 <p> Paused resources will not be reconciled by a controller. By resuming a resource, we allow it to be reconciled again. Currently only deployments support being resumed.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ resume RESOURCE</code></p>
+<p><code>$ kubectl rollout resume RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4367,7 +4367,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4381,7 +4381,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Show the status of the rollout.</p>
 <p> By default &#39;rollout status&#39; will watch the status of the latest rollout until it&#39;s done. If you don&#39;t want to wait for the rollout to finish then you can use --watch=false. Note that if a new rollout starts in-between, then &#39;rollout status&#39; will continue watching the latest revision. If you want to pin to a specific revision and abort if it is rolled over by another revision, use --revision=N where N is the revision you need to watch for.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ status (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout status (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4450,7 +4450,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>Rollback to a previous rollout.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ undo (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4502,7 +4502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>to-revision</td>
@@ -4543,7 +4543,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Scale also allows users to specify one or more preconditions for the scale action.</p>
 <p> If --current-replicas or --resource-version is specified, it is validated before the scale is attempted, and it is guaranteed that the precondition holds true when the scale is sent to the server.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)</code></p>
+<p><code>$ kubectl scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4625,7 +4625,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4640,7 +4640,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Configure application resources</p>
 <p> These commands help you make changes to existing application resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set SUBCOMMAND</code></p>
+<p><code>$ kubectl set SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-env-em-"><em>env</em></h2>
 <blockquote class="code-block example">
@@ -4704,7 +4704,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Possible resources include (case insensitive):</p>
 <p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N</code></p>
+<p><code>$ kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4822,7 +4822,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4852,7 +4852,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Possible resources include (case insensitive):</p>
 <p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N</code></p>
+<p><code>$ kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4928,7 +4928,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4958,7 +4958,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> for each compute resource, if a limit is specified and a request is omitted, the request will default to the limit.</p>
 <p> Possible resources include (case insensitive): Use &quot;kubectl api-resources&quot; for a complete list of supported resources..</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS &amp; --requests=REQUESTS]</code></p>
+<p><code>$ kubectl set resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS &amp; --requests=REQUESTS]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5052,7 +5052,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5067,7 +5067,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <p>Set the selector on a resource. Note that the new selector will overwrite the old selector if the resource had one prior to the invocation of &#39;set selector&#39;.</p>
 <p> A selector must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters. If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used. Note: currently selectors can only be set on Service objects.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]</code></p>
+<p><code>$ kubectl set selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5137,7 +5137,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5157,7 +5157,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <p> Possible resources (case insensitive) can be:</p>
 <p> replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs), statefulset</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT</code></p>
+<p><code>$ kubectl set serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5227,7 +5227,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5250,7 +5250,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 </code></pre>
 <p>Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
+<p><code>$ kubectl set subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5332,7 +5332,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5354,7 +5354,7 @@ kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span
 <p> Alternatively, the command can wait for the given set of resources to be deleted by providing the &quot;delete&quot; keyword as the value to the --for flag.</p>
 <p> A successful message will be printed to stdout indicating when the specified condition has been met. One can use -o option to change to output destination.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]</code></p>
+<p><code>$ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5400,7 +5400,7 @@ kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span
 <td>for</td>
 <td></td>
 <td></td>
-<td>The condition to wait on: [delete&#124;condition=condition-name]. </td>
+<td>The condition to wait on: <span>[</span>delete&#124;condition=condition-name<span>]</span>. </td>
 </tr>
 <tr>
 <td>local</td>
@@ -5430,7 +5430,7 @@ kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -5472,7 +5472,7 @@ applications.</p>
 </code></pre>
 <p>Attach to a process that is already running inside an existing container.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ attach (POD | TYPE/NAME) -c CONTAINER</code></p>
+<p><code>$ kubectl attach (POD | TYPE/NAME) -c CONTAINER</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5514,7 +5514,7 @@ applications.</p>
 <h1 id="auth">auth</h1>
 <p>Inspect authorization</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ auth</code></p>
+<p><code>$ kubectl auth</code></p>
 <hr>
 <h2 id="-em-can-i-em-"><em>can-i</em></h2>
 <blockquote class="code-block example">
@@ -5555,7 +5555,7 @@ applications.</p>
 <p>Check whether an action is allowed.</p>
 <p> VERB is a logical Kubernetes API verb like &#39;get&#39;, &#39;list&#39;, &#39;watch&#39;, &#39;delete&#39;, etc. TYPE is a Kubernetes resource. Shortcuts and groups will be resolved. NONRESOURCEURL is a partial URL starts with &quot;/&quot;. NAME is the name of a particular Kubernetes resource.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]</code></p>
+<p><code>$ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5612,7 +5612,7 @@ applications.</p>
 <p> Existing bindings are updated to include the subjects in the input objects, and remove extra subjects if --remove-extra-subjects is specified.</p>
 <p> This is preferred to &#39;apply&#39; for RBAC resources so that semantically-aware merging of rules and subjects is done.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ reconcile -f FILENAME</code></p>
+<p><code>$ kubectl auth reconcile -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5676,7 +5676,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5714,7 +5714,7 @@ applications.</p>
 </code></pre>
 <p>Copy files and directories to and from containers.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cp &lt;file-spec-src&gt; &lt;file-spec-dest&gt;</code></p>
+<p><code>$ kubectl cp &lt;file-spec-src&gt; &lt;file-spec-dest&gt;</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5778,7 +5778,7 @@ applications.</p>
 <p> will first check for an exact match on TYPE and NAME_PREFIX. If no such resource exists, it will output details for every resource that has a name prefixed with NAME_PREFIX.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)</code></p>
+<p><code>$ kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5862,7 +5862,7 @@ applications.</p>
 </code></pre>
 <p>Execute a command in a container.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]</code></p>
+<p><code>$ kubectl exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5965,7 +5965,7 @@ applications.</p>
 </code></pre>
 <p>Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]</code></p>
+<p><code>$ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6110,7 +6110,7 @@ applications.</p>
 <p> Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to &#39;pod&#39; if omitted.</p>
 <p> If there are multiple pods matching the criteria, a pod will be selected automatically. The forwarding session ends when the selected pod terminates, and rerun of the command is needed to resume forwarding.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]</code></p>
+<p><code>$ kubectl port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6170,7 +6170,7 @@ applications.</p>
 </code></pre>
 <p>Creates a proxy server or application-level gateway between localhost and the Kubernetes API Server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote kubernetes API Server port, except for the path matching the static content path.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]</code></p>
+<p><code>$ kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6262,7 +6262,7 @@ applications.</p>
 <p> The top command allows you to see the resource consumption for nodes or pods.</p>
 <p> This command requires Metrics Server to be correctly configured and working on the server.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ top</code></p>
+<p><code>$ kubectl top</code></p>
 <hr>
 <h2 id="-em-node-em-"><em>node</em></h2>
 <blockquote class="code-block example">
@@ -6278,7 +6278,7 @@ applications.</p>
 <p>Display Resource (CPU/Memory/Storage) usage of nodes.</p>
 <p> The top-node command allows you to see the resource consumption of nodes.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ node [NAME | -l label]</code></p>
+<p><code>$ kubectl top node [NAME | -l label]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6360,7 +6360,7 @@ applications.</p>
 <p> The &#39;top pod&#39; command allows you to see the resource consumption of pods.</p>
 <p> Due to the metrics pipeline delay, they may be unavailable for a few minutes since pod creation.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ pod [NAME | -l label]</code></p>
+<p><code>$ kubectl top pod [NAME | -l label]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6438,19 +6438,19 @@ applications.</p>
 </code></pre>
 <p>Print the supported API versions on the server, in the form of &quot;group/version&quot;</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ api-versions</code></p>
+<p><code>$ kubectl api-versions</code></p>
 <hr>
 <h1 id="certificate">certificate</h1>
 <p>Modify certificate resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ certificate SUBCOMMAND</code></p>
+<p><code>$ kubectl certificate SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-approve-em-"><em>approve</em></h2>
 <p>Approve a certificate signing request.</p>
 <p> kubectl certificate approve allows a cluster admin to approve a certificate signing request (CSR). This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.</p>
 <p> SECURITY NOTICE: Depending on the requested attributes, the issued certificate can potentially grant a requester access to cluster resources or to authenticate as a requested identity. Before approving a CSR, ensure you understand what the signed certificate can do.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ approve (-f FILENAME | NAME)</code></p>
+<p><code>$ kubectl certificate approve (-f FILENAME | NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6502,7 +6502,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6511,7 +6511,7 @@ applications.</p>
 <p>Deny a certificate signing request.</p>
 <p> kubectl certificate deny allows a cluster admin to deny a certificate signing request (CSR). This action tells a certificate signing controller to not to issue a certificate to the requestor.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ deny (-f FILENAME | NAME)</code></p>
+<p><code>$ kubectl certificate deny (-f FILENAME | NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6563,7 +6563,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6576,7 +6576,7 @@ applications.</p>
 </code></pre>
 <p>Display addresses of the master and services with label kubernetes.io/cluster-service=true To further debug and diagnose cluster problems, use &#39;kubectl cluster-info dump&#39;.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cluster-info</code></p>
+<p><code>$ kubectl cluster-info</code></p>
 <hr>
 <h2 id="-em-dump-em-"><em>dump</em></h2>
 <blockquote class="code-block example">
@@ -6602,7 +6602,7 @@ applications.</p>
 <p>Dumps cluster info out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, kubernetes will build a set of files in that directory.  By default only dumps things in the &#39;kube-system&#39; namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.</p>
 <p> The command also dumps the logs of all of the pods in the cluster, these logs are dumped into different directories based on namespace and pod name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ dump</code></p>
+<p><code>$ kubectl cluster-info dump</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6654,7 +6654,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6667,7 +6667,7 @@ applications.</p>
 </code></pre>
 <p>Mark node as unschedulable.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cordon NODE</code></p>
+<p><code>$ kubectl cordon NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6711,7 +6711,7 @@ applications.</p>
 <p> When you are ready to put the node back into service, use kubectl uncordon, which will make the node schedulable again.</p>
 <p> <a href="http://kubernetes.io/images/docs/kubectl_drain.svg">http://kubernetes.io/images/docs/kubectl_drain.svg</a></p>
 <h3 id="usage">Usage</h3>
-<p><code>$ drain NODE</code></p>
+<p><code>$ kubectl drain NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6822,7 +6822,7 @@ applications.</p>
 <li>Currently taint can only apply to node.</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N</code></p>
+<p><code>$ kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6874,7 +6874,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -6893,7 +6893,7 @@ applications.</p>
 </code></pre>
 <p>Mark node as schedulable.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ uncordon NODE</code></p>
+<p><code>$ kubectl uncordon NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6924,7 +6924,7 @@ applications.</p>
 <h1 id="alpha">alpha</h1>
 <p>These commands correspond to alpha features that are not enabled in Kubernetes clusters by default.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ alpha</code></p>
+<p><code>$ kubectl alpha</code></p>
 <hr>
 <h2 id="-em-debug-em-"><em>debug</em></h2>
 <blockquote class="code-block example">
@@ -6939,7 +6939,7 @@ applications.</p>
 </code></pre>
 <p>Tools for debugging Kubernetes resources</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ debug NAME --image=image [ -- COMMAND [args...] ]</code></p>
+<p><code>$ kubectl alpha debug NAME --image=image [ -- COMMAND [args...] ]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7047,7 +7047,7 @@ applications.</p>
 </code></pre>
 <p>Print the supported API resources on the server</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ api-resources</code></p>
+<p><code>$ kubectl api-resources</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7150,9 +7150,9 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Output shell completion code for the specified shell (bash or zsh). The shell code must be evaluated to provide interactive completion of kubectl commands.  This can be done by sourcing it from the .bash_profile.</p>
 <p> Detailed instructions on how to do this are available here: <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion</a></p>
-<p> Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2</p>
+<p> Note for zsh users: <span>[</span>1<span>]</span> zsh completions are only supported in versions of zsh &gt;= 5.2</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ completion SHELL</code></p>
+<p><code>$ kubectl completion SHELL</code></p>
 <hr>
 <h1 id="config">config</h1>
 <p>Modify kubeconfig files using subcommands like &quot;kubectl config set current-context my-context&quot;</p>
@@ -7163,7 +7163,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <li>Otherwise, ${HOME}/.kube/config is used and no merging takes place.</li>
 </ol>
 <h3 id="usage">Usage</h3>
-<p><code>$ config SUBCOMMAND</code></p>
+<p><code>$ kubectl config SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-current-context-em-"><em>current-context</em></h2>
 <blockquote class="code-block example">
@@ -7173,7 +7173,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Displays the current-context</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ current-context</code></p>
+<p><code>$ kubectl config current-context</code></p>
 <hr>
 <h2 id="-em-delete-cluster-em-"><em>delete-cluster</em></h2>
 <blockquote class="code-block example">
@@ -7183,7 +7183,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Delete the specified cluster from the kubeconfig</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete-cluster NAME</code></p>
+<p><code>$ kubectl config delete-cluster NAME</code></p>
 <hr>
 <h2 id="-em-delete-context-em-"><em>delete-context</em></h2>
 <blockquote class="code-block example">
@@ -7193,7 +7193,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Delete the specified context from the kubeconfig</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete-context NAME</code></p>
+<p><code>$ kubectl config delete-context NAME</code></p>
 <hr>
 <h2 id="-em-get-clusters-em-"><em>get-clusters</em></h2>
 <blockquote class="code-block example">
@@ -7203,7 +7203,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Display clusters defined in the kubeconfig.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get-clusters</code></p>
+<p><code>$ kubectl config get-clusters</code></p>
 <hr>
 <h2 id="-em-get-contexts-em-"><em>get-contexts</em></h2>
 <blockquote class="code-block example">
@@ -7218,7 +7218,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Displays one or many contexts from the kubeconfig file.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get-contexts [(-o|--output=)name)]</code></p>
+<p><code>$ kubectl config get-contexts [(-o|--output=)name)]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7256,7 +7256,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p> NEW_NAME is the new name you wish to set.</p>
 <p> Note: In case the context being renamed is the &#39;current-context&#39;, this field will also be updated.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ rename-context CONTEXT_NAME NEW_NAME</code></p>
+<p><code>$ kubectl config rename-context CONTEXT_NAME NEW_NAME</code></p>
 <hr>
 <h2 id="-em-set-em-"><em>set</em></h2>
 <blockquote class="code-block example">
@@ -7284,7 +7284,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p> PROPERTY_VALUE is the new value you wish to set. Binary fields such as &#39;certificate-authority-data&#39; expect a base64 encoded string unless the --set-raw-bytes flag is used.</p>
 <p> Specifying a attribute name that already exists will merge new fields on top of existing values.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set PROPERTY_NAME PROPERTY_VALUE</code></p>
+<p><code>$ kubectl config set PROPERTY_NAME PROPERTY_VALUE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7300,7 +7300,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>set-raw-bytes</td>
 <td></td>
 <td>false</td>
-<td>When writing a []byte PROPERTY_VALUE, write the given string directly without base64 decoding. </td>
+<td>When writing a <span>[</span><span>]</span>byte PROPERTY_VALUE, write the given string directly without base64 decoding. </td>
 </tr>
 </tbody>
 </table>
@@ -7329,7 +7329,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Sets a cluster entry in kubeconfig.</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true] [--tls-server-name=example.com]</code></p>
+<p><code>$ kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true] [--tls-server-name=example.com]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7359,7 +7359,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Sets a context entry in kubeconfig</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]</code></p>
+<p><code>$ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7441,7 +7441,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
   --username=basic_user --password=basic_password</p>
 <p> Bearer token and basic auth are mutually exclusive.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]</code></p>
+<p><code>$ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7512,7 +7512,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Unsets an individual value in a kubeconfig file</p>
 <p> PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ unset PROPERTY_NAME</code></p>
+<p><code>$ kubectl config unset PROPERTY_NAME</code></p>
 <hr>
 <h2 id="-em-use-context-em-"><em>use-context</em></h2>
 <blockquote class="code-block example">
@@ -7522,7 +7522,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Sets the current-context in a kubeconfig file</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ use-context CONTEXT_NAME</code></p>
+<p><code>$ kubectl config use-context CONTEXT_NAME</code></p>
 <hr>
 <h2 id="-em-view-em-"><em>view</em></h2>
 <blockquote class="code-block example">
@@ -7543,7 +7543,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Display merged kubeconfig settings or a specified kubeconfig file.</p>
 <p> You can use --output jsonpath={...} to extract specific values using a jsonpath expression.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ view</code></p>
+<p><code>$ kubectl config view</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7595,7 +7595,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -7613,11 +7613,11 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>List the fields for supported resources</p>
 <p> This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:</p>
-<p>  &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;]</p>
+<p>  &lt;type&gt;.&lt;fieldName&gt;<span>[</span>.&lt;fieldName&gt;<span>]</span></p>
 <p> Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ explain RESOURCE</code></p>
+<p><code>$ kubectl explain RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7652,20 +7652,20 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Print the list of flags inherited by all commands</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ options</code></p>
+<p><code>$ kubectl options</code></p>
 <hr>
 <h1 id="plugin">plugin</h1>
 <p>Provides utilities for interacting with plugins.</p>
 <p> Plugins provide extended functionality that is not part of the major command-line distribution. Please refer to the documentation and examples for more information about how write your own plugins.</p>
 <p> The easiest way to discover and install plugins is via the kubernetes sub-project krew. To install krew, visit<a href="https://github.com/kubernetes-sigs/krew/#installation">https://github.com/kubernetes-sigs/krew/#installation</a></p>
 <h3 id="usage">Usage</h3>
-<p><code>$ plugin [flags]</code></p>
+<p><code>$ kubectl plugin [flags]</code></p>
 <hr>
 <h2 id="-em-list-em-"><em>list</em></h2>
 <p>List all available plugin files on a user&#39;s PATH.</p>
 <p> Available plugin files are those that are: - executable - anywhere on the user&#39;s PATH - begin with &quot;kubectl-&quot;</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ list</code></p>
+<p><code>$ kubectl plugin list</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7694,7 +7694,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Print the client and server version information for the current context</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ version</code></p>
+<p><code>$ kubectl version</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
