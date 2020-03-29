@@ -505,7 +505,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 - 故障转移到另一个完整的副本集群。
    -  没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
 - 编写可容忍干扰的应用程序和使用 PDB。
-   - 没有停机
+   - 没有停机时
    间。
    - 最小的资源重复。
    - 允许更多的集群管理自动化。
