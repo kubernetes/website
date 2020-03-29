@@ -9,7 +9,7 @@ weight: 30
 Em robótica e automação um _control loop_, ou em português _ciclo de controle_, é
 um ciclo não terminado que regula o estado de um sistema.
 
-Um exemplo de ciclo de controlo é um termostato de uma sala.
+Um exemplo de ciclo de controle é um termostato de uma sala.
 
 Quando você define a temperatura, isso indica ao termostato
 sobre o seu *estado desejado*. A temperatura ambiente real é o
@@ -23,24 +23,18 @@ mais perto do estado desejado, ligando ou desligando o equipamento.
 
 {{% capture body %}}
 
-## Padrão de controlo (Controller pattern)
+## Padrão Controlador (Controller pattern)
 
 Um controlador rastreia pelo menos um tipo de recurso Kubernetes.
 Estes [objetos](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
-têm um campo *spec* (especificação) que representa o *estado desejado*.
-Os controladores para esse recurso são responsáveis por trazer o *estado atual*
+têm um campo *spec* que representa o *estado desejado*.
+O(s) controlador(es) para aquele recurso são responsáveis por trazer o *estado atual*
 mais perto do *estado desejado*.
 
 O controlador pode executar uma ação ele próprio, ou,
-o que é mais comum, enviar uma mensagem para o Kubernetes
-{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} que tem
+o que é mais comum, no Kubernetes, o controlador envia uma mensagem para o
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} (servidor de API) que tem
 efeitos colaterais úteis. Você vai ver exemplos disto abaixo.
-
-{{< comment >}}
-Alguns controladores embutidos, como é o caso do controlador *namespace*, atuam em objetos
-que não têm uma especificação (*spec*). Por questões de simplicidade esta página omite explicar
-esse detalhe.
-{{< /comment >}}
 
 ### Controlador via API server
 
