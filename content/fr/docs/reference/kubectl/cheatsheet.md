@@ -154,7 +154,7 @@ kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-# List Services Sorted by Name
+# Liste des services triés par nom
 kubectl get services --sort-by=.metadata.name # Liste les services classés par nom
 
 # Liste les pods classés par nombre de redémarrages
