@@ -18,7 +18,7 @@ problems to address:
 3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 -->
-集群网络系统是 Kubernetes 的核心部分，但是想要准确了解它的工作原理可是个不小的挑战。下面列出的是四个网络系统的主要问题：
+集群网络系统是 Kubernetes 的核心部分，但是想要准确了解它的工作原理可是个不小的挑战。下面列出的是网络系统的的四个主要问题：
 
 1. 高度耦合的容器间通信：这个已经被 [pods](/docs/concepts/workloads/pods/pod) 和 `localhost` 通信解决了。
 2. Pod 间通信：这个是本文档的重点要讲述的。
@@ -44,7 +44,7 @@ different approach.
 -->
 Kubernetes 的宗旨就是在应用之间共享机器。通常来说，共享机器需要两个应用之间不能使用相同的端口，但是在多个应用开发者之间去大规模地协调端口是件很困难的事情，尤其是还要让用户暴露在他们控制范围之外的集群级别的问题上。
 
-动态分配端口也会给系统带来很多复杂度 - 每个应用都需要设置一个端口的参数，而 API 服务器还需要知道如何将动态端口数值插入到配置模块中，服务也需要知道如何找到对方等等。与其去解决这些问题，Kubernetes 选择了不同的方法。
+动态分配端口也会给系统带来很多复杂度 - 每个应用都需要设置一个端口的参数，而 API 服务器还需要知道如何将动态端口数值插入到配置模块中，服务也需要知道如何找到对方等等。与其去解决这些问题，Kubernetes 选择了其他不同的方法。
 
 <!--
 ## The Kubernetes network model
@@ -91,6 +91,7 @@ Kubernetes 对所有网络设施的实施，都需要满足以下的基本要求
    * 节点上的代理（比如：系统守护进程、 kubelet） 可以和节点上的所有pods通信
 
 备注：仅针对那些支持 `Pods` 在主机网络中运行的平台(比如： Linux) ：
+
    * 那些运行在节点的主机网络里的 pods 可以不通过 NAT 和所有节点上的 pods 通信
 
 这个模型不仅不复杂，而且还和 Kubernetes 的实现廉价的从虚拟机向容器迁移的初衷相兼容，如果你的工作开始是在虚拟机中运行的，你的虚拟机有一个 IP ，这样就可以和其他的虚拟机进行通信，这是基本相同的模型。
@@ -162,7 +163,7 @@ Details on how the AOS system works can be accessed here: http://www.apstra.com/
 
 AOS 参考设计当前支持三层连接的主机，这些主机消除了旧的两层连接的交换问题。这些三层连接的主机可以是 Linux(Debian, Ubuntu, CentOS) 系统，它们直接在机架式交换机（TOR） 的顶部创建 BGP 邻居关系。 AOS 自动执行路由邻接，然后提供对 Kubernetes 部署中常见的路由运行状况注入（ RHI ）的精细控制。
 
-AOS 具有一组丰富的 REST API 端点，这些端点使K ubernetes 能够根据应用程序需求快速更改网络策略。进一步的增强功能将用于网络设计的 AOS Graph 模型与工作负载供应集成在一起，从而为私有云和公共云提供端到端管理系统。
+AOS 具有一组丰富的 REST API 端点，这些端点使 Kubernetes 能够根据应用程序需求快速更改网络策略。进一步的增强功能将用于网络设计的 AOS Graph 模型与工作负载供应集成在一起，从而为私有云和公共云提供端到端管理系统。
 
 AOS 支持使用包括 Cisco，Arista，Dell，Mellanox，HPE 在内的制造商提供的通用供应商设备，以及大量白盒系统和开放网络操作系统，例如 Microsoft SONiC，Dell OPX 和 Cumulus Linux 。
 
@@ -270,7 +271,7 @@ network complexity required to deploy Kubernetes at scale within AWS.
 -->
 ### Contiv
 
-[Contiv](https://github.com/contiv/netplugin) 为个重点呢情况提供了一个可配置网络（使用了 BGP 的本地 l3 ，使用 vxlan 的覆盖，经典 l2 或 Cisco-SDN/ACI）。 [Contiv](http://contiv.io) 是完全开源的。
+[Contiv](https://github.com/contiv/netplugin) 为各种使用情况提供了一个可配置网络（使用了 BGP 的本地 l3 ，使用 vxlan 的覆盖，经典 l2 或 Cisco-SDN/ACI）。 [Contiv](http://contiv.io) 是完全开源的。
 
 <!--
 ### Contrail / Tungsten Fabric
@@ -462,20 +463,37 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 -->
 ### Multus (a Multi Network plugin)
 
+[Multus](https://github.com/Intel-Corp/multus-cni) 是一个多 CNI 插件，使用 Kubernetes 中基于 CRD 的网络对象来支持实现 Kubernetes 多网络系统。
 
+Multus 支持所有[参考插件]（https://github.com/containernetworking/plugins）（比如： [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan) ），来实现 CNI 规范和第三方插件（比如： [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin) ），除此之外， Multus 还支持 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) 的工作负载，以及 Kubernetes 中基于云的本机应用程序和基于 NFV 的应用程序。
 
+<!--
 ### NSX-T
 
 [VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html) is a network virtualization and security platform. NSX-T can provide network virtualization for a multi-cloud and multi-hypervisor environment and is focused on emerging application frameworks and architectures that have heterogeneous endpoints and technology stacks. In addition to vSphere hypervisors, these environments include other hypervisors such as KVM, containers, and bare metal.
 
 [NSX-T Container Plug-in (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) provides integration between NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
+-->
+### NSX-T
 
+[VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html) 是一个网络虚拟化的安全平台。 NSX-T 可以为多云及多系统管理程序环境提供网络虚拟化，并专注于具有异构端点和技术堆栈的新兴应用程序框架和体系结构。 除了 vSphere 管理程序之外，这些环境还包括其他虚拟机管理程序，例如 KVM ，容器和裸机。
+
+[NSX-T Container Plug-in (NCP)](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) 提供了 NSX-T 与容器协调器（例如 Kubernetes ）之间的结合， 以及 NSX-T 与基于容器的 CaaS/PaaS 平台（例如 Pivotal Container Service（PKS） 和 OpenShift ）之间的集成。
+
+<!--
 ### Nuage Networks VCS (Virtualized Cloud Services)
 
 [Nuage](http://www.nuagenetworks.net) provides a highly scalable policy-based Software-Defined Networking (SDN) platform. Nuage uses the open source Open vSwitch for the data plane along with a feature rich SDN Controller built on open standards.
 
 The Nuage platform uses overlays to provide seamless policy-based networking between Kubernetes Pods and non-Kubernetes environments (VMs and bare metal servers). Nuage's policy abstraction model is designed with applications in mind and makes it easy to declare fine-grained policies for applications.The platform's real-time analytics engine enables visibility and security monitoring for Kubernetes applications.
+-->
+### Nuage Networks VCS (Virtualized Cloud Services)
 
+[Nuage](http://www.nuagenetworks.net) 提供了一个高度可扩展的基于策略的软件定义网络（ SDN ）平台， Nuage 使用开源的 Open vSwitch 作为数据平面，以及基于开放标准构建具有丰富功能的 SDN 控制器。
+
+Nuage 平台使用覆盖层在 Kubernetes Pod 和非 Kubernetes 环境（ VM 和裸机服务器）之间提供基于策略的无缝联网。 Nuage 的策略抽象模型在设计时就考虑到了应用程序，并且可以轻松声明应用程序的细粒度策略。该平台的实时分析引擎可为 Kubernetes 应用程序提供可见性和安全性监控。
+
+<!--
 ### OpenVSwitch
 
 [OpenVSwitch](https://www.openvswitch.org/) is a somewhat more mature but also
@@ -489,7 +507,16 @@ Open vSwitch community.  It lets one create logical switches, logical routers,
 stateful ACLs, load-balancers etc to build different virtual networking
 topologies.  The project has a specific Kubernetes plugin and documentation
 at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
+-->
+### OpenVSwitch
 
+[OpenVSwitch](https://www.openvswitch.org/) 是一个较为成熟的解决方案，但同时也增加了构建覆盖网络的复杂性，这也得到了几个网络系统的“大商店”的拥护。
+
+### OVN (开放式虚拟网络)
+
+OVN 是一个由 Open vSwitch 社区开发的开源的网络虚拟化解决方案。它允许创建逻辑交换器，逻辑路由，状态 ACL ，负载均衡等等来建立不同的虚拟网络拓扑。该项目有一个特定的Kubernetes插件和文档 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) 。
+
+<!--
 ### Project Calico
 
 [Project Calico](http://docs.projectcalico.org/) is an open source container networking provider and network policy engine.
@@ -497,11 +524,25 @@ at [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes).
 Calico provides a highly scalable networking and network policy solution for connecting Kubernetes pods based on the same IP networking principles as the internet, for both Linux (open source) and Windows (proprietary - available from [Tigera](https://www.tigera.io/essentials/)).  Calico can be deployed without encapsulation or overlays to provide high-performance, high-scale data center networking.  Calico also provides fine-grained, intent based network security policy for Kubernetes pods via its distributed firewall.
 
 Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
+-->
+### Project Calico
 
+[Project Calico](http://docs.projectcalico.org/) 是一个开源的容器网络提供者和网络策略引擎。
+
+Calico 提供了高度可扩展的网络和网络解决方案，使用基于与 Internet 相同的 IP 网络原理来连接 Kubernetes Pod ，适用于 Linux （开放源代码）和 Windows （专有-可从 [Tigera](https//www.tigera.io/essentials/) 获得。可以无需封装或覆盖即可部署 Calico ，以提供高性能，高可扩的数据中心网络。 Calico 还通过其分布式防火墙为 Kubernetes Pod 提供了基于意图的细粒度网络安全策略。
+
+Calico 还可以和其他的网络解决方案（比如 Flannel ， [canal](https://github.com/tigera/canal) 或本机 GCE, AWS, Azure 等）一起以策略实施模式运行。
+
+<!--
 ### Romana
 
 [Romana](http://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
+-->
+### Romana
 
+[Romana](http://romana.io) 是一个开源网络和安全自动化解决方案。它可以让你在没有覆盖网络的情况下部署 Kubernetes 。 Romana 支持 Kubernetes [网络策略](/docs/concepts/services-networking/network-policies/)，来提供跨网络命名空间的隔离。
+
+<!--
 ### Weave Net from Weaveworks
 
 [Weave Net](https://www.weave.works/products/weave-net/) is a
@@ -509,13 +550,21 @@ resilient and simple to use network for Kubernetes and its hosted applications.
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+-->
+### Weaveworks 的 Weave Net
+
+[Weave Net](https://www.weave.works/products/weave-net/) 是 Kubernetes 及其托管应用程序的弹性和易于使用的网络系统。 Weave Net 可以作为 [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/) 运行或者独立运行。在这两种运行方式里，都不需要任何配置或额外的代码即可运行，并且在两种情况下，网络都为每个 Pod 提供一个 IP 地址-这是 Kubernetes 的标准配置。
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
+<!--
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
 document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
+-->
+网络模型的早期设计、运行原理以及未来的一些计划，都在 [networking design
+document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md) 文档里进行了更详细的描述。
 
 {{% /capture %}}
