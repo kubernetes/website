@@ -24,6 +24,7 @@ This page provides a real world example of how to configure Redis using a Config
 * Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 -->
+
 * * 创建一个包含以下内容的 `kustomization.yaml` 文件：
   * 一个 ConfigMap 生成器
   * 一个使用 ConfigMap 的 Pod 资源配置
@@ -36,12 +37,12 @@ This page provides a real world example of how to configure Redis using a Config
 
 {{% capture prerequisites %}}
 
-<!--
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+<!--
 * The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* 此页面上显示的示例适用于 `kubectl` 1.14和在其以上的版本。
 * 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{% /capture %}}
