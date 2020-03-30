@@ -545,12 +545,12 @@ spec:
   selector:
     app: MyApp
   ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
     - port: 80
       targetPort: 80
-      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-      nodePort: 30007
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
 ```
 
 ### Type LoadBalancer {#loadbalancer}
