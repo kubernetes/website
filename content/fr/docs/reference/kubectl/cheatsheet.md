@@ -235,7 +235,7 @@ kubectl autoscale deployment foo --min=2 --max=10                # Mise à l'éc
 ## Mise à jour partielle de ressources
 
 ```bash
-# Mise à jour partielle d'une node
+# Mise à jour partielle d'un node
 kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Met à jour partiellement un noeud
 
 # Met à jour l'image d'un conteneur ; spec.containers[*].name est requis car c'est une clé du merge
