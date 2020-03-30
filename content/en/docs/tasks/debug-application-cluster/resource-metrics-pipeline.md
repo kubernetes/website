@@ -56,7 +56,7 @@ as a Deployment object. If you use a different Kubernetes setup mechanism you ca
 
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
-Metrics Server registered in the main API server through
+Metrics Server is registered with the main API server through
 [Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
