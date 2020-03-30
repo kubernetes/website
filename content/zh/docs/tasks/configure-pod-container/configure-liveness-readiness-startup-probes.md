@@ -497,13 +497,13 @@ and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should 
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
-For a probe, the kubelet makes the probe connection at the node, not in the pod, which
+For a TCP probe, the kubelet makes the probe connection at the node, not in the pod, which
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 -->
 对于 HTTP 探测，kubelet 发送一个 HTTP 请求到指定的路径和端口来执行检测。除非 `httpGet` 中的 `host` 字段设置了，否则 kubelet 默认是给 Pod 的 IP 地址发送探测。如果 `scheme` 字段设置为了 `HTTPS`，kubelet 会跳过证书验证发送 HTTPS 请求。大多数情况下，不需要设置`host` 字段。这里有个需要设置 `host` 字段的场景，假设容器监听 127.0.0.1，并且 Pod 的 `hostNetwork` 字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 127.0.0.1。可能更常见的情况是如果 Pod 依赖虚拟主机，你不应该设置 `host` 字段，而是应该在  `httpHeaders` 中设置 `Host`。
 
-对于一次探测，kubelet 在节点上（不是在 Pod 里面）建立探测连接，这意味着你不能在 `host` 参数上配置 service name，因为 kubelet 不能解析 service name。
+对于一次 TCP 探测，kubelet 在节点上（不是在 Pod 里面）建立探测连接，这意味着你不能在 `host` 参数上配置 service name，因为 kubelet 不能解析 service name。
 
 {{% /capture %}}
 
