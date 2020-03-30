@@ -49,15 +49,13 @@ kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建
 
 {{% capture prerequisites %}}
 
-<!--
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+<!--
 This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 -->
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 本文假定你在使用 {{< glossary_tooltip term_id="docker" >}} 来运行 Pod，并且你的节点是运行着 Fedora 操作系统。
 其它发行版或者 Kubernetes 部署版本上操作方式可能不一样。
