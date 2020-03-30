@@ -161,7 +161,7 @@ Details on how the AOS system works can be accessed here: http://www.apstra.com/
 
 [AOS](http://www.apstra.com/products/aos/) 是一个基于意图的网络系统，可以通过一个简单的集成平台创建和管理复杂的数据中心环境。 AOS 利用高度可扩展的分布式设计来消除网络中断，同时将成本降至最低。
 
-AOS 参考设计当前支持三层连接的主机，这些主机消除了旧的两层连接的交换问题。这些三层连接的主机可以是 Linux(Debian, Ubuntu, CentOS) 系统，它们直接在机架式交换机（TOR） 的顶部创建 BGP 邻居关系。 AOS 自动执行路由邻接，然后提供对 Kubernetes 部署中常见的路由运行状况注入（ RHI ）的精细控制。
+AOS 参考设计当前支持三层连接的主机，这些主机消除了旧的两层连接的交换问题。这些三层连接的主机可以是 Linux(Debian，Ubuntu，CentOS) 系统，它们直接在机架式交换机（TOR） 的顶部创建 BGP 邻居关系。 AOS 自动执行路由邻接，然后提供对 Kubernetes 部署中常见的路由运行状况注入（ RHI ）的精细控制。
 
 AOS 具有一组丰富的 REST API 端点，这些端点使 Kubernetes 能够根据应用程序需求快速更改网络策略。进一步的增强功能将用于网络设计的 AOS Graph 模型与工作负载供应集成在一起，从而为私有云和公共云提供端到端管理系统。
 
@@ -211,7 +211,7 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 
 [Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) 是一个基于云原生的网络架构，旨在在私有云或者本地环境中运行 Kubernetes 。它使用统一的物理和虚拟 SDN ， Big Cloud Fabric 解决了固有的容器网络问题，比如负载均衡，可见性，鼓掌排除，安全策略和容器流量监控。
 
-在 Big Cloud Fabric 的虚拟 Pod 多租户架构的帮助下，容器编排系统（比如 Kubernetes, RedHat OpenShift, Mesosphere DC/OS 和 Docker Swarm ）将于VM本地编排系统（比如 VMware, OpenStack 和 Nutanix）进行本地集成。客户将能够安全地互联任意数量的这些集群，并且在需要时启用他们之间的租户间通信。
+在 Big Cloud Fabric 的虚拟 Pod 多租户架构的帮助下，容器编排系统（比如 Kubernetes，RedHat OpenShift，Mesosphere DC/OS 和 Docker Swarm ）将于VM本地编排系统（比如 VMware，OpenStack 和 Nutanix）进行本地集成。客户将能够安全地互联任意数量的这些集群，并且在需要时启用他们之间的租户间通信。
 
 在最新的 [Magic Quadrant](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html) 上，BCF 被 Gartner 认为是非常有远见的。而 BCF 的一条关于 Kubernetes 的本地部署（其中包括 Kubernetes， DC/OS 和在不同地理区域的多个 DC 上运行的 VMware ）也在[这里](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)被引用。
 
@@ -237,7 +237,7 @@ CNI-Genie also supports [assigning multiple IP addresses to a pod](https://githu
 -->
 ### 华为的 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 是一个 CNI 插件，可以让 Kubernetes 在运行时允许不同的 [Kubernetes 的网络模型](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)的[实现同时被访问](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。这包括以 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如 [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/) 。
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) 是一个 CNI 插件，可以让 Kubernetes 在运行时允许不同的 [Kubernetes 的网络模型](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)的[实现同时被访问](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)。这包括以 [CNI 插件](https://github.com/containernetworking/cni#3rd-party-plugins)运行的任何实现，比如 [Flannel](https://github.com/coreos/flannel#flannel)，[Calico](http://docs.projectcalico.org/)，[Romana](http://romana.io)，[Weave-net](https://www.weave.works/products/weave-net/) 。
 
 CNI-Genie 还支持[将多个 IP 地址分配给 Pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multi-ip-addresses-per-pod) ，每个都来自不同的 CNI 插件。
 
@@ -281,7 +281,7 @@ network complexity required to deploy Kubernetes at scale within AWS.
 
 ### Contrail / Tungsten Fabric
 
-[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 是基于 [Tungsten Fabric](https://tungsten.io) 的，真正开放的，多云网络虚拟化和策略管理平台。 Contrail 和 Tungsten Fabric 与各种编排系统集成在一起，例如 Kubernetes, OpenShift, OpenStack 和 Mesos ，并为虚拟机、容器或 Pods 以及裸机工作负载提供了不同的隔离模式。
+[Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/) 是基于 [Tungsten Fabric](https://tungsten.io) 的，真正开放的，多云网络虚拟化和策略管理平台。 Contrail 和 Tungsten Fabric 与各种编排系统集成在一起，例如 Kubernetes，OpenShift，OpenStack 和 Mesos，并为虚拟机、容器或 Pods 以及裸机工作负载提供了不同的隔离模式。
 
 <!--
 ### DANM
@@ -465,7 +465,7 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 [Multus](https://github.com/Intel-Corp/multus-cni) 是一个多 CNI 插件，使用 Kubernetes 中基于 CRD 的网络对象来支持实现 Kubernetes 多网络系统。
 
-Multus 支持所有[参考插件]（https://github.com/containernetworking/plugins）（比如： [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan) ），来实现 CNI 规范和第三方插件（比如： [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin) ），除此之外， Multus 还支持 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) 的工作负载，以及 Kubernetes 中基于云的本机应用程序和基于 NFV 的应用程序。
+Multus 支持所有[参考插件]（https://github.com/containernetworking/plugins）（比如： [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)，[DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp)，[Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan) ），来实现 CNI 规范和第三方插件（比如： [Calico](https://github.com/projectcalico/cni-plugin)，[Weave](https://github.com/weaveworks/weave)，[Cilium](https://github.com/cilium/cilium)，[Contiv](https://github.com/contiv/netplugin) ），除此之外， Multus 还支持 [SRIOV](https://github.com/hustcat/sriov-cni)，[DPDK](https://github.com/Intel-Corp/sriov-cni)，[OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) 的工作负载，以及 Kubernetes 中基于云的本机应用程序和基于 NFV 的应用程序。
 
 <!--
 ### NSX-T
@@ -531,7 +531,7 @@ Calico can also be run in policy enforcement mode in conjunction with other netw
 
 Calico 提供了高度可扩展的网络和网络解决方案，使用基于与 Internet 相同的 IP 网络原理来连接 Kubernetes Pod ，适用于 Linux （开放源代码）和 Windows （专有-可从 [Tigera](https//www.tigera.io/essentials/) 获得。可以无需封装或覆盖即可部署 Calico ，以提供高性能，高可扩的数据中心网络。 Calico 还通过其分布式防火墙为 Kubernetes Pod 提供了基于意图的细粒度网络安全策略。
 
-Calico 还可以和其他的网络解决方案（比如 Flannel ， [canal](https://github.com/tigera/canal) 或本机 GCE, AWS, Azure 等）一起以策略实施模式运行。
+Calico 还可以和其他的网络解决方案（比如 Flannel ， [canal](https://github.com/tigera/canal) 或本机 GCE，AWS，Azure 等）一起以策略实施模式运行。
 
 <!--
 ### Romana
