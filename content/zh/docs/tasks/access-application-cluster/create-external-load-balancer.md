@@ -33,7 +33,7 @@ that sends traffic to the correct port on your cluster nodes
 _provided your cluster runs in a supported environment and is configured with
 the correct cloud load balancer provider package_.
 -->
-创建服务时，您可以选择自动创建云网络负载均衡器。这提供了一个外部可访问的 IP 地址，可将流量分配到集群节点上的正确端口上 _假设集群在支持的环境中运行，并配置了正确的云负载平衡器提供商包_。
+创建服务时，您可以选择自动创建云网络负载均衡器。这提供了一个外部可访问的 IP 地址，可将流量分配到集群节点上的正确端口上 _假设集群在支持的环境中运行，并配置了正确的云负载平衡器提供商包。
 
 <!--
 For information on provisioning and using an Ingress resource that can give
