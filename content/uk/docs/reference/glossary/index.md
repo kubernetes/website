@@ -1,7 +1,7 @@
 ---
 approvers:
-- chenopis
-- abiogenesis-now
+- maxymvlasov
+- anastyakulyk
 # title: Standardized Glossary
 title: Глосарій
 layout: glossary

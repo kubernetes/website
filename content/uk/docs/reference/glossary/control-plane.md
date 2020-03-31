@@ -7,7 +7,7 @@ full_link:
 # short_description: >
 #   The container orchestration layer that exposes the API and interfaces to define, deploy, and manage the lifecycle of containers.
 short_description: >
-Шар оркестрації контейнерів, який надає API та інтерфейси для визначення, розгортання і управління життєвим циклом контейнерів.
+  Шар оркестрації контейнерів, який надає API та інтерфейси для визначення, розгортання і управління життєвим циклом контейнерів.
 
 aka:
 tags:
