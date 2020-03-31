@@ -87,7 +87,7 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 ```shell
 snap install kubectl --classic
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{% tab name="Homebrew" %}}
@@ -95,7 +95,7 @@ If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 ```shell
 brew install kubectl
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{< /tabs >}}
