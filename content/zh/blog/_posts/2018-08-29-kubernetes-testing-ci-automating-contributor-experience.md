@@ -135,10 +135,10 @@ Prow 让我们做以下事情：
 * 实施组织范围和重构 GitHub 仓库策略，如[Knative Builds](https://github.com/kubernetes/test-infra/tree/master/prow/cmd/branchprotector)和[GitHub labels](https://github.com/kubernetes/test-infra/tree/master/label_sync)
 
 <!--
-Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).
+Prow was initially developed by the engineering productivity team building Google Kubernetes Engine, and is actively contributed to by multiple members of Kubernetes SIG Testing. Prow has been adopted by several other open source projects, including Istio, JetStack, Knative and OpenShift. [Getting started with Prow](https://github.com/kubernetes/test-infra/tree/master/prow#getting-started) takes a Kubernetes cluster and `kubectl apply starter.yaml` (running pods on a Kubernetes cluster).
 -->
 
-Prow最初由构建 Google Kubernetes Engine 的工程效率团队开发，并由 Kubernetes SIG Testing 的多个成员积极贡献。 Prow 已被其他几个开源项目采用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/blob/master/prow/getting_started.md)需要一个 Kubernetes 集群和 `kubectl apply starter.yaml`（在 Kubernetes 集群上运行 pod）。
+Prow最初由构建 Google Kubernetes Engine 的工程效率团队开发，并由 Kubernetes SIG Testing 的多个成员积极贡献。 Prow 已被其他几个开源项目采用，包括 Istio，JetStack，Knative 和 OpenShift。 [Getting started with Prow](https://github.com/kubernetes/test-infra/tree/master/prow#getting-started)需要一个 Kubernetes 集群和 `kubectl apply starter.yaml`（在 Kubernetes 集群上运行 pod）。
 
 <!--
 Once we had Prow in place, we began to hit other scaling bottlenecks, and so produced additional tooling to support testing at the scale required by Kubernetes, including:
@@ -233,9 +233,9 @@ Want to find out more? Come check out these resources:
 想了解更多？ 快来看看这些资源：
 
 <!--
-* [Prow: Testing the way to Kubernetes Next](https://bentheelder.io/posts/prow)
+* [Prow: Testing the way to Kubernetes Next](https://elder.dev/posts/prow)
 * [Automation and the Kubernetes Contributor Experience](https://www.youtube.com/watch?v=BsIC7gPkH5M)
 -->
 
-* [Prow: Testing the way to Kubernetes Next](https://bentheelder.io/posts/prow)
+* [Prow: Testing the way to Kubernetes Next](https://elder.dev/posts/prow)
 * [Automation and the Kubernetes Contributor Experience](https://www.youtube.com/watch?v=BsIC7gPkH5M)
