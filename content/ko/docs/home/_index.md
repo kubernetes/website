@@ -3,7 +3,7 @@ title: 쿠버네티스 문서
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "홈"
 main_menu: true
 weight: 10
@@ -40,7 +40,7 @@ cards:
   button: "태스크 보기"
   button_path: "/ko/docs/tasks"
 - name: training
-  title: 교육"
+  title: "교육"
   description: "공인 쿠버네티스 인증을 획득하고 클라우드 네이티브 프로젝트를 성공적으로 수행하세요!"
   button: "교육 보기"
   button_path: "/training"  
