@@ -62,7 +62,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 ## Docker
 
 각 머신들에 대해서, Docker를 설치한다.
-버전 19.03.4가 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
+버전 19.03.8이 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
 쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
 
 시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
@@ -86,9 +86,9 @@ add-apt-repository \
 
 ## Docker CE 설치.
 apt-get update && apt-get install -y \
-  containerd.io=1.2.10-3 \
-  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-1 \
+  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
 
 # 데몬 설정.
 cat > /etc/docker/daemon.json <<EOF
@@ -121,9 +121,9 @@ yum-config-manager --add-repo \
 
 ## Docker CE 설치.
 yum update -y && yum install -y \
-  containerd.io-1.2.10 \
-  docker-ce-19.03.4 \
-  docker-ce-cli-19.03.4
+  containerd.io-1.2.13 \
+  docker-ce-19.03.8 \
+  docker-ce-cli-19.03.8
 
 ## /etc/docker 디렉터리 생성.
 mkdir /etc/docker
@@ -182,27 +182,47 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Debian" codelang="bash" >}}
+# Debian 개발 배포본(Unstable/Sid)
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
 
-# 선행 조건 설치
-apt-get update
-apt-get install -y software-properties-common
+# Debian Testing
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
 
-add-apt-repository ppa:projectatomic/ppa
-apt-get update
+# Debian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+
+# Raspbian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
 
 # CRI-O 설치
-apt-get install -y cri-o-1.15
-
+sudo apt-get install cri-o-1.17
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
+{{< tab name="Ubuntu 18.04, 19.04 and 19.10" codelang="bash" >}}
+# 리포지터리 설치
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
+sudo apt-get update
+
+# CRI-O 설치
+sudo apt-get install cri-o-1.17
+{{< /tab >}}
+
+{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 # 선행 조건 설치
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # CRI-O 설치
 yum install --nogpgcheck -y cri-o
 
+{{< tab name="openSUSE Tumbleweed" codelang="bash" >}}
+sudo zypper install cri-o
 {{< /tab >}}
 {{< /tabs >}}
 
