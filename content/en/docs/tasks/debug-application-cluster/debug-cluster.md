@@ -124,7 +124,4 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-- Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
-  - Mitigates: Everything listed above.
-
 {{% /capture %}}

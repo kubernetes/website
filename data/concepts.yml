@@ -118,7 +118,6 @@ toc:
   - docs/concepts/cluster-administration/logging.md
   - docs/concepts/cluster-administration/monitoring.md
   - docs/concepts/cluster-administration/kubelet-garbage-collection.md
-  - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
