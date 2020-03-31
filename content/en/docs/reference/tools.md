@@ -18,11 +18,6 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 [`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
 
-## Kubefed
-
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the command line tool
-to help you administrate your federated clusters.
-
 ## Minikube
 
 [`minikube`](/docs/tasks/tools/install-minikube/) is a tool that makes it

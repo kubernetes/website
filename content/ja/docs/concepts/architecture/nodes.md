@@ -6,7 +6,7 @@ weight: 10
 
 {{% capture overview %}}
 
-ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/docs/concepts/overview/components/#node-components)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
+ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
 
 {{% /capture %}}
 
@@ -47,7 +47,7 @@ kubectl describe node <ノード名>
 | `Ready`        | ノードの状態がHealthyでPodを配置可能な場合に`True`になります。ノードの状態に問題があり、Podが配置できない場合に`False`になります。ノードコントローラーが、`node-monitor-grace-period`で設定された時間内(デフォルトでは40秒)に該当ノードと疎通できない場合、`Unknown`になります。 |
 | `MemoryPressure`    | ノードのメモリが圧迫されているときに`True`になります。圧迫とは、メモリの空き容量が少ないことを指します。それ以外のときは`False`です。 |
 | `PIDPressure`    | プロセスが圧迫されているときに`True`になります。圧迫とは、プロセス数が多すぎることを指します。それ以外のときは`False`です。 |
-| `DiskPressure`    | ノードのディスク容量がが圧迫されているときに`True`になります。圧迫とは、ディスクの空き容量が少ないことを指します。それ以外のときは`False`です。 |
+| `DiskPressure`    | ノードのディスク容量が圧迫されているときに`True`になります。圧迫とは、ディスクの空き容量が少ないことを指します。それ以外のときは`False`です。 |
 | `NetworkUnavailable`    | ノードのネットワークが適切に設定されていない場合に`True`になります。それ以外のときは`False`です。 |
 
 ノードのConditionはJSONオブジェクトで表現されます。例えば、正常なノードの場合は以下のようなレスポンスが表示されます。
@@ -67,7 +67,7 @@ kubectl describe node <ノード名>
 
 Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`Unknown`や`False`のままになっている場合、[kube-controller-manager](/docs/admin/kube-controller-manager/)に引数が渡され、該当ノード上にあるPodはノードコントローラーによって削除がスケジュールされます。デフォルトの退役のタイムアウトの時間は**5分**です。ノードが到達不能ないくつかの場合においては、APIサーバーが該当ノードのkubeletと疎通できない状態になっています。その場合、APIサーバーがkubeletと再び通信を確立するまでの間、Podの削除を行うことはできません。削除がスケジュールされるまでの間、削除対象のPodたちは切り離されたノードの上で稼働を続けることになります。
 
-バージョン1.5よりも前のKubernetesでは、ノードコントローラーはAPIサーバーから到達不能なそれらのPodを[強制削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)していました。しかしながら、1.5以降では、ノードコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なノード上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのノードで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
+バージョン1.5よりも前のKubernetesでは、ノードコントローラーはAPIサーバーから到達不能なそれらのPodを[強制削除](/ja/docs/concepts/workloads/pods/pod/#podの強制削除)していました。しかしながら、1.5以降では、ノードコントローラーはクラスター内でPodが停止するのを確認するまでは強制的に削除しないようになりました。到達不能なノード上で動いているPodは`Terminating`または`Unknown`のステータスになります。Kubernetesが基盤となるインフラストラクチャーを推定できない場合、クラスター管理者は手動でNodeオブジェクトを削除する必要があります。KubernetesからNodeオブジェクトを削除すると、そのノードで実行されているすべてのPodオブジェクトがAPIサーバーから削除され、それらの名前が解放されます。
 
 バージョン1.12において、`TaintNodesByCondition`機能がBetaに昇格し、それによってノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/configuration/taint-and-toleration/)を自動的に生成するようになりました。
 同様に、スケジューラーがPodを配置するノードを検討する際、ノードのtaintとPodのtolerationsを見るかわりにconditionを無視するようになりました。
@@ -98,7 +98,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 
 ## 管理 {#management}
 
-[Pod](/docs/concepts/workloads/pods/pod/)や[Service](/docs/concepts/services-networking/service/)と違い、ノードは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、Kubernetesがノードを作成すると、そのノードを表すオブジェクトが作成されます。作成後、Kubernetesはそのノードが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
+[Pod](/ja/docs/concepts/workloads/pods/pod/)や[Service](/ja/docs/concepts/services-networking/service/)と違い、ノードは本質的にはKubernetesによって作成されません。GCPのようなクラウドプロバイダーによって外的に作成されるか、VMや物理マシンのプールに存在するものです。そのため、Kubernetesがノードを作成すると、そのノードを表すオブジェクトが作成されます。作成後、Kubernetesはそのノードが有効かどうかを確認します。 たとえば、次の内容からノードを作成しようとしたとします:
 
 ```json
 {
@@ -209,7 +209,7 @@ DaemonSetコントローラーによって作成されたPodはKubernetesスケ�
 
 Kubernetesスケジューラーは、ノード上のすべてのPodに十分なリソースがあることを確認します。
 ノード上のコンテナが要求するリソースの合計がノードキャパシティ以下であることを確認します。
-これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/docs/concepts/overview/components/#node-components)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
+これは、kubeletによって開始されたすべてのコンテナを含みますが、[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)によって直接開始されたコンテナやコンテナの外で実行されているプロセスは含みません。
 
 Pod以外のプロセス用にリソースを明示的に予約したい場合は、このチュートリアルに従って[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)してください。
 

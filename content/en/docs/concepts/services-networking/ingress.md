@@ -17,24 +17,15 @@ weight: 40
 
 For clarity, this guide defines the following terms:
 
-Node
-: A worker machine in Kubernetes, part of a cluster.
-
-Cluster
-: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
-
-Edge router
-: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
-
-Cluster network
-: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
-
-Service
-: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+* Node: A worker machine in Kubernetes, part of a cluster.
+* Cluster: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
+* Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
+* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
+* Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 
 ## What is Ingress?
 
-Ingress exposes HTTP and HTTPS routes from outside the cluster to
+[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io) exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
 Traffic routing is controlled by rules defined on the Ingress resource.
 
@@ -46,7 +37,7 @@ Traffic routing is controlled by rules defined on the Ingress resource.
    [ Services ]
 ```
 
-An Ingress can be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
@@ -82,16 +73,19 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
           serviceName: test
           servicePort: 80
 ```
 
- As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
- For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
+As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+The name of an Ingress object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
- Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
+Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -124,6 +118,84 @@ backend is typically a configuration option of the [Ingress controller](/docs/co
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
 
+### Path Types
+
+Each path in an Ingress has a corresponding path type. There are three supported
+path types:
+
+* _`ImplementationSpecific`_ (default): With this path type, matching is up to
+  the IngressClass. Implementations can treat this as a separate `pathType` or
+  treat it identically to `Prefix` or `Exact` path types.
+
+* _`Exact`_: Matches the URL path exactly and with case sensitivity.
+
+* _`Prefix`_: Matches based on a URL path prefix split by `/`. Matching is case
+  sensitive and done on a path element by element basis. A path element refers
+  to the list of labels in the path split by the `/` separator. A request is a
+  match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
+  request path.
+    {{< note >}}
+    If the last element of the path is a substring of the
+    last element in request path, it is not a match (for example:
+    `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+    {{< /note >}}
+
+#### Multiple Matches
+In some cases, multiple paths within an Ingress will match a request. In those
+cases precedence will be given first to the longest matching path. If two paths
+are still equally matched, precedence will be given to paths with an exact path
+type over prefix path type.
+
+## Ingress Class
+
+Ingresses can be implemented by different controllers, often with different
+configuration. Each Ingress should specify a class, a reference to an
+IngressClass resource that contains additional configuration including the name
+of the controller that should implement the class.
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com/v1alpha
+    kind: IngressParameters
+    name: external-lb
+```
+
+IngressClass resources contain an optional parameters field. This can be used to
+reference additional configuration for this class.
+
+### Deprecated Annotation
+
+Before the IngressClass resource and `ingressClassName` field were added in
+Kubernetes 1.18, Ingress classes were specified with a
+`kubernetes.io/ingress.class` annotation on the Ingress. This annotation was
+never formally defined, but was widely supported by Ingress controllers.
+
+The newer `ingressClassName` field on Ingresses is a replacement for that
+annotation, but is not a direct equivalent. While the annotation was generally
+used to reference the name of the Ingress controller that should implement the
+Ingress, the field is a reference to an IngressClass resource that contains
+additional Ingress configuration, including the name of the Ingress controller.
+
+### Default Ingress Class
+
+You can mark a particular IngressClass as default for your cluster. Setting the
+`ingressclass.kubernetes.io/is-default-class` annotation to `true` on an
+IngressClass resource will ensure that new Ingresses without an
+`ingressClassName` field specified will be assigned this default IngressClass.
+
+{{< caution >}}
+If you have more than one IngressClass marked as the default for your cluster,
+the admission controller prevents creating new Ingress objects that don't have
+an `ingressClassName` specified. You can resolve this by ensuring that at most 1
+IngressClasess are marked as default in your cluster.
+{{< /caution >}}
+
 ## Types of Ingress
 
 ### Single Service Ingress
@@ -143,10 +215,10 @@ kubectl get ingress test-ingress
 
 ```
 NAME           HOSTS     ADDRESS           PORTS     AGE
-test-ingress   *         107.178.254.228   80        59s
+test-ingress   *         203.0.113.123   80        59s
 ```
 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
+Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy
 this Ingress.
 
 {{< note >}}
@@ -345,7 +417,7 @@ spec:
 {{< note >}}
 There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
-[nginx](https://git.k8s.io/ingress-nginx/README.md#https),
+[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
 platform specific Ingress controller to understand how TLS works in your environment.
 {{< /note >}}
@@ -474,6 +546,7 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about [ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
+* Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}

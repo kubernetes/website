@@ -80,8 +80,17 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    참고: 만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음,
-    동일한 명령어를 다시 입력한다.
+    {{< note >}}
+
+    `type=LoadBalancer` 서비스는 이 예시에서 다루지 않은 외부 클라우드 공급자가 지원하며, 자세한 내용은 [이 페이지](/ko/docs/concepts/services-networking/service/#loadbalancer를 참조한다.
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음, 동일한 명령어를 다시 입력한다.
+
+    {{< /note >}}
 
 1. 서비스에 대한 자세한 정보를 확인한다.
 

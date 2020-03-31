@@ -111,10 +111,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo "En attente de myservice"; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo "En attente de mydb"; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo en attente de mydb; sleep 2; done"]
 ```
 
 Les fichiers YAML suivants résument les services `mydb` et `myservice` :

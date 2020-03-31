@@ -86,7 +86,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-`kubectl config unset users.<name>`을 실행하여 사용자를 삭제할 수 있다.
+- 사용자를 삭제하려면 `kubectl --kubeconfig=config-demo config unset users.<name>` 를 실행한다.
+- 클러스터를 제거하려면 `kubectl --kubeconfig=config-demo config unset clusters.<name>` 를 실행한다.
+- 컨텍스트를 제거하려면 `kubectl --kubeconfig=config-demo config unset contexts.<name>` 를 실행한다.
 {{< /note >}}
 
 컨텍스트 세부사항들을 구성 파일에 추가한다.
@@ -320,7 +322,7 @@ contexts:
 ```
 
 kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는 
-[kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
+[kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
 
 ## $HOME/.kube 디렉토리 탐색
 
@@ -370,7 +372,7 @@ Windows PowerShell
 
 {{% capture whatsnext %}}
 
-* [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}

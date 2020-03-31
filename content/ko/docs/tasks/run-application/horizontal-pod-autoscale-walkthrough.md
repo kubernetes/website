@@ -57,14 +57,19 @@ index.php는 CPU 과부하 연산을 수행한다.
 ?>
 ```
 
-첫 번째 단계로, 실행 중인 이미지의 디플로이먼트를 시작하고 서비스로 노출시킨다.
+첫 번째 단계로, 다음 구성을 사용해서 실행 중인 이미지의 디플로이먼트를
+시작하고 서비스로 노출시킨다.
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+다음의 명령어를 실행한다.
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Horizontal Pod Autoscaler 생성
@@ -74,9 +79,9 @@ deployment.apps/php-apache created
 다음 명령어는 첫 번째 단계에서 만든 php-apache 디플로이먼트 파드의 개수를
 1부터 10 사이로 유지하는 Horizontal Pod Autoscaler를 생성한다.
 간단히 얘기하면, HPA는 (디플로이먼트를 통한) 평균 CPU 사용량을 50%로 유지하기 위하여 레플리카의 개수를 늘리고 줄인다.
-[kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md)으로 각 파드는 200 밀리코어까지 요청할 수 있고,
+(kubectl run으로 각 파드는 200 밀리코어까지 요청할 수 있고,
 따라서 여기서 말하는 평균 CPU 사용은 100 밀리코어를 말한다).
-이에 대한 자세한 알고리즘은 [여기](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)를 참고하기 바란다.
+이에 대한 자세한 알고리즘은 [여기](/ko/docs/tasks/run-application/horizontal-pod-autoscale/#알고리즘-세부-정보)를 참고하기 바란다.
 
 ```shell
 kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
@@ -362,8 +367,8 @@ status:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 이 셀렉터는 쿠버네티스의 레이블 셀렉터와 동일한 문법이다.

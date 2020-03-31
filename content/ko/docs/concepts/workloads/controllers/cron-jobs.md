@@ -8,17 +8,23 @@ weight: 80
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
-_크론 잡은_ 시간 기반의 일정에 따라 [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 만든다.
+_크론 잡은_ 시간 기반의 일정에 따라 [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 만든다.
 
 하나의 크론잡 객체는 _크론탭_ (크론 테이블) 파일의 한 줄과 같다. 크론잡은 잡을 [크론](https://en.wikipedia.org/wiki/Cron)형식으로 쓰여진 주어진 일정에 따라 주기적으로 동작시킨다.
 
 
-{{< note >}}
-모든 **크론잡** `일정:` 시간은 잡이 처음 시작된 마스터의 시간대를 기반으로 한다.
-{{< /note >}}
+{{< caution >}}
+모든 **크론잡** `일정:` 시간은 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+의 시간대를 기준으로 한다.
+
+컨트롤 플레인이 파드 또는 베어 컨테이너에서 kube-controller-manager를
+실행하는 경우 kube-controller-manager 컨테이너의 설정된 시간대는 크론 잡 컨트롤러가
+사용하는 시간대로 설정한다.
+{{< /caution >}}
 
 크론잡 리소스에 대한 매니페스트를 생성할때에는 제공하는 이름이
-52자 이하인지 확인해야 한다. 이는 크론잡 컨트롤러는 제공된 잡 이름에
+유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+이름은 52자 이하여야 한다. 이는 크론잡 컨트롤러는 제공된 잡 이름에
 11자를 자동으로 추가하고, 작업 이름의 최대 길이는
 63자라는 제약 조건이 있기 때문이다.
 

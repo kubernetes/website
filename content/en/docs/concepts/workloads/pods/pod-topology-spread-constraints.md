@@ -6,7 +6,7 @@ weight: 50
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
@@ -18,9 +18,8 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 ### Enable Feature Gate
 
-Ensure the `EvenPodsSpread` feature gate is enabled (it is disabled by default
-in 1.16). See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/)
-for an explanation of enabling feature gates. The `EvenPodsSpread` feature gate must be enabled for the
+The `EvenPodsSpread` [feature gate] (/docs/reference/command-line-tools-reference/feature-gates/)
+must be enabled for the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} **and**
 {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 
@@ -183,6 +182,46 @@ There are some implicit conventions worth noting here:
     and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+    
+### Cluster-level default constraints
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+It is possible to set default topology spread constraints for a cluster. Default
+topology spread constraints are applied to a Pod if, and only if:
+
+- It doesn't define any constraints in its `.spec.topologySpreadConstraints`.
+- It belongs to a service, replication controller, replica set or stateful set.
+
+Default constraints can be set as part of the `PodTopologySpread` plugin args
+in a [scheduling profile](/docs/reference/scheduling/profiles).
+The constraints are specified with the same [API above](#api), except that
+`labelSelector` must be empty. The selectors are calculated from the services,
+replication controllers, replica sets or stateful sets that the Pod belongs to.
+
+An example configuration might look like follows:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1alpha2
+kind: KubeSchedulerConfiguration
+
+profiles:
+  pluginConfig:
+  - name: PodTopologySpread
+    args:
+      defaultConstraints:
+      - maxSkew: 1
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+```
+
+{{< note >}}
+The score produced by default scheduling constraints might conflict with the 
+score produced by the
+[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/profiles/#scheduling-plugins).
+It is recommended that you disable this plugin in the scheduling profile when
+using default constraints for `PodTopologySpread`.
+{{< /note >}}
 
 ## Comparison with PodAffinity/PodAntiAffinity
 
@@ -201,9 +240,9 @@ See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig
 
 ## Known Limitations
 
-As of 1.16, at which this feature is Alpha, there are some known limitations:
+As of 1.18, at which this feature is Beta, there are some known limitations:
 
-- Scaling down a `Deployment` may result in imbalanced Pods distribution.
+- Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
 {{% /capture %}}

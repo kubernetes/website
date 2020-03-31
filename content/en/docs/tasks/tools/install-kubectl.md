@@ -87,7 +87,7 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 ```shell
 snap install kubectl --classic
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{% tab name="Homebrew" %}}
@@ -95,7 +95,7 @@ If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 ```shell
 brew install kubectl
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -385,6 +385,27 @@ However, the kubectl completion script depends on [**bash-completion**](https://
 there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
 {{< /warning >}}
 
+### Upgrade Bash
+
+The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
+
+```shell
+echo $BASH_VERSION
+```
+
+If it is too old, you can install/upgrade it using Homebrew:
+
+```shell
+brew install bash
+```
+
+Reload your shell and verify that the desired version is being used:
+
+```shell
+echo $BASH_VERSION $SHELL
+```
+
+Homebrew usually installs it at `/usr/local/bin/bash`.
 
 ### Install bash-completion
 

@@ -17,7 +17,7 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
 
-쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다. 
+쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다.
 
 쿠버네티스 자체는 여러 컴포넌트로 나뉘어져서 각각의 API를 통해 상호작용한다.
 
@@ -28,7 +28,7 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 ## API 변경
 
-경험에 따르면, 성공적인 시스템은 새로운 유스케이스의 등장과 기존의 유스케이스의 변경에 맞춰 성장하고 변경될 필요가 있다. 그래서, 쿠버네티스 API가 지속적으로 변경되고 성장하기를 바란다. 그러나, 일정 기간 동안은 현존하는 클라이언트와의 호환성을 깨지 않으려고 한다. 일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다. 리소스나 필드를 없애는 일은 다음의 [API deprecation policy](/docs/reference/using-api/deprecation-policy/)를 따른다.
+경험에 따르면, 성공적인 시스템은 새로운 유스케이스의 등장과 기존 유스케이스의 변경에 맞춰 성장하고 변경될 필요가 있다. 그래서, 쿠버네티스 API가 지속적으로 변경되고 성장하기를 바란다. 그러나, 일정 기간 동안은 현재의 클라이언트와의 호환성을 깨지 않으려고 한다. 일반적으로, 새로운 API 리소스와 새로운 리소스 필드가 주기적으로 추가될 것이다. 리소스나 필드를 없애는 일은 다음의 [API deprecation policy](/docs/reference/using-api/deprecation-policy/)를 따른다.
 
 호환되는 변경에 어떤 내용이 포함되는지, 어떻게 API를 변경하는지에 대한 자세한 내용은 [API change document](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md)에 있다.
 
@@ -45,7 +45,7 @@ Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+
 Accept-Encoding | `gzip` (이 헤더를 전달하지 않아도 됨)
 
 1.14 이전 버전에서 형식이 구분된 엔드포인트(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)는 OpenAPI 스펙을 다른 포맷으로 제공한다.
-이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거됬다.
+이러한 엔드포인트는 사용이 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
 
 **OpenAPI 규격을 조회하는 예제**
 
@@ -59,7 +59,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 1.14 이전 버전에서 쿠버네티스 apiserver는 `/swaggerapi`에서 [Swagger v1.2](http://swagger.io/)
 쿠버네티스 API 스펙을 검색하는데 사용할 수 있는 API도 제공한다.
-이러한 엔드포인트는 사용 중단되었으며, 쿠버네티스 1.14에서 제거될 예정이다.
+이러한 엔드포인트는 사용이 중단되었으며, 쿠버네티스 1.14에서 제거되었다.
 
 ## API 버전 규칙
 
@@ -88,7 +88,7 @@ API 버전이 다른 경우는 안정성이나 기술 지원의 수준이 다르
   - 코드가 잘 테스트되었다. 이 기능을 활성화 시켜도 안전하다. 기본적으로 활성화되어 있다.
   - 구체적인 내용이 바뀔 수는 있지만, 전반적인 기능에 대한 기술 지원이 중단되지 않는다.
   - 오브젝트에 대한 스키마나 문법이 다음 베타 또는 안정화 릴리스에서 호환되지 않는 방식으로 바뀔 수도 있다. 이런 경우,
-    다음 버전으로 이관할 수 있는 가이드를 제공할 것이다. 
+    다음 버전으로 이관할 수 있는 가이드를 제공할 것이다.
     이 때 API 오브젝트의 삭제, 편집 또는 재생성이 필요할 수도 있다. 편집 절차는 좀 생각해볼 필요가 있다. 이 기능에 의존하고 있는 애플리케이션은 다운타임이 필요할 수도 있다.
   - 다음 릴리스에서 호환되지 않을 수도 있으므로 사업적으로 중요하지 않은 용도로만 사용하기를 권장한다.
     복수의 클러스터를 가지고 있어서 독립적으로 업그레이드할 수 있다면 이런 제약에서 안심이 될 수도 있겠다.
@@ -119,21 +119,22 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
    만들 수 있다.
 
 
-## API 그룹 활성화 시키기
+## API 그룹 활성화 또는 비활성화하기
 
 특정 리소스와 API 그룹은 기본적으로 활성화되어 있다. 이들은 apiserver에서 `--runtime-config`를 설정해서 활성화하거나
 비활성화 시킬 수 있다. `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어서 batch/v1을 비활성화 시키려면
 `--runtime-config=batch/v1=false`와 같이 설정하고, batch/v2alpha1을 활성화 시키려면 `--runtime-config=batch/v2alpha1`을
 설정한다. 이 플래그는 apiserver의 런타임 설정에 쉼표로 분리된 키=값 쌍의 집합을 허용한다.
 
-중요: 그룹이나 리소스를 활성화 또는 비활성화 시키기 위해서는 apiserver와 controller-manager를 재시작해서
-`--runtime-config` 변경을 반영시켜야 한다.
+{{< note >}}그룹이나 리소스를 활성화 또는 비활성화 시키기 위해서는 apiserver와 controller-manager를 재시작해서
+`--runtime-config` 변경을 반영시켜야 한다. {{< /note >}}
 
-## 그룹 내 리소스 활성화 시키기
+## extensions/v1beta1 그룹 내 특정 리소스 활성화하기
 
-데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
-다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서 활성화 시킬 수 있다.
-`--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 인그레스를 비활성화 시키려면,
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
+데몬셋, 디플로이먼트, 스테이트풀셋, 네트워크폴리시, 파드시큐리티폴리시 그리고 레플리카셋은 `extensions/v1beta1` API 그룹에서 기본적으로 비활성화되어있다.
+예시: 디플로이먼트와 데몬셋의 활성화 설정은
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
+
+{{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
 
 {{% /capture %}}

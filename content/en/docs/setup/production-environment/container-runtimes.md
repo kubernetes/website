@@ -64,7 +64,7 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 19.03.4 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
+Version 19.03.8 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
@@ -88,9 +88,9 @@ add-apt-repository \
 
 ## Install Docker CE.
 apt-get update && apt-get install -y \
-  containerd.io=1.2.10-3 \
-  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-1 \
+  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
 
 # Setup daemon.
 cat > /etc/docker/daemon.json <<EOF
@@ -123,9 +123,9 @@ yum-config-manager --add-repo \
 
 ## Install Docker CE.
 yum update -y && yum install -y \
-  containerd.io-1.2.10 \
-  docker-ce-19.03.4 \
-  docker-ce-cli-19.03.4
+  containerd.io-1.2.13 \
+  docker-ce-19.03.8 \
+  docker-ce-cli-19.03.8
 
 ## Create /etc/docker directory.
 mkdir /etc/docker
@@ -162,6 +162,11 @@ This section contains the necessary steps to install `CRI-O` as CRI runtime.
 
 Use the following commands to install CRI-O on your system:
 
+{{< note >}}
+The CRI-O major and minor versions must match the Kubernetes major and minor versions.
+For more information, see the [CRI-O compatiblity matrix](https://github.com/cri-o/cri-o).
+{{< /note >}}
+
 ### Prerequisites
 
 ```shell
@@ -179,27 +184,48 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Debian" codelang="bash" >}}
+# Debian Unstable/Sid
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
 
-# Install prerequisites
-apt-get update
-apt-get install -y software-properties-common
+# Debian Testing
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
 
-add-apt-repository ppa:projectatomic/ppa
-apt-get update
+# Debian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+
+# Raspbian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
 
 # Install CRI-O
-apt-get install -y cri-o-1.15
-
+sudo apt-get install cri-o-1.17
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
+{{< tab name="Ubuntu 18.04, 19.04 and 19.10" codelang="bash" >}}
+# Setup repository
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
+sudo apt-get update
+
+# Install CRI-O
+sudo apt-get install cri-o-1.17
+{{< /tab >}}
+
+{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 # Install prerequisites
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
 
 # Install CRI-O
 yum install --nogpgcheck -y cri-o
+{{< /tab >}}
 
+{{< tab name="openSUSE Tumbleweed" codelang="bash" >}}
+sudo zypper install cri-o
 {{< /tab >}}
 {{< /tabs >}}
 

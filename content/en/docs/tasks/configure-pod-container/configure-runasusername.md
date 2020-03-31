@@ -6,13 +6,9 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-This page shows how to enable and use the `RunAsUserName` feature for pods and containers that will run on Windows nodes. This feature is meant to be the Windows equivalent of the Linux-specific `runAsUser` feature, allowing users to run the container entrypoints with a different username that their default ones.
-
-{{< note >}}
-This feature is in beta. The overall functionality for `RunAsUserName` will not change, but there may be some changes regarding the username validation.
-{{< /note >}}
+This page shows how to use the `runAsUserName` setting for Pods and containers that will run on Windows nodes. This is roughly equivalent of the Linux-specific `runAsUser` setting, allowing you to run applications in a container as a different username than the default.
 
 {{% /capture %}}
 
@@ -59,7 +55,6 @@ The output should be:
 ```shell
 ContainerUser
 ```
-
 
 ## Set the Username for a Container
 

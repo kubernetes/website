@@ -168,9 +168,9 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
 
-* [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)についてもっと学ぶ
+* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)についてもっと学ぶ
 
 * [kubectl runのドキュメント](/docs/reference/generated/kubectl/kubectl-commands/#run)
 

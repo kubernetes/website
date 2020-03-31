@@ -58,6 +58,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | PHP                  | [github.com/allansun/kubernetes-php-client](https://github.com/allansun/kubernetes-php-client) |
 | PHP                  | [github.com/travisghansen/kubernetes-client-php](https://github.com/travisghansen/kubernetes-client-php) |
 | Python               | [github.com/eldarion-gondor/pykube](https://github.com/eldarion-gondor/pykube) |
+| Python               | [github.com/fiaas/k8s](https://github.com/fiaas/k8s) |
 | Python               | [github.com/mnubo/kubernetes-py](https://github.com/mnubo/kubernetes-py) |
 | Python               | [github.com/tomplus/kubernetes_asyncio](https://github.com/tomplus/kubernetes_asyncio) |
 | Ruby                 | [github.com/Ch00k/kuber](https://github.com/Ch00k/kuber) |
@@ -69,6 +70,7 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | dotNet               | [github.com/tonnyeremin/kubernetes_gen](https://github.com/tonnyeremin/kubernetes_gen) |
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
+| Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
 | Haskell              | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) |
 {{% /capture %}}
 

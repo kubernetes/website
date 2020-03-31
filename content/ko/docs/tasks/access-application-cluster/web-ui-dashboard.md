@@ -79,7 +79,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
   클러스터에 의도한 파드의 수를 유지하기 위해서 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)가 생성될 것이다.
 
-- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다. 외부 서비스들을 위해, 한개 또는 여러 개의 포트들을 열어 둘 필요가 있다. [이 곳](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/) 내용을 참고한다.
+- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/ko/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다. 외부 서비스들을 위해, 한개 또는 여러 개의 포트들을 열어 둘 필요가 있다. [이 곳](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/) 내용을 참고한다.
 
   클러스터 내부에서만 보고 싶은 어떤 서비스(Serivce)들이 있을 것인다. 이를 내부 서비스라고 한다.
 
@@ -109,7 +109,7 @@ track=stable
 
 - **이미지 풀(Pull) 시크릿**: 특정 도커 컨테이너 이미지가 프라이빗한 경우, [풀(Pull) 시크릿](/docs/concepts/configuration/secret/) 증명을 요구한다.
 
-  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
+  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
 
   이미지 풀(Pull) 시크릿의 생성이 성공한 경우, 기본으로 선택된다. 만약 생성에 실패하면, 시크릿은 허용되지 않는다.
 

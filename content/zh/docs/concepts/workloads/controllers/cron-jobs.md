@@ -36,7 +36,7 @@ All **CronJob** `schedule:` times are based on the timezone of the master where 
 -->
 
 {{< note >}}
-所有 **CronJob** 的 `schedule:` 时间都是基于初始 Job 的主控节点的时区。
+所有 **CronJob** 的 `schedule:` 时间都使用 UTC 时间表示。
 {{< /note >}}
 
 <!--

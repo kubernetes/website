@@ -30,7 +30,6 @@ aliases:
     - onlydole
     - parispittman
     - vonguard
-    - onlydole
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -40,34 +39,33 @@ aliases:
     - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - bradamant3
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
     - makoscafee
+    - onlydole
     - Rajakavitha1
-    - ryanmcginnis
     - sftim
     - steveperry-53
     - tengqm
+    - vineethreddy02
     - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
-    - bradamant3
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
     - makoscafee
+    - onlydole
     - rajakavitha1
+    - rajeshdeshpande02
     - sftim
     - steveperry-53
     - tengqm
@@ -130,12 +128,10 @@ aliases:
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - inductor
@@ -160,7 +156,6 @@ aliases:
     - seokho-son
     - ysyukr
   sig-docs-maintainers: # Website maintainers
-    - bradamant3
     - jimangel
     - kbarnard10
     - pwittrock
@@ -195,10 +190,12 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
