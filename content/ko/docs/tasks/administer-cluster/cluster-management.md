@@ -21,7 +21,7 @@ content_template: templates/concept
 
 ## 클러스터 업그레이드
 
-클러스터 업그레이드 상태의 현황은 제공자에 따라 달라지며, 몇몇 릴리스들은 업그레이드에 각별한 주의를 요하기도 한다. 관리자들에게는 클러스터 업그레이드에 앞서 [릴리스 노트](https://git.k8s.io/kubernetes/CHANGELOG.md)와 버전에 맞는 업그레이드 노트 모두를 검토하도록 권장하고 있다.
+클러스터 업그레이드 상태의 현황은 제공자에 따라 달라지며, 몇몇 릴리스들은 업그레이드에 각별한 주의를 요하기도 한다. 관리자들에게는 클러스터 업그레이드에 앞서 [릴리스 노트](https://git.k8s.io/kubernetes/CHANGELOG/README.md)와 버전에 맞는 업그레이드 노트 모두를 검토하도록 권장하고 있다.
 
 ### Azure Kubernetes Service (AKS) 클러스터 업그레이드
 

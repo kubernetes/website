@@ -15,10 +15,8 @@ weight: 80
 
 {{< warning >}}
 임시 컨테이너는 초기 알파 상태이며, 프로덕션 클러스터에는 
-적합하지 않다. 사용자는 컨테이너 네임스페이스를 대상으로 하는 경우와 
-같은 어떤 상황에서 기능이 작동하지 않을 것으로 예상해야 한다. [쿠버네티스 
-사용중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라 이 알파 
-기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
+적합하지 않다. [쿠버네티스 사용중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라
+이 알파 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
 {{< /warning >}}
 
 {{% /capture %}}
@@ -75,7 +73,11 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 공유](/docs/tasks/configure-pod-container/share-process-namespace/)를 
 활성화하면 다른 컨테이너 안의 프로세스를 보는데 도움이 된다.
 
-### 예시
+임시 컨테이너를 사용해서 문제를 해결하는 예시는 
+[임시 디버깅 컨테이너로 디버깅하기]
+(/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)를 참조한다.
+
+## 임시 컨테이너 API
 
 {{< note >}}
 이 섹션의 예시는 `EphemeralContainers` [기능
@@ -84,8 +86,9 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 {{< /note >}}
 
 이 섹션의 에시는 임시 컨테이너가 어떻게 API에 나타나는지 
-보여준다. 사용자는 일반적으로 자동화하는 단계의 문제 해결을 위해 `kubectl` 
-플러그인을 사용했을 것이다.
+보여준다. 일반적으로 `kubectl alpha debug` 또는
+다른 `kubectl` [플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)을
+사용해서 API를 직접 호출하지 않고 이런 단계들을 자동화 한다.
 
 임시 컨테이너는 파드의 `ephemeralcontainers` 하위 리소스를 
 사용해서 생성되며, `kubectl --raw` 를 사용해서 보여준다. 먼저 
@@ -177,35 +180,12 @@ Ephemeral Containers:
 ...
 ```
 
-사용자는 `kubectl attach` 를 사용해서 새로운 임시 컨테이너에 붙을 수 있다.
+예시와 같이 `kubectl attach`, `kubectl exec`, 그리고 `kubectl logs` 를 사용해서
+다른 컨테이너와 같은 방식으로 새로운 임시 컨테이너와
+상호작용할 수 있다.
 
 ```shell
 kubectl attach -it example-pod -c debugger
-```
-
-만약 프로세스 네임스페이스를 공유를 활성화하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼 수 있다.
-예를 들어, 임시 컨테이너에 붙은 이후에 디버거 컨테이너에서 `ps` 를 실행한다.
-
-```shell
-# "디버거" 임시 컨테이너 내부 쉘에서 이것을 실행한다.
-ps auxww
-```
-다음과 유사하게 출력된다.
-```
-PID   USER     TIME  COMMAND
-    1 root      0:00 /pause
-    6 root      0:00 nginx: master process nginx -g daemon off;
-   11 101       0:00 nginx: worker process
-   12 101       0:00 nginx: worker process
-   13 101       0:00 nginx: worker process
-   14 101       0:00 nginx: worker process
-   15 101       0:00 nginx: worker process
-   16 101       0:00 nginx: worker process
-   17 101       0:00 nginx: worker process
-   18 101       0:00 nginx: worker process
-   19 root      0:00 /pause
-   24 root      0:00 sh
-   29 root      0:00 ps auxww
 ```
 
 {{% /capture %}}
