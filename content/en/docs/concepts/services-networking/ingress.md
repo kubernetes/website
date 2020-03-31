@@ -124,7 +124,7 @@ Each path in an Ingress has a corresponding path type. There are three supported
 path types:
 
 * _`ImplementationSpecific`_ (default): With this path type, matching is up to
-  the IngressClass. Implementations can treat this as a separate `pathType or
+  the IngressClass. Implementations can treat this as a separate `pathType` or
   treat it identically to `Prefix` or `Exact` path types.
 
 * _`Exact`_: Matches the URL path exactly and with case sensitivity.
