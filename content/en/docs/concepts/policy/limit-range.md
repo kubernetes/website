@@ -48,7 +48,7 @@ The name of a LimitRange object must be a valid
 
 Examples of policies that could be created using limit range are:
 
-- In a 2 node cluster with a capacity of 8 GiB RAM and 16 cores, constrain Pods in a namespace to request 100m of CPU with a max limit of 500m for CPU and request 200Mi for Memory with a max limit of 600Mi for Memory. 
+- In a 2 node cluster with a capacity of 8 GiB RAM and 16 cores, constrain Pods in a namespace to request 100m of CPU with a max limit of 500m for CPU and request 200Mi for Memory with a max limit of 600Mi for Memory.
 - Define default CPU limit and request to 150m and memory default request to 300Mi for Containers started with no cpu and memory requests in their specs.
 
 In the case where the total limits of the namespace is less than the sum of the limits of the Pods/Containers,
@@ -68,7 +68,7 @@ Create a namespace `limitrange-demo` using the following kubectl command:
 kubectl create namespace limitrange-demo
 ```
 
-To avoid passing the target limitrange-demo in your kubectl commands, change your context with the following command:
+To avoid passing the target `limitrange-demo` in your kubectl commands, change your context with the following command:
 
 ```shell
 kubectl config set-context --current --namespace=limitrange-demo
@@ -180,7 +180,7 @@ kubectl get po/busybox1 -o json | jq ".spec.containers[2].resources"
 ```
 
 -  The `busybox-cnt03` Container inside `busybox1` Pod defined `limits.cpu=500m` and `limits.memory=200Mi` but no `requests` for cpu and memory.
--  The Container does not define a request section. The default request defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section, but the limits defined by the Container are set as requests `limits.cpu=500m` and `limits.memory=200Mi`.
+-  The Container does not define a request section. The default request defined in the `limit-mem-cpu-per-container` LimitRange is not used to fill its limits section, but the limits defined by the Container are set as requests `limits.cpu=500m` and `limits.memory=200Mi`.
 -  `100m <= 500m <= 800m` , The Container cpu limit (500m) falls inside the authorized CPU limit range.
 -  `99Mi <= 200Mi <= 1Gi` , The Container memory limit (200Mi) falls inside the authorized Memory limit range.
 -  No request/limits ratio set, so the Container is valid and created.
@@ -207,11 +207,11 @@ kubectl get po/busybox1 -o json | jq ".spec.containers[3].resources"
 ```
 
 -  The `busybox-cnt04` Container inside `busybox1` define neither `limits` nor  `requests`.
--  The Container do not define a limit section, the default limit defined in the limit-mem-cpu-per-container LimitRange is used to fill its request
-   `limits.cpu=700m and` `limits.memory=900Mi` .
--  The Container do not define a request section, the defaultRequest defined in the `limit-mem-cpu-per-container` LimitRange is used to fill its request section requests.cpu=110m and requests.memory=111Mi
+-  The Container do not define a limit section, the default limit defined in the `limit-mem-cpu-per-container` LimitRange is used to fill its request
+   `limits.cpu=700m` and `limits.memory=900Mi`.
+-  The Container do not define a request section, the defaultRequest defined in the `limit-mem-cpu-per-container` LimitRange is used to fill its request section `requests.cpu=110m` and `requests.memory=111Mi`
 -  `100m <= 700m <= 800m` , The Container cpu limit (700m) falls inside the authorized CPU limit range.
--  `99Mi <= 900Mi <= 1Gi` , The Container memory limit (900Mi) falls inside the authorized Memory limit range .
+-  `99Mi <= 900Mi <= 1Gi` , The Container memory limit (900Mi) falls inside the authorized Memory limit range.
 -  No request/limits ratio set, so the Container is valid and created.
 
 All Containers defined in the `busybox` Pod passed LimitRange validations, so this the Pod is valid and created in the namespace.
@@ -341,7 +341,7 @@ The following LimitRange enforces memory limit to be at most twice the amount of
 kubectl apply -f https://k8s.io/examples/admin/resource/limit-memory-ratio-pod.yaml
 ```
 
-Describe the <limit-memory-ratio-pod> LimitRange with the following kubectl command:
+Describe the `limit-memory-ratio-pod` LimitRange with the following kubectl command:
 
 ```shell
 kubectl describe limitrange/limit-memory-ratio-pod
