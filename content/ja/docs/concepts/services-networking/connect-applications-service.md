@@ -77,7 +77,7 @@ Kubernetes Serviceは、クラスター内のどこかで実行されるPodの�
 このアドレスはServiceの有効期間に関連付けられており、Serviceが動作している間は変更されません。
 Podは、Serviceと通信するように構成でき、Serviceへの通信は、ServiceのメンバーであるPodに自動的に負荷分散されることを認識できます。
 
-2つのnginxレプリカのサービスを`kubectl exposed`で作成できます:
+2つのnginxレプリカのサービスを`kubectl expose`で作成できます:
 
 ```shell
 kubectl expose deployment/my-nginx
