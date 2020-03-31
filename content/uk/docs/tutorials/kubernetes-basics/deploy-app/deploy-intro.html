@@ -43,16 +43,16 @@ weight: 10
                 </p>
                 -->
                 <p>
-                Після того, як ви запустили Kubernetes кластер, ви можете розгортати в ньому контейнеризовані застосунки. Для цього вам необхідно створити <b>Deployment</b> конфігурацію. Вона інформує Kubernetes, як створювати і оновлювати Поди для вашого застосунку. Після того, як ви створили Deployment, Kubernetes master розподіляє ці Поди по окремих вузлах кластера.
+                Після того, як ви запустили Kubernetes кластер, ви можете розгортати в ньому контейнеризовані застосунки. Для цього вам необхідно створити <b>Deployment</b> конфігурацію. Вона інформує Kubernetes, як створювати і оновлювати Pod'и для вашого застосунку. Після того, як ви створили Deployment, Kubernetes master розподіляє ці Pod'и по окремих вузлах кластера.
                 </p>
 
                 <!--<p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces the instance with an instance on another Node in the cluster. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
                 -->
-                <p>Після створення Поди застосунку безперервно моніторяться контролером Kubernetes Deployment. Якщо вузол, на якому розміщено Под, зупинив роботу або був видалений, Deployment контролер переміщає цей Под на інший вузол кластера. <b>Так працює механізм самозцілення, що підтримує робочий стан кластера у разі апаратного збою чи технічних робіт.</b></p>
+                <p>Після створення Pod'и застосунку безперервно моніторяться контролером Kubernetes Deployment. Якщо вузол, на якому розміщено Pod, зупинив роботу або був видалений, Deployment контролер переміщає цей Pod на інший вузол кластера. <b>Так працює механізм самозцілення, що підтримує робочий стан кластера у разі апаратного збою чи технічних робіт.</b></p>
 
                 <!--<p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p>
                 -->
-                <p>До появи оркестрації застосунки часто запускали за допомогою скриптів установлення. Однак скрипти не давали можливості відновити працездатний стан застосунку після апаратного збою. Завдяки створенню Подів та їхньому запуску на вузлах кластера, Kubernetes Deployment надає цілковито інший підхід до управління застосунками. </p>
+                <p>До появи оркестрації застосунки часто запускали за допомогою скриптів установлення. Однак скрипти не давали можливості відновити працездатний стан застосунку після апаратного збою. Завдяки створенню Pod'ів та їхньому запуску на вузлах кластера, Kubernetes Deployment надає цілковито інший підхід до управління застосунками. </p>
 
             </div>
 
@@ -74,7 +74,7 @@ weight: 10
                     </i></p>
                     -->
                     <p><i>
-                        Deployment відповідає за створення і оновлення Подів для вашого застосунку
+                        Deployment відповідає за створення і оновлення Pod'ів для вашого застосунку
                     </i></p>
                 </div>
             </div>

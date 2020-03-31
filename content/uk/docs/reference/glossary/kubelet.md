@@ -6,7 +6,7 @@ full_link: /docs/reference/generated/kubelet
 # short_description: >
 #   An agent that runs on each node in the cluster. It makes sure that containers are running in a pod.
 short_description: >
-  Агент, що запущений на кожному вузлі кластера. Забезпечує запуск і роботу контейнерів у Подах.
+  Агент, що запущений на кожному вузлі кластера. Забезпечує запуск і роботу контейнерів у Pod'ах.
 
 aka:
 tags:
@@ -14,7 +14,7 @@ tags:
 - core-object
 ---
 <!-- An agent that runs on each node in the cluster. It makes sure that containers are running in a pod. -->
-Агент, що запущений на кожному вузлі кластера. Забезпечує запуск і роботу контейнерів у Подах.
+Агент, що запущений на кожному вузлі кластера. Забезпечує запуск і роботу контейнерів у Pod'ах.
 
 <!--more-->
 

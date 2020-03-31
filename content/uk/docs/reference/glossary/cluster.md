@@ -19,4 +19,4 @@ tags:
 
 <!--more-->
 <!-- The worker node(s) host the pods that are the components of the application. The Control Plane manages the worker nodes and the pods in the cluster. In production environments, the Control Plane usually runs across multiple computers and a cluster usually runs multiple nodes, providing fault-tolerance and high availability. -->
-На робочих вузлах розміщуються Поди, які є складовими застосунку. Площина управління керує робочими вузлами і Подами кластера. У прод оточеннях площина управління зазвичай розповсюджується на багато комп'ютерів, а кластер складається з багатьох вузлів для забезпечення відмовостійкості і високої доступності.
+На робочих вузлах розміщуються Pod'и, які є складовими застосунку. Площина управління керує робочими вузлами і Pod'ами кластера. У прод оточеннях площина управління зазвичай розповсюджується на багато комп'ютерів, а кластер складається з багатьох вузлів для забезпечення відмовостійкості і високої доступності.
