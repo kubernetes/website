@@ -149,12 +149,12 @@ users:
     username: exp
 ```
 
-The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above is the placeholders
-for the real path of the certification files. You need change these to the real path
-of certification files in your environment.
+The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placeholders
+for the pathnames of the certificate files. You need change these to the actual pathnames
+of certificate files in your environment.
 
-Some times you may want to use base64 encoded data here instead of the path of the 
-certification files, then you need add the suffix `-data` to the keys. For example,
+Sometimes you may want to use Base64-encoded data embeddedhere instead of separate
+certificate files; in that case you need add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the
