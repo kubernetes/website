@@ -192,7 +192,7 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 # Liste tous les Secrets actuellement utilisés par un pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
-# Liste les containerIDs des initContainer de tout les Pods
+# Liste les containerIDs des initContainer de tous les Pods
 # Utile lors du nettoyage des conteneurs arrêtés, tout en évitant de retirer les initContainers.
 kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
 
