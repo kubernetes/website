@@ -6,14 +6,14 @@ full_link: /docs/reference/generated/kube-scheduler/
 # short_description: >
 #   Control Plane component that watches for newly created pods with no assigned node, and selects a node for them to run on.
 short_description: >
-  Компонент площини управління, що відстежує створені Поди, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
+  Компонент площини управління, що відстежує створені Pod'и, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
 
 aka:
 tags:
 - architecture
 ---
 <!-- Control Plane component that watches for newly created pods with no assigned node, and selects a node for them to run on. -->
-Компонент площини управління, що відстежує створені Поди, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
+Компонент площини управління, що відстежує створені Pod'и, які ще не розподілені по вузлах, і обирає вузол, на якому вони працюватимуть.
 
 <!--more-->
 

@@ -41,13 +41,13 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Configuring Redis Using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)
 
-## Застосунки без стану (Stateless Applications)
+## Застосунки без стану (Stateless Applications) {#застосунки-без-стану}
 
 * [Exposing an External IP Address to Access an Application in a Cluster](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [Example: Deploying PHP Guestbook application with Redis](/docs/tutorials/stateless-application/guestbook/)
 
-## Застосунки зі станом (Stateful Applications)
+## Застосунки зі станом (Stateful Applications) {#застосунки-зі-станом}
 
 * [StatefulSet Basics](/docs/tutorials/stateful-application/basic-stateful-set/)
 
