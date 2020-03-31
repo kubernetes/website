@@ -199,7 +199,6 @@ Operation       | Syntax    |       Description
 `rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | 通过逐步替换指定的副本控制器及其 pod 来执行滚动更新。
 `run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | 在集群上运行指定的镜像。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 更新指定副本控制器的大小。
-`stop`        | `kubectl stop` | 不推荐：相反，请参阅 kubectl delete。
 `version`        | `kubectl version [--client] [flags]` | 显示运行在客户端和服务器上的 Kubernetes 版本。
 
 
