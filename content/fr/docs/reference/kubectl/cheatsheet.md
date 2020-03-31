@@ -199,7 +199,7 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 # Liste les événements (Events) classés par timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
 
-# Compares l'état actuel of the cluster against the state that the cluster would be in if the manifest was applied.
+# Compare l'état actuel du cluster à l'état du cluster si le manifeste était appliqué.
 kubectl diff -f ./my-manifest.yaml
 ```
 
