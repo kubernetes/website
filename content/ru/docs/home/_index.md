@@ -5,7 +5,7 @@ title: Документация по Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "Главная"
 main_menu: true
 weight: 10
