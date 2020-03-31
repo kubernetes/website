@@ -22,10 +22,10 @@ This page describes how to build, configure, use, and monitor admission webhooks
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+[validating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 and
 [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook).
-Mutating admission Webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
+Mutating admission webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
 After all object modifications are complete, and after the incoming object is validated by the API server,
 validating admission webhooks are invoked and can reject requests to enforce custom policies.
 
