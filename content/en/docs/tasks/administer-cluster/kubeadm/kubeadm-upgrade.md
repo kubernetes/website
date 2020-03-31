@@ -237,6 +237,24 @@ The upgrade workflow at high level is the following:
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
+    One common issue you may encounter if you are using Flannel network is
+    that after the upgrade, the cluster nodes remain in `NotReady` state.
+    If you do `kubectl get nodes -o yaml`, you may see following lines in the
+    output:
+
+    ```
+    message:docker: network plugin is not ready: cni config uninitialized
+    ```
+
+    In this case, you will need to update the `/etc/cni/net.d/10-flannel.conflist`
+    file to include the `cniVersion` line, as shown below:
+
+    ```
+      "name": "cbr0",
+      "cniVersion": "0.2.0",
+      "plugins": [ ...
+    ```
+
 1.  Uncordon the control plane node
 
     ```shell
