@@ -1,7 +1,4 @@
 ---
-reviewers:
-- bgrant0607
-- mikedanese
 title: Що таке Kubernetes?
 content_template: templates/concept
 weight: 10

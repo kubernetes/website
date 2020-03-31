@@ -1,12 +1,10 @@
 ---
-approvers:
-- chenopis
 title: Документація Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
-linkTitle: "Home"
+class: gridPage gridPageHome
+linkTitle: "Головна"
 main_menu: true
 weight: 10
 hide_feedback: true

@@ -109,12 +109,12 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 -->
-[*Под*](/docs/concepts/workloads/pods/pod/) у Kubernetes -- це група з одного або декількох контейнерів, що об'єднані разом з метою адміністрування і роботи у мережі. У цьому навчальному матеріалі Под має лише один контейнер. Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) перевіряє стан Пода і перезапускає контейнер Пода, якщо контейнер перестає працювати. Створювати і масштабувати Поди рекомендується за допомогою Deployment'ів.
+[*Pod*](/docs/concepts/workloads/pods/pod/) у Kubernetes -- це група з одного або декількох контейнерів, що об'єднані разом з метою адміністрування і роботи у мережі. У цьому навчальному матеріалі Pod має лише один контейнер. Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) перевіряє стан Pod'а і перезапускає контейнер Pod'а, якщо контейнер перестає працювати. Створювати і масштабувати Pod'и рекомендується за допомогою Deployment'ів.
 
 <!--1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image.
 -->
-1. За допомогою команди `kubectl create` створіть Deployment, який керуватиме Подом. Под запускає контейнер на основі наданого Docker образу.
+1. За допомогою команди `kubectl create` створіть Deployment, який керуватиме Pod'ом. Pod запускає контейнер на основі наданого Docker образу.
 
     ```shell
     kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
@@ -139,7 +139,7 @@ Pod runs a Container based on the provided Docker image.
 
 <!--3. View the Pod:
 -->
-3. Перегляньте інформацію про запущені Поди:
+3. Перегляньте інформацію про запущені Pod'и:
 
     ```shell
     kubectl get pods
@@ -176,18 +176,18 @@ Pod runs a Container based on the provided Docker image.
 
 <!--## Create a Service
 -->
-## Створення Сервісу
+## Створення Service
 
 <!--By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
 Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 -->
-За умовчанням, Под доступний лише за внутрішньою IP-адресою у межах Kubernetes кластера. Для того, щоб контейнер `hello-node` став доступний за межами віртуальної мережі Kubernetes, Под необхідно відкрити як Kubernetes [*Сервіс*](/docs/concepts/services-networking/service/).
+За умовчанням, Pod доступний лише за внутрішньою IP-адресою у межах Kubernetes кластера. Для того, щоб контейнер `hello-node` став доступний за межами віртуальної мережі Kubernetes, Pod необхідно відкрити як Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 <!--1. Expose the Pod to the public internet using the `kubectl expose` command:
 -->
-1. Відкрийте Под для публічного доступу з інтернету за допомогою команди `kubectl expose`:
+1. Відкрийте Pod для публічного доступу з інтернету за допомогою команди `kubectl expose`:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
@@ -196,11 +196,11 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     <!--The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
     -->
-    Прапорець `--type=LoadBalancer` вказує, що ви хочете відкрити доступ до Сервісу за межами кластера.
+    Прапорець `--type=LoadBalancer` вказує, що ви хочете відкрити доступ до Service за межами кластера.
 
 <!--2. View the Service you just created:
 -->
-2. Перегляньте інформацію за Сервісом, який ви щойно створили:
+2. Перегляньте інформацію про Service, який ви щойно створили:
 
     ```shell
     kubectl get services
@@ -221,7 +221,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
     -->
-    Для хмарних провайдерів, що підтримують балансування навантаження, доступ до Сервісу надається через зовнішню IP-адресу. Для Minikube, тип `LoadBalancer` робить Сервіс доступним ззовні за допомогою команди `minikube service`.
+    Для хмарних провайдерів, що підтримують балансування навантаження, доступ до Service надається через зовнішню IP-адресу. Для Minikube, тип `LoadBalancer` робить Service доступним ззовні за допомогою команди `minikube service`.
 
 <!--3. Run the following command:
 -->
@@ -301,7 +301,7 @@ Minikube має ряд вбудованих {{< glossary_tooltip text="розш�
 
 <!--3. View the Pod and Service you just created:
 -->
-3. Перегляньте інформацію про Под і Сервіс, які ви щойно створили:
+3. Перегляньте інформацію про Pod і Service, які ви щойно створили:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -389,6 +389,6 @@ minikube delete
 * Дізнайтеся більше про [розгортання застосунків](/docs/user-guide/deploying-applications/).
 <!--* Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* Дізнайтеся більше про [об'єкти сервісу](/docs/concepts/services-networking/service/).
+* Дізнайтеся більше про [об'єкти Service](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}

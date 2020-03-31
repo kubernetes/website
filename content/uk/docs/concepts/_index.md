@@ -26,7 +26,7 @@ weight: 40
 
 <!--Once you've set your desired state, the *Kubernetes Control Plane* makes the cluster's current state match the desired state via the Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:
 -->
-Після того, як ви задали бажаний стан, *площина управління Kubernetes* приводить поточний стан кластера до бажаного за допомогою Генератора подій життєвого циклу Пода ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). Для цього Kubernetes автоматично виконує ряд задач: запускає або перезапускає контейнери, масштабує кількість реплік у певному застосунку тощо. Площина управління Kubernetes складається із набору процесів, що виконуються у вашому кластері:
+Після того, як ви задали бажаний стан, *площина управління Kubernetes* приводить поточний стан кластера до бажаного за допомогою Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). Для цього Kubernetes автоматично виконує ряд задач: запускає або перезапускає контейнери, масштабує кількість реплік у певному застосунку тощо. Площина управління Kubernetes складається із набору процесів, що виконуються у вашому кластері:
 
 <!--* The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
 * Each individual non-master node in your cluster runs two processes:
@@ -57,8 +57,8 @@ Kubernetes оперує певною кількістю абстракцій, щ
 -->
 До базових об'єктів Kubernetes належать:
 
-* [Под *(Pod)*](/docs/concepts/workloads/pods/pod-overview/)
-* [Сервіс *(Service)*](/docs/concepts/services-networking/service/)
+* [Pod](/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
@@ -75,7 +75,7 @@ Kubernetes оперує певною кількістю абстракцій, щ
 <!--## Kubernetes Control Plane
 -->
 
-## Площина управління Kubernetes (*Kubernetes Control Plane*)
+## Площина управління Kubernetes (*Kubernetes Control Plane*) {#площина-управління-kubernetes}
 
 <!--The various parts of the Kubernetes Control Plane, such as the Kubernetes Master and kubelet processes, govern how Kubernetes communicates with your cluster. The Control Plane maintains a record of all of the Kubernetes Objects in the system, and runs continuous control loops to manage those objects' state. At any given time, the Control Plane's control loops will respond to changes in the cluster and work to make the actual state of all the objects in the system match the desired state that you provided.
 -->
