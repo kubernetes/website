@@ -409,7 +409,7 @@ See
 [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
 for more details.
 
-kubelet out-of-resource eviction does not evict Pods wheir their
+kubelet out-of-resource eviction does not evict Pods when their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
