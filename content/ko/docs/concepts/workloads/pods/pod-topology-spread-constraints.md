@@ -6,7 +6,7 @@ weight: 50
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
@@ -18,11 +18,10 @@ weight: 50
 
 ### 기능 게이트 활성화
 
-`EvenPodsSpread` 기능 게이트의 활성화가 되었는지 확인한다(기본적으로 1.16에서는 
-비활성화되어있다). 기능 게이트의 활성화에 대한 설명은 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
 를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와** 
 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 
-대해 `EvenPodsSpread` 기능 게이트가 활성화되어야 한다.
+대해 `EvenPodsSpread`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어야 한다.
 
 ### 노드 레이블
 
@@ -184,6 +183,46 @@ spec:
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
+### 클러스터 수준의 기본 제약 조건
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+클러스터에 대한 기본 토폴로지 분배 제약 조건을 설정할 수 있다. 기본
+토폴로지 분배 제약 조건은 다음과 같은 경우에만 파드에 적용된다.
+
+- `.spec.topologySpreadConstraints` 에는 어떠한 제약도 정의되어 있지 않는 경우.
+- 서비스, 레플리케이션 컨트롤러, 레플리카 셋 또는 스테이트풀 셋에 속해있는 경우.
+
+기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/profiles)에서
+`PodTopologySpread` 플러그인의 일부로 설정할 수 있다.
+제약 조건은 `labelSelector` 가 비어 있어야 한다는 점을 제외하고, [위와 동일한 API](#api)로
+제약 조건을 지정한다. 셀렉터는 파드가 속한 서비스, 레플리케이션 컨트롤러,
+레플리카 셋 또는 스테이트풀 셋에서 계산한다.
+
+예시 구성은 다음과 같다.
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1alpha2
+kind: KubeSchedulerConfiguration
+
+profiles:
+  pluginConfig:
+  - name: PodTopologySpread
+    args:
+      defaultConstraints:
+      - maxSkew: 1
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+```
+
+{{< note >}}
+기본 스케줄링 제약 조건에 의해 생성된 점수는
+[`DefaultPodTopologySpread` 플러그인](/docs/reference/scheduling/profiles/#scheduling-plugins)에
+의해 생성된 점수와 충돌 할 수 있다.
+`PodTopologySpread` 에 대한 기본 제약 조건을 사용할 때 스케줄링 프로파일에서
+이 플러그인을 비활성화 하는 것을 권장한다.
+{{< /note >}}
+
 ## 파드어피니티(PodAffinity)/파드안티어피니티(PodAntiAffinity)와의 비교
 
 쿠버네티스에서 "어피니티(Affinity)"와 관련된 지침은 파드가
@@ -201,9 +240,9 @@ spec:
 
 ## 알려진 제한사항
 
-1.16을 기준으로 이 기능은 알파(Alpha)이며, 몇 가지 알려진 제한사항이 있다.
+1.18을 기준으로 이 기능은 베타(Beta)이며, 몇 가지 알려진 제한사항이 있다.
 
-- `Deployment` 를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
+- 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
 {{% /capture %}}
