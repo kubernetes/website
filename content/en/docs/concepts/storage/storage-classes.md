@@ -791,8 +791,8 @@ kubectl create secret generic storageos-secret \
 --namespace=default
 ```
 
-Secrets used for dynamically provisioned volumes may be created in any namespace
-and referenced with the `adminSecretNamespace` parameter. Secrets used by
+The Secrets used for dynamically provisioned volumes may be created in any namespace
+and referenced with the `adminSecretNamespace` parameter. The Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 
@@ -810,10 +810,10 @@ volumeBindingMode: WaitForFirstConsumer
 ```
 
 Local volumes do not currently support dynamic provisioning, however a StorageClass
-should still be created to delay volume binding until pod scheduling. This is
+should still be created to delay volume binding until Pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 
-Delaying volume binding allows the scheduler to consider all of a pod's
+Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 
