@@ -5,13 +5,14 @@ weight: 50
 ---
 
 <!--
----
+
 title: Pod Topology Spread Constraints
 content_template: templates/concept
 weight: 50
----
--->
 
+---
+
+-->
 
 {{% capture overview %}}
 
@@ -21,7 +22,7 @@ weight: 50
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 -->
 
-可以使用_拓扑扩展约束_来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
+可以使用*拓扑扩展约束*来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
 
 {{% /capture %}}
 
@@ -116,10 +117,10 @@ metadata:
   name: mypod
 spec:
   topologySpreadConstraints:
-  - maxSkew: <integer>
-    topologyKey: <string>
-    whenUnsatisfiable: <string>
-    labelSelector: <object>
+    - maxSkew: <integer>
+      topologyKey: <string>
+      whenUnsatisfiable: <string>
+      labelSelector: <object>
 ```
 
 <!--
@@ -140,8 +141,8 @@ You can define one or multiple `topologySpreadConstraint` to instruct the kube-s
 - **maxSkew** 描述 pod 分布不均的程度。这是给定拓扑类型中任意两个拓扑域中匹配的 pod 之间的最大允许差值。它必须大于零。
 - **topologyKey** 是节点标签的键。如果两个节点使用此键标记并且具有相同的标签值，则调度器会将这两个节点视为处于同一拓扑中。调度器试图在每个拓扑域中放置数量均衡的 pod。
 - **whenUnsatisfiable** 指示如果 pod 不满足扩展约束时如何处理：
-    - `DoNotSchedule`（默认）告诉调度器不用进行调度。
-    - `ScheduleAnyway` 告诉调度器在对最小化倾斜的节点进行优先级排序时仍对其进行调度。
+  - `DoNotSchedule`（默认）告诉调度器不用进行调度。
+  - `ScheduleAnyway` 告诉调度器在对最小化倾斜的节点进行优先级排序时仍对其进行调度。
 - **labelSelector** 用于查找匹配的 pod。匹配此标签的 pod 将被统计，以确定相应拓扑域中 pod 的数量。有关详细信息，请参考[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)。
 
 <!--
@@ -215,7 +216,7 @@ You can tweak the Pod spec to meet various kinds of requirements:
 -->
 
 - 将 `maxSkew` 更改为更大的值，比如 "2"，这样传入的 pod 也可以放在 "zoneA" 上。
-- 将 `topologyKey` 更改为 "node"，以便将 pod 均匀分布在节点上而不是区域中。在上面的例子中，如果 `maxSkew` 保持为 "1"，那么传入的 pod 只能放在  "node4" 上。
+- 将 `topologyKey` 更改为 "node"，以便将 pod 均匀分布在节点上而不是区域中。在上面的例子中，如果 `maxSkew` 保持为 "1"，那么传入的 pod 只能放在 "node4" 上。
 - 将 `whenUnsatisfiable: DoNotSchedule` 更改为 `whenUnsatisfiable: ScheduleAnyway`，以确保传入的 pod 始终可以调度（假设满足其他的调度 API）。但是，最好将其放置在具有较少匹配 pod 的拓扑域中。（请注意，此优先性与其他内部调度优先级（如资源使用率等）一起进行标准化。）
 
 <!--
@@ -307,8 +308,8 @@ There are some implicit conventions worth noting here:
 -->
 
 - 没有 `topologySpreadConstraints[*].topologyKey` 的节点将被忽略。这意味着：
-    1. 位于这些节点上的 pod 不影响 `maxSkew` 的计算。在上面的例子中，假设 "node1" 没有标签 "zone"，那么 2 个 pod 将被忽略，因此传入的 pod 将被调度到 "zoneA" 中。
-    2. 传入的 pod 没有机会被调度到这类节点上。在上面的例子中，假设一个带有标签 `{zone-typo: zoneC}` 的 "node5" 加入到集群，它将由于没有标签键 "zone" 而被忽略。
+  1. 位于这些节点上的 pod 不影响 `maxSkew` 的计算。在上面的例子中，假设 "node1" 没有标签 "zone"，那么 2 个 pod 将被忽略，因此传入的 pod 将被调度到 "zoneA" 中。
+  2. 传入的 pod 没有机会被调度到这类节点上。在上面的例子中，假设一个带有标签 `{zone-typo: zoneC}` 的 "node5" 加入到集群，它将由于没有标签键 "zone" 而被忽略。
 
 <!--
 - Be aware of what will happen if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming Pod’s labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
@@ -326,8 +327,7 @@ There are some implicit conventions worth noting here:
     Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 -->
 
-   假设有一个从 zonea 到 zonec 的 5 节点集群：
-
+假设有一个从 zonea 到 zonec 的 5 节点集群：
 
     ```
     +---------------+---------------+-------+
@@ -343,7 +343,7 @@ There are some implicit conventions worth noting here:
     and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 -->
 
-   你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
+你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
@@ -374,10 +374,10 @@ single topology domain.
 The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
 topology domains - to achieve high availability or cost-saving. This can also help on rolling update
 workloads and scaling out replicas smoothly.
-See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-even-pods-spreading.md#motivation) for more details.
+See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation) for more details.
 -->
 
-"EvenPodsSpread" 功能提供灵活的选项来将 pod 均匀分布到不同的拓扑域中，以实现高可用性或节省成本。这也有助于滚动更新工作负载和平滑扩展副本。有关详细信息，请参考[动机](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-even-pods-spreading.md#motivation)。
+"EvenPodsSpread" 功能提供灵活的选项来将 pod 均匀分布到不同的拓扑域中，以实现高可用性或节省成本。这也有助于滚动更新工作负载和平滑扩展副本。有关详细信息，请参考[动机](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation)。
 
 <!--
 ## Known Limitations
