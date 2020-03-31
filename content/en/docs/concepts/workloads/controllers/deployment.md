@@ -64,7 +64,7 @@ In this example:
   * The Pods are labeled `app: nginx`using the `labels` field.
   * The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
-  [Docker Hub](https://hub.docker.com/) image at version 1.7.9.
+  [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
   * Create one container and name it `nginx` using the `name` field.
 
   Follow the steps given below to create the above Deployment:
@@ -153,15 +153,15 @@ is changed, for example if the labels or container images of the template are up
 
 Follow the steps given below to update your Deployment:
 
-1. Let's update the nginx Pods to use the `nginx:1.9.1` image instead of the `nginx:1.7.9` image.
+1. Let's update the nginx Pods to use the `nginx:1.16.1` image instead of the `nginx:1.14.2` image.
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
     or simply use the following command: 
     
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
     ```
   
     The output is similar to this:
@@ -169,7 +169,7 @@ Follow the steps given below to update your Deployment:
     deployment.apps/nginx-deployment image updated
     ```
 
-    Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`:
+    Alternatively, you can `edit` the Deployment and change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`:
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
@@ -265,7 +265,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
     Labels:  app=nginx
      Containers:
       nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Environment:  <none>
         Mounts:       <none>
@@ -306,11 +306,11 @@ If you update a Deployment while an existing rollout is in progress, the Deploym
 as per the update and start scaling that up, and rolls over the ReplicaSet that it was scaling up previously
  -- it will add it to its list of old ReplicaSets and start scaling it down.
 
-For example, suppose you create a Deployment to create 5 replicas of `nginx:1.7.9`,
-but then update the Deployment to create 5 replicas of `nginx:1.9.1`, when only 3
-replicas of `nginx:1.7.9` had been created. In that case, the Deployment immediately starts
-killing the 3 `nginx:1.7.9` Pods that it had created, and starts creating
-`nginx:1.9.1` Pods. It does not wait for the 5 replicas of `nginx:1.7.9` to be created
+For example, suppose you create a Deployment to create 5 replicas of `nginx:1.14.2`,
+but then update the Deployment to create 5 replicas of `nginx:1.16.1`, when only 3
+replicas of `nginx:1.14.2` had been created. In that case, the Deployment immediately starts
+killing the 3 `nginx:1.14.2` Pods that it had created, and starts creating
+`nginx:1.16.1` Pods. It does not wait for the 5 replicas of `nginx:1.14.2` to be created
 before changing course.
 
 ### Label selector updates
@@ -347,10 +347,10 @@ This means that when you roll back to an earlier revision, only the Deployment's
 rolled back.
 {{< /note >}}
 
-* Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.91` instead of `nginx:1.9.1`:
+* Suppose that you made a typo while updating the Deployment, by putting the image name as `nginx:1.161` instead of `nginx:1.16.1`:
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     The output is similar to this:
@@ -427,7 +427,7 @@ rolled back.
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.91
+        Image:        nginx:1.161
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -468,13 +468,13 @@ Follow the steps given below to check the rollout history:
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
     1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     `CHANGE-CAUSE` is copied from the Deployment annotation `kubernetes.io/change-cause` to its revisions upon creation. You can specify the`CHANGE-CAUSE` message by:
 
-    * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"`
+    * Annotating the Deployment with `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`
     * Append the `--record` flag to save the `kubectl` command that is making changes to the resource.
     * Manually editing the manifest of the resource.
 
@@ -488,10 +488,10 @@ Follow the steps given below to check the rollout history:
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
       Containers:
        nginx:
-        Image:      nginx:1.9.1
+        Image:      nginx:1.16.1
         Port:       80/TCP
          QoS Tier:
             cpu:      BestEffort
@@ -549,7 +549,7 @@ Follow the steps given below to rollback the Deployment from the current version
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -559,7 +559,7 @@ Follow the steps given below to rollback the Deployment from the current version
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -722,7 +722,7 @@ apply multiple fixes in between pausing and resuming without triggering unnecess
 
 * Then update the image of the Deployment:
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     The output is similar to this:
@@ -1020,6 +1020,8 @@ can create multiple Deployments, one for each release, following the canary patt
 As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and `metadata` fields.
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
+The name of a Deployment object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -1074,7 +1076,7 @@ All existing Pods are killed before new ones are created when `.spec.strategy.ty
 
 #### Rolling Update Deployment
 
-The Deployment updates Pods in a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/)
+The Deployment updates Pods in a rolling update
 fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 
@@ -1140,13 +1142,5 @@ In this case, a new Deployment rollout cannot be undone, since its revision hist
 a paused Deployment and one that is not paused, is that any changes into the PodTemplateSpec of the paused
 Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused by default when
 it is created.
-
-## Alternative to Deployments
-
-### kubectl rolling-update
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) updates Pods and ReplicationControllers
-in a similar fashion. But Deployments are recommended, since they are declarative, server side, and have
-additional features, such as rolling back to any previous revision even after the rolling update is done.
 
 {{% /capture %}}

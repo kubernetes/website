@@ -65,7 +65,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 ### kubectlのインストール
 
 kubectlがインストールされていることを確認してください。
-[kubectlのインストールとセットアップ](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)の指示に従ってkubectlをインストールできます。
+[kubectlのインストールとセットアップ](/ja/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)の指示に従ってkubectlをインストールできます。
 
 ### ハイパーバイザーのインストール
 
@@ -110,7 +110,7 @@ sudo install minikube /usr/local/bin/
 ### kubectlのインストール
 
 kubectlがインストールされていることを確認してください。
-[kubectlのインストールとセットアップ](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos)の指示に従ってkubectlをインストールできます。
+[kubectlのインストールとセットアップ](/ja/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos)の指示に従ってkubectlをインストールできます。
 
 ### ハイパーバイザーのインストール
 
@@ -147,7 +147,7 @@ sudo mv minikube /usr/local/bin
 ### kubectlのインストール
 
 kubectlがインストールされていることを確認してください。
-[kubectlのインストールとセットアップ](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows)の指示に従ってkubectlをインストールできます。
+[kubectlのインストールとセットアップ](/ja/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows)の指示に従ってkubectlをインストールできます。
 
 ### ハイパーバイザーのインストール
 

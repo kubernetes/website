@@ -246,6 +246,9 @@ spec:
   caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
 ```
 
+The name of an APIService object must be a valid
+[path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
+
 #### Contacting the extension apiserver
 
 Once the Kubernetes apiserver has determined a request should be sent to a extension apiserver,

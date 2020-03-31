@@ -26,7 +26,7 @@ Gdy tylko zdefiniujesz zamierzony stan, warstwa sterowania Kubernetes (*Kubernet
 
 ## Obiekty Kubernetes
 
-Kubernetes składa się z różnych abstrakcyjnych obiektów, które reprezentują stan systemu: wdrożone aplikacje i zadania w kontenerach, powiązane zasoby sieciowe i dyskowe oraz inne informacje o tym, co się dzieje na klasterze. Te abstrakcyjne obiekty są reprezentowane przez API Kubernetes. [Opis Obiektów w Kubernetesie](/docs/concepts/overview/working-with-objects/kubernetes-objects/) zawiera więcej szczegółów na ten temat.
+Kubernetes składa się z różnych abstrakcyjnych obiektów, które reprezentują stan systemu: wdrożone aplikacje i zadania w kontenerach, powiązane zasoby sieciowe i dyskowe oraz inne informacje o tym, co się dzieje na klasterze. Te abstrakcyjne obiekty są reprezentowane przez API Kubernetes. [Opis obiektów w Kubernetesie](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects) zawiera więcej szczegółów na ten temat.
 
 Do podstawowych obiektów Kubernetes należą:
 

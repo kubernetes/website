@@ -26,13 +26,13 @@ weight: 40
 
 ## 쿠버네티스 오브젝트
 
-쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 이해하기](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/) 문서를 참조한다.
+쿠버네티스는 시스템의 상태를 나타내는 추상 개념을 다수 포함하고 있다. 컨테이너화되어 배포된 애플리케이션과 워크로드, 이에 연관된 네트워크와 디스크 자원, 그 밖에 클러스터가 무엇을 하고 있는지에 대한 정보가 이에 해당한다. 이런 추상 개념은 쿠버네티스 API 내 오브젝트로 표현된다. 보다 자세한 내용은 [쿠버네티스 오브젝트 이해하기](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects) 문서를 참조한다.
 
 기초적인 쿠버네티스 오브젝트에는 다음과 같은 것들이 있다.
 
 * [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
-* [서비스](/docs/concepts/services-networking/service/)
-* [볼륨](/docs/concepts/storage/volumes/)
+* [서비스](/ko/docs/concepts/services-networking/service/)
+* [볼륨](/ko/docs/concepts/storage/volumes/)
 * [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 
 또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
@@ -41,7 +41,7 @@ weight: 40
 * [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
 * [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
-* [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## 쿠버네티스 컨트롤 플레인
 

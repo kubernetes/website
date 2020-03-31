@@ -9,7 +9,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-This page shows how to safely drain a machine, respecting the PodDisruptionBudget you have defined.
+This page shows how to safely drain a node, respecting the PodDisruptionBudget you have defined.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -156,6 +156,7 @@ application owners and cluster owners to establish an agreement on behavior in t
 {{% capture whatsnext %}}
 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+* Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
 
 {{% /capture %}}
 

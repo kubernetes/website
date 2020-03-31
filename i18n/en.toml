@@ -58,6 +58,9 @@ other = "Was this page helpful?"
 [feedback_yes]
 other = "Yes"
 
+[input_placeholder_email_address]
+other = "email address"
+
 [latest_version]
 other = "latest version."
 

@@ -35,28 +35,25 @@ components still rely on Endpoints. For now, enabling EndpointSlices should be
 seen as an addition to Endpoints in a cluster, not a replacement for them.
 {{< /note >}}
 
-EndpointSlices are considered a beta feature, but only the API is enabled by
-default. Both the EndpointSlice controller and the usage of EndpointSlices by
-kube-proxy are not enabled by default.
+EndpointSlices are a beta feature. Both the API and the EndpointSlice
+{{< glossary_tooltip term_id="controller" >}} are enabled by default.
+{{<  glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}
+uses Endpoints by default, not EndpointSlices.
 
-The EndpointSlice controller creates and manages EndpointSlices in a cluster.
-You can enable it with the `EndpointSlice` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
-glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} and {{<
-glossary_tooltip text="kube-controller-manager"
-term_id="kube-controller-manager" >}} (`--feature-gates=EndpointSlice=true`).
-
-For better scalability, you can also enable this feature gate on {{<
-glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} so EndpointSlices
-will be used as the data source instead of Endpoints.
+For better scalability and performance, you can enable the
+`EndpointSliceProxying`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on kube-proxy. That change
+switches the data source to be EndpointSlices, which reduces the amount of
+Kubernetes API traffic to and from kube-proxy.
 
 ## Using EndpointSlices
 
 With EndpointSlices fully enabled in your cluster, you should see corresponding
 EndpointSlice resources for each Endpoints resource. In addition to supporting
-existing Endpoints functionality, EndpointSlices should include new bits of
-information such as topology. They will allow for greater scalability and
-extensibility of network endpoints in your cluster.
+existing Endpoints functionality, EndpointSlices include new bits of information
+such as topology. They will allow for greater scalability and extensibility of
+network endpoints in your cluster.
 
 {{% capture whatsnext %}}
 

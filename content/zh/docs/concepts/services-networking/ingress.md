@@ -35,35 +35,45 @@ For clarity, this guide defines the following terms:
 Node
 : A worker machine in Kubernetes, part of a cluster.
 -->
-节点（Node）
-: Kubernetes 集群中其中一台工作机器，是集群的一部分。
+
+节点（Node）:
+
+Kubernetes 集群中其中一台工作机器，是集群的一部分。
 
 <!--
 Cluster
 : A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet. 
 -->
-集群（Cluster）
-: 一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
+
+集群（Cluster）: 
+
+一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
 
 <!--
 Edge router
 : A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware. 
 -->
-边缘路由器（Edge router）
-: 在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
+
+边缘路由器（Edge router）: 
+
+在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
 
 <!--
 Cluster network
 : A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/). 
 -->
-集群网络（Cluster network）
-: 一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
+
+集群网络（Cluster network）: 
+
+一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
 
 <!--
 Service
 : A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
 -->
+
 服务（Service）：
+
 Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 

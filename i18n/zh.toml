@@ -25,6 +25,9 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+[community_youtube_name]
+other = "YouTube"
+
 [deprecation_warning]
 other = " 版本的文档已不再维护。您现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
 
@@ -186,3 +189,6 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
+
+[input_placeholder_email_address]
+other = "电子邮件地址"

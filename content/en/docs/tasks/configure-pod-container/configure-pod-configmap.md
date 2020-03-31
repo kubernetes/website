@@ -26,18 +26,17 @@ You can use either `kubectl create configmap` or a ConfigMap generator in `kusto
 
 ### Create a ConfigMap Using kubectl create configmap
 
-Use the `kubectl create configmap` command to create configmaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
+Use the `kubectl create configmap` command to create ConfigMaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap <map-name> <data-source>
 ```
 
 where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the directory, file, or literal value to draw the data from.
+The name of a ConfigMap object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-The data source corresponds to a key-value pair in the ConfigMap, where
-
-* key = the file name or the key you provided on the command line, and
-* value = the file contents or the literal value you provided on the command line.
+When you are creating a ConfigMap based on a file, the key in the \<data-source> defaults to the basename of the file, and the value defaults to the file content.
 
 You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
@@ -45,7 +44,7 @@ about a ConfigMap.
 
 #### Create ConfigMaps from directories
 
-You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
+You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory. When you are creating a ConfigMap based on a directory, kubectl identifies files whose basename is a valid key in the directory and packages each of those files into the new ConfigMap. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
 
 For example:
 
@@ -61,30 +60,36 @@ wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-con
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-combines the contents of the `configure-pod-container/configmap/` directory
-
-```shell
-game.properties
-ui.properties
-```
-
-into the following ConfigMap:
+The above command packages each file, in this case, `game.properties` and `ui.properties` in the `configure-pod-container/configmap/` directory into the game-config ConfigMap. You can display details of the ConfigMap using the following command:
 
 ```shell
 kubectl describe configmaps game-config
 ```
 
-where the output is similar to this:
+The output is similar to this:
 ```
-Name:           game-config
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
-ui.properties:          83 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
 ```
 
 The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/` directory are represented in the `data` section of the ConfigMap.
@@ -138,14 +143,22 @@ kubectl describe configmaps game-config-2
 where the output is similar to this:
 
 ```
-Name:           game-config-2
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
 ```
 
 You can pass in the `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
@@ -154,7 +167,7 @@ You can pass in the `--from-file` argument multiple times to create a ConfigMap 
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
 ```
 
-Describe the above `game-config-2` configmap created
+You can display details of the `game-config-2` ConfigMap using the following command:
 
 ```shell
 kubectl describe configmaps game-config-2
@@ -163,15 +176,28 @@ kubectl describe configmaps game-config-2
 The output is similar to this:
 
 ```
-Name:           game-config-2
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
-ui.properties:          83 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
 ```
 
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
@@ -227,11 +253,11 @@ data:
 When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
 {{< /caution >}}
 
-The behavior of passing `--from-env-file` multiple times is demonstrated by: 
+The behavior of passing `--from-env-file` multiple times is demonstrated by:
 
 ```shell
 # Download the sample files into `configure-pod-container/configmap/` directory
-wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
 # Create the configmap
 kubectl create configmap config-multi-env-files \
@@ -656,4 +682,3 @@ data:
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
 {{% /capture %}}
-

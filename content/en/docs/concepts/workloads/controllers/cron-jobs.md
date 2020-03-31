@@ -18,11 +18,12 @@ One CronJob object is like one line of a _crontab_ (cron table) file. It runs a 
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 {{< note >}}
-All **CronJob** `schedule:` times are based on the timezone of the master where the job is initiated.
+All **CronJob** `schedule:` times are denoted in UTC.
 {{< /note >}}
 
 When creating the manifest for a CronJob resource, make sure the name you provide
-is no longer than 52 characters. This is because the CronJob controller will automatically
+is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name must be no longer than 52 characters. This is because the CronJob controller will automatically
 append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 

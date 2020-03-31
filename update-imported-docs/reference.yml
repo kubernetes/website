@@ -6,10 +6,12 @@ repos:
   branch: master
   generate-command: |
     cd $GOPATH
-    git clone https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
+    # set the branch, ex: v1.17.0 while K8S_RELEASE=1.17
+    # CAUTION: The script won't work if you set K8S_RELEASE=1.18 before 1.18 is formally released.
+    # The `v${K8S_RELEASE}.0` string must be a valid tag name from the kubernetes repo, which
+    # is only created after the formal release.
+    git clone --depth=1 --single-branch --branch v${K8S_RELEASE}.0 https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
-    # set the branch, ex: v1.17.0
-    git checkout v${K8S_RELEASE}.0
     make generated_files
     cp -L -R vendor $GOPATH/src
     rm -r vendor/github.com/spf13/cobra
@@ -53,26 +55,3 @@ repos:
     dst: content/en/docs/reference/kubectl/
   - src: gen-compdocs/build/kubeadm*.md
     dst: content/en/docs/reference/setup-tools/kubeadm/generated/
-
-#- name: federation
-#  remote: https://github.com/kubernetes/federation.git
-  # Change this to a release branch when federation has release branches.
-#  branch: master
-#  generate-command: hack/generate-docs.sh
-#  files:
-#  - src: docs/admin/federation-apiserver.md
-#    dst: content/en/docs/reference/command-line-tools-reference/federation-apiserver.md
-#  - src: docs/admin/federation-controller-manager.md
-#    dst: content/en/docs/reference/command-line-tools-reference/federation-controller-manager.md
-#  - src: docs/admin/kubefed_init.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_init.md
-#  - src: docs/admin/kubefed_join.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_join.md
-#  - src: docs/admin/kubefed.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed.md
-#  - src: docs/admin/kubefed_options.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_options.md
-#  - src: docs/admin/kubefed_unjoin.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_unjoin.md
-#  - src: docs/admin/kubefed_version.md
-#    dst: content/en/docs/reference/setup-tools/kubefed/kubefed_version.md

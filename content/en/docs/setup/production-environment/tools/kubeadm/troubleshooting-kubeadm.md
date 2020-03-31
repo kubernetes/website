@@ -22,6 +22,49 @@ If your problem is not listed below, please follow the following steps:
 
 {{% capture body %}}
 
+## Not possible to join a v1.18 Node to a v1.17 cluster due to missing RBAC
+
+In v1.18 kubeadm added prevention for joining a Node in the cluster if a Node with the same name already exists.
+This required adding RBAC for the bootstrap-token user to be able to GET a Node object.
+
+However this causes an issue where `kubeadm join` from v1.18 cannot join a cluster created by kubeadm v1.17.
+
+To workaround the issue you have two options:
+
+Execute `kubeadm init phase bootstrap-token` on a control-plane node using kubeadm v1.18.
+Note that this enables the rest of the bootstrap-token permissions as well.
+
+or
+
+Apply the following RBAC manually using `kubectl apply -f ...`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeadm:get-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:get-nodes
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeadm:get-nodes
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+```
+
 ## `ebtables` or some similar executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
@@ -307,16 +350,58 @@ The tracking issue for this problem is [here](https://github.com/kubernetes/kube
 
 *Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
 
-By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+By default, kubeadm applies the `node-role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
 If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
 the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
 
 There are at least two workarounds:
 
-1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
 
 2. Remove the taint after kubeadm init exits:
 ```bash
-kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 ```
+
+## `/usr` is mounted read-only on nodes {#usr-mounted-read-only}
+
+On Linux distributions such as Fedora CoreOS, the directory `/usr` is mounted as a read-only filesystem.
+For [flex-volume support](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md),
+Kubernetes components like the kubelet and kube-controller-manager use the default path of
+`/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`, yet the flex-volume directory _must be writeable_
+for the feature to work.
+
+To workaround this issue you can configure the flex-volume directory using the kubeadm
+[configuration file](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2).
+
+On the primary control-plane Node (created using `kubeadm init`) pass the following
+file using `--config`:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+controllerManager:
+  extraArgs:
+    flex-volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+```
+
+On joining Nodes:
+
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: JoinConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
+```
+
+Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
+be advised that this is modifying a design principle of the Linux distribution.
+
 {{% /capture %}}
