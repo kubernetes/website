@@ -4,10 +4,10 @@ content_template: templates/tutorial
 weight: 5
 menu:
   main:
-    title: "البدء"
+    title: "Get Started"
     weight: 10
     post: >
-      <p>هل أنت جاهز لتسخين يديك؟ قم بإنشاء مجموعة Kubernetes بسيطة تقوم بتشغيل "Hello World" لـ Node.js.</p>
+      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
 card:
   name: tutorials
   weight: 10
@@ -15,39 +15,39 @@ card:
 
 {{% capture overview %}}
 
-يوضح لك هذا البرنامج التعليمي كيفية تشغيل تطبيق Hello World Node.js بسيط
-على Kubernetes باستخدام  [Minikube](/docs/setup/learning-environment/minikube) و Katacoda.
-يوفر Katacoda بيئة Kubernetes مجانية في المتصفح.
+This tutorial shows you how to run a simple Hello World Node.js app
+on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
+Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
-يمكنك أيضًا اتباع هذا البرنامج التعليمي إذا قمت بتثبيت [Minikube locally](/docs/tasks/tools/install-minikube/).
+You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
 {{% /capture %}}
 
 {{% capture objectives %}}
 
-* نشر تطبيق مرحبا العالم إلى Minikube.
-* قم بتشغيل التطبيق.
-* عرض سجلات التطبيق.
+* Deploy a hello world application to Minikube.
+* Run the app.
+* View application logs.
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-يوفر هذا البرنامج التعليمي صورة حاوية تم إنشاؤها من الملفات التالية:
+This tutorial provides a container image built from the following files:
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
 {{< codenew language="conf" file="minikube/Dockerfile" >}}
 
-لمزيد من المعلومات حول الأمر `docker build`، اقرأ [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
+For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
-## انشاء a Minikube cluster
+## Create a Minikube cluster
 
 1. Click **Launch Terminal**
 
@@ -65,7 +65,7 @@ card:
 
 4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
-## إنشاء نشر
+## Create a Deployment
 
 A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
@@ -121,7 +121,7 @@ Pod runs a Container based on the provided Docker image.
 
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
-## إنشاء خدمة
+## Create a Service
 
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
@@ -168,7 +168,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 
-## تمكين الإضافات
+## Enable addons
 
 Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
@@ -253,7 +253,7 @@ Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addon
     metrics-server was successfully disabled
     ```
 
-## نظف
+## Clean up
 
 Now you can clean up the resources you created in your cluster:
 
