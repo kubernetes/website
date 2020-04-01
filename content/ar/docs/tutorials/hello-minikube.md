@@ -1,5 +1,5 @@
 ---
-title: أهلا Minikube
+title: Hello Minikube
 content_template: templates/tutorial
 weight: 5
 menu:
