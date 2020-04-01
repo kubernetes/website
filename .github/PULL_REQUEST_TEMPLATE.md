@@ -6,6 +6,8 @@
  your pull request. The description should explain what will change,
  and why.
 
+ PLEASE title the FIRST commit appropriately, so that if you squash all
+ your commits into one, the combined commit message makes sense.
  For overall help on editing and submitting pull requests, visit:
   https://kubernetes.io/docs/contribute/start/#improve-existing-content
 
