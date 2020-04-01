@@ -1051,5 +1051,6 @@ Refer to the [Sysctl documentation](
 <!-- 
 Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
  -->
+关于 api 细节参考 [Pod 安全策略指南](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy)。
 
 {{% /capture %}}
