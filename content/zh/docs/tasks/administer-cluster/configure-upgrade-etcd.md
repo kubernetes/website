@@ -210,7 +210,7 @@ etcd authentication is not currently supported by Kubernetes. For more informati
 例如，考虑由 CA `etcd.ca` 信任的密钥对 `k8sclient.key` 和 `k8sclient.cert`。当 etcd 配置为 `--client-cert-auth` 和 TLS 时，它使用系统 CA 或由 `--trusted-ca-file` 参数传入的 CA 验证来自客户端的证书。
 指定参数 `--client-cert-auth=true` 和 `--trusted-ca-file=etcd.ca` 将限制对具有证书 `k8sclient.cert` 的客户端的访问。
 
-一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，可以使用参数 `--etcd-certfile=k8sclient.cert`,`--etcd-keyfile=k8sclient.key` 和 `--etcd-cafile=ca.cert` 配置它。
+一旦正确配置了 etcd，只有具有有效证书的客户端才能访问它。要让 Kubernetes API 服务器访问，可以使用参数 `--cert-file=k8sclient.cert`,`--key-file=k8sclient.key` 和 `--ca-file=ca.cert` 配置它。
 
 {{< note >}}
 Kubernetes 目前不支持 etcd 身份验证。想要了解更多信息，请参阅相关的问题[支持 etcd v2 的基本认证](https://github.com/kubernetes/kubernetes/issues/23398)。
