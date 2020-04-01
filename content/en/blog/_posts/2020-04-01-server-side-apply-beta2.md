@@ -8,7 +8,7 @@ slug: Kubernetes-1.18-Feature-Server-side-Apply-Beta-2
 **Authors:** Antoine Pelisse (Google)
 
 ## What is Server-side Apply?
-Server-side Apply is an important effort to migrate “kubectl apply” to the apiserver. It was started in 2018 by the Apply working group. 
+Server-side Apply is an important effort to migrate “kubectl apply” to the apiserver. It was started in 2018 by the Apply working group.
 
 The use of kubectl to declaratively apply resources has exposed the following challenges:
 
@@ -42,6 +42,7 @@ We are working hard to improve the experience of using server-side apply with ku
 Of course! The working-group apply is available on slack #wg-apply, through the [mailing list](https://groups.google.com/forum/#!forum/kubernetes-wg-apply) and we also meet every other Tuesday at 9.30 PT on Zoom. We have lots of exciting features to build and can use all sorts of help.
 
 We would also like to use the opportunity to thank the hard work of all the contributors involved in making this new beta possible:
+
 * Daniel Smith
 * Jenny Buckley
 * Joe Betz
