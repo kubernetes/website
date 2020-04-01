@@ -250,7 +250,7 @@ Si vous avez déjà installé minikube, exécutez :
 minikube start
 ```
 
-Si cette commande renvoie une erreur:
+Si cette commande renvoie une erreur :
 ```shell
 machine does not exist
 ```
