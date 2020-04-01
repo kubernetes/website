@@ -7,7 +7,7 @@ weight: 30
 
 {{% capture overview %}}
 
-[Pod](/docs/concepts/workloads/pods/pod/)が稼働する[Node](/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
+[Pod](/ja/docs/concepts/workloads/pods/pod/)が稼働する[Node](/ja/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
 これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/docs/concepts/overview/working-with-objects/labels/)です。
 スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のNodeへデプロイしたり、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
 SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な制御が必要なこともあります。
@@ -83,7 +83,7 @@ nodeSelectorを以下のように追加します:
 
 ## Nodeの隔離や制限
 Nodeにラベルを付与することで、Podは特定のNodeやNodeグループにスケジュールされます。
-これにより、特定のPodを、確かな隔離性や安全性、特性を持ったNodeで稼働させることができます。
+これにより、特定のPodを、確かな隔離性や安全性、特性を持ったNodeで稼働させることができます。
 この目的でラベルを使用する際に、Node上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
 これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイすることを防ぎます。
 
@@ -95,7 +95,7 @@ Nodeの隔離にラベルのプレフィックスを使用するためには、�
 3. Nodeに`node-restriction.kubernetes.io/` プレフィックスのラベルを付与し、そのラベルがnode selectorに指定されていること。
 例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
-## Affinity と Anti-Affinity
+## Affinity と Anti-Affinity {#affinity-and-anti-affinity}
 
 `nodeSelector`はPodの稼働を特定のラベルが付与されたNodeに制限する最も簡単な方法です。
 Affinity/Anti-Affinityでは、より柔軟な指定方法が提供されています。
@@ -296,7 +296,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 上記2つのDeploymentが生成されると、3つのノードは以下のようになります。

@@ -25,7 +25,7 @@ kubeadm upgrade node [flags]
   <tbody>
 
     <tr>
-      <td colspan="2">--certificate-renewal</td>
+      <td colspan="2">--certificate-renewal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: true</td>
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">Perform the renewal of certificates used by component changed during upgrades.</td>
@@ -64,13 +64,6 @@ kubeadm upgrade node [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--kubelet-version string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">The *desired* version for the kubelet config after the upgrade. If not specified, the KubernetesVersion from the kubeadm-config ConfigMap will be used</td>
     </tr>
 
     <tr>

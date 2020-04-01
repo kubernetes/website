@@ -2,7 +2,6 @@
 title: " OpenStack 上的 Kubernetes "
 date: 2015-05-19
 slug: kubernetes-on-openstack
-url: /blog/2015/05/Kubernetes-On-Openstack
 ---
 
 <!--
@@ -92,9 +91,9 @@ MongoDB NoSQL 数据库
 Zend 服务器 - 完整的 PHP 应用程序平台
 
 <!--
-This list will grow, and is curated [here](https://github.com/openstack/murano-apps/tree/master/Docker/Kubernetes). You can examine (and contribute to) the YAML file that tells Murano how to install and start the Kubernetes cluster [here](https://github.com/openstack/murano-apps/blob/master/Docker/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml).
+This list will grow, and is curated [here](https://opendev.org/x/k8s-docker-suite-app-murano/src/branch/master/Kubernetes). You can examine (and contribute to) the YAML file that tells Murano how to install and start the Kubernetes cluster [here](https://opendev.org/x/k8s-docker-suite-app-murano/src/branch/master/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml).
 -->
-此列表将会增长，并在[此处](https://github.com/openstack/murano-apps/tree/master/Docker/Kubernetes)进行策划。您可以检查（并参与）YAML 文件，该文件告诉 Murano 如何根据[此处](https://github.com/openstack/murano-apps/blob/master/Docker/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml)定义来安装和启动 ...apps/blob/master/Docker/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml)安装和启动 Kubernetes 集群。
+此列表将会增长，并在[此处](https://opendev.org/x/k8s-docker-suite-app-murano/src/branch/master/Kubernetes)进行策划。您可以检查（并参与）YAML 文件，该文件告诉 Murano 如何根据[此处](https://opendev.org/x/k8s-docker-suite-app-murano/src/branch/master/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml)定义来安装和启动 ...apps/blob/master/Docker/Kubernetes/KubernetesCluster/package/Classes/KubernetesCluster.yaml)安装和启动 Kubernetes 集群。
 
 <!--
 [The Kubernetes open source project](https://github.com/GoogleCloudPlatform/kubernetes) has continued to see fantastic community adoption and increasing momentum, with over 11,000 commits and 7,648 stars on GitHub. With supporters ranging from Red Hat and Intel to CoreOS and Box.net, it has come to represent a range of customer interests ranging from enterprise IT to cutting edge startups. We encourage you to give it a try, give us your feedback, and get involved in our growing community.

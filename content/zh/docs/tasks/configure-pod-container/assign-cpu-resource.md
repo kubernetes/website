@@ -44,7 +44,7 @@ following command to enable metrics-server:
 
 集群中的每个节点必须至少具有 1 个 CPU。
 
-此页面上的一些步骤要求您在集群中运行[metrics-server]（https://github.com/kubernetes-incubator/metrics-server）
+此页面上的一些步骤要求您在集群中运行[metrics-server](https://github.com/kubernetes-incubator/metrics-server)
 服务。如果您的集群中已经有正在运行的 metrics-server 服务，那么您可以跳过这些步骤。
 
 如果您正在运行{{< glossary_tooltip term_id="minikube" >}}，请运行以下命令启用 metrics-server：

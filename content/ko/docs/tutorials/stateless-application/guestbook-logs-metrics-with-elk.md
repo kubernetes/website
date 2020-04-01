@@ -110,7 +110,7 @@ Elastic Cloud의 Elasticsearch 서비스로 연결한다면 **관리 서비스**
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시가 있다.
+이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시(또는 [*이 구성*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897)을 본다)가 있다.
 
 #### `ELASTICSEARCH_HOSTS`
 1. Elastic의 Elasticsearch Helm 차트에서 노드 그룹(nodeGroup).
@@ -394,8 +394,8 @@ deployment.extensions/frontend scaled
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [리소스 모니터링 도구](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)를 공부한다.
-* [로깅 아키텍처](/docs/concepts/클러스터-administration/logging/)를 더 읽어본다.
-* [애플리케이션 검사 및 디버깅](/docs/tasks/debug-application-cluster/)을 더 읽어본다.
-* [애플리케이션 문제 해결](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
+* [리소스 모니터링 도구](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)를 공부한다.
+* [로깅 아키텍처](/docs/concepts/cluster-administration/logging/)를 더 읽어본다.
+* [애플리케이션 검사 및 디버깅](/ko/docs/tasks/debug-application-cluster/)을 더 읽어본다.
+* [애플리케이션 문제 해결](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
 {{% /capture %}}

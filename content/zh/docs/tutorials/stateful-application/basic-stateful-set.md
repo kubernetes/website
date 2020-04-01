@@ -223,7 +223,7 @@ Each Pod has a stable hostname based on its ordinal index. Use
 
 ### 使用稳定的网络身份标识
 
-每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/docs/user-guide/kubectl/{{< param "version" >}}/#exec)在每个 Pod 中执行`hostname`。
+每个 Pod 都拥有一个基于其顺序索引的稳定的主机名。使用[`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)在每个 Pod 中执行`hostname`。
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -1527,7 +1527,7 @@ storage configuration, and provisioning method, to ensure that all storage is
 reclaimed.
 -->
 
-你需要删除本教程中用到的 PersistentVolumes 的持久化存储媒体。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
+你需要删除本教程中用到的 PersistentVolumes 的持久化存储介质。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
 {{% /capture %}}
 
 

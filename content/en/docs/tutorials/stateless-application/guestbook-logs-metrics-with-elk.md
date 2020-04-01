@@ -111,7 +111,7 @@ There are four files to edit to create a k8s secret when you are connecting to s
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples
+Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples (also see [*this configuration*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897))
 
 #### `ELASTICSEARCH_HOSTS`
 1. A nodeGroup from the Elastic Elasticsearch Helm Chart:

@@ -38,7 +38,7 @@ template to use for a new topic, start with the
 [concept template](#concept-template).
 -->
 
-每个新主题都需要使用模板。如果你不确定新主题要使用哪个模板，请从[概念模板](#concept-template)开始。
+每个新主题都需要使用模板。如果你不确定新主题要使用哪个模板，请从[概念模板](#概念模板)开始。
 {{< /note >}}
 
 

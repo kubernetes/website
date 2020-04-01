@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -36,7 +36,7 @@ kubeadm alpha selfhosting pivot [flags]
 
 ```
   # 将静态 Pod 托管的控制平面转换为自托管的控制平面。
-  
+
   kubeadm alpha phase self-hosting convert-from-staticpods
 ```
 
@@ -165,16 +165,3 @@ kubeadm alpha selfhosting pivot [flags]
 
   </tbody>
 </table>
-
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted
--->
-* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - 将 kubeadm 集群转换为自托管集群
-

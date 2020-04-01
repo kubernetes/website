@@ -37,6 +37,16 @@ repository. You can find more information about the API there.
 The API requires metrics server to be deployed in the cluster. Otherwise it will be not available.
 {{< /note >}}
 
+## Measuring Resource Usage
+
+### CPU
+
+CPU is reported as the average usage, in [CPU cores](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu), over a period of time. This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The kubelet chooses the window  for the rate calculation.
+
+### Memory
+
+Memory is reported as the working set, in bytes, at the instant the metric was collected. In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure.  However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate.  It includes all anonymous (non-file-backed) memory since kubernetes does not support swap. The metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim such pages.
+
 ## Metrics Server
 
 [Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
@@ -46,7 +56,7 @@ as a Deployment object. If you use a different Kubernetes setup mechanism you ca
 
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
-Metrics Server registered in the main API server through
+Metrics Server is registered with the main API server through
 [Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).

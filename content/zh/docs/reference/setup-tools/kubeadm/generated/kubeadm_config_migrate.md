@@ -129,16 +129,3 @@ kubeadm config migrate [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO
--->
-查看其它
-
-<!-- 
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster 
--->
-* [kubeadm config](kubeadm_config.md)	 - 管理 kubeadm 集群的配置，该配置保存在集群的 ConfigMap 中
-

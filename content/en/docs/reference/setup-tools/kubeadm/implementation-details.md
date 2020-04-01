@@ -150,12 +150,12 @@ Certificates are stored by default in `/etc/kubernetes/pki`, but this directory 
 1. If a given certificate and private key pair both exist, and its content is evaluated compliant with the above specs, the existing files will
    be used and the generation phase for the given certificate skipped. This means the user can, for example, copy an existing CA to
    `/etc/kubernetes/pki/ca.{crt,key}`, and then kubeadm will use those files for signing the rest of the certs.
-   See also [using custom certificates](/docs/reference/setup-tools/kubeadm/kubeadm-init/#custom-certificates)
+   See also [using custom certificates](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#custom-certificates)
 2. Only for the CA, it is possible to provide the `ca.crt` file but not the `ca.key` file, if all other certificates and kubeconfig files
    already are in place kubeadm recognize this condition and activates the ExternalCA , which also implies the `csrsigner`controller in
    controller-manager won't be started
-3. If kubeadm is running in [ExternalCA mode](/docs/reference/setup-tools/kubeadm/kubeadm-init/#external-ca-mode); all the certificates must be provided by the user,
-   because kubeadm cannot generate them by itself
+3. If kubeadm is running in [external CA mode](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs#external-ca-mode);
+   all the certificates must be provided by the user, because kubeadm cannot generate them by itself
 4. In case of kubeadm is executed in the `--dry-run` mode, certificates files are written in a temporary folder
 5. Certificate generation can be invoked individually with the [`kubeadm init phase certs all`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-certs) command
 
@@ -447,21 +447,11 @@ A ServiceAccount for `kube-proxy` is created in the `kube-system` namespace; the
 
 #### DNS
 
-Note that:
-
+- In Kubernetes version 1.18 kube-dns usage with kubeadm is deprecated and will be removed in a future release
 - The CoreDNS service is named `kube-dns`. This is done to prevent any interruption
 in service when the user is switching the cluster DNS from kube-dns to CoreDNS or vice-versa
-- In Kubernetes version 1.10 and earlier, you must enable CoreDNS with `--feature-gates=CoreDNS=true`
-- In Kubernetes version 1.11 and 1.12, CoreDNS is the default DNS server and you must
-invoke kubeadm with `--feature-gates=CoreDNS=false` to install kube-dns instead
-- In Kubernetes version 1.13 and later, the `CoreDNS` feature gate is no longer available and kube-dns can be installed using the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
-
-
-A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
-
-Deploy the `kube-dns` Deployment and Service:
-
-- It's the upstream CoreDNS deployment relatively unmodified
+the `--config` method described [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon)
+- A ServiceAccount for CoreDNS/kube-dns is created in the `kube-system` namespace.
 - The `kube-dns` ServiceAccount is bound to the privileges in the `system:kube-dns` ClusterRole
 
 ## kubeadm join phases internal design

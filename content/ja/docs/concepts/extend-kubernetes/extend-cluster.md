@@ -121,7 +121,7 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 
 ### 認可
 
-[認可](/docs/reference/access-authn-authz/webhook/)は特定のユーザーがAPIリソースに対して、読み込み、書き込み、そしてその他の操作が可能かどうかを決定します。それはオブジェクト全体のレベルで機能し、任意のオブジェクトフィールドに基づいての区別は行いません。もしビルトインの認可機構が要件に合わない場合、[認可Webhook](/docs/reference/access-authn-authz/webhook/)が、ユーザー提供のコードを呼び出し認可の決定を行うことを可能にします。
+[認可](/docs/reference/access-authn-authz/webhook/)は特定のユーザーがAPIリソースに対して、読み込み、書き込み、そしてその他の操作が可能かどうかを決定します。それはオブジェクト全体のレベルで機能し、任意のオブジェクトフィールドに基づいての区別は行いません。もしビルトインの認可メカニズムが要件に合わない場合、[認可Webhook](/docs/reference/access-authn-authz/webhook/)が、ユーザー提供のコードを呼び出し認可の決定を行うことを可能にします。
 
 ### 動的Admission Control
 

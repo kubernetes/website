@@ -107,9 +107,9 @@ header
   z-index: 8888
   background-color: transparent
   box-shadow: 0 0 0 transparent
-  overflow: hidden
   transition: 0.3s
   text-align: center
+  overflow: hidden
 
 
 .logo
@@ -245,6 +245,7 @@ header
       background-color: white
 
 #mainNav
+
   h5
     color: $blue
     font-weight: normal
@@ -577,6 +578,9 @@ section
   li
     display: inline-block
     height: 100%
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
 
   a
     display: block
@@ -597,11 +601,11 @@ section
   #vendorStrip
     line-height: 44px
     max-width: 100%
-    overflow-x: auto
     -webkit-overflow-scrolling: touch
 
     ul
       float: none
+      overflow-x: auto
 
     #searchBox
       float: none
@@ -1050,6 +1054,9 @@ dd
 
   a.issue
     margin-left: 0px
+
+.gridPageHome .flyout-button
+  display: none
 
 .feedback--no
   margin-left: 1em

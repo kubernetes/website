@@ -11,7 +11,7 @@ card:
 
 {{% capture overview %}}
 When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A cluster is">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.
@@ -23,13 +23,12 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 {{% /capture %}}
 
 {{% capture body %}}
-## Master Components
+## Control Plane Components
 
-Master components provide the cluster's control plane. Master components make global decisions about the
-cluster (for example, scheduling), and they detect and respond to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
 
-Master components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all master components on
+Control Plane components can be run on any machine in the cluster. However,
+for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
 

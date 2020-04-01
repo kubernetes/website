@@ -36,7 +36,7 @@ systems.
 ## 介绍
 
 `StorageClass` 为管理员提供了描述存储 `"类"` 的方法。
-不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由群集管理员制定的任意策略。
+不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
 Kubernetes 本身并不清楚各种`类`代表的什么。这个`类`的概念在其他存储系统中有时被称为"配置文件"。
 
 <!--
@@ -66,8 +66,8 @@ request any particular class to bind to: see the
 [`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
  -->
-管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的`类` ：
-更多详情请参阅 [`PersistentVolumeClaim` 章节](#persistentvolumeclaims)。
+管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的存储`类` ：
+更多详情请参阅 [`PersistentVolumeClaim` 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -92,13 +92,13 @@ for provisioning PVs. This field must be specified.
  -->
 ### 存储分配器
 
-`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`持久化卷申领`。该字段必须指定。
+`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`PV`。该字段必须指定。
 
 <!--
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 -->
 
-| 卷插件        | 提供厂商 | 配置例子                      |
+| 卷插件        | 内置分配器 | 配置例子                      |
 | :---                 |     :---:           |    :---:                             |
 | AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
 | AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
@@ -431,6 +431,7 @@ parameters:
   type: pd-standard
   replication-type: none
 ```
+
 <!--
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
 * `zone` (Deprecated): GCE zone. If neither `zone` nor `zones` is specified, volumes are
@@ -518,6 +519,7 @@ parameters:
 * `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。此选项已弃用，当在指定 `restuser`，`restuserkey`，`secretName` 或  `secretNamespace` 时，身份验证被启用。
 * `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
 * `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
+
 <!--
 * `secretNamespace`, `secretName` : Identification of Secret instance that
   contains user password to use when talking to Gluster REST service. These
@@ -544,6 +546,7 @@ parameters:
     ```
 
     secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
+
 <!--
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
   which will be used by Heketi when provisioning the volume. It can also be a
@@ -559,6 +562,7 @@ parameters:
 * `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当分配卷时，Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
   `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`。这个是可选参数。
 * `gidMin`，`gidMax`：storage class GID 范围的最小值和最大值。在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态分配卷。这些是可选的值。如果不指定，卷将被分配一个 2000-2147483647 之间的值，这是 gidMin 和 gidMax 的默认值。
+
 <!--
 * `volumetype` : The volume type and its parameters can be configured with this
   optional value. If the volume type is not mentioned, it's up to the provisioner
@@ -766,6 +770,7 @@ parameters:
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
 * `pool`: Ceph RBD 池. 默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
+
 <!--
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
   must exist in the same namespace as PVCs. This parameter is required.

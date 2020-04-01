@@ -31,7 +31,6 @@ Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following 
 
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
    * IPv4 and IPv6 enabled Services (each Service must be for a single address family)
-   * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
 ## Prerequisites
@@ -40,7 +39,7 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
    * Kubernetes 1.16 or later
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * Kubenet network plugin
+   * A network plugin that supports dual-stack (such as Kubenet or Calico)
    * Kube-proxy running in mode IPVS
 
 ## Enable IPv4/IPv6 dual-stack
@@ -56,7 +55,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--proxy-mode=ipvs`
-      * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< caution >}}
@@ -85,7 +84,7 @@ The following Service specification includes the `ipFamily` field. Kubernetes wi
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
-For comparison, the following Service specification will be assigned an IPV4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
+For comparison, the following Service specification will be assigned an IPv4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 
 {{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
 

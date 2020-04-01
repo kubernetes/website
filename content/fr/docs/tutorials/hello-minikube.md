@@ -67,7 +67,7 @@ Pour plus d'informations sur la commande `docker build`, lisez la documentation 
 
 ## Créer un déploiement
 
-Un [*Pod*](/docs/concepts/workloads/pods/pods/pod/) Kubernetes est un groupe d'un ou plusieurs conteneurs, liés entre eux à des fins d'administration et de mise en réseau.
+Un [*Pod*](/fr/docs/concepts/workloads/pods/pod/) Kubernetes est un groupe d'un ou plusieurs conteneurs, liés entre eux à des fins d'administration et de mise en réseau.
 Dans ce tutoriel, le Pod n'a qu'un seul conteneur.
 Un [*Déploiement*](/docs/concepts/workloads/controllers/deployment/) Kubernetes vérifie l'état de santé de votre Pod et redémarre le conteneur du Pod s'il se termine.
 Les déploiements sont le moyen recommandé pour gérer la création et la mise à l'échelle des Pods.

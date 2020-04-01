@@ -163,16 +163,3 @@ kubeadm reset [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - Use this command to invoke single phase of the reset workflow
--->
-* [kubeadm](kubeadm.md)	 - kubeadm: 轻松建立安全的 Kubernetes 集群
-* [kubeadm reset phase](kubeadm_reset_phase.md)	 - 使用此命令来调用 `reset` 工作流程的某个阶段

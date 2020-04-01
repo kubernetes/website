@@ -46,7 +46,7 @@ weight: 60
 클러스터 관리자의 작업:
 
 - 복구 또는 업그레이드를 위한 [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/).
-- 클러스터의 스케일 축소를 위한 노드 드레이닝([클러스터 오토스케일링](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)에 대해 알아보기).
+- 클러스터의 스케일 축소를 위한 노드 드레이닝([클러스터 오토스케일링](/ko/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaler)에 대해 알아보기).
 - 노드에 다른 무언가를 추가하기 위해 파드를 제거.
 
 위 작업은 클러스터 관리자가 직접 수행하거나 자동화를 통해 수행하며,
@@ -68,7 +68,7 @@ weight: 60
 - 파드가 필요로 하는 [리소스를 요청](/docs/tasks/configure-pod-container/assign-cpu-ram-container)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다. (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및 [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/)애플리케이션에 대해 알아보기.)
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체([안티-어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 이용) 또는 
-영역 간(또는 [다중 영역 클러스터](/docs/setup/multiple-zones)를 이용한다.)에 
+영역 간(또는 [다중 영역 클러스터](/ko/docs/setup/best-practices/multiple-zones/)를 이용한다.)에 
 애플리케이션을 분산해야 한다.
 
 자발적 중단의 빈도는 다양하다. 기본적인 쿠버네티스 클러스터에서는 자발적인 운영 중단이 전혀 없다.
@@ -116,7 +116,7 @@ PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생
 애플리케이션의 롤링 업그레이드로 파드가 삭제되거나 사용할 수 없는 경우 중단 버짓에 영향을 준다.
 그러나 컨트롤러(디플로이먼트, 스테이트풀 셋과 같은)는 롤링 업데이트시 PDB의 제한을 받지 않는다.
 애플리케이션 업데이트 진행 중 발생하는 중단 처리는 컨트롤러 사양에 구성되어있다.
-([디플로이먼트 업데이트](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)에 대해 알아보기.)
+([디플로이먼트 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-업데이트)에 대해 알아보기.)
 
 파드를 Eviction API로 축출하면 정상적으로 종료된다.
 ([파드사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 `terminationGracePeriodSeconds` 를 참조.)

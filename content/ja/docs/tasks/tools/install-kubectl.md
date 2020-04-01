@@ -18,7 +18,7 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 
 {{% capture steps %}}
 
-## Linuxへkubectlをインストールする
+## Linuxへkubectlをインストールする {#install-kubectl-on-linux}
 
 ### curlを使用してLinuxへkubectlのバイナリをインストールする
 
@@ -78,30 +78,33 @@ yum install -y kubectl
 {{< /tabs >}}
 
 
-### Snapを使用してインストールする
+### 他のパッケージマネージャーを使用してインストールする
 
-Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートしているLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして利用することもできます。
+Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートする別のLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして使用できます。
 
-1. snapユーザーに切り替えて、インストールコマンドを実行してください:
+Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
 
-    ```
-    sudo snap install kubectl --classic
-    ```
+{{< tabs name="other_kubectl_install" >}}
+{{< tab name="Snap" codelang="bash" >}}
+sudo snap install kubectl --classic
 
-2. インストールしたバージョンが最新であることを確認してください:
+kubectl version
+{{< /tab >}}
+{{< tab name="Homebrew" codelang="bash" >}}
+brew install kubectl
 
-    ```
-    kubectl version
-    ```
+kubectl version
+{{< /tab >}}
+{{< /tabs >}}
 
-## macOSへkubectlをインストールする
+## macOSへkubectlをインストールする {#install-kubectl-on-macos}
 
 ### curlを使用してmacOSへkubectlのバイナリをインストールする
 
 1. 最新リリースをダウンロードしてください:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
     特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
@@ -136,6 +139,11 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 1. インストールコマンドを実行してください:
 
     ```
+    brew install kubectl 
+    ```
+    または
+
+    ```
     brew install kubernetes-cli
     ```
 
@@ -162,7 +170,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
     kubectl version
     ```
 
-## Windowsへkubectlをインストールする
+## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
 
 ### curlを使用してWindowsへkubectlのバイナリをインストールする
 
@@ -183,7 +191,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
     kubectl version
     ```
 {{< note >}}
-[Docker for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)は、それ自身のバージョンの`kubectl`をPATHに追加します。Dockerをすでにインストールしている場合、Dockerインストーラーによって追加されたPATHの前に追加するか、Dockerの`kubectl`を削除してください。
+[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)は、それ自身のバージョンの`kubectl`をPATHに追加します。Docker Desktopをすでにインストールしている場合、Docker Desktopインストーラーによって追加されたPATHの前に追加するか、Docker Desktopの`kubectl`を削除してください。
 {{< /note >}}
 
 ### PSGalleryからPowerShellを使用してインストールする
@@ -274,7 +282,7 @@ Google Cloud SDKの一部として、kubectlをインストールすることも
 
 ## kubectlの設定を検証する
 
-kubectlがKubernetesクラスターを探索し接続するために、[kubeconfigファイル](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)が必要になります。これは、`kube-up.sh`によりクラスターを作成した際や、Minikubeクラスターを正常にデプロイした際に自動生成されます。デフォルトでは、kubectlの設定は`~/.kube/config`に格納されています。
+kubectlがKubernetesクラスターを探索し接続するために、[kubeconfigファイル](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)が必要になります。これは、[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)によりクラスターを作成した際や、Minikubeクラスターを正常にデプロイした際に自動生成されます。デフォルトでは、kubectlの設定は`~/.kube/config`に格納されています。
 
 クラスターの状態を取得し、kubectlが適切に設定されていることを確認してください:
 
@@ -344,6 +352,12 @@ source /usr/share/bash-completion/bash_completion
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
+- kubectlにエイリアスを張っている場合は、以下のようにシェルの補完を拡張して使うことができます:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
 
 {{< note >}}
 bash-completionは`/etc/bash_completion.d`内のすべての補完スクリプトをsourceします。
@@ -403,7 +417,14 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 - 補完スクリプトを`/usr/local/etc/bash_completion.d`ディレクトリに追加する:
 
     ```shell
-    kubectl completion bash >/etc/bash_completion.d/kubectl
+    kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+    ```
+
+- kubectlにエイリアスを張っている場合は、以下のようにシェルの補完を拡張して使うことができます:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
     ```
 
 - kubectlをHomwbrewでインストールした場合（[前述](#homebrewを使用してmacosへインストールする)のとおり）、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょう。この場合、なにも操作する必要はありません。
@@ -425,6 +446,13 @@ Zshにおけるkubectlの補完スクリプトは`kubectl completion zsh`コマ�
 source <(kubectl completion zsh)
 ```
 
+kubectlにエイリアスを張っている場合は、以下のようにシェルの補完を拡張して使うことができます:
+
+```shell
+echo 'alias k=kubectl' >>~/.zshrc
+echo 'complete -F __start_kubectl k' >>~/.zshrc
+```
+
 シェルをリロードしたあとに、kubectlの自動補完が機能するはずです。
 
 `complete:13: command not found: compdef`のようなエラーが出力された場合は、以下を`~/.zshrc`の先頭に追記してください:
@@ -439,7 +467,7 @@ compinit
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Minikubeをインストールする](/docs/tasks/tools/install-minikube/)
+* [Minikubeをインストールする](/ja/docs/tasks/tools/install-minikube/)
 * クラスターの作成に関する詳細を[スタートガイド](/docs/setup/)で確認する
 * [アプリケーションを起動して公開する方法を学ぶ](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください

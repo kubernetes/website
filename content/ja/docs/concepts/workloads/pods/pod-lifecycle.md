@@ -43,7 +43,7 @@ PodCondition配列の各要素には、次の6つのフィールドがありま�
 * `lastTransitionTime` は、最後にPodのステータスの遷移があった際のタイムスタンプが表示されます。
 
 * `message` は、ステータスの遷移に関する詳細を示す人間向けのメッセージです。
-  
+
 * `reason` は、最後の状態遷移の理由を示す、一意のキャメルケースでの単語です。
 
 * `status` は`True`と`False`、`Unknown`のうちのどれかです。
@@ -138,16 +138,16 @@ Pod内のコンテナごとにStateの項目として表示されます。
    ```
 
 * `Running`: コンテナが問題なく実行されていることを示します。コンテナがRunningに入ると`postStart`フック（もしあれば）が実行されます。この状態にはコンテナが実行中状態に入った時刻も表示されます。
-   
+
    ```yaml
    ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
-   ```   
-       
+   ```
+
 * `Terminated`: コンテナの実行が完了しコンテナの実行が停止したことを示します。コンテナは実行が正常に完了したときまたは何らかの理由で失敗したときにこの状態になります。いずれにせよ理由と終了コード、コンテナの開始時刻と終了時刻が表示されます。コンテナがTerminatedに入る前に`preStop`フックがあればあれば実行されます。
-  
+
    ```yaml
    ...
       State:          Terminated
@@ -156,7 +156,7 @@ Pod内のコンテナごとにStateの項目として表示されます。
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
         Finished:     Wed, 30 Jan 2019 11:45:26 +0530
     ...
-   ``` 
+   ```
 
 ## PodReadinessGate
 
@@ -223,9 +223,9 @@ kubeletによって再起動される終了したコンテナは、5分後にキ
 - バッチ計算などのように終了が予想されるPodに対しては、[Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)を使用します。
    Jobは`restartPolicy`がOnFailureまたはNeverになるPodに対してのみ適切です。
 
-- 停止することを期待しないPod（たとえばWebサーバーなど）には、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)、または[Deployment](/docs/concepts/workloads/controllers/deployment/)を使用します。ReplicationControllerは`restartPolicy`がAlwaysのPodに対してのみ適切です。
+- 停止することを期待しないPod（たとえばWebサーバーなど）には、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)、または[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)を使用します。ReplicationControllerは`restartPolicy`がAlwaysのPodに対してのみ適切です。
 
-- マシン固有のシステムサービスを提供するため、マシンごとに1つずつ実行する必要があるPodには[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)を使用します。
+- マシン固有のシステムサービスを提供するため、マシンごとに1つずつ実行する必要があるPodには[DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)を使用します。
 
 3種類のコントローラにはすべてPodTemplateが含まれます。
 Podを自分で直接作成するのではなく適切なコントローラを作成してPodを作成させることをおすすめします。
@@ -288,7 +288,7 @@ spec:
    * Podが実行中で、その中には2つのコンテナがあります。コンテナ1は失敗終了しました。
      * 失敗イベントを記録します。
      * `restartPolicy`が、
-       * Always: コンテナを再起動します。Podの`phase`はunningのままです。
+       * Always: コンテナを再起動します。Podの`phase`はRunningのままです。
        * OnFailure: コンテナを再起動します。Podの`phase`はRunningのままです。
        * Never: コンテナを再起動しません。Podの`phase`はRunningのままです。
      * コンテナ1が死んでいてコンテナ2は動いている場合
@@ -307,7 +307,7 @@ spec:
        * Never: 失敗イベントを記録します。Podの`phase`はFailedになります。
 
    * Podが実行中ですがディスクは死んでいます。
-     * すべてのコンテンを殺します。
+     * すべてのコンテナを殺します。
      * 適切なイベントを記録します。
      * Podの`phase`はFailedになります。
      * Podがコントローラで作成されていた場合は、別の場所で再作成されます。

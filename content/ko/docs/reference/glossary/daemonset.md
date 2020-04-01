@@ -2,7 +2,7 @@
 title: 데몬셋(DaemonSet)
 id: daemonset
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/daemonset
+full_link: /ko/docs/concepts/workloads/controllers/daemonset
 short_description: >
   파드의 복제본을 클러스터 노드 집합에서 동작하게 한다.
 

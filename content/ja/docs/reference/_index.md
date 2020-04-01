@@ -1,6 +1,6 @@
 ---
 title: リファレンス
-linkTitle: "Reference"
+linkTitle: "リファレンス"
 main_menu: true
 weight: 70
 content_template: templates/concept
@@ -14,15 +14,15 @@ content_template: templates/concept
 
 {{% capture body %}}
 
-## API Reference
+## APIリファレンス
 
 * [Kubernetes API概要](/docs/reference/using-api/api-overview/) - Kubernetes APIの概要です。
 * Kubernetes APIバージョン
+  * [1.17](/docs/reference/generated/kubernetes-api/v1.17/)
+  * [1.16](/docs/reference/generated/kubernetes-api/v1.16/)
   * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
-  * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
-  * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
 
 ## APIクライアントライブラリー
 
@@ -47,8 +47,6 @@ content_template: templates/concept
 * [kube-controller-manager](/docs/admin/kube-controller-manager/) - Kubernetesに同梱された、コアのコントロールループを埋め込むデーモンです。
 * [kube-proxy](/docs/admin/kube-proxy/) - 単純なTCP/UDPストリームのフォワーディングや、一連のバックエンド間でTCP/UDPのラウンドロビンでのフォワーディングを実行できます。
 * [kube-scheduler](/docs/admin/kube-scheduler/) - 可用性、パフォーマンス、およびキャパシティを管理するスケジューラーです。
-* [federation-apiserver](/docs/admin/federation-apiserver/) - 連合クラスターのためのAPIサーバーです。
-* [federation-controller-manager](/docs/admin/federation-controller-manager/) - 連合Kubernetesクラスターに同梱された、コアのコントロールループを埋め込むデーモンです。
 
 ## 設計のドキュメント
 

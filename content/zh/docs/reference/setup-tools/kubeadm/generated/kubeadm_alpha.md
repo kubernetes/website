@@ -66,21 +66,3 @@ kubeadm 实验子命令
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO
- -->
-查看其它
-
-<!-- 
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - Commands related to handling kubernetes certificates
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig file utilities
-* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - Commands related to handling the kubelet
-* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - Make a kubeadm cluster self-hosted -->
-* [kubeadm](kubeadm.md)	 - kubeadm：轻松建立安全的 Kubernetes 集群
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - 处理 kubernetes 证书相关的命令
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - kubeconfig 文件应用程序
-* [kubeadm alpha kubelet](kubeadm_alpha_kubelet.md)	 - 处理 kubelet 有关的命令
-* [kubeadm alpha selfhosting](kubeadm_alpha_selfhosting.md)	 - kubeadm 集群自托管 

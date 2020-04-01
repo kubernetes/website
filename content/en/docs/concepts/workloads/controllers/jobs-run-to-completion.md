@@ -39,7 +39,7 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
 ```
 job.batch/pi created
@@ -114,6 +114,7 @@ The output is similar to this:
 ## Writing a Job Spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
+Its name must be a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -264,6 +265,9 @@ spec:
 ```
 
 Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+
+Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself: there is no automatic Job restart once the Job status is `type: Failed`.
+That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
 
 ## Clean Up Finished Jobs Automatically
 

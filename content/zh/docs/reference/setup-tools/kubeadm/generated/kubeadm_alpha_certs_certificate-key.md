@@ -78,15 +78,3 @@ kubeadm alpha certs certificate-key [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - Commands related to handling kubernetes certificates
--->
-* [kubeadm alpha certs](kubeadm_alpha_certs.md)	 - 与处理 kubernetes 证书相关的命令
-

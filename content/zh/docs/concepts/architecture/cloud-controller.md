@@ -235,19 +235,19 @@ The Service controller is responsible for listening to service create, update, a
 The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
 -->
 
-节点控制器包含 kubelet 中依赖于云的功能，在引入 CCM 之前，kubelet 负责使用特定于云的详细信息（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
+节点控制器包含 kubelet 中云依赖的功能，在引入 CCM 之前，kubelet 负责使用特定于云平台的功能特性（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
 
 <!--
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
 -->
 
-在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
+在这个新模型中，kubelet 初始化一个没有特定于云平台的功能特性的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用云的规格信息初始化节点后，才会清除这种污点，便得该节点可被调度。
 
 <!--
 ## Plugin mechanism
 -->
 
-在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
+在这个新模型中，kubelet 初始化一个没有特定于云平台的功能特性的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用云的规格信息初始化节点后，才会清除这种污点，便得该节点可被调度。
 
 <!--
 ## Plugin mechanism

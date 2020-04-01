@@ -102,15 +102,15 @@ The Topology Manager currently:
 
 <!--
  - Works on Nodes with the `static` CPU Manager Policy enabled. See [control CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/)
- - Works on Pods in the `Guaranteed` {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+ - Works on Pods making CPU requests or Device requests via extended resources
 -->
-- 在启用了 `static` CPU 管理器策略的节点上起作用。 请参阅 [控制 CPU 管理策略](/docs/tasks/administer-cluster/cpu-management-policies/)
-- 对{{< glossary_tooltip text="QoS 类" term_id="qos-class" >}}取值为 `Guaranteed` 的 Pods 起作用 
+- 在启用了 `static` CPU 管理器策略的节点上起作用。 请参阅[控制 CPU 管理策略](/docs/tasks/administer-cluster/cpu-management-policies/)
+- 适用于通过扩展资源发出 CPU 请求或设备请求的 Pod
 
 <!--
-If these conditions are met, Topology Manager will align CPU and device requests.
+If these conditions are met, Topology Manager will align the requested resources.
 -->
-如果满足这些条件，则拓扑管理器将综合考虑 CPU 和设备请求。
+如果满足这些条件，则拓扑管理器将调整请求的资源。
 
 <!--
 Topology Manager supports four allocation policies. You can set a policy via a Kubelet flag, `--topology-manager-policy`.
@@ -181,6 +181,13 @@ Topology Manager will reject this pod from the node. This will result in a pod i
 这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接纳。
 
 <!--
+Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to reschedule the pod. It is recommended to use a ReplicaSet or Deployment to trigger a redeploy of the pod.
+An external control loop could be also implemented to trigger a redeployment of pods that have the `Topology Affinity` error.
+-->
+一旦 Pod 处于 `Terminated` 状态，Kubernetes 调度器将不会尝试重新调度该 Pod。建议使用 ReplicaSet 或者 Deployment 来重新部署 Pod。
+还可以通过实现外部控制环，以启动对具有 `Topology Affinity` 错误的 Pod 的重新部署。
+
+<!--
 If the pod is admitted, the *Hint Providers* can then use this information when making the 
 resource allocation decision.
 -->
@@ -205,6 +212,12 @@ If, however, this is not possible then the Topology Manager will reject the pod 
 如果不可能，则拓扑管理器将拒绝 Pod 运行于该节点。
 这将导致 Pod 处于 `Terminated` 状态，且 Pod 无法被节点接受。
 
+<!--
+Once the pod is in a `Terminated` state, the Kubernetes scheduler will **not** attempt to reschedule the pod. It is recommended to use a Deployment with replicas to trigger a redeploy of the Pod.
+An external control loop could be also implemented to trigger a redeployment of pods that have the `Topology Affinity` error.
+-->
+一旦 Pod 处于 `Terminated` 状态，Kubernetes 调度器将不会尝试重新调度该 Pod。建议使用 ReplicaSet 或者 Deployment 来重新部署 Pod。
+还可以通过实现外部控制环，以触发具有 `Topology Affinity` 错误的 Pod 的重新部署。
 
 <!--
 ### Pod Interactions with Topology Manager Policies
@@ -274,19 +287,62 @@ This pod runs in the `Guaranteed` QoS class because `requests` are equal to `lim
 -->
 此 Pod 在 `Guaranteed` QoS 类中运行，因为其 `requests` 值等于 `limits` 值。
 
+
+```yaml
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    resources:
+      limits:
+        example.com/deviceA: "1"
+        example.com/deviceB: "1"
+      requests:
+        example.com/deviceA: "1"
+        example.com/deviceB: "1"
+```
 <!--
-Topology Manager would consider this Pod. The Topology Manager consults the CPU Manager `static` policy, which returns the topology of available CPUs. 
-Topology Manager also consults Device Manager to discover the topology of available devices for example.com/device.
+This pod runs in the `BestEffort` QoS class because there are no CPU and memory requests.
 -->
-拓扑管理器会对此 Pod 进行评估处理。
-拓扑管理器首先调用 CPU 管理器的 `static` 策略，该策略返回可用 CPU 的拓扑信息。
-拓扑管理器还咨询设备管理器以获得可用的 example.com/device 设备的拓扑信息。
+由于没有 CPU 和内存请求，因此该 Pod 在 `BestEffort` QoS 类中运行。
 
 <!--
-Topology Manager will use this information to store the best Topology for this container. In the case of this Pod, CPU and Device Manager will use this stored information at the resource allocation stage.
+The Topology Manager would consider both of the above pods. The Topology Manager would consult the Hint Providers, which are CPU and Device Manager to get topology hints for the pods. 
+In the case of the `Guaranteed` pod the `static` CPU Manager policy would return hints relating to the CPU request and the Device Manager would send back hints for the requested device.
 -->
-拓扑管理器将使用此信息来存储此容器的最佳拓扑。
-对于此 Pod， CPU 和设备管理器将在资源分配阶段使用这里存储的信息。
+拓扑管理器将考虑以上两个 Pod。拓扑管理器将咨询 CPU 和设备管理器，以获取 Pod 的拓扑提示。
+对于 `Guaranteed` Pod，`static` CPU 管理器策略将返回与 CPU 请求有关的提示，而设备管理器将返回有关所请求设备的提示。
+
+<!--
+In the case of the `BestEffort` pod the CPU Manager would send back the default hint as there is no CPU request and the Device Manager would send back the hints for each of the requested devices.
+-->
+对于 `BestEffort` Pod，由于没有 CPU 请求，CPU 管理器将发送默认提示，而设备管理器将为每个请求的设备发送提示。
+
+<!--
+Using this information the Topology Manager calculates the optimal hint for the pod and stores this information, which will be used by the Hint Providers when they are making their resource assignments.
+-->
+使用此信息，拓扑管理器将为 Pod 计算最佳提示并存储该信息，并且供提示提供程序在进行资源分配时使用。
+
+<!--
+### Known Limitations
+-->
+### 已知的局限性
+<!--
+1. As of K8s 1.16 the Topology Manager is currently only guaranteed to work if a *single* container in the pod spec requires aligned resources. This is due to the hint generation being based on current resource allocations, and all containers in a pod generate hints before any resource allocation has been made. This results in unreliable hints for all but the first container in a pod.
+*Due to this limitation if multiple pods/containers are considered by Kubelet in quick succession they may not respect the Topology Manager policy.
+-->
+1. 从 K8s 1.16 开始，当前只能在保证 Pod 规范中的 *单个* 容器需要相匹配的资源时，拓扑管理器才能正常工作。这是由于生成的提示信息是基于当前资源分配的，并且 pod 中的所有容器都会在进行任何资源分配之前生成提示信息。这样会导致除 Pod 中的第一个容器以外的所有容器生成不可靠的提示信息。
+* 由于此限制，如果 kubelet 快速连续考虑多个 Pod/容器，它们可能不遵守拓扑管理器策略。
+
+<!--
+2. The maximum number of NUMA nodes that Topology Manager will allow is 8, past this there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
+-->
+2. 拓扑管理器允许的最大 NUMA 节点数为 8，并且在尝试枚举可能的 NUMA 关联并生成其提示信息时，将出现状态问题。
+
+<!--
+3. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager.
+-->
+3. 调度器不支持拓扑功能，因此可能会由于拓扑管理器的原因而在节点上进行调度，然后在该节点上调度失败。
+
 
 {{% /capture %}}
-

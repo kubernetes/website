@@ -250,7 +250,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 > -H "Content-Type: application/json"
 ```
@@ -270,7 +270,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
 > -H "Content-Type: application/json"
 ```

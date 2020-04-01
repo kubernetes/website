@@ -8,7 +8,7 @@ menu:
     weight: 10
     post: >
       <p>Готовы испачкать руки? Создайте простой кластер Kubernetes с запуском "Hello World" на Node.js</p>
-card: 
+card:
   name: tutorials
   weight: 10
 ---
@@ -17,7 +17,7 @@ card:
 
 Это руководство покажет вам, как запустить простое Hello World Node.js приложение
 на Kubernetes используя [Minikube](/docs/getting-started-guides/minikube) и Katacoda.
-Katacoda предоставляет бесплатную, встроенную в браузер Kubernetes среду. 
+Katacoda предоставляет бесплатную, встроенную в браузер Kubernetes среду.
 
 {{< note >}}
 Вы также можете следовать этому руководству, если вы установили [Minikube locally](/docs/tasks/tools/install-minikube/).
@@ -49,21 +49,21 @@ Katacoda предоставляет бесплатную, встроенную �
 
 ## Создание кластера Minikube
 
-1. Нажмите **Запуск Терминала** 
+1. Нажмите **Запуск Терминала**
 
     {{< kat-button >}}
 
     {{< note >}}Если у вас локально установлен Minikube, выполните `minikube start`.{{< /note >}}
 
-2. Откройте панель Kubernetes в браузере:
+2. Откройте веб-панель Kubernetes в браузере:
 
     ```shell
     minikube dashboard
     ```
 
-3. Только для окружения Katacoda: В верхней части панели нажмите знак "плюч", а затем нажмите на **Select port to view on Host 1** (**Выберите порт для отображения на хосте 1**). 
+3. Только для окружения Katacoda: В верхней части панели нажмите знак "плюс", а затем на **Select port to view on Host 1** (**Выберите порт для отображения на хосте 1**).
 
-4. Только для окружения Katacoda: Type `30000`, and then click **Display Port** (**Показать порт**). 
+4. Только для окружения Katacoda: введите `30000`, а затем нажмите **Display Port** (**Показать порт**).
 
 ## Создание Deployment
 
@@ -111,19 +111,19 @@ Katacoda предоставляет бесплатную, встроенную �
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}Больше информации о командах `kubectl` можно найти по ссылке [обзор kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Создание сервиса
 
 По-умолчанию под доступен только при обращении по его внутреннему IP адресу внутри кластера Kubernetes. Чтобы сделать контейнер `hello-node` доступным вне виртульной сети Kubernetes, необходимо представить под как [*сервис*](/docs/concepts/services-networking/service/) Kubernetes.
 
-1. Представить под для видимости в публичной сети Интернет можно с помощью команды `kubectl expose`:
+1. Сделать под доступным для публичной сети Интернет можно с помощью команды `kubectl expose`:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-  
+
     Флаг `--type=LoadBalancer` показывает, что сервис должен быть виден вне кластера.
 
 2. Посмотреть только что созданный сервис:
@@ -150,15 +150,15 @@ Katacoda предоставляет бесплатную, встроенную �
 
 4. Только для окружения Katacoda: Нажмите на знак "Плюс", затем нажмите **Select port to view on Host 1**.
 
-5. Только для окружения Katacoda: Введите `30369` (порт указан рядом с `8080` в выводе сервиса), затем нажмите ???. 
+5. Только для окружения Katacoda: Введите `30369` (порт указан рядом с `8080` в выводе сервиса), затем нажмите ???.
 
     Откроется окно браузера, в котором запущено ваше приложение и будет отображено сообщение "Hello World".
 
-## Добавление аддонов
+## Добавление дополнений
 
-В Minikube есть набор встроенных аддонов, которые могут быть включены, выключены и открыты в локальном окружении Kubernetes.
+В Minikube есть набор встроенных дополнений, которые могут быть включены, выключены и открыты в локальном окружении Kubernetes.
 
-1. Отобразить текущие поддерживаемые аддоны:
+1. Отобразить текущие поддерживаемые дополнения:
 
     ```shell
     minikube addons list
@@ -168,32 +168,35 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     addon-manager: enabled
-    coredns: disabled
     dashboard: enabled
     default-storageclass: enabled
     efk: disabled
     freshpod: disabled
+    gvisor: disabled
     heapster: disabled
+    helm-tiller: disabled
     ingress: disabled
-    kube-dns: enabled
+    ingress-dns: disabled
+    logviewer: disabled
     metrics-server: disabled
     nvidia-driver-installer: disabled
     nvidia-gpu-device-plugin: disabled
     registry: disabled
     registry-creds: disabled
     storage-provisioner: enabled
+    storage-provisioner-gluster: disabled
     ```
-   
-2. Включить расширение, например, `heapster`:
+
+2. Включить дополнение, например, `metrics-server`:
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
-  
+
     Вывод:
 
     ```shell
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. Посмотреть Pod и Service, которые вы только что создали:
@@ -206,31 +209,35 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
+    pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/kube-apiserver-minikube                 1/1       Running   0          34m
+    pod/kube-controller-manager-minikube        1/1       Running   0          34m
+    pod/kube-proxy-rnlps                        1/1       Running   0          34m
+    pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Отключить `heapster`:
+4. Отключить `metrics-server`:
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
-  
+
     Вывод:
 
     ```shell
-    heapster was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## Освобождение ресурсов
@@ -258,8 +265,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* Больше об [объекте(ах?) деплоймента](/docs/concepts/workloads/controllers/deployment/).
-* Большо о [развёртывании приложения](/docs/user-guide/deploying-applications/).
+* Больше об [объектах деплоймента](/docs/concepts/workloads/controllers/deployment/).
+* Больше о [развёртывании приложения](/docs/user-guide/deploying-applications/).
 * Больше об [объектах сервиса](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}

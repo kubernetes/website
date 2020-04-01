@@ -308,7 +308,7 @@ If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types
 If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
 -->
 
-如果你指定了多个与 `nodeSelectorTerms` 关联的 `matchExpressions`，则**如果其中一个** `matchExpressions` 满足的话，pod 才可以调度到节点上。
+如果你指定了多个与 `nodeSelectorTerms` 关联的 `matchExpressions`，则**只有当所有** `matchExpressions` 满足的话，pod 才会可以调度到节点上。
 
 <!--
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.

@@ -10,7 +10,7 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-The TTL controller provides a TTL mechanism to limit the lifetime of resource
+The TTL controller provides a TTL (time to live) mechanism to limit the lifetime of resource
 objects that have finished execution. TTL controller only handles
 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) for
 now, and may be expanded to handle other resources that will finish execution,
@@ -36,7 +36,7 @@ up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 [example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
 The TTL controller will assume that a resource is eligible to be cleaned up
 TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
-TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete
+TTL controller cleans up a resource, it will delete it cascadingly, that is to say it will delete
 its dependent objects together with it. Note that when the resource is deleted,
 its lifecycle guarantees, such as finalizers, will be honored.
 

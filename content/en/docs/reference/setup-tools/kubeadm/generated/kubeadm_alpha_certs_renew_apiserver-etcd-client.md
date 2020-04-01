@@ -8,7 +8,7 @@ Renewals run unconditionally, regardless of certificate expiration date; extra a
 
 Renewal by default tries to use the certificate authority in the local PKI managed by kubeadm; as alternative it is possible to use K8s certificate API for certificate renewal, or as a last option, to generate a CSR request.
 
-After renewal, in order to make changes effective, is is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
+After renewal, in order to make changes effective, is required to restart control-plane components and eventually re-distribute the renewed certificate in case the file is used elsewhere.
 
 ```
 kubeadm alpha certs renew apiserver-etcd-client [flags]
@@ -63,13 +63,6 @@ kubeadm alpha certs renew apiserver-etcd-client [flags]
     </tr>
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">The kubeconfig file to use when talking to the cluster. If the flag is not set, a set of standard locations can be searched for an existing kubeconfig file.</td>
-    </tr>
-
-    <tr>
-      <td colspan="2">--use-api</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Use the Kubernetes certificate API to renew certificates</td>
     </tr>
 
   </tbody>

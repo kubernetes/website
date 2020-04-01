@@ -52,7 +52,7 @@ CCM은 쿠버네티스 컨트롤러 매니저(KCM)의 기능 일부를 독립시
 볼륨 컨트롤러는 의도적으로 CCM의 일부가 되지 않도록 선택되었다. 연관된 복잡성 때문에 그리고 벤더 특유의 볼륨 로직 개념을 일반화 하기 위한 기존의 노력때문에, 볼륨 컨트롤러는 CCM으로 이전되지 않도록 결정되었다.
 {{< /note >}}
 
-CCM을 이용하는 볼륨을 지원하기 위한 원래 계획은 플러그형 볼륨을 지원하기 위한 [Flex](/docs/concepts/storage/volumes/#flexVolume) 볼륨을 사용하기 위한 것이었다. 그러나, [CSI](/docs/concepts/storage/volumes/#csi)라 알려진 경쟁적인 노력이 Flex를 대체하도록 계획되고 있다.
+CCM을 이용하는 볼륨을 지원하기 위한 원래 계획은 플러그형 볼륨을 지원하기 위한 [Flex](/ko/docs/concepts/storage/volumes/#flexVolume) 볼륨을 사용하기 위한 것이었다. 그러나, [CSI](/ko/docs/concepts/storage/volumes/#csi)라 알려진 경쟁적인 노력이 Flex를 대체하도록 계획되고 있다.
 
 이러한 역동성을 고려하여, CSI가 준비될 때까지 차이점에 대한 측정은 도중에 중지하기로 결정하였다.
 
@@ -223,11 +223,13 @@ rules:
 
 다음은 클라우드 제공사업자들이 구현한 CCM들이다.
 
+* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
 * [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Hetzner](https://github.com/hetznercloud/hcloud-cloud-controller-manager)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)

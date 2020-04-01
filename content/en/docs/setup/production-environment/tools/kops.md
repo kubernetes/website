@@ -1,6 +1,6 @@
 ---
 title: Installing Kubernetes with kops
-content_template: templates/concept
+content_template: templates/task
 weight: 20
 ---
 
@@ -9,7 +9,7 @@ weight: 20
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
 It uses a tool called [`kops`](https://github.com/kubernetes/kops).
 
-kops is an opinionated provisioning system:
+kops is an automated provisioning system:
 
 * Fully automated installation
 * Uses DNS to identify clusters
@@ -18,26 +18,30 @@ kops is an opinionated provisioning system:
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
-If your opinions differ from these you may prefer to build your own cluster using [kubeadm](/docs/admin/kubeadm/) as
-a building block.  kops builds on the kubeadm work.
+{{% /capture %}}
+
+{{% capture prerequisites %}}
+
+* You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed.
+
+* You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
+
+* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them.
 
 {{% /capture %}}
 
-{{% capture body %}}
+{{% capture steps %}}
 
 ## Creating a cluster
 
 ### (1/5) Install kops
 
-#### Requirements
-
-You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
-
 #### Installation
 
 Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also easy to build from source):
 
-On macOS:
+{{< tabs name="kops_installation" >}}
+{{% tab name="macOS" %}}
 
 Download the latest release with the command:
 
@@ -45,13 +49,11 @@ Download the latest release with the command:
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
 ```
 
-To download a specific version, replace the
+To download a specific version, replace the following portion of the command with the specific kops version.
 
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-
-portion of the command with the specific version.
 
 For example, to download kops version v1.15.0 type:
 
@@ -76,8 +78,8 @@ You can also install kops using [Homebrew](https://brew.sh/).
 ```shell
 brew update && brew install kops
 ```
-
-On Linux:
+{{% /tab %}}
+{{% tab name="Linux" %}}
 
 Download the latest release with the command:
 
@@ -85,11 +87,11 @@ Download the latest release with the command:
 curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 ```
 
-To download a specific version, replace the
+To download a specific version of kops, replace the following portion of the command with the specific kops version.
+
 ```shell
 $(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
 ```
-portion of the command with the specific version.
 
 For example, to download kops version v1.15.0 type:
 
@@ -115,9 +117,13 @@ You can also install kops using [Homebrew](https://docs.brew.sh/Homebrew-on-Linu
 brew update && brew install kops
 ```
 
+{{% /tab %}}
+{{< /tabs >}}
+
+
 ### (2/5) Create a route53 domain for your cluster
 
-kops uses DNS for discovery, both inside the cluster and so that you can reach the kubernetes API server
+kops uses DNS for discovery, both inside the cluster and outside, so that you can reach the kubernetes API server
 from clients.
 
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
@@ -174,7 +180,7 @@ the S3 bucket name.
 
 ### (4/5) Build your cluster configuration
 
-Run "kops create cluster" to create your cluster configuration:
+Run `kops create cluster` to create your cluster configuration:
 
 `kops create cluster --zones=us-east-1c useast1.dev.example.com`
 
@@ -213,23 +219,19 @@ for production clusters!
 
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp; control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
 
 ## Cleanup
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
-
-## Feedback
-
-* Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
-* [GitHub Issues](https://github.com/kubernetes/kops/issues)
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
-* Learn about `kops` [advanced usage](https://github.com/kubernetes/kops)
-* See the `kops` [docs](https://github.com/kubernetes/kops) section for tutorials, best practices and advanced configuration options.
+* Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
+* Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
+* Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
 
 {{% /capture %}}

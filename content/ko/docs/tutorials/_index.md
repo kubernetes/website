@@ -22,8 +22,6 @@ content_template: templates/concept
 
 * [쿠버네티스 기초](/ko/docs/tutorials/kubernetes-basics/)는 쿠버네티스 시스템을 이해하는데 도움이 되고 기초적인 쿠버네티스 기능을 일부 사용해 볼 수 있는 심도있는 대화형 튜토리얼이다.
 
-* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
-
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [Hello Minikube](/ko/docs/tutorials/hello-minikube/)

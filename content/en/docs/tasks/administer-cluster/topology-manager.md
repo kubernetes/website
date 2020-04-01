@@ -8,11 +8,12 @@ reviewers:
 - nolancon
 
 content_template: templates/task
+min-kubernetes-server-version: v1.18
 ---
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="beta" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to support latency-critical execution and high-throughput parallel computation. These include workloads in fields such as telecommunications, scientific computing, machine learning, financial services and data analytics. Such hybrid systems comprise a high performance environment.
 
@@ -43,6 +44,10 @@ The Topology Manager provides an interface for components, called *Hint Provider
 The Topology manager receives Topology information from the *Hint Providers* as a bitmask denoting NUMA Nodes available and a preferred allocation indication. The Topology Manager policies perform a set of operations on the hints provided and converge on the hint determined by the policy to give the optimal result, if an undesirable hint is stored the preferred field for the hint will be set to false. In the current policies preferred is the narrowest preferred mask.
 The selected hint is stored as part of the Topology Manager. Depending on the policy configured the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the resource allocation decisions.
+
+### Enable the Topology Manager feature
+
+Support for the Topology Manager requires `TopologyManager` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.18.
 
 ### Topology Manager Policies
 
@@ -176,12 +181,10 @@ In the case of the `BestEffort` pod the CPU Manager would send back the default 
 Using this information the Topology Manager calculates the optimal hint for the pod and stores this information, which will be used by the Hint Providers when they are making their resource assignments. 
 
 ### Known Limitations
-1. As of K8s 1.16 the Topology Manager is currently only guaranteed to work if a *single* container in the pod spec requires aligned resources. This is due to the hint generation being based on current resource allocations, and all containers in a pod generate hints before any resource allocation has been made. This results in unreliable hints for all but the first container in a pod.
-*Due to this limitation if multiple pods/containers are considered by Kubelet in quick succession they may not respect the Topology Manager policy.
+1. The maximum number of NUMA nodes that Topology Manager allows is 8. With more than 8 NUMA nodes there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
 
-2. The maximum number of NUMA nodes that Topology Manager will allow is 8, past this there will be a state explosion when trying to enumerate the possible NUMA affinities and generating their hints.
+2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager.
 
-3. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail on the node due to the Topology Manager. 
-
+3. The Device Manager and the CPU Manager are the only components to adopt the Topology Manager's HintProvider interface. This means that NUMA alignment can only be achieved for resources managed by the CPU Manager and the Device Manager. Memory or Hugepages are not considered by the Topology Manager for NUMA alignment.
 
 {{% /capture %}}

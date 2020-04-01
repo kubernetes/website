@@ -3,7 +3,7 @@ title: Field Selectors
 weight: 60
 ---
 
-_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
+_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some examples of field selector queries:
 
 * `metadata.name=my-service`
 * `metadata.namespace!=default`
