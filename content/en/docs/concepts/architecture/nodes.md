@@ -83,8 +83,8 @@ Kubernetes causes all the Pod objects running on the node to be deleted from the
 
 The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
-into account, except for any taints that the Pod tolerates.
+The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
+Pods can also have tolerations which let them tolerate a Node's taints.
 
 ### Capacity and Allocatable {#capacity}
 
