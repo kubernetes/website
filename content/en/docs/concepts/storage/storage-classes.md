@@ -791,8 +791,8 @@ kubectl create secret generic storageos-secret \
 --namespace=default
 ```
 
-The Secrets used for dynamically provisioned volumes may be created in any namespace
-and referenced with the `adminSecretNamespace` parameter. The Secrets used by
+Secrets used for dynamically provisioned volumes may be created in any namespace
+and referenced with the `adminSecretNamespace` parameter. Secrets used by
 pre-provisioned volumes must be created in the same namespace as the PVC that
 references it.
 
