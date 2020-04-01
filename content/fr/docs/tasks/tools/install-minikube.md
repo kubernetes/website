@@ -57,16 +57,16 @@ Configuration requise pour Hyper-V: un hyperviseur a été détecté. Les foncti
 
 {{% capture steps %}}
 
-## Installer Minikube
+# Installer Minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
 
-## Installer kubectl
+### Installer kubectl
 
-* Installez kubectl en suivant les instructions de la section [Installer et configurer kubectl](/fr/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+Installez kubectl en suivant les instructions de la section [Installer et configurer kubectl](/fr/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
 
-## Installer un hyperviseur
+### Installer un hyperviseur
 
 Si vous n'avez pas déjà un hyperviseur installé, installez-le maintenant pour votre système d'exploitation :
 
@@ -92,7 +92,7 @@ Minikube prend également en charge un `vm-driver=podman` similaire au pilote Do
 Le pilote `podman` nécessite l’exécution des conteneurs en tant que root car les comptes d’utilisateurs normaux n’ont pas un accès complet à toutes les fonctionnalités du système d’exploitation que leurs conteneurs pourraient avoir besoin d’exécuter.
 {{</ caution >}}
 
-## Installer Minikube à l'aide d'un package
+### Installer Minikube à l'aide d'un package
 
 Il existe des packages * expérimentaux * pour Minikube; vous pouvez trouver des packages Linux (AMD64)
 depuis la page [releases](https://github.com/kubernetes/minikube/releases) de Minikube  sur GitHub.
