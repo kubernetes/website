@@ -105,6 +105,12 @@ must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::1
 1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
 connectivity to the gcr.io container image registry.
 
+Swap must be disabled before initializing control-plane:
+
+```bash
+swapoff -a
+```
+
 To initialize the control-plane node run:
 
 ```bash
