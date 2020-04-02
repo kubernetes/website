@@ -1,4 +1,13 @@
 {{- $link := .Destination }}
 {{- $isRemote := strings.HasPrefix $link "http" }}
+{{- $onlyFragment := strings.HasPrefix $link "#" }}
 
-<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- if $onlyFragment -}}
+  <a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- else -}}
+  {{ if $isRemote }}
+    <a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}" target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
+  {{- else -}}
+    <a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+  {{- end -}}
+{{- end -}}

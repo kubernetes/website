@@ -26,10 +26,15 @@ architecture design doc for more details.
 -->
 在 Kubernetes 中，节点（Node）是执行工作的机器，以前叫做 `minion`。根据你的集群环境，节点可以是一个虚拟机或者物理机器。每个节点都包含用于运行 [pods](/docs/concepts/workloads/pods/pod/) 的必要服务，并由主控组件管理。节点上的服务包括 [容器运行时](/docs/concepts/overview/components/#node-components)、kubelet 和 kube-proxy。查阅架构设计文档中 [Kubernetes 节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) 一节获取更多细节。
 
-[scheduled](/docs/concepts/scheduling/)
-[Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
-[Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)
 
+### Testing render hooks
+
+
+* [testing fragment](#capacity)
+* [scheduled](/docs/concepts/scheduling/)
+* [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
+* [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/)
+* [Remote link](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) section in the architecture design doc for more details.
 
 {{% /capture %}}
 
@@ -72,7 +77,7 @@ Each section is described in detail below.
 <!--
 ### Addresses
 -->
-### 地址
+### 地址 { #addresses }
 
 <!--
 The usage of these fields varies depending on your cloud provider or bare metal configuration.

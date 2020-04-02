@@ -32,13 +32,6 @@ disableLanguages = ["hi", "it", "no"]
 #hrefTargetBlank = true
 #fractions = false
 
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      hardWraps = false
-      unsafe = true
-      xhtml = false
-
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
 
