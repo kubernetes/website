@@ -23,7 +23,7 @@ Controladores observam o estado partilhado do cluster através do
 {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}} (parte do
 {{< glossary_tooltip term_id="control-plane" >}}).
 
-Alguns controladores também correm dentro do plano de controlo, fornecendo ciclos
+Alguns controladores também correm dentro do plano de controle, fornecendo ciclos
 de controle que são centrais às operações do Kubernetes. Por exemplo: o controlador
 de *deployments*, o controlador de *daemonsets*, o controlador de *namespaces*, e o 
 controlador de volumes persistentes (*persistent volumes*) (e outros) todos correm
