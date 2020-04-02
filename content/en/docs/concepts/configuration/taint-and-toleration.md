@@ -136,8 +136,8 @@ tolerations:
 
 In this case, the pod will not be able to schedule onto the node, because there is no
 toleration matching the third taint. But it will continue to run if it is already
-running on the node when the taint is added, because the third taint with effect
- `NoExecute` is the only one of the three that is not tolerated by the pod.
+running on the node when the taint is added, because the third taint with the effect of
+`NoSchedule` is the only one of the three that is not tolerated by the pod.
 
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
 not tolerate the taint will be evicted immediately, and pods that do tolerate the
