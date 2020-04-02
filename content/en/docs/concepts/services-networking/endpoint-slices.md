@@ -24,6 +24,21 @@ Endpoints.
 
 {{% capture body %}}
 
+## Motivation
+
+The Endpoints API has provided a simple and straightforward way of
+tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
+and Services have gotten larger, limitations of that API became more visible.
+Most notably, those included challenges with scaling to larger numbers of
+network endpoints.
+
+Since all network endpoints for a Service were stored in a single Endpoints
+resource, those resources could get quite large. That affected the performance
+of Kubernetes components (notably the master control plane) and resulted in
+significant amounts of network traffic and processing when Endpoints changed.
+EndpointSlices help you mitigate those issues as well as provide an extensible
+platform for additional features such as topological routing.
+
 ## EndpointSlice resources {#endpointslice-resource}
 
 In Kubernetes, an EndpointSlice contains references to a set of network
@@ -164,21 +179,6 @@ existing EndpointSlice, and if not, a new EndpointSlice is likely going to be
 necessary soon anyway. Rolling updates of Deployments also provide a natural
 repacking of EndpointSlices with all pods and their corresponding endpoints
 getting replaced.
-
-## Motivation
-
-The Endpoints API has provided a simple and straightforward way of
-tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and Services have gotten larger, limitations of that API became more visible.
-Most notably, those included challenges with scaling to larger numbers of
-network endpoints.
-
-Since all network endpoints for a Service were stored in a single Endpoints
-resource, those resources could get quite large. That affected the performance
-of Kubernetes components (notably the master control plane) and resulted in
-significant amounts of network traffic and processing when Endpoints changed.
-EndpointSlices help you mitigate those issues as well as provide an extensible
-platform for additional features such as topological routing.
 
 {{% /capture %}}
 
