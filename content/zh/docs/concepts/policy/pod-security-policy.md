@@ -14,7 +14,7 @@ weight: 20
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates. 
 -->
-PodSecurityPolicy支持针对 pod 创建和更新的精细的权限控制。
+PodSecurityPolicy支持针对 pod 创建和更新进行精细的权限控制。
 
 {{% /capture %}}
 
