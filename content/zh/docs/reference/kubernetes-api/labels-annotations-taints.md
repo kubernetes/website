@@ -263,7 +263,7 @@ The expectation is that failures of nodes in different zones should be uncorrela
 -->
 区域和地域（region）的实际值无关紧要，两者的层次含义也没有严格的定义。最终期望是，除非整个地域故障，
 否则某一区域节点的故障不应该影响到其他区域的节点。例如，通常区域间应该避免共用同一个网络交换机。
-具体的规划取决于特定的基础设备 - three-rack 设备所选择的设置与多数据中心截然不同。
+具体的规划取决于特定的基础设备 - 三机架安装所选择的设置与多数据中心截然不同。
 
 <!--
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
