@@ -227,7 +227,7 @@ Disadvantages compared to declarative object configuration:
 - Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
 -->
 - 命令式对象配置针对文件而不是目录上效果最佳。
-- 对活动对象的更新必须反映在配置文件中，否则将在下一次替换是丢失。
+- 对活动对象的更新必须反映在配置文件中，否则将在下一次替换时丢失。
 
 <!--
 ## Declarative object configuration
