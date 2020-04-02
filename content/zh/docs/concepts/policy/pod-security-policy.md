@@ -14,7 +14,7 @@ weight: 20
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates. 
 -->
-PodSecurityPolicy支持针对 pod 创建和更新进行精细的权限控制。
+Pod 安全策略支持针对 pod 创建和更新进行精细的权限控制。
 
 {{% /capture %}}
 
@@ -24,7 +24,7 @@ PodSecurityPolicy支持针对 pod 创建和更新进行精细的权限控制。
 <!-- 
 ## What is a Pod Security Policy?
 -->
-## 什么是 PodSecurityPolicy？
+## 什么是 Pod 安全策略？
 
 <!-- 
 A _Pod Security Policy_ is a cluster-level resource that controls security
@@ -33,55 +33,55 @@ define a set of conditions that a pod must run with in order to be accepted into
 the system, as well as defaults for the related fields. They allow an
 administrator to control the following:
 -->
-_PodSecurityPolicy_ 是集群级别的资源，它能够控制 Pod 规范中对安全敏感的方面。
+_Pod 安全策略_ 是集群级别的资源，它能够控制 Pod 规范中对安全敏感的方面。
 [PodSecurityPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 
-对象定义了一组条件，指示 Pod 必须按系统所能接受的顺序运行，以及相关字段的默认值。
+对象定义了一组 pod 必须在其上运行才能被系统接受的条件，以及相关字段的默认设置。
 它们允许管理员控制如下方面：
 
 <!-- 
-| Control Aspect                                      | Field Names                                 |
-| ----------------------------------------------------| ------------------------------------------- |
-| Running of privileged containers                    | [`privileged`](#privileged)                                |
-| Usage of host namespaces                            | [`hostPID`, `hostIPC`](#host-namespaces)    |
-| Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
-| Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
-| Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
-| Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
-| Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
-| The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
-| Restricting escalation to root privileges           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
-| Linux capabilities                                  | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
-| The SELinux context of the container                | [`seLinux`](#selinux)                       |
-| The Allowed Proc Mount types for the container      | [`allowedProcMountTypes`](#allowedprocmounttypes) |
-| The AppArmor profile used by containers             | [annotations](#apparmor)                    |
-| The seccomp profile used by containers              | [annotations](#seccomp)                     |
-| The sysctl profile used by containers               | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                      |
+| Control Aspect                                    | Field Names                                                                                  |
+|---------------------------------------------------|----------------------------------------------------------------------------------------------|
+| Running of privileged containers                  | [`privileged`](#privileged)                                                                  |
+| Usage of host namespaces                          | [`hostPID`, `hostIPC`](#host-namespaces)                                                     |
+| Usage of host networking and ports                | [`hostNetwork`, `hostPorts`](#host-namespaces)                                               |
+| Usage of volume types                             | [`volumes`](#volumes-and-file-systems)                                                       |
+| Usage of the host filesystem                      | [`allowedHostPaths`](#volumes-and-file-systems)                                              |
+| White list of FlexVolume drivers                  | [`allowedFlexVolumes`](#flexvolume-drivers)                                                  |
+| Allocating an FSGroup that owns the pod's volumes | [`fsGroup`](#volumes-and-file-systems)                                                       |
+| Requiring the use of a read only root file system | [`readOnlyRootFilesystem`](#volumes-and-file-systems)                                        |
+| The user and group IDs of the container           | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups)                         |
+| Restricting escalation to root privileges         | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation)       |
+| Linux capabilities                                | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
+| The SELinux context of the container              | [`seLinux`](#selinux)                                                                        |
+| The Allowed Proc Mount types for the container    | [`allowedProcMountTypes`](#allowedprocmounttypes)                                            |
+| The AppArmor profile used by containers           | [annotations](#apparmor)                                                                     |
+| The seccomp profile used by containers            | [annotations](#seccomp)                                                                      |
+| The sysctl profile used by containers             | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                                         |
 
 -->
-| 控制面                          | 字段名称                                                                                      |
-|--------------------------------|----------------------------------------------------------------------------------------------|
-| 已授权容器的运行                  | [`privileged`](#privileged)                                                                  |
-| 主机 PID namespace 的使用        | [`hostPID`, `hostIPC`](#host-namespaces)                                                     |
+| 所控制的方面                     | 字段名称                                                                                     |
+|----------------------------------|----------------------------------------------------------------------------------------------|
+| 运行特权容器                     | [`privileged`](#privileged)                                                                  |
+| 使用主机 PID 的命名空间          | [`hostPID`, `hostIPC`](#host-namespaces)                                                     |
 | 主机网络的使用                   | [`hostNetwork`,`hostPorts`](#host-namespaces)                                                |
 | 控制卷类型的使用                 | [`volumes`](#volumes-and-file-systems)                                                       |
 | 主机路径的使用                   | [`allowedHostPaths`](#volumes-and-file-systems)                                              |
 | FlexVolume 卷驱动的白名单        | [`allowedFlexVolumes`](#flexvolume-drivers)                                                  |
 | 分配拥有 Pod 数据卷的 FSGroup    | [`fsGroup`](#volumes-and-file-systems)                                                       |
-| 必须使用一个只读的 root 文件系统   | [`readOnlyRootFilesystem`(#volumes-and-file-systems)                                         |
+| 必须使用一个只读的 root 文件系统 | [`readOnlyRootFilesystem`(#volumes-and-file-systems)                                         |
 | 容器的用户和组的 ID              | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups)                         |
-| 提升为 root 权限的限制           | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation)       |
-| 为容器添加默认的一组能力           | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
+| 限制提升为 root 特权             | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation)       |
+| 为容器添加默认的一组能力         | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | 容器的 SELinux 上下文            | [`seLinux`](#selinux)                                                                        |
-| 容器允许的 Proc 挂载类型          | [`allowedProcMountTypes`](#allowedprocmounttypes)                                            |
-| 容器使用的 AppArmor 配置文件      | [annotations](#apparmor)                                                                     |
-| 容器使用的 seccomp 配置文件       | [annotations](#seccomp)                                                                      |
-| 容器使用的 sysctl 配置文件        | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                                         |
+| 容器允许的 Proc 挂载类型         | [`allowedProcMountTypes`](#allowedprocmounttypes)                                            |
+| 容器使用的 AppArmor 配置         | [annotations](#apparmor)                                                                     |
+| 容器使用的 seccomp 配置          | [annotations](#seccomp)                                                                      |
+| 容器使用的 sysctl 配置           | [`forbiddenSysctls`,`allowedUnsafeSysctls`](#sysctl)                                         |
 
 <!--
 ## Enabling Pod Security Policies
 -->
-## 启用 PodSecurityPolicy
+## 启用 Pod 安全策略
 
 <!--
 Pod security policy control is implemented as an optional (but recommended)
@@ -93,7 +93,7 @@ but doing so without authorizing any policies **will prevent any pods from being
 created** in the cluster.
 -->
 
-PodSecurityPolicy 控制是 [admission 控制器](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy) 
+Pod 安全策略控制是 [admission 控制器](/docs/reference/access-authn-authz/admission-controllers/#podsecuritypolicy) 
 的一个可选实现。PodSecurityPolicy通过 [启用 admission 控制器](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-on-an-admission-control-plug-in) 被强制启用，
 但是如果集群内没有授权任何策略时这样做 **将导致任何 pod 都无法被创建**。
 
@@ -103,7 +103,7 @@ enabled independently of the admission controller, for existing clusters it is
 recommended that policies are added and authorized before enabling the admission
 controller.
 -->
-由于 PodSecurityPolicy API (`policy/v1beta1/podsecuritypolicy`) 时独立于 admission 控制器启用的，
+由于 Pod 安全策略 API (`policy/v1beta1/podsecuritypolicy`) 时独立于 admission 控制器启用的，
 所以对于现有集群推荐在启用 admission 控制器之前就添加并授权安全策略。
 
 <!--
@@ -132,7 +132,7 @@ pod's service account (see [example](#run-another-pod)).
 -->
 多数 Kubernetes pod 并非由用户直接创建。相反，通常他们作为 [Deployment](/docs/concepts/workloads/controllers/deployment/)、
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 或者其他的模板控制器的组成部分由控制器管理器被间接地创建。
-授权策略给控制器即授权给 **所有** 由该控制器创建的 pod，因此授权策略的授权方式应该时授权给 pod 的服务账户 （参见 [示例](#run-another-pod)）。
+授权策略给控制器即授权给 **所有** 由该控制器创建的 pod，因此授权策略的授权方式应该时授权给 pod 的 service account （参见 [示例](#run-another-pod)）。
 
 <!--
 ### Via RBAC
@@ -246,7 +246,7 @@ paired with system groups to grant access to all pods run in the namespace:
 ```
 -->
 ```yaml
-# 授权命名空间下的所有服务账户:
+# 授权命名空间下的所有 service accounts:
 - kind: Group
   apiGroup: rbac.authorization.k8s.io
   name: system:serviceaccounts
@@ -294,7 +294,7 @@ also be used to provide default values for many of the fields that it
 controls. When multiple policies are available, the pod security policy
 controller selects policies according to the following criteria:
 -->
-除了限制 pod 的创建和更新之外，PodSecurityPolicy 也可以用于为由其控制的许多字段提供默认值。当同时多个策略可用时，PodSecurityPolicy 控制器依据以下标准选择策略：
+除了限制 pod 的创建和更新之外，pod 安全策略也可以用于为由其控制的许多字段提供默认值。当同时多个策略可用时，pod 安全策略控制器依据以下标准选择策略：
 
 <!--
 1. PodSecurityPolicies which allow the pod as-is, without changing defaults or
@@ -334,7 +334,7 @@ _这个示例假定你有一个运行中且已启用 PodSecurityPolicy admission
 Set up a namespace and a service account to act as for this example. We'll use
 this service account to mock a non-admin user.
 -->
-以此为例设置一个命名空间和服务账户. 我们将使用这个服务账户来模拟一个非管理员用户.
+以此为例设置一个命名空间和 service account. 我们将使用这个 service account 来模拟一个非管理员用户.
 
 ```shell
 kubectl create namespace psp-example
@@ -401,7 +401,7 @@ Error from server (Forbidden): error when creating "STDIN": pods "pause" is forb
 **What happened?** Although the PodSecurityPolicy was created, neither the
 pod's service account nor `fake-user` have permission to use the new policy: 
 -->
-***发生了什么?* 尽管 PodSecurityPolicy 已经创建, pod 的 service account 和 `fake-user` 都没有权限使用这个策略:
+**发生了什么?** 尽管 PodSecurityPolicy 已经创建, pod 的 service account 和 `fake-user` 都没有权限使用这个策略:
 
 ```shell
 kubectl-user auth can-i use podsecuritypolicy/example
@@ -441,7 +441,7 @@ yes
 <!--
 Now retry creating the pod:
 -->
-接下来尝试创建这个 pod:
+现在重新创建这个 pod:
 
 ```shell
 kubectl-user create -f- <<EOF
@@ -461,7 +461,7 @@ pod "pause" created
 It works as expected! But any attempts to create a privileged pod should still
 be denied:
 -->
-它按预期运行,但是任何创建特权 pod 的尝试应当都被拒绝:
+它如期运行,但是任何创建特权 pod 的尝试都应当被拒绝:
 
 ```shell
 kubectl-user create -f- <<EOF
@@ -519,7 +519,7 @@ deployment (which successfully created a replicaset), but when the replicaset
 went to create the pod it was not authorized to use the example
 podsecuritypolicy.
 -->
-**发生了什么?**我们已经将 `psp:unprivileged` 角色绑定给了 `fake-user`, 为何仍然报错 
+**发生了什么?** 我们已经将 `psp:unprivileged` 角色绑定给了 `fake-user`, 为何仍然报错 
 `Error creating: pods "pause-7774d79b5-" is forbidden: no providers available to validate pod request`? 
 答案在 `replicaset-controller` 源码中. Fake-user 成功创建了 deployment (并且该 deployment 成功创建了一个 replicaset), 
 然而当该 replicaset 想要创建 pod 时却没有权限使用我们的示例 pod 安全策略.
@@ -529,7 +529,7 @@ In order to fix this, bind the `psp:unprivileged` role to the pod's service
 account instead. In this case (since we didn't specify it) the service account
 is `default`:
 -->
-为了修复这个问题,将 `psp:unprivileged` 角色绑定给 pod 的 service account. 在这种情况下(由于我们没有显式指定) 该 service account 为 `default`:
+为了修复这个问题，将 `psp:unprivileged` 角色绑定给 pod 的 service account. 在这种情况下(由于我们没有显式指定) 该 service account 为 `default`:
 
 ```shell
 kubectl-admin create rolebinding default:psp:unprivileged \
@@ -780,7 +780,7 @@ kind: PodSecurityPolicy
 metadata:
   name: allow-flex-volumes
 spec:
-  # ... other spec fields
+  # ... 其他特性字段
   volumes:
     - flexVolume
   allowedFlexVolumes:
