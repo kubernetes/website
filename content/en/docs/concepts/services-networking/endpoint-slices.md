@@ -8,7 +8,7 @@ feature:
     Scalable tracking of network endpoints in a Kubernetes cluster.
 
 content_template: templates/concept
-weight: 10
+weight: 15
 ---
 
 
