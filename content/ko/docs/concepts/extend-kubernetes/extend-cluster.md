@@ -6,16 +6,16 @@ weight: 10
 
 {{% capture overview %}}
 
-쿠버네티스는 고도로 구성 가능하고 확장 가능하다. 결과적으로
-쿠버네티스 프로젝트 코드에 패치를 포크하거나 제출할 필요가
+쿠버네티스는 매우 유연하게 구성할 수 있고 확장 가능하다. 결과적으로
+쿠버네티스 프로젝트를 포크하거나 코드에 패치를 제출할 필요가
 거의 없다.
 
 이 가이드는 쿠버네티스 클러스터를 사용자 정의하기 위한 옵션을 설명한다.
 쿠버네티스 클러스터를 업무 환경의 요구에 맞게
 조정하는 방법을 이해하려는 {{< glossary_tooltip text="클러스터 운영자" term_id="cluster-operator" >}}를 대상으로 한다.
-잠재적인 {{< glossary_tooltip text="플랫폼 개발자" term_id="platform-developer" >}} 또는 쿠버네티스 프로젝트 {{< glossary_tooltip text="컨트리뷰터" term_id="contributor" >}}인 개발자도
-익스텐션 포인트와 패턴이 무엇인지,
-그리고 장단점에 대한 소개 자료로 유용한 내용을 찾을 수 있을 것이다.
+잠재적인 {{< glossary_tooltip text="플랫폼 개발자" term_id="platform-developer" >}} 또는 쿠버네티스 프로젝트 {{< glossary_tooltip text="컨트리뷰터" term_id="contributor" >}}인 개발자에게도
+어떤 익스텐션 포인트와 패턴이 있는지,
+그리고 그것들의 트레이드오프와 제약에 대한 소개 자료로 유용할 것이다.
 
 {{% /capture %}}
 
@@ -28,21 +28,21 @@ weight: 10
 
 ## 구성
 
-*구성 파일* 및 *플래그* 는 각 명령에 대한 온라인 문서의 참조 섹션에 문서화되어 있다.
+*구성 파일* 및 *플래그* 는 온라인 문서의 레퍼런스 섹션에 각 바이너리 별로 문서화되어 있다.
 
 * [kubelet](/docs/admin/kubelet/)
 * [kube-apiserver](/docs/admin/kube-apiserver/)
 * [kube-controller-manager](/docs/admin/kube-controller-manager/)
 * [kube-scheduler](/docs/admin/kube-scheduler/).
 
-호스팅된 쿠버네티스 서비스 또는 매니지드 설치 환경의 배포판에서 플래그 및 구성 파일을 항상 변경할 수 있는 것은 아니다. 변경 가능한 경우 일반적으로 클러스터 관리자만 변경할 수 있다. 또한 향후 쿠버네티스 버전에서 변경될 수 있으며 이를 설정하려면 프로세스를 다시 시작해야 할 수도 있다. 이러한 이유로 다른 옵션이 없는 경우에만 사용해야 한다.
+호스팅된 쿠버네티스 서비스 또는 매니지드 설치 환경의 배포판에서 플래그 및 구성 파일을 항상 변경할 수 있는 것은 아니다. 변경 가능한 경우 일반적으로 클러스터 관리자만 변경할 수 있다. 또한 향후 쿠버네티스 버전에서 변경될 수 있으며, 이를 설정하려면 프로세스를 다시 시작해야 할 수도 있다. 이러한 이유로 다른 옵션이 없는 경우에만 사용해야 한다.
 
-[ResourceQuota](/ko/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/ko/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(Built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 ​​있다. 또한 안정적인 곳에서는 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/deprecation-policy/)을 사용한다. 이러한 이유로 인해 구성 파일과 플래그보다 선호된다.
+[리소스쿼터](/ko/docs/concepts/policy/resource-quotas/), [PodSecurityPolicy](/ko/docs/concepts/policy/pod-security-policy/), [네트워크폴리시](/ko/docs/concepts/services-networking/network-policies/) 및 역할 기반 접근 제어([RBAC](/docs/reference/access-authn-authz/rbac/))와 같은 *빌트인 정책 API(built-in Policy API)* 는 기본적으로 제공되는 쿠버네티스 API이다. API는 일반적으로 호스팅된 쿠버네티스 서비스 및 매니지드 쿠버네티스 설치 환경과 함께 사용된다. 그것들은 선언적이며 파드와 같은 다른 쿠버네티스 리소스와 동일한 규칙을 사용하므로, 새로운 클러스터 구성을 반복할 수 있고 애플리케이션과 동일한 방식으로 관리할 수 ​​있다. 또한, 이들 API가 안정적인 경우, 다른 쿠버네티스 API와 같이 [정의된 지원 정책](/docs/reference/deprecation-policy/)을 사용할 수 있다. 이러한 이유로 인해 구성 파일과 플래그보다 선호된다.
 
-## 익스텐션(Extension)
+## 익스텐션(Extension) {#익스텐션}
 
-익스텐션은 쿠버네티스와 확장 및 긴밀하게 통합되는 소프트웨어 컴포넌트이다.
-이들 컴포넌트는 새로운 유형과 새로운 종류의 하드웨어를 지원하기 위해 그것을 적응시킨다.
+익스텐션은 쿠버네티스를 확장하고 쿠버네티스와 긴밀하게 통합되는 소프트웨어 컴포넌트이다.
+이들 컴포넌트는 쿠버네티스가 새로운 유형과 새로운 종류의 하드웨어를 지원할 수 있게 해준다.
 
 대부분의 클러스터 관리자는 쿠버네티스의 호스팅 또는 배포판 인스턴스를 사용한다.
 결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 있고
@@ -52,7 +52,7 @@ weight: 10
 
 쿠버네티스는 클라이언트 프로그램을 작성하여 자동화 되도록 설계되었다.
 쿠버네티스 API를 읽고 쓰는 프로그램은 유용한 자동화를 제공할 수 있다.
-*자동화* 는 클러스터에서 실행하거나 해제할 수 있다. 이 문서의 지침에 따라
+*자동화* 는 클러스터 상에서 또는 클러스터 밖에서 실행할 수 있다. 이 문서의 지침에 따라
 고가용성과 강력한 자동화를 작성할 수 있다.
 자동화는 일반적으로 호스트 클러스터 및 매니지드 설치 환경을 포함한 모든
 쿠버네티스 클러스터에서 작동한다.
@@ -91,11 +91,11 @@ kubectl에서
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
-2.   apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 컨텐츠를 기반으로 요청을 차단하거나, 컨텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#api-접근-익스텐션) 섹션에 설명되어 있다.
-3.   apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *사용자 정의 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 사용자 정의 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
+2.   apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 콘텐츠를 기반으로 요청을 차단하거나, 콘텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#api-접근-익스텐션) 섹션에 설명되어 있다.
+3.   apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *커스텀 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 커스텀 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
 4.   쿠버네티스 스케줄러는 파드를 배치할 노드를 결정한다. 스케줄링을 확장하는 몇 가지 방법이 있다. 이들은 [스케줄러 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#스케줄러-익스텐션) 섹션에 설명되어 있다.
-5.   쿠버네티스의 많은 동작은 API-Server의 클라이언트인 컨트롤러(Controller)라는 프로그램으로 구현된다. 컨트롤러는 종종 사용자 정의 리소스와 함께 사용된다.
-6.   kubelet은 서버에서 실행되며 파드가 클러스터 네트워크에서 자체 IP를 가진 가상 서버처럼 표시되도록 한다. [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#네트워크-플러그인)을 사용하면 다양한 파드 네트워킹 구현이 가능하다.
+5.   쿠버네티스의 많은 동작은 API-Server의 클라이언트인 컨트롤러(Controller)라는 프로그램으로 구현된다. 컨트롤러는 종종 커스텀 리소스와 함께 사용된다.
+6.   kubelet은 서버에서 실행되며 파드가 클러스터 네트워크에서 자체 IP를 가진 가상 서버처럼 보이도록 한다. [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#네트워크-플러그인)을 사용하면 다양한 파드 네트워킹 구현이 가능하다.
 7.   kubelet은 컨테이너의 볼륨을 마운트 및 마운트 해제한다. 새로운 유형의 스토리지는 [스토리지 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#스토리지-플러그인)을 통해 지원될 수 있다.
 
 어디서부터 시작해야 할지 모르겠다면, 이 플로우 차트가 도움이 될 수 있다. 일부 솔루션에는 여러 유형의 익스텐션이 포함될 수 있다.
@@ -108,16 +108,16 @@ kubectl에서
 ## API 익스텐션
 ### 사용자 정의 유형
 
-새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl`과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 사용자 정의 리소스를 추가하자.
+새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl`과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 커스텀 리소스를 추가하자.
 
-애플리케이션, 사용자 또는 모니터링 데이터의 데이터 저장소로 사용자 정의 리소스를 사용하지 않는다.
+애플리케이션, 사용자 또는 모니터링 데이터의 데이터 저장소로 커스텀 리소스를 사용하지 않는다.
 
-사용자 정의 리소스에 대한 자세한 내용은 [사용자 정의 리소스 개념 가이드](/docs/concepts/api-extension/custom-resources/)를 참고하길 바란다.
+커스텀 리소스에 대한 자세한 내용은 [커스텀 리소스 개념 가이드](/docs/concepts/api-extension/custom-resources/)를 참고하길 바란다.
 
 
 ### 새로운 API와 자동화의 결합
 
-사용자 정의 리소스 API와 컨트롤 루프의 조합을 [오퍼레이터(Operator) 패턴](/docs/concepts/extend-kubernetes/operator/)이라고 한다. 오퍼레이터 패턴은 특정 애플리케이션, 일반적으로 스테이트풀(stateful) 애플리케이션을 관리하는 데 사용된다. 이러한 사용자 정의 API 및 컨트롤 루프를 사용하여 스토리지나 정책과 같은 다른 리소스를 제어할 수도 있다.
+사용자 정의 리소스 API와 컨트롤 루프의 조합을 [오퍼레이터(operator) 패턴](/docs/concepts/extend-kubernetes/operator/)이라고 한다. 오퍼레이터 패턴은 특정 애플리케이션, 일반적으로 스테이트풀(stateful) 애플리케이션을 관리하는 데 사용된다. 이러한 사용자 정의 API 및 컨트롤 루프를 사용하여 스토리지나 정책과 같은 다른 리소스를 제어할 수도 있다.
 
 ### 빌트인 리소스 변경
 
@@ -166,7 +166,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 장치 플러그인은 노드가 [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)을
 통해 새로운 노드 리소스(CPU 및 메모리와 같은 빌트인 자원 외에)를
-발견할 수 있다.
+발견할 수 있게 해준다.
 
 
 ### 네트워크 플러그인
@@ -194,7 +194,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 {{% capture whatsnext %}}
 
-* [사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)에 대해 더 알아보기
+* [커스텀 리소스](/docs/concepts/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
 * 인프라스트럭처 익스텐션에 대해 더 알아보기
   * [네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/)
