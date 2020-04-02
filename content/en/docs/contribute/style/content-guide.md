@@ -39,7 +39,7 @@ project](https://github.com/kubernetes/kubernetes).
 Kubernetes docs permit only some kinds of content.
 
 ### Third party content
-Kubernetes documentation includes applied examples of projects in the Kubernetes project&emdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
+Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
 [kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations. 
 
 Links to active content in the Kubernetes project are always allowed. 
