@@ -1,16 +1,16 @@
 # i18n strings for the Arabic (العربية) localization.
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+other = "الوثائق لم تعد نشطة. الإصدار الذي تعرضه حاليًا هو لقطة ثابتة. للحصول على أحدث الوثائق ، راجع"
 
 [deprecation_file_warning]
-other = "Deprecated"
+other = "لم تعد موجودة"
 
 [objectives_heading]
-other = "Objectives"
+other = "الأهداف"
 
 [cleanup_heading]
-other = "Cleaning up"
+other = "تنظيف"
 
 [prerequisites_heading]
 other = "قبل ان تبدأ"
@@ -19,7 +19,7 @@ other = "قبل ان تبدأ"
 other = "ماذا بعد"
 
 [feedback_heading]
-other = "Feedback"
+other = "التقييم"
 
 [feedback_question]
 other = "هل كانت هذه الصفحة مفيدة؟"
@@ -58,7 +58,7 @@ other = "أقرأ عن"
 other = "قراءة المزيد"
 
 [main_github_invite]
-other = "Interested in hacking on the core Kubernetes code base?"
+other = "هل أنت مهتم بمتابعه باستمرار قاعدة شفرة Kubernetes الأساسية؟"
 
 [main_github_view_on]
 other = "View On GitHub"
@@ -76,7 +76,7 @@ other = "ميزات Kubernetes"
 other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
 [main_kubeweekly_baseline]
-other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+other = "هل أنت مهتم بتلقي آخر أخبار Kubernetes؟ قم بالتسجيل في KubeWeekly."
 
 [main_kubernetes_past_link]
 other = "عرض النشرات الإخبارية السابقة"
@@ -116,7 +116,7 @@ other = "المساهمون"
 other = "المستخدمون"
 
 [docs_label_i_am]
-other = "I AM..."
+other = "انا..."
 
 # layouts > blog > pager
 
@@ -157,7 +157,7 @@ other = "المؤشرات أدناه للحصول على شرح أطول لأي 
 # layouts > docs > search
 
 [layouts_docs_search_fetching]
-other = "Fetching results.."
+other = "جلب النتائج .."
 
 # layouts > partial > feedback
 
@@ -186,9 +186,9 @@ other = "Slack"
 [community_stack_overflow_name]
 other = "Stack Overflow"
 [community_forum_name]
-other = "Forum"
+other = "المنتدى"
 [community_events_calendar]
-other = "Events Calendar"
+other = "تقويم الأحداث"
 
 # UI elements
 [ui_search_placeholder]
