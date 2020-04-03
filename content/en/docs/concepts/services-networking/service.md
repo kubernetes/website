@@ -653,6 +653,16 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+[...]
+```
+{{% /tab %}}
 {{% tab name="OpenStack" %}}
 ```yaml
 [...]
