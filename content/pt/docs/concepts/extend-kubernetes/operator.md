@@ -111,7 +111,7 @@ as mudanças assim como manter o serviço existente em boa forma.
 
 Se não existir no ecosistema um Operador que implementa
 o comportamento que pretende, pode codificar o seu próprio.
-[No que vem a seguir](#what-s-next) voce vai encontrar
+[No que vem a seguir](#what-s-next) você vai encontrar
 alguns *links* para bibliotecas e ferramentas que opde usar
 para escrever o seu próprio Operador *cloud native*.
 
