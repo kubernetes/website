@@ -658,9 +658,9 @@ kubelet [flags]
     <tr>
       <td></td><td style="line-height: 130%; word-wrap: break-word;">
       <!--
-      Enable cAdvisor json /spec and /stats/* endpoints. (default true)
+      Enable cAdvisor json /spec and /stats/* endpoints. (default false)
       -->
-      启用 cAdvisor JSON 数据的 /spec 和 /stats/* 端点。（默认值为 true）
+      启用 cAdvisor JSON 数据的 /spec 和 /stats/* 端点。（默认值为 false）（已弃用：未来版本将会移除该参数）
       </td>
     </tr>
 
