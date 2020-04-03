@@ -22,7 +22,7 @@ Kubernetes also stores its serialized state (currently in [etcd](https://coreos.
 
 Kubernetes itself is decomposed into multiple components, which interact through its API.
 -->
-[API协议文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)记录了 k8s API的所有协议规范。
+[API 约定文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md) 描述了 k8s API 的总体约定。
 
 [API参考文档](/docs/reference)描述了API整体规范。
 
