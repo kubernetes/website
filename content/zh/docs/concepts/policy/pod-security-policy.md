@@ -71,7 +71,7 @@ _Pod 安全策略_ 是集群级别的资源，它能够控制 Pod 规范中对�
 | 必须使用一个只读的 root 文件系统 | [`readOnlyRootFilesystem`(#volumes-and-file-systems)                                         |
 | 容器的用户和组的 ID              | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups)                         |
 | 限制提升为 root 特权             | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation)       |
-| 为容器添加默认的一组能力         | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
+| 为容器添加默认的一组权能字         | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
 | 容器的 SELinux 上下文            | [`seLinux`](#selinux)                                                                        |
 | 容器允许的 Proc 挂载类型         | [`allowedProcMountTypes`](#allowedprocmounttypes)                                            |
 | 容器使用的 AppArmor 配置         | [annotations](#apparmor)                                                                     |
@@ -620,7 +620,7 @@ This is useful for containers that want to use linux capabilities like
 manipulating the network stack and accessing devices.
 -->
 **特权** - 决定 pod 中的任意容器能否启用特权模式。默认情况下一个容器不允许访问主机上的任意设备， 但是一个 "特权" 容器是允许访问主机上的所有设备的。
-这样容器具备的权限几乎等同于主机上运行的进程。 这对于像比如操作网络堆栈和访问设备等需要使用 linux capabilities 的容器来说非常有用。
+这样容器具备的权限几乎等同于主机上运行的进程。 这对于像比如操作网络堆栈和访问设备等需要使用 linux 权能字的容器来说非常有用。
 
 <!--
 ### Host namespaces
@@ -865,7 +865,7 @@ capabilities (e.g. it will prevent the use of the `ping` tool). This behavior is
 required to effectively enforce `MustRunAsNonRoot`.
  -->
 这个选项控制容器的 `allowPrivilegeEscalation` 选项。这个布尔值直接控制 [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
-标志是否设置到容器进程上。这个标志将防止 `setuid` 二进制文件改变有效的用户 ID，并防止文件启用额外的功能 (例如，它将防止使用 `ping` 工具)。
+标志是否设置到容器进程上。这个标志将防止 `setuid` 二进制文件改变有效的用户 ID，并防止文件启用额外的权能字 (例如，它将防止使用 `ping` 工具)。
 这种行为前提是需要有效地强制指定 `MustRunAsNonRoot`。
 
 <!-- 
@@ -891,7 +891,7 @@ pods to request `allowPrivilegeEscalation` explicitly.
 <!-- 
 ### Capabilities
  -->
-### 能力
+### 权能字
 
 <!-- 
 Linux capabilities provide a finer grained breakdown of the privileges
@@ -900,14 +900,14 @@ used to escalate privileges or for container breakout, and may be restricted by
 the PodSecurityPolicy. For more details on Linux capabilities, see
 [capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html).
  -->
-Linux 能力提供了对传统上与超级用户相关的特权的细粒度分解。其中一些能力可用于特权提升或容器断接，并且可能受到 PodSecurityPolicy 的限制。
+Linux 权能字提供了对传统上与超级用户相关的特权的细粒度分解。其中一些权能字可用于特权提升或容器断接，并且可能受到 PodSecurityPolicy 的限制。
 有关Linux功能的更多信息，查看 [capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html)。
 
 <!-- 
 The following fields take a list of capabilities, specified as the capability
 name in ALL_CAPS without the `CAP_` prefix.
  -->
-以下字段列出了能力列表，在 ALL_CAPS 中指定为不带 `CAP_` 前缀的能力名称。
+以下字段列出了权能字列表，在 ALL_CAPS 中指定为不带 `CAP_` 前缀的权能字名称。
 
 <!-- 
 **AllowedCapabilities** - Provides a whitelist of capabilities that may be added
@@ -915,8 +915,8 @@ to a container. The default set of capabilities are implicitly allowed. The
 empty set means that no additional capabilities may be added beyond the default
 set. `*` can be used to allow all capabilities.
  -->
-**AllowedCapabilities** - 提供可添加到容器中的能力白名单。默认的能力集是隐式允许的。
-空集意味着在默认集之外不能添加任何附加能力。`*` 可用于允许所有能力。
+**AllowedCapabilities** - 提供可添加到容器中的权能字白名单。默认的权能字集是隐式允许的。
+空集意味着在默认集之外不能添加任何附加权能字。`*` 可用于允许所有权能字。
 
 <!-- 
 **RequiredDropCapabilities** - The capabilities which must be dropped from
@@ -924,8 +924,8 @@ containers. These capabilities are removed from the default set, and must not be
 added. Capabilities listed in `RequiredDropCapabilities` must not be included in
 `AllowedCapabilities` or `DefaultAddCapabilities`.
  -->
-**RequiredDropCapabilities** - 必须从容器中删除的能力。这些能力将从默认设置中删除，并且不能被添加。
-在 `requireddropcapability` 中列出的能力不能包含在 `allowedcapability` 或 `defaultaddcapability` 中。
+**RequiredDropCapabilities** - 必须从容器中删除的权能字。这些权能字将从默认设置中删除，并且不能被添加。
+在 `requireddropcapability` 中列出的权能字不能包含在 `allowedcapability` 或 `defaultaddcapability` 中。
 
 <!-- 
 **DefaultAddCapabilities** - The capabilities which are added to containers by
@@ -933,7 +933,7 @@ default, in addition to the runtime defaults. See the [Docker
 documentation](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
 for the default list of capabilities when using the Docker runtime.
  -->
-**DefaultAddCapabilities** - 除了运行时默认设置外，默认添加到容器中的能力。查看 [Docker 文档](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities) 中关于使用 Docker 运行时时默认的能力列表。
+**DefaultAddCapabilities** - 除了运行时默认设置外，默认添加到容器中的权能字。查看 [Docker 文档](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities) 中关于使用 Docker 运行时时默认的权能字列表。
 
 ### SELinux
 <!-- 
