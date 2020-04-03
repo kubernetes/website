@@ -31,8 +31,8 @@ o Kubernetes fornece.
 
 ## Operadores no Kubernetes
 
-O Kubernetes é desenhado para automação. *Out of the box*, você tem um
-monte de automação embutida desde o núcleo do Kubernetes. Pode usar
+O Kubernetes é desenhado para automação. *Out of the box*, você tem bastante
+automação embutida no núcleo do Kubernetes. Pode usar
 o Kubernetes para automatizar instalações e executar cargas de trabalho,
 e pode ainda automatizar a forma como o Kubernetes faz isso.
 
