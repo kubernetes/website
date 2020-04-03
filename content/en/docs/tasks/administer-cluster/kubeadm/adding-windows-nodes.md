@@ -129,9 +129,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
     
     ```bash
     # Example
-    curl -Lo flannel-overlay.yml https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml
-    sed -i "s|=Ethernet|Ethernet0 2|g"
-    kubectl apply -f flannel-overlay.yml
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml | sed 's/Ethernet/Ethernet0 2/g' | kubectl apply -f -
     ```
 
 
