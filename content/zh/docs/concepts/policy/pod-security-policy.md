@@ -132,7 +132,7 @@ pod's service account (see [example](#run-another-pod)).
 -->
 多数 Kubernetes pod 并非由用户直接创建。相反，通常他们作为 [Deployment](/docs/concepts/workloads/controllers/deployment/)、
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 或者其他的模板控制器的组成部分由控制器管理器被间接地创建。
-授权策略给控制器即授权给 **所有** 由该控制器创建的 pod，因此授权策略的授权方式应该时授权给 pod 的 service account （参见 [示例](#run-another-pod)）。
+将访问权限授予控制器即相当于授权给 **所有** 由该控制器创建的 Pod，因此推荐的鉴权策略的方式是为 Pod 的服务账号授权（参见 [示例](#run-another-pod)）。
 
 <!--
 ### Via RBAC
