@@ -72,10 +72,10 @@ The basic Kubernetes objects include:
 
 基本的 Kubernetes 对象包括：
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](zh/docs/concepts/workloads/pods/pod-overview/)
+* [Service](zh/docs/concepts/services-networking/service/)
+* [Volume](zh/docs/concepts/storage/volumes/)
+* [Namespace](zh/docs/concepts/overview/working-with-objects/namespaces/)
 
 <!--
 Kubernetes also contains higher-level abstractions that rely on [Controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
