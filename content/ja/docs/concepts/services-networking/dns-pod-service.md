@@ -25,7 +25,7 @@ Kubernetesの`bar`というネームスペース内で`foo`という名前のSer
 うまく機能する他のレイアウト、名前、またはクエリーは、実装の詳細を考慮し、警告なしに変更されることがあります。  
 最新の仕様に関する詳細は、[KubernetesにおけるDNSベースのServiceディスカバリ](https://github.com/kubernetes/dns/blob/master/docs/specification.md)を参照ください。
 
-## Service
+## Service {#services}
 
 ### Aレコード
 
@@ -148,7 +148,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### PodのDNS設定
+### PodのDNS設定 {#pods-dns-config}
 
 PodのDNS設定は、ユーザーがPodに対してそのDNS設定上でさらに制御するための手段を提供します。
 
