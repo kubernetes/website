@@ -3,7 +3,7 @@ title: Kubernetes 文档
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "主页"
 main_menu: true
 weight: 10
