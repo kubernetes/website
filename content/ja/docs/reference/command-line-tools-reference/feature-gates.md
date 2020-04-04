@@ -322,7 +322,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CSIPersistentVolume`: [CSI(Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
-- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
+- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/ja/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
 - `CustomResourceDefaulting`: OpenAPI v3バリデーションスキーマにおいて、デフォルト値のCRDサポートを有効にします。
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。

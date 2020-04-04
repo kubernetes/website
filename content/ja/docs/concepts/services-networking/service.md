@@ -306,7 +306,7 @@ CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、
 Kubernetesは名前付きのポートに対するDNS SRV(Service)レコードもサポートしています。もし`"my-service.my-ns"`というServiceが`"http"`という名前のTCPポートを持っていた場合、IPアドレスと同様に、`"http"`のポート番号を探すために`_http._tcp.my-service.my-ns`というDNS SRVクエリを実行できます。
 
 KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一の方法です。  
-[DNS Pods と Service](/docs/concepts/services-networking/dns-pod-service/)にて`ExternalName`による名前解決に関するさらなる情報を確認できます。
+[DNS Pods と Service](/ja/docs/concepts/services-networking/dns-pod-service/)にて`ExternalName`による名前解決に関するさらなる情報を確認できます。
 
 ## Headless Service {#headless-service}
 
