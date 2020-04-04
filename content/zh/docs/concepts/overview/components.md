@@ -19,7 +19,6 @@ card:
 ---
 -->
 
-{{% capture overview %}}
 <!--
 When you deploy Kubernetes, you get a cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
@@ -31,12 +30,13 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 ![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
 -->
+{{% capture overview %}}
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
 
 本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
 
-这张图表展示了包含所有相互关联组件的完整 Kubernetes 集群。
+这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
 
 ![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
 
