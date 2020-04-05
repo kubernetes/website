@@ -92,7 +92,7 @@ O Controlador vai normalmente executar fora do
 como você faria com qualquer aplicação containerizada.
 Por exemplo, você pode executar o controlador no seu cluster como um *Deployment*.
 
-## Usando um Operador {#using-operators}
+## Usando um Operador
 
 Uma vez que você tenha um Operador instalado, usaria-o adicionando, modificando
 ou apagando a espécie de recurso que o Operador usa. Seguindo o exemplo acima,
@@ -111,7 +111,7 @@ as mudanças assim como manter o serviço existente em boa forma.
 
 Se não existir no ecosistema um Operador que implementa
 o comportamento que pretende, pode codificar o seu próprio.
-[No que vem a seguir](#what-s-next) você vai encontrar
+[Qual é o próximo](#qual-é-o-próximo) você vai encontrar
 alguns *links* para bibliotecas e ferramentas que opde usar
 para escrever o seu próprio Operador *cloud native*.
 
