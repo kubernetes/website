@@ -106,6 +106,7 @@ This example uses the default provisioner for Minikube. Please update the follow
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
+1. Review the StatefulSet yaml.  Specifically, review the Storage Class and confirm/adjust as appropriate.  More information on persistent volumes at https://kubernetes.io/docs/concepts/storage/persistent-volumes/.  Note the provisioner and type are specific for a given cloud provider.
 1. Update the StatefulSet if necessary.
 1. Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 
