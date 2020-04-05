@@ -1,0 +1,37 @@
+{{- $link := .Destination }}
+{{- $isRemote := strings.HasPrefix $link "http" }}
+{{- $onlyFragment := strings.HasPrefix $link "#" }}
+{{- $pageLang := .Page.Lang -}}
+
+{{- $filePath := printf "content/%s/%s.md" $pageLang (trim $link "/" ) -}}
+{{- $filePathHasLangPrefix := printf "content/%s.md" (trim $link "/") -}}
+{{- $filePathNoSuffix := printf "content/%s/%s" $pageLang (trim $link "/") -}}
+{{- $filePathHasLangPrefixNoSuffix := printf "content/%s" (trim $link "/") -}}
+
+
+<!-- try link in the lang associated with the current page -->
+
+{{- if $onlyFragment -}}
+<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- else -}}
+{{ if $isRemote }}
+<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}" target="_blank"{{ end }}>{{ .Text | safeHTML }}</a>
+{{- else -}}
+{{- if ne "en" $pageLang -}}
+{{- $checkLink := $link | relLangURL -}}
+{{- if (fileExists $filePath)  -}}
+<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>USE TRANSLATED:file-exists {{- $filePath -}}{{ .Text | safeHTML }}</a>
+{{- else if (fileExists $filePathHasLangPrefix) -}}
+<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>USE TRANSLATED:file-exists {{- $filePathHasLangPrefix -}}{{ .Text | safeHTML }}</a>
+{{- else if (fileExists $filePathNoSuffix) -}}
+<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>USE TRANSLATED:file-exists {{- $filePathNoSuffix -}}{{ .Text | safeHTML }}</a>
+{{- else if (fileExists $filePathHasLangPrefixNoSuffix) -}}
+<a href="{{ $link | relLangURL | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>USE TRANSLATED:file-exists {{- $filePathHasLangPrefixNoSuffix -}}{{ .Text | safeHTML }}</a>
+{{- else -}}
+<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>DEFAULT to EN, file does not exist for {{- $link -}}{{ .Text | safeHTML }}</a>
+{{- end -}}
+{{- else -}}
+<a href="{{ $link | safeURL }}"{{ with .Title}} title="{{ . }}"{{ end }}>EN: {{- $filePath -}} {{ .Text | safeHTML }}</a>
+{{- end -}}
+{{- end -}}
+{{- end -}}
