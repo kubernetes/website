@@ -65,7 +65,7 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 #### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pods/) are available for debugging.
+/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
 
 #### My pod is running but not doing what I told it to do
 
