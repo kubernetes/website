@@ -222,7 +222,7 @@ Approvers improve the documentation by reviewing and merging pull requests into 
 
 - Visit the Netlify page preview for a PR to make sure things look good before approving.
 
-- Participate in the [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
+- Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
 rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 for more details.
 
@@ -298,7 +298,7 @@ SIG Docs approvers. Here's how it works.
 - Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
 - Only SIG Docs approvers can merge a pull request
   by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](#pr-wrangler) or
+  specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
 {{% /capture %}}

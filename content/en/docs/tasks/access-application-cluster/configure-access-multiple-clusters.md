@@ -158,8 +158,8 @@ certification files, then you need add the suffix `-data` to the keys. For examp
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the
-`dev-frontend` context says, Use the credentials of the `developer`
-user to access the `frontend` namespace of the `development` cluster.
+`dev-frontend` context says, "Use the credentials of the `developer`
+user to access the `frontend` namespace of the `development` cluster".
 
 Set the current context:
 
@@ -275,7 +275,7 @@ colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you h
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
 
-Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
+Temporarily append two paths to your `KUBECONFIG` environment variable. For example:
 
 ### Linux
 ```shell
@@ -359,11 +359,12 @@ kubectl config view
 ## Clean up
 
 Return your `KUBECONFIG` environment variable to its original value. For example:<br>
-Linux:
+
+### Linux
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
