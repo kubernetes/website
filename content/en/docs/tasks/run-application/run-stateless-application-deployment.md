@@ -97,7 +97,7 @@ a Deployment that runs the nginx:1.14.2 Docker image:
 ## Updating the deployment
 
 You can update the deployment by applying a new YAML file. This YAML file
-specifies that the deployment should be updated to use nginx 1.8.
+specifies that the deployment should be updated to use nginx 1.16.1.
 
 {{< codenew file="application/deployment-update.yaml" >}}
 
