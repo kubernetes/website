@@ -1,7 +1,7 @@
 ---
 title: Managing Resources for Containers
 content_template: templates/concept
-weight: 20
+weight: 40
 feature:
   title: Automatic bin packing
   description: >

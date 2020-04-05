@@ -5,7 +5,7 @@ reviewers:
 - bsalamat
 title: Assigning Pods to Nodes
 content_template: templates/concept
-weight: 30
+weight: 50
 ---
 
 

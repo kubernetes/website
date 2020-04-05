@@ -7,7 +7,7 @@ feature:
   title: Secret and configuration management
   description: >
     Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
-weight: 50
+weight: 30
 ---
 
 {{% capture overview %}}
