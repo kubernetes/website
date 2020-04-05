@@ -31,7 +31,7 @@ weight: 10
 
 - 可能な限り、"真っ裸"のPod([ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
 
-  明示的に[`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)を使いたいシーンを除いて、DeploymentはPodを直接作成するよりもほとんど常に望ましい方法です。Deploymentには、希望する数のPodが常に使用可能であることを確認するためにReplicaSetを作成したり、Podを置き換えるための戦略（RollingUpdateなど）を指定したりできます。[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のほうが適切な場合もあるかもしれません。
+  明示的に[`restartPolicy: Never`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)を使いたいシーンを除いて、DeploymentはPodを直接作成するよりもほとんど常に望ましい方法です。Deploymentには、希望する数のPodが常に使用可能であることを確認するためにReplicaSetを作成したり、Podを置き換えるための戦略（RollingUpdateなど）を指定したりできます。[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のほうが適切な場合もあるかもしれません。
 
 ## Service
 
