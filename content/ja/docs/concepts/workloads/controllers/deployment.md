@@ -919,7 +919,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 
-[`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)が`Always`に等しいときのみ許可されます。これはテンプレートで指定されていない場合のデフォルト値です。
+[`.spec.template.spec.restartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)が`Always`に等しいときのみ許可されます。これはテンプレートで指定されていない場合のデフォルト値です。
 
 ### レプリカ数
 
@@ -973,7 +973,7 @@ Deploymentのテンプレートが`.spec.template`と異なる場合や、`.spec
 
 ### minReadySeconds {#min-ready-seconds}
 
-`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
+`.spec.minReadySeconds`はオプションのフィールドで、新しく作成されたPodが利用可能となるために、最低どれくらいの秒数コンテナーがクラッシュすることなく稼働し続ければよいかを指定するものです。デフォルトでは0です(Podは作成されるとすぐに利用可能と判断されます)。Podが利用可能と判断された場合についてさらに学ぶために[Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)を参照してください。
 
 ### rollbackTo
 

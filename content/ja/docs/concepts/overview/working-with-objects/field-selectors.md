@@ -10,7 +10,7 @@ _フィールドセレクター(Field Selectors)_ は、1つかそれ以上の�
 * `metadata.namespace!=default`
 * `status.phase=Pending`  
 
-下記の`kubectl`コマンドは、[`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)フィールドの値が`Running`である全てのPodを選択します。  
+下記の`kubectl`コマンドは、[`status.phase`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)フィールドの値が`Running`である全てのPodを選択します。  
 
 ```shell
 kubectl get pods --field-selector status.phase=Running

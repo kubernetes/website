@@ -52,7 +52,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 Podに対する必須のフィールドに加えて、DaemonSet内のPodテンプレートは適切なラベルを指定しなくてはなりません([Podセレクター](#pod-selector)の項目を参照ください)。
 
-DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)フィールドを指定せずにデフォルトの`Always`を使用するか、明示的に`Always`を設定するかのどちらかである必要があります。
+DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)フィールドを指定せずにデフォルトの`Always`を使用するか、明示的に`Always`を設定するかのどちらかである必要があります。
 
 ### Podセレクター
 
