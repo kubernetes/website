@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Comunicazione Master-Node
 content_template: templates/concept
 weight: 20

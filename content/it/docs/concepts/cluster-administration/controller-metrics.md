@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Metriche del responsabile del controller
 content_template: templates/concept
 weight: 100
