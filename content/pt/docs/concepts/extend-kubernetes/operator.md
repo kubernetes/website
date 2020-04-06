@@ -42,7 +42,7 @@ Kubernetes.
 Operadores são clientes da API do Kubernetes que atuam como controladores para
 um dado [*Custom Resource*](/docs/concepts/api-extension/custom-resources/)
 
-## Exemplo de um Operador {#example}
+## Exemplo de um Operador {#exemplo}
 
 Algumas das coisas que um operador pode ser usado para automatizar incluem:
 
@@ -107,7 +107,7 @@ kubectl edit SampleDB/example-database # mudar manualmente algumas definições
 &hellip;e é isso! O Operador vai tomar conta de aplicar
 as mudanças assim como manter o serviço existente em boa forma.
 
-## Escrevendo o seu prórpio Operador {#writing-operator}
+## Escrevendo o seu prórpio Operador {#escrevendo-operador}
 
 Se não existir no ecosistema um Operador que implementa
 o comportamento que pretende, pode codificar o seu próprio.
