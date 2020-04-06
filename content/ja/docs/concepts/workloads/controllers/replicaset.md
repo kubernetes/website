@@ -203,7 +203,7 @@ Kubernetes1.9において、ReplicaSetは`apps/v1`というAPIバージョンが
 
 ### Pod セレクター
 
-`.spec.selector`フィールドは[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)です。
+`.spec.selector`フィールドは[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)です。
 [先ほど](#how-a-replicaset-works)議論したように、ReplicaSetが所有するPodを指定するためにそのラベルが使用されます。
 先ほどの`frontend.yaml`の例では、そのセレクターは下記のようになっていました
 ```shell
@@ -309,7 +309,7 @@ PodをPodそれ自身で停止させたいような場合(例えば、バッチ�
 ### ReplicationController
 
 ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/)の後継となるものです。
-この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
+この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
 このように、ReplicaSetはReplicationControllerよりも好まれます。
 
 {{% /capture %}}

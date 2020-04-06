@@ -927,7 +927,7 @@ Podの必須フィールドに加えて、Deployment内のPodテンプレート�
 
 ### セレクター {#selector}
 
-`.spec.selector`は必須フィールドで、Deploymentによって対象とされるPodの[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/)を指定します。
+`.spec.selector`は必須フィールドで、Deploymentによって対象とされるPodの[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)を指定します。
 
 `.spec.selector`は`.spec.template.metadata.labels`と一致している必要があり、一致しない場合はAPIによって拒否されます。
 
