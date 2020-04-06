@@ -14,7 +14,9 @@ This page describes how to install a Kubernetes cluster on AWS.
 
 {{% capture prerequisites %}}
 
-To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
+### Amazon Elastic Kubernetes Service
+
+If you are looking for a simplified way to run Kubernetes on AWS try [Amazon Elastic Kubernetes Service (Amazon EKS)](https://aws.amazon.com/eks/). A quick way to get started with EKS is to use [eksctl](https://eksctl.io/introduction/getting-started/) to create a cluster with worker nodes. 
 
 ### Supported Production Grade Tools
 
