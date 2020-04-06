@@ -94,7 +94,7 @@ worker node, but it can't run on that machine. Again, the information from
 ### My pod is crashing or otherwise unhealthy
 
 Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug-application-cluster/debug-running-pods/) are available for debugging.
+/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
 
 
 ## Debugging ReplicationControllers
