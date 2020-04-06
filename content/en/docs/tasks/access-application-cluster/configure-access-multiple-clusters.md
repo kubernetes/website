@@ -153,7 +153,7 @@ The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placehold
 for the pathnames of the certificate files. You need change these to the actual pathnames
 of certificate files in your environment.
 
-Sometimes you may want to use Base64-encoded data embeddedhere instead of separate
+Sometimes you may want to use Base64-encoded data embedded here instead of separate
 certificate files; in that case you need add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
