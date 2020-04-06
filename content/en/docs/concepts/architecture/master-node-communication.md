@@ -97,13 +97,28 @@ public networks.
 
 ### SSH Tunnels
 
-Kubernetes supports SSH tunnels to protect the Master -> Cluster communication
+Kubernetes supports SSH tunnels to protect the Master → Cluster communication
 paths. In this configuration, the apiserver initiates an SSH tunnel to each node
 in the cluster (connecting to the ssh server listening on port 22) and passes
 all traffic destined for a kubelet, node, pod, or service through the tunnel.
 This tunnel ensures that the traffic is not exposed outside of the network in
 which the nodes are running.
 
-SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. A replacement for this communication channel is being designed.
+SSH tunnels are currently deprecated so you shouldn't opt to use them unless you
+know what you are doing. The Konnectivity service is a replacement for this
+communication channel.
+
+### Konnectivity service
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
+As a replacement to the SSH tunnels, the Konnectivity service provides TCP
+level proxy for the Master → Cluster communication. The Konnectivity consists of
+two parts, the Konnectivity server and the Konnectivity agents, running in the
+Master network and the Cluster network respectively. The Konnectivity agents
+initiate connections to the Konnectivity server and maintain the connections.
+All Master → Cluster traffic then goes through these connections.
+
+See [Konnectivity Service Setup](/docs/tasks/setup-konnectivity/) on how to set
+it up in your cluster.
 
 {{% /capture %}}
