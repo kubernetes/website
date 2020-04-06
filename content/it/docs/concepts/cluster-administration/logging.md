@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Log di registrazione
 content_template: templates/concept
 weight: 60

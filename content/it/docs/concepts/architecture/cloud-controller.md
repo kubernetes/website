@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Concetti alla base del Cloud Controller Manager
 content_template: templates/concept
 weight: 30
