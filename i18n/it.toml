@@ -28,6 +28,12 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+[deprecation_warning]
+other = " documentazione non è più manutenuta. La versione che stai visualizzando in questo momento è archiviata. Per una versione aggiornata, guarda "
+
+[deprecation_file_warning]
+other = "Deprecata"
+
 [docs_label_browse]
 other = "Sfoglia documenti"
 
@@ -51,6 +57,9 @@ other = "Questa pagina è stata di aiuto?"
 
 [feedback_yes]
 other = "Sì"
+
+[input_placeholder_email_address]
+other = "indirizzo email"
 
 [latest_version]
 other = "ultima versione."
