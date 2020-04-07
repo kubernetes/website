@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: “Kuberhealthy 2.1.0”
-date: 2020-02-28
+date: 2020-04-06
 ---
 
 **Authors:** Joshulyne Park (Comcast), Eric Greer (Comcast)
@@ -19,19 +19,19 @@ Our 2.1.0 release contains a few new features users can benefit from:
 
 #### Check Reaper 
 
-<img align="center" src="https://github.com/Comcast/kuberhealthy/raw/master/images/kuberhealthy-check-reaper.gif">
+![kuberhealthy-check-reaper](../../../../static/images/blog/Kuberhealthy-2.1.0-release/kuberhealthy-check-reaper.gif)
 
 With the initial 2.0.0 release, each time an external check finished running and reported back to Kuberhealthy, the checker Pod would only remain visible in Kubernetes until the next time the check ran. For checks that had shorter run intervals such as the DNS Status check or the Pod Status check, Kubernetes operators weren't given enough time to investigate failed check logs after being alerted. The team decided to retain checker Pods and implement a check reaper CronJob that deletes 'Completed' or 'Failed' Kuberhealthy checker Pods older than a certain time period. Users are now given much more time to investigate failed check runs without having to worry about the Pod in question being cleaned up too quickly.  
 
 #### Kuberhealthy State Run Duration 
 
-<img align="center" src="https://github.com/Comcast/kuberhealthy/raw/master/images/kuberhealthy-json.png" width="500">
-  
+![kuberhealthy-json](../../../../static/images/blog/Kuberhealthy-2.1.0-release/kuberhealthy-json.png)
+
 Kuberhealthy has an integration with Prometheus, giving users the ability to capture Kuberhealthy server state as well as check metrics. The 2.1.0 release has added a new metric that captures the most recent run duration of each check. This is helpful for identifying unexpected slowdowns in check execution. 
 
 #### Namespace filtering 
 
-<img align="center" src="https://github.com/Comcast/kuberhealthy/raw/master/images/kuberhealthy-ns-filter.png">
+![kuberhealthy-ns-filter](../../../../static/images/blog/Kuberhealthy-2.1.0-release/kuberhealthy-ns-filter.png)
   
 For our JSON status page output that’s available to view all checks’ current state, we added namespace filtering with the `GET` variable `namespace`. To view checks’ states from multiple namespaces, add commas to separate namespaces. For example: `?namespace=kuberhealthy,kube-system`. 
 
@@ -170,7 +170,5 @@ Once the prometheus configurations are applied, you should be able to see the fo
 - kuberhealthy_cluster_states
 - kuberhealthy_running
 
-
-
 Thanks again to everyone in the community for helping us with our 2.1.0 release! We hope this tutorial was useful in adopting Kuberhealthy and 
-we hope to keep hearing even more feedback from you soon! 
+we hope to keep hearing even more feedback from you soon!
