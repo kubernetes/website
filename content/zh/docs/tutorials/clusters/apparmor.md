@@ -416,23 +416,23 @@ Events:
 nodes. There are lots of ways to setup the profiles though, such as: -->
 Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载到节点上。有很多方法可以设置配置文件，例如：
 
-<!-- * Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
+<!-- * Through a [DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
   [here](https://git.k8s.io/kubernetes/test/images/apparmor-loader).
 * At node initialization time, using your node initialization scripts (e.g. Salt, Ansible, etc.) or
   image.
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
   [Example](#example). -->
-* 通过在每个节点上运行 Pod 的[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
+* 通过在每个节点上运行 Pod 的[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
 * 在节点初始化时，使用节点初始化脚本(例如 Salt 、Ansible 等)或镜像。
 * 通过将配置文件复制到每个节点并通过 SSH 加载它们，如[示例](#example)。
 
 <!-- The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
 must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
 class of profiles) on the node, and use a
-[node selector](/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
+[node selector](/zh/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile. -->
-调度程序不知道哪些配置文件加载到哪个节点上，因此必须将全套配置文件加载到每个节点上。另一种方法是为节点上的每个配置文件(或配置文件类)添加节点标签，并使用[节点选择器](/docs/concepts/configuration/assign pod node/)确保 Pod 在具有所需配置文件的节点上运行。
+调度程序不知道哪些配置文件加载到哪个节点上，因此必须将全套配置文件加载到每个节点上。另一种方法是为节点上的每个配置文件(或配置文件类)添加节点标签，并使用[节点选择器](/zh/docs/concepts/configuration/assign pod node/)确保 Pod 在具有所需配置文件的节点上运行。
 
 <!-- ### Restricting profiles with the PodSecurityPolicy -->
 ### 使用 PodSecurityPolicy 限制配置文件

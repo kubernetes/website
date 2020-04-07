@@ -9,9 +9,9 @@ content_template: templates/tutorial
 {{% capture overview %}}
 
 <!--
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 -->
-这篇文档基于[使用 ConfigMap 来配置 Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
+这篇文档基于[使用 ConfigMap 来配置 Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
 {{% /capture %}}
 
@@ -40,10 +40,10 @@ This page provides a real world example of how to configure Redis using a Config
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 <!--
 * The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Understand [Configure Containers Using a ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
 * 此页面上显示的示例适用于 `kubectl` 1.14和在其以上的版本。
-* 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 理解[使用ConfigMap来配置Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{% /capture %}}
 
@@ -156,9 +156,9 @@ kubectl delete pod redis
 {{% capture whatsnext %}}
 
 <!-- 
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/). 
+* Learn more about [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/). 
 -->
-* 了解有关 [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多信息。
+* 了解有关 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多信息。
 
 
 {{% /capture %}}
