@@ -6,7 +6,7 @@ date: 2020-04-06
 
 **Authors:** Joshulyne Park (Comcast), Eric Greer (Comcast)
 
-# Kuberhealthy 2.1.0 - Check Reaper and K8s KPIs galore
+# Kuberhealthy 2.1.0
 
 Last November at KubeCon San Diego 2019, we announced the release of [Kuberhealthy 2.0.0](https://www.youtube.com/watch?v=aAJlWhBtzqY) - transforming Kuberhealthy into a Kubernetes operator for synthetic monitoring. This new ability granted developers the means to create their own Kuberhealthy check containers to monitor their applications and clusters. The community was quick to adopt this new feature and we're grateful for everyone who implemented and tested Kuberhealthy 2.0.0 in their clusters. Thanks to all of you who reported issues and contributed to discussions on the #kuberhealthy Slack channel. We set to work to address all your feedback with our new official 2.1.0 release as well as provide a guide on how to install and use Kuberhealthy to capture cluster KPIs! 
 
@@ -212,5 +212,5 @@ Using these Kuberhealthy metrics, our team has been able to calculate KPIs based
   - HTTP Check: URL endpoint failed to serve a 200 OK response
   
 
-Thanks again to everyone in the community for helping us with our 2.1.0 release! We hope this tutorial was useful in adopting Kuberhealthy and 
+Thanks again to everyone in the community for helping us with our 2.1.0 release! We hope this post was useful in adopting Kuberhealthy and 
 we hope to keep hearing even more feedback from you soon!
