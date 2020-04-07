@@ -6,9 +6,9 @@ date: 2020-04-06
 
 **Authors:** Joshulyne Park (Comcast), Eric Greer (Comcast)
 
-# Kuberhealthy 2.1.0
+# Kuberhealthy 2.1.0 - Check Reaper and K8s KPIs galore
 
-Last November at KubeCon San Diego 2019, we announced the release of [Kuberhealthy 2.0.0](https://www.youtube.com/watch?v=aAJlWhBtzqY) - transforming Kuberhealthy into a Kubernetes operator for synthetic monitoring. This new ability granted developers the means to create their own Kuberhealthy check containers to monitor their applications and clusters. The community was quick to adopt this new feature and we're grateful for everyone who implemented and tested Kuberhealthy 2.0.0 in their clusters. Thanks to all of you who reported issues and contributed to discussions on the #kuberhealthy Slack channel. We set to work to address all your feedback with our new official 2.1.0 release as well as provide a tutorial of how to install and use Kuberhealthy in your clusters! 
+Last November at KubeCon San Diego 2019, we announced the release of [Kuberhealthy 2.0.0](https://www.youtube.com/watch?v=aAJlWhBtzqY) - transforming Kuberhealthy into a Kubernetes operator for synthetic monitoring. This new ability granted developers the means to create their own Kuberhealthy check containers to monitor their applications and clusters. The community was quick to adopt this new feature and we're grateful for everyone who implemented and tested Kuberhealthy 2.0.0 in their clusters. Thanks to all of you who reported issues and contributed to discussions on the #kuberhealthy Slack channel. We set to work to address all your feedback with our new official 2.1.0 release as well as provide a guide on how to install and use Kuberhealthy to capture cluster KPIs! 
 
 Our 2.1.0 release contains a few new features users can benefit from:
 - Check Reaper  
@@ -37,9 +37,10 @@ For our JSON status page output that’s available to view all checks’ current
 
 #### Bug Fixes
   
-Some of our more complicated checks such as the Deployment check (a synthetic test that ensures that a Kubernetes Deployment and Service can be created, provisioned, and serve traffic within the Kubernetes cluster) required a small refactor to ensure that it properly detects when its resources have been cleaned up. Other checks, such as the Pod Status check and the Pod Restarts check were refactored to run more ephemerally and more often. These two checks now also exclude Kuberhealthy checker Pods in order to prevent duplicate failure reporting. Additionally, the Daemonset check got a PR merge from a community user, addressing its use of deprecated API endpoints. This check now runs in the newest versions of Kubernetes as expected. 
-  
-## Kuberhealthy Tutorial
+Some of our more complicated checks such as the Deployment check (a synthetic test that ensures that a Kubernetes Deployment and Service can be created, provisioned, and serve traffic within the Kubernetes cluster) required a small refactor to ensure that it properly detects when its resources have been cleaned up. Other checks, such as the Pod Status check and the Pod Restarts check were refactored to run more ephemerally and more often. These two checks now also exclude Kuberhealthy checker Pods in order to prevent duplicate failure reporting. Additionally, the Daemonset check got a PR merge from a community user, addressing its use of deprecated API endpoints. This check now runs in the newest versions of Kubernetes as expected.
+
+
+## Kuberhealthy Implementation
 
 This quick tutorial will go over how to install and use Kuberhealthy using Helm 3. 
 
@@ -169,6 +170,47 @@ Once the prometheus configurations are applied, you should be able to see the fo
 - kuberhealthy_check_duration_seconds
 - kuberhealthy_cluster_states
 - kuberhealthy_running
+
+#### K8s KPIs
+
+Using these Kuberhealthy metrics, our team has been able to calculate KPIs based on the following definitions, calculations, and PromQL queries to build our metrics dashboard:
+
+*Availability*
+- Definition: K8s cluster control plane is up and functions as expected. This is measured by whether or not we can communicate with the control plane API (kubectl) and the cluster responds appropriately to the api query.
+- Calculation: Run deployment-check (ensures a deployment and service can be created, provisioned, and serve traffic) and capture its pass/fail metric. 
+  - Availability = Uptime / (Uptime * Downtime)
+  - Uptime = Number of Deployment Check Passes * Check Run Interval
+  - Downtime = Number of Deployment Check Fails * Check Run Interval
+  - Check Run Interval = how often the check runs
+- PromQL Query (Availability % in the past 30 days): 
+  ```
+  1 - (sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="0"}[30d]))OR vector(0))/(sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="1"}[30d])) * 100)
+  ```
+
+*Utilization*
+- Definition: User uptake of product (k8s) and resources (pods, services, etc.). This is measured by how many services, deployments, stateful sets, and pods are being utilized by our customers.
+- Calculation: Total count of pods, services, deployments, stateful sets
+
+*Duration (Latency)*
+- Definition: Control plane's capacity and utilization of throughput. This is measured by calculating how long it takes for the deployment check to run. 
+- Calculation: Run deployment-check (ensures a deployment and service can be created, provisioned, and serve traffic) and time how long the check takes to run. 
+- PromQL Query (Deployment check average duration, 1 hr step): 
+  ```
+  avg(kuberhealthy_check_duration_seconds{check="kuberhealthy/deployment"}) 
+  ```
+
+*Errors / Alerts*
+- Definition: Instead of "errors", we keep track of k8s cluster-related alerts, or how often we get paged.
+- Calculation: Total count of pager duty alerts
+- List of all Kuberhealthy Alerts:
+  - Deployment Check: deployment and service failed to be provisioned, created, and serve traffic within the cluster
+  - Daemonset Check: daemonset failed to be provisioned on all nodes in the cluster
+  - DNS Status Check (internal/external): DNS failed to be resolved within and outside of the cluster
+  - KIAM Check: KIAM servers and agents within the cluster failed to properly intercept AWS metadata service requests
+  - Pod Restarts Check: excessive pod restarts 
+  - Pod Status Check: unhealthy pod status found
+  - HTTP Check: URL endpoint failed to serve a 200 OK response
+  
 
 Thanks again to everyone in the community for helping us with our 2.1.0 release! We hope this tutorial was useful in adopting Kuberhealthy and 
 we hope to keep hearing even more feedback from you soon!
