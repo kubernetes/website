@@ -26,21 +26,21 @@ external IP address.
 {{% capture prerequisites %}}
 
 <!--
- * Install [kubectl](/docs/tasks/tools/install-kubectl/).
+ * Install [kubectl](zh/docs/tasks/tools/install-kubectl/).
 
  * Use a cloud provider like Google Kubernetes Engine or Amazon Web Services to
  create a Kubernetes cluster. This tutorial creates an
- [external load balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/),
+ [external load balancer](zh/docs/tasks/access-application-cluster/create-external-load-balancer/),
  which requires a cloud provider.
 
  * Configure `kubectl` to communicate with your Kubernetes API server. For
  instructions, see the documentation for your cloud provider.
 -->
 
- * 安装 [kubectl](/docs/tasks/tools/install-kubectl/).
+ * 安装 [kubectl](zh/docs/tasks/tools/install-kubectl/).
 
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 群集。
- 本教程创建了一个[外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
+ 本教程创建了一个[外部负载均衡器](zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
@@ -79,16 +79,16 @@ external IP address.
 
 <!--
     The preceding command creates a
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
+    [Deployment](zh/docs/concepts/workloads/controllers/deployment/)
     object and an associated
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
+    [ReplicaSet](zh/docs/concepts/workloads/controllers/replicaset/)
     object. The ReplicaSet has five
-    [Pods](/docs/concepts/workloads/pods/pod/),
+    [Pods](zh/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    前面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 
-    对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)对象。
-    ReplicaSet 有五个 [Pod](/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
+    前面的命令创建一个 [Deployment](zh/docs/concepts/workloads/controllers/deployment/) 
+    对象和一个关联的 [ReplicaSet](zh/docs/concepts/workloads/controllers/replicaset/)对象。
+    ReplicaSet 有五个 [Pod](zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
 <!--
 1. Display information about the Deployment:
@@ -249,9 +249,9 @@ the Hello World application, enter this command:
 
 <!--
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](zh/docs/concepts/services-networking/connect-applications-service/).
 -->
 
-了解更多关于[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)。
+了解更多关于[将应用程序与服务连接](zh/docs/concepts/services-networking/connect-applications-service/)。
 
 {{% /capture %}}
