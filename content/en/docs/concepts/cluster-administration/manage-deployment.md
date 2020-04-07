@@ -427,7 +427,7 @@ We'll guide you through how to create and update applications with Deployments.
 Let's say you were running version 1.14.2 of nginx:
 
 ```shell
-kubectl run my-nginx --image=nginx:1.14.2 --replicas=3
+kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
 ```shell
 deployment.apps/my-nginx created
