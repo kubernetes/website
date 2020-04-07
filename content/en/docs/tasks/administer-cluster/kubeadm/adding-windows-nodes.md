@@ -124,6 +124,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
     ```powershell
     wins cli process run --path /k/flannel/setup.exe --args "--mode=overlay --interface=Ethernet"
     ```
+    
     in the flannel-host-gw.yml or flannel-overlay.yml file and specify your interface accordingly.
     {{< /note >}}
     
