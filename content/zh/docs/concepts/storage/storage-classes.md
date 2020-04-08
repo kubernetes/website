@@ -923,9 +923,9 @@ parameters:
 * `storageAccount`：Azure 存储帐户名称。如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location` 是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
 
 <!--
-#### New Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
+#### Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
 -->
-#### 新的 Azure 磁盘 Storage Class（从 v1.7.2 开始）{#azure-disk-storage-class}
+#### Azure 磁盘 Storage Class（从 v1.7.2 开始）{#azure-disk-storage-class}
 
 ```yaml
 kind: StorageClass
@@ -947,12 +947,15 @@ parameters:
   unmanaged disk in the same resource group as the cluster. When `kind` is
   `managed`, all managed disks are created in the same resource group as
   the cluster.
+* `resourceGroup`: Specify the resource group in which the Azure disk will be created. 
+   It must be an existing resource group name. If it is unspecified, the disk will be 
+   placed in the same resource group as the current Kubernetes cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
 * `kind`：可能的值是 `shared`（默认）、`dedicated` 和 `managed`。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
-
+* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
 <!--
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.
