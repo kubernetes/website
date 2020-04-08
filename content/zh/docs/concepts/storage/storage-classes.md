@@ -26,7 +26,7 @@ with [volumes](/docs/concepts/storage/volumes/) and
 <!--
 ## Introduction
 
-A `StorageClass` provides a way for administrators to describe the "classes" of
+A StorageClass provides a way for administrators to describe the "classes" of
 storage they offer. Different classes might map to quality-of-service levels,
 or to backup policies, or to arbitrary policies determined by the cluster
 administrators. Kubernetes itself is unopinionated about what classes
@@ -35,39 +35,39 @@ systems.
 -->
 ## 介绍
 
-`StorageClass` 为管理员提供了描述存储 `"类"` 的方法。
-不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
-Kubernetes 本身并不清楚各种`类`代表的什么。这个`类`的概念在其他存储系统中有时被称为"配置文件"。
+StorageClass 为管理员提供了描述存储 "类" 的方法。
+不同的类型可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
+Kubernetes 本身并不清楚各种类代表的什么。这个类的概念在其他存储系统中有时被称为 "配置文件"。
 
 <!--
 ## The StorageClass Resource
 
-Each `StorageClass` contains the fields `provisioner`, `parameters`, and
+Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a `PersistentVolume` belonging to the
 class needs to be dynamically provisioned.
  -->
 ## StorageClass 资源
 
-每个 `StorageClass` 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
-这些字段会在`StorageClass`需要动态分配 `PersistentVolume` 时会使用到。
+每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
+这些字段会在 StorageClass 需要动态分配 `PersistentVolume` 时会使用到。
 
 <!--
-The name of a `StorageClass` object is significant, and is how users can
+The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class when first creating `StorageClass` objects, and the objects cannot
+of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
  -->
-`StorageClass` 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
-当创建 `StorageClass` 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
+StorageClass 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
+当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
 
 <!--
-Administrators can specify a default `StorageClass` just for PVCs that don't
+Administrators can specify a default StorageClass just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
  -->
-管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的存储`类` ：
-更多详情请参阅 [`PersistentVolumeClaim` 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
+管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
+更多详情请参阅 [PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -87,12 +87,12 @@ volumeBindingMode: Immediate
 <!--
 ### Provisioner
 
-Each Storage classe has a provisioner that determines what volume plugin is used
+Each StorageClass has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
  -->
 ### 存储分配器
 
-每个 `StorageClass` 都有一个分配器，用来决定使用哪个`卷插件`分配 `PV`。该字段必须指定。
+每个 StorageClass 都有一个分配器，用来决定使用哪个卷插件分配 PV。该字段必须指定。
 
 <!--
 | Volume Plugin        | Internal Provisioner| Config Example                       |
@@ -133,7 +133,7 @@ houses a library for writing external provisioners that implements the bulk of
 the specification. Some external provisioners are listed under the repository
 [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
  -->
-您不限于指定此处列出的"内置"分配器（其名称前缀为 kubernetes.io 并打包在 Kubernetes 中）。
+您不限于指定此处列出的 "内置" 分配器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
 您还可以运行和指定外部分配器，这些独立的程序遵循由 Kubernetes 定义的 [规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
@@ -152,20 +152,20 @@ vendors provide their own external provisioner.
 <!--
 ### Reclaim Policy
 
-Persistent Volumes that are dynamically created by a storage class will have the
+PersistentVolumes that are dynamically created by a storage class will have the
 reclaim policy specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
-`StorageClass` object is created, it will default to `Delete`.
+StorageClass object is created, it will default to `Delete`.
 
-Persistent Volumes that are created manually and managed via a storage class will have
+PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
  -->
 ### 回收策略
 
-由 `StorageClass` 动态创建的持久化卷会在的 `reclaimPolicy` 字段中指定回收策略，可以是
-`Delete` 或者 `Retain`。如果 `StorageClass` 对象被创建时没有指定 `reclaimPolicy` ，它将默认为 `Delete`。
+由 StorageClass 动态创建的 PersistentVolume 会在的 `reclaimPolicy` 字段中指定回收策略，可以是
+`Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy` ，它将默认为 `Delete`。
 
-通过 `StorageClass` 手动创建并管理的 Persistent Volume 会使用它们被创建时指定的回收政策。
+通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收政策。
 
 <!--
 ### Allow Volume Expansion
@@ -176,16 +176,16 @@ whatever reclaim policy they were assigned at creation.
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 <!--
-Persistent Volumes can be configured to be expandable. This feature when set to `true`,
+PersistentVolumes can be configured to be expandable. This feature when set to `true`,
 allows the users to resize the volume by editing the corresponding PVC object.
 
 The following types of volumes support volume expansion, when the underlying
 Storage Class has the field `allowVolumeExpansion` set to true.
 -->
 
-永久卷可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的PVC对象来调整卷大小。
+PersistentVolume 可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的 PVC 对象来调整卷大小。
 
-当基础存储类的 `allowVolumeExpansion` 字段设置为true时，以下类型的卷支持卷扩展。
+当基础存储类的 `allowVolumeExpansion` 字段设置为 true 时，以下类型的卷支持卷扩展。
 
 {{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
 
@@ -217,7 +217,7 @@ You can only use the volume expansion feature to grow a Volume, not to shrink it
 <!--
 ### Mount Options
 
-Persistent Volumes that are dynamically created by a storage class will have the
+PersistentVolumes that are dynamically created by a StorageClass will have the
 mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
@@ -226,10 +226,10 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
  -->
 ### 挂载选项
 
-由 `StorageClass` 动态创建的 Persistent Volume 将使用`类`中 `mountOption` 字段指定的挂载选项。
+由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
 如果卷插件不支持挂载选项，却指定了该选项，则分配操作会失败。
-挂载选项在 `StorageClass` 和持久卷上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
+挂载选项在 StorageClass 和 PV 上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
 
 <!--
 ### Volume Binding Mode
@@ -292,7 +292,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 -->
 以下插件支持预创建绑定 PersistentVolume 的 `WaitForFirstConsumer` 模式：
 
-* All of the above
+* 上述全部
 * [Local](#local)
 
 {{< feature-state state="beta" for_k8s_version="1.17" >}}
@@ -303,8 +303,8 @@ and pre-created PVs, but you'll need to look at the documentation for a specific
 to see its supported topology keys and examples.
 -->
 
-动态配置和预先创建的PVs也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
-但是您需要查看特定CSI驱动程序的文档以查看其支持的拓扑密钥和例子。
+动态配置和预先创建的 PV 也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
+但是您需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑密钥和例子。
 
 <!--
 ### Allowed Topologies
@@ -325,7 +325,7 @@ This example demonstrates how to restrict the topology of provisioned volumes to
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 -->
-这个例子描述了如何将分配卷限的拓扑限制在特定的区域，在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
+这个例子描述了如何将分配卷的拓扑限制在特定的区域，在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
