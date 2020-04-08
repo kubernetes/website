@@ -87,38 +87,38 @@ volumeBindingMode: Immediate
 <!--
 ### Provisioner
 
-Storage classes have a provisioner that determines what volume plugin is used
+Each Storage classe has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
  -->
 ### 存储分配器
 
-`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`PV`。该字段必须指定。
+每个 `StorageClass` 都有一个分配器，用来决定使用哪个`卷插件`分配 `PV`。该字段必须指定。
 
 <!--
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 -->
 
-| 卷插件        | 内置分配器 | 配置例子                      |
-| :---                 |     :---:           |    :---:                             |
-| AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
-| AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
-| AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
-| CephFS               | -                   | -                                    |
-| Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
-| FC                   | -                   | -                                    |
-| FlexVolume           | -                   | -                                    |
-| Flocker              | &#x2713;            | -                                    |
-| GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
-| iSCSI                | -                   | -                                    |
-| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
-| RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
-| VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
-| PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
-| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
-| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
-| Local                | -                   | [Local](#local)              |
+| 卷插件               | 内置分配器 |               配置例子                |
+|:---------------------|:----------:|:-------------------------------------:|
+| AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
+| AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
+| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-disk)       |
+| CephFS               |     -      |                   -                   |
+| Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
+| FC                   |     -      |                   -                   |
+| FlexVolume           |     -      |                   -                   |
+| Flocker              |  &#x2713;  |                   -                   |
+| GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
+| Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
+| iSCSI                |     -      |                   -                   |
+| Quobyte              |  &#x2713;  |          [Quobyte](#quobyte)          |
+| NFS                  |     -      |                   -                   |
+| RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
+| VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
+| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-volume)  |
+| ScaleIO              |  &#x2713;  |          [ScaleIO](#scaleio)          |
+| StorageOS            |  &#x2713;  |        [StorageOS](#storageos)        |
+| Local                |     -      |            [Local](#local)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners
@@ -187,24 +187,31 @@ Storage Class has the field `allowVolumeExpansion` set to true.
 
 当基础存储类的 `allowVolumeExpansion` 字段设置为true时，以下类型的卷支持卷扩展。
 
-* gcePersistentDisk
-* awsElasticBlockStore
-* Cinder
-* glusterfs
-* rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
+
+<!-- 
+Volume type | Required Kubernetes version
+-->
+| 卷类型               | Kubernetes 版本要求       |
+|:---------------------|:--------------------------|
+| gcePersistentDisk    | 1.11                      |
+| awsElasticBlockStore | 1.11                      |
+| Cinder               | 1.11                      |
+| glusterfs            | 1.11                      |
+| rbd                  | 1.11                      |
+| Azure File           | 1.11                      |
+| Azure Disk           | 1.11                      |
+| Portworx             | 1.11                      |
+| FlexVolume           | 1.13                      |
+| CSI                  | 1.14 (alpha), 1.16 (beta) |
+
+{{< /table >}}
 
 {{< note >}}
-
 <!--
-This feature cannot be used to shrink volumes.
+You can only use the volume expansion feature to grow a Volume, not to shrink it.
 -->
-此功能不能用于缩小卷。
-
+此功能仅可用于扩容卷，不能用于缩小卷。
 {{< /note >}}
 
 <!--
@@ -228,14 +235,6 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
 ### Volume Binding Mode
  -->
 ### 卷绑定模式
-
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-<!--
-**Note:** This feature requires the `VolumeScheduling` feature gate to be
-enabled.
- -->
-**注意：** 这个功能特性需要启用 `VolumeScheduling` 参数才能使用。
 
 <!--
 The `volumeBindingMode` field controls when [volume binding and dynamic
@@ -296,27 +295,22 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
-{{< feature-state state="beta" for_k8s_version="1.14" >}}
+{{< feature-state state="beta" for_k8s_version="1.17" >}}
 
 <!--
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
-to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+to see its supported topology keys and examples.
 -->
 
 动态配置和预先创建的PVs也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
-但是您需要查看特定CSI驱动程序的文档以查看其支持的拓扑密钥和例子。 必须启用 `CSINodeInfo` 特性。
+但是您需要查看特定CSI驱动程序的文档以查看其支持的拓扑密钥和例子。
 
 <!--
 ### Allowed Topologies
 -->
 ### 允许的拓扑结构
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-<!--
-**Note:** This feature requires the `VolumeScheduling` feature gate to be enabled.
--->
-**注意：** 这个特性需要开启 `VolumeScheduling` 特性开关。
 
 <!--
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
@@ -358,11 +352,17 @@ class. Different parameters may be accepted depending on the `provisioner`. For
  example, the value `io1`, for the parameter `type`, and the parameter
 `iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
 used.
+
+There can be at most 512 parameters defined for a StorageClass.
+The total length of the parameters object including its keys and values cannot
+exceed 256 KiB.
  -->
 ## 参数
 
 Storage class 具有描述属于卷的参数。取决于分配器，可以接受不同的参数。
 例如，参数 type 的值 io1 和参数 iopsPerGB 特定于 EBS PV。当参数被省略时，会使用默认值。
+
+一个 StorageClass 最多可以定义 512 个参数。这些参数对象的总长度不能超过 256 KiB, 包括参数的键和值。
 
 ### AWS EBS
 
@@ -441,11 +441,13 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 * `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
 * `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
+* `fstype`: `ext4` 或 `xfs`。 默认: `ext4`。宿主机操作系统必须支持所定义的文件系统类型。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
 <!--
@@ -892,9 +894,9 @@ parameters:
 ### Azure 磁盘
 
 <!--
-#### Azure Unmanaged Disk Storage Class
+#### Azure Unmanaged Disk Storage Class {#azure-disk-storage-class}
 -->
-#### Azure Unmanaged Disk Storage Class（非托管磁盘存储类）
+#### Azure Unmanaged Disk Storage Class（非托管磁盘存储类）{#azure-unmanaged-disk-storage-class}
 
 ```yaml
 kind: StorageClass
@@ -921,9 +923,9 @@ parameters:
 * `storageAccount`：Azure 存储帐户名称。如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location` 是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
 
 <!--
-#### New Azure Disk Storage Class (starting from v1.7.2)
+#### New Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
 -->
-#### 新的 Azure 磁盘 Storage Class（从 v1.7.2 开始）
+#### 新的 Azure 磁盘 Storage Class（从 v1.7.2 开始）{#azure-disk-storage-class}
 
 ```yaml
 kind: StorageClass
