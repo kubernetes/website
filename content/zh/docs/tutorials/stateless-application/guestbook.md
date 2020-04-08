@@ -143,9 +143,9 @@ Replace POD-NAME with the name of your Pod.
 ### 创建 Redis 主节点的服务
 
 <!--
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](zh/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 -->
-留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
+留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](zh/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
@@ -349,10 +349,10 @@ The guestbook application has a web frontend serving the HTTP requests written i
 ### 创建前端服务
 
 <!--
-The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](zh/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 -->
 应用的 `redis-slave` 和 `redis-master` 服务只能在容器集群中访问，因为服务的默认类型是
-[ClusterIP](/docs/concepts/Services-networking/Service/#publishingservices-Service-types)。`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
+[ClusterIP](zh/docs/concepts/Services-networking/Service/#publishingservices-Service-types)。`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
 If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
@@ -607,16 +607,16 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 {{% capture whatsnext %}}
 
 <!--
-* Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog) 
-* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* Complete the [Kubernetes Basics](zh/docs/tutorials/kubernetes-basics/) Interactive Tutorials
+* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog) 
+* Read more about [connecting applications](zh/docs/concepts/services-networking/connect-applications-service/)
+* Read more about [Managing Resources](zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 -->
 
-* 完成 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) 交互式教程
-* 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* 阅读更多关于[连接应用程序](/docs/concepts/services-networking/connect-applications-service/)
-* 阅读更多关于[管理资源](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* 完成 [Kubernetes Basics](zh/docs/tutorials/kubernetes-basics/) 交互式教程
+* 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
+* 阅读更多关于[连接应用程序](zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读更多关于[管理资源](zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 
 {{% /capture %}}
 

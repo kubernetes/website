@@ -40,19 +40,15 @@ If you're learning Kubernetes, use the Docker-based solutions: tools supported b
 
 |Community           |Ecosystem     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/learning-environment/minikube/) | [CDK on LXD](https://www.ubuntu.com/kubernetes/docs/install-local) |
-| [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-|                     | [Minishift](https://docs.okd.io/latest/minishift/)|
+| [Minikube](/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+| [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
-|                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
-|                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
-|                     | [k3s](https://k3s.io)|
 
 
 ## Production environment
 
 When evaluating a solution for a production environment, consider which aspects of operating a Kubernetes cluster (or _abstractions_) you want to manage yourself or offload to a provider.
 
-For a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers, see "[Partners](https://kubernetes.io/partners/#conformance)". 
+[Kubernetes Partners](https://kubernetes.io/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
 
 {{% /capture %}}

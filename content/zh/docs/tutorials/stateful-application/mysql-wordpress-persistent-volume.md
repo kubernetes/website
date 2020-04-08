@@ -20,11 +20,11 @@ This tutorial shows you how to deploy a WordPress site and a MySQL database usin
 
 
 <!--
- A [PersistentVolume](/docs/concepts/storage/persistent-volumes/)(PV)is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods. 
+ A [PersistentVolume](zh/docs/concepts/storage/persistent-volumes/)(PV)is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](zh/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods. 
  -->
 
-[PersistentVolume](/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，或 kubernetes 通过 [StorageClass](/docs/concepts/storage/storage-classes) 动态创建的存储。
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)（PVC）是一个满足对 PV 存储需要的请求。PersistentVolumes 和 PersistentVolumeClaims 是独立于 Pod 生命周期而在 Pod 重启，重新调度甚至删除过程中保存数据。
+[PersistentVolume](zh/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，或 kubernetes 通过 [StorageClass](zh/docs/concepts/storage/storage-classes) 动态创建的存储。
+[PersistentVolumeClaim](zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)（PVC）是一个满足对 PV 存储需要的请求。PersistentVolumes 和 PersistentVolumeClaims 是独立于 Pod 生命周期而在 Pod 重启，重新调度甚至删除过程中保存数据。
 
 {{< warning >}}
 <!--
@@ -146,12 +146,12 @@ If you are bringing up a cluster that needs to use the `hostPath` provisioner, t
 ### 创建 Secret 生成器
 
 <!--
-A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. Since 1.14, `kubectl` supports the management of Kubernetes objects using a kustomization file. You can create a Secret by generators in `kustomization.yaml`.
+A [Secret](zh/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. Since 1.14, `kubectl` supports the management of Kubernetes objects using a kustomization file. You can create a Secret by generators in `kustomization.yaml`.
 
 Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use. 
 -->
 
-A [Secret](/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
+A [Secret](zh/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
 
 通过以下命令在`kustomization.yaml`中添加一个 Secret 生成器。您需要用您要使用的密码替换`YOUR_PASSWORD`。
 
@@ -453,10 +453,10 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 {{% capture whatsnext %}}
 
-* Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* Learn more about [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* Learn more about [Introspection and Debugging](zh/docs/tasks/debug-application-cluster/debug-application-introspection/)
+* Learn more about [Jobs](zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* Learn more about [Port Forwarding](zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* Learn how to [Get a Shell to a Container](zh/docs/tasks/debug-application-cluster/get-shell-running-container/)
 -->
 1. 运行以下命令以删除您的 Secret，Deployments，Services 和 PersistentVolumeClaims：
 
@@ -468,9 +468,9 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 {{% capture whatsnext %}}
 
-* 了解更多关于 [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* 了解更多关于 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* 了解更多关于 [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* 了解如何 [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* 了解更多关于 [Introspection and Debugging](zh/docs/tasks/debug-application-cluster/debug-application-introspection/)
+* 了解更多关于 [Jobs](zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* 了解更多关于 [Port Forwarding](zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* 了解如何 [Get a Shell to a Container](zh/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
 {{% /capture %}}
