@@ -26,7 +26,7 @@ To submit a blog post, you can either:
 
 - Use the
 [Kubernetes blog submission form](https://docs.google.com/forms/d/e/1FAIpQLSdMpMoSIrhte5omZbTE7nB84qcGBy8XnnXhDFoW0h7p2zwXrw/viewform)
-- [Open a pull request](/docs/contribute/new-content/open-a-pr/#fork-the-repo) with a new blog post. Create new blog posts in the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) directory.
+- [Open a pull request](/docs/contribute/new-content/new-content/#fork-the-repo) with a new blog post. Create new blog posts in the [`content/en/blog/_posts`](https://github.com/kubernetes/website/tree/master/content/en/blog/_posts) directory.
 
 If you open a pull request, ensure that your blog post follows the correct naming conventions and frontmatter information:
 
