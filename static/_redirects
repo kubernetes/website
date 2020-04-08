@@ -16,6 +16,7 @@
 /pl/docs/     /pl/docs/home/ 301!
 /pt/docs/     /pt/docs/home/ 301!
 /ru/docs/     /ru/docs/home/ 301!
+/uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
@@ -132,8 +133,11 @@
 /docs/contribute/review-issues/     /docs/home/contribute/review-issues/ 301
 /docs/contribute/stage-documentation-changes/     /docs/home/contribute/stage-documentation-changes/ 301
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
-
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
+/docs/contribute/start/        /docs/contribute/ 301
+/docs/contribute/intermediate/        /docs/contribute/ 301
+
+
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
