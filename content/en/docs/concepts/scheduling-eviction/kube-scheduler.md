@@ -88,7 +88,7 @@ of the scheduler:
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* Read about [scheduler performance tuning](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
