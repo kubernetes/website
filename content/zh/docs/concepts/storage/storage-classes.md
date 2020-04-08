@@ -304,7 +304,7 @@ to see its supported topology keys and examples.
 -->
 
 动态配置和预先创建的 PV 也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
-但是您需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑密钥和例子。
+但是您需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
 <!--
 ### Allowed Topologies
