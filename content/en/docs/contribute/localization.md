@@ -32,7 +32,7 @@ First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/p
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
+First, [create your own fork](/docs/contribute/new-content/new-content/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
 
 Then, clone your fork and `cd` into it:
 
