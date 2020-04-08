@@ -33,6 +33,25 @@ For `kubectl run` to satisfy infrastructure as code:
 * Switch to configuration files checked into source control for features that are needed, but not expressible via `kubectl run` flags.
 
 #### Generators
+You can generate the following resources with a kubectl command, `kubectl create --dry-run -o yaml`:
+```
+  clusterrole         Create a ClusterRole.
+  clusterrolebinding  Create a ClusterRoleBinding for a particular ClusterRole.
+  configmap           Create a configmap from a local file, directory or literal value.
+  cronjob             Create a cronjob with the specified name.
+  deployment          Create a deployment with the specified name.
+  job                 Create a job with the specified name.
+  namespace           Create a namespace with the specified name.
+  poddisruptionbudget Create a pod disruption budget with the specified name.
+  priorityclass       Create a priorityclass with the specified name.
+  quota               Create a quota with the specified name.
+  role                Create a role with single rule.
+  rolebinding         Create a RoleBinding for a particular Role or ClusterRole.
+  secret              Create a secret using specified subcommand.
+  service             Create a service using specified subcommand.
+  serviceaccount      Create a service account with the specified name.
+```
+
 
 You can create the following resources using `kubectl run` with the `--generator` flag:
 
