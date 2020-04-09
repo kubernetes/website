@@ -16,7 +16,7 @@ This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involv
 
 Kubernetes documentation contributors:
 
-- Improve existing content
+- [Improve existing content](https://github.com/kubernetes/website/contribute)
 - Create new content
 - Translate the documentation
 - Manage and publish the documentation parts of the Kubernetes release cycle
