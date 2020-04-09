@@ -43,7 +43,7 @@ Não é possivel determinar se o trabalho precisa ser iniciado. Muitas horas de 
 
 É importante observar que, se o campo `startingDeadlineSeconds` estiver definido (não `nil`), o controlador contará quantas tarefas perdidas ocorreram a partir do valor de `startingDeadlineSeconds` até agora, e não do último horário programado até agora. Por exemplo, se `startingDeadlineSeconds` for `200`, o controlador contará quantas tarefas perdidas ocorreram nos últimos 200 segundos.
 
-Um CronJob é contado como perdido se não tiver sido criado no horário agendado, Por exemplo, se `concurrencyPolicy` estiver definido como `Forbid` e um CronJob tiver sido tentado ser agendado quando havia um agendamento anterior ainda em execução, será contabilizado como perdido.
+Um CronJob é contado como perdido se não tiver sido criado no horário agendado. Por exemplo, se `concurrencyPolicy` estiver definido como `Forbid` e um CronJob tiver sido tentado ser agendado quando havia um agendamento anterior ainda em execução, será contabilizado como perdido.
 
 Por exemplo, suponha que um CronJob esteja definido para agendar um novo trabalho a cada minuto, começando em `08:30:00`, e seu campo `startingDeadlineSeconds` não esteja defindo. Se o controlador CronJob estiver baixo de `08:29:00` para `10:21:00`, o trabalho não será iniciado, pois o número de trabalhos perdidos que perderam o cronograma é maior que 100.
 
