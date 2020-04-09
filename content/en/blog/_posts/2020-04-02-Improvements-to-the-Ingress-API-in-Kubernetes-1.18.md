@@ -24,17 +24,17 @@ The new concept of a path type allows you to specify how a path should be matche
 The Ingress resource was designed with simplicity in mind, providing a simple set of fields that would be applicable in all use cases. Over time, as use cases evolved, implementations began to rely on a long list of custom annotations for further configuration. The new `IngressClass` resource provides a way to replace some of those annotations.
 
 Each `IngressClass` specifies which controller should implement Ingresses of the class and can reference a custom resource with additional parameters. 
-```
-apiVersion: networking.k8s.io/v1beta1
-kind: IngressClass
+```yaml
+apiVersion: "networking.k8s.io/v1beta1"
+kind: "IngressClass"
 metadata:
-  name: external-lb
+  name: "external-lb"
 spec:
-  controller: example.com/ingress-controller
+  controller: "example.com/ingress-controller"
   parameters:
-    apiGroup: k8s.example.com/v1alpha
-    kind: IngressParameters
-    name: external-lb
+    apiGroup: "k8s.example.com/v1alpha"
+    kind: "IngressParameters"
+    name: "external-lb"
 ```
 
 ### Specifying the Class of an Ingress
@@ -60,21 +60,21 @@ Many Ingress providers have supported wildcard hostname matching like `*.foo.com
 ### Putting it All Together
 These new Ingress features allow for much more configurability. Here’s an example of an Ingress that makes use of pathType, `ingressClassName`, and a hostname wildcard:
 
-```
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+```yaml
+apiVersion: "networking.k8s.io/v1beta1"
+kind: "Ingress"
 metadata:
-  name: example-ingress
+  name: "example-ingress"
 spec:
-  ingressClassName: external-lb
+  ingressClassName: "external-lb"
   rules:
-  - host: *.example.com
+  - host: "*.example.com"
     http:
       paths:
-      - path: /example
-        pathType: Prefix
+      - path: "/example"
+        pathType: "Prefix"
         backend:
-          serviceName: example-service
+          serviceName: "example-service"
           servicePort: 80
 ```
 
