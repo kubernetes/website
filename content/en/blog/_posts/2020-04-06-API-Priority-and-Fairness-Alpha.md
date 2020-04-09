@@ -65,4 +65,4 @@ Possibly treat LIST requests differently depending on an estimate of how big the
 ## How can I get involved?
 As always! Reach us on slack [#sig-api-machinery](https://kubernetes.slack.com/messages/sig-api-machinery), or through the [mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-api-machinery). We have lots of exciting features to build and can use all sorts of help.
 
-Many thanks to the contributors that have gotten this feature this far: Aaron Prindle, Daniel Smith, Jonathan Tomer, Mike Spreitzer, Min Kim, Bruce Ma, Yu Liao!
+Many thanks to the contributors that have gotten this feature this far: Aaron Prindle, Daniel Smith, Jonathan Tomer, Mike Spreitzer, Min Kim, Bruce Ma, Yu Liao, Mengyi Zhou!
