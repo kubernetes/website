@@ -24,7 +24,7 @@ responsáveis por aplicações e serviços específicos têm um conhecimento
 profundo da forma como o sistema é suposto se comportar, como é instalado
 e como deve reagir na ocorrência de problemas.
 
-As pessoas que correm cargas de trabalho no Kubernetes habitualmente gostam
+As pessoas que executam cargas de trabalho no Kubernetes habitualmente gostam
 de usar automação para cuidar de tarefas repetitivas. O padrão Operador captura
 a forma como pode escrever código para automatizar uma tarefa para além do que
 o Kubernetes fornece.
@@ -112,11 +112,11 @@ as mudanças assim como manter o serviço existente em boa forma.
 Se não existir no ecosistema um Operador que implementa
 o comportamento que pretende, pode codificar o seu próprio.
 [Qual é o próximo](#qual-é-o-próximo) você vai encontrar
-alguns *links* para bibliotecas e ferramentas que opde usar
+alguns *links* para bibliotecas e ferramentas que pode usar
 para escrever o seu próprio Operador *cloud native*.
 
 Pode também implementar um Operador (isto é, um Controlador) usando qualquer linguagem / *runtime*
-que pode atua como um [cliente da API do Kubernetes](/docs/reference/using-api/client-libraries/).
+que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/client-libraries/).
 
 {{% /capture %}}
 
