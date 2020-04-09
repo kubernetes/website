@@ -71,6 +71,10 @@ other = "Чи була ця сторінка корисною?"
 # other = "Yes"
 other = "Так"
 
+[input_placeholder_email_address]
+# other = "email address"
+other = "електронна адреса"
+
 [latest_version]
 # other = "latest version."
 other = "остання версія."
