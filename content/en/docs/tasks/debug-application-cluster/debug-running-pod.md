@@ -107,7 +107,7 @@ If you attempt to use `kubectl exec` to create a shell you will see an error
 because there is no shell in this container image.
 
 ```shell
-kubectl exec -it pause -- sh
+kubectl exec -it ephemeral-demo -- sh
 ```
 
 ```
