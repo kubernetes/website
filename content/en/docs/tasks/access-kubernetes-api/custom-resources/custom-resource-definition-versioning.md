@@ -275,7 +275,7 @@ the version.
 
 ## Webhook conversion
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 {{< note >}}
 Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The

@@ -13,7 +13,7 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 
 {{% /capture %}}

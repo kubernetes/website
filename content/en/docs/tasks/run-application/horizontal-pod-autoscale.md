@@ -75,7 +75,7 @@ metrics-server, which needs to be launched separately. See
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 {{< /note >}}
 
