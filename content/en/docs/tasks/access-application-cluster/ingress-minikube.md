@@ -205,7 +205,6 @@ The following file is an Ingress resource that sends traffic to your Service via
 
     {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
     
-    
 ## Create Second Deployment
 
 1. Create a v2 Deployment using the following command:
