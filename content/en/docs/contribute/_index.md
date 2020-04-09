@@ -58,7 +58,7 @@ roles and permissions.
 
 ## Get involved with SIG Docs
 
-[SIG Docs](/docs/contribute/participating/) is the group of contributors who publish and maintain Kubernetes documentation and the webwsite. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
+[SIG Docs](/docs/contribute/participating/) is the group of contributors who publish and maintain Kubernetes documentation and the website. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
 
 SIG Docs communicates with different methods:
 
