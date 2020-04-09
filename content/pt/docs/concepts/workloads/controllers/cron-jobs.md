@@ -35,7 +35,7 @@ Um trabalho cron cria um objeto de trabalho _about_ uma vez por tempo de execuç
 
 Se `startingDeadlineSeconds` estiver definido como um valor grande ou não definido (o padrão) e se `concurrencyPolicy` estiver definido como `Allow(Permitir)` os trabalhos sempre serão executados pelo menos uma vez.
 
-Para cada CronJOb, o CronJob {{< glossary_tooltip term_id="controller" >}} verifica quantas agendas faltou na duração, desde o último horário agendado até agora. Se houver mais de 100 agendamentos perdidos, ele não iniciará o trabalho e registrará o erro.
+Para cada CronJOb, o CronJob {{< glossary_tooltip term_id="controller" >}} verifica quantas agendas faltou na duração, desde o último horário agendado até agora. Se houver mais de 100 agendamentos perdidos, ele não iniciará o trabalho e registrará o erro
 
 ```
 Não é possivel determinar se o trabalho precisa ser iniciado. Muitas horas de início perdidas (> 100). Defina ou diminua .spec.startingDeadlineSeconds ou verifique a inclinação do relógio.
