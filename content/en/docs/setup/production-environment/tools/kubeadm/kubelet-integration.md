@@ -8,7 +8,7 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.11" state="stable" >}}
+{{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
