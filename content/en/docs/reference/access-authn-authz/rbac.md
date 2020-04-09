@@ -1182,7 +1182,7 @@ allowed by *either* the RBAC or ABAC policies is allowed.
 
 When the kube-apiserver is run with a log level of 5 or higher for the RBAC component
 (`--vmodule=rbac*=5` or `--v=5`), you can see RBAC denials in the API server log
-(prefixed with `RBAC:`).
+(prefixed with `RBAC`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
 
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads
