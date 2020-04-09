@@ -47,7 +47,7 @@ Um CronJob é contado como perdido se não tiver sido criado no horário agendad
 
 Por exemplo, suponha que um CronJob esteja definido para agendar um novo trabalho a cada minuto, começando em `08:30:00`, e seu campo `startingDeadlineSeconds` não esteja defindo. Se o controlador CronJob estiver baixo de `08:29:00` para `10:21:00`, o trabalho não será iniciado, pois o número de trabalhos perdidos que perderam o cronograma é maior que 100.
 
-Para ilustrar ainda mais esse conceito, suponha que um CronJob esteja definido para agendar um novo trablaho a cada minuto, começando em `08:30:00`, e seu `startingDeadlineSeconds` definido em 200 segundos. Se o controlador CronJob estiver inativo no mesmo período do exemplo anterior (`08:29:00` a `10:21:00`), o trabalho ainda será iniciado às 10:22:00. Isso acontece quando o controlador agora verifica quantos agendamentos perdidos ocorreram nos últimos 200 segundos (ou seja, 3 agendamentos perdidos), em vez do último horário agendado até agora.
+Para ilustrar ainda mais esse conceito, suponha que um CronJob esteja definido para agendar um novo trabalho a cada minuto, começando em `08:30:00`, e seu `startingDeadlineSeconds` está definido em 200 segundos. Se o controlador CronJob estiver inativo no mesmo período do exemplo anterior (`08:29:00` a `10:21:00`), o trabalho ainda será iniciado às 10:22:00. Isso acontece pois o controlador agora verifica quantos agendamentos perdidos ocorreram nos últimos 200 segundos (ou seja, 3 agendamentos perdidos), em vez do último horário agendado até agora.
 
 O CronJob é responsável apenas pela criação de trabalhos que correspondem à sua programação, e o trabalho, por sua vez, é responsável pelo gerenciamento dos Pods que ele representa.
 
