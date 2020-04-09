@@ -19,7 +19,7 @@ weight: 75
 
 ## 시작하기 전에
 
-* [윈도우 서버에서 운영하는 마스터와 워커 노드](../user-guide-windows-nodes)를 포함한 쿠버네티스 클러스터를 생성한다.
+* [윈도우 서버에서 운영하는 마스터와 워커 노드](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)를 포함한 쿠버네티스 클러스터를 생성한다.
 * 쿠버네티스에서 서비스와 워크로드를 생성하고 배포하는 것은 리눅스나 윈도우 컨테이너 모두 비슷한 방식이라는 것이 중요하다. [Kubectl 커맨드](/docs/reference/kubectl/overview/)로 클러스터에 접속하는 것은 동일하다. 아래 단원의 예시는 윈도우 컨테이너를 경험하기 위해 제공한다.
 
 ## 시작하기: 윈도우 컨테이너 배포하기
