@@ -8,7 +8,7 @@ weight: 70
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
 is the Kubernetes default scheduler. It is responsible for placement of Pods

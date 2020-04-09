@@ -7,7 +7,7 @@ title: Schedule GPUs
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" for_k8s_version="1.10" >}}
+{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 (graphical processing units) across several nodes.
