@@ -28,7 +28,7 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 ## Overview
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="1.16" >}}
 
 The CustomResourceDefinition API provides a workflow for introducing and upgrading
 to new versions of a CustomResourceDefinition.
@@ -276,7 +276,7 @@ the version.
 
 ## Webhook conversion
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="1.16" >}}
 
 {{< note >}}
 Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
