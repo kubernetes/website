@@ -40,8 +40,8 @@ Kubernetes как таковой состоит из множества комп
 
 Заголовок | Возможные значения
 ------ | ---------------
-Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (the default content-type is `application/json` for `*/*` or not passing this header)
-Accept-Encoding | `gzip` (not passing this header is acceptable)
+Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (по умолчанию заголовок Content-Type установлен в `application/json` с `*/*`, допустимо также пропускать этот заголовок)
+Accept-Encoding | `gzip` (можно не передавать этот заголовок)
 
 До версии 1.14 конечные точки с форматом (`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`) предоставляли спецификацию OpenAPI в разных форматах. Эти конечные точки были объявлены устаревшими и удалены в Kubernetes 1.14.
 
