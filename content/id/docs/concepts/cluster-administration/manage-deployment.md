@@ -322,7 +322,7 @@ kubectl scale deployment/my-nginx --replicas=1
 deployment.extensions/my-nginx scaled
 ```
 
-Sekarang anda hanya memiliki satu _pod_ yang dikelola oleh deployment.
+Sekarang kamu hanya memiliki satu _pod_ yang dikelola oleh deployment.
 
 ```shell
 kubectl get pods -l app=nginx
