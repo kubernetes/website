@@ -168,21 +168,21 @@ There are some implicit conventions worth noting here:
 
 - If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
 
-  Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 
-  ```
-  +---------------+---------------+-------+
-  |     zoneA     |     zoneB     | zoneC |
-  +-------+-------+-------+-------+-------+
-  | node1 | node2 | node3 | node4 | node5 |
-  +-------+-------+-------+-------+-------+
-  |   P   |   P   |   P   |       |       |
-  +-------+-------+-------+-------+-------+
-  ```
+    ```
+    +---------------+---------------+-------+
+    |     zoneA     |     zoneB     | zoneC |
+    +-------+-------+-------+-------+-------+
+    | node1 | node2 | node3 | node4 | node5 |
+    +-------+-------+-------+-------+-------+
+    |   P   |   P   |   P   |       |       |
+    +-------+-------+-------+-------+-------+
+    ```
 
-  and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
 
-  {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+    {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
 ### Cluster-level default constraints
 
