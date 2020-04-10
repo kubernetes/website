@@ -4,7 +4,7 @@ title: Kubernetesドキュメント
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "ホーム"
 main_menu: true
 weight: 10
