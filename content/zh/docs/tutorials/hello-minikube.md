@@ -33,16 +33,16 @@ card:
 
 <!--
 This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](zh/docs/setup/learning-environment/minikube) and Katacoda.
+on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 -->
-本教程向您展示如何使用 [Minikube](zh/docs/setup/learning-environment/minikube) 和 Katacoda 在 Kubernetes 上运行一个简单的 “Hello World” Node.js 应用程序。Katacoda 提供免费的浏览器内 Kubernetes 环境。
+本教程向您展示如何使用 [Minikube](/zh/docs/setup/learning-environment/minikube) 和 Katacoda 在 Kubernetes 上运行一个简单的 “Hello World” Node.js 应用程序。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 {{< note >}}
 <!--
-You can also follow this tutorial if you've installed [Minikube locally](zh/docs/tasks/tools/install-minikube/).
+You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
 -->
-如果您已在本地安装 [Minikube](zh/docs/tasks/tools/install-minikube/)，也可以按照本教程操作。
+如果您已在本地安装 [Minikube](/zh/docs/tasks/tools/install-minikube/)，也可以按照本教程操作。
 
 {{< /note >}}
 
@@ -117,17 +117,17 @@ For more information on the `docker build` command, read the [Docker documentati
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](zh/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
-[*Deployment*](zh/docs/concepts/workloads/controllers/deployment/) checks on the health of your
+[*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 -->
 
 ## 创建 Deployment
 
-Kubernetes [*Pod*](zh/docs/concepts/workloads/pods/pod/) 是由一个或多个为了管理和联网而绑定在一起的容器构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](zh/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
+Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/pod/) 是由一个或多个为了管理和联网而绑定在一起的容器构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](/zh/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
@@ -203,9 +203,9 @@ Pod runs a Container based on the provided Docker image.
     ```
 
 <!--
-    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](zh/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 -->
-    {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
+    {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
 
 <!--
 ## Create a Service
@@ -213,12 +213,12 @@ Pod runs a Container based on the provided Docker image.
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
 Kubernetes virtual network, you have to expose the Pod as a
-Kubernetes [*Service*](zh/docs/concepts/services-networking/service/).
+Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 -->
 
 ## 创建 Service
 
-默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，您必须将 Pod 暴露为 Kubernetes [*Service*](zh/docs/concepts/services-networking/service/)。
+默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，您必须将 Pod 暴露为 Kubernetes [*Service*](/zh/docs/concepts/services-networking/service/)。
 
 <!--
 1. Expose the Pod to the public internet using the `kubectl expose` command:
@@ -447,12 +447,12 @@ minikube delete
 {{% capture whatsnext %}}
 
 <!--
-* Learn more about [Deployment objects](zh/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [Deploying applications](zh/docs/tasks/run-application/run-stateless-application-deployment/).
-* Learn more about [Service objects](zh/docs/concepts/services-networking/service/).
+* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+* Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* 进一步了解 [Deployment 对象](zh/docs/concepts/workloads/controllers/deployment/)。
-* 学习更多关于 [部署应用](zh/docs/tasks/run-application/run-stateless-application-deployment/)。
-* 学习更多关于 [Service 对象](zh/docs/concepts/services-networking/service/)。
+* 进一步了解 [Deployment 对象](/zh/docs/concepts/workloads/controllers/deployment/)。
+* 学习更多关于 [部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
+* 学习更多关于 [Service 对象](/zh/docs/concepts/services-networking/service/)。
 
 {{% /capture %}}
