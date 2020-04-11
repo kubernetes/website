@@ -69,7 +69,7 @@ kubectl describe node <insert-node-name-here>
 ]
 ```
 
-ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controller-manager/)에 인수로 넘겨지는 `pod-eviction-timeout` 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
+ready 컨디션의 상태가 `pod-eviction-timeout` ([kube-controller-manager](/docs/admin/kube-controller-manager/)에 전달된 인수) 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
 
 1.5 이전의 쿠버네티스 버전에서는, 노드 컨트롤러가 apiserver로부터 접근 불가한 이러한 파드를 [강제 삭제](/ko/docs/concepts/workloads/pods/pod/#파드-강제-삭제)
 시킬 것이다. 그러나 1.5 이상에서는, 노드 컨트롤러가 클러스터 내 동작 중지된 것을 확신할 때까지는 파드를 
@@ -80,8 +80,8 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
 [테인트(taints)](/docs/concepts/configuration/taint-and-toleration/)를 생성한다.
-스케줄러가 파드를 노드에 할당할 때, 스케줄러는 파드가 극복(tolerate)하는 테인트가
-아닌 한, 노드 계정의 테인트를 고려 한다.
+스케줄러는 파드를 노드에 할당 할 때 노드의 테인트를 고려한다.
+또한 파드는 노드의 테인트를 극복(tolerate)할 수 있는 톨러레이션(toleration)을 가질 수 있다.
 
 ### 용량과 할당가능 {#capacity}
 

@@ -51,6 +51,7 @@ NAME          STATUS    AGE
 default       Active    1d
 kube-system   Active    1d
 kube-public   Active    1d
+kube-node-lease Active 1d
 ```
 
 쿠버네티스는 처음에 세 개의 초기 네임스페이스를 갖는다.
