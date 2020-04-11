@@ -369,7 +369,7 @@ Minikube VM은 host-only IP 주소를 통해 호스트 시스템에 노출되고
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 퍼시스턴트 볼륨
-Minikube는 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
+Minikube는 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
 이런 퍼시스턴트 볼륨은 Minikube VM 내에 디렉터리로 매핑됩니다.
 
 Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부트(`minikube stop`)까지는 유지되지 않다.

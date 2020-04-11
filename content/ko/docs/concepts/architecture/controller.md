@@ -158,5 +158,5 @@ weight: 30
 * [쿠버네티스 컨트롤 플레인](/ko/docs/concepts/#쿠버네티스-컨트롤-플레인)에 대해 읽기
 * [쿠버네티스 오브젝트](/ko/docs/concepts/#쿠버네티스-오브젝트)의 몇 가지 기본 사항을 알아보자.
 * [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
-* 만약 자신만의 컨트롤러를 작성하기 원한다면, 쿠버네티스 확장하기의 [확장 패턴](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)을 본다.
+* 만약 자신만의 컨트롤러를 작성하기 원한다면, 쿠버네티스 확장하기의 [확장 패턴](/ko/docs/concepts/extend-kubernetes/extend-cluster/#익스텐션-패턴)을 본다.
 {{% /capture %}}
