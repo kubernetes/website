@@ -322,7 +322,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### リソースタイプ
 
-サポートされているすべてのリソースタイプを、それらが[API group](/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
+サポートされているすべてのリソースタイプを、それらが[API group](/ja/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
 
 ```bash
 kubectl api-resources
