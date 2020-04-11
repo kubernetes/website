@@ -238,16 +238,18 @@ minikube start --vm-driver=<driver_name>
 Minikube поддерживает следующие драйверы:
 
 {{< note >}}
-Смотрите файл [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
+Смотрите страницу [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (ЭКСПЕРИМЕНТАЛЬНЫЙ)
+* kvm2 ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 Обратите внимание, что указанный IP-адрес на этой странице является динамическим и может изменяться. Его можно получить с помощью `minikube ip`.
-* vmware ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (Запускает компоненты Kubernetes на хосте, а не на виртуальной машине. Использование этого драйвера требует использование Linux и установленного {{< glossary_tooltip term_id="docker" >}}.)
 
 {{< caution >}}
