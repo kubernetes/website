@@ -198,7 +198,7 @@ tolerations:
 
 ## 테인트 기반 축출
 
-{{< feature-state for_k8s_version="1.18" state="stable" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 앞에서 우리는 노드에서 이미 실행 중인 파드에 영향을 주는 `NoExecute` 테인트 이펙트를
 다음과 같이 언급했다.

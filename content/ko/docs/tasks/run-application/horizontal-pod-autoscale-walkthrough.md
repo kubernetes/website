@@ -231,7 +231,7 @@ CPU 외에 다른 메트릭을 지정할 수 있는데, 기본적으로 지원�
 이 자원들은 한 클러스터에서 다른 클러스터로 이름을 변경할 수 없으며,
 `metrics.k8s.io` API가 가용한 경우 언제든지 사용할 수 있어야 한다.
 
-또한, `AverageUtilization` 대신 `AverageValue`의 `target` 타입을,
+또한, `Utilization` 대신 `AverageValue`의 `target` 타입을,
 그리고 `target.averageUtilization` 대신 `target.averageValue`로 설정하여
 자원 메트릭을 퍼센트 대신 값으로 명시할 수 있다.
 
