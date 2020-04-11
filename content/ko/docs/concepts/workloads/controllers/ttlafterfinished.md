@@ -11,7 +11,7 @@ weight: 65
 TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 제한하는 TTL (time to live) 메커니즘을 제공한다. TTL 컨트롤러는 현재
 [잡(Job)](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)만
-처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
+처리하며, 파드와 사용자 정의 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
 알파(Alpha) 고지 사항: 이 기능은 현재 알파이다, 그리고 kube-apiserver 와 kube-controller-manager 와 함께

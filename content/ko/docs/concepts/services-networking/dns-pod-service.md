@@ -225,7 +225,7 @@ spec:
    이 속성의 내용은 지정된 DNS 정책을 통해 생성된 옵션으로 합쳐지며, 
    병합 시 중복되는 항목은 제거된다.
    
-다음은 커스텀 DNS 세팅을 한 파드의 예시이다.
+다음은 사용자 정의 DNS 세팅을 한 파드의 예시이다.
 
 {{< codenew file="service/networking/custom-dns.yaml" >}}
 

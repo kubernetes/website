@@ -418,7 +418,7 @@ spec:
 
 ## 애드온
 
-Minikube에서 커스텀 애드온을 적절히 시작하고 재시작할 수 있으려면, 
+Minikube에서 사용자 정의 애드온을 적절히 시작하고 재시작할 수 있으려면, 
 Minikube와 함께 시작하려는 애드온을 `~/.minikube/addons` 디렉터리에 두자.
 폴더 내부의 애드온은 Minikube VM으로 이동되어
 Minikube가 시작하거나 재시작될 때에 함께 실행된다.

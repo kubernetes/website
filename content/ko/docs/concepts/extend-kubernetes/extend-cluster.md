@@ -92,9 +92,9 @@ kubectl에서
 
 1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
 2.   apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 콘텐츠를 기반으로 요청을 차단하거나, 콘텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#api-접근-익스텐션) 섹션에 설명되어 있다.
-3.   apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *커스텀 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 커스텀 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
+3.   apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *사용자 정의 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 사용자 정의 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
 4.   쿠버네티스 스케줄러는 파드를 배치할 노드를 결정한다. 스케줄링을 확장하는 몇 가지 방법이 있다. 이들은 [스케줄러 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#스케줄러-익스텐션) 섹션에 설명되어 있다.
-5.   쿠버네티스의 많은 동작은 API-Server의 클라이언트인 컨트롤러(Controller)라는 프로그램으로 구현된다. 컨트롤러는 종종 커스텀 리소스와 함께 사용된다.
+5.   쿠버네티스의 많은 동작은 API-Server의 클라이언트인 컨트롤러(Controller)라는 프로그램으로 구현된다. 컨트롤러는 종종 사용자 정의 리소스와 함께 사용된다.
 6.   kubelet은 서버에서 실행되며 파드가 클러스터 네트워크에서 자체 IP를 가진 가상 서버처럼 보이도록 한다. [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#네트워크-플러그인)을 사용하면 다양한 파드 네트워킹 구현이 가능하다.
 7.   kubelet은 컨테이너의 볼륨을 마운트 및 마운트 해제한다. 새로운 유형의 스토리지는 [스토리지 플러그인](/ko/docs/concepts/extend-kubernetes/extend-cluster/#스토리지-플러그인)을 통해 지원될 수 있다.
 
@@ -108,11 +108,11 @@ kubectl에서
 ## API 익스텐션
 ### 사용자 정의 유형
 
-새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl`과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 커스텀 리소스를 추가하자.
+새 컨트롤러, 애플리케이션 구성 오브젝트 또는 기타 선언적 API를 정의하고 `kubectl`과 같은 쿠버네티스 도구를 사용하여 관리하려면 쿠버네티스에 사용자 정의 리소스를 추가하자.
 
-애플리케이션, 사용자 또는 모니터링 데이터의 데이터 저장소로 커스텀 리소스를 사용하지 않는다.
+애플리케이션, 사용자 또는 모니터링 데이터의 데이터 저장소로 사용자 정의 리소스를 사용하지 않는다.
 
-커스텀 리소스에 대한 자세한 내용은 [커스텀 리소스 개념 가이드](/docs/concepts/api-extension/custom-resources/)를 참고하길 바란다.
+사용자 정의 리소스에 대한 자세한 내용은 [사용자 정의 리소스 개념 가이드](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를 참고하길 바란다.
 
 
 ### 새로운 API와 자동화의 결합
@@ -194,7 +194,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 {{% capture whatsnext %}}
 
-* [커스텀 리소스](/docs/concepts/api-extension/custom-resources/)에 대해 더 알아보기
+* [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
 * 인프라스트럭처 익스텐션에 대해 더 알아보기
   * [네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/)

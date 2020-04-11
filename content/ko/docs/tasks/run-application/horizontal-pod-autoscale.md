@@ -286,7 +286,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 [custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md),
 [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md)를 참조한다.
 
-어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
+어떻게 사용하는지에 대한 예시는 [사용자 정의 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
 [외부 메트릭스 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링)을 참조한다.
 
 ## 구성가능한 스케일링 동작 지원

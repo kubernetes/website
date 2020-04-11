@@ -251,7 +251,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 
 * 어떻게 [스테이트풀셋 스케일](/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
-* 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
+* 사용자 정의 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
 
 {{% /capture %}}
 
