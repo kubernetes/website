@@ -1,5 +1,5 @@
 ---
-title: Container Environment Variables
+title: Biến môi trường trong Container
 id: container-env-variables
 date: 2019-12-16
 full_link: /docs/concepts/containers/container-environment-variables/
