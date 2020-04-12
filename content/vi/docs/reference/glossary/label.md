@@ -1,5 +1,5 @@
 ---
-title: Label
+title: Nhãn (Label)
 id: label
 date: 2019-29-11
 full_link: /docs/concepts/overview/working-with-objects/labels
