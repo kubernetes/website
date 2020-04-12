@@ -22,7 +22,7 @@ card:
 
 Kubernetesオブジェクトは"意図の記録"です。一度オブジェクトを作成すると、Kubernetesは常にそのオブジェクトが存在し続けるように動きます。オブジェクトを作成することで、Kubernetesに対し効果的にあなたのクラスターのワークロードがこのようになっていて欲しいと伝えているのです。これが、あなたのクラスターの**望ましい状態**です。
 
-Kubernetesオブジェクトを操作するには、作成、変更、または削除に関わらず[Kubernetes API](/docs/concepts/overview/kubernetes-api/)を使う必要があるでしょう。例えば`kubectl`コマンドラインインターフェースを使った場合、このCLIが処理に必要なKubernetes API命令を、あなたに代わり発行します。あなたのプログラムから[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を利用し、直接Kubernetes APIを利用することも可能です。
+Kubernetesオブジェクトを操作するには、作成、変更、または削除に関わらず[Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)を使う必要があるでしょう。例えば`kubectl`コマンドラインインターフェースを使った場合、このCLIが処理に必要なKubernetes API命令を、あなたに代わり発行します。あなたのプログラムから[クライアントライブラリ](/docs/reference/using-api/client-libraries/)を利用し、直接Kubernetes APIを利用することも可能です。
 
 ### オブジェクトのspec（仕様）とstatus（状態）
 
