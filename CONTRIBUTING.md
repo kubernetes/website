@@ -32,7 +32,7 @@ Kubernetes.io uses github issues to track documentation issues and requests. If 
 
 Note that code issues should be filed against the main kubernetes repository, while documentation issues should go in the kubernetes.io repository.
 
-If you’re just getting started, consider exploring this resource [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/).
+For more information, see ["Contribute to Kubernetes docs"](https://kubernetes.io/docs/contribute/).
 
 ### Submitting Documentation Pull Requests
 
