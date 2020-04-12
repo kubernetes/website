@@ -1,5 +1,5 @@
 ---
-title: Controller
+title: Vòng điều khiển (Controller)
 id: controller
 date: 2020-01-09
 full_link: /docs/concepts/architecture/controller/
