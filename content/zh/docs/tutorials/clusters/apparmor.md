@@ -88,7 +88,7 @@ Apparmor 是一个 Linux 内核安全模块，它补充了标准的基于 Linux 
   kernel, including patches that add additional hooks and features. Kubernetes has only been
   tested with the upstream version, and does not promise support for other features.
   {{< /note >}} -->
-2. AppArmor 内核模块已启用 -- 要使 Linux 内核强制执行 AppArmor 配置文件，必须安装并且启动 AppArmor 内核模块。默认情况下，有几个发行版支持该模块，如 Ubuntu 和 SUSE，还有许多发行版提供可选支持。要检查模块是否已启用，请检查 
+2. AppArmor 内核模块已启用 -- 要使 Linux 内核强制执行 AppArmor 配置文件，必须安装并且启动 AppArmor 内核模块。默认情况下，有几个发行版支持该模块，如 Ubuntu 和 SUSE，还有许多发行版提供可选支持。要检查模块是否已启用，请检查
 `/sys/module/apparmor/parameters/enabled` 文件：
   ```shell
    cat /sys/module/apparmor/parameters/enabled
@@ -423,7 +423,7 @@ Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载�
   image.
 * By copying the profiles to each node and loading them through SSH, as demonstrated in the
   [Example](#example). -->
-* 通过在每个节点上运行 Pod 的[DaemonSet](/docs/concepts/workloads/controllers/daemonset/)确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
+* 通过在每个节点上运行 Pod 的[DaemonSet](/zh/docs/concepts/workloads/controllers/daemonset/)确保加载了正确的配置文件。可以找到一个示例实现[这里](https://git.k8s.io/kubernetes/test/images/apparmor-loader)。
 * 在节点初始化时，使用节点初始化脚本(例如 Salt 、Ansible 等)或镜像。
 * 通过将配置文件复制到每个节点并通过 SSH 加载它们，如[示例](#example)。
 
@@ -432,7 +432,7 @@ must be loaded onto every node.  An alternative approach is to add a node label 
 class of profiles) on the node, and use a
 [node selector](/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile. -->
-调度程序不知道哪些配置文件加载到哪个节点上，因此必须将全套配置文件加载到每个节点上。另一种方法是为节点上的每个配置文件(或配置文件类)添加节点标签，并使用[节点选择器](/docs/concepts/configuration/assign pod node/)确保 Pod 在具有所需配置文件的节点上运行。
+调度程序不知道哪些配置文件加载到哪个节点上，因此必须将全套配置文件加载到每个节点上。另一种方法是为节点上的每个配置文件(或配置文件类)添加节点标签，并使用[节点选择器](/zh/docs/concepts/configuration/assign pod node/)确保 Pod 在具有所需配置文件的节点上运行。
 
 <!-- ### Restricting profiles with the PodSecurityPolicy -->
 ### 使用 PodSecurityPolicy 限制配置文件
@@ -525,7 +525,7 @@ logs or through `journalctl`. More information is provided in
 想要调试 AppArmor 的问题，您可以检查系统日志，查看具体拒绝了什么。AppArmor 将详细消息记录到 `dmesg` ，错误通常可以在系统日志中或通过 `journalctl` 找到。更多详细信息见[AppArmor 失败](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)。
 
 <!-- ## API Reference -->
-## API 参考 
+## API 参考
 
 <!-- ### Pod Annotation -->
 ### Pod 注释

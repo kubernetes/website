@@ -113,7 +113,7 @@ Events:
 
 {{% capture whatsnext %}}
 
-* [컨테이너 환경](/ko/docs/concepts/containers/container-environment-variables/)에 대해 더 배우기.
+* [컨테이너 환경](/ko/docs/concepts/containers/container-environment/)에 대해 더 배우기.
 * [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
   실습 경험하기.
 

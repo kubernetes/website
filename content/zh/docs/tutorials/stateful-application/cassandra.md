@@ -28,18 +28,18 @@ title: "Example: Deploying Cassandra with Stateful Sets"
 
 本示例也使用了Kubernetes的一些核心组件：
 
-- [_Pods_](/docs/user-guide/pods)
-- [ _Services_](/docs/user-guide/services)
-- [_Replication Controllers_](/docs/user-guide/replication-controller)
-- [_Stateful Sets_](/docs/concepts/workloads/controllers/statefulset/)
-- [_Daemon Sets_](/docs/admin/daemons)
+- [_Pods_](/zh/docs/user-guide/pods)
+- [ _Services_](/zh/docs/user-guide/services)
+- [_Replication Controllers_](/zh/docs/user-guide/replication-controller)
+- [_Stateful Sets_](/zh/docs/concepts/workloads/controllers/statefulset/)
+- [_Daemon Sets_](/zh/docs/admin/daemons)
 
 
 
 ## 准备工作
 
 
-本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/docs/getting-started-guides/) 获取关于你的平台的安装说明。
+本示例假设你已经安装运行了一个 Kubernetes集群（版本 >=1.2），并且还在某个路径下安装了  [`kubectl`](/zh/docs/tasks/tools/install-kubectl/) 命令行工具。请查看 [getting started guides](/zh/docs/getting-started-guides/) 获取关于你的平台的安装说明。
 
 
 本示例还需要一些代码和配置文件。为了避免手动输入，你可以 `git clone` Kubernetes 源到你本地。
@@ -133,7 +133,7 @@ kubectl delete daemonset cassandra
 ## 步骤 1：创建 Cassandra Headless Service
 
 
-Kubernetes _[Service](/docs/user-guide/services)_ 描述一组执行同样任务的 [_Pod_](/docs/user-guide/pods)。在 Kubernetes 中，一个应用的原子调度单位是一个 Pod：一个或多个_必须_调度到相同主机上的容器。
+Kubernetes _[Service](/zh/docs/user-guide/services)_ 描述一组执行同样任务的 [_Pod_](/zh/docs/user-guide/pods)。在 Kubernetes 中，一个应用的原子调度单位是一个 Pod：一个或多个_必须_调度到相同主机上的容器。
 
 这个 Service 用于在 Kubernetes 集群内部进行 Cassandra 客户端和 Cassandra Pod 之间的 DNS 查找。
 
@@ -354,7 +354,7 @@ $ kubectl exec cassandra-0 -- cqlsh -e 'desc keyspaces'
 system_traces  system_schema  system_auth  system  system_distributed
 ```
 
-你需要使用 `kubectl edit` 来增加或减小 Cassandra StatefulSet 的大小。你可以在[文档](/docs/user-guide/kubectl/kubectl_edit) 中找到更多关于 `edit` 命令的信息。
+你需要使用 `kubectl edit` 来增加或减小 Cassandra StatefulSet 的大小。你可以在[文档](/zh/docs/user-guide/kubectl/kubectl_edit) 中找到更多关于 `edit` 命令的信息。
 
 使用以下命令编辑 StatefulSet。
 
@@ -429,7 +429,7 @@ $ grace=$(kubectl get po cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodS
 ## 步骤 5：使用 Replication Controller 创建 Cassandra 节点 pod
 
 
-Kubernetes _[Replication Controller](/docs/user-guide/replication-controller)_ 负责复制一个完全相同的 pod 集合。像 Service 一样，它具有一个 selector query，用来识别它的集合成员。和 Service 不一样的是，它还具有一个期望的副本数，并且会通过创建或删除 Pod 来保证 Pod 的数量满足它期望的状态。
+Kubernetes _[Replication Controller](/zh/docs/user-guide/replication-controller)_ 负责复制一个完全相同的 pod 集合。像 Service 一样，它具有一个 selector query，用来识别它的集合成员。和 Service 不一样的是，它还具有一个期望的副本数，并且会通过创建或删除 Pod 来保证 Pod 的数量满足它期望的状态。
 
 和我们刚才定义的 Service 一起，Replication Controller 能够让我们轻松的构建一个复制的、可扩展的 Cassandra 集群。
 
@@ -639,7 +639,7 @@ $ kubectl delete rc cassandra
 ## 步骤 8：使用 DaemonSet 替换 Replication Controller
 
 
-在 Kubernetes中，[_DaemonSet_](/docs/admin/daemons) 能够将 pod 一对一的分布到 Kubernetes 节点上。和  _ReplicationController_ 相同的是它也有一个用于识别它的集合成员的 selector query。但和 _ReplicationController_ 不同的是，它拥有一个节点 selector，用于限制基于模板的 pod 可以调度的节点。并且 pod 的复制不是基于一个设置的数量，而是为每一个节点分配一个 pod。
+在 Kubernetes中，[_DaemonSet_](/zh/docs/admin/daemons) 能够将 pod 一对一的分布到 Kubernetes 节点上。和  _ReplicationController_ 相同的是它也有一个用于识别它的集合成员的 selector query。但和 _ReplicationController_ 不同的是，它拥有一个节点 selector，用于限制基于模板的 pod 可以调度的节点。并且 pod 的复制不是基于一个设置的数量，而是为每一个节点分配一个 pod。
 
 示范用例：当部署到云平台时，预期情况是实例是短暂的并且随时可能终止。Cassandra 被搭建成为在各个节点间复制数据以便于实现数据冗余。这样的话，即使一个实例终止了，存储在它上面的数据却没有，并且集群会通过重新复制数据到其它运行节点来作为响应。
 
@@ -802,6 +802,6 @@ $ kubectl delete daemonset cassandra
 
 查看本示例的 [image](https://github.com/kubernetes/examples/tree/master/cassandra/image) 目录，了解如何构建容器的 docker 镜像及其内容。
 
-你可能还注意到我们设置了一些 Cassandra 参数（`MAX_HEAP_SIZE`和`HEAP_NEWSIZE`），并且增加了关于 [namespace](/docs/user-guide/namespaces) 的信息。我们还告诉 Kubernetes 容器暴露了 `CQL` 和 `Thrift` API 端口。最后，我们告诉集群管理器我们需要 0.1 cpu（0.1 核）。
+你可能还注意到我们设置了一些 Cassandra 参数（`MAX_HEAP_SIZE`和`HEAP_NEWSIZE`），并且增加了关于 [namespace](/zh/docs/user-guide/namespaces) 的信息。我们还告诉 Kubernetes 容器暴露了 `CQL` 和 `Thrift` API 端口。最后，我们告诉集群管理器我们需要 0.1 cpu（0.1 核）。
 
 [!Analytics](https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/cassandra/README.md?pixel)]()

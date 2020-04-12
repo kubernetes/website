@@ -255,7 +255,7 @@ Servis _frontend_ akan meliputi kedua set replika dengan menentukan subset bersa
      tier: frontend
 ```
 
-Anda dapat mengatur jumlah replika rilis _stable_ dan _canary_ untuk menentukan rasio dari tiap rilis yang akan menerima _traffic production live_ (dalam kasus ini 3:1).
+Kamu dapat mengatur jumlah replika rilis _stable_ dan _canary_ untuk menentukan rasio dari tiap rilis yang akan menerima _traffic production live_ (dalam kasus ini 3:1).
 Ketika telah yakin, kamu dapat memindahkan _track stable_ ke rilis baru dan menghapus _canary_.
 
 Untuk contoh yang lebih jelas, silahkan cek [tutorial melakukan deploy Ghost](https://github.com/kelseyhightower/talks/tree/master/kubecon-eu-2016/demo#deploy-a-canary).
@@ -322,7 +322,7 @@ kubectl scale deployment/my-nginx --replicas=1
 deployment.extensions/my-nginx scaled
 ```
 
-Sekarang anda hanya memiliki satu _pod_ yang dikelola oleh deployment.
+Sekarang kamu hanya memiliki satu _pod_ yang dikelola oleh deployment.
 
 ```shell
 kubectl get pods -l app=nginx

@@ -197,7 +197,7 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 
 ### Resource Quota Per PriorityClass
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`

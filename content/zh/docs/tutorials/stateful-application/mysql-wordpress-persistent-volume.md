@@ -12,23 +12,23 @@ card:
 
 {{% capture overview %}}
 
-<!-- 
-This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data. 
+<!--
+This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
 -->
 
 本示例描述了如何通过 Minikube 在 Kubernetes 上安装 WordPress 和 MySQL。这两个应用都使用 PersistentVolumes 和 PersistentVolumeClaims 保存数据。
 
 
 <!--
- A [PersistentVolume](/docs/concepts/storage/persistent-volumes/)(PV)is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods. 
+ A [PersistentVolume](/docs/concepts/storage/persistent-volumes/)(PV)is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
  -->
 
-[PersistentVolume](/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，或 kubernetes 通过 [StorageClass](/docs/concepts/storage/storage-classes) 动态创建的存储。
-[PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)（PVC）是一个满足对 PV 存储需要的请求。PersistentVolumes 和 PersistentVolumeClaims 是独立于 Pod 生命周期而在 Pod 重启，重新调度甚至删除过程中保存数据。
+[PersistentVolume](/zh/docs/concepts/storage/persistent-volumes/)（PV）是一块集群里由管理员手动提供，或 kubernetes 通过 [StorageClass](/zh/docs/concepts/storage/storage-classes) 动态创建的存储。
+[PersistentVolumeClaim](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)（PVC）是一个满足对 PV 存储需要的请求。PersistentVolumes 和 PersistentVolumeClaims 是独立于 Pod 生命周期而在 Pod 重启，重新调度甚至删除过程中保存数据。
 
 {{< warning >}}
 <!--
- This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production. 
+ This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
  -->
 
 deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MySQL Pods。考虑使用 [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) 在生产场景中部署 WordPress。
@@ -53,7 +53,7 @@ deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MyS
   * MySQL resource configs
   * WordPress resource configs
 * Apply the kustomization directory by `kubectl apply -k ./`
-* Clean up 
+* Clean up
 -->
 
 * 创建 PersistentVolumeClaims 和 PersistentVolumes
@@ -77,7 +77,7 @@ Download the following configuration files:
 
 1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
-1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml) 
+1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 -->
 
 此例在`kubectl` 1.14 或者更高版本有效。
@@ -86,14 +86,14 @@ Download the following configuration files:
 
 1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
-2. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml) 
- 
+2. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
+
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
 <!--
-## Create PersistentVolumeClaims and PersistentVolumes 
+## Create PersistentVolumeClaims and PersistentVolumes
 -->
 
 ## 创建 PersistentVolumeClaims 和 PersistentVolumes
@@ -113,15 +113,15 @@ MySQL 和 Wordpress 都需要一个 PersistentVolume 来存储数据。他们的
 
 {{< warning >}}
 <!--
-In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost. 
+In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
 -->
 
 在本地群集中，默认的 StorageClass 使用`hostPath`供应器。 `hostPath`卷仅适用于开发和测试。使用 `hostPath` 卷，您的数据位于 Pod 调度到的节点上的`/tmp`中，并且不会在节点之间移动。如果 Pod 死亡并被调度到群集中的另一个节点，或者该节点重新启动，则数据将丢失。
 {{< /warning >}}
 
 {{< note >}}
-<!-- 
-If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component. 
+<!--
+If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
 -->
 
 如果要建立需要使用`hostPath`设置程序的集群，则必须在 controller-manager 组件中设置`--enable-hostpath-provisioner`标志。
@@ -133,14 +133,14 @@ If you are bringing up a cluster that needs to use the `hostPath` provisioner, t
 如果你已经有运行在 Google Kubernetes Engine 的集群，请参考 [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk)。
 {{< /note >}}
 
-<!-- 
-## Create a kustomization.yaml 
+<!--
+## Create a kustomization.yaml
 -->
 
 ## 创建 kustomization.yaml
 
-<!-- 
-### Add a Secret generator 
+<!--
+### Add a Secret generator
 -->
 
 ### 创建 Secret 生成器
@@ -148,10 +148,10 @@ If you are bringing up a cluster that needs to use the `hostPath` provisioner, t
 <!--
 A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. Since 1.14, `kubectl` supports the management of Kubernetes objects using a kustomization file. You can create a Secret by generators in `kustomization.yaml`.
 
-Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use. 
+Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use.
 -->
 
-A [Secret](/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
+A [Secret](/zh/docs/concepts/configuration/secret/) 是存储诸如密码或密钥之类的敏感数据的对象。从 1.14 开始，`kubectl`支持使用 kustomization 文件管理 Kubernetes 对象。您可以通过`kustomization.yaml`中的生成器创建一个 Secret。
 
 通过以下命令在`kustomization.yaml`中添加一个 Secret 生成器。您需要用您要使用的密码替换`YOUR_PASSWORD`。
 
@@ -164,13 +164,13 @@ secretGenerator:
 EOF
 ```
 
-<!-- 
-## Add resource configs for MySQL and WordPress 
+<!--
+## Add resource configs for MySQL and WordPress
 -->
 
 ## 补充 MySQL 和 WordPress 的资源配置
 
-<!-- 
+<!--
 The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret.
 -->
 
@@ -178,11 +178,11 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
-<!-- 
+<!--
 The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the
 PersistentVolume at `/var/www/html` for website data files. The `WORDPRESS_DB_HOST` environment variable sets
 the name of the MySQL Service defined above, and WordPress will access the database by Service. The
-`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
+`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated.
 -->
 
 以下 manifest 文件描述了单实例 WordPress 部署。WordPress 容器将网站数据文件位于`/var/www/html`的 PersistentVolume。`WORDPRESS_DB_HOST`环境变量集上面定义的 MySQL Service 的名称，WordPress 将通过 Service 访问数据库。`WORDPRESS_DB_PASSWORD`环境变量设置从 Secret kustomize 生成的数据库密码。
@@ -234,8 +234,8 @@ the name of the MySQL Service defined above, and WordPress will access the datab
       ```
 
 
-<!-- 
-## Apply and Verify 
+<!--
+## Apply and Verify
 -->
 
 ## 应用和验证
@@ -348,7 +348,7 @@ kubectl apply -k ./
       ```
 
       响应应如下所示：
-      
+
       ```shell
       NAME                    TYPE                                  DATA   AGE
       mysql-pass-c57bb4t7mf   Opaque                                1      9s
@@ -419,7 +419,7 @@ kubectl apply -k ./
       ```
 
 6. 复制 IP 地址，然后将页面加载到浏览器中来查看您的站点。
-   
+
       您应该看到类似于以下屏幕截图的 WordPress 设置页面。
 
       ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
@@ -427,8 +427,8 @@ kubectl apply -k ./
 {{% /capture %}}
 
 {{< warning >}}
-<!-- 
-Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance. 
+<!--
+Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
 -->
 不要在此页面上保留 WordPress 安装。如果其他用户找到了它，他们可以在您的实例上建立一个网站并使用它来提供恶意内容。<br/><br/>通过创建用户名和密码来安装 WordPress 或删除您的实例。
 
@@ -453,24 +453,16 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 {{% capture whatsnext %}}
 
+<!--
 * Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 * Learn more about [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 -->
-1. 运行以下命令以删除您的 Secret，Deployments，Services 和 PersistentVolumeClaims：
 
-      ```shell
-      kubectl delete -k ./
-      ```
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* 了解更多关于 [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* 了解更多关于 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
-* 了解更多关于 [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* 了解如何 [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* 了解更多关于 [Introspection and Debugging](/zh/docs/tasks/debug-application-cluster/debug-application-introspection/)
+* 了解更多关于 [Jobs](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* 了解更多关于 [Port Forwarding](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* 了解如何 [Get a Shell to a Container](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
 {{% /capture %}}

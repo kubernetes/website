@@ -182,6 +182,7 @@ aliases:
     - idealhack
     - markthink
     - SataQiu
+    - tanjunchen
     - tengqm
     - xiangpengzhao
     - xichengliudui
@@ -222,3 +223,13 @@ aliases:
     - mfilocha
     - nvtkaszpir
     - kpucynski
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - butuzov
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - anastyakulyk
+    - butuzov
+    - idvoretskyi
+    - MaxymVlasov
+    - Potapy4
