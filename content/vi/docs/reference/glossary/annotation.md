@@ -1,5 +1,5 @@
 ---
-title: Annotation
+title: Chú thích (Annotation)
 id: annotation
 date: 2019-12-16
 full_link: /docs/concepts/overview/working-with-objects/annotations
