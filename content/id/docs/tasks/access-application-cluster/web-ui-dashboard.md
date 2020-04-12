@@ -1,5 +1,5 @@
 ---
-title: Antarmuka Web (_Dashboard_)
+title: Antarmuka Web (Dashboard)
 content_template: templates/concept
 weight: 10
 card:
@@ -121,7 +121,7 @@ track=stable
 
 - **_Environment variables_**: Kubernetes mengekspos _Services_ melalui [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). Kamu dapat membuat _environment variable_ atau meneruskan argumen ke perintah dengan nilai dari _environment variables_. _Environment Variables_ dapat digunakan di aplikasi untuk menemukan _Service_. Nilai yang merujuk ke variabel lain menggunakan sintaksis `$(VAR_NAME)`.
 
-### Menggungah berkas YAMl atau JSON
+### Menggungah berkas YAML atau JSON
 
 Kubernetes mendukung pengaturan deklaratif. Dengan cara ini, semua pengaturan disimpan dalam bentuk berkas YAML atau JSON dengan mengikuti aturan skema pada Kubernetes [[API](/docs/concepts/overview/kubernetes-api/).
 
