@@ -1,8 +1,4 @@
 ---
-reviewers:
-- davidopp
-- kevin-wangzefeng
-- bsalamat
 title: 테인트(Taints)와 톨러레이션(Tolerations)
 content_template: templates/concept
 weight: 40
