@@ -202,7 +202,7 @@ when there are node problems, which is described in the next section.
 
 ## Taint based Evictions
 
-{{< feature-state for_k8s_version="1.18" state="stable" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 Earlier we mentioned the `NoExecute` taint effect, which affects pods that are already
 running on the node as follows

@@ -14,12 +14,7 @@ _크론 잡은_ 시간 기반의 일정에 따라 [잡](/ko/docs/concepts/worklo
 
 
 {{< caution >}}
-모든 **크론잡** `일정:` 시간은 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
-의 시간대를 기준으로 한다.
-
-컨트롤 플레인이 파드 또는 베어 컨테이너에서 kube-controller-manager를
-실행하는 경우 kube-controller-manager 컨테이너의 설정된 시간대는 크론 잡 컨트롤러가
-사용하는 시간대로 설정한다.
+모든 **크론잡** `일정:` 시간은 UTC로 표시된다.
 {{< /caution >}}
 
 크론잡 리소스에 대한 매니페스트를 생성할때에는 제공하는 이름이

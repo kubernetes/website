@@ -291,7 +291,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 ## 구성가능한 스케일링 동작 지원
 
-[v1.17](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
 부터 `v2beta2` API는 HPA `behavior` 필드를 통해
 스케일링 동작을 구성할 수 있다.
 동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`

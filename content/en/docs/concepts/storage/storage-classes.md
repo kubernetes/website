@@ -185,7 +185,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
-{{< feature-state state="stable" for_k8s_version="1.17" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
@@ -410,7 +410,7 @@ parameters:
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
 {{< /note >}}
 
@@ -813,10 +813,10 @@ volumeBindingMode: WaitForFirstConsumer
 ```
 
 Local volumes do not currently support dynamic provisioning, however a StorageClass
-should still be created to delay volume binding until pod scheduling. This is
+should still be created to delay volume binding until Pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 
-Delaying volume binding allows the scheduler to consider all of a pod's
+Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 

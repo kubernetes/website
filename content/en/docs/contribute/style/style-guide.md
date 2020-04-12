@@ -3,10 +3,6 @@ title: Documentation Style Guide
 linktitle: Style guide
 content_template: templates/concept
 weight: 10
-card:
-  name: contribute
-  weight: 20
-  title: Documentation Style Guide
 ---
 
 {{% capture overview %}}
@@ -15,10 +11,12 @@ These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
-documentation, read the [Documentation Content
-Guide](/docs/contribute/style/content-guide/) and follow the instructions on
-[using page templates](/docs/contribute/style/page-templates/) and [creating a
-documentation pull request](/docs/contribute/start/#improve-existing-content).
+documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/) and follow the instructions on
+[using page templates](/docs/contribute/style/page-templates/) and [creating a documentation pull request](/docs/contribute/new-content/open-a-pr).
+
+Changes to the style guide are made by SIG Docs as a group. To propose a change
+or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
+discussion.
 
 {{% /capture %}}
 

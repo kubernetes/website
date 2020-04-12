@@ -427,10 +427,18 @@ We'll guide you through how to create and update applications with Deployments.
 Let's say you were running version 1.14.2 of nginx:
 
 ```shell
-kubectl run my-nginx --image=nginx:1.14.2 --replicas=3
+kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
 ```shell
 deployment.apps/my-nginx created
+```
+
+with 3 replicas (so the old and new revisions can coexist):
+```shell
+kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
+```
+```
+deployment.apps/my-nginx scaled
 ```
 
 To update to version 1.16.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the kubectl commands we learned above.
