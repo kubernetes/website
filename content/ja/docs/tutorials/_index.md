@@ -29,7 +29,7 @@ content_template: templates/concept
 
 ## ステートレスアプリケーション
 
-* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/ja/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 
