@@ -1,5 +1,5 @@
 ---
-title: Applications
+title: Ứng dụng
 id: applications
 date: 2019-12-16
 full_link:
