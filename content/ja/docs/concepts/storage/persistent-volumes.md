@@ -438,7 +438,7 @@ Podと同様に、クレームは特定の量のリソースを要求できま�
 
 ### セレクター
 
-クレームでは、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
+クレームでは、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
 
 * `matchLabels` - ボリュームはこの値のラベルが必要です
 * `matchExpressions` - キー、値のリスト、およびキーと値を関連付ける演算子を指定することによって作成された要件のリスト。有効な演算子は、In、NotIn、ExistsおよびDoesNotExistです。

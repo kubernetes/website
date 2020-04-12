@@ -190,7 +190,7 @@ status:
 ...
 ```
 
-新しいPod Conditionは、Kubernetesの[label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
+新しいPod Conditionは、Kubernetesの[label key format](/ja/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
 `kubectl patch`コマンドはオブジェクトステータスのパッチ適用をまだサポートしていないので、
 新しいPod Conditionは[KubeClient libraries](/docs/reference/using-api/client-libraries/)のどれかを使用する必要があります。
 

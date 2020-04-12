@@ -14,7 +14,7 @@ weight: 50
 ## PodPresetを理解する
 
 `PodPreset`はPodの作成時に追加のランタイム要求を注入するためのAPIリソースです。
-ユーザーはPodPresetを適用する対象のPodを指定するために、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を使用します。
+ユーザーはPodPresetを適用する対象のPodを指定するために、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を使用します。
 
 PodPresetの使用により、Podテンプレートの作者はPodにおいて、全ての情報を明示的に指定する必要がなくなります。  
 この方法により、特定のServiceを使っているPodテンプレートの作者は、そのServiceについて全ての詳細を知る必要がなくなります。

@@ -62,6 +62,6 @@ _アノテーション_ はキーとバリューのペアです。有効なア�
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-[ラベルとセレクター](/docs/concepts/overview/working-with-objects/labels/)について学習してください。
+[ラベルとセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)について学習してください。
 {{% /capture %}}
 
