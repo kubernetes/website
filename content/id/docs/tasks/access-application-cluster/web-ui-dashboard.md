@@ -47,7 +47,7 @@ kubectl proxy
 
 Kubectl akan membuat _Dashboard_ berjalan di http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/.
 
-Antarmuka hanya dapat di akses dari mesin dimana perintah tersebut dijalankan. Lihat `kubectl proxy --help` for more options.
+Antarmuka hanya dapat di akses dari mesin dimana perintah tersebut dijalankan. Lihat `kubectl proxy --help` untuk lebih lanjut.
 
 {{< note >}}
 Metode otentikasi _Kubeconfig_ tidak mendukung identitas diluar penyedia atau _x509 certificate-based authentication_.
@@ -81,9 +81,9 @@ _Deploy wizard_ meminta kamu untuk memenuhi informasi sebagai berikut:
 
 - **Service** (opsional): Untuk beberapa aplikasi (contoh _frontends_) kamu mungkin akan mengekspos sebuah [Service](/docs/concepts/services-networking/service/) ke alamat IP publik yang mungkin diluar klaster kamu. Untuk _Services_ eksternal, kamu mungkin perlu membuka lebih dari satu _ports_, untuk melakukanya. Kamu dapat menemukan [disini](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 
-  _Services_ lain yang hanya dapat diakses dari dalam klaster kamu disebut _internal Services.
+  _Services_ lain yang hanya dapat diakses dari dalam klaster kamu disebut _internal Services_.
 
-  Terlepas dari jenis _Service_, jika kamu memilih untuk membuat sebuah _Service_ dan _container_ berjalan di _port(incoming)_, kamu perlu menentukan dua _ports_. _Service_ akan memetakan _port(incoming)_ ke target _port_ yang ada di _container_. _Service_ akan mengarahkan ke _Pods_. Protokol yang didukung adalah _TCP_ dan _UDP_. Nama _DNS_ internal untuk service ini akan sesua dengan nama aplikasi yang telah kamu tentukan diatas.
+  Terlepas dari jenis _Service_, jika kamu memilih untuk membuat sebuah _Service_ dan _container_ berjalan di _port(incoming)_, kamu perlu menentukan dua _ports_. _Service_ akan memetakan _port(incoming)_ ke target _port_ yang ada di _container_. _Service_ akan mengarahkan ke _Pods_. Protokol yang didukung adalah _TCP_ dan _UDP_. Nama _DNS_ internal untuk service ini akan sesuai dengan nama aplikasi yang telah kamu tentukan diatas.
 
 Jika membutuhkan, kamu dapat membuka bagian **Advanced options** dimana kamu akan menemukan lebih banyak pengaturan:
 
