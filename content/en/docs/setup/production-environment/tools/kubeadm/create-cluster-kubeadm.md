@@ -368,7 +368,7 @@ For information on using the `kubeadm` tool to set up a Kubernetes cluster with 
 
 {{% tab name="Weave Net" %}}
 
-For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon]((https://www.weave.works/docs/net/latest/kube-addon/).
+For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/).
 
 Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` platforms without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
