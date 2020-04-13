@@ -25,7 +25,7 @@ weight: 40
 -->
 ## 专用术语
 
-<!-- 
+<!--
 For clarity, this guide defines the following terms:
 -->
 为了表达更加清晰，本指南定义了以下术语：
@@ -42,34 +42,34 @@ Kubernetes 集群中其中一台工作机器，是集群的一部分。
 
 <!--
 Cluster
-: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet. 
+: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
 -->
 
-集群（Cluster）: 
+集群（Cluster）:
 
 一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
 
 <!--
 Edge router
-: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware. 
+: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
 -->
 
-边缘路由器（Edge router）: 
+边缘路由器（Edge router）:
 
 在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
 
 <!--
 Cluster network
-: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/). 
+: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
 -->
 
-集群网络（Cluster network）: 
+集群网络（Cluster network）:
 
 一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
 
 <!--
 Service
-: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
+: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
 -->
 
 服务（Service）：
@@ -82,10 +82,10 @@ Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_toolti
 -->
 ## Ingress 是什么？
 
-<!-- 
+<!--
 Ingress exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
-Traffic routing is controlled by rules defined on the Ingress resource. 
+Traffic routing is controlled by rules defined on the Ingress resource.
 -->
 
 Ingress 公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
@@ -99,12 +99,12 @@ Ingress 公开了从集群外部到集群内 {{< link text="services" url="/docs
    [ Services ]
 ```
 
-<!-- 
+<!--
 An Ingress can be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 -->
 可以将 Ingress 配置为提供服务外部可访问的 URL、负载均衡流量、终止 SSL / TLS 并提供基于名称的虚拟主机。[Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)通常负责通过负载均衡器来实现 Ingress，尽管它也可以配置边缘路由器或其他前端来帮助处理流量。
 
-<!-- 
+<!--
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
 uses a service of type [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) or
 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
@@ -112,21 +112,17 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 Ingress 不会公开任意端口或协议。
 将 HTTP 和 HTTPS 以外的服务公开到 Internet 时，通常使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) 类型的服务。
 
-可以将Ingress配置为提供服务外部可访问的URL，负载均衡流量，终止 SSL / TLS 并提供基于名称的虚拟主机。 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)通常负责通过负载平衡器来实现入口，尽管它也可以配置边缘路由器或其他前端以帮助处理流量。
-
-Ingress 不会公开任意端口或协议。 将 HTTP 和 HTTPS 以外的服务公开给 Internet 时，通常使用以下类型的服务 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
-
 <!--
 ## Prerequisites
 -->
 ## 环境准备
 
-<!-- 
+<!--
 You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 -->
 您必须具有 [ingress 控制器](/docs/concepts/services-networking/ingress-controllers)才能满足 Ingress 的要求。仅创建 Ingress 资源无效。
 
-<!-- 
+<!--
 You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). You can choose from a number of
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 -->
@@ -155,7 +151,7 @@ Make sure you review your Ingress controller's documentation to understand the c
 -->
 ## Ingress 资源
 
-<!-- 
+<!--
 A minimal Ingress resource example:
 -->
 一个最小的 Ingress 资源示例：
@@ -177,7 +173,7 @@ spec:
           servicePort: 80
 ```
 
-<!-- 
+<!--
  As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
  For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
@@ -190,7 +186,7 @@ spec:
  Ingress 经常使用注解（annotations）来配置一些选项，具体取决于 Ingress 控制器，例如 [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)。
  不同的 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)支持不同的注解（annotations）。查看文档以供您选择 Ingress 控制器，以了解支持哪些注解（annotations）。
 
-<!-- 
+<!--
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
@@ -198,7 +194,7 @@ for directing HTTP traffic.
 -->
 Ingress [规范](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 具有配置负载均衡器或者代理服务器所需的所有信息。最重要的是，它包含与所有传入请求匹配的规则列表。Ingress 资源仅支持用于定向 HTTP 流量的规则。
 
-<!-- 
+<!--
 ### Ingress rules
 -->
 ### Ingress 规则
@@ -208,7 +204,7 @@ Each HTTP rule contains the following information:
 -->
 每个 HTTP 规则都包含以下信息：
 
-<!-- 
+<!--
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
   HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
@@ -223,18 +219,18 @@ Each HTTP rule contains the following information:
 * 路径列表（例如，`/testpath`）,每个路径都有一个由 `serviceName` 和 `servicePort` 定义的关联后端。在负载均衡器将流量定向到引用的服务之前，主机和路径都必须匹配传入请求的内容。
 * 后端是[服务文档](/docs/concepts/services-networking/service/)中所述的服务和端口名称的组合。与规则的主机和路径匹配的对 Ingress 的HTTP（和HTTPS）请求将发送到列出的后端。
 
-<!-- 
+<!--
 A default backend is often configured in an Ingress controller to service any requests that do not
-match a path in the spec. 
+match a path in the spec.
 -->
 通常在 Ingress 控制器中配置默认后端，以服务任何不符合规范中路径的请求。
 
-<!-- 
+<!--
 ### Default Backend
 -->
 ### 默认后端
 
-<!-- 
+<!--
 An Ingress with no rules sends all traffic to a single default backend. The default
 backend is typically a configuration option of the [Ingress controller](/docs/concepts/services-networking/ingress-controllers) and is not specified in your Ingress resources.
 -->
@@ -251,12 +247,12 @@ routed to your default backend.
 -->
 Ingress 类型
 
-<!-- 
+<!--
 ### Single Service Ingress
 -->
 ### 单服务 Ingress
 
-<!-- 
+<!--
 There are existing Kubernetes concepts that allow you to expose a single Service
 (see [alternatives](#alternatives)). You can also do this with an Ingress by specifying a
 *default backend* with no rules.
@@ -265,7 +261,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 
 {{< codenew file="service/networking/ingress.yaml" >}}
 
-<!-- 
+<!--
 If you create it using `kubectl apply -f` you should be able to view the state
 of the Ingress you just added:
 -->
@@ -280,14 +276,14 @@ NAME           HOSTS     ADDRESS           PORTS     AGE
 test-ingress   *         107.178.254.228   80        59s
 ```
 
-<!-- 
+<!--
 Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
 this Ingress.
 -->
 其中 `107.178.254.228` 是由 Ingress 控制器分配以满足该 Ingress 的 IP。
 
 {{< note >}}
-<!-- 
+<!--
 Ingress controllers and load balancers may take a minute or two to allocate an IP address.
 Until that time, you often see the address listed as `<pending>`.
 -->
@@ -442,14 +438,14 @@ spec:
           servicePort: 80
 ```
 
-<!-- 
+<!--
 If you create an Ingress resource without any hosts defined in the rules, then any
 web traffic to the IP address of your Ingress controller can be matched without a name based
 virtual host being required.
 -->
 如果您创建的 Ingress 资源没有规则中定义的任何主机，则可以匹配到您 Ingress 控制器 IP 地址的任何网络流量，而无需基于名称的虚拟主机。
 
-<!-- 
+<!--
 For example, the following Ingress resource will route traffic
 requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
@@ -550,7 +546,7 @@ spec:
 
 
 {{< note >}}
-<!-- 
+<!--
 There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
 [nginx](https://git.k8s.io/ingress-nginx/README.md#https),
@@ -569,7 +565,7 @@ platform specific Ingress controller to understand how TLS works in your environ
 -->
 ### 负载均衡
 
-<!-- 
+<!--
 An Ingress controller is bootstrapped with some load balancing policy settings
 that it applies to all Ingress, such as the load balancing algorithm, backend
 weight scheme, and others. More advanced load balancing concepts
