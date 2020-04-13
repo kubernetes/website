@@ -135,7 +135,7 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 
 쿠버네티스 클러스터는 노드-레벨 로깅 에이전트를 사용하는 것이 가장 일반적이며 권장되는 방법이다. 이는 노드별 하나의 에이전트만 생성하므로, 노드에서 실행되는 애플리케이션을 변경할 필요가 없기 때문이다. 그러나, 노드-레벨 로깅은 _애플리케이션의 표준 출력 및 표준 에러에 대해서만 작동한다_ .
 
-쿠버네티스는 로깅 에이전트를 지정하지 않지만, 쿠버네티스 릴리스에는 두 가지 선택적 로깅 에이전트(Google 클라우드 플랫폼과 함께 사용하기 위한 [스택드라이버(Stackdriver) 로깅](/docs/user-guide/logging/stackdriver) 및 [엘라스틱서치(Elasticsearch)](/docs/user-guide/logging/elasticsearch))가 패키지로 제공된다. 전용 문서에서 자세한 정보와 지침을 찾을 수 있다. 둘 다 노드에서 에이전트로 사용자 정의 구성과 함께 [fluentd](http://www.fluentd.org/)를 사용한다.
+쿠버네티스는 로깅 에이전트를 지정하지 않지만, 쿠버네티스 릴리스에는 두 가지 선택적 로깅 에이전트(Google 클라우드 플랫폼과 함께 사용하기 위한 [스택드라이버(Stackdriver) 로깅](/docs/user-guide/logging/stackdriver) 및 [엘라스틱서치(Elasticsearch)](/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/))가 패키지로 제공된다. 전용 문서에서 자세한 정보와 지침을 찾을 수 있다. 둘 다 노드에서 에이전트로 사용자 정의 구성과 함께 [fluentd](http://www.fluentd.org/)를 사용한다.
 
 ### 로깅 에이전트와 함께 사이드카 컨테이너 사용
 
