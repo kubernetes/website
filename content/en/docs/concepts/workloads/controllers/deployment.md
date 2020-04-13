@@ -510,7 +510,7 @@ Follow the steps given below to rollback the Deployment from the current version
 
     The output is similar to this:
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
@@ -520,7 +520,7 @@ Follow the steps given below to rollback the Deployment from the current version
 
     The output is similar to this:
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
 
     For more details about rollout related commands, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
