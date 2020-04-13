@@ -1,13 +1,12 @@
 ---
-title: Extraction d'une image d'un registre privé
+title: Récupération d'une image d'un registre privé
 content_template: templates/task
 weight: 100
 ---
 
 {{% capture overview %}}
 
-Cette page montre comment créer un Pod qui utilise un Secret pour extraire une image d'un
-dépôt ou registre privé de Docker.
+Cette page montre comment créer un Pod qui utilise un Secret pour récupérer une image d'un registre privé.
 
 {{% /capture %}}
 
@@ -24,7 +23,7 @@ dépôt ou registre privé de Docker.
 
 ## Connectez-vous à Docker
 
-Sur votre ordinateur portable, vous devez vous authentifier à un registre afin de récupérer une image privée :
+Sur votre ordinateur, vous devez vous authentifier à un registre afin de récupérer une image privée :
 
 ```shell
 docker login
@@ -69,7 +68,7 @@ kubectl create secret generic regcred \
     --type=kubernetes.io/dockerconfigjson
 ```
 
-Si vous avez besoin de plus de contrôle (par exemple, pour définir un Namespace ou une étiquette sur le nouveau secret), vous pouvez alors personnaliser le secret avant de le stocker.
+Si vous avez besoin de plus de contrôle (par exemple, pour définir un Namespace ou un label sur le nouveau secret), vous pouvez alors personnaliser le secret avant de le stocker.
 Assurez-vous de :
 
 - Attribuer la valeur `.dockerconfigjson` dans le nom de l'élément data
@@ -110,7 +109,7 @@ où :
 Vous avez réussi à définir vos identifiants Docker dans le cluster comme un secret appelé `regcred`.
 
 {{< note >}}
-Saisir des secrets sur la ligne de commande peut les conserver dans l'historique de votre shell sans protection, et ces secrets peuvent également être visibles par d'autres utilisateurs sur votre PC pendant le temps que `Kubectl` est en cours d'exécution.
+Saisir des secrets sur la ligne de commande peut les conserver dans l'historique de votre shell sans protection, et ces secrets peuvent également être visibles par d'autres utilisateurs sur votre ordinateur pendant l'exécution de `kubectl`.
 {{< /note >}}
 
 
@@ -162,7 +161,7 @@ La sortie en tant que nom d'utilisateur et mot de passe concaténés avec un `:`
 janedoe:xxxxxxxxxxx
 ```
 
-Remarquez que les données Secrètes contiennent le token d'autorisation similaire à votre fichier local `~/.docker/config.json`.
+Remarquez que les données secrètes contiennent le token d'autorisation similaire à votre fichier local `~/.docker/config.json`.
 
 Vous avez réussi à définir vos identifiants de Docker comme un Secret appelé `regcred` dans le cluster.
 
@@ -184,7 +183,7 @@ Dans le fichier `my-private-reg-pod.yaml`, remplacez `<your-private-image>` par 
 your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
-Pour extraire l'image du registre privé, Kubernetes a besoin des identifiants.
+Pour récupérer l'image du registre privé, Kubernetes a besoin des identifiants.
 Le champ `imagePullSecrets` dans le fichier de configuration spécifie que Kubernetes doit obtenir les informations d'identification d'un Secret nommé `regcred`.
 
 Créez un Pod qui utilise votre secret et vérifiez que le Pod est bien lancé :
@@ -198,9 +197,9 @@ kubectl get pod private-reg
 
 {{% capture whatsnext %}}
 
-* Pour en savoir plus sur [Secrets](/docs/concepts/configuration/secret/).
-* Pour en savoir plus sur [en utilisant un registre privé](/docs/concepts/containers/images/#using-a-private-registry).
-* Pour en savoir plus sur [ajouter l' imagePullSecrets à un compte de service](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
+* Pour en savoir plus sur les [Secrets](/docs/concepts/configuration/secret/).
+* Pour en savoir plus sur l'[utilisation d'un registre privé](/docs/concepts/containers/images/#using-a-private-registry).
+* Pour en savoir plus sur l'[ajout d'un imagePullSecrets à un compte de service](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * Voir [kubectl crée un Secret de registre de docker](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * Voir [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
 * Voir le champ `imagePullSecrets` de [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
