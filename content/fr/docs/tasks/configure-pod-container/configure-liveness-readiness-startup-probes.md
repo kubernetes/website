@@ -6,15 +6,15 @@ weight: 110
 
 {{% capture overview %}}
 
-Cette page montre comment configurer les liveness, readiness and startup probes pour les conteneurs.
+Cette page montre comment configurer les liveness, readiness et startup probes pour les conteneurs.
 
-[Kubelet](/docs/admin/kubelet/) utilise les liveness probes pour détecter quand redémarrer un conteneur. Par exemple, Liveness probes pourraient attraper un deadlock, dans le cas où une application est en cours d'exécution, mais incapable de progresser. Le redémarrage d'un conteneur dans un tel état rend l'application plus disponible malgré les bugs.
+Le [Kubelet](/docs/admin/kubelet/) utilise les liveness probes pour détecter quand redémarrer un conteneur. Par exemple, les Liveness probes pourraient attraper un deadlock dans le cas où une application est en cours d'exécution, mais qui est incapable de traiter les requêtes. Le redémarrage d'un conteneur dans un tel état rend l'application plus disponible malgré les bugs.
 
-Kubelet utilise readiness probes pour savoir quand un conteneur est prêt à accepter le trafic. Un Pod est considéré comme prêt lorsque tous ses conteneurs sont prêts.
+Le Kubelet utilise readiness probes pour savoir quand un conteneur est prêt à accepter le trafic. Un Pod est considéré comme prêt lorsque tous ses conteneurs sont prêts.
 Ce signal sert notamment à contrôler les pods qui sont utilisés comme backends pour les Services. Lorsqu'un Pod n'est pas prêt, il est retiré des équilibreurs de charge des Services.
 
-Kubelet utilise startup probes pour savoir quand une application d'un conteneur a démarré.
-Si une telle probe est configurée, elle désactive les contrôles de liveness and readiness jusqu'à cela réussit, en s'assurant que ces probes n'interfèrent pas avec le démarrage de l'application.
+Le Kubelet utilise startup probes pour savoir quand une application d'un conteneur a démarré.
+Si une telle probe est configurée, elle désactive les contrôles de liveness et readiness jusqu'à cela réussit, en s'assurant que ces probes n'interfèrent pas avec le démarrage de l'application.
 Cela peut être utilisé dans le cas des liveness checks sur les conteneurs à démarrage lent, en les évitant de se faire tuer par le Kubelet avant qu'ils ne soient opérationnels.
 
 {{% /capture %}}
@@ -29,8 +29,7 @@ Cela peut être utilisé dans le cas des liveness checks sur les conteneurs à d
 
 ## Définir une commande de liveness
 
-De nombreuses applications fonctionnant pour de longues périodes finissent par passer à des états de rupture et ne peuvent pas se rétablir, sauf en étant redémarrées. Kubernetes fournit
-des liveness probes pour détecter et remédier à ces situations.
+De nombreuses applications fonctionnant pour des longues périodes finissent par passer à des états de rupture et ne peuvent pas se rétablir, sauf en étant redémarrées. Kubernetes fournit des liveness probes pour détecter et remédier à ces situations.
 
 Dans cet exercice, vous allez créer un Pod qui exécute un conteneur basé sur l'image  `k8s.gcr.io/busybox`. Voici le fichier de configuration pour le Pod :
 
@@ -112,9 +111,7 @@ d'un Pod qui fait fonctionner un conteneur basé sur l'image `k8s.gcr.io/livenes
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
 Dans le fichier de configuration, vous pouvez voir que le Pod a un seul conteneur.
-Le champ `periodSeconds` spécifie que le Kubelet doit effectuer une liveness probe toutes les 3 secondes. Le champ `initialDelaySeconds` indique au Kubelet qu'il
-devrait attendre 3 secondes avant d'effectuer la première probe. Pour effectuer une probe, le Kubelet envoie une requête HTTP GET au serveur qui s'exécute dans le conteneur et écoute sur le port 8080. Si le handler du chemin `/healthz` du serveur renvoie un code de succès, le Kubelet considère que le conteneur est vivant et
-en bonne santé. Si le handler renvoie un code d'erreur, le Kubelet tue le conteneur et le redémarre.
+Le champ `periodSeconds` spécifie que le Kubelet doit effectuer une liveness probe toutes les 3 secondes. Le champ `initialDelaySeconds` indique au Kubelet qu'il devrait attendre 3 secondes avant d'effectuer la première probe. Pour effectuer une probe, le Kubelet envoie une requête HTTP GET au serveur qui s'exécute dans le conteneur et écoute sur le port 8080. Si le handler du chemin `/healthz` du serveur renvoie un code de succès, le Kubelet considère que le conteneur est vivant et en bonne santé. Si le handler renvoie un code d'erreur, le Kubelet tue le conteneur et le redémarre.
 
 Tout code supérieur ou égal à 200 et inférieur à 400 indique un succès. Tout autre code indique un échec.
 
@@ -162,10 +159,10 @@ S'il arrive à établir une connexion, le conteneur est considéré comme étant
 {{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
 
 Comme vous le voyez, la configuration pour un check TCP est assez similaire à un check HTTP.
-Cet exemple utilise à la fois des readiness et liveness probes. Kubelet transmettra la première readiness probe 5 secondes après le démarrage du conteneur. Il tentera de se connecter au conteneur `goproxy` sur le port 8080. Si la probe réussit, le conteneur sera marqué comme prêt. Kubelet continuera à effectuer ce check tous les 10 secondes.
+Cet exemple utilise à la fois des readiness et liveness probes. Le Kubelet transmettra la première readiness probe 5 secondes après le démarrage du conteneur. Il tentera de se connecter au conteneur `goproxy` sur le port 8080. Si la probe réussit, le conteneur sera marqué comme prêt. Kubelet continuera à effectuer ce check tous les 10 secondes.
 
 En plus de la readiness probe, cette configuration comprend une liveness probe.
-Kubelet effectuera la première liveness probe 15 secondes après que le conteneur démarre. Tout comme la readiness probe, celle-ci tentera de se connecter au conteneur de `goproxy` sur le port 8080. Si la liveness probe échoue, le conteneur sera redémarré.
+Le Kubelet effectuera la première liveness probe 15 secondes après que le conteneur démarre. Tout comme la readiness probe, celle-ci tentera de se connecter au conteneur de `goproxy` sur le port 8080. Si la liveness probe échoue, le conteneur sera redémarré.
 
 Pour essayer la TCP liveness check, créez un Pod :
 
@@ -267,7 +264,7 @@ L'utilisation des deux peut garantir que le trafic n'atteigne pas un conteneur q
 * `periodSeconds`: La fréquence (en secondes) à laquelle la probe doit être effectuée. La valeur par défaut est de 10 secondes. La valeur minimale est de 1.
 * `timeoutSeconds`: Nombre de secondes après lequel la probe time out. Valeur par défaut à 1 seconde. La valeur minimale est de 1.
 * `successThreshold`: Le minimum de succès consécutifs pour que la probe soit considérée comme réussie après avoir échoué. La valeur par défaut est 1. Doit être 1 pour la liveness probe. La valeur minimale est de 1.
-* `failureThreshold`: Quand un Pod démarre et que la probe échoue, Kubernetes va tenter pour un temps de `failureThreshold` avant d'abandonner. Abandonner en cas de liveness probe signifie redémarrer le conteneur. En cas de readiness probe, le Pod sera marqué Unready.
+* `failureThreshold`: Quand un Pod démarre et que la probe échoue, Kubernetes va tenter pour un temps de `failureThreshold` avant d'abandonner. Abandonner en cas de liveness probe signifie le redémarrage du conteneur. En cas de readiness probe, le Pod sera marqué Unready.
 La valeur par défaut est 3, la valeur minimum est 1.
 
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
@@ -279,11 +276,10 @@ ont des champs supplémentaires qui peuvent être définis sur `httpGet` :
 * `httpHeaders`: En-têtes personnalisés à définir dans la requête. HTTP permet des en-têtes répétés.
 * `port`: Nom ou numéro du port à accéder sur le conteneur. Le numéro doit être dans un intervalle de 1 à 65535.
 
-Pour une probe HTTP, Kubelet envoie une requête HTTP au chemin et au port spécifiés pour effectuer la vérification. Kubelet envoie la probe à l'adresse IP du Pod, à moins que l'adresse ne soit surchargée par le champ optionnel `host` dans `httpGet`. Si Le champ `scheme` est mis à `HTTPS`, Kubelet envoie une requête HTTPS en ignorant la vérification du certificat. Dans la plupart des scénarios, vous ne voulez pas définir le champ `host`.
-Voici un scénario où vous le mettriez en place. Supposons que le conteneur écoute sur 127.0.0.1 et que le champ `hostNetwork` du Pod a la valeur true. Alors `host`, sous `httpGet`, devrait être défini
-à 127.0.0.1. Si votre Pod repose sur des hôtes virtuels, ce qui est probablement plus courant, vous ne devriez pas utiliser `host`, mais plutôt mettre l'en-tête `Host` dans `httpHeaders`.
+Pour une probe HTTP, le Kubelet envoie une requête HTTP au chemin et au port spécifiés pour effectuer la vérification. Le Kubelet envoie la probe à l'adresse IP du Pod, à moins que l'adresse ne soit surchargée par le champ optionnel `host` dans `httpGet`. Si Le champ `scheme` est mis à `HTTPS`, le Kubelet envoie une requête HTTPS en ignorant la vérification du certificat. Dans la plupart des scénarios, vous ne voulez pas définir le champ `host`.
+Voici un scénario où vous le mettriez en place. Supposons que le conteneur écoute sur 127.0.0.1 et que le champ `hostNetwork` du Pod a la valeur true. Alors `host`, sous `httpGet`, devrait être défini à 127.0.0.1. Si votre Pod repose sur des hôtes virtuels, ce qui est probablement plus courant, vous ne devriez pas utiliser `host`, mais plutôt mettre l'en-tête `Host` dans `httpHeaders`.
 
-Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie que vous ne pouvez pas utiliser un nom de service dans le paramètre `host` puisque Kubelet est incapable pour le résoudre.
+Le Kubelet fait la connexion de la probe au noeud, pas dans le Pod, ce qui signifie que vous ne pouvez pas utiliser un nom de service dans le paramètre `host` puisque le Kubelet est incapable pour le résoudre.
 
 {{% /capture %}}
 
