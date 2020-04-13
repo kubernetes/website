@@ -214,7 +214,7 @@ secrets:
 - name: default-token-uudge
 ```
 
-En utilisant l'éditeur de votre choix (par exemple `vi`), ouvrez le fichier `sa.yaml`, supprimez la ligne avec la clé `resourceVersion`, ajouter les lignes avec `imagePullSecrets:` et sauvegarder.
+En utilisant l'éditeur de votre choix (par exemple `vi`), ouvrez le fichier `sa.yaml`, supprimez la ligne avec la clé `resourceVersion`, ajoutez les lignes avec `imagePullSecrets:` et sauvegardez.
 
 La sortie du fichier `sa.yaml` est similaire à celle-ci :
 
@@ -246,11 +246,6 @@ spec:
   imagePullSecrets:
   - name: myregistrykey
 ```
-
-<!--## Adding Secrets to a service account.
-
-TODO: Test and explain how to use additional non-K8s secrets with an existing service account.
--->
 
 ## Projection du volume des tokens de compte de service
 
