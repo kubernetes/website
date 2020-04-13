@@ -58,7 +58,7 @@ Si vous utilisez le credentials store de Docker, vous ne verrez pas cette entré
 ## Créez un Secret basé sur les identifiants existants du Docker {#registry-secret-existing-credentials}
 
 Le cluster Kubernetes utilise le type Secret de `docker-registry` pour s'authentifier avec
-un registre de conteneurs pour en tirer une image privée.
+un registre de conteneurs pour y récupérer une image privée.
 
 Si vous avez déjà lancé `docker login`, vous pouvez copier ces identifiants dans Kubernetes
 
