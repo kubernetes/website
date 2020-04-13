@@ -73,7 +73,6 @@ their authors, not the Kubernetes team.
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
 | Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
-| Haskell              | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) |
 {{% /capture %}}
 
 
