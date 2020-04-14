@@ -13,7 +13,7 @@ min-kubernetes-server-version: v1.18
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to support latency-critical execution and high-throughput parallel computation. These include workloads in fields such as telecommunications, scientific computing, machine learning, financial services and data analytics. Such hybrid systems comprise a high performance environment.
 
