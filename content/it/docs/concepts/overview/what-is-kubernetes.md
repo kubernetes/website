@@ -1,5 +1,7 @@
 ---
-title: Cos'è Kubernetes
+title: Cos'è Kubernetes?
+description: >
+  Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes .
 content_template: templates/concept
 weight: 10
 card:
@@ -14,7 +16,7 @@ Questa pagina è una panoramica generale su Kubernetes.
 {{% capture body %}}
 Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes .
 
-Il nome Kubernetes deriva dal greco, significa timoniere o pilota. Google ha reso open-source il progetto Kubernetes nel 2014. Kubernetes si basa su [quindici anni di esperienza di Google nella gestione di carichi di lavoro di produzione su scala mondiale](https://ai.google/research/pubs/pub43438), combinata con le migliori idee e pratiche della comunità.
+Il nome Kubernetes deriva dal greco, significa timoniere o pilota. Google ha reso open-source il progetto Kubernetes nel 2014. Kubernetes unisce [oltre quindici anni di esperienza di Google nella gestione di carichi di lavoro di produzione su scala mondiale](https://ai.google/research/pubs/pub43438) con le migliori idee e pratiche della comunità.
 
 ## Facciamo un piccolo salto indietro
 Diamo un'occhiata alla ragione per cui Kubernetes è così utile facendo un piccolo salto indietro nel tempo.
