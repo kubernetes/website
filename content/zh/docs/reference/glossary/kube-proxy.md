@@ -38,4 +38,4 @@ kube-proxy 维护节点上的网络规则。这些网络规则允许从集群内
 
 <!-- kube-proxy uses the operating system packet filtering layer if there is one
 and it's available. Otherwise, kube-proxy forwards the traffic itself. -->
-如果有 kube-proxy 可用，它将使用操作系统数据包过滤层。否则，kube-proxy 会转发流量本身。
+如果操作系统提供了数据包过滤层并可用的话，kube-proxy会通过它来实现网络规则。否则，kube-proxy 仅转发流量本身。
