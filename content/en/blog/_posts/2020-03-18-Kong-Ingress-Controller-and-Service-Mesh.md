@@ -100,24 +100,8 @@ reviews-v3-98dc67b68-nzw97        2/2     Running   0          101s
 This command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. We have one step before we can access the deployed application. We need to add an additional annotation to the `productpage` service. To do so, run:
 
 ```
-$ echo "
-apiVersion: v1
-kind: Service
-metadata:
-  name: productpage
-  annotations:
-    ingress.kubernetes.io/service-upstream: "true"
-  labels:
-    app: productpage
-    service: productpage
-spec:
-  ports:
-  - port: 9080
-    name: http
-  selector:
-    app: productpage
-" | kubectl apply -f -
-kongingress.configuration.konghq.com/do-not-preserve-host created
+$ kubectl annotate service productpage ingress.kubernetes.io/service-upstream=true
+service/productpage annotated
 ```
 
 Without the additional `ingress.kubernetes.io/service-upstream: "true"` annotation, Kong will try to select its own endpoint/target from the productpage service. With that added, you should now be able to access your product page!
