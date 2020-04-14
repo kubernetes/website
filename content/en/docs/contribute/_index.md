@@ -35,7 +35,7 @@ To get involved with documentation:
 
 1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
 2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website) and the website's [static site generator](https://gohugo.io).
-3. Make sure you understand the basic processes for [opening a pull request](/docs/contribute/new-content/) and [reviewing changes](/docs/contribute/review/reviewing-prs/).
+3. Make sure you understand the basic processes for [opening a pull request](/docs/contribute/new-content/new-content/) and [reviewing changes](/docs/contribute/review/reviewing-prs/).
 
 Some tasks require more trust and more access in the Kubernetes organization.
 See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
