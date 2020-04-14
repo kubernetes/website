@@ -36,7 +36,8 @@ time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 -->
 
-在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/docs/concepts/containers/runtime-class/) 相关联的开销在[准入](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 时设置的。
+在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/docs/concepts/containers/runtime-class/) 相关联的开销在
+[准入](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 时设置的。
 
 <!--
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
@@ -67,7 +68,7 @@ To use the PodOverhead feature, you need a RuntimeClass that defines the `overhe
 an example, you could use the following RuntimeClass definition with a virtualizing container runtime
 that uses around 120MiB per Pod for the virtual machine and the guest OS:
 -->
-要使用 PodOverhead 特性，你需要一个定义 `overhead` 字段的 RuntimeClass. 作为例子，你可以在虚拟机和来宾操作系统中通过一个虚拟化容器运行时来定义 RuntimeClass 如下，其中每个 Pod 大约使用 120MiB:
+要使用 PodOverhead 特性，需要一个定义 `overhead` 字段的 RuntimeClass. 作为例子，可以在虚拟机和来宾操作系统中通过一个虚拟化容器运行时来定义 RuntimeClass 如下，其中每个 Pod 大约使用 120MiB:
 
 ```yaml
 ---
@@ -122,12 +123,13 @@ updates the workload's PodSpec to include the `overhead` as described in the Run
 the Pod will be rejected. In the given example, since only the RuntimeClass name is specified, the admission controller mutates the Pod
 to include an `overhead`.
 -->
-在准入阶段 RuntimeClass [准入控制器](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) 更新工作负载的 PodSpec 以包含 RuntimeClass 中定义的 `overhead`. 如果 PodSpec 中该字段已定义，该 Pod 将会被拒绝。在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod, 包含了一个 `overhead`.
+在准入阶段 RuntimeClass [准入控制器](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) 更新工作负载的 PodSpec 以包含
+ RuntimeClass 中定义的 `overhead`. 如果 PodSpec 中该字段已定义，该 Pod 将会被拒绝。在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod, 包含了一个 `overhead`.
 
 <!-- 
 After the RuntimeClass admission controller, you can check the updated PodSpec:
 -->
-在 RuntimeClass 准入控制器之后，你可以检验一下已更新的 PodSpec:
+在 RuntimeClass 准入控制器之后，可以检验一下已更新的 PodSpec:
 
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
@@ -165,7 +167,8 @@ the kubelet will set an upper limit for the pod cgroup associated with that reso
 and memory.limit_in_bytes memory). This upper limit is based on the sum of the container limits plus the `overhead`
 defined in the PodSpec.
 -->
-如果该资源对每一个容器都定义了一个限制（定义了受限的 Guaranteed QoS 或者 Bustrable QoS），kubelet 会为与该资源（CPU 的 cpu.cfs_quota_us 以及内存的 memory.limit_in_bytes）相关的 pod cgroup 设定一个上限。该上限基于容器限制总量与 PodSpec 中定义的 `overhead` 之和。
+如果该资源对每一个容器都定义了一个限制（定义了受限的 Guaranteed QoS 或者 Bustrable QoS），kubelet 会为与该资源（CPU 的 cpu.cfs_quota_us 以及内存的 memory.limit_in_bytes）
+相关的 pod cgroup 设定一个上限。该上限基于容器限制总量与 PodSpec 中定义的 `overhead` 之和。
 
 <!--
 For CPU, if the Pod is Guaranteed or Burstable QoS, the kubelet will set `cpu.shares` based on the sum of container
@@ -220,7 +223,10 @@ cgroups directly on the node.
 
 First, on the particular node, determine the Pod identifier:ying
 -->
-在工作负载所运行的节点上检查 Pod 的内存 cgroups. 在接下来的例子中，将在该节点上使用具备 CRI 兼容的容器运行时命令行工具 [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md). 这是一个展示 PodOverhead 行为的进阶示例，用户并不需要直接在该节点上检查 cgroups.
+在工作负载所运行的节点上检查 Pod 的内存 cgroups. 在接下来的例子中，将在该节点上使用具备 CRI 兼容的容器运行时命令行工具 [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md). 
+这是一个展示 PodOverhead 行为的进阶示例，用户并不需要直接在该节点上检查 cgroups.
+
+首先在特定的节点上确定该 Pod 的标识符：ying
 
 <!--
 ```bash
@@ -234,7 +240,8 @@ POD_ID="$(sudo crictl pods --name test-pod -q)"
 <!-- 
 From this, you can determine the cgroup path for the Pod:
  -->
-你可以依此判断该 Pod 的 cgroup 路径：
+可以依此判断该 Pod 的 cgroup 路径：
+
 <!--
 ```bash
 # Run this on the node where the Pod is scheduled
@@ -264,7 +271,7 @@ In this specific case, the pod cgroup path is `kubepods/podd7f4b509-cf94-4951-94
 -->
 ```bash
 # 在该 Pod 调度的节点上执行这个命令。
-# 另外，修改 cgroup 的名称以匹配为你自己 pod 分配的 cgroup。
+# 另外，修改 cgroup 的名称以匹配为该 pod 分配的 cgroup。
  cat /sys/fs/cgroup/memory/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/memory.limit_in_bytes
 ```
 
@@ -275,6 +282,7 @@ This is 320 MiB, as expected:
 ```
 335544320
 ```
+
 <!-- 
 ### Observability
 -->
@@ -287,7 +295,8 @@ running with a defined Overhead. This functionality is not available in the 1.9 
 kube-state-metrics, but is expected in a following release. Users will need to build kube-state-metrics
 from source in the meantime.
 -->
-在 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 中可以通过 `kube_pod_overhead` 指标来协助确定何时使用 PodOverhead 以及协助观察以一个既定开销运行的工作负载的稳定性。该特性在 kube-state-metrics 的 1.9 发行版本中不可用，不过预计将在后续版本中发布。在此之前，用户需要从源代码构建 kube-state-metrics. 
+在 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 中可以通过 `kube_pod_overhead` 指标来协助确定何时使用 PodOverhead 以及协助观察以一个既定开销运行的工作负载的稳定性。
+该特性在 kube-state-metrics 的 1.9 发行版本中不可用，不过预计将在后续版本中发布。在此之前，用户需要从源代码构建 kube-state-metrics. 
 
 {{% /capture %}}
 
