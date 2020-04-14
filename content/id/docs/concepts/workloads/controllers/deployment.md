@@ -11,8 +11,8 @@ weight: 30
 
 {{% capture overview %}}
 
-Deployment menyediakan pembaruan [Pods](/docs/id/concepts/workloads/pods/pod/) dan
-[ReplicaSets](/docs/id/concepts/workloads/controllers/replicaset/) secara deklaratif.
+Deployment menyediakan pembaruan [Pods](/id/docs/concepts/workloads/pods/pod/) dan
+[ReplicaSets](/id/docs/concepts/workloads/controllers/replicaset/) secara deklaratif.
 
 Kamu mendeskripsikan sebuah state yang diinginkan dalam Deployment, kemudian Deployment {{< glossary_tooltip term_id="controller" >}} mengubah state sekarang menjadi seperti pada deskripsi secara bertahap. Kamu dapat mendefinisikan Deployment untuk membuat ReplicaSets baru atau untuk menghapus Deployment yang sudah ada dan mengadopsi semua resourcenya untuk Deployment baru.
 
