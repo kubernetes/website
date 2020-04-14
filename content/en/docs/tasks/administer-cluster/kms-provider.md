@@ -77,7 +77,7 @@ Ensure that the KMS plugin runs on the same host(s) as the Kubernetes master(s).
 ## Encrypting your data with the KMS provider
 To encrypt the data:
 
-1.   Create a new encryption configuration file using the appropriate properties for the `kms` provider:
+1. Create a new encryption configuration file using the appropriate properties for the `kms` provider:
 
   ```yaml
   apiVersion: apiserver.config.k8s.io/v1
