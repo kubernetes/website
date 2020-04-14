@@ -49,7 +49,7 @@ In this exercise, you create a Pod that runs a container based on the
 In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 5 seconds. The `initialDelaySeconds` field tells the kubelet that it
-should wait 5 second before performing the first probe. To perform a probe, the
+should wait 5 seconds before performing the first probe. To perform a probe, the
 kubelet executes the command `cat /tmp/healthy` in the target container. If the
 command succeeds, it returns 0, and the kubelet considers the container to be alive and
 healthy. If the command returns a non-zero value, the kubelet kills the container
