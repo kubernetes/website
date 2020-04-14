@@ -16,7 +16,7 @@ upcoming Kubernetes release, see
 [Document a new feature](/docs/contribute/new-content/new-features/).
 {{< /note >}}
 
-To contribute new content pages or improve existing content pages, open a pull request (PR). Make sure you follow all the requirements in the [Before you begin](#before-you-begin) section.
+To contribute new content pages or improve existing content pages, open a pull request (PR). Make sure you follow all the requirements in the [Before you begin](/docs/contribute/new-content/overview/#before-you-begin) section.
 
 If your change is small, or you're unfamiliar with git, read [Changes using GitHub](#changes-using-github) to learn how to edit a page.
 
