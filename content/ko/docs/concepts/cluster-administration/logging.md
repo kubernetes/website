@@ -52,13 +52,13 @@ kubectl logs counter
 ...
 ```
 
-컨테이너가 크래시된 경우, `kubectl logs`의 `--previous` 플래그를 사용하여 컨테이너의 이전 인스턴스 생성에 대한 로그를 검색할 수 있다. 파드에 컨테이너가 여러 개인 경우, 컨테이너 이름을 명령에 추가하여 접근하려는 컨테이너 로그를 지정해야 한다. 자세한 내용은 [`kubectl logs` 문서](/docs/reference/generated/kubectl/kubectl-commands#logs)를 참조한다.
+컨테이너가 크래시된 경우, `kubectl logs` 의 `--previous` 플래그를 사용하여 컨테이너의 이전 인스턴스 생성에 대한 로그를 검색할 수 있다. 파드에 컨테이너가 여러 개인 경우, 컨테이너 이름을 명령에 추가하여 접근하려는 컨테이너 로그를 지정해야 한다. 자세한 내용은 [`kubectl logs` 문서](/docs/reference/generated/kubectl/kubectl-commands#logs)를 참조한다.
 
 ## 노드 레벨에서의 로깅
 
 ![노드 레벨 로깅](/images/docs/user-guide/logging/logging-node-level.png)
 
-컨테이너화된 애플리케이션이 `stdout` 및 `stderr`에 쓰는 모든 것은 컨테이너 엔진에 의해 어딘가에서 처리 및 리디렉션 된다. 예를 들어, 도커 컨테이너 엔진은 이 두 스트림을 [로깅 드라이버](https://docs.docker.com/engine/admin/logging/overview)로 리디렉션 한다. 이 드라이버는 쿠버네티스에서 json 형식의 파일에 쓰도록 구성된다.
+컨테이너화된 애플리케이션이 `stdout` 및 `stderr` 에 쓰는 모든 것은 컨테이너 엔진에 의해 어딘가에서 처리 및 리디렉션 된다. 예를 들어, 도커 컨테이너 엔진은 이 두 스트림을 [로깅 드라이버](https://docs.docker.com/engine/admin/logging/overview)로 리디렉션 한다. 이 드라이버는 쿠버네티스에서 json 형식의 파일에 쓰도록 구성된다.
 
 {{< note >}}
 도커 json 로깅 드라이버는 각 라인을 별도의 메시지로 취급한다. 도커 로깅 드라이버를 사용하는 경우, 멀티-라인 메시지를 직접 지원하지 않는다. 로깅 에이전트 레벨 이상에서 멀티-라인 메시지를 처리해야 한다.
@@ -72,13 +72,13 @@ kubectl logs counter
 이를 해결하기 위한 솔루션을 설정해야 한다.
 예를 들어, `kube-up.sh` 스크립트에 의해 배포된 쿠버네티스 클러스터에는,
 매시간 실행되도록 구성된 [`logrotate`](https://linux.die.net/man/8/logrotate)
-도구가 있다. 예를 들어, 도커의 `log-opt`를 사용하여 애플리케이션의 로그를
+도구가 있다. 예를 들어, 도커의 `log-opt` 를 사용하여 애플리케이션의 로그를
 자동으로 로테이션하도록 컨테이너 런타임을 설정할 수도 있다.
 `kube-up.sh` 스크립트에서, 후자의 접근 방식은 GCP의 COS 이미지에 사용되며,
 전자의 접근 방식은 다른 환경에서 사용된다. 두 경우 모두,
 기본적으로 로그 파일이 10MB를 초과하면 로테이션되도록 구성된다.
 
-예를 들어, `kube-up.sh`가 해당 [스크립트][cosConfigureHelper]에서
+예를 들어, `kube-up.sh` 가 해당 [스크립트][cosConfigureHelper]에서
 GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를 찾을 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
@@ -87,10 +87,10 @@ GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를
 
 {{< note >}}
 현재, 일부 외부 시스템에서 로테이션을 수행한 경우,
-`kubectl logs`를 통해 최신 로그 파일의 내용만
-사용할 수 있다. 예를 들어, 10MB 파일이 있으면, `logrotate`가
+`kubectl logs` 를 통해 최신 로그 파일의 내용만
+사용할 수 있다. 예를 들어, 10MB 파일이 있으면, `logrotate` 가
 로테이션을 수행하고 두 개의 파일이 생긴다(크기가 10MB인 파일 하나와 비어있는 파일).
-그 후 `kubectl logs`는 빈 응답을 반환한다.
+그 후 `kubectl logs` 는 빈 응답을 반환한다.
 {{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
@@ -141,7 +141,7 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 
 다음 중 한 가지 방법으로 사이드카 컨테이너를 사용할 수 있다.
 
-* 사이드카 컨테이너는 애플리케이션 로그를 자체 `stdout`으로 스트리밍한다.
+* 사이드카 컨테이너는 애플리케이션 로그를 자체 `stdout` 으로 스트리밍한다.
 * 사이드카 컨테이너는 로깅 에이전트를 실행하며, 애플리케이션 컨테이너에서 로그를 가져오도록 구성된다.
 
 #### 사이드카 컨테이너 스트리밍
@@ -155,10 +155,10 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 또는 `stderr` 스트림에 로그를 출력한다.
 
 이 방법을 사용하면 애플리케이션의 다른 부분에서 여러 로그 스트림을
-분리할 수 ​​있고, 이 중 일부는 `stdout` 또는 `stderr`에
+분리할 수 ​​있고, 이 중 일부는 `stdout` 또는 `stderr` 에
 쓰기 지원이 부족할 수 있다. 로그를 리디렉션하는 로직은
 최소화되므로, 큰 오버헤드가 거의 없다. 또한,
-`stdout` 및 `stderr`가 kubelet에서 처리되므로, `kubectl logs`와 같은
+`stdout` 및 `stderr` 가 kubelet에서 처리되므로, `kubectl logs` 와 같은
 빌트인 도구를 사용할 수 있다.
 
 다음의 예를 고려해보자. 파드는 단일 컨테이너를 실행하고, 컨테이너는
@@ -206,15 +206,15 @@ Mon Jan  1 00:00:02 UTC 2001 INFO 2
 
 참고로, CPU 및 메모리 사용량이 낮음에도 불구하고(cpu에 대한 몇 밀리코어의
 요구와 메모리에 대한 몇 메가바이트의 요구), 로그를 파일에 기록한 다음
-`stdout`으로 스트리밍하면 디스크 사용량은 두 배가 될 수 있다. 단일 파일에
+`stdout` 으로 스트리밍하면 디스크 사용량은 두 배가 될 수 있다. 단일 파일에
 쓰는 애플리케이션이 있는 경우, 일반적으로 스트리밍
-사이드카 컨테이너 방식을 구현하는 대신 `/dev/stdout`을 대상으로
+사이드카 컨테이너 방식을 구현하는 대신 `/dev/stdout` 을 대상으로
 설정하는 것이 더 낫다.
 
 사이드카 컨테이너를 사용하여 애플리케이션 자체에서 로테이션할 수 없는
 로그 파일을 로테이션할 수도 있다. 이 방법의 예로는
 정기적으로 logrotate를 실행하는 작은 컨테이너를 두는 것이다.
-그러나, `stdout` 및 `stderr`을 직접 사용하고 로테이션과
+그러나, `stdout` 및 `stderr` 을 직접 사용하고 로테이션과
 유지 정책을 kubelet에 두는 것이 권장된다.
 
 #### 로깅 에이전트가 있는 사이드카 컨테이너
