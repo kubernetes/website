@@ -41,7 +41,7 @@ When systemd is chosen as the init system for a Linux distribution, the init pro
 and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
 integration with cgroups and will allocate cgroups per process. It's possible to configure your
 container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside systemd means
-that there will then be two different cgroup managers.
+that there will be two different cgroup managers.
 
 Control groups are used to constrain resources that are allocated to processes.
 A single cgroup manager will simplify the view of what resources are being allocated
