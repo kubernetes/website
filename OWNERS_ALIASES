@@ -233,3 +233,9 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  sig-docs-ar-owners: # Admins for Ukrainian content
+    - mohamedsgap
+    - mustafaAnwar2020
+  sig-docs-ar-reviews: # PR reviews for Ukrainian content
+    - mohamedsgap
+    - mustafaAnwar2020
