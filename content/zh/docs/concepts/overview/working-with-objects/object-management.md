@@ -138,7 +138,7 @@ types whose specs are updated independently of the configuration file.
 Services of type `LoadBalancer`, for example, have their `externalIPs` field updated
 independently from the configuration by the cluster.
 -->
-`replace` 命令式命令将现有规范替换为新提供的规范，并删除对配置文件中缺少的对象的所有更改。此方法不应与规范独立于配置文件进行更新的资源类型一起使用。比如类型为 `LoadBalancer` 的服务，它的 `externalIPs` 字段就是独立于集群的配置进行更新。
+`replace` 命令式命令将现有规范替换为新提供的规范，并删除对配置文件中缺少的对象的所有更改。此方法不应与规范独立于配置文件进行更新的资源类型一起使用。比如类型为 `LoadBalancer` 的服务，它的 `externalIPs` 字段就是独立于集群配置进行更新。
 {{< /warning >}}
 
 <!--
@@ -149,7 +149,7 @@ independently from the configuration by the cluster.
 <!--
 Create the objects defined in a configuration file:
 -->
-创建在配置文件中定义的对象：
+创建配置文件中定义的对象：
 
 ```sh
 kubectl create -f nginx.yaml
@@ -158,7 +158,7 @@ kubectl create -f nginx.yaml
 <!--
 Delete the objects defined in two configuration files:
 -->
-删除在两个配置文件中定义的对象：
+删除两个配置文件中定义的对象：
 
 ```sh
 kubectl delete -f nginx.yaml -f redis.yaml
@@ -168,7 +168,7 @@ kubectl delete -f nginx.yaml -f redis.yaml
 Update the objects defined in a configuration file by overwriting
 the live configuration:
 -->
-通过覆盖实时配置来更新配置文件中定义的对象：
+通过覆盖活动配置来更新配置文件中定义的对象：
 
 ```sh
 kubectl replace -f nginx.yaml
@@ -203,7 +203,7 @@ Disadvantages compared to imperative commands:
 - Object configuration requires the additional step of writing a YAML file.
 -->
 - 对象配置需要对对象架构有基本的了解。
-- 对象配置需要额外的写 YAML 文件的步骤。
+- 对象配置需要额外的步骤来编写 YAML 文件。
 
 <!--
 Advantages compared to declarative object configuration:
@@ -226,8 +226,8 @@ Disadvantages compared to declarative object configuration:
 - Imperative object configuration works best on files, not directories.
 - Updates to live objects must be reflected in configuration files, or they will be lost during the next replacement.
 -->
-- 命令式对象配置针对文件而不是目录上效果最佳。
-- 对活动对象的更新必须反映在配置文件中，否则将在下一次替换是丢失。
+- 命令式对象配置更适合文件，而非目录。
+- 对活动对象的更新必须反映在配置文件中，否则会在下一次替换时丢失。
 
 <!--
 ## Declarative object configuration
@@ -241,7 +241,7 @@ operations to be taken on the files. Create, update, and delete operations
 are automatically detected per-object by `kubectl`. This enables working on
 directories, where different operations might be needed for different objects.
 -->
-使用声明式对象配置时，用户对本地存储的对象配置文件进行操作，但是用户未定义要对该文件执行的操作。会自动通过 `kubectl` 按对象检测来创建、更新和删除对象。这使得可以在目录上工作，其中可能需要对不同的对象执行不同的操作。
+使用声明式对象配置时，用户对本地存储的对象配置文件进行操作，但是用户未定义要对该文件执行的操作。`kubectl` 会自动检测每个文件的创建、更新和删除操作。这使得配置可以在目录上工作，根据目录中配置文件对不同的对象执行不同的操作。
 
 {{< note >}}
 <!--
@@ -295,8 +295,8 @@ Advantages compared to imperative object configuration:
 - Changes made directly to live objects are retained, even if they are not merged back into the configuration files.
 - Declarative object configuration has better support for operating on directories and automatically detecting operation types (create, patch, delete) per-object.
 -->
-- 即使未将对活动对象所做的更改未合并回到配置文件中，也将保留这些更改。
-- 声明性对象配置更好地支持对目录进行操作并自动检测每个对象的操作类型（创建，修补，删除）。
+- 对活动对象所做的更改即使未合并到配置文件中，也会被保留下来。
+- 声明性对象配置更好地支持对目录进行操作并自动检测每个文件的操作类型（创建，修补，删除）。
 
 <!--
 Disadvantages compared to imperative object configuration:
@@ -307,8 +307,8 @@ Disadvantages compared to imperative object configuration:
 - Declarative object configuration is harder to debug and understand results when they are unexpected.
 - Partial updates using diffs create complex merge and patch operations.
 -->
-- 声明式对象配置难于调试并且出现异常时难以理解。
-- 使用差异的部分更新会创建复杂的合并和补丁操作。
+- 声明式对象配置难于调试并且出现异常时结果难以理解。
+- 使用 diff 产生的部分更新会创建复杂的合并和补丁操作。
 
 {{% /capture %}}
 
