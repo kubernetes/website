@@ -27,7 +27,7 @@
   display: table-cell; /* Make elements inside the container behave like table cells */
   width: 18%;
   background-color: #f9f9f9;
-  padding: 20px;
+  padding: 0px;
   border: 5px solid white;
 }
 
@@ -72,8 +72,8 @@ h5 {
 }
 
 .padded {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .blue-bg {
