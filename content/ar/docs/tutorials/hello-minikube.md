@@ -15,12 +15,12 @@ card:
 
 {{% capture overview %}}
 
-This tutorial shows you how to run a simple Hello World Node.js app
-on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment.
+يوضح لك هذا البرنامج التعليمي كيفية تشغيل تطبيق Hello World Node.js بسيط
+على Kubernetes باستخدام [Minikube](/docs/setup/learning-environment/minikube) و Katacoda.
+يوفر Katacoda بيئة Kubernetes مجانية في المتصفح.
 
 {{< note >}}
-You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
+يمكنك أيضًا اتباع هذا البرنامج التعليمي إذا قمت بتثبيت [Minikube locally](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
 {{% /capture %}}
@@ -35,7 +35,7 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 
 {{% capture prerequisites %}}
 
-This tutorial provides a container image built from the following files:
+يوفر هذا البرنامج التعليمي صورة حاوية تم إنشاؤها من الملفات التالية:
 
 {{< codenew language="js" file="minikube/server.js" >}}
 
@@ -47,7 +47,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 {{% capture lessoncontent %}}
 
-## Create a Minikube cluster
+## انشاء Minikube cluster
 
 1. Click **Launch Terminal**
 
@@ -65,7 +65,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
-## Create a Deployment
+## انشاء Deployment
 
 A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
@@ -121,7 +121,7 @@ Pod runs a Container based on the provided Docker image.
 
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
-## Create a Service
+## انشاء Service
 
 By default, the Pod is only accessible by its internal IP address within the
 Kubernetes cluster. To make the `hello-node` Container accessible from outside the
@@ -168,7 +168,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
     This opens up a browser window that serves your app and shows the "Hello World" message.
 
-## Enable addons
+## تفعيل addons
 
 Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
@@ -253,7 +253,7 @@ Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addon
     metrics-server was successfully disabled
     ```
 
-## Clean up
+## تنظيف
 
 Now you can clean up the resources you created in your cluster:
 
