@@ -66,7 +66,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Create a Deployment using the following command:
 
     ```shell
-    kubectl run web --image=gcr.io/google-samples/hello-app:1.0 --port=8080
+    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0 --port=8080
     ```
 
     Output:
@@ -78,7 +78,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Expose the Deployment: 
 
     ```shell
-    kubectl expose deployment web --target-port=8080 --type=NodePort
+    kubectl expose deployment web --type=NodePort --port=8080
     ```
     
     Output: 
