@@ -1,3 +1,4 @@
+
 #hero {
   text-align: left;
   padding-bottom: 20px;
@@ -7,6 +8,7 @@
   clear: both;
   padding: 0px;
   margin-bottom: 2em;
+  float:left;
 }
 
 .col {
@@ -25,7 +27,7 @@
 
 .col-nav {
   display: table-cell; /* Make elements inside the container behave like table cells */
-  width: 18%;
+  width: 33%;
   background-color: #f9f9f9;
   padding: 0px;
   border: 5px solid white;
@@ -75,6 +77,28 @@ h5 {
   padding-top: 20px;
   padding-bottom: 10px;
 }
+
+.half {
+  width:50%;
+  float:left;
+}
+
+.half-image{
+  width:50%;
+  float:left;
+}
+
+.half-image img{
+  width:100%;
+
+}
+
+.blue-h5-white-text {
+  background-color: #3371e3;
+  padding: 3%;
+  color:white;
+}
+
 
 .blue-bg {
   background-color: #3371e3;
