@@ -140,7 +140,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout} etc.`
+The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout}` etc.
 
 The `--recursive` flag also works when multiple `-f` arguments are provided:
 
@@ -453,7 +453,7 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 
 {{% capture whatsnext %}}
 
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
+- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/).
+- See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
 
 {{% /capture %}}
