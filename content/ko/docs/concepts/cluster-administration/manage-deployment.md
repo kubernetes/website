@@ -1,6 +1,4 @@
 ---
-reviewers:
-- janetkuo
 title: 리소스 관리
 content_template: templates/concept
 weight: 40
