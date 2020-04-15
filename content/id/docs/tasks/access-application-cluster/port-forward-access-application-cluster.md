@@ -23,7 +23,7 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
 
 {{% capture steps %}}
 
-## Membuat deployment dan service Redis
+## Membuat Deployment dan Service Redis
 
 1. Buat sebuah Deployment yang menjalankan Redis:
 
@@ -31,7 +31,7 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
     ```
 
-    Keluaran dari sebuah perintah yang sukses memverifikasi bahwa Deployment telah terbuat:
+    Keluaran dari sebuah perintah yang sukses akan memverifikasi bahwa Deployment telah terbuat:
 
     ```
     deployment.apps/redis-master created
@@ -43,7 +43,7 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     kubectl get pods
     ```
 
-    Keluaran menampilkan Pod telah terbuat:
+    Keluaran menampilkan Pod yang telah terbuat:
 
     ```
     NAME                            READY     STATUS    RESTARTS   AGE
@@ -78,19 +78,19 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     ```
 
 
-2. Buat sebuah Service untuk mengekpos Redis di jaringan:
+2. Buat sebuah Service untuk mengekspos Redis di jaringan:
 
     ```shell
     kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
     ```
 
-    Keluaran dari perintah yang sukses memverifikasi bahwa Service telah terbuat:
+    Keluaran dari perintah yang sukses akan memverifikasi bahwa Service telah terbuat:
 
     ```
     service/redis-master created
     ```
 
-    Lihat Service terbuat menggunakan:
+    Lihat Service yang telah terbuat menggunakan:
 
     ```shell
     kubectl get service redis-master
@@ -116,11 +116,11 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     6379
     ```
 
-    (this is the TCP port allocated to Redis on the internet). (ini adalah porta TCP yang dialokasi untuk Redis di internet)
+    (ini adalah porta TCP yang dialokasi untuk Redis di internet)
 
 ## Meneruskan sebuah porta lokal ke sebuah porta pada Pod
 
-1.  `kubectl port-forward` memungkinkan penggunaan nama *resource*, seperti sebuah nama Pod, untuk memilih Pod yang sesuai untuk melakukan penerusan porta.
+1.  `kubectl port-forward` memungkinkan penggunaan nama sumber daya, seperti sebuah nama Pod, untuk memilih Pod yang sesuai untuk melakukan penerusan porta.
 
 
     ```shell
@@ -159,13 +159,13 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     I0710 14:43:38.274797    3655 portforward.go:225] Forwarding from [::1]:7000 -> 6379
     ```
 
-2.  Memulai antarmuka *command line* Redis:
+2.  Memulai antarmuka baris perintah (*command line*) Redis:
 
     ```shell
     redis-cli -p 7000
     ```
 
-3.  Pada *command line prompt*, masukkan perintah `ping`:
+3.  Pada baris perintah di Redis, masukkan perintah `ping`:
 
     ```
     ping
