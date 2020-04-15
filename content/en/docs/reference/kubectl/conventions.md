@@ -32,6 +32,26 @@ For `kubectl run` to satisfy infrastructure as code:
 
 You can use the `--dry-run` flag to preview the object that would be sent to your cluster, without really submitting it.
 
+#### Generators
+You can generate the following resources with a kubectl command, `kubectl create --dry-run -o yaml`:
+```
+  clusterrole         Create a ClusterRole.
+  clusterrolebinding  Create a ClusterRoleBinding for a particular ClusterRole.
+  configmap           Create a configmap from a local file, directory or literal value.
+  cronjob             Create a cronjob with the specified name.
+  deployment          Create a deployment with the specified name.
+  job                 Create a job with the specified name.
+  namespace           Create a namespace with the specified name.
+  poddisruptionbudget Create a pod disruption budget with the specified name.
+  priorityclass       Create a priorityclass with the specified name.
+  quota               Create a quota with the specified name.
+  role                Create a role with single rule.
+  rolebinding         Create a RoleBinding for a particular Role or ClusterRole.
+  secret              Create a secret using specified subcommand.
+  service             Create a service using specified subcommand.
+  serviceaccount      Create a service account with the specified name.
+```
+
 ### `kubectl apply`
 
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
