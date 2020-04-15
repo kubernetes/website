@@ -37,15 +37,15 @@ service Registration {
 
   * 유닉스 소켓의 이름.
   * 빌드된 장치 플러그인 API 버전.
-  * 알리려는 `ResourceName`. 여기서 `ResourceName`은
+  * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
 	  [확장된 리소스 네이밍 체계](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)를
-		`vendor-domain/resourcetype`의 형식으로 따라야 한다.
-		(예를 들어, NVIDIA GPU는 `nvidia.com/gpu`로 알려진다.)
+		`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
+		(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
 성공적으로 등록하고 나면, 장치 플러그인은 kubelet이 관리하는
 장치 목록을 전송한 다음, kublet은 kubelet 노드 상태 업데이트의 일부로
 해당 자원을 API 서버에 알리는 역할을 한다.
-예를 들어, 장치 플러그인이 kubelet에 `hardware-vendor.example/foo`를 등록하고
+예를 들어, 장치 플러그인이 kubelet에 `hardware-vendor.example/foo` 를 등록하고
 노드에 두 개의 정상 장치를 보고한 후, 노드에 2개의 “Foo” 장치가 설치되어 사용 가능함을
 알리기 위해 노드 상태가 업데이트된다.
 
@@ -105,15 +105,15 @@ spec:
   }
   ```
 
-*	플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock`에서
+*	플러그인은 호스트 경로 `/var/lib/kubelet/device-plugins/kubelet.sock` 에서
   유닉스 소켓을 통해 kubelet에 직접 등록한다.
 
 * 성공적으로 등록하고 나면, 장치 플러그인은 서빙 모드에서 실행되며, 이 동안 플러그인은 장치 상태를
 모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
-또한 gRPC 요청 `Allocate`를 담당한다. `Allocate`하는 동안, 장치 플러그인은
+또한 gRPC 요청 `Allocate` 를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
 GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
 작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
-`AllocateResponse`를 반환한다. kubelet은 이 정보를
+`AllocateResponse` 를 반환한다. kubelet은 이 정보를
 컨테이너 런타임에 전달한다.
 
 ### kubelet 재시작 처리
@@ -128,11 +128,11 @@ kubelet 인스턴스에 자신을 다시 등록한다. 현재의 구현에서, �
 장치 플러그인을 데몬셋, 노드 운영 체제의 패키지
 또는 수동으로 배포할 수 있다.
 
-표준 디렉토리 `/var/lib/kubelet/device-plugins`에는 특권을 가진 접근이 필요하므로,
+표준 디렉터리 `/var/lib/kubelet/device-plugins` 에는 특권을 가진 접근이 필요하므로,
 장치 플러그인은 특권을 가진 보안 컨텍스트에서 실행해야 한다.
 장치 플러그인을 데몬셋으로 배포하는 경우, 플러그인의
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
-`/var/lib/kubelet/device-plugins`를
+`/var/lib/kubelet/device-plugins` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
 데몬셋 접근 방식을 선택하면 쿠버네티스를 사용하여 장치 플러그인의 파드를 노드에 배치하고,
@@ -173,12 +173,12 @@ service PodResourcesLister {
 }
 ```
 
-gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock`의 유닉스 소켓을 통해 제공된다.
+gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 소켓을 통해 제공된다.
 장치 플러그인 리소스에 대한 모니터링 에이전트는 데몬 또는 데몬셋으로 배포할 수 있다.
-표준 디렉토리 `/var/lib/kubelet/pod-resources`에는 특권을 가진 접근이 필요하므로, 모니터링
+표준 디렉터리 `/var/lib/kubelet/pod-resources` 에는 특권을 가진 접근이 필요하므로, 모니터링
 에이전트는 특권을 가진 ​​보안 컨텍스트에서 실행해야 한다. 장치 모니터링 에이전트가
 데몬셋으로 실행 중인 경우, 플러그인의 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서
-`/var/lib/kubelet/pod-resources`를
+`/var/lib/kubelet/pod-resources` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
 "PodResources 서비스"를 지원하려면 `KubeletPodResources` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 쿠버네티스 1.15부터 기본적으로 활성화되어 있다.
@@ -201,7 +201,7 @@ message NUMANode {
 ```
 토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께 장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다. 그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고 리소스 할당 결정을 내린다.
 
-`TopologyInfo`는 `nil`(기본값) 또는 NUMA 노드 목록인 `nodes` 필드를 지원한다. 이를 통해 NUMA 노드에 걸쳐있을 수 있는 장치 플러그인을 게시할 수 있다.
+`TopologyInfo` 는 `nil`(기본값) 또는 NUMA 노드 목록인 `nodes` 필드를 지원한다. 이를 통해 NUMA 노드에 걸쳐있을 수 있는 장치 플러그인을 게시할 수 있다.
 
 장치 플러그인으로 장치에 대해 채워진 `TopologyInfo` 구조체의 예는 다음과 같다.
 
