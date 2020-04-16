@@ -1,4 +1,5 @@
 
+
 #hero {
   text-align: left;
   padding-bottom: 20px;
@@ -69,13 +70,42 @@ h5 {
   margin-bottom: 2em;
 }
 
+#logo-ckad img{
+width:15% !important;
+float:right;
+display:block;
+padding-right:10%;
+padding-left:3%;
+}
+
+#logo-ckad{
+display:block;
+}
+
+#logo-cka img{
+width:15% !important;
+float:left;
+display:block;
+padding-left:10%;
+padding-right:3%;
+}
+
+#logo-ckad{
+padding-left:5%;
+display:block;
+}
+
+.logo-certification .cta-image .cta-image-after img {
+  width:300px !important;
+}
+
 .white-text {
   color: #fff;
 }
 
 .padded {
-  padding-top: 20px;
-  padding-bottom: 10px;
+  padding-top: 5%;
+  padding-bottom: 5%;
 }
 
 .half {
@@ -126,4 +156,10 @@ h5 {
   visibility: visible;
   overflow: hidden;
   width: 1200px;
+}
+.cta-text {
+    text-align:center;
+    padding:2%;
+    color:white;
+  }
 }

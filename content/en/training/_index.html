@@ -7,148 +7,23 @@ cid: training
 class: training
 ---
 
-<html>
-<style>
-
-#hero {
-  text-align: left;
-  padding-bottom: 20px;
-}
-
-.section {
-  clear: both;
-  padding: 0px;
-  margin-bottom: 2em;
-  float:left;
-}
-
-.col {
-  display: block;
-  float:left;
-  margin: 1% 0 1% 1.6%;
-  background-color: #f9f9f9;
-}
-.col:first-child { margin-left: 0; }
-
-.col-container {
-  display: table; /* Make the container element behave like a table */
-  width: 100%; /* Set full-width to expand the whole page */
-  padding-bottom: 30px;
-}
-
-.col-nav {
-  display: table-cell; /* Make elements inside the container behave like table cells */
-  width: 33%;
-  background-color: #f9f9f9;
-  padding: 0px;
-  border: 5px solid white;
-}
-
-
-/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
-
-@media only screen and (max-width: 480px) {
-  .col { margin: 1% 0 1% 0%;}
-}
-
-@media only screen and (max-width: 650px) {
-  .col-nav {
-    display: block;
-    width: 100%;
-  }
-}
-
-.button{
-  max-width: 100%;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  margin: 1em 0;
-  display: inline-block;
-  border-radius: 6px;
-  padding: 0 20px;
-  line-height: 40px;
-  color: #ffffff;
-  font-size: 16px;
-  background-color: #3371e3;
-  text-decoration: none;
-}
-
-h5 {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5em;
-  margin-bottom: 2em;
-}
-
-.white-text {
-  color: #fff;
-}
-
-.padded {
-  padding-top: 20px;
-  padding-bottom: 10px;
-}
-
-.half {
-  width:50%;
-  float:left;
-}
-
-.half-image{
-  width:50%;
-  float:left;
-}
-
-.half-image img{
-  width:100%;
-
-}
-
-.blue-h5-white-text {
-  background-color: #3371e3;
-  padding: 3%;
-  color:white;
-}
-
-
-.blue-bg {
-  background-color: #3371e3;
-}
-
-.lighter-gray-bg {
-  background-color: #f4f4f4;
-}
-
-.two-thirds-centered {
-  width: 66%;
-  max-width: 950px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.landscape-section {
-  margin-left: auto;
-  margin-right: auto;
-  width: 1200px;
-}
-
-#landscape {
-  opacity: 1;
-  visibility: visible;
-  overflow: hidden;
-  width: 1200px;
-}
-
-</style>
-
-<div class="padded blue-bg" style="background-image:url('training-bg.jpg')">
-  <div class="main-section two-thirds-centered white-text">
-    <center>
-      <h2>Build your cloud native career</h2>
-      <p>Kubernetes is at the core of the cloud native movement. Training and certifications from the Linux Foundation and our training partners lets you invest in your career, learn Kubernetes, and make your cloud native projects successful.</p>
-    </center>
+<section class="call-to-action">
+  <div class="main-section padded" style="background-image:url('training-bg.jpg')">
+    <div class="call-to-action" id="cta-certification">
+      <div class="logo-certification cta-image cta-image-before" id="logo-cka">
+        <img src="kubernetes-cka-white.svg"/>
+      </div>
+      <div class="logo-certification cta-image cta-image-after" id="logo-ckad">
+        <img src="kubernetes-ckad-white.svg"/>
+      </div>
+      <div class="cta-text">
+        <h2>Build your cloud native career</h2>
+        <p>Kubernetes is at the core of the cloud native movement. Training and certifications from the Linux Foundation and our training partners lets you invest in your career, learn Kubernetes, and make your cloud native projects successful.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
 
 <section>
   <div class="main-section padded">
@@ -198,11 +73,11 @@ h5 {
       <a href="https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes" target="_blank" class="button">See Courses</a>
     </center>
   </div>
-  <div class="main-section half-image">
+  <div class="main-section half-image" style="background-image=url('training-bg.jpg')">
     <center>
       <p><img src="training-bg.jpg"></p>
       <br><br>
-      <a href="https://training.linuxfoundation.org/training/course-catalog/?_sft_technology=kubernetes" target="_blank" class="button">See Courses</a>
+
     </center>
   </div>
 </div>
