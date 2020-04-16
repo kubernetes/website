@@ -853,6 +853,54 @@ Secret updates.
 
 {{< /note >}}
 
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+<!-- 
+The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+-->
+Kubernetes 的 alpha 特性 _不可变的 Secret 和 ConfigMap_ 提供了一个设置各个 Secret 和 ConfigMap 为不可变的选项。
+对于大量使用 Secret 的集群（至少有成千上万各不相同的 Secret 供 Pod 挂载），禁止变更它们的数据有下列好处：
+
+<!-- 
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+-->
+- 防止意外（或非预期的）更新导致应用程序中断
+- 通过将 Secret 标记为不可变来关闭 kube-apiserver 对其的监视，以显著地降低 kube-apiserver 的负载来提升集群性能。
+
+<!-- 
+To use this feature, enable the `ImmutableEmphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
+your Secret or ConfigMap `immutable` field to `true`. For example:
+-->
+使用这个特性需要启用 `ImmutableEmphemeralVolumes`
+[特性开关](/docs/reference/command-line-tools-reference/feature-gates/) 并将 Secret 或 ConfigMap 的 `immutable` 字段设置为 `true`. 例如：
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+<!-- 
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
+-->
+{{< note >}}
+一旦一个 Secret 或 ConfigMap 被标记为不可变，撤销此操作或者更改 `data` 字段的内容都是 _不_ 可能的。
+只能删除并重新创建这个 Secret. 现有的 Pod 将维持对已删除 Secret 的挂载点 - 建议重新创建这些 pod.
+{{< /note >}}
+
 <!--
 ### Using Secrets as Environment Variables
 
