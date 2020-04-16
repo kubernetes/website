@@ -160,6 +160,13 @@ display:block;
   color:white;
 }
 
+.blue-h5-white-text-2{
+  background-color: #3371e3;
+  padding: 3%;
+  color:white;
+  font-size:1.1em;
+}
+
 h2 {
   line-height: !important;
 }
