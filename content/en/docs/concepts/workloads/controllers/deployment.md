@@ -124,7 +124,7 @@ In this example:
       * `AGE` displays the amount of time that the application has been running.
       
     Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
-    	randomly generated and uses the pod-template-hash as a seed.
+    	randomly generated and uses the `pod-template-hash` as a seed.
 
   6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
     ```shell
