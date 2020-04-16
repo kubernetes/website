@@ -133,6 +133,10 @@ display:block;
 .half {
   width:50%;
   float:left;
+  padding-left:7%;
+  padding-right:7%;
+  padding-top:5%;
+  padding-bottom:5%;
 }
 
 .half-image{
