@@ -48,7 +48,7 @@ W wersjach wcześniejszych niż 1.14, punkty końcowe określone przez ich forma
 
 **Przykłady pobierania specyfikacji OpenAPI**:
 
-Przed 1.10 | Począwszy od Kubernetes 1.10
+Przed 1.10 | Kubernetes 1.10 i nowszy
 ----------- | -----------------------------
 GET /swagger.json | GET /openapi/v2 **Accept**: application/json
 GET /swagger-2.0.0.pb-v1 | GET /openapi/v2 **Accept**: application/com.github.proto-openapi.spec.v2@v1.0+protobuf
@@ -57,7 +57,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 W Kubernetes zaimplementowany jest alternatywny format serializacji na potrzeby API oparty o Protobuf, który jest przede wszystkim przeznaczony na potrzeby wewnętrznej komunikacji w klastrze i opisany w [design proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md). Pliki IDL dla każdego ze schematów można znaleźć w pakietach Go, które definiują obiekty API.
 
 Przed wersją 1.14, apiserver Kubernetes udostępniał też specyfikację API [Swagger v1.2](http://swagger.io/) poprzez `/swaggerapi`.
-Ten punkt końcowy jest fazie wycofywania i zostanie ostatecznie usunięty w wersji Kubernetes 1.14.
+Ten punkt końcowy został skierowany do wycofania i ostatecznie usunięty w wersji Kubernetes 1.14.
 
 ## Obsługa wersji API
 
@@ -108,20 +108,21 @@ API może być rozbudowane na dwa sposoby przy użyciu [custom resources](/docs/
    i użyć [agregatora](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/),
    aby zintegrować je w sposób niezauważalny dla klientów.
 
-## Włączanie grup API
+## Włączanie i wyłączanie grup API
 
 Określone zasoby i grupy API są włączone domyślnie. Włączanie i wyłączanie odbywa się poprzez ustawienie `--runtime-config`
 w apiserwerze. `--runtime-config` przyjmuje wartości oddzielane przecinkami. Przykładowo, aby wyłączyć batch/v1, należy ustawić
 `--runtime-config=batch/v1=false`, aby włączyć batch/v2alpha1, należy ustawić `--runtime-config=batch/v2alpha1`.
 Ta opcja przyjmuje rozdzielony przecinkami zbiór par klucz=wartość, który opisuje konfigurację wykonawczą apiserwera.
 
-WAŻNE: Włączenie lub wyłączenie grup lub zasobów wymaga restartu apiserver i controller-manager, aby zmiany w `--runtime-config` zostały wprowadzone.
+{{< note >}}Włączenie lub wyłączenie grup lub zasobów wymaga restartu apiserver i controller-manager, aby zmiany w `--runtime-config` zostały wprowadzone.{{< /note >}}
 
-## Jak włączać dostęp do grup zasobów
+## Jak włączać dostęp do grup zasobów extensions/v1beta1
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs and ReplicaSets są domyślnie włączone.
-Pozostałe rozszerzenia mogą być włączane poprzez ustawienie `--runtime-config` w
-apiserver. `--runtime-config` przyjmuje wartości rozdzielane przecinkami. Na przykład, aby zablokować deployments oraz ingress, ustaw
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
+DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs i ReplicaSets znajdują się w grupie API `extensions/v1beta1` i są domyślnie włączone.
+Przykładowo: aby włączyć deployments i daemonsets, ustaw
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
+
+{{< note >}}Włączanie i wyłączanie pojedynczych zasobów możliwe jest jedynie w ramach grupy API `extensions/v1beta1` z przyczyn historycznych{{< /note >}}
 
 {{% /capture %}}

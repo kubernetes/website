@@ -27,7 +27,6 @@ weight: 70
 
    * 이중 스택 파드 네트워킹(파드 당 단일 IPv4와 IPv6 주소 할당)
    * IPv4와 IPv6 지원 서비스(각 서비스는 단일 주소 패밀리이어야 한다.)
-   * Kubenet 다중 주소 패밀리 지원(IPv4와 IPv6)
    * IPv4와 IPv6 인터페이스를 통한 파드 오프(off) 클러스터 이그레스 라우팅(예: 인터넷)
 
 ## 필수 구성 요소
@@ -36,7 +35,7 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
 
    * 쿠버네티스 1.16 또는 이후 버전
    * 이중 스택 네트워킹을 위한 공급자의 지원(클라우드 공급자 또는 다른 방식으로 쿠버네티스 노드에 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공할 수 있어야 한다.)
-   * Kubenet 네트워크 플러그인
+   * 이중 스택(예: Kubenet 또는 Calico)을 지원하는 네트워크 플러그인
    * IPVS 모드에서 구동 중인 Kube-Proxy
 
 ## IPv4/IPv6 이중 스택 활성화
@@ -52,7 +51,7 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--proxy-mode=ipvs`
-      * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< caution >}}

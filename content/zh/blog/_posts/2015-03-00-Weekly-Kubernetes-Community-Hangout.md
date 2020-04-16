@@ -2,7 +2,6 @@
 title: " Kubernetes 社区每周聚会笔记 - 2015年3月27日 "
 date: 2015-03-28
 slug: weekly-kubernetes-community-hangout
-url: /blog/2015/03/Weekly-Kubernetes-Community-Hangout
 ---
 
 <!--
@@ -80,7 +79,7 @@ Notes from meeting:
     * Can also with careful flag crafting run rsync over this or set up sshd inside container.
 
     * Some feedback via chat:
-    
+
 -->
 
     * kubectl exec -p $POD -- $CMD
@@ -116,7 +115,7 @@ Notes from meeting:
     * want to inject a binary under control of the host, similar to pre-start hooks
 
     * socat, nsenter, whatever the pre-start hook needs
-    
+
 -->
 
     * 想要在主机的控制下注入二进制文件，类似于预启动钩子

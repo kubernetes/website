@@ -10,12 +10,12 @@ menu:
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
 card:
   name: tutorials
-  weight: 10 
+  weight: 10
 ---
 
 {{% capture overview %}}
 
-이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여 
+이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여
 쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
@@ -69,7 +69,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 쿠버네티스 [*파드*](/ko/docs/concepts/workloads/pods/pod/)는 관리와
 네트워킹 목적으로 함께 묶여 있는 하나 이상의 컨테이너 그룹이다.
-이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스 
+이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스
 [*디플로이먼트*](/ko/docs/concepts/workloads/controllers/deployment/)는 파드의
 헬스를 검사해서 파드의 컨테이너가 종료되었다면 재시작해준다.
 파드의 생성 및 스케일링을 관리하는 방법으로 디플로이먼트를 권장한다.
@@ -117,7 +117,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개관](/docs/user-guide/kubectl-overview/)을 살펴보자.{{< /note >}}
 
 ## 서비스 만들기
@@ -125,14 +125,14 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 기본적으로 파드는 쿠버네티스 클러스터 내부의 IP 주소로만
 접근할 수 있다. `hello-node` 컨테이너를 쿠버네티스 가상 네트워크
 외부에서 접근하려면 파드를 쿠버네티스
-[*서비스*](/docs/concepts/services-networking/service/)로 노출해야 한다.
+[*서비스*](/ko/docs/concepts/services-networking/service/)로 노출해야 한다.
 
 1. `kubectl expose` 명령어로 퍼블릭 인터넷에 파드 노출하기
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     `--type=LoadBalancer`플래그는 클러스터 밖의 서비스로 노출하기
     원한다는 뜻이다.
 
@@ -169,7 +169,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 ## 애드온 사용하기
 
-Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 애드온 셋이 있다.
+Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네티스 환경에서 접속해 볼 수 있는 내장 {{< glossary_tooltip text="애드온" term_id="addons" >}} 셋이 있다.
 
 1. 현재 지원하는 애드온 목록을 확인한다.
 
@@ -186,7 +186,6 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     efk: disabled
     freshpod: disabled
     gvisor: disabled
-    heapster: disabled
     helm-tiller: disabled
     ingress: disabled
     ingress-dns: disabled
@@ -199,17 +198,17 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     storage-provisioner: enabled
     storage-provisioner-gluster: disabled
     ```
-   
-2. 한 애드온을 활성화 한다. 예를 들어 `heapster`
+
+2. 한 애드온을 활성화 한다. 예를 들어 `metrics-server`
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
-  
+
     다음과 유사하게 출력된다.
 
     ```
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. 방금 생성한 파드와 서비스를 확인한다.
@@ -224,7 +223,7 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
     pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
     pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
@@ -235,22 +234,22 @@ Minikube에는 활성화하거나 비활성화 할 수 있고 로컬 쿠버네�
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `heapster` 비활성화
+4. `metrics-server` 비활성화
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
-  
+
     다음과 유사하게 출력된다.
 
     ```
-    heapster was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## 제거하기
@@ -279,7 +278,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
-* [애플리케이션 배포](/docs/user-guide/deploying-applications/)에 대해서 더 배워 본다.
-* [서비스 오브젝트](/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
+* [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
+* [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
 
 {{% /capture %}}

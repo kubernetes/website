@@ -618,6 +618,7 @@ common use cases and suggested solutions.
    - 使用 Docker hub 上的公有镜像
     - 无需配置
     - 在 GCE/GKE 上会自动使用高稳定性和高速的 Docker hub 的本地 mirror
+
 <!--
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
@@ -639,6 +640,7 @@ common use cases and suggested solutions.
    - 或者，在 GCE/GKE 上时，使用项目的 Google Container Registry。
      - 使用集群自动伸缩比手动配置 node 工作的更好。
    - 或者，在更改集群 node 配置不方便时，使用 `imagePullSecrets`。
+
 <!--
 3. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
@@ -647,6 +649,7 @@ common use cases and suggested solutions.
 3. 使用专有镜像的集群，有更严格的访问控制。
    - 保证开启 [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有的 pod 都可以使用镜像。
    - 将敏感数据存储在 "Secret" 资源中，而不是打包在镜像里。
+
 <!--
 4. A multi-tenant cluster where each tenant needs own private registry.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.

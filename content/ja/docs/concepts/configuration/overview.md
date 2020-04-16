@@ -29,13 +29,13 @@ weight: 10
 
 ## "真っ裸"のPod に対する ReplicaSet、Deployment、およびJob
 
-- 可能な限り、"真っ裸"のPod([ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
+- 可能な限り、"真っ裸"のPod([ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
 
   明示的に[`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)を使いたいシーンを除いて、DeploymentはPodを直接作成するよりもほとんど常に望ましい方法です。Deploymentには、希望する数のPodが常に使用可能であることを確認するためにReplicaSetを作成したり、Podを置き換えるための戦略（RollingUpdateなど）を指定したりできます。[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のほうが適切な場合もあるかもしれません。
 
 ## Service
 
-- 対応するバックエンドワークロード（DeploymentまたはReplicaSet）の前、およびそれにアクセスする必要があるワークロードの前に[Service](/docs/concepts/services-networking/service/)を作成します。Kubernetesがコンテナを起動すると、コンテナ起動時に実行されていたすべてのServiceを指す環境変数が提供されます。たとえば、fooという名前のServiceが存在する場合、すべてのコンテナは初期環境で次の変数を取得します。
+- 対応するバックエンドワークロード（DeploymentまたはReplicaSet）の前、およびそれにアクセスする必要があるワークロードの前に[Service](/ja/docs/concepts/services-networking/service/)を作成します。Kubernetesがコンテナを起動すると、コンテナ起動時に実行されていたすべてのServiceを指す環境変数が提供されます。たとえば、fooという名前のServiceが存在する場合、すべてのコンテナは初期環境で次の変数を取得します。
 
   ```shell
   FOO_SERVICE_HOST=<the host the Service is running on>
@@ -50,18 +50,17 @@ weight: 10
 
   デバッグ目的でのみポートにアクセスする必要がある場合は、[apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls)または[`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)を使用できます。
 
-  ノード上でPodのポートを明示的に公開する必要がある場合は、hostPortに頼る前に[NodePort](/docs/concepts/services-networking/service/#nodeport)の使用を検討してください。
+  ノード上でPodのポートを明示的に公開する必要がある場合は、hostPortに頼る前に[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)の使用を検討してください。
 
 - `hostPort`の理由と同じくして、`hostNetwork`の使用はできるだけ避けてください。
 
-- `kube-proxy`のロードバランシングが不要な場合は、[headless Service](/docs/concepts/services-networking/service/#headless-
-services)（`ClusterIP`が`None`）を使用してServiceを簡単に検出できます。
+- `kube-proxy`のロードバランシングが不要な場合は、[headless Service](/ja/docs/concepts/services-networking/service/#headless-service)（`ClusterIP`が`None`）を使用してServiceを簡単に検出できます。
 
 ## ラベルの使用
 
 - `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの__セマンティック属性__を識別する[ラベル](/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なポッドを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
 
-セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
+セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
 オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が_適用_されると、Deploymentコントローラは制御された速度で実際の状態を望ましい状態に変更します。
 

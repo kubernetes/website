@@ -197,6 +197,8 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 Define the example PodSecurityPolicy object in a file. This is a policy that
 simply prevents the creation of privileged pods.
+The name of a PodSecurityPolicy object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< codenew file="policy/example-psp.yaml" >}}
 
@@ -419,8 +421,10 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 - projected
 
 {{< warning >}}
-PodSecurityPolicy does not limit the types of `PersistentVolume` objects that may be referenced by a `PersistentVolumeClaim`.
-Only trusted users should be granted permission to create `PersistentVolume` objects.
+PodSecurityPolicy does not limit the types of `PersistentVolume` objects that
+may be referenced by a `PersistentVolumeClaim`, and hostPath type
+`PersistentVolumes` do not support read-only access mode. Only trusted users
+should be granted permission to create `PersistentVolume` objects.
 {{< /warning >}}
 
 **FSGroup** - Controls the supplemental group applied to some volumes.

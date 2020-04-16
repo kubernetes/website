@@ -193,3 +193,6 @@ other = "이벤트 캘린더"
 # UI elements
 [ui_search_placeholder]
 other = "검색하기"
+
+[input_placeholder_email_address]
+other = "전자 우편 주소"

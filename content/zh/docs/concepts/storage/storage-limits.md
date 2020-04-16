@@ -25,7 +25,7 @@ how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach. -->
 
-谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。 
+谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。
 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
 
 
@@ -135,7 +135,7 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 * 在
 <a href="https://cloud.google.com/compute/">Google Compute Engine</a>环境中,
-[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将128个卷关联到节点。
+[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将127个卷关联到节点。
 
 * 对于 M5、C5、R5、T3 和 Z1D 类型实例的 Amazon EBS 磁盘，Kubernetes 仅允许 25 个卷关联到节点。
 对于 ec2 上的其他实例类型

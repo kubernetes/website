@@ -329,7 +329,7 @@ Events:
 현재 쿠버네티스는 AppArmor 프로파일을 노드에 적재하기 위한 네이티브 메커니즘을 제공하지 않는다.
 프로파일을 설정하는 여러 방법이 있다. 예를 들면 다음과 같다.
 
-* 각 노드에서 파드를 실행하는 [데몬셋](/docs/concepts/workloads/controllers/daemonset/)을 통해서
+* 각 노드에서 파드를 실행하는 [데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 통해서
   올바른 프로파일이 적재되었는지 확인한다. 예시 구현은
   [여기](https://git.k8s.io/kubernetes/test/images/apparmor-loader)에서 찾아볼 수 있다.
 * 노드 초기화 시간에 노드 초기화 스크립트(예를 들어 Salt, Ansible 등)나
@@ -340,7 +340,7 @@ Events:
 스케줄러는 어떤 프로파일이 어떤 노드에 적재되는지 고려하지 않으니, 프로파일 전체 집합이
 모든 노드에 적재되어야 한다. 대안적인 방법은
 각 프로파일(혹은 프로파일의 클래스)을 위한 노드 레이블을 노드에 추가하고,
-[노드 셀렉터](/docs/concepts/configuration/assign-pod-node/)를 이용하여
+[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/)를 이용하여
 파드가 필요한 프로파일이 있는 노드에서 실행되도록 한다.
 
 ### PodSecurityPolicy로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}

@@ -390,7 +390,7 @@ kubelet [flags]
        <td colspan="2">--enable-cadvisor-json-endpoints</td>
     </tr>
     <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">Enable cAdvisor json /spec and /stats/* endpoints. (default true)</td>
+      <td></td><td style="line-height: 130%; word-wrap: break-word;">Enable cAdvisor json /spec and /stats/* endpoints. (default false) (DEPRECATED: will be removed in a future version)</td>
     </tr>
 
      <tr>

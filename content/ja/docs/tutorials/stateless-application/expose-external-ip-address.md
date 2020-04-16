@@ -13,7 +13,7 @@ weight: 10
 
 {{% capture prerequisites %}}
 
- * [kubectl](/docs/tasks/tools/install-kubectl/)をインストールしてください。
+ * [kubectl](/ja/docs/tasks/tools/install-kubectl/)をインストールしてください。
 
  * Kubernetesクラスターを作成する際に、Google Kubernetes EngineやAmazon Web Servicesのようなクラウドプロバイダーを使用します。このチュートリアルでは、クラウドプロバイダーを必要とする[外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を作成します。
 
@@ -44,7 +44,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 ```
 
 
-上記のコマンドにより、[Deployment](/docs/concepts/workloads/controllers/deployment/)オブジェクトを作成し、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)オブジェクトを関連づけます。ReplicaSetには5つの[Pod](/docs/concepts/workloads/pods/pod/)があり、それぞれHello Worldアプリケーションが起動しています。
+上記のコマンドにより、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)オブジェクトを作成し、[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)オブジェクトを関連づけます。ReplicaSetには5つの[Pod](/ja/docs/concepts/workloads/pods/pod/)があり、それぞれHello Worldアプリケーションが起動しています。
 
 1. Deploymentに関する情報を表示します:
 

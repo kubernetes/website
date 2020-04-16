@@ -29,7 +29,7 @@ weight: 30
 {{% /capture %}}
 
 {{% capture objectives %}}
-* 카산드라 헤드리스 [*서비스*](/docs/concepts/services-networking/service/)를 생성하고 검증한다.
+* 카산드라 헤드리스 [*서비스*](/ko/docs/concepts/services-networking/service/)를 생성하고 검증한다.
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 이용하여 카산드라 링을 생성한다.
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 검증한다.
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 수정한다.
@@ -37,7 +37,7 @@ weight: 30
 {{% /capture %}}
 
 {{% capture prerequisites %}}
-이 튜토리얼을 완료하려면, [파드](/ko/docs/concepts/workloads/pods/pod/), [서비스](/docs/concepts/services-networking/service/), [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 기본 개념에 친숙해야한다. 추가로
+이 튜토리얼을 완료하려면, [파드](/ko/docs/concepts/workloads/pods/pod/), [서비스](/ko/docs/concepts/services-networking/service/), [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 기본 개념에 친숙해야한다. 추가로
 
 * *kubectl* 커맨드라인 도구를 [설치와 설정](/docs/tasks/tools/install-kubectl/)하자.
 
@@ -65,7 +65,7 @@ minikube start --memory 5120 --cpus=4
 {{% capture lessoncontent %}}
 ## 카산드라 헤드리스 서비스 생성하기
 
-쿠버네티스 [서비스](/docs/concepts/services-networking/service/)는 동일 작업을 수행하는 [파드](/ko/docs/concepts/workloads/pods/pod/)의 집합을 기술한다.
+쿠버네티스 [서비스](/ko/docs/concepts/services-networking/service/)는 동일 작업을 수행하는 [파드](/ko/docs/concepts/workloads/pods/pod/)의 집합을 기술한다.
 
 다음의 `서비스`는 쿠버네티스 클러스터에서 카산드라 파드와 클라이언트 간에 DNS 찾아보기 용도로 사용한다.
 

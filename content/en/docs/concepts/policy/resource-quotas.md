@@ -37,6 +37,9 @@ Resource quotas work like this:
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
   See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
 
+The name of a `ResourceQuota` object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 Examples of policies that could be created using namespaces and quotas are:
 
 - In a cluster with a capacity of 32 GiB RAM, and 16 cores, let team A use 20 GiB and 10 cores,
@@ -194,7 +197,7 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 
 ### Resource Quota Per PriorityClass
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
@@ -376,7 +379,7 @@ pods        0     10
 * `Exist`
 * `DoesNotExist`
 
-## Requests vs Limits
+## Requests compared to Limits {#requests-vs-limits}
 
 When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
 The quota can be configured to quota either value.

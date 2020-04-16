@@ -34,8 +34,6 @@ import (
 	utilfeature "k8s.io/apiserver/pkg/util/feature"
 	"k8s.io/kubernetes/pkg/api/legacyscheme"
 	"k8s.io/kubernetes/pkg/api/testapi"
-	"k8s.io/kubernetes/pkg/apis/admissionregistration"
-	ar_validation "k8s.io/kubernetes/pkg/apis/admissionregistration/validation"
 	"k8s.io/kubernetes/pkg/apis/apps"
 	apps_validation "k8s.io/kubernetes/pkg/apis/apps/validation"
 	"k8s.io/kubernetes/pkg/apis/autoscaling"
@@ -434,12 +432,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"node-problem-detector-configmap": {&apps.DaemonSet{}},
 			"termination":                     {&api.Pod{}},
 		},
-		"federation": {
-			"policy-engine-deployment":    {&apps.Deployment{}},
-			"policy-engine-service":       {&api.Service{}},
-			"replicaset-example-policy":   {&apps.ReplicaSet{}},
-			"scheduling-policy-admission": {&api.ConfigMap{}},
-		},
 		"podpreset": {
 			"allow-db":          {&settings.PodPreset{}},
 			"allow-db-merged":   {&api.Pod{}},
@@ -525,9 +517,9 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis":     {&api.Pod{}},
 		},
 		"policy": {
-			"privileged-psp":                                 {&policy.PodSecurityPolicy{}},
-			"restricted-psp":                                 {&policy.PodSecurityPolicy{}},
-			"example-psp":                                    {&policy.PodSecurityPolicy{}},
+			"privileged-psp": {&policy.PodSecurityPolicy{}},
+			"restricted-psp": {&policy.PodSecurityPolicy{}},
+			"example-psp":    {&policy.PodSecurityPolicy{}},
 			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
 			"zookeeper-pod-disruption-budget-minunavailable": {&policy.PodDisruptionBudget{}},
 		},

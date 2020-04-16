@@ -9,8 +9,8 @@ weight: 65
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
-제한하는 TTL 메커니즘을 제공한다. TTL 컨트롤러는 현재
-[잡(Job)](/docs/concepts/workloads/controllers/jobs-run-to-completion/)만
+제한하는 TTL (time to live) 메커니즘을 제공한다. TTL 컨트롤러는 현재
+[잡(Job)](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)만
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
@@ -28,13 +28,13 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 ## TTL 컨트롤러
 
 현재의 TTL 컨트롤러는 잡만 지원한다. 클러스터 운영자는
-[예시](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
+[예시](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
 와 같이 `.spec.ttlSecondsAfterFinished` 필드를 명시하여
 완료된 잡(`완료` 또는 `실패`)을 자동으로 정리하기 위해 이 기능을 사용할 수 있다.
 리소스의 작업이 완료된 TTL 초(sec) 후 (다른 말로는, TTL이 만료되었을 때),
 TTL 컨트롤러는 해당 리소스가 정리될 수 있다고 가정한다.
-TTL 컨트롤러가 리소스를 정리할때 리소스를 연속적으로 삭제한다. 즉,
-의존하는 오브젝트와 함께 삭제한다. 리소스가 삭제되면 완료자(finalizers)와
+TTL 컨트롤러가 리소스를 정리할때 리소스를 연속적으로 삭제한다. 이는
+의존하는 오브젝트도 해당 리소스와 함께 삭제되는 것을 의미한다. 리소스가 삭제되면 완료자(finalizers)와
 같은 라이프 사이클 보증이 적용 된다.
 
 TTL 초(sec)는 언제든지 설정이 가능하다. 여기에 잡 필드 중
@@ -79,7 +79,7 @@ TTL 컨트롤러는 쿠버네티스 리소스에
 
 {{% capture whatsnext %}}
 
-[자동으로 잡 정리](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
+[자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
 
 [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 

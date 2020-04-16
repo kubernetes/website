@@ -1,5 +1,5 @@
 ---
-title: 이름(Name)
+title: 오브젝트 이름과 ID
 content_template: templates/concept
 weight: 20
 ---
@@ -9,9 +9,9 @@ weight: 20
 클러스터의 각 오브젝트는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
 또한, 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
 
-예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 가질 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 가질 수 있다.
+예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 존재할 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 존재할 수 있다.
 
-유일하지 않은 사용자 제공 속성에 대해서, 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
+유일하지 않은 사용자 제공 속성의 경우 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
 
 {{% /capture %}}
 
@@ -22,9 +22,37 @@ weight: 20
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-관례에 따라, 쿠버네티스 리소스의 이름은 최대 253자까지 허용되고 소문자 알파벳과 숫자(alphanumeric), `-`, 그리고 `.`로 구성되며 특정 리소스는 보다 구체적인 제약을 갖는다.
+다음은 리소스에 일반적으로 사용되는 세 가지 유형의 이름 제한 조건이다.
 
-여기 파드의 이름이 `nginx-demo`라는 매니페스트 예시가 있다.
+### DNS 서브도메인 이름
+
+대부분의 리소스 유형에는 [RFC 1123](https://tools.ietf.org/html/rfc1123)에 정의된 대로 
+DNS 서브도메인 이름으로 사용할 수 있는 이름이 필요하다.
+이것은 이름이 다음을 충족해야 한다는 것을 의미한다.
+
+- 253자를 넘지 말아야 한다.
+- 소문자와 영숫자 `-` 또는 `.` 만 포함한다.
+- 영숫자로 시작한다.
+- 영숫자로 끝난다.
+
+### DNS 레이블 이름
+
+일부 리소스 유형은 [RFC 1123](https://tools.ietf.org/html/rfc1123)에
+정의된 대로 DNS 레이블 표준을 따라야 한다.
+이것은 이름이 다음을 충족해야 한다는 것을 의미한다.
+
+- 최대 63자이다.
+- 소문자와 영숫자 또는 `-` 만 포함한다.
+- 영숫자로 시작한다.
+- 영숫자로 끝난다.
+
+### 경로 세그먼트 이름
+
+일부 리소스 유형에서는 이름을 경로 세그먼트로 안전하게 인코딩 할 수
+있어야 한다. 즉 이름이 "." 또는 ".."이 아닐 수 있으며 이름에는
+"/" 또는 "%"가 포함될 수 없다.
+
+아래는 파드의 이름이 `nginx-demo`라는 매니페스트 예시이다.
 
 ```yaml
 apiVersion: v1
@@ -34,10 +62,11 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 ```
+
 
 {{< note >}}
 일부 리소스 유형은 이름에 추가적인 제약이 있다.

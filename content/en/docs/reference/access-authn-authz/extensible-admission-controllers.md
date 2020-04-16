@@ -22,10 +22,10 @@ This page describes how to build, configure, use, and monitor admission webhooks
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+[validating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 and
 [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook).
-Mutating admission Webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
+Mutating admission webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
 After all object modifications are complete, and after the incoming object is validated by the API server,
 validating admission webhooks are invoked and can reject requests to enforce custom policies.
 
@@ -114,7 +114,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate.>...tLS0K"
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
@@ -139,7 +139,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
   admissionReviewVersions: ["v1beta1"]
   timeoutSeconds: 5
 ```
@@ -631,6 +631,8 @@ So a webhook response to add that label would be:
 ## Webhook configuration
 
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
+The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each should be given a unique name.
@@ -1048,7 +1050,7 @@ to turn up in a new cluster.
 
 The scheme must be "https"; the URL must begin with "https://".
 
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Attempting to use a user or basic auth (for example "user:password@") is not allowed.
 Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a mutating webhook configured to call a URL
@@ -1120,7 +1122,7 @@ kind: MutatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   clientConfig:
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
     service:
       namespace: my-service-namespace
       name: my-service-name

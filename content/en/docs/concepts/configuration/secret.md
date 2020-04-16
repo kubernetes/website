@@ -68,6 +68,8 @@ echo -n '1f2d1e2e67df' > ./password.txt
 
 The `kubectl create secret` command packages these files into a Secret and creates
 the object on the API server.
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
@@ -137,8 +139,10 @@ See [decoding a secret](#decoding-a-secret) to learn how to view the contents of
 #### Creating a Secret manually
 
 You can also create a Secret in a file first, in JSON or YAML format,
-and then create that object. The
-[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+and then create that object.
+The name of a Secret object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 contains two maps:
 `data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
 base64. The `stringData` field is provided for convenience, and allows you to provide
@@ -670,6 +674,37 @@ propagation delay, where the cache propagation delay depends on the chosen cache
 A container using a Secret as a
 [subPath](/docs/concepts/storage/volumes#using-subpath) volume mount will not receive
 Secret updates.
+{{< /note >}}
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
+(at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for secrets marked as immutable.
+
+To use this feature, enable the `ImmutableEmphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
+your Secret or ConfigMap `immutable` field to `true`. For example:
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+Once a Secret or ConfigMap is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the Secret.
+Existing Pods maintain a mount point to the deleted Secret - it is recommended to recreate
+these pods.
 {{< /note >}}
 
 ### Using Secrets as environment variables

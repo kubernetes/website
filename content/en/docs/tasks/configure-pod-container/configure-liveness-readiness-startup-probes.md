@@ -6,20 +6,20 @@ weight: 110
 
 {{% capture overview %}}
 
-This page shows how to configure liveness, readiness and startup probes for Containers.
+This page shows how to configure liveness, readiness and startup probes for containers.
 
 The [kubelet](/docs/admin/kubelet/) uses liveness probes to know when to
-restart a Container. For example, liveness probes could catch a deadlock,
+restart a container. For example, liveness probes could catch a deadlock,
 where an application is running, but unable to make progress. Restarting a
-Container in such a state can help to make the application more available
+container in such a state can help to make the application more available
 despite bugs.
 
-The kubelet uses readiness probes to know when a Container is ready to start
-accepting traffic. A Pod is considered ready when all of its Containers are ready.
+The kubelet uses readiness probes to know when a container is ready to start
+accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
 When a Pod is not ready, it is removed from Service load balancers.
 
-The kubelet uses startup probes to know when a Container application has started.
+The kubelet uses startup probes to know when a container application has started.
 If such a probe is configured, it disables liveness and readiness checks until
 it succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
@@ -41,27 +41,27 @@ Many applications running for long periods of time eventually transition to
 broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
-In this exercise, you create a Pod that runs a Container based on the
+In this exercise, you create a Pod that runs a container based on the
 `k8s.gcr.io/busybox` image. Here is the configuration file for the Pod:
 
 {{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
-In the configuration file, you can see that the Pod has a single Container.
+In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 5 seconds. The `initialDelaySeconds` field tells the kubelet that it
-should wait 5 second before performing the first probe. To perform a probe, the
-kubelet executes the command `cat /tmp/healthy` in the Container. If the
-command succeeds, it returns 0, and the kubelet considers the Container to be alive and
-healthy. If the command returns a non-zero value, the kubelet kills the Container
+should wait 5 seconds before performing the first probe. To perform a probe, the
+kubelet executes the command `cat /tmp/healthy` in the target container. If the
+command succeeds, it returns 0, and the kubelet considers the container to be alive and
+healthy. If the command returns a non-zero value, the kubelet kills the container
 and restarts it.
 
-When the Container starts, it executes this command:
+When the container starts, it executes this command:
 
 ```shell
 /bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
 ```
 
-For the first 30 seconds of the Container's life, there is a `/tmp/healthy` file.
+For the first 30 seconds of the container's life, there is a `/tmp/healthy` file.
 So during the first 30 seconds, the command `cat /tmp/healthy` returns a success
 code. After 30 seconds, `cat /tmp/healthy` returns a failure code.
 
@@ -79,7 +79,7 @@ kubectl describe pod liveness-exec
 
 The output indicates that no liveness probes have failed yet:
 
-```shell
+```
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
@@ -98,7 +98,7 @@ kubectl describe pod liveness-exec
 At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the containers have been killed and recreated.
 
-```shell
+```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
@@ -109,7 +109,7 @@ FirstSeen LastSeen    Count   From            SubobjectPath           Type      
 2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
 ```
 
-Wait another 30 seconds, and verify that the Container has been restarted:
+Wait another 30 seconds, and verify that the container has been restarted:
 
 ```shell
 kubectl get pod liveness-exec
@@ -117,7 +117,7 @@ kubectl get pod liveness-exec
 
 The output shows that `RESTARTS` has been incremented:
 
-```shell
+```
 NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
@@ -130,23 +130,23 @@ image.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
-In the configuration file, you can see that the Pod has a single Container.
+In the configuration file, you can see that the Pod has a single container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 3 seconds. The `initialDelaySeconds` field tells the kubelet that it
 should wait 3 seconds before performing the first probe. To perform a probe, the
-kubelet sends an HTTP GET request to the server that is running in the Container
+kubelet sends an HTTP GET request to the server that is running in the container
 and listening on port 8080. If the handler for the server's `/healthz` path
-returns a success code, the kubelet considers the Container to be alive and
-healthy. If the handler returns a failure code, the kubelet kills the Container
+returns a success code, the kubelet considers the container to be alive and
+healthy. If the handler returns a failure code, the kubelet kills the container
 and restarts it.
 
 Any code greater than or equal to 200 and less than 400 indicates success. Any
 other code indicates failure.
 
 You can see the source code for the server in
-[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
 
-For the first 10 seconds that the Container is alive, the `/healthz` handler
+For the first 10 seconds that the container is alive, the `/healthz` handler
 returns a status of 200. After that, the handler returns a status of 500.
 
 ```go
@@ -162,9 +162,9 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-The kubelet starts performing health checks 3 seconds after the Container starts.
+The kubelet starts performing health checks 3 seconds after the container starts.
 So the first couple of health checks will succeed. But after 10 seconds, the health
-checks will fail, and the kubelet will kill and restart the Container.
+checks will fail, and the kubelet will kill and restart the container.
 
 To try the HTTP liveness check, create a Pod:
 
@@ -173,21 +173,21 @@ kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
 After 10 seconds, view Pod events to verify that liveness probes have failed and
-the Container has been restarted:
+the container has been restarted:
 
 ```shell
 kubectl describe pod liveness-http
 ```
 
 In releases prior to v1.13 (including v1.13), if the environment variable
-`http_proxy` (or `HTTP_PROXY`) is set on the node where a pod is running,
+`http_proxy` (or `HTTP_PROXY`) is set on the node where a Pod is running,
 the HTTP liveness probe uses that proxy.
 In releases after v1.13, local HTTP proxy environment variable settings do not
 affect the HTTP liveness probe.
 
 ## Define a TCP liveness probe
 
-A third type of liveness probe uses a TCP Socket. With this configuration, the
+A third type of liveness probe uses a TCP socket. With this configuration, the
 kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
 can’t it is considered a failure.
@@ -197,7 +197,7 @@ can’t it is considered a failure.
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
 first readiness probe 5 seconds after the container starts. This will attempt to
-connect to the `goproxy` container on port 8080. If the probe succeeds, the pod
+connect to the `goproxy` container on port 8080. If the probe succeeds, the Pod
 will be marked as ready. The kubelet will continue to run this check every 10
 seconds.
 
@@ -351,7 +351,7 @@ port to perform the check. The kubelet sends the probe to the pod’s IP address
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.
-Here's one scenario where you would set it. Suppose the Container listens on 127.0.0.1
+Here's one scenario where you would set it. Suppose the container listens on 127.0.0.1
 and the Pod's `hostNetwork` field is true. Then `host`, under `httpGet`, should be set
 to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more common
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
@@ -367,7 +367,7 @@ to resolve it.
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
-### Reference
+You can also read the API references for:
 
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)

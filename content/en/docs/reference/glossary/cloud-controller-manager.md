@@ -4,7 +4,7 @@ id: cloud-controller-manager
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/running-cloud-controller/
 short_description: >
-  Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will be the preferred way to integrate Kubernetes with any cloud.
+  Cloud Controller Manager is a Kubernetes component that embeds cloud-specific control logic.
 
 aka: 
 tags:
@@ -12,8 +12,8 @@ tags:
 - architecture
 - operation
 ---
- Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will be the preferred way to integrate Kubernetes with any cloud.
+ Cloud Controller Manager is a Kubernetes component that embeds cloud-specific control logic.
 
 <!--more--> 
 
-Kubernetes v1.6 contains a new binary called cloud-controller-manager. cloud-controller-manager is a daemon that embeds cloud-specific control loops. These cloud-specific control loops were originally in the kube-controller-manager. Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the cloud-controller-manager binary allows cloud vendors to evolve independently from the core Kubernetes code.
+Originally part of the kube-controller-manager, the cloud-controller-manager is responsible to decoupling the interoperability logic between Kubernetes and the underlying cloud infrastructure, enabling cloud providers to release features at a different pace compared to the main project.

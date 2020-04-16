@@ -2,8 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kubectl Reference Docs</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
+<link rel="icon" href="/images/favicon.png">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" type="text/css">
@@ -11,7 +12,7 @@
 <link rel="stylesheet" href="stylesheet.css" type="text/css">
 </head>
 <body>
-<div id="sidebar-wrapper" class="side-nav side-bar-nav"><ul><li class="nav-level-1 strong-nav"><a href="#-strong-getting-started-strong-" class="nav-item"><strong>GETTING STARTED</strong></a></li></ul><ul><li class="nav-level-1"><a href="#create" class="nav-item">create</a></li><ul id="create-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-clusterrole-em-" class="nav-item"><em>clusterrole</em></a></li><li class="nav-level-2"><a href="#-em-clusterrolebinding-em-" class="nav-item"><em>clusterrolebinding</em></a></li><li class="nav-level-2"><a href="#-em-configmap-em-" class="nav-item"><em>configmap</em></a></li><li class="nav-level-2"><a href="#-em-cronjob-em-" class="nav-item"><em>cronjob</em></a></li><li class="nav-level-2"><a href="#-em-deployment-em-" class="nav-item"><em>deployment</em></a></li><li class="nav-level-2"><a href="#-em-job-em-" class="nav-item"><em>job</em></a></li><li class="nav-level-2"><a href="#-em-namespace-em-" class="nav-item"><em>namespace</em></a></li><li class="nav-level-2"><a href="#-em-poddisruptionbudget-em-" class="nav-item"><em>poddisruptionbudget</em></a></li><li class="nav-level-2"><a href="#-em-priorityclass-em-" class="nav-item"><em>priorityclass</em></a></li><li class="nav-level-2"><a href="#-em-quota-em-" class="nav-item"><em>quota</em></a></li><li class="nav-level-2"><a href="#-em-role-em-" class="nav-item"><em>role</em></a></li><li class="nav-level-2"><a href="#-em-rolebinding-em-" class="nav-item"><em>rolebinding</em></a></li><li class="nav-level-2"><a href="#-em-secret-em-" class="nav-item"><em>secret</em></a></li><li class="nav-level-2"><a href="#-em-secret-docker-registry-em-" class="nav-item"><em>secret docker-registry</em></a></li><li class="nav-level-2"><a href="#-em-secret-generic-em-" class="nav-item"><em>secret generic</em></a></li><li class="nav-level-2"><a href="#-em-secret-tls-em-" class="nav-item"><em>secret tls</em></a></li><li class="nav-level-2"><a href="#-em-service-em-" class="nav-item"><em>service</em></a></li><li class="nav-level-2"><a href="#-em-service-clusterip-em-" class="nav-item"><em>service clusterip</em></a></li><li class="nav-level-2"><a href="#-em-service-externalname-em-" class="nav-item"><em>service externalname</em></a></li><li class="nav-level-2"><a href="#-em-service-loadbalancer-em-" class="nav-item"><em>service loadbalancer</em></a></li><li class="nav-level-2"><a href="#-em-service-nodeport-em-" class="nav-item"><em>service nodeport</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em-" class="nav-item"><em>serviceaccount</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#get" class="nav-item">get</a></li></ul><ul><li class="nav-level-1"><a href="#run" class="nav-item">run</a></li></ul><ul><li class="nav-level-1"><a href="#expose" class="nav-item">expose</a></li></ul><ul><li class="nav-level-1"><a href="#delete" class="nav-item">delete</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-app-management-strong-" class="nav-item"><strong>APP MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#apply" class="nav-item">apply</a></li><ul id="apply-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-edit-last-applied-em-" class="nav-item"><em>edit-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-set-last-applied-em-" class="nav-item"><em>set-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-view-last-applied-em-" class="nav-item"><em>view-last-applied</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#annotate" class="nav-item">annotate</a></li></ul><ul><li class="nav-level-1"><a href="#autoscale" class="nav-item">autoscale</a></li></ul><ul><li class="nav-level-1"><a href="#convert" class="nav-item">convert</a></li></ul><ul><li class="nav-level-1"><a href="#diff" class="nav-item">diff</a></li></ul><ul><li class="nav-level-1"><a href="#edit" class="nav-item">edit</a></li></ul><ul><li class="nav-level-1"><a href="#label" class="nav-item">label</a></li></ul><ul><li class="nav-level-1"><a href="#patch" class="nav-item">patch</a></li></ul><ul><li class="nav-level-1"><a href="#replace" class="nav-item">replace</a></li></ul><ul><li class="nav-level-1"><a href="#rollout" class="nav-item">rollout</a></li><ul id="rollout-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-history-em-" class="nav-item"><em>history</em></a></li><li class="nav-level-2"><a href="#-em-pause-em-" class="nav-item"><em>pause</em></a></li><li class="nav-level-2"><a href="#-em-restart-em-" class="nav-item"><em>restart</em></a></li><li class="nav-level-2"><a href="#-em-resume-em-" class="nav-item"><em>resume</em></a></li><li class="nav-level-2"><a href="#-em-status-em-" class="nav-item"><em>status</em></a></li><li class="nav-level-2"><a href="#-em-undo-em-" class="nav-item"><em>undo</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#scale" class="nav-item">scale</a></li></ul><ul><li class="nav-level-1"><a href="#set" class="nav-item">set</a></li><ul id="set-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-env-em-" class="nav-item"><em>env</em></a></li><li class="nav-level-2"><a href="#-em-image-em-" class="nav-item"><em>image</em></a></li><li class="nav-level-2"><a href="#-em-resources-em-" class="nav-item"><em>resources</em></a></li><li class="nav-level-2"><a href="#-em-selector-em-" class="nav-item"><em>selector</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em--1" class="nav-item"><em>serviceaccount</em></a></li><li class="nav-level-2"><a href="#-em-subject-em-" class="nav-item"><em>subject</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#wait" class="nav-item">wait</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-working-with-apps-strong-" class="nav-item"><strong>WORKING WITH APPS</strong></a></li></ul><ul><li class="nav-level-1"><a href="#attach" class="nav-item">attach</a></li></ul><ul><li class="nav-level-1"><a href="#auth" class="nav-item">auth</a></li><ul id="auth-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-can-i-em-" class="nav-item"><em>can-i</em></a></li><li class="nav-level-2"><a href="#-em-reconcile-em-" class="nav-item"><em>reconcile</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cp" class="nav-item">cp</a></li></ul><ul><li class="nav-level-1"><a href="#describe" class="nav-item">describe</a></li></ul><ul><li class="nav-level-1"><a href="#exec" class="nav-item">exec</a></li></ul><ul><li class="nav-level-1"><a href="#logs" class="nav-item">logs</a></li></ul><ul><li class="nav-level-1"><a href="#port-forward" class="nav-item">port-forward</a></li></ul><ul><li class="nav-level-1"><a href="#proxy" class="nav-item">proxy</a></li></ul><ul><li class="nav-level-1"><a href="#top" class="nav-item">top</a></li><ul id="top-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-node-em-" class="nav-item"><em>node</em></a></li><li class="nav-level-2"><a href="#-em-pod-em-" class="nav-item"><em>pod</em></a></li></ul></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-cluster-management-strong-" class="nav-item"><strong>CLUSTER MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#api-versions" class="nav-item">api-versions</a></li></ul><ul><li class="nav-level-1"><a href="#certificate" class="nav-item">certificate</a></li><ul id="certificate-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-approve-em-" class="nav-item"><em>approve</em></a></li><li class="nav-level-2"><a href="#-em-deny-em-" class="nav-item"><em>deny</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cluster-info" class="nav-item">cluster-info</a></li><ul id="cluster-info-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-dump-em-" class="nav-item"><em>dump</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cordon" class="nav-item">cordon</a></li></ul><ul><li class="nav-level-1"><a href="#drain" class="nav-item">drain</a></li></ul><ul><li class="nav-level-1"><a href="#taint" class="nav-item">taint</a></li></ul><ul><li class="nav-level-1"><a href="#uncordon" class="nav-item">uncordon</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-kubectl-settings-and-usage-strong-" class="nav-item"><strong>KUBECTL SETTINGS AND USAGE</strong></a></li></ul><ul><li class="nav-level-1"><a href="#alpha" class="nav-item">alpha</a></li></ul><ul><li class="nav-level-1"><a href="#api-resources" class="nav-item">api-resources</a></li></ul><ul><li class="nav-level-1"><a href="#completion" class="nav-item">completion</a></li></ul><ul><li class="nav-level-1"><a href="#config" class="nav-item">config</a></li><ul id="config-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-current-context-em-" class="nav-item"><em>current-context</em></a></li><li class="nav-level-2"><a href="#-em-delete-cluster-em-" class="nav-item"><em>delete-cluster</em></a></li><li class="nav-level-2"><a href="#-em-delete-context-em-" class="nav-item"><em>delete-context</em></a></li><li class="nav-level-2"><a href="#-em-get-clusters-em-" class="nav-item"><em>get-clusters</em></a></li><li class="nav-level-2"><a href="#-em-get-contexts-em-" class="nav-item"><em>get-contexts</em></a></li><li class="nav-level-2"><a href="#-em-rename-context-em-" class="nav-item"><em>rename-context</em></a></li><li class="nav-level-2"><a href="#-em-set-em-" class="nav-item"><em>set</em></a></li><li class="nav-level-2"><a href="#-em-set-cluster-em-" class="nav-item"><em>set-cluster</em></a></li><li class="nav-level-2"><a href="#-em-set-context-em-" class="nav-item"><em>set-context</em></a></li><li class="nav-level-2"><a href="#-em-set-credentials-em-" class="nav-item"><em>set-credentials</em></a></li><li class="nav-level-2"><a href="#-em-unset-em-" class="nav-item"><em>unset</em></a></li><li class="nav-level-2"><a href="#-em-use-context-em-" class="nav-item"><em>use-context</em></a></li><li class="nav-level-2"><a href="#-em-view-em-" class="nav-item"><em>view</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#explain" class="nav-item">explain</a></li></ul><ul><li class="nav-level-1"><a href="#kustomize" class="nav-item">kustomize</a></li></ul><ul><li class="nav-level-1"><a href="#options" class="nav-item">options</a></li></ul><ul><li class="nav-level-1"><a href="#plugin" class="nav-item">plugin</a></li><ul id="plugin-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-list-em-" class="nav-item"><em>list</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#version" class="nav-item">version</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-deprecated-commands-strong-" class="nav-item"><strong>DEPRECATED COMMANDS</strong></a></li></ul><ul><li class="nav-level-1"><a href="#rolling-update" class="nav-item">rolling-update</a></li></ul><br/><div class="copyright"><a href="https://github.com/kubernetes/kubernetes">Copyright 2019 The Kubernetes Authors.</a></div></div>
+<div id="sidebar-wrapper" class="side-nav side-bar-nav"><ul><li class="nav-level-1 strong-nav"><a href="#-strong-getting-started-strong-" class="nav-item"><strong>GETTING STARTED</strong></a></li></ul><ul><li class="nav-level-1"><a href="#create" class="nav-item">create</a></li><ul id="create-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-clusterrole-em-" class="nav-item"><em>clusterrole</em></a></li><li class="nav-level-2"><a href="#-em-clusterrolebinding-em-" class="nav-item"><em>clusterrolebinding</em></a></li><li class="nav-level-2"><a href="#-em-configmap-em-" class="nav-item"><em>configmap</em></a></li><li class="nav-level-2"><a href="#-em-cronjob-em-" class="nav-item"><em>cronjob</em></a></li><li class="nav-level-2"><a href="#-em-deployment-em-" class="nav-item"><em>deployment</em></a></li><li class="nav-level-2"><a href="#-em-job-em-" class="nav-item"><em>job</em></a></li><li class="nav-level-2"><a href="#-em-namespace-em-" class="nav-item"><em>namespace</em></a></li><li class="nav-level-2"><a href="#-em-poddisruptionbudget-em-" class="nav-item"><em>poddisruptionbudget</em></a></li><li class="nav-level-2"><a href="#-em-priorityclass-em-" class="nav-item"><em>priorityclass</em></a></li><li class="nav-level-2"><a href="#-em-quota-em-" class="nav-item"><em>quota</em></a></li><li class="nav-level-2"><a href="#-em-role-em-" class="nav-item"><em>role</em></a></li><li class="nav-level-2"><a href="#-em-rolebinding-em-" class="nav-item"><em>rolebinding</em></a></li><li class="nav-level-2"><a href="#-em-secret-em-" class="nav-item"><em>secret</em></a></li><li class="nav-level-2"><a href="#-em-secret-docker-registry-em-" class="nav-item"><em>secret docker-registry</em></a></li><li class="nav-level-2"><a href="#-em-secret-generic-em-" class="nav-item"><em>secret generic</em></a></li><li class="nav-level-2"><a href="#-em-secret-tls-em-" class="nav-item"><em>secret tls</em></a></li><li class="nav-level-2"><a href="#-em-service-em-" class="nav-item"><em>service</em></a></li><li class="nav-level-2"><a href="#-em-service-clusterip-em-" class="nav-item"><em>service clusterip</em></a></li><li class="nav-level-2"><a href="#-em-service-externalname-em-" class="nav-item"><em>service externalname</em></a></li><li class="nav-level-2"><a href="#-em-service-loadbalancer-em-" class="nav-item"><em>service loadbalancer</em></a></li><li class="nav-level-2"><a href="#-em-service-nodeport-em-" class="nav-item"><em>service nodeport</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em-" class="nav-item"><em>serviceaccount</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#get" class="nav-item">get</a></li></ul><ul><li class="nav-level-1"><a href="#run" class="nav-item">run</a></li></ul><ul><li class="nav-level-1"><a href="#expose" class="nav-item">expose</a></li></ul><ul><li class="nav-level-1"><a href="#delete" class="nav-item">delete</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-app-management-strong-" class="nav-item"><strong>APP MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#apply" class="nav-item">apply</a></li><ul id="apply-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-edit-last-applied-em-" class="nav-item"><em>edit-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-set-last-applied-em-" class="nav-item"><em>set-last-applied</em></a></li><li class="nav-level-2"><a href="#-em-view-last-applied-em-" class="nav-item"><em>view-last-applied</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#annotate" class="nav-item">annotate</a></li></ul><ul><li class="nav-level-1"><a href="#autoscale" class="nav-item">autoscale</a></li></ul><ul><li class="nav-level-1"><a href="#convert" class="nav-item">convert</a></li></ul><ul><li class="nav-level-1"><a href="#diff" class="nav-item">diff</a></li></ul><ul><li class="nav-level-1"><a href="#edit" class="nav-item">edit</a></li></ul><ul><li class="nav-level-1"><a href="#kustomize" class="nav-item">kustomize</a></li></ul><ul><li class="nav-level-1"><a href="#label" class="nav-item">label</a></li></ul><ul><li class="nav-level-1"><a href="#patch" class="nav-item">patch</a></li></ul><ul><li class="nav-level-1"><a href="#replace" class="nav-item">replace</a></li></ul><ul><li class="nav-level-1"><a href="#rollout" class="nav-item">rollout</a></li><ul id="rollout-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-history-em-" class="nav-item"><em>history</em></a></li><li class="nav-level-2"><a href="#-em-pause-em-" class="nav-item"><em>pause</em></a></li><li class="nav-level-2"><a href="#-em-restart-em-" class="nav-item"><em>restart</em></a></li><li class="nav-level-2"><a href="#-em-resume-em-" class="nav-item"><em>resume</em></a></li><li class="nav-level-2"><a href="#-em-status-em-" class="nav-item"><em>status</em></a></li><li class="nav-level-2"><a href="#-em-undo-em-" class="nav-item"><em>undo</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#scale" class="nav-item">scale</a></li></ul><ul><li class="nav-level-1"><a href="#set" class="nav-item">set</a></li><ul id="set-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-env-em-" class="nav-item"><em>env</em></a></li><li class="nav-level-2"><a href="#-em-image-em-" class="nav-item"><em>image</em></a></li><li class="nav-level-2"><a href="#-em-resources-em-" class="nav-item"><em>resources</em></a></li><li class="nav-level-2"><a href="#-em-selector-em-" class="nav-item"><em>selector</em></a></li><li class="nav-level-2"><a href="#-em-serviceaccount-em--1" class="nav-item"><em>serviceaccount</em></a></li><li class="nav-level-2"><a href="#-em-subject-em-" class="nav-item"><em>subject</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#wait" class="nav-item">wait</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-working-with-apps-strong-" class="nav-item"><strong>WORKING WITH APPS</strong></a></li></ul><ul><li class="nav-level-1"><a href="#attach" class="nav-item">attach</a></li></ul><ul><li class="nav-level-1"><a href="#auth" class="nav-item">auth</a></li><ul id="auth-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-can-i-em-" class="nav-item"><em>can-i</em></a></li><li class="nav-level-2"><a href="#-em-reconcile-em-" class="nav-item"><em>reconcile</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cp" class="nav-item">cp</a></li></ul><ul><li class="nav-level-1"><a href="#describe" class="nav-item">describe</a></li></ul><ul><li class="nav-level-1"><a href="#exec" class="nav-item">exec</a></li></ul><ul><li class="nav-level-1"><a href="#logs" class="nav-item">logs</a></li></ul><ul><li class="nav-level-1"><a href="#port-forward" class="nav-item">port-forward</a></li></ul><ul><li class="nav-level-1"><a href="#proxy" class="nav-item">proxy</a></li></ul><ul><li class="nav-level-1"><a href="#top" class="nav-item">top</a></li><ul id="top-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-node-em-" class="nav-item"><em>node</em></a></li><li class="nav-level-2"><a href="#-em-pod-em-" class="nav-item"><em>pod</em></a></li></ul></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-cluster-management-strong-" class="nav-item"><strong>CLUSTER MANAGEMENT</strong></a></li></ul><ul><li class="nav-level-1"><a href="#api-versions" class="nav-item">api-versions</a></li></ul><ul><li class="nav-level-1"><a href="#certificate" class="nav-item">certificate</a></li><ul id="certificate-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-approve-em-" class="nav-item"><em>approve</em></a></li><li class="nav-level-2"><a href="#-em-deny-em-" class="nav-item"><em>deny</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cluster-info" class="nav-item">cluster-info</a></li><ul id="cluster-info-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-dump-em-" class="nav-item"><em>dump</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#cordon" class="nav-item">cordon</a></li></ul><ul><li class="nav-level-1"><a href="#drain" class="nav-item">drain</a></li></ul><ul><li class="nav-level-1"><a href="#taint" class="nav-item">taint</a></li></ul><ul><li class="nav-level-1"><a href="#uncordon" class="nav-item">uncordon</a></li></ul><ul><li class="nav-level-1 strong-nav"><a href="#-strong-kubectl-settings-and-usage-strong-" class="nav-item"><strong>KUBECTL SETTINGS AND USAGE</strong></a></li></ul><ul><li class="nav-level-1"><a href="#alpha" class="nav-item">alpha</a></li><ul id="alpha-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-debug-em-" class="nav-item"><em>debug</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#api-resources" class="nav-item">api-resources</a></li></ul><ul><li class="nav-level-1"><a href="#completion" class="nav-item">completion</a></li></ul><ul><li class="nav-level-1"><a href="#config" class="nav-item">config</a></li><ul id="config-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-current-context-em-" class="nav-item"><em>current-context</em></a></li><li class="nav-level-2"><a href="#-em-delete-cluster-em-" class="nav-item"><em>delete-cluster</em></a></li><li class="nav-level-2"><a href="#-em-delete-context-em-" class="nav-item"><em>delete-context</em></a></li><li class="nav-level-2"><a href="#-em-get-clusters-em-" class="nav-item"><em>get-clusters</em></a></li><li class="nav-level-2"><a href="#-em-get-contexts-em-" class="nav-item"><em>get-contexts</em></a></li><li class="nav-level-2"><a href="#-em-rename-context-em-" class="nav-item"><em>rename-context</em></a></li><li class="nav-level-2"><a href="#-em-set-em-" class="nav-item"><em>set</em></a></li><li class="nav-level-2"><a href="#-em-set-cluster-em-" class="nav-item"><em>set-cluster</em></a></li><li class="nav-level-2"><a href="#-em-set-context-em-" class="nav-item"><em>set-context</em></a></li><li class="nav-level-2"><a href="#-em-set-credentials-em-" class="nav-item"><em>set-credentials</em></a></li><li class="nav-level-2"><a href="#-em-unset-em-" class="nav-item"><em>unset</em></a></li><li class="nav-level-2"><a href="#-em-use-context-em-" class="nav-item"><em>use-context</em></a></li><li class="nav-level-2"><a href="#-em-view-em-" class="nav-item"><em>view</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#explain" class="nav-item">explain</a></li></ul><ul><li class="nav-level-1"><a href="#options" class="nav-item">options</a></li></ul><ul><li class="nav-level-1"><a href="#plugin" class="nav-item">plugin</a></li><ul id="plugin-nav" style="display: none;"><li class="nav-level-2"><a href="#-em-list-em-" class="nav-item"><em>list</em></a></li></ul></ul><ul><li class="nav-level-1"><a href="#version" class="nav-item">version</a></li></ul><br/><div class="copyright"><a href="https://github.com/kubernetes/kubernetes">Copyright 2020 The Kubernetes Authors.</a></div></div>
 <div id="wrapper">
 <div id="code-tabs-wrapper" class="code-tabs"><ul class="code-tab-list"><li class="code-tab" id="example">example</li></ul></div>
 <div id="page-content-wrapper" class="body-content container-fluid"><h1 id="-strong-getting-started-strong-"><strong>GETTING STARTED</strong></h1>
@@ -34,7 +35,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Create a pod based on the JSON passed into stdin.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">cat pod.json <span class="hljs-string">| kubectl create -f -</span>
+<pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">create</span> -f -
 </code></pre>
 <blockquote class="code-block example">
 <p> Edit the data in docker-registry.yaml in JSON then create the resource using the edited data.</p>
@@ -44,7 +45,7 @@ inspect them.</p>
 <p>Create a resource from a file or from stdin.</p>
 <p> JSON and YAML formats are accepted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ create -f FILENAME</code></p>
+<p><code>$ kubectl create -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -65,8 +66,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>edit</td>
@@ -126,7 +127,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -176,7 +177,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run]</code></p>
+<p><code>$ kubectl create clusterrole NAME --verb=verb --resource=resource.group [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -203,8 +204,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>non-resource-url</td>
@@ -240,7 +241,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -265,7 +266,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterRoleBinding for a particular ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]</code></p>
+<p><code>$ kubectl create clusterrolebinding NAME --clusterrole=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -292,8 +293,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -323,13 +324,13 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the clusterrole, in the format <namespace>:<name> </td>
+<td>Service accounts to bind to the clusterrole, in the format &lt;namespace&gt;:&lt;name&gt; </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -371,7 +372,7 @@ inspect them.</p>
 <p> When creating a configmap based on a file, the key will default to the basename of the file, and the value will default to the file content.  If the basename is an invalid key, you may specify an alternate key.</p>
 <p> When creating a configmap based on a directory, each file whose basename is a valid key in the directory will be packaged into the configmap.  Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]</code></p>
+<p><code>$ kubectl create configmap NAME [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -398,8 +399,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>from-env-file</td>
@@ -441,7 +442,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -470,7 +471,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a cronjob with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cronjob NAME --image=image --schedule=&#39;0/5 * * * ?&#39; -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl create cronjob NAME --image=image --schedule=&#39;0/5 * * * ?&#39; -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -491,8 +492,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>image</td>
@@ -528,7 +529,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -547,7 +548,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a deployment with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ deployment NAME --image=image [--dry-run]</code></p>
+<p><code>$ kubectl create deployment NAME --image=image [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -568,8 +569,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -599,7 +600,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -628,7 +629,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a job with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl create job NAME --image=image [--from=cronjob/name] -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -649,8 +650,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>from</td>
@@ -680,7 +681,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -699,7 +700,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a namespace with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ namespace NAME [--dry-run]</code></p>
+<p><code>$ kubectl create namespace NAME [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -720,8 +721,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -745,7 +746,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -769,7 +770,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a pod disruption budget with the specified name, selector, and desired minimum available pods</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run]</code></p>
+<p><code>$ kubectl create poddisruptionbudget NAME --selector=SELECTOR --min-available=N [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -790,8 +791,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -833,7 +834,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -862,7 +863,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a priorityclass with the specified name, value, globalDefault and description</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run]</code></p>
+<p><code>$ kubectl create priorityclass NAME --value=VALUE --global-default=BOOL [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -889,8 +890,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -926,7 +927,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -956,7 +957,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a resourcequota with the specified name, hard limits and optional scopes</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=bool]</code></p>
+<p><code>$ kubectl create quota NAME [--hard=key1=value1,key2=value2] [--scopes=Scope1,Scope2] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -977,8 +978,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1014,7 +1015,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1048,7 +1049,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a role with single rule.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run]</code></p>
+<p><code>$ kubectl create role NAME --verb=verb --resource=resource.group/subresource [--resource-name=resourcename] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1069,8 +1070,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>output</td>
@@ -1100,7 +1101,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1125,7 +1126,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a RoleBinding for a particular Role or ClusterRole.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]</code></p>
+<p><code>$ kubectl create rolebinding NAME --clusterrole=NAME|--role=NAME [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1152,8 +1153,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1189,13 +1190,13 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the role, in the format <namespace>:<name> </td>
+<td>Service accounts to bind to the role, in the format &lt;namespace&gt;:&lt;name&gt; </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1209,7 +1210,7 @@ inspect them.</p>
 <h2 id="-em-secret-em-"><em>secret</em></h2>
 <p>Create a secret using specified subcommand.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ secret</code></p>
+<p><code>$ kubectl create secret</code></p>
 <hr>
 <h2 id="-em-secret-docker-registry-em-"><em>secret docker-registry</em></h2>
 <blockquote class="code-block example">
@@ -1226,7 +1227,7 @@ inspect them.</p>
   nodes to pull images on your behalf, they have to have the credentials.  You can provide this information
   by creating a dockercfg secret and attaching it to your service account.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run]</code></p>
+<p><code>$ kubectl create docker-registry NAME --docker-username=user --docker-password=password --docker-email=email [--docker-server=string] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1277,8 +1278,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>from-file</td>
@@ -1308,7 +1309,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1350,7 +1351,7 @@ inspect them.</p>
 <p> When creating a secret based on a file, the key will default to the basename of the file, and the value will default to the file content. If the basename is an invalid key or you wish to chose your own, you may specify an alternate key.</p>
 <p> When creating a secret based on a directory, each file whose basename is a valid key in the directory will be packaged into the secret. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run]</code></p>
+<p><code>$ kubectl create generic NAME [--type=string] [--from-file=[key=]source] [--from-literal=key1=value1] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1377,8 +1378,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>from-env-file</td>
@@ -1420,7 +1421,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -1446,7 +1447,7 @@ inspect them.</p>
 <p>Create a TLS secret from the given public/private key pair.</p>
 <p> The public/private key pair must exist before hand. The public key certificate must be .PEM encoded and match the given private key.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run]</code></p>
+<p><code>$ kubectl create tls NAME --cert=path/to/cert/file --key=path/to/key/file [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1479,8 +1480,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1510,7 +1511,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1524,7 +1525,7 @@ inspect them.</p>
 <h2 id="-em-service-em-"><em>service</em></h2>
 <p>Create a service using specified subcommand.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ service</code></p>
+<p><code>$ kubectl create service</code></p>
 <hr>
 <h2 id="-em-service-clusterip-em-"><em>service clusterip</em></h2>
 <blockquote class="code-block example">
@@ -1539,7 +1540,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a ClusterIP service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run]</code></p>
+<p><code>$ kubectl create clusterip NAME [--tcp=&lt;port&gt;:&lt;targetPort&gt;] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1566,8 +1567,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1591,13 +1592,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1617,7 +1618,7 @@ inspect them.</p>
 <p>Create an ExternalName service with the specified name.</p>
 <p> ExternalName service references to an external DNS address instead of only pods, which will allow application authors to reference services that exist off platform, on other clusters, or locally.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ externalname NAME --external-name external.name [--dry-run]</code></p>
+<p><code>$ kubectl create externalname NAME --external-name external.name [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1638,8 +1639,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>external-name</td>
@@ -1669,13 +1670,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1694,7 +1695,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a LoadBalancer service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ loadbalancer NAME [--tcp=port:targetPort] [--dry-run]</code></p>
+<p><code>$ kubectl create loadbalancer NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1715,8 +1716,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1740,13 +1741,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1765,7 +1766,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a NodePort service with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ nodeport NAME [--tcp=port:targetPort] [--dry-run]</code></p>
+<p><code>$ kubectl create nodeport NAME [--tcp=port:targetPort] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1786,8 +1787,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1817,13 +1818,13 @@ inspect them.</p>
 <td>tcp</td>
 <td></td>
 <td>[]</td>
-<td>Port pairs can be specified as &#39;<port>:<targetPort>&#39;. </td>
+<td>Port pairs can be specified as &#39;&lt;port&gt;:&lt;targetPort&gt;&#39;. </td>
 </tr>
 <tr>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1842,7 +1843,7 @@ inspect them.</p>
 </code></pre>
 <p>Create a service account with the specified name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ serviceaccount NAME [--dry-run]</code></p>
+<p><code>$ kubectl create serviceaccount NAME [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -1863,8 +1864,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>generator</td>
@@ -1888,7 +1889,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -1918,17 +1919,17 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> List deployments in JSON output format, in the &quot;v1&quot; version of the &quot;apps&quot; API group:</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl get deployments<span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.apps</span> -o json
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">get</span> <span class="hljs-selector-tag">deployments</span><span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.apps</span> <span class="hljs-selector-tag">-o</span> <span class="hljs-selector-tag">json</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> List a single pod in JSON output format.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> -o json pod web-pod-13je7
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -o <span class="hljs-type">json</span> pod web-pod<span class="hljs-number">-13</span>je7
 </code></pre>
 <blockquote class="code-block example">
 <p> List a pod identified by type and name specified in &quot;pod.yaml&quot; in JSON output format.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">get</span> -f pod.yaml -o json
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">get</span> -f pod.yaml -o <span class="hljs-type">json</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> List resources from a directory with kustomization.yaml - e.g. dir/kustomization.yaml.</p>
@@ -1961,7 +1962,7 @@ inspect them.</p>
 <p> By specifying the output as &#39;template&#39; and providing a Go template as the value of the --template flag, you can filter the attributes of the fetched resources.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
+<p><code>$ kubectl get [(-o|--output=)json|yaml|wide|custom-columns=...|custom-columns-file=...|go-template=...|go-template-file=...|jsonpath=...|jsonpath-file=...] (TYPE[.VERSION][.GROUP] [NAME | -l label] | TYPE[.VERSION][.GROUP]/NAME ...) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2037,7 +2038,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns [<a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a>], golang template [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>] and jsonpath template [<a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a>]. </td>
+<td>Output format. One of: json&#124;yaml&#124;wide&#124;name&#124;custom-columns=...&#124;custom-columns-file=...&#124;go-template=...&#124;go-template-file=...&#124;jsonpath=...&#124;jsonpath-file=... See custom columns <span>[</span><a href="http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns">http://kubernetes.io/docs/user-guide/kubectl-overview/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="http://kubernetes.io/docs/user-guide/jsonpath">http://kubernetes.io/docs/user-guide/jsonpath</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>output-watch-events</td>
@@ -2091,7 +2092,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>use-openapi-print-columns</td>
@@ -2116,69 +2117,53 @@ inspect them.</p>
 <hr>
 <h1 id="run">run</h1>
 <blockquote class="code-block example">
-<p> Start a single instance of nginx.</p>
+<p> Start a nginx pod.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a single instance of hazelcast and let the container expose port 5701 .</p>
+<p> Start a hazelcast pod and let the container expose port 5701.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast <span class="hljs-attribute">--port</span>=5701
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--port</span>=5701
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a single instance of hazelcast and set environment variables &quot;DNS_DOMAIN=cluster&quot; and &quot;POD_NAMESPACE=default&quot; in the container.</p>
+<p> Start a hazelcast pod and set environment variables &quot;DNS_DOMAIN=cluster&quot; and &quot;POD_NAMESPACE=default&quot; in the container.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast <span class="hljs-attribute">--env</span>=<span class="hljs-string">"DNS_DOMAIN=cluster"</span> <span class="hljs-attribute">--env</span>=<span class="hljs-string">"POD_NAMESPACE=default"</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--env</span>=<span class="hljs-string">"DNS_DOMAIN=cluster"</span> <span class="hljs-attribute">--env</span>=<span class="hljs-string">"POD_NAMESPACE=default"</span>
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a single instance of hazelcast and set labels &quot;app=hazelcast&quot; and &quot;env=prod&quot; in the container.</p>
+<p> Start a hazelcast pod and set labels &quot;app=hazelcast&quot; and &quot;env=prod&quot; in the container.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast <span class="hljs-attribute">--labels</span>=<span class="hljs-string">"app=hazelcast,env=prod"</span>
-</code></pre>
-<blockquote class="code-block example">
-<p> Start a replicated instance of nginx.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--replicas</span>=5
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> hazelcast <span class="hljs-attribute">--image</span>=hazelcast/hazelcast <span class="hljs-attribute">--labels</span>=<span class="hljs-string">"app=hazelcast,env=prod"</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Dry run. Print the corresponding API objects without creating them.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx --dry-run
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--dry-run</span>=client
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a single instance of nginx, but overload the spec of the deployment with a partial set of values parsed from JSON.</p>
+<p> Start a nginx pod, but overload the spec with a partial set of values parsed from JSON.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl run nginx <span class="hljs-params">--image=nginx</span> <span class="hljs-params">--overrides=</span>'{ <span class="hljs-string">"apiVersion"</span>: <span class="hljs-string">"v1"</span>, <span class="hljs-string">"spec"</span>: { <span class="hljs-string">...</span> } }'
 </code></pre>
 <blockquote class="code-block example">
-<p> Start a pod of busybox and keep it in the foreground, don&#39;t restart it if it exits.</p>
+<p> Start a busybox pod and keep it in the foreground, don&#39;t restart it if it exits.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> -i -t busybox <span class="hljs-attribute">--image</span>=busybox <span class="hljs-attribute">--restart</span>=Never
 </code></pre>
 <blockquote class="code-block example">
-<p> Start the nginx container using the default command, but use custom arguments (arg1 .. argN) for that command.</p>
+<p> Start the nginx pod using the default command, but use custom arguments (arg1 .. argN) for that command.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx -- &lt;arg1&gt; &lt;arg2&gt; <span class="hljs-built_in">..</span>. &lt;argN&gt;
 </code></pre>
 <blockquote class="code-block example">
-<p> Start the nginx container using a different command and custom arguments.</p>
+<p> Start the nginx pod using a different command and custom arguments.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">run</span> nginx <span class="hljs-attribute">--image</span>=nginx --command -- &lt;cmd&gt; &lt;arg1&gt; <span class="hljs-built_in">..</span>. &lt;argN&gt;
 </code></pre>
-<blockquote class="code-block example">
-<p> Start the perl container to compute π to 2000 places and print it out.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">run</span> <span class="hljs-literal">pi</span> <span class="hljs-comment">--image=perl --restart=OnFailure -- perl -Mbignum=bpi -wle 'print bpi(2000)'</span>
-</code></pre>
-<blockquote class="code-block example">
-<p> Start the cron job to compute π to 2000 places and print it out every 5 minutes.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">run</span> pi --schedule=<span class="hljs-string">"0/5 * * * ?"</span> --<span class="hljs-built_in">image</span>=perl --restart=OnFailure -- perl -Mbignum=bpi -wle <span class="hljs-string">'print bpi(2000)'</span>
-</code></pre>
-<p>Create and run a particular image, possibly replicated.</p>
-<p> Creates a deployment or job to manage the created container(s).</p>
+<p>Create and run a particular image in a pod.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...]</code></p>
+<p><code>$ kubectl run NAME --image=image [--env=&quot;key=value&quot;] [--port=port] [--dry-run=server|client] [--overrides=inline-json] [--command] -- [COMMAND] [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2217,20 +2202,20 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>env</td>
 <td></td>
 <td>[]</td>
-<td>Environment variables to set in the container </td>
+<td>Environment variables to set in the container. </td>
 </tr>
 <tr>
 <td>expose</td>
 <td></td>
 <td>false</td>
-<td>If true, a public, external service is created for the container(s) which are run </td>
+<td>If true, service is created for the container(s) which are run </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -2242,12 +2227,12 @@ inspect them.</p>
 <td>force</td>
 <td></td>
 <td>false</td>
-<td>Only used when grace-period=0. If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
+<td>If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
 </tr>
 <tr>
 <td>generator</td>
 <td></td>
-<td></td>
+<td>run-pod/v1</td>
 <td>The name of the API generator to use, see <a href="http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators">http://kubernetes.io/docs/user-guide/kubectl-conventions/#generators</a> for a list. </td>
 </tr>
 <tr>
@@ -2320,7 +2305,7 @@ inspect them.</p>
 <td>port</td>
 <td></td>
 <td></td>
-<td>The port that this container exposes.  If --expose is true, this is also the port used by the service that is created. </td>
+<td>The port that this container exposes. </td>
 </tr>
 <tr>
 <td>quiet</td>
@@ -2356,7 +2341,7 @@ inspect them.</p>
 <td>restart</td>
 <td></td>
 <td>Always</td>
-<td>The restart policy for this Pod.  Legal values [Always, OnFailure, Never].  If set to &#39;Always&#39; a deployment is created, if set to &#39;OnFailure&#39; a job is created, if set to &#39;Never&#39;, a regular pod is created. For the latter two --replicas must be 1.  Default &#39;Always&#39;, for CronJobs <code>Never</code>. </td>
+<td>The restart policy for this Pod.  Legal values <span>[</span>Always, OnFailure, Never<span>]</span>.  If set to &#39;Always&#39; a deployment is created, if set to &#39;OnFailure&#39; a job is created, if set to &#39;Never&#39;, a regular pod is created. For the latter two --replicas must be 1.  Default &#39;Always&#39;, for CronJobs <code>Never</code>. </td>
 </tr>
 <tr>
 <td>rm</td>
@@ -2392,7 +2377,7 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td></td>
-<td>Service account to set in the pod spec </td>
+<td>Service account to set in the pod spec. </td>
 </tr>
 <tr>
 <td>stdin</td>
@@ -2404,7 +2389,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -2468,7 +2453,7 @@ inspect them.</p>
 <p> Possible resources include (case insensitive):</p>
 <p> pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]</code></p>
+<p><code>$ kubectl expose (-f FILENAME | TYPE NAME) [--port=port] [--protocol=TCP|UDP|SCTP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2501,8 +2486,8 @@ inspect them.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>external-ip</td>
@@ -2610,7 +2595,7 @@ inspect them.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
@@ -2635,7 +2620,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Delete a pod based on the type and name in the JSON passed into stdin.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-keyword">cat</span> pod.json | kubectl <span class="hljs-keyword">delete</span> -<span class="hljs-keyword">f</span> -
+<pre class="code-block example"><code class="lang-shell">cat pod.json | kubectl <span class="hljs-keyword">delete</span> -f -
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete pods and services with same names &quot;baz&quot; and &quot;foo&quot;</p>
@@ -2645,7 +2630,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Delete pods and services with label name=myLabel.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl delete pods,services -l <span class="hljs-attribute">name</span>=myLabel
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pods,services -l <span class="hljs-type">name</span>=myLabel
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete a pod with minimal delay</p>
@@ -2655,7 +2640,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Force delete a pod on a dead node</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">delete</span> <span class="hljs-comment">pod</span> <span class="hljs-comment">foo</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">grace</span><span class="hljs-literal">-</span><span class="hljs-comment">period=0</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">force</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">delete</span> pod foo <span class="hljs-comment">--force</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete all pods</p>
@@ -2664,11 +2649,11 @@ inspect them.</p>
 </code></pre>
 <p>Delete resources by filenames, stdin, resources and names, or by resources and label selector.</p>
 <p> JSON and YAML formats are accepted. Only one type of the arguments may be specified: filenames, resources and names, or resources and label selector.</p>
-<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must pass a grace period of 0 and specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, --grace-period is ignored.</p>
+<p> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, --grace-period is ignored.</p>
 <p> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.</p>
 <p> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
+<p><code>$ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2699,6 +2684,12 @@ inspect them.</p>
 <td>If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a ReplicationController).  Default true. </td>
 </tr>
 <tr>
+<td>dry-run</td>
+<td></td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
+</tr>
+<tr>
 <td>field-selector</td>
 <td></td>
 <td></td>
@@ -2714,7 +2705,7 @@ inspect them.</p>
 <td>force</td>
 <td></td>
 <td>false</td>
-<td>Only used when grace-period=0. If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
+<td>If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
 </tr>
 <tr>
 <td>grace-period</td>
@@ -2806,13 +2797,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Apply the configuration in manifest.yaml and delete all the other configmaps that are not in the file.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">all</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">apply</span> --<span class="hljs-comment">prune</span> <span class="hljs-literal">-</span><span class="hljs-comment">f</span> <span class="hljs-comment">manifest</span><span class="hljs-string">.</span><span class="hljs-comment">yaml</span> --<span class="hljs-comment">all</span> --<span class="hljs-comment">prune</span><span class="hljs-literal">-</span><span class="hljs-comment">whitelist=core/v1/ConfigMap</span>
 </code></pre>
 <p>Apply a configuration to a resource by filename or stdin. The resource name must be specified. This resource will be created if it doesn&#39;t exist yet. To use &#39;apply&#39;, always create the resource initially with either &#39;apply&#39; or &#39;create --save-config&#39;.</p>
 <p> JSON and YAML formats are accepted.</p>
 <p> Alpha Disclaimer: the --prune functionality is not yet complete. Do not use unless you are aware of what the current state is. See <a href="https://issues.k8s.io/34274">https://issues.k8s.io/34274</a>.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ apply (-f FILENAME | -k DIRECTORY)</code></p>
+<p><code>$ kubectl apply (-f FILENAME | -k DIRECTORY)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -2845,8 +2836,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. Warning: --dry-run cannot accurately output the result of merging the local manifest and the server-side data. Use --server-dry-run to get the merged result instead. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>field-manager</td>
@@ -2864,7 +2855,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>force</td>
 <td></td>
 <td>false</td>
-<td>Only used when grace-period=0. If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
+<td>If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
 </tr>
 <tr>
 <td>force-conflicts</td>
@@ -2936,7 +2927,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>server-dry-run</td>
 <td></td>
 <td>false</td>
-<td>If true, request will be sent to server with dry-run flag, which means the modifications won&#39;t be persisted. This is an alpha feature and flag. </td>
+<td>If true, request will be sent to server with dry-run flag, which means the modifications won&#39;t be persisted. </td>
 </tr>
 <tr>
 <td>server-side</td>
@@ -2948,7 +2939,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -2988,7 +2979,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
 <p> In the event an error occurs while updating, a temporary file will be created on disk that contains your unapplied changes. The most common error when updating a resource is another editor changing the resource on the server. When this occurs, you will have to apply your changes to the newer version of the resource, or update your temporary saved copy to include the latest resource version.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ edit-last-applied (RESOURCE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl apply edit-last-applied (RESOURCE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3040,7 +3031,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>windows-line-endings</td>
@@ -3069,7 +3060,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>Set the latest last-applied-configuration annotations by setting it to match the contents of a file. This results in the last-applied-configuration being updated as though &#39;kubectl apply -f<file> &#39; was run, without updating any other parts of the object.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-last-applied -f FILENAME</code></p>
+<p><code>$ kubectl apply set-last-applied -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3096,8 +3087,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -3115,7 +3106,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3134,7 +3125,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>View the latest last-applied-configuration annotations by type/name or file.</p>
 <p> The default output will be printed to stdout in YAML format. One can use -o option to change output format.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl apply view-last-applied (TYPE [NAME | -l label] | TYPE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3194,7 +3185,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update a pod identified by type and name in &quot;pod.json&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl annotate -f pod<span class="hljs-selector-class">.json</span> description=<span class="hljs-string">'my frontend'</span>
+<pre class="code-block example"><code class="lang-shell">kubectl annotate -f pod.json <span class="hljs-keyword">description</span>=<span class="hljs-string">'my frontend'</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Update pod &#39;foo&#39; with the annotation &#39;description&#39; and the value &#39;my frontend running nginx&#39;, overwriting any existing value.</p>
@@ -3221,7 +3212,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Attempting to set an annotation that already exists will fail unless --overwrite is set. If --resource-version is specified and does not match the current resource version on the server the command will fail.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
+<p><code>$ kubectl annotate [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3248,8 +3239,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>field-selector</td>
@@ -3315,7 +3306,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3334,7 +3325,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Creates an autoscaler that automatically chooses and sets the number of pods that run in a kubernetes cluster.</p>
 <p> Looks up a Deployment, ReplicaSet, StatefulSet, or ReplicationController by name and creates an autoscaler that uses the given resource as a reference. An autoscaler can automatically increase or decrease number of pods deployed within the system as needed.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]</code></p>
+<p><code>$ kubectl autoscale (-f FILENAME | TYPE NAME | TYPE/NAME) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3361,8 +3352,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -3428,7 +3419,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3453,7 +3444,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The command takes filename, directory, or URL as input, and convert it into format of version specified by --output-version flag. If target version is not specified or not supported, convert to latest version.</p>
 <p> The default output will be printed to stdout in YAML format. One can use -o option to change to output destination.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ convert -f FILENAME</code></p>
+<p><code>$ kubectl convert -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3511,7 +3502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3536,8 +3527,10 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Diff configurations specified by filename or stdin between the current online configuration, and the configuration as it would be if applied.</p>
 <p> Output is always YAML.</p>
 <p> KUBECTL_EXTERNAL_DIFF environment variable can be used to select your own diff command. By default, the &quot;diff&quot; command available in your path will be run with &quot;-u&quot; (unified diff) and &quot;-N&quot; (treat absent files as empty) options.</p>
+<p> Exit status: 0 No differences were found. 1 Differences were found. &gt;1 Kubectl or diff failed with an error.</p>
+<p> Note: KUBECTL_EXTERNAL_DIFF, if used, is expected to follow that convention.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ diff -f FILENAME</code></p>
+<p><code>$ kubectl diff -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3602,7 +3595,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Edit the job &#39;myjob&#39; in JSON using the v1 API format:</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl edit job<span class="hljs-selector-class">.v1</span><span class="hljs-selector-class">.batch</span>/myjob -o json
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">edit</span> job.v1.batch/myjob -o json
 </code></pre>
 <blockquote class="code-block example">
 <p> Edit the deployment &#39;mydeployment&#39; in YAML and save the modified config in its annotation:</p>
@@ -3616,7 +3609,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> The flag --windows-line-endings can be used to force Windows line endings, otherwise the default for your operating system will be used.</p>
 <p> In the event an error occurs while updating, a temporary file will be created on disk that contains your unapplied changes. The most common error when updating a resource is another editor changing the resource on the server. When this occurs, you will have to apply your changes to the newer version of the resource, or update your temporary saved copy to include the latest resource version.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ edit (RESOURCE/NAME | -f FILENAME)</code></p>
+<p><code>$ kubectl edit (RESOURCE/NAME | -f FILENAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3680,7 +3673,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -3696,6 +3689,28 @@ viewing your workloads in a Kubernetes cluster.</p>
 </tr>
 </tbody>
 </table>
+<hr>
+<h1 id="kustomize">kustomize</h1>
+<blockquote class="code-block example">
+<p> Use the current working directory</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl%20kustomize%20.
+</code></pre>
+<blockquote class="code-block example">
+<p> Use some shared configuration directory</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl kustomize /<span class="hljs-built_in">home</span>/configuration/production
+</code></pre>
+<blockquote class="code-block example">
+<p> Use a URL</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl kustomize github.com/kubernetes-sigs/kustomize.git/examples/helloWorld?<span class="hljs-built_in">ref</span>=v1<span class="hljs-number">.0</span><span class="hljs-number">.6</span>
+</code></pre>
+<p>Print a set of API resources generated from instructions in a kustomization.yaml file.</p>
+<p> The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.</p>
+<p> kubectl kustomize somedir</p>
+<h3 id="usage">Usage</h3>
+<p><code>$ kubectl kustomize &lt;dir&gt;</code></p>
 <hr>
 <h1 id="label">label</h1>
 <blockquote class="code-block example">
@@ -3716,7 +3731,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update a pod identified by the type and name in &quot;pod.json&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-selector-tag">label</span> -f pod<span class="hljs-selector-class">.json</span> status=unhealthy
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">label</span><span class="bash"> -f pod.json status=unhealthy</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Update pod &#39;foo&#39; only if the resource is unchanged from version 1.</p>
@@ -3736,7 +3751,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <li>If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used.</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
+<p><code>$ kubectl label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3763,8 +3778,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>field-selector</td>
@@ -3836,7 +3851,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -3870,7 +3885,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Update field(s) of a resource using strategic merge patch, a JSON merge patch, or a JSON patch.</p>
 <p> JSON and YAML formats are accepted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ patch (-f FILENAME | TYPE NAME) -p PATCH</code></p>
+<p><code>$ kubectl patch (-f FILENAME | TYPE NAME) -p PATCH</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -3891,8 +3906,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -3940,13 +3955,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>type</td>
 <td></td>
 <td>strategic</td>
-<td>The type of patch being provided; one of [json merge strategic] </td>
+<td>The type of patch being provided; one of <span>[</span>json merge strategic<span>]</span> </td>
 </tr>
 </tbody>
 </table>
@@ -3976,7 +3991,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> JSON and YAML formats are accepted. If replacing an existing resource, the complete resource spec must be provided. This can be obtained by</p>
 <p>  $ kubectl get TYPE NAME -o yaml</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ replace -f FILENAME</code></p>
+<p><code>$ kubectl replace -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4001,6 +4016,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>If true, cascade the deletion of the resources managed by this resource (e.g. Pods created by a ReplicationController).  Default true. </td>
 </tr>
 <tr>
+<td>dry-run</td>
+<td></td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
+</tr>
+<tr>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
@@ -4010,7 +4031,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>force</td>
 <td></td>
 <td>false</td>
-<td>Only used when grace-period=0. If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
+<td>If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
 </tr>
 <tr>
 <td>grace-period</td>
@@ -4052,7 +4073,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4094,7 +4115,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <li>statefulsets</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ rollout SUBCOMMAND</code></p>
+<p><code>$ kubectl rollout SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-history-em-"><em>history</em></h2>
 <blockquote class="code-block example">
@@ -4109,7 +4130,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 </code></pre>
 <p>View previous rollout revisions and configurations.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ history (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout history (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4161,7 +4182,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4175,7 +4196,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Mark the provided resource as paused</p>
 <p> Paused resources will not be reconciled by a controller. Use &quot;kubectl rollout resume&quot; to resume a paused resource. Currently only deployments support being paused.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ pause RESOURCE</code></p>
+<p><code>$ kubectl rollout pause RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4221,7 +4242,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4240,7 +4261,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Restart a resource.</p>
 <p>   Resource will be rollout restarted.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ restart RESOURCE</code></p>
+<p><code>$ kubectl rollout restart RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4286,7 +4307,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4300,7 +4321,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Resume a paused resource</p>
 <p> Paused resources will not be reconciled by a controller. By resuming a resource, we allow it to be reconciled again. Currently only deployments support being resumed.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ resume RESOURCE</code></p>
+<p><code>$ kubectl rollout resume RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4346,7 +4367,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4360,7 +4381,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Show the status of the rollout.</p>
 <p> By default &#39;rollout status&#39; will watch the status of the latest rollout until it&#39;s done. If you don&#39;t want to wait for the rollout to finish then you can use --watch=false. Note that if a new rollout starts in-between, then &#39;rollout status&#39; will continue watching the latest revision. If you want to pin to a specific revision and abort if it is rolled over by another revision, use --revision=N where N is the revision you need to watch for.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ status (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout status (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4425,11 +4446,11 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Rollback to the previous deployment with dry-run</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl rollout undo --dry-<span class="hljs-keyword">run</span><span class="bash">=<span class="hljs-literal">true</span> deployment/abc</span>
+<pre class="code-block example"><code class="lang-shell">kubectl rollout undo --dry-<span class="hljs-keyword">run</span><span class="bash">=server deployment/abc</span>
 </code></pre>
 <p>Rollback to a previous rollout.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ undo (TYPE NAME | TYPE/NAME) [flags]</code></p>
+<p><code>$ kubectl rollout undo (TYPE NAME | TYPE/NAME) [flags]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4450,8 +4471,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -4481,7 +4502,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>to-revision</td>
@@ -4522,7 +4543,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Scale also allows users to specify one or more preconditions for the scale action.</p>
 <p> If --current-replicas or --resource-version is specified, it is validated before the scale is attempted, and it is guaranteed that the precondition holds true when the scale is sent to the server.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)</code></p>
+<p><code>$ kubectl scale [--resource-version=version] [--current-replicas=count] --replicas=COUNT (-f FILENAME | TYPE NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4604,7 +4625,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -4619,7 +4640,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p>Configure application resources</p>
 <p> These commands help you make changes to existing application resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set SUBCOMMAND</code></p>
+<p><code>$ kubectl set SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-env-em-"><em>env</em></h2>
 <blockquote class="code-block example">
@@ -4683,7 +4704,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Possible resources include (case insensitive):</p>
 <p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N</code></p>
+<p><code>$ kubectl set env RESOURCE/NAME KEY_1=VAL_1 ... KEY_N=VAL_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4716,8 +4737,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>env</td>
@@ -4801,7 +4822,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4820,7 +4841,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Update image of all containers of daemonset abc to &#39;nginx:1.9.1&#39;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> image <span class="hljs-comment">daemonset abc *=nginx:1.9.1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> image daemonset abc *=nginx:<span class="hljs-number">1.9</span><span class="hljs-number">.1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Print result (in yaml format) of updating nginx container image from local file, without hitting the server</p>
@@ -4831,7 +4852,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> Possible resources include (case insensitive):</p>
 <p>  pod (po), replicationcontroller (rc), deployment (deploy), daemonset (ds), replicaset (rs)</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N</code></p>
+<p><code>$ kubectl set image (-f FILENAME | TYPE NAME) CONTAINER_NAME_1=CONTAINER_IMAGE_1 ... CONTAINER_NAME_N=CONTAINER_IMAGE_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4858,8 +4879,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -4907,7 +4928,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -4937,7 +4958,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <p> for each compute resource, if a limit is specified and a request is omitted, the request will default to the limit.</p>
 <p> Possible resources include (case insensitive): Use &quot;kubectl api-resources&quot; for a complete list of supported resources..</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS &amp; --requests=REQUESTS]</code></p>
+<p><code>$ kubectl set resources (-f FILENAME | TYPE NAME)  ([--limits=LIMITS &amp; --requests=REQUESTS]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -4970,8 +4991,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -5031,7 +5052,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5040,13 +5061,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> set the labels and selector before creating a deployment/service pair.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create service clusterip my-svc --clusterip=<span class="hljs-string">"None"</span> -o yaml --dry-<span class="hljs-keyword">run</span><span class="bash"> | kubectl <span class="hljs-built_in">set</span> selector --<span class="hljs-built_in">local</span> -f - <span class="hljs-string">'environment=qa'</span> -o yaml | kubectl create -f -
-</span>kubectl create deployment my-dep -o yaml --dry-<span class="hljs-keyword">run</span><span class="bash"> | kubectl label --<span class="hljs-built_in">local</span> -f - environment=qa -o yaml | kubectl create -f -</span>
+<pre class="code-block example"><code class="lang-shell">kubectl create<span class="hljs-built_in"> service </span>clusterip my-svc <span class="hljs-attribute">--clusterip</span>=<span class="hljs-string">"None"</span> -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl <span class="hljs-builtin-name">set</span> selector --local -f - <span class="hljs-string">'environment=qa'</span> -o yaml | kubectl create -f -
+kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl label --local -f - <span class="hljs-attribute">environment</span>=qa -o yaml | kubectl create -f -
 </code></pre>
 <p>Set the selector on a resource. Note that the new selector will overwrite the old selector if the resource had one prior to the invocation of &#39;set selector&#39;.</p>
 <p> A selector must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and underscores, up to  63 characters. If --resource-version is specified, then updates will use this resource version, otherwise the existing resource-version will be used. Note: currently selectors can only be set on Service objects.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]</code></p>
+<p><code>$ kubectl set selector (-f FILENAME | TYPE NAME) EXPRESSIONS [--resource-version=version]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5073,8 +5094,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -5116,7 +5137,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5130,13 +5151,13 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Print the result (in yaml format) of updated nginx deployment with serviceaccount from local file, without hitting apiserver</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> sa -f nginx-deployment.yaml serviceaccount1 --local --dry-<span class="hljs-builtin-name">run</span> -o yaml
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-builtin-name">set</span> sa -f nginx-deployment.yaml serviceaccount1 --local <span class="hljs-attribute">--dry-run</span>=client -o yaml
 </code></pre>
 <p>Update ServiceAccount of pod template resources.</p>
 <p> Possible resources (case insensitive) can be:</p>
 <p> replicationcontroller (rc), deployment (deploy), daemonset (ds), job, replicaset (rs), statefulset</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT</code></p>
+<p><code>$ kubectl set serviceaccount (-f FILENAME | TYPE NAME) SERVICE_ACCOUNT</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5163,8 +5184,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -5206,7 +5227,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5225,11 +5246,11 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Print the result (in yaml format) of updating rolebinding subjects from a local, without hitting the server</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create rolebinding admin <span class="hljs-attribute">--role</span>=admin <span class="hljs-attribute">--user</span>=admin -o yaml --dry-<span class="hljs-builtin-name">run</span> | kubectl <span class="hljs-builtin-name">set</span> subject --local -f - <span class="hljs-attribute">--user</span>=foo -o yaml
+<pre class="code-block example"><code class="lang-shell">kubectl create rolebinding admin <span class="hljs-attribute">--role</span>=admin <span class="hljs-attribute">--user</span>=admin -o yaml <span class="hljs-attribute">--dry-run</span>=client | kubectl <span class="hljs-builtin-name">set</span> subject --local -f - <span class="hljs-attribute">--user</span>=foo -o yaml
 </code></pre>
 <p>Update User, Group or ServiceAccount in a RoleBinding/ClusterRoleBinding.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run]</code></p>
+<p><code>$ kubectl set subject (-f FILENAME | TYPE NAME) [--user=username] [--group=groupname] [--serviceaccount=namespace:serviceaccountname] [--dry-run=server|client|none]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5256,8 +5277,8 @@ viewing your workloads in a Kubernetes cluster.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -5311,7 +5332,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5320,20 +5341,20 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Wait for the pod &quot;busybox1&quot; to contain the status condition of type &quot;Ready&quot;.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span>=condition=Ready pod/busybox1
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> <span class="hljs-comment">--for=condition=Ready pod/busybox1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Wait for the pod &quot;busybox1&quot; to be deleted, with a timeout of 60s, after having issued the &quot;delete&quot; command.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> pod/busybox1
-kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span>=<span class="hljs-keyword">delete</span> pod/busybox1 --timeout=<span class="hljs-number">60</span>s
+<pre class="code-block example"><code class="lang-shell">kubectl delete pod/busybox1
+kubectl wait <span class="hljs-attribute">--for</span>=delete pod/busybox1 <span class="hljs-attribute">--timeout</span>=60s
 </code></pre>
 <p>Experimental: Wait for a specific condition on one or many resources.</p>
 <p> The command takes multiple resources and waits until the specified condition is seen in the Status field of every given resource.</p>
 <p> Alternatively, the command can wait for the given set of resources to be deleted by providing the &quot;delete&quot; keyword as the value to the --for flag.</p>
 <p> A successful message will be printed to stdout indicating when the specified condition has been met. One can use -o option to change to output destination.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]</code></p>
+<p><code>$ kubectl wait ([-f FILENAME] | resource.group/resource.name | resource.group [(-l label | --all)]) [--for=delete|--for condition=available]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5379,7 +5400,7 @@ kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for
 <td>for</td>
 <td></td>
 <td></td>
-<td>The condition to wait on: [delete&#124;condition=condition-name]. </td>
+<td>The condition to wait on: <span>[</span>delete&#124;condition=condition-name<span>]</span>. </td>
 </tr>
 <tr>
 <td>local</td>
@@ -5409,7 +5430,7 @@ kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -5451,7 +5472,7 @@ applications.</p>
 </code></pre>
 <p>Attach to a process that is already running inside an existing container.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ attach (POD | TYPE/NAME) -c CONTAINER</code></p>
+<p><code>$ kubectl attach (POD | TYPE/NAME) -c CONTAINER</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5493,7 +5514,7 @@ applications.</p>
 <h1 id="auth">auth</h1>
 <p>Inspect authorization</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ auth</code></p>
+<p><code>$ kubectl auth</code></p>
 <hr>
 <h2 id="-em-can-i-em-"><em>can-i</em></h2>
 <blockquote class="code-block example">
@@ -5504,17 +5525,17 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Check to see if I can list deployments in my current namespace</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> list deployments.extensions
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i <span class="hljs-built_in">list</span> deployments.apps
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can do everything in my current namespace (&quot;*&quot; means all)</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> <span class="hljs-string">'*'</span> <span class="hljs-string">'*'</span>
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-built_in">i</span> <span class="hljs-string">'*'</span> <span class="hljs-string">'*'</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can get the job named &quot;bar&quot; in namespace &quot;foo&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-<span class="hljs-selector-tag">i</span> list jobs.batch/bar -n foo
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i <span class="hljs-built_in">list</span> jobs.batch/bar -n foo
 </code></pre>
 <blockquote class="code-block example">
 <p> Check to see if I can read pod logs</p>
@@ -5529,12 +5550,12 @@ applications.</p>
 <blockquote class="code-block example">
 <p> List all allowed actions in namespace &quot;foo&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl auth can-i --<span class="hljs-built_in">list</span> --<span class="hljs-keyword">namespace</span>=foo
+<pre class="code-block example"><code class="lang-shell">kubectl auth can-i --list --<span class="hljs-keyword">namespace</span>=<span class="hljs-symbol">foo</span>
 </code></pre>
 <p>Check whether an action is allowed.</p>
 <p> VERB is a logical Kubernetes API verb like &#39;get&#39;, &#39;list&#39;, &#39;watch&#39;, &#39;delete&#39;, etc. TYPE is a Kubernetes resource. Shortcuts and groups will be resolved. NONRESOURCEURL is a partial URL starts with &quot;/&quot;. NAME is the name of a particular Kubernetes resource.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]</code></p>
+<p><code>$ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5591,7 +5612,7 @@ applications.</p>
 <p> Existing bindings are updated to include the subjects in the input objects, and remove extra subjects if --remove-extra-subjects is specified.</p>
 <p> This is preferred to &#39;apply&#39; for RBAC resources so that semantically-aware merging of rules and subjects is done.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ reconcile -f FILENAME</code></p>
+<p><code>$ kubectl auth reconcile -f FILENAME</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5612,8 +5633,8 @@ applications.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, display results but do not submit changes </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>filename</td>
@@ -5655,7 +5676,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -5693,7 +5714,7 @@ applications.</p>
 </code></pre>
 <p>Copy files and directories to and from containers.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cp &lt;file-spec-src&gt; &lt;file-spec-dest&gt;</code></p>
+<p><code>$ kubectl cp &lt;file-spec-src&gt; &lt;file-spec-dest&gt;</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5757,7 +5778,7 @@ applications.</p>
 <p> will first check for an exact match on TYPE and NAME_PREFIX. If no such resource exists, it will output details for every resource that has a name prefixed with NAME_PREFIX.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)</code></p>
+<p><code>$ kubectl describe (-f FILENAME | TYPE [NAME_PREFIX | -l label] | TYPE/NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5812,12 +5833,12 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Get output from running &#39;date&#39; command from pod mypod, using the first container by default</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> mypod <span class="hljs-built_in">date</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> mypod -- <span class="hljs-built_in">date</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Get output from running &#39;date&#39; command in ruby-container from pod mypod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">exec</span> mypod -c ruby-<span class="hljs-keyword">container</span> <span class="hljs-keyword">date</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">exec</span> mypod -c ruby-<span class="hljs-keyword">container</span> -- <span class="hljs-keyword">date</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Switch to raw terminal mode, sends stdin to &#39;bash&#39; in ruby-container from pod mypod # and sends stdout/stderr from &#39;bash&#39; back to the client</p>
@@ -5832,16 +5853,16 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Get output from running &#39;date&#39; command from the first pod of the deployment mydeployment, using the first container by default</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> deploy/mydeployment <span class="hljs-built_in">date</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> deploy/mydeployment -- <span class="hljs-built_in">date</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Get output from running &#39;date&#39; command from the first pod of the service myservice, using the first container by default</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> svc/myservice <span class="hljs-built_in">date</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">exec</span> svc/myservice -- <span class="hljs-built_in">date</span>
 </code></pre>
 <p>Execute a command in a container.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]</code></p>
+<p><code>$ kubectl exec (POD | TYPE/NAME) [-c CONTAINER] [flags] -- COMMAND [args...]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -5858,6 +5879,12 @@ applications.</p>
 <td>c</td>
 <td></td>
 <td>Container name. If omitted, the first container in the pod will be chosen </td>
+</tr>
+<tr>
+<td>filename</td>
+<td>f</td>
+<td>[]</td>
+<td>to use to exec into the resource </td>
 </tr>
 <tr>
 <td>pod-running-timeout</td>
@@ -5899,12 +5926,12 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Return snapshot of previous terminated ruby container logs from pod web-1</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs -<span class="hljs-selector-tag">p</span> -c ruby web-<span class="hljs-number">1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -p -c ruby web<span class="hljs-number">-1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Begin streaming the logs of the ruby container in pod web-1</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs -f -<span class="hljs-keyword">c</span> ruby web<span class="hljs-number">-1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs -f -c ruby web<span class="hljs-number">-1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Begin streaming the logs from all containers in pods defined by label app=nginx</p>
@@ -5934,11 +5961,11 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Return snapshot logs from container nginx-1 of a deployment named nginx</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl logs deployment/nginx -<span class="hljs-keyword">c</span> nginx<span class="hljs-number">-1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl logs deployment/nginx -c nginx<span class="hljs-number">-1</span>
 </code></pre>
 <p>Print the logs for a container in a pod or specified resource. If the pod has only one container, the container name is optional.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]</code></p>
+<p><code>$ kubectl logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6062,28 +6089,28 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Listen on port 8888 locally, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-<span class="hljs-keyword">forward</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on port 8888 on all addresses, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address <span class="hljs-number">0.0.0.0</span> pod/mypod <span class="hljs-number">8888:5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on port 8888 on localhost and selected IP, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address localhost,<span class="hljs-number">10.19.21.23</span> pod/mypod <span class="hljs-number">8888:5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward --address localhost,<span class="hljs-number">10.19</span><span class="hljs-number">.21</span><span class="hljs-number">.23</span> pod/mypod <span class="hljs-number">8888</span>:<span class="hljs-number">5000</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Listen on a random port locally, forwarding to 5000 in the pod</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl port-<span class="hljs-keyword">forward</span> pod/mypod :<span class="hljs-number">5000</span>
+<pre class="code-block example"><code class="lang-shell">kubectl port-forward pod/mypod :<span class="hljs-number">5000</span>
 </code></pre>
 <p>Forward one or more local ports to a pod. This command requires the node to have &#39;socat&#39; installed.</p>
 <p> Use resource type/name such as deployment/mydeployment to select a pod. Resource type defaults to &#39;pod&#39; if omitted.</p>
 <p> If there are multiple pods matching the criteria, a pod will be selected automatically. The forwarding session ends when the selected pod terminates, and rerun of the command is needed to resume forwarding.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]</code></p>
+<p><code>$ kubectl port-forward TYPE/NAME [options] [LOCAL_PORT:]REMOTE_PORT [...[LOCAL_PORT_N:]REMOTE_PORT_N]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6143,7 +6170,7 @@ applications.</p>
 </code></pre>
 <p>Creates a proxy server or application-level gateway between localhost and the Kubernetes API Server. It also allows serving static content over specified HTTP path. All incoming data enters through one port and gets forwarded to the remote kubernetes API Server port, except for the path matching the static content path.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]</code></p>
+<p><code>$ kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6235,7 +6262,7 @@ applications.</p>
 <p> The top command allows you to see the resource consumption for nodes or pods.</p>
 <p> This command requires Metrics Server to be correctly configured and working on the server.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ top</code></p>
+<p><code>$ kubectl top</code></p>
 <hr>
 <h2 id="-em-node-em-"><em>node</em></h2>
 <blockquote class="code-block example">
@@ -6251,7 +6278,7 @@ applications.</p>
 <p>Display Resource (CPU/Memory/Storage) usage of nodes.</p>
 <p> The top-node command allows you to see the resource consumption of nodes.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ node [NAME | -l label]</code></p>
+<p><code>$ kubectl top node [NAME | -l label]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6317,7 +6344,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Show metrics for all pods in the given namespace</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl top pod --<span class="hljs-keyword">namespace</span>=NAMESPACE
+<pre class="code-block example"><code class="lang-shell">kubectl top pod --<span class="hljs-keyword">namespace</span>=<span class="hljs-symbol">NAMESPACE</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Show metrics for a given pod and its containers</p>
@@ -6333,7 +6360,7 @@ applications.</p>
 <p> The &#39;top pod&#39; command allows you to see the resource consumption of pods.</p>
 <p> Due to the metrics pipeline delay, they may be unavailable for a few minutes since pod creation.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ pod [NAME | -l label]</code></p>
+<p><code>$ kubectl top pod [NAME | -l label]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6411,19 +6438,19 @@ applications.</p>
 </code></pre>
 <p>Print the supported API versions on the server, in the form of &quot;group/version&quot;</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ api-versions</code></p>
+<p><code>$ kubectl api-versions</code></p>
 <hr>
 <h1 id="certificate">certificate</h1>
 <p>Modify certificate resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ certificate SUBCOMMAND</code></p>
+<p><code>$ kubectl certificate SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-approve-em-"><em>approve</em></h2>
 <p>Approve a certificate signing request.</p>
 <p> kubectl certificate approve allows a cluster admin to approve a certificate signing request (CSR). This action tells a certificate signing controller to issue a certificate to the requestor with the attributes requested in the CSR.</p>
 <p> SECURITY NOTICE: Depending on the requested attributes, the issued certificate can potentially grant a requester access to cluster resources or to authenticate as a requested identity. Before approving a CSR, ensure you understand what the signed certificate can do.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ approve (-f FILENAME | NAME)</code></p>
+<p><code>$ kubectl certificate approve (-f FILENAME | NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6475,7 +6502,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6484,7 +6511,7 @@ applications.</p>
 <p>Deny a certificate signing request.</p>
 <p> kubectl certificate deny allows a cluster admin to deny a certificate signing request (CSR). This action tells a certificate signing controller to not to issue a certificate to the requestor.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ deny (-f FILENAME | NAME)</code></p>
+<p><code>$ kubectl certificate deny (-f FILENAME | NAME)</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6536,7 +6563,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6549,7 +6576,7 @@ applications.</p>
 </code></pre>
 <p>Display addresses of the master and services with label kubernetes.io/cluster-service=true To further debug and diagnose cluster problems, use &#39;kubectl cluster-info dump&#39;.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cluster-info</code></p>
+<p><code>$ kubectl cluster-info</code></p>
 <hr>
 <h2 id="-em-dump-em-"><em>dump</em></h2>
 <blockquote class="code-block example">
@@ -6565,7 +6592,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Dump all namespaces to stdout</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl cluster-info <span class="hljs-built_in">dump</span> <span class="hljs-comment">--all-namespaces</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">cluster</span>-<span class="hljs-keyword">info</span> dump <span class="hljs-comment">--all-namespaces</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Dump a set of namespaces to /path/to/cluster-state</p>
@@ -6575,7 +6602,7 @@ applications.</p>
 <p>Dumps cluster info out suitable for debugging and diagnosing cluster problems.  By default, dumps everything to stdout. You can optionally specify a directory with --output-directory.  If you specify a directory, kubernetes will build a set of files in that directory.  By default only dumps things in the &#39;kube-system&#39; namespace, but you can switch to a different namespace with the --namespaces flag, or specify --all-namespaces to dump all namespaces.</p>
 <p> The command also dumps the logs of all of the pods in the cluster, these logs are dumped into different directories based on namespace and pod name.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ dump</code></p>
+<p><code>$ kubectl cluster-info dump</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6627,7 +6654,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -6640,7 +6667,7 @@ applications.</p>
 </code></pre>
 <p>Mark node as unschedulable.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ cordon NODE</code></p>
+<p><code>$ kubectl cordon NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6655,8 +6682,8 @@ applications.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>selector</td>
@@ -6671,7 +6698,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Drain node &quot;foo&quot;, even if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet on it.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-meta">$</span><span class="bash"> kubectl drain foo --force</span>
+<pre class="code-block example"><code class="lang-shell">$ kubectl drain foo <span class="hljs-comment">--force</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> As above, but abort if there are pods not managed by a ReplicationController, ReplicaSet, Job, DaemonSet or StatefulSet, and use a grace period of 15 minutes.</p>
@@ -6684,7 +6711,7 @@ applications.</p>
 <p> When you are ready to put the node back into service, use kubectl uncordon, which will make the node schedulable again.</p>
 <p> <a href="http://kubernetes.io/images/docs/kubectl_drain.svg">http://kubernetes.io/images/docs/kubectl_drain.svg</a></p>
 <h3 id="usage">Usage</h3>
-<p><code>$ drain NODE</code></p>
+<p><code>$ kubectl drain NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6703,10 +6730,16 @@ applications.</p>
 <td>Continue even if there are pods using emptyDir (local data that will be deleted when the node is drained). </td>
 </tr>
 <tr>
-<td>dry-run</td>
+<td>disable-eviction</td>
 <td></td>
 <td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>Force drain to use delete, even if eviction is supported. This will bypass checking PodDisruptionBudgets, use with caution. </td>
+</tr>
+<tr>
+<td>dry-run</td>
+<td></td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>force</td>
@@ -6737,6 +6770,12 @@ applications.</p>
 <td>l</td>
 <td></td>
 <td>Selector (label query) to filter on </td>
+</tr>
+<tr>
+<td>skip-wait-for-delete-timeout</td>
+<td></td>
+<td>0</td>
+<td>If pod DeletionTimestamp older than N seconds, skip waiting for the pod.  Seconds must be greater than 0 to skip. </td>
 </tr>
 <tr>
 <td>timeout</td>
@@ -6783,7 +6822,7 @@ applications.</p>
 <li>Currently taint can only apply to node.</li>
 </ul>
 <h3 id="usage">Usage</h3>
-<p><code>$ taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N</code></p>
+<p><code>$ kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6808,6 +6847,12 @@ applications.</p>
 <td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
 </tr>
 <tr>
+<td>dry-run</td>
+<td></td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
+</tr>
+<tr>
 <td>output</td>
 <td>o</td>
 <td></td>
@@ -6829,7 +6874,7 @@ applications.</p>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>validate</td>
@@ -6844,11 +6889,11 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Mark node &quot;foo&quot; as schedulable.</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-meta">$</span><span class="bash"> kubectl uncordon foo</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-variable">$ </span>kubectl uncordon foo
 </code></pre>
 <p>Mark node as schedulable.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ uncordon NODE</code></p>
+<p><code>$ kubectl uncordon NODE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6863,8 +6908,8 @@ applications.</p>
 <tr>
 <td>dry-run</td>
 <td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
+<td>none</td>
+<td>Must be &quot;none&quot;, &quot;server&quot;, or &quot;client&quot;. If client strategy, only print the object that would be sent, without sending it. If server strategy, submit server-side request without persisting the resource. </td>
 </tr>
 <tr>
 <td>selector</td>
@@ -6879,7 +6924,95 @@ applications.</p>
 <h1 id="alpha">alpha</h1>
 <p>These commands correspond to alpha features that are not enabled in Kubernetes clusters by default.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ alpha</code></p>
+<p><code>$ kubectl alpha</code></p>
+<hr>
+<h2 id="-em-debug-em-"><em>debug</em></h2>
+<blockquote class="code-block example">
+<p> Create an interactive debugging session in pod mypod and immediately attach to it. # (requires the EphemeralContainers feature to be enabled in the cluster)</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> mypod -i <span class="hljs-attribute">--image</span>=busybox
+</code></pre>
+<blockquote class="code-block example">
+<p> Create a debug container named debugger using a custom automated debugging image. # (requires the EphemeralContainers feature to be enabled in the cluster)</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha <span class="hljs-builtin-name">debug</span> <span class="hljs-attribute">--image</span>=myproj/debug-tools -c debugger mypod
+</code></pre>
+<p>Tools for debugging Kubernetes resources</p>
+<h3 id="usage">Usage</h3>
+<p><code>$ kubectl alpha debug NAME --image=image [ -- COMMAND [args...] ]</code></p>
+<h3 id="flags">Flags</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Shorthand</th>
+<th>Default</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arguments-only</td>
+<td></td>
+<td>false</td>
+<td>If specified, everything after -- will be passed to the new container as Args instead of Command. </td>
+</tr>
+<tr>
+<td>attach</td>
+<td></td>
+<td>false</td>
+<td>If true, wait for the Pod to start running, and then attach to the Pod as if &#39;kubectl attach ...&#39; were called.  Default false, unless &#39;-i/--stdin&#39; is set, in which case the default is true. </td>
+</tr>
+<tr>
+<td>container</td>
+<td></td>
+<td></td>
+<td>Container name to use for debug container. </td>
+</tr>
+<tr>
+<td>env</td>
+<td></td>
+<td>[]</td>
+<td>Environment variables to set in the container. </td>
+</tr>
+<tr>
+<td>image</td>
+<td></td>
+<td></td>
+<td>Container image to use for debug container. </td>
+</tr>
+<tr>
+<td>image-pull-policy</td>
+<td></td>
+<td>IfNotPresent</td>
+<td>The image pull policy for the container. </td>
+</tr>
+<tr>
+<td>quiet</td>
+<td></td>
+<td>false</td>
+<td>If true, suppress prompt messages. </td>
+</tr>
+<tr>
+<td>stdin</td>
+<td>i</td>
+<td>false</td>
+<td>Keep stdin open on the container(s) in the pod, even if nothing is attached. </td>
+</tr>
+<tr>
+<td>target</td>
+<td></td>
+<td></td>
+<td>Target processes in this container name. </td>
+</tr>
+<tr>
+<td>tty</td>
+<td>t</td>
+<td>false</td>
+<td>Allocated a TTY for each container in the pod. </td>
+</tr>
+</tbody>
+</table>
 <hr>
 <h1 id="api-resources">api-resources</h1>
 <blockquote class="code-block example">
@@ -6914,7 +7047,7 @@ applications.</p>
 </code></pre>
 <p>Print the supported API resources on the server</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ api-resources</code></p>
+<p><code>$ kubectl api-resources</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -6980,12 +7113,12 @@ applications.</p>
 <blockquote class="code-block example#">
 <p> or, if running Bash 4.1+</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-keyword">brew </span><span class="hljs-keyword">install </span><span class="hljs-keyword">bash-completion@2</span>
+<pre class="code-block example"><code class="lang-shell">brew install bash-<span class="hljs-symbol">completion@</span><span class="hljs-number">2</span>
 </code></pre>
 <blockquote class="code-block example#">
 <p> If kubectl is installed via homebrew, this should start working immediately. ## If you&#39;ve installed via other means, you may need add the completion to your completion directory</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> completion <span class="hljs-keyword">bash </span>&gt; $(<span class="hljs-keyword">brew </span>--prefix)/etc/<span class="hljs-keyword">bash_completion.d/kubectl</span>
+<pre class="code-block example"><code class="lang-shell">kubectl completion bash &gt; <span class="hljs-constructor">$(<span class="hljs-params">brew</span> --<span class="hljs-params">prefix</span>)</span>/etc/bash_completion.d/kubectl
 </code></pre>
 <blockquote class="code-block example">
 <p> Installing bash completion on Linux ## If bash-completion is not installed on Linux, please install the &#39;bash-completion&#39; package ## via your distribution&#39;s package manager. ## Load the kubectl completion code for bash into the current shell</p>
@@ -6995,8 +7128,8 @@ applications.</p>
 <blockquote class="code-block example#">
 <p> Write bash completion code to a file and source if from .bash_profile</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl completion bash &gt; ~/.kube/completion<span class="hljs-selector-class">.bash</span><span class="hljs-selector-class">.inc</span>
-printf <span class="hljs-string">"</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> completion <span class="hljs-keyword">bash </span>&gt; ~/.kube/completion.<span class="hljs-keyword">bash.inc
+</span><span class="hljs-symbol">printf</span> <span class="hljs-string">"</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Kubectl shell completion</p>
@@ -7017,9 +7150,9 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Output shell completion code for the specified shell (bash or zsh). The shell code must be evaluated to provide interactive completion of kubectl commands.  This can be done by sourcing it from the .bash_profile.</p>
 <p> Detailed instructions on how to do this are available here: <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion">https://kubernetes.io/docs/tasks/tools/install-kubectl/#enabling-shell-autocompletion</a></p>
-<p> Note for zsh users: [1] zsh completions are only supported in versions of zsh &gt;= 5.2</p>
+<p> Note for zsh users: <span>[</span>1<span>]</span> zsh completions are only supported in versions of zsh &gt;= 5.2</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ completion SHELL</code></p>
+<p><code>$ kubectl completion SHELL</code></p>
 <hr>
 <h1 id="config">config</h1>
 <p>Modify kubeconfig files using subcommands like &quot;kubectl config set current-context my-context&quot;</p>
@@ -7030,7 +7163,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <li>Otherwise, ${HOME}/.kube/config is used and no merging takes place.</li>
 </ol>
 <h3 id="usage">Usage</h3>
-<p><code>$ config SUBCOMMAND</code></p>
+<p><code>$ kubectl config SUBCOMMAND</code></p>
 <hr>
 <h2 id="-em-current-context-em-"><em>current-context</em></h2>
 <blockquote class="code-block example">
@@ -7040,7 +7173,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Displays the current-context</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ current-context</code></p>
+<p><code>$ kubectl config current-context</code></p>
 <hr>
 <h2 id="-em-delete-cluster-em-"><em>delete-cluster</em></h2>
 <blockquote class="code-block example">
@@ -7050,7 +7183,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Delete the specified cluster from the kubeconfig</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete-cluster NAME</code></p>
+<p><code>$ kubectl config delete-cluster NAME</code></p>
 <hr>
 <h2 id="-em-delete-context-em-"><em>delete-context</em></h2>
 <blockquote class="code-block example">
@@ -7060,7 +7193,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Delete the specified context from the kubeconfig</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ delete-context NAME</code></p>
+<p><code>$ kubectl config delete-context NAME</code></p>
 <hr>
 <h2 id="-em-get-clusters-em-"><em>get-clusters</em></h2>
 <blockquote class="code-block example">
@@ -7070,7 +7203,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Display clusters defined in the kubeconfig.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get-clusters</code></p>
+<p><code>$ kubectl config get-clusters</code></p>
 <hr>
 <h2 id="-em-get-contexts-em-"><em>get-contexts</em></h2>
 <blockquote class="code-block example">
@@ -7085,7 +7218,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Displays one or many contexts from the kubeconfig file.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ get-contexts [(-o|--output=)name)]</code></p>
+<p><code>$ kubectl config get-contexts [(-o|--output=)name)]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7123,13 +7256,13 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p> NEW_NAME is the new name you wish to set.</p>
 <p> Note: In case the context being renamed is the &#39;current-context&#39;, this field will also be updated.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ rename-context CONTEXT_NAME NEW_NAME</code></p>
+<p><code>$ kubectl config rename-context CONTEXT_NAME NEW_NAME</code></p>
 <hr>
 <h2 id="-em-set-em-"><em>set</em></h2>
 <blockquote class="code-block example">
 <p> Set server field on the my-cluster cluster to <a href="https://1.2.3.4">https://1.2.3.4</a></p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl config set clusters<span class="hljs-selector-class">.my-cluster</span><span class="hljs-selector-class">.server</span> https:<span class="hljs-comment">//1.2.3.4</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">config</span> <span class="hljs-built_in">set</span> clusters.my-cluster.server https:<span class="hljs-comment">//1.2.3.4</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Set certificate-authority-data field on the my-cluster cluster.</p>
@@ -7151,7 +7284,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p> PROPERTY_VALUE is the new value you wish to set. Binary fields such as &#39;certificate-authority-data&#39; expect a base64 encoded string unless the --set-raw-bytes flag is used.</p>
 <p> Specifying a attribute name that already exists will merge new fields on top of existing values.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set PROPERTY_NAME PROPERTY_VALUE</code></p>
+<p><code>$ kubectl config set PROPERTY_NAME PROPERTY_VALUE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7167,7 +7300,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>set-raw-bytes</td>
 <td></td>
 <td>false</td>
-<td>When writing a []byte PROPERTY_VALUE, write the given string directly without base64 decoding. </td>
+<td>When writing a <span>[</span><span>]</span>byte PROPERTY_VALUE, write the given string directly without base64 decoding. </td>
 </tr>
 </tbody>
 </table>
@@ -7188,10 +7321,15 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e <span class="hljs-attribute">--insecure-skip-tls-verify</span>=<span class="hljs-literal">true</span>
 </code></pre>
+<blockquote class="code-block example">
+<p> Set custom TLS server name to use for validation for the e2e cluster entry</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-cluster e2e <span class="hljs-attribute">--tls-server-name</span>=my-cluster-name
+</code></pre>
 <p>Sets a cluster entry in kubeconfig.</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true]</code></p>
+<p><code>$ kubectl config set-cluster NAME [--server=server] [--certificate-authority=path/to/certificate/authority] [--insecure-skip-tls-verify=true] [--tls-server-name=example.com]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7221,7 +7359,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Sets a context entry in kubeconfig</p>
 <p> Specifying a name that already exists will merge new fields on top of existing values for those fields.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]</code></p>
+<p><code>$ kubectl config set-context [NAME | --current] [--cluster=cluster_nickname] [--user=user_nickname] [--namespace=namespace]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7276,7 +7414,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <blockquote class="code-block example">
 <p> Enable new exec auth plugin for the &quot;cluster-admin&quot; entry</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-credentials cluster-admin <span class="hljs-attribute">--exec-command</span>=/path/to/the/executable <span class="hljs-attribute">--exec-api-version</span>=client.authentication.k8s.io/v1beta
+<pre class="code-block example"><code class="lang-shell">kubectl<span class="hljs-built_in"> config </span>set-credentials cluster-admin <span class="hljs-attribute">--exec-command</span>=/path/to/the/executable <span class="hljs-attribute">--exec-api-version</span>=client.authentication.k8s.io/v1beta1
 </code></pre>
 <blockquote class="code-block example">
 <p> Define new exec auth plugin args for the &quot;cluster-admin&quot; entry</p>
@@ -7303,7 +7441,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
   --username=basic_user --password=basic_password</p>
 <p> Bearer token and basic auth are mutually exclusive.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]</code></p>
+<p><code>$ kubectl config set-credentials NAME [--client-certificate=path/to/certfile] [--client-key=path/to/keyfile] [--token=bearer_token] [--username=basic_user] [--password=basic_password] [--auth-provider=provider_name] [--auth-provider-arg=key=value] [--exec-command=exec_command] [--exec-api-version=exec_api_version] [--exec-arg=arg] [--exec-env=key=value]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7374,7 +7512,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Unsets an individual value in a kubeconfig file</p>
 <p> PROPERTY_NAME is a dot delimited name where each token represents either an attribute name or a map key.  Map keys may not contain dots.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ unset PROPERTY_NAME</code></p>
+<p><code>$ kubectl config unset PROPERTY_NAME</code></p>
 <hr>
 <h2 id="-em-use-context-em-"><em>use-context</em></h2>
 <blockquote class="code-block example">
@@ -7384,7 +7522,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Sets the current-context in a kubeconfig file</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ use-context CONTEXT_NAME</code></p>
+<p><code>$ kubectl config use-context CONTEXT_NAME</code></p>
 <hr>
 <h2 id="-em-view-em-"><em>view</em></h2>
 <blockquote class="code-block example">
@@ -7405,7 +7543,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <p>Display merged kubeconfig settings or a specified kubeconfig file.</p>
 <p> You can use --output jsonpath={...} to extract specific values using a jsonpath expression.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ view</code></p>
+<p><code>$ kubectl config view</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7457,7 +7595,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>template</td>
 <td></td>
 <td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 </tbody>
 </table>
@@ -7471,15 +7609,15 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <blockquote class="code-block example">
 <p> Get the documentation of a specific field of a resource</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl explain pods<span class="hljs-selector-class">.spec</span><span class="hljs-selector-class">.containers</span>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-selector-tag">kubectl</span> <span class="hljs-selector-tag">explain</span> <span class="hljs-selector-tag">pods</span><span class="hljs-selector-class">.spec</span><span class="hljs-selector-class">.containers</span>
 </code></pre>
 <p>List the fields for supported resources</p>
 <p> This command describes the fields associated with each supported API resource. Fields are identified via a simple JSONPath identifier:</p>
-<p>  <type>.<fieldName>[.<fieldName>]</p>
+<p>  &lt;type&gt;.&lt;fieldName&gt;<span>[</span>.&lt;fieldName&gt;<span>]</span></p>
 <p> Add the --recursive flag to display all of the fields at once without descriptions. Information about each field is retrieved from the server in OpenAPI format.</p>
 <p>Use &quot;kubectl api-resources&quot; for a complete list of supported resources.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ explain RESOURCE</code></p>
+<p><code>$ kubectl explain RESOURCE</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7506,28 +7644,6 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </tbody>
 </table>
 <hr>
-<h1 id="kustomize">kustomize</h1>
-<blockquote class="code-block example">
-<p> Use the current working directory</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl%20kustomize%20.
-</code></pre>
-<blockquote class="code-block example">
-<p> Use some shared configuration directory</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl kustomize /<span class="hljs-built_in">home</span>/configuration/production
-</code></pre>
-<blockquote class="code-block example">
-<p> Use a URL</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl kustomize github.com<span class="hljs-regexp">/kubernetes-sigs/</span>kustomize.git<span class="hljs-regexp">/examples/</span>helloWorld?ref=v1.<span class="hljs-number">0.6</span>
-</code></pre>
-<p>Print a set of API resources generated from instructions in a kustomization.yaml file.</p>
-<p> The argument must be the path to the directory containing the file, or a git repository URL with a path suffix specifying same with respect to the repository root.</p>
-<p> kubectl kustomize somedir</p>
-<h3 id="usage">Usage</h3>
-<p><code>$ kustomize &lt;dir&gt;</code></p>
-<hr>
 <h1 id="options">options</h1>
 <blockquote class="code-block example">
 <p> Print flags inherited by all commands</p>
@@ -7536,19 +7652,20 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Print the list of flags inherited by all commands</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ options</code></p>
+<p><code>$ kubectl options</code></p>
 <hr>
 <h1 id="plugin">plugin</h1>
 <p>Provides utilities for interacting with plugins.</p>
 <p> Plugins provide extended functionality that is not part of the major command-line distribution. Please refer to the documentation and examples for more information about how write your own plugins.</p>
+<p> The easiest way to discover and install plugins is via the kubernetes sub-project krew. To install krew, visit<a href="https://github.com/kubernetes-sigs/krew/#installation">https://github.com/kubernetes-sigs/krew/#installation</a></p>
 <h3 id="usage">Usage</h3>
-<p><code>$ plugin [flags]</code></p>
+<p><code>$ kubectl plugin [flags]</code></p>
 <hr>
 <h2 id="-em-list-em-"><em>list</em></h2>
 <p>List all available plugin files on a user&#39;s PATH.</p>
 <p> Available plugin files are those that are: - executable - anywhere on the user&#39;s PATH - begin with &quot;kubectl-&quot;</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ list</code></p>
+<p><code>$ kubectl plugin list</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7577,7 +7694,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 </code></pre>
 <p>Print the client and server version information for the current context</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ version</code></p>
+<p><code>$ kubectl version</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7593,7 +7710,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>client</td>
 <td></td>
 <td>false</td>
-<td>Client version only (no server required). </td>
+<td>If true, shows client version only (no server required). </td>
 </tr>
 <tr>
 <td>output</td>
@@ -7605,137 +7722,7 @@ source <span class="hljs-variable">$HOME</span>/.bash_profile</span>
 <td>short</td>
 <td></td>
 <td>false</td>
-<td>Print just the version number. </td>
-</tr>
-</tbody>
-</table>
-<h1 id="-strong-deprecated-commands-strong-"><strong>DEPRECATED COMMANDS</strong></h1>
-<hr>
-<h1 id="rolling-update">rolling-update</h1>
-<blockquote class="code-block example">
-<p> Update pods of frontend-v1 using new replication controller data in frontend-v2.json.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> rolling-update frontend-<span class="hljs-built_in">v1</span> -f frontend-<span class="hljs-built_in">v2</span>.json
-</code></pre>
-<blockquote class="code-block example">
-<p> Update pods of frontend-v1 using JSON data passed into stdin.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-keyword">cat</span> frontend-v2.json | kubectl <span class="hljs-keyword">rolling</span>-<span class="hljs-keyword">update</span> frontend-v1 -f -
-</code></pre>
-<blockquote class="code-block example">
-<p> Update the pods of frontend-v1 to frontend-v2 by just changing the image, and switching the # name of the replication controller.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> rolling-update frontend-<span class="hljs-built_in">v1</span> frontend-<span class="hljs-built_in">v2</span> --image<span class="hljs-symbol">=image</span>:<span class="hljs-built_in">v2</span>
-</code></pre>
-<blockquote class="code-block example">
-<p> Update the pods of frontend by just changing the image, and keeping the old name.</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl rolling-update frontend --<span class="hljs-built_in">image</span>=<span class="hljs-built_in">image</span>:v2
-</code></pre>
-<blockquote class="code-block example">
-<p> Abort and reverse an existing rollout in progress (from frontend-v1 to frontend-v2).</p>
-</blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-symbol">kubectl</span> rolling-update frontend-<span class="hljs-built_in">v1</span> frontend-<span class="hljs-built_in">v2</span> --rollback
-</code></pre>
-<p>Perform a rolling update of the given ReplicationController.</p>
-<p> Replaces the specified replication controller with a new replication controller by updating one pod at a time to use the new PodTemplate. The new-controller.json must specify the same namespace as the existing replication controller and overwrite at least one (common) label in its replicaSelector.</p>
-<p> <a href="http://kubernetes.io/images/docs/kubectl_rollingupdate.svg">http://kubernetes.io/images/docs/kubectl_rollingupdate.svg</a></p>
-<h3 id="usage">Usage</h3>
-<p><code>$ rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE | -f NEW_CONTROLLER_SPEC)</code></p>
-<h3 id="flags">Flags</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Shorthand</th>
-<th>Default</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>allow-missing-template-keys</td>
-<td></td>
-<td>true</td>
-<td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
-</tr>
-<tr>
-<td>container</td>
-<td></td>
-<td></td>
-<td>Container name which will have its image upgraded. Only relevant when --image is specified, ignored otherwise. Required when using --image on a multi-container pod </td>
-</tr>
-<tr>
-<td>deployment-label-key</td>
-<td></td>
-<td>deployment</td>
-<td>The key to use to differentiate between two different controllers, default &#39;deployment&#39;.  Only relevant when --image is specified, ignored otherwise </td>
-</tr>
-<tr>
-<td>dry-run</td>
-<td></td>
-<td>false</td>
-<td>If true, only print the object that would be sent, without sending it. </td>
-</tr>
-<tr>
-<td>filename</td>
-<td>f</td>
-<td>[]</td>
-<td>Filename or URL to file to use to create the new replication controller. </td>
-</tr>
-<tr>
-<td>image</td>
-<td></td>
-<td></td>
-<td>Image to use for upgrading the replication controller. Must be distinct from the existing image (either new image or new image tag).  Can not be used with --filename/-f </td>
-</tr>
-<tr>
-<td>image-pull-policy</td>
-<td></td>
-<td></td>
-<td>Explicit policy for when to pull container images. Required when --image is same as existing image, ignored otherwise. </td>
-</tr>
-<tr>
-<td>output</td>
-<td>o</td>
-<td></td>
-<td>Output format. One of: json&#124;yaml&#124;name&#124;go-template&#124;go-template-file&#124;template&#124;templatefile&#124;jsonpath&#124;jsonpath-file. </td>
-</tr>
-<tr>
-<td>poll-interval</td>
-<td></td>
-<td>3s</td>
-<td>Time delay between polling for replication controller status after the update. Valid time units are &quot;ns&quot;, &quot;us&quot; (or &quot;µs&quot;), &quot;ms&quot;, &quot;s&quot;, &quot;m&quot;, &quot;h&quot;. </td>
-</tr>
-<tr>
-<td>rollback</td>
-<td></td>
-<td>false</td>
-<td>If true, this is a request to abort an existing rollout that is partially rolled out. It effectively reverses current and next and runs a rollout </td>
-</tr>
-<tr>
-<td>template</td>
-<td></td>
-<td></td>
-<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates [<a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a>]. </td>
-</tr>
-<tr>
-<td>timeout</td>
-<td></td>
-<td>5m0s</td>
-<td>Max time to wait for a replication controller to update before giving up. Valid time units are &quot;ns&quot;, &quot;us&quot; (or &quot;µs&quot;), &quot;ms&quot;, &quot;s&quot;, &quot;m&quot;, &quot;h&quot;. </td>
-</tr>
-<tr>
-<td>update-period</td>
-<td></td>
-<td>1m0s</td>
-<td>Time to wait between updating pods. Valid time units are &quot;ns&quot;, &quot;us&quot; (or &quot;µs&quot;), &quot;ms&quot;, &quot;s&quot;, &quot;m&quot;, &quot;h&quot;. </td>
-</tr>
-<tr>
-<td>validate</td>
-<td></td>
-<td>true</td>
-<td>If true, use a schema to validate the input before sending it </td>
+<td>If true, print just the version number. </td>
 </tr>
 </tbody>
 </table>

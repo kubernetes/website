@@ -275,7 +275,7 @@ the version.
 
 ## Webhook conversion
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 {{< note >}}
 Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
@@ -502,7 +502,7 @@ to turn up in a new cluster.
 
 The scheme must be "https"; the URL must begin with "https://".
 
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Attempting to use a user or basic auth (for example "user:password@") is not allowed.
 Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a conversion webhook configured to call a URL

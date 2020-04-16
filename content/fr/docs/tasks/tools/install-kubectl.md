@@ -54,7 +54,7 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
 4. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Installation à l'aide des gestionnaires des paquets natifs
@@ -80,28 +80,33 @@ yum install -y kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
+### Installation avec des gestionnaires de paquets alternatifs
 
-### Installer avec snap
-
+{{< tabs name="other_kubectl_install" >}}
+{{% tab name="Snap" %}}
 Si vous êtes sur Ubuntu ou une autre distribution Linux qui supporte le gestionnaire de paquets [snap](https://snapcraft.io/docs/core/install), kubectl est disponible comme application [snap](https://snapcraft.io/).
 
-1. Passez à l'utilisateur snap et exécutez la commande d'installation :
+```shell
+snap install kubectl --classic
 
-    ```
-    sudo snap install kubectl --classic
-    ```
+kubectl version --client
+```
+{{% /tab %}}
+{{% tab name="Homebrew" %}}
+Si vous êtes sur Linux et que vous utiliser [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) comme gestionnaire de paquets, kubectl est disponible. [installation](https://docs.brew.sh/Homebrew-on-Linux#install)
+```shell
+brew install kubectl
 
-2. Testez pour vous assurer que la version que vous avez installée est à jour :
-
-    ```
-    kubectl version
-    ```
+kubectl version --client
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Installer kubectl sur macOS
 
 ### Installer le binaire kubectl avec curl sur macOS
 
-1. Téléchargez la dernière release:
+1. Téléchargez la dernière version:
 
     ```		
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
@@ -129,7 +134,7 @@ Si vous êtes sur Ubuntu ou une autre distribution Linux qui supporte le gestion
 4. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Installer avec Homebrew sur macOS
@@ -139,13 +144,18 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Homebre
 1. Exécutez la commande d'installation:
 
     ```
+    brew install kubectl 
+    ```
+    ou
+
+    ```
     brew install kubernetes-cli
     ```
 
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Installer avec Macports sur macOS
@@ -162,14 +172,14 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Macport
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Installer kubectl sur Windows
 
 ### Installer le binaire kubectl avec curl sur Windows
 
-1. Téléchargez la dernière release {{< param "fullversion" >}} depuis [ce lien](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Téléchargez la dernière version {{< param "fullversion" >}} depuis [ce lien](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Ou si vous avez `curl` installé, utilisez cette commande:
 
@@ -183,8 +193,12 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Macport
 3. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
+{{< note >}}
+[Docker Desktop pour Windows](https://docs.docker.com/docker-for-windows/#kubernetes) ajoute sa propre version de `kubectl` au $PATH.
+Si vous avez déjà installé Docker Desktop, vous devrez peut-être placer votre entrée PATH avant celle ajoutée par le programme d'installation de Docker Desktop ou supprimer le `kubectl` de Docker Desktop.
+{{< /note >}}
 
 ### Installer avec Powershell de PSGallery
 
@@ -204,7 +218,7 @@ Si vous êtes sous Windows et que vous utilisez le gestionnaire de paquets [Powe
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}La mise à jour de l'installation s'effectue en réexécutant les deux commandes listées à l'étape 1.{{< /note >}}
@@ -227,7 +241,7 @@ Pour installer kubectl sur Windows, vous pouvez utiliser le gestionnaire de paqu
 2. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 3. Accédez à votre répertoire personnel:
@@ -269,7 +283,7 @@ Vous pouvez installer kubectl en tant qu'élément du SDK Google Cloud.
 3. Testez pour vous assurer que la version que vous avez installée est à jour:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Vérification de la configuration de kubectl
@@ -307,7 +321,7 @@ Vous trouverez ci-dessous les étapes à suivre pour configurer l'auto-compléti
 
 {{< tabs name="kubectl_autocompletion" >}}
 
-{{% tab name="Bash on Linux" %}}
+{{% tab name="Bash sur Linux" %}}
 
 ### Introduction
 
@@ -344,6 +358,12 @@ Vous devez maintenant vérifier que le script de completion de kubectl est bien 
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
+- Si vous avez un alias pour kubectl, vous pouvez étendre la completion de votre shell pour fonctionner avec cet alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
 
 {{< note >}}
 bash-completion source tous les scripts de completion dans `/etc/bash_completion.d`.
@@ -354,39 +374,51 @@ Les deux approches sont équivalentes. Après avoir rechargé votre shell, l'aut
 {{% /tab %}}
 
 
-{{% tab name="Bash on macOS" %}}
+{{% tab name="Bash sur macOS" %}}
 
-{{< warning>}}
-macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
-{{< /warning >}}
 
 ### Introduction
 
 Le script de complétion kubectl pour Bash peut être généré avec la commande `kubectl completion bash`. Sourcer le script de completion dans votre shell permet l'auto-complétion de kubectl.
 
-En revanche, le script de complétion dépend de [**bash-completion**](https://github.com/scop/bash-completion), ce qui implique que vous devez d'abord installer ce logiciel (vous pouvez tester si vous avez déjà installé bash-completion en utilisant `type _init_completion`).
+En revanche, le script de complétion dépend de [**bash-completion**](https://github.com/scop/bash-completion), ce qui implique que vous devez d'abord installer ce logiciel.
+
+{{< warning>}}
+macOS inclut Bash 3.2 par défaut. Le script de complétion kubectl nécessite Bash 4.1+ et ne fonctionne pas avec Bash 3.2. Une des solutions possibles est d'installer une version plus récente de Bash sous macOS (voir instructions [ici](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). Les instructions ci-dessous ne fonctionnent que si vous utilisez Bash 4.1+.
+{{< /warning >}}
+
 
 ### Installer bash-completion
 
-Vous pouvez installer bash-completion avec Homebrew:
+{{< note >}}
+Comme mentionné, ces instructions supposent que vous utilisez Bash 4.1+, ce qui signifie que vous installerez bash-completion v2 (contrairement à Bash 3.2 et bash-completion v1, auquel cas la complétion pour kubectl ne fonctionnera pas).
+{{< /note >}}
+
+Vous pouvez tester si vous avez déjà installé bash-completion en utilisant `type _init_completion`. Si il n'est pas installé, vous pouvez installer bash-completion avec Homebrew:
 
 ```shell
-brew install bash-completion
+brew install bash-completion@2
 ```
 
 Comme indiqué dans la sortie de `brew install` (section "Caveats"), ajoutez les lignes suivantes à votre fichier `~/.bashrc` ou `~/.bash_profile` :
 
 ```shell
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
 
-Rechargez votre shell.
+Rechargez votre shell et vérifiez que bash-completion v2 est correctement installé avec `type _init_completion`.
 
 ### Activer l'auto-complétion de kubectl
 
-Si vous avez installé kubectl avec Homebrew (comme expliqué [ici](#installer-avec-homebrew-sur-macos)), alors le script de complétion a été automatiquement installé dans `/usr/local/etc/bash_completion.d/kubectl`. Dans ce cas, vous n'avez rien à faire.
-
 Si vous n'avez pas installé via Homebrew, vous devez maintenant vous assurer que le script de complétion kubectl est bien sourcé dans toutes vos sessions shell comme suit:
+
+- Sourcer le script de completion dans votre fichier `~/.bashrc`:
+
+    ```shell
+    echo 'source <(kubectl completion bash)' >>~/.bashrc
+
+    ```
 
 - Ajoutez le script de complétion dans le répertoire `/usr/local/etc/bash_completion.d`:
 
@@ -394,9 +426,17 @@ Si vous n'avez pas installé via Homebrew, vous devez maintenant vous assurer qu
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
+- Si vous avez un alias pour kubectl, vous pouvez étendre la completion de votre shell pour fonctionner avec cet alias:
+
+    ```shell
+    echo 'alias k=kubectl' >>~/.bashrc
+    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    ```
+    
+Si vous avez installé kubectl avec Homebrew (comme expliqué [ici](#installer-avec-homebrew-sur-macos)), alors le script de complétion a été automatiquement installé dans `/usr/local/etc/bash_completion.d/kubectl`. Dans ce cas, vous n'avez rien à faire.
 
 {{< note >}}
-bash-completion (en cas d'installation avec Homebrew) source tous les scripts de complétion dans le répertoire.
+L'installation Homebrew de bash-complétion v2 source tous les fichiers du répertoire `BASH_COMPLETION_COMPAT_DIR`, c'est pourquoi les deux dernières méthodes fonctionnent.
 {{< /note >}}
 
 Après avoir rechargé votre shell, l'auto-complétion de kubectl devrait fonctionner.
@@ -410,6 +450,13 @@ Pour faire ainsi dans toutes vos sessions shell, ajoutez ce qui suit à votre fi
 
 ```shell
 source <(kubectl completion zsh)
+```
+
+Si vous avez un alias pour kubectl, vous pouvez étendre la completion de votre shell pour fonctionner avec cet alias:
+
+```shell
+echo 'alias k=kubectl' >>~/.zshrc
+echo 'complete -F __start_kubectl k' >>~/.zshrc
 ```
 
 Après avoir rechargé votre shell, l'auto-complétion de kubectl devrait fonctionner.

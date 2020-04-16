@@ -73,6 +73,8 @@ balancer in between your application and the backend Pods.
 A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
+The name of a Service object must be a valid
+[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 For example, suppose you have a set of Pods that each listen on TCP port 9376
 and carry a label `app=MyApp`:
@@ -167,6 +169,9 @@ subsets:
       - port: 9376
 ```
 
+The name of the Endpoints object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
 link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6).
@@ -196,6 +201,17 @@ endpoints.
 
 EndpointSlices provide additional attributes and functionality which is
 described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
+
+### Application protocol
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The AppProtocol field provides a way to specify an application protocol to be
+used for each Service port.
+
+As an alpha feature, this field is not enabled by default. To use this field,
+enable the `ServiceAppProtocol` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 ## Virtual IPs and service proxies
 
@@ -518,6 +534,25 @@ to just expose one or more nodes' IPs directly.
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
 
+For example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+```
+
 ### Type LoadBalancer {#loadbalancer}
 
 On cloud providers which support external load balancers, setting the `type`
@@ -615,6 +650,16 @@ metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 [...]
 ```
 {{% /tab %}}
@@ -1172,19 +1217,6 @@ SCTP is not supported on Windows based nodes.
 {{< warning >}}
 The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
 {{< /warning >}}
-
-## Future work
-
-In the future, the proxy policy for Services can become more nuanced than
-simple round-robin balancing, for example master-elected or sharded.  We also
-envision that some Services will have "real" load balancers, in which case the
-virtual IP address will simply transport the packets there.
-
-The Kubernetes project intends to improve support for L7 (HTTP) Services.
-
-The Kubernetes project intends to have more flexible ingress modes for Services
-that encompass the current ClusterIP, NodePort, and LoadBalancer modes and more.
-
 
 {{% /capture %}}
 

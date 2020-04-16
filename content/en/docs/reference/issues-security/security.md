@@ -17,7 +17,7 @@ This page describes Kubernetes security and disclosure information.
 {{% capture body %}}
 ## Security Announcements
 
-Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) group for emails about security and major API announcements.
+Join the [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce) group for emails about security and major API announcements.
 
 You can also subscribe to an RSS feed of the above using [this link](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50).
 

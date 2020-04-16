@@ -110,7 +110,7 @@ Elastic Cloud의 Elasticsearch 서비스로 연결한다면 **관리 서비스**
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시가 있다.
+이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시(또는 [*이 구성*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897)을 본다)가 있다.
 
 #### `ELASTICSEARCH_HOSTS`
 1. Elastic의 Elasticsearch Helm 차트에서 노드 그룹(nodeGroup).

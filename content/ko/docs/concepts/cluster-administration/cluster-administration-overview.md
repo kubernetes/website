@@ -31,7 +31,7 @@ weight: 10
 
 ## 클러스터 관리
 
-* [클러스터 관리](/docs/tasks/administer-cluster/cluster-management/)는 클러스터의 라이프사이클과 관련된 몇 가지 주제를 설명한다. 이는 새 클러스터 생성, 마스터와 워커노드 업그레이드, 노드 유지보수 실행 (예: 커널 업그레이드), 그리고 동작 중인 클러스터의 쿠버네티스 API 버전 업그레이드 등을 포함한다.
+* [클러스터 관리](/ko/docs/tasks/administer-cluster/cluster-management/)는 클러스터의 라이프사이클과 관련된 몇 가지 주제를 설명한다. 이는 새 클러스터 생성, 마스터와 워커노드 업그레이드, 노드 유지보수 실행 (예: 커널 업그레이드), 그리고 동작 중인 클러스터의 쿠버네티스 API 버전 업그레이드 등을 포함한다.
 
 * 어떻게 [노드 관리](/ko/docs/concepts/architecture/nodes/)를 하는지 배워보자.
 
@@ -41,7 +41,7 @@ weight: 10
 
 * [인증서](/docs/concepts/cluster-administration/certificates/)는 다른 툴 체인을 이용하여 인증서를 생성하는 방법을 설명한다.
 
-* [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment-variables/)은 쿠버네티스 노드에서 Kubelet에 의해 관리되는 컨테이너 환경에 대해 설명한다.
+* [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet에 의해 관리되는 컨테이너 환경에 대해 설명한다.
 
 * [쿠버네티스 API에 대한 접근 제어](/docs/reference/access-authn-authz/controlling-access/)는 사용자와 서비스 계정에 어떻게 권한 설정을 하는지 설명한다.
 

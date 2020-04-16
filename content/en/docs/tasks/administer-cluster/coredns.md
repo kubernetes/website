@@ -63,6 +63,10 @@ In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
 and is installed by default.
 {{< /note >}}
 
+{{< warning >}}
+In Kubernetes 1.18, kube-dns usage with kubeadm has been deprecated and will be removed in a future version.
+{{< /warning >}}
+
 To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
 value to `false`:
 
@@ -72,9 +76,9 @@ kubeadm init --feature-gates=CoreDNS=false
 
 For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
 
-## Upgrading CoreDNS 
+## Upgrading CoreDNS
 
-CoreDNS is available in Kubernetes since v1.9. 
+CoreDNS is available in Kubernetes since v1.9.
 You can check the version of CoreDNS shipped with Kubernetes and the changes made to CoreDNS [here](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
 
 CoreDNS can be upgraded manually in case you want to only upgrade CoreDNS or use your own custom image.

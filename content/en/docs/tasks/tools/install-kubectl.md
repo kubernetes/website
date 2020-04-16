@@ -59,7 +59,7 @@ You must use a kubectl version that is within one minor version difference of yo
 
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian or HypriotOS" codelang="bash" >}}
-sudo apt-get update && sudo apt-get install -y apt-transport-https
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
@@ -87,7 +87,7 @@ If you are on Ubuntu or another Linux distribution that support [snap](https://s
 ```shell
 snap install kubectl --classic
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{% tab name="Homebrew" %}}
@@ -95,7 +95,7 @@ If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 ```shell
 brew install kubectl
 
-kubectl version
+kubectl version --client
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -385,6 +385,27 @@ However, the kubectl completion script depends on [**bash-completion**](https://
 there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
 {{< /warning >}}
 
+### Upgrade Bash
+
+The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
+
+```shell
+echo $BASH_VERSION
+```
+
+If it is too old, you can install/upgrade it using Homebrew:
+
+```shell
+brew install bash
+```
+
+Reload your shell and verify that the desired version is being used:
+
+```shell
+echo $BASH_VERSION $SHELL
+```
+
+Homebrew usually installs it at `/usr/local/bin/bash`.
 
 ### Install bash-completion
 
@@ -398,7 +419,7 @@ You can test if you have bash-completion v2 already installed with `type _init_c
 brew install bash-completion@2
 ```
 
-As stated in the output of this command, add the following to your `~/.bashrc` file:
+As stated in the output of this command, add the following to your `~/.bash_profile` file:
 
 ```shell
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
@@ -411,10 +432,10 @@ Reload your shell and verify that bash-completion v2 is correctly installed with
 
 You now have to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways to achieve this:
 
-- Source the completion script in your `~/.bashrc` file:
+- Source the completion script in your `~/.bash_profile` file:
 
     ```shell
-    echo 'source <(kubectl completion bash)' >>~/.bashrc
+    echo 'source <(kubectl completion bash)' >>~/.bash_profile
 
     ```
 
@@ -427,8 +448,8 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 - If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
     ```shell
-    echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
+    echo 'alias k=kubectl' >>~/.bash_profile
+    echo 'complete -F __start_kubectl k' >>~/.bash_profile
     ```
     
 - If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.

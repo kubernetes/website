@@ -11,7 +11,6 @@ weight: 30
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 
 {{% /capture %}}
@@ -36,6 +35,7 @@ Users need to be aware of the following when using this feature:
 * Cloning is only supported within the same Storage Class.
     - Destination volume must be the same storage class as the source
     - Default storage class can be used and storageClassName omitted in the spec
+* Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
 
 
 ## Provisioning
@@ -59,6 +59,10 @@ spec:
     kind: PersistentVolumeClaim
     name: pvc-1
 ```
+
+{{< note >}}
+You must specify a capacity value for `spec.resources.requests.storage`, and the value you specify must be the same or larger than the capacity of the source volume.
+{{< /note >}}
 
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.
 

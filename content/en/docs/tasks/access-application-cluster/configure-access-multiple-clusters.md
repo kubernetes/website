@@ -86,7 +86,9 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-To delete a user you can run `kubectl config unset users.<name>`
+- To delete a user you can run `kubectl --kubeconfig=config-demo config unset users.<name>`
+- To remove a cluster, you can run `kubectl --kubeconfig=config-demo config unset clusters.<name>`
+- To remove a context, you can run `kubectl --kubeconfig=config-demo config unset contexts.<name>`
 {{< /note >}}
 
 Add context details to your configuration file:
@@ -147,17 +149,17 @@ users:
     username: exp
 ```
 
-The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above is the placeholders
-for the real path of the certification files. You need change these to the real path
-of certification files in your environment.
+The `fake-ca-file`, `fake-cert-file` and `fake-key-file` above are the placeholders
+for the pathnames of the certificate files. You need change these to the actual pathnames
+of certificate files in your environment.
 
-Some times you may want to use base64 encoded data here instead of the path of the 
-certification files, then you need add the suffix `-data` to the keys. For example,
+Sometimes you may want to use Base64-encoded data embedded here instead of separate
+certificate files; in that case you need add the suffix `-data` to the keys, for example,
 `certificate-authority-data`, `client-certificate-data`, `client-key-data`.
 
 Each context is a triple (cluster, user, namespace). For example, the
-`dev-frontend` context says, Use the credentials of the `developer`
-user to access the `frontend` namespace of the `development` cluster.
+`dev-frontend` context says, "Use the credentials of the `developer`
+user to access the `frontend` namespace of the `development` cluster".
 
 Set the current context:
 
@@ -273,7 +275,7 @@ colon-delimited for Linux and Mac, and semicolon-delimited for Windows. If you h
 a `KUBECONFIG` environment variable, familiarize yourself with the configuration files
 in the list.
 
-Temporarily append two paths to your `KUBECONFIG` environment variable. For example:<br>
+Temporarily append two paths to your `KUBECONFIG` environment variable. For example:
 
 ### Linux
 ```shell
@@ -357,11 +359,12 @@ kubectl config view
 ## Clean up
 
 Return your `KUBECONFIG` environment variable to its original value. For example:<br>
-Linux:
+
+### Linux
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
+### Windows PowerShell
 ```shell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```

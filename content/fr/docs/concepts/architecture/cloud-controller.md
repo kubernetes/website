@@ -253,6 +253,7 @@ Les fournisseurs de cloud suivants ont implémenté leur CCM:
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [Scaleway](https://github.com/scaleway/scaleway-cloud-controller-manager)
 
 ## Administration de cluster
 

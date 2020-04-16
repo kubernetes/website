@@ -119,7 +119,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -136,7 +136,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -199,7 +199,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -216,7 +216,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -255,7 +255,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -273,7 +273,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -282,7 +282,7 @@ spec:
 ```
 
 Update the `simple_deployment.yaml` configuration file to change the image from
-`nginx:1.7.9` to `nginx:1.11.9`, and delete the `minReadySeconds` field:
+`nginx:1.14.2` to `nginx:1.16.1`, and delete the `minReadySeconds` field:
 
 {{< codenew file="application/update_deployment.yaml" >}}
 
@@ -303,7 +303,7 @@ The output shows the following changes to the live configuration:
 
 * The `replicas` field retains the value of 2 set by `kubectl scale`.
   This is possible because it is omitted from the configuration file.
-* The `image` field has been updated to `nginx:1.11.9` from `nginx:1.7.9`.
+* The `image` field has been updated to `nginx:1.16.1` from `nginx:1.14.2`.
 * The `last-applied-configuration` annotation has been updated with the new image.
 * The `minReadySeconds` field has been cleared.
 * The `last-applied-configuration` annotation no longer contains the `minReadySeconds` field.
@@ -320,7 +320,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -338,7 +338,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -460,7 +460,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -478,7 +478,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -518,7 +518,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -536,7 +536,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -654,7 +654,7 @@ by `name`.
 # last-applied-configuration value
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-a # key: nginx-helper-a; will be deleted in result
       image: helper:1.3
     - name: nginx-helper-b # key: nginx-helper-b; will be retained
@@ -663,7 +663,7 @@ by `name`.
 # configuration file value
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-b
       image: helper:1.3
     - name: nginx-helper-c # key: nginx-helper-c; will be added in result
@@ -672,7 +672,7 @@ by `name`.
 # live configuration
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
     - name: nginx-helper-a
       image: helper:1.3
     - name: nginx-helper-b
@@ -684,7 +684,7 @@ by `name`.
 # result after merge
     containers:
     - name: nginx
-      image: nginx:1.10
+      image: nginx:1.16
       # Element nginx-helper-a was deleted
     - name: nginx-helper-b
       image: helper:1.3
@@ -779,7 +779,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         imagePullPolicy: IfNotPresent # defaulted by apiserver
         name: nginx
         ports:
@@ -819,7 +819,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -834,7 +834,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -852,7 +852,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -870,7 +870,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 ```

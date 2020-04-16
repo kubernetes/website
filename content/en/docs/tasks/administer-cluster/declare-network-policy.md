@@ -90,10 +90,11 @@ To limit the access to the `nginx` service so that only Pods with the label `acc
 
 {{< codenew file="service/networking/nginx-policy.yaml" >}}
 
+The name of a NetworkPolicy object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 {{< note >}}
-
 NetworkPolicy includes a `podSelector` which selects the grouping of Pods to which the policy applies. You can see this policy selects Pods with the label `app=nginx`. The label was automatically added to the Pod in the `nginx` Deployment. An empty `podSelector` selects all pods in the namespace.
-
 {{< /note >}}
 
 ## Assign the policy to the service

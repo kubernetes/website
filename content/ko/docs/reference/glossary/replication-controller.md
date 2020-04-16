@@ -1,19 +1,25 @@
 ---
-title: 레플리케이션 컨트롤러(Replication Controller)
+title: 레플리케이션 컨트롤러(ReplicationController)
 id: replication-controller
 date: 2018-04-12
 full_link: 
 short_description: >
-  특정 수의 파드 인스턴스가 항상 동작하도록 보장하는 쿠버네티스 서비스.
+  (사용 중단된) 복제된 애플리케이션을 관리하는 API 오브젝트
 
 aka: 
 tags:
 - workload
 - core-object
 ---
- 특정 수의 파드 인스턴스가 항상 동작하도록 보장하는 쿠버네티스 서비스.
+ 특정한 수의 {{< glossary_tooltip text="파드" term_id="pod" >}} 인스턴스가
+실행 중인지 확인하면서 복제된 애플리케이션을 관리하는 워크로드 리소스이다.
 
 <!--more--> 
 
-레플리케이션 컨트롤러는 파드에 설정된 값에 따라서, 동작하는 파드의 인스턴스를 자동으로 추가하거나 제거할 것이다. 파드가 삭제되거나 실수로 너무 많은 수의 파드가 시작된 경우, 파드가 지정된 수의 인스턴스로 돌아갈 수 있게 허용한다. 
+컨트롤 플레인은 일부 파드에 장애가 발생하거나, 수동으로 파드를 삭제하거나,
+실수로 너무 많은 수의 파드가 시작된 경우에도 정의된 수량의 파드가 실행되도록 한다.
 
+{{< note >}}
+레플리케이션컨트롤러는 사용 중단되었다. 유사한
+것으로는 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}를 본다.
+{{< /note >}}

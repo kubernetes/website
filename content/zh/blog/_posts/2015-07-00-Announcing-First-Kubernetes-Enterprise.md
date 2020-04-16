@@ -2,7 +2,6 @@
 title: "宣布首个Kubernetes企业培训课程 "
 date: 2015-07-08
 slug: announcing-first-kubernetes-enterprise
-url: /blog/2015/07/Announcing-First-Kubernetes-Enterprise
 ---
 <!-- ---
 title: " Announcing the First Kubernetes Enterprise Training Course "

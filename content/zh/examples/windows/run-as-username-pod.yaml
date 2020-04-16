@@ -11,4 +11,4 @@ spec:
     image: mcr.microsoft.com/windows/servercore:ltsc2019
     command: ["ping", "-t", "localhost"]
   nodeSelector:
-    beta.kubernetes.io/os: windows
+    kubernetes.io/os: windows

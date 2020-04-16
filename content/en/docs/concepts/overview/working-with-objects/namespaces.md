@@ -55,6 +55,7 @@ NAME          STATUS    AGE
 default       Active    1d
 kube-system   Active    1d
 kube-public   Active    1d
+kube-node-lease Active 1d
 ```
 
 Kubernetes starts with three initial namespaces:

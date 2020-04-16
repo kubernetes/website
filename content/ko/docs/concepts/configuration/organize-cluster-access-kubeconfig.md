@@ -23,7 +23,7 @@ kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스
 다른 kubeconfig 파일을 사용할 수 있다.
 
 kubeconfig 파일을 생성하고 지정하는 단계별 지시사항은
-[다중 클러스터로 접근 구성하기](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)를 참조한다.
+[다중 클러스터로 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참조한다.
 
 {{% /capture %}}
 
@@ -97,7 +97,7 @@ kubectl config view
      두 번째 파일의 `red-user` 하위에 충돌하지 않는 항목이 있어도 버린다.
 
    `KUBECONFIG` 환경 변수 설정의 예로,
-   [KUBECONFIG 환경 변수 설정](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable)를 참조한다.
+   [KUBECONFIG 환경 변수 설정](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#kubeconfig-환경-변수-설정)를 참조한다.
 
    그렇지 않다면, 병합하지 않고 기본 kubecofig 파일인 `$HOME/.kube/config`를 사용한다.
 
@@ -148,7 +148,7 @@ kubeconfig 파일에서 파일과 경로 참조는 kubeconfig 파일의 위치�
 
 {{% capture whatsnext %}}
 
-* [다중 클러스터 접근 구성하기](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [다중 클러스터 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 {{% /capture %}}

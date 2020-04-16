@@ -24,18 +24,7 @@ weight: 30
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 -->
 
-本文档描述 Kubernetes 中克隆现有 CSI 卷的概念。建议先熟悉[卷](/docs/concepts/storage/volumes)。
-
-<!--
-This feature requires VolumePVCDataSource feature gate to be enabled:
--->
-
-此功能需要启动 VolumePVCDataSource 功能门：
-
-```
---feature-gates=VolumePVCDataSource=true
-```
-
+本文档介绍 Kubernetes 中克隆现有 CSI 卷的概念。阅读前建议先熟悉[卷](/docs/concepts/storage/volumes)。
 
 {{% /capture %}}
 
@@ -52,13 +41,13 @@ This feature requires VolumePVCDataSource feature gate to be enabled:
 The {{< glossary_tooltip text="CSI" term_id="csi" >}} Volume Cloning feature adds support for specifying existing {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}s in the `dataSource` field to indicate a user would like to clone a {{< glossary_tooltip term_id="volume" >}}.
 -->
 
-{{< glossary_tooltip text="CSI" term_id="csi" >}} 卷克隆功能增加了在 `dataSource` 字段指定现有的 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}s，来表示用户想要克隆的 {{< glossary_tooltip term_id="volume" >}}。
+{{< glossary_tooltip text="CSI" term_id="csi" >}} 卷克隆功能增加了通过在 `dataSource` 字段中指定存在的 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}s，来表示用户想要克隆的 {{< glossary_tooltip term_id="volume" >}}。
 
 <!--
 A Clone is defined as a duplicate of an existing Kubernetes Volume that can be consumed as any standard Volume would be.  The only difference is that upon provisioning, rather than creating a "new" empty Volume, the back end device creates an exact duplicate of the specified Volume.
 -->
 
-克隆定义为已有 Kubernetes 卷的副本，可以像任何标准卷一样被使用。唯一的区别就是配置后，后端设备将创建指定卷的精确副本，而不是创建一个“新的”空卷。
+克隆，意思是为已有的 Kubernetes 卷创建副本，它可以像任何其它标准卷一样被使用。唯一的区别就是配置后，后端设备将创建指定完全相同的副本，而不是创建一个“新的”空卷。
 
 <!--
 The implementation of cloning, from the perspective of the Kubernetes API simply adds the ability to specify an existing unbound PVC as a dataSource during new pvc creation.
@@ -120,6 +109,14 @@ spec:
     kind: PersistentVolumeClaim
     name: pvc-1
 ```
+
+<!--
+You must specify a capacity value for `spec.resources.requests.storage`, and the value you specify must be the same or larger than the capacity of the source volume.
+-->
+
+{{< note >}}
+你必须为 `spec.resources.requests.storage` 指定一个值，并且你指定的值必须大于或等于源卷的值。
+{{< /note >}}
 
 <!--
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.

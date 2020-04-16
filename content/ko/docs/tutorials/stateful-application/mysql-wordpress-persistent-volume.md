@@ -113,13 +113,13 @@ EOF
       
 3. 두 파일을 `kustomization.yaml`에 추가하자.
 
-      ```shell
-      cat <<EOF >>./kustomization.yaml
-      resources:
-        - mysql-deployment.yaml
-        - wordpress-deployment.yaml
-      EOF
-      ```
+```shell
+cat <<EOF >>./kustomization.yaml
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+EOF
+```
 
 ## 적용하고 확인하기
 `kustomization.yaml`은 WordPress 사이트와 MySQL 데이터베이스를 배포하는 모든 리소스를 포함한다.
@@ -232,8 +232,8 @@ kubectl apply -k ./
 {{% capture whatsnext %}}
 
 * [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
-* [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
-* [포트 포워딩](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
+* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
+* [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
 * 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
 
 {{% /capture %}}

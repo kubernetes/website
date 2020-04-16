@@ -202,7 +202,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## リソースのアップデート
 
-version 1.11で`rolling-update`は廃止されました、代わりに`rollout`コマンドをお使いください(詳しくはこちらをご覧ください [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md))。
+version 1.11で`rolling-update`は廃止されました、代わりに`rollout`コマンドをお使いください(詳しくはこちらをご覧ください [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md))。
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # frontend Deploymentのwwwコンテナイメージをv2にローリングアップデートします

@@ -616,35 +616,35 @@ kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec":
 
 *Note: This [issue](https://github.com/kubernetes/kubeadm/issues/1358) only applies to tools that marshal kubeadm types (e.g. to a YAML configuration file). It will be fixed in kubeadm API v1beta2.*
 
-By default, kubeadm applies the `role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
+By default, kubeadm applies the `node-role.kubernetes.io/master:NoSchedule` taint to control-plane nodes.
 If you prefer kubeadm to not taint the control-plane node, and set `InitConfiguration.NodeRegistration.Taints` to an empty slice,
 the field will be omitted when marshalling. When the field is omitted, kubeadm applies the default taint.
 
 There are at least two workarounds:
 
-1. Use the `role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
 
 2. Remove the taint after kubeadm init exits:
 ```bash
-kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 ```
 -->
 ## NodeRegistration.Taints 字段在编组 kubeadm 配置时丢失
 
 *注意：这个 [问题](https://github.com/kubernetes/kubeadm/issues/1358) 仅适用于操控 kubeadm 数据类型的工具（例如，YAML 配置文件）。它将在 kubeadm API v1beta2 修复。*
 
-默认情况下，kubeadm 将 `role.kubernetes.io/master:NoSchedule` 污点应用于控制平面节点。
+默认情况下，kubeadm 将 `node-role.kubernetes.io/master:NoSchedule` 污点应用于控制平面节点。
 如果您希望 kubeadm 不污染控制平面节点，并将 `InitConfiguration.NodeRegistration.Taints` 设置成空切片，则应在编组时省略该字段。
 如果省略该字段，则 kubeadm 将应用默认污点。
 
 至少有两种解决方法：
 
-1. 使用 `role.kubernetes.io/master:PreferNoSchedule` 污点代替空切片。
+1. 使用 `node-role.kubernetes.io/master:PreferNoSchedule` 污点代替空切片。
 除非其他节点具有容量，[否则将在主节点上调度 Pods](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/)。
 
 2. 在 kubeadm init 退出后删除污点：
 ```bash
-kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
+kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 ```
 
 {{% /capture %}}

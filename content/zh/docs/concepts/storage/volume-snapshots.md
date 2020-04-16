@@ -141,7 +141,7 @@ While a snapshot is being taken of a PersistentVolumeClaim, that PersistentVolum
 -->
 如果一个 PVC 正在被快照用来作为源进行快照创建，则该 PVC 是使用中的。如果用户删除正作为快照源的 PVC API 对象，则 PVC 对象不会立即被删除掉。相反，PVC 对象的删除将推迟到任何快照不在主动使用它为止。当快照的 `Status` 中的 `ReadyToUse`值为 `true` 时，PVC 将不再用作快照源。
 
-当从 `PersistentVolumeClaim` 中生成快照时，`PersistentVolumeClaim` 就在被使用了。如果删除一个作为快照源的 `PersistentVolumeClaim` 对象，这个 `PersistentVolumeClaim` 对象不会立即被删除的。相反，在快照可以被使用或者被放弃之后，才会执行删除 `PersistentVolumeClaim` 对象的动作。
+当从 `PersistentVolumeClaim` 中生成快照时，`PersistentVolumeClaim` 就在被使用了。如果删除一个作为快照源的 `PersistentVolumeClaim` 对象，这个 `PersistentVolumeClaim` 对象不会立即被删除的。相反，删除 `PersistentVolumeClaim` 对象的动作会被放弃，或者推迟到快照的 Status 为 ReadyToUse时再执行。
 
 <!--
 ### Delete

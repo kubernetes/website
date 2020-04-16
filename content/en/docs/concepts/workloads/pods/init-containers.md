@@ -71,8 +71,8 @@ have some advantages for start-up related code:
   a mechanism to block or delay app container startup until a set of preconditions are met. Once
   preconditions are met, all of the app containers in a Pod can start in parallel.
 * Init containers can securely run utilities or custom code that would otherwise make an app
-  container image less secure. By keeping unnecessary tools separate you can limit the attack  
-  surface of your app container image. 
+  container image less secure. By keeping unnecessary tools separate you can limit the attack
+  surface of your app container image.
 
 
 ### Examples
@@ -122,10 +122,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
 You can start this Pod by running:
@@ -245,8 +245,11 @@ init containers. [What's next](#what-s-next) contains a link to a more detailed 
 
 ## Detailed behavior
 
-During the startup of a Pod, each init container starts in order, after the
-network and volumes are initialized. Each container must exit successfully before
+During Pod startup, the kubelet delays running init containers until the networking
+and storage are ready. Then the kubelet runs the Pod's init containers in the order
+they appear in the Pod's spec.
+
+Each init container must exit successfully before
 the next container starts. If a container fails to start due to the runtime or
 exits with failure, it is retried according to the Pod `restartPolicy`. However,
 if the Pod `restartPolicy` is set to Always, the init containers use

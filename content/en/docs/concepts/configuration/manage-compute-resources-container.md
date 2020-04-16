@@ -68,13 +68,7 @@ resource requests/limits of that type for each Container in the Pod.
 ## Meaning of CPU
 
 Limits and requests for CPU resources are measured in *cpu* units.
-One cpu, in Kubernetes, is equivalent to:
-
-- 1 AWS vCPU
-- 1 GCP Core
-- 1 Azure vCore
-- 1 IBM vCPU
-- 1 *Hyperthread* on a bare-metal Intel processor with Hyperthreading
+One cpu, in Kubernetes, is equivalent to **1 vCPU/Core** for cloud providers and **1 hyperthread** on bare-metal Intel processors.
 
 Fractional requests are allowed. A Container with
 `spec.containers[].resources.requests.cpu` of `0.5` is guaranteed half as much
@@ -191,9 +185,10 @@ resource limits, see the
 
 The resource usage of a Pod is reported as part of the Pod status.
 
-If [optional monitoring](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/cluster-monitoring/README.md)
-is configured for your cluster, then Pod resource usage can be retrieved from
-the monitoring system.
+If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+are available in your cluster, then Pod resource usage can be retrieved either
+from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+directly or from your monitoring tools.
 
 ## Troubleshooting
 
@@ -391,7 +386,7 @@ spec:
 ### How Pods with ephemeral-storage requests are scheduled
 
 When you create a Pod, the Kubernetes scheduler selects a node for the Pod to
-run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable). 
+run on. Each node has a maximum amount of local ephemeral storage it can provide for Pods. For more information, see ["Node Allocatable"](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable).
 
 The scheduler ensures that the sum of the resource requests of the scheduled Containers is less than the capacity of the node.
 

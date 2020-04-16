@@ -67,6 +67,7 @@ Credentials can be provided in several ways:
     - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
   - Using IBM Cloud Container Registry
+    - use IAM roles and policies to grant access to IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -148,11 +149,11 @@ Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 ### Using IBM Cloud Container Registry
-IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your Docker images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can create a token to grant access to registry namespaces.
+IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your  images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can use IAM roles and policies to grant access to IBM Cloud Container Registry namespaces.
 
-To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started).
+To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/Registry?topic=registry-getting-started).
 
-You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images).
+If you are using the same account and region, you can deploy images that are stored in IBM Cloud Container Registry into the default namespace of your IBM Cloud Kubernetes Service cluster without any additional configuration, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images). For other configuration options, see [Understanding how to authorize your cluster to pull images from a registry](https://cloud.ibm.com/docs/containers?topic=containers-registry#cluster_registry_auth).
 
 ### Configuring Nodes to Authenticate to a Private Registry
 

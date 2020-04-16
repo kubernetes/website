@@ -197,7 +197,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Cập nhật các tài nguyên
 
-Theo như phiên bản 1.11, `rolling-update` đã không còn được dùng nữa (xem [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), sử dụng `rollout` thay thế.
+Theo như phiên bản 1.11, `rolling-update` đã không còn được dùng nữa (xem [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), sử dụng `rollout` thay thế.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Cập nhận container "www" của deployment "frontend", cập nhật image

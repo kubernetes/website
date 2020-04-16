@@ -11,7 +11,7 @@ tags:
 - architecture
 - fundamental
 ---
- Składnik *master* odpowiedzialny za uruchamianie {{< glossary_tooltip text="kontrolerów" term_id="controller" >}}.
+ Składnik warstwy sterowania odpowiedzialny za uruchamianie {{< glossary_tooltip text="kontrolerów" term_id="controller" >}}.
 
 <!--more-->
 

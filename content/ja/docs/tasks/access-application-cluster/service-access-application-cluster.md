@@ -37,7 +37,7 @@ weight: 60
    kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
    ```
     このコマンドは
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
+    [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
     オブジェクトとそれに紐付く
     [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
     オブジェクトを作成します。ReplicaSetは、Hello Worldアプリケーションが稼働している2つの
@@ -115,7 +115,7 @@ weight: 60
 ## service configuration fileの利用
 
 `kubectl expose`コマンドの代わりに、
-[service configuration file](/docs/concepts/services-networking/service/)
+[service configuration file](/ja/docs/concepts/services-networking/service/)
 を使用してServiceを作成することもできます。
 
 {{% /capture %}}

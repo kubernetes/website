@@ -13,8 +13,8 @@ _데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도
 데몬셋의 일부 대표적인 용도는 다음과 같다.
 
 - 각 노드에서 `glusterd`, `ceph` 와 같은 클러스터 스토리지 데몬의 실행.
-- 모든 노드에서 `fluentd` 또는 `logstash` 와 같은 로그 수집 데몬의 실행.
-- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 와 같은 노드 모니터링 데몬의 실행.
+- 모든 노드에서 `fluentd` 또는 `filebeat` 와 같은 로그 수집 데몬의 실행.
+- 모든 노드에서 [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` 또는 [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) 또는 [Elastic Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/running-on-kubernetes.html)와 같은 노드 모니터링 데몬의 실행.
 
 단순한 케이스에서는, 각 데몬 유형의 처리를 위해서 모든 노드를 커버하는 하나의 데몬셋이 사용된다.
 더 복잡한 구성에서는 단일 유형의 데몬에 여러 데몬셋을 사용할 수 있지만, 
@@ -33,7 +33,8 @@ YAML 파일로 데몬셋을 설명 할 수 있다. 예를 들어 아래 `daemons
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* YAML 파일을 기반으로 데몬셋을 생성한다.
+YAML 파일을 기반으로 데몬셋을 생성한다.
+
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
@@ -44,6 +45,8 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 일반적인 설정파일 작업에 대한 정보는 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), 
 [컨테이너 구성하기](/ko/docs/tasks/) 그리고 [kubectl을 사용한 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
+데몬셋 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 데몬셋에는 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 섹션도 필요하다.
 
 ### 파드 템플릿
@@ -61,7 +64,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 파드 셀렉터
 
 `.spec.selector` 필드는 파드 셀렉터이다. 이것은 
-[잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
+[잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
 
 쿠버네티스 1.8 부터는 레이블이 `.spec.template` 와 일치하는 파드 셀렉터를 명시해야 한다.
 파드 셀렉터는 비워두면 더 이상 기본 값이 설정이 되지 않는다.
@@ -88,9 +91,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 오직 일부 노드에서만 파드 실행
 
 만약 `.spec.template.spec.nodeSelector` 를 명시하면 데몬셋 컨트롤러는 
-[노드 셀렉터](/docs/concepts/configuration/assign-pod-node/#nodeselector)와 
+[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector)와 
 일치하는 노드에 파드를 생성한다. 마찬가지로 `.spec.template.spec.affinity` 를 명시하면 
-데몬셋 컨트롤러는 [노트 어피니티](/docs/concepts/configuration/assign-pod-node/#node-affinity)와 일치하는 노드에 파드를 생성한다. 
+데몬셋 컨트롤러는 [노트 어피니티](/ko/docs/concepts/configuration/assign-pod-node/#노드-어피니티)와 일치하는 노드에 파드를 생성한다. 
 만약 둘 중 하나를 명시하지 않으면 데몬셋 컨트롤러는 모든 노드에서 파드를 생성한다.
 
 ## 데몬 파드가 스케줄 되는 방법
@@ -161,7 +164,7 @@ nodeAffinity:
 - **푸시(Push)**: 데몬셋의 파드는 통계 데이터베이스와 같은 다른 서비스로 업데이트를 보내도록
   구성되어있다. 그들은 클라이언트들을 가지지 않는다.
 - **노드IP와 알려진 포트**: 데몬셋의 파드는 `호스트 포트`를 사용할 수 있으며, 노드IP를 통해 파드에 접근할 수 있다. 클라이언트는 노드IP를 어떻게든지 알고 있으며, 관례에 따라 포트를 알고 있다.
-- **DNS**: 동일한 파드 셀렉터로 [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)를 만들고, 
+- **DNS**: 동일한 파드 셀렉터로 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)를 만들고, 
   그 다음에 `엔드포인트` 리소스를 사용해서 데몬셋을 찾거나 DNS에서 여러 A레코드를
   검색한다.
 - **서비스**: 동일한 파드 셀렉터로 서비스를 생성하고, 서비스를 사용해서

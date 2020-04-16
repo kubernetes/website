@@ -9,9 +9,9 @@ content_template: templates/tutorial
 {{% capture overview %}}
 
 <!--
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task.
 -->
-这篇文档基于[使用 ConfigMap 来配置 Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
+这篇文档基于[使用 ConfigMap 来配置 Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/) 这个任务，提供了一个使用 ConfigMap 来配置 Redis 的真实案例。
 
 {{% /capture %}}
 
@@ -24,6 +24,7 @@ This page provides a real world example of how to configure Redis using a Config
 * Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 -->
+
 * * 创建一个包含以下内容的 `kustomization.yaml` 文件：
   * 一个 ConfigMap 生成器
   * 一个使用 ConfigMap 的 Pod 资源配置
@@ -36,13 +37,13 @@ This page provides a real world example of how to configure Redis using a Config
 
 {{% capture prerequisites %}}
 
-<!--
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+<!--
 * The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* 理解[使用ConfigMap来配置Containers](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 此页面上显示的示例适用于 `kubectl` 1.14和在其以上的版本。
+* 理解[使用ConfigMap来配置Containers](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
 {{% /capture %}}
 
@@ -76,8 +77,8 @@ configMapGenerator:
 EOF
 ```
 
-<!-- 
-Add the pod resource config to the `kustomization.yaml`: 
+<!--
+Add the pod resource config to the `kustomization.yaml`:
 -->
 将 pod 的资源配置添加到 `kustomization.yaml` 文件中：
 
@@ -92,8 +93,8 @@ resources:
 EOF
 ```
 
-<!-- 
-Apply the kustomization directory to create both the ConfigMap and Pod objects: 
+<!--
+Apply the kustomization directory to create both the ConfigMap and Pod objects:
 -->
 应用整个 kustomization 文件夹以创建 ConfigMap 和 Pod 对象：
 
@@ -101,8 +102,8 @@ Apply the kustomization directory to create both the ConfigMap and Pod objects:
 kubectl apply -k .
 ```
 
-<!-- 
-Examine the created objects by 
+<!--
+Examine the created objects by
 -->
 使用以下命令检查创建的对象
 
@@ -115,20 +116,20 @@ NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          52s
 ```
 
-<!-- 
+<!--
 In the example, the config volume is mounted at `/redis-master`.
 It uses `path` to add the `redis-config` key to a file named `redis.conf`.
 The file path for the redis config, therefore, is `/redis-master/redis.conf`.
-This is where the image will look for the config file for the redis master. 
+This is where the image will look for the config file for the redis master.
 -->
 在示例中，配置卷挂载在 `/redis-master` 下。
 它使用 `path` 将 `redis-config` 密钥添加到名为 `redis.conf` 的文件中。
 因此，redis配置的文件路径为 `/redis-master/redis.conf`。
 这是镜像将在其中查找 redis master 的配置文件的位置。
 
-<!-- 
+<!--
 Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
-the configuration was correctly applied: 
+the configuration was correctly applied:
 -->
 使用 `kubectl exec` 进入 pod 并运行 `redis-cli` 工具来验证配置已正确应用：
 
@@ -142,8 +143,8 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
-<!-- 
-Delete the created pod: 
+<!--
+Delete the created pod:
 -->
 删除创建的 pod：
 ```shell
@@ -154,10 +155,10 @@ kubectl delete pod redis
 
 {{% capture whatsnext %}}
 
-<!-- 
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/). 
+<!--
+* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 -->
-* 了解有关 [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多信息。
+* 了解有关 [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)的更多信息。
 
 
 {{% /capture %}}

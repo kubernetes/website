@@ -12,7 +12,7 @@ weight: 10
 {{% capture overview %}}
 
 {{< feature-state state="alpha" >}}
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+{{< caution >}}Alpha features can change rapidly. {{< /caution >}}
 
 Network plugins in Kubernetes come in a few flavors:
 
@@ -154,7 +154,7 @@ most network plugins.
 
 Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
 on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead e.g. `--network-plugin-mtu=8873`.
+might reduce it to allow for encapsulation overhead; for example: `--network-plugin-mtu=8873`.
 
 This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
 

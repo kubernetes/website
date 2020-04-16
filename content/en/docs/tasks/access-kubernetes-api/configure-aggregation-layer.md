@@ -246,17 +246,19 @@ spec:
   caBundle: <pem encoded ca cert that signs the server cert used by the webhook>
 ```
 
+The name of an APIService object must be a valid
+[path segment name](/docs/concepts/overview/working-with-objects/names#path-segment-names).
+
 #### Contacting the extension apiserver
 
-Once the Kubernetes apiserver has determined a request should be sent to a extension apiserver,
+Once the Kubernetes apiserver has determined a request should be sent to an extension apiserver,
 it needs to know how to contact it.
 
-The `service` stanza is a reference to the service for a extension apiserver.
+The `service` stanza is a reference to the service for an extension apiserver.
 The service namespace and name are required. The port is optional and defaults to 443.
-The path is optional and defaults to "/".
 
-Here is an example of an extension apiserver that is configured to be called on port "1234"
-at the subpath "/my-path", and to verify the TLS connection against the ServerName
+Here is an example of an extension apiserver that is configured to be called on port "1234",
+and to verify the TLS connection against the ServerName
 `my-service-name.my-service-namespace.svc` using a custom CA bundle.
 
 ```yaml

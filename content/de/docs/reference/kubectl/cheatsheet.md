@@ -27,7 +27,7 @@ source <(kubectl completion bash) # Wenn Sie autocomplete in bash in der aktuell
 echo "source <(kubectl completion bash)" >> ~/.bashrc # Fügen Sie der Bash-Shell dauerhaft Autocomplete hinzu.
 ```
 
-Sie können auch ein Abkürzungsalias für `kubectl` verwenden, weleches auch mit Vervollständigung funktioniert:
+Sie können auch ein Abkürzungsalias für `kubectl` verwenden, welches auch mit Vervollständigung funktioniert:
 
 ```bash
 alias k=kubectl
@@ -180,7 +180,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Ressourcen aktualisieren
 
-Ab Version 1.11 ist das `rolling-update` veraltet (Lesen Sie [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) für weitere Informationen), verwenden Sie stattdessen `rollout`.
+Ab Version 1.11 ist das `rolling-update` veraltet (Lesen Sie [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md) für weitere Informationen), verwenden Sie stattdessen `rollout`.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Fortlaufende Aktualisierung der "www" Container der "Frontend"-Bereitstellung, Aktualisierung des Images

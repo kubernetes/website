@@ -239,7 +239,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
+requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -369,8 +369,8 @@ label, you can specify the following metric block to scale only on GET requests:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline

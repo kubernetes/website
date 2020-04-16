@@ -133,18 +133,21 @@ $feature-box-div-width: 45%
         max-width: 25%
         max-height: 100%
         transform: translateY(-50%)
+        width: 100%
 
       &:nth-child(odd)
         padding-right: 210px
 
         .image-wrapper
           right: 0
+          text-align: right
 
       &:nth-child(even)
         padding-left: 210px
 
         .image-wrapper
           left: 0
+          text-align: left
 
       &:nth-child(1)
         padding-right: 0
@@ -219,9 +222,8 @@ $feature-box-div-width: 45%
   footer
     nav
       text-align: center
-
       a
-        width: 30%
+        width: auto
         padding: 0 20px
 
     .social

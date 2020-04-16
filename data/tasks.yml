@@ -196,25 +196,6 @@ toc:
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
   - docs/tasks/administer-cluster/endpoint-slices.md
 
-- title: Federation - Run an App on Multiple Clusters
-  landing_page: /docs/tasks/federation/set-up-cluster-federation-kubefed/
-  section:
-  - docs/tasks/federation/federation-service-discovery.md
-  - docs/tasks/federation/set-up-cluster-federation-kubefed.md
-  - docs/tasks/federation/set-up-coredns-provider-federation.md
-  - docs/tasks/federation/set-up-placement-policies-federation.md
-  - docs/tasks/administer-federation/cluster.md
-  - docs/tasks/administer-federation/configmap.md
-  - docs/tasks/administer-federation/daemonset.md
-  - docs/tasks/administer-federation/deployment.md
-  - docs/tasks/administer-federation/events.md
-  - docs/tasks/administer-federation/hpa.md
-  - docs/tasks/administer-federation/ingress.md
-  - docs/tasks/administer-federation/job.md
-  - docs/tasks/administer-federation/namespaces.md
-  - docs/tasks/administer-federation/replicaset.md
-  - docs/tasks/administer-federation/secret.md
-
 - title: Manage Cluster Daemons
   landing_page: /docs/tasks/manage-daemon/update-daemon-set/
   section:

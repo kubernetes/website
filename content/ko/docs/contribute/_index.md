@@ -13,68 +13,50 @@ weight: 80
 오랜 시간 동안 진행해온 누군가로서,
 혹은 개발자, 최종 사용자 또는 단지 오타를 보고 참지 못하는 누군가로서 기여할 수 있다.
 
-쿠버네티스 문서 내용과 스타일에
-대해 더 많은 정보를 알고 싶다면, 
-[문서 스타일 개요](/docs/contribute/style/)를 참고하자.
+{{% /capture %}}
 
 {{% capture body %}}
 
-## 문서 컨트리뷰터 유형
+## 시작하기
 
-- 쿠버네티스 조직의 _멤버_ 는 [CLA에 서명](/docs/contribute/start#sign-the-cla)하고,
-  프로젝트에 어느 정도 시간과 노력을 바친 사람이다.
-  멤버십 자격에 대한 구체적인 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을
-  참고하라.
-- SIG Docs _리뷰어_ 는 문서 풀 리퀘스트(pull request) 리뷰하는 일에 관심을 보여서
-  SIG Docs 승인자가 적합한
-  GitHub 그룹 및 저장소 내 그룹과 `OWNERS` 파일에 등록한
-  쿠버네티스 조직의 멤버이다.
-- SIG Docs _승인자_ 는 지속적으로 프로젝트에 기여를 해온 좋은 입지를 가진 멤버이다.
-  승인자는 풀 리퀘스트를 머지(merge)할 수 있고,
-  쿠버네티스 조직을 대표하여 콘텐츠를 공개한다.
-  승인자는 거대한 쿠버네티스 커뮤니티에서 SIG Docs를 대표할 수 있다.
-  SIG Docs 승인자의 의무 중 릴리스 조정과 같은 일은
-  상당한 시간을 필요로 한다.
+누구든지 문제에 대한 설명이나, 원하는 문서의 개선사항에 대한 이슈를 오픈 또는 풀 리퀘스트(PR)로 변경하는 기여를 할 수 있다.
+일부 작업에는 쿠버네티스 조직에서 더 많은 신뢰와 더 많은 접근이 필요할 수 있다.
+역할과 권한에 대한 자세한 내용은
+[SIG Docs 참여](/ko/docs/contribute/participating/)를 본다.
 
-## 문서화에 기여할 수 있는 방법
+쿠버네티스 문서는 GitHub 리포지터리에 있다. 우리는 누구나
+기여를 환경하지만, 쿠버네티스 커뮤니티에서 효과적으로 활동하려면 git과 GitHub의
+기초적인 이해가 필요하다.
 
-이 목록은 누구나 할 수 있는 일, 쿠버네티스 조직 멤버가 할 수 있는 일,
-그리고 SIG Docs 프로세스의 더 높은 레벨의 접근과 친숙함을 요구하는 일로 나누어졌다.
-지속적으로 기여를 하는 것은
-이미 만들어진 도구(tooling)와 조직의 결정을
-이해하는 데 도움이 될 것이다.
+문서에 참여하려면
 
-이것은 쿠버네티스 문서에 기여하는 완전한 방법은 아니지만,
-시작하는 데에 도움이 될 것이다.
+1. CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)에 서명한다.
+2. [문서 리포지터리](https://github.com/kubernetes/website) 와 웹사이트의 [정적 사이트 생성기](https://gohugo.io)를 숙지한다.
+3. [콘텐츠 향상](https://kubernetes.io/docs/contribute/start/#improve-existing-content)과 [변경 검토](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests)의 기본 프로세스를 이해하도록 한다.
 
-- [누구나](/docs/contribute/start/)
-  - 조치 가능한 이슈 열기
-- [멤버](/docs/contribute/start/)
-  - 기존 문서 개선
-  - [Slack](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에서 개선을 위한 아이디어 제시
-  - 문서 접근성 개선
-  - PR에 대한 구속력 없는 피드백 제공
-  - 블로그 포스트 또는 사례 연구 작성
-- [리뷰어](/docs/contribute/intermediate/)
-  - 새로운 기능 문서화
-  - 이슈 선별 및 분류
-  - PR 리뷰
-  - 다이어그램, 그래픽 자료, 내장 스크린샷 생성
-  - 현지화(Localization)
-  - docs 대표로 다른 저장소에 기여
-  - 코드 내 사용자 대면 문자열 편집
-  - 코드 주석 및 Godoc 개선
-- [승인자](/docs/contribute/advanced/)
-  - 승인되어 머지된 PR을 바탕으로 컨트리뷰터 콘텐츠 출시
-  - docs 대표로 쿠버네티스 릴리스 팀에 참가
-  - 스타일 가이드 개선 제안
-  - 문서 테스트 개선 제안
-  - 쿠버네티스 website 또는 기타 도구(tooling) 개선 제안
+## 기여 모범 사례
 
+- 명확하고, 의미있는 GIT 커밋 메시지를 작성한다.
+- 이슈를 참조하고, PR이 병합될 때 이슈를 자동으로 닫는 _Github 특수 키워드_ 를 포함한다.
+- 오타 수정, 스타일 변경 또는 문법 변경과 같이 변경이 적은 PR을 생성할때, 비교적으로 적은 변화로 많은 커밋 개수를 받지 않도록 반드시 커밋을 스쿼시(squash)한다.
+- 변경한 코드를 묘사하고, 코드를 변경한 이유를 포함하는 멋진 PR 설명을 포함하고 있는지와 리뷰어를 위한 충분한 정보가 있는지 꼭 확인한다.
+- 추가적인 읽을거리들
+    - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
+    - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
+    - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )
 
-## 추가적인 기여 방법
+## 다른 방법으로 기여하기
 
 - 트위터나 스택오버플로(Stack Overflow) 등의 온라인 포럼의 쿠버네티스 커뮤니티에 기여하거나 지역 모임과 쿠버네티스 이벤트에 관하여 알고 싶다면 [쿠버네티스 커뮤니티 사이트](/community/)를 확인한다.
 - 기능 개발에 기여하려면 [기여자 치트시트](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)를 읽고 시작한다.
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+- 문서에 기여하는 기본적인 사항들에 대한 자세한 내용은 [기여 시작](/docs/contribute/start/)을 본다.
+- 변경을 제안할 때는 [쿠버네티스 문서 스타일가이드](/docs/contribute/style/style-guide/)를 따른다.
+- SIG Docs에 대한 더 자세한 정보는 [SIG Docs에 참여하기](/ko/docs/contribute/participating/)를 본다.
+- 쿠버네티스 문서 현지화에 대한 자세한 내용은 [쿠버네티스 문서 현지화](/docs/contribute/localization/)를 본다.
 
 {{% /capture %}}

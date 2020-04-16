@@ -10,7 +10,7 @@ card:
 {{% capture overview %}}
 W wyniku instalacji Kubernetes otrzymujesz klaster.
 
-{{< glossary_definition term_id="cluster" length="all" prepend="Klaster to">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="Klaster Kubernetes to">}}
 
 W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetes.
 
@@ -20,11 +20,11 @@ Poniższy rysunek przedstawia klaster Kubernetes i powiązania pomiędzy jego r�
 {{% /capture %}}
 
 {{% capture body %}}
-## Master — częsci składowe
+## Częsci składowe warstwy sterowania
 
-Komponenty *master* odpowiadają za warstwę sterowania klastra. Podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
+Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty *master* mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Tworzenie Wysoko Dostępnych Klastrów](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
+Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Tworzenie Wysoko Dostępnych Klastrów](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
 
 ### kube-apiserver
 

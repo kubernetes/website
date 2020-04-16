@@ -57,10 +57,6 @@ Konfigurowanie aplikacji w taki sposób, aby korzystała i ufała łańcuchowi c
 
 Standardowe metody zarządzania klasterem.
 
-## Administracja federacją
-
-Konfigurowanie federacji klastrów.
-
 ## Zarządzanie aplikacjami ze stanem (_Stateful_)
 
 Popularne zadania związane z zarządzaniem aplikacjami stanowymi _(Stateful)_, w tym: skalowanie, usuwanie i rozwiązywanie problemów dotyczących _StatefulSets_.

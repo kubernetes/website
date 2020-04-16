@@ -11,9 +11,9 @@ aka:
 tags:
 - operation
 ---
- An API resource that automatically scales the number of pod replicas based on targeted CPU utilization or custom metric targets.
+ An API resource that automatically scales the number of {{< glossary_tooltip term_id="pod" >}} replicas based on targeted CPU utilization or custom metric targets.
 
 <!--more--> 
 
-HPA is typically used with {{< glossary_tooltip text="Replication Controllers" term_id="replication-controller" >}}, {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, or Replica Sets. It cannot be applied to objects that cannot be scaled, for example {{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}.
+HPA is typically used with {{< glossary_tooltip text="ReplicationControllers" term_id="replication-controller" >}}, {{< glossary_tooltip text="Deployments" term_id="deployment" >}}, or {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}. It cannot be applied to objects that cannot be scaled, for example {{< glossary_tooltip text="DaemonSets" term_id="daemonset" >}}.
 

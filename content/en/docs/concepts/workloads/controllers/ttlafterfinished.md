@@ -36,7 +36,7 @@ up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 [example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
 The TTL controller will assume that a resource is eligible to be cleaned up
 TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
-TTL controller cleans up a resource, it will delete it cascadingly, i.e. delete
+TTL controller cleans up a resource, it will delete it cascadingly, that is to say it will delete
 its dependent objects together with it. Note that when the resource is deleted,
 its lifecycle guarantees, such as finalizers, will be honored.
 

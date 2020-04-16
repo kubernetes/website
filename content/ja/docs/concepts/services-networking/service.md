@@ -3,7 +3,7 @@ title: Service
 feature:
   title: サービスディスカバリーと負荷分散
   description: >
-    Kubernetesでは、なじみのないサービスディスカバリーの機構を使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
+    Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
 content_template: templates/concept
 weight: 10
@@ -14,7 +14,7 @@ weight: 10
 
 {{< glossary_definition term_id="service" length="short" >}}
 
-Kubernetesでは、なじみのないサービスディスカバリーの機構を使用するためにユーザーがアプリケーションの修正をする必要はありません。  
+Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。  
 KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
 {{% /capture %}}
@@ -71,7 +71,7 @@ spec:
 
 Kubernetesは、このServiceに対してIPアドレス("clusterIP"とも呼ばれます)を割り当てます。これはServiceのプロキシーによって使用されます(下記の[仮想IPとServiceプロキシー](#virtual-ips-and-service-proxies)を参照ください)。
 
-Serviceセレクターのコントローラーはセレクターに一致するPodを継続的にスキャンし、“my-service”という名前のEndpointオブジェクトに対して変更をPOSTします。
+Serviceセレクターのコントローラーはセレクターに一致するPodを継続的にスキャンし、“my-service”という名前のEndpointsオブジェクトに対して変更をPOSTします。
 
 {{< note >}}
 Serviceは`port`から`targetPort`へのマッピングを行います。デフォルトでは、利便性のために`targetPort`フィールドは`port`フィールドと同じ値で設定されます。
@@ -108,8 +108,8 @@ spec:
     targetPort: 9376
 ```
 
-このServiceはセレクターがないため、対応するEndpointオブジェクトは自動的に作成されません。  
-ユーザーはEndpointオブジェクトを手動で追加することにより、向き先のネットワークアドレスとポートを手動でマッピングできます。
+このServiceはセレクターがないため、対応するEndpointsオブジェクトは自動的に作成されません。  
+ユーザーはEndpointsオブジェクトを手動で追加することにより、向き先のネットワークアドレスとポートを手動でマッピングできます。
 
 ```yaml
 apiVersion: v1
@@ -124,10 +124,10 @@ subsets:
 ```
 
 {{< note >}}
-Endpointのipは、loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), や
+Endpointsのipは、loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), や
 link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設定することができません。
 
-{{< glossary_tooltip term_id="kube-proxy" >}}が仮想IPを最終的な到達先に設定することをサポートしていないため、Endpointのipアドレスは他のKubernetes ServiceのClusterIPにすることができません。
+{{< glossary_tooltip term_id="kube-proxy" >}}が仮想IPを最終的な到達先に設定することをサポートしていないため、Endpointsのipアドレスは他のKubernetes ServiceのClusterIPにすることができません。
 {{< /note >}}
 
 セレクターなしのServiceへのアクセスは、セレクターをもっているServiceと同じようにふるまいます。上記の例では、トラフィックはYAMLファイル内で`192.0.2.42:9376` (TCP)で定義された単一のエンドポイントにルーティングされます。
@@ -135,7 +135,7 @@ link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6)に設�
 ExternalName Serviceはセレクターの代わりにDNS名を使用する特殊なケースのServiceです。さらなる情報は、このドキュメントの後で紹介する[ExternalName](#externalname)を参照ください。
 
 ### エンドポイントスライス
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 エンドポイントスライスは、Endpointsに対してよりスケーラブルな代替手段を提供できるAPIリソースです。概念的にはEndpointsに非常に似ていますが、エンドポイントスライスを使用すると、ネットワークエンドポイントを複数のリソースに分割できます。デフォルトでは、エンドポイントスライスは、100個のエンドポイントに到達すると「いっぱいである」と見なされ、その時点で追加のエンドポイントスライスが作成され、追加のエンドポイントが保存されます。
 
@@ -158,8 +158,8 @@ Serviceにおいてプロキシーを使う理由はいくつかあります。
 
 ### user-spaceプロキシーモード {#proxy-mode-userspace}
 
-このモードでは、kube-proxyはServiceやEndpointオブジェクトの追加・削除をチェックするために、Kubernetes Masterを監視します。  
-各Serviceは、ローカルのNode上でポート(ランダムに選ばれたもの)を公開します。この"プロキシーポート"に対するどのようなリクエストも、そのServiceのバックエンドPodのどれか1つにプロキシーされます(Endpointを介して通知されたPodに対して)。  
+このモードでは、kube-proxyはServiceやEndpointsオブジェクトの追加・削除をチェックするために、Kubernetes Masterを監視します。  
+各Serviceは、ローカルのNode上でポート(ランダムに選ばれたもの)を公開します。この"プロキシーポート"に対するどのようなリクエストも、そのServiceのバックエンドPodのどれか1つにプロキシーされます(Endpointsを介して通知されたPodに対して)。  
 kube-proxyは、どのバックエンドPodを使うかを決める際にServiceの`SessionAffinity`項目の設定を考慮に入れます。  
 
 最後に、user-spaceプロキシーはServiceの`clusterIP`(仮想IP)と`port`に対するトラフィックをキャプチャするiptablesルールをインストールします。  
@@ -171,9 +171,9 @@ kube-proxyは、どのバックエンドPodを使うかを決める際にService
 
 ### `iptables`プロキシーモード {#proxy-mode-iptables}
 
-このモードでは、kube-proxyはServiceやEndpointオブジェクトの追加・削除のチェックのためにKubernetesコントロールプレーンを監視します。  
+このモードでは、kube-proxyはServiceやEndpointsオブジェクトの追加・削除のチェックのためにKubernetesコントロールプレーンを監視します。  
 各Serviceでは、そのServiceの`clusterIP`と`port`に対するトラフィックをキャプチャするiptablesルールをインストールし、そのトラフィックをServiceのあるバックエンドのセットに対してリダイレクトします。  
-各Endpointオブジェクトは、バックエンドのPodを選択するiptablesルールをインストールします。  
+各Endpointsオブジェクトは、バックエンドのPodを選択するiptablesルールをインストールします。  
 
 デフォルトでは、iptablesモードにおけるkube-proxyはバックエンドPodをランダムで選択します。  
 
@@ -191,7 +191,7 @@ iptablesモードのkube-proxyが正常なバックエンドPodのみをリダ�
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
-`ipvs`モードにおいて、kube-proxyはServiceとEndpointオブジェクトを監視し、IPVSルールを作成するために`netlink`インターフェースを呼び出し、定期的にKubernetesのServiceとEndpointとIPVSルールを同期させます。  
+`ipvs`モードにおいて、kube-proxyはServiceとEndpointsオブジェクトを監視し、IPVSルールを作成するために`netlink`インターフェースを呼び出し、定期的にKubernetesのServiceとEndpointsとIPVSルールを同期させます。  
 このコントロールループはIPVSのステータスが理想的な状態になることを保証します。  
 Serviceにアクセスするとき、IPVSはトラフィックをバックエンドのPodに向けます。
 
@@ -320,15 +320,15 @@ KubernetesのDNSサーバーは`ExternalName` Serviceにアクセスする唯一
 
 ### ラベルセレクターの利用
 
-ラベルセレクターを定義したHeadless Serviceにおいて、EndpointコントローラーはAPIにおいて`Endpoints`レコードを作成し、`Service`のバックエンドにある`Pod`へのIPを直接指し示すためにDNS設定を修正します。
+ラベルセレクターを定義したHeadless Serviceにおいて、EndpointsコントローラーはAPIにおいて`Endpoints`レコードを作成し、`Service`のバックエンドにある`Pod`へのIPを直接指し示すためにDNS設定を修正します。
 
 ### ラベルセレクターなしの場合
 
-ラベルセレクターを定義しないHeadless Serviceにおいては、Endpoint コントローラーは`Endpoint`レコードを作成しません。  
+ラベルセレクターを定義しないHeadless Serviceにおいては、Endpointsコントローラーは`Endpoints`レコードを作成しません。  
 しかしDNSのシステムは下記の2つ両方を探索し、設定します。
 
   * [`ExternalName`](#externalname)タイプのServiceに対するCNAMEレコード
-  * 他の全てのServiceタイプを含む、Service名を共有している全ての`Endpoint`レコード
+  * 他の全てのServiceタイプを含む、Service名を共有している全ての`Endpoints`レコード
 
 ## Serviceの公開 (Serviceのタイプ) {#publishing-services-service-types}
 
@@ -659,9 +659,9 @@ NLBは特定のインスタンスクラスでのみ稼働します。サポー�
 `.spec.externalTrafficPolicy`を`Local`に設定することにより、クライアントIPアドレスは末端のPodに伝播します。しかし、これにより、トラフィックの分配が不均等になります。  
 特定のLoadBalancer Serviceに紐づいたPodがないNodeでは、自動的に割り当てられた`.spec.healthCheckNodePort`に対するNLBのターゲットグループのヘルスチェックが失敗し、トラフィックを全く受信しません。
 
-均等なトラフィックの分配を実現するために、DaemonSetの使用や、同一のNodeに配備しないように[Podのanti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)を設定します。
+均等なトラフィックの分配を実現するために、DaemonSetの使用や、同一のNodeに配備しないように[Podのanti-affinity](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)を設定します。
 
-また、[内部のロードバランサー](/docs/concepts/services-networking/service/#internal-load-balancer)のアノテーションとNLB Serviceを使用できます。  
+また、[内部のロードバランサー](/ja/docs/concepts/services-networking/service/#internal-load-balancer)のアノテーションとNLB Serviceを使用できます。  
 
 NLBの背後にあるインスタンスに対してクライアントのトラフィックを転送するために、Nodeのセキュリティーグループは下記のようなIPルールに従って変更されます。
 
@@ -742,7 +742,7 @@ IPアドレスをハードコードする場合、[Headless Service](#headless-s
 
 `my-service.prod.svc.cluster.local`というホストをルックアップするとき、クラスターのDNS Serviceは`CNAME`レコードと`my.database.example.com`という値を返します。  
 `my-service`へのアクセスは、他のServiceと同じ方法ですが、再接続する際はプロキシーや転送を介して行うよりも、DNSレベルで行われることが決定的に異なる点となります。  
-後にユーザーが使用しているデータベースをクラスター内に移行することになった後は、Podを起動させ、適切なラベルセレクターやEndpointを追加し、Serviceの`type`を変更します。
+後にユーザーが使用しているデータベースをクラスター内に移行することになった後は、Podを起動させ、適切なラベルセレクターやEndpointsを追加し、Serviceの`type`を変更します。
 
 {{< warning >}}
 HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する際に問題が発生する場合があります。ExternalNameを使用する場合、クラスター内のクライアントが使用するホスト名は、ExternalNameが参照する名前とは異なります。
@@ -758,7 +758,7 @@ HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する�
 ### External IPs
 
 もし1つ以上のクラスターNodeに転送するexternalIPが複数ある場合、Kubernetes Serviceは`externalIPs`に指定したIPで公開されます。  
-そのexternalIP(到達先のIPとして扱われます)のServiceのポートからトラフィックがクラスターに入って来る場合、ServiceのEndpointのどれか1つに対して転送されます。  
+そのexternalIP(到達先のIPとして扱われます)のServiceのポートからトラフィックがクラスターに入って来る場合、ServiceのEndpointsのどれか1つに対して転送されます。  
 `externalIPs`はKubernetesによって管理されず、それを管理する責任はクラスターの管理者にあります。
 
 Serviceのspecにおいて、`externalIPs`は他のどの`ServiceTypes`と併用して設定できます。  
@@ -815,7 +815,7 @@ Kubernetesは各Serviceに、それ自身のIPアドレスを割り当てるこ�
 
 実際に固定された向き先であるPodのIPアドレスとは異なり、ServiceのIPは実際には単一のホストによって応答されません。
 その代わり、kube-proxyは必要な時に透過的にリダイレクトされる_仮想_ IPアドレスを定義するため、iptables(Linuxのパケット処理ロジック)を使用します。  
-クライアントがVIPに接続する時、そのトラフィックは自動的に適切なEndpointに転送されます。
+クライアントがVIPに接続する時、そのトラフィックは自動的に適切なEndpointsに転送されます。
 Service用の環境変数とDNSは、Serviceの仮想IPアドレス(とポート)の面において、自動的に生成されます。  
 
 kube-proxyは3つの微妙に異なった動作をするプロキシーモード&mdash; userspace、iptablesとIPVS &mdash; をサポートしています。
@@ -838,7 +838,7 @@ kube-proxyが新しいServiceを見つけた時、kube-proxyは新しいラン�
 また画像処理のアプリケーションについて考えます。バックエンドServiceが作成された時、そのKubernetesコントロールプレーンは仮想IPアドレスを割り当てます。例えば10.0.0.1などです。  
 Serviceのポートが1234で、そのServiceがクラスター内のすべてのkube-proxyインスタンスによって監視されていると仮定します。  
 kube-proxyが新しいServiceを見つけた時、kube-proxyは仮想IPから各Serviceのルールにリダイレクトされるような、iptablesルールのセットをインストールします。
-Service毎のルールは、トラフィックをバックエンドにリダイレクト(Destination NATを使用)しているEndpoint毎のルールに対してリンクしています。
+Service毎のルールは、トラフィックをバックエンドにリダイレクト(Destination NATを使用)しているEndpoints毎のルールに対してリンクしています。
 
 クライアントがServiceの仮想IPアドレスに対して接続しているとき、そのiptablesルールが有効になります。  
 バックエンドのPodが選択され(SessionAffinityに基づくか、もしくはランダムで選択される)、パケットはバックエンドにリダイレクトされます。  
@@ -874,7 +874,7 @@ ServiceはKubernetesのREST APIにおいてトップレベルのリソースで�
 
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
-もしクラウドプロバイダーがサポートしている場合、ServiceのEndpointに転送される外部のHTTP/HTTPSでのリバースプロキシーをセットアップするために、LoadBalancerモードでServiceを作成可能です。
+もしクラウドプロバイダーがサポートしている場合、ServiceのEndpointsに転送される外部のHTTP/HTTPSでのリバースプロキシーをセットアップするために、LoadBalancerモードでServiceを作成可能です。
 
 {{< note >}}
 ユーザーはまた、HTTP / HTTPS Serviceを公開するために、Serviceの代わりに{{< glossary_tooltip term_id="ingress" >}}を利用することもできます。
@@ -898,9 +898,9 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-KubernetseはService、Endpoint、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というFeature Gateを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
+KubernetseはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というFeature Gateを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
 
-そのFeature Gateが有効になった時、ユーザーはService、Endpoint、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。  
+そのFeature Gateが有効になった時、ユーザーはService、Endpoints、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。  
 Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。
 
 #### 警告 {#caveat-sctp-overview}

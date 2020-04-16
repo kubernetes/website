@@ -179,7 +179,7 @@ Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 
 
 ### 다른 언어
 
-다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/docs/reference/using-api/client-libraries/)도 존재한다.
+다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/ko/docs/reference/using-api/client-libraries/)도 존재한다.
 이들이 어떻게 인증하는지는 다른 라이브러리들의 문서를 참조한다.
 
 ## 파드에서 API 액세스
@@ -352,7 +352,7 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
     - 노드, 파드, 서비스에 접근하는 데 사용될 수 있다
     - 서비스에 접근하는 데 사용되면 load balacing한다
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드 상에서 실행된다
     - UDP와 TCP를 proxy한다

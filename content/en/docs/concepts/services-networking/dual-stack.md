@@ -55,7 +55,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--proxy-mode=ipvs`
-      * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< caution >}}

@@ -27,7 +27,7 @@ weight: 70
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
-  ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
+  ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
 {{% /capture %}}
 
@@ -189,8 +189,8 @@ curl http://${EXTERNAL_IP} # これを前に見たEXTERNAL-IPに置き換えま�
 
 {{% capture whatsnext %}}
 
-* [Services](/docs/concepts/services-networking/service/)の詳細
-* [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
+* [Service](/ja/docs/concepts/services-networking/service/)の詳細
+* [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
 
 {{% /capture %}}
 

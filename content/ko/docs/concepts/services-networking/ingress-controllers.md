@@ -21,6 +21,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 
 ## 추가 컨트롤러
 
+* [AKS Application Gateway Ingress Controller](https://github.com/Azure/application-gateway-kubernetes-ingress) is an ingress controller that enables ingress to [AKS clusters](https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-portal) using the [Azure Application Gateway](https://docs.microsoft.com/azure/application-gateway/overview).
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Datawire](https://www.datawire.io/)의 
   [커뮤니티](https://www.getambassador.io/docs) 혹은 [상업적](https://www.getambassador.io/pro/) 지원을 제공하는 
   [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.

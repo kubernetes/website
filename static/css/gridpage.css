@@ -23,9 +23,8 @@
     min-height: 152px;
 }
 
-
 .gridPage p {
-    color: rgb(26,26,26) !important;
+    color: rgb(26,26,26);
     margin-left: 0 !important;
     padding-left: 0 !important;
     font-weight: 300 !important;
@@ -287,6 +286,15 @@ section.bullets .content {
     .gridPage #video h3 {
         max-width: 100%;
     }
+}
+
+@media screen and (max-width: 768px){
+  .launch-card {
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 0;
+    min-height: auto;
+  }
 }
 
 @media screen and (max-width: 640px){

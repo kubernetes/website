@@ -33,7 +33,7 @@ La façon recommandée d'exécuter le site web Kubernetes localement est d'utili
 
 > Si vous êtes sous Windows, vous aurez besoin de quelques outils supplémentaires que vous pouvez installer avec [Chocolatey](https://chocolatey.org). `choco install install make`
 
-> Si vous préférez exécuter le site Web localement sans Docker, voir [Exécuter le site localement avec Hugo](#running-the-site-locally-using-hugo) ci-dessous.
+> Si vous préférez exécuter le site Web localement sans Docker, voir [Exécuter le site localement avec Hugo](#exécuter-le-site-localement-en-utilisant-hugo) ci-dessous.
 
 Si vous avez Docker [up and running](https://www.docker.com/get-started), construisez l'image Docker `kubernetes-hugo' localement:
 

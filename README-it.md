@@ -21,11 +21,11 @@ Per maggiori informazioni su come contribuire alla documentazione Kubernetes, ve
 
 ## Eseguire il sito Web localmente usando Docker
 
-Il modo consigliato per eseguire localmente il sito Web Kubernetes prevede l'utilizzo di un'immagine [Docker] (https://docker.com) inclusa nel sito e configurata con tutti i software necessari, a partire dal generatore di siti web statici [Hugo] (https://gohugo.io).
+Il modo consigliato per eseguire localmente il sito Web Kubernetes prevede l'utilizzo di un'immagine [Docker](https://docker.com) inclusa nel sito e configurata con tutti i software necessari, a partire dal generatore di siti web statici [Hugo](https://gohugo.io).
 
-> Se stai utilizzando Windows, avrai bisogno di alcuni strumenti aggiuntivi che puoi installare con [Chocolatey] (https://chocolatey.org). `choco install make`
+> Se stai utilizzando Windows, avrai bisogno di alcuni strumenti aggiuntivi che puoi installare con [Chocolatey](https://chocolatey.org). `choco install make`
 
-> Se preferisci eseguire il sito Web localmente senza Docker, vedi [Eseguire il sito Web localmente utilizzando Hugo](# running-the-site-local-using-hugo) di seguito.
+> Se preferisci eseguire il sito Web localmente senza Docker, vedi [Eseguire il sito Web localmente utilizzando Hugo](#eseguire-il-sito-web-localmente-utilizzando-hugo) di seguito.
 
 Se hai Docker [attivo e funzionante](https://www.docker.com/get-started), crea l'immagine Docker `kubernetes-hugo` localmente:
 

@@ -77,14 +77,14 @@ weight: 10
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>Węzły typu master zarządzają klastrem, pozostałe węzły są wykorzystywane do uruchamiania na nich aplikacji. </i></p>
+                    <p><i>Węzły typu master zarządzają klastrem i węzłami wykorzystywanymi do uruchamiania aplikacji. </i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>Kiedy instalujesz aplikację na Kubernetes, polecasz masterowi uruchomienie kontenera z aplikacją. Master zleca uruchomienie kontenera na węzłach klastra. <b>Węzły komunikują się z masterem przy użyciu Kubernetes API</b>, wystawianego przez mastera. Użytkownicy końcowi mogą korzystać bezpośrednio z Kubernetes API do komunikacji z klastrem.</p>
+                <p>Kiedy instalujesz aplikację na Kubernetes, polecasz masterowi uruchomienie kontenera z aplikacją. Master zleca uruchomienie kontenera na węzłach klastra. <b>Węzły komunikują się z masterem przy użyciu <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, wystawianego przez mastera. Użytkownicy końcowi mogą korzystać bezpośrednio z Kubernetes API do komunikacji z klastrem.</p>
 
                 <p>Klaster Kubernetes może być zainstalowany zarówno na fizycznych, jak i na maszynach wirtualnych. Aby wypróbować Kubernetes, można też wykorzystać  Minikube.  Minikube to "lekka" implementacja Kubernetes, która tworzy VM na maszynie lokalnej i instaluje prosty klaster składający się tylko z jednego węzła. Minikube jest dostępne na systemy Linux, macOS i  Windows. Narzędzie linii poleceń Minikube obsługuje podstawowe operacje na klastrze, takie jak start, stop, informacje o stanie i usunięcie klastra. Na potrzeby tego samouczka wykorzystamy jednak terminal online z zainstalowanym już wcześniej Minikube.</p>
 

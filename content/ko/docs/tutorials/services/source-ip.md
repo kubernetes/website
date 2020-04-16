@@ -1,6 +1,7 @@
 ---
 title: 소스 IP 주소 이용하기
 content_template: templates/tutorial
+min-kubernetes-server-version: v1.5
 ---
 
 {{% capture overview %}}
@@ -14,27 +15,39 @@ content_template: templates/tutorial
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-## 용어
+### 용어
 
 이 문서는 다음 용어를 사용한다.
 
-* [NAT](https://en.wikipedia.org/wiki/Network_address_translation): 네트워크 주소 변환
-* [소스 NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): 패킷 상의 소스 IP 주소를 변경함, 보통 노드의 IP 주소
-* [대상 NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): 패킷 상의 대상 IP 주소를 변경함, 보통 파드의 IP 주소
-* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 가상 IP 주소, 모든 쿠버네티스 서비스에 할당된 것 같은
-* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 네트워크 데몬으로 모든 노드에서 서비스 VIP 관리를 관리한다.
+{{< comment >}}
+이 섹션을 현지화하는 경우 대상 지역에 대한 위키피디아
+페이지로 연결한다.
+{{< /comment >}}
 
+[NAT](https://en.wikipedia.org/wiki/Network_address_translation)
+: 네트워크 주소 변환
 
-## 전제 조건
+[소스 NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
+: 패킷 상의 소스 IP 주소를 변경함, 보통 노드의 IP 주소
 
-이 문서의 예시를 실행하기 위해서 쿠버네티스 1.5 이상의 동작하는 클러스터가 필요하다.
+[대상 NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
+: 패킷 상의 대상 IP 주소를 변경함, 보통 파드의 IP 주소
+
+[VIP](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
+: 가상 IP 주소, 모든 쿠버네티스 서비스에 할당된 것 같은
+
+[Kube-proxy](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
+: 네트워크 데몬으로 모든 노드에서 서비스 VIP 관리를 관리한다.
+
+### 전제 조건
+
+{{< include "task-tutorial-prereqs.md" >}}
+
 이 예시는 HTTP 헤더로 수신한 요청의 소스 IP 주소를 회신하는
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
-```console
-kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
+```shell
+kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
@@ -54,12 +67,13 @@ deployment.apps/source-ip-app created
 
 {{% capture lessoncontent %}}
 
-## Type=ClusterIP인 서비스에서 소스 IP
+## `Type=ClusterIP` 인 서비스에서 소스 IP
 
-쿠버네티스 1.2부터 기본으로 제공하는
-[iptables 모드](/docs/concepts/services-networking/service/#proxy-mode-iptables)로 운영하는 경우
-클러스터 내에서 클러스터 IP로 패킷을 보내면 소스 NAT를 통과하지 않는다.
-Kube-proxy는 이 모드를 `proxyMode` 엔드포인트를 통해 노출한다.
+[iptables 모드](/ko/docs/concepts/services-networking/service/#proxy-mode-iptables)
+(기본값)에서 kube-proxy를 운영하는 경우 클러스터 내에서
+클러스터IP로 패킷을 보내면
+소스 NAT를 통과하지 않는다. kube-proxy가 실행중인 노드에서
+`http://localhost:10249/proxyMode` 를 입력해서 kube-proxy 모드를 조회할 수 있다.
 
 ```console
 kubectl get nodes
@@ -71,9 +85,11 @@ kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
 ```
-한 노드의 프록시 모드를 확인한다.
-```console
-kubernetes-node-6jst $ curl localhost:10249/proxyMode
+
+한 노드의 프록시 모드를 확인한다. (kube-proxy는 포트 10249에서 수신대기한다.)
+```shell
+# 질의 할 노드의 쉘에서 이것을 실행한다.
+curl localhost:10249/proxyMode
 ```
 출력은 다음과 같다.
 ```
@@ -82,23 +98,40 @@ iptables
 
 소스 IP 애플리케이션을 통해 서비스를 생성하여 소스 IP 주소 보존 여부를 테스트할 수 있다.
 
-```console
-$ kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+```shell
+kubectl expose deployment source-ip-app --name=clusterip --port=80 --target-port=8080
+```
+출력은 다음과 같다.
+```
 service/clusterip exposed
-
-$ kubectl get svc clusterip
+```
+```shell
+kubectl get svc clusterip
+```
+출력은 다음과 같다.
+```
 NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
 clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 ```
 
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
-```console
-$ kubectl run busybox -it --image=busybox --restart=Never --rm
+```shell
+kubectl run busybox -it --image=busybox --restart=Never --rm
+```
+출력은 다음과 같다.
+```
 Waiting for pod default/busybox to be running, status is Pending, pod ready: false
 If you don't see a command prompt, try pressing enter.
 
-# ip addr
+```
+그런 다음 해당 파드 내에서 명령을 실행할 수 있다.
+
+```shell
+# "kubectl run" 으로 터미널 내에서 이것을 실행한다.
+ip addr
+```
+```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
@@ -111,26 +144,38 @@ If you don't see a command prompt, try pressing enter.
        valid_lft forever preferred_lft forever
     inet6 fe80::188a:84ff:feb0:26a5/64 scope link
        valid_lft forever preferred_lft forever
+```
 
-# wget -qO - 10.0.170.92
+그런 다음 `wget` 을 사용해서 로컬 웹 서버에 쿼리한다.
+```shell
+# 10.0.170.92를 파드의 IPv4 주소로 변경한다.
+wget -qO - 10.0.170.92
+```
+```
 CLIENT VALUES:
 client_address=10.244.3.8
 command=GET
 ...
 ```
-client_address는 클라이언트 파드와 서버 파드가 같은 노드 또는 다른 노드에 있는지 여부에 관계없이 항상 클라이언트 파드의 IP 주소이다.
+`client_address` 는 클라이언트 파드와 서버 파드가 같은 노드 또는 다른 노드에 있는지 여부에 관계없이 항상 클라이언트 파드의 IP 주소이다.
 
-## Type=NodePort인 서비스에서 소스 IP
+## `Type=NodePort` 인 서비스에서 소스 IP
 
-쿠버네티스 1.5부터 [Type=NodePort](/docs/concepts/services-networking/service/#nodeport)인 서비스로 보내진 패킷은
+[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#nodeport)인
+서비스로 보내진 패킷은
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 
-```console
-$ kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+```shell
+kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
+```
+출력은 다음과 같다.
+```
 service/nodeport exposed
+```
 
-$ NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-$ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
+```shell
+NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
 ```
 
 클라우드 공급자 상에서 실행한다면,
@@ -138,8 +183,11 @@ $ NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=
 이제 위에 노드 포트로 할당받은 포트를 통해 클러스터 외부에서
 서비스에 도달할 수 있다.
 
-```console
-$ for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+```shell
+for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
+```
+출력은 다음과 유사하다.
+```
 client_address=10.180.1.1
 client_address=10.240.0.5
 client_address=10.240.0.3
@@ -169,26 +217,33 @@ client_address=10.240.0.3
 ```
 
 
-이를 피하기 위해 쿠버네티스는 클라이언트 소스 IP 주소를 보존하는 기능이 있다.
-[(기능별 가용성은 여기에)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
-`service.spec.externalTrafficPolicy`을 `Local`로 하면
-오직 로컬 엔드포인트로만 프록시 요청하고 다른 노드로 트래픽 전달하지 않으므로,
-원본 소스 IP 주소를 보존한다.
-만약 로컬 엔드 포인트가 없다면, 그 노드로 보내진 패킷은 버려지므로
+이를 피하기 위해 쿠버네티스는
+[클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
+`service.spec.externalTrafficPolicy` 의 값을 `Local` 로 하면
+오직 로컬 엔드포인트로만 프록시 요청하고
+다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
+소스 IP 주소를 보존한다. 만약 로컬 엔드 포인트가 없다면,
+그 노드로 보내진 패킷은 버려지므로
 패킷 처리 규칙에서 정확한 소스 IP 임을 신뢰할 수 있으므로, 
 패킷을 엔드포인트까지 전달할 수 있다.
 
 다음과 같이 `service.spec.externalTrafficPolicy` 필드를 설정하자.
 
-```console
-$ kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+```shell
+kubectl patch svc nodeport -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+```
+출력은 다음과 같다.
+```
 service/nodeport patched
 ```
 
 이제 다시 테스트를 실행해보자.
 
-```console
-$ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+```shell
+for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i client_address; done
+```
+출력은 다음과 유사하다.
+```
 client_address=104.132.1.79
 ```
 
@@ -201,7 +256,6 @@ client_address=104.132.1.79
 * 패킷은 버려진다.
 * 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
-
 
 시각적으로
 
@@ -219,10 +273,11 @@ client_address=104.132.1.79
 
 
 
-## Type=LoadBalancer인 서비스에서 소스 IP
+## `Type=LoadBalancer` 인 서비스에서 소스 IP
 
-쿠버네티스 1.5 부터 [Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)인 서비스로
-보낸 패킷은 소스 NAT를 기본으로 하는데, `Ready` 상태로 모든 스케줄된 모든 쿠버네티스 노드는
+[`Type=LoadBalancer`](/ko/docs/concepts/services-networking/service/#loadbalancer)인
+서비스로 보낸 패킷은 소스 NAT를 기본으로 하는데, `Ready` 상태로
+모든 스케줄된 모든 쿠버네티스 노드는
 로드 밸런싱 트래픽에 적합하다. 따라서 엔드포인트가 없는 노드에
 패킷이 도착하면 시스템은 엔드포인트를 *포함한* 노드에 프록시를
 수행하고 패킷 상에서 노드의 IP 주소로 소스 IP 주소를 변경한다
@@ -230,15 +285,31 @@ client_address=104.132.1.79
 
 로드밸런서를 통해 source-ip-app을 노출하여 테스트할 수 있다.
 
-```console
-$ kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+```shell
+kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-port=8080 --type=LoadBalancer
+```
+출력은 다음과 같다.
+```
 service/loadbalancer exposed
+```
 
-$ kubectl get svc loadbalancer
+서비스의 IP 주소를 출력한다.
+```console
+kubectl get svc loadbalancer
+```
+다음과 유사하게 출력된다.
+```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
-loadbalancer   LoadBalancer   10.0.65.118   104.198.149.140   80/TCP    5m
+loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
+```
 
-$ curl 104.198.149.140
+다음으로 이 서비스의 외부 IP에 요청을 전송한다.
+
+```shell
+curl 203.0.113.140
+```
+다음과 유사하게 출력된다.
+```
 CLIENT VALUES:
 client_address=10.240.0.5
 ...
@@ -265,51 +336,74 @@ health check --->   node 1   node 2 <--- health check
 
 이것은 어노테이션을 설정하여 테스트할 수 있다.
 
-```console
-$ kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
+```shell
+kubectl patch svc loadbalancer -p '{"spec":{"externalTrafficPolicy":"Local"}}'
 ```
 
 쿠버네티스에 의해 `service.spec.healthCheckNodePort` 필드가
 즉각적으로 할당되는 것을 봐야 한다.
 
-```console
-$ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+```shell
+kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
+```
+출력은 다음과 유사하다.
+```yaml
   healthCheckNodePort: 32122
 ```
 
 `service.spec.healthCheckNodePort` 필드는 `/healthz`에서 헬스 체크를 제공하는
 모든 노드의 포트를 가르킨다. 이것을 테스트할 수 있다.
 
+```shell
+kubectl get pod -o wide -l run=source-ip-app
 ```
-$ kubectl get pod -o wide -l run=source-ip-app
+출력은 다음과 유사하다.
+```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
+```
 
-kubernetes-node-6jst $ curl localhost:32122/healthz
+다양한 노드에서 `/healthz` 엔드포인트를 가져오려면 `curl` 을 사용한다.
+```shell
+# 선택한 노드에서 로컬로 이것을 실행한다.
+curl localhost:32122/healthz
+```
+```
 1 Service Endpoints found
+```
 
-kubernetes-node-jj1t $ curl localhost:32122/healthz
+다른 노드에서는 다른 결과를 얻을 수 있다.
+```shell
+# 선택한 노드에서 로컬로 이것을 실행한다.
+curl localhost:32122/healthz
+```
+```
 No Service Endpoints Found
 ```
 
-마스터에서 실행 중인 서비스 컨트롤러는 필요시에 클라우드 로드밸런서를 할당할 책임이 있다.
-또한, 각 노드에 HTTP 헬스 체크를 이 포트와 경로로 할당한다.
-헬스체크가 실패한 엔드포인트를 포함하지 않은 2개 노드에서 10초를 기다리고
-로드밸런서 IP 주소로 curl 하자.
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에서
+실행중인 컨트롤러는 클라우드 로드 밸런서를 할당한다. 또한 같은 컨트롤러는
+각 노드에서 포트/경로(port/path)를 가르키는 HTTP 상태 확인도 할당한다.
+엔드포인트가 없는 2개의 노드가 상태 확인에 실패할
+때까지 약 10초간 대기한 다음,
+`curl` 을 사용해서 로드밸런서의 IPv4 주소를 쿼리한다.
 
-```console
-$ curl 104.198.149.140
+```shell
+curl 203.0.113.140
+```
+출력은 다음과 유사하다.
+```
 CLIENT VALUES:
-client_address=104.132.1.79
+client_address=198.51.100.79
 ...
 ```
 
-__크로스 플랫폼 지원__
+## 크로스-플랫폼 지원
 
-쿠버네티스 1.5부터 Type=LoadBalancer 서비스를 통한 
-소스 IP 주소 보존을 지원하지만,
-이는 클라우드 공급자(GCE, Azure)의 하위 집합으로 구현되어 있다. 실행 중인 클라우드 공급자에서
-몇 가지 다른 방법으로 로드밸런서를 요청하자.
+일부 클라우드 공급자만 `Type=LoadBalancer` 를 사용하는
+서비스를 통해 소스 IP 보존을 지원한다.
+실행 중인 클라우드 공급자에서 몇 가지 다른 방법으로
+로드밸런서를 요청한다.
 
 1. 클라이언트 연결을 종료하고 새 연결을 여는 프록시를 이용한다.
 이 경우 소스 IP 주소는 클라이언트 IP 주소가 아니고
@@ -320,34 +414,35 @@ __크로스 플랫폼 지원__
 끝나는 패킷 전달자를 이용한다.
 
 첫 번째 범주의 로드밸런서는 진짜 클라이언트 IP를 통신하기 위해
-HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 헤더나
-[프록시 프로토콜](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)같이 로드밸런서와
-백엔드 간에 합의된 프로토콜을 사용해야 한다.
+HTTP [Forwarded]](https://tools.ietf.org/html/rfc7239#section-5.2)
+또는 [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
+헤더 또는
+[proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)과
+같은 로드밸런서와 백엔드 간에 합의된 프로토콜을 사용해야 한다.
 두 번째 범주의 로드밸런서는 서비스의 `service.spec.healthCheckNodePort` 필드의 저장된 포트를 가르키는
-간단한 HTTP 헬스 체크를 생성하여
+HTTP 헬스 체크를 생성하여
 위에서 설명한 기능을 활용할 수 있다.
 
 {{% /capture %}}
 
 {{% capture cleanup %}}
 
-서비스를 삭제하자.
+서비스를 삭제한다.
 
-```console
-$ kubectl delete svc -l run=source-ip-app
+```shell
+kubectl delete svc -l run=source-ip-app
 ```
 
-디플로이먼트와 리플리카 셋과 파드를 삭제하자.
+디플로이먼트, 레플리카셋 그리고 파드를 삭제한다.
 
-```console
-$ kubectl delete deployment source-ip-app
+```shell
+kubectl delete deployment source-ip-app
 ```
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 공부하기
-* [부하분산](/docs/user-guide/load-balancer)에 대해 더 공부하기
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
+* 어떻게 [외부 로드밸런서 생성](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
 {{% /capture %}}
-
 
