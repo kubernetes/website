@@ -45,7 +45,8 @@ max-width:100% !important;
   border: 5px solid white;
 }
 .col-nav p {
-  padding:3%;
+  padding-left:5%;
+  padding-right:5%;
 }
 
 
