@@ -1079,7 +1079,7 @@ fail with a message indicating an IP address could not be allocated.
 
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
-in-memory locking). Kubernetes also uses controllers to checking for invalid
+in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
