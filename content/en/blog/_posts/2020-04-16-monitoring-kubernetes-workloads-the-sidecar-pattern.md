@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: 'Monitoring Kubernetes Workloads: The Sidecar Pattern'
-date: 2020-04-14
+date: 2020-04-16
 slug: monitoring-kubernetes-sidecar-pattern
 ---
 
