@@ -59,9 +59,9 @@ Neither contention nor changes to a LimitRange will affect already created resou
 ## Examples
 
 - See [how to configure minimum and maximum CPU constraints per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
-- See [how to configure minimum and maximum Memory constraints per namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
-- See [how to configure default CPU Requests and Limits per namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
-- See [how to configure default Memory Requests and Limits per namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
+- See [how to configure minimum and maximum Memory constraints per namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+- See [how to configure default CPU Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
+- See [how to configure default Memory Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
 - Check [how to configure minimum and maximum Storage consumption per namespace](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
 - See a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/).
 
