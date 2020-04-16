@@ -1,0 +1,82 @@
+Nodes
+Phần này sẽ đưa ra những khái niệm Node là gì, node bao gồm những thông tin gì và những chiến lược thực hiện trong lifecycle của Node khi nó rơi vào trạng thái unhealthy. Có những cách nào để thêm node và Node capacity là gì.
+Một node là một worker machine trong Kubernetes. Node có thể là VM hoặc server vật lý phụ thuộc vào cluster. Mỗi node bao gồm các dịch vụ cần thiết giúp pods hoạt động được và được quản lý bởi các thành phần Kubernetes Master. Các dịch vụ trong node bao gồm: container runtime; kubelet và kubeproxy. 
+-	kubelet: Thành phần quan trong trong Kubernetes là Kubelet. Đây là thành phanaf chính thực hiện 
+•	Node status
+Trạng thái của node bao gồm những thông tin dưới đây
+-	Addresses: Sử dụng những trường này phụ thuộc vào cloud provider hoặc cấu hình của bare metal 
+o	HostName: hostname thường được lấy bởi kernel của host. Nếu không muốn có thể override lại thông qua lệnh kubelet –hostname-override <Tên>
+o	ExternalIP: địa chỉ IP của node có thể truy cập từ bên ngoài
+o	InternalIP: Địa chỉ IP có thể giúp truy cập chỉ bên trong cụm cluster 
+-	Conditions: Trường condition mô tả trạng thái của toàn bộ Running nodes. 
+Node Condition	Mô tả
+Ready	True nếu node sẵn sàng để chạy các Pods. False nếu node unhealthy và không có khả năng chạy các pods, Unknown nếu node controller không thể health check được node kể từ lần cuối cùng kiểm tra (node-monitor-grace-period). Giá trị default là 40 seconds
+MemoryPressure	True nếu pressure tồn tại trong node memory có nghĩa rằng node đang có memory available thấp. false nếu ngược lại
+PIDPressure	True nếu pressure xuất hiện trong Process, có nghĩa rằng có nhiều tiến trình trong node. False nếu ngược lại
+DiskPressure	True nếu pressure xuất hiện trong disk size, có nghĩa rằng capacity của disk là thấp. False trong trường hợp còn lại
+NetworkUnavailable	True nếu network cho node không được cấu hình đúng. False nếu ngược lại
+Node condition được thể hiện như JSON object được query từ api
+/api/v1/nodes/{name}/status
+"conditions": [
+  {
+    "type": "Ready",
+    "status": "True",
+    "reason": "KubeletReady",
+    "message": "kubelet is posting ready status",
+    "lastHeartbeatTime": "2019-06-05T18:38:35Z",
+    "lastTransitionTime": "2019-06-05T11:41:27Z"
+  }
+]
+
+Nếu status của Ready condition duy trì ở Unknow hoặc False lâu hơn pod-eviction-timeout (giá trị được gửi tới kube-controller-manager), toàn bộ Pods trong node này sẽ bị lên lịch delete bởi Node Controller. Giá trị default của eviction timeout duration là 5 phút. Trong một số trường hợp node không kết nối được, api server không có khả năng kết nối được với kubelet ở node này. Do đó thực hiện việc xóa pods không thể thực hiện do không thể kết nối được với kubelet cho đến khi kết nối ới apiserver được re-established. Trong lúc đó, pods được lập lịch để delete có khả năng vẫn được chạy trong node này.
+Với version của Kubernetes trước v1.5, node controller có thể force delete những pods unreachable pods từ aposerver. Tuy nhiên, sau phiên bản v1.5, node controller không thể force delete pods cho tới nó xác nhận rằng những pods này đã stopped running trong cluster. Bạn có thể nhận ra rằng pods có thể running trong những pods có thể running trong node unreachable  như  trạng thái Terminating hoặc Unknow stae. Trong trường hợp Kubernetes không thể xác định từ underlying infrastructure nếu node đã vĩnh viễn ra khỏi cluster, cluster administrator cần biết để delete node này bằng tay. Xóa node object từ Kubenetes sẽ dẫn tới toàn bộ Pods object running trong node sẽ được delete từ apiserver ,và giải phóng names của pods này.
+Node lifecycle controller tự động tạo taints đươ. Schedule takes node taint trong 
+-	Capacity and allocatable
+Mô tả resource available trong node: CPU, memory và số lượng pods có thể được scheduled trong node.
+Những trường trong capacity block chỉ ra tổng số lượng resource mà Node có. Allocatable block chỉ ra số lượng resource trong node available được sử dụng bởi Pods
+-	Management
+Không giống pods và service, node không được tạo bởi Kubernetes. Node được tạo bởi cloud provider như Google Compute Engine, hoặc nó tồn tại trong pool của người dùng như các máy vật lý hoặc máy ảo. Do đó khi Kubernets tạo node, nó tạo những object lưu thông tin node. Sau khi tạo, Kubernetes kiểm tra node có tồn tại hay không. VD, nếu bạn tạo node như nội dung dưới đây qua api POST /api/v1/nodes
+{
+  "kind": "Node",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "10.240.79.157",
+    "labels": {
+      "name": "my-first-k8s-node"
+    }
+  }
+}
+Kubernetes tự tạo node object và kiểm tra node này bằng cách health check dựa trên metadata.name. Nếu node là tồn tại có nghĩa rằng toàn bộ dịch vụ cần thiết được running – nó có thể chạy các pods. Ngược lại, nếu không thỏa mãn, nó sẽ bị bỏ qua bất kì các activity nào của cluster cho đến khi sẵn sàng trở lại. 
+•	Node Controller
+Node controller là một thành phần Kuberntees master cái quản lý một số phần của Nodes
+Node controller có nhiều roles trong vòng đời của nodes. Đầu tiên master sẽ cập nhật CIRD block tới node khi nó được đăng kí (nếu CIRD assignment được bật). Tiếp theo là duy trì danh sách các node controller internal của nodes là mới nhất với danh sách các available machine của cloud provider. Khi running trong cloud environment, bất cứ khi nào node rơi vào trạng thái unhealthy, node controller hỏi nhà cung cấp dịch vụ cloud nếu VM cho node này vẫn không sẵn sàng. Nếu không, node controller xóa node khỏi danh sách các nodes.
+Tiếp theo là giám sát trạng thái của node. Node controller có trách nhiều cập nhật trạng thái NodeReady condition của NodeStatues thành ConditionUnknown khi node không thể kết nối được (VD controller node dừng nhận heartbeat về một số lý do, có thể là do node down), và sau đó sử dụng graceful termination với toàn bộ các pods trong node. Nếu node tiếp tục unreachable (Giá trị default là 40 s với chu kì heartbeat nhằm xác định trạng thái ConditionUnknown và 5m sau khi bắt đầu xóa pods). Node controller kiểm tra trang thái của các node mới –node-monitor-periods (đơn vị giây).
+-	Heartbeats
+Hearthbeats được gửi bởi kuberntes nodes, nhằm xác định các node sẵn sàng. Có hai mô hình heartbeat: cập nhật NodeStatus và “Lease object”. Mỗi node được thể hiện bằng một Lease object trong kube-node-lease namespace. Lease là lightweight resource, giúp tăng hiệu năng của node heartbeat khi cluster scales. 
+Kubelet chịu trách nhiệu tạo và cập nhật NodeStatus và Lease object
+o	Kubelet cập nhật    NodeStatus cả khi chúng thay đổi satatus hoặc không thay đổi hoặc cập nhật config gì. Giá trị default cho NodeStatus cập nhật là 5 phút
+o	Kubelet tạo và sau đó cập nhật Lease object mỗi 10 giây. Lease cập nhật giá trị đọc lập với NodeStatus. Nếu Lease cập nhật không thành công, kubelet sẽ thử lại  backoff theo lũy thừa bắt đầu tại 200 miliseconds và dừng ở 7 seconds
+-	Reliability
+Trong Kubernetes 1.4 đã cập nhật logic của node controller tốt hơn để xử lý trường xử lí nhiều node bị lỗi với node master (VD bởi vì master có lỗi về network khiến cho không thể kết nối với các node). Sau 1.4, node controller có thể xem trạng thái của toàn bộ node trong cluster khi thực hiện việc xóa pod. 
+Trong một số trường hợp, node controller giới hạn tốc độ xóa pod qua giá trị –node-eviection-rate (mặc định là 0.1 node / 1 giây  1 node trên 1 giây) 
+Hành động xóa node thay đổi khi node trong availability zone trở lên unhealthy. Node controller kiểm tra bao nhiêu phần trăm các node trong zone là unhealthy (NodeReady conditions là ConditionUnknow hay ConditionFalse) tại cùng thời điểm. Nếu tỉ lệ unhealthy node lớn hơn hoặc bằng –unhealthy-zone-threshold (default là 0.55) thì node controller sẽ giảm tỉ lệ xóa node: nếu cluster nhỏ (vi dụ có nhỏ hơn hoặc bằng –large-cluster-size-threshold nodes – default 50) thì sẽ không xóa node, ngược lại tốc độ xóa được giảm tới –secondary-node-eviection-rate (default 0.01 perseconds). Nguyên nhân dẫn đến các policy này được áp dụng trên từng availability zone bởi vì trong một availability zone có thể bị tách ra khỏi cluster trong khi các availability zone khác vẫn được duy trì kết nối tới master. Nếu cluster không được tách thành các availability zone, thì chỉ có một zone cho cả cluster
+Nguyên nhân chính của phân chia các node trong qua availability zone là do workload có thể bị dịch chuyển từ zone healthy khi mà mộ zone bị down. Do đó, nếu toàn bộ node trong zone là unhealthy thì node controller xóa node trong zone với tỉ lệ --node-eviection-rate. Trường hợp khi tất cả các zone hoàn toàn unhealthy (vd không có healthy nodes trong cluster). Trong trường hợp này, node controller quan niệm rằng kết nối mạng của node controller gặp vấn đề và dừng toàn bộ việc xóa nodes cho tới khi kết nối được phục hồi.
+-	Self-Registration of Nodes
+Khi kubelet flag --registrer-node = true (default), kubelet sẽ thử registrer chính nó với API server. Đây là mô hình được ưa thích và được sử dụng rộng rãi
+Với self-registration, kubelet bắt đầu với những lựa chọn dưới đây
+o	–kubeconfig: - Đường dẫn thông tin để authen với chính apiserver
+o	–cloud-provider: làm thế nào để kết nối với cloud provider để đọc metaada của nó
+o	–register-node: Tự động đăng kí với API server
+o	–register-with-tains: Đăng kí node với danh sách các taints
+o	–node-ip: IP address của node
+o	–node-labels: Labels khi đăng kí node trong cluster
+o	–node-status-update-frequency: Đặc tả tần suất kubelet posts node status tới master
+•	Manual Node administration
+Cluster administrator có thể dược tạo và sửa node objects
+Nếu administratos mong muốn tạo node object bằng tay, thiết lập kubelet flag –register-node=false
+Administrator có thể thay đổi node resource (bất kể việc thiết lập –register-node). Thay đổi bao gồm thiết lập labels trong node và đánh dấu những giá trị này không thể thay đổi.
+Labels trong node có thể được sử dụng trong conjunction với node selectors trong pods để kiểm soát việc lập lịch. VD: Hạn chết một pods chỉ có thể chạy trên một node cụ thể. Việc thiết lập thông tin node không thể sửa hạn chế tạo pods mới trên node, nhưng không ảnh hưởng với những pods đang tồn tại. Đây là thuận tiện để chuẩn bị trước khi reboot. Để đưa node sang trạng thái  unschedulable, run command
+kubectl cordon $NODENAME
+-	Node capacity
+Capacity của node (Số lượng cpus và số lượng memory) là một phần của node object. Thông thường, node đăng kí thông tin này và thông báo capacity của nó khi tạo node object. Nếu đang thực hiện manual node administration, những giá trị về capacity phải được thêm khi gửi request add node
+Kubeernetes scheduler đảm bảo rằng luôn có đủ tài nguyên cần thiết cho toàn bộ pods trong node. Nó kiểm tra tổng các request của container trong nodes không lớn hơn node capacity. Nó bao gồm toàn bộ container start bởi kubelet, nhưng không bao gồm container start trực tiếp bởi container runtime hoặc bất kì tiến trình nào bên ngoài containers.
