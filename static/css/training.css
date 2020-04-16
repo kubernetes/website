@@ -1,4 +1,7 @@
 
+body {
+  margin:0 auto !important;
+}
 
 #hero {
   text-align: left;
