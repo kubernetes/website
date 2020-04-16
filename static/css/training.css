@@ -130,6 +130,11 @@ display:block;
   padding-bottom: 4%;
 }
 
+.padded-bottom-banner {
+  padding-top:0%;
+  padding-bottom: 2%;
+}
+
 .half {
   width:50%;
   float:left;
