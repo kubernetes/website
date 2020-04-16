@@ -12,7 +12,8 @@ tags:
 - operation
 ---
 
-<!-- ---
+<!-- 
+---
 title: Cluster
 id: cluster
 date: 2019-06-15
@@ -24,7 +25,9 @@ aka:
 tags:
 - fundamental
 - operation
---- -->
+--- 
+-->
+
 <!-- A set of machines, called nodes, that run containerized applications managed by Kubernetes. A cluster has at least one worker node and at least one master node.  -->
 集群由一组被称作节点的机器组成。这些节点上运行 Kubernetes 所管理的容器化应用。集群具有至少一个工作节点和至少一个主节点。
 
