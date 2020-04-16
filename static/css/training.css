@@ -92,11 +92,11 @@ h5 {
 }
 
 #logo-ckad img{
-width:26% !important;
+width:14% !important;
 float:right;
 display:block;
-padding-right:10%;
-padding-left:3%;
+margin-right:10%;
+margin-left:3%;
 }
 
 #logo-ckad{
@@ -104,15 +104,14 @@ display:block;
 }
 
 #logo-cka img{
-width:26% !important;
+width:14% !important;
 float:left;
 display:block;
-padding-left:10%;
-padding-right:3%;
+margin-left:10%;
+margin-right:3%;
 }
 
 #logo-ckad{
-padding-left:5%;
 display:block;
 }
 
