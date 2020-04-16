@@ -62,7 +62,7 @@ The Job controller does not run any Pods or containers
 itself. Instead, the Job controller tells the API server to create or remove
 Pods.
 Other components in the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
+{{< glossary_tooltip text="Control Plane" term_id="control-plane" >}}
 act on the new information (there are new Pods to schedule and run),
 and eventually the work is done.
 
