@@ -11,10 +11,11 @@
   margin-bottom: 2em;
   float:left;
 }
-.section .main-section, header .main-section, footer .main-section {
+.section .main-section, .header .main-section, .footer .main-section {
 width:100% !important;
-
+max-width:100% !important;
 }
+
 .col {
   display: block;
   float:left;
@@ -77,7 +78,7 @@ h5 {
 }
 
 #logo-ckad img{
-width:25% !important;
+width:30% !important;
 float:right;
 display:block;
 padding-right:10%;
@@ -89,7 +90,7 @@ display:block;
 }
 
 #logo-cka img{
-width:25% !important;
+width:30% !important;
 float:left;
 display:block;
 padding-left:10%;
