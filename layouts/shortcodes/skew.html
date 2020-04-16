@@ -17,6 +17,9 @@
 <!-- subtract latest 1 minor number for "prevMinorVerison" -->
 {{- $prevMinorVersion := sub $minorVersion 1 -}}
 
+<!-- subtract latest 2 minor numbers for "oldestMinorVerison" -->
+{{- $oldestMinorVersion := sub $minorVersion 2 -}}
+
 <!-- output nextMinorVersion based on captured arg -->
 {{- if eq $version "nextMinorVersion" -}}
     {{- $nextMinorVersion := printf "%s.%d" (index $versionArray 0) $nextMinorVersion -}}
@@ -34,9 +37,16 @@
     {{- $prevMinorVersion -}}
 {{- end -}}
 
+<!-- output oldestMinorVersion based on captured arg -->
+{{- if eq $version "oldestMinorVersion" -}}
+    {{- $oldestMinorVersion := printf "%s.%d" (index $versionArray 0) $oldestMinorVersion -}}
+    {{- $oldestMinorVersion -}}
+{{- end -}}
+
 <!--
 example shortcode use:
 - skew nextMinorVersion
 - skew latestVersion
 - skew prevMinorVersion
+- skew oldestMinorVersion
 -->
