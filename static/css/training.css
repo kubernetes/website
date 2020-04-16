@@ -50,7 +50,10 @@ max-width:100% !important;
   padding-right:5%;
 }
 
-
+h2 {
+  line-height:2em !important;
+  padding-bottom:3%;
+}
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
