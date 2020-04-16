@@ -11,7 +11,10 @@
   margin-bottom: 2em;
   float:left;
 }
+.section .main-section, header .main-section, footer .main-section {
+width:100% !important;
 
+}
 .col {
   display: block;
   float:left;
@@ -71,7 +74,7 @@ h5 {
 }
 
 #logo-ckad img{
-width:15% !important;
+width:25% !important;
 float:right;
 display:block;
 padding-right:10%;
@@ -83,7 +86,7 @@ display:block;
 }
 
 #logo-cka img{
-width:15% !important;
+width:25% !important;
 float:left;
 display:block;
 padding-left:10%;
