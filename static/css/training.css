@@ -63,6 +63,13 @@ max-width:100% !important;
     display: block;
     width: 100%;
   }
+
+  h2 {
+    line-height:1.2em !important;
+    padding-bottom:3%;
+  }
+
+
 }
 
 .button{
@@ -168,7 +175,7 @@ display:block;
 }
 
 h2 {
-  line-height: !important;
+  line-height:1.2em !important;
 }
 
 .blue-bg {
