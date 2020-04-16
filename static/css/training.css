@@ -78,6 +78,11 @@ max-width:100% !important;
   text-decoration: none;
 }
 
+.mainsection {
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
 h5 {
   font-size: 16px;
   font-weight: 500;
