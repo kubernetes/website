@@ -19,6 +19,10 @@ width:100% !important;
 max-width:100% !important;
 }
 
+.call-to-action {
+  padding:0px !important;
+}
+
 .col {
   display: block;
   float:left;
@@ -82,7 +86,7 @@ h5 {
 }
 
 #logo-ckad img{
-width:30% !important;
+width:28% !important;
 float:right;
 display:block;
 padding-right:10%;
@@ -94,7 +98,7 @@ display:block;
 }
 
 #logo-cka img{
-width:30% !important;
+width:28% !important;
 float:left;
 display:block;
 padding-left:10%;
