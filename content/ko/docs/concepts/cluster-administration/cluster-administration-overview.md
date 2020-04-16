@@ -35,7 +35,7 @@ weight: 10
 
 * 어떻게 [노드 관리](/ko/docs/concepts/architecture/nodes/)를 하는지 배워보자.
 
-* 공유된 클러스터의 [자원 할당량](/docs/concepts/policy/resource-quotas/)을 어떻게 셋업하고 관리할 것인지 배워보자.
+* 공유된 클러스터의 [리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 어떻게 셋업하고 관리할 것인지 배워보자.
 
 ## 클러스터 보안
 

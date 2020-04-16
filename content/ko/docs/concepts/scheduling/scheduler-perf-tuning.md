@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/ko/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
 는 쿠버네티스의 기본 스케줄러이다. 그것은 클러스터의
 노드에 파드를 배치하는 역할을 한다.
 

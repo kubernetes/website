@@ -695,7 +695,7 @@ spec:
 
 ## 볼륨 복제
 
-[볼륨 복제](/docs/concepts/storage/volume-pvc-datasource/)는 CSI 볼륨 플러그인만 사용할 수 있다.
+[볼륨 복제](/ko/docs/concepts/storage/volume-pvc-datasource/)는 CSI 볼륨 플러그인만 사용할 수 있다.
 
 ### 기존 pvc에서 퍼시스턴트볼륨클레임 생성 {#create-persistent-volume-claim-from-an-existing-pvc}
 
