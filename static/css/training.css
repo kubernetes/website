@@ -151,6 +151,9 @@ display:block;
   color:white;
 }
 
+h2 {
+  line-height: !important;
+}
 
 .blue-bg {
   background-color: #3371e3;
