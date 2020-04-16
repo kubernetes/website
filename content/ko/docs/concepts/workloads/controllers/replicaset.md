@@ -22,8 +22,8 @@ weight: 10
 레플리카셋이 새로운 파드를 생성해야 할 경우, 명시된 파드 템플릿을
 사용한다.
 
-레플리카셋과 파드와의 링크는 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
-필드를 통해서 제공되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
+레플리카셋은 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
+필드를 통해 파드에 연결되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
 레플리카셋이 가지고 있는 모든 파드의 ownerReferences 필드는 해당 파드를 소유한 레플리카셋을 식별하기 위한 소유자 정보를 가진다.
 이 링크를 통해 레플리카셋은 자신이 유지하는 파드의 상태를 확인하고 이에 따라 관리 한다.
 

@@ -122,7 +122,7 @@ spec:
 유형이 있다.
 
 * _`ImplementationSpecific`_ (기본): 이 경로 유형의 일치 여부는 IngressClass에 따라
-  달라진다. 이를 구현할 때 별도 pathType으로 처리하거나, `Prefix` 또는 `Exact`
+  달라진다. 이를 구현할 때 별도 `pathType` 으로 처리하거나, `Prefix` 또는 `Exact`
   경로 유형과 같이 동일하게 처리할 수 있다.
 
 * _`Exact`_: URL 경로의 대소문자를 엄격하게 일치시킨다.
