@@ -1,5 +1,5 @@
 ---
-title: Ikhtisar Keamanan _Cloud Native_
+title: Ikhtisar Keamanan Cloud Native
 content_template: templates/concept
 weight: 1
 ---
