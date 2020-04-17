@@ -286,14 +286,7 @@ h2 {
     padding-bottom: 30px;
   }
 
-  .col-nav {
-    display: flex;
-    flex-grow: 1;
-    width: 18%;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border: 5px solid white;
-  }
+
 
 
   @media only screen and (max-width: 840px) {
