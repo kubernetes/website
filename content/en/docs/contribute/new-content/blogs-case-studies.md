@@ -50,8 +50,7 @@ real-world problems. The Kubernetes marketing team and members of the {{< glossa
 Have a look at the source for the
 [existing case studies](https://github.com/kubernetes/website/tree/master/content/en/case-studies).
 
-Use the [Kubernetes case study submission form](https://www.cncf.io/people/end-user-community/)
-to submit your proposal.
+Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md) and submit your request as outlined in the guidelines. 
 
 {{% /capture %}}
 
