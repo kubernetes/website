@@ -240,7 +240,7 @@ h2 {
 
   section.call-to-action .main-section > div.call-to-action > div {
     order: 1;
-    padding: 20px;
+  
   }
 
   section.call-to-action .main-section .cta-text {
@@ -378,11 +378,6 @@ h2 {
     overflow: hidden;
     width: 1200px;
   }
-
-
-
-
-
 
 
 }
