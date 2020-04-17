@@ -240,7 +240,7 @@ h2 {
 
   section.call-to-action .main-section > div.call-to-action > div {
     order: 1;
-  
+
   }
 
   section.call-to-action .main-section .cta-text {
@@ -321,21 +321,6 @@ h2 {
       width: 100%;
     }
     .col-container { flex-direction: column; }
-  }
-
-  .button{
-    max-width: 100%;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
-    margin: 1em 0;
-    display: inline-block;
-    border-radius: 6px;
-    padding: 0 20px;
-    line-height: 40px;
-    color: #ffffff;
-    font-size: 16px;
-    background-color: #3371e3;
-    text-decoration: none;
   }
 
   h5 {
