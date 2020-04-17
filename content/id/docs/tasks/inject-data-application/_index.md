@@ -1,5 +1,5 @@
 ---
-title: "Memasukkan Data ke dalam Aplikasi-aplikasi"
+title: "Memasukkan Data ke dalam Aplikasi"
 weight: 30
 ---
 
