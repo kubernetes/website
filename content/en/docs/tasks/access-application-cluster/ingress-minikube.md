@@ -186,7 +186,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 
     This sends requests from hello-world.info to Minikube.
     
-    {{< note >}}If you are running Minikube locally and do not want to edit the hosts file, remove the `host: hello-world.info` entry from the `example-ingress.yaml` file. Instead, browse to the IP address provided by `minikube ip`: 
+    {{< note >}}If you are running Minikube locally and do not want to edit the hosts file, remove the `host: hello-world.info` entry from the `example-ingress.yaml` file. Instead, browse to a URL based on the IP address provided by `minikube ip`. For example, if `minikube ip` outputs `192.168.99.117` then browse to http://192.168.99.117/ {{< /note >}}
     http://192.168.99.117/ {{< /note >}}
 
 1. Verify that the Ingress controller is directing traffic:
