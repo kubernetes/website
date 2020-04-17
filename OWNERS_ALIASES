@@ -235,7 +235,8 @@ aliases:
     - Potapy4
   sig-docs-ar-owners: # Admins for Arabic content
     - mohamedsgap
-    - mustafaAnwar2020
+    - mhamdisemah
   sig-docs-ar-reviews: # PR reviews for Arabic content
     - mohamedsgap
     - mustafaAnwar2020
+    - mhamdisemah
