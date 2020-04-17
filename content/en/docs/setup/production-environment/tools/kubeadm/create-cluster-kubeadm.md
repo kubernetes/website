@@ -609,13 +609,10 @@ of Pod network add-ons.
 
 ## Version skew policy {#version-skew-policy}
 
-The `kubeadm` tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
-`kubeadm` vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
+The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
+`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
 
-Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
-
-Example: `kubeadm` v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
-v1.8.
+Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
 
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
 
