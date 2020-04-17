@@ -109,28 +109,6 @@ h5 {
   margin-bottom: 2em;
 }
 
-#logo-ckad img{
-float:right;
-display:block;
-margin-right:15%;
-margin-left:3%;
-}
-
-#logo-ckad{
-display:block;
-}
-
-#logo-cka img{
-float:left;
-display:block;
-margin-left:15%;
-margin-right:3%;
-}
-
-#logo-ckad{
-display:block;
-}
-
 .logo-certification .cta-image .cta-image-after img {
   width:300px !important;
 }
