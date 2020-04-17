@@ -9,7 +9,7 @@ card:
 ---
 
 {{% capture overview %}}
-[Kubectl](/docs/user-guide/kubectl/) adalah perangkat _command line_ Kubernetes yang digunakan untuk menjalankan perintah-perintah untuk kluster Kubernetes. Kamu dapat menggunakan `kubectl` untuk men-_deploy_ aplikasi, mengatur _resource_ kluster, dan melihat _log_. Daftar operasi `kubectl` dapat dilihat di [Ikhtisar kubectl](/docs/reference/kubectl/overview/).
+[Kubectl](/docs/user-guide/kubectl/) adalah perangkat barisan perintah Kubernetes yang digunakan untuk menjalankan berbagai perintah untuk kluster Kubernetes. Kamu dapat menggunakan `kubectl` untuk men-_deploy_ aplikasi, mengatur _resource_ kluster, dan melihat _log_. Daftar operasi `kubectl` dapat dilihat di [Ikhtisar kubectl](/docs/reference/kubectl/overview/).
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -36,7 +36,7 @@ Kamu boleh menggunakan `kubectl` versi berapapun selama versi minornya sama atau
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
     ```
 
-1. Buat agar binari `kubectl` dapat di-_execute_.
+1. Buat agar binari `kubectl` dapat dijalankan.
 
     ```
     chmod +x ./kubectl
@@ -116,7 +116,7 @@ kubectl version --client
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
 
-1. Buat agar binari `kubectl` dapat di-_execute_.
+1. Buat agar binari `kubectl` dapat dijalankan.
 
     ```
     chmod +x ./kubectl
@@ -208,7 +208,7 @@ Jika kamu menggunakan Windows dan paket manajer [Powershell Gallery](https://www
     
     {{< note >}}Jika kamu tidak menambahkan `DownloadLocation`, `kubectl` akan diinstal di dalam direktori _temp_ pengguna.{{< /note >}}
     
-    _Installer_ akan membuat `$HOME/.kube` dan membuat file konfigurasi
+    _Installer_ akan membuat `$HOME/.kube` dan membuat berkas konfigurasi
 
 1. Pastikan instalasi sudah berhasil dengan melakukan pengecekan versi:
 
@@ -220,7 +220,7 @@ Jika kamu menggunakan Windows dan paket manajer [Powershell Gallery](https://www
 
 ### Instalasi di Windows menggunaakn Chocolatey atau Scoop
 
-Untuk menginstal `kubectl` di Windows kamu dapat menggunakan paket manajer [Chocolatey](https://chocolatey.org) atau _installer_ command-line [Scoop](https://scoop.sh).
+Untuk menginstal `kubectl` di Windows kamu dapat menggunakan paket manajer [Chocolatey](https://chocolatey.org) atau _installer_ barisan perintah [Scoop](https://scoop.sh).
 {{< tabs name="kubectl_win_install" >}}
 {{% tab name="choco" %}}
 
@@ -262,7 +262,7 @@ Untuk menginstal `kubectl` di Windows kamu dapat menggunakan paket manajer [Choc
     New-Item config -type file
     ```
     
-    {{< note >}}Ubah file konfigurasi dengan editor teks pilihanmu, misal Notepad.{{< /note >}}
+    {{< note >}}Ubah berkas konfigurasi dengan editor teks pilihanmu, misal Notepad.{{< /note >}}
 
 ## Unduh dengan menggunakan Google Cloud SDK
 
@@ -283,7 +283,7 @@ Kamu dapat menginstal `kubectl` dengan menggunakan Google Cloud SDK.
 
 ## Memeriksa konfigurasi kubectl
 
-Agar `kubectl` dapat mengakses kluster Kubernetes, dibutuhkan sebuah [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), yang akan otomatis dibuat ketika kamu membuat kluster baru menggunakan [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) atau setelah berhasil men-_deploy_ kluster Minikube. Secara _default_, konfigurasi `kubectl` disimpan di `~/.kube/config`.
+Agar `kubectl` dapat mengakses kluster Kubernetes, dibutuhkan sebuah [berkas kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), yang akan otomatis dibuat ketika kamu membuat kluster baru menggunakan [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) atau setelah berhasil men-_deploy_ kluster Minikube. Secara _default_, konfigurasi `kubectl` disimpan di `~/.kube/config`.
 
 Kamu dapat memeriksa apakah konfigurasi `kubectl` sudah benar dengan mengambil _state_ kluster:
 
@@ -300,7 +300,7 @@ The connection to the server <server-name:port> was refused - did you specify th
 
 Selanjutnya, apabila kamu ingin menjalankan kluster Kubernetes di laptop (lokal), kamu memerlukan sebuah perangkat seperti Minikube sebelum menjalankan ulang perintah yang ada di atas.
 
-Jika `kubectl cluster-info` mengembalikan response URL tetapi kamu masih belum dapat mengakses ke kluster, kamu bisa menggunakan perintah di bawah untuk memeriksa apakah kluster sudah dikonfigurasi dengan benar.
+Jika `kubectl cluster-info` mengembalikan respons URL tetapi kamu masih belum dapat mengakses ke kluster, kamu bisa menggunakan perintah di bawah untuk memeriksa apakah kluster sudah dikonfigurasi dengan benar.
 
 ```shell
 kubectl cluster-info dump
@@ -328,9 +328,9 @@ Namun, _completion script_ tersebut tergantung dengan [**bash-completion**](http
 
 bash-completion disediakan oleh banyak manajer paket (lihat [di sini](https://github.com/scop/bash-completion#installation)). Kamu dapat menginstalnya dengan menggunakan perintah `apt-get install bash-completion` atau `yum install bash-completion`, atau dsb.
 
-Perintah di atas akan membuat skrip utama bash-completion di `/usr/share/bash-completion/bash_completion`. Terkadang kamu juga harus menambahkan skrip tersebut ke dalam _file_ `~/.bashrc`, tergantung paket manajer yang kamu pakai.
+Perintah di atas akan membuat skrip utama bash-completion di `/usr/share/bash-completion/bash_completion`. Terkadang kamu juga harus menambahkan skrip tersebut ke dalam berkas `~/.bashrc`, tergantung paket manajer yang kamu pakai.
 
-Untuk memastikan, muat ulang terminal kamu dan jalankan `type _init_completion`. Jika perintah berhasil maka instalasi selesai. Jika tidak, tambahkan teks berikut ke dalam _file_ `~/.bashrc`:
+Untuk memastikan, muat ulang terminalmu dan jalankan `type _init_completion`. Jika perintah berhasil maka instalasi selesai. Jika tidak, tambahkan teks berikut ke dalam berkas `~/.bashrc`:
 
 ```shell
 source /usr/share/bash-completion/bash_completion
@@ -342,7 +342,7 @@ Muat ulang lagi terminalmu dan pastikan bash-completion sudah berhasil diinstal 
 
 Sekarang kamu harus memastikan bahwa _completion script_ untuk `kubectl` sudah dimasukkan sebagai sumber _auto complete_ di semua sesi terminal. Kamu dapat melakukannya dengan dua cara:
 
-- Masukkan _completion script_ sebagai sumber di _file_ `~/.bashrc`:
+- Masukkan _completion script_ sebagai sumber di berkas `~/.bashrc`:
 
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
@@ -391,7 +391,7 @@ Panduan di bawah berasumsi kamu menggunakan Bash 4.1+. Kamu dapat memeriksa vers
 echo $BASH_VERSION
 ```
 
-Jika versinya sudah terlalu usang, kamu dapat menginstal/membaruinya dengan menggunakan Homebrew:
+Jika versinya sudah terlalu usang, kamu dapat menginstal/memperbaruinya dengan menggunakan Homebrew:
 
 ```shell
 brew install bash
@@ -417,7 +417,7 @@ Kamu dapat memeriksa apakah kamu sudah memiliki bash-completion v2 dengan perint
 brew install bash-completion@2
 ```
 
-Seperti yang disarankan keluaran perintah di atas, tambahkan teks berikut ke _file_ `~/.bashrc`:
+Seperti yang disarankan keluaran perintah di atas, tambahkan teks berikut ke berkas `~/.bashrc`:
 
 ```shell
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
@@ -430,7 +430,7 @@ Muat ulang terminalmu dan pastikan bash-completion v2 sudah terinstal dengan per
 
 Sekarang kamu harus memastikan bahwa _completion script_ untuk `kubectl` sudah dimasukkan sebagai sumber _auto complete_ di semua sesi terminal. Kamu dapat melakukannya dengan beberapa cara:
 
-- Masukkan _completion script_ sebagai sumber di _file_ `~/.bashrc`:
+- Masukkan _completion script_ sebagai sumber di berkas `~/.bashrc`:
 
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
@@ -451,7 +451,7 @@ Sekarang kamu harus memastikan bahwa _completion script_ untuk `kubectl` sudah d
 - Jika kamu menginstal `kubectl` dengan Homebrew (seperti yang sudah dijelaskan [di atas](#install-with-homebrew-on-macos)), maka _completion script_ untuk `kubectl` sudah berada di `/usr/local/etc/bash_completion.d/kubectl`. Kamu tidak perlu melakukan apa-apa lagi.
 
 {{< note >}}
-bash-completion v2 yang diinstal dengan Homebrew meletakkan semua _file_ nya di direktori `BASH_COMPLETION_COMPAT_DIR`, yang membuat dua cara terakhir dapat bekerja.
+bash-completion v2 yang diinstal dengan Homebrew meletakkan semua berkas nya di direktori `BASH_COMPLETION_COMPAT_DIR`, yang membuat dua cara terakhir dapat bekerja.
 {{< /note >}}
 
 Setelah memuat ulang terminal, _auto complete_ dari `kubectl` seharusnya sudah dapat bekerja.
@@ -461,7 +461,7 @@ Setelah memuat ulang terminal, _auto complete_ dari `kubectl` seharusnya sudah d
 
 _Completion script_ `kubectl` untuk Zsh dapat dibuat dengan perintah `kubectl completion zsh`. Masukkan skrip tersebut ke dalam terminal sebagai sumber untuk menyalakan _auto complete_ dari `kubectl`.
 
-Tambahkan baris berikut di _file_ `~/.zshrc` untuk menyalakan _auto complete_ dari `kubectl`:
+Tambahkan baris berikut di berkas `~/.zshrc` untuk menyalakan _auto complete_ dari `kubectl`:
 
 ```shell
 source <(kubectl completion zsh)
@@ -476,7 +476,7 @@ echo 'complete -F __start_kubectl k' >>~/.zshrc
 
 Setelah memuat ulang terminal, _auto complete_ dari `kubectl` seharusnya sudah dapat bekerja.
 
-Jika kamu mendapatkan pesan gagal seperti `complete:13: command not found: compdef`, maka tambahkan teks berikut ke awal _file_ `~/.zshrc`:
+Jika kamu mendapatkan pesan gagal seperti `complete:13: command not found: compdef`, maka tambahkan teks berikut ke awal berkas `~/.zshrc`:
 
 ```shell
 autoload -Uz compinit
