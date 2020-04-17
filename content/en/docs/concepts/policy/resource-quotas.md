@@ -205,6 +205,19 @@ field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
+Quota for the following resources can be scoped to Priority class, with the use of `scopeSelector`:
+
+* `limits.cpu`
+* `limits.memory`
+* `limits.ephemeral-storage`
+* `count/pods`
+* `requests.cpu`
+* `requests.memory`
+* `requests.ephemeral-storage`
+
+[Extended Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources) are also allowed to be scoped to
+priority class, but only for `requests` type of resource quota.
+
 This example creates a quota object and matches it with pods at specific priorities. The example
 works as follows:
 
