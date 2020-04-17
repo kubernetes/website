@@ -278,8 +278,7 @@ h2 {
 
   .col:first-child { margin-left: 0; }
 
-  .col-container {
-    display: flex; /* Make the container element behave like a table */
+  .col-container { /* Make the container element behave like a table */
     flex-direction: row;
     width: 100%; /* Set full-width to expand the whole page */
     padding-bottom: 30px;
