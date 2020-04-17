@@ -40,7 +40,7 @@ kubectl taint nodes node1 key:NoSchedule-
 
 PodSpec에서 파드에 대한 톨러레이션를 지정한다. 다음의 톨러레이션은
 위의 `kubectl taint` 라인에 의해 생성된 테인트와 "일치"하므로, 어느 쪽 톨러레이션을 가진 파드이던
-`node1`에 스케줄 될 수 있다.
+`node1` 에 스케줄 될 수 있다.
 
 ```yaml
 tolerations:
@@ -66,7 +66,7 @@ tolerations:
 * `operator` 가 `Exists` 인 경우(이 경우 `value` 를 지정하지 않아야 함), 또는
 * `operator` 는 `Equal` 이고 `value` 는 `value` 로 같다.
 
-지정하지 않으면 `operator`의 기본값은 `Equal`이다.
+지정하지 않으면 `operator` 의 기본값은 `Equal` 이다.
 
 {{< note >}}
 
@@ -80,7 +80,7 @@ tolerations:
 - operator: "Exists"
 ```
 
-* 비어있는 `effect`는 모든 이펙트를 키 `key` 와 일치시킨다.
+* 비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
 
 ```yaml
 tolerations:
@@ -259,7 +259,7 @@ tolerations:
 `tolerationSeconds=300` 으로 `node.kubernetes.io/not-ready` 에 대한
 톨러레이션을 자동으로 추가한다.
 마찬가지로 사용자가 제공한 파드 구성에 이미 추가된
-`node.kubernetes.io/unreachable`에 대한 톨러레이션이 없는 경우
+`node.kubernetes.io/unreachable` 에 대한 톨러레이션이 없는 경우
 `tolerationSeconds=300` 으로 `node.kubernetes.io/unreachable` 에 대한
 톨러레이션을 추가한다.
 
