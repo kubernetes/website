@@ -1,8 +1,7 @@
 ---
 reviewers:
-- fgrzadkowski
-- jszczepkowski
-- directxman12
+- phanama
+- wahyuoi
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal scaling
@@ -17,7 +16,7 @@ weight: 90
 
 Horizontal Pod Autoscaler secara otomatis akan men-*scale* jumlah *pod* didalam kontroler replikasi, *deployment*, 
 *replica set* ataupun *stateful* berdasarkan hasil observasi penggunaan CPU(atau, dengan 
-[kostum metrik](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
+[*costum* metrik](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
 Perlu dicatat bahwa Horizontal Pod Autoscaling tidak dapat diterapkan pada objek yang tidak dapat di-*scale*, seperti DeamonSets. 
 
 Horizontal Pod Autoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah kontroller.
@@ -30,60 +29,60 @@ penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
 
 {{% capture body %}}
 
-## How does the Horizontal Pod Autoscaler work?
+## Bagaimana cara kerja Horizontal Pod Autoscaler?
 
 ![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
 
-The Horizontal Pod Autoscaler is implemented as a control loop, with a period controlled
-by the controller manager's `--horizontal-pod-autoscaler-sync-period` flag (with a default
-value of 15 seconds).
+Horizontal Pod Autoscaler diimplementasikan sebagai sebuah *control loop*, yang secara
+berkala dikontrol oleh *flag* `--horizontal-pod-autoscaler-sync-period` pada kontroler manajer
+(dengan nilai standar yaitu 15 detik). 
+
+Dalam setiap periode, kontroler manajer melakukan kueri penggunaan sumber daya dan membandingkan
+dengan metrik yang dispesifikasikan pada HorizontalPodAutoscaler. Kontroler manajer mendapat
+metrik dari *resource* metrik API (untuk metrik per *pod*) atau dari *custom* metrik API (untuk semua metrik lainnya).
 
 During each period, the controller manager queries the resource utilization against the
 metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
 obtains the metrics from either the resource metrics API (for per-pod resource metrics),
 or the custom metrics API (for all other metrics).
 
-* For per-pod resource metrics (like CPU), the controller fetches the metrics
-  from the resource metrics API for each pod targeted by the HorizontalPodAutoscaler.
-  Then, if a target utilization value is set, the controller calculates the utilization
-  value as a percentage of the equivalent resource request on the containers in
-  each pod.  If a target raw value is set, the raw metric values are used directly.
-  The controller then takes the mean of the utilization or the raw value (depending on the type
-  of target specified) across all targeted pods, and produces a ratio used to scale
-  the number of desired replicas.
+* Untuk metrik per *pod* (seperti CPU), kontroler mengambil metrik dari *resource* metrik API
+  untuk setiap *pod* yang ditargetkan oleh HorizontalPodAutoscaler. Kemudian, jika nilai target penggunaan ditentukan,
+  maka kontroler akan menghitung nilai penggunaan sebagai persentasi dari pengguaan *resource* dari kontainer 
+  pada masing-masing *pod*. Jika target *raw value* ditentukan, maka nilai *raw metric* akan digunakan
+  secara langsung. Kontroller kemudian mengambil nilai rata-rata penggunaan atau *raw values* (tergantung
+  dengan tipe target yang ditentukan) dari semua *pod* yang targetkan dan menghasilkan perbandingan yang
+  digunakan untuk menentukan jumlah replika yang akan di-*scale*.
 
-  Please note that if some of the pod's containers do not have the relevant resource request set,
-  CPU utilization for the pod will not be defined and the autoscaler will
-  not take any action for that metric. See the [algorithm
-  details](#algorithm-details) section below for more information about
-  how the autoscaling algorithm works.
+  Perlu dicatat bahwa jika beberapa kontainer pada pod tidak memiliki nilai *resource request*, penggunaan CPU
+  pada pod tersebut tidak akan ditentukan dan *autoscaler* tidak akan melakukan tindakan apapun untuk metrik tersebut.
+  Perhatikan pada bagian [detail algoritma](#algorithm-details) dibawah ini untuk informasi lebih lanjut mengenai
+  cara kerja algorihma *autoscale*.
 
-* For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
-  except that it works with raw values, not utilization values.
+* Untuk *custom* metrik per *pod*, kontroler bekerja sama seperti *resource* metrik per *pod*,
+  kecuali *pod* bekerja dengan *raw values*, bukan dengan *utilization values*.
 
-* For object metrics and external metrics, a single metric is fetched, which describes
-  the object in question. This metric is compared to the target
-  value, to produce a ratio as above. In the `autoscaling/v2beta2` API
-  version, this value can optionally be divided by the number of pods before the
-  comparison is made.
+* Untuk objek metrik dan eksternal metrik, sebuah metrik diambil, dimana metrik tersebut menggambarkan
+  object tersebut. Metrik ini dibandingkan dengan nilai target untuk menghasilkan perbandingan seperti diatas.
+  Pada API `autoscaling/v2beta2`, nilai perbandingan dapat secara opsional dibagi dengan jumlah *pod*
+  sebelum perbandingan dibuat. 
 
-The HorizontalPodAutoscaler normally fetches metrics from a series of aggregated APIs (`metrics.k8s.io`,
-`custom.metrics.k8s.io`, and `external.metrics.k8s.io`).  The `metrics.k8s.io` API is usually provided by
-metrics-server, which needs to be launched separately. See
-[metrics-server](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)
-for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
+Pada normalnya, HorizontalPodAutoscaler mengambil metrik dari serangkaian APIs yang sudah diagregat 
+(`custom.metric.k8s.io`, dan `external.metrics.k8s.io`). API `metrics.k8s.io` biasanya disediakan oleh
+*metric-server*, dimana *metric-server* dijalanjkan secara terpisah. Perhatian 
+[*metrics-server*](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server) sebagai petunjuk.
+HorizontalPodAutoscaler juga mengambil metrik dari Heapster secara langsung.
 
 {{< note >}}
 {{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 {{< /note >}}
 
-See [Support for metrics APIs](#support-for-metrics-apis) for more details.
+Perhatikan [Support for metrics APIs](#support-for-metrics-apis) untuk lebih detail.
 
-The autoscaler accesses corresponding scalable controllers (such as replication controllers, deployments, and replica sets)
-by using the scale sub-resource. Scale is an interface that allows you to dynamically set the number of replicas and examine
-each of their current states. More details on scale sub-resource can be found
-[here](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
+*Autoscaler* mengkases kontroler yang dapat di-*scale* (seperti kontroler replikasi, *deployment*, dan *replica sets*)
+dengan menggunakan *scale sub-resource*. Untuk lebih detail mengenai *scale sub-resource* dapat ditemukan 
+[disini](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
 ### Algorithm Details
 
