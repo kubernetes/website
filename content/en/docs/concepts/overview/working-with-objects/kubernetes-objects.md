@@ -33,7 +33,7 @@ providing a description of the characteristics you want the resource to have:
 its _desired state_.
 
 The `status` describes the _current state_ of the object, supplied and updated
-by the Kubernetes and its components. The Kubernetes
+by the Kubernetes system and its components. The Kubernetes
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} continually
 and actively manages every object's actual state to match the desired state you
 supplied.
