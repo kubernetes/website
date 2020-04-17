@@ -40,7 +40,7 @@ max-width:100% !important;
 }
 
 .col-nav {
-  display: table-cell; /* Make elements inside the container behave like table cells */
+  display: block; /* Make elements inside the container behave like table cells */
   width: 33%;
   background-color: #f9f9f9;
   padding: 0px;
