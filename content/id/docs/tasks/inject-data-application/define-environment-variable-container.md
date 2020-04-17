@@ -1,12 +1,12 @@
 ---
-title: Mendefinisikan Variable-variabel Lingkungan untuk sebuah Kontainer
+title: Mendefinisikan Variable Lingkungan untuk sebuah Kontainer
 content_template: templates/task
 weight: 20
 ---
 
 {{% capture overview %}}
 
-Halaman ini menunjukkan bagaimana cara untuk mendefinisikan variabel-variabel lingkungan untuk sebuah kontainer di sebuah Pod Kubernetes.
+Laman ini menunjukkan bagaimana cara untuk mendefinisikan variabel lingkungan (_environment variable_) untuk sebuah Container di dalam sebuah Pod Kubernetes.
 
 {{% /capture %}}
 
@@ -22,47 +22,47 @@ Halaman ini menunjukkan bagaimana cara untuk mendefinisikan variabel-variabel li
 
 ## Mendefinisikan sebuah variabel lingkungan untuk sebuah kontainer
 
-Ketika kamu membuat sebuah Pod, kamu dapat mengatur variabel lingkungan untuk kontainer yang berjalan dalam sebuah Pod.
+Ketika kamu membuat sebuah Pod, kamu dapat mengatur variabel lingkungan untuk Container-Container yang berjalan di dalam sebuah Pod.
 Untuk mengatur variabel lingkungan, sertakan bagian `env` atau `envFrom` pada berkas konfigurasi.
 
-Dalam latihan ini, anda membuat sebuah Pod yang menjalankan satu kontainer.
+Dalam latihan ini, kamu membuat sebuah Pod yang menjalankan satu buah Container.
 Berkas konfigurasi untuk Pod mendefinisikan sebuah variabel lingkungan dengan nama `DEMO_GREETING` yang bernilai `"Hello from the environment"`.
-Berikut adalah berkas konfigurasi untuk Pod:
+Berikut berkas konfigurasi untuk Pod tersebut:
 
 {{< codenew file="pods/inject/envars.yaml" >}}
 
-1. Membuat sebuah Pod berdasarkan berkas konfigurasi YAML:
+1. Buatlah sebuah Pod berdasarkan berkas konfigurasi YAML tersebut:
 
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
     ```
 
-2. Daftar Pod-pod yang sedang berjalan:
+2. Tampilkan Pod-Pod yang sedang berjalan:
 
     ```shell
     kubectl get pods -l purpose=demonstrate-envars
     ```
 
-    Keluarannya mirip seperti berikut:
+    Keluarannya mirip seperti ini:
 
     ```
     NAME            READY     STATUS    RESTARTS   AGE
     envar-demo      1/1       Running   0          9s
     ```
 
-3. Dapatkan _shell_ yang berjalan di Pod kamu:
+3. Dapatkan sebuah _shell_ ke Container yang berjalan di Pod kamu:
 
    ```shell
    kubectl exec -it envar-demo -- /bin/bash
    ```
 
-4. Di _shell_ kamu, jalankan perintah `printenv` untuk melihat daftar variabel-variabel lingkungan.
+4. Di _shell_ kamu, jalankan perintah `printenv` untuk melihat daftar variabel lingkungan.
 
     ```shell
     root@envar-demo:/# printenv
     ```
 
-    The output is similar to this:
+    Keluarannya mirip seperti ini:
 
     ```
     NODE_VERSION=4.4.2
@@ -73,7 +73,7 @@ Berikut adalah berkas konfigurasi untuk Pod:
     DEMO_FAREWELL=Such a sweet sorrow
     ```
 
-5. Untuk keluar dari _shell_, masukkan perintah `exit`.
+5. Untuk keluar dari _shell_ tersebut, masukkan perintah `exit`.
 
 {{< note >}}
 Variabel-variabel lingkungan yang diatur menggunakan bagian `env` atau `envFrom` akan mengesampingkan
@@ -82,9 +82,9 @@ variabel-variabel lingkungan yang ditentukan dalam _image_ kontainer.
 
 ## Menggunakan variabel-variabel lingkungan di dalam konfigurasi kamu
 
-Variabel-variabel lingkungan yang kamu definisikan di sebuah konfigurasi Pod dapat digunakan di tempat lain dalam konfigurasi, contohnya dalam perintah-perintah dan argumen yang kamu atur dalam kontainer-kontainer Pod.
-Pada contoh konfigurasi berikut, variabel-variabel lingkungan `GREETING`, `HONORIFIC`, dan `NAME` diatur ke `Warm greetings to`, `The Most Honorable`, dan `Kubernetes`.
-Variabel-variabel lingkungan tersebut kemudian digunakan dalam argumen CLI yang diteruskan ke kontainer `env-print-demo`.
+Variabel-variabel lingkungan yang kamu definisikan di dalam sebuah konfigurasi Pod dapat digunakan di tempat lain dalam konfigurasi, contohnya dalam perintah-perintah dan argumen-argumen yang kamu atur dalam Container-Container milik Pod.
+Pada contoh konfigurasi berikut, variabel-variabel lingkungan `GREETING`, `HONORIFIC`, dan `NAME` disetel masing-masing menjadi `Warm greetings to`, `The Most Honorable`, dan `Kubernetes`.
+Variabel-variabel lingkungan tersebut kemudian digunakan dalam argumen CLI yang diteruskan ke Container `env-print-demo`.
 
 ```yaml
 apiVersion: v1
@@ -106,7 +106,7 @@ spec:
     args: ["$(GREETING) $(HONORIFIC) $(NAME)"]
 ```
 
-Setelah dibuat, perintah `echo Warm greetings to The Most Honorable Kubernetes` dijalankan di kontainer.
+Setelah dibuat, perintah `echo Warm greetings to The Most Honorable Kubernetes` dijalankan di Container tersebut.
 
 {{% /capture %}}
 
