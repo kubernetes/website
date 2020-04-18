@@ -1,5 +1,5 @@
 ---
-title: Mendefinisikan Variable Lingkungan untuk sebuah Kontainer
+title: Mendefinisikan Variabel Lingkungan untuk sebuah Kontainer
 content_template: templates/task
 weight: 20
 ---
@@ -20,13 +20,13 @@ Laman ini menunjukkan bagaimana cara untuk mendefinisikan variabel lingkungan (_
 
 {{% capture steps %}}
 
-## Mendefinisikan sebuah variabel lingkungan untuk sebuah kontainer
+## Mendefinisikan sebuah variabel lingkungan untuk sebuah Container
 
 Ketika kamu membuat sebuah Pod, kamu dapat mengatur variabel lingkungan untuk Container-Container yang berjalan di dalam sebuah Pod.
 Untuk mengatur variabel lingkungan, sertakan bagian `env` atau `envFrom` pada berkas konfigurasi.
 
 Dalam latihan ini, kamu membuat sebuah Pod yang menjalankan satu buah Container.
-Berkas konfigurasi untuk Pod mendefinisikan sebuah variabel lingkungan dengan nama `DEMO_GREETING` yang bernilai `"Hello from the environment"`.
+Berkas konfigurasi untuk Pod tersebut mendefinisikan sebuah variabel lingkungan dengan nama `DEMO_GREETING` yang bernilai `"Hello from the environment"`.
 Berikut berkas konfigurasi untuk Pod tersebut:
 
 {{< codenew file="pods/inject/envars.yaml" >}}
@@ -50,13 +50,13 @@ Berikut berkas konfigurasi untuk Pod tersebut:
     envar-demo      1/1       Running   0          9s
     ```
 
-3. Dapatkan sebuah _shell_ ke Container yang berjalan di Pod kamu:
+3. Dapatkan sebuah _shell_ ke Container yang sedang berjalan di Pod kamu:
 
    ```shell
    kubectl exec -it envar-demo -- /bin/bash
    ```
 
-4. Di _shell_ kamu, jalankan perintah `printenv` untuk melihat daftar variabel lingkungan.
+4. Di _shell_ kamu, jalankan perintah `printenv` untuk melihat daftar variabel lingkungannya.
 
     ```shell
     root@envar-demo:/# printenv
@@ -77,12 +77,12 @@ Berikut berkas konfigurasi untuk Pod tersebut:
 
 {{< note >}}
 Variabel-variabel lingkungan yang diatur menggunakan bagian `env` atau `envFrom` akan mengesampingkan
-variabel-variabel lingkungan yang ditentukan dalam _image_ kontainer.
+variabel-variabel lingkungan yang ditentukan di dalam _image_ kontainer.
 {{< /note >}}
 
 ## Menggunakan variabel-variabel lingkungan di dalam konfigurasi kamu
 
-Variabel-variabel lingkungan yang kamu definisikan di dalam sebuah konfigurasi Pod dapat digunakan di tempat lain dalam konfigurasi, contohnya dalam perintah-perintah dan argumen-argumen yang kamu atur dalam Container-Container milik Pod.
+Variabel-variabel lingkungan yang kamu definisikan di dalam sebuah konfigurasi Pod dapat digunakan di tempat lain dalam konfigurasi, contohnya di dalam perintah-perintah dan argumen-argumen yang kamu atur dalam Container-Container milik Pod.
 Pada contoh konfigurasi berikut, variabel-variabel lingkungan `GREETING`, `HONORIFIC`, dan `NAME` disetel masing-masing menjadi `Warm greetings to`, `The Most Honorable`, dan `Kubernetes`.
 Variabel-variabel lingkungan tersebut kemudian digunakan dalam argumen CLI yang diteruskan ke Container `env-print-demo`.
 
