@@ -22,10 +22,13 @@
 ## Файл `README.md` на других языках
 |                               |                               |
 |-------------------------------|-------------------------------|
-| [Французский](README-fr.md)   | [Корейский](README-ko.md)     |
-| [Немецкий](README-de.md)      | [Португальский](README-pt.md) |
-| [Хинди](README-hi.md)         | [Испанский](README-es.md)     |
-| [Индонезийский](README-id.md) | [Китайский](README-zh.md)     |
+| [Английский](README.md)       | [Французский](README-fr.md)   |
+| [Корейский](README-ko.md)     | [Немецкий](README-de.md)      |
+| [Португальский](README-pt.md) | [Хинди](README-hi.md)         |
+| [Испанский](README-es.md)     | [Индонезийский](README-id.md) |
+| [Китайский](README-zh.md)     | [Японский](README-ja.md)      |
+| [Вьетнамский](README-vi.md)   | [Итальянский](README-it.md)   |
+| [Польский]( README-pl.md)     | [Украинский](README-uk.md)    |
 |                               |                               |
 
 ## Запуск сайта локально с помощью Docker
