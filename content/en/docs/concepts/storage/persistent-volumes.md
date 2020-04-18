@@ -334,7 +334,7 @@ Such volume is presented into a Pod as a block device, without any filesystem on
 This mode is useful to provide a Pod the fastest possible way to access a volume, without
 any filesystem layer between the Pod and the volume. On the other hand, the application
 running in the Pod must know how to handle a raw block device.
-See [Raw Block Volume Support](docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+See [Raw Block Volume Support](#raw-block-volume-support)
 for an example on how to use a volume with `volumeMode: Block` in a Pod.
 
 ### Access Modes
