@@ -2097,7 +2097,7 @@ rolling update starts, such that the total number of old and new Pods does not e
 Pods. Once old Pods have been killed, the new ReplicaSet can be scaled up further, ensuring that the
 total number of Pods running at any time during the update is at most 130% of desired Pods.
 -->
-例如，当此值设置为 30 时，启动滚动更新后，会立即展开新的 ReplicaSet ，以便新旧 Pod 的总数不超过所需的 130%。一旦旧 Pods 被杀死，新的 ReplicaSet 可以进一步扩展，确保更新期间任何时间运行的 Pods 总数最多为所需 Pods 总数的130%。
+例如，当此值设置为 30% 时，启动滚动更新后，会立即展开新的 ReplicaSet ，以便新旧 Pod 的总数不超过所需的 130%。一旦旧 Pods 被杀死，新的 ReplicaSet 可以进一步扩展，确保更新期间任何时间运行的 Pods 总数最多为所需 Pods 总数的130%。
 
 <!--
  ### Progress Deadline Seconds
