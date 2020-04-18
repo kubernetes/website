@@ -173,7 +173,6 @@ This diagram shows the extension points in a Kubernetes system.
 3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#user-defined-types) section. Custom Resources are often used with API Access Extensions.
 4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
 -->
-
 3. apiserver 提供各种 *资源* 。 *内置的资源种类* ，如 `pods`，由 Kubernetes 项目定义，不能更改。您还可以添加您自己定义的资源或其他项目已定义的资源，称为 自定义资源，如[自定义资源](/docs/concepts/overview/extending#user-defined-types)部分所述。自定义资源通常与 API 访问扩展一起使用。
 
 4. Kubernetes 调度器决定将 Pod 放置到哪个节点。有几种方法可以扩展调度器。这些内容在 [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) 小节中描述。
@@ -183,7 +182,6 @@ This diagram shows the extension points in a Kubernetes system.
 6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
 7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
 -->
-
 5. Kubernetes 的大部分行为都是由称为控制器的程序实现的，这些程序是 API-Server 的客户端。控制器通常与自定义资源一起使用。
 
 6. kubelet 在主机上运行，并帮助 pod 看起来就像在集群网络上拥有自己的 IP 的虚拟服务器。[网络插件](/docs/concepts/overview/extending#network-plugins)让您可以实现不同的 pod 网络。
