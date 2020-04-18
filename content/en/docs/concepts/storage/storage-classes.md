@@ -301,12 +301,13 @@ If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned
 
 If `replication-type` is set to `regional-pd`, a
 [Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
-will be provisioned. In this case, users must use `zones` instead of `zone` to
-specify the desired replication zones. If exactly two zones are specified, the
-Regional PD will be provisioned in those zones. If more than two zones are
-specified, Kubernetes will arbitrarily choose among the specified zones. If the
-`zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
-managed by the cluster.
+will be provisioned. It's highly recommended to have
+`volumeBindingMode: WaitForFirstConsumer` set, in which case when you create
+a Pod that consumes a PersistentVolumeClaim which uses this StorageClass, a
+Regional Persistent Disk is provisioned with two zones. One zone is the same
+as the zone that the Pod is scheduled in. The other zone is randomly picked
+from the zones available to the cluster. Disk zones can be further constrained
+using `allowedTopologies`.
 
 {{< note >}}
 `zone` and `zones` parameters are deprecated and replaced with
