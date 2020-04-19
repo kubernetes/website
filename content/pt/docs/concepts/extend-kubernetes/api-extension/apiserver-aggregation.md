@@ -26,7 +26,7 @@ reconhecer novas espécies de objetos.
 
 ## Camada de agregação
 
-A camada de integração executa em processo com o kube-apiserver.
+A camada de agregação executa em processo com o kube-apiserver.
 Até que um recurso de estensão seja registado, a camada de agregação
 não fará nada. Para registar uma API, terá de adicionar um objeto *APIService*
 que irá "reclamar" o caminho URL na API do Kubernetes. Nesta altura, a camada
