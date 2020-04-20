@@ -277,7 +277,7 @@ SIG Docs welcomes upstream contributions and corrections to the English source.
 
 ## Help an existing localization
 
-You can also help add or improve content to an existing localization. Join the [Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/) for the localization, and start opening PRs to help.
+You can also help add or improve content to an existing localization. Join the [Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/) for the localization, and start opening PRs to help. Please limit pull requests to a single localization since pull requests that change content in multiple localizations could be difficult to review.
 
 {{% /capture %}}
 
