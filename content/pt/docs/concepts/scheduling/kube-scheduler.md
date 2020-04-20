@@ -1,5 +1,5 @@
 ---
-title: Escalonador Kubernetes
+title: Escalonador do Kubernetes
 date: 2020-04-19
 content_template: templates/concept
 weight: 50
