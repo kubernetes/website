@@ -312,7 +312,7 @@ Si vous utilisez uniquement DNS pour découvrir l'IP du cluster pour un service,
 
 ### DNS
 
-Vous pouvez (et devrait presque toujours) configurer un service DNS pour votre cluster Kubernetes à l'aide d'un [add-on](/docs/concepts/cluster-administration/addons/).
+Vous pouvez (et devriez presque toujours) configurer un service DNS pour votre cluster Kubernetes à l'aide d'un [add-on](/docs/concepts/cluster-administration/addons/).
 
 Un serveur DNS prenant en charge les clusters, tel que CoreDNS, surveille l'API Kubernetes pour les nouveaux services et crée un ensemble d'enregistrements DNS pour chacun.
 Si le DNS a été activé dans votre cluster, tous les pods devraient automatiquement être en mesure de résoudre les services par leur nom DNS.
@@ -384,7 +384,7 @@ Si vous définissez le champ `type` sur` NodePort`, le plan de contrôle Kuberne
 Chaque nœud assure le proxy de ce port (le même numéro de port sur chaque nœud) vers votre service.
 Votre service signale le port alloué dans son champ `.spec.ports[*].nodePort`.
 
-Si vous souhaitez spécifier une ou des adresses IP particulières pour proxyer le port, vous pouvez définir l'indicateur `--nodeport-addresses` dans kube-proxy sur des blocs IP particuliers; cela est pris en charge depuis Kubernetes v1.10.
+Si vous souhaitez spécifier une ou des adresses IP particulières pour proxyfier le port, vous pouvez définir l'indicateur `--nodeport-addresses` dans kube-proxy sur des blocs IP particuliers; cela est pris en charge depuis Kubernetes v1.10.
 Cet indicateur prend une liste délimitée par des virgules de blocs IP (par exemple 10.0.0.0/8, 192.0.2.0/25) pour spécifier les plages d'adresses IP que kube-proxy doit considérer comme locales pour ce nœud.
 
 Par exemple, si vous démarrez kube-proxy avec l'indicateur `--nodeport-addresses=127.0.0.0/8`, kube-proxy sélectionne uniquement l'interface de boucle locale pour les services NodePort.
