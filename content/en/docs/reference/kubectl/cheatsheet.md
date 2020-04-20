@@ -351,6 +351,21 @@ Output format | Description
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
 
+Examples using `-o=custom-columns`:
+
+```bash
+# All images running in a cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # All images excluding "k8s.gcr.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# All fields under metadata regardless of name
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+
 ### Kubectl output verbosity and debugging
 
 Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
