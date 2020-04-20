@@ -1,0 +1,195 @@
+# i18n strings for the Arabic (العربية) localization.
+
+[deprecation_warning]
+other = "الوثائق لم تعد نشطة. الإصدار الذي تعرضه حاليًا هو لقطة ثابتة. للحصول على أحدث الوثائق ، راجع"
+
+[deprecation_file_warning]
+other = "لم تعد موجودة"
+
+[objectives_heading]
+other = "الأهداف"
+
+[cleanup_heading]
+other = "تنظيف"
+
+[prerequisites_heading]
+other = "قبل ان تبدأ"
+
+[whatsnext_heading]
+other = "ماذا بعد"
+
+[feedback_heading]
+other = "التقييم"
+
+[feedback_question]
+other = "هل كانت هذه الصفحة مفيدة؟"
+
+[feedback_yes]
+other = "نعم"
+
+[feedback_no]
+other = "لا"
+
+[latest_version]
+other = "احدث اصدار."
+
+[version_check_mustbe]
+other = " يجب أن يكون خادم Kubernetes الخاص بك هو الإصدار"
+
+[version_check_mustbeorlater]
+other = "يجب أن يكون خادم Kubernetes في الإصدار أو بعده "
+
+[version_check_tocheck]
+other = "لفحص النسخة اضغط "
+
+[caution]
+other = "احذر:"
+
+[note]
+other = "ملاحظة:"
+
+[warning]
+other = "تحذير:"
+
+[main_read_about]
+other = "أقرأ عن"
+
+[main_read_more]
+other = "قراءة المزيد"
+
+[main_github_invite]
+other = "هل أنت مهتم بمتابعه باستمرار قاعدة شفرة Kubernetes الأساسية؟"
+
+[main_github_view_on]
+other = "View On GitHub"
+
+[main_github_create_an_issue]
+other = "إنشاء مشكلة"
+
+[main_community_explore]
+other = "استكشف المجتمع"
+
+[main_kubernetes_features]
+other = "ميزات Kubernetes"
+
+[main_cncf_project]
+other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+
+[main_kubeweekly_baseline]
+other = "هل أنت مهتم بتلقي آخر أخبار Kubernetes؟ قم بالتسجيل في KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "عرض النشرات الإخبارية السابقة"
+
+[main_kubeweekly_signup]
+other = "الإشتراك"
+
+[main_contribute]
+other = "مساهمة"
+
+[main_edit_this_page]
+other = "تحرير هذه الصفحة"
+
+[main_page_history]
+other ="محفوظات الصفحة"
+
+[main_page_last_modified_on]
+other = "آخر تعديل للصفحة في"
+
+[main_by]
+other = "عن طريق"
+
+[main_documentation_license]
+other = """مؤلفى Kubernetes | الوثائق الموزعة تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_copyright_notice]
+other = """مؤسسة لينكس &reg;. كل الحقوق محفوظة. سجلت مؤسسة Linux علامات تجارية وتستخدم علامات تجارية. للحصول على قائمة العلامات التجارية لمؤسسة لينكس, يرجى الاطلاع على <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحة استخدام العلامات التجارية</a>"""
+
+# Labels for the docs portal home page.
+[docs_label_browse]
+other = "تصفح المستندات"
+
+[docs_label_contributors]
+other = "المساهمون"
+
+[docs_label_users]
+other = "المستخدمون"
+
+[docs_label_i_am]
+other = "انا..."
+
+# layouts > blog > pager
+
+[layouts_blog_pager_prev]
+other = "الصفحة السابقة"
+
+[layouts_blog_pager_next]
+other = "الصفحة التالية"
+
+# layouts > blog > list
+
+[layouts_case_studies_list_tell]
+other = "أخبرنا قصتك"
+
+# layouts > docs > glossary
+
+[layouts_docs_glossary_description]
+other = "الغرض من هذا المسرد هو أن يكون قائمة موحدة وشاملة لمصطلحات Kubernetes. يتضمن المصطلحات التقنية الخاصة بـ K8s ، بالإضافة إلى المصطلحات الأكثر عمومية التي توفر سياق مفيد."
+
+[layouts_docs_glossary_filter]
+other = "تصفية المصطلحات وفقا لعلاماتها"
+
+[layouts_docs_glossary_select_all]
+other = "أختر الكل"
+
+[layouts_docs_glossary_deselect_all]
+other = "عدم اختيار الكل"
+
+[layouts_docs_glossary_aka]
+other = "أيضا معروف ب"
+
+[layouts_docs_glossary_click_details_before]
+other = "اضغط على"
+
+[layouts_docs_glossary_click_details_after]
+other = "المؤشرات أدناه للحصول على شرح أطول لأي مصطلح معين."
+
+# layouts > docs > search
+
+[layouts_docs_search_fetching]
+other = "جلب النتائج .."
+
+# layouts > partial > feedback
+
+[layouts_docs_partials_feedback_thanks]
+other = "شكرا على ملاحظاتك. إذا كان لديك سؤال محدد قابل للإجابة حول كيفية استخدام Kubernetes، فاسأله"
+
+[layouts_docs_partials_feedback_issue]
+other = "افتح مشكلة في المستودع إذا كنت ترغب في ذلك"
+
+[layouts_docs_partials_feedback_problem]
+other = "الإبلاغ عن مشكلة"
+
+[layouts_docs_partials_feedback_or]
+other = "أو"
+
+[layouts_docs_partials_feedback_improvement]
+other = "اقترح تحسين"
+
+# Community links
+[community_twitter_name]
+other = "تويتر"
+[community_github_name]
+other = "GitHub"
+[community_slack_name]
+other = "Slack"
+[community_stack_overflow_name]
+other = "Stack Overflow"
+[community_forum_name]
+other = "المنتدى"
+[community_events_calendar]
+other = "تقويم الأحداث"
+
+# UI elements
+[ui_search_placeholder]
+other = "بحث"
