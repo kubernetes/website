@@ -10,13 +10,15 @@
         {{ if ne .CurrentSection $docs }}
          {{ range $docs.Sections }}
              {{ if not ($.Scratch.Get "sectionFound") }}
-                 {{ if $p.IsDescendant . }}
-                          {{ $.Scratch.Set "section" . }}
-                          {{ $.Scratch.Set "sectionFound" true }}
-                 {{ end }}
+                {{ $parent := split $p.Parent "/" }}
+                {{ $pref := printf "Page(/%s/%s/_index.md)" (index $parent 1) (index $parent 2) }}
+                {{ if hasPrefix . $pref }}
+                    {{ $.Scratch.Set "section" . }}
+                    {{ $.Scratch.Set "sectionFound" true }}
+                {{ end }}
              {{ end }}
          {{ end }}
-         {{ end }}
+        {{ end }}
         {{ $section := (.Scratch.Get "section") }}
         {{ partialCached "tree.html" $section $section.RelPermalink }}
      </div> <!-- /pi-accordion -->
