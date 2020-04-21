@@ -23,8 +23,7 @@ following steps:
    considered errors and will exit kubeadm until the problem is corrected or the
    user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
-1. Generates a self-signed CA (or using an existing one if provided) to set up
-   identities for each component in the cluster. If the user has provided their
+1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default).
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
