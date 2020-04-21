@@ -26,7 +26,6 @@ Se você quiser entender por que os Pods são alocados em um Node específico
 ou se planeja implementar um escalonador personalizado, esta página ajudará você a 
 aprender sobre escalonamento.
 
-
 ## kube-scheduler
 
 [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
