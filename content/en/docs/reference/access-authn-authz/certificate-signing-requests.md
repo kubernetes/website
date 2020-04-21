@@ -264,7 +264,7 @@ Few points to note:
 
 ### Approve Certificate Request
 
-You will need to use kubeadmin to get CSR and approve it.
+Use kubeadmin to create a CSR and approve it.
 
 Get the list of CSRs
 ```
@@ -278,10 +278,10 @@ kubectl certificate approve john
 
 ### Get the Certificate
 
-Once the CSR is approved, you can collect the Certificate by getting it from the CSR itself.
+Retrieve the Certificate from the CSR.
 
 ```
-kubectl get csr/john -oyaml
+kubectl get csr/john -o yaml
 ```
 
 The Certifcate value is in Base64 format, under status.certificate.
