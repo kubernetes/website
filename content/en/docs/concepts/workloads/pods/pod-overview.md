@@ -109,7 +109,7 @@ Modifying the pod template or switching to a new pod template has no effect on t
 
 For example, a Deployment controller ensures that the running Pods match the current pod template. If the template is updated, the controller has to remove the existing Pods and create new Pods based on the updated template. Each workload controller implements its own rules for handling changes to the Pod template.
 
-On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not directly observe or manage any of the details around pod templates and updates; those details are abstracted away. That abstraction and separation of concerts simplifies system semantics, and makes it feasible to extend the cluster's behavior without changing existing code.
+On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not directly observe or manage any of the details around pod templates and updates; those details are abstracted away. That abstraction and separation of concerns simplifies system semantics, and makes it feasible to extend the cluster's behavior without changing existing code.
 
 {{% /capture %}}
 
