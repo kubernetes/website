@@ -139,15 +139,9 @@ To use kube-dns instead of CoreDNS you have to pass a configuration file:
 ```bash
 # for installing a DNS addon only
 kubeadm init phase addon coredns --config=someconfig.yaml
-# for creating a complete control plane node
-kubeadm init --config=someconfig.yaml
-# for listing or pulling images
-kubeadm config images list/pull --config=someconfig.yaml
-# for upgrades
-kubeadm upgrade apply --config=someconfig.yaml
 ```
 
-The file has to contain a [`DNS`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
+The file has to contain a [`dns`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#DNS) field in[`ClusterConfiguration`](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2#ClusterConfiguration)
 and also a type for the addon - `kube-dns` (default value is `CoreDNS`).
 
 ```yaml
