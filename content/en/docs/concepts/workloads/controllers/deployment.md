@@ -48,24 +48,24 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 In this example:
 
 * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `replicas` field.
-* The `selector` field defines how the Deployment finds which Pods to manage.
+* The Deployment creates three replicated Pods, indicated by the `.spec.replicas` field.
+* The `.spec.selector` field defines how the Deployment finds which Pods to manage.
   In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
     {{< note >}}
-    The `matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
+    The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
     is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
     and the values array contains only "value".
     All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
     {{< /note >}}
 
 * The `template` field contains the following sub-fields:
-  * The Pods are labeled `app: nginx`using the `labels` field.
+  * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
   * The Pod template's specification, or `.template.spec` field, indicates that
   the Pods run one container, `nginx`, which runs the `nginx`
   [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
-  * Create one container and name it `nginx` using the `name` field.
+  * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
 
   Follow the steps given below to create the above Deployment:
 
@@ -517,7 +517,7 @@ Follow the steps given below to rollback the Deployment from the current version
 
     The output is similar to this:
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
@@ -527,7 +527,7 @@ Follow the steps given below to rollback the Deployment from the current version
 
     The output is similar to this:
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
 
     For more details about rollout related commands, read [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
@@ -1024,7 +1024,7 @@ can create multiple Deployments, one for each release, following the canary patt
 
 ## Writing a Deployment Spec
 
-As with all other Kubernetes configs, a Deployment needs `apiVersion`, `kind`, and `metadata` fields.
+As with all other Kubernetes configs, a Deployment needs `.apiVersion`, `.kind`, and `.metadata` fields.
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 The name of a Deployment object must be a valid
