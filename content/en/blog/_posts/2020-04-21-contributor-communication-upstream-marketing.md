@@ -13,7 +13,7 @@ slug: contributor-communication
 A common way to participate in the Kubernetes contributor community is
 to be everywhere. 
 
-We have an active [Slack], many mailing lists, Twitter account(s), and
+We have an active [Slack](https://slack.k8s.io), many mailing lists, Twitter account(s), and
 dozens of community-driven podcasts and newsletters that highlight all
 end-user, contributor, and ecosystem topics. And to add on to that, we also have [repositories of amazing documentation], tons of [meetings] that drive the project forward, and [recorded code deep dives]. All of this information is incredibly valuable,
 but it can be too much. 
