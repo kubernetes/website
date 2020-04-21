@@ -88,11 +88,11 @@ a Deployment that runs the nginx:1.14.2 Docker image:
         nginx-deployment-1771418926-7o5ns   1/1       Running   0          16h
         nginx-deployment-1771418926-r18az   1/1       Running   0          16h
 
-1. Display information about a pod:
+1. Display information about a Pod:
 
         kubectl describe pod <pod-name>
 
-    where `<pod-name>` is the name of one of your pods.
+    where `<pod-name>` is the name of one of your Pods.
 
 ## Updating the deployment
 

@@ -62,7 +62,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-linux).
 
 ### Установка Hypervisor
 
@@ -122,7 +122,7 @@ brew install minikube
 {{% tab name="macOS" %}}
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-macos).
 
 ### Установка Hypervisor
 
@@ -158,7 +158,7 @@ sudo mv minikube /usr/local/bin
 {{% tab name="Windows" %}}
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-windows).
 
 ### Установка Hypervisor
 
@@ -198,7 +198,7 @@ choco install minikube
 
 {{% capture whatsnext %}}
 
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
+* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)
 
 {{% /capture %}}
 
@@ -208,7 +208,7 @@ choco install minikube
 
 {{< note >}}
 
-Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/ru/docs/setup/learning-environment/minikube/#указание-драйвера-виртуальной-машины).
 
 {{< /note >}}
 
