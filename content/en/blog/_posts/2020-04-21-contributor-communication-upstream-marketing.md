@@ -111,7 +111,7 @@ This initiative is in an early phase and we still have important roles to fill t
 
 If you are interested in open sourcing marketing functions – it’s a fun
 ride – join us! Specific immediate roles include storytelling through
-blogs and designers and anything in progress on our project board. 
+blogs, designers, and anything in progress on our project board. 
 
 Also, if you’re reading this, you’re exactly the type of person we are
 here to support. We would love to hear about how to improve, feedback, or how we can work together. 
