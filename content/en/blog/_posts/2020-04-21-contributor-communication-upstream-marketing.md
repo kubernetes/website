@@ -52,7 +52,7 @@ experiences here in our community.
 
 ![Kubernetes channel access](https://user-images.githubusercontent.com/1744971/79478603-3a3a1980-7fd1-11ea-8b7a-d36aac7a097b.png)
 
-With over 43,000 contributors, our contributor base is larger than many enterprise companies. You can only imagine what it’s like getting important messages across to make sure they are landing and folks are taking action.
+With over 43,000 contributors, our contributor base is larger than many enterprise companies. You can imagine what it’s like getting important messages across to make sure they are landing and folks are taking action.
 
 ## Contributing to better communication
 
@@ -80,7 +80,7 @@ a countless number of different types of community members in distinct
 ways and they aren’t responsible for the day to day operations of their
 projects. They absolutely do partner with us to highlight what we need
 and when we need it, and they do a fantastic job of it (one example is
-the [*@kubernetesio Twitter account*](https://twitter.com/kubernetesio?lang=en) and its 200,000
+the [*@kubernetesio Twitter account*](https://twitter.com/kubernetesio) and its 200,000
 followers). 
 
 Where this group differs is in its scope: we are entirely
