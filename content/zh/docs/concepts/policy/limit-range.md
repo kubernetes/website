@@ -1,5 +1,5 @@
 ---
-title: 限制范围
+title: Limit Ranges
 content_template: templates/concept
 weight: 10
 ---
@@ -14,7 +14,7 @@ Within a namespace, a Pod or Container can consume as much CPU and memory as def
 
 默认情况下， Kubernetes 集群上的容器运行使用的[计算资源](/docs/user-guide/compute-resources) 没有上限。
 使用资源配额，集群管理员可以以命名空间为单位，限制其资源的使用与创建。
-在命名空间中，一个 Pod 或容器能够尽可能多地使用命名空间的资源配额所定义的 CPU 和内存。有人担心，一个 Pod 或容器会垄断所有可用的资源。限制范围是在命名空间内限制资源分配（给多个 Pod 或容器）的策略对象。
+在命名空间中，一个 Pod 或 Container 能够尽可能多地使用命名空间的资源配额所定义的 CPU 和内存。有人担心，一个 Pod 或 Container 会垄断所有可用的资源。LimitRange 是在命名空间内限制资源分配（给多个 Pod 或 Container）的策略对象。
 
 {{% /capture %}}
 
@@ -30,18 +30,18 @@ A _LimitRange_ provides constraints that can:
 - Set default request/limit for compute resources in a namespace and automatically inject them to Containers at runtime.
 -->
 
-一个 _限制范围_ 对象提供的限制能够做到：
+一个 _LimitRange_ 对象提供的限制能够做到：
 
-- 在一个命名空间中执行对每个 Pod 或容器最小和最大的资源使用量的限制。
-- 在一个命名空间中执行对每个 PersistentVolumeClaim 能申请的最小和最大的存储空间大小的限制。
-- 在一个命名空间中控制对一类资源的申请值和限制值的比值。
-- 设置一个命名空间中对计算资源的默认申请/限制值，并且自动的在运行时注入到多个容器中。
+- 在一个命名空间中实施对每个 Pod 或 Container 最小和最大的资源使用量的限制。
+- 在一个命名空间中实施对每个 PersistentVolumeClaim 能申请的最小和最大的存储空间大小的限制。
+- 在一个命名空间中实施对一种资源的申请值和限制值的比值的控制。
+- 设置一个命名空间中对计算资源的默认申请/限制值，并且自动的在运行时注入到多个 Container 中。
 
 <!--
 ## Enabling LimitRange
 -->
 
-## 启用限制范围
+## 启用 LimitRange
 
 <!--
 LimitRange support is enabled by default for many Kubernetes distributions. It is
@@ -49,27 +49,27 @@ enabled when the apiserver `--enable-admission-plugins=` flag has `LimitRanger` 
 one of its arguments.
 -->
 
-对限制范围的支持默认在多数 Kubernetes 发行版中启用。当 apiserver 的 `--enable-admission-plugins` 标志的参数包含 `LimitRanger` 准入控制器时即启用。
+对 LimitRange 的支持默认在多数 Kubernetes 发行版中启用。当 apiserver 的 `--enable-admission-plugins` 标志的参数包含 `LimitRanger` 准入控制器时即启用。
 
 <!--
 A LimitRange is enforced in a particular namespace when there is a
 LimitRange object in that namespace.
 -->
 
-当一个命名空间中有限制范围对象时，实施该限制范围对象所定义的限制。
+当一个命名空间中有 LimitRange 时，实施该 LimitRange 所定义的限制。
 
 <!--
 The name of a LimitRange object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 
-限制范围的对象名称必须是合法的[DNS子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+LimitRange 的名称必须是合法的[DNS子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ### Overview of Limit Range
 -->
 
-### 限制范围总览
+### LimitRange 总览
 
 <!--
 - The administrator creates one `LimitRange` in one namespace.
@@ -82,11 +82,11 @@ The name of a LimitRange object must be a valid
 -->
 
 - 管理员在一个命名空间内创建一个 `LimitRange` 对象。
-- 用户在命名空间内创建 Pod ，容器和 PersistenctVolumeClaim 等资源。
-- `LimitRanger` 准入控制器对所有没有设置计算资源需求的 Pod 和容器设置默认值与限制值，并跟踪其使用量以保证没有超出命名空间中存在的任意限制范围对象中的最小、最大资源使用量以及使用量比值。
-- 若创建或更新资源（Pod ，容器， PersistentVolumeClaim）违反了限制范围的约束，向 API 服务器的请求会失败，并返回 HTTP 状态码 `403 FORBIDDEN` 与描述哪一项约束被违反的消息。
-- 若命名空间中的限制范围启用了对 `cpu` 和 `memory` 的限制，用户必须指定这些值的需求使用量与限制使用量。否则，系统将会拒绝创建 Pod。
-- 限制范围的验证仅在 Pod 准入阶段进行，不对正在运行的 Pod 进行验证。
+- 用户在命名空间内创建 Pod ，Container 和 PersistenctVolumeClaim 等资源。
+- `LimitRanger` 准入控制器对所有没有设置计算资源需求的 Pod 和 Container 设置默认值与限制值，并跟踪其使用量以保证没有超出命名空间中存在的任意 LimitRange 对象中的最小、最大资源使用量以及使用量比值。
+- 若创建或更新资源（Pod, Container, PersistentVolumeClaim）违反了 LimitRange 的约束，向 API 服务器的请求会失败，并返回 HTTP 状态码 `403 FORBIDDEN` 与描述哪一项约束被违反的消息。
+- 若命名空间中的 LimitRange 启用了对 `cpu` 和 `memory` 的限制，用户必须指定这些值的需求使用量与限制使用量。否则，系统将会拒绝创建 Pod。
+- LimitRange 的验证仅在 Pod 准入阶段进行，不对正在运行的 Pod 进行验证。
 
 <!--
 Examples of policies that could be created using limit range are:
@@ -95,23 +95,23 @@ Examples of policies that could be created using limit range are:
 - Define default CPU limit and request to 150m and memory default request to 300Mi for Containers started with no cpu and memory requests in their specs.
 -->
 
-能够使用限制范围策略的例子有：
+能够使用 LimitRange 的例子有：
 
 - 在一个有两个节点，8 GiB 内存与16个核的集群中，限制一个命名空间的 Pod 申请100m单位，最大500m单位的CPU，以及申请200Mi，最大600Mi的内存。
-- 为 spec 中没有 cpu 和内存需求值的容器定义默认 CPU 限制值与需求值150m，内存默认需求值300Mi。
+- 为 spec 中没有 cpu 和内存需求值的 Container 定义默认 CPU 限制值与需求值150m，内存默认需求值300Mi。
 
 <!--
 In the case where the total limits of the namespace is less than the sum of the limits of the Pods/Containers,
 there may be contention for resources. In this case, the Containers or Pods will not be created.
 -->
 
-在命名空间的总限制值小于 Pod 或容器的限制值的总和的情况下，可能会产生资源竞争。在这种情况下，将不会创建容器或 Pod。
+在命名空间的总限制值小于 Pod 或 Container 的限制值的总和的情况下，可能会产生资源竞争。在这种情况下，将不会创建 Container 或 Pod。
 
 <!--
 Neither contention nor changes to a LimitRange will affect already created resources.
 -->
 
-竞争和对限制范围的改变都不会影响任何已经创建的资源。
+竞争和对 LimitRange 的改变都不会影响任何已经创建的资源。
 
 <!--
 ## Examples
@@ -143,6 +143,6 @@ Neither contention nor changes to a LimitRange will affect already created resou
 See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
 -->
 
-查看[限制范围设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
+查看[LimitRanger 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
 
 {{% /capture %}}
