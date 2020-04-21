@@ -157,13 +157,13 @@ aliases:
     - ianychoi
     - seokho-son
     - ysyukr
-  sig-docs-maintainers: # Website maintainers
+  sig-docs-leads: # Website chairs and tech leads
     - jimangel
     - kbarnard10
-    - pwittrock
-    - steveperry-53
+    - kbhawkey
+    - onlydole
+    - sftim
     - zacharysarah
-    - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
     - chenopis
     - chenrui333
