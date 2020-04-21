@@ -1,5 +1,5 @@
 ---
-title: "Policies"
+title: "リソースのポリシー"
 weight: 90
 ---
 
