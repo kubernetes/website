@@ -59,7 +59,7 @@ for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
  -->
-控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，安装脚本通常会启动同一个计算机上所有控制平面组件，并且不会在计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)示例对于多主机 VM 的安装。
+控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)中对于多主机 VM 的设置示例。
 
 ### kube-apiserver
 
