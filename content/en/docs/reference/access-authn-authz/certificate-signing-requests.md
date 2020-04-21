@@ -241,7 +241,7 @@ openssl req -new -key john.key -out john.csr
 
 ### Create Certificate Request Kubernetes Object
 
-You then need to create a CertificateSigningRequest and submit it to Kubernetes Cluster via kubectl. Below is script to generate one.
+Create a CertificateSigningRequest and submit it to Kubernetes Cluster via kubectl. Below is script to generate one.
 
 ```
 cat <<EOF | kubectl apply -f -
