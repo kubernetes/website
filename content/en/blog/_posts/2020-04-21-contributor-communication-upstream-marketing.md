@@ -43,7 +43,7 @@ of what helped Kubernetes grow so fast, and it also had us in sprawling out far 
 This new attention to how the community communicates led to a discovery
 of a complex web of options. There were so many options, it was a
 challenge for anyone to be sure they were in the right place to receive
-the right information. We started taking immediate action by pruning the
+the right information. We started taking immediate action combining communication streams and thinking about how to best reach out to serve our community.
 inactive communication channels, combining them where we could,
 and thinking about the future. We also asked for feedback from all our
 contributors directly via [**annual surveys**](https://github.com/kubernetes/community/tree/master/sig-contributor-experience/surveys)
