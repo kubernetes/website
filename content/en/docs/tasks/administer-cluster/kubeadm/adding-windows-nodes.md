@@ -118,7 +118,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
     If you're using host-gateway use https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-host-gw.yml instead
     {{< /note >}}
 
-{{< note >}}
+    {{< note >}}
 If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, you have to modify the line:
 
 ```powershell
@@ -126,12 +126,13 @@ wins cli process run --path /k/flannel/setup.exe --args "--mode=overlay --interf
 ```
 
 in the `flannel-host-gw.yml` or `flannel-overlay.yml` file and specify your interface accordingly.
-{{< /note >}}
-    
+
 ```bash
 # Example
 curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/flannel-overlay.yml | sed 's/Ethernet/Ethernet0 2/g' | kubectl apply -f -
 ```
+    {{< /note >}}
+    
 
 
 ### Joining a Windows worker node
