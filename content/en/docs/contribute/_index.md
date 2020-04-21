@@ -44,6 +44,7 @@ roles and permissions.
 ## Your first contribution
 
 - Read the [Contribution overview](/docs/contribute/new-content/overview/) to learn about the different ways you can contribute.
+- See [Contribute to kubernetes/website](https://github.com/kubernetes/website/contribute) to find issues that make good entry points.
 - [Open a pull request using GitHub](/docs/contribute/new-content/new-content/#changes-using-github) to existing documentation and learn more about filing issues in GitHub.
 - [Review pull requests](/docs/contribute/review/reviewing-prs/) from other Kubernetes community members for accuracy and language.
 - Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
