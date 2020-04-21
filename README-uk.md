@@ -19,6 +19,19 @@
 * [Керівництво зі стилю оформлення документації](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Переклад документації Kubernetes іншими мовами](https://kubernetes.io/docs/contribute/localization/)
 
+## Файл `README.md` іншими мовами
+
+|                               |                               |
+|-------------------------------|-------------------------------|
+| [Англійська](README.md)       | [Французька](README-fr.md)    |
+| [Корейська](README-ko.md)     | [Німецька](README-de.md)      |
+| [Португальська](README-pt.md) | [Хінді](README-hi.md)         |
+| [Іспанська](README-es.md)     | [Індонезійська](README-id.md) |
+| [Китайська](README-zh.md)     | [Японська](README-ja.md)      |
+| [В'єтнамська](README-vi.md)   | [Російська](README-ru.md)     |
+| [Італійська](README-it.md)    | [Польська](README-pl.md)      |
+|                               |                               |
+
 ## Запуск сайту локально за допомогою Docker
 
 Для локального запуску сайту Kubernetes рекомендовано запустити спеціальний [Docker](https://docker.com)-образ, що містить генератор статичних сайтів [Hugo](https://gohugo.io).

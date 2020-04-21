@@ -17,11 +17,11 @@ kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 
 ## Ikhtisar
 
-Untuk menggunakan Kubernetes, kamu menggunakan obyek-obyek *Kubernetes API* untuk merepresentasikan
+Untuk menggunakan Kubernetes, kamu menggunakan objek-objek *Kubernetes API* untuk merepresentasikan
 *state* yang diinginkan: apa yang aplikasi atau *workload* lain yang ingin kamu
 jalankan, *image* kontainer yang digunakan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, dan lain sebagainya. Kamu membuat *state* yang diinginkan dengan cara membuat
-obyek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
+objek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
 Kamu juga dapat secara langsung berinteraksi dengan klaster untuk membuat atau mengubah
 *state* yang kamu inginkan.
 
@@ -38,16 +38,16 @@ suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sek
   * **[kubelet](/docs/admin/kubelet/)**, yang menjadi perantara komunikasi dengan *master*.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, sebuah *proxy* yang merupakan representasi jaringan yang ada pada setiap *node*.
 
-## Obyek Kubernetes
+## Objek Kubernetes
 
 Kubernetes memiliki beberapa abstraksi yang merepresentasikan *state* dari sistem kamu:
 apa yang aplikasi atau *workload* lain yang ingin kamu jalankan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, serta beberapa informasi lain terkait apa yang sedang klaster kamu lakukan.
-Abstraksi ini direpresentasikan oleh obyek yang tersedia di API Kubernetes;
-lihat [ikhtisar obyek-obyek Kubernetes](/docs/concepts/abstractions/overview/)
+Abstraksi ini direpresentasikan oleh objek yang tersedia di API Kubernetes;
+lihat [ikhtisar objek-objek Kubernetes](/docs/concepts/abstractions/overview/)
 untuk penjelasan yang lebih mendetail.
 
-Obyek mendasar Kubernetes termasuk:
+Objek mendasar Kubernetes termasuk:
 
 * [Pod](/docs/concepts/workloads/pods/pod-overview/)
 * [Service](/docs/concepts/services-networking/service/)
@@ -55,7 +55,7 @@ Obyek mendasar Kubernetes termasuk:
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
 Sebagai tambahan, Kubernetes memiliki beberapa abstraksi yang lebih tinggi yang disebut kontroler.
-Kontroler merupakan obyek mendasar dengan fungsi tambahan, contoh dari kontroler ini adalah:
+Kontroler merupakan objek mendasar dengan fungsi tambahan, contoh dari kontroler ini adalah:
 
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
@@ -67,14 +67,14 @@ Kontroler merupakan obyek mendasar dengan fungsi tambahan, contoh dari kontroler
 
 Berbagai bagian *Control Plane* Kubernetes, seperti *master* dan *process-process* kubelet,
 mengatur bagaimana Kubernetes berkomunikasi dengan klaster kamu. *Control Plane*
-menjaga seluruh *record* dari obyek Kubernetes serta terus menjalankan
-iterasi untuk melakukan manajemen *state* obyek. *Control Plane* akan memberikan respon
+menjaga seluruh *record* dari objek Kubernetes serta terus menjalankan
+iterasi untuk melakukan manajemen *state* objek. *Control Plane* akan memberikan respon
 apabila terdapat perubahan pada klaster kamu dan mengubah *state* saat ini agar sesuai
 dengan *state* yang diinginkan.
 
 Contohnya, ketika kamu menggunakan API Kubernetes untuk membuat sebuah *Deployment*,
 kamu memberikan sebuah *state* baru yang harus dipenuhi oleh sistem. *Control Plane*
-kemudian akan mencatat obyek apa saja yang dibuat, serta menjalankan instruksi yang kamu berikan
+kemudian akan mencatat objek apa saja yang dibuat, serta menjalankan instruksi yang kamu berikan
 dengan cara melakukan `start` aplikasi dan melakukan `scheduling` aplikasi tersebut
 pada *node*, dengan kata lain mengubah *state* saat ini agar sesuai dengan *state* yang diinginkan.
 
@@ -92,7 +92,7 @@ kamu berkomunikasi dengan *master* klaster Kubernetes kamu.
 menjalankan aplikasi kamu. Master mengontrol setiap node; kamu akan jarang berinteraksi
 dengan *node* secara langsung.
 
-#### Metadata obyek
+#### Metadata objek
 
 
 * [Anotasi](/docs/concepts/overview/working-with-objects/annotations/)

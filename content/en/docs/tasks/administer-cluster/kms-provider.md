@@ -79,20 +79,20 @@ To encrypt the data:
 
 1. Create a new encryption configuration file using the appropriate properties for the `kms` provider:
 
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: EncryptionConfiguration
-resources:
-  - resources:
-    - secrets
-    providers:
-    - kms:
-        name: myKmsPlugin
-        endpoint: unix:///tmp/socketfile.sock
-        cachesize: 100
-        timeout: 3s
-    - identity: {}
-```
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: EncryptionConfiguration
+  resources:
+    - resources:
+      - secrets
+      providers:
+      - kms:
+          name: myKmsPlugin
+          endpoint: unix:///tmp/socketfile.sock
+          cachesize: 100
+          timeout: 3s
+      - identity: {}
+  ```
 
 2. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
 3. Restart your API server.
@@ -135,22 +135,22 @@ To switch from a local encryption provider to the `kms` provider and re-encrypt 
 
 1. Add the `kms` provider as the first entry in the configuration file as shown in the following example.
 
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: EncryptionConfiguration
-resources:
-  - resources:
-    - secrets
-    providers:
-    - kms:
-        name : myKmsPlugin
-        endpoint: unix:///tmp/socketfile.sock
-        cachesize: 100
-    - aescbc:
-         keys:
-         - name: key1
-           secret: <BASE 64 ENCODED SECRET>
-```
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: EncryptionConfiguration
+  resources:
+    - resources:
+      - secrets
+      providers:
+      - kms:
+          name : myKmsPlugin
+          endpoint: unix:///tmp/socketfile.sock
+          cachesize: 100
+      - aescbc:
+          keys:
+          - name: key1
+            secret: <BASE 64 ENCODED SECRET>
+  ```
 
 2. Restart all kube-apiserver processes.
 
@@ -165,24 +165,22 @@ To disable encryption at rest:
 
 1. Place the `identity` provider as the first entry in the configuration file: 
 
-```yaml
-apiVersion: apiserver.config.k8s.io/v1
-kind: EncryptionConfiguration
-resources:
-  - resources:
-    - secrets
-    providers:
-    - identity: {}
-    - kms:
-        name : myKmsPlugin
-        endpoint: unix:///tmp/socketfile.sock
-        cachesize: 100
-```
+  ```yaml
+  apiVersion: apiserver.config.k8s.io/v1
+  kind: EncryptionConfiguration
+  resources:
+    - resources:
+      - secrets
+      providers:
+      - identity: {}
+      - kms:
+          name : myKmsPlugin
+          endpoint: unix:///tmp/socketfile.sock
+          cachesize: 100
+  ```
 2.  Restart all kube-apiserver processes. 
 3. Run the following command to force all secrets to be decrypted.
 ```
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 {{% /capture %}}
-
-

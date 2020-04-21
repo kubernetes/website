@@ -164,7 +164,7 @@ following pod-specific DNS policies. These policies are specified in the
   domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
   nameserver inherited from the node. Cluster administrators may have extra
   stub-domain and upstream DNS servers configured.
-  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)
   for details on how DNS queries are handled in those cases.
 - "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
   explicitly set its DNS policy "`ClusterFirstWithHostNet`".

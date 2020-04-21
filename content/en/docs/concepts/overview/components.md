@@ -25,10 +25,10 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 {{% capture body %}}
 ## Control Plane Components
 
-The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
 
-Control Plane components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all Control Plane components on
+Control plane components can be run on any machine in the cluster. However,
+for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
 
@@ -123,6 +123,6 @@ saving container logs to a central log store with search/browsing interface.
 {{% capture whatsnext %}}
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
 * Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 {{% /capture %}}

@@ -10,7 +10,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
-[kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 
@@ -70,7 +70,7 @@ of all the nodes in your cluster. The kube-scheduler converts this into an
 integer number of nodes. During scheduling, if the kube-scheduler has identified
 enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
-[scoring phase](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation).
+[scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
 
 [How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
 describes the process in detail.
