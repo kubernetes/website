@@ -44,7 +44,7 @@ This new attention to how the community communicates led to a discovery
 of a complex web of options. There were so many options, it was a
 challenge for anyone to be sure they were in the right place to receive
 the right information. We started taking immediate action by pruning the
-inactive mailing lists and other platforms, combining where we could,
+inactive communication channels, combining them where we could,
 and thinking about the future. We also asked for feedback from all our
 contributors directly via [**annual surveys**](https://github.com/kubernetes/community/tree/master/sig-contributor-experience/surveys)
 to see where folks were actually reading the news that influences their
@@ -56,7 +56,7 @@ With over 43,000 contributors, our contributor base is larger than many enterpri
 
 ## Contributing to better communication
 
-Think about how your company/employer solves for this. Many have done so
+Think about how your company/employer solves for this kind of communication challenge. Many have done so
 by building internal marketing and communication focus areas in
 marketing departments. So that’s what we are doing. This has also been
 applied [at Fedora](https://fedoraproject.org/wiki/Marketing) and at a smaller
@@ -69,7 +69,7 @@ We’ve learned in other contributor areas that creating roles for
 contributors is super helpful - onboarding, breaking down work, and
 ownership. [Here’s our team charting the course](https://github.com/kubernetes/community/tree/master/communication/marketing-team).
 
-Journey your way through our other documents like our [charter]if you are
+Journey your way through our other documents like our [charter] if you are
 interested in our mission and scope.
 
 Many of you close to the ecosystem might be scratching your head - isn’t
@@ -94,8 +94,6 @@ You can expect to see us on the Kubernetes [communication channels](https://gith
   - Finding ways of adding our human touch to potentially overwhelming
     quantities of info by storytelling and other methods - we want to
     highlight the work you are doing and provide useful information!
-  - Providing ways to clarify expectations on what’s important, urgent,
-    or otherwise
   - Keeping you in the know of the comings and goings of contributor
     community events, activities, mentoring initiatives, KEPs, and more.
   - Creating a presence on Twitter specifically for contributors via
@@ -111,7 +109,7 @@ committed to using the same tools as all the other SIGs to do so. Check out our 
 
 ## Join us and be part of the story
 
-This initiative is early on and we still have important roles to fill to make it successful. 
+This initiative is in an early phase and we still have important roles to fill to make it successful. 
 
 If you are interested in open sourcing marketing functions – it’s a fun
 ride – join us! Specific immediate roles include storytelling through
@@ -121,3 +119,10 @@ Also, if you’re reading this, you’re exactly the type of person we are
 here to support. We would love to hear about how to improve, feedback, or how we can work together. 
 
 Reach out at one of the contact methods listed on [our README](https://github.com/kubernetes/community/tree/master/communication/marketing-team#contact-us). We would love to hear from you.
+
+
+[Slack]: https://slack.k8s.io/
+[repositories of amazing documentation]: http://github.com/kubernetes/community
+[meetings]: https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America%2FLos_Angeles
+[recorded code deep dives]: https://www.youtube.com/watch?v=yqB_le-N6EE
+[charter]: https://github.com/kubernetes/community/blob/master/communication/marketing-team/CHARTER.md
