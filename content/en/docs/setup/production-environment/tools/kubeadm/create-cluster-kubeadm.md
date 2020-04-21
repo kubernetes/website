@@ -276,6 +276,12 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 {{< /caution >}}
 
+{{< note >}}
+Currently Calico is the only CNI plugin that the kubeadm project performs e2e tests against.
+If you find an issue related to a CNI plugin you should log a ticket in its respective issue
+tracker instead of the kubeadm or kubernetes issue trackers.
+{{< /note >}}
+
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
 
@@ -338,23 +344,6 @@ offering feature-rich & high-performance cloud-native networking and services.
 It implements k8s services and network policies in the user space (on VPP).
 
 Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
-{{% /tab %}}
-
-{{% tab name="Flannel" %}}
-
-For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
-
-Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network. The [Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls) section of Flannel's troubleshooting guide explains about this in more detail.
-
-Flannel works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` architectures under Linux.
-Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
-```
-
-For more information about `flannel`, see [the CoreOS flannel repository on GitHub
-](https://github.com/coreos/flannel).
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
