@@ -93,6 +93,7 @@
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
+/docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
