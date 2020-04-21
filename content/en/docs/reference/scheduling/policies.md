@@ -8,7 +8,7 @@ weight: 10
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-runs to [filter and score nodes](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation),
+runs to [filter and score nodes](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
 You can set a scheduling policy by running
@@ -120,6 +120,6 @@ The following *priorities* implement scoring:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
 {{% /capture %}}

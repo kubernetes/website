@@ -462,11 +462,11 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 ## Additional Links
 
-* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
-* **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://minikube.sigs.k8s.io/docs/contrib/roadmap/).
+* **Development Guide**: See [Contributing](https://minikube.sigs.k8s.io/docs/contrib/) for an overview of how to send pull requests.
+* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://minikube.sigs.k8s.io/docs/contrib/building/).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://minikube.sigs.k8s.io/docs/contrib/drivers/).
+* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://minikube.sigs.k8s.io/docs/contrib/addons/).
 * **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 
 ## Community
