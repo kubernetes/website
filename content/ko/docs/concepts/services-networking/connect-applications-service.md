@@ -61,7 +61,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 `kubectl expose` 를 사용해서 2개의 nginx 레플리카에 대한 서비스를 생성할 수 있다.
 
 ```shell
-kubectl expose deployment my-nginx
+kubectl expose deployment/my-nginx
 ```
 ```
 service/my-nginx exposed

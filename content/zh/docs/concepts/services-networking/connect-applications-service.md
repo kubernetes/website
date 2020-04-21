@@ -121,7 +121,7 @@ Kubernetes Service 从逻辑上定义了运行在集群中的一组 Pod，这些
 可以使用 `kubectl expose` 命令为 2个 Nginx 副本创建一个 Service：
 
 ```shell
-kubectl expose deployment my-nginx
+kubectl expose deployment/my-nginx
 ```
 ```
 service/my-nginx exposed

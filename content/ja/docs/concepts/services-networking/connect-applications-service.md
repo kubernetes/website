@@ -80,7 +80,7 @@ Podは、Serviceと通信するように構成でき、Serviceへの通信は、
 2つのnginxレプリカのサービスを`kubectl exposed`で作成できます:
 
 ```shell
-kubectl expose deployment my-nginx
+kubectl expose deployment/my-nginx
 ```
 ```
 service/my-nginx exposed

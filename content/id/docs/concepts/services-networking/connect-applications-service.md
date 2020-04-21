@@ -58,7 +58,7 @@ Kita mempunyai *Pod* yang menjalankan *nginx* di dalam klaster. Teorinya, kamu d
 Kamu dapat membuat *Service* untuk replika 2 *nginx* dengan `kubectl explose`:
 
 ```shell
-kubectl expose deployment my-nginx
+kubectl expose deployment/my-nginx
 ```
 ```
 service/my-nginx exposed
