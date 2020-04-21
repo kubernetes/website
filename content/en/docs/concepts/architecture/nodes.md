@@ -191,7 +191,7 @@ all the Pod objects running on the node to be deleted from the API server, and f
 names.
 
 The node lifecycle controller automatically creates
-[taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
+[taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that represent conditions.
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
 Pods can also have tolerations which let them tolerate a Node's taints.
 

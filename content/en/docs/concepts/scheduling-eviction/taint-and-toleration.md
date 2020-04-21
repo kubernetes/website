@@ -10,7 +10,7 @@ weight: 40
 
 
 {{% capture overview %}}
-[_Node affinity_](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+[_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
