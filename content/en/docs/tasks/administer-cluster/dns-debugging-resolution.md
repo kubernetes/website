@@ -56,7 +56,7 @@ Take a look inside the resolv.conf file.
 [Known issues](#known-issues) below for more information)
 
 ```shell
-kubectl exec dnsutils cat /etc/resolv.conf
+kubectl exec -ti dnsutils -- cat /etc/resolv.conf
 ```
 
 Verify that the search path and name server are set up like the following
