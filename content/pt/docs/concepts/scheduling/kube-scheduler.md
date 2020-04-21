@@ -18,7 +18,7 @@ sejam correspondidos aos {{< glossary_tooltip text="Nodes" term_id="node" >}} pa
 
 ## Visão geral do Escalonamento {#scheduling}
 
-Um escalonadordor observa Pods recém-criados que não possuem um Node atribuído. 
+Um escalonador observa Pods recém-criados que não possuem um Node atribuído. 
 Para cada Pod que o planejador descobre, ele se torna responsável por 
 encontrar o melhor Node para execução do Pod. O escalonador chega a essa decisão de alocação levando em consideração os princípios de programação descritos abaixo.
 
