@@ -11,7 +11,6 @@ No Kubernetes, _escalonamento_ refere-se a garantir que os {{< glossary_tooltip 
 sejam correspondidos aos {{< glossary_tooltip text="Nodes" term_id="node" >}} para que o
 {{< glossary_tooltip text="Kubelet" term_id="kubelet" >}} possa executá-los.
 
-
 {{% /capture %}}
 
 {{% capture body %}}
