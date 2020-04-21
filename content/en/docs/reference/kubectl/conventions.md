@@ -32,6 +32,10 @@ For `kubectl run` to satisfy infrastructure as code:
 
 You can use the `--dry-run` flag to preview the object that would be sent to your cluster, without really submitting it.
 
+{{< note >}}
+Generators other than `pod` in `kubectl run` were deprecated until [kubernetes v1.17](https://v1-17.docs.kubernetes.io/docs/reference/kubectl/conventions/). Now there are not supported.
+{{< /note >}}
+
 #### Generators
 You can generate the following resources with a kubectl command, `kubectl create --dry-run -o yaml`:
 ```
