@@ -59,7 +59,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< caution >}}
-If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
+If you specify an IPv6 address block larger than a /64 via  `--cluster-cidr` on the command line, that assignment will fail.
 {{< /caution >}}
 
 ## Services
