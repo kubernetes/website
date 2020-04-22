@@ -121,7 +121,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
     {{< note >}}
     If you're using a different interface rather than Ethernet (i.e. "Ethernet0 2") on the Windows nodes, you have to modify the line:
      
-    ```powershell
+    ```bash
     wins cli process run --path /k/flannel/setup.exe --args "--mode=overlay --interface=Ethernet"
     ```
     in the flannel-host-gw.yml or flannel-overlay.yml file and specify your interface accordingly.
