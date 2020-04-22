@@ -1,5 +1,5 @@
 ---
-title: Limit Ranges
+title: 限制范围
 content_template: templates/concept
 weight: 10
 ---
@@ -63,13 +63,13 @@ The name of a LimitRange object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
 
-LimitRange 的名称必须是合法的[DNS子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+LimitRange 的名称必须是合法的 [DNS 子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ### Overview of Limit Range
 -->
 
-### LimitRange 总览
+### 限制范围总览
 
 <!--
 - The administrator creates one `LimitRange` in one namespace.
@@ -82,7 +82,7 @@ LimitRange 的名称必须是合法的[DNS子域名](/docs/concepts/overview/wor
 -->
 
 - 管理员在一个命名空间内创建一个 `LimitRange` 对象。
-- 用户在命名空间内创建 Pod ，Container 和 PersistenctVolumeClaim 等资源。
+- 用户在命名空间内创建 Pod ，Container 和 PersistentVolumeClaim 等资源。
 - `LimitRanger` 准入控制器对所有没有设置计算资源需求的 Pod 和 Container 设置默认值与限制值，并跟踪其使用量以保证没有超出命名空间中存在的任意 LimitRange 对象中的最小、最大资源使用量以及使用量比值。
 - 若创建或更新资源（Pod, Container, PersistentVolumeClaim）违反了 LimitRange 的约束，向 API 服务器的请求会失败，并返回 HTTP 状态码 `403 FORBIDDEN` 与描述哪一项约束被违反的消息。
 - 若命名空间中的 LimitRange 启用了对 `cpu` 和 `memory` 的限制，用户必须指定这些值的需求使用量与限制使用量。否则，系统将会拒绝创建 Pod。
@@ -95,10 +95,10 @@ Examples of policies that could be created using limit range are:
 - Define default CPU limit and request to 150m and memory default request to 300Mi for Containers started with no cpu and memory requests in their specs.
 -->
 
-能够使用 LimitRange 的例子有：
+能够使用限制范围创建策略的例子有：
 
-- 在一个有两个节点，8 GiB 内存与16个核的集群中，限制一个命名空间的 Pod 申请100m单位，最大500m单位的CPU，以及申请200Mi，最大600Mi的内存。
-- 为 spec 中没有 cpu 和内存需求值的 Container 定义默认 CPU 限制值与需求值150m，内存默认需求值300Mi。
+- 在一个有两个节点，8 GiB 内存与16个核的集群中，限制一个命名空间的 Pod 申请 100m 单位，最大 500m 单位的 CPU，以及申请 200Mi，最大 600Mi 的内存。
+- 为 spec 中没有 cpu 和内存需求值的 Container 定义默认 CPU 限制值与需求值 150m，内存默认需求值 300Mi。
 
 <!--
 In the case where the total limits of the namespace is less than the sum of the limits of the Pods/Containers,
@@ -111,7 +111,7 @@ there may be contention for resources. In this case, the Containers or Pods will
 Neither contention nor changes to a LimitRange will affect already created resources.
 -->
 
-竞争和对 LimitRange 的改变都不会影响任何已经创建的资源。
+竞争和对 LimitRange 的改变都不会影响任何已经创建了的资源。
 
 <!--
 ## Examples
@@ -143,6 +143,6 @@ Neither contention nor changes to a LimitRange will affect already created resou
 See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
 -->
 
-查看[LimitRanger 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
+查看 [LimitRanger 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
 
 {{% /capture %}}
