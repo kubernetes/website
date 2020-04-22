@@ -35,7 +35,7 @@ All of these numbers are only growing in scale, and with that comes the need to 
 
 ## How we got here
 
-Kubernetes (k8s for short) communication grew out of a need for people
+Kubernetes (K8s for short) communication grew out of a need for people
 to connect in our growing community. With the best of intentions, the
 community spun up channels for people to connect. This energy was part
 of what helped Kubernetes grow so fast, and it also had us in sprawling out far and wide. As adoption grew, [contributors knew there was a need for standardization](https://github.com/kubernetes/community/issues/2466).
