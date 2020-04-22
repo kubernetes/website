@@ -259,17 +259,17 @@ The upgrade workflow at high level is the following:
 
 1.  Same as the first control plane node but use:
 
-```
-sudo kubeadm upgrade node
-```
+    ```
+    sudo kubeadm upgrade node
+    ```
 
-instead of:
+    instead of:
 
-```
-sudo kubeadm upgrade apply
-```
+    ```
+    sudo kubeadm upgrade apply
+    ```
 
-Also `sudo kubeadm upgrade plan` is not needed.
+    Also `sudo kubeadm upgrade plan` is not needed.
 
 ### Upgrade kubelet and kubectl
 
@@ -292,7 +292,7 @@ Also `sudo kubeadm upgrade plan` is not needed.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+1.  Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
@@ -370,7 +370,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+1.  Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
