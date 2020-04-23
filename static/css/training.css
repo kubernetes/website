@@ -111,7 +111,7 @@ h5 {
   float:left;
   padding-left:10%;
   padding-right:10%;
-  padding-top:5%;
+  padding-top:4%;
   padding-bottom:5%;
 }
 
@@ -306,7 +306,13 @@ h2 {
     width: 1200px;
   }
 
+  .desktop {
+    display:block;
+}
+  .mobile {
+      display:none; 
 
+  }
 
 
   @media only screen and (min-width: 1600px) {
@@ -336,6 +342,13 @@ h2 {
     max-width: initial;
     padding: 5vw 0 0 0;
   }
+  .desktop {
+    display:none;
+}
+  .mobile {
+      display:block;
+
+  }
 
 }
 
@@ -350,10 +363,8 @@ h2 {
     .col-nav {
       display: block;
       width: 100%;
-    }
   }
-.col-container { flex-direction: column; }
-}
+  .col-container { flex-direction: column; }
 
     h2 {
       line-height:1.2em !important;
