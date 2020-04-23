@@ -210,7 +210,7 @@ h2 {
 
   section.call-to-action {
     color: #ffffff;
-    background-image:url('./images/training-bg.jpg');
+    background-image:url('/images/training-bg.jpg');
     background-size:100%;
   }
 
@@ -404,12 +404,17 @@ h2 {
 
     section.call-to-action .main-section > div.call-to-action {
     padding-top:1rem;
-    background-image:url('./images/training-bg-mobile.jpg');
+    background-image:url('/images/training-bg-mobile.jpg');
 
+    }
+    section.call-to-action {
+      background-image:url('/images/training-bg-mobile.jpg');
+      background-size:100%;
     }
 
     .call-to-action {
-    background-image:url('./images/training-bg-mobile.jpg');
+    background-image:url('/images/training-bg-mobile.jpg');
+    background-size:100%;
     }
 
     .lighter-gray-bg-banner {
