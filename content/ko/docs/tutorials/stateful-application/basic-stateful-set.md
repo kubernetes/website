@@ -18,7 +18,7 @@ weight: 10
 * [파드](/docs/user-guide/pods/single-container/)
 * [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
 * [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
-* [퍼시스턴트볼륨(PersistentVolumes)](/docs/concepts/storage/persistent-volumes/)
+* [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
 * [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/docs/user-guide/kubectl/)
@@ -257,7 +257,7 @@ NAME        STATUS    VOLUME                                     CAPACITY   ACCE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
-스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/docs/concepts/storage/persistent-volumes/)에
+스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에
 묶인 2개의 퍼시스턴트볼륨클레임을 생성했다. 본 튜토리얼에서 사용되는 클러스터는 퍼시스턴트볼륨을 동적으로
 프로비저닝하도록 설정되었으므로 생성된 퍼시스턴트볼륨도 자동으로 묶인다.
 
