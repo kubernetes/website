@@ -7,7 +7,7 @@ weight: 30
 {{% capture overview %}}
 
 오퍼레이터(Operator)는
-[사용자 정의 리소스](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
+[사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
 사용하여 애플리케이션 및 해당 컴포넌트를 관리하는 쿠버네티스의 소프트웨어 익스텐션이다. 오퍼레이터는
 쿠버네티스 원칙, 특히 [컨트롤 루프](/ko/docs/concepts/#쿠버네티스-컨트롤-플레인)를 따른다.
 
@@ -37,7 +37,7 @@ weight: 30
 쿠버네티스의 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}
 개념을 통해 쿠버네티스 코드 자체를 수정하지 않고도 클러스터의 동작을
 확장할 수 있다.
-오퍼레이터는 [사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)의
+오퍼레이터는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)의
 컨트롤러 역할을 하는 쿠버네티스 API의 클라이언트이다.
 
 ## 오퍼레이터 예시 {#example}
@@ -110,14 +110,14 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 사용할 수 있는 라이브러리 및 도구에 대한 몇 가지 링크를
 찾을 수 있다.
 
-또한 [쿠버네티스 API의 클라이언트](/docs/reference/using-api/client-libraries/)
+또한 [쿠버네티스 API의 클라이언트](/ko/docs/reference/using-api/client-libraries/)
 역할을 할 수 있는 모든 언어 / 런타임을 사용하여 오퍼레이터(즉, 컨트롤러)를 구현한다.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* [사용자 정의 리소스](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
+* [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [OperatorHub.io](https://operatorhub.io/)에서 유스케이스에 맞는 이미 만들어진 오퍼레이터 찾기
 * 기존 도구를 사용하여 자신만의 오퍼레이터를 작성해보자. 다음은 예시이다.
   * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator) 사용하기

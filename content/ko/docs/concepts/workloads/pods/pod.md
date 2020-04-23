@@ -33,7 +33,7 @@ _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지
 그들은 또한 SystemV 세마포어나, POSIX 공유 메모리와 같은 표준 프로세스 간 통신 방식으로
 서로 통신할 수 있다.
 다른 파드의 컨테이너에는 고유한 IP 주소가 있고,
-[특별한 구성](/docs/concepts/policy/pod-security-policy/) 없이는 IPC에 의해서 통신 할 수 없다.
+[특별한 구성](/ko/docs/concepts/policy/pod-security-policy/) 없이는 IPC에 의해서 통신 할 수 없다.
 컨테이너는 주로 서로의 IP 주소를 통해 소통한다.
 
 또한 파드 안의 애플리케이션은 파드의 일부로 정의되어,
