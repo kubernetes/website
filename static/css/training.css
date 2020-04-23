@@ -1,12 +1,14 @@
 
 html, body {
   overflow-x: hidden;
+
 }
 
 
 body {
   margin:0 auto !important;
   position: relative;
+  width: 100%;
 }
 
 
