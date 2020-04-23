@@ -121,6 +121,6 @@ cloud-controller-manager는 클라우드 벤더 코드와 쿠버네티스 코드
 {{% capture whatsnext %}}
 * [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
 * [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 더 배우기
-* [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)에 대해 더 배우기
+* [kube-scheduler](/ko/docs/concepts/scheduling/kube-scheduler/)에 대해 더 배우기
 * etcd의 공식 [문서](https://etcd.io/docs/) 읽기
 {{% /capture %}}

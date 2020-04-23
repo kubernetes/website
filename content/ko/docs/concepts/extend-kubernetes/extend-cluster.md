@@ -112,12 +112,12 @@ kubectl에서
 
 애플리케이션, 사용자 또는 모니터링 데이터의 데이터 저장소로 커스텀 리소스를 사용하지 않는다.
 
-커스텀 리소스에 대한 자세한 내용은 [커스텀 리소스 개념 가이드](/docs/concepts/api-extension/custom-resources/)를 참고하길 바란다.
+커스텀 리소스에 대한 자세한 내용은 [커스텀 리소스 개념 가이드](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를 참고하길 바란다.
 
 
 ### 새로운 API와 자동화의 결합
 
-사용자 정의 리소스 API와 컨트롤 루프의 조합을 [오퍼레이터(operator) 패턴](/docs/concepts/extend-kubernetes/operator/)이라고 한다. 오퍼레이터 패턴은 특정 애플리케이션, 일반적으로 스테이트풀(stateful) 애플리케이션을 관리하는 데 사용된다. 이러한 사용자 정의 API 및 컨트롤 루프를 사용하여 스토리지나 정책과 같은 다른 리소스를 제어할 수도 있다.
+사용자 정의 리소스 API와 컨트롤 루프의 조합을 [오퍼레이터(operator) 패턴](/ko/docs/concepts/extend-kubernetes/operator/)이라고 한다. 오퍼레이터 패턴은 특정 애플리케이션, 일반적으로 스테이트풀(stateful) 애플리케이션을 관리하는 데 사용된다. 이러한 사용자 정의 API 및 컨트롤 루프를 사용하여 스토리지나 정책과 같은 다른 리소스를 제어할 수도 있다.
 
 ### 빌트인 리소스 변경
 
@@ -194,7 +194,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 {{% capture whatsnext %}}
 
-* [커스텀 리소스](/docs/concepts/api-extension/custom-resources/)에 대해 더 알아보기
+* [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
 * 인프라스트럭처 익스텐션에 대해 더 알아보기
   * [네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/)
