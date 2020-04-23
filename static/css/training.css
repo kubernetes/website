@@ -407,6 +407,10 @@ h2 {
 
     }
 
+    .call-to-action {
+    background-image:url('training-bg-mobile.jpg');
+    }
+
     .lighter-gray-bg-banner {
       height:300px;
     }
