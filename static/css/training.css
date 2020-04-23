@@ -209,7 +209,7 @@ h2 {
   section.call-to-action {
     color: #ffffff;
     background-color: #3371e3;
-    background-image:url('training-bg.jpg');
+    background-image:url('./images/training-bg.jpg');
     background-size:100%;
   }
 
@@ -403,12 +403,12 @@ h2 {
 
     section.call-to-action .main-section > div.call-to-action {
     padding-top:1rem;
-    background-image:url('training-bg-mobile.jpg');
+    background-image:url('./images/training-bg-mobile.jpg');
 
     }
 
     .call-to-action {
-    background-image:url('training-bg-mobile.jpg');
+    background-image:url('./images/training-bg-mobile.jpg');
     }
 
     .lighter-gray-bg-banner {
