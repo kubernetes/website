@@ -353,10 +353,9 @@ h2 {
 
 }
 
-
   @media only screen and (max-width: 480px) {
     .col { margin: 1% 0 1% 0%;}
-.col-container { flex-direction: column;
+    .col-container { flex-direction: column;
 }
 
 }
@@ -366,7 +365,7 @@ h2 {
       display: block;
       width: 100%;
   }
-  .col-container { flex-direction: column; }
+    .col-container { flex-direction: column; }
 
     h2 {
       line-height:1.2em !important;
@@ -382,12 +381,20 @@ h2 {
       padding-bottom:5%;
     }
 
-    .half-image{
+    .half-image {
       display:none;
     }
 
     .half-image img {
       width:1000px;
 
+    }
+
+    section.call-to-action .main-section > div.call-to-action {
+    padding-top:1rem;
+
+    }
+    .lighter-gray-bg-banner {
+      height:300px;
     }
   }
