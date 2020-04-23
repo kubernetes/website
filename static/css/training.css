@@ -118,6 +118,7 @@ h5 {
 .half-image{
   width:50%;
   float:left;
+  display:block;
 }
 
 .half-image img{
@@ -310,7 +311,7 @@ h2 {
     display:block;
 }
   .mobile {
-      display:none; 
+      display:none;
 
   }
 
@@ -355,7 +356,8 @@ h2 {
 
   @media only screen and (max-width: 480px) {
     .col { margin: 1% 0 1% 0%;}
-.col-container { flex-direction: column; }
+.col-container { flex-direction: column;
+}
 
 }
 
@@ -383,7 +385,8 @@ h2 {
     .half-image{
       display:none;
     }
-    .half-image img{
+
+    .half-image img {
       width:1000px;
 
     }
