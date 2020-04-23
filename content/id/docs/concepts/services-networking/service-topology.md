@@ -1,7 +1,7 @@
 ---
-title: Topologi Service (_Service Topology_)
+title: Topologi Service (Service Topology)
 feature:
-  title: Topologi Service (_Service Topology_)
+  title: Topologi Service (Service Topology)
   description: >
     Rute lalu lintas layanan berdasarkan topologi klaster.
     
