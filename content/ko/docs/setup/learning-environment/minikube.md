@@ -327,8 +327,8 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube delete` 명령은 클러스터를 삭제하는데 사용할 수 있다.
 이 명령어는 Minikube 가상 머신을 종료하고 삭제한다. 어떤 데이터나 상태도 보존되지 않다.
 
-### minikube 업그레이드
-[minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/)를 본다.
+### Minikube 업그레이드
+macOS를 사용하는 경우 기존에 설치된 Minikube를 업그레이드하려면 [Minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube)를 참조한다.
 
 ## 클러스터와 상호 작용하기
 
@@ -369,7 +369,7 @@ Minikube VM은 host-only IP 주소를 통해 호스트 시스템에 노출되고
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 퍼시스턴트 볼륨
-Minikube는 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
+Minikube는 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
 이런 퍼시스턴트 볼륨은 Minikube VM 내에 디렉터리로 매핑됩니다.
 
 Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부트(`minikube stop`)까지는 유지되지 않다.

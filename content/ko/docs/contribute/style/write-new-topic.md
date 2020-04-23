@@ -162,7 +162,6 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [페이지 템플릿 사용](/docs/home/contribute/page-templates/)에 대해 알아보기.
-* [변경 사항 준비](/docs/home/contribute/stage-documentation-changes/)에 대해 알아보기.
-* [풀 리퀘스트 작성](/docs/home/contribute/create-pull-request/)에 대해 알아보기.
+* [페이지 템플릿 사용](/docs/contribute/page-templates/))에 대해 알아보기.
+* [풀 리퀘스트 작성](/docs/contribute/new-content/open-a-pr/)에 대해 알아보기.
 {{% /capture %}}
