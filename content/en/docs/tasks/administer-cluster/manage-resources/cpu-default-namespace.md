@@ -108,7 +108,7 @@ resources:
   limits:
     cpu: "1"
   requests:
-    cpu: "1"
+    cpu: "0.5"
 ```
 
 ## What if you specify a Container's request, but not its limit?
