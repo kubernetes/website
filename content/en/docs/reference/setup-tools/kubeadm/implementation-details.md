@@ -346,12 +346,12 @@ Please note that:
 1. Before saving the ClusterConfiguration, sensitive information like the token is stripped from the configuration
 2. Upload of master configuration can be invoked individually with the [`kubeadm init phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config) command
 
-### Mark master
+### Mark the node as control-plane
 
 As soon as the control plane is available, kubeadm executes following actions:
 
-- Label the master with `node-role.kubernetes.io/master=""`
-- Taints the master with `node-role.kubernetes.io/master:NoSchedule`
+- Labels the node as control-plane with `node-role.kubernetes.io/master=""`
+- Taints the node with `node-role.kubernetes.io/master:NoSchedule`
 
 Please note that:
 
