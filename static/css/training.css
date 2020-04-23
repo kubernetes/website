@@ -343,7 +343,7 @@ h2 {
     margin: 0;
   }
   section.call-to-action .main-section .cta-image > img {
-    width: 12rem;
+    width: 9rem;
   }
   section.call-to-action .main-section > div.call-to-action > div {
     padding: 1rem 1rem 1rem 1rem;
@@ -379,8 +379,8 @@ h2 {
 
     h2 {
       line-height:1.2em !important;
-      padding-bottom:2%;
-      padding-top:3%;
+      padding-bottom:4%;
+      padding-top:5%;
 
 
     }
