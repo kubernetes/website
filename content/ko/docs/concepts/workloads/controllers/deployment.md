@@ -1075,7 +1075,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 #### 디플로이먼트 롤링 업데이트
 
-디플로이먼트는 `.spec.strategy.type==RollingUpdate` 이면 파드를 [롤링 업데이트](/docs/tasks/run-application/rolling-update-replication-controller/) 
+디플로이먼트는 `.spec.strategy.type==RollingUpdate` 이면 파드를 롤링 업데이트 
 방식으로 업데이트 한다. `maxUnavailable` 와 `maxSurge` 를 명시해서 
 롤링 업데이트 프로세스를 제어할 수 있다.
 
@@ -1140,13 +1140,5 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 일시 중지 된 디플로이먼트와 일시 중지 되지 않은 디플로이먼트 사이의 유일한 차이점은 
 일시 중지된 디플로이먼트는 PodTemplateSpec에 대한 변경 사항이 일시중지 된 경우 새 롤아웃을 트리거 하지 않는다.
 디플로이먼트는 생성시 기본적으로 일시 중지되지 않는다.
-
-## 디플로이먼트의 대안
-
-### kubectl 롤링 업데이트
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)도 
-비슷한 방식으로 파드와 레플리케이션 컨트롤러를 업데이트한다. 그러나 디플로이먼트는 선언적이고, 서버 측면이며, 
-롤링 업데이트가 완료된 후에도 이전 수정 버전으로 롤백하는 것과 같은 추가 기능을 가지고 있으므로 권장한다.
 
 {{% /capture %}}

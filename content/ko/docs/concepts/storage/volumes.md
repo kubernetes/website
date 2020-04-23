@@ -744,11 +744,11 @@ spec:
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
 `persistentVolumeClaim` 볼륨은
-[퍼시스턴트볼륨](/docs/concepts/storage/persistent-volumes/)을 파드에 마운트하는데 사용한다.  퍼시스턴트볼륨은
+[퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes)을 파드에 마운트하는데 사용한다.  퍼시스턴트볼륨은
 사용자가 특정 클라우드 환경의 세부 내용을 몰라도 내구성이있는 스토리지 (GCE 퍼시스턴트디스크 또는
 iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 
-더 자세한 내용은 [퍼시스턴트볼륨 예시](/docs/concepts/storage/persistent-volumes/)를
+더 자세한 내용은 [퍼시스턴트볼륨 예시](/ko/docs/concepts/storage/persistent-volumes)를
 본다.
 
 ### projected {#projected}
@@ -974,7 +974,7 @@ ScaleIO는 기존 하드웨어를 사용해서 확장 가능한 공유 블럭 �
 생성할 수 있는 소프트웨어 기반 스포티리 플랫폼이다. `scaleIO` 볼륨
 플러그인을 사용하면 배포된 파드가 기존 ScaleIO에 접근할 수
 있다(또는 퍼시스턴트 볼륨 클래임을 위한 새 볼륨을 동적 프로비전할 수 있음,
-[ScaleIO 퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/#scaleio)을 본다).
+[ScaleIO 퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/#scaleio)을 본다).
 
 {{< caution >}}
 사용하기 위해선 먼저 기존에 ScaleIO 클러스터를 먼저 설정하고
@@ -1333,7 +1333,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
 지원을 구현할 수 있다.
 
 CSI 설정 변경 없이 평소와 같이
-[원시 블록 볼륨 지원으로 PV/PVC 설정](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)을 할 수 있다.
+[원시 블록 볼륨 지원으로 PV/PVC 설정](/ko/docs/concepts/storage/persistent-volumes/#원시-블록-볼륨-지원)을 할 수 있다.
 
 #### CSI 임시(ephemeral) 볼륨
 

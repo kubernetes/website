@@ -199,8 +199,7 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 레플리케이션 컨트롤러를 직접 관리하거나,
-기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 [롤링 업데이트](/docs/tasks/run-application/rolling-update-replication-controller/)를 수행 할 수 있다.
+현재 쿠버네티스에서는 기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
 Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
 디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카 셋의 크기를 결정한다.
 

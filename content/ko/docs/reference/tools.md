@@ -18,11 +18,6 @@ content_template: templates/concept
 
 [`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)은 물리적 환경, 클라우드 서버, 또는 가상머신 상에서 안전한 쿠버네티스를 쉽게 프로비저닝하기 위한 커맨드라인 툴이다(현재는 알파 상태).
 
-## Kubefed
-
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/)는 페더레이션 클러스터를
-관리하는데 도움이 되는 커맨드라인 툴이다.
-
 ## Minikube
 
 [`minikube`](/ko/docs/tasks/tools/install-minikube/)는 개발과 테스팅 목적으로 하는 

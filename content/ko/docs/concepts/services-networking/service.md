@@ -533,6 +533,25 @@ NodePort를 사용하면 자유롭게 자체 로드 밸런싱 솔루션을 설�
 이 서비스는 `<NodeIP>:spec.ports[*].nodePort`와
 `.spec.clusterIP:spec.ports[*].port`로 표기된다. (kube-proxy에서 `--nodeport-addresses` 플래그가 설정되면, <NodeIP>는 NodeIP를 필터링한다.)
 
+예를 들면
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # 기본적으로 그리고 편의상 `targetPort` 는 `port` 필드와 동일한 값으로 설정된다.
+    - port: 80
+      targetPort: 80
+      # 선택적 필드
+      # 기본적으로 그리고 편의상 쿠버네티스 컨트롤 플레인은 포트 범위에서 할당한다(기본값: 30000-32767)
+      nodePort: 30007
+```
+
 ### 로드밸런서 유형 {#loadbalancer}
 
 외부 로드 밸런서를 지원하는 클라우드 공급자 상에서, `type`

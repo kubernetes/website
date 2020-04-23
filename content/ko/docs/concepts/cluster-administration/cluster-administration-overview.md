@@ -17,7 +17,6 @@ weight: 10
 가이드를 고르기 전에, 몇 가지 고려사항이 있다.
 
  - 단지 자신의 컴퓨터에 쿠버네티스를 테스트를 하는지, 또는 고가용성의 멀티 노드 클러스터를 만들려고 하는지에 따라 니즈에 가장 적절한 배포판을 고르자.
- - **만약 고가용성을 만들려고 한다면**, [여러 영역에서의 클러스터](/ko/docs/concepts/cluster-administration/federation/) 설정에 대해 배우자.
  - [구글 쿠버네티스 엔진](https://cloud.google.com/kubernetes-engine/)과 같은 **호스팅된 쿠버네티스 클러스터** 를 사용할 것인지, **자신의 클러스터에 호스팅할 것인지**?
  - 클러스터가 **온프레미스** 인지, 또는 **클라우드(IaaS)** 인지? 쿠버네티스는 하이브리드 클러스터를 직접적으로 지원하지는 않는다. 대신에, 사용자는 여러 클러스터를 구성할 수 있다.
  - **만약 온프레미스에서 쿠버네티스를 구성한다면**, 어떤 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)이 가장 적합한지 고려한다.
@@ -35,7 +34,7 @@ weight: 10
 
 * 어떻게 [노드 관리](/ko/docs/concepts/architecture/nodes/)를 하는지 배워보자.
 
-* 공유된 클러스터의 [자원 할당량](/docs/concepts/policy/resource-quotas/)을 어떻게 셋업하고 관리할 것인지 배워보자.
+* 공유된 클러스터의 [리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 어떻게 셋업하고 관리할 것인지 배워보자.
 
 ## 클러스터 보안
 
