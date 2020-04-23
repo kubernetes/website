@@ -371,7 +371,9 @@ h2 {
 
     h2 {
       line-height:1.2em !important;
-      padding-bottom:1%;
+      padding-bottom:2%;
+      padding-top:3%;
+
 
     }
     .half {
@@ -397,7 +399,7 @@ h2 {
     background-image:url('training-bg-mobile.jpg');
 
     }
-    
+
     .lighter-gray-bg-banner {
       height:300px;
     }
