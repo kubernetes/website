@@ -16,10 +16,6 @@ Kubernetes zawiera różne wbudowane narzędzia służące do pracy z systemem:
 
 [`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) to narzędzie tekstowe do łatwej instalacji klastra Kubernetes w bezpiecznej konfiguracji, uruchamianego na infrastrukturze serwerów fizycznych, serwerów w chmurze bądź na maszynach wirtualnych (aktualnie w fazie rozwojowej alfa).
 
-## Kubefed
-
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) to narzędzie tekstowe do zarządzania klastrami w federacji.
-
 ## Minikube
 
 [`minikube`](/docs/tasks/tools/install-minikube/) to narzędzie do łatwego uruchamiania lokalnego klastra Kubernetes na twojej stacji roboczej na potrzeby rozwoju oprogramowania lub prowadzenia testów.
