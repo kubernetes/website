@@ -265,31 +265,6 @@ h2 {
     padding-bottom: 30px;
   }
 
-
-
-
-  @media only screen and (max-width: 840px) {
-    section.call-to-action .main-section .cta-image.cta-image-before, section.call-to-action .main-section .cta-image.cta-image-after {
-      order: 0;
-    }
-    section.call-to-action .main-section .cta-image > img {
-      margin: 0;
-    }
-    section.call-to-action .main-section .cta-image > img {
-      width: 7rem;
-    }
-    section.call-to-action .main-section > div.call-to-action > div {
-      padding: 0 2rem 0 2rem;
-    }
-    section.call-to-action .main-section .cta-text {
-      flex: 2 0 75vw;
-      max-width: initial;
-      padding: 5vw 0 0 0;
-    }
-
-
-
-
   h5 {
     font-size: 16px;
     font-weight: 500;
@@ -332,11 +307,43 @@ h2 {
   }
 
 
-  /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+
+  @media only screen and (max-width: 1500px) {
+    .col { margin: 1% 0 1% 0%;}
+
+    .lighter-gray-bg-banner {
+      height:600px;
+      padding-top:0px;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+  section.call-to-action .main-section .cta-image.cta-image-before, section.call-to-action .main-section .cta-image.cta-image-after {
+    order: 0;
+  }
+  section.call-to-action .main-section .cta-image > img {
+    margin: 0;
+  }
+  section.call-to-action .main-section .cta-image > img {
+    width: 12rem;
+  }
+  section.call-to-action .main-section > div.call-to-action > div {
+    padding: 1rem 1rem 1rem 1rem;
+  }
+  section.call-to-action .main-section .cta-text {
+    flex: 2 0 75vw;
+    max-width: initial;
+    padding: 5vw 0 0 0;
+  }
+
+}
+
 
   @media only screen and (max-width: 480px) {
     .col { margin: 1% 0 1% 0%;}
   }
+}
 
   @media only screen and (max-width: 650px) {
     .col-nav {
@@ -352,8 +359,8 @@ h2 {
     .half {
       width:100%;
       float:left;
-      padding-left:7%;
-      padding-right:7%;
+      padding-left:10%;
+      padding-right:10%;
       padding-top:5%;
       padding-bottom:5%;
     }
