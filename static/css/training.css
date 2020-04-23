@@ -109,8 +109,8 @@ h5 {
 .half {
   width:50%;
   float:left;
-  padding-left:7%;
-  padding-right:7%;
+  padding-left:10%;
+  padding-right:10%;
   padding-top:5%;
   padding-bottom:5%;
 }
@@ -367,5 +367,9 @@ h2 {
 
     .half-image{
       display:none;
+    }
+    .half-image img{
+      width:1000px;
+
     }
   }
