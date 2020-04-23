@@ -197,7 +197,7 @@ minikube start --driver=<driver_name>
  See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
-* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/))(PREFERRED)
+* docker([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/)) (PREFERRED)
 * virtualbox ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
 * vmwarefusion
 * Podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
