@@ -309,11 +309,11 @@ h2 {
 
 
 
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (min-width: 1600px) {
     .col { margin: 1% 0 1% 0%;}
 
     .lighter-gray-bg-banner {
-      height:600px;
+      height:500px;
       padding-top:0px;
     }
 }
