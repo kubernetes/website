@@ -342,7 +342,8 @@ h2 {
 
   @media only screen and (max-width: 480px) {
     .col { margin: 1% 0 1% 0%;}
-  }
+.col-container { flex-direction: column; }
+
 }
 
   @media only screen and (max-width: 650px) {
@@ -350,6 +351,9 @@ h2 {
       display: block;
       width: 100%;
     }
+  }
+.col-container { flex-direction: column; }
+}
 
     h2 {
       line-height:1.2em !important;
