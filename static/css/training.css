@@ -346,7 +346,7 @@ h2 {
     width: 9rem;
   }
   section.call-to-action .main-section > div.call-to-action > div {
-    padding: 1rem 1rem 1rem 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   }
   section.call-to-action .main-section .cta-text {
     flex: 2 0 75vw;
@@ -379,7 +379,7 @@ h2 {
 
     h2 {
       line-height:1.2em !important;
-      padding-bottom:4%;
+      padding-bottom:2%;
       padding-top:5%;
 
 
@@ -401,9 +401,21 @@ h2 {
       width:1000px;
 
     }
+    section.call-to-action .main-section > div.call-to-action {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-basis: auto;
+      justify-content: center;
+      align-items: center;
+      margin: initial;
+      padding-top: 5rem;
+
+    }
 
     section.call-to-action .main-section > div.call-to-action {
-    padding-top:1rem;
+    padding-top:2rem;
+    padding-bottom: 2rem;
     background-image:url('/images/training-bg-mobile.jpg');
 
     }
