@@ -57,6 +57,34 @@ roles and permissions.
 - Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
 - Start or help with a [localization](/docs/contribute/localization/).
 
+## Running the website locally using Docker
+
+The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com/) image that includes the [Hugo](https://gohugo.io/) static website generator.
+
+
+
+If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org/). `choco install make`
+
+
+
+
+If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
+
+```
+cd <path_to_your_repo>/website
+make docker-image
+```
+
+Once the image has been built, you can run the website locally:
+
+```
+make docker-serve
+```
+
+Open up your browser to [http://localhost:1313](http://localhost:1313/) to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+
+
+
 ## Get involved with SIG Docs
 
 [SIG Docs](/docs/contribute/participating/) is the group of contributors who publish and maintain Kubernetes documentation and the website. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
