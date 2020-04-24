@@ -45,7 +45,7 @@ We settled on a controller name of `getambassador.io/ingress-controller`. This v
 Paths can now define different matching behaviors using the `pathType` field. The field will default to a value of `ImplementationSpecific`, which uses the same matching rules as the [Ambassador Mappings](https://www.getambassador.io/docs/latest/topics/using/mappings/) prefix field and previous Ingress specification for backward compatibility reasons.
 
 ### Kubernetes Ingress Controllers
-A comprehensive [list of Kubernetes ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is available in the Kubernetes documentation. Currently, Ambassador is the only ingress controller that supports these new additions to the ingress specification. Powered by the [Envoy Proxy](https://www.envoyproxy.io), Ambassador is the fastest way for you to try out the new you can try out the new ingress specification today.
+A comprehensive [list of Kubernetes ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is available in the Kubernetes documentation. Currently, Ambassador is the only ingress controller that supports these new additions to the ingress specification. Powered by the [Envoy Proxy](https://www.envoyproxy.io), Ambassador is the fastest way for you to try out the new ingress specification today.
 
 Check out the following resources:
 
