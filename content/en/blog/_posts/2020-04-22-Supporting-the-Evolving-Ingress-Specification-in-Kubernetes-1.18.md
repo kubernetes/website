@@ -31,7 +31,7 @@ The `IngressClass` resource specifies how Ingresses should be implemented by con
 You can read more about these changes, as well as the support for wildcards in hostnames in more detail in [a previous blog post](https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/).
 
 ## Supporting Kubernetes ingress
-[Ambassador](https://www.getambassador.io) is an open-source Envoy-based ingress controller. We believe strongly in supporting common standards such as Kubernetes ingress, which we adopted and [announced our initial support back in 2019](https://blog.getambassador.io/ambassador-ingress-controller-better-config-reporting-updated-envoy-proxy-99dc9139e28f).
+[Ambassador](https://www.getambassador.io) is an open-source Envoy-based ingress controller. We believe strongly in supporting common standards such as Kubernetes ingress, which we adopted and [announced our initial support for back in 2019](https://blog.getambassador.io/ambassador-ingress-controller-better-config-reporting-updated-envoy-proxy-99dc9139e28f).
 
 Every Ambassador release goes through rigorous testing. Therefore, we also contributed an [open conformance test suite](https://github.com/kubernetes-sigs/ingress-controller-conformance), supporting Kubernetes ingress. We wrote the initial bits of test code and will keep iterating over the newly added features and different versions of the Ingress specification as it evolves to a stable v1 GA release. Documentation and usage samples, especially when transitioning from a previous version of an API, is also our top priority as we understand how complex usage can be and how best practices keep evolving.
 
