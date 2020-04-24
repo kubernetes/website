@@ -48,6 +48,7 @@ Paths can now define different matching behaviors using the `pathType` field. Th
 A comprehensive [list of Kubernetes ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is available in the Kubernetes documentation. Currently, Ambassador is the only ingress controller that supports these new additions to the ingress specification. Powered by the [Envoy Proxy](https://www.envoyproxy.io), Ambassador is the fastest way for you to try out the new you can try out the new ingress specification today.
 
 Check out the following resources:
+
 * Ambassador on [GitHub](https://www.github.com/datawire/ambassador)
 * The Ambassador [documentation](https://www.getambassador.io/docs)
 * [Improvements to the Ingress API](https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/)
