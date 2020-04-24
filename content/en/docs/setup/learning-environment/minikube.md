@@ -198,7 +198,7 @@ Minikube supports the following drivers:
 plugins.
 {{< /note >}}
 
-* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/)) (PREFERRED)
+* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/))
 * virtualbox ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
 * Podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
 * vmwarefusion
