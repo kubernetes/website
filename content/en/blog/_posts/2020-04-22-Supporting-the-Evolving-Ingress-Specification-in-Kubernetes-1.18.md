@@ -42,7 +42,7 @@ With a global comprehension of additions to Ingress introduced in Kubernetes 1.1
 
 We settled on a controller name of `getambassador.io/ingress-controller`. This value, consistent with Ambassador's domain and CRD versions, must be used to tie in an IngressClass `spec.controller` with an Ambassador deployment. The new IngressClass resource allows for extensibility by setting a `spec.parameters` field. At the moment Ambassador makes no use of this field and its usage is reserved for future development.
 
-Paths can now define different matching behaviors using the `pathType` field. The field will default to a value of ImplementationSpecific, which uses the same matching rules as the [Ambassador Mappings](https://www.getambassador.io/docs/latest/topics/using/mappings/)' prefix field and previous Ingress specification for backward compatibility reasons.
+Paths can now define different matching behaviors using the `pathType` field. The field will default to a value of `ImplementationSpecific`, which uses the same matching rules as the [Ambassador Mappings](https://www.getambassador.io/docs/latest/topics/using/mappings/) prefix field and previous Ingress specification for backward compatibility reasons.
 
 ### Kubernetes Ingress Controllers
 A comprehensive [list of Kubernetes ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/) is available in the Kubernetes documentation. Currently, Ambassador is the only ingress controller that supports these new additions to the ingress specification. Powered by the [Envoy Proxy](https://www.envoyproxy.io), Ambassador is the fastest way for you to try out the new you can try out the new ingress specification today.
