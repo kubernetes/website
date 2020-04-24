@@ -135,7 +135,7 @@ Here are some ideas for how to use init containers:
 
 * 在启动应用容器之前等一段时间，使用类似命令：
 
-        `sleep 60` 
+        sleep 60 
 
 * 克隆 Git 仓库到 {{< glossary_tooltip text="Volume" term_id="volume" >}}。
 * 将配置值放到配置文件中，运行模板工具为主应用容器动态地生成配置文件。例如，在配置文件中存放 POD_IP 值，并使用 Jinja 生成主应用配置文件。
@@ -404,7 +404,7 @@ Pod level control groups (cgroups) are based on the effective Pod request and li
 给定Init 容器的执行顺序下，资源使用适用于如下规则：
 
 * 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*
-* Pod 对资源的 *有效 limit/request * 是如下两者的较大者：
+* Pod 对资源的 *有效 limit/request* 是如下两者的较大者：
   * 所有应用容器对某个资源的 limit/request 之和
   * 对某个资源的有效初始 limit/request
 * 基于有效 limit/request 完成调度，这意味着 Init 容器能够为初始化过程预留资源，这些资源在 Pod 生命周期过程中并没有被使用。
