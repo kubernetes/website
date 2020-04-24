@@ -48,7 +48,7 @@ Once you have a Linux-based Kubernetes control-plane node you are ready to choos
 
 1. Prepare Kubernetes control plane for Flannel
 
-    Some minor preparation is recommended on the Kubernetes control plane in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. This can be done using the following command:
+    Some minor preparation is recommended on the Kubernetes control plane in our cluster. It is recommended to enable bridged IPv4 traffic to iptables chains when using Flannel. The following command must be run on all Linux nodes:
 
     ```bash
     sudo sysctl net.bridge.bridge-nf-call-iptables=1
