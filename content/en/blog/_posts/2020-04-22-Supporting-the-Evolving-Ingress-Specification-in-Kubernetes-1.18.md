@@ -26,7 +26,7 @@ There are three significant additions to the Ingress API in Kubernetes 1.18:
 The new `pathType` field allows you to specify how Ingress paths should match.
 The field supports three types: `ImplementationSpecific` (default), `exact`, and `prefix`. Explicitly defining the expected behavior of path matching will allow every ingress-controller to support a user’s needs and will increase portability between ingress-controller implementation solutions.
 
-The `IngressClass` resource specifies how Ingresses should be implemented by controllers. This was added to formalize the commonly used but never formalized `kubernetes.io/ingress.class` annotation and allow for implementation-specific extensions and configuration.
+The `IngressClass` resource specifies how Ingresses should be implemented by controllers. This was added to formalize the commonly used but never standardized `kubernetes.io/ingress.class` annotation and allow for implementation-specific extensions and configuration.
 
 You can read more about these changes, as well as the support for wildcards in hostnames in more detail in [a previous blog post](https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/).
 
