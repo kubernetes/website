@@ -104,7 +104,9 @@ $ kubectl annotate service productpage ingress.kubernetes.io/service-upstream=tr
 service/productpage annotated
 ```
 
-Without the additional `ingress.kubernetes.io/service-upstream: "true"` annotation, Kong will try to select its own endpoint/target from the productpage service. With that added, you should now be able to access your product page!
+Without the additional `ingress.kubernetes.io/service-upstream: "true"` annotation, Kong will try to select its own endpoint/target from the productpage service. This causes Envoy to receive that pod’s IP as the upstream local address, instead of the service’s cluster IP. But we want the service's cluster IP so Envoy can properly load balance.
+
+With that added, you should now be able to access your product page!
 
 ```
 $ kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
