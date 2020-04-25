@@ -36,7 +36,7 @@
 
 > நீங்கள் விண்டோஸில் இயங்குகிறீர்கள் என்றால், நீங்கள் நிறுவக்கூடிய இன்னும் சில கருவிகள் உங்களுக்குத் [Chocolatey](https://chocolatey.org). `choco install make` தேவைப்படும்.
 
-> நீங்கள் வலைத்தளத்தை டாக்கர் இல்லாமல் உள்-வலைத்தளத்த இயக்க விரும்பினால், இதை பாருங்கள் [ஹ்யூகோவைப் பயன்படுத்தி உள்-வலைத்தளத்த இயக்குவது](#running-the-website-locally-using-hugo) கீழே.
+> நீங்கள் வலைத்தளத்தை டாக்கர் இல்லாமல் உள்-வலைத்தளத்தை இயக்க விரும்பினால், இதை பாருங்கள் [ஹ்யூகோவைப் பயன்படுத்தி உள்-வலைத்தளத்த இயக்குவது](#running-the-website-locally-using-hugo) கீழே.
 
 உங்களிடம்  [இயங்கும் டாக்கர் இருந்தால்](https://www.docker.com/get-started), `kubernetes-hugo` என்ற இமேஜை டாக்கர் பயன்படுத்தி உள்-வலைத்தளத்தில் இயக்கலாம்:
 
@@ -44,39 +44,39 @@
 make docker-image
 ```
 
-இமேஜ் கட்டப்பட்டதும், நீங்கள் உள்-வலைத்தளத்த இயக்கலாம்:
+இமேஜ் கட்டப்பட்டதும், நீங்கள் உள்-வலைத்தளத்தை இயக்கலாம்:
 
 ```bash
 make docker-serve
 ```
 
-Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+வலைத்தளத்தைக் காண உங்கள் உலாவியை http://localhost:1313 க்குத் திறக்கவும். மூல கோப்புகளில் நீங்கள் மாற்றங்களைச் செய்யும்போது, ஹ்யூகோ வலைத்தளத்தைப் புதுப்பித்து உலாவி புதுப்பிக்கப்படும்.
 
-## Running the website locally using Hugo
+## ஹ்யூகோவைப் பயன்படுத்தி உள்-வலைத்தளத்த இயக்கும் முறை
 
-See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
+ஹ்யூகோ நிறுவல் வழிமுறைகளுக்கு [அதிகாரப்பூர்வ ஹ்யூகோ ஆவணங்கள்] (https://gohugo.io/getting-started/installing/) ஐப் பார்க்கவும். [`Netlify.toml`](netlify.toml#L9) கோப்பில்` HUGO_VERSION` என்விரோன்மெண்ட் மாறியால் குறிப்பிடப்பட்ட ஹ்யூகோ நீட்டிக்கப்பட்ட பதிப்பை நிறுவுவதை உறுதிசெய்க.
 
-To run the website locally when you have Hugo installed:
+நீங்கள் ஹ்யூகோவை நிறுவியதும் உள்-வலைத்தளத்தை இயக்க:
 
 ```bash
 make serve
 ```
 
-This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+வலைத்தளத்தைக் காண உங்கள் உலாவியை http://localhost:1313 க்குத் திறக்கவும். மூல கோப்புகளில் நீங்கள் மாற்றங்களைச் செய்யும்போது, ஹ்யூகோ வலைத்தளத்தைப் புதுப்பித்து உலாவி புதுப்பிக்கப்படும்.
 
-## Community, discussion, contribution, and support
+## சமூகம், கலந்துரையாடல், பங்களிப்பு மற்றும் ஆதரவு
 
-Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
+[சமூகப் பக்கத்தில்](http://kubernetes.io/community/) குபெர்னெட்ஸ் சமூகத்துடன் எவ்வாறு ஈடுபடுவது என்பதை அறிக.
 
-You can reach the maintainers of this project at:
+இந்த திட்டத்தின் பராமரிப்பாளர்களை நீங்கள் இங்கு அணுகலாம்:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-### Code of conduct
+### நடத்தை விதி
 
-Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
+குபெர்னெட்ஸ் சமூகத்தில் பங்கேற்பது [குபெர்னெட்ஸ் நடத்தை விதிமுறை](code-of-conduct.md) ஆல் நிர்வகிக்கப்படுகிறது.
 
-## Thank you!
+## நன்றி!
 
-Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
+குபெர்னெட்ஸ் சமூக பங்களிப்பை வளர்த்துக் கொள்கிறது, மேலும் எங்கள் வலைத்தளத்திற்கும் எங்கள் ஆவணங்களுக்கும் நீங்கள் செய்த பங்களிப்புகளை நாங்கள் பாராட்டுகிறோம்!
