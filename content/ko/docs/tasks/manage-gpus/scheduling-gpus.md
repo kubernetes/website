@@ -7,7 +7,7 @@ title: GPU 스케줄링
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" for_k8s_version="1.10" >}}
+{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 쿠버네티스는 AMD 및 NVIDIA GPU(그래픽 프로세싱 유닛)를 노드들에 걸쳐 관리하기 위한 **실험적인**
 지원을 포함한다.
