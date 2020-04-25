@@ -1117,7 +1117,7 @@ total number of Pods running at any time during the update is at most 130% of de
 to wait for your Deployment to progress before the system reports back that the Deployment has
 [failed progressing](#failed-deployment) - surfaced as a condition with `Type=Progressing`, `Status=False`.
 and `Reason=ProgressDeadlineExceeded` in the status of the resource. The Deployment controller will keep
-retrying the Deployment. In the future, once automatic rollback will be implemented, the Deployment
+retrying the Deployment. This defaults to 600. In the future, once automatic rollback will be implemented, the Deployment
 controller will roll back a Deployment as soon as it observes such a condition.
 
 If specified, this field needs to be greater than `.spec.minReadySeconds`.
