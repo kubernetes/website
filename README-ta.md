@@ -36,15 +36,15 @@
 
 > நீங்கள் விண்டோஸில் இயங்குகிறீர்கள் என்றால், நீங்கள் நிறுவக்கூடிய இன்னும் சில கருவிகள் உங்களுக்குத் [Chocolatey](https://chocolatey.org). `choco install make` தேவைப்படும்.
 
-> If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-website-locally-using-hugo) below.
+> நீங்கள் வலைத்தளத்தை டாக்கர் இல்லாமல் உள்-வலைத்தளத்த இயக்க விரும்பினால், இதை பாருங்கள் [ஹ்யூகோவைப் பயன்படுத்தி உள்-வலைத்தளத்த இயக்குவது](#running-the-website-locally-using-hugo) கீழே.
 
-If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
+உங்களிடம்  [இயங்கும் டாக்கர் இருந்தால்](https://www.docker.com/get-started), `kubernetes-hugo` என்ற இமேஜை டாக்கர் பயன்படுத்தி உள்-வலைத்தளத்தில் இயக்கலாம்:
 
 ```bash
 make docker-image
 ```
 
-Once the image has been built, you can run the website locally:
+இமேஜ் கட்டப்பட்டதும், நீங்கள் உள்-வலைத்தளத்த இயக்கலாம்:
 
 ```bash
 make docker-serve
