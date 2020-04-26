@@ -24,7 +24,7 @@ _EndpointSlices_ offrent une simple methode pour suivre les endpoints d'un rése
 ## Resource pour EndpointSlice {#endpointslice-resource}
 
 Dans Kubernetes, un EndpointSlice contient des reférences à un ensemble de reseau 
-endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selecteur" term_id="selecteur" >}} est spécifié. Ces EnpointSlices vont inclure des references a n'importe quelle Pods qui correspond aux selecteur de Service. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
+endpoints. Le controleur d'EndpointSlice crée automatiquement des EndpointSlices pour un Kubernetes Service quand un {{< glossary_tooltip text="selecteur" term_id="selector" >}} est spécifié. Ces EnpointSlices vont inclure des references a n'importe quelle Pods qui correspond aux selecteur de Service. EndpointSlices groupent ensemble les endpoints d'un reseau par combinaisons uniques de Services et de Ports.
 
 Par exemple, voici un échantillon d'une resource EndpointSlice pour le Kubernetes Service `exemple`.
 
@@ -72,7 +72,7 @@ Ceci est utilisé pour indiqué où se trouve un endpoint, qui contient les info
 * `topology.kubernetes.io/zone` - Zone dans laquelle l'endpoint se situe.
 * `topology.kubernetes.io/region` - Region dans laquelle l'endpoint se situe.
 
-Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que les correspondantes EndpointSlices sont mis-à-jour. Le contrôleur gèrera les EndpointSlices pour tout les Services qui ont un selecteur - [reference: {{< glossary_tooltip text="selecteur" term_id="selecteur" >}}] - specifié. Celles-ci representeront les IPs des Pods qui correspond au selecteur.
+Le contrôleur EndpointSlice surveille les Services et les Pods pour assurer que les correspondantes EndpointSlices sont mis-à-jour. Le contrôleur gèrera les EndpointSlices pour tout les Services qui ont un selecteur - [reference: {{< glossary_tooltip text="selecteur" term_id="selector" >}}] - specifié. Celles-ci representeront les IPs des Pods qui correspond au selecteur.
 
 ### Capacité d'EndpointSlices
 
