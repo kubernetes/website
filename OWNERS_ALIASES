@@ -216,10 +216,11 @@ aliases:
     - aisonaku
     - potapy4
     - dianaabv
-  sig-docs-pl-owners: # Admins for Polish content
-    - mfilocha
-    - nvtkaszpir
-  sig-docs-pl-reviews: # PR reviews for Polish content
-    - mfilocha
-    - nvtkaszpir
-    - kpucynski
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - anastyakulyk
+    - idvoretskyi
+    - MaxymVlasov
+    - Potapy4
