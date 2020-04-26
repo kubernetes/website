@@ -1,7 +1,6 @@
 ---
-reviewers:
 title: 设备插件
-description: 使用 Kubernetes 设备插件框架来实现适用于 GPU，NIC，FPGA，InfiniBand 以及需要特定于供应商设置的类似资源的插件。
+description: 使用 Kubernetes 设备插件框架来实现适用于 GPU、NIC、FPGA、InfiniBand 以及类似的需要特定于供应商设置的资源的插件。
 content_template: templates/concept
 weight: 20
 ---
@@ -22,7 +21,7 @@ and setup.
 -->
 Kubernetes 提供了一个[设备插件框架](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)，您可以用来将系统硬件资源发布到 {{< glossary_tooltip term_id="kubelet" >}}。
 
-供应商可以实现您手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}} 部署的设备插件，而不必为 Kubernetes 本身定制代码。目标设备包括 GPU、高性能NIC、FPGA、InfiniBand 适配器以及其他类似的计算资源，可能需要特定于供应商的初始化和设置。
+供应商可以实现设备插件，由您手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}} 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、InfiniBand 适配器以及其他类似的、可能需要特定于供应商的初始化和设置的计算资源。
 
 {{% /capture %}}
 
@@ -32,12 +31,6 @@ Kubernetes 提供了一个[设备插件框架](https://github.com/kubernetes/com
 
 <!--
 The kubelet exports a `Registration` gRPC service:
-
-```gRPC
-service Registration {
-	rpc Register(RegisterRequest) returns (Empty) {}
-}
-```
 -->
 kubelet 输出了一个 `Registration` 的 gRPC 服务：
 
@@ -83,37 +76,18 @@ specification as they request other types of resources, with the following limit
 * Extended resources are only supported as integer resources and cannot be overcommitted.
 * Devices cannot be shared among Containers.
 -->
-然后用户需要去请求其他类型的资源的时候，就可以请求[容器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)规范中的设备，但是有以下的限制：
-  * 扩展资源支持整数资源，并且不能被过量使用
+然后用户需要去请求其他类型的资源的时候，就可以在[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)规范请求这类设备，但是有以下的限制：
+
+  * 扩展资源仅可作为整数资源使用，并且不能被过量使用
   * 设备不能在容器之间共享
 
 <!--
 Suppose a Kubernetes cluster is running a device plugin that advertises resource `hardware-vendor.example/foo`
 on certain nodes. Here is an example of a pod requesting this resource to run a demo workload:
-
-```yaml
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: demo-pod
-spec:
-  containers:
-    - name: demo-container-1
-      image: k8s.gcr.io/pause:2.0
-      resources:
-        limits:
-          hardware-vendor.example/foo: 2
-#
-# This Pod needs 2 of the hardware-vendor.example/foo devices
-# and can only schedule onto a Node that's able to satisfy
-# that need.
-#
-# If the Node has more than 2 of those devices available, the
-# remainder would be available for other Pods to use.
-```
 -->
-假设 Kubernetes 集群正在运行一个设备插件，该插件在一些节点上公布的资源为 `hardware-vendor.example/foo`，下面就是一个 pod 运行请求此资源的示例：
+
+假设 Kubernetes 集群正在运行一个设备插件，该插件在一些节点上公布的资源为 `hardware-vendor.example/foo`。
+下面就是一个 Pod 示例，请求此资源以运行某演示负载：
 
 ```yaml
 ---
@@ -145,32 +119,8 @@ The general workflow of a device plugin includes the following steps:
 
 * The plugin starts a gRPC service, with a Unix socket under host path
   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
-
-  ```gRPC
-  service DevicePlugin {
-        // ListAndWatch returns a stream of List of Devices
-        // Whenever a Device state change or a Device disappears, ListAndWatch
-        // returns the new list
-        rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
-
-        // Allocate is called during container creation so that the Device
-        // Plugin can run device specific operations and instruct Kubelet
-        // of the steps to make the Device available in the container
-        rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
-  }
-  ```
-
-* The plugin registers itself with the kubelet through the Unix socket at host
-  path `/var/lib/kubelet/device-plugins/kubelet.sock`.
-
-* After successfully registering itself, the device plugin runs in serving mode, during which it keeps
-monitoring device health and reports back to the kubelet upon any device state changes.
-It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
-do device-specific preparation; for example, GPU cleanup or QRNG initialization.
-If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
-runtime configurations for accessing the allocated devices. The kubelet passes this information
-to the container runtime.
 -->
+
 ## 设备插件的实现
 
 设备插件的常规工作流程包括以下几个步骤：
@@ -192,8 +142,21 @@ to the container runtime.
   }
   ```
 
-  * 插件通过 Unix socket 在主机路径 `/ var / lib / kubelet / device-plugins / kubelet.sock` 处向 kubelet 注册自身。
-  * 成功注册自身后，设备插件将以服务模式运行，在此期间，它将持续监控设备运行状况，并在设备状态发生任何变化时向 kubelet 报告。它还负责`分配` gRPC 请求。在`分配`期间，设备插件可能还会做一些设备特定的准备；例如 GPU 清理或 QRNG 初始化。如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。kubelet将此信息传递到容器运行时。
+<!--
+* The plugin registers itself with the kubelet through the Unix socket at host
+  path `/var/lib/kubelet/device-plugins/kubelet.sock`.
+
+* After successfully registering itself, the device plugin runs in serving mode, during which it keeps
+monitoring device health and reports back to the kubelet upon any device state changes.
+It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
+do device-specific preparation; for example, GPU cleanup or QRNG initialization.
+If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
+runtime configurations for accessing the allocated devices. The kubelet passes this information
+to the container runtime.
+-->
+
+  * 插件通过 Unix socket 在主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 处向 kubelet 注册自身。
+  * 成功注册自身后，设备插件将以服务模式运行，在此期间，它将持续监控设备运行状况，并在设备状态发生任何变化时向 kubelet 报告。它还负责响应 `Allocate` gRPC 请求。在`Allocate`期间，设备插件可能还会做一些设备特定的准备；例如 GPU 清理或 QRNG 初始化。如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。kubelet 将此信息传递到容器运行时。
 
 <!--
 ### Handling kubelet restarts
@@ -205,7 +168,7 @@ of its Unix socket and re-register itself upon such an event.
 -->
 ### 处理 kubelet 重启
 
-一个设备是要能够监测到 kubelet 重启，并且向新的 kubelet 实例来重新注册自己。在当前实现中，当 kubelet 重启的时候，新的 kubelet 实例会删除 `/var/lib/kubelet/device-plugins` 下所有已经存在的 Unix sockets，一个设备插件需要能够监控到它的 Unix socket 被删除，并且当发生此类事件时重新注册自己。
+设备插件应能监测到 kubelet 重启，并且向新的 kubelet 实例来重新注册自己。在当前实现中，当 kubelet 重启的时候，新的 kubelet 实例会删除 `/var/lib/kubelet/device-plugins` 下所有已经存在的 Unix sockets。设备插件需要能够监控到它的 Unix socket 被删除，并且当发生此类事件时重新注册自己。
 
 <!--
 ## Device plugin deployment
@@ -225,7 +188,7 @@ Pod onto Nodes, to restart the daemon Pod after failure, and to help automate up
 -->
 ## 设备插件部署
 
-你可以降你的设备插件作为你的节点系统的软件包部署为 DaemonSet，或者手动去部署。
+你可以将你的设备插件作为节点操作系统的软件包来部署、作为 DaemonSet 来部署或者手动部署。
 
 规范目录 `/var/lib/kubelet/device-plugins` 是需要特权访问的，所以设备插件必须要在被授权的安全的上下文中运行。如果你将设备插件部署为 DaemonSet，`/var/lib/kubelet/device-plugins` 目录必须要在插件的 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中声明作为 {{< glossary_tooltip term_id="volume" >}} 被 mount 到插件中。
 
@@ -247,7 +210,7 @@ ensure the continuous functioning of the device allocations during the upgrade.
 -->
 ## API 兼容性
 
-Kubernetes 设备插件支持还处于 beta 版本。所以在稳定版本出来之前 API 会以不兼容的方式进行更改，作为一个项目，Kubernetes 建议设备插件开发者：
+Kubernetes 设备插件支持还处于 beta 版本。所以在稳定版本出来之前 API 会以不兼容的方式进行更改。作为一个项目，Kubernetes 建议设备插件开发者：
 
 * 注意未来版本的更改
 * 支持多个版本的设备插件 API，以实现向后/向前兼容性。
@@ -275,6 +238,8 @@ identifying containers using `pod`, `namespace`, and `container` prometheus labe
 <!--
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
 for these devices:
+-->
+kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还未这些设备提供了元数据：
 
 ```gRPC
 // PodResourcesLister is a service provided by the kubelet that provides information about the
@@ -284,6 +249,7 @@ service PodResourcesLister {
 }
 ```
 
+<!--
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
 The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
@@ -294,19 +260,9 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 
 Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
 -->
-kubelet 提供了gRPC服务来使得正在使用中的设备被发现，并且还未这些设备提供了元数据：
+gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。规范的路径 `/var/lib/kubelet/pod-resources` 需要特权来进入，所以监控代理程序必须要在获得授权的安全的上下文中运行。如果设备监控代理以 DaemonSet 形式运行，必须要在插件的 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中声明将 `/var/lib/kubelet/pod-resources` 目录以 {{< glossary_tooltip term_id="volume" >}} 形式被 mount 到容器中。
 
-```gRPC
-// PodResourcesLister is a service provided by the kubelet that provides information about the
-// node resources consumed by pods and containers on the node
-service PodResourcesLister {
-    rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
-}
-```
-
-gRPC服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 unix socket 来提供服务。设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。规范的路径 `/var/lib/kubelet/pod-resources` 需要特权来进入，所以监控代理程序必须要在获得授权的安全的上下文中运行。如果设备监控代理以 DaemonSet 形式运行，必须要在插件的 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中声明将 `/var/lib/kubelet/pod-resources` 目录以 {{< glossary_tooltip term_id="volume" >}} 形式被 mount 到容器中。
-
-对“PodResources 服务”的支持要求启用“KubeletPodResources”[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)。从 Kubernetes 1.15 开始默认启用。
+对“PodResources 服务”的支持要求启用 `KubeletPodResources` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)。从 Kubernetes 1.15 开始默认启用。
 
 <!--
 ## Device Plugin integration with the Topology Manager
@@ -392,9 +348,9 @@ Here are some examples of device plugin implementations:
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
 * Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 -->
-* 查看 [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
-* 查看在 node 上如何 [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/)
-* 阅读如何在 Kubernetes 中如何使用 [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
+* 查看 [调度 GPU 资源](/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
+* 查看在 node 上如何[广告扩展资源](/docs/tasks/administer-cluster/extended-resource-node/)
+* 阅读如何在 Kubernetes 中如何使用 [TLS 入口的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
 * 学习 [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 
 {{% /capture %}}
