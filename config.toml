@@ -303,7 +303,7 @@ language_alternatives = ["en"]
 title = "Kubernetes"
 description = "Довершена система оркестрації контейнерів"
 languageName = "Українська"
-weight = 13
+weight = 14
 contentDir = "content/uk"
 
 [languages.uk.params]
