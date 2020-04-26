@@ -1,8 +1,8 @@
 ---
-title: Referência
+title: Reference
 approvers:
 - chenopis
-linkTitle: "Referência"
+linkTitle: "Reference"
 main_menu: true
 weight: 70
 content_template: templates/concept
@@ -10,43 +10,44 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Esta seção da documentação do Kubernetes contém referências.
+This section of the Kubernetes documentation contains references.
 
 {{% /capture %}}
 
 {{% capture body %}}
 
-## Referência da API
+## API Reference
 
-* [Visão geral da API do Kubernetes](/docs/reference/using-api/api-overview/) - Visão geral da API para Kubernetes.
-* [Referência da API Kubernetes {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
+* [Kubernetes API Overview](/docs/reference/using-api/api-overview/) - Overview of the API for Kubernetes.
+* [Kubernetes API Reference {{< latest-version >}}](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/)
 
-## Biblioteca de clientes da API
+## API Client Libraries
 
-Para chamar a API Kubernetes de uma linguagem de programação, você pode usar
-[bibliotecas de clientes](/docs/reference/using-api/client-libraries/). Bibliotecas oficialmente suportadas:
+To call the Kubernetes API from a programming language, you can use
+[client libraries](/docs/reference/using-api/client-libraries/). Officially supported
+client libraries:
 
-- [Biblioteca do cliente Kubernetes em Go](https://github.com/kubernetes/client-go/)
-- [Biblioteca do cliente Kubernetes em Python](https://github.com/kubernetes-client/python)
-- [Biblioteca do cliente Kubernetes em Java](https://github.com/kubernetes-client/java)
-- [Biblioteca do cliente Kubernetes em JavaScript](https://github.com/kubernetes-client/javascript)
+- [Kubernetes Go client library](https://github.com/kubernetes/client-go/)
+- [Kubernetes Python client library](https://github.com/kubernetes-client/python)
+- [Kubernetes Java client library](https://github.com/kubernetes-client/java)
+- [Kubernetes JavaScript client library](https://github.com/kubernetes-client/javascript)
 
-## Referência da CLI
+## CLI Reference
 
-* [kubectl](/docs/reference/kubectl/overview/) - Ferramenta CLI principal para executar comandos e gerenciar clusters do Kubernetes.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Guia de sintaxe para usar [Expressões JSONPath](http://goessner.net/articles/JsonPath/) com o kubectl.
-* [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - Ferramenta CLI para provisionar facilmente um cluster Kubernetes seguro.
+* [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
+    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+* [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
-## Referência de configuração
+## Config Reference
 
-* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - O principal *agente do nó* que é executado em cada nó. O kubelet usa um conjunto de PodSpecs e garante que os contêineres descritos estejam funcionando e saudáveis.
-* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - API REST que valida e configura dados para objetos de API, como pods, serviços, controladores de replicação.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon que incorpora os principais loops de controle enviados com o Kubernetes.
-* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - É possível fazer o encaminhamento de fluxo TCP/UDP de forma simples ou utilizando o algoritimo de Round Robin encaminhando através de um conjunto de back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Agendador que gerencia disponibilidade, desempenho e capacidade.
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/) - The primary *node agent* that runs on each node. The kubelet takes a set of PodSpecs and ensures that the described containers are running and healthy.
+* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) - REST API that validates and configures data for API objects such as  pods, services, replication controllers.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
 
-## Documentos de design
+## Design Docs
 
-Um arquivo dos documentos de design para as funcionalidades do Kubernetes. Bons pontos de partida são [Arquitetura Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) e [Visão geral do design do Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
+An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
 {{% /capture %}}
