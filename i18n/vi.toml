@@ -57,6 +57,9 @@ other = "Trang này có hữu ích?"
 [feedback_yes]
 other = "Có"
 
+[input_placeholder_email_address]
+other = "địa chỉ email"
+
 [latest_version]
 other = "phiên bản mới nhất."
 
