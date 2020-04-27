@@ -140,7 +140,8 @@ If you wish to use the external cloud provider, its repository is [kubernetes-si
 
 ### Node Name
 
-The HUAWEI CLOUD provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
+The HUAWEI CLOUD provider needs the private IP address of the node as the name of the Kubernetes Node object.
+Please make sure indicating `--hostname-override=<node private IP>` when starting kubelet on the node.
 Note that the Kubernetes Node name must match the HUAWEI CLOUD VM private IP.
 
 ## OpenStack
