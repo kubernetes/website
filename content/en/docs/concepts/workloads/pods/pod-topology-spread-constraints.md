@@ -55,7 +55,7 @@ Instead of manually applying labels, you can also reuse the [well-known labels](
 
 The field `pod.spec.topologySpreadConstraints` is introduced in 1.16 as below:
 
-```yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
