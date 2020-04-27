@@ -321,7 +321,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M, 123Mi
 ```
 
-In the following example, the Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of storage.
+In the following example, the Pod has two Containers. Each Container has a request of 2GiB of local ephemeral storage. Each Container has a limit of 4GiB of local ephemeral storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and a limit of 8GiB of local ephemeral storage.
 
 ```yaml
 apiVersion: v1
@@ -444,7 +444,7 @@ If you want to use project quotas, you should:
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   in the kubelet configuration.
 
-* Ensure that the the root fileystem (or optional runtime filesystem)
+* Ensure that the the root filesystem (or optional runtime filesystem)
   has project quotas enabled. All XFS filesystems support project quotas.
   For ext4 filesystems, you need to enable the project quota tracking feature
   while the filesystem is not mounted.
@@ -453,7 +453,7 @@ If you want to use project quotas, you should:
   sudo tune2fs -O project -Q prjquota /dev/block-device
   ```
 
-* Ensure that the root filesystem (or optional runtime filesystem is
+* Ensure that the root filesystem (or optional runtime filesystem) is
   mounted with project quotas enabled. For both XFS and ext4fs, the
   mount option is named `prjquota`.
 
