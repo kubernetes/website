@@ -134,6 +134,15 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 The GCE cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the first segment of the Kubernetes Node name must match the GCE instance name (e.g. a Node named `kubernetes-node-2.c.my-proj.internal` must correspond to an instance named `kubernetes-node-2`).
 
+## HUAWEI CLOUD
+
+If you wish to use the external cloud provider, its repository is [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud).
+
+### Node Name
+
+The HUAWEI CLOUD provider needs the private IP address of the node as the name of the Kubernetes Node object.
+Please make sure indicating `--hostname-override=<node private IP>` when starting kubelet on the node.
+
 ## OpenStack
 This section describes all the possible configurations which can
 be used when using OpenStack with Kubernetes.
