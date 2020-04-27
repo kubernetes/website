@@ -78,7 +78,7 @@ recommended way to manage the creation and scaling of Pods.
 Pod runs a Container based on the provided Docker image.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. View the Deployment:
