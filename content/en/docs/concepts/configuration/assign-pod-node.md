@@ -160,9 +160,9 @@ You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, o
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **only if all** `nodeSelectorTerms` can be satisfied.
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of the** `nodeSelectorTerms` can be satisfied.
 
-If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **if one of** the `matchExpressions` is satisfied.
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` is satisfied.
 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
