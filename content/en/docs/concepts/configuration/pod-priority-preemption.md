@@ -51,13 +51,6 @@ Kubernetes already ships with two PriorityClasses:
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 {{< /note >}}
 
-If you try the feature and then decide to disable it, you must remove the
-PodPriority command-line flag or set it to `false`, and then restart the API
-server and scheduler. After the feature is disabled, the existing Pods keep
-their priority fields, but preemption is disabled, and priority fields are
-ignored. If the feature is disabled, you cannot set `priorityClassName` in new
-Pods.
-
 ## How to disable preemption
 
 {{< caution >}}
@@ -120,7 +113,7 @@ cluster when they should use this PriorityClass.
 
 ### Notes about PodPriority and existing clusters
 
--   If you upgrade your existing cluster and enable this feature, the priority
+-   If you upgrade an existing cluster without this feature, the priority
     of your existing Pods is effectively zero.
 
 -   Addition of a PriorityClass with `globalDefault` set to `true` does not
