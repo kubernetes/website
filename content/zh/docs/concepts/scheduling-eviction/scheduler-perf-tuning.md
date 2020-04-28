@@ -18,11 +18,11 @@ weight: 70
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
 <!--
-[kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 -->
-作为 kubernetes 集群的默认调度器，kube-scheduler 主要负责将 Pod 调度到集群的 Node 上。
+作为 kubernetes 集群的默认调度器，[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler) 主要负责将 Pod 调度到集群的 Node 上。
 
 <!--
 Nodes in a cluster that meet the scheduling requirements of a Pod are
@@ -44,29 +44,118 @@ large Kubernetes clusters.
 
 {{% capture body %}}
 
-<!--
-## Percentage of Nodes to Score
--->
-## 设置打分阶段 Node 数量占集群总规模的百分比
+<!-- 
+In large clusters, you can tune the scheduler's behaviour balancing
+scheduling outcomes between latency (new Pods are placed quickly) and
+accuracy (the scheduler rarely makes poor placement decisions).
 
-<!--
-Before Kubernetes 1.12, Kube-scheduler used to check the feasibility of all
-nodes in a cluster and then scored the feasible ones. Kubernetes 1.12 added a
-new feature that allows the scheduler to stop looking for more feasible nodes
-once it finds a certain number of them. This improves the scheduler's
-performance in large clusters. The number is specified as a percentage of the
-cluster size. The percentage can be controlled by a configuration option called
-`percentageOfNodesToScore`. The range should be between 1 and 100. Larger values
-are considered as 100%. Zero is equivalent to not providing the config option.
-Kubernetes 1.14 has logic to find the percentage of nodes to score based on the
-size of the cluster if it is not specified in the configuration. It uses a
-linear formula which yields 50% for a 100-node cluster. The formula yields 10%
-for a 5000-node cluster. The lower bound for the automatic value is 5%. In other
-words, the scheduler always scores at least 5% of the cluster no matter how
-large the cluster is, unless the user provides the config option with a value
-smaller than 5.
--->
-在 Kubernetes 1.12 版本之前，kube-scheduler 会检查集群中所有节点的可调度性，并且给可调度节点打分。Kubernetes 1.12 版本添加了一个新的功能，允许调度器在找到一定数量的可调度节点之后就停止继续寻找可调度节点。该功能能提高调度器在大规模集群下的调度性能。这个数值是集群规模的百分比。这个百分比通过 `percentageOfNodesToScore` 参数来进行配置。其值的范围在 1 到 100 之间，最大值就是 100%。如果设置为 0 就代表没有提供这个参数配置。Kubernetes 1.14 版本又加入了一个特性，在该参数没有被用户配置的情况下，调度器会根据集群的规模自动设置一个集群比例，然后通过这个比例筛选一定数量的可调度节点进入打分阶段。该特性使用线性公式计算出集群比例，如在 100-node 的集群下取 50%。在 5000-node 的集群下取 10%。这个自动设置的参数的最低值是 5%。换句话说，调度器至少会对集群中 5% 的节点进行打分，除非用户将该参数设置的低于 5。
+You configure this tuning setting via kube-scheduler setting
+`percentageOfNodesToScore`. This KubeSchedulerConfiguration setting determines
+a threshold for scheduling nodes in your cluster.
+ -->
+在大规模集群中，你可以调节调度器的表现来平衡调度的延迟（新 Pod 快速就位）和精度（调度器很少做出糟糕的放置决策）。
+
+你可以通过设置 kube-scheduler 的 `percentageOfNodesToScore` 来配置这个调优设置。这个 KubeSchedulerConfiguration 设置决定了调度集群中节点的阈值。
+
+<!-- 
+### Setting the threshold
+ -->
+### 设置阈值
+
+<!-- 
+The `percentageOfNodesToScore` option accepts whole numeric values between 0
+and 100. The value 0 is a special number which indicates that the kube-scheduler
+should use its compiled-in default.
+If you set `percentageOfNodesToScore` above 100, kube-scheduler acts as if you
+had set a value of 100.
+ -->
+`percentageOfNodesToScore` 选项接受从 0 到 100 之间的整数值。0 值比较特殊，表示 kube-scheduler 应该使用其编译后的默认值。
+如果你设置 `percentageOfNodesToScore` 的值超过了 100，kube-scheduler 的表现等价于设置值为 100。
+
+<!-- 
+To change the value, edit the kube-scheduler configuration file (this is likely
+to be `/etc/kubernetes/config/kube-scheduler.yaml`), then restart the scheduler.
+ -->
+要修改这个值，编辑 kube-scheduler 的配置文件（通常是 `/etc/kubernetes/config/kube-scheduler.yaml`），然后重启调度器。
+
+<!-- 
+After you have made this change, you can run
+ -->
+修改完成后，你可以执行
+```bash
+kubectl get componentstatuses
+```
+
+<!-- 
+to verify that the kube-scheduler component is healthy. The output is similar to:
+ -->
+来检查该 kube-scheduler 组件是否健康。输出类似如下：
+```
+NAME                 STATUS    MESSAGE             ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+...
+```
+
+<!-- 
+## Node scoring threshold {#percentage-of-nodes-to-score}
+ -->
+## 节点打分阈值 {#percentage-of-nodes-to-score}
+
+<!-- 
+To improve scheduling performance, the kube-scheduler can stop looking for
+feasible nodes once it has found enough of them. In large clusters, this saves
+time compared to a naive approach that would consider every node.
+ -->
+要提升调度性能，kube-scheduler 可以在找到足够的可调度节点之后停止查找。在大规模集群中，比起考虑每个节点的简单方法相比可以节省时间。
+
+<!-- 
+You specify a threshold for how many nodes are enough, as a whole number percentage
+of all the nodes in your cluster. The kube-scheduler converts this into an
+integer number of nodes. During scheduling, if the kube-scheduler has identified
+enough feasible nodes to exceed the configured percentage, the kube-scheduler
+stops searching for more feasible nodes and moves on to the
+[scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
+ -->
+你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。 kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
+kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，kube-scheduler 将停止继续查找可调度节点并继续进行 [打分阶段](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。
+
+<!-- 
+[How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
+describes the process in detail.
+ -->
+[调度器如何遍历节点](#how-the-scheduler-iterates-over-nodes) 详细介绍了这个过程。
+
+<!-- 
+### Default threshold
+ -->
+### 默认阈值
+
+<!-- 
+If you don't specify a threshold, Kubernetes calculates a figure using a
+linear formula that yields 50% for a 100-node cluster and yields 10%
+for a 5000-node cluster. The lower bound for the automatic value is 5%.
+ -->
+如果你不指定阈值，Kubernetes 使用线性公式计算出一个比例，在 100-node 集群下取 50%，在 5000-node 的集群下取 10%。
+这个自动设置的参数的最低值是 5%。
+
+<!-- 
+This means that, the kube-scheduler always scores at least 5% of your cluster no
+matter how large the cluster is, unless you have explicitly set
+`percentageOfNodesToScore` to be smaller than 5.
+ -->
+这意味着，调度器至少会对集群中 5% 的节点进行打分，除非用户将该参数设置的低于 5。
+
+<!-- 
+If you want the scheduler to score all nodes in your cluster, set
+`percentageOfNodesToScore` to 100.
+ -->
+如果你想让调度器对集群内所有节点进行打分，则将 `percentageOfNodesToScore` 设置为 100。
+
+<!-- 
+## Example
+ -->
+## 示例
 
 <!--
 Below is an example configuration that sets `percentageOfNodesToScore` to 50%.
@@ -85,18 +174,6 @@ percentageOfNodesToScore: 50
 ```
 
 <!--
-{{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
-checks all the nodes, simply because there are not enough feasible nodes to stop
-the scheduler's search early. {{< /note >}}
--->
-{{< note >}} 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，因为可调度节点太少，不足以停止调度器最初的过滤选择。{{< /note >}}
-
-<!--
-**To disable this feature**, you can set `percentageOfNodesToScore` to 100.
--->
-**如果想要关闭这个功能**，你可以将 `percentageOfNodesToScore` 值设置成 100。
-
-<!--
 ### Tuning percentageOfNodesToScore
 -->
 ### 调节 percentageOfNodesToScore 参数
@@ -104,35 +181,49 @@ the scheduler's search early. {{< /note >}}
 <!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
 value being calculated based on the cluster size. There is also a hardcoded
-minimum value of 50 nodes. This means that changing
-this option to lower values in clusters with several hundred nodes will not have
-much impact on the number of feasible nodes that the scheduler tries to find.
-This is intentional as this option is unlikely to improve performance noticeably
-in smaller clusters. In large clusters with over a 1000 nodes setting this value
-to lower numbers may show a noticeable performance improvement.
+minimum value of 50 nodes. 
 -->
-`percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。另外，还有一个 50 个 Node 的数值是硬编码在程序里面的。设置这个值的作用在于：当集群的规模是数百个 Node 并且 `percentageOfNodesToScore` 参数设置的过低的时候，调度器筛选到的可调度节点数目基本不会受到该参数影响。当集群规模较小时，这个设置将导致调度器性能提升并不明显。然而在一个超过 1000 个 Node 的集群中，将调优参数设置为一个较低的值可以很明显的提升调度器性能。
+`percentageOfNodesToScore` 的值必须在 1 到 100 之间，而且其默认值是通过集群的规模计算得来的。
+另外，还有一个 50 个 Node 的最小值是硬编码在程序中。
 
 <!--
-An important note to consider when setting this value is that when a smaller
+{{< note >}} In clusters with less than 50 feasible nodes, the scheduler still
+checks all the nodes, simply because there are not enough feasible nodes to stop
+the scheduler's search early. 
+
+In a small cluster, if you set a low value for `percentageOfNodesToScore`, your
+change will have no or little effect, for a similar reason.
+
+If your cluster has several hundred Nodes or fewer, leave this configuration option
+at its default value. Making changes is unlikely to improve the
+scheduler's performance significantly.
+{{< /note >}}
+-->
+{{< note >}}
+当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，因为可调度节点太少，不足以停止调度器最初的过滤选择。
+
+同理，在小规模集群中，如果你将 `percentageOfNodesToScore` 设置为一个较低的值，则没有或者只有很小的效果。
+
+如果集群只有几百个节点或者更少，请保持这个配置的默认值。改变基本不会对调度器的性能有明显的提升。
+
+{{< /note >}}
+
+<!--
+An important detail to consider when setting this value is that when a smaller
 number of nodes in a cluster are checked for feasibility, some nodes are not
 sent to be scored for a given Pod. As a result, a Node which could possibly
 score a higher value for running the given Pod might not even be passed to the
-scoring phase. This would result in a less than ideal placement of the Pod. For
-this reason, the value should not be set to very low percentages. A general rule
-of thumb is to never set the value to anything lower than 10. Lower values
-should be used only when the scheduler's throughput is critical for your
-application and the score of nodes is not important. In other words, you prefer
-to run the Pod on any Node as long as it is feasible. 
--->
-值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，很多 node 都没有进入到打分阶段。这样就会造成一种后果，一个本来可以在打分阶段得分很高的 Node 甚至都不能进入打分阶段。由于这个原因，这个参数不应该被设置成一个很低的值。通常的做法是不会将这个参数的值设置的低于 10。很低的参数值一般在调度器的吞吐量很高且对 node 的打分不重要的情况下才使用。换句话说，只有当你更倾向于在可调度节点中任意选择一个 Node 来运行这个 Pod 时，才使用很低的参数设置。
+scoring phase. This would result in a less than ideal placement of the Pod.
 
-<!--
-If your cluster has several hundred Nodes or fewer, we do not recommend lowering
-the default value of this configuration option. It is unlikely to improve the
-scheduler's performance significantly.
+You should avoid setting `percentageOfNodesToScore` very low so that kube-scheduler
+does not make frequent, poor Pod placement decisions. Avoid setting the
+percentage to anything below 10%, unless the scheduler's throughput is critical
+for your application and the score of nodes is not important. In other words, you
+prefer to run the Pod on any Node as long as it is feasible.
 -->
-如果你的集群规模只有数百个节点或者更少，我们并不推荐你将这个参数设置得比默认值更低。因为这种情况下不太可能有效的提高调度器性能。
+值得注意的是，该参数设置后可能会导致只有集群中少数节点被选为可调度节点，很多 node 都没有进入到打分阶段。这样就会造成一种后果，一个本来可以在打分阶段得分很高的 Node 甚至都不能进入打分阶段。
+
+由于这个原因，这个参数不应该被设置成一个很低的值。通常的做法是不会将这个参数的值设置的低于 10。很低的参数值一般在调度器的吞吐量很高且对 node 的打分不重要的情况下才使用。换句话说，只有当你更倾向于在可调度节点中任意选择一个 Node 来运行这个 Pod 时，才使用很低的参数设置。
 
 <!--
 ### How the scheduler iterates over Nodes
