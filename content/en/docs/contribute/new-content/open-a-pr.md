@@ -100,7 +100,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 3. In a terminal window, clone your fork:
 
     ```bash
-    git clone git@github.com/<github_username>/website
+    git clone https://github.com/<github_username>/website
     ```
 
 4. Navigate to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
