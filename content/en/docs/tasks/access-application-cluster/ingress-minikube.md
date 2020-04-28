@@ -66,7 +66,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Create a Deployment using the following command:
 
     ```shell
-    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0 --port=8080
+    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
     ```
 
     Output:
@@ -168,8 +168,8 @@ The following file is an Ingress resource that sends traffic to your Service via
     {{< note >}}This can take a couple of minutes.{{< /note >}}
 
     ```shell
-    NAME              HOSTS              ADDRESS       PORTS     AGE
-    example-ingress   hello-world.info   172.17.0.15   80        38s
+    NAME              CLASS    HOSTS              ADDRESS     PORTS   AGE
+    example-ingress   <none>   hello-world.info   172.17.0.4  80      8s
     ```
 
 1. Add the following line to the bottom of the `/etc/hosts` file. 
@@ -177,7 +177,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     {{< note >}}If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.{{< /note >}}
 
     ```
-    172.17.0.15 hello-world.info
+    172.17.0.4 hello-world.info
     ```
 
     This sends requests from hello-world.info to Minikube.
@@ -203,7 +203,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Create a v2 Deployment using the following command:
 
     ```shell
-    kubectl run web2 --image=gcr.io/google-samples/hello-app:2.0 --port=8080
+    kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
     ```
     Output:
     
@@ -214,7 +214,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Expose the Deployment:
 
     ```shell
-    kubectl expose deployment web2 --target-port=8080 --type=NodePort
+    kubectl expose deployment web2 --port=8080 --type=NodePort
     ```
 
     Output: 
@@ -284,4 +284,3 @@ The following file is an Ingress resource that sends traffic to your Service via
 * Read more about [Services](/docs/concepts/services-networking/service/)
 
 {{% /capture %}}
-
