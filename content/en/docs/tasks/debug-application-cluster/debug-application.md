@@ -64,38 +64,8 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 
 #### My pod is crashing or otherwise unhealthy
 
-First, take a look at the logs of
-the current container:
-
-```shell
-kubectl logs ${POD_NAME} ${CONTAINER_NAME}
-```
-
-If your container has previously crashed, you can access the previous container's crash log with:
-
-```shell
-kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
-```
-
-Alternately, you can run commands inside that container with `exec`:
-
-```shell
-kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
-```
-
-{{< note >}}
-`-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
-{{< /note >}}
-
-As an example, to look at the logs from a running Cassandra pod, you might run
-
-```shell
-kubectl exec cassandra -- cat /var/log/cassandra/system.log
-```
-
-If none of these approaches work, you can find the host machine that the pod is running on and SSH into that host,
-but this should generally not be necessary given tools in the Kubernetes API. Therefore, if you find yourself needing to ssh into a machine, please file a
-feature request on GitHub describing your use case and why these tools are insufficient.
+Once your pod has been scheduled, the methods described in [Debug Running Pods](
+/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
 
 #### My pod is running but not doing what I told it to do
 

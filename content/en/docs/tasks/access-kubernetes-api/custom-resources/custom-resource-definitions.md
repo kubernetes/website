@@ -243,7 +243,7 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Specifying a structural schema
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 CustomResources traditionally store arbitrary JSON (next to `apiVersion`, `kind` and `metadata`, which is validated by the API server implicitly). With [OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
 
@@ -364,9 +364,9 @@ Structural schemas are a requirement for `apiextensions.k8s.io/v1`, and disables
 
 ### Pruning versus preserving unknown fields
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
-CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources like e.g. a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
+CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources such as a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
 
 {{< tabs name="CustomResourceDefinition_pruning" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
@@ -604,7 +604,7 @@ meaning all finalizers have been executed.
 
 ### Validation
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 Validation of custom objects is possible via
 [OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook). In `apiextensions.k8s.io/v1` schemas are required, in `apiextensions.k8s.io/v1beta1` they are optional.
@@ -781,7 +781,7 @@ crontab "my-new-cron-object" created
 
 ### Defaulting
 
-{{< feature-state state="stable" for_kubernetes_version="1.17" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 {{< note >}}
 To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
@@ -866,7 +866,7 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 
 ### Publish Validation Schema in OpenAPI v2
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 {{< note >}}
 OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. The
@@ -1051,7 +1051,7 @@ The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 
-{{< feature-state state="stable" for_kubernetes_version="1.16" >}}
+{{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
 Custom resources support `/status` and `/scale` subresources.
 

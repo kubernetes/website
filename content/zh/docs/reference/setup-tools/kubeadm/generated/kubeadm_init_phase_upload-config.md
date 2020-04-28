@@ -68,18 +68,3 @@ kubeadm init phase upload-config [flags]
   </tbody>
 </table>
 
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase upload-config all](kubeadm_init_phase_upload-config_all.md)	 - Upload all configuration to a config map
-* [kubeadm init phase upload-config kubeadm](kubeadm_init_phase_upload-config_kubeadm.md)	 - Upload the kubeadm ClusterConfiguration to a ConfigMap
-* [kubeadm init phase upload-config kubelet](kubeadm_init_phase_upload-config_kubelet.md)	 - Upload the kubelet component config to a ConfigMap
--->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm init phase upload-config all](kubeadm_init_phase_upload-config_all.md)	 - 将所有的配置上传到 ConfigMap 中
-* [kubeadm init phase upload-config kubeadm](kubeadm_init_phase_upload-config_kubeadm.md)	 - 将 kubeadm 的集群配置上传到 ConfigMap 中
-* [kubeadm init phase upload-config kubelet](kubeadm_init_phase_upload-config_kubelet.md)	 - 将 kubelet 的组件配置上传到 ConfigMap 中

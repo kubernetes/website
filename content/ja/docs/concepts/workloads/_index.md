@@ -1,5 +1,5 @@
 ---
-title: "Workloads"
+title: "ワークロード"
 weight: 50
 ---
 

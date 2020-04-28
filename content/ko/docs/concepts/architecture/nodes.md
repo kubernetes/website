@@ -69,7 +69,7 @@ kubectl describe node <insert-node-name-here>
 ]
 ```
 
-ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controller-manager/)에 인수로 넘겨지는 `pod-eviction-timeout` 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
+ready 컨디션의 상태가 `pod-eviction-timeout` ([kube-controller-manager](/docs/admin/kube-controller-manager/)에 전달된 인수) 보다 더 길게 `Unknown` 또는 `False`로 유지되는 경우, 노드 상에 모든 파드는 노드 컨트롤러에 의해 삭제되도록 스케줄 된다. 기본 축출 타임아웃 기간은 **5분** 이다. 노드에 접근이 불가할 때와 같은 경우, apiserver는 노드 상의 kubelet과 통신이 불가하다. apiserver와의 통신이 재개될 때까지 파드 삭제에 대한 결정은 kubelet에 전해질 수 없다. 그 사이, 삭제되도록 스케줄 되어진 파드는 분할된 노드 상에서 계속 동작할 수도 있다.
 
 1.5 이전의 쿠버네티스 버전에서는, 노드 컨트롤러가 apiserver로부터 접근 불가한 이러한 파드를 [강제 삭제](/ko/docs/concepts/workloads/pods/pod/#파드-강제-삭제)
 시킬 것이다. 그러나 1.5 이상에서는, 노드 컨트롤러가 클러스터 내 동작 중지된 것을 확신할 때까지는 파드를 
@@ -80,8 +80,8 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 노드 수명주기 컨트롤러는 자동으로 컨디션을 나타내는
 [테인트(taints)](/docs/concepts/configuration/taint-and-toleration/)를 생성한다.
-스케줄러가 파드를 노드에 할당할 때, 스케줄러는 파드가 극복(tolerate)하는 테인트가
-아닌 한, 노드 계정의 테인트를 고려 한다.
+스케줄러는 파드를 노드에 할당 할 때 노드의 테인트를 고려한다.
+또한 파드는 노드의 테인트를 극복(tolerate)할 수 있는 톨러레이션(toleration)을 가질 수 있다.
 
 ### 용량과 할당가능 {#capacity}
 
@@ -103,7 +103,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 
 ## 관리
 
-[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/docs/concepts/services-networking/service/)와 달리,
+[파드](/ko/docs/concepts/workloads/pods/pod/)와 [서비스](/ko/docs/concepts/services-networking/service/)와 달리,
 노드는 본래 쿠버네티스에 의해 생성되지 않는다. 구글 컴퓨트 엔진과 같은 클라우드 제공사업자에 의해 
 외부로부터 생성 되거나, 물리적 또는 가상 머신의 풀 내에서 존재한다. 
 그래서 쿠버네티스가 노드를 생성할 때, 
@@ -128,6 +128,7 @@ ready 컨디션의 상태가 [kube-controller-manager](/docs/admin/kube-controll
 `metadata.name` 필드를 근거로 상태 체크를 수행하여 노드의 유효성을 확인한다. 노드가 유효하면, 즉 
 모든 필요한 서비스가 동작 중이면, 파드를 동작시킬 자격이 된다. 그렇지 않으면, 
 유효하게 될때까지 어떠한 클러스터 활동에 대해서도 무시된다.
+노드 오브젝트의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 {{< note >}}
 쿠버네티스는 유효하지 않은 노드로부터 오브젝트를 보호하고 유효한 상태로 이르는지 확인하기 위해 지속적으로 체크한다. 
@@ -179,12 +180,12 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
   보다 훨씬 길다).
 - kubelet은 10초마다 리스 오브젝트를 생성하고 업데이트 한다(기본 업데이트 주기).
   리스 업데이트는 `NodeStatus` 업데이트와는
-  독립적으로 발생한다.
+  독립적으로 발생한다. 리스 업데이트가 실패하면 kubelet에 의해 재시도하며 7초로 제한된 지수 백오프를 200 밀리초에서 부터 시작한다.
 
 #### 안정성
 
 쿠버네티스 1.4에서, 대량의 노드들이 마스터 접근에 
-문제를 지닐 경우 (예를 들어 마스터에 네트워크 문제가 발생했기 때문에) 
+문제를 지닐 경우 (예를 들어 마스터에 네트워크 문제들이 발생했기 때문에) 
 더 개선된 문제 해결을 하도록 노드 컨트롤러의 로직을 업데이트 했다. 1.4를 시작으로, 
 노드 컨트롤러는 파드 축출에 대한 결정을 내릴 경우 클러스터 
 내 모든 노드를 살핀다.
@@ -210,7 +211,7 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 노드가 가용성 영역들에 걸쳐 퍼져 있는 주된 이유는 하나의 전체 영역이 
 장애가 발생할 경우 워크로드가 상태 양호한 영역으로 이전되어질 수 있도록 하기 위해서이다. 
 그러므로, 하나의 영역 내 모든 노드들이 상태가 불량하면 노드 컨트롤러는 
-정상 비율 `--node-eviction-rate`로 축출한다. 코너 케이스란 모든 영역이 
+`--node-eviction-rate` 의 정상 비율로 축출한다. 코너 케이스란 모든 영역이 
 완전히 상태불량 (즉 클러스터 내 양호한 노드가 없는 경우) 한 경우이다. 
 이러한 경우, 노드 컨트롤러는 마스터 연결에 문제가 있어 일부 연결이 
 복원될 때까지 모든 축출을 중지하는 것으로 여긴다.
@@ -271,6 +272,12 @@ DaemonSet 컨트롤러에 의해 생성된 파드는 쿠버네티스 스케줄�
 우회하고 노드 상에 스케줄 불가 속성을 고려하지 않는다. 심지어 리부트를 준비하는 동안
 애플리케이션을 유출시키는 중이라 할지라도 머신 상에 속한 데몬으로 여긴다.
 {{< /note >}}
+
+{{< caution >}}
+`kubectl cordon` 은 노드를 'unschedulable'로 표기하는데, 이는
+서비스 컨트롤러가 이전에 자격 있는 로드밸런서 노드 대상 목록에서 해당 노드를 제거하기에
+사실상 cordon 된 노드에서 들어오는 로드 밸런서 트래픽을 제거하는 부작용을 갖는다.
+{{< /caution >}}
 
 ### 노드 용량
 

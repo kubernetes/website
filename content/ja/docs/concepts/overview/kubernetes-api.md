@@ -10,7 +10,7 @@ card:
 
 {{% capture overview %}}
 
-全般的なAPIの規則は、[API規則ドキュメント](https://git.k8s.io/community/contributors/devel/api-conventions.md)に記載されています。
+全般的なAPIの規則は、[API規則ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)に記載されています。
 
 APIエンドポイント、リソースタイプ、そしてサンプルは[APIリファレンス](/docs/reference)に記載されています。
 
@@ -67,7 +67,7 @@ APIが、システムリソースと動作について明確かつ一貫した�
 
 APIとソフトウエアのバージョニングは、間接的にしか関連していないことに注意してください。[APIとリリースバージョニング提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)で、APIとソフトウェアのバージョニングの関連について記載しています。
 
-異なるバージョンのAPIは、異なるレベル（版）の安定性とサポートを持っています。それぞれのレベル（版）の基準は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)に詳細が記載されています。下記に簡潔にまとめます:
+異なるバージョンのAPIは、異なるレベル（版）の安定性とサポートを持っています。それぞれのレベル（版）の基準は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に詳細が記載されています。下記に簡潔にまとめます:
 
 - アルファレベル（版）:
   - バージョン名に`alpha`を含みます（例、`v1alpha1`）。

@@ -132,7 +132,7 @@ Create the PersistentVolume:
 
 配置文件指定了该卷位于集群节点上的 `/mnt/data` 目录。
 该配置还指定了 10 吉比特的卷大小和 `ReadWriteOnce` 的访问模式，这意味着该卷可以在单个节点上以读写方式挂载。
-它为 PersistentVolume 定义了 [StorageClass 名称](/docs/concepts/storage/persistent-volumes/#class) 为 `manual`，StorageClass 名称用来将 PersistentVolumeClaim 请求绑定到该 PersistentVolum。
+它为 PersistentVolume 定义了 [StorageClass 名称](/docs/concepts/storage/persistent-volumes/#class) 为 `manual`，StorageClass 名称用来将 PersistentVolumeClaim 请求绑定到该 PersistentVolume。
 
 创建 PersistentVolume：
 

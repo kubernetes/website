@@ -30,7 +30,7 @@ A node's status contains the following information:
 * [Capacity and Allocatable](#capacity)
 * [Info](#info)
 
-Node status and other details about a node can be displayed using below command:
+Node status and other details about a node can be displayed using the following command:
 ```shell
 kubectl describe node <insert-node-name-here>
 ```
@@ -72,7 +72,7 @@ The node condition is represented as a JSON object. For example, the following r
 ]
 ```
 
-If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout`, an argument is passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/) and all the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the apiserver is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
+If the Status of the Ready condition remains `Unknown` or `False` for longer than the `pod-eviction-timeout` (an argument passed to the [kube-controller-manager](/docs/admin/kube-controller-manager/)), all the Pods on the node are scheduled for deletion by the Node Controller. The default eviction timeout duration is **five minutes**. In some cases when the node is unreachable, the apiserver is unable to communicate with the kubelet on the node. The decision to delete the pods cannot be communicated to the kubelet until communication with the apiserver is re-established. In the meantime, the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 In versions of Kubernetes prior to 1.5, the node controller would [force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)
 these unreachable pods from the apiserver. However, in 1.5 and higher, the node controller does not force delete pods until it is
@@ -83,8 +83,8 @@ Kubernetes causes all the Pod objects running on the node to be deleted from the
 
 The node lifecycle controller automatically creates
 [taints](/docs/concepts/configuration/taint-and-toleration/) that represent conditions.
-When the scheduler is assigning a Pod to a Node, the scheduler takes the Node's taints
-into account, except for any taints that the Pod tolerates.
+The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
+Pods can also have tolerations which let them tolerate a Node's taints.
 
 ### Capacity and Allocatable {#capacity}
 
@@ -131,6 +131,8 @@ Kubernetes creates a node object internally (the representation), and
 validates the node by health checking based on the `metadata.name` field. If the node is valid -- that is, if all necessary
 services are running -- it is eligible to run a pod. Otherwise, it is
 ignored for any cluster activity until it becomes valid.
+The name of a Node object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< note >}}
 Kubernetes keeps the object for the invalid node and keeps checking to see whether it becomes valid.
@@ -157,7 +159,7 @@ controller deletes the node from its list of nodes.
 The third is monitoring the nodes' health. The node controller is
 responsible for updating the NodeReady condition of NodeStatus to
 ConditionUnknown when a node becomes unreachable (i.e. the node controller stops
-receiving heartbeats for some reason, e.g. due to the node being down), and then later evicting
+receiving heartbeats for some reason, for example due to the node being down), and then later evicting
 all the pods from the node (using graceful termination) if the node continues
 to be unreachable. (The default timeouts are 40s to start reporting
 ConditionUnknown and 5m after that to start evicting pods.) The node controller
@@ -182,13 +184,13 @@ a Lease object.
   timeout for unreachable nodes).
 - The kubelet creates and then updates its Lease object every 10 seconds
   (the default update interval). Lease updates occur independently from the
-  `NodeStatus` updates.
+  `NodeStatus` updates. If the Lease update fails, the kubelet retries with exponential backoff starting at 200 milliseconds and capped at 7 seconds.
 
 #### Reliability
 
 In Kubernetes 1.4, we updated the logic of the node controller to better handle
 cases when a large number of nodes have problems with reaching the master
-(e.g. because the master has networking problem). Starting with 1.4, the node
+(e.g. because the master has networking problems). Starting with 1.4, the node
 controller looks at the state of all nodes in the cluster when making a
 decision about pod eviction.
 
@@ -212,9 +214,9 @@ there is only one availability zone (the whole cluster).
 
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
-Therefore, if all nodes in a zone are unhealthy then node controller evicts at
-the normal rate `--node-eviction-rate`.  The corner case is when all zones are
-completely unhealthy (i.e. there are no healthy nodes in the cluster). In such
+Therefore, if all nodes in a zone are unhealthy then the node controller evicts at
+the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+completely unhealthy (i.e. there are no healthy nodes in the cluster). In such a
 case, the node controller assumes that there's some problem with master
 connectivity and stops all evictions until some connectivity is restored.
 
@@ -274,6 +276,12 @@ Pods created by a DaemonSet controller bypass the Kubernetes scheduler
 and do not respect the unschedulable attribute on a node. This assumes that daemons belong on
 the machine even if it is being drained of applications while it prepares for a reboot.
 {{< /note >}}
+
+{{< caution >}}
+`kubectl cordon` marks a node as 'unschedulable', which has the side effect of the service
+controller removing the node from any LoadBalancer node target lists it was previously 
+eligible for, effectively removing incoming load balancer traffic from the cordoned node(s).
+{{< /caution >}}
 
 ### Node capacity
 

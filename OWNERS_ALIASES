@@ -30,7 +30,6 @@ aliases:
     - onlydole
     - parispittman
     - vonguard
-    - onlydole
   sig-docs-de-owners: # Admins for German content
     - bene2k1
     - mkorbi
@@ -40,26 +39,40 @@ aliases:
     - mkorbi
     - rlenferink
   sig-docs-en-owners: # Admins for English content
-    - bradamant3
     - bradtopol
     - daminisatya
-    - gochist
     - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
     - makoscafee
-    - rajakavitha1
-    - ryanmcginnis
-    - simplytunde
+    - onlydole
+    - Rajakavitha1
+    - savitharaghunathan
+    - sftim
     - steveperry-53
+    - tengqm
+    - vineethreddy02
     - xiangpengzhao
     - zacharysarah
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
+    - bradtopol
+    - daminisatya
+    - jaredbhatti
+    - jimangel
+    - kbarnard10
+    - kbhawkey
+    - makoscafee
+    - onlydole
     - rajakavitha1
+    - rajeshdeshpande02
     - sftim
+    - steveperry-53
     - tengqm
+    - xiangpengzhao
+    - zacharysarah
+    - zparnold
   sig-docs-es-owners: # Admins for Spanish content
     - raelga
     - alexbrand
@@ -80,6 +93,8 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+    - anthonydahanne
+    - feloy
   sig-docs-fr-reviews: # PR reviews for French content
     - remyleone
     - perriea
@@ -92,6 +107,8 @@ aliases:
     - jygastaud
     - awkif
     - oussemos
+    - anthonydahanne
+    - feloy
   sig-docs-hi-owners: # Admins for Hindi content
     - avidLearnerInProgress
     - daminisatya
@@ -112,12 +129,10 @@ aliases:
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
     - mattiaperi
     - micheleberardi
-    - rlenferink
   sig-docs-ja-owners: # Admins for Japanese content
     - cstoku
     - inductor
@@ -134,6 +149,7 @@ aliases:
     - gochist
     - ianychoi
     - seokho-son
+    - ysyukr
     - zacharysarah
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
@@ -141,14 +157,13 @@ aliases:
     - ianychoi
     - seokho-son
     - ysyukr
-  sig-docs-maintainers: # Website maintainers
-    - bradamant3
+  sig-docs-leads: # Website chairs and tech leads
     - jimangel
     - kbarnard10
-    - pwittrock
-    - steveperry-53
+    - kbhawkey
+    - onlydole
+    - sftim
     - zacharysarah
-    - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
     - chenopis
     - chenrui333
@@ -158,6 +173,7 @@ aliases:
     - lichuqiang
     - markthink
     - SataQiu
+    - tengqm
     - xiangpengzhao
     - xichengliudui
     - zacharysarah
@@ -167,6 +183,7 @@ aliases:
     - idealhack
     - markthink
     - SataQiu
+    - tanjunchen
     - tengqm
     - xiangpengzhao
     - xichengliudui
@@ -176,10 +193,12 @@ aliases:
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-pt-reviews: # PR reviews for Portugese content
     - femrtnz
     - jcjesus
     - devlware
+    - jhonmike
   sig-docs-vi-owners: # Admins for Vietnamese content
     - huynguyennovem
     - ngtuna
@@ -198,3 +217,20 @@ aliases:
     - aisonaku
     - potapy4
     - dianaabv
+  sig-docs-pl-owners: # Admins for Polish content
+    - mfilocha
+    - nvtkaszpir
+  sig-docs-pl-reviews: # PR reviews for Polish content
+    - mfilocha
+    - nvtkaszpir
+    - kpucynski
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - butuzov
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - anastyakulyk
+    - butuzov
+    - idvoretskyi
+    - MaxymVlasov
+    - Potapy4

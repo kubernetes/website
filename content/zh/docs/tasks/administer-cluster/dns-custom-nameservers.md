@@ -183,7 +183,7 @@ Corefile 配置包括以下 CoreDNS 的 [插件](https://coredns.io/plugins/)：
 * [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile. After you edit the ConfigMap configuration, allow two minutes for your changes to take effect.
 * [loadbalance](https://coredns.io/plugins/loadbalance): This is a round-robin DNS loadbalancer that randomizes the order of A, AAAA, and MX records in the answer. 
 -->
-* [prometheus](https://coredns.io/plugins/prometheus/)：CoreDNS的度量标准以[Prometheus]（https://prometheus.io/）格式在 http://localhost:9153/metrics 上提供。
+* [prometheus](https://coredns.io/plugins/prometheus/)：CoreDNS的度量标准以[Prometheus](https://prometheus.io/)格式在 http://localhost:9153/metrics 上提供。
 * [proxy](https://coredns.io/plugins/proxy/): 不在 Kubernetes 集群域内的任何查询都将转发到预定义的解析器 (/etc/resolv.conf).
 * [cache](https://coredns.io/plugins/cache/)：这将启用前端缓存。
 * [loop](https://coredns.io/plugins/loop/)：检测到简单的转发循环，如果发现死循环，则中止 CoreDNS 进程。

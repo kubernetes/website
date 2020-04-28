@@ -39,7 +39,7 @@ For example:
 ...
 # check what is updated in the upstream 
 git diff {{ l_commit }} {{ r_commit }} -- {{ files_to_be_modified.0.filepath }}
-# apply changes to content/ko
+# apply changes to {{ l10n_lang_path }}
 vi {{ files_to_be_modified.0.filepath | replace(src_lang_path, l10n_lang_path) }}
 ...
 # commit and push

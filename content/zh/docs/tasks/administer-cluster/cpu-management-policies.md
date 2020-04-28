@@ -7,7 +7,7 @@ reviewers:
 content_template: templates/task
 ---
 <!--
----
+
 title: Control CPU Management Policies on the Node
 reviewers:
 - sjenning
@@ -18,7 +18,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
@@ -153,7 +153,10 @@ CPU 管理器不支持运行时下线和上线 CPUs。此外，如果节点上�
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
-`--system-reserved` options. CPUs reserved by these options are taken, in
+`--system-reserved` options. From 1.17, the CPU reservation list can be specified
+explicitly by kubelet `--reserved-cpus` option. The explicit CPU list specified by
+`--reserved-cpus` takes precedence over the CPU reservation specified by
+`--kube-reserved` and `--system-reserved`. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical
 core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
@@ -162,20 +165,21 @@ both part of a `Guaranteed` pod and have integer CPU `requests` are assigned
 exclusive CPUs.
 --->
 该策略管理一个共享 CPU 资源池，最初，该资源池包含节点上所有的 CPU 资源。可用
-的独占性 CPU 资源数量等于节点的 CPU 总量减去通过 `--kube-reserved` 或 `--system-reserved` 参数保留的 CPU 。通过这些参数预留的 CPU 是以整数方式，按物理内
+的独占性 CPU 资源数量等于节点的 CPU 总量减去通过 `--kube-reserved` 或 `--system-reserved` 参数保留的 CPU 。从1.17版本开始，CPU保留列表可以通过 kublet 的 '--reserved-cpus' 参数显式地设置。
+通过 '--reserved-cpus' 指定的显式CPU列表优先于使用 '--kube-reserved' 和 '--system-reserved' 参数指定的保留CPU。 通过这些参数预留的 CPU 是以整数方式，按物理内
 核 ID 升序从初始共享池获取的。 共享池是 `BestEffort` 和 `Burstable` pod 运行
 的 CPU 集合。`Guaranteed` pod 中的容器，如果声明了非整数值的 CPU `requests` ，也将运行在共享池的 CPU 上。只有 `Guaranteed` pod 中，指定了整数型 CPU `requests` 的容器，才会被分配独占 CPU 资源。
 
 <!--
 {{< note >}}
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved` when the static
+using either `--kube-reserved` and/or `--system-reserved`  or `--reserved-cpus` when the static
 policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 {{< /note >}}
 --->
 {{< note >}}
-当启用 static 策略时，要求使用 `--kube-reserved` 和/或 `--system-reserved` 来保证预留的 CPU 值大于零。 这是因为零预留 CPU 值可能使得共享池变空。
+当启用 static 策略时，要求使用 `--kube-reserved` 和/或 `--system-reserved` 或 `--reserved-cpus` 来保证预留的 CPU 值大于零。 这是因为零预留 CPU 值可能使得共享池变空。
 {{< /note >}}
 
 <!--

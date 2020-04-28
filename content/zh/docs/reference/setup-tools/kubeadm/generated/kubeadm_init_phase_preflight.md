@@ -108,15 +108,3 @@ kubeadm init phase preflight [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
--->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-

@@ -64,18 +64,3 @@ Use this command to invoke single phase of the node workflow
 
   </tbody>
 </table>
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - Upgrade commands for a node in the cluster
-* [kubeadm upgrade node phase control-plane](kubeadm_upgrade_node_phase_control-plane.md)	 - Upgrade the control plane instance deployed on this node, if any
-* [kubeadm upgrade node phase kubelet-config](kubeadm_upgrade_node_phase_kubelet-config.md)	 - Upgrade the kubelet configuration for this node
--->
-* [kubeadm upgrade node](kubeadm_upgrade_node.md)	 - 集群中某个节点的升级命令
-* [kubeadm upgrade node phase control-plane](kubeadm_upgrade_node_phase_control-plane.md)	 - 升级部署在此节点上的控制平面实例（如果有）
-* [kubeadm upgrade node phase kubelet-config](kubeadm_upgrade_node_phase_kubelet-config.md)	 - 升级此节点的 kubelet 配置

@@ -34,13 +34,13 @@ Kompose is released via GitHub on a three-week cycle, you can see all current re
 
 ```sh
 # Linux
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-linux-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-linux-amd64 -o kompose
 
 # macOS
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-darwin-amd64 -o kompose
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-darwin-amd64 -o kompose
 
 # Windows
-curl -L https://github.com/kubernetes/kompose/releases/download/v1.16.0/kompose-windows-amd64.exe -o kompose.exe
+curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-windows-amd64.exe -o kompose.exe
 
 chmod +x kompose
 sudo mv ./kompose /usr/local/bin/kompose
@@ -580,7 +580,7 @@ If you want to create normal pods without controllers you can use `restart` cons
 The controller object could be `deployment` or `replicationcontroller`, etc.
 {{< /note >}}
 
-For e.g. `pival` service will become pod down here. This container calculated value of `pi`.
+For example, the `pival` service will become pod down here. This container calculated value of `pi`.
 
 ```yaml
 version: '2'

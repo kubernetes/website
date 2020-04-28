@@ -139,12 +139,3 @@ kubeadm upgrade diff [version] [flags]
   <td></td><td style="line-height: 130%; word-wrap: break-word;">[EXPERIMENTAL] “真实”主机根文件系统的路径。</td>
 </tr>
 
-<!--
-SEE ALSO
--->
-参考
-<!--
-- [kubeadm upgrade](https://github.com/kubernetes/website/blob/release-1.16/content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade.md) - Upgrade your cluster smoothly to a newer version with this command
--->
-
-- [kubeadm upgrade](https://github.com/kubernetes/website/blob/release-1.16/content/en/docs/reference/setup-tools/kubeadm/generated/kubeadm_upgrade.md) - 使用此命令将集群平滑升级到新版本

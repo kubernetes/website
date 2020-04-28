@@ -1,5 +1,5 @@
 DOCKER       = docker
-HUGO_VERSION = 0.59.1
+HUGO_VERSION = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
 NODE_BIN     = node_modules/.bin
@@ -18,15 +18,18 @@ build: ## Build site with production settings and put deliverables in ./public
 build-preview: ## Build site with drafts and future posts enabled
 	hugo --buildDrafts --buildFuture
 
+deploy-preview: ## Deploy preview site via netlify
+	hugo --enableGitInfo --buildFuture -b $(DEPLOY_PRIME_URL)
+
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
 
 check-headers-file:
 	scripts/check-headers-file.sh
 
-production-build: check-hugo-versions build check-headers-file ## Build the production site and ensure that noindex headers aren't added
+production-build: build check-headers-file ## Build the production site and ensure that noindex headers aren't added
 
-non-production-build: check-hugo-versions ## Build the non-production site, which adds noindex headers to prevent indexing
+non-production-build: ## Build the non-production site, which adds noindex headers to prevent indexing
 	hugo --enableGitInfo
 
 serve: ## Boot the development server.
@@ -44,6 +47,3 @@ docker-serve:
 test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
-
-check-hugo-versions:
-	scripts/hugo-version-check.sh $(HUGO_VERSION)

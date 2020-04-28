@@ -120,10 +120,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
 다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
@@ -243,8 +243,11 @@ myapp-pod   1/1       Running   0          9m
 
 ## 자세한 동작
 
-파드 시동 시, 네트워크와 볼륨이 초기화되고 나면, 초기화 컨테이너가
-순서대로 시작된다. 각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
+파드 시작 시에 kubelet은 네트워크와 스토리지가 준비될 때까지
+초기화 컨테이너의 실행을 지연시킨다. 그런 다음 kubelet은 파드 사양에
+나와있는 순서대로 파드의 초기화 컨테이너를 실행한다.
+
+각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
 종료되어야 한다. 만약 런타임 문제나 실패 상태로 종료되는 문제로인하여 초기화 컨테이너의 시작이
 실패된다면, 초기화 컨테이너는 파드의 `restartPolicy`에 따라서 재시도 된다. 다만,
 파드의 `restartPolicy`이 항상(Always)으로 설정된 경우, 해당 초기화 컨테이너는

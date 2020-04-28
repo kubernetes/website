@@ -14,7 +14,7 @@ following releases.
 ## kubeadm upgrade node phase {#cmd-node-phase}
 -->
 
-## kubeadm 升级节点阶段 {#cmd-node-phase}
+## kubeadm upgrade node phase {#cmd-node-phase}
 
 <!--
 Using this phase you can choose to execute the separate steps of the upgrade of

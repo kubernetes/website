@@ -102,27 +102,6 @@ toc:
 
   - docs/admin/node-conformance.md
 
-- title: User Journeys
-  landing_page: /docs/home/
-  section:
-
-  - title: Application Developer
-    section:
-    - docs/user-journeys/users/application-developer/foundational.md
-    - docs/user-journeys/users/application-developer/intermediate.md
-    - docs/user-journeys/users/application-developer/advanced.md
-  - title: Cluster Operator
-    section:
-    - docs/user-journeys/users/cluster-operator/foundational.md
-    - docs/user-journeys/users/cluster-operator/intermediate.md
-
-  - title: Docs Contributor
-    path: /docs/home/?path=contributors&persona=docs-contributor&level=foundational
-  - title: Code Contributor
-    path: /docs/home/?path=contributors&persona=code-contributor&level=foundational
-  - title: Community Contributor
-    path: /docs/home/?path=contributors&persona=community-contributor&level=foundational
-
 - title: Installing Addons
   path: /docs/concepts/cluster-administration/addons/
 

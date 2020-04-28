@@ -154,16 +154,3 @@ kubeadm config images pull [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO
--->
-查看其它
-
-<!-- 
-* [kubeadm config images](kubeadm_config_images.md)	 - Interact with container images used by kubeadm 
--->
-* [kubeadm config images](kubeadm_config_images.md)	 - 与 kubeadm 使用的容器镜像进行交互
-

@@ -44,18 +44,21 @@ ip-masq-agent 配置 iptables 规则以隐藏位于集群节点 IP 地址后面�
 -->
 *   **NAT (网络地址解析)**
     是一种通过修改 IP 地址头中的源和/或目标地址信息将一个 IP 地址重新映射到另一个 IP 地址的方法。通常由执行 IP 路由的设备执行。
+
 <!--
 *   **Masquerading**
     A form of NAT that is typically used to perform a many to one address translation, where multiple source IP addresses are masked behind a single address, which is typically the device doing the IP routing. In Kubernetes this is the Node's IP address.
 -->    
 *   **伪装**
     NAT 的一种形式，通常用于执行多对一地址转换，其中多个源 IP 地址被隐藏在单个地址后面，该地址通常是执行 IP 路由的设备。在 Kubernetes 中，这是节点的 IP 地址。
+
 <!--
 *   **CIDR (Classless Inter-Domain Routing)**
     Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes. CIDR introduced a new method of representation for IP addresses, now commonly known as **CIDR notation**, in which an address or routing prefix is written with a suffix indicating the number of bits of the prefix, such as 192.168.2.0/24.
 -->
 *   **CIDR (无类别域间路由)**
     基于可变长度子网掩码，允许指定任意长度的前缀。CIDR 引入了一种新的 IP 地址表示方法，现在通常称为**CIDR表示法**，其中地址或路由前缀后添加一个后缀，用来表示前缀的位数，例如 192.168.2.0/24。
+
 <!--
 *   **Link Local**
     A link-local address is a network address that is valid only for communications within the network segment or the broadcast domain that the host is connected to. Link-local addresses for IPv4 are defined in the address block 169.254.0.0/16 in CIDR notation.
@@ -79,10 +82,12 @@ The agent configuration file must be written in YAML or JSON syntax, and may con
 *   **nonMasqueradeCIDRs:** A list of strings in [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation that specify the non-masquerade ranges.
 -->
 *   **nonMasqueradeCIDRs:** [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1) 表示法中的字符串列表，用于指定不需伪装的地址范围。
+
 <!--
 *   **masqLinkLocal:** A Boolean (true / false) which indicates whether to masquerade traffic to the link local prefix 169.254.0.0/16. False by default.
 -->
 *   **masqLinkLocal:** 布尔值 (true / false)，表示是否将流量伪装到本地链路前缀169.254.0.0/16。 默认为 false。
+
 <!--
 *   **resyncInterval:** An interval at which the agent attempts to reload config from disk. e.g. '30s' where 's' is seconds, 'ms' is milliseconds etc...
 -->

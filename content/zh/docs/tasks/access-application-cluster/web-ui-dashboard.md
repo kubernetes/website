@@ -56,7 +56,7 @@ The Dashboard UI is not deployed by default. To deploy it, run the following com
 默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta4/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 ```
 
 <!--
@@ -176,7 +176,7 @@ The deploy wizard expects that you provide the following information:
 <!--
 - **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
  -->
-- **服务**（可选）：对于部分应用（比如前端），您可能想对外暴露一个 [Service](/docs/concepts/services-networking/service/) ，这个 Service（外部 Service）可能用的是集群之外的公网 IP 地址。对于外部 Service 的情况，需要开放一个或者多个端口来满足。更多信息请参考 [这里](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/。
+- **服务**（可选）：对于部分应用（比如前端），您可能想对外暴露一个 [Service](/docs/concepts/services-networking/service/) ，这个 Service（外部 Service）可能用的是集群之外的公网 IP 地址。对于外部 Service 的情况，需要开放一个或者多个端口来满足。更多信息请参考 [这里](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/)。
 
 <!--
   Other Services that are only visible from inside the cluster are called internal Services.

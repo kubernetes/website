@@ -26,7 +26,7 @@ card:
 대시보드 UI는 기본으로 배포되지 않는다. 배포하려면 다음 커맨드를 동작한다.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 ```
 
 ## 대시보드 UI 접근
@@ -69,17 +69,17 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
 배포 마법사는 다음 정보를 제공한다.
 
-- **앱 이름** (필수): 애플리케이션 이름. [레이블](/docs/concepts/overview/working-with-objects/labels/) 이름은 배포할 모든 디플로이먼트와 서비스(Service)에 추가되어야 한다.
+- **앱 이름** (필수): 애플리케이션 이름. [레이블](/ko/docs/concepts/overview/working-with-objects/labels/) 이름은 배포할 모든 디플로이먼트와 서비스(Service)에 추가되어야 한다.
 
   애플리케이션 이름은 선택된 쿠버네티스 [네임스페이스](/docs/tasks/administer-cluster/namespaces/) 안에서 유일해야 한다. 소문자로 시작해야하며, 소문자 또는 숫자로 끝나고, 소문자, 숫자 및 대쉬(-)만을 포함해야한다. 24 문자만을 제한한다. 처음과 끝의 스페이스는 무시된다.
 
-- **컨테이너 이미지** (필수): 레지스트리에 올라간 퍼블릭 도커 [컨테이너 이미지](/docs/concepts/containers/images/) 또는 프라이빗 이미지(대체로 Google Container Registry 또는 도커 허브에 올라간)의 URL. 컨테이너 이미지 사양은 콜론으로 끝난다.
+- **컨테이너 이미지** (필수): 레지스트리에 올라간 퍼블릭 도커 [컨테이너 이미지](/ko/docs/concepts/containers/images/) 또는 프라이빗 이미지(대체로 Google Container Registry 또는 도커 허브에 올라간)의 URL. 컨테이너 이미지 사양은 콜론으로 끝난다.
 
 - **파드의 수** (필수): 배포하고 싶은 애플리케이션의 원하는 목표 파드 개수. 값은 양의 정수만 허용됩니다.
 
-  클러스터에 의도한 파드의 수를 유지하기 위해서 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)가 생성될 것이다.
+  클러스터에 의도한 파드의 수를 유지하기 위해서 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)가 생성될 것이다.
 
-- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다. 외부 서비스들을 위해, 한개 또는 여러 개의 포트들을 열어 둘 필요가 있다. [이 곳](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/) 내용을 참고한다.
+- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/ko/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다. 외부 서비스들을 위해, 한개 또는 여러 개의 포트들을 열어 둘 필요가 있다. [이 곳](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/) 내용을 참고한다.
 
   클러스터 내부에서만 보고 싶은 어떤 서비스(Serivce)들이 있을 것인다. 이를 내부 서비스라고 한다.
 
@@ -87,9 +87,9 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
 만약 필요하다면, 더 많은 세팅을 지정할 수 있는 **자세한 옵션 보기** 섹션에서 확장할 수 있다.
 
-- **설명**: 입력하는 텍스트값은 디플로이먼트에 [어노테이션](/docs/concepts/overview/working-with-objects/annotations/) 으로 추가될 것이고, 애플리케이션의 세부사항에 표시될 것이다.
+- **설명**: 입력하는 텍스트값은 디플로이먼트에 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/) 으로 추가될 것이고, 애플리케이션의 세부사항에 표시될 것이다.
 
-- **레이블**: 애플리케이션에 사용되는 기본적인 [레이블](/docs/concepts/overview/working-with-objects/labels/)은 애플리케이션 이름과 버전이다. 릴리스, 환경, 티어, 파티션, 그리고 릴리스 트랙과 같은 레이블을 디플로이먼트, 서비스(Service), 그리고 파드를 생성할 때 추가적으로 정의할 수 있다.
+- **레이블**: 애플리케이션에 사용되는 기본적인 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)은 애플리케이션 이름과 버전이다. 릴리스, 환경, 티어, 파티션, 그리고 릴리스 트랙과 같은 레이블을 디플로이먼트, 서비스(Service), 그리고 파드를 생성할 때 추가적으로 정의할 수 있다.
 
   예를 들면:
 
@@ -109,7 +109,7 @@ track=stable
 
 - **이미지 풀(Pull) 시크릿**: 특정 도커 컨테이너 이미지가 프라이빗한 경우, [풀(Pull) 시크릿](/docs/concepts/configuration/secret/) 증명을 요구한다.
 
-  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
+  대시보드는 가능한 모든 시크릿을 드롭다운 리스트로 제공하며, 새로운 시크릿을 생성 할 수 있도록 한다. 시크릿 이름은 예를 들어 `new.image-pull.secret` 과 같이 DNS 도메인 이름 구문으로 따르기로 한다. 시크릿 내용은 base64 인코딩 방식이며, [`.dockercfg`](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 파일로 정의된다. 시크릿 이름은 최대 253 문자를 포함할 수 있다.
 
   이미지 풀(Pull) 시크릿의 생성이 성공한 경우, 기본으로 선택된다. 만약 생성에 실패하면, 시크릿은 허용되지 않는다.
 

@@ -62,14 +62,19 @@ It defines an index.php page which performs some CPU intensive computations:
 ?>
 ```
 
-First, we will start a deployment running the image and expose it as a service:
+First, we will start a deployment running the image and expose it as a service
+using the following configuration:
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+Run the following command:
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Create Horizontal Pod Autoscaler
@@ -80,7 +85,7 @@ The following command will create a Horizontal Pod Autoscaler that maintains bet
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by `kubectl run`), this means average CPU usage of 100 milli-cores).
 See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 
 ```shell
@@ -114,7 +119,7 @@ kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/
 
 Hit enter for command prompt
 
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache; done
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:
@@ -198,7 +203,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -234,7 +238,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
+requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -291,7 +295,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -364,8 +367,8 @@ label, you can specify the following metric block to scale only on GET requests:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline

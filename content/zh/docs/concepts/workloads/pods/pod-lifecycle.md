@@ -1,8 +1,5 @@
 ---
 title: Pod 的生命周期
-redirect_from:
-- "/docs/user-guide/pod-states/"
-- "/docs/user-guide/pod-states.html"
 content_template: templates/concept
 ---
 
@@ -51,10 +48,11 @@ Pod 有一个 PodStatus 对象，其中包含一个 [PodCondition](/docs/resourc
 - 失败：容器未通过诊断。
 - 未知：诊断失败，因此不会采取任何行动。
 
-Kubelet 可以选择是否执行在容器上运行的两种探针执行和做出反应：
+Kubelet 可以选择是否执行在容器上运行的三种探针执行和做出反应：
 
 - `livenessProbe`：指示容器是否正在运行。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其 [重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 的影响。如果容器不提供存活探针，则默认状态为 `Success`。
 - `readinessProbe`：指示容器是否准备好服务请求。如果就绪探测失败，端点控制器将从与 Pod 匹配的所有 Service 的端点中删除该 Pod 的 IP 地址。初始延迟之前的就绪状态默认为 `Failure`。如果容器不提供就绪探针，则默认状态为 `Success`。
+- `startupProbe`: 指示容器中的应用是否已经启动。如果提供了启动探测(startup probe)，则禁用所有其他探测，直到它成功为止。如果启动探测失败，kubelet 将杀死容器，容器服从其重启策略进行重启。如果容器没有提供启动探测，则默认状态为成功`Success`。
 
 ### 该什么时候使用存活（liveness）和就绪（readiness）探针?
 

@@ -116,7 +116,7 @@ Events:
 
 {{% capture whatsnext %}}
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables/).
+* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 

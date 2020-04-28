@@ -1,11 +1,4 @@
 ---
-reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
 title: StatefulSets
 content_template: templates/concept
 weight: 40
@@ -34,13 +27,6 @@ StatefulSet is the workload API object used to manage stateful applications.
 
 StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 
-{{< note >}}
-
-<!--**Note:** StatefulSets are stable (GA) in 1.9.-->
-**注意** StatefulSets 是在 1.9 版本中正式发布的。
-
-{{< /note >}}
-
 {{< glossary_definition term_id="statefulset" length="all" >}}
 {{% /capture %}}
 
@@ -48,15 +34,27 @@ StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 
 <!--
 ## Using StatefulSets
+-->
+## 使用 StatefulSets
 
+<!--
 StatefulSets are valuable for applications that require one or more of the
 following.
+-->
+StatefulSets 对于需要满足以下一个或多个需求的应用程序很有价值：
 
+<!--
 * Stable, unique network identifiers.
 * Stable, persistent storage.
 * Ordered, graceful deployment and scaling.
 * Ordered, automated rolling updates.
+-->
+* 稳定的、唯一的网络标识符。
+* 稳定的、持久的存储。
+* 有序的、优雅的部署和缩放。
+* 有序的、自动的滚动更新。
 
+<!--
 In the above, stable is synonymous with persistence across Pod (re)scheduling.
 If an application doesn't require any stable identifiers or ordered deployment,
 deletion, or scaling, you should deploy your application using a workload object
@@ -64,21 +62,14 @@ that provides a set of stateless replicas.
 [Deployment](/docs/concepts/workloads/controllers/deployment/) or
 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) may be better suited to your stateless needs.
 -->
-
-## 使用 StatefulSets
-
-StatefulSets 对于需要满足以下一个或多个需求的应用程序很有价值：
-
-* 稳定的、唯一的网络标识符。
-* 稳定的、持久的存储。
-* 有序的、优雅的部署和缩放。
-* 有序的、自动的滚动更新。
-
-在上面，稳定意味着 Pod 调度或重调度的整个过程是有持久性的。如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用由一组无状态的副本控制器提供的工作负载来部署应用程序，比如 [Deployment](/docs/concepts/workloads/controllers/deployment/) 或者 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 可能更适用于您的无状态需要。
+在上面，稳定意味着 Pod 调度或重调度的整个过程是有持久性的。如果应用程序不需要任何稳定的标识符或有序的部署、删除或伸缩，则应该使用由一组无状态的副本控制器提供的工作负载来部署应用程序，比如 [Deployment](/docs/concepts/workloads/controllers/deployment/) 或者 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 可能更适用于您的无状态应用部署需要。
 
 <!--
 ## Limitations
+-->
+## 限制
 
+<!--
 * The storage for a given Pod must either be provisioned by a [PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) based on the requested `storage class`, or pre-provisioned by an admin.
 * Deleting and/or scaling a StatefulSet down will *not* delete the volumes associated with the StatefulSet. This is done to ensure data safety, which is generally more valuable than an automatic purge of all related StatefulSet resources.
 * StatefulSets currently require a [Headless Service](/docs/concepts/services-networking/service/#headless-services) to be responsible for the network identity of the Pods. You are responsible for creating this Service.
@@ -87,13 +78,9 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
   [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
   it's possible to get into a broken state that requires
   [manual intervention to repair](#forced-rollback).
-
 -->
-
-## 限制
-
 * 给定 Pod 的存储必须由 [PersistentVolume 驱动](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) 基于所请求的 `storage class` 来提供，或者由管理员预先提供。
-* 删除和／或收缩 StatefulSet 并*不会*删除它关联的存储卷。这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
+* 删除或者收缩 StatefulSet 并*不会*删除它关联的存储卷。这样做是为了保证数据安全，它通常比自动清除 StatefulSet 所有相关的资源更有价值。
 * StatefulSet 当前需要 [headless 服务](/docs/concepts/services-networking/service/#headless-services) 来负责 Pod 的网络标识。您需要负责创建此服务。
 * 当删除 StatefulSets 时，StatefulSet 不提供任何终止 Pod 的保证。为了实现 StatefulSet 中的 Pod 可以有序和优雅的终止，可以在删除之前将 StatefulSet 缩放为 0。
 * 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 时使用 [滚动更新](#rolling-updates)，可能进入需要 [人工干预](#forced-rollback) 才能修复的损坏状态。
@@ -101,19 +88,10 @@ StatefulSets 对于需要满足以下一个或多个需求的应用程序很有�
 <!--
 ## Components
 The example below demonstrates the components of a StatefulSet.
-
-* A Headless Service, named nginx, is used to control the network domain.
-* The StatefulSet, named web, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
-* The volumeClaimTemplates will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
 -->
-
 ## 组件
+
 下面的示例演示了 StatefulSet 的组件。
-
-* 名为 nginx 的无头服务用来控制网络域。
-* 名为 web 的 StatefulSet 有一个 Spec，它表明将在单个 Pod 中启动 nginx 容器的 3 个副本。
-* volumeClaimTemplates 将通过 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 驱动提供的 PersistentVolume 来提供稳定的存储。
-
 
 ```yaml
 apiVersion: v1
@@ -167,38 +145,53 @@ spec:
 ```
 
 <!--
+* A Headless Service, named `nginx`, is used to control the network domain.
+* The StatefulSet, named `web`, has a Spec that indicates that 3 replicas of the nginx container will be launched in unique Pods.
+* The `volumeClaimTemplates` will provide stable storage using [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) provisioned by a PersistentVolume Provisioner.
+-->
+* 名为 `nginx` 的 Headless Service 用来控制网络域名。
+* 名为 `web` 的 StatefulSet 有一个 Spec，它表明将在独立的 3 个 Pod 副本中启动 nginx 容器。
+* `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+
+<!--
 ## Pod Selector
+-->
+## Pod 选择器 {#pod-selector}
+
+<!--
 You must set the `.spec.selector` field of a StatefulSet to match the labels of its `.spec.template.metadata.labels`. Prior to Kubernetes 1.8, the `.spec.selector` field was defaulted when omitted. In 1.8 and later versions, failing to specify a matching Pod Selector will result in a validation error during StatefulSet creation.
 -->
-
-## Pod 选择器
-您必须设置 StatefulSet 的 `.spec.selector` 字段来匹配它的`.spec.template.metadata.labels`标签。在 Kubernetes 1.8 版本之前，忽略`.spec.selector` 字段会提供默认设置。在 1.8 和以后的版本中，指定的 Pod 选择器匹配失败将在创建 StatefulSet 期间导致验证错误。
+您必须设置 StatefulSet 的 `.spec.selector` 字段，使之匹配其在 `.spec.template.metadata.labels` 中设置的标签。在 Kubernetes 1.8 版本之前，被忽略 `.spec.selector` 字段会获得默认设置值。在 1.8 和以后的版本中，未指定匹配的 Pod 选择器将在创建 StatefulSet 期间导致验证错误。
 
 <!--
 ## Pod Identity
+-->
+## Pod 标识
+
+<!--
 StatefulSet Pods have a unique identity that is comprised of an ordinal, a
 stable network identity, and stable storage. The identity sticks to the Pod,
 regardless of which node it's (re)scheduled on.
 -->
-
-## Pod 的身份
-
 StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的网络标识和稳定的存储。该标识和 Pod 是绑定的，不管它被调度在哪个节点上。
 
 <!--
 ### Ordinal Index
+-->
+### 有序索引
 
+<!--
 For a StatefulSet with N replicas, each Pod in the StatefulSet will be
 assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
 -->
-
-### 有序索引
-
 对于具有 N 个副本的 StatefulSet，StatefulSet 中的每个 Pod 将被分配一个整数序号，从 0 到 N-1，该序号在 StatefulSet 上是唯一的。
 
 <!--
 ### Stable Network ID
+-->
+### 稳定的网络 ID
 
+<!--
 Each Pod in a StatefulSet derives its hostname from the name of the StatefulSet
 and the ordinal of the Pod. The pattern for the constructed hostname
 is `$(statefulset name)-$(ordinal)`. The example above will create three Pods
@@ -211,14 +204,10 @@ As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
 -->
-
-### 稳定的网络 ID
-
-StatefulSet 中的每个 Pod 根据 StatefulSet 的名称和 Pod 的序号派生出它的主机名。组合主机名的格式为`$(statefulset name)-$(ordinal)`。上例将会创建三个名称为`web-0,web-1,web-2`的三个 Pod。
+StatefulSet 中的每个 Pod 根据 StatefulSet 的名称和 Pod 的序号派生出它的主机名。组合主机名的格式为`$(StatefulSet 名称)-$(序号)`。上例将会创建三个名称分别为 `web-0、web-1、web-2` 的 Pod。
 StatefulSet 可以使用 [headless 服务](/docs/concepts/services-networking/service/#headless-services) 控制它的 Pod 的网络域。管理域的这个服务的格式为：
-`$(service name).$(namespace).svc.cluster.local`，其中`cluster.local`是集群域。
- 一旦每个 Pod 创建成功，就会得到一个匹配的 DNS 子域，格式为：`$(podname).$(governing service domain)`，其中管理服务由 StatefulSet 的 `serviceName` 域来定义。
-
+`$(服务名称).$(命名空间).svc.cluster.local`，其中 `cluster.local` 是集群域。
+一旦每个 Pod 创建成功，就会得到一个匹配的 DNS 子域，格式为：`$(pod 名称).$(所属服务的 DNS 域名)`，其中所属服务由 StatefulSet 的 `serviceName` 域来设定。
 
 <!--
 Here are some examples of choices for Cluster Domain, Service name,
@@ -233,19 +222,20 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  cluster.local | foo/nginx         | foo/web           | nginx.foo.svc.cluster.local     | web-{0..N-1}.nginx.foo.svc.cluster.local     | web-{0..N-1} |
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
-{{< note >}}
-
 <!--
-**Note:** Cluster Domain will be set to `cluster.local` unless
+Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
-**注意** 集群域会被设置为 `cluster.local` 除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
-
+{{< note >}}
+集群域会被设置为 `cluster.local`，除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
 {{< /note >}}
 
 <!--
 ### Stable Storage
+-->
+### 稳定的存储
 
+<!--
 Kubernetes creates one [PersistentVolume](/docs/concepts/storage/persistent-volumes/) for each
 VolumeClaimTemplate. In the nginx example above, each Pod will receive a single PersistentVolume
 with a StorageClass of `my-storage-class` and 1 Gib of provisioned storage. If no StorageClass
@@ -255,38 +245,34 @@ PersistentVolume Claims. Note that, the PersistentVolumes associated with the
 Pods' PersistentVolume Claims are not deleted when the Pods, or StatefulSet are deleted.
 This must be done manually.
 -->
-
-### 稳定的存储
-
-Kubernetes 为每个 VolumeClaimTemplate 创建一个 [PersistentVolume](/docs/concepts/storage/persistent-volumes/)。在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的 1 Gib 的 PersistentVolume。如果没有声明 StorageClass，就会使用默认的 StorageClass。当一个 Pod 被安排到节点上时，它的 `volumeMounts` 挂载了与其 PersistentVolumeClaims 相关联的 PersistentVolume。请注意，当 Pod 或者 StatefulSet 被删除时，与 PersistentVolumeClaims 相关联的 PersistentVolume 并不会被删除。要删除它必须通过手动方式来完成。
-
+Kubernetes 为每个 VolumeClaimTemplate 创建一个 [PersistentVolume](/docs/concepts/storage/persistent-volumes/)。在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的 1 Gib 的 PersistentVolume。如果没有声明 StorageClass，就会使用默认的 StorageClass。当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其 PersistentVolumeClaims 相关联的 PersistentVolume。请注意，当 Pod 或者 StatefulSet 被删除时，与 PersistentVolumeClaims 相关联的 PersistentVolume 并不会被删除。要删除它必须通过手动方式来完成。
 
 <!--
 ### Pod Name Label
+-->
+### Pod 名称标签
 
+<!--
 When the StatefulSet {{< glossary_tooltip term_id="controller" >}} creates a Pod,
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 -->
-
-### Pod 名称标签
-
 当 StatefulSet {{< glossary_tooltip term_id="controller" >}} 创建 Pod 时，它会添加一个标签 `statefulset.kubernetes.io/pod-name`，该标签设置为 Pod 名称。这个标签允许您给 StatefulSet 中的特定 Pod 绑定一个 Service。
 
 <!--
 ## Deployment and Scaling Guarantees
+-->
+## 部署和扩缩保证
 
+<!--
 * For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
 * When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
 * Before a Pod is terminated, all of its successors must be completely shutdown.
 -->
-
-## 部署和伸缩保证
-
-* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为`0..N-1`。
-* 当删除 Pod 时，它们是逆序终止的，顺序为`N-1..0`。
+* 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 `0..N-1`。
+* 当删除 Pod 时，它们是逆序终止的，顺序为 `N-1..0`。
 * 在将缩放操作应用到 Pod 之前，它前面的所有 Pod 必须是 Running 和 Ready 状态。
 * 在 Pod 终止之前，所有的继任者必须完全关闭。
 
@@ -294,7 +280,7 @@ the StatefulSet.
 The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. This practice is unsafe and strongly discouraged. For further explanation, please refer to [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 -->
 
-StatefulSet 不应该声明 `pod.Spec.TerminationGracePeriodSeconds` 为 0。这种做法是不安全的，要强烈阻止。更多的解释请参考 [强制删除 StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+StatefulSet 不应将 `pod.Spec.TerminationGracePeriodSeconds` 设置为 0。这种做法是不安全的，要强烈阻止。更多的解释请参考 [强制删除 StatefulSet Pod](/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 <!--
 When the nginx example above is created, three Pods will be deployed in the order
@@ -315,67 +301,76 @@ is completely shutdown, but prior to web-1's termination, web-1 would not be ter
 until web-0 is Running and Ready.
 -->
 
- 如果用户想将示例中的 StatefulSet 收缩为 `replicas=1`，首先被终止的是 web-2。在 web-2 没有被完全停止和删除前，web-1 不会被终止。当 web-2 已被终止和删除、web-1 尚未被终止，如果在此期间发生 web-0 运行失败，那么就不会终止 web-1，必须等到 web-0 进入 Running 和 Ready 状态后才会终止 web-1。
+如果用户想将示例中的 StatefulSet 收缩为 `replicas=1`，首先被终止的是 web-2。在 web-2 没有被完全停止和删除前，web-1 不会被终止。当 web-2 已被终止和删除、web-1 尚未被终止，如果在此期间发生 web-0 运行失败，那么就不会终止 web-1，必须等到 web-0 进入 Running 和 Ready 状态后才会终止 web-1。
 
 <!--
 ### Pod Management Policies
+-->
+### Pod 管理策略 {#pod-management-policies}
+
+<!--
 In Kubernetes 1.7 and later, StatefulSet allows you to relax its ordering guarantees while
 preserving its uniqueness and identity guarantees via its `.spec.podManagementPolicy` field.
+-->
+在 Kubernetes 1.7 及以后的版本中，StatefulSet 允许您不要求其排序保证，同时通过它的 `.spec.podManagementPolicy` 域保持其唯一性和身份保证。
+在 Kubernetes 1.7 及以后的版本中，StatefulSet 允许您放宽其排序保证，同时通过它的 `.spec.podManagementPolicy` 域保持其唯一性和身份保证。
 
+<!--
 #### OrderedReady Pod Management
+-->
+#### OrderedReady Pod 管理
 
+<!--
 `OrderedReady` pod management is the default for StatefulSets. It implements the behavior
 described [above](#deployment-and-scaling-guarantees).
+-->
+`OrderedReady` Pod 管理是 StatefulSet 的默认设置。它实现了[上面](#deployment-and-scaling-guarantees)描述的功能。
 
+<!--
 #### Parallel Pod Management
+-->
+#### Parallel Pod 管理
 
+<!--
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
 Pod.
 -->
-
-### Pod 管理策略 {#pod-management-policies}
-在 Kubernetes 1.7 及以后的版本中，StatefulSet 允许您放松其排序保证，同时通过它的 `.spec.podManagementPolicy` 域保持其唯一性和身份保证。
-
-#### 有序的 Pod 管理
-
-`有序的` Pod 管理是 StatefulSet 的默认功能。它实现了 [上面](#deployment-and-scaling-guarantees)描述的行为。
-
-#### 并行的 Pod 管理
-
-`并行` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
+`Parallel` Pod 管理让 StatefulSet 控制器并行的启动或终止所有的 Pod，启动或者终止其他 Pod 前，无需等待 Pod 进入 Running 和 ready 或者完全停止状态。
 
 <!--
 ## Update Strategies
+-->
+## 更新策略
 
+<!--
 In Kubernetes 1.7 and later, StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
 annotations for the Pods in a StatefulSet.
 -->
-
-## 更新策略
-
-在 Kubernetes 1.7 及以后的版本中，StatefulSet 的 `.spec.updateStrategy` 字段让您可以配置和禁用掉自动滚动更新 Pod 的容器、标签、资源请求／限制、以及注解。
-
+在 Kubernetes 1.7 及以后的版本中，StatefulSet 的 `.spec.updateStrategy` 字段让您可以配置和禁用掉自动滚动更新 Pod 的容器、标签、资源请求或限制、以及注解。
 
 <!--
 ### On Delete
+-->
+### 关于删除策略
 
+<!--
 The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior. When a StatefulSet's
 `.spec.updateStrategy.type` is set to `OnDelete`, the StatefulSet controller will not automatically
 update the Pods in a StatefulSet. Users must manually delete Pods to cause the controller to
 create new Pods that reflect modifications made to a StatefulSet's `.spec.template`.
 -->
-
-### On Delete
-
 `OnDelete` 更新策略实现了 1.6 及以前版本的历史遗留行为。当 StatefulSet 的 `.spec.updateStrategy.type` 设置为 `OnDelete` 时，它的控制器将不会自动更新 StatefulSet 中的 Pod。用户必须手动删除 Pod 以便让控制器创建新的 Pod，以此来对 StatefulSet 的 `.spec.template` 的变动作出反应。
 
 
 <!--
 ### Rolling Updates
+-->
+### 滚动更新 {#rolling-updates}
 
+<!--
 The `RollingUpdate` update strategy implements automated, rolling update for the Pods in a
 StatefulSet. It is the default strategy when `.spec.updateStrategy` is left unspecified. When a StatefulSet's `.spec.updateStrategy.type` is set to `RollingUpdate`, the
 StatefulSet controller will delete and recreate each Pod in the StatefulSet. It will proceed
@@ -383,16 +378,16 @@ in the same order as Pod termination (from the largest ordinal to the smallest),
 each Pod one at a time. It will wait until an updated Pod is Running and Ready prior to
 updating its predecessor.
 -->
-
-### 滚动更新 {#rolling-updates}
-
-`RollingUpdate` 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。在没有声明`.spec.updateStrategy`时，`RollingUpdate`是默认配置。
+`RollingUpdate` 更新策略对 StatefulSet 中的 Pod 执行自动的滚动更新。在没有声明 `.spec.updateStrategy` 时，`RollingUpdate` 是默认配置。
 当 StatefulSet 的 `.spec.updateStrategy.type` 被设置为 `RollingUpdate` 时，StatefulSet 控制器会删除和重建 StatefulSet 中的每个 Pod。
 它将按照与 Pod 终止相同的顺序（从最大序号到最小序号）进行，每次更新一个 Pod。它会等到被更新的 Pod 进入 Running 和 Ready 状态，然后再更新其前身。
 
 <!--
 #### Partitions
+-->
+#### 分区
 
+<!--
 The `RollingUpdate` update strategy can be partitioned, by specifying a
 `.spec.updateStrategy.rollingUpdate.partition`. If a partition is specified, all Pods with an
 ordinal that is greater than or equal to the partition will be updated when the StatefulSet's
@@ -403,15 +398,15 @@ updates to its `.spec.template` will not be propagated to its Pods.
 In most cases you will not need to use a partition, but they are useful if you want to stage an
 update, roll out a canary, or perform a phased roll out.
 -->
-
-#### 分区
-
-通过声明 `.spec.updateStrategy.rollingUpdate.partition`的方式，`RollingUpdate`更新策略可以实现分区。如果声明了一个分区，当 StatefulSet 的`.spec.template` 被更新时，所有序号大于等于该分区序号的 Pod 都会被更新。所有序号小于该分区序号的 Pod 都不会被更新，并且，即使他们被删除也会依据之前的版本进行重建。如果 StatefulSet 的 `.spec.updateStrategy.rollingUpdate.partition` 大于它的 `.spec.replicas`，对它的 `.spec.template` 的更新将不会传递到它的 Pod。
+通过声明 `.spec.updateStrategy.rollingUpdate.partition` 的方式，`RollingUpdate` 更新策略可以实现分区。如果声明了一个分区，当 StatefulSet 的 `.spec.template` 被更新时，所有序号大于等于该分区序号的 Pod 都会被更新。所有序号小于该分区序号的 Pod 都不会被更新，并且，即使他们被删除也会依据之前的版本进行重建。如果 StatefulSet 的 `.spec.updateStrategy.rollingUpdate.partition` 大于它的 `.spec.replicas`，对它的 `.spec.template` 的更新将不会传递到它的 Pod。
 在大多数情况下，您不需要使用分区，但如果您希望进行阶段更新、执行金丝雀或执行分阶段展开，则这些分区会非常有用。
 
 <!--
 #### Forced Rollback
+-->
+#### 强制回滚 {#forced-rollback}
 
+<!--
 When using [Rolling Updates](#rolling-updates) with the default
 [Pod Management Policy](#pod-management-policies) (`OrderedReady`),
 it's possible to get into a broken state that requires manual intervention to repair.
@@ -430,14 +425,11 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 -->
-#### 强制回滚 {#forced-rollback}
-
 在默认 [Pod 管理策略](#pod-management-policies)(`OrderedReady`) 时使用 [滚动更新](#rolling-updates) ，可能进入需要人工干预才能修复的损坏状态。
 
 如果更新后 Pod 模板配置进入无法运行或就绪的状态（例如，由于错误的二进制文件或应用程序级配置错误），StatefulSet 将停止回滚并等待。
 
-在这种状态下，仅将 Pod 模板还原为正确的配置是不够的。由于 [已知问题](https://github.com/kubernetes/kubernetes/issues/67250)，
-StatefulSet 将继续等待损坏状态的 Pod 准备就绪（永远不会发生），然后再尝试将其恢复为正常工作配置。
+在这种状态下，仅将 Pod 模板还原为正确的配置是不够的。由于[已知问题](https://github.com/kubernetes/kubernetes/issues/67250)，StatefulSet 将继续等待损坏状态的 Pod 准备就绪（永远不会发生），然后再尝试将其恢复为正常工作配置。
 
 恢复模板后，还必须删除 StatefulSet 尝试使用错误的配置来运行的 Pod。这样，StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
@@ -447,11 +439,12 @@ StatefulSet 将继续等待损坏状态的 Pod 准备就绪（永远不会发生
 <!--
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
+* Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
 -->
 
 * 示例一：[部署有状态应用](/docs/tutorials/stateful-application/basic-stateful-set/)。
 * 示例二：[使用 StatefulSet 部署 Cassandra](/docs/tutorials/stateful-application/cassandra/)。
-
+* 示例三：[运行多副本的有状态应用程序](/docs/tasks/run-application/run-replicated-stateful-application/)。
 
 {{% /capture %}}
 

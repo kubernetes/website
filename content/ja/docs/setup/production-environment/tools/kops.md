@@ -31,7 +31,7 @@ a building block.  kops builds on the kubeadm work.
 
 #### 要件
 
-You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
+You must have [kubectl](/ja/docs/tasks/tools/install-kubectl/) installed in order for kops to work.
 
 #### インストール
 
@@ -39,20 +39,80 @@ Download kops from the [releases page](https://github.com/kubernetes/kops/releas
 
 On macOS:
 
+Download the latest release with the command:
+
 ```shell
-curl -OL https://github.com/kubernetes/kops/releases/download/1.10.0/kops-darwin-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-darwin-amd64
+```
+
+To download a specific version, replace the
+
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+
+portion of the command with the specific version.
+
+For example, to download kops version v1.15.0 type:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-darwin-amd64
+```
+
+Make the kops binary executable.
+
+```shell
 chmod +x kops-darwin-amd64
-mv kops-darwin-amd64 /usr/local/bin/kops
-# you can also install using Homebrew
+```
+
+Move the kops binary in to your PATH.
+
+```shell
+sudo mv kops-darwin-amd64 /usr/local/bin/kops
+```
+
+You can also install kops using [Homebrew](https://brew.sh/).
+
+```shell
 brew update && brew install kops
 ```
 
 On Linux:
 
+Download the latest release with the command:
+
 ```shell
-wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+```
+
+To download a specific version, replace the
+```shell
+$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)
+```
+portion of the command with the specific version.
+
+For example, to download kops version v1.15.0 type:
+
+```shell
+curl -LO  https://github.com/kubernetes/kops/releases/download/1.15.0/kops-linux-amd64
+```
+
+Make the kops binary executable
+
+```shell
 chmod +x kops-linux-amd64
-mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+Move the kops binary in to your PATH.
+
+```shell
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+You can also install kops using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux).
+
+```shell
+brew update && brew install kops
 ```
 
 ### (2/5) クラスタ用のroute53ドメインの作成

@@ -88,7 +88,7 @@ directly to the API server, like this:
 Using `grep/cut` approach:
 
 ```shell
-# Check all possible clusters, as you .KUBECONFIG may have multiple contexts:
+# Check all possible clusters, as your .KUBECONFIG may have multiple contexts:
 kubectl config view -o jsonpath='{"Cluster name\tServer\n"}{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
 
 # Select name of cluster you want to interact with from above output:

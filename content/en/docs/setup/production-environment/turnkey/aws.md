@@ -18,7 +18,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 ### Supported Production Grade Tools
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
+* [conjure-up](https://docs.conjure-up.io/stable/en/cni/k8s-and-aws) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 

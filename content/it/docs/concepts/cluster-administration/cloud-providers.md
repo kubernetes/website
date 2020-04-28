@@ -14,7 +14,7 @@ fornitore di servizi cloud.
 
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) è un'opzione popolare per la creazione di cluster di kuberneti.
-kubeadm ha opzioni di configurazione per specificare le informazioni di configurazione per i provider cloud. Ad esempio 
+kubeadm ha opzioni di configurazione per specificare le informazioni di configurazione per i provider cloud. Ad esempio
 un tipico il provider cloud in-tree può essere configurato utilizzando kubeadm come mostrato di seguito:
 
 ```yaml
@@ -46,15 +46,15 @@ controllerManager:
     mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
-I provider cloud in-tree in genere richiedono sia `--cloud-provider` e` --cloud-config` specificati nelle righe di 
+I provider cloud in-tree in genere richiedono sia `--cloud-provider` e` --cloud-config` specificati nelle righe di
 comando per [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/)
-e il [Kubelet](/docs/admin/kubelet/). Anche il contenuto del file specificato in `--cloud-config` per ciascun provider 
+e il [Kubelet](/docs/admin/kubelet/). Anche il contenuto del file specificato in `--cloud-config` per ciascun provider
 è documentato di seguito.
 
 Per tutti i fornitori di servizi cloud esterni, seguire le istruzioni sui singoli repository.
 
 ## AWS
-Questa sezione descrive tutte le possibili configurazioni che possono essere utilizzato durante l'esecuzione di 
+Questa sezione descrive tutte le possibili configurazioni che possono essere utilizzato durante l'esecuzione di
 Kubernetes su Amazon Web Services.
 
 ### Node Name
@@ -107,23 +107,23 @@ Le informazioni per le annotazioni per AWS sono tratte dai commenti su [aws.go](
 ## Azure
 
 ### Node Name
-Il provider cloud di Azure utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto 
-con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve 
+Il provider cloud di Azure utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
+con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve
 corrispondere al nome VM di Azure.
 
 ## CloudStack
 
 ### Node Name
-Il provider cloud CloudStack utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto 
-con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve 
+Il provider cloud CloudStack utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
+con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve
 corrispondere al nome VM di CloudStack.
 
 ## GCE
 
 ### Node Name
-Il provider cloud GCE utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto 
+Il provider cloud GCE utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
 con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il primo segmento del nome del nodo
-Kubernetes deve corrispondere al nome dell'istanza GCE (ad esempio, un nodo denominato `kubernetes-node-2.c.my-proj.internal` 
+Kubernetes deve corrispondere al nome dell'istanza GCE (ad esempio, un nodo denominato `kubernetes-node-2.c.my-proj.internal`
 deve corrispondere a un'istanza denominata` kubernetes-node-2`) .
 
 ## OpenStack
@@ -135,7 +135,7 @@ Il provider cloud OpenStack utilizza il nome dell'istanza (come determinato dai 
 Si noti che il nome dell'istanza deve essere un nome nodo Kubernetes valido affinché kubelet registri correttamente il suo oggetto Node.
 
 ### Services
-Il provider cloud OpenStack implementazione per Kubernetes supporta l'uso di questi servizi OpenStack da la nuvola 
+Il provider cloud OpenStack implementazione per Kubernetes supporta l'uso di questi servizi OpenStack da la nuvola
 sottostante, ove disponibile:
 
 | Servizio | Versioni API | Richiesto |
@@ -252,7 +252,7 @@ file:
   L'impostazione predefinita è `false`. Quando è specificato `true` quindi` monitor-delay`,
   `monitor-timeout`, e` monitor-max-retries` deve essere impostato.
 * `monitor-delay` (Opzionale): il tempo tra l'invio delle sonde a
-  membri del servizio di bilanciamento del carico. Assicurati di specificare un'unità di tempo valida. Le unità di tempo 
+  membri del servizio di bilanciamento del carico. Assicurati di specificare un'unità di tempo valida. Le unità di tempo
   valide sono "ns", "us" (o "μs"), "ms", "s", "m", "h"
 * `monitor-timeout` (Opzionale): tempo massimo di attesa per un monitor
   per una risposta ping prima che scada. Il valore deve essere inferiore al ritardo
@@ -346,22 +346,22 @@ File `cloud.conf`:
 ## OVirt
 
 ### Node Name
-Il provider di cloud OVirt utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto 
-con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve 
+Il provider di cloud OVirt utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
+con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve
 corrispondere al FQDN del VM (riportato da OVirt in `<vm> <guest_info> <fqdn> ... </fqdn> </guest_info> </vm>`)
 
 ## Photon
 
 ### Node Name
-Il provider cloud Photon utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto 
-con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve 
-corrispondere al nome VM Photon (o se "overrideIP` è impostato su true in` --cloud-config`, il nome del nodo Kubernetes 
+Il provider cloud Photon utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
+con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve
+corrispondere al nome VM Photon (o se "overrideIP` è impostato su true in` --cloud-config`, il nome del nodo Kubernetes
 deve corrispondere all'indirizzo IP della macchina virtuale Photon).
 
 ## VSphere
 
 ### Node Name
-Il provider cloud VSphere utilizza il nome host rilevato del nodo (come determinato dal kubelet) come nome dell'oggetto 
+Il provider cloud VSphere utilizza il nome host rilevato del nodo (come determinato dal kubelet) come nome dell'oggetto
 Nodo Kubernetes.
 
 Il parametro `--hostname-override` viene ignorato dal fornitore di cloud VSphere.
@@ -369,31 +369,31 @@ Il parametro `--hostname-override` viene ignorato dal fornitore di cloud VSphere
 ## IBM Cloud Kubernetes Service
 
 ### Compute nodes
-Utilizzando il provider di servizi IBM Cloud Kubernetes, è possibile creare cluster con una combinazione di nodi 
-virtuali e fisici (bare metal) in una singola zona o su più zone in una regione. Per ulteriori informazioni, 
+Utilizzando il provider di servizi IBM Cloud Kubernetes, è possibile creare cluster con una combinazione di nodi
+virtuali e fisici (bare metal) in una singola zona o su più zone in una regione. Per ulteriori informazioni,
 consultare [Pianificazione dell'installazione di cluster e nodo di lavoro](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
 
 Il nome dell'oggetto Nodo Kubernetes è l'indirizzo IP privato dell'istanza del nodo di lavoro IBM Cloud Kubernetes Service.
 
 ### Networking
-Il fornitore di servizi IBM Cloud Kubernetes fornisce VLAN per le prestazioni di rete di qualità e l'isolamento della 
-rete per i nodi. È possibile configurare firewall personalizzati e criteri di rete Calico per aggiungere un ulteriore 
-livello di sicurezza per il cluster o per connettere il cluster al data center on-prem tramite VPN. Per ulteriori 
+Il fornitore di servizi IBM Cloud Kubernetes fornisce VLAN per le prestazioni di rete di qualità e l'isolamento della
+rete per i nodi. È possibile configurare firewall personalizzati e criteri di rete Calico per aggiungere un ulteriore
+livello di sicurezza per il cluster o per connettere il cluster al data center on-prem tramite VPN. Per ulteriori
 informazioni, vedere [Pianificazione in-cluster e rete privata](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
 
-Per esporre le app al pubblico o all'interno del cluster, è possibile sfruttare i servizi NodePort, LoadBalancer o 
-Ingress. È anche possibile personalizzare il bilanciamento del carico dell'applicazione Ingress con le annotazioni. 
+Per esporre le app al pubblico o all'interno del cluster, è possibile sfruttare i servizi NodePort, LoadBalancer o
+Ingress. È anche possibile personalizzare il bilanciamento del carico dell'applicazione Ingress con le annotazioni.
 Per ulteriori informazioni, vedere [Pianificazione per esporre le app con reti esterne](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
 ### Storage
-Il fornitore di servizi IBM Cloud Kubernetes sfrutta i volumi persistenti nativi di Kubernetes per consentire agli 
-utenti di montare archiviazione di file, blocchi e oggetti cloud nelle loro app. È inoltre possibile utilizzare il 
-componente aggiuntivo database-as-a-service e di terze parti per la memorizzazione permanente dei dati. Per ulteriori 
+Il fornitore di servizi IBM Cloud Kubernetes sfrutta i volumi persistenti nativi di Kubernetes per consentire agli
+utenti di montare archiviazione di file, blocchi e oggetti cloud nelle loro app. È inoltre possibile utilizzare il
+componente aggiuntivo database-as-a-service e di terze parti per la memorizzazione permanente dei dati. Per ulteriori
 informazioni, vedere [Pianificazione dell'archiviazione persistente altamente disponibile](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
 
 ## Baidu Cloud Container Engine
 
 ### Node Name
-Il provider di cloud Baidu utilizza l'indirizzo IP privato del nodo (come determinato dal kubelet o sovrascritto 
-con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve 
+Il provider di cloud Baidu utilizza l'indirizzo IP privato del nodo (come determinato dal kubelet o sovrascritto
+con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il nome del nodo Kubernetes deve
 corrispondere all'IP privato VM di Baidu.

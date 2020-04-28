@@ -6,7 +6,7 @@ weight: 10
 ---
 
 {{% capture overview %}}
-이 튜토리얼은 스테이트풀셋([StatefulSets](/docs/concepts/workloads/controllers/statefulset/))을 이용하여
+이 튜토리얼은 스테이트풀셋([StatefulSets](/ko/docs/concepts/workloads/controllers/statefulset/))을 이용하여
 애플리케이션을 관리하는 방법을 소개한다. 어떻게 스테이트풀셋의 파드(Pod)을 생성하고 삭제하며
 스케일링하고 업데이트하는지 시연한다.
 {{% /capture %}}
@@ -16,11 +16,11 @@ weight: 10
 익숙해야 한다.
 
 * [파드](/docs/user-guide/pods/single-container/)
-* [클러스터 DNS(Cluster DNS)](/docs/concepts/services-networking/dns-pod-service/)
-* [헤드리스 서비스(Headless Services)](/docs/concepts/services-networking/service/#headless-services)
-* [퍼시스턴트볼륨(PersistentVolumes)](/docs/concepts/storage/persistent-volumes/)
+* [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
+* [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+* [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
 * [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
-* [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)
+* [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/docs/user-guide/kubectl/)
 
 이 튜토리얼은 클러스터가 퍼시스턴스볼륨을 동적으로 프로비저닝 하도록
@@ -49,9 +49,9 @@ weight: 10
 ## 스테이트풀셋 생성하기
 
 아래 예제를 이용해서 스테이트풀셋을 생성하자. 이는
-[스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/) 개념에서 보인
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/) 개념에서 보인
 예제와 유사하다. 이것은 `web`과 이 스테이트풀셋 파드의 IP 주소를 게시하는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)인
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)인
 `nginx` 를 생성한다.
 
 {{< codenew file="application/web/web.yaml" >}}
@@ -110,7 +110,7 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-`web-1` 파드는 `web-0` 파드가 [Running과 Ready](/docs/user-guide/pod-states) 상태가 되기 전에
+`web-1` 파드는 `web-0` 파드가 [Running과 Ready](/ko/docs/concepts/workloads/pods/pod-lifecycle/) 상태가 되기 전에
 시작하지 않음을 주의하자.
 
 ## 스테이트풀셋 안에 파드
@@ -129,7 +129,7 @@ web-1     1/1       Running   0          1m
 
 ```
 
-[스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/) 개념에서
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/) 개념에서
 언급했듯 스테이트풀셋의 파드는 끈끈하고 고유한 정체성을 가진다.
 이 정체성은 스테이트풀 컨트롤러에서 각 파드에 주어지는
 고유한 순번에 기인한다. 파드의 이름의 형식은
@@ -257,7 +257,7 @@ NAME        STATUS    VOLUME                                     CAPACITY   ACCE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
-스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/docs/concepts/storage/persistent-volumes/)에
+스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에
 묶인 2개의 퍼시스턴트볼륨클레임을 생성했다. 본 튜토리얼에서 사용되는 클러스터는 퍼시스턴트볼륨을 동적으로
 프로비저닝하도록 설정되었으므로 생성된 퍼시스턴트볼륨도 자동으로 묶인다.
 
@@ -377,7 +377,7 @@ web-4     1/1       Running   0         19s
 ```
 
 스테이트풀셋 컨트롤러는 레플리카개수를 스케일링한다.
-[스테이트풀셋 생성](#ordered-pod-creation)으로 스테이트풀셋 컨트롤러는
+[스테이트풀셋 생성](#차례대로-파드-생성하기)으로 스테이트풀셋 컨트롤러는
 각 파드을 순차적으로 각 순번에 따라 생성하고 후속 파드 시작 전에
 이전 파드가 Running과 Ready 상태가 될 때까지
 기다린다.
@@ -656,7 +656,7 @@ k8s.gcr.io/nginx-slim:0.8
 종료되어 원래 환경설정으로 복원된다.
 
 #### 단계적 롤아웃
-[카나리 롤아웃](#rolling-out-a-canary)에서 했던 방법과 비슷하게
+[카나리 롤아웃](#카나리-canary-롤링-아웃)에서 했던 방법과 비슷하게
 분할된 롤링 업데이트를 이용하여 단계적 롤아웃(e.g. 선형, 기하 또는 지수적 롤아웃)을
 수행할 수 있다. 단계적 롤아웃을 수행하려면
 컨트롤러가 업데이트를 일시 중지할 순번으로

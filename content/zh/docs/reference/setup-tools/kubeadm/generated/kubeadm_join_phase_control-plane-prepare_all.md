@@ -231,15 +231,3 @@ kubeadm join phase control-plane-prepare all [api-server-endpoint] [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
--->
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - 准备为控制平面服务的机器
-

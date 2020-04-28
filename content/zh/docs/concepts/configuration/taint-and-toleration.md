@@ -134,7 +134,7 @@ This is a "preference" or "soft" version of `NoSchedule` -- the system will *try
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
-上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会*尽量*避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute` ，下文会详细描述这个值。
+上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会 *尽量* 避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute` ，下文会详细描述这个值。
 
 <!--
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -155,7 +155,7 @@ the node (if it is already running on the node), and will not be
 scheduled onto the node (if it is not yet running on the node).
 -->
 * 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoSchedule` 的 taint，则 Kubernetes 不会将 pod 分配到该节点。
-* 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会*尝试*将 pod 分配到该节点。
+* 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会 *尝试* 将 pod 分配到该节点。
 * 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoExecute` 的 taint，则 Kubernetes 不会将 pod 分配到该节点（如果 pod 还未在节点上运行），或者将 pod 从该节点驱逐（如果 pod 已经在节点上运行）。
 
 <!--
@@ -231,7 +231,7 @@ taint is removed before that time, the pod will not be evicted.
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 -->
-通过 taint 和 toleration ，可以灵活地让 pod *避开*某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
+通过 taint 和 toleration ，可以灵活地让 pod *避开* 某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
 
 <!--
 
@@ -278,10 +278,10 @@ manually add tolerations to your pods.
 
 <!--
 
-* **Taint based Evictions (beta feature)**: A per-pod-configurable eviction behavior
+* **Taint based Evictions**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
 -->
-* **基于 taint 的驱逐 （beta 特性）**: 这是在每个 pod 中配置的在节点出现问题时的驱逐行为，接下来的章节会描述这个特性
+* **基于 taint 的驱逐**: 这是在每个 pod 中配置的在节点出现问题时的驱逐行为，接下来的章节会描述这个特性
 
 <!--
 
@@ -290,6 +290,8 @@ when there are node problems, which is described in the next section.
 -->
 
 ## 基于 taint 的驱逐
+
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 <!--
 Earlier we mentioned the `NoExecute` taint effect, which affects pods that are already
@@ -302,6 +304,7 @@ running on the node as follows
    bound for the specified amount of time
 -->
   前文我们提到过 taint 的 effect 值 `NoExecute`  ，它会影响已经在节点上运行的 pod
+
  * 如果 pod 不能忍受effect 值为 `NoExecute` 的 taint，那么 pod 将马上被驱逐
  * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，但是在 toleration 定义中没有指定 `tolerationSeconds`，则 pod 还会一直在这个节点上运行。
  * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，而且指定了 `tolerationSeconds`，则 pod 还能在这个节点上继续运行这个指定的时间长度。
@@ -337,11 +340,12 @@ certain condition is true. The following taints are built in:
  * `node.cloudprovider.kubernetes.io/uninitialized`：如果 kubelet 启动时指定了一个 "外部" cloud provider，它将给当前节点添加一个 taint 将其标志为不可用。在 cloud-controller-manager 的一个 controller 初始化这个节点后，kubelet 将删除这个 taint。
 
 <!--
-In version 1.13, the `TaintBasedEvictions` feature is promoted to beta and enabled by default, hence the taints are automatically
-added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
-based on the Ready NodeCondition is disabled.
+In case a node is to be evicted, the node controller or the kubelet adds relevant taints
+with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
+controller can remove the relevant taint(s).
 -->
-在版本1.13中，`TaintBasedEvictions` 功能已升级为Beta，并且默认启用，因此污点会自动给节点添加这类 taint，上述基于节点状态 Ready 对 pod 进行驱逐的逻辑会被禁用。
+在节点被驱逐时，节点控制器或者 kubelet 会添加带有 `NoExecute` 效应的相关污点。如果异常状态恢复正常，kubelet 或节点控制器能够移除相关的污点。
+
 
 {{< note >}}
 <!--
@@ -350,14 +354,14 @@ behavior of pod evictions due to node problems, the system actually adds the tai
 in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.
 -->
-注意：为了保证由于节点问题引起的 pod 驱逐[rate limiting](/docs/concepts/architecture/nodes/)行为正常，系统实际上会以 rate-limited 的方式添加 taint。在像 master 和 node 通讯中断等场景下，这避免了 pod 被大量驱逐。
+为了保证由于节点问题引起的 pod 驱逐[rate limiting](/docs/concepts/architecture/nodes/)行为正常，系统实际上会以 rate-limited 的方式添加 taint。在像 master 和 node 通讯中断等场景下，这避免了 pod 被大量驱逐。
 {{< /note >}}
 
 <!--
-This beta feature, in combination with `tolerationSeconds`, allows a pod
+This feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 -->
-使用这个 beta 功能特性，结合 `tolerationSeconds` ，pod 就可以指定当节点出现一个或全部上述问题时还将在这个节点上运行多长的时间。
+使用这个功能特性，结合 `tolerationSeconds` ，pod 就可以指定当节点出现一个或全部上述问题时还将在这个节点上运行多长的时间。
 
 <!--
 For example, an application with a lot of local state might want to stay
@@ -404,15 +408,14 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
-This ensures that DaemonSet pods are never evicted due to these problems,
-which matches the behavior when this feature is disabled.
+This ensures that DaemonSet pods are never evicted due to these problems.
 -->
 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 中的 pod 被创建时，针对以下 taint 自动添加的 `NoExecute` 的 toleration 将不会指定 `tolerationSeconds`：
 
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
-这保证了出现上述问题时 DaemonSet 中的 pod 永远不会被驱逐，这和 `TaintBasedEvictions` 这个特性被禁用后的行为是一样的。
+这保证了出现上述问题时 DaemonSet 中的 pod 永远不会被驱逐。
 
 <!--
 ## Taint Nodes by Condition
@@ -421,9 +424,8 @@ which matches the behavior when this feature is disabled.
 ## 基于节点状态添加 taint
 
 <!--
-The node lifecycle controller automatically creates taints corresponding to Node conditions.
+The node lifecycle controller automatically creates taints corresponding to Node conditions with `NoSchedule` effect.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
-Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is a beta feature and enabled by default since version 1.13.
 
 Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
 following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from
@@ -435,10 +437,10 @@ breaking.
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
-Node 生命周期控制器会自动创建与 Node 条件相对应的污点。
+Node 生命周期控制器会自动创建与 Node 条件相对应的带有 `NoSchedule` 效应的污点。
 同样，调度器不检查节点条件，而是检查节点污点。这确保了节点条件不会影响调度到节点上的内容。用户可以通过添加适当的 Pod 容忍度来选择忽略某些 Node 的问题(表示为 Node 的调度条件)。
-注意，`TaintNodesByCondition` 只会污染具有 `NoSchedule` 设定的节点。 `NoExecute` 效应由 `TaintBasedEviction` 控制，
-`TaintBasedEviction` 是 Beta 版功能，自 Kubernetes 1.13 起默认启用。
+
+自 Kubernetes 1.8 起， DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` toleration 以防 DaemonSet 崩溃：
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`

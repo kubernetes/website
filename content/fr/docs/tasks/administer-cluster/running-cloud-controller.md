@@ -69,6 +69,7 @@ Pour les cloud-controller-manager ne faisant pas partie de Kubernetes, vous pouv
 * [keepalived](https://github.com/munnerz/keepalived-cloud-provider)
 * [Oracle Cloud Infrastructure](https://github.com/oracle/oci-cloud-controller-manager)
 * [Rancher](https://github.com/rancher/rancher-cloud-controller-manager)
+* [Scaleway](https://github.com/scaleway/scaleway-cloud-controller-manager)
 
 Pour les fournisseurs qui se trouvent déjà dans Kubernetes, vous pouvez exécuter le cloud-controller-manager dans l'arborescence en tant que Daemonset dans votre cluster.
 Utilisez ce qui suit comme guide:

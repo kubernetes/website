@@ -4,6 +4,7 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
+weight: 30
 content_template: templates/concept
 ---
 
@@ -23,7 +24,7 @@ Minikube supports the following Kubernetes features:
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: [Docker](https://www.docker.com/), [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 
@@ -186,25 +187,31 @@ example, to run version {{< param "fullversion" >}}, you would run the following
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### Specifying the VM driver
-You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
 For example the command would be.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
  Minikube supports the following drivers:
  {{< note >}}
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
+ See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
-* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (Runs the Kubernetes components on the host and not in a VM. It is not recommended to run the none driver on personal workstations. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
+* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* none (Runs the Kubernetes components on the host and not in a virtual machine. You need to be running Linux and to have {{< glossary_tooltip term_id="docker" >}} installed.)
+
+{{< caution >}}
+If you use the `none` driver, some Kubernetes components run as privileged containers that have side effects outside of the Minikube environment. Those side effects mean that the `none` driver is not recommended for personal workstations.
+{{< /caution >}}
 
 #### Starting a cluster on alternative container runtimes
 You can start Minikube on the following container runtimes.
@@ -262,11 +269,7 @@ When using a single VM for Kubernetes, it's useful to reuse Minikube's built-in 
 Be sure to tag your Docker image with something other than latest and use that tag to pull the image. Because `:latest` is the default value, with a corresponding default image pull policy of `Always`, an image pull error (`ErrImagePull`) eventually results if you do not have the Docker image in the default Docker registry (usually DockerHub).
 {{< /note >}}
 
-To work with the Docker daemon on your Mac/Linux host, use the `docker-env command` in your shell:
-
-```shell
-eval $(minikube docker-env)
-```
+To work with the Docker daemon on your Mac/Linux host, run the last line from `minikube docker-env`.
 
 You can now use Docker at the command line of your host Mac/Linux machine to communicate with the Docker daemon inside the Minikube VM:
 
@@ -329,8 +332,8 @@ Starting the cluster again will restore it to its previous state.
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
-### Upgrading minikube
-See [upgrade minikube](https://minikube.sigs.k8s.io/docs/start/macos/)
+### Upgrading Minikube
+If you are using macOS, see [Upgrading Minikube](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube) to upgrade your existing minikube installation.
 
 ## Interacting with Your Cluster
 
@@ -409,7 +412,7 @@ Host folder sharing is not implemented in the KVM driver yet.
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## Private Container Registries
@@ -459,11 +462,11 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 ## Additional Links
 
-* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
-* **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://minikube.sigs.k8s.io/docs/contrib/roadmap/).
+* **Development Guide**: See [Contributing](https://minikube.sigs.k8s.io/docs/contrib/) for an overview of how to send pull requests.
+* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://minikube.sigs.k8s.io/docs/contrib/building/).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://minikube.sigs.k8s.io/docs/contrib/drivers/).
+* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://minikube.sigs.k8s.io/docs/contrib/addons/).
 * **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 
 ## Community

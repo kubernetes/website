@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -169,13 +169,5 @@ kubeadm alpha kubeconfig user [flags]
 
 
 
-<!--
-SEE ALSO
--->
-查看其他
 
-<!--
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig file utilities
--->
-* [kubeadm alpha kubeconfig](kubeadm_alpha_kubeconfig.md)	 - Kubeconfig 文件应用程序
 

@@ -61,7 +61,7 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 * `template` 필드에는 다음 하위 필드가 포함되어있다.
   * 파드는 `labels` 필드를 사용해서 `app: nginx` 이라는 레이블을 붙인다.
   * 파드 템플릿의 사양 또는 `.template.spec` 필드는 
-  파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.7.9 버전 이미지를 실행하는 
+  파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.14.2 버전 이미지를 실행하는 
   `nginx` 컨테이너 1개를 실행하는 것을 나타낸다.
   * 컨테이너 1개를 생성하고, `name` 필드를 사용해서 `nginx` 이름을 붙인다.
 
@@ -151,15 +151,15 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 
 다음 단계에 따라 디플로이먼트를 업데이트한다.
 
-1. `nginx:1.7.9` 이미지 대신 `nginx:1.9.1` 이미지를 사용하도록 nginx 파드를 업데이트 한다.
+1. `nginx:1.14.2` 이미지 대신 `nginx:1.16.1` 이미지를 사용하도록 nginx 파드를 업데이트 한다.
 
     ```shell
-    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
     또는 간단하게 다음의 명령어를 사용한다.
 
     ```shell
-    kubectl set image deployment/nginx-deployment nginx=nginx:1.9.1 --record
+    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
     ```
 
     이와 유사하게 출력된다.
@@ -167,7 +167,7 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     deployment.apps/nginx-deployment image updated
     ```
 
-    대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.7.9` 에서 `nginx:1.9.1` 로 변경한다.
+    대안으로 디플로이먼트를 `edit` 해서 `.spec.template.spec.containers[0].image` 를 `nginx:1.14.2` 에서 `nginx:1.16.1` 로 변경한다.
 
     ```shell
     kubectl edit deployment.v1.apps/nginx-deployment
@@ -263,7 +263,7 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     Labels:  app=nginx
      Containers:
       nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Environment:  <none>
         Mounts:       <none>
@@ -304,11 +304,11 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 스케일 업하기 시작한다. 그리고 이전에 스케일 업 하던 레플리카셋에 롤오버 한다.
  --이것은 기존 레플리카셋 목록에 추가하고 스케일 다운을 할 것이다.
 
-예를 들어 디플로이먼트로 `nginx:1.7.9` 레플리카를 5개 생성을 한다.
-하지만 `nginx:1.7.9` 레플리카 3개가 생성되었을 때 디플로이먼트를 업데이트해서 `nginx:1.9.1` 
+예를 들어 디플로이먼트로 `nginx:1.14.2` 레플리카를 5개 생성을 한다.
+하지만 `nginx:1.14.2` 레플리카 3개가 생성되었을 때 디플로이먼트를 업데이트해서 `nginx:1.16.1` 
 레플리카 5개를 생성성하도록 업데이트를 한다고 가정한다. 이 경우 디플로이먼트는 즉시 생성된 3개의 
-`nginx:1.7.9` 파드 3개를 죽이기 시작하고 `nginx:1.9.1` 파드를 생성하기 시작한다. 
-이것은 과정이 변경되기 전 `nginx:1.7.9` 레플리카 5개가 
+`nginx:1.14.2` 파드 3개를 죽이기 시작하고 `nginx:1.16.1` 파드를 생성하기 시작한다. 
+이것은 과정이 변경되기 전 `nginx:1.14.2` 레플리카 5개가 
 생성되는 것을 기다리지 않는다.
 
 ### 레이블 셀렉터 업데이트
@@ -345,10 +345,10 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 롤백된다는 것을 의미한다.
 {{< /note >}}
 
-* 디플로이먼트를 업데이트하는 동안 이미지 이름을 `nginx:1.9.1` 이 아닌 `nginx:1.91` 로 입력해서 오타를 냈다고 가정한다.
+* 디플로이먼트를 업데이트하는 동안 이미지 이름을 `nginx:1.16.1` 이 아닌 `nginx:1.161` 로 입력해서 오타를 냈다고 가정한다.
 
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     이와 유사하게 출력된다.
@@ -425,7 +425,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.91
+        Image:        nginx:1.161
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -466,13 +466,13 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
     1           kubectl apply --filename=https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
-    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
-    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.91 --record=true
+    2           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
+    3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
     `CHANGE-CAUSE` 는 수정 생성시 디플로이먼트 주석인 `kubernetes.io/change-cause` 에서 복사한다. 다음에 대해 `CHANGE-CAUSE` 메시지를 지정할 수 있다.
 
-    * 디플로이먼트에 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.9.1"` 로 주석을 단다.
+    * 디플로이먼트에 `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"` 로 주석을 단다.
     * `kubectl` 명령어 이용시 `--record` 플래그를 추가해서 리소스 변경을 저장한다.
     * 수동으로 리소스 매니페스트 편집.
 
@@ -486,10 +486,10 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
               pod-template-hash=1159050644
-      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+      Annotations:  kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
       Containers:
        nginx:
-        Image:      nginx:1.9.1
+        Image:      nginx:1.16.1
         Port:       80/TCP
          QoS Tier:
             cpu:      BestEffort
@@ -547,7 +547,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     CreationTimestamp:      Sun, 02 Sep 2018 18:17:55 -0500
     Labels:                 app=nginx
     Annotations:            deployment.kubernetes.io/revision=4
-                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+                            kubernetes.io/change-cause=kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1 --record=true
     Selector:               app=nginx
     Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
     StrategyType:           RollingUpdate
@@ -557,7 +557,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
       Labels:  app=nginx
       Containers:
        nginx:
-        Image:        nginx:1.9.1
+        Image:        nginx:1.16.1
         Port:         80/TCP
         Host Port:    0/TCP
         Environment:  <none>
@@ -720,7 +720,7 @@ nginx-deployment-618515232    11        11        11        7m
 
 * 그런 다음 디플로이먼트의 이미지를 업데이트 한다.
     ```shell
-    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1
+    kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
     이와 유사하게 출력된다.
@@ -1018,6 +1018,8 @@ $ echo $?
 다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tutorials/stateless-application/run-stateless-application-deployment/), 
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
+디플로이먼트 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 디플로이먼트에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
@@ -1073,7 +1075,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 #### 디플로이먼트 롤링 업데이트
 
-디플로이먼트는 `.spec.strategy.type==RollingUpdate` 이면 파드를 [롤링 업데이트](/docs/tasks/run-application/rolling-update-replication-controller/) 
+디플로이먼트는 `.spec.strategy.type==RollingUpdate` 이면 파드를 롤링 업데이트 
 방식으로 업데이트 한다. `maxUnavailable` 와 `maxSurge` 를 명시해서 
 롤링 업데이트 프로세스를 제어할 수 있다.
 
@@ -1138,13 +1140,5 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 일시 중지 된 디플로이먼트와 일시 중지 되지 않은 디플로이먼트 사이의 유일한 차이점은 
 일시 중지된 디플로이먼트는 PodTemplateSpec에 대한 변경 사항이 일시중지 된 경우 새 롤아웃을 트리거 하지 않는다.
 디플로이먼트는 생성시 기본적으로 일시 중지되지 않는다.
-
-## 디플로이먼트의 대안
-
-### kubectl 롤링 업데이트
-
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)도 
-비슷한 방식으로 파드와 레플리케이션 컨트롤러를 업데이트한다. 그러나 디플로이먼트는 선언적이고, 서버 측면이며, 
-롤링 업데이트가 완료된 후에도 이전 수정 버전으로 롤백하는 것과 같은 추가 기능을 가지고 있으므로 권장한다.
 
 {{% /capture %}}

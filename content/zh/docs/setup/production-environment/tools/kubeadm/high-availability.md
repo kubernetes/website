@@ -48,19 +48,19 @@ See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kube
 
 您也可以阅读 [升级文件](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15)。
 
-{{< caution >}}
 <!--
 This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
 LoadBalancer, or with dynamic PersistentVolumes.
 -->
+{{< caution >}}
 这篇文档没有讲述在云提供商上运行集群的问题。在云环境中，此处记录的方法不适用于类型为 LoadBalancer 的服务对象，或者具有动态的 PersistentVolumes。
-
 {{< /caution >}}
 
 {{% /capture %}}
 
 {{% capture prerequisites %}}
+
 <!--
 For both methods you need this infrastructure:
 
@@ -107,8 +107,9 @@ There are many configurations for load balancers. The following example is only 
 option. Your cluster requirements may need a different configuration.
 -->
 {{< note >}}
-**注意**：使用负载均衡器需要许多配置。您的集群搭建可能需要不同的配置。下面的例子只是其中的一方面配置。
+使用负载均衡器需要许多配置。您的集群搭建可能需要不同的配置。下面的例子只是其中的一方面配置。
 {{< /note >}}
+
 <!--
 
 1.  Create a kube-apiserver load balancer with a name that resolves to DNS.
@@ -130,6 +131,7 @@ option. Your cluster requirements may need a different configuration.
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
 -->
+
 1.  创建一个名为 kube-apiserver 的负载均衡器解析 DNS。
 
     - 在云环境中，应该将控制平面节点放置在 TCP 后面转发负载平衡。 该负载均衡器将流量分配给目标列表中所有运行状况良好的控制平面节点。健康检查 apiserver 是在 kube-apiserver 监听端口(默认值 `:6443`)上的一个 TCP 检查。
@@ -157,6 +159,7 @@ option. Your cluster requirements may need a different configuration.
 
 1.  Add the remaining control plane nodes to the load balancer target group.
 -->
+
 1.  添加第一个控制平面节点到负载均衡器并测试连接：
 
     ```sh
@@ -173,6 +176,7 @@ option. Your cluster requirements may need a different configuration.
 
 <!-- ### Steps for the first control plane node -->
 ### 控制平面节点的第一步
+
 <!--
 
 1.  Initialize the control plane:
@@ -200,42 +204,41 @@ option. Your cluster requirements may need a different configuration.
 
     - 您可以使用 `--kubernetes-version` 标志来设置要使用的 Kubernetes 版本。建议将 kubeadm、kebelet、kubectl 和 Kubernetes 的版本匹配。
     - 这个 `--control-plane-endpoint` 标志应该被设置成负载均衡器的地址或 DNS 和端口。
-
     - 这个 `--upload-certs` 标志用来将在所有控制平面实例之间的共享证书上传到集群。如果正好相反，你更喜欢手动地通过控制平面节点或者使用自动化
    工具复制证书，请删除此标志并参考如下部分[证书分配手册](#manual-certs)。
 
-{{< note >}}
 <!--
 The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
 to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
 -->
-**注意**：标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，因此如果您要使用[kubeadm 配置](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)，您必须在相应的配置文件（位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
+{{< note >}}
+标志 `kubeadm init`、`--config` 和 `--certificate-key` 不能混合使用，因此如果您要使用[kubeadm 配置](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)，您必须在相应的配置文件（位于 `InitConfiguration` 和 `JoinConfiguration: controlPlane`）添加 `certificateKey` 字段。
 {{< /note >}}
 
-{{< note >}}
 <!--
 Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
 some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
 To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
 set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
 -->
-**注意**：一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考 [CNI 网络文档](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
-通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者您可以使用 kubeadm 配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
 {{< note >}}
-<!--
+一些 CNI 网络插件如 Calico 需要 CIDR 例如 `192.168.0.0/16` 和一些像 Weave 没有。参考 [CNI 网络文档](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)。
+通过传递 `--pod-network-cidr` 标志添加 pod CIDR，或者您可以使用 kubeadm 配置文件，在 `ClusterConfiguration` 的 `networking` 对象下设置 `podSubnet` 字段。
+{{< /note >}}
 
+<!--
     After the command completes you should see something like so:
 
     ```sh
     ...
     You can now join any number of control-plane node by running the following command on each as a root:
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
 
     Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
     As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
 
     Then you can join any number of worker nodes by running the following on each as root:
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
     ```
 
     - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
@@ -257,18 +260,18 @@ set the `podSubnet` field under the `networking` object of `ClusterConfiguration
 
 -->
 
-    命令完成后，您应该会看到类似以下内容：
+- 命令完成后，您应该会看到类似以下内容：
 
     ```sh
     ...
     现在，您可以通过在根目录上运行以下命令来加入任意数量的控制平面节点：
-     kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
 
     请注意，证书密钥可以访问集群内敏感数据，请保密！
     为了安全起见，将在两个小时内删除上传的证书； 如有必要，您可以使用 kubeadm 初始化上传证书阶段，之后重新加载证书。
 
-     然后，您可以通过在根目录上运行以下命令来加入任意数量的工作节点：
-      kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+    然后，您可以通过在根目录上运行以下命令来加入任意数量的工作节点：
+    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
     ```
 
     - 将此输出复制到文本文件。 稍后您将需要它来将控制平面节点和辅助节点加入集群。
@@ -286,17 +289,17 @@ set the `podSubnet` field under the `networking` object of `ClusterConfiguration
       kubeadm alpha certs certificate-key
       ```
 
-{{< note >}}
 <!--
 The `kubeadm-certs` Secret and decryption key expire after two hours.
 -->
-**注意**： `kubeadm-certs` 密钥和解密密钥会在两个小时后失效。
+{{< note >}}
+`kubeadm-certs` 密钥和解密密钥会在两个小时后失效。
 {{< /note >}}
 
-{{< caution >}}
 <!--
 As stated in the command output, the certificate key gives access to cluster sensitive data, keep it secret!
 -->
+{{< caution >}}
 正如命令输出中所述，证书密钥可访问群集敏感数据，并将其保密！
 {{< /caution >}}
 
@@ -337,13 +340,13 @@ As stated in the command output, the certificate key gives access to cluster sen
 -->
 ### 其余控制平面节点的步骤
 
-{{< note >}}
 <!--
 Since kubeadm version 1.15 you can join multiple control-plane nodes in parallel.
 Prior to this version, you must join new control plane nodes sequentially, only after
 the first node has finished initializing.
 -->
-**注意**：从 kubeadm 1.15 版本开始，您可以并行加入多个控制平面节点。
+{{< note >}}
+从 kubeadm 1.15 版本开始，您可以并行加入多个控制平面节点。
 在此版本之前，您必须在第一个节点初始化后才能依序的增加新的控制平面节点。
 {{< /note >}}
 
@@ -386,6 +389,7 @@ in the kubeadm config file.
 
 使用外部 etcd 节点设置集群类似于用于堆叠 etcd 的过程，
 不同之处在于您应该首先设置 etcd，并在 kubeadm 配置文件中传递 etcd 信息。
+
 <!--
 ### Set up the etcd cluster
 
@@ -462,15 +466,16 @@ in the kubeadm config file.
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-{{< note >}}
 <!--
 The difference between stacked etcd and external etcd here is that the external etcd setup requires
 a configuration file with the etcd endpoints under the `external` object for `etcd`.
 In the case of the stacked etcd topology this is managed automatically.
 -->
+{{< note >}}
 这里堆 etcd 和外部 etcd 之前的区别在于设置外部 etcd 需要一个 `etcd` 的 `external` 对象下带有 etcd 端点的配置文件。
 如果是堆 etcd 技术，是自动管理的。
 {{< /note >}}
+
 <!--
 
     -  Replace the following variables in the config template with the appropriate values for your cluster:
@@ -495,13 +500,13 @@ The following steps are similar to the stacked etcd setup:
 
 -->
 
-    -  在您的集群中，将配置模板中的以下变量替换为适当值：
+-  在您的集群中，将配置模板中的以下变量替换为适当值：
 
-        - `LOAD_BALANCER_DNS`
-        - `LOAD_BALANCER_PORT`
-        - `ETCD_0_IP`
-        - `ETCD_1_IP`
-        - `ETCD_2_IP`
+    - `LOAD_BALANCER_DNS`
+    - `LOAD_BALANCER_PORT`
+    - `ETCD_0_IP`
+    - `ETCD_1_IP`
+    - `ETCD_2_IP`
 
 以下的步骤与设置堆集群是相似的：
 
@@ -578,6 +583,7 @@ SSH is required if you want to control all nodes from a single machine.
 有许多方法可以实现这种操作。在下面的例子中我们使用 `ssh` 和 `scp`：
 
 如果要在单独的一台计算机控制所有节点，则需要 SSH。
+
 <!--
 1.  Enable ssh-agent on your main device that has access to all other nodes in
     the system:
@@ -680,12 +686,12 @@ SSH is required if you want to control all nodes from a single machine.
     done
     ```
 
-{{< caution >}}
 <!--
 Copy only the certificates in the above list. kubeadm will take care of generating the rest of the certificates
 with the required SANs for the joining control-plane instances. If you copy all the certificates by mistake,
 the creation of additional nodes could fail due to a lack of required SANs.
 -->
+{{< caution >}}
 只需要复制上面列表中的证书。kubeadm 将负责生成其余证书以及加入控制平面实例所需的 SAN。
 如果您错误地复制了所有证书，由于缺少所需的 SAN，创建其他节点可能会失败。
 {{< /caution >}}

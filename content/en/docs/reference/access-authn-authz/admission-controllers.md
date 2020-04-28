@@ -89,10 +89,10 @@ To see which admission plugins are enabled:
 kube-apiserver -h | grep enable-admission-plugins
 ```
 
-In 1.16, they are:
+In 1.18, they are:
 
 ```shell
-NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, RuntimeClass, ResourceQuota
+NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota
 ```
 
 ## What does each admission controller do?
@@ -114,6 +114,30 @@ required.
 ### AlwaysDeny {#alwaysdeny} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
+
+### CertificateApproval {#certificateapproval}
+
+This admission controller observes requests to 'approve' CertificateSigningRequest resources and performs additional
+authorization checks to ensure the approving user has permission to `approve` certificate requests with the
+`spec.signerName` requested on the CertificateSigningRequest resource.
+
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
+
+### CertificateSigning {#certificatesigning}
+
+This admission controller observes updates to the `status.certificate` field of CertificateSigningRequest resources
+and performs an additional authorization checks to ensure the signing user has permission to `sign` certificate
+requests with the `spec.signerName` requested on the CertificateSigningRequest resource.
+
+See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/) for more
+information on the permissions required to perform different actions on CertificateSigningRequest resources.
+
+### CertificateSubjectRestrictions {#certificatesubjectrestrictions}
+
+This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
+of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
+of `system:masters`.
 
 ### DefaultStorageClass {#defaultstorageclass}
 
@@ -520,7 +544,7 @@ region and/or zone.
 If the admission controller doesn't support automatic labelling your PersistentVolumes, you
 may need to add the labels manually to prevent pods from mounting volumes from
 a different zone. PersistentVolumeLabel is DEPRECATED and labeling persistent volumes has been taken over by
-[cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller/).
+the {{< glossary_tooltip text="cloud-controller-manager" term_id="cloud-controller-manager" >}}.
 Starting from 1.11, this admission controller is disabled by default.
 
 ### PodNodeSelector {#podnodeselector}
@@ -645,21 +669,30 @@ for more information.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
-This admission controller first verifies any conflict between a pod's tolerations and its
-namespace's tolerations, and rejects the pod request if there is a conflict.
-It then merges the namespace's tolerations into the pod's tolerations.
-The resulting tolerations are checked against the namespace's whitelist of
-tolerations. If the check succeeds, the pod request is admitted otherwise
-rejected.
+The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
+It rejects the pod request if there is a conflict.
+It then merges the tolerations annotated on the namespace into the tolerations of the pod.
+The resulting tolerations are checked against a whitelist of tolerations annotated to the namespace.
+If the check succeeds, the pod request is admitted otherwise it is rejected.
 
-If the pod's namespace does not have any associated default or whitelist of
-tolerations, then the cluster-level default or whitelist of tolerations are used
-instead if specified.
+If the namespace of the pod does not have any associated default tolerations or a whitelist of
+tolerations annotated, the cluster-level default tolerations or cluster-level whitelist of tolerations are used
+instead if they are specified.
 
-Tolerations to a namespace are assigned via the
-`scheduler.alpha.kubernetes.io/defaultTolerations` and
-`scheduler.alpha.kubernetes.io/tolerationsWhitelist`
-annotation keys.
+Tolerations to a namespace are assigned via the `scheduler.alpha.kubernetes.io/defaultTolerations` annotation key.
+The whitelist can be added via the `scheduler.alpha.kubernetes.io/tolerationsWhitelist` annotation key.
+
+Example for namespace annotations:
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apps-that-need-nodes-exclusively
+  annotations:
+    scheduler.alpha.kubernetes.io/defaultTolerations: '{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}'
+    scheduler.alpha.kubernetes.io/tolerationsWhitelist: '{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}'
+```
 
 ### Priority {#priority}
 
@@ -732,12 +765,12 @@ For Kubernetes 1.9 and earlier, we recommend running the following set of admiss
   ```
 
   * It's worth reiterating that in 1.9, these happen in a mutating phase
-and a validating phase, and that e.g. `ResourceQuota` runs in the validating
+and a validating phase, and that for example `ResourceQuota` runs in the validating
 phase, and therefore is the last admission controller to run.
 `MutatingAdmissionWebhook` appears before it in this list, because it runs
 in the mutating phase.
 
-    For earlier versions, there was no concept of validating vs mutating and the
+    For earlier versions, there was no concept of validating versus mutating and the
 admission controllers ran in the exact order specified.
 
 {{% /capture %}}

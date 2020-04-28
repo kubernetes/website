@@ -111,6 +111,12 @@ Using this CNI plugin allows Kubernetes pods to have the same IP address inside 
 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
 
+### Azure CNI for Kubernetes
+[Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
+
+Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
+ 
+
 ### Big Cloud Fabric from Big Switch Networks
 
 [Big Cloud Fabric](https://www.bigswitch.com/container-network-automation) is a cloud native networking architecture, designed to run Kubernetes in private cloud/on-premises environments. Using unified physical & virtual SDN, Big Cloud Fabric tackles inherent container networking problems such as load balancing, visibility, troubleshooting, security policies & container traffic monitoring.
@@ -125,16 +131,16 @@ BCF was recognized by Gartner as a visionary in the latest [Magic Quadrant](http
 providing and transparently securing network connectivity between application
 containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
 using an identity based security model that is decoupled from network
-addressing.
+addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://git.k8s.io/website/docs/concepts/cluster-administration/networking.md#kubernetes-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
 ### cni-ipvlan-vpc-k8s
-[cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) contains a set 
+[cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) contains a set
 of CNI and IPAM plugins to provide a simple, host-local, low latency, high
 throughput, and compliant networking stack for Kubernetes within Amazon Virtual
 Private Cloud (VPC) environments by making use of Amazon Elastic Network
@@ -142,11 +148,11 @@ Interfaces (ENI) and binding AWS-managed IPs into Pods using the Linux kernel's
 IPvlan driver in L2 mode.
 
 The plugins are designed to be straightforward to configure and deploy within a
-VPC. Kubelets boot and then self-configure and scale their IP usage as needed 
-without requiring the often recommended complexities of administering overlay 
-networks, BGP, disabling source/destination checks, or adjusting VPC route 
+VPC. Kubelets boot and then self-configure and scale their IP usage as needed
+without requiring the often recommended complexities of administering overlay
+networks, BGP, disabling source/destination checks, or adjusting VPC route
 tables to provide per-instance subnets to each host (which is limited to 50-100
-entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the 
+entries per VPC). In short, cni-ipvlan-vpc-k8s significantly reduces the
 network complexity required to deploy Kubernetes at scale within AWS.
 
 ### Contiv

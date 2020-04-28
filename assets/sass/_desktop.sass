@@ -2,7 +2,7 @@ $main-max-width: 1200px
 $vendor-strip-height: 44px
 $video-section-height: 550px
 
-@media screen and (min-width: 1025px)
+@media screen and (min-width: 1100px)
   #hamburger
     display: none
 
@@ -107,7 +107,7 @@ $video-section-height: 550px
     padding-right: 10px
 
   #home
-    section, header, footer
+    section, header
       .main-section
         max-width: 1000px
 
@@ -178,16 +178,18 @@ $video-section-height: 550px
     nav
       overflow: hidden
       margin-bottom: 20px
+      display: flex
+      justify-content: space-between
 
       a
-        width: 16.65%
+        width: auto
         float: left
         font-size: 24px
         font-weight: 300
         white-space: nowrap
 
     .social
-      padding: 0 30px
+      padding: 0
       max-width: 1200px
 
       div

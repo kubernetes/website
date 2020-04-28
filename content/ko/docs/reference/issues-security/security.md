@@ -11,7 +11,7 @@ weight: 20
 {{% capture body %}}
 ## 보안 공지
 
-보안 및 주요 API 공지에 대한 이메일을 위해 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 그룹에 가입하세요.
+보안 및 주요 API 공지에 대한 이메일을 위해 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce)) 그룹에 가입하세요.
 
 [이 링크](https://groups.google.com/forum/feed/kubernetes-announce/msgs/rss_v2_0.xml?num=50)를 사용하여 RSS 피드를 구독할 수 있다.
 
@@ -19,7 +19,7 @@ weight: 20
 
 우리는 쿠버네티스 오픈소스 커뮤니티에 취약점을 보고하는 보안 연구원들과 사용자들에게 매우 감사하고 있다. 모든 보고서는 커뮤니티 자원 봉사자들에 의해 철저히 조사된다.
 
-보고서를 작성하기 위해서는 보안 세부 내용과 [모든 쿠버네티스 버그 보고서](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)로부터 예상되는 세부 사항을 [security@kubernetes.io](mailto:security@kubernetes.io)로 이메일을 보낸다.
+보고서를 작성하려면, [쿠버네티스 버그 현상금 프로그램](https://hackerone.com/kubernetes)에 취약점을 제출한다. 이를 통해 표준화된 응답시간으로 취약점을 분류하고 처리할 수 있다. 또한, 보안 세부 내용과 [모든 쿠버네티스 버그 보고서](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md)로 부터 예상되는 세부사항을 [security@kubernetes.io](mailto:security@kubernetes.io)로 이메일을 보낸다.
 
 [제품 보안 위원회 구성원](https://git.k8s.io/security/security-release-process.md#product-security-committee-psc)의 GPG 키를 사용하여 이 목록으로 이메일을 암호화할 수 있다. GPG를 사용한 암호화는 공개할 필요가 없다.
 

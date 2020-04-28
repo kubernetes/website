@@ -87,7 +87,7 @@ For an example of adding a new localization, see the PR to enable [docs in Frenc
 
 PR 必须包含所有[最低要求的内容](#minimum-required-content)，然后才能被批准。
 
-有关添加新本地化的示例，请参见添加[法语文档]（https://github.com/kubernetes/website/pull/12548） 的 PR。
+有关添加新本地化的示例，请参见添加[法语文档](https://github.com/kubernetes/website/pull/12548) 的 PR。
     
 ### Join the Kubernetes GitHub organization
 

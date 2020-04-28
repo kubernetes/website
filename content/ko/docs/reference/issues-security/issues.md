@@ -3,7 +3,7 @@ title: 쿠버네티스 이슈 트래커
 weight: 10
 ---
 
-보안 문제를 보고하려면 [쿠버네티스 보안 공개 프로세스](/docs/reference/issues-security/security/#report-a-vulnerability)를 따른다.
+보안 문제를 보고하려면 [쿠버네티스 보안 공개 프로세스](/ko/docs/reference/issues-security/security/#취약점-보고)를 따른다.
 
 쿠버네티스 코드 작업 및 공개 이슈는 [깃허브 이슈](https://github.com/kubernetes/kubernetes/issues/)를 사용하여 추적된다.
 

@@ -62,10 +62,10 @@ for details about addon manager and how to disable individual addons.
       To mark a StorageClass as non-default, you need to change its value to `false`:
 
       ```bash
-      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+      kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
       ```
 
-      where `<your-class-name>` is the name of your chosen StorageClass.
+      where `standard` is the name of your chosen StorageClass.
 
 1. Mark a StorageClass as default:
 
@@ -73,7 +73,7 @@ for details about addon manager and how to disable individual addons.
       `storageclass.kubernetes.io/is-default-class=true`.
 
       ```bash
-      kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+      kubectl patch storageclass gold -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
       ```
 
       Please note that at most one StorageClass can be marked as default. If two

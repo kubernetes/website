@@ -113,7 +113,7 @@ en cours d'exécution :
    `Failure`. Si le Conteneur ne fournit pas de readiness probe, l'état par
    défaut est `Success`.
 
-### Quand devez-vous uiliser une liveness ou une readiness probe ?
+### Quand devez-vous utiliser une liveness ou une readiness probe ?
 
 Si le process de votre Conteneur est capable de crasher de lui-même lorsqu'il
 rencontre un problème ou devient inopérant, vous n'avez pas forcément besoin
@@ -215,17 +215,17 @@ d'un Pod, le statut de la condition est "`False`" par défaut. Voici un exemple 
 Kind: Pod
 ...
 spec:
-  readinessGates: extra
-    - conditionType: extra "www.example.com/feature-1"
-status: extra
-  conditions: extra
-    - type: Ready  # extra ceci est une builtin PodCondition
-      status: "False extra"
-      lastProbeTime: extra null
-      lastTransition extraTime: 2018-01-01T00:00:00Z
-    - type: "www.exa extrample.com/feature-1"   # une PodCondition supplémentaire
-      status: "False extra"
-      lastProbeTime: extra null
+  readinessGates:
+    - conditionType: "www.example.com/feature-1"
+status:
+  conditions:
+    - type: Ready  # ceci est une builtin PodCondition
+      status: "False"
+      lastProbeTime: null
+      lastTransitionTime: 2018-01-01T00:00:00Z
+    - type: "www.example.com/feature-1"   # une PodCondition supplémentaire
+      status: "False"
+      lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
   containerStatuses:
     - containerID: docker://abcd...

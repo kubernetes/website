@@ -24,8 +24,8 @@ weight: 20
 :--- | :----------
 개념 | 개념 페이지는 쿠버네티스의 일부 측면을 설명한다. 예를 들어 개념 페이지는 쿠버네티스 디플로이먼트 오브젝트를 설명하고 배치, 확장 및 업데이트되는 동안 애플리케이션으로서 수행하는 역할을 설명할 수 있다. 일반적으로 개념 페이지는 일련의 단계가 포함되지 않지만 대신 태스크나 튜토리얼에 대한 링크를 제공한다. 개념 문서의 예로서 <a href="/ko/docs/concepts/architecture/nodes/">노드</a>를 참조하자.
 태스크 | 태스크 페이지는 단일 작업을 수행하는 방법을 보여준다. 아이디어는 독자가 페이지를 읽을 때 실제로 수행할 수 있는 일련의 단계를 제공하는 것이다. 태스크 페이지는 한 영역에 집중되어 있으면 짧거나 길 수 있다. 태스크 페이지에서 수행할 단계와 간단한 설명을 혼합하는 것은 괜찮지만, 긴 설명을 제공해야 하는 경우에는 개념 문서에서 수행해야 한다. 관련 태스크와 개념 문서는 서로 연결되어야 한다. 짧은 태스크 페이지의 예제는 <a href="/docs/tasks/configure-pod-container/configure-volume-storage/">저장소에 볼륨을 사용하도록 파드 구성</a>을 참조하자. 더 긴 태스크 페이지의 예제는 <a href="/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">활동성 및 준비성 프로브 구성</a>을 참조하자.
-튜토리얼 | 튜토리얼 페이지는 여러 쿠버네티스의 특징들을 하나로 묶어서 목적을 달성하는 방법을 보여준다. 튜토리얼은 독자들이 페이지를 읽을 때 실제로 할 수 있는 몇 가지 단계의 순서를 제공한다. 또는 관련 코드 일부에 대한 설명을 제공할 수도 있다. 예를 들어 튜토리얼은 코드 샘플의 연습을 제공할 수 있다. 튜토리얼에는 쿠버네티스의 특징에 대한 간략한 설명이 포함될 수 있지만 개별 기능에 대한 자세한 설명은 관련 개념 문서과 연결지어야 한다. 
-{{< /table >}} 
+튜토리얼 | 튜토리얼 페이지는 여러 쿠버네티스의 특징들을 하나로 묶어서 목적을 달성하는 방법을 보여준다. 튜토리얼은 독자들이 페이지를 읽을 때 실제로 할 수 있는 몇 가지 단계의 순서를 제공한다. 또는 관련 코드 일부에 대한 설명을 제공할 수도 있다. 예를 들어 튜토리얼은 코드 샘플의 연습을 제공할 수 있다. 튜토리얼에는 쿠버네티스의 특징에 대한 간략한 설명이 포함될 수 있지만 개별 기능에 대한 자세한 설명은 관련 개념 문서과 연결지어야 한다.
+{{< /table >}}
 
 새 페이지에 대한 템플릿을 사용하자. 각 페이지 타입에 있는
 [템플릿](/docs/contribute/style/page-templates/)
@@ -47,12 +47,12 @@ weight: 20
 ## 전문에 항목 제목 추가
 
 문서에서 [전문](https://gohugo.io/content-management/front-matter/)
-에 `제목` 필드를 입력하자.
+에 `title` 필드를 입력하자.
 전문은 페이지 상단의 3중 점선 사이에 있는
 YAML 블록이다. 여기 예시가 있다.
 
     ---
-    제목: HTTP 프록시를 사용하여 쿠버네티스 API에 접근
+    title: HTTP 프록시를 사용하여 쿠버네티스 API에 접근
     ---
 
 ## 디렉토리 선택
@@ -68,9 +68,9 @@ YAML 블록이다. 여기 예시가 있다.
 
 ## 목차에 항목 배치
 
-목차는 문서 소스의 디렉토리 구조를 사용하여 
-동적으로 작성된다. `/content/en/docs/` 아래의 최상위 디렉토리는 최상위 레벨 탐색 기능을 
-생성하고, 하위 디렉토리는 각각 목차에 항목을 
+목차는 문서 소스의 디렉토리 구조를 사용하여
+동적으로 작성된다. `/content/en/docs/` 아래의 최상위 디렉토리는 최상위 레벨 탐색 기능을
+생성하고, 하위 디렉토리는 각각 목차에 항목을
 갖는다.
 
 각 하위 디렉토리에는 `_index.md` 파일이 있으며 이는 해당 하위 디렉토리의 컨텐츠에 대한
@@ -86,13 +86,13 @@ YAML 블록이다. 여기 예시가 있다.
 ## 문서에 코드 포함
 
 문서에 코드를 포함시키려면 마크다운 코드 블록 구문을 사용하여
-파일에 코드를 직접 삽입하자. 다음 경우에 
+파일에 코드를 직접 삽입하자. 다음 경우에
 권장된다. (전체 목록은 아님)
 
 - 이 코드는 `kubectl get deploy mydeployment -o json | jq '.status'`와 같은
   명령어의 출력을 보여준다.
-- 이 코드는 시도해보기에 적절하지 않다. 예를 들어 
-  특정 [FlexVolume](/docs/concepts/storage/volumes#flexvolume) 구현에 따라
+- 이 코드는 시도해보기에 적절하지 않다. 예를 들어
+  특정 [FlexVolume](/ko/docs/concepts/storage/volumes#flexvolume) 구현에 따라
   파드를 만들기 위해 YAML 파일을
   포함할 수 있다.
 - 이 코드의 목적은 더 큰 파일의 일부를 강조하는 것이기 때문에
@@ -115,8 +115,9 @@ YAML 파일과 같은 새로운 독립형 샘플 파일을 추가할 때
 `<LANG>/examples/` 의 하위 디렉토리 중 하나에 코드를 배치하자. 여기서 `<LANG>`은
 주제에 관한 언어이다. 문서 파일에서 `codenew` 단축 코드(shortcode)를 사용하자.
 
-<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
-
+```none
+{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+```
 여기서 `<RELPATH>` 는 `examples` 디렉토리와 관련하여 포함될
 파일의 경로이다. 다음 Hugo 단축 코드(shortcode)는 `/content/en/examples/pods/storage/gce-volume.yaml`
 에 있는 YAML 파일을 참조한다.
@@ -126,7 +127,7 @@ YAML 파일과 같은 새로운 독립형 샘플 파일을 추가할 때
 ```
 
 {{< note >}}
-위의 예와 같은 원시 Hugo 단축 코드(shortcode)를 표시하고 Hugo가 
+위의 예와 같은 원시 Hugo 단축 코드(shortcode)를 표시하고 Hugo가
 해석하지 못하게 하려면 `<` 문자 바로 다음과 `>` 문자 앞에 C 스타일 주석을 사용하자.
 그 예로서 이 페이지의 코드를 확인하자.
 {{< /note >}}
@@ -144,7 +145,7 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
 {{< note >}}
-`<LANG>/examples` 디렉토리에 새 YAMl 파일을 추가할 때 파일이 
+`<LANG>/examples` 디렉토리에 새 YAMl 파일을 추가할 때 파일이
 `<LANG>/examples_test.go` 파일에도 포함되어 있는지 확인하자.
 웹 사이트의 Travis CI 는 PR이 제출될 때 이 예제를 자동으로
 실행하여 모든 예제가 테스트를 통과하도록 한다.
@@ -161,7 +162,6 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [페이지 템플릿 사용](/docs/home/contribute/page-templates/)에 대해 알아보기.
-* [변경 사항 준비](/docs/home/contribute/stage-documentation-changes/)에 대해 알아보기.
-* [풀 리퀘스트 작성](/docs/home/contribute/create-pull-request/)에 대해 알아보기.
+* [페이지 템플릿 사용](/docs/contribute/page-templates/))에 대해 알아보기.
+* [풀 리퀘스트 작성](/docs/contribute/new-content/open-a-pr/)에 대해 알아보기.
 {{% /capture %}}

@@ -1,0 +1,12 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+# Owned by Kubernetes Blog reviewers
+
+approvers:
+  - sig-docs-blog-owners # Defined in OWNERS_ALIASES
+
+reviewers:
+  -  sig-docs-blog-reviewers # Defined in OWNERS_ALIASES
+
+labels:
+  - area/blog

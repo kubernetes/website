@@ -7,7 +7,7 @@ title: Schedule GPUs
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" for_k8s_version="1.10" >}}
+{{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
 Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 (graphical processing units) across several nodes.
@@ -104,7 +104,7 @@ To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta/nvidia-device-plugin.yml
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
 
 You can report issues with this third-party device plugin by logging an issue in

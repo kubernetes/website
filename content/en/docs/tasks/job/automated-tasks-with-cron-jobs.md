@@ -1,5 +1,6 @@
 ---
 title: Running Automated Tasks with a CronJob
+min-kubernetes-server-version: v1.8
 reviewers:
 - chenopis
 content_template: templates/task
@@ -24,7 +25,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
@@ -46,12 +47,6 @@ The output is similar to this:
 
 ```
 cronjob.batch/hello created
-```
-
-Alternatively, you can use `kubectl run` to create a cron job without writing a full config:
-
-```shell
-kubectl run --generator=run-pod/v1 hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 ```
 
 After creating the cron job, get its status using this command:

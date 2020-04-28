@@ -10,7 +10,7 @@ weight: 40
 
 
 {{% capture overview %}}
-Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
 is a property of *pods* that *attracts* them to a set of nodes (either as a
 preference or a hard requirement). Taints are the opposite -- they allow a
 *node* to *repel* a set of pods.
@@ -73,6 +73,7 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 `Operator` defaults to `Equal` if not specified.
 
 {{< note >}}
+
 There are two special cases:
 
 * An empty `key` with operator `Exists` matches all keys, values and effects which means this
@@ -88,8 +89,9 @@ tolerations:
 ```yaml
 tolerations:
 - key: "key"
-  operator: "Exists"
+      operator: "Exists"
 ```
+
 {{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
@@ -195,10 +197,12 @@ on the special hardware nodes. This will make sure that these special hardware
 nodes are dedicated for pods requesting such hardware and you don't have to
 manually add tolerations to your pods.
 
-* **Taint based Evictions (beta feature)**: A per-pod-configurable eviction behavior
+* **Taint based Evictions**: A per-pod-configurable eviction behavior
 when there are node problems, which is described in the next section.
 
 ## Taint based Evictions
+
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 Earlier we mentioned the `NoExecute` taint effect, which affects pods that are already
 running on the node as follows
@@ -227,9 +231,9 @@ certain condition is true. The following taints are built in:
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 
-In version 1.13, the `TaintBasedEvictions` feature is promoted to beta and enabled by default, hence the taints are automatically
-added by the NodeController (or kubelet) and the normal logic for evicting pods from nodes
-based on the Ready NodeCondition is disabled.
+In case a node is to be evicted, the node controller or the kubelet adds relevant taints
+with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
+controller can remove the relevant taint(s).
 
 {{< note >}}
 To maintain the existing [rate limiting](/docs/concepts/architecture/nodes/)
@@ -238,7 +242,7 @@ in a rate-limited way. This prevents massive pod evictions in scenarios such
 as the master becoming partitioned from the nodes.
 {{< /note >}}
 
-This beta feature, in combination with `tolerationSeconds`, allows a pod
+The feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 
 For example, an application with a lot of local state might want to stay
@@ -275,15 +279,13 @@ admission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/default
   * `node.kubernetes.io/unreachable`
   * `node.kubernetes.io/not-ready`
 
-This ensures that DaemonSet pods are never evicted due to these problems,
-which matches the behavior when this feature is disabled.
+This ensures that DaemonSet pods are never evicted due to these problems.
 
 ## Taint Nodes by Condition
 
 The node lifecycle controller automatically creates taints corresponding to
-Node conditions.
+Node conditions with `NoSchedule` effect.
 Similarly the scheduler does not check Node conditions; instead the scheduler checks taints. This assures that Node conditions don't affect what's scheduled onto the Node. The user can choose to ignore some of the Node's problems (represented as Node conditions) by adding appropriate Pod tolerations.
-Note that `TaintNodesByCondition` only taints nodes with `NoSchedule` effect. `NoExecute` effect is controlled by `TaintBasedEviction` which is a beta feature and enabled by default since version 1.13.
 
 Starting in Kubernetes 1.8, the DaemonSet controller automatically adds the
 following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from

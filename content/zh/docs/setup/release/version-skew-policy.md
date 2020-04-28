@@ -45,10 +45,9 @@ This decision is owned by the [patch release manager](https://github.com/kuberne
 The patch release manager is a member of the [release team for each release](https://github.com/kubernetes/sig-release/tree/master/release-team).
 -->
 一些 bug 修复，包括安全修复，根据其安全性和可用性，有可能会回合到这些分支。
-如果有必要，补丁版本会定期从这些分支中发布。
-[补丁发布管理员](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-manager.md#release-timing)
-来决定是否发布。
-补丁发布管理员同时也是[release team for each release](https://github.com/kubernetes/sig-release/tree/master/release-team) 的管理员。
+补丁版本会定期或根据需要从这些分支中发布。
+最终是否发布是由[patch release team](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-manager.md#release-timing)
+来决定的。Patch release team同时也是[release managers](https://github.com/kubernetes/sig-release/blob/master/release-managers.md). 如需了解更多信息，请查看 [Kubernetes Patch releases](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
 
 <!--
 Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
@@ -82,7 +81,7 @@ Example:
 -->
 `kubelet` 版本号不能高于 `kube-apiserver`，最多可以比 `kube-apiserver` 低两个小版本。
 
-<!-- 
+<!--
 Example:
 
 * `kube-apiserver` is at **1.13**
@@ -116,7 +115,7 @@ Example:
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
 -->
 `kube-controller-manager`、`kube-scheduler` 和 `cloud-controller-manager` 版本不能高于 `kube-apiserver` 版本号。
-最好它们的版本号与 `kube-apiserver` 保持一致，但允许比 `kube-apiserver` 低一个小版本（为了支持在线生级）。
+最好它们的版本号与 `kube-apiserver` 保持一致，但允许比 `kube-apiserver` 低一个小版本（为了支持在线升级）。
 
 <!--
 Example:
@@ -271,7 +270,7 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 
 <!--
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
-* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases 
+* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 -->
 * 他们必须升级到与 `kube-apiserver` 相差不超过1个小版本，才可以升级其他控制面组件
 * 有可能使用低于3个在维护的小版本

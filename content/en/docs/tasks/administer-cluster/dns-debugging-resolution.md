@@ -20,26 +20,26 @@ This page provides hints on diagnosing DNS problems.
 
 ### Create a simple Pod to use as a test environment
 
-Create a file named busybox.yaml with the following contents:
+Create a file named dnsutils.yaml with the following contents:
 
-{{< codenew file="admin/dns/busybox.yaml" >}}
+{{< codenew file="admin/dns/dnsutils.yaml" >}}
 
 Then create a pod using this file and verify its status:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod/busybox created
+kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
+pod/dnsutils created
 
-kubectl get pods busybox
+kubectl get pods dnsutils
 NAME      READY     STATUS    RESTARTS   AGE
-busybox   1/1       Running   0          <some-time>
+dnsutils   1/1       Running   0          <some-time>
 ```
 
 Once that pod is running, you can exec `nslookup` in that environment.
 If you see something like the following, DNS is working correctly.
 
 ```shell
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -56,7 +56,7 @@ Take a look inside the resolv.conf file.
 [Known issues](#known-issues) below for more information)
 
 ```shell
-kubectl exec busybox cat /etc/resolv.conf
+kubectl exec -ti dnsutils -- cat /etc/resolv.conf
 ```
 
 Verify that the search path and name server are set up like the following
@@ -72,7 +72,7 @@ Errors such as the following indicate a problem with the coredns/kube-dns add-on
 associated Services:
 
 ```
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10
 
@@ -82,7 +82,7 @@ nslookup: can't resolve 'kubernetes.default'
 or
 
 ```
-kubectl exec -ti busybox -- nslookup kubernetes.default
+kubectl exec -ti dnsutils -- nslookup kubernetes.default
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -248,7 +248,7 @@ linux/amd64, go1.10.3, 2e322f6
 
 ## Known issues
 
-Some Linux distributions (e.g. Ubuntu), use a local DNS resolver by default (systemd-resolved).
+Some Linux distributions (e.g. Ubuntu) use a local DNS resolver by default (systemd-resolved).
 Systemd-resolved moves and replaces `/etc/resolv.conf` with a stub file that can cause a fatal forwarding
 loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `--resolv-conf` flag
 to point to the correct `resolv.conf` (With `systemd-resolved`, this is `/run/systemd/resolve/resolv.conf`).
@@ -258,28 +258,12 @@ Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 
-Linux's libc is impossibly stuck ([see this bug from
-2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)) with limits of just
-3 DNS `nameserver` records and 6 DNS `search` records. Kubernetes needs to
-consume 1 `nameserver` record and 3 `search` records. This means that if a
-local installation already uses 3 `nameserver`s or uses more than 3 `search`es,
-some of those settings will be lost. As a partial workaround, the node can run
-`dnsmasq` which will provide more `nameserver` entries, but not more `search`
-entries. You can also use kubelet's `--resolv-conf` flag.
+Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by default. What's more, for the glibc versions which are older than glibc-2.17-222 ([the new versions update see this issue](https://access.redhat.com/solutions/58028)), the allowed number of DNS `search` records has been limited to 6 ([see this bug from 2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)). Kubernetes needs to consume 1 `nameserver` record and 3 `search` records. This means that if a local installation already uses 3 `nameserver`s or uses more than 3 `search`es while your glibc version is in the affected list, some of those settings will be lost. To work around the DNS `nameserver` records limit, the node can run `dnsmasq`, which will provide more `nameserver` entries. You can also use kubelet's `--resolv-conf` flag. To fix the DNS `search` records limit, consider upgrading your linux distribution or upgrading to an unaffected version of glibc.
 
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly owing to a known issue with Alpine.
+work properly due to a known issue with Alpine.
 Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
 for more information.
-
-## Kubernetes Federation (Multiple Zone support)
-
-Release 1.3 introduced Cluster Federation support for multi-site Kubernetes
-installations. This required some minor (backward-compatible) changes to the
-way the Kubernetes cluster DNS server processes DNS queries, to facilitate
-the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/concepts/cluster-administration/federation/)
-for more details on Cluster Federation and multi-site support.
 
 ## References
 

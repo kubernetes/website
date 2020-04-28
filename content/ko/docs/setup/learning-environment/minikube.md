@@ -1,5 +1,6 @@
 ---
 title: Minikube로 쿠버네티스 설치
+weight: 30
 content_template: templates/concept
 ---
 
@@ -19,7 +20,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 * 노드 포트
 * 컨피그 맵과 시크릿
 * 대시보드
-* 컨테이너 런타임: Docker, [CRI-O](https://cri-o.io/) 와 [containerd](https://github.com/containerd/containerd)
+* 컨테이너 런타임: [Docker](https://www.docker.com/), [CRI-O](https://cri-o.io/) 와 [containerd](https://github.com/containerd/containerd)
 * CNI(Container Network Interface) 사용
 * 인그레스
 
@@ -182,24 +183,30 @@ Minikube는 또한 "minikube" 컨텍스트를 생성하고 이를 kubectl의 기
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### VM 드라이버 지정하기
-`minikube start` 코멘드에 `--vm-driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
+`minikube start` 코멘드에 `--driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
 코멘드를 예를 들면 다음과 같다.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
  Minikube는 다음의 드라이버를 지원한다.
  {{< note >}}
- 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 참조한다.
+ 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (EXPERIMENTAL)
+* kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 다음 IP는 동적이며 변경할 수 있다. `minikube ip`로 알아낼 수 있다.
-* vmware ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (쿠버네티스 컴포넌트를 VM이 아닌 호스트 상에서 구동한다. 개인용 워크스테이션에서 none 드라이버를 사용하는 것을 권장하지 않는다. 이 드라이버를 사용하려면 도커와 리눅스 환경이 필요하다.([도커 설치](https://docs.docker.com/install/linux/docker-ce/ubuntu/)))
+* vmware ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* none (쿠버네티스 컴포넌트를 가상 머신이 아닌 호스트 상에서 구동한다. 리눅스를 실행중이어야 하고, {{< glossary_tooltip term_id="docker" >}}가 설치되어야 한다.)
+  
+{{< caution >}}
+`none` 드라이버를 사용한다면 일부 쿠버네티스 컴포넌트는 Minikube 환경 외부에 있는 부작용이 있는 권한을 가진 컨테이너로 실행된다. 이런 부작용은 개인용 워크스테이션에는 `none` 드라이버가 권장하지 않는 것을 의미 한다.
+{{< /caution >}}
 
 #### 대안적인 컨테이너 런타임 상에서 클러스터 시작하기
 Minikube를 다음의 컨테이너 런타임에서 기동할 수 있다.
@@ -257,11 +264,7 @@ minikube start \
 Docker 이미지를 'latest'가 아닌 다른 태그로 태그했는지 확인하고 이미지를 풀링할 때에는 그 태그를 이용한다. 혹시 이미지 태그 버전을 지정하지 않았다면, 기본값은 `:latest`이고 이미지 풀링 정책은 `Always`가 가정하나, 만약 기본 Docker 레지스트리(보통 DockerHub)에 해당 Docker 이미지 버전이 없다면 `ErrImagePull`의 결과가 나타날 것이다.
 {{< /note >}}
 
-맥이나 리눅스 호스트에서 해당 Docker 데몬을 사용하려면 `docker-env command`를 쉘에서 사용해야 한다.
-
-```shell
-eval $(minikube docker-env)
-```
+맥이나 리눅스 호스트에서 해당 Docker 데몬을 사용하려면 `minikube docker-env` 에서 마지막 줄을 실행한다.
 
 이제 개인의 맥/리눅스 머신 내 커멘드 라인에서 도커를 사용해서 Minikube VM 안의 도커 데몬과 통신할 수 있다.
 
@@ -324,8 +327,8 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube delete` 명령은 클러스터를 삭제하는데 사용할 수 있다.
 이 명령어는 Minikube 가상 머신을 종료하고 삭제한다. 어떤 데이터나 상태도 보존되지 않다.
 
-### minikube 업그레이드
-[minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/)를 본다.
+### Minikube 업그레이드
+macOS를 사용하는 경우 기존에 설치된 Minikube를 업그레이드하려면 [Minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube)를 참조한다.
 
 ## 클러스터와 상호 작용하기
 
@@ -366,7 +369,7 @@ Minikube VM은 host-only IP 주소를 통해 호스트 시스템에 노출되고
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 퍼시스턴트 볼륨
-Minikube는 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
+Minikube는 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
 이런 퍼시스턴트 볼륨은 Minikube VM 내에 디렉터리로 매핑됩니다.
 
 Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부트(`minikube stop`)까지는 유지되지 않다.
@@ -404,7 +407,7 @@ spec:
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## 프라이빗 컨테이너 레지스트리

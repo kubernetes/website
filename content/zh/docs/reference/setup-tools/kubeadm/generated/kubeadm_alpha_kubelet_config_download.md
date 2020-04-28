@@ -1,12 +1,12 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
 
 
-<!-- 
-Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. Either kubeadm autodetects the kubelet version by exec-ing "kubelet --version" or respects the --kubelet-version parameter. 
+<!--
+Download the kubelet configuration from a ConfigMap of the form "kubelet-config-1.X" in the cluster, where X is the minor version of the kubelet. Either kubeadm autodetects the kubelet version by exec-ing "kubelet --version" or respects the --kubelet-version parameter.
 -->
 从集群中形式为 "kubelet-config-1.X" 的 ConfigMap 中下载 kubelet 配置，其中 X 是 kubelet 的次要版本。kubeadm 要么通过执行 "kubelet --version" 自动检测 kubelet 版本，要么传递 --kubelet-version 参数。
 
@@ -29,7 +29,7 @@ kubeadm alpha kubelet config download [flags]
 ```
   # Download the kubelet configuration from the ConfigMap in the cluster. Autodetect the kubelet version.
   kubeadm alpha phase kubelet config download
-  
+
   # Download the kubelet configuration from the ConfigMap in the cluster. Use a specific desired kubelet version.
   kubeadm alpha phase kubelet config download --kubelet-version 1.16.0
 ```
@@ -37,7 +37,7 @@ kubeadm alpha kubelet config download [flags]
 ```
   # 从集群中的 ConfigMap 下载 kubelet 配置。自动检测 kubelet 版本。
   下载 kubeadm alpha phase kubelet 配置
-  
+
   # 从集群中的 ConfigMap 下载 kubelet 配置。使用特定的所需 kubelet 版本。
   kubeadm alpha phase kubelet 配置下载 --kubelet-version 1.16.0
 ```
@@ -129,12 +129,3 @@ kubeadm alpha kubelet config download [flags]
 
 
 
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
--->
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - 用于 kubelet 配置的程序

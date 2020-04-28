@@ -69,10 +69,10 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## Label selectors
@@ -92,7 +92,7 @@ them.
 For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
 {{< /note >}}
 
-{{< caution >}} 
+{{< caution >}}
 For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
 {{< /caution >}}
 
@@ -210,7 +210,7 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
 
 ```yaml
 selector:

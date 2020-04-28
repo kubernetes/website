@@ -106,15 +106,3 @@ kubeadm token delete [token-value] ...
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm token](kubeadm_token.md)	 - Manage bootstrap tokens
--->
-* [kubeadm token](kubeadm_token.md)	 - 管理引导令牌（bootstrap token）
-

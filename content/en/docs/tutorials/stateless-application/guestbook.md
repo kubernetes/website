@@ -79,7 +79,7 @@ Replace POD-NAME with the name of your Pod.
 
 ### Creating the Redis Master Service
 
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 

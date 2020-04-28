@@ -1,9 +1,10 @@
 ---
 title: Participating in SIG Docs
 content_template: templates/concept
+weight: 60
 card:
   name: contribute
-  weight: 40
+  weight: 60
 ---
 
 {{% capture overview %}}
@@ -19,11 +20,12 @@ SIG Docs welcomes content and reviews from all contributors. Anyone can open a
 pull request (PR), and anyone is welcome to file issues about content or comment
 on pull requests in progress.
 
-Within SIG Docs, you may also become a [member](#members),
+You can also become a [member](#members),
 [reviewer](#reviewers), or [approver](#approvers). These roles require greater
 access and entail certain responsibilities for approving and committing changes.
 See [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)
 for more information on how membership works within the Kubernetes community.
+
 The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes -- the Kubernetes website and documentation.
@@ -34,51 +36,48 @@ aspects of Kubernetes -- the Kubernetes website and documentation.
 
 ## Roles and responsibilities
 
-When a pull request is merged to the branch used to publish content (currently
-`master`), that content is published and available to the world. To ensure that
-the quality of our published content is high, we limit merging pull requests to
-SIG Docs approvers. Here's how it works.
+- **Anyone** can contribute to Kubernetes documentation. To contribute, you must [sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) and have a GitHub account.
+- **Members** of the Kubernetes organization are contributors who have spent time and effort on the Kubernetes project, usually by opening pull requests with accepted changes. See [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md) for membership criteria.
+- A SIG Docs **Reviewer** is a member of the Kubernetes organization who has
+  expressed interest in reviewing documentation pull requests, and has been
+  added to the appropriate GitHub group and `OWNERS` files in the GitHub
+  repository by a SIG Docs Approver.
+- A SIG Docs **Approver** is a member in good standing who has shown a continued
+  commitment to the project. An approver can merge pull requests
+  and publish content on behalf of the Kubernetes organization.
+  Approvers can also represent SIG Docs in the larger Kubernetes community.
+  Some duties of a SIG Docs approver, such as coordinating a release,
+  require a significant time commitment.
 
-- When a pull request has both the `lgtm` and `approve` labels and has no `hold`
-  labels, the pull request merges automatically. 
-- Kubernetes organization members and SIG Docs approvers can add comments to
-  prevent automatic merging of a given pull request (by adding a `/hold` comment
-  or withholding a `/lgtm` comment).
-- Any Kubernetes member can add the `lgtm` label, by adding a `/lgtm` comment.
-- Only an approver who is a member of SIG Docs can cause a pull request to merge
-  by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](#pr-wrangler) or
-  [SIG Docs chairperson](#sig-docs-chairperson).
+## Anyone
 
-For more information about expectations and differences between the roles of
-Kubernetes organization member and SIG Docs approvers, see
-[Types of contributor](/docs/contribute#types-of-contributor). The following
-sections cover more details about these roles and how they work within
-SIG Docs.
+Anyone can do the following:
 
-### Anyone
+- Open a GitHub issue against any part of Kubernetes, including documentation.
+- Provide non-binding feedback on a pull request.
+- Help to localize existing content
+- Bring up ideas for improvement on [Slack](http://slack.k8s.io/) or the [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+- Use the `/lgtm` Prow command (short for "looks good to me") to recommend the changes in a pull request for merging.
+  {{< note >}}
+  If you are not a member of the Kubernetes organization, using `/lgtm` has no effect on automated systems.
+  {{< /note >}}
 
-Anyone can file an issue against any part of Kubernetes, including documentation.
+After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
+- Open a pull request to improve existing content, add new content, or write a blog post or case study.
 
-Anyone who has signed the CLA can submit a pull request. If you cannot sign the
-CLA, the Kubernetes project cannot accept your contribution.
+## Members
 
-### Members
+Members are contributors to the Kubernetes project who meet the [membership criteria](https://github.com/kubernetes/community/blob/master/community-membership.md#member). SIG Docs welcomes contributions from all members of the Kubernetes community,
+and frequently requests reviews from members of other SIGs for technical accuracy.
 
-Any member of the [Kubernetes organization](https://github.com/kubernetes) can
-review a pull request, and SIG Docs team members frequently request reviews from
-members of other SIGs for technical accuracy.
-SIG Docs also welcomes reviews and feedback regardless of a person's membership
-status in the Kubernetes organization. You can indicate your approval by adding
-a comment of `/lgtm` to a pull request. If you are not a member of the
-Kubernetes organization, your `/lgtm` has no effect on automated systems.
+Any member of the [Kubernetes organization](https://github.com/kubernetes) can do the following:
 
-Any member of the Kubernetes organization can add a `/hold` comment to prevent
-the pull request from being merged. Any member can also remove a `/hold` comment
-to cause a PR to be merged if it already has both `/lgtm` and `/approve` applied
-by appropriate people.
+- Everything listed under [Anyone](#anyone)
+- Use the `/lgtm` comment to add the LGTM (looks good to me) label to a pull request.
+- Use the `/hold` command to prevent a pull request from being merged, if the pull request already has the LGTM and approve labels.
+- Use the `/assign` comment to assign a reviewer to a pull request.
 
-#### Becoming a member
+### Becoming a member
 
 After you have successfully submitted at least 5 substantive pull requests, you
 can request [membership](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
@@ -86,11 +85,11 @@ in the Kubernetes organization. Follow these steps:
 
 1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
     your membership.
-    
-      Ask for sponsorship in the [#sig-docs channel on the 
+
+      Ask for sponsorship in the [#sig-docs channel on the
       Kubernetes Slack instance](https://kubernetes.slack.com) or on the
       [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
-      
+
       {{< note >}}
       Don't send a direct email or Slack direct message to an individual
       SIG Docs member.
@@ -108,20 +107,28 @@ in the Kubernetes organization. Follow these steps:
     GitHub issue to show approval and then closes the GitHub issue.
     Congratulations, you are now a member!
 
-If for some reason your membership request is not accepted right away, the
+If your membership request is not accepted, the
 membership committee provides information or steps to take before applying
 again.
 
-### Reviewers
+## Reviewers
 
 Reviewers are members of the
 [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
-GitHub group. See [Teams and groups within SIG Docs](#teams-and-groups-within-sig-docs).
+GitHub group. Reviewers review documentation pull requests and provide feedback on proposed
+changes. Reviewers can:
 
-Reviewers review documentation pull requests and provide feedback on proposed
-changes.
+- Do everything listed under [Anyone](#anyone) and [Members](#members)
+- Document new features
+- Triage and categorize issues
+- Review pull requests and provide binding feedback
+- Create diagrams, graphics assets, and embeddable screencasts and videos
+- Edit user-facing strings in code
+- Improve code comments
 
-Automation assigns reviewers to pull requests, and contributors can request a
+### Assigning reviewers to pull requests
+
+Automation assigns reviewers to all pull requests. You can request a
 review from a specific reviewer with a comment on the pull request: `/assign
 [@_github_handle]`. To indicate that a pull request is technically accurate and
 requires no further changes, a reviewer adds a `/lgtm` comment to the pull
@@ -129,18 +136,14 @@ request.
 
 If the assigned reviewer has not yet reviewed the content, another reviewer can
 step in. In addition, you can assign technical reviewers and wait for them to
-provide `/lgtm`.
+provide a `/lgtm` comment.
 
-For a trivial change or one that needs no technical review, the SIG Docs
-[approver](#approvers) can provide the `/lgtm` as well.
+For a trivial change or one that needs no technical review, SIG Docs
+[approvers](#approvers) can provide the `/lgtm` as well.
 
-A `/approve` comment from a reviewer is ignored by automation.
+An `/approve` comment from a reviewer is ignored by automation.
 
-For more about how to become a SIG Docs reviewer and the responsibilities and
-time commitment involved, see
-[Becoming a reviewer or approver](#becoming-an-approver-or-reviewer).
-
-#### Becoming a reviewer
+### Becoming a reviewer
 
 When you meet the
 [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer),
@@ -161,26 +164,27 @@ If you are approved, request that a current SIG Docs approver add you to the
 GitHub group. Only members of the `kubernetes-website-admins` GitHub group can
 add new members to a GitHub group.
 
-### Approvers
+## Approvers
 
 Approvers are members of the
 [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub group. See [Teams and groups within SIG Docs](#teams-and-groups-within-sig-docs).
+GitHub group. See [SIG Docs teams and automation](#sig-docs-teams-and-automation) for details.
 
-Approvers have the ability to merge a PR, and thus, to publish content on the
-Kubernetes website. To approve a PR, an approver leaves an `/approve` comment on
-the PR. If someone who is not an approver leaves the approval comment,
-automation ignores it.
+Approvers can do the following:
+
+- Everything listed under [Anyone](#anyone), [Members](#members) and [Reviewers](#reviewers)
+- Publish contributor content by approving and merging pull requests using the `/approve` comment.
+  If someone who is not an approver leaves the approval comment, automation ignores it.
+- Participate in a Kubernetes release team as a docs representative
+- Propose improvements to the style guide
+- Propose improvements to docs tests
+- Propose improvements to the Kubernetes website or other tooling
 
 If the PR already has a `/lgtm`, or if the approver also comments with `/lgtm`,
 the PR merges automatically. A SIG Docs approver should only leave a `/lgtm` on
 a change that doesn't need additional technical review.
 
-For more about how to become a SIG Docs approver and the responsibilities and
-time commitment involved, see
-[Becoming a reviewer or approver](#becoming-an-approver-or-reviewer).
-
-#### Becoming an approver
+### Becoming an approver
 
 When you meet the
 [requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver),
@@ -201,34 +205,29 @@ If you are approved, request that a current SIG Docs approver add you to the
 GitHub group. Only members of the `kubernetes-website-admins` GitHub group can
 add new members to a GitHub group.
 
-#### Approver responsibilities
+### Approver responsibilities
 
 Approvers improve the documentation by reviewing and merging pull requests into the website repository. Because this role carries additional privileges, approvers have additional responsibilities:
 
 - Approvers can use the `/approve` command, which merges PRs into the repo.
 
     A careless merge can break the site, so be sure that when you merge something, you mean it.
-    
-- Make sure that proposed changes meet the contribution guidelines. 
+
+- Make sure that proposed changes meet the [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
 
     If you ever have a question, or you're not sure about something, feel free to call for additional review.
 
-- Verify that netlify tests pass before you `/approve` a PR.
+- Verify that Netlify tests pass before you `/approve` a PR.
 
     <img src="/images/docs/contribute/netlify-pass.png" width="75%" alt="Netlify tests must pass before approving" />
 
-- Visit the netlify page preview for a PR to make sure things look good before approving.
+- Visit the Netlify page preview for a PR to make sure things look good before approving.
 
-#### PR Wrangler
-
-SIG Docs approvers participate in the
-[PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers)
-for weekly rotations. SIG Docs expects all approvers to participate in this
-rotation. See
-[Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+- Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
+rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 for more details.
 
-#### SIG Docs chairperson
+## SIG Docs chairperson
 
 Each SIG, including SIG Docs, selects one or more SIG members to act as
 chairpersons. These are points of contact between SIG Docs and other parts of
@@ -285,15 +284,32 @@ The combination of OWNERS files and front-matter in Markdown files determines
 the advice PR owners get from automated systems about who to ask for technical
 and editorial review of their PR.
 
+## How merging works
+
+When a pull request is merged to the branch used to publish content (currently
+`master`), that content is published and available to the world. To ensure that
+the quality of our published content is high, we limit merging pull requests to
+SIG Docs approvers. Here's how it works.
+
+- When a pull request has both the `lgtm` and `approve` labels, has no `hold`
+  labels, and all tests are passing, the pull request merges automatically.
+- Kubernetes organization members and SIG Docs approvers can add comments to
+  prevent automatic merging of a given pull request (by adding a `/hold` comment
+  or withholding a `/lgtm` comment).
+- Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
+- Only SIG Docs approvers can merge a pull request
+  by adding an `/approve` comment. Some approvers also perform additional
+  specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
+  [SIG Docs chairperson](#sig-docs-chairperson).
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
 For more information about contributing to the Kubernetes documentation, see:
 
-- [Start contributing](/docs/contribute/start/)
-- [Documentation style](/docs/contribute/style/)
+- [Contributing new content](/docs/contribute/overview/)
+- [Reviewing content](/docs/contribute/review/reviewing-prs)
+- [Documentation style guide](/docs/contribute/style/)
 
 {{% /capture %}}
-
-

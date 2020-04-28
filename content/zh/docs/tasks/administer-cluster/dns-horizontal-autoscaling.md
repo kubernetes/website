@@ -194,7 +194,7 @@ kubectl apply -f dns-horizontal-autoscaler.yaml
 
 The output of a successful command is:
 
-    deployment.apps/kube-dns-autoscaler created
+    deployment.apps/dns-autoscaler created
 
 DNS horizontal autoscaling is now enabled.
 -->
@@ -216,7 +216,7 @@ kubectl apply -f dns-horizontal-autoscaler.yaml
 
 一个成功的命令输出是：
 
-    deployment.apps/kube-dns-autoscaler created
+    deployment.apps/dns-autoscaler created
 
 DNS 水平自动伸缩在已经启用了。
 

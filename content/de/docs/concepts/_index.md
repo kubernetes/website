@@ -52,7 +52,7 @@ Wenn Sie beispielsweise mit der Kubernetes-API ein Deployment-Objekt erstellen, 
 
 ### Kubernetes Master
 
-Der Kubernetes-Master ist für Erhalt des gewünschten Status Ihres Clusters verantwortlich. Wenn Sie mit Kubernetes interagieren, beispielsweise mit dem Kommanduzeilen-Tool `kubectl`, kommunizieren Sie mit dem Kubernetes-Master Ihres Clusters.
+Der Kubernetes-Master ist für Erhalt des gewünschten Status Ihres Clusters verantwortlich. Wenn Sie mit Kubernetes interagieren, beispielsweise mit dem Kommandozeilen-Tool `kubectl`, kommunizieren Sie mit dem Kubernetes-Master Ihres Clusters.
 
 > Der Begriff "Master" bezeichnet dabei eine Reihe von Prozessen, die den Clusterstatus verwalten.  Normalerweise werden diese Prozesse alle auf einem einzigen Node im Cluster ausgeführt. Dieser Node wird auch als Master bezeichnet. Der Master kann repliziert werden, um die Verfügbarkeit und Redundanz zu erhöhen.
 
