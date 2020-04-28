@@ -11,7 +11,16 @@
 </script>
 <meta charset="utf-8">
 <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png"
+  }
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#326ce5">
 <link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
 {{ partial "css.html" . }}
 <!-- Content for social media sharing previews -->
@@ -39,7 +48,14 @@
 <script src="{{ "js/bootstrap-4.3.1.min.js" | relURL }}"></script>
 <script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 
+{{ if eq .Params.mermaid true }}
+<!-- Copied from https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js -->
+<script async src="{{ "js/mermaid.min.js" | relURL }}"></script>
+{{ end }}
+
 <script src="{{ "js/script.js" | relURL }}"></script>
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/images/kubernetes-192x192.png">

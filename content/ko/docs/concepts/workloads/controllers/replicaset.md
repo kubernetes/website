@@ -16,27 +16,27 @@ weight: 10
 
 ## 레플리카셋의 작동 방식
 
-레플리카셋을 정의하는 필드는 획득 가능한 파드를 식별하는 방법이 명시된 셀렉터, 유지해야 하는 파드 개수를 명시하는 레플리카의 개수, 
-그리고 레플리카 수 유지를 위해 생성하는 신규 파드에 대한 데이터를 명시하는 파드 템플릿을 포함한다. 
+레플리카셋을 정의하는 필드는 획득 가능한 파드를 식별하는 방법이 명시된 셀렉터, 유지해야 하는 파드 개수를 명시하는 레플리카의 개수,
+그리고 레플리카 수 유지를 위해 생성하는 신규 파드에 대한 데이터를 명시하는 파드 템플릿을 포함한다.
 그러면 레플리카셋은 필드에 지정된 설정을 충족하기 위해 필요한 만큼 파드를 만들고 삭제한다.
 레플리카셋이 새로운 파드를 생성해야 할 경우, 명시된 파드 템플릿을
 사용한다.
 
-레플리카셋과 파드와의 링크는 파드의 [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
-필드를 통해서 제공되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
+레플리카셋은 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
+필드를 통해 파드에 연결되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
 레플리카셋이 가지고 있는 모든 파드의 ownerReferences 필드는 해당 파드를 소유한 레플리카셋을 식별하기 위한 소유자 정보를 가진다.
 이 링크를 통해 레플리카셋은 자신이 유지하는 파드의 상태를 확인하고 이에 따라 관리 한다.
 
-레플리카셋은 셀렉터를 이용해서 필요한 새 파드를 식별한다. 만약 파드에 OwnerReference이 없거나 
-OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를 
+레플리카셋은 셀렉터를 이용해서 필요한 새 파드를 식별한다. 만약 파드에 OwnerReference이 없거나
+OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 레플리카셋의 셀렉터와 일치한다면 레플리카셋이 즉각 파드를
 가지게 될 것이다.
 
 ## 레플리카셋을 사용하는 시기
 
 레플리카셋은 지정된 수의 파드 레플리카가 항상 실행되도록 보장한다.
-그러나 디플로이먼트는 레플리카셋을 관리하고 다른 유용한 기능과 함께 
+그러나 디플로이먼트는 레플리카셋을 관리하고 다른 유용한 기능과 함께
 파드에 대한 선언적 업데이트를 제공하는 상위 개념이다.
-따라서 우리는 사용자 지정 오케스트레이션이 필요하거나 업데이트가 전혀 필요하지 않은 경우라면 
+따라서 우리는 사용자 지정 오케스트레이션이 필요하거나 업데이트가 전혀 필요하지 않은 경우라면
 레플리카셋을 직접적으로 사용하기 보다는 디플로이먼트를 사용하는 것을 권장한다.
 
 이는 레플리카셋 오브젝트를 직접 조작할 필요가 없다는 것을 의미한다.
@@ -46,7 +46,7 @@ OwnerReference가 {{< glossary_tooltip term_id="controller" >}} 가 아니고 �
 
 {{< codenew file="controllers/frontend.yaml" >}}
 
-이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이 
+이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어있는 레플리카셋이
 생성되고 레플리카셋이 관리하는 파드가 생성된다.
 
 ```shell
@@ -54,152 +54,163 @@ kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
 현재 배포된 레플리카셋을 확인할 수 있다.
+
 ```shell
 kubectl get rs
 ```
 
 그리고 생성된 프런트엔드를 볼 수 있다.
+
 ```shell
 NAME       DESIRED   CURRENT   READY   AGE
 frontend   3         3         3       6s
 ```
 
 또한 레플리카셋의 상태를 확인할 수 있다.
+
 ```shell
 kubectl describe rs/frontend
 ```
 
 출력은 다음과 유사할 것이다.
+
 ```shell
-Name:		frontend
-Namespace:	default
-Selector:	tier=frontend,tier in (frontend)
-Labels:		app=guestbook
-		tier=frontend
-Annotations:	<none>
-Replicas:	3 current / 3 desired
-Pods Status:	3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Name:         frontend
+Namespace:    default
+Selector:     tier=frontend
+Labels:       app=guestbook
+              tier=frontend
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"apps/v1","kind":"ReplicaSet","metadata":{"annotations":{},"labels":{"app":"guestbook","tier":"frontend"},"name":"frontend",...
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 Pod Template:
-  Labels:       app=guestbook
-                tier=frontend
+  Labels:  tier=frontend
   Containers:
    php-redis:
-    Image:      gcr.io/google_samples/gb-frontend:v3
-    Port:       80/TCP
-    Requests:
-      cpu:      100m
-      memory:   100Mi
-    Environment:
-      GET_HOSTS_FROM:   dns
-    Mounts:             <none>
-  Volumes:              <none>
+    Image:        gcr.io/google_samples/gb-frontend:v3
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-  ---------    --------    -----    ----                -------------    --------    ------            -------
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-qhloh
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-dnjpy
-  1m           1m          1        {replicaset-controller }             Normal      SuccessfulCreate  Created pod: frontend-9si5l
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  117s  replicaset-controller  Created pod: frontend-wtsmm
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-b2zdv
+  Normal  SuccessfulCreate  116s  replicaset-controller  Created pod: frontend-vcmts
 ```
 
 마지막으로 파드가 올라왔는지 확인할 수 있다.
+
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 다음과 유사한 파드 정보를 볼 수 있다.
+
 ```shell
-NAME             READY     STATUS    RESTARTS   AGE
-frontend-9si5l   1/1       Running   0          1m
-frontend-dnjpy   1/1       Running   0          1m
-frontend-qhloh   1/1       Running   0          1m
+NAME             READY   STATUS    RESTARTS   AGE
+frontend-b2zdv   1/1     Running   0          6m36s
+frontend-vcmts   1/1     Running   0          6m36s
+frontend-wtsmm   1/1     Running   0          6m36s
 ```
 
 또한 파드들의 소유자 참조 정보가 해당 프런트엔드 레플리카셋으로 설정되어 있는지 확인할 수 있다.
 확인을 위해서는 실행 중인 파드 중 하나의 yaml을 확인한다.
+
 ```shell
-kubectl get pods frontend-9si5l -o yaml
+kubectl get pods frontend-b2zdv -o yaml
 ```
 
 메타데이터의 ownerReferences 필드에 설정되어있는 프런트엔드 레플리카셋의 정보가 다음과 유사하게 나오는 것을 볼 수 있다.
+
 ```shell
 apiVersion: v1
 kind: Pod
 metadata:
-  creationTimestamp: 2019-01-31T17:20:41Z
+  creationTimestamp: "2020-02-12T07:06:16Z"
   generateName: frontend-
   labels:
     tier: frontend
-  name: frontend-9si5l
+  name: frontend-b2zdv
   namespace: default
   ownerReferences:
-  - apiVersion: extensions/v1beta1
+  - apiVersion: apps/v1
     blockOwnerDeletion: true
     controller: true
     kind: ReplicaSet
     name: frontend
-    uid: 892a2330-257c-11e9-aecd-025000000001
+    uid: f391f6db-bb9b-4c09-ae74-6a1f77f3d5cf
 ...
 ```
 
 ## 템플릿을 사용하지 않는 파드의 획득
 
 단독(bare) 파드를 생성하는 것에는 문제가 없지만, 단독 파드가 레플리카셋의 셀렉터와 일치하는 레이블을 가지지
-않도록 하는 것을 강력하게 권장한다. 그 이유는 레플리카셋이 소유하는 파드가 템플릿에 명시된 파드에만 국한되지 않고, 
+않도록 하는 것을 강력하게 권장한다. 그 이유는 레플리카셋이 소유하는 파드가 템플릿에 명시된 파드에만 국한되지 않고,
 이전 섹션에서 명시된 방식에 의해서도 다른 파드의 획득이 가능하기 때문이다.
 
 이전 프런트엔드 레플리카셋 예제와 다음의 매니페스트에 명시된 파드를 가져와 참조한다.
 
 {{< codenew file="pods/pod-rs.yaml" >}}
 
-기본 파드는 소유자 관련 정보에 컨트롤러(또는 오브젝트)를 가지지 않기 때문에 프런트엔드 
+기본 파드는 소유자 관련 정보에 컨트롤러(또는 오브젝트)를 가지지 않기 때문에 프런트엔드
 레플리카셋의 셀렉터와 일치하면 즉시 레플리카셋에 소유된다.
 
-프런트엔드 레플리카셋이 배치되고 초기 파드 레플리카가 셋업된 이후에, 레플리카 수 요구 사항을 충족시키기 위해서 
+프런트엔드 레플리카셋이 배치되고 초기 파드 레플리카가 셋업된 이후에, 레플리카 수 요구 사항을 충족시키기 위해서
 신규 파드를 생성한다고 가정해보자.
 
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
-새로운 파드는 레플리카셋에 의해 인식되며 레플리카셋이 필요한 수량을 초과하면 
+새로운 파드는 레플리카셋에 의해 인식되며 레플리카셋이 필요한 수량을 초과하면
 즉시 종료된다.
 
 파드를 가져온다.
+
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 결과에는 새로운 파드가 이미 종료되었거나 종료가 진행 중인 것을 보여준다.
+
 ```shell
 NAME             READY   STATUS        RESTARTS   AGE
-frontend-9si5l   1/1     Running       0          1m
-frontend-dnjpy   1/1     Running       0          1m
-frontend-qhloh   1/1     Running       0          1m
-pod2             0/1     Terminating   0          4s
+frontend-b2zdv   1/1     Running       0          10m
+frontend-vcmts   1/1     Running       0          10m
+frontend-wtsmm   1/1     Running       0          10m
+pod1             0/1     Terminating   0          1s
+pod2             0/1     Terminating   0          1s
 ```
 
 파드를 먼저 생성한다.
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/pods/pod-rs.yaml
 ```
 
 그 다음 레플리카셋을 생성한다.
+
 ```shell
 kubectl apply -f https://kubernetes.io/examples/controllers/frontend.yaml
 ```
 
-레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가 
+레플리카셋이 해당 파드를 소유한 것을 볼 수 있으며 새 파드 및 기존 파드의 수가
 레플리카셋이 필요로 하는 수와 일치할 때까지 사양에 따라 신규 파드만 생성한다. 파드를 가져온다.
+
 ```shell
-kubectl get Pods
+kubectl get pods
 ```
 
 다음 출력에서 볼 수 있다.
 ```shell
 NAME             READY   STATUS    RESTARTS   AGE
-frontend-pxj4r   1/1     Running   0          5s
-pod1             1/1     Running   0          13s
-pod2             1/1     Running   0          13s
+frontend-hmmj2   1/1     Running   0          9s
+pod1             1/1     Running   0          36s
+pod2             1/1     Running   0          36s
 ```
 
 이러한 방식으로 레플리카셋은 템플릿을 사용하지 않는 파드를 소유하게 된다.
@@ -210,6 +221,9 @@ pod2             1/1     Running   0          13s
 레플리카셋에 대한 kind 필드의 값은 항상 레플리카셋이다.
 쿠버네티스 1.9에서의 레플리카셋의 kind에 있는 API 버전 `apps/v1`은 현재 버전이며, 기본으로 활성화 되어있다. API 버전 `apps/v1beta2`은 사용 중단(deprecated)되었다.
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
+
+레플리카셋 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 레플리카셋도 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)이 필요하다.
 
@@ -232,7 +246,7 @@ matchLabels:
 	tier: frontend
 ```
 
-레플리카셋에서 `.spec.template.metadata.labels`는 `spec.selector`과 일치해야 하며 
+레플리카셋에서 `.spec.template.metadata.labels`는 `spec.selector`과 일치해야 하며
 그렇지 않으면 API에 의해 거부된다.
 
 {{< note >}}
@@ -250,14 +264,14 @@ matchLabels:
 
 ### 레플리카셋과 해당 파드 삭제
 
-레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/docs/concepts/workloads/controllers/garbage-collection/)는 기본적으로 종속되어있는 모든 파드를 자동으로 삭제한다.
+레플리카셋 및 모든 파드를 삭제하려면 [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)를 사용한다. [가비지 수집기](/ko/docs/concepts/workloads/controllers/garbage-collection/)는 기본적으로 종속되어있는 모든 파드를 자동으로 삭제한다.
 
-REST API또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 `propagationPolicy`를 `Background`또는 `Foreground`로 
+REST API또는 `client-go` 라이브러리를 이용할 때는 -d 옵션으로 `propagationPolicy`를 `Background`또는 `Foreground`로
 설정해야 한다.
 예시:
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 > -H "Content-Type: application/json"
 ```
@@ -269,7 +283,7 @@ REST API 또는 `client-go` 라이브러리를 이용할 때는 `propagationPoli
 예시:
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
 > -H "Content-Type: application/json"
 ```
@@ -277,12 +291,12 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 원본이 삭제되면 새 레플리카셋을 생성해서 대체할 수 있다.
 기존 `.spec.selector`와 신규 `.spec.selector`가 같으면 새 레플리카셋은 기존 파드를 선택한다.
 하지만 신규 레플리카셋은 기존 파드를 신규 레플리카셋의 새롭고 다른 파드 템플릿에 일치시키는 작업을 수행하지는 않는다.
-컨트롤 방식으로 파드를 새로운 사양으로 업데이트 하기 위해서는 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)를 이용하면 된다. 
+컨트롤 방식으로 파드를 새로운 사양으로 업데이트 하기 위해서는 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-생성)를 이용하면 된다.
 이는 레플리카셋이 롤링 업데이트를 직접적으로 지원하지 않기 때문이다.
 
 ### 레플리카셋에서 파드 격리
 
-레이블을 변경하면 레플리카셋에서 파드를 제거할 수 있다. 이 방식은 디버깅과 데이터 복구 등을 
+레이블을 변경하면 레플리카셋에서 파드를 제거할 수 있다. 이 방식은 디버깅과 데이터 복구 등을
 위해 서비스에서 파드를 제거하는 데 사용할 수 있다. 이 방식으로 제거된 파드는 자동으로 교체된다(
 레플리카의 수가 변경되지 않는다고 가정한다).
 
@@ -293,15 +307,15 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 
 ### 레플리카셋을 Horizontal Pod Autoscaler 대상으로 설정
 
-레플리카 셋은 
+레플리카 셋은
 [Horizontal Pod Autoscalers (HPA)](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)의 대상이 될 수 있다.
 즉, 레플리카셋은 HPA에 의해 오토스케일될 수 있다.
 다음은 이전에 만든 예시에서 만든 레플리카셋을 대상으로 하는 HPA 예시이다.
 
 {{< codenew file="controllers/hpa-rs.yaml" >}}
 
-이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스 
-클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는 
+이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스
+클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는
 오토스케일 레플리카 셋 HPA가 생성된다.
 
 ```shell
@@ -319,7 +333,7 @@ kubectl autoscale rs frontend --max=10
 
 ### 디플로이먼트(권장)
 
-[`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/)는 레플리카셋을 소유하거나 업데이트를 하고, 
+[`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/)는 레플리카셋을 소유하거나 업데이트를 하고,
 파드의 선언적인 업데이트와 서버측 롤링 업데이트를 할 수 있는 오브젝트이다.
 레플리카셋은 단독으로 사용할 수 있지만, 오늘날에는 주로 디플로이먼트로 파드의 생성과 삭제 그리고 업데이트를 오케스트레이션하는 메커니즘으로 사용한다.
 디플로이먼트를 이용해서 배포할 때 생성되는 레플리카셋을 관리하는 것에 대해 걱정하지 않아도 된다.
@@ -337,14 +351,14 @@ kubectl autoscale rs frontend --max=10
 
 ### 데몬셋
 
-머신 모니터링 또는 머신 로깅과 같은 머신-레벨의 기능을 제공하는 파드를 위해서는 레플리카셋 대신 
+머신 모니터링 또는 머신 로깅과 같은 머신-레벨의 기능을 제공하는 파드를 위해서는 레플리카셋 대신
 [`데몬셋`](/ko/docs/concepts/workloads/controllers/daemonset/)을 사용한다.
-이러한 파드의 수명은 머신의 수명과 연관되어 있고, 머신에서 다른 파드가 시작하기 전에 실행되어야 하며, 
+이러한 파드의 수명은 머신의 수명과 연관되어 있고, 머신에서 다른 파드가 시작하기 전에 실행되어야 하며,
 머신의 재부팅/종료가 준비되었을 때, 해당 파드를 종료하는 것이 안전하다.
 
 ### 레플리케이션 컨트롤러
 레플리카셋은 [_레플리케이션 컨트롤러_](/ko/docs/concepts/workloads/controllers/replicationcontroller/)를 계승하였다.
-이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에 
+이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
 

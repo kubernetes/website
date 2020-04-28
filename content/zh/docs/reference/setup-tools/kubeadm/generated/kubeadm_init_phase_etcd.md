@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -13,8 +13,8 @@ This command is not meant to be run on its own. See list of available subcommand
 kubeadm init phase etcd [flags]
 ```
 
-<!-- 
-### Options 
+<!--
+### Options
 -->
 ### 选项
 
@@ -68,18 +68,3 @@ kubeadm init phase etcd [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase etcd local](kubeadm_init_phase_etcd_local.md)	 - Generate the static Pod manifest file for a local, single-node local etcd instance
--->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm init phase etcd local](kubeadm_init_phase_etcd_local.md)	 - 为本地单节点 etcd 实例生成静态 Pod 清单文件
-

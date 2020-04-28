@@ -1,17 +1,25 @@
 ---
+title: Pod Preset
+content_template: templates/concept
+weight: 50
+---
+
+<!--
+---
 reviewers:
 - jessfraz
 title: Pod Preset
 content_template: templates/concept
 weight: 50
 ---
+-->
 
-{{% capture overview %}}
 <!--
 This page provides an overview of PodPresets, which are objects for injecting
 certain information into pods at creation time. The information can include
 secrets, volumes, volume mounts, and environment variables.
 -->
+{{% capture overview %}}
 本文提供了 PodPreset 的概述。 在 Pod 创建时，用户可以使用 PodPreset 对象将特定信息注入 Pod 中，这些信息可以包括 secret、 卷、卷挂载和环境变量。
 {{% /capture %}}
 
@@ -20,15 +28,15 @@ secrets, volumes, volume mounts, and environment variables.
 
 <!--
 ## Understanding Pod Presets
+-->
+## 理解 Pod Preset
 
+<!--
 A `Pod Preset` is an API resource for injecting additional runtime requirements
 into a Pod at creation time.
 You use [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 to specify the Pods to which a given Pod Preset applies.
 -->
-
-## 理解 Pod Preset
-
 `Pod Preset` 是一种 API 资源，在 Pod 创建时，用户可以用它将额外的运行时需求信息注入 Pod。
 使用[标签选择器（label selector）](/docs/concepts/overview/working-with-objects/labels/#label-selectors)来指定 Pod Preset 所适用的 Pod。
 
@@ -94,50 +102,65 @@ the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 修改 pod spec。 对于 `Env`、 `EnvFrom` 和 `VolumeMounts` 的改动， Kubernetes 修改 pod
 中所有容器的规格，对于卷的改动，Kubernetes 修改 Pod spec。
 
-
+<!--
+A Pod Preset is capable of modifying the following fields in a Pod spec when appropriate:
+- The `.spec.containers` field.
+- The `initContainers` field (requires Kubernetes version 1.14.0 or later).
+-->
 {{< note >}}
-<!--A Pod Preset is capable of modifying the `.spec.containers` field in a
-Pod spec when appropriate. *No* resource definition from the Pod Preset will be
-applied to the `initContainers` field.-->
-
-Pod Preset 能够在适当的时候修改 Pod spec 的 `spec.containers` 字段，但是不会应用于 `initContainers` 字段。
+适当时候，Pod Preset 可以修改 Pod 规范中的以下字段：
+- `.spec.containers` 字段
+- `initContainers` 字段 (需要 Kubernetes 1.14.0 或更高版本)。
 {{< /note >}}
 
 <!--
 ### Disable Pod Preset for a Specific Pod
+-->
+### 为特定 Pod 禁用 Pod Preset
 
+<!--
 There may be instances where you wish for a Pod to not be altered by any Pod
 Preset mutations. In these cases, you can add an annotation in the Pod Spec
 of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 -->
-
-### 为特定 Pod 禁用 Pod Preset
-
 在一些情况下，用户不希望 Pod 被 Pod Preset 所改动，这时，用户可以在 Pod spec 中添加形如 `podpreset.admission.kubernetes.io/exclude: "true"` 的注解。
 
 <!--
 ## Enable Pod Preset
-
-In order to use Pod Presets in your cluster you must ensure the following:
 -->
-
 ## 启用 Pod Preset
 
+<!--
+In order to use Pod Presets in your cluster you must ensure the following:
+-->
 为了在集群中使用 Pod Preset，必须确保以下几点：
 
 <!--
 1.  You have enabled the API type `settings.k8s.io/v1alpha1/podpreset`. For
     example, this can be done by including `settings.k8s.io/v1alpha1=true` in
-    the `--runtime-config` option for the API server.
+    the `--runtime-config` option for the API server. In minikube add this flag
+    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` while
+    starting the cluster.
 1.  You have enabled the admission controller `PodPreset`. One way to doing this
     is to include `PodPreset` in the `--enable-admission-plugins` option value specified
-    for the API server.
+    for the API server. In minikube add this flag
+    
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+    
+    while starting the cluster.
 1.  You have defined your Pod Presets by creating `PodPreset` objects in the
     namespace you will use.
 -->
 
-1.  已启用 API 类型 `settings.k8s.io/v1alpha1/podpreset`。 这可以通过在 API 服务器的 `--runtime-config` 配置项中包含 `settings.k8s.io/v1alpha1=true` 来实现。
-1.  已启用准入控制器 `PodPreset`。 启用的一种方式是在 API 服务器的 `--admission-control` 配置项中包含 `PodPreset` 。
+1.  已启用 API 类型 `settings.k8s.io/v1alpha1/podpreset`。 例如，这可以通过在 API 服务器的 `--runtime-config` 配置项中包含 `settings.k8s.io/v1alpha1=true` 来实现。在 minikube 部署的集群中，启动集群时添加此参数 `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`。
+1.  已启用准入控制器 `PodPreset`。 启用的一种方式是在 API 服务器的 `--enable-admission-plugins` 配置项中包含 `PodPreset` 。在 minikube 部署的集群中，启动集群时添加以下参数：
+
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+
 1.  已经通过在相应的命名空间中创建 `PodPreset` 对象，定义了 Pod Preset。
 
 
@@ -148,4 +171,5 @@ In order to use Pod Presets in your cluster you must ensure the following:
 * [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 -->
 * [使用 PodPreset 将信息注入 Pod](/docs/tasks/inject-data-application/podpreset/)
+
 {{% /capture %}}

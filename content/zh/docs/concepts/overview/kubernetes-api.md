@@ -63,7 +63,7 @@ The requested format is specified by setting HTTP headers:
 
 ## OpenAPI 和 API Swagger 定义
 
-完整的 API 细节被记录在 [OpenAPI](https://www.openapis.org/).
+完整的 API 详细文档使用 [OpenAPI](https://www.openapis.org/)生成.
 
 随着 Kubernetes 1.10 版本的正式启用，Kubernetes API 服务通过 `/openapi/v2` 接口提供 OpenAPI 规范。
 通过设置 HTTP 标头的规定了请求的结构。
@@ -138,7 +138,7 @@ Different API versions imply different levels of stability and support.  The cri
 in more detail in the [API Changes documentation](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions).  They are summarized here:
 -->
 
-不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
+不同的API版本名称意味着不同级别的软件稳定性和支持程度。 每个级别的标准在[API变更文档](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)中有更详细的描述。 内容主要概括如下：
 
 <!--
 - Alpha level:

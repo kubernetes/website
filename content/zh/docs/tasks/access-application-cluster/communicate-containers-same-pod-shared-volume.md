@@ -1,10 +1,5 @@
 ---
 title: 同 Pod 内的容器使用共享卷通信
-redirect_from:
-- "/docs/user-guide/pods/multi-container/"
-- "/docs/user-guide/pods/multi-container.html"
-- "/docs/tasks/configure-pod-container/communicate-containers-same-pod/"
-- "/docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
 content_template: templates/task
 ---
 

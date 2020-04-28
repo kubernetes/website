@@ -26,7 +26,7 @@ with [volumes](/docs/concepts/storage/volumes/) and
 <!--
 ## Introduction
 
-A `StorageClass` provides a way for administrators to describe the "classes" of
+A StorageClass provides a way for administrators to describe the "classes" of
 storage they offer. Different classes might map to quality-of-service levels,
 or to backup policies, or to arbitrary policies determined by the cluster
 administrators. Kubernetes itself is unopinionated about what classes
@@ -35,39 +35,39 @@ systems.
 -->
 ## 介绍
 
-`StorageClass` 为管理员提供了描述存储 `"类"` 的方法。
-不同的`类型`可能会映射到不同的服务质量等级或备份策略，或是由群集管理员制定的任意策略。
-Kubernetes 本身并不清楚各种`类`代表的什么。这个`类`的概念在其他存储系统中有时被称为"配置文件"。
+StorageClass 为管理员提供了描述存储 "类" 的方法。
+不同的类型可能会映射到不同的服务质量等级或备份策略，或是由集群管理员制定的任意策略。
+Kubernetes 本身并不清楚各种类代表的什么。这个类的概念在其他存储系统中有时被称为 "配置文件"。
 
 <!--
 ## The StorageClass Resource
 
-Each `StorageClass` contains the fields `provisioner`, `parameters`, and
+Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a `PersistentVolume` belonging to the
 class needs to be dynamically provisioned.
  -->
 ## StorageClass 资源
 
-每个 `StorageClass` 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
-这些字段会在`StorageClass`需要动态分配 `PersistentVolume` 时会使用到。
+每个 StorageClass 都包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段，
+这些字段会在 StorageClass 需要动态分配 `PersistentVolume` 时会使用到。
 
 <!--
-The name of a `StorageClass` object is significant, and is how users can
+The name of a StorageClass object is significant, and is how users can
 request a particular class. Administrators set the name and other parameters
-of a class when first creating `StorageClass` objects, and the objects cannot
+of a class when first creating StorageClass objects, and the objects cannot
 be updated once they are created.
  -->
-`StorageClass` 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
-当创建 `StorageClass` 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
+StorageClass 对象的命名很重要，用户使用这个命名来请求生成一个特定的类。
+当创建 StorageClass 对象时，管理员设置 StorageClass 对象的命名和其他参数，一旦创建了对象就不能再对其更新。
 
 <!--
-Administrators can specify a default `StorageClass` just for PVCs that don't
+Administrators can specify a default StorageClass just for PVCs that don't
 request any particular class to bind to: see the
-[`PersistentVolumeClaim` section](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#class-1)
 for details.
  -->
-管理员可以为没有申请绑定到特定 `StorageClass` 的 PVC 指定一个默认的`类` ：
-更多详情请参阅 [`PersistentVolumeClaim` 章节](#persistentvolumeclaims)。
+管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
+更多详情请参阅 [PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -87,38 +87,38 @@ volumeBindingMode: Immediate
 <!--
 ### Provisioner
 
-Storage classes have a provisioner that determines what volume plugin is used
+Each StorageClass has a provisioner that determines what volume plugin is used
 for provisioning PVs. This field must be specified.
  -->
 ### 存储分配器
 
-`StorageClass` 有一个分配器，用来决定使用哪个`卷插件`分配`持久化卷申领`。该字段必须指定。
+每个 StorageClass 都有一个分配器，用来决定使用哪个卷插件分配 PV。该字段必须指定。
 
 <!--
 | Volume Plugin        | Internal Provisioner| Config Example                       |
 -->
 
-| 卷插件        | 提供厂商 | 配置例子                      |
-| :---                 |     :---:           |    :---:                             |
-| AWSElasticBlockStore | &#x2713;            | [AWS EBS](#aws-ebs)                          |
-| AzureFile            | &#x2713;            | [Azure File](#azure-file)            |
-| AzureDisk            | &#x2713;            | [Azure Disk](#azure-disk)            |
-| CephFS               | -                   | -                                    |
-| Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
-| FC                   | -                   | -                                    |
-| FlexVolume           | -                   | -                                    |
-| Flocker              | &#x2713;            | -                                    |
-| GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
-| iSCSI                | -                   | -                                    |
-| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
-| NFS                  | -                   | -                                    |
-| RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
-| VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
-| PortworxVolume       | &#x2713;            | [Portworx Volume](#portworx-volume)  |
-| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
-| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
-| Local                | -                   | [Local](#local)              |
+| 卷插件               | 内置分配器 |               配置例子                |
+|:---------------------|:----------:|:-------------------------------------:|
+| AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
+| AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
+| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-disk)       |
+| CephFS               |     -      |                   -                   |
+| Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
+| FC                   |     -      |                   -                   |
+| FlexVolume           |     -      |                   -                   |
+| Flocker              |  &#x2713;  |                   -                   |
+| GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
+| Glusterfs            |  &#x2713;  |        [Glusterfs](#glusterfs)        |
+| iSCSI                |     -      |                   -                   |
+| Quobyte              |  &#x2713;  |          [Quobyte](#quobyte)          |
+| NFS                  |     -      |                   -                   |
+| RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
+| VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
+| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-volume)  |
+| ScaleIO              |  &#x2713;  |          [ScaleIO](#scaleio)          |
+| StorageOS            |  &#x2713;  |        [StorageOS](#storageos)        |
+| Local                |     -      |            [Local](#local)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners
@@ -133,7 +133,7 @@ houses a library for writing external provisioners that implements the bulk of
 the specification. Some external provisioners are listed under the repository
 [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
  -->
-您不限于指定此处列出的"内置"分配器（其名称前缀为 kubernetes.io 并打包在 Kubernetes 中）。
+您不限于指定此处列出的 "内置" 分配器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
 您还可以运行和指定外部分配器，这些独立的程序遵循由 Kubernetes 定义的 [规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
@@ -152,20 +152,20 @@ vendors provide their own external provisioner.
 <!--
 ### Reclaim Policy
 
-Persistent Volumes that are dynamically created by a storage class will have the
+PersistentVolumes that are dynamically created by a storage class will have the
 reclaim policy specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
-`StorageClass` object is created, it will default to `Delete`.
+StorageClass object is created, it will default to `Delete`.
 
-Persistent Volumes that are created manually and managed via a storage class will have
+PersistentVolumes that are created manually and managed via a StorageClass will have
 whatever reclaim policy they were assigned at creation.
  -->
 ### 回收策略
 
-由 `StorageClass` 动态创建的持久化卷会在的 `reclaimPolicy` 字段中指定回收策略，可以是
-`Delete` 或者 `Retain`。如果 `StorageClass` 对象被创建时没有指定 `reclaimPolicy` ，它将默认为 `Delete`。
+由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
+`Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
 
-通过 `StorageClass` 手动创建并管理的 Persistent Volume 会使用它们被创建时指定的回收政策。
+通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收政策。
 
 <!--
 ### Allow Volume Expansion
@@ -176,41 +176,48 @@ whatever reclaim policy they were assigned at creation.
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 <!--
-Persistent Volumes can be configured to be expandable. This feature when set to `true`,
+PersistentVolumes can be configured to be expandable. This feature when set to `true`,
 allows the users to resize the volume by editing the corresponding PVC object.
 
 The following types of volumes support volume expansion, when the underlying
 Storage Class has the field `allowVolumeExpansion` set to true.
 -->
 
-永久卷可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的PVC对象来调整卷大小。
+PersistentVolume 可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的 PVC 对象来调整卷大小。
 
-当基础存储类的 `allowVolumeExpansion` 字段设置为true时，以下类型的卷支持卷扩展。
+当基础存储类的 `allowVolumeExpansion` 字段设置为 true 时，以下类型的卷支持卷扩展。
 
-* gcePersistentDisk
-* awsElasticBlockStore
-* Cinder
-* glusterfs
-* rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* CSI  {{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< table caption = "Table of Volume types and the version of Kubernetes they require"  >}}
+
+<!-- 
+Volume type | Required Kubernetes version
+-->
+| 卷类型               | Kubernetes 版本要求       |
+|:---------------------|:--------------------------|
+| gcePersistentDisk    | 1.11                      |
+| awsElasticBlockStore | 1.11                      |
+| Cinder               | 1.11                      |
+| glusterfs            | 1.11                      |
+| rbd                  | 1.11                      |
+| Azure File           | 1.11                      |
+| Azure Disk           | 1.11                      |
+| Portworx             | 1.11                      |
+| FlexVolume           | 1.13                      |
+| CSI                  | 1.14 (alpha), 1.16 (beta) |
+
+{{< /table >}}
 
 {{< note >}}
-
 <!--
-This feature cannot be used to shrink volumes.
+You can only use the volume expansion feature to grow a Volume, not to shrink it.
 -->
-此功能不能用于缩小卷。
-
+此功能仅可用于扩容卷，不能用于缩小卷。
 {{< /note >}}
 
 <!--
 ### Mount Options
 
-Persistent Volumes that are dynamically created by a storage class will have the
+PersistentVolumes that are dynamically created by a StorageClass will have the
 mount options specified in the `mountOptions` field of the class.
 
 If the volume plugin does not support mount options but mount options are
@@ -219,23 +226,15 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
  -->
 ### 挂载选项
 
-由 `StorageClass` 动态创建的 Persistent Volume 将使用`类`中 `mountOption` 字段指定的挂载选项。
+由 StorageClass 动态创建的 PersistentVolume 将使用类中 `mountOptions` 字段指定的挂载选项。
 
 如果卷插件不支持挂载选项，却指定了该选项，则分配操作会失败。
-挂载选项在 `StorageClass` 和持久卷上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
+挂载选项在 StorageClass 和 PV 上都不会做验证，所以如果挂载选项无效，那么这个 PV 就会失败。
 
 <!--
 ### Volume Binding Mode
  -->
 ### 卷绑定模式
-
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-<!--
-**Note:** This feature requires the `VolumeScheduling` feature gate to be
-enabled.
- -->
-**注意：** 这个功能特性需要启用 `VolumeScheduling` 参数才能使用。
 
 <!--
 The `volumeBindingMode` field controls when [volume binding and dynamic
@@ -293,30 +292,25 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 -->
 以下插件支持预创建绑定 PersistentVolume 的 `WaitForFirstConsumer` 模式：
 
-* All of the above
+* 上述全部
 * [Local](#local)
 
-{{< feature-state state="beta" for_k8s_version="1.14" >}}
+{{< feature-state state="beta" for_k8s_version="1.17" >}}
 
 <!--
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
-to see its supported topology keys and examples. The `CSINodeInfo` feature gate must be enabled.
+to see its supported topology keys and examples.
 -->
 
-动态配置和预先创建的PVs也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
-但是您需要查看特定CSI驱动程序的文档以查看其支持的拓扑密钥和例子。 必须启用 `CSINodeInfo` 特性。
+动态配置和预先创建的 PV 也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
+但是您需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
 <!--
 ### Allowed Topologies
 -->
 ### 允许的拓扑结构
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
-
-<!--
-**Note:** This feature requires the `VolumeScheduling` feature gate to be enabled.
--->
-**注意：** 这个特性需要开启 `VolumeScheduling` 特性开关。
 
 <!--
 When a cluster operator specifies the `WaitForFirstConsumer` volume binding mode, it is no longer necessary
@@ -331,7 +325,7 @@ This example demonstrates how to restrict the topology of provisioned volumes to
 zones and should be used as a replacement for the `zone` and `zones` parameters for the
 supported plugins.
 -->
-这个例子描述了如何将分配卷限的拓扑限制在特定的区域，在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
+这个例子描述了如何将分配卷的拓扑限制在特定的区域，在使用时应该根据插件支持情况替换 `zone` 和 `zones` 参数。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -358,11 +352,17 @@ class. Different parameters may be accepted depending on the `provisioner`. For
  example, the value `io1`, for the parameter `type`, and the parameter
 `iopsPerGB` are specific to EBS. When a parameter is omitted, some default is
 used.
+
+There can be at most 512 parameters defined for a StorageClass.
+The total length of the parameters object including its keys and values cannot
+exceed 256 KiB.
  -->
 ## 参数
 
 Storage class 具有描述属于卷的参数。取决于分配器，可以接受不同的参数。
 例如，参数 type 的值 io1 和参数 iopsPerGB 特定于 EBS PV。当参数被省略时，会使用默认值。
+
+一个 StorageClass 最多可以定义 512 个参数。这些参数对象的总长度不能超过 256 KiB, 包括参数的键和值。
 
 ### AWS EBS
 
@@ -431,6 +431,7 @@ parameters:
   type: pd-standard
   replication-type: none
 ```
+
 <!--
 * `type`: `pd-standard` or `pd-ssd`. Default: `pd-standard`
 * `zone` (Deprecated): GCE zone. If neither `zone` nor `zones` is specified, volumes are
@@ -440,11 +441,13 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 * `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
 * `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
 * `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
+* `fstype`: `ext4` 或 `xfs`。 默认: `ext4`。宿主机操作系统必须支持所定义的文件系统类型。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
 <!--
@@ -518,6 +521,7 @@ parameters:
 * `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。此选项已弃用，当在指定 `restuser`，`restuserkey`，`secretName` 或  `secretNamespace` 时，身份验证被启用。
 * `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
 * `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
+
 <!--
 * `secretNamespace`, `secretName` : Identification of Secret instance that
   contains user password to use when talking to Gluster REST service. These
@@ -544,6 +548,7 @@ parameters:
     ```
 
     secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
+
 <!--
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
   which will be used by Heketi when provisioning the volume. It can also be a
@@ -559,6 +564,7 @@ parameters:
 * `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当分配卷时，Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
   `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`。这个是可选参数。
 * `gidMin`，`gidMax`：storage class GID 范围的最小值和最大值。在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态分配卷。这些是可选的值。如果不指定，卷将被分配一个 2000-2147483647 之间的值，这是 gidMin 和 gidMax 的默认值。
+
 <!--
 * `volumetype` : The volume type and its parameters can be configured with this
   optional value. If the volume type is not mentioned, it's up to the provisioner
@@ -766,6 +772,7 @@ parameters:
 * `adminSecretNamespace`：`adminSecret` 的命名空间。默认是 "default"。
 * `pool`: Ceph RBD 池. 默认是 "rbd"。
 * `userId`：Ceph 客户端 ID，用于映射 RBD 镜像。默认与 `adminId` 相同。
+
 <!--
 * `userSecretName`: The name of Ceph Secret for `userId` to map RBD image. It
   must exist in the same namespace as PVCs. This parameter is required.
@@ -887,9 +894,9 @@ parameters:
 ### Azure 磁盘
 
 <!--
-#### Azure Unmanaged Disk Storage Class
+#### Azure Unmanaged Disk Storage Class {#azure-disk-storage-class}
 -->
-#### Azure Unmanaged Disk Storage Class（非托管磁盘存储类）
+#### Azure Unmanaged Disk Storage Class（非托管磁盘存储类）{#azure-unmanaged-disk-storage-class}
 
 ```yaml
 kind: StorageClass
@@ -916,9 +923,9 @@ parameters:
 * `storageAccount`：Azure 存储帐户名称。如果提供存储帐户，它必须位于与集群相同的资源组中，并且 `location` 是被忽略的。如果未提供存储帐户，则会在与群集相同的资源组中创建新的存储帐户。
 
 <!--
-#### New Azure Disk Storage Class (starting from v1.7.2)
+#### Azure Disk Storage Class (starting from v1.7.2) {#azure-disk-storage-class}
 -->
-#### 新的 Azure 磁盘 Storage Class（从 v1.7.2 开始）
+#### Azure 磁盘 Storage Class（从 v1.7.2 开始）{#azure-disk-storage-class}
 
 ```yaml
 kind: StorageClass
@@ -940,12 +947,15 @@ parameters:
   unmanaged disk in the same resource group as the cluster. When `kind` is
   `managed`, all managed disks are created in the same resource group as
   the cluster.
+* `resourceGroup`: Specify the resource group in which the Azure disk will be created. 
+   It must be an existing resource group name. If it is unspecified, the disk will be 
+   placed in the same resource group as the current Kubernetes cluster.
 -->
 * `storageaccounttype`：Azure 存储帐户 Sku 层。默认为空。
 * `kind`：可能的值是 `shared`（默认）、`dedicated` 和 `managed`。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
-
+* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
 <!--
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.

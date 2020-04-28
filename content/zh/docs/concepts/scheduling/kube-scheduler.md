@@ -57,7 +57,7 @@ is the default scheduler for Kubernetes and runs as part of the
 kube-scheduler is designed so that, if you want and need to, you can
 write your own scheduling component and use that instead.
 -->
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/) 是 Kubernetes 集群的默认调度器，并且是集群 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 的一部分。如果你真的希望或者有这方面的需求，kube-scheduler 在设计上是允许你自己写一个调度组件并替换原有的 kube-scheduler。
+[kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/) 是 Kubernetes 集群的默认调度器，并且是集群 {{< glossary_tooltip text="控制面" term_id="control-plane" >}} 的一部分。如果你真的希望或者有这方面的需求，kube-scheduler 在设计上是允许你自己写一个调度组件并替换原有的 kube-scheduler。
 
 <!--
 For every newly created pods or other unscheduled pods, kube-scheduler
@@ -208,13 +208,13 @@ kube-scheduler 有一系列的默认调度策略。
 
 - `MaxCSIVolumeCount`：检查 Node 上已经挂载的 {{< glossary_tooltip text="CSI" term_id="csi" >}}
   存储卷数量是否超过了指定的最大值。
-  
+
 - `CheckNodeMemoryPressure`：如果 Node 上报了内存资源压力过大，而且没有配置异常，那么 Pod 将不会被调度到这个 Node 上。
 
 - `CheckNodePIDPressure`：如果 Node 上报了 PID 资源压力过大，而且没有配置异常，那么 Pod 将不会被调度到这个 Node 上。
 
 - `CheckNodeDiskPressure`：如果 Node 上报了磁盘资源压力过大（文件系统满了或者将近满了），
-  而且配置异常，那么 Pod 将不会被调度到这个 Node 上。
+  而且配置没有异常，那么 Pod 将不会被调度到这个 Node 上。
 
 - `CheckNodeCondition`：Node 可以上报其自身的状态，如磁盘、网络不可用，表明 kubelet 未准备好运行 pod。
   如果 Node 被设置成这种状态，那么 pod 将不会被调度到这个 Node 上。
@@ -294,7 +294,7 @@ kube-scheduler 有一系列的默认调度策略。
   计算其优先级。使用这个策略可以将两个不同 Pod 运行在不同的 Node 上。
 
 - `NodeAffinityPriority`：基于 Pod 属性中 PreferredDuringSchedulingIgnoredDuringExecution 来进行 Node 亲和性调度。你可以通过这篇文章
-  [Pods 到 Nodes 的分派](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) 来了解到更详细的内容。
+  [Pods 到 Nodes 的分派](/zh/docs/concepts/configuration/assign-pod-node/) 来了解到更详细的内容。
 
 - `TaintTolerationPriority`：基于 Pod 中对每个 Node 上污点容忍程度进行优先级评估，这个策略能够调整待选 Node 的排名。
 
@@ -304,16 +304,16 @@ kube-scheduler 有一系列的默认调度策略。
   没有归属于同一个 Service 的 Pod，这个策略更倾向于将 Pod 调度到这类 Node 上。最终的目的：即使在一个 Node 宕机之后 Service 也具有很强容灾能力。
 
 - `CalculateAntiAffinityPriorityMap`：这个策略主要是用来实现[pod反亲和]
-  (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)。
-  
+  (/zh/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)。
+
 - `EqualPriorityMap`：将所有的 Node 设置成相同的权重为 1。
 
 {{% /capture %}}
 {{% capture whatsnext %}}
-* 阅读关于 [调度器性能调优](/docs/concepts/scheduling/scheduler-perf-tuning/)
-* 阅读关于 [Pod 拓扑分布约束](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
-* 阅读关于 kube-scheduler 的 [参考文档](/docs/reference/command-line-tools-reference/kube-scheduler/)
-* 了解关于 [配置多个调度器](/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
-* 了解关于 [拓扑结构管理策略](/docs/tasks/administer-cluster/topology-manager/)
-* 了解关于 [Pod 额外开销](/docs/concepts/configuration/pod-overhead/)
+* 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling/scheduler-perf-tuning/)
+* 阅读关于 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
+* 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
+* 了解关于 [配置多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
+* 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
+* 了解关于 [Pod 额外开销](/zh/docs/concepts/configuration/pod-overhead/)
 {{% /capture %}}

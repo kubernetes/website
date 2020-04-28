@@ -116,13 +116,12 @@ toc:
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
   - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/monitoring.md
   - docs/concepts/cluster-administration/kubelet-garbage-collection.md
-  - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
-  - docs/concepts/cluster-administration/controller-metrics.md
   - docs/concepts/cluster-administration/device-plugins.md
   - title: Policies
     section:

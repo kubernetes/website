@@ -30,7 +30,7 @@ This is a living document. If you think of something that is not on this list bu
 - Put object descriptions in annotations, to allow better introspection.
 
 
-## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
+## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 
@@ -87,7 +87,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 
 {{< note >}}
-To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
+To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); replace `<image-name>:<tag>` with `<image-name>@<digest>` (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
 {{< /note >}}
 
 {{< note >}}
@@ -107,5 +107,4 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 - Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 
 {{% /capture %}}
-
 

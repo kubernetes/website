@@ -8,7 +8,7 @@
 <!--
 Generate the certificate for the front proxy client, and save them into front-proxy-client.cert and front-proxy-client.key files.
 
-If both files already exist, kubeadm skips the generation step and existing files will be used. 
+If both files already exist, kubeadm skips the generation step and existing files will be used.
 
 Alpha Disclaimer: this command is currently alpha.
 -->
@@ -146,16 +146,4 @@ kubeadm init phase certs front-proxy-client [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!-- 
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - Certificate generation 
--->
-* [kubeadm init phase certs](kubeadm_init_phase_certs.md)	 - 生成证书
 

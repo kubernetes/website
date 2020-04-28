@@ -20,8 +20,8 @@ kubeadm CLI v1.8.0+ 通过一个配置自动创建该 ConfigMap，这个配置�
 kubeadm config [flags]
 ```
 
-<!-- 
-### Options 
+<!--
+### Options
 -->
 ### 选项
 
@@ -66,8 +66,8 @@ kubeadm config [flags]
 
 
 
-<!-- 
-### Options inherited from parent commands 
+<!--
+### Options inherited from parent commands
 -->
 ### 从父命令继承的选项
 
@@ -92,24 +92,3 @@ kubeadm config [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!-- 
-* [kubeadm](kubeadm.md)	 - kubeadm: easily bootstrap a secure Kubernetes cluster
-* [kubeadm config images](kubeadm_config_images.md)	 - Interact with container images used by kubeadm
-* [kubeadm config migrate](kubeadm_config_migrate.md)	 - Read an older version of the kubeadm configuration API types from a file, and output the similar config object for the newer version
-* [kubeadm config print](kubeadm_config_print.md)	 - Print configuration
-* [kubeadm config view](kubeadm_config_view.md)	 - View the kubeadm configuration stored inside the cluster 
--->
-* [kubeadm](kubeadm.md)	 - kubeadm: 轻松引导安全的 Kubernetes 集群
-* [kubeadm config images](kubeadm_config_images.md)	 - 与 kubeadm 使用的容器镜像进行交互
-* [kubeadm config migrate](kubeadm_config_migrate.md)	 - 从文件中读取旧版本的 kubeadm 配置 API 类型，并为新版本输出类似的 config 对象
-* [kubeadm config print](kubeadm_config_print.md)	 - 打印配置
-* [kubeadm config view](kubeadm_config_view.md)	 - 查看存储在集群中的 kubeadm 配置
-

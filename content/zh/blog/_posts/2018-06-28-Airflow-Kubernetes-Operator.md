@@ -43,7 +43,7 @@ As part of Bloomberg's continued commitment to developing the Kubernetes ecosyst
 
 
 
-作为Bloomberg [继续致力于开发Kubernetes生态系统]的一部分（https://www.techatbloomberg.com/blog/bloomberg-awarded-first-cncf-end-user-award-contributions-kubernetes/），我们很高兴能够宣布Kubernetes Airflow Operator的发布; [Apache Airflow]（https://airflow.apache.org/）的机制，一种流行的工作流程编排框架，使用Kubernetes API可以在本机启动任意的Kubernetes Pod。
+作为Bloomberg [继续致力于开发Kubernetes生态系统]的一部分（https://www.techatbloomberg.com/blog/bloomberg-awarded-first-cncf-end-user-award-contributions-kubernetes/），我们很高兴能够宣布Kubernetes Airflow Operator的发布; [Apache Airflow](https://airflow.apache.org/)的机制，一种流行的工作流程编排框架，使用Kubernetes API可以在本机启动任意的Kubernetes Pod。
 
 
 
@@ -127,7 +127,7 @@ Airflow users are always looking for ways to make deployments and ETL pipelines 
 
 
 
-在进一步讨论之前，我们应该澄清Airflow中的[Operator]（https://airflow.apache.org/concepts.html#operators）是一个任务定义。 当用户创建DAG时，他们将使用像“SparkSubmitOperator”或“PythonOperator”这样的operator分别提交/监视Spark作业或Python函数。 Airflow附带了Apache Spark，BigQuery，Hive和EMR等框架的内置运算符。 它还提供了一个插件入口点，允许DevOps工程师开发自己的连接器。
+在进一步讨论之前，我们应该澄清Airflow中的[Operator](https://airflow.apache.org/concepts.html#operators)是一个任务定义。 当用户创建DAG时，他们将使用像“SparkSubmitOperator”或“PythonOperator”这样的operator分别提交/监视Spark作业或Python函数。 Airflow附带了Apache Spark，BigQuery，Hive和EMR等框架的内置运算符。 它还提供了一个插件入口点，允许DevOps工程师开发自己的连接器。
 
 
 
@@ -163,7 +163,7 @@ For operators that are run within static Airflow workers, dependency management 
 
 * 配置和依赖的灵活性：
 
-对于在静态Airflow工作程序中运行的operator，依赖关系管理可能变得非常困难。 如果开发人员想要运行一个需要[SciPy]（https://www.scipy.org） 的任务和另一个需要[NumPy]（http://www.numpy.org） 的任务，开发人员必须维护所有Airflow节点中的依赖关系或将任务卸载到其他计算机（如果外部计算机以未跟踪的方式更改，则可能导致错误）。 自定义Docker镜像允许用户确保任务环境，配置和依赖关系完全是幂等的。
+对于在静态Airflow工作程序中运行的operator，依赖关系管理可能变得非常困难。 如果开发人员想要运行一个需要[SciPy](https://www.scipy.org)的任务和另一个需要[NumPy](http://www.numpy.org)的任务，开发人员必须维护所有Airflow节点中的依赖关系或将任务卸载到其他计算机（如果外部计算机以未跟踪的方式更改，则可能导致错误）。 自定义Docker镜像允许用户确保任务环境，配置和依赖关系完全是幂等的。
 
 
 
@@ -207,7 +207,7 @@ The Kubernetes Operator uses the Kubernetes Python Client to generate a request 
 
 
 
-Kubernetes Operator使用[Kubernetes Python客户端]（https://github.com/kubernetes-client/Python)生成由APIServer处理的请求（1）。 然后，Kubernetes将使用您定义的需求启动您的pod（2）。映像文件中将加载环境变量，Secret和依赖项，执行单个命令。 一旦启动作业，operator只需要监视跟踪日志的状况（3）。 用户可以选择将日志本地收集到调度程序或当前位于其Kubernetes集群中的任何分布式日志记录服务。
+Kubernetes Operator使用[Kubernetes Python客户端](https://github.com/kubernetes-client/Python)生成由APIServer处理的请求（1）。 然后，Kubernetes将使用您定义的需求启动您的pod（2）。映像文件中将加载环境变量，Secret和依赖项，执行单个命令。 一旦启动作业，operator只需要监视跟踪日志的状况（3）。 用户可以选择将日志本地收集到调度程序或当前位于其Kubernetes集群中的任何分布式日志记录服务。
 
 
 
@@ -375,7 +375,7 @@ Finally, update your DAGs to reflect the new release version and you should be r
 
 
 
-[在Jenkins构建中生成Docker镜像和缓冲版本]（https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers）。
+[在Jenkins构建中生成Docker镜像和缓冲版本](https://getintodevops.com/blog/building-your-first-Docker-image-with-jenkins-2-guide-for-developers)。
 
 
 
@@ -655,7 +655,7 @@ Special thanks to the Apache Airflow and Kubernetes communities, particularly Gr
 
 
 
-此功能只是将Apache Airflow集成到Kubernetes中的多项主要工作的开始。 Kubernetes Operator已合并到[Airflow的1.10发布分支]（https://github.com/apache/incubator-airflow/tree/v1-10-test）（实验模式中的执行模块），以及完整的k8s本地调度程序称为Kubernetes Executor（即将发布文章）。这些功能仍处于早期采用者/贡献者可能对这些功能的未来产生巨大影响的阶段。
+此功能只是将Apache Airflow集成到Kubernetes中的多项主要工作的开始。 Kubernetes Operator已合并到[Airflow的1.10发布分支](https://github.com/apache/incubator-airflow/tree/v1-10-test)（实验模式中的执行模块），以及完整的k8s本地调度程序称为Kubernetes Executor（即将发布文章）。这些功能仍处于早期采用者/贡献者可能对这些功能的未来产生巨大影响的阶段。
 
 
 

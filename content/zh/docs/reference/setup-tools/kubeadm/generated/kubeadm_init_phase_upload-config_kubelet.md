@@ -113,16 +113,3 @@ kubeadm init phase upload-config kubelet --config kubeadm.yaml
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm init phase upload-config](kubeadm_init_phase_upload-config.md)	 - Upload the kubeadm and kubelet configuration to a ConfigMap
--->
-* [kubeadm init phase upload-config](kubeadm_init_phase_upload-config.md)	 - 将 kubeadm 和 kubelet 配置上传到 ConfigMap
-

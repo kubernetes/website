@@ -59,7 +59,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
-Verify that Container in the Pod is running:
+Verify that the Container in the Pod is running:
 
 ```shell
 kubectl get pods

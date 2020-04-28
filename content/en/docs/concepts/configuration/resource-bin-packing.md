@@ -5,12 +5,12 @@ reviewers:
 - ahg-g
 title: Resource Bin Packing for Extended Resources
 content_template: templates/concept
-weight: 10
+weight: 50
 ---
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs. 
 

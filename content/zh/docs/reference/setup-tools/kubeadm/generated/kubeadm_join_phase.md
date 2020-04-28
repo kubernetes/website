@@ -66,31 +66,3 @@ Use this command to invoke single phase of the join workflow
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm join](kubeadm_join.md)	 - Run this on any machine you wish to join an existing cluster
--->
-* [kubeadm join](kubeadm_join.md)	 - 在要加入现有集群的任何计算机上运行此命令
-<!--
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - Join a machine as a control plane instance
--->
-* [kubeadm join phase control-plane-join](kubeadm_join_phase_control-plane-join.md)	 - 加入机器作为控制平面实例
-<!--
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - Prepare the machine for serving a control plane
--->
-* [kubeadm join phase control-plane-prepare](kubeadm_join_phase_control-plane-prepare.md)	 - 准备机器用于控制平面服务
-<!--
-* [kubeadm join phase kubelet-start](kubeadm_join_phase_kubelet-start.md)	 - Write kubelet settings, certificates and (re)start the kubelet
--->
-* [kubeadm join phase kubelet-start](kubeadm_join_phase_kubelet-start.md)	 - 生成 kubelet 配置和证书并（重新）启动 kubelet
-<!--
-* [kubeadm join phase preflight](kubeadm_join_phase_preflight.md)	 - Run join pre-flight checks
--->
-* [kubeadm join phase preflight](kubeadm_join_phase_preflight.md)	 - 运行加入节点操作前的预备检查
-

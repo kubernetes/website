@@ -235,16 +235,16 @@ The format also includes extended `vixie cron` step values. As explained in the 
 
 <!--
 > Step values can be	used in	conjunction with ranges.  Following a range
-> with ``/<number>''	specifies skips	of the number's	value through the
-> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> with `/<number>` specifies skips	of the number's	value through the
+> range.  For example, `0-23/2` can be used in the	hours field to specify
 > command execution every other hour	(the alternative in the	V7 standard is
-> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
-> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+> `0,2,4,6,8,10,12,14,16,18,20,22`).  Steps are also permitted after an
+> asterisk, so if you want to say "every two hours", just use `*/2`.
 -->
 
-> 步长可被用于范围组合。范围后面带有 ``/<数字>'' 可以声明范围内的步幅数值。
-> 例如，``0-23/2'' 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是``0,2,4,6,8,10,12,14,16,18,20,22''）。
-> 步长也可以放在通配符后面，因此如果你想表达 ``每两小时''，就用 ``*/2'' 。
+> 步长可被用于范围组合。范围后面带有 `/<数字>` 可以声明范围内的步幅数值。
+> 例如，`0-23/2` 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是`0,2,4,6,8,10,12,14,16,18,20,22`）。
+> 步长也可以放在通配符后面，因此如果你想表达 "每两小时"，就用 `*/2` 。
 
 {{< note >}}
 <!--

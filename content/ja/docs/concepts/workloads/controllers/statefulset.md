@@ -29,14 +29,14 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 上記において安定とは、Podのスケジュール(または再スケジュール)をまたいでも永続的であることと同義です。
 もしアプリケーションが安定したネットワーク識別子と規則的なデプロイや削除、スケーリングを全く要求しない場合、ユーザーはステートレスなレプリカのセットを提供するコントローラーを使ってアプリケーションをデプロイするべきです。
-[Deployment](/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
+[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
 
 ## 制限事項
 
 * StatefuleSetはKubernetes1.9より以前のバージョンではβ版のリソースであり、1.5より前のバージョンでは利用できません。
 * 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
-* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を要求します。ユーザーはこのServiceを作成する責任があります。
+* StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
 * StatefulSetは、StatefulSetが削除されたときにPodの停止を行うことを保証していません。StatefulSetにおいて、規則的で安全なPodの停止を行う場合、削除のために事前にそのStatefulSetの数を0にスケールダウンさせることが可能です。
 * デフォルト設定の[Pod管理ポリシー](#pod-management-policies) (`OrderedReady`)によって[ローリングアップデート](#rolling-updates)を行う場合、[修復のための手動介入](#forced-rollback)を要求するようなブロークンな状態に遷移させることが可能です。
 
@@ -116,11 +116,11 @@ N個のレプリカをもったStatefulSetにおいて、StatefulSet内の各Pod
 
 StatefulSet内の各Podは、そのStatefulSet名とPodの順序番号から派生してホストネームが割り当てられます。
 作成されたホストネームの形式は`$(StatefulSet名)-$(順序番号)`となります。先ほどの上記の例では、`web-0,web-1,web-2`という3つのPodが作成されます。
-StatefulSetは、Podのドメインをコントロールするために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を使うことができます。  
+StatefulSetは、Podのドメインをコントロールするために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を使うことができます。  
 このHeadless Serviceによって管理されたドメインは`$(Service名).$(ネームスペース).svc.cluster.local`形式となり、"cluster.local"というのはそのクラスターのドメインとなります。  
 各Podが作成されると、Podは`$(Pod名).$(管理するServiceドメイン名)`に一致するDNSサブドメインを取得し、管理するServiceはStatefulSetの`serviceName`で定義されます。
 
-[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/docs/concepts/services-networking/service/#headless-services)を作成する責任があります。
+[制限事項](#制限事項)セクションで言及したように、ユーザーはPodのネットワークアイデンティティーのために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を作成する責任があります。
 
 ここで、クラスタードメイン、Service名、StatefulSet名の選択と、それらがStatefulSetのPodのDNS名にどう影響するかの例をあげます。
 
@@ -164,8 +164,9 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 `OrderedReady`なPod管理はStatefulSetにおいてデフォルトです。これは[デプロイとスケーリングの保証](#deployment-and-scaling-guarantees)に記載されている項目の振る舞いを実装します。
 
-#### 並行なPod管理Parallel Pod Management
-`並行`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
+#### 並行なPod管理
+
+`Parallel`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
 
 ## アップデートストラテジー
 

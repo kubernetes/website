@@ -222,7 +222,7 @@ The third example selects all resources including a label with key `partition`; 
 The fourth example selects all resources without a label with key `partition`; no values are checked.
 -->
 
-第三个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
+第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 
 <!--
 Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.

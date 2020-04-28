@@ -791,6 +791,12 @@ kubectl get -k ./
 kubectl describe -k ./
 ```
 
+다음 명령을 실행해서 디플로이먼트 오브젝트 `dev-my-nginx` 를 매니페스트가 적용된 경우의 클러스터 상태와 비교한다.
+
+```shell
+kubectl diff -k ./
+```
+
 디플로이먼트 오브젝트 `dev-my-nginx`를 삭제하려면 다음 명령어를 실행한다.
 
 ```shell

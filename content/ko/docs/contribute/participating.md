@@ -1,9 +1,10 @@
 ---
 title: SIG Docs에 참여하기
 content_template: templates/concept
+weight: 60
 card:
   name: contribute
-  weight: 40
+  weight: 60
 ---
 
 {{% capture overview %}}
@@ -19,11 +20,12 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 누구나 풀 리퀘스트(PR)를 요청할 수 있고,
 누구나 콘텐츠에 대해 이슈를 등록하거나 진행 중인 풀 리퀘스트에 코멘트를 등록할 수 있다.
 
-SIG Docs 내에서, [멤버](#멤버), [리뷰어](#리뷰어), 또는 [승인자](#승인자)가 될 수도 있다.
+[멤버](#멤버), [리뷰어](#리뷰어), 또는 [승인자](#승인자)가 될 수 있다.
 이런 역할은 변경을 승인하고 커밋할 수 있도록 보다 많은 접근 권한과 이에 상응하는 책임이 수반된다.
 쿠버네티스 커뮤니티 내에서 멤버십이 운영되는 방식에 대한 보다 많은 정보를 확인하려면
 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
 문서를 확인한다.
+
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
 문서를 관리하는 책임을 가지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
@@ -34,51 +36,48 @@ SIG Docs 내에서, [멤버](#멤버), [리뷰어](#리뷰어), 또는 [승인�
 
 ## 역할과 책임
 
-풀 리퀘스트가 콘텐츠를 게재하는데 사용되는 브랜치(현재는 `master`)에 머지되면, 해당 콘텐츠가 세상에
-발행되어 널리 읽힐 수 있게 된다. 발행된 콘텐츠가 높은 품질을 유지하도록,
-SIG Docs 승인자만 풀 리퀘스트를 머지할 수 있도록 제한한다.
-다음과 같이 진행된다.
+- **모든 사람** 은 쿠버네티스 문서에 기여할 수 있다. 기여시 [CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla))하고 GitHub 계정을 가지고 있어야 한다.
+- 쿠버네티스 조직의 **멤버** 는 쿠버네티스 프로젝트에 시간과 노력을 투자한 기여자이다. 일반적으로 승인되는 변경이 되는 풀 리퀘스트를 연다. 멤버십 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을 참조한다.
+- SIG Docs의 **리뷰어** 는 쿠버네티스 조직의 일원으로
+  문서 풀 리퀘스트에 관심을 표명했고, SIG Docs 승인자에
+  의해 GitHub 리포지터리에 있는 GitHub
+  그룹과 `OWNER` 파일에 추가되었다.
+- SIG Docs의 **승인자** 는 프로젝트에 대한 지속적인 헌신을 보여준
+  좋은 멤버이다. 승인자는 쿠버네티스 조직을 대신해서
+  풀 리퀘스트를 병합하고 컨텐츠를 게시할 수 있다.
+  또한 승인자는 더 큰 쿠버네티스 커뮤니티의 SIG Docs를 대표할 수 있다.
+  릴리즈 조정과 같은 SIG Docs 승인자의 일부 의무에는
+  상당한 시간 투입이 필요하다.
 
-- 풀 리퀘스트에 `lgtm`과 `approve` 레이블이 부여되고 `hold` 레이블이 없는 경우에, 해당
-  풀 리퀘스트가 자동으로 머지된다.
-- 쿠버네티스 조직 멤버와 SIG Docs 승인자는 코멘트를 추가해서(`/hold` 코멘트를 추가하거나
-  `/lgtm` 코멘트를 달지 않아서) 주어진 풀 리퀘스트가
-  자동으로 머지되는 것을 막을 수 있다.
-- 쿠버네티스 멤버 누구나 `/lgtm` 코멘트를 달아서 `lgtm` 레이블을 추가할 수 있다.
-- `/approve` 코멘트를 달아서 풀 리퀘스트를 머지할 수 있는 SIG Docs 멤버는 승인자 뿐이다.
-  일부 승인자는 추가로 [PR Wrangler](#pr-wrangler) 또는
-  [SIG Docs chairperson](#sig-docs-chairperson) 같이
-  특화된 역할을 수행한다.
+## 모든 사람
 
-쿠버네티스 조직 멤버와 SIG Docs 승인자 역할 사이의 기대와 차이에 대한 보다 많은 정보는
-[컨트리뷰터 유형](/docs/contribute#types-of-contributor) 문서를 참고한다.
-다음 섹션에서는 이런 역할과 SIG Docs에서
-이들이 작동하는 방식에 대해
-보다 상세한 내용을 다룬다.
+누구나 다음 작업을 할 수 있다.
 
-### 모든 사람
+- 문서를 포함한 쿠버네티스의 모든 부분에 대해 GitHub 이슈 열기.
+- 풀 리퀘스트에 대한 구속력 없는 피드백 제공
+- 기존 컨텐츠를 현지화하는데 도움주는 것
+- [슬랙](http://slack.k8s.io/) 또는 [SIG docs 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)에 개선할 아이디어를 제시한다.
+- `/lgtm` Prow 명령 ("looks good to me" 의 줄임말)을 사용해서 병합을 위한 풀 리퀘스트의 변경을 추천한다.
+  {{< note >}}
+  만약 쿠버네티스 조직의 멤버가 아니라면, `/lgtm` 을 사용하는 것은 자동화된 시스템에 아무런 영향을 주지 않는다.
+  {{< /note >}}
 
-문서를 포함해서, 쿠버네티스의 모든 부분에 대해서 누구나 이슈를 제기할 수 있다.
+[CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla)) 후에 누구나 다음을 할 수 있다.
+- 기존 콘텐츠를 개선하거나, 새 콘텐츠를 추가하거나, 블로그 게시물 또는 사례연구 작성을 위해 풀 리퀘스트를 연다.
 
-CLA에 서명한 누구나 풀 리퀘스트를 제출할 수 있다. CLA에 서명할 수 없다면,
-쿠버네티스 프로젝트는 컨트리뷰션을 수용할 수 없다.
+## 멤버
 
-### 멤버
+멤버는 [멤버 기준](https://github.com/kubernetes/community/blob/master/community-membership.md#member)을 충족하는 쿠버네티스 프로젝트에 기여한 사람들이다. SIG Docs는 쿠버네티스 커뮤니티의 모든 멤버로부터 기여를 환경하며,
+기술적 정확성에 대한 다른 SIG 멤버들의 검토를 수시로 요청한다.
 
-[쿠버네티스 조직](https://github.com/kubernetes)의 모든 멤버가 풀 리퀘스트를 리뷰할 수 있고,
-기술적 정확도를 기하기 위해 SIG Docs 팀 멤버가 다른 분과회 멤버의 리뷰를 요청하는 일도 자주
-발생한다.
-SIG Docs는 쿠버네티스 조직의 멤버십 상태와 상관없이 보내주는 리뷰와 피드백 또한 환영한다.
-풀 리퀘스트에 `/lgtm` 코멘트를 달아서 찬성 의사를 표시할 수 있다.
-쿠버네티스 조직의 멤버가 아니라면,
-`/lgtm` 코멘트는 자동화 시스템에 유효하지는 않다.
+쿠버네티스 조직의 모든 멤버는 다음 작업을 할 수 있다.
 
-쿠버네티스 조직의 모든 멤버는 `/hold` 코멘트를 달아서 풀 리퀘스트가 머지되는 것을 막을 수 있다.
-또한 모든 멤버가 `/hold` 코멘트를 삭제해서 PR이 머지될 수 있도록 할 수도 있다.
-해당 PR이 이미 적임자로부터
-`/lgtm`과 `/approve`를 받은 경우라면 말이다.
+- [모든 사람](#모든-사람) 하위에 나열된 모든 것
+- 풀 리퀘스트 코멘트에 `/lgtm` 을 사용해서 LGTM(looks good to me) 레이블을 붙일 수 있다.
+- 풀 리퀘스트에 이미 LGTM 과 승인 레이블이 있는 경우에 풀 리퀘스트가 병합되지 않도록 코멘트에 `/hold` 를 사용할 수 있다.
+- 코멘트에 `/assgin` 을 사용해서 풀 리퀘스트에 리뷰어를 배정한다.
 
-#### 멤버 되기
+### 멤버 되기
 
 최소 5개의 실질적인 풀 리퀘스트를 성공적으로 제출한 경우, 쿠버네티스 조직의
 [멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md#member)을
@@ -108,20 +107,28 @@ SIG Docs는 쿠버네티스 조직의 멤버십 상태와 상관없이 보내주
     해당 GitHub 이슈를 종료한다.
     축하한다, 이제 멤버가 되었다!
 
-어떤 이유에서 멤버십 요청이 즉시 수용되지 않는 경우,
+만약 멤버십 요청이 받아들여지지 않으면,
 멤버십 위원회에서 재지원 전에
 필요한 정보나 단계를 알려준다.
 
-### 리뷰어
+## 리뷰어
 
 리뷰어는
 [@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
-GitHub 그룹의 멤버이다. [SIG Docs의 팀과 그룹](#teams-and-groups-within-sig-docs) 문서를 참고한다.
+GitHub 그룹의 멤버이다. 리뷰어는 문서 풀 리퀘스트를 리뷰하고 제안받은 변경에 대한 피드백을
+제공한다. 리뷰어는 다음 작업을 수행할 수 있다.
 
-리뷰어는 문서 풀 리퀘스트를 리뷰하고
-제안받은 변경에 대한 피드백을 제공한다.
+- [모든 사람](#모든-사람)과 [멤버](#멤버)에 나열된 모든 것을 수행
+- 새 기능의 문서화
+- 이슈 해결 및 분류
+- 풀 리퀘스트 리뷰와 구속력있는 피드백 제공
+- 다이어그램, 그래픽 자산과 포함가능한 스크린샷과 비디오를 생성
+- 코드에서 사용자 화면 문자열 편집
+- 코드 코멘트 개선
 
-자동화 시스템은 풀 리퀘스트에 대해 리뷰어를 할당하고, 컨트리뷰터는 해당 풀 리퀘스트에
+### 풀 리퀘스트에 대한 리뷰어 할당
+
+자동화 시스템은 풀 리퀘스트에 대해 리뷰어를 할당하고, 사용자는 해당 풀 리퀘스트에
 `/assign [@_github_handle]` 코멘트를 남겨서 특정 리뷰어에게 리뷰를 요청할 수 있다.
 풀 리퀘스트가 기술적으로 정확하고 더 변경이 필요하지 않다는 의미로,
 리뷰어는 `/lgtm` 코멘트를
@@ -136,11 +143,7 @@ GitHub 그룹의 멤버이다. [SIG Docs의 팀과 그룹](#teams-and-groups-wit
 
 리뷰어의 `/approve` 코멘트는 자동화 시스템에서 무시된다.
 
-SIG Docs 리뷰어가 되는 방법과
-수반되는 책임과 시간 할애에 대한 보다 많은 정보는
-[리뷰어나 승인자 되기](#리뷰어나-승인자-되기) 문서를 참조한다.
-
-#### 리뷰어 되기
+### 리뷰어 되기
 
 [요건](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)을
 충족하면, SIG Docs 리뷰어가 될 수 있다.
@@ -161,26 +164,27 @@ SIG Docs 리뷰어가 되는 방법과
 GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-admins` GitHub 그룹의
 멤버만이 신규 멤버를 GitHub 그룹에 추가할 수 있다.
 
-### 승인자
+## 승인자
 
 승인자는
 [@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub 그룹의 멤버이다. [SIG Docs의 팀과 그룹](#teams-and-groups-within-sig-docs) 문서를 참조한다.
+GitHub 그룹의 멤버이다. [SIG Docs 팀과 자동화](#sig-docs-팀과-자동화) 문서를 참조한다.
 
-승인자는 PR을 머지할 수 있으므로, 쿠버네티스 웹사이트에 콘텐츠를 게재할 수 있다.
-PR을 승인하려면, 승인자는 `/approve` 코멘트를 해당 PR에 남긴다.
-승인자가 아닌 누군가가 승인 코멘트를 남기더라도,
-자동화 시스템은 이를 무시한다.
+승인자는 다음의 작업을 할 수 있다.
+
+- [모든 사람](#모든-사람), [멤버](#멤버) 그리고 [리뷰어](#리뷰어) 하위의 모든 목록을 할 수 있다.
+- 코멘트에 `/approve` 를 사용해서 풀 리퀘스트를 승인하고, 병합해서 기여자의 컨텐츠를 게시한다.
+  만약 승인자가 아닌 사람이 코멘트에 승인을 남기면 자동화 시스템에서 이를 무시한다.
+- 쿠버네티스 릴리즈팀에 문서 담당자로 참여
+- 스타일 가이드 개선 제안
+- 문서 테스트 개선 제안
+- 쿠버네티스 웹사이트 또는 다른 도구 개선 제안
 
 PR이 이미 `/lgtm`을 받았거나, 승인자가 `/lgtm`을 포함한 코멘트를 남긴 경우에는
 해당 PR이 자동으로 머지된다. SIG Docs 승인자는 추가적인 기술 리뷰가 필요하지 않은 변경에 대해서만
 `/lgtm`을 남겨야한다.
 
-SIG Docs 승인자가 되는 방법과
-수반되는 책임과 시간 할애에 대한 보다 많은 정보는
-[리뷰어나 승인자 되기](#리뷰어나-승인자-되기) 문서를 참조한다.
-
-#### 승인자 되기
+### 승인자 되기
 
 [요건](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)을
 충족하면, SIG Docs 승인자가 될 수 있다.
@@ -201,7 +205,7 @@ SIG Docs 승인자가 되는 방법과
 GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-admins` GitHub 그룹의
 멤버만이 신규 멤버를 GitHub 그룹에 추가할 수 있다.
 
-#### 승인자의 책임
+### 승인자의 책임
 
 승인자는 리뷰와 풀리퀘스트를 웹사이트 리포지터리에 머지하여 문서를 개선한다. 이 역할에는 추가적인 권한이 필요하므로, 승인자에게는 별도의 책임이 부여된다.
 
@@ -209,7 +213,7 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 
     부주의한 머지로 인해 사이트를 파괴할 수 있으므로, 머지할 때에 그 의미를 확인해야 한다.
 
-- 제안된 변경이 컨트리뷰션 가이드 라인에 적합한지 확인한다.
+- 제안된 변경이 [컨트리뷰션 가이드 라인](/docs/contribute/style/content-guide/#contributing-content)에 적합한지 확인한다.
 
     질문이 생기거나 확실하지 않다면 자유롭게 추가 리뷰를 요청한다.
 
@@ -219,16 +223,11 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 
 - 승인 전에 PR에 대한 Netlify 프리뷰 페이지를 방문하여, 제대로 보이는지 확인한다.
 
-#### PR Wrangler
-
-SIG Docs 승인자는
-[PR Wrangler 회람 스케줄러](https://github.com/kubernetes/website/wiki/PR-Wranglers)에
-참여하여 주 단위로 돌아가며 역할을 수행한다.
-SIG Docs는 모든 승인자들이 이 회람에 참여하기를 기대한다. 보다 자세한 내용은
-[일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+- 주간 로테이션을 위해 [PR Wrangler 로테이션 스케줄](https://github.com/kubernetes/website/wiki/PR-Wranglers)에 참여한다. SIG Docs는 모든 승인자들이 이 로테이션에 참여할
+것으로 기대한다. [일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 문서를 참고한다.
 
-#### SIG Docs chairperson
+## SIG Docs 의장
 
 SIG Docs를 포함한 각 SIG는, 한 명 이상의 SIG 멤버가 의장 역할을 하도록 선정한다. 이들은 SIG Docs와
 다른 쿠버네티스 조직 간 연락책(point of contact)이 된다. 이들은 쿠버네티스 프로젝트 전반의 조직과
@@ -285,15 +284,33 @@ OWNERS 파일과 마크다운 파일 내 전문의 조합은
 자동화 시스템이 누구에게 기술적, 편집적 리뷰를 요청해야 할지를
 PR 소유자에게 조언하는데 활용된다.
 
+## 병합 작업 방식
+
+풀 리퀘스트 요청이 콘텐츠(현재 `master`)를 발행하는데 사용하는
+브랜치에 병합되면 그 내용이 전 세계에 공개된다. 게시된 콘텐츠의
+품질을 높히기 위해 SIG Docs 승인자가 풀 리퀘스트를 병합하는 것을 제한한다.
+작동 방식은 다음과 같다.
+
+- 풀 리퀘스트에 `lgtm` 과 `approve` 레이블이 있고, `hold` 레이블이 없고,
+  모든 테스트를 통과하면 풀 리퀘스트는 자동으로 병합된다.
+- 쿠버네티스 조직의 멤버와 SIG Docs 승인자들은 지정된 풀 리퀘스트의
+  자동 병합을 방지하기 위해 코멘트를 추가할 수 있다(코멘트에 `/hold` 추가 또는
+  `/lgtm` 코멘트 보류).
+- 모든 쿠버네티스 멤버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
+- SIG Docs 승인자들만이 코멘트에 `/approve` 를
+  추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
+  [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 또는 [SIG Docs 의장](#sig-docs-의장)과
+  같은 특정 역할도 수행한다.
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
-- [기여 시작하기](/docs/contribute/start/)
-- [문서 스타일](/docs/contribute/style/)
+- [신규 컨텐츠 기여하기](/docs/contribute/overview/)
+- [컨텐츠 검토하기](/docs/contribute/review/reviewing-prs)
+- [문서 스타일 가이드](/docs/contribute/style/)
 
 {{% /capture %}}
-
 

@@ -13,13 +13,13 @@ il responsabile del controller.
 
 ## Cosa sono le metriche del controller
 
-Le metriche del controller forniscono informazioni importanti sulle prestazioni del controller. Queste metriche 
-includono le comuni metriche di runtime del linguaggio Go, come il conteggio go_routine e le metriche specifiche del 
-controller come latenze delle richieste etcd o latenze API Cloudprovider (AWS, GCE, OpenStack) che possono essere 
+Le metriche del controller forniscono informazioni importanti sulle prestazioni del controller. Queste metriche
+includono le comuni metriche di runtime del linguaggio Go, come il conteggio go_routine e le metriche specifiche del
+controller come latenze delle richieste etcd o latenze API Cloudprovider (AWS, GCE, OpenStack) che possono essere
 utilizzate per valutare la salute di un cluster.
 
-A partire da Kubernetes 1.7, le metriche dettagliate di Cloudprovider sono disponibili per le operazioni di archiviazione 
-per GCE, AWS, Vsphere e OpenStack. Queste metriche possono essere utilizzate per monitorare lo stato delle operazioni 
+A partire da Kubernetes 1.7, le metriche dettagliate di Cloudprovider sono disponibili per le operazioni di archiviazione
+per GCE, AWS, Vsphere e OpenStack. Queste metriche possono essere utilizzate per monitorare lo stato delle operazioni
 di volume persistenti.
 
 Ad esempio, per GCE queste metriche sono chiamate:

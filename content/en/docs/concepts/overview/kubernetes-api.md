@@ -61,7 +61,7 @@ Kubernetes implements an alternative Protobuf based serialization format for the
 
 Prior to 1.14, the Kubernetes apiserver also exposes an API that can be used to retrieve
 the [Swagger v1.2](http://swagger.io/) Kubernetes API spec at `/swaggerapi`.
-This endpoint is deprecated, and will be removed in Kubernetes 1.14.
+This endpoint is deprecated, and was removed in Kubernetes 1.14.
 
 ## API versioning
 
@@ -121,21 +121,22 @@ There are two supported paths to extending the API with [custom resources](/docs
    to make it seamless for clients.
 
 
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default.  They can be enabled or disabled by setting `--runtime-config`
-on apiserver. `--runtime-config` accepts comma separated values. For ex: to disable batch/v1, set
+on apiserver. `--runtime-config` accepts comma separated values. For example: to disable batch/v1, set
 `--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
-IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
-to pick up the `--runtime-config` changes.
+{{< note >}}Enabling or disabling groups or resources requires restarting apiserver and controller-manager
+to pick up the `--runtime-config` changes.{{< /note >}}
 
-## Enabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs and ReplicaSets are enabled by default.
-Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
+
+{{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}
 
 {{% /capture %}}

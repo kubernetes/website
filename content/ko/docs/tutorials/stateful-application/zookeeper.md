@@ -6,9 +6,9 @@ weight: 40
 
 {{% capture overview %}}
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
-쿠버네티스에서 [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과
-[파드디스룹선버짓(PodDisruptionBudget)](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
-[파드안티어피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
+쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
+[파드디스룹선버짓(PodDisruptionBudget)](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
+[파드안티어피니티(PodAntiAffinity)](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
@@ -17,13 +17,13 @@ weight: 40
 다음 쿠버네티스 개념에 친숙해야 한다.
 
 -   [파드](/docs/user-guide/pods/single-container/)
--   [클러스터 DNS](/docs/concepts/services-networking/dns-pod-service/)
--   [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)
--   [퍼시스턴트볼륨](/docs/concepts/storage/volumes/)
+-   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
+-   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+-   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
--   [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)
--   [파드디스룹션버짓](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
--   [파드안티어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+-   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+-   [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
+-   [파드안티어피니티](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)
 -   [kubectl CLI](/docs/user-guide/kubectl/)
 
 최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
@@ -62,10 +62,10 @@ ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변�
 ## ZooKeeper 앙상블 생성하기
 
 아래 메니페스트에는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services),
-[서비스](/docs/concepts/services-networking/service/),
-[파드디스룹션버짓](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
-[스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스),
+[서비스](/ko/docs/concepts/services-networking/service/),
+[파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
@@ -173,7 +173,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-[쿠버네티스 DNS](/docs/concepts/services-networking/dns-pod-service/)의 A 레코드는 FQDN을 파드의 IP 주소로 풀어낸다. 쿠버네티스가 파드를 리스케줄하면, 파드의 새 IP 주소로 A 레코드를 갱신하지만, A 레코드의 이름은 바뀌지 않는다.
+[쿠버네티스 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)의 A 레코드는 FQDN을 파드의 IP 주소로 풀어낸다. 쿠버네티스가 파드를 리스케줄하면, 파드의 새 IP 주소로 A 레코드를 갱신하지만, A 레코드의 이름은 바뀌지 않는다.
 
 ZooKeeper는 그것의 애플리케이션 환경설정을 `zoo.cfg` 파일에 저장한다. `kubectl exec`를 이용하여 `zk-0` 파드의 `zoo.cfg` 내용을 보자.
 
@@ -366,7 +366,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-아래 명령어로 [무결성 테스트](#sanity-testing-the-ensemble)에서 입력한 값을
+아래 명령어로 [무결성 테스트](#앙상블-무결성-테스트)에서 입력한 값을
 `zk-2` 파드에서 얻어온다.
 
 ```shell
@@ -443,8 +443,8 @@ ZooKeeper의 서버 디렉터리에 마운트한다.
 
 ## 일관된 구성 보장하기
 
-[리더 선출 촉진](#facilitating-leader-election)과
-[합의 달성](#achieving-consensus) 섹션에서 알렸듯이,
+[리더 선출 촉진](#리더-선출-촉진)과
+[합의 달성](#합의-달성) 섹션에서 알렸듯이,
 ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
 또한 Zab 프로토콜의 일관된 설정도 
 네트워크에 걸쳐 올바르게 동작하기 위해서
@@ -655,7 +655,7 @@ statefulset.apps/zk rolled back
 
 ### 프로세스 장애 관리하기
 
-[재시작 정책](/docs/user-guide/pod-states/#restartpolicy)은
+[재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)은
 쿠버네티스가 파드 내에 컨테이너의 진입점에서 프로세스 실패를 어떻게 다루는지 제어한다.
 `스테이트풀셋`의 파드에서 오직 적절한 `재시작 정책`는 Always이며
 이것이 기본 값이다. 상태가 유지되는 애플리케이션을 위해

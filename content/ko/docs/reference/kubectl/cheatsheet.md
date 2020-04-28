@@ -38,13 +38,13 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # 현재 셸에 zsh의 자동 완성 설정
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
 ```
 
 ## Kubectl 컨텍스트와 설정
 
 `kubectl`이 통신하고 설정 정보를 수정하는 쿠버네티스 클러스터를
-지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
+지정한다. 설정 파일에 대한 자세한 정보는 [kubeconfig를 이용한 클러스터 간 인증](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 문서를
 참고한다.
 
 ```bash
@@ -82,7 +82,7 @@ kubectl config unset users.foo                       # foo 사용자 삭제
 
 ## 오브젝트 생성
 
-쿠버네티스 매니페스트는 json이나 yaml로 정의된다. 파일 확장자는 `.yaml`
+쿠버네티스 매니페스트는 JSON이나 YAML로 정의된다. 파일 확장자는 `.yaml`
 , `.yml`, `.json` 이 사용된다.
 
 ```bash
@@ -91,7 +91,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 여러 파일로 부터 생성
 kubectl apply -f ./dir                         # dir 내 모든 매니페스트 파일에서 리소스(들) 생성
 kubectl apply -f https://git.io/vPieo          # url로부터 리소스(들) 생성
 kubectl create deployment nginx --image=nginx  # nginx 단일 인스턴스를 시작
-kubectl explain pods,svc                       # 파드와 서비스 매니페스트 문서를 조회
+kubectl explain pods                           # 파드 매니페스트 문서를 조회
 
 # stdin으로 다수의 YAML 오브젝트 생성
 cat <<EOF | kubectl apply -f -
@@ -140,11 +140,10 @@ EOF
 # 기본 출력을 위한 Get 커맨드
 kubectl get services                          # 네임스페이스 내 모든 서비스의 목록 조회
 kubectl get pods --all-namespaces             # 모든 네임스페이스 내 모든 파드의 목록 조회
-kubectl get pods -o wide                      # 네임스페이스 내 모든 파드의 상세 목록 조회
+kubectl get pods -o wide                      # 해당하는 네임스페이스 내 모든 파드의 상세 목록 조회
 kubectl get deployment my-dep                 # 특정 디플로이먼트의 목록 조회
 kubectl get pods                              # 네임스페이스 내 모든 파드의 목록 조회
 kubectl get pod my-pod -o yaml                # 파드의 YAML 조회
-kubectl get pod my-pod -o yaml --export       # 클러스터 명세 없이 파드의 YAML 조회
 
 # 상세 출력을 위한 Describe 커맨드
 kubectl describe nodes my-node
@@ -156,9 +155,8 @@ kubectl get services --sort-by=.metadata.name
 # 재시작 횟수로 정렬된 파드의 목록 조회
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# test 네임스페이스를 가지는 PersistentVolumes을 용량별로 정렬해서 조회
-
-kubectl get pv -n test --sort-by=.spec.capacity.storage
+# PersistentVolumes을 용량별로 정렬해서 조회
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # app=cassandra 레이블을 가진 모든 파드의 레이블 버전 조회
 kubectl get pods --selector=app=cassandra -o \
@@ -189,13 +187,19 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 # 파드에 의해 현재 사용되고 있는 모든 시크릿 목록 조회
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
+# 모든 파드의 초기화 컨테이너(initContainer)의 컨테이너ID 목록 조회
+# 초기화 컨테이너(initContainer)를 제거하지 않고 정지된 모든 컨테이너를 정리할 때 유용하다.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
 # 타임스탬프로 정렬된 이벤트 목록 조회
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# 매니페스트가 적용된 경우 클러스터의 현재 상태와 클러스터의 상태를 비교한다.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## 리소스 업데이트
 
-1.11 버전에서 `rolling-update`는 사용 중단(deprecated)되었다. ([CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) 참고) 대신 `rollout`를 사용한다.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
@@ -203,13 +207,8 @@ kubectl rollout history deployment/frontend                      # 현 리비전
 kubectl rollout undo deployment/frontend                         # 이전 디플로이먼트로 롤백
 kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비전으로 롤백
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
+kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
-
-# 버전 1.11 부터 사용 중단
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (사용중단) frontend-v1 파드의 롤링 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (사용중단) 리소스 이름 변경과 이미지 업데이트
-kubectl rolling-update frontend --image=image:v2                 # (사용중단) 프론트엔드의 파드 이미지 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (사용중단) 진행중인 기존 롤아웃 중단
 
 cat pod.json | kubectl replace -f -                              # std로 전달된 JSON을 기반으로 파드 교체
 
@@ -330,7 +329,7 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 
 ### 출력 형식 지정
 
-특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` 또는 `--output` 플래그를 추가하면 된다.
+특정 형식으로 터미널 창에 세부 사항을 출력하려면, 지원되는 `kubectl` 명령에 `-o` (또는 `--output`) 플래그를 추가한다.
 
 출력 형식       | 세부 사항
 --------------| -----------

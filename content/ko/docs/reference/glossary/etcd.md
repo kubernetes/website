@@ -19,4 +19,4 @@ tags:
 이 데이터를 [백업](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)하는 계획은
 필수이다.
 
-etcd에 대한 자세한 정보는, 공식 [문서](https://github.com/coreos/etcd/blob/master/Documentation/docs.md)를 참고한다.
+etcd에 대한 자세한 정보는, 공식 [문서](https://etcd.io/docs)를 참고한다.

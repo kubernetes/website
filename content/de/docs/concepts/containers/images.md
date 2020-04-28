@@ -96,7 +96,7 @@ Das Google service Konto der Instanz hat einen `https://www.googleapis.com/auth/
 
 Kubernetes eine native Unterstützung für die [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) wenn Knoten AWS EC2 Instanzen sind.
 
-Es muss einfah nur der komplette Image Name (z.B. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`) in der Pod - Definition genutzt werden.
+Es muss einfach nur der komplette Image Name (z.B. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`) in der Pod - Definition genutzt werden.
 
 Alle Benutzer eines Clusters die Pods erstellen dürfen können dann jedes der Images in der ECR Registry zum Ausführen von Pods nutzen.
 

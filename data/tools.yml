@@ -9,11 +9,9 @@ toc:
     path: /docs/reference/kubectl/overview/
   - title: Kubeadm
     path: /docs/getting-started-guides/kubeadm
-  - title: Kubefed
-    path: /docs/admin/federation/kubefed/
   - title: Kubernetes Dashboard
     path: /docs/user-guide/ui/
-  
+
 - title: Third-Party Tools
   section:
   - docs/tools/kompose/index.md

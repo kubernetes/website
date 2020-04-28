@@ -17,8 +17,8 @@ For details, see: https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubea
 kubeadm config print [flags]
 ```
 
-<!-- 
-### Options 
+<!--
+### Options
 -->
 ### 选项
 
@@ -46,8 +46,8 @@ kubeadm config print [flags]
 
 
 
-<!-- 
-### Options inherited from parent commands 
+<!--
+### Options inherited from parent commands
 -->
 ### 从父命令继承的选项
 
@@ -89,20 +89,3 @@ kubeadm config print [flags]
 
   </tbody>
 </table>
-
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm config](kubeadm_config.md)	 - Manage configuration for a kubeadm cluster persisted in a ConfigMap in the cluster
-* [kubeadm config print init-defaults](kubeadm_config_print_init-defaults.md)	 - Print default init configuration, that can be used for 'kubeadm init'
-* [kubeadm config print join-defaults](kubeadm_config_print_join-defaults.md)	 - Print default join configuration, that can be used for 'kubeadm join'
--->
-* [kubeadm config](kubeadm_config.md)	 - 管理 kubeadm 集群的配置，该配置保留在集群的 ConfigMap 中
-* [kubeadm config print init-defaults](kubeadm_config_print_init-defaults.md)	 - 打印默认的 init 配置，可用于 'kubeadm init'
-* [kubeadm config print join-defaults](kubeadm_config_print_join-defaults.md)	 - 打印默认的 join 配置，可用于 'kubeadm join'
-

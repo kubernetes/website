@@ -38,6 +38,8 @@ Get the API versions:
 
     curl http://localhost:8080/api/
 
+The output should look similar to this:
+
     {
       "kind": "APIVersions",
       "versions": [
@@ -54,6 +56,8 @@ Get the API versions:
 Get a list of pods:
 
     curl http://localhost:8080/api/v1/namespaces/default/pods
+
+The output should look similar to this:
 
     {
       "kind": "PodList",

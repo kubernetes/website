@@ -34,6 +34,16 @@ Horizontal Pod Autoscaler 같은 클러스터의 컨트롤러에서 결정을 �
 이 API를 사용하려면 메트릭 서버를 클러스터에 배포해야 한다. 그렇지 않으면 사용할 수 없다.
 {{< /note >}}
 
+## 리소스 사용량 측정
+
+### CPU
+
+CPU는 일정 기간 동안 [CPU 코어](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu)에서 평균 사용량으로 리포트된다. 이 값은 커널(리눅스와 윈도우 커널 모두)에서 제공하는 누적 CPU 카운터보다 높은 비율을 적용해서 얻는다. kubelet은 비율 계산에 사용할 윈도우를 선택한다.
+
+### 메모리
+
+메모리는 메트릭이 수집된 순간 작업 집합으로 리포트 된다. 이상적인 환경에서 "작업 집합(working set)"은 압박(memory pressure)에서 풀려날 수 없는 사용 중인(in-use) 메모리의 양이다. 그러나 작업 집합의 계산은 호스트 OS에 따라 다르며, 일반적으로 휴리스틱스를 사용해서 평가한다. 쿠버네티스는 스왑(swap)을 지원하지 않기 때문에 모든 익명(파일로 백업되지 않은) 메모리를 포함한다. 호스트 OS가 항상 이러한 페이지를 회수할 수 없기 때문에 메트릭에는 일반적으로 일부 캐시된(파일 백업) 메모리도 포함된다.
+
 ## 메트릭 서버
 
 [메트릭 서버](https://github.com/kubernetes-incubator/metrics-server)는 클러스터 전역에서 리소스 사용량 데이터를 집계한다.

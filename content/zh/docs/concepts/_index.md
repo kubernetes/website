@@ -37,10 +37,10 @@ To work with Kubernetes, you use *Kubernetes API objects* to describe your clust
 要使用 Kubernetes，你需要用 *Kubernetes API 对象* 来描述集群的 *预期状态（desired state）* ：包括你需要运行的应用或者负载，它们使用的镜像、副本数，以及所需网络和磁盘资源等等。你可以使用命令行工具 `kubectl`  来调用 Kubernetes API 创建对象，通过所创建的这些对象来配置预期状态。你也可以直接调用 Kubernetes API 和集群进行交互，设置或者修改预期状态。
 
 <!--
-Once you've set your desired state, the *Kubernetes Control Plane* makes the cluster's current state match the desired state via the Pod Lifecycle Event Generator (PLEG). To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:
+Once you've set your desired state, the *Kubernetes Control Plane* makes the cluster's current state match the desired state via the Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:
 -->
 
-一旦你设置了你所需的目标状态，*Kubernetes 控制面（control plane）* 会通过 Pod 生命周期事件生成器( PLEG )，促成集群的当前状态符合其预期状态。为此，Kubernetes 会自动执行各类任务，比如运行或者重启容器、调整给定应用的副本数等等。Kubernetes 控制面由一组运行在集群上的进程组成：
+一旦你设置了你所需的目标状态，*Kubernetes 控制面（control plane）* 会通过 Pod 生命周期事件生成器([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md))，促成集群的当前状态符合其预期状态。为此，Kubernetes 会自动执行各类任务，比如运行或者重启容器、调整给定应用的副本数等等。Kubernetes 控制面由一组运行在集群上的进程组成：
 
 <!--
 * The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
@@ -49,7 +49,7 @@ Once you've set your desired state, the *Kubernetes Control Plane* makes the clu
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 -->
 
-*  **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
+* **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，主控组件通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
 * 集群中的每个非 master 节点都运行两个进程：
   * **[kubelet](/docs/admin/kubelet/)**，和 master 节点进行通信。
   * **[kube-proxy](/docs/admin/kube-proxy/)**，一种网络代理，将 Kubernetes 的网络服务代理到每个节点上。
@@ -61,10 +61,10 @@ Once you've set your desired state, the *Kubernetes Control Plane* makes the clu
 ## Kubernetes 对象
 
 <!--
-Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details.
+Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API. See [Understanding Kubernetes Objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/) for more details.
 -->
 
-Kubernetes 包含若干抽象用来表示系统状态，包括：已部署的容器化应用和负载、与它们相关的网络和磁盘资源以及有关集群正在运行的其他操作的信息。这些抽象使用 Kubernetes API 对象来表示。参阅 [Kubernetes 对象概述](/docs/concepts/abstractions/overview/)以了解详细信息。
+Kubernetes 包含若干用来表示系统状态的抽象层，包括：已部署的容器化应用和负载、与它们相关的网络和磁盘资源以及有关集群正在运行的其他操作的信息。这些抽象使用 Kubernetes API 对象来表示。有关更多详细信息，请参阅[了解 Kubernetes 对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
 
 <!--
 The basic Kubernetes objects include:
@@ -78,15 +78,15 @@ The basic Kubernetes objects include:
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
 <!--
-In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
+Kubernetes also contains higher-level abstractions that rely on [Controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
 -->
 
-另外，Kubernetes 包含大量的被称作*控制器（controllers）* 的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
+Kubernetes 也包含大量的被称作 [Controller](/docs/concepts/architecture/controller/) 的高级抽象。控制器基于基本对象构建并提供额外的功能和方便使用的特性。具体包括：
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 <!--
@@ -137,17 +137,6 @@ The nodes in a cluster are the machines (VMs, physical servers, etc) that run yo
 
 集群中的 node 节点（虚拟机、物理机等等）都是用来运行你的应用和云工作流的机器。Kubernetes master 节点控制所有 node 节点；你很少需要和 node 节点进行直接通信。
 
-<!--
-#### Object Metadata
-
-
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
--->
-
-#### 对象元数据
-
-
-* [注解](/docs/concepts/overview/working-with-objects/annotations/)
 
 {{% /capture %}}
 

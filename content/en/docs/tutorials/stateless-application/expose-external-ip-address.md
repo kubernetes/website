@@ -80,8 +80,17 @@ The preceding command creates a
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    Note: If the external IP address is shown as \<pending\>, wait for a minute
-    and enter the same command again.
+    {{< note >}}
+
+    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
+
+    {{< /note >}}
 
 1. Display detailed information about the Service:
 

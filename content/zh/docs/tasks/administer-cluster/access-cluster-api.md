@@ -260,9 +260,9 @@ import (
 要使用 [Python 客户端](https://github.com/kubernetes-client/python)，运行下列命令：`pip install kubernetes` 参见 [Python 客户端库主页](https://github.com/kubernetes-client/python) 查看更多安装选项。
 
 <!-- The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py): -->
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py): -->
 
-Python 客户端可以使用与 kubectl 命令行工具相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 定位和验证 API 服务器。参见这个 [例子](https://github.com/kubernetes-client/python/tree/master/examples/example1.py)：
+Python 客户端可以使用与 kubectl 命令行工具相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 定位和验证 API 服务器。参见这个 [例子](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)：
 
 ```python
 from kubernetes import client, config

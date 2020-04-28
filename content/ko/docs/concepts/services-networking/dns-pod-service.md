@@ -38,22 +38,24 @@ DNS 서비스의 IP를 사용하도록 kubelets를 구성한다.
 
 ## 서비스
 
-### A 레코드
+### A/AAAA 레코드
 
-"노멀"(헤드리스가 아닌) 서비스는 
+"노멀"(헤드리스가 아닌) 서비스는 서비스 IP 계열에 따라
 `my-svc.my-namespace.svc.cluster-domain.example` 
-형식의 이름을 가진 DNS A 레코드가 할당된다. 이는 서비스의 클러스터 IP로 해석된다.
+형식의 이름을 가진 DNS A 또는 AAAA 레코드가 할당된다. 이는 서비스의 클러스터
+IP로 해석된다.
 
-"헤드리스"(클러스터 IP가 없는) 서비스 또한 
+"헤드리스"(클러스터 IP가 없는) 서비스 또한 서비스 IP 계열에 따라
 `my-svc.my-namespace.svc.cluster-domain.example` 
-형식의 이름을 가진 DNS A 레코드가 할당된다. 
+형식의 이름을 가진 DNS A 또는 AAAA 레코드가 할당된다. 
 노멀 서비스와는 다르게 이는 서비스에 의해 선택된 파드들의 IP 집합으로 해석된다. 
-클라이언트는 해석된 IP 집합에서 IP를 직접 선택하거나 표준 라운드로빈을 통해 선택할 수 있다.
+클라이언트는 해석된 IP 집합에서 IP를 직접 선택하거나 표준 라운드로빈을
+통해 선택할 수 있다.
 
 ### SRV 레코드
 
 SRV 레코드는 노멀 서비스 또는 
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)에 
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)에 
 속하는 네임드 포트를 위해 만들어졌다. 각각의 네임드 포트에 대해서 SRV 레코드는 다음과 같은 형식을 가질 수 있다. 
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 정규 서비스의 경우, 이는 포트 번호와 도메인 네임으로 해석된다. 
@@ -128,22 +130,22 @@ spec:
 ```
 
 파드와 동일한 네임스페이스 내에 같은 서브도메인 이름을 가진 헤드리스 서비스가 있다면, 
-클러스터의 KubeDNS 서버는 파드의 전체 주소 호스트네임(fully qualified hostname)인 A 레코드를 반환한다.
+클러스터의 DNS 서버는 파드의 전체 주소 호스트네임(fully qualified hostname)인 A 또는 AAAA 레코드를 반환한다.
 예를 들어 호스트네임이 "`busybox-1`"이고, 
 서브도메인이 "`default-subdomain`"이고, 
 같은 네임스페이스 내 헤드리스 서비스의 이름이 "`default-subdomain`"이면, 
 파드는 다음과 같이 자기 자신의 FQDN을 얻게 된다. 
 "`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`".
-DNS는 위 FQDN에 대해 파드의 IP를 가리키는 A 레코드를 제공한다. 
-"`busybox1`"와 "`busybox2`" 파드 모두 각 파드를 구분 가능한 A 레코드를 가지고 있다.
+DNS는 위 FQDN에 대해 파드의 IP를 가리키는 A 또는 AAAA 레코드를 제공한다. 
+"`busybox1`"와 "`busybox2`" 파드 모두 각 파드를 구분 가능한 A 또는 AAAA 레코드를 가지고 있다.
 
 엔드포인트 객체는 `hostname` 필드를 임의의 엔드포인트 IP 주소로 지정할 수 있다.
 
 {{< note >}}
-A 레코드는 파드의 이름으로 생성되지 않기 때문에 
-파드의 A 레코드를 생성하기 위해서는 `hostname` 필드를 작성해야 한다. 
+A 또는 AAAA 레코드는 파드의 이름으로 생성되지 않기 때문에 
+파드의 A 또는 AAAA 레코드를 생성하기 위해서는 `hostname` 필드를 작성해야 한다. 
 `hostname` 필드는 없고 `subdomain` 필드만 있는 파드는 파드의 IP 주소를 가리키는 헤드리스 서비스의 
-A 레코드만 생성할 수 있다. 
+A 또는 AAAA 레코드만 생성할 수 있다. 
 (`default-subdomain.my-namespace.svc.cluster-domain.example`)
 또한 레코드를 가지기 위해서는 파드가 준비되어야 한다. 
 그렇지 않은 경우, 서비스에서 `publishNotReadyAddresses=True`가 활성화된다.

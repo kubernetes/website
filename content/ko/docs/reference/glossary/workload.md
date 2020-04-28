@@ -2,7 +2,7 @@
 title: 워크로드(Workloads)
 id: workloads
 date: 2019-02-13
-full_link: /docs/concepts/workloads/
+full_link: /ko/docs/concepts/workloads/
 short_description: >
    워크로드는 클러스터의 컨테이너를 동작시키고 관리하기 위해 사용하는 오브젝트이다.
 

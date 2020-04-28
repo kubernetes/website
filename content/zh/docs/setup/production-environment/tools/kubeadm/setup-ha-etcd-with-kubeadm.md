@@ -1,7 +1,7 @@
 ---
 title: 使用 kubeadm 创建一个高可用 etcd 集群
 content_template: templates/task
-weight: 60
+weight: 70
 ---
 
 <!--
@@ -10,11 +10,22 @@ reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
 content_template: templates/task
-weight: 60
+weight: 70
 ---
 -->
 
 {{% capture overview %}}
+
+{{< note >}}
+<!--
+While kubeadm is being used as the management tool for external etcd nodes
+in this guide, please note that kubeadm does not plan to support certificate rotation
+or upgrades for such nodes. The long term plan is to empower the tool
+[etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
+aspects.
+-->
+在本指南中，当 kubeadm 用作为外部 etcd 节点管理工具，请注意 kubeadm 不计划支持此类节点的证书更换或升级。对于长期规划是使用 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) 增强工具来管理这方面。
+{{< /note >}}
 
 <!--
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
@@ -196,7 +207,7 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     如果您还没有 CA，则在 `$HOST0`（您为 kubeadm 生成配置文件的位置）上运行此命令。
 
     ```
-    kubeadm alpha phase certs etcd-ca
+    kubeadm init phase certs etcd-ca
     ```
 
     <!--
@@ -214,25 +225,25 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
 
     <!--
     ```sh
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
     # cleanup non-reusable certificates
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # No need to move the certs because they are for HOST0
 
     # clean up certs that should not be copied off this host
@@ -241,25 +252,25 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     ```
     -->
     ```sh
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST2}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST2}/
     # 清理不可重复使用的证书
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST1}/kubeadmcfg.yaml
     cp -R /etc/kubernetes/pki /tmp/${HOST1}/
     find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
 
-    kubeadm alpha phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    kubeadm alpha phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-server --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-peer --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs etcd-healthcheck-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    kubeadm init phase certs apiserver-etcd-client --config=/tmp/${HOST0}/kubeadmcfg.yaml
     # 不需要移动 certs 因为它们是给 HOST0 使用的
 
     # 清理不应从此主机复制的证书
@@ -370,9 +381,9 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     既然证书和配置已经就绪，是时候去创建清单了。在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
     ```sh
-    root@HOST0 $ kubeadm alpha phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm alpha phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+    root@HOST1 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
+    root@HOST2 $ kubeadm init phase etcd local --config=/home/ubuntu/kubeadmcfg.yaml
     ```
 
     <!--
@@ -383,14 +394,24 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     ```sh
     docker run --rm -it \
     --net host \
-    -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:v3.2.18 etcdctl \
-    --cert-file /etc/kubernetes/pki/etcd/peer.crt \
-    --key-file /etc/kubernetes/pki/etcd/peer.key \
-    --ca-file /etc/kubernetes/pki/etcd/ca.crt \
-    --endpoints https://${HOST0}:2379 cluster-health
+    -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+    --cert /etc/kubernetes/pki/etcd/peer.crt \
+    --key /etc/kubernetes/pki/etcd/peer.key \
+    --cacert /etc/kubernetes/pki/etcd/ca.crt \
+    --endpoints https://${HOST0}:2379 endpoint health --cluster
     ...
-    cluster is healthy
+    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
+    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
+    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
     ```
+    <!--
+    Set ${ETCD_TAG} to the version tag of your etcd image. For example 3.4.3-0. To see the etcd image and tag that             kubeadm uses execute kubeadm config images list --kubernetes-version ${K8S_VERSION}, where ${K8S_VERSION} is for           example v1.17.0
+    --> 
+    - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。要查看 kubeadm 使用的 etcd 镜像和标签，请执行 `kubeadm config images list --kubernetes-version ${K8S_VERSION}`，其中 `${K8S_VERSION}` 是 `v1.17.0` 作为例子。
+    <!--
+    Set ${HOST0}to the IP address of the host you are testing.
+    -->
+    - 将 `${HOST0}` 设置为要测试的主机的 IP 地址
 
 {{% /capture %}}
 

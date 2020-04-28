@@ -8,7 +8,7 @@ menu:
     weight: 10
     post: >
       <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
-card: 
+card:
   name: tutorials
   weight: 10
 ---
@@ -17,7 +17,7 @@ card:
 
 This tutorial shows you how to run a simple Hello World Node.js app
 on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment. 
+Katacoda provides a free, in-browser Kubernetes environment.
 
 {{< note >}}
 You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
@@ -49,7 +49,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 ## Create a Minikube cluster
 
-1. Click **Launch Terminal** 
+1. Click **Launch Terminal**
 
     {{< kat-button >}}
 
@@ -63,7 +63,7 @@ For more information on the `docker build` command, read the [Docker documentati
 
 3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
 
-4. Katacoda environment only: Type `30000`, and then click **Display Port**. 
+4. Katacoda environment only: Type `30000`, and then click **Display Port**.
 
 ## Create a Deployment
 
@@ -75,10 +75,10 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image. 
+Pod runs a Container based on the provided Docker image.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. View the Deployment:
@@ -118,7 +118,7 @@ Pod runs a Container based on the provided Docker image.
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Create a Service
@@ -133,7 +133,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
 
@@ -170,7 +170,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 ## Enable addons
 
-Minikube has a set of built-in addons that can be enabled, disabled and opened in the local Kubernetes environment.
+Minikube has a set of built-in {{< glossary_tooltip text="addons" term_id="addons" >}} that can be enabled, disabled and opened in the local Kubernetes environment.
 
 1. List the currently supported addons:
 
@@ -187,7 +187,6 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     efk: disabled
     freshpod: disabled
     gvisor: disabled
-    heapster: disabled
     helm-tiller: disabled
     ingress: disabled
     ingress-dns: disabled
@@ -200,17 +199,17 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     storage-provisioner: enabled
     storage-provisioner-gluster: disabled
     ```
-   
-2. Enable an addon, for example, `heapster`:
+
+2. Enable an addon, for example, `metrics-server`:
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
-  
+
     The output is similar to:
 
     ```
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. View the Pod and Service you just created:
@@ -225,7 +224,7 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
     pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
     pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
@@ -236,22 +235,22 @@ Minikube has a set of built-in addons that can be enabled, disabled and opened i
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Disable `heapster`:
+4. Disable `metrics-server`:
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
-  
+
     The output is similar to:
 
     ```
-    heapster was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## Clean up
@@ -280,7 +279,7 @@ minikube delete
 {{% capture whatsnext %}}
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Learn more about [Deploying applications](/docs/user-guide/deploying-applications/).
+* Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 
 {{% /capture %}}

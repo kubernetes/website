@@ -81,7 +81,14 @@ kubectl apply -f <디렉터리>/
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
 {{< note >}}
-`diff`는 `kube-apiserver`의 활성화가 필요한 [서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+`diff`는 `kube-apiserver`의 활성화가 필요한
+[서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+
+`diff` 는 dry-run 모드에서 서버 측 적용 요청을 수행하므로,
+`PATCH`, `CREATE`, 그리고 `UPDATE` 권한을 부여해야 한다.
+자세한 것은
+[Dry-Run 인증](/docs/reference/using-api/api-concepts#dry-run-authorization)을 본다.
+
 {{< /note >}}
 
 `kubectl apply`를 사용하여 오브젝트를 생성한다.
@@ -110,7 +117,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -127,7 +134,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -190,7 +197,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -207,7 +214,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -246,7 +253,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -264,7 +271,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -272,7 +279,7 @@ spec:
       # ...
 ```
 
-`nginx:1.7.9`에서 `nginx:1.11.9`로 이미지를 변경하기 위해 `simple_deployment.yaml`
+`nginx:1.14.2`에서 `nginx:1.16.1`로 이미지를 변경하기 위해 `simple_deployment.yaml`
 구성 파일을 업데이트 하고, `minReadySeconds` 필드를 삭제한다.
 
 {{< codenew file="application/update_deployment.yaml" >}}
@@ -294,7 +301,7 @@ kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yam
 
 * `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.  
   이는 구성 파일에서 생략되었기 때문에 가능하다.
-* `image` 필드는 `nginx:1.7.9`에서 `nginx:1.11.9`로 업데이트되었다.
+* `image` 필드는 `nginx:1.14.2`에서 `nginx:1.16.1`로 업데이트되었다.
 * `last-applied-configuration` 어노테이션은 새로운 이미지로 업데이트되었다.
 * `minReadySeconds` 필드는 지워졌다.
 * `last-applied-configuration` 어노테이션은 더 이상 `minReadySeconds` 필드를 포함하지 않는다.
@@ -311,7 +318,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -329,7 +336,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -451,7 +458,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -469,7 +476,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -509,7 +516,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -527,7 +534,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -770,7 +777,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         imagePullPolicy: IfNotPresent # defaulted by apiserver
         name: nginx
         ports:
@@ -810,7 +817,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -825,7 +832,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -843,7 +850,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -861,7 +868,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 ```
@@ -983,11 +990,11 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
 {{% capture whatsnext %}}

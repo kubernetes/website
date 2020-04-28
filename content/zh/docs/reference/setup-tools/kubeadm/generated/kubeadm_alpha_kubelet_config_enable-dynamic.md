@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -32,7 +32,7 @@ kubeadm alpha kubelet config enable-dynamic [flags]
 ```
   # 为节点启用动态 kubelet 配置。
   kubeadm alpha phase kubelet enable-dynamic-config --node-name node-1 --kubelet-version 1.16.0
-  
+
   WARNING: This feature is still experimental, and disabled by default. Enable only if you know what you are doing, as it
   may have surprising side-effects at this stage.
 ```
@@ -133,16 +133,3 @@ kubeadm alpha kubelet config enable-dynamic [flags]
 
   </tbody>
 </table>
-
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - Utilities for kubelet configuration
--->
-* [kubeadm alpha kubelet config](kubeadm_alpha_kubelet_config.md)	 - 用于 kubelet 配置的实用程序
-

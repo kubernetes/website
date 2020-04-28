@@ -82,7 +82,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 
@@ -91,7 +91,7 @@ spec:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-[레이블과 셀렉터](/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
+[레이블과 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
 {{% /capture %}}
 
 

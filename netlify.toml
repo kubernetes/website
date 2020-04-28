@@ -1,7 +1,7 @@
 [build]
 # This default build command adds the robots noindex directive to the site headers.
 # It is turned off for only for the production site by using [context.master] below
-# DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
+# DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
 command = "make non-production-build"
@@ -15,13 +15,13 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-preview"
 
 [context.branch-deploy]
-command = "hugo --enableGitInfo --buildFuture -b $DEPLOY_PRIME_URL"
+command = "make deploy-preview"
 
 [context.master]
 # This context is triggered by the `master` branch and allows search indexing
-# DO NOT REMOVE THIS (contact @chenopis or @sig-docs-maintainers)
+# DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 command = "make production-build"

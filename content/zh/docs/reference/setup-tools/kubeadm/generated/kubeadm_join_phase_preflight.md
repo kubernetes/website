@@ -256,14 +256,3 @@ kubeadm join phase preflight [api-server-endpoint] [flags]
   </tbody>
 </table>
 
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm join phase](kubeadm_join_phase.md)	 - Use this command to invoke single phase of the join workflow
--->
-* [kubeadm join phase](kubeadm_join_phase.md)	 - 使用此命令可以调用 `join` 工作流程的某个阶段

@@ -17,7 +17,7 @@ weight: 80
 
 {{% capture overview %}}
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 <!--
 This page provides an overview of ephemeral containers: a special type of container
@@ -37,8 +37,7 @@ feature could change significantly in the future or be removed entirely.
 -->
 
 {{< warning >}}
-临时容器处于早期的 alpha 阶段，不适用于生成环境集群。应该预料到临时容器在某些情况下不起作用，例如在定位容器的名称命名空间。根据 [Kubernetes
-弃用政策](/docs/reference/using-api/deprecation-policy/)，该 alpha 功能将来可能发生重大变化或完全删除。
+临时容器处于早期的 alpha 阶段，不适用于生产环境集群。应该预料到临时容器在某些情况下不起作用，例如在定位容器的命名空间时。根据 [Kubernetes 弃用政策](/docs/reference/using-api/deprecation-policy/)，该 alpha 功能将来可能发生重大变化或完全删除。
 {{< /warning >}}
 
 {{% /capture %}}
@@ -125,8 +124,7 @@ exec` is insufficient because a container has crashed or a container image
 doesn't include debugging utilities.
 -->
 
-当容器崩溃或容器镜像中不包含调试工具时，使用 `kubectl
-exec` 命令进行故障排查不足，临时容器对于交互式故障处理很有用。
+当由于容器崩溃或容器镜像不包含调试实用程序而导致 `kubectl exec` 无用时，临时容器对于交互式故障排查很有用。
 
 <!--
 In particular, [distroless images](https://github.com/GoogleContainerTools/distroless)
@@ -150,12 +148,12 @@ you can view processes in other containers.
 ### Examples
 -->
 
-### 例子
+### 示例
 
 <!--
 The examples in this section require the `EphemeralContainers` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) to be
-enabled and kubernetes client and server version v1.16 or later.
+enabled, and Kubernetes client and server version v1.16 or later.
 -->
 
 {{< note >}}
@@ -164,11 +162,11 @@ enabled and kubernetes client and server version v1.16 or later.
 
 <!--
 The examples in this section demonstrate how ephemeral containers appear in
-the API. Users would normally use a `kubectl` plugin for troubleshooting that
-would automate these steps.
+the API. You would normally use a `kubectl` plugin for troubleshooting that
+automates these steps.
 -->
 
-本节中的示例演示了临时容器如何在 API 中出现。用户通常会使用 `kubectl` 插件来进行故障排查，从而自动化执行这些步骤。
+本节中的示例演示了临时容器如何出现在 API 中。 通常，您可以使用 `kubectl` 插件进行故障排查，从而自动化执行这些步骤。
 
 <!--
 Ephemeral containers are created using the `ephemeralcontainers` subresource
@@ -287,13 +285,26 @@ kubectl attach -it example-pod -c debugger
 ```
 
 <!--
-If process namespace sharing is enabled, you can see processes from all the containers in that Pod. For example:
+If process namespace sharing is enabled, you can see processes from all the containers in that Pod.
+For example, after attaching, you run `ps` in the debugger container:
 -->
 
-如果启用了进程命名空间共享，则可以从该 Pod 的所有容器中查看进程。如下所示：
+如果启用了进程命名空间共享，则可以查看该 Pod 所有容器中的进程。
+例如，运行上述 `attach` 操作后，在调试器容器中运行 `ps` 操作：
+
+<!--
+# Run this in a shell inside the "debugger" ephemeral container
+# 在 "debugger" 临时容器内中运行此 shell 命令
+The output is similar to:
+
+-->
 
 ```shell
-/ # ps auxww
+# 在 "debugger" 临时容器内中运行此 shell 命令
+ps auxww
+```
+运行命令后，输出类似于：
+```
 PID   USER     TIME  COMMAND
     1 root      0:00 /pause
     6 root      0:00 nginx: master process nginx -g daemon off;

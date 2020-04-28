@@ -29,7 +29,7 @@ The Kubernetes team has worked hard to ensure the stability of storage APIs and 
 
 If you are Kubernetes distributor that deploys in one of the environments listed below, now would be a good time to start testing the CSI migration and figuring out how to deploy/manage the appropriate CSI driver.
 
-To try out CSI migration in beta for an existing plugin you must be using Kubernetes v1.17 or higher. First, you must update/create a Kubernetes cluster with the feature flags `CSIMigration` (on by default in 1.17) and `CSIMigration{provider}` (off by default) enabled on all Kubernetes components (master and node). Where {provider} is the in-tree cloud provider storage type that is used in your cluster. You may also see an optional `CSIMigration{provider}Complete` flag that you *may* enable if all of your nodes have CSI migration enabled.
+To try out CSI migration in beta for an existing plugin you must be using Kubernetes v1.17 or higher. First, you must update/create a Kubernetes cluster with the feature flags `CSIMigration` (on by default in 1.17) and `CSIMigration{provider}` (off by default) enabled on all Kubernetes components (master and node). Where {provider} is the in-tree cloud provider storage type that is used in your cluster. Please note that during a cluster upgrade you must drain each node (remove running workloads) before updating or changing configuration of your Kubelet. You may also see an optional `CSIMigration{provider}Complete` flag that you *may* enable if all of your nodes have CSI migration enabled.
 
 You must also install the requisite CSI driver on your cluster - instructions for this can generally be found from you provider of choice. CSI migration is available for GCE Persistent Disk and AWS Elastic Block Store in beta as well as for Azure File/Disk and Openstack Cinder in alpha. Kubernetes distributors should look at automating the deployment and management (upgrade, downgrade, etc.) of the CSI Drivers they will depend on.
 
@@ -92,7 +92,7 @@ Verify that the pod is RUNNING after some time
 kubectl get pods web-server
 ```
 
-```shell
+```
 NAME         READY   STATUS    RESTARTS   AGE
 web-server   1/1     Running   0          39s
 ```
@@ -103,7 +103,7 @@ To confirm that the CSI driver is actually serving your requests it may be prude
 kubectl logs {CSIdriverPodName} --container={CSIdriverContainerName}
 ```
 
-```shell
+```
 /csi.v1.Controller/ControllerPublishVolume called with request: ...
 Attaching disk ... to ...
 ControllerPublishVolume succeeded for disk ... to instance ...

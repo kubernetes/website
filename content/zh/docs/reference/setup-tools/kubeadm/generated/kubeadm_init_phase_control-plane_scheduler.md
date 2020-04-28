@@ -157,15 +157,3 @@ kubeadm init phase control-plane scheduler [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - Generate all static Pod manifest files necessary to establish the control plane
--->
-* [kubeadm init phase control-plane](kubeadm_init_phase_control-plane.md)	 - 生成建立控制平面所需的所有静态 Pod 清单文件
-

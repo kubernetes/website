@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 ### Synopsis
 -->
 ### 概要
@@ -65,18 +65,3 @@ This command is not meant to be run on its own. See list of available subcommand
 
   </tbody>
 </table>
-
-
-
-<!--
-SEE ALSO
--->
-查看其他
-
-<!--
-* [kubeadm alpha](kubeadm_alpha.md)	 - Kubeadm experimental sub-commands
-* [kubeadm alpha selfhosting pivot](kubeadm_alpha_selfhosting_pivot.md)	 - Convert a static Pod-hosted control plane into a self-hosted one
--->
-* [kubeadm alpha](kubeadm_alpha.md)	 - kubeadm 实验子命令
-* [kubeadm alpha selfhosting pivot](kubeadm_alpha_selfhosting_pivot.md)	 - 将静态 Pod 托管的控制平面转换为自托管的平面
-

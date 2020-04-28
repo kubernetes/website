@@ -10,35 +10,35 @@ content_template: templates/concept
 {{% capture overview %}}
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
-In upcoming releases, Cloud Controller Manager will
-be the preferred way to integrate Kubernetes with any cloud. This will ensure cloud providers
-can develop their features independently from the core Kubernetes release cycles.
 
-{{< feature-state for_k8s_version="1.8" state="alpha" >}}
-
-Before going into how to build your own cloud controller manager, some background on how it works under the hood is helpful. The cloud controller manager is code from `kube-controller-manager` utilizing Go interfaces to allow implementations from any cloud to be plugged in. Most of the scaffolding and generic controller implementations will be in core, but it will always exec out to the cloud interfaces it is provided, so long as the [cloud provider interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L42-L62) is satisfied.
-
-To dive a little deeper into implementation details, all cloud controller managers will import packages from Kubernetes core, the only difference being each project will register their own cloud providers by calling [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/6371aabbd7a7726f4b358444cca40def793950c2/plugins.go#L55-L63) where a global variable of available cloud providers is updated.
+{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
 {{% /capture %}}
 
-
 {{% capture body %}}
+
+## Background
+
+Since cloud providers develop and release at a different pace compared to the Kubernetes project, abstracting the provider-specific code to the `cloud-controller-manager` binary allows cloud vendors to evolve independently from the core Kubernetes code.
+
+The Kubernetes project provides skeleton cloud-controller-manager code with Go interfaces to allow you (or your cloud provider) to plug in your own implementations. This means that a cloud provider can implement a cloud-controller-manager by importing packages from Kubernetes core; each cloudprovider will register their own code by calling `cloudprovider.RegisterCloudProvider` to update a global variable of available cloud providers.
 
 ## Developing
 
-### Out of Tree
+### Out of tree
 
-To build an out-of-tree cloud-controller-manager for your cloud, follow these steps:
+To build an out-of-tree cloud-controller-manager for your cloud:
 
 1. Create a go package with an implementation that satisfies [cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go).
-2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernetes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
-3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go).
+2. Use [`main.go` in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/controller-manager.go) from Kubernetes core as a template for your `main.go`. As mentioned above, the only difference should be the cloud package that will be imported.
+3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [`cloudprovider.RegisterCloudProvider`](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go).
 
-Using existing out-of-tree cloud providers as an example may be helpful. You can find the list [here](/docs/tasks/administer-cluster/running-cloud-controller.md#examples).
+Many cloud providers publish their controller manager code as open source. If you are creating
+a new cloud-controller-manager from scratch, you could take an existing out-of-tree cloud
+controller manager as your starting point.
 
-### In Tree
+### In tree
 
-For in-tree cloud providers, you can run the in-tree cloud controller manager as a [Daemonset](/examples/admin/cloud/ccm-example.yaml) in your cluster. See the [running cloud controller manager docs](/docs/tasks/administer-cluster/running-cloud-controller.md) for more details.
+For in-tree cloud providers, you can run the in-tree cloud controller manager as a {{< glossary_tooltip term_id="daemonset" >}} in your cluster. See [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/) for more details.
 
 {{% /capture %}}

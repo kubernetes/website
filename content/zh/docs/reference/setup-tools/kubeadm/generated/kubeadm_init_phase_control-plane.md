@@ -71,23 +71,3 @@ kubeadm init phase control-plane [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase](kubeadm_init_phase.md)	 - Use this command to invoke single phase of the init workflow
-* [kubeadm init phase control-plane all](kubeadm_init_phase_control-plane_all.md)	 - Generate all static Pod manifest files
-* [kubeadm init phase control-plane apiserver](kubeadm_init_phase_control-plane_apiserver.md)	 - Generates the kube-apiserver static Pod manifest
-* [kubeadm init phase control-plane controller-manager](kubeadm_init_phase_control-plane_controller-manager.md)	 - Generates the kube-controller-manager static Pod manifest
-* [kubeadm init phase control-plane scheduler](kubeadm_init_phase_control-plane_scheduler.md)	 - Generates the kube-scheduler static Pod manifest
--->
-* [kubeadm init phase](kubeadm_init_phase.md)	 - 使用此命令可以调用 `init` 工作流程的单个阶段
-* [kubeadm init phase control-plane all](kubeadm_init_phase_control-plane_all.md)	 - 生成所有静态 Pod 清单文件
-* [kubeadm init phase control-plane apiserver](kubeadm_init_phase_control-plane_apiserver.md)	 - 生成 kube-apiserver 静态 Pod 清单
-* [kubeadm init phase control-plane controller-manager](kubeadm_init_phase_control-plane_controller-manager.md)	 - 生成 kube-controller-manager 静态 Pod 清单
-* [kubeadm init phase control-plane scheduler](kubeadm_init_phase_control-plane_scheduler.md)	 - 生成 kube-scheduler 静态 Pod 清单
-

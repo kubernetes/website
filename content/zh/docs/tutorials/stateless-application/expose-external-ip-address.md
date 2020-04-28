@@ -37,10 +37,10 @@ external IP address.
  instructions, see the documentation for your cloud provider.
 -->
 
- * 安装 [kubectl](/docs/tasks/tools/install-kubectl/).
+ * 安装 [kubectl](/zh/docs/tasks/tools/install-kubectl/).
 
  * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 群集。
- 本教程创建了一个[外部负载均衡器](/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
+ 本教程创建了一个[外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)，需要云供应商。
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
@@ -86,9 +86,9 @@ external IP address.
     [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    前面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 
-    对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)对象。
-    ReplicaSet 有五个 [Pod](/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
+    前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
+    对象和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)对象。
+    ReplicaSet 有五个 [Pod](/zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
 <!--
 1. Display information about the Deployment:
@@ -169,8 +169,8 @@ external IP address.
    记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
    在本例中，`Port` 是 8080，`NodePort` 是32377。
-   
-    
+
+
 <!--
 1. In the preceding output, you can see that the service has several endpoints:
    10.0.0.6:8080,10.0.1.6:8080,10.0.1.7:8080 + 2 more. These are internal
@@ -214,8 +214,8 @@ external IP address.
    其中 `<external-ip>` 是您的服务的外部 IP 地址（`LoadBalancer Ingress`），
    `<port>` 是您的服务描述中的 `port` 的值。
    如果您正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
-  
-<!--  
+
+<!--
    The response to a successful request is a hello message:
 -->
    成功请求的响应是一条问候消息：
@@ -252,6 +252,6 @@ Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
 
-了解更多关于[将应用程序与服务连接](/docs/concepts/services-networking/connect-applications-service/)。
+了解更多关于[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)。
 
 {{% /capture %}}

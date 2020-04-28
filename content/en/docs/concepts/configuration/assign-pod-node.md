@@ -5,7 +5,7 @@ reviewers:
 - bsalamat
 title: Assigning Pods to Nodes
 content_template: templates/concept
-weight: 30
+weight: 50
 ---
 
 
@@ -17,7 +17,7 @@ There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
+but there are some circumstances where you may want more control on a node where a pod lands, for example to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 
@@ -111,9 +111,10 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 `nodeSelector` provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity
 feature, greatly expands the types of constraints you can express. The key enhancements are
 
-1. the language is more expressive (not just "AND of exact match")
+1. The affinity/anti-affinity language is more expressive. The language offers more matching rules
+   besides exact matches created with a logical AND operation;
 2. you can indicate that the rule is "soft"/"preference" rather than a hard requirement, so if the scheduler
-   can't satisfy it, the pod will still be scheduled
+   can't satisfy it, the pod will still be scheduled;
 3. you can constrain against labels on other pods running on the node (or other topological domain),
    rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located
 
@@ -159,9 +160,9 @@ You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, o
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
 
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of** the `nodeSelectorTerms` is satisfied.
+If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity` types, then the pod can be scheduled onto a node **if one of the** `nodeSelectorTerms` can be satisfied.
 
-If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` can be satisfied.
+If you specify multiple `matchExpressions` associated with `nodeSelectorTerms`, then the pod can be scheduled onto a node **only if all** `matchExpressions` is satisfied.
 
 If you remove or change the label of the node where the pod is scheduled, the pod won't be removed. In other words, the affinity selection works only at the time of scheduling the pod.
 
@@ -176,7 +177,7 @@ Y is expressed as a LabelSelector with an optional associated list of namespaces
 (and therefore the labels on pods are implicitly namespaced),
 a label selector over pod labels must specify which namespaces the selector should apply to. Conceptually X is a topology domain
 like node, rack, cloud provider zone, cloud provider region, etc. You express it using a `topologyKey` which is the
-key for the node label that the system uses to denote such a topology domain, e.g. see the label keys listed above
+key for the node label that the system uses to denote such a topology domain; for example, see the label keys listed above
 in the section [Interlude: built-in node labels](#built-in-node-labels).
 
 {{< note >}}
@@ -186,7 +187,7 @@ not recommend using them in clusters larger than several hundred nodes.
 {{< /note >}}
 
 {{< note >}}
-Pod anti-affinity requires nodes to be consistently labelled, i.e. every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the specified `topologyKey` label, it can lead to unintended behavior.
+Pod anti-affinity requires nodes to be consistently labelled, in other words every node in the cluster must have an appropriate label matching `topologyKey`. If some or all nodes are missing the specified `topologyKey` label, it can lead to unintended behavior.
 {{< /note >}}
 
 As with node affinity, there are currently two types of pod affinity and anti-affinity, called `requiredDuringSchedulingIgnoredDuringExecution` and
@@ -228,7 +229,7 @@ for performance and security reasons, there are some constraints on topologyKey:
 1. For affinity and for `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity,
 empty `topologyKey` is not allowed.
 2. For `requiredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, the admission controller `LimitPodHardAntiAffinityTopology` was introduced to limit `topologyKey` to `kubernetes.io/hostname`. If you want to make it available for custom topologies, you may modify the admission controller, or simply disable it.
-3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is interpreted as "all topologies" ("all topologies" here is now limited to the combination of `kubernetes.io/hostname`, `failure-domain.beta.kubernetes.io/zone` and `failure-domain.beta.kubernetes.io/region`).
+3. For `preferredDuringSchedulingIgnoredDuringExecution` pod anti-affinity, empty `topologyKey` is not allowed.
 4. Except for the above cases, the `topologyKey` can be any legal label-key.
 
 In addition to `labelSelector` and `topologyKey`, you can optionally specify a list `namespaces`
@@ -318,7 +319,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 If we create the above two deployments, our three node cluster should look like below.
@@ -366,7 +367,7 @@ Some of the limitations of using `nodeName` to select nodes are:
     some cases may be automatically deleted.
 -   If the named node does not have the resources to accommodate the
     pod, the pod will fail and its reason will indicate why,
-    e.g. OutOfmemory or OutOfcpu.
+    for example OutOfmemory or OutOfcpu.
 -   Node names in cloud environments are not always predictable or
     stable.
 

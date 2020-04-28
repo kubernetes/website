@@ -240,6 +240,41 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 请注意，如果 `--system-reserved-cgroup` 不存在，Kubelet **不会**创建它。如果指定了无效的 cgroup，Kubelet 将会失败。
 
 <!--
+### Explicitly Reserved CPU List
+-->
+### 明确保留的 CPU 列表
+{{< feature-state for_k8s_version="v1.17" state="stable" >}}
+
+- **Kubelet Flag**: `--reserved-cpus=0-3`
+
+<!--
+`reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
+kubernetes system daemons. This option is added in 1.17 release. `reserved-cpus`
+is for systems that do not intent to define separate top level cgroups for
+OS system daemons and kubernetes system daemons with regard to cpuset resource.
+If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved-cgroup`,
+the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
+defined by `--kube-reserved` and `--system-reserved` options.
+-->
+`reserved-cpus` 旨在为操作系统守护程序和 kubernetes 系统守护程序定义一个显式 cpuset。此选项在 kubernetes 1.17 版本中添加。
+`reserved-cpus` 适用于不打算针对 cpuset 资源为操作系统守护程序和 kubernetes 系统守护程序定义单独的顶级 cgroups 的系统。
+如果 Kubelet **没有** 指定参数 `--system-reserved-cgroup` 和 `--kube-reserved-cgroup`，则 `reserved-cpus` 提供的显式 cpuset 将优先于 `--kube-reserved` 和 `--system-reserved` 选项定义的 cpuset。
+
+<!--
+This option is specifically designed for Telco/NFV use cases where uncontrolled
+interrupts/timers may impact the workload performance. you can use this option
+to define the explicit cpuset for the system/kubernetes daemons as well as the
+interrupts/timers, so the rest CPUs on the system can be used exclusively for
+workloads, with less impact from uncontrolled interrupts/timers. To move the
+system daemon, kubernetes daemons and interrupts/timers to the explicit cpuset
+defined by this option, other mechanism outside Kubernetes should be used.
+For example: in Centos, you can do this using the tuned toolset.
+-->
+此选项是专门为 Telco 或 NFV 用例设计的，在这些用例中不受控制的中断或计时器可能会影响其工作负载性能。
+可以使用此选项为系统或 kubernetes 守护程序以及中断或计时器定义显式的 cpuset，因此系统上的其余 CPU 可以专门用于工作负载，而不受不受控制的中断或计时器的影响较小。要将系统守护程序、kubernetes 守护程序和中断或计时器移动到此选项定义的显式 cpuset 上，应使用 Kubernetes 之外的其他机制。
+例如：在 Centos 系统中，可以使用 tuned 工具集来执行此操作。
+
+<!--
 ### Eviction Thresholds
 
 - **Kubelet Flag**: `--eviction-hard=[memory.available<500Mi]`
@@ -418,4 +453,12 @@ for the alpha release.
 截至 Kubernetes 1.7 版本，`kubelet` 支持指定 `storage` 为 `kube-reserved` 和 `system-reserved` 的资源。
 
 截至 Kubernetes 1.8 版本，对于 alpha 版本，`storage` 键值名称已更改为 `ephemeral-storage`。
+
+<!--
+As of Kubernetes version 1.17, you can optionally specify
+explicit cpuset by `reserved-cpus` as CPUs reserved for OS system
+daemons/interrupts/timers and Kubernetes daemons.
+-->
+从 Kubernetes 1.17 版本开始，可以选择将 `reserved-cpus` 显式 cpuset 指定为操作系统守护程序、中断、计时器和 Kubernetes 守护程序保留的 CPU。
+
 {{% /capture %}}

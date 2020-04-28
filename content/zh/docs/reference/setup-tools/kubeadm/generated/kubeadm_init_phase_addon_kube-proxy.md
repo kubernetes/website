@@ -185,15 +185,3 @@ kubeadm init phase addon kube-proxy [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - Install required addons for passing Conformance tests
--->
-* [kubeadm init phase addon](kubeadm_init_phase_addon.md)	 - 安装通过一致性测试所需的插件
-

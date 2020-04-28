@@ -107,15 +107,3 @@ kubeadm config print init-defaults [flags]
   </tbody>
 </table>
 
-
-
-<!-- 
-SEE ALSO 
--->
-查看其它
-
-<!--
-* [kubeadm config print](kubeadm_config_print.md)	 - Print configuration
--->
-* [kubeadm config print](kubeadm_config_print.md)	 - 打印配置
-

@@ -5,7 +5,7 @@ title: Kubernetes
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "Home"
 main_menu: true
 weight: 10

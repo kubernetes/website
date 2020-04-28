@@ -8,7 +8,7 @@ weight: 40
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+{{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
 The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
 components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:

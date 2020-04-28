@@ -3,7 +3,6 @@
 title: " Simple leader election with Kubernetes and Docker "
 date: 2016-01-11
 slug: simple-leader-election-with-kubernetes
-url: /blog/2016/01/Simple-Leader-Election-With-Kubernetes
 ---
 
 ####  Overview
@@ -59,13 +58,13 @@ Given these primitives, the code to use master election is relatively straightfo
 给定这些原语，使用 master election 的代码相对简单，您可以在这里找到[here][1]。我们自己来做吧。
 
 <!--
-```    
+```
 $ kubectl run leader-elector --image=gcr.io/google_containers/leader-elector:0.4 --replicas=3 -- --election=example
 ```
 
 This creates a leader election set with 3 replicas:
 
-```    
+```
 $ kubectl get pods
 NAME                   READY     STATUS    RESTARTS   AGE
 leader-elector-inmr1   1/1       Running   0          13s
@@ -74,13 +73,13 @@ leader-elector-sgwcq   1/1       Running   0          13s
 ```
 -->
 
-```    
+```
 $ kubectl run leader-elector --image=gcr.io/google_containers/leader-elector:0.4 --replicas=3 -- --election=example
 ```
 
 这将创建一个包含3个副本的 leader election 集合：
 
-```    
+```
 $ kubectl get pods
 NAME                   READY     STATUS    RESTARTS   AGE
 leader-elector-inmr1   1/1       Running   0          13s
@@ -91,7 +90,7 @@ leader-elector-sgwcq   1/1       Running   0          13s
 <!--
 To see which pod was chosen as the leader, you can access the logs of one of the pods, substituting one of your own pod's names in place of
 
-```  
+```
 ${pod_name}, (e.g. leader-elector-inmr1 from the above)
 
 $ kubectl logs -f ${name}
@@ -102,7 +101,7 @@ leader is (leader-pod-name)
 
 要查看哪个pod被选为领导，您可以访问其中一个 pod 的日志，用您自己的一个 pod 的名称替换
 
-```  
+```
 ${pod_name}, (e.g. leader-elector-inmr1 from the above)
 
 $ kubectl logs -f ${name}
@@ -117,7 +116,7 @@ $ kubectl get endpoints example -o yaml
 ```
 Now to validate that leader election actually works, in a different terminal, run:
 
-```  
+```
 $ kubectl delete pods (leader-pod-name)
 ```
 -->
@@ -127,7 +126,7 @@ _'example' 是上面 kubectl run … 命令_中候选集的名称
 $ kubectl get endpoints example -o yaml
 ```
 现在，要验证 leader election 是否实际有效，请在另一个终端运行：
-```  
+```
 $ kubectl delete pods (leader-pod-name)
 ```
 
@@ -142,7 +141,7 @@ The leader-election container provides a simple webserver that can serve on any 
 Leader-election container 提供了一个简单的 web 服务器，可以服务于任何地址(e.g. http://localhost:4040)。您可以通过删除现有的 leader election 组并创建一个新的 leader elector 组来测试这一点，在该组中，您还可以向 leader elector 映像传递--http=(host):(port) 规范。这将导致集合中的每个成员通过 webhook 提供有关领导者的信息。
 
 <!--
-```    
+```
 # delete the old leader elector group
 $ kubectl delete rc leader-elector
 
@@ -154,7 +153,7 @@ $ kubectl proxy
 ```
 -->
 
-```    
+```
 # delete the old leader elector group
 $ kubectl delete rc leader-elector
 
@@ -174,7 +173,7 @@ http://localhost:8001/api/v1/proxy/namespaces/default/pods/(leader-pod-name):404
 
 And you will see:
 
-```  
+```
 {"name":"(name-of-leader-here)"}
 ```
 ####  Leader election with sidecars
@@ -192,7 +191,7 @@ http://localhost:8001/api/v1/proxy/namespaces/default/pods/(leader-pod-name):404
 
 你会看到：
 
-```  
+```
 {"name":"(name-of-leader-here)"}
 ```
 ####  有副手的 leader election
@@ -209,7 +208,7 @@ Leader-election container 可以作为一个 sidecar，您可以从自己的应�
 <!--
 For example, here is a simple Node.js application that connects to the leader election sidecar and prints out whether or not it is currently the master. The leader election sidecar sets its identifier to `hostname` by default.
 
-```    
+```
 var http = require('http');
 // This will hold info about the current master
 var master = {};
@@ -247,7 +246,7 @@ var master = {};
 
 例如，这里有一个简单的 Node.js 应用程序，它连接到 leader election sidecar 并打印出它当前是否是 master。默认情况下，leader election sidecar 将其标识符设置为 `hostname`。
 
-```    
+```
 var http = require('http');
 // This will hold info about the current master
 var master = {};

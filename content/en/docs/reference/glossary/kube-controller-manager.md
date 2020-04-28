@@ -4,14 +4,14 @@ id: kube-controller-manager
 date: 2018-04-12
 full_link: /docs/reference/command-line-tools-reference/kube-controller-manager/
 short_description: >
-  Component on the master that runs controllers.
+  Control Plane component that runs controller processes.
 
 aka: 
 tags:
 - architecture
 - fundamental
 ---
- Component on the master that runs {{< glossary_tooltip text="controllers" term_id="controller" >}}.
+ Control Plane component that runs {{< glossary_tooltip text="controller" term_id="controller" >}} processes.
 
 <!--more-->
 
