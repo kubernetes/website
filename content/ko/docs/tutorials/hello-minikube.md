@@ -78,7 +78,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 파드는 제공된 Docker 이미지를 기반으로 한 컨테이너를 실행한다.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. 디플로이먼트 보기
