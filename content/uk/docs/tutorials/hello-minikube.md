@@ -117,7 +117,7 @@ Pod runs a Container based on the provided Docker image.
 1. За допомогою команди `kubectl create` створіть Deployment, який керуватиме Pod'ом. Pod запускає контейнер на основі наданого Docker образу.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 <!--2. View the Deployment:
