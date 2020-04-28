@@ -11,7 +11,7 @@ tags:
 - fundamental
 - core-object
 ---
- Um agente que é executado em cada {{< glossary_tooltip text="node" term_id="node" >}} no cluster. Ele garante que os {{< glossary_tooltip text="Containers" term_id="container" >}} estejam sendo executados em um {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+ Um agente que é executado em cada {{< glossary_tooltip text="node" term_id="node" >}} no cluster. Ele garante que os {{< glossary_tooltip text="contêineres" term_id="container" >}} estejam sendo executados em um {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 <!--more--> 
 
