@@ -15,7 +15,7 @@ sejam correspondidos aos {{< glossary_tooltip text="Nodes" term_id="node" >}} pa
 
 {{% capture body %}}
 
-## Visão geral do Escalonamento {#scheduling}
+## Visão geral do Escalonamento {#escalonamento}
 
 Um escalonador observa Pods recém-criados que não possuem um Node atribuído. 
 Para cada Pod que o planejador descobre, ele se torna responsável por 
