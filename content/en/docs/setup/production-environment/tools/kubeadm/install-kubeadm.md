@@ -266,20 +266,24 @@ kubeadm to tell it what to do.
 ## Configure cgroup driver used by kubelet on control-plane node
 
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
+and set it in the `/var/lib/kubelet/config.yaml` file during runtime.
 
-If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
+If you are using a different CRI, you have to modify the file with your `cgroupDriver` value, like so:
 
-```bash
-KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: <value>
 ```
-
-This file will be used by `kubeadm init` and `kubeadm join` to source extra
-user defined arguments for the kubelet.
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
+
+{{< note >}}
+Since `--cgroup-driver` flag has been deprecated by kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env` 
+or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead 
+(stored in `/var/lib/kubelet/config.yaml` by default).
+{{< /note >}}
 
 Restarting the kubelet is required:
 
