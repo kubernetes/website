@@ -124,7 +124,7 @@ use with automated tools.
 {{< /caution >}}
 
 For more information on configuring the kubelet via a configuration file, see
-[Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file)).
+[Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
 
 #### Generate the configuration file
 
