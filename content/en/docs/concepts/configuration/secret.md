@@ -979,7 +979,7 @@ In most shells, the easiest way to escape the password is to surround it with si
 For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
 ```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
  You do not need to escape special characters in passwords from files (`--from-file`).
