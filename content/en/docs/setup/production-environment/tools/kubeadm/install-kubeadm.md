@@ -56,17 +56,16 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
 ```bash
-cat <<EOF > /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sysctl --system
+sudo sysctl --system
 ```
 
-Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
 
 For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
-
 
 ## Check required ports
 
@@ -216,7 +215,7 @@ systemctl enable --now kubelet
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
-    
+
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
@@ -280,8 +279,8 @@ Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
 
 {{< note >}}
-Since `--cgroup-driver` flag has been deprecated by kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env` 
-or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead 
+Since `--cgroup-driver` flag has been deprecated by kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
+or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
 (stored in `/var/lib/kubelet/config.yaml` by default).
 {{< /note >}}
 
