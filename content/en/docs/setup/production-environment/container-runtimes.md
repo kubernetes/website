@@ -219,8 +219,7 @@ sudo apt-get install cri-o-1.17
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 # Install prerequisites
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
-
-curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:[REQUIRED VERSION].repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:[REQUIRED VERSION]/CentOS_7/devel:kubic:libcontainers:stable:cri-o:[REQUIRED VERSION].repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
 
 # Install CRI-O
 yum install -y cri-o
