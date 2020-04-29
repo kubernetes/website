@@ -200,7 +200,7 @@ plugins.
 
 * docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/))
 * virtualbox ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
-* Podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
+* podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
 * vmwarefusion
 * kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
 * hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
