@@ -205,7 +205,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 -->
-    {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
+   {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
 
 <!--
 ## Create a Service
@@ -261,7 +261,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
 -->
-    在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
+   在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
 
 <!--
 3. Run the following command:
