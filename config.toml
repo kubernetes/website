@@ -31,6 +31,7 @@ disableLanguages = ["hi", "it", "no"]
 [blackfriday]
 hrefTargetBlank = true
 fractions = false
+smartDashes = false
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
