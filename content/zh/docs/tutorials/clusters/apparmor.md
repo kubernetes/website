@@ -214,7 +214,7 @@ specifies the profile to apply. The `profile_ref` can be one of: -->
 <!-- Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
 met, and then forwarding the profile selection to the container runtime for enforcement. If the
 prerequisites have not been met, the Pod will be rejected, and will not run. -->
-Kubernetes AppArmor 强制首先通过检查所有先决条件都已满足，然后将配置文件选择转发到容器运行时进行强制。如果未满足先决条件， Pod 将被拒绝，并且不会运行。
+Kubernetes AppArmor 强制执行方式首先通过检查所有先决条件都已满足，然后将配置文件选择转发到容器运行时进行强制执行。如果未满足先决条件， Pod 将被拒绝，并且不会运行。
 
 <!-- To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event: -->
 要验证是否应用了配置文件，可以查找容器创建事件中列出的 AppArmor 安全选项：
