@@ -145,7 +145,7 @@ of the scheduler:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
  -->
-1. [调度策略](/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_ 和打分的 _优先级(Priorities)_。
+1. [调度策略](/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_ 和打分的 _优先级(Priorities)_ 。
 2. [调度配置](/docs/reference/scheduling/profiles) 允许你配置实现不同调度阶段的插件，包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。你也可以配置 kube-scheduler 运行不同的配置文件。
 
 {{% /capture %}}
