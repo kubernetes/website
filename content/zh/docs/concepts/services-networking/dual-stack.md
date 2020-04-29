@@ -60,12 +60,10 @@ Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following 
 <!--
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
    * IPv4 and IPv6 enabled Services (each Service must be for a single address family)
-   * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 -->
    * 双协议栈 pod 网络 (每个 pod 分配一个 IPv4 和 IPv6 地址)
    * IPv4 和 IPv6 启用的服务 (每个服务必须是一个单独的地址族)
-   * Kubenet 多地址族支持（IPv4 和 IPv6）
    * Pod 的集群外出口通过 IPv4 和 IPv6 路由
 
 <!--
@@ -81,12 +79,12 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 <!--
    * Kubernetes 1.16 or later
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * Kubenet network plugin
+   * A network plugin that supports dual-stack (such as Kubenet or Calico)
    * Kube-proxy running in mode IPVS
 -->
    * Kubernetes 1.16 版本及更高版本
    * 提供商支持双协议栈网络（云提供商或其他提供商必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口）
-   * Kubenet 网络插件
+   * 支持双协议栈的网络插件（如 Kubenet 或 Calico）
    * Kube-proxy 运行在 IPVS 模式
 
 <!--
@@ -129,10 +127,10 @@ You can only set this field when creating a new Service. Setting the `.spec.ipFa
 -->
 如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建 {{< glossary_tooltip text="Services" term_id="service" >}}。你可以通过设置服务的 `.spec.ipFamily` 字段来选择服务的集群 IP 的地址族。你只能在创建新服务时设置该字段。`.spec.ipFamily` 字段的设置是可选的，并且仅当你计划在集群上启用 IPv4 和 IPv6 的 {{< glossary_tooltip text="Services" term_id="service" >}} 和 {{< glossary_tooltip text="Ingresses" term_id="ingress" >}}。对于[出口](#出口流量)流量，该字段的配置不是必须的。
 
-{{< note >}}
 <!--
 The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller-manager.
 -->
+{{< note >}}
 集群的默认地址族是第一个服务集群 IP 范围的地址族，该地址范围通过 kube-controller-manager 上的 `--service-cluster-ip-range` 标志设置。
 {{< /note >}}
 
@@ -158,7 +156,7 @@ The following Service specification does not include the `ipFamily` field. Kuber
 <!--
 The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
 -->
-以下服务规约不包含 `ipFamily` 字段。Kubernetes 将从已配置的 `service-cluster-ip-range` 范围内分配一个 IPv6 地址（也称作“集群 IP”）给该服务。
+以下服务规约包含 `ipFamily` 字段。Kubernetes 将从已配置的 `service-cluster-ip-range` 范围内分配一个 IPv6 地址（也称作“集群 IP”）给该服务。
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
