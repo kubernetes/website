@@ -974,7 +974,7 @@ secret "test-db-secret" created
 ```
 
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
 For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
 
