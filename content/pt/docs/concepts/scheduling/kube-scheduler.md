@@ -53,8 +53,7 @@ requisitos individuais e coletivos de recursos,
 restrições de política hardware / software, especificações de afinidade e anti-afinidade,
 localidade de dados, interferência entre cargas de trabalho e assim por diante.
 
-
-### Seleção do Node no kube-scheduler {#kube-scheduler-implementation}
+### Seleção do Node no kube-scheduler {#implementação-kube-scheduler}
 
 O kube-scheduler seleciona um Node para o Pod em uma operação que consiste em duas etapas:
 
