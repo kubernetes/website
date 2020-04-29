@@ -86,9 +86,9 @@ external IP address.
     [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
-    对象和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)对象。
-    ReplicaSet 有五个 [Pod](/zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
+   前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
+   对象和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)对象。
+   ReplicaSet 有五个 [Pod](/zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
 <!--
 1. Display information about the Deployment:
