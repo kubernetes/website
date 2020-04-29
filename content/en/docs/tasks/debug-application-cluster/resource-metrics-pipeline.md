@@ -49,10 +49,10 @@ Memory is reported as the working set, in bytes, at the instant the metric was c
 
 ## Metrics Server
 
-[Metrics Server](https://github.com/kubernetes-incubator/metrics-server) is a cluster-wide aggregator of resource usage data.
+[Metrics Server](https://github.com/kubernetes-sigs/metrics-server) is a cluster-wide aggregator of resource usage data.
 It is deployed by default in clusters created by `kube-up.sh` script
 as a Deployment object. If you use a different Kubernetes setup mechanism you can deploy it using the provided
-[deployment yamls](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy).
+[deployment yamls](https://github.com/kubernetes-sigs/metrics-server/releases).
 
 Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
 
