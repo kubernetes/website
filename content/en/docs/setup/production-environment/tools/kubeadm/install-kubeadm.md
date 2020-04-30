@@ -56,17 +56,16 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
 ```bash
-cat <<EOF > /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sysctl --system
+sudo sysctl --system
 ```
 
-Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `modprobe br_netfilter`.
+Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
 
 For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
-
 
 ## Check required ports
 
@@ -194,11 +193,12 @@ sudo apt-mark hold kubelet kubeadm kubectl
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
@@ -215,7 +215,7 @@ systemctl enable --now kubelet
   - Setting SELinux in permissive mode by running `setenforce 0` and `sed ...` effectively disables it.
     This is required to allow containers to access the host filesystem, which is needed by pod networks for example.
     You have to do this until SELinux support is improved in the kubelet.
-    
+
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 Install CNI plugins (required for most pod network):
@@ -229,7 +229,7 @@ curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.16.0"
+CRICTL_VERSION="v1.17.0"
 mkdir -p /opt/bin
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
 ```
@@ -244,9 +244,10 @@ cd /opt/bin
 curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
+RELEASE_VERSION="v0.2.7"
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service
 mkdir -p /etc/systemd/system/kubelet.service.d
-curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
 
 Enable and start `kubelet`:
@@ -264,20 +265,24 @@ kubeadm to tell it what to do.
 ## Configure cgroup driver used by kubelet on control-plane node
 
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
-and set it in the `/var/lib/kubelet/kubeadm-flags.env` file during runtime.
+and set it in the `/var/lib/kubelet/config.yaml` file during runtime.
 
-If you are using a different CRI, you have to modify the file
-`/etc/default/kubelet` (`/etc/sysconfig/kubelet` for CentOS, RHEL, Fedora) with your `cgroup-driver` value, like so:
+If you are using a different CRI, you have to modify the file with your `cgroupDriver` value, like so:
 
-```bash
-KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cgroupDriver: <value>
 ```
-
-This file will be used by `kubeadm init` and `kubeadm join` to source extra
-user defined arguments for the kubelet.
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.
+
+{{< note >}}
+Since `--cgroup-driver` flag has been deprecated by kubelet, if you have that in `/var/lib/kubelet/kubeadm-flags.env`
+or `/etc/default/kubelet`(`/etc/sysconfig/kubelet` for RPMs), please remove it and use the KubeletConfiguration instead
+(stored in `/var/lib/kubelet/config.yaml` by default).
+{{< /note >}}
 
 Restarting the kubelet is required:
 

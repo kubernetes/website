@@ -31,7 +31,7 @@ that a pod ends up on a machine with an SSD attached to it, or to co-locate pods
 services that communicate a lot into the same availability zone.
 -->
 
-你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可以资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不通的服务且有大量通信的 pod 放置在同一个可用区。
+你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
 
 {{% /capture %}}
 
@@ -153,7 +153,7 @@ The value of these labels is cloud provider specific and is not guaranteed to be
 For example, the value of `kubernetes.io/hostname` may be the same as the Node name in some environments
 and a different value in other environments.
 -->
-这些标签的值特定于云供应商的，因此不能保证可靠。例如，`kubernetes.io/hostname` 的值在某些环境中可能与节点名称相同，但在其他环境中可能是一个不同的值。
+这些标签的值是特定于云供应商的，因此不能保证可靠。例如，`kubernetes.io/hostname` 的值在某些环境中可能与节点名称相同，但在其他环境中可能是一个不同的值。
 {{< /note >}}
 
 <!--
@@ -250,7 +250,7 @@ except that it will evict pods from nodes that cease to satisfy the pods' node a
 -->
 
 目前有两种类型的节点亲和，分别为 `requiredDuringSchedulingIgnoredDuringExecution` 和
-`preferredDuringSchedulingIgnoredDuringExecution`。你可以视它们为“硬”和“软”，意思是，前者指定了将 pod 调度到一个节点上*必须*满足的规则（就像 `nodeSelector` 但使用更具表现力的语法），后者指定调度器将尝试执行单不能保证的*偏好*。名称的“IgnoredDuringExecution”部分意味着，类似于 `nodeSelector` 的工作原理，如果节点的标签在运行时发生变更，从而不再满足 pod 上的亲和规则，那么 pod 将仍然继续在该节点上运行。将来我们计划提供 `requiredDuringSchedulingRequiredDuringExecution`，它将类似于 `requiredDuringSchedulingIgnoredDuringExecution`，除了它会将 pod 从不再满足 pod 的节点亲和要求的节点上驱逐。
+`preferredDuringSchedulingIgnoredDuringExecution`。你可以视它们为“硬”和“软”，意思是，前者指定了将 pod 调度到一个节点上*必须*满足的规则（就像 `nodeSelector` 但使用更具表现力的语法），后者指定调度器将尝试执行但不能保证的*偏好*。名称的“IgnoredDuringExecution”部分意味着，类似于 `nodeSelector` 的工作原理，如果节点的标签在运行时发生变更，从而不再满足 pod 上的亲和规则，那么 pod 将仍然继续在该节点上运行。将来我们计划提供 `requiredDuringSchedulingRequiredDuringExecution`，它将类似于 `requiredDuringSchedulingIgnoredDuringExecution`，除了它会将 pod 从不再满足 pod 的节点亲和要求的节点上驱逐。
 
 <!--
 Thus an example of `requiredDuringSchedulingIgnoredDuringExecution` would be "only run the pod on nodes with Intel CPUs"

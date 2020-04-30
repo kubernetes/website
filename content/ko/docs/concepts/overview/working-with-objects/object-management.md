@@ -38,7 +38,7 @@ weight: 15
 
 ### 예시
 
-디프롤이먼트 오브젝트를 생성하기 위해 nginx 컨테이너의 인스턴스를 구동 시킨다.
+디플로이먼트 오브젝트를 생성하기 위해 nginx 컨테이너의 인스턴스를 구동시킨다.
 
 ```sh
 kubectl run nginx --image nginx

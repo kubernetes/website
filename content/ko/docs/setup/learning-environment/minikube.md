@@ -183,23 +183,25 @@ Minikube는 또한 "minikube" 컨텍스트를 생성하고 이를 kubectl의 기
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### VM 드라이버 지정하기
-`minikube start` 코멘드에 `--vm-driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
+`minikube start` 코멘드에 `--driver=<enter_driver_name>` 플래그를 추가해서 VM 드라이버를 변경할 수 있다.
 코멘드를 예를 들면 다음과 같다.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
  Minikube는 다음의 드라이버를 지원한다.
  {{< note >}}
- 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://git.k8s.io/minikube/docs/drivers.md)를 참조한다.
+ 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([드라이버 설치](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (EXPERIMENTAL)
+* kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 다음 IP는 동적이며 변경할 수 있다. `minikube ip`로 알아낼 수 있다.
-* vmware ([드라이버 설치](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (쿠버네티스 컴포넌트를 가상 머신이 아닌 호스트 상에서 구동한다. 리눅스를 실행중이어야 하고, {{< glossary_tooltip term_id="docker" >}}가 설치되어야 한다.)
   
 {{< caution >}}
@@ -325,8 +327,8 @@ Minikube는 사용자가 쿠버네티스 컴포넌트를 다양한 값으로 설
 `minikube delete` 명령은 클러스터를 삭제하는데 사용할 수 있다.
 이 명령어는 Minikube 가상 머신을 종료하고 삭제한다. 어떤 데이터나 상태도 보존되지 않다.
 
-### minikube 업그레이드
-[minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/)를 본다.
+### Minikube 업그레이드
+macOS를 사용하는 경우 기존에 설치된 Minikube를 업그레이드하려면 [Minikube 업그레이드](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube)를 참조한다.
 
 ## 클러스터와 상호 작용하기
 
@@ -367,7 +369,7 @@ Minikube VM은 host-only IP 주소를 통해 호스트 시스템에 노출되고
 `kubectl get service $SERVICE --output='jsonpath="{.spec.ports[0].nodePort}"'`
 
 ## 퍼시스턴트 볼륨
-Minikube는 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
+Minikube는 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 `hostPath` 타입으로 지원한다.
 이런 퍼시스턴트 볼륨은 Minikube VM 내에 디렉터리로 매핑됩니다.
 
 Minikube VM은 tmpfs에서 부트하는데, 매우 많은 디렉터리가 재부트(`minikube stop`)까지는 유지되지 않다.

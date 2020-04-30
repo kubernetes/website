@@ -77,7 +77,7 @@ Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowanie
 wykorzystując podany obraz Dockera.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Sprawdź stan Deploymentu:

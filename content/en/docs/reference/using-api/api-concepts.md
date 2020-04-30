@@ -89,7 +89,7 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 
 ### Watch bookmarks
 
-To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
+To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to mark that all changes up to a given `resourceVersion` the client is requesting have already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
         ---
@@ -333,6 +333,17 @@ are not vulnerable to ordering changes in the list.
 
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
+
+## Single resource API
+
+API verbs GET, CREATE, UPDATE, PATCH, DELETE and PROXY support single resources only.
+These verbs with single resource support have no support for submitting
+multiple resources together in an ordered or unordered list or transaction.
+Clients including kubectl will parse a list of resources and make
+single-resource API requests.
+
+API verbs LIST and WATCH support getting multiple resources, and
+DELETECOLLECTION supports deleting multiple resources.
 
 ## Dry-run
 

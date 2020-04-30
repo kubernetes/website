@@ -39,7 +39,7 @@ por lo que debe completarse antes de que la llamada para eliminar el contenedor 
 No se le pasa ningún parámetro.
 
 Puedes encontrar información más detallada sobre el comportamiento de finalización de un contenedor
-[Finalización de Pods](/docs/es/concepts/workloads/pods/pod/#termination-of-pods).
+[Finalización de Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
 
 ### Implementación de controladores de hooks
 

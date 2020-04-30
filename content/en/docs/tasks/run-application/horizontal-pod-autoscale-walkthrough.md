@@ -119,7 +119,7 @@ kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/
 
 Hit enter for command prompt
 
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache; done
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:
@@ -203,7 +203,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -239,7 +238,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
+requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -296,7 +295,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

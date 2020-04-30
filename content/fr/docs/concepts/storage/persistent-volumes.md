@@ -334,6 +334,11 @@ spec:
     server: 172.17.0.2
 ```
 
+{{< note >}}
+Des logiciels additionnels supportant un type de montage de volume pourraient être nécessaires afin d'utiliser un PersistentVolume depuis un cluster.
+Dans l'exemple d'un PersistentVolume de type NFS, le logiciel additionnel `/sbin/mount.nfs` est requis pour permettre de monter des systèmes de fichiers de type NFS.
+{{< /note >}}
+
 ### Capacité
 
 Généralement, un PV aura une capacité de stockage spécifique.

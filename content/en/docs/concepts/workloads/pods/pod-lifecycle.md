@@ -181,7 +181,7 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
    ...
       State:          Waiting
        Reason:       ErrImagePull
-	  ...
+   ...
    ```
 
 * `Running`: Indicates that the container is executing without issues. The `postStart` hook (if any) is executed prior to the container entering a Running state. This state also displays the time when the container entered Running state.
@@ -205,31 +205,34 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
     ...
    ```
 
-## Pod readiness gate
+## Pod readiness {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-In order to add extensibility to Pod readiness by enabling the injection of
-extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
-feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
-You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
-conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
+Your application can inject extra feedback or signals into PodStatus:
+_Pod readiness_. To use this, set `readinessGates` in the PodSpec to specify
+a list of additional conditions that the kubelet evaluates for Pod readiness.
+
+Readiness gates are determined by the current state of `status.condition`
+fields for the Pod. If Kubernetes cannot find such a
 condition in the `status.conditions` field of a Pod, the status of the condition
-is default to "`False`". Below is an example:
+is defaulted to "`False`". Below is an example:
+
+Here is an example:
 
 ```yaml
-Kind: Pod
+kind: Pod
 ...
 spec:
   readinessGates:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready  # this is a builtin PodCondition
+    - type: Ready                              # a built in PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"   # an extra PodCondition
+    - type: "www.example.com/feature-1"        # an extra PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
@@ -239,19 +242,26 @@ status:
 ...
 ```
 
-The new Pod conditions must comply with Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
-Since the `kubectl patch` command still doesn't support patching object status,
-the new Pod conditions have to be injected through the `PATCH` action using
-one of the [KubeClient libraries](/docs/reference/using-api/client-libraries/).
+The Pod conditions you add must have names that meet the Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 
-With the introduction of new Pod conditions, a Pod is evaluated to be ready **only**
-when both the following statements are true:
+
+### Status for Pod readiness {#pod-readiness-status}
+
+The `kubectl patch` command does not support patching object status.
+To set these `status.conditions` for the pod, applications and
+{{< glossary_tooltip term_id="operator-pattern" text="operators">}} should use
+the `PATCH` action.
+You can use a [Kubernetes client library](/docs/reference/using-api/client-libraries/) to
+write code that sets custom Pod conditions for Pod readiness.
+
+For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
+when both the following statements apply:
 
 * All containers in the Pod are ready.
-* All conditions specified in `ReadinessGates` are "`True`".
+* All conditions specified in `ReadinessGates` are `True`.
 
-To facilitate this change to Pod readiness evaluation, a new Pod condition
-`ContainersReady` is introduced to capture the old Pod `Ready` condition.
+When a Pod's containers are Ready but at least one custom condition is missing or
+`False`, the kubelet sets the Pod's condition to `ContainersReady`.
 
 ## Restart policy
 
@@ -268,32 +278,31 @@ once bound to a node, a Pod will never be rebound to another node.
 
 ## Pod lifetime
 
-In general, Pods remain until a human or controller process explicitly removes them.
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+In general, Pods remain until a human or
+{{< glossary_tooltip term_id="controller" text="controller" >}} process
+explicitly removes them.
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 
-Three types of controllers are available:
+There are different kinds of resources for creating Pods:
 
-- Use a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) for Pods that are expected to terminate,
+- Use a {{< glossary_tooltip term_id="deployment" >}},
+  {{< glossary_tooltip term_id="replica-set" >}} or {{< glossary_tooltip term_id="statefulset" >}}
+  for Pods that are not expected to terminate, for example, web servers.
+
+- Use a {{< glossary_tooltip term_id="job" >}}
+  for Pods that are expected to terminate once their work is complete;
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or
-  [Deployment](/docs/concepts/workloads/controllers/deployment/)
-  for Pods that are not expected to terminate, for example, web servers.
-  ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
-  Always.
+- Use a {{< glossary_tooltip term_id="daemonset" >}}
+  for Pods that need to run one per eligible node.
 
-- Use a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for Pods that need to run one per
-  machine, because they provide a machine-specific system service.
-
-All three types of controllers contain a PodTemplate. It
-is recommended to create the appropriate controller and let
-it create Pods, rather than directly create Pods yourself. That is because Pods
-alone are not resilient to machine failures, but controllers are.
+All workload resources contain a PodSpec. It is recommended to create the
+appropriate workload resource and let the resource's controller create Pods
+for you, rather than directly create Pods yourself.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.

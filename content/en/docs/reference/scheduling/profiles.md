@@ -177,5 +177,5 @@ only has one pending pods queue.
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 {{% /capture %}}

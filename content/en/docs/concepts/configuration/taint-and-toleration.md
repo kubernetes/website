@@ -10,7 +10,7 @@ weight: 40
 
 
 {{% capture overview %}}
-Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
 is a property of *pods* that *attracts* them to a set of nodes (either as a
 preference or a hard requirement). Taints are the opposite -- they allow a
 *node* to *repel* a set of pods.
@@ -202,7 +202,7 @@ when there are node problems, which is described in the next section.
 
 ## Taint based Evictions
 
-{{< feature-state for_k8s_version="1.18" state="stable" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 Earlier we mentioned the `NoExecute` taint effect, which affects pods that are already
 running on the node as follows
