@@ -75,7 +75,7 @@ Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati.
 Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Lihat Deployment:

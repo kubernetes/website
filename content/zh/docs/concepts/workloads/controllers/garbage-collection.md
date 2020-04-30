@@ -50,7 +50,7 @@ Here's a configuration file for a ReplicaSet that has three Pods:
 ## 所有者和附属
 
 某些 Kubernetes 对象是其它一些对象的所有者。例如，一个 ReplicaSet 是一组 Pod 的所有者。
-具有所有者的对象被称为是所有者的*附属*。
+具有所有者的对象被称为是所有者的 *附属* 。
 每个附属对象具有一个指向其所属对象的 `metadata.ownerReferences` 字段。
 
 有时，Kubernetes 会自动设置 `ownerReference` 的值。
@@ -142,7 +142,7 @@ the following things are true:
  * The object's `deletionTimestamp` is set
  * The object's `metadata.finalizers` contains the value "foregroundDeletion".
 -->
-在*显式级联删除*模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
+在 *显式级联删除* 模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
 
  * 对象仍然可以通过 REST API 可见。
  * 会设置对象的 `deletionTimestamp` 字段。

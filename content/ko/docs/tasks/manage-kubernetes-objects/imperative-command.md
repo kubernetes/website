@@ -139,10 +139,10 @@ TODO(pwittrock): 구현이 이루어지면 주석을 해제한다.
 다음은 관련 예제이다.
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
 ```
 
-1. `kubectl create service -o yaml --dry-run` 커맨드는 서비스에 대한 구성을 생성하지만, 이를 쿠버네티스 API 서버에 전송하는 대신 YAML 형식으로 stdout에 출력한다.
+1. `kubectl create service -o yaml --dry-run=client` 커맨드는 서비스에 대한 구성을 생성하지만, 이를 쿠버네티스 API 서버에 전송하는 대신 YAML 형식으로 stdout에 출력한다.
 1. `kubectl set selector --local -f - -o yaml` 커맨드는 stdin으로부터 구성을 읽어, YAML 형식으로 stdout에 업데이트된 구성을 기록한다.
 1. `kubectl create -f -` 커맨드는 stdin을 통해 제공된 구성을 사용하여 오브젝트를 생성한다.
 
@@ -152,7 +152,7 @@ kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | k
 다음은 관련 예제이다.
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run > /tmp/srv.yaml
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 

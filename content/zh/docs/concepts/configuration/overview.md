@@ -67,7 +67,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
 - Don't specify default values unnecessarily: simple, minimal configuration will make errors less likely.
 -->
-- 不要不必要地指定默认值：简单的最小配置会降低错误的可能性。
+- 除非必要，否则不指定默认值：简单的最小配置会降低错误的可能性。
 
 <!--
 - Put object descriptions in annotations, to allow better introspection.
@@ -89,7 +89,7 @@ This is a living document. If you think of something that is not on this list bu
 <!--
   A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) may also be appropriate.
 -->
-  部署，它创建一个 ReplicaSet 以确保所需数量的 Pod 始终可用，并指定替换 Pod 的策略(例如 [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment))，除了一些显式的[`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)场景之外，几乎总是优先考虑直接创建 Pod。
+  Deployment，它创建一个 ReplicaSet 以确保所需数量的 Pod 始终可用，并指定替换 Pod 的策略(例如 [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment))，除了一些显式的[`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)场景之外，几乎总是优先考虑直接创建 Pod。
 [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 也可能是合适的。
 
 
@@ -257,7 +257,7 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 -->
 - 使用标签选择器进行`get`和`delete`操作，而不是特定的对象名称。
-- 请参阅[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)和[有效使用标签]部分(/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)。
+- 请参阅[标签选择器](/docs/concepts/overview/working-with-objects/labels/#label-selectors)和[有效使用标签](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)部分。
 
 <!--
 - Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.

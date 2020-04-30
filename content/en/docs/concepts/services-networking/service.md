@@ -534,6 +534,25 @@ to just expose one or more nodes' IPs directly.
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
 
+For example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+```
+
 ### Type LoadBalancer {#loadbalancer}
 
 On cloud providers which support external load balancers, setting the `type`
@@ -631,6 +650,16 @@ metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 [...]
 ```
 {{% /tab %}}
@@ -1050,7 +1079,7 @@ fail with a message indicating an IP address could not be allocated.
 
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
-in-memory locking). Kubernetes also uses controllers to checking for invalid
+in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 

@@ -164,8 +164,9 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 `OrderedReady`なPod管理はStatefulSetにおいてデフォルトです。これは[デプロイとスケーリングの保証](#deployment-and-scaling-guarantees)に記載されている項目の振る舞いを実装します。
 
-#### 並行なPod管理Parallel Pod Management
-`並行`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
+#### 並行なPod管理
+
+`Parallel`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
 
 ## アップデートストラテジー
 

@@ -7,7 +7,7 @@ feature:
   title: Secret and configuration management
   description: >
     Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
-weight: 50
+weight: 30
 ---
 
 {{% capture overview %}}
@@ -81,13 +81,19 @@ The output is similar to:
 secret "db-user-pass" created
 ```
 
-{{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
 
 ```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+kubectl create secret generic db-user-pass --from-file=username=./username.txt --from-file=password=./password.txt
+```
+
+{{< note >}}
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
+For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
+
+```shell
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
 You do not need to escape special characters in passwords from files (`--from-file`).
@@ -854,6 +860,43 @@ start until all the Pod's volumes are mounted.
 
 ## Use cases
 
+### Use-Case: As container environment variables
+
+Create a secret
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  USER_NAME: YWRtaW4=
+  PASSWORD: MWYyZDFlMmU2N2Rm
+```
+
+Create the Secret:
+```shell
+kubectl apply -f mysecret.yaml
+```
+
+Use `envFrom` to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      envFrom:
+      - secretRef:
+          name: mysecret
+  restartPolicy: Never
+```
+
 ### Use-Case: Pod with ssh keys
 
 Create a secret containing some ssh keys:
@@ -937,12 +980,12 @@ secret "test-db-secret" created
 ```
 
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
 
 ```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
  You do not need to escape special characters in passwords from files (`--from-file`).

@@ -16,6 +16,7 @@
 /pl/docs/     /pl/docs/home/ 301!
 /pt/docs/     /pt/docs/home/ 301!
 /ru/docs/     /ru/docs/home/ 301!
+/uk/docs/     /uk/docs/home/ 301!
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
@@ -92,8 +93,9 @@
 /docs/concepts/clusters/logging/     /docs/concepts/cluster-administration/logging/ 301
 /docs/concepts/configuration/container-command-arg/     /docs/tasks/inject-data-application/define-command-argument-container/ 301
 /docs/concepts/configuration/container-command-args/     /docs/tasks/inject-data-application/define-command-argument-container/     301
-/docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling/scheduler-perf-tuning/    301
-/docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling/scheduling-framework/    301
+/docs/concepts/configuration/manage-compute-resources-container/ /docs/concepts/configuration/manage-resources-containers/ 301
+/docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
+/docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
@@ -103,6 +105,9 @@
 /docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/extend-cluster/ 301
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
+/docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
+/docs/concepts/scheduling/scheduler-perf-tuning/     /docs/concepts/scheduling-eviction/scheduler-perf-tuning/ 301
+/docs/concepts/scheduling/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/ 301
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
@@ -132,24 +137,14 @@
 /docs/contribute/review-issues/     /docs/home/contribute/review-issues/ 301
 /docs/contribute/stage-documentation-changes/     /docs/home/contribute/stage-documentation-changes/ 301
 /docs/contribute/style-guide/     /docs/home/contribute/style-guide/ 301
-
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
+/docs/contribute/start/        /docs/contribute/ 301
+/docs/contribute/intermediate/        /docs/contribute/ 301
+
+
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
-
-/docs/federation/api-reference/     /docs/reference/federation/v1/operations/ 301
-/docs/federation/api-reference/v1/definitions.html    /docs/reference/generated/federation/v1/definitions/ 301
-/docs/federation/api-reference/v1/operations.html     /docs/reference/generated/federation/v1/operations/ 301
-/docs/federation/api-reference/extensions/v1beta1/definitions/       /docs/reference/generated/federation/extensions/v1beta1/definitions/ 301
-/docs/federation/api-reference/extensions/v1beta1/definitions.html   /docs/reference/generated/federation/extensions/v1beta1/definitions/ 301
-/docs/federation/api-reference/extensions/v1beta1/operations/      /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
-/docs/federation/api-reference/extensions/v1beta1/operations.html  /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
-/docs/federation/api-reference/federation/v1beta1/definitions/      /docs/reference/generated/federation/extensions/v1beta1/definitions/ 301
-/docs/federation/api-reference/federation/v1beta1/definitions.html  /docs/reference/generated/federation/extensions/v1beta1/definitions/ 301
-/docs/federation/api-reference/federation/v1beta1/operations/      /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
-/docs/federation/api-reference/federation/v1beta1/operations.html  /docs/reference/generated/federation/extensions/v1beta1/operations/ 301
-/docs/federation/api-reference/README/     /docs/reference/generated/federation/ 301
 
 /docs/getting-started-guides/*     /docs/setup/ 301
 
@@ -163,7 +158,6 @@
 /docs/contribute/foundational/ /docs/contribute/start/ 301
 /docs/home/contribute/includes/ /docs/contribute/style/hugo-shortcodes/ 301
 /docs/home/contribute/style-guide/ /docs/contribute/style/style-guide/ 301
-/docs/home/contribute/generated-reference/federation-api/ /docs/contribute/generate-ref-docs/federation-api/ 301
 /docs/home/contribute/generated-reference/kubectl/ /docs/contribute/generate-ref-docs/kubectl/ 301
 /docs/home/contribute/generated-reference/kubernetes-api/ /docs/contribute/generate-ref-docs/kubernetes-api/ 301
 /docs/home/contribute/generated-reference/kubernetes-components/ /docs/contribute/generate-ref-docs/kubernetes-components/ 301
@@ -175,12 +169,8 @@
 /docs/home/contribute/write-new-topic/ /docs/contribute/style/write-new-topic/ 301
 
 /docs/reference/deprecation-policy/     /docs/reference/using-api/deprecation-policy/ 301
-/docs/reference/federation/v1beta1/definitions/     /docs/reference/federation/extensions/v1beta1/definitions/ 301
-/docs/reference/federation/v1beta1/operations/     /docs/reference/federation/extensions/v1beta1/operations/ 301
 
 /docs/reference/generated/cloud-controller-manager/     /docs/reference/command-line-tools-reference/cloud-controller-manager/ 301
-/docs/reference/generated/federation-apiserver/     /docs/reference/command-line-tools-reference/federation-apiserver/ 301
-/docs/reference/generated/federation-controller-manager/     /docs/reference/command-line-tools-reference/federation-controller-manager/ 301
 /docs/reference/generated/kubelet/     /docs/reference/command-line-tools-reference/kubelet/ 301
 /docs/reference/generated/kube-apiserver/     /docs/reference/command-line-tools-reference/kube-apiserver/ 301
 /docs/reference/generated/kube-controller-manager/     /docs/reference/command-line-tools-reference/kube-controller-manager/ 301
@@ -189,12 +179,6 @@
 /docs/reference/generated/kubectl/kubectl-options/     /docs/reference/kubectl/kubectl/ 301
 /docs/reference/generated/kubectl/kubectl/     /docs/reference/generated/kubectl/kubectl-commands/ 301
 /docs/reference/generated/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
-/docs/reference/generated/kubefed/     /docs/reference/setup-tools/kubefed/kubefed/ 301
-/docs/reference/generated/kubefed_init/     /docs/reference/setup-tools/kubefed/kubefed-init/ 301
-/docs/reference/generated/kubefed_join/     /docs/reference/setup-tools/kubefed/kubefed-join/ 301
-/docs/reference/generated/kubefed_options/     /docs/reference/setup-tools/kubefed/kubefed-options/ 301
-/docs/reference/generated/kubefed_unjoin/     /docs/reference/setup-tools/kubefed/kubefed-unjoin/ 301
-/docs/reference/generated/kubefed_version/     /docs/reference/setup-tools/kubefed/kubefed-version/ 301
 
 /docs/reference/glossary/maintainer/    /docs/reference/glossary/approver/ 301
 
@@ -445,14 +429,6 @@
 /docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
 /docs/admin/kubeadm/     /docs/reference/generated/kubeadm/ 301
 /docs/admin/kubelet/      /docs/reference/generated/kubelet/ 301
-/docs/admin/federation-controller-manager/    /docs/reference/generated/federation-controller-manager/ 301
-/docs/admin/federation-apiserver/      /docs/reference/generated/federation-apiserver/ 301
-/docs/admin/kubefed/     /docs/reference/generated/kubefed/ 301
-/docs/admin/kubefed_init/    /docs/reference/generated/kubefed_init/ 301
-/docs/admin/kubefed_join/    /docs/reference/generated/kubefed_join/ 301
-/docs/admin/kubefed_options/    /docs/reference/generated/kubefed_options/ 301
-/docs/admin/kubefed_unjoin/     /docs/reference/generated/kubefed_unjoin/ 301
-/docs/admin/kubefed_version/    /docs/reference/generated/kubefed_version/ 301
 
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
 

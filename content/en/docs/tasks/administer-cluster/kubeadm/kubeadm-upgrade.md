@@ -50,18 +50,18 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-1.  Find the latest stable 1.17 version:
+1.  Find the latest stable 1.18 version:
 
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
-    # find the latest 1.17 version in the list
+    # find the latest 1.18 version in the list
     # it should look like 1.18.x-00, where x is the latest patch
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest 1.17 version in the list
+    # find the latest 1.18 version in the list
     # it should look like 1.18.x-0, where x is the latest patch
     {{% /tab %}}
     {{< /tabs >}}
@@ -259,17 +259,17 @@ The upgrade workflow at high level is the following:
 
 1.  Same as the first control plane node but use:
 
-```
-sudo kubeadm upgrade node
-```
+    ```
+    sudo kubeadm upgrade node
+    ```
 
-instead of:
+    instead of:
 
-```
-sudo kubeadm upgrade apply
-```
+    ```
+    sudo kubeadm upgrade apply
+    ```
 
-Also `sudo kubeadm upgrade plan` is not needed.
+    Also `sudo kubeadm upgrade plan` is not needed.
 
 ### Upgrade kubelet and kubectl
 
@@ -292,7 +292,7 @@ Also `sudo kubeadm upgrade plan` is not needed.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+1.  Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
@@ -370,7 +370,7 @@ without compromising the minimum required capacity for running your workloads.
     {{% /tab %}}
     {{< /tabs >}}
 
-1. Restart the kubelet
+1.  Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet

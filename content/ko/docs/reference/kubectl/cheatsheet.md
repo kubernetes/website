@@ -200,7 +200,6 @@ kubectl diff -f ./my-manifest.yaml
 
 ## 리소스 업데이트
 
-1.11 버전에서 `rolling-update`는 사용 중단(deprecated)되었다. ([CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md) 참고) 대신 `rollout`를 사용한다.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
@@ -210,12 +209,6 @@ kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
 kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
-
-# 버전 1.11 부터 사용 중단
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (사용중단) frontend-v1 파드의 롤링 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (사용중단) 리소스 이름 변경과 이미지 업데이트
-kubectl rolling-update frontend --image=image:v2                 # (사용중단) 프론트엔드의 파드 이미지 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (사용중단) 진행중인 기존 롤아웃 중단
 
 cat pod.json | kubectl replace -f -                              # std로 전달된 JSON을 기반으로 파드 교체
 
