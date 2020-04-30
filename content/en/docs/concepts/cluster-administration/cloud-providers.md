@@ -395,7 +395,7 @@ For in-depth documentation on the vSphere cloud provider, visit the [vSphere clo
 ## IBM Cloud Kubernetes Service
 
 ### Compute nodes
-By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
+By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-planning_worker_nodes).
 
 The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance.
 
