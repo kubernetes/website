@@ -4,7 +4,7 @@ reviewers:
 - sttts
 - ericchiang
 content_template: templates/concept
-title: 使用Falco审计
+title: 使用 Falco 审计
 ---
 <!--
 ---
@@ -20,13 +20,13 @@ title: Auditing with Falco
 <!--
 ### Use Falco to collect audit events
 -->
-### 使用Falco采集审计事件
+### 使用 Falco 采集审计事件
 
 <!--
 [Falco](https://falco.org/) is an open source project for intrusion and abnormality detection for Cloud Native platforms.
 This section describes how to set up Falco, how to send audit events to the Kubernetes Audit endpoint exposed by Falco, and how Falco applies a set of rules to automatically detect suspicious behavior.
 -->
-[Falco]（https://falco.org/）是一个用于云原生平台入侵和异常检测开源项目。本节介绍如何设置Falco，如何将审计事件发送到Falco公开的Kubernetes Audit端点，以及Falco如何应用一组规则来自动检测可疑行为。
+[Falco](https://falco.org/)是一个开源项目，用于为云原生平台提供入侵和异常检测。本节介绍如何设置 Falco、如何将审计事件发送到 Falco 公开的 Kubernetes Audit 端点、以及 Falco 如何应用一组规则来自动检测可疑行为。
 
 {{% /capture %}}
 
@@ -40,21 +40,21 @@ This section describes how to set up Falco, how to send audit events to the Kube
 <!--
 Install Falco by using one of the following methods:
 -->
-使用以下方法安装Falco：
+使用以下方法安装 Falco ：
 
 <!--
 - [Standalone Falco][falco_installation]
 - [Kubernetes DaemonSet][falco_installation]
 - [Falco Helm Chart][falco_helm_chart]
 -->
-- [Standalone Falco][falco_installation]
+- [独立安装 Falco][falco_installation]
 - [Kubernetes DaemonSet][falco_installation]
 - [Falco Helm Chart][falco_helm_chart]
 
 <!--
 Once Falco is installed make sure it is configured to expose the Audit webhook. To do so, use the following configuration:
 -->
-安装完成Falco后，请确保将其配置为公开Audit Webhook。 为此，请使用以下配置：
+安装完成 Falco 后，请确保将其配置为公开 Audit Webhook。为此，请使用以下配置：
 
 ```yaml
 webserver:
@@ -68,11 +68,11 @@ webserver:
 <!--
 This configuration is typically found in the `/etc/falco/falco.yaml` file. If Falco is installed as a Kubernetes DaemonSet, edit the `falco-config` ConfigMap and add this configuration.
 -->
-配置通常可以在`/ etc / falco / falco.yaml`文件中找到。 如果Falco作为Kubernetes DaemonSet安装，请编辑`falco-config` ConfigMap并添加此配置。
+此配置通常位于 `/etc/falco/falco.yaml` 文件中。如果 Falco 作为 Kubernetes DaemonSet 安装，请编辑 `falco-config` ConfigMap 并添加此配置。
 <!--
 #### Configure Kubernetes Audit
 -->
-#### 配置Kubernetes审计
+#### 配置 Kubernetes 审计
 
 <!--
 1. Create a [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) for the [kube-apiserver][kube-apiserver] webhook audit backend.
@@ -94,7 +94,7 @@ This configuration is typically found in the `/etc/falco/falco.yaml` file. If Fa
         users: []
         EOF
 -->
-1. 为 [kube-apiserver][kube-apiserver] webhook 审计后端创建一个[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)配置文件。
+1. 为 [kube-apiserver][kube-apiserver] webhook 审计后端创建一个[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)文件。
 
         cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
@@ -119,7 +119,7 @@ This configuration is typically found in the `/etc/falco/falco.yaml` file. If Fa
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
     ```
 -->
-2. 使用以下选项开启 [kube-apiserver][kube-apiserver]:
+2. 使用以下选项启动 [kube-apiserver][kube-apiserver]：
 
     ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
@@ -137,7 +137,7 @@ There are three classes of rules.
 The first class of rules looks for suspicious or exceptional activities, such as:
 -->
 
-专门用于Kubernetes审计事件的规则可以在[k8s_audit_rules.yaml] [falco_k8s_audit_rules]中找到。 如果Audit Rules是作为本机软件包安装或使用官方Docker镜像安装的，则Falco会将规则文件复制到`/etc/falco/`中，以便可以使用。
+专门用于 Kubernetes 审计事件的规则可以在 [k8s_audit_rules.yaml][falco_k8s_audit_rules] 中找到。如果审计规则是作为本机软件包安装或使用官方 Docker 镜像安装的，则 Falco 会将规则文件复制到 `/etc/falco/` 中以便使用。
 
 共有三类规则。
 
@@ -158,17 +158,17 @@ The first class of rules looks for suspicious or exceptional activities, such as
 - Creating a ClusterRole with write permissions or a ClusterRole that can execute commands on pods.
 -->
 -未经授权或匿名用户的任何活动。
--创建使用未知或不允许的镜像的pod。
--创建特权Pod，从主机安装敏感文件系统的Pod或使用主机网络的Pod。
--创建NodePort服务。
--创建包含私有证书（例如密码和云提供商secrets）的ConfigMap。
--在正在运行的Pod上附加或执行命令。
+-创建使用未知或不允许的镜像的 pod。
+-创建特权 Pod，从主机安装敏感文件系统的 Pod 或使用主机网络的 Pod。
+-创建 NodePort 服务。
+-创建包含私有证书（例如密码和云提供商 secrets ）的 ConfigMap。
+-在正在运行的 Pod 上附加或执行命令。
 -在一组允许的名称空间之外创建一个名称空间。
--在kube-system或kube-public命名空间中创建pod或服务帐户。
--尝试修改或删除系统ClusterRole。
--创建一个ClusterRoleBinding到cluster-admin角色。
--使用通配动词或资源创建ClusterRole。 例如，过度赋权。
--创建具有写权限的ClusterRole或可以在Pod上执行命令的ClusterRole。
+-在 kube-system 或 kube-public 命名空间中创建 pod 或服务帐户。
+-尝试修改或删除系统 ClusterRole。
+-创建一个 ClusterRoleBinding 到 cluster-admin 角色。
+-创建 ClusterRole 时在动词或资源中使用通配符。 例如，过度赋权。
+-创建具有写权限的 ClusterRole 或可以在 Pod 上执行命令的 ClusterRole。
 
 <!--
 A second class of rules tracks resources being created or destroyed, including:
@@ -197,9 +197,9 @@ The final class of rules simply displays any Audit Event received by Falco. This
 For further details, see [Kubernetes Audit Events][falco_ka_docs] in the Falco documentation.
 -->
 
-最后一类规则显示Falco收到的所有审核事件。默认情况下，此规则是禁用的，因为它可能会很吵。
+最后一类规则仅负责显示 Falco 收到的所有审核事件。默认情况下，此规则是禁用的，因为它可能会很吵。
 
-有关更多详细信息，请参阅Falco文档中的[Kubernetes审计事件][falco_ka_docs]。
+有关更多详细信息，请参阅 Falco 文档中的[Kubernetes审计事件][falco_ka_docs]。
 
 <!--
 [kube-apiserver]: /docs/admin/kube-apiserver
