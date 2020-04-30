@@ -81,6 +81,12 @@ The output is similar to:
 secret "db-user-pass" created
 ```
 
+Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
+
+```shell
+kubectl create secret generic db-user-pass --from-file=username=./username.txt --from-file=password=./password.txt
+```
+
 {{< note >}}
 Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
