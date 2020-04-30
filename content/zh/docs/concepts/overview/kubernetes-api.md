@@ -251,6 +251,7 @@ to pick up the `--runtime-config` changes.
 
 {{< /note >}}
 
+<!--
 ## Enabling specific resources in the extensions/v1beta1 group
 
 DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
