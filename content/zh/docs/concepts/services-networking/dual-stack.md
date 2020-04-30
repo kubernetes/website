@@ -1,8 +1,4 @@
 ---
-reviewers:
-- lachie83
-- khenidak
-- aramase
 title: IPv4/IPv6 双协议栈
 feature:
   title: IPv4/IPv6 双协议栈
