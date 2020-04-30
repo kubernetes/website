@@ -63,7 +63,7 @@ memory is reclaimable under pressure.
 `kubelet` supports only two filesystem partitions.
 
 1. The `nodefs` filesystem that kubelet uses for volumes, daemon logs, etc.
-1. The `imagefs` filesystem that container runtimes uses for storing images and
+2. The `imagefs` filesystem that container runtimes uses for storing images and
    container writable layers.
 
 `imagefs` is optional. `kubelet` auto-discovers these filesystems using
