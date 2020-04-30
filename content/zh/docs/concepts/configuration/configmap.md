@@ -59,7 +59,7 @@ The name of a ConfigMap must be a valid
 -->
 ## ConfigMap 对象
 
-ConfigMap 是一个 API [对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)，让你可以存储其他对象所需要使用的配置。和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 块来存储一个键和它的值。
+ConfigMap 是一个 API [对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)，让你可以存储其他对象所需要使用的配置。和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 块来存储元素（键名）和它们的值。
 
 ConfigMap 的名字必须是一个合法的 [DNS 子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
@@ -76,7 +76,7 @@ format.
 -->
 ## ConfigMaps 和 Pods
 
-您可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个 {{< glossary_tooltip text="namespace" term_id="namespace" >}} 中。
+您可以写一个引用 ConfigMap 的 Pod 的 `spec`，并根据 ConfigMap 中的数据在该 Pod 中配置容器。这个 Pod 和 ConfigMap 必须要在同一个 {{< glossary_tooltip text="命名空间" term_id="namespace" >}} 中。
 
 这是一个 ConfigMap 的示例，它的一些键只有一个值，其他键的值看起来像是配置的片段格式。
 
@@ -114,14 +114,14 @@ For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
 the Secret when it launches container(s) for a Pod.
 -->
-您可以使用四种方式来使用 ConfigMap 在 Pod 内配置一个容器：
+您可以使用四种方式来使用 ConfigMap 配置 Pod 中的容器：
 
-1. 容器入口点的命令行参数
+1. 容器 entrypoint 的命令行参数
 1. 容器的环境变量
 1. 在只读卷里面添加一个文件，让应用来读取
-1. 编写代码在能够使用 Kubernetes API 来读取 ConfigMap 的 Pod 中运行
+1. 编写代码在 Pod 中运行，使用 Kubernetes API 来读取 ConfigMap
 
-这些不同的方法适用于不同的方式来对数据进行建模。对前三个方法，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 使用 Secret 中的数据在 Pod 中启动容器。
+这些不同的方法适用于不同的数据使用方式。对前三个方法，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 使用 Secret 中的数据在 Pod 中启动容器。
 
 <!--
 The fourth method means you have to write code to read the Secret and its data.
@@ -146,13 +146,12 @@ spec:
     - name: demo
       image: game.example/demo-game
       env:
-        # Define the environment variable
-        - name: PLAYER_INITIAL_LIVES # Notice that the case is different here
-                                     # from the key name in the ConfigMap.
+        # 定义环境变量
+        - name: PLAYER_INITIAL_LIVES # 请注意这里和 ConfigMap 中的键名是不一样的
           valueFrom:
             configMapKeyRef:
-              name: game-demo           # The ConfigMap this value comes from.
-              key: player_initial_lives # The key to fetch.
+              name: game-demo           # 这个值来自 ConfigMap
+              key: player_initial_lives # 需要取值的键
         - name: UI_PROPERTIES_FILE_NAME
           valueFrom:
             configMapKeyRef:
@@ -163,10 +162,10 @@ spec:
         mountPath: "/config"
         readOnly: true
   volumes:
-    # You set volumes at the Pod level, then mount them into containers inside that Pod
+    # 您可以在 Pod 级别设置卷，然后将其挂载到 Pod 内的容器中
     - name: config
       configMap:
-        # Provide the name of the ConfigMap you want to mount.
+        # 提供你想要挂载的 ConfigMap 的名字
         name: game-demo
 ```
 
@@ -208,7 +207,7 @@ might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
 or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 -->
-ConfigMaps 最常见的用法是为同一命名空间里的 Pod 中运行的容器配置设置。您也可以单独使用 ConfigMap。
+ConfigMaps 最常见的用法是为同一命名空间里某 Pod 中运行的容器执行配置。您也可以单独使用 ConfigMap。
 
 比如，您可能会遇到基于 ConfigMap 来调整其行为的 {{< glossary_tooltip text="addons" term_id="addons" >}} 或者 {{< glossary_tooltip text="operators" term_id="operator-pattern" >}}。
 {{< /note >}}
