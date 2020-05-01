@@ -48,13 +48,13 @@ For more information about contributing to the Kubernetes documentation, see:
 
 | Language  | Language |
 |---|---|
-|[French](README-fr.md)|[Korean](README-ko.md)|
+|[Chinese](README-zh.md)|[Korean](README-ko.md)|
+|[French](README-fr.md)|[Polish](README-pl.md)|
 |[German](README-de.md)|[Portuguese](README-pt.md)|
-|[Hindi](README-hi.md)|[Spanish](README-es.md)|
-|[Indonesian](README-id.md)|[Chinese](README-zh.md)|
+|[Hindi](README-hi.md)|[Russian](README-ru.md)|
+|[Indonesian](README-id.md)|[Spanish](README-es.md)|
+|[Italian](README-it.md)|[Ukrainian](README-uk.md)|
 |[Japanese](README-ja.md)|[Vietnamese](README-vi.md)|
-|[Russian](README-ru.md)|[Italian](README-it.md)|
-|[Polish](README-pl.md)|[Ukrainian](README-uk.md)|
 
 ## Code of conduct
 
