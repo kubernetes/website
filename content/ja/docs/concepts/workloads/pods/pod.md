@@ -34,7 +34,7 @@ Pod内のアプリケーションからアクセスできる共有ボリュー�
 [Docker](https://www.docker.com/)の用語でいえば、Podは共有namespaceと共有[ボリューム](/docs/concepts/storage/volumes/)を持つDockerコンテナのグループとしてモデル化されています。
 
 個々のアプリケーションコンテナと同様に、Podは（永続的ではなく）比較的短期間の存在と捉えられます。
-[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
+[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
 Nodeが停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に削除されます。
 特定のPod（UIDで定義）は新しいNodeに「再スケジュール」されません。
 代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます（詳細については[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を参照してください）。
