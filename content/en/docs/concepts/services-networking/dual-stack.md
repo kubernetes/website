@@ -40,27 +40,23 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
    * Kubernetes 1.16 or later
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * A network plugin that supports dual-stack (such as Kubenet or Calico)
-   * Kube-proxy running in mode IPVS
 
 ## Enable IPv4/IPv6 dual-stack
 
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
+   * kube-apiserver:
+      * `--feature-gates="IPv6DualStack=true"`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
-      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/48`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--service-cluster-ip-range=10.0.0.0/16,fd00::/108`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
-      * `--proxy-mode=ipvs`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
-
-{{< caution >}}
-If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
-{{< /caution >}}
 
 ## Services
 
