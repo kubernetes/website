@@ -186,7 +186,7 @@ language_alternatives = ["en"]
 
 [languages.it]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orchestrazione di Container in produzione"
 languageName = "Italiano"
 weight = 6
 contentDir = "content/it"

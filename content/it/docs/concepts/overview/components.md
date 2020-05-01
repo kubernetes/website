@@ -16,7 +16,7 @@ un cluster Kubernetes completo e funzionante.
 
 Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro relazioni.
 
-![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+![I componenti di Kubernetes](/images/docs/components-of-kubernetes.png)
 
 {{% /capture %}}
 
