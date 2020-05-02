@@ -69,7 +69,7 @@ esse Pod (ainda) não é escalonável.
 
 Na etapa de _pontuação_, o escalonador classifica os Nodes restantes para escolher
 o mais adequado. O escalonador atribui uma pontuação a cada Node
-que sobreviveram à filtragem, baseando essa pontuação nas regras de pontuação ativa.
+que sobreviveu à filtragem, baseando essa pontuação nas regras de pontuação ativa.
 
 Por fim, o kube-scheduler atribui o Pod ao Node com a classificação mais alta.
 Se houver mais de um Node com pontuações iguais, o kube-scheduler seleciona
