@@ -76,12 +76,10 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
    * Kubernetes 1.16 or later
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
    * A network plugin that supports dual-stack (such as Kubenet or Calico)
-   * Kube-proxy running in mode IPVS
 -->
    * Kubernetes 1.16 版本及更高版本
    * 提供商支持双协议栈网络（云提供商或其他提供商必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口）
    * 支持双协议栈的网络插件（如 Kubenet 或 Calico）
-   * Kube-proxy 运行在 IPVS 模式
 
 <!--
 ## Enable IPv4/IPv6 dual-stack
@@ -93,24 +91,18 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
 -->
 要启用 IPv4/IPv6 双协议栈，为集群的相关组件启用 `IPv6DualStack` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双协议栈的集群网络分配：
 
+   * kube-apiserver:
+      * `--feature-gates="IPv6DualStack=true"`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--cluster-cidr=10.244.0.0/16,fc00::/24`
-      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--cluster-cidr=10.244.0.0/16,fc00::/48`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>` 例如 `--service-cluster-ip-range=10.0.0.0/16,fd00::/108`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
-      * `--proxy-mode=ipvs`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
-
-{{< caution >}}
-<!--
-If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
--->
-如果命令行的 `--cluster-cidr` 指定大于 /24 的 IPv6 地址块，地址分配将失败。
-{{< /caution >}}
 
 <!--
 ## Services
