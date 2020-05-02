@@ -30,7 +30,7 @@ aprender sobre escalonamento.
 [kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 é o escalonador padrão do Kubernetes e é executado como parte do 
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
-O kube-scheduler foi projetado para que, se você quiser e precisar, possa
+O kube-scheduler é projetado para que, se você quiser e precisar, possa
 escrever seu próprio componente de escalonamento e usá-lo.
 
 Para cada Pod recém-criado ou outros Pods não escalonados, o kube-scheduler 
