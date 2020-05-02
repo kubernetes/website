@@ -50,7 +50,7 @@ o servidor da API sobre essa decisão em um processo chamado _binding_.
 
 Fatores que precisam ser levados em consideração para decisões de escalonamento incluem
 requisitos individuais e coletivos de recursos,
-restrições de política hardware / software, especificações de afinidade e anti-afinidade,
+restrições de hardware / software / política, especificações de afinidade e anti-afinidade,
 localidade de dados, interferência entre cargas de trabalho e assim por diante.
 
 ### Seleção do Node no kube-scheduler {#implementação-kube-scheduler}
