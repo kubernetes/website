@@ -3,7 +3,7 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_template: templates/concept
-weight: 60
+weight: 70
 ---
 
 {{% capture overview %}}
