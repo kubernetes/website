@@ -26,7 +26,7 @@ Kubernetesを機能させるには、*Kubernetes API オブジェクト* を使�
 
 ## Kubernetesオブジェクト
 
-Kubernetesには、デプロイ済みのコンテナ化されたアプリケーションやワークロード、関連するネットワークとディスクリソース、クラスターが何をしているかに関するその他の情報といった、システムの状態を表現する抽象が含まれています。これらの抽象は、Kubernetes APIのオブジェクトによって表現されます。詳細については、[Kubernetesオブジェクトについて知る](/docs/concepts/overview/working-with-objects/kubernetes-objects/)をご覧ください。
+Kubernetesには、デプロイ済みのコンテナ化されたアプリケーションやワークロード、関連するネットワークとディスクリソース、クラスターが何をしているかに関するその他の情報といった、システムの状態を表現する抽象が含まれています。これらの抽象は、Kubernetes APIのオブジェクトによって表現されます。詳細については、[Kubernetesオブジェクトについて知る](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)をご覧ください。
 
 基本的なKubernetesのオブジェクトは次のとおりです。
 
