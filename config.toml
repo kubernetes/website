@@ -25,8 +25,7 @@ enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
 # Hindi is disabled because it's currently in development.
-# Italian is disabled until it meets minimum standards for quality.
-disableLanguages = ["hi", "it", "no"]
+disableLanguages = ["hi", "no"]
 
 [blackfriday]
 hrefTargetBlank = true
@@ -188,8 +187,8 @@ language_alternatives = ["en"]
 
 [languages.it]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName ="Italian"
+description = "Orchestrazione di Container in produzione"
+languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
 
