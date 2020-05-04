@@ -37,12 +37,12 @@ consistency among topics of a given type.
 Choose a title that has the keywords you want search engines to find.
 Create a filename that uses the words in your title separated by hyphens.
 For example, the topic with title
-[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 has filename `http-proxy-access-api.md`. You don't need to put
 "kubernetes" in the filename, because "kubernetes" is already in the
 URL for the topic, for example:
 
-       /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+       /docs/tasks/extend-kubernetes/http-proxy-access-api/
 
 ## Adding the topic title to the front matter
 
