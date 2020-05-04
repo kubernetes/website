@@ -20,8 +20,6 @@ a Hello world application by entering this command:
 kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
 ```
 
-
-
 <!-- steps -->
 
 ## Using kubectl to start a proxy server
@@ -82,11 +80,6 @@ The output should look similar to this:
             ...
     }
 
-
-
 ## {{% heading "whatsnext" %}}
 
 Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy).
-
-
-

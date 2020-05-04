@@ -31,9 +31,11 @@ The control plane components also communicate with the cluster apiserver over th
 As a result, the default operating mode for connections from the nodes and pods running on the nodes to the control plane is secured by default and can run over untrusted and/or public networks.
 
 ## Control Plane to node
+
 There are two primary communication paths from the control plane (apiserver) to the nodes. The first is from the apiserver to the kubelet process which runs on each node in the cluster. The second is from the apiserver to any node, pod, or service through the apiserver's proxy functionality.
 
 ### apiserver to kubelet
+
 The connections from the apiserver to the kubelet are used for:
 
 * Fetching logs for pods.
@@ -61,9 +63,10 @@ This tunnel ensures that the traffic is not exposed outside of the network in wh
 SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
 
 ### Konnectivity service
+
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to Cluster communication. The Konnectivity consists of two parts, the Konnectivity server and the Konnectivity agents, running in the control plane network and the nodes network respectively. The Konnectivity agents initiate connections to the Konnectivity server and maintain the connections.
-All control plane to nodes traffic then goes through these connections.
+As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to cluster communication. The Konnectivity service consists of two parts: the Konnectivity server and the Konnectivity agents, running in the control plane network and the nodes network respectively. The Konnectivity agents initiate connections to the Konnectivity server and maintain the network connections.
+After enabling the Konnectivity service, all control plane to nodes traffic goes through these connections.
 
-See [Konnectivity Service Setup](/docs/tasks/setup-konnectivity/) on how to set it up in your cluster.
+Follow the [Konnectivity service task](/docs/tasks/extend-kubernetes/setup-konnectivity/) to set up the Konnectivity service in your cluster.

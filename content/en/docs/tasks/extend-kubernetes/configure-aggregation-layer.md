@@ -10,24 +10,19 @@ weight: 10
 
 <!-- overview -->
 
-Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
-
-
+Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 {{< note >}}
-There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA. 
+There are a few setup requirements for getting the aggregation layer working in your environment to support mutual TLS auth between the proxy and extension apiservers. Kubernetes and the kube-apiserver have multiple CAs, so make sure that the proxy is signed by the aggregation layer CA and not by something else, like the master CA.
+{{< /note >}}
 
 {{< caution >}}
 Reusing the same CA for different client types can negatively impact the cluster's ability to function. For more information, see [CA Reusage and Conflicts](#ca-reusage-and-conflicts).
 {{< /caution >}}
-{{< /note >}}
-
-
 
 <!-- steps -->
 
@@ -138,7 +133,10 @@ The Kubernetes apiserver connects to the extension apiserver over TLS, authentic
 The Kubernetes apiserver will use the files indicated by `--proxy-client-*-file` to authenticate to the extension apiserver. In order for the request to be considered valid by a compliant extension apiserver, the following conditions must be met:
 
 1. The connection must be made using a client certificate that is signed by the CA whose certificate is in `--requestheader-client-ca-file`.
-2. The connection must be made using a client certificate whose CN is one of those listed in `--requestheader-allowed-names`. **Note:** You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
+2. The connection must be made using a client certificate whose CN is one of those listed in `--requestheader-allowed-names`.
+
+{{< note >}}You can set this option to blank as `--requestheader-allowed-names=""`. This will indicate to an extension apiserver that _any_ CN is acceptable.
+{{< /note >}}
 
 When started with these options, the Kubernetes apiserver will:
 
@@ -278,10 +276,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-
-* [Setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
-* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
-
-
-
+* [Setup an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
