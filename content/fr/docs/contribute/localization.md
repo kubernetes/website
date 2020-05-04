@@ -64,7 +64,7 @@ Par exemple, le code à deux lettres pour l'allemand est `de`.
 These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) language code for German (`de`) as an example.
 {{< /note >}}
 
-### Modify the site configuration
+### Modifier la configuration du site
 
 Le site web de Kubernetes utilise Hugo comme son web framework.
 La configuration Hugo du site Web se trouve dans le fichier [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml).
@@ -86,7 +86,7 @@ Lors de l'attribution d'un paramètre de `weight` à votre bloc, trouvez le bloc
 
 Pour plus d'informations sur le support multilingue de Hugo, voir "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
 
-### Add a new localization directory
+### Ajouter un nouveau répertoire de localisation
 
 Ajoutez un sous-répertoire spécifique à la langue dans le répertoire [`content`](https://github.com/kubernetes/website/tree/master/content) du dépôt.
 Par exemple, le code à deux lettres pour l'allemand est "de" :
