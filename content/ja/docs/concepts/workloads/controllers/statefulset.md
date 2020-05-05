@@ -175,9 +175,9 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 `OnDelete`というアップデートストラテジーは、レガシーな(Kubernetes1.6以前)振る舞いとなります。StatefulSetの`.spec.updateStrategy.type`が`OnDelete`にセットされていたとき、そのStatefulSetコントローラーはStatefulSet内でPodを自動的に更新しません。StatefulSetの`.spec.template`項目の修正を反映した新しいPodの作成をコントローラーに支持するためには、ユーザーは手動でPodを削除しなければなりません。
 
-### RollinUpdate
+### RollingUpdate
 
-`RollinUpdate`というアップデートストラテジーは、StatefulSet内のPodに対する自動化されたローリングアップデートの機能を実装します。これは`.spec.updateStrategy`フィールドが未指定の場合のデフォルトのストラテジーです。StatefulSetの`.spec.updateStrategy.type`が`RollingUpdate`にセットされたとき、そのStatefulSetコントローラーは、StatefulSet内のPodを削除し、再作成します。これはPodの停止(Podの番号の降順)と同じ順番で、一度に1つのPodを更新します。コントローラーは、その前のPodの状態がRunningかつReady状態になるまで次のPodの更新を待ちます。
+`RollingUpdate`というアップデートストラテジーは、StatefulSet内のPodに対する自動化されたローリングアップデートの機能を実装します。これは`.spec.updateStrategy`フィールドが未指定の場合のデフォルトのストラテジーです。StatefulSetの`.spec.updateStrategy.type`が`RollingUpdate`にセットされたとき、そのStatefulSetコントローラーは、StatefulSet内のPodを削除し、再作成します。これはPodの停止(Podの番号の降順)と同じ順番で、一度に1つのPodを更新します。コントローラーは、その前のPodの状態がRunningかつReady状態になるまで次のPodの更新を待ちます。
 
 #### パーティション
 
