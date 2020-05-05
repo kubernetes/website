@@ -7,7 +7,7 @@ content_template: templates/task
 ---
 
 {{% capture overview %}}
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 A subset of the Kubelet's configuration parameters may be
 set via an on-disk config file, as a substitute for command-line flags.
