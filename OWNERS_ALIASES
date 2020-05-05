@@ -171,7 +171,6 @@ aliases:
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - markthink
     - SataQiu
     - tengqm
     - xiangpengzhao
@@ -181,7 +180,6 @@ aliases:
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - idealhack
-    - markthink
     - SataQiu
     - tanjunchen
     - tengqm
