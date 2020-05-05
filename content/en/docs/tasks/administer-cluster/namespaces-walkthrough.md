@@ -226,7 +226,7 @@ Let's create some contents.
 
 {{< codenew file="admin/snowflake-deployment.yaml" >}}
 
-Apply the manifest to create a Deployment 
+Apply the manifest to create a Deployment
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
@@ -268,7 +268,8 @@ kubectl get pods
 Production likes to run cattle, so let's create some cattle pods.
 
 ```shell
-kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
+kubectl create deploy cattle --image=k8s.gcr.io/serve_hostname
+kubectl scale deploy cattle --replicas=5
 
 kubectl get deployment
 ```

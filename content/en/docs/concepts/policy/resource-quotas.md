@@ -494,7 +494,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deploy nginx --image=nginx --namespace=myspace
+kubectl scale deploy nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell
@@ -553,7 +554,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -572,7 +573,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -584,7 +585,7 @@ For example:
 ```yaml
     scopeSelector:
       matchExpressions:
-      - scopeName: PriorityClass
+      - scopeName: PriorityClass 
         operator: In
         values: ["cluster-services"]
 ```
