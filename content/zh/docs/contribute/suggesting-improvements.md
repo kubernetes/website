@@ -110,6 +110,6 @@ fellow contributors. For example, "The docs are terrible" is not
 - 将某一问题的范围限制在一个合理的工作单元内。对于范围较大的问题，将其分解成更小的问题。例如，"修复安全文档 "太过宽泛，但 "在'限制网络访问'主题中增加细节 "就足够具体到可操作的程度。
 - 搜一下现有的 issues，看看是否有与新问题相关或类似的 issue。
 - 如果新的问题涉及到另一个问题或者 PR 请求，请用它的完整 URL 或将 `#` 字符放置在其他 issue 或 PR 请求的编号前来引用它们。例如，`Introduced by #987654`。
-- 遵守 [Code of Conduct](/community/code-of-conduct/). 尊重他人. 例如, "这份文档太烂了" 是一种没有帮助或礼貌的反馈.
+- 遵守 [Code of Conduct](/community/code-of-conduct/). 尊重他人。例如，"这份文档太烂了" 是一种没有帮助或礼貌的反馈。
 
 {{% /capture %}}
