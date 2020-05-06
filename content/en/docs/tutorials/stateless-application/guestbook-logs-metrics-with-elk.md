@@ -357,10 +357,14 @@ The output:
 ```shell
 deployment.extensions/frontend scaled
 ```
+Scale the frontend back up to three pods:
+```shell
+kubectl scale --replicas=3 deployment/frontend
+```
 
 ## View the changes in Kibana
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
-![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-discover.png)
+![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
 {{% /capture %}}
 
