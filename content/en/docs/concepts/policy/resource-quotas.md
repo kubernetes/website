@@ -573,7 +573,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass
+      - scopeName: PriorityClass 
         operator: In
         values: ["cluster-services"]
 ```
@@ -585,7 +585,7 @@ For example:
 ```yaml
     scopeSelector:
       matchExpressions:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
