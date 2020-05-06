@@ -67,7 +67,7 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f examples/standard
+kubectl apply -f kube-state-metrics/examples/standard
 kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 Verify that kube-state-metrics is running and ready
@@ -78,7 +78,7 @@ kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 Output:
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
-kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
+kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
 ## Clone the Elastic examples GitHub repo
 ```shell
