@@ -39,7 +39,7 @@ kubectl create configmap <map-name> <data-source>
 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe)または
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使用して、ConfigMapに関する情報を取得できます。
 
-#### ディレクトリからConfigMapを作成する
+#### ディレクトリからConfigMapを作成する{#create-configmaps-from-directories}
 
 `kubectl create configmap`を使用してConfigMapを同じディレクトリの複数のファイルから作成できます。ディレクトリを基にConfigMapを作成する場合、kubectlはディレクトリ内でベース名が有効なキーであるファイルを識別し、それらのファイルを新たなConfigMapにパッケージ化します。レギュラーファイル以外のあらゆるディレクトリエントリーは無視されます。(例えば、サブディレクトリ、シンボリックリンク、デバイス、パイプなど).
 
@@ -57,7 +57,7 @@ wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-con
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-上記のコマンドは各ファイルを、この場合、`configure-pod-container/configmap/` ディレクトリの`game.properties` と `ui.properties`をgame-config ConfigMapにパッケージ化する。 以下のコマンドを使用してConfigMapの詳細を表示できます:
+上記のコマンドは各ファイルを、この場合、`configure-pod-container/configmap/` ディレクトリの`game.properties` と `ui.properties`をgame-config ConfigMapにパッケージ化します。 以下のコマンドを使用してConfigMapの詳細を表示できます:
 
 ```shell
 kubectl describe configmaps game-config
@@ -121,7 +121,7 @@ data:
     how.nice.to.look=fairlyNice
 ```
 
-#### ファイルからConfigMapを作成する
+#### ファイルからConfigMapを作成する{#create-configmaps-from-files}
 
 `kubectl create configmap`を使用して個別のファイルから、または複数のファイルからConfigMapを作成できます。
 
@@ -230,7 +230,7 @@ kubectl create configmap game-config-env-file \
 kubectl get configmap game-config-env-file -o yaml
 ```
 
-出力結果は以下の様になります:
+出力結果は以下のようになります:
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -326,7 +326,7 @@ data:
     secret.code.lives=30
 ```
 
-#### リテラル値からConfigMapを作成する
+#### リテラル値からConfigMapを作成する{#create-configmaps-from-literal-values}
 
 `kubectl create configmap`を`--from-literal`引数と使用してCLIからリテラル値を定義できます:
 
@@ -357,7 +357,7 @@ data:
 
 ### ジェネレータからConfigMapを作成する
 `kubectl`は`kustomization.yaml`を1.14からサポートしています。
-ジェネレータからConfigMapを作成し、APIサーバー上でオブジェクトを作成できる。ジェネレータはディレクトリ内の`kustomization.yaml`で指定する必要がある。
+ジェネレータからConfigMapを作成し、APIサーバー上でオブジェクトを作成できます。ジェネレータはディレクトリ内の`kustomization.yaml`で指定する必要があリます。
 
 #### ファイルからConfigMapを生成する
 例えば、ファイル`configure-pod-container/configmap/game.properties`からConfigMapを生成するには、
@@ -410,7 +410,7 @@ Events:  <none>
 
 #### ファイルからConfigMapを生成する場合に使用するキーを定義する
 ConfigMapジェネレータで使用するキーはファイルの名前以外を定義できます。
-例えば、 ファイル`configure-pod-container/configmap/game.properties`とキー`game-special-key`を使用してConfigMapを作成する場合
+例えば、ファイル`configure-pod-container/configmap/game.properties`とキー`game-special-key`を使用してConfigMapを作成する場合
 
 ```shell
 # ConfigMapGeneratorでkustomization.yamlファイルを作成する
@@ -432,7 +432,7 @@ configmap/game-config-5-m67dt67794 created
 To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
 you can specify the ConfigMap generator in `kustomization.yaml` as
 ```shell
-# kustomization.yamlファイルをConfigMapGeneratorと作成する
+# kustomization.yamlファイルをConfigMapGeneratorと作成します
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: special-config-2
@@ -451,13 +451,13 @@ configmap/special-config-2-c92b5mmcf2 created
 
 ### 単一のConfigMapのデータを使用してコンテナ環境変数を定義する
 
-1.  ConfigMapに環境変数をキーバリューペアとして定義する:
+1.  ConfigMapに環境変数をキーバリューペアとして定義します:
 
     ```shell
     kubectl create configmap special-config --from-literal=special.how=very
     ```
 
-2.  ConfigMapに定義された値`special.how`をPod specificationの環境変数`SPECIAL_LEVEL_KEY`に割り当てる。
+2.  ConfigMapに定義された値`special.how`をPod specificationの環境変数`SPECIAL_LEVEL_KEY`に割り当てます。
 
    {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
