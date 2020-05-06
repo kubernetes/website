@@ -72,13 +72,13 @@ kubectl delete pvc -l app=myapp
 
 ### StatefulSet Podの強制削除
 
-StatefulSet内の一部のPodが長期間`Terminating`または`Unknown`状態のままになっていることが判明した場合は、手動でapiserverからPodを強制的に削除する必要があります。これは潜在的に危険な作業です。詳細は[StatefulSet Podの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSet内の一部のPodが長期間`Terminating`または`Unknown`状態のままになっていることが判明した場合は、手動でapiserverからPodを強制的に削除する必要があります。これは潜在的に危険な作業です。詳細は[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-[StatefulSet Podの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)の詳細
+[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)の詳細
 
 {{% /capture %}}
 
