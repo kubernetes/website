@@ -162,7 +162,7 @@ API内のPodは直ちに削除されるため、新しいPodを同じ名前で�
 Node上では、すぐに終了するように設定されるPodは、強制終了される前にわずかな猶予期間が与えられます。
 
 強制削除は、Podによっては潜在的に危険な場合があるため、慎重に実行する必要があります。
-StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 ## Podコンテナの特権モード
 
