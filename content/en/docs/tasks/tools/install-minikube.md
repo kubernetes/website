@@ -9,7 +9,7 @@ card:
 
 {{% capture overview %}}
 
-This page shows you how to install [minikube](https://minikube.sigs.k8s.io/), a tool that runs a single-node Kubernetes cluster on your personal computer.
+This page shows you how to install [minikube](https://minikube.sigs.k8s.io/), a tool that runs a Kubernetes cluster on your personal computer.
 
 {{% /capture %}}
 
@@ -17,8 +17,9 @@ This page shows you how to install [minikube](https://minikube.sigs.k8s.io/), a 
 
 To run minikube, you'll need:
 
-* 2GB of free memory
-* 20GB of free disk space
+* A host with administrator privileges (for example, ability to `sudo` or `Run as Administrator`)
+* 2GiB of free memory
+* 20GiB of free disk space
 * Internet connection
 * A compatible container or virtual machine manager, such as: [Docker](https://minikube.sigs.k8s.io/docs/docs/drivers/docker), [Hyperkit](https://minikube.sigs.k8s.io/docs/docs/drivers/hyperkit), [Hyper-V](https://minikube.sigs.k8s.io/docs/docs/drivers/hyperv), [KVM](https://minikube.sigs.k8s.io/docs/docs/drivers/kvm2), [Parallels](https://minikube.sigs.k8s.io/docs/docs/drivers/parallels), [Podman](https://minikube.sigs.k8s.io/docs/docs/drivers/podman), [VirtualBox](https://minikube.sigs.k8s.io/docs/docs/drivers/virtualbox), or [VMWare](https://minikube.sigs.k8s.io/docs/docs/drivers/vmware)
 
@@ -31,13 +32,13 @@ To run minikube, you'll need:
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
 
-### Binary download
-
 For Linux users, there are 3 easy download options:
 
+### Binary download
+
 ```shell
- curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
- sudo install minikube-linux-amd64 /usr/local/bin/minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
 ```
 
 ### Debian package
@@ -57,7 +58,7 @@ sudo rpm -ivh minikube-latest.x86_64.rpm
 {{% /tab %}}
 {{% tab name="macOS" %}}
 
-If the [Brew Package Manager](https://brew.sh/) installed:
+If the [Brew Package Manager](https://brew.sh/) is installed:
 
 ```shell
 brew install minikube
@@ -73,13 +74,13 @@ sudo install minikube-darwin-amd64 /usr/local/bin/minikube
 {{% /tab %}}
 {{% tab name="Windows" %}}
 
-If the [Chocolatey Package Manager](https://chocolatey.org/) is installed, use it to install minikube:
+If the [Chocolatey](https://chocolatey.org/) package manager is installed, use it to install minikube:
 
 ```shell
 choco install minikube
 ```
 
-Otherwise, download and run the [Windows installer](https://storage.googleapis.com/minikube/releases/latest/minikube-installer.exe)
+Otherwise, download and run the [Windows installer](https://storage.googleapis.com/minikube/releases/latest/minikube-installer.exe).
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -94,10 +95,17 @@ Otherwise, download and run the [Windows installer](https://storage.googleapis.c
 
 ## Starting your first cluster
 
-From a terminal with administrator access (but not logged in as root), run:
+Run:
 
 ```shell
 minikube start
 ```
 
-If minikube fails to start, see the [minikube drivers page](https://minikube.sigs.k8s.io/docs/docs/drivers) for help setting up a compatible container or virtual-machine manager.
+minikube will automatically select an appropriate container or hypervisor driver, but will mention alternatives it available. You
+may select an alternative driver by using the `--driver` flag. For more information, see the [minikube drivers documentation](https://minikube.sigs.k8s.io/docs/drivers/)
+
+If you need help getting started, please see:
+
+* [minikube documentation](https://minikube.sigs.k8s.io/docs)
+* [#minikube chat on Slack](https://kubernetes.slack.com/archives/C1F5CT6Q1)
+* [minikube issues on GitHub](https://github.com/kubernetes/minikube/issues)
