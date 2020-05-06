@@ -229,7 +229,7 @@ kubectl delete namespace qos-example
 
 ### アプリケーション開発者向け
 
-* [コンテナとPodにメモリーリソースを割り当てる](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナとPodにメモリーリソースを割り当てる](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
 
 * [コンテナとPodにCPUリソースを割り当てる](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
