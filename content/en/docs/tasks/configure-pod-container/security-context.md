@@ -11,7 +11,7 @@ weight: 80
 {{% capture overview %}}
 
 A security context defines privilege and access control settings for
-a Pod or Container. Security context settings include:
+a Pod or Container. Security context settings include, but are not limited to:
 
 * Discretionary Access Control: Permission to access an object, like a file, is based on
 [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
@@ -27,6 +27,12 @@ a Pod or Container. Security context settings include:
 * [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Filter a process's system calls.
 
 * AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
+
+* readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
+
+The above bullets are not a complete set of security context settings -- please see 
+[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) 
+for a comprehensive list.
 
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
