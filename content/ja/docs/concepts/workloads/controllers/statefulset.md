@@ -151,7 +151,7 @@ StatefulSetのコントローラーがPodを作成したとき、Podの名前と
 * Podに対してスケーリングオプションが適用される前に、そのPodの前の順番の全てのPodがRunningかつReady状態になっていなくてはなりません。
 * Podが停止される前に、そのPodの番号より大きい番号を持つの全てのPodは完全にシャットダウンされていなくてはなりません。
 
-StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/docs/user-guide/pod-states/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
 
