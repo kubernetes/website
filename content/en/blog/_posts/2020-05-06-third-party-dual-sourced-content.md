@@ -39,12 +39,6 @@ Docs work best when they're accurate, helpful, trustworthy, and remain focused o
 
 Put simply: feature docs aren't a place for vendors to advertise their products. Our content policy keeps the docs focused on helping developers and cluster admins, not on marketing.
 
-## Ways to contribute
-
-We're tracking third party content in an [issue in the Kubernetes website repository](https://github.com/kubernetes/website/issues/20232). If you see third party content that's out of project and isn't required for Kubernetes to function, please comment on the tracking issue. 
-
-Feel free to open a PR that removes non-conforming content once you've identified it!
-
 ## Dual sourced content
 
 Less impactful but also important is how Kubernetes docs handle _dual-sourced content_. Dual-sourced content is content published in more than one location, or from a non-canonical source.
