@@ -101,8 +101,7 @@ Run:
 minikube start
 ```
 
-minikube will automatically select an appropriate container or hypervisor driver, but will mention alternatives it available. You
-may select an alternative driver by using the `--driver` flag. For more information, see the [minikube drivers documentation](https://minikube.sigs.k8s.io/docs/drivers/)
+minikube will automatically select an appropriate container or hypervisor driver, but will mention alternatives it available. You may select an alternative driver by using the `--driver` flag. For more information, see the [minikube drivers documentation](https://minikube.sigs.k8s.io/docs/drivers/)
 
 If you need help getting started, please see:
 
