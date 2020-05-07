@@ -89,7 +89,13 @@ Otherwise, download and run the [Windows installer](https://storage.googleapis.c
 
 {{% capture whatsnext %}}
 
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
+* [Running Kubernetes locally via minikube](/docs/setup/learning-environment/minikube/)
+
+If you would like additional help to get started, please see:
+
+* [minikube documentation](https://minikube.sigs.k8s.io/docs)
+* [#minikube chat on Slack](https://kubernetes.slack.com/archives/C1F5CT6Q1)
+* [minikube issues on GitHub](https://github.com/kubernetes/minikube/issues)
 
 {{% /capture %}}
 
@@ -101,10 +107,5 @@ Run:
 minikube start
 ```
 
-minikube will automatically select an appropriate container or hypervisor driver, but will mention alternatives it available. You may select an alternative driver by using the `--driver` flag. For more information, see the [minikube drivers documentation](https://minikube.sigs.k8s.io/docs/drivers/)
+minikube will automatically select an appropriate driver, but will mention alternatives if available. For more information, see the [minikube drivers documentation](https://minikube.sigs.k8s.io/docs/drivers/).
 
-If you need help getting started, please see:
-
-* [minikube documentation](https://minikube.sigs.k8s.io/docs)
-* [#minikube chat on Slack](https://kubernetes.slack.com/archives/C1F5CT6Q1)
-* [minikube issues on GitHub](https://github.com/kubernetes/minikube/issues)
