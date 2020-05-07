@@ -311,8 +311,8 @@ these are:
 - `nq`: never queue
 
 {{< note >}}
-To run kube-proxy in IPVS mode, you must make the IPVS Linux available on
-the node before you starting kube-proxy.
+To run kube-proxy in IPVS mode, you must make IPVS available on
+the node before starting kube-proxy.
 
 When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
 kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy

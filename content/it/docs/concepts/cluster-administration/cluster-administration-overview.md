@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Panoramica sull'amministrazione del cluster
 content_template: templates/concept
 weight: 10
