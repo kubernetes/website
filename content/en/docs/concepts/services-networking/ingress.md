@@ -402,16 +402,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
