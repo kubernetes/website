@@ -49,14 +49,21 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/48`
-      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--service-cluster-ip-range=10.0.0.0/16,fd00::/108`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
+
+{{< note >}}
+An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
+
+An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
+
+{{< /note >}}
 
 ## Services
 
