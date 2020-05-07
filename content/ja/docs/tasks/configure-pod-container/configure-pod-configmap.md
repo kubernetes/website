@@ -22,7 +22,7 @@ ConfigMapを使用すると、設定をイメージコンテンツから切り�
 
 
 ## ConfigMapを作成する
-`kubectl create configmap` コマンドまたはConfigMap generatorを`kustomization.yaml`ファイルで使ってConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
+`kubectl create configmap`コマンドまたはConfigMap generatorを`kustomization.yaml`ファイルで使ってConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
 
 ### kubectl create configmapコマンドを使用してConfigMapを作成する
 
@@ -32,7 +32,7 @@ ConfigMapを使用すると、設定をイメージコンテンツから切り�
 kubectl create configmap <map-name> <data-source>
 ```
 
-\<map-name> の部分はConfigMapに割り当てる名前で、\<data-source> はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapオブジェクト名は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+\<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapオブジェクト名は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ファイルを基にConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイルのベース名になり、値はデフォルトでファイルのコンテンツになります。
 
@@ -41,7 +41,7 @@ kubectl create configmap <map-name> <data-source>
 
 #### ディレクトリからConfigMapを作成する{#create-configmaps-from-directories}
 
-`kubectl create configmap`を使用してConfigMapを同じディレクトリの複数のファイルから作成できます。ディレクトリを基にConfigMapを作成する場合、kubectlはディレクトリ内でベース名が有効なキーであるファイルを識別し、それらのファイルを新たなConfigMapにパッケージ化します。レギュラーファイル以外のあらゆるディレクトリエントリーは無視されます。(例えば、サブディレクトリ、シンボリックリンク、デバイス、パイプなど).
+`kubectl create configmap`を使用してConfigMapを同じディレクトリの複数のファイルから作成できます。ディレクトリを基にConfigMapを作成する場合、kubectlはディレクトリ内でベース名が有効なキーであるファイルを識別し、それらのファイルを新たなConfigMapにパッケージ化します。レギュラーファイル以外のあらゆるディレクトリエントリーは無視されます。(例えば、サブディレクトリ、シンボリックリンク、デバイス、パイプなど)。
 
 例えば:
 
@@ -205,7 +205,7 @@ how.nice.to.look=fairlyNice
 #   envファイルの各行はVAR=VALの形式である必要がある。
 #   #で始まる行 (例えばコメント)は無視される。
 #   空の行は無視される。
-#   クオーテーションマークは特別な扱いは処理をしない (例えばConfigMapの値になる).
+#   クオーテーションマークは特別な扱いは処理をしない(例えばConfigMapの値になる).
 
 # `configure-pod-container/configmap/`ディレクトリにサンプルファイルをダウンロードします
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
@@ -371,7 +371,7 @@ configMapGenerator:
 EOF
 ```
 
-ConfigMapオブジェクトを作成する為にkustomizationディレクトリを適用し、
+ConfigMapオブジェクトを作成する為にkustomizationディレクトリを適用して、
 ```shell
 kubectl apply -k .
 configmap/game-config-4-m9dm2f92bt created
@@ -481,7 +481,7 @@ configmap/special-config-2-c92b5mmcf2 created
  kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
  ```
 
-* Pod specificationの環境変数を定義する
+* Pod specificationの環境変数を定義します
 
   {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
 
@@ -557,7 +557,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 
 ### ConfigMapに保存されているデータをボリュームに入力する
 
-ConfigMap名をPod specificationの`volumes`セクション配下に追加します。
+ConfigMap名をPod specificationの`volumes`セクション配下に追加します。  
 これによりConfigMapデータが`volumeMounts.mountPath`で指定されたディレクトリに追加されます (このケースでは、`/etc/config`に)。`command`セクションはConfigMapのキーに合致したディレクトリファイルを名前別でリスト表示します。
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
@@ -648,7 +648,7 @@ data:
 
 ### 制限事項
 
-- ConfigMapはPod specificationを参照させる前に作成する必要があります (ConfigMapを"optional"として設定しない限り)。存在しないConfigMapを参照させた場合、Podは起動しません。同様にConfigMapに存在しないキーを参照させた場合も、Podは起動しません。
+- ConfigMapはPod specificationを参照させる前に作成する必要があります(ConfigMapを"optional"として設定しない限り)。存在しないConfigMapを参照させた場合、Podは起動しません。同様にConfigMapに存在しないキーを参照させた場合も、Podは起動しません。
 
 - ConfigMapで`envFrom`を使用して環境変数を定義した場合、無効と判断されたキーはスキップされます。Podは起動されますが、無効な名前はイベントログに(`InvalidVariableNames`)と記録されます。ログメッセージはスキップされたキーごとにリスト表示されます。例えば:
 
