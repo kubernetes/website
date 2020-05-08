@@ -521,14 +521,14 @@ kube-apiserver [flags]
 <td colspan="2">--etcd-cafile string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">SSL Certificate Authority file used to secure etcd communication.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS Certificate Authority file used to secure etcd communication.</td>
 </tr>
 
 <tr>
 <td colspan="2">--etcd-certfile string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">SSL certification file used to secure etcd communication.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS certificate file used to authenticate against etcd endpoint(s).</td>
 </tr>
 
 <tr>
@@ -549,7 +549,7 @@ kube-apiserver [flags]
 <td colspan="2">--etcd-keyfile string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">SSL key file used to secure etcd communication.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS key file used to secure etcd communication.</td>
 </tr>
 
 <tr>
@@ -619,14 +619,14 @@ kube-apiserver [flags]
 <td colspan="2">--kubelet-certificate-authority string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a cert file for the certificate authority.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to TLS certificate authority file used to issue client certificate.</td>
 </tr>
 
 <tr>
 <td colspan="2">--kubelet-client-certificate string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a client cert file for TLS.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to TLS client certficate file to authenticate against kubelet.</td>
 </tr>
 
 <tr>
