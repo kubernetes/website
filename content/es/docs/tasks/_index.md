@@ -71,7 +71,7 @@ Realiza tareas comunes de gestión de un DaemonSet, como llevar a cabo una actua
 
 ## Gestionar GPUs
 
-COnfigura y planifica GPUs de NVIDIA para hacerlas disponibles como recursos a los nodos de un clúster.
+Configura y planifica GPUs de NVIDIA para hacerlas disponibles como recursos a los nodos de un clúster.
 
 ## Gestionar HugePages
 
