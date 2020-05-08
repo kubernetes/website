@@ -1,5 +1,5 @@
 ---
-title: Привет Minikube
+title: Привет, Minikube
 content_template: templates/tutorial
 weight: 5
 menu:
