@@ -262,7 +262,7 @@ The output might be something like:
 
 当 kubelet 启动时，会自动启动所有定义的静态 Pod。当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
 
-可以在节点上运行下面的命令来看运行的容器（包括静态 Pod）：
+可以在节点上运行下面的命令来查看正在运行的容器（包括静态 Pod）：
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 docker ps
@@ -378,7 +378,7 @@ docker ps
 -->
 ## 动态增加和删除静态 pod
 
-运行的 kubelet 定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
+运行中的 kubelet 会定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
 
 ```shell
 # 前提是你在用主机文件系统上的静态 Pod 配置文件
