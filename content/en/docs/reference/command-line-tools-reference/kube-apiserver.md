@@ -521,7 +521,7 @@ kube-apiserver [flags]
 <td colspan="2">--etcd-cafile string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS Certificate Authority file used to secure etcd communication.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS Certificate Authority file used to authenticate against etcd endpoint(s).</td>
 </tr>
 
 <tr>
@@ -549,7 +549,7 @@ kube-apiserver [flags]
 <td colspan="2">--etcd-keyfile string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS key file used to secure etcd communication.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">TLS key file used to authenticate against etcd endpoint(s).</td>
 </tr>
 
 <tr>
