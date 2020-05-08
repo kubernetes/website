@@ -163,7 +163,7 @@ For example, this is how to start a simple web server as a static Pod:
 
 <!--
 1. Restart the kubelet. On Fedora, you would run:
-   
+
     ```shell
     # Run this command on the node where the kubelet is running
     systemctl restart kubelet
@@ -185,7 +185,7 @@ Similar to how [filesystem-hosted manifests](#configuration-files) work, the kub
 refetches the manifest on a schedule. If there are changes to the list of static
 Pods, the kubelet applies them.
 
-To use this approach: 
+To use this approach:
 -->
 
 ### Web 网上的静态 Pod 声明文件 {#pods-created-via-http}
@@ -262,7 +262,7 @@ The output might be something like:
 
 当 kubelet 启动时，会自动启动所有定义的静态 Pod。当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
 
-可以在节点上云心下面的命令来看运行的容器（包括静态 Pod）：
+可以在节点上运行下面的命令来看运行的容器（包括静态 Pod）：
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 docker ps
