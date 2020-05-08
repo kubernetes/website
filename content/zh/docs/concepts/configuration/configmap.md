@@ -1,12 +1,12 @@
 ---
-title: ConfigMaps
+title: ConfigMap
 content_template: templates/concept
 weight: 20
 ---
 
 {{% capture overview %}}
 
-{{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
+{{< glossary_definition term_id="configmap" prepend="ConfigMap 是" length="all" >}}
 
 {{< caution >}}
 <!--
@@ -86,11 +86,11 @@ kind: ConfigMap
 metadata:
   Name: game-demo
 data:
-  # property-like keys; each key maps to a simple value
+  # 类属性键；每一个键都映射到一个简单的值
   player_initial_lives: 3
   ui_properties_file_name: "user-interface.properties"
   #
-  # file-like keys
+  # 类文件键
   game.properties: |
     enemy.types=aliens,monsters
     player.maximum-lives=5
@@ -207,9 +207,9 @@ might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
 or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 -->
-ConfigMaps 最常见的用法是为同一命名空间里某 Pod 中运行的容器执行配置。您也可以单独使用 ConfigMap。
+ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容器执行配置。您也可以单独使用 ConfigMap。
 
-比如，您可能会遇到基于 ConfigMap 来调整其行为的 {{< glossary_tooltip text="addons" term_id="addons" >}} 或者 {{< glossary_tooltip text="operators" term_id="operator-pattern" >}}。
+比如，您可能会遇到基于 ConfigMap 来调整其行为的 {{< glossary_tooltip text="插件" term_id="addons" >}} 或者 {{< glossary_tooltip text="operator" term_id="operator-pattern" >}}。
 {{< /note >}}
 
 
@@ -222,7 +222,7 @@ ConfigMaps 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 -->
-* 阅读 [Secrets](/docs/concepts/configuration/secret/)。
+* 阅读 [Secret](/docs/concepts/configuration/secret/)。
 * 阅读 [配置 Pod 来使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 * 阅读 [Twelve-Factor 应用](https://12factor.net/) 来了解将代码和配置分开的动机。
 
