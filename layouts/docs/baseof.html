@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html id="docs" lang="{{ .Language }}" class="{{ .Params.class }}">
-	<head>
-	{{ partial "head.html" . }}
-	</head>
-	<body>
-		{{ partial "header.html" . }}
-		{{ block "hero" . }}
-		<!--  HERO  -->
-		<section id="hero" class="light-text no-sub">
-			{{ partial "docs/top-menu.html" . }}
-		</section>
-		{{ end }}
-    {{ block "announcement" . }}{{ partial "announcement.html" . }}{{ end }}
-		{{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
-    <main>
-        <section id="encyclopedia">
-          {{ block "side-menu" . }}<div id="docsToc" style="display:none;"></div>{{ end }}
-          <div id="{{ block "content-id" . }}docsContent{{ end }}">
-            {{ block "content" . }}{{ end }}
-    
-            {{ partial "feedback.html" . }}
-    
-            {{ partial "git-info.html" . }}
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+  <head>
+    {{ partial "head.html" . }}
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+  </head>
+  <body class="td-{{ .Kind }}">
+    <header>
+      {{ partial "navbar.html" . }}
+      <section class="header-hero text-center text-white font-bold pb-4">
+        <h1>
+          {{ $sectionHeading := .Site.GetPage "section" .Section }}
+          {{ with $sectionHeading }}
+            {{ .Title }}
+          {{ end }}
+        </h1>
+      </section>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            {{ partial "sidebar.html" . }}
           </div>
-        </section>
-    </main>
-		{{ partialCached "footer.html" . }}
+          {{ block "announcement" . }}{{ partial "announcement.html" . }}{{ end }}
+          {{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+            {{ block "main" . }}{{ end }}
+          </main>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            {{ partial "page-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+          </div>
+        </div>
+      </div>
+      {{ partial "footer.html" . }}
+    </div>
 		{{ partialCached "footer-scripts.html" . }}
     <script language="application/javascript">
       // This script turns in-page headers into clickable and shareable
@@ -44,5 +54,5 @@
         });
       })();
     </script>
-	</body>
+  </body>
 </html>
