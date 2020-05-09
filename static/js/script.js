@@ -522,11 +522,11 @@ $(function() {
 
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {
-        $('#hero').addClass('bot-bar');
+        $('.header-hero').addClass('bot-bar');
     }
 
     // If is not homepage add class to hero section
-    if (!$('#home').length > 0 ) {
-        $('#hero').addClass('no-sub');
+    if (!$('.td-home').length > 0 ) {
+        $('.header-hero').addClass('no-sub');
     }
 });
