@@ -1,0 +1,16 @@
+{{ if not .Params.notoc }}
+
+{{ if or (ne .Params.content_template nil) (and (ne .Params.layout nil) (ne .Params.layout "blog")) }}
+<nav id="TableOfContents">
+{{ partial "template-toc-links.html" . }}
+</nav>
+
+{{ else if and (not .Params.toc_hide) }}
+{{ .TableOfContents }}
+
+{{ else if eq .Params.layout "blog" }}
+{{ .TableOfContents }}
+
+{{ end }}
+
+{{ end }}
