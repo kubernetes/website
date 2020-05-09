@@ -588,6 +588,10 @@ SPECIAL_TYPE
 If there are some files in the `/etc/config/` directory, they will be deleted.
 {{< /caution >}}
 
+{{< note >}}
+Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
+{{< /note >}}
+
 ### Add ConfigMap data to a specific path in the Volume
 
 Use the `path` field to specify the desired file path for specific ConfigMap items.

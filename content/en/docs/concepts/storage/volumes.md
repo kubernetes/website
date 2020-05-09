@@ -305,6 +305,11 @@ A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will n
 receive ConfigMap updates.
 {{< /note >}}
 
+{{< note >}}
+Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
+{{< /note >}}
+
+
 ### downwardAPI {#downwardapi}
 
 A `downwardAPI` volume is used to make downward API data available to applications.
