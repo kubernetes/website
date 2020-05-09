@@ -6,6 +6,8 @@ weight: 110
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
