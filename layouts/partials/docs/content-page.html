@@ -11,8 +11,5 @@
 {{ with .page.Params.content_template }}
 {{ partial . $ }}
 {{ else }}
-{{ if and (not .page.Params.toc_hide) (not (.page.HasShortcode "toc")) }}
-{{ .page.TableOfContents }}
-{{ end }}
 {{ .page.Content }}
 {{ end }}
