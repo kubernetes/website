@@ -81,11 +81,11 @@ p {
 
 body {
   line-height: 1.5em;
-  font-family: 'roboto';
+  /* font-family:'roboto'; */
   margin-top: 1%;
   font-weight: 300;
-  letter-spacing: 0.03em;
-  font-size: 15px;
+  /* letter-spacing:0.03em; */
+  /* font-size:15px; */
   margin: 0 auto;
 
 }
@@ -113,7 +113,7 @@ body {
 
 }
 
-.navbar {
+.community__navbar {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 2%;
@@ -178,8 +178,6 @@ a {
   font-size: 1.1em !important;
   padding-top: 1%;
   padding-bottom: 8%;
-  padding-left: %;
-  padding-right: %;
   text-align: center;
   font-family: 'roboto';
   float: left;
@@ -248,13 +246,14 @@ a {
 }
 
 .fullbutton {
+  display: block;
+  margin: auto;
+  margin-top: 2rem;
+  width: 156px;
   background-color: #0662EE;
   color: white;
   font-size: 18px;
   padding: 2%;
-  margin-left: 43%;
-  margin-top: 3%;
-  float: left;
   letter-spacing: 0.07em;
   font-weight: bold;
 
@@ -386,7 +385,6 @@ a {
   padding: 3%;
   float: left;
   width: 40%;
-  display: inline-block;
   text-align: left;
 
 }
@@ -510,12 +508,12 @@ h2:after {
 
   }
 
-  .fullbutton {
+  /* .fullbutton {
 
     padding: 3% !important;
 
 
-  }
+  } */
 }
 
 @media (max-width:1000px) {
@@ -653,7 +651,7 @@ h2:after {
 
   h1 {
     text-align: center !important;
-    font-size: 2.1em;
+    /* font-size: 2.1em; */
     margin-bottom: 5%;
     margin-top: 7%;
   }
@@ -661,16 +659,16 @@ h2:after {
   body {
     overflow-x: hidden;
     line-height: 1.5em;
-    font-family: 'roboto';
+    /* font-family: 'roboto'; */
     margin-top: 1%;
     letter-spacing: 0.03em;
-    font-size: 13px;
+    /* font-size: 13px; */
     margin: 0 auto;
 
   }
 
 
-  .navbar {
+  .community__navbar {
     display: none;
   }
 
@@ -856,8 +854,8 @@ h2:after {
     font-size: 16px;
     padding: 4%;
     margin-top: 8% !important;
-    float: none;
-    margin-left: 0%;
+    /* float: none; */
+    /* margin-left: 0%; */
     margin-bottom: 9%;
     letter-spacing: 0.07em;
     font-weight: bold;
