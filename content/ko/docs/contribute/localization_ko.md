@@ -206,6 +206,8 @@ egress | 이그레스, 송신(egress) |
 Endpoint | 엔드포인트 |
 entry point | 진입점 |
 Event | 이벤트 |
+evict | 축출하다 |
+eviction | 축출 |
 Exec | Exec |
 expose | 노출시키다 |
 extension | 익스텐션(extension) |
@@ -273,7 +275,7 @@ Persistent Volume | 퍼시스턴트 볼륨 |
 Persistent Volume Claim | 퍼시스턴트 볼륨 클레임 |
 pipeline | 파이프라인 |
 placeholder pod | 플레이스홀더(placeholder) 파드 |
-Pod(파드) | 파드 |
+Pod | 파드 |
 Pod Preset | 파드 프리셋 |
 PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) |
 PodDisruptionBudget | PodDisruptionBudget |
@@ -325,6 +327,7 @@ Shell | 셸 |
 Sign In | 로그인 |
 Sign Out | 로그아웃 |
 skew | 차이(skew) |
+snippet | 스니펫(snippet) |
 spec | 명세, 스펙, 사양 |
 specification | 명세 |
 Stateful Set | 스테이트풀 셋 |
