@@ -6,9 +6,7 @@
   </a>
 </p>
 {{ if not .page.Params.notitle }}
-<h1>{{ .page.Title }}</h1>
+  <h1>{{ .page.Title }}</h1>
 {{ end }}
-{{ if and (not .page.Params.toc_hide) (not (.page.HasShortcode "toc")) }}
-{{ .page.TableOfContents }}
-{{ end }}
+
 {{ .page.Content }}

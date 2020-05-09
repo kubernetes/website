@@ -1,8 +1,14 @@
-
-{{ define "content" }}
-{{ partial "docs/content-page" (dict "ctx" . "page" .) }}
-{{ end }}
-
-{{ define "side-menu" }}
-{{ partial "docs/side-menu.html" . }}
+{{ define "main" }}
+    <div class="td-content">
+    {{ partial "docs/content-page" (dict "ctx" . "page" .) }}
+    {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
+        {{ partial "feedback.html" .Site.Params.ui.feedback }}
+        <br />
+    {{ end }}
+    </div>
+    {{ if (.Site.DisqusShortname) }}
+        <br />
+        {{ partial "disqus-comment.html" . }}
+    {{ end }}
+    <div class="text-muted mt-5 pt-3 border-top">{{ partial "page-meta-lastmod.html" . }}</div>
 {{ end }}

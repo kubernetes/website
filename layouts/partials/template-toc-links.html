@@ -1,0 +1,42 @@
+<ul>
+{{/* Scratch variable built up in 'blocks.html' represents full parsed page from
+captured variables */}}
+  {{ $section := .Scratch.Get "html" }}
+
+  {{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}
+  {{ $headerSections := findRE "</h2>(.|\n)*?<h2" $section }}
+
+  {{ range $index, $header := $headers }}
+
+    {{ $id := $header | strings.TrimPrefix "<h2 id=\"" }}
+    {{ $id := $id | replaceRE "\">.*" "" }}
+    {{ $desc := $header | replaceRE "</?h2.*?>" "" | htmlUnescape | safeHTML }}
+
+    <li><a href="#{{ $id }}">{{ $desc }}</a>
+
+      {{ $secondaryHeaders := (index $headerSections $index) }}
+      {{ $secondaryHeaders := findRE "<h3.*?>(.|\n)*?</h3>" $secondaryHeaders }}
+
+      {{ if gt ( len $secondaryHeaders ) 0 }}
+
+      <ul>
+
+        {{ range $secondaryHeaders }}
+
+          {{ $secondaryId := . | strings.TrimPrefix "<h3 id=\"" }}
+          {{ $secondaryId := $secondaryId | replaceRE "\">.*" "" }}
+          {{ $secondaryDesc := . | replaceRE "</?h3.*?>" "" | htmlUnescape | safeHTML }}
+
+          <li><a href="#{{ $secondaryId }}">{{ $secondaryDesc }}</a></li>
+
+        {{ end }}
+
+      </ul>
+
+      {{ end }}
+
+    </li>
+
+  {{ end }}
+
+</ul>
