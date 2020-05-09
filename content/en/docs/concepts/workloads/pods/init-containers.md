@@ -46,8 +46,8 @@ including resource limits, volumes, and security settings. However, the
 resource requests and limits for an init container are handled differently,
 as documented in [Resources](#resources).
 
-Also, init containers do not support readiness probes because they must run to
-completion before the Pod can be ready.
+Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` because they must run to completion before the Pod can be ready.
 
 If you specify multiple init containers for a Pod, Kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
