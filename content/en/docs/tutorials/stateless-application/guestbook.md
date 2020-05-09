@@ -324,8 +324,9 @@ Scaling up or down is easy because your servers are defined as a Service that us
 {{% /capture %}}
 
 {{% capture cleanup %}}
+
 {{< note >}}
-The next tutorial [Example: Add logging and metrics to the PHP / Redis Guestbook example](../guestbook-logs-metrics-with-elk/) builds upon the infrastructure which you have created in this tutorial. If you plan to continue to that tutorial, you may want to skip the cleanup for now. The Cleanup at the end of that tutorial includes the cleanup steps from this tutorial.
+The [Example: Add logging and metrics to the PHP / Redis Guestbook example](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/) tutorial builds upon the resources created in this tutorial. If you plan to continue with the "logging and metrics" tutorial, you may want to wait to cleanup the guestbook resources.
 {{< /note >}}
 
 Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
