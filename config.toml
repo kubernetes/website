@@ -66,10 +66,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.18"
+latest = "v1.19"
 
-fullversion = "v1.18.0"
-version = "v1.18"
+fullversion = "v1.19.0"
+version = "v1.19"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -96,11 +96,18 @@ js = [
 ]
 
 [[params.versions]]
+fullversion = "v1.19.0"
+version = "v1.19"
+githubbranch = "v1.19.0"
+docsbranch = "release-1.19"
+url = "https://kubernetes.io"
+
+[[params.versions]]
 fullversion = "v1.18.0"
 version = "v1.18"
 githubbranch = "v1.18.0"
 docsbranch = "release-1.18"
-url = "https://kubernetes.io"
+url = "https://v-18.docs.kubernetes.io"
 
 [[params.versions]]
 fullversion = "v1.17.4"
@@ -122,13 +129,6 @@ version = "v1.15"
 githubbranch = "v1.15.11"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.14.10"
-version = "v1.14"
-githubbranch = "v1.14.10"
-docsbranch = "release-1.14"
-url = "https://v1-14.docs.kubernetes.io"
 
 # Language definitions.
 
