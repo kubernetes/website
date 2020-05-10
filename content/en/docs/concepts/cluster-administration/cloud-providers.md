@@ -431,3 +431,6 @@ Note that the Kubernetes Node name must match the Tencent VM private IP.
 
 Alibaba Cloud does not require the format of node name, but the kubelet needs to add `--provider-id=${REGION_ID}.${INSTANCE_ID}`. The parameter `${REGION_ID}` represents the region id of the Kubernetes and `${INSTANCE_ID}` denotes the Alibaba ECS (Elastic Compute Service) ID.  
 
+### Load Balancers  
+
+You can setup external load balancers to use specific features in Alibaba Cloud by configuring the [annotations](https://www.alibabacloud.com/help/en/doc-detail/86531.htm) .
