@@ -35,7 +35,7 @@ The PR wrangler’s duties include:
     - Assign relevant `sig/` label(s).
     - If needed, assign reviewers from the `reviewers:` block in the file's front matter.
     - Assign `Docs Review` and `Tech Review` labels to indicate the PR's review status.
-    - Assign`Needs Doc Review` or `Needs Tech Review` for PRs that haven't yet been reviewed.
+    - Assign `Needs Doc Review` or `Needs Tech Review` for PRs that haven't yet been reviewed.
     - Assign `Doc Review: Open Issues` or `Tech Review: Open Issues` for PRs that have been reviewed and require further input or action before merging.
     - Assign `/lgtm` and `/approve` labels to PRs that can be merged.
 - Merge PRs when they are ready, or close PRs that shouldn’t be accepted.
@@ -43,7 +43,7 @@ The PR wrangler’s duties include:
 
 ### Helpful GitHub queries for wranglers
 
-The following queries are helpful when wrangling. After working through these three queries, the remaining list of PRs to be
+The following queries are helpful when wrangling. After working through these queries, the remaining list of PRs to be
 reviewed is usually small. These queries specifically exclude localization PRs, and only include the `master` branch (except for the last one).
 
 - [No CLA, not eligible to merge](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
