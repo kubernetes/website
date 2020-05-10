@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ .Site.Language.Lang }}" class="no-js">
   <head>
     {{ partial "head.html" . }}
@@ -22,8 +22,6 @@
           <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
           </div>
-          {{ block "announcement" . }}{{ partial "announcement.html" . }}{{ end }}
-          {{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
           <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
             {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
             {{ block "main" . }}{{ end }}
@@ -36,23 +34,6 @@
       </div>
       {{ partial "footer.html" . }}
     </div>
-		{{ partialCached "footer-scripts.html" . }}
-    <script language="application/javascript">
-      // This script turns in-page headers into clickable and shareable
-      (function addHeadingLinks(){
-        var article = document.getElementById('docsContent');
-        var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        headings.forEach(function(heading){
-          if(heading.id){
-            var a = document.createElement('a');
-            a.innerHTML = heading.innerHTML;
-            a.href = '#'+heading.id;
-            a.classList.add('inpage_heading');
-            heading.innerHTML = '';
-            heading.appendChild(a);
-          }
-        });
-      })();
-    </script>
+    {{ partial "scripts.html" . }}
   </body>
 </html>
