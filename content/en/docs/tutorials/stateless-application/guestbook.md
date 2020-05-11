@@ -116,7 +116,7 @@ Although the Redis master is a single pod, you can make it highly available to m
 
 Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
 
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running.
+If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas running, it would scale down until two replicas are running.
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 

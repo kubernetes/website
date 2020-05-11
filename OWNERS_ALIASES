@@ -41,7 +41,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
@@ -59,7 +58,6 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey

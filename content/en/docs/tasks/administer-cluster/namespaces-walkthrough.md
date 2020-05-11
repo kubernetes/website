@@ -268,7 +268,8 @@ kubectl get pods
 Production likes to run cattle, so let's create some cattle pods.
 
 ```shell
-kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5
+kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname
+kubectl scale deployment cattle --replicas=5
 
 kubectl get deployment
 ```
