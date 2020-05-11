@@ -36,7 +36,10 @@ serve: ## Boot the development server.
 	hugo server --buildFuture
 
 docker-image:
-	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
+	$(DOCKER) build . \
+		--network=host \
+		--tag $(DOCKER_IMAGE) \
+		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
