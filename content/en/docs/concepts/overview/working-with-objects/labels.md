@@ -226,6 +226,6 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
+See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
 
 {{% /capture %}}

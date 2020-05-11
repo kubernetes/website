@@ -144,7 +144,7 @@ The local persistent volume beta feature is not complete by far. Some notable en
 
 [Pod disruption budget](/docs/concepts/workloads/pods/disruptions/) is also very important for those workloads that must maintain quorum. Setting a disruption budget for your workload ensures that it does not drop below quorum due to voluntary disruption events, such as node drains during upgrade.
 
-[Pod affinity and anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature) ensures that your workloads stay either co-located or spread out across failure domains. If you have multiple local persistent volumes available on a single node, it may be preferable to specify an pod anti-affinity policy to spread your workload across nodes. Note that if you want multiple pods to share the same local persistent volume, you do not need to specify a pod affinity policy. The scheduler understands the locality constraints of the local persistent volume and schedules your pod to the correct node.
+[Pod affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature) ensures that your workloads stay either co-located or spread out across failure domains. If you have multiple local persistent volumes available on a single node, it may be preferable to specify an pod anti-affinity policy to spread your workload across nodes. Note that if you want multiple pods to share the same local persistent volume, you do not need to specify a pod affinity policy. The scheduler understands the locality constraints of the local persistent volume and schedules your pod to the correct node.
 
 ## Getting involved
 
