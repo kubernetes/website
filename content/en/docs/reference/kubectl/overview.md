@@ -111,7 +111,7 @@ Operation       | Syntax    |       Description
 `top`    | `kubectl top [flags] [options]` | Display Resource (CPU/Memory/Storage) usage.
 `uncordon`    | `kubectl uncordon NODE [options]` | Mark node as schedulable.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
-`wait`    | </code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
+`wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
 
 Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
 
