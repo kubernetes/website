@@ -905,7 +905,7 @@ the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` and not receive any traffic.
 
 In order to achieve even traffic, either use a DaemonSet or specify a
-[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+[pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
 You can also use NLB Services with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)

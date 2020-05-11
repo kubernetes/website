@@ -173,8 +173,8 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 ### Controlling which nodes pods may access
 
 By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
-[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
-and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
+[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+and the [taint based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
