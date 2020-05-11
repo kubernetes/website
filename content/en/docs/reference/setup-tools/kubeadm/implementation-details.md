@@ -81,12 +81,12 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [warning] If the Kubernetes version to use (specified with the `--kubernetes-version` flag) is at least one minor version higher than the kubeadm CLI version.
 - Kubernetes system requirements:
   - if running on linux:
-    - [error] if not Kernel 3.10+ or 4+ with specific KernelSpec
+    - [error] if Kernel is older than the minimum required version
     - [error] if required cgroups subsystem aren't in set up
   - if using docker:
     - [warning/error] if Docker service does not exist, if it is disabled, if it is not active.
     - [error] if Docker endpoint does not exist or does not work
-    - [warning] if docker version >17.03
+    - [warning] if docker version is not in the list of validated docker versions
   - If using other cri engine:
     - [error] if crictl socket does not answer
 - [error] if user is not root
@@ -108,7 +108,7 @@ The user can skip specific preflight checks or all of them with the `--ignore-pr
 - [warning] if connection to services subnet goes through proxy (only first address checked)
 - [warning] if connection to Pods subnet goes through proxy (only first address checked)
 - If external etcd is provided:
-  - [Error] if etcd version less than 3.0.14
+  - [Error] if etcd version is older than the minimum required version
   - [Error] if etcd certificates or keys are specified, but not provided
 - If external etcd is NOT provided (and thus local etcd will be installed):
   - [Error] if ports 2379 is used
