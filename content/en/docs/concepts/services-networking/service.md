@@ -692,6 +692,15 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:  
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
+[...]
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 
