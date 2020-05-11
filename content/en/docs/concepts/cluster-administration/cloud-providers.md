@@ -422,3 +422,15 @@ If you wish to use the external cloud provider, its repository is [TencentCloud/
 
 The Tencent cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Tencent VM private IP.
+
+## Alibaba Cloud Kubernetes  
+
+ If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud).   
+
+### Node Name  
+
+Alibaba Cloud does not require the format of node name, but the kubelet needs to add `--provider-id=${REGION_ID}.${INSTANCE_ID}`. The parameter `${REGION_ID}` represents the region id of the Kubernetes and `${INSTANCE_ID}` denotes the Alibaba ECS (Elastic Compute Service) ID.  
+
+### Load Balancers  
+
+You can setup external load balancers to use specific features in Alibaba Cloud by configuring the [annotations](https://www.alibabacloud.com/help/en/doc-detail/86531.htm) .

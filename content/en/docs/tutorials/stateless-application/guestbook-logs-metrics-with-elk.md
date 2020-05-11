@@ -67,7 +67,7 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f examples/standard
+kubectl apply -f kube-state-metrics/examples/standard
 kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 Verify that kube-state-metrics is running and ready
@@ -78,7 +78,7 @@ kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 Output:
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
-kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
+kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
 ## Clone the Elastic examples GitHub repo
 ```shell
@@ -357,10 +357,14 @@ The output:
 ```shell
 deployment.extensions/frontend scaled
 ```
+Scale the frontend back up to three pods:
+```shell
+kubectl scale --replicas=3 deployment/frontend
+```
 
 ## View the changes in Kibana
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
-![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-discover.png)
+![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
 {{% /capture %}}
 

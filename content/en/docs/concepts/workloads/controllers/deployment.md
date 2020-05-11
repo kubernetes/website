@@ -1081,6 +1081,15 @@ the default value.
 
 All existing Pods are killed before new ones are created when `.spec.strategy.type==Recreate`.
 
+{{< note >}}
+This will only guarantee Pod termination previous to creation for upgrades. If you upgrade a Deployment, all Pods 
+of the old revision will be terminated immediately. Successful removal is awaited before any Pod of the new 
+revision is created. If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the 
+replacement will be created immediately (even if the old Pod is still in a Terminating state). If you need an 
+"at most" guarantee for your Pods, you should consider using a 
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+{{< /note >}}
+
 #### Rolling Update Deployment
 
 The Deployment updates Pods in a rolling update
