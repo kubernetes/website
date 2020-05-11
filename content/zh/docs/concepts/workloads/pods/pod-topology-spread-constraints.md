@@ -22,7 +22,7 @@ weight: 50
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 -->
 
-可以使用*拓扑扩展约束*来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
+可以使用 *拓扑扩展约束* 来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
 
 {{% /capture %}}
 
@@ -182,10 +182,10 @@ If we want an incoming Pod to be evenly spread with existing Pods across zones, 
 {{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
 
 <!--
-`topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:<any value>" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can’t satisfy the constraint.
+`topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:&lt;any value&gt;" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can’t satisfy the constraint.
 -->
 
-`topologyKey: zone` 意味着均匀分布将只应用于存在标签对为 "zone:<any value>" 的节点上。`whenUnsatisfiable: DoNotSchedule` 告诉调度器，如果传入的 pod 不满足约束，则让它保持挂起状态。
+`topologyKey: zone` 意味着均匀分布将只应用于存在标签对为 "zone:&lt;any value&gt;" 的节点上。`whenUnsatisfiable: DoNotSchedule` 告诉调度器，如果传入的 pod 不满足约束，则让它保持挂起状态。
 
 <!--
 If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
@@ -321,13 +321,17 @@ There are some implicit conventions worth noting here:
 - If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
 -->
 
-- 如果传入的 pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，则将忽略不匹配的节点。
-
 <!--
     Suppose you have a 5-node cluster ranging from zoneA to zoneC:
 -->
 
-假设有一个从 zonea 到 zonec 的 5 节点集群：
+<!--
+    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+-->
+
+- 如果传入的 pod 定义了 `spec.nodeSelector` 或 `spec.affinity.nodeAffinity`，则将忽略不匹配的节点。
+
+    假设有一个从 zonea 到 zonec 的 5 节点集群：
 
     ```
     +---------------+---------------+-------+
@@ -339,11 +343,7 @@ There are some implicit conventions worth noting here:
     +-------+-------+-------+-------+-------+
     ```
 
-<!--
-    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
--->
-
-你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
+    你知道 "zoneC" 必须被排除在外。在这种情况下，可以按如下方式编写 yaml，以便将 "mypod" 放置在 "zoneB" 上，而不是 "zoneC" 上。同样，`spec.nodeSelector` 也要一样处理。
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
