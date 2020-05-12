@@ -610,6 +610,21 @@ Specify the assigned IP address as loadBalancerIP. Ensure that you have updated 
 
 {{< /note >}}
 
+{{< note >}}
+
+On **AWS** you can use elastic-ip to allocate static Ip. You can allocate elastic Ips to only **NLB**(Network Load Balancer).
+You will have to use the annotation `service.beta.kubernetes.io/aws-load-balancer-eip-allocations` which will 
+list the value of ElasticIp Allocation ID. The number of Allocation IDs must match the number of subnets used for the load balancer. This feature is supported on kubernetes version 1.16+.
+
+Example 
+``` annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-eip-allocations: eipalloc-xxxx,eipalloc-xxx
+```
+
+{{< /note >}}
+
+
 #### Internal load balancer
 In a mixed environment it is sometimes necessary to route traffic from Services inside the same
 (virtual) network address block.
