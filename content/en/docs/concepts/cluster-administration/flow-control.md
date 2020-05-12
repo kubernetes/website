@@ -131,14 +131,14 @@ classes:
   namespace). These are important to isolate from other traffic because failures
   in leader election cause their controllers to fail and restart, which in turn
   causes more expensive traffic as the new controllers sync their informers.
-  
+
 * The `workload-high` priority level is for other requests from built-in
   controllers.
-  
+
 * The `workload-low` priority level is for requests from any other service
   account, which will typically include all requests from controllers runing in
   Pods.
-  
+
 * The `global-default` priority level handles all other traffic, e.g.
   interactive `kubectl` commands run by nonprivileged users.
 
@@ -150,7 +150,7 @@ are built in and may not be overwritten:
   special `exempt` FlowSchema classifies all requests from the `system:masters`
   group into this priority level. You may define other FlowSchemas that direct
   other requests to this priority level, if appropriate.
-  
+
 * The special `catch-all` priority level is used in combination with the special
   `catch-all` FlowSchema to make sure that every request gets some kind of
   classification. Typically you should not rely on this catch-all configuration,
@@ -164,7 +164,7 @@ are built in and may not be overwritten:
 
 ## Resources
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io) 
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
 [FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
@@ -204,7 +204,7 @@ to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the [enhancement
-proposal](#what-s-next), but in short:
+proposal](#whats-next), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -291,7 +291,7 @@ enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
 `X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
 and the priority level to which it was assigned, respectively. The API objects'
 names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like 
+have permission to view them, so when debugging you can use a command like
 
 ```shell
 kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
@@ -363,7 +363,7 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_execution_seconds` gives a histogram of how
   long requests took to actually execute, grouped by the FlowSchema that matched the
   request and the PriorityLevel to which it was assigned.
-    
+
 
 {{% /capture %}}
 

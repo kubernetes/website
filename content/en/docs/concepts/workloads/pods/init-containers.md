@@ -241,7 +241,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#what-s-next) contains a link to a more detailed example.
+init containers. [What's next](#whats-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
