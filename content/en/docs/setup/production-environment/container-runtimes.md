@@ -218,10 +218,11 @@ sudo apt-get install cri-o-1.17
 
 {{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 # Install prerequisites
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
 
 # Install CRI-O
-yum install --nogpgcheck -y cri-o
+yum install -y cri-o
 {{< /tab >}}
 
 {{< tab name="openSUSE Tumbleweed" codelang="bash" >}}
