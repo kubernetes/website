@@ -300,7 +300,7 @@ kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
 kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/game.properties
 ```
 
-以下のConfigMapを表示します:
+は、以下のConfigMapを生成します:
 ```
 kubectl get configmaps game-config-3 -o yaml
 ```
