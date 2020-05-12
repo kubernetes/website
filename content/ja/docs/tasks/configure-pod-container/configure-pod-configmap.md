@@ -210,7 +210,7 @@ how.nice.to.look=fairlyNice
 # `configure-pod-container/configmap/`ディレクトリにサンプルファイルをダウンロードします
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
 
-# env-file `game-env-file.properties`は以下のように見えます
+# env-file `game-env-file.properties`は以下のようになります
 cat configure-pod-container/configmap/game-env-file.properties
 enemies=aliens
 lives=3
