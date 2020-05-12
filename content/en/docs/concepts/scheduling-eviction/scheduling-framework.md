@@ -157,13 +157,13 @@ the three things:
 1.  **wait** (with a timeout) \
     If a Permit plugin returns "wait", then the Pod is kept in an internal "waiting"
     Pods list, and the binding cycle of this Pod starts but directly blocks until it
-    gets [approved](#frameworkhandle). If a timeout occurs, **wait** becomes **deny**
+    gets approved. If a timeout occurs, **wait** becomes **deny**
     and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
     plugins.
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}
