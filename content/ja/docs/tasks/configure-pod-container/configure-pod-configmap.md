@@ -224,7 +224,7 @@ kubectl create configmap game-config-env-file \
        --from-env-file=configure-pod-container/configmap/game-env-file.properties
 ```
 
-以下のConfigMapを表示します:
+は、以下のConfigMapを生成します:
 
 ```shell
 kubectl get configmap game-config-env-file -o yaml
