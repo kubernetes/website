@@ -26,7 +26,7 @@ ConfigMapを使用すると、設定をイメージコンテンツから切り�
 
 ### kubectl create configmapコマンドを使用してConfigMapを作成する
 
-`kubectl create configmap`コマンドを使用してConfigMapを[ディレクトリ](#create-configmaps-from-directories)、 [ファイル](#create-configmaps-from-files)、または [リテラル値](#create-configmaps-from-literal-values)から作成します:
+`kubectl create configmap`コマンドを使用してConfigMapを[ディレクトリ](#create-configmaps-from-directories)、[ファイル](#create-configmaps-from-files)、または[リテラル値](#create-configmaps-from-literal-values)から作成します:
 
 ```shell
 kubectl create configmap <map-name> <data-source>
