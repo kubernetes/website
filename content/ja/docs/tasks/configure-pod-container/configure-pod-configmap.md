@@ -581,7 +581,7 @@ SPECIAL_TYPE
 
 ### ConfigMapデータをボリュームの特定のパスに追加する
 
-`path`フィルドを利用して特定のConfigMapのアイテム向けに希望のファイルパスを指定します。
+`path`フィールドを利用して特定のConfigMapのアイテム向けに希望のファイルパスを指定します。
 このケースでは`SPECIAL_LEVEL`アイテムが`/etc/config/keys`の`config-volume`ボリュームにマウントされます。
 
 {{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
