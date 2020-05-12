@@ -568,7 +568,7 @@ Podを作成します:
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 ```
 
-Podが稼働していると、`ls /etc/config/`コマンドは以下の出力結果を表示します:
+Podが稼働していると、`ls /etc/config/`は以下の出力結果を表示します:
 
 ```shell
 SPECIAL_LEVEL
