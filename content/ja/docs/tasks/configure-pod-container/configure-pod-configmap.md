@@ -413,7 +413,7 @@ ConfigMapジェネレーターで使用するキーはファイルの名前以�
 例えば、ファイル`configure-pod-container/configmap/game.properties`からキー`game-special-key`を持つConfigMapを作成する場合
 
 ```shell
-# ConfigMapGeneratorでkustomization.yamlファイルを作成する
+# ConfigMapGeneratorを含むkustomization.yamlファイルを作成する
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
