@@ -604,7 +604,7 @@ very
 
 ### キーを特定のパスとファイルアクセス許可に投影する
 
-キーをファイル単位で特定のパスとアクセス許可に投影できます。[Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)のユーザーガイドで構文が解説されています。
+キーをファイル単位で特定のパスとアクセス許可に投影できます。[Secret](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)のユーザーガイドで構文が解説されています。
 
 ### マウントされたConfigMapは自動的に更新される
 
