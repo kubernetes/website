@@ -22,7 +22,7 @@ ConfigMapを使用すると、設定をイメージコンテンツから切り�
 
 
 ## ConfigMapを作成する
-`kubectl create configmap`コマンドまたはConfigMap generatorを`kustomization.yaml`ファイルで使ってConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
+`kubectl create configmap`コマンドまたは`kustomization.yaml`のConfigMap generatorを使用してConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
 
 ### kubectl create configmapコマンドを使用してConfigMapを作成する
 
