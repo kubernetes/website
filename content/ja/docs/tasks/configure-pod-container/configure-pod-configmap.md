@@ -410,7 +410,7 @@ Events:  <none>
 
 #### ファイルからConfigMapを生成する場合に使用するキーを定義する
 ConfigMapジェネレーターで使用するキーはファイルの名前以外を定義できます。
-例えば、ファイル`configure-pod-container/configmap/game.properties`とキー`game-special-key`を使用してConfigMapを作成する場合
+例えば、ファイル`configure-pod-container/configmap/game.properties`からキー`game-special-key`を持つConfigMapを作成する場合
 
 ```shell
 # ConfigMapGeneratorでkustomization.yamlファイルを作成する
