@@ -175,6 +175,9 @@ other = "Objectives"
 [prerequisites_heading]
 other = "Before you begin"
 
+[subscribe_button]
+other = "Subscribe"
+
 [ui_search_placeholder]
 other = "Search"
 
