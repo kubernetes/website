@@ -623,7 +623,7 @@ ConfigMapを[subPath](/docs/concepts/storage/volumes/#using-subpath)ボリュー
 ConfigMap APIリソースは構成情報をキーバリューペアとして保存します。データはPodで利用したり、コントローラーなどのシステムコンポーネントに提供できます。ConfigMapは[Secret](/docs/concepts/configuration/secret/)に似ていますが、機密情報を含まない文字列を含まない操作する手段を提供します。ユーザーとシステムコンポーネントはどちらも構成情報をConfigMapに保存できます。
 
 {{< note >}}
-ConfigMapはプロパティファイルを参照するべきであり、置き換えるべきではありません。ConfigMapをLinuxの`/etc`ディレクトリとそのコンテンツのように捉えましょう。例えば、[Kubernetes Volume](/docs/concepts/storage/volumes/)をConfigMapから作成した場合、ConfigMapのデータアイテムはボリューム内で個別のファイルとして表示されます。
+ConfigMapはプロパティーファイルを参照するべきであり、置き換えるべきではありません。ConfigMapをLinuxの`/etc`ディレクトリとそのコンテンツのように捉えましょう。例えば、[Kubernetes Volume](/docs/concepts/storage/volumes/)をConfigMapから作成した場合、ConfigMapのデータアイテムはボリューム内で個別のファイルとして表示されます。
 {{< /note >}}
 
 ConfigMapの`data`フィールドは構成情報を含みます。下記の例のようにシンプルに`--from-literal`を使用して個別のプロパティーを定義、または複雑に`--from-file`を使用して構成ファイルまたはJSON blobsで定義できます。
