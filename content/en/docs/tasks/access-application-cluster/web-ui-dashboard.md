@@ -97,7 +97,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   Example:
 
-  ```conf
+```conf
 release=1.0
 tier=frontend
 environment=pod
