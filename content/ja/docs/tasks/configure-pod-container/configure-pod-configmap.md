@@ -371,7 +371,7 @@ configMapGenerator:
 EOF
 ```
 
-ConfigMapオブジェクトを作成する為にkustomizationディレクトリを適用して、
+ConfigMapオブジェクトを作成する為にkustomizationディレクトリを適用します。
 ```shell
 kubectl apply -k .
 configmap/game-config-4-m9dm2f92bt created
