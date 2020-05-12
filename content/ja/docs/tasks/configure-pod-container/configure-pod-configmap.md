@@ -592,7 +592,7 @@ Podを作成します:
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
-Podが稼働していると、 `cat /etc/config/keys`コマンドは以下の出力結果を表示します:
+Podが稼働していると、 `cat /etc/config/keys`は以下の出力結果を表示します:
 
 ```shell
 very
