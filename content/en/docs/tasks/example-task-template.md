@@ -9,7 +9,7 @@ toc_hide: true
 {{% capture overview %}}
 
 {{< note >}}
-Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
+Be sure to also [create an entry in the table of contents](/docs/contribute/style/write-new-topic/#placing-your-topic-in-the-table-of-contents) for your new document.
 {{< /note >}}
 
 This page shows how to ...
@@ -29,7 +29,7 @@ This page shows how to ...
 ## Doing ...
 
 1. Do this.
-1. Do this next. Possibly read this [related explanation](...).
+1. Do this next. Possibly read this [related explanation](#).
 
 {{% /capture %}}
 
@@ -50,5 +50,3 @@ Here's an interesting thing to know about the steps you just did.
 * See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template.
 
 {{% /capture %}}
-
-

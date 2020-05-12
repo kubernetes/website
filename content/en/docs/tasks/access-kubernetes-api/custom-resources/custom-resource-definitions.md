@@ -362,7 +362,7 @@ Structural schemas are a requirement for `apiextensions.k8s.io/v1`, and disables
 * [Webhook Conversion](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
 * [Pruning](#preserving-unknown-fields)
 
-### Pruning versus preserving unknown fields
+### Pruning versus preserving unknown fields {#preserving-unknown-fields}
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
