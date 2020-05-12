@@ -41,7 +41,7 @@ kubectl create configmap <map-name> <data-source>
 
 #### ディレクトリからConfigMapを作成する{#create-configmaps-from-directories}
 
-`kubectl create configmap`を使用してConfigMapを同じディレクトリの複数のファイルから作成できます。ディレクトリを基にConfigMapを作成する場合、kubectlはディレクトリ内でベース名が有効なキーであるファイルを識別し、それらのファイルを新たなConfigMapにパッケージ化します。レギュラーファイル以外のあらゆるディレクトリエントリーは無視されます。(例えば、サブディレクトリ、シンボリックリンク、デバイス、パイプなど)。
+`kubectl create configmap`を使用すると、同一ディレクトリ内にある複数のファイルから1つのConfigMapを作成できます。ディレクトリをベースにConfigMapを作成する場合、kubectlはディレクトリ内でベース名が有効なキーであるファイルを識別し、それらのファイルを新たなConfigMapにパッケージ化します。ディレクトリ内にある通常のファイルでないものは無視されます(例: サブディレクトリ、シンボリックリンク、デバイス、パイプなど)。
 
 例えば:
 
