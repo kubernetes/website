@@ -32,7 +32,7 @@ ConfigMapを使用すると、設定をイメージのコンテンツから切�
 kubectl create configmap <map-name> <data-source>
 ```
 
-\<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapのオブジェクト名は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+\<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapの名前は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ファイルをベースにConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイルのベース名になり、値はデフォルトでファイルのコンテンツになります。
 
@@ -422,15 +422,15 @@ configMapGenerator:
 EOF
 ```
 
-kustomizationディレクトリを適用してConfigMapのオブジェクトを作成します。
+kustomizationディレクトリを適用してConfigMapを作成します。
 ```shell
 kubectl apply -k .
 configmap/game-config-5-m67dt67794 created
 ```
 
 #### リテラルからConfigMapを作成する
-To generate a ConfigMap from literals `special.type=charm` and `special.how=very`,
-you can specify the ConfigMap generator in `kustomization.yaml` as
+リテラル`special.type=charm`と`special.how=very`からConfigMapを作成する場合は、
+以下のように`kustomization.yaml`のConfigMapジェネレーターで指定できます。
 ```shell
 # ConfigMapGeneratorを含むkustomization.yamlファイルを作成します
 cat <<EOF >./kustomization.yaml
@@ -441,7 +441,7 @@ configMapGenerator:
   - special.type=charm
 EOF
 ```
-kustomizationディレクトリを適用してConfigMapのオブジェクトを作成します。
+kustomizationディレクトリを適用してConfigMapを作成します。
 ```shell
 kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
