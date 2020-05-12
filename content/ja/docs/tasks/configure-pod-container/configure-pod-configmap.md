@@ -328,7 +328,7 @@ data:
 
 #### リテラル値からConfigMapを作成する{#create-configmaps-from-literal-values}
 
-`kubectl create configmap`を`--from-literal`引数と使用してCLIからリテラル値を定義できます:
+`--from-literal`引数を指定して`kubectl create configmap`を使用すると、コマンドラインからリテラル値を定義できます:
 
 ```shell
 kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
