@@ -262,7 +262,7 @@ kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
 ```
 
-以下のConfigMapを表示します:
+は、以下のConfigMapを生成します:
 
 ```shell
 kubectl get configmap config-multi-env-files -o yaml
