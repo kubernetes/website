@@ -131,7 +131,7 @@ data:
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties
 ```
 
-以下のConfigMapを表示します:
+は、以下のConfigMapを生成します:
 
 ```shell
 kubectl describe configmaps game-config-2
