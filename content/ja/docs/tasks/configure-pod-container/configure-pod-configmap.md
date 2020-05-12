@@ -662,7 +662,7 @@ data:
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-- ConfigMapは特定の{{< glossary_tooltip term_id="namespace" >}}に属します。ConfigMap同じ名前空間に属するPodからのみ参照できます。
+- ConfigMapは特定の{{< glossary_tooltip term_id="namespace" >}}に属します。ConfigMapは同じ名前空間に属するPodからのみ参照できます。
 
 - {{< glossary_tooltip text="static pods" term_id="static-pod" >}}はKubeletがサポートしていない為、ConfigMapに使用できません。
 
