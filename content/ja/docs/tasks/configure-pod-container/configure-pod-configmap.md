@@ -409,7 +409,7 @@ Events:  <none>
 生成されたConfigMapの名前は、コンテンツをハッシュ化したサフィックスを持つことに注意してください。これにより、コンテンツが変更されるたびに新しいConfigMapが生成されます。
 
 #### ファイルからConfigMapを生成する場合に使用するキーを定義する
-ConfigMapジェネレータで使用するキーはファイルの名前以外を定義できます。
+ConfigMapジェネレーターで使用するキーはファイルの名前以外を定義できます。
 例えば、ファイル`configure-pod-container/configmap/game.properties`とキー`game-special-key`を使用してConfigMapを作成する場合
 
 ```shell
