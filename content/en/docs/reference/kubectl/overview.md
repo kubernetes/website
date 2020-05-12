@@ -33,7 +33,7 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
       ```shell
-      kubectl get pod pod1
+      kubectl get pod pod1 
       kubectl get pods pod1
       kubectl get po pod1
       ```
