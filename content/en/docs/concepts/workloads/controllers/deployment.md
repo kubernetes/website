@@ -53,11 +53,9 @@ In this example:
   In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
+ 
     {{< note >}}
-    The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-    is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
-    and the values array contains only "value".
-    All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
+      The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In", and the values array contains only "value". All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
     {{< /note >}}
 
 * The `template` field contains the following sub-fields:
@@ -73,10 +71,9 @@ In this example:
 
   1. Create the Deployment by running the following command:
 
-      {{< note >}}
-      You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection.
-      For example, to see the commands executed in each Deployment revision.
-      {{< /note >}}
+    {{< note >}}
+      You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection. For example, to see the commands executed in each Deployment revision.
+    {{< /note >}}
 
     ```shell
     kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
@@ -409,9 +406,7 @@ rolled back.
     ```
 
     {{< note >}}
-    The Deployment controller stops the bad rollout automatically, and stops scaling up the new
-    ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
-    Kubernetes by default sets the value to 25%.
+    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. sKubernetes by default sets the value to 25%.
     {{< /note >}}
 
 * Get the description of the Deployment:
