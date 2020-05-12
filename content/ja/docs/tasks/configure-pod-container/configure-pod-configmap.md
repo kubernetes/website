@@ -355,7 +355,7 @@ data:
   special.type: charm
 ```
 
-### ジェネレータからConfigMapを作成する
+### ジェネレーターからConfigMapを作成する
 `kubectl`は`kustomization.yaml`を1.14からサポートしています。
 ジェネレータからConfigMapを作成し、APIサーバー上でオブジェクトを作成できます。ジェネレータはディレクトリ内の`kustomization.yaml`で指定する必要があリます。
 
