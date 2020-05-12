@@ -147,9 +147,9 @@ Do not overlap labels or selectors with other controllers (including other Deplo
 
 ### Pod-template-hash label
 
-{{< note >}}
+{{< caution >}}
 Do not change this label.
-{{< /note >}}
+{{< /caution >}}
 
 The `pod-template-hash` label is added by the Deployment controller to every ReplicaSet that a Deployment creates or adopts.
 
