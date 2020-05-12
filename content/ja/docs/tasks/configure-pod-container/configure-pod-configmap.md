@@ -22,7 +22,7 @@ ConfigMapを使用すると、設定をイメージのコンテンツから切�
 
 
 ## ConfigMapを作成する
-`kubectl create configmap`または`kustomization.yaml`のConfigMap generatorを使用してConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
+`kubectl create configmap`または`kustomization.yaml`のConfigMap generatorを使用すると、ConfigMapを作成できます。`kubectl`が`kustomization.yaml`をサポートをしているのは1.14からである点に注意してください。
 
 ### kubectl create configmapコマンドを使用してConfigMapを作成する
 
@@ -37,7 +37,7 @@ kubectl create configmap <map-name> <data-source>
 ファイルをベースにConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイルのベース名になり、値はデフォルトでファイルのコンテンツになります。
 
 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe)または
-[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使用して、ConfigMapに関する情報を取得できます。
+[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使用すると、ConfigMapに関する情報を取得できます。
 
 #### ディレクトリからConfigMapを作成する{#create-configmaps-from-directories}
 
@@ -57,7 +57,7 @@ wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-con
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-上記のコマンドは各ファイルを、この場合、`configure-pod-container/configmap/` ディレクトリの`game.properties` と `ui.properties`をgame-config ConfigMapにパッケージ化します。 以下のコマンドを使用してConfigMapの詳細を表示できます:
+上記のコマンドは各ファイルをパッケージ化します。この場合、`configure-pod-container/configmap/` ディレクトリの`game.properties` と `ui.properties`をgame-config ConfigMapにパッケージ化します。 以下のコマンドを使用すると、ConfigMapの詳細を表示できます:
 
 ```shell
 kubectl describe configmaps game-config
@@ -422,7 +422,7 @@ configMapGenerator:
 EOF
 ```
 
-kustomizationディレクトリを適用してConfigMapオブジェクトを作成します。
+kustomizationディレクトリを適用してConfigMapのオブジェクトを作成します。
 ```shell
 kubectl apply -k .
 configmap/game-config-5-m67dt67794 created
@@ -441,7 +441,7 @@ configMapGenerator:
   - special.type=charm
 EOF
 ```
-kustomizationディレクトリを適用してConfigMapオブジェクトを作成します。
+kustomizationディレクトリを適用してConfigMapのオブジェクトを作成します。
 ```shell
 kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
@@ -626,7 +626,7 @@ ConfigMap APIリソースは構成情報をキーバリューペアとして保�
 ConfigMapはプロパティーファイルを参照するべきであり、置き換えるべきではありません。ConfigMapをLinuxの`/etc`ディレクトリとそのコンテンツのように捉えましょう。例えば、[Kubernetes Volume](/docs/concepts/storage/volumes/)をConfigMapから作成した場合、ConfigMapのデータアイテムはボリューム内で個別のファイルとして表示されます。
 {{< /note >}}
 
-ConfigMapの`data`フィールドは構成情報を含みます。下記の例のようにシンプルに`--from-literal`を使用して個別のプロパティーを定義、または複雑に`--from-file`を使用して構成ファイルまたはJSON blobsで定義できます。
+ConfigMapの`data`フィールドは構成情報を含みます。下記の例のように、シンプルに個別のプロパティーを`--from-literal`で定義、または複雑に構成ファイルまたはJSON blobsを`--from-file`で定義できます。
 
 ```yaml
 apiVersion: v1
