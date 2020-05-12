@@ -123,7 +123,7 @@ data:
 
 #### ファイルからConfigMapを作成する{#create-configmaps-from-files}
 
-`kubectl create configmap`を使用して個別のファイルから、または複数のファイルからConfigMapを作成できます。
+`kubectl create configmap`を使用して、個別のファイルまたは複数のファイルからConfigMapを作成できます。
 
 例えば、
 
