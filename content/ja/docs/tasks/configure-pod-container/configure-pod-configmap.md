@@ -32,7 +32,7 @@ ConfigMapを使用すると、設定をイメージのコンテンツから切�
 kubectl create configmap <map-name> <data-source>
 ```
 
-\<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapオブジェクト名は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+\<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapのオブジェクト名は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ファイルを基にConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイルのベース名になり、値はデフォルトでファイルのコンテンツになります。
 
