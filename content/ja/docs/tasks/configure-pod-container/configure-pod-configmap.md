@@ -371,7 +371,7 @@ configMapGenerator:
 EOF
 ```
 
-ConfigMapオブジェクトを作成する為にkustomizationディレクトリを適用します。
+ConfigMapオブジェクトを作成するためにkustomizationディレクトリを適用します。
 ```shell
 kubectl apply -k .
 configmap/game-config-4-m9dm2f92bt created
@@ -664,7 +664,7 @@ data:
 
 - ConfigMapは特定の{{< glossary_tooltip term_id="namespace" >}}に属します。ConfigMapは同じ名前空間に属するPodからのみ参照できます。
 
-- {{< glossary_tooltip text="static pods" term_id="static-pod" >}}はKubeletがサポートしていない為、ConfigMapに使用できません。
+- {{< glossary_tooltip text="static pods" term_id="static-pod" >}}はKubeletがサポートしていないため、ConfigMapに使用できません。
 
 {{% /capture %}}
 
