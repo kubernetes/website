@@ -362,7 +362,7 @@ data:
 #### ファイルからConfigMapを生成する
 例えば、ファイル`configure-pod-container/configmap/game.properties`からConfigMapを生成するには、
 ```shell
-# ConfigMapGeneratorでkustomization.yamlファイルを作成する
+# ConfigMapGeneratorを含むkustomization.yamlファイルを作成する
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
