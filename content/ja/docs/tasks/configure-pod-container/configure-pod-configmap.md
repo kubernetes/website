@@ -205,7 +205,7 @@ how.nice.to.look=fairlyNice
 #   envファイルの各行はVAR=VALの形式である必要がある。
 #   #で始まる行 (例えばコメント)は無視される。
 #   空の行は無視される。
-#   クオーテーションマークは特別な扱いは処理をしない(例えばConfigMapの値になる).
+#   クオーテーションマークは特別な扱いは処理をしない(例えばConfigMapの値の一部になる).
 
 # `configure-pod-container/configmap/`ディレクトリにサンプルファイルをダウンロードします
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
