@@ -56,13 +56,13 @@ The upgrade workflow at high level is the following:
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
-    # find the latest 1.18 version in the list
-    # it should look like 1.18.x-00, where x is the latest patch
+    \# find the latest 1.18 version in the list
+    \# it should look like 1.18.x-00, where x is the latest patch
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest 1.18 version in the list
-    # it should look like 1.18.x-0, where x is the latest patch
+    \# find the latest 1.18 version in the list
+    \# it should look like 1.18.x-0, where x is the latest patch
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -74,17 +74,17 @@ The upgrade workflow at high level is the following:
 
     {{< tabs name="k8s_install_kubeadm_first_cp" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
+    \# replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
 
-    # since apt-get version 1.1 you can also use the following method
+    \# since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
+    \# replace x in 1.18.x-0 with the latest patch version
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
@@ -277,17 +277,17 @@ The upgrade workflow at high level is the following:
 
     {{< tabs name="k8s_install_kubelet" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
+    \# replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
 
-    # since apt-get version 1.1 you can also use the following method
+    \# since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
+    \# replace x in 1.18.x-0 with the latest patch version
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
@@ -309,17 +309,17 @@ without compromising the minimum required capacity for running your workloads.
 
     {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
+    \# replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
 
-    # since apt-get version 1.1 you can also use the following method
+    \# since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
+    \# replace x in 1.18.x-0 with the latest patch version
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
@@ -355,17 +355,17 @@ without compromising the minimum required capacity for running your workloads.
 
     {{< tabs name="k8s_kubelet_and_kubectl" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
+    \# replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
 
-    # since apt-get version 1.1 you can also use the following method
+    \# since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
+    \# replace x in 1.18.x-0 with the latest patch version
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
     {{% /tab %}}
     {{< /tabs >}}
