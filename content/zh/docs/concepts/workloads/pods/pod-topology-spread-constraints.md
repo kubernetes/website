@@ -22,7 +22,7 @@ weight: 50
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 -->
 
-可以使用 *拓扑扩展约束* 来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
+可以使用*拓扑扩展约束*来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
 
 {{% /capture %}}
 
