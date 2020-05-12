@@ -164,7 +164,7 @@ secret.code.lives=30
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
 ```
 
-ConfigMap`game-config-2`の詳細を以下のコマンドを使用して表示できます:
+以下のコマンドを使用すると、ConfigMap`game-config-2`の詳細を表示できます:
 
 ```shell
 kubectl describe configmaps game-config-2
