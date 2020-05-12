@@ -169,8 +169,11 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.
+
+{{< note >}}
 If an error occurs due to a conflicting write, retry the command.
 For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
+{{< /note >}}
 
 
 ## Rotating a decryption key
