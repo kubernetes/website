@@ -357,7 +357,7 @@ data:
 
 ### ジェネレーターからConfigMapを作成する
 `kubectl`は`kustomization.yaml`を1.14からサポートしています。
-ジェネレータからConfigMapを作成し、APIサーバー上でオブジェクトを作成できます。ジェネレータはディレクトリ内の`kustomization.yaml`で指定する必要があリます。
+ジェネレーターからConfigMapを作成して適用すると、APIサーバー上でオブジェクトを作成できます。ジェネレーターはディレクトリ内の`kustomization.yaml`で指定する必要があリます。
 
 #### ファイルからConfigMapを生成する
 例えば、ファイル`configure-pod-container/configmap/game.properties`からConfigMapを生成するには、
