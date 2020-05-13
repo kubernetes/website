@@ -34,7 +34,7 @@ kubectl create configmap <map-name> <data-source>
 
 \<map-name>の部分はConfigMapに割り当てる名前で、\<data-source>はデータを取得するディレクトリ、ファイル、またはリテラル値です。ConfigMapの名前は有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
-ファイルをベースにConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイル名のベースになり、値はデフォルトでファイルのコンテンツになります。
+ファイルをベースにConfigMapを作成する場合、\<data-source> のキーはデフォルトでファイル名になり、値はデフォルトでファイルの中身になります。
 
 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe)または
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使用すると、ConfigMapに関する情報を取得できます。
