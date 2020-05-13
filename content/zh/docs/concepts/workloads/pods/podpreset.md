@@ -56,6 +56,37 @@ For more information about the background, see the [design proposal for PodPrese
 了解更多的相关背景信息，请参考 [ PodPreset 设计提案](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md)。
 
 <!--
+## Enable PodPreset in your cluster {#enable-pod-preset}
+
+In order to use Pod presets in your cluster you must ensure the following:
+
+1.  You have enabled the API type `settings.k8s.io/v1alpha1/podpreset`. For
+    example, this can be done by including `settings.k8s.io/v1alpha1=true` in
+    the `--runtime-config` option for the API server. In minikube add this flag
+    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` while
+    starting the cluster.
+1.  You have enabled the admission controller `PodPreset`. One way to doing this
+    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
+    for the API server. In minikube, add this flag
+    
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+    
+    while starting the cluster.
+-->
+
+## 在集群中启用准入控制器 (`PodPreset`)
+
+为了在你的集群中使用准入控制器 (`PodPreset`)，你必须确保如下配置：
+
+1. 你必须启用接口 `settings.k8s.io/v1alpha1/podpreset`. 例如， 你可以通过在启动API服务器的时候，在`--runtime-config`选项中加上`settings.k8s.io/v1alpha1=true`。如果使用minikube，在启动集群时，加上`--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`。
+1. 你必须启动准入控制器。一种配置方式是在启动API服务器的时候，在`--enable-admission-plugins`设置中加上`PodPreset`。如果使用minikube，在启动集群时加上如下配置
+ ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+
+<!--
 ## How It Works
 
 Kubernetes provides an admission controller (`PodPreset`) which, when enabled,
