@@ -109,7 +109,7 @@ The following are typical use cases for Deployments:
  * [Clean up older ReplicaSets](#clean-up-policy) that you don't need anymore.
 
 -->
-* [清理较旧的 ReplicaSets ](#clean-up-policy) ，那些不在需要的。
+* [清理较旧的 ReplicaSets ](#clean-up-policy) ，那些不再需要的。
 
 <!--
  ## Creating a Deployment
