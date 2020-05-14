@@ -6,18 +6,17 @@ reviewers:
 - liggitt
 - roycaihw
 - sttts
-content_template: templates/task
+#content_template: templates/task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -25,9 +24,7 @@ into the Kubernetes API by creating a
 
 * Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Create a CustomResourceDefinition
 
@@ -568,9 +565,8 @@ See [Custom resource definition versioning](/docs/tasks/access-kubernetes-api/cu
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
-{{% /capture %}}
+<!-- discussion -->
 
-{{% capture discussion %}}
 ## Advanced topics
 
 ### Finalizers
@@ -642,8 +638,8 @@ Compare with [structural schemas](#specifying-a-structural-schema) for further r
 The schema is defined in the CustomResourceDefinition. In the following example, the
 CustomResourceDefinition applies the following validations on the custom object:
 
-- `spec.cronSpec` must be a string and must be of the form described by the regular expression.
-- `spec.replicas` must be an integer and must have a minimum value of 1 and a maximum value of 10.
+* `spec.cronSpec` must be a string and must be of the form described by the regular expression.
+* `spec.replicas` must be an integer and must have a minimum value of 1 and a maximum value of 10.
 
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
@@ -737,8 +733,8 @@ kubectl apply -f resourcedefinition.yaml
 A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
 In the following example, the custom object contains fields with invalid values:
 
-- `spec.cronSpec` does not match the regular expression.
-- `spec.replicas` is greater than 10.
+* `spec.cronSpec` does not match the regular expression.
+* `spec.replicas` is greater than 10.
 
 If you save the following YAML to `my-crontab.yaml`:
 
@@ -896,7 +892,7 @@ valid OpenAPI schemas that it doesn't understand. The conversion won't modify th
 and therefore won't affect [validation](#validation) in the API server.
 
 1. The following fields are removed as they aren't supported by OpenAPI v2 (in future versions OpenAPI v3 will be used without these restrictions)
-   - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
+   * The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
 2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 
 ### Additional printer columns
@@ -906,10 +902,16 @@ columns are shown by the `kubectl get` command. You can customize these columns 
 CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and `Age`
 columns.
 
+<<<<<<< HEAD
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_printer_columns" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+=======
+1. Save the CustomResourceDefinition to `resourcedefinition.yaml`.
+      {{< tabs name="CustomResourceDefinition_printer_columns" >}}
+      {{% tab name="apiextensions.k8s.io/v1" %}}
+>>>>>>> c9000913a... create capture free shortcodes
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -955,9 +957,14 @@ spec:
       type: date
       jsonPath: .metadata.creationTimestamp
 ```
+<<<<<<< HEAD
 
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+=======
+      {{% /tab %}}
+      {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+>>>>>>> c9000913a... create capture free shortcodes
 
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
@@ -1001,6 +1008,7 @@ spec:
     type: date
     JSONPath: .metadata.creationTimestamp
 ```
+<<<<<<< HEAD
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -1012,6 +1020,21 @@ kubectl apply -f resourcedefinition.yaml
 ```
 
 Create an instance using the `my-crontab.yaml` from the previous section.
+=======
+
+      {{% /tab %}}
+      {{< /tabs >}}
+
+2. Create the CustomResourceDefinition:
+
+   ```shell
+      kubectl apply -f resourcedefinition.yaml
+   ```
+
+3. Create an instance using the `my-crontab.yaml` from the previous section.
+
+4. Invoke the server-side printing:
+>>>>>>> c9000913a... create capture free shortcodes
 
 Invoke the server-side printing:
 
@@ -1448,13 +1471,9 @@ NAME                          AGE
 crontabs/my-new-cron-object   3s
 ```
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+{{% whatsnext_heading %}}
 
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
 * Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
-
-{{% /capture %}}

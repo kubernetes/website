@@ -2,13 +2,12 @@
 reviewers:
 - stclair
 title: AppArmor
-content_template: templates/tutorial
+#content_template: templates/tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
-
 
 AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
@@ -24,9 +23,7 @@ that AppArmor is not a silver bullet and can only do so much to protect against 
 application code. It is important to provide good, restrictive profiles, and harden your
 applications and cluster from other angles as well.
 
-{{% /capture %}}
-
-{{% capture objectives %}}
+{{% objectives_heading %}}
 
 * See an example of how to load a profile on a node
 * Learn how to enforce the profile on a Pod
@@ -34,9 +31,7 @@ applications and cluster from other angles as well.
 * See what happens when a profile is violated
 * See what happens when a profile cannot be loaded
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+{{% prerequisites_heading %}}
 
 Make sure:
 
@@ -48,6 +43,7 @@ Make sure:
    ```shell
    kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.kubeletVersion}\n{end}'
    ```
+
    ```
    gke-test-default-pool-239f5d02-gyn2: v1.4.0
    gke-test-default-pool-239f5d02-x1kf: v1.4.0
@@ -87,6 +83,7 @@ Make sure:
    ```shell
    ssh gke-test-default-pool-239f5d02-gyn2 "sudo cat /sys/kernel/security/apparmor/profiles | sort"
    ```
+
    ```
    apparmor-test-deny-write (enforce)
    apparmor-test-audit-write (enforce)
@@ -105,15 +102,14 @@ later release):
 ```shell
 kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
 ```
+
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor enabled
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
-
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 ## Securing a Pod
 
@@ -148,6 +144,7 @@ To verify that the profile was applied, you can look for the AppArmor security o
 ```shell
 kubectl get events | grep Created
 ```
+
 ```
 22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
@@ -157,6 +154,7 @@ You can also verify directly that the container's root process is running with t
 ```shell
 kubectl exec <pod_name> cat /proc/1/attr/current
 ```
+
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
@@ -233,6 +231,7 @@ We can verify that the container is actually running with that profile by checki
 ```shell
 kubectl exec hello-apparmor cat /proc/1/attr/current
 ```
+
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
@@ -242,6 +241,7 @@ Finally, we can see what happens if we try to violate the profile by writing to 
 ```shell
 kubectl exec hello-apparmor touch /tmp/test
 ```
+
 ```
 touch: /tmp/test: Permission denied
 error: error executing remote command: command terminated with non-zero exit code: Error executing in Docker Container: 1
@@ -252,6 +252,7 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
 ```shell
 kubectl create -f /dev/stdin <<EOF
 ```
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -271,6 +272,7 @@ pod/hello-apparmor-2 created
 ```shell
 kubectl describe pod hello-apparmor-2
 ```
+
 ```
 Name:          hello-apparmor-2
 Namespace:     default
@@ -417,7 +419,6 @@ denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be fou
 logs or through `journalctl`. More information is provided in
 [AppArmor failures](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures).
 
-
 ## API Reference
 
 ### Pod Annotation
@@ -455,16 +456,12 @@ Specifying the list of profiles Pod containers is allowed to specify:
 
 * **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
 * **value**: a comma-separated list of profile references (described above)
-  - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
+  * Although an escaped comma is a legal character in a profile name, it cannot be explicitly
     allowed here.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+{{% whatsnext_heading %}}
 
 Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-{{% /capture %}}

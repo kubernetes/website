@@ -3,19 +3,17 @@ title: Versions in CustomResourceDefinitions
 reviewers:
 - sttts
 - liggitt
-content_template: templates/task
+#content_template: templates/task
 weight: 30
 min-kubernetes-server-version: v1.16
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -23,9 +21,7 @@ You should have a initial understanding of [custom resources](/docs/concepts/api
 
 {{< version-check >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Overview
 
@@ -107,6 +103,7 @@ between them. The comments in the YAML provide more context.
 
 {{< tabs name="CustomResourceDefinition_versioning_example_1" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -162,8 +159,10 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -211,6 +210,7 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -286,9 +286,9 @@ The above example has a None conversion between versions which only sets the `ap
 on conversion and does not change the rest of the object. The API server also supports webhook
 conversions that call an external service in case a conversion is required. For example when:
 
-* custom resource is requested in a different version than stored version.
-* Watch is created in one version but the changed object is stored in another version.
-* custom resource PUT request is in a different version than storage version.
+- custom resource is requested in a different version than stored version.
+- Watch is created in one version but the changed object is stored in another version.
+- custom resource PUT request is in a different version than storage version.
 
 To cover all of these cases and to optimize conversion by the API server, the conversion requests may contain multiple objects in order to minimize the external calls. The webhook should perform these conversions independently.
 
@@ -336,6 +336,7 @@ section of the `spec`:
 
 {{< tabs name="CustomResourceDefinition_versioning_example_2" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -399,8 +400,10 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -462,6 +465,7 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -510,6 +514,7 @@ Here is an example of a conversion webhook configured to call a URL
 
 {{< tabs name="CustomResourceDefinition_versioning_example_3" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -523,8 +528,10 @@ spec:
         url: "https://my-webhook.example.com:9443/my-webhook-path"
 ...
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -538,6 +545,7 @@ spec:
       url: "https://my-webhook.example.com:9443/my-webhook-path"
 ...
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -554,6 +562,7 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 
 {{< tabs name="CustomResourceDefinition_versioning_example_4" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1b
 kind: CustomResourceDefinition
@@ -572,8 +581,10 @@ spec:
         caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
 ...
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -592,6 +603,7 @@ spec:
       caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
 ...
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -608,6 +620,7 @@ with the `conversionReviewVersions` field in their CustomResourceDefinition:
 
 {{< tabs name="conversionReviewVersions" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -627,6 +640,7 @@ Webhooks are required to support at least one `ConversionReview`
 version understood by the current and previous API server.
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -653,9 +667,9 @@ versions the API server knows how to send, attempts to call to the webhook will 
 This example shows the data contained in an `ConversionReview` object
 for a request to convert `CronTab` objects to `example.com/v1`:
 
-
 {{< tabs name="ConversionReview_request" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
@@ -663,10 +677,10 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   "request": {
     # Random uid uniquely identifying this conversion call
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
+
     # The API group and version the objects should be converted to
     "desiredAPIVersion": "example.com/v1",
-    
+
     # The list of objects to convert.
     # May contain one or more objects, in one or more versions.
     "objects": [
@@ -697,8 +711,10 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   }
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
@@ -707,10 +723,10 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   "request": {
     # Random uid uniquely identifying this conversion call
     "uid": "705ab4f5-6393-11e8-b7cc-42010a800002",
-    
+
     # The API group and version the objects should be converted to
     "desiredAPIVersion": "example.com/v1",
-    
+
     # The list of objects to convert.
     # May contain one or more objects, in one or more versions.
     "objects": [
@@ -741,6 +757,7 @@ for a request to convert `CronTab` objects to `example.com/v1`:
   }
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -751,14 +768,16 @@ and a body containing a `ConversionReview` object (in the same version they were
 with the `response` stanza populated, serialized to JSON.
 
 If conversion succeeds, a webhook should return a `response` stanza containing the following fields:
-* `uid`, copied from the `request.uid` sent to the webhook
-* `result`, set to `{"status":"Success"}`
-* `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
+
+- `uid`, copied from the `request.uid` sent to the webhook
+- `result`, set to `{"status":"Success"}`
+- `convertedObjects`, containing all of the objects from `request.objects`, converted to `request.desiredVersion`
 
 Example of a minimal successful response from a webhook:
 
 {{< tabs name="ConversionReview_response_success" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
@@ -803,8 +822,10 @@ Example of a minimal successful response from a webhook:
   }
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
@@ -850,12 +871,14 @@ Example of a minimal successful response from a webhook:
   }
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
 If conversion fails, a webhook should return a `response` stanza containing the following fields:
-* `uid`, copied from the `request.uid` sent to the webhook
-* `result`, set to `{"status":"Failed"}`
+
+- `uid`, copied from the `request.uid` sent to the webhook
+- `result`, set to `{"status":"Failed"}`
 
 {{< warning >}}
 Failing conversion can disrupt read and write access to the custom resources,
@@ -867,6 +890,7 @@ should be avoided whenever possible, and should not be used to enforce validatio
 Example of a response from a webhook indicating a conversion request failed, with an optional message:
 {{< tabs name="ConversionReview_response_failure" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 {
   "apiVersion": "apiextensions.k8s.io/v1",
@@ -880,8 +904,10 @@ Example of a response from a webhook indicating a conversion request failed, wit
   }
 }
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 {
   # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
@@ -896,6 +922,7 @@ Example of a response from a webhook indicating a conversion request failed, wit
   }
 }
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -920,18 +947,18 @@ one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
-1.  The storage version is `v1beta1`. You create an object. It is persisted in
-    storage at version `v1beta1`
-2.  You add version `v1` to your CustomResourceDefinition and designate it as
-    the storage version.
-3.  You read your object at version `v1beta1`, then you read the object again at
-    version `v1`. Both returned objects are identical except for the apiVersion
-    field.
-4.  You create a new object. It is persisted in storage at version `v1`. You now
-    have two objects, one of which is at `v1beta1`, and the other of which is at
-    `v1`.
-5.  You update the first object. It is now persisted at version `v1` since that
-    is the current storage version.
+1. The storage version is `v1beta1`. You create an object. It is persisted in
+   storage at version `v1beta1`
+2. You add version `v1` to your CustomResourceDefinition and designate it as
+   the storage version.
+3. You read your object at version `v1beta1`, then you read the object again at
+   version `v1`. Both returned objects are identical except for the apiVersion
+   field.
+4. You create a new object. It is persisted in storage at version `v1`. You now
+   have two objects, one of which is at `v1beta1`, and the other of which is at
+   `v1`.
+5. You update the first object. It is now persisted at version `v1` since that
+   is the current storage version.
 
 ### Previous storage versions
 
@@ -943,7 +970,7 @@ can exist in storage at a version that has never been a storage version.
 ## Upgrade existing objects to a new stored version
 
 When deprecating versions and dropping support, select a storage upgrade
-procedure. 
+procedure.
 
 *Option 1:* Use the Storage Version Migrator
 
@@ -954,11 +981,9 @@ procedure.
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 
-1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
-    using kubectl. The `storedVersions` is now `v1beta1, v1`.
-2.  Write an upgrade procedure to list all existing objects and write them with
-    the same content. This forces the backend to write objects in the current
-    storage version, which is `v1`.
-2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
-
-{{% /capture %}}
+1. Set `v1` as the storage in the CustomResourceDefinition file and apply it
+   using kubectl. The `storedVersions` is now `v1beta1, v1`.
+2. Write an upgrade procedure to list all existing objects and write them with
+   the same content. This forces the backend to write objects in the current
+   storage version, which is `v1`.
+3. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.

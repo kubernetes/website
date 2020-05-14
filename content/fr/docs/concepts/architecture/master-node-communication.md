@@ -1,18 +1,16 @@
 ---
 title: Communication Master-Node
-content_template: templates/concept
+#content_template: templates/concept
 description: Communication Master-Node Kubernetes
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ce document répertorie les canaux de communication entre l'API du noeud maître (apiserver of master node en anglais) et le reste du cluster Kubernetes.
 L'objectif est de permettre aux utilisateurs de personnaliser leur installation afin de sécuriser la configuration réseau, de sorte que le cluster puisse être exécuté sur un réseau non approuvé (ou sur des adresses IP entièrement publiques d'un fournisseur de cloud).
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Communication du Cluster vers le Master
 
@@ -41,9 +39,9 @@ La seconde part de l'apiserver vers n'importe quel nœud, pod ou service via la 
 
 Les connexions de l'apiserver au kubelet sont utilisées pour:
 
-  * Récupérer les logs des pods.
-  * S'attacher (via kubectl) à des pods en cours d'exécution.
-  * Fournir la fonctionnalité de transfert de port du kubelet.
+* Récupérer les logs des pods.
+* S'attacher (via kubectl) à des pods en cours d'exécution.
+* Fournir la fonctionnalité de transfert de port du kubelet.
 
 Ces connexions se terminent au point de terminaison HTTPS du kubelet.
 Par défaut, l'apiserver ne vérifie pas le certificat du kubelet, ce qui rend la connexion sujette aux attaques de type "man-in-the-middle", et **non sûre** sur des réseaux non approuvés et/ou publics.
@@ -71,5 +69,3 @@ Ce tunnel garantit que le trafic n'est pas exposé en dehors du réseau dans leq
 
 Les tunnels SSH étant actuellement obsolètes, vous ne devriez pas choisir de les utiliser à moins de savoir ce que vous faites.
 Un remplacement pour ce canal de communication est en cours de conception.
-
-{{% /capture %}}
