@@ -216,15 +216,16 @@ program to retrieve the contents of your secret.
 2. 使用 etcdctl 命令行，从 etcd 中读取 secret：
 
     ```
-    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
+    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
     ```
+
+    这里的 `[...]` 是用来连接 etcd 服务的额外参数。
 
 <!--
     where `[...]` must be the additional arguments for connecting to the etcd server.
 3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data.
 4. Verify the secret is correctly decrypted when retrieved via the API:
 -->
-    这里的 `[...]` 是用来连接 etcd 服务的额外参数。
 3. 验证存储的密钥前缀是否为 `k8s:enc:aescbc:v1:`，这表明 `aescbc` provider 已加密结果数据。
 4. 通过 API 检索，验证 secret 是否被正确解密：
 
