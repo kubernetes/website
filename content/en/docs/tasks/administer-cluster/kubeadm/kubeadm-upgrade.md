@@ -50,253 +50,280 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-1.  Find the latest stable 1.18 version:
+Find the latest stable 1.18 version:
 
-    {{< tabs name="k8s_install_versions" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    apt update
-    apt-cache madison kubeadm
-    # find the latest 1.18 version in the list
-    # it should look like 1.18.x-00, where x is the latest patch
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    yum list --showduplicates kubeadm --disableexcludes=kubernetes
-    # find the latest 1.18 version in the list
-    # it should look like 1.18.x-0, where x is the latest patch
-    {{% /tab %}}
-    {{< /tabs >}}
+{{< tabs name="k8s_install_versions" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
+```shell
+apt update
+apt-cache madison kubeadm
+# find the latest 1.18 version in the list
+# it should look like 1.18.x-00, where x is the latest patch
+```
+
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+
+```shell
+yum list --showduplicates kubeadm --disableexcludes=kubernetes
+# find the latest 1.18 version in the list
+# it should look like 1.18.x-0, where x is the latest patch
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrading control plane nodes
 
 ### Upgrade the first control plane node
 
-1.  On your first control plane node, upgrade kubeadm:
+Run these steps on your first control plane node.
 
-    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
-    apt-mark hold kubeadm
+#### Download packages
 
-    # since apt-get version 1.1 you can also use the following method
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
-    yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{< tabs name="k8s_install_kubeadm_first_cp" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
-1.  Verify that the download works and has the expected version:
+```shell
+# replace x in 1.18.x-00 with the latest patch version
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
+apt-mark hold kubeadm
 
-    ```shell
-    kubeadm version
-    ```
+# since apt-get version 1.1 you can also use the following method
+apt-get update && \
+apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
+```
 
-1.  Drain the control plane node:
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
 
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl drain <cp-node-name> --ignore-daemonsets
-    ```
+```shell
+# replace x in 1.18.x-0 with the latest patch version
+yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
+```
 
-1.  On the control plane node, run:
+{{% /tab %}}
+{{< /tabs >}}
 
-    ```shell
-    sudo kubeadm upgrade plan
-    ```
+Verify that the download works and has the expected version:
 
-    You should see output similar to this:
+```shell
+kubeadm version
+```
 
-    ```
-    [upgrade/config] Making sure the configuration is correct:
-    [upgrade/config] Reading configuration from the cluster...
-    [upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
-    [preflight] Running pre-flight checks.
-    [upgrade] Running cluster health checks
-    [upgrade] Fetching available versions to upgrade to
-    [upgrade/versions] Cluster version: v1.17.3
-    [upgrade/versions] kubeadm version: v1.18.0
-    [upgrade/versions] Latest stable version: v1.18.0
-    [upgrade/versions] Latest version in the v1.17 series: v1.18.0
+#### Drain the control plane node
 
-    Components that must be upgraded manually after you have upgraded the control plane with 'kubeadm upgrade apply':
-    COMPONENT   CURRENT             AVAILABLE
-    Kubelet     1 x v1.17.3   v1.18.0
+```shell
+# replace <cp-node-name> with the name of your control plane node
+kubectl drain <cp-node-name> --ignore-daemonsets
+```
 
-    Upgrade to the latest version in the v1.17 series:
+#### Simulate the upgrade
 
-    COMPONENT            CURRENT   AVAILABLE
-    API Server           v1.17.3   v1.18.0
-    Controller Manager   v1.17.3   v1.18.0
-    Scheduler            v1.17.3   v1.18.0
-    Kube Proxy           v1.17.3   v1.18.0
-    CoreDNS              1.6.5     1.6.7
-    Etcd                 3.4.3     3.4.3-0
+On the control plane node, run:
 
-    You can now apply the upgrade by executing the following command:
+```shell
+sudo kubeadm upgrade plan
+```
 
-        kubeadm upgrade apply v1.18.0
+You should see output similar to this:
+```
+[upgrade/config] Making sure the configuration is correct:
+[upgrade/config] Reading configuration from the cluster...
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[preflight] Running pre-flight checks.
+[upgrade] Running cluster health checks
+[upgrade] Fetching available versions to upgrade to
+[upgrade/versions] Cluster version: v1.17.3
+[upgrade/versions] kubeadm version: v1.18.0
+[upgrade/versions] Latest stable version: v1.18.0
+[upgrade/versions] Latest version in the v1.17 series: v1.18.0
 
-    _____________________________________________________________________
-    ```
+Components that must be upgraded manually after you have upgraded the control plane with 'kubeadm upgrade apply':
+COMPONENT   CURRENT             AVAILABLE
+Kubelet     1 x v1.17.3   v1.18.0
 
-    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
+Upgrade to the latest version in the v1.17 series:
 
-    {{< note >}}
-    `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
-    To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
-    For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
-    {{</ note >}}
+COMPONENT            CURRENT   AVAILABLE
+API Server           v1.17.3   v1.18.0
+Controller Manager   v1.17.3   v1.18.0
+Scheduler            v1.17.3   v1.18.0
+Kube Proxy           v1.17.3   v1.18.0
+CoreDNS              1.6.5     1.6.7
+Etcd                 3.4.3     3.4.3-0
 
-1.  Choose a version to upgrade to, and run the appropriate command. For example:
+You can now apply the upgrade by executing the following command:
 
-    ```shell
-    # replace x with the patch version you picked for this upgrade
-    sudo kubeadm upgrade apply v1.18.x
-    ```
+    kubeadm upgrade apply v1.18.0
+
+_____________________________________________________________________
+```
+
+This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
+
+{{< note >}}
+`kubeadm upgrade` also automatically renews the certificates that it manages on this node.
+To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
+For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+{{< /note >}}
+
+Choose a version to upgrade to, and run the appropriate command. For example:
+
+```shell
+# replace x with the patch version you picked for this upgrade
+sudo kubeadm upgrade apply v1.18.x
+```
 
 
-    You should see output similar to this:
+You should see output similar to this:
 
-    ```
-    [upgrade/config] Making sure the configuration is correct:
-    [upgrade/config] Reading configuration from the cluster...
-    [upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
-    [preflight] Running pre-flight checks.
-    [upgrade] Running cluster health checks
-    [upgrade/version] You have chosen to change the cluster version to "v1.18.0"
-    [upgrade/versions] Cluster version: v1.17.3
-    [upgrade/versions] kubeadm version: v1.18.0
-    [upgrade/confirm] Are you sure you want to proceed with the upgrade? [y/N]: y
-    [upgrade/prepull] Will prepull images for components [kube-apiserver kube-controller-manager kube-scheduler etcd]
-    [upgrade/prepull] Prepulling image for component etcd.
-    [upgrade/prepull] Prepulling image for component kube-apiserver.
-    [upgrade/prepull] Prepulling image for component kube-controller-manager.
-    [upgrade/prepull] Prepulling image for component kube-scheduler.
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-controller-manager
-    [apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-etcd
-    [apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-apiserver
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-etcd
-    [apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
-    [upgrade/prepull] Prepulled image for component etcd.
-    [upgrade/prepull] Prepulled image for component kube-apiserver.
-    [upgrade/prepull] Prepulled image for component kube-controller-manager.
-    [upgrade/prepull] Prepulled image for component kube-scheduler.
-    [upgrade/prepull] Successfully prepulled the images for all the control plane components
-    [upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.18.0"...
-    Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
-    Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
-    Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
-    [upgrade/etcd] Upgrading to TLS for etcd
-    [upgrade/etcd] Non fatal issue encountered during upgrade: the desired etcd version for this Kubernetes version "v1.18.0" is "3.4.3-0", but the current etcd version is "3.4.3". Won't downgrade etcd, instead just continue
-    [upgrade/staticpods] Writing new Static Pod manifests to "/etc/kubernetes/tmp/kubeadm-upgraded-manifests308527012"
-    W0308 18:48:14.535122    3082 manifests.go:225] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
-    [upgrade/staticpods] Preparing for "kube-apiserver" upgrade
-    [upgrade/staticpods] Renewing apiserver certificate
-    [upgrade/staticpods] Renewing apiserver-kubelet-client certificate
-    [upgrade/staticpods] Renewing front-proxy-client certificate
-    [upgrade/staticpods] Renewing apiserver-etcd-client certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-apiserver.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-apiserver.yaml"
-    [upgrade/staticpods] Waiting for the kubelet to restart the component
-    [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
-    Static pod: kube-apiserver-myhost hash: 609429acb0d71dce6725836dd97d8bf4
-    [apiclient] Found 1 Pods for label selector component=kube-apiserver
-    [upgrade/staticpods] Component "kube-apiserver" upgraded successfully!
-    [upgrade/staticpods] Preparing for "kube-controller-manager" upgrade
-    [upgrade/staticpods] Renewing controller-manager.conf certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-controller-manager.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-controller-manager.yaml"
-    [upgrade/staticpods] Waiting for the kubelet to restart the component
-    [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
-    Static pod: kube-controller-manager-myhost hash: c7a1232ba2c5dc15641c392662fe5156
-    [apiclient] Found 1 Pods for label selector component=kube-controller-manager
-    [upgrade/staticpods] Component "kube-controller-manager" upgraded successfully!
-    [upgrade/staticpods] Preparing for "kube-scheduler" upgrade
-    [upgrade/staticpods] Renewing scheduler.conf certificate
-    [upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-scheduler.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-scheduler.yaml"
-    [upgrade/staticpods] Waiting for the kubelet to restart the component
-    [upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
-    Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
-    Static pod: kube-scheduler-myhost hash: b1b721486ae0ac504c160dcdc457ab0d
-    [apiclient] Found 1 Pods for label selector component=kube-scheduler
-    [upgrade/staticpods] Component "kube-scheduler" upgraded successfully!
-    [upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
-    [kubelet] Creating a ConfigMap "kubelet-config-1.18" in namespace kube-system with the configuration for the kubelets in the cluster
-    [kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
-    [kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
-    [bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
-    [bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
-    [bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
-    [addons] Applied essential addon: CoreDNS
-    [addons] Applied essential addon: kube-proxy
+```
+[upgrade/config] Making sure the configuration is correct:
+[upgrade/config] Reading configuration from the cluster...
+[upgrade/config] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[preflight] Running pre-flight checks.
+[upgrade] Running cluster health checks
+[upgrade/version] You have chosen to change the cluster version to "v1.18.0"
+[upgrade/versions] Cluster version: v1.17.3
+[upgrade/versions] kubeadm version: v1.18.0
+[upgrade/confirm] Are you sure you want to proceed with the upgrade? [y/N]: y
+[upgrade/prepull] Will prepull images for components [kube-apiserver kube-controller-manager kube-scheduler etcd]
+[upgrade/prepull] Prepulling image for component etcd.
+[upgrade/prepull] Prepulling image for component kube-apiserver.
+[upgrade/prepull] Prepulling image for component kube-controller-manager.
+[upgrade/prepull] Prepulling image for component kube-scheduler.
+[apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-controller-manager
+[apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-etcd
+[apiclient] Found 0 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
+[apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-apiserver
+[apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-etcd
+[apiclient] Found 1 Pods for label selector k8s-app=upgrade-prepull-kube-scheduler
+[upgrade/prepull] Prepulled image for component etcd.
+[upgrade/prepull] Prepulled image for component kube-apiserver.
+[upgrade/prepull] Prepulled image for component kube-controller-manager.
+[upgrade/prepull] Prepulled image for component kube-scheduler.
+[upgrade/prepull] Successfully prepulled the images for all the control plane components
+[upgrade/apply] Upgrading your Static Pod-hosted control plane to version "v1.18.0"...
+Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
+Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
+Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
+[upgrade/etcd] Upgrading to TLS for etcd
+[upgrade/etcd] Non fatal issue encountered during upgrade: the desired etcd version for this Kubernetes version "v1.18.0" is "3.4.3-0", but the current etcd version is "3.4.3". Won't downgrade etcd, instead just continue
+[upgrade/staticpods] Writing new Static Pod manifests to "/etc/kubernetes/tmp/kubeadm-upgraded-manifests308527012"
+W0308 18:48:14.535122    3082 manifests.go:225] the default kube-apiserver authorization-mode is "Node,RBAC"; using "Node,RBAC"
+[upgrade/staticpods] Preparing for "kube-apiserver" upgrade
+[upgrade/staticpods] Renewing apiserver certificate
+[upgrade/staticpods] Renewing apiserver-kubelet-client certificate
+[upgrade/staticpods] Renewing front-proxy-client certificate
+[upgrade/staticpods] Renewing apiserver-etcd-client certificate
+[upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-apiserver.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-apiserver.yaml"
+[upgrade/staticpods] Waiting for the kubelet to restart the component
+[upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
+Static pod: kube-apiserver-myhost hash: 2cc222e1a577b40a8c2832320db54b46
+Static pod: kube-apiserver-myhost hash: 609429acb0d71dce6725836dd97d8bf4
+[apiclient] Found 1 Pods for label selector component=kube-apiserver
+[upgrade/staticpods] Component "kube-apiserver" upgraded successfully!
+[upgrade/staticpods] Preparing for "kube-controller-manager" upgrade
+[upgrade/staticpods] Renewing controller-manager.conf certificate
+[upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-controller-manager.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-controller-manager.yaml"
+[upgrade/staticpods] Waiting for the kubelet to restart the component
+[upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
+Static pod: kube-controller-manager-myhost hash: f7ce4bc35cb6e646161578ac69910f18
+Static pod: kube-controller-manager-myhost hash: c7a1232ba2c5dc15641c392662fe5156
+[apiclient] Found 1 Pods for label selector component=kube-controller-manager
+[upgrade/staticpods] Component "kube-controller-manager" upgraded successfully!
+[upgrade/staticpods] Preparing for "kube-scheduler" upgrade
+[upgrade/staticpods] Renewing scheduler.conf certificate
+[upgrade/staticpods] Moved new manifest to "/etc/kubernetes/manifests/kube-scheduler.yaml" and backed up old manifest to "/etc/kubernetes/tmp/kubeadm-backup-manifests-2020-03-08-18-48-14/kube-scheduler.yaml"
+[upgrade/staticpods] Waiting for the kubelet to restart the component
+[upgrade/staticpods] This might take a minute or longer depending on the component/version gap (timeout 5m0s)
+Static pod: kube-scheduler-myhost hash: e3025acd90e7465e66fa19c71b916366
+Static pod: kube-scheduler-myhost hash: b1b721486ae0ac504c160dcdc457ab0d
+[apiclient] Found 1 Pods for label selector component=kube-scheduler
+[upgrade/staticpods] Component "kube-scheduler" upgraded successfully!
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.18" in namespace kube-system with the configuration for the kubelets in the cluster
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
 
-    [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.18.0". Enjoy!
+[upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.18.0". Enjoy!
 
-    [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
-    ```
+[upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
+```
 
-1.  Manually upgrade your CNI provider plugin.
+#### Manually upgrade your CNI provider plugin.
 
-    Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
-    Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-    find your CNI provider and see whether additional upgrade steps are required.
+   Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
+   Check the [addons](/docs/concepts/cluster-administration/addons/) page to
+   find your CNI provider and see whether additional upgrade steps are required.
 
-    This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
+   This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-1.  Uncordon the control plane node:
+#### Uncordon the control plane node:
 
-    ```shell
-    # replace <cp-node-name> with the name of your control plane node
-    kubectl uncordon <cp-node-name>
-    ```
+```shell
+# replace <cp-node-name> with the name of your control plane node
+kubectl uncordon <cp-node-name>
+```
 
 ### Upgrade additional control plane nodes
 
-1.  Same as the first control plane node but use:
+Same as the first control plane node but use:
 
-    ```
-    sudo kubeadm upgrade node
-    ```
+```
+sudo kubeadm upgrade node
+```
 
-    instead of:
+instead of:
 
-    ```
-    sudo kubeadm upgrade apply
-    ```
+```
+sudo kubeadm upgrade apply
+```
 
-    Also `sudo kubeadm upgrade plan` is not needed.
+Also `sudo kubeadm upgrade plan` is not needed.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all control plane nodes:
+Upgrade the kubelet and kubectl on all control plane nodes:
 
-    {{< tabs name="k8s_install_kubelet" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
-    apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
-    apt-mark hold kubelet kubectl
+{{< tabs name="k8s_install_kubelet" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
-    # since apt-get version 1.1 you can also use the following method
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
-    yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+```shell
+# replace x in 1.18.x-00 with the latest patch version
+apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
+apt-mark hold kubelet kubectl
 
-1.  Restart the kubelet
+# since apt-get version 1.1 you can also use the following method
+apt-get update && \
+apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
+```
 
-    ```shell
-    sudo systemctl restart kubelet
-    ```
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+
+```shell
+# replace x in 1.18.x-0 with the latest patch version
+yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Restart the kubelet:
+
+```shell
+sudo systemctl restart kubelet
+```
 
 ## Upgrade worker nodes
 
@@ -305,85 +332,99 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubeadm
 
-1.  Upgrade kubeadm on all worker nodes:
+{{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
-    {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
-    apt-mark unhold kubeadm && \
-    apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
-    apt-mark hold kubeadm
+```shell
+# replace x in 1.18.x-00 with the latest patch version
+apt-mark unhold kubeadm && \
+apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
+apt-mark hold kubeadm
 
-    # since apt-get version 1.1 you can also use the following method
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
-    yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+# since apt-get version 1.1 you can also use the following method
+apt-get update && \
+apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
+```
+
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+
+```shell
+# replace x in 1.18.x-0 with the latest patch version
+yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
+```
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Drain the node
 
-1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node you are draining
-    kubectl drain <node-to-drain> --ignore-daemonsets
-    ```
+```shell
+# replace <node-to-drain> with the name of your node you are draining
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
 
-    You should see output similar to this:
+You should see output similar to this:
 
-    ```
-    node/ip-172-31-85-18 cordoned
-    WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
-    node/ip-172-31-85-18 drained
-    ```
+```
+node/ip-172-31-85-18 cordoned
+WARNING: ignoring DaemonSet-managed Pods: kube-system/kube-proxy-dj7d7, kube-system/weave-net-z65qx
+node/ip-172-31-85-18 drained
+```
 
 ### Upgrade the kubelet configuration
 
-1.  Call the following command:
+Call the following command:
 
-    ```shell
-    sudo kubeadm upgrade node
-    ```
+```shell
+sudo kubeadm upgrade node
+```
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all worker nodes:
+Upgrade the kubelet and kubectl on all worker nodes:
 
-    {{< tabs name="k8s_kubelet_and_kubectl" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
-    # replace x in 1.18.x-00 with the latest patch version
-    apt-mark unhold kubelet kubectl && \
-    apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
-    apt-mark hold kubelet kubectl
+{{< tabs name="k8s_kubelet_and_kubectl" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
-    # since apt-get version 1.1 you can also use the following method
-    apt-get update && \
-    apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
-    # replace x in 1.18.x-0 with the latest patch version
-    yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+```shell
+# replace x in 1.18.x-00 with the latest patch version
+apt-mark unhold kubelet kubectl && \
+apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
+apt-mark hold kubelet kubectl
 
-1.  Restart the kubelet
+# since apt-get version 1.1 you can also use the following method
+apt-get update && \
+apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
+```
 
-    ```shell
-    sudo systemctl restart kubelet
-    ```
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+
+```shell
+# replace x in 1.18.x-0 with the latest patch version
+yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Restart the kubelet:
+
+```shell
+sudo systemctl restart kubelet
+```
 
 ### Uncordon the node
 
-1.  Bring the node back online by marking it schedulable:
+Bring the node back online by marking it schedulable:
 
-    ```shell
-    # replace <node-to-drain> with the name of your node
-    kubectl uncordon <node-to-drain>
-    ```
+```shell
+# replace <node-to-drain> with the name of your node
+kubectl uncordon <node-to-drain>
+```
 
 ## Verify the status of the cluster
 
