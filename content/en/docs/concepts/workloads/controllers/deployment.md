@@ -55,7 +55,10 @@ In this example:
   as long as the Pod template itself satisfies the rule.
 
   {{< note >}}
-  The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In", and the values array contains only "value". All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
+  The `.spec.selector.matchLabels` field is a map of {key,value} pairs.
+  A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+  whose key field is "key" the operator is "In", and the values array contains only "value".
+  All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
 * The `template` field contains the following sub-fields:
@@ -75,9 +78,10 @@ Follow the steps given below to create the above Deployment:
    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    ```
 
-   {{< note >}}
-   You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
-   {{< /note >}}
+  {{< note >}}
+  You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`.
+  The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
+  {{< /note >}}
 
 
 2. Run `kubectl get deployments` to check if the Deployment was created.
@@ -904,9 +908,9 @@ example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
-If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
-safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the
-deadline.
+If you pause a Deployment, Kubernetes does not check progress against your specified deadline.
+You can safely pause a Deployment in the middle of a rollout and resume without triggering
+the condition for exceeding the deadline.
 {{< /note >}}
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or
