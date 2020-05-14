@@ -151,7 +151,27 @@ mind:
     {{< note >}}
     This is a note
     {{< /note >}}
+- This is the same but in a different order:
 
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+  ```bash
+  ls -l
+  ```
+  Paragraph
+
+  - And again, at the subitem level, for spice:
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+
+    ```bash
+    ls -l
+    ```
+    Paragraph
 
 ### Numbered lists
 
@@ -211,6 +231,52 @@ mind:
         {{< note >}}
         This is a note
         {{< /note >}}
+
+
+4. This is a numbered list with subitems that have a paragraph, a note, and a codeblock:
+
+  Paragraph
+
+  ```bash
+  ls -l
+  ```
+
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+  - This is a subitem with the same:
+
+    Paragraph
+
+    ```bash
+    ls -l
+    ```
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+2. This is the same but in a different order:
+
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+  ```bash
+  ls -l
+  ```
+  Paragraph
+
+  - And again, at the subitem level, for spice:
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+
+    ```bash
+    ls -l
+    ```
+    Paragraph
 
 ### Tab lists
 
