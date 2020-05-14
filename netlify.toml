@@ -8,6 +8,7 @@ command = "make non-production-build"
 
 [build.environment]
 HUGO_VERSION = "0.70.0"
+NODE_VERSION = "10.20.0"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
