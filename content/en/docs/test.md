@@ -100,6 +100,59 @@ mind:
     1.  Numbered sub-list item 1
     2.  Numbered sub-list item 2
 
+
+- This is a bulleted list with a note in it:
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+- This is a bulleted list with paragraph content _and_ a note:
+
+  I'm a newline
+
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+  I'm a newline
+
+- This is a bulleted list with subitems that have a note:
+    - This is a subitem
+    - This is another subitem
+      {{< note >}}
+      This is a note
+      {{< /note >}}
+    - This is another subitem
+      - This is another subitem
+        {{< note >}}
+        This is a note
+        {{< /note >}}
+
+- This is a bulleted list with subitems that have a paragraph, a note, and a codeblock:
+
+  Paragraph
+
+  ```bash
+  ls -l
+  ```
+
+  {{< note >}}
+  This is a note
+  {{< /note >}}
+
+  - This is a subitem with the same:
+
+    Paragraph
+
+    ```bash
+    ls -l
+    ```
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+
+
 ### Numbered lists
 
 1.  This is a list item
@@ -128,6 +181,36 @@ mind:
     - And a sub-list after some block-level content. This is at the same
       "level" as the paragraph and code block above, despite being indented
       more.
+
+<!--- separate list -->
+
+1. This is a list with a note:
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+
+2. This is a list with some paragraph content and a note:
+
+    This is a paragraph
+
+    {{< note >}}
+    This is a note
+    {{< /note >}}
+
+    This is a paragraph
+
+3. This is a paragraph with unordered subitems which have a note:
+    - This is a bullet point
+    - This is a bullet point
+      {{< note >}}
+      This is a note
+      {{< /note >}}
+    - This is a bullet point
+      - This is a bullet point
+        {{< note >}}
+        This is a note
+        {{< /note >}}
 
 ### Tab lists
 
@@ -310,7 +393,7 @@ graph TD;
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 graph TD;
@@ -334,7 +417,7 @@ sequenceDiagram
 {{</*/ mermaid */>}}
 ```
 
-Produces: 
+Produces:
 
 {{< mermaid >}}
 sequenceDiagram
