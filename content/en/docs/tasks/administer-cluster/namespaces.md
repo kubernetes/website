@@ -189,12 +189,10 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development
+    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname -n=development
     kubectl scale deployment snowflake --replicas=2 -n=development
     ```
     We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
-    Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-    If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) for more details.
 
     ```shell
     kubectl get deployment -n=development
@@ -204,7 +202,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     snowflake    2/2     2            2           2m
     ```
     ```shell
-    kubectl get pods -l run=snowflake -n=development
+    kubectl get pods -l app=snowflake -n=development
     ```
     ```
     NAME                         READY     STATUS    RESTARTS   AGE
@@ -226,7 +224,8 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Production likes to run cattle, so let's create some cattle pods.
 
     ```shell
-    kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5 -n=production
+    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production
     ```
@@ -236,7 +235,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     ```
 
     ```shell
-    kubectl get pods -l run=cattle -n=production
+    kubectl get pods -l app=cattle -n=production
     ```
     ```
     NAME                      READY     STATUS    RESTARTS   AGE

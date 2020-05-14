@@ -242,7 +242,7 @@ snowflake    2/2     2            2           2m
 ```
 
 ```shell
-kubectl get pods -l run=snowflake
+kubectl get pods -l app=snowflake
 ```
 ```
 NAME                         READY     STATUS    RESTARTS   AGE
@@ -279,7 +279,7 @@ cattle       5/5     5            5           10s
 ```
 
 ```shell
-kubectl get pods -l run=cattle
+kubectl get pods -l app=cattle
 ```
 ```
 NAME                      READY     STATUS    RESTARTS   AGE
