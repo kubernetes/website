@@ -173,7 +173,7 @@ For example: in Centos, you can do this using the tuned toolset.
 Memory pressure at the node level leads to System OOMs which affects the entire
 node and all pods running on it. Nodes can go offline temporarily until memory
 has been reclaimed. To avoid (or reduce the probability of) system OOMs kubelet
-provides [`Out of Resource`](./out-of-resource.md) management. Evictions are
+provides [`Out of Resource`](/docs/tasks/administer-cluster/out-of-resource/) management. Evictions are
 supported for `memory` and `ephemeral-storage` only. By reserving some memory via
 `--eviction-hard` flag, the `kubelet` attempts to `evict` pods whenever memory
 availability on the node drops below the reserved value. Hypothetically, if
@@ -190,7 +190,7 @@ The scheduler treats `Allocatable` as the available `capacity` for pods.
 `kubelet` enforce `Allocatable` across pods by default. Enforcement is performed
 by evicting pods whenever the overall usage across all pods exceeds
 `Allocatable`. More details on eviction policy can be found
-[here](./out-of-resource.md#eviction-policy). This enforcement is controlled by
+[here](/docs/tasks/administer-cluster/out-of-resource/#eviction-policy). This enforcement is controlled by
 specifying `pods` value to the kubelet flag `--enforce-node-allocatable`.
 
 
