@@ -2,7 +2,7 @@
 reviewers:
 - stclair
 title: AppArmor
-#content_template: templates/tutorial
+##content_template: templates/tutorial
 ---
 
 <!-- overview -->
