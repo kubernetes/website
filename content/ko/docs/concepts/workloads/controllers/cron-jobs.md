@@ -8,13 +8,17 @@ weight: 80
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
-_크론 잡은_ 시간 기반의 일정에 따라 [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)을 만든다.
+_크론잡은_ 반복 일정에 따라 {{< glossary_tooltip term_id="job" text="잡" >}}을 만든다.
 
 하나의 크론잡 객체는 _크론탭_ (크론 테이블) 파일의 한 줄과 같다. 크론잡은 잡을 [크론](https://en.wikipedia.org/wiki/Cron)형식으로 쓰여진 주어진 일정에 따라 주기적으로 동작시킨다.
 
 
 {{< caution >}}
-모든 **크론잡** `일정:` 시간은 UTC로 표시된다.
+모든 **크론잡** `일정:` 시간은
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}의 시간대를 기준으로 한다.
+
+컨트롤 플레인이 파드 또는 베어 컨테이너에서 kube-controller-manager를 실행하는 경우,
+kube-controller-manager 컨테이너에 설정된 시간대는 크론잡 컨트롤러가 사용하는 시간대로 결정한다.
 {{< /caution >}}
 
 크론잡 리소스에 대한 매니페스트를 생성할때에는 제공하는 이름이
@@ -23,14 +27,26 @@ _크론 잡은_ 시간 기반의 일정에 따라 [잡](/ko/docs/concepts/worklo
 11자를 자동으로 추가하고, 작업 이름의 최대 길이는
 63자라는 제약 조건이 있기 때문이다.
 
-크론 잡을 생성하고 작동하는 방법은 크론 잡의 스펙 파일을 확안한다. 내용은 [크론 잡으로 자동 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs)를 참조한다.
 
 {{% /capture %}}
-
-
 {{% capture body %}}
 
-## 크론 잡의 한계
+## 크론잡
+
+크론잡은 백업 실행 또는 이메일 전송과 같은 정기적이고 반복적인
+작업을 만드는데 유용하다. 또한 크론잡은 클러스터가 유휴 상태일 때 잡을
+스케줄링하는 것과 같이 특정 시간 동안의 개별 작업을 스케줄할 수 있다.
+
+### 예제
+
+이 크론잡 매니페스트 예제는 현재 시간과 hello 메시지를 1분마다 출력한다.
+
+{{< codenew file="application/job/cronjob.yaml" >}}
+
+([크론잡으로 자동화된 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs/)는
+이 예시를 더 자세히 설명한다.)
+
+## 크론 잡의 한계 {#cron-job-limitations}
 
 크론 잡은 일정의 실행시간 마다 _약_ 한 번의 잡을 생성한다. "약" 이라고 하는 이유는
 특정 환경에서는 두 개의 잡이 만들어지거나, 잡이 생성되지 않기도 하기 때문이다. 보통 이렇게 하지
@@ -60,5 +76,13 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 크론 잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
+
+{{% /capture %}}
+{{% capture whatsnext %}}
+[크론 표현 포맷](https://pkg.go.dev/github.com/robfig/cron?tab=doc#hdr-CRON_Expression_Format)은
+크론잡 `schedule` 필드의 포맷을 문서화 한다.
+
+크론 잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
+예는 [크론 잡으로 자동화된 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
 
 {{% /capture %}}

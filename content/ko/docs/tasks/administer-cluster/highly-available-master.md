@@ -6,7 +6,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 구글 컴퓨트 엔진(Google Compute Engine, 이하 GCE)의 `kube-up`이나 `kube-down` 스크립트에 쿠버네티스 마스터를 복제할 수 있다.
 이 문서는 kube-up/down 스크립트를 사용하여 고가용(HA) 마스터를 관리하는 방법과 GCE와 함께 사용하기 위해 HA 마스터를 구현하는 방법에 관해 설명한다.

@@ -62,10 +62,10 @@ metadata:
   name: mypod
 spec:
   topologySpreadConstraints:
-  - maxSkew: <integer>
-    topologyKey: <string>
-    whenUnsatisfiable: <string>
-    labelSelector: <object>
+    - maxSkew: <integer>
+      topologyKey: <string>
+      whenUnsatisfiable: <string>
+      labelSelector: <object>
 ```
 
 사용자는 하나 또는 다중 `topologySpreadConstraint` 를 정의해서 kube-scheduler 에게 클러스터에 걸쳐 있는 기존 파드와 시작하는 각각의 파드와 연관하여 배치하는 방법을 명령할 수 있다. 필드는 다음과 같다.
@@ -73,8 +73,8 @@ spec:
 - **maxSkew** 는 파드가 균등하지 않게 분산될 수 있는 정도를 나타낸다. 이것은 주어진 토폴로지 유형의 임의의 두 토폴로지 도메인에 일치하는 파드의 수 사이에서 허용되는 차이의 최댓값이다. 이것은 0보다는 커야 한다.
 - **topologyKey** 는 노드 레이블의 키다. 만약 두 노드가 이 키로 레이블이 지정되고, 레이블이 동일한 값을 가진다면 스케줄러는 두 노드를 같은 토폴로지에 있는것으로 여기게 된다. 스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
 - **whenUnsatisfiable** 는 분산 제약 조건을 만족하지 않을 경우에 처리하는 방법을 나타낸다.
-    - `DoNotSchedule` (기본값)은 스케줄러에 스케줄을 하지 말라고 알려준다.
-    - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선순위를 부여하면서, 스케줄을 계속하도록 지시한다.
+  - `DoNotSchedule` (기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
+  - `ScheduleAnyway` 는 스케줄러에게 차이(skew)를 최소화하는 노드에 높은 우선 순위를 부여하면서, 스케줄링을 계속하도록 지시한다.
 - **labelSelector** 는 일치하는 파드를 찾는데 사용된다. 이 레이블 셀렉터와 일치하는 파드의 수를 계산하여 해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 자세한 내용은 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
 
 사용자는 `kubectl explain Pod.spec.topologySpreadConstraints` 를 실행해서 이 필드에 대한 자세한 내용을 알 수 있다.
@@ -160,8 +160,8 @@ spec:
 - 신규 파드와 같은 네임스페이스를 갖는 파드만이 매칭의 후보가 된다.
 
 - `topologySpreadConstraints[*].topologyKey` 가 없는 노드는 무시된다. 이것은 다음을 의미한다.
-    1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone"레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
-    2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
+  1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone" 레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
+  2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
 
 - 들어오는 파드의 `topologySpreadConstraints[*].labelSelector` 와 자체 레이블과 일치하지 않을 경우 어떻게 되는지 알고 있어야 한다. 위의 예시에서, 만약 들어오는 파드의 레이블을 제거하더라도 여전히 제약 조건이 충족하기 때문에 "zoneB"에 배치할 수 있다. 그러나, 배치 이후에도 클러스터의 불균형 정도는 변경되지 않는다. - 여전히 zoneA는 {foo:bar} 레이블을 가지고 있는 2개의 파드를 가지고 있고, zoneB 도 {foo:bar}를 레이블로 가지는 파드 1개를 가지고 있다. 따라서 만약 예상과 다르면, 워크로드의 `topologySpreadConstraints[*].labelSelector` 가 자체 레이블과 일치하도록 하는 것을 권장한다.
 
@@ -207,12 +207,12 @@ kind: KubeSchedulerConfiguration
 
 profiles:
   pluginConfig:
-  - name: PodTopologySpread
-    args:
-      defaultConstraints:
-      - maxSkew: 1
-        topologyKey: failure-domain.beta.kubernetes.io/zone
-        whenUnsatisfiable: ScheduleAnyway
+    - name: PodTopologySpread
+      args:
+        defaultConstraints:
+          - maxSkew: 1
+            topologyKey: failure-domain.beta.kubernetes.io/zone
+            whenUnsatisfiable: ScheduleAnyway
 ```
 
 {{< note >}}
@@ -229,14 +229,14 @@ profiles:
 더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다. 
 
 - `PodAffinity` 는, 사용자가 자격이 충족되는 토폴로지 도메인에
-원하는 수의 파드를 얼마든지 채울 수 있다.
+  원하는 수의 파드를 얼마든지 채울 수 있다.
 - `PodAntiAffinity` 로는, 단일 토폴로지 도메인에
-단 하나의 파드만 스케줄 될 수 있다.
+  단 하나의 파드만 스케줄 될 수 있다.
 
 "EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서 
 고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와
 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
-더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-even-pods-spreading.md#motivation)를 참조한다.
+더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation)를 참조한다.
 
 ## 알려진 제한사항
 
