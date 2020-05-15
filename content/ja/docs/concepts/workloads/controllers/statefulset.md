@@ -131,7 +131,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-クラスタードメインは[その他の設定](/ja/docs/concepts/services-networking/dns-pod-service/#how-it-works)がされない限り、`cluster.local`にセットされます。
+クラスタードメインは[その他の設定](/ja/docs/concepts/services-networking/dns-pod-service/)がされない限り、`cluster.local`にセットされます。
 {{< /note >}}
 
 ### 安定したストレージ
