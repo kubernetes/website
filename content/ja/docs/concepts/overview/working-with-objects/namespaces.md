@@ -76,7 +76,7 @@ kubectl config view | grep namespace:
 
 ## NamespaceとDNS
 
-ユーザーが[Service](/docs/user-guide/services)を作成するとき、Serviceは対応する[DNSエントリ](/docs/concepts/services-networking/dns-pod-service/)を作成します。  
+ユーザーが[Service](/docs/user-guide/services)を作成するとき、Serviceは対応する[DNSエントリ](/ja/docs/concepts/services-networking/dns-pod-service/)を作成します。  
 このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になり,これはもしあるコンテナがただ`<service-name>`を指定していた場合、Namespace内のローカルのServiceに対して名前解決されます。  
 これはデベロップメント、ステージング、プロダクションといって複数のNamespaceをまたいで同じ設定を使う時に効果的です。  
 もしユーザーがNamespaceをまたいでアクセスしたい時、 完全修飾ドメイン名(FQDN)を指定する必要があります。  
