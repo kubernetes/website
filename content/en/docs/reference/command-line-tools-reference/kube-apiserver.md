@@ -1,10 +1,10 @@
 ---
 title: kube-apiserver
-content_template: templates/tool-reference
+#content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+{{% synopsis_heading %}}
 
 
 The Kubernetes API server validates and configures data
@@ -16,9 +16,9 @@ cluster's shared state through which all other components interact.
 kube-apiserver [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+{{% options_heading %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -1082,5 +1082,5 @@ kube-apiserver [flags]
 
 
 
-{{% /capture %}}
+
 

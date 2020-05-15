@@ -1,10 +1,10 @@
 ---
 title: kube-proxy
-content_template: templates/tool-reference
+#content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+{{% synopsis_heading %}}
 
 
 The Kubernetes network proxy runs on each node. This
@@ -19,9 +19,9 @@ with the apiserver API to configure the proxy.
 kube-proxy [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+{{% options_heading %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -336,5 +336,5 @@ kube-proxy [flags]
 
 
 
-{{% /capture %}}
+
 

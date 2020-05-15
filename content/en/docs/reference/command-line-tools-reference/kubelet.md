@@ -1,10 +1,10 @@
 ---
 title: kubelet
-content_template: templates/tool-reference
+#content_template: templates/tool-reference
 weight: 28
 ---
 
-{{% capture synopsis %}}
+{{% synopsis_heading %}}
 
 The kubelet is the primary "node agent" that runs on each
 node. It can register the node with the apiserver using one of: the hostname; a flag to override the hostname; or specific logic for a cloud provider.
@@ -24,10 +24,10 @@ HTTP server: The kubelet can also listen for HTTP and respond to a simple API (u
 kubelet [flags]
 ```
 
-{{% /capture %}}
 
 
-{{% capture options %}}
+
+{{% options_heading %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -1265,4 +1265,4 @@ kubelet [flags]
 </tbody>
 </table>
 
-{{% /capture %}}
+

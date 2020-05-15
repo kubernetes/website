@@ -1,10 +1,10 @@
 ---
 title: kubectl
-content_template: templates/tool-reference
+#content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+{{% synopsis_heading %}}
 
 
 kubectl controls the Kubernetes cluster manager.
@@ -15,9 +15,9 @@ kubectl controls the Kubernetes cluster manager.
 kubectl [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+{{% options_heading %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -521,9 +521,9 @@ kubectl [flags]
 
 
 
-{{% /capture %}}
 
-{{% capture seealso %}}
+
+{{% seealso_heading %}}
 
 * [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - Commands for features in alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
@@ -569,5 +569,5 @@ kubectl [flags]
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
 
-{{% /capture %}}
+
 

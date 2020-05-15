@@ -1,10 +1,10 @@
 ---
 title: kube-controller-manager
-content_template: templates/tool-reference
+#content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+{{% synopsis_heading %}}
 
 
 The Kubernetes controller manager is a daemon that embeds
@@ -20,9 +20,9 @@ controller, and serviceaccounts controller.
 kube-controller-manager [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+{{% options_heading %}}
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -897,5 +897,5 @@ kube-controller-manager [flags]
 
 
 
-{{% /capture %}}
+
 

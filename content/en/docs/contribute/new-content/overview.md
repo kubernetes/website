@@ -1,19 +1,19 @@
 ---
 title: Contributing new content overview
 linktitle: Overview
-content_template: templates/concept
+#content_template: templates/concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section contains information you should know before contributing new content.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Contributing basics
 
@@ -55,4 +55,4 @@ was wrong, you (and only you, the submitter) can change it.
 Limit pull requests to one language per PR. If you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language.
 
 
-{{% /capture %}}
+

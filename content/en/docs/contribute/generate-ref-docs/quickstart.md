@@ -1,24 +1,24 @@
 ---
 title: Quickstart
-content_template: templates/task
+#content_template: templates/task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use the `update-imported-docs` script to generate
 the Kubernetes reference documentation. The script automates
 the build setup and generates the reference documentation for a release.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Getting the docs repository
 
@@ -246,9 +246,9 @@ A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 
 To generate the individual reference documentation by manually setting up the required build repositories and
 running the build targets, see the following guides:
@@ -257,4 +257,4 @@ running the build targets, see the following guides:
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 
-{{% /capture %}}
+
