@@ -896,8 +896,8 @@ CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and
 columns.
 
 1.  Save the CustomResourceDefinition to `resourcedefinition.yaml`.
-      {{< tabs name="CustomResourceDefinition_printer_columns" >}}
-      {{% tab name="apiextensions.k8s.io/v1" %}}
+  {{< tabs name="CustomResourceDefinition_printer_columns" >}}
+  {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -942,8 +942,8 @@ spec:
       type: date
       jsonPath: .metadata.creationTimestamp
 ```
-      {{% /tab %}}
-      {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+  {{% /tab %}}
+  {{% tab name="apiextensions.k8s.io/v1beta1" %}}
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -986,8 +986,8 @@ spec:
     type: date
     JSONPath: .metadata.creationTimestamp
 ```
-      {{% /tab %}}
-      {{< /tabs >}}
+  {{% /tab %}}
+  {{< /tabs >}}
 
 2.  Create the CustomResourceDefinition:
 
