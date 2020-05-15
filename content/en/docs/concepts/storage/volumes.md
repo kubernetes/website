@@ -28,7 +28,7 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 ## Background
 
 Docker also has a concept of
-[volumes](https://docs.docker.com/engine/admin/volumes/), though it is
+[volumes](https://docs.docker.com/storage/), though it is
 somewhat looser and less managed.  In Docker, a volume is simply a directory on
 disk or in another Container.  Lifetimes are not managed and until very
 recently there were only local-disk-backed volumes.  Docker now provides volume

@@ -40,7 +40,7 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 ## Background
 
 Docker also has a concept of
-[volumes](https://docs.docker.com/engine/admin/volumes/), though it is
+[volumes](https://docs.docker.com/storage/), though it is
 somewhat looser and less managed.  In Docker, a volume is simply a directory on
 disk or in another Container.  Lifetimes are not managed and until very
 recently there were only local-disk-backed volumes.  Docker now provides volume
@@ -51,7 +51,7 @@ parameters to volumes).
 
 ## 背景
 
-Docker 也有 [Volume](https://docs.docker.com/engine/admin/volumes/) 的概念，但对它只有少量且松散的管理。
+Docker 也有 [Volume](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
 在 Docker 中，Volume 是磁盘上或者另外一个容器内的一个目录。
 直到最近，Docker 才支持对基于本地磁盘的 Volume 的生存期进行管理。
 虽然 Docker 现在也能提供 Volume 驱动程序，但是目前功能还非常有限（例如，截至 Docker 1.7，每个容器只允许有一个 Volume 驱动程序，并且无法将参数传递给卷）。
