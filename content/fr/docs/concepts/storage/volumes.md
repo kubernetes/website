@@ -21,7 +21,7 @@ Une connaissance des [Pods](/fr/docs/concepts/workloads/pods/pod) est suggérée
 
 ## Contexte
 
-Docker a également un concept de [volumes](https://docs.docker.com/engine/admin/volumes/), bien qu'il
+Docker a également un concept de [volumes](https://docs.docker.com/storage/), bien qu'il
 soit, dans une certaine mesure, plus relâché et moins géré.
 Avec Docker, un volume est simplement un dossier sur le disque ou dans un autre conteneur.
 Les durées de vie ne sont pas gérées et, jusqu'à très récemment, seuls les volumes supportés par un disque local l'étaient.
