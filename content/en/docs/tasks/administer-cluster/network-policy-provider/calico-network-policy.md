@@ -2,19 +2,19 @@
 reviewers:
 - caseydavenport
 title: Use Calico for NetworkPolicy
-content_template: templates/task
+#content_template: templates/task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows a couple of quick ways to create a Calico cluster on Kubernetes.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-google-kubernetes-engine-gke) or [local](#creating-a-local-calico-cluster-with-kubeadm) cluster.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 ## Creating a Calico cluster with Google Kubernetes Engine (GKE)
 
 **Prerequisite**: [gcloud](https://cloud.google.com/sdk/docs/quickstarts).
@@ -44,10 +44,10 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the 
 [Calico Quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/).
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 Once your cluster is running, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
-{{% /capture %}}
+
 

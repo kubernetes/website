@@ -1,27 +1,27 @@
 ---
 title: Configure Quality of Service for Pods
-content_template: templates/task
+#content_template: templates/task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure Pods so that they will be assigned particular
 Quality of Service (QoS) classes. Kubernetes uses QoS classes to make decisions about
 scheduling and evicting Pods.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## QoS classes
 
@@ -235,9 +235,9 @@ Delete your namespace:
 kubectl delete namespace qos-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 
 
 ### For app developers
@@ -263,7 +263,7 @@ kubectl delete namespace qos-example
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
 * [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
-{{% /capture %}}
+
 
 
 

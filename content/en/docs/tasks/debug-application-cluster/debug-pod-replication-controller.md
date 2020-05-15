@@ -2,25 +2,25 @@
 reviewers:
 - bprashanth
 title: Debug Pods and ReplicationControllers
-content_template: templates/task
+#content_template: templates/task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to debug Pods and ReplicationControllers.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * You should be familiar with the basics of
   [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Debugging Pods
 
@@ -106,4 +106,4 @@ or they can't. If they can't create pods, then please refer to the
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to inspect events
 related to the replication controller.
 
-{{% /capture %}}
+

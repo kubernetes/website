@@ -1,22 +1,22 @@
 ---
 title: Assign Pods to Nodes using Node Affinity
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+#content_template: templates/task
 weight: 120
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to assign a Kubernetes Pod to a particular node using Node Affinity in a
 Kubernetes cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Add a label to a node
 
@@ -112,9 +112,9 @@ This means that the pod will prefer a node that has a `disktype=ssd` label.
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 Learn more about
 [Node Affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
-{{% /capture %}}
+

@@ -1,22 +1,22 @@
 ---
 title: Configure Pod Initialization
-content_template: templates/task
+#content_template: templates/task
 weight: 130
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to use an Init Container to initialize a Pod before an
 application Container runs.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a Pod that has an Init Container
 
@@ -78,9 +78,9 @@ The output shows that nginx is serving the web page that was written by the init
       <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
       ...
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 
 * Learn more about
 [communicating between Containers running in the same Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
@@ -88,6 +88,6 @@ The output shows that nginx is serving the web page that was written by the init
 * Learn more about [Volumes](/docs/concepts/storage/volumes/).
 * Learn more about [Debugging Init Containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
-{{% /capture %}}
+
 
 

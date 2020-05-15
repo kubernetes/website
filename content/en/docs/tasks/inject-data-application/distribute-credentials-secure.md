@@ -1,22 +1,22 @@
 ---
 title: Distribute Credentials Securely Using Secrets
-content_template: templates/task
+#content_template: templates/task
 weight: 50
 min-kubernetes-server-version: v1.6
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to securely inject sensitive data, such as passwords and
 encryption keys, into Pods.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Convert your secret data to a base-64 representation
 
@@ -243,9 +243,7 @@ This functionality is available in Kubernetes v1.6 and later.
   password: 39528$vdg7Jb
   ````
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+{{% whatsnext_heading %}}
 
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
 * Learn about [Volumes](/docs/concepts/storage/volumes/).
@@ -256,5 +254,5 @@ This functionality is available in Kubernetes v1.6 and later.
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
-{{% /capture %}}
+
 

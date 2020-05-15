@@ -8,15 +8,15 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Scale a StatefulSet
-content_template: templates/task
+#content_template: templates/task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 * StatefulSets are only available in Kubernetes version 1.5 or later.
   To check your version of Kubernetes, run `kubectl version`.
@@ -26,9 +26,9 @@ This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to incr
 * You should perform scaling only when you are confident that your stateful application
   cluster is completely healthy.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Scaling StatefulSets
 
@@ -90,10 +90,10 @@ to reason about scaling operations at the application level in these cases, and
 perform scaling only when you are sure that your stateful application cluster is
 completely healthy.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 
 * Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
 
-{{% /capture %}}
+
