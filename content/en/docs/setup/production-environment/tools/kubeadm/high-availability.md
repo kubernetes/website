@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Creating Highly Available clusters with kubeadm
-content_template: templates/task
+#content_template: templates/task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains two different approaches to setting up a highly available Kubernetes
 cluster using kubeadm:
@@ -30,9 +30,9 @@ environment, neither approach documented here works with Service objects of type
 LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites_heading %}}
 
 For both methods you need this infrastructure:
 
@@ -50,9 +50,9 @@ For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## First steps for both methods
 
@@ -372,4 +372,4 @@ SSH is required if you want to control all nodes from a single machine.
     # Quote this line if you are using external etcd
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
-{{% /capture %}}
+

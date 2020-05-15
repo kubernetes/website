@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Options for Highly Available topology
-content_template: templates/concept
+#content_template: templates/concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
 
@@ -17,9 +17,9 @@ You can set up an HA cluster:
 
 You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Stacked etcd topology
 
@@ -62,10 +62,10 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext_heading %}}
 
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+
