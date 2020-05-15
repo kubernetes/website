@@ -166,11 +166,13 @@ boilerplate | 상용구 |
 Boot | 부트 |
 Build | 빌드 |
 Cache | 캐시 |
+Calico | 캘리코(Calico) |
 canary | 카나리(canary) | 릴리스 방식에 관련한 용어인 경우에 한함
 cascading | 캐스케이딩(cascading) |
 character set | 캐릭터 셋 |
 Charts | 차트 |
 checkpoint | 체크포인트 |
+Cilium | 실리움(Cilium) |
 CLI | CLI |
 Cluster | 클러스터 |
 Command Line Tool | 커맨드라인 툴 |
@@ -212,7 +214,7 @@ extension | 익스텐션(extension) |
 Failed | Failed | 파드의 상태에 한함
 Federation | 페더레이션 |
 field | 필드 |
-Flannel | Flannel |
+Flannel | 플란넬(Flannel) |
 form | 형식 |
 Google Compute Engine | Google Compute Engine |
 hash | 해시 |
@@ -239,6 +241,7 @@ Job | 잡 |
 kube-proxy | kube-proxy |
 Kubelet | Kubelet |
 Kubernetes | 쿠버네티스 |
+Kube-router | Kube-router |
 label | 레이블 |
 lifecycle | 라이프사이클 |
 Linux | 리눅스 |
@@ -307,6 +310,7 @@ Role | 롤 |
 rollback | 롤백 |
 rolling update | 롤링 업데이트 |
 rollout | 롤아웃 |
+Romana | 로마나(Romana) |
 Running | Running | 파드의 상태에 한함
 runtime | 런타임 |
 Scale | 스케일 |
@@ -352,6 +356,7 @@ virtualization | 가상화 |
 Volume | 볼륨 |
 Waiting | Waiting | 파드의 상태에 한함
 Walkthrough | 연습 |
+Weave-net | 위브넷(Weave Net) | Weaveworks 사의 솔루션 공식 명칭은 'Weave Net'이므로 한영병기 시 공식 명칭 사용
 Windows | 윈도우 |
 Worker | 워커 | 노드의 형태에 한함
 Workload | 워크로드 |
