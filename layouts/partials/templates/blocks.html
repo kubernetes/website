@@ -8,6 +8,7 @@
 {{ end }}
 {{ $section := $.ctx.Scratch.Get "section" }}
 {{ $headers := findRE "<h2.*?>(.|\n)*?</h2>" $section }}
+{{ print "headers:%s" $headers }}
 {{ range $headers }}
 {{ $id := . | strings.TrimPrefix "<h2 id=\"" }}
 {{ $id := $id | replaceRE "\">.*" "" }}

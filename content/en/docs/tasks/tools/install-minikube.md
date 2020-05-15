@@ -16,16 +16,20 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
 To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
+
 ```
 grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
+
 {{% /tab %}}
 
 {{% tab name="macOS" %}}
 To check if virtualization is supported on macOS, run the following command on your terminal.
+
 ```
 sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
+
 If you see `VMX` in the output (should be colored), the VT-x feature is enabled in your machine.
 {{% /tab %}}
 
@@ -49,7 +53,6 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 {{% /tab %}}
 {{< /tabs >}}
-
 
 <!-- steps -->
 
@@ -122,6 +125,7 @@ brew install minikube
 
 {{% /tab %}}
 {{% tab name="macOS" %}}
+
 ### Install kubectl
 
 Make sure you have kubectl installed. You can install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos).
@@ -137,6 +141,7 @@ If you do not already have a hypervisor installed, install one of these now:
 • [VMware Fusion](https://www.vmware.com/products/fusion)
 
 ### Install Minikube
+
 The easiest way to install Minikube on macOS is using [Homebrew](https://brew.sh):
 
 ```shell
@@ -158,6 +163,7 @@ sudo mv minikube /usr/local/bin
 
 {{% /tab %}}
 {{% tab name="Windows" %}}
+
 ### Install kubectl
 
 Make sure you have kubectl installed. You can install kubectl according to the instructions in [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows).
@@ -194,14 +200,6 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 {{% /tab %}}
 {{< /tabs >}}
-
-
-
-
-{{% whatsnext_heading %}}
-
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
-
 
 
 ## Confirm Installation
@@ -255,3 +253,7 @@ then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```
+
+{{% whatsnext_heading %}}
+
+* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
