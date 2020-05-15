@@ -200,6 +200,7 @@ disruption | 중단(disruption) |
 distros | 배포판 |
 Docker | 도커 |
 Dockerfile | Dockerfile |
+Docker Swarm | Docker Swarm |
 Downward API | 다운워드(Downward) API |
 draining | 드레이닝(draining) |
 egress | 이그레스, 송신(egress) |
