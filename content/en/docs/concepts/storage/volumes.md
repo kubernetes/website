@@ -1474,9 +1474,6 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-## {{% whatsnext_heading %}}
-
 {{% whatsnext_heading %}}
 
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-
