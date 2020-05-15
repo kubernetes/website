@@ -501,6 +501,10 @@ img.big-img {
   display: none;
 }
 
+.global-nav {
+  padding: 0;
+}
+
 /* .content img {
 max-width: 100%;
 } */
