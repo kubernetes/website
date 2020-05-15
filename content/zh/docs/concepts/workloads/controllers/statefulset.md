@@ -227,7 +227,7 @@ Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
 {{< note >}}
-集群域会被设置为 `cluster.local`，除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
+集群域会被设置为 `cluster.local`，除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
 
 <!--
