@@ -214,7 +214,7 @@ For example, if your application uses the following configuration file:
 
 ```yaml
 apiUrl: "https://my.api.com/api/v1"
-username: "user"
+username: "username"
 password: "password"
 ```
 
