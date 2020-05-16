@@ -46,83 +46,97 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 * `nginx-deployment`という名前のDeploymentが作成され、`.metadata.name`フィールドで名前を指定します。
 * Deploymentは3つのレプリカPodを作成し、`replicas`フィールドによってレプリカ数を指定します。
 * `selector`フィールドは、Deploymentが管理するPodのラベルを定義します。このケースにおいて、ユーザーはPodテンプレートにて定義されたラベル(`app: nginx`)を選択します。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
-    {{< note >}}
-    `matchLabels`フィールドは、キーとバリューのペアのマップとなります。`matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しいです。
-    `matchLabels`と`matchExpressions`の両方が設定された場合、条件に一致するには両方とも満たす必要があります。
-    {{< /note >}}
+
+  {{< note >}}
+  `matchLabels`フィールドは、キーとバリューのペアのマップとなります。`matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しいです。
+  `matchLabels`と`matchExpressions`の両方が設定された場合、条件に一致するには両方とも満たす必要があります。
+  {{< /note >}}
+
 * `template`フィールドは、下記のサブフィールドを持ちます。:
   * Podは`labels`フィールドによって指定された`app: nginx`というラベルがつけられる
   * PodTemplateの仕様もしくは、`.template.spec`フィールドは、このPodは`nginx`という名前のコンテナーを1つ稼働させ、それは`nginx`というさせ、[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2を使うことを示します
   * 1つのコンテナを作成し、`name`フィールドを使って`nginx`という名前をつけます
 
-  上記のDeploymentを作成するために、以下に示すステップにしたがってください。
-  作成を始める前に、ユーザーのKubernetesクラスターが稼働していることを確認してください。
+作成を始める前に、ユーザーのKubernetesクラスターが稼働していることを確認してください。
+上記のDeploymentを作成するために、以下に示すステップにしたがってください。
 
-  1. 下記のコマンドを実行してDeploymentを作成してください。
+1. 下記のコマンドを実行してDeploymentを作成してください。
 
-      {{< note >}}
-      実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
-      {{< /note >}}
-
-    ```shell
-    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
-    ```
-
-  2. Deploymentが作成されたことを確認するために、`kubectl get deployment`を実行してください。Deploymentがまだ作成中の場合、コマンドの実行結果は下記のとおりです。
-    ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         0         0            0           1s
-    ```
-    ユーザーのクラスターにおいてDeploymentを調査するとき、下記のフィールドが出力されます。
-
-      * `NAME` クラスター内のDeploymentの名前を表示する
-      * `DESIRED` アプリケーションの理想的な_replicas_ の値を表示する: これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
-      * `CURRENT` 現在稼働中のレプリカ数
-      * `UP-TO-DATE` 理想的な状態にするために、アップデートが完了したレプリカ数
-      * `AVAILABLE` ユーザーが利用可能なレプリカ数
-      * `AGE` アプリケーションが稼働してからの時間
-
-    上記のyamlの例だと、`.spec.replicas`フィールドの値によると、理想的なレプリカ数は3です。
-
-  3. Deploymentのロールアウトステータスを確認するために、`kubectl rollout status deployment.v1.apps/nginx-deployment`を実行してください。コマンドの実行結果は下記のとおりです。
-    ```shell
-    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment.apps/nginx-deployment successfully rolled out
-    ```
-
-  4. 数秒後、再度`kubectl get deployments`を実行してください。コマンドの実行結果は下記のとおりです。
-    ```shell
-    NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3         3         3            3           18s
-    ```
-    Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
-
-  5. Deploymentによって作成されたReplicaSet (`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は下記のとおりです。
-
-    ```shell
-    NAME                          DESIRED   CURRENT   READY   AGE
-    nginx-deployment-75675f5897   3         3         3       18s
-    ```
-    ReplicaSetの名前は`[Deployment名]-[ランダム文字列]`という形式になることに注意してください。ランダム文字列はランダムに生成され、pod-template-hashをシードとして使用します。
-
-  6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。コマンドの実行結果は下記のとおりです。
-    ```shell
-    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    ```
-    作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
+  ```shell
+  kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+  ```
 
   {{< note >}}
-  Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
+  実行したコマンドを`kubernetes.io/change-cause`というアノテーションに記録するために`--record`フラグを指定できます。これは将来的な問題の調査のために有効です。例えば、各Deploymentのリビジョンにおいて実行されたコマンドを見るときに便利です。
   {{< /note >}}
+
+
+2. Deploymentが作成されたことを確認するために、`kubectl get deployment`を実行してください。
+
+  Deploymentがまだ作成中の場合、コマンドの実行結果は下記のとおりです。
+  ```shell
+  NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+  nginx-deployment   3         0         0            0           1s
+  ```
+  ユーザーのクラスターにおいてDeploymentを調査するとき、下記のフィールドが出力されます。
+  * `NAME` クラスター内のDeploymentの名前を表示する
+  * `DESIRED` アプリケーションの理想的な_replicas_ の値を表示する: これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
+  * `CURRENT` 現在稼働中のレプリカ数
+  * `UP-TO-DATE` 理想的な状態にするために、アップデートが完了したレプリカ数
+  * `AVAILABLE` ユーザーが利用可能なレプリカ数
+  * `AGE` アプリケーションが稼働してからの時間
+
+  上記のyamlの例だと、`.spec.replicas`フィールドの値によると、理想的なレプリカ数は3です。
+
+3. Deploymentのロールアウトステータスを確認するために、`kubectl rollout status deployment.v1.apps/nginx-deployment`を実行してください。
+
+  コマンドの実行結果は下記のとおりです。
+  ```shell
+  Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+  deployment.apps/nginx-deployment successfully rolled out
+  ```
+
+4. 数秒後、再度`kubectl get deployments`を実行してください。コマンドの実行結果は下記のとおりです。
+  ```shell
+  NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+  nginx-deployment   3         3         3            3           18s
+  ```
+  Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
+
+5. Deploymentによって作成されたReplicaSet (`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は下記のとおりです。
+  ```shell
+  NAME                          DESIRED   CURRENT   READY   AGE
+  nginx-deployment-75675f5897   3         3         3       18s
+  ```
+  ReplicaSetの出力には次のフィールドが表示されます:
+
+  * `NAME`は名前空間内のReplicaSetの名前を一覧表示します。
+  * `DESIRED`は、アプリケーションの_replicas_の希望数を表示します。これは、Deploymentを作成するときに定義します。これが_desired state_です。
+  * `CURRENT`は現在実行されているレプリカの数を表示します。
+  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数を表示します。
+  * `AGE`は、アプリケーションが実行されている時間を表示します。
+
+  ReplicaSetの名前は`[Deployment名]-[ランダム文字列]`という形式になることに注意してください。ランダム文字列はランダムに生成され、pod-template-hashをシードとして使用します。
+
+
+6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。コマンドの実行結果は下記のとおりです。
+  ```shell
+  NAME                                READY     STATUS    RESTARTS   AGE       LABELS
+  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  ```
+  作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
+
+{{< note >}}
+Deploymentに対して適切なセレクターとPodテンプレートのラベルを設定する必要があります(このケースでは`app: nginx`)。ラベルやセレクターを他のコントローラーと重複させないでください(他のDeploymentやStatefulSetを含む)。Kubernetesはユーザがラベルを重複させることを止めないため、複数のコントローラーでセレクターの重複が発生すると、コントローラー間で衝突し予期せぬふるまいをすることになります。
+{{< /note >}}
 
 ### pod-template-hashラベル
 
-{{< note >}}
+{{< caution >}}
 このラベルを変更しないでください。
-{{< /note >}}
+{{< /caution >}}
 
 `pod-template-hash`ラベルはDeploymentコントローラーによってDeploymentが作成し適用した各ReplicaSetに対して追加されます。
 
