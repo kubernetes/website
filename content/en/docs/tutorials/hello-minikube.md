@@ -45,8 +45,6 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 1. Click **Launch Terminal**
 
-    {{< kat-button >}}
-
     {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
