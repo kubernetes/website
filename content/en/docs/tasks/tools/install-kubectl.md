@@ -22,39 +22,6 @@ You must use a kubectl version that is within one minor version difference of yo
 
 ## Install kubectl on Linux
 
-### Install kubectl binary with curl on Linux
-
-1. Download the latest release with the command:
-
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-    ```
-
-    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
-
-    For example, to download version {{< param "fullversion" >}} on Linux, type:
-    
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
-    ```
-
-2. Make the kubectl binary executable.
-
-    ```
-    chmod +x ./kubectl
-    ```
-
-3. Move the binary in to your PATH.
-
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
-4. Test to ensure the version you installed is up-to-date:
-
-    ```
-    kubectl version --client
-    ```
-
 ### Install using native package management
 
 {{< tabs name="kubectl_install" >}}
@@ -106,6 +73,38 @@ kubectl version --client
 
 {{< /tabs >}}
 
+### Install kubectl binary with curl on Linux
+
+1. Download the latest release with the command:
+
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    ```
+
+    To download a specific version, replace the `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` portion of the command with the specific version.
+
+    For example, to download version {{< param "fullversion" >}} on Linux, type:
+    
+    ```
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    ```
+
+2. Make the kubectl binary executable.
+
+    ```
+    chmod +x ./kubectl
+    ```
+
+3. Move the binary in to your PATH.
+
+    ```
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    ```
+4. Test to ensure the version you installed is up-to-date:
+
+    ```
+    kubectl version --client
+    ```
 
 ## Install kubectl on macOS
 
