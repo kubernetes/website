@@ -1080,10 +1080,9 @@ In order from most secure to least secure, the approaches are:
 2. Grant a role to the "default" service account in a namespace
 
     If an application does not specify a `serviceAccountName`, it uses the "default" service account.
-
+    
     {{< note >}}
-    Permissions given to the "default" service account are available to any pod
-    in the namespace that does not specify a `serviceAccountName`.
+    Permissions given to the "default" service account are available to any pod in the namespace that does not specify a `serviceAccountName`.
     {{< /note >}}
 
     For example, grant read-only permission within "my-namespace" to the "default" service account:
@@ -1095,10 +1094,8 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-    Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
-    "default" service account in the `kube-system` namespace.
-    To allow those add-ons to run with super-user access, grant cluster-admin
-    permissions to the "default" service account in the `kube-system` namespace.
+    Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the "default" service account in the `kube-system` namespace.
+    To allow those add-ons to run with super-user access, grant cluster-admin permissions to the "default" service account in the `kube-system` namespace.
 
     {{< caution >}}
     Enabling this means the `kube-system` namespace contains Secrets
