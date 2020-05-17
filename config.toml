@@ -56,7 +56,7 @@ disableLanguages = ["hi", "no"]
     style = "emacs"
     tabWidth = 4
   [markup.tableOfContents]
-    endLevel = 2
+    endLevel = 3
     ordered = false
     startLevel = 2
 
@@ -133,7 +133,7 @@ announcement = true
 announcement_bg = "#000000" #choose a dark color – text is white
 
 #Searching
-k8ts_search = true
+k8s_search = true
 
 #The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
 

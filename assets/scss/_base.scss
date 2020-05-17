@@ -792,3 +792,43 @@ section#cncf {
     }
   }
 }
+
+// Docs specific
+
+#editPageButton {
+  position: absolute;
+  top: 50px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  white-space: nowrap;
+  text-indent: 50px;
+  overflow: hidden;
+  background: $blue url(/images/icon-pencil.svg) no-repeat;
+  background-position: 12px 10px;
+  background-size: 29px 29px;
+}
+
+.feedback--response__hidden {
+  display: none;
+}
+
+// GitHub info/edit buttons
+#pre-footer {
+  margin-top: 2rem;
+
+  .button {
+    font-size: 1.1rem;
+
+    &:first-of-type {
+      margin-right: 0.75rem;
+    }
+  }
+
+  .lastedit {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+}

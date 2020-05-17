@@ -1,6 +1,3 @@
-<!-- The head.html partials from old K8TS and Docsy have been merged here. Some script calls
-from K8TS are removed, e.g. Bootstrap, as they are already brought in with Docsy -->
-
 {{- $isBlogPost := eq .Section "blog" }}
 {{- $ogType := cond (.IsHome) "website" "article" }}
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -57,7 +54,6 @@ from K8TS are removed, e.g. Bootstrap, as they are already brought in with Docsy
   }
 </script>
 <meta name="theme-color" content="#326ce5">
-<link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
 {{ partial "css.html" . }}
 <!-- Content for social media sharing previews -->
 <!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
@@ -91,5 +87,3 @@ from K8TS are removed, e.g. Bootstrap, as they are already brought in with Docsy
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/images/kubernetes-192x192.png">

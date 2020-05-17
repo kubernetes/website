@@ -11,6 +11,7 @@
 
     table {
       margin-bottom: 1rem;
+      display: initial;
     }
 
     @media only screen and (min-width: 768px) {
@@ -31,6 +32,16 @@ section {
   padding: 0 !important;
 }
 
+#desktopShowVideoButton {
+  border: none
+}
+
+#videoPlayer {
+  #closeButton {
+    background: transparent;
+  }
+}
+
 /* HEADER */
 
 .td-navbar {
@@ -49,12 +60,17 @@ section {
     background-image: url("/images/favicon.png");
   }
 
+  #hamburger {
+    &:focus {
+      outline: none;
+    }
+  }
+
   @media only screen and (min-width: 768px) {
     .navbar-brand {
       background-image: url("/images/nav_logo.svg");
       top: 1.5rem;
       width: 180px;
-      height: 88px;
       margin-left: 1rem;
     }
   }
@@ -97,13 +113,11 @@ section {
   }
 
   @media only screen and (min-width: 768px) {
-    font-size: 0.875rem;
     display: block;
     margin-top: 3.5rem !important;
   }
 
-  @media only screen and (min-width: 1024px) {
-    font-size: 0.8rem;
+  @media only screen and (min-width: 1075px) {
     margin-top: 1.5rem !important;
   }
 }
@@ -157,6 +171,7 @@ section {
 
 /* FOOTER */
 footer {
+  background-color: #303030;
   background-image: url("/images/texture.png");
   padding: 1rem !important;
   min-height: initial !important;
@@ -182,7 +197,7 @@ footer {
 
   small {
     color: $light-grey;
-    font-size: 0.725rem;
+    font-size: 0.64rem;
 
     a {
       text-decoration: inherit;
@@ -191,6 +206,32 @@ footer {
       &:hover {
         color: inherit;
       }
+    }
+  }
+}
+
+/* SIDE-DRAWER MENU */
+
+.pi-pushmenu .sled {
+  .content ul {
+    padding: 0;
+
+    li {
+      &:first-child {
+        display: none;
+      }
+
+      a.nav-link {
+        padding: 0;
+      }
+    }
+  }
+  .push-menu-close-button {
+    background: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
     }
   }
 }
@@ -213,28 +254,53 @@ footer {
   }
 }
 
-/* table of contents */
+// table of contents
 .td-toc {
   padding-top: 1.5rem !important;
+  top: 5rem !important;
+
+  #TableOfContents {
+    padding-top: 1rem;
+  }
 }
 
-/* search & sidebar */
+// blockquotes and callouts
 
+blockquote {
+  padding: 0.4rem 0.4rem 0.4rem 1rem !important;
+}
+
+// callouts are contained in static CSS as well. these require override.
+
+.caution {
+  border-left-color: #f0ad4e !important;
+}
+
+.note {
+  border-left-color: #428bca !important;
+}
+
+.warning {
+  border-left-color: #d9534f !important;
+}
+
+// search & sidebar
 .td-sidebar {
   @media only screen and (min-width: 768px) {
     padding-top: 1.5rem !important;
+
+    .td-sidebar__inner {
+      top: 8.5rem;
+
+      @media only screen and (min-width: 1075px) {
+        top: 6.5rem;
+      }
+    }
   }
 }
 
 .td-sidebar__inner {
   form.td-sidebar__search {
-    input.form-control.td-search-input {
-      &::placeholder {
-        @media only screen and (max-width: 767px) {
-          color: $white;
-        }
-      }
-    }
 
     button.td-sidebar__toggle {
       &:hover {
@@ -264,6 +330,32 @@ footer {
   }
 }
 
+//Tutorials
+main.content {
+  position: inherit;
+}
+
+/* BLOG */
+
+.td-blog {
+
+  .td-sidebar-nav {
+    max-height: calc(100vh - 8rem);
+  }
+
+  .widget-link {
+    margin-bottom: 1rem;
+
+    .svg-inline--fa {
+      width: 25px;
+    }
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
 /* COMMUNITY */
 
 .newcommunitywrapper {
@@ -283,7 +375,7 @@ footer {
 #caseStudies {
   section .cols {
     margin-left: 11%;
-    
+
     div {
       width: initial !important;
       h2 {
