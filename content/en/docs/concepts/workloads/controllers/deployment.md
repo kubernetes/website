@@ -418,7 +418,7 @@ rolled back.
     ```
 
     {{< note >}}
-    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. sKubernetes by default sets the value to 25%.
+    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. Kubernetes by default sets the value to 25%.
     {{< /note >}}
 
 * Get the description of the Deployment:
