@@ -144,7 +144,7 @@ _Equality-_ or _inequality-based_ requirements allow filtering by label keys and
 Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are simply synonyms), while the latter represents _inequality_. For example:
 -->
 _基于相等性_ 或 _不相等_ 的需求允许按标签键和值进行过滤。匹配对象必须满足所有指定的标签约束，尽管它们也可能具有其他标签。
-可接受的运算符有`=`、`==` 和 `！=` 三种。 前两个表示 _相等_（并且只是同义词），而后者表示 _不相等_。 例如：
+可接受的运算符有`=`、`==` 和 `!=` 三种。 前两个表示 _相等_（并且只是同义词），而后者表示 _不相等_。 例如：
 
 ```
 environment = production
