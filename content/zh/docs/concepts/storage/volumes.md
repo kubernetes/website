@@ -2418,4 +2418,5 @@ sudo systemctl restart docker
 -->
 
 * 参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
+
 {{% /capture %}}
