@@ -266,9 +266,7 @@ debería realizarse a través de otro proceso de controlador en línea, no con e
 ## Responsabilidades de un ReplicationController
 
 El ReplicationController simplemente garantiza que el número deseado de pods coincide con su selector de etiqueta y que son operacionales.
-Actualmente, sólo los pods que han terminado se excluyen de la cuenta. En el futuro, la [disponibilidad](http://issue.k8s.io/620) y otra información disponible en el sistema
-se tendrá en cuenta, se añadirá más controles sobre la regla de sussitución, y se está planificando
-emitir eventos que podrían ser aprovechados por clientes externos para implementar reglas complejas de sustitución y escalado de forma arbitraria.
+Actualmente, sólo los pods que han terminado se excluyen de la cuenta. En el futuro, la [disponibilidad](http://issue.k8s.io/620) y otra información disponible en el sistema se tendrá en cuenta, se añadirá más controles sobre la regla de sustitución, y se está planificando emitir eventos que podrían ser aprovechados por clientes externos para implementar reglas complejas de sustitución y escalado de forma arbitraria.
 
 El ReplicationController está siempre condicionado a esta reducida responsabilidad.
 Él mismo no llevará a cabo ni pruebas de estar listo ni vivo. En vez de aplicar el auto-escalado,
@@ -281,7 +279,7 @@ Incluso se plantea excluir el mecanismo de creación de pods a granel ([#170](ht
 El ReplicationController está pensado para ser una primitiva de bloques is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale, rolling-update) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](http://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 
 
-## Obejto API
+## Objeto API
 
 El ReplicationController es un recurso de alto nivel en la API REST de Kubernetes. Más detalles acerca del
 objeto API se pueden encontrar aquí:
