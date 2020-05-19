@@ -59,8 +59,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use [headless Services](/docs/concepts/services-networking/service/#headless-
-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
+- Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
 
 ## Using Labels
 
