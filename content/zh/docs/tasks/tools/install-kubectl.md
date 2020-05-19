@@ -498,7 +498,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 {{% tab name="Windows" %}}
 1. 从[本链接](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)下载 kubectl 的最新版 {{< param "fullversion" >}}。
 
-   或者如果您已经在系统中安装了 `curl` 工具，也可以通过以下命令下载：
+    或者如果您已经在系统中安装了 `curl` 工具，也可以通过以下命令下载：
 
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe

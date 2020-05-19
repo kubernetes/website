@@ -64,7 +64,7 @@ kubectl config get-contexts                          # 컨텍스트 리스트 �
 kubectl config current-context              # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name  # my-cluster-name를 기본 컨텍스트로 설정
 
-# 기본 인증을 지원하는 새로운 클러스터를 kubeconf에 추가한다
+# 기본 인증을 지원하는 새로운 사용자를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
 # 해당 컨텍스트에서 모든 후속 kubectl 커맨드에 대한 네임스페이스를 영구적으로 저장한다
@@ -341,6 +341,21 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 `-o=name`     | 리소스 명만 출력하고 그 외에는 출력하지 않음
 `-o=wide`     | 추가 정보가 포함된 일반-텍스트 형식으로 출력하고, 파드의 경우 노드 명이 포함
 `-o=yaml`     | YAML 형식의 API 오브젝트 출력
+
+`-o=custom-columns` 의 사용 예시:
+
+```bash
+# 클러스터에서 실행 중인 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# 이름에 관계없이 메타데이터 아래의 모든 필드
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 

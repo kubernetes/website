@@ -70,10 +70,10 @@ and is overridden by command-line flags. Unspecified values in the new configura
 will receive default values appropriate to the configuration version
 (e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 
-The status of the Node's kubelet configuration is reported via 
+The status of the Node's kubelet configuration is reported via
 `Node.Spec.Status.Config`. Once you have updated a Node to use the new
 ConfigMap, you can observe this status to confirm that the Node is using the
-intended configuration. 
+intended configuration.
 
 This document describes editing Nodes using `kubectl edit`.
 There are other ways to modify a Node's spec, including `kubectl patch`, for
@@ -136,7 +136,7 @@ adapt the steps if you prefer to extract the `kubeletconfig` subobject manually.
 
 1.  Choose a Node to reconfigure. In this example, the name of this Node is
     referred to as `NODE_NAME`.
-2.  Start the kubectl proxy in the background using the following command: 
+2.  Start the kubectl proxy in the background using the following command:
 
       ```bash
       kubectl proxy --port=8001 &
@@ -236,8 +236,8 @@ Retrieve the Node using the `kubectl get node ${NODE_NAME} -o yaml` command and 
 
 The`lastKnownGood` configuration might not be present if it is set to its default value,
 the local config deployed with the node. The status will update `lastKnownGood` to
-match a valid `assigned` config after the kubelet becomes comfortable with the config. 
-The details of how the kubelet determines a config should become the `lastKnownGood` are 
+match a valid `assigned` config after the kubelet becomes comfortable with the config.
+The details of how the kubelet determines a config should become the `lastKnownGood` are
 not guaranteed by the API, but is currently implemented as a 10-minute grace period.
 
 You can use the following command (using `jq`) to filter down
@@ -287,7 +287,7 @@ by eye).
 
 If an error occurs, the kubelet reports it in the `Node.Status.Config.Error`
 structure. Possible errors are listed in
-[Understanding Node.Status.Config.Error messages](#understanding-node-status-config-error-messages).
+[Understanding Node.Status.Config.Error messages](#understanding-node-config-status-errors).
 You can search for the identical text in the kubelet log for additional details
 and context about the error.
 
@@ -355,7 +355,7 @@ metadata and checkpoints. The structure of the kubelet's checkpointing directory
   | - ...
 ```
 
-## Understanding Node.Status.Config.Error messages
+## Understanding Node.Status.Config.Error messages {#understanding-node-config-status-errors}
 
 The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text

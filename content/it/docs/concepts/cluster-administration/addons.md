@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Installazione dei componenti aggiuntivi
 content_template: templates/concept
 ---

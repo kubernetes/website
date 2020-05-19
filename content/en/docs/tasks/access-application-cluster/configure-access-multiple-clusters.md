@@ -346,7 +346,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 ### Windows Powershell
 ```shell
-$Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+$Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
 
 View configuration information merged from all the files that are now listed

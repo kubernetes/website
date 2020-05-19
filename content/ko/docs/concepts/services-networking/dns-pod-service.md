@@ -164,7 +164,7 @@ DNS 정책은 파드별로 설정할 수 있다. 현재 쿠버네티스는 다�
   일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다. 
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다. 
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은 
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)
   에서 확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인 
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.

@@ -1,7 +1,7 @@
 ---
 title: 확장된 리소스를 위한 리소스 빈 패킹(bin packing)
 content_template: templates/concept
-weight: 10
+weight: 50
 ---
 
 {{% capture overview %}}
