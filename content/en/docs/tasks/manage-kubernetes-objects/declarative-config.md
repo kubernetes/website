@@ -237,7 +237,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get deployment nginx-deployment -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -296,7 +296,7 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:

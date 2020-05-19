@@ -169,9 +169,9 @@ will delay the binding and provisioning of a PersistentVolume until a Pod using 
 PersistentVolumes will be selected or provisioned conforming to the topology that is
 specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
 requirements](/docs/concepts/configuration/manage-compute-resources-container),
-[node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector),
+[node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
 [pod affinity and
-anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:

@@ -16,6 +16,10 @@ This page shows how to use the `runAsUserName` setting for Pods and containers t
 
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
 
+{{% /capture %}}
+
+{{% capture steps %}}
+
 ## Set the Username for a Pod
 
 To specify the username with which to execute the Pod's container processes, include the `securityContext` field ([PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) in the Pod specification, and within it, the `windowsOptions` ([WindowsSecurityContextOptions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#windowssecuritycontextoptions-v1-core) field containing the `runAsUserName` field.

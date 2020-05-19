@@ -79,7 +79,7 @@ Składniki węzłów uruchomiane są na każdym węźle. Utrzymują pody w dzia�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### Container Runtime
+### Container runtime
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
