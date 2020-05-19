@@ -15,6 +15,9 @@ other = "Очистка"
 [prerequisites_heading]
 other = "Подготовка к работе"
 
+[subscribe_button]
+other = "Подписаться"
+
 [whatsnext_heading]
 other = "Что дальше"
 

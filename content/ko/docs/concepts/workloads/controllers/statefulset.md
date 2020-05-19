@@ -147,7 +147,7 @@ N개의 레플리카가 있는 스테이트풀셋은 스테이트풀셋에 있�
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-클러스터 도메인이 달리 [구성된 경우](/ko/docs/concepts/services-networking/dns-pod-service/#how-it-works)가 
+클러스터 도메인이 달리 [구성된 경우](/ko/docs/concepts/services-networking/dns-pod-service/)가 
 아니라면 `cluster.local`로 설정된다.
 {{< /note >}}
 

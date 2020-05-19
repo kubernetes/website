@@ -6,7 +6,7 @@ weight: 20
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 쿠버네티스에서 스토리지 시스템 볼륨 스냅샷은 _VolumeSnapshot_ 을 나타낸다. 이 문서는 이미 쿠버네티스 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)에 대해 잘 알고 있다고 가정한다.
 
 {{% /capture %}}
@@ -55,7 +55,9 @@ API 리소스 `PersistentVolume` 및 `PersistentVolumeClaim` 가 사용자 및 �
 
 ### 스냅샷 소스 보호로서의 퍼시스턴트 볼륨 클레임
 
-이 보호의 목적은 스냅샷이 생성되는 동안 사용 중인 퍼시스턴트볼륨클레임 API 오브젝트가 시스템에서 지워지지 않게 하는 것이다(데이터 손실이 발생할 수 있기 때문에).
+이 보호의 목적은 스냅샷이 생성되는 동안 사용 중인
+{{< glossary_tooltip text="퍼시스턴트볼륨클레임" term_id="persistent-volume-claim" >}}
+API 오브젝트가 시스템에서 지워지지 않게 하는 것이다(데이터 손실이 발생할 수 있기 때문에).
 
 퍼시스턴트볼륨클레임이 스냅샷을 생성할 동안에는 해당 퍼시스턴트볼륨클레임은 사용중인 상태이다. 스냅샷 소스로 사용 중인 퍼시스턴트볼륨클레임 API 객체를 삭제한다면, 퍼시스턴트볼륨클레임 객체는 즉시 삭제되지 않는다. 대신, 퍼시스턴트볼륨클레임 객체 삭제는 스냅샷이 준비(readyTouse) 혹은 중단(aborted) 상태가 될 때까지 연기된다.
 
