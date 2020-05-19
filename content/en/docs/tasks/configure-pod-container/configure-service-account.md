@@ -263,14 +263,14 @@ kubectl replace serviceaccount default -f ./sa.yaml
 
 Now, when a new Pod is created in the current namespace and using the default ServiceAccount, the new Pod has its  `spec.imagePullSecrets` field set automatically:
 
-````shell
+```shell
 kubectl run nginx --image=nginx --restart=Never
-kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}'
-````
+kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
+```
 
 The output is:
 
-```shell
+```
 myregistrykey
 ```
 
