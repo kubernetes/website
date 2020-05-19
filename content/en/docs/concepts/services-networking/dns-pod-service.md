@@ -171,7 +171,7 @@ following pod-specific DNS policies. These policies are specified in the
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
   `dnsConfig` field in the Pod Spec.
-  See [Pod's DNS config](#pod-s-dns-config) subsection below.
+  See [Pod's DNS config](#pod-dns-config) subsection below.
 
 {{< note >}}
 "Default" is not the default DNS policy. If `dnsPolicy` is not
@@ -201,7 +201,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### Pod's DNS Config
+### Pod's DNS Config {#pod-dns-config}
 
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
@@ -270,5 +270,3 @@ For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
 {{% /capture %}}
-
-

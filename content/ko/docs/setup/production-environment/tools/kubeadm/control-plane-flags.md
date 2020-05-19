@@ -7,7 +7,7 @@ weight: 40
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+{{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
 kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니저, 스케줄러와 같은 컨트롤 플레인 구성요소에 전달되는 기본 플래그 `extraArgs` 필드를 노출한다. 이 구성요소는 다음 필드를 사용하도록 정의되어 있다.
 

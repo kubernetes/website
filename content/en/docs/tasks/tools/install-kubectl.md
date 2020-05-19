@@ -65,6 +65,7 @@ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
+
 {{< tab name="CentOS, RHEL or Fedora" codelang="bash" >}}cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -89,16 +90,22 @@ snap install kubectl --classic
 
 kubectl version --client
 ```
+
 {{% /tab %}}
+
 {{% tab name="Homebrew" %}}
 If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+
 ```shell
 brew install kubectl
 
 kubectl version --client
 ```
+
 {{% /tab %}}
+
 {{< /tabs >}}
+
 
 ## Install kubectl on macOS
 
@@ -106,7 +113,7 @@ kubectl version --client
 
 1. Download the latest release:
 
-    ```		 
+    ```	 
     curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
@@ -129,6 +136,7 @@ kubectl version --client
     ```
     sudo mv ./kubectl /usr/local/bin/kubectl
     ```
+
 4. Test to ensure the version you installed is up-to-date:
 
     ```
@@ -144,8 +152,9 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
     ```
     brew install kubectl 
     ```
-    or 
-    
+
+    or
+
     ```
     brew install kubernetes-cli
     ```
@@ -188,11 +197,13 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
     To find out the latest stable version (for example, for scripting), take a look at [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
 2. Add the binary in to your PATH.
+
 3. Test to ensure the version of `kubectl` is the same as downloaded:
 
     ```
     kubectl version --client
     ```
+
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to PATH.
 If you have installed Docker Desktop before, you may need to place your PATH entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
@@ -208,10 +219,11 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
-    
-    {{< note >}}If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.{{< /note >}}
-    
-    The installer creates `$HOME/.kube` and instructs it to create a config file
+
+{{< note >}}If you do not specify a `DownloadLocation`, `kubectl` will be installed in the user's temp Directory.
+{{< /note >}}
+
+   The installer creates `$HOME/.kube` and instructs it to create a config file.
 
 2. Test to ensure the version you installed is up-to-date:
 
@@ -219,11 +231,14 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
     kubectl version --client
     ```
 
-    {{< note >}}Updating the installation is performed by rerunning the two commands listed in step 1.{{< /note >}}
+{{< note >}}
+Updating the installation is performed by rerunning the two commands listed in step 1.
+{{< /note >}}
 
 ### Install on Windows using Chocolatey or Scoop
 
-To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager or [Scoop](https://scoop.sh) command-line installer.
+
 {{< tabs name="kubectl_win_install" >}}
 {{% tab name="choco" %}}
 
@@ -236,6 +251,8 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
 
 {{% /tab %}}
 {{< /tabs >}}
+
+
 2. Test to ensure the version you installed is up-to-date:
 
     ```
@@ -265,13 +282,14 @@ To install kubectl on Windows you can use either [Chocolatey](https://chocolatey
     New-Item config -type file
     ```
     
-    {{< note >}}Edit the config file with a text editor of your choice, such as Notepad.{{< /note >}}
+{{< note >}}Edit the config file with a text editor of your choice, such as Notepad.{{< /note >}}
 
 ## Download as part of the Google Cloud SDK
 
 You can install kubectl as part of the Google Cloud SDK.
 
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/).
+
 2. Run the `kubectl` installation command:
 
     ```
@@ -293,6 +311,7 @@ Check that kubectl is properly configured by getting the cluster state:
 ```shell
 kubectl cluster-info
 ```
+
 If you see a URL response, kubectl is correctly configured to access your cluster.
 
 If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
@@ -350,18 +369,17 @@ You now need to ensure that the kubectl completion script gets sourced in all yo
     ```shell
     echo 'source <(kubectl completion bash)' >>~/.bashrc
     ```
-
 - Add the completion script to the `/etc/bash_completion.d` directory:
 
     ```shell
     kubectl completion bash >/etc/bash_completion.d/kubectl
     ```
-- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+If you have an alias for kubectl, you can extend shell completion to work with that alias:
 
-    ```shell
-    echo 'alias k=kubectl' >>~/.bashrc
-    echo 'complete -F __start_kubectl k' >>~/.bashrc
-    ```
+```shell
+echo 'alias k=kubectl' >>~/.bashrc
+echo 'complete -F __start_kubectl k' >>~/.bashrc
+```
 
 {{< note >}}
 bash-completion sources all completion scripts in `/etc/bash_completion.d`.
@@ -382,7 +400,7 @@ The kubectl completion script for Bash can be generated with `kubectl completion
 However, the kubectl completion script depends on [**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
 
 {{< warning>}}
-there are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
+There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
 {{< /warning >}}
 
 ### Upgrade Bash
@@ -454,9 +472,9 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
     
 - If you installed kubectl with Homebrew (as explained [above](#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
 
-{{< note >}}
-the Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
-{{< /note >}}
+  {{< note >}}
+  The Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+  {{< /note >}}
 
 In any case, after reloading your shell, kubectl completion should be working.
 {{% /tab %}}
@@ -488,6 +506,7 @@ compinit
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
 
 {{% /capture %}}
 

@@ -325,7 +325,8 @@ deadlock conditions, kubeadm fails fast if `localhost:10255/healthz` (kubelet li
 kubeadm relies on the kubelet to pull the control plane images and run them properly as static Pods.
 After the control plane is up, kubeadm completes the tasks described in following paragraphs.
 
-### (optional and alpha in v1.9) Write base kubelet configuration
+### (optional) Write base kubelet configuration
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 
@@ -516,7 +517,8 @@ Please note that:
   access to CSR api during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with configuration done the `kubeadm init` process
 
-### (optional and alpha in v1.9) Write init kubelet configuration
+### (optional) Write init kubelet configuration
+{{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 

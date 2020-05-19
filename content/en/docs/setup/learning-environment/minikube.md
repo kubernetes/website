@@ -37,116 +37,151 @@ See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 This brief demo guides you on how to start, use, and delete Minikube locally. Follow the steps given below to start and explore Minikube.
 
 1. Start Minikube and create a cluster:
-    ```shell
-    minikube start
-    ```
-    The output is similar to this:
 
-    ```
-    Starting local Kubernetes cluster...
-    Running pre-create checks...
-    Creating machine...
-    Starting local Kubernetes cluster...
-    ```
-    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
+   ```shell
+    minikube start
+   ```
+
+   The output is similar to this:
+
+   ```
+   Starting local Kubernetes cluster...
+   Running pre-create checks...
+   Creating machine...
+   Starting local Kubernetes cluster...
+   ```
+
+   For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
 
 2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
 
-    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
-    ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
-    ```
-    The output is similar to this:
-    ```
-    deployment.apps/hello-minikube created
-    ```
-3. To access the `hello-minikube` Deployment, expose it as a Service:
-    ```shell
-    kubectl expose deployment hello-minikube --type=NodePort --port=8080
-    ```
-    The option `--type=NodePort` specifies the type of the Service.
+   Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
 
-    The output is similar to this:
-    ```
-    service/hello-minikube exposed
-    ```
+   ```shell
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+   ```
+
+   The output is similar to this:
+
+   ```
+   deployment.apps/hello-minikube created
+   ```
+3. To access the `hello-minikube` Deployment, expose it as a Service:
+
+   ```shell
+   kubectl expose deployment hello-minikube --type=NodePort --port=8080
+   ```
+
+   The option `--type=NodePort` specifies the type of the Service.
+
+   The output is similar to this:
+
+   ```
+   service/hello-minikube exposed
+   ```
+
 4. The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
 
-	Check if the Pod is up and running:
-	```shell
-	kubectl get pod
-	```
-	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
-	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+   Check if the Pod is up and running:
+
+   ```shell
+   kubectl get pod
+   ```
+
+   If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+
+   ```
+   NAME                              READY     STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+   ```
+
+   If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+
+   ```
+   NAME                              READY     STATUS    RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+   ```
+
 5. Get the URL of the exposed Service to view the Service details:
-	```shell
-	minikube service hello-minikube --url
-	```
+
+   ```shell
+   minikube service hello-minikube --url
+   ```
+
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
-    The output is similar to this:
-    ```
-    Hostname: hello-minikube-7c77b68cff-8wdzq
+   The output is similar to this:
 
-    Pod Information:
-        -no pod information available-
+   ```
+   Hostname: hello-minikube-7c77b68cff-8wdzq
 
-    Server values:
-        server_version=nginx: 1.13.3 - lua: 10008
+   Pod Information:
+    -no pod information available-
 
-    Request Information:
-        client_address=172.17.0.1
-        method=GET
-        real path=/
-        query=
-        request_version=1.1
-        request_scheme=http
-        request_uri=http://192.168.99.100:8080/
+   Server values:
+    server_version=nginx: 1.13.3 - lua: 10008
 
-    Request Headers:
+   Request Information:
+    client_address=172.17.0.1
+    method=GET
+    real path=/
+    query=
+    request_version=1.1
+    request_scheme=http
+    request_uri=http://192.168.99.100:8080/
+
+   Request Headers:
         accept=*/*
         host=192.168.99.100:30674
         user-agent=curl/7.47.0
 
-    Request Body:
+   Request Body:
         -no body in request-
-    ```
-	If you no longer want the Service and cluster to run, you can delete them.
+   ```
+
+   If you no longer want the Service and cluster to run, you can delete them.
+
 7. Delete the `hello-minikube` Service:
-    ```shell
-    kubectl delete services hello-minikube
-    ```
-    The output is similar to this:
-    ```
-    service "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete services hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   service "hello-minikube" deleted
+   ```
+
 8. Delete the `hello-minikube` Deployment:
-    ```shell
-    kubectl delete deployment hello-minikube
-    ```
-    The output is similar to this:
-    ```
-    deployment.extensions "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete deployment hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   deployment.extensions "hello-minikube" deleted
+   ```
+
 9. Stop the local Minikube cluster:
-    ```shell
-    minikube stop
-    ```
-    The output is similar to this:
-    ```
-    Stopping "minikube"...
-    "minikube" stopped.
-    ```
-	For more information, see [Stopping a Cluster](#stopping-a-cluster).
+
+   ```shell
+   minikube stop
+   ```
+
+   The output is similar to this:
+
+   ```
+   Stopping "minikube"...
+   "minikube" stopped.
+   ```
+
+   For more information, see [Stopping a Cluster](#stopping-a-cluster).
+
 10. Delete the local Minikube cluster:
+
     ```shell
     minikube delete
     ```
@@ -193,8 +228,8 @@ For example the command would be.
 minikube start --driver=<driver_name>
 ```
 Minikube supports the following drivers:
- {{< note >}}
- See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
+{{< note >}}
+See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
 

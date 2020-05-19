@@ -134,11 +134,10 @@ path types:
   to the list of labels in the path split by the `/` separator. A request is a
   match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
   request path.
-    {{< note >}}
-    If the last element of the path is a substring of the
-    last element in request path, it is not a match (for example:
-    `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
-    {{< /note >}}
+  
+  {{< note >}}
+  If the last element of the path is a substring of the last element in request path, it is not a match (for example: `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+  {{< /note >}}
 
 #### Multiple Matches
 In some cases, multiple paths within an Ingress will match a request. In those
@@ -402,16 +401,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
