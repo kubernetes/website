@@ -59,7 +59,7 @@ overhead:
 ```
 
 As cargas de trabalho que são criadas que especifiquem o manipulador RuntimeClass `kata-fc` irão
-ter a sobrecarga de memoria e cpu em conta para os calculos da quota de recursos, agendamento de nós,
+ter a sobrecarga de memoria e cpu em conta para os cálculos da quota de recursos, agendamento de nós,
 assim como dimensionamento do cgroup do Pod.
 
 Considere executar a seguinte carga de trabalho de exemplo, test-pod:
@@ -113,12 +113,12 @@ pedidos e a sobrecarga, depois procura um nó com 2.25 CPU e 320 MiB de memória
 Assim que um _Pod_ é agendado a um nó, o kubelet nesse nó cria um novo {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}
 para o _Pod_. É dentro deste _pod_ que o _container runtime_ subjacente vai criar _containers_.
 
-Se o recurso tiver um limite definido para cada _container_ (_QoS_ garantida ou _Bustrable QoS_ com limites definidos),
+Se o recurso tiver um limite definido para cada _container_ (_QoS_ garantida ou _Burstrable QoS_ com limites definidos),
 o kubelet definirá um limite superior para o cgroup do _pod_ associado a esse recurso (cpu.cfs_quota_us para CPU
 e memory.limit_in_bytes de memória). Este limite superior é baseado na soma dos limites do _container_ mais o `overhead`
 definido no _PodSpec_.
 
-Para o CPU, se o _Pod_ for QoS garantida ou _Bustrable QoS_, o kubelet vai definir `cpu.shares` baseado na soma dos
+Para o CPU, se o _Pod_ for QoS garantida ou _Burstrable QoS_, o kubelet vai definir `cpu.shares` baseado na soma dos
 pedidos ao _container_ mais o `overhead` definido no _PodSpec_.
 
 Olhando para o nosso exemplo, verifique os pedidos ao _container_ para a carga de trabalho:
@@ -126,7 +126,7 @@ Olhando para o nosso exemplo, verifique os pedidos ao _container_ para a carga d
 kubectl get pod test-pod -o jsonpath='{.spec.containers[*].resources.limits}'
 ```
 
-O total de pedidos ao _container_ são 2000m CPU and 200MiB de memória:
+O total de pedidos ao _container_ são 2000m CPU e 200MiB de memória:
 ```
 map[cpu: 500m memory:100Mi] map[cpu:1500m memory:100Mi]
 ```
@@ -163,12 +163,12 @@ A partir disto, pode determinar o caminho do cgroup para o _Pod_:
 sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 ```
 
-O caminho do cgroup resultante inclui o _container_ `pause` do _Pod_. O cgroup de nivel do _Pod_ está uma diretoria acima.
+O caminho do cgroup resultante inclui o _container_ `pause` do _Pod_. O cgroup de nível do _Pod_ está uma directoria acima.
 ```
         "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
 
-Neste caso especifico, o caminho do cgroup do pod é `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`. Verifique a configuração cgroup de nivel do _Pod_ para a memória:
+Neste caso especifico, o caminho do cgroup do pod é `kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2`. Verifique a configuração cgroup de nível do _Pod_ para a memória:
 ```bash
 # Execute no nó onde o Pod está agendado
 # Mude também o nome do cgroup de forma a combinar com o cgroup alocado ao pod.
