@@ -96,7 +96,7 @@ kubectl version
 
 ![image-20200323171005736](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-error.png)
 
-Ended in error? Perfect! It's actual a good news, so let's now move on to the settings.
+You got an error? Perfect! It's actually good news, so let's now move on to the settings.
 
 ## Docker Desktop settings: enable WSL2 integration
 
