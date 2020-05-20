@@ -12,7 +12,7 @@ weight: 20
 
 たとえば、同じ[名前空間](/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
 
-ユーザーが付与する一意ではない属性については、Kubernetesが[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を付与します。
+ユーザーが一意ではない属性を付与するために、Kubernetesは[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を提供しています。
 
 {{% /capture %}}
 
