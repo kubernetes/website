@@ -48,59 +48,59 @@ min-kubernetes-server-version: 1.18
 
 ## 업그레이드할 버전 결정
 
-1.  최신의 안정 버전인 1.18을 찾는다.
+최신의 안정 버전인 1.18을 찾는다.
 
-    {{< tabs name="k8s_install_versions" >}}
-    {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{< tabs name="k8s_install_versions" >}}
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
     # 목록에서 최신 버전 1.18을 찾는다
     # 1.18.x-00과 같아야 한다. 여기서 x는 최신 패치이다.
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
     # 목록에서 최신 버전 1.18을 찾는다
     # 1.18.x-0과 같아야 한다. 여기서 x는 최신 패치이다.
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ## 컨트롤 플레인 노드 업그레이드
 
 ### 첫 번째 컨트롤 플레인 노드 업그레이드
 
-1.  첫 번째 컨트롤 플레인 노드에서 kubeadm을 업그레이드한다.
+-  첫 번째 컨트롤 플레인 노드에서 kubeadm을 업그레이드한다.
 
-    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-    {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{< tabs name="k8s_install_kubeadm_first_cp" >}}
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     # 1.18.x-00에서 x를 최신 패치 버전으로 바꾼다.
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
-
+    -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다.
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  다운로드하려는 버전이 잘 받아졌는지 확인한다.
+-  다운로드하려는 버전이 잘 받아졌는지 확인한다.
 
     ```shell
     kubeadm version
     ```
 
-1.  컨트롤 플레인 노드를 드레인(drain)한다.
+-  컨트롤 플레인 노드를 드레인(drain)한다.
 
     ```shell
     # <cp-node-name>을 컨트롤 플레인 노드 이름으로 바꾼다.
     kubectl drain <cp-node-name> --ignore-daemonsets
     ```
 
-1.  컨트롤 플레인 노드에서 다음을 실행한다.
+-  컨트롤 플레인 노드에서 다음을 실행한다.
 
     ```shell
     sudo kubeadm upgrade plan
@@ -143,13 +143,13 @@ min-kubernetes-server-version: 1.18
 
     이 명령은 클러스터를 업그레이드할 수 있는지를 확인하고, 업그레이드할 수 있는 버전을 가져온다.
 
-    {{< note >}}
-    또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
-    인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
-    자세한 내용은 [인증서 관리 가이드](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
-    {{</ note >}}
+{{< note >}}
+또한 `kubeadm upgrade` 는 이 노드에서 관리하는 인증서를 자동으로 갱신한다.
+인증서 갱신을 하지 않으려면 `--certificate-renewal=false` 플래그를 사용할 수 있다.
+자세한 내용은 [인증서 관리 가이드](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)를 참고한다.
+{{</ note >}}
 
-1.  업그레이드할 버전을 선택하고, 적절한 명령을 실행한다. 예를 들면 다음과 같다.
+-  업그레이드할 버전을 선택하고, 적절한 명령을 실행한다. 예를 들면 다음과 같다.
 
     ```shell
     # 이 업그레이드를 위해 선택한 패치 버전으로 x를 바꾼다.
@@ -238,7 +238,7 @@ min-kubernetes-server-version: 1.18
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
 
-1.  CNI 제공자 플러그인을 수동으로 업그레이드한다.
+-  CNI 제공자 플러그인을 수동으로 업그레이드한다.
 
     CNI(컨테이너 네트워크 인터페이스) 제공자는 자체 업그레이드 지침을 따를 수 있다.
     [애드온](/docs/concepts/cluster-administration/addons/) 페이지에서
@@ -246,7 +246,7 @@ min-kubernetes-server-version: 1.18
 
     CNI 제공자가 데몬셋(DaemonSet)으로 실행되는 경우 추가 컨트롤 플레인 노드에는 이 단계가 필요하지 않다.
 
-1.  컨트롤 플레인 노드에 적용된 cordon을 해제한다.
+-  컨트롤 플레인 노드에 적용된 cordon을 해제한다.
 
     ```shell
     # <cp-node-name>을 컨트롤 플레인 노드 이름으로 바꾼다.
@@ -255,46 +255,46 @@ min-kubernetes-server-version: 1.18
 
 ### 추가 컨트롤 플레인 노드 업그레이드
 
-1.  첫 번째 컨트롤 플레인 노드와 동일하지만 다음을 사용한다.
+첫 번째 컨트롤 플레인 노드와 동일하지만 다음을 사용한다.
 
-    ```
-    sudo kubeadm upgrade node
-    ```
+```
+sudo kubeadm upgrade node
+```
 
-    아래 명령 대신 위의 명령을 사용한다.
+아래 명령 대신 위의 명령을 사용한다.
 
-    ```
-    sudo kubeadm upgrade apply
-    ```
+```
+sudo kubeadm upgrade apply
+```
 
-    또한 `sudo kubeadm upgrade plan` 은 필요하지 않다.
+또한 `sudo kubeadm upgrade plan` 은 필요하지 않다.
 
 ### kubelet과 kubectl 업그레이드
 
-1.  모든 컨트롤 플레인 노드에서 kubelet 및 kubectl을 업그레이드한다.
+모든 컨트롤 플레인 노드에서 kubelet 및 kubectl을 업그레이드한다.
 
-    {{< tabs name="k8s_install_kubelet" >}}
-    {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{< tabs name="k8s_install_kubelet" >}}
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
-
+    -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  kubelet을 다시 시작한다.
+kubelet을 다시 시작한다.
 
-    ```shell
-    sudo systemctl restart kubelet
-    ```
+```shell
+sudo systemctl restart kubelet
+```
 
 ## 워커 노드 업그레이드
 
@@ -303,28 +303,28 @@ min-kubernetes-server-version: 1.18
 
 ### kubeadm 업그레이드
 
-1.  모든 워커 노드에서 kubeadm을 업그레이드한다.
+-  모든 워커 노드에서 kubeadm을 업그레이드한다.
 
-    {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-    {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
-
+    -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ### 노드 드레인
 
-1.  스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
+-  스케줄 불가능(unschedulable)으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
 
     ```shell
     # <node-to-drain>을 드레이닝하려는 노드 이름으로 바꾼다.
@@ -349,26 +349,26 @@ min-kubernetes-server-version: 1.18
 
 ### kubelet과 kubectl 업그레이드
 
-1.  모든 워커 노드에서 kubelet 및 kubectl을 업그레이드한다.
+-  모든 워커 노드에서 kubelet 및 kubectl을 업그레이드한다.
 
-    {{< tabs name="k8s_kubelet_and_kubectl" >}}
-    {{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
+{{< tabs name="k8s_kubelet_and_kubectl" >}}
+{{% tab name="Ubuntu, Debian 또는 HypriotOS" %}}
     # 1.18.x-00의 x를 최신 패치 버전으로 바꾼다
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
-
+    -
     # apt-get 버전 1.1부터 다음 방법을 사용할 수도 있다
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL 또는 Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL 또는 Fedora" %}}
     # 1.18.x-0에서 x를 최신 패치 버전으로 바꾼다
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  kubelet을 다시 시작한다.
+-  kubelet을 다시 시작한다.
 
     ```shell
     sudo systemctl restart kubelet
@@ -376,7 +376,7 @@ min-kubernetes-server-version: 1.18
 
 ### 노드에 적용된 cordon 해제
 
-1.  스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 만든다.
+-  스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 만든다.
 
     ```shell
     # <node-to-drain>을 노드의 이름으로 바꾼다.
