@@ -22,7 +22,7 @@ weight: 20
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-以下は、リソースに一般的に使用される3つのタイプの名前制約です。
+以下は、一般的にリソースに使用される3種類の名前に関する制約です。
 
 ### DNSサブドメイン名 {#dns-subdomain-names}
 
@@ -72,11 +72,11 @@ spec:
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
-Kubernetes UIDは、普遍的に一意の識別子(UUIDとも呼ばれます)です。
+Kubernetes UIDは、UUIDのことを指します。
 UUIDは、ISO/IEC 9834-8およびITU-T X.667として標準化されています。
 
 {{% /capture %}}
 {{% capture whatsnext %}}
 * Kubernetesの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)についてお読みください。
-* [Kubernetesの識別子と名前](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)設計ドキュメントをご覧ください。
+* [Kubernetesの識別子と名前](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)デザインドキュメントをご覧ください。
 {{% /capture %}}
