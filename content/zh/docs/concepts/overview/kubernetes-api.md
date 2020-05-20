@@ -232,6 +232,9 @@ Certain resources and API groups are enabled by default.  They can be enabled or
 on apiserver. `--runtime-config` accepts comma separated values. For example: to disable batch/v1, set
 `--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
+
+Enabling or disabling groups or resources requires restarting apiserver and controller-manager
+to pick up the `--runtime-config` changes.
 -->
 
 ## 启用 API 组
@@ -243,10 +246,6 @@ The flag accepts comma separated set of key=value pairs describing runtime confi
 
 {{< note >}}
 
-<!--
-Enabling or disabling groups or resources requires restarting apiserver and controller-manager
-to pick up the `--runtime-config` changes.
--->
 启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 `--runtime-config` 更改生效。
 
 {{< /note >}}
@@ -257,6 +256,8 @@ to pick up the `--runtime-config` changes.
 DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
 For example: to enable deployments and daemonsets, set
 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
+
+Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.
 -->
 
 ## 启用 extensions/v1beta1 组中资源
@@ -266,9 +267,6 @@ For example: to enable deployments and daemonsets, set
 
 {{< note >}}
 
-<!--
-Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.
--->
 出于遗留原因，仅在 `extensions / v1beta1` API 组中支持各个资源的启用/禁用。
 
 {{< /note >}}
