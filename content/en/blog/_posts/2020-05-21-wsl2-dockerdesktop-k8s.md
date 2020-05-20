@@ -135,7 +135,7 @@ kubectl version
 
 ![image-20200323173851206](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-success.png)
 
-> Tip: if nothing happens, restart Docker Desktop and restart the WSL process in Powershell: "Restart-Service LxssManager" and launch a new Ubuntu session
+> Tip: if nothing happens, restart Docker Desktop and restart the WSL process in Powershell: `Restart-Service LxssManager` and launch a new Ubuntu session
 
 And success! The basic settings are now done and we move to the installation of KinD.
 
