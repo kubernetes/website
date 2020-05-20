@@ -43,7 +43,7 @@ por todo o cluster, e uma `RuntimeClass` é utilizada que defina o campo `overhe
 
 Para usar a funcionalidade PodOverhead, é necessário uma RuntimeClass que define o campo `overhead`.
 Por exemplo, poderia usar a definição da RuntimeClass abaixo com um _container runtime_ virtualizado
-que usa cerca de 120MiB por Pod para a máquina virutal e o sistema operativo convidado:
+que usa cerca de 120MiB por Pod para a máquina virtual e o sistema operativo convidado:
 
 ```yaml
 ---
