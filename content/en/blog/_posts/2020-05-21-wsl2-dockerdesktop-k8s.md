@@ -124,7 +124,7 @@ In order to fix it, and finally be able to use the commands, we need to tell the
 
 ![image-20200323173319702](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-resources-wsl-integration.png)
 
-Let's now swith back to our WSL2 terminal and see if we can (finally) launch the commands:
+Let's now switch back to our WSL2 terminal and see if we can (finally) launch the commands:
 
 ```bash
 # Try to see if the docker cli and daemon are installed
