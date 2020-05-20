@@ -195,7 +195,7 @@ minikube start --driver=<driver_name>
 
 * virtualbox
 * vmwarefusion
-* docker (EXPERIMENTAL)
+* docker ([드라이버 설치](https://minikube.sigs.k8s.io/docs/drivers/docker/)
 * kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
 * hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
 * hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
@@ -457,11 +457,11 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 
 ## 추가적인 링크:
 
-* **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://git.k8s.io/minikube/docs/contributors/roadmap.md)을 살펴보자.
-* **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
-* **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
-* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
-* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
+* **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://minikube.sigs.k8s.io/docs/contrib/roadmap/)을 살펴보자.
+* **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [기여하기](https://minikube.sigs.k8s.io/docs/contrib/)를 살펴보자.
+* **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://minikube.sigs.k8s.io/docs/contrib/building/)를 살펴보자.
+* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/drivers/)를 보자.
+* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/addons/)를 보자. 
 * **MicroK8s**: 가상 머신을 사용하지 않으려는 Linux 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
 
 ## 커뮤니티

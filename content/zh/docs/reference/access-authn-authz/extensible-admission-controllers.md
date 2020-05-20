@@ -2018,7 +2018,7 @@ In the cases above, the webhook can be safely reinvoked, or admit an object that
 
 2. 对于 `CREATE` Pod 请求，如果未设置容器的字段 `.spec.containers[].resources.limits`，设置默认资源限制值。
 
-3. 对于 `CREATE` pod 请求，盲目地添加一个名为 `foo-sidecar` 的 sidecar 容器，而未查看 Pod 中是否已经有 `foo-sidecar` 容器。
+3. 对于 `CREATE` pod 请求，如果 Pod 中不存在名为 `foo-sidecar` 的 sidecar 容器，向 Pod 注入一个 `foo-sidecar` 容器。
 
 在上述情况下，可以安全地重新调用 Webhook，或接受已经设置了字段的对象。
 

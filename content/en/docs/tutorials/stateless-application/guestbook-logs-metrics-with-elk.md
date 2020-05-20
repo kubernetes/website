@@ -11,9 +11,9 @@ card:
 ---
 
 {{% capture overview %}}
-This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
+This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
 
-* A running instance of the [PHP Guestbook with Redis tutorial](../guestbook)
+* A running instance of the [PHP Guestbook with Redis tutorial](/docs/tutorials/stateless-application/guestbook)
 * Elasticsearch and Kibana
 * Filebeat
 * Metricbeat
@@ -36,16 +36,16 @@ This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial.
 
 Additionally you need:
 
-* A running deployment of the [PHP Guestbook with Redis](../guestbook) tutorial.
+* A running deployment of the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.
 
-* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).  
+* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
 ## Start up the  PHP Guestbook with Redis
-This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
+This tutorial builds on the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
 
 ## Add a Cluster role binding
 Create a [cluster level role binding](/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
