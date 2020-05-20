@@ -1,7 +1,7 @@
 ---
 title: 노드에 파드 할당하기
 content_template: templates/concept
-weight: 30
+weight: 50
 ---
 
 

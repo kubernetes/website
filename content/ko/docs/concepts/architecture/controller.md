@@ -52,7 +52,7 @@ weight: 30
 작업을 수행한 다음 중지하는 
 쿠버네티스 리소스 이다.
 
-(일단 [스케줄되면](/ko/docs/concepts/scheduling/), 파드 오브젝트는 kubelet 
+(일단 [스케줄되면](/ko/docs/concepts/scheduling-eviction/), 파드 오브젝트는 kubelet 
 의 의도한 상태 중 일부가 된다.)
 
 잡 컨트롤러가 새로운 작업을 확인하면, 클러스터 어딘가에서 

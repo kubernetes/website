@@ -191,7 +191,7 @@ A desired state of an object is described by a Deployment, and if changes to tha
 <!--
 The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/admin/kubelet/) attempts to pull the specified image.
 -->
-当 [kubelet](/docs/admin/kubelet/)尝试拉取指定的镜像时，[imagePullPolicy](/docs/concepts/containers/images/#updating-images)和镜像的标签会生效。
+当 [kubelet](/docs/admin/kubelet/)尝试拉取指定的镜像时，[imagePullPolicy](/docs/concepts/containers/images/#升级镜像)和镜像标签会生效。
 
 <!--
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
@@ -206,18 +206,17 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 <!--
 - `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
 -->
-- 省略`imagePullPolicy`，镜像标签为`:latest`或被省略，`Always`被应用。
+- `imagePullPolicy` 省略时，镜像标签为 `:latest` 或不存在，使用 `Always` 值。
 
 <!--
 - `imagePullPolicy` is omitted and the image tag is present but not `:latest`: `IfNotPresent` is applied.
 -->
-- `imagePullPolicy`被省略，并且镜像的标签被指定且不是`:latest`，`IfNotPresent`被应用。
+- `imagePullPolicy` 省略时，指定镜像标签并且不是 `:latest`，使用 `IfNotPresent` 值。
 
 <!--
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 -->
-- `imagePullPolicy: Never`：镜像被假设存在于本地。
-  没有尝试拉取镜像。
+- `imagePullPolicy: Never`：假设镜像已经存在本地，不会尝试拉取镜像。
 
 <!--
 To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.

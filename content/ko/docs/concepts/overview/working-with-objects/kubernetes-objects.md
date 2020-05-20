@@ -32,8 +32,8 @@ card:
 원하는 특징(_의도한 상태_)에 대한 설명을
 제공해서 설정한다.
 
-`status`는 오브젝트의 _현재 상태_ 를 기술하고, 쿠버네티스
-컴포넌트에 의해 제공되고 업데이트 된다. 쿠버네티스
+`status` 는 쿠버네티스 시스템과 컴포넌트에 의해 제공되고
+업데이트된 오브젝트의 _현재 상태_ 를 설명한다. 쿠버네티스
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은 모든 오브젝트의
 실제 상태를 사용자가 의도한 상태와 일치시키기 위해 끊임없이 그리고
 능동적으로 관리한다.
@@ -93,4 +93,3 @@ deployment.apps/nginx-deployment created
 * [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
 {{% /capture %}}
-

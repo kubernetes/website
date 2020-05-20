@@ -28,6 +28,7 @@ into the Kubernetes API by creating a
 {{% /capture %}}
 
 {{% capture steps %}}
+
 ## Create a CustomResourceDefinition
 
 When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server
@@ -41,6 +42,7 @@ For example, if you save the following CustomResourceDefinition to `resourcedefi
 
 {{< tabs name="CustomResourceDefinition_example_1" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -83,8 +85,10 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -129,6 +133,7 @@ spec:
             replicas:
               type: integer
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -188,7 +193,7 @@ kubectl get crontab
 
 Should print a list like this:
 
-```console
+```none
 NAME                 AGE
 my-new-cron-object   6s
 ```
@@ -205,7 +210,7 @@ kubectl get ct -o yaml
 You should see that it contains the custom `cronSpec` and `image` fields
 from the yaml you used to create it:
 
-```console
+```yaml
 apiVersion: v1
 kind: List
 items:
@@ -228,14 +233,14 @@ metadata:
 ## Delete a CustomResourceDefinition
 
 When you delete a CustomResourceDefinition, the server will uninstall the RESTful API  endpoint
-and **delete all custom objects stored in it**.
+and delete all custom objects stored in it.
 
 ```shell
 kubectl delete -f resourcedefinition.yaml
 kubectl get crontabs
 ```
 
-```console
+```none
 Error from server (NotFound): Unable to list {"stable.example.com" "v1" "crontabs"}: the server could not find the requested resource (get crontabs.stable.example.com)
 ```
 
@@ -362,7 +367,7 @@ Structural schemas are a requirement for `apiextensions.k8s.io/v1`, and disables
 * [Webhook Conversion](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
 * [Pruning](#preserving-unknown-fields)
 
-### Pruning versus preserving unknown fields
+### Pruning versus preserving unknown fields {#preserving-unknown-fields}
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
@@ -630,7 +635,9 @@ These fields can only be set with specific features enabled:
 
 - `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting).
 
-Note: compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
+{{< note >}}
+Compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
+{{< /note >}}
 
 The schema is defined in the CustomResourceDefinition. In the following example, the
 CustomResourceDefinition applies the following validations on the custom object:
@@ -642,6 +649,7 @@ Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_validation" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -676,8 +684,10 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -714,6 +724,7 @@ spec:
               minimum: 1
               maximum: 10
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -852,7 +863,7 @@ spec:
   replicas: 1
 ```
 
-Note that defaulting happens on the object
+Defaulting happens on the object
 
 * in the request to the API server using the request version defaults,
 * when reading from etcd using the storage version defaults,
@@ -895,9 +906,11 @@ columns are shown by the `kubectl get` command. You can customize these columns 
 CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and `Age`
 columns.
 
-1.  Save the CustomResourceDefinition to `resourcedefinition.yaml`.
-      {{< tabs name="CustomResourceDefinition_printer_columns" >}}
-      {{% tab name="apiextensions.k8s.io/v1" %}}
+Save the CustomResourceDefinition to `resourcedefinition.yaml`:
+
+{{< tabs name="CustomResourceDefinition_printer_columns" >}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -942,8 +955,10 @@ spec:
       type: date
       jsonPath: .metadata.creationTimestamp
 ```
-      {{% /tab %}}
-      {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
+{{% /tab %}}
+{{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -986,31 +1001,34 @@ spec:
     type: date
     JSONPath: .metadata.creationTimestamp
 ```
-      {{% /tab %}}
-      {{< /tabs >}}
 
-2.  Create the CustomResourceDefinition:
+{{% /tab %}}
+{{< /tabs >}}
 
-      ```shell
-      kubectl apply -f resourcedefinition.yaml
-      ```
+Create the CustomResourceDefinition:
 
-3.  Create an instance using the `my-crontab.yaml` from the previous section.
+```shell
+kubectl apply -f resourcedefinition.yaml
+```
 
-4.  Invoke the server-side printing:
+Create an instance using the `my-crontab.yaml` from the previous section.
 
-      ```shell
-      kubectl get crontab my-new-cron-object
-      ```
+Invoke the server-side printing:
 
-      Notice the `NAME`, `SPEC`, `REPLICAS`, and `AGE` columns in the output:
+```shell
+kubectl get crontab my-new-cron-object
+```
 
-      ```
-      NAME                 SPEC        REPLICAS   AGE
-      my-new-cron-object   * * * * *   1          7s
-      ```
+Notice the `NAME`, `SPEC`, `REPLICAS`, and `AGE` columns in the output:
 
+```
+NAME                 SPEC        REPLICAS   AGE
+my-new-cron-object   * * * * *   1          7s
+```
+
+{{< note >}}
 The `NAME` column is implicit and does not need to be defined in the CustomResourceDefinition.
+{{< /note >}}
 
 #### Priority
 
@@ -1133,6 +1151,7 @@ Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_scale" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1184,8 +1203,10 @@ spec:
     shortNames:
     - ct
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -1238,6 +1259,7 @@ spec:
       # labelSelectorPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Selector.
       labelSelectorPath: .status.labelSelector
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -1307,6 +1329,7 @@ Save the following CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_categories" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
+
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1342,8 +1365,10 @@ spec:
     categories:
     - all
 ```
+
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
+
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -1380,6 +1405,7 @@ spec:
     categories:
     - all
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
