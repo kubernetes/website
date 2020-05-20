@@ -279,7 +279,7 @@ metadata:
   name: admin-user
   namespace: kubernetes-dashboard
 EOF
-# Create a ClusterBinding for the ServiceAccount
+# Create a ClusterRoleBinding for the ServiceAccount
 kubectl apply -f - <<EOF
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
