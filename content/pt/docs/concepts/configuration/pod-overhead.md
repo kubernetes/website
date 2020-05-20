@@ -28,10 +28,10 @@ No Kubernetes, a sobrecarga de _Pods_ é definido no tempo de
 de acordo com a sobrecarga associada à
 [RuntimeClass](/docs/concepts/containers/runtime-class/) do _Pod_.
 
-Quando é ativada a Sobrecarga de Pod, a sobrecarga é considerada adicionalmente à soma dos 
-pedidos de recursos do _container_ aquando do agendamento de um Pod. Semelhantemente, o _kubelet_
-vai incluir a sobrecarga do Pod aquando do dimensionamento do cgroup do Pod, e aquando de
-levar a cabo a classificação de despejo do Pod.
+Quando é ativada a Sobrecarga de Pod, a sobrecarga é considerada adicionalmente à soma das
+solicitações de recursos do _container_ ao agendar um Pod. Semelhantemente, o _kubelet_
+incluirá a sobrecarga do Pod ao dimensionar o cgroup do Pod e ao
+executar a classificação de despejo do Pod.
 
 ## Possibilitando a Sobrecarga do Pod {#set-up}
 
@@ -163,7 +163,7 @@ A partir disto, pode determinar o caminho do cgroup para o _Pod_:
 sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 ```
 
-O caminho do cgroup resultante inclui o _container_ `pause` do _Pod_. O cgroup de nível do _Pod_ está uma directoria acima.
+O caminho do cgroup resultante inclui o _container_ `pause` do _Pod_. O cgroup no nível do _Pod_ está um diretório acima.
 ```
         "cgroupsPath": "/kubepods/podd7f4b509-cf94-4951-9417-d1087c92a5b2/7ccf55aee35dd16aca4189c952d83487297f3cd760f1bbf09620e206e7d0c27a"
 ```
