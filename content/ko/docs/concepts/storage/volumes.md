@@ -243,14 +243,14 @@ spec:
 
 #### CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 Cinder의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
 를 설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
-알파 기능을 활성화해야 한다.
+베타 기능을 활성화해야 한다.
 
 ### configMap {#configmap}
 
@@ -299,6 +299,11 @@ ConfigMap 볼륨을 사용하려면 먼저 [ConfigMap](/docs/tasks/configure-pod
 ConfigMap을 [subPath](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 ConfigMap
 업데이트를 수신하지 않는다.
 {{< /note >}}
+
+{{< note >}}
+텍스트 데이터는 UTF-8 문자 인코딩을 사용하는 파일로 노출된다. 다른 문자 인코딩을 사용하려면, binaryData를 사용한다.
+{{< /note >}}
+
 
 ### downwardAPI {#downwardapi}
 

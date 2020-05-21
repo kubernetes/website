@@ -49,7 +49,7 @@ CPU는 일정 기간 동안 [CPU 코어](https://kubernetes.io/docs/concepts/con
 [메트릭 서버](https://github.com/kubernetes-incubator/metrics-server)는 클러스터 전역에서 리소스 사용량 데이터를 집계한다.
 `kube-up.sh` 스크립트에 의해 생성된 클러스터에는 기본적으로 메트릭 서버가 
 디플로이먼트 오브젝트로 배포된다. 만약 다른 쿠버네티스 설치 메커니즘을 사용한다면, 제공된 
-[배포 yaml들](https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy)을 사용하여 메트릭 서버를 배포할 수 있다.
+[디플로이먼트 components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases) 파일을 사용하여 메트릭 서버를 배포할 수 있다.
 
 메트릭 서버는 각 노드에서 [Kubelet](/docs/admin/kubelet/)에 의해 노출된 Summary API에서 메트릭을 수집한다.
 

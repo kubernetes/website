@@ -134,6 +134,15 @@ CloudStack 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이�
 GCE 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 (kubelet에 의해 결정되거나 `--hostname-override` 로 재정의된) 호스트 이름을 사용한다.
 참고로 쿠버네티스 노드 이름의 첫 번째 세그먼트는 GCE 인스턴스 이름과 일치해야 한다(예: `kubernetes-node-2.c.my-proj.internal` 이름이 지정된 노드는 `kubernetes-node-2` 이름이 지정된 인스턴스에 해당해야 함).
 
+## HUAWEI 클라우드
+
+외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud)이다.
+
+### 노드 이름
+
+HUAWEI 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 프라이빗 IP 주소가 필요하다.
+노드에서 kubelet을 시작할 때 반드시 `--hostname-override=<node private IP>` 를 사용한다.
+
 ## OpenStack
 이 섹션에서는 쿠버네티스와 함께 OpenStack을 사용할 때 사용할 수 있는
 모든 구성에 대해 설명한다.
@@ -412,3 +421,15 @@ Baidu 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으
 
 Tencent 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 (kubelet에 의해 결정되거나 `--hostname-override` 로 재정의된) 호스트 이름을 사용한다.
 참고로 쿠버네티스 노드 이름은 Tencent VM 프라이빗 IP와 일치해야 한다.
+
+## Alibaba 클라우드 쿠버네티스
+
+ 이 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)이다.
+
+### 노드 이름
+
+Alibaba 클라우드는 노드 이름의 형식을 요구하지는 않지만, kubelet은 `--provider-id=${REGION_ID}.${INSTANCE_ID}` 를 추가해야만 한다. 파라미터 `${REGION_ID}` 는 쿠버네티스의 지역 ID에 해당하고, `${INSTANCE_ID}` 는 Alibaba ECS (Elastic Compute Service) ID를 의미한다.
+
+### 로드 밸런서
+
+[어노테이션](https://www.alibabacloud.com/help/en/doc-detail/86531.htm)을 구성해서 Alibaba 클라우드의 특정 기능을 사용하도록 외부 로드 밸런서를 설정할 수 있다.

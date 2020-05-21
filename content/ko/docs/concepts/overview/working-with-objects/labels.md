@@ -223,6 +223,6 @@ selector:
 #### 노드 셋 선택
 
 레이블을 통해 선택하는 사용 사례 중 하나는 파드를 스케줄 할 수 있는 노드 셋을 제한하는 것이다.
-자세한 내용은 [노드 선택](/ko/docs/concepts/configuration/assign-pod-node/) 문서를 참조한다.
+자세한 내용은 [노드 선택](/ko/docs/concepts/scheduling-eviction/assign-pod-node/) 문서를 참조한다.
 
 {{% /capture %}}
