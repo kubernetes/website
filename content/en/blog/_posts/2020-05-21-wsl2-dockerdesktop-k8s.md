@@ -36,7 +36,7 @@ However, here is the list of the prerequisites needed and their version/lane:
 - [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), stable channel - the version used is 2.2.0.4
 - [Optional] Microsoft Terminal installed from the Windows Store
   - Open the Windows store and type "Terminal" in the search, it will be (normally) the first option
-    ![image-20200323160845196](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-windows-store-terminal.png)
+    ![Windows Store Terminal](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-windows-store-terminal.png)
 
 And that's actually it. For Docker Desktop for Windows, no need to configure anything yet as we will explain it in the next section.
 
@@ -44,13 +44,13 @@ And that's actually it. For Docker Desktop for Windows, no need to configure any
 
 Once everything is installed, we can launch the WSL2 terminal from the Start menu, and type "Ubuntu" for searching the applications and documents:
 
-![image-20200323161415110](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-start-menu-search.png)
+![Start Menu Search](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-start-menu-search.png)
 
 Once found, click on the name and it will launch the default Windows console with the Ubuntu bash shell running.
 
 Like for any normal Linux distro, you need to create a user and set a password:
 
-![image-20200323161657541](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-user-password.png)
+![User-Password](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-user-password.png)
 
 ## [Optional] Update the `sudoers`
 
@@ -68,7 +68,7 @@ sudo visudo
 # Press Enter to confirm
 ```
 
-![image-20200323165337442](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-visudo.png)
+![visudo](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-visudo.png)
 
 ## Update Ubuntu
 
@@ -81,7 +81,7 @@ sudo apt update
 sudo apt upgrade -y
 ```
 
-![image-20200323170340694](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-apt-update-upgrade.png)
+![apt-update-upgrade](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-apt-update-upgrade.png)
 
 # Docker Desktop: faster with WSL2
 
@@ -94,7 +94,7 @@ docker version
 kubectl version
 ```
 
-![image-20200323171005736](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-error.png)
+![kubectl-error](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-error.png)
 
 You got an error? Perfect! It's actually good news, so let's now move on to the settings.
 
@@ -102,19 +102,19 @@ You got an error? Perfect! It's actually good news, so let's now move on to the 
 
 First let's start Docker Desktop for Windows if it's not still the case. Open the Windows start menu and type "docker", click on the name to start the application:
 
-![image-20200323171442354](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-start.png)
+![docker-start](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-start.png)
 
 You should now see the Docker icon with the other taskbar icons near the clock:
 
-![image-20200323171701950](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-taskbar.png)
+![docker-taskbar](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-taskbar.png)
 
 Now click on the Docker icon and choose settings. A new window will appear:
 
-![image-20200323171841531](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-settings-general.png)
+![docker-settings-general](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-settings-general.png)
 
 By default, the WSL2 integration is not active, so click the "Enable the experimental WSL 2 based engine" and click "Apply & Restart":
 
-![image-20200323172003241](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-settings-wsl2-activated.png)
+![docker-settings-wsl2](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-settings-wsl2-activated.png)
 
 What this feature did behind the scenes was to create two new distros in WSL2, containing and running all the needed backend sockets, daemons and also the CLI tools (read: docker and kubectl command).
 
@@ -122,7 +122,7 @@ Still, this first setting is still not enough to run the commands inside our dis
 
 In order to fix it, and finally be able to use the commands, we need to tell the Docker Desktop to "attach" itself to our distro also:
 
-![image-20200323173319702](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-resources-wsl-integration.png)
+![docker-resources-wsl](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-resources-wsl-integration.png)
 
 Let's now switch back to our WSL2 terminal and see if we can (finally) launch the commands:
 
@@ -133,7 +133,7 @@ docker version
 kubectl version
 ```
 
-![image-20200323173851206](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-success.png)
+![docker-kubectl-success](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-docker-kubectl-success.png)
 
 > Tip: if nothing happens, restart Docker Desktop and restart the WSL process in Powershell: `Restart-Service LxssManager` and launch a new Ubuntu session
 
@@ -158,7 +158,7 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/
 ```
 
-![image-20200323204807719](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-install.png)
+![kind-install](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-install.png)
 
 ## KinD: the first cluster
 
@@ -175,7 +175,7 @@ kind create cluster --name wslkind
 ls $HOME/.kube
 ```
 
-![image-20200323211102745](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-cluster-create.png)
+![kind-cluster-create](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-cluster-create.png)
 
 > Tip: as you can see, the Terminal was changed so the nice icons are all displayed
 
@@ -183,7 +183,7 @@ The cluster has been successfully created, and because we are using Docker Deskt
 
 So we can open the `Kubernetes master` URL in our Windows browser:
 
-![image-20200323211719815](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-k8s-master.png)
+![kind-browser-k8s-master](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-k8s-master.png)
 
 And this is the real strength from Docker Desktop for Windows with the WSL2 backend. Docker really did an amazing integration.
 
@@ -198,7 +198,7 @@ kubectl get nodes
 kubectl get all --all-namespaces
 ```
 
-![image-20200323213541579](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-list-nodes-services.png)
+![kind-list-nodes-services](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-list-nodes-services.png)
 
 While this will be enough for a lot of persons, let's leverage one of the coolest feature, multi-node clustering:
 
@@ -220,7 +220,7 @@ kind create cluster --name wslkindmultinodes --config ./kind-3nodes.yaml
 kubectl get nodes
 ```
 
-![image-20200323214325083](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-cluster-create-multinodes.png)
+![kind-cluster-create-multinodes](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-cluster-create-multinodes.png)
 
 > Tip: depending on how fast we run the "get nodes" command, it can be that not all the nodes are ready, wait few seconds and run it again, everything should be ready
 
@@ -231,7 +231,7 @@ And that's it, we have created a three nodes cluster, and if we look at the serv
 kubectl get all --all-namespaces
 ```
 
-![image-20200323214821184](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-list-services-multinodes.png)
+![wsl2-kind-list-services-multinodes](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-list-services-multinodes.png)
 
 ## KinD: can I see a nice dashboard?
 
@@ -246,11 +246,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-r
 kubectl get all -n kubernetes-dashboard
 ```
 
-![image-20200323215609422](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-install-dashboard.png)
+![kind-install-dashboard](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-install-dashboard.png)
 
 As it created a service with a ClusterIP (read: internal network address), we cannot reach it if we type the URL in our Windows browser:
 
-![image-20200323215918255](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-error.png)
+![kind-browse-dashboard-error](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-error.png)
 
 That's why, if we continue reading the how-to, we need to create a temporary proxy:
 
@@ -260,7 +260,7 @@ kubectl proxy
 # Enter the URL on your browser: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
 ```
 
-![image-20200323220356518](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-success.png)
+![kind-browse-dashboard-success](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-success.png)
 
 Finally to login, we can either enter a Token, which we didn't create, or enter the `kubeconfig` file from our Cluster.
 
@@ -296,7 +296,7 @@ subjects:
 EOF
 ```
 
-![image-20200323222635116](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-rbac-serviceaccount.png)
+![kind-browse-dashboard-rbac-serviceaccount](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-rbac-serviceaccount.png)
 
 ```bash
 # Get the Token for the ServiceAccount
@@ -304,11 +304,11 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 # Copy the token and copy it into the Dashboard login and press "Sign in"
 ```
 
-![image-20200323223056099](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-login-success.png)
+![kind-browse-dashboard-login-success](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-login-success.png)
 
 Success! And let's see our nodes listed also:
 
-![image-20200323223208416](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-browse-nodes.png)
+![kind-browse-dashboard-browse-nodes](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-browse-nodes.png)
 
 A nice and shiny three nodes appear.
 
@@ -331,7 +331,7 @@ chmod +x ./minikube
 sudo mv ./minikube /usr/local/bin/
 ```
 
-![image-20200328170504492](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install.png)
+![minikube-install](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install.png)
 
 ## Minikube: updating the host
 
@@ -344,7 +344,7 @@ Unfortunately, we will get an error about "conntrack" being required to run Kube
 minikube start --driver=none
 ```
 
-![image-20200328171526437](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-error.png)
+![minikube-start-error](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-error.png)
 
 > Tip: as you can see, the Terminal was changed so the nice icons are all displayed
 
@@ -355,7 +355,7 @@ So let's fix the issue by installing the missing package:
 sudo apt install -y conntrack
 ```
 
-![image-20200328174058258](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install conntrack.png)
+![minikube-install-conntrack](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-install conntrack.png)
 
 Let's try to launch it again:
 
@@ -366,7 +366,7 @@ minikube start --driver=none
 sudo minikube start --driver=none
 ```
 
-![image-20200328202611584](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-error-systemd.png)
+![minikube-start-error-systemd](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-error-systemd.png)
 
 Ok, this error cloud be problematic ... in the past. Luckily for us, there's a solution
 
@@ -383,7 +383,7 @@ So in a nutshell, here are the commands:
 sudo apt install -yqq daemonize dbus-user-session fontconfig
 ```
 
-![image-20200328205328598](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-packages.png)
+![minikube-systemd-packages](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-packages.png)
 
 ```bash
 # Create the start-systemd-namespace script
@@ -469,11 +469,11 @@ sudo chmod +x /usr/sbin/enter-systemd-namespace
 sudo sed -i 2a"# Start or enter a PID namespace in WSL2\nsource /usr/sbin/start-systemd-namespace\n" /etc/bash.bashrc
 ```
 
-![image-20200328210517692](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-files.png)
+![minikube-systemd-files](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-files.png)
 
 Finally, exit and launch a new session. You **do not** need to stop WSL2, a new session is enough:
 
-![image-20200328210858835](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-enabled.png)
+![minikube-systemd-enabled](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-systemd-enabled.png)
 
 ## Minikube: the first cluster
 
@@ -501,15 +501,15 @@ kubectl cluster-info
 kubectl get all --all-namespaces
 ```
 
-![image-20200328213637176](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-fixed.png)
+![minikube-start-fixed](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-start-fixed.png)
 
 The cluster has been successfully created, and Minikube used the WSL2 IP, which is great for several reasons, and one of them is that we can open the `Kubernetes master` URL in our Windows browser:
 
-![image-20200328213847790](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-k8s-master.png)
+![minikube-browse-k8s-master](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-k8s-master.png)
 
 And the real strength of WSL2 integration, the port `8443` once open on WSL2 distro, it actually forwards it to Windows, so instead of the need to remind the IP address, we can also reach the `Kubernetes master` URL via `localhost`:
 
-![image-20200328214520610](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-k8s-master-localhost.png)
+![minikube-browse-k8s-master-localhost](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-k8s-master-localhost.png)
 
 ## Minikube: can I see a nice dashboard?
 
@@ -523,7 +523,7 @@ sudo minikube dashboard
 # Access the Dashboard from a browser on Windows side
 ```
 
-![image-20200328220102504](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-dashboard.png)
+![minikube-browse-dashboard](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-dashboard.png)
 
 The command creates also a proxy, which means that once we end the command, by pressing `CTRL+C`, the Dashboard will no more be accessible.
 
@@ -534,7 +534,7 @@ Still, if we look at the namespace `kubernetes-dashboard`, we will see that the 
 kubectl get all --namespace kubernetes-dashboard
 ```
 
-![image-20200328221002333](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-dashboard-get-all.png)
+![minikube-dashboard-get-all](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-dashboard-get-all.png)
 
 Let's edit the service and change it's type to `LoadBalancer`:
 
@@ -549,7 +549,7 @@ status:
 # Save the file
 ```
 
-![image-20200328225122509](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-dashboard-type-loadbalancer.png)
+![minikube-dashboard-type-loadbalancer](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-dashboard-type-loadbalancer.png)
 
 Check again the Dashboard service and let's access the Dashboard via the LoadBalancer:
 
@@ -559,7 +559,7 @@ kubectl get all --namespace kubernetes-dashboard
 # Access the Dashboard from a browser on Windows side with the URL: localhost:<port exposed>
 ```
 
-![image-20200328225542872](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-dashboard-loadbalancer.png)
+![minikube-browse-dashboard-loadbalancer](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-minikube-browse-dashboard-loadbalancer.png)
 
 # Conclusion
 
