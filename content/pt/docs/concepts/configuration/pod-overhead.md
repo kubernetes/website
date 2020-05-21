@@ -58,8 +58,8 @@ overhead:
         cpu: "250m"
 ```
 
-As cargas de trabalho que são criadas que especifiquem o manipulador RuntimeClass `kata-fc` irão
-ter a sobrecarga de memoria e cpu em conta para os cálculos da quota de recursos, agendamento de nós,
+As cargas de trabalho que são criadas e que especificam o manipulador RuntimeClass `kata-fc` irão
+usar a sobrecarga de memória e cpu em conta para os cálculos da quota de recursos, agendamento de nós,
 assim como dimensionamento do cgroup do Pod.
 
 Considere executar a seguinte carga de trabalho de exemplo, test-pod:
@@ -90,7 +90,7 @@ spec:
 
 Na altura de admissão o [controlador de admissão](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) RuntimeClass
 atualiza o _PodSpec_ da carga de trabalho de forma a incluir o `overhead` como descrito na RuntimeClass. Se o _PodSpec_ já tiver este campo definido
-o _Pod_ irá ser rejeitado. No exemplo dado, como apenas o nome RuntimeClass é especificado, o controlador de admissão muda o _Pod_ de forma a
+o _Pod_ será rejeitado. No exemplo dado, como apenas o nome do RuntimeClass é especificado, o controlador de admissão muda o _Pod_ de forma a
 incluir um `overhead`.
 
 Depois do controlador de admissão RuntimeClass, pode verificar o _PodSpec_ atualizado:
@@ -106,7 +106,7 @@ map[cpu:250m memory:120Mi]
 
 Se for definido um _ResourceQuota_, a soma dos pedidos aos _containers_ assim como o campo `overhead` são contados.
 
-Quando o kube-scheduler está a decidir que nó deve executar um novo _Pod_, o agendador considera que o `overhead` do _Pod_,
+Quando o kube-scheduler está a decidir que nó deve executar um novo _Pod_, o agendador considera o `overhead` do _Pod_,
 assim como a soma de pedidos aos _containers_ para esse _Pod_. Para este exemplo, o agendador adiciona os
 pedidos e a sobrecarga, depois procura um nó com 2.25 CPU e 320 MiB de memória disponível.
 
@@ -150,7 +150,7 @@ Verifique os cgroups de memória do Pod no nó onde a carga de trabalho está em
 exemplo avançado para mostrar o comportamento do _PodOverhead_, e não é esperado que os utilizadores precisem de verificar
 cgroups diretamente no nó.
 
-Primeiro, no nó particular, determine o identificador do _Pod_:
+Primeiro, no nó em particular, determine o identificador do _Pod_:
 
 ```bash
 # Execute no nó onde o Pod está agendado
