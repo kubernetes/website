@@ -35,6 +35,10 @@ disableLanguages = ["hi", "no"]
     noClasses = true
     style = "emacs"
     tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
