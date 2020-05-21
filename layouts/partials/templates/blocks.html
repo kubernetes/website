@@ -14,7 +14,9 @@
 {{ $header := . | replaceRE "</?h2.*?>" "" | htmlUnescape | safeHTML }}
 <li><a href="#{{ $id }}">{{ $header }}</a></li>
 {{ end }}
+{{ if  $section }}
 {{ $.ctx.Scratch.Add "sections" $section }}
+{{ end }}
 {{ end }}
 </ul>
 {{ range .ctx.Scratch.Get "sections" }}
