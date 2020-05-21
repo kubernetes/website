@@ -131,7 +131,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-クラスタードメインは[その他の設定](/docs/concepts/services-networking/dns-pod-service/#how-it-works)がされない限り、`cluster.local`にセットされます。
+クラスタードメインは[その他の設定](/docs/concepts/services-networking/dns-pod-service/)がされない限り、`cluster.local`にセットされます。
 {{< /note >}}
 
 ### 安定したストレージ
@@ -164,8 +164,9 @@ Kubernetes1.7とそれ以降のバージョンでは、StatefulSetは`.spec.podM
 
 `OrderedReady`なPod管理はStatefulSetにおいてデフォルトです。これは[デプロイとスケーリングの保証](#deployment-and-scaling-guarantees)に記載されている項目の振る舞いを実装します。
 
-#### 並行なPod管理Parallel Pod Management
-`並行`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
+#### 並行なPod管理
+
+`Parallel`なPod管理は、StatefulSetコントローラーに対して、他のPodが起動や停止される前にそのPodが完全に起動し準備完了になるか停止するのを待つことなく、Podが並行に起動もしくは停止するように指示します。
 
 ## アップデートストラテジー
 

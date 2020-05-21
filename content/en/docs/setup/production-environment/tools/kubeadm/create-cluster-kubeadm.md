@@ -276,6 +276,12 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 {{< /caution >}}
 
+{{< note >}}
+Currently Calico is the only CNI plugin that the kubeadm project performs e2e tests against.
+If you find an issue related to a CNI plugin you should log a ticket in its respective issue
+tracker instead of the kubeadm or kubernetes issue trackers.
+{{< /note >}}
+
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
 
@@ -297,10 +303,10 @@ Below you can find installation instructions for some popular Pod network plugin
 {{% tab name="Calico" %}}
 [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer. Calico works on several architectures, including `amd64`, `arm64`, and `ppc64le`.
 
-By default, Calico uses `192.168.0.0/16` as the Pod network CIDR, though this can be configured in the calico.yaml file. For Calico to work correctly, you need to pass this same CIDR to the `kubeadm init` command using the `--pod-network-cidr=192.168.0.0/16` flag or via kubeadm's configuration.
+Calico will automatically detect which IP address range to use for pod IPs based on the value provided via the `--pod-network-cidr` flag or via kubeadm's configuration.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 ```
 
 {{% /tab %}}
@@ -340,23 +346,6 @@ It implements k8s services and network policies in the user space (on VPP).
 Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
 {{% /tab %}}
 
-{{% tab name="Flannel" %}}
-
-For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
-
-Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network. The [Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls) section of Flannel's troubleshooting guide explains about this in more detail.
-
-Flannel works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` architectures under Linux.
-Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
-```
-
-For more information about `flannel`, see [the CoreOS flannel repository on GitHub
-](https://github.com/coreos/flannel).
-{{% /tab %}}
-
 {{% tab name="Kube-router" %}}
 
 Kube-router relies on kube-controller-manager to allocate Pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
@@ -368,7 +357,7 @@ For information on using the `kubeadm` tool to set up a Kubernetes cluster with 
 
 {{% tab name="Weave Net" %}}
 
-For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon]((https://www.weave.works/docs/net/latest/kube-addon/).
+For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/).
 
 Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` platforms without any extra action required.
 Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
@@ -467,7 +456,7 @@ The output is similar to:
 ```
 
 {{< note >}}
-To specify an IPv6 tuple for `<control-plane-host>:<control-plane-ip>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
 {{< /note >}}
 
 The output should look something like:
@@ -609,13 +598,10 @@ of Pod network add-ons.
 
 ## Version skew policy {#version-skew-policy}
 
-The `kubeadm` tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
-`kubeadm` vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
+The `kubeadm` tool of version v{{< skew latestVersion >}} may deploy clusters with a control plane of version v{{< skew latestVersion >}} or v{{< skew prevMinorVersion >}}.
+`kubeadm` v{{< skew latestVersion >}} can also upgrade an existing kubeadm-created cluster of version v{{< skew prevMinorVersion >}}.
 
-Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
-
-Example: `kubeadm` v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
-v1.8.
+Due to that we can't see into the future, kubeadm CLI v{{< skew latestVersion >}} may or may not be able to deploy v{{< skew nextMinorVersion >}} clusters.
 
 These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
 

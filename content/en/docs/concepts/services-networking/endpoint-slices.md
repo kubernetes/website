@@ -2,11 +2,6 @@
 reviewers:
 - freehan
 title: EndpointSlices
-feature:
-  title: EndpointSlices
-  description: >
-    Scalable tracking of network endpoints in a Kubernetes cluster.
-
 content_template: templates/concept
 weight: 15
 ---

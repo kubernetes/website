@@ -9,7 +9,7 @@ weight: 10
 애그리게이션 레이어는 코어 쿠버네티스 API가 제공하는 기능 이외에 더 많은 기능을 제공할 수 있도록 추가 API를 더해 쿠버네티스를 확장할 수 있게 해준다.
 추가 API는 [서비스-카탈로그](/docs/concepts/extend-kubernetes/service-catalog/)와 같이 미리 만들어진 솔루션이거나 사용자가 직접 개발한 API일 수 있다.
 
-애그리게이션 레이어는 [사용자 정의 리소스](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)와는 다르며, 애그리게이션 레이어는 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} 가 새로운 종류의 오브젝트를 인식하도록 하는 방법이다.
+애그리게이션 레이어는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)와는 다르며, 애그리게이션 레이어는 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} 가 새로운 종류의 오브젝트를 인식하도록 하는 방법이다.
 
 {{% /capture %}}
 

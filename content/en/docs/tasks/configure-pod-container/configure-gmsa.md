@@ -154,7 +154,7 @@ spec:
         imagePullPolicy: Always
         name: iis
       nodeSelector:
-        beta.kubernetes.io/os: windows
+        kubernetes.io/os: windows
 ```
 
 Individual containers in a Pod spec can also specify the desired GMSA credspec using a per-container `securityContext.windowsOptions.gmsaCredentialSpecName` field. For example:
@@ -185,7 +185,7 @@ spec:
           windowsOptions:
             gmsaCredentialSpecName: gmsa-Webapp1
       nodeSelector:
-        beta.kubernetes.io/os: windows
+        kubernetes.io/os: windows
 ```
 
 As Pod specs with GMSA fields populated (as described above) are applied in a cluster, the following sequence of events take place:

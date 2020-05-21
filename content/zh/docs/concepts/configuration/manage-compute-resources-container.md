@@ -42,6 +42,20 @@ the difference between requests and limits, see
 ## Resource types
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
+
+If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
+Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
+that are much larger than the default page size.
+
+For example, on a system where the default page size is 4KiB, you could specify a limit,
+`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
+total of 80 MiB), that allocation fails.
+
+{{< note >}}
+You cannot overcommit `hugepages-*` resources.
+This is different from the `memory` and `cpu` resources.
+{{< /note >}}
+
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
@@ -54,6 +68,15 @@ through the Kubernetes API server.
 ## 资源类型
 
 *CPU* 和*内存*都是*资源类型*。资源类型具有基本单位。CPU 的单位是核心数，内存的单位是字节。
+
+如果您使用的是 Kubernetes v1.14 或更高版本，则可以指定巨页资源。巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
+
+例如，在默认页面大小为 4KiB 的系统上，您可以指定一个限制，`hugepages-2Mi: 80Mi`。如果容器尝试分配 40 个 2MiB 大页面（总共 80 MiB ），则分配失败。
+
+{{< note >}}
+您不能过量使用`hugepages- *`资源。
+这与`memory`和`cpu`资源不同。
+{{< /note >}}
 
 CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/concepts/overview/kubernetes-api/) 不同。 API 资源（如 Pod 和 [Service](/docs/concepts/services-networking/service/)）是可通过 Kubernetes API server 读取和修改的对象。
 
@@ -275,16 +298,18 @@ resource limits, see the
 
 The resource usage of a Pod is reported as part of the Pod status.
 
-If [optional monitoring](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)
-is configured for your cluster, then Pod resource usage can be retrieved from
-the monitoring system.
+If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+are available in your cluster, then Pod resource usage can be retrieved either
+from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+directly or from your monitoring tools.
 -->
 
 ## 监控计算资源使用
 
 Pod 的资源使用情况被报告为 Pod 状态的一部分。
 
-如果为集群配置了 [可选监控](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)，则可以从监控系统检索 Pod 资源的使用情况。
+如果为集群配置了可选 [监控工具](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，则可以直接从
+[指标 API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 或者监控工具检索 Pod 资源的使用情况。
 
 <!--
 ## Troubleshooting

@@ -1,8 +1,0 @@
-Ta funkcjonalność jest w fazie *beta*, co oznacza:
-
-* Nazwa wersji zawiera słowo beta (np. v2beta3).
-* Oprogramowanie jest dobrze przetestowane. Włączenie tej funkcjonalności uznaje się za bezpieczne. Funkcjonalność domyślnie włączona.
-* Wsparcie dla funkcjonalności będzie utrzymywane, choć może zmieniać się w niektórych szczegółach.
-* Schemat lub semantyka obiektu może się zmienić w sposób niezgodny z poprzednimi wersjami w następnych wydaniach beta lub stabilnych. Jeśli taka zmiana będzie miała miejsce, dostarczymy instrukcję migracji do kolejnej wersji. Możemy wymagać skasowania, zmiany i odtworzenia obiektów API. Proces zmiany może wymagać dodatkowych wstępnych analiz. W czasie wprowadzania zmian mogą wystąpić przerwy w dostępności aplikacji, które z tej funkcjonalności korzystają.
-* Rekomendowane tylko dla zastosowań niekrytycznych dla biznesu ze względu na potencjalnie niezgodne zmiany w kolejnych wersjach oprogramowania. Jeśli masz wiele klastrów, które mogą być aktualizowane niezależnie, można to ograniczenie pominąć.
-* **Testuj nasze funkcjonalności w fazie beta i zgłaszaj swoje uwagi! Po wyjściu z fazy beta, możemy nie mieć już możliwości - ze względów praktycznych - wprowadzać w nich żadnych zmian.**

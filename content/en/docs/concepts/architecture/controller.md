@@ -52,7 +52,7 @@ Job is a Kubernetes resource that runs a
 {{< glossary_tooltip term_id="pod" >}}, or perhaps several Pods, to carry out
 a task and then stop.
 
-(Once [scheduled](/docs/concepts/scheduling/), Pod objects become part of the
+(Once [scheduled](/docs/concepts/scheduling-eviction/), Pod objects become part of the
 desired state for a kubelet).
 
 When the Job controller sees a new task it makes sure that, somewhere

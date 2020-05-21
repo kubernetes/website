@@ -1,8 +1,0 @@
-Ta funkcjonalność jest w fazie *alfa*, co oznacza:
-
-* Nazwa wersji zawiera słowo _alpha_ (np. v1alpha1).
-* Może zawierać błędy. Włączenie tej funkcjonalności może wyeksponować także inne błędy. Domyślnie jest wyłączona.
-* Wsparcie dla tej funkcjonalności może być zakończone w dowolnej chwili bez uprzedniego powiadomienia.
-* W kolejnych wersjach API może zostać zmienione w sposób niezgodny z wersjami wcześniejszymi.
-* Rekomendowana do użycia tylko na często przebudowywanych klastrach testowych ze względu na duże ryzyko wystąpienia błędów i brak gwarancji wsparcia w dalszym horyzoncie.
-

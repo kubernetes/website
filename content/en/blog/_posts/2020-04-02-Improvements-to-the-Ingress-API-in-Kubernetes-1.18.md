@@ -24,17 +24,17 @@ The new concept of a path type allows you to specify how a path should be matche
 The Ingress resource was designed with simplicity in mind, providing a simple set of fields that would be applicable in all use cases. Over time, as use cases evolved, implementations began to rely on a long list of custom annotations for further configuration. The new `IngressClass` resource provides a way to replace some of those annotations.
 
 Each `IngressClass` specifies which controller should implement Ingresses of the class and can reference a custom resource with additional parameters. 
-```
-apiVersion: networking.k8s.io/v1beta1
-kind: IngressClass
+```yaml
+apiVersion: "networking.k8s.io/v1beta1"
+kind: "IngressClass"
 metadata:
-  name: external-lb
+  name: "external-lb"
 spec:
-  controller: example.com/ingress-controller
+  controller: "example.com/ingress-controller"
   parameters:
-    apiGroup: k8s.example.com/v1alpha
-    kind: IngressParameters
-    name: external-lb
+    apiGroup: "k8s.example.com/v1alpha"
+    kind: "IngressParameters"
+    name: "external-lb"
 ```
 
 ### Specifying the Class of an Ingress
@@ -51,30 +51,30 @@ IngressClass resource will ensure that new Ingresses without an `ingressClassNam
 ## Support for Hostname Wildcards
 Many Ingress providers have supported wildcard hostname matching like `*.foo.com` matching `app1.foo.com`, but until now the spec assumed an exact FQDN match of the host. Hosts can now be precise matches (for example “`foo.bar.com`”) or a wildcard (for example “`*.foo.com`”). Precise matches require that the http host header matches the Host setting. Wildcard matches require the http host header is equal to the suffix of the wildcard rule.
 
-| Host        | Host header           | Match?  |
-| ------------- |-------------| -----|
-| `*.foo.com`      | `*.foo.com` | Matches based on shared suffix |
-| `*.foo.com`      | `*.foo.com`      |   No match, wildcard only covers a single DNS label |
-| `*.foo.com` | `foo.com`      |    No match, wildcard only covers a single DNS label |
+| Host        | Host header       | Match?                                            |
+| ----------- |-------------------| --------------------------------------------------|
+| `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
+| `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
+| `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
 
 ### Putting it All Together
 These new Ingress features allow for much more configurability. Here’s an example of an Ingress that makes use of pathType, `ingressClassName`, and a hostname wildcard:
 
-```
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+```yaml
+apiVersion: "networking.k8s.io/v1beta1"
+kind: "Ingress"
 metadata:
-  name: example-ingress
+  name: "example-ingress"
 spec:
-  ingressClassName: external-lb
+  ingressClassName: "external-lb"
   rules:
-  - host: *.example.com
+  - host: "*.example.com"
     http:
       paths:
-      - path: /example
-        pathType: Prefix
+      - path: "/example"
+        pathType: "Prefix"
         backend:
-          serviceName: example-service
+          serviceName: "example-service"
           servicePort: 80
 ```
 

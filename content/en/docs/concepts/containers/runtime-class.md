@@ -163,7 +163,7 @@ with the pod's tolerations in admission, effectively taking the union of the set
 by each.
 
 To learn more about configuring the node selector and tolerations, see [Assigning Pods to
-Nodes](/docs/concepts/configuration/assign-pod-node/).
+Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 [RuntimeClass admission controller]: /docs/reference/access-authn-authz/admission-controllers/#runtimeclass
 

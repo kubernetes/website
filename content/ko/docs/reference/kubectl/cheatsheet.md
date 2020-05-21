@@ -64,7 +64,7 @@ kubectl config get-contexts                          # 컨텍스트 리스트 �
 kubectl config current-context              # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name  # my-cluster-name를 기본 컨텍스트로 설정
 
-# 기본 인증을 지원하는 새로운 클러스터를 kubeconf에 추가한다
+# 기본 인증을 지원하는 새로운 사용자를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
 # 해당 컨텍스트에서 모든 후속 kubectl 커맨드에 대한 네임스페이스를 영구적으로 저장한다
@@ -200,7 +200,6 @@ kubectl diff -f ./my-manifest.yaml
 
 ## 리소스 업데이트
 
-1.11 버전에서 `rolling-update`는 사용 중단(deprecated)되었다. ([CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md) 참고) 대신 `rollout`를 사용한다.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
@@ -210,12 +209,6 @@ kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
 kubectl rollout restart deployment/frontend                      # "frontend" 디플로이먼트의 롤링 재시작
 
-
-# 버전 1.11 부터 사용 중단
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (사용중단) frontend-v1 파드의 롤링 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (사용중단) 리소스 이름 변경과 이미지 업데이트
-kubectl rolling-update frontend --image=image:v2                 # (사용중단) 프론트엔드의 파드 이미지 업데이트
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (사용중단) 진행중인 기존 롤아웃 중단
 
 cat pod.json | kubectl replace -f -                              # std로 전달된 JSON을 기반으로 파드 교체
 
@@ -348,6 +341,21 @@ kubectl api-resources --api-group=extensions # "extensions" API 그룹의 모든
 `-o=name`     | 리소스 명만 출력하고 그 외에는 출력하지 않음
 `-o=wide`     | 추가 정보가 포함된 일반-텍스트 형식으로 출력하고, 파드의 경우 노드 명이 포함
 `-o=yaml`     | YAML 형식의 API 오브젝트 출력
+
+`-o=custom-columns` 의 사용 예시:
+
+```bash
+# 클러스터에서 실행 중인 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# 이름에 관계없이 메타데이터 아래의 모든 필드
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 

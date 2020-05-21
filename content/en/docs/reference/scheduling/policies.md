@@ -8,7 +8,7 @@ weight: 10
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-runs to [filter and score nodes](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation),
+runs to [filter and score nodes](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
 You can set a scheduling policy by running
@@ -77,7 +77,7 @@ The following *priorities* implement scoring:
    {{< glossary_tooltip term_id="replica-set" >}}.
 
 - `InterPodAffinityPriority`: Implements preferred
-  [inter pod affininity and antiaffinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
+  [inter pod affininity and antiaffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
 
 - `LeastRequestedPriority`: Favors nodes with fewer requested resources. In other
   words, the more Pods that are placed on a Node, and the more resources those
@@ -97,7 +97,7 @@ The following *priorities* implement scoring:
 
 - `NodeAffinityPriority`: Prioritizes nodes according to node affinity scheduling
    preferences indicated in PreferredDuringSchedulingIgnoredDuringExecution.
-   You can read more about this in [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/).
+   You can read more about this in [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 - `TaintTolerationPriority`: Prepares the priority list for all the nodes, based on
   the number of intolerable taints on the node. This policy adjusts a node's rank
@@ -120,6 +120,6 @@ The following *priorities* implement scoring:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
+* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
 {{% /capture %}}

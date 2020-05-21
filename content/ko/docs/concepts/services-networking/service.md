@@ -202,6 +202,17 @@ API 리소스이다. 개념적으로 엔드포인트와 매우 유사하지만, 
 엔드포인트슬라이스는 [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에서
 자세하게 설명된 추가적인 속성 및 기능을 제공한다.
 
+### 애플리케이션 프로토콜
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+AppProtocol 필드는 각 서비스 포트에 사용될 애플리케이션 프로토콜을
+지정하는 방법을 제공한다.
+
+알파 기능으로 이 필드는 기본적으로 활성화되어 있지 않다. 이 필드를 사용하려면,
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)에서
+`ServiceAppProtocol` 을 활성화해야 한다.
+
 ## 가상 IP와 서비스 프록시
 
 쿠버네티스 클러스터의 모든 노드는 `kube-proxy`를 실행한다. `kube-proxy`는
@@ -522,6 +533,25 @@ NodePort를 사용하면 자유롭게 자체 로드 밸런싱 솔루션을 설�
 이 서비스는 `<NodeIP>:spec.ports[*].nodePort`와
 `.spec.clusterIP:spec.ports[*].port`로 표기된다. (kube-proxy에서 `--nodeport-addresses` 플래그가 설정되면, <NodeIP>는 NodeIP를 필터링한다.)
 
+예를 들면
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # 기본적으로 그리고 편의상 `targetPort` 는 `port` 필드와 동일한 값으로 설정된다.
+    - port: 80
+      targetPort: 80
+      # 선택적 필드
+      # 기본적으로 그리고 편의상 쿠버네티스 컨트롤 플레인은 포트 범위에서 할당한다(기본값: 30000-32767)
+      nodePort: 30007
+```
+
 ### 로드밸런서 유형 {#loadbalancer}
 
 외부 로드 밸런서를 지원하는 클라우드 공급자 상에서, `type`
@@ -619,6 +649,16 @@ metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 [...]
 ```
 {{% /tab %}}

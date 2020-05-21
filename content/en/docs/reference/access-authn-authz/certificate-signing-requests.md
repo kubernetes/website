@@ -292,10 +292,10 @@ status:
     type: Denied
 ```
 
-It's usual to set `status.condtions.reason` to a machine-friendly reason
+It's usual to set `status.conditions.reason` to a machine-friendly reason
 code using TitleCase; this is a convention but you can set it to anything
 you like. If you want to add a note just for human consumption, use the
-`status.condtions.message` field.
+`status.conditions.message` field.
 
 ## Signing
 

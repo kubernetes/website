@@ -102,7 +102,7 @@ If you update DaemonSets using
 use `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/fluentd-daemonset-update.yaml
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.yaml
 ```
 
 #### Imperative commands

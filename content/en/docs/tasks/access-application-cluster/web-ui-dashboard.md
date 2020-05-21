@@ -30,7 +30,7 @@ Dashboard also provides information on the state of Kubernetes resources in your
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 ```
 
 ## Accessing the Dashboard UI
@@ -97,7 +97,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   Example:
 
-  ```conf
+```conf
 release=1.0
 tier=frontend
 environment=pod

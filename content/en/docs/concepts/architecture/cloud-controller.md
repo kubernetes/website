@@ -1,114 +1,92 @@
 ---
-title: Concepts Underlying the Cloud Controller Manager
+title: Cloud Controller Manager
 content_template: templates/concept
 weight: 40
 ---
 
 {{% capture overview %}}
 
-The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
+{{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
-The cloud controller manager's design is based on a plugin mechanism that allows new cloud providers to integrate with Kubernetes easily by using plugins. There are plans in place for on-boarding new cloud providers on Kubernetes and for migrating cloud providers from the old model to the new CCM model.
+Cloud infrastructure technologies let you run Kubernetes on public, private, and hybrid clouds.
+Kubernetes believes in automated, API-driven infrastructure without tight coupling between
+components.
 
-This document discusses the concepts behind the cloud controller manager and gives details about its associated functions.
+{{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="The cloud-controller-manager is">}}
 
-Here's the architecture of a Kubernetes cluster without the cloud controller manager:
-
-![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
+The cloud-controller-manager is structured using a plugin
+mechanism that allows different cloud providers to integrate their platforms with Kubernetes.
 
 {{% /capture %}}
-
 
 {{% capture body %}}
 
 ## Design
 
-In the preceding diagram, Kubernetes and the cloud provider are integrated through several different components:
+![Kubernetes components](/images/docs/components-of-kubernetes.png)
 
-* Kubelet
-* Kubernetes controller manager
-* Kubernetes API server
+The cloud controller manager runs in the control plane as a replicated set of processes
+(usually, these are containers in Pods). Each cloud-controller-manager implements
+multiple {{< glossary_tooltip text="controllers" term_id="controller" >}} in a single
+process.
 
-The CCM consolidates all of the cloud-dependent logic from the preceding three components to create a single point of integration with the cloud. The new architecture with the CCM looks like this:
-
-![CCM Kube Arch](/images/docs/post-ccm-arch.png)
-
-## Components of the CCM
-
-The CCM breaks away some of the functionality of Kubernetes controller manager (KCM) and runs it as a separate process. Specifically, it breaks away those controllers in the KCM that are cloud dependent. The KCM has the following cloud dependent controller loops:
-
- * Node controller
- * Volume controller
- * Route controller
- * Service controller
-
-In version 1.9, the CCM runs the following controllers from the preceding list:
-
-* Node controller
-* Route controller
-* Service controller
 
 {{< note >}}
-Volume controller was deliberately chosen to not be a part of CCM. Due to the complexity involved and due to the existing efforts to abstract away vendor specific volume logic, it was decided that volume controller will not be moved to CCM.
+You can also run the cloud controller manager as a Kubernetes
+{{< glossary_tooltip text="addon" term_id="addons" >}} rather than as part
+of the control plane.
 {{< /note >}}
 
-The original plan to support volumes using CCM was to use [Flex](/docs/concepts/storage/volumes/#flexVolume) volumes to support pluggable volumes. However, a competing effort known as [CSI](/docs/concepts/storage/volumes/#csi) is being planned to replace Flex.
+## Cloud controller manager functions {#functions-of-the-ccm}
 
-Considering these dynamics, we decided to have an intermediate stop gap measure until CSI becomes ready.
+The controllers inside the cloud controller manager include:
 
-## Functions of the CCM
+### Node controller
 
-The CCM inherits its functions from components of Kubernetes that are dependent on a cloud provider. This section is structured based on those components.
+The node controller is responsible for creating {{< glossary_tooltip text="Node" term_id="node" >}} objects
+when new servers are created in your cloud infrastructure. The node controller obtains information about the
+hosts running inside your tenancy with the cloud provider. The node controller performs the following functions:
 
-### 1. Kubernetes controller manager
+1. Initialize a Node object for each server that the controller discovers through the cloud provider API.
+2. Annotating and labelling the Node object with cloud-specific information, such as the region the node
+   is deployed into and the resources (CPU, memory, etc) that it has available.
+3. Obtain the node's hostname and network addresses.
+4. Verifying the node's health. In case a node becomes unresponsive, this controller checks with
+   your cloud provider's API to see if the server has been deactivated / deleted / terminated.
+   If the node has been deleted from the cloud, the controller deletes the Node object from your Kubernetes
+   cluster.
 
-The majority of the CCM's functions are derived from the KCM. As mentioned in the previous section, the CCM runs the following control loops:
+Some cloud provider implementations split this into a node controller and a separate node
+lifecycle controller.
 
-* Node controller
-* Route controller
-* Service controller
+### Route controller
 
-#### Node controller
+The route controller is responsible for configuring routes in the cloud
+appropriately so that containers on different nodes in your Kubernetes
+cluster can communicate with each other.
 
-The Node controller is responsible for initializing a node by obtaining information about the nodes running in the cluster from the cloud provider. The node controller performs the following functions:
+Depending on the cloud provider, the route controller might also allocate blocks
+of IP addresses for the Pod network.
 
-1. Initialize a node with cloud specific zone/region labels.
-2. Initialize a node with cloud specific instance details, for example, type and size.
-3. Obtain the node's network addresses and hostname.
-4. In case a node becomes unresponsive, check the cloud to see if the node has been deleted from the cloud.
-If the node has been deleted from the cloud, delete the Kubernetes Node object.
+### Service controller
 
-#### Route controller
-
-The Route controller is responsible for configuring routes in the cloud appropriately so that containers on different nodes in the Kubernetes cluster can communicate with each other. The route controller is only applicable for Google Compute Engine clusters.
-
-#### Service Controller
-
-The Service controller is responsible for listening to service create, update, and delete events. Based on the current state of the services in Kubernetes, it configures cloud load balancers (such as ELB , Google LB, or Oracle Cloud Infrastructure LB) to reflect the state of the services in Kubernetes. Additionally, it ensures that service backends for cloud load balancers are up to date.
-
-### 2. Kubelet
-
-The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
-
-In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
-
-## Plugin mechanism
-
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the CloudProvider Interface defined [here](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62).
-
-The implementation of the four shared controllers highlighted above, and some scaffolding along with the shared cloudprovider interface, will stay in the Kubernetes core. Implementations specific to cloud providers will be built outside of the core and implement interfaces defined in the core.
-
-For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+{{< glossary_tooltip text="Services" term_id="service" >}} integrate with cloud
+infrastructure components such as managed load balancers, IP addresses, network
+packet filtering, and target health checking. The service controller interacts with your
+cloud provider's APIs to set up load balancers and other infrastructure components
+when you declare a Service resource that requires them.
 
 ## Authorization
 
-This section breaks down the access required on various API objects by the CCM to perform its operations.
+This section breaks down the access that the cloud controller managers requires
+on various API objects, in order to perform its operations.
 
-### Node Controller
+### Node controller {#authorization-node-controller}
 
-The Node controller only works with Node objects. It requires full access to get, list, create, update, patch, watch, and delete Node objects.
+The Node controller only works with Node objects. It requires full access
+to read and modify Node objects.
 
-v1/Node:
+`v1/Node`:
 
 - Get
 - List
@@ -118,23 +96,24 @@ v1/Node:
 - Watch
 - Delete
 
-### Route controller
+### Route controller {#authorization-route-controller}
 
-The route controller listens to Node object creation and configures routes appropriately. It requires get access to Node objects.
+The route controller listens to Node object creation and configures
+routes appropriately. It requires Get access to Node objects.
 
-v1/Node:
+`v1/Node`:
 
 - Get
 
-### Service controller
+### Service controller {#authorization-service-controller}
 
-The service controller listens to Service object create, update and delete events and then configures endpoints for those Services appropriately.
+The service controller listens to Service object Create, Update and Delete events and then configures Endpoints for those Services appropriately.
 
-To access Services, it requires list, and watch access. To update Services, it requires patch and update access.
+To access Services, it requires List, and Watch access. To update Services, it requires Patch and Update access.
 
-To set up endpoints for the Services, it requires access to create, list, get, watch, and update.
+To set up Endpoints resources for the Services, it requires access to Create, List, Get, Watch, and Update.
 
-v1/Service:
+`v1/Service`:
 
 - List
 - Get
@@ -142,21 +121,22 @@ v1/Service:
 - Patch
 - Update
 
-### Others
+### Others {#authorization-miscellaneous}
 
-The implementation of the core of CCM requires access to create events, and to ensure secure operation, it requires access to create ServiceAccounts.
+The implementation of the core of the cloud controller manager requires access to create Event objects, and to ensure secure operation, it requires access to create ServiceAccounts.
 
-v1/Event:
+`v1/Event`:
 
 - Create
 - Patch
 - Update
 
-v1/ServiceAccount:
+`v1/ServiceAccount`:
 
 - Create
 
-The RBAC ClusterRole for the CCM looks like this:
+The {{< glossary_tooltip term_id="rbac" text="RBAC" >}} ClusterRole for the cloud
+controller manager looks like:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -220,26 +200,16 @@ rules:
   - update
 ```
 
-## Vendor Implementations
+{{% /capture %}}
+{{% capture whatsnext %}}
+[Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+has instructions on running and managing the cloud controller manager.
 
-The following cloud providers have implemented CCMs:
+Want to know how to implement your own cloud controller manager, or extend an existing project?
 
-* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
-* [AWS](https://github.com/kubernetes/cloud-provider-aws)
-* [Azure](https://github.com/kubernetes/cloud-provider-azure)
-* [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
-* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
-* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
-* [Hetzner](https://github.com/hetznercloud/hcloud-cloud-controller-manager)
-* [Linode](https://github.com/linode/linode-cloud-controller-manager)
-* [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
-* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
+The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in. Specifically, it uses the `CloudProvider` interface defined in [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62) from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
 
+The implementation of the shared controllers highlighted in this document (Node, Route, and Service), and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core. Implementations specific to cloud providers are outside the core of Kubernetes and implement the `CloudProvider` interface.
 
-## Cluster Administration
-
-Complete instructions for configuring and running the CCM are provided
-[here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
-
+For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 {{% /capture %}}

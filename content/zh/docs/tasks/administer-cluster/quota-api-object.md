@@ -196,7 +196,7 @@ by quotas:
 <table>
 <tr><th>String</th><th>API Object</th></tr>
 <tr><td>"pods"</td><td>Pod</td></tr>
-<tr><td>"services</td><td>Service</td></tr>
+<tr><td>"services"</td><td>Service</td></tr>
 <tr><td>"replicationcontrollers"</td><td>ReplicationController</td></tr>
 <tr><td>"resourcequotas"</td><td>ResourceQuota</td></tr>
 <tr><td>"secrets"</td><td>Secret</td></tr>

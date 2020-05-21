@@ -334,7 +334,7 @@ Such volume is presented into a Pod as a block device, without any filesystem on
 This mode is useful to provide a Pod the fastest possible way to access a volume, without
 any filesystem layer between the Pod and the volume. On the other hand, the application
 running in the Pod must know how to handle a raw block device.
-See [Raw Block Volume Support](docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+See [Raw Block Volume Support](#raw-block-volume-support)
 for an example on how to use a volume with `volumeMode: Block` in a Pod.
 
 ### Access Modes
@@ -736,9 +736,9 @@ and need persistent storage, it is recommended that you use the following patter
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the 
-    `persistentVolumeClaim.storageClassName` field as nil. This will cause a 
-    PV to be automatically provisioned for the user with the default StorageClass 
+  - If the user does not provide a storage class name, leave the
+    `persistentVolumeClaim.storageClassName` field as nil. This will cause a
+    PV to be automatically provisioned for the user with the default StorageClass
     in the cluster. Many cluster environments have a default StorageClass installed,
     or administrators can create their own default StorageClass.
 - In your tooling, watch for PVCs that are not getting bound after some time

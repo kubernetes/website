@@ -1,7 +1,7 @@
 ---
 title: 노드에 파드 할당하기
 content_template: templates/concept
-weight: 30
+weight: 50
 ---
 
 
@@ -315,7 +315,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
-        image: nginx:1.12-alpine
+        image: nginx:1.16-alpine
 ```
 
 만약 위의 두 디플로이먼트를 생성하면 세 개의 노드가 있는 클러스터는 다음과 같아야 한다.

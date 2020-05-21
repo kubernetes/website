@@ -75,7 +75,7 @@ metrics-server, which needs to be launched separately. See
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 {{< /note >}}
 
@@ -291,7 +291,7 @@ the `v2beta2` API allows scaling behavior to be configured through the HPA
 `behavior` field. Behaviors are specified separately for scaling up and down in
 `scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
 window can be specified for both directions which prevents the flapping of the
-number of the replicas in the scaling target. Similarly specifing scaling
+number of the replicas in the scaling target. Similarly specifying scaling
 policies controls the rate of change of replicas while scaling.
 
 ### Scaling Policies
@@ -332,7 +332,7 @@ scaling in that direction.
 
 ### Stabilization Window
 
-The stabilization window is used to retrict the flapping of replicas when the metrics
+The stabilization window is used to restrict the flapping of replicas when the metrics
 used for scaling keep fluctuating. The stabilization window is used by the autoscaling
 algorithm to consider the computed desired state from the past to prevent scaling. In
 the following example the stabilization window is specified for `scaleDown`.

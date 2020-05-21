@@ -25,8 +25,8 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 一个简单的多层 web 应用程序。本例由以下组件组成：
 
 <!--
-* A single-instance [Redis](https://redis.io/) master to store guestbook entries 
-* Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads 
+* A single-instance [Redis](https://redis.io/) master to store guestbook entries
+* Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads
 * Multiple web frontend instances
 -->
 
@@ -145,12 +145,12 @@ Replace POD-NAME with the name of your Pod.
 <!--
 The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 -->
-留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
+留言板应用程序需要往 Redis 主节点中写数据。因此，需要创建 [Service](/zh/docs/concepts/services-networking/service/) 来代理 Redis 主节点 Pod 的流量。Service 定义了访问 Pod 的策略。
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
 <!--
-1. Apply the Redis Master Service from the following `redis-master-service.yaml` file: 
+1. Apply the Redis Master Service from the following `redis-master-service.yaml` file:
 -->
 1. 使用下面的 `redis-master-service.yaml` 文件创建 Redis 主节点的服务：
 
@@ -181,7 +181,7 @@ The guestbook applications needs to communicate to the Redis master to write its
 {{< note >}}
 
 <!--
-This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.   
+This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.
 -->
 这个清单文件创建了一个名为 `Redis-master` 的 Service，其中包含一组与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis 主节点 Pod 上。
 
@@ -205,12 +205,12 @@ Although the Redis master is a single pod, you can make it highly available to m
 ### 创建 Redis 从节点 Deployment
 
 <!--
-Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas. 
+Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
 -->
 Deployments 根据清单文件中设置的配置进行伸缩。在这种情况下，Deployment 对象指定两个副本。
 
 <!--
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running. 
+If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running.
 -->
 如果没有任何副本正在运行，则此 Deployment 将启动容器集群上的两个副本。相反，
 如果有两个以上的副本在运行，那么它的规模就会缩小，直到运行两个副本为止。
@@ -352,17 +352,17 @@ The guestbook application has a web frontend serving the HTTP requests written i
 The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
 -->
 应用的 `redis-slave` 和 `redis-master` 服务只能在容器集群中访问，因为服务的默认类型是
-[ClusterIP](/docs/concepts/Services-networking/Service/#publishingservices-Service-types)。`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
+[ClusterIP](/zh/docs/concepts/Services-networking/Service/#publishingservices-Service-types)。`ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
-If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.  
+If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.
 -->
 如果您希望客人能够访问您的留言板，您必须将前端服务配置为外部可见的，以便客户机可以从容器集群之外请求服务。Minikube 只能通过 `NodePort` 公开服务。
 
 {{< note >}}
 
 <!--
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`. 
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`.
 -->
 一些云提供商，如 Google Compute Engine 或 Google Kubernetes Engine，支持外部负载均衡器。如果您的云提供商支持负载均衡器，并且您希望使用它，
 只需删除或注释掉 `type: NodePort`，并取消注释 `type: LoadBalancer` 即可。
@@ -386,14 +386,14 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 2. 查询服务列表以验证前端服务正在运行:
 
       ```shell
-      kubectl get services 
+      kubectl get services
       ```
 
 <!--
       The response should be similar to this:
 -->
       响应应该与此类似：
-      
+
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
       frontend       ClusterIP   10.0.0.112   <none>       80:31323/TCP   6s
@@ -472,7 +472,7 @@ If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` y
 2. 复制外部 IP 地址，然后在浏览器中加载页面以查看留言板。
 
 <!--
-## Scale the Web Frontend 
+## Scale the Web Frontend
 -->
 
 ## 扩展 Web 前端
@@ -501,7 +501,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       ```
 
 <!--
-      The response should look similar to this: 
+      The response should look similar to this:
 -->
       响应应该类似于这样：
 
@@ -548,7 +548,7 @@ Scaling up or down is easy because your servers are defined as a Service that us
       redis-slave-2005841000-fpvqc    1/1       Running   0          1h
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
-        
+
 {{% /capture %}}
 
 {{% capture cleanup %}}
@@ -580,7 +580,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       deployment.apps "redis-slave" deleted
       service "redis-master" deleted
       service "redis-slave" deleted
-      deployment.apps "frontend" deleted    
+      deployment.apps "frontend" deleted
       service "frontend" deleted
       ```
 
@@ -594,9 +594,9 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       ```
 
 <!--
-      The response should be this: 
+      The response should be this:
 -->
-      响应应该是： 
+      响应应该是：
 
       ```
       No resources found.
@@ -608,15 +608,15 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 <!--
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog) 
+* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 -->
 
-* 完成 [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) 交互式教程
-* 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* 阅读更多关于[连接应用程序](/docs/concepts/services-networking/connect-applications-service/)
-* 阅读更多关于[管理资源](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* 完成 [Kubernetes Basics](/zh/docs/tutorials/kubernetes-basics/) 交互式教程
+* 使用 Kubernetes 创建一个博客，使用 [MySQL 和 Wordpress 的持久卷](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
+* 阅读更多关于[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 阅读更多关于[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 
 {{% /capture %}}
 
