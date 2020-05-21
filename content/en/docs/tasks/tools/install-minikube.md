@@ -219,7 +219,7 @@ For setting the `--driver` with `minikube start`, enter the name of the hypervis
 {{< /note >}}
 
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver='<driver_name>'
 ```
 
 Once `minikube start` finishes, run the command below to check the status of the cluster:
