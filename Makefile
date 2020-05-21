@@ -45,7 +45,7 @@ docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
 docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
+	$(DOCKER_RUN) --mount type=tmpfs,destination=/src/resources,tmpfs-mode=0755 -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
 
 test-examples:
 	scripts/test_examples.sh install
