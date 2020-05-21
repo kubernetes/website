@@ -13,7 +13,7 @@ Last November at KubeCon San Diego 2019, we announced the release of
 for synthetic monitoring. This new ability granted developers the means to create their own Kuberhealthy check 
 containers to synthetically monitor their applications and clusters. The community was quick to adopt this new feature and we're grateful for everyone who implemented and tested Kuberhealthy 2.0.0 in their clusters. Thanks to all of you who reported 
 issues and contributed to discussions on the #kuberhealthy Slack channel. We quickly set to work to address all your feedback 
-with a newer version of Kuberhealthy. Additionally, we began creating a guide for how to easily install and use Kuberhealthy in order to capture some really helpful synthetic [KPIs](https://kpi.org/KPI-Basics). 
+with a newer version of Kuberhealthy. Additionally, we created a guide on how to easily install and use Kuberhealthy in order to capture some helpful synthetic [KPIs](https://kpi.org/KPI-Basics). 
 
 ### Deploying Kuberhealthy
 
