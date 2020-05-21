@@ -22,7 +22,7 @@ weight: 20
 
 {{< glossary_definition term_id="name" length="all" >}}
 
-以下は、一般的にリソースに使用される3種類の名前に関する制約です。
+次の3つの命名規則がよく使われます。
 
 ### DNSサブドメイン名 {#dns-subdomain-names}
 
