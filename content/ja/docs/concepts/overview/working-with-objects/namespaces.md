@@ -20,7 +20,7 @@ Namespaceは、複数のチーム・プロジェクトにまたがる多くの�
 数人から数十人しかユーザーのいないクラスターに対して、あなたはNamespaceを作成したり、考える必要は全くありません。
 Kubernetesが提供するNamespaceの機能が必要となった時に、Namespaceの使用を始めてください。  
 
-Namespaceは名前空間のスコープを提供します。リソース名は単一のNamespace内ではユニークである必要がありますが、Namespace全体ではその必要はありません。  
+Namespaceは名前空間のスコープを提供します。リソース名は単一のNamespace内ではユニークである必要がありますが、Namespace全体ではその必要はありません。Namespaceは相互にネストすることはできず、各Kubernetesリソースは1つのNamespaceにのみ存在できます。
 
 Namespaceは、複数のユーザーの間でクラスターリソースを分割する方法です。(これは[リソースクォータ](/docs/concepts/policy/resource-quotas/)を介して分割します。)  
 
@@ -38,7 +38,7 @@ Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメン�
 ユーザーは、以下の方法で単一クラスター内の現在のNamespaceの一覧を表示できます。  
 
 ```shell
-kubectl get namespaces
+kubectl get namespace
 ```
 ```
 NAME          STATUS    AGE
@@ -56,12 +56,13 @@ Kubernetesの起動時には3つの初期Namespaceが作成されています。
 
 ### Namespaceの設定
 
-一時的な要求のためにNamespaceを設定したい場合、`--namespace`フラグを使用します。  
+現在のリクエストのNamespaceを設定するには、`--namespace`フラグを使用します。
+
 例:
 
 ```shell
-kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
-kubectl --namespace=<insert-namespace-name-here> get pods
+kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
 ### Namespace設定の永続化
@@ -69,9 +70,9 @@ kubectl --namespace=<insert-namespace-name-here> get pods
 ユーザーはあるコンテキストのその後のコマンドで使うために、コンテキスト内で永続的にNamespaceを保存できます。  
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 ## NamespaceとDNS
@@ -96,5 +97,11 @@ kubectl api-resources --namespaced=true
 # Namespaceに属していないもの
 kubectl api-resources --namespaced=false
 ```
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+* [新しいNamespaceの作成](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)について学習してください。
+* [Namespaceの削除](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)について学習してください。
 
 {{% /capture %}}
