@@ -227,7 +227,8 @@ kubectl get nodes
 
 > Tip: depending on how fast we run the "get nodes" command, it can be that not all the nodes are ready, wait few seconds and run it again, everything should be ready
 
-And that's it, we have created a three nodes cluster, and if we look at the services one more time, we will see several that have now three replicas:
+And that's it, we have created a three-node cluster, and if we look at the services one more time, we will see several that have now three replicas:
+
 
 ```bash
 # Check the services for the whole cluster
