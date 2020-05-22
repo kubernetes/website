@@ -11,6 +11,8 @@ slug: wsl-docker-kubernetes-on-the-windows-desktop
 
 New to Windows 10 and WSL2, or new to Docker and Kubernetes? Welcome to this blog post where we will install from scratch Kubernetes in Docker [KinD](https://kind.sigs.k8s.io/) and [Minikube](https://minikube.sigs.k8s.io/docs/).
 
+**As of May 2020, KinD on WSL2 cannot run yet on AMD processors due to the lack of Hyper-V Nested Virtualization**
+https://github.com/MicrosoftDocs/Virtualization-Documentation/issues/1276
 
 # Why Kubernetes on Windows?
 
