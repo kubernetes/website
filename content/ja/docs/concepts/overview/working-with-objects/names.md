@@ -7,8 +7,7 @@ weight: 20
 
 {{% capture overview %}}
 
-クラスター内の各オブジェクトには、そのタイプのリソースに固有の[_名前_](#names)があります。
-すべてのKubernetesオブジェクトには、クラスター全体で一意の[_UID_](#uids)もあります。
+クラスター内の各オブジェクトには、そのタイプのリソースに固有の[_名前_](#names)があります。すべてのKubernetesオブジェクトには、クラスター全体で一意の[_UID_](#uids)もあります。
 
 たとえば、同じ[名前空間](/docs/concepts/overview/working-with-objects/namespaces/)内に`myapp-1234`という名前のPodは1つしか含められませんが、`myapp-1234`という名前の1つのPodと1つのDeploymentを含めることができます。
 
