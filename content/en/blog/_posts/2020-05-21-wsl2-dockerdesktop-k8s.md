@@ -16,7 +16,8 @@ New to Windows 10 and WSL2, or new to Docker and Kubernetes? Welcome to this blo
 
 For the last few years, Kubernetes became a de-facto standard platform for running containerized services and applications in distributed environments. While a wide variety of distributions and installers exist to deploy Kubernetes in the cloud environments (public, private or hybrid), or within the bare metal environments, there is still a need to deploy and run Kubernetes locally, for example, on the developer's workstation.
 
-Kubernetes has been originally designed to be deployed and used in the Linux environments, however, a good number of users (and not only application developers) use Windows OS as their daily driver. When Microsoft revealed WSL - [the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/), the line between Windows and Linux environments became even less visible.
+Kubernetes has been originally designed to be deployed and used in the Linux environments. However, a good number of users (and not only application developers) use Windows OS as their daily driver. When Microsoft revealed WSL - [the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/), the line between Windows and Linux environments became even less visible.
+
 
 And in addition, WSL brought an ability to run Kubernetes on Windows almost seamlessly!
 
