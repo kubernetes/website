@@ -256,7 +256,8 @@ As it created a service with a ClusterIP (read: internal network address), we ca
 
 ![kind-browse-dashboard-error](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-browse-dashboard-error.png)
 
-That's why, if we continue reading the how-to, we need to create a temporary proxy:
+That's because we need to create a temporary proxy:
+
 
 ```bash
 # Start a kubectl proxy
