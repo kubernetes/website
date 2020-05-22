@@ -1,0 +1,109 @@
+---
+title: Sử dụng Service để hiển thị ứng dụng
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Mục tiêu</h3>
+				<ul>
+					<li>Tìm hiểu về Service trong Kubernetes</li>
+					<li>Hiểu về cách các labels và các LabelSelector objects liên quan đến Service</li>
+					<li>Hiển thị ứng dụng ra bên ngoài Kubernetes cluster sử dụng Service</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Tổng quan về Kubernetes Services</h3>
+
+			<p>Các Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> thường biến mất. Pods trong thực tế có một <a href="/docs/concepts/workloads/pods/pod-lifecycle/">vòng đời</a>. Khi một worker node chết, các Pods chạy trên Node cũng biến mất. Sau đó, một <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> có thể tự động điều khiển cluster trở lại trạng thái mong muốn qua việc tạo ra các Pods mới để giữ cho ứng dụng của bạn chạy. Một ví dụ khác, xem xét một backend xử lí ảnh với 3 replicas. Những replicas đó có thể trao đổi; hệ thống backend không nên quan tâm về các backend replicas hoặc ngay cả khi một Pod bị mất và được tạo lại. Điều đó nói rằng, mỗi Pod trong một Kubernetes cluster có một địa chỉ IP duy nhất, thậm chí các Pods trên cùng một Node, do đó cần có một cách tự động điều chỉnh thay đổi giữa các Pods để các ứng dụng của bạn tiếp tục hoạt động.</p>
+
+			<p>Một Service trong Kubernetes là một bản tóm tắt xác định một tập hợp các Pods hợp lý và chính sách để truy cập chúng. Các Services cho phép ghép lỏng giữa các Pods phụ thuộc. Một service được xác định bằng YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferred)</a> hoặc JSON, giống như các Kubernetes objects. Tập hợp các Pods được chọn bởi một Service thường được xác định bởi <i>LabelSelector</i> (xem bên dưới để biết lý do bạn có thể muốn một Service mà không bao gồm <code>selector</code> trong thông số kĩ thuật).</p>
+
+			<p>Mặc dù mỗi Pod có một địa chỉ IP duy nhất, những IPs đó không được hiển thị ra bên ngoài cluster mà không có Service. Các Services cho phép các ứng dụng của bạn nhận được lưu lượng truy cập. Các Services có thể được hiển thị theo nhiều cách khác nhau bằng cách chỉ định một <code>type</code> ở trong ServiceSpec:</p>
+			<ul>
+				<li><<i>ClusterIP</i> (mặc định) - Hiển thị Service trên một IP nội bộ ở trong cluster. Điều này làm cho Service chỉ có thể truy cập được từ trong cluster.</li>
+				<li><i>NodePort</i> - Hiển thị Service trên cùng một port của mỗi Node được chọn trong cluster sử dụng NAT. Điều này làm cho một Service có thể truy cập từ bên ngoài cluster sử dụng <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset của ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Tạo bộ cân bằng tải bên ngoái ở trong cloud hiện tại (nếu được hỗ trợ) và gán IP bên ngoài cố định cho Service. Superset của NodePort.</li>
+				<li><i>ExternalName</i> - Hiển thị Service sử dụng tên tuỳ ý (được chỉ định bởi <code>externalName</code> trong thông số kĩ thuật) bằng cách trả lại một bản ghi CNAME với tên. Không có proxy được sử dụng. Trường hợp này yêu cầu v1.7 trở lên của <code>kube-dns</code>.</li>
+			</ul>
+			<p>Thông tin thêm về các loại Services có thể được tìm thấy trong hướng dẫn <a href="/docs/tutorials/services/source-ip/">Sử dụng Source IP</a>. Ngoài ra có thể xem thêm <a href="/docs/concepts/services-networking/connect-applications-service">Kết nối ứng dụng với Services</a>.</p>
+			<p>Ngoài ra, lưu ý rằng có một số trường hợp sử dụng với Services không liên quan đến việc xác định <code>selector</code> trong thông số kĩ thuật. Một Service được tạo ra mà không có <code>selector</code> cũng sẽ không tạo các Endpoint objects tương ứng. Điều này cho phép người dùng điều khiển thủ công một Service tới các endpoints cụ thể. Một khả năng khác tại sao có thể không có selector là bạn đang sử dụng loại <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Tổng Kết</h3>
+					<ul>
+						<li>Hiển thị Pods với lưu lượng truy cập bên ngoài</li>
+						<li>Cân bằng tải trên nhiều Pods</li>
+						<li>Dùng labels</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Một Kubernetes Service là một lớp trừu tượng xác định một nhóm các Pods và cho phép tiếp xúc với lưu lượng truy cập bên ngoài, cân bằng tải và khám phá dịch vụ cho các Pods đó.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Services và Labels</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Một Service định tuyến lưu lượng truy cập trên một nhóm các Pods. Các Services là sự trừu tượng cho phép các Pods chết và sao chép trong Kubernetes mà không ảnh hưởng đến ứng dụng của bạn. Việc khám phá và định tuyến giữa các Pods phụ thuộc (như các thành phần frontend và backend trong một ứng dụng) được các Kubernetes Services quản lý.</p>
+				<p>Services kết hợp với một nhóm Pods bằng cách sử dụng <a href="/docs/concepts/overview/working-with-objects/labels">labels và selectors</a>,một nhóm gốc cho phép các hoạt động hợp lý trên các objects ở trong Kubernetes. Labels là các cặp key/value được gắn vào objects và có thể được sử dụng theo bất kì cách nào:</p>
+				<ul>
+					<li>Chỉ định các objects để phát triển, thử nghiệm và đưa vào thực tế</li>
+					<li>Gắn vào các phiên bản tags</li>
+					<li>Phân loại object sử dụng tags</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Labels có thể được gắn vào các objects tại thời điểm tạo ra hoặc sau này. Chúng có thể được sửa đổi ở bất cứ thời gian nào. Bây giờ hãy hiển thị ứng dụng của chúng tôi bằng cách sử dụng Service và áp dụng một số labels.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Bắt đầu hướng dẫn tương tác<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

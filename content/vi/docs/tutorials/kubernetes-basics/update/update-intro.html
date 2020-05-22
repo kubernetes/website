@@ -1,0 +1,137 @@
+---
+title: Thực hiện Rolling Update
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Mục tiêu</h3>
+                <ul>
+                    <li>Thực hiện rolling update sử dụng kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>Cập nhật ứng dụng</h3>
+
+            <p>Người dùng mong đợi các ứng dụng luôn hoạt động mọi lúc và các nhà phát triển dự kiến sẽ triển khai các phiên bản mới của chúng vài lần một ngày. Trong Kubernetes, điều này được thực hiện với rolling updates. <b>Rolling updates</b> cho phép cập nhật của các Deployments diễn ra mà không có downtime bằng cách tăng dần các phiên bản Pods với các phiên bản mới. Các Pods mới sẽ được lên lịch trên các Nodes với tài nguyên có sẵn.</p>
+
+            <p>Trong các modules trước chúng tôi đã mở rộng ứng dụng của mình để chạy nhiều phiên bản. Đây là một yêu cầu để thực hiện cập nhật mà không ảnh hưởng đến tính sẵn sàng của ứng dụng. Theo mặc định, số lượng các Pods tối đa có thể không có trong quá trình cập nhật và số lượng các Pods mới tối đa có thể được tạo được, là một. Cả hai tuỳ chọn có thể được cấu hình theo số hoặc tỉ lệ phần trăm (của Pods).
+            Trong Kubernetes, các phiên bản cập nhật được được lưu lại và mọi bản cập nhật Deployment có thể được trở lại về phiên bản (ổn định) trước.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Tổng kết:</h3>
+                    <ul>
+                        <li>Cập nhật ứng dụng</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Rolling updates cho phép cập nhật của các Deployments diễn ra mà không có downtime bằng cách tăng dần các phiên bản Pods với các phiên bản mới. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Tổng quan về Rolling updates</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Quay lại</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Tiếp tục</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Tương tự như mở rộng ứng dụng, nếu Deployment được hiển thị công khai, Service sẽ chỉ cân bằng tải lưu lượng cho các Pods có sẵn trong quá trình cập nhật. Một Pod có sẵn là một phiên bản có sẵn cho người dùng sử dụng.</p>
+
+                <p>Rolling updates cho phép các hành động sau:</p>
+                <ul>
+                    <li>Chuyển một ứng dụng từ môi trường này sang môi trường khác (thông qua các cập nhật container image)</li>
+                    <li>Quay trở lại các phiên bản trước</li>
+                    <li>Continuous Integration và Continuous Delivery với các ứng dụng không có downtime</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Nếu một Deployment được hiển thị công khai, Service sẽ chỉ cân bằng tải lưu lượng cho các Pods có sẵn trong quá trình cập nhật. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> Trong hướng dẫn tương tác sau đây, chúng tôi sẽ cập nhật ứng dụng của mình lên phiên bản mới và cũng thực hiện khôi phục.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Bắt đầu hướng dẫn tương tác <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

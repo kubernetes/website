@@ -1,0 +1,121 @@
+---
+title: Chạy nhiều phiên bản ứng dụng của bạn
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Mục tiêu</h3>
+                <ul>
+                    <li>Mở rộng ứng dụng sử dụng kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>Mở rộng ứng dụng</h3>
+
+            <p>Trong các modules trước chúng ta đã tạo ra <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, và sau đó hiển thị nó thông qua một <a href="/docs/concepts/services-networking/service/">Service</a>. Deployment chỉ tạo ra một Pod để chạy ứng dụng của chúng tôi.  Khi lưu lượng truy cập tăng, chúng tôi cần mở rộng ứng dụng để đáp ứng nhu cầu người dùng.</p>
+
+            <p><b>Mở rộng</b> được thực hiện bằng cách thay đổi số lượng replicas ở trong Deployment</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Tổng kết:</h3>
+                    <ul>
+                        <li>Mở rộng một Deployment</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Bạn có thể tạo từ khi bắt đầu một Deployment với nhiều phiên bản bằng cách sử dụng tham số --replicas cho lệnh chạy kubectl</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Tổng quan về mở rộng</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Quay lại</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Tiếp tục</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Mở rộng thêm một Deployment sẽ đảm bảo các Pods mới được tạo và lên lịch tới các Nodes với tài nguyên có sẵn. Mở rộng sẽ tăng số lượng Pods lên trạng thái mong muốn mới. Kubernetes cũng hỗ trợ <a href="/docs/user-guide/horizontal-pod-autoscaling/">việc tự động mở rộng (autoscaling)</a> của các Pods, nhưng nó ngoài phạm vi của hướng dẫn này. Bên cạnh đó, cũng có thể mở rộng về 0, và nó sẽ chấm dứt tất cả các Pods của Deployment được chỉ định.</p>
+
+                <p>Chạy nhiều phiên bản của ứng dụng sẽ yêu cầu một cách để phân phối lưu lượng truy cập đến tất cả chúng. Các Services có bộ cân bằng tải tích hợp sẽ phân phối lưu lượng mạng đến tất cả các Pod của một Deployment được hiển thị. Các Services sẽ giám sát liên tục các Pods đang chạy sử dụng endpoints, đảm bảo lưu lượng chỉ được gửi đến các Pods có sẵn.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Mở rộng được thực hiện bằng cách thay đổi số lượng replicas ở trong Deployment.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> Khi bạn có nhiều phiên bản của ứng dụng đang chạy, bạn sẽ có thể thực hiện Rolling updates mà không có downtime. Chúng tôi sẽ đề cập điều đó trong module tiếp theo. Bây giờ, hãy đi đến chương trình terminal và mở rộng ứng dụng của chúng tôi.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Bắt đầu hướng dẫn tương tác <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
