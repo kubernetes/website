@@ -27,11 +27,11 @@ Namespaceは、複数のユーザーの間でクラスターリソースを分�
 Kubernetesの将来的なバージョンにおいて、同一のNamespace内のオブジェクトは、デフォルトで同一のアクセスコントロールポリシーが適用されます。
 
 同じアプリケーションの異なるバージョンなど、少し違うリソースをただ分割するだけに、複数のNamespaceを使う必要はありません。  
-同一のNamespace内でリソースを区別するためには[ラベル](/docs/user-guide/labels)を使用してください。  
+同一のNamespace内でリソースを区別するためには[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を使用してください。  
 
 ## Namespaceを利用する
 
-Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメント](/docs/admin/namespaces)に記載されています。  
+Namespaceの作成と削除方法は[Namespaceの管理ガイドドキュメント](/docs/tasks/administer-cluster/namespaces/)に記載されています。  
 
 ### Namespaceの表示
 
@@ -77,7 +77,7 @@ kubectl config view --minify | grep namespace:
 
 ## NamespaceとDNS
 
-ユーザーが[Service](/docs/user-guide/services)を作成するとき、Serviceは対応する[DNSエントリ](/ja/docs/concepts/services-networking/dns-pod-service/)を作成します。  
+ユーザーが[Service](/ja/docs/concepts/services-networking/service/)を作成するとき、Serviceは対応する[DNSエントリ](/ja/docs/concepts/services-networking/dns-pod-service/)を作成します。  
 このエントリは`<service-name>.<namespace-name>.svc.cluster.local`という形式になり,これはもしあるコンテナがただ`<service-name>`を指定していた場合、Namespace内のローカルのServiceに対して名前解決されます。  
 これはデベロップメント、ステージング、プロダクションといって複数のNamespaceをまたいで同じ設定を使う時に効果的です。  
 もしユーザーがNamespaceをまたいでアクセスしたい時、 完全修飾ドメイン名(FQDN)を指定する必要があります。  
@@ -86,7 +86,7 @@ kubectl config view --minify | grep namespace:
 
 ほとんどのKubernetesリソース(例えば、Pod、Service、ReplicationControllerなど)はいくつかのNamespaceにあります。  
 しかしNamespaceのリソースそれ自体は単一のNamespace内にありません。  
-そして[Node](/docs/admin/node)やPersistentVolumeのような低レベルのリソースはどのNamespaceにも属していません。 
+そして[Node](/ja/docs/concepts/architecture/nodes/)やPersistentVolumeのような低レベルのリソースはどのNamespaceにも属していません。 
 
 どのKubernetesリソースがNamespaceに属しているか、属していないかを見るためには、以下のコマンドで確認できます。  
 
