@@ -37,7 +37,8 @@ However, here is the list of the prerequisites needed and their version/lane:
 - [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), stable channel - the version used is 2.2.0.4
 - [Optional] Microsoft Terminal installed from the Windows Store
   - Open the Windows store and type "Terminal" in the search, it will be (normally) the first option
-    ![Windows Store Terminal](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-windows-store-terminal.png)
+
+![Windows Store Terminal](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-windows-store-terminal.png)
 
 And that's actually it. For Docker Desktop for Windows, no need to configure anything yet as we will explain it in the next section.
 
