@@ -26,7 +26,7 @@ Below, we will cover in brief how to install and use various solutions to run Ku
 
 # Prerequisites
 
-As this blog will explain how to install KinD, we won't see in details the installation of the prerequisites.
+Since we will explain how to install KinD, we won't go into too much detail around the installation of KinD's dependencies.
 
 However, here is the list of the prerequisites needed and their version/lane:
 
