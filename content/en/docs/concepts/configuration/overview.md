@@ -77,7 +77,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
 
-- `imagePullPolicy: Always`: the image is pulled every time the pod is started.
+- `imagePullPolicy: Always`: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image digest. If the kubelet has a container image with that exact digest cached locally, the kubelet uses its cached image; otherwise, the kubelet downloads (pulls) the image with the resolved digest, and uses that image to launch the container.
 
 - `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
 
