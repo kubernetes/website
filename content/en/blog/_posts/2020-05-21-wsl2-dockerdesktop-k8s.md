@@ -202,7 +202,8 @@ kubectl get all --all-namespaces
 
 ![kind-list-nodes-services](/images/blog/2020-05-21-wsl2-dockerdesktop-k8s/wsl2-kind-list-nodes-services.png)
 
-While this will be enough for a lot of persons, let's leverage one of the coolest feature, multi-node clustering:
+While this will be enough for most people, let's leverage one of the coolest feature, multi-node clustering:
+
 
 ```bash
 # Delete the existing cluster
