@@ -169,6 +169,7 @@ in the Kubernetes organization. Follow these steps:
      通过 [#sig-docs channel on the Kubernetes Slack instance](https://kubernetes.slack.com) 或者
     [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
    来寻找为你提名的人。
+   
     {{< note >}}
     不要单独发送邮件给某个人或在 Slack 中私聊。
     {{< /note >}}
