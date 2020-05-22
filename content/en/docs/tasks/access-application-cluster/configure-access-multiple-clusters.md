@@ -25,7 +25,12 @@ It does not mean that there is a file named `kubeconfig`.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+To check that {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} is installed,
+run `kubectl version --client`. The kubectl version should be
+[within one minor version](/docs/setup/release/version-skew-policy/#kubectl) of your
+cluster's API server.
 
 {{% /capture %}}
 
