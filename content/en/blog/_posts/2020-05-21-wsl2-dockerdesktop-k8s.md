@@ -19,7 +19,8 @@ For the last few years, Kubernetes became a de-facto standard platform for runni
 Kubernetes has been originally designed to be deployed and used in the Linux environments. However, a good number of users (and not only application developers) use Windows OS as their daily driver. When Microsoft revealed WSL - [the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/), the line between Windows and Linux environments became even less visible.
 
 
-And in addition, WSL brought an ability to run Kubernetes on Windows almost seamlessly!
+Also, WSL brought an ability to run Kubernetes on Windows almost seamlessly!
+
 
 Below, we will cover in brief how to install and use various solutions to run Kubernetes locally.
 
