@@ -412,7 +412,7 @@ By default, kube-proxy in userspace mode chooses a backend via a round-robin alg
 任何连接到“代理端口”的请求，都会被代理到 `Service` 的backend `Pods` 中的某个上面（如 `Endpoints` 所报告的一样）。
 使用哪个 backend `Pod`，是 kube-proxy 基于 `SessionAffinity` 来确定的。
 
-最后，它安装 iptables 规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟 IP）和 `Port` 的请求，并重定向到代理端口，代理端口再代理请求到 backend `Pod`。
+最后，它配置 iptables 规则，捕获到达该 `Service` 的 `clusterIP`（是虚拟 IP）和 `Port` 的请求，并重定向到代理端口，代理端口再代理请求到 backend `Pod`。
 
 默认情况下，用户空间模式下的kube-proxy通过循环算法选择后端。
 
@@ -451,8 +451,8 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 ### iptables 代理模式 {#proxy-mode-iptables}
 
 这种模式，kube-proxy 会监视 Kubernetes 控制节点对 `Service` 对象和 `Endpoints` 对象的添加和移除。
-对每个 `Service`，它会安装 iptables 规则，从而捕获到达该 `Service` 的 `clusterIP` 和端口的请求，进而将请求重定向到 `Service` 的一组 backend 中的某个上面。
-对于每个 `Endpoints` 对象，它也会安装 iptables 规则，这个规则会选择一个 backend 组合。
+对每个 `Service`，它会配置 iptables 规则，从而捕获到达该 `Service` 的 `clusterIP` 和端口的请求，进而将请求重定向到 `Service` 的一组 backend 中的某个上面。
+对于每个 `Endpoints` 对象，它也会配置 iptables 规则，这个规则会选择一个 backend 组合。
 
 默认的策略是，kube-proxy 在 iptables 模式下随机选择一个 backend。
 
@@ -1679,7 +1679,7 @@ through a load-balancer, though in those cases the client IP does get altered.
 再次考虑前面提到的图片处理应用程序。
 当创建 backend `Service` 时，Kubernetes 控制面板会给它指派一个虚拟 IP 地址，比如 10.0.0.1。
 假设 `Service` 的端口是 1234，该 `Service` 会被集群中所有的 `kube-proxy` 实例观察到。
-当代理看到一个新的 `Service`， 它会安装一系列的 iptables 规则，从 VIP 重定向到 per-`Service` 规则。
+当代理看到一个新的 `Service`， 它会配置一系列的 iptables 规则，从 VIP 重定向到 per-`Service` 规则。
 该 per-`Service` 规则连接到 per-`Endpoint` 规则，该 per-`Endpoint` 规则会重定向（目标 NAT）到 backend。
 
 当一个客户端连接到一个 VIP，iptables 规则开始起作用。一个 backend 会被选择（或者根据会话亲和性，或者随机），数据包被重定向到这个 backend。
