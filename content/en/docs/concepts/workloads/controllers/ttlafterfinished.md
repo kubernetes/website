@@ -3,7 +3,7 @@ reviewers:
 - janetkuo
 title: TTL Controller for Finished Resources
 content_type: concept
-weight: 65
+weight: 70
 ---
 
 <!-- overview -->

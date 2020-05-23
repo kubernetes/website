@@ -1,15 +1,13 @@
 ---
 title: Garbage Collection
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!-- overview -->
 
 The role of the Kubernetes garbage collector is to delete certain objects
 that once had an owner, but no longer have an owner.
-
-
 
 
 <!-- body -->
@@ -170,15 +168,9 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 
 
-
 ## {{% heading "whatsnext" %}}
 
 
 [Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
-
-
-
-
-
