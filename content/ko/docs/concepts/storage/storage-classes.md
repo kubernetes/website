@@ -164,9 +164,9 @@ CSI | 1.14 (alpha), 1.16 (beta)
 퍼시스턴트볼륨은 파드의 스케줄링 제약 조건에 의해 지정된 토폴로지에
 따라 선택되거나 프로비전된다. 여기에는 [리소스
 요구 사항](/docs/concepts/configuration/manage-compute-resources-container/),
-[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector),
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
-안티-어피니티(anti-affinity)](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
 그리고 [테인트(taint)와 톨러레이션(toleration)](/docs/concepts/configuration/taint-and-toleration/)이 포함된다.
 
 다음 플러그인은 동적 프로비저닝과 `WaitForFirstConsumer` 를 지원한다.

@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+      <p>작업할 준비가 되었나요? 샘플 애플리케이션을 실행하는 간단한 쿠버네티스 클러스터를 구축합니다.</p>
 card:
   name: tutorials
   weight: 10
@@ -16,7 +16,7 @@ card:
 {{% capture overview %}}
 
 이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여
-쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
+쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
@@ -27,7 +27,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{% capture objectives %}}
 
-* hello world 애플리케이션을 Minikube에 배포한다.
+* 샘플 애플리케이션을 Minikube에 배포한다.
 * 배포한 애플리케이션을 실행한다.
 * 애플리케이션의 로그를 확인한다.
 
@@ -35,13 +35,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{% capture prerequisites %}}
 
-이 튜토리얼에서 아래 파일들을 빌드한 컨테이너 이미지를 제공한다.
-
-{{< codenew language="js" file="minikube/server.js" >}}
-
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-`docker build`명령에 대한 자세한 설명은 [Docker 문서](https://docs.docker.com/engine/reference/commandline/build/)를 읽어보자.
+이 튜토리얼은 NGINX를 사용해서 모든 요청에 응답하는 컨테이너 이미지를 제공한다.
 
 {{% /capture %}}
 
@@ -165,7 +159,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 포트 번호를 입력한 다음, 포트 표시를 클릭한다. 이전 예시를 사용해서 `30369` 를 입력한다.
 
-    이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 "Hello World" 메시지를 보여준다.
+    이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 애플리케이션의 응답을 볼 수 있다.
 
 ## 애드온 사용하기
 
