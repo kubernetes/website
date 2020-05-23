@@ -237,7 +237,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 
 * Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* Learn more about [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
