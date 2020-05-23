@@ -2,7 +2,7 @@
 reviewers:
 - erictune
 - soltysh
-title: Jobs - Run to Completion
+title: Jobs
 content_type: concept
 feature:
   title: Batch execution
