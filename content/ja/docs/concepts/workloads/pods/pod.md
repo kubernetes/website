@@ -164,7 +164,7 @@ Node上では、すぐに終了するように設定されるPodは、強制終�
 強制削除は、Podによっては潜在的に危険な場合があるため、慎重に実行する必要があります。
 StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-## Podコンテナの特権モード
+## Podコンテナの特権モード {#privileged-mode-for-pod-containers}
 
 Kubernetes v1.1以降、Pod内のどのコンテナでも、コンテナ仕様の `SecurityContext` の `privileged ` フラグを使用して特権モードを有効にできます。
 これは、ネットワークスタックの操作やデバイスへのアクセスなど、Linuxの機能を使用したいコンテナにとって役立ちます。
