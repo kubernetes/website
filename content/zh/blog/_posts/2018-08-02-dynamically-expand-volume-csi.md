@@ -8,7 +8,7 @@ date:   2018-08-02
 
 ---
 layout: blog
-title:  '使用CSI和Kubernetes实现卷的动态扩容'
+title:  '使用 CSI 和 Kubernetes 实现卷的动态扩容'
 date:   2018-08-02
 ---
 
@@ -70,7 +70,7 @@ Currently, expanding volume is only available with those storage provisioners:
 In order to enable this feature, we should set feature gate `ExpandPersistentVolumes` true and turn on the `PersistentVolumeClaimResize` admission plugin. Once `PersistentVolumeClaimResize` has been enabled, resizing will be allowed by a Storage Class whose `allowVolumeExpansion` field is set to true.
 -->
 
-为了启用此功能，我们应该将功能门 `ExpandPersistentVolumes` 设置为 true 并打开 `PersistentVolumeClaimResize` 准入插件。 一旦启用了 `PersistentVolumeClaimResize`，则其对应的 `allowVolumeExpansion` 字段设置为 true 的存储类将允许调整大小。
+为了启用此功能，我们应该将特性开关 `ExpandPersistentVolumes` 设置为 true 并打开 `PersistentVolumeClaimResize` 准入插件。 一旦启用了 `PersistentVolumeClaimResize`，则其对应的 `allowVolumeExpansion` 字段设置为 true 的存储类将允许调整大小。
 
 <!--
 Unfortunately, dynamically expanding volume through the Container Storage Interface (CSI) and Kubernetes is unavailable, even though the underlying storage providers have this feature.
@@ -118,7 +118,7 @@ This diagram depicts a kind of high-level Kubernetes archetypes integrated with 
 * Red arrows present gRPC to call against Volume Driver
 -->
 
-* 引入了三个新的外部组件以分离 Kubernetes 和存储提供程序逻辑
+* 引入了三个新的外部组件以解耦 Kubernetes 和存储提供程序逻辑
 * 蓝色箭头表示针对 API 服务器进行调用的常规方法
 * 红色箭头显示 gRPC 以针对 Volume Driver 进行调用
 
@@ -132,7 +132,7 @@ For more details, please visit: https://github.com/container-storage-interface/s
 ## Extend CSI and Kubernetes
 -->
 
-##扩展 CSI 和 Kubernetes
+## 扩展 CSI 和 Kubernetes
 
 <!--
 In order to enable the feature of expanding volume atop Kubernetes, we should extend several components including CSI specification, “in-tree” volume plugin, external-provisioner and external-attacher.
@@ -144,7 +144,7 @@ In order to enable the feature of expanding volume atop Kubernetes, we should ex
 ## Extend CSI spec
 -->
 
-##扩展CSI规范
+## 扩展CSI规范
 
 <!--
 The feature of expanding volume is still undefined in latest CSI 0.2.0. The new 3 RPCs, including `RequiresFSResize` and `ControllerResizeVolume` and `NodeResizeVolume`, should be introduced.
@@ -176,7 +176,7 @@ service Node {
 ## Extend “In-Tree” Volume Plugin
 -->
 
-##扩展 “In-Tree” 卷插件
+## 扩展 “In-Tree” 卷插件
 
 <!--
 In addition to the extend CSI specification, the `csiPlugin﻿` interface within Kubernetes should also implement `expandablePlugin`. The `csiPlugin` interface will expand `PersistentVolumeClaim` representing for `ExpanderController`.
