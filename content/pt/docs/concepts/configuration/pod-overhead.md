@@ -104,7 +104,7 @@ O output é:
 map[cpu:250m memory:120Mi]
 ```
 
-Se for definido um _ResourceQuota_, a soma dos pedidos aos _containers_ assim como o campo `overhead` são contados.
+Se for definido um _ResourceQuota_, a soma dos pedidos dos _containers_ assim como o campo `overhead` são contados.
 
 Quando o kube-scheduler está a decidir que nó deve executar um novo _Pod_, o agendador considera o `overhead` do _Pod_,
 assim como a soma de pedidos aos _containers_ para esse _Pod_. Para este exemplo, o agendador adiciona os
