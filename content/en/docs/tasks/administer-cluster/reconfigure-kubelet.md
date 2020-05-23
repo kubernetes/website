@@ -72,7 +72,7 @@ will receive default values appropriate to the configuration version
 (e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 
 The status of the Node's kubelet configuration is reported via
-`Node.Spec.Status.Config`. Once you have updated a Node to use the new
+`Node.Status.Config`. Once you have updated a Node to use the new
 ConfigMap, you can observe this status to confirm that the Node is using the
 intended configuration.
 
