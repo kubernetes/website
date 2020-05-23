@@ -119,7 +119,7 @@ track=stable
 
 - **CPU requirement (cores)** and **Memory requirement (MiB)**: You can specify the minimum [resource limits](/docs/tasks/configure-pod-container/limit-range/) for the container. By default, Pods run with unbounded CPU and memory limits.
 
-- **Run command** and **Run command arguments**: By default, your containers run the specified Docker image's default [entrypoint command](/docs/user-guide/containers/#containers-and-commands). You can use the command options and arguments to override the default.
+- **Run command** and **Run command arguments**: By default, your containers run the specified Docker image's default [entrypoint command](/docs/tasks/inject-data-application/define-command-argument-container/). You can use the command options and arguments to override the default.
 
 - **Run as privileged**: This setting determines whether processes in [privileged containers](/docs/user-guide/pods/#privileged-mode-for-pod-containers) are equivalent to processes running as root on the host. Privileged containers can make use of capabilities like manipulating the network stack and accessing devices.
 
