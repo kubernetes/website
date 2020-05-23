@@ -8,7 +8,7 @@ feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
-weight: 70
+weight: 60
 ---
 
 <!-- overview -->
@@ -111,7 +111,7 @@ The output is similar to this:
 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116094330572703657595919530921861173819326117931051185480744623799627495673518857527248912279381830119491298336733624406566430860213949463952247371907021798609437027705392171762931767523846748184676694051320005681271452635608277857713427577896091736371787214684409012249534301465495853710507922796892589235420199561121290219608640344181598136297747713099605187072113499999983729780499510597317328160963185950244594553469083026425223082533446850352619311881710100031378387528865875332083814206171776691473035982534904287554687311595628638823537875937519577818577805321712268066130019278766111959092164201989380952572010654858632788659361533818279682303019520353018529689957736225994138912497217752834791315155748572424541506959508295331168617278558890750983817546374649393192550604009277016711390098488240128583616035637076601047101819429555961989467678374494482553797747268471040475346462080466842590694912933136770289891521047521620569660240580381501935112533824300355876402474964732639141992726042699227967823547816360093417216412199245863150302861829745557067498385054945885869269956909272107975093029553211653449872027559602364806654991198818347977535663698074265425278625518184175746728909777727938000816470600161452491921732172147723501414419735685481613611573525521334757418494684385233239073941433345477624168625189835694855620992192221842725502542568876717904946016534668049886272327917860857843838279679766814541009538837863609506800642251252051173929848960841284886269456042419652850222106611863067442786220391949450471237137869609563643719172874677646575739624138908658326459958133904780275901
 ```
 
-## Writing a Job Spec
+## Writing a Job spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 Its name must be a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -129,13 +129,13 @@ labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
 Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Never` or `OnFailure` is allowed.
 
-### Pod Selector
+### Pod selector
 
 The `.spec.selector` field is optional.  In almost all cases you should not specify it.
 See section [specifying your own pod selector](#specifying-your-own-pod-selector).
 
 
-### Parallel Jobs
+### Parallel execution for Jobs {#parallel-jobs}
 
 There are three main types of task suitable to run as a Job:
 
@@ -166,7 +166,7 @@ a non-negative integer.
 For more information about how to make use of the different types of job, see the [job patterns](#job-patterns) section.
 
 
-#### Controlling Parallelism
+#### Controlling parallelism
 
 The requested parallelism (`.spec.parallelism`) can be set to any non-negative value.
 If it is unspecified, it defaults to 1.
@@ -184,7 +184,7 @@ parallelism, for a variety of reasons:
 - The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
 
-## Handling Pod and Container Failures
+## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
 a non-zero exit code, or the container was killed for exceeding a memory limit, etc.  If this
@@ -228,7 +228,7 @@ will be terminated once the job backoff limit has been reached. This can make de
 from failed Jobs is not lost inadvertently.
 {{< /note >}}
 
-## Job Termination and Cleanup
+## Job termination and cleanup
 
 When a Job completes, no more Pods are created, but the Pods are not deleted either.  Keeping them around
 allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
@@ -269,7 +269,7 @@ Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads
 Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself: there is no automatic Job restart once the Job status is `type: Failed`.
 That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
 
-## Clean Up Finished Jobs Automatically
+## Clean up finished jobs automatically
 
 Finished Jobs are usually no longer needed in the system. Keeping them around in
 the system will put pressure on the API server. If the Jobs are managed directly
@@ -277,7 +277,7 @@ by a higher level controller, such as
 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/), the Jobs can be
 cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
-### TTL Mechanism for Finished Jobs
+### TTL mechanism for finished Jobs
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -322,7 +322,7 @@ more information, see the documentation for
 [TTL controller](/docs/concepts/workloads/controllers/ttlafterfinished/) for
 finished resources.
 
-## Job Patterns
+## Job patterns
 
 The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
 designed to support closely-communicating parallel processes, as commonly found in scientific
@@ -374,9 +374,9 @@ Here, `W` is the number of work items.
 | Single Job with Static Work Assignment                               |          W          |        any           |
 
 
-## Advanced Usage
+## Advanced usage
 
-### Specifying your own pod selector
+### Specifying your own Pod selector
 
 Normally, when you create a Job object, you do not specify `.spec.selector`.
 The system defaulting logic adds this field when the Job is created.
@@ -461,7 +461,7 @@ As discussed in [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/), `
 for pods with `RestartPolicy` equal to `OnFailure` or `Never`.
 (Note: If `RestartPolicy` is not set, the default value is `Always`.)
 
-### Single Job starts Controller Pod
+### Single Job starts controller Pod
 
 Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
 of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
@@ -477,5 +477,4 @@ object, but maintains complete control over what Pods are created and how work i
 ## Cron Jobs {#cron-jobs}
 
 You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
-
 
