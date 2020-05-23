@@ -474,7 +474,6 @@
 /docs/setup/turnkey/aws/     /docs/setup/production-environment/turnkey/aws/   301
 /docs/setup/turnkey/alibaba-cloud/     /docs/setup/production-environment/turnkey/alibaba-cloud/   301
 /docs/setup/turnkey/azure/     /docs/setup/production-environment/turnkey/azure/   301
-/docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
 /docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
 /docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
 /docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301
