@@ -1,16 +1,16 @@
 ---
-title: 네임스페이스에 대한 기본 CPU 요청과 상한 구성
+title: 네임스페이스에 대한 기본 CPU 요청량과 상한 구성
 content_template: templates/task
 weight: 20
 ---
 
 {{% capture overview %}}
 
-이 페이지는 네임스페이스에 대한 기본 CPU 요청 및 상한을 구성하는 방법을 보여준다.
+이 페이지는 네임스페이스에 대한 기본 CPU 요청량(request) 및 상한(limit)을 구성하는 방법을 보여준다.
 쿠버네티스 클러스터는 네임스페이스로 나눌 수 있다. 기본 CPU 상한이 있는 네임스페이스에서
 컨테이너가 생성되고, 컨테이너가 자체 CPU 상한을 지정하지 않으면,
 컨테이너에 기본 CPU 상한이 할당된다. 쿠버네티스는 이 문서의 뒷부분에서
-설명하는 특정 조건에서 기본 CPU 요청을 할당한다.
+설명하는 특정 조건에서 기본 CPU 요청량을 할당한다.
 
 {{% /capture %}}
 
@@ -33,7 +33,7 @@ kubectl create namespace default-cpu-example
 ## 리밋레인지(LimitRange)와 파드 생성
 
 다음은 리밋레인지 오브젝트의 구성 파일이다. 구성은
-기본 CPU 요청 및 기본 CPU 상한을 지정한다.
+기본 CPU 요청량 및 기본 CPU 상한을 지정한다.
 
 {{< codenew file="admin/resource/cpu-defaults.yaml" >}}
 
@@ -44,12 +44,12 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --name
 ```
 
 이제 컨테이너가 default-cpu-example 네임스페이스에 생성되고,
-컨테이너가 CPU 요청 및 CPU 상한에 대해 고유한 값을 지정하지 않으면,
-컨테이너에 CPU 요청의 기본값 0.5와 CPU 상한
+컨테이너가 CPU 요청량 및 CPU 상한에 대해 고유한 값을 지정하지 않으면,
+컨테이너에 CPU 요청량의 기본값 0.5와 CPU 상한
 기본값 1이 부여된다.
 
 컨테이너가 하나인 파드의 구성 파일은 다음과 같다. 컨테이너는
-CPU 요청과 상한을 지정하지 않는다.
+CPU 요청량과 상한을 지정하지 않는다.
 
 {{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
 
@@ -65,7 +65,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod.yaml --
 kubectl get pod default-cpu-demo --output=yaml --namespace=default-cpu-example
 ```
 
-출력 결과는 파드의 컨테이너에 500 milicpu의 CPU 요청과
+출력 결과는 파드의 컨테이너에 500 milicpu의 CPU 요청량과
 1 cpu의 CPU 상한이 있음을 나타낸다. 이것은 리밋레인지에 의해 지정된 기본값이다.
 
 ```shell
@@ -80,10 +80,10 @@ containers:
       cpu: 500m
 ```
 
-## 컨테이너 상한은 지정하고, 요청을 지정하지 않으면 어떻게 되나?
+## 컨테이너 상한은 지정하고, 요청량을 지정하지 않으면 어떻게 되나?
 
 컨테이너가 하나인 파드의 구성 파일은 다음과 같다. 컨테이너는
-CPU 상한을 지정하지만, 요청은 지정하지 않는다.
+CPU 상한을 지정하지만, 요청량은 지정하지 않는다.
 
 {{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
 
@@ -100,8 +100,8 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml 
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 ```
 
-출력 결과는 컨테이너의 CPU 요청이 CPU 상한과 일치하도록 설정되었음을 보여준다.
-참고로 컨테이너에는 CPU 요청의 기본값인 0.5 cpu가 할당되지 않았다.
+출력 결과는 컨테이너의 CPU 요청량이 CPU 상한과 일치하도록 설정되었음을 보여준다.
+참고로 컨테이너에는 CPU 요청량의 기본값인 0.5 cpu가 할당되지 않았다.
 
 ```
 resources:
@@ -111,10 +111,10 @@ resources:
     cpu: "1"
 ```
 
-## 컨테이너의 요청은 지정하고, 상한을 지정하지 않으면 어떻게 되나?
+## 컨테이너의 요청량은 지정하고, 상한을 지정하지 않으면 어떻게 되나?
 
 컨테이너가 하나인 파드의 구성 파일은 다음과 같다. 컨테이너는
-CPU 요청을 지정하지만, 상한은 지정하지 않았다.
+CPU 요청량을 지정하지만, 상한은 지정하지 않았다.
 
 {{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
 
@@ -130,7 +130,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml 
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
 ```
 
-출력 결과는 컨테이너의 CPU 요청이 컨테이너의 구성 파일에 지정된 값으로
+출력 결과는 컨테이너의 CPU 요청량이 컨테이너의 구성 파일에 지정된 값으로
 설정되었음을 보여준다. 컨테이너의 CPU 상한은 1 cpu로 설정되며, 이는
 네임스페이스의 CPU 상한 기본값이다.
 
@@ -142,7 +142,7 @@ resources:
     cpu: 750m
 ```
 
-## CPU 상한 및 요청의 기본값에 대한 동기
+## CPU 상한 및 요청량의 기본값에 대한 동기
 
 네임스페이스에 [리소스 쿼터](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)가 있는 경우,
 CPU 상한에 대해 기본값을 설정하는 것이 좋다.
@@ -168,7 +168,7 @@ kubectl delete namespace default-cpu-example
 
 ### 클러스터 관리자를 위한 문서
 
-* [네임스페이스에 대한 기본 메모리 요청과 상한 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [네임스페이스에 대한 기본 메모리 요청량과 상한 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 * [네임스페이스에 대한 메모리의 최소 및 최대 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
