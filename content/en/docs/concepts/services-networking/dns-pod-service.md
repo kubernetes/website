@@ -254,7 +254,7 @@ options ndots:5
 
 ### Feature availability
 
-The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
+The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 
 | k8s version | Feature support |
 | :---------: |:-----------:|
