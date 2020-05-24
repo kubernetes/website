@@ -14,7 +14,7 @@ in a Kubernetes Pod.
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
