@@ -89,20 +89,17 @@ Each controller for a workload resource uses the PodTemplate inside the workload
 The sample below is a manifest for a simple Job with a `template` that starts one container. The container in that Pod prints a message then pauses.
 
 ```yaml
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: Pod
 metadata:
-  name: hello
+  name: myapp-pod
+  labels:
+    app: myapp
 spec:
-  template:
-    # This is the pod template
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
-      restartPolicy: OnFailure
-    # The pod template ends here
+  containers:
+  - name: myapp-container
+    image: busybox
+    command: ['sh', '-c', 'echo Hello Kubernetes! && sleep 3600']
 ```
 
 Modifying the pod template or switching to a new pod template has no effect on the Pods that already exist. Pods do not receive template updates directly; instead, a new Pod is created to match the revised pod template.
