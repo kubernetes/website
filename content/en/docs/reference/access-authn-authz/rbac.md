@@ -1141,17 +1141,17 @@ kubectl create clusterrolebinding add-on-cluster-admin \
 
     If you don't care about partitioning permissions at all, you can grant super-user access to all service accounts.
 
-    {{< warning >}}
+{{< warning >}}
     This allows any application full access to your cluster, and also grants
     any user with read access to Secrets (or the ability to create any pod)
     full access to your cluster.
-    {{< /warning >}}
+{{< /warning >}}
 
-    ```shell
+```shell
     kubectl create clusterrolebinding serviceaccounts-cluster-admin \
       --clusterrole=cluster-admin \
       --group=system:serviceaccounts
-    ```
+```
 
 ## Upgrading from ABAC
 
