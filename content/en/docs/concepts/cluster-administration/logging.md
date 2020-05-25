@@ -9,12 +9,9 @@ weight: 60
 
 <!-- overview -->
 
-Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
-
-
-
 
 <!-- body -->
 
@@ -97,28 +94,6 @@ the rotation and there are two files, one 10MB in size and one empty,
 {{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-
-### System component logs
-
-There are two types of system components: those that run in a container and those
-that do not run in a container. For example:
-
-* The Kubernetes scheduler and kube-proxy run in a container.
-* The kubelet and container runtime, for example Docker, do not run in containers.
-
-On machines with systemd, the kubelet and container runtime write to journald. If
-systemd is not present, they write to `.log` files in the `/var/log` directory.
-System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [klog][klog]
-logging library. You can find the conventions for logging severity for those
-components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
-
-Similarly to the container logs, system component logs in the `/var/log`
-directory should be rotated. In Kubernetes clusters brought up by
-the `kube-up.sh` script, those logs are configured to be rotated by
-the `logrotate` tool daily or once the size exceeds 100MB.
-
-[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 
