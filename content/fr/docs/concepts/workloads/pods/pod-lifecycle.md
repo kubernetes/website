@@ -154,9 +154,9 @@ Le Pod reste dans le statut non prêt le temps que les Conteneurs du Pod s'arrê
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-Si vous conteneur démarre habituellement en plus de `initialDelaySeconds + failureThreshold × periodSeconds`, 
-vous devriez pécifier une startup probe qui vérifie le même point de terminaison que la liveness probe. La valeur par défaut pour `periodSeconds` est 30s.
-Vous devriez alors meetre sa valeur `failureThreshold` suffisamment haute pour permettre au conteneur de démarrer, sans changer les valeurs par défaut de la liveness probe. Ceci aide à se protéger de deadlocks.
+Si votre conteneur démarre habituellement en plus de `initialDelaySeconds + failureThreshold × periodSeconds`, 
+vous devriez spécifier une startup probe qui vérifie le même point de terminaison que la liveness probe. La valeur par défaut pour `periodSeconds` est 30s.
+Vous devriez alors mettre sa valeur `failureThreshold` suffisamment haute pour permettre au conteneur de démarrer, sans changer les valeurs par défaut de la liveness probe. Ceci aide à se protéger de deadlocks.
 
 Pour plus d'informations sur la manière de mettre en place une liveness, readiness ou startup probe,
 voir [Configurer des Liveness, Readiness et Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
@@ -252,7 +252,7 @@ status:
 
 Les conditions du Pod que vous ajoutez doivent avoir des noms qui sont conformes au [format des étiquettes](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) de Kubernetes.
 
-### Statut de la disponibilité d'un Pod {#pod-readiness-status}
+### Statut de la disponibilité d'un Pod {#statut-pod-disponibilité}
 
 La commande `kubectl patch` ne peut pas patcher le statut d'un objet.
 Pour renseigner ces `status.conditions` pour le pod, les applications et
@@ -261,7 +261,7 @@ Vous pouvez utiliser une [bibliothèque client Kubernetes](/docs/reference/using
 écrire du code qui renseigne les conditions particulières pour la disponibilité dun Pod.
 
 Pour un Pod utilisant des conditions particulières, ce Pod est considéré prêt **seulement**
-lorsque les deux déclarations c-dessous sont vraies :
+lorsque les deux déclarations ci-dessous sont vraies :
 
 * Tous les conteneurs du Pod sont prêts.
 * Toutes les conditions spécifiées dans `ReadinessGates` sont `True`.
@@ -284,7 +284,7 @@ une fois attaché à un nœud, un Pod ne sera jamais rattaché à un autre nœud
 ## Durée de vie d'un Pod
 
 En général, les Pods restent jusqu'à ce qu'un humain ou un process de
-{{< glossary_tooltip term_id="controller" text="controller" >}} les supprime explicitement.
+{{< glossary_tooltip term_id="controller" text="contrôleur" >}} les supprime explicitement.
 
 Le plan de contrôle nettoie les Pods terminés (avec une phase à `Succeeded` ou
 `Failed`), lorsque le nombre de Pods excède le seuil configuré
@@ -302,7 +302,7 @@ Il y a différents types de ressources pour créer des Pods :
 seulement pour des Pods ayant `restartPolicy` égal à OnFailure ou Never.
 
 - Utilisez un {{< glossary_tooltip term_id="daemonset" >}}
-  pour les Pods qui doivent s'exécuter un par noeud éligible.
+  pour les Pods qui doivent s'exécuter sur chaque noeud éligible.
 
 Toutes les ressources de charges de travail contiennent une PodSpec. Il est recommandé de créer
 la ressource de charges de travail appropriée et laisser le contrôleur de la ressource créer les Pods

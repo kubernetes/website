@@ -27,7 +27,7 @@ Les Pods dans un cluster Kubernetes peuvent être utilisés de deux manières di
 * **les Pods exécutant un conteneur unique**. Le modèle "un-conteneur-par-Pod" est le cas d'utilisation Kubernetes le plus courant ; dans ce cas, vous pouvez voir un Pod comme un wrapper autour d'un conteneur unique, et Kubernetes gère les Pods plutôt que directement les conteneurs.
 * **les Pods exécutant plusieurs conteneurs devant travailler ensemble**. Un Pod peut encapsuler une application composée de plusieurs conteneurs co-localisés qui sont étroitement liés et qui doivent partager des ressources. Ces conteneurs co-localisés pourraient former une unique unité de service cohésive--un conteneur servant des fichiers d'un volume partagé au public, alors qu'un conteneur "sidecar" séparé rafraîchit ou met à jour ces fichiers. Le Pod enveloppe ensemble ces conteneurs et ressources de stockage en une entité maniable de base.
 
-Chaque Pod est destiné à exécuter une instance unique d'une application donnée. Si vous désirez mettre à l'échelle votre application horizontalement, (pour fournir plus de ressources au global en exécutant plus d'instances), vous devez utiliser plusieurs Pods, un pour chaque instance. Dans Kubernetes, on parle typiquement de _réplication_. Des Pods répliqués sont en général créés et gérés en tant que groupe par une ressource de charge de travail et son {{< glossary_tooltip text="_controller_" term_id="controller" >}}. Voir [Pods et contrôleurs](#pods-et-controleurs) pour plus d'informations.
+Chaque Pod est destiné à exécuter une instance unique d'une application donnée. Si vous désirez mettre à l'échelle votre application horizontalement, (pour fournir plus de ressources au global en exécutant plus d'instances), vous devez utiliser plusieurs Pods, un pour chaque instance. Dans Kubernetes, on parle typiquement de _réplication_. Des Pods répliqués sont en général créés et gérés en tant que groupe par une ressource de charge de travail et son {{< glossary_tooltip text="_contrôleur_" term_id="controller" >}}. Voir [Pods et contrôleurs](#pods-et-controleurs) pour plus d'informations.
 
 ### Comment les Pods gèrent plusieurs conteneurs
 
@@ -51,7 +51,7 @@ Un Pod peut spécifier un jeu de {{< glossary_tooltip text="volumes" term_id="vo
 
 ## Travailler avec des Pods
 
-Vous aurez rarement à créer directement des Pods individuels dans Kubernetes--même des Pods à un seul conteneur. Ceci est dû au fait que les Pods sont conçus comme des entités relativement éphémères et jetables. Lorsqu'un Pod est créé (directement par vous ou indirectement par un {{< glossary_tooltip text="_controller_" term_id="controller" >}}), il est programmé pour s'exécuter sur un {{< glossary_tooltip term_id="node" >}} dans votre cluster. Le Pod reste sur ce nœud jusqu'à ce que le process se termine, l'objet pod soit supprimé, le pod soit *expulsé* par manque de ressources, ou le nœud soit en échec.
+Vous aurez rarement à créer directement des Pods individuels dans Kubernetes--même des Pods à un seul conteneur. Ceci est dû au fait que les Pods sont conçus comme des entités relativement éphémères et jetables. Lorsqu'un Pod est créé (directement par vous ou indirectement par un {{< glossary_tooltip text="_contrôleur_" term_id="controller" >}}), il est programmé pour s'exécuter sur un {{< glossary_tooltip term_id="node" >}} dans votre cluster. Le Pod reste sur ce nœud jusqu'à ce que le process se termine, l'objet pod soit supprimé, le pod soit *expulsé* par manque de ressources, ou le nœud soit en échec.
 
 {{< note >}}
 Redémarrer un conteneur dans un Pod ne doit pas être confondu avec redémarrer un Pod. Un Pod n'est pas un process, mais un environnement pour exécuter un conteneur. Un Pod persiste jusqu'à ce qu'il soit supprimé.
@@ -73,7 +73,7 @@ Voici quelques exemples de ressources de charges de travail qui gèrent un ou pl
 
 ## Templates de Pod
 
-Les Templates de Pod sont des spécifications pour créer des Pods, et sont inclus dans les ressources de charges de travaill comme
+Les Templates de Pod sont des spécifications pour créer des Pods, et sont inclus dans les ressources de charges de travail comme
 les [Deployments](/docs/concepts/workloads/controllers/deployment/), les [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) et
 les [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
