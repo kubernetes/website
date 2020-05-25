@@ -703,7 +703,7 @@ commit message. If you do, it will cause that issue or pull request to get
 a notification every time the commit shows up in a new Git branch. You can
 link issues and pull requests together later, in the GitHub UI.
 -->
-不要在提交消息中引用 GitHub issue 或 PR(通过 ID 或 URL)。如果您这样做了，那么每当提交出现在新的Git 分支中时，就会导致该 issue 或 PR 获得通知。稍后，您可以在 GitHub UI 中链接 issues 并将请求拉到一起。
+不要在提交消息中引用 GitHub issue 或 PR(通过 ID 或 URL)。如果您这样做了，那么每当提交出现在新的 Git 分支中时，就会导致该 issue 或 PR 获得通知。稍后，您可以在 GitHub UI 中链接 issues 并将请求拉到一起。
 {{< /note >}}
 
 5.  <!--
