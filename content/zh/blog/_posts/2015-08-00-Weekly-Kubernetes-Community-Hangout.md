@@ -45,7 +45,7 @@ Here are the notes from today's meeting:
 
             * more like DNS policy?
 -->
-* 私人注册表演示 - Muhammed
+* 私有镜像仓库演示 - Muhammed
 
     * 将 docker-registry 作为 RC/Pod/Service 运行
 
@@ -57,11 +57,11 @@ Here are the notes from today's meeting:
 
         * 我们应该在可能的情况下通过 GCS 或 S3 支持它吗？
 
-        * 在每个节点上运行由 $object_store 支持的真实注册表
+        * 在每个节点上运行由 $object_store 支持的真实镜像仓库
 
         * DNS 代替 localhost？
 
-            * 分解图像字符串？
+            * 分解 docker 镜像字符串？
 
             * 更像 DNS 策略吗？
 <!--
@@ -82,9 +82,9 @@ Here are the notes from today's meeting:
 
     * 三星渴望看到大规模 O(1000)
 
-        * 从AWS开始
+        * 从 AWS 开始
 
-    * RH也有兴趣 - 需要测试计划
+    * RH 也有兴趣 - 需要测试计划
 
     * 计划下周：讨论工作组
 
@@ -108,7 +108,7 @@ Here are the notes from today's meeting:
 
     * 关于资源 API 的提案 - 向 apiserver 询问有关pod的信息
 
-    * 发送反馈至：＃11951
+    * 发送反馈至：#11951
 
     * 关于快照，时间序列和聚合的讨论
 
@@ -167,13 +167,13 @@ Here are the notes from today's meeting:
 
         * clients
 -->
-* Web UI（普通用户）
+* Web UI（preilly）
 
     * Web UI 放在哪里？
 
         * 确定将其拆分出去
 
-        * 将其用作容器图像
+        * 将其用作容器镜像
 
         * 作为 kube 发布过程的一部分构建映像
 
