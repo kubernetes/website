@@ -120,6 +120,9 @@ the `logrotate` tool daily or once the size exceeds 100MB.
 
 [klog]: https://github.com/kubernetes/klog
 
+### Logging formats (TODO)
+
+
 ## Cluster-level logging architectures
 
 While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
