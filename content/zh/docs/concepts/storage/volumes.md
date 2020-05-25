@@ -1779,7 +1779,6 @@ vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 {{% /tab %}}
 {{% tab name="使用 vmware-vdiskmanager 创建" %}}
--->
 
 使用下面的命令创建 VMDK：
 
