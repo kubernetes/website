@@ -1,22 +1,19 @@
 ---
-title: Metrics For The Kubernetes Control Plane
+title: Metrics For Kubernetes System Components
 reviewers:
 - brancz
 - logicalhan
 - RainbowMango
 content_type: concept
 weight: 60
-aliases:
-- controller-metrics.md
 ---
 
 <!-- overview -->
 
 System component metrics can give a better look into what is happening inside them. Metrics are particularly useful for building dashboards and alerts.
 
-Metrics in Kubernetes control plane are emitted in [prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/) and are human readable.
-
-
+Kubernetes components emit metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/).
+This format is structured plain text, designed so that people and machines can both read it.
 
 <!-- body -->
 
@@ -39,7 +36,7 @@ Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes
 
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing `/metrics`.
 For example:
-```
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -123,8 +120,6 @@ cloudprovider_gce_api_request_duration_seconds { request = "attach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 
