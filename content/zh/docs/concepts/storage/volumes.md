@@ -1771,10 +1771,6 @@ Choose one of the following methods to create a VMDK.
 
 {{< tabs name="tabs_volumes" >}}
 {{% tab name="使用 vmkfstools 创建" %}}
-<!--
-{{% tab name="Create using vmkfstools" %}}
-First ssh into ESX, then use the following command to create a VMDK:
--->
 
 首先 ssh 到 ESX，然后使用下面的命令来创建 VMDK：
 
@@ -1783,9 +1779,6 @@ vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 {{% /tab %}}
 {{% tab name="使用 vmware-vdiskmanager 创建" %}}
-<!--
-{{% tab name="Create using vmware-vdiskmanager" %}}
-Use the following command to create a VMDK:
 -->
 
 使用下面的命令创建 VMDK：
@@ -2409,7 +2402,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-
+{{% /capture %}}
 
 {{% capture whatsnext %}}
 
