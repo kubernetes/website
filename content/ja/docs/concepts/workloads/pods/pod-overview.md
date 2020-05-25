@@ -13,7 +13,7 @@ card:
 
 
 {{% capture body %}}
-## Podについて理解する
+## Podについて理解する {#understanding-pods}
 
 *Pod* は、Kubernetesアプリケーションの基本的な実行単位です。これは、作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最も単純な単位です。Podは、{{< glossary_tooltip term_id="cluster" >}}で実行されているプロセスを表します。
 
