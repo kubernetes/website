@@ -472,7 +472,7 @@ starts a Spark master controller (see [spark example](https://github.com/kuberne
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
-object, but complete control over what Pods are created and how work is assigned to them.
+object, but maintains complete control over what Pods are created and how work is assigned to them.
 
 ## Cron Jobs {#cron-jobs}
 
