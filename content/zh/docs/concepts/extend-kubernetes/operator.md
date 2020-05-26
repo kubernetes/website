@@ -22,7 +22,7 @@ Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-con
 -->
 
 Operator 是 Kubernetes 的扩展软件，它利用[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
-Operator 遵循 Kubernetes 的理念，特别是在[控制环](/docs/concepts/#kubernetes-control-plane)方面。
+Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/docs/concepts/#kubernetes-control-plane)方面。
 
 {{% /capture %}}
 
