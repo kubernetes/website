@@ -153,7 +153,7 @@ of the scheduler:
 
 
 <!-- 
-* Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* Read about [scheduler performance tuning](/docs/concepts/scheduling-and-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
 * Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
@@ -161,7 +161,7 @@ of the scheduler:
 * Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
 -->
 
-* 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
+* 阅读关于 [调度器性能调优](/zh/docs/concepts/scheduling-and-eviction/scheduler-perf-tuning/)
 * 阅读关于 [Pod 拓扑分布约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的 [参考文档](/zh/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 了解关于 [配置多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式

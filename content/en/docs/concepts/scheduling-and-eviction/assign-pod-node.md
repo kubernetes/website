@@ -155,7 +155,7 @@ value is `another-node-label-value` should be preferred.
 
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use
-[node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to repel pods from specific nodes.
+[node taints](/docs/concepts/scheduling-and-eviction/taint-and-toleration/) to repel pods from specific nodes.
 
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
 to be scheduled onto a candidate node.
@@ -323,10 +323,10 @@ spec:
 
 If we create the above two deployments, our three node cluster should look like below.
 
-|       node-1         |       node-2        |       node-3       |
-|:--------------------:|:-------------------:|:------------------:|
-| *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
-|  *cache-1*           |     *cache-2*       |     *cache-3*      |
+|    node-1     |    node-2     |    node-3     |
+| :-----------: | :-----------: | :-----------: |
+| *webserver-1* | *webserver-2* | *webserver-3* |
+|   *cache-1*   |   *cache-2*   |   *cache-3*   |
 
 As you can see, all the 3 replicas of the `web-server` are automatically co-located with the cache as expected.
 
@@ -391,7 +391,7 @@ The above pod will run on the node kube-01.
 ## {{% heading "whatsnext" %}}
 
 
-[Taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
+[Taints](/docs/concepts/scheduling-and-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
 
 The design documents for
 [node affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)

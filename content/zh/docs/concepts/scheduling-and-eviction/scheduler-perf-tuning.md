@@ -18,11 +18,11 @@ weight: 70
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
 <!--
-[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler)
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 -->
-作为 kubernetes 集群的默认调度器，[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler) 主要负责将 Pod 调度到集群的 Node 上。
+作为 kubernetes 集群的默认调度器，[kube-scheduler](/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler) 主要负责将 Pod 调度到集群的 Node 上。
 
 <!--
 Nodes in a cluster that meet the scheduling requirements of a Pod are
@@ -115,7 +115,7 @@ of all the nodes in your cluster. The kube-scheduler converts this into an
 integer number of nodes. During scheduling, if the kube-scheduler has identified
 enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
-[scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
+[scoring phase](/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler-implementation).
  -->
 你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。 kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
 kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，kube-scheduler 将停止继续查找可调度节点并继续进行 [打分阶段](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。

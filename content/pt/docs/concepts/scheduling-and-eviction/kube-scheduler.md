@@ -85,7 +85,7 @@ do escalonador:
 
 ## {{% heading "whatsnext" %}}
 
-* Leia sobre [ajuste de desempenho do escalonador](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* Leia sobre [ajuste de desempenho do escalonador](/docs/concepts/scheduling-and-eviction/scheduler-perf-tuning/)
 * Leia sobre [restrições de propagação da topologia de pod](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Leia a [documentação de referência](/docs/reference/command-line-tools-reference/kube-scheduler/) para o kube-scheduler
 * Aprenda como [configurar vários escalonadores](/docs/tasks/administer-cluster/configure-multiple-schedulers/)

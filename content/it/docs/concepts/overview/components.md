@@ -118,6 +118,6 @@ Un [log a livello di cluster](/docs/concepts/cluster-administration/logging/) è
 
 * Scopri i concetti relativi ai [Nodi](/docs/concepts/architecture/nodes/)
 * Scopri i concetti relativi ai [Controller](/docs/concepts/architecture/controller/)
-* Scopri i concetti relativi al [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Scopri i concetti relativi al [kube-scheduler](/docs/concepts/scheduling-and-eviction/kube-scheduler/)
 * Leggi la [documentazione](https://etcd.io/docs/) ufficiale di etcd
 

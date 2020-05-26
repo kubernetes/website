@@ -123,6 +123,6 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 
 * [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
 * [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 더 배우기
-* [kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 더 배우기
+* [kube-scheduler](/ko/docs/concepts/scheduling-and-eviction/kube-scheduler/)에 대해 더 배우기
 * etcd의 공식 [문서](https://etcd.io/docs/) 읽기
 

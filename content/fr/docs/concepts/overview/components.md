@@ -124,6 +124,6 @@ de sauvegarder les logs des conteneurs dans un magasin de logs central avec une 
 ## {{% heading "whatsnext" %}}
 
 * En savoir plus sur les [Nœuds](/fr/docs/concepts/architecture/nodes/)
-* En savoir plus sur [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* En savoir plus sur [kube-scheduler](/docs/concepts/scheduling-and-eviction/kube-scheduler/)
 * Lire la [documentation officielle d'etcd](https://etcd.io/docs/)
 

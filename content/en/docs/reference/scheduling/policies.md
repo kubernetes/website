@@ -8,7 +8,7 @@ weight: 10
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-runs to [filter and score nodes](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation),
+runs to [filter and score nodes](/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
 You can set a scheduling policy by running
@@ -77,7 +77,7 @@ The following *priorities* implement scoring:
    {{< glossary_tooltip term_id="replica-set" >}}.
 
 - `InterPodAffinityPriority`: Implements preferred
-  [inter pod affininity and antiaffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
+  [inter pod affininity and antiaffinity](/docs/concepts/scheduling-and-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
 
 - `LeastRequestedPriority`: Favors nodes with fewer requested resources. In other
   words, the more Pods that are placed on a Node, and the more resources those
@@ -121,6 +121,6 @@ The following *priorities* implement scoring:
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
+* Learn about [scheduling](/docs/concepts/scheduling-and-eviction/kube-scheduler/)
 * Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
 

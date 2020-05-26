@@ -94,7 +94,7 @@ penilaian oleh penjadwal:
 
 ## {{% heading "whatsnext" %}}
 
-* Baca tentang [penyetelan performa penjadwal](/docs/concepts/scheduling/scheduler-perf-tuning/)
+* Baca tentang [penyetelan performa penjadwal](/docs/concepts/scheduling-and-eviction/scheduler-perf-tuning/)
 * Baca tentang [pertimbangan penyebarang topologi pod](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Baca [referensi dokumentasi](/docs/reference/command-line-tools-reference/kube-scheduler/) untuk _kube-scheduler_
 * Pelajari tentang [mengkonfigurasi beberapa penjadwal](/docs/tasks/administer-cluster/configure-multiple-schedulers/)

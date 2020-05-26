@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/ko/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
+[kube-scheduler](/ko/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler)
 는 쿠버네티스의 기본 스케줄러이다. 그것은 클러스터의
 노드에 파드를 배치하는 역할을 한다.
 
@@ -68,7 +68,7 @@ scheduler            Healthy   ok
 정수 값(숫자)로 변환 한다. 스케줄링 중에 kube-scheduler가 구성된
 비율을 초과 할만큼 충분히 실행 가능한 노드를 식별한 경우, kube-scheduler는
 더 실행 가능한 노드를 찾는 검색을 중지하고
-[스코어링 단계](/ko/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
+[스코어링 단계](/ko/docs/concepts/scheduling-and-eviction/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
 
 [스케줄러가 노드 탐색을 반복(iterate)하는 방법](#스케줄러가-노드-탐색을-반복-iterate-하는-방법)
 은 이 프로세스를 자세히 설명한다.
