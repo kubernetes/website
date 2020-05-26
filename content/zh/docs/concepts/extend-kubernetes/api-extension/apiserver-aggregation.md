@@ -68,7 +68,7 @@ extension-apiserver 与 kube-apiserver 之间的连接应具有低延迟。
 -->
 * 阅读[配置聚合层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 文档，了解如何在自己的环境中启用聚合器（aggregator）。
 * 然后[安装扩展的 api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 来开始使用聚合层。
-* 也可以学习怎样 [使用客户资源定义扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
+* 也可以学习怎样 [使用自定义资源定义扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 
 {{% /capture %}}
 
