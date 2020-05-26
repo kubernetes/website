@@ -174,7 +174,7 @@ We calculate this by measuring Kuberhealthy's [deployment check](https://github.
   - Check Run Interval = how often the check runs (`runInterval` set in your KuberhealthyCheck Spec)
 
 - PromQL Query (Availability % over the past 30 days): 
-  ```
+  ```promql
   1 - (sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="0"}[30d])) OR vector(0))/(sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="1"}[30d])) * 100)
   ```
 
@@ -188,7 +188,7 @@ We calculate this by counting the total number of nodes, deployments, statefulse
 We define duration as the control plane's capacity and utilization of throughput. We calculate this by capturing the average run duration of a Kuberhealthy [deployment check](https://github.com/Comcast/kuberhealthy/tree/master/cmd/deployment-check) run.
 
 - PromQL Query (Deployment check average run duration): 
-  ```
+  ```promql
   avg(kuberhealthy_check_duration_seconds{check="kuberhealthy/deployment"}) 
   ```
 
