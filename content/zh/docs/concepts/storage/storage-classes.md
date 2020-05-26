@@ -1040,7 +1040,7 @@ provisioner: kubernetes.io/portworx-volume
 parameters:
   repl: "1"
   snap_interval:   "70"
-  io_priority:  "high"
+  priority_io:  "high"
 
 ```
 
@@ -1050,7 +1050,7 @@ parameters:
 * `repl`: number of synchronous replicas to be provided in the form of
   replication factor `1..3` (default: `1`) A string is expected here i.e.
   `"1"` and not `1`.
-* `io_priority`: determines whether the volume will be created from higher
+* `priority_io`: determines whether the volume will be created from higher
   performance or a lower priority storage `high/medium/low` (default: `low`).
 * `snap_interval`: clock/time interval in minutes for when to trigger snapshots.
   Snapshots are incremental based on difference with the prior snapshot, 0
