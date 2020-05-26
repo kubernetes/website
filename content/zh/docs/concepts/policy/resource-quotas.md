@@ -2,6 +2,8 @@
 approvers:
 - derekwaynecarr
 title: 资源配额
+content_template: templates/concept
+weight: 10
 ---
 
 <!--
