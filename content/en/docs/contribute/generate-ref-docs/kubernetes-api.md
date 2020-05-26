@@ -138,19 +138,19 @@ git status
 The output is similar to:
 
 ```
-static/docs/reference/generated/kubernetes-api/v1.17/css/bootstrap.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/font-awesome.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/stylesheet.css
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/FontAwesome.otf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.eot
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.svg
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.ttf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff2
-static/docs/reference/generated/kubernetes-api/v1.17/index.html
-static/docs/reference/generated/kubernetes-api/v1.17/js/jquery.scrollTo.min.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/navData.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/scroll.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/bootstrap.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/font-awesome.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/stylesheet.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/FontAwesome.otf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.eot
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.svg
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.ttf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff2
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/jquery.scrollTo.min.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navData.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
 ## Updating the API reference index pages
@@ -177,7 +177,7 @@ version number.
 ## Locally test the API reference
 
 Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.17/).
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
 
 ```shell
 cd <web-base>

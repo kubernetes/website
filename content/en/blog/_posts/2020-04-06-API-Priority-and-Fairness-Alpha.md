@@ -43,14 +43,14 @@ Upon arrival at the handler, a request is assigned to exactly one priority level
 
 * FlowSchema: FlowSchema will identify a PriorityLevelConfiguration object and the way to compute the request’s “flow identifier”. Currently we support matching requests according to: the identity making the request, the verb, and the target object. The identity can match in terms of: a username, a user group name, or a ServiceAccount. And as for the target objects, we can match by apiGroup, resource[/subresource], and namespace.
   * The flow identifier is used for shuffle sharding, so it’s important that requests have the same flow identifier if they are from the same source! We like to consider scenarios with “elephants” (which send many/heavy requests) vs “mice” (which send few/light requests): it is important to make sure the elephant’s requests all get the same flow identifier, otherwise they will look like many different mice to the system!
-  * See the API Documentation [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)!
+  * See the API Documentation [here](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)!
 
 * PriorityLevelConfiguration: Defines a priority level.
   * For apiserver self requests, and any reentrant traffic (e.g., admission webhooks which themselves make API requests), a Priority Level can be marked “exempt”, which means that no queueing or limiting of any sort is done. This is to prevent priority inversions.
   * Each non-exempt Priority Level is configured with a number of "concurrency shares" and gets an isolated pool of concurrency to use.  Requests of that Priority Level run in that pool when it is not full, never anywhere else.  Each apiserver is configured with a total concurrency limit (taken to be the sum of the old limits on mutating and readonly requests), and this is then divided among the Priority Levels in proportion to their concurrency shares.
   * A non-exempt Priority Level may select a number of queues and a "hand size" to use for the shuffle sharding.  Shuffle sharding maps flows to queues in a way that is better than consistent hashing.  A given flow has access to a small collection of queues, and for each incoming request the shortest queue is chosen.  When a Priority Level has queues, it also sets a limit on queue length.  There is also a limit placed on how long a request can wait in its queue; this is a fixed fraction of the apiserver's request timeout.  A request that cannot be executed and cannot be queued (any longer) is rejected.
   * Alternatively, a non-exempt Priority Level may select immediate rejection instead of waiting in a queue.
-  * See the [API documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io) for this feature.
+  * See the [API documentation](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io) for this feature.
 
 ## What’s missing? When will there be a beta?
 We’re already planning a few enhancements based on alpha and there will be more as users send feedback to our community. Here’s a list of them:
