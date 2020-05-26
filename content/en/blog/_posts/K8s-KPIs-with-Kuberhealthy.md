@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: “K8s KPIs with Kuberhealthy”
+title: "K8s KPIs with Kuberhealthy"
 date: 2020-05-20
 ---
 
@@ -18,7 +18,7 @@ with a newer version of Kuberhealthy. Additionally, we created a guide on how to
 ### Deploying Kuberhealthy
 
 To install Kuberhealthy, make sure you have [Helm 3](https://helm.sh/docs/intro/install/) installed. If not, you can use the generated flat spec files located 
-in this [deploy folder](../deploy). You should use [kuberhealthy-prometheus.yaml](../deploy/kuberhealthy-prometheus.yaml) if you don't use the [Prometheus Operator](https://github.com/coreos/prometheus-operator), and [kuberhealthy-prometheus-operator.yaml](../deploy/kuberhealthy-prometheus-operator.yaml) if you do.  If you don't use Prometheus at all, you can still use Kuberhealthy with a JSON status page and/or InfluxDB integration using [this spec](../deploy/kuberhealthy.yaml). 
+in this [deploy folder](https://github.com/Comcast/kuberhealthy/tree/master/deploy). You should use [kuberhealthy-prometheus.yaml](https://github.com/Comcast/kuberhealthy/blob/master/deploy/kuberhealthy-prometheus.yaml) if you don't use the [Prometheus Operator](https://github.com/coreos/prometheus-operator), and [kuberhealthy-prometheus-operator.yaml](https://github.com/Comcast/kuberhealthy/blob/master/deploy/kuberhealthy-prometheus-operator.yaml) if you do.  If you don't use Prometheus at all, you can still use Kuberhealthy with a JSON status page and/or InfluxDB integration using [this spec](https://github.com/Comcast/kuberhealthy/blob/master/deploy/kuberhealthy.yaml). 
 
 #### To install using Helm 3:
 ##### 1. Create namespace "kuberhealthy" in the desired Kubernetes cluster/context: 
@@ -64,7 +64,7 @@ To view other available external checks, check out the [external checks registry
 
 Kuberhealthy check pods should start running shortly after Kuberhealthy starts running (1-2 minutes). Additionally, the check-reaper cronjob runs every few minutes to ensure there are no more than 5 completed checker pods left lying around at a time.
 
-To get status page view of these checks, you'll need to either expose the `kuberhealthy` service externally by editing the service `kuberhealthy` and setting `Type: LoadBalancer` or use `kubectl port-forward service/kuberhealty 8080:80`. When viewed, the service endpoint will display a JSON status page that looks like this: 
+To get status page view of these checks, you'll need to either expose the `kuberhealthy` service externally by editing the service `kuberhealthy` and setting `Type: LoadBalancer` or use `kubectl port-forward service/kuberhealthy 8080:80`. When viewed, the service endpoint will display a JSON status page that looks like this: 
 
 ```json
 {
@@ -112,7 +112,7 @@ Kuberhealthy is designed to be extended with custom check containers that can be
 
 Creating your own check is a great way to validate your client library, simulate real user workflow, and create a high level of confidence in your service or system uptime. 
 
-To learn more about writing your own checks, along with simple examples, check the [custom check creation](../docs/EXTERNAL_CHECK_CREATION.md) documentation.
+To learn more about writing your own checks, along with simple examples, check the [custom check creation](https://github.com/Comcast/kuberhealthy/blob/master/docs/EXTERNAL_CHECK_CREATION.md) documentation.
 
 
 ### Prometheus Integration Details
@@ -126,7 +126,7 @@ prometheus.io/scrape: "true"
 
 In your prometheus configuration, add the following example scrape_config that scrapes the Kuberhealthy service given the added prometheus annotation:
 
-```      
+```yaml
 - job_name: 'kuberhealthy'
   scrape_interval: 1m
   honor_labels: true
@@ -143,7 +143,7 @@ In your prometheus configuration, add the following example scrape_config that s
 ```
 
 You can also specify the target endpoint to be scraped using this example job: 
-```
+```yaml
 - job_name: kuberhealthy
   scrape_interval: 1m
   honor_labels: true
