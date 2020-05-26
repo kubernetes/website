@@ -510,6 +510,7 @@ kubectl [flags]
 
 {{% capture seealso %}}
 
+* [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)     - Commandes pour fonctionnalités alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Met à jour les annotations d'une ressource
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Affiche les ressources de l'API prises en charge sur le serveur
 * [kubectl api-versions](/docs/reference/generated/kubectl/kubectl-commands#api-versions)	 - Affiche les versions de l'API prises en charge sur le serveur, sous la forme "groupe/version"
@@ -545,7 +546,7 @@ kubectl [flags]
 * [kubectl replace](/docs/reference/generated/kubectl/kubectl-commands#replace)	 - Remplace une ressource par fichier ou stdin
 * [kubectl rollout](/docs/reference/generated/kubectl/kubectl-commands#rollout)	 - Gère le rollout d'une ressource
 * [kubectl run](/docs/reference/generated/kubectl/kubectl-commands#run)	 - Exécute une image donnée dans le cluster
-* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Définit une nouvelle taille pour un Deployment, ReplicaSet, Replication Controller, ou Job
+* [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - Définit une nouvelle taille pour un Deployment, ReplicaSet ou Replication Controller
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - Définit des fonctionnalités spécifiques sur des objets
 * [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - Met à jour les marques (taints) sur un ou plusieurs nœuds
 * [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - Affiche l'utilisation de ressources matérielles (CPU/Memory/Storage)
