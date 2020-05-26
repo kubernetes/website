@@ -16,7 +16,7 @@ Une page montre comment effectuer une seule chose, généralement en donnant une
 
 {{% capture body %}}
 
-## Interface web (Dashboard) #{dashboard}
+## Interface web (Dashboard) {#dashboard}
 
 Déployer et accéder au dashboard web de votre cluster pour vous aider à le gérer et administrer un cluster Kubernetes.
 

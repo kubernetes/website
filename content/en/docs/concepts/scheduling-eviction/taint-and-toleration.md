@@ -77,21 +77,10 @@ A toleration "matches" a taint if the keys are the same and the effects are the 
 
 There are two special cases:
 
-* An empty `key` with operator `Exists` matches all keys, values and effects which means this
+An empty `key` with operator `Exists` matches all keys, values and effects which means this
 will tolerate everything.
 
-```yaml
-tolerations:
-- operator: "Exists"
-```
-
-* An empty `effect` matches all effects with key `key`.
-
-```yaml
-tolerations:
-- key: "key"
-      operator: "Exists"
-```
+An empty `effect` matches all effects with key `key`.
 
 {{< /note >}}
 
