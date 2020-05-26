@@ -27,7 +27,7 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/es/docs/tutorials/hello-minikube/)
 
 ## Configuración
 
