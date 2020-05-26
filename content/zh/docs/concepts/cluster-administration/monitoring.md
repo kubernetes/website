@@ -1,5 +1,5 @@
 ---
-title: Kubernetes 控制面板的指标
+title: Kubernetes 控制面的指标
 content_template: templates/concept
 weight: 60
 ---
