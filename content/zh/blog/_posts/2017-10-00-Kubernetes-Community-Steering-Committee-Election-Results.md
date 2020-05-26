@@ -1,3 +1,9 @@
+---
+title: " Kubernetes 社区指导委员会选举结果 "
+date: 2017-10-05
+slug: kubernetes-community-steering-committee-election-results
+url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
+---
 <!--
 ---
 title: " Kubernetes Community Steering Committee Election Results "
@@ -6,21 +12,15 @@ slug: kubernetes-community-steering-committee-election-results
 url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
 ---
 -->
----
-title: " Kubernetes 社区指导委员会选举结果 "
-date: 2017-10-05
-slug: kubernetes-community-steering-committee-election-results
-url: /blog/2017/10/Kubernetes-Community-Steering-Committee-Election-Results
----
 <!--
 Beginning with the announcement of Kubernetes 1.0 at OSCON in 2015, there has been a concerted effort to share the power and burden of leadership across the Kubernetes community.  
 -->
-自2015年 OSCON 发布 Kubernetes 1.0 以来，大家一直在共同努力，在Kubernetes社区中共同分享领导力和责任。
+自 2015 年 OSCON 发布 Kubernetes 1.0 以来，大家一直在共同努力，在 Kubernetes 社区中共同分享领导力和责任。
 
 <!--
 With the work of the Bootstrap Governance Committee, consisting of Brandon Philips, Brendan Burns, Brian Grant, Clayton Coleman, Joe Beda, Sarah Novotny and Tim Hockin - a cross section of long-time leaders representing 5 different companies with major investments of talent and effort in the Kubernetes Ecosystem - we wrote an initial [Steering Committee Charter](https://github.com/kubernetes/steering/blob/master/charter.md) and launched a community wide election to seat a Kubernetes Steering Committee.   
 -->
-在 Brandon Philips，Brendan Burns，Brian Grant，Clayton Coleman，Joe Beda，Sarah Novotny 和 Tim Hockin 组成的自举治理委员会的工作下 - 代表5家不同公司的长期领导者，他们对 Kubernetes 生态系统进行了大量的人才投资和努力 - 我们编写了初始的[指导委员会章程](https://github.com/kubernetes/steering/blob/master/charter.md)，并发起了一次社区选举，以选举 Kubernetes 指导委员会。
+在 Brandon Philips、Brendan Burns、Brian Grant、Clayton Coleman、Joe Beda、Sarah Novotny 和 Tim Hockin 组成的自举治理委员会的工作下 - 代表 5 家不同公司的长期领导者，他们对 Kubernetes 生态系统进行了大量的人才投资和努力 - 编写了初始的[指导委员会章程](https://github.com/kubernetes/steering/blob/master/charter.md)，并发起了一次社区选举，以选举 Kubernetes 指导委员会成员。
 
 <!--
 To quote from the Charter -  
@@ -40,7 +40,7 @@ This is our largest step yet toward making an implicit governance structure expl
 <!--
 The Kubernetes Community is pleased to announce the results of the 2017 Steering Committee Elections. **Please congratulate Aaron Crickenberger, Derek Carr, Michelle Noorali, Phillip Wittrock, Quinton Hoole and Timothy St. Clair** , who will be joining the members of the Bootstrap Governance committee on the newly formed Kubernetes Steering Committee. Derek, Michelle, and Phillip will serve for 2 years. Aaron, Quinton, and Timothy will serve for 1 year.  
 -->
-Kubernetes 社区很高兴地宣布2017年指导委员会选举的结果。 **请祝贺 Aaron Crickenberger，Derek Carr，Michelle Noorali，Phillip Wittrock，Quinton Hoole 和 Timothy St. Clair**，他们将成为新成立的 Kubernetes 指导委员会的自举治理委员会成员。Derek，Michelle 和 Phillip 将任职2年。Aaron，Quinton，和 Timothy 将任职1年。
+Kubernetes 社区很高兴地宣布 2017 年指导委员会选举的结果。 **请祝贺 Aaron Crickenberger、Derek Carr、Michelle Noorali、Phillip Wittrock、Quinton Hoole 和 Timothy St. Clair**，他们将成为新成立的 Kubernetes 指导委员会的自举治理委员会成员。Derek、Michelle 和 Phillip 将任职 2 年。Aaron、Quinton、和 Timothy 将任职 1 年。
 
 <!--
 This group will meet regularly in order to clarify and streamline the structure and operation of the project. Early work will include electing a representative to the CNCF Governing Board, evolving project processes, refining and documenting the vision and scope of the project, and chartering and delegating to more topical community groups.   
