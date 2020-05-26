@@ -7,6 +7,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            lovely_label: "something_wonderful"
         spec:
           containers:
           - name: hello
