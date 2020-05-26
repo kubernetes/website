@@ -39,7 +39,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [Certificates](/docs/concepts/cluster-administration/certificates/)では、異なるツールチェインを使用して証明書を作成する方法を説明します。
 
-* [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment-variables/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
+* [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
 
 * [Kubernetes APIへのアクセス制御](/docs/reference/access-authn-authz/controlling-access/)では、ユーザーとサービスアカウントの権限の設定方法について説明します。
 

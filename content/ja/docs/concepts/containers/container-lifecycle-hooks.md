@@ -97,7 +97,7 @@ Events:
 
 {{% capture whatsnext %}}
 
-* [コンテナ環境](/docs/concepts/containers/container-environment-variables/)の詳細
+* [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
 * [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 
 
