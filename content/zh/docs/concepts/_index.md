@@ -49,7 +49,7 @@ Once you've set your desired state, the *Kubernetes Control Plane* makes the clu
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 -->
 
-* **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节上，主控组件通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
+* **Kubernetes 主控组件（Master）** 包含三个进程，都运行在集群中的某个节点上，主控组件通常这个节点被称为 master 节点。这些进程包括：[kube-apiserver](/docs/admin/kube-apiserver/)、[kube-controller-manager](/docs/admin/kube-controller-manager/) 和 [kube-scheduler](/docs/admin/kube-scheduler/)。
 * 集群中的每个非 master 节点都运行两个进程：
   * **[kubelet](/docs/admin/kubelet/)**，和 master 节点进行通信。
   * **[kube-proxy](/docs/admin/kube-proxy/)**，一种网络代理，将 Kubernetes 的网络服务代理到每个节点上。
