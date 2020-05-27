@@ -456,15 +456,13 @@ spec:
 ```
 
 #### Regional Persistent Disks
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
 
 #### Manually provisioning a Regional PD PersistentVolume
 Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
 Before creating a PersistentVolume, you must create the PD:
 ```shell
-gcloud beta compute disks create --size=500GB my-data-disk
+gcloud compute disks create --size=500GB my-data-disk
     --region us-central1
     --replica-zones us-central1-a,us-central1-b
 ```
@@ -475,8 +473,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: test-volume
-  labels:
-    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
 spec:
   capacity:
     storage: 400Gi
@@ -485,6 +481,15 @@ spec:
   gcePersistentDisk:
     pdName: my-data-disk
     fsType: ext4
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: failure-domain.beta.kubernetes.io/zone
+          operator: In
+          values:
+          - us-central1-a
+          - us-central1-b
 ```
 
 #### CSI Migration
