@@ -45,7 +45,7 @@ The most crucial problem the working group is trying to tackle is that the proje
 
 Some of the infrastructure that is being migrated over hasn't been updated in a while, and its original authors or directly responsible individuals have moved on from working on Kubernetes. While this is great from the perspective of the fact that the code was able to run untouched for a long period of time, from the perspective of trying to migrate, this makes it difficult to identify how to operate these components, and how to move these infrastructure pieces where they need to be effectively.  
 
-The lack of documentation is being addressed head on bygroup memember [Bart Smykla](https://twitter.com/bartsmykla), but there is definite need for others to support. If you're looking for a way to [get involved](https://github.com/kubernetes/community/labels/wg%2Fk8s-infra) and learn infrastructure, become a new contributor to the working group!  
+The lack of documentation is being addressed head-on by group member [Bart Smykla](https://twitter.com/bartsmykla), but there is a definite need for others to support. If you're looking for a way to [get involved](https://github.com/kubernetes/community/labels/wg%2Fk8s-infra) and learn the infrastructure, you can become a new contributor to the working group!  
 
 ## Celebrating some Working Group wins
 
