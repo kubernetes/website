@@ -32,7 +32,7 @@ The need started with necessity: the first problem they took on was a complete m
     * How do we keep track of billing?
     * How do we ensure privacy and security?
 * Migrating infrastructure over to the CNCF as-is.
-    * What is the path of least resistence to migration?
+    * What is the path of least resistance to migration?
 * Improving the state of the infrastructure for sustainability.
     *  Moving from humans running scripts to a more automated GitOps model (YAML all the things!)
     *  Supporting community members who wish to develop new infrastructure
