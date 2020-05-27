@@ -1,10 +1,10 @@
 <footer>
     <div class="light-text main-section">
         <nav>
-            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .LinkTitle }}</a>{{ end }}
             {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .LinkTitle }}</a>{{ end }}
             {{ end }}
         </nav>
         <div class="social" role="region" aria-label="Social hyperlinks">
