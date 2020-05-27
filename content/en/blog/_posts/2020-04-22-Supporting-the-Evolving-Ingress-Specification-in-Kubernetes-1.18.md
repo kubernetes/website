@@ -14,7 +14,7 @@ When deploying your applications in Kubernetes, one of the first challenges many
 
 * Using a `NodePort` to expose your application on a port across each of your nodes
 * Using a `LoadBalancer` service to create an external load balancer that points to a Kubernetes service in your cluster
-* Using a Kubernetes Ingress Resource
+* Using a Kubernetes Ingress resource
 
 ### What’s new in Kubernetes 1.18 Ingress
 There are three significant additions to the Ingress API in Kubernetes 1.18:
