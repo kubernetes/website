@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "K8s KPIs with Kuberhealthy"
-date: 2020-05-20
+date: 2020-05-29
 ---
 
 **Authors:** Joshulyne Park (Comcast), Eric Greer (Comcast)
