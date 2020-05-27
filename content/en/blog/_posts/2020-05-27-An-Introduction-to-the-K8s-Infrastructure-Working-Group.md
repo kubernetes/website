@@ -15,7 +15,7 @@ A group of community members enthusiastically undertook the task of collaboratin
 
 ## What Issues Does the K8s-Infrastructure Working Group Tackle?
 
-The team took on the complex task of managing the many moving parts of infrastructure that sustain Kubernetes as a project. 
+The team took on the complex task of managing the many moving parts of the infrastructure that sustains Kubernetes as a project. 
 
 The need started with necessity: the first problem they took on was a complete migration of all of the project's infrastructure from Google-owned infrastructure to the Cloud Native Computing Foundation (CNCF). This is being done so that the project is self-sustainable without the need of any direct assistance from individual vendors. This breaks down in the following ways:
 
