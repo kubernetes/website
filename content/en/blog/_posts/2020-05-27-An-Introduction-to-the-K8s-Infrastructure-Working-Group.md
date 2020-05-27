@@ -36,7 +36,7 @@ The need started with necessity: the first problem they took on was a complete m
 * Improving the state of the infrastructure for sustainability.
     *  Moving from humans running scripts to a more automated GitOps model (YAML all the things!)
     *  Supporting community members who wish to develop new infrastructure
-* Documenting the state of our efforts, better defining goals and completeness indicators.
+* Documenting the state of our efforts, better defining goals, and completeness indicators.
     * The project and program management necessary to communicate this work to our [massive community of contributors](https://kubernetes.io/blog/2020/04/21/contributor-communication/)
 
 ## The challenge of K8s-Infrastructure is documentation
