@@ -41,7 +41,7 @@ The need started with necessity: the first problem they took on was a complete m
 
 ## The challenge of K8s-Infrastructure is documentation
 
-The most crucial problem the working group is trying to tackle is that the project is all volunteer-led. This leads to contributors, chairs, and others involved in the project quickly becoming overscheduled. As a result of this, certain areas such as documentation and organization are often lacking information, and efforts to progress are taking longer than the group would like to complete.
+The most crucial problem the working group is trying to tackle is that the project is all volunteer-led. This leads to contributors, chairs, and others involved in the project quickly becoming overscheduled. As a result of this, certain areas such as documentation and organization often lack information, and efforts to progress are taking longer than the group would like to complete.
 
 Some of the infrastructure that is being migrated over hasn't been updated in a while, and its original authors or directly responsible individuals have moved on from working on Kubernetes. While this is great from the perspective of the fact that the code was able to run untouched for a long period of time, from the perspective of trying to migrate, this makes it difficult to identify how to operate these components, and how to move these infrastructure pieces where they need to be effectively.  
 
