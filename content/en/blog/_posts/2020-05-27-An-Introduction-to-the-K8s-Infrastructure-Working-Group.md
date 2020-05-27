@@ -60,6 +60,6 @@ The team has made progress in the last few months that is well worth celebrating
 
 These are just a few of the things currently happening in the K8s Infrastructure working group. 
 
-If you're interested in getting involved, be sure to join the [#wg-K8s-infra Slack Channel](https://app.slack.com/client/T09NY5SBT/CCK68P2Q2). Meetings are 60 minutes long, and are held every other Wednesday at 8:30am PT/16:30 UTC.
+If you're interested in getting involved, be sure to join the [#wg-K8s-infra Slack Channel](https://app.slack.com/client/T09NY5SBT/CCK68P2Q2). Meetings are 60 minutes long, and are held every other Wednesday at 8:30 AM PT/16:30 UTC.
 
 Join to help with the documentation, stay to learn about the amazing infrastructure supporting the Kubernetes community.
