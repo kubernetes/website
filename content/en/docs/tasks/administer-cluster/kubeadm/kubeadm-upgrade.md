@@ -295,6 +295,7 @@ Upgrade the kubelet and kubectl on all control plane nodes:
 Restart the kubelet
 
 ```shell
+sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
 
@@ -373,6 +374,7 @@ without compromising the minimum required capacity for running your workloads.
 -  Restart the kubelet
 
     ```shell
+    sudo systemctl daemon-reload
     sudo systemctl restart kubelet
     ```
 
