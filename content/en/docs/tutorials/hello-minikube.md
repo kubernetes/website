@@ -47,7 +47,9 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
     {{< kat-button >}}
 
-    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
+{{< note >}}
+    If you installed Minikube locally, run `minikube start`.
+{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
 
@@ -113,7 +115,9 @@ Pod runs a Container based on the provided Docker image.
     kubectl config view
     ```
 
-    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
+{{< note >}}
+    For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).
+{{< /note >}}
 
 ## Create a Service
 

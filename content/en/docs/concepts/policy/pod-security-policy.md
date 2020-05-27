@@ -374,6 +374,8 @@ several security mechanisms.
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation) for more examples.
+
 ## Policy Reference
 
 ### Privileged
@@ -632,6 +634,8 @@ Refer to the [Sysctl documentation](
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
 Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 

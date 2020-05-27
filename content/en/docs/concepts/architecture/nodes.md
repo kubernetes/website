@@ -308,7 +308,7 @@ Node objects track information about the Node's resource capacity (for example: 
 of memory available, and the number of CPUs).
 Nodes that [self register](#self-registration-of-nodes) report their capacity during
 registration. If you [manually](#manual-node-administration) add a Node, then
-you need to set the node's capacity informaton when you add it.
+you need to set the node's capacity information when you add it.
 
 The Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} ensures that
 there are enough resources for all the Pods on a Node. The scheduler checks that the sum
