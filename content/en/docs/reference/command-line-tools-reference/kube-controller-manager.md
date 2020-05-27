@@ -784,7 +784,7 @@ kube-controller-manager [flags]
 <td colspan="2">--service-cluster-ip-range string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">CIDR Range for Services in cluster. Requires --allocate-node-cidrs to be true</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">CIDR Range for Services in cluster.</td>
 </tr>
 
 <tr>
