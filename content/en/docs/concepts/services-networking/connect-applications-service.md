@@ -395,7 +395,7 @@ kubectl get svc my-nginx
 ```
 ```
 NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   LoadBalancer   10.0.0.216     xx.xxx.xxx.xxx     8080:30163/TCP        21s
+my-nginx   LoadBalancer   10.0.162.149     xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k
