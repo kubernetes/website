@@ -50,3 +50,11 @@ docker-serve:
 test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
+
+.PHONY: link-checker-setup
+link-checker-image-pull:
+	docker pull wjdp/htmltest
+
+docker-internal-linkcheck: link-checker-image-pull
+	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
+	$(DOCKER) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
