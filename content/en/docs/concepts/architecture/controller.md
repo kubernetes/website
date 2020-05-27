@@ -1,6 +1,6 @@
 ---
 title: Controllers
-##content_template: templates/concept
+#content_template: templates/concept
 weight: 30
 ---
 

@@ -3,7 +3,7 @@ title: Versions in CustomResourceDefinitions
 reviewers:
 - sttts
 - liggitt
-##content_template: templates/task
+#content_template: templates/task
 weight: 30
 min-kubernetes-server-version: v1.16
 ---

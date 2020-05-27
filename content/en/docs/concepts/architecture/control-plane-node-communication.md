@@ -4,7 +4,7 @@ reviewers:
 - roberthbailey
 - liggitt
 title: Control Plane-Node Communication
-##content_template: templates/concept
+#content_template: templates/concept
 weight: 20
 aliases:
 - master-node-communication

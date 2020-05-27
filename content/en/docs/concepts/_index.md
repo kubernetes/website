@@ -1,7 +1,7 @@
 ---
 title: Concepts
 main_menu: true
-##content_template: templates/concept
+#content_template: templates/concept
 weight: 40
 ---
 
