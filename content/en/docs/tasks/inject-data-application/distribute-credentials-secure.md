@@ -9,12 +9,9 @@ min-kubernetes-server-version: v1.6
 This page shows how to securely inject sensitive data, such as passwords and
 encryption keys, into Pods.
 
-
 {{% prerequisites_heading %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -151,23 +148,23 @@ is exposed:
 
 ### Define a container environment variable with data from a single Secret
 
-*  Define an environment variable as a key-value pair in a Secret:
+* Define an environment variable as a key-value pair in a Secret:
 
    ```shell
    kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
    ```
 
-*  Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
+* Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
 
    {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
 
-*  Create the Pod:
+* Create the Pod:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
    ```
 
-*  In your shell, display the content of `SECRET_USERNAME` container environment variable
+* In your shell, display the content of `SECRET_USERNAME` container environment variable
 
    ```shell
    kubectl exec -it env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
@@ -187,17 +184,17 @@ is exposed:
    kubectl create secret generic db-user --from-literal=db-username='db-admin'
    ```
 
-*  Define the environment variables in the Pod specification.
+* Define the environment variables in the Pod specification.
 
    {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
 
-*  Create the Pod:
+* Create the Pod:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
    ```
 
-*  In your shell, display the container environment variables
+* In your shell, display the container environment variables
 
    ```shell
    kubectl exec -it envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
@@ -208,24 +205,23 @@ is exposed:
    BACKEND_USERNAME=backend-admin
    ```
 
-
 ## Configure all key-value pairs in a Secret as container environment variables
 
 {{< note >}}
 This functionality is available in Kubernetes v1.6 and later.
 {{< /note >}}
 
-*  Create a Secret containing multiple key-value pairs
+* Create a Secret containing multiple key-value pairs
 
    ```shell
    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
    ```
 
-*  Use envFrom to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+* Use envFrom to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 
     {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
 
-*  Create the Pod:
+* Create the Pod:
 
    ```shell
    kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
@@ -253,6 +249,3 @@ This functionality is available in Kubernetes v1.6 and later.
 * [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
-
-
-

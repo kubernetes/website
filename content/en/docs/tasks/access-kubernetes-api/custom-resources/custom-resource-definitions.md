@@ -6,7 +6,7 @@ reviewers:
 - liggitt
 - roycaihw
 - sttts
-##content_template: templates/task
+#content_template: templates/task
 weight: 20
 ---
 
@@ -902,16 +902,10 @@ columns are shown by the `kubectl get` command. You can customize these columns 
 CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and `Age`
 columns.
 
-<<<<<<< HEAD
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
 {{< tabs name="CustomResourceDefinition_printer_columns" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
-=======
-1. Save the CustomResourceDefinition to `resourcedefinition.yaml`.
-      {{< tabs name="CustomResourceDefinition_printer_columns" >}}
-      {{% tab name="apiextensions.k8s.io/v1" %}}
->>>>>>> c9000913a... create capture free shortcodes
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -957,14 +951,9 @@ spec:
       type: date
       jsonPath: .metadata.creationTimestamp
 ```
-<<<<<<< HEAD
 
 {{% /tab %}}
 {{% tab name="apiextensions.k8s.io/v1beta1" %}}
-=======
-      {{% /tab %}}
-      {{% tab name="apiextensions.k8s.io/v1beta1" %}}
->>>>>>> c9000913a... create capture free shortcodes
 
 ```yaml
 # Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
@@ -1008,7 +997,6 @@ spec:
     type: date
     JSONPath: .metadata.creationTimestamp
 ```
-<<<<<<< HEAD
 
 {{% /tab %}}
 {{< /tabs >}}
@@ -1020,21 +1008,6 @@ kubectl apply -f resourcedefinition.yaml
 ```
 
 Create an instance using the `my-crontab.yaml` from the previous section.
-=======
-
-      {{% /tab %}}
-      {{< /tabs >}}
-
-2. Create the CustomResourceDefinition:
-
-   ```shell
-      kubectl apply -f resourcedefinition.yaml
-   ```
-
-3. Create an instance using the `my-crontab.yaml` from the previous section.
-
-4. Invoke the server-side printing:
->>>>>>> c9000913a... create capture free shortcodes
 
 Invoke the server-side printing:
 
@@ -1475,5 +1448,4 @@ crontabs/my-new-cron-object   3s
 
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
-* Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
-  CustomResourceDefinition.
+* Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a CustomResourceDefinition.
