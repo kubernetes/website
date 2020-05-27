@@ -149,7 +149,7 @@ Each Pod has a stable hostname based on its ordinal index. Use
 `hostname` command in each Pod. 
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec $i -- sh -c 'hostname'; done
 web-0
 web-1
 ```
@@ -214,7 +214,7 @@ Use `kubectl exec` and `kubectl run` to view the Pods hostnames and in-cluster
 DNS entries.
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec $i -- sh -c 'hostname'; done
 web-0
 web-1
 
@@ -276,9 +276,9 @@ Write the Pods' hostnames to their `index.html` files and verify that the NGINX
 webservers serve the hostnames.
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html'; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec $i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html'; done
 
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec -it $i -- curl localhost; done
 web-0
 web-1
 ```
@@ -289,7 +289,7 @@ you will need to fix the permissions of the directory mounted by the `volumeMoun
 (due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)) with:
 
 ```shell
-for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec $i -- chmod 755 /usr/share/nginx/html; done
 ```
 
 before retrying the curl command above.
@@ -326,7 +326,7 @@ web-1     1/1       Running   0         34s
 Verify the web servers continue to serve their hostnames.
 
 ```
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec -it $i -- curl localhost; done
 web-0
 web-1
 ```
@@ -820,7 +820,7 @@ Let's take another look at the contents of the `index.html` file served by the
 Pods' webservers.
 
 ```shell
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec -it $i -- curl localhost; done
 web-0
 web-1
 ```
@@ -892,7 +892,7 @@ When all of the StatefulSet's Pods transition to Running and Ready, retrieve
 the contents of their `index.html` files.
 
 ```shell
-for i in 0 1; do kubectl exec -it web-$i -- curl localhost; done
+for i in `kubectl get pod -l app=nginx -o jsonpath='{.items[*].metadata.name}'`; do kubectl exec -it $i -- curl localhost; done
 web-0
 web-1
 ```
