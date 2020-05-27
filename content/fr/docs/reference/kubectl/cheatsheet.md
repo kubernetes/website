@@ -43,7 +43,7 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # active l'auto-complétion pour zsh dans le shell courant
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # ajoute l'auto-complétion de manière permanente à votre shell zsh
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # ajoute l'auto-complétion de manière permanente à votre shell zsh
 ```
 
 ## Contexte et configuration de Kubectl
@@ -87,7 +87,7 @@ kubectl config unset users.foo                       # Supprime l'utilisateur fo
 
 ## Création d'objets
 
-Les manifests Kubernetes peuvent être définis en json ou yaml. Les extensions de fichier `.yaml`,
+Les manifests Kubernetes peuvent être définis en YAML ou JSON. Les extensions de fichier `.yaml`,
 `.yml`, et `.json` peuvent être utilisés.
 
 ```bash
@@ -145,7 +145,7 @@ EOF
 # Commandes Get avec un affichage basique
 kubectl get services                     # Liste tous les services d'un namespace
 kubectl get pods --all-namespaces        # Liste tous les Pods de tous les namespaces
-kubectl get pods -o wide                 # Liste tous les Pods du namespace, avec plus de détails
+kubectl get pods -o wide                 # Liste tous les Pods du namespace courant, avec plus de détails
 kubectl get deployment my-dep            # Liste un déploiement particulier
 kubectl get pods                         # Liste tous les Pods dans un namespace
 kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
@@ -154,20 +154,20 @@ kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-# Liste des services triés par nom
-kubectl get services --sort-by=.metadata.name # Liste les services classés par nom
+# Liste les services triés par nom
+kubectl get services --sort-by=.metadata.name
 
 # Liste les pods classés par nombre de redémarrages
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# Affiche les pods du namespace test classés par capacité de stockage 
-kubectl get pods -n test --sort-by=.spec.capacity.storage  
+# Affiche les volumes persistants classés par capacité de stockage
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # Affiche la version des labels de tous les pods ayant un label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# Affiche tous les noeuds (en utilisant un sélecteur pour exclure ceux ayant un label 
+# Affiche tous les noeuds (en utilisant un sélecteur pour exclure ceux ayant un label
 # nommé 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
@@ -252,7 +252,7 @@ kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", 
 ```
 
 ## Édition de ressources
-Ceci édite n'importe quelle ressource de l'API dans un éditeur.
+Édite n'importe quelle ressource de l'API dans un éditeur.
 
 ```bash
 kubectl edit svc/docker-registry                      # Édite le service nommé docker-registry
@@ -274,7 +274,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale plusie
 kubectl delete -f ./pod.json                                              # Supprime un pod en utilisant le type et le nom spécifiés dans pod.json
 kubectl delete pod,service baz foo                                        # Supprime les pods et services ayant les mêmes noms "baz" et "foo"
 kubectl delete pods,services -l name=myLabel                              # Supprime les pods et services ayant le label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Supprime tous les pods et services dans le namespace my-ns
+kubectl -n my-ns delete pod,svc --all                                     # Supprime tous les pods et services dans le namespace my-ns
 # Supprime tous les pods correspondants à pattern1 ou pattern2 avec awk
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
@@ -292,9 +292,9 @@ kubectl logs -f my-pod                              # Fait défiler (stream) les
 kubectl logs -f my-pod -c my-container              # Fait défiler (stream) les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
 kubectl logs -f -l name=myLabel --all-containers    # Fait défiler (stream) les logs de tous les pods ayant le label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Exécute un pod comme un shell interactif
-kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # Run pod nginx in a specific namespace
-kubectl run nginx --image=nginx --restart=Never     # Run pod nginx and write its spec into a file called pod.yaml
+kubectl run nginx --image=nginx --restart=Never -n
+mynamespace                                         # Exécute le pod nginx dans un namespace spécifique
+kubectl run nginx --image=nginx --restart=Never     # Simule l'exécution du pod nginx et écrit sa spécification dans un fichier pod.yaml
 --dry-run -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # Attache à un conteneur en cours d'exécution
@@ -340,7 +340,7 @@ kubectl api-resources --api-group=extensions # Toutes les ressources dans le gro
 
 ### Formattage de l'affichage
 
-Pour afficher les détails sur votre terminal dans un format spécifique, vous pouvez utiliser une des options `-o` ou `--output` avec les commandes `kubectl` qui les prennent en charge.
+Pour afficher les détails sur votre terminal dans un format spécifique, utilisez l'option `-o` (ou `--output`) avec les commandes `kubectl` qui la prend en charge.
 
 Format d'affichage                  | Description                                                                                                          
 --------------| -----------
@@ -352,6 +352,21 @@ Format d'affichage                  | Description
 `-o=name`                           | Affiche seulement le nom de la ressource et rien de plus                                                             
 `-o=wide`                           | Affiche dans le format texte avec toute information supplémentaire, et pour des pods, le nom du noeud est inclus     
 `-o=yaml`                           | Affiche un objet de l'API formaté en YAML                                                                            
+
+Exemples utilisant `-o=custom-columns` :
+
+```bash
+# Toutes les images s'exécutant dans un cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # Toutes les images excepté "k8s.gcr.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# Tous les champs dans metadata quel que soit leur nom
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+Plus d'exemples dans la [documentation de référence](/fr/docs/reference/kubectl/overview/#colonnes-personnalisées) de kubectl.
 
 ### Verbosité de l'affichage de Kubectl et débogage
 
