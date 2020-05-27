@@ -5,6 +5,8 @@ date: 2020-05-27
 slug: an-introduction-to-the-k8s-infrastructure-working-group
 ---
 
+**Author**: [Kiran "Rin" Oliver](https://twitter.com/kiran_oliver) Storyteller, Kubernetes Upstream Marketing Team
+
 # An Introduction to the K8s-Infrastructure Working Group
 
 *Welcome to part one of a new series introducing the K8s-Infrastructure working group!*
