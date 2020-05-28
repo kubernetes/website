@@ -1,7 +1,6 @@
 ---
 reviewers:
 - dchen1107
-- roberthbailey
 - liggitt
 title: Control Plane-Node Communication
 content_template: templates/concept
