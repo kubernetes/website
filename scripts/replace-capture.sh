@@ -50,7 +50,7 @@ cd $CONTENT_DIR
 
 for langdir in `ls $CONTENT_DIR`; do
   # Testing with a couple of langs to start
-  if [ $langdir = "en" ] ; then
+  if [ $langdir = "fr" ] ; then
   LANGDIR="$CONTENT_DIR""/""$langdir""/docs"
 
   for d in "${DIRS[@]}"; do
