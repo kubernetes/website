@@ -125,15 +125,6 @@ If you wish to use the external cloud provider, its repository is [apache/clouds
 The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the CloudStack VM name.
 
-## DigitalOcean
-
-If you wish to use the external cloud provider, its repository is [digitalocean/digitalocean-cloud-controller-manager](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
-
-### Node Name
-
-The DigitalOcean cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the DigitalOcean Droplet name.
-
 ## GCE
 
 If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
