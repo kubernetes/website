@@ -33,7 +33,7 @@ in this [deploy folder](https://github.com/Comcast/kuberhealthy/tree/master/depl
   ```
   helm repo add kuberhealthy https://comcast.github.io/kuberhealthy/helm-repos
   ```
-##### 4. Dependng on your Prometheus implementation, install Kuberhealthy using the appropriate command for your cluster:
+##### 4. Depending on your Prometheus implementation, install Kuberhealthy using the appropriate command for your cluster:
 
   - If you use the [Prometheus Operator](https://github.com/coreos/prometheus-operator):
   ```
