@@ -45,7 +45,7 @@ VolumeSnapshotClassは、VolumeSnapshotをプロビジョンするときに何�
 
 VolumeSnapshotClassにはdeletionPolicyがあります。これにより、バインドされている `VolumeSnapshot`オブジェクトが削除されるときに、`VolumeSnapshotContent`がどうなるかを設定することができます。VolumeSnapshotのdeletionPolicyは、`Retain`または`Delete`のいずれかです。このフィールドは指定しなければなりません。
 
-deletionPolicyが`Delete`の場合、基礎となるストレージスナップショットは `VolumeSnapshotContent`オブジェクトとともに削除されます。deletionPolicyが`Retain`の場合、基礎となるスナップショットと`VolumeSnapshotContent`の両方が残ります。
+deletionPolicyが`Delete`の場合、元となるストレージスナップショットは `VolumeSnapshotContent`オブジェクトとともに削除されます。deletionPolicyが`Retain`の場合、元となるスナップショットと`VolumeSnapshotContent`の両方が残ります。
 
 ## Parameters
 
