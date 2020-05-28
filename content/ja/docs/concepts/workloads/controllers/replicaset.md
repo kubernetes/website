@@ -18,7 +18,7 @@ ReplicaSetの目的は、どのような時でも安定したレプリカPodの�
 
 ReplicaSetは、ReplicaSetが対象とするPodをどう特定するかを示すためのセレクターや、稼働させたいPodのレプリカ数、Podテンプレート(理想のレプリカ数の条件を満たすために作成される新しいPodのデータを指定するために用意されるもの)といったフィールドとともに定義されます。ReplicaSetは、指定された理想のレプリカ数にするためにPodの作成と削除を行うことにより、その目的を達成します。ReplicaSetが新しいPodを作成するとき、ReplicaSetはそのPodテンプレートを使用します。
 
-ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
+ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/ja/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
 
 ReplicaSetは、そのセレクターを使用することにより、所有するための新しいPodを特定します。もし`ownerReference`フィールドの値を持たないPodか、`ownerReference`フィールドの値がコントローラーでないPodで、そのPodがReplicaSetのセレクターとマッチした場合に、そのPodは即座にそのReplicaSetによって所有されます。
 
@@ -228,7 +228,7 @@ matchLabels:
 ### ReplicaSetとPodの削除
 
 ReplicaSetとそれが所有する全てのPod削除したいときは、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete)コマンドを使ってください。  
-[ガーベージコレクター](/docs/concepts/workloads/controllers/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
+[ガベージコレクター](/ja/docs/concepts/workloads/controllers/garbage-collection/)がデフォルトで自動的に全ての依存するPodを削除します。
 
 REST APIもしくは`client-go`ライブラリーを使用するとき、ユーザーは`-d`オプションで`propagationPolicy`を`Background`か`Foreground`と指定しなくてはなりません。
 例えば下記のように実行します。
