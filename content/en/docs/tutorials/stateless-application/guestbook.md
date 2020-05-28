@@ -2,7 +2,7 @@
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
 - ahmetb
-content_template: templates/tutorial
+# content_template: templates/tutorial
 weight: 20
 card:
   name: tutorials
@@ -10,32 +10,33 @@ card:
   title: "Stateless Example: PHP Guestbook with Redis"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
 * A single-instance [Redis](https://redis.io/) master to store guestbook entries
 * Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads
 * Multiple web frontend instances
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+<!-- objectives -->
 * Start up a Redis master.
 * Start up Redis slaves.
 * Start up the guestbook frontend.
 * Expose and view the Frontend Service.
 * Clean up.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites-heading %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Start up the Redis Master
 
@@ -321,9 +322,9 @@ Scaling up or down is easy because your servers are defined as a Service that us
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+<!-- cleanup -->
 Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
 
 1. Run the following commands to delete all Pods, Deployments, and Services.
@@ -358,12 +359,13 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext-heading %}}
+
 * Add [ELK logging and monitoring](../guestbook-logs-metrics-with-elk/) to your Guestbook application
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-{{% /capture %}}
+

@@ -3,20 +3,21 @@ reviewers:
 - bowei
 - zihongz
 title:  Debugging DNS Resolution
-content_template: templates/task
+# content_template: templates/task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides hints on diagnosing DNS problems.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites-heading %}}
+
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes version 1.6 and above.
 * The cluster must be configured to use the `coredns` (or `kube-dns`) addons.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ### Create a simple Pod to use as a test environment
 
@@ -273,5 +274,5 @@ for more information.
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 
-{{% /capture %}}
+
 

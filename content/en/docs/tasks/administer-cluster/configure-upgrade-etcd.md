@@ -3,23 +3,24 @@ reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
-content_template: templates/task
+# content_template: templates/task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+{{% prerequisites-heading %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Prerequisites
 
@@ -238,4 +239,4 @@ To urgently fix this bug for Kubernetes 1.15 or earlier, build a custom kube-api
 
 See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102).
 
-{{% /capture %}}
+

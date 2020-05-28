@@ -3,16 +3,16 @@ reviewers:
 - eparis
 - pmorie
 title: Configuring Redis using a ConfigMap
-content_template: templates/tutorial
+# content_template: templates/tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+<!-- objectives -->
 
 * Create a `kustomization.yaml` file containing:
   * a ConfigMap generator
@@ -20,18 +20,19 @@ This page provides a real world example of how to configure Redis using a Config
 * Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites-heading %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## Real World Example: Configuring Redis using a ConfigMap
@@ -105,12 +106,13 @@ Delete the created pod:
 kubectl delete pod redis
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+{{% whatsnext-heading %}}
+
 
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-{{% /capture %}}
+
 
 

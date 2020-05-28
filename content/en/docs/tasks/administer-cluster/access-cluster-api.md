@@ -1,18 +1,19 @@
 ---
 title: Access Clusters Using the Kubernetes API
-content_template: templates/task
+# content_template: templates/task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to access clusters using the Kubernetes API.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+{{% prerequisites-heading %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Accessing the Kubernetes API
 
@@ -449,5 +450,5 @@ The output will be similar to this:
 }
 ```
 
-{{% /capture %}}
+
 
