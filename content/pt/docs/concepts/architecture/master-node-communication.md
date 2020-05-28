@@ -1,7 +1,6 @@
 ---
 reviewers:
 - dchen1107
-- roberthbailey
 - liggitt
 title: Comunicação entre Node e Master
 content_template: templates/concept
