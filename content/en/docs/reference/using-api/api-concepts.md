@@ -490,7 +490,7 @@ Nevertheless it is possible to change `metadata.managedFields` through an
 option to try if, for example, the `managedFields` get into an inconsistent
 state (which clearly should not happen).
 
-The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/v1.16/#fieldsv1-v1-meta).
+The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/v1.16/#managedfieldsentry-v1-meta).
 
 ### Conflicts
 
