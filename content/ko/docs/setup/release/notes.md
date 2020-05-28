@@ -86,7 +86,7 @@ card:
 
 ### SIG CLI의 kubectl 디버그 소개
 
-SIG CLI는 이미 오랫동안 디버그 유틸리티의 필요성에 대해 논의하고 있었다. [임시(ephemeral) 컨테이너](https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/)가 개발되면서, `kubectl exec` 위에 구축된 도구를 통해 개발자를 지원할 수 있는 방법이 더욱 분명해졌다. `kubectl debug` [커맨드](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 추가(알파이지만 피드백은 언제나 환영)로 개발자는 클러스터 내에서 파드를 쉽게 디버깅할 수 있다. 우리는 이 추가 기능이 매우 유용하다고 생각한다. 이 커맨드를 사용하면 검사하려는 파드 바로 옆에서 실행되는 임시 컨테이너를 만들 수 있고, 대화식 문제 해결을 위해 콘솔에 연결할 수도 있다.
+SIG CLI는 이미 오랫동안 디버그 유틸리티의 필요성에 대해 논의하고 있었다. [임시(ephemeral) 컨테이너](https://kubernetes.io/ko/docs/concepts/workloads/pods/ephemeral-containers/)가 개발되면서, `kubectl exec` 위에 구축된 도구를 통해 개발자를 지원할 수 있는 방법이 더욱 분명해졌다. `kubectl debug` [커맨드](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 추가(알파이지만 피드백은 언제나 환영)로 개발자는 클러스터 내에서 파드를 쉽게 디버깅할 수 있다. 우리는 이 추가 기능이 매우 유용하다고 생각한다. 이 커맨드를 사용하면 검사하려는 파드 바로 옆에서 실행되는 임시 컨테이너를 만들 수 있고, 대화식 문제 해결을 위해 콘솔에 연결할 수도 있다.
 
 ### 쿠버네티스를 위한 윈도우 CSI 지원 알파 소개
 
@@ -243,7 +243,7 @@ NodeLocal DNSCache는 dnsCache 파드를 데몬셋으로 실행하여 clusterDNS
 #### 다른 API 변경:
 - 베타 기능인 `ServerSideApply`는 모든 새로운 오브젝트에 대해 변경된 필드를 추적하고 관리할 수 있게 해준다. 이는 관리자와 그것의 자체 필드에 대한 목록과 함께 `metadata`에 `managedFields`가 있음을 의미한다.
 - 알파 기능인 `ServiceAccountIssuerDiscovery`는 서비스 어카운트 토큰을 발행하도록 구성된 API 서버에 의해 `/.well-known/openid-configuration` 및 `/openid/v1/jwks` 엔드포인트에 위치한 OIDC 디스커버리 정보 및 서비스 어카운트 토큰 검증 키를 공개할 수 있게 한다. ([#80724](https://github.com/kubernetes/kubernetes/pull/80724), [@cceckman](https://github.com/cceckman)) [SIG API Machinery, 인증, 클러스터 라이프사이클, 테스트]
-- `x-kubernetes-list-map-keys`를 사용하여 목록 아이템을 고유하게 식별하는 속성을 지정하는 커스텀리소스데피니션(CustomResourceDefinition) 스키마는 해당 속성이 모든 목록 아이템에 존재하도록 하기 위해, 해당 속성을 필수로 설정하거나 기본값을 가져야 한다. 자세한 내용은 https://kubernetes.io/docs/reference/using-api/api-concepts/&#35;merge-strategy 를 확인한다. ([#88076](https://github.com/kubernetes/kubernetes/pull/88076), [@eloyekunle](https://github.com/eloyekunle)) [SIG API Machinery, 테스트]
+- `x-kubernetes-list-map-keys`를 사용하여 목록 아이템을 고유하게 식별하는 속성을 지정하는 커스텀리소스데피니션(CustomResourceDefinition) 스키마는 해당 속성이 모든 목록 아이템에 존재하도록 하기 위해, 해당 속성을 필수로 설정하거나 기본값을 가져야 한다. 자세한 내용은 https://kubernetes.io/docs/reference/using-api/api-concepts/#merge-strategy 를 확인한다. ([#88076](https://github.com/kubernetes/kubernetes/pull/88076), [@eloyekunle](https://github.com/eloyekunle)) [SIG API Machinery, 테스트]
 - `x-kubernetes-list-type: map` 또는 `x-kubernetes-list-type: set`을 사용하는 커스텀리소스데피니션 스키마는 이제 해당 커스텀 리소스의 목록 아이템이 고유한지 확인할 수 있다. ([#84920](https://github.com/kubernetes/kubernetes/pull/84920), [@sttts](https://github.com/sttts)) [SIG API Machinery]
 
 #### 설정 파일 변경:
@@ -284,7 +284,7 @@ NodeLocal DNSCache는 dnsCache 파드를 데몬셋으로 실행하여 clusterDNS
 - CoreDNS 레플리카 개수 설정을 허용한다. ([#85837](https://github.com/kubernetes/kubernetes/pull/85837), [@pickledrick](https://github.com/pickledrick)) [SIG 클러스터 라이프사이클]
 - kubectl exec 호출 시 --filename 플래그를 사용하여 리소스를 지정할 수 있도록 허용 ([#88460](https://github.com/kubernetes/kubernetes/pull/88460), [@soltysh](https://github.com/soltysh)) [SIG CLI, 테스트]
 - Apiserver는 HTTP/2 클라이언트가 단일 apiserver에 갇히는 것을 방지하기 위해 그레이스풀(GOAWAY)하게 닫히게 하는 요청의 일부인 새로운 플래그 --goaway-chance를 추가했다. ([#88567](https://github.com/kubernetes/kubernetes/pull/88567), [@answer1991](https://github.com/answer1991)) [SIG API Machinery]
-- Azure 클라우드 공급자는 이제 쿠버네티스 클러스터와 다른 AAD 테넌트 및 구독에서 Azure 네트워크 리소스(가상 네트워크, 로드 밸런서, 퍼블릭 IP, 라우팅 테이블, 네트워크 보안 그룹 등) 사용을 지원한다. 이 기능을 사용하려면, 다음을 참고한다.  https://github.com/kubernetes-sigs/cloud-provider-azure/blob/master/docs/cloud-provider-config.md&#35;host-network-resources-in-different-aad-tenant-and-subscription. ([#88384](https://github.com/kubernetes/kubernetes/pull/88384), [@bowen5](https://github.com/bowen5)) [SIG 클라우드 공급자]
+- Azure 클라우드 공급자는 이제 쿠버네티스 클러스터와 다른 AAD 테넌트 및 구독에서 Azure 네트워크 리소스(가상 네트워크, 로드 밸런서, 퍼블릭 IP, 라우팅 테이블, 네트워크 보안 그룹 등) 사용을 지원한다. 이 기능을 사용하려면, 다음을 참고한다.  https://github.com/kubernetes-sigs/cloud-provider-azure/blob/master/docs/cloud-provider-config.md#host-network-resources-in-different-aad-tenant-and-subscription. ([#88384](https://github.com/kubernetes/kubernetes/pull/88384), [@bowen5](https://github.com/bowen5)) [SIG 클라우드 공급자]
 - Azure VMSS/VMSSVM 클라이언트는 이제 스로틀링(throttling) 요청을 금지한다. ([#86740](https://github.com/kubernetes/kubernetes/pull/86740), [@feiskyer](https://github.com/feiskyer)) [SIG 클라우드 공급자]
 - Azure 클라우드 공급자 캐시 TTL은 설정 가능하며, Azure 클라우드 공급자 목록은 다음과 같다.
   - "availabilitySetNodesCacheTTLInSeconds"
