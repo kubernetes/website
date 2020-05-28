@@ -2,14 +2,14 @@
 reviewers:
 - chenopis
 title: The Kubernetes API
-content_template: templates/concept
+# content_template: templates/concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -23,10 +23,10 @@ Kubernetes also stores its serialized state (currently in [etcd](https://coreos.
 
 Kubernetes itself is decomposed into multiple components, which interact through its API.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API changes
 
@@ -139,4 +139,4 @@ For example: to enable deployments and daemonsets, set
 
 {{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}
 
-{{% /capture %}}
+
