@@ -180,11 +180,20 @@ other = "Note:"
 [objectives_heading]
 other = "Objectives"
 
+[options_heading]
+other = "Options"
+
 [prerequisites_heading]
 other = "Before you begin"
 
+[seealso_heading]
+other = "See Also"
+
 [subscribe_button]
 other = "Subscribe"
+
+[synopsis_heading]
+other = "Synopsis"
 
 [ui_search_placeholder]
 other = "Search"
