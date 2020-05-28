@@ -150,9 +150,11 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
+## {{< whatsnext-heading >}}
 
 
-{{% whatsnext-heading %}}
+## {{% whatsnext-heading %}}
+
 
 * Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
 * Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)

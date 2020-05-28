@@ -35,6 +35,23 @@ disableLanguages = ["hi", "no"]
     noClasses = true
     style = "emacs"
     tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
+  [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+      #autoHeadingIDType = "blackfriday"
+  [markup.goldmark.extensions]
+      definitionList = true
+      #footnote = true
+      #linkify = true
+      #strikethrough = true
+      table = true
+      #taskList = true
+      typographer = true
+
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
