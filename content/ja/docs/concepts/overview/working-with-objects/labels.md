@@ -20,7 +20,7 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 ```
 
 ラベルは効率的な検索・閲覧を可能にし、UIやCLI上での利用に最適です。 
-識別用途でない情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
+識別用途でない情報は、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
 
 {{% /capture %}}
 
