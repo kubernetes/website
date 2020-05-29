@@ -210,9 +210,7 @@ The affinity on this pod defines one pod affinity rule and one pod anti-affinity
 while the `podAntiAffinity` is `preferredDuringSchedulingIgnoredDuringExecution`. The
 pod affinity rule says that the pod can be scheduled onto a node only if that node is in the same zone
 as at least one already-running pod that has a label with key "security" and value "S1". (More precisely, the pod is eligible to run
-on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
-such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
-value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
+on node N in the cluster if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
 rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
 having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
 it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
