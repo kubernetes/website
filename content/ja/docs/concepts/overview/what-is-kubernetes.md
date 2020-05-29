@@ -34,7 +34,7 @@ Kubernetesは、**コンテナを中心とした**管理基盤です。ユーザ
 
 Kubernetesが多くの機能を提供すると言いつつも、新しい機能から恩恵を受ける新しいシナリオは常にあります。アプリケーション固有のワークフローを効率化して開発者のスピードを早めることができます。最初は許容できるアドホックなオーケストレーションでも、大規模で堅牢な自動化が必要となることはしばしばあります。これが、Kubernetesがアプリケーションのデプロイ、拡張、および管理を容易にするために、コンポーネントとツールのエコシステムを構築するための基盤としても機能するように設計された理由です。
 
-[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
+[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
 
 さらに、[Kubernetesコントロールプレーン](/ja/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
 
