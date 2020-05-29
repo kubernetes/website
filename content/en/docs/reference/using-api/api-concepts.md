@@ -450,7 +450,7 @@ request (if not forced, see [Conflicts](#conflicts)).
 
 Field management is stored in a newly introduced `managedFields` field that is
 part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/v1.16/#objectmeta-v1-meta).
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 
