@@ -41,7 +41,7 @@ NodeLocal DNSCache improves Cluster DNS performance by running a dns caching age
 NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 dns 缓存代理来提高集群 DNS 性能。
 在当今的体系结构中，处于 ClusterFirst DNS 模式的 Pod 可以连接到 kube-dns serviceIP 进行 DNS 查询。
 通过 kube-proxy 添加的 iptables 规则将其转换为 kube-dns/CoreDNS 端点。
-借助这种新架构，Pods 将可以访问在同一节点上运行的 dns 缓存代理，从而避免了 iptables DNAT 规则和连接跟踪。 
+借助这种新架构，Pods 将可以访问在同一节点上运行的 dns 缓存代理，从而避免了 iptables DNAT 规则和连接跟踪。
 本地缓存代理将查询 kube-dns 服务以获取集群主机名的缓存缺失（默认为 cluster.local 后缀）。
 
 <!--
@@ -50,7 +50,7 @@ NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 dns 缓存代
 ## 动机
 
 <!--
-* With the current DNS architecture, it is possible that Pods with the highest DNS QPS have to reach out to a different node, if there is no local kube-dns/CoreDNS instance.  
+* With the current DNS architecture, it is possible that Pods with the highest DNS QPS have to reach out to a different node, if there is no local kube-dns/CoreDNS instance.
 Having a local cache will help improve the latency in such scenarios.
 -->
 * 使用当前的 DNS 体系结构，如果没有本地 kube-dns/CoreDNS 实例，则具有最高 DNS QPS 的 Pod 可能必须延伸到另一个节点。
@@ -94,9 +94,9 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 
 
 <!--
-{{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." >}}
+{{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache flow" title="Nodelocal DNSCache flow" caption="This image shows how NodeLocal DNSCache handles DNS queries." >}}
 -->
-{{< figure src="/images/docs/nodelocaldns.jpg" alt="NodeLocal DNSCache 流" title="Nodelocal DNSCache 流" caption="此图显示了 NodeLocal DNSCache 如何处理 DNS 查询。" >}}
+{{< figure src="/images/docs/nodelocaldns.svg" alt="NodeLocal DNSCache 流" title="Nodelocal DNSCache 流" caption="此图显示了 NodeLocal DNSCache 如何处理 DNS 查询。" >}}
 
 <!--
 ## Configuration
