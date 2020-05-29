@@ -624,7 +624,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
+ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/ja/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
 
 PVCデータソースからのボリューム複製機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 
