@@ -1,19 +1,20 @@
 ---
 title: Writing a new topic
-content_template: templates/task
+# content_template: templates/task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to create a new topic for the Kubernetes docs.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Create a fork of the Kubernetes documentation repository as described in
 [Open a PR](/docs/new-content/open-a-pr/).
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Choosing a page type
 
@@ -27,8 +28,8 @@ Task | A task page shows how to do a single thing. The idea is to give readers a
 Tutorial | A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied together, but should link to related concept topics for deep explanations of individual features.
 {{< /table >}}
 
-Use a template for each new page. Each page type has a
-[template](/docs/contribute/style/page-templates/)
+Each page type follows a
+[content style](/docs/contribute/style/page-styles/)
 that you can use as you write your topic. Using templates helps ensure
 consistency among topics of a given type.
 
@@ -159,9 +160,8 @@ For an example of a topic that uses this technique, see
 Put image files in the `/images` directory. The preferred
 image format is SVG.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Learn about [using page templates](/docs/contribute/page-templates/).
+## {{% heading "whatsnext" %}}
+
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
-{{% /capture %}}
+* Learn about [page content style](/docs/contribute/page-styles/).

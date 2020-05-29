@@ -1,5 +1,5 @@
 ---
-title: Example Concept Template
+title: Example Concept Page
 reviewers:
 - chenopis
 # content_template: templates/concept
@@ -34,8 +34,4 @@ To use ...
 **[Optional Section]**
 
 * Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Concept template](/docs/home/contribute/page-templates/#concept_template) for how to use this template.
-
-
-
-
+* See [Content Page Styles - Concept](/docs/home/contribute/page-styles/#concept).

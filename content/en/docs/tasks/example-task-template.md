@@ -1,5 +1,5 @@
 ---
-title: Example Task Template
+title: Example Task Page
 reviewers:
 - chenopis
 # content_template: templates/task
@@ -49,5 +49,5 @@ Here's an interesting thing to know about the steps you just did.
 **[Optional Section]**
 
 * Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template.
+* See [Content Page Styles - Task](/docs/home/contribute/page-styles/#task) for how to use this template.
 

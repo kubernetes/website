@@ -5,7 +5,7 @@
 
 CONTENT_DIR=${K8S_WEBSITE}/content
 
-declare -a DIRS=("concepts" "reference" "setup" "tasks" "tutorials")
+declare -a DIRS=("concepts" "contribute" "reference" "setup" "tasks" "tutorials")
 declare -a EMPTY_STMTS=("body" "discussion" "lessoncontent" "overview" "steps")
 declare -a REPLACE_STMTS=("cleanup" "objectives" "options" "prerequisites" "seealso" "synopsis" "whatsnext")
 END_CAPTURE="{{% \/capture %}}"
@@ -30,14 +30,14 @@ function replace_capture_stmts {
         for stmt in "${REPLACE_STMTS[@]}" ; do
           CAPTURE_STMT="{{% capture ""$stmt"" %}}"
           HEADING_STMT="## {{% heading \"""$stmt""\" %}}\n"
-          echo "HEADING STMT TO ADD:""$HEADING_STMT"
+          # echo "HEADING STMT TO ADD:""$HEADING_STMT"
           sed -i -e "s/${CAPTURE_STMT}/${HEADING_STMT}/g" $1
         done
 
         sed -i -e "s/${END_CAPTURE}//g" $1
 
         # comment out concept template from front matter
-        sed -i -e "s/${CONTENT_TEMPLATE}/# ${CONTENT_TEMPLATE}/g" $1
+        sed -i -e "s/^${CONTENT_TEMPLATE}/# ${CONTENT_TEMPLATE}/g" $1
       done
     else
       exit 1
@@ -49,8 +49,8 @@ function replace_capture_stmts {
 cd $CONTENT_DIR
 
 for langdir in `ls $CONTENT_DIR`; do
-  # Testing with a couple of langs to start
-  if [ $langdir = "fr" ] ; then
+  # Initial testing with a couple of localizations
+  if [ $langdir = "en" ] ; then
   LANGDIR="$CONTENT_DIR""/""$langdir""/docs"
 
   for d in "${DIRS[@]}"; do
