@@ -1,15 +1,16 @@
 ---
 title: AWS EC2上でKubernetesを動かす
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、AWS上でKubernetesクラスターをインストールする方法について説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 AWS上でKubernetesクラスターを作成するには、AWSからアクセスキーIDおよびシークレットアクセスキーを入手する必要があります。
 
@@ -25,9 +26,9 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## クラスターの始まり
 
@@ -84,4 +85,4 @@ AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weave
 
 Kubernetesクラスターの利用と管理に関する詳細は、[Kubernetesドキュメント](/ja/docs/)を参照してください。
 
-{{% /capture %}}
+

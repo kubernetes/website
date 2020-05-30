@@ -1,10 +1,10 @@
 ---
 title: クラスターのネットワーク
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ネットワークはKubernetesにおける中心的な部分ですが、どのように動作するかを正確に理解することは難解な場合もあります。
 Kubernetesには、4つの異なる対応すべきネットワークの問題があります:
@@ -14,10 +14,10 @@ Kubernetesには、4つの異なる対応すべきネットワークの問題が
 3. Podからサービスへの通信：これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
 4. 外部からサービスへの通信：これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 Kubernetesは、言ってしまえばアプリケーション間でマシンを共有するためのものです。通常、マシンを共有するには、2つのアプリケーションが同じポートを使用しないようにする必要があります。
 複数の開発者間でポートを調整することは、大規模に行うことは非常に難しく、ユーザーが制御できないクラスターレベルの問題に見合うことがあります。
@@ -282,10 +282,11 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)で詳細に説明されています。
 
-{{% /capture %}}
+

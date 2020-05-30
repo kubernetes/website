@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用した高可用性クラスターの作成
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、kubeadmを使用して、高可用性クラスターを作成する、2つの異なるアプローチを説明します:
 
@@ -23,9 +23,10 @@ alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.
 このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのServiceオブジェクトや、動的なPersistentVolumeを利用して動かすことはできません。
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 どちらの方法でも、以下のインフラストラクチャーが必要です:
 
@@ -44,9 +45,9 @@ alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.
 以下の例では、CalicoをPodネットワーキングプロバイダーとして使用します。別のネットワーキングプロバイダーを使用する場合、必要に応じてデフォルトの値を変更してください。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 両手順における最初のステップ
 
@@ -299,4 +300,4 @@ Podネットワークをインストールするには、[こちらの手順に�
 
 `kubeadm init`コマンドから返されたコマンドを利用して、workerノードをクラスターに参加させることが可能です。workerノードには、`--experimental-control-plane`フラグを追加する必要はありません。
 
-{{% /capture %}}
+

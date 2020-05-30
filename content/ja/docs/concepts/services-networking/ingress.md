@@ -1,15 +1,15 @@
 ---
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 用語
 
@@ -395,9 +395,10 @@ Ingressリソースに直接関与しない複数の方法でServiceを公開で
 * [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
 * [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)について学ぶ
 * [MinikubeとNGINXコントローラーでIngressのセットアップを行う](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

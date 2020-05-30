@@ -1,15 +1,15 @@
 ---
 title: Stackpoint.ioを利用して複数のクラウド上でKubernetesを動かす
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [StackPointCloud](https://stackpoint.io/) is the universal control plane for Kubernetes Anywhere. StackPointCloud allows you to deploy and manage a Kubernetes cluster to the cloud provider of your choice in 3 steps using a web-based interface.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## AWS
 
@@ -184,4 +184,4 @@ To create a Kubernetes cluster on Packet, you will need a Packet API Key.
 
     For information on using and managing a Kubernetes cluster on Packet, consult [the official documentation](/ja/docs/home/).
 
-{{% /capture %}}
+

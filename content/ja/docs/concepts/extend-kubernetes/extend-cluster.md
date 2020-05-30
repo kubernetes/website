@@ -1,10 +1,10 @@
 ---
 title: Kubernetesクラスターの拡張
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesは柔軟な設定が可能で、高い拡張性を持っています。
 結果として、Kubernetesのプロジェクトソースコードをフォークしたり、パッチを当てて利用することは滅多にありません。
@@ -13,9 +13,9 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 管理しているKubernetesクラスターを、動作環境の要件にどのように適合させるべきかを理解したい{{< glossary_tooltip text="クラスター管理者" term_id="cluster-operator" >}}を対象にしています。
 将来の {{< glossary_tooltip text="プラットフォーム開発者" term_id="platform-developer" >}} 、またはKubernetesプロジェクトの{{< glossary_tooltip text="コントリビューター" term_id="contributor" >}}にとっても、どのような拡張のポイントやパターンが存在するのか、また、それぞれのトレードオフや制限事項を学ぶための導入として役立つでしょう。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -152,9 +152,10 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 
 スケジューラは[Webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)もサポートしており、Webhookバックエンド（スケジューラーエクステンション）を通じてPodを配置するために選択されたノードをフィルタリング、優先度付けすることが可能です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [カスタムリソース](/docs/concepts/api-extension/custom-resources/)についてより深く学ぶ
 * [動的Admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)について学ぶ
@@ -164,4 +165,4 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 * [kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)について学ぶ
 * [オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)について学ぶ
 
-{{% /capture %}}
+

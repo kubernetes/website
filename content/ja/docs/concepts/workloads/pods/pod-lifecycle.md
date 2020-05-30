@@ -1,17 +1,17 @@
 ---
 title: Podのライフサイクル
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページではPodのライフサイクルについて説明します。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## PodのPhase
 
@@ -317,10 +317,11 @@ spec:
      * NodeコントローラがPodの`phase`をFailedにします。
      * Podがコントローラで作成されていた場合は、別の場所で再作成されます。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
@@ -328,4 +329,4 @@ spec:
 
 * [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
-{{% /capture %}}
+

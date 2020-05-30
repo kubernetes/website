@@ -1,16 +1,16 @@
 ---
 title: Kubernetesのスケジューラー
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesにおいて、_スケジューリング_ とは、{{< glossary_tooltip term_id="kubelet" >}}が{{< glossary_tooltip text="Pod" term_id="pod" >}}を稼働させるために{{< glossary_tooltip text="Node" term_id="node" >}}に割り当てることを意味します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## スケジューリングの概要{#scheduling}
 
@@ -110,9 +110,10 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 
 - `EqualPriorityMap`: 全てのNodeに対して等しい重みを与えます。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [スケジューラーのパフォーマンスチューニング](/docs/concepts/scheduling/scheduler-perf-tuning/)を参照してください。
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 * [複数のスケジューラーの設定](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
-{{% /capture %}}
+

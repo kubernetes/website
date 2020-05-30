@@ -1,19 +1,19 @@
 ---
 title: Guide for adding Windows Nodes in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The Kubernetes platform can now be used to run both Linux and Windows containers. One or more Windows nodes can be registered to a cluster. This guide shows how to:
 
 * Register a Windows node to the cluster
 * Configure networking so pods on Linux and Windows can communicate
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Before you begin
 
@@ -261,4 +261,4 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 
 Now that you've configured a Windows worker in your cluster to run Windows containers you may want to add one or more Linux nodes as well to run Linux containers. You are now ready to schedule Windows containers on your cluster.
 
-{{% /capture %}}
+

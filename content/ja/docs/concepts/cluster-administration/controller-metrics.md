@@ -1,15 +1,15 @@
 ---
 title: コントローラーマネージャーの指標
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 コントローラーマネージャーの指標は、コントローラー内部のパフォーマンスについての重要で正確な情報と、クラウドコントローラーの状態についての情報を提供します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## コントローラーマネージャーの指標とは何か
 
 コントローラーマネージャーの指標は、コントローラー内部のパフォーマンスについての重要で正確な情報と、クラウドコントローラーの状態についての情報を提供します。
@@ -39,4 +39,4 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 本番環境ではこれらの指標を定期的に収集し、なんらかの時系列データベースで使用できるようにprometheusやその他の指標のスクレイパーを構成することが推奨されます。
 
-{{% /capture %}}
+

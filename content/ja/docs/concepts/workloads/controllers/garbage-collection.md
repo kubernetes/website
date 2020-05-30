@@ -1,16 +1,16 @@
 ---
 title: ガベージコレクション
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesのガベージコレクターの役割は、かつてオーナーがいたが、現時点でもはやオーナーがいないようなオブジェクトの削除を行うことです。
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## オーナーとその従属オブジェクト
 
@@ -134,16 +134,17 @@ Kubernetes1.7以前では、Deploymentに対するカスケード削除におい
 
 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)にてイシューがトラックされています。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
 
 
 

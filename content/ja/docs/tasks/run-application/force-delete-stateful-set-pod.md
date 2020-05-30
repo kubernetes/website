@@ -1,20 +1,21 @@
 ---
 title: StatefulSet Podの強制削除
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、StatefulSetの一部であるPodを削除する方法と、削除する際に考慮すべき事項について説明します。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * これはかなり高度なタスクであり、StatefulSetに固有のいくつかの特性に反する可能性があります。
 * 先に進む前に、以下に列挙されている考慮事項をよく理解してください。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetに関する考慮事項
 
@@ -68,10 +69,11 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 
 StatefulSet Podの強制削除は、常に慎重に、関連するリスクを完全に把握して実行してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [StatefulSetのデバッグ](/docs/tasks/debug-application-cluster/debug-stateful-set/)の詳細
 
-{{% /capture %}}
+

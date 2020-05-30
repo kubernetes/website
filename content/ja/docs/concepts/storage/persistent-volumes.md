@@ -5,18 +5,18 @@ feature:
   description: >
     ローカルストレージや<a href="https://cloud.google.com/storage/">GCP</a>、<a href="https://aws.amazon.com/products/storage/">AWS</a>などのパブリッククラウドプロバイダー、もしくはNFS、iSCSI、Gluster、Ceph、Cinder、Flockerのようなネットワークストレージシステムの中から選択されたものを自動的にマウントします。
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このドキュメントではKubernetesの`PersistentVolume`について説明します。[ボリューム](/docs/concepts/storage/volumes/)を一読することをおすすめします。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -658,4 +658,4 @@ spec:
   - ユーザーがストレージクラス名を指定しない場合、`persistentVolumeClaim.storageClassName`フィールドはnilのままにする。これにより、PVはユーザーにクラスターのデフォルトストレージクラスで自動的にプロビジョニングされる。多くのクラスター環境ではデフォルトのストレージクラスがインストールされているが、管理者は独自のデフォルトストレージクラスを作成することができる。
 - ツールがPVCを監視し、しばらくしてもバインドされないことをユーザーに表示する。これはクラスターが動的ストレージをサポートしない(この場合ユーザーは対応するPVを作成するべき)、もしくはクラスターがストレージシステムを持っていない(この場合ユーザーはPVCを必要とする設定をデプロイできない)可能性があることを示す。
 
-{{% /capture %}}
+

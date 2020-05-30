@@ -1,14 +1,14 @@
 ---
 title: Kubernetesバージョンとバージョンスキューサポートポリシー
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このドキュメントでは、さまざまなKubernetesコンポーネント間でサポートされる最大のバージョンの差異（バージョンスキュー）について説明します。特定のクラスターデプロイツールは、バージョンの差異に追加の制限を加える場合があります。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## サポートされるバージョン
 

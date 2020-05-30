@@ -1,13 +1,13 @@
 ---
 title: Kubernetesのコンポーネント
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetesをデプロイすると、クラスターが展開されます。
 {{< glossary_definition term_id="cluster" length="all" prepend="クラスターは、">}}
 
@@ -17,9 +17,9 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## マスターコンポーネント
 
@@ -112,10 +112,11 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 [クラスターレベルログ](/docs/concepts/cluster-administration/logging/)メカニズムは、コンテナのログを、検索／参照インターフェイスを備えた中央ログストアに保存します。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
 * [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
 * [kube-scheduler](/ja/docs/concepts/scheduling/kube-scheduler/)について学ぶ
 * etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
-{{% /capture %}}
+
