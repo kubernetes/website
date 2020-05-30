@@ -45,7 +45,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
 -->
 
-1.  生成 CA（通过 `--batch` 参数设置自动模式。 通过 `--req-cn` 设置默认使用的 CN）
+1.  生成 CA（通过 `--batch` 参数设置自动模式。通过 `--req-cn` 设置默认使用的 CN）
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 
@@ -61,9 +61,9 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 -->
 
 1.  生成服务器证书和密钥。
-    参数 `--subject-alt-name` 设置了访问 API 服务器时可能使用的 IP 和 DNS 名称。 `MASTER_CLUSTER_IP`
+    参数 `--subject-alt-name` 设置了访问 API 服务器时可能使用的 IP 和 DNS 名称。`MASTER_CLUSTER_IP`
     通常为 `--service-cluster-ip-range` 参数中指定的服务 CIDR 的 首个 IP 地址，`--service-cluster-ip-range` 同时用于
-    API 服务器和控制器管理器组件。  `--days` 参数用于设置证书的有效期限。
+    API 服务器和控制器管理器组件。`--days` 参数用于设置证书的有效期限。
     下面的示例还假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         ./easyrsa --subject-alt-name="IP:${MASTER_IP},"\
@@ -81,7 +81,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1.  Fill in and add the following parameters into the API server start parameters:
 -->
 
-1.  拷贝 `pki/ca.crt`、 `pki/issued/server.crt` 和 `pki/private/server.key` 至您的目录。
+1.  拷贝 `pki/ca.crt`、`pki/issued/server.crt` 和 `pki/private/server.key` 至您的目录。
 1.  填充并在 API 服务器的启动参数中添加以下参数：
 
         --client-ca-file=/yourdirectory/ca.crt
@@ -130,8 +130,8 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 
 1.  创建用于生成证书签名请求（CSR）的配置文件。
     确保在将其保存至文件（如 `csr.conf`）之前将尖括号标记的值（如 `<MASTER_IP>`）
-    替换为你想使用的真实值。 注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API 服务器的服务集群 IP
-    (service cluster IP)。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
+    替换为你想使用的真实值。注意：`MASTER_CLUSTER_IP` 是前面小节中描述的 API 服务器的服务集群 IP
+    (service cluster IP)。下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         [ req ]
         default_bits = 2048
@@ -197,7 +197,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 Finally, add the same parameters into the API server start parameters.
 -->
 
-最后，添加同样的参数到  API 服务器的启动参数中。
+最后，添加同样的参数到 API 服务器的启动参数中。
 
 ### cfssl
 
@@ -301,8 +301,8 @@ Finally, add the same parameters into the API server start parameters.
 -->
 
 1.  按如下所示的方式创建用来为 API 服务器生成密钥和证书的 JSON 配置文件。
-    确保将尖括号标记的值替换为你想使用的真实值。 `MASTER_CLUSTER_IP` 是前面小节中描述的
-    API 服务器的服务集群 IP。 下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
+    确保将尖括号标记的值替换为你想使用的真实值。`MASTER_CLUSTER_IP` 是前面小节中描述的
+    API 服务器的服务集群 IP。下面的示例也假设用户使用 `cluster.local` 作为默认的 DNS 域名。
 
         {
           "CN": "kubernetes",
