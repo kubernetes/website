@@ -1,19 +1,20 @@
 ---
 title: Assign Extended Resources to a Container
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" >}}
 
 This page shows how to assign extended resources to a Container.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -21,10 +22,10 @@ Before you do this exercise, do the exercise in
 [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/).
 That will configure one of your Nodes to advertise a dongle resource.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Assign an extended resource to a Pod
 
@@ -127,9 +128,10 @@ kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For application developers
 
@@ -140,4 +142,4 @@ kubectl delete pod extended-resource-demo-2
 
 * [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/)
 
-{{% /capture %}}
+

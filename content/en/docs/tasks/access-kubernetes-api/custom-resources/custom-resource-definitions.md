@@ -6,18 +6,19 @@ reviewers:
 - liggitt
 - roycaihw
 - sttts
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -25,9 +26,9 @@ into the Kubernetes API by creating a
 
 * Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a CustomResourceDefinition
 
@@ -568,9 +569,9 @@ See [Custom resource definition versioning](/docs/tasks/access-kubernetes-api/cu
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 ## Advanced topics
 
 ### Finalizers
@@ -1448,13 +1449,13 @@ NAME                          AGE
 crontabs/my-new-cron-object   3s
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
 * Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
 
-{{% /capture %}}

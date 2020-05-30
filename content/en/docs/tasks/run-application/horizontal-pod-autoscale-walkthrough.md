@@ -5,11 +5,11 @@ reviewers:
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaler Walkthrough
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
@@ -17,11 +17,12 @@ in a replication controller, deployment, replica set or stateful set based on ob
 
 This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
-{{% /capture %}}
 
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
@@ -35,9 +36,9 @@ not related to any Kubernetes object you must have a Kubernetes cluster at versi
 you must be able to communicate with the API server that provides the external metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Run & expose php-apache server
 
@@ -181,9 +182,9 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 Autoscaling the replicas may take a few minutes.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Autoscaling on multiple metrics and custom metrics
 
@@ -483,4 +484,4 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 
-{{% /capture %}}
+

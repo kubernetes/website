@@ -5,10 +5,10 @@ reviewers:
 - thockin
 - msau42
 title: Node-specific Volume Limits
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes the maximum number of volumes that can be attached
 to a Node for various cloud providers.
@@ -18,9 +18,9 @@ how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kubernetes default limits
 
@@ -78,4 +78,4 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 
 * For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 
-{{% /capture %}}
+

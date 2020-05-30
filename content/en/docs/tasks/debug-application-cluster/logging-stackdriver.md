@@ -3,10 +3,10 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Stackdriver
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Before reading this page, it's highly recommended to familiarize yourself
 with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
@@ -18,10 +18,10 @@ see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar
 in the Kubernetes logging overview.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Deploying
 
@@ -368,4 +368,4 @@ with minor changes:
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
 new image, you can use the plugin you installed in the fluentd configuration.
 
-{{% /capture %}}
+

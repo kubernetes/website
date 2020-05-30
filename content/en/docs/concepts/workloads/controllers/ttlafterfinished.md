@@ -2,11 +2,11 @@
 reviewers:
 - janetkuo
 title: TTL Controller for Finished Resources
-content_template: templates/concept
+content_type: concept
 weight: 65
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -21,12 +21,12 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with both 
 `TTLAfterFinished`.
 
 
-{{% /capture %}}
 
 
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## TTL Controller
 
@@ -78,12 +78,13 @@ In Kubernetes, it's required to run NTP on all nodes
 to avoid time skew. Clocks aren't always correct, but the difference should be
 very small. Please be aware of this risk when setting a non-zero TTL.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Clean up Jobs automatically](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
 [Design doc](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
-{{% /capture %}}
+

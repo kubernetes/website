@@ -2,14 +2,14 @@
 reviewers:
 - chenopis
 title: The Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The core of Kubernetes' {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 is the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}. The API server
@@ -21,9 +21,10 @@ The Kubernetes API lets you query and manipulate the state of objects in the Kub
 
 API endpoints, resource types and samples are described in the [API Reference](/docs/reference/kubernetes-api/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## API changes
 
@@ -166,8 +167,9 @@ For example: to enable deployments and daemonsets, set
 Kubernetes stores its serialized state in terms of the API resources by writing them into
 {{< glossary_tooltip term_id="etcd" >}}.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Controlling API Access](/docs/reference/access-authn-authz/controlling-access/) describes
 how the cluster manages authentication and authorization for API access.
 
@@ -176,5 +178,3 @@ Overall API conventions are described in the
 document.
 
 API endpoints, resource types and samples are described in the [API Reference](/docs/reference/kubernetes-api/).
-
-{{% /capture %}}

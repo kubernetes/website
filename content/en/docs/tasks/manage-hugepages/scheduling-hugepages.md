@@ -2,19 +2,20 @@
 reviewers:
 - derekwaynecarr
 title: Manage HugePages
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state state="stable" >}}
 
 Kubernetes supports the allocation and consumption of pre-allocated huge pages
 by applications in a Pod as a **GA** feature. This page describes how users
 can consume huge pages and the current limitations.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
    its huge page capacity. A node can pre-allocate huge pages for multiple
@@ -23,9 +24,9 @@ can consume huge pages and the current limitations.
 The nodes will automatically discover and report all huge page resources as
 schedulable resources.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## API
 
@@ -125,5 +126,5 @@ term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
 - NUMA locality guarantees as a feature of quality of service.
 - LimitRange support.
 
-{{% /capture %}}
+
 

@@ -5,11 +5,11 @@ reviewers:
 - verb
 - yujuhong
 - dchen1107
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
@@ -21,15 +21,16 @@ You can use this feature to configure cooperating containers, such as a log
 handler sidecar container, or to troubleshoot container images that don't
 include debugging utilities like a shell.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configure a Pod
 
@@ -93,9 +94,9 @@ events {
     worker_connections  1024;
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding Process Namespace Sharing
 
@@ -117,6 +118,6 @@ containers, though, so it's important to understand these differences:
    `/proc/$pid/root` link.** This makes debugging easier, but it also means
    that filesystem secrets are protected only by filesystem permissions.
 
-{{% /capture %}}
+
 
 

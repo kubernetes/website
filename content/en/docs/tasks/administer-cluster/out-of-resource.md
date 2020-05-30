@@ -4,10 +4,10 @@ reviewers:
 - vishh
 - timstclair
 title: Configure Out of Resource Handling
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains how to configure out of resource handling with `kubelet`.
 
@@ -16,10 +16,10 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Eviction Policy
 
@@ -372,4 +372,4 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
 
-{{% /capture %}}
+

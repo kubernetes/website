@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Contribute to Kubernetes docs
 linktitle: Contribute
 main_menu: true
@@ -10,7 +10,7 @@ card:
   title: Start contributing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -23,9 +23,9 @@ Kubernetes documentation contributors:
 
 Kubernetes documentation welcomes improvements from all contributors, new and experienced!
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Getting started
 
@@ -75,4 +75,4 @@ SIG Docs communicates with different methods:
 - Read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get involved with Kubernetes feature development.
 - Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
 
-{{% /capture %}}
+

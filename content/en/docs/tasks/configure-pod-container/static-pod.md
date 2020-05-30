@@ -3,10 +3,10 @@ reviewers:
 - jsafrane
 title: Create static Pods
 weight: 170
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
@@ -30,9 +30,10 @@ Pods to run a Pod on every node, you should probably be using a
 instead.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -41,10 +42,10 @@ and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a static pod {#static-pod-creation}
 
@@ -236,4 +237,4 @@ CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
 
-{{% /capture %}}
+

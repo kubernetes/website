@@ -2,10 +2,10 @@
 reviewers:
 - smugcloud
 title: Kubernetes on DC/OS
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Mesosphere provides an easy option to provision Kubernetes onto [DC/OS](https://mesosphere.com/product/), offering:
 
@@ -14,12 +14,12 @@ Mesosphere provides an easy option to provision Kubernetes onto [DC/OS](https://
 * Highly available and secure by default
 * Kubernetes running alongside fast-data platforms (e.g. Akka, Cassandra, Kafka, Spark)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Official Mesosphere Guide
 
 The canonical source of getting started on DC/OS is located in the [quickstart repo](https://github.com/mesosphere/dcos-kubernetes-quickstart).
 
-{{% /capture %}}
+

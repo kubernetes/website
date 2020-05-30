@@ -2,19 +2,19 @@
 reviewers:
 - erictune
 title: Pod Overview
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of `Pod`, the smallest deployable object in the Kubernetes object model.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Understanding Pods
 
 A *Pod* is the basic execution unit of a Kubernetes application--the smallest and simplest unit in the Kubernetes object model that you create or deploy. A Pod represents processes running on your {{< glossary_tooltip term_id="cluster" text="cluster" >}}.
@@ -111,12 +111,13 @@ For example, a Deployment controller ensures that the running Pods match the cur
 
 On Nodes, the {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} does not directly observe or manage any of the details around pod templates and updates; those details are abstracted away. That abstraction and separation of concerns simplifies system semantics, and makes it feasible to extend the cluster's behavior without changing existing code.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [Pods](/docs/concepts/workloads/pods/pod/)
 * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) explains common layouts for Pods with more than one container
 * Learn more about Pod behavior:
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

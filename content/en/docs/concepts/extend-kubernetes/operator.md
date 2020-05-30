@@ -1,20 +1,20 @@
 ---
 title: Operator pattern
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Operators are software extensions to Kubernetes that make use of [custom
 resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-control-plane).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -113,9 +113,10 @@ Operator.
 You also implement an Operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
@@ -129,4 +130,3 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * Read [CoreOS' original article](https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 
-{{% /capture %}}

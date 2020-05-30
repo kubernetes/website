@@ -5,19 +5,19 @@ reviewers:
 - lavalamp
 - liggitt
 title: Managing Service Accounts
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This is a Cluster Administrator guide to service accounts. It assumes knowledge of
 the [User Guide to Service Accounts](/docs/user-guide/service-accounts).
 
 Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## User accounts versus service accounts
 
 Kubernetes distinguishes between the concept of a user account and a service account
@@ -115,4 +115,4 @@ kubectl delete secret mysecretname
 
 Service Account Controller manages ServiceAccount inside namespaces, and ensures
 a ServiceAccount named "default" exists in every active namespace.
-{{% /capture %}}
+

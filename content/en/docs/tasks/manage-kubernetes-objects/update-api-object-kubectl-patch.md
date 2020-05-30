@@ -1,25 +1,26 @@
 ---
 title: Update API Objects in Place Using kubectl patch
 description: Use kubectl patch to update Kubernetes API objects in place. Do a strategic merge patch or a JSON merge patch.
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This task shows how to use `kubectl patch` to update an API object in place. The exercises
 in this task demonstrate a strategic merge patch and a JSON merge patch.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Use a strategic merge patch to update a Deployment
 
@@ -330,14 +331,15 @@ create the Deployment object. Other commands for updating API objects include
 and
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply).
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 
-{{% /capture %}}
+

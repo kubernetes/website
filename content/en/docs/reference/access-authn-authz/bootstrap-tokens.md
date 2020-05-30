@@ -2,11 +2,11 @@
 reviewers:
 - jbeda
 title: Authenticating with Bootstrap Tokens
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
@@ -16,9 +16,9 @@ to support [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), but can be u
 for users that wish to start clusters without `kubeadm`. It is also built to
 work, via RBAC policy, with the [Kubelet TLS
 Bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) system.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Bootstrap Tokens Overview
 
 Bootstrap Tokens are defined with a specific type
@@ -188,4 +188,4 @@ client relying on the signature to bootstrap TLS trust.
 
 Consult the [kubeadm implementation details](/docs/reference/setup-tools/kubeadm/implementation-details/)
 section for more information.
-{{% /capture %}}
+

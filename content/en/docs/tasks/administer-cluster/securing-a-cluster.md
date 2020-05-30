@@ -5,23 +5,24 @@ reviewers:
 - ericchiang
 - destijl
 title: Securing a Cluster
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Controlling access to the Kubernetes API
 
@@ -254,6 +255,6 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
 
-{{% /capture %}}
+
 
 

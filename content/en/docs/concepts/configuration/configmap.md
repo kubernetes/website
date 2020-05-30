@@ -1,10 +1,10 @@
 ---
 title: ConfigMaps
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
 
@@ -15,9 +15,9 @@ If the data you want to store are confidential, use a
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Motivation
 
 Use a ConfigMap for setting configuration data separately from application code.
@@ -243,12 +243,13 @@ Existing Pods maintain a mount point to the deleted ConfigMap - it is recommende
 these pods.
 {{< /note >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 
-{{% /capture %}}
+

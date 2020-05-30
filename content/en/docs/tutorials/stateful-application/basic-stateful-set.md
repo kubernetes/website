@@ -7,17 +7,18 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: StatefulSet Basics
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial provides an introduction to managing applications with
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/). It 
 demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Before you begin this tutorial, you should familiarize yourself with the 
 following Kubernetes concepts.
 
@@ -33,9 +34,10 @@ This tutorial assumes that your cluster is configured to dynamically provision
 PersistentVolumes. If your cluster is not configured to do so, you
 will have to manually provision two 1 GiB volumes prior to starting this 
 tutorial.
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 StatefulSets are intended to be used with stateful applications and distributed 
 systems. However, the administration of stateful applications and 
 distributed systems on Kubernetes is a broad, complex topic. In order to 
@@ -49,9 +51,9 @@ After this tutorial, you will be familiar with the following.
 * How to delete a StatefulSet
 * How to scale a StatefulSet
 * How to update a StatefulSet's Pods
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 ## Creating a StatefulSet 
 
 Begin by creating a StatefulSet using the example below. It is similar to the 
@@ -1035,13 +1037,14 @@ Service.
 ```shell
 kubectl delete svc nginx
 ```
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 You will need to delete the persistent storage media for the PersistentVolumes
 used in this tutorial. Follow the necessary steps, based on your environment, 
 storage configuration, and provisioning method, to ensure that all storage is 
 reclaimed.
-{{% /capture %}}
+
 
 

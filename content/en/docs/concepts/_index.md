@@ -1,17 +1,17 @@
 ---
 title: Concepts
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}, and helps you obtain a deeper understanding of how Kubernetes works.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -60,12 +60,13 @@ The Kubernetes master is responsible for maintaining the desired state for your 
 The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 If you would like to write a concept page, see
 [Using Page Templates](/docs/home/contribute/page-templates/)
 for information about the concept page type and the concept template.
 
-{{% /capture %}}
+

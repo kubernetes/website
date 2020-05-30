@@ -7,7 +7,7 @@ no_issue: true
 title: Getting started
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -18,7 +18,7 @@ card:
     title: Production environment  
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section covers different options to set up and run Kubernetes.
 
@@ -28,9 +28,9 @@ You can deploy a Kubernetes cluster on a local machine, cloud, on-prem datacente
 
 More simply, you can create a Kubernetes cluster in learning and production environments.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Learning environment
 
@@ -51,4 +51,4 @@ When evaluating a solution for a production environment, consider which aspects 
 
 [Kubernetes Partners](https://kubernetes.io/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
 
-{{% /capture %}}
+

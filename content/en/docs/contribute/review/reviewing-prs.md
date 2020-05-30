@@ -1,11 +1,11 @@
 ---
 title: Reviewing pull requests
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Anyone can review a documentation pull request. Visit the [pull requests](https://github.com/kubernetes/website/pulls) section in the Kubernetes website repository to see open pull requests.
 
@@ -19,9 +19,9 @@ Before reviewing, it's a good idea to:
 [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
 - Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Before you begin
 
@@ -95,4 +95,3 @@ When reviewing, use the following as a starting point.
 
 For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.  This lets the author know the issue is non-critical.
 
-{{% /capture %}}

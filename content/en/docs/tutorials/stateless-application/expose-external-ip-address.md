@@ -1,18 +1,19 @@
 ---
 title: Exposing an External IP Address to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to create a Kubernetes Service object that exposes an
 external IP address.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  * Install [kubectl](/docs/tasks/tools/install-kubectl/).
 
@@ -24,19 +25,20 @@ external IP address.
  * Configure `kubectl` to communicate with your Kubernetes API server. For
  instructions, see the documentation for your cloud provider.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Run five instances of a Hello World application.
 * Create a Service object that exposes an external IP address.
 * Use the Service object to access the running application.
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Creating a service for an application running in five pods
 
@@ -148,10 +150,11 @@ The preceding command creates a
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 To delete the Service, enter this command:
 
@@ -162,11 +165,12 @@ the Hello World application, enter this command:
 
     kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-{{% /capture %}}
+

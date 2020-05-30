@@ -2,25 +2,26 @@
 title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Listing all Sysctl Parameters
 
@@ -140,9 +141,9 @@ spec:
       value: "65536"
   ...
 ```
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 {{< warning >}}
 Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
@@ -210,4 +211,4 @@ spec:
  ...
 ```
 
-{{% /capture %}}
+

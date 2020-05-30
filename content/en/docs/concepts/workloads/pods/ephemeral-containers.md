@@ -3,11 +3,11 @@ reviewers:
 - verb
 - yujuhong
 title: Ephemeral Containers
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
@@ -23,9 +23,9 @@ clusters. In accordance with the [Kubernetes Deprecation Policy](
 significantly in the future or be removed entirely.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Understanding ephemeral containers
 
@@ -192,4 +192,4 @@ example:
 kubectl attach -it example-pod -c debugger
 ```
 
-{{% /capture %}}
+

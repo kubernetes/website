@@ -1,19 +1,20 @@
 ---
 title: Writing a new topic
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to create a new topic for the Kubernetes docs.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Create a fork of the Kubernetes documentation repository as described in
 [Open a PR](/docs/new-content/open-a-pr/).
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Choosing a page type
 
@@ -159,9 +160,10 @@ For an example of a topic that uses this technique, see
 Put image files in the `/images` directory. The preferred
 image format is SVG.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [using page templates](/docs/contribute/page-templates/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
-{{% /capture %}}
+

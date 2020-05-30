@@ -1,10 +1,10 @@
 ---
 title: API Priority and Fairness
-content_template: templates/concept
+content_type: concept
 min-kubernetes-server-version: v1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
 
@@ -33,9 +33,9 @@ the `--max-requests-inflight` flag without the API Priority and
 Fairness feature enabled.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Enabling API Priority and Fairness
 
@@ -366,13 +366,13 @@ poorly-behaved workloads that may be harming system health.
   request and the PriorityLevel to which it was assigned.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 
-{{% /capture %}}

@@ -1,23 +1,24 @@
 ---
 title: Managing Kubernetes Objects Using Imperative Commands
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes objects can quickly be created, updated, and deleted directly using
 imperative commands built into the `kubectl` command-line tool. This document
 explains how those commands are organized and how to use them to manage live objects.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trade-offs
 
@@ -159,13 +160,14 @@ kubectl create --edit -f /tmp/srv.yaml
 1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
 1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

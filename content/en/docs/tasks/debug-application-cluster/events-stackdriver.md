@@ -2,11 +2,11 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Events in Stackdriver
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes events are objects that provide insight into what is happening
 inside a cluster, such as what decisions were made by scheduler or why some
@@ -34,10 +34,10 @@ of the potential inaccuracy.
 {{< /note >}}
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Deployment
 
@@ -91,4 +91,4 @@ jsonPayload.involvedObject.name:"nginx-deployment"
 
 {{< figure src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500" >}}
 
-{{% /capture %}}
+

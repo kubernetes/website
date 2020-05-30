@@ -5,11 +5,11 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes is highly configurable and extensible. As a result,
 there is rarely a need to fork or submit patches to the Kubernetes
@@ -22,10 +22,10 @@ their work environment. Developers who are prospective {{< glossary_tooltip text
 useful as an introduction to what extension points and patterns
 exist, and their trade-offs and limitations.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -194,10 +194,11 @@ The scheduler also supports a
 that permits a webhook backend (scheduler extension) to filter and prioritize
 the nodes chosen for a pod.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
 * Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
@@ -207,4 +208,4 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 
-{{% /capture %}}
+

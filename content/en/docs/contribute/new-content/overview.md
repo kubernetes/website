@@ -1,19 +1,19 @@
 ---
 title: Contributing new content overview
 linktitle: Overview
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section contains information you should know before contributing new content.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Contributing basics
 
@@ -58,4 +58,4 @@ Limit pull requests to one language per PR. If you need to make an identical cha
 
 The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
 
-{{% /capture %}}
+

@@ -1,11 +1,11 @@
 ---
 title: Ingress Controllers
 reviewers:
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In order for the Ingress resource to work, the cluster must have an ingress controller running. 
 
@@ -16,9 +16,9 @@ that best fits your cluster.
 Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
   [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
   
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Additional controllers
 
@@ -64,11 +64,12 @@ controllers operate slightly differently.
 Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 
-{{% /capture %}}
+

@@ -1,23 +1,24 @@
 ---
 title: Set up Konnectivity service
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The Konnectivity service provides TCP level proxy for the Master → Cluster
 communication.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configure the Konnectivity service
 
@@ -49,4 +50,3 @@ Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 
 {{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
 
-{{% /capture %}}

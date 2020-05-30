@@ -5,16 +5,17 @@ reviewers:
 - mikedanese
 - thockin
 title: Running Kubernetes on Google Compute Engine
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The example below creates a Kubernetes cluster with 3 worker node Virtual Machines and a master Virtual Machine (i.e. 4 VMs in your cluster). This cluster is set up and controlled from your workstation (or wherever you find convenient).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 If you want a simplified getting started experience and GUI for managing clusters, please consider trying [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) for hosted cluster installation and management.
 
@@ -36,9 +37,9 @@ If you want to use custom binaries or pure open source Kubernetes, please contin
 1. Make sure you can start up a GCE VM from the command line.  At least make sure you can do the [Create an instance](https://cloud.google.com/compute/docs/instances/#startinstancegcloud) part of the GCE Quickstart.
 1. Make sure you can SSH into the VM without interactive prompts.  See the [Log in to the instance](https://cloud.google.com/compute/docs/instances/#sshing) part of the GCE Quickstart.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Starting a cluster
 
@@ -225,4 +226,4 @@ GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
 
-{{% /capture %}}
+

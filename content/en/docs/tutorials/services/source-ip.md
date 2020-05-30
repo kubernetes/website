@@ -1,19 +1,20 @@
 ---
 title: Using Source IP
-content_template: templates/tutorial
+content_type: tutorial
 min-kubernetes-server-version: v1.5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Applications running in a Kubernetes cluster find and communicate with each
 other, and the outside world, through the Service abstraction. This document
 explains what happens to the source IP of packets sent to different types
 of Services, and how you can toggle this behavior according to your needs.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 ### Terminology
 
@@ -54,18 +55,19 @@ The output is:
 deployment.apps/source-ip-app created
 ```
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Expose a simple application through various types of Services
 * Understand how each Service type handles source IP NAT
 * Understand the tradeoffs involved in preserving source IP
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Source IP for Services with `Type=ClusterIP`
 
@@ -423,9 +425,10 @@ Load balancers in the second category can leverage the feature described above
 by creating an HTTP health check pointing at the port stored in
 the `service.spec.healthCheckNodePort` field on the Service.
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 Delete the Services:
 
@@ -439,10 +442,11 @@ Delete the Deployment, ReplicaSet and Pod:
 kubectl delete deployment source-ip-app
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
 * Read how to [Create an External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
-{{% /capture %}}
+
 

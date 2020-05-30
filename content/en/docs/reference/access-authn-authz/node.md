@@ -5,15 +5,15 @@ reviewers:
 - liggitt
 - ericchiang
 title: Using Node Authorization
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Node authorization is a special-purpose authorization mode that specifically authorizes API requests made by kubelets.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Overview
 
 The Node authorizer allows a kubelet to perform API operations. This includes:
@@ -96,4 +96,4 @@ In 1.8, the binding will not be created at all.
 
 When using RBAC, the `system:node` cluster role will continue to be created,
 for compatibility with deployment methods that bind other users or groups to that role.
-{{% /capture %}}
+

@@ -8,12 +8,12 @@ feature:
   description: >
     Routing of service traffic based upon cluster topology.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
@@ -22,9 +22,9 @@ topology of the cluster. For example, a service can specify that traffic be
 preferentially routed to endpoints that are on the same Node as the client, or
 in the same availability zone.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -192,11 +192,12 @@ spec:
 ```
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

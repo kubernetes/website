@@ -2,14 +2,14 @@
 title: kubectl Usage Conventions
 reviewers:
 - janetkuo
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Recommended usage conventions for `kubectl`.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Using `kubectl` in Reusable Scripts
 
@@ -59,4 +59,4 @@ You can generate the following resources with a kubectl command, `kubectl create
 
 * You can use `kubectl apply` to create or update resources. For more information about using kubectl apply to update resources, see [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
-{{% /capture %}}
+

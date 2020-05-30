@@ -2,11 +2,11 @@
 reviewers:
 - brendandburns
 - davidopp
-content_template: templates/concept
+content_type: concept
 title: Troubleshooting
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
@@ -17,10 +17,10 @@ two sections:
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Getting help
 
@@ -104,4 +104,4 @@ problem, such as:
 * Cloud provider, OS distro, network configuration, and Docker version
 * Steps to reproduce the problem
 
-{{% /capture %}}
+

@@ -4,12 +4,12 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular 
 {{< glossary_tooltip text="Node(s)" term_id="node" >}}, or to prefer to run on particular nodes.
@@ -21,9 +21,9 @@ but there are some circumstances where you may want more control on a node where
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## nodeSelector
 
@@ -388,9 +388,10 @@ spec:
 
 The above pod will run on the node kube-01.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
 
@@ -402,4 +403,4 @@ Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-lo
 The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
 resource allocation decisions. 
 
-{{% /capture %}}
+

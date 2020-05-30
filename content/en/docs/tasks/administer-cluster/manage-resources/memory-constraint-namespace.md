@@ -1,11 +1,11 @@
 ---
 title: Configure Minimum and Maximum Memory Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to set minimum and maximum values for memory used by Containers
 running in a namespace. You specify minimum and maximum memory values in a
@@ -13,19 +13,20 @@ running in a namespace. You specify minimum and maximum memory values in a
 object. If a Pod does not meet the constraints imposed by the LimitRange,
 it cannot be created in the namespace.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Each node in your cluster must have at least 1 GiB of memory.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -239,9 +240,10 @@ Delete your namespace:
 kubectl delete namespace constraints-mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For cluster administrators
 
@@ -265,7 +267,7 @@ kubectl delete namespace constraints-mem-example
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+
 
 
 

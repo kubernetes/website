@@ -3,27 +3,28 @@ reviewers:
 - bprashanth
 - davidopp
 title: Configure Your Cloud Provider's Firewalls
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
 well as any provider specific details that may be necessary.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Restrict Access For LoadBalancer Service
 
@@ -106,4 +107,4 @@ the wilds of the internet.
 
 {{< /note >}}
 
-{{% /capture %}}
+

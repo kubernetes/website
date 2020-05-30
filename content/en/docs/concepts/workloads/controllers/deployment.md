@@ -7,11 +7,11 @@ feature:
   description: >
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
@@ -22,10 +22,10 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Use Case
 
@@ -1166,4 +1166,4 @@ a paused Deployment and one that is not paused, is that any changes into the Pod
 Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused by default when
 it is created.
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: Contributing to the Upstream Kubernetes Code
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to contribute to the upstream `kubernetes/kubernetes` project.
 You can fix bugs found in the Kubernetes API documentation or the content of
@@ -16,9 +16,10 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [Generating Reference Documentation for the Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - You need to have these tools installed:
 
@@ -35,9 +36,9 @@ API or the `kube-*` components from the upstream code, see the following instruc
   For more information, see [Creating a Pull Request](https://help.github.com/articles/creating-a-pull-request/)
   and [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## The big picture
 
@@ -230,12 +231,13 @@ the API reference documentation.
 You are now ready to follow the [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/) guide to generate the
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 
-{{% /capture %}}
+
