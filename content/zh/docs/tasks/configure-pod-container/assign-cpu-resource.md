@@ -61,7 +61,7 @@ API, `metrics.k8s.io`) is running, type the following command:
 查看是 metrics-server（或者其他资源度量 API 服务提供者，`metrics.k8s.io` ）是否正在运行，请键入以下命令：
 
 ```shell
-kubectl get  API services
+kubectl get apiservices
 ```
 <!-- 
 If the resource metrics  API  is available, the output will include a
@@ -92,7 +92,7 @@ create in this exercise are isolated from the rest of your cluster.
 创建一个命名空间 {{< glossary_tooltip term_id="namespace" >}}，以便在本练习中创建的资源与集群的其余部分资源隔离。
 
 ```shell
-kubectl create namespace CPU -example
+kubectl create namespace cpu-example
 ```
 
 <!-- 
@@ -159,9 +159,9 @@ and a CPU limit of 1 CPU.
 ```yaml
 resources:
   limits:
-   CPU : "1"
+    cpu: "1"
   requests:
-   CPU : 500m
+    cpu: 500m
 ```
 
 <!-- 
@@ -179,8 +179,8 @@ just a bit less than the limit of 1 CPU specified in the Pod configuration.
 -->
 此示例的输出，显示 Pod 使用的是974 milliCPU，即仅略低于 Pod 配置中指定的 1 个 CPU 的限制。
 ```
-NAME                       CPU (cores)   MEMORY(bytes)
- CPU -demo                    974m         <something>
+NAME                        CPU(cores)   MEMORY(bytes)
+cpu-demo                    974m         <something>
 ```
 <!-- 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 CPUs, but the Container is only being allowed to use about 1 CPU. The container's CPU use is being throttled, because the container is attempting to use more CPU resources than its limit.

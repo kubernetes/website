@@ -248,14 +248,14 @@ spec:
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 The CSI Migration feature for Cinder, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
 Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-Alpha features must be enabled.
+Beta features must be enabled.
 
 ### configMap {#configmap}
 
@@ -304,6 +304,11 @@ You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-
 A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
 receive ConfigMap updates.
 {{< /note >}}
+
+{{< note >}}
+Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
+{{< /note >}}
+
 
 ### downwardAPI {#downwardapi}
 

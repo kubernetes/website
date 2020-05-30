@@ -303,10 +303,10 @@ Below you can find installation instructions for some popular Pod network plugin
 {{% tab name="Calico" %}}
 [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer. Calico works on several architectures, including `amd64`, `arm64`, and `ppc64le`.
 
-By default, Calico uses `192.168.0.0/16` as the Pod network CIDR, though this can be configured in the calico.yaml file. For Calico to work correctly, you need to pass this same CIDR to the `kubeadm init` command using the `--pod-network-cidr=192.168.0.0/16` flag or via kubeadm's configuration.
+Calico will automatically detect which IP address range to use for pod IPs based on the value provided via the `--pod-network-cidr` flag or via kubeadm's configuration.
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 ```
 
 {{% /tab %}}

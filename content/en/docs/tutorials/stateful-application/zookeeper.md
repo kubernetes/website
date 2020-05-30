@@ -723,7 +723,6 @@ unhealthy. You should use liveness probes to notify Kubernetes
 that your application's processes are unhealthy and it should restart them.
 
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
-``
 
 ```yaml
  livenessProbe:

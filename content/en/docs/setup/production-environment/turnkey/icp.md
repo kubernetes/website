@@ -66,4 +66,4 @@ You can install IBM Cloud Private on VMware with either Ubuntu or RHEL images. F
 
 The IBM Cloud Private Hosted service automatically deploys IBM Cloud Private Hosted on your VMware vCenter Server instances. This service brings the power of microservices and containers to your VMware environment on IBM Cloud. With this service, you can extend the same familiar VMware and IBM Cloud Private operational model and tools from on-premises into the IBM Cloud.
 
-For more information, see [IBM Cloud Private Hosted service](https://cloud.ibm.com/docs/services/vmwaresolutions/vmonic?topic=vmware-solutions-prod_overview#ibm-cloud-private-hosted).
+For more information, see [IBM Cloud Private Hosted service](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-icp_overview).

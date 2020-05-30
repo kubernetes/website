@@ -69,7 +69,7 @@ parameters:
 Volume snapshot classes have a driver that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
 -->
-### 驱动程序（#driver）
+### 驱动程序 {#driver}
 
 卷快照类有一个驱动程序，用于确定配置 VolumeSnapshot 的 CSI 卷插件。 必须指定此字段。
 

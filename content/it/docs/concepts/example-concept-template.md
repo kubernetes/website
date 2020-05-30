@@ -16,12 +16,12 @@ Questa pagina spiega ...
 
 {{% capture body %}}
 
-## Understanding ...
+## Comprendendo ...
 
 Kubernetes fornisce ...
 
 
-## Using ...
+## Usando ...
 
 Usare
 
@@ -29,7 +29,7 @@ Usare
 
 {{% capture whatsnext %}}
 
-**[Optional Section]**
+**[Sezione opzionale]**
 
 * Ulteriori informazioni su [Scrivere un nuovo argomento](/docs/home/contribuisci/scrivi-nuovo-argomento/).
 * Vedi [Uso dei modelli di pagina - Modello di concetto](/docs/home/contribuis/page-templates/#concept_template) su come utilizzare questo modello.

@@ -53,12 +53,13 @@ In this example:
   In this case, you simply select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
-    {{< note >}}
-    The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map
-    is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In",
-    and the values array contains only "value".
-    All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
-    {{< /note >}}
+
+  {{< note >}}
+  The `.spec.selector.matchLabels` field is a map of {key,value} pairs.
+  A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+  whose key field is "key" the operator is "In", and the values array contains only "value".
+  All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
+  {{< /note >}}
 
 * The `template` field contains the following sub-fields:
   * The Pods are labeled `app: nginx`using the `.metadata.labels` field.
@@ -67,84 +68,92 @@ In this example:
   [Docker Hub](https://hub.docker.com/) image at version 1.14.2.
   * Create one container and name it `nginx` using the `.spec.template.spec.containers[0].name` field.
 
-  Follow the steps given below to create the above Deployment:
+Before you begin, make sure your Kubernetes cluster is up and running.
+Follow the steps given below to create the above Deployment:
 
-  Before you begin, make sure your Kubernetes cluster is up and running.
 
-  1. Create the Deployment by running the following command:
+1. Create the Deployment by running the following command:
 
-      {{< note >}}
-      You may specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. It is useful for future introspection.
-      For example, to see the commands executed in each Deployment revision.
-      {{< /note >}}
-
-    ```shell
-    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
-    ```
-
-  2. Run `kubectl get deployments` to check if the Deployment was created. If the Deployment is still being created, the output is similar to the following:
-    ```shell
-    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   0/3     0            0           1s
-    ```
-    When you inspect the Deployments in your cluster, the following fields are displayed:
-
-      * `NAME` lists the names of the Deployments in the namespace.
-      * `READY` displays how many replicas of the application are available to your users. It follows the pattern ready/desired.
-      * `UP-TO-DATE` displays the number of replicas that have been updated to achieve the desired state.
-      * `AVAILABLE` displays how many replicas of the application are available to your users.
-      * `AGE` displays the amount of time that the application has been running.
-
-    Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
-
-  3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`. The output is similar to this:
-    ```shell
-    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment.apps/nginx-deployment successfully rolled out
-    ```
-
-  4. Run the `kubectl get deployments` again a few seconds later. The output is similar to this:
-    ```shell
-    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3/3     3            3           18s
-    ```
-    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
-
-  5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
-    ```shell
-    NAME                          DESIRED   CURRENT   READY   AGE
-    nginx-deployment-75675f5897   3         3         3       18s
-    ```
-    ReplicaSet output shows the following fields:
-    
-      * `NAME` lists the names of the ReplicaSets in the namespace.
-      * `DESIRED` displays the desired number of _replicas_ of the application, which you define when you create the Deployment. This is the _desired state_.
-      * `CURRENT` displays how many replicas are currently running.
-      * `READY` displays how many replicas of the application are available to your users.
-      * `AGE` displays the amount of time that the application has been running.
-      
-    Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. The random string is
-    	randomly generated and uses the `pod-template-hash` as a seed.
-
-  6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`. The following output is returned:
-    ```shell
-    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    ```
-    The created ReplicaSet ensures that there are three `nginx` Pods.
+   ```shell
+   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+   ```
 
   {{< note >}}
-  You must specify an appropriate selector and Pod template labels in a Deployment (in this case,
-  `app: nginx`). Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
+  You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`.
+  The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
   {{< /note >}}
+
+
+2. Run `kubectl get deployments` to check if the Deployment was created.
+
+   If the Deployment is still being created, the output is similar to the following:
+   ```shell
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   0/3     0            0           1s
+   ```
+   When you inspect the Deployments in your cluster, the following fields are displayed:
+   * `NAME` lists the names of the Deployments in the namespace.
+   * `READY` displays how many replicas of the application are available to your users. It follows the pattern ready/desired.
+   * `UP-TO-DATE` displays the number of replicas that have been updated to achieve the desired state.
+   * `AVAILABLE` displays how many replicas of the application are available to your users.
+   * `AGE` displays the amount of time that the application has been running.
+
+   Notice how the number of desired replicas is 3 according to `.spec.replicas` field.
+
+3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`.
+
+   The output is similar to:
+   ```shell
+   Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+   deployment.apps/nginx-deployment successfully rolled out
+   ```
+
+4. Run the `kubectl get deployments` again a few seconds later.
+   The output is similar to this:
+   ```shell
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   3/3     3            3           18s
+   ```
+   Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
+
+5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
+   ```shell
+   NAME                          DESIRED   CURRENT   READY   AGE
+   nginx-deployment-75675f5897   3         3         3       18s
+   ```
+   ReplicaSet output shows the following fields:
+
+   * `NAME` lists the names of the ReplicaSets in the namespace.
+   * `DESIRED` displays the desired number of _replicas_ of the application, which you define when you create the Deployment. This is the _desired state_.
+   * `CURRENT` displays how many replicas are currently running.
+   * `READY` displays how many replicas of the application are available to your users.
+   * `AGE` displays the amount of time that the application has been running.
+     
+   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`.
+   The random string is randomly generated and uses the `pod-template-hash` as a seed.
+
+6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
+   The output is similar to:
+   ```shell
+   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   ```
+   The created ReplicaSet ensures that there are three `nginx` Pods.
+
+{{< note >}}
+You must specify an appropriate selector and Pod template labels in a Deployment
+(in this case, `app: nginx`).
+
+Do not overlap labels or selectors with other controllers (including other Deployments and StatefulSets). Kubernetes doesn't stop you from overlapping, and if multiple controllers have overlapping selectors those controllers might conflict and behave unexpectedly.
+{{< /note >}}
 
 ### Pod-template-hash label
 
-{{< note >}}
+{{< caution >}}
 Do not change this label.
-{{< /note >}}
+{{< /caution >}}
 
 The `pod-template-hash` label is added by the Deployment controller to every ReplicaSet that a Deployment creates or adopts.
 
@@ -409,9 +418,7 @@ rolled back.
     ```
 
     {{< note >}}
-    The Deployment controller stops the bad rollout automatically, and stops scaling up the new
-    ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified.
-    Kubernetes by default sets the value to 25%.
+    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. Kubernetes by default sets the value to 25%.
     {{< /note >}}
 
 * Get the description of the Deployment:
@@ -901,9 +908,9 @@ example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
-If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
-safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the
-deadline.
+If you pause a Deployment, Kubernetes does not check progress against your specified deadline.
+You can safely pause a Deployment in the middle of a rollout and resume without triggering
+the condition for exceeding the deadline.
 {{< /note >}}
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or
@@ -1080,6 +1087,15 @@ the default value.
 #### Recreate Deployment
 
 All existing Pods are killed before new ones are created when `.spec.strategy.type==Recreate`.
+
+{{< note >}}
+This will only guarantee Pod termination previous to creation for upgrades. If you upgrade a Deployment, all Pods 
+of the old revision will be terminated immediately. Successful removal is awaited before any Pod of the new 
+revision is created. If you manually delete a Pod, the lifecycle is controlled by the ReplicaSet and the 
+replacement will be created immediately (even if the old Pod is still in a Terminating state). If you need an 
+"at most" guarantee for your Pods, you should consider using a 
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+{{< /note >}}
 
 #### Rolling Update Deployment
 

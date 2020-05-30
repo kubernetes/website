@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Nodi
 content_template: templates/concept
 weight: 10

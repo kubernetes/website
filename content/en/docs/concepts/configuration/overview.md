@@ -59,8 +59,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use [headless Services](/docs/concepts/services-networking/service/#headless-
-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
+- Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
 
 ## Using Labels
 
@@ -78,7 +77,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
 
-- `imagePullPolicy: Always`: the image is pulled every time the pod is started.
+- `imagePullPolicy: Always`: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image digest. If the kubelet has a container image with that exact digest cached locally, the kubelet uses its cached image; otherwise, the kubelet downloads (pulls) the image with the resolved digest, and uses that image to launch the container.
 
 - `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
 
