@@ -470,7 +470,6 @@
 /docs/setup/independent/kubelet-integration/     /docs/setup/production-environment/tools/kubeadm/kubelet-integration/   301
 /docs/setup/custom-cloud/kops/     /docs/setup/production-environment/tools/kops/   301
 /docs/setup/custom-cloud/kubespray/     /docs/setup/production-environment/tools/kubespray/   301
-/docs/setup/on-premises-metal/krib/     /docs/setup/production-environment/tools/krib/   301
 /docs/setup/turnkey/aws/     /docs/setup/production-environment/turnkey/aws/   301
 /docs/setup/turnkey/alibaba-cloud/     /docs/setup/production-environment/turnkey/alibaba-cloud/   301
 /docs/setup/turnkey/azure/     /docs/setup/production-environment/turnkey/azure/   301
