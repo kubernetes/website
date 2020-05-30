@@ -1,16 +1,16 @@
 ---
 title: Init Container
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyediakan ikhtisar untuk Init Container, yaitu Container khusus yang dijalankan sebelum Container aplikasi dan berisi skrip peralatan atau _setup_ yang tidak tersedia di dalam _image_ dari Container aplikasi.
-{{% /capture %}}
+
 
 Fitur ini telah keluar dari trek Beta sejak versi 1.6. Init Container dapat dispesifikasikan di dalam PodSpec bersama dengan _array_ `containers` aplikasi. Nilai anotasi _beta_ akan tetap diperhitungkan dan akan menimpa nilai pada PodSpec, tetapi telah ditandai sebagai kedaluarsa pada versi 1.6 dan 1.7. Pada versi 1.8, anotasi _beta_ tidak didukung lagi dan harus diganti menjadi nilai pada PodSpec.
 
-{{% capture body %}}
+<!-- body -->
 
 ## Memahami Init Container
 
@@ -271,11 +271,12 @@ Sebuah klaster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container mel
 
 Pada Apiserver dan Kubelet versi 1.8.0 ke atas, dukungan untuk anotasi _alpha_ dan _beta_ telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluwarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Membuat Pod yang memiliki Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 
-{{% /capture %}}
+

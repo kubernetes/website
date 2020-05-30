@@ -1,12 +1,12 @@
 ---
 title: Menambahkan Entry pada /etc/hosts Pod dengan HostAliases
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Menambahkan entri pada berkas /etc/hosts Pod akan melakukan _override_
 resolusi _hostname_ pada level Pod ketika DNS dan opsi lainnya tidak tersedia.
 Pada versi 1.7, pengguna dapat menambahkan entri yang diinginkan beserta _field_ HostAliases
@@ -14,9 +14,9 @@ pada PodSpec.
 
 Modifikasi yang dilakukan tanpa menggunakan HostAliases tidaklah disarankan
 karena berkas ini diatur oleh Kubelet dan dapat di-_override_ ketika Pod dibuat/di-_restart_.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Isi Default pada Berkas `Hosts`
 
@@ -127,5 +127,5 @@ semua hal yang didefinisikan oleh pengguna akan ditimpa (_overwrite_) ketika ber
 atau Pod di-_schedule_ ulang. Dengan demikian tidak dianjurkan untuk
 memodifikasi berkas tersebut secara langsung.
 
-{{% /capture %}}
+
 

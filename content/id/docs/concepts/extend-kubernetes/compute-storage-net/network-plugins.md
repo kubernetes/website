@@ -1,11 +1,11 @@
 ---
 title: Plugin Jaringan
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 {{< warning >}}Fitur-fitur Alpha berubah dengan cepat. {{< /warning >}}
@@ -15,9 +15,9 @@ _Plugin_ jaringan di Kubernetes hadir dalam beberapa varian:
 * _Plugin_ CNI : mengikuti spesifikasi appc / CNI, yang dirancang untuk interoperabilitas.
 * _Plugin_ Kubenet : mengimplementasi `cbr0` sederhana menggunakan _plugin_ `bridge` dan `host-local` CNI
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Instalasi
 
@@ -151,8 +151,9 @@ Opsi ini disediakan untuk _plugin_ jaringan; Saat ini **hanya kubenet yang mendu
 * `--network-plugin=kubenet` menentukan bahwa kita menggunakan _plugin_ jaringan` kubenet` dengan `bridge` CNI dan _plugin-plugin_ `host-local` yang terletak di `/opt/cni/bin` atau `cni-bin-dir`.
 * `--network-plugin-mtu=9001` menentukan MTU yang akan digunakan, saat ini hanya digunakan oleh _plugin_ jaringan `kubenet`.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

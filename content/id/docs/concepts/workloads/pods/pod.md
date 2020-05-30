@@ -1,18 +1,18 @@
 ---
 reviewers:
 title: Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Pod adalah unit komputasi terkecil yang bisa di-_deploy_ dan dibuat serta dikelola dalam Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Apa Itu Pod?
 
@@ -260,4 +260,4 @@ pengaturan ini menjadi relevan.
 Pod adalah sumber daya tingkat tinggi dalam Kubernetes REST API.
 Definisi [Objek Pod API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) menjelaskan mengenai objek secara lengkap.
 
-{{% /capture %}}
+

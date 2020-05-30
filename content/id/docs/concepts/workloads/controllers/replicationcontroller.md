@@ -6,11 +6,11 @@ feature:
   description: >
     Mengulang dan menjalankan kembali kontainer yang gagal, mengganti dan menjadwalkan ulang ketika ada Node yang mati, mematikan kontainer yang tidak memberikan respon terhadap health-check yang telah didefinisikan, dan tidak menunjukkannya ke klien sampai siap untuk digunakan.
     
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) yang mengonfigurasi [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) sekarang menjadi cara yang direkomendasikan untuk melakukan replikasi.
@@ -18,10 +18,10 @@ weight: 20
 
 Sebuah _ReplicationController_ memastikan bahwa terdapat sejumlah Pod yang sedang berjalan dalam suatu waktu tertentu. Dengan kata lain, ReplicationController memastikan bahwa sebuah Pod atau sebuah kumpulan Pod yang homogen selalu berjalan dan tersedia. 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Bagaimana ReplicationController Bekerja
 
@@ -240,4 +240,4 @@ Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) sebagai g
 
 Baca [Menjalankan Kontroler Replikasi AP _Stateless_](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
-{{% /capture %}}
+

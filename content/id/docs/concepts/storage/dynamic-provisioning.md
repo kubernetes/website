@@ -1,10 +1,10 @@
 ---
 title: Penyediaan Volume Dinamis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Penyediaan volume dinamis memungkinkan volume penyimpanan untuk dibuat sesuai permintaan (_on-demand_).
 Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin klaster secara manual harus
@@ -13,10 +13,10 @@ sebagai representasi di Kubernetes. Fitur penyediaan dinamis menghilangkan kebut
 penyimpanan sebelumnya (_pre-provision_). Dengan demikian, penyimpanan akan tersedia secara otomatis
 ketika diminta oleh pengguna.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Latar Belakang
 
@@ -125,4 +125,4 @@ pada sebuah Region. Penyimpanan dengan *backend* Zona-Tunggal seharusnya disedia
 Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur
 [Mode Volume Binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
-{{% /capture %}}
+

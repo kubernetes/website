@@ -1,11 +1,11 @@
 ---
 title: Menghubungkan aplikasi dengan Service
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## Model Kubernetes untuk menghubungkan kontainer
 
@@ -17,9 +17,9 @@ Akan sulit untuk mengkoordinasikan *port* yang digunakan oleh banyak pengembang.
 
 Panduan ini menggunakan server *nginx* sederhana untuk mendemonstrasikan konsepnya. Konsep yang sama juga ditulis lebih lengkap di [Aplikasi Jenkins CI](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengekspos Pod ke dalam klaster
 
@@ -357,10 +357,11 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak klaster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: Secret
-content_template: templates/concept
+content_type: concept
 feature:
   title: Secret dan manajemen konfigurasi
   description: >
@@ -9,16 +9,16 @@ weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Objek `secret` pada Kubernetes mengizinkan kamu menyimpan dan mengatur informasi yang sifatnya sensitif, seperti
 _password_, token OAuth, dan ssh _keys_. Menyimpan informasi yang sifatnya sensitif ini ke dalam `secret`
 cenderung lebih aman dan fleksible jika dibandingkan dengan menyimpan informasi tersebut secara apa adanya pada definisi {{< glossary_tooltip term_id="pod" >}} atau di dalam {{< glossary_tooltip text="container image" term_id="image" >}}.
 Silahkan lihat [Dokumen desain Secret](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) untuk informasi yang sifatnya mendetail.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar Secret
 
@@ -1055,6 +1055,7 @@ dalam keadaan tidak terenkripsi.
    dengan cara meniru kubelet. Meskipun begitu, terdapat fitur yang direncanakan pada rilis selanjutnya yang memungkinkan pengiriman secret hanya dapat 
    mengirimkan secret pada node yang membutuhkan secret tersebut untuk membatasi adanya eksploitasi akses _root_ pada node ini.
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+

@@ -1,20 +1,20 @@
 ---
 title: Siklus Hidup Pod
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< comment >}}Pembaruan: 4/14/2015{{< /comment >}}
 {{< comment >}}Diubah dan dipindahkan ke bagian konsep: 2/2/17{{< /comment >}}
 
 Halaman ini menjelaskan siklus hidup sebuah Pod
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Fase Pod
 
@@ -334,10 +334,11 @@ spec:
 	* Node pengontrol mengisi nilai `phase` Pod menjadi Failed.
 	* Jika berjalan menggunakan pengontrol, maka Pod akan dibuat ulang di tempat lain.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Dapatkan pengalaman langsung mengenai
   [penambahan _handlers_ pada kontainer _lifecycle events_](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
@@ -347,7 +348,7 @@ spec:
 
 * Pelajari lebih lanjut mengenai [_lifecycle hooks_ pada kontainer](/docs/concepts/containers/container-lifecycle-hooks/).
 
-{{% /capture %}}
+
 
 
 

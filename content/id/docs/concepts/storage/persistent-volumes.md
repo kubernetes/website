@@ -5,18 +5,18 @@ feature:
   description: >
     Secara otomatis memasang sistem penyimpanan pilihanmu, baik dari penyimpanan lokal, penyedia layanan _cloud_ seperti <a href="https://cloud.google.com/storage/">GCP</a> atau <a href="https://aws.amazon.com/products/storage/">AWS</a>, maupun sebuah sistem penyimpanan jaringan seperti NFS, iSCSI, Gluster, Ceph, Cinder, atau Flocker.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dokumen ini menjelaskan kondisi terkini dari `PersistentVolumes` pada Kubernetes. Disarankan telah memiliki familiaritas dengan [volume](/docs/concepts/storage/volumes/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -698,4 +698,4 @@ dan membutuhkan _persistent storage_, kami merekomendasikan agar kamu menggunaka
   atau klaster tidak memiliki sistem penyimpanan (di mana penggun tidak dapat membuat
   PVC yang membutuhkan _config_).
 
-{{% /capture %}}
+

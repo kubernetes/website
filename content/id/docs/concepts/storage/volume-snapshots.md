@@ -1,18 +1,18 @@
 ---
 title: VolumeSnapshot
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 Laman ini menjelaskan tentang fitur VolumeSnapshot pada Kubernetes. Sebelum lanjut membaca, sangat disarankan untuk memahami [PersistentVolume](/docs/concepts/storage/persistent-volumes/) terlebih dahulu.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -129,4 +129,4 @@ menggunakan _field_ `dataSource` pada objek PersistentVolumeClaim.
 
 Untuk detailnya bisa dilihat pada [VolumeSnapshot and Mengembalikan Volume dari _Snapshot_](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
-{{% /capture %}}
+

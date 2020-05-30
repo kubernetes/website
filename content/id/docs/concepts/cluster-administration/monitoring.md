@@ -1,12 +1,12 @@
 ---
 title: Metrik-Metrik untuk Control Plane Kubernetes 
-content_template: templates/concept
+content_type: concept
 weight: 60
 aliases:
 - controller-metrics.md
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Metrik dari komponen sistem dapat memberikan pandangan yang lebih baik tentang apa 
 yang sedang terjadi di dalam sistem. Metrik sangat berguna untuk membuat dasbor (_dashboard_) 
@@ -15,9 +15,9 @@ dan peringatan (_alert_).
 Metrik di dalam _control plane_ Kubernetes disajikan dalam [format prometheus](https://prometheus.io/docs/instrumenting/exposition_formats/) 
 dan dapat terbaca oleh manusia.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Metrik-Metrik pada Kubernetes
 
@@ -158,10 +158,11 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Baca tentang [format teks Prometheus](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) untuk berbagai metrik
 * Lihat daftar [metrik Kubernetes yang _stable_](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
 * Baca tentang [kebijakan _deprecation_ Kubernetes](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: Memperluas Klaster Kubernetes Kamu
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes sangat mudah dikonfigurasi dan diperluas. Sehingga,
 jarang membutuhkan _fork_ atau menambahkan _patch_ ke kode proyek Kubernetes.
@@ -16,10 +16,10 @@ memahami bagaimana menyesuaikan klaster Kubernetes dengan kebutuhan lingkungan k
 Developer yang prospektif {{< glossary_tooltip text="Developer Platform" term_id="platform-developer" >}} atau {{< glossary_tooltip text="Kontributor" term_id="contributor" >}} Proyek Kubernetes juga mendapatkan manfaat dari
 dokumen ini sebagai pengantar apa saja poin-poin dan pola-pola perluasan yang ada, untung-rugi, dan batasan-batasannya.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 
@@ -161,10 +161,11 @@ Ini adalah usaha yang signifikan, dan hampir semua pengguna Kubernetes merasa me
 
 Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md) yang memperbolehkan sebuah _webhook backend_ (perluasan penjadwal) untuk menyaring dan memprioritaskan Node yang terpilih untuk sebuah Pod.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [Sumber Daya _Custom_](/docs/concepts/api-extension/custom-resources/)
 * Pelajari tentang [Kontrol Admisi Dinamis](/docs/reference/access-authn-authz/extensible-admission-controllers/)
@@ -174,4 +175,4 @@ Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blo
 * Pelajari tentang [_Plugin_ kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Pelajari tentang [Pola Operator](/docs/concepts/extend-kubernetes/operator/)
 
-{{% /capture %}}
+

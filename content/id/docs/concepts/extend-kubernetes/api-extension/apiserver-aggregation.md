@@ -1,16 +1,16 @@
 ---
 title: Memperluas Kubernetes API dengan Lapisan Agregasi
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Lapisan agregasi memungkinkan Kubernetes untuk diperluas dengan API tambahan, selain dari yang ditawarkan oleh API inti Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 Lapisan agregasi memungkinkan instalasi tambahan beragam API _Kubernetes-style_ di kluster kamu. Tambahan-tambahan ini dapat berupa solusi-solusi yang sudah dibangun (_prebuilt_) oleh pihak ke-3 yang sudah ada, seperti [_service-catalog_](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md), atau API yang dibuat oleh pengguna seperti [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md), yang dapat membantu kamu memulainya.
@@ -25,12 +25,12 @@ Jika implementasi kamu tidak dapat menyanggupinya, kamu harus mempertimbangkan c
 _feature-gate_ `EnableAggregatedDiscoveryTimeout=false` di kube-apiserver
 akan menonaktifkan batasan waktu tersebut. Fitur ini akan dihapus dalam rilis mendatang.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Untuk mengaktifkan agregator di lingkungan kamu, aktifkan[konfigurasi lapisan agregasi](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
 * Kemudian, [siapkan ekstensi api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) untuk bekerja dengan lapisan agregasi.
 * Selain itu, pelajari caranya [mengembangkan API Kubernetes menggunakan _Custom Resource Definition_](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
-{{% /capture %}}

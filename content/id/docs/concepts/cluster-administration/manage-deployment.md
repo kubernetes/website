@@ -1,17 +1,17 @@
 ---
 title: Mengelola Resource
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur mekanisme _deploy_ aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengelola konfigurasi _resource_
 
@@ -434,11 +434,12 @@ kubectl edit deployment/my-nginx
 
 Selesai! Deployment akan memperbarui aplikasi nginx yang terdeploy secara berangsur di belakang. Dia akan menjamin hanya ada sekian replika lama yang akan down selagi pembaruan berjalan dan hanya ada sekian replika baru akan dibuat melebihi jumlah pod. Untuk mempelajari lebih lanjut, kunjungi [laman Deployment](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Pelajari tentang bagaimana memakai `kubectl` untuk memeriksa dan _debug_ aplikasi.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [Praktik Terbaik dan Tips Konfigurasi](/docs/concepts/configuration/overview/)
 
-{{% /capture %}}
+

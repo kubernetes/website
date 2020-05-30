@@ -1,15 +1,15 @@
 ---
 title: Metrik controller manager
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Metrik _controller manager_ memberikan informasi penting tentang kinerja dan kesehatan dari _controller manager_.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Tentang metrik _controller manager_
 
 Metrik _controller manager_ ini berfungsi untuk memberikan informasi penting tentang kinerja dan kesehatan dari _controller manager_.
@@ -39,4 +39,4 @@ Metrik ini dikeluarkan dalam bentuk [format prometheus](https://prometheus.io/do
 
 Pada _environment_ produksi, kamu mungkin juga ingin mengonfigurasi prometheus atau pengumpul metrik lainnya untuk mengumpulkan metrik-metrik ini secara berkala dalam bentuk basis data _time series_.
 
-{{% /capture %}}
+

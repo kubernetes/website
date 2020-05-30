@@ -1,24 +1,25 @@
 ---
 title: Mendefinisikan Variabel Lingkungan untuk sebuah Kontainer
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menunjukkan bagaimana cara untuk mendefinisikan variabel lingkungan (_environment variable_) untuk sebuah Container di dalam sebuah Pod Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mendefinisikan sebuah variabel lingkungan untuk sebuah Container
 
@@ -108,12 +109,13 @@ spec:
 
 Setelah dibuat, perintah `echo Warm greetings to The Most Honorable Kubernetes` dijalankan di Container tersebut.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [variabel lingkungan](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
 * Pelajari tentang [menggunakan informasi rahasia sebagai variabel lingkungan](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * Lihat [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
 
-{{% /capture %}}
+

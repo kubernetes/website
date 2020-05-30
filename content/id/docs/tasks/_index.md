@@ -2,20 +2,20 @@
 title: Tugas (Tasks)
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Bagian dokumentasi Kubernetes ini berisi halaman-halaman yang perlihatkan 
 bagaimana melakukan setiap tugas (_task_). Halaman tugas menunjukkan cara melakukan
 satu hal saja, biasanya dengan memberikan urutan langkah pendek.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Antarmuka Pengguna Berbasis Web (Dashboard)
 
@@ -84,11 +84,12 @@ oleh Node dalam sebuah klaster.
 Mengkonfigurasi dan menjadwalkan _HugePages_ sebagai sumber daya yang dapat 
 dijadwalkan dalam sebuah klaster.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jika kamu ingin menulis halaman tugas (_task_), silahkan lihat
 [Membuat Dokumentasi _Pull Request_](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

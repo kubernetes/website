@@ -1,19 +1,19 @@
 ---
 title: Penjadwal Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dalam Kubernetes, _scheduling_ atau penjadwalan ditujukan untuk memastikan 
 {{< glossary_tooltip text="Pod" term_id="pod" >}} mendapatkan
 {{< glossary_tooltip text="Node" term_id="node" >}} sehingga
 {{< glossary_tooltip term_id="kubelet" >}} dapat menjalankannya.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar Penjadwalan {#penjadwalan}
 
@@ -91,12 +91,13 @@ penilaian oleh penjadwal:
    lainnya. Kamu juga bisa mengonfigurasi _kube-scheduler_ untuk menjalankan 
    profil yang berbeda.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Baca tentang [penyetelan performa penjadwal](/docs/concepts/scheduling/scheduler-perf-tuning/)
 * Baca tentang [pertimbangan penyebarang topologi pod](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Baca [referensi dokumentasi](/docs/reference/command-line-tools-reference/kube-scheduler/) untuk _kube-scheduler_
 * Pelajari tentang [mengkonfigurasi beberapa penjadwal](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 * Pelajari tentang [aturan manajemen topologi](/docs/tasks/administer-cluster/topology-manager/)
 * Pelajari tentang [pengeluaran tambahan Pod](/docs/concepts/configuration/pod-overhead/)
-{{% /capture %}}
+

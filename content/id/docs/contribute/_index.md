@@ -1,12 +1,12 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Berkontribusi ke Dokumentasi Kubernetes
 linktitle: Berkontribusi
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Jika kamu ingin membantu dengan berkontribusi ke dokumentasi atau situs web Kubernetes, kami
 dengan senang hati menerima bantuan kamu! Siapapun bisa berkontribusi, baik kamu yang masih
@@ -16,7 +16,7 @@ atau bahkan seorang yang tidak tahan melihat saltik (_typo_)!
 Untuk informasi mengenai isi dan gaya (penulisan)
 dokumentasi Kubernetes, lihat [ikhtisar gaya penulisan dokumentasi](/docs/contribute/style/).
 
-{{% capture body %}}
+<!-- body -->
 
 ## Jenis-jenis kontributor dokumentasi
 
@@ -76,4 +76,4 @@ terhadap dokumentasi Kubernetes, tetapi daftar ini dapat membantumu memulainya.
 - Untuk berkontribusi ke komunitas Kubernetes melalui forum-forum daring seperti Twitter atau Stack Overflow, atau mengetahui tentang pertemuan komunitas (_meetup_) lokal dan acara-acara Kubernetes, kunjungi [situs komunitas Kubernetes](/community/).
 - Untuk mulai berkontribusi ke pengembangan fitur, baca [_cheatseet_ kontributor](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet).
 
-{{% /capture %}}
+

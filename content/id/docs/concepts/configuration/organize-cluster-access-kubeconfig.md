@@ -1,10 +1,10 @@
 ---
 title: Mengatur Akses Klaster Menggunakan Berkas kubeconfig
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Gunakan berkas kubeconfig untuk mengatur informasi mengenai klaster, pengguna, 
 _namespace_, dan mekanisme autentikasi. Perintah `kubectl` menggunakan berkas
@@ -26,10 +26,10 @@ Instruksi langkah demi langkah untuk membuat dan menentukan berkas kubeconfig,
 bisa mengacu pada [Mengatur Akses Pada Beberapa Klaster]
 (/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mendukung beberapa klaster, pengguna, dan mekanisme autentikasi
 
@@ -152,14 +152,15 @@ Referensi _file_ pada perintah adalah relatif terhadap direktori kerja saat ini.
 Dalam `$HOME/.kube/config`, _relative path_ akan disimpan secara relatif, dan
 _absolute path_ akan disimpan secara mutlak.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Mengatur Akses Pada Beberapa Klaster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+
 
 

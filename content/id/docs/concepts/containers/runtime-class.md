@@ -1,10 +1,10 @@
 ---
 title: Runtime Class
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -15,10 +15,10 @@ RuntimeClass memiliki _breaking change_ untuk pembaruan ke beta pada v1.14. Jika
 RuntimeClass sebelum v1.14, lihat [Memperbarui RuntimeClass dari Alpha ke Beta](#memperbarui-runtimeclass-dari-alpha-ke-beta).
 {{< /warning >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## `Runtime Class`
 
@@ -158,4 +158,4 @@ pembaruan fitur RuntimeClass dari versi alpha ke versi beta:
   kosong atau menggunakan karakter `.` pada _handler_. Ini harus dimigrasi ke _handler_ dengan
   konfigurasi yang valid (lihat petunjuk di atas).
 
-{{% /capture %}}
+

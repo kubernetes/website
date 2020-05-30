@@ -1,18 +1,18 @@
 ---
 title: Pengenalan Pod
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyajikan ikhtisar dari `Pod`, objek terkecil yang dapat di *deploy* di dalam objek model Kubernetes.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Pod
 
 Sebuah *Pod* adalah unit dasar di Kubernetes--unit terkecil dan paling sederhana di dalam objek model Kubernetes yang dapat dibuat dan di *deploy*. Sebuah *Pod* merepresentasikan suatu proses yang berjalan di dalam klaster.
@@ -97,10 +97,11 @@ spec:
 Perubahan yang terjadi pada templat atau berganti ke templat yang baru tidak memiliki efek langsung pada *Pod* yang sudah dibuat. *Pod* yang dibuat oleh *replication controller* dapat diperbarui secara langsung.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Pelajari lebih lanjut tentang perilaku *Pod*:
   * [Terminasi Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Lifecycle Pod](/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

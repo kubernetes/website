@@ -1,10 +1,10 @@
 ---
 title: Konfigurasi Garbage Collection pada kubelet
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 *Garbage collection* merupakan fitur kubelet yang sangat bermanfaat, yang akan membersihkan *image-image* dan juga kontainer-kontainer
 yang tidak lagi digunakan. Kubelet akan melakukan *garbage collection* untuk kontainer setiap satu menit dan *garbage collection* untuk
@@ -13,10 +13,10 @@ yang tidak lagi digunakan. Kubelet akan melakukan *garbage collection* untuk kon
 Perangkat *garbage collection* eksternal tidak direkomendasikan karena perangkat tersebut berpotensi merusak perilaku kubelet dengan
 menghilangkan kontainer-kontainer yang sebenarnya masih diperlukan.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## *Garbage Collection* untuk *Image*
 
@@ -87,10 +87,11 @@ Beberapa fitur *Garbage Collection* pada kubelet di laman ini akan digantikan ol
 | `--low-diskspace-threshold-mb` | `--eviction-hard` atau `eviction-soft` | *eviction* memberi generalisasi *threshold* disk untuk *resource-resource* lainnya |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | *eviction* memberi generalisasi transisi tekanan *disk* (*disk pressure*)untuk *resource-resource* lainnya |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Lihat [Konfigurasi untuk Menangani Kehabisan *Resource*](/docs/tasks/administer-cluster/out-of-resource/) untuk penjelasan lebih lanjut.
 
-{{% /capture %}}
+

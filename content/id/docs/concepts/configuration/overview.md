@@ -1,16 +1,16 @@
 ---
 title: Konfigurasi dan Penerapan Konsep
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Dokumen ini menyoroti dan memperkuat pemahaman konsep konfigurasi yang dikenalkan di seluruh panduan pengguna, dokumentasi Memulai, dan contoh-contoh.
 
 Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar ini tetapi mungkin bermanfaat bagi orang lain, jangan ragu untuk mengajukan issue atau mengirimkan PR.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Tip konfigurasi secara umum
 
@@ -109,6 +109,6 @@ Semantik caching dari penyedia gambar yang mendasarinya membuat bahkan `imagePul
 
 - Gunakan `kubectl run` dan` kubectl expose` untuk dengan cepat membuat Deployment dan Service single-container. Lihat [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) untuk Contoh.
 
-{{% /capture %}}
+
 
 

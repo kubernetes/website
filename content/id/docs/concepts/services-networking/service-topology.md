@@ -5,12 +5,12 @@ feature:
   description: >
     Rute lalu lintas layanan berdasarkan topologi klaster.
     
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
@@ -20,9 +20,9 @@ layanan dapat menentukan lalu lintas jaringan yang lebih diutamakan untuk dirute
 beberapa _endpoint_ yang berada pada Node yang sama dengan klien, atau pada 
 _availability zone_ yang sama.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pengantar
 
@@ -180,11 +180,11 @@ spec:
     - "*"
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Baca tentang [mengaktifkan topologi Service](/docs/tasks/administer-cluster/enabling-service-topology)
 * Baca [menghubungkan aplikasi dengan Service](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}

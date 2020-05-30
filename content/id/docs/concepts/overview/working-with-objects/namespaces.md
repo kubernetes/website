@@ -1,17 +1,17 @@
 ---
 title: Namespace
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes mendukung banyak klaster virtual di dalam satu klaster fisik. Klaster virtual tersebut disebut dengan *namespace*.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kapan menggunakan banyak Namespace
 
@@ -91,4 +91,4 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
+

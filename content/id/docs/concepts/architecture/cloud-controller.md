@@ -1,10 +1,10 @@
 ---
 title: Konsep-konsep di balik Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Konsep _Cloud Controller Manager_/CCM (jangan tertukar dengan program biner kube-controller-manager) awalnya dibuat untuk memungkinkan kode vendor _cloud_ spesifik dan kode inti Kubernetes untuk berkembang secara independen satu sama lainnya. CCM berjalan bersama dengan komponen  Master lainnya seperti Kubernetes Controller Manager, API Server, dan Scheduler. CCM juga dapat dijalankan sebagai Kubernetes Addon (tambahan fungsi terhadap Kubernetes), yang akan berjalan di atas klaster Kubernetes.
 
 Desain CCM didasarkan pada mekanisme _plugin_ yang memungkinkan penyedia layanan _cloud_ untuk berintegrasi dengan Kubernetes dengan mudah dengan menggunakan _plugin_. Sudah ada rencana untuk pengenalan penyedia layanan _cloud_ baru pada Kubernetes, dan memindahkan penyedia layanan _cloud_ yang sudah ada dari model yang lama ke model CCM.
@@ -15,10 +15,10 @@ Berikut adalah arsitektur sebuah klaster Kubernetes tanpa CCM:
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Desain
 
@@ -234,4 +234,4 @@ Penyedia layanan cloud berikut telah mengimplementasikan CCM:
 
 Petunjuk lengkap untuk mengkonfigurasi dan menjalankan CCM disediakan [di sini](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
-{{% /capture %}}
+
