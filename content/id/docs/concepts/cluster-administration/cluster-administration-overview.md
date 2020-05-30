@@ -3,16 +3,16 @@ reviewers:
 - davidopp
 - lavalamp
 title: Ikhtisar Administrasi Klaster
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Ikhtisar administrasi klaster ini ditujukan untuk siapapun yang akan membuat atau mengelola klaster Kubernetes.
 Diharapkan untuk memahami beberapa [konsep](/docs/concepts/) dasar Kubernetes sebelumnya.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Perencanaan Klaster
 
 Lihat panduan di [Persiapan](/docs/setup) untuk mempelajari beberapa contoh tentang bagaimana merencanakan, mengatur dan mengonfigurasi klaster Kubernetes. Solusi yang akan dipaparkan di bawah ini disebut *distro*.
@@ -67,6 +67,6 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * [*Logging* dan *Monitoring* Aktivitas Klaster](/docs/concepts/cluster-administration/logging/) akan menjelaskan bagaimana cara *logging* bekerja di Kubernetes serta bagaimana cara mengimplementasikannya.
 
-{{% /capture %}}
+
 
 

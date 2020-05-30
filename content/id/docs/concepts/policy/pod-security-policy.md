@@ -1,18 +1,18 @@
 ---
 title: Pod Security Policy
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 Pod Security Policies (kebijakan keamanan Pod) memungkinkan otorisasi secara detil dari pembuatan dan pembaruan Pod.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Apa itu Pod Security Policy?
 
@@ -466,4 +466,4 @@ Secara bawaan, semua _sysctl_ yang aman diizinkan.
 
 Lihat [dokumentasi Sysctl](/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
-{{% /capture %}}
+

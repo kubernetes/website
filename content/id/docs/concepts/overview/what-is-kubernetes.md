@@ -1,17 +1,17 @@
 ---
 title: Apa itu Kubernetes?
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini merupakan ikhtisar Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes merupakan <i>platform open-source</i> yang digunakan untuk melakukan
 manajemen <i>workloads</i> aplikasi yang dikontainerisasi, serta menyediakan
 konfigurasi dan otomatisasi secara deklaratif. Kubernetes berada di dalam ekosistem
@@ -179,11 +179,12 @@ Nama **Kubernetes** berasal dari Bahasa Yunani, yang berarti *juru mudi* atau
 merupakan sebuah singkatan yang didapat dengan mengganti 8 huruf "ubernete" dengan
 "8".
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   Siap untuk [memulai](/docs/setup/)?
 *   Untuk penjelasan lebih rinci, silahkan lihat [Dokumentasi Kubernetes](/docs/home/).
-{{% /capture %}}
+
 
 

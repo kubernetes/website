@@ -1,10 +1,10 @@
 ---
 title: Prioritas dan Kesetaraan API (API Priority and Fairness)
-content_template: templates/concept
+content_type: concept
 min-kubernetes-server-version: v1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
 
@@ -32,9 +32,9 @@ opsi `--max-request-inflight` tanpa mengaktifkan APF.
 
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengaktifkan prioritas dan kesetaraan API
 
@@ -362,13 +362,14 @@ beban kerja yang berperilaku buruk yang dapat membahayakan kesehatan dari sistem
    berdasarkan FlowSchema yang cocok dengan permintaan dan tingkat prioritas yang ditetapkan pada
    permintaan tersebut.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Untuk latar belakang informasi mengenai detail desain dari prioritas dan kesetaraan API, silahkan lihat
 [proposal pembaharuan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 Kamu juga dapat membuat saran dan permintaan akan fitur melalui [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 
-{{% /capture %}}
+

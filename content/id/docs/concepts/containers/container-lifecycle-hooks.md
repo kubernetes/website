@@ -1,18 +1,18 @@
 ---
 title: Lifecyle Hook pada Kontainer
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan bagaimana semua Kontainer yang diatur kubelet menggunakan *framework lifecycle hook*
 untuk menjalankan kode yang di-*trigger* oleh *event* selama *lifecycle* berlangsung.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 
@@ -108,12 +108,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [*environment* Kontainer](/docs/concepts/containers/container-environment-variables/).
 * Pelajari bagaimana caranya
   [melakukan *attach handler* pada *event lifecycle* sebuah Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

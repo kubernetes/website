@@ -1,10 +1,10 @@
 ---
 title: Prioritas dan Pemindahan Pod
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.14" state="stable" >}}
 
@@ -27,9 +27,9 @@ Versi Kubernetes | Keadaan Priority and Pemindahan | Dihidupkan secara Bawaan
 {{< warning >}}Pada sebuah klaster di mana tidak semua pengguna dipercaya, seorang pengguna yang berniat jahat dapat membuat Pod-pod dengan prioritas paling tinggi, membuat Pod-pod lainnya dipindahkan/tidak dapat dijadwalkan. Untuk mengatasi masalah ini, [ResourceQuota](/docs/concepts/policy/resource-quotas/) ditambahkan untuk mendukung prioritas Pod. Seorang admin dapat membuat ResourceQuota untuk pengguna-pengguna pada tingkat prioritas tertentu, mencegah mereka untuk membuat Pod-pod pada prioritas tinggi. Fitur ini telah beta sejak Kubernetes 1.12.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Bagaimana cara menggunakan Priority dan pemindahan Pod
 
@@ -253,4 +253,4 @@ Komponen satu-satunya yang mempertimbangkan baik QoS dan prioritas Pod adalah [p
 Kubelet menggolongkan Pod-pod untuk pengusiran pertama-tama berdasarkan apakah penggunaan sumber daya mereka melebihi `requests` mereka atau tidak, kemudian berdasarkan Priority, dan kemudian berdasarkan penggunaan sumber daya yang terbatas tersebut relatif terhadap `requests` dari Pod-pod tersebut.
 Lihat [Mengusir Pod-pod pengguna](/docs/tasks/administer-cluster/out-of-resource/#mengusir-pod-pod-pengguna) untuk lebih detail. Pengusiran oleh Kubelet karena kehabisan sumber daya tidak mengusir Pod-pod yang memiliki penggunaan sumber daya yang tidak melebihi `requests` mereka. Jika sebuah Pod dengan prioritas lebih rendah tidak melebihi `requests`-nya, ia tidak akan diusir. Pod lain dengan prioritas lebih tinggi yang melebihi `requests`-nya boleh diusir.
 
-{{% /capture %}}
+

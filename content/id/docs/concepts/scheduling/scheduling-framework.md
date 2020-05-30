@@ -1,10 +1,10 @@
 ---
 title: Kerangka Kerja Penjadwalan (Scheduling Framework)
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
@@ -20,9 +20,9 @@ tersebut.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # Alur kerja kerangka kerja
 
@@ -246,4 +246,4 @@ mengonfigurasi sekumpulan _plugin_ sebagai profil penjadwal dan kemudian menetap
 beberapa profil agar sesuai dengan berbagai jenis beban kerja. Pelajari lebih 
 lanjut di [multi profil](/docs/reference/scheduling/profiles/#multiple-profiles).
 
-{{% /capture %}}
+

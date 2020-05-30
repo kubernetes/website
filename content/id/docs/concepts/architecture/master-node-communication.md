@@ -1,19 +1,19 @@
 ---
 title: Komunikasi Master-Node
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dokumen ini menjelaskan tentang jalur-jalur komunikasi di antara klaster Kubernetes dan master yang sebenarnya hanya berhubungan dengan apiserver saja.
 Kenapa ada dokumen ini? Supaya kamu, para pengguna Kubernetes, punya gambaran bagaimana mengatur instalasi untuk memperketat konfigurasi jaringan di dalam klaster.
 Hal ini cukup penting, karena klaster bisa saja berjalan pada jaringan tak terpercaya (<i>untrusted network</i>), ataupun melalui alamat-alamat IP publik pada penyedia cloud.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Klaster menuju Master
 
@@ -74,4 +74,4 @@ Dengan ini, apiserver menginisiasi sebuah <i>tunnel</i> SSH untuk setiap node di
 <i>Tunnel</i> SSH saat ini sudah usang (<i>deprecated</i>), jadi sebaiknya jangan digunakan, kecuali kamu tahu pasti apa yang kamu lakukan.
 Sebuah desain baru untuk mengganti kanal komunikasi ini sedang disiapkan.
 
-{{% /capture %}}
+

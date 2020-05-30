@@ -1,24 +1,25 @@
 ---
 title: Mengatur Pod untuk Menggunakan ConfigMap
-content_template: templates/task
+content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 ConfigMap mengizinkan kamu untuk memisahkan artifak-artifak konfigurasi dari konten _image_ untuk menjaga aplikasi yang dikontainerisasi tetap portabel. Artikel ini menyediakan sekumpulan contoh penerapan yang mendemonstrasikan bagaimana cara membuat ConfigMap dan mengatur Pod menggunakan data yang disimpan di dalam ConfigMap.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## Membuat ConfigMap
@@ -624,9 +625,9 @@ Ketika sebuah ConfigMap yang sudah dipasang pada sebuah volume diperbarui, kunci
 Kontainer yang menggunakan ConfigMap sebagai volume [subPath](/docs/concepts/storage/volumes/#using-subpath) tidak akan menerima pembaruan ConfigMap.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Memahami ConfigMap dan Pod
 
@@ -676,9 +677,10 @@ data:
 
 - Kamu tidak dapat menggunakan ConfigMap untuk {{< glossary_tooltip text="Pod statis" term_id="static-pod" >}}, karena Kubelet tidak mendukung hal ini.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Ikuti contoh penerapan pada dunia nyata [Mengatur Redis menggunakan ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
-{{% /capture %}}
+

@@ -1,9 +1,9 @@
 ---
 title: Label yang Disarankan
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kamu dapat melakukan visualisasi dan mengatur objek Kubernetes dengan lebih banyak _tools_ 
 dibandingkan dengan perintah kubectl dan dasbor. Sekumpulan label mengizinkan _tools_ 
 untuk bekerja dengan interoperabilitas, mendeskripsikan objek dengan cara yang umum yang dapat 
@@ -11,9 +11,9 @@ dipahami semua _tools_.
 
 Sebagai tambahan bagi _tooling_ tambahan, label yang disarankan ini mendeskripsikan 
 aplikasi sehingga informasi yang ada diapat di-_query_.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Metadata ini diorganisasi berbasis konsep dari sebuah  aplikasi. Kubernetes bukan merupakan 
 sebuah platform sebagai sebuah _service_ (_platform as a service_/PaaS) dan tidak 
 mewajibkan sebuah gagasan formal dari sebuah aplikasi.
@@ -176,4 +176,4 @@ metadata:
 
 Dengan StatefulSet MySQL dan Service kamu dapat mengetahui informasi yang ada pada MySQL dan Wordpress.
 
-{{% /capture %}}
+

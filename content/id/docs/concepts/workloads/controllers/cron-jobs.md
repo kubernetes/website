@@ -1,10 +1,10 @@
 ---
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Suatu CronJob menciptakan [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) yang dijadwalkan berdasarkan waktu tertentu.
 
@@ -17,10 +17,10 @@ Seluruh waktu `schedule:` pada _**CronJob**_ mengikuti zona waktu dari _master_ 
 
 Untuk panduan dalam berkreasi dengan _cron job_, dan contoh _spec file_ untuk suatu _cron job_, lihat [Menjalankan otomasi _task_ dengan _cron job_](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Limitasi _Cron Job_
 
@@ -55,4 +55,3 @@ Job akan tetap dijalankan pada 10:22:00. Hal ini terjadi karena CronJob _control
 CronJob hanya bertanggung-jawab untuk menciptakan Job yang sesuai dengan jadwalnya sendiri,
 dan Job tersebut bertanggung jawab terhadap pengelolaan Pod yang direpresentasikan olehnya.
 
-{{% /capture %}}

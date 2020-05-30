@@ -1,6 +1,6 @@
 ---
 title: Antarmuka Pengguna Berbasis Web (Dashboard)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
   title: Menggunakan Antarmuka Pengguna Berbasis Web Dashboard
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dashboard adalah antarmuka pengguna Kubernetes. Kamu dapat menggunakan Dashboard untuk men-_deploy_ aplikasi yang sudah dikontainerisasi ke klaster Kubernetes, memecahkan masalah pada aplikasi kamu, dan mengatur sumber daya klaster. Kamu dapat menggunakan Dashboard untuk melihat ringkasan dari aplikasi yang sedang berjalan di klaster kamu, dan juga membuat atau mengedit objek individu sumber daya Kubernetes (seperti Deployment, Job, DaemonSet, dll.). Sebagai contoh, kamu dapat mengembangkan sebuah Deployment, menginisiasi sebuah pembaruan bertahap (_rolling update_), memulai kembali sebuah Pod atau men-_deploy_ aplikasi baru menggunakan sebuah _deploy wizard_.
 
@@ -16,10 +16,10 @@ Dashboard juga menyediakan informasi tentang status dari sumber daya Kubernetes 
 
 ![Antarmuka Pengguna Dashboard Kubernetes](/images/docs/ui-dashboard.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Men-_deploy_ Antarmuka Pengguna Dashboard
 
@@ -158,11 +158,12 @@ Laman daftar dan detail Pod tertaut dengan laman penampil log (_log viewer_). Ka
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Untuk informasi lebih lanjut, lihat
 [Laman proyek Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
 
-{{% /capture %}}
+

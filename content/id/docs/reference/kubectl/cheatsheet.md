@@ -1,20 +1,20 @@
 ---
 title: Contekan kubectl
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Lihat juga: [Ikhitsar Kubectl](/docs/reference/kubectl/overview/) dan [Panduan JsonPath](/docs/reference/kubectl/jsonpath).
 
 Laman ini merupakan ikhitisar dari perintah `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Contekan
 
@@ -386,9 +386,10 @@ Tingkat kelengkapan keluaran | Deskripsi
 `--v=8` | Memperlihatkan konten dari permintan HTTP.
 `--v=9` | Memperlihatkan kontek dari permintaan HTTP tanpa dipotong.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [Ikhitsar kubectl](/docs/reference/kubectl/overview/).
 
@@ -398,4 +399,4 @@ Tingkat kelengkapan keluaran | Deskripsi
 
 * Pelajari [contekan kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) dari komunitas.
 
-{{% /capture %}}
+

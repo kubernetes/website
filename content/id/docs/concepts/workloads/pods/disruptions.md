@@ -1,17 +1,17 @@
 ---
 title: Disrupsi
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Petunjuk ini ditujukan pada pemilik aplikasi yang meninginkan aplikasinya memiliki ketersediaan yang tinggi, sehingga butuh untuk mengerti jenis-jenis Disrupsi yang dapat terjadi pada Pod-pod.
 
 Petunjuk ini juga ditujukan pada administrator klaster yang ingin melakukan berbagai tindakan otomasi pada klaster, seperti pembaruan dan _autoscaling_ klaster.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Disrupsi yang Disengaja dan Tidak Disengaja
 
@@ -174,12 +174,13 @@ Jika kamu adalah Administrator Klaster, maka kamu mesti melakukan tindakan disru
   - Mengizinkan lebih banyak otomasi administrasi klaster.
   - Membuat aplikasi yang toleran terhadap disrupsi agak rumit, tetapi usaha yang dilakukan untuk menoleransi disrupsi yang disengaja kebanyakan beririsan dengan usaha untuk mendukung _autoscaling_ dan menoleransi disrupsi yang tidak disengaja.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Ikuti langkah-langkah untuk melindungi aplikasimu dengan [membuat sebuah PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/).
 
 - Pelajari lebih lanjut mengenai [melakukan _drain_ terhadap node](/docs/tasks/administer-cluster/safely-drain-node/).
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: Konsep
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Bagian konsep ini membantu kamu belajar tentang bagian-bagian sistem serta abstraksi
 yang digunakan Kubernetes untuk merepresentasikan klaster kamu, serta membantu
 kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 
@@ -97,12 +97,12 @@ dengan *node* secara langsung.
 
 * [Anotasi](/docs/concepts/overview/working-with-objects/annotations/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jika kamu ingin menulis halaman konsep, perhatikan
 [cara penggunaan template pada laman](/docs/home/contribute/page-templates/)
 untuk informasi mengenai konsep tipe halaman dan *template* konsep.
 
-{{% /capture %}}

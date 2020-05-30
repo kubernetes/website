@@ -1,19 +1,20 @@
 ---
 title: Menginstal Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Halaman ini menunjukkan cara instalasi [Minikube](/docs/tutorials/hello-minikube), sebuah alat untuk menjalankan sebuah klaster Kubernetes dengan satu Node pada mesin virtual yang ada di komputer kamu.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,9 +54,9 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 # Menginstal minikube
 
@@ -196,13 +197,14 @@ Untuk menginstal Minikube secara manual pada Windows, unduh [`minikube-windows-a
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Menjalanakan Kubernetes secara lokal dengan Minikube](/docs/setup/learning-environment/minikube/)
 
-{{% /capture %}}
+
 
 ## Memastikan instalasi
 

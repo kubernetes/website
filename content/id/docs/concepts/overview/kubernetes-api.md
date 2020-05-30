@@ -1,13 +1,13 @@
 ---
 title: API Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Secara keseluruhan standar yang digunakan untuk API dijelaskan di dalam [dokumentasi API standar](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -21,10 +21,10 @@ Kubernetes menyimpan bentuk terserialisasi dari obyek API yang dimilikinya di da
 
 Kubernetes sendiri dibagi menjadi beberapa komponen yang saling dapat saling interaksi melalui API.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Perubahan API
 
@@ -153,4 +153,4 @@ Ekstensi lain dapat diaktifkan penanda `--runtime-config` pada <i>apiserver</i>.
  Sebagai contoh untuk menonaktifkan <i>deployments</i> dan <i>ingress</i>, tetapkan.
 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
 
-{{% /capture %}}
+

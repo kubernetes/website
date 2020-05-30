@@ -1,10 +1,10 @@
 ---
 title: Jaringan Kluster
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Jaringan adalah bagian utama dari Kubernetes, tetapi bisa menjadi sulit
 untuk memahami persis bagaimana mengharapkannya bisa bekerja.
 Ada 4 masalah yang berbeda untuk diatasi:
@@ -15,10 +15,10 @@ Ada 4 masalah yang berbeda untuk diatasi:
 3. Komunikasi Pod dengan Service: ini terdapat di [Service](/docs/concepts/services-networking/service/).
 4. Komunikasi eksternal dengan Service: ini terdapat di [Service](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 Kubernetes adalah tentang berbagi mesin antar aplikasi. Pada dasarnya,
 saat berbagi mesin harus memastikan bahwa dua aplikasi tidak mencoba menggunakan
@@ -219,10 +219,11 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 [Weave Net](https://www.weave.works/products/weave-net/) adalah jaringan yang tangguh dan mudah digunakan untuk Kubernetes dan aplikasi yang dihostingnya. Weave Net berjalan sebagai [plug-in CNI](https://www.weave.works/docs/net/latest/cni-plugin/) atau berdiri sendiri. Di kedua versi, itu tidak memerlukan konfigurasi atau kode tambahan untuk dijalankan, dan dalam kedua kasus, jaringan menyediakan satu alamat IP per Pod - seperti standar untuk Kubernetes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Desain awal model jaringan dan alasannya, dan beberapa rencana masa depan dijelaskan secara lebih rinci dalam [dokumen desain jaringan](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
 
-{{% /capture %}}
+

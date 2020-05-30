@@ -1,10 +1,10 @@
 ---
 title: Penyetelan Kinerja Penjadwal
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -21,9 +21,9 @@ API server soal keputusan ini melalui sebuah proses yang disebut _Binding_.
 Laman ini menjelaskan optimasi penyetelan (_tuning_) kinerja yang relevan
 untuk klaster Kubernetes berskala besar.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Pada klaster berskala besar, kamu bisa menyetel perilaku penjadwal
 untuk menyeimbangkan hasil akhir penjadwalan antara latensi (seberapa cepat Pod-Pod baru ditempatkan)
@@ -157,4 +157,4 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 Setelah semua Node telah dicek, penjadwal akan kembali pada Node 1.
 
-{{% /capture %}}
+

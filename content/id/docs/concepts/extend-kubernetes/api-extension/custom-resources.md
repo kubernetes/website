@@ -1,16 +1,16 @@
 ---
 title: Custom Resource
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Custom Resource_ adalah ekstensi dari Kubernetes API. Laman ini mendiskusikan kapan kamu melakukan penambahan sebuah _Custom Resource_ ke klaster Kubernetes dan kapan kamu menggunakan sebuah layanan mandiri. Laman ini mendeskripsikan dua metode untuk menambahkan _Custom Resource_ dan bagaimana cara memilihnya.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## _Custom Resource_
 
@@ -211,12 +211,13 @@ Ketika kamu menambahkan sebuah _Custom Resource_, kamu dapat mengaksesnya dengan
 - Sebuah klien REST yang kamu tulis
 - Sebuah klien yang dibuat menggunakan [Kubernetes client generation tools](https://github.com/kubernetes/code-generator) (membuat satu adalah usaha lanjutan, tetapi beberapa proyek mungkin menyajikan sebuah klien bersama dengan CRD atau AA).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Belajar bagaimana untuk [Memperluas Kubernetes API dengan lapisan agregasi](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 
 * Belajar bagaimana untuk [Memperluas Kubernetes API dengan CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 
-{{% /capture %}}
+

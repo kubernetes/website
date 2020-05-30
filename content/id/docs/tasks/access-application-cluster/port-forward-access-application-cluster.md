@@ -1,27 +1,28 @@
 ---
 title: Menggunakan Port Forwarding untuk Mengakses Aplikasi di sebuah Klaster
-content_template: templates/task
+content_type: task
 weight: 40
 min-kubernetes-server-version: v1.10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk menghubungkan sebuah server Redis yang sedang berjalan di sebuah klaster Kubernetes. Tipe dari koneksi ini dapat berguna untuk melakukan _debugging_ basis data.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * Install [redis-cli](http://redis.io/topics/rediscli).
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Membuat Deployment dan Service Redis
 
@@ -177,10 +178,10 @@ Halaman ini menunjukkan bagaimana menggunakan `kubectl port-forward` untuk mengh
     PONG
     ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Diskusi
 
@@ -193,9 +194,10 @@ Dukungan untuk protokol UDP bisa dilihat di
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Belajar lebih tentang [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-{{% /capture %}}
+
