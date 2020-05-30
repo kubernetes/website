@@ -49,8 +49,8 @@ cards:
   description: Qualquer um pode contribuir, quer você seja novo no projeto ou esteja há um bom tempo.
   button: Contribua para a Documentação
   button_path: /docs/contribute
-- name: download
-  title: Download Kubernetes
+- name: release-notes
+  title: Release Notes
   description: Se você estiver instalando o Kubernetes ou atualizando para a versão mais recente, consulte as notas de versão atuais.
 - name: about
   title: Sobre a documentação
