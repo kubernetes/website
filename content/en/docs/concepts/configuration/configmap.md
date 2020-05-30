@@ -57,7 +57,7 @@ format.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  Name: game-demo
+  name: game-demo
 data:
   # property-like keys; each key maps to a simple value
   player_initial_lives: 3

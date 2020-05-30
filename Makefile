@@ -36,14 +36,25 @@ serve: ## Boot the development server.
 	hugo server --buildFuture
 
 docker-image:
-	$(DOCKER) build . --tag $(DOCKER_IMAGE) --build-arg HUGO_VERSION=$(HUGO_VERSION)
+	$(DOCKER) build . \
+		--network=host \
+		--tag $(DOCKER_IMAGE) \
+		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
 docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
+	$(DOCKER_RUN) --mount type=tmpfs,destination=/src/resources,tmpfs-mode=0755 -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
 
 test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
+
+.PHONY: link-checker-setup
+link-checker-image-pull:
+	docker pull wjdp/htmltest
+
+docker-internal-linkcheck: link-checker-image-pull
+	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
+	$(DOCKER) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest

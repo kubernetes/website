@@ -189,7 +189,8 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 
     ```shell
-    kubectl run snowflake --image=k8s.gcr.io/serve_hostname --replicas=2 -n=development
+    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development
+    kubectl scale deployment snowflake --replicas=2 -n=development
     ```
     We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
     Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.

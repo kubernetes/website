@@ -41,7 +41,6 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
@@ -59,7 +58,6 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
@@ -125,6 +123,7 @@ aliases:
   sig-docs-id-reviews: # PR reviews for Indonesian content
     - girikuncoro
     - irvifa
+    - wahyuoi
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - mattiaperi
@@ -171,7 +170,6 @@ aliases:
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - markthink
     - SataQiu
     - tengqm
     - xiangpengzhao
@@ -181,7 +179,6 @@ aliases:
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - idealhack
-    - markthink
     - SataQiu
     - tanjunchen
     - tengqm

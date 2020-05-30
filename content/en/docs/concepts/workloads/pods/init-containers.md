@@ -46,8 +46,8 @@ including resource limits, volumes, and security settings. However, the
 resource requests and limits for an init container are handled differently,
 as documented in [Resources](#resources).
 
-Also, init containers do not support readiness probes because they must run to
-completion before the Pod can be ready.
+Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` because they must run to completion before the Pod can be ready.
 
 If you specify multiple init containers for a Pod, Kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
@@ -241,7 +241,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#what-s-next) contains a link to a more detailed example.
+init containers. [What's next](#whats-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
@@ -322,7 +322,7 @@ reasons:
 
 {{% capture whatsnext %}}
 
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
 {{% /capture %}}

@@ -147,7 +147,7 @@ Domain Klaster | Service (ns/nama) | StatefulSet (ns/nama)  | Domain StatefulSet
 
 {{< note >}}
 Domain klaster akan diatur menjadi `cluster.local` kecuali
-[nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+[nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/).
 {{< /note >}}
 
 ### Penyimpanan Stabil

@@ -156,7 +156,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 
 {{< note >}}
 Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/).
 {{< /note >}}
 
 ### Stable Storage

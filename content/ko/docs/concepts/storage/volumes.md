@@ -9,7 +9,7 @@ weight: 10
 컨테이너 내의 디스크에 있는 파일은 임시적이며, 컨테이너에서 실행될 때
 애플리케이션에 적지 않은 몇 가지 문제가 발생한다. 첫째, 컨테이너가 충돌되면,
 kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상태로
-시작되기 때문에 기존 파일이 유실된다. 둘째, `파드` 에서 컨테이너를 함께 실행할 때 
+시작되기 때문에 기존 파일이 유실된다. 둘째, `파드` 에서 컨테이너를 함께 실행할 때
 컨테이너 사이에 파일을 공유해야 하는 경우가 자주 발생한다. 쿠버네티스의
 `볼륨` 추상화는 이 두 가지 문제를 모두 해결한다.
 
@@ -22,7 +22,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 
 ## 배경
 
-도커는 다소 느슨하고, 덜 관리되지만 
+도커는 다소 느슨하고, 덜 관리되지만
 [볼륨](https://docs.docker.com/engine/admin/volumes/)이라는
 개념을 가지고 있다. 도커에서 볼륨은 단순한 디스크 내 디렉터리 또는
 다른 컨테이너에 있는 디렉터리다.  수명은 관리되지 않으며 최근까지는
@@ -70,7 +70,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
    * [csi](#csi)
    * [downwardAPI](#downwardapi)
    * [emptyDir](#emptydir)
-   * [fc (파이버 채널))](#fc)
+   * [fc (파이버 채널)](#fc)
    * [flexVolume](#flexVolume)
    * [flocker](#flocker)
    * [gcePersistentDisk](#gcepersistentdisk)
@@ -243,14 +243,14 @@ spec:
 
 #### CSI 마이그레이션
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 Cinder의 CSI 마이그레이션 기능이 활성화된 경우, 기존 트리 내 플러그인에서
 `cinder.csi.openstack.org` 컨테이너 스토리지 인터페이스(CSI)
 드라이버로 모든 플러그인 작업을 수행한다. 이 기능을 사용하려면, 클러스터에 [오픈스택 Cinder CSI
 드라이버](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
 를 설치하고 `CSIMigration` 과 `CSIMigrationOpenStack`
-알파 기능을 활성화해야 한다.
+베타 기능을 활성화해야 한다.
 
 ### configMap {#configmap}
 
@@ -299,6 +299,11 @@ ConfigMap 볼륨을 사용하려면 먼저 [ConfigMap](/docs/tasks/configure-pod
 ConfigMap을 [subPath](#subpath-사용하기) 볼륨 마운트로 사용하는 컨테이너는 ConfigMap
 업데이트를 수신하지 않는다.
 {{< /note >}}
+
+{{< note >}}
+텍스트 데이터는 UTF-8 문자 인코딩을 사용하는 파일로 노출된다. 다른 문자 인코딩을 사용하려면, binaryData를 사용한다.
+{{< /note >}}
+
 
 ### downwardAPI {#downwardapi}
 
@@ -496,7 +501,7 @@ gitRepo 볼륨 유형은 사용 중단(deprecated)되었다. git repo가 있는 
 
 `gitRepo` 볼륨은 볼륨 플러그인으로 할 수 있는 예시이다.  빈
 디렉터리를 마운트하고 파드가 사용할 수 있도록 해당 디렉터리에 git 리포지트리를
-복제한다.  미래에는 모든 이용 사례에 대해 쿠버네티스 API를 확장하는 대신에 
+복제한다.  미래에는 모든 이용 사례에 대해 쿠버네티스 API를 확장하는 대신에
 이런 볼륨은 훨씬 더 분리된 모델로 이동될 수 있다.
 
 여기 gitRepo 볼륨의 예시가 있다.
@@ -1031,7 +1036,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 
 ### storageOS {#storageos}
 
-`storageos` 볼륨을 사용하면 기존 [StorageOS](https://www.storageos.com) 
+`storageos` 볼륨을 사용하면 기존 [StorageOS](https://www.storageos.com)
 볼륨을 파드에 마운트할 수 있다.
 
 StorageOS 는 쿠버네티스 환경에서 컨테이너로 실행되므로

@@ -208,7 +208,7 @@ the CSR and otherwise should deny the CSR.
 
 ## A Word of Warning on the Approval Permission
 
-The ability to approve CSRs decides who trusts who within your environment. The
+The ability to approve CSRs decides who trusts whom within your environment. The
 ability to approve CSRs should not be granted broadly or lightly. The
 requirements of the challenge noted in the previous section and the
 repercussions of issuing a specific certificate should be fully understood

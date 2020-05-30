@@ -77,10 +77,11 @@ option. Your cluster requirements may need a different configuration.
       on the apiserver port. It must also allow incoming traffic on its
       listening port.
 
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
-
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
+
+    - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
+      guide for more details.
 
 1.  Add the first control plane nodes to the load balancer and test the
     connection:
@@ -122,8 +123,8 @@ option. Your cluster requirements may need a different configuration.
     {{< /note >}}
 
     {{< note >}}
-    Some CNI network plugins like Calico require a CIDR such as `192.168.0.0/16` and
-    some like Weave do not. See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
+    Some CNI network plugins require additional configuration, for example specifying the pod IP CIDR, while others do not.
+    See the [CNI network documentation](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network).
     To add a pod CIDR pass the flag `--pod-network-cidr`, or if you are using a kubeadm configuration file
     set the `podSubnet` field under the `networking` object of `ClusterConfiguration`.
     {{< /note >}}

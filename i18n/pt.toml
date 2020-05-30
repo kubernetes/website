@@ -27,6 +27,9 @@ other = "Esta página foi útil?"
 [feedback_yes]
 other = "Sim"
 
+[input_placeholder_email_address]
+other = "endereço de e-mail"
+
 [feedback_no]
 other = "Não"
 

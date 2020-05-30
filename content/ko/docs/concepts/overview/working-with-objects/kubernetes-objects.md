@@ -32,8 +32,8 @@ card:
 원하는 특징(_의도한 상태_)에 대한 설명을
 제공해서 설정한다.
 
-`status`는 오브젝트의 _현재 상태_ 를 기술하고, 쿠버네티스
-컴포넌트에 의해 제공되고 업데이트 된다. 쿠버네티스
+`status` 는 쿠버네티스 시스템과 컴포넌트에 의해 제공되고
+업데이트된 오브젝트의 _현재 상태_ 를 설명한다. 쿠버네티스
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은 모든 오브젝트의
 실제 상태를 사용자가 의도한 상태와 일치시키기 위해 끊임없이 그리고
 능동적으로 관리한다.
@@ -44,8 +44,8 @@ spec에 3개의 애플리케이션 레플리카가 동작되도록
 설정할 수 있다. 쿠버네티스 시스템은 그 디플로이먼트 spec을 읽어
 spec에 일치되도록 상태를 업데이트하여 3개의 의도한
 애플리케이션 인스턴스를 구동시킨다. 만약, 그 인스턴스들 중 어느 하나가
-(상태 변경에) 실패한다면, 쿠버네티스 시스템은 보정(이 경우에는 대체 인스턴스를 시작하여)을 통해
-spec과 status 간의 차이에 대응한다.
+어떤 문제로 인해 멈춘다면(상태 변화 발생), 쿠버네티스 시스템은 보정(이 경우에는 대체 인스턴스를 시작하여)을 통해
+spec과 status간의 차이에 대응한다.
 
 오브젝트 명세, 상태, 그리고 메타데이터에 대한 추가 정보는, [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md) 를 참조한다.
 
@@ -53,7 +53,7 @@ spec과 status 간의 차이에 대응한다.
 
 쿠버네티스에서 오브젝트를 생성할 때, (이름과 같은)오브젝트에 대한 기본적인 정보와 더불어, 의도한 상태를 기술한 오브젝트 spec을 제시해 줘야만 한다. 오브젝트를 생성하기 위해(직접이든 또는 `kubectl`을 통해서든) 쿠버네티스 API를 이용할 때, API 요청은 요청 내용 안에 JSON 형식으로 정보를 포함시켜 줘야만 한다. **대부분의 경우 정보를 .yaml 파일로 `kubectl`에 제공한다.** `kubectl`은 API 요청이 이루어질 때, JSON 형식으로 정보를 변환시켜 준다.
 
-여기 쿠버네티스 디플로이먼트를 위한 요청 필드와 오브젝트 spec을 보여주는 `.yaml` 파일 예시가 있다.
+여기 쿠버네티스 디플로이먼트를 위한 필수 필드와 오브젝트 spec을 보여주는 `.yaml` 파일 예시가 있다.
 
 {{< codenew file="application/deployment.yaml" >}}
 
@@ -93,4 +93,3 @@ deployment.apps/nginx-deployment created
 * [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
 {{% /capture %}}
-

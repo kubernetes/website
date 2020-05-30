@@ -28,7 +28,8 @@ You can set up an HA cluster:
 您可以设置 HA 集群：
 
 <!--
-- With stacked control plane nodes, where etcd nodes are colocated with control plane nodes- With external etcd nodes, where etcd runs on separate nodes from the control plane
+- With stacked control plane nodes, where etcd nodes are colocated with control plane nodes
+- With external etcd nodes, where etcd runs on separate nodes from the control plane
 -->
  - 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存
  - 使用外部 etcd 节点，其中 etcd 在与控制平面不同的节点上运行
@@ -37,6 +38,15 @@ You can set up an HA cluster:
 You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
 -->
 在设置 HA 集群之前，您应该仔细考虑每种拓扑的优缺点。
+
+<!--
+kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
+for more details.
+-->
+
+{{< note >}}
+kubeadm 静态引导 etcd 集群。 阅读 etcd [集群指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以获得更多详细信息。
+{{< /note >}}
 
 {{% /capture %}}
 

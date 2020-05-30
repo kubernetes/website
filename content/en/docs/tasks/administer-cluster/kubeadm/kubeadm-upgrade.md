@@ -50,59 +50,59 @@ The upgrade workflow at high level is the following:
 
 ## Determine which version to upgrade to
 
-1.  Find the latest stable 1.18 version:
+Find the latest stable 1.18 version:
 
-    {{< tabs name="k8s_install_versions" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{< tabs name="k8s_install_versions" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
     apt-cache madison kubeadm
     # find the latest 1.18 version in the list
     # it should look like 1.18.x-00, where x is the latest patch
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
     # find the latest 1.18 version in the list
     # it should look like 1.18.x-0, where x is the latest patch
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Upgrading control plane nodes
 
 ### Upgrade the first control plane node
 
-1.  On your first control plane node, upgrade kubeadm:
+-  On your first control plane node, upgrade kubeadm:
 
-    {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{< tabs name="k8s_install_kubeadm_first_cp" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
-
+    -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.18.x-0 with the latest patch version
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  Verify that the download works and has the expected version:
+-  Verify that the download works and has the expected version:
 
     ```shell
     kubeadm version
     ```
 
-1.  Drain the control plane node:
+-  Drain the control plane node:
 
     ```shell
     # replace <cp-node-name> with the name of your control plane node
     kubectl drain <cp-node-name> --ignore-daemonsets
     ```
 
-1.  On the control plane node, run:
+-   On the control plane node, run:
 
     ```shell
     sudo kubeadm upgrade plan
@@ -145,13 +145,13 @@ The upgrade workflow at high level is the following:
 
     This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
 
-    {{< note >}}
-    `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
-    To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
-    For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
-    {{</ note >}}
+{{< note >}}
+`kubeadm upgrade` also automatically renews the certificates that it manages on this node.
+To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
+For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadmkubeadm-certs).
+{{</ note >}}
 
-1.  Choose a version to upgrade to, and run the appropriate command. For example:
+-  Choose a version to upgrade to, and run the appropriate command. For example:
 
     ```shell
     # replace x with the patch version you picked for this upgrade
@@ -240,7 +240,7 @@ The upgrade workflow at high level is the following:
     [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
     ```
 
-1.  Manually upgrade your CNI provider plugin.
+-  Manually upgrade your CNI provider plugin.
 
     Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
     Check the [addons](/docs/concepts/cluster-administration/addons/) page to
@@ -248,7 +248,7 @@ The upgrade workflow at high level is the following:
 
     This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-1.  Uncordon the control plane node:
+-  Uncordon the control plane node:
 
     ```shell
     # replace <cp-node-name> with the name of your control plane node
@@ -257,46 +257,46 @@ The upgrade workflow at high level is the following:
 
 ### Upgrade additional control plane nodes
 
-1.  Same as the first control plane node but use:
+Same as the first control plane node but use:
 
-    ```
-    sudo kubeadm upgrade node
-    ```
+```
+sudo kubeadm upgrade node
+```
 
-    instead of:
+instead of:
 
-    ```
-    sudo kubeadm upgrade apply
-    ```
+```
+sudo kubeadm upgrade apply
+```
 
-    Also `sudo kubeadm upgrade plan` is not needed.
+Also `sudo kubeadm upgrade plan` is not needed.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all control plane nodes:
+Upgrade the kubelet and kubectl on all control plane nodes:
 
-    {{< tabs name="k8s_install_kubelet" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{< tabs name="k8s_install_kubelet" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
-
+    -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.18.x-0 with the latest patch version
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  Restart the kubelet
+Restart the kubelet
 
-    ```shell
-    sudo systemctl restart kubelet
-    ```
+```shell
+sudo systemctl restart kubelet
+```
 
 ## Upgrade worker nodes
 
@@ -305,28 +305,28 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubeadm
 
-1.  Upgrade kubeadm on all worker nodes:
+-  Upgrade kubeadm on all worker nodes:
 
-    {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubeadm && \
     apt-get update && apt-get install -y kubeadm=1.18.x-00 && \
     apt-mark hold kubeadm
-
+    -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubeadm=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.18.x-0 with the latest patch version
     yum install -y kubeadm-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Drain the node
 
-1.  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+-  Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 
     ```shell
     # replace <node-to-drain> with the name of your node you are draining
@@ -343,7 +343,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade the kubelet configuration
 
-1.  Call the following command:
+-  Call the following command:
 
     ```shell
     sudo kubeadm upgrade node
@@ -351,26 +351,26 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Upgrade kubelet and kubectl
 
-1.  Upgrade the kubelet and kubectl on all worker nodes:
+-  Upgrade the kubelet and kubectl on all worker nodes:
 
-    {{< tabs name="k8s_kubelet_and_kubectl" >}}
-    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{< tabs name="k8s_kubelet_and_kubectl" >}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
     # replace x in 1.18.x-00 with the latest patch version
     apt-mark unhold kubelet kubectl && \
     apt-get update && apt-get install -y kubelet=1.18.x-00 kubectl=1.18.x-00 && \
     apt-mark hold kubelet kubectl
-
+    -
     # since apt-get version 1.1 you can also use the following method
     apt-get update && \
     apt-get install -y --allow-change-held-packages kubelet=1.18.x-00 kubectl=1.18.x-00
-    {{% /tab %}}
-    {{% tab name="CentOS, RHEL or Fedora" %}}
+{{% /tab %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
     # replace x in 1.18.x-0 with the latest patch version
     yum install -y kubelet-1.18.x-0 kubectl-1.18.x-0 --disableexcludes=kubernetes
-    {{% /tab %}}
-    {{< /tabs >}}
+{{% /tab %}}
+{{< /tabs >}}
 
-1.  Restart the kubelet
+-  Restart the kubelet
 
     ```shell
     sudo systemctl restart kubelet
@@ -378,7 +378,7 @@ without compromising the minimum required capacity for running your workloads.
 
 ### Uncordon the node
 
-1.  Bring the node back online by marking it schedulable:
+-   Bring the node back online by marking it schedulable:
 
     ```shell
     # replace <node-to-drain> with the name of your node

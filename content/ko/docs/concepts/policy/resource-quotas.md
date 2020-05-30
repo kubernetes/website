@@ -193,7 +193,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 ### PriorityClass별 리소스 쿼터
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 특정 [우선 순위](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)로 파드를 생성할 수 있다.
 쿼터 스펙의 `scopeSelector` 필드를 사용하여 파드의 우선 순위에 따라 파드의 시스템 리소스 사용을
@@ -490,7 +490,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
+kubectl scale deployment nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell

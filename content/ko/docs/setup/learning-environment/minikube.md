@@ -33,116 +33,151 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 여기서 기술하는 간단한 데모는 어떻게 로컬에서 Minikube를 시작하고, 사용하고 삭제하는지를 안내한다. 다음의 주어진 단계를 따라서 Minikube를 시작하고 탐구한다.
 
 1. Minikube를 시작하고 클러스터를 생성
-    ```shell
+
+   ```shell
     minikube start
-    ```
+   ```
+
     결과는 다음과 비슷하다.
 
-    ```
-    Starting local Kubernetes cluster...
-    Running pre-create checks...
-    Creating machine...
-    Starting local Kubernetes cluster...
-    ```
-    특정 쿠버네티스 버전, VM, 컨테이너 런타임 상에서 클러스터를 시작하기 위한 보다 상세한 정보는 [클러스터 시작하기](#클러스터-시작하기)를 참조한다.
+   ```
+   Starting local Kubernetes cluster...
+   Running pre-create checks...
+   Creating machine...
+   Starting local Kubernetes cluster...
+   ```
+
+   특정 쿠버네티스 버전, VM, 컨테이너 런타임 상에서 클러스터를 시작하기 위한 보다 상세한 정보는 [클러스터 시작하기](#클러스터-시작하기)를 참조한다.
 
 2. 이제, kubectl을 통해서 클러스터와 상호작용할 수 있다. 보다 상세한 정보는 [클러스터와 상호 작용하기](#클러스터와-상호-작용하기)를 참조한다.
 
-    단순한 HTTP 서버인 `echoserver` 이미지를 사용해서 쿠버네티스 디플로이먼트를 만들고 `--port`를 이용해서 8080 포트로 노출해보자.
-    ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
-    ```
-    결과는 다음과 비슷하다.
-    ```
-    deployment.apps/hello-minikube created
-    ```
-3. `hello-minikube` 디플로이먼트에 액세스하기 위해, 서비스로 노출시킨다.
-    ```shell
-    kubectl expose deployment hello-minikube --type=NodePort --port=8080
-    ```
-    `--type=NodePort` 옵션은 서비스 타입을 지정한다.
+   간단한 HTTP 서버인 `echoserver` 이미지를 사용해서 쿠버네티스 디플로이먼트를 만들고 `--port`를 이용해서 8080 포트로 노출해보자.
+
+   ```shell
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+   ```
 
     결과는 다음과 비슷하다.
-    ```
-    service/hello-minikube exposed
-    ```
+
+   ```
+   deployment.apps/hello-minikube created
+   ```
+3. `hello-minikube` 디플로이먼트에 액세스하기 위해, 서비스로 노출시킨다.
+
+   ```shell
+   kubectl expose deployment hello-minikube --type=NodePort --port=8080
+   ```
+
+   `--type=NodePort` 옵션은 서비스 타입을 지정한다.
+
+    결과는 다음과 비슷하다.
+
+   ```
+   service/hello-minikube exposed
+   ```
+
 4. `hello-minikube` 파드가 이제 시작되었지만 노출된 서비스를 통해서 접근하기 전에 파드가 뜨기를 기다려야한다.
 
-	파드가 떠서 구동되고 있는지 확인한다.
-	```shell
-	kubectl get pod
-	```
-	출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
-	출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 떠서 기동 중이다.
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+   파드가 시작되고 실행 중인지 확인한다.
+
+   ```shell
+   kubectl get pod
+   ```
+
+   출력에서 `STATUS`가 `ContainerCreating`으로 나타나는 경우, 파드는 아직 생성 중이다.
+
+   ```
+   NAME                              READY     STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+   ```
+
+   출력에서 `STATUS`가 `Running`으로 나타나는 경우, 파드는 이제 시작돼서 실행 중이다.
+
+   ```
+   NAME                              READY     STATUS    RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+   ```
+
 5. 서비스 상세를 보기 위해서 노출된 서비스의 URL을 얻는다.
-	```shell
-	minikube service hello-minikube --url
-	```
-6. 로컬 클러스터의 상세를 보기위해서, 출력에서 얻은 URL을 브라우저에 복사해서 붙여 넣는다.
 
-    출력은 다음과 비슷하다.
-    ```
-    Hostname: hello-minikube-7c77b68cff-8wdzq
+   ```shell
+   minikube service hello-minikube --url
+   ```
 
-    Pod Information:
-        -no pod information available-
+6. 로컬 클러스터의 상세를 보기위해서, 출력에서 얻은 URL을 브라우저에 복사해서 붙여넣는다.
 
-    Server values:
-        server_version=nginx: 1.13.3 - lua: 10008
+   출력은 다음과 비슷하다.
 
-    Request Information:
-        client_address=172.17.0.1
-        method=GET
-        real path=/
-        query=
-        request_version=1.1
-        request_scheme=http
-        request_uri=http://192.168.99.100:8080/
+   ```
+   Hostname: hello-minikube-7c77b68cff-8wdzq
 
-    Request Headers:
+   Pod Information:
+    -no pod information available-
+
+   Server values:
+    server_version=nginx: 1.13.3 - lua: 10008
+
+   Request Information:
+    client_address=172.17.0.1
+    method=GET
+    real path=/
+    query=
+    request_version=1.1
+    request_scheme=http
+    request_uri=http://192.168.99.100:8080/
+
+   Request Headers:
         accept=*/*
         host=192.168.99.100:30674
         user-agent=curl/7.47.0
 
-    Request Body:
+   Request Body:
         -no body in request-
-    ```
-  서비스나 클러스터가 더 이상 구동되지 않도록 하려면, 삭제한다.  
+   ```
+
+   서비스나 클러스터가 더 이상 구동되지 않도록 하려면, 삭제한다.  
+
 7. `hello-minikube` 서비스 삭제
-    ```shell
-    kubectl delete services hello-minikube
-    ```
-    출력은 다음과 비슷하다.
-    ```
-    service "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete services hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   service "hello-minikube" deleted
+   ```
+
 8. `hello-minikube` 디플로이먼트 삭제
-    ```shell
-    kubectl delete deployment hello-minikube
-    ```
-    출력은 다음과 비슷하다.
-    ```
-    deployment.extensions "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete deployment hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   deployment.extensions "hello-minikube" deleted
+   ```
+
 9. 로컬 Minikube 클러스터 중지
-    ```shell
-    minikube stop
-    ```
-    출력은 다음과 비슷하다.
-    ```
-    Stopping "minikube"...
-    "minikube" stopped.
-    ```
-	보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
+
+   ```shell
+   minikube stop
+   ```
+
+   The output is similar to this:
+
+   ```
+   Stopping "minikube"...
+   "minikube" stopped.
+   ```
+
+   보다 상세한 정보는 [클러스터 중지하기](#클러스터-중지하기)를 참조한다.
+
 10. 로컬 Minikube 클러스터 삭제
+
     ```shell
     minikube delete
     ```
@@ -188,14 +223,15 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 ```shell
 minikube start --driver=<driver_name>
 ```
- Minikube는 다음의 드라이버를 지원한다.
- {{< note >}}
- 지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
+Minikube는 다음의 드라이버를 지원한다.
+{{< note >}}
+지원되는 드라이버와 플러그인 설치 방법에 대한 보다 상세한 정보는 [드라이버](https://minikube.sigs.k8s.io/docs/reference/drivers/)를 참조한다.
 {{< /note >}}
 
-* virtualbox
+* docker ([드라이버 설치](https://minikube.sigs.k8s.io/docs/drivers/docker/))
+* virtualbox ([드라이버 설치](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
+* podman ([드라이버 설치](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
 * vmwarefusion
-* docker (EXPERIMENTAL)
 * kvm2 ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
 * hyperkit ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
 * hyperv ([드라이버 설치](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
@@ -457,11 +493,11 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 
 ## 추가적인 링크:
 
-* **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://git.k8s.io/minikube/docs/contributors/roadmap.md)을 살펴보자.
-* **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [참여 가이드](https://git.k8s.io/minikube/CONTRIBUTING.md)를 살펴보자.
-* **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://git.k8s.io/minikube/docs/contributors/build_guide.md)를 살펴보자.
-* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)를 보자.
-* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)를 보자. 
+* **목표와 비목표**: Minikube 프로젝트의 목표와 비목표에 대해서는 [로드맵](https://minikube.sigs.k8s.io/docs/contrib/roadmap/)을 살펴보자.
+* **개발 가이드**: 풀 리퀘스트를 보내는 방법에 대한 개요는 [기여하기](https://minikube.sigs.k8s.io/docs/contrib/)를 살펴보자.
+* **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://minikube.sigs.k8s.io/docs/contrib/building/)를 살펴보자.
+* **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/drivers/)를 보자.
+* **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/addons/)를 보자. 
 * **MicroK8s**: 가상 머신을 사용하지 않으려는 Linux 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
 
 ## 커뮤니티
