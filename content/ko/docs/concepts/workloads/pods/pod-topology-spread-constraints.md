@@ -55,7 +55,7 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 
 `pod.spec.topologySpreadConstraints` 필드는 1.16에서 다음과 같이 도입되었다.
 
-```yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -97,7 +97,7 @@ spec:
 
 {{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
 
-`topologyKey: zone` 는 "zone:<any value>" 레이블 쌍을 가지는 노드에 대해서만 균등한 분배를 적용하는 것을 의미한다. `whenUnsatisfiable: DoNotSchedule` 은 만약 들어오는 파드가 제약 조건을 만족시키지 못하면 스케줄러에게 pending 상태를 유지하도록 지시한다.
+`topologyKey: zone` 는 "zone:&lt;any value&gt;" 레이블 쌍을 가지는 노드에 대해서만 균등한 분배를 적용하는 것을 의미한다. `whenUnsatisfiable: DoNotSchedule` 은 만약 들어오는 파드가 제약 조건을 만족시키지 못하면 스케줄러에게 pending 상태를 유지하도록 지시한다.
 
 만약 스케줄러가 이 신규 파드를 "zoneA"에 배치하면 파드 분포는 [3, 1]이 되며, 따라서 실제 차이(skew)는 2 (3 - 1)가 되어 `maxSkew: 1` 를 위반하게 된다. 이 예시에서는 들어오는 파드는 오직 "zoneB"에만 배치할 수 있다.
 

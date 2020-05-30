@@ -158,7 +158,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 노드의 합집합을 취한다.
 
 노드 셀렉터와 톨러레이션 설정에 대해 더 배우려면
-[노드에 파드 할당](/ko/docs/concepts/configuration/assign-pod-node/)을 참고한다.
+[노드에 파드 할당](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)을 참고한다.
 
 [런타임 클래스 어드미션 컨트롤러]: /docs/reference/access-authn-authz/admission-controllers/#runtimeclass
 
