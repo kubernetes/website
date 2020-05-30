@@ -11,7 +11,7 @@ tags:
 - fundamental
 - networking
 ---
-  kube-proxy はクラスター内の各{{< glossary_tooltip text="node" term_id="node" >}}で動作しているネットワークプロキシで、Kubernetesの{{< glossary_tooltip term_id="service">}}コンセプトの一部を実装しています。
+  kube-proxyはクラスター内の各{{< glossary_tooltip text="node" term_id="node" >}}で動作しているネットワークプロキシで、Kubernetesの{{< glossary_tooltip term_id="service">}}コンセプトの一部を実装しています。
 
 <!--more-->
 
