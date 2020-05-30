@@ -5,16 +5,16 @@ approvers:
 linkTitle: "Referencia"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta sección de la documentación de Kubernetes contiene información de referencia.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Información de referencia sobre la API
 
@@ -61,4 +61,4 @@ Un archivo de los documentos de diseño para la funcionalidad de Kubernetes.
 
 Puedes empezar por [Arquitectura de Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) y [Vista general del diseño de Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

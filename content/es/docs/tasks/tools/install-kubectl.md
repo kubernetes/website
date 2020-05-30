@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 title: Instalar y Configurar kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -10,16 +10,17 @@ card:
   title: Instalar kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Usa la herramienta de línea de comandos de Kubernetes, [kubectl](/docs/user-guide/kubectl/), para desplegar y gestionar aplicaciones en Kubernetes. Usando kubectl, puedes inspeccionar recursos del clúster; crear, eliminar, y actualizar componentes; explorar tu nuevo clúster; y arrancar aplicaciones de ejemplo.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Debes usar una versión de kubectl que esté a menos de una versión menor de diferencia con tu clúster. Por ejemplo, un cliente v1.2 debería funcionar con un máster v1.1, v1.2, y v1.3. Usar la última versión de kubectl ayuda a evitar problemas inesperados.
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Instalar kubectl
 
@@ -421,9 +422,10 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Aprender cómo lanzar y exponer tu aplicación.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-{{% /capture %}}
+
 

@@ -2,18 +2,18 @@
 reviewers:
 - raelga
 title: ¿Qué es Kubernetes?
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Esta página ofrece una visión general sobre Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes es una plataforma portable y extensible de código abierto para
 administrar cargas de trabajo y servicios. Kubernetes facilita la automatización
 y la configuración declarativa. Tiene un ecosistema grande y en rápido crecimiento.
@@ -154,11 +154,12 @@ En resumen, los beneficios de usar contenedores incluyen:
 El nombre **Kubernetes** proviene del griego y significa *timonel* o *piloto*. Es la raíz de *gobernador* y de [cibernética](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 es una abrevación que se obtiene al reemplazar las ocho letras "ubernete" con el número 8.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   ¿Estás listo para [empezar](/docs/setup/)?
 *   Para saber más, visita el resto de la [documentación de Kubernetes](/docs/home/).
-{{% /capture %}}
+
 
 

@@ -1,10 +1,10 @@
 ---
 title: Conceptos subyacentes del Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 El concepto del Cloud Controller Manager (CCM) (no confundir con el ejecutable) fue creado originalmente para permitir que Kubernetes y el código específico de proveedores de servicios en la nube evolucionasen de forma independiente. El Cloud Controller Manager se ejecuta a la par con otros componentes maestros como el Kubernetes Controller Manager, el API Server y el planificador. También puede ejecutarse como un extra, en cuyo caso se ejecuta por encima de Kubernetes.
 
@@ -16,10 +16,10 @@ En la siguiente imagen, se puede ver la arquitectura de un cluster de Kubernetes
 
 ![Arquitectura previa a CCM](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Diseño
 
@@ -235,4 +235,4 @@ Los siguientes proveedores de servicios en la nube han implementado CCMs:
 
 Instrucciones para configurar y ejecutar el CCM pueden encontrarse [aquí](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
-{{% /capture %}}
+

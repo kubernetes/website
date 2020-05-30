@@ -8,11 +8,11 @@ feature:
     mata los contenedores que no responden a tus pruebas de salud definidas,
     y no los expone a los clientes hasta que no están listo para servirse.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 hoy en día la forma recomendada de configurar la replicación es con un [`Deployment`](/docs/concepts/workloads/controllers/deployment/) que configura un [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/).
@@ -22,10 +22,10 @@ Un _ReplicationController_ garantiza que un número determinado de réplicas se 
 en todo momento. En otras palabras, un ReplicationController se asegura que un pod o un conjunto homogéneo de pods
 siempre esté arriba y disponible.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cómo Funciona un ReplicationController
 
@@ -327,6 +327,6 @@ terminarlo cuando el servidor está listo para reiniciarse/apagarse.
 
 Lee [Ejecutar Aplicaciones sin Estado con un ReplicationController](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
-{{% /capture %}}
+
 
 
