@@ -1,23 +1,24 @@
 ---
 title: ストレージにProjectedボリュームを使用するようPodを設定する
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、[`projected`](/docs/concepts/storage/volumes/#projected)（投影）ボリュームを使用して、既存の複数のボリュームソースを同一ディレクトリ内にマウントする方法を説明します。
 現在、`secret`、`configMap`、`downwardAPI`および`serviceAccountToken`ボリュームを投影できます。
 
 {{< note >}}
 `serviceAccountToken`はボリュームタイプではありません。
 {{< /note >}}
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 ## ProjectedボリュームをPodに設定する
 
 この課題では、ローカルファイルからユーザーネームおよびパスワードの{{< glossary_tooltip text="Secret" term_id="secret" >}}を作成します。
@@ -73,9 +74,10 @@ kubectl delete pod test-projected-volume
 kubectl delete secret user pass
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [`projected`](/docs/concepts/storage/volumes/#projected)ボリュームについてさらに学ぶ
 * [all-in-oneボリューム](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)のデザインドキュメントを読む
-{{% /capture %}}
+

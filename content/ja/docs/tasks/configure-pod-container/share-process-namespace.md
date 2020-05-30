@@ -1,11 +1,11 @@
 ---
 title: Pod内のコンテナ間でプロセス名前空間を共有する
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
@@ -14,15 +14,16 @@ weight: 160
 
 この機能を使用して、ログハンドラーサイドカーコンテナなどの協調コンテナを構成したり、シェルなどのデバッグユーティリティを含まないコンテナイメージをトラブルシューティングしたりできます。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Podを構成する
 
@@ -86,9 +87,9 @@ events {
     worker_connections  1024;
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## プロセス名前空間の共有について理解する
 
@@ -106,6 +107,6 @@ Podは多くのリソースを共有するため、プロセスの名前空間�
 1. **コンテナファイルシステムは、`/proc/$pid/root`リンクを介してPod内の他のコンテナに表示されます。**
    これによりデバッグが容易になりますが、ファイルシステム内の秘密情報はファイルシステムのアクセス許可によってのみ保護されることも意味します。
 
-{{% /capture %}}
+
 
 

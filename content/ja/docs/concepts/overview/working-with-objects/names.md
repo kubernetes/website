@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: 名前
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 KubernetesのREST API内の全てのオブジェクトは、名前とUIDで明確に識別されます。
 
@@ -13,9 +13,9 @@ KubernetesのREST API内の全てのオブジェクトは、名前とUIDで明�
 
 名前とUIDに関する正確な構文については、[識別子デザインドキュメント](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)を参照してください。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 名前
 
@@ -27,4 +27,4 @@ KubernetesのREST API内の全てのオブジェクトは、名前とUIDで明�
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
-{{% /capture %}}
+

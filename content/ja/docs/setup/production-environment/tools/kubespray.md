@@ -1,10 +1,10 @@
 ---
 title: kubesprayを使ったオンプレミス/クラウドプロバイダへのKubernetesのインストール
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-incubator/kubespray).
 
@@ -23,9 +23,9 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](../kops).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## クラスタの作成
 
@@ -112,10 +112,11 @@ When running the reset playbook, be sure not to accidentally target your product
 * Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/)
 * [GitHub Issues](https://github.com/kubernetes-incubator/kubespray/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md).
 
-{{% /capture %}}
+

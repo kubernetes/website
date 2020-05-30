@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: ランタイムクラス(Runtime Class)
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -15,10 +15,10 @@ weight: 20
 RuntimeClassはKubernetes1.14のβ版アップグレードにおいて*破壊的な* 変更を含んでいます。もしユーザーがKubernetes1.14以前のバージョンを使っていた場合、[RuntimeClassのα版からβ版へのアップグレード](#upgrading-runtimeclass-from-alpha-to-beta)を参照してください。
 {{< /warning >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## RuntimeClassについて
 
@@ -139,4 +139,4 @@ RuntimeClassのβ版の機能は、下記の変更点を含みます。
   ```
 - `runtimeHandler`の指定がないか、もしくは空文字の場合や、ハンドラー名に`.`文字列が使われている場合はα版のRuntimeClassにおいてもはや有効ではありません。正しい形式のハンドラー設定に変更しなくてはなりません(先ほど記載した内容を確認ください)。
 
-{{% /capture %}}
+

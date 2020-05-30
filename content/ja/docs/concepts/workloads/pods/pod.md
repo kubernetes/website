@@ -1,18 +1,18 @@
 ---
 reviewers:
 title: Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Pod_ は、Kubernetesで作成および管理できる、デプロイ可能な最小のコンピューティング単位です。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Podとは
 
@@ -187,4 +187,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 PodはKubernetes REST APIのトップレベルのリソースです。
 APIオブジェクトの詳細については、[Pod APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照してください 。
 
-{{% /capture %}}
+

@@ -1,14 +1,14 @@
 ---
 reviewers:
 title: Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card: 
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 全般的なAPIの規則は、[API規則ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)に記載されています。
 
@@ -22,9 +22,9 @@ Kubernetes APIは、システムの宣言的設定スキーマの基礎として
 
 Kubernetesそれ自身は複数のコンポーネントから構成されており、APIを介して連携しています。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIの変更
 
@@ -113,4 +113,4 @@ APIグループは、RESTのパスとシリアライズされたオブジェク�
 DaemonSets、Deployments、HorizontalPodAutoscalers、Ingresses、JobsReplicaSets、そしてReplicaSetsはデフォルトで有効です。
 その他の拡張リソースは、APIサーバーの`--runtime-config`を設定することで有効化できます。`--runtime-config`はカンマ区切りの複数の値を設定可能です。例えば、deploymentsとingressを無効化する場合、`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`と設定します。
 
-{{% /capture %}}
+

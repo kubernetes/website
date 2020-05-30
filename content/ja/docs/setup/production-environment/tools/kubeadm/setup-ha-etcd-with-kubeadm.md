@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用した高可用性etcdクラスターの作成
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a high availability setup
@@ -13,9 +13,10 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
@@ -26,9 +27,9 @@ when using kubeadm to set up a kubernetes cluster.
 
 [toolbox]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## クラスターの構築
 
@@ -251,14 +252,15 @@ this example.
     - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `v3.2.24`.
     - Set `${HOST0}`to the IP address of the host you are testing.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Once you have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
-{{% /capture %}}
+
 
 

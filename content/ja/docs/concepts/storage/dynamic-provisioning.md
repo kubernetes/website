@@ -1,19 +1,19 @@
 ---
 reviewers:
 title: ボリュームの動的プロビジョニング(Dynamic Volume Provisioning)
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ボリュームの動的プロビジョニングにより、ストレージ用のボリュームをオンデマンドに作成することができます。
 動的プロビジョニングなしでは、クラスター管理者はクラウドプロバイダーまたはストレージプロバイダーに対して新規のストレージ用のボリュームと[`PersistentVolume`オブジェクト](/docs/concepts/storage/persistent-volumes/)を作成するように手動で指示しなければなりません。動的プロビジョニングの機能によって、クラスター管理者がストレージを事前にプロビジョンする必要がなくなります。その代わりに、ユーザーによってリクエストされたときに自動でストレージをプロビジョンします。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## バックグラウンド
 
@@ -87,4 +87,4 @@ spec:
 
 [マルチゾーン](/docs/setup/multiple-zones)クラスター内では、Podは単一のリージョン内のゾーンをまたいでしか稼働できません。シングルゾーンのStorageバックエンドはPodがスケジュールされるゾーン内でプロビジョンされる必要があります。これは[Volume割り当てモード](/docs/concepts/storage/storage-classes/#volume-binding-mode)を設定することにより可能となります。
 
-{{% /capture %}}
+

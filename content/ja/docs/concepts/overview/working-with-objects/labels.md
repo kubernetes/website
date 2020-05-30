@@ -1,10 +1,10 @@
 ---
 title: ラベル(Labels)とセレクター(Selectors)
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキーとバリューのペアです。  
 ラベルはユーザーに関連した意味のあるオブジェクトの属性を指定するために使われることを目的としています。しかしKubernetesのコアシステムに対して直接的にその意味を暗示するものではありません。  
@@ -22,10 +22,10 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 ラベルは効率的な検索・閲覧を可能にし、UIやCLI上での利用に最適です。 
 識別用途でない情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## ラベルを使う動機
 
@@ -216,4 +216,4 @@ selector:
 ラベルを選択するための1つのユースケースはPodがスケジュールできるNodeのセットを制限することです。  
 さらなる情報に関しては、[Node選定](/ja/docs/concepts/configuration/assign-pod-node/) のドキュメントを参照してください。 
 
-{{% /capture %}}
+

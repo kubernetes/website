@@ -1,10 +1,10 @@
 ---
 title: レプリカを持つステートフルアプリケーションを実行する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
 コントローラーを使用して、レプリカを持つステートフルアプリケーションを実行する方法を説明します。
@@ -14,9 +14,10 @@ weight: 30
 具体的には、MySQLの設定が安全ではないデフォルトのままとなっています。
 これはKubernetesでステートフルアプリケーションを実行するための一般的なパターンに焦点を当てるためです。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
@@ -29,18 +30,19 @@ weight: 30
 * MySQLに関する知識は記事の理解に役立ちますが、
   このチュートリアルは他のシステムにも役立つ一般的なパターンを提示することを目的としています。
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * StatefulSetコントローラーを使用して、レプリカを持つMySQLトポロジーをデプロイします。
 * MySQLクライアントトラフィックを送信します。
 * ダウンタイムに対する耐性を観察します。
 * StatefulSetをスケールアップおよびスケールダウンします。
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## MySQLをデプロイする
 
@@ -437,9 +439,10 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 1. `SELECT @@server_id`ループを実行している端末で**Ctrl+C**を押すか、
    別の端末から次のコマンドを実行して、ループをキャンセルします。
@@ -478,13 +481,14 @@ kubectl delete pvc data-mysql-4
    動的プロビジョニング機能を使用した場合は、PersistentVolumeClaimを削除すれば、自動的にPersistentVolumeも削除されます。
    一部の動的プロビジョナー(EBSやPDなど)は、PersistentVolumeを削除すると同時に下層にあるリソースも解放します。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * その他のステートフルアプリケーションの例は、[Helm Charts repository](https://github.com/kubernetes/charts)を見てください。
 
-{{% /capture %}}
+
 
 
 

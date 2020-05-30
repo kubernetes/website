@@ -1,18 +1,18 @@
 ---
 title: Podについての概観(Pod Overview)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して概観します。
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Podについて理解する
 
 *Pod* は、Kubernetesアプリケーションの基本的な実行単位です。これは、作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最も単純な単位です。Podは、{{< glossary_tooltip term_id="cluster" >}}で実行されているプロセスを表します。
@@ -108,11 +108,12 @@ spec:
 全てのレプリカの現在の理想的な状態を指定するというよりも、Podテンプレートはクッキーの抜き型のようなものです。一度クッキーがカットされると、そのクッキーは抜き型から離れて関係が無くなります。そこにはいわゆる”量子もつれ”といったものはありません。テンプレートに対するその後の変更や新しいテンプレートへの切り替えは、すでに作成されたPod上には直接的な影響はありません。
 同様に、ReplicationControllerによって作成されたPodは、変更後に直接更新されます。これはPodとの意図的な違いとなり、そのPodに属する全てのコンテナの現在の理想的な状態を指定します。このアプローチは根本的にシステムのセマンティクスを単純化し、機能の柔軟性を高めます。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Pod](/ja/docs/concepts/workloads/pods/pod/)について更に学びましょう
 * Podの振る舞いに関して学ぶには下記を参照してください
    * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#podの終了)
    * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

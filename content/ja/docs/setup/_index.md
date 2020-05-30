@@ -3,7 +3,7 @@ no_issue: true
 title: はじめに
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -14,7 +14,7 @@ card:
     title: 本番環境
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このセクションではKubernetesをセットアップして動かすための複数のやり方について説明します。
 
@@ -24,9 +24,9 @@ Kubernetesクラスタはローカルマシン、クラウド、オンプレの�
 
 簡潔に言えば、学習用としても、本番環境用としてもKubernetesクラスターを作成することができます。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 環境について学ぶ
 
@@ -110,4 +110,4 @@ Kubernetesクラスタにおける抽象レイヤには {{< glossary_tooltip tex
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 | [Z.A.R.V.I.S.](https://zarvis.ai/) | &#x2714; | | | | | |
 
-{{% /capture %}}
+

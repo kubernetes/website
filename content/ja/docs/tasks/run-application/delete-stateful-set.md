@@ -1,22 +1,23 @@
 ---
 title: StatefulSetの削除
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このタスクでは、StatefulSetを削除する方法を説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * このタスクは、クラスター上で、StatefulSetで表現されるアプリケーションが実行されていることを前提としています。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetの削除
 
@@ -74,12 +75,13 @@ kubectl delete pvc -l app=myapp
 
 StatefulSet内の一部のPodが長期間`Terminating`または`Unknown`状態のままになっていることが判明した場合は、手動でapiserverからPodを強制的に削除する必要があります。これは潜在的に危険な作業です。詳細は[StatefulSet Podの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [StatefulSet Podの強制削除](/docs/tasks/run-application/force-delete-stateful-set-pod/)の詳細
 
-{{% /capture %}}
+
 
 

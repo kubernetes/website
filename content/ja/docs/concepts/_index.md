@@ -1,17 +1,17 @@
 ---
 title: コンセプト
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本セクションは、Kubernetesシステムの各パートと、{{< glossary_tooltip text="クラスター" term_id="cluster" length="all" >}}を表現するためにKubernetesが使用する抽象概念について学習し、Kubernetesの仕組みをより深く理解するのに役立ちます。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -59,12 +59,13 @@ Kubernetesのマスターは、クラスターの望ましい状態を維持す�
 
 クラスターのノードは、アプリケーションとクラウドワークフローを実行するマシン(VM、物理サーバーなど)です。Kubernetesのマスターは各ノードを制御します。運用者自身がノードと直接対話することはほとんどありません。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 コンセプトページを追加したい場合は、
 [ページテンプレートの使用](/docs/home/contribute/page-templates/)
 のコンセプトページタイプとコンセプトテンプレートに関する情報を確認してください。
 
-{{% /capture %}}
+

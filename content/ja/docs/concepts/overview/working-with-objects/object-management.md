@@ -1,16 +1,16 @@
 ---
 title: Kubernetesオブジェクト管理
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 `kubectl`コマンドラインツールは、Kubernetesオブジェクトを作成、管理するためにいくつかの異なる方法をサポートしています。
 このドキュメントでは、それらの異なるアプローチごとの概要を提供します。
 Kubectlを使ったオブジェクト管理の詳細は、[Kubectl book](https://kubectl.docs.kubernetes.io)を参照してください。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 管理手法
 
@@ -157,9 +157,10 @@ kubectl apply -R -f configs/
 - 宣言型オブジェクト設定は、デバッグ、そして想定外の結果が出たときに理解するのが困難です
 - 差分を利用した一部のみの更新は、複雑なマージ、パッチの操作が必要です
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [命令型コマンドを利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [オブジェクト設定（命令型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
@@ -169,4 +170,4 @@ kubectl apply -R -f configs/
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

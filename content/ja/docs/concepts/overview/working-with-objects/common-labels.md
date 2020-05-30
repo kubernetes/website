@@ -1,15 +1,15 @@
 ---
 title: 推奨ラベル(Recommended Labels)
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 ユーザーはkubectlやダッシュボード以外に、多くのツールでKubernetesオブジェクトの管理と可視化ができます。共通のラベルセットにより、全てのツールにおいて解釈可能な共通のマナーに沿ってオブジェクトを表現することで、ツールの相互運用を可能にします。
 
 ツール化に対するサポートに加えて、推奨ラベルはクエリ可能な方法でアプリケーションを表現します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 メタデータは、_アプリケーション_ のコンセプトを中心に構成されています。KubernetesはPaaS(Platform as a Service)でなく、アプリケーションの公式な概念を持たず、またそれを強制することはありません。
 そのかわり、アプリケーションは、非公式で、メタデータによって表現されています。単一のアプリケーションが有する項目に対する定義は厳密に決められていません。
 
@@ -153,4 +153,3 @@ metadata:
 
 MySQLの`StatefulSet`と`Service`により、MySQLとWordPressに関するより広範な情報が含まれていることに気づくでしょう。
 
-{{% /capture %}}

@@ -1,15 +1,15 @@
 ---
 reviewers:
 title: クラスター管理の概要
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページはKubernetesクラスターの作成や管理者向けの内容です。Kubernetesのコア[コンセプト](/ja/docs/concepts/)についてある程度精通していることを前提とします。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## クラスターのプランニング
 
 Kubernetesクラスターの計画、セットアップ、設定の例を知るには[設定](/ja/docs/setup/)のガイドを参照してください。この記事で列挙されているソリューションは*ディストリビューション* と呼ばれます。
@@ -64,6 +64,6 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [クラスターアクティビィのロギングと監視](/docs/concepts/cluster-administration/logging/)では、Kubernetesにおけるロギングがどのように行われ、どう実装されているかについて解説します。
 
-{{% /capture %}}
+
 
 

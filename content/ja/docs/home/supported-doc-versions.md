@@ -1,19 +1,19 @@
 ---
 title: Kubernetesドキュメントがサポートしているバージョン
-content_template: templates/concept
+content_type: concept
 card:
   name: about
   weight: 10
   title: ドキュメントがサポートしているバージョン
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本ウェブサイトでは、現行版とその直前4バージョンのKubernetesドキュメントを含んでいます。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 現行版
 
@@ -24,6 +24,6 @@ card:
 
 {{< versions-other >}}
 
-{{% /capture %}}
+
 
 
