@@ -2,17 +2,17 @@
 reviewers:
 - glo-pena
 title: Comunicación Nodo-Maestro
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Este documento cataloga las diferentes vías de comunicación entre el nodo máster (en realidad el apiserver) y el clúster de Kubernetes. La intención es permitir a los usuarios personalizar sus instalaciones para proteger sus configuraciones de red de forma que el clúster pueda ejecutarse en una red insegura. (o en un proveedor de servicios en la nube con direcciones IP públicas)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### Clúster a Máster
 
@@ -56,4 +56,3 @@ Kubernetes ofrece soporte para túneles SSH que protegen la comunicación  Mást
 
 Los túneles SSH se consideran obsoletos, y no deberían utilizarse a menos que se sepa lo que se está haciendo. Se está diseñando un reemplazo para este canal de comunicación.
 
-{{% /capture %}}

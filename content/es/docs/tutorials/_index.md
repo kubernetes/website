@@ -2,10 +2,10 @@
 title: Tutoriales
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta sección de la documentación de Kubernetes contiene tutoriales.
 
@@ -15,9 +15,9 @@ una de ellas contiene un procedimiento.
 Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 [Glosario de términos](/docs/reference/glossary/) para poder consultarlo fácilmente.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Esenciales
 
@@ -67,10 +67,11 @@ Antes de recorrer cada tutorial, recomendamos añadir un marcador a
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si quieres escribir un tutorial, revisa [utilizando templates](/docs/home/contribute/page-templates/) para obtener información sobre el tipo de página y la plantilla de los tutotriales.
 
-{{% /capture %}}
+
