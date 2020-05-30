@@ -1,6 +1,6 @@
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Questo tutorial mostra come eseguire una semplice applicazione in Kubernetes
 utilizzando [Minikube](/docs/setup/learning-environment/minikube) e Katacoda.
@@ -23,24 +23,26 @@ Katacoda permette di operare su un'installazione di Kubernetes dal tuo browser.
 Come alternativa, è possibile eseguire questo tutorial [installando minikube](/docs/tasks/tools/install-minikube/) localmente.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Rilasciare una semplice applicazione su Minikube.
 * Eseguire l'applicazione.
 * Visualizzare i log dell'applicazione.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Questo tutorial fornisce una container image che utilizza NGINX per risponde a tutte le richieste
 con un echo che visualizza i dati della richiesta stessa.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Crea un Minikube cluster
 
@@ -269,12 +271,13 @@ Eventualmente, puoi cancellare la Minikube VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Approfondisci la tua conoscenza dei [Deployments](/docs/concepts/workloads/controllers/deployment/).
 * Approfondisci la tua conoscenza di [Rilasciare applicazioni](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Approfondisci la tua conoscenza dei [Services](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

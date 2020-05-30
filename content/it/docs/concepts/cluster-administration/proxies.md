@@ -1,14 +1,14 @@
 ---
 title: Proxy in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Questa pagina spiega i proxy utilizzati con Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Proxy
 
@@ -62,6 +62,6 @@ in genere assicurerà che gli altri tipi di proxy siano impostati correttamente.
 
 I proxy hanno sostituito le funzioni di reindirizzamento. I reindirizzamenti sono stati deprecati.
 
-{{% /capture %}}
+
 
 

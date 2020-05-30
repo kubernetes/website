@@ -1,21 +1,21 @@
 ---
 draft: True
 title: Configurazione della raccolta dati kubelet
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 La garbage collection è una funzione utile di kubelet che pulisce le immagini inutilizzate e i contenitori inutilizzati.
 Kubelet eseguirà la raccolta dei rifiuti per i contenitori ogni minuto e la raccolta dei dati inutili per le immagini
 ogni cinque minuti.
 
 Gli strumenti di garbage collection esterni non sono raccomandati in quanto questi strumenti possono potenzialmente
 interrompere il comportamento di kubelet rimuovendo i contenitori che si prevede esistano.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Image Collection
 
@@ -91,10 +91,11 @@ Compreso:
 | `--low-diskspace-threshold-mb` | `--eviction-hard` o` eviction-soft` | lo sfratto generalizza le soglie del disco ad altre risorse |
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | lo sfratto generalizza la transizione della pressione del disco verso altre risorse |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Vedi [Configurazione della gestione delle risorse esterne](/docs/tasks/administration-cluster/out-of-resource/) per maggiori dettagli.
 
-{{% /capture %}}
+

@@ -1,13 +1,13 @@
 ---
 title: Le API di Kubernetes 
-content_template: templates/concept
+content_type: concept
 weight: 30
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Le convenzioni generali seguite dalle API sono descritte in [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -21,10 +21,10 @@ Kubernetes assicura la persistenza del suo stato (al momento in [etcd](https://c
 
 Kubernetes stesso è diviso in differenti componenti, i quali interagiscono tra loro attraverso le stesse API.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Evoluzione delle API
 
@@ -123,4 +123,4 @@ Per esempio: per abilitare deployments and daemonsets, utilizza la seguente conf
 
 {{< note >}}Abilitare/disabilitare una singola risorsa è supportato solo per il gruppo di API `extensions/v1beta1` per ragioni storiche.{{< /note >}}
 
-{{% /capture %}}
+
