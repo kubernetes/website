@@ -1,6 +1,6 @@
 ---
 title: Lokalisierung der Kubernetes Dokumentation
-content_template: templates/concept
+content_type: concept
 weight: 50
 card:
   name: mitarbeiten
@@ -8,13 +8,13 @@ card:
   title: Übersetzen der Dokumentation
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Diese Seite zeigt dir wie die Dokumentation für verschiedene Sprachen [lokalisiert](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/) wird.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Erste Schritte
 
@@ -277,13 +277,14 @@ SIG Docs begrüßt Upstream Beiträge, also auf das englische Original, und Korr
 
 Du kannst auch dazu beitragen, Inhalte zu einer bestehenden Lokalisierung hinzuzufügen oder zu verbessern. Trete dem [Slack-Kanal](https://kubernetes.slack.com/messages/C1J0BPD2M/) für die Lokalisierung bei und beginne mit der Eröffnung von PRs, um zu helfen. Bitte beschränke deine Pull-Anfragen auf eine einzige Lokalisierung, da Pull-Anfragen, die Inhalte in mehreren Lokalisierungen ändern, schwer zu überprüfen sein könnten.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Sobald eine Lokalisierung die Anforderungen an den Arbeitsablauf und die Mindestausgabe erfüllt, wird SIG docs:
 
 - Die Sprachauswahl auf der Website aktivieren
 - Die Verfügbarkeit der Lokalisierung über die Kanäle der [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF), einschließlich des [Kubernetes Blogs](https://kubernetes.io/blog/) veröffentlichen.
 
-{{% /capture %}}
+

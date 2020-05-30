@@ -1,17 +1,17 @@
 ---
 title: Konzepte
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Im Abschnitt Konzepte erfahren Sie mehr über die Bestandteile des Kubernetes-Systems und die Abstraktionen, die Kubernetes zur Verwaltung Ihres Clusters zur Verfügung stellt. Sie erhalten zudem ein tieferes Verständnis der Funktionsweise von Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Überblick
 
@@ -65,11 +65,12 @@ Die Nodes in einem Cluster sind die Maschinen (VMs, physische Server usw.), auf 
 
 * [Anmerkungen](/docs/concepts/overview/working-with-objects/annotations/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Wenn Sie eine Konzeptseite schreiben möchten, lesen Sie [Seitenvorlagen verwenden](/docs/home/contribute/page-templates/)
 für Informationen zum Konzeptseitentyp und zur Dokumentations Vorlage.
 
-{{% /capture %}}
+
