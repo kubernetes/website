@@ -109,11 +109,11 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
+kubectl run -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache; done
 ```
 
 실행 후, 약 1분 정도 후에 CPU 부하가 올라가는 것을 볼 수 있다.
@@ -197,7 +197,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -232,7 +231,7 @@ CPU 외에 다른 메트릭을 지정할 수 있는데, 기본적으로 지원�
 이 자원들은 한 클러스터에서 다른 클러스터로 이름을 변경할 수 없으며,
 `metrics.k8s.io` API가 가용한 경우 언제든지 사용할 수 있어야 한다.
 
-또한, `AverageUtilization` 대신 `AverageValue`의 `target` 타입을,
+또한, `Utilization` 대신 `AverageValue`의 `target` 타입을,
 그리고 `target.averageUtilization` 대신 `target.averageValue`로 설정하여
 자원 메트릭을 퍼센트 대신 값으로 명시할 수 있다.
 
@@ -294,7 +293,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

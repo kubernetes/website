@@ -1,10 +1,5 @@
 ---
 title: 엔드포인트슬라이스
-feature:
-  title: 엔드포인트슬라이스
-  description: >
-    쿠버네티스 클러스터에서 확장 가능한 네트워크 엔드포인트 추적.
-
 content_template: templates/concept
 weight: 15
 ---

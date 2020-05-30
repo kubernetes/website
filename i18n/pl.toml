@@ -175,6 +175,9 @@ other = "Cele"
 [prerequisites_heading]
 other = "Nim zaczniesz"
 
+[subscribe_button]
+other = "Subskrybuj"
+
 [ui_search_placeholder]
 other = "Szukaj"
 

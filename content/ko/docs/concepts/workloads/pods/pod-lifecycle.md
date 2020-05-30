@@ -181,7 +181,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
    ...
       State:          Waiting
        Reason:       ErrImagePull
-	  ...
+   ...
    ```
 
 * `Running`: 컨테이너가 이슈 없이 구동된다는 뜻이다. `postStart` 훅(있는 경우)은 컨테이너가 Running 상태가 되기 전에 실행된다. 이 상태는 컨테이너가 언제 Running 상태에 돌입한 시간도 함께 출력된다.
@@ -206,31 +206,34 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
     ...
    ```
 
-## 파드의 준비성 게이트(readiness gate)
+## 파드의 준비성(readiness) {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-파드의 준비성에 대한 확장성을 추가하기 위해서
-추가적인 피드백이나 신호를 `PodStatus`에 주입하는 방법인,
-[파드 준비++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md)라는 특징이 쿠버네티스 1.11에서 소개되었다.
-파드의 준비성을 평가하기 위한 추가적인 조건들을 `PodSpec` 내의 새로운 `ReadinessGate` 필드를
-통해서 지정할 수 있다. 만약 쿠버네티스가 `status.conditions` 필드에서 해당하는
+애플리케이션은 추가 피드백 또는 신호를 PodStatus: _Pod readiness_
+와 같이 주입할 수 있다. 이를 사용하기 위해, 파드의 준비성을 평가하기
+위한 추가적인 조건들을 `PodSpec` 내의 `ReadinessGate` 필드를 통해서 지정할 수 있다. 
+
+준비성 게이트는 파드에 대한 `status.condition` 필드의 현재
+상태에 따라 결정된다. 만약 쿠버네티스가 `status.conditions` 필드에서 해당하는
 조건을 찾지 못한다면, 그 조건의 상태는
 기본 값인 "`False`"가 된다. 아래는 한 예제를 보여준다.
 
+여기 예제가 있다.
+
 ```yaml
-Kind: Pod
+kind: Pod
 ...
 spec:
   readinessGates:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready  # 이것은 내장된 PodCondition이다
+    - type: Ready                              # 내장된 PodCondition이다
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"   # 추가적인 PodCondition
+    - type: "www.example.com/feature-1"        # 추가적인 PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
@@ -240,19 +243,23 @@ status:
 ...
 ```
 
-파드의 새로운 조건들은
-쿠버네티스의 [레이블 키 포멧](/ko/docs/concepts/overview/working-with-objects/labels/#구문과-캐릭터-셋)을 준수해야 한다.
-`kubectl patch` 명령어가 오브젝트 상태 패치(patching)를 아직 제공하지 않기 때문에,
-새로운 파드 조건들은 [KubeClient 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 통한 `PATCH` 액션을 통해서 주입되어야 한다.
+추가하는 파드 상태에는 쿠버네티스 [레이블 키 포맷](/ko/docs/concepts/overview/working-with-objects/labels/#구문과-캐릭터-셋)을 충족하는 이름이 있어야 한다.
 
-새로운 파드 조건들이 적용된 경우, 파드는 **오직**
-다음 두 문장이 모두 참일 때만 준비 상태로 평가된다.
+
+### 파드 준비성 상태 {#pod-readiness-status}
+
+`kubectl patch` 명령어는 아직 오브젝트 상태 패치(patching)를 지원하지 않는다.
+이러한 `status.conditions` 을 파드에 설정하려면 애플리케이션과
+{{< glossary_tooltip term_id="operator-pattern" text="오퍼레이터">}}의
+`PATCH` 액션을 필요로 한다.
+[쿠버네티스 클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를
+사용해서 파드 준비성에 대한 사용자 지정 파드 조건을 설정하는 코드를 작성할 수 있다.
+
+사용자 지정 조건을 사용하는 파드의 경우, 다음 두 조건이 모두 적용되는
+경우에 **만** 해당 파드가 준비된 것으로 평가된다.
 
 * 파드 내의 모든 컨테이너들이 준비 상태이다.
-* `ReadinessGates`에 지정된 모든 조건들이 "`True`"이다.
-
-파드 준비성 평가에 대한 변경을 촉진하기 위해서,
-이전 파드 조건인 `Ready`를 포착하기 위한 새로운 파드 조건 `ContainersReady`가 소개되었다.
+* `ReadinessGates`에 지정된 모든 조건들이 `True` 이다.
 
 ## 재시작 정책
 
@@ -269,32 +276,31 @@ kubelet에 의해서 재시작되는 종료된 컨테이너는
 
 ## 파드의 일생(lifetime)
 
-일반적으로, 파드는 사람 혹은 컨트롤러의 프로세스가 명시적으로 파드를 삭제할 때까지 남아 있다.
+일반적으로, 파드는 사람 혹은
+{{< glossary_tooltip term_id="controller" text="컨트롤러" >}}의
+프로세스가 명시적으로 파드를 삭제할 때까지 남아 있다.
 컨트롤 플레인은 파드의 수가 설정된 임계치(kube-controller-manager에서
 `terminated-pod-gc-threshold`에 의해 결정)를 초과할 때,
 종료된 파드들(`Succeeded` 또는 `Failed` 단계)을 정리한다.
 이로써 시간이 지남에 따라 파드들이 생성 및 종료되며 발생하는 리소스 누수를 피할 수 있다.
 
-세 가지 유형의 컨트롤러를 사용할 수 있다.
+파드에는 다음과 같은 다양한 종류의 리소스가 있다.
 
-- 배치 연산과 같이, 종료가 예상되는 파드를 위해서는 [잡](/docs/concepts/jobs/run-to-completion-finite-workloads/)을
+- 예를 들어 웹 서버와 같이 종료되지 않을 것으로 예상되는 파드용
+  {{< glossary_tooltip term_id="deployment" >}}, {{< glossary_tooltip term_id="replica-set" >}} 또는
+  {{< glossary_tooltip term_id="statefulset" >}}을 사용한다.
+
+- 배치 연산과 같이, 종료가 예상되는 파드를 위해서는
+  {{< glossary_tooltip term_id="job" >}}을
   사용하길 바란다. 잡은 `restartPolicy`가 실패 시(OnFailure) 또는 절대 안 함(Never)으로
   지정된 경우에 적합하다.
 
-- 웹 서버와 같이, 종료가 예상되지 않는 파드에 대해서는
-  [레플리케이션 컨트롤러](/ko/docs/concepts/workloads/controllers/replicationcontroller/),
-  [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/), 또는
-  [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용하길 바란다.
-  레플리케이션 컨트롤러는 `restartPolicy`가 항상(Always)으로 지정된
-  경우에만 적합하다.
+- 적합한 노드 당 하나씩 실행해야 하는 파드에는
+  {{< glossary_tooltip term_id="daemonset" >}}을 사용한다.
 
-- 머신 당 하나씩 실행해야하는 파드를 위해서는 [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)을 사용하길
-  바란다. 왜냐하면 데몬 셋은 특정 머신 전용 시스템 서비스(machine-specific system service)를 제공하기 때문이다.
-
-세 가지 모든 컨트롤러 유형은 PodTemplate을 가지고 있다. 파드를
-직접적으로 생성하는 것 보다는, 적절한 컨트롤러를 생성하고 컨트롤러가 파드를
-생성하도록 하는 것이 추천된다. 그 이유는 파드
-혼자서는 머신의 실패에 탄력적(resilient)이지 않지만, 컨트롤러는 탄력적이기 때문이다.
+모든 워크로드 리소스에는 파드명세가 포함된다. 사용자가 직접적으로 파드를 생성하는
+것보다 적절한 워크로드 리소스를 생성하고 리소스 컨트롤러가
+사용자를 위한 파드를 생성하도록 하는 것을 권장한다.
 
 만약 노드가 죽거나 다른 클러스터의 다른 노드들로부터 연결이 끊기면, 쿠버네티스는
 잃어버린 노드에 있는 모든 파드의 `phase`를 실패된(Failed)으로 설정하는 정책을 적용한다.
@@ -396,6 +402,5 @@ spec:
 * [컨테이너 라이프사이클 후크(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 
 {{% /capture %}}
-
 
 

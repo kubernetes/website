@@ -83,6 +83,8 @@ weight: 60
 
 ## Disruption Budgets의 작동 방식
 
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+
 애플리케이션 소유자는 각 애플리케이션에 대해 `PodDisruptionBudget` 오브젝트(PDB)를 만들 수 있다.
 PDB는 자발적 중단으로 일시에 중지되는 복제된 애플리케이션 파드의 수를 제한한다.
 예를 들어 정족수 기반의 애플리케이션이 
@@ -192,7 +194,7 @@ drain 커멘드는 `pod-b`를 축출하는데 성공했다.
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
-|                      | pod-b *available*   | pod-c *available*  | pod-e *pending*    |
+|                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
 이 시점에서 클러스터 관리자는

@@ -46,98 +46,115 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 이 예시에 대한 설명은 다음과 같다.
 
 * `.metadata.name` 필드에 따라 `nginx-deployment` 이름으로 디플로이먼트가 생성된다.
-* `replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
-* `selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
+* `.spec.replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
+* `.spec.selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
   이 사례에서는 간단하게 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
   그러나 파드 템플릿 자체의 규칙이 만족되는 한,
   보다 정교한 선택 규칙의 적용이 가능하다.
-    {{< note >}}
-    `matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된 
-    단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며 
-    값 배열은 "value"만 포함한다.
-    매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
-    {{< /note >}}
+
+  {{< note >}}
+  `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된 
+  단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며 
+  값 배열은 "value"만 포함한다.
+  매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
+  {{< /note >}}
 
 * `template` 필드에는 다음 하위 필드가 포함되어있다.
-  * 파드는 `labels` 필드를 사용해서 `app: nginx` 이라는 레이블을 붙인다.
+  * 파드는 `.metadata.labels` 필드를 사용해서 `app: nginx` 라는 레이블을 붙인다.
   * 파드 템플릿의 사양 또는 `.template.spec` 필드는 
   파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.14.2 버전 이미지를 실행하는 
   `nginx` 컨테이너 1개를 실행하는 것을 나타낸다.
-  * 컨테이너 1개를 생성하고, `name` 필드를 사용해서 `nginx` 이름을 붙인다.
+  * 컨테이너 1개를 생성하고, `.spec.template.spec.containers[0].name` 필드를 사용해서 `nginx` 이름을 붙인다.
 
-  위의 디플로이먼트를 생성하려면 다음 단계를 따른다.
+시작하기 전에, 쿠버네티스 클러스터가 시작되고 실행 중인지 확인한다.
+위의 디플로이먼트를 생성하려면 다음 단계를 따른다.
 
-  시작하기 전에, 쿠버네티스 클러스터가 시작되고 실행 중인지 확인한다.
 
-  1. 다음 명령어를 실행해서 디플로이먼트를 생성한다.
+1. 다음 명령어를 실행해서 디플로이먼트를 생성한다.
 
-      {{< note >}}
-      `--record` 플래그를 지정해서 실행된 명령을 `kubernetes.io/change-cause` 리소스 어노테이션에 작성할 수 있다. 이것은 향후 인트로스펙션(introspection)에 유용하다.
-      예를 들면, 디플로이먼트의 각 수정 버전에서 실행된 명령을 볼 수 있다.
-      {{< /note >}}
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
-    ```
-
-  2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다. 만약 디플로이먼트가 여전히 생성중이면 다음과 유사하게 출력된다.
-    ```shell
-    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   0/3     0            0           1s
-    ```
-    클러스터에서 디플로이먼트를 점검할 때 다음 필드가 표시된다.
-
-      * `NAME` 은 클러스터에 있는 디플로이먼트 이름의 목록이다.
-      * `DESIRED` 는 디플로이먼트의 생성시 정의된 의도한 애플리케이션 _레플리카_ 의 수를 표시한다. 이것이 _의도한 상태_ 이다.
-      * `CURRENT` 는 현재 실행 중인 레플리카의 수를 표시한다.
-      * `UP-TO-DATE` 는 의도한 상태를 얻기위해 업데이트 된 레플리카의 수를 표시한다.
-      * `AVAILABLE` 은 사용자가 사용 가능한 애플리케이션 레플리카의 수를 표시한다.
-      * `AGE` 는 애플리케이션의 실행 된 시간을 표시한다.
-
-    `.spec.replicas` 필드에 따라 의도한 레플리카의 수가 3개인지 알 수 있다.
-
-  3. 디플로이먼트의 롤아웃 상태를 보려면 `kubectl rollout status deployment.v1.apps/nginx-deployment` 를 실행한다. 다음과 유사하게 출력된다.
-    ```shell
-    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
-    deployment.apps/nginx-deployment successfully rolled out
-    ```
-
-  4. 몇 초 후 `kubectl get deployments` 를 다시 실행한다. 다음과 유사하게 출력된다.
-    ```shell
-    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-    nginx-deployment   3/3     3            3           18s
-    ```
-    디플로이먼트에서 3개의 레플리카가 생성되었고, 모든 레플리카는 최신 상태(최신 파드 템플릿을 포함)이며 사용 가능한 것을 알 수 있다.
-
-  5. 디플로이먼트로 생성된 레플리카셋(`rs`)을 보려면 `kubectl get rs` 를 실행한다. 다음과 유사하게 출력된다.
-    ```shell
-    NAME                          DESIRED   CURRENT   READY   AGE
-    nginx-deployment-75675f5897   3         3         3       18s
-    ```
-    레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[RANDOM-STRING]` 형식으로 된 것을 알 수 있다. 무작위 문자열은
-    	무작위로 생성되며, Pod-template-hash를 시드(seed)로 사용한다.
-
-  6. 각 파드에 자동으로 생성된 레이블을 보려면 `kubectl get pods --show-labels` 를 실행한다. 다음과 유사하게 출력된다.
-    ```shell
-    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-    ```
-    만들어진 레플리카셋은 3개의 `nginx` 파드가 있는 것을 보장한다.
+```shell
+kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+```
 
   {{< note >}}
-  디플로이먼트에는 파드 템플릿 레이블과 적절한 셀렉터를 반드시 명시해야 한다(이 예시에서는 `app: nginx`).
-  레이블 또는 셀렉터는 다른 컨트롤러(다른 디플로이먼트와 스테이트풀 셋 포함)와 겹치지 않아야 한다. 쿠버네티스는 겹치는 것을 막지 않으며, 만약 다중 컨트롤러가 겹치는 셀렉터를 가지는 경우 해당 컨트롤러의 충돌 또는 예기치 않은 동작을 야기할 수 있다.
+  `--record` 플래그를 지정해서 실행된 명령을 `kubernetes.io/change-cause` 리소스 어노테이션에 작성할 수 있다.
+  기록된 변경사항은 향후 인트로스펙션(introspection)에 유용하다. 예를 들면, 디플로이먼트의 각 수정 버전에서 실행된 명령을 볼 수 있다.
   {{< /note >}}
+
+
+2. `kubectl get deployments` 을 실행해서 디플로이먼트가 생성되었는지 확인한다.
+  
+  만약 디플로이먼트가 여전히 생성 중이면, 다음과 유사하게 출력된다.
+   ```shell
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   0/3     0            0           1s
+   ```
+  클러스터에서 디플로이먼트를 점검할 때, 다음 필드가 표시된다.
+  * `NAME` 은 네임스페이스에 있는 디플로이먼트 이름의 목록이다.
+  * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다. ready/desired 패턴을 따른다.
+  * `UP-TO-DATE` 는 의도한 상태를 얻기 위해 업데이트된 레플리카의 수를 표시한다.
+  * `AVAILABLE` 은 사용자가 사용할 수 있는 애플리케이션 레플리카의 수를 표시한다.
+  * `AGE` 는 애플리케이션의 실행된 시간을 표시한다.
+
+  `.spec.replicas` 필드에 따라 의도한 레플리카의 수가 3개인지 알 수 있다.
+
+3. 디플로이먼트의 롤아웃 상태를 보려면, `kubectl rollout status deployment.v1.apps/nginx-deployment` 를 실행한다.
+
+   다음과 유사하게 출력된다.
+   ```shell
+   Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
+   deployment.apps/nginx-deployment successfully rolled out
+   ```
+
+4. 몇 초 후 `kubectl get deployments` 를 다시 실행한다.
+   다음과 유사하게 출력된다.
+   ```shell
+   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+   nginx-deployment   3/3     3            3           18s
+   ```
+   디플로이먼트에서 3개의 레플리카가 생성되었고, 모든 레플리카는 최신 상태(최신 파드 템플릿을 포함)이며 사용 가능한 것을 알 수 있다.
+
+5. 디플로이먼트로 생성된 레플리카셋(`rs`)을 보려면, `kubectl get rs` 를 실행한다. 다음과 유사하게 출력된다.
+   ```shell
+   NAME                          DESIRED   CURRENT   READY   AGE
+   nginx-deployment-75675f5897   3         3         3       18s
+   ```
+   레플리카셋의 출력에는 다음 필드가 표시된다.
+
+   * `NAME` 은 네임스페이스에 있는 레플리카셋 이름의 목록이다.
+   * `DESIRED` 는 디플로이먼트의 생성 시 정의된 의도한 애플리케이션 _레플리카_ 의 수를 표시한다. 이것이 _의도한 상태_ 이다.
+   * `CURRENT` 는 현재 실행 중인 레플리카의 수를 표시한다.
+   * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다.
+   * `AGE` 는 애플리케이션의 실행된 시간을 표시한다.
+
+   레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[RANDOM-STRING]` 형식으로 된 것을 알 수 있다. 무작위 문자열은
+   무작위로 생성되며, `pod-template-hash` 를 시드(seed)로 사용한다.
+
+6. 각 파드에 자동으로 생성된 레이블을 보려면, `kubectl get pods --show-labels` 를 실행한다.
+   다음과 유사하게 출력된다.
+   ```shell
+   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   ```
+   만들어진 레플리카셋은 실행 중인 3개의 `nginx` 파드를 보장한다.
+
+{{< note >}}
+디플로이먼트에는 파드 템플릿 레이블과 적절한 셀렉터를 반드시 명시해야 한다
+(이 예시에서는 `app: nginx`).
+
+레이블 또는 셀렉터는 다른 컨트롤러(다른 디플로이먼트와 스테이트풀 셋 포함)와 겹치지 않아야 한다. 쿠버네티스는 겹치는 것을 막지 않으며, 만약 다중 컨트롤러가 겹치는 셀렉터를 가지는 경우 해당 컨트롤러의 충돌 또는 예기치 않은 동작을 야기할 수 있다.
+{{< /note >}}
 
 ### Pod-template-hash 레이블
 
-{{< note >}}
+{{< caution >}}
 이 레이블은 변경하면 안 된다.
-{{< /note >}}
+{{< /caution >}}
 
-`pod-template-hash` 레이블은 디플로이먼트 컨트롤러에 의해서 디플로이먼트가 생성 또는 채택한 모든 레플리케셋에 추가된다.
+`pod-template-hash` 레이블은 디플로이먼트 컨트롤러에 의해서 디플로이먼트가 생성 또는 채택한 모든 레플리카셋에 추가된다.
 
 이 레이블은 디플로이먼트의 자식 레플리카셋이 겹치지 않도록 보장한다. 레플리카셋의 `PodTemplate` 을 해싱하고, 해시 결과를 레플리카셋 셀렉터, 
 파드 템플릿 레이블 및 레플리카셋 이 가질 수 있는 기존의 모든 파드에 레이블 값으로 추가해서 사용하도록 생성한다.
@@ -400,9 +417,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
 
     {{< note >}}
-    디플로이먼트 컨트롤러가 잘못된 롤아웃을 자동으로 중지하고, 새로운 레플리카셋의 스케일 업을 중지한다. 
-    이는 지정한 롤링 업데이트의 파라미터(구체적으로 `maxUnavailable`)에 따라 달라진다.
-    쿠버네티스는 기본값으로 25%를 설정한다.
+    디플로이먼트 컨트롤러가 잘못된 롤아웃을 자동으로 중지하고, 새로운 레플리카셋의 스케일 업을 중지한다. 이는 지정한 롤링 업데이트의 파라미터(구체적으로 `maxUnavailable`)에 따라 달라진다. 쿠버네티스는 기본값으로 25%를 설정한다.
     {{< /note >}}
 
 * 디플로이먼트에 대한 설명 보기
@@ -508,7 +523,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     이와 유사하게 출력된다.  
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
@@ -518,7 +533,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     이와 유사하게 출력된다.  
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
 
     롤아웃 관련 명령에 대한 자세한 내용은 [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)을 참조한다.
@@ -1015,7 +1030,7 @@ $ echo $?
 
 ## 디플로이먼트 사양 작성
 
-다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
+다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tutorials/stateless-application/run-stateless-application-deployment/), 
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한
@@ -1073,6 +1088,15 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 기존의 모든 파드는 `.spec.strategy.type==Recreate` 이면 새 파드가 생성되기 전에 죽는다.
 
+{{< note >}}
+이렇게 하면 업그레이드를 생성하기 전에 파드 종료를 보장할 수 있다. 디플로이먼트를 업그레이드하면,
+이전 버전의 모든 파드가 즉시 종료된다. 신규 버전의 파드가 생성되기 전에 성공적으로 제거가
+완료되기를 대기한다. 파드를 수동으로 삭제하면, 라이프사이클은 레플리카셋에 의해
+제어되며(이전 파드가 여전히 종료 상태에 있는 경우에도) 교체용 파드가 즉시 생성된다. 파드에
+대해 "최대" 보장이 필요한 경우
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 사용을 고려해야 한다.
+{{< /note >}}
+
 #### 디플로이먼트 롤링 업데이트
 
 디플로이먼트는 `.spec.strategy.type==RollingUpdate` 이면 파드를 롤링 업데이트 
@@ -1107,7 +1131,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 `.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `Type=Progressing`, `Status=False`의 
 상태 그리고 리소스가 `Reason=ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에 
 디플로이먼트가 진행되는 것을 대기시키는 시간(초)를 명시하는 선택적 필드이다.
-디플로이먼트 컨트롤러는 디플로이먼트를 계속 재시도 한다.
+디플로이먼트 컨트롤러는 디플로이먼트를 계속 재시도 한다. 기본값은 600(초)이다.
 미래에 자동화된 롤백이 구현된다면 디플로이먼트 컨트롤러는 상태를 관찰하고, 
 그 즉시 디플로이먼트를 롤백할 것이다.
 

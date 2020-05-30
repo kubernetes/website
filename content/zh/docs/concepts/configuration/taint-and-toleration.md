@@ -68,8 +68,8 @@ taint created by the `kubectl taint` line above, and thus a pod with either tole
 to schedule onto `node1`:
 -->
 
-您可以在PodSpec中为容器设定容忍标签。以下两个容忍标签都与上面的 `kubectl taint` 创建的污点“匹配”，
-因此具有任一容忍标签的Pod都可以将其调度到“ node1”上：
+您可以在 PodSpec 中为容器设定容忍标签。以下两个容忍标签都与上面的 `kubectl taint` 创建的污点“匹配”，
+因此具有任一容忍标签的Pod都可以将其调度到 `node1` 上：
 
 ```yaml
 tolerations:
@@ -109,7 +109,7 @@ will tolerate everything.
 
 存在两种特殊情况：
 
-* 如果一个 toleration 的 `key` 为空且 operator 为 `Exists` ，表示这个 toleration 与任意的 key 、 value 和 effect 都匹配，即这个 toleration 能容忍任意 taint。
+* 如果一个 toleration 的 `key` 为空且 operator 为 `Exists`，表示这个 toleration 与任意的 key 、value 和 effect 都匹配，即这个 toleration 能容忍任意 taint。
 
 ```yaml
 tolerations:
@@ -134,7 +134,7 @@ This is a "preference" or "soft" version of `NoSchedule` -- the system will *try
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
-上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会 *尽量* 避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute` ，下文会详细描述这个值。
+上述例子使用到的 `effect` 的一个值 `NoSchedule`，您也可以使用另外一个值 `PreferNoSchedule`。这是“优化”或“软”版本的 `NoSchedule`  ——系统会 *尽量* 避免将 pod 调度到存在其不能容忍 taint 的节点上，但这不是强制的。`effect` 的值还可以设置为 `NoExecute`，下文会详细描述这个值。
 
 <!--
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -172,7 +172,7 @@ kubectl taint nodes node1 key2=value2:NoSchedule
 <!--
 And a pod has two tolerations:
 -->
-然后存在一个 pod，它有两个 toleration
+然后存在一个 pod，它有两个 toleration：
 
 ```yaml
 tolerations:
@@ -192,7 +192,7 @@ toleration matching the third taint. But it will be able to continue running if 
 already running on the node when the taint is added, because the third taint is the only
 one of the three that is not tolerated by the pod.
 -->
-在这个例子中，上述 pod 不会被分配到上述节点，因为其没有 toleration 和第三个 taint 相匹配。但是如果在给节点添加 上述 taint 之前，该 pod 已经在上述节点运行，那么它还可以继续运行在该节点上，因为第三个 taint 是三个 taint 中唯一不能被这个 pod 容忍的。
+在这个例子中，上述 pod 不会被分配到上述节点，因为其没有 toleration 和第三个 taint 相匹配。但是如果在给节点添加上述 taint 之前，该 pod 已经在上述节点运行，那么它还可以继续运行在该节点上，因为第三个 taint 是三个 taint 中唯一不能被这个 pod 容忍的。
 
 <!--
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
@@ -231,7 +231,7 @@ taint is removed before that time, the pod will not be evicted.
 Taints and tolerations are a flexible way to steer pods *away* from nodes or evict
 pods that shouldn't be running. A few of the use cases are
 -->
-通过 taint 和 toleration ，可以灵活地让 pod *避开* 某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
+通过 taint 和 toleration，可以灵活地让 pod *避开* 某些节点或者将 pod 从某些节点驱逐。下面是几个使用例子：
 
 <!--
 
@@ -248,7 +248,7 @@ controller should additionally add a node affinity to require that the pods can 
 onto nodes labeled with `dedicated=groupName`.
 -->
 * **专用节点**：如果您想将某些节点专门分配给特定的一组用户使用，您可以给这些节点添加一个 taint（即，
-  `kubectl taint nodes nodename dedicated=groupName:NoSchedule`），然后给这组用户的 pod 添加一个相对应的 toleration（通过编写一个自定义的[admission controller](/docs/admin/admission-controllers/)，很容易就能做到）。拥有上述 toleration 的 pod 就能够被分配到上述专用节点，同时也能够被分配到集群中的其它节点。如果您希望这些 pod 只能被分配到上述专用节点，那么您还需要给这些专用节点另外添加一个和上述 taint 类似的 label （例如：`dedicated=groupName`），同时 还要在上述 admission controller 中给 pod 增加节点亲和性要求上述 pod 只能被分配到添加了 `dedicated=groupName` 标签的节点上。
+  `kubectl taint nodes nodename dedicated=groupName:NoSchedule`），然后给这组用户的 pod 添加一个相对应的 toleration（通过编写一个自定义的 [admission controller](/docs/admin/admission-controllers/)，很容易就能做到）。拥有上述 toleration 的 pod 就能够被分配到上述专用节点，同时也能够被分配到集群中的其它节点。如果您希望这些 pod 只能被分配到上述专用节点，那么您还需要给这些专用节点另外添加一个和上述 taint 类似的 label （例如：`dedicated=groupName`），同时 还要在上述 admission controller 中给 pod 增加节点亲和性要求上述 pod 只能被分配到添加了 `dedicated=groupName` 标签的节点上。
 
 <!--
 
@@ -305,9 +305,9 @@ running on the node as follows
 -->
   前文我们提到过 taint 的 effect 值 `NoExecute`  ，它会影响已经在节点上运行的 pod
 
- * 如果 pod 不能忍受effect 值为 `NoExecute` 的 taint，那么 pod 将马上被驱逐
- * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，但是在 toleration 定义中没有指定 `tolerationSeconds`，则 pod 还会一直在这个节点上运行。
- * 如果 pod 能够忍受effect 值为 `NoExecute` 的 taint，而且指定了 `tolerationSeconds`，则 pod 还能在这个节点上继续运行这个指定的时间长度。
+ * 如果 pod 不能忍受 effect 值为 `NoExecute` 的 taint，那么 pod 将马上被驱逐
+ * 如果 pod 能够忍受 effect 值为 `NoExecute` 的 taint，但是在 toleration 定义中没有指定 `tolerationSeconds`，则 pod 还会一直在这个节点上运行。
+ * 如果 pod 能够忍受 effect 值为 `NoExecute` 的 taint，而且指定了 `tolerationSeconds`，则 pod 还能在这个节点上继续运行这个指定的时间长度。
 
 <!--
 In addition, Kubernetes 1.6 introduced alpha support for representing node
@@ -361,7 +361,7 @@ as the master becoming partitioned from the nodes.
 This feature, in combination with `tolerationSeconds`, allows a pod
 to specify how long it should stay bound to a node that has one or both of these problems.
 -->
-使用这个功能特性，结合 `tolerationSeconds` ，pod 就可以指定当节点出现一个或全部上述问题时还将在这个节点上运行多长的时间。
+使用这个功能特性，结合 `tolerationSeconds`，pod 就可以指定当节点出现一个或全部上述问题时还将在这个节点上运行多长的时间。
 
 <!--
 For example, an application with a lot of local state might want to stay

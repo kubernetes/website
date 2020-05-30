@@ -35,7 +35,7 @@ card:
 
 1. CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)에 서명합니다.
 2. [문서 리포지터리](https://github.com/kubernetes/website) 와 웹사이트의 [정적 사이트 생성기](https://gohugo.io)를 숙지합니다.
-3. [풀 리퀘스트 열기](/docs/contribute/new-content/open-a-pr/)와 [변경 검토](/docs/contribute/review/reviewing-prs/)의 기본 프로세스를 이해하도록 합니다.
+3. [풀 리퀘스트 열기](/docs/contribute/new-content/new-content/)와 [변경 검토](/docs/contribute/review/reviewing-prs/)의 기본 프로세스를 이해하도록 합니다.
 
 일부 작업에는 쿠버네티스 조직에서 더 많은 신뢰와 더 많은 접근이 필요할 수 있습니다.
 역할과 권한에 대한 자세한 내용은
@@ -44,6 +44,7 @@ card:
 ## 첫 번째 기여
 
 - [기여 개요](/docs/contribute/new-content/overview/)를 읽고 기여할 수 있는 다양한 방법에 대해 알아봅니다.
+- [kubernetes/website에 기여하기](https://github.com/kubernetes/website/contribute)를 참조하여 좋은 진입점이 되는 이슈를 찾을 수 있습니다.
 - 기존 문서에 대해 [GitHub을 사용해서 풀 리퀘스트 열거나](/docs/contribute/new-content/new-content/#changes-using-github) GitHub에서의 이슈 제기에 대해 자세히 알아봅니다.
 - 정확성과 언어에 대해 다른 쿠버네티스 커뮤니티 맴버의 [풀 리퀘스트 검토](/docs/contribute/review/reviewing-prs/)를 합니다.
 - 쿠버네티스 [컨텐츠](/docs/contribute/style/content-guide/)와 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽고 정보에 대한 코멘트를 남길 수 있습니다.

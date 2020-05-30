@@ -26,7 +26,7 @@ Dashboard juga menyediakan informasi tentang status dari sumber daya Kubernetes 
 Antarmuka Dashboard tidak ter-_deploy_ secara bawaan. Untuk men-_deploy_-nya, kamu dapat menjalankan perintah berikut:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 ```
 
 ## Mengakses Antarmuka Dashboard

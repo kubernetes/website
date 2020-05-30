@@ -235,7 +235,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 `kubectl get`을 사용하여 활성 구성을 출력한다.
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get deployment nginx-deployment -o yaml
 ```
 
 출력은 `replicas` 필드가 2로 설정된 것을 보여주며, `last-applied-configuration`
@@ -294,7 +294,7 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 `kubectl get`을 사용하여 활성 구성을 출력한다.
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yaml
 ```
 
 출력은 활성 구성에 다음의 변경사항을 보여준다.

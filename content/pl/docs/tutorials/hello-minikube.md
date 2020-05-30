@@ -7,7 +7,7 @@ menu:
     title: "Jak zacząć?"
     weight: 10
     post: >
-      <p>Jesteś gotowy ubrudzić ręce? Zbuduj własny klaster kubernetes z działającą na nim aplikacją "Hello World" w Node.js.</p>
+      <p>Jesteś gotowy ubrudzić ręce? Zbuduj własny klaster Kubernetes z działającą na nim przykładową aplikacją.</p>
 card:
   name: tutorials
   weight: 10
@@ -15,7 +15,7 @@ card:
 
 {{% capture overview %}}
 
-Ten samouczek pokaże, jak uruchomić prostą aplikację Hello World w Node.js
+Ten samouczek pokaże, jak uruchomić przykładową aplikację
 na Kubernetes przy użyciu [Minikube](/docs/setup/learning-environment/minikube) oraz Katacoda.
 Katacoda to darmowe środowisko Kubernetes dostępne bezpośrednio z przeglądarki web.
 
@@ -27,7 +27,7 @@ Możesz też skorzystać z tego samouczka, jeśli już zainstalowałeś [Minikub
 
 {{% capture objectives %}}
 
-* Skonfiguruj aplikację *hello world* do uruchomienia w Minikube.
+* Skonfiguruj przykładową aplikację do uruchomienia w Minikube.
 * Uruchom aplikację.
 * Przejrzyj jej logi.
 
@@ -35,13 +35,7 @@ Możesz też skorzystać z tego samouczka, jeśli już zainstalowałeś [Minikub
 
 {{% capture prerequisites %}}
 
-W tym samouczku wykorzystamy obraz kontenera zbudowany z następujących plików:
-
-{{< codenew language="js" file="minikube/server.js" >}}
-
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-Więcej informacji na temat polecenia `docker build` znajdziesz w [dokumentacji Dockera](https://docs.docker.com/engine/reference/commandline/build/).
+W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyświetlić z powrotem wszystkie przychodzące zapytania.
 
 {{% /capture %}}
 
@@ -67,9 +61,10 @@ Więcej informacji na temat polecenia `docker build` znajdziesz w [dokumentacji 
 
 ## Stwórz Deployment
 
-[*Pod*](/docs/concepts/workloads/pods/pod/) w Kubernetes to grupa jednego lub wielu kontenerów połączonych ze sobą
-na potrzeby administrowania i dostępu sieci. W tym samouczku Pod zawiera tylko jeden kontener.
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) w Kubernetes monitoruje stan twojego Poda
+[*Pod*](/docs/concepts/workloads/pods/pod/) w Kubernetes to grupa jednego lub wielu kontenerów
+połączonych ze sobą na potrzeby administrowania i dostępu sieci. W tym samouczku Pod 
+zawiera tylko jeden kontener. [*Deployment*](/docs/concepts/workloads/controllers/deployment/)
+w Kubernetes monitoruje stan twojego Poda
 i restartuje należący do niego kontener, jeśli ten z jakichś powodów przestanie działać.
 Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowaniem Podów.
 
@@ -77,7 +72,7 @@ Użycie Deploymentu to rekomendowana metoda zarządzania tworzeniem i skalowanie
 wykorzystując podany obraz Dockera.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Sprawdź stan Deploymentu:
@@ -122,9 +117,10 @@ wykorzystując podany obraz Dockera.
 
 ## Stwórz Serwis
 
-Domyślnie Pod jest dostępny tylko poprzez swój wewnętrzny adres IP wewnątrz klastra
-Kubernetes. Aby kontener `hello-node` był osiągalny spoza wirtualnej sieci Kubernetes,
-musisz najpierw wystawić Pod jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes, na który można będzie dostać się z zewnątrz.
+Domyślnie Pod jest dostępny tylko poprzez swój wewnętrzny adres IP
+wewnątrz klastra Kubernetes. Aby kontener `hello-node` był osiągalny spoza
+wirtualnej sieci Kubernetes, musisz najpierw udostępnić Pod
+jako [*Serwis*](/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Udostępnij Pod w Internecie przy pomocy polecenia `kubectl expose`:
 
@@ -151,7 +147,8 @@ musisz najpierw wystawić Pod jako [*Serwis*](/docs/concepts/services-networking
 
     U dostawców usług chmurowych, którzy obsługują *load balancers*,
     zostanie przydzielony zewnętrzny adres IP na potrzeby serwisu.
-    W Minikube, typ `LoadBalancer` udostępnia serwis poprzez polecenie `minikube service`.
+    W Minikube, typ `LoadBalancer` udostępnia serwis poprzez polecenie
+    `minikube service`.
 
 3. Uruchom poniższe polecenie:
 
@@ -163,7 +160,7 @@ musisz najpierw wystawić Pod jako [*Serwis*](/docs/concepts/services-networking
 
 5. Tylko w Katacoda: Wpisz `30369` (sprawdź numer portu obok `8080` w opisie Serwisu) i kliknij **Display Port**
 
-    Otworzy sie okno przeglądarki obsługującej twoją aplikację i wyświetli w nim komunikat "Hello World".
+    Otworzy sie okno przeglądarki obsługującej twoją aplikację i wyświetli odpowiedź tej aplikacji.
 
 ## Włącz dodatki
 
@@ -230,13 +227,12 @@ Minikube ma zestaw wbudowanych {{< glossary_tooltip text="dodatków" term_id="ad
     pod/kube-proxy-rnlps                        1/1       Running   0          34m
     pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
- 
-     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-     service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
-     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
-     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
 
+    NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
+    service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
+    service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
 4. Wyłącz dodatek `metrics-server`:
@@ -248,7 +244,7 @@ Minikube ma zestaw wbudowanych {{< glossary_tooltip text="dodatków" term_id="ad
     Wynik powinien wyglądać podobnie do:
 
     ```
-    heapster was successfully metrics-server
+    metrics-server was successfully disabled
     ```
 
 ## Porządkujemy po sobie

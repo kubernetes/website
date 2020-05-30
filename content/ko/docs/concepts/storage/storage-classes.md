@@ -164,9 +164,9 @@ CSI | 1.14 (alpha), 1.16 (beta)
 퍼시스턴트볼륨은 파드의 스케줄링 제약 조건에 의해 지정된 토폴로지에
 따라 선택되거나 프로비전된다. 여기에는 [리소스
 요구 사항](/docs/concepts/configuration/manage-compute-resources-container/),
-[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector),
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
-안티-어피니티(anti-affinity)](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
 그리고 [테인트(taint)와 톨러레이션(toleration)](/docs/concepts/configuration/taint-and-toleration/)이 포함된다.
 
 다음 플러그인은 동적 프로비저닝과 `WaitForFirstConsumer` 를 지원한다.
@@ -296,12 +296,13 @@ parameters:
 
 `replication-type` 이 `regional-pd` 로 설정되면,
 [지역 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds)
-가 프로비전된다. 이 경우, 사용자는 `zone` 대신 `zones` 를 사용해서 원하는
-복제 영역을 지정해야 한다. 정확히 두 개의 영역이 지정된 경우, 해당
-영역에서 지역 PD가 프로비전된다. 둘 이상의 영역이 지정되면
-쿠버네티스는 지정된 영역 중에서 임의로 선택한다. `zones` 파라미터가 생략되면,
-쿠버네티스는 클러스터가 관리하는 영역 중에서
-임의로 선택한다.
+가 프로비전된다. 이는 퍼시스턴트볼륨클레임과 스토리지클래스를 소모하는 파드를
+생성할 때 지역 퍼시스턴트 디스크는 두개의 영역으로
+프로비전되기에 `volumeBindingMode: WaitForFirstConsumer` 를
+설정하는 것을 강력히 권장한다. 하나의 영역은 파드가 스케줄된
+영역과 동일하다. 다른 영역은 클러스터에서 사용할 수
+있는 영역에서 임의로 선택된다. 디스크 영역은 `allowedTopologies` 를
+사용하면 더 제한할 수 있다.
 
 {{< note >}}
 `zone` 과 `zones` 파라미터는 사용 중단 되었으며,

@@ -20,7 +20,7 @@ in the namespace.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 CPU.
+Your cluster must have at least 1 CPU available for use to run the task examples.
 
 {{% /capture %}}
 
@@ -204,11 +204,7 @@ Because your Container did not specify its own CPU request and limit, it was giv
 [default CPU request and limit](/docs/tasks/administer-cluster/cpu-default-namespace/)
 from the LimitRange.
 
-At this point, your Container might be running or it might not be running. Recall that a prerequisite
-for this task is that your Nodes have at least 1 CPU. If each of your Nodes has only
-1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request
-of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have
-enough CPU to accommodate the 800 millicpu request.
+At this point, your Container might be running or it might not be running. Recall that a prerequisite for this task is that your cluster must have at least 1 CPU available for use. If each of your Nodes has only 1 CPU, then there might not be enough allocatable CPU on any Node to accommodate a request of 800 millicpu. If you happen to be using Nodes with 2 CPU, then you probably have enough CPU to accommodate the 800 millicpu request.
 
 Delete your Pod:
 

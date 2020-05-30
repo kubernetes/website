@@ -44,25 +44,28 @@ Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klas
 
 Kontrolerami są:
 
-* Node Controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
-* Replication Controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *ReplicationController* w systemie.
-* Endpoints Controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
-* Service Account & Token Controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
+* Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
+* Replication controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *ReplicationController* w systemie.
+* Endpoints controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
+* Service Account & Token controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
 
 ### cloud-controller-manager
 
-[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) uruchamia kontroler, który komunikuje się z usługami dostawcy chmury, na których zbudowany jest klaster. Oprogramowanie cloud-controller-manager, wprowadzone w Kubernetes 1.6 ma status rozwojowy beta.
+{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-cloud-controller-manager wykonuje tylko pętle sterowania konkretnych dostawców usług chmurowych. Wykonywanie tych pętli sterowania musi być wyłączone w kube-controller-manager. Wyłączenie następuje poprzez ustawienie opcji `--cloud-provider` jako `external` przy starcie kube-controller-manager.
+cloud-controller-manager uruchamia jedynie kontrolery właściwe dla konkretnego dostawcy usług chmurowych.
+Jeśli uruchamiasz Kubernetesa we własnym centrum komputerowym lub w środowisku szkoleniowym na swoim
+komputerze, klaster nie będzie miał cloud controller managera.
 
-cloud-controller-manager umożliwia rozwój oprogramowania dostawców usług chmurowych niezależnie od samego oprogramowania Kubernetes. W poprzednich wersjach, główny kod Kubernetes był zależny od kodu dostarczonego przez zewnętrznych dostawców różnych usług chmurowych. W przyszłych wydaniach, oprogramowanie związane z dostawcami chmurowymi będzie utrzymywane przez nich samych i podłączane do cloud-controller-managera w trakcie uruchamiana Kubernetes.
+Podobnie jak w przypadku kube-controller-manager, cloud-controller-manager łączy w jednym pliku binarnym
+kilka niezależnych pętli sterowania. Można go skalować horyzontalnie
+(uruchomić więcej niż jedną instancję), aby poprawić wydajność lub zwiększyć odporność na awarie.
 
-Następujące kontrolery zależą od dostawców usług chmurowych:
+Następujące kontrolery mogą zależeć od dostawców usług chmurowych:
 
-  * Node Controller: Aby sprawdzić u dostawcy usługi chmurowej, czy węzeł został skasowany po tym, jak przestał odpowiadać
-  * Route Controller: Aby ustawić trasy *(routes)* w niższych warstwach infrastruktury chmurowej
-  * Service Controller: Aby tworzyć, aktualizować i kasować *cloud load balancers*
-  * Volume Controller: Aby tworzyć, podłączać i montować woluminy oraz zarządzać nimi przez dostawcę usług chmurowych
+* Node controller: Aby sprawdzić u dostawcy usługi chmurowej, czy węzeł został skasowany po tym, jak przestał odpowiadać
+* Route controller: Aby ustawić trasy *(routes)* w niższych warstwach infrastruktury chmurowej
+* Service controller: Aby tworzyć, aktualizować i kasować *cloud load balancers*
 
 ## Składniki węzłów
 
@@ -76,7 +79,7 @@ Składniki węzłów uruchomiane są na każdym węźle. Utrzymują pody w dzia�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### Container Runtime
+### Container runtime
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
@@ -110,6 +113,6 @@ Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/
 {{% capture whatsnext %}}
 * Więcej o [Węzłach](/docs/concepts/architecture/nodes/)
 * Więcej o [Kontrolerach](/docs/concepts/architecture/controller/)
-* Więcej o [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* Więcej o [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Oficjalna [dokumentacja](https://etcd.io/docs/) etcd
 {{% /capture %}}

@@ -18,7 +18,7 @@ allocated as much CPU as it requests.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Each node in your cluster must have at least 1 CPU.
+Your cluster must have at least 1 CPU available for use to run the task examples.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)
@@ -122,9 +122,7 @@ Recall that by setting `-cpu "2"`, you configured the Container to attempt to us
 
 {{< note >}}
 Another possible explanation for the CPU use being below 1.0 is that the Node might not have
-enough CPU resources available. Recall that the prerequisites for this exercise require each of
-your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
-cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
+enough CPU resources available. Recall that the prerequisites for this exercise require your cluster to have at least 1 CPU available for use. If your Container runs on a Node that has only 1 CPU, the Container cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 {{< /note >}}
 
 ## CPU units
@@ -182,9 +180,6 @@ The output shows that the Pod status is Pending. That is, the Pod has not been
 scheduled to run on any Node, and it will remain in the Pending state indefinitely:
 
 
-```shell
-kubectl get pod cpu-demo-2 --namespace=cpu-example
-```
 ```
 NAME         READY     STATUS    RESTARTS   AGE
 cpu-demo-2   0/1       Pending   0          7m
