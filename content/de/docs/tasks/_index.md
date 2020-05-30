@@ -2,19 +2,19 @@
 title: Aufgaben
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieser Abschnitt der Kubernetes-Dokumentation enthält Seiten, die zeigen, wie man einzelne Aufgaben erledigt.
 Eine Aufgabenseite zeigt, wie man eine einzelne Aufgabe ausführt, typischerweise durch eine kurze Abfolge von Schritten.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Webbenutzeroberfläche (Dashboard)
 
@@ -76,10 +76,11 @@ Konfigurieren und planen Sie NVIDIA-GPUs für die Verwendung durch Nodes in eine
 
 Konfigurieren und verwalten Sie `HugePages` als planbare Ressource in einem Cluster.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Wenn Sie eine Aufgabenseite schreiben möchten, finden Sie weitere Informationen unter [Erstellen einer Pull-Anfrage für Dokumentation](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

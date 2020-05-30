@@ -1,17 +1,17 @@
 ---
 title: Kubernetes Komponenten
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 In diesem Dokument werden die verschiedenen binären Komponenten beschrieben, die zur Bereitstellung eines funktionsfähigen Kubernetes-Clusters erforderlich sind.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Master-Komponenten
 
 Master-Komponenten stellen die Steuerungsebene des Clusters bereit. Master-Komponenten treffen globale Entscheidungen über den Cluster (z. B. Zeitplanung) und das Erkennen und Reagieren auf Clusterereignisse (Starten eines neuen Pods, wenn das `replicas`-Feld eines Replikationscontrollers nicht zufriedenstellend ist).
@@ -107,6 +107,6 @@ Von Kubernetes gestartete Container schließen diesen DNS-Server automatisch in 
 
 Ein [Cluster-level logging](/docs/concepts/cluster-administration/logging/) Mechanismus ist für das Speichern von Containerprotokollen in einem zentralen Protokollspeicher mit Such- / Browsing-Schnittstelle verantwortlich.
 
-{{% /capture %}}
+
 
 

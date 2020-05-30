@@ -1,18 +1,18 @@
 ---
 title: Images
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 
 Sie erstellen ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
 
 Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die des `docker` Kommandos, inklusive privater Registries und Tags.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Aktualisieren von Images
 
@@ -334,7 +334,7 @@ Es gibt eine Anzahl an Lösungen um eigene Registries zu konfigurieren, hier sin
    - Generieren die Registry - Zugriffsdaten für jeden Mandanten, abgelegt in einem Secret das in jedem Mandanten - Namespace vorhanden ist.
    - Der Mandant fügt dieses Sercret zu den imagePullSecrets in jedem seiner Namespace hinzu.
 
-{{% /capture %}}
+
 
 Falls die Zugriff auf mehrere Registries benötigen, können sie ein Secret für jede Registry erstellen, Kubelet wird jedwede `imagePullSecrets` in einer einzelnen `.docker/config.json` zusammenfassen.
 

@@ -1,15 +1,15 @@
 ---
 title: Controller Manager Metriken
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Controller Manager Metriken liefern wichtige Erkenntnisse über die Leistung und den Zustand von den Controller Managern.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Was sind Controller Manager Metriken
 
 Die Kennzahlen des Controller Managers liefert wichtige Erkenntnisse über die Leistung und den Zustand des Controller Managers.
@@ -38,4 +38,3 @@ Die Metriken werden im [Prometheus Format](https://prometheus.io/docs/instrument
 
 In einer Produktionsumgebung können Sie Prometheus oder einen anderen Metrik Scraper konfigurieren, um diese Metriken regelmäßig zu sammeln und in einer Art Zeitreihen Datenbank verfügbar zu machen.
 
-{{% /capture %}}

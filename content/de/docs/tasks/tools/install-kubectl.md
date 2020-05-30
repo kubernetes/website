@@ -1,6 +1,6 @@
 ---
 title: Installieren und konfigurieren von kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,17 +8,18 @@ card:
   title: Kubectl installieren
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Verwenden Sie das Kubernetes Befehlszeilenprogramm, [kubectl](/docs/user-guide/kubectl/), um Anwendungen auf Kubernetes bereitzustellen und zu verwalten.
 Mit kubectl können Sie Clusterressourcen überprüfen, Komponenten erstellen, löschen und aktualisieren; Ihren neuen Cluster betrachten; und Beispielanwendungen aufrufen.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Sie müssen eine kubectl-Version verwenden, die innerhalb eines geringfügigen Versionsunterschieds zur Version Ihres Clusters liegt. Ein v1.2-Client sollte beispielsweise mit einem v1.1, v1.2 und v1.3-Master arbeiten. Die Verwendung der neuesten Version von kubectl verhindert unvorhergesehene Probleme.
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Kubectl installieren
 
@@ -421,9 +422,10 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Erfahren Sie, wie Sie Ihre Anwendung starten und verfügbar machen.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-{{% /capture %}}
+
 
