@@ -10,9 +10,9 @@ title: Installation
 description: Panorama de solution Kubernetes
 main_menu: true
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
-{{% capture overview %}}
+<!-- overview -->
 
 Utilisez cette page pour trouver le type de solution qui correspond le mieux à vos besoins.
 
@@ -20,9 +20,9 @@ Le choix de distribution Kubernetes dépend des ressources dont vous disposez et
 Vous pouvez exécuter Kubernetes presque partout, de votre ordinateur portable aux machines virtuelles d'un fournisseur de cloud jusqu'à un rack de serveurs en bare metal.
 Vous pouvez également mettre en place un cluster entièrement géré en exécutant une seule commande ou bien créer votre propre cluster personnalisé sur vos serveurs bare-metal.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Solutions locales
 
@@ -86,8 +86,9 @@ différents systèmes d'exploitation.
 
 Choisissez une [solution personnalisée] (/fr/docs/setup/pick-right-solution/#solutions-personnalisées).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Allez à [Choisir la bonne solution] (/fr/docs/setup/pick-right-solution/) pour une liste complète de solutions.
-{{% /capture %}}
+

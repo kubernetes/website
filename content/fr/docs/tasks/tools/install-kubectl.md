@@ -4,7 +4,7 @@ reviewers:
 - rbenzair
 title: Installer et configurer kubectl
 description: Installation et configuration de kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -12,15 +12,16 @@ card:
   title: Installer kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 L'outil en ligne de commande de kubernetes, [kubectl](/docs/user-guide/kubectl/), vous permet d'exécuter des commandes dans les clusters Kubernetes. Vous pouvez utiliser kubectl pour déployer des applications, inspecter et gérer les ressources du cluster et consulter les logs. Pour une liste complète des opérations kubectl, voir [Aperçu de kubectl](/fr/docs/reference/kubectl/overview/).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Vous devez utiliser une version de kubectl qui différe seulement d'une version mineure de la version de votre cluster. Par exemple, un client v1.2 doit fonctionner avec un master v1.1, v1.2 et v1.3. L'utilisation de la dernière version de kubectl permet d'éviter des problèmes imprévus.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Installer kubectl sur Linux
 
@@ -470,12 +471,13 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Installer Minikube](/docs/tasks/tools/install-minikube/)
 * Voir les [guides de démarrage](/fr/docs/setup/) pour plus d'informations sur la création de clusters.
 * [Apprenez comment lancer et exposer votre application](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Si vous avez besoin d'accéder à un cluster que vous n'avez pas créé, consultez [Partager l'accès du Cluster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Consulter les [documents de référence de kubectl](/fr/docs/reference/kubectl/kubectl/)
-{{% /capture %}}
+

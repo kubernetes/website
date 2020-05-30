@@ -3,11 +3,11 @@ reviewers:
 - piosz
 - x13n
 title: Architecture de Journalisation d'évènements (logging)
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La journalisation des évènements systèmes et d'applications peut aider à
 comprendre ce qui se passe dans un cluster. Les journaux sont particulièrement
@@ -32,10 +32,10 @@ solution de stockage pour les journaux mais il est possible d'intégrer de
 nombreuses solutions de journalisation d'évènements dans un cluster Kubernetes.
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 L'architecture de journalisation des évènements au niveau du cluster est décrite
 en considérant qu'un backend de journalisation est présent à l'intérieur ou à
@@ -355,4 +355,4 @@ Toutefois l'implémentation de ce mécanisme de journalisation est hors du cadre
 de Kubernetes.
 
 
-{{% /capture %}}
+

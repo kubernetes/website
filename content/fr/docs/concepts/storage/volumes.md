@@ -1,10 +1,10 @@
 ---
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Les fichiers sur disque dans un conteneur sont éphémères, ce qui présente des problèmes pour
 des applications non-triviales lorsqu'elles s'exécutent dans des conteneurs. Premièrement, lorsqu'un
@@ -15,9 +15,9 @@ il est souvent nécessaire de partager des fichiers entre ces conteneurs. L'abst
 
 Une connaissance des [Pods](/fr/docs/concepts/workloads/pods/pod) est suggérée.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Contexte
 
@@ -1245,6 +1245,7 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * Suivez un exemple de [déploiement de WordPress et MySQL avec des volumes persistants](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-{{% /capture %}}
+

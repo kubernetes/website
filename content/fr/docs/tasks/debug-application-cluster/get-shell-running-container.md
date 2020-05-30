@@ -1,21 +1,22 @@
 ---
 title: Obtenez un shell dans un conteneur en cours d'exécution
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment utiliser `kubectl exec` pour obtenir un shell dans un conteneur en cours d'exécution.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Obtenir un shell dans un conteneur
 
@@ -116,9 +117,9 @@ kubectl exec shell-demo ls /
 kubectl exec shell-demo cat /proc/1/mounts
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Ouverture d'un shell lorsqu'un pod possède plusieurs conteneurs
 
@@ -130,10 +131,11 @@ La commande suivante ouvrirait un shell sur le conteneur de l'application princi
 kubectl exec -it my-pod --container main-app -- /bin/bash
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
 
-{{% /capture %}}
+

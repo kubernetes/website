@@ -1,9 +1,9 @@
 ---
 title: Kubernetes cloud-controller-manager
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
@@ -17,9 +17,9 @@ Pour des raisons de retro-compatibilité, le [cloud-controller-manager](https://
 Les fournisseurs de cloud déjà pris en charge nativement par Kubernetes devraient utiliser le cloud-controller-manager ​disponible ​dans le code de Kubernetes pour effectuer une transition visant à faire sortir cette prise en charge du code de Kubernetes.
 Dans les futures versions de Kubernetes, tous les cloud-controller-manager seront développés en dehors du projet de base de Kubernetes géré par des sig leads ou des fournisseurs de cloud.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Administration
 
@@ -108,4 +108,4 @@ Actuellement, l’amorçage TLS suppose que Kubelet aie la possibilité de deman
 
 Pour créer et développer votre propre cloud-controller-manager, lisez la documentation [Développer un cloud-controller-manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md).
 
-{{% /capture %}}
+

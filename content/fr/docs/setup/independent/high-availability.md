@@ -1,11 +1,11 @@
 ---
 title: Création de clusters hautement disponibles avec kubeadm
 description: Cluster Kubernetes haute-disponibilité kubeadm
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page explique deux approches différentes pour configurer un Kubernetes à haute disponibilité.
 cluster utilisant kubeadm:
@@ -35,9 +35,10 @@ environnement Cloud, les approches documentées ici ne fonctionne ni avec des ob
 load balancer, ni avec des volumes persistants dynamiques.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Pour les deux méthodes, vous avez besoin de cette infrastructure:
 
@@ -57,9 +58,9 @@ Les exemples suivants utilisent Calico en tant que fournisseur de réseau de Pod
 CNI, pensez à remplacer les valeurs par défaut si nécessaire.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Premières étapes pour les deux méthodes
 
@@ -344,4 +345,4 @@ Chaque nœud worker peut maintenant être joint au cluster avec la commande renv
  de n’importe quelle commande `kubeadm init`. L'option `--experimental-control-plane` ne doit pas
  être ajouté aux nœuds workers.
 
-{{% /capture %}}
+

@@ -1,17 +1,17 @@
 ---
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un ReplicaSet (ensemble de réplicas en français) a pour but de maintenir un ensemble stable de Pods à un moment donné.
 Cet objet est souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Comment un ReplicaSet fonctionne
 
@@ -342,4 +342,4 @@ Les deux servent le même objectif et se comportent de la même manière, à la 
 les exigences de sélecteur décrites dans le [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 En tant que tels, les ReplicaSets sont préférés aux ReplicationControllers.
 
-{{% /capture %}}
+

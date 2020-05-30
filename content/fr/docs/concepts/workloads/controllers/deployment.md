@@ -7,11 +7,11 @@ feature:
     En cas de problème, Kubernetes annulera le changement pour vous.
     Profitez d'un écosystème croissant de solutions de déploiement.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un _Deployment_ (déploiement en français) fournit des mises à jour déclaratives pour [Pods](/fr/docs/concepts/workloads/pods/pod/) et [ReplicaSets](/fr/docs/concepts/workloads/controllers/replicaset/).
 
@@ -23,9 +23,9 @@ Ne gérez pas les ReplicaSets appartenant à un Deployment.
 Pensez à ouvrir un ticket dans le dépot Kubernetes principal si votre cas d'utilisation n'est pas traité ci-dessous.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cas d'utilisation
 
@@ -1222,4 +1222,4 @@ Un déploiement n'est pas suspendu par défaut lors de sa création.
 [`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) met à jour les pods et les ReplicationControllers de la même manière.
 Mais les déploiements sont recommandés, car ils sont déclaratifs, côté serveur et ont des fonctionnalités supplémentaires, telles que la restauration de toute révision précédente même après la mise à jour progressive..
 
-{{% /capture %}}
+

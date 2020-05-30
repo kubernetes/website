@@ -4,7 +4,8 @@ content_template: templates/tool-reference
 description: Référence kubectl
 notitle: true
 ---
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 kubectl contrôle le manager d'un cluster Kubernetes
 
@@ -14,9 +15,10 @@ Vous trouverez plus d'informations ici : https://kubernetes.io/fr/docs/reference
 kubectl [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -506,9 +508,10 @@ kubectl [flags]
 
 
 
-{{% /capture %}}
 
-{{% capture seealso %}}
+
+## {{% heading "seealso" %}}
+
 
 * [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)     - Commandes pour fonctionnalités alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Met à jour les annotations d'une ressource
@@ -554,4 +557,4 @@ kubectl [flags]
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Affiche les informations de version du client et du serveur
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Expérimental : Attend une condition particulière sur une ou plusieurs ressources
 
-{{% /capture %}}
+

@@ -1,17 +1,17 @@
 ---
 title: Cycle de vie d'un Pod
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page décrit le cycle de vie d'un Pod.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Phase du Pod
 
@@ -381,10 +381,11 @@ spec:
      * Le contrôleur de Nœud passe la `phase` du Pod à Failed.
      * Si le Pod s'exécute sous un contrôleur, le Pod est recréé ailleurs.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Apprenez par la pratique
   [attacher des handlers à des événements de cycle de vie d'un conteneur](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
@@ -394,7 +395,7 @@ spec:
 
 * En apprendre plus sur les [hooks de cycle de vie d'un Conteneur](/docs/concepts/containers/container-lifecycle-hooks/).
 
-{{% /capture %}}
+
 
 
 
