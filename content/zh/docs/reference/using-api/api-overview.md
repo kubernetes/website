@@ -1,9 +1,5 @@
 ---
 title: Kubernetes API 总览
-reviewers:
-- erictune
-- lavalamp
-- jbeda
 content_template: templates/concept
 weight: 10
 card:
@@ -186,7 +182,7 @@ The two paths that support extending the API with [custom resources](/docs/conce
  - [聚合器（Aggregator）](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)具有完整的 Kubernetes API 语义，用以实现用户自己的 apiserver。
  
 <!--
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default. You can enable or disable them by setting `--runtime-config`
 on the apiserver. `--runtime-config` accepts comma separated values. For example:
@@ -213,19 +209,26 @@ to pick up the `--runtime-config` changes.
 {{< /note >}}
 
 <!--
-## Enabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-You can enable other extensions resources by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example, to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
 -->
 
-## 启用组中的资源
+## 启用 extensions/v1beta1 组中具体资源
 
-默认情况下 DaemonSet、Deployment、Horizo​​ntalPodAutoscalers、Ingress、Jobs 和 ReplicaSets 是被启用的。
-您可以通过在 apiserver 上设置`--runtime-config`来启用其他扩展资源。`--runtime-config`接受逗号分隔的值。
-例如，要禁用 Deployments 和 Jobs，请设置 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+在 `extensions/v1beta1` API 组中，DaemonSets，Deployments，StatefulSet, NetworkPolicies, PodSecurityPolicies 和 ReplicaSets 是默认禁用的。
+例如：要启用 deployments 和 daemonsets，请设置 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`。
+
+{{< note >}}
+
+<!--
+Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.
+-->
+出于遗留原因，仅在 `extensions / v1beta1` API 组中支持各个资源的启用/禁用。
+
+{{< /note >}}
 
 {{% /capture %}}
 

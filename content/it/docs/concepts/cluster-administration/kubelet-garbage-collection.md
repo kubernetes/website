@@ -1,5 +1,5 @@
 ---
-
+draft: True
 title: Configurazione della raccolta dati kubelet
 content_template: templates/concept
 weight: 70

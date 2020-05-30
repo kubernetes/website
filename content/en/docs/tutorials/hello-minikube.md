@@ -7,7 +7,7 @@ menu:
     title: "Get Started"
     weight: 10
     post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs a sample app.</p>
 card:
   name: tutorials
   weight: 10
@@ -15,7 +15,7 @@ card:
 
 {{% capture overview %}}
 
-This tutorial shows you how to run a simple Hello World Node.js app
+This tutorial shows you how to run a sample app
 on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 
@@ -27,7 +27,7 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 
 {{% capture objectives %}}
 
-* Deploy a hello world application to Minikube.
+* Deploy a sample application to Minikube.
 * Run the app.
 * View application logs.
 
@@ -35,13 +35,7 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 
 {{% capture prerequisites %}}
 
-This tutorial provides a container image built from the following files:
-
-{{< codenew language="js" file="minikube/server.js" >}}
-
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
-
-For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
+This tutorial provides a container image that uses NGINX to echo back all the requests.
 
 {{% /capture %}}
 
@@ -53,7 +47,9 @@ For more information on the `docker build` command, read the [Docker documentati
 
     {{< kat-button >}}
 
-    {{< note >}}If you installed Minikube locally, run `minikube start`.{{< /note >}}
+{{< note >}}
+    If you installed Minikube locally, run `minikube start`.
+{{< /note >}}
 
 2. Open the Kubernetes dashboard in a browser:
 
@@ -119,7 +115,9 @@ Pod runs a Container based on the provided Docker image.
     kubectl config view
     ```
 
-    {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
+{{< note >}}
+    For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).
+{{< /note >}}
 
 ## Create a Service
 
@@ -166,7 +164,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 5. Katacoda environment only: Note the 5 digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
 
-    This opens up a browser window that serves your app and shows the "Hello World" message.
+    This opens up a browser window that serves your app and shows the app's response.
 
 ## Enable addons
 

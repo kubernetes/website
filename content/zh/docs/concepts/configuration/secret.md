@@ -73,9 +73,9 @@ See the [Service Account](/docs/tasks/configure-pod-container/configure-service-
 information on how Service Accounts work.
 -->
 
-如果需要，可以禁用或覆盖自动创建和使用API凭据。但是，如果您需要的只是安全地访问 apiserver，我们推荐这样的工作流程。
+如果需要，可以禁用或覆盖自动创建和使用 API 凭据。但是，如果您需要的只是安全地访问 apiserver，我们推荐这样的工作流程。
 
-参阅  [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) 文档获取关于 Service Account 如何工作的更多信息。
+参阅 [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) 文档获取关于 Service Account 如何工作的更多信息。
 
 <!--
 ### Creating your own Secrets
@@ -169,7 +169,7 @@ or from being stored in a terminal log.
 
 {{< /note >}}
 
-默认情况下，`kubectl get`和`kubectl describe`避免显示密码的内容。 这是为了防止机密被意外地暴露给旁观者或存储在终端日志中。
+默认情况下，`kubectl get` 和 `kubectl describe` 避免显示密码的内容。 这是为了防止机密被意外地暴露给旁观者或存储在终端日志中。
 
 <!--
 See [decoding a secret](#decoding-a-secret) for how to see the contents of a secret.
@@ -191,8 +191,8 @@ secret data as unencoded strings.
 #### 手动创建 Secret
 
 您也可以先以 json 或 yaml 格式在文件中创建一个 secret 对象，然后创建该对象。
-[密码](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core)包含两中类型，数据和字符串数据。
-数据字段用于存储使用base64编码的任意数据。 提供stringData字段是为了方便起见，它允许您将机密数据作为未编码的字符串提供。
+[密码](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core)包含两种类型，数据和字符串数据。
+数据字段用于存储使用 base64 编码的任意数据。 提供 stringData 字段是为了方便起见，它允许您将机密数据作为未编码的字符串提供。
 
 <!--
 For example, to store two strings in a Secret using the data field, convert
@@ -250,7 +250,7 @@ parts of that configuration file during your deployment process.
 If your application uses the following configuration file:
 -->
 
-对于某些情况，您可能希望改用 stringData 字段。 此字段允许您将非 base64 编码的字符串直接放入 Secret 中，
+对于某些情况，您可能希望改用 stringData 字段。此字段允许您将非 base64 编码的字符串直接放入 Secret 中，
 并且在创建或更新 Secret 时将为您编码该字符串。
 
 下面的一个实践示例提供了一个参考，您正在部署使用密钥存储配置文件的应用程序，并希望在部署过程中填补齐配置文件的部分内容。
@@ -291,7 +291,7 @@ retrieving Secrets. For example, if you run the following command:
 -->
 
 然后，您的部署工具可以在执行 `kubectl apply` 之前替换模板的 `{{username}}` 和 `{{password}}` 变量。
-stringData 是只写的便利字段。 检索 Secrets 时永远不会被输出。 例如，如果您运行以下命令：
+stringData 是只写的便利字段。检索 Secrets 时永远不会被输出。例如，如果您运行以下命令：
 
 ```shell
 kubectl get secret mysecret -o yaml
@@ -322,7 +322,7 @@ If a field is specified in both data and stringData, the value from stringData
 is used. For example, the following Secret definition:
 -->
 
-如果在 data 和 stringData 中都指定了字段，则使用 stringData 中的值。 例如，以下是 Secret 定义：
+如果在 data 和 stringData 中都指定了字段，则使用 stringData 中的值。例如，以下是 Secret 定义：
 
 ```yaml
 apiVersion: v1
@@ -374,13 +374,9 @@ the option `-w 0` to `base64` commands or the pipeline `base64 | tr -d '\n'` if
 `-w` option is not available.
 -->
 
-data和stringData的键必须由字母数字字符 '-', '_' 或者 '.' 组成。
+data 和 stringData 的键必须由字母数字字符 '-', '_' 或者 '.' 组成。
 
-** 编码注意：** 秘密数据的序列化 JSON 和 YAML 值被编码为base64字符串。
-换行符在这些字符串中无效，因此必须省略。
-在 Darwin / macOS 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来分隔长行。
-相反，Linux用户 *应该* 在 `base64` 命令中添加选项 `-w 0`， 或者，如果`-w`选项不可用的情况下，
-执行 `base64 | tr -d '\n'`。
+** 编码注意：** 秘密数据的序列化 JSON 和 YAML 值被编码为 base64 字符串。换行符在这些字符串中无效，因此必须省略。在 Darwin/macOS 上使用 `base64` 实用程序时，用户应避免使用 `-b` 选项来分隔长行。相反，Linux用户 *应该* 在 `base64` 命令中添加选项 `-w 0` ，或者，如果 `-w` 选项不可用的情况下，执行 `base64 | tr -d '\n'`。
 
 <!--
 #### Creating a Secret from Generator
@@ -394,9 +390,9 @@ For example, to generate a Secret from files `./username.txt` and `./password.tx
 -->
 
 #### 从生成器创建 Secret
-Kubectl 从1.14版本开始支持 [使用 Kustomize 管理对象](/docs/tasks/manage-kubernetes-objects/kustomization/)
+Kubectl 从 1.14 版本开始支持 [使用 Kustomize 管理对象](/docs/tasks/manage-kubernetes-objects/kustomization/)
 使用此新功能，您还可以从生成器创建一个 Secret，然后将其应用于在 Apiserver 上创建对象。
-生成器应在目录内的“ kustomization.yaml”中指定。
+生成器应在目录内的 `kustomization.yaml` 中指定。
 
 例如，从文件 `./username.txt` 和 `./password.txt` 生成一个 Secret。
 
@@ -476,8 +472,7 @@ The generated Secrets name has a suffix appended by hashing the contents. This e
 Secret is generated each time the contents is modified.
 -->
 
-通过对内容进行序列化后，生成一个后缀作为 Secrets 的名称。
-这样可以确保每次修改内容时都会生成一个新的Secret。
+通过对内容进行序列化后，生成一个后缀作为 Secrets 的名称。这样可以确保每次修改内容时都会生成一个新的 Secret。
 
 {{< /note >}}
 
@@ -540,7 +535,7 @@ kubectl edit secrets mysecret
 This will open the default configured editor and allow for updating the base64 encoded secret values in the `data` field:
 -->
 
-这将打开默认配置的编辑器，并允许更新 `data` 字段中的base64编码的 secret：
+这将打开默认配置的编辑器，并允许更新 `data` 字段中的 base64 编码的 secret：
 
 ```
 # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -832,14 +827,12 @@ when new keys are projected to the Pod can be as long as kubelet sync period + c
 propagation delay, where cache propagation delay depends on the chosen cache type
 (it equals to watch propagation delay, ttl of cache, or zero corespondingly).
 -->
-当已经在 volume 中被消费的 secret 被更新时，被映射的 key 也将被更新。
-Kubelet 在周期性同步时检查被挂载的 secret 是不是最新的。
-但是，它正在使用其本地缓存来获取 Secret 的当前值。
+当已经在 volume 中被消费的 secret 被更新时，被映射的 key 也将被更新。Kubelet 在周期性同步时检查被挂载的 secret 是不是最新的。但是，它正在使用其本地缓存来获取 Secret 的当前值。
 
 缓存的类型可以使用 (`ConfigMapAndSecretChangeDetectionStrategy` 中的 [KubeletConfiguration 结构](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
 它可以通过基于 ttl 的 watch(默认)传播，也可以将所有请求直接重定向到直接kube-apiserver。
 结果，从更新密钥到将新密钥投射到 Pod 的那一刻的总延迟可能与 kubelet 同步周期 + 缓存传播延迟一样长，其中缓存传播延迟取决于所选的缓存类型。
-(它等于观察传播延迟，缓存的ttl或相应为0)
+(它等于观察传播延迟，缓存的 ttl 或相应为 0)
 
 {{< note >}}
 
@@ -877,8 +870,7 @@ To use this feature, enable the `ImmutableEmphemeralVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
 your Secret or ConfigMap `immutable` field to `true`. For example:
 -->
-使用这个特性需要启用 `ImmutableEmphemeralVolumes`
-[特性开关](/docs/reference/command-line-tools-reference/feature-gates/) 并将 Secret 或 ConfigMap 的 `immutable` 字段设置为 `true`. 例如：
+使用这个特性需要启用 `ImmutableEmphemeralVolumes` [特性开关](/docs/reference/command-line-tools-reference/feature-gates/) 并将 Secret 或 ConfigMap 的 `immutable` 字段设置为 `true`. 例如：
 
 ```yaml
 apiVersion: v1
@@ -1052,9 +1044,9 @@ controller.  It does not include pods created via the kubelets
 not common ways to create pods.)
 -->
 
-每个 secret 的大小限制为1MB。这是为了防止创建非常大的 secret 会耗尽 apiserver 和 kubelet 的内存。然而，创建许多较小的 secret 也可能耗尽内存。更全面得限制 secret 对内存使用的功能还在计划中。
+每个 secret 的大小限制为 1MB。这是为了防止创建非常大的 secret 会耗尽 apiserver 和 kubelet 的内存。然而，创建许多较小的 secret 也可能耗尽内存。更全面得限制 secret 对内存使用的功能还在计划中。
 
-Kubelet 仅支持从 API server 获取的 Pod 使用 secret。这包括使用 kubectl 创建的任何 pod，或间接通过 replication controller 创建的 pod。它不包括通过 kubelet `--manifest-url` 标志，其 `--config` 标志或其 REST API 创建的pod（这些不是创建 pod 的常用方法）。
+Kubelet 仅支持从 API server 获取的 Pod 使用 secret。这包括使用 kubectl 创建的任何 pod，或间接通过 replication controller 创建的 pod。它不包括通过 kubelet `--manifest-url` 标志，其 `--config` 标志或其 REST API 创建的 pod（这些不是创建 pod 的常用方法）。
 
 <!--
 Secrets must be created before they are consumed in pods as environment
@@ -1100,7 +1092,7 @@ start until all the pod's volumes are mounted.
 -->
 ### Secret 与 Pod 生命周期的联系
 
-通过 API 创建 Pod 时，不会检查应用的 secret 是否存在。一旦 Pod 被调度，kubelet 就会尝试获取该 secret 的值。如果获取不到该 secret，或者暂时无法与 API server 建立连接，kubelet 将会定期重试。Kubelet 将会报告关于 pod 的事件，并解释它无法启动的原因。一旦获取到 secret，kubelet将创建并装载一个包含它的卷。在所有 pod 的卷被挂载之前，都不会启动 pod 的容器。
+通过 API 创建 Pod 时，不会检查应用的 secret 是否存在。一旦 Pod 被调度，kubelet 就会尝试获取该 secret 的值。如果获取不到该 secret，或者暂时无法与 API server 建立连接，kubelet 将会定期重试。Kubelet 将会报告关于 pod 的事件，并解释它无法启动的原因。一旦获取到 secret，kubelet 将创建并装载一个包含它的卷。在所有 pod 的卷被挂载之前，都不会启动 pod 的容器。
 
 <!--
 ## Use cases
@@ -1137,7 +1129,7 @@ Think carefully before sending your own ssh keys: other users of the cluster may
 Now we can create a pod which references the secret with the ssh key and
 consumes it in a volume:
 -->
-现在我们可以创建一个使用 ssh 密钥引用 secret 的pod，并在一个卷中使用它：
+现在我们可以创建一个使用 ssh 密钥引用 secret 的 pod，并在一个卷中使用它：
 
 ```yaml
 apiVersion: v1
@@ -1451,7 +1443,7 @@ privileged, system-level components.
 
 Secret 中的值对于不同的环境来说重要性可能不同，例如对于 Kubernetes 集群内部（例如 service account 令牌）和集群外部来说就不一样。即使一个应用程序可以理解其期望的与之交互的 secret 有多大的能力，但是同一命名空间中的其他应用程序却可能不这样认为。
 
-由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在群集中`watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
+由于这些原因，在命名空间中 `watch` 和 `list`  secret 的请求是非常强大的功能，应该避免这样的行为，因为列出 secret 可以让客户端检查所有 secret 是否在该命名空间中。在群集中 `watch` 和 `list` 所有 secret 的能力应该只保留给最有特权的系统级组件。
 
 <!--
 Applications that need to access the secrets API should perform `get` requests on

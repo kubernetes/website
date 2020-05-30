@@ -250,7 +250,7 @@ for more details.
 
 This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
-[taint the node](/docs/concepts/configuration/taint-and-toleration/#example-use-cases) with the extended resource
+[taint the node](/docs/concepts/scheduling-eviction/taint-and-toleration/#example-use-cases) with the extended resource
 name as the key. This admission controller, if enabled, automatically
 adds tolerations for such taints to pods requesting extended resources, so users don't have to manually
 add these tolerations.

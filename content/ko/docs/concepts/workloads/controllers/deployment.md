@@ -46,24 +46,24 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 이 예시에 대한 설명은 다음과 같다.
 
 * `.metadata.name` 필드에 따라 `nginx-deployment` 이름으로 디플로이먼트가 생성된다.
-* `replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
-* `selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
+* `.spec.replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
+* `.spec.selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
   이 사례에서는 간단하게 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
   그러나 파드 템플릿 자체의 규칙이 만족되는 한,
   보다 정교한 선택 규칙의 적용이 가능하다.
     {{< note >}}
-    `matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된 
+    `.spec.selector.matchLabels` 필드는 {key,value}의 쌍으로 매핑되어있다. `matchLabels` 에 매핑된 
     단일 {key,value}은 `matchExpressions` 의 요소에 해당하며, 키 필드는 "key"에 그리고 연산자는 "In"에 대응되며 
     값 배열은 "value"만 포함한다.
     매칭을 위해서는 `matchLabels` 와 `matchExpressions` 의 모든 요건이 충족되어야 한다.
     {{< /note >}}
 
 * `template` 필드에는 다음 하위 필드가 포함되어있다.
-  * 파드는 `labels` 필드를 사용해서 `app: nginx` 이라는 레이블을 붙인다.
+  * 파드는 `.metadata.labels` 필드를 사용해서 `app: nginx` 라는 레이블을 붙인다.
   * 파드 템플릿의 사양 또는 `.template.spec` 필드는 
   파드가 [도커 허브](https://hub.docker.com/)의 `nginx` 1.14.2 버전 이미지를 실행하는 
   `nginx` 컨테이너 1개를 실행하는 것을 나타낸다.
-  * 컨테이너 1개를 생성하고, `name` 필드를 사용해서 `nginx` 이름을 붙인다.
+  * 컨테이너 1개를 생성하고, `.spec.template.spec.containers[0].name` 필드를 사용해서 `nginx` 이름을 붙인다.
 
   위의 디플로이먼트를 생성하려면 다음 단계를 따른다.
 
@@ -87,9 +87,8 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     ```
     클러스터에서 디플로이먼트를 점검할 때 다음 필드가 표시된다.
 
-      * `NAME` 은 클러스터에 있는 디플로이먼트 이름의 목록이다.
-      * `DESIRED` 는 디플로이먼트의 생성시 정의된 의도한 애플리케이션 _레플리카_ 의 수를 표시한다. 이것이 _의도한 상태_ 이다.
-      * `CURRENT` 는 현재 실행 중인 레플리카의 수를 표시한다.
+      * `NAME` 은 네임스페이스에 있는 디플로이먼트 이름의 목록이다.
+      * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다. ready/desired 패턴을 따른다.
       * `UP-TO-DATE` 는 의도한 상태를 얻기위해 업데이트 된 레플리카의 수를 표시한다.
       * `AVAILABLE` 은 사용자가 사용 가능한 애플리케이션 레플리카의 수를 표시한다.
       * `AGE` 는 애플리케이션의 실행 된 시간을 표시한다.
@@ -114,8 +113,16 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
     ```
+    레플리카셋의 출력에는 다음 필드가 표시된다.
+
+    * `NAME` 은 네임스페이스에 있는 레플리카셋 이름의 목록이다.
+    * `DESIRED` 는 디플로이먼트의 생성 시 정의된 의도한 애플리케이션 _레플리카_ 의 수를 표시한다. 이것이 _의도한 상태_ 이다.
+    * `CURRENT` 는 현재 실행 중인 레플리카의 수를 표시한다.
+    * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다.
+    * `AGE` 는 애플리케이션의 실행된 시간을 표시한다.
+
     레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[RANDOM-STRING]` 형식으로 된 것을 알 수 있다. 무작위 문자열은
-    	무작위로 생성되며, Pod-template-hash를 시드(seed)로 사용한다.
+       무작위로 생성되며, `pod-template-hash` 를 시드(seed)로 사용한다.
 
   6. 각 파드에 자동으로 생성된 레이블을 보려면 `kubectl get pods --show-labels` 를 실행한다. 다음과 유사하게 출력된다.
     ```shell
@@ -508,7 +515,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     이와 유사하게 출력된다.  
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
     Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
 
@@ -518,7 +525,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
 
     이와 유사하게 출력된다.  
     ```
-    deployment.apps/nginx-deployment
+    deployment.apps/nginx-deployment rolled back
     ```
 
     롤아웃 관련 명령에 대한 자세한 내용은 [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)을 참조한다.
@@ -1015,7 +1022,7 @@ $ echo $?
 
 ## 디플로이먼트 사양 작성
 
-다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
+다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
 설정 파일 작업에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tutorials/stateless-application/run-stateless-application-deployment/), 
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한

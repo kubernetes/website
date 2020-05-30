@@ -497,6 +497,10 @@ img.big-img {
   overflow-x: scroll;
 }
 
+.flyout-button {
+  display: none;
+}
+
 /* .content img {
 max-width: 100%;
 } */

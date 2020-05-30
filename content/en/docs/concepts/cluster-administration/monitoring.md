@@ -25,6 +25,7 @@ Metrics in Kubernetes control plane are emitted in [prometheus format](https://p
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
 
 Examples of those components:
+
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 * {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
 * {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
