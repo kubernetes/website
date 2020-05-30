@@ -124,7 +124,7 @@ kube-scheduler 已确认的可调度节点数足以超过了配置的百分比�
 [How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
 describes the process in detail.
  -->
-[调度器如何遍历节点](#how-the-scheduler-iterates-over-nodes) 详细介绍了这个过程。
+[调度器如何遍历节点](#调度器做调度选择的时候如何覆盖所有的-node) 详细介绍了这个过程。
 
 <!-- 
 ### Default threshold
