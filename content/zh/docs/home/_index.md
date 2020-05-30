@@ -48,8 +48,8 @@ overview: >
   description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
   button: Contribute to the docs
   button_path: /docs/contribute
-- name: download
-  title: Download Kubernetes
+- name: release-notes
+  title: Release Notes
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
 - name: about
   title: About the documentation
