@@ -141,9 +141,15 @@ Install Service Catalog from the root of the Helm repository using the following
 -->
 使用以下命令从 Helm 存储库的根目录安装 Service Catalog：
 
+{{< tabs name="helm-versions" >}} 
+{{% tab name="Helm version 3" %}}
 ```shell
-helm install svc-cat/catalog \
-    --name catalog --namespace catalog
+helm install catalog svc-cat/catalog --namespace catalog
+```
+{{% /tab %}}
+{{% tab name="Helm version 2" %}}
+```shell
+helm install svc-cat/catalog --name catalog --namespace catalog
 ```
 
 {{% /capture %}}
