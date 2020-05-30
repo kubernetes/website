@@ -1,13 +1,13 @@
 ---
 title: Participating in SIG Docs
-content_template: templates/concept
+content_type: concept
 weight: 60
 card:
   name: contribute
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs is one of the
 [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
@@ -30,9 +30,9 @@ The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes -- the Kubernetes website and documentation.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Roles and responsibilities
 
@@ -302,9 +302,10 @@ SIG Docs approvers. Here's how it works.
   specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For more information about contributing to the Kubernetes documentation, see:
 
@@ -312,4 +313,4 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)
 
-{{% /capture %}}
+

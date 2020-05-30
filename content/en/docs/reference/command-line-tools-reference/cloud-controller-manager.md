@@ -4,7 +4,8 @@ content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 The Cloud controller manager is a daemon that embeds
@@ -14,9 +15,10 @@ the cloud specific control loops shipped with Kubernetes.
 cloud-controller-manager [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -534,5 +536,5 @@ cloud-controller-manager [flags]
 
 
 
-{{% /capture %}}
+
 

@@ -1,10 +1,10 @@
 ---
 title: Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
@@ -17,9 +17,9 @@ components.
 The cloud-controller-manager is structured using a plugin
 mechanism that allows different cloud providers to integrate their platforms with Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Design
 
@@ -200,8 +200,9 @@ rules:
   - update
 ```
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 has instructions on running and managing the cloud controller manager.
 
@@ -212,4 +213,3 @@ The cloud controller manager uses Go interfaces to allow implementations from an
 The implementation of the shared controllers highlighted in this document (Node, Route, and Service), and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core. Implementations specific to cloud providers are outside the core of Kubernetes and implement the `CloudProvider` interface.
 
 For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
-{{% /capture %}}

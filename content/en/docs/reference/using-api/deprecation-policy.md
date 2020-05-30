@@ -4,15 +4,15 @@ reviewers:
 - lavalamp
 - thockin
 title: Kubernetes Deprecation Policy
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document details the deprecation policy for various facets of the system.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes is a large system with many components and many contributors.  As
 with any such software, the feature set naturally evolves over time, and
 sometimes a feature may need to be removed. This could include an API, a flag,
@@ -425,4 +425,4 @@ leaders to find the best solutions for those specific cases, always bearing in
 mind that Kubernetes is committed to being a stable system that, as much as
 possible, never breaks users. Exceptions will always be announced in all
 relevant release notes.
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: Configure a Pod to Use a Volume for Storage
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure a Pod to use a Volume for storage.
 
@@ -14,15 +14,16 @@ consistent storage that is independent of the Container, you can use a
 [Volume](/docs/concepts/storage/volumes/). This is especially important for stateful
 applications, such as key-value stores (such as Redis) and databases. 
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configure a volume for a Pod
 
@@ -126,9 +127,10 @@ of `Always`.
     kubectl delete pod redis
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * See [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
@@ -140,6 +142,6 @@ GCE and EBS on EC2, which are preferred for critical data and will handle
 details such as mounting and unmounting the devices on the nodes. See
 [Volumes](/docs/concepts/storage/volumes/) for more details.
 
-{{% /capture %}}
+
 
 

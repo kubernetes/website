@@ -1,14 +1,14 @@
 ---
 title: Opening a pull request
 slug: new-content
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 **Code developers**: If you are documenting a new feature for an
@@ -22,9 +22,9 @@ If your change is small, or you're unfamiliar with git, read [Changes using GitH
 
 If your changes are large, read [Work from a local fork](#fork-the-repo) to learn how to make changes locally on your computer.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Changes using GitHub
 
@@ -475,10 +475,11 @@ Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Read [Reviewing](/docs/contribute/reviewing/revewing-prs) to learn more about the review process.
 
-{{% /capture %}}
+

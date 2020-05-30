@@ -2,21 +2,21 @@
 reviewers:
 - thockin
 - bowei
-content_template: templates/concept
+content_type: concept
 title: Debug Services
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 An issue that comes up rather frequently for new installations of Kubernetes is
 that a Service is not working properly.  You've run your Pods through a
 Deployment (or other workload controller) and created a Service, but you
 get no response when you try to access it.  This document will hopefully help
 you to figure out what's going wrong.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Running commands in a Pod
 
@@ -728,10 +728,11 @@ Contact us on
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
-{{% /capture %}}
+

@@ -2,13 +2,13 @@
 reviewers:
 - zparnold
 title: Overview of Cloud Native Security
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes Security (and security in general) is an immense topic that has many
 highly interrelated parts. In today's era where open source software is
 integrated into many of the systems that help web applications run,
@@ -17,9 +17,9 @@ think about security holistically. This guide will define a mental model
 for some general concepts surrounding Cloud Native Security. The mental model is completely arbitrary
 and you should only use it if it helps you think about where to secure your software
 stack.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## The 4C's of Cloud Native Security
 Let's start with a diagram that may help you understand how you can think about security in layers.
@@ -153,12 +153,13 @@ Most of the above mentioned suggestions can actually be automated in your code
 delivery pipeline as part of a series of checks in security. To learn about a
 more "Continuous Hacking" approach to software delivery, [this article](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/) provides more detail.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about [network policies for Pods](/docs/concepts/services-networking/network-policies/)
 * Read about [securing your cluster](/docs/tasks/administer-cluster/securing-a-cluster/)
 * Read about [API access control](/docs/reference/access-authn-authz/controlling-access/)
 * Read about [data encryption in transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * Read about [data encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 * Read about [Secrets in Kubernetes](/docs/concepts/configuration/secret/)
-{{% /capture %}}
+

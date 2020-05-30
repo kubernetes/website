@@ -3,24 +3,25 @@ reviewers:
 - bowei
 - zihongz
 title: Customizing DNS Service
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how to configure your DNS Pod and customize the
 DNS resolution process. In Kubernetes version 1.11 and later, CoreDNS is at GA
 and is installed by default with kubeadm. See [CoreDNS ConfigMap options](#coredns-configmap-options) 
 and [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns/).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes version 1.6 or later. To work with CoreDNS, version 1.9 or later.
 * The appropriate add-on: kube-dns or CoreDNS. To install with kubeadm,
 see [the kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon).
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Introduction
 
@@ -213,9 +214,9 @@ their destination DNS servers:
 See [ConfigMap options](#configmap-options) for
 details about the configuration option format.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 #### Effects on Pods
 
@@ -302,7 +303,7 @@ data:
     ["172.16.0.1"]
 ```
 
-{{% /capture %}}
+
 
 ## CoreDNS configuration equivalent to kube-dns
 

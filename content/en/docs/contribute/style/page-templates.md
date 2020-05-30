@@ -1,13 +1,13 @@
 ---
 title: Using Page Templates
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: contribute
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 When contributing new topics, apply one of the following templates to them.
 This standardizes the user experience of a given page.
@@ -24,10 +24,10 @@ template to use for a new topic, start with the
 {{< /note >}}
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Concept template
 
@@ -41,7 +41,7 @@ tutorials.
 To write a new concept page, create a Markdown file in a subdirectory of the
 `/content/en/docs/concepts` directory, with the following characteristics:
 
-- In the page's YAML front-matter, set `content_template: templates/concept`.
+- In the page's YAML front-matter, set `content_type: concept`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 
@@ -85,7 +85,7 @@ to conceptual topics that provide related background and knowledge.
 To write a new task page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tasks` directory, with the following characteristics:
 
-- In the page's YAML front-matter, set `content_template: templates/task`.
+- In the page's YAML front-matter, set `content_type: task`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 
@@ -150,7 +150,7 @@ for deep explanations.
 To write a new tutorial page, create a Markdown file in a subdirectory of the
 `/content/en/docs/tutorials` directory, with the following characteristics:
 
-- In the page's YAML front-matter, set `content_template: templates/tutorial`.
+- In the page's YAML front-matter, set `content_type: tutorial`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 
@@ -211,12 +211,13 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 An example of a published topic that uses the tutorial template is
 [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Learn about the [Style guide](/docs/contribute/style/style-guide/)
 - Learn about the [Content guide](/docs/contribute/style/content-guide/)
 - Learn about [content organization](/docs/contribute/style/content-organization/)
 
-{{% /capture %}}
+

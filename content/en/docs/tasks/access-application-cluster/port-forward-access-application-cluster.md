@@ -1,29 +1,30 @@
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
-content_template: templates/task
+content_type: task
 weight: 40
 min-kubernetes-server-version: v1.10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use `kubectl port-forward` to connect to a Redis
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * Install [redis-cli](http://redis.io/topics/rediscli).
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Creating Redis deployment and service
 
@@ -179,10 +180,10 @@ for database debugging.
     PONG
     ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Discussion
 
@@ -196,9 +197,10 @@ The support for UDP protocol is tracked in
 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862).
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
-{{% /capture %}}
+

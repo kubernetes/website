@@ -1,12 +1,12 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
 min-kubernetes-server-version: v1.8
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 In this example, we will run a Kubernetes Job with multiple parallel
 worker processes.
@@ -23,19 +23,20 @@ Here is an overview of the steps in this example:
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Starting a message queue service
 
@@ -292,9 +293,9 @@ Events:
 
 All our pods succeeded.  Yay.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Alternatives
 
@@ -331,4 +332,4 @@ exits with success, or if the node crashes before the kubelet is able to post th
 back to the api-server, then the Job will not appear to be complete, even though all items
 in the queue have been processed.
 
-{{% /capture %}}
+

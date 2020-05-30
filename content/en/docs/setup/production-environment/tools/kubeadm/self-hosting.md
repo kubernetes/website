@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Configuring your kubernetes cluster to self-host the control plane
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ### Self-hosting the Kubernetes control plane {#self-hosting}
 
@@ -19,9 +19,9 @@ configured in the kubelet via static files.
 To create a self-hosted cluster see the
 [kubeadm alpha selfhosting pivot](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) command.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 #### Caveats
 
@@ -67,4 +67,4 @@ In summary, `kubeadm alpha selfhosting` works as follows:
   1. When the original static control plane stops, the new self-hosted control
     plane is able to bind to listening ports and become active.
 
-{{% /capture %}}
+

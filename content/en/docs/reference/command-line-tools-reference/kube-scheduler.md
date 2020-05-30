@@ -4,7 +4,8 @@ content_template: templates/tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 The Kubernetes scheduler is a policy-rich, topology-aware,
@@ -20,9 +21,10 @@ for more information about scheduling and the kube-scheduler component.
 kube-scheduler [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -512,5 +514,5 @@ kube-scheduler [flags]
 
 
 
-{{% /capture %}}
+
 

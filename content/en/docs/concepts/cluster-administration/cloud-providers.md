@@ -1,16 +1,16 @@
 ---
 title: Cloud Providers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how to manage Kubernetes running on a specific
 cloud provider.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) is a popular option for creating kubernetes clusters.
 kubeadm has configuration options to specify configuration information for cloud providers. For example a typical
@@ -363,7 +363,7 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 

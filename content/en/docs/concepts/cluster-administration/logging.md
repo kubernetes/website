@@ -3,20 +3,20 @@ reviewers:
 - piosz
 - x13n
 title: Logging Architecture
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 Cluster-level logging architectures are described in assumption that
 a logging backend is present inside or outside of your cluster. If you're
@@ -267,4 +267,4 @@ You can implement cluster-level logging by exposing or pushing logs directly fro
 every application; however, the implementation for such a logging mechanism
 is outside the scope of Kubernetes.
 
-{{% /capture %}}
+

@@ -1,19 +1,20 @@
 ---
 title: IP Masquerade Agent User Guide
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to configure and enable the ip-masq-agent.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 ## IP Masquerade Agent User Guide
 
 The ip-masq-agent configures iptables rules to hide a pod's IP address behind the cluster node's IP address. This is typically done when sending traffic to destinations outside the cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
@@ -53,9 +54,9 @@ MASQUERADE  all  --  anywhere             anywhere             /* ip-masq-agent:
 
 By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7.0, if network policy is enabled or you are using a cluster CIDR not in the 10.0.0.0/8 range, the ip-masq-agent will run in your cluster.  If you are running in another environment, you can add the ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) to your cluster:
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create an ip-masq-agent
 To create an ip-masq-agent, run the following kubectl command:
@@ -110,4 +111,4 @@ nonMasqueradeCIDRs:
 resyncInterval: 60s
 masqLinkLocal: true
 ```
-{{% /capture %}}
+

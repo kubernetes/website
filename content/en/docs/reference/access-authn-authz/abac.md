@@ -5,15 +5,15 @@ reviewers:
 - deads2k
 - liggitt
 title: Using ABAC Authorization
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Policy File Format
 
 To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
@@ -152,5 +152,5 @@ privilege to the API using ABAC, you would add this line to your policy file:
 
 The apiserver will need to be restarted to pickup the new policy lines.
 
-{{% /capture %}}
+
 

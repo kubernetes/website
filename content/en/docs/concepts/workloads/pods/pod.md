@@ -1,19 +1,19 @@
 ---
 reviewers:
 title: Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Pods_ are the smallest deployable units of computing that can be created and
 managed in Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## What is a Pod?
 
@@ -206,4 +206,4 @@ describes the object in detail.
 When creating the manifest for a Pod object, make sure the name specified is a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-{{% /capture %}}
+

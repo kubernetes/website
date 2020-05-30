@@ -2,11 +2,11 @@
 title: Reviewing for approvers and reviewers
 linktitle: For approvers and reviewers
 slug: for-approvers
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs [Reviewers](/docs/contribute/participating/#reviewers) and [Approvers](/docs/contribute/participating/#approvers) do a few extra things when reviewing a change.
 
@@ -19,10 +19,10 @@ requests (PRs) that are not already under active review.
 In addition to the rotation, a bot assigns reviewers and approvers
 for the PR based on the owners for the affected files.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Reviewing a PR
 
@@ -224,4 +224,3 @@ If this is a documentation issue, please re-open this issue.
 ```
 
 
-{{% /capture %}}

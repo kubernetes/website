@@ -2,20 +2,20 @@
 title: Tasks
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section of the Kubernetes documentation contains pages that
 show how to do individual tasks. A task page shows how to do a
 single thing, typically by giving a short sequence of steps.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Web UI (Dashboard)
 
@@ -73,11 +73,12 @@ Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
 
 Configure and schedule huge pages as a schedulable resource in a cluster.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 If you would like to write a task page, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

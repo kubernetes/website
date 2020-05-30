@@ -1,10 +1,10 @@
 ---
 title: Controllers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In robotics and automation, a _control loop_ is
 a non-terminating loop that regulates the state of a system.
@@ -18,10 +18,10 @@ closer to the desired state, by turning equipment on or off.
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Controller pattern
 
@@ -150,11 +150,12 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
 * Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
-{{% /capture %}}
+

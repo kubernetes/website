@@ -1,18 +1,18 @@
 ---
 title: Recommended Labels
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 
 In addition to supporting tooling, the recommended labels describe applications
 in a way that can be queried.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The metadata is organized around the concept of an _application_. Kubernetes is not
 a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
 Instead, applications are informal and described with metadata. The definition of
@@ -170,4 +170,4 @@ metadata:
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
 
-{{% /capture %}}
+

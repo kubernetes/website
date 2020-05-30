@@ -5,10 +5,10 @@ reviewers:
 - smarterclayton
 - awly
 title: TLS bootstrapping
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes master components, specifically kube-apiserver.
 In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
@@ -24,9 +24,9 @@ found [here](https://github.com/kubernetes/kubernetes/pull/20439).
 This document describes the process of node initialization, how to set up TLS client certificate bootstrapping for
 kubelets, and how it works. 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Initialization Process
 When a worker node starts up, the kubelet does the following:
@@ -454,4 +454,4 @@ An issue is open referencing this [here](https://github.com/kubernetes/kubernete
 
 
 
-{{% /capture %}}
+

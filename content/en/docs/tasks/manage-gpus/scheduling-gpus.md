@@ -1,11 +1,11 @@
 ---
 reviewers:
 - vishh
-content_template: templates/concept
+content_type: concept
 title: Schedule GPUs
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
@@ -15,10 +15,10 @@ Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
 This page describes how users can consume GPUs across different Kubernetes versions
 and the current limitations.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Using device plugins
 
@@ -216,4 +216,4 @@ spec:
 This will ensure that the Pod will be scheduled to a node that has the GPU type
 you specified.
 
-{{% /capture %}}
+

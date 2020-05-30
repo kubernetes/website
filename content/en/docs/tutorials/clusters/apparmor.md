@@ -2,10 +2,10 @@
 reviewers:
 - stclair
 title: AppArmor
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
@@ -24,9 +24,10 @@ that AppArmor is not a silver bullet and can only do so much to protect against 
 application code. It is important to provide good, restrictive profiles, and harden your
 applications and cluster from other angles as well.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * See an example of how to load a profile on a node
 * Learn how to enforce the profile on a Pod
@@ -34,9 +35,10 @@ applications and cluster from other angles as well.
 * See what happens when a profile is violated
 * See what happens when a profile cannot be loaded
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Make sure:
 
@@ -111,9 +113,9 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Securing a Pod
 
@@ -458,13 +460,14 @@ Specifying the list of profiles Pod containers is allowed to specify:
   - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
     allowed here.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
-{{% /capture %}}
+

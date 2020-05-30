@@ -1,6 +1,6 @@
 ---
 title: Managing Resources for Containers
-content_template: templates/concept
+content_type: concept
 weight: 40
 feature:
   title: Automatic bin packing
@@ -8,7 +8,7 @@ feature:
     Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
 much of each resource a {{< glossary_tooltip text="Container" term_id="container" >}} needs.
@@ -21,10 +21,10 @@ allowed to use more of that resource than the limit you set. The kubelet also re
 at least the _request_ amount of that system resource specifically for that container
 to use.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Requests and limits
 
@@ -740,10 +740,11 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
@@ -758,4 +759,4 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 
-{{% /capture %}}
+

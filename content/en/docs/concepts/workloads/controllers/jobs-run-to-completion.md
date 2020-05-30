@@ -3,7 +3,7 @@ reviewers:
 - erictune
 - soltysh
 title: Jobs - Run to Completion
-content_template: templates/concept
+content_type: concept
 feature:
   title: Batch execution
   description: >
@@ -11,7 +11,7 @@ feature:
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A Job creates one or more Pods and ensures that a specified number of them successfully terminate.
 As pods successfully complete, the Job tracks the successful completions.  When a specified number
@@ -24,10 +24,10 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Running an example Job
 
@@ -478,4 +478,4 @@ object, but maintains complete control over what Pods are created and how work i
 
 You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
 
-{{% /capture %}}
+

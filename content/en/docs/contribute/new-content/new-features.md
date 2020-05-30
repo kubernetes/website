@@ -1,7 +1,7 @@
 ---
 title:  Documenting a feature for a release
 linktitle: Documenting for a release
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 20
 card:
@@ -9,7 +9,7 @@ card:
   weight: 45
   title:  Documenting a feature for a release
 ---
-{{% capture overview %}}
+<!-- overview -->
 
 Each major Kubernetes release introduces new features that require documentation. New releases also bring updates to existing features and documentation (such as upgrading a feature from alpha to beta).
 
@@ -19,9 +19,9 @@ feature as a pull request to the appropriate development branch of the
 editorial feedback or edits the draft directly. This section covers the branching
 conventions and process used during a release by both groups.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## For documentation contributors
 
@@ -131,4 +131,3 @@ add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-referenc
 as part of your pull request. If your feature is moving out of Alpha, make sure to
 remove it from that table.
 
-{{% /capture %}}

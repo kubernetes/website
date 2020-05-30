@@ -1,18 +1,18 @@
 ---
 title: Poseidon-Firmament Scheduler
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 The Poseidon-Firmament scheduler is an alternate scheduler that can be deployed alongside the default Kubernetes scheduler.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 ## Introduction
@@ -102,10 +102,11 @@ Pod-by-pod schedulers, such as the Kubernetes default scheduler, process Pods in
 
 These downsides of pod-by-pod schedulers are addressed by batching or bulk scheduling in Poseidon-Firmament scheduler. Processing several pods in a batch allows the scheduler to jointly consider their placement, and thus to find the best trade-off for the whole batch instead of one pod. At the same time it amortizes work across pods resulting in much higher throughput.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * See [Poseidon-Firmament](https://github.com/kubernetes-sigs/poseidon#readme) on GitHub for more information.
 * See the [design document](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/design/README.md) for Poseidon.
 * Read [Firmament: Fast, Centralized Cluster Scheduling at Scale](https://www.usenix.org/system/files/conference/osdi16/osdi16-gog.pdf), the academic paper on the Firmament scheduling design.
 * If you'd like to contribute to Poseidon-Firmament, refer to the [developer setup instructions](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/devel/README.md).
-{{% /capture %}}
+

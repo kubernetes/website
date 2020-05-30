@@ -2,20 +2,20 @@
 reviewers:
 - janetkuo
 - thockin
-content_template: templates/concept
+content_type: concept
 title: Application Introspection and Debugging
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Once your application is running, you'll inevitably need to debug problems with it.
 Earlier we described how you can use `kubectl get pods` to retrieve simple status information about
 your pods. But there are a number of ways to get even more information about your application.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Using `kubectl describe pod` to fetch details about pods
 
@@ -387,9 +387,10 @@ status:
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn about additional debugging tools, including:
 
@@ -400,4 +401,4 @@ Learn about additional debugging tools, including:
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Inspect Kubernetes node with crictl](/docs/tasks/debug-application-cluster/crictl/)
 
-{{% /capture %}}
+

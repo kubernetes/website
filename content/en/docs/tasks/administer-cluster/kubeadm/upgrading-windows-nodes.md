@@ -1,29 +1,30 @@
 ---
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}} 
+
+## {{% heading "prerequisites" %}}
+ 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Windows nodes.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Upgrading worker nodes
 
@@ -90,4 +91,4 @@ again replacing {{< param "fullversion" >}} with your desired version:
     ```
 
 
-{{% /capture %}}
+

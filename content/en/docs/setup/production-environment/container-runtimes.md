@@ -3,17 +3,17 @@ reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 To run containers in Pods, Kubernetes uses a container runtime. Here are
 the installation instructions for various runtimes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -402,4 +402,4 @@ When using kubeadm, manually configure the
 
 Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
-{{% /capture %}}
+

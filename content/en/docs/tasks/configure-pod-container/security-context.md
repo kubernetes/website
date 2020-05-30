@@ -4,11 +4,11 @@ reviewers:
 - mikedanese
 - thockin
 title: Configure a Security Context for a Pod or Container
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A security context defines privilege and access control settings for
 a Pod or Container. Security context settings include, but are not limited to:
@@ -37,15 +37,16 @@ for a comprehensive list.
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Set the security context for a Pod
 
@@ -409,9 +410,10 @@ kubectl delete pod security-context-demo-3
 kubectl delete pod security-context-demo-4
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
@@ -423,4 +425,4 @@ kubectl delete pod security-context-demo-4
   document](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
 
 
-{{% /capture %}}
+

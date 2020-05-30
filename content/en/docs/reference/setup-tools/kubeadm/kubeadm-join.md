@@ -3,14 +3,14 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm join
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
-{{% capture overview %}}
+<!-- overview -->
 This command initializes a Kubernetes worker node and joins it to the cluster.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 {{< include "generated/kubeadm_join.md" >}}
 
 ### The join workflow {#join-workflow}
@@ -276,10 +276,11 @@ kubeadm config print join-defaults
 
 For details on individual fields in `JoinConfiguration` see [the godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-{{% /capture %}}
+

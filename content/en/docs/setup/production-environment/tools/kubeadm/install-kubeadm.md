@@ -1,6 +1,6 @@
 ---
 title: Installing kubeadm
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: setup
@@ -8,14 +8,15 @@ card:
   title: Install the kubeadm setup tool
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
 For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * One or more machines running one of:
   - Ubuntu 16.04+
@@ -32,9 +33,9 @@ For information how to create a cluster with kubeadm once you have performed thi
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
 
@@ -301,8 +302,8 @@ like CRI-O and containerd is work in progress.
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
-{{% /capture %}}

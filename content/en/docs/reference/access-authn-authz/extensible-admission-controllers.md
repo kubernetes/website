@@ -7,18 +7,17 @@ reviewers:
 - liggitt
 - jpbetz
 title: Dynamic Admission Control
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 In addition to [compiled-in admission plugins](/docs/reference/access-authn-authz/admission-controllers/),
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
-{{% /capture %}}
 
-{{% capture body %}}
 
+<!-- body -->
 ## What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
@@ -1589,4 +1588,4 @@ If your admission webhooks don't intend to modify the behavior of the Kubernetes
 plane, exclude the `kube-system` namespace from being intercepted using a
 [`namespaceSelector`](#matching-requests-namespaceselector).
 
-{{% /capture %}}
+

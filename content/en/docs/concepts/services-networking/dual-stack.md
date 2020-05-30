@@ -9,11 +9,11 @@ feature:
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
 
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -21,9 +21,9 @@ weight: 70
 
 If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported Features
 
@@ -103,10 +103,11 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 
-{{% /capture %}}
+

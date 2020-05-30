@@ -4,10 +4,10 @@ reviewers:
 - thockin
 - wlan0
 title: Cloud Controller Manager Administration
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
@@ -15,10 +15,10 @@ Since cloud providers develop and release at a different pace compared to the Ku
 
 The `cloud-controller-manager` can be linked to any cloud provider that satisfies [cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go). For backwards compatibility, the [cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager) provided in the core Kubernetes project uses the same cloud libraries as `kube-controller-manager`. Cloud providers already supported in Kubernetes core are expected to use the in-tree cloud-controller-manager to transition out of Kubernetes core.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Administration
 
@@ -82,9 +82,10 @@ A good example of this is the TLS bootstrapping feature in the Kubelet. TLS boot
 
 As this initiative evolves, changes will be made to address these issues in upcoming releases.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 To build and develop your own cloud controller manager, read [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
-{{% /capture %}}
+
