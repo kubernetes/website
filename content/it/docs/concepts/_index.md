@@ -1,17 +1,17 @@
 ---
 title: Concetti
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La sezione Concetti ti aiuta a conoscere le parti del sistema Kubernetes e le astrazioni utilizzate da Kubernetes per rappresentare il tuo cluster e ti aiuta ad ottenere una comprensione più profonda di come funziona Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -66,12 +66,13 @@ I nodi di un cluster sono le macchine (VM, server fisici, ecc.) Che eseguono i f
 
 * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Se vuoi scrivere una pagina concettuale, vedi
 [Uso dei modelli di pagina](/docs/home/contribute/page-templates/)
 per informazioni sul tipo di pagina di concetto e il modello di concetto.
 
-{{% /capture %}}
+

@@ -1,13 +1,13 @@
 „---
 title: I componenti di Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Facendo il deployment di Kubernetes, ottieni un cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="Un cluster Kubernetes è">}}
 
@@ -18,9 +18,9 @@ Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro
 
 ![I componenti di Kubernetes](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Componenti della Control Plane
 
 I componenti del Control Plane sono responsabili di tutte le decisioni globali sul cluster (ad esempio, lo scheduling) oltre che a rilevare e rispondere agli eventi del cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
@@ -113,10 +113,11 @@ Il [Monitoraggio dei Container](/docs/tasks/debug-application-cluster/resource-u
 
 Un [log a livello di cluster](/docs/concepts/cluster-administration/logging/) è responsabile per il salvataggio dei log dei container in un log centralizzato la cui interfaccia permette di cercare e navigare nei log.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Scopri i concetti relativi ai [Nodi](/docs/concepts/architecture/nodes/)
 * Scopri i concetti relativi ai [Controller](/docs/concepts/architecture/controller/)
 * Scopri i concetti relativi al [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Leggi la [documentazione](https://etcd.io/docs/) ufficiale di etcd
-{{% /capture %}}
+

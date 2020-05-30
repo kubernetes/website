@@ -1,17 +1,17 @@
 ---
 draft: True
 title: Cloud Providers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Questa pagina spiega come gestire Kubernetes in esecuzione su uno specifico
 fornitore di servizi cloud.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) è un'opzione popolare per la creazione di cluster di kuberneti.
@@ -342,7 +342,7 @@ File `cloud.conf`:
 
 [kubenet]: https://kubernetes.io/docs/concepts/cluster-administration/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 
