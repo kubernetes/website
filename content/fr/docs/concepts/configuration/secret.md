@@ -1,6 +1,6 @@
 ---
 title: Secrets
-content_template: templates/concept
+content_type: concept
 feature:
   title: Gestion du secret et de la configuration
   description: >
@@ -9,15 +9,15 @@ weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Les objets `secret` de Kubernetes vous permettent de stocker et de gérer des informations sensibles, telles que les mots de passe, les jetons OAuth et les clés ssh.
 Mettre ces informations dans un `secret` est plus sûr et plus flexible que de le mettre en dur dans la définition d'un {{< glossary_tooltip term_id="pod" >}} ou dans une {{< glossary_tooltip text="container image" term_id="image" >}}.
 Voir [Document de conception des secrets](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) pour plus d'informations.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Présentation des secrets
 
@@ -976,6 +976,7 @@ Vous pouvez activer le [chiffrement au repos](/docs/tasks/administer-cluster/enc
 * Actuellement, toute personne disposant des droit root sur n'importe quel nœud peut lire _n'importe quel_ secret depuis l'apiserver, en usurpant l'identité du kubelet.
   Il est prévu de n'envoyer des secrets qu'aux nœuds qui en ont réellement besoin, pour limiter l'impact d'un exploit root sur un seul nœud.
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+

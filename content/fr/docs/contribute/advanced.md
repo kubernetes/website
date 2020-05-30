@@ -1,18 +1,18 @@
 ---
 title: Contributions avancées
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page suppose que vous avez lu et maîtrisé les sujets suivants : [Commencez à contribuer](/docs/contribute/start/) et [Contribution Intermédiaire](/docs/contribute/intermediate/) et êtes prêts à apprendre plus de façons de contribuer.
 Vous devez utiliser Git et d'autres outils pour certaines de ces tâches.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Soyez le trieur de PR pendant une semaine
 
@@ -91,4 +91,4 @@ Les nouveaux contributeurs docs peuvent demander des sponsors dans le canal #sig
 Si vous vous sentez confiant dans le travail des candidats, vous vous portez volontaire pour les parrainer.
 Lorsqu’ils soumettent leur demande d’adhésion, répondez-y avec un "+1" et indiquez les raisons pour lesquelles vous estimez que les demandeurs sont des candidat(e)s valables pour devenir membre de l’organisation Kubernetes.
 
-{{% /capture %}}
+

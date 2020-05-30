@@ -1,13 +1,13 @@
 ---
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 Cette commande initialise un noeud Kubernetes control-plane.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
@@ -293,11 +293,12 @@ et les utiliser pour communiquer avec le cluster.
 Vous remarquerez que ce type d'installation présente un niveau de sécurité inférieur puisqu'il ne permet pas la validation du hash du certificat racine avec `--discovery-token-ca-cert-hash`
 (puisqu'il n'est pas généré quand les noeuds sont provisionnés). Pour plus d'information, se référer à [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) pour mieux comprendre les phases `kubeadm init`
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) pour amorcer un noeud Kubernetes worker node Kubernetes et le faire joindre le cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) pour mettre à jour un cluster Kubernetes vers une version plus récente
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) pour annuler les changements appliqués avec `kubeadm init` ou `kubeadm join` à un noeud
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: Aperçu du Pod
 description: Pod Concept Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page fournit un aperçu du `Pod`, l'objet déployable le plus petit dans le modèle d'objets Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Comprendre les Pods
 
@@ -98,11 +98,12 @@ spec:
 ```
 Plutôt que de spécifier tous les états désirés courants de tous les réplicas, les templates de pod sont comme des emporte-pièces. Une fois qu'une pièce a été coupée, la pièce n'a plus de relation avec l'outil. Il n'y a pas de lien qui persiste dans le temps entre le template et le pod. Un changement à venir dans le template ou même le changement pour un nouveau template n'a pas d'effet direct sur les pods déjà créés. De manière similaire, les pods créés par un replication controller peuvent par la suite être modifiés directement. C'est en contraste délibéré avec les pods, qui spécifient l'état désiré courant de tous les conteneurs appartenant au pod. Cette approche simplifie radicalement la sémantique système et augmente la flexibilité de la primitive.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * En savoir plus sur les [Pods](/docs/concepts/workloads/pods/pod/)
 * En savoir plus sur le comportement des Pods :
   * [Terminaison d'un Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Cycle de vie d'un Pod](/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

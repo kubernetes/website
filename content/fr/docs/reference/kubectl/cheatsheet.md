@@ -5,21 +5,21 @@ reviewers:
 - rbenzair
 - feloy
 - remyleone
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Voir aussi : [Aperçu Kubectl](/docs/reference/kubectl/overview/) et [Guide JsonPath](/docs/reference/kubectl/jsonpath).
 
 Cette page donne un aperçu de la commande `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # Aide-mémoire kubectl
 
@@ -384,9 +384,10 @@ Verbosité | Description
 `--v=8`   | Affiche les contenus des requêtes HTTP.
 `--v=9`   | Affiche les contenus des requêtes HTTP sans les tronquer.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur l'[Aperçu de kubectl](/docs/reference/kubectl/overview/).
 
@@ -396,4 +397,4 @@ Verbosité | Description
 
 * Voir plus d'[aides-mémoire kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

@@ -1,12 +1,12 @@
 ---
 title: Participez au SIG Docs
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs est l'un des [groupes d'intérêts spéciaux](https://github.com/kubernetes/community/blob/master/sig-list.md) au sein du projet Kubernetes, axé sur la rédaction, la mise à jour et la maintenance de la documentation de Kubernetes dans son ensemble.
 Pour plus d'informations sur le SIG consultez [le dépôt GitHub de la communauté](https://github.com/kubernetes/community/tree/master/sig-docs).
@@ -19,9 +19,9 @@ Ces rôles nécessitent un plus grand accès et impliquent certaines responsabil
 Voir [appartenance à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md) pour plus d'informations sur le fonctionnement de l'adhésion au sein de la communauté Kubernetes.
 Le reste de ce document décrit certaines fonctions uniques de ces rôles au sein du SIG Docs, responsable de la gestion de l’un des aspects les plus accessibles du public de Kubernetes: le site Web et la documentation de Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Rôles et responsabilités
 
@@ -194,13 +194,14 @@ En outre, un fichier Markdown individuel peut répertorier les relecteurs et les
 
 La combinaison des fichiers `OWNERS` et des entêtes dans les fichiers Markdown determinent les suggestions automatiques de relecteurs dans la PullRequest.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Pour plus d'informations sur la contribution à la documentation Kubernetes, voir:
 
 - [Commencez à contribuer](/docs/contribute/start/)
 - [Documentation style](/docs/contribute/style/)
 
-{{% /capture %}}
+

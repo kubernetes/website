@@ -4,10 +4,10 @@ reviewers:
 title: Choisir la bonne solution
 description: Panorama de solutions Kubernetes
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes peut fonctionner sur des plateformes variées: sur votre PC portable, sur des VMs d'un fournisseur de cloud, ou un rack
 de serveurs bare-metal. L'effort demandé pour configurer un cluster varie de l'éxécution d'une simple commande à la création
@@ -28,9 +28,9 @@ déployer un cluster grâce à une seule ligne de commande par machine.
 
 cluster Kubernetes en partant du début.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Solutions locales
 
@@ -300,4 +300,4 @@ Le tableau ci-dessus est ordonné par versions testées et utilisées dans les n
 <!-- Google Kubernetes Engine conformance test result -->
 [3]: https://gist.github.com/erictune/2f39b22f72565365e59b
 
-{{% /capture %}}
+

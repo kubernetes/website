@@ -1,25 +1,26 @@
 ---
 title: Récupération d'une image d'un registre privé
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment créer un Pod qui utilise un Secret pour récupérer une image d'un registre privé.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * Pour faire cet exercice, vous avez besoin d'un
 [Docker ID](https://docs.docker.com/docker-id/) et un mot de passe.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Connectez-vous à Docker
 
@@ -193,9 +194,10 @@ kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pour en savoir plus sur les [Secrets](/docs/concepts/configuration/secret/).
 * Pour en savoir plus sur l'[utilisation d'un registre privé](/docs/concepts/containers/images/#using-a-private-registry).
@@ -204,5 +206,5 @@ kubectl get pod private-reg
 * Voir [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
 * Voir le champ `imagePullSecrets` de [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-{{% /capture %}}
+
 

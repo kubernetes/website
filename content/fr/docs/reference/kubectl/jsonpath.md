@@ -1,15 +1,15 @@
 ---
 title: Support de JSONPath
 description: JSONPath kubectl Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl prend en charge les modèles JSONPath.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Un modèle JSONPath est composé d'expressions JSONPath entourées par des accolades {}.
 Kubectl utilise les expressions JSONPath pour filtrer sur des champs spécifiques de l'objet JSON et formater la sortie.
@@ -101,4 +101,4 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 
 {{< /note >}}
 
-{{% /capture %}}
+

@@ -1,20 +1,21 @@
 ---
 title: Installer kubeadm
 description: kubeadm installation Kubernetes
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Cette page vous
 apprend comment installer la boîte à outils `kubeadm`.
 Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez
 effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Une ou plusieurs machines exécutant:
   - Ubuntu 16.04+
@@ -31,9 +32,9 @@ effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour cré
 * Certains ports doivent êtres ouverts sur vos machines. Voir [ici](#check-required-ports) pour plus de détails.
 * Swap désactivé. Vous devez impérativement désactiver le swap pour que la kubelet fonctionne correctement.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Vérifiez que les adresses MAC et product_uuid sont uniques pour chaque nœud {#verify-the-mac-address-and-product-uuid-are-unique-for-every-node}
 
@@ -253,8 +254,9 @@ systemctl restart kubelet
 
 Si vous rencontrez des difficultés avec kubeadm, veuillez consulter notre [documentation de dépannage](/docs/setup/independent/troubleshooting-kubeadm/).
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/)
 
-{{% /capture %}}
+

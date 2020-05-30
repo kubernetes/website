@@ -2,10 +2,10 @@
 title: Tutoriels
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette section de la documentation de Kubernetes contient des tutoriels.
 
@@ -13,9 +13,9 @@ Un tutoriel montre comment atteindre un objectif qui est plus grand qu'une simpl
 
 Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet pour le [Glossaire standardisé](/docs/reference/glossary/) pour pouvoir le consulter plus facilement par la suite.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Elémentaires
 
@@ -66,10 +66,11 @@ Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet p
 
 * [Utiliser Source IP (EN)](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si vous voulez écrire un tutoriel, regardez la section des modèles de page de tutoriel dans l'[Utilisation des modèles de pages ](/docs/home/contribute/page-templates/).
 
-{{% /capture %}}
+

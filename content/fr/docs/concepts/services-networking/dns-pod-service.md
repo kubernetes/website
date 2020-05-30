@@ -1,14 +1,14 @@
 ---
 title: DNS pour les services et les pods
 description: DNS services pods Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 Cette page fournit une vue d'ensemble du support DNS par Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -221,11 +221,11 @@ search default.svc.cluster.local svc.cluster.local cluster.local
 options ndots:5
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Pour obtenir des recommendations sur l’administration des configurations DNS, consultez
 [Configurer le service DNS](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
-{{% /capture %}}

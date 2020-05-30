@@ -1,20 +1,20 @@
 ---
 title: Images
 description: Images conteneur Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Vous créez une image Docker et la poussez dans un registre avant de la référencer depuis un pod Kubernetes.
 
 La propriété `image` d'un conteneur utilise la même syntaxe que la commande `docker`, y compris pour les registres privés et les tags.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mettre à jour des images
 
@@ -356,4 +356,4 @@ pod   - Le *tenant* ajoute ce secret dans les imagePullSecrets de chaque pod.
 Si vous devez accéder à plusieurs registres, vous pouvez créer un secret pour chaque registre.
 Kubelet va fusionner tous les `imagePullSecrets` dans un unique `.docker/config.json` virtuel.
 
-{{% /capture %}}
+
