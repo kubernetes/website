@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- {{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="containers" term_id="container" >}}からアクセス可能なデータを含むディレクトリ。
+ {{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能なデータを含むディレクトリ。
 
 <!--more--> 
 
