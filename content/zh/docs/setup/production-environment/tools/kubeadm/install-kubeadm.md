@@ -57,7 +57,7 @@ For information how to create a cluster with kubeadm once you have performed thi
   - HypriotOS v1.0.1+
   - Container Linux (测试 1800.6.0 版本)
 * 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)
-* 2 CPU 核或更多
+* 2 核 CPU 或更多
 * 集群中的所有机器的网络彼此均能相互连接(公网和内网都可以)
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-the-mac-address-and-product-uuid-are-unique-for-every-node) 了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports) 了解更多详细信息。
