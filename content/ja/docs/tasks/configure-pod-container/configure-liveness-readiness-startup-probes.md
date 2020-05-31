@@ -46,7 +46,7 @@ Podの構成ファイルは次の通りです。
 この構成ファイルでは、Podは一つの`Container`を起動します。
 `periodSeconds`フィールドは、kubeletがLiveness Probeを5秒おきに行うように指定しています。
 `initialDelaySeconds`フィールドは、kubeletが最初のProbeを実行する前に5秒間待機するように指示しています。
-Probeの動作としては、kubeletは`cat /tmp/healthy`を目標となるコンテナ内で実行します。
+Probeの動作としては、kubeletは`cat /tmp/healthy`を対象のコンテナ内で実行します。
 このコマンドが成功し、リターンコード0が返ると、kubeletはコンテナが問題なく動いていると判断します。
 リターンコードとして0以外の値が返ると、kubeletはコンテナを終了し、再起動を行います。
 
