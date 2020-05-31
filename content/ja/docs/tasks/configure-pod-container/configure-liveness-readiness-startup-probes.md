@@ -168,7 +168,7 @@ kubectl describe pod liveness-http
 ```
 
 v1.13以前(v1.13を含む)のリリースにおいては、Podが起動しているノードにおいて、環境変数`http_proxy`
-（または `HTTP_PROXY`）が設定されている場合、HTTPリクエストのLiveness Probeは、設定されたプロキシを使用します。
+(または `HTTP_PROXY`)が設定されている場合、HTTPリクエストのLiveness Probeは、設定されたプロキシを使用します。
 v1.13より後のリリースにおいては、ローカルHTTPプロキシ環境変数の設定は、HTTPリクエストのLiveness Probeに影響しません。
 
 ## TCPによるLiveness Probeを定義する {#define-a-tcp-liveness-probe}
