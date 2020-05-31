@@ -319,7 +319,7 @@ kubeletは、`httpGet`のオプションである`host`フィールドでアド�
 その場合では、`httpGet`フィールド内の`host`には、127.0.0.1をセットする必要があります。
 より一般的なケースにおいてPodが仮想ホストに依存している場合は、おそらく`host`フィールドではなく、`httpHeaders`フィールド内の`Host`ヘッダーを使用する必要があります。
 
-TCPによるProbeの場合、kubeletはPodの中ではなく、Nodeに対してコネクションを確立するProbeを実行します。
+TCPによるProbeの場合、kubeletはPodの中ではなく、ノードに対してコネクションを確立するProbeを実行します。
 kubeletはServiceの名前を解決できないため、`host`パラメーター内でServiceの名前を使用することはできません。
 
 {{% /capture %}}
