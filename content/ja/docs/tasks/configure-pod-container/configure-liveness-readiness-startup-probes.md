@@ -267,7 +267,7 @@ Readiness Probeは、コンテナの全てのライフサイクルにおいて�
 {{< /note >}}
 
 Readiness Probeは、Liveness Probeと同様に構成します。
-唯一の違いは、`readinessProbe`フィールドを`livenessProbe` フィールドの代わりに利用することだけです。
+唯一の違いは、`readinessProbe`フィールドを`livenessProbe`フィールドの代わりに利用することだけです。
 
 ```yaml
 readinessProbe:
