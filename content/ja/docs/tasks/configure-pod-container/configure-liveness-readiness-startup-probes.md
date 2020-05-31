@@ -294,7 +294,7 @@ Eventually, some of this section could be moved to a concept topic.
 Liveness ProbeおよびReadiness Probeのチェック動作を、より正確に制御するために使用できるいくつかのフィールドがあります:
 
 * `initialDelaySeconds`: コンテナが起動してから、Liveness ProbeまたはReadiness Probeが開始されるまでの秒数。デフォルトは0秒。最小値は0。
-* `periodSeconds`: Probeが実行される頻度（秒数）。デフォルトは0秒。最小値は1。
+* `periodSeconds`: Probeが実行される頻度(秒数)。デフォルトは10秒。最小値は1。
 * `timeoutSeconds`: Probeがタイムアウトになるまでの秒数。デフォルトは1秒。最小値は1。
 * `successThreshold`: 一度Probeが失敗した後、次のProbeが成功したとみなされるための最小連続成功数。
 デフォルトは1。Liveness Probeには、1にする必要があります。最小値は1。
