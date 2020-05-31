@@ -6,7 +6,7 @@ weight: 110
 
 {{% capture overview %}}
 
-このページでは、Liveness Probe、Readiness Probe および Startup Probeの使用方法について説明します。
+このページでは、Liveness Probe、Readiness ProbeおよびStartup Probeの使用方法について説明します。
 
 [kubelet](/docs/admin/kubelet/)は、Liveness Probeを使用して、コンテナをいつ再起動するかを認識します。
 例えば、アプリケーション自体は起動しているが、処理を継続することができないデッドロック状態を検知することができます。
