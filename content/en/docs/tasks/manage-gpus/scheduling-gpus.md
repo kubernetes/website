@@ -98,7 +98,7 @@ has the following requirements:
 - Kubelet must use Docker as its container runtime
 - `nvidia-container-runtime` must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
   for Docker, instead of runc.
-- The version of the NVIDIA drivers must match the constraint ~= 361.93
+- The version of the NVIDIA drivers must match the constraint ~= 384.81.
 
 To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
