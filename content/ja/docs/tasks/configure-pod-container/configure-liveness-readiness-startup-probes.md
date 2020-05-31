@@ -90,7 +90,7 @@ FirstSeen    LastSeen    Count   From            SubobjectPath           Type   
 kubectl describe pod liveness-exec
 ```
 
-出力結果の最後に、Liveness Probeが失敗していることを示すメッセージがあります。
+出力結果の最後に、Liveness Probeが失敗していることを示すメッセージが表示され、コンテナが強制終了して再作成されています。
 
 ```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
