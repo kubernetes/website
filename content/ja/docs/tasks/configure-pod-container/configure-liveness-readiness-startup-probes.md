@@ -14,7 +14,7 @@ weight: 110
 
 kubeletは、Readiness Probeを使用して、コンテナがトラフィックを受け入れられる状態であるかを認識します。
 Podが準備ができていると見なされるのは、Pod内の全てのコンテナの準備が整ったときです。
-一例として、このシグナルはServiceのバックエンドとして使用されるPodの制御するときに使用されます。
+一例として、このシグナルはServiceのバックエンドとして使用されるPodを制御するときに使用されます。
 Podの準備ができていない場合、そのPodはServiceのロードバランシングから切り離されます。
 
 kubeletは、Startup Probeを使用して、コンテナアプリケーションの起動が完了したかを認識します。
@@ -335,4 +335,3 @@ kubeletはServiceの名前を解決できないため、`host`パラメーター
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
 {{% /capture %}}
-
