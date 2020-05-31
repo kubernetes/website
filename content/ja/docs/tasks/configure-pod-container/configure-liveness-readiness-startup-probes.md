@@ -250,7 +250,7 @@ startupProbe:
   periodSeconds: 10
 ```
 
-Startup Probeにより、アプリケーションは起動が完了するまでに最大5分間の猶予（30 * 10 = 300秒）が与えられます。
+Startup Probeにより、アプリケーションは起動が完了するまでに最大5分間の猶予(30 * 10 = 300秒)が与えられます。
 Startup Probeに一度成功すると、その後はLiveness Probeが引き継ぎ、コンテナのデッドロックに対して迅速に反応します。
 Startup Probeが成功しない場合、コンテナは300秒後に終了し、その後はPodの`restartPolicy`に従います。
 
