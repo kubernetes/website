@@ -1,5 +1,5 @@
 ---
-title: Liveness Probe、Readiness Probe および Startup Probeを使用する
+title: Liveness Probe、Readiness ProbeおよびStartup Probeを使用する
 content_template: templates/task
 weight: 110
 ---
@@ -335,5 +335,4 @@ kubeletはServiceの名前を解決できないため、`host`パラメーター
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
 {{% /capture %}}
-
 
