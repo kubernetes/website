@@ -168,20 +168,22 @@ Minikubeはビルトインの{{< glossary_tooltip text="addons" term_id="addons"
 
     ```shell
     addon-manager: enabled
-    coredns: disabled
     dashboard: enabled
     default-storageclass: enabled
     efk: disabled
     freshpod: disabled
-    heapster: disabled
+    gvisor: disabled
+    helm-tiller: disabled
     ingress: disabled
-    kube-dns: enabled
+    ingress-dns: disabled
+    logviewer: disabled
     metrics-server: disabled
     nvidia-driver-installer: disabled
     nvidia-gpu-device-plugin: disabled
     registry: disabled
     registry-creds: disabled
     storage-provisioner: enabled
+    storage-provisioner-gluster: disabled
     ```
 
 2. ここでは例として`heapster`のアドオンを有効化します:
