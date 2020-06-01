@@ -1,13 +1,13 @@
 ---
 title: API Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ogólne reguły dotyczące API opisane są w dokumentacji [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -21,10 +21,10 @@ Kubernetes przechowuje także swój serializowany stan (obecnie w [etcd](https:/
 
 Kubernetes jako taki składa się z wielu elementów składowych, które komunikują się ze sobą poprzez swoje API.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Zmiany w API
 
@@ -125,4 +125,4 @@ Przykładowo: aby włączyć deployments i daemonsets, ustaw
 
 {{< note >}}Włączanie i wyłączanie pojedynczych zasobów możliwe jest jedynie w ramach grupy API `extensions/v1beta1` z przyczyn historycznych{{< /note >}}
 
-{{% /capture %}}
+
