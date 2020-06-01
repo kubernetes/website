@@ -124,8 +124,8 @@ Local mempreservasi sumber IP client dan menghindari hop kedua _LoadBalancer_ da
 resiko berpotensi penyebaran lalu lintas yang tidak merata.
 * `service.spec.healthCheckNodePort` - menentukan cek kesehatan _node_ porta (nomor porta numerik) untuk servis.
 Jika `healthCheckNodePort` tidak ditentukan, pengendali servis mengalokasi
-porta dari bentangan _NodePort_ dari klaster kamu. Kamu dapat mengonfigurasi
-bentangan tersebut dari pengaturan opsi barisan perintah API server,
+porta dari rentang _NodePort_ dari klaster kamu. Kamu dapat mengonfigurasi
+rentangan tersebut dari pengaturan opsi barisan perintah API server,
 `--service-node-port-range`. Hal itu menggunakan nilai `healthCheckNodePort` pengguna spesifik
 jika ditentukan oleh klien. Hal itu dapat berefek hanya ketika `type` diset ke _LoadBalancer_ dan
 `externalTrafficPolicy` diset ke Local.
