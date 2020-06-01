@@ -225,16 +225,16 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. `heapster`を無効化します:
+4. `metrics-server`を無効化します:
 
     ```shell
-    minikube addons disable heapster
+    minikube addons disable metrics-server
     ```
 
     出力は下記のようになります:
 
     ```shell
-    heapster was successfully disabled
+    etrics-server was successfully disabled
     ```
 
 ## クリーンアップ
