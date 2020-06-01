@@ -1,10 +1,10 @@
 ---
 title: Генерация справочной документации для команд kubectl
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице показано, как сгенерировать справочник для команды `kubectl`.
 
@@ -13,15 +13,16 @@ weight: 90
 Этот раздел не рассматривает генерацию справочной страницы для опций [kubectl](/ru/docs/reference/generated/kubectl/kubectl/). Инструкции по генерации справочной страницы опций kubectl смотрите в разделе [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Настройка локальных репозиториев
 
@@ -213,12 +214,13 @@ make docker-serve
 
 Спустя несколько минут после принятия вашего пулреквеста, обновленные темы справочника будут отображены в [документации](/ru/docs/home/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Руководство по быстрому старту генерации справочной документации](/ru/docs/contribute/generate-ref-docs/quickstart/)
 * [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/)
 
-{{% /capture %}}
+

@@ -1,14 +1,14 @@
 ---
 title: Поддержка JSONPath
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl поддерживает шаблон JSONPath.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Шаблон JSONPath состоит из выражений JSONPath, заключенных в фигурные скобки {}.
 Kubectl использует JSONPath-выражения для фильтрации по определенным полям в JSON-объекте и форматирования вывода.
@@ -98,4 +98,4 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 ```
 {{< /note >}}
 
-{{% /capture %}}
+

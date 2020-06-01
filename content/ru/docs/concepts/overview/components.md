@@ -2,14 +2,14 @@
 reviewers:
 - lavalamp
 title: Компоненты Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 При развёртывании Kubernetes вы имеете дело с кластером.
 {{< glossary_definition term_id="cluster" length="all" prepend="Кластер Kubernetes cluster состоит из">}}
 
@@ -19,9 +19,9 @@ card:
 
 ![Компоненты Kubernetes](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Плоскость управления компонентами
 
@@ -109,10 +109,11 @@ cloud-controller-manager запускает только циклы контро
 
 Механизм [логирования кластера](/docs/concepts/cluster-administration/logging/) отвечает за сохранение логов контейнера в централизованном хранилище логов с возможностью их поиска/просмотра.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Подробнее про [узлы](/docs/concepts/architecture/nodes/)
 * Подробнее про [контроллеры](/docs/concepts/architecture/controller/)
 * Подробнее про [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Официальная [документация](https://etcd.io/docs/) etcd
-{{% /capture %}}
+

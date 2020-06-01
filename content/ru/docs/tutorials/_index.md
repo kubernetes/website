@@ -2,16 +2,16 @@
 title: Руководства
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 В данном разделе документации Kubernetes можно найти руководства. В них рассказывается, как достичь определённой цели, а не просто выполнить одну [задачу](/docs/tasks/). Большинство уроков состоит из нескольких разделов, каждый из которых включает в себя шаги для последовательного выполнения. Перед тем как приступить к выполнению уроков, может быть полезно ознакомиться со [словарем терминов](/ru/docs/reference/glossary/) для последующих обращений.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Основы
 
@@ -61,10 +61,11 @@ content_template: templates/concept
 
 * [Использование IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Если вы хотите создать руководство самостоятельно, обратитесь к странице [Использование шаблонов страниц](/ru/docs/home/contribute/page-templates/), чтобы узнать информацию и посмотреть шаблоны для составления руководств.
 
-{{% /capture %}}
+

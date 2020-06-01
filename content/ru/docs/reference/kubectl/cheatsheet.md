@@ -4,21 +4,21 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Смотрите также: [обзор Kubectl](/ru/docs/reference/kubectl/overview/) и [руководство по JsonPath](/ru/docs/reference/kubectl/jsonpath).
 
 Эта команда представляет собой обзор команды `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Шпаргалка
 
@@ -374,9 +374,10 @@ kubectl api-resources --api-group=extensions # Все ресурсы в API-гр
 `--v=8` | Показать содержимое HTTP-запросов.
 `--v=9` | Показать содержимого HTTP-запроса в полном виде.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Подробнее о kubectl на странице [обзора](/ru/docs/reference/kubectl/overview/).
 
@@ -386,4 +387,4 @@ kubectl api-resources --api-group=extensions # Все ресурсы в API-гр
 
 * Посмотреть [шпаргалки по kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) сообщества.
 
-{{% /capture %}}
+

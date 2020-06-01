@@ -1,10 +1,10 @@
 ---
 title: Настройка Liveness, Readiness и Startup проб
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице рассказывается, как настроить liveness, readiness и startup пробы для контейнеров.
 
@@ -28,15 +28,16 @@ Kubelet использует startup пробы, чтобы понять, ког
 Это может быть использовано для проверки работоспособности медленно стартующих контейнеров,
 чтобы избежать убийства kubelet'ом прежде, чем они будут запущены.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Определение liveness команды
 
@@ -323,9 +324,10 @@ liveness и readiness проверок:
 
 Для TCP проб kubelet устанавливает соединение с ноды, не внутри pod, что означает, что вы не можете использовать service name в параметре `host`, пока kubelet не может выполнить его резолв.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Узнать больше о
 [Контейнерных пробах](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -336,6 +338,6 @@ liveness и readiness проверок:
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Проба](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+
 
 

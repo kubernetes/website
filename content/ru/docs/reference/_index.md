@@ -5,16 +5,16 @@ approvers:
 linkTitle: "Ссылки"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Этот раздел документации Kubernetes содержит ссылки.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ссылки API
 
@@ -58,4 +58,4 @@ content_template: templates/concept
 
 Архив документации по дизайну для функциональности Kubernetes. Начните с [Архитектура Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) и [Обзор дизайна Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: Изучение объектов Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице объясняется, как объекты Kubernetes представлены в API Kubernetes, и как их можно определить в формате `.yaml`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Изучение объектов Kubernetes {#kubernetes-objects}
 
@@ -70,11 +70,12 @@ deployment.apps/nginx-deployment created
 Конкретный формат поля-объекта `spec` зависит от типа объекта Kubernetes и содержит вложенные поля, предназначенные только для используемого объекта. В [справочнике API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) можно найти формат спецификации любого объекта Kubernetes.
 Например, формат  `spec` для объекта Pod находится в [ядре PodSpec v1](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core), а формат `spec` для Deployment — в [DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Обзор API Kubernetes](/docs/reference/using-api/api-overview/) более подробно объясняет некоторые из API-концепций
 * Познакомиться с наиболее важными и основными объектами в Kubernetes, например, с [подами](/docs/concepts/workloads/pods/pod-overview/).
 * Узнать подробнее про [контролеры](/docs/concepts/architecture/controller/) в Kubernetes
-{{% /capture %}}
+

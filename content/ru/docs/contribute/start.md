@@ -1,23 +1,23 @@
 ---
 title: Участие для начинающих
 slug: start
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Если вы хотите поучаствовать в работе над документацией Kubernetes, эта страница и связанные с ней темы могут помочь вам начать работу. Вам не нужно быть разработчиком или техническим писателем, чтобы внести вклад в документацию или улучшить сайт Kubernetes! Все, что вам нужно для тем на этой странице, это учетная запись на GitHub и браузер.
 
 Если вы ищете информацию про участие в репозиториях, связанным с кодом Kubernetes, обратитесь к [руководству сообщества Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Основные сведения про документацию
 
@@ -224,10 +224,11 @@ SIG Docs совместными усилиями вносит изменения
 
 Ознакомьтесь с [существующими примерами использования](https://github.com/kubernetes/website/tree/master/content/en/case-studies). Воспользуйтесь [формой добавления нового примера использования Kubernetes](https://www.cncf.io/people/end-user-community/), чтобы поделиться своим опытом.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Если вы хорошо поняли темы, затронутые в этом разделе, но хотите глубже взаимодействовать с командой документации Kubernetes, прочитайте [расширенное руководство по участию в документации](/docs/contribute/intermediate/).
 
-{{% /capture %}}
+

@@ -1,16 +1,16 @@
 ---
 title: Управление объектами Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 В инструменте командной строки `kubectl` есть несколько разных способов создания и управления объектами Kubernetes. На этой странице рассматриваются различные подходы. Изучите [документацию по Kubectl](https://kubectl.docs.kubernetes.io) для получения подробной информации по управлению объектами с помощью Kubectl.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Способы управления
 
@@ -153,9 +153,10 @@ kubectl apply -R -f configs/
 - Декларативную конфигурацию объекта сложнее отладить и понять, когда можно получить неожиданные результаты.
 - Частичные обновления с использованием различий приводит к сложным операциям слияния и исправления.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Управление объектами Kubernetes с помощью императивных команд](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [Управление объектами Kubernetes с помощью императивной конфигурации объекта](/docs/tasks/manage-kubernetes-objects/imperative-config/)
@@ -165,4 +166,4 @@ kubectl apply -R -f configs/
 - [Документация Kubectl](https://kubectl.docs.kubernetes.io)
 - [Справочник API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+
