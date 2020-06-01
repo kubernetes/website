@@ -1,6 +1,6 @@
 ---
 title: 安装 kubeadm
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: setup
@@ -10,7 +10,7 @@ card:
 <!--
 ---
 title: Installing kubeadm
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: setup
@@ -19,7 +19,7 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
@@ -28,9 +28,10 @@ For information how to create a cluster with kubeadm once you have performed thi
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">本页面显示如何安装 `kubeadm` 工具箱。
 有关在执行此安装过程后如何使用 kubeadm 创建集群的信息，请参见[使用 kubeadm 创建集群](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 页面。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * One or more machines running one of:
@@ -63,9 +64,9 @@ For information how to create a cluster with kubeadm once you have performed thi
 * 开启机器上的某些端口。请参见[这里](#check-required-ports) 了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，您 **必须** 禁用交换分区。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Verify the MAC address and product_uuid are unique for every node
@@ -507,11 +508,12 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 如果您在使用 kubeadm 时遇到困难，请参阅我们的[故障排查文档](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 -->
 * [使用 kubeadm 创建集群](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
-{{% /capture %}}
+

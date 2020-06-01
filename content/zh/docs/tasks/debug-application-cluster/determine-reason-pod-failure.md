@@ -1,16 +1,16 @@
 ---
 title: 确定 Pod 失败的原因
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Determine the Reason for Pod Failure
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to write and read a Container
@@ -32,17 +32,18 @@ you put in a termination message should also be written to the general
 
 
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Writing and reading a termination message
@@ -151,9 +152,10 @@ is empty and the container exited with an error. The log output is limited to
 通过将 `terminationMessagePolicy` 设置为 "`FallbackToLogsOnError`"，你就可以告诉 Kubernetes，在容器因错误退出时，如果终止消息文件为空，则使用容器日志输出的最后一块作为终止消息。
 日志输出限制为 2048 字节或 80 行，以较小者为准。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * See the `terminationMessagePath` field in
@@ -166,7 +168,7 @@ is empty and the container exited with an error. The log output is limited to
 * 了解[接收日志](/docs/concepts/cluster-administration/logging/)。
 * 了解 [Go 模版](https://golang.org/pkg/text/template/)。
 
-{{% /capture %}}
+
 
 
 

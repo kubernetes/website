@@ -1,17 +1,17 @@
 ---
 title: 对 kubeadm 进行故障排查
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 <!--
 ---
 title: Troubleshooting kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 As with any program, you might run into an error installing or running kubeadm.
@@ -39,9 +39,9 @@ If your problem is not listed below, please follow the following steps:
 或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
 请加入相关标签，例如 `#kubernetes` 和 `#kubeadm`，这样其他人可以帮助您。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## `ebtables` or some similar executable not found during installation
@@ -647,4 +647,4 @@ kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 kubectl taint nodes NODE_NAME node-role.kubernetes.io/master:NoSchedule-
 ```
 
-{{% /capture %}}
+

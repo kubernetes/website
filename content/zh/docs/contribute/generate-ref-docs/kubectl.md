@@ -1,16 +1,16 @@
 ---
 title: 为 kubectl 命令集生成参考文档
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Generating Reference Documentation for kubectl Commands
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to automatically generate reference pages for the
@@ -38,10 +38,11 @@ reference page, see
 本主题没有展示如何生成 [kubectl](/docs/reference/generated/kubectl/kubectl/) 组件的参考页面。相关说明请参见[为 Kubernetes 组件和工具生成参考页面](/docs/home/contribute/generated-reference/kubernetes-components/)。
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * You need to have
@@ -76,10 +77,10 @@ information, see
 
 * 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/docs/home/contribute/create-pull-request/) 和 [GitHub 标准 Fork & PR 工作流](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Setting up the local repositories
@@ -470,9 +471,10 @@ topics will be visible in the
 在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/docs/home/)中。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Generating Reference Documentation for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
@@ -484,4 +486,3 @@ topics will be visible in the
 * [为 Kubernetes API 生成参考文档](/docs/home/contribute/generated-reference/kubernetes-api/)
 * [为 Kubernetes 联邦 API 生成参考文档](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}

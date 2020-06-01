@@ -1,6 +1,6 @@
 ---
 title: Ingress 控制器
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
@@ -8,12 +8,12 @@ weight: 40
 ---
 title: Ingress Controllers
 reviewers:
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 In order for the Ingress resource to work, the cluster must have an ingress controller running. 
@@ -35,9 +35,9 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 Kubernetes 作为一个项目，目前支持和维护 [GCE](https://git.k8s.io/ingress-gce/README.md) 
 和 [nginx](https://git.k8s.io/ingress-nginx/README.md) 控制器。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Additional controllers
@@ -121,13 +121,14 @@ Make sure you review your ingress controller's documentation to understand the c
 确保您查看了 ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 -->
 * 进一步了解 [Ingress](/docs/concepts/services-networking/ingress/)。
 * [在 Minikube 上使用 NGINX 控制器安装 Ingress](/docs/tasks/access-application-cluster/ingress-minikube)。
-{{% /capture %}}
+

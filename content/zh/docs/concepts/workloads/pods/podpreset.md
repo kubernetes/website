@@ -1,6 +1,6 @@
 ---
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
@@ -9,7 +9,7 @@ weight: 50
 reviewers:
 - jessfraz
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
@@ -19,12 +19,12 @@ This page provides an overview of PodPresets, which are objects for injecting
 certain information into pods at creation time. The information can include
 secrets, volumes, volume mounts, and environment variables.
 -->
-{{% capture overview %}}
+<!-- overview -->
 本文提供了 PodPreset 的概述。 在 Pod 创建时，用户可以使用 PodPreset 对象将特定信息注入 Pod 中，这些信息可以包括 secret、 卷、卷挂载和环境变量。
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Understanding Pod Presets
@@ -164,12 +164,13 @@ In order to use Pod Presets in your cluster you must ensure the following:
 1.  已经通过在相应的命名空间中创建 `PodPreset` 对象，定义了 Pod Preset。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 -->
 * [使用 PodPreset 将信息注入 Pod](/docs/tasks/inject-data-application/podpreset/)
 
-{{% /capture %}}
+

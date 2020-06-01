@@ -11,7 +11,8 @@ weight: 28
 ---
 -->
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 <!--
@@ -29,9 +30,10 @@ Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
 kubectl [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -513,9 +515,10 @@ kubectl [flags]
 
 
 
-{{% /capture %}}
 
-{{% capture seealso %}}
+
+## {{% heading "seealso" %}}
+
 
 <!--
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
@@ -622,5 +625,5 @@ kubectl [flags]
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - 打印客户端和服务器的版本信息
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - 实验性：等待一个或多个资源达到某种状态
 
-{{% /capture %}}
+
 

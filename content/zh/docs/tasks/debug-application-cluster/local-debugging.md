@@ -1,16 +1,16 @@
 ---
 title: 在本地开发和调试服务
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Developing and debugging services locally
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
@@ -32,9 +32,10 @@ This document describes using `telepresence` to develop and debug services runni
 
 本文档描述如何在本地使用 `telepresence` 开发和调试远程集群上运行的服务。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * Kubernetes cluster is installed
@@ -46,9 +47,9 @@ This document describes using `telepresence` to develop and debug services runni
 * 配置好 `kubectl` 与集群交互
 * [Telepresence](https://www.telepresence.io/reference/install) 安装完毕
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Getting a shell on a remote cluster
@@ -103,9 +104,10 @@ Running this command spawns a shell. In the shell, start your service. You can t
 运行此命令将生成 shell。在 shell 中，启动您的服务。
 然后，您就可以在本地对源代码进行编辑、保存并能看到更改立即生效。您还可以在调试器或任何其他本地开发工具中运行服务。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Kubernetes Engine.
@@ -123,4 +125,4 @@ Telepresence 有[多种代理选项](https://www.telepresence.io/reference/metho
 
 要了解更多信息，请访问 [Telepresence 网站](https://www.telepresence.io)。
 
-{{% /capture %}}
+

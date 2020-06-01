@@ -5,42 +5,44 @@ reviewers:
 - bowei
 - zihongz
 title:  Debug DNS 方案
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides hints on diagnosing DNS problems.
-{{% /capture %}}
+
 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 这篇文章提供了一些关于 DNS 问题诊断的方法。
-{{% /capture %}}
+
 
 <!--
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes version 1.6 and above.
 * The cluster must be configured to use the `coredns` (or `kube-dns`) addons.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 -->
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 - {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 - Kubernetes 1.6 或者以上版本。
 - 集群必须使用了 `coredns` (或者 `kube-dns`)插件。
-  {{% /capture %}}
+  
 
-{{% capture steps %}}
+<!-- steps -->
 
 <!--
 
@@ -582,7 +584,7 @@ for more details on Cluster Federation and multi-site support.
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 
-{{% /capture %}}
+
 
 ## -->
 
@@ -595,7 +597,7 @@ for more details on Cluster Federation and multi-site support.
 
 - [集群里自动伸缩 DNS Service](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 
-{{% /capture %}}
+
 
 
 

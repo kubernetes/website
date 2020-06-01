@@ -2,7 +2,7 @@
 title: 使用 SC 安装服务目录
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -10,11 +10,11 @@ content_template: templates/task
 title: Install Service Catalog using SC
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
 
 <!--
@@ -23,10 +23,11 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 使用[服务目录安装程序](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)工具可以轻松地在 Kubernetes 集群上安装或卸载服务目录。
 这个 CLI 工具以 `sc` 命令形式被安装在您的本地环境中。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 * Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
 * Install [Go 1.6+](https://golang.org/dl/) and set the `GOPATH`.
@@ -46,10 +47,10 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Install `sc` in your local environment
 -->
@@ -115,9 +116,10 @@ If you would like to uninstall Service Catalog from your Kubernetes cluster usin
 sc uninstall
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
@@ -125,4 +127,4 @@ sc uninstall
 * 查看 [服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)。
 * 探索 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
 
-{{% /capture %}}
+

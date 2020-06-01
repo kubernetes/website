@@ -1,15 +1,15 @@
 ---
 title: 为 Kubernetes API 生成参考文档
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Generating Reference Documentation for the Kubernetes API
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to update the generated reference docs for the Kubernetes API.
@@ -30,10 +30,11 @@ Kubernetes API 参考文档是从 [Kubernetes OpenAPI 规范](https://github.com
 
 如果您只需要从 [OpenAPI](https://github.com/OAI/OpenAPI-Specification) 规范中重新生成参考文档，请继续阅读此页面。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 You need to have these tools installed:
@@ -58,10 +59,10 @@ information, see
 -->
 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的 fork 分支。想了解更多信息，请参见[创建一个文档 PR](/docs/contribute/start/) 和 [GitHub 标准 Fork & PR 工作流](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- 
 ## Setting up the local repositories
@@ -348,9 +349,10 @@ to monitor your pull request until it has been merged.
 -->
 将您的更改[创建 PR](/docs/contribute/start/) 提交到 [kubernetes/website](https://github.com/kubernetes/website) 仓库。监视您提交的 PR，并根据需要回复 reviewer 的评论。继续监视您的 PR，直到合并为止。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
@@ -361,4 +363,3 @@ to monitor your pull request until it has been merged.
 * [为 kubectl 命令集生成参考文档](/docs/home/contribute/generated-reference/kubectl/)
 * [为 Kubernetes 联邦 API 生成参考文档](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}

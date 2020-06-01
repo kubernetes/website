@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This document describes the concept of a StorageClass in Kubernetes. Familiarity
@@ -19,9 +19,9 @@ with [volumes](/docs/concepts/storage/volumes/) and
 本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/docs/concepts/storage/volumes/) 和
 [持久卷](/docs/concepts/storage/persistent-volumes) 的概念。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -1246,4 +1246,4 @@ PersistentVolumeClaim.
 -->
 延迟卷绑定使得调度器在为 PersistentVolumeClaim 选择一个合适的 PersistentVolume 时能考虑到所有 pod 的调度限制。
 
-{{% /capture %}}
+

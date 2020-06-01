@@ -1,18 +1,18 @@
 ---
 title: 使用页面模板
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 <!--
 ---
 title: Using Page Templates
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When contributing new topics, apply one of the following templates to them.
@@ -42,10 +42,10 @@ template to use for a new topic, start with the
 {{< /note >}}
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Concept template
@@ -72,12 +72,12 @@ To write a new concept page, create a Markdown file in a subdirectory of the
 要编写新的概念页面，请在 `/content/en/docs/concepts` 目录的子目录中创建一个 Markdown 文件，其特点如下：
 
 <!--
-- In the page's YAML front-matter, set `content_template: templates/concept`.
+- In the page's YAML front-matter, set `content_type: concept`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 -->
 
-- 在页面的 YAML 头部，设置 `content_template: templates/concept`。
+- 在页面的 YAML 头部，设置 `content_type: concept`。
 - 在页面的 body 中，设置所需的 `capture` 变量和所有想要包含的变量：
 
     | 变量          | 必需?     |
@@ -153,12 +153,12 @@ To write a new task page, create a Markdown file in a subdirectory of the
 要编写新的任务页面，请在 `/content/en/docs/tasks` 目录的子目录中创建一个 Markdown 文件，其特点如下：
 
 <!--
-- In the page's YAML front-matter, set `content_template: templates/task`.
+- In the page's YAML front-matter, set `content_type: task`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 -->
 
-- 在页面的 YAML 头部，设置 `content_template: templates/task`。
+- 在页面的 YAML 头部，设置 `content_type: task`。
 - 在页面的 body 中，设置所需的 `capture` 变量和所有想要包含的变量：
 
     | 变量          | 必需?     |
@@ -253,12 +253,12 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 要编写新的教程页面，请在 `/content/en/docs/tutorials` 目录的子目录中创建一个 Markdown 文件，其特点如下：
 
 <!--
-- In the page's YAML front-matter, set `content_template: templates/tutorial`.
+- In the page's YAML front-matter, set `content_type: tutorial`.
 - In the page's body, set the required `capture` variables and any optional
   ones you want to include:
 -->
 
-- 在页面的 YAML 头部，设置 `content_template: templates/tutorial`。
+- 在页面的 YAML 头部，设置 `content_type: tutorial`。
 - 在页面的 body 中，设置所需的 `capture` 变量和所有想要包含的变量：
 
     | 变量          | 必需?     |
@@ -337,9 +337,10 @@ An example of a published topic that uses the tutorial template is
 
 使用教程模板的已发布主题的一个示例是[使用部署运行无状态应用程序](/docs/tutorials/stateless-application/run-stateless-application-deployment/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - Learn about the [style guide](/docs/contribute/style/style-guide/)
@@ -349,4 +350,4 @@ An example of a published topic that uses the tutorial template is
 - 学习[样式指南](/docs/contribute/style/style-guide/)
 - 学习[内容组织](/docs/contribute/style/content-organization/)
 
-{{% /capture %}}
+

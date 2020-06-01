@@ -2,7 +2,7 @@
 title: 教程
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -10,11 +10,11 @@ content_template: templates/concept
 title: Tutorials
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes 文档的这一部分包含教程。一个教程展示了如何完成一个比单个[任务](/zh/docs/tasks/)更大的目标。
 通常一个教程有几个部分，每个部分都有一系列步骤。在浏览每个教程之前，
@@ -29,9 +29,9 @@ Before walking through each tutorial, you may want to bookmark the
 [Standardized Glossary](/docs/reference/glossary/) page for later references.
 -->
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 基础知识
 
@@ -173,9 +173,10 @@ Before walking through each tutorial, you may want to bookmark the
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 -->
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 如果您想编写教程，请参阅[使用页面模板](/zh/docs/home/contribute/page-templates/)
 以获取有关教程页面类型和教程模板的信息。
@@ -185,5 +186,5 @@ If you would like to write a tutorial, see
 for information about the tutorial page type and the tutorial template.
 -->
 
-{{% /capture %}}
+
 

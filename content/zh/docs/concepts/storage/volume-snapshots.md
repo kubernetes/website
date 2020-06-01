@@ -1,6 +1,6 @@
 ---
 title: 卷快照
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
@@ -14,12 +14,12 @@ reviewers:
 - xing-yang
 - yuxiangqian
 title: Volume Snapshots
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.17" state="beta" >}}
 
@@ -28,9 +28,9 @@ In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage
 -->
 在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes 的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -268,4 +268,4 @@ For more details, see
 -->
 更多详细信息，请参阅 [卷快照和从快照还原卷](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
 
-{{% /capture %}}
+

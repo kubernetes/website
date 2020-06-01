@@ -1,6 +1,6 @@
 ---
 title: 使用 kubeadm 创建一个单主集群
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
@@ -8,12 +8,12 @@ weight: 30
 reviewers:
 - sig-cluster-lifecycle
 title: Creating a single master cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 --- -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).  -->
@@ -126,9 +126,10 @@ Kubernetes 发布的版本通常只维护支持九个月，在维护周期内，
 | v1.11.x            | 2018 年 6 月    | 2019 年 3 月      |
 | v1.12.x            | 2018 年 9 月    | 2019 年 6 月      |
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
@@ -144,8 +145,8 @@ Kubernetes 发布的版本通常只维护支持九个月，在维护周期内，
 - 主节点上 2 CPU 以上
 - 集群里所有的机器有完全的网络连接，公有网络或者私有网络都可以
 
-{{% /capture %}}
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Objectives
 

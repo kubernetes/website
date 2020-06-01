@@ -4,7 +4,7 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: 为系统守护进程预留计算资源
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -13,11 +13,11 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Kubernetes nodes can be scheduled to `Capacity`. Pods can consume all the
 available capacity on a node by default. This is an issue because nodes
@@ -34,16 +34,17 @@ on each node.
 Kubernetes 的节点可以按照 `Capacity` 调度。默认情况下 pod 能够使用节点全部可用容量。这是个问题，因为节点自己通常运行了不少驱动 OS 和 Kubernetes 的系统守护进程。除非为这些系统守护进程留出资源，否则它们将与 pod 争夺资源并导致节点资源短缺问题。
 
 `kubelet` 公开了一个名为 `Node Allocatable` 的特性，有助于为系统守护进程预留计算资源。Kubernetes 推荐集群管理员按照每个节点上的工作负载密度配置 `Node Allocatable`。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Node Allocatable
@@ -370,9 +371,9 @@ So expect a drop in `Allocatable` capacity in future releases.
 
 随着时间的增长以及越来越多特性的加入，kube 系统守护进程对资源的需求可能也会增加。以后 kubernetes 项目将尝试减少对节点系统守护进程的利用，但目前那并不是优先事项。所以，请期待在将来的发布中将 `Allocatable` 容量降低。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Example Scenario
@@ -461,4 +462,4 @@ daemons/interrupts/timers and Kubernetes daemons.
 -->
 从 Kubernetes 1.17 版本开始，可以选择将 `reserved-cpus` 显式 cpuset 指定为操作系统守护程序、中断、计时器和 Kubernetes 守护程序保留的 CPU。
 
-{{% /capture %}}
+

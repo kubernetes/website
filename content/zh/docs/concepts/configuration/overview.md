@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 title: 配置最佳实践
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 10
 reviewers:
 - mikedanese
 title: Configuration Best Practices
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This document highlights and consolidates configuration best practices that are introduced throughout the user guide, Getting Started documentation, and examples.
 -->
@@ -26,9 +26,9 @@ This is a living document. If you think of something that is not on this list bu
 -->
 这是一份活文件。
 如果您认为某些内容不在此列表中但可能对其他人有用，请不要犹豫，提交问题或提交 PR。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## General Configuration Tips
 -->
@@ -264,4 +264,4 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 - 使用`kubectl run`和`kubectl expose`来快速创建单容器部署和服务。
   有关示例，请参阅[使用服务访问集群中的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster/)。
 
-{{% /capture %}}
+

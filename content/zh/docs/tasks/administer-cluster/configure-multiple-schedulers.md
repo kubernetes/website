@@ -1,6 +1,6 @@
 ---
 title: 配置多个调度器
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -8,11 +8,11 @@ reviewers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
@@ -34,16 +34,17 @@ A detailed description of how to implement a scheduler is outside the scope of t
 关于实现调度器的具体细节描述超出了本文范围。
 请参考 kube-scheduler 的实现，规范示例代码位于 [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Package the scheduler
@@ -281,9 +282,9 @@ kubectl create -f pod3.yaml
 kubectl get pods
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ### Verifying that the pods were scheduled using the desired schedulers
@@ -307,4 +308,4 @@ Alternatively, one could just look at the "Scheduled" entries in the event logs 
 kubectl get events
 ```
 
-{{% /capture %}}
+

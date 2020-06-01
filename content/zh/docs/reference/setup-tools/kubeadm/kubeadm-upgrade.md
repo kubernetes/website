@@ -1,6 +1,6 @@
 ---
 title: kubeadm upgrade
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!-- ---
@@ -9,18 +9,18 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm upgrade
-content_template: templates/concept
+content_type: concept
 weight: 40
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 `kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic
 behind one command, with support for both planning an upgrade and actually performing it. -->
 `kubeadm upgrade` 是一个对用户友好的命令，它将复杂的升级逻辑包装在一个命令后面，支持升级的规划和实际执行。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## kubeadm upgrade guidance
@@ -66,10 +66,11 @@ renewal see the [certificate management documentation](/docs/tasks/administer-cl
 ## kubeadm upgrade node {#cmd-upgrade-node}
 {{< include "generated/kubeadm_upgrade_node.md" >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade` -->
 * 如果您使用 kubeadm v1.7.x 或更低版本初始化集群，则可以参考[kubeadm 配置](/docs/reference/setup-tools/kubeadm/kubeadm-config/)配置集群用于 `kubeadm upgrade`。
-{{% /capture %}}
+

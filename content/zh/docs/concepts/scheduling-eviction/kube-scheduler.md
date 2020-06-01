@@ -1,17 +1,17 @@
 ---
 title: Kubernetes 调度器
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 <!--
 ---
 title: Kubernetes Scheduler
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 In Kubernetes, _scheduling_ refers to making sure that {{< glossary_tooltip text="Pods" term_id="pod" >}}
@@ -21,9 +21,9 @@ are matched to {{< glossary_tooltip text="Nodes" term_id="node" >}} so that
 在 Kubernetes 中，_调度_ 是指将 {{< glossary_tooltip text="Pod" term_id="pod" >}} 放置到合适的
 {{< glossary_tooltip text="Node" term_id="node" >}} 上，然后对应 Node 上的 {{< glossary_tooltip term_id="kubelet" >}} 才能够运行这些 pod。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Scheduling overview {#scheduling}
 -->
@@ -148,8 +148,9 @@ of the scheduler:
 1. [调度策略](/docs/reference/scheduling/policies) 允许你配置过滤的 _谓词(Predicates)_ 和打分的 _优先级(Priorities)_ 。
 2. [调度配置](/docs/reference/scheduling/profiles) 允许你配置实现不同调度阶段的插件，包括：`QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit` 等等。你也可以配置 kube-scheduler 运行不同的配置文件。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- 
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
@@ -166,4 +167,4 @@ of the scheduler:
 * 了解关于 [配置多个调度器](/zh/docs/tasks/administer-cluster/configure-multiple-schedulers/) 的方式
 * 了解关于 [拓扑结构管理策略](/zh/docs/tasks/administer-cluster/topology-manager/)
 * 了解关于 [Pod 额外开销](/zh/docs/concepts/configuration/pod-overhead/)
-{{% /capture %}}
+

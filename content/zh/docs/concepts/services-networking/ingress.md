@@ -1,6 +1,6 @@
 ---
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -8,17 +8,17 @@ weight: 40
 reviewers:
 - bprashanth
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Terminology
@@ -818,9 +818,10 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * 使用 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * 使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
 * Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
@@ -829,4 +830,4 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * 了解更多 [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
 * 了解更多 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers/)
 * [使用 NGINX 控制器在 Minikube 上安装 Ingress](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

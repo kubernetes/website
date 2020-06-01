@@ -2,7 +2,7 @@
 title: 示例任务的模板
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 toc_hide: true
 ---
 
@@ -11,12 +11,12 @@ toc_hide: true
 title: Example Task Template
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 toc_hide: true
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
@@ -31,9 +31,10 @@ This page shows how to ...
 -->
 这个页面展示了如何...
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -46,9 +47,9 @@ This page shows how to ...
 * 做这个。
 * 也做这个。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Doing ...
@@ -64,9 +65,9 @@ This page shows how to ...
 1. 做这个。
 1. 接下来做这个。可能需要阅读一下这个[相关解释](...).
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Understanding ...
@@ -82,9 +83,10 @@ Here's an interesting thing to know about the steps you just did.
 -->
 关于你刚才所做的过程，有一点是需要知道的。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 **[Optional Section]**
@@ -100,6 +102,6 @@ Here's an interesting thing to know about the steps you just did.
 * 了解更多关于[撰写新主题](/docs/home/contribute/write-new-topic/).
 * 查看[使用页面模板-任务模板](/docs/home/contribute/page-templates/#task_template) for how to use this template.
 
-{{% /capture %}}
+
 
 

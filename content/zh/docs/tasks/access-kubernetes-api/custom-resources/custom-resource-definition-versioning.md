@@ -4,7 +4,7 @@ reviewers:
 - mbohlool
 - sttts
 - liggitt
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 <!--
@@ -13,12 +13,12 @@ title: Versions in CustomResourceDefinitions
 reviewers:
 - sttts
 - liggitt
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
@@ -27,9 +27,10 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 本页介绍了如何添加版本信息到 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions)，如何表示 CustomResourceDefinitions 的稳定水平或者用 API 之间的表征的转换提高您的 API 到一个新的版本。它还描述了如何将对象从一个版本升级到另一个版本。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -44,9 +45,9 @@ level of your CustomResourceDefinitions or advance your API to a new version wit
 
 * 阅读 [custom resources](/docs/concepts/api-extension/custom-resources/)。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Overview
@@ -1256,4 +1257,4 @@ to `v1`.
     这会强制后端在当前存储版本中写入对象，即`v1`。
 3.  通过从`storedVersions`字段中删除`v1beta1`来更新 CustomResourceDefinition`Status`。 
 
-{{% /capture %}}
+

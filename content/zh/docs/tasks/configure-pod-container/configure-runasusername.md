@@ -1,18 +1,18 @@
 ---
 title: 为 Windows 的 pod 和容器配置 RunAsUserName
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
 <!--
 ---
 title: Configure RunAsUserName for Windows pods and containers
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -29,9 +29,10 @@ This feature is in beta. The overall functionality for `RunAsUserName` will not 
 该功能目前处于 beta 状态。 `RunAsUserName` 的整体功能不会出现变更，但是关于用户名验证的部分可能会有所更改。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
@@ -217,9 +218,10 @@ For more information about these limtations, check [here](https://support.micros
 
 关于这些限制的更多信息，可以查看[这里](https://support.microsoft.com/en-us/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and)和[这里](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/new-localuser?view=powershell-5.1)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Guide for scheduling Windows containers in Kubernetes](/docs/setup/production-environment/windows/user-guide-windows-containers/)
@@ -231,4 +233,4 @@ For more information about these limtations, check [here](https://support.micros
 * [使用组托管服务帐户（GMSA）管理工作负载身份](/docs/setup/production-environment/windows/user-guide-windows-containers/#managing-workload-identity-with-group-managed-service-accounts)
 * [Windows 下 pod 和容器的 GMSA 配置](/docs/tasks/configure-pod-container/configure-gmsa/)
 
-{{% /capture %}}
+

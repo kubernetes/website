@@ -1,34 +1,35 @@
 ---
 title: 撰写新主题
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
 <!--
 ---
 title: Writing a new topic
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to create a new topic for the Kubernetes docs.
 -->
 本页面展示如何为 Kubernetes 文档库创建新主题。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 Create a fork of the Kubernetes documentation repository as described in
 [Start contributing](/docs/contribute/start/).
 -->
 
 如[开始贡献](/docs/contribute/start/)中所述，创建 Kubernetes 文档库的分支。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Choosing a page type
@@ -305,15 +306,16 @@ image format is SVG.
 
 将镜像文件放入 `/images` 目录。首选的镜像格式是 SVG。
 
-{{% /capture %}}
+
 
 <!--
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
 * Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
 * Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
 -->
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * 学习[使用页面模板](/docs/home/contribute/page-templates/)。
 * 学习[展示你的修改](/docs/home/contribute/stage-documentation-changes/)。
 * 学习[创建一个拉取请求](/docs/home/contribute/create-pull-request/)。
-{{% /capture %}}
+

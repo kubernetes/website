@@ -6,7 +6,7 @@ feature:
   description: >
     重新启动失败的容器，在节点死亡时替换并重新调度容器，杀死不响应用户定义的健康检查的容器，并且在它们准备好服务之前不会将它们公布给客户端。
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---     
 
@@ -21,11 +21,11 @@ feature:
   description: >
     Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
@@ -41,10 +41,10 @@ always up and available.
 -->
 _ReplicationController_ 确保在任何时候都有特定数量的 pod 副本处于运行状态。
 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## How a ReplicationController Works
@@ -560,4 +560,4 @@ Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-applica
 
 请阅读[运行无状态的 Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/)。
 
-{{% /capture %}}
+

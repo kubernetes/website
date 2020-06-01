@@ -1,10 +1,10 @@
 ---
 title: 限制范围
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 By default, containers run with unbounded [compute resources](/docs/user-guide/compute-resources) on a Kubernetes cluster.
@@ -16,10 +16,10 @@ Within a namespace, a Pod or Container can consume as much CPU and memory as def
 使用资源配额，集群管理员可以以命名空间为单位，限制其资源的使用与创建。
 在命名空间中，一个 Pod 或 Container 最多能够使用命名空间的资源配额所定义的 CPU 和内存用量。有人担心，一个 Pod 或 Container 会垄断所有可用的资源。LimitRange 是在命名空间内限制资源分配（给多个 Pod 或 Container）的策略对象。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 A _LimitRange_ provides constraints that can:
@@ -135,9 +135,10 @@ Neither contention nor changes to a LimitRange will affect already created resou
 - 查看[如何配置每个命名空间最小和最大存储使用量](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。
 - 查看[配置每个命名空间的配额的详细例子](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
@@ -145,4 +146,4 @@ See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-pr
 
 查看 [LimitRanger 设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)获取更多信息。
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: 为命名空间配置默认的CPU请求和限制
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
 <!--
 ---
 title: Configure Default CPU Requests and Limits for a Namespace
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to configure default CPU requests and limits for a namespace.
 A Kubernetes cluster can be divided into namespaces. If a Container is created in a namespace
@@ -23,14 +23,15 @@ under certain conditions that are explained later in this topic.
 
 本章介绍怎样为命名空间配置默认的 CPU 请求和限制。
 一个 Kubernetes 集群可被划分为多个命名空间。如果在配置了 CPU 限制的命名空间创建容器，并且该容器没有声明自己的 CPU 限制，那么这个容器会被指定默认的 CPU 限制。Kubernetes 在一些特定情况还会指定 CPU 请求，本文后续章节将会对其进行解释。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -256,9 +257,10 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 如果容器没有声明自己的 CPU 限制，将会给它一个默认限制，这样它就能被允许运行在一个有配额限制的命名空间中。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -312,4 +314,4 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+

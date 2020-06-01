@@ -1,18 +1,18 @@
 ---
 title: 配置 Pod 的服务质量
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 <!--
 ---
 title: Configure Quality of Service for Pods
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to configure Pods so that they will be assigned particular
@@ -22,17 +22,18 @@ scheduling and evicting Pods.
 
 本文介绍怎样配置 Pod 让其获得特定的服务质量（QoS）类。Kubernetes 使用 QoS 类来决定 Pod 的调度和驱逐策略。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## QoS classes
@@ -382,9 +383,10 @@ Delete your namespace:
 kubectl delete namespace qos-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 <!--
@@ -439,5 +441,5 @@ kubectl delete namespace qos-example
 
 * [控制节点上的拓扑管理策略](/docs/tasks/administer-cluster/topology-manager/)
 
-{{% /capture %}}
+
 

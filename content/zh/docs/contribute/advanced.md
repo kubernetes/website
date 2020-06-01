@@ -1,19 +1,19 @@
 ---
 title: 高级贡献
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 <!--
 ---
 title: Advanced contributing
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page assumes that you've read and mastered the
@@ -24,9 +24,9 @@ client and other tools for some of these tasks.
 -->
 如果你已经阅读并掌握[开始贡献](/docs/contribute/start/)和[中级贡献](/docs/contribute/intermediate/)，并准备了解更多贡献的途径，请阅读此文。您需要使用 Git 命令行工具和其他工具做这些工作。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Be the PR Wrangler for a week
@@ -470,4 +470,4 @@ The video uploads automatically to YouTube.
 
 视频会自动上传到 YouTube。
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: 将 CoreDNS 设置为联邦集群的 DNS 提供者
-content_template: templates/tutorial
+content_type: tutorial
 weight: 130
 ---
 
 <!--
 ---
 title: Set up CoreDNS as DNS provider for Cluster Federation
-content_template: templates/tutorial
+content_type: tutorial
 weight: 130
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -24,10 +24,11 @@ DNS provider for Cluster Federation.
 -->
 此页面显示如何配置和部署 CoreDNS，将其用作联邦集群的 DNS 提供者
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Configure and deploy CoreDNS server
@@ -39,10 +40,11 @@ DNS provider for Cluster Federation.
 * 使用 CoreDNS 作为 dns 提供者设置联邦
 * 在 nameserver 查找链中设置 CoreDNS 服务器
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * You need to have a running Kubernetes cluster (which is
@@ -56,10 +58,10 @@ mandatory to enable `CoreDNS` for service discovery across federated clusters.
 * 你需要有一个正在运行的 Kubernetes 集群（作为主机集群引用）。请参阅[入门指南](/docs/setup/)，了解平台的安装说明。
 * 必须在联邦的集群成员中支持 `LoadBalancer` 服务，用来支持跨联邦集群的 `CoreDNS` 服务发现。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Deploying CoreDNS and etcd charts
@@ -247,6 +249,6 @@ Now the federated cluster is ready for cross-cluster service discovery!
 -->
 现在联邦集群已经为跨集群服务发现做好了准备！
 
-{{% /capture %}}
+
 
 

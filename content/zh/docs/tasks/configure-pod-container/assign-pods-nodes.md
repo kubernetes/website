@@ -1,31 +1,32 @@
 ---
 title: 将 Pod 分配给节点
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 <!--
 ---
 title: Assign Pods to Nodes
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to assign a Kubernetes Pod to a particular node in a
 Kubernetes cluster.
 -->
 此页面显示如何将 Kubernetes Pod 分配给 Kubernetes 集群中的特定节点。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Add a label to a node
@@ -123,13 +124,14 @@ a `disktype=ssd` label.
         NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
         nginx    1/1       Running   0          13s    10.200.0.4   worker0
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 Learn more about
 [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
 了解更多关于
 [标签和选择器](/docs/concepts/overview/working-with-objects/labels/)。
-{{% /capture %}}
+

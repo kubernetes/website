@@ -2,11 +2,11 @@
 reviewers:
 - janetkuo
 - thockin
-content_template: templates/concept
+content_type: concept
 title: 应用自测与调试
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Once your application is running, you'll inevitably need to debug problems with it.
@@ -17,10 +17,10 @@ your pods. But there are a number of ways to get even more information about you
 前面我们介绍了如何使用 `kubectl get pods` 来查询 pod 的简单信息。
 除此之外，还有一系列的方法来获取应用的更详细信息。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Using `kubectl describe pod` to fetch details about pods
@@ -518,9 +518,10 @@ status:
     systemUUID: ABE5F6B4-D44B-108B-C46A-24CCE16C8B6E
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn about additional debugging tools, including:
@@ -542,4 +543,4 @@ Learn about additional debugging tools, including:
 * [使用端口转发连接容器](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [使用 crictl 检查节点](/docs/tasks/debug-application-cluster/crictl/)
 
-{{% /capture %}}
+

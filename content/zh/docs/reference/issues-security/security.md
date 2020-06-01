@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 安全和信息披露
 aliases: [security/]
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
@@ -13,18 +13,18 @@ reviewers:
 - erictune
 - philips
 - jessfraz
-content_template: templates/concept
+content_type: concept
 weight: 20
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page describes Kubernetes security and disclosure information.
 -->
 本页面介绍 Kubernetes 安全和信息披露相关的内容。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Security Announcements
 -->
@@ -135,4 +135,4 @@ It is reasonable to delay disclosure when the bug or the fix is not yet fully un
 The timeframe for disclosure is from immediate (especially if it's already publicly known) to a few weeks. As a basic default, we expect report date to disclosure date to be on the order of 7 days. The Kubernetes product security team holds the final say when setting a disclosure date.
 -->
 信息披露的时间范围从即时（尤其是已经公开的）到几周。作为一个基本的约定，我们希望报告日期到披露日期的间隔是 7 天。在设置披露日期时，Kubernetes 产品安全团队拥有最终决定权。
-{{% /capture %}}
+

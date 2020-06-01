@@ -2,7 +2,7 @@
 reviewers:
 - ahg-g
 title: 调度框架
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
@@ -11,12 +11,12 @@ weight: 60
 reviewers:
 - ahg-g
 title: Scheduling Framework
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.15" state="alpha" >}}
 
@@ -34,9 +34,9 @@ framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 # Framework workflow
@@ -458,4 +458,4 @@ Learn more at [multiple profiles](/docs/reference/scheduling/profiles/#multiple-
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
 了解更多关于 [多配置文件](/docs/reference/scheduling/profiles/#multiple-profiles)。
 
-{{% /capture %}}
+

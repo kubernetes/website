@@ -1,9 +1,9 @@
 ---
 title: 关键插件 Pod 的调度保证
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- 
 In addition to Kubernetes core components like api-server, scheduler, controller-manager running on a master machine
@@ -19,9 +19,9 @@ vacated by the evicted critical add-on pod or the amount of resources available 
 如果关键插件被逐出（手动或作为升级等其他操作的副作用）或者变成挂起状态，群集可能会停止正常工作。
 关键插件进入挂起状态的例子有：集群利用率过高；被逐出的关键插件 Pod 释放了空间，但该空间被之前悬决的 Pod 占用；由于其它原因导致节点上可用资源的总量发生变化。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ### Marking pod as critical
@@ -37,4 +37,4 @@ To be considered critical, the pod has to run in the `kube-system` namespace (co
 或者，也可以为 Pod 添加名为 `scheduler.alpha.kubernetes.io/critical-pod`、值为空字符串的注解。
 不过，这一注解从 1.13 版本开始不再推荐使用，并将在 1.14 中删除。
 
-{{% /capture %}}
+

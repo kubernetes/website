@@ -3,7 +3,7 @@ reviewers:
 - jpeeler
 - pmorie
 title: 配置 Pod 使用投射卷作存储
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
@@ -13,12 +13,12 @@ reviewers:
 - jpeeler
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) volume to mount
 several existing volume sources into the same directory. Currently, `secret`, `configMap`, `downwardAPI`,
@@ -34,13 +34,14 @@ and `serviceAccountToken` volumes can be projected.
 -->
 `serviceAccountToken` 不是一种卷类型
 {{< /note >}}
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Configure a projected volume for a pod
@@ -95,9 +96,10 @@ the Pod:-->确认 Pod 中的容器运行正常，然后监视 Pod 的变化：
 ```shell
        ls /projected-volume/
 ```
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
@@ -106,5 +108,5 @@ the Pod:-->确认 Pod 中的容器运行正常，然后监视 Pod 的变化：
 
 * 进一步了解[`投射`](/docs/concepts/storage/volumes/#projected) 卷。
 * 阅读[一体卷](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md)设计文档。
-{{% /capture %}}
+
 

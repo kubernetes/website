@@ -2,7 +2,7 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 使用 kubeadm 配置集群中的每个 kubelet
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 80
 reviewers:
 - sig-cluster-lifecycle
 title: Configuring each kubelet in your cluster using kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
@@ -46,9 +46,9 @@ kubeadm CLI 工具的生命周期与 [kubelet](/docs/reference/command-line-tool
 集群中涉及的所有 kubelet 的一些配置细节都必须相同，而其他配置方面则需要基于每个 kubelet 进行设置，以适应给定机器的不同特性，例如操作系统、存储和网络。
 您可以手动地管理 kubelet 的配置，但是 [kubeadm 现在提供一种 `KubeletConfiguration` API 类型，用于集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Kubelet configuration patterns
@@ -378,4 +378,4 @@ Kubernetes 版本对应的 DEB 和 RPM 软件包是：
 | `kubernetes-cni` | 将官方的 CNI 二进制文件安装到 `/opt/cni/bin` 目录中 |
 | `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-incubator/cri-tools)中安装 `/usr/bin/crictl` 二进制文件。 |
 
-{{% /capture %}}
+

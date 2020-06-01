@@ -1,19 +1,19 @@
 ---
 title: 内容组织
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 <!--
 ---
 title: Content organization
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
@@ -21,9 +21,9 @@ This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-m
 
 本网站使用了 Hugo。在 Hugo 中，[内容组织](https://gohugo.io/content-management/organization/) 是一个核心概念。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{% note %}}
 <!--
@@ -255,9 +255,10 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 
 本网站的样式表的 `SASS` 源存储在 `src/sass` 下面，可以用 `make sass` 构建（Hugo很快就会得到 `SASS` 的支持，参见https://github.com/gohugoio/hugo/issues/4243）。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
@@ -267,4 +268,4 @@ The `SASS` source of the stylesheets for this site is stored below `src/sass` an
 * [定制 Hugo 短代码](/docs/contribute/style/hugo-shortcodes/)
 * [样式指南](/docs/contribute/style/style-guide)
 
-{{% /capture %}}
+

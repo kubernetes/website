@@ -3,11 +3,11 @@ reviewers:
 - piosz
 - x13n
 title: 日志架构
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
@@ -19,9 +19,9 @@ However, the native functionality provided by a container engine or runtime is u
 -->
 但是，由容器引擎或 runtime 提供的原生功能通常不足以满足完整的日志记录方案。例如，如果发生容器崩溃、pod 被逐出或节点宕机等情况，您仍然想访问到应用日志。因此，日志应该具有独立的存储和生命周期，与节点、pod 或容器的生命周期相独立。这个概念叫 _集群级的日志_ 。集群级日志方案需要一个独立的后台来存储、分析和查询日志。Kubernetes 没有为日志数据提供原生存储方案，但是您可以集成许多现有的日志解决方案到 Kubernetes 集群中。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 Cluster-level logging architectures are described in assumption that
@@ -478,4 +478,4 @@ is outside the scope of Kubernetes.
 -->
 通过暴露或推送每个应用的日志，您可以实现集群级日志记录；然而，这种日志记录机制的实现已超出 Kubernetes 的范围。
 
-{{% /capture %}}
+

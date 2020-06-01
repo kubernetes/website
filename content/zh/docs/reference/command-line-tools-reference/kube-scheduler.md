@@ -11,7 +11,8 @@ weight: 28
 --- 
 -->
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 <!-- 
@@ -29,9 +30,10 @@ Kubernetes 调度器是一个策略丰富、拓扑感知、工作负载特定的
 kube-scheduler [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -1013,5 +1015,5 @@ kube-scheduler [flags]
 
 
 
-{{% /capture %}}
+
 

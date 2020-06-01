@@ -2,7 +2,7 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: 使用 ElasticSearch 和 Kibana 进行日志管理
 ---
 
@@ -11,12 +11,12 @@ title: 使用 ElasticSearch 和 Kibana 进行日志管理
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Logging Using Elasticsearch and Kibana
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 On the Google Compute Engine (GCE) platform, the default logging support targets
@@ -42,9 +42,9 @@ You cannot automatically deploy Elasticsearch and Kibana in the Kubernetes clust
 您不能在 Google Kubernetes Engine 平台运行的 Kubernetes 集群上自动的部署 Elasticsearch 和 Kibana。您必须手动部署它们。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 To use Elasticsearch and Kibana for cluster logging, you should set the
@@ -179,9 +179,10 @@ Here is a typical view of ingested logs from the Kibana viewer:
 
 ![Kibana logs](/images/docs/kibana-logs.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Kibana opens up all sorts of powerful options for exploring your logs! For some
@@ -190,4 +191,4 @@ ideas on how to dig into it, check out [Kibana's documentation](https://www.elas
 
 Kibana 为浏览您的日志提供了各种强大的选项！有关如何深入研究它的一些想法，请查看 [Kibana 的文档](https://www.elastic.co/guide/en/kibana/current/discover.html)。
 
-{{% /capture %}}
+

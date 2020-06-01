@@ -1,6 +1,6 @@
 ---
 title: 使用联合服务来实现跨集群的服务发现
-content_template: templates/task
+content_type: task
 weight: 140
 ---
 <!-- ---
@@ -8,11 +8,11 @@ title: Cross-cluster Service Discovery using Federated Services
 reviewers:
 - bprashanth
 - quinton-hoole
-content_template: templates/task
+content_type: task
 weight: 140
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -52,17 +52,18 @@ cluster if it exists and is healthy, or the closest healthy shard in a
 different cluster if it does not. -->
 如果存在健康的分片，联合 Kubernetes 集群(即 Pods )中的客户端将自动在其中找到联合服务的本地分片集群或者集群中最接近的健康分片;如果不存在，则使用最接近的其他集群的健康分片。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Prerequisites -->
 ## 前提
@@ -432,9 +433,9 @@ many clients will fail over automatically to one of the alternative
 IP's in less time than that given appropriate configuration. -->
 标准的 Kubernetes 服务集群 IP 已确保无响应的单个 Pod 端点以低延迟(几秒钟)自动退出服务。此外，如上所述，Kubernetes 联邦集群系统会自动监视集群的状态以及联合服务的所有分片后面的端点，并根据需要使分片进入和退出服务(例如，当服务后面的所有端点或者整个集群或可用性区域出现故障时，或者相反地从中断中恢复时)。由于 DNS 缓存固有的延迟(默认情况下,缓存超时或联合服务 DNS 记录的 TTL 配置为3分钟，可以调整),在灾难性故障的情况下，所有客户端可能要花费很长时间才能完全故障转移到备用集群。但是，鉴于每个区域服务端点可以返回的离散 IP 地址数量(例如上面的 us-central1，它有三个替代方案),与给定的合适配置相比，许多客户端将在更少的时间内自动故障转移到其他 IP。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- ## Troubleshooting -->
 ## 故障排除
@@ -505,4 +506,4 @@ Check that: -->
 
  <!-- * [Federation proposal](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md) details use cases that motivated this work. -->
  * [联合提议](https://git.k8s.io/community/contributors/design-proposals/multicluster/federation.md) 详细介绍了促进这项工作的用例。
-{{% /capture %}}
+

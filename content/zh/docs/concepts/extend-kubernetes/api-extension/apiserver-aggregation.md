@@ -1,6 +1,6 @@
 ---
 title: 通过聚合层扩展 Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -10,21 +10,21 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The aggregation layer allows Kubernetes to be extended with additional APIs, beyond what is offered by the core Kubernetes APIs.
 -->
 聚合层允许 Kubernetes 通过额外的 API 进行扩展，而不局限于 Kubernetes 核心 API 提供的功能。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview
@@ -57,9 +57,10 @@ extension-apiserver 与 kube-apiserver 之间的连接应具有低延迟。
 特别是，发现请求需要在五秒钟或更短的时间内从 kube-apiserver 往返。
 如果您的部署无法实现此目的，则应考虑如何进行更改。目前，在 kube-apiserver 上设置 `EnableAggregatedDiscoveryTimeout=false` 功能开关将禁用超时限制。它将在将来的版本中被删除。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * To get the aggregator working in your environment, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
@@ -70,6 +71,6 @@ extension-apiserver 与 kube-apiserver 之间的连接应具有低延迟。
 * 然后[安装扩展的 api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 来开始使用聚合层。
 * 也可以学习怎样 [使用自定义资源定义扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 
-{{% /capture %}}
+
 
 

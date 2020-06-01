@@ -1,18 +1,18 @@
 ---
 title: 概念模板示例
-content_template: templates/concept
+content_type: concept
 toc_hide: true
 ---
 
 <!--
 ---
 title: Example Concept Template
-content_template: templates/concept
+content_type: concept
 toc_hide: true
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
@@ -28,9 +28,9 @@ This page explains ...
 
 本页解释了 ...
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Understanding ...
@@ -52,9 +52,10 @@ To use ...
 -->
 使用 ...
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 <!--
@@ -70,6 +71,6 @@ To use ...
 * 了解有关[撰写新主题](/docs/home/contribute/write-new-topic/)的更多信息。
 * 有关如何使用此模板的信息，请参阅[使用页面模板 - 概念模板](/docs/home/contribute/page-templates/#concept_template)。
 
-{{% /capture %}}
+
 
 

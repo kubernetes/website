@@ -1,6 +1,6 @@
 ---
 title: 临时容器
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
@@ -10,12 +10,12 @@ reviewers:
 - verb
 - yujuhong
 title: Ephemeral Containers
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
@@ -40,9 +40,9 @@ feature could change significantly in the future or be removed entirely.
 临时容器处于早期的 alpha 阶段，不适用于生产环境集群。应该预料到临时容器在某些情况下不起作用，例如在定位容器的命名空间时。根据 [Kubernetes 弃用政策](/docs/reference/using-api/deprecation-policy/)，该 alpha 功能将来可能发生重大变化或完全删除。
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Understanding ephemeral containers
@@ -321,4 +321,4 @@ PID   USER     TIME  COMMAND
    29 root      0:00 ps auxww
 ```
 
-{{% /capture %}}
+

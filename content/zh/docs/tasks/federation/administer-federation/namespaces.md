@@ -1,16 +1,16 @@
 ---
 title: 联邦命名空间
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Federated Namespaces
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -31,9 +31,10 @@ across all the clusters in federation.
 联邦控制平面中的命名空间（本指南中称为“联邦命名空间”）与提供相同功能的传统 Kubernetes 命名空间非常相似。
 在联邦控制平面中创建它们可确保它们在联邦中的所有集群之间同步
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * 您还需要具备基本的 [Kubernetes 工作知识](/docs/tutorials/Kubernetes-basics/)，
@@ -45,9 +46,9 @@ You are also expected to have a basic
 general and [Namespaces](/docs/concepts/overview/working-with-objects/namespaces/) in particular.
 -->
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Federated Namespace
@@ -152,6 +153,6 @@ At this point, deleting a federated Namespace will not delete the corresponding 
 
 {{< /note >}}
 
-{{% /capture %}}
+
 
 

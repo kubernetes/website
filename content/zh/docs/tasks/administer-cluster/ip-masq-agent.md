@@ -1,28 +1,29 @@
 ---
 title: IP Masquerade Agent 用户指南
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: IP Masquerade Agent User Guide
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to configure and enable the ip-masq-agent.
 -->
 此页面展示如何配置和启用 ip-masq-agent。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 <!--
 ## IP Masquerade Agent User Guide
 -->
@@ -124,9 +125,9 @@ By default, in GCE/Google Kubernetes Engine starting with Kubernetes version 1.7
 -->
 默认情况下，从 Kubernetes 1.7.0 版本开始的 GCE/Google Kubernetes Engine 中，如果启用了网络策略，或者您使用的集群 CIDR 不在 10.0.0.0/8 范围内，则 ip-masq-agent 将在您的集群中运行。如果您在其他环境中运行，则可以将 ip-masq-agent [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 添加到您的集群：
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create an ip-masq-agent
@@ -217,4 +218,4 @@ nonMasqueradeCIDRs:
 resyncInterval: 60s
 masqLinkLocal: true
 ```
-{{% /capture %}}
+

@@ -1,24 +1,24 @@
 ---
 title: JSONPath 支持
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 <!-- 
 ---
 title: JSONPath Support
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Kubectl supports JSONPath template. 
 -->
 Kubectl 支持 JSONPath 模板。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- 
 JSONPath template is composed of JSONPath expressions enclosed by curly braces {}.
@@ -140,4 +140,4 @@ C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.stat
 C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
 
-{{% /capture %}}
+

@@ -5,7 +5,7 @@ reviewers:
 - ericchiang
 - destijl
 title: 集群安全
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -15,11 +15,11 @@ reviewers:
 - ericchiang
 - destijl
 title: Securing a Cluster
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This document covers topics related to protecting a cluster from accidental or malicious access
@@ -27,15 +27,16 @@ and provides recommendations on overall security.
 -->
 本文档涉及与保护集群免受意外或恶意访问有关的主题，并对总体安全性提出建议。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Controlling access to the Kubernetes API
@@ -365,6 +366,6 @@ page for more on how to report vulnerabilities.
 
 加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce) 组，能够获取有关安全公告的邮件。有关如何报告漏洞的更多信息，请参见 [安全报告](/security/)页面。
 
-{{% /capture %}}
+
 
 

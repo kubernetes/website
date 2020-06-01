@@ -1,16 +1,16 @@
 ---
 title: 联邦事件
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
 ---
 title: Federated Events
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -21,10 +21,10 @@ This guide explains how to use events in federation control plane to help in deb
 -->
 本指南介绍如何在联邦控制平面中使用事件来帮助调试。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Prerequisites
@@ -84,4 +84,4 @@ The standard kubectl get, update, delete commands will all work.
 -->
 标准的 kubectl get，update，delete 命令都可以正常工作。
 
-{{% /capture %}}
+

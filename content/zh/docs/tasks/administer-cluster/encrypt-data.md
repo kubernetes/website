@@ -2,7 +2,7 @@
 reviewers:
 - smarterclayton
 title: 静态加密 Secret 数据
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -10,18 +10,19 @@ content_template: templates/task
 reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to enable and configure encryption of secret data at rest.
 -->
 本文展示如何启用和配置静态 Secret 数据的加密
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -38,17 +39,18 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * 静态数据加密在 1.7.0 中仍然是 alpha 版本，这意味着它可能会在没有通知的情况下进行更改。在升级到 1.8.0 之前，用户可能需要解密他们的数据。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Configuration and determining whether encryption at rest is already enabled
@@ -319,6 +321,6 @@ to force all secrets to be decrypted.
 -->
 并重新启动所有 `kube-apiserver` 进程。然后运行命令 `kubectl get secrets --all-namespaces -o json | kubectl replace -f -` 强制解密所有 secret。
 
-{{% /capture %}}
+
 
 

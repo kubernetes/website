@@ -1,22 +1,23 @@
 ---
 title: 使用 Kubernetes API 访问集群
-content_template: templates/task
+content_type: task
 ---
 <!-- ---
 title: Access Clusters Using the Kubernetes API
-content_template: templates/task
+content_type: task
 --- -->
-{{% capture overview %}}
+<!-- overview -->
 <!-- This page shows how to access clusters using the Kubernetes API. -->
 本页展示了如何使用 Kubernetes API 访问集群
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Accessing the cluster API -->
 
@@ -349,4 +350,4 @@ securely with the API server. -->
 
 在每种情况下，Pod 的服务账号凭证被用于与 API 服务器的安全通信。
 
-{{% /capture %}}
+

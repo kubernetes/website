@@ -1,7 +1,7 @@
 ---
 title: 使用 kubectl patch 更新 API 对象
 description: 使用 kubectl patch 更新 Kubernetes API 对象。做一个策略性的合并 patch 或 JSON 合并 patch。
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
@@ -9,12 +9,12 @@ weight: 40
 ---
 title: Update API Objects in Place Using kubectl patch
 description: Use kubectl patch to update Kubernetes API objects in place. Do a strategic merge patch or a JSON merge patch.
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This task shows how to use `kubectl patch` to update an API object in place. The exercises
@@ -23,16 +23,17 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 
 这个任务展示了如何使用 `kubectl patch` 就地更新 API 对象。这个任务中的练习演示了一个策略性合并 patch 和一个 JSON 合并 patch。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Use a strategic merge patch to update a Deployment
@@ -505,10 +506,11 @@ and
 和
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands/#apply)。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
@@ -522,6 +524,6 @@ and
 * [使用配置文件强制管理 Kubernetes 对象](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 * [使用配置文件对 Kubernetes 对象进行声明式管理](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 
-{{% /capture %}}
+
 
 

@@ -1,6 +1,6 @@
 ---
 title: 使用准入控制器
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
@@ -14,20 +14,20 @@ reviewers:
 - janetkuo
 - thockin
 title: Using Admission Controllers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page provides an overview of Admission Controllers.
 -->
 此页面概述了准入控制器。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## What are they?
@@ -1218,4 +1218,4 @@ admission controllers ran in the exact order specified.
 -->
     对于更早期版本，没有验证和变更的概念，并且准入控制器按照指定的确切顺序运行。
 
-{{% /capture %}}
+

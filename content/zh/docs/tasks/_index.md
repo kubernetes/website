@@ -2,20 +2,20 @@
 title: 任务
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
 title: Tasks
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes 文档这一部分包含的一些页面展示如何去做单个任务。一个任务页面展示了如何执行操作单一的项目，通常是通过给出若干步骤。
 <!--
@@ -24,9 +24,9 @@ show how to do individual tasks. A task page shows how to do a
 single thing, typically by giving a short sequence of steps.
 -->
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Web 用户界面 (Dashboard)
 
@@ -178,9 +178,10 @@ Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
 Configure and schedule huge pages as a schedulable resource in a cluster.
 -->
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 如果您想编写任务页面，请参阅[创建文档提取请求](/docs/home/contribute/create-pull-request/)。
 <!--
@@ -188,4 +189,4 @@ If you would like to write a task page, see
 [Creating a Documentation Pull Request](/docs/home/contribute/create-pull-request/).
 -->
 
-{{% /capture %}}
+

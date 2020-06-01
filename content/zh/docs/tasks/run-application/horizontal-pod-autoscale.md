@@ -9,11 +9,11 @@ feature:
   description: >
     使用一个简单的命令、一个UI或基于CPU使用情况自动对应用程序进行伸缩。
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The Horizontal Pod Autoscaler automatically scales the number of pods
@@ -36,10 +36,10 @@ to match the observed average CPU utilization to the target specified by user.
 Pod 水平自动伸缩特性由 Kubernetes API 资源和控制器实现。资源决定了控制器的行为。
 控制器会周期性的获取平均 CPU 利用率，并与目标值相比较后来调整 replication controller 或 deployment 中的副本数量。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## How does the Horizontal Pod Autoscaler work?
@@ -543,9 +543,10 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 和 [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
@@ -556,4 +557,4 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 * kubectl 自动缩放命令： [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * 使用示例：[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

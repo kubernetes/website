@@ -1,32 +1,33 @@
 ---
 title: 配置 Pod 初始化
-content_template: templates/task
+content_type: task
 weight: 130
 ---
 
 <!--
 ---
 title: Configure Pod Initialization
-content_template: templates/task
+content_type: task
 weight: 130
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to use an Init Container to initialize a Pod before an
 application Container runs.
 -->
 本文介绍在应用容器运行前，怎样利用 Init 容器初始化 Pod。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a Pod that has an Init Container
@@ -129,9 +130,10 @@ The output shows that nginx is serving the web page that was written by the init
       <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
       ...
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about
@@ -146,6 +148,6 @@ The output shows that nginx is serving the web page that was written by the init
 * 进一步了解 [卷](/docs/concepts/storage/volumes/)。
 * 进一步了解 [Init 容器排错](/docs/tasks/debug-application-cluster/debug-init-containers/)。
 
-{{% /capture %}}
+
 
 

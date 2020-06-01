@@ -6,29 +6,30 @@ reviewers:
 - janetkuo
 - smarterclayton
 title: 删除 StatefulSet
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This task shows you how to delete a StatefulSet.
 --->
 本文介绍如何删除 StatefulSet。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * This task assumes you have an application running on your cluster represented by a StatefulSet.
 --->
 * 本文假设在您的集群上已经运行了由 StatefulSet 创建的应用。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 删除 StatefulSet
 
@@ -119,15 +120,16 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 --->
 如果您发现 StatefulSet 中的某些 pods 长时间处于 'Terminating' 或者 'Unknown' 状态，则可能需要手动干预以强制从 apiserver 中删除 pods。这是一项潜在的危险任务。详细信息请阅读[删除 StatefulSet 类型的 Pods](/docs/tasks/manage-stateful-set/delete-pods/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 --->
 了解更多有关[强制删除 StatefulSet 类型的 Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
-{{% /capture %}}
+
 
 

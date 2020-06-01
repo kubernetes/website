@@ -1,19 +1,19 @@
 ---
 reviewers:
 - mikedanese
-content_template: templates/concept
+content_type: concept
 title: 资源监控工具
 ---
 <!--
 ---
 reviewers:
 - mikedanese
-content_template: templates/concept
+content_type: concept
 title: Tools for Monitoring Resources
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 To scale an application and provide a reliable service, you need to
@@ -30,9 +30,9 @@ where bottlenecks can be removed to improve overall performance.
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使您可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 In Kubernetes, application monitoring does not depend on a single monitoring solution. On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
@@ -101,5 +101,5 @@ Full metrics pipeline projects that are not part of the CNCF are outside the sco
 Prometheus 本身。
 完整度量管道项目不属于 CNCF 的一部分，不在 Kubernetes 文档的范围之内。
 
-{{% /capture %}}
+
 

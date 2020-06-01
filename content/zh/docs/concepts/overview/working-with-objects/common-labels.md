@@ -1,15 +1,15 @@
 ---
 title: 推荐使用的标签
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
 title: Recommended Labels
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
@@ -23,9 +23,9 @@ in a way that can be queried.
 -->
 除了支持工具外，推荐的标签还以一种可以查询的方式描述了应用程序。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 The metadata is organized around the concept of an _application_. Kubernetes is not
 a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
@@ -254,4 +254,4 @@ With the MySQL `StatefulSet` and `Service` you'll notice information about both 
 -->
 使用 MySQL `StatefulSet` 和 `Service`，您会注意到有关 MySQL 和 Wordpress 的信息，包括更广泛的应用程序。
 
-{{% /capture %}}
+

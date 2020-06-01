@@ -3,7 +3,7 @@ reviewers:
 - mtaufen
 - dawnchen
 title: 通过配置文件设置 Kubelet 参数
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -11,11 +11,11 @@ reviewers:
 - mtaufen
 - dawnchen
 title: Set Kubelet parameters via a config file
-content_template: templates/task
+content_type: task
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state state="beta" >}}
 
 <!--
@@ -31,18 +31,19 @@ it simplifies node deployment and configuration management.
 --->
 建议通过配置文件的方式提供参数，因为这样可以简化节点部署和配置管理。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 - A v1.10 or higher Kubelet binary must be installed for beta functionality.
 --->
 - 需要安装 1.10 或更高版本的 Kubelet 二进制文件，才能实现 beta 功能。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create the config file
@@ -98,9 +99,9 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 --->
 请注意，命令行参数和 Kubelet 配置文件的某些默认值不同。如果设置了 `--config`，并且没有通过命令行指定值，则 `KubeletConfiguration` 版本的默认值生效。在上面的例子中，version 是 `kubelet.config.k8s.io/v1beta1`。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Relationship to Dynamic Kubelet Config
@@ -113,6 +114,6 @@ feature, the combination of configuration provided via `--config` and any flags 
 is considered the default "last known good" configuration by the automatic rollback mechanism.
 --->
 如果您正在使用 [动态 Kubelet 配置](/docs/tasks/administer-cluster/reconfigure-kubelet) 特性，那么自动回滚机制将认为是 "最后已知正常（last known good）" 的配置，通过 `--config` 提供的配置与覆盖这些值的任何参数的结合。
-{{% /capture %}}
+
 
 

@@ -1,6 +1,6 @@
 ---
 title: 节点
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -9,12 +9,12 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 A node is a worker machine in Kubernetes, previously known as a `minion`. A node
@@ -27,10 +27,10 @@ architecture design doc for more details.
 在 Kubernetes 中，节点（Node）是执行工作的机器，以前叫做 `minion`。根据你的集群环境，节点可以是一个虚拟机或者物理机器。每个节点都包含用于运行 [pods](/docs/concepts/workloads/pods/pod/) 的必要服务，并由主控组件管理。节点上的服务包括 [容器运行时](/docs/concepts/overview/components/#node-components)、kubelet 和 kube-proxy。查阅架构设计文档中 [Kubernetes 节点](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) 一节获取更多细节。
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Node Status
@@ -527,12 +527,13 @@ API object can be found at:
 -->
 节点是 Kubernetes REST API 的顶级资源。更多关于 API 对象的细节可以在这里找到：[节点 API 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Read about [node components](https://kubernetes.io/docs/concepts/overview/components/#node-components)
 * Read about node-level topology: [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 -->
 * 了解有关[节点组件](https://kubernetes.io/docs/concepts/overview/components/#node-components)的信息。
 * 阅读有关节点级拓扑的信息：[控制节点上的拓扑管理策略](/docs/tasks/administer-cluster/topology-manager/)。
-{{% /capture %}}
+

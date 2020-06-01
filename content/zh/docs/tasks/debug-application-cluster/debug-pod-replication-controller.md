@@ -2,27 +2,28 @@
 reviewers:
 - bprashanth
 title: 调试 Pods 和 Replication Controllers
-content_template: templates/task
+content_type: task
 ---
 <!-- 
 ---
 reviewers:
 - bprashanth
 title: Debug Pods and ReplicationControllers
-content_template: templates/task
+content_type: task
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- 
 This page shows how to debug Pods and ReplicationControllers. 
 -->
 此页面告诉您如何调试 Pod 和 ReplicationController。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -33,9 +34,9 @@ This page shows how to debug Pods and ReplicationControllers.
 * 您应该先熟悉
   [Pods](/docs/concepts/workloads/pods/pod/) 和 [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/) 的基础概念。 
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- 
 ## Debugging Pods 
@@ -247,4 +248,4 @@ related to the replication controller.
 -->
 您也可以使用`kubectl describe rc ${CONTROLLER_NAME}`来检查和Replication Controllers有关的事件。
 
-{{% /capture %}}
+
