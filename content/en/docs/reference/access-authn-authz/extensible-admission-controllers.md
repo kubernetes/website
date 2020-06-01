@@ -18,6 +18,7 @@ This page describes how to build, configure, use, and monitor admission webhooks
 {{% /capture %}}
 
 {{% capture body %}}
+
 ## What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
@@ -549,7 +550,7 @@ Example of a minimal response from a webhook to forbid a request:
 
 When rejecting a request, the webhook can customize the http code and message returned to the user using the `status` field.
 The specified status object is returned to the user.
-See the [API documentation](/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
+See the [API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta) for details about the status type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 {{< tabs name="AdmissionReview_response_forbid_details" >}}
 {{% tab name="admission.k8s.io/v1" %}}
