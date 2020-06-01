@@ -1,20 +1,20 @@
 ---
 title: kubectl Spickzettel
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Siehe auch: [Kubectl Überblick](/docs/reference/kubectl/overview/) und [JsonPath Dokumentation](/docs/reference/kubectl/jsonpath).
 
 Diese Seite ist eine Übersicht über den Befehl `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Spickzettel
 
@@ -335,9 +335,10 @@ Ausführlichkeit | Beschreibung
 `--v=8` | HTTP-Anforderungsinhalt anzeigen
 `--v=9` | HTTP-Anforderungsinhalt anzeigen, ohne den Inhalt zu kürzen.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Lernen Sie mehr im [Überblick auf kubectl](/docs/reference/kubectl/overview/).
 
@@ -347,4 +348,4 @@ Ausführlichkeit | Beschreibung
 
 * Entdecken Sie mehr Community [kubectl Spickzettel](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

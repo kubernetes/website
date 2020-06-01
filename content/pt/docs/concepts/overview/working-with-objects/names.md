@@ -50,7 +50,8 @@ Kubernetes UIDs são identificadores únicos universais (também chamados de UUI
 UUIDs utilizam padrões ISO/IEC 9834-8 e ITU-T X.667.
 
 
-{{% capture Qual é o próximo %}}
+## {{% heading "whatsnext" %}}
+
 * Leia sobre [labels](/docs/concepts/overview/working-with-objects/labels/) em Kubernetes.
 * Consulte o documento de design [Identificadores e Nomes em Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md).
 
