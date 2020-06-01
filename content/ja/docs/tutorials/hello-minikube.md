@@ -186,16 +186,16 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     storage-provisioner-gluster: disabled
     ```
 
-2. ここでは例として`heapster`のアドオンを有効化します:
+2. ここでは例として`metrics-server`のアドオンを有効化します:
 
     ```shell
-    minikube addons enable heapster
+    minikube addons enable metrics-server
     ```
 
     出力は下記のようになります:
 
     ```
-    heapster was successfully enabled
+    metrics-server was successfully enabled
     ```
 
 3. 作成されたPodとサービスを確認します:
