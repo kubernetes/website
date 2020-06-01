@@ -383,6 +383,27 @@ Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コ�
 bash-completionにはv1とv2のバージョンがあり、v1はBash 3.2（macOSのデフォルト）用で、v2はBash 4.1以降向けです。kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。**bash-completion v2**および**Bash 4.1**が必要になります。したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。以下の手順では、Bash4.1以降（Bashのバージョンが4.1またはそれより新しいことを指します）を使用することを前提とします。
 {{< /warning >}}
 
+### bashのアップグレード
+
+ここではBash 4.1以降の使用を前提としています。Bashのバージョンは下記のコマンドで調べることができます。
+
+```shell
+echo $BASH_VERSION
+```
+
+バージョンが古い場合、Homebrewを使用してインストールもしくはアップグレードできます。
+
+```shell
+brew install bash
+```
+
+シェルをリロードし、希望するバージョンを使用していることを確認してください。
+
+```shell
+echo $BASH_VERSION $SHELL
+```
+
+Homebrewは通常、`/usr/local/bin/bash`フォルダ下でインストールを行います。
 
 ### bash-completionをインストールする
 
