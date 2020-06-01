@@ -80,22 +80,24 @@ yum install -y kubectl
 
 ### 他のパッケージマネージャーを使用してインストールする
 
+{{< tabs name="other_kubectl_install" >}}
+{{% tab name="Snap" %}}
 Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートする別のLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして使用できます。
 
-Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
-
-{{< tabs name="other_kubectl_install" >}}
-{{< tab name="Snap" codelang="bash" >}}
-sudo snap install kubectl --classic
+```shell
+snap install kubectl --classic
 
 kubectl version
-{{< /tab >}}
-{{< tab name="Homebrew" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="Homebrew" %}}
+Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
+```shell
 brew install kubectl
 
 kubectl version
-{{< /tab >}}
-{{< /tabs >}}
+```
+{{% /tab %}}
 
 ## macOSへkubectlをインストールする {#install-kubectl-on-macos}
 
