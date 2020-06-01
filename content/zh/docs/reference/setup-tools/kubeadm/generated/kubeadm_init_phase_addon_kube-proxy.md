@@ -24,7 +24,6 @@ kubeadm init phase addon kube-proxy [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -36,7 +35,6 @@ kubeadm init phase addon kube-proxy [flags]
        API 服务器所公布的其正在监听的 IP 地址。如果未设置，则将使用默认网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -53,7 +51,6 @@ kubeadm init phase addon kube-proxy [flags]
        API 服务器绑定的端口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -65,7 +62,6 @@ kubeadm init phase addon kube-proxy [flags]
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -77,7 +73,6 @@ kubeadm init phase addon kube-proxy [flags]
       为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -89,7 +84,6 @@ kubeadm init phase addon kube-proxy [flags]
        kube-proxy 操作的帮助命令
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -106,7 +100,6 @@ kubeadm init phase addon kube-proxy [flags]
       选择用于拉取控制平面镜像的容器仓库
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -123,7 +116,6 @@ kubeadm init phase addon kube-proxy [flags]
       与集群通信时使用的 kubeconfig 文件。如果未设置该参数，则可以在一组标准位置中搜索现有的 kubeconfig 文件。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -140,7 +132,6 @@ kubeadm init phase addon kube-proxy [flags]
       为控制平面选择特定的 Kubernetes 版本。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--pod-network-cidr string</td>
     </tr>
@@ -169,7 +160,6 @@ kubeadm init phase addon kube-proxy [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>

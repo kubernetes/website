@@ -24,7 +24,6 @@ kubeadm init phase control-plane apiserver [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -36,7 +35,6 @@ kubeadm init phase control-plane apiserver [flags]
        API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -53,7 +51,6 @@ kubeadm init phase control-plane apiserver [flags]
       要绑定到 API 服务器的端口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--apiserver-extra-args mapStringString</td>
     </tr>
@@ -65,7 +62,6 @@ kubeadm init phase control-plane apiserver [flags]
       一组额外的参数以 &lt;flagname&gt;=&lt;value&gt; 形式传递给 API 服务器或者覆盖默认参数
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -82,7 +78,6 @@ kubeadm init phase control-plane apiserver [flags]
       保存和存储证书的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -94,7 +89,6 @@ kubeadm init phase control-plane apiserver [flags]
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -106,7 +100,6 @@ kubeadm init phase control-plane apiserver [flags]
       为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-k, --experimental-kustomize string</td>
     </tr>
@@ -118,7 +111,6 @@ kubeadm init phase control-plane apiserver [flags]
       用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
@@ -130,7 +122,6 @@ kubeadm init phase control-plane apiserver [flags]
       一组键值对，用于描述各种特征的特征事项。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -142,7 +133,6 @@ kubeadm init phase control-plane apiserver [flags]
        apiserver 操作的帮助命令
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -159,7 +149,6 @@ kubeadm init phase control-plane apiserver [flags]
       选择要从中拉取控制平面镜像的容器仓库
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -176,7 +165,6 @@ kubeadm init phase control-plane apiserver [flags]
       为控制平面选择特定的 Kubernetes 版本
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -210,7 +198,6 @@ kubeadm init phase control-plane apiserver [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>

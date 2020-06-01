@@ -25,7 +25,6 @@ kubeadm init phase certs all [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -37,7 +36,6 @@ kubeadm init phase certs all [flags]
       API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
     </tr>
@@ -49,7 +47,6 @@ kubeadm init phase certs all [flags]
       用于 API 服务器服务证书的可选额外替代名称（SAN）。可以同时使用 IP 地址和 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -66,7 +63,6 @@ kubeadm init phase certs all [flags]
       证书的存储路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -78,7 +74,6 @@ kubeadm init phase certs all [flags]
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -90,7 +85,6 @@ kubeadm init phase certs all [flags]
       为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -102,7 +96,6 @@ kubeadm init phase certs all [flags]
        all 操作的帮助命令 
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -119,7 +112,6 @@ kubeadm init phase certs all [flags]
       为控制平面选择特定的 Kubernetes 版本。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -136,7 +128,6 @@ kubeadm init phase certs all [flags]
       VIP 服务使用其它的 IP 地址范围。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -170,7 +161,6 @@ kubeadm init phase certs all [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>

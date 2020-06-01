@@ -42,7 +42,6 @@ kubeadm init phase control-plane all --config config.yaml
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -54,7 +53,6 @@ kubeadm init phase control-plane all --config config.yaml
        API 服务器所公布的其正在监听的 IP 地址。如果未设置，将使用默认的网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -71,7 +69,6 @@ kubeadm init phase control-plane all --config config.yaml
       要绑定到 API 服务器的端口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--apiserver-extra-args mapStringString</td>
     </tr>
@@ -83,7 +80,6 @@ kubeadm init phase control-plane all --config config.yaml
       传递给 API 服务器一组额外的参数或者以 &lt;flagname&gt;=&lt;value&gt; 的形式覆盖默认值。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -100,7 +96,6 @@ kubeadm init phase control-plane all --config config.yaml
       存储证书的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -112,7 +107,6 @@ kubeadm init phase control-plane all --config config.yaml
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -124,7 +118,6 @@ kubeadm init phase control-plane all --config config.yaml
       为控制平面选择一个稳定的 IP 地址或者 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--controller-manager-extra-args mapStringString</td>
     </tr>
@@ -136,7 +129,6 @@ kubeadm init phase control-plane all --config config.yaml
       传递给控制管理器（Controller Manager）一组额外的标志或者以 &lt;flagname&gt;=&lt;value&gt; 的形式覆盖默认值。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-k, --experimental-kustomize string</td>
     </tr>
@@ -148,7 +140,6 @@ kubeadm init phase control-plane all --config config.yaml
       用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--feature-gates string</td>
     </tr>
@@ -160,7 +151,6 @@ kubeadm init phase control-plane all --config config.yaml
       一组用来描述各种功能特性的键值（key=value）对。选项是：<br/>IPv6DualStack=true|false (ALPHA - default=false)
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -172,7 +162,6 @@ kubeadm init phase control-plane all --config config.yaml
        all 操作的帮助命令
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -189,7 +178,6 @@ kubeadm init phase control-plane all --config config.yaml
       选择用于拉取控制平面镜像的容器仓库
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -206,7 +194,6 @@ kubeadm init phase control-plane all --config config.yaml
       为控制平面选择指定的 Kubernetes 版本。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--pod-network-cidr string</td>
     </tr>
@@ -218,7 +205,6 @@ kubeadm init phase control-plane all --config config.yaml
       指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动地为每个节点分配 CIDR。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--scheduler-extra-args mapStringString</td>
     </tr>
@@ -230,7 +216,6 @@ kubeadm init phase control-plane all --config config.yaml
       传递给调度器（scheduler）一组额外的参数或者以 &lt;flagname&gt;=&lt;value&gt; 形式覆盖其默认值。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -262,7 +247,6 @@ kubeadm init phase control-plane all --config config.yaml
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>

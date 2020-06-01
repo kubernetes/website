@@ -25,7 +25,6 @@ kubeadm init phase kubeconfig all [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -37,7 +36,6 @@ kubeadm init phase kubeconfig all [flags]
        API 服务器所公布的其正在监听的 IP 地址。如果没有设置，将使用默认的网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -54,7 +52,6 @@ kubeadm init phase kubeconfig all [flags]
       要绑定到 API 服务器的端口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -71,7 +68,6 @@ kubeadm init phase kubeconfig all [flags]
       保存和存储证书的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -83,7 +79,6 @@ kubeadm init phase kubeconfig all [flags]
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -95,7 +90,6 @@ kubeadm init phase kubeconfig all [flags]
       为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -107,7 +101,6 @@ kubeadm init phase kubeconfig all [flags]
        all 操作的帮助命令
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -124,7 +117,6 @@ kubeadm init phase kubeconfig all [flags]
        kubeconfig 文件的保存路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -141,7 +133,6 @@ kubeadm init phase kubeconfig all [flags]
       为控制平面指定特定的 Kubernetes 版本。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--node-name string</td>
     </tr>
@@ -170,7 +161,6 @@ kubeadm init phase kubeconfig all [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>

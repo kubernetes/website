@@ -41,7 +41,6 @@ kubeadm init phase certs apiserver [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--apiserver-advertise-address string</td>
     </tr>
@@ -53,7 +52,6 @@ kubeadm init phase certs apiserver [flags]
        API 服务器所公布的其正在监听的 IP 地址。如果未设置，则使用默认的网络接口。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--apiserver-cert-extra-sans stringSlice</td>
     </tr>
@@ -65,7 +63,6 @@ kubeadm init phase certs apiserver [flags]
       用于 API Server 服务证书的可选附加主体备用名称（SAN）。可以是 IP 地址和 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -82,7 +79,6 @@ kubeadm init phase certs apiserver [flags]
       证书的存储路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--config string</td>
     </tr>
@@ -94,7 +90,6 @@ kubeadm init phase certs apiserver [flags]
        kubeadm 配置文件的路径。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--control-plane-endpoint string</td>
     </tr>
@@ -106,7 +101,6 @@ kubeadm init phase certs apiserver [flags]
       为控制平面指定一个稳定的 IP 地址或 DNS 名称。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--csr-dir string</td>
     </tr>
@@ -118,7 +112,6 @@ kubeadm init phase certs apiserver [flags]
       输出 CSR 和私钥的路径
       </td>
     </tr>
-
     <tr>
       <td colspan="2">--csr-only</td>
     </tr>
@@ -130,7 +123,6 @@ kubeadm init phase certs apiserver [flags]
       创建 CSR 而不是生成证书
       </td>
     </tr>
-
     <tr>
       <td colspan="2">-h, --help</td>
     </tr>
@@ -142,7 +134,6 @@ kubeadm init phase certs apiserver [flags]
        apiserver 操作的帮助命令
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -159,7 +150,6 @@ kubeadm init phase certs apiserver [flags]
       为控制平面指定特定的 Kubernetes 版本。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -176,7 +166,6 @@ kubeadm init phase certs apiserver [flags]
       指定服务 VIP 可使用的其他 IP 地址段。
       </td>
     </tr>
-
     <tr>
       <td colspan="2">
       <!--
@@ -210,7 +199,6 @@ kubeadm init phase certs apiserver [flags]
     <col span="1" />
   </colgroup>
   <tbody>
-
     <tr>
       <td colspan="2">--rootfs string</td>
     </tr>
