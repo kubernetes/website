@@ -64,7 +64,7 @@ Buatlah Pod tersebut:
 kubectl apply -f https://k8s.io/examples/pods/security/security-context.yaml
 ```
 
-Verifikasi bahwa Container dari Pod sedang berjalan:
+Periksa apakah Container dari Pod sedang berjalan:
 
 ```shell
 kubectl get pod security-context-demo
@@ -251,7 +251,7 @@ Buatlah Pod tersebut:
 kubectl apply -f https://k8s.io/examples/pods/security/security-context-3.yaml
 ```
 
-Verifikasi apakah Container dari Pod tersebut sedang berjalan:
+Periksa apakah Container dari Pod tersebut sedang berjalan:
 
 ```shell
 kubectl get pod security-context-demo-3
