@@ -156,7 +156,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
 ## アドオンの有効化
 
-Minikubeはビルトインのアドオンがあり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
+Minikubeはビルトインの{{< glossary_tooltip text="addons" term_id="addons" >}}があり、有効化、無効化、あるいはローカルのKubernetes環境に公開することができます。
 
 1. サポートされているアドオンをリストアップします:
 
