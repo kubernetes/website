@@ -1,12 +1,12 @@
 ---
-title: Dapatkan _Shell_ Untuk Masuk ke Kontainer yang Sedang Berjalan
+title: Mendapatkan Shell Untuk Masuk ke Container yang Sedang Berjalan
 content_template: templates/task
 ---
 
 {{% capture overview %}}
 
-Halaman ini menunjukkan bagaimana cara menggunakan `kubectl exec` untuk 
-mendapatkan _shell_ untuk masuk ke dalam kontainer yang sedang berjalan.
+Laman ini menunjukkan bagaimana cara menggunakan `kubectl exec` untuk 
+mendapatkan _shell_ untuk masuk ke dalam Container yang sedang berjalan.
 
 {{% /capture %}}
 
@@ -20,26 +20,26 @@ mendapatkan _shell_ untuk masuk ke dalam kontainer yang sedang berjalan.
 
 {{% capture steps %}}
 
-## Mendapatkan sebuah _shell_ untuk masuk ke sebuah kontainer
+## Mendapatkan sebuah _shell_ untuk masuk ke sebuah Container
 
-Dalam latihan ini, kamu perlu membuat Pod yang hanya memiliki satu kontainer saja. Kontainer
-tersebut menjalankan _image_ nginx. Berikut ini adalah _file_ konfigurasi untuk Pod tersebut:
+Dalam latihan ini, kamu perlu membuat Pod yang hanya memiliki satu Container saja. Container
+tersebut menjalankan _image_ nginx. Berikut ini adalah berkas konfigurasi untuk Pod tersebut:
 
 {{< codenew file="application/shell-demo.yaml" >}}
 
-Buatlah Pod:
+Buatlah Pod tersebut:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
-Pastikan bahwa kontainer dalam Pod berjalan:
+Pastikan bahwa Container dalam Pod berjalan:
 
 ```shell
 kubectl get pod shell-demo
 ```
 
-Dapatkan _shell_ untuk masuk ke dalam kontainer:
+Dapatkan _shell_ untuk masuk ke dalam Container:
 
 ```shell
 kubectl exec -it shell-demo -- /bin/bash
@@ -47,17 +47,17 @@ kubectl exec -it shell-demo -- /bin/bash
 
 {{< note >}}
 
-Simbol tanda hubung ganda "--" digunakan untuk memisahkan antara argumen perintah yang ingin kamu eksekusi pada kontainer dan argumen dari kubectl itu sendiri.
+Simbol tanda hubung ganda "--" digunakan untuk memisahkan antara argumen perintah yang ingin kamu eksekusi pada Container dan argumen dari kubectl itu sendiri.
 
 {{< /note >}}
 
-Dalam _shell_ kamu, perlihatkan isi dari direktori _root_:
+Di dalam _shell_ kamu, perlihatkan isi dari direktori _root_:
 
 ```shell
 root@shell-demo:/# ls /
 ```
 
-Dalam _shell_ kamu, cobalah dengan perintah-perintah yang lainnya. Berikut ini beberapa contoh diantaranya:
+Di dalam _shell_ kamu, cobalah perintah-perintah yang lainnya. Berikut beberapa contohnya:
 
 ```shell
 root@shell-demo:/# ls /
@@ -75,11 +75,11 @@ root@shell-demo:/# ps aux | grep nginx
 
 ## Menulis halaman utama (_root_) untuk nginx
 
-Lihat kembali pada _file_ konfigurasi untuk Pod kamu. Pod
-memiliki _volume_ `emptyDir`, dan kontainer melakukan _mounting untuk _volume_ tersebut
+Lihat kembali berkas konfigurasi untuk Pod kamu. Pod
+memiliki volume `emptyDir`, dan Container melakukan pemasangan (_mounting_) untuk volume tersebut
 pada `/usr/share/nginx/html`.
 
-Pada _shell_ kamu, buatlah _file_ `index.html` dalam direktori `/usr/share/nginx/html`:
+Pada _shell_ kamu, buatlah berkas `index.html` dalam direktori `/usr/share/nginx/html`:
 
 ```shell
 root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html
@@ -93,7 +93,7 @@ root@shell-demo:/# apt-get install curl
 root@shell-demo:/# curl localhost
 ```
 
-Tampilan akan menunjukkan teks yang kamu tulis pada _file_ `index.html`.
+Keluarannya akan menunjukkan teks yang kamu tulis pada berkas `index.html`.
 
 ```shell
 Hello shell demo
@@ -101,16 +101,16 @@ Hello shell demo
 
 Setelah kamu selesai dengan _shell_ kamu, ketiklah `exit`.
 
-## Menjalankan perintah individu dalam sebuah kontainer
+## Menjalankan perintah individu di dalam sebuah Container
 
-Pada jendela (_window_) perintah biasa, bukan pada _shell_ kamu dalam kontainer,
-lihatlah daftar lingkungan variabel pada kontainer yang sedang berjalan:
+Pada jendela (_window_) perintah biasa, bukan pada _shell_ kamu di dalam Container,
+lihatlah daftar variabel lingkungan (_environment variable_) pada Container yang sedang berjalan:
 
 ```shell
 kubectl exec shell-demo env
 ```
 
-Cobalah dengan menjalankan perintah lainnya. Berikut ini beberapa contoh diantaranya:
+Cobalah dengan menjalankan perintah lainnya. Berikut beberapa contohnya:
 
 ```shell
 kubectl exec shell-demo ps aux
@@ -122,13 +122,13 @@ kubectl exec shell-demo cat /proc/1/mounts
 
 {{% capture discussion %}}
 
-## Membuka sebuah _shell_ ketika sebuah Pod memiliki lebih dari satu kontainer
+## Membuka sebuah _shell_ ketika sebuah Pod memiliki lebih dari satu Container
 
-Jika sebuah Pod memiliki lebih dari satu kontainer, gunakanlah `--container` atau `-c` untuk
-menentukan kontainer yang dimaksud dalam perintah `kubectl exec`. Sebagai contoh,
-misalkan kamu memiliki Pod yang bernama my-pod, dan Pod tersebut memiliki dua kontainer
+Jika sebuah Pod memiliki lebih dari satu Container, gunakanlah `--container` atau `-c` untuk
+menentukan Container yang dimaksud pada perintah `kubectl exec`. Sebagai contoh,
+misalkan kamu memiliki Pod yang bernama my-pod, dan Pod tersebut memiliki dua Container
 yang bernama main-app dan helper-app. Perintah berikut ini akan membuka sebuah
-_shell_ ke kontainer dengan nama main-app.
+_shell_ ke Container dengan nama main-app.
 
 ```shell
 kubectl exec -it my-pod --container main-app -- /bin/bash
