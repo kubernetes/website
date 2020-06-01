@@ -2,11 +2,11 @@
 title: 승인자와 리뷰어의 리뷰
 linktitle: 승인자와 리뷰어용
 slug: for-approvers
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자](/ko/docs/contribute/participating/#승인자)는 변경 사항을 리뷰할 때 몇 가지 추가 작업을 수행한다.
 
@@ -19,10 +19,10 @@ SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자
 로테이션 외에도, 봇은 영향을 받는 파일의 소유자를 기반으로
 PR에 대한 리뷰어와 승인자를 할당한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## PR 리뷰
 
@@ -224,4 +224,4 @@ https://github.com/kubernetes/kubernetes 에서
 ```
 
 
-{{% /capture %}}
+

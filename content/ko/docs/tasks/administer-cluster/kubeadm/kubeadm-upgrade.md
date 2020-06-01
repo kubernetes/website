@@ -1,11 +1,11 @@
 ---
 title: kubeadm 클러스터 업그레이드
-content_template: templates/task
+content_type: task
 weight: 20
 min-kubernetes-server-version: 1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 kubeadm으로 생성된 쿠버네티스 클러스터를
 1.17.x 버전에서 1.18.x 버전으로, 1.18.x 버전에서 1.18.y(여기서 `y > x`) 버전으로 업그레이드하는 방법을 설명한다.
@@ -24,9 +24,10 @@ min-kubernetes-server-version: 1.18
 1. 추가 컨트롤 플레인 노드를 업그레이드한다.
 1. 워커(worker) 노드를 업그레이드한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - 1.17.0 버전 이상을 실행하는 kubeadm 쿠버네티스 클러스터가 있어야 한다.
 - [스왑을 비활성화해야 한다](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
@@ -42,9 +43,9 @@ min-kubernetes-server-version: 1.18
   또는 동일한 MINOR의 PATCH 버전 사이에서만 업그레이드할 수 있다. 즉, 업그레이드할 때 MINOR 버전을 건너 뛸 수 없다.
   예를 들어, 1.y에서 1.y+1로 업그레이드할 수 있지만, 1.y에서 1.y+2로 업그레이드할 수는 없다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 업그레이드할 버전 결정
 
@@ -393,7 +394,7 @@ kubectl get nodes
 
 모든 노드에 대해 `STATUS` 열에 `Ready` 가 표시되어야 하고, 버전 번호가 업데이트되어 있어야 한다.
 
-{{% /capture %}}
+
 
 ## 장애 상태에서의 복구
 

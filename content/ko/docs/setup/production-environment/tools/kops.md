@@ -1,10 +1,10 @@
 ---
 title: Kops로 쿠버네티스 설치하기
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이곳 빠른 시작에서는 사용자가 얼마나 쉽게 AWS에 쿠버네티스 클러스터를 설치할 수 있는지 보여준다.
 [`kops`](https://github.com/kubernetes/kops)라는 이름의 툴을 이용할 것이다.
@@ -18,9 +18,10 @@ kops는 자동화된 프로비저닝 시스템인데,
 * 고가용성 지원 - [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md) 보기
 * 직접 프로비저닝 하거나 또는 할 수 있도록 terraform 매니페스트를 생성 - [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md) 보기
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * [kubectl](/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
 
@@ -28,9 +29,9 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 * [AWS 계정](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)이 있고 [IAM 키](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)를 생성하고 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) 해야 한다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 클러스터 구축
 
@@ -225,13 +226,14 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 
 * `kops delete cluster useast1.dev.example.com --yes` 로 클러스터를 삭제한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 쿠버네티스 [개념](/docs/concepts/) 과 [`kubectl`](/docs/user-guide/kubectl-overview/)에 대해 더 알아보기.
 * 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
 * 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)
 
-{{% /capture %}}
+

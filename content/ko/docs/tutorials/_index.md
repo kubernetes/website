@@ -2,10 +2,10 @@
 title: 튜토리얼
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 문서의 본 섹션은 튜토리얼을 포함하고 있다.
 튜토리얼은 개별 [작업](/ko/docs/tasks) 단위보다 더 큰 목표를 달성하기
@@ -14,9 +14,9 @@ content_template: templates/concept
 각 튜토리얼을 따라하기 전에, 나중에 참조할 수 있도록
 [표준 용어집](/ko/docs/reference/glossary/) 페이지를 북마크하기를 권한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 기초
 
@@ -64,13 +64,14 @@ content_template: templates/concept
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 튜토리얼을 작성하고 싶다면,
 튜토리얼 페이지 유형과 튜토리얼 템플릿에 대한 정보가 있는
 [Using Page Templates](/docs/home/contribute/page-templates/)
 페이지를 참조한다.
 
-{{% /capture %}}
+

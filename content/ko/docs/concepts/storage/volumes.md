@@ -1,10 +1,10 @@
 ---
 title: 볼륨
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 컨테이너 내의 디스크에 있는 파일은 임시적이며, 컨테이너에서 실행될 때
 애플리케이션에 적지 않은 몇 가지 문제가 발생한다. 첫째, 컨테이너가 충돌되면,
@@ -15,10 +15,10 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 
 [파드](/ko/docs/concepts/workloads/pods/pod/)에 대해 익숙해지는 것을 추천한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 배경
 
@@ -1470,6 +1470,7 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
-{{% /capture %}}
+

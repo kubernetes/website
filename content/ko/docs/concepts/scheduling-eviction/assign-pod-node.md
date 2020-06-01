@@ -1,11 +1,11 @@
 ---
 title: 노드에 파드 할당하기
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 특정한 {{< glossary_tooltip text="노드(들)" term_id="node" >}}에서만 동작하도록 하거나,
 특정 노드들을 선호하도록 제한할 수 있다.
@@ -17,9 +17,9 @@ weight: 50
 예를 들어 SSD가 장착된 머신에 파드가 연결되도록 하거나 또는 동일한 가용성 영역(availability zone)에서
 많은 것을 통신하는 두 개의 서로 다른 서비스의 파드를 같이 배치할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 노드 셀렉터(nodeSelector)
 
@@ -383,9 +383,10 @@ spec:
 
 위 파드는 kube-01 노드에서 실행될 것이다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [테인트](/docs/concepts/configuration/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아내게* 할 수 있다.
 
@@ -397,4 +398,4 @@ spec:
 [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)는
 노드 수준의 리소스 할당 결정에 참여할 수 있다.
 
-{{% /capture %}}
+

@@ -1,12 +1,12 @@
 ---
 title: 클라우드 네이티브 보안 개요
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 보안(일반적인 보안)은 관련된 많은 부분이 상호작용하는 
 방대한 주제다. 오늘날에는 웹 애플리케이션의 실행을 돕는 
 수많은 시스템에 오픈소스 소프트웨어가 통합되어 있으며, 
@@ -15,9 +15,9 @@ weight: 1
 몇 가지 일반적인 개념에 대한 멘탈 모델(mental model)을 정의한다. 멘탈 모델은 완전히 임의적이며 
 소프트웨어 스택을 보호할 위치를 생각하는데 도움이되는 경우에만 사용해야 
 한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 클라우드 네이티브 보안의 4C
 계층적인 보안에 대해서 어떻게 생각할 수 있는지 이해하는 데 도움이 될 수 있는 다이어그램부터 살펴보자.
@@ -150,12 +150,13 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 클라이
 전달하는 파이프라인에 의해 자동화 될 수 있다. 소프트웨어 전달을 위한 
 "지속적인 해킹(Continuous Hacking)"에 대한 접근 방식에 대해 알아 보려면, 자세한 설명을 제공하는 [이 기사](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/)를 참고한다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/) 알아보기
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)에 대해 알아보기
 * [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)에 대해 알아보기
 * 컨트롤 플레인에 대한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/) 알아보기
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/) 알아보기
 * [쿠버네티스 시크릿](/docs/concepts/configuration/secret/)에 대해 알아보기
-{{% /capture %}}
+

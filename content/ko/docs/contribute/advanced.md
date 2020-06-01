@@ -1,11 +1,11 @@
 ---
 title: 고급 기여
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 98
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 당신이
 [새로운 콘텐츠에 기여](/ko/docs/contribute/new-content/overview)하고
@@ -13,9 +13,9 @@ weight: 98
 이해한다고 가정한다. 또한 기여하기 위한 더 많은 방법에 대해 배울 준비가 되었다고 가정한다. 이러한
 작업 중 일부에는 Git 커맨드 라인 클라이언트와 다른 도구를 사용해야 한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 일주일 동안 PR 랭글러(Wrangler) 되기
 
@@ -245,4 +245,4 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 SIG Docs�
 
 비디오가 자동으로 유튜브에 업로드된다.
 
-{{% /capture %}}
+

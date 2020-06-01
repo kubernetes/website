@@ -1,6 +1,6 @@
 ---
 title: 다중 클러스터 접근 구성
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 구성 파일을 사용하여 다수의 클러스터에 접근할 수 있도록 
 설정하는 방식을 보여준다. 클러스터, 사용자, 컨텍스트가 하나 이상의 
@@ -21,15 +21,16 @@ card:
 반드시 존재해야 한다는 것을 의미하는 것은 아니다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 클러스터, 사용자, 컨텍스트 정의
 
@@ -370,13 +371,14 @@ export KUBECONFIG=$KUBECONFIG_SAVED
  $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+
 
 

@@ -5,18 +5,18 @@ feature:
   description: >
     로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 쿠버네티스의 _퍼시스턴트 볼륨_ 의 현재 상태를 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -741,8 +741,9 @@ spec:
   않거나(이 경우 사용자가 일치하는 PV를 생성해야 함),
   클러스터에 스토리지 시스템이 없음을 나타낸다(이 경우
   사용자는 PVC가 필요한 구성을 배포할 수 없음).
-{{% /capture %}}
-  {{% capture whatsnext %}}
+
+  ## {{% heading "whatsnext" %}}
+
 
 * [퍼시스턴트볼륨 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)에 대해 자세히 알아보기
@@ -754,4 +755,4 @@ spec:
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
 * [퍼시스턴트볼륨클레임](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-{{% /capture %}}
+

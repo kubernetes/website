@@ -1,17 +1,17 @@
 ---
 title: 스테이트풀셋
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 스테이트풀셋은 애플리케이션의 스테이트풀을 관리하는데 사용하는 워크로드 API 오브젝트이다.
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 스테이트풀셋 사용
 
@@ -262,12 +262,13 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 실행하려고 시도한 모든 파드를 삭제해야 한다.
 그러면 스테이트풀셋은 되돌린 템플릿을 사용해서 파드를 다시 생성하기 시작 한다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
 * [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
 * [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-replicated-stateful-application/)의 예시를 따른다.
 
-{{% /capture %}}
+
 

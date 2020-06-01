@@ -1,11 +1,11 @@
 ---
 title: 장치 플러그인
 description: GPU, NIC, FPGA, InfiniBand 및 공급 업체별 설정이 필요한 유사한 리소스를 위한 플러그인을 구현하는데 쿠버네티스 장치 플러그인 프레임워크를 사용한다.
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 쿠버네티스는 시스템 하드웨어 리소스를 {{< glossary_tooltip term_id="kubelet" >}}에 알리는 데 사용할 수 있는
@@ -18,9 +18,9 @@ weight: 20
 및 공급 업체별 초기화 및 설정이 필요할 수 있는 기타 유사한 컴퓨팅 리소스가
 포함된다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 장치 플러그인 등록
 
@@ -224,12 +224,13 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * [SR-IOV 네트워크 장치 플러그인](https://github.com/intel/sriov-network-device-plugin)
 * Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk)
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
 * 노드에서의 [확장 리소스 알리기](/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
 * 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
 * [토폴로지 관리자](/docs/tasks/adminster-cluster/topology-manager/)에 대해 알아보기
 
-{{% /capture %}}
+

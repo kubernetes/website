@@ -1,10 +1,10 @@
 ---
 title: 쿠버네티스 클러스터 확장
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스는 매우 유연하게 구성할 수 있고 확장 가능하다. 결과적으로
 쿠버네티스 프로젝트를 포크하거나 코드에 패치를 제출할 필요가
@@ -17,10 +17,10 @@ weight: 10
 어떤 익스텐션 포인트와 패턴이 있는지,
 그리고 그것들의 트레이드오프와 제약에 대한 소개 자료로 유용할 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -189,10 +189,11 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 [웹훅](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)을
 지원한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
@@ -202,4 +203,4 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 * [kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
 * [오퍼레이터 패턴](/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
 
-{{% /capture %}}
+

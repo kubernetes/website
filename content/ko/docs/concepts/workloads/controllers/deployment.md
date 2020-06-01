@@ -5,11 +5,11 @@ feature:
   description: >
     쿠버네티스는 애플리케이션 또는 애플리케이션의 설정 변경시 점진적으로 롤아웃하는 동시에 애플리케이션을 모니터링해서 모든 인스턴스가 동시에 종료되지 않도록 보장한다. 만약 어떤 문제가 발생하면 쿠버네티스는 변경 사항을 롤백한다. 성장하는 디플로이먼트 솔루션 생태계를 이용한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와 
 [레플리카셋](/ko/docs/concepts/workloads/controllers/replicaset/)에 대한 선언적 업데이트를 제공한다.
@@ -20,10 +20,10 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 디플로이먼트가 소유하는 레플리카셋은 관리하지 말아야 한다. 사용자의 유스케이스가 다음에 포함되지 않는 경우 쿠버네티스 리포지터리에 이슈를 올릴 수 있다.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 유스케이스
 
@@ -1165,4 +1165,4 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 일시 중지된 디플로이먼트는 PodTemplateSpec에 대한 변경 사항이 일시중지 된 경우 새 롤아웃을 트리거 하지 않는다.
 디플로이먼트는 생성시 기본적으로 일시 중지되지 않는다.
 
-{{% /capture %}}
+

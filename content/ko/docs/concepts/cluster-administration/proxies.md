@@ -1,14 +1,14 @@
 ---
 title: 쿠버네티스에서 프락시(Proxy)
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스에서 함께 사용되는 프락시(Proxy)를 설명한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 프락시
 
@@ -62,6 +62,6 @@ weight: 90
 
 프락시는 리다이렉트 기능을 대체했다. 리다이렉트는 더 이상 사용하지 않는다.
 
-{{% /capture %}}
+
 
 

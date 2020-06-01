@@ -1,18 +1,18 @@
 ---
 title: 볼륨 스냅샷
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 쿠버네티스에서 스토리지 시스템 볼륨 스냅샷은 _VolumeSnapshot_ 을 나타낸다. 이 문서는 이미 쿠버네티스 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)에 대해 잘 알고 있다고 가정한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -148,4 +148,4 @@ spec:
 보다 자세한 사항은
 [볼륨 스냅샷 및 스냅샷에서 볼륨 복원](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)에서 확인할 수 있다.
 
-{{% /capture %}}
+

@@ -1,29 +1,30 @@
 ---
 title: Windows 노드 업그레이드
 min-kubernetes-server-version: 1.17
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 이 페이지는 [kubeadm으로 생성된](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes) Windows 노드를 업그레이드하는 방법을 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * [남은 kubeadm 클러스터를 업그레이드하는 프로세스](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)에
 익숙해져야 한다. Windows 노드를
 업그레이드하기 전에 컨트롤 플레인 노드를 업그레이드해야 한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 워커 노드 업그레이드
 
@@ -90,4 +91,4 @@ weight: 40
     ```
 
 
-{{% /capture %}}
+

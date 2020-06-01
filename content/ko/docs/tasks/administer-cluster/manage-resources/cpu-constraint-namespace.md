@@ -1,11 +1,11 @@
 ---
 title: 네임스페이스에 대한 CPU의 최소 및 최대 제약 조건 구성
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 네임스페이스에서 컨테이너와 파드가 사용하는 CPU 리소스의 최솟값과 최댓값을 설정하는
 방법을 보여준다. [리밋레인지(LimitRange)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
@@ -13,19 +13,20 @@ weight: 40
 지정한다. 리밋레인지에 의해 부과된 제약 조건을 파드가 충족하지 않으면, 네임스페이스에서
 생성될 수 없다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 태스크 예제를 실행하려면 클러스터에 적어도 1 CPU 이상이 사용 가능해야 한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 네임스페이스 생성
 
@@ -239,9 +240,10 @@ kubectl delete pod constraints-cpu-demo-4 --namespace=constraints-cpu-example
 kubectl delete namespace constraints-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 클러스터 관리자를 위한 문서
 
@@ -266,4 +268,4 @@ kubectl delete namespace constraints-cpu-example
 * [파드에 대한 서비스 품질(QoS) 구성](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 
-{{% /capture %}}
+

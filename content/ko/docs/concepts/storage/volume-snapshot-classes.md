@@ -1,19 +1,19 @@
 ---
 title: 볼륨 스냅샷 클래스
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 쿠버네티스의 `VolumeSnapshotClass` 개요를 설명한다.
 [볼륨 스냅샷](/docs/concepts/storage/volume-snapshots/)과
 [스토리지 클래스](/docs/concepts/storage/storage-classes)의 숙지를 추천한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -62,4 +62,4 @@ parameters:
 설명하는 파라미터를 가지고 있다. `driver` 에 따라 다른 파라미터를 사용할
 수 있다.
 
-{{% /capture %}}
+

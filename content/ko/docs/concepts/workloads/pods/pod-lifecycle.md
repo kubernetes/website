@@ -1,20 +1,20 @@
 ---
 title: 파드 라이프사이클
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< comment >}}Updated: 4/14/2015{{< /comment >}}
 {{< comment >}}Edited and moved to Concepts section: 2/2/17{{< /comment >}}
 
 이 페이지는 파드의 라이프사이클을 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드의 단계(phase)
 
@@ -388,10 +388,11 @@ spec:
      * 노드 컨트롤러가 파드의 `phase`를 Failed로 설정한다.
      * 만약 컨트롤러로 실행되었다면, 파드는 어딘가에서 재생성된다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Hands-on 경험하기
   [컨테이너 라이프사이클 이벤트에 핸들러 부착하기](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
@@ -401,6 +402,6 @@ spec:
 
 * [컨테이너 라이프사이클 후크(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 
-{{% /capture %}}
+
 
 

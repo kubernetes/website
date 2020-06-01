@@ -1,11 +1,11 @@
 ---
 title: 풀 리퀘스트 리뷰
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 누구나 문서화에 대한 풀 리퀘스트를 리뷰할 수 있다. 쿠버네티스 website 리포지터리의 [풀 리퀘스트](https://github.com/kubernetes/website/pulls) 섹션을 방문하여 열린(open) 풀 리퀘스트를 확인한다.
 
@@ -19,9 +19,9 @@ weight: 10
 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
 - 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/docs/contribute/participating/#roles-and-responsibilities)을 이해한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 시작하기 전에
 
@@ -95,4 +95,4 @@ weight: 10
 
 오타나 공백과 같은 작은 이슈의 PR인 경우, 코멘트 앞에 `nit:` 를 추가한다. 이를 통해 문서의 저자는 이슈가 긴급하지 않다는 것을 알 수 있다.
 
-{{% /capture %}}
+

@@ -1,16 +1,16 @@
 ---
 title: Minikube로 쿠버네티스 설치
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube는 쿠버네티스를 로컬에서 쉽게 실행하는 도구이다. Minikube는 매일 쿠버네티스를 사용하거나 개발하려는 사용자들을 위해 가상 머신(VM) 이나 노트북에서 단일 노드 쿠버네티스 클러스터를 실행한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Minikube 특징
 
@@ -504,4 +504,4 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 
 컨트리뷰션, 질문과 의견은 모두 환영하며 격려한다! Minikube 개발자는 [슬랙](https://kubernetes.slack.com)에 #minikube 채널(초청받으려면 [여기](http://slack.kubernetes.io/))에 상주하고 있다. 또한 [kubernetes-dev 구글 그룹 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-dev)도 있다. 메일링 리스트에 포스팅한다면 제목에 "minikube: "라는 접두어를 사용하자.
 
-{{% /capture %}}
+

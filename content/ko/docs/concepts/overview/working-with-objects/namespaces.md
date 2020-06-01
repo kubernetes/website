@@ -1,18 +1,18 @@
 ---
 title: 네임스페이스
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스는 동일한 물리 클러스터를 기반으로 하는 여러 가상 클러스터를 지원한다.
 이런 가상 클러스터를 네임스페이스라고 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 여러 개의 네임스페이스를 사용하는 경우
 
@@ -108,11 +108,12 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
 * [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
 
-{{% /capture %}}
+
 

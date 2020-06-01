@@ -1,18 +1,18 @@
 ---
 title: 가비지(Garbage) 수집
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스의 가비지 수집기는 한때 소유자가 있었지만, 더 이상
 소유자가 없는 오브젝트들을 삭제하는 역할을 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소유자(owner)와 종속(dependent)
 
@@ -168,15 +168,16 @@ kubectl delete replicaset my-repset --cascade=false
 
 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)을 추적한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [디자인 문서 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [디자인 문서 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
 
 

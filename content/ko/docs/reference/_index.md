@@ -3,16 +3,16 @@ title: 레퍼런스
 linkTitle: "레퍼런스"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 문서의 본 섹션에서는 레퍼런스를 다룬다. 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API 레퍼런스
 
@@ -50,4 +50,4 @@ content_template: templates/concept
 
 쿠버네티스 기능에 대한 설계 문서의 아카이브. [쿠버네티스 아키텍처](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)와 [쿠버네티스 디자인 개요](https://git.k8s.io/community/contributors/design-proposals)가 좋은 출발점이다.
 
-{{% /capture %}}
+

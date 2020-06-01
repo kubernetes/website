@@ -5,11 +5,11 @@ feature:
   description: >
     파드와 서비스에 IPv4와 IPv6 주소 할당
 
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -17,9 +17,9 @@ weight: 70
 
 만약 쿠버네티스 클러스터에서 IPv4/IPv6 이중 스택 네트워킹을 활성화하면, 클러스터는 IPv4와 IPv6 주소의 동시 할당을 지원하게 된다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 지원되는 기능
 
@@ -99,10 +99,11 @@ IPv6가 활성화된 외부 로드 밸런서를 지원하는 클라우드 공급
 
    * Kubenet은 IP의 IPv4,IPv6의 위치 보고를 강제로 수행한다. (--cluster-cidr)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [IPv4/IPv6 이중 스택 확인](/docs/tasks/network/validate-dual-stack) 네트워킹
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: kubectl 설치 및 설정
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,15 +8,16 @@ card:
   title: kubectl 설치
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 커맨드 라인 도구인 [kubectl](/docs/user-guide/kubectl/)을 사용하면, 쿠버네티스 클러스터에 대해 명령을 실행할 수 있다. kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하며 로그를 볼 수 있다. kubectl 작업의 전체 목록에 대해서는, [kubectl 개요](/docs/reference/kubectl/overview/)를 참고한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 클러스터의 마이너(minor) 버전 차이 내에 있는 kubectl 버전을 사용해야 한다. 예를 들어, v1.2 클라이언트는 v1.1, v1.2 및 v1.3의 마스터와 함께 작동해야 한다. 최신 버전의 kubectl을 사용하면 예기치 않은 문제를 피할 수 있다.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 리눅스에 kubectl 설치
 
@@ -503,12 +504,13 @@ compinit
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Minikube 설치](/ko/docs/tasks/tools/install-minikube/)
 * 클러스터 생성에 대한 자세한 내용은 [시작하기](/ko/docs/setup/)를 참고한다.
 * [애플리케이션을 시작하고 노출하는 방법에 대해 배운다.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * 직접 생성하지 않은 클러스터에 접근해야하는 경우, [클러스터 접근 공유 문서](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참고한다.
 * [kubectl 레퍼런스 문서](/docs/reference/kubectl/kubectl/) 읽기
-{{% /capture %}}
+

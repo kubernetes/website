@@ -1,10 +1,10 @@
 ---
 title: 클라우드 컨트롤러 매니저
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
@@ -17,10 +17,10 @@ weight: 40
 클라우드 컨트롤러 매니저는 다양한 클라우드 공급자가 자신의
 플랫폼에 쿠버네티스를 통합할 수 있도록 하는 플러그인 메커니즘을 사용해서 구성된다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 디자인
 
@@ -200,8 +200,9 @@ rules:
   - update
 ```
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [클라우드 컨트롤러 매니저 관리](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)에는
 클라우드 컨트롤러 매니저의 실행과 관리에 대한 지침이 있다.
 
@@ -212,4 +213,4 @@ rules:
 이 문서(노드, 라우트와 서비스)에서 강조된 공유 컨트롤러의 구현과 공유 cloudprovider 인터페이스와 함께 일부 스캐폴딩(scaffolding)은 쿠버네티스 핵심의 일부이다. 클라우드 공급자 전용 구현은 쿠버네티스의 핵심 바깥에 있으며 `CloudProvider` 인터페이스를 구현한다.
 
 플러그인 개발에 대한 자세한 내용은 [클라우드 컨트롤러 매니저 개발하기](/docs/tasks/administer-cluster/developing-cloud-controller-manager/)를 참조한다.
-{{% /capture %}}
+
