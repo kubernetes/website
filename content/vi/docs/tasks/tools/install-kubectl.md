@@ -466,7 +466,8 @@ compinit
 
 
 
-{{% capture Tiếp theo %}}
+## {{% heading "whatsnext" %}}
+
 * [Cài đặt Minikube](/docs/tasks/tools/install-minikube/)
 * Xem [hướng dẫn bắt đầu](/docs/setup/) để biết thêm về việc tạo cluster.
 * [Tìm hiểu cách khởi chạy và hiển thị ứng dụng của bạn.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
