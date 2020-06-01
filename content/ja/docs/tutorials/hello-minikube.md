@@ -61,7 +61,7 @@ card:
 
 3. Katacoda環境のみ：ターミナルペーン上部の+ボタンをクリックしてから **Select port to view on Host 1** をクリックしてください。
 
-4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。 
+4. Katacoda環境のみ：`30000`を入力し、**Display Port**をクリックしてください。
 
 ## Deploymentの作成
 
@@ -79,7 +79,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     kubectl get deployments
     ```
 
-    出力:
+    出力は下記のようになります:
 
     ```shell
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
@@ -91,7 +91,8 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     ```shell
     kubectl get pods
     ```
-    出力:
+
+    出力は下記のようになります:
 
     ```shell
     NAME                          READY     STATUS    RESTARTS   AGE
@@ -109,7 +110,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}} `kubectl`コマンドの詳細な情報は[kubectl overview](/docs/user-guide/kubectl-overview/)を参照してください。{{< /note >}}
 
 ## Serviceの作成
@@ -121,7 +122,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     `--type=LoadBalancer`フラグはServiceをクラスタ外部に公開したいことを示しています。
 
 2. 作成したServiceを確認します:
@@ -130,7 +131,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     kubectl get services
     ```
 
-    出力:
+    出力は下記のようになります:
 
     ```shell
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
@@ -163,7 +164,7 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     minikube addons list
     ```
 
-    出力:
+    出力は下記のようになります:
 
     ```shell
     addon-manager: enabled
@@ -182,14 +183,14 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     registry-creds: disabled
     storage-provisioner: enabled
     ```
-   
+
 2. ここでは例として`heapster`のアドオンを有効化します:
 
     ```shell
     minikube addons enable heapster
     ```
-  
-    出力:
+
+    出力は下記のようになります:
 
     ```shell
     heapster was successfully enabled
@@ -226,7 +227,7 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     minikube addons disable heapster
     ```
 
-    出力:
+    出力は下記のようになります:
 
     ```shell
     heapster was successfully disabled
