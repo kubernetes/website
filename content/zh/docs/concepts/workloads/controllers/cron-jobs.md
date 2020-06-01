@@ -32,12 +32,19 @@ _Cron Job_ 创建基于时间调度的 [Jobs](/docs/concepts/workloads/controlle
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，并周期性地在给定的调度时间执行 Job。
 
 <!--
-All **CronJob** `schedule:` times are based on the timezone of the master where the job is initiated.
+All **CronJob** `schedule:` times are based on the timezone of the
+
+If your control plane runs the kube-controller-manager in Pods or bare
+containers, the timezone set for the kube-controller-manager container determines the timezone
+that the cron job controller uses.
 -->
 
-{{< note >}}
-所有 **CronJob** 的 `schedule:` 时间都使用 UTC 时间表示。
-{{< /note >}}
+{{< caution >}}
+所有 **CronJob** 的 `schedule:` 时间都是基于初始 Job 的主控节点的时区。
+
+如果你的控制平面在 Pod 或是裸容器中运行了主控程序 (kube-controller-manager)，
+那么为该容器设置的时区将会决定定时任务的控制器所使用的时区。
+{{< /caution >}}
 
 <!--
 When creating the manifest for a CronJob resource, make sure the name you provide
@@ -127,4 +134,3 @@ the Job in turn is responsible for the management of the Pods it represents.
 CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管理其代表的 Pod。
 
 {{% /capture %}}
- 
