@@ -4,11 +4,11 @@ reviewers:
   - soltysh
   - janetkuo
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
@@ -25,9 +25,9 @@ O nome não deve ter mais que 52 caracteres. Isso ocorre porque o controlador do
 
 Para obter instruções sobre como criar e trabalhar com tarefas cron, e para obter um exemplo de arquivo de especificação para uma tarefa cron, consulte [Executando tarefas automatizadas com tarefas cron](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Limitações do Cron Job
 
@@ -51,4 +51,4 @@ Para ilustrar ainda mais esse conceito, suponha que um CronJob esteja definido p
 
 O CronJob é responsável apenas pela criação de trabalhos que correspondem à sua programação, e o trabalho, por sua vez, é responsável pelo gerenciamento dos Pods que ele representa.
 
-{{% /capture %}}
+

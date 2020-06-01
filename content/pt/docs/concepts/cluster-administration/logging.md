@@ -3,19 +3,19 @@ reviewers:
   - piosz
   - x13n
 title: Arquitetura de Log
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Os logs de aplicativos e sistemas podem ajudá-lo a entender o que está acontecendo dentro do seu cluster. Os logs são particularmente úteis para depurar problemas e monitorar a atividade do cluster. A maioria das aplicações modernas possui algum tipo de mecanismo de logs; como tal, a maioria dos mecanismos de contêineres também é projetada para suportar algum tipo de log. O método de log mais fácil e abrangente para aplicações em contêiner é gravar nos fluxos de saída e erro padrão.
 
 No entanto, a funcionalidade nativa fornecida por um mecanismo de contêiner ou tempo de execução geralmente não é suficiente para uma solução completa de log. Por exemplo, se um contêiner travar, um pod for despejado ou um nó morrer, geralmente você ainda desejará acessar os logs do aplicativo. Dessa forma, os logs devem ter armazenamento e ciclo de vida separados, independentemente de nós, pods ou contêineres. Este conceito é chamado _cluster-level-logging_. O log no nível de cluster requer um back-end separado para armazenar, analisar e consultar logs. O kubernetes não fornece uma solução de armazenamento nativa para dados de log, mas você pode integrar muitas soluções de log existentes no cluster do Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 As arquiteturas de log no nível de cluster são descritas no pressuposto de que um back-end de log esteja presente dentro ou fora do cluster. Se você não estiver interessado em ter o log no nível do cluster, ainda poderá encontrar a descrição de como os logs são armazenados e manipulados no nó para serem úteis.
 
@@ -203,4 +203,4 @@ Lembre-se de que este é apenas um exemplo e você pode realmente substituir o f
 
 Você pode implementar o log no nível do cluster, expondo ou enviando logs diretamente de todos os aplicativos; no entanto, a implementação desse mecanismo de log está fora do escopo do Kubernetes.
 
-{{% /capture %}}
+

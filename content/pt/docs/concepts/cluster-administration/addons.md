@@ -1,9 +1,9 @@
 ---
 title: Instalando Addons
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 Addons estendem a funcionalidade do Kubernetes.
@@ -12,10 +12,10 @@ Esta página lista alguns dos add-ons e links com suas respectivas instruções 
 
 Os Add-ons de cada sessão são classificados em ordem alfabética - a ordem não implica qualquer status preferencial.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Rede e Política de Rede
 
@@ -55,4 +55,4 @@ Existem vários outros complementos documentados no diretório não mais ultiliz
 
 Projetos bem mantidos deveriam ser linkados aqui. PRs são bem vindas!
 
-{{% /capture %}}
+
