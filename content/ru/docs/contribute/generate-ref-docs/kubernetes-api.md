@@ -1,10 +1,10 @@
 ---
 title: Генерация справочной документации для API Kubernetes
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице рассказывается про обновление справочной документации по API Kubernetes.
 
@@ -14,15 +14,16 @@ weight: 50
 
 Продолжайте чтение данной странице, если вы хотите перегенерировать справочную документацию из спецификации [OpenAPI](https://github.com/OAI/OpenAPI-Specification).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Настройка локальных репозиториев
 
@@ -177,12 +178,13 @@ make docker-serve
 Отправьте свои изменения в виде [пулреквеста](/ru/docs/contribute/start/) в репозиторий [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes).
 Отслеживайте изменения в пулреквесте и по мере необходимости отвечайте на комментарии рецензента. Не забывайте проверять пулреквест до тех пор, пока он не будет принят.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Руководство по быстрому старту генерации справочной документации](/ru/docs/contribute/generate-ref-docs/quickstart/)
 * [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Генерация справочной документации для команд kubectl](/ru/docs/contribute/generate-ref-docs/kubectl/)
 
-{{% /capture %}}
+

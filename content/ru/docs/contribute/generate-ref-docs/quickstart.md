@@ -1,22 +1,23 @@
 ---
 title: Руководство по быстрому старту
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице показано, как использовать скрипт `update-imported-docs` для генерации справочной документации Kubernetes. Скрипт автоматизирует настройку сборки и генерирует справочную документацию для выпуска.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Получение репозитория документации
 
@@ -207,9 +208,10 @@ static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.w
 
 Спустя несколько минут после принятия вашего пулреквеста, обновленные темы справочника будут отображены в [документации](/ru/docs/home/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Для генерации отдельной взятой справочной документации путём ручной настройки необходимых репозиториев сборки и выполнении скриптов сборки обратитесь к следующим руководствам:
 
@@ -217,4 +219,4 @@ static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.w
 * [Генерация справочной документации для команд kubectl](/ru/docs/contribute/generate-ref-docs/kubectl/)
 * [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/)
 
-{{% /capture %}}
+

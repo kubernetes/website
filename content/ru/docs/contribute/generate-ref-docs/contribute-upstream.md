@@ -1,10 +1,10 @@
 ---
 title: Участие в основном коде Kubernetes
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице показано, как поучаствовать в основном содержимом проекта `kubernetes/kubernetes`.
 Вы можете исправить баги, найденные в документации по API Kubernetes или содержимом таких компонентов Kubernetes, как `kubeadm`, `kube-apiserver` и `kube-controller-manager`.
@@ -14,9 +14,10 @@ weight: 20
 - [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - Установленные инструменты:
 
@@ -31,9 +32,9 @@ weight: 20
   Это обычно предполагает создание копии репозитория.
   Для получения дополнительной информации смотрите страницы [Создание пулреквеста](https://help.github.com/articles/creating-a-pull-request/) и [Стандартный рабочий процесс в GitHub по работе с копией и пулреквестом](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Рассмотрение процесса в целом
 
@@ -174,12 +175,13 @@ hack/update-api-reference-docs.sh
 
 Теперь вы можете приступить к изучению руководству [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/), чтобы создать [справочную документацию API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Генерация справочной документации для API Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Генерация справочной документации для компонентов и инструментов Kubernetes](/ru/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Генерация справочной документации для команд kubectl](/ru/docs/contribute/generate-ref-docs/kubectl/)
 
-{{% /capture %}}
+

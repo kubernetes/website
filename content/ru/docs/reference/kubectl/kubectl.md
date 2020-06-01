@@ -4,7 +4,8 @@ content_template: templates/tool-reference
 weight: 28
 ---
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 kubectl управляет кластерами Kubernetes.
@@ -15,9 +16,10 @@ kubectl управляет кластерами Kubernetes.
 kubectl [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
 <table style="width: 100%; table-layout: fixed;">
   <colgroup>
@@ -515,9 +517,10 @@ kubectl [flags]
 
 
 
-{{% /capture %}}
 
-{{% capture seealso %}}
+
+## {{% heading "seealso" %}}
+
 
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Обновить аннотации ресурса
 * [kubectl api-resources](/docs/reference/generated/kubectl/kubectl-commands#api-resources)	 - Вывести доступные API-ресурсы на сервере
@@ -562,5 +565,5 @@ kubectl [flags]
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Вывести информацию о версии клиента и сервера
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Экспериментально: ожидать выполнения определенного условия в одном или нескольких ресурсах.
 
-{{% /capture %}}
+
 

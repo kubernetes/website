@@ -1,19 +1,20 @@
 ---
 title: Установка Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице рассказано, как установить [Minikube](/ru/docs/tutorials/hello-minikube), инструмент для запуска одноузлового кластера Kubernetes на виртуальной машине в персональном компьютере.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -51,9 +52,9 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 # Установка minikube
 
@@ -194,13 +195,14 @@ choco install minikube
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)
 
-{{% /capture %}}
+
 
 ## Проверка установки
 

@@ -1,17 +1,18 @@
 ---
 title: Написание новой темы
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 На этой странице показано, как создать новую тему для документации Kubernetes.
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Создайте копию репозитория документации Kubernetes, как описано в разделе [Участие для начинающих](/ru/docs/contribute/start/).
-{{% capture steps %}}
+<!-- steps -->
 
 ## Выбор типы страницы
 
@@ -111,9 +112,10 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 
 Поместите файлы изображений в директорию `/images`. Предпочтительный формат изображения — SVG.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Подробнее про [использование шаблонов страниц](/ru/docs/contribute/style/page-templates/).
 * Подробнее про [создание пулреквеста](/ru/docs/contribute/start/#отправка-пулреквеста)).
-{{% /capture %}}
+

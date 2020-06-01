@@ -1,17 +1,17 @@
 ---
 title: Участие для опытных
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице предполагается, что вы изучили темы [Участие для начинающих](/ru/docs/contribute/start/) и [Участие для опытных](/ru/docs/contribute/intermediate/) и теперь хотите узнать ещё больше про то, как можно помочь проекту. Для решения некоторых задач вам потребуется использовать Git из командной строки и прочие другие инструменты.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Дежурный по PR на неделю
 
@@ -193,4 +193,4 @@ weight: 30
 
 Запись автоматически загрузится на YouTube.
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: Локализация документации Kubernetes
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 30
   title: Перевод документации
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице рассказывается, как [локализовать](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/) документацию на разные языки.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Начало работы
 
@@ -274,13 +274,14 @@ SIG Docs приветствует [участие и дополнения](/ru/d
 
 Вы также можете добавлять или улучшать контент в уже существующей локализации. Обратитесь к соответствующему [Slack-каналу](https://kubernetes.slack.com/messages/C1J0BPD2M/) для этого и начинайте помогать через PR.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Как только локализация будет соответствовать требованиям установленного рабочего процесса и содержать требуемый минимум контента, группа SIG Docs:
 
 - Добавит язык на сайт
 - Сообщит о новой локализации на каналах [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF), включая [блог Kubernetes](https://kubernetes.io/blog/).
 
-{{% /capture %}}
+

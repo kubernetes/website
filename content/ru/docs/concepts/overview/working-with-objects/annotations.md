@@ -1,14 +1,14 @@
 ---
 title: Аннотации
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Аннотации Kubernetes можно использовать для добавления собственных метаданных к объектам. Такие клиенты, как инструменты и библиотеки, могут получить эти метаданные.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Добавление метаданных к объектам
 
@@ -72,8 +72,9 @@ spec:
 
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Узнать подробнее про [метки и селекторы](/ru/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+

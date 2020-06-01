@@ -1,13 +1,13 @@
 ---
 title: kubectl для пользователей Docker
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Вы можете использовать инструмент командной строки kubectl в Kubernetes для работы с API-сервером. Если вы знакомы с инструментом командной строки Docker, то использование kubectl не составит проблем. Однако команды docker и kubectl отличаются. В следующих разделах показана подкоманда docker и приведена эквивалентная команда в kubectl.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## docker run
 
@@ -359,4 +359,4 @@ Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-{{% /capture %}}
+

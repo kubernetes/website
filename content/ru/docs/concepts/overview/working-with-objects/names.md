@@ -1,10 +1,10 @@
 ---
 title: Имена и идентификаторы объектов
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Каждый объект в кластере имеет уникальное [_имя_](#имена) для конкретного типа ресурса.
 Кроме этого, у каждого объекта Kubernetes есть собственный [_уникальный идентификатор (UID)_](#идентификаторы) в пределах кластера.
@@ -13,9 +13,9 @@ weight: 20
 
 Для создания пользовательских неуникальных атрибутов у Kubernetes есть [метки](/ru/docs/concepts/overview/working-with-objects/labels/) и [аннотации](/ru/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Имена
 
@@ -71,8 +71,9 @@ spec:
 Уникальные идентификатор (UID) в Kubernetes — это универсальные уникальные идентификаторы (известные также как Universally Unique IDentifier, сокращенно UUID).
 Эти идентификаторы стандартизированы под названием ISO/IEC 9834-8, а также как ITU-T X.667.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Узнать подробнее про [метки](/ru/docs/concepts/overview/working-with-objects/labels/) в Kubernetes.
 * Посмотреть архитектуру [идентификаторов и имён Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md).
-{{% /capture %}}
+

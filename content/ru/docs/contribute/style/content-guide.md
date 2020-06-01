@@ -1,7 +1,7 @@
 ---
 title: Руководство по содержанию документации
 linktitle: Руководство по содержанию
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
@@ -9,15 +9,15 @@ card:
   title: Руководство по содержанию документации
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Эта страница содержит рекомендации по добавлению контента в документацию Kubernetes.
 Если у вас есть вопросы по поводу допустимого контента, обратитесь к каналу #sig-docs в [Slack Kubernetes](http://slack.k8s.io/) и задайте свои вопросы! Поступайте на своё усмотрение и не стесняйтесь вносить изменения в этот документ через пулреквест.
 
 Для получения дополнительной информации о создании нового контента для документации Kubernetes следуйте инструкциям в [руководстве по оформлению](/ru/docs/contribute/style/style-guide).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Участие в контенте
 
@@ -94,8 +94,9 @@ card:
 
 Если у вас есть вопросы по поводу допустимого контента, присоединяйтесь к каналу #sig-docs в [Slack Kubernetes](http://slack.k8s.io/)!
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Прочитайте [руководство по оформлению](/ru/docs/contribute/style/style-guide).
-{{% /capture %}}
+
