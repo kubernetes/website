@@ -1,27 +1,28 @@
 ---
 title: 파드에 대한 서비스 품질(QoS) 구성
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 특정 서비스 품질(QoS) 클래스를 할당하기 위해 어떻게 파드를
 구성해야 하는지 보여준다. 쿠버네티스는 QoS 클래스를 사용하여 파드
 스케줄링과 축출을 결정한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## QoS 클래스
 
@@ -235,9 +236,10 @@ kubectl delete pod qos-demo-4 --namespace=qos-example
 kubectl delete namespace qos-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 ### 앱 개발자를 위한 문서
@@ -263,4 +265,4 @@ kubectl delete namespace qos-example
 * [API 오브젝트 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
 
 * [노드의 토폴로지 관리 정책 제어](/docs/tasks/administer-cluster/topology-manager/)
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: 잡 - 실행부터 완료까지
-content_template: templates/concept
+content_type: concept
 feature:
   title: 배치 실행
   description: >
@@ -8,7 +8,7 @@ feature:
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 잡에서 하나 이상의 파드를 생성하고 지정된 수의 파드가 성공적으로 종료되도록 한다.
 파드가 성공적으로 완료되면, 성공적으로 완료된 잡을 추적한다.  지정된 수의
@@ -21,10 +21,10 @@ weight: 70
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 예시 잡 실행하기
 
@@ -475,4 +475,4 @@ spec:
 
 [`크론잡`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
 
-{{% /capture %}}
+

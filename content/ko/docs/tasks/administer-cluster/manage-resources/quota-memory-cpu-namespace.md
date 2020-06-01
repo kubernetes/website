@@ -1,30 +1,31 @@
 ---
 title: 네임스페이스에 대한 메모리 및 CPU 쿼터 구성
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 네임스페이스에서 실행 중인 모든 컨테이너가 사용할 수 있는
 총 메모리 및 CPU 양에 대한 쿼터를 설정하는 방법을 보여준다.
 [리소스쿼터(ResourceQuota)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
 오브젝트에 쿼터를 지정한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 클러스터의 각 노드에는 최소 1GiB의 메모리가 있어야 한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 네임스페이스 생성
 
@@ -146,9 +147,10 @@ requested: requests.memory=700Mi,used: requests.memory=600Mi, limited: requests.
 kubectl delete namespace quota-mem-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 클러스터 관리자를 위한 문서
 
@@ -172,4 +174,4 @@ kubectl delete namespace quota-mem-cpu-example
 
 * [파드에 대한 서비스 품질(QoS) 구성](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+

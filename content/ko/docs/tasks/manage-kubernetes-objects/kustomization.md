@@ -1,10 +1,10 @@
 ---
 title: Kustomize를 이용한 쿠버네티스 오브젝트의 선언형 관리
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는 
 [kustomization 파일](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization)을 
@@ -24,17 +24,18 @@ kubectl kustomize <kustomization_directory>
 kubectl apply -k <kustomization_directory>
 ```
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Kustomize 개요
 
@@ -825,13 +826,14 @@ deployment.apps "dev-my-nginx" deleted
 | configurations        | []string                                                                                                     | 이 리스트 내 각각의 항목은 [Kustomize 변환 설정](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs)을 포함하는 파일로 해석되어져야 한다 |
 | crds                  | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 타입에 대한 OpenAPI 정의 파일로 해석되어져야 한다               |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

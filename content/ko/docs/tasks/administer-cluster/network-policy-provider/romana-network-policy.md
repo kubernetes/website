@@ -1,23 +1,24 @@
 ---
 reviewers:
 title: 네트워크 폴리시로 로마나(Romana)
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 네트워크 폴리시(NetworkPolicy)로 로마나(Romana)를 사용하는 방법을 살펴본다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [kubeadm 시작하기](/docs/getting-started-guides/kubeadm/)의 1, 2, 3 단계를 완료하자.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## kubeadm으로 로마나 설치하기
 
@@ -31,12 +32,13 @@ Kubeadm을 위한 [컨테이너화된 설치 안내서](https://github.com/roman
     * [Romana 네트워크 폴리시의 예](https://github.com/romana/core/blob/master/doc/policy.md).
 * 네트워크 폴리시 API.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 로마나를 설치한 후에는, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 
-{{% /capture %}}
+
 
 

@@ -1,11 +1,11 @@
 ---
 title: 엔드포인트슬라이스
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -13,9 +13,9 @@ _엔드포인트슬라이스_ 는 쿠버네티스 클러스터 내의 네트워�
 추적하는 간단한 방법을 제공한다. 이것은 엔드포인트를 더 확장하고, 확장 가능한
 대안을 제안한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 사용동기
 
@@ -173,11 +173,12 @@ text="kube-controller-manager" term_id="kube-controller-manager" >}} 플래그�
 교체되는 엔드포인트에 대해서 엔드포인트슬라이스를
 자연스럽게 재포장한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [엔드포인트슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices)
 * [애플리케이션을 서비스와 함께 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/) 를 읽는다.
 
-{{% /capture %}}
+

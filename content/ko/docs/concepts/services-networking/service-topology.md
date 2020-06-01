@@ -5,12 +5,12 @@ feature:
   description: >
     클러스터 토폴로지를 기반으로 서비스 트래픽 라우팅.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
@@ -19,9 +19,9 @@ _서비스 토폴로지_ 를 활성화 하면 서비스는 클러스터의 노�
 클라이언트와 동일한 노드이거나 동일한 가용성 영역에 있는 엔드포인트로
 우선적으로 라우팅되도록 지정할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -189,11 +189,12 @@ spec:
 ```
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [서비스 토폴로지 활성화하기](/docs/tasks/administer-cluster/enabling-service-topology)를 읽는다.
 * [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽는다.
 
-{{% /capture %}}
+

@@ -1,16 +1,16 @@
 ---
 title: 쿠버네티스에서 윈도우 컨테이너 스케줄링을 위한 가이드
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 많은 조직에서 실행하는 서비스와 애플리케이션의 상당 부분이 윈도우 애플리케이션으로 구성된다. 이 가이드는 쿠버네티스에서 윈도우 컨테이너를 구성하고 배포하는 단계를 안내한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 목표
 
@@ -245,6 +245,6 @@ spec:
 ```
 
 
-{{% /capture %}}
+
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

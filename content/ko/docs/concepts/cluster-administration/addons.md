@@ -1,9 +1,9 @@
 ---
 title: 애드온 설치
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 애드온은 쿠버네티스의 기능을 확장한다.
@@ -12,10 +12,10 @@ content_template: templates/concept
 
 각 섹션의 애드온은 알파벳 순으로 정렬되어 있다. 순서는 우선 순위와는 상관없다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 네트워킹과 네트워크 폴리시
 
@@ -55,4 +55,4 @@ content_template: templates/concept
 
 잘 관리된 것들이 여기에 연결되어 있어야 한다. PR을 환영한다!
 
-{{% /capture %}}
+

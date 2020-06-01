@@ -5,11 +5,11 @@ feature:
   description: >
     간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Horizontal Pod Autoscaler는 CPU 사용량
 (또는 [사용자 정의 메트릭](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md),
@@ -22,10 +22,10 @@ Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 �
 컨트롤러는 관찰된 평균 CPU 사용률이 사용자가 지정한 대상과 일치하도록 레플리케이션
 컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Horizontal Pod Autoscaler는 어떻게 작동하는가?
 
@@ -436,12 +436,12 @@ behavior:
     selectPolicy: Disabled
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 디자인 문서: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl 오토스케일 커맨드: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)의 사용 예제.
 
-{{% /capture %}}

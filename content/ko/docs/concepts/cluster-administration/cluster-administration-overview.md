@@ -1,15 +1,15 @@
 ---
 title: 클러스터 관리 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 클러스터 관리 개요는 쿠버네티스 클러스터를 만들거나 관리하는 모든 사람들을 위한 것이다.
 여기서는 쿠버네티스의 핵심 [개념](/ko/docs/concepts/)에 대해 잘 알고 있다고 가정한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 클러스터 계획
 
 [올바른 솔루션 고르기](/ko/docs/setup/pick-right-solution/)에서 쿠버네티스 클러스터를 어떻게 계획하고, 셋업하고, 구성하는 지에 대한 예시를 참조하자. 이 글에 쓰여진 솔루션들은 *배포판* 이라고 부른다.
@@ -65,4 +65,4 @@ weight: 10
 
 * [클러스터 활동 로깅과 모니터링](/docs/concepts/cluster-administration/logging/)은 쿠버네티스 로깅이 로깅의 작동 방법과 로깅을 어떻게 구현하는지 설명한다.
 
-{{% /capture %}}
+

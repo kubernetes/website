@@ -1,10 +1,10 @@
 ---
 title: 레이블과 셀렉터
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _레이블_ 은 파드와 같은 오브젝트에 첨부된 키와 값의 쌍이다.
 레이블은 오브젝트의 특성을 식별하는 데 사용되어 사용자에게 중요하지만, 코어 시스템에 직접적인 의미는 없다.
@@ -22,10 +22,10 @@ _레이블_ 은 파드와 같은 오브젝트에 첨부된 키와 값의 쌍이�
 
 레이블은 UI와 CLI에서 효율적인 쿼리를 사용하고 검색에 사용하기에 적합하다. 식별되지 않는 정보는 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)으로 기록해야 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 사용 동기
 
@@ -225,4 +225,4 @@ selector:
 레이블을 통해 선택하는 사용 사례 중 하나는 파드를 스케줄 할 수 있는 노드 셋을 제한하는 것이다.
 자세한 내용은 [노드 선택](/ko/docs/concepts/scheduling-eviction/assign-pod-node/) 문서를 참조한다.
 
-{{% /capture %}}
+

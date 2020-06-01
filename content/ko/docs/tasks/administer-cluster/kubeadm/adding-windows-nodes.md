@@ -1,20 +1,21 @@
 ---
 title: Windows 노드 추가
 min-kubernetes-server-version: 1.17
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 쿠버네티스를 사용하여 리눅스와 Windows 노드를 혼합하여 실행할 수 있으므로, 리눅스에서 실행되는 파드와 Windows에서 실행되는 파드를 혼합할 수 있다. 이 페이지는 Windows 노드를 클러스터에 등록하는 방법을 보여준다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}} {{< version-check >}}
+
+## {{% heading "prerequisites" %}}
+ {{< version-check >}}
 
 * Windows 컨테이너를 호스팅하는 Windows 노드를 구성하려면
 [Windows Server 2019 라이선스](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) 이상이 필요하다.
@@ -22,18 +23,19 @@ VXLAN/오버레이 네트워킹을 사용하는 경우 [KB4489899](https://suppo
 
 * 컨트롤 플레인에 접근할 수 있는 리눅스 기반의 쿠버네티스 kubeadm 클러스터([kubeadm을 사용하여 단일 컨트롤 플레인 클러스터 생성](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 참고)가 필요하다.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 클러스터에 Windows 노드 등록
 * 리눅스 및 Windows의 파드와 서비스가 서로 통신할 수 있도록 네트워킹 구성
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 시작하기: 클러스터에 Windows 노드 추가
 
@@ -173,10 +175,11 @@ kubectl -n kube-system get pods -l app=flannel
 
 flannel 파드가 실행되면, 노드는 `Ready` 상태가 되고 워크로드를 처리할 수 있어야 한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Windows kubeadm 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 
-{{% /capture %}}
+

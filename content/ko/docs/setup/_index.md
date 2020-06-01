@@ -3,7 +3,7 @@ no_issue: true
 title: 시작하기
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -14,7 +14,7 @@ card:
     title: 운영 환경
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 본 섹션에서는 쿠버네티스를 구축하고 실행하는 여러가지 옵션을 다룬다.
 
@@ -24,9 +24,9 @@ card:
 
 더 간단하게 정리하면, 쿠버네티스 클러스터를 학습 환경과 운영 환경에 만들 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 학습 환경
 
@@ -47,4 +47,4 @@ card:
 
 [쿠버네티스 파트너](https://kubernetes.io/partners/#conformance)에는 [공인 쿠버네티스](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 공급자 목록이 포함되어 있다.
 
-{{% /capture %}}
+

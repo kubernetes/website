@@ -1,19 +1,19 @@
 ---
 title: 클러스터 관리
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 클러스터의 라이프사이클에 관련된 몇 가지 주제들을 설명한다. 신규 클러스터 생성, 
 클러스터의 마스터와 워커 노드들의 업그레이드, 
 노드 유지보수(예. 커널 업그레이드) 수행, 운영 중인 클러스터의 
 쿠버네티스 API 버전 업그레이드.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 클러스터 생성과 설정
 
@@ -220,4 +220,4 @@ kubectl convert -f pod.yaml --output-version v1
 
 옵션에 대한 상세 정보는 [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) 커맨드의 사용법을 참조하기를 바란다.
 
-{{% /capture %}}
+

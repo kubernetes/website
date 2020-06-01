@@ -1,17 +1,17 @@
 ---
 title: 리소스 관리
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 애플리케이션을 배포하고 서비스를 통해 노출했다. 이제 무엇을 해야 할까? 쿠버네티스는 확장과 업데이트를 포함하여, 애플리케이션 배포를 관리하는 데 도움이 되는 여러 도구를 제공한다. 더 자세히 설명할 기능 중에는 [구성 파일](/ko/docs/concepts/configuration/overview/)과 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)이 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 리소스 구성 구성하기
 
@@ -447,11 +447,12 @@ kubectl edit deployment/my-nginx
 
 이것으로 끝이다! 디플로이먼트는 배포된 nginx 애플리케이션을 배후에서 점차적으로 업데이트한다. 업데이트되는 동안 특정 수의 이전 레플리카만 중단될 수 있으며, 원하는 수의 파드 위에 특정 수의 새 레플리카만 생성될 수 있다. 이에 대한 더 자세한 내용을 보려면, [디플로이먼트 페이지](/ko/docs/concepts/workloads/controllers/deployment/)를 방문한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.
 
-{{% /capture %}}
+

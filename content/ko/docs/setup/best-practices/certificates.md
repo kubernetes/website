@@ -1,19 +1,19 @@
 ---
 title: PKI 인증서 및 요구 조건
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스는 TLS 위에 인증을 위해 PKI 인증서가 필요하다.
 만약 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)으로 쿠버네티스를 설치했다면, 클러스터에 필요한 인증서는 자동으로 생성된다.
 또한 더 안전하게 자신이 소유한 인증서를 생성할 수 있다. 이를 테면, 개인키를 API 서버에 저장하지 않으므로 더 안전하게 보관할 수 있다.
 이 페이지는 클러스터에 필요한 인증서를 설명한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 클러스터에서 인증서는 어떻게 이용되나?
 
@@ -162,4 +162,4 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
-{{% /capture %}}
+

@@ -1,13 +1,13 @@
 ---
 title: 쿠버네티스 API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)에 기술되어 있다.
 
@@ -21,10 +21,10 @@ API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/referenc
 
 쿠버네티스 자체는 여러 컴포넌트로 나뉘어져서 각각의 API를 통해 상호작용한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API 변경
 
@@ -137,4 +137,4 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 {{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
 
-{{% /capture %}}
+

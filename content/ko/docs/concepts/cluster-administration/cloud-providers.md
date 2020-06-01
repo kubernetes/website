@@ -1,16 +1,16 @@
 ---
 title: 클라우드 제공자
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지에서는 특정 클라우드 제공자에서 실행 중인 쿠버네티스를 관리하는 방법에
 대해 설명한다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)은 쿠버네티스 클러스터를 생성하는 데 많이 사용하는 옵션이다.
 kubeadm에는 클라우드 제공자에 대한 구성 정보를 지정하는 구성 옵션이 있다. 예를 들어
@@ -363,7 +363,7 @@ OpenStack 제공자에 대한 다음의 구성 옵션은 [kubenet]
 
 [kubenet]: /ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 

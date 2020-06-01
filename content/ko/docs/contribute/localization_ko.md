@@ -1,16 +1,16 @@
 ---
 title: 쿠버네티스 문서 한글화 가이드
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 문서 한글화를 위한 가이드
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 문체 가이드
 
@@ -67,7 +67,7 @@ content_template: templates/concept
 +
 +
 + title: 쿠버네티스 컴포넌트
-content_template: templates/concept
+content_type: concept
 weight: 10
 ```
 
@@ -414,4 +414,4 @@ Worker | 워커 | 노드의 형태에 한함
 Workload | 워크로드 |
 YAML | YAML |
 
-{{% /capture %}}
+

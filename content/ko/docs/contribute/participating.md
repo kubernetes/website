@@ -1,13 +1,13 @@
 ---
 title: SIG Docs에 참여하기
-content_template: templates/concept
+content_type: concept
 weight: 60
 card:
   name: contribute
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs는 쿠버네티스 프로젝트의
 [분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
@@ -30,9 +30,9 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 문서를 관리하는 책임을 가지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 역할과 책임
 
@@ -302,9 +302,10 @@ PR 소유자에게 조언하는데 활용된다.
   [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
@@ -312,5 +313,5 @@ PR 소유자에게 조언하는데 활용된다.
 - [컨텐츠 검토하기](/docs/contribute/review/reviewing-prs)
 - [문서 스타일 가이드](/docs/contribute/style/)
 
-{{% /capture %}}
+
 

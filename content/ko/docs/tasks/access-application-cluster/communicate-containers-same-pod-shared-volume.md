@@ -1,25 +1,26 @@
 ---
 title: 공유 볼륨을 이용하여 동일한 파드의 컨테이너 간에 통신하기
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 동일한 파드(Pod)에서 실행 중인 두 개의 컨테이너 간에 통신할 때에, 어떻게 볼륨(Volume)을 이용하는지
 살펴본다. 컨테이너 간에 [프로세스 네임스페이스 공유하기](/docs/tasks/configure-pod-container/share-process-namespace/)를 통해 통신할 수 있는 방법을 참고하자.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 두 개의 컨테이너를 실행하는 파드 생성
 
@@ -108,10 +109,10 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 
     debian 컨테이너에서 안녕하세요
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 토의
 
@@ -126,10 +127,11 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 이 예제에서 볼륨은 파드의 생명 주기 동안 컨테이너를 위한 통신 방법으로 이용했다.
 파드가 삭제되고 재생성되면, 공유 볼륨에 저장된 데이터는 잃어버린다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [합성 컨테이너(composite container) 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)에 관하여
 더 공부한다.
@@ -146,7 +148,7 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 
 * [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)을 확인한다.
 
-{{% /capture %}}
+
 
 
 

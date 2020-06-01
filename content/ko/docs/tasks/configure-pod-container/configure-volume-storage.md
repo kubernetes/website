@@ -1,10 +1,10 @@
 ---
 title: 스토리지의 볼륨을 사용하는 파드 구성
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 스토리지의 볼륨을 사용하는 파드를 구성하는 방법을 설명한다.
 
@@ -14,15 +14,16 @@ weight: 50
 사용할 수 있다. 이것은 레디스(Redis)와 같은 키-값 저장소나
 데이터베이스와 같은 스테이트풀 애플리케이션에 매우 중요하다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 파드에 볼륨 구성
 
@@ -126,9 +127,10 @@ Redis 파드의
     kubectl delete pod redis
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)을 참고한다.
 
@@ -140,6 +142,6 @@ Redis 파드의
 노드의 디바이스 마운트, 언마운트와 같은 세부사항을 처리한다.
 자세한 내용은 [볼륨](/ko/docs/concepts/storage/volumes/)을 참고한다.
 
-{{% /capture %}}
+
 
 

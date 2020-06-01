@@ -1,27 +1,28 @@
 ---
 title: 네임스페이스에 대한 기본 메모리 요청량과 상한 구성
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 네임스페이스에 대한 기본 메모리 요청량(request)과 상한(limit)을 구성하는 방법을 보여준다.
 기본 메모리 상한이 있는 네임스페이스에서 컨테이너가 생성되고, 컨테이너가
 자체 메모리 상한을 지정하지 않으면, 컨테이너에 기본 메모리 상한이 할당된다.
 쿠버네티스는 이 문서의 뒷부분에서 설명하는 특정 조건에서 기본 메모리 요청량을 할당한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 클러스터의 각 노드에는 최소 2GiB의 메모리가 있어야 한다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 네임스페이스 생성
 
@@ -170,9 +171,10 @@ resources:
 kubectl delete namespace default-mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 클러스터 관리자를 위한 문서
 
@@ -196,4 +198,4 @@ kubectl delete namespace default-mem-example
 
 * [파드에 대한 서비스 품질(QoS) 구성](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+

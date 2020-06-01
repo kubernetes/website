@@ -1,19 +1,20 @@
 ---
 title: 소스 IP 주소 이용하기
-content_template: templates/tutorial
+content_type: tutorial
 min-kubernetes-server-version: v1.5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 클러스터에서 실행 중인 애플리케이션은 서로 간에 외부 세계와
 서비스 추상화를 통해 찾고 통신한다. 이 문서는
 다른 종류의 서비스로 보내진 패킷의 소스 IP 주소에 어떤 일이 벌어지는지와
 이 동작을 요구에 따라 토글할 수 있는지 설명한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 ### 용어
 
@@ -54,18 +55,19 @@ kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
 deployment.apps/source-ip-app created
 ```
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 간단한 애플리케이션을 다양한 서비스 종류로 노출하기
 * 각 서비스 유형에 따른 소스 IP NAT 의 동작 이해하기
 * 소스 IP 주소 보존에 관한 절충 사항 이해
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## `Type=ClusterIP` 인 서비스에서 소스 IP
 
@@ -423,9 +425,10 @@ HTTP [Forwarded]](https://tools.ietf.org/html/rfc7239#section-5.2)
 HTTP 헬스 체크를 생성하여
 위에서 설명한 기능을 활용할 수 있다.
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 서비스를 삭제한다.
 
@@ -439,10 +442,11 @@ kubectl delete svc -l run=source-ip-app
 kubectl delete deployment source-ip-app
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
 * 어떻게 [외부 로드밸런서 생성](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
-{{% /capture %}}
+
 

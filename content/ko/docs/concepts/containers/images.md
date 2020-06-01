@@ -1,19 +1,19 @@
 ---
 title: 이미지
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 사용자 Docker 이미지를 생성하고 레지스트리에 푸시(push)하여 쿠버네티스 파드에서 참조되기 이전에 대비한다.
 
 컨테이너의 `image` 속성은 `docker` 커맨드에서 지원하는 문법과 같은 문법을 지원한다. 이는 프라이빗 레지스트리와 태그를 포함한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 이미지 업데이트
 
@@ -367,4 +367,4 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
 Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상`.docker / config.json` 파일로 병합한다.
 
-{{% /capture %}}
+

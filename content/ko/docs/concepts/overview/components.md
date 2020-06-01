@@ -1,13 +1,13 @@
 ---
 title: 쿠버네티스 컴포넌트
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스를 배포하면 클러스터를 얻는다.
 {{< glossary_definition term_id="cluster" length="all" prepend="쿠버네티스 클러스터는">}}
 
@@ -18,9 +18,9 @@ card:
 
 ![쿠버네티스의 컴포넌트](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 컨트롤 플레인 컴포넌트
 
 컨트롤 플레인 컴포넌트는 클러스터에 관한 전반적인 결정(예를 들어, 스케줄링)을 수행하고 클러스터 이벤트(예를 들어, 디플로이먼트의 `replicas` 필드에 대한 요구 조건이 충족되지 않을 경우 새로운 {{< glossary_tooltip text="파드" term_id="pod">}}를 구동시키는 것)를 감지하고 반응한다.
@@ -118,10 +118,11 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 [클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은
 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 진다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [노드](/ko/docs/concepts/architecture/nodes/)에 대해 더 배우기
 * [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 더 배우기
 * [kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 더 배우기
 * etcd의 공식 [문서](https://etcd.io/docs/) 읽기
-{{% /capture %}}
+

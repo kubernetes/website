@@ -1,26 +1,27 @@
 ---
 title: 프라이빗 레지스트리에서 이미지 받아오기
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 프라이빗 도커 레지스트리나 리포지터리로부터 이미지를 받아오기 위해 시크릿(Secret)을 
 사용하는 파드(Pod)를 생성하는 방법을 보여준다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * 이 실습을 수행하기 위해, 
 [도커 ID](https://docs.docker.com/docker-id/)와 비밀번호가 필요하다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 도커 로그인
 
@@ -200,9 +201,10 @@ kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [시크릿](/docs/concepts/configuration/secret/)에 대해 더 배워 보기.
 * [프라이빗 레지스트리 사용](/ko/docs/concepts/containers/images/#프라이빗-레지스트리-사용)에 대해 더 배워 보기.
@@ -211,4 +213,4 @@ kubectl get pod private-reg
 * [시크릿](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)에 대해 읽어보기.
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의 `imagePullSecrets` 필드에 대해 읽어보기.
 
-{{% /capture %}}
+

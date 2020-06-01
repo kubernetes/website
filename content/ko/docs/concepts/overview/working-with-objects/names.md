@@ -1,10 +1,10 @@
 ---
 title: 오브젝트 이름과 ID
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 클러스터의 각 오브젝트는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
 또한, 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
@@ -13,10 +13,10 @@ weight: 20
 
 유일하지 않은 사용자 제공 속성의 경우 쿠버네티스는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)과 [어노테이션](/ko/docs/concepts/overview/working-with-objects/annotations/)을 제공한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 이름 {#names}
 
@@ -79,8 +79,9 @@ spec:
 쿠버네티스 UID는 보편적으로 고유한 식별자이다(또는 UUID라고 한다).
 UUID는 ISO/IEC 9834-8 과 ITU-T X.667 로 표준화 되어 있다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * 쿠버네티스의 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 읽기.
 * [쿠버네티스의 식별자와 이름](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) 디자인 문서 읽기.
-{{% /capture %}}
+

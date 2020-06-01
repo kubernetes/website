@@ -6,11 +6,11 @@ feature:
   description: >
     오류가 발생한 컨테이너를 재시작하고, 노드가 죽었을 때 컨테이너를 교체하기 위해 다시 스케줄하고, 사용자 정의 상태 체크에 응답하지 않는 컨테이너를 제거하며, 서비스를 제공할 준비가 될 때까지 클라이언트에 해당 컨테이너를 알리지 않는다.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 [`ReplicaSet`](/ko/docs/concepts/workloads/controllers/replicaset/) 을 구성하는 [`Deployment`](/ko/docs/concepts/workloads/controllers/deployment/) 가 현재 권장되는 레플리케이션 설정 방법이다.
@@ -20,10 +20,10 @@ _레플리케이션 컨트롤러_ 는 언제든지 지정된 수의 파드 레�
 실행 중임을 보장한다.
 다시 말하면, 레플리케이션 컨트롤러는 파드 또는 동일 종류의 파드의 셋이 항상 기동되고 사용 가능한지 확인한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 레플리케이션 컨트롤러의 동작방식
 
@@ -282,4 +282,4 @@ API 오브젝트에 대한 더 자세한 것은
 
 [스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
 
-{{% /capture %}}
+

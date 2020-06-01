@@ -1,18 +1,18 @@
 ---
 title: 스토리지 클래스
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 쿠버네티스의 스토리지클래스의 개념을 설명한다.
 [볼륨](/ko/docs/concepts/storage/volumes/)과
 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes)에 익숙해지는 것을 권장한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -816,4 +816,4 @@ volumeBindingMode: WaitForFirstConsumer
 적절한 퍼시스턴트볼륨을 선택할 때 파드의 모든 스케줄링
 제약 조건을 고려할 수 있다.
 
-{{% /capture %}}
+

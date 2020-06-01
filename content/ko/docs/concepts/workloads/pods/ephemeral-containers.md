@@ -1,10 +1,10 @@
 ---
 title: 임시(Ephemeral) 컨테이너
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
@@ -19,9 +19,9 @@ weight: 80
 이 알파 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 임시 컨테이너 이해하기
 
@@ -188,4 +188,4 @@ Ephemeral Containers:
 kubectl attach -it example-pod -c debugger
 ```
 
-{{% /capture %}}
+
