@@ -115,7 +115,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
 ## Serviceの作成
 
-通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
+通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてPodを公開する必要があります。
 
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
@@ -196,7 +196,7 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
     heapster was successfully enabled
     ```
 
-3. 作成されたポッドとサービスを確認します:
+3. 作成されたPodとサービスを確認します:
 
     ```shell
     kubectl get pod,svc -n kube-system
