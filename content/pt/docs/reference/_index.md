@@ -5,16 +5,16 @@ approvers:
 linkTitle: "Referência"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta seção da documentação do Kubernetes contém referências.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Referência da API
 
@@ -49,4 +49,4 @@ Para chamar a API Kubernetes de uma linguagem de programação, você pode usar
 
 Um arquivo dos documentos de design para as funcionalidades do Kubernetes. Bons pontos de partida são [Arquitetura Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) e [Visão geral do design do Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

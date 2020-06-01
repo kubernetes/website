@@ -4,11 +4,11 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A camada de agregação permite ao Kubernetes ser estendido com APIs adicionais,
 para além do que é oferecido pelas APIs centrais do Kubernetes.
@@ -20,9 +20,9 @@ A camada de agregação é diferente dos [Recursos Personalizados](/docs/concept
 que são uma forma de fazer o {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
 reconhecer novas espécies de objetos.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Camada de agregação
 
@@ -53,13 +53,14 @@ considere fazer alterações que permitam atingi-lo. Pode também definir
 a restrição de intervalo. Esta portal de funcionalidade deprecado será removido
 num lançamento futuro.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Para pôr o agregador a funcionar no seu ambiente, [configure a camada de agregação](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
 * De seguida, [configura um api-server de extensão](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) para funcionar com a camada de agregação.
 * Também, aprenda como pode [estender a API do Kubernetes através do use de Definições de Recursos Personalizados](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 * Leia a especificação do [APIService](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)
 
-{{% /capture %}}
+

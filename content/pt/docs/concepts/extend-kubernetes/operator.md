@@ -1,20 +1,20 @@
 ---
 title: Padrão Operador
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Operadores são extensões de software para o Kubernetes que
 fazem uso de [*recursos personalizados*](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 para gerir aplicações e os seus componentes. Operadores seguem os  
 princípios do Kubernetes, notavelmente o [ciclo de controle](/docs/concepts/#kubernetes-control-plane).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivação
 
@@ -118,9 +118,10 @@ para escrever o seu próprio Operador *cloud native*.
 Pode também implementar um Operador (isto é, um Controlador) usando qualquer linguagem / *runtime*
 que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/client-libraries/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Aprenda mais sobre [Recursos Personalizados](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Encontre operadores prontos em [OperatorHub.io](https://operatorhub.io/) para o seu caso de uso
@@ -134,4 +135,4 @@ que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/
 * Leia o [artigo original da CoreOS](https://coreos.com/blog/introducing-operators.html) que introduz o padrão Operador
 * Leia um [artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) da Google Cloud sobre as melhores práticas para contruir Operadores
 
-{{% /capture %}}
+

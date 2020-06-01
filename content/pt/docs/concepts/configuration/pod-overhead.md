@@ -4,11 +4,11 @@ reviewers:
 - egernst
 - tallclair
 title: Pod Overhead
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -18,10 +18,10 @@ Sobrecarga de Pod, do inglês _Pod Overhead_, é uma funcionalidade que serve pa
 infraestrutura do Pod para além das solicitações e limites do _container_.
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 No Kubernetes, a sobrecarga de _Pods_ é definido no tempo de
 [admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
@@ -187,11 +187,12 @@ para ajudar a identificar quando o _PodOverhead_ está a ser utilizado e para aj
 em execução com uma sobrecarga (_Overhead_) definida. Esta funcionalidade não está disponível na versão 1.9 do kube-state-metrics,
 mas é esperado num próximo _release_. Os utilizadores necessitarão entretanto de construir kube-state-metrics a partir da fonte.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

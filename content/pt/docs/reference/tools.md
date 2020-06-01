@@ -1,13 +1,13 @@
 ---
 title: Ferramentas
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 O Kubernetes contém várias ferramentas internas para ajudá-lo a trabalhar com o sistema Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/) é a ferramenta de linha de comando para o Kubernetes. Ela controla o gerenciador de cluster do Kubernetes.
@@ -51,4 +51,3 @@ Use o Kompose para:
 * Ir do desenvolvimento local do Docker ao gerenciamento de seu aplicativo via Kubernetes
 * Converter arquivos `yaml` do Docker Compose v1 ou v2 ou [Bundles de Aplicativos Distribuídos](https://docs.docker.com/compose/bundles/)
 
-{{% /capture %}}
