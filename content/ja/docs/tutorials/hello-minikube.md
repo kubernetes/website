@@ -81,7 +81,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     NAME         READY   UP-TO-DATE   AVAILABLE   AGE
     hello-node   1/1     1            1           1m
     ```
@@ -94,7 +94,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     NAME                          READY     STATUS    RESTARTS   AGE
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
@@ -133,7 +133,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
     hello-node   LoadBalancer   10.108.144.78   <pending>     8080:30369/TCP   21s
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
@@ -166,7 +166,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     addon-manager: enabled
     dashboard: enabled
     default-storageclass: enabled
@@ -194,7 +194,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     heapster was successfully enabled
     ```
 
@@ -206,7 +206,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
     出力:
 
-    ```shell
+    ```
     NAME                                        READY     STATUS    RESTARTS   AGE
     pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
     pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
@@ -235,7 +235,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
 
     出力は下記のようになります:
 
-    ```shell
+    ```
     etrics-server was successfully disabled
     ```
 
