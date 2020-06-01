@@ -10,7 +10,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 The Certificates API enables automation of
 [X.509](https://www.itu.int/rec/T-REC-X.509) credential provisioning by providing
@@ -107,7 +107,8 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some distributions may honor these as client
-  certs, but that behavior is non-standard Kubernetes behavior.
+  certs, but that behavior is not standard Kubernetes behavior.
+  This signerName can only be requested in CertificateSigningRequests created via the `certificates.k8s.io/v1beta1` API version.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
@@ -361,12 +362,13 @@ status condition based on the state you determine:
 For `Approved` CSRs:
 
 ```yaml
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 ...
 status:
   conditions:
   - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
     message: Approved by my custom approver controller
     reason: ApprovedByMyPolicy # You can set this to any string
     type: Approved
@@ -375,12 +377,13 @@ status:
 For `Denied` CSRs:
 
 ```yaml
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 ...
 status:
   conditions:
   - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
     message: Denied by my custom approver controller
     reason: DeniedByMyPolicy # You can set this to any string
     type: Denied
@@ -409,7 +412,51 @@ Users of the REST API can sign CSRs by submitting an UPDATE request to the `stat
 subresource of the CSR to be signed.
 
 As part of this request, the `status.certificate` field should be set to contain the
-signed certificate.
+signed certificate. This field contains one or more PEM-encoded certificates.
+
+All PEM blocks must have the "CERTIFICATE" label, contain no headers,
+and the encoded data must be a BER-encoded ASN.1 Certificate structure
+as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
+
+Example certificate content:
+
+```
+-----BEGIN CERTIFICATE-----
+MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
+BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
+BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
+MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
+dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
++e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
+kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
+Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
+sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
+2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
+YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
+ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
+L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
+qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
+o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
+aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
+M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
+-----END CERTIFICATE-----
+```
+
+Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
+to allow for explanatory text as described in section 5.2 of RFC7468.
+
+When encoded in JSON or YAML, this field is base-64 encoded.
+A CertificateSigningRequest containing the example certificate above would look like this:
+
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
+```
 
 
 
