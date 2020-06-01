@@ -1,19 +1,19 @@
 ---
 title: Концепції
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}, and helps you obtain a deeper understanding of how Kubernetes works.
 -->
 В розділі "Концепції" описані складові системи Kubernetes і абстракції, за допомогою яких Kubernetes реалізовує ваш {{< glossary_tooltip text="кластер" term_id="cluster" length="all" >}}. Цей розділ допоможе вам краще зрозуміти, як працює Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--## Overview
 -->
@@ -108,9 +108,10 @@ Kubernetes Master відповідає за підтримку бажаного 
 Вузлами кластера називають машини (ВМ, фізичні сервери тощо), на яких запущені ваші застосунки та хмарні робочі навантаження. Кожен вузол керується Kubernetes master; ви лише зрідка взаємодіятимете безпосередньо із вузлами.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--If you would like to write a concept page, see
 [Using Page Templates](/docs/home/contribute/page-templates/)
@@ -120,4 +121,4 @@ for information about the concept page type and the concept template.
 [Використання шаблонів сторінок](/docs/home/contribute/page-templates/)
 ви знайдете інформацію щодо типу і шаблона сторінки.
 
-{{% /capture %}}
+

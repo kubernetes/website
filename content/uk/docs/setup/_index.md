@@ -7,7 +7,7 @@ no_issue: true
 title: Початок роботи
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -18,7 +18,7 @@ card:
     title: Прод оточення
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--This section covers different options to set up and run Kubernetes.
 -->
@@ -36,9 +36,9 @@ card:
 -->
 Простіше кажучи, ви можете створити Kubernetes кластер у навчальному і в прод оточеннях.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--## Learning environment
 -->
@@ -133,4 +133,4 @@ card:
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 | [Z.A.R.V.I.S.](https://zarvis.ai/) | &#x2714; | | | | | |
 
-{{% /capture %}}
+
