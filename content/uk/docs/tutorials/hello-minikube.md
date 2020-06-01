@@ -1,7 +1,7 @@
 ---
 #title: Hello Minikube
 title: Привіт Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -18,7 +18,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--This tutorial shows you how to run a simple Hello World Node.js app
 on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
@@ -34,9 +34,10 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 Також ви можете навчатись за цим матеріалом, якщо встановили [Minikube локально](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--* Deploy a hello world application to Minikube.
 -->
@@ -48,9 +49,10 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 -->
 * Переглянути логи застосунку.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--This tutorial provides a container image built from the following files:
 -->
@@ -64,9 +66,9 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 -->
 Більше інформації про команду `docker build` ви знайдете у [документації Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--## Create a Minikube cluster
 -->
@@ -377,9 +379,10 @@ minikube stop
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 -->
@@ -391,4 +394,4 @@ minikube delete
 -->
 * Дізнайтеся більше про [об'єкти Service](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+
