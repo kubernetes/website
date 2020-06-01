@@ -51,7 +51,7 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 4. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### ネイティブなパッケージマネージャーを使用してインストールする
@@ -129,7 +129,7 @@ kubectl version
 4. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Homebrewを使用してmacOSへインストールする
@@ -150,7 +150,7 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### MacPortsを使用してmacOSへインストールする
@@ -167,7 +167,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
@@ -188,7 +188,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 3. `kubectl`のバージョンがダウンロードしたものと同じであることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)は、それ自身のバージョンの`kubectl`をPATHに追加します。Docker Desktopをすでにインストールしている場合、Docker Desktopインストーラーによって追加されたPATHの前に追加するか、Docker Desktopの`kubectl`を削除してください。
@@ -212,7 +212,7 @@ Windowsで[Powershell Gallery](https://www.powershellgallery.com/)パッケー�
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}アップデートする際は、手順1に示した2つのコマンドを再実行してください。{{< /note >}}
@@ -235,7 +235,7 @@ Windowsへkubectlをインストールするために、[Chocolatey](https://cho
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 3. ホームディレクトリへ移動してください:
@@ -277,7 +277,7 @@ Google Cloud SDKの一部として、kubectlをインストールすることも
 3. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## kubectlの設定を検証する
