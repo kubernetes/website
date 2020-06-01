@@ -1,18 +1,18 @@
 ---
 title: 公开外部 IP 地址以访问集群中应用程序
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
 <!--
 ---
 title: Exposing an External IP Address to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create a Kubernetes Service object that exposes an
@@ -20,10 +20,11 @@ external IP address.
 -->
 此页面显示如何创建公开外部 IP 地址的 Kubernetes 服务对象。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
  * Install [kubectl](/docs/tasks/tools/install-kubectl/).
@@ -44,10 +45,11 @@ external IP address.
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Run five instances of a Hello World application.
@@ -59,10 +61,10 @@ external IP address.
 * 创建一个公开外部 IP 地址的 Service 对象。
 * 使用 Service 对象访问正在运行的应用程序。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Creating a service for an application running in five pods
@@ -238,10 +240,11 @@ If the external IP address is shown as \<pending\>, wait for a minute and enter 
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 To delete the Service, enter this command:
@@ -258,10 +261,11 @@ the Hello World application, enter this command:
 
         kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn more about
@@ -270,4 +274,4 @@ Learn more about
 
 了解更多关于[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)。
 
-{{% /capture %}}
+

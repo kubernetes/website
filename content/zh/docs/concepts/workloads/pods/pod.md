@@ -1,17 +1,17 @@
 ---
 title: Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 <!--
 reviewers:
 title: Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 _Pods_ are the smallest deployable units of computing that can be created and
@@ -20,10 +20,10 @@ managed in Kubernetes.
 
 _Pod_ 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## What is a Pod?
@@ -384,4 +384,4 @@ describes the object in detail.
 Pod 是 Kubernetes REST API 中的顶级资源。
 [Pod API 对象](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)定义详细描述了该 Pod 对象。
 
-{{% /capture %}}
+

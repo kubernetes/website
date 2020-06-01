@@ -1,32 +1,34 @@
 ---
 title: 使用Deployment运行一个无状态应用
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文介绍通过Kubernetes Deployment对象如何去运行一个应用.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 创建一个nginx deployment.
 * 使用kubectl列举关于deployment信息.
 * 更新deployment.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 创建和探究一个nginx deployment
 
@@ -132,13 +134,14 @@ content_template: templates/tutorial
 
 创建一个多副本应用首选方法是使用Deployment,反过来使用ReplicaSet. 在Deployment和ReplicaSet加入到Kubernetes之前, 多副本应用通过[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)来配置.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 了解更多 [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
+
 
 

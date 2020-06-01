@@ -1,18 +1,18 @@
 ---
 title: 使用工作队列进行粗粒度并行处理
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 <!--
 ---
 title: Coarse Parallel Processing Using a Work Queue
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 In this example, we will run a Kubernetes Job with multiple parallel
@@ -43,10 +43,11 @@ Here is an overview of the steps in this example:
 
 1. **启动一个在队列中执行这些任务的 Job**。该 Job 启动多个 Pod。每个 Pod 从消息队列中取走一个任务，处理它，然后重复执行，直到队列的队尾。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 Be familiar with the basic,
@@ -57,9 +58,9 @@ non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workload
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Starting a message queue service
@@ -436,9 +437,9 @@ All our pods succeeded.  Yay.
 
 我们所有的 Pod 都成功了。耶！
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Alternatives
@@ -501,4 +502,4 @@ in the queue have been processed.
 * 在 amqp-consume 命令拿到消息和容器成功退出之间的时间段内，执行杀死容器操作；
 * 在 kubelet 向 api-server 传回 Pod 成功运行之前，发生节点崩溃。
 
-{{% /capture %}}
+

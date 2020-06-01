@@ -1,10 +1,10 @@
 ---
 title: 使用 Service 把前端连接到后端
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 
@@ -12,10 +12,11 @@ content_template: templates/tutorial
 本任务会描述如何创建前端微服务和后端微服务。后端微服务是一个 hello 欢迎程序。
 前端和后端的连接是通过 Kubernetes 服务对象（Service object）完成的。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 
 
@@ -24,10 +25,11 @@ content_template: templates/tutorial
 * 从后端将流量路由到前端
 * 使用服务对象把前端应用连接到后端应用
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -36,10 +38,10 @@ content_template: templates/tutorial
   所以需要对应的可支持此功能的环境。如果你的环境不能支持，你可以使用
   [NodePort](/docs/user-guide/services/#type-nodeport) 类型的服务代替。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ### 使用部署对象（Deployment）创建后端
@@ -180,16 +182,17 @@ curl http://<EXTERNAL-IP>
 {"message":"Hello"}
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 
 * 了解更多 [Services](/docs/concepts/services-networking/service/)
 * 了解更多 [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 
-{{% /capture %}}
+
 
 

@@ -1,10 +1,10 @@
 ---
 title: 容器概述
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Containers are a technnology for packaging the (compiled) code for an
@@ -20,10 +20,10 @@ This makes deployment easier in different cloud or OS environments.
 
 容器将应用程序和底层主机架构解耦，这使得在不同的云或OS环境中部署应用更加容易。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Container images
@@ -50,12 +50,13 @@ the change, then recreate the container to start from the updated image.
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Read about [container images](/docs/concepts/containers/images/)
 * Read about [Pods](/docs/concepts/workloads/pods/)
 -->
 * 阅读有关[容器镜像](/docs/concepts/containers/images/)
 * 阅读有关 [Pods](/docs/concepts/workloads/pods/)
-{{% /capture %}}
+

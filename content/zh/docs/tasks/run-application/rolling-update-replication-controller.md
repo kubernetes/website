@@ -2,7 +2,7 @@
 reviewers:
 - janetkuo
 title: 基于Replication Controller执行滚动升级
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
@@ -11,7 +11,7 @@ weight: 80
 reviewers:
 - janetkuo
 title: Perform Rolling Update Using a Replication Controller
-content_template: templates/concept
+content_type: concept
 weight: 80
 --- 
 -->

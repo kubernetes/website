@@ -2,7 +2,7 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: StackDriver 中的事件
 ---
 
@@ -11,12 +11,12 @@ title: StackDriver 中的事件
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Events in Stackdriver
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes events are objects that provide insight into what is happening
@@ -66,10 +66,10 @@ of the potential inaccuracy.
 [sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
 [sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Deployment
@@ -164,4 +164,4 @@ jsonPayload.involvedObject.name:"nginx-deployment"
 
 {{< figure src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500" >}}
 
-{{% /capture %}}
+

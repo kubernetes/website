@@ -3,11 +3,11 @@ reviewers:
 - tallclair
 - dchen1107
 title: 容器运行时类(Runtime Class)
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -22,10 +22,10 @@ configuration is used to run a Pod's containers.
 -->
 RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行时配置用于运行 Pod 中的容器。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- 
 ## Motivation
@@ -307,8 +307,9 @@ are accounted for in Kubernetes.
 -->
 Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。通过使用这些字段，你可以指定使用该 RuntimeClass 运行 Pod 时的开销并确保 Kubernetes 将这些开销计算在内。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
@@ -321,4 +322,4 @@ Pod 开销通过 RuntimeClass 的 `overhead` 字段定义。通过使用这些�
 - 阅读关于 [Pod 开销](/docs/concepts/configuration/pod-overhead/) 的概念
 - [PodOverhead 特性设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

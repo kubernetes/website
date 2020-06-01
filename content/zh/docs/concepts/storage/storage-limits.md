@@ -1,6 +1,6 @@
 ---
 title: 特定于节点的卷数限制
-content_template: templates/concept
+content_type: concept
 ---
 
 <!-- ---
@@ -10,11 +10,11 @@ reviewers:
 - thockin
 - msau42
 title: Node-specific Volume Limits
-content_template: templates/concept
+content_type: concept
 ---
  -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- This page describes the maximum number of volumes that can be attached
 to a Node for various cloud providers. -->
@@ -30,9 +30,9 @@ Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能
 
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Kubernetes default limits
@@ -150,4 +150,4 @@ Kubernetes 允许 39 个卷关联至节点。
 
 * 对于由已迁移到 CSI 驱动程序的树内插件管理的卷，最大卷数将是 CSI 驱动程序报告的卷数。
 
-{{% /capture %}}
+

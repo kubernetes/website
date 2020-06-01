@@ -1,16 +1,16 @@
 ---
 title: 网络插件
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
 title: Network Plugins
-content_template: templates/concept
+content_type: concept
 weight: 10
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 <!--
@@ -29,9 +29,9 @@ Kubernetes中的网络插件有几种类型：
 * CNI 插件： 遵守 appc/CNI 规约，为互操作性设计。
 * Kubenet 插件：使用 `bridge` 和 `host-local` CNI 插件实现了基本的 `cbr0`。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Installation
@@ -266,8 +266,9 @@ This option is provided to the network-plugin; currently **only kubenet supports
 * `--network-plugin=kubenet` 用来表明我们要使用 `kubenet` 网络插件，CNI `bridge` 和 `host-local` 插件位于 `/opt/cni/bin` 或 `cni-bin-dir` 中。
 * `--network-plugin-mtu=9001` 指定了我们使用的 MTU，当前仅被 `kubenet` 网络插件使用。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

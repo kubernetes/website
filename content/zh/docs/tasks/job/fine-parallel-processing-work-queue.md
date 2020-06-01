@@ -2,18 +2,18 @@
 cn-approvers:
 - linyouchong
 title: 使用工作队列进行精细的并行处理
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 <!--
 ---
 title: Fine Parallel Processing Using a Work Queue
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 In this example, we will run a Kubernetes Job with multiple parallel
@@ -57,17 +57,18 @@ Here is an overview of the steps in this example:
 
 3. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod 。每个 Pod 从消息队列中取出一个工作任务，处理它，然后重复，直到到达队列的尾部。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 Be familiar with the basic,
@@ -75,9 +76,9 @@ non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workload
 -->
 熟秋基础知识，非并行方式运行 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Starting Redis
@@ -359,9 +360,9 @@ As you can see, one of our pods worked on several work units.
 -->
 您可以看到，其中的一个 pod 处理了若干个工作单元。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Alternatives
@@ -382,4 +383,4 @@ and consider running a background processing library such as
 -->
 如果您有连续的后台处理业务，那么可以考虑使用 `replicationController` 来运行您的后台业务，和运行一个类似 [https://github.com/resque/resque](https://github.com/resque/resque) 的后台处理库。
 
-{{% /capture %}}
+

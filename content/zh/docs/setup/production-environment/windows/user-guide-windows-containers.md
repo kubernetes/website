@@ -3,7 +3,7 @@ reviewers:
 - michmike
 - patricklang
 title: Kubernetes 中调度 Windows 容器的指南
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 <!--
@@ -12,21 +12,21 @@ reviewers:
 - michmike
 - patricklang
 title: Guide for scheduling Windows containers in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Windows applications constitute a large portion of the services and applications that run in many organizations. This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 -->
 Windows 应用程序构成了许多组织中运行的服务和应用程序的很大一部分。本指南将引导您完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Objectives
@@ -363,6 +363,6 @@ spec:
 ```
 
 
-{{% /capture %}}
+
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

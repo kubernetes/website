@@ -3,10 +3,10 @@ reviewers:
 - jsafrane
 title: 创建静态 Pod
 weight: 170
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
@@ -45,9 +45,10 @@ kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -60,9 +61,9 @@ Instructions for other distributions or Kubernetes installations may vary.
 本文假定你在使用 {{< glossary_tooltip term_id="docker" >}} 来运行 Pod，并且你的节点是运行着 Fedora 操作系统。
 其它发行版或者 Kubernetes 部署版本上操作方式可能不一样。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a static pod {#static-pod-creation}
@@ -397,4 +398,4 @@ CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
 
-{{% /capture %}}
+

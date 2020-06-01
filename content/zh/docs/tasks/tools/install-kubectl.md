@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 title: 安装并设置 kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 <!--
@@ -11,26 +11,27 @@ reviewers:
 - bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 <!--
  Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
  -->
  在 Kubernetes 上使用 Kubernetes 命令行工具 [kubectl](/docs/user-guide/kubectl/) 部署和管理应用程序。使用 kubectl，您可以检查集群资源；创建、删除和更新组件；查看您的新集群；并启动实例应用程序。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
 -->
 您必须使用与集群小版本号差别为一的 kubectl 版本。例如，1.2版本的客户端应该与1.1版本、1.2版本和1.3版本的主节点一起使用。使用最新版本的 kubectl 有助于避免无法预料的问题。
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Install kubectl
@@ -691,12 +692,13 @@ fi
 ```shell
 plugins=(kubectl)
 ```
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 -->
 [了解如何启动并对外暴露您的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-{{% /capture %}}
+
 

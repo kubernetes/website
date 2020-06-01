@@ -4,7 +4,7 @@ reviewers:
 - thockin
 - wlan0
 title: Kubernetes 云管理控制器
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -13,11 +13,11 @@ reviewers:
 - thockin
 - wlan0
 title: Kubernetes Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 <!--
@@ -29,10 +29,10 @@ Kubernetes v1.6 包含一个新的二进制文件，叫做 `cloud-controller-man
 
 `cloud-controller-manager` 可以被链接到任何满足 [cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go) 约束的云服务提供商。为了兼容旧版本，Kubernetes 核心项目中提供的 [cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager) 使用和 `kube-controller-manager` 相同的云服务类库。已经在 Kubernetes 核心项目中支持的云服务提供商预计将通过使用 in-tree 的 cloud-controller-manager 过渡到 Kubernetes 核心之外。在将来的 Kubernetes 发布中，所有的云管理控制器将在 Kubernetes 核心项目之外，由 sig 领导者或者云服务厂商进行开发。 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Administration
@@ -177,4 +177,3 @@ Kubelet 中的 TLS 引导特性是一个很好的例子。目前，TLS 引导认
 
 要构建和开发您自己的云管理控制器，请阅读 [开发云管理控制器](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md) 文档。
 
-{{% /capture %}}

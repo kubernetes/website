@@ -2,7 +2,7 @@
 title: 在 Kubernetes 集群中使用 sysctl
 reviewers:
 - sttts
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -11,12 +11,12 @@ content_template: templates/task
 title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
-content_template: templates/task
+content_type: task
 ---
 
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 <!--
@@ -25,15 +25,16 @@ Kubernetes cluster using the sysctl interface.
 --->
 本文档介绍如何通过 sysctl 接口在 Kubernetes 集群中配置和使用内核参数。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Listing all Sysctl Parameters
@@ -223,9 +224,9 @@ spec:
       value: "65536"
   ...
 ```
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 {{< warning >}}
 <!--
@@ -329,4 +330,4 @@ spec:
  ...
 ```
 
-{{% /capture %}}
+

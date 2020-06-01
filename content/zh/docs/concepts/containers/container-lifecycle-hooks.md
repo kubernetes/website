@@ -3,7 +3,7 @@ reviewers:
 - mikedanese
 - thockin
 title: 容器生命周期钩子
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
@@ -12,12 +12,12 @@ reviewers:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
-content_template: templates/concept
+content_type: concept
 weight: 30
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
@@ -25,10 +25,10 @@ to run code triggered by events during their management lifecycle.
 -->
 这个页面描述了 kubelet 管理的容器如何使用容器生命周期钩子框架来运行在其管理生命周期中由事件触发的代码。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview
@@ -214,9 +214,10 @@ Events:
   1m         22s         2     {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}    spec.containers{main}    Warning        FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables/).
@@ -227,4 +228,4 @@ Events:
 * 了解更多关于[容器环境](/docs/concepts/containers/container-environment-variables/)。
 * 获取实践经验[将处理程序附加到容器生命周期事件](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 
-{{% /capture %}}
+

@@ -2,25 +2,25 @@
 approvers:
 - chenopis
 title: 定制 Hugo 短代码
-content_template: templates/concept
+content_type: concept
 ---
 
 <!-- ---
 approvers:
 - chenopis
 title: Custom Hugo Shortcodes
-content_template: templates/concept
+content_type: concept
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation. -->
 本页面将介绍定制 Hugo 短代码，可以用于 Kubernetes markdown 文档书写。
 
 <!-- Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes). -->
 更多关于短代码参见 [Hugo 文档](https://gohugo.io/content-management/shortcodes)。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!-- ## Feature state -->
 ## 功能状态
 
@@ -256,9 +256,10 @@ println "This is tab 2."
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!-- * Learn about [Hugo](https://gohugo.io/).
 * Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
 * Learn about [using page templates](/docs/home/contribute/page-templates/).
@@ -270,4 +271,4 @@ println "This is tab 2."
 * 了解 [使用页面模板](/docs/home/contribute/page-templates/)。
 * 了解 [暂存修改](/docs/home/contribute/stage-documentation-changes/)。
 * 了解 [创建 pull request](/docs/home/contribute/create-pull-request/)。
-{{% /capture %}}
+

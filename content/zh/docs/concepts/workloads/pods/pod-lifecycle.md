@@ -1,18 +1,18 @@
 ---
 title: Pod 的生命周期
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< comment >}}Updated: 4/14/2015{{< /comment >}}
 {{< comment >}}Edited and moved to Concepts section: 2/2/17{{< /comment >}}
 
 该页面将描述 Pod 的生命周期。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pod phase
 
@@ -174,7 +174,7 @@ spec:
   - 节点控制器将 Pod `phase` 设置为 Failed。
   - 如果是用控制器来运行，Pod 将在别处重建。
 
-{{% /capture %}}
+
 
 
 

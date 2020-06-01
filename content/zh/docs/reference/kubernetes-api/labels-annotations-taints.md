@@ -1,10 +1,10 @@
 ---
 title: 知名标签（Label）、注解（Annotation）和 Taints
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
@@ -16,9 +16,9 @@ Kubernetes 保留了 kubernetes.io 命名空间下的所有标签和注解。
 
 本文既作为这些标签和注解的参考，也就这些标签和注解的赋值进行了说明。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## kubernetes.io/arch
 
@@ -272,4 +272,4 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 如果 `PersistentVolumeLabel` 准入控制器不支持自动为 PersistentVolume 打标签，且用户希望防止 pod 跨区域进行卷的挂载，
 应考虑手动打标签 (或对 `PersistentVolumeLabel` 增加支持）。如果用户的基础设施没有这种约束，则不需要为卷添加区域标签。
 
-{{% /capture %}}
+

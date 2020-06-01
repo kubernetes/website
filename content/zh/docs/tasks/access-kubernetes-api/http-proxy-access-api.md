@@ -1,25 +1,26 @@
 ---
 title: 使用 HTTP 代理访问 Kubernetes API
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 <!--
 ---
 title: Use an HTTP Proxy to Access the Kubernetes API
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to use an HTTP proxy to access the Kubernetes API.
 -->
 本文说明如何使用 HTTP 代理访问 Kubernetes API。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -33,9 +34,9 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Using kubectl to start a proxy server
@@ -109,13 +110,14 @@ Get a list of pods:
             ...
     }
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 Learn more about [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands#proxy).
 -->
 想了解更多信息，请参阅 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands#proxy)。
-{{% /capture %}}
+
 
 

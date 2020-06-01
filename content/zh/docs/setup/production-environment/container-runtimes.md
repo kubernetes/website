@@ -3,7 +3,7 @@ reviewers:
 - vincepri
 - bart0sh
 title: 容器运行时
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -12,11 +12,11 @@ reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 <!--
 To run containers in Pods, Kubernetes uses a container runtime. Here are
@@ -25,9 +25,9 @@ the installation instructions for various runtimes.
 Kubernetes 使用容器运行时来实现在 pod 中运行容器。
 这是各种运行时的安装说明。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< caution >}}
 <!--
@@ -588,4 +588,4 @@ Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quic
 
 请参阅 [Frakti 快速开始指南](https://github.com/kubernetes/frakti#quickstart) 来获取更多的信息。
 
-{{% /capture %}}
+

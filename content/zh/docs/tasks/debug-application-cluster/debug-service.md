@@ -2,7 +2,7 @@
 reviewers:
 - thockin
 - bowei
-content_template: templates/concept
+content_type: concept
 title: 调试 Service
 ---
 
@@ -11,12 +11,12 @@ title: 调试 Service
 reviewers:
 - thockin
 - bowei
-content_template: templates/concept
+content_type: concept
 title: Debug Services
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 An issue that comes up rather frequently for new installations of Kubernetes is
 that a `Service` is not working properly.  You've run your `Deployment` and
@@ -25,10 +25,10 @@ This document will hopefully help you to figure out what's going wrong.
 -->
 对于新安装的 Kubernetes，经常出现的一个问题是 `Service` 没有正常工作。如果您已经运行了 `Deployment` 并创建了一个 `Service`，但是当您尝试访问它时没有得到响应，希望这份文档能帮助您找出问题所在。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Conventions
@@ -1167,14 +1167,15 @@ Contact us on
 使用 [Slack](/docs/troubleshooting/#slack) 或者 [Forum](https://discuss.kubernetes.io) 或者 [GitHub](https://github.com/kubernetes/kubernetes) 联系我们。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Visit [troubleshooting document](/docs/troubleshooting/) for more information.
 -->
 访问[故障排查文档](/docs/troubleshooting/)获取更多信息。
 
-{{% /capture %}}
+
 

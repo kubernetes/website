@@ -1,6 +1,6 @@
 ---
 title: Kubernetes 是什么？
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
@@ -12,7 +12,7 @@ reviewers:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
@@ -20,14 +20,14 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page is an overview of Kubernetes.
 -->
 此页面是 Kubernetes 的概述。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 -->
@@ -205,13 +205,14 @@ Kubernetes：
 * Kubernetes 不提供也不采用任何全面的机器配置、维护、管理或自我修复系统。
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。编排的技术定义是执行已定义的工作流程：首先执行 A，然后执行 B，再执行 C。相比之下，Kubernetes 包含一组独立的、可组合的控制过程，这些过程连续地将当前状态驱动到所提供的所需状态。从 A 到 C 的方式无关紧要，也不需要集中控制，这使得系统更易于使用且功能更强大、健壮、弹性和可扩展性。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
 -->
 *   查阅 [Kubernetes 组件](/docs/concepts/overview/components/)
 *   开始 [Kubernetes 入门](/docs/setup/)?
-{{% /capture %}}
+

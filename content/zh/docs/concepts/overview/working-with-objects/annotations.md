@@ -1,27 +1,27 @@
 ---
 title: 注解
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 <!--
 ---
 title: Annotations
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 你可以使用 Kubernetes 注解为对象附加任意的非标识的元数据。客户端程序（例如工具和库）能够获取这些元数据信息。
 <!--
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
 to objects. Clients such as tools and libraries can retrieve this metadata.
 -->
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 为对象附加元数据
 <!--
 ## Attaching metadata to objects
@@ -163,11 +163,12 @@ spec:
 
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 进一步了解[标签和选择器](/docs/concepts/overview/working-with-objects/labels/)。
 <!--
 Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-{{% /capture %}}
+

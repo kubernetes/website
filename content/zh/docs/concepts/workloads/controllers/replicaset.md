@@ -4,11 +4,11 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 ReplicaSet is the next-generation Replication Controller. The only difference
@@ -21,9 +21,9 @@ whereas a Replication Controller only supports equality-based selector requireme
 
 ReplicaSet 是下一代的 Replication Controller。 _ReplicaSet_ 和 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 的唯一区别是选择器的支持。ReplicaSet 支持新的基于集合的选择器需求，这在[标签用户指南](/docs/concepts/overview/working-with-objects/labels/#label-selectors)中有描述。而 Replication Controller 仅支持基于相等选择器的需求。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## How to use a ReplicaSet
@@ -412,5 +412,5 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 对于管理那些提供主机级别功能（如主机监控和主机日志）的容器，就要用[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) 而不用 ReplicaSet。
 这些 Pod 的寿命与主机寿命有关：这些 Pod 需要先于主机上的其他 Pod 运行，并且在机器准备重新启动/关闭时安全地终止。
 
-{{% /capture %}}
+
 

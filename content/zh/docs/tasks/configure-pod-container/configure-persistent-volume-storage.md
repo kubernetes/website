@@ -1,18 +1,18 @@
 ---
 title: 配置 Pod 以使用 PersistentVolume 作为存储
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
 <!--
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to configure a Pod to use a PersistentVolumeClaim for storage.
@@ -36,9 +36,10 @@ bound to a suitable PersistentVolume.
 
 1. 用户创建一个使用 PersistentVolumeClaim 作为存储的 Pod。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * You need to have a Kubernetes cluster that has only one Node, and the kubectl
@@ -55,9 +56,9 @@ do not already have a single-node cluster, you can create one by using
 
 * 熟悉[持久卷](/docs/concepts/storage/persistent-volumes/)中的材料。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create an index.html file on your Node
@@ -293,10 +294,10 @@ hostPath volume:
 
     Hello from Kubernetes storage
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Access control
@@ -347,10 +348,11 @@ PersistentVolume are not present on the Pod resource itself.
 当 Pod 使用 PersistentVolume 时，与 PersistentVolume 关联的 GID 不会在 Pod 本身的资源对象上出现。
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
@@ -372,4 +374,4 @@ PersistentVolume are not present on the Pod resource itself.
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
 
 
-{{% /capture %}}
+

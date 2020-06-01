@@ -2,7 +2,7 @@
 reviewers:
 - janetkuo
 title: 对 DaemonSet 执行滚动更新
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -10,31 +10,32 @@ content_template: templates/task
 reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
-content_template: templates/task
+content_type: task
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to perform a rolling update on a DaemonSet.
 --->
 本文介绍了如何对 DaemonSet 执行滚动更新。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * The DaemonSet rolling update feature is only supported in Kubernetes version 1.6 or later.
 --->
 * Kubernetes 1.6 或者更高版本中才支持 DaemonSet 滚动更新功能。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## DaemonSet Update Strategy
@@ -319,10 +320,11 @@ progress.
 --->
 如果在 DaemonSet 中指定了 `.spec.minReadySeconds`，主节点和工作节点之间的时钟偏差会使 DaemonSet 无法检测到正确的滚动更新进度。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * See [Task: Performing a rollback on a
@@ -332,4 +334,4 @@ progress.
 * 查看[任务: 在 DaemonSet 上执行回滚](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * 查看[概念: 创建 DaemonSet 以适应现有的 DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
-{{% /capture %}}
+

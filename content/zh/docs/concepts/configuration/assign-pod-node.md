@@ -1,6 +1,6 @@
 ---
 title: 将 Pod 分配给节点
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
@@ -11,13 +11,13 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular
@@ -33,9 +33,9 @@ services that communicate a lot into the same availability zone.
 
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## nodeSelector
 
@@ -664,9 +664,10 @@ The above pod will run on the node kube-01.
 
 上面的 pod 将运行在 kube-01 节点上。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 [Taints](/docs/concepts/configuration/taint-and-toleration/) allow a Node to *repel* a set of Pods.
@@ -690,4 +691,4 @@ resource allocation decisions.
 
 一旦 pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。[拓扑管理](/docs/tasks/administer-cluster/topology-manager/)
 
-{{% /capture %}}
+

@@ -8,22 +8,23 @@ approvers:
 - kow3ns
 - smarterclayton
 title: 弹缩StatefulSet
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 本文介绍如何弹缩StatefulSet.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * StatefulSets仅适用于Kubernetes1.5及以上版本.
 * **不是所有Stateful应用都适合弹缩.** 在弹缩前您的应用前. 您必须充分了解您的应用, 不适当的弹缩StatefulSet或许会造成应用自身功能的不稳定.
 * 仅当您确定该Stateful应用的集群是完全健康才可执行弹缩操作.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 使用 `kubectl` 弹缩StatefulSets
 
@@ -79,12 +80,13 @@ StatefulSet的扩容/缩容操作. 一些分布式数据库在节点加入和同
 这些情况下，最好是在应用级别进行弹缩操作, 并且只有在您确保Stateful应用的集群是完全健康时才执行弹缩.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 了解更多 [deleting a StatefulSet](/docs/tasks/manage-stateful-set/deleting-a-statefulset/).
 
-{{% /capture %}}
+
 
 

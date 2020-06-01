@@ -1,18 +1,18 @@
 <!--
 ---
 title: Assign CPU Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
 ---
 title: 为容器和 Pods 分配 CPU 资源
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to assign a CPU *request* and a CPU *limit* to
@@ -23,10 +23,11 @@ allocated as much CPU as it requests.
 此页面显示如何将 CPU *request* 和 CPU *limit* 分配给一个容器。容器使用的 CPU 不能超过配额限制。
 如果系统有空闲的 CPU 时间，则可以保证根据请求给容器分配尽可能多的 CPU 资源。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -76,10 +77,10 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 <!-- 
@@ -405,9 +406,10 @@ Delete your namespace:
 kubectl delete namespace cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- 
 ### For app developers
@@ -456,5 +458,5 @@ kubectl delete namespace cpu-example
 
 * [配置 API 对象的配额](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+
 

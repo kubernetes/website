@@ -1,17 +1,18 @@
 ---
 
 title: 使用 Source IP
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信和与外部世界沟通。本文介绍被发送到不同类型 Services 的数据包源 IP 的变化过程，你可以根据你的需求改变这些行为。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -41,19 +42,20 @@ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
 deployment.apps/source-ip-app created
 ```
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 
 * 通过多种类型的 Services 暴露一个简单应用
 * 理解每种 Service 类型如何处理源 IP NAT
 * 理解保留源IP所涉及的折中
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## Type=ClusterIP 类型 Services 的 Source IP
@@ -368,9 +370,10 @@ __跨平台支持__
 第一类负载均衡器必须使用一种它和后端之间约定的协议来和真实的客户端 IP 通信，例如 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 头，或者 [proxy 协议](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过简单的在保存于 Service 的 `service.spec.healthCheckNodePort` 字段上创建一个 HTTP 健康检查点来使用上面描述的特性。
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 
 删除服务：
@@ -386,10 +389,11 @@ $ kubectl delete svc -l run=source-ip-app
 $ kubectl delete deployment source-ip-app
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 学习更多关于 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 学习更多关于 [负载均衡](/zh/docs/user-guide/load-balancer)
-{{% /capture %}}
+

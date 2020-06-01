@@ -1,6 +1,6 @@
 ---
 title: 使用扩展进行并行处理
-content_template: templates/concept
+content_type: concept
 min-kubernetes-server-version: v1.8
 weight: 20
 ---
@@ -8,13 +8,13 @@ weight: 20
 <!--
 ---
 title: Parallel Processing using Expansions
-content_template: templates/concept
+content_type: concept
 min-kubernetes-server-version: v1.8
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 In this example, we will run multiple Kubernetes Jobs created from
@@ -23,10 +23,10 @@ non-parallel, use of [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-com
 -->
 在这个示例中，我们将运行从一个公共模板创建的多个 Kubernetes Job。您可能需要先熟悉 [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 的基本概念、非并行以及如何使用它。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Basic Template Expansion
@@ -338,4 +338,4 @@ other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job
 -->
 在这种情况下，您可以考虑其他的[作业模式](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns)。
 
-{{% /capture %}}
+

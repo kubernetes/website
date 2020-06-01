@@ -9,15 +9,16 @@ approvers:
 - smarterclayton
 
 title: 运行 ZooKeeper， 一个 CP 分布式系统
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本教程展示了在 Kubernetes 上使用 [PodDisruptionBudgets](/zh/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 [PodAntiAffinity](/zh/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 在开始本教程前，你应该熟悉以下 Kubernetes 概念。
 
@@ -38,9 +39,10 @@ content_template: templates/tutorial
 
 
 本教程假设你的集群配置为动态的提供 PersistentVolumes。如果你的集群没有配置成这样，在开始本教程前，你需要手动准备三个 20 GiB 的卷。
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 在学习本教程后，你将熟悉下列内容。
 
@@ -48,9 +50,9 @@ content_template: templates/tutorial
 * 如何使用 ConfigMaps 一致性配置 ensemble。
 * 如何在 ensemble 中 分布 ZooKeeper 服务的部署。
 * 如何在计划维护中使用 PodDisruptionBudgets 确保服务可用性。
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ### ZooKeeper 基础
@@ -1167,11 +1169,12 @@ node "kubernetes-minion-group-ixsl" uncordoned
 
 你可以同时使用 `kubectl drain` 和 PodDisruptionBudgets 来保证你的服务在维护过程中仍然可用。如果使用 drain 来隔离节点并在此之前删除 pods 使节点进入离线维护状态，如果服务表达了 disruption budget，这个 budget 将被遵守。你应该总是为关键服务分配额外容量，这样它们的 Pods 就能够迅速的重新调度。
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 * 使用 `kubectl uncordon` 解除你集群中所有节点的隔离。
 * 你需要删除在本教程中使用的 PersistentVolumes 的持久存储媒介。请遵循必须的步骤，基于你的环境、存储配置和准备方法，保证回收所有的存储。
-{{% /capture %}}
+
 

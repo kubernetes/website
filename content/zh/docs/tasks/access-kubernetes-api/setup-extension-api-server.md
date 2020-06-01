@@ -4,7 +4,7 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 15
 ---
 
@@ -15,21 +15,22 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 15
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Setting up an extension API server to work the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
 设置一个扩展的 API server 来使用聚合层以让 Kubernetes apiserver 使用其它 API 进行扩展，这些 API 不是核心 Kubernetes API 的一部分。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * You need to have a Kubernetes cluster running.
@@ -38,15 +39,16 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 * 您需要拥有一个运行的 Kubernetes 集群。
 * 您必须 [配置聚合层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 并且启用 apiserver 的相关参数。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Setup an extension api-server to work with the aggregation layer
@@ -94,9 +96,10 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. 创建一个 Kubernetes apiservice。上述的 CA 证书应该使用 base64 编码，剥离新行并用作 apiservice 中的 spec.caBundle。这不应该是命名空间化的。如果使用了 [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/)，那么只需要传入 PEM 编码的 CA 绑定，因为 base 64 编码已经完成了。
 1. 使用 kubectl 来获得您的资源。它应该返回 "找不到资源"。这意味着一切正常，但您目前还没有创建该资源类型的对象。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * If you haven't already, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
@@ -107,7 +110,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 * 高级概述，请参阅 [使用聚合层扩展 Kubernetes API](/docs/concepts/api-extension/apiserver-aggregation)。
 * 了解如何 [使用 Custom Resource Definition 扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
 
-{{% /capture %}}
+
 
 
 

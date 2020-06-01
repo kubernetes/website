@@ -1,20 +1,21 @@
 ---
 
 title: 访问集群上运行的服务
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文展示了如何连接 Kubernetes 集群上运行的服务。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 访问集群上运行的服务
 
@@ -103,6 +104,6 @@ $ kubectl cluster-info
   - Web 服务器不总是能够传递令牌，所以你可能需要使用基本（密码）认证。 Apiserver 可以配置为接受基本认证，但你的集群可能并没有这样配置。
   - 某些 web 应用可能不能工作，特别是那些使用客户端侧 javascript 的应用，它们构造 url 的方式可能不能理解代理路径前缀。
 
-{{% /capture %}}
+
 
 

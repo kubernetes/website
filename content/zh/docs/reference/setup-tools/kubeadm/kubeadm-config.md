@@ -1,10 +1,10 @@
 ---
 title: kubeadm config
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Beginning with v1.8.0, kubeadm uploads the configuration of your cluster to a ConfigMap called
 `kubeadm-config` in the `kube-system` namespace, and later reads the ConfigMap when upgrading.
@@ -33,9 +33,9 @@ to list and pull the images that kubeadm requires.
 打印默认配置，可以用 kubeadm config migrate 来将旧的配置文件转换到较新的版本，还可以使用 kubeadm config images list 和 kubeadm config images pull
 列出并拉取 kubeadm 所需的镜像。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## kubeadm config upload from-file {#cmd-config-from-file}
 
 ## kubeadm config view {#cmd-config-view}
@@ -56,14 +56,15 @@ to list and pull the images that kubeadm requires.
 ## kubeadm config images pull {#cmd-config-images-pull}
 {{< include "generated/kubeadm_config_images_pull.md" >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 -->
 
 *  [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) 将 Kubernetes 集群升级到更新版本 [kubeadm upgrade]
-{{% /capture %}}
+
 

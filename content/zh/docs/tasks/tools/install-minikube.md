@@ -1,6 +1,6 @@
 ---
 title: 安装 Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
@@ -10,7 +10,7 @@ card:
 <!--
 ---
 title: Install Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
@@ -18,7 +18,7 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
@@ -26,9 +26,10 @@ This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a
 
 本页面讲述如何安装 [Minikube](/docs/tutorials/hello-minikube)，该工具用于在您电脑中的虚拟机上运行一个单节点的 Kubernetes 集群。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -101,9 +102,9 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 # Installing minikube
@@ -380,9 +381,10 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 <!--
@@ -391,7 +393,7 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 * [使用 Minikube 在本地运行 Kubernetes](/docs/setup/learning-environment/minikube/)
 
-{{% /capture %}}
+
 
 <!--
 ## Confirm Installation

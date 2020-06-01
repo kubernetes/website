@@ -7,20 +7,20 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes 版本及版本倾斜支持策略
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
 -->
 本文描述 Kubernetes 各组件之间版本倾斜支持策略。
 特定的集群部署工具可能会有额外的限制。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported versions
 

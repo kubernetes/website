@@ -1,6 +1,6 @@
 ---
 title: CSI 卷克隆
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
@@ -12,12 +12,12 @@ reviewers:
 - thockin
 - msau42
 title: CSI Volume Cloning
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
@@ -25,10 +25,10 @@ This document describes the concept of cloning existing CSI Volumes in Kubernete
 
 本文档介绍 Kubernetes 中克隆现有 CSI 卷的概念。阅读前建议先熟悉[卷](/docs/concepts/storage/volumes)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -137,4 +137,4 @@ Upon availability of the new PVC, the cloned PVC is consumed the same as other P
 
 一旦新的 PVC 可用，被克隆的 PVC 项其他 PVC 一样被使用。可以预期的是，新创建的 PVC 是一个独立的对象。可以独立使用，克隆，快照或删除它，而不需要考虑它的原始数据源 PVC。这也意味着，源没有以任何方式链接到新创建的 PVC，它也可以被修改或删除，而不会影响到新创建的克隆。
 
-{{% /capture %}}
+

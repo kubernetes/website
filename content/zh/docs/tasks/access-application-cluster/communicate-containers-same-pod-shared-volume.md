@@ -1,23 +1,24 @@
 ---
 title: 同 Pod 内的容器使用共享卷通信
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文旨在说明如何让一个 Pod 内的两个容器使用一个卷（Volume）进行通信。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## 创建一个包含两个容器的 Pod
@@ -111,10 +112,10 @@ Pod 的配置文件如下：
 
     Hello from the debian container
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 
 ## 讨论
@@ -137,10 +138,11 @@ Pod 能有多个容器的主要原因是为了支持辅助应用（helper applic
 在本练习中的卷为 Pod 生命周期中的容器相互通信提供了一种方法。如果 Pod 被删除或者重建了，
 任何共享卷中的数据都会丢失。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 
@@ -161,7 +163,7 @@ Pod 能有多个容器的主要原因是为了支持辅助应用（helper applic
 
 * 参见 [Pod](/docs/api-reference/{{< param "version" >}}/#pod-v1-core).
 
-{{% /capture %}}
+
 
 
 

@@ -1,20 +1,20 @@
 ---
 title: 容器环境
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page describes the resources available to Containers in the Container environment. 
 -->
 本页描述了在容器环境里容器可用的资源。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Container environment
@@ -81,9 +81,10 @@ if [DNS addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addon
 -->
 Service 具有专用的 IP 地址。如果启用了 [DNS插件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)，就可以在容器中通过 DNS 来访问。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
@@ -93,4 +94,4 @@ Service 具有专用的 IP 地址。如果启用了 [DNS插件](http://releases.
 * 学习更多有关[容器生命周期钩子](/docs/concepts/containers/container-lifecycle-hooks/)的知识。
 * 动手获得经验[将处理程序附加到容器生命周期事件](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)。
 
-{{% /capture %}}
+

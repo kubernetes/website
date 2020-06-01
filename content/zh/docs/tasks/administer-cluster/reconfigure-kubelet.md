@@ -1,6 +1,6 @@
 ---
 title: 在实时集群上重新配置节点的 Kubelet
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -10,12 +10,12 @@ reviewers:
 - mtaufen
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
-content_template: templates/task
+content_type: task
 ---
 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
@@ -42,9 +42,10 @@ fields is available in the inline `KubeletConfiguration`
 [类型文档](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go)。
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 - Kubernetes v1.11 or higher on both the Master and the Nodes
 - kubectl v1.11 or higher, configured to communicate with the cluster
@@ -56,9 +57,9 @@ fields is available in the inline `KubeletConfiguration`
 - kubectl v1.11 或者更高版本和集群配置通信
 - The Kubelet `--dynamic-config-dir` flag 必须设置在节点的可写目录上
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Reconfiguring the Kubelet on a Live Node in your Cluster -->
 ## 在你集群中的一个实时节点上配置Kubelet
@@ -529,9 +530,9 @@ error is reported.
 在删除此字段后，`Node.Status.Config` 最终变成空，所有配置源都已重置为 `nil`，这表示
 本地默认配置是`assigned`，`active` 和 `lastKnownGood`这三个参数，没有报告错误。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- ## Kubectl Patch Example -->
 ## Kubectl 补丁示例
@@ -691,4 +692,4 @@ in the Kubelet log for additional details and context about the error.
 </tr>
 </table>
 
-{{% /capture %}}
+

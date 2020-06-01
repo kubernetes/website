@@ -1,5 +1,5 @@
 ---
-content_template: templates/task
+content_type: task
 title: 节点健康监测
 ---
 <!-- 
@@ -7,12 +7,12 @@ title: 节点健康监测
 reviewers:
 - Random-Liu
 - dchen1107
-content_template: templates/task
+content_type: task
 title: Monitor Node Health
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 *节点问题探测器* 是一个 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 用来监控节点健康。它从各种守护进程收集节点问题，并以[NodeCondition](/docs/concepts/architecture/nodes/#condition) 和 [Event](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#event-v1-core) 的形式报告给 apiserver 。 
 <!-- 
@@ -41,15 +41,16 @@ See more information
 -->
 更多信息请参阅 [这里](https://github.com/kubernetes/node-problem-detector)。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- 
 ## Limitations 
@@ -285,9 +286,9 @@ plugin to translate kernel log the internal data structure. It is easy to
 implement a new translator for a new log format. 
 -->
 内核监视器使用 [`Translator`] 插件将内核日志转换为内部数据结构。我们可以很容易为新的日志格式实现新的翻译器。
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- 
 ## Caveats 
@@ -312,4 +313,4 @@ resource overhead on each node. Usually this is fine, because:
 * 即使在高负载下，资源使用也是可以接受的。
 (参阅 [基准测试结果](https://github.com/kubernetes/node-problem-detector/issues/2#issuecomment-220255629)) 
 
-{{% /capture %}}
+

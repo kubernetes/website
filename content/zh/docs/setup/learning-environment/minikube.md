@@ -1,6 +1,6 @@
 ---
 title: 使用 Minikube 安装 Kubernetes
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -9,20 +9,20 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 -->
 Minikube 是一种可以让您在本地轻松运行 Kubernetes 的工具。Minikube 在笔记本电脑上的虚拟机（VM）中运行单节点 Kubernetes 集群，供那些希望尝试 Kubernetes 或进行日常开发的用户使用。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Minikube Features
@@ -928,4 +928,4 @@ Contributions, questions, and comments are all welcomed and encouraged! Minikube
 -->
 我们欢迎您向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在 [Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流（点击[这里](http://slack.kubernetes.io/)获得邀请）。我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。如果您要发信到列表中，请在主题前加上 "minikube: "。
 
-{{% /capture %}}
+

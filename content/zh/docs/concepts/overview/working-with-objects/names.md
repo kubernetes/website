@@ -1,10 +1,10 @@
 ---
 title: 对象名称和IDs
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Each object in your cluster has a [_Name_](#names) that is unique for that type of resource.
@@ -36,10 +36,10 @@ See the [identifiers design doc](https://git.k8s.io/community/contributors/desig
 
 有关名称和 UID 的精确语法规则，请参见[标识符设计文档](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Names
@@ -148,9 +148,10 @@ UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 Kubernetes UIDs 是通用的唯一标识符 (也叫 UUIDs).  
 UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667.  
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
@@ -158,4 +159,4 @@ UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667.
 * 阅读关于 Kubernetes [labels](/docs/concepts/overview/working-with-objects/labels/)。  
 * 更多参见 [Kubernetes 标识符和名称设计文档](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md).
 
-{{% /capture %}}
+

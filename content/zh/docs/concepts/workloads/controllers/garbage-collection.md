@@ -1,18 +1,18 @@
 ---
 title: 垃圾收集
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
 <!--
 ---
 title: Garbage Collection
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The role of the Kubernetes garbage collector is to delete certain objects
@@ -21,10 +21,10 @@ that once had an owner, but no longer have an owner.
 
 Kubernetes 垃圾收集器的作用是删除某些曾经拥有所有者（owner）但现在不再拥有所有者的对象。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Owners and dependents
@@ -288,10 +288,11 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 跟踪 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 <!--
@@ -303,7 +304,7 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 [设计文档 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
 
 
 

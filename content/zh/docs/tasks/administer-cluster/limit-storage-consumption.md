@@ -1,16 +1,16 @@
 ---
 title: 限制存储消耗
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Limit Storage Consumption
-content_template: templates/task
+content_type: task
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This example demonstrates an easy way to limit the amount of storage consumed in a namespace.
@@ -24,15 +24,16 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 -->
 演示中用到了以下资源：[ResourceQuota](/docs/concepts/policy/resource-quotas/)，[LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/) 和 [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/)。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Scenario: Limiting Storage Consumption
@@ -123,9 +124,9 @@ spec:
     requests.storage: "5Gi"
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Summary
@@ -138,6 +139,6 @@ cluster's storage budget without risk of any one project going over their allotm
 -->
 限制范围对象可以用来设置可请求的存储量上限，而资源配额对象则可以通过申领计数和累计存储容量有效地限制命名空间耗用的存储量。这两种机制使得集群管理员能够规划其集群存储预算而不会发生任一项目超量分配的风险。
 
-{{% /capture %}}
+
 
 

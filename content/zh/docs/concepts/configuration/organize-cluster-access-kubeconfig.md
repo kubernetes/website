@@ -1,17 +1,17 @@
 ---
 title: 使用 kubeconfig 文件组织集群访问
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 <!--
 ---
 title: Organizing Cluster Access Using kubeconfig Files
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Use kubeconfig files to organize information about clusters, users, namespaces, and
@@ -46,10 +46,10 @@ For step-by-step instructions on creating and specifying kubeconfig files, see
 --->
 有关创建和指定 kubeconfig 文件的分步说明，请参阅[配置对多集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Supporting multiple clusters, users, and authentication mechanisms
@@ -264,10 +264,11 @@ are stored absolutely.
 --->
 kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位置。命令行上的文件引用是相当对于当前工作目录的。在 `$HOME/.kube/config` 中，相对路径按相对路径存储，绝对路径按绝对路径存储。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Configure Access to Multiple Clusters](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
@@ -275,6 +276,6 @@ kubeconfig 文件中的文件和路径引用是相对于 kubeconfig 文件的位
 --->
 * [配置对多集群的访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
-{{% /capture %}}
+
 
 

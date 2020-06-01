@@ -1,18 +1,18 @@
 ---
 title: 配置 kubelet 垃圾回收策略
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
 <!--
 ---
 title: Configuring kubelet Garbage Collection
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 垃圾回收是 kubelet 的一个有用功能，它将清理未使用的镜像和容器。
 
@@ -32,10 +32,10 @@ Kubelet will perform garbage collection for containers every minute and garbage 
 External garbage collection tools are not recommended as these tools can potentially break the behavior of kubelet by removing containers expected to exist.
 -->
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 镜像回收
 
@@ -202,9 +202,10 @@ Including:
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | eviction generalizes disk pressure transition to other resources |
 -->
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 查阅 [配置驱逐回收资源的策略](/docs/tasks/administer-cluster/out-of-resource/) 获取更多细节。
 
@@ -212,4 +213,4 @@ Including:
 See [Configuring Out Of Resource Handling](/docs/tasks/administer-cluster/out-of-resource/) for more details.
 -->
 
-{{% /capture %}}
+

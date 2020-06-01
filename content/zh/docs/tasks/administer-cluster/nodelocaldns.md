@@ -3,7 +3,7 @@ reviewers:
 - bowei
 - zihongz
 title: 在 Kubernetes 集群中使用 NodeLocal DNSCache
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -11,24 +11,25 @@ reviewers:
 - bowei
 - zihongz
 title: Using NodeLocal DNSCache in Kubernetes clusters
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 -->
 本页概述了 Kubernetes 中的 NodeLocal DNSCache 功能。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
- {{% capture steps %}}
+
+ <!-- steps -->
 
 <!--
 ## Introduction
@@ -154,5 +155,5 @@ The addon can be applied using the yaml specified above in any k8s version. The 
 | 1.15 | Beta(默认情况下未启用) |
 | 1.13 | Alpha(默认情况下未启用) |
 
- {{% /capture %}}
+ 
 

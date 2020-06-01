@@ -1,19 +1,19 @@
 ---
 reviewers:
 - vishh
-content_template: templates/concept
+content_type: concept
 title: 调度 GPUs
 ---
 <!--
 ---
 reviewers:
 - vishh
-content_template: templates/concept
+content_type: concept
 title: Schedule GPUs
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs spread
@@ -28,10 +28,10 @@ Kubernetes 支持对节点上的 AMD 和 NVIDA GPU 进行管理，目前处于**
 
 这个页面介绍了用户如何在不同的 Kubernetes 版本中使用 GPU，以及当前存在的一些限制。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## v1.8 onwards
