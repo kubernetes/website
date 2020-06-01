@@ -2,10 +2,10 @@
 title: Samouczki
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 W tym rozdziale dokumentacji Kubernetes znajdziesz różne samouczki.
 Dzięki nim dowiesz się, jak osiągnąć złożone cele, które przekraczają wielkość
@@ -14,9 +14,9 @@ z których każda zawiera sekwencję odpowiednich kroków.
 Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 [słownika](/docs/reference/glossary/), aby móc się później do niego na bieżąco odwoływać.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Podstawy
 
@@ -64,12 +64,13 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jeśli chciałbyś napisać nowy samouczek, zajrzyj na stronę
 [Jak używać szablonów stron](/docs/home/contribute/page-templates/)
 gdzie znajdziesz dodatkowe informacje na temat stron i szablonów samouczków.
 
-{{% /capture %}}
+

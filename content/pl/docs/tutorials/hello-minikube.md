@@ -1,6 +1,6 @@
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ten samouczek pokaże, jak uruchomić przykładową aplikację
 na Kubernetes przy użyciu [Minikube](/docs/setup/learning-environment/minikube) oraz Katacoda.
@@ -23,23 +23,25 @@ Katacoda to darmowe środowisko Kubernetes dostępne bezpośrednio z przeglądar
 Możesz też skorzystać z tego samouczka, jeśli już zainstalowałeś [Minikube lokalnie](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Skonfiguruj przykładową aplikację do uruchomienia w Minikube.
 * Uruchom aplikację.
 * Przejrzyj jej logi.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyświetlić z powrotem wszystkie przychodzące zapytania.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Stwórz klaster Minikube
 
@@ -268,12 +270,13 @@ minikube stop
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Dowiedz się więcej o [obiektach typu Deployment](/docs/concepts/workloads/controllers/deployment/).
 * Dowiedz się więcej o [instalowaniu aplikacji](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Dowiedz się więcej o [obiektach typu Serwis](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

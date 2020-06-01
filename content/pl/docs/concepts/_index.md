@@ -1,17 +1,17 @@
 ---
 title: Pojęcia
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Rozdział dotyczący pojęć ma za zadanie pomóc w zrozumieniu poszczególnych składowych systemu oraz obiektów abstrakcyjnych, których Kubernetes używa do reprezentacji {{< glossary_tooltip text="klastra" term_id="cluster" length="all" >}}, a także posłużyć do lepszego poznania działania całego systemu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Przegląd
 
@@ -59,12 +59,13 @@ Przykładowo, kiedy używasz Kubernetes API do stworzenia Deploymentu, podajesz 
 
 Węzły klastra to maszyny (wirtualne, fizyczne i in.), na których uruchamiane są aplikacje i inne zadania. Kubernetes master steruje każdym z węzłów — rzadko kiedy zachodzi konieczność bezpośredniej interakcji z węzłami.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jeśli chcesz dodać stronę z nowym pojęciem, odwiedź
 [Jak używać szablonu strony](/docs/home/contribute/page-templates/)
 aby dowiedzieć się o tworzeniu stron opisujących pojęcia i o dostępnych szablonach.
 
-{{% /capture %}}
+
