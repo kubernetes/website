@@ -150,7 +150,7 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
 
 4. Katacoda環境のみ：ターミナル画面上部の+ボタンをクリックして **Select port to view on Host 1** をクリックしてください。
 
-5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、「30369」と入力します。
+5. Katacoda環境のみ：`8080`の反対側のService出力に、5桁のポート番号が表示されます。このポート番号はランダムに生成されるため、ここで使用するポート番号と異なる場合があります。ポート番号テキストボックスに番号を入力し、ポートの表示をクリックしてください。前の例の場合は、`30369`と入力します。
 
     "Hello World"メッセージが表示されるアプリケーションのブラウザウィンドウが開きます。
 
@@ -236,7 +236,7 @@ Minikubeはビルトインの{{< glossary_tooltip text="アドオン" term_id="a
     出力は下記のようになります:
 
     ```
-    etrics-server was successfully disabled
+    metrics-server was successfully disabled
     ```
 
 ## クリーンアップ
