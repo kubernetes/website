@@ -49,5 +49,4 @@ Here's an interesting thing to know about the steps you just did.
 **[Optional Section]**
 
 * Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template.
-
+* Learn about [Page Content Types - Task](/docs/home/contribute/style/page-content-types/#task).

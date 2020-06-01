@@ -33,8 +33,8 @@ To use ...
 
 **[Optional Section]**
 
-* Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Concept template](/docs/home/contribute/page-templates/#concept_template) for how to use this template.
+* Learn more about [Writing a New Topic](/docs/home/contribute/style/write-new-topic/).
+* See [Page Content Types - Concept](/docs/home/contribute/style/page-concept-types/#concept).
 
 
 

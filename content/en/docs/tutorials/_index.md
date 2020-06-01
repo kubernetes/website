@@ -70,7 +70,7 @@ Before walking through each tutorial, you may want to bookmark the
 
 
 If you would like to write a tutorial, see
-[Using Page Templates](/docs/home/contribute/page-templates/)
-for information about the tutorial page type and the tutorial template.
+[Content Page Types](/docs/home/contribute/style/page-content-types/)
+for information about the tutorial page type.
 
 
