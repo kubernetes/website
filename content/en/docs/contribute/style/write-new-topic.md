@@ -28,9 +28,8 @@ Task | A task page shows how to do a single thing. The idea is to give readers a
 Tutorial | A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied together, but should link to related concept topics for deep explanations of individual features.
 {{< /table >}}
 
-Use a template for each new page. Each page type has a
-[template](/docs/contribute/style/page-templates/)
-that you can use as you write your topic. Using templates helps ensure
+Use a [content type](/docs/contribute/style/page-content-types/) for each new page
+that you write. Using page type helps ensure
 consistency among topics of a given type.
 
 ## Choosing a title and filename
@@ -164,6 +163,6 @@ image format is SVG.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [using page templates](/docs/contribute/page-templates/).
+* Learn about [using page content types](/docs/contribute/style/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 

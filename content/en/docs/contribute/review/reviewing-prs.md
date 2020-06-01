@@ -86,7 +86,7 @@ When reviewing, use the following as a starting point.
 
 - Did this PR change or remove a page title, slug/alias or anchor link? If so, are there broken links as a result of this PR? Is there another option, like changing the page title without changing the slug?
 - Does the PR introduce a new page? If so:
-  - Is the page using the right [page template](/docs/contribute/style/page-templates/) and associated Hugo shortcodes?
+  - Is the page using the right [page content type](/docs/contribute/style/page-content-types/) and associated Hugo shortcodes?
   - Does the page appear correctly in the section's side navigation (or at all)?
   - Should the page appear on the [Docs Home](/docs/home/) listing?
 - Do the changes show up in the Netlify preview? Be particularly vigilant about lists, code blocks, tables, notes and images.

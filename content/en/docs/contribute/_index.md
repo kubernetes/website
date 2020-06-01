@@ -48,7 +48,7 @@ roles and permissions.
 - [Open a pull request using GitHub](/docs/contribute/new-content/new-content/#changes-using-github) to existing documentation and learn more about filing issues in GitHub.
 - [Review pull requests](/docs/contribute/review/reviewing-prs/) from other Kubernetes community members for accuracy and language.
 - Read the Kubernetes [content](/docs/contribute/style/content-guide/) and [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Learn how to [use page templates](/docs/contribute/style/page-templates/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) to make bigger changes.
+- Learn about [page content types](/docs/contribute/style/page-content-types/) and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 
 ## Next steps
 
