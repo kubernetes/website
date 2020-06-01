@@ -2,19 +2,19 @@
 reviewers:
 - huynguyennovem
 title: Container Lifecycle Hooks
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Trang này mô tả cách mà kubelet quản lý các Container có thể sử dụng framework Container lifecycle hook để
 chạy mã nguồn được kích hoạt bởi các sự kiện trong lifecycle của nó.  
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Tổng quan
 
@@ -111,13 +111,14 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Xem thêm về [Container environment](/docs/concepts/containers/container-environment-variables/).
 * Kinh nghiệm thực hành 
   [gắn các trình xử lý vào các sự kiện trong lifecycle của Container](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+
 
