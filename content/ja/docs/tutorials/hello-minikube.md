@@ -82,8 +82,8 @@ Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナ�
     出力:
 
     ```shell
-    NAME         DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    hello-node   1         1         1            1           1m
+    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+    hello-node   1/1     1            1           1m
     ```
 
 3. Podを確認します:
