@@ -219,19 +219,19 @@ static/docs/reference/generated/kubectl/css/font-awesome.min.css
 ### Generated Kubernetes API reference directories and files
 
 ```
-static/docs/reference/generated/kubernetes-api/v1.17/index.html
-static/docs/reference/generated/kubernetes-api/v1.17/js/navData.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/scroll.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/query.scrollTo.min.js
-static/docs/reference/generated/kubernetes-api/v1.17/css/font-awesome.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/bootstrap.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/stylesheet.css
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/FontAwesome.otf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.eot
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.svg
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.ttf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff2
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navData.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/query.scrollTo.min.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/font-awesome.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/bootstrap.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/stylesheet.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/FontAwesome.otf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.eot
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.svg
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.ttf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff2
 ```
 
 Run `git add` and `git commit` to commit the files.
