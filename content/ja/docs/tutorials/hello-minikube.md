@@ -206,17 +206,21 @@ Minikubeはビルトインのアドオンがあり、有効化、無効化、あ
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/heapster-9jttx                          1/1       Running   0          26s
+    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
+    pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/kube-apiserver-minikube                 1/1       Running   0          34m
+    pod/kube-controller-manager-minikube        1/1       Running   0          34m
+    pod/kube-proxy-rnlps                        1/1       Running   0          34m
+    pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/heapster               ClusterIP   10.96.241.45    <none>        80/TCP              26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
