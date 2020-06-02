@@ -58,7 +58,7 @@ Configuration requise pour Hyper-V: un hyperviseur a été détecté. Les foncti
 
 <!-- steps -->
 
-# Installer Minikube
+## Installer Minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -203,10 +203,7 @@ Pour installer Minikube manuellement sur Windows, téléchargez [`minikube-windo
 
 
 
-## {{% heading "whatsnext" %}}
 
-
-* [Exécutez Kubernetes localement via Minikube](/fr/docs/setup/learning-environment/minikube/)
 
 
 
@@ -261,3 +258,8 @@ Vous devez supprimer les fichiers de configuration :
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Exécutez Kubernetes localement via Minikube](/fr/docs/setup/learning-environment/minikube/)

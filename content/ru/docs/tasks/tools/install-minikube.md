@@ -56,7 +56,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 <!-- steps -->
 
-# Установка minikube
+## Установка minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -195,15 +195,6 @@ choco install minikube
 {{< /tabs >}}
 
 
-
-
-## {{% heading "whatsnext" %}}
-
-
-* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)
-
-
-
 ## Проверка установки
 
 Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, выполните следующую команду, которая запускает локальный кластер Kubernetes:
@@ -255,3 +246,9 @@ machine does not exist
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)

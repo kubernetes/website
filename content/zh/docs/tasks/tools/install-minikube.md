@@ -110,7 +110,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 # Installing minikube
 -->
 
-# 安装 minikube
+## 安装 minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -383,18 +383,6 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 
 
 
-## {{% heading "whatsnext" %}}
-
-
-
-<!--
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
--->
-
-* [使用 Minikube 在本地运行 Kubernetes](/docs/setup/learning-environment/minikube/)
-
-
-
 <!--
 ## Confirm Installation
 
@@ -483,3 +471,15 @@ then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+
+<!--
+* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
+-->
+
+* [使用 Minikube 在本地运行 Kubernetes](/docs/setup/learning-environment/minikube/)
+

@@ -108,14 +108,6 @@ Schließen Sie nach der Installation von Minikube die aktuelle CLI-Sitzung und s
 So installieren Sie Minikube manuell unter Windows mit [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), laden Sie die Datei [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest) und führen Sie den Installer aus.
 
 
-
-## {{% heading "whatsnext" %}}
-
-
-* [Kubernetes lokal über Minikube ausführen](/docs/setup/minikube/)
-
-
-
 ## Eine bestehende Installation bereinigen
 
 Wenn Sie minikube bereits installiert haben, starten Sie die Anwendung:
@@ -132,3 +124,8 @@ Müssen Sie die Konfigurationsdateien löschen:
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Kubernetes lokal über Minikube ausführen](/docs/setup/minikube/)

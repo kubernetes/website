@@ -58,7 +58,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 <!-- steps -->
 
-# Cài đặt minikube
+## Cài đặt minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -187,13 +187,6 @@ Sau khi Minikube hoàn tất việc cài đặt, hãy đóng CLI hiện tại v�
 
 
 
-## {{% heading "whatsnext" %}}
-
-
-* [Chạy Kubernetes trên local thông qua Minikube](/docs/setup/learning-environment/minikube/)
-
-
-
 ## Dọn dẹp local state {#cleanup-local-state}
 
 Nếu bạn đã cài Minikube trước đó, và chạy:
@@ -210,3 +203,9 @@ thì tiếp theo bạn cần xóa bỏ local state của minikube:
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Chạy Kubernetes trên local thông qua Minikube](/docs/setup/learning-environment/minikube/)
+
