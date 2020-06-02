@@ -113,6 +113,6 @@ spec:
 {{% capture whatsnext %}}
 * [Pod](/ja/docs/concepts/workloads/pods/pod/)について更に学びましょう
 * Podの振る舞いに関して学ぶには下記を参照してください
-   * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#podの終了)
+   * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)
    * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}
