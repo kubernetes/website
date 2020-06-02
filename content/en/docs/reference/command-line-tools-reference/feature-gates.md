@@ -105,6 +105,7 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
+| `IPv6DualStack` | `false` | Alpha | 1.16 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
