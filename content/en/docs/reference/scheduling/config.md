@@ -1,30 +1,57 @@
 ---
-title: Scheduling Profiles
+title: Scheduler Configuration
 content_type: concept
 weight: 20
 ---
 
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The `KubeSchedulerConfiguration` is a configuration API for `kube-scheduler`
+that can be provided as a file via `--config` command line flag.
+
 <!-- overview -->
-
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
-
-A scheduling Profile allows you to configure the different stages of scheduling
-in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
-Each stage is exposed in a extension point. Plugins provide scheduling behaviors
-by implementing one or more of these extension points.
-
-You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
-using the component config APIs
-([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
-The `v1alpha2` API allows you to configure kube-scheduler to run
-[multiple profiles](#multiple-profiles).
-
-
 
 <!-- body -->
 
-## Extension points
+## Minimal Configuration
+
+A minimal configuration looks as follows:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+clientConnection:
+  kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
+```
+
+## Upgrading from `v1alpha2` to `v1beta1` {#beta-changes}
+
+When migrating from `kubescheduler.config.k8s.io/v1alpha2` to `kubescheduler.config.k8s.io/v1beta1`,
+beware of the following changes, if applicable:
+
+- `.bindTimeoutSeconds` was moved as part of plugin args for `VolumeBinding`,
+  which can be configured separately per [profile](#profiles).
+- `.extenders` are updated to satisfy API standards. In particular:
+  - `.extenders` decoding is case sensitive. All fields are affected.
+  - `.extenders[*].httpTimeout` is of type `metav1.Duration`.
+  - `.extenders[*].enableHttps` is renamed to `.extenders[*].enableHTTPS`.
+- `RequestedToCapacityRatio` args decoding is case sensitive. All fields are affected.
+- `DefaultPodTopologySpread` [plugin](#scheduling-plugins) is renamed to `SelectorSpread`.
+- `Unreserve` extension point is removed from Profile definition. All `Reserve`
+  plugins implement an `Unreserve` call.
+
+## Profiles
+
+A scheduling Profile allows you to configure the different stages of scheduling
+in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
+Each stage is exposed in a [extension point](#extension-points).
+[Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
+or more of these extension points.
+
+A single instance of `kube-scheduler` can be configured to run
+[multiple profiles](#multiple-profiles)
+
+### Extension points
 
 Scheduling happens in a series of stages that are exposed through the following
 extension points:
@@ -43,7 +70,9 @@ extension points:
    filtering phase. The scheduler will then select the node with the highest
    weighted scores sum.
 1. `Reserve`: This is an informational extension point that notifies plugins
-   when resources have being reserved for a given Pod.
+   when resources have been reserved for a given Pod. Plugins also implement an
+   `Unreserve` call that gets called in the case of failure during or after
+   `Reserve`.
 1. `Permit`: These plugins can prevent or delay the binding of a Pod.
 1. `PreBind`: These plugins perform any work required before a Pod is bound.
 1. `Bind`: The plugins bind a Pod to a Node. Bind plugins are called in order
@@ -51,15 +80,35 @@ extension points:
    least one bind plugin is required.
 1. `PostBind`: This is an informational extension point that is called after
    a Pod has been bound.
-1. `UnReserve`: This is an informational extension point that is called if
-   a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
+
+For each extension point, you could disable specific [default plugins](#scheduling-plugins)
+or enable your own. For example:
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+profiles:
+  - plugins:
+      score:
+        disabled:
+        - name: NodeResourcesLeastAllocated
+        enabled:
+        - name: MyCustomPluginA
+          weight: 2
+        - name: MyCustomPluginB
+          weight: 1
+```
+
+You can use `*`  as name in the disabled array to disable all default plugins
+for that extension point. This can also be used to rearrange plugins order, if
+desired.
    
-## Scheduling plugins
+### Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
 extension points:
 
-- `DefaultTopologySpread`: Favors spreading across nodes for Pods that belong to
+- `SelectorSpread`: Favors spreading across nodes for Pods that belong to
   {{< glossary_tooltip text="Services" term_id="service" >}},
   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and
   {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}
@@ -99,7 +148,7 @@ extension points:
   Extension points: `Score`.
 - `VolumeBinding`: Checks if the node has or if it can bind the requested
   {{< glossary_tooltip text="volumes" term_id="volume" >}}.
-  Extension points: `Filter`.
+  Extension points: `PreFilter`, `Filter`, `Reserve`, `PreBind`.
 - `VolumeRestrictions`: Checks that volumes mounted in the node satisfy
   restrictions that are specific to the volume provider.
   Extension points: `Filter`.
@@ -147,10 +196,25 @@ that are not enabled by default:
   Service across nodes.
   Extension points: `PreFilter`, `Filter`, `Score`.
   
-## Multiple profiles
+### Multiple profiles
 
-When using the component config API v1alpha2, a scheduler can be configured to
-run more than one profile. Each profile has an associated scheduler name.
+`kube-scheduler` can be configured to
+run more than one profile. Each profile has an associated scheduler name. Each
+profile can have a different set of plugins configured in its
+[extension points](#extension-points).
+
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta1
+kind: KubeSchedulerConfiguration
+profiles:
+  - schedulerName: default-scheduler
+  - schedulerName: no-scoring-scheduler
+    plugins:
+      score:
+        disabled:
+        - name: '*'
+```
+
 Pods that want to be scheduled according to a specific profile can include
 the corresponding scheduler name in its `.spec.schedulerName`.
 
@@ -173,8 +237,6 @@ All profiles must use the same plugin in the QueueSort extension point and have
 the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
-
-
 
 ## {{% heading "whatsnext" %}}
 
