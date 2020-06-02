@@ -291,7 +291,7 @@ Eventually, some of this section could be moved to a concept topic.
 {{< /comment >}}
 
 [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) には、
-Liveness ProbeおよびReadiness Probeのチェック動作を、より正確に制御するために使用できるいくつかのフィールドがあります:
+Liveness ProbeおよびReadiness Probeのチェック動作をより正確に制御するために使用できるフィールドがあります:
 
 * `initialDelaySeconds`: コンテナが起動してから、Liveness ProbeまたはReadiness Probeが開始されるまでの秒数。デフォルトは0秒。最小値は0。
 * `periodSeconds`: Probeが実行される頻度(秒数)。デフォルトは10秒。最小値は1。
@@ -299,11 +299,11 @@ Liveness ProbeおよびReadiness Probeのチェック動作を、より正確に
 * `successThreshold`: 一度Probeが失敗した後、次のProbeが成功したとみなされるための最小連続成功数。
 デフォルトは1。Liveness Probeには、1にする必要があります。最小値は1。
 * `failureThreshold`: Podが開始してProbeが失敗した場合、Kubernetesは`failureThreshold`に設定した回数までProbeを試行します。
-Liveness Probeにおいて、試行回数に到達することは、コンテナを再起動することを意味します。
+Liveness Probeにおいて、試行回数に到達することはコンテナを再起動することを意味します。
 Readiness Probeの場合は、Podが準備できていない状態として通知されます。デフォルトは3。最小値は1。
 
 [HTTPによるProbe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
-は、`httpGet`にて設定できる複数の追加フィールドがあります:
+には、`httpGet`にて設定できる追加のフィールドがあります:
 
 * `host`: 接続先ホスト名。デフォルトはPod IP。おそらくはこのフィールドの代わりに`httpHeaders`内の"Host"を代わりに使用することになります。
 * `scheme`: ホストへの接続で使用するスキーマ（HTTP または HTTPS）。デフォルトは HTTP。
@@ -311,12 +311,12 @@ Readiness Probeの場合は、Podが準備できていない状態として通�
 * `httpHeaders`: リクエスト内のカスタムヘッダー。HTTPでは重複したヘッダーが許可されています。
 * `port`: コンテナにアクセスする際のポートの名前または番号。ポート番号の場合、1から65535の範囲内である必要があります。
 
-HTTPによるProbeの場合、kubeletは、指定したパスとポートに対するHTTPリクエストを送ることで、チェックを行います。
-kubeletは、`httpGet`のオプションである`host`フィールドでアドレスが上書きされない限り、PodのIPアドレスに対してProbeを送ります。
-`scheme`フィールドに`HTTPS`がセットされている場合、kubeletは、証明書の検証を行わずに、HTTPSリクエストを送ります。
-ほとんどのシナリオにおいては、`host`フィールドを使用する必要はありません。次のシナリオは、使用する場合の一例です。
-仮に、コンテナが127.0.0.1をリッスンしており、かつPodの`hostNetwork`フィールドがtrueだとします。
-その場合では、`httpGet`フィールド内の`host`には、127.0.0.1をセットする必要があります。
+HTTPによるProbeの場合、kubeletは指定したパスとポートに対するHTTPリクエストを送ることでチェックを行います。
+`httpGet`のオプションである`host`フィールドでアドレスが上書きされない限り、kubeletはPodのIPアドレスに対してProbeを送ります。
+`scheme`フィールドに`HTTPS`がセットされている場合、kubeletは証明書の検証を行わずにHTTPSリクエストを送ります。
+ほとんどのシナリオにおいては、`host`フィールドを使用する必要はありません。次のシナリオは使用する場合の一例です。
+仮にコンテナが127.0.0.1をリッスンしており、かつPodの`hostNetwork`フィールドがtrueだとします。
+その場合においては、`httpGet`フィールド内の`host`には127.0.0.1をセットする必要があります。
 より一般的なケースにおいてPodが仮想ホストに依存している場合は、おそらく`host`フィールドではなく、`httpHeaders`フィールド内の`Host`ヘッダーを使用する必要があります。
 
 TCPによるProbeの場合、kubeletはPodの中ではなく、ノードに対してコネクションを確立するProbeを実行します。
