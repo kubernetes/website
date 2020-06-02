@@ -50,11 +50,11 @@ PodPresetによるPodの変更を受け付けたくないようなインスタ�
 1.  `settings.k8s.io/v1alpha1/podpreset`というAPIを有効にします。例えば、これはAPI Serverの `--runtime-config`オプションに`settings.k8s.io/v1alpha1=true`を含むことで可能になります。Minikubeにおいては、クラスターの起動時に`--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`をつけることで可能です。
 1.  `PodPreset`に対する管理コントローラーを有効にします。これを行うための1つの方法として、API Serverの`--enable-admission-plugins`オプションの値に`PodPreset`を含む方法があります。Minikubeにおいては、クラスターの起動時に
 
-    ```shell
-    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
-    ```
+  ```shell
+  --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+  ```
 
-を追加することで可能になります。
+  を追加することで可能になります。
 1.  ユーザーが使う予定のNamespaceにおいて、`PodPreset`オブジェクトを作成することによりPodPresetを定義します。
 
 {{% /capture %}}
