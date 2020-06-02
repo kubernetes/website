@@ -79,7 +79,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 
   クラスタ全体で必要な数のPodを維持するために、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)が作成されます。
 
-- **Service** (任意): アプリケーションのいくつかの部分(たとえばフロントエンド)では、[Service](/ja/docs/concepts/services-networking/service/)をクラスター外の外部、おそらくパブリックIPアドレス(外部サービス)に公開したいと思うかもしれません。外部サービスの場合は、そのために1つ以上のポートを開放する必要があるかもしれません。詳細は[こちら](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/)を参照してください。
+- **Service** (任意): アプリケーションのいくつかの部分(たとえばフロントエンド)では、[Service](/ja/docs/concepts/services-networking/service/)をクラスター外の外部、おそらくパブリックIPアドレス(外部サービス)に公開したいと思うかもしれません。外部サービスの場合は、そのために1つ以上のポートを開放する必要があるでしょう。詳細は[こちら](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/)を参照してください。
 
   クラスター内部からしか見えないその他のサービスは、内部サービスと呼ばれます。
 
