@@ -46,7 +46,7 @@ client libraries:
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
   * [kube-scheduler Policies](/docs/reference/scheduling/policies)
-  * [kube-scheduler Profiles](/docs/reference/scheduling/profiles)
+  * [kube-scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
 ## Design Docs
 
