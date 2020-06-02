@@ -58,7 +58,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 <!-- steps -->
 
-# minikubeのインストール
+## minikubeのインストール
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -185,13 +185,6 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 
 
 
-## {{% heading "whatsnext" %}}
-
-
-* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
-
-
-
 ## ローカル状態のクリーンアップ {#cleanup-local-state}
 
 もし以前に　Minikubeをインストールしていたら、以下のコマンドを実行します。
@@ -208,3 +201,10 @@ minikubeのローカル状態をクリアする必要があります:
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
+

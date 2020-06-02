@@ -108,14 +108,6 @@ Para instalar Minikube manualmente en Windows, descarga [`minikube-windows-amd64
 Para instalar Minikube manualmente en Windows usando [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), descarga [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest) y ejecuta el instalador.
 
 
-
-## {{% heading "whatsnext" %}}
-
-
-* [Ejecutar Kubernetes Localmente via Minikube](/docs/setup/minikube/)
-
-
-
 ## Limpiar todo para comenzar de cero
 
 Si habías instalado previamente minikube, y ejecutas:
@@ -132,3 +124,8 @@ Necesitas eliminar permanentemente los siguientes archivos de configuración:
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Ejecutar Kubernetes Localmente via Minikube](/docs/setup/minikube/)

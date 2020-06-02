@@ -58,7 +58,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 <!-- steps -->
 
-# Menginstal minikube
+## Menginstal minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -197,15 +197,6 @@ Untuk menginstal Minikube secara manual pada Windows, unduh [`minikube-windows-a
 {{< /tabs >}}
 
 
-
-
-## {{% heading "whatsnext" %}}
-
-
-* [Menjalanakan Kubernetes secara lokal dengan Minikube](/docs/setup/learning-environment/minikube/)
-
-
-
 ## Memastikan instalasi
 
 Untuk memastikan keberhasilan kedua instalasi hypervisor dan Minikube, kamu bisa menjalankan perintah berikut untuk memulai sebuah klaster Kubernetes lokal:
@@ -256,3 +247,8 @@ maka kamu perlu membersihkan _state_ lokal Minikube:
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Menjalanakan Kubernetes secara lokal dengan Minikube](/docs/setup/learning-environment/minikube/)

@@ -58,7 +58,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 <!-- steps -->
 
-# minikube 설치하기
+## minikube 설치하기
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="리눅스" %}}
@@ -201,15 +201,6 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 {{< /tabs >}}
 
 
-
-
-## {{% heading "whatsnext" %}}
-
-
-* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)
-
-
-
 ## 설치 확인
 
 하이퍼바이저와 Minikube의 성공적인 설치를 확인하려면, 다음 명령어를 실행해서 로컬 쿠버네티스 클러스터를 시작할 수 있다.
@@ -261,3 +252,8 @@ machine does not exist
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)
