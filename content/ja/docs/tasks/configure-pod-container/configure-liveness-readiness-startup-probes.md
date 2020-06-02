@@ -35,8 +35,8 @@ Readiness Probeによるチェックを無効にし、これらがアプリケ�
 
 ## コマンド実行によるLiveness Probeを定義する {#define-a-liveness-command}
 
-多くのアプリケーションは、長期間実行されている場合に、再起動されるまで回復できないような異常な状態になることがあります。
-Kubernetesは、このような状況を検知し、回復するためのLiveness Probeを提供します。
+長期間実行されているアプリケーションの多くは、再起動されるまで回復できないような異常な状態になることがあります。
+Kubernetesはこのような状況を検知し、回復するためのLiveness Probeを提供します。
 
 この演習では、`k8s.gcr.io/busybox`イメージのコンテナを起動するPodを作成します。
 Podの構成ファイルは次の通りです。
@@ -50,7 +50,7 @@ Probeの動作としては、kubeletは`cat /tmp/healthy`を対象のコンテ�
 このコマンドが成功し、リターンコード0が返ると、kubeletはコンテナが問題なく動いていると判断します。
 リターンコードとして0以外の値が返ると、kubeletはコンテナを終了し、再起動を行います。
 
-コンテナが起動すると、次のコマンドを実行します:
+このコンテナは、起動すると次のコマンドを実行します:
 
 ```shell
 /bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
@@ -90,7 +90,7 @@ FirstSeen    LastSeen    Count   From            SubobjectPath           Type   
 kubectl describe pod liveness-exec
 ```
 
-出力結果の最後に、Liveness Probeが失敗していることを示すメッセージが表示され、コンテナが強制終了して再作成されています。
+出力結果の最後に、Liveness Probeが失敗していることを示すメッセージが表示されます。これによりコンテナは強制終了し、再作成されました。
 
 ```
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
