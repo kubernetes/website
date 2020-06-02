@@ -195,7 +195,7 @@ topology spread constraints are applied to a Pod if, and only if:
 - It belongs to a service, replication controller, replica set or stateful set.
 
 Default constraints can be set as part of the `PodTopologySpread` plugin args
-in a [scheduling profile](/docs/reference/scheduling/profiles).
+in a [scheduling profile](/docs/reference/scheduling/config/#profiles).
 The constraints are specified with the same [API above](#api), except that
 `labelSelector` must be empty. The selectors are calculated from the services,
 replication controllers, replica sets or stateful sets that the Pod belongs to.
@@ -219,7 +219,7 @@ profiles:
 {{< note >}}
 The score produced by default scheduling constraints might conflict with the
 score produced by the
-[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/profiles/#scheduling-plugins).
+[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
 It is recommended that you disable this plugin in the scheduling profile when
 using default constraints for `PodTopologySpread`.
 {{< /note >}}
