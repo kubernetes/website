@@ -181,7 +181,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 
 見ての通り、TCPによるチェックの構成はHTTPによるチェックと非常に似ています。
 この例では、Readiness ProbeとLiveness Probeを両方使用しています。
-kubeletは、コンテナが起動してから5秒後に、最初のReadiness Probeを開始します。
+kubeletは、コンテナが起動してから5秒後に最初のReadiness Probeを開始します。
 これは、`goproxy`コンテナの8080ポートに対して、接続を試みます。
 このProbeが成功すると、Podは準備ができていると通知されます。kubeletはこのチェックを10秒ごとに行います。
 
