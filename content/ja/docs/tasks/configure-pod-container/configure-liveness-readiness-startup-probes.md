@@ -174,7 +174,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 ## TCPによるLiveness Probeを定義する {#define-a-tcp-liveness-probe}
 
 3つ目のLiveness ProbeはTCPソケットを使用するタイプです。
-この構成において、kubeletは指定したコンテナのソケットを開くことを試みます。
+この構成においては、kubeletは指定したコンテナのソケットを開くことを試みます。
 コネクションが確立できる場合はコンテナを正常とみなし、失敗する場合は異常とみなします。
 
 {{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
@@ -182,7 +182,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 見ての通り、TCPによるチェックの構成はHTTPによるチェックと非常に似ています。
 この例では、Readiness ProbeとLiveness Probeを両方使用しています。
 kubeletは、コンテナが起動してから5秒後に最初のReadiness Probeを開始します。
-これは、`goproxy`コンテナの8080ポートに対して接続を試みます。
+これは`goproxy`コンテナの8080ポートに対して接続を試みます。
 このProbeが成功すると、Podは準備ができていると通知されます。kubeletはこのチェックを10秒ごとに行います。
 
 この構成では、Readiness Probeに加えてLiveness Probeが含まれています。
