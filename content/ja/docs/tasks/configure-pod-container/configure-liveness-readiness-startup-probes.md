@@ -174,7 +174,7 @@ v1.13より後のリリースにおいては、ローカルHTTPプロキシ環�
 ## TCPによるLiveness Probeを定義する {#define-a-tcp-liveness-probe}
 
 3つ目のLiveness ProbeはTCPソケットを使用するタイプです。
-この構成においては、kubeletは指定したコンテナのソケットを開くことを試みます。
+この構成において、kubeletは指定したコンテナのソケットを開くことを試みます。
 コネクションを確立できる場合、コンテナを正常とみなし、失敗する場合は、異常とみなします。
 
 {{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
