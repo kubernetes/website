@@ -6,7 +6,7 @@ weight: 50
 ---
 
 {{% capture overview %}}
-このページではPodPresetについて概観します。PodPresetは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。
+このページではPodPresetについて概観します。PodPresetは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
 {{% /capture %}}
 
 
@@ -16,14 +16,14 @@ weight: 50
 `PodPreset`はPodの作成時に追加のランタイム要求を注入するためのAPIリソースです。
 ユーザーはPodPresetを適用する対象のPodを指定するために、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を使用します。
 
-PodPresetの使用により、Podテンプレートの作者はPodにおいて、全ての情報を明示的に指定する必要がなくなります。
+PodPresetの使用により、Podテンプレートの作者はPodにおいて、全ての情報を明示的に指定する必要がなくなります。  
 この方法により、特定のServiceを使っているPodテンプレートの作者は、そのServiceについて全ての詳細を知る必要がなくなります。
 
 PodPresetの内部についてのさらなる情報は、[PodPresetのデザインプロポーザル](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md)を参照してください。
 
 ## PodPresetはどのように動くか
 
-Kubernetesは`PodPreset`に対する管理用コントローラーを提供し、これが有効になっている時、コントローラーはリクエストされたPod作成要求に対してPodPresetを適用します。
+Kubernetesは`PodPreset`に対する管理用コントローラーを提供し、これが有効になっている時、コントローラーはリクエストされたPod作成要求に対してPodPresetを適用します。  
 Pod作成要求が発生した時、Kubernetesシステムは下記の処理を行います。
 
 1. 使用可能な全ての`PodPreset`を取得する。
@@ -40,7 +40,7 @@ Pod作成要求が発生した時、Kubernetesシステムは下記の処理を�
 
 ### 特定のPodに対するPodPresetを無効にする
 
-PodPresetによるPodの変更を受け付けたくないようなインスタンスがある場合があります。このようなケースでは、ユーザーはそのPodのSpec内に次のような形式のアノテーションを追加できます。
+PodPresetによるPodの変更を受け付けたくないようなインスタンスがある場合があります。このようなケースでは、ユーザーはそのPodのSpec内に次のような形式のアノテーションを追加できます。  
 `podpreset.admission.kubernetes.io/exclude: "true"`
 
 ## PodPresetを有効にする
