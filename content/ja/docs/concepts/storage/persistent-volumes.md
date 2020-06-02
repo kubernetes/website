@@ -400,7 +400,7 @@ PVは[ノードアフィニティ](/docs/reference/generated/kubernetes-api/{{< 
 
 CLIにはPVに紐付いているPVCの名前が表示されます。
 
-## 永続ボリューム要求
+## 永続ボリューム要求 {#persistentvolumeclaims}
 
 各PVCにはspecとステータスが含まれます。これは、仕様とクレームのステータスです。
 
