@@ -403,7 +403,7 @@ brew install bash
 echo $BASH_VERSION $SHELL
 ```
 
-Homebrewは通常、`/usr/local/bin/bash`フォルダ下でインストールを行います。
+Homebrewは通常、`/usr/local/bin/bash`フォルダ下にインストールします。
 
 ### bash-completionをインストールする
 
