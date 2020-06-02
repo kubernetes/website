@@ -34,7 +34,7 @@ weight: 70
 
 {{% capture lessoncontent %}}
 
-### Deploymentを使用したバックエンドの作成
+## Deploymentを使用したバックエンドの作成
 
 バックエンドは、単純な挨拶マイクロサービスです。
 バックエンドのDeploymentの構成ファイルは次のとおりです:
@@ -90,7 +90,7 @@ Events:
 ...
 ```
 
-### バックエンドServiceオブジェクトの作成
+## バックエンドServiceオブジェクトの作成
 
 フロントエンドをバックエンドに接続する鍵は、バックエンドServiceです。
 Serviceは、バックエンドマイクロサービスに常に到達できるように、永続的なIPアドレスとDNS名のエントリを作成します。
@@ -110,7 +110,7 @@ kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 
 この時点で、バックエンドのDeploymentが実行され、そちらにトラフィックをルーティングできるServiceがあります。
 
-### フロントエンドの作成
+## フロントエンドの作成
 
 バックエンドができたので、バックエンドに接続するフロントエンドを作成できます。
 フロントエンドは、バックエンドServiceに指定されたDNS名を使用して、バックエンドワーカーPodに接続します。
@@ -144,7 +144,7 @@ nginxの構成は、[コンテナイメージ](/examples/service/access/Dockerfi
 これを行うためのより良い方法は、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
 {{< /note >}}
 
-### フロントエンドServiceと対話
+## フロントエンドServiceと対話
 
 LoadBalancerタイプのServiceを作成したら、このコマンドを使用して外部IPを見つけることができます:
 
@@ -169,7 +169,7 @@ frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 
 このIPを使用して、クラスターの外部から`frontend` Serviceとやり取りできるようになりました。
 
-### フロントエンドを介するトラフィック送信
+## フロントエンドを介するトラフィック送信
 
 フロントエンドとバックエンドが接続されました。
 フロントエンドServiceの外部IPに対してcurlコマンドを使用して、エンドポイントにアクセスできます。
