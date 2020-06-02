@@ -186,7 +186,7 @@ kubeletは、コンテナが起動してから5秒後に最初のReadiness Probe
 このProbeが成功すると、Podは準備ができていると通知されます。kubeletはこのチェックを10秒ごとに行います。
 
 この構成では、Readiness Probeに加えて、Liveness Probeが含まれています。
-kubeletは、コンテナが起動してから15秒後に、最初のLiveness Probeを行います。
+kubeletは、コンテナが起動してから15秒後に最初のLiveness Probeを実行します。
 Readiness Probeと同様に、これは`goproxy`コンテナの8080ポートに対して、接続を試みます。
 Liveness Probeが失敗した場合、コンテナは再起動されます。
 
