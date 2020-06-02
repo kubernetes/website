@@ -28,7 +28,7 @@ Kubernetesクラスター内でのPodは2つの主な方法で使うことがで
 * **協調して稼働させる必要がある複数のコンテナを稼働させるPod** : 単一のPodは、リソースを共有する必要があるような、密接に連携した複数の同じ環境にあるコンテナからなるアプリケーションをカプセル化することもできます。  これらの同じ環境にあるコンテナ群は、サービスの結合力の強いユニットを構成することができます。  
 -- 1つのコンテナが、共有されたボリュームからファイルをパブリックな場所に送信し、一方では分割された*サイドカー* コンテナがそれらのファイルを更新します。そのPodはそれらのコンテナとストレージリソースを、単一の管理可能なエンティティとしてまとめます。
 
-[Kubernetes Blog](http://kubernetes.io/blog)にて、Podのユースケースに関するいくつかの追加情報を見ることができます。さらなる情報を得たい場合は、下記のページを参照ください。  
+[Kubernetes Blog](https://kubernetes.io/blog)にて、Podのユースケースに関するいくつかの追加情報を見ることができます。さらなる情報を得たい場合は、下記のページを参照ください。  
 
   * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)  
   * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
