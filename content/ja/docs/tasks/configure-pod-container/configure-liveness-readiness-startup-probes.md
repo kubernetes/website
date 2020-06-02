@@ -266,8 +266,8 @@ Kubernetesは、これらの状況を検知して緩和するための機能と�
 Readiness Probeは、コンテナの全てのライフサイクルにおいて実行されます。
 {{< /note >}}
 
-Readiness Probeは、Liveness Probeと同様に構成します。
-唯一の違いは、`readinessProbe`フィールドを`livenessProbe`フィールドの代わりに利用することだけです。
+Readiness ProbeはLiveness Probeと同様に構成します。
+唯一の違いは`readinessProbe`フィールドを`livenessProbe`フィールドの代わりに利用することだけです。
 
 ```yaml
 readinessProbe:
@@ -279,9 +279,9 @@ readinessProbe:
   periodSeconds: 5
 ```
 
-HTTPおよびTCPによるReadiness Probeの構成も、Liveness Probeと同じです。
+HTTPおよびTCPによるReadiness Probeの構成もLiveness Probeと同じです。
 
-Readiness ProbeとLiveness Probeは、同じコンテナで同時に使用できます。
+Readiness ProbeとLiveness Probeは同じコンテナで同時に使用できます。
 両方使用することで、準備できていないコンテナへのトラフィックが到達しないようにし、コンテナが失敗したときに再起動することができます。
 
 ## Probeの構成 {#configure-probes}
