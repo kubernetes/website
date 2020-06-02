@@ -107,7 +107,7 @@ track=stable
 
   名前空間の作成に成功した場合は、デフォルトで選択されます。作成に失敗した場合は、最初の名前空間が選択されます。
 
-- **Image Pull Secret**: 指定されたDockerコンテナイメージがプライベートの場合、[pull secret](/docs/concepts/configuration/secret/)の認証情報が必要になる場合があります。
+- **Image Pull Secret**: 指定されたDockerコンテナイメージが非公開の場合、[pull secret](/docs/concepts/configuration/secret/)の認証情報が必要になる場合があります。
 
   ダッシュボードでは、利用可能なすべてのSecretがドロップダウンリストに表示され、新しいSecretを作成できます。Secret名は DNSドメイン名の構文に従う必要があります。たとえば、`new.image-pull.secret`です。Secretの内容はbase64エンコードされ、[`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)ファイルで指定されている必要があります。Secret名は最大253文字で構成されます。
 
