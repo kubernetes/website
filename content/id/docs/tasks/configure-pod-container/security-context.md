@@ -117,7 +117,7 @@ Lihatlah daftar berkas dalam direktori `/data/demo`:
 ls -l
 ```
 
-Tampilan menunjukkan bahwa `testfile` memiliki grup dengan ID 2000, dimana merupakan nilai dari bagian `fsGroup`.
+Keluarannya menunjukkan bahwa `testfile` memiliki grup dengan ID 2000, dimana merupakan nilai dari bagian `fsGroup`.
 
 ```shell
 -rw-r--r-- 1 1000 2000 6 Jun  6 20:08 testfile
@@ -216,7 +216,7 @@ Pada _shell_ kamu, lihat daftar proses yang sedang berjalan:
 ps aux
 ```
 
-Tampilan menunjukkan bahwa proses dijalankan oleh user dengan ID 2000, yang merupakan
+Keluarannya menunjukkan bahwa proses dijalankan oleh user dengan ID 2000, yang merupakan
 nilai dari `runAsUser` seperti yang telah ditentukan untuk Container tersebut. Nilai tersebut menimpa nilai ID 1000 yang
 ditentukan untuk Pod-nya.
 
@@ -269,7 +269,7 @@ Dalam _shell_ tersebut, lihatlah daftar proses yang berjalan:
 ps aux
 ```
 
-Tampilan menunjukkan ID dari proses atau _process IDs_ (PIDs) untuk Container tersebut:
+Keluarannya menunjukkan ID dari proses atau _process IDs_ (PIDs) untuk Container tersebut:
 
 ```shell
 USER  PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
@@ -284,7 +284,7 @@ cd /proc/1
 cat status
 ```
 
-Tampilan menunjukkan _bitmap_ dari kapabilitas untuk proses tersebut:
+Keluarannya menunjukkan _bitmap_ dari kapabilitas untuk proses tersebut:
 
 ```
 ...
@@ -326,7 +326,7 @@ cd /proc/1
 cat status
 ```
 
-Tampilan menunjukkan _bitmap_ kapabilitas untuk proses tersebut:
+Keluarannya menunjukkan _bitmap_ kapabilitas untuk proses tersebut:
 
 ```shell
 ...
