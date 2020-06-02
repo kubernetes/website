@@ -32,7 +32,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-b
 ## ダッシュボードUIへのアクセス
 
 
-クラスタデータを保護するために、ダッシュボードはデフォルトで最小限のRBAC構成でデプロイします。現在、ダッシュボードはBearer Tokenによるログインのみをサポートしています。このデモ用のトークンを作成するには、[サンプルユーザーの作成](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)ガイドに従ってください。
+クラスターデータを保護するために、ダッシュボードはデフォルトで最小限のRBAC構成でデプロイします。現在、ダッシュボードはBearer Tokenによるログインのみをサポートしています。このデモ用のトークンを作成するには、[サンプルユーザーの作成](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)ガイドに従ってください。
 
 {{< warning >}}
 チュートリアルで作成されたサンプルユーザーには管理者権限が与えられ、教育目的のみに使用されます。
