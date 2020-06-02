@@ -102,7 +102,7 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 ### Web UI (ダッシュボード)
 
-[ダッシュボード](/docs/tasks/access-application-cluster/web-ui-dashboard/)は、Kubernetesクラスター用の汎用WebベースUIです。これによりユーザーはクラスターおよびクラスター内で実行されているアプリケーションについて、管理およびトラブルシューティングを行うことができます。
+[ダッシュボード](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、Kubernetesクラスター用の汎用WebベースUIです。これによりユーザーはクラスターおよびクラスター内で実行されているアプリケーションについて、管理およびトラブルシューティングを行うことができます。
 
 ### コンテナリソース監視
 
