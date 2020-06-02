@@ -21,7 +21,8 @@ content_template: templates/tutorial
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 * この例は、バージョン1.14以上での動作を確認しています。
 * [ConfigMapを使ったコンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)を読んで理解しておいてください。
 
@@ -68,7 +69,7 @@ kustomizationディレクトリを反映して、ConfigMapオブジェクトとP
 kubectl apply -k .
 ```
 
-Examine the created objects by
+作成されたオブジェクトを確認します
 ```shell
 > kubectl get -k .
 NAME                                        DATA   AGE
@@ -95,6 +96,11 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
+作成したPodを削除してください:
+```shell
+kubectl delete pod redis
+```
+
 {{% /capture %}}
 
 {{% capture whatsnext %}}
@@ -102,5 +108,4 @@ kubectl exec -it redis redis-cli
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)について学ぶ
 
 {{% /capture %}}
-
 
