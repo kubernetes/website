@@ -20,7 +20,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
  - **もしあなたが高可用性を求める場合**、 [複数ゾーンにまたがるクラスター](/docs/concepts/cluster-administration/federation/)の設定について学んでください。
  - [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/)のような**ホストされているKubernetesクラスター**を使用するのか、それとも**自分自身でクラスターをホストするのでしょうか**?
  - 使用するクラスターは**オンプレミス**なのか、それとも**クラウド (IaaS)**でしょうか? Kubernetesはハイブリッドクラスターを直接サポートしていません。その代わりユーザーは複数のクラスターをセットアップできます。
- - Kubernetesを**"ベアメタル"なハードウェア** 上で稼働させるますか? それとも**仮想マシン (VMs)** 上で稼働させますか?
+ - Kubernetesを**"ベアメタル"なハードウェア** 上で稼働させますか? それとも**仮想マシン (VMs)** 上で稼働させますか?
  - **もしオンプレミスでKubernetesを構築する場合**、どの[ネットワークモデル](/ja/docs/concepts/cluster-administration/networking/)が最適か検討してください。
  - **ただクラスターを稼働させたいだけ**でしょうか、それとも**Kubernetesプロジェクトのコードの開発**を行いたいでしょうか? もし後者の場合、開発が進行中のディストリビューションを選択してください。いくつかのディストリビューションはバイナリリリースのみ使用していますが、多くの選択肢があります。
  - クラスターを稼働させるのに必要な[コンポーネント](/ja/docs/concepts/overview/components/)についてよく理解してください。
@@ -39,7 +39,7 @@ Kubernetesクラスターの計画、セットアップ、設定の例を知る�
 
 * [Certificates](/docs/concepts/cluster-administration/certificates/)では、異なるツールチェインを使用して証明書を作成する方法を説明します。
 
-* [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment-variables/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
+* [Kubernetes コンテナの環境](/ja/docs/concepts/containers/container-environment/)では、Kubernetesノード上でのKubeletが管理するコンテナの環境について説明します。
 
 * [Kubernetes APIへのアクセス制御](/docs/reference/access-authn-authz/controlling-access/)では、ユーザーとサービスアカウントの権限の設定方法について説明します。
 

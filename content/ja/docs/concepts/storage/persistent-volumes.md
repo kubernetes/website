@@ -131,7 +131,7 @@ Events:            <none>
 #### リサイクル
 
 {{< warning >}}
-`Recycle`再クレームポリシーは廃止されました。代わりに、動的プロビジョニングを使用することをおすすめします。
+`Recycle`再クレームポリシーは非推奨になりました。代わりに、動的プロビジョニングを使用することをおすすめします。
 {{< /warning >}}
 
 基盤となるボリュームプラグインでサポートされている場合、`Recycle`再クレームポリシーはボリュームに対して基本的な削除(`rm -rf /thevolume/*`)を実行し、新しいクレームに対して再び利用できるようにします。
@@ -438,7 +438,7 @@ Podと同様に、クレームは特定の量のリソースを要求できま�
 
 ### セレクター
 
-クレームでは、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
+クレームでは、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
 
 * `matchLabels` - ボリュームはこの値のラベルが必要です
 * `matchExpressions` - キー、値のリスト、およびキーと値を関連付ける演算子を指定することによって作成された要件のリスト。有効な演算子は、In、NotIn、ExistsおよびDoesNotExistです。
@@ -624,7 +624,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
+ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/ja/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
 
 PVCデータソースからのボリューム複製機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 

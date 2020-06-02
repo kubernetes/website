@@ -34,7 +34,7 @@ Pod内のアプリケーションからアクセスできる共有ボリュー�
 [Docker](https://www.docker.com/)の用語でいえば、Podは共有namespaceと共有[ボリューム](/docs/concepts/storage/volumes/)を持つDockerコンテナのグループとしてモデル化されています。
 
 個々のアプリケーションコンテナと同様に、Podは（永続的ではなく）比較的短期間の存在と捉えられます。
-[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
+[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
 Nodeが停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に削除されます。
 特定のPod（UIDで定義）は新しいNodeに「再スケジュール」されません。
 代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます（詳細については[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を参照してください）。
@@ -126,7 +126,7 @@ Podは、以下のことを容易にするためにプリミティブとして�
 * アプリケーションの可用性を高める。
 即ち、計画的な追い出しやイメージのプリフェッチなどの場合に、Podが停止し削除される前に、必ず事前に入れ換えられることを期待する
 
-## Podの終了
+## Podの終了 {#termination-of-pods}
 
 Podは、クラスター内のNodeで実行中のプロセスを表すため、不要になったときにそれらのプロセスを正常に終了できるようにすることが重要です（対照的なケースは、KILLシグナルで強制終了され、クリーンアップする機会がない場合）。
 ユーザーは削除を要求可能であるべきで、プロセスがいつ終了するかを知ることができなければなりませんが、削除が最終的に完了することも保証できるべきです。
@@ -162,7 +162,7 @@ API内のPodは直ちに削除されるため、新しいPodを同じ名前で�
 Node上では、すぐに終了するように設定されるPodは、強制終了される前にわずかな猶予期間が与えられます。
 
 強制削除は、Podによっては潜在的に危険な場合があるため、慎重に実行する必要があります。
-StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 ## Podコンテナの特権モード
 
