@@ -75,7 +75,7 @@ Kubeconfigの認証方法は、外部IDプロバイダーやx509証明書ベー�
 
 - **Container image** (必須): 任意のレジストリ上の公開Docker[コンテナイメージ](/docs/concepts/containers/images/)、またはプライベートイメージ(一般的にはGoogle Container RegistryやDocker Hub上でホストされている)のURLです。コンテナイメージの指定はコロンで終わらせる必要があります。
 
-- **Number of pods** (必須): アプリケーションをデプロイするPodのターゲット数です。値は正の整数である必要があります。
+- **Number of pods** (必須): アプリケーションをデプロイするPodの数です。値は正の整数である必要があります。
 
   クラスタ全体で必要な数のPodを維持するために、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)が作成されます。
 
