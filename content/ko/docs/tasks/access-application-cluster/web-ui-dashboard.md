@@ -115,7 +115,7 @@ track=stable
 
 - **CPU 요구 사항 (cores)** 와 **메모리 요구 사항 (MiB)**: 컨테이너를 위한 최소 [리소스 상한](/docs/tasks/configure-pod-container/limit-range/)을 정의할 수 있다. 기본적으로, 파드는 CPU와 메모리 상한을 두지 않고 동작한다.
 
-- **커맨드 실행** 와 **커맨드 인수 실행**: 기본적으로, 컨테이너는 선택된 도커 이미지의 [기본 엔트리포인트 커맨드](/docs/user-guide/containers/#containers-and-commands)를 실행한다. 커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
+- **커맨드 실행** 와 **커맨드 인수 실행**: 기본적으로, 컨테이너는 선택된 도커 이미지의 [기본 엔트리포인트 커맨드](/docs/tasks/inject-data-application/define-command-argument-container/)를 실행한다. 커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
 
 - **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이 [특권을 가진 컨테이너](/docs/user-guide/pods/#privileged-mode-for-pod-containers)의 프로세스들과 동등한 지 아닌지 정의한다. 특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 

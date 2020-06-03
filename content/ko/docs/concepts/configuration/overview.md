@@ -57,8 +57,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `hostPort`와 같은 이유로, `hostNetwork`를 사용하는 것을 피한다.
 
-- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 쉬운 서비스 발견을 위해 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-
-서비스)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
+- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 쉬운 서비스 발견을 위해 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 ## 레이블 사용하기
 
@@ -76,7 +75,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `imagePullPolicy: IfNotPresent`: 이미지가 로컬에 이미 존재하지 않으면 이미지가 풀(Pull) 된다.
 
-- `imagePullPolicy: Always`: 파드가 시작될 때마다 이미지가 풀(Pull) 된다.
+- `imagePullPolicy: Always`: kubelet이 컨테이너를 시작할 때마다, kubelet은 컨테이너 이미지 레지스트리를 쿼리해서 이름을 이미지 다이제스트(digest)로 확인한다. kubelet에 정확한 다이제스트가 저장된 컨테이너 이미지가 로컬로 캐시된 경우, kubelet은 캐시된 이미지를 사용한다. 그렇지 않으면, kubelet은 확인한 다이제스트를 사용해서 이미지를 다운로드(pull)하고, 해당 이미지를 사용해서 컨테이너를 시작한다.
 
 - `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `Always`가 적용된다.
 
