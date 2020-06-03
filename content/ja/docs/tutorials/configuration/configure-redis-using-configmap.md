@@ -24,7 +24,7 @@ content_template: templates/tutorial
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * この例は、バージョン1.14以上での動作を確認しています。
-* [ConfigMapを使ったコンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)を読んで理解しておいてください。
+* [ConfigMapを使ったコンテナの設定](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読んで理解しておいてください。
 
 {{% /capture %}}
 
@@ -96,7 +96,7 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
-作成したPodを削除してください:
+作成したPodを削除します:
 ```shell
 kubectl delete pod redis
 ```
