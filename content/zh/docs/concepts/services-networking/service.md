@@ -474,7 +474,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 
 <!--
 In `ipvs` mode, kube-proxy watches Kubernetes Services and Endpoints,
-calls `netlink` interface to create IPVS rules accordingly and synchronizes
+calls `netlink` interface to caareate IPVS rules accordingly and synchronizes
 IPVS rules with Kubernetes Services and Endpoints periodically.
 This control loop ensures that IPVS status matches the desired
 state.
