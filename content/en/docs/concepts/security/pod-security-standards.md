@@ -118,7 +118,7 @@ enforced/disallowed:
 				On supported hosts, the `runtime/default` AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to a whitelisted set of profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
-				<br><b>Allowed Values:</b> runtime/default, undefined<br>
+				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
 			</td>
 		</tr>
 		<tr>
@@ -130,6 +130,31 @@ enforced/disallowed:
 				spec.containers[*].securityContext.seLinuxOptions<br>
 				spec.initContainers[*].securityContext.seLinuxOptions<br>
 				<br><b>Allowed Values:</b> undefined/nil<br>
+			</td>
+		</tr>
+		<tr>
+			<td>/proc Mount Type</td>
+			<td>
+				The default /proc masks are set up to reduce attack surface, and should be required.<br>
+				<br><b>Restricted Fields:</b><br>
+				spec.containers[*].securityContext.procMount<br>
+				spec.initContainers[*].securityContext.procMount<br>
+				<br><b>Allowed Values:</b> undefined/nil, 'Default'<br>
+			</td>
+		</tr>
+		<tr>
+			<td>Sysctls</td>
+			<td>
+				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for a whitelisted "safe" subset.
+                A sysctl is considered safe if it is namespaced in the container or the pod, and it is isolated from other pods or processes on the same node.<br>
+				<br><b>Restricted Fields:</b><br>
+				spec.securityContext.sysctls<br>
+				<br><b>Allowed Values:</b><br>
+                kernel.shm_rmid_forced<br>
+                net.ipv4.ip_local_port_range<br>
+                net.ipv4.tcp_syncookies<br>
+                net.ipv4.ping_group_range<br>
+				undefined/empty<br>
 			</td>
 		</tr>
 	</tbody>
