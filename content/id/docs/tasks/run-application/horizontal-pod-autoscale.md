@@ -172,20 +172,20 @@ dikonfigurasi untuk memilih rekomendasi tertinggi. Nilai ini dapat dikonfigurasi
 5 menit. Ini berarti *scale down* akan terjadi secara bertahapn, untuk mengurangi dampak dari
 perubahan nilai metrik yang cepat. 
 
-## API Object
+## Objek API
 
-The Horizontal Pod Autoscaler is an API resource in the Kubernetes `autoscaling` API group.
-The current stable version, which only includes support for CPU autoscaling,
-can be found in the `autoscaling/v1` API version.
+HorizontalPodAutoscaler adalah sebuah API dalam `autoscaling` group API Kubernetes.
+Versi stabil, dimana hanya mendukung untuk *auto scale* CPU, dapat ditemukan di API versi
+`autoscaling/v1`.
 
-The beta version, which includes support for scaling on memory and custom metrics,
-can be found in `autoscaling/v2beta2`. The new fields introduced in `autoscaling/v2beta2`
-are preserved as annotations when working with `autoscaling/v1`.
+Versi *beta*, dimana mendukung untuk *scaling* merdasarkan memori dan metrik khusus,
+dapat ditemukan pada `autoscaling/v2beta2`. *Field* yang baru diperkenalkan pada
+`autoscaling/v2beta2` adalah *preserved* sebagai anotasi ketika menggunakan `autoscaling/v1`. 
 
-When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+Ketika kamu membuat sebuah HorizontalPodAutoscaler, pastikan nama yang ditentukan adalah valid
+[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+Untuk lebih detail tentang objek API ini dapat ditemukan di
+[Objek HorizontalPodAutoscaler](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
 ## Support for Horizontal Pod Autoscaler in kubectl
 
