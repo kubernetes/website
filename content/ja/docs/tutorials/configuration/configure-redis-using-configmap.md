@@ -108,4 +108,3 @@ kubectl delete pod redis
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)について学ぶ
 
 {{% /capture %}}
-
