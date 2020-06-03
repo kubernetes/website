@@ -26,7 +26,7 @@ weight: 10
 - リソースの作成や更新がクォータの制約に違反しているとき、そのリクエストはHTTPステータスコード`403 FORBIDDEN`で失敗し、違反した制約を説明するメッセージが表示されます。
 - `cpu`や`memory`といったコンピューターリソースに対するクォータが名前空間内で有効になっているとき、ユーザーはそれらの値に対する`requests`や`limits`を設定する必要があります。設定しないとクォータシステムがPodの作成を拒否します。 ヒント: コンピュートリソースの要求を設定しないPodに対してデフォルト値を強制するために、`LimitRanger`アドミッションコントローラーを使用してください。この問題を解決する例は[walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)で参照できます。
 
-`ResourceQuota`のオブジェクト名は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
+`ResourceQuota`のオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
 
 名前空間とクォータを使用して作成できるポリシーの例は以下の通りです。
 
