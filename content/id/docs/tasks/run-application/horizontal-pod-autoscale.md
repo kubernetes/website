@@ -84,87 +84,93 @@ Perhatikan [Support for metrics APIs](#support-for-metrics-apis) untuk lebih det
 dengan menggunakan *scale sub-resource*. Untuk lebih detail mengenai *scale sub-resource* dapat ditemukan 
 [disini](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
-### Algorithm Details
+### Detail Algoritma
 
-From the most basic perspective, the Horizontal Pod Autoscaler controller
-operates on the ratio between desired metric value and current metric
-value:
+Dari sudut pandang paling sederhana, kontroler HorizontalPodAutoscaler mengoperasikan
+perbandingan metrik yang diinginkan dengan kedaan metrik sekarang.
 
 ```
-desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
+jumlahReplikaYangDiinginkan = pembulatanKeatas[jumlahReplikaSekarang * ( nilaiMetrikSekarang / nilaiMetrikYangDinginkan )]
 ```
 
-For example, if the current metric value is `200m`, and the desired value
-is `100m`, the number of replicas will be doubled, since `200.0 / 100.0 ==
-2.0` If the current value is instead `50m`, we'll halve the number of
-replicas, since `50.0 / 100.0 == 0.5`.  We'll skip scaling if the ratio is
-sufficiently close to 1.0 (within a globally-configurable tolerance, from
-the `--horizontal-pod-autoscaler-tolerance` flag, which defaults to 0.1).
+Sebagai contoh, jika nilai metrik sekarang adalah `200m` dan nilai metrik yang
+diinginkan adalah `100m`, jumlah replika akan ditambah dua kali lipat, 
+karena `200.0 / 100.0 == 2.0`. Jika nilai metrik sekarang adalah `50m`,
+maka jumlah replika akan dikurangi setengah, karena `50.0 / 100.0 == 0.5`.
+Kita tetap men-*sclae* jika nilai perbandingan mendekati 1.0 (dalam toleransi yang
+dapat dikonfigurasi secata global, dari *flag* `--horizontal-pod-autoscaler-tolerance`
+dengan nilai standar 0.1.
 
-When a `targetAverageValue` or `targetAverageUtilization` is specified,
-the `currentMetricValue` is computed by taking the average of the given
-metric across all Pods in the HorizontalPodAutoscaler's scale target.
-Before checking the tolerance and deciding on the final values, we take
-pod readiness and missing metrics into consideration, however.
+Ketika `nilaiTargetRatarata` atau `targetPenggunaanRatarata` ditentukan,
+`nilaiMetrikSekarang` dihitung dengan mengambil rata-rata dari metrik dari
+semua *pods* yang ditargetkan oleh HorizontalPodAutoscaler. Sebelum mengecek
+toleransi dan menentukan nilai akhir, kita mengambil kesiaapn *pod* dan metrik
+yang hilang sebagai pertimbangan. 
 
-All Pods with a deletion timestamp set (i.e. Pods in the process of being
-shut down) and all failed Pods are discarded.
+Semua *pods* yang memiliki waktu penghapusan(*pod* dalam proses penutupan)
+dan semua *pods* yang *failed* akan dibuang.
 
-If a particular Pod is missing metrics, it is set aside for later; Pods
-with missing metrics will be used to adjust the final scaling amount.
+Jika ada metrik yang hilang dari *pod*, maka *pod* akan dievaluasi nanti.
+*Pod* dengan nilai metrik yang hilang akan digunakan untuk menyesuikan
+jumlah akhir *pod* yang akan di-*scale*.
 
-When scaling on CPU, if any pod has yet to become ready (i.e. it's still
-initializing) *or* the most recent metric point for the pod was before it
-became ready, that pod is set aside as well.
+Ketika CPU sedang *scale*, jika terdapat *pod* yang akan siap (dengan kata lain
+*pod* tersebut sedang dalam tahap inisialisasi) *atau* metrik terakhir dari *pod*
+adalah metrik sebelum *pod* dalam keadaan siap, maka *pod* tersebut juga
+akan dievaluasi nanti.
 
-Due to technical constraints, the HorizontalPodAutoscaler controller
-cannot exactly determine the first time a pod becomes ready when
-determining whether to set aside certain CPU metrics. Instead, it
-considers a Pod "not yet ready" if it's unready and transitioned to
-unready within a short, configurable window of time since it started.
-This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
-seconds.  Once a pod has become ready, it considers any transition to
-ready to be the first if it occurred within a longer, configurable time
-since it started. This value is configured with the `--horizontal-pod-autoscaler-cpu-initialization-period` flag, and its
-default is 5 minutes.
+Akibat keterbatasan teknis, kontroler HorizontalPodAutoscaler tidak dapat
+menentukan dengan tepat kapan pertama kali *pod* akan dalam keadaan siap
+ketika menentukan apakah menyisihkan metrik CPU tertentu. Sebaliknya,
+HorizontalPodAutoscaler mempertimbangkan sebuah Pod "tidak dalam keadaan siap"
+jika Pod tersebut dalam keadaan tidak siap dan dalam transisi ke status tidak
+siap dalam waktu singkat, rentang waktu dapat dikonfigurasi, sejak Pod tersebut berjalan.
+Rentang waktu tersebut dapat dikonfigurasi dengan *flag* `--horizontal-pod-autoscaler-initial-readiness-delay`
+dan waktu standarnya adalah 30 detik. Ketika suatu Pod sudah dalam keadaan siap,
+Pod tersebut mempertimbangkan untuk siap menjadi yang pertama jika itu terjadi dalam
+waktu yang lebih lama, rentang waktu dapat di konfigurasi, sejak Pod tersebut berjalan.
+Rentang waktu tersebut dapat dikonfigurasi dengan *flag* `--horizontal-pod-autoscaler-cpu-initialization-period`
+dan nilai standarnya adalah 5 menit. 
 
-The `currentMetricValue / desiredMetricValue` base scale ratio is then
-calculated using the remaining pods not set aside or discarded from above.
+Skala perbandingan dasar `nilaiMetrikSekarang / nilaiMetrikYangDinginkan`
+dihitung menggunakan Pod yang tersisa yang belum disisihkan atau dibuang dari
+kondisi diatas.
 
-If there were any missing metrics, we recompute the average more
-conservatively, assuming those pods were consuming 100% of the desired
-value in case of a scale down, and 0% in case of a scale up.  This dampens
-the magnitude of any potential scale.
+Jika terdapat metrik yang hilang, kita menghitung ulang rata-rata dengan lebih
+konservatif, dengan asumsi *pods* menkonsumsi 100% dari nilai yang diharapkan
+jika di *scale down* dan 0% jika di *scale up*. Ini akan mengurangi
+besarnya kemungkinan untuk *scale*.
 
-Furthermore, if any not-yet-ready pods were present, and we would have
-scaled up without factoring in missing metrics or not-yet-ready pods, we
-conservatively assume the not-yet-ready pods are consuming 0% of the
-desired metric, further dampening the magnitude of a scale up.
+Selanjutnya, jika terdapat Pod dalam keadaan tidak siap, and kita akan
+men-*scale up* tanpa memperhitungkan metrik yang hilang atau Pod yang tidak dalam
+keadaan siap, kita secara konservatif mengasumsikan Pod yang tidak dalam keadaan siap
+mengkonsumsi 0% dari metrik yang diharapkan, akhirnya mengurasi besarnya *scale up*.
 
-After factoring in the not-yet-ready pods and missing metrics, we
-recalculate the usage ratio.  If the new ratio reverses the scale
-direction, or is within the tolerance, we skip scaling.  Otherwise, we use
-the new ratio to scale.
+Seteleh memperhitungkan Pod yang tidak dalam keadaan siap dan metrik yang hilang,
+kite menghitung ulang menggunakan perbandingan. Jika perbandingan yang baru membalikkan
+arah *scale*-nya atau masih didalam toleransi, kita akan tepat *scale*. Jika tidak,
+kita menggunakan perbandingan yang baru untuk *scale*.
 
-Note that the *original* value for the average utilization is reported
-back via the HorizontalPodAutoscaler status, without factoring in the
-not-yet-ready pods or missing metrics, even when the new usage ratio is
-used.
 
-If multiple metrics are specified in a HorizontalPodAutoscaler, this
-calculation is done for each metric, and then the largest of the desired
-replica counts is chosen. If any of these metrics cannot be converted
-into a desired replica count (e.g. due to an error fetching the metrics
-from the metrics APIs) and a scale down is suggested by the metrics which
-can be fetched, scaling is skipped. This means that the HPA is still capable
-of scaling up if one or more metrics give a `desiredReplicas` greater than
-the current value.
+Perlu dicatat bahwa nilai *original* untuk rata-rata penggunaan dilaporkan kembali melalui
+status HorizontalPodAutoscaler, tanpa memperhitungkan Pod yang tidak dalam keadaan siap atau
+metrik yang hilag, bahkan ketika perbandingan yang baru digunakan.
 
-Finally, just before HPA scales the target, the scale recommendation is recorded.  The
-controller considers all recommendations within a configurable window choosing the
-highest recommendation from within that window. This value can be configured using the `--horizontal-pod-autoscaler-downscale-stabilization` flag, which defaults to 5 minutes.
-This means that scaledowns will occur gradually, smoothing out the impact of rapidly
-fluctuating metric values.
+
+Jika beberapa metrik ditentukan pada sebuah HorizontalPodAutoscaler, perhitungan
+dilakukan untuk setiap metrik dan nilai replika terbesar yang diharapkan akan dipilih.
+Jika terdapat metrik yang tidak dapat diubah menjadi jumlah replika yang diharapakan
+(contohnya terdapat kesalahan ketika mengambil metrik dari API metrik) dan *scale down*
+disarankan dari metrik yang dapat diambil, maka *scaling* akan diabaikan. Ini berarti 
+HorizontalPodAutoscaler masih mampu untuk *scale up* jika satu atau lebih metrik
+memberikan sebuah `jumlahReplikaYangDiinginkan` lebih besar dari nilai yang sekarang.
+
+Pada akhirnya, sebelum HorizontalPodAutoscaler men-*scale* target, rekomendasi *scale* akan
+dicatat. Kontroler mempertimbangkan semua rekomendasi dalam rentang waktu yang dapat
+dikonfigurasi untuk memilih rekomendasi tertinggi. Nilai ini dapat dikonfigurasi menggunakan
+*flag* `--horizontal-pod-autoscaler-downscale-stabilization`, dengan nilai standar
+5 menit. Ini berarti *scale down* akan terjadi secara bertahapn, untuk mengurangi dampak dari
+perubahan nilai metrik yang cepat. 
 
 ## API Object
 
