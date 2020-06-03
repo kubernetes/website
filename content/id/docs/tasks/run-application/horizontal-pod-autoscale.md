@@ -187,19 +187,20 @@ Ketika kamu membuat sebuah HorizontalPodAutoscaler, pastikan nama yang ditentuka
 Untuk lebih detail tentang objek API ini dapat ditemukan di
 [Objek HorizontalPodAutoscaler](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
-## Support for Horizontal Pod Autoscaler in kubectl
+## Dukungan untuk HorizontalPodAutoscaler pada kubectl
 
-Horizontal Pod Autoscaler, like every API resource, is supported in a standard way by `kubectl`.
-We can create a new autoscaler using `kubectl create` command.
-We can list autoscalers by `kubectl get hpa` and get detailed description by `kubectl describe hpa`.
-Finally, we can delete an autoscaler using `kubectl delete hpa`.
+Seperti API *resource* lainnya, HorizontalPodAutoscaler didukung dengan standar oleh `kubectl`.
+Kita dapat membuat *autoscaler* yang baru dengan menggunakan perintah `kubectl create`.
+Kita dapat melihat daftar *autoscaler* dengan perintah `kubectl get hpa` dan melihat deskripsi
+detailnnya dengan perintah `kubectl describe hpa`. Akhirnya, kita dapat menghapus *autoscaler*
+meggunakan perintah `kubectl delete hpa`. 
 
-In addition, there is a special `kubectl autoscale` command for easy creation of a Horizontal Pod Autoscaler.
-For instance, executing `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
-will create an autoscaler for replication set *foo*, with target CPU utilization set to `80%`
-and the number of replicas between 2 and 5.
-The detailed documentation of `kubectl autoscale` can be found [here](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
-
+Sebagai tambahan, terdapat sebuah perintah kusus `kubectl autoscaler` untuk mempermudah pembuatan
+HorizontalPodAutoscaler. Sebagai contoh, mengeksekusi
+`kubectl autoscaler rs foo --min=2 --max=5 --cpu-percent=80` akan membuat sebuah *autoscaler* untuk
+ReplicaSet *foo*, dengan target pengguaan CPU `80%` dan jumlah replika antara 2 sampai dengan 5.
+Dokumentasi lebih detail tentang `kubectl autoscaler` dapat ditemukan di 
+[sini](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 
 ## Autoscaling during rolling update
 
