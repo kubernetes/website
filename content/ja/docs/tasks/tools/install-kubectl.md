@@ -98,6 +98,7 @@ brew install kubectl
 kubectl version
 ```
 {{% /tab %}}
+{{< /tabs >}}
 
 ## macOSへkubectlをインストールする {#install-kubectl-on-macos}
 
