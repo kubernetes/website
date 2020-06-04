@@ -4,6 +4,13 @@
 		{{ partial "head.html" . }}
 	</head>
 	<body class="page">
+    {{ block "announcement" . }}
+      {{ if .IsHome }}
+        {{ partial "frontpage-announcement.html" . }}
+      {{ else }}
+        {{ partial "announcement.html" . }}
+      {{ end }}
+    {{ end }}
 		{{ partial "header.html" . }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
@@ -18,7 +25,6 @@
 		</section>
 		{{ block "post-hero" . }}{{ end }}
 		{{ end }}
-	
 	<main>
 		<article class="page-content">
 		  {{ block "main" . }}{{ end }}
