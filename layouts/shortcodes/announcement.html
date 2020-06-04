@@ -1,10 +1,13 @@
 {{ if .Page.Param "announcement" }}
+<link rel="stylesheet" href="{{ "css/announcement.css" | relURL }}">
 <section id="announcement">
   <main>
-    <div class="content announcement">
+    <div class="content announcement main-section">
+
       <h3>
           {{ .Page.Param "announcement_message" | markdownify }}
       </h3>
+
     </div>
   </main>
 </section>
