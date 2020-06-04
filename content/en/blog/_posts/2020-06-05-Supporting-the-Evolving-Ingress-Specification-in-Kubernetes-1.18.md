@@ -7,7 +7,7 @@ slug: Supporting-the-Evolving-Ingress-Specification-in-Kubernetes-1.18
 
 **Authors:** Alex Gervais (Datawire.io)
 
-Last month, the Kubernetes team released [Kubernetes 1.18](https://kubernetes.io/blog/2020/03/25/kubernetes-1-18-release-announcement/), which extended Ingress. In this blog post, we’ll walk through what’s new in the new Ingress specification, what it means for your applications, and how to upgrade to an ingress controller that supports this new specification.
+Earlier this year, the Kubernetes team released [Kubernetes 1.18](https://kubernetes.io/blog/2020/03/25/kubernetes-1-18-release-announcement/), which extended Ingress. In this blog post, we’ll walk through what’s new in the new Ingress specification, what it means for your applications, and how to upgrade to an ingress controller that supports this new specification.
 
 ### What is Kubernetes Ingress
 When deploying your applications in Kubernetes, one of the first challenges many people encounter is how to get traffic into their cluster. [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) is a collection of routing rules that govern how external users access services running in a Kubernetes cluster. There are [three general approaches](https://blog.getambassador.io/kubernetes-ingress-nodeport-load-balancers-and-ingress-controllers-6e29f1c44f2d) for exposing your application:
