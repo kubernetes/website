@@ -53,7 +53,6 @@ PodCondition配列の各要素には、次の6つのフィールドがありま�
   * `PodScheduled`: PodがNodeにスケジュールされました。
   * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
   * `Initialized`: すべての[init containers](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
-  * `Unschedulable`: リソースの枯渇やその他の理由で、Podがスケジュールできない状態です。
   * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 
 
@@ -80,7 +79,7 @@ Handlerには次の3つの種類があります:
 * Failure: コンテナの診断が失敗しました。
 * Unknown: コンテナの診断が失敗し、取れるアクションがありません。
 
-Kubeletは2種類のProbeを実行中のコンテナで行い、また反応することができます:
+Kubeletは3種類のProbeを実行中のコンテナで行い、また反応することができます:
 
 * `livenessProbe`: コンテナが動いているかを示します。
    livenessProbe に失敗すると、kubeletはコンテナを殺します、そしてコンテナは[restart policy](#restart-policy)に従います。
@@ -91,13 +90,24 @@ Kubeletは2種類のProbeを実行中のコンテナで行い、また反応す�
    initial delay前のデフォルトのreadinessProbeの初期値は`Failure`です。
    コンテナにreadinessProbeが設定されていない場合、デフォルトの状態は`Success`です。
 
-### livenessProbeとreadinessProbeをいつ使うべきか? {#when-should-you-use-a-liveness-probe}
+* `startupProbe`: コンテナ内のアプリケーションが起動したかどうかを示します。
+   startupProbeが設定された場合、完了するまでその他のすべてのProbeは無効になります。
+   startupProbeに失敗すると、kubeletはコンテナを殺します、そしてコンテナは[restart policy](#restart-policy)に従います。
+   コンテナにstartupProbeが設定されていない場合、デフォルトの状態は`Success`です。
+
+### livenessProbeをいつ使うべきか? {#when-should-you-use-a-liveness-probe}
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 コンテナ自体に問題が発生した場合や状態が悪くなった際にクラッシュすることができれば
 livenessProbeは不要です。この場合kubeletが自動でPodの`restartPolicy`に基づいたアクションを実行します。
 
 Probeに失敗したときにコンテナを殺したり再起動させたりするには、
 livenessProbeを設定し`restartPolicy`をAlwaysまたはOnFailureにします。
+
+### readinessProbeをいつ使うべきか? {#when-should-you-use-a-readiness-probe}
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 Probeが成功したときにのみPodにトラフィックを送信したい場合は、readinessProbeを指定します。
 この場合readinessProbeはlivenessProbeと同じになる可能性がありますが、
@@ -111,8 +121,17 @@ Podが削除されたときにリクエストを来ないようにするため�
 Podの削除時にはreadinessProbeが存在するかどうかに関係なくPodは自動的に自身をunhealthyにします。
 Pod内のコンテナが停止するのを待つ間Podはunhealthyのままです。
 
-livenessProbeまたはreadinessProbeを設定する方法の詳細については、
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)を参照してください
+### startupProbeをいつ使うべきか? {#when-should-you-use-a-startup-probe}
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+コンテナの起動時間が `initialDelaySeconds + failureThreshold × periodSeconds` よりも長い場合は、livenessProveと同じエンドポイントをチェックするためにstartupProbeを指定します。
+`periodSeconds`のデフォルトは30秒です。
+
+`failureThreshold` は、livenessProbeのデフォルト値を変更せずに、コンテナが起動するのに十分な値に設定します。これによりデッドロックを防ぐことができます。
+
+livenessProbe、readinessProbeまたはstartupProbeを設定する方法の詳細については、
+[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
 
 ## Podとコンテナのステータス {#pod-and-container-status}
 
@@ -137,7 +156,7 @@ Pod内のコンテナごとにStateの項目として表示されます。
    ...
    ```
 
-* `Running`: コンテナが問題なく実行されていることを示します。コンテナがRunningに入ると`postStart`フック（もしあれば）が実行されます。この状態にはコンテナが実行中状態に入った時刻も表示されます。
+* `Running`: コンテナが問題なく実行されていることを示します。コンテナがRunning状態に入る前に`postStart`フック（もしあれば）が実行されます。この状態にはコンテナが実行中状態に入った時刻も表示されます。
 
    ```yaml
    ...
@@ -200,10 +219,6 @@ status:
 * `ReadinessGates`で指定された条件が全て`True`である。
 
 PodのReadinessの評価へのこの変更を容易にするために、新しいPod Conditionである`ContainersReady`が導入され、古いPodの`Ready`条件を取得します。
-
-K8s 1.1ではAlpha機能のため"Pod Ready++" 機能は`PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)にて明示的に指定する必要があります。
-
-K8s 1.12ではこの機能はデフォルトで有効になっています。
 
 ## RestartPolicy {#restart-policy}
 
@@ -324,7 +339,7 @@ spec:
 
 * [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
-* [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)のハンズオンをやってみる
+* [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
 
 * [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
