@@ -20,7 +20,7 @@ ReplicaSetは、ReplicaSetが対象とするPodをどう特定するかを示す
 
 ReplicaSetがそのPod群と連携するためのリンクは、Podの[metadata.ownerReferences](/ja/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)というフィールド(現在のオブジェクトが所有されているリソースを指定する)を介して作成されます。ReplicaSetによって所持された全てのPodは、それらの`ownerReferences`フィールドにReplicaSetを特定する情報を保持します。このリンクを通じて、ReplicaSetは管理しているPodの状態を把握したり、その後の実行計画を立てます。
 
-ReplicaSetは、そのセレクターを使用することにより、所有するための新しいPodを特定します。もし`ownerReference`フィールドの値を持たないPodか、`ownerReference`フィールドの値が {{< glossary_tooltip term_id="controller" >}} でないPodで、そのPodがReplicaSetのセレクターとマッチした場合に、そのPodは即座にそのReplicaSetによって所有されます。
+ReplicaSetは、そのセレクターを使用することにより、所有するための新しいPodを特定します。もし`ownerReference`フィールドの値を持たないPodか、`ownerReference`フィールドの値が {{< glossary_tooltip text="コントローラー" term_id="controller" >}}でないPodで、そのPodがReplicaSetのセレクターとマッチした場合に、そのPodは即座にそのReplicaSetによって所有されます。
 
 ## ReplicaSetを使うとき
 
