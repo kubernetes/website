@@ -83,11 +83,11 @@ githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 # param for displaying an announcement block on every page; see PR #16210
-announcement = false
+announcement = true
 # announcement_message is only displayed when announcement = true; update with your specific message
-announcement_title = "Announcement title here"
-announcement_message_full = "Long homepage announcement <br/><br/> Quisque efficitur feugiat neque non accumsan. Sed sed massa pharetra, suscipit mauris ut, viverra felis. Sed id ullamcorper sapien. Vivamus lobortis elementum nunc nec molestie. Ut eleifend tellus diam, in tincidunt purus ullamcorper nec. Morbi quam elit, laoreet at cursus vitae, efficitur condimentum felis. Nam ac felis sed lorem dapibus semper. Integer eu pretium justo. Nunc porta pulvinar ornare. " #appears on homepage. Use md formatting for links and <br/> for line breaks.
-announcement_message_compact = "One line compact announcement" #appears on subpages
+announcement_title = "Black lives matter."
+announcement_message_full = "We stand in solidarity with the Black community.<br/>Racism is unacceptable.<br/>It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it." #appears on homepage. Use md formatting for links and <br/> for line breaks.
+announcement_message_compact = "We stand in solidarity with the Black community.<br/>Racism is unacceptable.<br/>It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it." #appears on subpages
 announcement_bg = "#000000" #choose a dark color – text is white
 
 [params.pushAssets]
