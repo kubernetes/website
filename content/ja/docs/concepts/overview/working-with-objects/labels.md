@@ -59,6 +59,26 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 
 正しいラベル値は63文字以下の長さで、空文字か、もしくは開始と終了が英数字(`[a-z0-9A-Z]`)で、文字列の間がダッシュ(`-`)、アンダースコア(`_`)、ドット(`.`)と英数字である文字列を使うことができます。  
 
+例えば、`environment: production`と`app: nginx`の2つのラベルを持つPodのconfigファイルは下記のようになります。
+
+```yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-demo
+  labels:
+    environment: production
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+```
+
 ## ラベルセレクター {#label-selectors}
 
 [名前とUID](/docs/user-guide/identifiers)とは異なり、ラベルはユニーク性を提供しません。通常、多くのオブジェクトが同じラベルを保持することを想定します。
