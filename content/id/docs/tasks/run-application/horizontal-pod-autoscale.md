@@ -216,29 +216,29 @@ Alasan HorizontalPodAutoscaler tidak bekerja ketika *rolling update* membuat kon
 replikasi yang baru adalah HorizontalPodAutoscaler tidak akan terikat dengan kontroler
 replikasi yang baru tersebut.
 
-## Support for cooldown/delay
+## Dukungan untuk *cooldown*/penundaan
 
-When managing the scale of a group of replicas using the Horizontal Pod Autoscaler,
-it is possible that the number of replicas keeps fluctuating frequently due to the
-dynamic nature of the metrics evaluated. This is sometimes referred to as *thrashing*.
+Ketika mengolah *scale* dari sebuah replika grup menggunakan HorizonalPodAutoscaler,
+jumlah replika dimungkinkan tetap berubah secara sering disebabkan oleh perubahan dinamis
+dari metrik yang dievaluasi. Hal ini sering disebut dengan *thrashing*. 
 
-Starting from v1.6, a cluster operator can mitigate this problem by tuning
-the global HPA settings exposed as flags for the `kube-controller-manager` component:
+Mulai dari versi 1.6, operator klaster dapat mengatasi masalah ini dengan mengatur
+setingan HorizontalPodAutoscaler global sebagai *flag* `kube-controller-manager.
 
-Starting from v1.12, a new algorithmic update removes the need for the
-upscale delay.
+Mulai dari versi 1.12, sebuah algoritma perbaharuan baru menghilankan kebutuhan terhadap
+penundaan *upscale*.
 
-- `--horizontal-pod-autoscaler-downscale-stabilization`: The value for this option is a
-  duration that specifies how long the autoscaler has to wait before another
-  downscale operation can be performed after the current one has completed.
-  The default value is 5 minutes (`5m0s`).
+- `--horizontal-pod-autoscaler-downscale-stabilization`: Nilai untuk opsi ini adalah
+  sebuah durasi yang menentukan berapa lama *autoscaler* menunggu sebelum operasi
+  *downscale* yang lain diklakukan seteleh operasi sekarang selesai. Nilai standarnya
+  adalah 5 menit (`5m0s`).
 
 {{< note >}}
-When tuning these parameter values, a cluster operator should be aware of the possible
-consequences. If the delay (cooldown) value is set too long, there could be complaints
-that the Horizontal Pod Autoscaler is not responsive to workload changes. However, if
-the delay value is set too short, the scale of the replicas set may keep thrashing as
-usual.
+Ketika mengubah nilai paramater ini, sebuah operator klaster akan sadar akan kemungkinan
+konsekuensi. Jika waktu penundaan diset terlalu lama, kemungkinan akan membuat
+HorizontalPodAutoscaler tidak responsif terharap perubahan beban kerja. Namun, jika
+waktu penundaan diset terlalu cepat, kemungkinan replikasi akan *trashing* seperti
+biasanya. 
 {{< /note >}}
 
 ## Support for multiple metrics
