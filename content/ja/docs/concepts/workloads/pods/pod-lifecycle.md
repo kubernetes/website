@@ -131,7 +131,7 @@ Pod内のコンテナが停止するのを待つ間Podはunhealthyのままで�
 `failureThreshold` は、livenessProbeのデフォルト値を変更せずに、コンテナが起動するのに十分な値に設定します。これによりデッドロックを防ぐことができます。
 
 livenessProbe、readinessProbeまたはstartupProbeを設定する方法の詳細については、
-[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
+[Configure Liveness, Readiness and Startup Probes](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
 
 ## Podとコンテナのステータス {#pod-and-container-status}
 
