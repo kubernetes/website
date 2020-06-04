@@ -1,6 +1,25 @@
-.announcement {
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 3px;
-    background-color: #eeeeee;
+.announcement.content {
+  margin-bottom: 0px;
+}
+
+.announcement > p, .gridPage #announcement .content p, .announcement > h4, .announcement > h3 {
+  color: #ffffff;
+}
+
+#announcement {
+  padding-top: 75px;
+  padding-bottom: 25px;
+}
+
+#hero {
+  padding-top: 40px;
+}
+
+#fp-announcement {
+  min-height: 30vh;
+}
+
+#fp-announcement main {
+  margin-top: 125px;
+  padding-bottom: 35px;
 }
