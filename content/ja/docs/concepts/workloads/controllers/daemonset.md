@@ -12,8 +12,8 @@ _DaemonSet_ は全て(またはいくつか)のNodeが単一のPodのコピー�
 DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 - `glusterd`や`ceph`のようなクラスターのストレージデーモンを各Node上で稼働させる。
-- `fluentd`や`logstash`のようなログ集計デーモンを各Node上で稼働させる。
-- [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)や[Flowmill](https://github.com/Flowmill/flowmill-k8s/)、[Sysdig Agent](https://docs.sysdig.com)、`collectd`、[Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/)、 [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes)、 [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/)、 [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration)、Gangliaの`gmond`やInstana agentなどのようなNodeのモニタリングデーモンを各Node上で稼働させる。
+- `fluentd`や`filebeat`のようなログ集計デーモンを各Node上で稼働させる。
+- [Prometheus Node Exporter](https://github.com/prometheus/node_exporter)や[Flowmill](https://github.com/Flowmill/flowmill-k8s/)、[Sysdig Agent](https://docs.sysdig.com)、`collectd`、[Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/)、 [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes)、 [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/)、 [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration)、Gangliaの`gmond`、[Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/)や[Elastic Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/running-on-kubernetes.html)などのようなNodeのモニタリングデーモンを各Node上で稼働させる。
 
 シンプルなケースとして、各タイプのデーモンにおいて、全てのNodeをカバーする1つのDaemonSetが使用されるケースがあります。
 さらに複雑な設定では、単一のタイプのデーモン用ですが、異なるフラグや、異なるハードウェアタイプに対するメモリー、CPUリクエストを要求する複数のDaemonSetを使用するケースもあります。
@@ -32,7 +32,8 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* YAMLファイルに基づいてDaemonSetを作成します。  
+YAMLファイルに基づいてDaemonSetを作成します。
+
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
@@ -41,6 +42,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。  
 設定ファイルの活用法に関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/)、[kubectlを用いたオブジェクトの管理](/ja/docs/concepts/overview/working-with-objects/object-management/)といったドキュメントを参照ください。
+
+DaemonSetオブジェクトの名前は、有効な
+[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)セクションも必須となります。
 
@@ -80,7 +84,7 @@ selector](/ja/docs/concepts/configuration/assign-pod-node/)にマッチするPod
 
 ## Daemon Podがどのようにスケジューリングされるか
 
-### デフォルトスケジューラーによってスケジューリングされる場合(Kubernetes1.12からデフォルトで有効)
+### デフォルトスケジューラーによってスケジューリングされる場合
 
 {{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
