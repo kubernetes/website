@@ -83,7 +83,7 @@ githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
 # param for displaying an announcement block on every page; see PR #16210
-announcement = true
+announcement = false
 # announcement_message is only displayed when announcement = true; update with your specific message
 announcement_title = "Announcement title here"
 announcement_message_full = "Long homepage announcement <br/><br/> Quisque efficitur feugiat neque non accumsan. Sed sed massa pharetra, suscipit mauris ut, viverra felis. Sed id ullamcorper sapien. Vivamus lobortis elementum nunc nec molestie. Ut eleifend tellus diam, in tincidunt purus ullamcorper nec. Morbi quam elit, laoreet at cursus vitae, efficitur condimentum felis. Nam ac felis sed lorem dapibus semper. Integer eu pretium justo. Nunc porta pulvinar ornare. " #appears on homepage. Use md formatting for links and <br/> for line breaks.
