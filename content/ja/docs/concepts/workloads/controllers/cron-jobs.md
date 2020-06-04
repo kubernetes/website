@@ -19,7 +19,7 @@ _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみら�
 コントロールプレーンがkube-controller-managerをPodもしくは素のコンテナで実行している場合、kube-controller-manager コンテナに設定されたタイムゾーンは、cron ジョブコントローラーが使用するタイムゾーンを決定します。
 {{< /caution >}}
 
-cronジョブリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
+CronJobリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
 名前は52文字を超えることはできません。これはcronジョブコントローラーが自動的に11文字のジョブ名を追加し、ジョブ名の最大長は63文字以内という制約があるためです。
 
 cronジョブを作成し、実行するインストラクション、または、cronジョブ仕様ファイルのサンプルについては、[Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs)をご覧ください。
