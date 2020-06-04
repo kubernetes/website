@@ -124,7 +124,7 @@ brew install minikube
 ```
 
 {{% /tab %}}
-n{{% tab name="macOS" %}}
+{{% tab name="macOS" %}}
 ### kubectlのインストール
 
 kubectlがインストールされていることを確認してください。
