@@ -499,11 +499,11 @@ The default is `ClusterIP`.
      load balancer routes, are automatically created.
    * [`ExternalName`](#externalname): Maps the Service to the contents of the
      `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
-
      with its value. No proxying of any kind is set up.
-     {{< note >}}
-     You need either kube-dns version 1.7 or CoreDNS version 0.0.8 or higher to use the `ExternalName` type.
-     {{< /note >}}
+
+  {{< note >}}
+  You need either kube-dns version 1.7 or CoreDNS version 0.0.8 or higher to use the `ExternalName` type.
+  {{< /note >}}
 
 You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service. Ingress is not a Service type, but it acts as the entry point for your cluster. It lets you consolidate your routing rules into a single resource as it can expose multiple services under the same IP address.
 
