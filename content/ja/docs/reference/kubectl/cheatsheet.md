@@ -92,7 +92,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 複数のファイルからリ�
 kubectl apply -f ./dir                         # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成します
 kubectl apply -f https://git.io/vPieo          # urlで公開されているファイルからリソースを作成します
 kubectl create deployment nginx --image=nginx  # 単一のnginx Deploymentを作成します
-kubectl explain pods,svc                       # Podマニフェストのドキュメントを取得します
+kubectl explain pods                           # Podマニフェストのドキュメントを取得します
 
 # 標準入力から複数のYAMLオブジェクトを作成します
 
