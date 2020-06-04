@@ -54,7 +54,7 @@ APIサーバーのコマンドラインフラグの詳細については[kube-ap
 
 ### バインディング
 
-ユーザは、特定のサイズのストレージとアクセスモードを指定した上で`PersistentVolumeClaim`を作成します（動的プロビジョニングの場合は、すでに作られています）。マスター内のコントロールループは、新しく作られるPVCをウォッチして、それにマッチするPVが見つかったときに、それらを紐付けます。PVが新しいPVC用に動的プロビジョニングされた場合、コントロールループは常にPVをそのPVCに紐付けます。そうでない場合、ユーザーは常に少なくとも要求したサイズ以上のボリュームを取得しますが、ボリュームは要求されたサイズを超えている可能性があります。一度紐付けされると、どのように紐付けられたかに関係なく`PersistentVolumeClaim`の紐付けは排他的（決められた特定のPVとしか結びつかない状態）になります。PVCからPVへの紐付けは1対1です。
+ユーザは、特定のサイズのストレージとアクセスモードを指定した上でPersistentVolumeClaimを作成します（動的プロビジョニングの場合は、すでに作られています）。マスター内のコントロールループは、新しく作られるPVCをウォッチして、それにマッチするPVが見つかったときに、それらを紐付けます。PVが新しいPVC用に動的プロビジョニングされた場合、コントロールループは常にPVをそのPVCに紐付けます。そうでない場合、ユーザーは常に少なくとも要求したサイズ以上のボリュームを取得しますが、ボリュームは要求されたサイズを超えている可能性があります。一度紐付けされると、どのように紐付けられたかに関係なくPersistentVolumeClaimの紐付けは排他的（決められた特定のPVとしか結びつかない状態）になります。PVCからPVへの紐付けは1対1で、ClaimRefを使用したPersistentVolumeとPersistentVolumeClaim間の双方向の紐付けです。
 
 一致するボリュームが存在しない場合、クレームはいつまでも紐付けされないままになります。一致するボリュームが利用可能になると、クレームがバインドされます。たとえば、50GiのPVがいくつもプロビジョニングされているクラスターだとしても、100Giを要求するPVCとは一致しません。100GiのPVがクラスターに追加されると、PVCを紐付けできます。
 
@@ -99,7 +99,7 @@ Labels:          type=local
 Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
 StorageClass:    standard
-Status:          Available
+Status:          Terminating
 Claim:
 Reclaim Policy:  Delete
 Access Modes:    RWO
@@ -260,6 +260,8 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 ## 永続ボリューム
 
 各PVには、仕様とボリュームのステータスが含まれているspecとstatusが含まれています。
+PersistentVolumeオブジェクトの名前は、有効な
+[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -281,6 +283,11 @@ spec:
     path: /tmp
     server: 172.17.0.2
 ```
+
+{{< note >}}
+クラスター内でPersistentVolumeを使用するには、ボリュームタイプに関連するヘルパープログラムが必要な場合があります。
+この例では、PersistentVolumeはNFSタイプで、NFSファイルシステムのマウントをサポートするためにヘルパープログラム /sbin/mount.nfs が必要になります。
+{{< /note >}}
 
 ### 容量
 
@@ -403,6 +410,9 @@ CLIにはPVに紐付いているPVCの名前が表示されます。
 ## 永続ボリューム要求 {#persistentvolumeclaims}
 
 各PVCにはspecとステータスが含まれます。これは、仕様とクレームのステータスです。
+
+PersistentVolumeClaimオブジェクトの名前は、有効な
+[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -594,7 +604,7 @@ Podにrawブロックデバイスを追加する場合は、マウントパス�
 
 ## ボリュームのスナップショットとスナップショットからのボリュームの復元のサポート
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 ボリュームスナップショット機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームのスナップショット](/docs/concepts/storage/volume-snapshots/)を参照してください。
 
@@ -659,3 +669,16 @@ spec:
 - ツールがPVCを監視し、しばらくしてもバインドされないことをユーザーに表示する。これはクラスターが動的ストレージをサポートしない(この場合ユーザーは対応するPVを作成するべき)、もしくはクラスターがストレージシステムを持っていない(この場合ユーザーはPVCを必要とする設定をデプロイできない)可能性があることを示す。
 
 {{% /capture %}}
+  {{% capture whatsnext %}}
+
+* [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)について学ぶ
+* [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)について学ぶ
+* [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)を読む
+
+### リファレンス
+
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
+ {{% /capture %}}
