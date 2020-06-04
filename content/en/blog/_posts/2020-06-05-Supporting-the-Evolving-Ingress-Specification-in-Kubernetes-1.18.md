@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Supporting the Evolving Ingress Specification in Kubernetes 1.18
-date: 2020-05-28
+date: 2020-06-05
 slug: Supporting-the-Evolving-Ingress-Specification-in-Kubernetes-1.18
 ---
 
