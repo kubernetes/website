@@ -125,7 +125,7 @@ Pod内のコンテナが停止するのを待つ間Podはunhealthyのままで�
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
-コンテナの起動時間が `initialDelaySeconds + failureThreshold × periodSeconds` よりも長い場合は、livenessProveと同じエンドポイントをチェックするためにstartupProbeを指定します。
+コンテナの起動時間が `initialDelaySeconds + failureThreshold × periodSeconds` よりも長い場合は、livenessProbeと同じエンドポイントをチェックするためにstartupProbeを指定します。
 `periodSeconds`のデフォルトは30秒です。
 
 `failureThreshold` は、livenessProbeのデフォルト値を変更せずに、コンテナが起動するのに十分な値に設定します。これによりデッドロックを防ぐことができます。
