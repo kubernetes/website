@@ -397,10 +397,10 @@ jendela stabilisasi. Jika metrik menunjukkan bahwa target perlu di *scale up*, m
 replika yang berjalan akan ditambahkan setiap 15 detik sampai HorizontalPodAutoscaler
 dalam keadaan stabil.
 
-### Example: change downscale stabilization window
+### Contoh: Mengubah Jendela Stabiliasi pada *field* scaleDown
 
-To provide a custom downscale stabilization window of 1 minute, the following
-behavior would be added to the HPA:
+Untuk membuat jendela stabilisai untuk *downscale* selama satu menit, perilaku
+berikut ditambahkan pada HorizontalPodAutoscaler.
 
 ```yaml
 behavior:
@@ -408,10 +408,10 @@ behavior:
     stabilizationWindowSeconds: 60
 ```
 
-### Example: limit scale down rate
+### Contoh: Membatasi nilai *scale down*
 
-To limit the rate at which pods are removed by the HPA to 10% per minute, the
-following behavior would be added to the HPA:
+Untuk membatasi total berapa *pod* yang akan dihapus, 10% setiap menut, perilaku
+berikut ditambahkan pada HorizontalPodAutoscaler.
 
 ```yaml
 behavior:
@@ -422,8 +422,7 @@ behavior:
       periodSeconds: 60
 ```
 
-To allow a final drop of 5 pods, another policy can be added and a selection
-strategy of minimum:
+Untuk mengizinkan penghapusan 5 *pod* terakhir, *policy* lain dapat ditambahkan.
 
 ```yaml
 behavior:
@@ -438,10 +437,10 @@ behavior:
     selectPolicy: Max
 ```
 
-### Example: disable scale down
+### Contoh: menonakfitkan *scale down*
 
-The `selectPolicy` value of `Disabled` turns off scaling the given direction.
-So to prevent downscaling the following policy would be used:
+Nilai `Disable` pada `selectPolicy` akan menonaktifkan *scaling* pada arah yang
+ditentukan. Untuk mencegah *scaling down* dapat menggunakan *policy* berikut.
 
 ```yaml
 behavior:
@@ -453,8 +452,8 @@ behavior:
 
 {{% capture whatsnext %}}
 
-* Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
-* kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
-* Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
+* Dokumentasi desain [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
+* Perintah kubectl autoscale [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
+* Contoh penggunaan [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
 {{% /capture %}}
