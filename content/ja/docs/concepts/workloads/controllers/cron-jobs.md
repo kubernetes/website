@@ -6,14 +6,21 @@ weight: 80
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.8" state="beta" >}}
+
 _CronJob_ は時刻ベースのスケジュールによって[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)を作成します。
 
 _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみられる一行のようなものです。
 [Cron](https://ja.wikipedia.org/wiki/Cron)形式で記述された指定のスケジュールの基づき、定期的にジョブが実行されます。
 
-{{< note >}}
-すべての**CronJob**`スケジュール`: 時刻はジョブが開始されたマスタータイムゾーンに基づいています。
-{{< /note >}}
+{{< caution >}}
+すべての**CronJob**`スケジュール`: 時刻はジョブが開始された{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}のタイムゾーンに基づいています。
+
+コントロールプレーンがkube-controller-managerをPodもしくは素のコンテナで実行している場合、kube-controller-manager コンテナに設定されたタイムゾーンは、cron ジョブコントローラーが使用するタイムゾーンを決定します。
+{{< /caution >}}
+
+cronジョブリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
+名前は52文字を超えることはできません。これはcronジョブコントローラーが自動的に11文字のジョブ名を追加し、ジョブ名の最大長は63文字以内という制約があるためです。
 
 cronジョブを作成し、実行するインストラクション、または、cronジョブ仕様ファイルのサンプルについては、[Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs)をご覧ください。
 
@@ -27,7 +34,7 @@ cronジョブは一度のスケジュール実行につき、 _おおよそ_ 1�
 
 `startingDeadlineSeconds`が大きな値、もしくは設定されていない(デフォルト)、そして、`concurrencyPolicy`を`Allow`に設定している場合には、少なくとも一度、ジョブが実行されることを保証します。
 
-最後にスケジュールされた時刻から現在までの間に、CronJobコントローラーはどれだけスケジュールが間に合わなかったのかをCronJobごとにチェックします。もし、100回以上スケジュールが失敗していると、ジョブは開始されずに、ログにエラーが記録されます。
+最後にスケジュールされた時刻から現在までの間に、CronJob{{< glossary_tooltip term_id="controller" text="コントローラー">}}はどれだけスケジュールが間に合わなかったのかをCronJobごとにチェックします。もし、100回以上スケジュールが失敗していると、ジョブは開始されずに、ログにエラーが記録されます。
 
 ````
 Cannot determine if job needs to be started. Too many missed start time (> 100). Set or decrease .spec.startingDeadlineSeconds or check clock skew.
