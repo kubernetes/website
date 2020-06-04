@@ -136,7 +136,7 @@ classes:
   controllers.
 
 * The `workload-low` priority level is for requests from any other service
-  account, which will typically include all requests from controllers runing in
+  account, which will typically include all requests from controllers running in
   Pods.
 
 * The `global-default` priority level handles all other traffic, e.g.
