@@ -362,11 +362,11 @@ jumlah replika yang diharapkan sebelumnya dan menggunakan nilai terbesar dari in
 yang ditentukan. Pada contoh diatas, semua jumlah replika yang diharapkan pada 5 menit
 yang lalu akan dipertimbangkan.
 
-### Default Behavior
+### Perilaku Standar
 
-To use the custom scaling not all fields have to be specified. Only values which need to be
-customized can be specified. These custom values are merged with default values. The default values
-match the existing behavior in the HPA algorithm.
+Untuk menggunakan *scaling* khusus, tidak semua *field* perlu ditentukan. Hanta nilai yang
+perlu diubah saja yang ditentukan. Nilai khusus ini akan digabungkan dengan nilai standar.
+Berikut adalah nilai standar perilaku pada algoritma yang digunakan HorizontalPodAutoscaler.
 
 ```yaml
 behavior:
@@ -387,13 +387,15 @@ behavior:
       periodSeconds: 15
     selectPolicy: Max
 ```
-For scaling down the stabilization window is _300_ seconds(or the value of the
-`--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
-for scaling down which allows a 100% of the currently running replicas to be removed which
-means the scaling target can be scaled down to the minimum allowed replicas.
-For scaling up there is no stabilization window. When the metrics indicate that the target should be
-scaled up the target is scaled up immediately. There are 2 policies which. 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+
+Untuk `scaleDown`, nilai dari jendela stabilisasi adalah 300 detik (atau nilai dari
+*flag* `--horizontal-pod-autoscaler-downscale-stabilization` jika ditentukan). Hanya terdapat
+satu *policy*, yaitu mengizinkan menghapus 100% dari replika yang berjalan,
+artinya target replikasi di *scale* ke jumlah replika minimum. Untuk `scaleUp`, tidak terdapat
+jendela stabilisasi. Jika metrik menunjukkan bahwa target perlu di *scale up*, maka akan di
+*scale up* secara langsung. Untuk `scaleUp` terdapat dua *policy*, yaitu empat *pod* atau 100% dari
+replika yang berjalan akan ditambahkan setiap 15 detik sampai HorizontalPodAutoscaler
+dalam keadaan stabil.
 
 ### Example: change downscale stabilization window
 
