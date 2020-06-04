@@ -202,7 +202,7 @@ ReplicaSet *foo*, dengan target pengguaan CPU `80%` dan jumlah replika antara 2 
 Dokumentasi lebih detail tentang `kubectl autoscaler` dapat ditemukan di 
 [sini](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 
-## Autoscaling ketika rolling update
+## Autoscaling ketika Rolling Update
 
 Saat ini, dimungkinkan untuk melakukan *rolling update* menggunakan objek Deployment, dimana 
 mengatur ReplicaSet untuk kamu. HorizontalPodAutoscaler hanya mendukung pendekatan terakhir:
@@ -216,7 +216,7 @@ Alasan HorizontalPodAutoscaler tidak bekerja ketika *rolling update* membuat kon
 replikasi yang baru adalah HorizontalPodAutoscaler tidak akan terikat dengan kontroler
 replikasi yang baru tersebut.
 
-## Dukungan untuk *cooldown*/penundaan
+## Dukungan untuk *Cooldown* / Penundaan
 
 Ketika mengolah *scale* dari sebuah replika grup menggunakan HorizonalPodAutoscaler,
 jumlah replika dimungkinkan tetap berubah secara sering disebabkan oleh perubahan dinamis
@@ -241,7 +241,7 @@ waktu penundaan diset terlalu cepat, kemungkinan replikasi akan *trashing* seper
 biasanya. 
 {{< /note >}}
 
-## Dukukan untuk beberapa metrik
+## Dukukan untuk Beberapa Metrik
 
 Kubernetes versi 1.6 menambah dukungan untuk *scaling* berdasarkan beberapa metrik.
 Kamu dapat menggunakan API versi `autoscaling/v2beta2` untuk menentukan beberapa metrik
@@ -250,7 +250,7 @@ HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan *scale* 
 baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
 yang baru.
 
-## Dukungan untuk metrik khusus
+## Dukungan untuk Metrik Khusus
 
 {{< note >}}
 Kubernetes versi 1.2 menambah dukungan *alpha* untuk melakukan *scaling* berdasarkan metrik
@@ -267,33 +267,37 @@ Kubernetes kemudian memanggil API metrik khusu untuk mengambil nilai dari metrik
 
 Lihat [Dukungan untuk API metrik](#support-for-metrics-apis) untuk kubutuhannya.
 
-## Support for metrics APIs
+## Dukungan untuk API metrik
 
-By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
-APIs, cluster administrators must ensure that:
+Secara standar, kontroler HorizontalPodAutoscaler mengambil mentrik dari beberapa API. Untuk dapat
+mengakses API ini, administrator klaster harus memastikan bahwa:
 
-* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
+* [API Later Pengumpulan](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) diaktifkan.
 
-* The corresponding APIs are registered:
+* API berikut ini terdaftar:
 
-   * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-incubator/metrics-server).
-     It can be launched as a cluster addon.
+    * Untuk metrik *resource*, ini adalah API `metrics.k8s.io`, pada umumnya disediakan oleh 
+      [server metrik](https://github.com/kubernetes-incubator/metrics-server). API tersebut dapat
+      diaktifkan sebagai *addon* di klaster. 
 
-   * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
-     Check with your metrics pipeline, or the [list of known solutions](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
-     If you would like to write your own, check out the [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) to get started.
+    * Untuk metrik khusus, ini adalah API `custom.metrics.k8s.io`. API ini disediakan oleh API
+      adaptor server yang disedikaan oleh vendor yang memberi solusi untuk metrik. Cek dengan
+      *pipeline* metrikmu atau [daftar solusi yang sudah diketahui](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api). Jika kamu ingin membuat sendiri, perhatikan
+      [*boilerplate* berikut](https://github.com/kubernetes-incubator/custom-metrics-apiserver) untuk memulai.
 
-   * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
+    * Untuk metrik eksternal, ini adalah API `external.metrics.k8s.io`. API ini mungkin disediakan oleh penyedia
+      metrik khusus diatas.
 
-* The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
+* Nilai dari `--horizontal-pod-autoscaler-use-rest-clients` adalah `true` atau tidak ada. Ubah nilai tersebut menjadi
+  `false` untuk mengubah ke *Heapster-based autoscaling*, dimana ini sudah tidak didukung lagi.
 
-For more information on these different metrics paths and how they differ please see the relevant design proposals for
-[the HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
+Untuk informasi lebih lanjut mengenai metrik-metrik ini dan bagaimana perbedaan setiap metrik, perhatikan proposal
+desain untuk [HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
 [custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md)
-and [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md).
+dan [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md).
 
-For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
-and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
+Untuk contoh bagaimana menggunakan metrik-metrik ini, perhatikan [panduan penggunaan metrik khusus](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+dan [panduan penggunaan metrik eksternal](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 
 ## Support for configurable scaling behavior
 
