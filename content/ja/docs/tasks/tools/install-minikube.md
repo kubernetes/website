@@ -78,7 +78,7 @@ kubectlがインストールされていることを確認してください。
 Minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
 このドライバーを使用するには、[Docker](https://www.docker.com/products/docker-desktop)とLinux環境が必要ですが、ハイパーバイザーは不要です。
 
-Debianもしくはその派生で`none`ドライバーを使用する場合は、snapパッケージではなくDockerの`.deb`パッケージを使用してください。snapパッケージはMinikubeでは機能しません。
+Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッケージではなく`.deb`パッケージを使用してDockerをインストールください。snapパッケージはMinikubeでは機能しません。
 [Docker](https://www.docker.com/products/docker-desktop) から`.deb`パッケージをダウンロードできます。
 
 {{< caution >}}
