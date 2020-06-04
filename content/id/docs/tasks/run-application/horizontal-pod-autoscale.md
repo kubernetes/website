@@ -250,20 +250,22 @@ HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan *scale* 
 baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
 yang baru.
 
-## Support for custom metrics
+## Dukungan untuk metrik khusus
 
 {{< note >}}
-Kubernetes 1.2 added alpha support for scaling based on application-specific metrics using special annotations.
-Support for these annotations was removed in Kubernetes 1.6 in favor of the new autoscaling API.  While the old method for collecting
-custom metrics is still available, these metrics will not be available for use by the Horizontal Pod Autoscaler, and the former
-annotations for specifying which custom metrics to scale on are no longer honored by the Horizontal Pod Autoscaler controller.
+Kubernetes versi 1.2 menambah dukungan *alpha* untuk melakukan *scaling* berdasarkan metrik
+yang spesifik dengan aplikasi menggunakan anotasi khusus. Dukungan untuk anotasi ini
+dihilangkan pada Kubernetes versi 1.6 untuk mendukung API *autoscaling* yang baru. Selama
+cara lama untuk mendapatkan metrik khusus masih tersedia, metrok ini tidak akan tersedia untuk
+digunakan oleh HorizontalPodAutoscaler dan anotasi sebelumnya untuk menentukan metrik khusus untuk
+*scale* tidak lagi digunakan oleh kontroler HorizontalPodAutscaler.
 {{< /note >}}
 
-Kubernetes 1.6 adds support for making use of custom metrics in the Horizontal Pod Autoscaler.
-You can add custom metrics for the Horizontal Pod Autoscaler to use in the `autoscaling/v2beta2` API.
-Kubernetes then queries the new custom metrics API to fetch the values of the appropriate custom metrics.
+Kubernetes versi 1.6 menambah dukungan untuk menggunakan metrik khusu pada HorizontalPodAutoscaler.
+Kamu dapat menambahkan metrik khusus untuk HorizontalPodAutoscaler pada API versi `autoscaling/v2beta2`.
+Kubernetes kemudian memanggil API metrik khusu untuk mengambil nilai dari metrik khusus. 
 
-See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
+Lihat [Dukungan untuk API metrik](#support-for-metrics-apis) untuk kubutuhannya.
 
 ## Support for metrics APIs
 
