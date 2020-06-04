@@ -301,8 +301,6 @@ dan [panduan penggunaan metrik eksternal](/docs/tasks/run-application/horizontal
 
 ## Dukungan untuk Perilaku *Scaling* yang dapat Dikonfigurasi
 
-## Support for configurable scaling behavior
-
 Mulai dari versi [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md), API `v2beta2` mengizinkan perilaku *scaling* dapat
 dikonfigurasi melalui *field* `behavior` pada HorizontalPodAutoscaler. Perilaku *scaling up* dan *scaling down*
 ditentukan terpisah pada *field* `slaceUp` dan *field* `scaleDown`, dibawah dari *field* `behavior`.
@@ -344,24 +342,25 @@ dalam satu menit. *Policy* kedua mengixinkan maksimal 10% dari total replika sek
 Pemilihan *policy* dapat diubah dengan menentukannya pada *field* `selectPolicy` untuk sebuah
 arah *scale* (baik *scale up* ataupun *scale down*). Dengan menentukan nilai `Min`, 
 HorizontalPodAutoscaler akan memilih *policy* yang mengizinkan pergantian replika paling sedikit.
-Dengan menuntukan nilai `Disable`, akan menghentikan *scaling* pada arah *scale* tersebut. 
+Dengan menuntukan nilai `Disable`, akan menghentikan *scaling* pada arah *scale* tersebut.
 
+### Jendela Stabilisasi
 
-### Stabilization Window
-
-The stabilization window is used to retrict the flapping of replicas when the metrics
-used for scaling keep fluctuating. The stabilization window is used by the autoscaling
-algorithm to consider the computed desired state from the past to prevent scaling. In
-the following example the stabilization window is specified for `scaleDown`.
+Jendela stabilisasi digunakan untuk membatasi perubahan replika yang terlalu drastis ketika
+metrik yang digunakan untuk *scaling* tetap berubah-ubah. Jendela stabilisasi digunakan oleh
+algoritma *autoscaling* untuk memperhitungkan jumlah replika yang diharapkan dari *scaling*
+sebelumnya untuk mencengah *scaling. Berikut adalah contoh penggunaan jendela stabilisasi
+pada `scaleDown`.
 
 ```yaml
 scaleDown:
   stabilizationWindowSeconds: 300
 ```
 
-When the metrics indicate that the target should be scaled down the algorithm looks
-into previously computed desired states and uses the highest value from the specified
-interval. In above example all desired states from the past 5 minutes will be considered.
+Ketika metrik menandakan bahwa target akan di *scale down*, algoritma akan memperhatikan
+jumlah replika yang diharapkan sebelumnya dan menggunakan nilai terbesar dari interval
+yang ditentukan. Pada contoh diatas, semua jumlah replika yang diharapkan pada 5 menit
+yang lalu akan dipertimbangkan.
 
 ### Default Behavior
 
