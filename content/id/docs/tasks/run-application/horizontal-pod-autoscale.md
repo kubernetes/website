@@ -299,23 +299,22 @@ dan [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/maste
 Untuk contoh bagaimana menggunakan metrik-metrik ini, perhatikan [panduan penggunaan metrik khusus](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 dan [panduan penggunaan metrik eksternal](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 
+## Dukungan untuk Perilaku *Scaling* yang dapat Dikonfigurasi
+
 ## Support for configurable scaling behavior
 
-Starting from
-[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
-the `v2beta2` API allows scaling behavior to be configured through the HPA
-`behavior` field. Behaviors are specified separately for scaling up and down in
-`scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
-window can be specified for both directions which prevents the flapping of the
-number of the replicas in the scaling target. Similarly specifing scaling
-policies controls the rate of change of replicas while scaling.
+Mulai dari versi [v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md), API `v2beta2` mengizinkan perilaku *scaling* dapat
+dikonfigurasi melalui *field* `behavior` pada HorizontalPodAutoscaler. Perilaku *scaling up* dan *scaling down*
+ditentukan terpisah pada *field* `slaceUp` dan *field* `scaleDown`, dibawah dari *field* `behavior`.
+Sebuah stabilisator dapat ditentukan untuk kedua arah *scale* untuk mencegah perubahan replika yang terlalu
+berbeda pada target *scaling*. Menentukan *scaling policies* akan mengkontrol perubahan replika
+ketika *scaling*.
 
 ### Scaling Policies
 
-One or more scaling policies can be specified in the `behavior` section of the spec.
-When multiple policies are specified the policy which allows the highest amount of
-change is the policy which is selected by default. The following example shows this behavior
-while scaling down:
+Satu atau lebih *scaling policies* dapat ditentukan pada *field* `behavior`. Ketika beberapa
+*policies* ditentukan, *policy* yang mengizinkan *scale* terbesar akan dipilih secara *default*.
+Contoh berikut menunjukkan perilaku ketika *scaling down*:
 
 ```yaml
 behavior:
@@ -329,22 +328,24 @@ behavior:
       periodSeconds: 60
 ```
 
-When the number of pods is more than 40 the second policy will be used for scaling down.
-For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
-then during the first step 8 replicas will be reduced. In the next iteration when the number
-of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
-the autoscaler controller the number of pods to be change is re-calculated based on the number
-of current replicas. When the number of replicas falls below 40 the first policy_(Pods)_ is applied
-and 4 replicas will be reduced at a time.
+Ketika jumlah *pod* lebih besar dari 40, *policy* kedua akan digunakan untuk *scaling down*.
+Misalnya, jika terdapat 80 replika dan target sudah di *scale down* ke 10 replika, 8 replika
+akan dikurangi pada tahapan pertama. Pada iterasi berikutnya, ketika jumlah replika adalah 72,
+10% dari *pod* adalah 7.2 tetapi akan dibulatkan menjadi 8. Dalam setiap iterasi pada kontroler
+*autoscaler* jumlah *pod* yang akan diubah akan dihitung ulang berdarkan jumlah replika sekarang.
+Ketika jumlah replika dibawah 40, *policy* pertama (Pods) akan digunakan dan 4 replika akan dikurangi
+dalam satu waktu.
 
-`periodSeconds` indicates the length of time in the past for which the policy must hold true.
-The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
-allows at most 10% of the current replicas to be scaled down in one minute.
+`periodSeconds` menunjukkan berapa lama waktu pada iterasi terkhir untuk menunjukkan *policy*
+mana yang akan digunakan. *Policy* pertama mengizinkan maksimal 4 replika di *scale down*
+dalam satu menit. *Policy* kedua mengixinkan maksimal 10% dari total replika sekarang di
+*scale down* dalam satu menit.
 
-The policy selection can be changed by specifying the `selectPolicy` field for a scaling
-direction. By setting the value to `Min` which would select the policy which allows the
-smallest change in the replica count. Setting the value to `Disabled` completely disabled
-scaling in that direction.
+Pemilihan *policy* dapat diubah dengan menentukannya pada *field* `selectPolicy` untuk sebuah
+arah *scale* (baik *scale up* ataupun *scale down*). Dengan menentukan nilai `Min`, 
+HorizontalPodAutoscaler akan memilih *policy* yang mengizinkan pergantian replika paling sedikit.
+Dengan menuntukan nilai `Disable`, akan menghentikan *scaling* pada arah *scale* tersebut. 
+
 
 ### Stabilization Window
 
