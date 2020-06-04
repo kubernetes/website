@@ -241,12 +241,14 @@ waktu penundaan diset terlalu cepat, kemungkinan replikasi akan *trashing* seper
 biasanya. 
 {{< /note >}}
 
-## Support for multiple metrics
+## Dukukan untuk beberapa metrik
 
-Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta2` API
-version to specify multiple metrics for the Horizontal Pod Autoscaler to scale on. Then, the Horizontal Pod
-Autoscaler controller will evaluate each metric, and propose a new scale based on that metric. The largest of the
-proposed scales will be used as the new scale.
+Kubernetes versi 1.6 menambah dukungan untuk *scaling* berdasarkan beberapa metrik.
+Kamu dapat menggunakan API versi `autoscaling/v2beta2` untuk menentukan beberapa metrik
+yang akan digunakan HorizontalPodAutoscaler untuk *scale*. Kemudian, kontroler
+HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan *scale* yang
+baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
+yang baru.
 
 ## Support for custom metrics
 
