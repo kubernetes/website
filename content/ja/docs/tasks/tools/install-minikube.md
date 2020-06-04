@@ -82,14 +82,14 @@ Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッ�
 [Docker](https://www.docker.com/products/docker-desktop) から`.deb`パッケージをダウンロードできます。
 
 {{< caution >}}
-`none`VMドライバーは、セキュリティとデータ損失の問題を引き起こす可能性があります。
+`none` VMドライバーは、セキュリティとデータ損失の問題を引き起こす可能性があります。
 `--vm-driver=none`を使用する前に、詳細について[このドキュメント](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) を参照してください。
 {{< /caution >}}
 
 MinikubeはDockerドライバーと似たような`vm-driver=podman`もサポートしています。Podmanを特権ユーザー権限(root user)で実行することは、コンテナがシステム上の利用可能な機能へ完全にアクセスするための最もよい方法です。
 
 {{< caution >}}
-`podman`ドライバーは、rootでコンテナを実行する必要があります。これは、通常ユーザーアカウントが、コンテナの実行に必要とされるすべてのOS機能への完全なアクセスを持っていないためです。
+`podman` ドライバーは、rootでコンテナを実行する必要があります。これは、通常ユーザーアカウントが、コンテナの実行に必要とされるすべてのOS機能への完全なアクセスを持っていないためです。
 {{< /caution >}}
 
 ### パッケージを利用したMinikubeのインストール
