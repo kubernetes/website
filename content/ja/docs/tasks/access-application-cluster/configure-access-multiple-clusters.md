@@ -188,7 +188,7 @@ users:
 kubectl config --kubeconfig=config-demo use-context exp-scratch
 ```
 
-これ以降実行される`kubectl`コマンドは、`scratch`クラスター内のデフォルトnamespaceに適用されます。また、`exp-scratch`コンテキストに設定されたユーザーの認証情報を使用します。
+これ以降実行される`kubectl`コマンドは、`scratch`クラスター内のデフォルトnamespaceに適用されます。また、`exp-scratch`に設定されたユーザーの認証情報を使用します。
 
 新しく切り替えた`exp-scratch`コンテキストの設定を確認してください。
 
