@@ -286,7 +286,7 @@ spec:
 
 {{< note >}}
 クラスター内でPersistentVolumeを使用するには、ボリュームタイプに関連するヘルパープログラムが必要な場合があります。
-この例では、PersistentVolumeはNFSタイプで、NFSファイルシステムのマウントをサポートするためにヘルパープログラム /sbin/mount.nfs が必要になります。
+この例では、PersistentVolumeはNFSタイプで、NFSファイルシステムのマウントをサポートするためにヘルパープログラム`/sbin/mount.nfs`が必要になります。
 {{< /note >}}
 
 ### 容量
