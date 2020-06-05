@@ -147,7 +147,7 @@ users:
 kubectl config --kubeconfig=config-demo use-context dev-frontend
 ```
 
-これ以降実行される`kubectl`コマンドは、`dev-frontend`コンテキストに設定されたクラスターとnamespaceに適用されます。また、`dev-frontend`コンテキストに設定されたユーザーの認証情報を使用します。
+これ以降実行される`kubectl`コマンドは、`dev-frontend`に設定されたクラスターとnamespaceに適用されます。また、`dev-frontend`に設定されたユーザーの認証情報を使用します。
 
 現在のコンテキストの設定情報のみを確認するには、`--minify`フラグを使用してください。
 
