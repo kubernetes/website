@@ -78,8 +78,8 @@ kubectlがインストールされていることを確認してください。
 Minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
 このドライバーを使用するには、[Docker](https://www.docker.com/products/docker-desktop)とLinux環境が必要ですが、ハイパーバイザーは不要です。
 
-Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッケージではなく`.deb`パッケージを使用してDockerをインストールください。snapパッケージはMinikubeでは機能しません。
-[Docker](https://www.docker.com/products/docker-desktop) から`.deb`パッケージをダウンロードできます。
+Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッケージではなく`.deb`パッケージを使用してDockerをインストールしてください。snapパッケージはMinikubeでは機能しません。
+[Docker](https://www.docker.com/products/docker-desktop)から`.deb`パッケージをダウンロードできます。
 
 {{< caution >}}
 `none` VMドライバーは、セキュリティとデータ損失の問題を引き起こす可能性があります。
@@ -89,7 +89,7 @@ Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッ�
 MinikubeはDockerドライバーと似たような`vm-driver=podman`もサポートしています。Podmanを特権ユーザー権限(root user)で実行することは、コンテナがシステム上の利用可能な機能へ完全にアクセスするための最もよい方法です。
 
 {{< caution >}}
-`podman` ドライバーは、rootでコンテナを実行する必要があります。これは、通常ユーザーアカウントが、コンテナの実行に必要とされるすべてのOS機能への完全なアクセスを持っていないためです。
+`podman` ドライバーは、rootでコンテナを実行する必要があります。これは、通常のユーザーアカウントが、コンテナの実行に必要とされるすべてのOS機能への完全なアクセスを持っていないためです。
 {{< /caution >}}
 
 ### パッケージを利用したMinikubeのインストール
@@ -222,7 +222,7 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 minikube start --vm-driver=<driver_name>
 ```
 
-`mnikube start`が完了した場合、次のコマンドを実行してクラスターの状態を確認します。
+`minikube start`が完了した場合、次のコマンドを実行してクラスターの状態を確認します。
 
 ```shell
 minikube status
@@ -237,7 +237,7 @@ apiserver: Running
 kubeconfig: Configured
 ```
 
-選択したハイパーバイザーでMinikubeが動作しているかどうか確認した後は、Minikubeを使い続けるか、クラスターを停止できます。クラスター
+選択したハイパーバイザーでMinikubeが動作しているか確認した後は、Minikubeを使い続けるか、クラスターを停止できます。クラスター
 を停止するためには、次を実行してください。
 
 ```shell
