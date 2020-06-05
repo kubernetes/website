@@ -204,7 +204,7 @@ kubectl config --kubeconfig=config-demo view --minify
 kubectl config --kubeconfig=config-demo use-context dev-storage
 ```
 
-新しく切り替えた`dev-storage`コンテキストの設定を確認してください。
+新しく切り替えた`dev-storage`の設定を確認してください。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
