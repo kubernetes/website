@@ -40,10 +40,9 @@ opening a pull request.
     form. In the first field, give your commit message a title. In
     the second field, provide a description.
 
-    {{< note >}}
-    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request
-    description later.
-    {{< /note >}}
+{{< note >}}
+Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request description later.
+{{< /note >}}
 
 4.  Select **Propose file change**.
 
@@ -58,9 +57,9 @@ opening a pull request.
     details the template text asks for, then delete the extra template text.
     - Leave the **Allow edits from maintainers** checkbox selected.
 
-    {{< note >}}
-    PR descriptions are a great way to help reviewers understand your change. For more information, see [Opening a PR](#open-a-pr).
-    {{</ note >}}
+{{< note >}}
+PR descriptions are a great way to help reviewers understand your change. For more information, see [Opening a PR](#open-a-pr).
+{{</ note >}}
 
 7.  Select **Create pull request**.
 
@@ -135,9 +134,9 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
     This makes sure your local repository is up to date before you start making changes.
 
-    {{< note >}}
-    This workflow is different than the [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md). You do not need to merge your local copy of `master` with `upstream/master` before pushing updates to your fork.
-    {{< /note >}}
+{{< note >}}
+This workflow is different than the [Kubernetes Community GitHub Workflow](https://github.com/kubernetes/community/blob/master/contributors/guide/github-workflow.md). You do not need to merge your local copy of `master` with `upstream/master` before pushing updates to your fork.
+{{< /note >}}
 
 ### Create a branch
 
@@ -202,10 +201,9 @@ When you are ready to submit a pull request, commit your changes.
     git commit -m "Your commit message"
     ```
 
-    {{< note >}}
-    Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request
-    description later.
-    {{< /note >}}
+{{< note >}}
+Do not use any [GitHub Keywords](https://help.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword) in your commit message. You can add those to the pull request description later.
+{{< /note >}}
 
 4. Push your local branch and its new commit to your remote fork:
 
@@ -303,9 +301,9 @@ GitHub also automatically assigns labels to a PR, to help reviewers. You can add
 
 3. Use `git push origin <my_new_branch>` to push your changes and re-run the Netlify tests.
 
-    {{< note >}}
-      If you use `git commit -m` instead of amending, you must [squash your commits](#squashing-commits) before merging.
-    {{< /note >}}
+{{< note >}}
+If you use `git commit -m` instead of amending, you must [squash your commits](#squashing-commits) before merging.
+{{< /note >}}
 
 #### Changes from reviewers
 
@@ -362,9 +360,9 @@ If another contributor commits changes to the same file in another PR, it can cr
 
 4. Open each conflicted file and look for the conflict markers: `>>>`, `<<<`, and `===`. Resolve the conflict and delete the conflict marker.
 
-    {{< note >}}
-    For more information, see [How conflicts are presented](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
-    {{< /note >}}
+{{< note >}}
+For more information, see [How conflicts are presented](https://git-scm.com/docs/git-merge#_how_conflicts_are_presented).
+{{< /note >}}
 
 5. Add the files to the changeset:
 
@@ -428,9 +426,9 @@ This topic assumes `vim` as the command line text editor.
 
     For the purposes of rebasing, focus on `squash` and `pick`.
 
-    {{< note >}}
-    For more information, see [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode).
-    {{< /note >}}
+{{< note >}}
+For more information, see [Interactive Mode](https://git-scm.com/docs/git-rebase#_interactive_mode).
+{{< /note >}}
 
 2. Start editing the file.
 
