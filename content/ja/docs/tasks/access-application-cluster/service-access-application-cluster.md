@@ -37,7 +37,7 @@ weight: 60
 {{< codenew file="service/access/hello-application.yaml" >}}
 
 1. クラスタでHello Worldアプリケーションを稼働させます:
-   上記のファイルを使用し、アプリケーションDeploymentを作成します:
+   上記のファイルを使用し、アプリケーションのDeploymentを作成します:
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
