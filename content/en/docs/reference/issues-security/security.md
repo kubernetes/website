@@ -29,7 +29,7 @@ To make a report, submit your vulnerability to the [Kubernetes bug bounty progra
 
 You can also email the private [security@kubernetes.io](mailto:security@kubernetes.io) list with the security details and the details expected for [all Kubernetes bug reports](https://git.k8s.io/kubernetes/.github/ISSUE_TEMPLATE/bug-report.md).
 
-You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/security-release-process.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
+You may encrypt your email to this list using the GPG keys of the [Product Security Committee members](https://git.k8s.io/security/README.md#product-security-committee-psc). Encryption using GPG is NOT required to make a disclosure.
 
 ### When Should I Report a Vulnerability?
 
