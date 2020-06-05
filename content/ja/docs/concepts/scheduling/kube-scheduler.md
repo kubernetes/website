@@ -116,6 +116,6 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 * [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を参照してください。
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 * [複数のスケジューラーの設定](/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
-* [トポロジー管理ポリシー](/docs/tasks/administer-cluster/topology-manager/)について学んでください。
+* [トポロジーの管理ポリシー](/docs/tasks/administer-cluster/topology-manager/)について学んでください。
 * [Podのオーバーヘッド](/docs/concepts/configuration/pod-overhead/)について学んでください。
 {{% /capture %}}
