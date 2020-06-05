@@ -139,7 +139,7 @@ users:
 
 証明書ファイルのパスの代わりにbase64にエンコードされたデータを使用したい場合は、キーに`-data`の接尾辞を加えてください。例えば、`certificate-authority-data`、`client-certificate-data`、`client-key-data`とできます。
 
-それぞれのコンテキストは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`コンテキストは、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceへのアクセスを意味しています。
+それぞれのコンテキストは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`は、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceへのアクセスを意味しています。
 
 現在のコンテキストを設定してください:
 
