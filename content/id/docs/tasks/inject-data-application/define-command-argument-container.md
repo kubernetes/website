@@ -6,8 +6,8 @@ weight: 10
 
 {{% capture overview %}}
 
-Halaman ini menunjukkan bagaimana cara mendefinisikan perintah-perintah
-dan argumen-argumen saat kamu menjalankan sebuah kontainer
+Laman ini menunjukkan bagaimana cara mendefinisikan perintah-perintah
+dan argumen-argumen saat kamu menjalankan Container
 dalam sebuah {{< glossary_tooltip term_id="Pod" >}}.
 
 {{% /capture %}}
@@ -22,25 +22,25 @@ dalam sebuah {{< glossary_tooltip term_id="Pod" >}}.
 
 {{% capture steps %}}
 
-## Mendefinisikan sebuah perintah dan argument-argumen saat kamu membuat sebuah Pod
+## Mendefinisikan sebuah perintah dan argumen-argumen saat kamu membuat sebuah Pod
 
 Saat kamu membuat sebuah Pod, kamu dapat mendefinisikan sebuah perintah dan argumen-argumen untuk
-kontainer-kontainer yang berjalan di dalam Pod. Untuk mendefinisikan sebuah perintah, sertakan
+Container-Container yang berjalan di dalam Pod. Untuk mendefinisikan sebuah perintah, sertakan
 bidang `command` di dalam berkas konfigurasi. Untuk mendefinisikan argumen-argumen untuk perintah, sertakan
-bidang `args` di berkas konfigurasi. Perintah dan argumen-argumen yang telah
-kamu definisikan tidak dapat diganti setelah Pod terbuat.
+bidang `args` di dalam berkas konfigurasi. Perintah dan argumen-argumen yang telah
+kamu definisikan tidak dapat diganti setelah Pod telah terbuat.
 
-Perintah dan argumen-argumen yang kamu definisikan di berkas konfigurasi
-membatalkan perintah dan argumen-argumen standar (default) yang disediakan oleh _image_ kontainer.
-Jika kamu mendefinisikan argumen-argumen, tetapi tidak mendefinisikan sebuah perintah, perintah standar digunakan
+Perintah dan argumen-argumen yang kamu definisikan di dalam berkas konfigurasi
+membatalkan perintah dan argumen-argumen bawaan yang disediakan oleh _image_ Container.
+Jika kamu mendefinisikan argumen-argumen, tetapi tidak mendefinisikan sebuah perintah, perintah bawaan digunakan
 dengan argumen-argumen baru kamu.
 
 {{< note >}}
-Bidang `command` menyerupai `entrypoint` di beberapa _runtime_ kontainer.
+Bidang `command` menyerupai `entrypoint` di beberapa _runtime_ Container.
 Merujuk pada [catatan](#catatan) di bawah.
 {{< /note >}}
 
-Di latihan ini, kamu akan membuat sebuah Pod baru yang menjalankan sebuah kontainer. Berkas konfigurasi
+Pada latihan ini, kamu akan membuat sebuah Pod baru yang menjalankan sebuah Container. Berkas konfigurasi
 untuk Pod mendefinisikan sebuah perintah dan dua argumen:
 
 {{< codenew file="pods/commands.yaml" >}}
@@ -57,10 +57,10 @@ untuk Pod mendefinisikan sebuah perintah dan dua argumen:
     kubectl get pods
     ```
 
-    Keluaran menunjukkan bahwa kontainer yang berjalan di Pod command-demo
+    Keluaran menunjukkan bahwa Container yang berjalan di dalam Pod command-demo
     telah selesai.
 
-3. Untuk melihat keluaran dari perintah yang berjalan di kontainer, lihat _log_
+3. Untuk melihat keluaran dari perintah yang berjalan di dalam Container, lihat log
 dari Pod tersebut:
 
     ```shell
@@ -90,19 +90,19 @@ args: ["$(MESSAGE)"]
 
 Ini berarti kamu dapat mendefinisikan sebuah argumen untuk sebuah Pod menggunakan
 salah satu teknik yang tersedia untuk mendefinisikan variabel-variabel lingkungan, termasuk
-[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+[ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap/)
 dan
-[Secrets](/docs/concepts/configuration/secret/).
+[Secret](/id/docs/concepts/configuration/secret/).
 
 {{< note >}}
 Variabel lingkugan muncul dalam tanda kurung, `"$(VAR)"`. Ini
 dibutuhkan untuk variabel yang akan diperuluas di bidang `command` atau `args`.
 {{< /note >}}
 
-## Menjalankan sebuah perintah di sebuah shell
+## Menjalankan sebuah perintah di dalam shell
 
 Di beberapa kasus, kamu butuh perintah untuk menjalankan sebuah _shell_. Contohnya, 
-perintah kamu mungkin terdiri dari beberapa perintah yang disatukan, atau  mungkin berupa
+perintah kamu mungkin terdiri dari beberapa perintah yang digabungkan, atau  mungkin berupa
 skrip _shell_. Untuk menjalankan perintah kamu di sebuah _shell_, bungkus seperti ini:
 
 ```shell
@@ -116,24 +116,24 @@ Tabel ini merangkum nama-nama bidang yang digunakan oleh Docker dan Kubernetes.
 
 |              Deskripsi                    |    Nama bidang pada Docker   | Nama bidang pada Kubernetes |
 |-------------------------------------------|------------------------------|-----------------------------|
-|  Perintah yang dijalankan oleh kontainer  |         Entrypoint           |            command          |
+|  Perintah yang dijalankan oleh Container  |         Entrypoint           |            command          |
 |  Argumen diteruskan ke perintah           |            Cmd               |             args            |
 
 Saat kamu mengesampingkan Entrypoint dan Cmd standar, 
-When you override the default Entrypoint and Cmd, aturan-aturan ini berlaku:
+aturan-aturan ini berlaku:
 
-* Jika kamu tidak menyediakan `command` atau `args` untuk sebuah Kontainer,
-akan digunakan yang telah didefinisikan di _image_ Docker.
+* Jika kamu tidak menyediakan `command` atau `args` untuk sebuah Container,
+maka `command` dan `args` yang didefinisikan di dalam _image_ Docker akan digunakan.
 
-* Jika kamu menyediakan `command` tetapi tidak menyediakan `args` untuk sebuah kontainer, akan digunakan
-`command` yang disediakan. Entrypoint dan Cmd standar yang didefinisikan dalam 
+* Jika kamu menyediakan `command` tetapi tidak menyediakan `args` untuk sebuah Container, akan digunakan
+`command` yang disediakan. Entrypoint dan Cmd bawaan yang didefinisikan di dalam 
 _image_ Docker diabaikan.
 
-* Jika kamu hanya menyediakan `args` untuk sebuah kontainer, Entrypoint standar yang didefinisikan di
+* Jika kamu hanya menyediakan `args` untuk sebuah Container, Entrypoint bawaan yang didefinisikan di dalam
 _image_ Docker dijalakan dengan `args` yang kamu sediakan.
 
 * Jika kamu menyediakan `command` dan `args`, Entrypoint dan Cmd standar yang didefinisikan
-di _image_ Docker diabaikan. `command` kamu akan dijalankan dengan `args` kamu.
+di dalam _image_ Docker diabaikan. `command` kamu akan dijalankan dengan `args` kamu.
 
 Berikut ini beberapa contoh:
 
@@ -149,8 +149,8 @@ Berikut ini beberapa contoh:
 
 {{% capture whatsnext %}}
 
-* Pelajari lebih lanjut tentang [menkonfigurasi Pod and kontainer](/docs/tasks/).
-* Pelajari lebih lanjut tentang [menjalankan perintah dalam sebuah kontainer](/docs/tasks/debug-application-cluster/get-shell-running-container/).
-* Lihat [Kontainer](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
+* Pelajari lebih lanjut tentang [mengatur Pod and Container](/id/docs/tasks/).
+* Pelajari lebih lanjut tentang [menjalankan perintah di dalam sebuah Container](/id/docs/tasks/debug-application-cluster/get-shell-running-container/).
+* Lihat [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 
 {{% /capture %}}
