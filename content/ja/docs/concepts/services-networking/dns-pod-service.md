@@ -27,11 +27,11 @@ Kubernetesの`bar`というネームスペース内で`foo`という名前のSer
 
 ## Service {#services}
 
-### Aレコード
+### A/AAAAレコード
 
-"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS Aレコードを割り当てられます。このAレコードはそのServiceのClusterIPへと名前解決されます。
+"通常の"(Headlessでない)Serviceは、`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードを割り当てられます。このAレコードはそのServiceのClusterIPへと名前解決されます。
 
-"Headless"(ClusterIPなしの)Serviceもまた`my-svc.my-namespace.svc.cluster.local`という形式のDNS Aレコードを割り当てられます。通常のServiceとは異なり、このAレコードはServiceによって選択されたPodのIPの一覧へと名前解決されます。クライアントはこの一覧のIPを使うか、その一覧から標準のラウンドロビン方式によって選択されたIPを使います…
+"Headless"(ClusterIPなしの)Serviceもまた`my-svc.my-namespace.svc.cluster.local`という形式のDNS A(AAAA)レコードを割り当てられます。通常のServiceとは異なり、このレコードはServiceによって選択されたPodのIPの一覧へと名前解決されます。クライアントはこの一覧のIPを使うか、その一覧から標準のラウンドロビン方式によって選択されたIPを使います。
 
 ### SRVレコード
 
@@ -41,12 +41,6 @@ Services](/ja/docs/concepts/services-networking/service/#headless-service)の一
 Headless Serviceに対しては、このSRVレコードは複数の結果を返します。それはServiceの背後にある各Podの1つを返すのと、`auto-generated-name.my-svc.my-namespace.svc.cluster.local`という形式のPodのドメイン名とポート番号を含んだ結果を返します。
 
 ## Pod
-
-### Aレコード
-
-DNSが有効なとき、Podは"`pod-ip-address.my-namespace.pod.cluster.local`"という形式のAレコードを割り当てられます。
-
-例えば、`default`ネームスペース内で`cluster.local`というDNS名を持ち、`1.2.3.4`というIPを持ったPodは次の形式のエントリーを持ちます。: `1-2-3-4.default.pod.cluster.local`。
 
 ### Podのhostnameとsubdomainフィールド
 
@@ -105,13 +99,13 @@ spec:
     name: busybox
 ```
 
-もしそのPodと同じネームスペース内で、同じサブドメインを持ったHeadless Serviceが存在していた場合、クラスターのKubeDNSサーバーもまた、そのPodの完全修飾ドメイン名(FQDN)に対するAレコードを返します。
-例えば、"`busybox-1`"というホスト名で、"`default-subdomain`"というサブドメインを持ったPodと、そのPodと同じネームスペース内にある"`default-subdomain`"という名前のHeadless Serviceがあると考えると、そのPodは自身の完全修飾ドメイン名(FQDN)を"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`"として扱います。DNSはそのPodのIPを指し示すAレコードを返します。"`busybox1`"と"`busybox2`"の両方のPodはそれぞれ独立したAレコードを持ちます。
+もしそのPodと同じネームスペース内で、同じサブドメインを持ったHeadless Serviceが存在していた場合、クラスターのDNSサーバーもまた、そのPodの完全修飾ドメイン名(FQDN)に対するA(AAAA)レコードを返します。
+例えば、"`busybox-1`"というホスト名で、"`default-subdomain`"というサブドメインを持ったPodと、そのPodと同じネームスペース内にある"`default-subdomain`"という名前のHeadless Serviceがあると考えると、そのPodは自身の完全修飾ドメイン名(FQDN)を"`busybox-1.default-subdomain.my-namespace.svc.cluster.local`"として扱います。DNSはサービスのIPバージョンに応じてそのPodのIPを指し示すA(AAAA)レコードを返します。"`busybox1`"と"`busybox2`"の両方のPodはそれぞれ独立したA(AAAA)レコードを持ちます。
 
 そのエンドポイントオブジェクトはそのIPに加えて`hostname`を任意のエンドポイントアドレスに対して指定できます。
 
 {{< note >}}
-AレコードはPodの名前に対して作成されないため、`hostname`はPodのAレコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するAレコードのみ作成します。
+A(AAAA)レコードはPodの名前に対して作成されないため、`hostname`はPodのA(AAAA)レコードが作成されるために必須となります。`hostname`を持たないが`subdomain`を持つようなPodは、そのPodのIPアドレスを指し示すHeadless Service(`default-subdomain.my-namespace.svc.cluster.local`)に対するA(AAAA)レコードのみ作成します。
 {{< /note >}}
 
 ### PodのDNSポリシー
