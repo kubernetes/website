@@ -6,6 +6,15 @@
   color: #ffffff;
 }
 
+#announcement a, #fp-announcement a  {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+#announcement a:hover, #fp-announcement a:hover {
+  border-bottom: none;
+}
+
 #announcement {
   padding-top: 75px;
   padding-bottom: 25px;
