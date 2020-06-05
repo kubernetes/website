@@ -9,10 +9,6 @@ weight: 40
 
 StatefulSetはステートフルなアプリケーションを管理するためのワークロードAPIです。
 
-{{< note >}}
-StatefulSetはKubernetes1.9において利用可能(GA)です。
-{{< /note >}}
-
 {{< glossary_definition term_id="statefulset" length="all" >}}
 {{% /capture %}}
 
@@ -28,12 +24,11 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 * 規則的で自動化されたローリングアップデート
 
 上記において安定とは、Podのスケジュール(または再スケジュール)をまたいでも永続的であることと同義です。
-もしアプリケーションが安定したネットワーク識別子と規則的なデプロイや削除、スケーリングを全く要求しない場合、ユーザーはステートレスなレプリカのセットを提供するコントローラーを使ってアプリケーションをデプロイするべきです。
+もしアプリケーションが安定したネットワーク識別子と規則的なデプロイや削除、スケーリングを全く要求しない場合、ユーザーはステートレスなレプリカのセットを提供するワークロードを使ってアプリケーションをデプロイするべきです。
 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)や[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)のようなコントローラーはこのようなステートレスな要求に対して最適です。
 
 ## 制限事項
 
-* StatefuleSetはKubernetes1.9より以前のバージョンではβ版のリソースであり、1.5より前のバージョンでは利用できません。
 * 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
 * StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
@@ -100,6 +95,7 @@ spec:
 * nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
 * webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
 * volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
+* StatefulSetの名前は有効な[名前](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ## Podセレクター
 ユーザーは、StatefulSetの`.spec.template.metadata.labels`のラベルと一致させるため、StatefulSetの`.spec.selector`フィールドをセットしなくてはなりません。Kubernetes1.8以前では、`.spec.selector`フィールドは省略された場合デフォルト値になります。Kubernetes1.8とそれ以降のバージョンでは、ラベルに一致するPodセレクターの指定がない場合はStatefulSetの作成時にバリデーションエラーになります。
@@ -142,7 +138,7 @@ Kubernetesは各VolumeClaimTemplateに対して、1つの[PersistentVolume](/doc
 
 ### Podのネームラベル
 
-StatefulSetのコントローラーがPodを作成したとき、Podの名前として、`statefulset.kubernetes.io/pod-name`にラベルを追加します。このラベルによってユーザーはServiceにStatefulSet内の指定したPodを割り当てることができます。
+StatefulSet {{< glossary_tooltip term_id="controller" >}} がPodを作成したとき、Podの名前として、`statefulset.kubernetes.io/pod-name`にラベルを追加します。このラベルによってユーザーはServiceにStatefulSet内の指定したPodを割り当てることができます。
 
 ## デプロイとスケーリングの保証
 
@@ -199,6 +195,7 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 * [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
 * [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
+* [レプリカを持つステートフルアプリケーションを実行する](/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
 
 {{% /capture %}}
 
