@@ -59,6 +59,26 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 
 正しいラベル値は63文字以下の長さで、空文字か、もしくは開始と終了が英数字(`[a-z0-9A-Z]`)で、文字列の間がダッシュ(`-`)、アンダースコア(`_`)、ドット(`.`)と英数字である文字列を使うことができます。  
 
+例えば、`environment: production`と`app: nginx`の2つのラベルを持つPodの設定ファイルは下記のようになります。
+
+```yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-demo
+  labels:
+    environment: production
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+```
+
 ## ラベルセレクター {#label-selectors}
 
 [名前とUID](/docs/user-guide/identifiers)とは異なり、ラベルはユニーク性を提供しません。通常、多くのオブジェクトが同じラベルを保持することを想定します。
@@ -76,6 +96,10 @@ Kubernetes APIは現在2タイプのセレクターをサポートしていま�
 {{< note >}}
 ReplicaSetなど、いくつかのAPIタイプにおいて、2つのインスタンスのラベルセレクターは単一の名前空間において重複してはいけません。重複していると、コントローラがそれらのラベルセレクターがコンフリクトした操作とみなし、どれだけの数のレプリカを稼働させるべきか決めることができなくなります。
 {{< /note >}}
+
+{{< caution >}}
+等価ベース、集合ベースともに、論理OR (`||`) オペレーターは存在しません。フィルターステートメントが意図した通りになっていることを確認してください。
+{{< /caution >}}
 
 ### *等価ベース(Equality-based)* の要件(requirement)
 
@@ -174,7 +198,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### APIオブジェクトに参照を設定する
-[`Service`](/docs/user-guide/services) と [`ReplicationController`](/docs/user-guide/replication-controller)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/docs/user-guide/pods)のような他のリソースのセットを指定するのにも使われます。  
+[`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/pod/)のような他のリソースのセットを指定するのにも使われます。  
 
 #### ServiceとReplicationController
 `Service`が対象とするPodの集合は、ラベルセレクターによって定義されます。  
