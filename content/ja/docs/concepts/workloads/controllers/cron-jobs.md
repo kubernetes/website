@@ -16,7 +16,7 @@ _CronJob_ オブジェクトとは _crontab_ (cron table)ファイルでみら�
 {{< caution >}}
 すべての**CronJob**`スケジュール`: 時刻はジョブが開始された{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}のタイムゾーンに基づいています。
 
-コントロールプレーンがkube-controller-managerをPodもしくは素のコンテナで実行している場合、cronジョブコントローラーのタイムゾーンとして、kube-controller-managerコンテナに設定されたタイムゾーンを使用します。
+コントロールプレーンがkube-controller-managerをPodもしくは素のコンテナで実行している場合、CronJobコントローラーのタイムゾーンとして、kube-controller-managerコンテナに設定されたタイムゾーンを使用します。
 {{< /caution >}}
 
 CronJobリソースのためのマニフェストを作成する場合、その名前が有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)か確認してください。
