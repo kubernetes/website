@@ -237,8 +237,7 @@ apiserver: Running
 kubeconfig: Configured
 ```
 
-選択したハイパーバイザーでMinikubeが動作しているか確認した後は、Minikubeを使い続けるか、クラスターを停止できます。クラスター
-を停止するためには、次を実行してください。
+選択したハイパーバイザーでMinikubeが動作しているか確認した後は、そのままMinikubeを使い続けることもできます。また、クラスターを停止することもできます。クラスターを停止するためには、次を実行してください。
 
 ```shell
 minikube stop
