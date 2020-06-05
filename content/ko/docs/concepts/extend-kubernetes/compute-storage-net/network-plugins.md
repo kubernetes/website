@@ -79,11 +79,13 @@ CNI 네트워킹 플러그인은 `hostPort` 를 지원한다. CNI 플러그인 �
 
 #### 트래픽 셰이핑 지원
 
+**실험적인 기능입니다**
+
 CNI 네트워킹 플러그인은 파드 수신 및 송신 트래픽 셰이핑도 지원한다. CNI 플러그인 팀에서 제공하는 공식 [대역폭(bandwidth)](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 플러그인을 사용하거나 대역폭 제어 기능이 있는 자체 플러그인을 사용할 수 있다.
 
 트래픽 셰이핑 지원을 활성화하려면, CNI 구성 파일 (기본값 `/etc/cni/net.d`)에 `bandwidth` 플러그인을
-추가해야 한다.
+추가하고, 바이너리가 CNI 실행 파일 디렉터리(기본값: `/opt/cni/bin`)에 포함되어있는지 확인한다.
 
 ```json
 {
