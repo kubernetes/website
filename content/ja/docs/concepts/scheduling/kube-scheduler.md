@@ -106,13 +106,16 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 
 - `ServiceSpreadingPriority`: このポリシーの目的は、特定のServiceに対するバックエンドのPodが、それぞれ異なるNodeで実行されるようにすることです。このポリシーではServiceのバックエンドのPodが既に実行されていないNode上にスケジュールするように優先します。これによる結果として、Serviceは単体のNode障害に対してより耐障害性が高まります。
 
-- `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](https://kubernetes.io/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
+- `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
 
 - `EqualPriorityMap`: 全てのNodeに対して等しい重みを与えます。
 
 {{% /capture %}}
 {{% capture whatsnext %}}
 * [スケジューラーのパフォーマンスチューニング](/docs/concepts/scheduling/scheduler-perf-tuning/)を参照してください。
+* [Podトポロジーの分散制約](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)を参照してください。
 * kube-schedulerの[リファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
-* [複数のスケジューラーの設定](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
+* [複数のスケジューラーの設定](/docs/tasks/administer-cluster/configure-multiple-schedulers/)について学んでください。
+* [トポロジーの管理ポリシー](/docs/tasks/administer-cluster/topology-manager/)について学んでください。
+* [Podのオーバーヘッド](/docs/concepts/configuration/pod-overhead/)について学んでください。
 {{% /capture %}}
