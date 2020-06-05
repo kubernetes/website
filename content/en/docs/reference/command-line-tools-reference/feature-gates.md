@@ -102,7 +102,8 @@ different Kubernetes components.
 | `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
 | `EvenPodsSpread` | `true` | Beta | 1.18 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
-| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
+| `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
+| `HugePageStorageMediumSize` | `true` | Beta | 1.19 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
 | `IPv6DualStack` | `false` | Alpha | 1.16 | |
