@@ -155,7 +155,7 @@ kubectl config --kubeconfig=config-demo use-context dev-frontend
 kubectl config --kubeconfig=config-demo view --minify
 ```
 
-出力には、`dev-frontend`コンテキストの設定情報が表示されます:
+出力には、`dev-frontend`の設定情報が表示されます:
 
 ```shell
 apiVersion: v1
