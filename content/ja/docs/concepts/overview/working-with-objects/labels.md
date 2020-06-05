@@ -198,7 +198,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### APIオブジェクトに参照を設定する
-[`Service`](/docs/user-guide/services) と [`ReplicationController`](/docs/user-guide/replication-controller)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/docs/user-guide/pods)のような他のリソースのセットを指定するのにも使われます。  
+[`Service`](/ja/docs/user-guide/services) と [`ReplicationController`](/docs/user-guide/replication-controller)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/docs/user-guide/pods)のような他のリソースのセットを指定するのにも使われます。  
 
 #### ServiceとReplicationController
 `Service`が対象とするPodの集合は、ラベルセレクターによって定義されます。  
