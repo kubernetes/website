@@ -138,7 +138,7 @@ Kubernetesは各VolumeClaimTemplateに対して、1つの[PersistentVolume](/doc
 
 ### Podのネームラベル
 
-StatefulSet {{< glossary_tooltip term_id="controller" >}} がPodを作成したとき、Podの名前として、`statefulset.kubernetes.io/pod-name`にラベルを追加します。このラベルによってユーザーはServiceにStatefulSet内の指定したPodを割り当てることができます。
+StatefulSet {{< glossary_tooltip text="コントローラー" term_id="controller" >}} がPodを作成したとき、Podの名前として、`statefulset.kubernetes.io/pod-name`にラベルを追加します。このラベルによってユーザーはServiceにStatefulSet内の指定したPodを割り当てることができます。
 
 ## デプロイとスケーリングの保証
 
@@ -198,4 +198,3 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 * [レプリカを持つステートフルアプリケーションを実行する](/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
 
 {{% /capture %}}
-
