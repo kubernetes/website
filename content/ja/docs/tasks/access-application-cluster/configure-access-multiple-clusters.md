@@ -261,7 +261,7 @@ $Env:KUBECONFIG=("config-demo;config-demo-2")
 kubectl config view
 ```
 
-出力には、`KUBECONFIG`環境変数に含まれる全てのファイルの情報がまとめて表示されます。`config-demo-2`ファイルに設定された`dev-ramp-up`コンテキストの情報と、`config-demo`ファイルに設定された三つのコンテキストの情報がまとめてあることに注目してください:
+出力には、`KUBECONFIG`環境変数に含まれる全てのファイルの情報がまとめて表示されます。`config-demo-2`ファイルに設定された`dev-ramp-up`の情報と、`config-demo`に設定された三つのコンテキストの情報がまとめてあることに注目してください:
 
 ```shell
 contexts:
