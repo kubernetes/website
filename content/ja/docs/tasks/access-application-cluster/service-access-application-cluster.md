@@ -32,9 +32,14 @@ weight: 60
 
 ## 2つのPodから成るアプリケーションのServiceを作成
 
+アプリケーションDeploymentの設定ファイルは以下の通りです:
+
+{{< codenew file="service/access/hello-application.yaml" >}}
+
 1. クラスタでHello Worldアプリケーションを稼働させます:
+   上記のファイルを使用し、アプリケーションのDeploymentを作成します:
    ```shell
-   kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+   kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
     このコマンドは
     [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
