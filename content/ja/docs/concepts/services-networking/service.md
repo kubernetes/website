@@ -49,7 +49,7 @@ Serviceによる抽象化は、クライアントからバックエンドのPod�
 
 ## Serviceの定義
 
-KubernetesのServiceはPodと同様にRESTのオブジェクトです。他のRESTオブジェクトと同様に、ユーザーはServiceの新しいインスタンスを作成するためにAPIサーバーに対してServiceの定義を`POST`できます。
+KubernetesのServiceはPodと同様にRESTのオブジェクトです。他のRESTオブジェクトと同様に、ユーザーはServiceの新しいインスタンスを作成するためにAPIサーバーに対してServiceの定義を`POST`できます。Serviceオブジェクトの名前は、有効なDNSラベル名である必要があります。
 
 例えば、TCPで9376番ポートで待ち受けていて、`app=Myapp`というラベルをもつPodのセットがあるとします。
 
@@ -122,6 +122,8 @@ subsets:
     ports:
       - port: 9376
 ```
+
+Endpointsオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 {{< note >}}
 Endpointsのipは、loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), や
@@ -345,7 +347,7 @@ Kubernetesの`ServiceTypes`によって、ユーザーがどのような種類�
    * [`ExternalName`](#externalname): `CNAME`レコードを返すことにより、`externalName`フィールドに指定したコンテンツ(例: `foo.bar.example.com`)とServiceを紐づけます。しかし、いかなる種類のプロキシーも設定されません。
 
      {{< note >}}
-     `ExternalName`タイプのServiceを利用するためには、CoreDNSのバージョン1.7以上が必要となります。
+     `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.08以上が必要となります。
      {{< /note >}}
 
 また、Serviceを公開するために[Ingress](/docs/concepts/services-networking/ingress/)も利用可能です。IngressはServiceのタイプではありませんが、クラスターに対するエントリーポイントとして動作します。  
@@ -397,7 +399,9 @@ status:
     - ip: 192.0.2.127
 ```
 
-外部のロードバランサーからのトラフィックはバックエンドのPodに直接転送されます。クラウドプロバイダーはどのようにそのリクエストをバランシングするかを決めます。  
+外部のロードバランサーからのトラフィックはバックエンドのPodに直接転送されます。クラウドプロバイダーはどのようにそのリクエストをバランシングするかを決めます。 
+
+LoadBalancerタイプのサービスで複数のポートが定義されている場合、すべてのポートが同じプロトコルである必要があり、さらにそのプロトコルは`TCP`、`UDP`、`SCTP`のいずれかである必要があります。
 
 いくつかのクラウドプロバイダーにおいて、`loadBalancerIP`の設定をすることができます。このようなケースでは、そのロードバランサーはユーザーが指定した`loadBalancerIP`に対してロードバランサーを作成します。  
 もし`loadBalancerIP`フィールドの値が指定されていない場合、そのロードバランサーはエフェメラルなIPアドレスに対して作成されます。もしユーザーが`loadBalancerIP`を指定したが、使っているクラウドプロバイダーがその機能をサポートしていない場合、その`loadBalancerIP`フィールドに設定された値は無視されます。
@@ -860,19 +864,13 @@ ServiceはKubernetesのREST APIにおいてトップレベルのリソースで�
 
 ### TCP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
-
 ユーザーはどの種類のServiceにおいてもTCPを利用できます。これはデフォルトのネットワークプロトコルです。
 
 ### UDP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
-
 ユーザーは多くのServiceにおいてUDPを利用できます。 type=LoadBalancerのServiceにおいては、UDPのサポートはこの機能を提供しているクラウドプロバイダーに依存しています。
 
 ### HTTP
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 もしクラウドプロバイダーがサポートしている場合、ServiceのEndpointsに転送される外部のHTTP/HTTPSでのリバースプロキシーをセットアップするために、LoadBalancerモードでServiceを作成可能です。
 
@@ -881,8 +879,6 @@ ServiceはKubernetesのREST APIにおいてトップレベルのリソースで�
 {{< /note >}}
 
 ### PROXY プロトコル
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 もしクラウドプロバイダーがサポートしている場合(例: [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws))、Kubernetesクラスターの外部のロードバランサーを設定するためにLoadBalancerモードでServiceを利用できます。これは[PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)がついた接続を転送します。
 
@@ -932,21 +928,12 @@ SCTPはWindowsベースのNodeではサポートされていません。
 kube-proxyはuserspaceモードにおいてSCTPアソシエーションの管理をサポートしません。
 {{< /warning >}}
 
-## Future work
-
-将来的に、Serviceのプロキシーポリシーはシンプルなラウンドロビンのバランシングだけでなく、もっと細かな設定が可能になります。例えば、Masterによって選択されるものや、水平シャーディングされたりするようになります。  
-我々もまた、いくつかのServiceが"実際の"ロードバランサーを備えることを想定します。その場合、仮想IPは単純にパケットをそのロードバランサーに転送します。
-
-Kubernetesプロジェクトは、L7 (HTTP) Serviceへのサポートをもっと発展させようとしています。
-
-Kubernetesプロジェクトは、現在利用可能なClusterIP、NodePortやLoadBalancerタイプのServiceに対して、より柔軟なIngressのモードを追加する予定です。
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
-* [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
+* [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 
 {{% /capture %}}
