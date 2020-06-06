@@ -13,7 +13,7 @@ You can use the Kubernetes command line tool kubectl to interact with the API Se
 {{% capture body %}}
 ## docker run
 
-To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run).
+To run an nginx Pod and expose the Pod, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run).
 
 docker:
 
@@ -39,22 +39,22 @@ kubectl:
 kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 ```
 ```
-deployment "nginx-app" created
+pod/nginx-app created
 ```
 
 {{< note >}}
-`kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
+`kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Pod is created.
 {{< /note >}}
 
 ```shell
 # expose a port through with a service
-kubectl expose deployment nginx-app --port=80 --name=nginx-http
+kubectl expose pod nginx-app --port=80 --name=nginx-http
 ```
 ```
 service "nginx-http" exposed
 ```
 
-By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
+By using kubectl, you can create a [Pod](/docs/concepts/workloads/pods/pod/) to ensure that pod are running nginx. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
 
@@ -65,8 +65,8 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 
-Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
-To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
+Because the kubectl run command starts a Pod for the container, the Pod restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
+To destroy the pod you need to run `kubectl delete pod <name>`.
 
 ## docker ps
 
