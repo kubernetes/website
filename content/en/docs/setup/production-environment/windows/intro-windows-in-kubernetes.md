@@ -164,6 +164,7 @@ The following service spec types are supported:
 * LoadBalancer
 * ExternalName
 
+##### Network modes
 Windows supports five different networking drivers/modes: L2bridge, L2tunnel, Overlay, Transparent, and NAT. In a heterogeneous cluster with Windows and Linux worker nodes, you need to select a networking solution that is compatible on both Windows and Linux. The following out-of-tree plugins are supported on Windows, with recommendations on when to use each CNI:
 
 | Network Driver | Description | Container Packet Modifications | Network Plugins | Network Plugin Characteristics |
@@ -188,11 +189,21 @@ For the node, pod, and service objects, the following network flows are supporte
 * Node -> Pod
 * Pod -> Node
 
+##### IPAM
 The following IPAM options are supported on Windows:
 
 * [Host-local](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
 * HNS IPAM (Inbox platform IPAM, this is a fallback when no IPAM is set)
 * [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) (for azure-cni only)
+
+##### Services & Load Balancing
+The following settings applicable to services and load balancing are available on Windows:
+| Feature | Description | Supported Kubernetes version  | Supported Windows OS build | How to enable |
+| ------- | ----------- | ----------------------------- | -------------------------- | ------------- |
+| Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | v1.19+ | [Windows Server vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) (or higher) | Set `service.spec.sessionAffinity` to "ClientIP" |
+| DSR | Load balancing mode where the IP fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. Promises lower latency and scalability. | v1.15+ | Windows Server, version 2004 | Set the following flags in kube-proxy: `feature-gates="WinDSR=true" --enable-dsr=true` |
+| Preserve-DIP | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. This setting will also ensure that the client IP of incoming packets get preserved. | v1.15+ | Windows Server, version 1903 (or higher) | Set `"preserve-destination": "true"` in service annotations and enable DSR. | 
+
 
 ### Limitations
 
