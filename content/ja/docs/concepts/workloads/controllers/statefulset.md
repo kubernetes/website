@@ -95,7 +95,8 @@ spec:
 * nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
 * webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
 * volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
-* StatefulSetの名前は有効な[名前](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+
+StatefulSetの名前は有効な[名前](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ## Podセレクター
 ユーザーは、StatefulSetの`.spec.template.metadata.labels`のラベルと一致させるため、StatefulSetの`.spec.selector`フィールドをセットしなくてはなりません。Kubernetes1.8以前では、`.spec.selector`フィールドは省略された場合デフォルト値になります。Kubernetes1.8とそれ以降のバージョンでは、ラベルに一致するPodセレクターの指定がない場合はStatefulSetの作成時にバリデーションエラーになります。
