@@ -25,7 +25,7 @@
                 {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}
                     <code>{{ $file }}</code>
                 {{ if $ghlink }}</a>{{ end }}
-                <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+                <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
             </th>
         </tr>
     </thead>

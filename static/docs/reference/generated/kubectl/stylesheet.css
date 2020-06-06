@@ -110,13 +110,12 @@ light grey - rgb(161, 160, 158)
 body > #wrapper {
     display: block;
     padding-bottom: 500px;
-    background-image: linear-gradient(90deg, #FFFFFF 63%, rgb(48, 48, 48) 63%);
 }
 
 #sidebar-wrapper {
-    display: block;
+    display: none;
     height: 100%;
-    width: 20%;
+    width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -124,7 +123,6 @@ body > #wrapper {
     background-color: whitesmoke;
     border-right: 2px solid slategrey;
     overflow-x: hidden;
-    padding-top: 60px;
 }
 
 #sidebar-wrapper a {
@@ -140,7 +138,7 @@ body > #wrapper {
 }
 
 #sidebar-wrapper a.selected {
-    font-style: bold;
+    font-weight: bold;
     color: whitesmoke;
     border: 1px solid rgb(161, 160, 158);
     background-color: rgb(51, 113, 227);
@@ -163,29 +161,19 @@ body > #wrapper {
     text-decoration: underline;
 }
 
-#page-content-wrapper {
-    margin-left: 20%;
-    padding-top: 60px;
-}
-
 .body-content h1, .body-content h2 {
-    width: 52%;
     clear: both;
     border-bottom: 3px solid lightslategrey;
 }
 
 .body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > aside, .body-content > ul > li, .body-content > ul > li {
-    width: 52%;
     padding-top: 20px;
-}
-
-.body-content table {
-    width: 52%;
 }
 
 .body-content table tr td:not(:first-child) {
     overflow-wrap: break-word;
     word-wrap: break-word;
+    word-break: break-word;
 }
 
 .body-content table tr td a {
@@ -204,38 +192,39 @@ body > #wrapper {
     border-radius: 5px;
 }
 
-.body-content pre.code-block {
-    margin-bottom: 80px;
-}
-
 .body-content blockquote p, .body-content pre {
     color: black;
     font-size: 13px;
 }
 
-.body-content blockquote.code-block {
+.body-content blockquote.code-block.example {
     background: lightsteelblue;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-left: none;
+    display: block;
+}
+
+.body-content pre.example {
+    border-radius: 0 0 5px 5px;
+    color: #000;
+    background: #eee;
+    overflow-x: auto;
+    display: block;
 }
 
 .body-content pre.code-block code {
-  overflow: auto;
-  overflow-wrap: normal;
-  word-wrap: normal;
-  white-space: pre;
-}
-
-.code-block {
-    display: none;
-    width: 45%;
-    float: right;
-    clear: right;
-}
-
-.code-block.active {
-    display: initial;
+    overflow: auto;
+    overflow-wrap: normal;
+    word-wrap: normal;
+    white-space: pre;
 }
 
 #code-tabs-wrapper {
+    display: none;
     width: 35%;
     height: 60px;
     position: fixed;
@@ -260,10 +249,77 @@ body > #wrapper {
 
 #code-tabs-wrapper .tab-selected {
     background: rgb(51, 113, 227);
-    font-style: bold;
+    font-weight: bold;
     border-radius: 5px;
 }
 
 .side-nav a {
     color: black;
+}
+
+hr {
+    clear: both;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Medium display, show sidebar */
+@media screen and (min-width: 456px) {
+    #sidebar-wrapper {
+        display: block;
+    }
+
+    #page-content-wrapper {
+        padding-left: 235px;
+    }
+}
+
+/* Large display, split examples into the far right column */
+@media screen and (min-width: 992px) {
+    #wrapper {
+        background-image: linear-gradient(90deg, #FFFFFF 63%, rgb(48, 48, 48) 63%);
+    }
+
+    #sidebar-wrapper {
+        width: 20%;
+    }
+
+    #page-content-wrapper {
+        padding-left: 21%;
+    }
+
+    .body-content h1, .body-content h2 {
+        width: 52%;
+        clear: both;
+    }
+
+    .body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > ul > li, .body-content > ul > li {
+        width: 52%;
+    }
+
+    .body-content table {
+        width: 52%;
+    }
+
+    .body-content .code-block {
+        width: 45%;
+        float: right;
+        clear: right;
+    }
+
+    .code-block {
+        display: none;
+    }
+
+    .code-block.active {
+        display: initial;
+    }
+
+    #code-tabs-wrapper {
+        display: inline-block;
+        width: 35%;
+    }
 }

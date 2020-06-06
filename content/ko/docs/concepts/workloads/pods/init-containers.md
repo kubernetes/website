@@ -44,8 +44,8 @@ weight: 40
 그러나, 초기화 컨테이너를 위한 리소스 요청량과 상한은
 [리소스](#리소스)에 문서화된 것처럼 다르게 처리된다.
 
-또한, 초기화 컨테이너는 준비성 프로브(readiness probe)를 지원하지 않는다. 왜냐하면 초기화 컨테이너는
-파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
+또한, 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 를 지원하지 않는다.
+왜냐하면 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
 
 만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, Kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
@@ -60,7 +60,6 @@ weight: 40
 * 앱 이미지에는 없는 셋업을 위한 유틸리티 또는 맞춤 코드를 포함할 수 있다.
   예를 들어, 셋업 중에 단지 `sed`, `awk`, `python`, 또는 `dig`와 같은 도구를 사용하기 위해서
   다른 이미지로부터(`FROM`) 새로운 이미지를 만들 필요가 없다.
-* 앱 컨테이너 이미지의 보안성을 떨어뜨릴 수도 있는 유틸리티를 안전하게 실행할 수 있다.
 * 애플리케이션 이미지 빌더와 디플로이어 역할은 독립적으로 동작될 수 있어서
   공동의 단일 앱 이미지 형태로 빌드될 필요가 없다.
 * 초기화 컨테이너는 앱 컨테이너와 다른 파일 시스템 뷰를 가지도록 Linux 네임스페이스를 사용한다.
@@ -69,6 +68,9 @@ weight: 40
 * 앱 컨테이너들은 병렬로 실행되는 반면, 초기화 컨테이너들은 어떠한 앱
   컨테이너라도 시작되기 전에 실행 완료되어야 하므로, 초기화 컨테이너는 사전 조건들이
   충족될 때까지 앱 컨테이너가 시동되는 것을 막거나 지연시키는 간편한 방법을 제공한다.
+* 초기화 컨테이너는 앱 컨테이너 이미지의 보안성을 떨어뜨릴 수도 있는 유틸리티 혹은 커스텀 코드를 안전하게
+  실행할 수 있다. 불필요한 툴들을 분리한 채로 유지함으로써 앱 컨테이너 이미지의 공격에 대한
+  노출을 제한할 수 있다.
 
 
 ### 예제
@@ -118,35 +120,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
-```
-
-
-아래의 yaml file은 `mydb`와 `myservice` 서비스의 개요를 보여준다.
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myservice
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mydb
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9377
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
 다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
@@ -262,12 +239,15 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는데
-영감을 줄 것이다. [다음 순서](#what-s-next)에는 더 자세한 예제의 링크가 있다.
+영감을 줄 것이다. [다음 순서](#다음-내용)에는 더 자세한 예제의 링크가 있다.
 
 ## 자세한 동작
 
-파드 시동 시, 네트워크와 볼륨이 초기화되고 나면, 초기화 컨테이너가
-순서대로 시작된다. 각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
+파드 시작 시에 kubelet은 네트워크와 스토리지가 준비될 때까지
+초기화 컨테이너의 실행을 지연시킨다. 그런 다음 kubelet은 파드 사양에
+나와있는 순서대로 파드의 초기화 컨테이너를 실행한다.
+
+각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
 종료되어야 한다. 만약 런타임 문제나 실패 상태로 종료되는 문제로인하여 초기화 컨테이너의 시작이
 실패된다면, 초기화 컨테이너는 파드의 `restartPolicy`에 따라서 재시도 된다. 다만,
 파드의 `restartPolicy`이 항상(Always)으로 설정된 경우, 해당 초기화 컨테이너는
@@ -275,7 +255,7 @@ myapp-pod   1/1       Running   0          9m
 
 파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready`될 수 없다. 초기화 컨테이너의 포트는
 서비스 하에 합쳐지지 않는다. 초기화 중인 파드는 `Pending` 상태이지만
-`Initializing`이 참이 되는 조건을 가져야 한다.
+`Initialized`이 참이 되는 조건을 가져야 한다.
 
 만약 파드가 [재시작](#파드-재시작-이유)되었다면, 모든 초기화 컨테이너는
 반드시 다시 실행된다.

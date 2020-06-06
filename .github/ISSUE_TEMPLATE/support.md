@@ -1,6 +1,6 @@
 ---
 name: Support Request
-about: Support request or question relating to Kubernetes Dashboard project
+about: Support request or question relating to Kubernetes Website project
 labels:
 - triage/support
 ---

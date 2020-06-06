@@ -102,7 +102,7 @@ En el uso típico, se usaría un solo presupuesto para una colección de pods ad
 un controlador, por ejemplo, los pods en un solo ReplicaSet o StatefulSet.
 
 {{< note >}}
-Un presupuesto de disrupción no garantiza que el número/porcentaje de pods especificado 
+Un presupuesto de disrupción no garantiza que el número/porcentaje de pods especificado
 siempre estarán disponibles. Por ejemplo, un nodo que alberga un
 pod del grupo puede fallar cuando el grupo está en el tamaño mínimo
 especificados en el presupuesto, lo que hace que el número de pods disponibles este por debajo del tamaño especificado. El presupuesto solo puede proteger contra

@@ -1,3 +1,9 @@
+---
+title: 为集群配置 DNS
+weight: 120
+content_template: templates/concept
+---
+
 <!--
 ---
 title: Configure DNS for a Cluster
@@ -5,15 +11,10 @@ weight: 120
 content_template: templates/concept
 ---
 -->
----
-title: 为集群配置 DNS
-weight: 120
-content_template: templates/concept
----
 
 {{% capture overview %}}
 <!--
-Kubernetes offers a DNS cluster addon, which most of the supported environments enable by default. 
+Kubernetes offers a DNS cluster addon, which most of the supported environments enable by default.
 -->
 Kubernetes 提供 DNS 集群插件，大多数支持的环境默认情况下都会启用。
 {{% /capture %}}

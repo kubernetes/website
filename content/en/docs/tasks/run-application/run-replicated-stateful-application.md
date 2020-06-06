@@ -18,9 +18,10 @@ This page shows how to run a replicated stateful application using a
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
-Note that **this is not a production configuration**.
-In particular, MySQL settings remain on insecure defaults to keep the focus
+{{< note >}}
+**This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
 on general patterns for running stateful applications in Kubernetes.
+{{< /note >}}
 
 {{% /capture %}}
 
@@ -524,7 +525,10 @@ kubectl delete pvc data-mysql-4
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-
+* Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+* Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
   for other stateful application examples.
 

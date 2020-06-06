@@ -21,7 +21,7 @@ demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 Before you begin this tutorial, you should familiarize yourself with the 
 following Kubernetes concepts.
 
-* [Pods](/docs/user-guide/pods/single-container/)
+* [Pods](/docs/concepts/workloads/pods/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)

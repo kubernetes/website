@@ -1,22 +1,14 @@
 ---
 title: 同 Pod 内的容器使用共享卷通信
-redirect_from:
-- "/docs/user-guide/pods/multi-container/"
-- "/docs/user-guide/pods/multi-container.html"
-- "/docs/tasks/configure-pod-container/communicate-containers-same-pod/"
-- "/docs/tasks/configure-pod-container/communicate-containers-same-pod.html"
 content_template: templates/task
 ---
 
 
 {{% capture overview %}}
 
-
-
 本文旨在说明如何让一个 Pod 内的两个容器使用一个卷（Volume）进行通信。
 
 {{% /capture %}}
-
 
 {{% capture prerequisites %}}
 
@@ -30,36 +22,24 @@ content_template: templates/task
 
 ## 创建一个包含两个容器的 Pod
 
-
-
-
 在这个练习中，你会创建一个包含两个容器的 Pod。两个容器共享一个卷用于他们之间的通信。
 Pod 的配置文件如下：
 
-{{< code file="two-container-pod.yaml" >}}
-
-
+{{< codenew file="pods/two-container-pod.yaml" >}}
 
 在配置文件中，你可以看到 Pod 有一个共享卷，名为 `shared-data`。
-
-
-
-
 
 配置文件中的第一个容器运行了一个 nginx 服务器。共享卷的挂载路径是 `/usr/share/nginx/html`。
 第二个容器是基于 debian 镜像的，有一个 `/pod-data` 的挂载路径。第二个容器运行了下面的命令然后终止。
 
     echo Hello from the debian container > /pod-data/index.html
 
-
-
 注意，第二个容器在 nginx 服务器的根目录下写了 `index.html` 文件。
 
 
 创建一个包含两个容器的 Pod：
 
-    kubectl create -f https://k8s.io/docs/tasks/access-application-cluster/two-container-pod.yaml
-
+    kubectl apply -f https://k8s.io/examples/pods/two-container-pod.yaml
 
 查看 Pod 和容器的信息：
 

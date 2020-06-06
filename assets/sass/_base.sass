@@ -70,7 +70,7 @@ section
   background-color: white
 
 section, header, footer
-  main
+  .main-section
     position: relative
     margin: auto
 
@@ -107,9 +107,9 @@ header
   z-index: 8888
   background-color: transparent
   box-shadow: 0 0 0 transparent
-  overflow: hidden
   transition: 0.3s
   text-align: center
+  overflow: hidden
 
 
 .logo
@@ -126,6 +126,10 @@ header
   background-position: center center
   background-repeat: no-repeat
 
+#blog
+  &.flip-nav, &.open-nav
+    .logo
+      background-image: url(../images/nav_logo2.svg)
 
 // Blog post tables
 .blog-content
@@ -241,11 +245,12 @@ header
       background-color: white
 
 #mainNav
+
   h5
     color: $blue
     font-weight: normal
 
-  main
+  .main-section
     white-space: nowrap
     overflow: hidden
     clear: both
@@ -434,8 +439,9 @@ footer
   width: 100%
   background-image: url(/images/texture.png)
   background-color: $dark-grey
+  overflow-x: hidden
 
-  main
+  .main-section
     padding: 20px 0
 
   nav
@@ -484,9 +490,9 @@ footer
 
 .social a
   display: inline-block
-  background-image: url(/images/social_sprite.png)
+  background-image: url(/images/social_sprite.svg)
   background-repeat: no-repeat
-  background-size: auto
+  background-size: 350px
   width: 50px
   height: 50px
   border-radius: 5px
@@ -545,6 +551,12 @@ a.calendar
   &:hover
     background-position: -250px 100%
 
+a.youtube
+  background-position: -300px 0
+
+  &:hover
+    background-position: -300px 100%
+
 #viewDocs
   display: none
 
@@ -567,6 +579,9 @@ section
   li
     display: inline-block
     height: 100%
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
 
   a
     display: block
@@ -587,11 +602,11 @@ section
   #vendorStrip
     line-height: 44px
     max-width: 100%
-    overflow-x: auto
     -webkit-overflow-scrolling: touch
 
     ul
       float: none
+      overflow-x: auto
 
     #searchBox
       float: none
@@ -890,7 +905,6 @@ dd
     font-family: $mono-font
     vertical-align: baseline
     font-size: 14px
-    font-weight: bold
     padding: 2px 4px
 
   a code
@@ -1042,6 +1056,9 @@ dd
   a.issue
     margin-left: 0px
 
+.gridPageHome .flyout-button
+  display: none
+
 .feedback--no
   margin-left: 1em
 
@@ -1062,7 +1079,7 @@ dd
   position: fixed
   bottom: 0
 
-#miceType
+.miceType
   clear: both
   font-size: 11px
   line-height: 18px
@@ -1118,7 +1135,7 @@ $feature-box-div-margin-bottom: 40px
     margin-bottom: 0
     padding-bottom: 1px
 
-    main
+    .main-section
       padding: 0 10px
       margin-bottom: 30px
 
@@ -1129,7 +1146,7 @@ $feature-box-div-margin-bottom: 40px
   section#cncf
     padding-top: 60px
     padding-bottom: 140px
-    background-image: url(/images/cncf-color.png)
+    background-image: url(/images/cncf-color.svg)
     background-position: center 100px
     background-repeat: no-repeat
     background-size: 300px
@@ -1144,7 +1161,7 @@ $feature-box-div-margin-bottom: 40px
   a
     color: $blue
 
-  main
+  .main-section
     margin-bottom: $ocean-nodes-padding-Y
     min-height: 160px
 
@@ -1157,7 +1174,7 @@ $feature-box-div-margin-bottom: 40px
       width: 100%
       max-width: 160px
 
-  main:first-child
+  .main-section:first-child
     .image-wrapper
       max-width: 100%
 
@@ -1198,7 +1215,7 @@ $feature-box-div-margin-bottom: 40px
     margin-bottom: 20px
 
   #desktopKCButton
-    position: relative
+    position: absolute
     font-size: 18px
     background-color: $dark-grey
     border-radius: 8px
@@ -1305,10 +1322,10 @@ $feature-box-div-margin-bottom: 40px
 #features
   padding-top: 140px
   background-color: $light-grey
-  background-image: url(/images/wheel.png)
+  background-image: url(/images/wheel.svg)
   background-position: center 60px
   background-repeat: no-repeat
-  background-size: auto
+  background-size: 60px
 
 .feature-box
   //padding: 50px 0
@@ -1353,7 +1370,7 @@ $feature-box-div-margin-bottom: 40px
   #mainContent
     padding: 20px 0
 
-    main
+    .main-section
       max-width: none
 
     a
@@ -1772,7 +1789,7 @@ $feature-box-div-margin-bottom: 40px
 
 #home
   #talkToUs
-    main
+    .main-section
       padding: 30px 0
 
     h5
@@ -1786,6 +1803,7 @@ $feature-box-div-margin-bottom: 40px
 
     img
       padding-bottom: 1rem
+      max-width: 100%
 
     div
       position: relative

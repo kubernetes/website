@@ -69,7 +69,7 @@ detail:
      to provide durable database storage, a StatefulSet to run SampleDB and
      a Job to handle initial configuration.
    * If you delete it, the Operator takes a snapshot, then makes sure that
-     the the StatefulSet and Volumes are also removed.
+     the StatefulSet and Volumes are also removed.
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
    to the database and take backups. These Pods would rely on a ConfigMap
@@ -106,7 +106,7 @@ as well as keeping the existing service in good shape.
 ## Writing your own Operator {#writing-operator}
 
 If there isn't an Operator in the ecosystem that implements the behavior you
-want, you can code your own. In [What's next](#what-s-next) you'll find a few
+want, you can code your own. In [What's next](#whats-next) you'll find a few
 links to libraries and tools you can use to write your own cloud native
 Operator.
 

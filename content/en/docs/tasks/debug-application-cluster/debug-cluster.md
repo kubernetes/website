@@ -29,6 +29,11 @@ kubectl get nodes
 
 And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
 
+To get detailed information about the overall health of your cluster, you can run:
+
+```shell
+kubectl cluster-info dump
+```
 ## Looking at logs
 
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
@@ -55,7 +60,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Network partition within cluster, or between cluster and users
   - Crashes in Kubernetes software
   - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-  - Operator error, e.g. misconfigured Kubernetes software or application software
+  - Operator error, for example misconfigured Kubernetes software or application software
 
 ### Specific scenarios:
 
@@ -100,11 +105,11 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Action: Use IaaS providers reliable storage (e.g. GCE PD or AWS EBS volume) for VMs with apiserver+etcd
   - Mitigates: Apiserver backing storage lost
 
-- Action: Use (experimental) [high-availability](/docs/admin/high-availability) configuration
-  - Mitigates: Master VM shutdown or master components (scheduler, API server, controller-managing) crashing
+- Action: Use [high-availability](/docs/admin/high-availability) configuration
+  - Mitigates: Control plane node shutdown or control plane components (scheduler, API server, controller-manager) crashing
     - Will tolerate one or more simultaneous node or component failures
-  - Mitigates: Apiserver backing storage (i.e., etcd's data directory) lost
-    - Assuming you used clustered etcd.
+  - Mitigates: API server backing storage (i.e., etcd's data directory) lost
+    - Assumes HA (highly-available) etcd configuration
 
 - Action: Snapshot apiserver PDs/EBS-volumes periodically
   - Mitigates: Apiserver backing storage lost
@@ -118,8 +123,5 @@ This is an incomplete list of things that could go wrong, and how to adjust your
 - Action: applications (containers) designed to tolerate unexpected restarts
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
-
-- Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
-  - Mitigates: Everything listed above.
 
 {{% /capture %}}

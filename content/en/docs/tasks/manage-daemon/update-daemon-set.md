@@ -33,7 +33,7 @@ DaemonSet has two update strategy types:
 * RollingUpdate: This is the default update strategy.  
   With `RollingUpdate` update strategy, after you update a
   DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods
-  will be created automatically, in a controlled fashion.
+  will be created automatically, in a controlled fashion. At most one pod of the DaemonSet will be running on each node during the whole update process.
 
 ## Performing a Rolling Update
 
@@ -43,21 +43,39 @@ To enable the rolling update feature of a DaemonSet, you must set its
 You may want to set [`.spec.updateStrategy.rollingUpdate.maxUnavailable`](/docs/concepts/workloads/controllers/deployment/#max-unavailable) (default
 to 1) and [`.spec.minReadySeconds`](/docs/concepts/workloads/controllers/deployment/#min-ready-seconds) (default to 0) as well.
 
+### Creating a DaemonSet with `RollingUpdate` update strategy
 
-### Step 1: Checking DaemonSet `RollingUpdate` update strategy
+This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 
-First, check the update strategy of your DaemonSet, and make sure it's set to
+{{< codenew file="controllers/fluentd-daemonset.yaml" >}}
+
+After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
+
+```shell
+kubectl create -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
+```
+
+Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to
+update the DaemonSet with `kubectl apply`.
+
+```shell
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
+```
+
+### Checking DaemonSet `RollingUpdate` update strategy
+
+Check the update strategy of your DaemonSet, and make sure it's set to
 `RollingUpdate`:
 
 ```shell
-kubectl get ds/<daemonset-name> -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
+kubectl get ds/fluentd-elasticsearch -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}' -n kube-system
 ```
 
 If you haven't created the DaemonSet in the system, check your DaemonSet
 manifest with the following command instead:
 
 ```shell
-kubectl apply -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dry-run=client -o go-template='{{.spec.updateStrategy.type}}{{"\n"}}'
 ```
 
 The output from both commands should be:
@@ -69,28 +87,13 @@ RollingUpdate
 If the output isn't `RollingUpdate`, go back and modify the DaemonSet object or
 manifest accordingly.
 
-### Step 2: Creating a DaemonSet with `RollingUpdate` update strategy
 
-If you have already created the DaemonSet, you may skip this step and jump to
-step 3.
-
-After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
-
-```shell
-kubectl create -f ds.yaml
-```
-
-Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to
-update the DaemonSet with `kubectl apply`.
-
-```shell
-kubectl apply -f ds.yaml
-```
-
-### Step 3: Updating a DaemonSet template
+### Updating a DaemonSet template
 
 Any updates to a `RollingUpdate` DaemonSet `.spec.template` will trigger a rolling
-update. This can be done with several different `kubectl` commands.
+update. Let's update the DaemonSet by applying a new YAML file. This can be done with several different `kubectl` commands.
+
+{{< codenew file="controllers/fluentd-daemonset-update.yaml" >}}
 
 #### Declarative commands
 
@@ -99,21 +102,17 @@ If you update DaemonSets using
 use `kubectl apply`:
 
 ```shell
-kubectl apply -f ds-v2.yaml
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.yaml
 ```
 
 #### Imperative commands
 
 If you update DaemonSets using
 [imperative commands](/docs/tasks/manage-kubernetes-objects/imperative-command/),
-use `kubectl edit` or `kubectl patch`:
+use `kubectl edit` :
 
 ```shell
-kubectl edit ds/<daemonset-name>
-```
-
-```shell
-kubectl patch ds/<daemonset-name> -p=<strategic-merge-patch>
+kubectl edit ds/fluentd-elasticsearch -n kube-system
 ```
 
 ##### Updating only the container image
@@ -122,21 +121,21 @@ If you just need to update the container image in the DaemonSet template, i.e.
 `.spec.template.spec.containers[*].image`, use `kubectl set image`:
 
 ```shell
-kubectl set image ds/<daemonset-name> <container-name>=<container-new-image>
+kubectl set image ds/fluentd-elasticsearch fluentd-elasticsearch=quay.io/fluentd_elasticsearch/fluentd:v2.6.0 -n kube-system
 ```
 
-### Step 4: Watching the rolling update status
+### Watching the rolling update status
 
 Finally, watch the rollout status of the latest DaemonSet rolling update:
 
 ```shell
-kubectl rollout status ds/<daemonset-name>
+kubectl rollout status ds/fluentd-elasticsearch -n kube-system
 ```
 
 When the rollout is complete, the output is similar to this:
 
 ```shell
-daemonset "<daemonset-name>" successfully rolled out
+daemonset "fluentd-elasticsearch" successfully rolled out
 ```
 
 ## Troubleshooting
@@ -156,7 +155,7 @@ When this happens, find the nodes that don't have the DaemonSet pods scheduled o
 by comparing the output of `kubectl get nodes` and the output of:
 
 ```shell
-kubectl get pods -l <daemonset-selector-key>=<daemonset-selector-value> -o wide
+kubectl get pods -l name=fluentd-elasticsearch -o wide -n kube-system
 ```
 
 Once you've found those nodes, delete some non-DaemonSet pods from the node to
@@ -183,6 +182,13 @@ If `.spec.minReadySeconds` is specified in the DaemonSet, clock skew between
 master and nodes will make DaemonSet unable to detect the right rollout
 progress.
 
+## Clean up
+
+Delete DaemonSet from a namespace :
+
+```shell
+kubectl delete ds fluentd-elasticsearch -n kube-system
+```
 
 {{% /capture %}}
 

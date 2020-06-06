@@ -20,7 +20,6 @@ See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and
 Before choosing a guide, here are some considerations:
 
  - Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
- - **If you are designing for high-availability**, learn about configuring [clusters in multiple zones](/docs/concepts/cluster-administration/federation/).
  - Will you be using **a hosted Kubernetes cluster**, such as [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), or **hosting your own cluster**?
  - Will your cluster be **on-premises**, or **in the cloud (IaaS)**? Kubernetes does not directly support hybrid clusters. Instead, you can set up multiple clusters.
  - **If you are configuring Kubernetes on-premises**, consider which [networking model](/docs/concepts/cluster-administration/networking/) fits best.
@@ -44,7 +43,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Certificates](/docs/concepts/cluster-administration/certificates/) describes the steps to generate certificates using different tool chains.
 
-* [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) describes the environment for Kubelet managed containers on a Kubernetes node.
+* [Kubernetes Container Environment](/docs/concepts/containers/container-environment/) describes the environment for Kubelet managed containers on a Kubernetes node.
 
 * [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) describes how to set up permissions for users and service accounts.
 

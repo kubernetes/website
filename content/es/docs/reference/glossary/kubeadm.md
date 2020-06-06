@@ -6,13 +6,13 @@ full_link: /docs/admin/kubeadm/
 short_description: >
   Utilidad para instalar Kubernetes con rapidez y configurar un clúster seguro.
 
-aka: 
+aka:
 tags:
 - tool
 - operation
 ---
  Utilidad para instalar Kubernetes con rapidez y configurar un clúster seguro.
 
-<!--more--> 
+<!--more-->
 
 Puedes usar kubeadm para instalar el Control Plane, formado por los nodos _master_, y también los componentes de nodos _worker_.

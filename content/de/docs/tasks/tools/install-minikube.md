@@ -49,7 +49,7 @@ Minikube unterstützt auch die Option `--vm-driver=none`, mit der die Kubernetes
 Die einfachste Möglichkeit, Minikube unter macOS zu installieren, ist die Verwendung von [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 Sie können es auch auf macOS installieren, indem Sie eine statische Binärdatei herunterladen:
@@ -98,7 +98,7 @@ choco install minikube kubernetes-cli
 
 Schließen Sie nach der Installation von Minikube die aktuelle CLI-Sitzung und starten Sie sie neu. Minikube sollte automatisch zu Ihrem Pfad hinzugefügt werden.
 
-#### Manuelle installation unter Windows 
+#### Manuelle installation unter Windows
 
  Um Minikube manuell unter Windows zu installieren, laden Sie die Datei [`minikube-windows-amd64`](https://github.com/kubernetes/minikube/releases/latest) herunter, umbenennen Sie sie in `minikube.exe` und fügen Sie sie Ihrem Pfad zu.
 

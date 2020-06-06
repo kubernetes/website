@@ -30,7 +30,7 @@ content_template: templates/task
 1. 列出你集群中的 PersistentVolumes
 
        kubectl get pv
-       
+
     输出类似于这样：
 
         NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                  REASON    AGE
@@ -47,7 +47,7 @@ content_template: templates/task
     ```shell
     kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
     ```
-       
+
     这里的 `<your-pv-name>` 是你选择的 PersistentVolume 的名字。
 
 3. 验证你选择的 PersistentVolume 拥有正确的策略：

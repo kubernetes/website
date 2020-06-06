@@ -2,9 +2,9 @@
 title: " Five Days of Kubernetes 1.3 "
 date: 2016-07-11
 slug: five-days-of-kubernetes-1.3
-url: /blog/2016/07/Five-Days-Of-Kubernetes-1.3
+url: /blog/2016/07/Five-Days-Of-Kubernetes-1-3
 ---
-Last week we [released Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads), two years from the day when the first Kubernetes commit was pushed to GitHub. Now 30,000+ commits later from over 800 contributors, this 1.3 releases is jam packed with updates driven by feedback from users.  
+Last week we [released Kubernetes 1.3](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/), two years from the day when the first Kubernetes commit was pushed to GitHub. Now 30,000+ commits later from over 800 contributors, this 1.3 releases is jam packed with updates driven by feedback from users.
 
 While many new improvements and features have been added in the latest release, we’ll be highlighting several that stand-out. Follow along and read these in-depth posts on what’s new and how we continue to make Kubernetes the best way to manage containers at scale.&nbsp;  
 
@@ -43,7 +43,7 @@ Day 5
 |
 Bonus
  |
-\* [Updates to Performance and Scalability](https://kubernetes.io/blog/2016/07/kubernetes-updates-to-performance-and-scalability-in-1.3)
+\* [Updates to Performance and Scalability](https://kubernetes.io/blog/2016/07/update-on-kubernetes-for-windows-server-containers/)
  |
 
 

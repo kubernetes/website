@@ -6,14 +6,14 @@ full_link: /docs/concepts/overview/what-is-kubernetes/#why-containers
 short_description: >
   En lett-vekts kontainer med alle avhengigheter.
 
-aka: 
+aka:
 tags:
 - fundamental
 - workload
 ---
  En lett-vekts kontainer med alle avhengigheter.
 
-<!--more--> 
+<!--more-->
 
 Mer tekst her.
 

@@ -6,13 +6,13 @@ full_link: /docs/reference/generated/kube-scheduler/
 short_description: >
   Komponente auf dem Master, die neu erstellte Pods überwacht, denen kein Node zugewiesen ist. Sie wählt den Node aus, auf dem sie ausgeführt werden sollen.
 
-aka: 
+aka:
 tags:
 - architecture
 ---
  Komponente auf dem Master, die neu erstellte Pods überwacht, denen kein Node zugewiesen ist. Sie wählt den Node aus, auf dem sie ausgeführt werden sollen.
 
-<!--more--> 
+<!--more-->
 
 Zu den Faktoren, die bei Planungsentscheidungen berücksichtigt werden, zählen individuelle und kollektive Ressourcenanforderungen, Hardware- / Software- / Richtlinieneinschränkungen, Affinitäts- und Anti-Affinitätsspezifikationen, Datenlokalität, Interworkload-Interferenz und Deadlines.
 

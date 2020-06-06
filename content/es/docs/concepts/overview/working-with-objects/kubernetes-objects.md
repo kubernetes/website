@@ -2,7 +2,7 @@
 title: Entender los Objetos de Kubernetes
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 40
 ---
@@ -42,7 +42,7 @@ Aquí hay un ejemplo de un archivo `.yaml` que muestra los campos requeridos y l
 {{< codenew file="application/deployment.yaml" >}}
 
 Una forma de crear un Deployment utilizando un archivo `.yaml` como el indicado arriba sería ejecutar el comando
-[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) 
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply)
 en el interfaz de línea de comandos, pasándole el archivo `.yaml` como argumento. Aquí tienes un ejemplo de cómo hacerlo:
 
 ```shell
@@ -64,7 +64,7 @@ En el archivo `.yaml` del objeto de Kubernetes que quieras crear, obligatoriamen
 * `metadata` - Datos que permiten identificar unívocamente al objeto, incluyendo una cadena de texto para el `name`, UID, y opcionalmente el `namespace`
 
 También deberás indicar el campo `spec` del objeto. El formato del campo `spec` es diferente según el tipo de objeto de Kubernetes, y contiene campos anidados específicos de cada objeto. La [Referencia de la API de Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) puede servirte de ayuda para encontrar el formato de la spec para cada uno de los objetos que puedes crear usando Kubernetes.
-Por ejemplo, el formato de la `spec` para un objeto de tipo `Pod` lo puedes encontrar 
+Por ejemplo, el formato de la `spec` para un objeto de tipo `Pod` lo puedes encontrar
 [aquí](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core),
 y el formato de la `spec` para un objeto de tipo `Deployment` lo puedes encontrar
 [aquí](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).

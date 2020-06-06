@@ -1,36 +1,37 @@
 <footer>
-    <main class="light-text">
+    <div class="light-text main-section">
         <nav>
-            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-            {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
+            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .LinkTitle }}</a>{{ end }}
+            {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .LinkTitle }}</a>{{ end }}
             {{ end }}
         </nav>
-        <div class="social">
+        <div class="social" role="region" aria-label="Social hyperlinks">
             <div>
                 <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
                 <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
-                <a href="http://slack.k8s.io/" class="slack"><span>Slack</span></a>
+                <a href="https://slack.k8s.io/" class="slack"><span>Slack</span></a>
             </div>
             <div>
-                <a href="http://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
+                <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
+                <a href="https://www.youtube.com/kubernetescommunity" class="youtube"><span>{{ T "community_youtube_name" }}</span></a>
                 <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
-                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
+                <a href="https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
             </div>
             <div>
                 {{ with site.GetPage "page" "/docs/setup/pick-right-solution/" }}<a href="{{  .RelPermalink }}" class="button">{{ .LinkTitle }}</a>{{ end }}
                 <a href="https://git.k8s.io/community/contributors/guide" class="button">{{ T "main_contribute" }}</a>
             </div>
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             &copy; {{ now.Year }} {{ T "main_documentation_license" | safeHTML }}</a>
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}
         </div>
-        <div id="miceType" class="center">
+        <div class="miceType center">
             ICP license: 京ICP备17074266号-3
         </div>
-    </main>
+    </div>
 </footer>

@@ -7,11 +7,7 @@ weight: 100
 {{% capture overview %}}
 
 An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
-to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress. 
-
-{{< caution >}}
-For the Ingress resource to work, the cluster **must** also have an Ingress controller running.
-{{< /caution >}}
+to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress.
 
 This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
 
@@ -70,7 +66,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Create a Deployment using the following command:
 
     ```shell
-    kubectl run web --image=gcr.io/google-samples/hello-app:1.0 --port=8080
+    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
     ```
 
     Output:
@@ -82,7 +78,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Expose the Deployment: 
 
     ```shell
-    kubectl expose deployment web --target-port=8080 --type=NodePort
+    kubectl expose deployment web --type=NodePort --port=8080
     ```
     
     Output: 
@@ -140,16 +136,16 @@ The following file is an Ingress resource that sends traffic to your Service via
         metadata:
           name: example-ingress
           annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /
+            nginx.ingress.kubernetes.io/rewrite-target: /$1
         spec:
-         rules:
-         - host: hello-world.info
-           http:
-             paths:
-             - path: /*
-               backend:
-                 serviceName: web
-                 servicePort: 8080
+          rules:
+          - host: hello-world.info
+            http:
+              paths:
+              - path: /
+                backend:
+                  serviceName: web
+                  servicePort: 8080
 
 1. Create the Ingress resource by running the following command:
     
@@ -207,7 +203,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Create a v2 Deployment using the following command:
 
     ```shell
-    kubectl run web2 --image=gcr.io/google-samples/hello-app:2.0 --port=8080
+    kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
     ```
     Output:
     
@@ -218,7 +214,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Expose the Deployment:
 
     ```shell
-    kubectl expose deployment web2 --target-port=8080 --type=NodePort
+    kubectl expose deployment web2 --port=8080 --type=NodePort
     ```
 
     Output: 
@@ -232,10 +228,10 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Edit the existing `example-ingress.yaml` and add the following lines:  
 
     ```yaml
-         - path: /v2/*
-           backend:
-             serviceName: web2
-             servicePort: 8080
+          - path: /v2
+            backend:
+              serviceName: web2
+              servicePort: 8080
     ```
 
 1. Apply the changes:

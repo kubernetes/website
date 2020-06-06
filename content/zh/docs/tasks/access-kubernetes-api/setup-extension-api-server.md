@@ -1,3 +1,13 @@
+---
+title: 设置一个扩展的 API server
+reviewers:
+- lavalamp
+- cheftako
+- chenopis
+content_template: templates/task
+weight: 15
+---
+
 <!--
 ---
 title: Setup an extension API server
@@ -9,20 +19,11 @@ content_template: templates/task
 weight: 15
 ---
 -->
----
-title: 设置一个扩展的 API server
-reviewers:
-- lavalamp
-- cheftako
-- chenopis
-content_template: templates/task
-weight: 15
----
 
 {{% capture overview %}}
 
 <!--
-Setting up an extension API server to work the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Setting up an extension API server to work the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 -->
 设置一个扩展的 API server 来使用聚合层以让 Kubernetes apiserver 使用其它 API 进行扩展，这些 API 不是核心 Kubernetes API 的一部分。
 

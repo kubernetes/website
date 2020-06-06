@@ -6,6 +6,8 @@ weight: 110
 
 {{% capture overview %}}
 
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
@@ -49,7 +51,7 @@ specified by one of the built-in Kubernetes controllers:
 In this case, make a note of the controller's `.spec.selector`; the same
 selector goes into the PDBs `.spec.selector`.
 
-From version 1.15 PDBs support custom controllers where the [scale subresource](docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
@@ -144,8 +146,10 @@ collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 {{< /note >}}
 
-A `maxUnavailable` of 0% (or 0) or a `minAvailable` of 100% (or equal to the
-number of replicas) may block node drains entirely. This is permitted as per the 
+If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
+you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
+object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 
 You can find examples of pod disruption budgets defined below. They match pods with the label 
@@ -165,9 +169,7 @@ automatically responds to changes in the number of replicas of the corresponding
 
 ## Create the PDB object
 
-You can create the PDB object with a command like `kubectl apply -f mypdb.yaml`.
-
-You cannot update PDB objects.  They must be deleted and re-created.
+You can create or update the PDB object with a command like `kubectl apply -f mypdb.yaml`.
 
 ## Check the status of the PDB
 
@@ -180,8 +182,8 @@ then you'll see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               0                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               0                     7s
 ```
 
 If there are matching pods (say, 3), then you would see something like this:
@@ -190,11 +192,11 @@ If there are matching pods (say, 3), then you would see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               1                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               1                     7s
 ```
 
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
@@ -206,14 +208,15 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  creationTimestamp: 2017-08-28T02:38:26Z
+  annotations:
+…
+  creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
 …
 status:
   currentHealthy: 3
-  desiredHealthy: 3
-  disruptedPods: null
+  desiredHealthy: 2
   disruptionsAllowed: 1
   expectedPods: 3
   observedGeneration: 1

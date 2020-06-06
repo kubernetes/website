@@ -21,7 +21,7 @@ content_template: templates/concept
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Hello Minikube](/docs/tutorials/hello-minikube/)
+* [Hello Minikube](/ja/docs/tutorials/hello-minikube/)
 
 ## 設定
 
@@ -29,7 +29,7 @@ content_template: templates/concept
 
 ## ステートレスアプリケーション
 
-* [クラスタ内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 
@@ -37,7 +37,7 @@ content_template: templates/concept
 
 * [StatefulSetの基本](/docs/tutorials/stateful-application/basic-stateful-set/)
 
-* [例: 永続化ボリュームを使ったWordPressとMySQLのデプロイ](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
+* [例: 永続ボリュームを使ったWordPressとMySQLのデプロイ](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)
 
 * [例: Stateful Setsを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)
 
@@ -53,7 +53,7 @@ content_template: templates/concept
 
 * [Set Up CI/CD for a Distributed Crossword Puzzle App on Kubernetes (Part 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
 
-## クラスタ
+## クラスター
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 

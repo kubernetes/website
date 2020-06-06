@@ -39,10 +39,10 @@ It takes around 10s to complete.
 You can run the example with this command:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/controllers/job.yaml
+kubectl apply -f https://kubernetes.io/examples/controllers/job.yaml
 ```
 ```
-job "pi" created
+job.batch/pi created
 ```
 
 Check on the status of the Job with `kubectl`:
@@ -51,35 +51,39 @@ Check on the status of the Job with `kubectl`:
 kubectl describe jobs/pi
 ```
 ```
-Name:             pi
-Namespace:        default
-Selector:         controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-Labels:           controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
-                  job-name=pi
-Annotations:      <none>
-Parallelism:      1
-Completions:      1
-Start Time:       Tue, 07 Jun 2016 10:56:16 +0200
-Pods Statuses:    0 Running / 1 Succeeded / 0 Failed
-Pod Template:
-  Labels:       controller-uid=b1db589a-2c8d-11e6-b324-0209dc45a495
+Name:           pi
+Namespace:      default
+Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
                 job-name=pi
+Annotations:    kubectl.kubernetes.io/last-applied-configuration:
+                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
+Parallelism:    1
+Completions:    1
+Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
+Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
+Duration:       65s
+Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Pod Template:
+  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+           job-name=pi
   Containers:
    pi:
     Image:      perl
-    Port:
+    Port:       <none>
+    Host Port:  <none>
     Command:
       perl
       -Mbignum=bpi
       -wle
       print bpi(2000)
-    Environment:        <none>
-    Mounts:             <none>
-  Volumes:              <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
 Events:
-  FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
-  ---------    --------    -----    ----            -------------    --------    ------            -------
-  1m           1m          1        {job-controller }                Normal      SuccessfulCreate  Created pod: pi-dtn4q
+  Type    Reason            Age   From            Message
+  ----    ------            ----  ----            -------
+  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
 ```
 
 To view completed Pods of a Job, use `kubectl get pods`.
@@ -91,7 +95,7 @@ pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].met
 echo $pods
 ```
 ```
-pi-aiw0a
+pi-5rwd7
 ```
 
 Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
@@ -110,6 +114,7 @@ The output is similar to this:
 ## Writing a Job Spec
 
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
+Its name must be a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -173,10 +178,10 @@ parallelism, for a variety of reasons:
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of
   remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
 - For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
-- If the controller has not had time to react.
-- If the controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
+- If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
+- If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
   then there may be fewer pods than requested.
-- The controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
+- The Job controller may throttle new Pod creation due to excessive previous pod failures in the same Job.
 - When a Pod is gracefully shut down, it takes time to stop.
 
 ## Handling Pod and Container Failures
@@ -260,6 +265,9 @@ spec:
 ```
 
 Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+
+Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself: there is no automatic Job restart once the Job status is `type: Failed`.
+That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
 
 ## Clean Up Finished Jobs Automatically
 
@@ -464,7 +472,7 @@ starts a Spark master controller (see [spark example](https://github.com/kuberne
 driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
-object, but complete control over what Pods are created and how work is assigned to them.
+object, but maintains complete control over what Pods are created and how work is assigned to them.
 
 ## Cron Jobs {#cron-jobs}
 

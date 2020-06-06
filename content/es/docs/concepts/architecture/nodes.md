@@ -60,7 +60,7 @@ Si el `status` de la condición `Ready` se mantiene como `Unknown` o `False` por
 
 En versiones de Kubernetes anteriores a 1.5, el controlador de nodos [forzaba el borrado](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods) de dichos pods inaccesibles desde el API Server. Sin embargo, desde la versión 1.5, el nodo controlador no fuerza el borrado de pods hasta que se confirma que dichos pods han dejado de ejecutarse en el clúster. Pods que podrían estar ejecutándose en un nodo inalcanzable se muestran como `Terminating` o `Unknown`. En aquellos casos en los que Kubernetes no puede deducir si un nodo ha abandonado el clúster de forma permanente, puede que sea el administrador el que tenga que borrar el nodo de forma manual. Borrar un objeto `Node` en un clúster de Kubernetes provoca que los objetos Pod que se ejecutaban en el nodo sean eliminados en el API Server y libera sus nombres.
 
-En la versión 1.12, la funcionalidad `TaintNodesByCondition` se eleva a beta, de forma que el controlador del ciclo de vida de nodos crea [taints](/docs/concepts/configuration/taint-and-toleration/) de forma automática, que representan estados de nodos. 
+En la versión 1.12, la funcionalidad `TaintNodesByCondition` se eleva a beta, de forma que el controlador del ciclo de vida de nodos crea [taints](/docs/concepts/configuration/taint-and-toleration/) de forma automática, que representan estados de nodos.
 De forma similar, el planificador de tareas ignora estados cuando evalúa un nodo; en su lugar mira los taints del nodo y las tolerancias de los pods.
 
 En la actualidad, los usuarios pueden elegir entre la versión de planificación antigua y el nuevo, más flexible, modelo de planificación.
@@ -123,7 +123,7 @@ En la mayoría de los casos, el controlador de nodos limita el ritmo de desalojo
 El comportamiento de desalojo de nodos cambia cuando un nodo en una zona de disponibilidad tiene problemas. El controlador de nodos comprobará qué porcentaje de nodos en la zona no se encuentran en buen estado (es decir, que su condición `NodeReady` tiene un valor `ConditionUnknown` o `ConditionFalse`) al mismo tiempo. Si la fracción de nodos con problemas es de al menos `--unhealthy-zone-threshold` (0.55 por defecto) entonces se reduce el ratio de desalojos: si el clúster es pequeño (por ejemplo, tiene menos o los mismos nodos que `--large-cluster-size-threshold` - 50 por defecto) entonces los desalojos se paran. Sino, el ratio se reduce a `--secondary-node-eviction-rate` (0.01 por defecto) por segundo. La razón por la que estas políticas se implementan por zonas de disponibilidad es debido a que una zona puede quedarse aislada del nodo máster mientras que las demás continúan conectadas. Si un clúster no comprende más de una zona, todo el clúster se considera una única zona.
 
 La razón principal por la que se distribuyen nodos entre varias zonas de disponibilidad es para que el volumen de trabajo se transfiera a aquellas zonas que se encuentren en buen estado cuando una de las zonas se caiga.
-Por consiguiente, si todos los nodos de una zona se encuentran en mal estado, el nodo controlador desaloja al ritmo normal `--node-eviction-rate`. En el caso extremo de que todas las zonas se encuentran en mal estado (es decir, no responda ningún nodo del clúster), el controlador de nodos asume que hay algún tipo de problema con la conectividad del nodo máster y paraliza todos los desalojos hasta que se re-establece la conectividad. 
+Por consiguiente, si todos los nodos de una zona se encuentran en mal estado, el nodo controlador desaloja al ritmo normal `--node-eviction-rate`. En el caso extremo de que todas las zonas se encuentran en mal estado (es decir, no responda ningún nodo del clúster), el controlador de nodos asume que hay algún tipo de problema con la conectividad del nodo máster y paraliza todos los desalojos hasta que se re-establece la conectividad.
 
 Desde la versión 1.6 de Kubernetes el controlador de nodos también es el responsable de desalojar pods que están ejecutándose en nodos con `NoExecute` taints, cuando los pods no permiten dichos taints. De forma adicional, como una funcionalidad alfa que permanece deshabilitada por defecto, el `NodeController` es responsable de añadir taints que se corresponden con problemas en los nodos del tipo nodo inalcanzable o nodo no preparado. En [esta sección de la documentación](/docs/concepts/configuration/taint-and-toleration/) hay más detalles acerca de los taints `NoExecute` y de la funcionalidad alfa.
 
@@ -161,7 +161,7 @@ Marcar un nodo como no-planificable impide que nuevos pods sean planificados en 
 kubectl cordon $NODENAME
 ```
 
-{{< note >}} 
+{{< note >}}
 Los pods creados por un controlador DaemonSet ignoran el planificador de Kubernetes y no respetan el atributo no-planificable de un nodo. Se asume que los daemons pertenecen a la máquina huésped y que se ejecutan incluso cuando esta está siendo drenada de aplicaciones en preparación de un reinicio.
 {{< /note >}}
 

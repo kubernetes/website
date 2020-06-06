@@ -29,7 +29,7 @@ Kamu bisa menggunakan perintah `kubectl create -f` untuk membuat sebuah objek da
 ## Cara memperbarui objek
 
 {{< warning >}}
-Memperbarui objek dengan perintah `replace` akan menghilangkan semua bagian dari spesifikasi objek yang tidak dispesifikasikan pada file konfigurasi. Oleh karena itu, perintah ini sebaiknya tidak digunakan terhadap objek-objek yang spesifikasinya sebagian dikelola oleh kluster, misalnya Service dengan tipe `LoadBalancer`, di mana *field* `externalIPs` dikelola secara terpisah dari file konfigurasi. *Field-field* yang dikelola secara terpisah harus disalin ke file konfigurasi untuk mencegah terhapus oleh perintah `replace`.
+Memperbarui objek dengan perintah `replace` akan menghilangkan semua bagian dari spesifikasi objek yang tidak dispesifikasikan pada file konfigurasi. Oleh karena itu, perintah ini sebaiknya tidak digunakan terhadap objek-objek yang spesifikasinya sebagian dikelola oleh klaster, misalnya Service dengan tipe `LoadBalancer`, di mana *field* `externalIPs` dikelola secara terpisah dari file konfigurasi. *Field-field* yang dikelola secara terpisah harus disalin ke file konfigurasi untuk mencegah terhapus oleh perintah `replace`.
 {{< /warning >}}
 
 Kamu bisa menggunakan perintah `kubectl replace -f` untuk memperbarui sebuah objek *live* sesuai dengan sebuah file konfigurasi.

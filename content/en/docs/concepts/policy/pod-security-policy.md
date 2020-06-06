@@ -22,7 +22,7 @@ updates.
 ## What is a Pod Security Policy?
 
 A _Pod Security Policy_ is a cluster-level resource that controls security
-sensitive aspects of the pod specification. The `PodSecurityPolicy` objects
+sensitive aspects of the pod specification. The [PodSecurityPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) objects
 define a set of conditions that a pod must run with in order to be accepted into
 the system, as well as defaults for the related fields. They allow an
 administrator to control the following:
@@ -34,7 +34,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| White list of Flexvolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
@@ -197,6 +197,8 @@ alias kubectl-user='kubectl --as=system:serviceaccount:psp-example:fake-user -n 
 
 Define the example PodSecurityPolicy object in a file. This is a policy that
 simply prevents the creation of privileged pods.
+The name of a PodSecurityPolicy object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{< codenew file="policy/example-psp.yaml" >}}
 
@@ -361,7 +363,7 @@ podsecuritypolicy "example" deleted
 
 ### Example Policies
 
-This is the least restricted policy you can create, equivalent to not using the
+This is the least restrictive policy you can create, equivalent to not using the
 pod security policy admission controller:
 
 {{< codenew file="policy/privileged-psp.yaml" >}}
@@ -371,6 +373,8 @@ unprivileged user, blocks possible escalations to root, and requires use of
 several security mechanisms.
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/#policy-instantiation) for more examples.
 
 ## Policy Reference
 
@@ -401,8 +405,6 @@ pods on the same node.
 network namespace. Defined as a list of `HostPortRange`, with `min`(inclusive)
 and `max`(inclusive). Defaults to no allowed host ports.
 
-**AllowedHostPaths** - See [Volumes and file systems](#volumes-and-file-systems).
-
 ### Volumes and file systems
 
 **Volumes** - Provides a whitelist of allowed volume types. The allowable values
@@ -421,8 +423,10 @@ The **recommended minimum set** of allowed volumes for new PSPs are:
 - projected
 
 {{< warning >}}
-PodSecurityPolicy does not limit the types of `PersistentVolume` objects that may be referenced by a `PersistentVolumeClaim`.
-Only trusted users should be granted permission to create `PersistentVolume` objects.
+PodSecurityPolicy does not limit the types of `PersistentVolume` objects that
+may be referenced by a `PersistentVolumeClaim`, and hostPath type
+`PersistentVolumes` do not support read-only access mode. Only trusted users
+should be granted permission to create `PersistentVolume` objects.
 {{< /warning >}}
 
 **FSGroup** - Controls the supplemental group applied to some volumes.
@@ -463,12 +467,12 @@ to effectively limit access to the specified `pathPrefix`.
 **ReadOnlyRootFilesystem** - Requires that containers must run with a read-only
 root filesystem (i.e. no writable layer).
 
-### Flexvolume drivers
+### FlexVolume drivers
 
-This specifies a whitelist of Flexvolume drivers that are allowed to be used
+This specifies a whitelist of FlexVolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
 Please make sure [`volumes`](#volumes-and-file-systems) field contains the
-`flexVolume` volume type; no Flexvolume driver is allowed otherwise.
+`flexVolume` volume type; no FlexVolume driver is allowed otherwise.
 
 For example:
 
@@ -626,5 +630,13 @@ By default, all safe sysctls are allowed.
 
 Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
+
+{{% /capture %}}
+
+{{% capture whatsnext %}}
+
+See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
+
+Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
 {{% /capture %}}

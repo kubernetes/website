@@ -27,7 +27,7 @@ Why is RuntimeClass a pod level concept? The Kubernetes resource model expects c
 
 ## What's next?
 
-The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
+The RuntimeClass resource is an important foundation for surfacing runtime properties to the control plane. For example, to implement scheduler support for clusters with heterogeneous nodes supporting different runtimes, we might add [NodeAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) terms to the RuntimeClass definition. Another area to address is managing the variable resource requirements to run pods of different runtimes. The [Pod Overhead proposal](https://docs.google.com/document/d/1EJKT4gyl58-kzt2bnwkv08MIUZ6lkDpXcxkHqCvvAp4/preview) was an early take on this that aligns nicely with the RuntimeClass design, and may be pursued further.
 
 Many other RuntimeClass extensions have also been proposed, and will be revisited as the feature continues to develop and mature. A few more extensions that are being considered include:
 
@@ -42,6 +42,6 @@ RuntimeClass will be under active development at least through 2019, and we’re
 ## Learn More
 
 - Take it for a spin! As an alpha feature, there are some additional setup steps to use RuntimeClass. Refer to the [RuntimeClass documentation](/docs/concepts/containers/runtime-class/#runtime-class) for how to get it running.
-- Check out the [RuntimeClass Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0014-runtime-class.md) for more nitty-gritty design details.
+- Check out the [RuntimeClass Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md) for more nitty-gritty design details.
 - The [Sandbox Isolation Level Decision](https://docs.google.com/document/d/1fe7lQUjYKR0cijRmSbH_y0_l3CYPkwtQa5ViywuNo8Q/preview) documents the thought process that initially went into making RuntimeClass a pod-level choice.
 - Join the discussions and help shape the future of RuntimeClass with the [SIG-Node community](https://github.com/kubernetes/community/tree/master/sig-node)

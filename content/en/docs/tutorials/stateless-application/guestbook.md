@@ -79,7 +79,7 @@ Replace POD-NAME with the name of your Pod.
 
 ### Creating the Redis Master Service
 
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
@@ -116,7 +116,7 @@ Although the Redis master is a single pod, you can make it highly available to m
 
 Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
 
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running.
+If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas running, it would scale down until two replicas are running.
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 

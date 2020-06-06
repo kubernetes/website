@@ -17,6 +17,7 @@ toc:
     - docs/admin/accessing-the-api.md
     - docs/admin/authentication.md
     - docs/admin/bootstrap-tokens.md
+    - docs/admin/certificate-signing-requests.md
     - docs/admin/admission-controllers.md
     - docs/admin/extensible-admission-controllers.md
     - docs/admin/service-accounts-admin.md
@@ -43,14 +44,6 @@ toc:
       path: https://git.k8s.io/kubernetes/api/openapi-spec/
     - title: Swagger Spec
       path: https://git.k8s.io/kubernetes/api/swagger-spec/
-
-- title: Federation API
-  landing_page: /docs/reference/federation/v1/operations/
-  section:
-    - docs/reference/generated/federation/v1/operations.html
-    - docs/reference/generated/federation/v1/definitions.html
-    - docs/reference/generated/federation/extensions/v1beta1/operations.html
-    - docs/reference/generated/federation/extensions/v1beta1/definitions.html
 
 - title: kubectl CLI
   landing_page: /docs/user-guide/kubectl-overview/
@@ -79,14 +72,6 @@ toc:
     - docs/reference/setup-tools/kubeadm/kubeadm-version.md
     - docs/reference/setup-tools/kubeadm/kubeadm-alpha.md 
     - docs/reference/setup-tools/kubeadm/implementation-details.md 
-  - title: Kubefed
-    section:
-    - docs/reference/generated/kubefed.md
-    - docs/reference/generated/kubefed_options.md
-    - docs/reference/generated/kubefed_init.md
-    - docs/reference/generated/kubefed_join.md
-    - docs/reference/generated/kubefed_unjoin.md
-    - docs/reference/generated/kubefed_version.md
 
 - title: Command-line Tools Reference
   landing_page: /docs/admin/kubelet/
@@ -100,8 +85,6 @@ toc:
   - docs/reference/generated/kube-scheduler.md
   - docs/admin/kubelet-tls-bootstrapping.md
   - docs/reference/generated/cloud-controller-manager.md
-  - docs/reference/generated/federation-apiserver.md
-  - docs/reference/generated/federation-controller-manager.md
 
 - title: Kubernetes Issues and Security
   landing_page: https://github.com/kubernetes/kubernetes/issues/

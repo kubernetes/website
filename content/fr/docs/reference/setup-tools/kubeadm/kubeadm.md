@@ -18,6 +18,6 @@ On préférera des outils plus spécifiques et de plus haut niveau, construits a
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) pour mettre à jour un cluster Kubernetes vers une version plus récente
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) si vous avez initialisé votre cluster en utilisant kubeadm v1.7.x ou antérieur, pour configurer votre cluster avec `kubeadm upgrade`
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) pour gérer vos jetons avec `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) pour annuler des changements faits avec `kubeadm init` ou `kubeadm join` à cet hôte 
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) pour annuler des changements faits avec `kubeadm init` ou `kubeadm join` à cet hôte
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) pour afficher la version de kubeadm
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) pour utiliser un lot de fonctionnalités rendus disponibles afin d'obtenir le retour de la communauté

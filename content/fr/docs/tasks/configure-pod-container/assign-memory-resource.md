@@ -16,7 +16,7 @@ Cette page montre comment assigner une mémoire *request* et une mémoire *limit
 
 Chaque nœud de votre cluster doit avoir au moins 300 MiB de mémoire.
 
-Pour quelques étapes de cette page, vous devez lancer 
+Pour quelques étapes de cette page, vous devez lancer
 [metrics-server] (https://github.com/kubernetes-incubator/metrics-server)
 dans votre cluster. Si vous avez déjà metrics-server vous pouvez sauter ces étapes.
 
@@ -35,7 +35,7 @@ kubectl get apiservices
 Si l'API des métriques de ressources est disponible, la sortie inclura une référence à `metrics.k8s.io`.
 
 ```shell
-NAME      
+NAME
 v1beta1.metrics.k8s.io
 ```
 
@@ -116,7 +116,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 
 ## Dépasser la limite de mémoire d'un conteneur
 
-Un conteneur peut dépasser sa demande de mémoire si le nœud dispose de la mémoire disponible. Cependant, un conteneur n'est pas autorisé à utiliser plus que sa limite de mémoire. Si un conteneur alloue plus de mémoire que sa limite, le Conteneur devient un candidat à la terminaison. Si le conteneur continue à consommer de la mémoire au-delà de sa limite, le conteneur est arrêté. 
+Un conteneur peut dépasser sa demande de mémoire si le nœud dispose de la mémoire disponible. Cependant, un conteneur n'est pas autorisé à utiliser plus que sa limite de mémoire. Si un conteneur alloue plus de mémoire que sa limite, le Conteneur devient un candidat à la terminaison. Si le conteneur continue à consommer de la mémoire au-delà de sa limite, le conteneur est arrêté.
 Si un conteneur terminé peut être redémarré, le kubelet le redémarre, comme pour tout autre type d'échec d'exécution.
 
 Dans cet exercice, vous créez un Pod qui tente d'allouer plus de mémoire que sa limite.
@@ -218,7 +218,7 @@ kubectl delete pod memory-demo-2 --namespace=mem-example
 
 ## Spécifiez une demande de mémoire trop volumineuse pour vos nœuds.
 
-Les demandes de mémoire et les limites sont associées aux conteneurs, mais il est utile de réfléchir avant tout à la capacité de demande et limite mémoire des pods. 
+Les demandes de mémoire et les limites sont associées aux conteneurs, mais il est utile de réfléchir avant tout à la capacité de demande et limite mémoire des pods.
 La demande de mémoire pour le Pod est la somme des demandes de mémoire pour tous ses conteneurs. De même, la mémoire limite pour le Pod est la somme des limites de tous ses Conteneurs.
 
 L'ordonnancement des modules est basé sur les demandes. Un Pod est schedulé pour se lancer sur un Nœud uniquement si le Nœud dispose de suffisamment de mémoire disponible pour répondre à la demande de mémoire du Pod.
@@ -292,7 +292,7 @@ pour spécifier une valeur par défaut pour la limite de mémoire.
 En configurant les demandes de mémoire et les limites pour les conteneurs qui s'exécutent dans votre cluster.
 vous pouvez utiliser efficacement les ressources mémoire disponibles sur les noeuds de votre cluster. En gardant la demande de mémoire d'un Pod basse, vous donnez au Pod une bonne chance d'être schedulé. En ayant une limite de mémoire supérieure à la demande de mémoire, vous accomplissez deux choses :
 
-* Le Pod peut avoir des éclats d'activités où il fait usage de la mémoire qui se trouve être disponible. 
+* Le Pod peut avoir des éclats d'activités où il fait usage de la mémoire qui se trouve être disponible.
 * La quantité de mémoire qu'un Pod peut utiliser pendant un  éclat d'activité est limitée à une quantité raisonnable.
 
 ## Clean up

@@ -2,7 +2,7 @@
 title: 컨테이너 런타임 인터페이스(Container runtime interface, CRI)
 id: cri
 date: 2019-03-07
-full_link: https://kubernetes.io/docs/concepts/overview/components/#container-runtime
+full_link: /ko/docs/concepts/overview/components/#컨테이너-런타임
 short_description: >
   Kubelet과 컨테이너 런타임을 통합시키기 위한 API
 

@@ -1,3 +1,9 @@
+---
+title: 配置命名空间的最小和最大内存约束
+content_template: templates/task
+weight: 30
+---
+
 <!--
 ---
 title: Configure Minimum and Maximum Memory Constraints for a Namespace
@@ -5,12 +11,6 @@ content_template: templates/task
 weight: 30
 ---
 -->
-
----
-title: 配置命名空间的最小和最大内存约束
-content_template: templates/task
-weight: 30
----
 
 {{% capture overview %}}
 
@@ -440,8 +440,3 @@ kubectl delete namespace constraints-mem-example
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
-
-
-
-
-

@@ -54,7 +54,7 @@ If you'd like to learn more about how Cilium uses eBPF, take a look at the proje
 
 Weave Scope employs an agent that runs on each node of a cluster. The agent monitors the system, generates a report and sends it to the app server. The app server compiles the reports it receives and presents the results in the Weave Scope UI.  
 
-To accurately draw connections between containers, the agent attaches a BPF program to kprobes that track socket events: opening and closing connections. The BPF program, [tcptracer-bpf](https://github.com/weaveworks/tcptracer-bpf), is compiled into an ELF object file and loaded using [gopbf](https://github.com/iovisor/gobpf).  
+To accurately draw connections between containers, the agent attaches a BPF program to kprobes that track socket events: opening and closing connections. The BPF program, [tcptracer-bpf](https://github.com/weaveworks/tcptracer-bpf), is compiled into an ELF object file and loaded using [gobpf](https://github.com/iovisor/gobpf).  
 
 (As a side note, Weave Scope also has a plugin that make use of eBPF: [HTTP statistics](https://github.com/weaveworks-plugins/scope-http-statistics).)  
 

@@ -543,8 +543,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 	capabilities.SetForTests(capabilities.Capabilities{
 		AllowPrivileged: true,
 	})
-	// PodShareProcessNamespace needed for example share-process-namespace.yaml
-	utilfeature.DefaultFeatureGate.Set("PodShareProcessNamespace=true")
 
 	for dir, expected := range cases {
 		tested := 0

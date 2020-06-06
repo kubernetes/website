@@ -4,7 +4,7 @@ reviewers:
 title: ¿Qué es Kubernetes?
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 10
 ---

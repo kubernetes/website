@@ -215,7 +215,8 @@ An example of a published topic that uses the tutorial template is
 
 {{% capture whatsnext %}}
 
-- Learn about the [style guide](/docs/contribute/style/style-guide/)
+- Learn about the [Style guide](/docs/contribute/style/style-guide/)
+- Learn about the [Content guide](/docs/contribute/style/content-guide/)
 - Learn about [content organization](/docs/contribute/style/content-organization/)
 
 {{% /capture %}}
