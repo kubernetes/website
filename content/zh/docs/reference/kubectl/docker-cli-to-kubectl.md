@@ -57,7 +57,7 @@ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 -->
 ```shell
 # 启动运行 nginx 的 Pod
-kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl create deployment --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 ```
 ```
 deployment "nginx-app" created
