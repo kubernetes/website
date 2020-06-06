@@ -5,13 +5,13 @@ title: Escribiendo Logs con Elasticsearch y Kibana
 
 {{% capture overview %}}
 
-En la plataforma Google Compute Engine (GCE), el soporte por defecto a la escritura de logs hace uso de
+En la plataforma Google Compute Engine (GCE), por defecto da soporte a la escritura de logs haciendo uso de
 [Stackdriver Logging](https://cloud.google.com/logging/), el cual se describe en detalle en [Logging con Stackdriver Logging](/docs/user-guide/logging/stackdriver).
 
-Este artículo describe cómo configurar un clúster para la ingesta de logs en 
-[Elasticsearch](https://www.elastic.co/products/elasticsearch) y su posterior visualización 
-con [Kibana](https://www.elastic.co/products/kibana), a modo de alternativa a 
-Stackdriver Logging cuando se utiliza la plataforma GCE. 
+Este artículo describe cómo configurar un clúster para la ingesta de logs en
+[Elasticsearch](https://www.elastic.co/products/elasticsearch) y su posterior visualización
+con [Kibana](https://www.elastic.co/products/kibana), a modo de alternativa a
+Stackdriver Logging cuando se utiliza la plataforma GCE.
 
 {{< note >}}
 No se puede desplegar de forma automática Elasticsearch o Kibana en un clúster alojado en Google Kubernetes Engine. Hay que desplegarlos de forma manual.
@@ -78,7 +78,7 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 ```
 
 Los pods de `fluentd-elasticsearch` recogen los logs de cada nodo y los envían a los
-pods de `elasticsearch-logging`, que son parte de un [servicio](/docs/concepts/services-networking/service/) llamado `elasticsearch-logging`. 
+pods de `elasticsearch-logging`, que son parte de un [servicio](/docs/concepts/services-networking/service/) llamado `elasticsearch-logging`.
 Estos pods de Elasticsearch almacenan los logs y los exponen via una API REST.
 El pod de `kibana-logging` proporciona una UI via web donde leer los logs almacenados en
 Elasticsearch, y es parte de un servicio denominado `kibana-logging`.
@@ -87,7 +87,7 @@ Los servicios de Elasticsearch y Kibana ambos están en el namespace `kube-syste
  y no se exponen de forma directa mediante una IP accesible públicamente. Para poder acceder a dichos logs,
 sigue las instrucciones acerca de cómo [Acceder a servicios corriendo en un clúster](/docs/concepts/cluster-administration/access-clusater/#accessing-services-running-on-the-cluster).
 
-Si tratas de acceder al servicio de `elasticsearch-logging` desde tu navegador, 
+Si tratas de acceder al servicio de `elasticsearch-logging` desde tu navegador,
 verás una página de estado que se parece a la siguiente:
 
 ![Estado de Elasticsearch](/images/docs/es-browser.png)
@@ -96,7 +96,7 @@ A partir de ese momento, puedes introducir consultas de Elasticsearch directamen
 Echa un vistazo a la [documentación de Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-uri-request.html)
 para más detalles acerca de cómo hacerlo.
 
-De forma alternativa, puedes ver los logs de tu clúster en Kibana (de nuevo usando las 
+De forma alternativa, puedes ver los logs de tu clúster en Kibana (de nuevo usando las
 [instrucciones para acceder a un servicio corriendo en un clúster](/docs/user-guide/accessing-the-cluster/#accessing-services-running-on-the-cluster)).
 La primera vez que visitas la URL de Kibana se te presentará una página que te pedirá
 que configures una vista de los logs. Selecciona la opción de valores de serie temporal

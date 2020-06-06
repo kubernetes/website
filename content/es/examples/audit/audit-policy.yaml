@@ -44,11 +44,11 @@ rules:
     resources:
     - group: "" # Grupo API base
       resources: ["configmaps"]
-    # Esta regla sólo aplica a los recursos en el espacio de nombres "kube-system".
-    # La cadena vacía "" se puede usar para seleccionar los recursos sin espacio de nombre.
+    # Esta regla sólo aplica a los recursos en el Namespace "kube-system".
+    # La cadena vacía "" se puede usar para seleccionar los recursos sin Namespace.
     namespaces: ["kube-system"]
 
-  # Registrar los cambios de configmap y secret en todos los otros espacios de nombres al nivel Metadata.
+  # Registrar los cambios de configmap y secret en todos los otros Namespaces al nivel Metadata.
   - level: Metadata
     resources:
     - group: "" # Grupo API base

@@ -6,7 +6,7 @@ content_template: templates/task
 {{% capture overview %}}
 
 Esta página muestra cómo investigar problemas relacionados con la ejecución
-de los contenedores de inicialización (init containers). Las líneas de comando de ejemplo de abajo 
+de los contenedores de inicialización (init containers). Las líneas de comando del ejemplo de abajo
 se refieren al Pod como `<pod-name>` y a los Init Containers como `<init-container-1>` e
   `<init-container-2>` respectivamente.
 
@@ -101,7 +101,7 @@ kubectl logs <pod-name> -c <init-container-2>
 ```
 
 Los Init Containers que ejecutan secuencias de línea de comandos muestran los comandos
-conforme se van ejecutando. Por ejemplo, puedes hacer lo siguiente en Bash 
+conforme se van ejecutando. Por ejemplo, puedes hacer lo siguiente en Bash
 indicando `set -x` al principio de la secuencia.
 
 {{% /capture %}}
@@ -112,11 +112,11 @@ indicando `set -x` al principio de la secuencia.
 
 Un estado de un Pod que comienza con `Init:` especifica el estado de la ejecución de
 un Init Container. La tabla a continuación muestra algunos valores de estado de ejemplo
-que puede que te encuentres al depurar Init Containers.
+que puedes encontrar al depurar Init Containers.
 
 Estado | Significado
 ------ | -------
-`Init:N/M` | El Pod tiene `M` Init Containers, y `N` se han completado por el momento.
+`Init:N/M` | El Pod tiene `M` Init Containers, y por el momento se han completado `N`.
 `Init:Error` | Ha fallado la ejecución de un Init Container.
 `Init:CrashLoopBackOff` | Un Init Container ha fallado de forma repetida.
 `Pending` | El Pod todavía no ha comenzado a ejecutar sus Init Containers.

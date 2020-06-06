@@ -5,7 +5,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Antes de seguir leyendo esta página, deberías familiarizarte con el 
+Antes de seguir leyendo esta página, deberías familiarizarte con el
 [resumen de escritura de logs en Kubernetes](/docs/concepts/cluster-administration/logging).
 
 {{< note >}}
@@ -24,7 +24,7 @@ en el resumen de escritura de logs en Kubernetes.
 
 Para ingerir logs, debes desplegar el agente de Stackdriver Logging en cada uno de los nodos de tu clúster.
 Dicho agente configura una instancia de `fluentd`, donde la configuración se guarda en un `ConfigMap`
-y las instancias se gestionan a través de un `DaemonSet` de Kubernetes. El despliegue actual del 
+y las instancias se gestionan a través de un `DaemonSet` de Kubernetes. El despliegue actual del
 `ConfigMap` y el `DaemonSet` dentro de tu clúster depende de tu configuración individual del clúster.
 
 ### Desplegar en un nuevo clúster
@@ -49,7 +49,7 @@ considera la posibilidad de arrancar un clúster sin una solución pre-determina
 y entonces desplegar los agentes de Stackdriver Logging una vez el clúster esté ejecutándose.
 
 {{< warning >}}
-El proceso de Stackdriver Logging reporta problemas conocidos en plataformas distintas 
+El proceso de Stackdriver Logging reporta problemas conocidos en plataformas distintas
 a Google Kubernetes Engine. Úsalo bajo tu propio riesgo.
 {{< /warning >}}
 
@@ -59,9 +59,9 @@ a Google Kubernetes Engine. Úsalo bajo tu propio riesgo.
 
     El despliegue del agente de Stackdriver Logging utiliza etiquetas de nodo para
     determinar en qué nodos debería desplegarse. Estas etiquetas fueron introducidas
-    para distinguir entre nodos de Kubernetes de la versión 1.6 o superior. 
-    Si el clúster se creó con Stackdriver Logging configurado y el nodo tiene la 
-    versión 1.5.X o inferior, ejecutará fluentd como un pod estático. Puesto que un nodo 
+    para distinguir entre nodos de Kubernetes de la versión 1.6 o superior.
+    Si el clúster se creó con Stackdriver Logging configurado y el nodo tiene la
+    versión 1.5.X o inferior, ejecutará fluentd como un pod estático. Puesto que un nodo
     no puede tener más de una instancia de fluentd, aplica únicamente las etiquetas
     a los nodos que no tienen un pod de fluentd ya desplegado. Puedes confirmar si tu nodo
     ha sido etiquetado correctamente ejecutando `kubectl describe` de la siguiente manera:
@@ -79,7 +79,7 @@ a Google Kubernetes Engine. Úsalo bajo tu propio riesgo.
     ...
     ```
 
-    Asegúrate que la salida contiene la etiqueta `beta.kubernetes.io/fluentd-ds-ready=true`. 
+    Asegúrate que la salida contiene la etiqueta `beta.kubernetes.io/fluentd-ds-ready=true`.
     Si no está presente, puedes añadirla usando el comando `kubectl label` como se indica:
 
     ```
@@ -87,8 +87,8 @@ a Google Kubernetes Engine. Úsalo bajo tu propio riesgo.
     ```
 
     {{< note >}}
-    Si un nodo falla y tiene que volver a crearse, deberás volver a definir 
-    la etiqueta al nuevo nodo. Para facilitar esta tarea, puedes utilizar el 
+    Si un nodo falla y tiene que volver a crearse, deberás volver a definir
+    la etiqueta al nuevo nodo. Para facilitar esta tarea, puedes utilizar el
     parámetro de línea de comandos del Kubelet para aplicar dichas etiquetas
     cada vez que se arranque un nodo.
     {{< /note >}}
@@ -165,7 +165,7 @@ kubectl logs counter
 ```
 
 Como se describe en el resumen de escritura de logs, este comando visualiza las entradas de logs
-del archivo de logs del contenedor. Si se termina el contenedor y Kubernetes lo reinicia, 
+del archivo de logs del contenedor. Si se termina el contenedor y Kubernetes lo reinicia,
 todavía puedes acceder a los logs de la ejecución previa del contenedor. Sin embargo,
 si el pod se desaloja del nodo, los archivos de log se pierden. Vamos a demostrar este
 comportamiento mediante el borrado del contenedor que ejecuta nuestro contador:
@@ -198,9 +198,9 @@ kubectl logs counter
 ...
 ```
 
-Como era de esperar, únicamente se visualizan las líneas de log recientes. Sin embargo, 
+Como era de esperar, únicamente se visualizan las líneas de log recientes. Sin embargo,
 para una aplicación real seguramente prefieras acceder a los logs de todos los contenedores,
-especialmente cuando te haga falta depurar problemas. Aquí es donde haber habilitado 
+especialmente cuando te haga falta depurar problemas. Aquí es donde haber habilitado
 Stackdriver Logging puede ayudarte.
 
 ## Ver logs
@@ -226,7 +226,7 @@ Para un nodo de Google Kubernetes Engine, cada entrada de log de cada componente
 
 Puedes aprender más acerca de cómo visualizar los logs en la [página dedicada a Stackdriver](https://cloud.google.com/logging/docs/view/logs_viewer).
 
-Uno de los posibles modos de ver los logs es usando el comando de línea de interfaz 
+Uno de los posibles modos de ver los logs es usando el comando de línea de interfaz
 [`gcloud logging`](https://cloud.google.com/logging/docs/api/gcloud-logging)
 del [SDK de Google Cloud](https://cloud.google.com/sdk/).
 Este comando usa la [sintaxis de filtrado](https://cloud.google.com/logging/docs/view/advanced_filters) de StackDriver Logging
@@ -252,7 +252,7 @@ primera como de la segunda ejecución, a pesar de que el kubelet ya había elimi
 ### Exportar logs
 
 Puedes exportar los logs al [Google Cloud Storage](https://cloud.google.com/storage/)
-o a [BigQuery](https://cloud.google.com/bigquery/) para llevar a cabo un análisis más profundo. 
+o a [BigQuery](https://cloud.google.com/bigquery/) para llevar a cabo un análisis más profundo.
 Stackdriver Logging ofrece el concepto de destinos, donde puedes especificar el destino de
 las entradas de logs. Más información disponible en la [página de exportación de logs](https://cloud.google.com/logging/docs/export/configure_export_v2) de StackDriver.
 
@@ -300,7 +300,7 @@ Obtén la especificación del `DaemonSet` que corre en tu clúster:
 kubectl get ds fluentd-gcp-v2.0 --namespace kube-system -o yaml > fluentd-gcp-ds.yaml
 ```
 
-A continuación, edita los requisitos de recurso en el fichero de especificación y actualiza el objeto `DaemonSet`
+A continuación, edita los requisitos del recurso en el `spec` y actualiza el objeto `DaemonSet`
 en el apiserver usando el siguiente comando:
 
 ```shell
@@ -312,7 +312,7 @@ Tras un tiempo, los pods de agente de Stackdriver Logging se reiniciarán con la
 ### Cambiar los parámetros de fluentd
 
 La configuración de Fluentd se almacena en un objeto `ConfigMap`. Realmente se trata de un conjunto
-de archivos de configuración que se combinan conjuntamente. Puedes aprender acerca de 
+de archivos de configuración que se combinan conjuntamente. Puedes aprender acerca de
 la configuración de fluentd en el [sitio oficial](http://docs.fluentd.org).
 
 Imagina que quieres añadir una nueva lógica de parseo a la configuración actual, de forma que fluentd pueda entender
@@ -328,7 +328,7 @@ el formato de logs por defecto de Python. Un filtro apropiado de fluentd para co
 </filter>
 ```
 
-Ahora tienes que añadirlo a la configuración actual y que los agentes de Stackdriver Logging la cojan.
+Ahora tienes que añadirlo a la configuración actual y que los agentes de Stackdriver Logging la usen.
 Para ello, obtén la versión actual del `ConfigMap` de Stackdriver Logging de tu clúster
 ejecutando el siguiente comando:
 
@@ -343,16 +343,16 @@ de la sección `source`.
 El orden es importante.
 {{< /note >}}
 
-Actualizar el `ConfigMap` en el apiserver es más complicado que actualizar el `DaemonSet`. 
+Actualizar el `ConfigMap` en el apiserver es más complicado que actualizar el `DaemonSet`.
 Es mejor considerar que un `ConfigMap` es inmutable. Así, para poder actualizar la configuración, deberías
-crear un nuevo `ConfigMap` con otro nombre y cambiar el `DaemonSet` para que apunte al nuevo 
+crear un nuevo `ConfigMap` con otro nombre y cambiar el `DaemonSet` para que apunte al nuevo
 siguiendo la [guía de arriba](#changing-daemonset-parameters).
 
 ### Añadir plugins de fluentd
 
-Fluentd está desarrollado en Ruby y permite extender sus capacidades mediante el uso de 
+Fluentd está desarrollado en Ruby y permite extender sus capacidades mediante el uso de
 [plugins](http://www.fluentd.org/plugins). Si quieres usar un plugin que no está incluido en
-la imagen por defecto del contenedor de Stackdriver Logging, debes construir tu propia imagen. 
+la imagen por defecto del contenedor de Stackdriver Logging, debes construir tu propia imagen.
 Imagina que quieres añadir un destino Kafka para aquellos mensajes de un contenedor en particular
 para poder procesarlos posteriormente. Puedes reusar los [fuentes de imagen de contenedor](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
 con algunos pequeños cambios:
@@ -360,7 +360,7 @@ con algunos pequeños cambios:
 * Cambia el archivo Makefile para que apunte a tu repositorio de contenedores, ej. `PREFIX=gcr.io/<your-project-id>`.
 * Añade tu dependencia al archivo Gemfile, por ejemplo `gem 'fluent-plugin-kafka'`.
 
-Luego, ejecuta `make build push` desde ese directorio. Cuando el `DaemonSet` haya cogido los cambios de la nueva imagen,
+Luego, ejecuta `make build push` desde ese directorio. Cuando el `DaemonSet` haya tomado los cambios de la nueva imagen,
 podrás usar el plugin que has indicado en la configuración de fluentd.
 
 {{% /capture %}}
