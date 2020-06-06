@@ -226,13 +226,13 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Production likes to run cattle, so let's create some cattle pods.
 
     ```shell
-    kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5 -n=production
+    kubectl run cattle --image=k8s.gcr.io/serve_hostname -n=production
 
-    kubectl get deployment -n=production
+    kubectl get pods -n=production
     ```
     ```
-    NAME         READY   UP-TO-DATE   AVAILABLE   AGE
-    cattle       5/5     5            5           10s
+    NAME        READY   STATUS    RESTARTS   AGE
+    cattle       1/1     Running   0          3s
     ```
 
     ```shell
@@ -240,11 +240,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     ```
     ```
     NAME                      READY     STATUS    RESTARTS   AGE
-    cattle-2263376956-41xy6   1/1       Running   0          34s
-    cattle-2263376956-kw466   1/1       Running   0          34s
-    cattle-2263376956-n4v97   1/1       Running   0          34s
-    cattle-2263376956-p5p3i   1/1       Running   0          34s
-    cattle-2263376956-sxpth   1/1       Running   0          34s
+    cattle                    1/1       Running   0          34s
     ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
