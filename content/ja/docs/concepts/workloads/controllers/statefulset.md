@@ -196,6 +196,6 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 * [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
 * [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
-* [レプリカを持つステートフルアプリケーションを実行する](/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
+* [レプリカを持つステートフルアプリケーションを実行する](/ja/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。
 
 {{% /capture %}}
