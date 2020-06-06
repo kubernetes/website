@@ -347,7 +347,7 @@ Kubernetesの`ServiceTypes`によって、ユーザーがどのような種類�
    * [`ExternalName`](#externalname): `CNAME`レコードを返すことにより、`externalName`フィールドに指定したコンテンツ(例: `foo.bar.example.com`)とServiceを紐づけます。しかし、いかなる種類のプロキシーも設定されません。
 
      {{< note >}}
-     `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.08以上が必要となります。
+     `ExternalName`タイプのServiceを利用するためには、kube-dnsのバージョン1.7かCoreDNSのバージョン0.0.8以上が必要となります。
      {{< /note >}}
 
 また、Serviceを公開するために[Ingress](/docs/concepts/services-networking/ingress/)も利用可能です。IngressはServiceのタイプではありませんが、クラスターに対するエントリーポイントとして動作します。  
