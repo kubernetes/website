@@ -7,6 +7,13 @@
     <header>
       {{ partial "navbar.html" . }}
     </header>
+    {{ block "announcement" . }}
+      {{ if .IsHome }}
+        {{ partial "frontpage-announcement.html" . }}
+      {{ else }}
+        {{ partial "announcement.html" . }}
+      {{ end }}
+    {{ end }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
 		<section class="header-hero text-white pb-4 light-text">

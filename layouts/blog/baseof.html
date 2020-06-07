@@ -10,6 +10,7 @@
   <body class="td-{{ .Kind }} td-blog">
     <header>
       {{ partial "navbar.html" . }}
+      {{ partial "announcement.html" . }}
       <section class="header-hero text-center text-white font-bold pb-4">
         <h1>
           {{ $sectionHeading := .Site.GetPage "section" .Section }}

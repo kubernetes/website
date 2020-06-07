@@ -8812,7 +8812,7 @@ button.close
     -webkit-transition: .12s ease-out;
             transition: .12s ease-out;
 
-    background: #fff;
+    /* background: #fff; */
     /*box-shadow: -6px 0 14px -4px rgba(0, 0, 0, .5);*/
 
     -webkit-box-flex: 1;
