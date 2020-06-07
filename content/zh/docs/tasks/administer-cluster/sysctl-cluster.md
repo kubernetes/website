@@ -136,7 +136,7 @@ flag of the kubelet, e.g.:
 
 ```shell
 $ kubelet --allowed-unsafe-sysctls \
-  'kernel.msg*,net.ipv4.route.min_pmtu' ...
+  'kernel.msg*,net.core.somaxconn' ...
 ```
 <!--
 For minikube, this can be done via the `extra-config` flag:
@@ -144,7 +144,7 @@ For minikube, this can be done via the `extra-config` flag:
 如果您使用 minikube，可以通过 `extra-config` 参数来配置：
 
 ```shell
-$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.ipv4.route.min_pmtu"...
+$ minikube start --extra-config="kubelet.AllowedUnsafeSysctls=kernel.msg*,net.core.somaxconn"...
 ```
 <!--
 Only _namespaced_ sysctls can be enabled this way.
@@ -173,7 +173,10 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
-- `net.*`.
+- `net.*`（内核中网络配置项相关参数），如果它可以在容器命名空间里被更改。然而，也有一些特例
+  (例如，`net.netfilter.nf_conntrack_max` 和
+  `net.netfilter.nf_conntrack_expect_max`
+  可以在容器命名空间里被更改，但它们是非命名空间的)。
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
@@ -190,11 +193,11 @@ applies to all containers in the same pod.
 
 <!--
 This example uses the pod securityContext to set a safe sysctl
-`kernel.shm_rmid_forced` and two unsafe sysctls `net.ipv4.route.min_pmtu` and
+`kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
 `kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 --->
-此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数 `kernel.shm_rmid_forced` 以及两个非安全的 sysctl 参数 `net.ipv4.route.min_pmtu`和 `kernel.msgmax` 进行设置。在 Pod 规格中对 _安全的_ 和 _非安全的_ sysctl 参数不做区分。
+此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数 `kernel.shm_rmid_forced` 以及两个非安全的 sysctl 参数 `net.core.somaxconn`和 `kernel.msgmax` 进行设置。在 Pod 规格中对 _安全的_ 和 _非安全的_ sysctl 参数不做区分。
 
 {{< warning >}}
 <!--
@@ -214,8 +217,8 @@ spec:
     sysctls:
     - name: kernel.shm_rmid_forced
       value: "0"
-    - name: net.ipv4.route.min_pmtu
-      value: "552"
+    - name: net.core.somaxconn
+      value: "1024"
     - name: kernel.msgmax
       value: "65536"
   ...

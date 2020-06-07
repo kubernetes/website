@@ -21,7 +21,7 @@ demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 Before you begin this tutorial, you should familiarize yourself with the 
 following Kubernetes concepts.
 
-* [Pods](/docs/user-guide/pods/single-container/)
+* [Pods](/docs/concepts/workloads/pods/)
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
@@ -785,7 +785,7 @@ an error indicating that the Service already exists.
 ```shell
 kubectl apply -f web.yaml
 statefulset.apps/web created
-Error from server (AlreadyExists): error when creating "web.yaml": services "nginx" already exists
+service/nginx unchanged
 ```
 
 Ignore the error. It only indicates that an attempt was made to create the nginx

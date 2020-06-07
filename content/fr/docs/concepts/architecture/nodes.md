@@ -144,7 +144,7 @@ Le contrôleur de noeud est responsable de la mise à jour de la condition NodeR
 Le contrôleur de nœud vérifie l'état de chaque nœud toutes les `--node-monitor-period` secondes.
 
 Dans les versions de Kubernetes antérieures à 1.13, NodeStatus correspond au heartbeat du nœud.
-À partir de Kubernetes 1.13, la fonctionnalité de bail de nœud (node lease en anglais) est introduite en tant que fonctionnalité alpha (feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+À partir de Kubernetes 1.13, la fonctionnalité de bail de nœud (node lease en anglais) est introduite en tant que fonctionnalité alpha (feature gate `NodeLease`, [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Lorsque la fonction de node lease est activée, chaque noeud a un objet `Lease` associé dans le namespace `kube-node-lease` qui est renouvelé périodiquement par le noeud, et NodeStatus et le node lease sont traités comme des heartbeat du noeud.
 Les node leases sont renouvelés fréquemment lorsque NodeStatus est signalé de nœud à master uniquement lorsque des modifications ont été apportées ou que suffisamment de temps s'est écoulé (la valeur par défaut est 1 minute, ce qui est plus long que le délai par défaut de 40 secondes pour les nœuds inaccessibles).
 Étant donné qu'un node lease est beaucoup plus léger qu'un NodeStatus, cette fonctionnalité rends le heartbeat d'un nœud nettement moins coûteux, tant du point de vue de l'évolutivité que des performances.

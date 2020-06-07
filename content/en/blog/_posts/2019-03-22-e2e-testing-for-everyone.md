@@ -8,7 +8,7 @@ date: 2019-03-22
 More and more components that used to be part of Kubernetes are now
 being developed outside of Kubernetes. For example, storage drivers
 used to be compiled into Kubernetes binaries, then were moved into
-[stand-alone Flexvolume
+[stand-alone FlexVolume
 binaries](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 on the host, and now are delivered as [Container Storage Interface
 (CSI) drivers](https://github.com/container-storage-interface/spec)
@@ -107,7 +107,7 @@ manifests. But the Kubernetes e2e.test binary is supposed to be usable
 and entirely stand-alone because that simplifies shipping and running
 it. The solution in the Kubernetes build system is to link all files
 under `test/e2e/testing-manifests` into the binary with
-[go-bindata](https://github.com/jteeuwen/go-bindata/go-bindata). The
+[go-bindata](https://github.com/jteeuwen/go-bindata). The
 E2E framework used to have a hard dependency on the output of
 `go-bindata`, now [bindata support is
 optional](https://github.com/kubernetes/kubernetes/pull/69103). When
@@ -301,7 +301,7 @@ in a `BeforeEach` for each test and freed in an `AfterEach`. It has a
 which can be used by a test.
 
 The [PMEM-CSI storage
-test](https://github.com/intel/pmem-csi/blob/586ae281ac2810cb4da6f1e160cf165c7daf0d80/storage/csi_volumes.go#L51)
+test](https://github.com/intel/pmem-csi/blob/devel/test/e2e/storage/csi_volumes.go#L51)
 imports the Kubernetes storage test suite and sets up one instance of
 the provisioning tests for a PMEM-CSI driver which must be already
 installed in the test cluster. The storage test suite changes the

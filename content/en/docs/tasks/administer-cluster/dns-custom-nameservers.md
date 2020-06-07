@@ -54,8 +54,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 
 ## CoreDNS
 
-CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
-(https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
+CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ### CoreDNS ConfigMap options
 
@@ -75,14 +74,17 @@ data:
   Corefile: |
     .:53 {
         errors
-        health
+        health {
+            lameduck 5s
+        }
+        ready
         kubernetes cluster.local in-addr.arpa ip6.arpa {
-           pods insecure
-           upstream
-           fallthrough in-addr.arpa ip6.arpa
+            pods insecure
+            fallthrough in-addr.arpa ip6.arpa
+            ttl 30
         }
         prometheus :9153
-        proxy . /etc/resolv.conf
+        forward . /etc/resolv.conf
         cache 30
         loop
         reload
@@ -92,15 +94,14 @@ data:
 The Corefile configuration includes the following [plugins](https://coredns.io/plugins/) of CoreDNS:
 
 * [errors](https://coredns.io/plugins/errors/): Errors are logged to stdout.
-* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health.
-* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). 
+* [health](https://coredns.io/plugins/health/): Health of CoreDNS is reported to http://localhost:8080/health. In this extended syntax `lameduck` will make the process unhealthy then wait for 5 seconds before the process is shut down.
+* [ready](https://coredns.io/plugins/ready/): An HTTP endpoint on port 8181 will return 200 OK, when all plugins that are able to signal readiness have done so.
+* [kubernetes](https://coredns.io/plugins/kubernetes/): CoreDNS will reply to DNS queries based on IP of the services and pods of Kubernetes. You can find more details [here](https://coredns.io/plugins/kubernetes/). `ttl` allows you to set a custom TTL for responses. The default is 5 seconds. The minimum TTL allowed is 0 seconds, and the maximum is capped at 3600 seconds. Setting TTL to 0 will prevent records from being cached.
 
 > The `pods insecure` option is provided for backward compatibility with kube-dns. You can use the `pods verified` option, which returns an A record only if there exists a pod in same namespace with matching IP. The `pods disabled` option can be used if you don't use pod records.
 
-> `Upstream` is used for resolving services that point to external hosts (External Services).
-
-* [prometheus](https://coredns.io/plugins/prometheus/): Metrics of CoreDNS are available at http://localhost:9153/metrics in [Prometheus](https://prometheus.io/) format.
-* [proxy](https://coredns.io/plugins/proxy/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
+* [prometheus](https://coredns.io/plugins/metrics/): Metrics of CoreDNS are available at http://localhost:9153/metrics in [Prometheus](https://prometheus.io/) format.
+* [forward](https://coredns.io/plugins/forward/): Any queries that are not within the cluster domain of Kubernetes will be forwarded to predefined resolvers (/etc/resolv.conf).
 * [cache](https://coredns.io/plugins/cache/): This enables a frontend cache.
 * [loop](https://coredns.io/plugins/loop/): Detects simple forwarding loops and halts the CoreDNS process if a loop is found.
 * [reload](https://coredns.io/plugins/reload): Allows automatic reload of a changed Corefile. After you edit the ConfigMap configuration, allow two minutes for your changes to take effect.
@@ -110,7 +111,7 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 
 ### Configuration of Stub-domain and upstream nameserver using CoreDNS
 
-CoreDNS has the ability to configure stubdomains and upstream nameservers using the [proxy plugin](https://coredns.io/plugins/proxy/). 
+CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/). 
 
 #### Example
 If a cluster operator has a [Consul](https://www.consul.io/) domain server located at 10.150.0.1, and all Consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
@@ -119,18 +120,15 @@ If a cluster operator has a [Consul](https://www.consul.io/) domain server locat
 consul.local:53 {
         errors
         cache 30
-        proxy . 10.150.0.1
+        forward . 10.150.0.1
     }
 ```
 
-To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1, point the `proxy` and `upstream` to the nameserver instead of `/etc/resolv.conf`
+To explicitly force all non-cluster DNS lookups to go through a specific nameserver at 172.16.0.1, point the `forward` to the nameserver instead of `/etc/resolv.conf`
 
 ```
-proxy .  172.16.0.1
+forward .  172.16.0.1
 ``` 
-```
-upstream 172.16.0.1
-```
 
 The final ConfigMap along with the default `Corefile` configuration looks like:
 
@@ -147,11 +145,10 @@ data:
         health
         kubernetes cluster.local in-addr.arpa ip6.arpa {
            pods insecure
-           upstream 172.16.0.1
            fallthrough in-addr.arpa ip6.arpa
         }
         prometheus :9153
-        proxy . 172.16.0.1
+        forward . 172.16.0.1
         cache 30
         loop
         reload
@@ -160,10 +157,12 @@ data:
     consul.local:53 {
         errors
         cache 30
-        proxy . 10.150.0.1
+        forward . 10.150.0.1
     }
 ```
 In Kubernetes version 1.10 and later, kubeadm supports automatic translation of the CoreDNS ConfigMap from the kube-dns ConfigMap.
+***Note: While kube-dns accepts an FQDN for stubdomain and nameserver (eg: ns.foo.com), CoreDNS does not support this feature. 
+During translation, all FQDN nameservers will be omitted from the CoreDNS config.***
 
 ## Kube-dns
 
@@ -308,7 +307,7 @@ data:
 ## CoreDNS configuration equivalent to kube-dns
 
 CoreDNS supports the features of kube-dns and more.
-A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `proxy` plugin in CoreDNS.
+A ConfigMap created for kube-dns to support `StubDomains`and `upstreamNameservers` translates to the `forward` plugin in CoreDNS.
 Similarly, the `Federations` plugin in kube-dns translates to the `federation` plugin in CoreDNS.
 
 ### Example
@@ -341,12 +340,12 @@ federation cluster.local {
 abc.com:53 {
         errors
         cache 30
-        proxy . 1.2.3.4
+        forward . 1.2.3.4
     }
     my.cluster.local:53 {
         errors
         cache 30
-        proxy . 2.3.4.5
+        forward . 2.3.4.5
     }
 ```
 
@@ -357,7 +356,6 @@ The complete Corefile with the default plugins:
         errors
         health
         kubernetes cluster.local in-addr.arpa ip6.arpa {
-           upstream  8.8.8.8 8.8.4.4
            pods insecure
            fallthrough in-addr.arpa ip6.arpa
         }
@@ -365,18 +363,18 @@ The complete Corefile with the default plugins:
            foo foo.feddomain.com
         }
         prometheus :9153
-        proxy .  8.8.8.8 8.8.4.4
+        forward .  8.8.8.8 8.8.4.4
         cache 30
     }
     abc.com:53 {
         errors
         cache 30
-        proxy . 1.2.3.4
+        forward . 1.2.3.4
     }
     my.cluster.local:53 {
         errors
         cache 30
-        proxy . 2.3.4.5
+        forward . 2.3.4.5
     }
 ```
 

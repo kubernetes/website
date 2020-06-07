@@ -22,7 +22,7 @@ Pour plus d'informations sur le guide de style de la documentation Kubernetes, r
 - Un _membre_ de l'organisation Kubernetes qui a [signé le CLA](/docs/contribute/start#sign-the-cla) et contribué un peu de temps et d'efforts au projet.
   Voir [Adhésion à la communauté](https://github.com/kubernetes/community/blob/master/community-membership.md) pour des critères spécifiques d'adhésion.
 - Un SIG Docs _relecteur_ est un membre de l'organisation Kubernetes qui
-  a exprimé son intérêt pour l'examen des Pull Requests de la documentation et qui a été ajouté au groupe GitHub approprié et aux fichiers `OWNERS` dans le GitHub référentiel, par un approbateur SIG Docs.
+  a exprimé son intérêt pour l'examen des Pull Requests de la documentation et qui a été ajouté au groupe GitHub approprié et aux fichiers `OWNERS` dans le dépôt GitHub, par un approbateur SIG Docs.
 - Un SIG Docs _approbateur_ est un membre en règle qui a démontré un engagement continu envers le projet.
   Un approbateur peut fusionner des Pull Requests et publier du contenu au nom de l'organisation Kubernetes.
   Les approbateurs peuvent également représenter les documents SIG dans la communauté plus large de Kubernetes.
@@ -30,13 +30,13 @@ Pour plus d'informations sur le guide de style de la documentation Kubernetes, r
 
 ## Façons de contribuer
 
-Cette liste est divisée en tâches que tout le monde peut faire, que peuvent faire les membres d’une organisation Kubernetes et qui requièrent un niveau d’accès supérieur et une familiarité avec les processus SIG Docs.
+Cette liste est divisée en tâches accessibles à tous, ou juste aux membres de l'organisation Kubernetes, ou encore en tâches requérant un haut niveau d'autorisation et de familiarité avec les processus SIG Docs.
 Contribuer de manière constante au fil du temps peut vous aider à comprendre certaines des décisions relatives à l’outillage et à l’organisation qui ont déjà été prises.
 
 Il ne s'agit pas d'une liste exhaustive des manières dont vous pouvez contribuer à la documentation de Kubernetes, mais cela devrait vous aider à démarrer.
 
 - [N'importe qui](/docs/contribute/start/)
-  - Remplir des rapports de bugs reproductibles
+  - Remplir des rapports d'anomalie reproductibles
 - [Membre](/docs/contribute/start/)
   - Améliorer la documentation existante
   - Proposer des idées d'améliorations sur [Slack](http://slack.k8s.io/) ou sur la [liste de diffusion SIG docs](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -47,7 +47,7 @@ Il ne s'agit pas d'une liste exhaustive des manières dont vous pouvez contribue
   - Documenter les nouvelles fonctionnalités
   - Trier et classer les problèmes
   - Relire des PRs
-  - Créez des diagrammes, des ressources graphiques et des vidéos / screencasts incorporables
+  - Créez des diagrammes, des ressources graphiques et des vidéos / capture vidéo d'écran incorporables
   - Localisation
   - Contribuer à d'autres dépôts en tant que représentant de la documentation
   - Éditer des chaînes pour l'utilisateur dans le code

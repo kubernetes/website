@@ -21,7 +21,8 @@ content_template: templates/tutorial
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 * 예시는 `kubectl` 1.14 이상 버전에서 동작한다.
 * [컨피그 맵을 사용해서 컨테이너 설정하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 이해한다.
 
@@ -54,7 +55,7 @@ EOF
 {{< codenew file="pods/config/redis-pod.yaml" >}}
 
 ```shell
-curl -OL https://k8s.io/examples/pods/config/redis-pod.yaml
+curl -OL https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/pods/config/redis-pod.yaml
 
 cat <<EOF >>./kustomization.yaml
 resources:
@@ -94,6 +95,11 @@ kubectl exec -it redis redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory-policy
 1) "maxmemory-policy"
 2) "allkeys-lru"
+```
+
+생성된 파드를 삭제한다.
+```shell
+kubectl delete pod redis
 ```
 
 {{% /capture %}}

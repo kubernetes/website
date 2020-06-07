@@ -153,7 +153,7 @@ kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base
 The output is similar to this:
 
 ```json
-{"auths":{"yourprivateregistry.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
+{"auths":{"your.private.registry.example.com":{"username":"janedoe","password":"xxxxxxxxxxx","email":"jdoe@example.com","auth":"c3R...zE2"}}}
 ```
 
 To understand what is in the `auth` field, convert the base64-encoded data to a readable format:
@@ -187,7 +187,7 @@ wget -O my-private-reg-pod.yaml https://k8s.io/examples/pods/private-reg-pod.yam
 In file `my-private-reg-pod.yaml`, replace `<your-private-image>` with the path to an image in a private registry such as:
 
 ```none
-yourprivateregistry.com/janedoe/jdoe-private:v1
+your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
 To pull the image from the private registry, Kubernetes needs credentials.

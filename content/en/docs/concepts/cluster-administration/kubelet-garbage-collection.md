@@ -1,6 +1,5 @@
 ---
 reviewers:
-- mikedanese
 title: Configuring kubelet Garbage Collection
 content_template: templates/concept
 weight: 70

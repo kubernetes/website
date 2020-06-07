@@ -1,5 +1,5 @@
 ---
-title: "쿠버네티스 다운로드"
-weight: 20
+title: "릴리스 노트와 버전 차이 지원(skew)"
+weight: 10
 ---
 

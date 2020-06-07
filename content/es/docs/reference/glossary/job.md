@@ -6,7 +6,7 @@ full_link: /docs/concepts/workloads/controllers/jobs-run-to-completion
 short_description: >
   Una tarea finita o por lotes que se ejecuta hasta su finalización.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
@@ -14,7 +14,7 @@ tags:
 ---
  Una tarea finita o por lotes que se ejecuta hasta su finalización.
 
-<!--more--> 
+<!--more-->
 
 Crea uno o más objetos {{< glossary_tooltip term_id="pod" >}} y se asegura que un número específico de los mismos finalicen con éxito. A medida que los Pods terminan, el objeto Job registra las ejecuciones completadas correctamente.
 

@@ -10,7 +10,7 @@
 {{ end }}  
 {{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
 <section id="mainContent">
-	<main>
+	<div class="main-section">
 		<div class="content">
 			<div class="case-studies">
 				{{ range $featured }}
@@ -18,21 +18,22 @@
 				{{ end }}
 			</div>
 		</div>
-	</main>
+	</div>
 </section>
 {{ $featuredVideos := where .Pages ".Params.video" "!=" nil }}
 {{ with $featuredVideos }}
 {{ with index $featuredVideos 0 }}
+{{ $altText := .LinkTitle }}
 <section id="video">
-	<main>
+	<div class="main-section">
 		<div>
 			<h4><i>"{{ .Params.quote | html }}"</i></h4>
 			{{ $img := .Resources.GetMatch "video.png" }}
-			{{ $small := .Resources.GetMatch "**small*.png" }}
-			{{ with $small }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+			{{ $small := .Resources.GetMatch "**small*.svg" }}
+			{{ with $small }}<img height="60px" src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
 		</div>
 		<div style= "padding-left: 40px;"><button onclick="kub.showVideo()">{{ with $img }}<img src="{{ .RelPermalink }}" alt="Box video">{{ end }}<h6>Kubernetes at Box</h6></button></div>
-	</main>
+	</div>
 	<div id="videoPlayer">
 		<iframe data-url="{{ .Params.video | safeURL }}" frameborder="0" allowfullscreen="true"></iframe>
 		<button id="closeButton"></button>
@@ -41,27 +42,35 @@
 {{ end }}
 {{ end }}
 <section id="users">
-	<main>
+	<div class="main-section">
 		<h3>{{ .Title }}</h3>
 		<div id="usersGrid">
 			{{ range $pages.ByTitle }}
-			{{ $logo := .Resources.GetMatch "**logo*.png" }}
-			{{ $p := . }}
-			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $p.LinkTitle }}">{{ else }}
-				{{ errorf "Case Studies: Missing logo for %s. Put a PNG with the word 'logo' in the filename into %q" $p.LinkTitle $p.File.Dir }}
-			{{ end }}</a>
+			{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+			{{ if not $logo }}
+				{{ $logo = .Resources.GetMatch "**logo*.png" }}
 			{{ end }}
-			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img src="/images/case_studies/story.png" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
+			{{ $p := . }}
+			<a target="_blank" href="{{ with $p.Params.content_url }}{{ . | safeURL }}{{ else }}{{ .RelPermalink }}{{ end }}">
+			{{ with $logo }}
+				<img src="{{ .RelPermalink }}" width="215px" height="127px" alt="{{ $p.LinkTitle }}">
+			{{ else }}
+				{{ errorf "Case Studies: Missing logo for %s. Put a PNG or SVG with the word 'logo' in the filename into %q" $p.LinkTitle $p.File.Dir }}
+			{{ end }}
+			</a>
+			{{ end }}
+			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case_studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
 		</div>
-	</main>
+	</div>
 </section>
 {{ .Content }}
 {{ end }}
 {{ define "case-study-featured-block" }}
 {{ $isForeignLanguage := (ne .page.Lang .ctx.Lang)}}
 {{ $logo := .page.Resources.GetMatch "**{feature,logo}*.png" }}
+{{ $altText := .page.LinkTitle}}
 <div class="case-study">
-	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+	{{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ $altText }}">{{ end }}
 	<p class="quote">"{{ .page.Params.quote | html }}"</p>
 	<a href="{{ .page.RelPermalink }}"{{ if $isForeignLanguage }} target="_blank"{{ end }}>{{ T "main_read_about"}} {{ .page.LinkTitle }}</a>
 </div>

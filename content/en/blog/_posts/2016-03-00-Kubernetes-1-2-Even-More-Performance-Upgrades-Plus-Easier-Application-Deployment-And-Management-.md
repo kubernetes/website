@@ -2,7 +2,7 @@
 title: " Kubernetes 1.2: Even more performance upgrades, plus easier application deployment and management  "
 date: 2016-03-17
 slug: kubernetes-1.2-even-more-performance-upgrades-plus-easier-application-deployment-and-management
-url: /blog/2016/03/Kubernetes-1.2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
+url: /blog/2016/03/Kubernetes-1-2-Even-More-Performance-Upgrades-Plus-Easier-Application-Deployment-And-Management
 ---
 Today we released Kubernetes 1.2. This release represents significant improvements for large organizations building distributed systems. Now with over 680 unique contributors to the project, this release represents our largest yet.  
 

@@ -31,7 +31,7 @@ content_template: templates/task
 
 在这个练习中，你将创建一个包含一个容器的pod。这是该pod的配置文件：
 
-{{< code file="dapi-volume.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume.yaml" >}}
 
 在配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume，并且挂载到容器中的`/etc`。
 
@@ -40,13 +40,13 @@ content_template: templates/task
 第二个元素指示Pod的`annotations`字段的值保存在名为`annotations`的文件中。
 
 {{< note >}}
-**注意:** 本示例中的字段是Pod字段，不是Pod中容器的字段。 
+本示例中的字段是Pod字段，不是Pod中容器的字段。
 {{< /note >}}
 
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume.yaml
 ```
 
 验证Pod中的容器运行正常：
@@ -107,19 +107,33 @@ zone="us-est-coast"
 /# ls -laR /etc
 ```
 
-在输出中可以看到，`labels` 和 `annotations`文件都在一个临时子目录中：这个例子，`..2982_06_02_21_47_53.299460680`。在`/etc`目录中，`..data`是一个指向临时子目录
+在输出中可以看到，`labels` 和 `annotations`文件都在一个临时子目录中：这个例子，`..2019_12_05_07_00_34.813117769`。在`/etc`目录中，`..data`是一个指向临时子目录
 的符号链接。`/etc`目录中，`labels` 和 `annotations`也是符号链接。
 
 ```
-drwxr-xr-x  ... Feb 6 21:47 ..2982_06_02_21_47_53.299460680
-lrwxrwxrwx  ... Feb 6 21:47 ..data -> ..2982_06_02_21_47_53.299460680
-lrwxrwxrwx  ... Feb 6 21:47 annotations -> ..data/annotations
-lrwxrwxrwx  ... Feb 6 21:47 labels -> ..data/labels
-
-/etc/..2982_06_02_21_47_53.299460680:
+/etc/podinfo # ls -alRL 
+.:
 total 8
--rw-r--r--  ... Feb  6 21:47 annotations
--rw-r--r--  ... Feb  6 21:47 labels
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 .
+drwxr-xr-x    1 root     root            21 Dec  5 07:00 ..
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 ..2019_12_05_07_00_34.813117769
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 ..data
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
+
+./..2019_12_05_07_00_34.813117769:
+total 8
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 .
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 ..
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
+
+./..data:
+total 8
+drwxr-xr-x    2 root     root            80 Dec  5 07:00 .
+drwxrwxrwt    3 root     root           120 Dec  5 07:00 ..
+-rw-r--r--    1 root     root          1123 Dec  5 07:00 annotations
+-rw-r--r--    1 root     root            39 Dec  5 07:00 labels
 ```
 
 用符号链接可实现元数据的动态原子刷新；更新将写入一个新的临时目录，然后`..data`符号链接完成原子更新，通过使用[rename(2)](http://man7.org/linux/man-pages/man2/rename.2.html)。
@@ -134,7 +148,7 @@ total 8
 
 前面的练习中，你将Pod字段保存到DownwardAPIVolumeFile中。接下来这个练习，你将存储容器字段。这里是包含一个容器的pod的配置文件：
 
-{{< code file="dapi-volume-resources.yaml" >}}
+{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
 
 在这个配置文件中，你可以看到Pod有一个`downwardAPI`类型的Volume,并且挂载到容器的`/etc`目录。
 
@@ -145,7 +159,7 @@ total 8
 创建Pod：
 
 ```shell
-kubectl create -f https://k8s.io/cn/docs/tasks/inject-data-application/dapi-volume-resources.yaml
+kubectl apply -f https://k8s.io/examples/pods/inject/dapi-volume-resources.yaml
 ```
 
 进入Pod中运行的容器，打开一个shell：

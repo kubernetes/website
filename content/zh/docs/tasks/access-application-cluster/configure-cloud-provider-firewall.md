@@ -9,7 +9,7 @@ weight: 90
 
 {{% capture overview %}}
 
-<!-- 
+<!--
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
 exposure to the internet.  When exposing a service to the external world, you may need to open up
 one or more ports in these firewalls to serve traffic.  This document describes this process, as
@@ -141,15 +141,15 @@ Consider:
 -->
    * 因为在防火墙上为集群的所有节点都打开了 80 端口，所以外部的服务可以向你的
      服务发送数据包。
-   
-<!--  
+
+<!--
    * You start an nginx server, running on port 80 on the host virtual machine
      (IP Address 2.3.4.5).  This nginx is also exposed to the internet on
      the VM's external IP address.
 -->
    * 最后你又虚拟机上的80端口启动 nginx 服务器（ip地址2.3.4.5）。
      这个 nginx 在虚拟机的外部 IP 地址上也被暴露到了互联网上。
-   
+
 <!--
 Consequently, please be careful when opening firewalls in Google Compute Engine
 or Google Kubernetes Engine.  You may accidentally be exposing other services to

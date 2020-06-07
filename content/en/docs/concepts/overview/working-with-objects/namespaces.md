@@ -51,10 +51,11 @@ You can list the current namespaces in a cluster using:
 kubectl get namespace
 ```
 ```
-NAME          STATUS    AGE
-default       Active    1d
-kube-system   Active    1d
-kube-public   Active    1d
+NAME              STATUS   AGE
+default           Active   1d
+kube-node-lease   Active   1d
+kube-public       Active   1d
+kube-system       Active   1d
 ```
 
 Kubernetes starts with three initial namespaces:
@@ -65,13 +66,13 @@ Kubernetes starts with three initial namespaces:
 
 ### Setting the namespace for a request
 
-To temporarily set the namespace for a request, use the `--namespace` flag.
+To set the namespace for a current request, use the `--namespace` flag.
 
 For example:
 
 ```shell
-kubectl --namespace=<insert-namespace-name-here> run nginx --image=nginx
-kubectl --namespace=<insert-namespace-name-here> get pods
+kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
+kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
 ### Setting the namespace preference
@@ -80,9 +81,9 @@ You can permanently save the namespace for all subsequent kubectl commands in th
 context.
 
 ```shell
-kubectl config set-context $(kubectl config current-context) --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 ## Namespaces and DNS
@@ -112,3 +113,10 @@ kubectl api-resources --namespaced=false
 ```
 
 {{% /capture %}}
+
+{{% capture whatsnext %}}
+* Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
+* Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
+
+{{% /capture %}}
+

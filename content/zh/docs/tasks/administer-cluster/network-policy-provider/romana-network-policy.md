@@ -21,7 +21,7 @@ weight: 40
 {{% /capture %}}
 
 {{% capture steps %}}
-<!-- 
+<!--
 ## Installing Romana with kubeadm
 
 Follow the [containerized installation guide](https://github.com/romana/romana/tree/master/containerize) for kubeadm.
@@ -49,7 +49,7 @@ To apply network policies use one of the following:
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-<!-- 
+<!--
 Once you have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
  -->
 Romana 安装完成后，您可以按照[声明 Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)去尝试使用 Kubernetes NetworkPolicy。

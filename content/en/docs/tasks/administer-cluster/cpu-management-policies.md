@@ -9,7 +9,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
@@ -44,14 +44,11 @@ management policies to determine some placement preferences on the node.
 
 ### Configuration
 
-The CPU Manager is an alpha feature in Kubernetes v1.8. It was enabled by
-default as a beta feature since v1.10.
-
 The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 option. There are two supported policies:
 
-* `none`: the default, which represents the existing scheduling behavior.
-* `static`: allows pods with certain resource characteristics to be
+* [`none`](#none-policy): the default policy.
+* [`static`](#static-policy): allows pods with certain resource characteristics to be
   granted increased CPU affinity and exclusivity on the node.
 
 The CPU manager periodically writes resource updates through the CRI in
@@ -79,11 +76,6 @@ System services such as the container runtime and the kubelet itself can continu
 {{< /note >}}
 
 {{< note >}}
-The alpha version of this policy does not guarantee static
-exclusive allocations across Kubelet restarts.
-{{< /note >}}
-
-{{< note >}}
 CPU Manager doesn't support offlining and onlining of
 CPUs at runtime. Also, if the set of online CPUs changes on the node,
 the node must be drained and CPU manager manually reset by deleting the
@@ -93,7 +85,10 @@ state file `cpu_manager_state` in the kubelet root directory.
 This policy manages a shared pool of CPUs that initially contains all CPUs in the
 node. The amount of exclusively allocatable CPUs is equal to the total
 number of CPUs in the node minus any CPU reservations by the kubelet `--kube-reserved` or
-`--system-reserved` options. CPUs reserved by these options are taken, in
+`--system-reserved` options. From 1.17, the CPU reservation list can be specified
+explicitly by kubelet `--reserved-cpus` option. The explicit CPU list specified by
+`--reserved-cpus` takes precedence over the CPU reservation specified by
+`--kube-reserved` and `--system-reserved`. CPUs reserved by these options are taken, in
 integer quantity, from the initial shared pool in ascending order by physical
 core ID.  This shared pool is the set of CPUs on which any containers in
 `BestEffort` and `Burstable` pods run. Containers in `Guaranteed` pods with fractional
@@ -103,8 +98,8 @@ exclusive CPUs.
 
 {{< note >}}
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved` when the static
-policy is enabled. This is because zero CPU reservation would allow the shared
+using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when
+the static policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 {{< /note >}}
 

@@ -1,5 +1,6 @@
 ---
 title: Coarse Parallel Processing Using a Work Queue
+min-kubernetes-server-version: v1.8
 content_template: templates/task
 weight: 30
 ---
@@ -30,7 +31,7 @@ Here is an overview of the steps in this example:
 Be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 
@@ -46,14 +47,14 @@ cluster and reuse it for many jobs, as well as for long-running services.
 Start RabbitMQ as follows:
 
 ```shell
-kubectl create -f examples/celery-rabbitmq/rabbitmq-service.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-service.yaml
 ```
 ```
 service "rabbitmq-service" created
 ```
 
 ```shell
-kubectl create -f examples/celery-rabbitmq/rabbitmq-controller.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.3/examples/celery-rabbitmq/rabbitmq-controller.yaml
 ```
 ```
 replicationcontroller "rabbitmq-controller" created

@@ -12,7 +12,7 @@ weight: 10
 {{% capture overview %}}
 
 {{< feature-state state="alpha" >}}
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+{{< caution >}}Alpha features can change rapidly. {{< /caution >}}
 
 Network plugins in Kubernetes come in a few flavors:
 
@@ -25,7 +25,7 @@ Network plugins in Kubernetes come in a few flavors:
 
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it found, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
+The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
 * `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is simply "cni".
@@ -40,7 +40,7 @@ By default if no kubelet network plugin is specified, the `noop` plugin is used,
 
 The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads a file from `--cni-conf-dir` (default `/etc/cni/net.d`) and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration), and any required CNI plugins referenced by the configuration must be present in `--cni-bin-dir` (default `/opt/cni/bin`).
 
-If there are multiple CNI configuration files in the directory, the first one in lexicographic order of file name is used.
+If there are multiple CNI configuration files in the directory, the kubelet uses the configuration file that comes first by name in lexicographic order.
 
 In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 
@@ -83,11 +83,13 @@ For example:
 
 #### Support traffic shaping
 
+**Experimental Feature**
+
 The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
 
-If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
-(default `/etc/cni/net.d`).
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 
 ```json
 {
@@ -154,7 +156,7 @@ most network plugins.
 
 Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
 on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead e.g. `--network-plugin-mtu=8873`.
+might reduce it to allow for encapsulation overhead; for example: `--network-plugin-mtu=8873`.
 
 This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
 

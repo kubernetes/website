@@ -60,15 +60,18 @@ Credentials can be provided in several ways:
     - Per-cluster
     - automatically configured on Google Compute Engine or Google Kubernetes Engine
     - all pods can read the project's private registry
-  - Using AWS EC2 Container Registry (ECR)
+  - Using Amazon Elastic Container Registry (ECR)
     - use IAM roles and policies to control access to ECR repositories
     - automatically refreshes ECR login credentials
+  - Using Oracle Cloud Infrastructure Registry (OCIR)
+    - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
   - Using IBM Cloud Container Registry
+    - use IAM roles and policies to grant access to IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
-  - Pre-pulling Images
+  - Pre-pulled Images
     - all pods can use any images cached on a node
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
@@ -91,10 +94,9 @@ Google service account.  The service account on the instance
 will have a `https://www.googleapis.com/auth/devstorage.read_only`,
 so it can pull from the project's GCR, but not push.
 
-### Using AWS EC2 Container Registry
+### Using Amazon Elastic Container Registry
 
-Kubernetes has native support for the [AWS EC2 Container
-Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
+Kubernetes has native support for the [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
 
 Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
 in the Pod definition.
@@ -123,9 +125,9 @@ Troubleshooting:
 - Verify all requirements above.
 - Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
 - Verify kubelet is running with `--cloud-provider=aws`.
-- Check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+- Increase kubelet log level verbosity to at least 3 and check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
+  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
+  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Using Azure Container Registry (ACR)
 When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
@@ -147,11 +149,11 @@ Once you have those variables filled in you can
 [configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 ### Using IBM Cloud Container Registry
-IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your Docker images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can create a token to grant access to registry namespaces.
+IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your  images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can use IAM roles and policies to grant access to IBM Cloud Container Registry namespaces.
 
-To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index).
+To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/Registry?topic=Registry-getting-started).
 
-You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
+If you are using the same account and region, you can deploy images that are stored in IBM Cloud Container Registry into the default namespace of your IBM Cloud Kubernetes Service cluster without any additional configuration, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images). For other configuration options, see [Understanding how to authorize your cluster to pull images from a registry](https://cloud.ibm.com/docs/containers?topic=containers-registry#cluster_registry_auth).
 
 ### Configuring Nodes to Authenticate to a Private Registry
 
@@ -204,7 +206,7 @@ example, run these on your desktop/laptop:
 
 Verify by creating a pod that uses a private image, e.g.:
 
-```yaml
+```shell
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -217,20 +219,27 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+```
 pod/private-image-test-1 created
 ```
 
-If everything is working, then, after a few moments, you should see:
+If everything is working, then, after a few moments, you can run:
 
 ```shell
 kubectl logs private-image-test-1
+```
+and see that the command outputs:
+```
 SUCCESS
 ```
 
-If it failed, then you will see:
-
+If you suspect that the command failed, you can run:
 ```shell
-kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep 'Failed'
+```
+In case of failure, the output is similar to:
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -242,7 +251,7 @@ template needs to include the `.docker/config.json` or mount a drive that contai
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 
-### Pre-pulling Images
+### Pre-pulled Images
 
 {{< note >}}
 If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
@@ -279,19 +288,7 @@ Kubernetes supports specifying registry keys on a pod.
 Run the following command, substituting the appropriate uppercase values:
 
 ```shell
-cat <<EOF > ./kustomization.yaml
-secretGenerator:
-- name: myregistrykey
-  type: docker-registry
-  literals:
-  - docker-server=DOCKER_REGISTRY_SERVER
-  - docker-username=DOCKER_USER
-  - docker-password=DOCKER_PASSWORD
-  - docker-email=DOCKER_EMAIL
-EOF
-
-kubectl apply -k .
-secret/myregistrykey-66h7d4d986 created
+kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
 If you already have a Docker credentials file then, rather than using the above
@@ -369,7 +366,8 @@ common use cases and suggested solutions.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 
-{{% /capture %}}
 
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
+
+{{% /capture %}}

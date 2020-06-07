@@ -27,7 +27,7 @@ toc:
   - docs/tasks/inject-data-application/environment-variable-expose-pod-information.md
   - docs/tasks/configure-pod-container/configure-service-account.md
   - docs/tasks/configure-pod-container/pull-image-private-registry.md
-  - docs/tasks/configure-pod-container/configure-liveness-readiness-probes.md
+  - docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md
   - docs/tasks/configure-pod-container/assign-pods-nodes.md
   - docs/tasks/configure-pod-container/configure-pod-initialization.md
   - docs/tasks/configure-pod-container/attach-handler-lifecycle-event.md
@@ -126,6 +126,11 @@ toc:
   - docs/tasks/tls/managing-tls-in-a-cluster.md
   - docs/tasks/tls/certificate-rotation.md
 
+- title: Network
+  landing_page: tasks/network/validate-dual-stack/
+  section:
+  - docs/tasks/network/validate-dual-stack.md
+
 - title: Administer a Cluster
   landing_page: /docs/tasks/administer-cluster/memory-default-namespace/
   section:
@@ -189,25 +194,7 @@ toc:
   - docs/tasks/administer-cluster/dns-debugging-resolution.md
   - docs/tasks/administer-cluster/pvc-protection.md
   - docs/tasks/administer-cluster/storage-object-in-use-protection.md
-
-- title: Federation - Run an App on Multiple Clusters
-  landing_page: /docs/tasks/federation/set-up-cluster-federation-kubefed/
-  section:
-  - docs/tasks/federation/federation-service-discovery.md
-  - docs/tasks/federation/set-up-cluster-federation-kubefed.md
-  - docs/tasks/federation/set-up-coredns-provider-federation.md
-  - docs/tasks/federation/set-up-placement-policies-federation.md
-  - docs/tasks/administer-federation/cluster.md
-  - docs/tasks/administer-federation/configmap.md
-  - docs/tasks/administer-federation/daemonset.md
-  - docs/tasks/administer-federation/deployment.md
-  - docs/tasks/administer-federation/events.md
-  - docs/tasks/administer-federation/hpa.md
-  - docs/tasks/administer-federation/ingress.md
-  - docs/tasks/administer-federation/job.md
-  - docs/tasks/administer-federation/namespaces.md
-  - docs/tasks/administer-federation/replicaset.md
-  - docs/tasks/administer-federation/secret.md
+  - docs/tasks/administer-cluster/endpoint-slices.md
 
 - title: Manage Cluster Daemons
   landing_page: /docs/tasks/manage-daemon/update-daemon-set/

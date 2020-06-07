@@ -72,9 +72,9 @@ Cri-containerd v1.0.0-alpha.0 was released on Sep. 25, 2017.
 
 It is feature complete. All Kubernetes features are supported.  
 
-All [CRI validation test](https://github.com/kubernetes/community/blob/master/contributors/devel/cri-validation.md)s have passed. (A CRI validation is a test framework for validating whether a CRI implementation meets all the requirements expected by Kubernetes.)  
+All [CRI validation tests](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-validation.md) have passed. (A CRI validation is a test framework for validating whether a CRI implementation meets all the requirements expected by Kubernetes.)  
 
-All regular [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/e2e-node-tests.md)s have passed. (The Kubernetes test framework for testing Kubernetes node level functionalities such as managing pods, mounting volumes etc.)  
+All regular [node e2e tests](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-testing/e2e-tests.md) have passed. (The Kubernetes test framework for testing Kubernetes node level functionalities such as managing pods, mounting volumes etc.)  
 
 To learn more about the v1.0.0-alpha.0 release, see the [project repository](https://github.com/kubernetes-incubator/cri-containerd/releases/tag/v1.0.0-alpha.0).
 

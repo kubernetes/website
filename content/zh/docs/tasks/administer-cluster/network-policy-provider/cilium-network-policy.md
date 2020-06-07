@@ -24,7 +24,7 @@ For background on Cilium, read the [Introduction to Cilium](https://cilium.readt
 {{% /capture %}}
 
 {{% capture steps %}}
-<!-- 
+<!--
 ## Deploying Cilium on Minikube for Basic Testing
 
 To get familiar with Cilium easily you can follow the
@@ -51,30 +51,30 @@ clusterrolebinding "cilium" created
 daemonset "cilium" created
 clusterrole "cilium" created
 ```
-<!-- 
+<!--
 The remainder of the Getting Started Guide explains how to enforce both L3/L4
 (i.e., IP address + port) security policies, as well as L7 (e.g., HTTP) security
 policies using an example application.
  -->
 入门指南其余的部分用一个示例应用说明了如何强制执行L3/L4（即 IP 地址+端口）的安全策略以及L7 （如 HTTP）的安全策略。
 
-<!-- 
+<!--
 ## Deploying Cilium for Production Use
 
 For detailed instructions around deploying Cilium for production, see:
-[Cilium Kubernetes Installation Guide](https://cilium.readthedocs.io/en/latest/kubernetes/install/)
+[Cilium Kubernetes Installation Guide](https://cilium.readthedocs.io/en/latest/gettingstarted/#installation)
 This documentation includes detailed requirements, instructions and example
 production DaemonSet files.
  -->
 
 ## 部署 Cilium 用于生产用途
-关于部署 Cilium 用于生产的详细说明，请见[Cilium Kubernetes 安装指南](https://cilium.readthedocs.io/en/latest/kubernetes/install/)
+关于部署 Cilium 用于生产的详细说明，请见[Cilium Kubernetes 安装指南](https://cilium.readthedocs.io/en/latest/gettingstarted/#installation)
 ，此文档包括详细的需求、说明和生产用途 DaemonSet 文件示例。
 
 {{% /capture %}}
 
 {{% capture discussion %}}
-<!-- 
+<!--
 ##  Understanding Cilium components
 
 Deploying a cluster with Cilium adds Pods to the `kube-system` namespace. To see
@@ -96,14 +96,14 @@ NAME            DESIRED   CURRENT   READY     NODE-SELECTOR   AGE
 cilium          1         1         1         <none>          2m
 ...
 ```
-<!-- 
+<!--
 There are two main components to be aware of:
 
 - One `cilium` Pod runs on each node in your cluster and enforces network policy
 on the traffic to/from Pods on that node using Linux BPF.
 - For production deployments, Cilium should leverage the key-value store cluster
 (e.g., etcd) used by Kubernetes, which typically runs on the Kubernetes master nodes.
-The [Cilium Kubernetes Installation Guide](https://cilium.readthedocs.io/en/latest/kubernetes/install/)
+The [Cilium Kubernetes Installation Guide](https://cilium.readthedocs.io/en/latest/gettingstarted/#installation)
 includes an example DaemonSet which can be customized to point to this key-value
 store cluster. The simple ''all-in-one'' DaemonSet for minikube requires no such
 configuration because it automatically connects to the minikube's etcd instance.
@@ -112,8 +112,8 @@ configuration because it automatically connects to the minikube's etcd instance.
 
 - 在集群中的每个节点上都会运行一个 `cilium` Pod，并利用Linux BPF执行网络策略管理该节点上进出 Pod 的流量。
 - 对于生产部署，Cilium 应该复用 Kubernetes 所使用的键值存储集群（如 etcd），其通常在Kubernetes 的 master 节点上运行。
-[Cilium Kubernetes安装指南](https://cilium.readthedocs.io/en/latest/kubernetes/install/)
-包括了一个示例 DaemonSet，可以自定义指定此键值存储集群。 
+[Cilium Kubernetes安装指南](https://cilium.readthedocs.io/en/latest/gettingstarted/#installation)
+包括了一个示例 DaemonSet，可以自定义指定此键值存储集群。
 简单的 minikube 的“一体化” DaemonSet 不需要这样的配置，因为它会自动连接到 minikube 的 etcd 实例。
 
 {{% /capture %}}

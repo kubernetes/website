@@ -1,189 +1,190 @@
 ---
 title: Generating Reference Documentation for the Kubernetes API
 content_template: templates/task
+weight: 50
 ---
 
 {{% capture overview %}}
 
-This page shows how to update the generated reference docs for the
-Kubernetes API.
+This page shows how to update the Kubernetes API reference documentation.
+
+The Kubernetes API reference documentation is built from the
+[Kubernetes OpenAPI spec](https://github.com/kubernetes/kubernetes/blob/master/api/openapi-spec/swagger.json)
+using the [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) generation code.
+
+If you find bugs in the generated documentation, you need to
+[fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
+
+If you need only to regenerate the reference documentation from the [OpenAPI](https://github.com/OAI/OpenAPI-Specification)
+spec, continue reading this page.
 
 {{% /capture %}}
-
 
 {{% capture prerequisites %}}
 
-You need to have these tools installed:
-
-* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Golang](https://golang.org/doc/install) version 1.9.1 or later
-
-Your $GOPATH environment variable must be set.
-
-You need to know how to create a pull request (PR) to a GitHub repository.
-Typically, this involves creating a fork of the repository. For more
-information, see
-[Creating a Documentation Pull Request](/docs/contribute/start/) and
-[GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
+{{< include "prerequisites-ref-docs.md" >}}
 
 {{% /capture %}}
 
-
 {{% capture steps %}}
 
-## The big picture
+## Setting up the local repositories
 
-The reference documentation for the Kubernetes API is generated in two separate stages:
-
-1. Generate an OpenAPI spec from the Kubernetes source code. The tools for
-this stage are at [kubernetes/kubernetes/hack](https://github.com/kubernetes/kubernetes/tree/master/hack).
-
-1. Generate an HTML file from the OpenAPI spec. The tools for this stage are at
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
-
-If you find bugs in the generated documentation generated, you need to 
-[fix them upstream](/docs/contribute/generate-ref-docs/contribute-upstream/).
-
-If you need only to regenerate the reference documentation from the OpenAPI
-spec, continue reading this page.
-
-## Getting three repositories
-
-If you don't already have the kubernetes/kubernetes repository, get it now:
+Create a local workspace and set your `GOPATH`.
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/kubernetes
+mkdir -p $HOME/<workspace>
+
+export GOPATH=$HOME/<workspace>
 ```
 
-Determine the base directory of your clone of the
-[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/kubernetes.`
-The remaining steps refer to your base directory as `<k8s-base>`.
+Get a local clone of the following repositories:
+
+```shell
+go get -u github.com/kubernetes-sigs/reference-docs
+
+go get -u github.com/go-openapi/loads
+go get -u github.com/go-openapi/spec
+```
 
 If you don't already have the kubernetes/website repository, get it now:
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/website
+git clone https://github.com/<your-username>/website $GOPATH/src/github.com/<your-username>/website
 ```
 
-Determine the base directory of your clone of the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/website.`
+Get a clone of the kubernetes/kubernetes repository as k8s.io/kubernetes:
+
+```shell
+git clone https://github.com/kubernetes/kubernetes $GOPATH/src/k8s.io/kubernetes
+```
+
+* The base directory of your clone of the
+[kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository is
+`$GOPATH/src/k8s.io/kubernetes.`
+The remaining steps refer to your base directory as `<k8s-base>`.
+
+* The base directory of your clone of the
+[kubernetes/website](https://github.com/kubernetes/website) repository is
+`$GOPATH/src/github.com/<your username>/website.`
 The remaining steps refer to your base directory as `<web-base>`.
 
-If you don't already have the kubernetes-incubator/reference-docs repository, get it now:
-
-```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes-incubator/reference-docs
-```
-
-Determine the base directory of your clone of the
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs) repository.
-For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-incubator/reference-docs.`
+* The base directory of your clone of the
+[kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs)
+repository is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs.`
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
-## Generating the API reference docs for publishing
-
-The preceding section showed how to edit a source file and then generate
-several files, including `api/openapi-spec/swagger.json` in the 
-`kubernetes/kubernetes` repository.
+## Generating the API reference docs
 
 This section shows how to generate the
-[published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/),
-which is generated by the tools at
-[kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
-Those tools take the `api/openapi-spec/swagger.json` file as input.
+[published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-### Editing Makefile in kubernetes-incubator/reference-docs
+### Setting build variables
 
-Go to `<rdocs-base>`, and open `Makefile` for editing:
+* Set `K8S_ROOT` to `<k8s-base>`.
+* Set `WEB_ROOT` to `<web-base>`.
+* Set `K8S_RELEASE` to the version of the docs you want to build.
+  For example, if you want to build docs for Kubernetes 1.17, set `K8S_RELEASE` to 1.17.
 
-Set `K8SROOT` to the base directory of your local kubernetes/kubernetes
-repository. Set `WEBROOT` to the base directory of your local kubernetes/website repository.
-Set `MINOR_VERSION` to the minor version of the docs you want to build. For example,
-if you want to build docs for Kubernetes 1.9, set `MINOR_VERSION` to 9. Save and close `Makefile`.
-
-### Copying the OpenAPI spec
-
-The doc generation code needs a local copy of the OpenAPI spec for the Kubernetes API.
-Go to `<k8s-base>` and check out the branch that has the OpenAPI spec you want to use.
-For example, if you want to generate docs for Kubernetes 1.9, checkout the release-1.9
-branch.
-
-Go back to `<rdocs-base>`. Enter the following command to copy the OpenAPI spec from the
-`kubernetes/kubernetes` repository to a local directory:
+For example:
 
 ```shell
-make updateapispec
+export WEB_ROOT=$(GOPATH)/src/github.com/<your-username>/website
+export K8S_ROOT=$(GOPATH)/src/k8s.io/kubernetes
+export K8S_RELEASE=1.17
 ```
 
-The output shows that the file was copied:
+### Creating versioned directory and fetching Open API spec
+
+The `updateapispec` build target creates the versioned  build directory.
+After the directory is created, the Open API spec is fetched from the
+`<k8s-base>` repository. These steps ensure that the version
+of the configuration files and Kubernetes Open API spec match the release version.
+The versioned directory name follows the pattern of `v<major>_<minor>`.
+
+In the `<rdocs-base>` directory, run the following build target:
 
 ```shell
-cp ~/src/github.com/kubernetes/kubernetes/api/openapi-spec/swagger.json gen-apidocs/generators/openapi-spec/swagger.json
+cd <rdocs-base>
+make updateapispec
 ```
 
 ### Building the API reference docs
 
-Run the following command to generate the API reference docs:
+The `copyapi` target builds the API reference and
+copies the generated files to directories in `<web-base>`.
+Run the following command in `<rdocs-base>`:
 
 ```shell
 cd <rdocs-base>
-make api
-```
-
-### Locate the generated files
-
-These two files are the output of a successful build. Verify that they exist:
-
-* `<rdocs-base>/gen-apidocs/generators/build/index.html`
-* `<rdocs-base>/gen-apidocs/generators/build/navData.js`
-
-## Copying the generated docs to the kubernetes/website repository
-
-The preceding sections showed how to generate reference documentation for publication.
-
-This section shows how to copy the generated reference to the
-[kubernetes/website](https://github.com/kubernetes/website) repository. The files
-in the `kubernetes/website` repository are published in the
-[kubernetes.io](https://kubernetes.io) website. In particular, the generated
-`index.html` file is published [here](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
-
-Enter the following command to copy the generated files to
-your local kubernetes/website repository:
-
-```shell
 make copyapi
 ```
 
-Go to the base of your local kubernetes/website repository, and 
-see which files have been modified:
+Verify that these two files have been generated:
+
+```shell
+[ -e "<rdocs-base>/gen-apidocs/generators/build/index.html" ] && echo "index.html built" || echo "no index.html"
+[ -e "<rdocs-base>/gen-apidocs/generators/build/navData.js" ] && echo "navData.js built" || echo "no navData.js"
+```
+
+Go to the base of your local `<web-base>`, and
+view which files have been modified:
 
 ```shell
 cd <web-base>
 git status
 ```
 
-The output shows the modified files:
+The output is similar to:
 
-```shell
-On branch master
-...
-   modified:   docs/reference/generated/kubernetes-api/v1.9/index.html
+```
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/bootstrap.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/font-awesome.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/stylesheet.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/FontAwesome.otf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.eot
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.svg
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.ttf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff2
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/jquery.scrollTo.min.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navData.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
-In this example, only one file has been modified. Recall that you generated both
-`index.html` and `navData.js`. But apparently the generated `navata.js` is not different
-from the `navData.js` that was already in the kubernetes/website` repository.
+## Updating the API reference index pages
+
+When generating reference documentation for a new release, update the file,
+`<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` with the new
+version number.
+
+* Open `<web-base>/content/en/docs/reference/kubernetes-api/api-index.md` for editing,
+  and update the API reference version number. For example:
+
+    ```
+    ---
+    title: v1.17
+    ---
+
+    [Kubernetes API v1.17](/docs/reference/generated/kubernetes-api/v1.17/)
+    ```
+
+* Open `<web-base>/content/en/docs/reference/_index.md` for editing, and add a
+  new link for the latest API reference. Remove the oldest API reference version.
+  There should be five links to the most recent API references.
+
+## Locally test the API reference
+
+Publish a local version of the API reference.
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
+
+```shell
+cd <web-base>
+make docker-serve
+```
+
+## Commit the changes
 
 In `<web-base>` run `git add` and `git commit` to commit the change.
 
@@ -193,16 +194,12 @@ Submit your changes as a
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 
-A few minutes after your pull request is merged, your changes will be visible
-in the [published reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
-
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
-* [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
-* [Generating Reference Documentation for the Kubernetes Federation API](/docs/home/contribute/generated-reference/federation-api/)
+* [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
+* [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 
 {{% /capture %}}
-

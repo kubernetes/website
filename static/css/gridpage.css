@@ -23,9 +23,8 @@
     min-height: 152px;
 }
 
-
 .gridPage p {
-    color: rgb(26,26,26) !important;
+    color: rgb(26,26,26);
     margin-left: 0 !important;
     padding-left: 0 !important;
     font-weight: 300 !important;
@@ -39,7 +38,7 @@
     padding-top: 0;
 }
 
-.gridPage main {
+.gridPage .main-section {
     max-width: 1100px !important;
 }
 
@@ -85,6 +84,7 @@
 .case-study img {
     position: absolute;
     top: 0;
+    width:215px;
     left: 0;
 }
 
@@ -104,7 +104,7 @@ p.attrib {
     /*height: 340px;*/
 }
 
-.gridPage #video main {
+.gridPage #video .main-section {
     position: relative;
     max-width: 900px !important;
     height: 100%;
@@ -114,15 +114,15 @@ p.attrib {
     padding: 50px 20px;
 }
 
-.gridPage #video main > div {
+.gridPage #video .main-section > div {
     width: 50%;
 }
 
-.gridPage #video main #zulilyLogo {
+.gridPage #video .main-section #zulilyLogo {
     width: 100px;
 }
 
-.gridPage #video main img {
+.gridPage #video .main-section img {
     max-width: 100%;
 }
 
@@ -153,11 +153,11 @@ p.attrib {
     padding: 50px;
 }
 
-.gridPage #users main {
+.gridPage #users .main-section {
     max-width: 1150px !important;
 }
 
-.gridPage #users main h3 {
+.gridPage #users .main-section h3 {
     padding-left: 20px;
     margin-bottom: 20px;
 }
@@ -210,7 +210,7 @@ section.bullets {
     margin-bottom: 50px;
 }
 
-section.bullets main {
+section.bullets .main-section {
     position: relative;
     max-width: 1100px;
     padding: 50px 0;
@@ -271,22 +271,31 @@ section.bullets .content {
 }
 
 @media screen and (max-width: 900px){
-    .gridPage #video main {
+    .gridPage #video .main-section {
         flex-direction: column;
         align-items: center;
     }
 
-    .gridPage #video main > div {
+    .gridPage #video .main-section > div {
         width: 400px;
     }
 
-    .gridPage #video main > div + div {
+    .gridPage #video .main-section > div + div {
         margin-top: 30px;
     }
 
     .gridPage #video h3 {
         max-width: 100%;
     }
+}
+
+@media screen and (max-width: 768px){
+  .launch-card {
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 0;
+    min-height: auto;
+  }
 }
 
 @media screen and (max-width: 640px){
@@ -321,7 +330,7 @@ section.bullets .content {
         padding-left: 20px;
     }
 
-    .gridPage #video main > div {
+    .gridPage #video .main-section > div {
         width: 80%;
         min-width: 280px;
     }

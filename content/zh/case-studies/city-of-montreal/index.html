@@ -1,0 +1,99 @@
+---
+title: City of Montreal Case Study
+linkTitle: city-of-montreal
+case_study_styles: true
+cid: caseStudies
+css: /css/style_case_studies.css
+featured: false
+---
+
+<div class="banner1" style="background-image: url('/images/CaseStudy_montreal_banner1.jpg')">
+  <h1> CASE STUDY:<img src="/images/montreal_logo.png" class="header_logo" style="width:20%;margin-bottom:-1.2%"><br> <div class="subhead" style="margin-top:1%">City of Montréal - How the City of Montréal Is Modernizing Its 30-Year-Old, Siloed&nbsp;Architecture&nbsp;with&nbsp;Kubernetes
+
+</div></h1>
+
+</div>
+
+<div class="details">
+    Company &nbsp;<b>City of Montréal</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Location &nbsp;<b>Montréal, Québec, Canada</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Industry &nbsp;<b>Government</b>
+</div>
+
+<hr>
+<section class="section1">
+<div class="cols">
+  <div class="col1" style="width:100%"">
+    <h2>Challenge</h2>
+    Like many governments, Montréal has a number of legacy systems, and “we have systems that are older than some developers working here,” says the city’s CTO, Jean-Martin Thibault. “We have mainframes, all flavors of Windows, various flavors of Linux, old and new Oracle systems, Sun servers, all kinds of databases. Like all big corporations, some of the most important systems, like Budget and Human Resources, were developed on mainframes in-house over the past 30 years.” There are over 1,000 applications in all, and most of them were running on different ecosystems. In 2015, a new management team decided to break down those silos, and invest in IT in order to move toward a more integrated governance for the city. They needed to figure out how to modernize the architecture.
+
+    <h2>Solution</h2>
+    The first step was containerization. The team started with a small Docker farm with four or five servers, with Rancher for providing access to the Docker containers and their logs and Jenkins to deploy. “We based our effort on the new trends; we understood the benefits of immutability and deployments without downtime and such things,” says Solutions Architect Marc Khouzam. They soon realized they needed orchestration as well, and opted for Kubernetes. Says Enterprise Architect Morgan Martinet: “Kubernetes offered concepts on how you would describe an architecture for any kind of application, and based on those concepts, deploy what’s required to run the infrastructure. It was becoming a de facto standard.”
+<br>
+<h2>Impact</h2>
+    The time to market has improved drastically, from many months to a few weeks. Deployments went from months to hours. “In the past, you would have to ask for virtual machines, and that alone could take weeks, easily,” says Thibault. “Now you don’t even have to ask for anything. You just create your project and it gets deployed.” Kubernetes has also improved the efficiency of how the city uses its compute resources: “Before, the 200 application components we currently run on Kubernetes would have required hundreds of virtual machines, and now, if we’re talking about a single environment of production, we are able to run them on 8 machines, counting the masters of Kubernetes,” says Martinet. And it’s all done with a small team of just 5 people operating the Kubernetes clusters.
+</div>
+
+</div>
+</section>
+<div class="banner2">
+  <div class="banner2text">
+    "We realized the limitations of having a non-orchestrated Docker environment. Kubernetes came to the rescue, bringing in all these features that make it a lot easier to manage and give a lot more benefits to the users."
+<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- JEAN-MARTIN THIBAULT, CTO, CITY OF MONTRÉAL</span>
+  </div>
+</div>
+<section class="section2">
+<div class="fullcol">
+  <h2>The second biggest municipality in Canada, Montréal has a large number of legacy systems keeping the government running. And while they don’t quite date back to the city’s founding in 1642, “we have systems that are older than some developers working here,” jokes the city’s CTO, Jean-Martin Thibault.</h2>
+  “We have mainframes, all flavors of Windows, various flavors of Linux, old and new Oracle systems, Sun servers, all kinds of databases. Some of the most important systems, like Budget and Human Resources, were developed on mainframes in-house over the past 30 years.”
+<br><br>
+  In recent years, that fact became a big pain point. There are over 1,000 applications in all, running on almost as many different ecosystems. In 2015, a new city management team decided to break down those silos, and invest in IT in order to move toward a more integrated governance. “The organization was siloed, so as a result the architecture was siloed,” says Thibault. “Once we got integrated into one IT team, we decided to redo an overall enterprise architecture.”
+<br><br>
+  The first step to modernize the architecture was containerization. “We based our effort on the new trends; we understood the benefits of immutability and deployments without downtime and such things,” says Solutions Architect Marc Khouzam. The team started with a small Docker farm with four or five servers, with Rancher for providing access to the Docker containers and their logs and Jenkins for deployment.
+</div>
+</section>
+<div class="banner3" style="background-image: url('/images/CaseStudy_montreal_banner3.jpg')">
+  <div class="banner3text">
+    "Getting a project running in Kubernetes is entirely dependent on how long you need to program the actual software. It’s no longer dependent on deployment. Deployment is so fast that it’s negligible."<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- MARC KHOUZAM, SOLUTIONS ARCHITECT, CITY OF MONTRÉAL</span>
+
+  </div>
+</div>
+<section class="section3">
+<div class="fullcol">
+  But this Docker farm setup had some limitations, including the lack of self-healing and dynamic scaling based on traffic, and the effort required to optimize server resources and scale to multiple instances of the same container. The team soon realized they needed orchestration as well. “Kubernetes came to the rescue,” says Thibault, “bringing in all these features that make it a lot easier to manage and give a lot more benefits to the users.”
+<br><br>
+  The team had evaluated several orchestration solutions, but Kubernetes stood out because it addressed all of the pain points. (They were also inspired by Yahoo! Japan’s use case, which the team members felt came close to their vision.) “Kubernetes offered concepts on how you would describe an architecture for any kind of application, and based on those concepts, deploy what’s required to run the infrastructure,” says Enterprise Architect Morgan Martinet. “It was becoming a de facto standard. It also promised portability across cloud providers. The choice of Kubernetes now gives us many options such as running clusters in-house or in any IaaS provider, or even using Kubernetes-as-a-service in any of the major cloud providers.”
+<br><br>
+  Another important factor in the decision was vendor neutrality. “As a government entity, it is essential for us to be neutral in our selection of products and providers,” says Thibault. “The independence of the Cloud Native Computing Foundation from any company provides this.”
+</div>
+</section>
+<div class="banner4" style="background-image: url('/images/CaseStudy_montreal_banner4.jpg')">
+  <div class="banner4text">
+  "Kubernetes has been great. It’s been stable, and it provides us with elasticity, resilience, and robustness. While re-architecting for Kubernetes, we also benefited from the monitoring and logging aspects, with centralized logging, Prometheus logging, and Grafana dashboards. We have enhanced visibility of what’s being deployed." <br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- MORGAN MARTINET, ENTERPRISE ARCHITECT, CITY OF MONTRÉAL</span>
+  </div>
+</div>
+
+<section class="section5" style="padding:0px !important">
+<div class="fullcol">
+  The Kubernetes implementation began with the deployment of a small cluster using an internal Ansible playbook, which was soon replaced by the Kismatic distribution. Given the complexity they saw in operating a Kubernetes platform, they decided to provide development groups with an automated CI/CD solution based on Helm. “An integrated CI/CD solution on Kubernetes standardized how the various development teams designed and deployed their solutions, but allowed them to remain independent,” says Khouzam.
+<br><br>
+  During the re-architecting process, the team also added Prometheus for monitoring and alerting, Fluentd for logging, and Grafana for visualization. “We have enhanced visibility of what’s being deployed,” says Martinet. Adds Khouzam: “The big benefit is we can track anything, even things that don’t run inside the Kubernetes cluster. It’s our way to unify our monitoring effort.”
+<br><br>
+  All together, the cloud native solution has had a positive impact on velocity as well as administrative overhead. With standardization, code generation, automatic deployments into Kubernetes, and standardized monitoring through Prometheus, the time to market has improved drastically, from many months to a few weeks. Deployments went from months and weeks of planning down  to hours. “In the past, you would have to ask for virtual machines, and that alone could take weeks to properly provision,” says Thibault. Plus, for dedicated systems, experts often had to be brought in to install them with their own recipes, which could take weeks and months.
+<br><br>
+  Now, says Khouzam, “we can deploy pretty much any application that’s been Dockerized without any help from anybody. Getting a project running in Kubernetes is entirely dependent on how long you need to program the actual software. It’s no longer dependent on deployment. Deployment is so fast that it’s negligible.”
+
+</div>
+
+<div class="banner5" >
+  <div class="banner5text">
+"We’re working with the market when possible, to put pressure on our vendors to support Kubernetes, because it’s a much easier solution to manage"<br style="height:25px"><span style="font-size:14px;letter-spacing:2px;text-transform:uppercase;margin-top:5% !important;"><br>- MORGAN MARTINET, ENTERPRISE ARCHITECT, CITY OF MONTRÉAL</span></div>
+</div>
+
+<div class="fullcol">
+  Kubernetes has also improved the efficiency of how the city uses its compute resources: “Before, the 200 application components we currently run in Kubernetes would have required hundreds of virtual machines, and now, if we’re talking about a single environment of production, we are able to run them on 8 machines, counting the masters of Kubernetes,” says Martinet. And it’s all done with a small team of just five people operating the Kubernetes clusters. Adds Martinet: “It’s a dramatic improvement no matter what you measure.”
+<br><br>
+  So it should come as no surprise that the team’s strategy going forward is to target Kubernetes as much as they can. “If something can’t run inside Kubernetes, we’ll wait for it,” says Thibault. That means they haven’t moved any of the city’s Windows systems onto Kubernetes, though it’s something they would like to do. “We’re working with the market when possible, to put pressure on our vendors to support Kubernetes, because it’s a much easier solution to manage,” says Martinet.
+<br><br>
+  Thibault sees a near future where 60% of the city’s workloads are running on a Kubernetes platform—basically any and all of the use cases that they can get to work there. “It’s so much more efficient than the way we used to do things,” he says. “There’s no looking back.”
+
+</div>
+</section>

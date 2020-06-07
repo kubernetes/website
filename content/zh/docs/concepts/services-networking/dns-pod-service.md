@@ -1,23 +1,48 @@
 ---
-approvers:
-- davidopp
-- thockin
-title: DNS Pod 与 Service
-redirect_from:
-- "/docs/admin/dns/"
-- "/docs/admin/dns.html"
+title: Pod 与 Service 的 DNS
+content_template: templates/concept
+weight: 20
 ---
+{{% capture overview %}}
 
+<!--
+This page provides an overview of DNS support by Kubernetes.
+-->
+该页面概述了Kubernetes对DNS的支持。
+{{% /capture %}}
 
+{{% capture body %}}
 
+<!--
+## Introduction
+
+Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
+the kubelets to tell individual containers to use the DNS Service's IP to
+resolve DNS names.
+-->
 ## 介绍
 
-Kubernetes 从 1.3 版本起， DNS 是内置的服务，通过插件管理器 [集群插件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/README.md) 自动被启动。
+Kubernetes DNS 在群集上调度 DNS Pod 和服务，并配置 kubelet 以告知各个容器使用 DNS 服务的 IP 来解析 DNS 名称。
 
-Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通知个别容器使用 DNS Service 的 IP 解析 DNS 名字。
+<!--
+### What things get DNS names?
 
+Every Service defined in the cluster (including the DNS server itself) is
+assigned a DNS name.  By default, a client Pod's DNS search list will
+include the Pod's own namespace and the cluster's default domain.  This is best
+illustrated by example:
 
+Assume a Service named `foo` in the Kubernetes namespace `bar`.  A Pod running
+in namespace `bar` can look up this service by simply doing a DNS query for
+`foo`.  A Pod running in namespace `quux` can look up this service by doing a
+DNS query for `foo.bar`.
 
+The following sections detail the supported record types and layout that is
+supported.  Any other layout or names or queries that happen to work are
+considered implementation details and are subject to change without warning.
+For more up-to-date specification, see
+[Kubernetes DNS-Based Service Discovery](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
+-->
 
 ## 怎样获取 DNS 名字?
 
@@ -29,71 +54,95 @@ Kubernetes DNS 在集群中调度 DNS Pod 和 Service ，配置 kubelet 以通�
 运行在Namespace `bar` 中的一个 Pod，可以简单地通过 DNS 查询 `foo` 来找到该 Service。
 运行在 Namespace `quux` 中的一个 Pod 可以通过 DNS 查询 `foo.bar` 找到该 Service。
 
-
+以下各节详细介绍了受支持的记录类型和支持的布局。 其中代码部分的布局，名称或查询命令均被视为实现细节，如有更改，恕不另行通知。
+有关最新规范请查看
+[Kubernetes 基于 DNS 的服务发现](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ## 支持的 DNS 模式
 
 下面各段详细说明支持的记录类型和布局。
 如果任何其它的布局、名称或查询，碰巧也能够使用，这就需要研究下它们的实现细节，以免后续修改它们又不能使用了。
 
+<!--
+## Services
 
+### A records
+
+"Normal" (not headless) Services are assigned a DNS A record for a name of the
+form `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
+of the Service.
+
+"Headless" (without a cluster IP) Services are also assigned a DNS A record for
+a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
+Services, this resolves to the set of IPs of the pods selected by the Service.
+Clients are expected to consume the set or else use standard round-robin
+selection from the set.
+-->
 
 ### Service
 
 #### A 记录
 
-“正常” Service（除了 Headless Service）会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。这会解析成该 Service 的 Cluster IP。
+“正常” Service（除了 Headless Service）会以 `my-svc.my-namespace.svc.cluster-domain.example` 这种名字的形式被指派一个 DNS A 记录。
+这会解析成该 Service 的 Cluster IP。
 
-“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster.local` 这种名字的形式被指派一个 DNS A 记录。
+“Headless” Service（没有Cluster IP）也会以 `my-svc.my-namespace.svc.cluster-domain.example` 这种名字的形式被指派一个 DNS A 记录。
 不像正常 Service，它会解析成该 Service 选择的一组 Pod 的 IP。
 希望客户端能够使用这一组 IP，否则就使用标准的 round-robin 策略从这一组 IP 中进行选择。
 
+<!--
+### SRV records
 
+SRV Records are created for named ports that are part of normal or [Headless
+Services](/docs/concepts/services-networking/service/#headless-services).
+For each named port, the SRV record would have the form
+`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
+For a regular service, this resolves to the port number and the domain name:
+`my-svc.my-namespace.svc.cluster-domain.example`.
+For a headless service, this resolves to multiple answers, one for each pod
+that is backing the service, and contains the port number and the domain name of the pod
+of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
+-->
 
 #### SRV 记录
 
 命名端口需要创建 SRV 记录，这些端口是正常 Service或 [Headless
 Services](/docs/concepts/services-networking/service/#headless-services) 的一部分。
-对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster.local` 这种形式。
-对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster.local`。
-对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，包含 `auto-generated-name.my-svc.my-namespace.svc.cluster.local` 这种形式 Pod 的端口号和 CNAME。
-
-#### 后向兼容性
-
-上一版本的 kube-dns 使用 `my-svc.my-namespace.cluster.local` 这种形式的名字（后续会增加 'svc' 这一级），以后这将不再被支持。
+对每个命名端口，SRV 记录具有 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example` 这种形式。
+对普通 Service，这会被解析成端口号和 CNAME：`my-svc.my-namespace.svc.cluster-domain.example`。
+对 Headless Service，这会被解析成多个结果，Service 对应的每个 backend Pod 各一个，
+包含 `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example` 这种形式 Pod 的端口号和 CNAME。
 
 
+## Pods
 
-### Pod
+<!--
+### Pod's hostname and subdomain fields
 
-#### A 记录
+Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
 
-如果启用，Pod 会以 `pod-ip-address.my-namespace.pod.cluster.local` 这种形式被指派一个 DNS A 记录。
+The Pod spec has an optional `hostname` field, which can be used to specify the
+Pod's hostname. When specified, it takes precedence over the Pod's name to be
+the hostname of the pod. For example, given a Pod with `hostname` set to
+"`my-host`", the Pod will have its hostname set to "`my-host`".
 
-例如，`default` Namespace 具有 DNS 名字  `cluster.local`，在该 Namespace 中一个 IP 为 `1.2.3.4` 的 Pod 将具有一个条目：`1-2-3-4.default.pod.cluster.local`。
+The Pod spec also has an optional `subdomain` field which can be used to specify
+its subdomain. For example, a Pod with `hostname` set to "`foo`", and `subdomain`
+set to "`bar`", in namespace "`my-namespace`", will have the fully qualified
+domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
 
+Example:
+-->
 
-
-#### 基于 Pod hostname、subdomain 字段的 A 记录和主机名
+### Pod的 hostname 和 subdomain 字段
 
 当前，创建 Pod 后，它的主机名是该 Pod 的 `metadata.name` 值。
 
-在 v1.2 版本中，用户可以配置 Pod annotation， 通过 `pod.beta.kubernetes.io/hostname` 来设置 Pod 的主机名。
-如果为 Pod 配置了 annotation，会优先使用 Pod 的名称作为主机名。
-例如，给定一个 Pod，它具有 annotation `pod.beta.kubernetes.io/hostname: my-pod-name`，该 Pod 的主机名被设置为 “my-pod-name”。
+PodSpec 有一个可选的 `hostname` 字段，可以用来指定 Pod 的主机名。当这个字段被设置时，它将优先于 Pod 的名字成为该 Pod 的主机名。举个例子，给定一个 `hostname` 设置为 "`my-host`" 的 Pod，该 Pod 的主机名将被设置为 "`my-host`"。
 
+PodSpec 还有一个可选的 `subdomain` 字段，可以用来指定 Pod 的子域名。举个例子，一个 Pod 的 `hostname` 设置为 “`foo`”，`subdomain` 设置为 “`bar`”，在 namespace “`my-namespace`” 中对应的完全限定域名（FQDN）为 “`foo.bar.my-namespace.svc.cluster-domain.example`”。
 
-
-在 v1.3 版本中，PodSpec 具有 `hostname` 字段，可以用来指定 Pod 的主机名。这个字段的值优先于 annotation `pod.beta.kubernetes.io/hostname`。
-在 v1.2 版本中引入了 beta 特性，用户可以为 Pod 指定 annotation，其中 `pod.beta.kubernetes.io/subdomain` 指定了 Pod 的子域名。
-最终的域名将是 “<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>”。
-举个例子，Pod 的主机名 annotation 设置为 “foo”，子域名 annotation 设置为 “bar”，在 Namespace “my-namespace” 中对应的 FQDN 为 “foo.bar.my-namespace.svc.cluster.local”。 
-
-
-
-在 v1.3 版本中，PodSpec 具有 `subdomain` 字段，可以用来指定 Pod 的子域名。
-这个字段的值优先于 annotation `pod.beta.kubernetes.io/subdomain` 的值。
-
+实例:
 ```yaml
 apiVersion: v1
 kind: Service
@@ -104,9 +153,9 @@ spec:
     name: busybox
   clusterIP: None
   ports:
-    - name: foo # Actually, no port is needed.
-      port: 1234 
-      targetPort: 1234
+  - name: foo # Actually, no port is needed.
+    port: 1234
+    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -118,7 +167,7 @@ spec:
   hostname: busybox-1
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
@@ -134,44 +183,103 @@ spec:
   hostname: busybox-2
   subdomain: default-subdomain
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
     name: busybox
 ```
 
-
+<!--
+If there exists a headless service in the same namespace as the pod and with
+the same name as the subdomain, the cluster's KubeDNS Server also returns an A
+record for the Pod's fully qualified hostname.
+For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
+"`default-subdomain`", and a headless Service named "`default-subdomain`" in
+the same namespace, the pod will see its own FQDN as
+"`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
+A record at that name, pointing to the Pod's IP. Both pods "`busybox1`" and
+"`busybox2`" can have their distinct A records.
+-->
 
 如果 Headless Service 与 Pod 在同一个 Namespace 中，它们具有相同的子域名，集群的 KubeDNS 服务器也会为该 Pod 的完整合法主机名返回 A 记录。
-在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。
+例如，在同一个 Namespace 中，给定一个主机名为 “busybox-1” 的 Pod，子域名设置为 “default-subdomain”，名称为 “default-subdomain” 的 Headless Service ，Pod 将看到自己的 FQDN 为 “busybox-1.default-subdomain.my-namespace.svc.cluster.local”。
 DNS 会为那个名字提供一个 A 记录，指向该 Pod 的 IP。
 “busybox1” 和 “busybox2” 这两个 Pod 分别具有它们自己的 A 记录。
 
 
+<!--
+The Endpoints object can specify the `hostname` for any endpoint addresses,
+along with its IP.
+-->
 
-在Kubernetes v1.2 版本中，`Endpoints` 对象也具有 annotation `endpoints.beta.kubernetes.io/hostnames-map`。
-它的值是 map[string(IP)][endpoints.HostRecord] 的 JSON 格式，例如： '{"10.245.1.6":{HostName: "my-webserver"}}'。
+端点对象可以为任何端点地址及其 IP 指定 `hostname`。
 
-如果是 Headless Service 的 `Endpoints`，会以  <hostname>.<service name>.<pod namespace>.svc.<cluster domain> 的格式创建 A 记录。
-对示例中的 JSON 字符串，如果 `Endpoints` 是为名称为 “bar” 的 Headless Service 而创建的，其中一个 `Endpoints`  的 IP 是 “10.245.1.6”，则会创建一个名称为 “my-webserver.bar.my-namespace.svc.cluster.local” 的 A 记录，该 A 记录查询将返回 “10.245.1.6”。
+{{< note >}}
 
-`Endpoints` annotation 通常没必要由最终用户指定，但可以被内部的 Service Controller 用来提供上述功能。
+<!--
+Because A records are not created for Pod names, `hostname` is required for the Pod's A
+record to be created. A Pod with no `hostname` but with `subdomain` will only create the
+A record for the headless service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
+pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
+record unless `publishNotReadyAddresses=True` is set on the Service.
+-->
+
+因为没有为 Pod 名称创建A记录，所以要创建 Pod 的 A 记录需要 `hostname` 。
+
+没有 `hostname` 但带有 `subdomain` 的 Pod 只会为指向Pod的IP地址的 headless 服务创建 A 记录(`default-subdomain.my-namespace.svc.cluster-domain.example`)。
+另外，除非在服务上设置了 `publishNotReadyAddresses=True`，否则 Pod 需要准备好 A 记录。
+{{< /note >}}
+
+<!--
+### Pod's DNS Policy
+
+DNS policies can be set on a per-pod basis. Currently Kubernetes supports the
+following pod-specific DNS policies. These policies are specified in the
+`dnsPolicy` field of a Pod Spec.
+
+- "`Default`": The Pod inherits the name resolution configuration from the node
+  that the pods run on.
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)
+  for more details.
+- "`ClusterFirst`": Any DNS query that does not match the configured cluster
+  domain suffix, such as "`www.kubernetes.io`", is forwarded to the upstream
+  nameserver inherited from the node. Cluster administrators may have extra
+  stub-domain and upstream DNS servers configured.
+  See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  for details on how DNS queries are handled in those cases.
+- "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
+  explicitly set its DNS policy "`ClusterFirstWithHostNet`".
+- "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
+  environment. All DNS settings are supposed to be provided using the
+  `dnsConfig` field in the Pod Spec.
+  See [Pod's DNS config](#pod-s-dns-config) subsection below.
+-->
+
+- "`Default`": Pod从运行所在的节点继承名称解析配置。
+  参考 [相关讨论](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) 获取更多信息。
+- "`ClusterFirst`": 与配置的群集域后缀不匹配的任何DNS查询(例如 “www.kubernetes.io” )都将转发到从节点继承的上游名称服务器。 群集管理员可能配置了额外的存根域和上游DNS服务器。
+  See [相关讨论](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods) 获取如何 DNS 的查询和处理信息的相关资料。
+- "`ClusterFirstWithHostNet`": 对于与 hostNetwork 一起运行的 Pod，应显式设置其DNS策略 "`ClusterFirstWithHostNet`"。
+- "`None`": 它允许 Pod 忽略 Kubernetes 环境中的 DN S设置。 应该使用 Pod Spec 中的 `dnsConfig` 字段提供所有 DNS 设置。
+
+{{< note >}}
+
+<!--
+"Default" is not the default DNS policy. If `dnsPolicy` is not
+explicitly specified, then “ClusterFirst” is used.
+-->
+
+"Default" 不是默认的 DNS 策略。 如果未明确指定 `dnsPolicy`，则使用 “ClusterFirst”。
+{{< /note >}}
 
 
+<!--
+The example below shows a Pod with its DNS policy set to
+"`ClusterFirstWithHostNet`" because it has `hostNetwork` set to `true`.
+-->
 
-在 v1.3 版本中，`Endpoints` 对象可以为任何 endpoint 指定 `hostname` 和 IP。
-`hostname` 字段优先于通过 `endpoints.beta.kubernetes.io/hostnames-map` annotation 指定的主机名。
-
-在 v1.3 版本中，下面的 annotation 是过时的：`pod.beta.kubernetes.io/hostname`、`pod.beta.kubernetes.io/subdomain`、`endpoints.beta.kubernetes.io/hostnames-map`。
-
-
-
-## 如何测试它是否可以使用?
-
-### 创建一个简单的 Pod 作为测试环境
-
-创建 `busybox.yaml` 文件，内容如下：
+下面的示例显示了一个Pod，其DNS策略设置为 "`ClusterFirstWithHostNet`"，因为它已将 `hostNetwork` 设置为 `true`。
 
 ```yaml
 apiVersion: v1
@@ -181,239 +289,132 @@ metadata:
   namespace: default
 spec:
   containers:
-  - image: busybox
+  - image: busybox:1.28
     command:
       - sleep
       - "3600"
     imagePullPolicy: IfNotPresent
     name: busybox
   restartPolicy: Always
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+```
+
+<!--
+### Pod's DNS Config
+
+Pod's DNS Config allows users more control on the DNS settings for a Pod.
+
+The `dnsConfig` field is optional and it can work with any `dnsPolicy` settings.
+However, when a Pod's `dnsPolicy` is set to "`None`", the `dnsConfig` field has
+to be specified.
+
+Below are the properties a user can specify in the `dnsConfig` field:
+-->
+
+### Pod 的 DNS 设定
+
+Pod 的 DNS 配置可让用户对 Pod 的 DNS 设置进行更多控制。
+
+`dnsConfig` 字段是可选的，它可以与任何 `dnsPolicy` 设置一起使用。
+但是，当 Pod 的 `dnsPolicy` 设置为 "`None`" 时，必须指定 `dnsConfig` 字段。
+
+用户可以在 `dnsConfig` 字段中指定以下属性：
+
+<!--
+- `nameservers`: a list of IP addresses that will be used as DNS servers for the
+  Pod. There can be at most 3 IP addresses specified. When the Pod's `dnsPolicy`
+  is set to "`None`", the list must contain at least one IP address, otherwise
+  this property is optional.
+  The servers listed will be combined to the base nameservers generated from the
+  specified DNS policy with duplicate addresses removed.
+- `searches`: a list of DNS search domains for hostname lookup in the Pod.
+  This property is optional. When specified, the provided list will be merged
+  into the base search domain names generated from the chosen DNS policy.
+  Duplicate domain names are removed.
+  Kubernetes allows for at most 6 search domains.
+- `options`: an optional list of objects where each object may have a `name`
+  property (required) and a `value` property (optional). The contents in this
+  property will be merged to the options generated from the specified DNS policy.
+  Duplicate entries are removed.
+-->
+
+- `nameservers`: 将用作于 Pod 的 DNS 服务器的 IP 地址列表。最多可以指定3个 IP 地址。 当 Pod 的 `dnsPolicy` 设置为 "`None`" 时，列表必须至少包含一个IP地址，否则此属性是可选的。列出的服务器将合并到从指定的 DNS 策略生成的基本名称服务器，并删除重复的地址。
+- `searches`: 用于在 Pod 中查找主机名的 DNS 搜索域的列表。此属性是可选的。指定后，提供的列表将合并到根据所选 DNS 策略生成的基本搜索域名中。
+   重复的域名将被删除。
+   Kubernetes最多允许6个搜索域。
+- `options`: 对象的可选列表，其中每个对象可能具有 `name` 属性（必需）和 `value` 属性（可选）。 此属性中的内容将合并到从指定的 DNS 策略生成的选项。
+   重复的条目将被删除。
+
+<!--
+The following is an example Pod with custom DNS settings:
+-->
+
+以下是具有自定义DNS设置的Pod示例：
+
+{{< codenew file="service/networking/custom-dns.yaml" >}}
+
+<!--
+When the Pod above is created, the container `test` gets the following contents
+in its `/etc/resolv.conf` file:
+-->
+
+创建上面的Pod后，容器 `test` 会在其 `/etc/resolv.conf` 文件中获取以下内容：
+
+```
+nameserver 1.2.3.4
+search ns1.svc.cluster-domain.example my.dns.search.suffix
+options ndots:2 edns0
 ```
 
 
 
-然后，用该文件创建一个 Pod：
+<!--
+For IPv6 setup, search path and name server should be setup like this:
+-->
+对于IPv6设置，搜索路径和名称服务器应按以下方式设置：
 
-```
-kubectl create -f busybox.yaml
-```
-
-
-
-### 等待这个 Pod 变成运行状态
-
-获取它的状态，执行如下命令：
-
-```
-kubectl get pods busybox
+```shell
+kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 
-
-
-可以看到如下内容：
-
-```
-NAME      READY     STATUS    RESTARTS   AGE
-busybox   1/1       Running   0          <some-time>
-```
-
-
-
-### 验证 DNS 已经生效
-
-一旦 Pod 处于运行中状态，可以在测试环境中执行如下 nslookup 查询：
-
-```
-kubectl exec -ti busybox -- nslookup kubernetes.default
-```
-
-
-
-可以看到类似如下的内容：
-
-```
-Server:    10.0.0.10
-Address 1: 10.0.0.10
-
-Name:      kubernetes.default
-Address 1: 10.0.0.1
-```
-
-
-
-如果看到了，说明 DNS 已经可以正确工作了。
-
-### 问题排查技巧
-
-如果执行 nslookup 命令失败，检查如下内容：
-
-#### 先检查本地 DNS 配置
-
-查看配置文件 resolv.conf。（关于更多信息，参考下面的 “从 Node 继承 DNS” 和 “已知问题”。）
-
-```
-kubectl exec busybox cat /etc/resolv.conf
-```
-
-
-
-按照如下方法（注意搜索路径可能会因为云提供商不同而变化）验证搜索路径和 Name Server 的建立：
-
-```
-search default.svc.cluster.local svc.cluster.local cluster.local google.internal c.gce_project_id.internal
-nameserver 10.0.0.10
+<!--
+The output is similar to this:
+-->
+有以下输出：
+```shell
+nameserver fd00:79:30::a
+search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
 
+<!--
+### Feature availability
 
+The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
+-->
 
-#### 快速诊断
+### 可用功能
 
-出现类似如下指示的错误，说明 kube-dns 插件或相关 Service 存在问题：
+Pod DNS 配置和 DNS 策略 "`None`" 的版本对应如下所示。
 
-```
-$ kubectl exec -ti busybox -- nslookup kubernetes.default
-Server:    10.0.0.10
-Address 1: 10.0.0.10
+| k8s version | Feature support |
+| :---------: |:-----------:|
+| 1.14 | Stable |
+| 1.10 | Beta (on by default)|
+| 1.9 | Alpha |
 
-nslookup: can't resolve 'kubernetes.default'
-```
+{{% /capture %}}
 
+{{% capture whatsnext %}}
 
+<!--
+For guidance on administering DNS configurations, check
+[Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
+-->
 
-或者
+有关管理 DNS 配置的指导，请查看
+[配置 DNS 服务](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
-```
-$ kubectl exec -ti busybox -- nslookup kubernetes.default
-Server:    10.0.0.10
-Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+{{% /capture %}}
 
-nslookup: can't resolve 'kubernetes.default'
-```
-
-
-
-#### 检查是否 DNS Pod 正在运行
-
-使用 `kubectl get pods` 命令验证 DNS Pod 正在运行：
-
-```
-kubectl get pods --namespace=kube-system -l k8s-app=kube-dns
-```
-
-
-
-应该能够看到类似如下信息：
-
-```
-NAME                                                       READY     STATUS    RESTARTS   AGE
-...
-kube-dns-v19-ezo1y                                         3/3       Running   0           1h
-...
-```
-
-
-
-如果看到没有 Pod 运行，或 Pod 失败/结束，DNS 插件不能默认部署到当前的环境，必须手动部署。
-
-#### 检查 DNS Pod 中的错误信息
-
-使用 `kubectl logs` 命令查看 DNS 后台进程的日志：
-
-```
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c kubedns
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c dnsmasq
-kubectl logs --namespace=kube-system $(kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o name) -c healthz
-```
-
-
-
-查看是否有任何可疑的日志。在行开头的字母 W、E、F 分别表示 警告、错误、失败。请搜索具有这些日志级别的日志行，通过  [Kubernetes 问题](https://github.com/kubernetes/kubernetes/issues) 报告意外的错误。
-
-#### DNS 服务是否运行?
-
-通过使用 `kubectl get service` 命令，验证 DNS 服务是否运行：
-
-```
-kubectl get svc --namespace=kube-system
-```
-
-
-
-应该能够看到：
-
-```
-NAME                    CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
-...
-kube-dns                10.0.0.10      <none>        53/UDP,53/TCP        1h
-...
-```
-
-
-
-如果服务已经创建，或在这个例子中默认被创建，但是并没有看到，可以查看 [调试 Service 页面](/docs/tasks/debug-application-cluster/debug-service/) 获取更多信息。
-
-```
-kubectl get ep kube-dns --namespace=kube-system
-```
-
-
-
-应该能够看到类似如下信息：
-
-```
-NAME       ENDPOINTS                       AGE
-kube-dns   10.180.3.17:53,10.180.3.17:53    1h
-```
-
-
-
-如果没有看到 Endpoint，查看 [调试 Service 文档](/docs/tasks/debug-application-cluster/debug-service/) 中的 Endpoint 段内容。
-
-关于更多 Kubernetes DNS 的示例，参考 Kubernetes GitHub 仓库中 [集群 DNS 示例](https://git.k8s.io/kubernetes/examples/cluster-dns)。
-
-## Kubernetes Federation（多 Zone 支持)
-
-在1.3 发行版本中，为多站点 Kubernetes 安装引入了集群 Federation 支持。这需要对 Kubernetes 集群 DNS 服务器处理 DNS 查询的方式，做出一些微小（后向兼容）改变，从而便利了对联合 Service 的查询（跨多个 Kubernetes 集群）。参考 [集群 Federation 管理员指南](/docs/concepts/cluster-administration/federation/) 获取更多关于集群 Federation 和多站点支持的细节。
-
-
-
-## 工作原理
-
-运行的 Kubernetes DNS Pod 包含 3 个容器 —— kubedns、dnsmasq 和负责健康检查的 healthz。
-kubedns 进程监视 Kubernetes master 对 Service 和 Endpoint 操作的变更，并维护一个内存查询结构去处理 DNS 请求。dnsmasq 容器增加了一个 DNS 缓存来改善性能。为执行对 dnsmasq 和 kubedns 的健康检查，healthz 容器提供了一个单独的健康检查 Endpoint。
-
-DNS Pod 通过一个静态 IP 暴露为一个 Service。一旦 IP 被分配，kubelet 会通过 `--cluster-dns=10.0.0.10` 标志将配置的 DNS 传递给每一个容器。
-
-DNS 名字也需要域名，本地域名是可配置的，在 kubelet 中使用 `--cluster-domain=<default local domain>` 标志。
-
-Kubernetes 集群 DNS 服务器（根据 [SkyDNS](https://github.com/skynetservices/skydns) 库）支持正向查询（A 记录），Service 查询（SRV 记录）和反向 IP 地址查询（PTR 记录）。
-
-
-
-## 从 Node 继承 DNS
-当运行 Pod 时，kubelet 将集群 DNS 服务器和搜索路径追加到 Node 自己的 DNS 设置中。如果 Node 能够在大型环境中解析 DNS 名字，Pod 也应该没问题。参考下面 "已知问题” 中给出的更多说明。
-
-如果不想这样，或者希望 Pod 有一个不同的 DNS 配置，可以使用 kubelet 的 `--resolv-conf` 标志。设置为 "" 表示 Pod 将不继承自 DNS。设置为一个合法的文件路径，表示 kubelet 将使用这个文件而不是 `/etc/resolv.conf` 。
-
-
-
-## 已知问题
-
-Kubernetes 安装但并不配置 Node 的 resolv.conf 文件，而是默认使用集群 DNS的，因为那个过程本质上就是和特定的发行版本相关的。最终应该会被实现。
-
-Linux libc 在限制为3个 DNS `nameserver` 记录和3个 DNS `search` 记录是不可能卡住的（[查看 2005 年的一个 Bug](https://bugzilla.redhat.com/show_bug.cgi?id=168253)）。Kubernetes 需要使用1个  `nameserver`  记录和3个 `search` 记录。这意味着如果本地安装已经使用了3个 `nameserver` 或使用了3个以上 `search`，那些设置将会丢失。作为部分解决方法， Node 可以运行 `dnsmasq` ，它能提供更多 `nameserver` 条目，但不能运行更多 `search` 条目。可以使用 kubelet 的 `--resolv-conf` 标志。
-
-如果使用 3.3 版本的 Alpine 或更早版本作为 base 镜像，由于 Alpine 的一个已知问题，DNS 可能不会正确工作。查看 [这里](https://github.com/kubernetes/kubernetes/issues/30215) 获取更多信息。
-
-
-
-## 参考
-
-- [DNS 集群插件文档](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/README.md)
-
-
-
-## 下一步
-
-- [集群中 DNS Service 自动伸缩](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)

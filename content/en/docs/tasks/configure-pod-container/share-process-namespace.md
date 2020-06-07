@@ -11,7 +11,7 @@ weight: 160
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 This page shows how to configure process namespace sharing for a pod. When
 process namespace sharing is enabled, processes in a container are visible
@@ -27,16 +27,13 @@ include debugging utilities like a shell.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Process Namespace Sharing is a **beta** feature that is enabled by default. It
-may be disabled by setting `--feature-gates=PodShareProcessNamespace=false`.
-
 {{% /capture %}}
 
 {{% capture steps %}}
 
 ## Configure a Pod
 
-Process Namespace Sharing is enabled using the `ShareProcessNamespace` field of
+Process Namespace Sharing is enabled using the `shareProcessNamespace` field of
 `v1.PodSpec`. For example:
 
 {{< codenew file="pods/share-process-namespace.yaml" >}}

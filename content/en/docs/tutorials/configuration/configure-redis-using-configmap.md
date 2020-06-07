@@ -24,7 +24,8 @@ This page provides a real world example of how to configure Redis using a Config
 
 {{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 * The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
@@ -97,6 +98,11 @@ kubectl exec -it redis redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory-policy
 1) "maxmemory-policy"
 2) "allkeys-lru"
+```
+
+Delete the created pod:
+```shell
+kubectl delete pod redis
 ```
 
 {{% /capture %}}

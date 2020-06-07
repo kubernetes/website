@@ -107,7 +107,6 @@ Another widely used example is the `includes` bundle. It sets `headless: true` i
 ```bash
 en/includes
 ├── default-storage-class-prereqs.md
-├── federated-task-tutorial-prereqs.md
 ├── index.md
 ├── partner-script.js
 ├── partner-style.css
@@ -125,13 +124,14 @@ Some important notes to the files in the bundles:
 
 ## Styles
 
-The `SASS` source of the stylesheets for this site is stored below `src/sass` and can be built with `make sass` (note that Hugo will get `SASS` support soon, see https://github.com/gohugoio/hugo/issues/4243).
+The [SASS](https://sass-lang.com/) source of the stylesheets for this site is stored in `assets/sass` and is automatically built by Hugo.
 
 {{% /capture %}}
 
 {{% capture whatsnext %}}
 
-* [Custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* [Style guide](/docs/contribute/style/style-guide)
+* Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
+* Learn about the [Style guide](/docs/contribute/style/style-guide)
+* Learn about the [Content guide](/docs/contribute/style/content-guide)
 
 {{% /capture %}}

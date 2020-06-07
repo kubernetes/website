@@ -18,7 +18,7 @@ Of course, as is the expectation with all infrastructure software today, Draft i
 
 To give you a sense for what Draft can do, here is an example drawn from the [Getting Started](https://github.com/Azure/draft/blob/master/docs/getting-started.md) page in the [GitHub repository](https://github.com/Azure/draft).  
 
-There are multiple example applications included within the [examples directory](https://github.com/Azure/draft/blob/master/examples). For this walkthrough, we'll be using the [python example application](https://github.com/Azure/draft/blob/master/examples/python) which uses [Flask](http://flask.pocoo.org/) to provide a very simple Hello World webserver.  
+There are multiple example applications included within the [examples directory](https://github.com/Azure/draft/blob/master/examples). For this walkthrough, we'll be using the [python example application](https://github.com/Azure/draft/tree/master/examples/example-python) which uses [Flask](http://flask.pocoo.org/) to provide a very simple Hello World webserver.  
 
 
  ```

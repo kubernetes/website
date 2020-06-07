@@ -2,9 +2,9 @@
 title: 파드(Pod)
 id: pod
 date: 2018-04-12
-full_link: /docs/concepts/workloads/pods/pod-overview/
+full_link: /ko/docs/concepts/workloads/pods/pod-overview/
 short_description: >
-  가장 작고 단순한 쿠버네티스 오브젝트. 파드는 사용자 클러스터에서 동작하는 컨테이너의 집합을 나타낸다. 
+  파드는 클러스터에서 실행 중인 컨테이너의 집합을 나타낸다.
 
 aka: 
 tags:

@@ -24,7 +24,7 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 ## Upgrading a cluster
 
-The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
+The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG/README.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
@@ -63,6 +63,10 @@ Google Kubernetes Engine automatically updates master components (e.g. `kube-api
 
 The node upgrade process is user-initiated and is described in the [Google Kubernetes Engine documentation](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade).
 
+### Upgrading an Amazon EKS Cluster
+
+Amazon EKS cluster's master components can be upgraded by using eksctl, AWS Management Console, or AWS CLI. The process is user-initiated and is described in the [Amazon EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html).
+
 ### Upgrading an Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) cluster
 
 Oracle creates and manages a set of master nodes in the Oracle control plane on your behalf (and associated Kubernetes infrastructure such as etcd nodes) to ensure you have a highly available managed Kubernetes control plane. You can also seamlessly upgrade these master nodes to new versions of Kubernetes with zero downtime. These actions are described in the [OKE documentation](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengupgradingk8smasternode.htm). 
@@ -77,18 +81,18 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
-To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](docs/setup/version-skew-policy/#supported-component-upgrade-order) page.
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) page.
 
 ## Resizing a cluster
 
 If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
-If you're using GCE or Google Kubernetes Engine it's done by resizing Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
+If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
-gcloud compute instance-groups managed resize kubernetes-minion-group --size=42 --zone=$ZONE
+gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
-Instance Group will take care of putting appropriate image on new machines and start them, while Kubelet will register its Node with API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
+The Instance Group will take care of putting appropriate image on new machines and starting them, while the Kubelet will register its Node with the API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 

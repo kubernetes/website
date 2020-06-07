@@ -65,7 +65,7 @@ Déterminez le répertoire de base de votre dépôt [kubernetes/website](https:/
 Par exemple, si vous avez suivi l’étape précédente pour obtenir le dépôt, votre répertoire de base est `$GOPATH/src/github.com/kubernetes/website`.
 Les étapes restantes se réfèrent à votre répertoire de base en tant que `<web-base>`.
 
-Si vous n'avez pas déjà le dépôt `kubernetes-incubator/reference-docs`, l'obtenir maintenant:
+Si vous n'avez pas déjà le dépôt `kubernetes-incubator/reference-docs`, obtenez-le maintenant:
 
 ```shell
 mkdir $GOPATH/src
@@ -121,7 +121,7 @@ On branch master
 
 ### Valider votre fichier édité
 
-Exécutez `git add` et` git commit` pour valider les modifications que vous avez apportées jusqu'à présent.
+Exécutez `git add` et ` git commit` pour valider les modifications que vous avez apportées jusqu'à présent.
 Dans l'étape suivante, vous ferez un deuxième commit.
 Il est important de séparer vos modifications en deux commits.
 
@@ -154,7 +154,7 @@ Voir le contenu de `api/openapi-spec/swagger.json` pour vous assurer que la faut
 Par exemple, vous pouvez exécuter `git diff -a api/openapi-spec/swagger.json`.
 Ceci est important, car `swagger.json` sera l’entrée de la seconde étape du processus de génération de doc.
 
-Exécutez `git add` et` git commit` pour valider vos modifications.
+Exécutez `git add` et ` git commit` pour valider vos modifications.
 Vous avez maintenant deux validations: une avec le fichier `types.go` édité et une avec les spécifications OpenAPI générées et les fichiers associés.
 Gardez ces deux commits séparés.
 C'est-à-dire, ne faites pas un squash de vos commits.
@@ -182,14 +182,14 @@ Par exemple, supposons que la branche principale soit utilisée pour développer
 Rappelez-vous que votre pull request a deux commits: un pour l'édition `types.go` et un pour les fichiers générés par des scripts.
 La prochaine étape consiste à proposer un cherry pick de votre premier commit dans la branche release-1.9.
 L'idée est de cherry pick le commit qui a édité `types.go`, mais pas le commit qui a pour résultat l'exécution des scripts.
-Pour les instructions, voir [Propose un Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
+Pour les instructions, voir [Proposer un Cherry Pick](https://git.k8s.io/community/contributors/devel/sig-release/cherry-picks.md).
 
 {{< note >}}
 Proposer un cherry pick nécessite que vous ayez la permission de définir un label et un milestone dans votre pull request.
 Si vous ne disposez pas de ces autorisations, vous devrez travailler avec une personne pouvant définir les labels et milestones pour vous.
 {{< /note >}}
 
-Quand vous avez un pull request en place pour cherry picking votre seul engagement dans la branche release-1.9, l’étape suivante consiste à exécuter ces scripts dans la branche release-1.9 de votre environnement local.
+Quand vous avez une pull request en place pour cherry picking votre seul commit dans la branche release-1.9, l’étape suivante consiste à exécuter ces scripts dans la branche release-1.9 de votre environnement local.
 
 ```shell
 hack/update-generated-swagger-docs.sh
@@ -211,7 +211,7 @@ Les fichiers générés dans la branche maître peuvent contenir des éléments 
 
 La section précédente a montré comment modifier un fichier source, puis générer plusieurs fichiers, y compris `api/openapi-spec/swagger.json` dans le dépôt `kubernetes/kubernetes`.
 
-Cette section montre comment générer le [documentation de référence de l'API Kubernetes publiée](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/), qui est généré par les outils de [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
+Cette section montre comment générer la [documentation de référence de l'API Kubernetes publiée](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/), qui est générée par les outils de [kubernetes-incubator/reference-docs](https://github.com/kubernetes-incubator/reference-docs).
 Ces outils prennent le fichier `api/openapi-spec/swagger.json` comme entrée.
 
 ### Modification du Makefile dans kubernetes-incubator/reference-docs
@@ -300,7 +300,7 @@ Entrez la commande suivante pour copier les fichiers générés dans votre dép�
 make copyapi
 ```
 
-Allez à la base de votre dépôt local `kubernetes/kubernetes`, et voir quels fichiers ont été modifiés:
+Allez à la base de votre dépôt local `kubernetes/kubernetes`, et regardez quels fichiers ont été modifiés:
 
 ```shell
 cd <web-base>
@@ -322,10 +322,10 @@ Mais apparemment le généré `navata.js` n'est pas différent du `navData.js` c
 Dans `<web-base>` executez `git add` et `git commit` pour enregistrer le commit du changement.
 
 Soumettez vos modifications en tant que [pull request](/docs/home/contribute/create-pull-request/) au dépôt [kubernetes/website](https://github.com/kubernetes/website).
-Surveillez votre pull request, et répondre aux commentaires des relecteurs au besoin.
-Continuez à surveiller votre pull request jusqu'à ce qu'il ait été mergé.
+Surveillez votre pull request, et répondez aux commentaires des relecteurs au besoin.
+Continuez à surveiller votre pull request jusqu'à ce qu'elle ait été mergée.
 
-Quelques minutes après que votre pull request soit mergée, vos modifications seront visibles dans le [documentation de référence publiée](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
+Quelques minutes après que votre pull request soit fusionnée, vos modifications seront visibles dans la [documentation de référence publiée](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
 {{% /capture %}}
 

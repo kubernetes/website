@@ -27,7 +27,7 @@ source <(kubectl completion bash) # Wenn Sie autocomplete in bash in der aktuell
 echo "source <(kubectl completion bash)" >> ~/.bashrc # Fügen Sie der Bash-Shell dauerhaft Autocomplete hinzu.
 ```
 
-Sie können auch ein Abkürzungsalias für `kubectl` verwenden, weleches auch mit Vervollständigung funktioniert:
+Sie können auch ein Abkürzungsalias für `kubectl` verwenden, welches auch mit Vervollständigung funktioniert:
 
 ```bash
 alias k=kubectl
@@ -55,7 +55,7 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
 kubectl config view -o jsonpath='{.users[].name}'    # eine Liste der Benutzer erhalten
-kubectl config current-context			               # den aktuellen Kontext anzeigen
+kubectl config current-context                       # den aktuellen Kontext anzeigen
 kubectl config use-context my-cluster-name           # Setzen Sie den Standardkontext auf my-cluster-name
 
 # Fügen Sie Ihrer kubeconf einen neuen Cluster hinzu, der basic auth unterstützt
@@ -64,7 +64,7 @@ kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser -
 # Legen Sie einen Kontext fest, indem Sie einen bestimmten Benutzernamen und einen bestimmten Namespace verwenden.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
- 
+
 kubectl config unset users.foo                       # delete user foo
 ```
 
@@ -77,10 +77,10 @@ Kubernetes Manifeste können in Json oder Yaml definiert werden. Die Dateierweit
 `.yml`, und `.json` können verwendet werden.
 
 ```bash
-kubectl apply -f ./my-manifest.yaml           # Ressource(n) erstellen
-kubectl apply -f ./my1.yaml -f ./my2.yaml     # aus mehreren Dateien erstellen
-kubectl apply -f ./dir                        # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
-kubectl apply -f https://git.io/vPieo         # Ressource(n) aus URL erstellen
+kubectl apply -f ./my-manifest.yaml            # Ressource(n) erstellen
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # aus mehreren Dateien erstellen
+kubectl apply -f ./dir                         # Erstellen Sie Ressourcen in allen Manifestdateien in Verzeichnis
+kubectl apply -f https://git.io/vPieo          # Ressource(n) aus URL erstellen
 kubectl create deployment nginx --image=nginx  # Starten Sie eine einzelne Instanz von Nginx
 kubectl explain pods,svc                       # Zeigen Sie die Dokumentation für Pod und SVC Manifeste an
 
@@ -133,7 +133,7 @@ kubectl get services                          # Listen Sie alle Dienste im Names
 kubectl get pods --all-namespaces             # Listen Sie alle Pods in allen Namespaces auf
 kubectl get pods -o wide                      # Listen Sie alle Pods im Namespace mit weiteren Details auf
 kubectl get deployment my-dep                 # Listen Sie eine bestimmte Bereitstellung auf
-kubectl get pods --include-uninitialized      # Listen Sie alle Pods im Namespace auf, einschließlich der nicht initialisierten
+kubectl get pods                              # Listen Sie alle Pods im Namespace auf
 
 # Describe Befehle mit ausführlicher Ausgabe
 kubectl describe nodes my-node
@@ -145,7 +145,7 @@ kubectl get services --sort-by=.metadata.name # Listen Sie Dienste nach Namen so
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
 # Erhalten Sie die Versionsbezeichnung aller Pods mit der Bezeichnung app=cassandra
-kubectl get pods --selector=app=cassandra rc -o \
+kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
 # Alle Worker-Knoten abrufen (verwenden Sie einen Selektor, um Ergebnisse auszuschließen,
@@ -180,7 +180,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Ressourcen aktualisieren
 
-Ab Version 1.11 ist das `rolling-update` veraltet (Lesen Sie [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md) für weitere Informationen), verwenden Sie stattdessen `rollout`.
+Ab Version 1.11 ist das `rolling-update` veraltet (Lesen Sie [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md) für weitere Informationen), verwenden Sie stattdessen `rollout`.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Fortlaufende Aktualisierung der "www" Container der "Frontend"-Bereitstellung, Aktualisierung des Images
@@ -250,8 +250,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Skaliert meh
 kubectl delete -f ./pod.json                                              # Löscht einen Pod mit dem in pod.json angegebenen Typ und Namen
 kubectl delete pod,service baz foo                                        # Löscht Pods und Services mit den gleichen Namen "baz" und "foo"
 kubectl delete pods,services -l name=myLabel                              # Löscht Pods und Services mit dem Label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Löscht Pods und Services, einschließlich nicht initialisierter, mit dem Label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Löscht alle Pods und Dienste, einschließlich nicht initialisierter, im Namespace my-ns,
+kubectl -n my-ns delete po,svc --all                                      # Löscht alle Pods und Dienste, im Namespace my-ns
 ```
 
 ## Interaktion mit laufenden Pods
@@ -322,7 +321,7 @@ Ausgabeformat | Beschreibung
 
 ### Kubectl Ausgabe Ausführlichkeit und Debugging
 
-Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v ` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/logging.md) beschrieben.
+Die Ausführlichkeit von Kubectl wird mit den Flags `-v` oder `--v ` gesteuert, gefolgt von einer Ganzzahl, die die Protokollebene darstellt. Allgemeine Protokollierungskonventionen für Kubernetes und die zugehörigen Protokollebenen werden [hier](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) beschrieben.
 
 Ausführlichkeit | Beschreibung
 --------------| -----------

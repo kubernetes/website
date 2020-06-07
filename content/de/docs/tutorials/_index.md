@@ -8,7 +8,7 @@ content_template: templates/concept
 {{% capture overview %}}
 
 Dieser Abschnitt der Kubernetes-Dokumentation enthält Tutorials.
-Ein Tutorial zeigt, wie Sie ein Ziel erreichen, das größer ist als eine einzelne [Aufgabe](/docs/tasks/). 
+Ein Tutorial zeigt, wie Sie ein Ziel erreichen, das größer ist als eine einzelne [Aufgabe](/docs/tasks/).
 Ein Tutorial besteht normalerweise aus mehreren Abschnitten, die jeweils eine Abfolge von Schritten haben.
 Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise ein Lesezeichen zur Seite mit dem [Standardisierten Glossar](/docs/reference/glossary/) setzen um später Informationen nachzuschlagen.
 

@@ -55,7 +55,7 @@ array has six possible fields:
 
 * The `message` field is a human-readable message indicating details
   about the transition.
-  
+
 * The `reason` field is a unique, one-word, CamelCase reason for the condition's last transition.
 
 * The `status` field is a string, with possible values "`True`", "`False`", and "`Unknown`".
@@ -67,8 +67,6 @@ array has six possible fields:
     balancing pools of all matching Services;
   * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers)
     have started successfully;
-  * `Unschedulable`: the scheduler cannot schedule the Pod right now, for example
-    due to lack of resources or other constraints;
   * `ContainersReady`: all containers in the Pod are ready.
 
 
@@ -101,7 +99,7 @@ Each probe has one of three results:
 * Failure: The Container failed the diagnostic.
 * Unknown: The diagnostic failed, so no action should be taken.
 
-The kubelet can optionally perform and react to two kinds of probes on running
+The kubelet can optionally perform and react to three kinds of probes on running
 Containers:
 
 * `livenessProbe`: Indicates whether the Container is running. If
@@ -115,7 +113,15 @@ Containers:
    state of readiness before the initial delay is `Failure`. If a Container does
    not provide a readiness probe, the default state is `Success`.
 
-### When should you use liveness or readiness probes?
+* `startupProbe`: Indicates whether the application within the Container is started.
+   All other probes are disabled if a startup probe is provided, until it succeeds.
+   If the startup probe fails, the kubelet kills the Container, and the Container
+   is subjected to its [restart policy](#restart-policy). If a Container does not
+   provide a startup probe, the default state is `Success`.
+
+### When should you use a liveness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 If the process in your Container is able to crash on its own whenever it
 encounters an issue or becomes unhealthy, you do not necessarily need a liveness
@@ -124,6 +130,10 @@ with the Pod's `restartPolicy`.
 
 If you'd like your Container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
+
+### When should you use a readiness probe?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 If you'd like to start sending traffic to a Pod only when a probe succeeds,
 specify a readiness probe. In this case, the readiness probe might be the same
@@ -142,8 +152,15 @@ puts itself into an unready state regardless of whether the readiness probe exis
 The Pod remains in the unready state while it waits for the Containers in the Pod
 to stop.
 
-For more information about how to set up a liveness or readiness probe, see
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+### When should you use a startup probe?
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+If your Container usually starts in more than `initialDelaySeconds + failureThreshold × periodSeconds`, you should specify a startup probe that checks the same endpoint as the liveness probe. The default for `periodSeconds` is 30s.
+You should then set its `failureThreshold` high enough to allow the Container to start, without changing the default values of the liveness probe. This helps to protect against deadlocks.
+
+For more information about how to set up a liveness, readiness, startup probe, see
+[Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## Pod and Container status
 
@@ -164,20 +181,20 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
    ...
       State:          Waiting
        Reason:       ErrImagePull
-	  ...
+   ...
    ```
-   
-* `Running`: Indicates that the container is executing without issues. Once a container enters into Running, `postStart` hook (if any) is executed. This state also displays the time when the container entered Running state.  
-   
+
+* `Running`: Indicates that the container is executing without issues. The `postStart` hook (if any) is executed prior to the container entering a Running state. This state also displays the time when the container entered Running state.
+
    ```yaml
    ...
       State:          Running
        Started:      Wed, 30 Jan 2019 16:46:38 +0530
    ...
-   ```   
-       
+   ```
+
 * `Terminated`:  Indicates that the container completed its execution and has stopped running. A container enters into this when it has successfully completed execution or when it has failed for some reason. Regardless, a reason and exit code is displayed, as well as the container's start and finish time. Before a container enters into Terminated, `preStop` hook (if any) is executed.
-  
+
    ```yaml
    ...
       State:          Terminated
@@ -186,33 +203,36 @@ Once Pod is assigned to a node by scheduler, kubelet starts creating containers 
         Started:      Wed, 30 Jan 2019 11:45:26 +0530
         Finished:     Wed, 30 Jan 2019 11:45:26 +0530
     ...
-   ``` 
+   ```
 
-## Pod readiness gate
+## Pod readiness {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-In order to add extensibility to Pod readiness by enabling the injection of
-extra feedback or signals into `PodStatus`, Kubernetes 1.11 introduced a
-feature named [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
-You can use the new field `ReadinessGate` in the `PodSpec` to specify additional
-conditions to be evaluated for Pod readiness. If Kubernetes cannot find such a
-condition in the `status.conditions` field of a Pod, the status of the condition 
-is default to "`False`". Below is an example:
+Your application can inject extra feedback or signals into PodStatus:
+_Pod readiness_. To use this, set `readinessGates` in the PodSpec to specify
+a list of additional conditions that the kubelet evaluates for Pod readiness.
+
+Readiness gates are determined by the current state of `status.condition`
+fields for the Pod. If Kubernetes cannot find such a
+condition in the `status.conditions` field of a Pod, the status of the condition
+is defaulted to "`False`". Below is an example:
+
+Here is an example:
 
 ```yaml
-Kind: Pod
+kind: Pod
 ...
 spec:
   readinessGates:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready  # this is a builtin PodCondition
+    - type: Ready                              # a built in PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
-    - type: "www.example.com/feature-1"   # an extra PodCondition
+    - type: "www.example.com/feature-1"        # an extra PodCondition
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
@@ -222,25 +242,26 @@ status:
 ...
 ```
 
-The new Pod conditions must comply with Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
-Since the `kubectl patch` command still doesn't support patching object status,
-the new Pod conditions have to be injected through the `PATCH` action using
-one of the [KubeClient libraries](/docs/reference/using-api/client-libraries/).
+The Pod conditions you add must have names that meet the Kubernetes [label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
 
-With the introduction of new Pod conditions, a Pod is evaluated to be ready **only**
-when both the following statements are true:
+
+### Status for Pod readiness {#pod-readiness-status}
+
+The `kubectl patch` command does not support patching object status.
+To set these `status.conditions` for the pod, applications and
+{{< glossary_tooltip term_id="operator-pattern" text="operators">}} should use
+the `PATCH` action.
+You can use a [Kubernetes client library](/docs/reference/using-api/client-libraries/) to
+write code that sets custom Pod conditions for Pod readiness.
+
+For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
+when both the following statements apply:
 
 * All containers in the Pod are ready.
-* All conditions specified in `ReadinessGates` are "`True`".
+* All conditions specified in `ReadinessGates` are `True`.
 
-To facilitate this change to Pod readiness evaluation, a new Pod condition
-`ContainersReady` is introduced to capture the old Pod `Ready` condition.
-
-In K8s 1.11, as an alpha feature, the "Pod Ready++" feature has to be explicitly enabled by
-setting the `PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to true.
-
-In K8s 1.12, the feature is enabled by default.
+When a Pod's containers are Ready but at least one custom condition is missing or
+`False`, the kubelet sets the Pod's condition to `ContainersReady`.
 
 ## Restart policy
 
@@ -257,31 +278,31 @@ once bound to a node, a Pod will never be rebound to another node.
 
 ## Pod lifetime
 
-In general, Pods do not disappear until someone destroys them. This might be a
-human or a controller. The only exception to
-this rule is that Pods with a `phase` of Succeeded or Failed for more than some
-duration (determined by `terminated-pod-gc-threshold` in the master) will expire and be automatically destroyed.
+In general, Pods remain until a human or
+{{< glossary_tooltip term_id="controller" text="controller" >}} process
+explicitly removes them.
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
+`Failed`), when the number of Pods exceeds the configured threshold
+(determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
+This avoids a resource leak as Pods are created and terminated over time.
 
-Three types of controllers are available:
+There are different kinds of resources for creating Pods:
 
-- Use a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) for Pods that are expected to terminate,
+- Use a {{< glossary_tooltip term_id="deployment" >}},
+  {{< glossary_tooltip term_id="replica-set" >}} or {{< glossary_tooltip term_id="statefulset" >}}
+  for Pods that are not expected to terminate, for example, web servers.
+
+- Use a {{< glossary_tooltip term_id="job" >}}
+  for Pods that are expected to terminate once their work is complete;
   for example, batch computations. Jobs are appropriate only for Pods with
   `restartPolicy` equal to OnFailure or Never.
 
-- Use a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), or
-  [Deployment](/docs/concepts/workloads/controllers/deployment/)
-  for Pods that are not expected to terminate, for example, web servers.
-  ReplicationControllers are appropriate only for Pods with a `restartPolicy` of
-  Always.
+- Use a {{< glossary_tooltip term_id="daemonset" >}}
+  for Pods that need to run one per eligible node.
 
-- Use a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) for Pods that need to run one per
-  machine, because they provide a machine-specific system service.
-
-All three types of controllers contain a PodTemplate. It
-is recommended to create the appropriate controller and let
-it create Pods, rather than directly create Pods yourself. That is because Pods
-alone are not resilient to machine failures, but controllers are.
+All workload resources contain a PodSpec. It is recommended to create the
+appropriate workload resource and let the resource's controller create Pods
+for you, rather than directly create Pods yourself.
 
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
@@ -378,7 +399,7 @@ spec:
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Get hands-on experience
-  [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 

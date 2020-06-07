@@ -59,7 +59,7 @@ More crucially, though, the first implementation of the IR allowed rapid prototy
 
 ## Ambassador >= v0.50: Envoy v2 APIs (ADS), Testing with KAT, and Golang
 
-In consultation with the [Ambassador community](http://d6e.co/slack), the [Datawire](www.datawire.io) team undertook a redesign of the internals of Ambassador in 2018. This was driven by two key goals. First, we wanted to integrate Envoy's v2 configuration format, which would enable the support of features such as [SNI](https://www.getambassador.io/user-guide/sni/), [rate limiting](https://www.getambassador.io/user-guide/rate-limiting) and [gRPC authentication APIs](https://www.getambassador.io/user-guide/auth-tutorial). Second, we also wanted to do much more robust semantic validation of Envoy configuration due to its increasing complexity (particularly when operating with large-scale application deployments).
+In consultation with the [Ambassador community](http://d6e.co/slack), the [Datawire](https://www.datawire.io) team undertook a redesign of the internals of Ambassador in 2018. This was driven by two key goals. First, we wanted to integrate Envoy's v2 configuration format, which would enable the support of features such as [SNI](https://www.getambassador.io/user-guide/sni/), [rate limiting](https://www.getambassador.io/user-guide/rate-limiting) and [gRPC authentication APIs](https://www.getambassador.io/user-guide/auth-tutorial). Second, we also wanted to do much more robust semantic validation of Envoy configuration due to its increasing complexity (particularly when operating with large-scale application deployments).
 
 
 ### Initial stages
@@ -68,7 +68,7 @@ We started by restructuring the Ambassador internals more along the lines of a m
 
 As we started working more closely with Envoy v2, a testing challenge was quickly identified. As more and more features were being supported in Ambassador, more and more bugs appeared in Ambassador's handling of less common but completely valid combinations of features. This drove to creation of a new testing requirement that meant Ambassador's test suite needed to be reworked to automatically manage many combinations of features, rather than relying on humans to write each test individually. Moreover, we wanted the test suite to be fast in order to maximize engineering productivity.
 
-Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Acceptance Test (KAT)](https://github.com/datawire/ambassador/tree/master/kat) framework. KAT is an extensible test framework that:
+Thus, as part of the Ambassador rearchitecture, we introduced the [Kubernetes Acceptance Test (KAT)](https://github.com/datawire/ambassador/tree/master/python/kat) framework. KAT is an extensible test framework that:
 
 
 

@@ -11,7 +11,7 @@ date: 2018-05-29
 [kustomization]: https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization
 [mailing list]: https://groups.google.com/forum/#!forum/kustomize
 [open an issue]: https://github.com/kubernetes-sigs/kustomize/issues/new
-[subproject]: https://github.com/kubernetes/community/blob/master/keps/sig-cli/0008-kustomize.md
+[subproject]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/0008-kustomize.md
 [SIG-CLI]: https://github.com/kubernetes/community/tree/master/sig-cli
 [workflow]: https://github.com/kubernetes-sigs/kustomize/blob/master/docs/workflows.md
 

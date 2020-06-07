@@ -1,0 +1,67 @@
+# Voici un exemple de configuration de cloud-controller-manager en tant que Daemonset dans votre cluster.
+# Il suppose que vos masters peuvent executer des pods et ont le role node-role.kubernetes.io/master
+# Notez que ce Daemonset ne fonctionnera pas directement pour votre cloud, c’est juste un exemple.
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:cloud-controller-manager
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: cloud-controller-manager
+  namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: cloud-controller-manager
+  name: cloud-controller-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: cloud-controller-manager
+  template:
+    metadata:
+      labels:
+        k8s-app: cloud-controller-manager
+    spec:
+      serviceAccountName: cloud-controller-manager
+      containers:
+      - name: cloud-controller-manager
+        # pour les fournisseurs in-tree, nous utilisons k8s.gcr.io/cloud-controller-manager
+        # cela peut être remplacé par n'importe quelle autre image pour les fournisseurs out-of-tree
+        image: k8s.gcr.io/cloud-controller-manager:v1.8.0
+        command:
+        - /usr/local/bin/cloud-controller-manager
+        - --cloud-provider=<YOUR_CLOUD_PROVIDER>   # Ajoutez votre propre fournisseur de cloud ici!
+        - --leader-elect=true
+        - --use-service-account-credentials
+        # ces drapeaux varient pour chaque fournisseur de cloud
+        - --allocate-node-cidrs=true
+        - --configure-cloud-routes=true
+        - --cluster-cidr=172.17.0.0/16
+      tolerations:
+      # cela est nécessaire pour que CCM puisse s'initialiser
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        value: "true"
+        effect: NoSchedule
+      # le daemonset doit pouvoir être exécuté sur les nœuds master. Le marquage peut varier en fonction de la configuration de votre cluster.
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      # ceci limite le fonctionnement du CCM sur des nœuds master
+      # le sélecteur de nœud peut varier en fonction de la configuration de votre cluster
+      nodeSelector:
+        node-role.kubernetes.io/master: ""

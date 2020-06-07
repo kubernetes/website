@@ -19,19 +19,19 @@ Kubernetes cluster.
 
 ## Add a label to a node
 
-1. List the nodes in your cluster:
+1. List the {{< glossary_tooltip term_id="node" text="nodes" >}} in your cluster, along with their labels:
 
     ```shell
-    kubectl get nodes
+    kubectl get nodes --show-labels
     ```
 
     The output is similar to this:
 
     ```shell
-    NAME      STATUS    ROLES     AGE     VERSION
-    worker0   Ready     <none>    1d      v1.13.0
-    worker1   Ready     <none>    1d      v1.13.0
-    worker2   Ready     <none>    1d      v1.13.0
+    NAME      STATUS    ROLES    AGE     VERSION        LABELS
+    worker0   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker0
+    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
+    worker2   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker2
     ```
 1. Chose one of your nodes, and add a label to it:
 
@@ -97,7 +97,7 @@ Use the configuration file to create a pod that will get scheduled on `foo-node`
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-Learn more about
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+* Learn more about [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+* Learn more about [nodes](/docs/concepts/architecture/nodes/).
 {{% /capture %}}
 

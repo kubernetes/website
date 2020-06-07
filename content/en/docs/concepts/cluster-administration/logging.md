@@ -36,6 +36,9 @@ To run this pod, use the following command:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
+```
+The output is:
+```
 pod/counter created
 ```
 
@@ -43,6 +46,9 @@ To fetch the logs, use the `kubectl logs` command, as follows:
 
 ```shell
 kubectl logs counter
+```
+The output is:
+```
 0: Mon Jan  1 00:00:00 UTC 2001
 1: Mon Jan  1 00:00:01 UTC 2001
 2: Mon Jan  1 00:00:02 UTC 2001
@@ -70,7 +76,7 @@ should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
+rotate application's logs automatically, for example by using Docker's `log-opt`.
 In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
 and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
@@ -105,7 +111,7 @@ systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
 bypassing the default logging mechanism. They use the [klog][klog]
 logging library. You can find the conventions for logging severity for those
-components in the [development docs on logging](https://git.k8s.io/community/contributors/devel/logging.md).
+components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Similarly to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by

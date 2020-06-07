@@ -1,8 +1,7 @@
 ---
 title: Mirror Pod
 id: mirror-pod
-date: 2091-02-12
-full_link: 
+date: 2019-08-06
 short_description: >
   An object in the API server that tracks a static pod on a kubelet.
 

@@ -28,7 +28,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
+See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## How to create objects
@@ -109,17 +109,17 @@ several manual steps.
 
 1. Export the live object to a local object configuration file:
 
-```shell
-kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
-```
+    ```shell
+    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
+    ```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
 
-```shell
-kubectl replace -f <kind>_<name>.yaml
-```
+    ```shell
+    kubectl replace -f <kind>_<name>.yaml
+    ```
 
 ## Defining controller selectors and PodTemplate labels
 
@@ -135,11 +135,11 @@ Example label:
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
 {{% /capture %}}

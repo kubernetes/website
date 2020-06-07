@@ -11,7 +11,7 @@ weight: 80
 {{% capture overview %}}
 
 A security context defines privilege and access control settings for
-a Pod or Container. Security context settings include:
+a Pod or Container. Security context settings include, but are not limited to:
 
 * Discretionary Access Control: Permission to access an object, like a file, is based on
 [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
@@ -27,6 +27,12 @@ a Pod or Container. Security context settings include:
 * [Seccomp](https://en.wikipedia.org/wiki/Seccomp): Filter a process's system calls.
 
 * AllowPrivilegeEscalation: Controls whether a process can gain more privileges than its parent process. This bool directly controls whether the [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt) flag gets set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged OR 2) has `CAP_SYS_ADMIN`.
+
+* readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
+
+The above bullets are not a complete set of security context settings -- please see 
+[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) 
+for a comprehensive list.
 
 For more information about security mechanisms in Linux, see
 [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
@@ -53,7 +59,7 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 
 In the configuration file, the `runAsUser` field specifies that for any Containers in
 the Pod, all processes run with user ID 1000. The `runAsGroup` field specifies the primary group ID of 3000 for 
-all processes within any containers of the Pod. If this field is ommitted, the primary group ID of the containers 
+all processes within any containers of the Pod. If this field is omitted, the primary group ID of the containers
 will be root(0). Any files created will also be owned by user 1000 and group 3000 when `runAsGroup` is specified. 
 Since `fsGroup` field is specified, all processes of the container are also part of the supplementary group ID 2000. 
 The owner for volume `/data/demo` and any files created in that volume will be Group ID 2000. 
@@ -130,7 +136,7 @@ Run the following command:
 $ id
 uid=1000 gid=3000 groups=2000
 ```
-You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was ommitted the gid would
+You will see that gid is 3000 which is same as `runAsGroup` field. If the `runAsGroup` was omitted the gid would
 remain as 0(root) and the process will be able to interact with files that are owned by root(0) group and that have 
 the required group permissions for root(0) group.
 
@@ -139,6 +145,45 @@ Exit your shell:
 ```shell
 exit
 ```
+
+## Configure volume permission and ownership change policy for Pods
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+By default, Kubernetes recursively changes ownership and permissions for the contents of each
+volume to match the `fsGroup` specified in a Pod's `securityContext` when that volume is
+mounted.
+For large volumes, checking and changing ownership and permissions can take a lot of time,
+slowing Pod startup. You can use the `fsGroupChangePolicy` field inside a `securityContext`
+to control the way that Kubernetes checks and manages ownership and permissions
+for a volume.
+
+**fsGroupChangePolicy** -  `fsGroupChangePolicy` defines behavior for changing ownership and permission of the volume
+before being exposed inside a Pod. This field only applies to volume types that support
+`fsGroup` controlled ownership and permissions. This field has two possible values:
+
+* _OnRootMismatch_: Only change permissions and ownership if permission and ownership of root directory does not match with expected permissions of the volume. This could help shorten the time it takes to change ownership and permission of a volume.
+* _Always_: Always change permission and ownership of the volume when volume is mounted.
+
+For example:
+
+```yaml
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+  fsGroupChangePolicy: "OnRootMismatch"
+```
+
+This is an alpha feature. To use it, enable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ConfigurableFSGroupPolicy` for the kube-api-server, the kube-controller-manager, and for the kubelet.
+
+{{< note >}}
+This field has no effect on ephemeral volume types such as
+[`secret`](https://kubernetes.io/docs/concepts/storage/volumes/#secret),
+[`configMap`](https://kubernetes.io/docs/concepts/storage/volumes/#configmap),
+and [`emptydir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
+{{< /note >}}
+
 
 ## Set the security context for a Container
 
@@ -352,6 +397,17 @@ label given to all Containers in the Pod as well as the Volumes.
 {{< warning >}}
 After you specify an MCS label for a Pod, all Pods with the same label can access the Volume. If you need inter-Pod protection, you must assign a unique MCS label to each Pod.
 {{< /warning >}}
+
+## Clean up
+
+Delete the Pod:
+
+```shell
+kubectl delete pod security-context-demo
+kubectl delete pod security-context-demo-2
+kubectl delete pod security-context-demo-3
+kubectl delete pod security-context-demo-4
+```
 
 {{% /capture %}}
 

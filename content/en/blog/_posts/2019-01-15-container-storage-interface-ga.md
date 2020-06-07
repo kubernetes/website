@@ -166,7 +166,7 @@ Storage vendors can build Kubernetes deployments for their plugins using these c
 
 ## List of CSI Drivers
 
-CSI drivers are developed and maintained by third parties. You can find a non-definitive list of CSI drivers [here](https://kubernetes-csi.github.io/docs/Drivers.html).
+CSI drivers are developed and maintained by third parties. You can find a non-definitive list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
 
 ## What about in-tree volume plugins?
 

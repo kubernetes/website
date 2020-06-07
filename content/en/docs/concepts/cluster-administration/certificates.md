@@ -25,7 +25,8 @@ manually through `easyrsa`, `openssl` or `cfssl`.
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
-1.  Generate a CA. (`--batch` set automatic mode. `--req-cn` default CN to use.)
+1.  Generate a new certificate authority (CA). `--batch` sets automatic mode;
+    `--req-cn` specifies the Common Name (CN) for the CA's new root certificate.
 
         ./easyrsa --batch "--req-cn=${MASTER_IP}@`date +%s`" build-ca nopass
 1.  Generate server certificate and key.
@@ -129,11 +130,11 @@ Finally, add the same parameters into the API server start parameters.
     Note that you may need to adapt the sample commands based on the hardware
     architecture and cfssl version you are using.
 
-        curl -L https://pkg.cfssl.org/R1.2/cfssl_linux-amd64 -o cfssl
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl_1.4.1_linux_amd64 -o cfssl
         chmod +x cfssl
-        curl -L https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64 -o cfssljson
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssljson_1.4.1_linux_amd64 -o cfssljson
         chmod +x cfssljson
-        curl -L https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64 -o cfssl-certinfo
+        curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl-certinfo_1.4.1_linux_amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
 1.  Create a directory to hold the artifacts and initialize cfssl:
 
@@ -162,7 +163,7 @@ Finally, add the same parameters into the API server start parameters.
           }
         }
 1.  Create a JSON config file for CA certificate signing request (CSR), for example,
-    `ca-csr.json`. Be sure the replace the values marked with angle brackets with
+    `ca-csr.json`. Be sure to replace the values marked with angle brackets with
     real values you want to use.
 
         {

@@ -73,21 +73,11 @@ Make sure:
   tested with the upstream version, and does not promise support for other features.
   {{< /note >}}
 
-3. Container runtime is Docker -- Currently the only Kubernetes-supported container runtime that
-   also supports AppArmor is Docker. As more runtimes add AppArmor support, the options will be
-   expanded. You can verify that your nodes are running docker with:
-
-   ```shell
-   kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {@.status.nodeInfo.containerRuntimeVersion}\n{end}'
-   ```
-   ```
-   gke-test-default-pool-239f5d02-gyn2: docker://1.11.2
-   gke-test-default-pool-239f5d02-x1kf: docker://1.11.2
-   gke-test-default-pool-239f5d02-xwux: docker://1.11.2
-   ```
-
-   If the Kubelet contains AppArmor support (>= v1.4), it will refuse to run a Pod with AppArmor
-   options if the runtime is not Docker.
+3. Container runtime supports AppArmor -- Currently all common Kubernetes-supported container
+   runtimes should support AppArmor, like {{< glossary_tooltip term_id="docker">}},
+   {{< glossary_tooltip term_id="cri-o" >}} or {{< glossary_tooltip term_id="containerd" >}}.
+   Please refer to the corresponding runtime documentation and verify that the cluster fulfills
+   the requirements to use AppArmor.
 
 4. Profile is loaded -- AppArmor is applied to a Pod by specifying an AppArmor profile that each
    container should be run with. If any of the specified profiles is not already loaded in the
@@ -159,7 +149,7 @@ To verify that the profile was applied, you can look for the AppArmor security o
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-minion-group-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
 
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
@@ -178,7 +168,18 @@ k8s-apparmor-example-deny-write (enforce)
 First, we need to load the profile we want to use onto our nodes. The profile we'll use simply
 denies all file writes:
 
-{{< code language="text" file="deny-write.profile" >}}
+```shell
+#include <tunables/global>
+
+profile k8s-apparmor-example-deny-write flags=(attach_disconnected) {
+  #include <abstractions/base>
+
+  file,
+
+  # Deny all file writes.
+  deny /** w,
+}
+```
 
 Since we don't know where the Pod will be scheduled, we'll need to load the profile on all our
 nodes. For this example we'll just use SSH to install the profiles, but other approaches are
@@ -315,8 +316,8 @@ Tolerations:    <none>
 Events:
   FirstSeen    LastSeen    Count    From                        SubobjectPath    Type        Reason        Message
   ---------    --------    -----    ----                        -------------    --------    ------        -------
-  23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-minion-group-t1f5
-  23s          23s         1        {kubelet e2e-test-stclair-minion-group-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
+  23s          23s         1        {default-scheduler }                         Normal      Scheduled     Successfully assigned hello-apparmor-2 to e2e-test-stclair-node-pool-t1f5
+  23s          23s         1        {kubelet e2e-test-stclair-node-pool-t1f5}             Warning        AppArmor    Cannot enforce AppArmor: profile "k8s-apparmor-example-allow-write" is not loaded
 ```
 
 Note the pod status is Failed, with a helpful error message: `Pod Cannot enforce AppArmor: profile
@@ -340,7 +341,7 @@ nodes. There are lots of ways to setup the profiles though, such as:
 The scheduler is not aware of which profiles are loaded onto which node, so the full set of profiles
 must be loaded onto every node.  An alternative approach is to add a node label for each profile (or
 class of profiles) on the node, and use a
-[node selector](/docs/concepts/configuration/assign-pod-node/) to ensure the Pod is run on a
+[node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
 ### Restricting profiles with the PodSecurityPolicy

@@ -13,7 +13,7 @@ Kubernetes Security (and security in general) is an immense topic that has many
 highly interrelated parts. In today's era where open source software is
 integrated into many of the systems that help web applications run,
 there are some overarching concepts that can help guide your intuition about how you can
-think about security holistically. This guide will define a mental model for
+think about security holistically. This guide will define a mental model
 for some general concepts surrounding Cloud Native Security. The mental model is completely arbitrary
 and you should only use it if it helps you think about where to secure your software
 stack.
@@ -75,9 +75,9 @@ consult your documentation for security best practices.
 Area of Concern for Kubernetes Infrastructure | Recommendation |
 --------------------------------------------- | ------------ |
 Network access to API Server (Masters) | Ideally all access to the Kubernetes Masters is not allowed publicly on the internet and is controlled by network access control lists restricted to the set of IP addresses needed to administer the cluster.|
-Network access to Nodes (Worker Servers) | Nodes should be configured to _only_ accept connections (via network access control lists) from the masters on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, this nodes should not exposed on the public internet entirely.
+Network access to Nodes (Worker Servers) | Nodes should be configured to _only_ accept connections (via network access control lists) from the masters on the specified ports, and accept connections for services in Kubernetes of type NodePort and LoadBalancer. If possible, these nodes should not be exposed on the public internet entirely.
 Kubernetes access to Cloud Provider API | Each cloud provider will need to grant a different set of permissions to the Kubernetes Masters and Nodes, so this recommendation will be more generic. It is best to provide the cluster with cloud provider access that follows the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) for the resources it needs to administer. An example for Kops in AWS can be found here: https://github.com/kubernetes/kops/blob/master/docs/iam_roles.md#iam-roles
-Access to etcd | Access to etcd (the datastore of Kubernetes) should be limited to the masters only. Depending on your configuration you should also attempt to use etcd over TLS. More info can be found here: https://github.com/etcd-io/etcd/tree/master/Documentation#security
+Access to etcd | Access to etcd (the datastore of Kubernetes) should be limited to the masters only. Depending on your configuration, you should also attempt to use etcd over TLS. More info can be found here: https://github.com/etcd-io/etcd/tree/master/Documentation#security
 etcd Encryption | Wherever possible it's a good practice to encrypt all drives at rest, but since etcd holds the state of the entire cluster (including Secrets) its disk should especially be encrypted at rest.
 
 ## Cluster
@@ -142,9 +142,9 @@ Area of Concern for Code | Recommendation |
 --------------------------------------------- | ------------ |
 Access over TLS only | If your code needs to communicate via TCP, ideally it would be performing a TLS handshake with the client ahead of time. With the exception of a few cases, the default behavior should be to encrypt everything in transit. Going one step further, even "behind the firewall" in our VPC's it's still a good idea to encrypt network traffic between services. This can be done through a process known as mutual or [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication) which performs a two sided verification of communication between two certificate holding services. There are numerous tools that can be used to accomplish this in Kubernetes such as [Linkerd](https://linkerd.io/) and [Istio](https://istio.io/). |
 Limiting port ranges of communication | This recommendation may be a bit self-explanatory, but wherever possible you should only expose the ports on your service that are absolutely essential for communication or metric gathering. |
-3rd Party Dependency Security | Since our applications tend to have dependencies outside of our own codebases, it is a good practice to ensure that a regular scan of the code's dependencies are still secure with no CVE's currently filed against them. Each language has a tool for performing this check automatically. |
-Static Code Analysis | Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. Some of the tools can be found here: https://www.owasp.org/index.php/Source_Code_Analysis_Tools |
-Dynamic probing attacks | There are a few automated tools that are able to be run against your service to try some of the well known attacks that commonly befall services. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the OWASP Zed Attack proxy https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project |
+3rd Party Dependency Security | Since our applications tend to have dependencies outside of our own codebases, it is a good practice to regularly scan the code's dependencies to ensure that they are still secure with no vulnerabilities currently filed against them. Each language has a tool for performing this check automatically. |
+Static Code Analysis | Most languages provide a way for a snippet of code to be analyzed for any potentially unsafe coding practices. Whenever possible you should perform checks using automated tooling that can scan codebases for common security errors. Some of the tools can be found here: https://owasp.org/www-community/Source_Code_Analysis_Tools |
+Dynamic probing attacks | There are a few automated tools that are able to be run against your service to try some of the well known attacks that commonly befall services. These include SQL injection, CSRF, and XSS. One of the most popular dynamic analysis tools is the OWASP Zed Attack proxy https://owasp.org/www-project-zap/ |
 
 
 ## Robust automation

@@ -1,4 +1,5 @@
 ---
+draft: True
 title: Nodi
 content_template: templates/concept
 weight: 10
@@ -97,7 +98,7 @@ numero di pod che possono essere programmati sul nodo.
 
 Informazioni generali sul nodo, come la versione del kernel, la versione di Kubernetes
 (versione kubelet e kube-proxy), versione Docker (se utilizzata), nome del sistema operativo.
-Le informazioni sono raccolte da Kubelet dal nodo. 
+Le informazioni sono raccolte da Kubelet dal nodo.
 
 ## Management
 
@@ -161,7 +162,7 @@ controlla lo stato di ogni nodo ogni `--node-monitor-period` secondi.
 Nelle versioni di Kubernetes precedenti alla 1.13, NodeStatus è l'heartbeat di
 nodo. A partire da Kubernetes 1.13, la funzionalità di lease del nodo viene introdotta come un
 funzione alfa (porta caratteristica `NodeLease`,
-[KEP-0009](https://github.com/kubernetes/community/blob/master/keps/sig-node/0009-node-heartbeat.md)).
+[KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)).
 Quando la funzione di lease del nodo è abilitata, ogni nodo ha un oggetto `Lease` associato in
 spazio dei nomi `kube-node-lease` che viene rinnovato periodicamente dal nodo ed entrambi
 NodeStatus e lease del nodo vengono considerati heartbeat dal nodo. Locazioni di nodi
@@ -211,7 +212,7 @@ NodeController è responsabile per l'aggiunta di taints corrispondenti ai proble
 nodo irraggiungibile o non pronto. Vedi [questa documentazione](/docs/concepts/configuration/taint-and-toleration/)
 per i dettagli su `NoExecute` taints e la funzione alpha.
 
-partire dalla versione 1.8, il controller del nodo può essere reso responsabile della creazione di taints che rappresentano le condizioni del nodo. 
+partire dalla versione 1.8, il controller del nodo può essere reso responsabile della creazione di taints che rappresentano le condizioni del nodo.
 Questa è una caratteristica alfa della versione 1.8.
 
 ### Self-Registration of Nodes
@@ -229,7 +230,7 @@ Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni:
   - `--node-labels` - Etichette da aggiungere quando si registra il nodo nel cluster (vedere le restrizioni dell'etichetta applicate dal [plugin di accesso NodeRestriction](/docs/reference/access-authn-authz/admission-controller/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifica la frequenza con cui kubelet invia lo stato del nodo al master
 
-Quando [Node authorization mode](/docs/reference/access-authn-authz/node/) e 
+Quando [Node authorization mode](/docs/reference/access-authn-authz/node/) e
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) sono abilitati,
 kubelets è autorizzato solo a creare / modificare la propria risorsa nodo.
 

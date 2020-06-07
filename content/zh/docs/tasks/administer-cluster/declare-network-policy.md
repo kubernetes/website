@@ -38,7 +38,7 @@ content_template: templates/task
 ```console
 $ kubectl run nginx --image=nginx --replicas=2
 deployment "nginx" created
-$ kubectl expose deployment nginx --port=80 
+$ kubectl expose deployment nginx --port=80
 service "nginx" exposed
 ```
 
@@ -121,7 +121,7 @@ Waiting for pod default/busybox-472357175-y0m47 to be running, status is Pending
 
 Hit enter for command prompt
 
-/ # wget --spider --timeout=1 nginx 
+/ # wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 wget: download timed out
 / #

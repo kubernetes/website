@@ -9,7 +9,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-Dieser Abschnitt der Kubernetes-Dokumentation enthält Seiten, die zeigen, wie man einzelne Aufgaben erledigt. 
+Dieser Abschnitt der Kubernetes-Dokumentation enthält Seiten, die zeigen, wie man einzelne Aufgaben erledigt.
 Eine Aufgabenseite zeigt, wie man eine einzelne Aufgabe ausführt, typischerweise durch eine kurze Abfolge von Schritten.
 
 {{% /capture %}}

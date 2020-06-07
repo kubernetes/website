@@ -1,0 +1,200 @@
+---
+title: Ознайомлення з Pod'ами і вузлами (nodes)
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <!--<h3>Objectives</h3>
+          -->
+          <h3>Цілі</h3>
+                <ul>
+                    <!--<li>Learn about Kubernetes Pods.</li>
+                    -->
+                    <li>Дізнатися, що таке Pod'и Kubernetes.</li>
+                    <!--<li>Learn about Kubernetes Nodes.</li>
+                    -->
+                    <li>Дізнатися, що таке вузли Kubernetes.</li>
+                    <!--<li>Troubleshoot deployed applications.</li>
+                    -->
+                    <li>Діагностика розгорнутих застосунків.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!--<h2>Kubernetes Pods</h2>
+                -->
+                <h2>Pod'и Kubernetes</h2>
+                <!--<p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
+                -->
+                <p>Коли ви створили Deployment у модулі <a href="/uk/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes створив <b>Pod</b>, щоб розмістити ваш застосунок. Pod - це абстракція в Kubernetes, що являє собою групу з одного або декількох контейнерів застосунку (як Docker або rkt) і ресурси, спільні для цих контейнерів. До цих ресурсів належать:</p>
+                <ul>
+                    <!--<li>Shared storage, as Volumes</li>
+                    -->
+                    <li>Спільні сховища даних, або Volumes</li>
+                    <!--<li>Networking, as a unique cluster IP address</li>
+                    -->
+                    <li>Мережа, адже кожен Pod у кластері має унікальну IP-адресу</li>
+                    <!--<li>Information about how to run each container, such as the container image version or specific ports to use</li>
+                    -->
+                    <li>Інформація з запуску кожного контейнера, така як версія образу контейнера або використання певних портів</li>
+                </ul>
+                <!--<p>A Pod models an application-specific "logical host" and can contain different application containers which are relatively tightly coupled. For example, a Pod might include both the container with your Node.js app as well as a different container that feeds the data to be published by the Node.js webserver. The containers in a Pod share an IP Address and port space, are always co-located and co-scheduled, and run in a shared context on the same Node.</p>
+                -->
+                <p>Pod моделює специфічний для даного застосунку "логічний хост" і може містити різні, але доволі щільно зв'язані контейнери. Наприклад, в одному Pod'і може бути контейнер з вашим Node.js застосунком та інший контейнер, що передає дані для публікації Node.js вебсерверу. Контейнери в межах Pod'а мають спільну IP-адресу і порти, завжди є сполученими, плануються для запуску разом і запускаються у спільному контексті на одному вузлі.</p>
+
+            <!--<p>Pods are the atomic unit on the Kubernetes platform. When we create a Deployment on Kubernetes, that Deployment creates Pods with containers inside them (as opposed to creating containers directly). Each Pod is tied to the Node where it is scheduled, and remains there until termination (according to restart policy) or deletion. In case of a Node failure, identical Pods are scheduled on other available Nodes in the cluster.</p>
+            -->
+            <p>Pod є неподільною одиницею платформи Kubernetes. Коли ви створюєте Deployment у Kubernetes, цей Deployment створює Pod'и вже з контейнерами всередині, на відміну від створення контейнерів окремо. Кожен Pod прив'язаний до вузла, до якого його було розподілено, і лишається на ньому до припинення роботи (згідно з політикою перезапуску) або видалення. У разі відмови вузла ідентичні Pod'и розподіляються по інших доступних вузлах кластера.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Зміст:</h3>
+                    <ul>
+                        <li>Pod'и</li>
+                        <li>Вузли</li>
+                        <li>Основні команди kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <!--<p><i>
+                            A Pod is a group of one or more application containers (such as Docker or rkt) and includes shared storage (volumes), IP address and information about how to run them.
+                        </i></p>
+                        -->
+                        <p><i>
+                            Pod - це група з одного або декількох контейнерів (таких як Docker або rkt), що має спільне сховище даних (volumes), унікальну IP-адресу і містить інформацію як їх запустити.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Узагальнена схема Pod'ів</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<h2>Nodes</h2>
+                -->
+                <h2>Вузли</h2>
+                <!--<p>A Pod always runs on a <b>Node</b>. A Node is a worker machine in Kubernetes and may be either a virtual or a physical machine, depending on the cluster. Each Node is managed by the Master. A Node can have multiple pods, and the Kubernetes master automatically handles scheduling the pods across the Nodes in the cluster. The Master's automatic scheduling takes into account the available resources on each Node.</p>
+                -->
+                <p>Pod завжди запускається на <b>вузлі</b>. Вузол - це робоча машина в Kubernetes, віртуальна або фізична, в залежності від кластера. Функціонування кожного вузла контролюється master'ом. Вузол може мати декілька Pod'ів. Kubernetes master автоматично розподіляє Pod'и по вузлах кластера з урахуванням ресурсів, наявних на кожному вузлі.</p>
+
+                <!--<p>Every Kubernetes Node runs at least:</p>
+                -->
+                <p>На кожному вузлі Kubernetes запущені як мінімум:</p>
+                <ul>
+                    <!--<li>Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.</li>
+                    -->
+                    <li>kubelet - процес, що забезпечує обмін даними між Kubernetes master і робочим вузлом; kubelet контролює Pod'и і контейнери, запущені на машині.</li>
+                    <!--<li>A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
+                    -->
+                    <li>оточення для контейнерів (таке як Docker, rkt), що забезпечує завантаження образу контейнера з реєстру, розпакування контейнера і запуск застосунку.</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--<p><i> Containers should only be scheduled together in a single Pod if they are tightly coupled and need to share resources such as disk. </i></p>
+                    -->
+                    <p><i> Контейнери повинні бути разом в одному Pod'і, лише якщо вони щільно зв'язані і мають спільні ресурси, такі як диск. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Узагальнена схема вузлів</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<h2>Troubleshooting with kubectl</h2>
+                -->
+                <h2>Діагностика за допомогою kubectl</h2>
+                <!--<p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:</p>
+                -->
+                <p>У модулі <a href="/uk/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a> ви вже використовували інтерфейс командного рядка kubectl. У модулі 3 ви продовжуватимете користуватися ним для отримання інформації про застосунки та оточення, в яких вони розгорнуті. Нижченаведені команди kubectl допоможуть вам виконати наступні поширені дії:</p>
+                <ul>
+                    <!--<li><b>kubectl get</b> - list resources</li>
+                    -->
+                    <li><b>kubectl get</b> - відобразити список ресурсів</li>
+                    <!--<li><b>kubectl describe</b> - show detailed information about a resource</li>
+                    --> 
+                    <li><b>kubectl describe</b> - показати детальну інформацію про ресурс</li>
+                    <!--<li><b>kubectl logs</b> - print the logs from a container in a pod</li>
+                    -->
+                    <li><b>kubectl logs</b> - вивести логи контейнера, розміщеного в Pod'і</li>
+                    <!--<li><b>kubectl exec</b> - execute a command on a container in a pod</li>
+                    -->
+                    <li><b>kubectl exec</b> - виконати команду в контейнері, розміщеному в Pod'і</li>
+                </ul>
+
+                <!--<p>You can use these commands to see when applications were deployed, what their current statuses are, where they are running and what their configurations are.</p>
+                -->
+                <p>За допомогою цих команд ви можете подивитись, коли і в якому оточенні був розгорнутий застосунок, перевірити його поточний статус і конфігурацію.</p>
+
+                <!--<p>Now that we know more about our cluster components and the command line, let's explore our application.</p>
+                -->
+                <p>А зараз, коли ми дізналися більше про складові нашого кластера і командний рядок, давайте детальніше розглянемо наш застосунок.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--<p><i> A node is a worker machine in Kubernetes and may be a VM or physical machine, depending on the cluster. Multiple Pods can run on one Node. </i></p>
+                    -->
+                    <p><i> Вузол - це робоча машина в Kubernetes, віртуальна або фізична, в залежності від кластера. На одному вузлі можуть бути запущені декілька Pod'ів. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

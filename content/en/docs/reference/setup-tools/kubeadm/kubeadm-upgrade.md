@@ -1,6 +1,5 @@
 ---
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: kubeadm upgrade
@@ -8,27 +7,32 @@ content_template: templates/concept
 weight: 40
 ---
 {{% capture overview %}}
-`kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic behind one command, with support
-for both planning an upgrade and actually performing it. `kubeadm upgrade` can also be used for downgrading
-cluster if necessary.
+`kubeadm upgrade` is a user-friendly command that wraps complex upgrading logic
+behind one command, with support for both planning an upgrade and actually performing it.
 {{% /capture %}}
 
 {{% capture body %}}
+
 ## kubeadm upgrade guidance
 
-Every upgrade process might be a bit different, so we've documented each minor upgrade process individually.
-For more version-specific upgrade guidance, see the following resources:
+The steps for performing a upgrade using kubeadm are outlined in [this document](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
+For older versions of kubeadm, please refer to older documentation sets of the Kubernetes website.
 
- * [1.10 to 1.11 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/)
- * [1.11 to 1.12 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-12/)
- * [1.12 to 1.13 upgrades](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13/)
- 
-_For older versions, please refer to older documentation sets on the Kubernetes website._
-
-In Kubernetes v1.11.0 and later, you can use `kubeadm upgrade diff` to see the changes that would be
-applied to static pod manifests.
+You can use `kubeadm upgrade diff` to see the changes that would be applied to static pod manifests.
 
 To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [this guide](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-addon).
+
+In Kubernetes v1.15.0 and later, `kubeadm upgrade apply` and `kubeadm upgrade node` will also
+automatically renew the kubeadm managed certificates on this node, including those stored in kubeconfig files.
+To opt-out, it is possible to pass the flag `--certificate-renewal=false`. For more details about certificate
+renewal see the [certificate management documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+
+{{< note >}}
+The commands `kubeadm upgrade apply` and `kubeadm upgrade plan` have a legacy `--config`
+flag which makes it possible to reconfigure the cluster, while performing planning or upgrade of that particular
+control-plane node. Please be aware that the upgrade workflow was not designed for this scenario and there are
+reports of unexpected results.
+{{</ note >}}
 
 ## kubeadm upgrade plan {#cmd-upgrade-plan}
 {{< include "generated/kubeadm_upgrade_plan.md" >}}
@@ -39,11 +43,8 @@ To use kube-dns with upgrades in Kubernetes v1.13.0 and later please follow [thi
 ## kubeadm upgrade diff {#cmd-upgrade-diff}
 {{< include "generated/kubeadm_upgrade_diff.md" >}}
 
-## kubeadm upgrade node config {#cmd-upgrade-node-config}
-{{< include "generated/kubeadm_upgrade_node_config.md" >}}
-
-## kubeadm upgrade node experimental-control-plane {#cmd-experimental-control-plane}
-{{< include "generated/kubeadm_upgrade_node_experimental-control-plane.md" >}}
+## kubeadm upgrade node {#cmd-upgrade-node}
+{{< include "generated/kubeadm_upgrade_node.md" >}}
 
 {{% /capture %}}
 
