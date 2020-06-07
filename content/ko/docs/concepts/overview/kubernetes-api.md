@@ -15,7 +15,7 @@ API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/referen
 
 API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/)에서 논의되었다.
 
-쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
+쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
 
 쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다.
 

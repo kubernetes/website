@@ -18,7 +18,7 @@ API 오브젝트로 취급되고,
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)에 상응하는 항목이 있다.
 
 대부분의 작업은 API에 의존하고 있는
-[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
+[kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과 같은 다른 커맨드라인 툴을 통해 수행할 수 있다.
 그러나, REST 호출 사용을 통해서 API에 직접 접근할 수도 있다.
 
@@ -110,5 +110,3 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 {{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
 {{% /capture %}}
-
-
