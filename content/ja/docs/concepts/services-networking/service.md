@@ -49,7 +49,7 @@ Serviceによる抽象化は、クライアントからバックエンドのPod�
 
 ## Serviceの定義
 
-KubernetesのServiceはPodと同様にRESTのオブジェクトです。他のRESTオブジェクトと同様に、ユーザーはServiceの新しいインスタンスを作成するためにAPIサーバーに対してServiceの定義を`POST`できます。Serviceオブジェクトの名前は、有効なDNSラベル名である必要があります。
+KubernetesのServiceはPodと同様にRESTのオブジェクトです。他のRESTオブジェクトと同様に、ユーザーはServiceの新しいインスタンスを作成するためにAPIサーバーに対してServiceの定義を`POST`できます。Serviceオブジェクトの名前は、有効な[DNSラベル名](/ja/docs/concepts/overview/working-with-objects/names#dns-label-names)である必要があります。
 
 例えば、TCPで9376番ポートで待ち受けていて、`app=Myapp`というラベルをもつPodのセットがあるとします。
 
