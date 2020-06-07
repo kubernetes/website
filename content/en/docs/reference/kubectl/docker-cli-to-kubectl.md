@@ -43,8 +43,10 @@ pod/nginx-app created
 ```
 
 {{< note >}}
-`kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Pod is created.
+Pods are considered to be relatively ephemeral (rather than durable) entities，so you should use Deployment instead to make sure that your container are available throughout the cluster,see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands/#-em-deployment-em-),or [assign this pod to Node](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector).
 {{< /note >}}
+
+You can expose a new Service after a Pod is created.
 
 ```shell
 # expose a port through with a service
@@ -54,7 +56,7 @@ kubectl expose pod nginx-app --port=80 --name=nginx-http
 service "nginx-http" exposed
 ```
 
-By using kubectl, you can create a [Pod](/docs/concepts/workloads/pods/pod/) to ensure that pod are running nginx. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
+By using kubectl, you can create a [Pod](/docs/concepts/workloads/pods/pod/) that pod are running nginx. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
 
