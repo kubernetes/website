@@ -133,6 +133,10 @@ will override any environment variables specified in the container image.
 通过 `env` 或 `envFrom` 字段设置的环境变量将覆盖容器镜像中指定的所有环境变量。
 {{< /note >}}
 
+{{< note >}}
+环境变量之间可能出现互相依赖或者循环引用的情况，使用之前需注意引用顺序
+{{< /note >}}
+
 <!--
 ## Using environment variables inside of your config
 
