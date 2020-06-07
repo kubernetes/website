@@ -123,7 +123,7 @@ subsets:
       - port: 9376
 ```
 
-Endpointsオブジェクトの名前は、有効な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+Endpointsオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 {{< note >}}
 Endpointsのipは、loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), や
