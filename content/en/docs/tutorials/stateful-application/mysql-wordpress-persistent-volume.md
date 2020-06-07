@@ -93,6 +93,13 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
+The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the
+PersistentVolume at `/var/www/html` for website data files. The `WORDPRESS_DB_HOST` environment variable sets
+the name of the MySQL Service defined above, and WordPress will access the database by Service. The
+`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated. 
+
+{{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
+
 1. Download the MySQL deployment configuration file.
 
       ```shell
@@ -107,13 +114,13 @@ The following manifest describes a single-instance MySQL Deployment. The MySQL c
       
 3. Add them to `kustomization.yaml` file.
 
-      ```shell
-      cat <<EOF >>./kustomization.yaml
-      resources:
-        - mysql-deployment.yaml
-        - wordpress-deployment.yaml
-      EOF
-      ```
+```shell
+cat <<EOF >>./kustomization.yaml
+resources:
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+EOF
+```
 
 ## Apply and Verify
 The `kustomization.yaml` contains all the resources for deploying a WordPress site and a 

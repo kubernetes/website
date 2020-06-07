@@ -1,0 +1,14 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: proxy
+spec:
+  selector:
+    matchLabels:
+      role: frontend
+  volumeMounts:
+    - mountPath: /etc/proxy/configs
+      name: proxy-volume
+  volumes:
+    - name: proxy-volume
+      emptyDir: {}

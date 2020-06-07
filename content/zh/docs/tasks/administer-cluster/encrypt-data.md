@@ -1,3 +1,10 @@
+---
+reviewers:
+- smarterclayton
+title: 静态加密 Secret 数据
+content_template: templates/task
+---
+
 <!--
 ---
 reviewers:
@@ -6,12 +13,6 @@ title: Encrypting Secret Data at Rest
 content_template: templates/task
 ---
 -->
----
-reviewers:
-- smarterclayton
-title: 加密静态 Secret 数据
-content_template: templates/task
----
 
 {{% capture overview %}}
 <!--

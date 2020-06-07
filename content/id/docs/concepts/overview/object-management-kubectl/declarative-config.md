@@ -33,7 +33,7 @@ dalam dokumen ini:
 
 - *objek file konfigurasi / file konfigurasi*: Sebuah *file* yang
 mendefinisikan konfigurasi untuk sebuah objek Kubernetes. Dokumen ini akan memperlihatkan cara menggunakan *file* konfigurasi dengan perintah `kubectl apply`. *File-file* konfigurasi biasanya disimpan di sebuah *source control* seperti Git.
-- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di kluster Kubernetes. Nilai-nilai ini disimpan di *storage* kluster Kubernetes, biasanya etcd.
+- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di klaster Kubernetes. Nilai-nilai ini disimpan di *storage* klaster Kubernetes, biasanya etcd.
 - *writer konfigurasi deklaratif / writer deklaratif*: Seseorang atau sebuah komponen perangkat lunak yang membuat pembaruan ke objek *live*. *Live writer* yang disebut pada dokumen ini adalah *writer* yang membuat perubahan terhadap *file* konfigurasi objek dan menjalankan perintah `kubectl apply` untuk menulis perubahan-perubahan tersebut.
 
 ## Cara membuat objek
@@ -809,7 +809,7 @@ Migrasi dari pengelolaan objek dengan perintah imperatif ke pengelolaan objek de
 1. Ekspor objek *live* ke *file* konfigurasi lokal:
 
      ```shell
-     kubectl get <kind>/<name> -o yaml --export > <kind>_<name>.yaml
+     kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
      ```
 
 1. Hapus secara manual *field* `status` dari *file* konfigurasi.

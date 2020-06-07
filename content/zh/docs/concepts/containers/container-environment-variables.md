@@ -8,7 +8,7 @@ content_template: templates/concept
 
 {{% capture overview %}}
 
-本文介绍容器环境中对容器可用的资源。 
+本文介绍容器环境中对容器可用的资源。
 
 {{% /capture %}}
 

@@ -7,7 +7,7 @@ content_template: templates/task
 
 {{% capture overview %}}
 
-{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 You can replicate Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
 This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
@@ -107,7 +107,7 @@ KUBE_GCE_ZONE=replica-zone KUBE_REPLICATE_EXISTING_MASTER=true ./cluster/kube-up
 
 * Try to place master replicas in different zones. During a zone failure, all masters placed inside the zone will fail.
 To survive zone failure, also place nodes in multiple zones
-(see [multiple-zones](/docs/setup/multiple-zones/) for details).
+(see [multiple-zones](/docs/setup/best-practices/multiple-zones/) for details).
 
 * Do not use a cluster with two master replicas. Consensus on a two-replica cluster requires both replicas running when changing persistent state.
 As a result, both replicas are needed and a failure of any replica turns cluster into majority failure state.

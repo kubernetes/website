@@ -1,5 +1,4 @@
 ---
-title: "Kubernetesのダウンロード"
-weight: 20
+title: "リリースノート及びバージョンスキュー"
+weight: 10
 ---
-

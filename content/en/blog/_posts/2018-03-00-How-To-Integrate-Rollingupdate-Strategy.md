@@ -168,8 +168,6 @@ items:
 
    resourceVersion: "415852"
 
-   selfLink: /apis/mysql.orain.com/v1/namespaces/default/mysqlclusters/clustershard-c
-
    uid: 6bb089bb-b56f-11e7-ae02-525400e717a6
 
  spec:

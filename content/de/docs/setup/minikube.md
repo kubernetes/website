@@ -18,7 +18,7 @@ Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann.
   * NodePorts
   * ConfigMaps and Secrets
   * Dashboards
-  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://github.com/kubernetes-incubator/cri-o) und [containerd](https://github.com/containerd/containerd)
+  * Container Laufzeiumgebungen: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/) und [containerd](https://github.com/containerd/containerd)
   * Unterstützung von CNI (Container Network Interface)
   * Ingress
 
@@ -29,7 +29,7 @@ Lesen Sie [Minikube installieren](/docs/tasks/tools/install-minikube/) für Info
 ## Schnellstart
 
 Folgend finden Sie eine kurze Demo zur Verwendung von Minikube.
-Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu. 
+Wenn Sie den VM-Treiber ändern möchten, fügen Sie das entsprechende `--vm-driver=xxx`-Flag zu `minikube start` hinzu.
 Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
@@ -52,20 +52,20 @@ Creating machine...
 Starting local Kubernetes cluster...
 ```
 ```shell
-kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
 ```
 ```
 deployment.apps/hello-minikube created
 ```
 
 ```shell
-kubectl expose deployment hello-minikube --type=NodePort
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
 ```
 service/hello-minikube exposed
 ```
 ```
-# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten, 
+# Wir haben jetzt einen echoserver Pod gestartet, aber wir müssen warten,
 # bis der Pod betriebsbereit ist, bevor wir über den exponierten Dienst auf ihn zugreifen können.
 # Um zu überprüfen, ob der Pod läuft, können wir Folgendes verwenden:
 kubectl get pod
@@ -164,7 +164,7 @@ minikube start \
 
 #### CRI-O
 
-Um [CRI-O](https://github.com/kubernetes-incubator/cri-o) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
+Um [CRI-O](https://cri-o.io/) als Containerlaufzeitumgebung zu verwenden, führen Sie den folgenden Befehl aus:
 
 ```bash
 minikube start \
@@ -205,7 +205,7 @@ Weitere Informationen zu unterstützten Treibern und zur Installation von Plugin
 
 ### Lokale Images durch erneute Verwendung des Docker-Daemon ausführen
 
-Wenn Sie eine einzige Kubernetes VM verwenden, ist es sehr praktisch, den integrierten Docker-Daemon von Minikube wiederzuverwenden; Dies bedeutet, dass Sie auf Ihrem lokalen Computer keine Docker-Registy erstellen und das Image in die Registry importortieren müssen - Sie können einfach innerhalb desselben Docker-Daemons wie Minikube arbeiten, was lokale Experimente beschleunigt. Stellen Sie einfach sicher, dass Sie Ihr Docker-Image mit einem anderen Element als 'latest' versehen, und verwenden Sie dieses Tag, wenn Sie das Image laden. Andernfalls, wenn Sie keine Version Ihres Images angeben, wird es als `:latest` angenommen, mit der Pull-Image-Richtlinie von `Always` entsprechend, was schließlich zu `ErrImagePull` führen kann, da Sie möglicherweise noch keine Versionen Ihres Docker-Images in der Standard-Docker-Registry (normalerweise DockerHub) haben.
+Wenn Sie eine einzige Kubernetes VM verwenden, ist es sehr praktisch, den integrierten Docker-Daemon von Minikube wiederzuverwenden; Dies bedeutet, dass Sie auf Ihrem lokalen Computer keine Docker-Registy erstellen und das Image in die Registry importieren müssen - Sie können einfach innerhalb desselben Docker-Daemons wie Minikube arbeiten, was lokale Experimente beschleunigt. Stellen Sie einfach sicher, dass Sie Ihr Docker-Image mit einem anderen Element als 'latest' versehen, und verwenden Sie dieses Tag, wenn Sie das Image laden. Andernfalls, wenn Sie keine Version Ihres Images angeben, wird es als `:latest` angenommen, mit der Pull-Image-Richtlinie von `Always` entsprechend, was schließlich zu `ErrImagePull` führen kann, da Sie möglicherweise noch keine Versionen Ihres Docker-Images in der Standard-Docker-Registry (normalerweise DockerHub) haben.
 
 Um mit dem Docker-Daemon auf Ihrem Mac/Linux-Computer arbeiten zu können, verwenden Sie den `docker-env`-Befehl in Ihrer Shell:
 

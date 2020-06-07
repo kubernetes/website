@@ -66,7 +66,7 @@ Kubernetes cluster.
 -->
 1. 验证你选择的节点是否有 `disktype=ssd` 标签：
 
-       kubectl get nodes --show-labels
+        kubectl get nodes --show-labels
 
 
     <!--

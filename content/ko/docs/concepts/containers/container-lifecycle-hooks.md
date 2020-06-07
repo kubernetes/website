@@ -39,7 +39,7 @@ Angular와 같이, 컴포넌트 라이프사이클 훅을 가진 많은 프로�
 파라미터는 핸들러에 전달되지 않는다.
 
 종료 동작에 더 자세한 대한 설명은 
-[파드의 종료](/docs/concepts/workloads/pods/pod/#termination-of-pods)에서 찾을 수 있다.
+[파드의 종료](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)에서 찾을 수 있다.
 
 ### 훅 핸들러 구현
 
@@ -96,7 +96,7 @@ Kubelet이 구동된 후에 해당 훅은 재전송될 것이다.
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubobjectPath          Type      Reason               Message
+  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
   ---------  --------  -----  ----                                                   -------------          --------  ------               -------
   1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
   1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
@@ -113,7 +113,7 @@ Events:
 
 {{% capture whatsnext %}}
 
-* [컨테이너 환경](/docs/concepts/containers/container-environment-variables/)에 대해 더 배우기.
+* [컨테이너 환경](/ko/docs/concepts/containers/container-environment/)에 대해 더 배우기.
 * [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
   실습 경험하기.
 

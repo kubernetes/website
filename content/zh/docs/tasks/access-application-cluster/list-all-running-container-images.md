@@ -1,3 +1,9 @@
+---
+title: 列出集群中所有运行容器的镜像
+content_template: templates/task
+weight: 100
+---
+
 <!--
 ---
 title: List All Container Images Running in a Cluster
@@ -5,11 +11,6 @@ content_template: templates/task
 weight: 100
 ---
 -->
----
-title: 列出集群中所有运行容器的镜像
-content_template: templates/task
-weight: 100
----
 
 {{% capture overview %}}
 

@@ -16,7 +16,7 @@ weight: 90
 {{% capture overview %}}
 
 The Horizontal Pod Autoscaler automatically scales the number of pods
-in a replication controller, deployment or replica set based on observed CPU utilization (or, with
+in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with
 [custom metrics](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md)
 support, on some other application-provided metrics). Note that Horizontal
 Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
@@ -75,7 +75,7 @@ metrics-server, which needs to be launched separately. See
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 {{< /note >}}
 
@@ -155,9 +155,12 @@ used.
 
 If multiple metrics are specified in a HorizontalPodAutoscaler, this
 calculation is done for each metric, and then the largest of the desired
-replica counts is chosen.  If any of those metrics cannot be converted
+replica counts is chosen. If any of these metrics cannot be converted
 into a desired replica count (e.g. due to an error fetching the metrics
-from the metrics APIs), scaling is skipped.
+from the metrics APIs) and a scale down is suggested by the metrics which
+can be fetched, scaling is skipped. This means that the HPA is still capable
+of scaling up if one or more metrics give a `desiredReplicas` greater than
+the current value.
 
 Finally, just before HPA scales the target, the scale recommendation is recorded.  The
 controller considers all recommendations within a configurable window choosing the
@@ -175,6 +178,8 @@ The beta version, which includes support for scaling on memory and custom metric
 can be found in `autoscaling/v2beta2`. The new fields introduced in `autoscaling/v2beta2`
 are preserved as annotations when working with `autoscaling/v1`.
 
+When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 More details about the API object can be found at
 [HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
@@ -194,13 +199,12 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) by managing replication controllers directly,
-or by using the deployment object, which manages the underlying replica sets for you.
+Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, which manages the underlying replica sets for you.
 Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
 it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
 
 Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update (e.g. using `kubectl rolling-update`).
+i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
 
@@ -270,6 +274,162 @@ APIs, cluster administrators must ensure that:
    * For external metrics, this is the `external.metrics.k8s.io` API.  It may be provided by the custom metrics adapters provided above.
 
 * The `--horizontal-pod-autoscaler-use-rest-clients` is `true` or unset.  Setting this to false switches to Heapster-based autoscaling, which is deprecated.
+
+For more information on these different metrics paths and how they differ please see the relevant design proposals for
+[the HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md)
+and [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md).
+
+For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
+
+## Support for configurable scaling behavior
+
+Starting from
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+the `v2beta2` API allows scaling behavior to be configured through the HPA
+`behavior` field. Behaviors are specified separately for scaling up and down in
+`scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
+window can be specified for both directions which prevents the flapping of the
+number of the replicas in the scaling target. Similarly specifying scaling
+policies controls the rate of change of replicas while scaling.
+
+### Scaling Policies
+
+One or more scaling policies can be specified in the `behavior` section of the spec.
+When multiple policies are specified the policy which allows the highest amount of
+change is the policy which is selected by default. The following example shows this behavior
+while scaling down:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Pods
+      value: 4
+      periodSeconds: 60
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+When the number of pods is more than 40 the second policy will be used for scaling down.
+For instance if there are 80 replicas and the target has to be scaled down to 10 replicas
+then during the first step 8 replicas will be reduced. In the next iteration when the number
+of replicas is 72, 10% of the pods is 7.2 but the number is rounded up to 8. On each loop of
+the autoscaler controller the number of pods to be change is re-calculated based on the number
+of current replicas. When the number of replicas falls below 40 the first policy_(Pods)_ is applied
+and 4 replicas will be reduced at a time.
+
+`periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The first policy allows at most 4 replicas to be scaled down in one minute. The second policy
+allows at most 10% of the current replicas to be scaled down in one minute.
+
+The policy selection can be changed by specifying the `selectPolicy` field for a scaling
+direction. By setting the value to `Min` which would select the policy which allows the
+smallest change in the replica count. Setting the value to `Disabled` completely disabled
+scaling in that direction.
+
+### Stabilization Window
+
+The stabilization window is used to restrict the flapping of replicas when the metrics
+used for scaling keep fluctuating. The stabilization window is used by the autoscaling
+algorithm to consider the computed desired state from the past to prevent scaling. In
+the following example the stabilization window is specified for `scaleDown`.
+
+```yaml
+scaleDown:
+  stabilizationWindowSeconds: 300
+```
+
+When the metrics indicate that the target should be scaled down the algorithm looks
+into previously computed desired states and uses the highest value from the specified
+interval. In above example all desired states from the past 5 minutes will be considered.
+
+### Default Behavior
+
+To use the custom scaling not all fields have to be specified. Only values which need to be
+customized can be specified. These custom values are merged with default values. The default values
+match the existing behavior in the HPA algorithm.
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
+For scaling down the stabilization window is _300_ seconds(or the value of the
+`--horizontal-pod-autoscaler-downscale-stabilization` flag if provided). There is only a single policy
+for scaling down which allows a 100% of the currently running replicas to be removed which
+means the scaling target can be scaled down to the minimum allowed replicas.
+For scaling up there is no stabilization window. When the metrics indicate that the target should be
+scaled up the target is scaled up immediately. There are 2 policies which. 4 pods or a 100% of the currently
+running replicas will be added every 15 seconds till the HPA reaches its steady state.
+
+### Example: change downscale stabilization window
+
+To provide a custom downscale stabilization window of 1 minute, the following
+behavior would be added to the HPA:
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 60
+```
+
+### Example: limit scale down rate
+
+To limit the rate at which pods are removed by the HPA to 10% per minute, the
+following behavior would be added to the HPA:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+To allow a final drop of 5 pods, another policy can be added and a selection
+strategy of minimum:
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+    - type: Pods
+      value: 5
+      periodSeconds: 60
+    selectPolicy: Max
+```
+
+### Example: disable scale down
+
+The `selectPolicy` value of `Disabled` turns off scaling the given direction.
+So to prevent downscaling the following policy would be used:
+
+```yaml
+behavior:
+  scaleDown:
+    selectPolicy: Disabled
+```
 
 {{% /capture %}}
 

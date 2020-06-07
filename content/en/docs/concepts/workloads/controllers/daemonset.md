@@ -19,9 +19,8 @@ collected.  Deleting a DaemonSet will clean up the Pods it created.
 Some typical uses of a DaemonSet are:
 
 - running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
-- running a logs collection daemon on every node, such as `fluentd` or `logstash`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](
-  https://github.com/prometheus/node_exporter), [Sysdig Agent](https://sysdigdocs.atlassian.net/wiki/spaces/Platform), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [SignalFx Agent](https://docs.signalfx.com/en/latest/integrations/agent/kubernetes-setup.html), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond` or Instana agent.
+- running a logs collection daemon on every node, such as `fluentd` or `filebeat`.
+- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond`, [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) or [Elastic Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/running-on-kubernetes.html).
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
@@ -40,7 +39,8 @@ You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` f
 
 {{< codenew file="controllers/daemonset.yaml" >}}
 
-* Create a DaemonSet based on the YAML file:
+Create a DaemonSet based on the YAML file:
+
 ```
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
@@ -50,6 +50,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 As with all other Kubernetes config, a DaemonSet needs `apiVersion`, `kind`, and `metadata` fields.  For
 general information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications/),
 [configuring containers](/docs/tasks/), and [object management using kubectl](/docs/concepts/overview/working-with-objects/object-management/) documents.
+
+The name of a DaemonSet object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 A DaemonSet also needs a [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) section.
 
@@ -62,7 +65,7 @@ The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/pod-overv
 In addition to required fields for a Pod, a Pod template in a DaemonSet has to specify appropriate
 labels (see [pod selector](#pod-selector)).
 
-A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/user-guide/pod-states)
+A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
  equal to `Always`, or be unspecified, which defaults to `Always`.
 
 ### Pod Selector
@@ -87,36 +90,24 @@ When the two are specified the result is ANDed.
 If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`. Config with these not matching will be rejected by the API.
 
 Also you should not normally create any Pods whose labels match this selector, either directly, via
-another DaemonSet, or via other controller such as ReplicaSet.  Otherwise, the DaemonSet
-controller will think that those Pods were created by it.  Kubernetes will not stop you from doing
-this.  One case where you might want to do this is manually create a Pod with a different value on
-a node for testing.
+another DaemonSet, or via another workload resource such as ReplicaSet.  Otherwise, the DaemonSet
+{{< glossary_tooltip term_id="controller" >}} will think that those Pods were created by it.
+Kubernetes will not stop you from doing this. One case where you might want to do this is manually
+create a Pod with a different value on a node for testing.
 
 ### Running Pods on Only Some Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create Pods on nodes which match that [node
-selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
-then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
+selector](/docs/concepts/scheduling-eviction/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
+then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
 
 ## How Daemon Pods are Scheduled
 
-### Scheduled by DaemonSet controller (disabled by default since 1.12)
+### Scheduled by default scheduler
 
-Normally, the machine that a Pod runs on is selected by the Kubernetes scheduler. However, Pods
-created by the DaemonSet controller have the machine already selected (`.spec.nodeName` is specified
-when the Pod is created, so it is ignored by the scheduler).  Therefore:
-
- - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
-   by the DaemonSet controller.
- - The DaemonSet controller can make Pods even when the scheduler has not been started, which can help cluster
-   bootstrap.
-
-
-### Scheduled by default scheduler (enabled by default since 1.12)
-
-{{< feature-state state="beta" for-kubernetes-version="1.12" >}}
+{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
 
 A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
 node that a Pod runs on is selected by the Kubernetes scheduler. However,
@@ -134,7 +125,7 @@ That introduces the following issues:
 scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
 to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
 scheduler is then used to bind the pod to the target host. If node affinity of
-the DaemonSet pod already exists, it is replaced. The DaemonSet controller only
+the DaemonSet pod already exists, it is replaced (the original node affinity was taken into account before selecting the target host). The DaemonSet controller only
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
 
@@ -195,14 +186,12 @@ You can modify the Pods that a DaemonSet creates.  However, Pods do not allow al
 fields to be updated.  Also, the DaemonSet controller will use the original template the next
 time a node (even with the same name) is created.
 
-
 You can delete a DaemonSet.  If you specify `--cascade=false` with `kubectl`, then the Pods
-will be left on the nodes.  You can then create a new DaemonSet with a different template.
-The new DaemonSet with the different template will recognize all the existing Pods as having
-matching labels.  It will not modify or delete them despite a mismatch in the Pod template.
-You will need to force new Pod creation by deleting the Pod or deleting the node.
+will be left on the nodes.  If you subsequently create a new DaemonSet with the same selector,
+the new DaemonSet adopts the existing Pods. If any Pods need replacing the DaemonSet replaces
+them according to its `updateStrategy`.
 
-In Kubernetes version 1.6 and later, you can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
+You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
 ## Alternatives to DaemonSet
 

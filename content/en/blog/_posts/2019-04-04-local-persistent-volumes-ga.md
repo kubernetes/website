@@ -323,7 +323,7 @@ Another popular ask has been to support dynamic provisioning using lvm. This can
 simplify disk management, and improve disk utilization. SIG Storage is
 evaluating the performance tradeoffs for the viability of this feature.
 
-## Getting Invovled
+## Getting Involved
 
 If you have feedback for this feature or are interested in getting involved with
 the design and development, join the [Kubernetes Storage

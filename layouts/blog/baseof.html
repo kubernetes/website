@@ -7,33 +7,36 @@
 		<link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}">
 	</head>
 	<body>
+    {{ partial "announcement.html" . }}
 		{{ partial "header.html" . }}
 		<section id="hero" class="light-text no-sub">
 			<h1>{{ .Title }}</h1>
 		</section>
-		<div class="container-fluid" style="padding-top: 2em">
-			<div class="row">
-				<div class="col-xs-12 col-md-9 text blog-content">
-					{{ block "main" . }}{{ end }}
-				</div>
-				<div class="col-xs-12 col-md-3 text">
-					<div class="widget-content">
-						{{ with site.Home.OutputFormats.Get "rss" -}}
-						<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
-						<a class="widget-link" href="{{ .Permalink | safeURL }}"> <i class="fas fa-rss fab-icon"> </i> RSS Feed </a>
-						{{ end -}}
-						<a class="widget-link" href="https://kubernetes.io/docs/contribute/start/#write-a-blog-post"><i class="fa fa-edit fab-icon"></i> Submit a Post</a>
-						<a class="widget-link" href="https://twitter.com/kubernetesio"> <i class="fab fa-twitter-square fab-icon"> </i> @Kubernetesio</a>
-						<a class="widget-link" href="https://github.com/kubernetes/kubernetes"> <i class="fab fa-github-square fab-icon"></i> View on GitHub </a>
-						<a class="widget-link" href="http://slack.k8s.io"><i class="fab fa-slack fab-icon"> </i> #kubernetes-users </a>
-						<a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes"><i class="fab fa-stack-overflow fab-icon"></i> Stack Overflow</a>
-						<a class="widget-link" href="https://discuss.kubernetes.io"><i class="fab fa-discourse fab-icon"></i>Forum</a>
-						<a class="widget-link" href="https://kubernetes.io/docs/setup/pick-right-solution/"><i class="fa fa-download fab-icon"></i> Download Kubernetes</a>
+		<main>
+			<div class="container-fluid" style="padding-top: 2em">
+				<div class="row">
+					<div class="col-xs-12 col-md-9 text blog-content">
+						{{ block "main" . }}{{ end }}
 					</div>
-					{{ partialCached "blog/archive.html" . }}
+					<div class="col-xs-12 col-md-3 text">
+						<div class="widget-content">
+							{{ with site.Home.OutputFormats.Get "rss" -}}
+							<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
+							<a class="widget-link" href="{{ .Permalink | safeURL }}"><div> <i class="fas fa-rss fab-icon"> </i> <div class="widget-link-text">RSS Feed</div></div> </a>
+							{{ end -}}
+							<a class="widget-link" href="https://kubernetes.io/docs/contribute/start/#write-a-blog-post"><div> <i class="fa fa-edit fab-icon"></i> <div class="widget-link-text">Submit a Post</div></div></a>
+							<a class="widget-link" href="https://twitter.com/kubernetesio"><div> <i class="fab fa-twitter-square fab-icon"> </i> <div class="widget-link-text"> @Kubernetesio</div></div></a>
+							<a class="widget-link" href="https://github.com/kubernetes/kubernetes"><div> <i class="fab fa-github-square fab-icon"></i> <div class="widget-link-text"> on GitHub </div></div></a>
+							<a class="widget-link" href="http://slack.k8s.io"><div><i class="fab fa-slack fab-icon"> </i> <div class="widget-link-text">#kubernetes-users </div></div></a>
+							<a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes"><div><i class="fab fa-stack-overflow fab-icon"></i> <div class="widget-link-text"> Overflow</div></div></a>
+							<a class="widget-link" href="https://discuss.kubernetes.io"><div> <i class="fab fa-discourse fab-icon"></i><div class="widget-link-text"> Forum </div></div></a>
+							<a class="widget-link" href="https://kubernetes.io/docs/setup"><div><i class="fa fa-download fab-icon"></i> <div class="widget-link-text"> Kubernetes</div></div></a>
+						</div>
+						{{ partialCached "blog/archive.html" . }}
+					</div>
 				</div>
 			</div>
-		</div>
+		</main>
 		{{ partialCached "footer.html" . }}
 		{{ partialCached "footer-scripts.html" . }}
 	</body>

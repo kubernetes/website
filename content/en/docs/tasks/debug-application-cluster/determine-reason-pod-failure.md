@@ -53,7 +53,7 @@ the container starts.
 
 1. Display detailed information about the Pod:
 
-        kubectl get pod --output=yaml
+        kubectl get pod termination-demo --output=yaml
 
     The output includes the "Sleep expired" message:
 
@@ -81,6 +81,11 @@ specified in the `terminationMessagePath` field of a Container, which as a defau
 value of `/dev/termination-log`. By customizing this field, you can tell Kubernetes
 to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
+
+The termination message is intended to be brief final status, such as an assertion failure message.
+The kubelet truncates messages that are longer than 4096 bytes. The total message length across all
+containers will be limited to 12KiB. The default termination message path is `/dev/termination-log`.
+You cannot set the termination message path after a Pod is launched
 
 In the following example, the container writes termination messages to
 `/tmp/my-log` for Kubernetes to retrieve:

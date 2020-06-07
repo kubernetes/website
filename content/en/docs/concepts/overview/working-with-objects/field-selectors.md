@@ -3,7 +3,7 @@ title: Field Selectors
 weight: 60
 ---
 
-_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
+_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some examples of field selector queries:
 
 * `metadata.name=my-service`
 * `metadata.namespace!=default`
@@ -40,7 +40,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==` mean the same thing). This `kubectl` command, for example, selects all Kubernetes Services that aren't in the `default` namespace:
 
 ```shell
-kubectl get services --field-selector metadata.namespace!=default
+kubectl get services  --all-namespaces --field-selector metadata.namespace!=default
 ```
 
 ## Chained selectors
@@ -56,5 +56,5 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 You use field selectors across multiple resource types. This `kubectl` command selects all Statefulsets and Services that are not in the `default` namespace:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```

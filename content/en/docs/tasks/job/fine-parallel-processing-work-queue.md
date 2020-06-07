@@ -1,6 +1,7 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
 content_template: templates/task
+min-kubernetes-server-version: v1.8
 weight: 40
 ---
 
@@ -29,7 +30,7 @@ Here is an overview of the steps in this example:
 
 {{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 {{% /capture %}}
 

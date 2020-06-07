@@ -1,13 +1,14 @@
 ---
-title: Localizing Kubernetes Documentation
+title: Localizing Kubernetes documentation
 content_template: templates/concept
 approvers:
 - remyleone
 - rlenferink
 - zacharysarah
+weight: 50
 card:
   name: contribute
-  weight: 30
+  weight: 50
   title: Translating the docs
 ---
 
@@ -21,9 +22,9 @@ This page shows you how to [localize](https://blog.mozilla.org/l10n/2011/12/14/i
 
 ## Getting started
 
-Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization. 
+Because contributors can't approve their own pull requests, you need at least two contributors to begin a localization.
 
-All localization teams must be self-sustaining with their own resources. We're happy to host your work, but we can't translate it for you.
+All localization teams must be self-sustaining with their own resources. The Kubernetes website is happy to host your work, but it's up to you to translate it.
 
 ### Find your two-letter language code
 
@@ -31,7 +32,7 @@ First, consult the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/p
 
 ### Fork and clone the repo
 
-First, [create your own fork](/docs/contribute/start/#improve-existing-content) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
+First, [create your own fork](/docs/contribute/new-content/new-content/#fork-the-repo) of the [kubernetes/website](https://github.com/kubernetes/website) repository.
 
 Then, clone your fork and `cd` into it:
 
@@ -42,28 +43,28 @@ cd website
 
 ### Open a pull request
 
-Next, [open a pull request](https://kubernetes.io/docs/contribute/start/#submit-a-pull-request) (PR) to add a localization to the `kubernetes/website` repository. 
+Next, [open a pull request](/docs/contribute/new-content/open-a-pr/#open-a-pr) (PR) to add a localization to the `kubernetes/website` repository.
 
 The PR must include all of the [minimum required content](#minimum-required-content) before it can be approved.
 
 For an example of adding a new localization, see the PR to enable [docs in French](https://github.com/kubernetes/website/pull/12548).
-    
+
 ### Join the Kubernetes GitHub organization
 
 Once you've opened a localization PR, you can become members of the Kubernetes GitHub organization. Each person on the team needs to create their own [Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose) in the `kubernetes/org` repository.
 
 ### Add your localization team in GitHub
 
-Next, add your Kubernetes localization team to [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml). For an example of adding a localization team, see the PR to add the [Spanish localization team](https://github.com/kubernetes/org/pull/685). 
+Next, add your Kubernetes localization team to [`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml). For an example of adding a localization team, see the PR to add the [Spanish localization team](https://github.com/kubernetes/org/pull/685).
 
-Members of `sig-docs-**-owners` can approve PRs that change content within (and only within) your localization directory: `/content/**/`. 
+Members of `@kubernetes/sig-docs-**-owners` can approve PRs that change content within (and only within) your localization directory: `/content/**/`.
 
-The `sig-docs-**-reviews` team automates review assignment for new PRs.
+For each localization, The `@kubernetes/sig-docs-**-reviews` team automates review assignment for new PRs.
 
-Members of `sig-docs-l10n-admins` can create new development branches to coordinate translation efforts.
+Members of `@kubernetes/website-maintainers` can create new development branches to coordinate translation efforts.
 
-Members of `website-milestone-maintainers` can use the `/milestone` [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs.
-    
+Members of `@kubernetes/website-milestone-maintainers` can use the `/milestone` [Prow command](https://prow.k8s.io/command-help) to assign a milestone to issues or PRs.
+
 ### Configure the workflow
 
 Next, add a GitHub label for your localization in the `kubernetes/test-infra` repository. A label lets you filter issues and pull requests for your specific language.
@@ -74,7 +75,7 @@ For an example of adding a label, see the PR for adding the [Italian language la
 
 Let Kubernetes SIG Docs know you're interested in creating a localization! Join the [SIG Docs Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/). Other localization teams are happy to help you get started and answer any questions you have.
 
-You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding channels for Indonesian and Portuguese](https://github.com/kubernetes/community/pull/3605). 
+You can also create a Slack channel for your localization in the `kubernetes/community` repository. For an example of adding a Slack channel, see the PR for [adding channels for Indonesian and Portuguese](https://github.com/kubernetes/community/pull/3605).
 
 ## Minimum required content
 
@@ -105,11 +106,11 @@ Add a language-specific subdirectory to the [`content`](https://github.com/kuber
 mkdir content/de
 ```
 
-### Localize the Community Code of Conduct 
+### Localize the community code of conduct
 
 Open a PR against the [`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages) repository to add the code of conduct in your language.
 
-### Add a localized README
+### Add a localized README file
 
 To guide other localization contributors, add a new [`README-**.md`](https://help.github.com/articles/about-readmes/) to the top level of k/website, where `**` is the two-letter language code. For example, a German README file would be `README-de.md`.
 
@@ -192,11 +193,13 @@ mkdir -p content/de/docs/tutorials
 cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
 ```
 
-Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text. 
+Translation tools can speed up the translation process. For example, some editors offers plugins to quickly translate text.
 
 {{< caution >}}
-Use translation tools with care. Their output is not always accurate.
+Machine-generated translation is insufficient on its own. Localization requires extensive human review to meet minimum standards of quality.
 {{< /caution >}}
+
+To ensure accuracy in grammar and meaning, members of your localization team should carefully review all machine-generated translations before publishing.
 
 ### Source files
 
@@ -209,7 +212,7 @@ To find source files for the most recent release:
 
 The latest version is {{< latest-version >}}, so the most recent release branch is [`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}}).
 
-### Site strings in i18n/
+### Site strings in i18n
 
 Localizations must include the contents of [`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml) in a new language-specific file. Using German as an example: `i18n/de.toml`.
 
@@ -238,9 +241,9 @@ Because localization projects are highly collaborative efforts, we encourage tea
 
 To collaborate on a development branch:
 
-1. A team member of [@kubernetes/sig-docs-l10n-admins](https://github.com/orgs/kubernetes/teams/sig-docs-l10n-admins) opens a development branch from a source branch on https://github.com/kubernetes/website.
+1. A team member of [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers) opens a development branch from a source branch on https://github.com/kubernetes/website.
 
-    Your team approvers joined the `sig-docs-l10n-admins` team when you [added your localization team](#add-your-localization-team-in-github) to the `kubernetes/org` repository. 
+    Your team approvers joined the `@kubernetes/website-maintainers` team when you [added your localization team](#add-your-localization-team-in-github) to the [`kubernetes/org`](https://github.com/kubernetes/org) repository.
 
     We recommend the following branch naming scheme:
 
@@ -262,7 +265,7 @@ Teams must merge localized content into the same release branch from which the c
 
 An approver must maintain a development branch by keeping it current with its source branch and resolving merge conflicts. The longer a development branch stays open, the more maintenance it typically requires. Consider periodically merging development branches and opening new ones, rather than maintaining one extremely long-running development branch.
 
-At the beginning of every team milestone, it's helpful to open an issue comparing upstream changes between the previous development branch and the current development branch. 
+At the beginning of every team milestone, it's helpful to open an issue [comparing upstream changes](https://github.com/kubernetes/website/blob/master/scripts/upstream_changes.py) between the previous development branch and the current development branch.
 
  While only approvers can open a new development branch and merge pull requests, anyone can open a pull request for a new development branch. No special permissions are required.
 
@@ -270,11 +273,11 @@ For more information about working from forks or directly from the repository, s
 
 ## Upstream contributions
 
-SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source. 
+SIG Docs welcomes upstream contributions and corrections to the English source.
 
 ## Help an existing localization
 
-You can also help add or improve content to an existing localization. Join the [Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/) for the localization, and start opening PRs to help.
+You can also help add or improve content to an existing localization. Join the [Slack channel](https://kubernetes.slack.com/messages/C1J0BPD2M/) for the localization, and start opening PRs to help. Please limit pull requests to a single localization since pull requests that change content in multiple localizations could be difficult to review.
 
 {{% /capture %}}
 
@@ -283,6 +286,6 @@ You can also help add or improve content to an existing localization. Join the [
 Once a localization meets requirements for workflow and minimum output, SIG docs will:
 
 - Enable language selection on the website
-- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
+- Publicize the localization's availability through [Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) channels, including the [Kubernetes blog](https://kubernetes.io/blog/).
 
 {{% /capture %}}

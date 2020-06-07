@@ -1,6 +1,5 @@
 ---
 reviewers:
-- mikedanese
 - luxas
 - jbeda
 title: kubeadm init
@@ -24,11 +23,9 @@ following steps:
    considered errors and will exit kubeadm until the problem is corrected or the
    user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
-1. Generates a self-signed CA (or using an existing one if provided) to set up
-   identities for each component in the cluster. If the user has provided their
+1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
-   (`/etc/kubernetes/pki` by default) this step is skipped as described in the
-   [Using custom certificates](#custom-certificates) document.
+   (`/etc/kubernetes/pki` by default).
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
 
 1. Writes kubeconfig files in `/etc/kubernetes/`  for
@@ -37,7 +34,7 @@ following steps:
    kubeconfig file for administration named `admin.conf`.
 
 1. Generates static Pod manifests for the API server,
-   controller manager and scheduler. In case an external etcd is not provided,
+   controller-manager and scheduler. In case an external etcd is not provided,
    an additional static Pod manifest is generated for etcd.
 
    Static Pod manifests are written to `/etc/kubernetes/manifests`; the kubelet
@@ -69,13 +66,17 @@ following steps:
 
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
-   To install kube-dns instead of CoreDNS, the DNS addon has to configured in the kubeadm `ClusterConfiguration`. For more information about the configuration see the section
-   `Using kubeadm init with a configuration file` bellow.
+   To install kube-dns instead of CoreDNS, the DNS addon has to be configured in the kubeadm `ClusterConfiguration`.
+   For more information about the configuration see the section `Using kubeadm init with a configuration file` below.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
+
+   {{< warning >}}
+   kube-dns usage with kubeadm is deprecated as of v1.18 and will be removed in a future release.
+   {{< /warning >}}
 
 ### Using init phases with kubeadm {#init-phases}
 
-Kubeadm allows you create a control-plane node in phases. In 1.13 the `kubeadm init phase` command has graduated to GA from it’s previous alpha state under `kubeadm alpha phase`.
+Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
 
 To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list will be located at the top of the help screen and each phase will have a description next to it.
 Note that by calling `kubeadm init` all of the phases and sub-phases will be executed in this exact order.
@@ -92,7 +93,7 @@ You can also use `--help` to see the list of sub-phases for a certain parent pha
 sudo kubeadm init phase control-plane --help
 ```
 
-`kubeadm init` also expose a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
+`kubeadm init` also exposes a flag called `--skip-phases` that can be used to skip certain phases. The flag accepts a list of phase names and the names can be taken from the above ordered list.
 
 An example:
 
@@ -113,17 +114,16 @@ The config file is still considered beta and may change in future versions.
 
 It's possible to configure `kubeadm init` with a configuration file instead of command
 line flags, and some more advanced features may only be available as
-configuration file options. This file is passed in the `--config` option.
+configuration file options. This file is passed with the `--config` option.
 
-In Kubernetes 1.11 and later, the default configuration can be printed out using the
+The default configuration can be printed out using the
 [kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-It is **recommended** that you migrate your old `v1alpha3` configuration to `v1beta1` using
-the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command,
-because `v1alpha3` will be removed in Kubernetes 1.15.
+It is **recommended** that you migrate your old `v1beta1` configuration to `v1beta2` using
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
 
-For more details on each field in the `v1beta1` configuration you can navigate to our
-[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
+For more details on each field in the `v1beta2` configuration you can navigate to our
+[API reference pages](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2).
 
 ### Adding kube-proxy parameters {#kube-proxy}
 
@@ -136,12 +136,12 @@ For information about enabling IPVS mode with kubeadm see:
 ### Passing custom flags to control plane components {#control-plane-flags}
 
 For information about passing flags to control plane components see:
-- [control-plane-flags](/docs/setup/independent/control-plane-flags/)
+- [control-plane-flags](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)
 
 ### Using custom images {#custom-images}
 
-By default, kubeadm pulls images from `k8s.gcr.io`, unless
-the requested Kubernetes version is a CI version. In this case,
+By default, kubeadm pulls images from `k8s.gcr.io`. If the
+requested Kubernetes version is a CI label (such as `ci/latest`)
 `gcr.io/kubernetes-ci-images` is used.
 
 You can override this behavior by using [kubeadm with a configuration file](#config-file).
@@ -155,161 +155,79 @@ Allowed customization are:
 Please note that the configuration field `kubernetesVersion` or the command line flag
 `--kubernetes-version` affect the version of the images.
 
-### Using custom certificates {#custom-certificates}
+### Uploading control-plane certificates to the cluster
 
-By default, kubeadm generates all the certificates needed for a cluster to run.
-You can override this behavior by providing your own certificates.
+By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
+the control-plane certificates to a Secret in the cluster. Please note that this Secret
+will expire automatically after 2 hours. The certificates are encrypted using
+a 32byte key that can be specified using `--certificate-key`. The same key can be used
+to download the certificates when additional control-plane nodes are joining, by passing
+`--control-plane` and `--certificate-key` to `kubeadm join`.
 
-To do so, you must place them in whatever directory is specified by the
-`--cert-dir` flag or `CertificatesDir` configuration file key. By default this
-is `/etc/kubernetes/pki`.
+The following phase command can be used to re-upload the certificates after expiration:
 
-If a given certificate and private key pair exists, kubeadm skips the
-generation step and existing files are used for the prescribed
-use case. This means you can, for example, copy an existing CA into `/etc/kubernetes/pki/ca.crt`
-and `/etc/kubernetes/pki/ca.key`, and kubeadm will use this CA for signing the rest
-of the certs.
+```
+kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
+```
 
-#### External CA mode {#external-ca-mode}
+If the flag `--certificate-key` is not passed to `kubeadm init` and
+`kubeadm init phase upload-certs` a new key will be generated automatically.
 
-It is also possible to provide just the `ca.crt` file and not the
-`ca.key` file (this is only available for the root CA file, not other cert pairs).
-If all other certificates and kubeconfig files are in place, kubeadm recognizes
-this condition and activates the "External CA" mode. kubeadm will proceed without the
-CA key on disk.
+The following command can be used to generate a new key on demand:
 
-Instead, run the controller-manager standalone with `--controllers=csrsigner` and
-point to the CA certificate and key.
+```
+kubeadm alpha certs certificate-key
+```
+
+### Certificate management with kubeadm
+
+For detailed information on certificate management with kubeadm see
+[Certificate Management with kubeadm](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/).
+The document includes information about using external CA, custom certificates
+and certificate renewal.
 
 ### Managing the kubeadm drop-in file for the kubelet {#kubelet-drop-in}
 
-The kubeadm package ships with configuration for how the kubelet should
-be run. Note that the `kubeadm` CLI command never touches this drop-in file.
-This drop-in file belongs to the kubeadm deb/rpm package.
+The `kubeadm` package ships with a configuration file for running the `kubelet` by `systemd`. Note that the kubeadm CLI never touches this drop-in file. This drop-in file is part of the kubeadm DEB/RPM package.
 
-To find out more about how kubeadm manages the kubelet have a look at
-[this page](/docs/setup/independent/kubelet-integration).
+For further information, see [Managing the kubeadm drop-in file for systemd](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/#the-kubelet-drop-in-file-for-systemd).
 
 ### Use kubeadm with CRI runtimes
 
-Since v1.6.0, Kubernetes has enabled the use of CRI, Container Runtime Interface, by default.
-The container runtime used by default is Docker, which is enabled through the built-in
-`dockershim` CRI implementation inside of the `kubelet`.
-
-Other CRI-based runtimes include:
-
-- [cri-containerd](https://github.com/containerd/cri-containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
-- [frakti](https://github.com/kubernetes/frakti)
-- [rkt](https://github.com/kubernetes-incubator/rktlet)
-
-Refer to the [CRI installation instructions](/docs/setup/cri) for more information.
-
-After you have successfully installed `kubeadm` and `kubelet`, execute
-these two additional steps:
-
-1. Install the runtime shim on every node, following the installation
-   document in the runtime shim project listing above.
-
-1. Configure kubelet to use the remote CRI runtime. Please remember to change
-   `RUNTIME_ENDPOINT` to your own value like `/var/run/{your_runtime}.sock`:
-
-```shell
-cat > /etc/systemd/system/kubelet.service.d/20-cri.conf <<EOF
-[Service]
-Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --container-runtime-endpoint=$RUNTIME_ENDPOINT"
-EOF
-systemctl daemon-reload
-```
-
-Now `kubelet` is ready to use the specified CRI runtime, and you can continue
-with the `kubeadm init` and `kubeadm join` workflow to deploy Kubernetes cluster.
-
-You may also want to set `--cri-socket` to `kubeadm init` and `kubeadm reset` when
-using an external CRI implementation.
+By default kubeadm attempts to detect your container runtime. For more details on this detection, see
+the [kubeadm CRI installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 
 ### Setting the node name
 
-By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name`flag.
-The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options) 
-to the kubelet.
+By default, `kubeadm` assigns a node name based on a machine's host address. You can override this setting with the `--node-name` flag.
+The flag passes the appropriate [`--hostname-override`](/docs/reference/command-line-tools-reference/kubelet/#options)
+value to the kubelet.
 
 Be aware that overriding the hostname can [interfere with cloud providers](https://github.com/kubernetes/website/pull/8873).
-
-### Self-hosting the Kubernetes control plane {#self-hosting}
-
-As of 1.8, you can experimentally create a _self-hosted_ Kubernetes control
-plane. This means that key components such as the API server, controller
-manager, and scheduler run as [DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
-configured via the Kubernetes API instead of [static pods](/docs/tasks/administer-cluster/static-pod/)
-configured in the kubelet via static files.
-
-To create a self-hosted cluster see the `kubeadm alpha selfhosting` command.
-
-#### Caveats
-
-1. Self-hosting in 1.8 and later has some important limitations. In particular, a
-  self-hosted cluster _cannot recover from a reboot of the control-plane node_
-  without manual intervention.
-
-1. A self-hosted cluster is not upgradeable using `kubeadm upgrade`.
-
-1. By default, self-hosted control plane Pods rely on credentials loaded from
-  [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
-  volumes. Except for initial creation, these credentials are not managed by
-  kubeadm.
-
-1. The self-hosted portion of the control plane does not include etcd,
-  which still runs as a static Pod.
-
-#### Process
-
-The self-hosting bootstrap process is documented in the [kubeadm design
-document](https://github.com/kubernetes/kubeadm/blob/master/docs/design/design_v1.9.md#optional-self-hosting).
-
-In summary, `kubeadm alpha selfhosting` works as follows:
-
-  1. Waits for this bootstrap static control plane to be running and
-    healthy. This is identical to the `kubeadm init` process without self-hosting.
-
-  1. Uses the static control plane Pod manifests to construct a set of
-    DaemonSet manifests that will run the self-hosted control plane.
-    It also modifies these manifests where necessary, for example adding new volumes
-    for secrets.
-
-  1. Creates DaemonSets in the `kube-system` namespace and waits for the
-     resulting Pods to be running.
-
-  1. Once self-hosted Pods are operational, their associated static Pods are deleted
-     and kubeadm moves on to install the next component. This triggers kubelet to
-     stop those static Pods.
-
-  1. When the original static control plane stops, the new self-hosted control
-    plane is able to bind to listening ports and become active.
 
 ### Running kubeadm without an internet connection
 
 For running kubeadm without an internet connection you have to pre-pull the required control-plane images.
 
-In Kubernetes 1.11 and later, you can list and pull the images using the `kubeadm config images` sub-command:
+You can list and pull the images using the `kubeadm config images` sub-command:
 
 ```shell
 kubeadm config images list
 kubeadm config images pull
 ```
 
-In Kubernetes 1.12 and later, the `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` images
-don't require an `-${ARCH}` suffix.
+All images that kubeadm requires such as `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` and `k8s.gcr.io/pause` support multiple architectures.
 
 ### Automating kubeadm
 
 Rather than copying the token you obtained from `kubeadm init` to each node, as
-in the [basic kubeadm tutorial](/docs/setup/independent/create-cluster-kubeadm/), you can parallelize the
+in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), you can parallelize the
 token distribution for easier automation. To implement this automation, you must
-know the IP address that the control-plane node will have after it is started.
+know the IP address that the control-plane node will have after it is started,
+or use a DNS name or an address of a load balancer.
 
 1.  Generate a token. This token must have the form  `<6 character string>.<16
-    character string>`.  More formally, it must match the regex:
+    character string>`. More formally, it must match the regex:
     `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
     kubeadm can generate a token for you:
@@ -318,9 +236,16 @@ know the IP address that the control-plane node will have after it is started.
     kubeadm token generate
     ```
 
-1. Start both the control-plane node and the worker nodes concurrently with this token.
-   As they come up they should find each other and form the cluster.  The same
-   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+1.  Start both the control-plane node and the worker nodes concurrently with this token.
+    As they come up they should find each other and form the cluster.  The same
+    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+
+1.  Similar can be done for `--certificate-key` when joining additional control-plane
+    nodes. The key can be generated using:
+
+    ```shell
+    kubeadm alpha certs certificate-key
+    ```
 
 Once the cluster is up, you can grab the admin credentials from the control-plane node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.

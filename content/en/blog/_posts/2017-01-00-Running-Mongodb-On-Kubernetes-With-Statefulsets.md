@@ -9,7 +9,7 @@ _Editor's note: Today’s post is by Sandeep Dinesh, Developer Advocate, Google 
 
 Conventional wisdom says you can’t run a database in a container. “Containers are stateless!” they say, and “databases are pointless without state!”   
 
-Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads) includes the new [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.  
+Of course, this is not true at all. At Google, everything runs in a container, including databases. You just need the right tools. [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/) includes the new [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/) API object (in previous versions, StatefulSet was known as PetSet). With StatefulSets, Kubernetes makes it much easier to run stateful workloads such as databases.
 
 If you’ve followed my previous posts, you know how to create a [MEAN Stack app with Docker](http://blog.sandeepdinesh.com/2015/07/running-mean-web-application-in-docker.html), then [migrate it to Kubernetes](https://medium.com/google-cloud/running-a-mean-stack-on-google-cloud-platform-with-kubernetes-149ca81c2b5d) to provide easier management and reliability, and [create a MongoDB replica set](https://medium.com/google-cloud/mongodb-replica-sets-with-kubernetes-d96606bd9474) to provide redundancy and high availability.  
 

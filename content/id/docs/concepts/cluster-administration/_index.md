@@ -1,5 +1,5 @@
 ---
-title: "Administrasi Kluster"
+title: "Administrasi Klaster"
 weight: 100
 ---
 

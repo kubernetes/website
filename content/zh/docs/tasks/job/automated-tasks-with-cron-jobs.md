@@ -1,3 +1,12 @@
+---
+reviewers:
+- chenopis
+
+title: 使用 CronJob 运行自动化任务
+content_template: templates/task
+weight: 10
+---
+
 <!--
 ---
 title: Running Automated Tasks with a CronJob
@@ -7,15 +16,6 @@ content_template: templates/task
 weight: 10
 ---
 -->
-
----
-reviewers:
-- chenopis
-
-title: 使用 CronJob 运行自动化任务
-content_template: templates/task
-weight: 10
----
 
 {{% capture overview %}}
 
@@ -209,9 +209,9 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 
 CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
-{{< note >}} 
+{{< note >}}
 <!--
-All modifications to a cron job, especially its `.spec`, are applied only to the following runs. 
+All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
 -->
 对 CronJob 的所有改动，特别是它的 `.spec`，只会影响将来的运行实例。
 {{< /note >}}
@@ -235,16 +235,16 @@ The format also includes extended `vixie cron` step values. As explained in the 
 
 <!--
 > Step values can be	used in	conjunction with ranges.  Following a range
-> with ``/<number>''	specifies skips	of the number's	value through the
-> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> with `/<number>` specifies skips	of the number's	value through the
+> range.  For example, `0-23/2` can be used in the	hours field to specify
 > command execution every other hour	(the alternative in the	V7 standard is
-> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
-> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+> `0,2,4,6,8,10,12,14,16,18,20,22`).  Steps are also permitted after an
+> asterisk, so if you want to say "every two hours", just use `*/2`.
 -->
 
-> 步长可被用于范围组合。范围后面带有 ``/<数字>'' 可以声明范围内的步幅数值。
-> 例如，``0-23/2'' 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是``0,2,4,6,8,10,12,14,16,18,20,22''）。
-> 步长也可以放在通配符后面，因此如果你想表达 ``每两小时''，就用 ``*/2'' 。
+> 步长可被用于范围组合。范围后面带有 `/<数字>` 可以声明范围内的步幅数值。
+> 例如，`0-23/2` 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是`0,2,4,6,8,10,12,14,16,18,20,22`）。
+> 步长也可以放在通配符后面，因此如果你想表达 "每两小时"，就用 `*/2` 。
 
 {{< note >}}
 <!--
@@ -291,7 +291,7 @@ That means 120 schedules were missed, so the cron job is no longer scheduled. If
 field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
 `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
 schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
-last 200 seconds, the cron job is no longer scheduled. 
+last 200 seconds, the cron job is no longer scheduled.
 -->
 
 CronJob 控制器会统计错过了多少次调度。如果错过了100次以上的调度，CronJob 就不再调度了。当没有设置 `.spec.startingDeadlineSeconds` 时，CronJob 控制器统计从`status.lastScheduleTime`到当前的调度错过次数。

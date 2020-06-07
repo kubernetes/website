@@ -11,7 +11,7 @@ Laman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pad
 
 {{% capture body %}}
 ### Kubeadm
-[Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat kluster Kubernetes.
+[Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat klaster Kubernetes.
 Kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm adalah sebagai berikut:
 
 ```yaml
@@ -297,7 +297,7 @@ dan harus berada pada bagian `[Router]` dari *file* `cloud.conf`:
 
 * `router-id` (Opsional): Jika Neutron pada *underlying cloud* mendukung ekstensi
   `extraroutes` maka gunakan `router-id` untuk menentukan router mana yang akan ditambahkan rute di dalamnya.
-  Router yang dipilih harus menjangkau jaringan privat tempat *node* kluster berada
+  Router yang dipilih harus menjangkau jaringan privat tempat *node* klaster berada
   (biasanya hanya ada satu jaringan *node*, dan nilai ini harus nilai dari *default* router
   pada jaringan *node*).  Nilai ini dibutuhkan untuk dapat menggunakan [kubenet] pada OpenStack.
 
@@ -330,14 +330,14 @@ Parameter `--hostname-override` diabaikan oleh penyedia layanan cloud VSphere.
 ## IBM Cloud Kubernetes Service
 
 ### Node Komputasi
-Saat menggunakan layanan IBM Cloud Kubernetes Service, kamu dapat membuat kluster yang terdiri dari campuran antara mesin virtual dan fisik (*bare metal*) sebagai *node* di *single zone* atau *multiple zones* pada satu region. Untuk informasi lebih lanjut, lihat [Perencanaan kluster dan pengaturan worker node](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
+Saat menggunakan layanan IBM Cloud Kubernetes Service, kamu dapat membuat klaster yang terdiri dari campuran antara mesin virtual dan fisik (*bare metal*) sebagai *node* di *single zone* atau *multiple zones* pada satu region. Untuk informasi lebih lanjut, lihat [Perencanaan klaster dan pengaturan worker node](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
 
 Nama dari objek Kubernetes Node yaitu alamat IP privat dari IBM Cloud Kubernetes Service *worker node instance*.
 
 ### Jaringan
-Penyedia layanan IBM Cloud Kubernetes Service menyediakan VLAN untuk membuat jaringan node yang terisolasi dengan kinerja tinggi. Kamu juga dapat membuat *custom firewall* dan *policy* jaringan Calico untuk menambah lapisan perlindungan ekstra bagi kluster kamu, atau hubungkan kluster kamu dengan *on-prem* data center via VPN. Untuk informasi lebih lanjut, lihat [Perencanaan jaringan privat dan in-cluster](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
+Penyedia layanan IBM Cloud Kubernetes Service menyediakan VLAN untuk membuat jaringan node yang terisolasi dengan kinerja tinggi. Kamu juga dapat membuat *custom firewall* dan *policy* jaringan Calico untuk menambah lapisan perlindungan ekstra bagi klaster kamu, atau hubungkan klaster kamu dengan *on-prem* data center via VPN. Untuk informasi lebih lanjut, lihat [Perencanaan jaringan privat dan in-cluster](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
 
-Untuk membuka aplikasi ke publik atau di dalam kluster, kamu dapat menggunakan NodePort, LoadBalancer, atau Ingress. Kamu juga dapat menyesuaikan aplikasi *load balancer* Ingress dengan anotasi. Untuk informasi lebih lanjut, lihat [Perencanaan untuk membuka aplikasi dengan jaringan eksternal](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
+Untuk membuka aplikasi ke publik atau di dalam klaster, kamu dapat menggunakan NodePort, LoadBalancer, atau Ingress. Kamu juga dapat menyesuaikan aplikasi *load balancer* Ingress dengan anotasi. Untuk informasi lebih lanjut, lihat [Perencanaan untuk membuka aplikasi dengan jaringan eksternal](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
 ### Penyimpanan
 Penyedia layanan IBM Cloud Kubernetes Service memanfaatkan Kubernetes-native *persistent volumes* agar pengguna dapat melakukan  *mount* *file*, block, dan penyimpanan objek cloud ke aplikasi mereka. Kamu juga dapat menggunakan *database-as-a-service* dan *add-ons* pihak ketiga sebagai penyimpanan *persistent* untuk data kamu. Untuk informasi lebih lanjut, lihat [Perencanaan penyimpanan persistent yang selalu tersedia (*highly available*)](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).

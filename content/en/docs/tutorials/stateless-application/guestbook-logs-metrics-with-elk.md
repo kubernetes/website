@@ -11,9 +11,9 @@ card:
 ---
 
 {{% capture overview %}}
-This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
+This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
 
-* A running instance of the [PHP Guestbook with Redis tutorial](../guestbook)
+* A running instance of the [PHP Guestbook with Redis tutorial](/docs/tutorials/stateless-application/guestbook)
 * Elasticsearch and Kibana
 * Filebeat
 * Metricbeat
@@ -36,19 +36,19 @@ This tutorial builds upon the [PHP Guestbook with Redis](../guestbook) tutorial.
 
 Additionally you need:
 
-* A running deployment of the [PHP Guestbook with Redis](../guestbook) tutorial.
+* A running deployment of the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.
 
-* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).  
+* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).
 
 {{% /capture %}}
 
 {{% capture lessoncontent %}}
 
 ## Start up the  PHP Guestbook with Redis
-This tutorial builds on the [PHP Guestbook with Redis](../guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
+This tutorial builds on the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
 
 ## Add a Cluster role binding
-Create a [cluster level role binding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
+Create a [cluster level role binding](/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
 
 ```shell
 kubectl create clusterrolebinding cluster-admin-binding \
@@ -67,18 +67,18 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f kube-state-metrics/kubernetes
-kubectl get pods --namespace=kube-system | grep kube-state
+kubectl apply -f kube-state-metrics/examples/standard
+kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 Verify that kube-state-metrics is running and ready
 ```shell
-kubectl get pods -n kube-system -l k8s-app=kube-state-metrics
+kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
 Output:
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
-kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
+kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
 ## Clone the Elastic examples GitHub repo
 ```shell
@@ -111,10 +111,10 @@ There are four files to edit to create a k8s secret when you are connecting to s
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples
+Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples (also see [*this configuration*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897))
 
 #### `ELASTICSEARCH_HOSTS`
-1. A nodeGroup from the Elastic Elasticseach Helm Chart:
+1. A nodeGroup from the Elastic Elasticsearch Helm Chart:
 
     ```shell
     ["http://elasticsearch-master.default.svc.cluster.local:9200"]
@@ -357,10 +357,14 @@ The output:
 ```shell
 deployment.extensions/frontend scaled
 ```
+Scale the frontend back up to three pods:
+```shell
+kubectl scale --replicas=3 deployment/frontend
+```
 
 ## View the changes in Kibana
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
-![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-discover.png)
+![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
 {{% /capture %}}
 

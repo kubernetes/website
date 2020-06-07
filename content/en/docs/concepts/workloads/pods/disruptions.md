@@ -97,6 +97,8 @@ time as frequent voluntary disruptions.  We call this set of features
 
 ## How Disruption Budgets Work
 
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
+
 An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
 A PDB limits the number of pods of a replicated application that are down simultaneously from
 voluntary disruptions.  For example, a quorum-based application would
@@ -169,8 +171,8 @@ The deployment notices that one of the pods is terminating, so it creates a repl
 called `pod-d`.  Since `node-1` is cordoned, it lands on another node.  Something has
 also created `pod-y` as a replacement for `pod-x`.
 
-(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-1`, would need
-to terminate completely before its replacement, which is also called `pod-1` but has a
+(Note: for a StatefulSet, `pod-a`, which would be called something like `pod-0`, would need
+to terminate completely before its replacement, which is also called `pod-0` but has a
 different UID, could be created.  Otherwise, the example applies to a StatefulSet as well.)
 
 Now the cluster is in this state:
@@ -211,7 +213,7 @@ state:
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
-|                      | pod-b *available*   | pod-c *available*  | pod-e *pending*    |
+|                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
 At this point, the cluster administrator needs to

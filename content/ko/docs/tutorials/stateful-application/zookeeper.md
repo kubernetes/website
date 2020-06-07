@@ -6,27 +6,27 @@ weight: 40
 
 {{% capture overview %}}
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
-쿠버네티스에서 [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)과
-[파드디스룹선버짓(PodDisruptionBudget)](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
-[파드안티어피니티(PodAntiAffinity)](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
+쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
+[파드디스룹선버짓(PodDisruptionBudget)](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
+[파드안티어피니티(PodAntiAffinity)](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
 {{% /capture %}}
 
 {{% capture prerequisites %}}
 
-이 튜토리얼을 시작하지 전에
+이 튜토리얼을 시작하기 전에
 다음 쿠버네티스 개념에 친숙해야 한다.
 
 -   [파드](/docs/user-guide/pods/single-container/)
--   [클러스터 DNS](/docs/concepts/services-networking/dns-pod-service/)
--   [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services)
--   [퍼시스턴트볼륨](/docs/concepts/storage/volumes/)
+-   [클러스터 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)
+-   [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
+-   [퍼시스턴트볼륨](/ko/docs/concepts/storage/volumes/)
 -   [퍼시스턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
--   [스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)
--   [파드디스룹션버짓](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
--   [파드안티어피니티](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+-   [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
+-   [파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
+-   [파드안티어피니티](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)
 -   [kubectl CLI](/docs/user-guide/kubectl/)
 
-최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시적으로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 주는 혼란이 발생하지 않도록 해야합니다.
+최소한 4개의 노드가 있는 클러스터가 필요하며, 각 노드는 적어도 2 개의 CPU와 4 GiB 메모리가 필요하다. 이 튜토리얼에서 클러스터 노드를 통제(cordon)하고 비우게(drain) 할 것이다. **이것은 클러스터를 종료하여 노드의 모든 파드를 퇴출(evict)하는 것으로, 모든 파드는 임시로 언스케줄된다는 의미이다.** 이 튜토리얼을 위해 전용 클러스터를 이용하거나, 다른 테넌트에 간섭을 하는 혼란이 발생하지 않도록 해야 합니다.
 
 이 튜토리얼은 클러스터가 동적으로 퍼시스턴트볼륨을 프로비저닝하도록 구성한다고 가정한다.
 그렇게 설정되어 있지 않다면
@@ -38,7 +38,7 @@ weight: 40
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
 
 -   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
--   어떻게 지속적으로 컨피그맵을 이용해서 앙상블을 설정하는가.
+-   어떻게 지속적해서 컨피그맵을 이용해서 앙상블을 설정하는가.
 -   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 -   어떻게 파드디스룹션버짓을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
     {{% /capture %}}
@@ -55,17 +55,17 @@ ZooKeeper는 데이터를 읽고 쓰고 갱신을 지켜보도록 한다. 데이
 [Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf) 합의 프로토콜을
 이용하여 앙상블 내에 모든 서버에 걸쳐 상태 머신을 복제하여 이를 보장한다.
 
-앙상블은 리더 선출을 위해 Zab 프로토콜을 사용하고, 리더 선출과 선거가 완료되기 전까지 앙상블은 데이터를 쓸 수 없다. 완료되면 앙상블은 Zab을 이용하여 확인하고 클라이언트에 보여지도록 모든 쓰기를 쿼럼(quorum)에 복제한다. 가중치있는 쿼럼과 관련없이, 쿼럼은 현재 리더를 포함하는 앙상블의 대다수 컴포넌트이다. 예를 들어 앙상블이 3개 서버인 경우, 리더와 다른 서버로 쿼럼을 구성한다. 앙상블이 쿼럼을 달성할 수 없다면, 앙상블은 데이터를 쓸 수 없다.
+앙상블은 리더 선출을 위해 Zab 프로토콜을 사용하고, 리더 선출과 선거가 완료되기 전까지 앙상블은 데이터를 쓸 수 없다. 완료되면 앙상블은 Zab을 이용하여 확인하고 클라이언트에 보이도록 모든 쓰기를 쿼럼(quorum)에 복제한다. 가중치있는 쿼럼과 관련 없이, 쿼럼은 현재 리더를 포함하는 앙상블의 대다수 컴포넌트이다. 예를 들어 앙상블이 3개 서버인 경우, 리더와 다른 서버로 쿼럼을 구성한다. 앙상블이 쿼럼을 달성할 수 없다면, 앙상블은 데이터를 쓸 수 없다.
 
 ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변이를 저장 미디어의 내구성 있는 WAL(Write Ahead Log)에 기록한다. 서버 장애시 WAL을 재생하여 이전 상태를 복원할 수 있다. WAL이 무제한으로 커지는 것을 방지하기 위해 ZooKeeper는 주기적으로 저장 미디어에 메모리 상태의 스냅샷을 저장한다. 이 스냅샷은 메모리에 직접 적재할 수 있고 스냅샷 이전의 모든 WAL 항목은 삭제될 수 있다.
 
 ## ZooKeeper 앙상블 생성하기
 
 아래 메니페스트에는
-[헤드리스 서비스](/docs/concepts/services-networking/service/#headless-services),
-[서비스](/docs/concepts/services-networking/service/),
-[파드디스룹션버짓](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
-[스테이트풀셋](/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
+[헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스),
+[서비스](/ko/docs/concepts/services-networking/service/),
+[파드디스룹션버짓](/ko/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget),
+[스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
@@ -173,7 +173,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-[쿠버네티스 DNS](/docs/concepts/services-networking/dns-pod-service/)의 A 레코드는 FQDN을 파드의 IP 주소로 풀어낸다. 쿠버네티스가 파드를 리스케줄하면, 파드의 새 IP 주소로 A 레코드를 갱신하지만, A 레코드의 이름은 바뀌지 않는다.
+[쿠버네티스 DNS](/ko/docs/concepts/services-networking/dns-pod-service/)의 A 레코드는 FQDN을 파드의 IP 주소로 풀어낸다. 쿠버네티스가 파드를 리스케줄하면, 파드의 새 IP 주소로 A 레코드를 갱신하지만, A 레코드의 이름은 바뀌지 않는다.
 
 ZooKeeper는 그것의 애플리케이션 환경설정을 `zoo.cfg` 파일에 저장한다. `kubectl exec`를 이용하여 `zk-0` 파드의 `zoo.cfg` 내용을 보자.
 
@@ -366,7 +366,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-아래 명령어로 [무결성 테스트](#sanity-testing-the-ensemble)에서 입력한 값을
+아래 명령어로 [무결성 테스트](#앙상블-무결성-테스트)에서 입력한 값을
 `zk-2` 파드에서 얻어온다.
 
 ```shell
@@ -443,8 +443,8 @@ ZooKeeper의 서버 디렉터리에 마운트한다.
 
 ## 일관된 구성 보장하기
 
-[리더 선출 촉진](#facilitating-leader-election)과
-[합의 달성](#achieving-consensus) 섹션에서 알렸듯이,
+[리더 선출 촉진](#리더-선출-촉진)과
+[합의 달성](#합의-달성) 섹션에서 알렸듯이,
 ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
 또한 Zab 프로토콜의 일관된 설정도 
 네트워크에 걸쳐 올바르게 동작하기 위해서
@@ -507,7 +507,7 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-이는 컨테이너 내에서 안전하게 로깅하는 가장 단순한 방법이다. 표준 출력으로 애플리케이션 로그를 작성하면, 쿠버네티스는 로그 로테이션을 처리한다. 또한 쿠버네티스는 애플리케이션이 표준 출력과 표준 오류에 쓰여진 로그로 인하여 로컬 저장 미디어가 고갈되지 않도록 보장하는 정상적인 보존 정책을 구현한다.
+이는 컨테이너 내에서 안전하게 로깅하는 가장 단순한 방법이다. 표준 출력으로 애플리케이션 로그를 작성하면, 쿠버네티스는 로그 로테이션을 처리한다. 또한 쿠버네티스는 애플리케이션이 표준 출력과 표준 오류에 쓰인 로그로 인하여 로컬 저장 미디어가 고갈되지 않도록 보장하는 정상적인 보존 정책을 구현한다.
 
 파드의 마지막 20줄의 로그를 가져오는 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs) 명령을 이용하자.
 
@@ -515,7 +515,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-
 kubectl logs zk-0 --tail 20
 ```
 
-`kubectl logs`를 이용하거나 쿠버네티스 대시보드에서 표준 출력과 표준 오류로 쓰여진 애플리케이션 로그를 볼 수 있다.
+`kubectl logs`를 이용하거나 쿠버네티스 대시보드에서 표준 출력과 표준 오류로 쓰인 애플리케이션 로그를 볼 수 있다.
 
 ```shell
 2016-12-06 19:34:16,236 [myid:1] - INFO  [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@827] - Processing ruok command from /127.0.0.1:52740
@@ -546,11 +546,11 @@ kubectl logs zk-0 --tail 20
 클러스터 수준의 로그 적재(ship)와 통합을 위해서는 로그 순환과 적재를 위해
 [사이드카](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) 컨테이너를 배포하는 것을 고려한다.
 
-### 권한없는 사용자를 위해 구성하기
+### 권한 없는 사용자를 위해 구성하기
 
 컨테이너 내부의 권한있는 유저로 애플리케이션을 실행할 수 있도록 하는
 최상의 방법은 논쟁거리이다.
-조직에서 애플리케이션을 권한없는 사용자가 실행한다면,
+조직에서 애플리케이션을 권한 없는 사용자가 실행한다면,
 진입점을 실행할 사용자를 제어하기 위해
 [시큐리티컨텍스트](/docs/tasks/configure-pod-container/security-context/)를 이용할 수 있다.
 
@@ -632,7 +632,7 @@ Waiting for 1 pods to be ready...
 statefulset rolling update complete 3 pods at revision zk-5db4499664...
 ```
 
-이것은 파드를 역순으로 한번에 하나씩 종료하고, 새로운 구성으로 재생성한다. 이는 롤링업데이트 동안에 쿼럼을 유지하도록 보장한다.
+이것은 파드를 역순으로 한 번에 하나씩 종료하고, 새로운 구성으로 재생성한다. 이는 롤링업데이트 동안에 쿼럼을 유지하도록 보장한다.
 
 이력과 이전 구성을 보기 위해 `kubectl rollout history` 명령을 이용하자.
 
@@ -655,19 +655,19 @@ statefulset.apps/zk rolled back
 
 ### 프로세스 장애 관리하기
 
-[재시작 정책](/docs/user-guide/pod-states/#restartpolicy)은
+[재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)은
 쿠버네티스가 파드 내에 컨테이너의 진입점에서 프로세스 실패를 어떻게 다루는지 제어한다.
 `스테이트풀셋`의 파드에서 오직 적절한 `재시작 정책`는 Always이며
 이것이 기본 값이다. 상태가 유지되는 애플리케이션을 위해
 기본 정책을 **절대로** 변경하지 말자.
 
-`zk-0` 파드에서 실행중인 ZooKeeper 서버에서 프로세스 트리를 살펴보기 위해 다음 명령어를 이용하자.
+`zk-0` 파드에서 실행 중인 ZooKeeper 서버에서 프로세스 트리를 살펴보기 위해 다음 명령어를 이용하자.
 
 ```shell
 kubectl exec zk-0 -- ps -ef
 ```
 
-컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되엇으며
+컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되었으며
 ZooKeeper 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
 ```shell
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -772,7 +772,7 @@ zk-0      1/1       Running   1         1h
 
 준비도는 활성도와 동일하지 않다. 프로세스가 살아 있다면, 스케쥴링되고 건강하다.
 프로세스가 준비되면 입력을 처리할 수 있다. 활성도는 필수적이나 준비도의 조건으로는
-충분하지 않다. 몇몇의 경우
+충분하지 않다. 몇몇 경우
 특별히 초기화와 종료 시에 프로세스는 살아있지만
 준비되지 않을 수 있다.
 
@@ -823,9 +823,9 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 `zk` `스테이트풀셋`에 모든 파드는 다른 노드에 배포된다.
 
 ```shell
-kubernetes-minion-group-cxpk
-kubernetes-minion-group-a5aq
-kubernetes-minion-group-2g2d
+kubernetes-node-cxpk
+kubernetes-node-a5aq
+kubernetes-node-2g2d
 ```
 
 이는 `zk` `스테이트풀셋`의 파드에 `파드안티어피니티(PodAntiAffinity)`를 지정했기 때문이다.
@@ -855,7 +855,7 @@ kubernetes-minion-group-2g2d
 **이 섹션에서는 노드를 통제(cordon)하고 비운다(drain). 공유된 클러스터에서 이 튜토리얼을 진행한다면,
 다른 테넌트에 부정적인 영향을 비치지 않음을 보증해야 한다.**
 
-이전 섹션은 계획되지 않은 노드 실패에서 살아 남도록
+이전 섹션은 계획되지 않은 노드 실패에서 살아남도록
 어떻게 파드를 확산할 것인가에 대해 알아보았다.
 그러나 계획된 점검으로 인해 발생하는 일시적인 노드 실패에 대한 계획도 필요하다.
 
@@ -897,9 +897,9 @@ kubectl get pods -w -l app=zk
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 
-kubernetes-minion-group-pb41
-kubernetes-minion-group-ixsl
-kubernetes-minion-group-i4c4
+kubernetes-node-pb41
+kubernetes-node-ixsl
+kubernetes-node-i4c4
 ```
 
 `zk-0`파드가 스케쥴되는 노드를 통제하기 위해
@@ -907,11 +907,11 @@ kubernetes-minion-group-i4c4
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-pb41" cordoned
+node "kubernetes-node-group-pb41" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-pb41, kube-proxy-kubernetes-minion-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-group-pb41, kube-proxy-kubernetes-node-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
 pod "zk-0" deleted
-node "kubernetes-minion-group-pb41" drained
+node "kubernetes-node-group-pb41" drained
 ```
 
 클러스터에 4개 노드가 있기 때문에 `kubectl drain`이 성공하여
@@ -938,11 +938,11 @@ zk-0      1/1       Running   0         1m
 `zk-1` 이 스케쥴된 노드를 비워보자.
 
 ```shell
-kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-minion-group-ixsl" cordoned
+kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-ixsl, kube-proxy-kubernetes-minion-group-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
-node "kubernetes-minion-group-ixsl" drained
+node "kubernetes-node-ixsl" drained
 ```
 
 `zk-1` 파드는 스케쥴되지 않는데 이는 `zk` `스테이트풀셋`이 오직 2개 노드가 스케쥴되도록 파드를 위치시키는 것을 금하는 `파드안티어피니티` 규칙을 포함하였기 때문이고 그 파드는 Pending 상태로 남을 것이다.
@@ -977,10 +977,10 @@ zk-1      0/1       Pending   0         0s
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
-node "kubernetes-minion-group-i4c4" cordoned
+node "kubernetes-node-i4c4" cordoned
 
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
-WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+WARNING: Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog; Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4
 There are pending pods when an error occurred: Cannot evict pod as it would violate the pod's disruption budget.
 pod/zk-2
 ```
@@ -996,7 +996,7 @@ kubectl 을 종료하기 위해 `CTRL-C`를 이용하자.
 kubectl exec zk-0 zkCli.sh get /hello
 ```
 
-`PodDisruptionBudget`이 존중되기 떄문에 서비스는 여전히 가용하다.
+`PodDisruptionBudget`이 존중되기 때문에 서비스는 여전히 가용하다.
 
 ```shell
 WatchedEvent state:SyncConnected type:None path:null
@@ -1017,9 +1017,9 @@ numChildren = 0
 [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) 이용하여 첫 노드의 통제를 풀자.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-pb41
+kubectl uncordon kubernetes-node-pb41
 
-node "kubernetes-minion-group-pb41" uncordoned
+node "kubernetes-node-pb41" uncordoned
 ```
 
 `zk-1`은 이 노드에서 재스케쥴된다. `zk-1`이 Running과 Ready가 될 때까지 기다리자.
@@ -1062,26 +1062,26 @@ kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-dae
 출력은
 
 ```
-node "kubernetes-minion-group-i4c4" already cordoned
-WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-minion-group-i4c4, kube-proxy-kubernetes-minion-group-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
+node "kubernetes-node-i4c4" already cordoned
+WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
 pod "heapster-v1.2.0-2604621511-wht1r" deleted
 pod "zk-2" deleted
-node "kubernetes-minion-group-i4c4" drained
+node "kubernetes-node-i4c4" drained
 ```
 
 이번엔 `kubectl drain` 이 성공한다.
 
-`zk-2`가 재스케줄되도록 두번째 노드의 통제를 풀어보자.
+`zk-2`가 재스케줄되도록 두 번째 노드의 통제를 풀어보자.
 
 ```shell
-kubectl uncordon kubernetes-minion-group-ixsl
+kubectl uncordon kubernetes-node-ixsl
 ```
 
 ```
-node "kubernetes-minion-group-ixsl" uncordoned
+node "kubernetes-node-ixsl" uncordoned
 ```
 
-`kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수중에도 서비스를 가용하게 할 수 있다. drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다. 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
+`kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수 중에도 서비스를 가용하게 할 수 있다. drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다. 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
 {{% /capture %}}
 
 {{% capture cleanup %}}

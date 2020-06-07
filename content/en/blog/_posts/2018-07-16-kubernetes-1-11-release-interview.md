@@ -267,7 +267,7 @@ TIM PEPPER: Also, I would maybe argue in a way that a portion of that wasn't jus
 
 <i>Thanks to Josh Berkus and Tim Pepper for talking to the Kubernetes Podcast from Google.
 
-[Josh Berkus](https://github.com/jberkus) hangs out in #sig-release on the [Kubernetes Slack](slack.k8s.io). He maintains a newsletter called "[Last Week in Kubernetes Development](http://lwkd.info/)", with Noah Kantrowitz. You can read him on Twitter at [@fuzzychef](https://twitter.com/fuzzychef), but he does warn you that there's a lot of politics there as well.
+[Josh Berkus](https://github.com/jberkus) hangs out in #sig-release on the [Kubernetes Slack](https://slack.k8s.io). He maintains a newsletter called "[Last Week in Kubernetes Development](http://lwkd.info/)", with Noah Kantrowitz. You can read him on Twitter at [@fuzzychef](https://twitter.com/fuzzychef), but he does warn you that there's a lot of politics there as well.
 
 
 [Tim Pepper](https://github.com/tpepper) is also on Slack - he's always open to folks reaching out with a question, looking for help or advice.  On Twitter you'll find him at [@pythomit](https://twitter.com/pythomit), which is "Timothy P" backwards. Tim is an avid soccer fan and season ticket holder for the [Portland Timbers](https://portlandtimbers.com/) and the [Portland Thorns](https://portlandthorns.com/), so you'll get all sorts of opinions on soccer in addition to technology!

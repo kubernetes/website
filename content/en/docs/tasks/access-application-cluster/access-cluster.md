@@ -72,8 +72,15 @@ The output is similar to this:
 
 ```json
 {
+  "kind": "APIVersions",
   "versions": [
     "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
   ]
 }
 ```
@@ -155,8 +162,8 @@ client libraries.
 
 ### Go client
 
-* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes`, see [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix) to see which versions are supported.
-* Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct.
+* To get the library, run the following command: `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>`, see [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user) for detailed installation instructions. See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix) to see which versions are supported.
+* Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/kubernetes"` is correct.
 
 The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go).
@@ -168,7 +175,7 @@ If the application is deployed as a Pod in the cluster, please refer to the [nex
 To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples/example1.py).
+as the kubectl CLI does to locate and authenticate to the apiserver. See this [example](https://github.com/kubernetes-client/python/tree/master/examples).
 
 ### Other languages
 
@@ -270,7 +277,7 @@ This shows the proxy-verb URL for accessing each service.
 For example, this cluster has cluster-level logging enabled (using Elasticsearch), which can be reached
 at `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` if suitable credentials are passed.  Logging can also be reached through a kubectl proxy, for example at:
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
-(See [above](#accessing-the-cluster-api) for how to pass credentials or use kubectl proxy.)
+(See [Access Clusters Using the Kubernetes API](/docs/tasks/administer-cluster/access-cluster-api/) for how to pass credentials or use kubectl proxy.)
 
 #### Manually constructing apiserver proxy URLs
 

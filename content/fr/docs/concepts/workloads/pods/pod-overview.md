@@ -3,7 +3,7 @@ title: Aperçu du Pod
 description: Pod Concept Kubernetes
 content_template: templates/concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 60
 ---
@@ -16,11 +16,11 @@ Cette page fournit un aperçu du `Pod`, l'objet déployable le plus petit dans l
 
 ## Comprendre les Pods
 
-Un *Pod* est le bloc de construction de base de Kubernetes--l'unité la plus petite et la plus simple dans le modèle d'objets de Kubernetes--que vous créez ou déployez. Un Pod représente un process en cours d'exécution dans votre cluster.
+Un *Pod* est l'unité d'exécution de base d'une application Kubernetes--l'unité la plus petite et la plus simple dans le modèle d'objets de Kubernetes--que vous créez ou déployez. Un Pod représente des process en cours d'exécution dans votre {{< glossary_tooltip term_id="cluster" >}}.
 
-Un Pod encapsule un conteneur applicatif (ou, dans certains cas, plusieurs conteneurs), des ressources de stockage, une IP réseau unique, et des options qui contrôlent comment le ou les conteneurs doivent s'exécuter. Un Pod représente une unité de déploiement : *une instance unique d'une application dans Kubernetes*, qui peut consister soit en un unique conteneur soit en un petit nombre de conteneurs qui sont étroitement liés et qui partagent des ressources.
+Un Pod encapsule un conteneur applicatif (ou, dans certains cas, plusieurs conteneurs), des ressources de stockage, une IP réseau unique, et des options qui contrôlent comment le ou les conteneurs doivent s'exécuter. Un Pod représente une unité de déploiement : *une instance unique d'une application dans Kubernetes*, qui peut consister soit en un unique {{< glossary_tooltip text="container" term_id="container" >}} soit en un petit nombre de conteneurs qui sont étroitement liés et qui partagent des ressources.
 
-> [Docker](https://www.docker.com) est le runtime de conteneurs le plus courant utilisé dans un Pod Kubernetes, mais les Pods prennent également en charge d'autres runtimes de conteneurs.
+> [Docker](https://www.docker.com) est le runtime de conteneurs le plus courant utilisé dans un Pod Kubernetes, mais les Pods prennent également en charge d'autres [runtimes de conteneurs](https://kubernetes.io/docs/setup/production-environment/container-runtimes/).
 
 Les Pods dans un cluster Kubernetes peuvent être utilisés de deux manières différentes :
 
@@ -40,7 +40,9 @@ Les Pods sont conçus pour supporter plusieurs process coopérants (sous forme d
 
 Notez que grouper plusieurs conteneurs co-localisés et co-gérés dans un unique Pod est un cas d'utilisation relativement avancé. Vous devez utiliser ce pattern seulement dans des instances spécifiques dans lesquelles vos conteneurs sont étroitement liés. Par exemple, vous pourriez avoir un conteneur qui agit comme un serveur web pour des fichiers contenus dans un volume partagé, et un conteneur "sidecar" séparé qui met à jour ces fichiers depuis une source externe, comme dans le diagramme suivant :
 
-{{< figure src="/images/docs/pod.svg" title="pod diagram" width="50%" >}}
+{{< figure src="/images/docs/pod.svg" alt="example pod diagram" width="50%" >}}
+
+Certains Pods ont des {{< glossary_tooltip text="init containers" term_id="init-container" >}} en plus d'{{< glossary_tooltip text="app containers" term_id="app-container" >}}. Les Init containers s'exécutent et terminent avant que les conteneurs d'application soient démarrés.
 
 Les Pods fournissent deux types de ressources partagées pour leurs conteneurs : *réseau* et *stockage*.
 
@@ -50,11 +52,11 @@ Chaque Pod se voit assigner une adresse IP unique. Tous les conteneurs d'un Pod 
 
 #### Stockage
 
-Un Pod peut spécifier un jeu de *volumes* de stockage partagés. Tous les conteneurs dans le Pod peuvent accéder aux volumes partagés, permettant à ces conteneurs de partager des données. Les volumes permettent aussi les données persistantes d'un Pod de survivre au cas où un des conteneurs doit être redémarré. Voir [Volumes](/docs/concepts/storage/volumes/) pour plus d'informations sur la façon dont Kubernetes implémente le stockage partagé dans un Pod.
+Un Pod peut spécifier un jeu de {{< glossary_tooltip text="Volumes" term_id="volume" >}} de stockage partagés. Tous les conteneurs dans le Pod peuvent accéder aux volumes partagés, permettant à ces conteneurs de partager des données. Les volumes permettent aussi les données persistantes d'un Pod de survivre au cas où un des conteneurs doit être redémarré. Voir [Volumes](/docs/concepts/storage/volumes/) pour plus d'informations sur la façon dont Kubernetes implémente le stockage partagé dans un Pod.
 
 ## Travailler avec des Pods
 
-Vous aurez rarement à créer directement des Pods individuels dans Kubernetes--même des Pods à un seul conteneur. Ceci est dû au fait que les Pods sont conçus comme des entités relativement éphémères et jetables. Lorsqu'un Pod est créé (directement par vous ou indirectement par un Controller), il est programmé pour s'exécuter sur un Nœud dans votre cluster. Le Pod reste sur ce Nœud jusqu'à ce que le process se termine, l'objet pod soit supprimé, le pod soit *expulsé* par manque de ressources, ou le Nœud soit en échec.
+Vous aurez rarement à créer directement des Pods individuels dans Kubernetes--même des Pods à un seul conteneur. Ceci est dû au fait que les Pods sont conçus comme des entités relativement éphémères et jetables. Lorsqu'un Pod est créé (directement par vous ou indirectement par un Controller), il est programmé pour s'exécuter sur un {{< glossary_tooltip term_id="node" >}} dans votre cluster. Le Pod reste sur ce Nœud jusqu'à ce que le process se termine, l'objet pod soit supprimé, le pod soit *expulsé* par manque de ressources, ou le Nœud soit en échec.
 
 {{< note >}}
 Redémarrer un conteneur dans un Pod ne doit pas être confondu avec redémarrer le Pod. Le Pod lui-même ne s'exécute pas, mais est un environnement dans lequel les conteneurs s'exécutent, et persiste jusqu'à ce qu'il soit supprimé.
@@ -76,7 +78,7 @@ En général, les Controllers utilisent des Templates de Pod que vous lui fourni
 
 ## Templates de Pod
 
-Les Templates de Pod sont des spécifications de pod qui sont inclus dans d'autres objets, comme les 
+Les Templates de Pod sont des spécifications de pod qui sont inclus dans d'autres objets, comme les
 [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), et
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).  Les Controllers utilisent les Templates de Pod pour créer réellement les pods.
 L'exemple ci-dessous est un manifeste simple pour un Pod d'un conteneur affichant un message.
@@ -99,7 +101,8 @@ Plutôt que de spécifier tous les états désirés courants de tous les réplic
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* En savoir plus sur les [Pods](/docs/concepts/workloads/pods/pod/)
 * En savoir plus sur le comportement des Pods :
   * [Terminaison d'un Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * [Cycle de vie d'un Pod](../pod-lifecycle)
+  * [Cycle de vie d'un Pod](/docs/concepts/workloads/pods/pod-lifecycle/)
 {{% /capture %}}

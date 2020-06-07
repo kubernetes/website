@@ -49,13 +49,13 @@ Berikut merupakan beberapa contoh informasi yang dapat dicatat dengan menggunaka
 * Informasi yang berhubungan dengan pengguna atau perangkat/sistem, seperti URL objek yang terkait
   dengan komponen dari ekosistem lain.
 
-* Metadata untuk perangkat *rollout* yang ringan (*lightweight*): contohnya, untuk 
+* Metadata untuk perangkat *rollout* yang ringan (*lightweight*): contohnya, untuk
   konfigurasi atau penanda (*checkpoint*).
 
 * Nomor telepon atau *pager* dari orang yang bertanggung jawab, atau entri direktori
   yang berisi informasi lebih lanjut, seperti *website* sebuah tim.
 
-* Arahan dari pengguna (*end-user*) untuk melakukan implementasi, perubahan perilaku, 
+* Arahan dari pengguna (*end-user*) untuk melakukan implementasi, perubahan perilaku,
   ataupun untuk interaksi dengan fitur-fitur non-standar.
 
 Tanpa menggunakan anotasi, kamu dapat saja menyimpan informasi-informasi dengan tipe

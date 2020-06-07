@@ -2,7 +2,6 @@
 title: kubectl for Docker Users
 content_template: templates/concept
 reviewers:
-- bgrant0607
 - brendandburns
 - thockin
 ---
@@ -258,8 +257,8 @@ kubectl:
 kubectl get deployment nginx-app
 ```
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-nginx-app   1         1         1            1           2m
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+nginx-app    1/1     1            1           2m
 ```
 
 ```shell
@@ -282,7 +281,7 @@ kubectl get po -l run=nginx-app
 ```
 
 {{< note >}}
-When you use kubectl, you don't delete the pod directly.You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
+When you use kubectl, you don't delete the pod directly. You have to first delete the Deployment that owns the pod. If you delete the pod directly, the Deployment recreates the pod.
 {{< /note >}}
 
 ## docker login
@@ -355,11 +354,11 @@ kubectl:
 kubectl cluster-info
 ```
 ```
-Kubernetes master is running at https://108.59.85.141
-KubeDNS is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
-kubernetes-dashboard is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
-Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
-InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
+Kubernetes master is running at https://203.0.113.141
+KubeDNS is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kube-dns/proxy
+kubernetes-dashboard is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
 {{% /capture %}}

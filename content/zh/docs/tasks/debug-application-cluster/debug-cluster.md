@@ -2,7 +2,7 @@
 title: 集群故障排查
 ---
 
-本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。  
+本篇文档是介绍集群故障排查的；我们假设对于你碰到的问题，你已经排除了是由应用程序造成的。
 对于应用的调试，请参阅[应用故障排查指南](/cn/docs/tasks/debug-application-cluster/debug-application)。
 你也可以访问[troubleshooting document](/docs/troubleshooting/)来获取更多的信息。
 
@@ -20,7 +20,7 @@ kubectl get nodes
 
 ## 查看logs
 
-现在，挖掘出集群更深层的信息就需要登录到相关的机器上。下面是相关log文件所在的位置。  
+现在，挖掘出集群更深层的信息就需要登录到相关的机器上。下面是相关log文件所在的位置。
 (注意，对于基于systemd的系统，你可能需要使用`journalctl`)
 
 
@@ -58,7 +58,7 @@ kubectl get nodes
       - apiserver应该不能起来
       - kubelets将不能访问它，但是能够继续运行之前的Pods和提供相同的服务代理
       - 在apiserver重启之前，需要手动恢复或者重创apiserver的状态
-	    
+	
   - Kubernetes服务组件(节点控制器，副本控制器，调度器等等)所在的VM关机或者崩溃
     - 当前，这些控制器是和apiserver共存的，它们不可用的现象是与apiserver类似的
     - 将来，这些控制器也会复制为多份，并且可能为非共存的

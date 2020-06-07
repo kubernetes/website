@@ -154,7 +154,7 @@ and rollout management.
 Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
 can also provide support to stateful Pods.
 
-The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
+The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
 Pod is exposed as a primitive in order to facilitate:
 
@@ -175,7 +175,7 @@ An example flow:
 1. The Pod in the API server is updated with the time beyond which the Pod is considered "dead" along with the grace period.
 1. Pod shows up as "Terminating" when listed in client commands
 1. (simultaneous with 3) When the Kubelet sees that a Pod has been marked as terminating because the time in 2 has been set, it begins the Pod shutdown process.
-    1. If one of the Pod's containers has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the container. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) extended grace period.
+    1. If one of the Pod's containers has defined a [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), it is invoked inside of the container. If the `preStop` hook is still running after the grace period expires, step 2 is then invoked with a small (2 second) one-time extended grace period. You must modify `terminationGracePeriodSeconds` if the `preStop` hook needs longer to complete.
     1. The container is sent the TERM signal. Note that not all containers in the Pod will receive the TERM signal at the same time and may each require a `preStop` hook if the order in which they shut down matters.
 1. (simultaneous with 3) Pod is removed from endpoints list for service, and are no longer considered part of the set of running Pods for replication controllers. Pods that shutdown slowly cannot continue to serve traffic as load balancers (like the service proxy) remove them from their rotations.
 1. When the grace period expires, any processes still running in the Pod are killed with SIGKILL.
@@ -186,7 +186,7 @@ You must specify an additional flag `--force` along with `--grace-period=0` in o
 
 ### Force deletion of pods
 
-Force deletion of a Pod is defined as deletion of a Pod from the cluster state and etcd immediately. When a force deletion is performed, the apiserver does not wait for confirmation from the kubelet that the Pod has been terminated on the node it was running on. It removes the Pod in the API immediately so a new Pod can be created with the same name. On the node, Pods that are set to terminate immediately will still be given a small grace period before being force killed.
+Force deletion of a Pod is defined as deletion of a Pod from the cluster state and etcd immediately. When a force deletion is performed, the API server does not wait for confirmation from the kubelet that the Pod has been terminated on the node it was running on. It removes the Pod in the API immediately so a new Pod can be created with the same name. On the node, Pods that are set to terminate immediately will still be given a small grace period before being force killed.
 
 Force deletions can be potentially dangerous for some Pods and should be performed with caution. In case of StatefulSet Pods, please refer to the task documentation for [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
@@ -203,5 +203,7 @@ Your container runtime must support the concept of a privileged container for th
 Pod is a top-level resource in the Kubernetes REST API.
 The [Pod API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core) definition
 describes the object in detail.
+When creating the manifest for a Pod object, make sure the name specified is a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 {{% /capture %}}

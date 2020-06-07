@@ -90,13 +90,13 @@ Kubespray fournit le moyen de vérifier la connectivité inter-pods ainsi que la
 Les pods netchecker-agents s'assurent que la résolution DNS (services Kubernetes) ainsi que le ping entre les pods fonctionnent correctement.
 Ces pods reproduisent un comportement similaire à celui des autres applications et offrent un indicateur de santé du cluster.
 
-## Opérations sur le clutser
+## Opérations sur le cluster
 
 Kubespray fournit des playbooks supplémentaires qui permettent de gérer votre cluster: _scale_ et _upgrade_.
 
 ### Mise à l'échelle du cluster
 
-Vous pouvez ajouter des noeuds à votre cluter en exécutant le playbook `scale`. Pour plus d'informations se référer à [Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes).
+Vous pouvez ajouter des noeuds à votre cluster en exécutant le playbook `scale`. Pour plus d'informations se référer à [Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes).
 vous pouvez retirer des noeuds de votre cluster en exécutant le playbook `remove-node`. Se référer à [Remove nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#remove-nodes).
 
 ### Mise à jour du cluster

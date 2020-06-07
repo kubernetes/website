@@ -8,11 +8,11 @@ date: 2019-03-28
 
 *A few days ago, the Kubernetes community announced [Kubernetes 1.14](https://kubernetes.io/blog/2019/03/25/kubernetes-1-14-release-announcement/), the most recent version of Kubernetes. Alongside it, Minikube, a part of the Kubernetes project, recently hit the [1.0 milestone](https://github.com/kubernetes/minikube/releases/tag/v1.0.0), which supports [Kubernetes 1.14](https://kubernetes.io/blog/2019/03/25/kubernetes-1-14-release-announcement/) by default.*
 
-Kubernetes is a real winner (and a de facto standard) in the world of distributed Cloud Native computing. While it can handle up to [5000 nodes](https://kubernetes.io/blog/2017/03/scalability-updates-in-kubernetes-1.6) in a single cluster, local deployment on a single machine (e.g. a laptop, a developer workstation, etc.) is an increasingly common scenario for using Kubernetes.
+Kubernetes is a real winner (and a de facto standard) in the world of distributed Cloud Native computing. While it can handle up to [5000 nodes](https://kubernetes.io/blog/2017/03/scalability-updates-in-kubernetes-1-6/) in a single cluster, local deployment on a single machine (e.g. a laptop, a developer workstation, etc.) is an increasingly common scenario for using Kubernetes.
 
 A few weeks ago I ran a poll on Twitter asking the community to specify their preferred option for running Kubernetes locally on Linux:
 
-<center>{{< tweet 1093154369040773120 >}}</center>
+<center><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ok, Twitter ✋<br><br>Your local Kubernetes cluster on Linux is deployed by:</p>&mdash; ihor dvoretskyi (@idvoretskyi) <a href="https://twitter.com/idvoretskyi/status/1093154369040773120?ref_src=twsrc%5Etfw">February 6, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
 
 This is post #1 in a series about the local deployment options on Linux, and it will cover Minikube, the most popular community-built solution for running Kubernetes on a local machine.
 

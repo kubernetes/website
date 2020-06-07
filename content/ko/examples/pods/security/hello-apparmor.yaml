@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-apparmor
+  annotations:
+    # 쿠버네티스에 'k8s-apparmor-example-deny-write' AppArmor 프로파일을 적용함을 알린다.
+    # 잊지 말 것은 쿠버네티스 노드에서 실행 중인 버전이 1.4 이상이 아닌 경우에는 이 설정은 무시된다는 것이다.
+    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
+spec:
+  containers:
+  - name: hello
+    image: busybox
+    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]

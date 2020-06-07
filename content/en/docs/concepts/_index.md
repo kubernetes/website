@@ -7,7 +7,7 @@ weight: 40
 
 {{% capture overview %}}
 
-The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your cluster, and helps you obtain a deeper understanding of how Kubernetes works.
+The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}, and helps you obtain a deeper understanding of how Kubernetes works.
 
 {{% /capture %}}
 
@@ -17,16 +17,16 @@ The Concepts section helps you learn about the parts of the Kubernetes system an
 
 To work with Kubernetes, you use *Kubernetes API objects* to describe your cluster's *desired state*: what applications or other workloads you want to run, what container images they use, the number of replicas, what network and disk resources you want to make available, and more. You set your desired state by creating objects using the Kubernetes API, typically via the command-line interface, `kubectl`. You can also use the Kubernetes API directly to interact with the cluster and set or modify your desired state.
 
-Once you've set your desired state, the *Kubernetes Control Plane* makes the cluster's current state match the desired state via the Pod Lifecycle Event Generator (PLEG). To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster: 
+Once you've set your desired state, the *Kubernetes Control Plane* makes the cluster's current state match the desired state via the Pod Lifecycle Event Generator ([PLEG](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/pod-lifecycle-event-generator.md)). To do so, Kubernetes performs a variety of tasks automatically--such as starting or restarting containers, scaling the number of replicas of a given application, and more. The Kubernetes Control Plane consists of a collection of processes running on your cluster:
 
 * The **Kubernetes Master** is a collection of three processes that run on a single node in your cluster, which is designated as the master node. Those processes are: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and [kube-scheduler](/docs/admin/kube-scheduler/).
 * Each individual non-master node in your cluster runs two processes:
   * **[kubelet](/docs/admin/kubelet/)**, which communicates with the Kubernetes Master.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, a network proxy which reflects Kubernetes networking services on each node.
 
-## Kubernetes Objects
+## Kubernetes objects
 
-Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API; see the [Kubernetes Objects overview](/docs/concepts/abstractions/overview/) for more details. 
+Kubernetes contains a number of abstractions that represent the state of your system: deployed containerized applications and workloads, their associated network and disk resources, and other information about what your cluster is doing. These abstractions are represented by objects in the Kubernetes API. See [Understanding Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects) for more details.
 
 The basic Kubernetes objects include:
 
@@ -35,12 +35,12 @@ The basic Kubernetes objects include:
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
 
-In addition, Kubernetes contains a number of higher-level abstractions called Controllers. Controllers build upon the basic objects, and provide additional functionality and convenience features. They include:
+Kubernetes also contains higher-level abstractions that rely on [controllers](/docs/concepts/architecture/controller/) to build upon the basic objects, and provide additional functionality and convenience features. These include:
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
+* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## Kubernetes Control Plane
@@ -59,10 +59,6 @@ The Kubernetes master is responsible for maintaining the desired state for your 
 
 The nodes in a cluster are the machines (VMs, physical servers, etc) that run your applications and cloud workflows. The Kubernetes master controls each node; you'll rarely interact with nodes directly.
 
-#### Object Metadata
-
-
-* [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
 {{% /capture %}}
 

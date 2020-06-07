@@ -3,7 +3,7 @@ title: Selektor Field
 weight: 60
 ---
 
-Selektor *field* memungkinkan kamu untuk [memilih (*select*) *resource* Kubernetes](/docs/concepts/overview/working-with-objects/kubernetes-objects) berdasarkan 
+Selektor *field* memungkinkan kamu untuk [memilih (*select*) *resource* Kubernetes](/docs/concepts/overview/working-with-objects/kubernetes-objects) berdasarkan
 nilai dari satu atau banyak *field resource*. Di bawah ini merupakan contoh dari beberapa *query* selektor *field*:
 
 * `metadata.name=my-service`
@@ -64,5 +64,5 @@ Kamu dapat menggunakan selektor-selektor *field* dengan beberapa tipe *resource*
 dan Service yang tidak terdapat pada *namespace* `default`:
 
 ```shell
-kubectl get statefulsets,services --field-selector metadata.namespace!=default
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```

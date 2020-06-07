@@ -2,7 +2,7 @@
 title: Kubernetes Komponenten
 content_template: templates/concept
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
@@ -50,7 +50,7 @@ Der cloud-controller-manager ist eine Alpha-Funktion, die in Kubernetes Version 
 
 cloud-controller-manager führt nur Cloud-Provider-spezifische Controller-Schleifen aus. Sie müssen diese Controller-Schleifen im Cube-Controller-Manager deaktivieren. Sie können die Controller-Schleifen deaktivieren, indem Sie beim Starten des kube-controller-manager das Flag `--cloud-provider` auf `external` setzen.
 
-cloud-controller-manager erlaubt es dem Cloud-Anbieter Code und dem Kubernetes-Code, sich unabhängig voneinander zu entwickeln. 
+cloud-controller-manager erlaubt es dem Cloud-Anbieter Code und dem Kubernetes-Code, sich unabhängig voneinander zu entwickeln.
 In früheren Versionen war der Kerncode von Kubernetes für die Funktionalität von Cloud-Provider-spezifischem Code abhängig.
 In zukünftigen Versionen sollte der für Cloud-Anbieter spezifische Code vom Cloud-Anbieter selbst verwaltet und mit dem Cloud-Controller-Manager verknüpft werden, während Kubernetes ausgeführt wird.
 
@@ -81,7 +81,7 @@ Kubernetes unterstützt mehrere Laufzeiten: [Docker](http://www.docker.com), [co
 ## Addons
 
 Addons sind Pods und Dienste, die Clusterfunktionen implementieren. Die Pods können verwaltet werden
-durch Deployments, ReplicationControllers, und so wieter. 
+durch Deployments, ReplicationControllers, und so wieter.
 Namespace-Addon-Objekte werden im Namespace `kube-system` erstellt.
 
 Ausgewählte Addons werden unten beschrieben. Eine erweiterte Liste verfügbarer Addons finden Sie unter [Addons](/docs/concepts/cluster-administration/addons/).

@@ -69,7 +69,7 @@ Perangkat `kubectl` juga mendukung beberapa cara lain untuk memperbarui objek *l
 
 ## Cara menghapus objek
 
-Kamu bisa menggunakan perintah `delete` pada sebuah objek dari sebuah kluster:
+Kamu bisa menggunakan perintah `delete` pada sebuah objek dari sebuah klaster:
 
 - `delete <type>/<name>`
 

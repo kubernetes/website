@@ -9,7 +9,7 @@ weight: 20
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">Cette page vous
 apprend comment installer la boîte à outils `kubeadm`.
-Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez 
+Pour plus d'informations sur la création d'un cluster avec kubeadm, une fois que vous avez
 effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour créer un cluster](/docs/setup/independent/create-cluster-kubeadm/).
 
 {{% /capture %}}
@@ -40,8 +40,8 @@ effectué ce processus d'installation, voir la page: [Utiliser kubeadm pour cré
 * Vous pouvez obtenir l'adresse MAC des interfaces réseau en utilisant la commande `ip link` ou` ifconfig -a`
 * Le product_uuid peut être vérifié en utilisant la commande `sudo cat/sys/class/dmi/id/product_uuid`
 
-Il est très probable que les périphériques matériels aient des adresses uniques, bien que 
-certaines machines virtuelles puissent avoir des valeurs identiques. Kubernetes utilise 
+Il est très probable que les périphériques matériels aient des adresses uniques, bien que
+certaines machines virtuelles puissent avoir des valeurs identiques. Kubernetes utilise
 ces valeurs pour identifier de manière unique les nœuds du cluster.
 Si ces valeurs ne sont pas uniques à chaque nœud, le processus d'installation
 peut [échouer](https://github.com/kubernetes/kubeadm/issues/31).
@@ -49,7 +49,7 @@ peut [échouer](https://github.com/kubernetes/kubeadm/issues/31).
 ## Vérifiez les cartes réseaux
 
 Si vous avez plusieurs cartes réseaux et que vos composants Kubernetes ne sont pas accessibles par la
-route par défaut, nous vous recommandons d’ajouter une ou plusieurs routes IP afin que les adresses 
+route par défaut, nous vous recommandons d’ajouter une ou plusieurs routes IP afin que les adresses
 de cluster Kubernetes soient acheminées via la carte approprié.
 
 ## Vérifiez les ports requis {#check-required-ports}
@@ -76,7 +76,7 @@ de cluster Kubernetes soient acheminées via la carte approprié.
 Tous les numéros de port marqués d'un * sont écrasables. Vous devrez donc vous assurer que
 les ports personnalisés que vous utilisez sont également ouverts.
 
-Bien que les ports etcd soient inclus dans les nœuds masters, vous pouvez également héberger 
+Bien que les ports etcd soient inclus dans les nœuds masters, vous pouvez également héberger
 votre propre cluster etcd en externe ou sur des ports personnalisés.
 
 Le plug-in de réseau de pod que vous utilisez (voir ci-dessous) peut également nécessiter certains ports à ouvrir. Étant donné que cela diffère d’un plugin à l’autre, veuillez vous reporter à la
@@ -90,7 +90,7 @@ Le moteur de runtime de conteneur utilisé par défaut est Docker, activé par l
 Les autres runtimes basés sur la CRI incluent:
 
 - [containerd](https://github.com/containerd/cri) (plugin CRI construit dans containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 
 Reportez-vous aux [instructions d'installation de la CRI](/docs/setup/cri) pour plus d'informations.
@@ -109,16 +109,16 @@ Vous installerez ces paquets sur toutes vos machines:
 kubeadm **n'installera pas** ni ne gèrera les `kubelet` ou` kubectl` pour vous.
 Vous devez vous assurer qu'ils correspondent à la version du control plane de Kubernetes que vous
  souhaitez que kubeadm installe pour vous. Si vous ne le faites pas, vous risquez qu'
- une erreur de version se produise, qui pourrait conduire à un comportement inattendu. 
- Cependant, une version mineure entre les kubelets et le control plane est pris en charge, 
- mais la version de la kubelet ne doit jamais dépasser la version de l'API server. Par exemple, 
- les kubelets exécutant la version 1.7.0 devraient être entièrement compatibles avec un API 
+ une erreur de version se produise, qui pourrait conduire à un comportement inattendu.
+ Cependant, une version mineure entre les kubelets et le control plane est pris en charge,
+ mais la version de la kubelet ne doit jamais dépasser la version de l'API server. Par exemple,
+ les kubelets exécutant la version 1.7.0 devraient être entièrement compatibles avec un API
  server en 1.8.0, mais pas l'inverse.
 
 {{< warning >}}
 Ces instructions excluent tous les packages Kubernetes de toutes les mises à niveau du système
 d'exploitation.
-C’est parce que kubeadm et Kubernetes ont besoin d'une 
+C’est parce que kubeadm et Kubernetes ont besoin d'une
 [attention particulière lors de la mise à niveau](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-11/).
 {{</ warning >}}
 
@@ -164,11 +164,11 @@ systemctl enable --now kubelet
 
   **Note:**
 
-  - Mettre SELinux en mode permissif en lançant `setenforce 0` et `sed ... `le désactive efficacement. 
-  C'est nécessaire pour permettre aux conteneurs d'accéder au système de fichiers hôte, qui 
+  - Mettre SELinux en mode permissif en lançant `setenforce 0` et `sed ... `le désactive efficacement.
+  C'est nécessaire pour permettre aux conteneurs d'accéder au système de fichiers hôte, qui
   est nécessaire par exemple pour les réseaux de pod.
     Vous devez le faire jusqu'à ce que le support de SELinux soit amélioré dans la kubelet.
-  - Certains utilisateurs de RHEL / CentOS 7 ont signalé des problèmes de routage incorrect 
+  - Certains utilisateurs de RHEL / CentOS 7 ont signalé des problèmes de routage incorrect
   du trafic en raison du contournement d'iptables. Vous devez vous assurer que
     `net.bridge.bridge-nf-call-iptables` est configuré à 1 dans votre config `sysctl` par exemple:
 
@@ -230,7 +230,7 @@ kubeadm, pour lui dire quoi faire.
 Lorsque vous utilisez Docker, kubeadm détecte automatiquement le pilote ( driver ) de cgroup pour la kubelet
 et le configure dans le fichier `/var/lib/kubelet/kubeadm-flags.env` lors de son éxecution.
 
-Si vous utilisez un autre CRI, vous devez modifier le fichier `/etc/default/kubelet` avec votre 
+Si vous utilisez un autre CRI, vous devez modifier le fichier `/etc/default/kubelet` avec votre
 valeur de `cgroup-driver` comme ceci:
 
 ```bash

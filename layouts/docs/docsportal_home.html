@@ -43,7 +43,7 @@
         {{ end }}
       </ul>
       <br><br>
-      <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';">{{ .button }}</button>
+      <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';" aria-label="{{ .title }}">{{ .button }}</button>
     </div>
   {{ end }}
 {{ end }}

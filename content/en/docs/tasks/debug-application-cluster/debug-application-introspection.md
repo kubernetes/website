@@ -214,7 +214,6 @@ metadata:
   name: nginx-deployment-1006230814-6winp
   namespace: default
   resourceVersion: "133447"
-  selfLink: /api/v1/namespaces/default/pods/nginx-deployment-1006230814-6winp
   uid: 4c879808-f161-11e5-9a78-42010af00005
 spec:
   containers:
@@ -356,7 +355,6 @@ metadata:
     kubernetes.io/hostname: kubernetes-node-861h
   name: kubernetes-node-861h
   resourceVersion: "757"
-  selfLink: /api/v1/nodes/kubernetes-node-861h
   uid: 2a69374e-274b-11e5-a234-42010af0d969
 spec:
   externalID: "15233045891481496305"

@@ -18,7 +18,7 @@ card:
 このチュートリアルでは、[Minikube](/docs/getting-started-guides/minikube)とKatacodaを使用して、Kubernetes上でシンプルなHello WorldのNode.jsアプリケーションを動かす方法を紹介します。Katacodaはブラウザで無償のKubernetes環境を提供します。
 
 {{< note >}}
-[Minikubeをローカルにインストール](/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
+[Minikubeをローカルにインストール](/ja/docs/tasks/tools/install-minikube/)している場合もこのチュートリアルを進めることが可能です。
 {{< /note >}}
 
 {{% /capture %}}
@@ -65,12 +65,12 @@ card:
 
 ## Deploymentの作成
 
-Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
+Kubernetesの[*Pod*](/ja/docs/concepts/workloads/pods/pod/) は、コンテナの管理やネットワーキングの目的でまとめられた、1つ以上のコンテナのグループです。このチュートリアルのPodがもつコンテナは1つのみです。Kubernetesの [*Deployment*](/ja/docs/concepts/workloads/controllers/deployment/) はPodの状態を確認し、Podのコンテナが停止した場合には再起動します。DeploymentはPodの作成やスケールを管理するために推奨される方法(手段)です。
 
 1. `kubectl create` コマンドを使用してPodを管理するDeploymentを作成してください。Podは提供されたDockerイメージを元にコンテナを実行します。
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Deploymentを確認します:
@@ -114,7 +114,7 @@ Kubernetesの[*Pod*](/docs/concepts/workloads/pods/pod/) は、コンテナの�
 
 ## Serviceの作成
 
-通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
+通常、PodはKubernetesクラスタ内部のIPアドレスからのみアクセスすることができます。`hello-node`コンテナをKubernetesの仮想ネットワークの外部からアクセスするためには、Kubernetesの[*Service*](/ja/docs/concepts/services-networking/service/)としてポッドを公開する必要があります。
 
 1. `kubectl expose` コマンドを使用してPodをインターネットに公開します:
 
@@ -257,8 +257,8 @@ minikube delete
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)について学ぶ.
-* [アプリケーションのデプロイ](/docs/user-guide/deploying-applications/)について学ぶ.
-* [Serviceオブジェクト](/docs/concepts/services-networking/service/)について学ぶ.
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)について学ぶ.
+* [アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)について学ぶ.
+* [Serviceオブジェクト](/ja/docs/concepts/services-networking/service/)について学ぶ.
 
 {{% /capture %}}

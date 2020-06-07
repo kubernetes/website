@@ -63,5 +63,5 @@ A noter: Toutes les distributions ne sont pas activement maintenues. Choisissez 
 
 * [Integration DNS](/docs/concepts/services-networking/dns-pod-service/) décrit comment résoudre un nom DNS directement vers un service Kubernetes.
 
-* [Journalisation et surveillance de l'activité du cluster](/docs/concepts/cluster-administration/logging/) explique le fonctionnement de la connexion à Kubernetes et son implémentation.
+* [Journalisation des évènements et surveillance de l'activité du cluster](/docs/concepts/cluster-administration/logging/) explique le fonctionnement de la journalisation des évènements dans Kubernetes et son implémentation.
 {{% /capture %}}

@@ -19,7 +19,7 @@ We build the contributor summits around you:
   * docs
   * code
   * community management
-* [Subproject OWNERs] (aka maintainers in other OSS circles)
+* [Subproject OWNERs] - aka maintainers in other OSS circles.
 * Special Interest Group (SIG) / Working Group (WG) [Chair or Tech Lead]
 * Active Contributors
 * Casual Contributors
@@ -57,18 +57,30 @@ Jonas Rosland, Josh Berkus, Paris Pittman, Jorge Castro, Bob Killen, Deb Giles, 
 
 ## Relive Seattle Contributor Summit 
 
-📈 80% growth rate since the Austin 2017 December event  
-📜 Event waiting list: 103  
-🎓 76 contributors were on-boarded through the New Contributor Workshop  
-🎉 92% of the current contributors RSVPs attended and of those:  
-👩🏻‍🚒 25% were [Special Interest Group] or Working Group Chairs or Tech Leads  
-🗳 70% were eligible to vote in the last [steering committee election] (more than 50 contributions in 2018)   
-📹 20+ [Sessions]  
-👀 Most watched to date: Technical Vision, Security, API Code Base Tour  
-🌟 Top 3 according to survey: Live API Code Review, Deflaking Unconference, Technical Vision  
-🎱 🎳 160 attendees for the social at [Garage] on Sunday night where we sunk eight balls and recorded strikes (out in some cases)  
-🏆 Special recognition: SIG Storage, @dims, and @jordan  
+📈 80% growth rate since the Austin 2017 December event
+
+📜 Event waiting list: 103
+
+🎓 76 contributors were on-boarded through the New Contributor Workshop
+
+🎉 92% of the current contributors RSVPs attended and of those:
+
+👩🏻‍🚒 25% were [Special Interest Group] or Working Group Chairs or Tech Leads
+
+🗳 70% were eligible to vote in the last [steering committee election] - more than 50 contributions in 2018
+
+📹 20+ [Sessions]
+
+👀 Most watched to date: Technical Vision, Security, API Code Base Tour
+
+🌟 Top 3 according to survey: Live API Code Review, Deflaking Unconference, Technical Vision
+
+🎱 🎳 160 attendees for the social at [Garage] on Sunday night where we sunk eight balls and recorded strikes (out in some cases)
+
+🏆 Special recognition: SIG Storage, @dims, and @jordan
+
 📸 Pictures (special thanks to [rdodev])
+
 Garage Pic
 Reg Desk
 

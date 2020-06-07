@@ -1,3 +1,9 @@
+---
+title: 为命名空间配置默认的内存请求和限制
+content_template: templates/task
+weight: 10
+---
+
 <!--
 ---
 title: Configure Default Memory Requests and Limits for a Namespace
@@ -5,12 +11,6 @@ content_template: templates/task
 weight: 10
 ---
 -->
-
----
-title: 为命名空间配置默认的内存请求和限制
-content_template: templates/task
-weight: 10
----
 
 {{% capture overview %}}
 
@@ -265,7 +265,7 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 -->
 
 * 运行在命名空间中的每个容器必须有自己的内存限制。
-* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。 
+* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。
 
 <!--
 If a Container does not specify its own memory limit, it is given the default limit, and then
@@ -331,5 +331,3 @@ it can be allowed to run in a namespace that is restricted by a quota.
 * [为 Pod 配置服务数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 {{% /capture %}}
-
-
