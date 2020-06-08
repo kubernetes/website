@@ -319,7 +319,7 @@ The application is responsible for reloading the token when it rotates. Periodic
 
 ## Service Account Issuer Discovery
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 The Service Account Issuer Discovery feature is enabled by enabling the
 `ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature)
