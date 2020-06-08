@@ -298,6 +298,18 @@ exist and function in releases up to and including X+8.  Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
 
+Starting in Kubernetes 1.19, making an API request to a deprecated REST API endpoint:
+
+1. returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
+2. adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
+3. sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
+   process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
+   to the `apiserver_request_total` metric, and a `removed_version` label that indicates the 
+   Kubernetes release in which the API will no longer be served. The following prometheus query
+   would return information about requests made to deprecated APIs which will be removed in v1.22:
+   
+   `apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total`
+
 ### Fields of REST resources
 
 As with whole REST resources, an individual field which was present in API v1
