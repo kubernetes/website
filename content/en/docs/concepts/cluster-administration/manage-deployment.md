@@ -402,7 +402,7 @@ For more information, please see [kubectl edit](/docs/reference/generated/kubect
 
 You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
 JSON merge patch, and strategic merge patch. See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 and
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
