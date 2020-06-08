@@ -118,7 +118,8 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18|
+| `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
