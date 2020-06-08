@@ -23,7 +23,13 @@
 				{{ block "hero-more" . }}{{ end }}
 			</div>
 		</section>
-		{{ block "post-hero" . }}{{ end }}
+		{{ block "post-hero" . }}
+      {{ block "deprecated" . }}
+        {{ if .IsHome }}
+          {{ partial "deprecation-warning.html" . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
 		{{ end }}
 	<main>
 		<article class="page-content">

@@ -4,9 +4,9 @@
     <div class="content announcement main-section">
 
       <h3>
-          {{ .Page.Param "announcement_title" | markdownify }}
+          {{ T "announcement_title" |  markdownify }}
       </h3>
-      <p>{{ .Page.Param "announcement_message_full" | markdownify }}</p>
+      <p>{{ T "announcement_message" | markdownify }}</p>
 
     </div>
   </main>
