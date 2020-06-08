@@ -25,6 +25,7 @@ For information how to create a cluster with kubeadm once you have performed thi
   - Fedora 25+
   - HypriotOS v1.0.1+
   - Container Linux (tested with 1800.6.0)
+  - openSUSE Kubic
 * 2 GB or more of RAM per machine (any less will leave little room for your apps)
 * 2 CPUs or more
 * Full network connectivity between all machines in the cluster (public or private network is fine)
@@ -257,6 +258,12 @@ Enable and start `kubelet`:
 ```bash
 systemctl enable --now kubelet
 ```
+{{% /tab %}}
+{{% tab name="openSUSE Kubic" %}}
+Either select `kubeadm Node` when installing openSUSE Kubic using YaST, or download the appropriate [appliance image](https://download.opensuse.org/tumbleweed/appliances/?P=*kubeadm*) for your Cloud/VM platform.
+
+`CNI`, `cri-o`, `kubeadm`, `kubectl` and `kubelet` are all installed and ready to be used by default.
+
 {{% /tab %}}
 {{< /tabs >}}
 
