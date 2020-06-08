@@ -15,7 +15,7 @@ Kubernetesにおいて、コントローラーは{{< glossary_tooltip term_id="c
 
 <!--more--> 
 
-コントローラーはクラスターの状態を{{< glossary_tooltip term_id="control-plane" >}}の一部である{{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}から取得します。
+コントローラーはクラスターの状態を{{< glossary_tooltip term_id="control-plane" text="コントロールプレーン" >}}の一部である{{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}から取得します。
 
 いくつかのコントロールプレーン内部で動くコントローラーは、Kubernetesの主要な操作に対する制御ループを提供します。
 例えば、Deploymentコントローラー、Daemonsetコントローラー、Namespaceコントローラー、Persistent Volumeコントローラー等は{{< glossary_tooltip term_id="kube-controller-manager" >}}の内部で動作します。
