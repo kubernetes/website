@@ -142,7 +142,8 @@ different Kubernetes components.
 | `ServiceAppProtocol` | `true` | Beta | 1.19 | |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | |
-| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
+| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | 1.19 |
+| `ServiceAccountIssuerDiscovery` | `true` | Beta | 1.20 | |
 | `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
 | `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
