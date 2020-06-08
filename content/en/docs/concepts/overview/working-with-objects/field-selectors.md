@@ -19,7 +19,6 @@ kubectl get pods --field-selector status.phase=Running
 Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
 
 ```shell
-kubectl get pods
 kubectl get pods --field-selector ""
 ```
 {{< /note >}}
