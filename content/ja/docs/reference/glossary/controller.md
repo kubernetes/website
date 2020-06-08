@@ -11,7 +11,7 @@ tags:
 - architecture
 - fundamental
 ---
-Kubernetesでは、コントローラーは{{< glossary_tooltip term_id="cluster" text="cluster" >}}の状態を監視し、必要に応じて変更を加えたり要求したりする制御ループです。それぞれのコントローラーは現在のクラスターの状態を望ましい状態に近づけるように動作します。
+Kubernetesにおいて、コントローラーは{{< glossary_tooltip term_id="cluster" text="cluster" >}}の状態を監視し、必要に応じて変更を加えたり要求したりする制御ループです。それぞれのコントローラーは現在のクラスターの状態を望ましい状態に近づけるように動作します。
 
 <!--more--> 
 
