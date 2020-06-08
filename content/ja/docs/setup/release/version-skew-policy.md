@@ -16,9 +16,9 @@ Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメ�
 
 Kubernetesプロジェクトでは、最新の3つのマイナーリリースについてリリースブランチを管理しています。
 
-セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、定期的または必要に応じてこれらのブランチから分岐されます。[パッチリリースマネージャー](https://github.com/kubernetes/sig-release/blob/master/release-team/role-handbooks/patch-release-manager/README.md#release-timing)がこれを決定しています。パッチリリースマネージャーは[各リリースのリリースチーム](https://github.com/kubernetes/sig-release/tree/master/releases/)のメンバーです。
+セキュリティフィックスを含む適用可能な修正は、重大度や実行可能性によってはこれら3つのリリースブランチにバックポートされることもあります。パッチリリースは、[定期的](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence)または必要に応じてこれらのブランチから分岐されます。[リリースマネージャー](https://git.k8s.io/sig-release/release-managers.md)グループがこれを決定しています。
 
-マイナーリリースは約3ヶ月ごとに行われるため、それぞれのリリースブランチは約9ヶ月間メンテナンスされます。
+詳細は、Kubernetes[パッチリリース](https://git.k8s.io/sig-release/releases/patch-releases.md)ページを参照してください。
 
 ## サポートされるバージョンの差異
 
