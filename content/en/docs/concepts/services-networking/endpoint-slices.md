@@ -130,6 +130,27 @@ EndpointSlices are up to date. The controller will manage EndpointSlices for
 every Service with a selector specified. These will represent the IPs of Pods
 matching the Service selector.
 
+## EndpointSliceMirroring Controller
+
+In some cases, custom Endpoints resources are created by applications. To ensure
+that these applications do not need to concurrently write to both Endpoints and
+EndpointSlice resources, the EndpointSliceMirroring controller mirrors custom
+Endpoints resources to corresponding EndpointSlices.
+
+This controller mirrors Endpoints resources unless:
+
+* the Endpoints resource has a `endpointslice.kubernetes.io/skip-mirror` label
+  set to `true`.
+* the Endpoints resource has a `control-plane.alpha.kubernetes.io/leader`
+  annotation.
+* the corresponding Service resource does not exist.
+* the corresponding Service resource has a non-nil selector.
+
+Individual Endpoints resources may translate into multiple EndpointSlices. This
+will occur if an Endpoints resource has multiple subsets or includes endpoints
+with multiple IP families (IPv4 and IPv6). A maximum of 1000 addresses per
+subset will be mirrored to EndpointSlices.
+
 ### Size of EndpointSlices
 
 By default, EndpointSlices are limited to a size of 100 endpoints each. You can
