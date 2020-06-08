@@ -16,12 +16,7 @@ kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
-
-```shell
-kubectl get pods
-kubectl get pods --field-selector ""
-```
+Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the `kubectl` queries `kubectl get pods` and `kubectl get pods --field-selector ""` equivalent.
 {{< /note >}}
 
 ## Supported fields
