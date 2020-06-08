@@ -274,6 +274,87 @@ version sort order is `v1`, followed by `v1beta1`. This causes the kubectl
 command to use `v1` as the default version unless the provided object specifies
 the version.
 
+### Version deprecation
+
+Starting in v1.19, a CustomResourceDefinition can indicate a particular version of the resource it defines is deprecated.
+When API requests to a deprecated version of that resource are made, a warning message is returned in the API response as a header.
+The warning message for each deprecated version of the resource can be customized if desired.
+
+A customized warning message should indicate the deprecated API group, version, and kind,
+and should indicate what API group, version, and kind should be used instead, if applicable.
+
+{{< tabs name="CustomResourceDefinition_versioning_deprecated" >}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    # This indicates the v1alpha1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    deprecated: true
+    # This overrides the default warning returned to API clients making v1alpha1 API requests.
+    deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    schema: ...
+  - name: v1beta1
+    served: true
+    # This indicates the v1beta1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    # A default warning message is returned for this version.
+    deprecated: true
+    schema: ...
+  - name: v1
+    served: true
+    storage: true
+    schema: ...
+```
+{{% /tab %}}
+{{% tab name="apiextensions.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  validation: ...
+  versions:
+  - name: v1alpha1
+    served: true
+    # This indicates the v1alpha1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    deprecated: true
+    # This overrides the default warning returned to API clients making v1alpha1 API requests.
+    deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+  - name: v1beta1
+    served: true
+    # This indicates the v1beta1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    # A default warning message is returned for this version.
+    deprecated: true
+  - name: v1
+    served: true
+    storage: true
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
 ## Webhook conversion
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
