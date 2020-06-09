@@ -29,9 +29,9 @@ Las aplicaciones dentro de un Pod también tienen acceso a {{<glossary_tooltip t
 
 En términos de [Docker](https://www.docker.com/), un Pod se modela como un grupo de contenedores de Docker con namespaces y volúmenes de sistemas de archivos compartidos.
 
-Al igual que los contenedores de aplicaciones individuales, los Pods se consideran entidades relativamente efímeras (en lugar de duraderas). Como se explica en [ciclo de vida del pod](/es/docs/concepts/workloads/pods/pod-lifecycle/), los Pods se crean, se les asigna una ID única (UID) y se planifican en nodos donde permanecen hasta su finalización (según la política de reinicio) o supresión. Si un {{<glossary_tooltip text="nodo" term_id="node">}} muere, los Pods programados para ese nodo se programan para su eliminación después de un período de tiempo de espera. Un Pod dado (defininido por su UID) no se "replanifica" a un nuevo nodo; en su lugar, puede reemplazarse por un Pod idéntico, con incluso el mismo nombre si lo desea, pero con un nuevo UID (consulte [controlador de replicación](/es/docs/concepts/workloads/controllers/replicationcontroller/) para obtener más detalles).
+Al igual que los contenedores de aplicaciones individuales, los Pods se consideran entidades relativamente efímeras (en lugar de duraderas). Como se explica en [ciclo de vida del pod](/es/docs/concepts/workloads/pods/pod-lifecycle/), los Pods se crean, se les asigna un identificador único (UID) y se planifican en nodos donde permanecen hasta su finalización (según la política de reinicio) o supresión. Si un {{<glossary_tooltip text="nodo" term_id="node">}} muere, los Pods programados para ese nodo se programan para su eliminación después de un período de tiempo de espera. Un Pod dado (definido por su UID) no se "replanifica" a un nuevo nodo; en su lugar, puede reemplazarse por un Pod idéntico, con incluso el mismo nombre si lo desea, pero con un nuevo UID (consulte [controlador de replicación](/es/docs/concepts/workloads/controllers/replicationcontroller/) para obtener más detalles).
 
-Cuando se dice que algo tiene la misma vida útil que un Pod, como un volumen, significa que existe mientras exista ese Pod (con ese UID). Si ese Pod se elimina por cualquier motivo, incluso si se crea un reemplazo idéntico, la cosa relacionada (por ejemplo, el volumen) también se destruye y se crea de nuevo.
+Cuando se dice que algo tiene la misma vida útil que un Pod, como un volumen, significa que existe mientras exista ese Pod (con ese UID). Si ese Pod se elimina por cualquier motivo, incluso si se crea un reemplazo idéntico, el recurso relacionado (por ejemplo, el volumen) también se destruye y se crea de nuevo.
 {{< figure src="/images/docs/pod.svg" title="diagrama de Pod" width="50%" >}}
 
 *Un Pod de múltiples contenedores que contiene un extractor de archivos y un servidor web que utiliza un volumen persistente para el almacenamiento compartido entre los contenedores.*
@@ -96,10 +96,10 @@ Los Pods no están destinados a ser tratados como entidades duraderas. No sobrev
 En general, los usuarios no deberían necesitar crear Pods directamente, deberían
 usar siempre controladores incluso para Pods individuales, como por ejemplo, los 
 [Deployments](/es/docs/concepts/workloads/controllers/deployment/).
-Los controladores proporcionan autocuración con un alcance de clúster, así como replicación
+Los controladores proporcionan autorecuperación con un alcance de clúster, así como replicación
 y gestión de despliegue.
 Otros controladores como los [StatefulSet](/es/docs/concepts/workloads/controllers/statefulset.md)
-pueden tambien proporcionar soporte para Pods que necesiten persisitir el estado.
+pueden tambien proporcionar soporte para Pods que necesiten persistir el estado.
 
 El uso de API colectivas como la principal primitiva de cara al usuario es relativamente común entre los sistemas de planificación de clúster, incluyendo [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), y [Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 
@@ -114,7 +114,7 @@ El Pod se expone como primitiva para facilitar:
 
 ## Finalización de Pods
 
-Debido a que los Pods representan procesos en ejecución en los nodos del clúster, es importante permitir que esos procesos finalicen de forma correcta cuando ya no se necesiten (en lugar de ser parados bruscamente con una señal de KILL). Los usuarios deben poder solicitar la eliminación y saber cuándo finalizan los procesos, pero también deben poder asegurarse de que las eliminaciones finalmente se completen. Cuando un usuario solicita la eliminación de un Pod, el sistema registra el período de gracia previsto antes de que el Pod pueda ser eliminado de forma forzada, y se envía una señal TERM al proceso principal en cada contenedor. Una vez que el período de gracia ha expirado, la señal KILL se envía a esos procesos y el Pod se elimina del servidor API. Si se reinicia Kubelet o el administrador de contenedores mientras se espera que finalicen los procesos, la terminación se volverá a intentar con el período de gracia completo.
+Debido a que los Pods representan procesos en ejecución en los nodos del clúster, es importante permitir que esos procesos finalicen de forma correcta cuando ya no se necesiten (en lugar de ser detenidos bruscamente con una señal de KILL). Los usuarios deben poder solicitar la eliminación y saber cuándo finalizan los procesos, pero también deben poder asegurarse de que las eliminaciones finalmente se completen. Cuando un usuario solicita la eliminación de un Pod, el sistema registra el período de gracia previsto antes de que el Pod pueda ser eliminado de forma forzada, y se envía una señal TERM al proceso principal en cada contenedor. Una vez que el período de gracia ha expirado, la señal KILL se envía a esos procesos y el Pod se elimina del servidor API. Si se reinicia Kubelet o el administrador de contenedores mientras se espera que finalicen los procesos, la terminación se volverá a intentar con el período de gracia completo.
 
 Un ejemplo del ciclo de terminación de un Pod:
 
