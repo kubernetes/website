@@ -25,6 +25,10 @@ disableLanguages = ["hi", "no"]
  [markup.goldmark]
    [markup.goldmark.renderer]
      unsafe = true
+   [markup.goldmark.extensions]
+      definitionList = true
+      table = true
+      typographer = false
   [markup.highlight]
     codeFences = true
     guessSyntax = false
