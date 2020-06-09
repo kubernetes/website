@@ -410,7 +410,7 @@ To disallow access, the service would return:
   "kind": "ImageReview",
   "status": {
     "allowed": false,
-    "reason": "image currently blacklisted"
+    "reason": "image currently blocklisted"
   }
 }
 ```

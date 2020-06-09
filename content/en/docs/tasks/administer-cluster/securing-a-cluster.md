@@ -125,16 +125,16 @@ that the administrator assumed was not in use.
 
 To prevent specific modules from being automatically loaded, you can uninstall them from
 the node, or add rules to block them. On most Linux distributions, you can do that by
-creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with contents like:
+creating a file such as `/etc/modprobe.d/kubernetes-blocklist.conf` with contents like:
 
 ```
 # DCCP is unlikely to be needed, has had multiple serious
 # vulnerabilities, and is not well-maintained.
-blacklist dccp
+blocklist dccp
 
 # SCTP is not used in most Kubernetes clusters, and has also had
 # vulnerabilities in the past.
-blacklist sctp
+blocklist sctp
 ```
 
 To block module loading more generically, you can use a Linux Security Module (such as

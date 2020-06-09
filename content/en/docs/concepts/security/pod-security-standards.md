@@ -43,7 +43,7 @@ should range from highly restricted to highly flexible:
 The Privileged policy is purposely-open, and entirely unrestricted. This type of policy is typically
 aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The privileged policy is defined by an absence of restrictions. For blacklist-oriented enforcement
+The privileged policy is defined by an absence of restrictions. For blocklist-oriented enforcement
 mechanisms (such as gatekeeper), the privileged profile may be an absence of applied constraints
 rather than an instantiated policy. In contrast, for a whitelist oriented mechanism (such as Pod
 Security Policy) the privileged policy should enable all controls (disable all restrictions).
