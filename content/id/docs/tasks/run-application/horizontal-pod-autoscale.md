@@ -1,5 +1,5 @@
 ---
-title: Horizontal Pod Autoscaler
+title: HorizontalPodAutoscaler
 feature:
   title: Horizontal scaling
   description: >
@@ -11,12 +11,12 @@ weight: 90
 
 {{% capture overview %}}
 
-Horizontal Pod Autoscaler secara otomatis akan men-*scale* jumlah *pod* didalam kontroler replikasi, *deployment*, 
+HorizontalPodAutoscaler secara otomatis akan men-*scale* jumlah *pod* didalam kontroler replikasi, *deployment*, 
 *replica set* ataupun *stateful* berdasarkan hasil observasi penggunaan CPU(atau, dengan 
 [*costum* metrik](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
 Perlu dicatat bahwa Horizontal Pod Autoscaling tidak dapat diterapkan pada objek yang tidak dapat di-*scale*, seperti DeamonSets. 
 
-Horizontal Pod Autoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah kontroller.
+HorizontalPodAutoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah kontroller.
 *Resource* tersebut akan menentukan perilaku dari kontrolernya.
 Kontroler akan menyesuaikan jumlah replika pada kontroler replikasi atau pada *deployment* untuk menyesuaikan dengan hasil observasi rata-rata
 penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
@@ -26,11 +26,11 @@ penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
 
 {{% capture body %}}
 
-## Bagaimana cara kerja Horizontal Pod Autoscaler?
+## Bagaimana cara kerja HorizontalPodAutoscaler?
 
-![Horizontal Pod Autoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
+![HorizontalPodAutoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
 
-Horizontal Pod Autoscaler diimplementasikan sebagai sebuah *control loop*, yang secara
+HorizontalPodAutoscaler diimplementasikan sebagai sebuah *control loop*, yang secara
 berkala dikontrol oleh *flag* `--horizontal-pod-autoscaler-sync-period` pada kontroler manajer
 (dengan nilai standar yaitu 15 detik). 
 
@@ -451,6 +451,6 @@ behavior:
 
 * Dokumentasi desain [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * Perintah kubectl autoscale [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
-* Contoh penggunaan [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
+* Contoh penggunaan [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
 {{% /capture %}}
