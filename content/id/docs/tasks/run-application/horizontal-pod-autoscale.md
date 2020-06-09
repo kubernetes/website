@@ -3,7 +3,7 @@ title: HorizontalPodAutoscaler
 feature:
   title: Horizontal scaling
   description: >
-    Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+    Scale up dan scale down aplikasimu dengan sebuah perintah yang serderhana, dengan UI, atau otomatis bersadarkan penggunaan CPU.
 
 content_template: templates/concept
 weight: 90
