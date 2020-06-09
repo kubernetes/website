@@ -15,19 +15,15 @@ weight: 40
 
 まずわかりやすくするために、このガイドでは次の用語を定義します。
 
-- ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
-
-- クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードのセットです。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはパブリックインターネットとして公開されていません。  
-  
-- エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。エッジルーターはクラウドプロバイダーやハードウェアの物理的な一部として管理されたゲートウェイとなります。
-
-- クラスターネットワーク: 物理的または論理的なリンクのセットで、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
-
-- Service: {{< glossary_tooltip text="ラベル" term_id="label" >}}セレクターを使ったPodのセットを特定するKubernetes {{< glossary_tooltip term_id="service" >}}です。特に言及がない限り、Serviceはクラスターネットワーク内でのみ疎通可能な仮想IPを持つと想定されます。
+* ノード: Kubernetes内のワーカーマシンで、クラスターの一部です。
+* クラスター: Kubernetesによって管理されているコンテナ化されたアプリケーションを実行させるノードのセットです。この例や、多くのKubernetesによるデプロイでは、クラスター内のノードはパブリックインターネットとして公開されていません。  
+* エッジルーター: クラスターでファイアウォールのポリシーを強制するルーターです。エッジルーターはクラウドプロバイダーやハードウェアの物理的な一部として管理されたゲートウェイとなります。
+* クラスターネットワーク: 物理的または論理的なリンクのセットで、Kubernetesの[ネットワークモデル](/docs/concepts/cluster-administration/networking/)によって、クラスター内でのコミュニケーションを司るものです。
+* Service: {{< glossary_tooltip text="ラベル" term_id="label" >}}セレクターを使ったPodのセットを特定するKubernetes {{< glossary_tooltip term_id="service" >}}です。特に言及がない限り、Serviceはクラスターネットワーク内でのみ疎通可能な仮想IPを持つと想定されます。
 
 ## Ingressとは何か
 
-Ingressはクラスター外からクラスター内{{< link text="Service" url="/ja/docs/concepts/services-networking/service/" >}}へのHTTPとHTTPSのルートを公開します。トラフィックのルーティングはIngressリソース上で定義されるルールによって制御されます。
+[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)はクラスター外からクラスター内{{< link text="Service" url="/ja/docs/concepts/services-networking/service/" >}}へのHTTPとHTTPSのルートを公開します。トラフィックのルーティングはIngressリソース上で定義されるルールによって制御されます。
 
 ```none
     internet
@@ -74,8 +70,9 @@ spec:
           servicePort: 80
 ```
 
-他の全てのKubernetesリソースと同様に、Ingressは`apiVersion`、`kind`や`metadata`フィールドが必要です。設定ファイルの利用に関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナーの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。  
-Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを使うことが多いです。その例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。  
+他の全てのKubernetesリソースと同様に、Ingressは`apiVersion`、`kind`や`metadata`フィールドが必要です。Ingressオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+設定ファイルの利用に関する一般的な情報は、[アプリケーションのデプロイ](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナーの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/)を参照してください。  
+Ingressでは、Ingressコントローラーに依存しているいくつかのオプションの設定をするためにアノテーションを使うことが多いです。その例としては、[rewrite-targetアノテーション](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)などがあります。
 [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers)の種類が異なれば、サポートするアノテーションも異なります。サポートされているアノテーションについて学ぶために、ユーザーが使用するIngressコントローラーのドキュメントを確認してください。
 
 Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)は、ロードバランサーやプロキシーサーバーを設定するために必要な全ての情報を持っています。最も重要なものとして、外部からくる全てのリクエストに対して一致したルールのリストを含みます。IngressリソースはHTTPトラフィックに対してのルールのみサポートしています。
@@ -112,10 +109,10 @@ kubectl get ingress test-ingress
 
 ```
 NAME           HOSTS     ADDRESS           PORTS     AGE
-test-ingress   *         107.178.254.228   80        59s
+test-ingress   *         203.0.113.123     80        59s
 ```
 
-`107.178.254.228`はIngressコントローラーによって割り当てられたIPで、このIngressを利用するためのものです。
+`203.0.113.123`はIngressコントローラーによって割り当てられたIPで、このIngressを利用するためのものです。
 
 {{< note >}}
 IngressコントローラーとロードバランサーがIPアドレス割り当てるのに1、2分ほどかかります。この間、ADDRESSの情報は`<pending>`となっているのを確認できます。
@@ -288,7 +285,7 @@ spec:
 ```
 
 {{< note >}}
-Ingressコントローラーによって、サポートされるTLSの機能に違いがあります。利用する環境でTLSがどのように動作するかを理解するために、[nginx](https://git.k8s.io/ingress-nginx/README.md#https)や、[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)、他のプラットフォーム固有のIngressコントローラーのドキュメントを確認してください。
+Ingressコントローラーによって、サポートされるTLSの機能に違いがあります。利用する環境でTLSがどのように動作するかを理解するために、[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)や、[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)、他のプラットフォーム固有のIngressコントローラーのドキュメントを確認してください。
 {{< /note >}}
 
 ### 負荷分散
@@ -398,6 +395,7 @@ Ingressリソースに直接関与しない複数の方法でServiceを公開で
 {{% /capture %}}
 
 {{% capture whatsnext %}}
+* [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)について学ぶ
 * [Ingressコントローラー](/docs/concepts/services-networking/ingress-controllers/)について学ぶ
 * [MinikubeとNGINXコントローラーでIngressのセットアップを行う](/docs/tasks/access-application-cluster/ingress-minikube)
 {{% /capture %}}
