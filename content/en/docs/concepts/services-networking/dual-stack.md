@@ -59,10 +59,9 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< note >}}
-An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
+An example of an IPv4 CIDR: `192.0.2.0/24`. Choose a private IP range as described in [RFC1918](https://tools.ietf.org/html/rfc1918).
 
-An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
-
+An example of an IPv6 CIDR: `2001:DB8::/64`. Choose a valid range in the public IPv6 address space that's assigned to you or your organisation).
 {{< /note >}}
 
 ## Services
