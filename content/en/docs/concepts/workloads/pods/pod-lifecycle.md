@@ -216,7 +216,7 @@ a list of additional conditions that the kubelet evaluates for Pod readiness.
 Readiness gates are determined by the current state of `status.condition`
 fields for the Pod. If Kubernetes cannot find such a
 condition in the `status.conditions` field of a Pod, the status of the condition
-is defaulted to "`False`". Below is an example:
+is defaulted to "`False`".
 
 Here is an example:
 
