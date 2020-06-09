@@ -1,7 +1,4 @@
 ---
-reviewers:
-- phanama
-- wahyuoi
 title: Horizontal Pod Autoscaler
 feature:
   title: Horizontal scaling
