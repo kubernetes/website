@@ -13,7 +13,7 @@ weight: 90
 
 HorizontalPodAutoscaler secara otomatis akan memperbanyak jumlah Pod di dalam ReplicationController, Deployment, 
 ReplicaSet ataupun StatefulSet berdasarkan hasil observasi penggunaan CPU(atau, dengan 
-[*costum* metrik](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
+[metrik khusus](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
 Perlu dicatat bahwa HorizontalPodAutoscale tidak dapat diterapkan pada objek yang tidak dapat diperbanyak, seperti DeamonSets. 
 
 HorizontalPodAutoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah kontroller.
