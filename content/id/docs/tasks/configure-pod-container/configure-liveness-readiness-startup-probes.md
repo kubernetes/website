@@ -9,22 +9,22 @@ weight: 110
 Laman ini memperlihatkan bagaimana cara untuk mengatur _probe liveness_, _readiness_, dan
 _startup_ untuk Container.
 
-[kubelet](/docs/admin/kubelet/) menggunakan _probe liveness_ untuk mengetahui
+_Probe liveness_ digunakan oleh [kubelet](/docs/admin/kubelet/) untuk mengetahui
 kapan perlu mengulang kembali (_restart_) sebuah Container. Sebagai contoh, _probe liveness_
 dapat mendeteksi _deadlock_, ketika aplikasi sedang berjalan tapi tidak dapat berfungsi dengan baik.
-Mengulang Container dengan _state_ tersebut dapat membantu ketersediaan aplikasi lebih baik
+Mengulang Container dengan _state_ tersebut dapat membantu ketersediaan aplikasi yang lebih baik
 walaupun ada kekutu (_bug_).
 
-kubelet menggunakan _probe readiness_ untuk mengetahui kapan sebuah Container telah siap untuk
-menerima lalu lintas jaringan. Suatu Pod dianggap siap saat semua Container di dalamnya telah
+_Probe readiness_ digunakan oleh kubelet untuk mengetahui kapan sebuah Container telah siap untuk
+menerima lalu lintas jaringan (_traffic_). Suatu Pod dianggap siap saat semua Container di dalamnya telah
 siap. Sinyal ini berguna untuk mengontrol Pod-Pod mana yang digunakan sebagai _backend_ dari Service.
-Ketika Pod dalam kondisi tidak siap, Pod tersebut dihapus dari _load balancer_ Service.
+Ketika Pod dalam kondisi tidak siap, Pod tersebut dihapus dari Service _load balancer_.
 
-kubelet menggunakan _probe startup_ untuk mengetahui kapan sebuah aplikasi Container telah mulai berjalan.
+_Probe startup_ digunakan oleh kubelet untuk mengetahui kapan sebuah aplikasi Container telah mulai berjalan.
 Jika _probe_ tersebut dinyalakan, _probe_ akan menonaktifkan pemeriksaan _liveness_ dan _readiness_ sampai
 berhasil, kamu harus memastikan _probe_ tersebut tidak mengganggu _startup_ dari aplikasi.
-Mekanisme ini dapat digunakan untuk mengadopsi pemeriksaan _liveness_ saat memulai Container yang lambat,
-sehingga bisa terhindar dimatikan oleh kubelet sebelum Container mulai dan berjalan.
+Mekanisme ini dapat digunakan untuk mengadopsi pemeriksaan _liveness_ pada saat memulai Container yang lambat,
+untuk menghindari Container dimatikan oleh kubelet sebelum Container mulai dan berjalan.
 
 {{% /capture %}}
 
@@ -39,7 +39,7 @@ sehingga bisa terhindar dimatikan oleh kubelet sebelum Container mulai dan berja
 ## Mendefinisikan perintah liveness
 
 Kebanyakan aplikasi yang telah berjalan dalam waktu lama pada akhirnya akan
-bertransisi ke _state_ yang rusak, dan tidak dapat pulih selain diulang kembali.
+bertransisi ke _state_ yang rusak (_broken_), dan tidak dapat pulih kecuali diulang kembali.
 Kubernetes menyediakan _probe liveness_ untuk mendeteksi dan memperbaiki situasi tersebut.
 
 Pada latihan ini, kamu akan membuat Pod yang menjalankan Container dari image
@@ -53,7 +53,7 @@ _Field_ `initialDelaySeconds` memberitahu kubelet untuk menunggu 5 detik sebelum
 _probe_ yang pertama. Untuk mengerjakan _probe_, kubelet menjalankan perintah `cat /tmp/healthy`
 pada Container tujuan. Jika perintah berhasil, kode 0 akan dikembalikan, dan kubelet menganggap
 Container sedang dalam kondisi hidup (_alive_) dan sehat (_healthy_). Jika perintah mengembalikan
-kode selain 0, maka kubelet akan mematikan Container dan mengulangnya.
+kode selain 0, maka kubelet akan mematikan Container dan mengulangnya kembali.
 
 Saat dimulai, Container akan menjalankan perintah berikut:
 
@@ -61,17 +61,17 @@ Saat dimulai, Container akan menjalankan perintah berikut:
 /bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
 ```
 
-Container memiliki berkas `/tmp/healthy` pada 30 detik pertama saat dijalankan.
-Perintah `cat /tmp/healthy` mengembalikan kode sukses. Setelah 30 detik berlalu,
+Container memiliki berkas `/tmp/healthy` pada saat 30 detik pertama setelah dijalankan.
+Kemudian, perintah `cat /tmp/healthy` mengembalikan kode sukses. Namun setelah 30 detik,
 `cat /tmp/healthy` mengembalikan kode gagal.
 
-Buat sebuah Pod:
+Buatlah sebuah Pod:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/probe/exec-liveness.yaml
 ```
 
-Dalam 30 detik pertama, lihat _event_ dari Pod:
+Dalam 30 detik pertama, lihatlah _event_ dari Pod:
 
 ```shell
 kubectl describe pod liveness-exec
@@ -89,7 +89,7 @@ FirstSeen    LastSeen    Count   From            SubobjectPath           Type   
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
 
-Setelah 35 detik, lihat lagi _event_ Pod tersebut:
+Setelah 35 detik, lihatlah lagi _event_ Pod tersebut:
 
 ```shell
 kubectl describe pod liveness-exec
@@ -115,7 +115,7 @@ Tunggu 30 detik lagi, dan verifikasi bahwa Container telah diulang kembali:
 kubectl get pod liveness-exec
 ```
 
-Keluaran perintah tersebut memperlihatkan bahwa jumlah `RESTARTS` meningkat:
+Keluaran perintah tersebut memperlihatkan bahwa jumlah `RESTARTS` telah meningkat:
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -129,22 +129,22 @@ berkas konfigurasi untuk Pod yang menjalankan Container dari image `k8s.gcr.io/l
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
-Pada berkas konfigurasi tersebut, kamu dapat melihat Pod memiliki satu buah Container.
+Pada berkas konfigurasi tersebut, kamu dapat melihat Pod memiliki sebuah Container.
 _Field_ `periodSeconds` menentukan bahwa kubelet harus mengerjakan _probe liveness_ setiap 3 detik.
 _Field_ `initialDelaySeconds` memberitahu kubelet untuk menunggu 3 detik sebelum mengerjakan
 _probe_ yang pertama. Untuk mengerjakan _probe_ tersebut, kubelet mengirimkan sebuah permintaan
 GET HTTP ke server yang sedang berjalan di dalam Container dan mendengarkan (_listen_) pada porta 8080.
 Jika _handler path_ `/healthz` yang dimiliki server mengembalikan kode sukses, kubelet menganggap
 Container sedang dalam kondisi hidup dan sehat. Jika _handler_ mengembalikan kode gagal,
-kubelet mematikan Container dan mengulangnya.
+kubelet mematikan Container dan mengulangnya kembali.
 
 Kode yang lebih besar atau sama dengan 200 dan kurang dari 400 mengindikasikan kesuksesan.
 Kode selain ini mengindikasikan kegagalan.
 
 Kamu dapat melihat kode program untuk server ini pada [server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
 
-Untuk 10 detik pertama setelah Container hidup, _handler_ `/healthz` mengembalikan
-status 200. Setelah ini, _handler_ mengembalikan status 500.
+Untuk 10 detik pertama setelah Container hidup (_alive_), _handler_ `/healthz` mengembalikan
+status 200. Setelah itu, _handler_ mengembalikan status 500.
 
 ```go
 http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
@@ -159,17 +159,17 @@ http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 })
 ```
 
-kubelet mulai memeriksa kesehatan (_health check_) 3 detik setelah Container dimulai,
+Pemeriksaan kesehatan (_health check_) dilakukan kubelet 3 detik setelah Container dimulai,
 sehingga beberapa pemeriksaaan pertama akan berhasil. Namun setelah 10 detik,
-pemeriksaan akan gagal, dan kubelet akan mematikan dan mengulang Container.
+pemeriksaan akan gagal, dan kubelet akan mematikan dan mengulang Container kembali.
 
-Untuk mencoba pemeriksaan _liveness_ HTTP, mari membuat sebuah Pod:
+Untuk mencoba pemeriksaan _liveness_ HTTP, marilah membuat sebuah Pod:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 ```
 
-Setelah 10 detik, lihat _event_ Pod untuk memverifikasi bahwa _probe liveness_
+Setelah 10 detik, lihatlah _event_ Pod untuk memverifikasi bahwa _probe liveness_
 telah gagal dan Container telah diulang kembali:
 
 ```shell
@@ -180,37 +180,37 @@ Untuk rilis sebelum v1.13 (termasuk v1.13), jika variabel lingkungan
 `http_proxy` (atau `HTTP_PROXY`) telah diatur pada Node dimana Pod
 berjalan, _probe liveness_ HTTP akan menggunakan proksi tersebut.
 Untuk rilis setelah v1.13, pengaturan variabel lingkungan pada proksi HTTP lokal
-tidak mempengaruhi _probe liveness) HTTP.
+tidak mempengaruhi _probe liveness_ HTTP.
 
 ## Mendefinisikan probe liveness TCP
 
 Jenis ketiga dari _probe liveness_ menggunakaan sebuah soket TCP. Dengan konfigurasi ini,
 kubelet akan mencoba untuk membuka soket pada Container kamu dengan porta tertentu.
-Jika koneksi dapat sukses terbentuk, maka Container dianggap dalam kondisi sehat.
+Jika koneksi dapat terbentuk dengan sukses, maka Container dianggap dalam kondisi sehat.
 Namun jika tidak berhasil terbentuk, maka Container dianggap gagal.
 
 {{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
 
 Seperti yang terlihat, konfigurasi untuk pemeriksaan TCP cukup mirip dengan
 pemeriksaan HTTP. Contoh ini menggunakan _probe readiness_ dan _liveness_.
-kubelet akan mengirimkan _probe readiness_ yang pertama, 5 detik setelah
-Container mulai dijalankan. kubelet akan mencoba untuk terhubung dengan Container
+_Probe readiness_ yang pertama akan dikirimkan oleh kubelet, 5 detik setelah
+Container mulai dijalankan. Container akan coba dihubungkan oleh kubelet dengan 
 `goproxy` pada porta 8080. Jika _probe_ berhasil, maka Pod akan ditandai menjadi
-_siap_. kubelet akan lanjut mengerjakan pemeriksaan ini setiap 10 detik.
+_ready_. Pemeriksaan ini akan dilanjutkan oleh kubelet setiap 10 detik.
 
 Selain _probe readiness_, _probe liveness_ juga termasuk di dalam konfigurasi.
-kubelet akan menjalankan _probe liveness_ yang pertama, 15 detik setelah Container
+_Probe liveness_ yang pertama akan dijalankan oleh kubelet, 15 detik setelah Container
 mulai dijalankan. Sama seperti _probe readiness_, kubelet akan mencoba untuk
 terhubung dengan Container `goproxy` pada porta 8080. Jika _probe liveness_ gagal,
 maka Container akan diulang kembali.
 
-Untuk mencoba pemeriksaan _liveness_ TCP, mari membuat sebuah Pod:
+Untuk mencoba pemeriksaan _liveness_ TCP, marilah membuat sebuah Pod:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/probe/tcp-liveness-readiness.yaml
 ```
 
-Setelah 15 detik, lihat _event_ Pod untuk memverifikasi _probe liveness_ tersebut:
+Setelah 15 detik, lihatlah _event_ Pod untuk memverifikasi _probe liveness_ tersebut:
 
 ```shell
 kubectl describe pod goproxy
@@ -240,11 +240,11 @@ Terkadang kamu harus berurusan dengan aplikasi peninggalan (_legacy_) yang
 memerlukan waktu tambahan untuk mulai berjalan pada saat pertama kali diinisialisasi.
 Pada kasus ini, cukup rumit untuk mengatur parameter _probe liveness_ tanpa
 mengkompromikan respons yang cepat terhadap _deadlock_ yang memotivasi digunakannya
-_probe_ tersebut. Triknya adalah untuk mengatur _probe startup_ dengan perintah yang sama,
-pemeriksaan HTTP ataupun TCP, dengan `failureThreshold * periodSeconds` yang
+probe_ tersebut. Triknya adalah mengatur _probe startup_ dengan perintah yang sama,
+baik pemeriksaan HTTP ataupun TCP, dengan `failureThreshold * periodSeconds` yang
 mencukupi untuk kemungkinan waktu memulai yang terburuk.
 
-Jadi, contoh sebelumnya menjadi:
+Sehingga, contoh sebelumnya menjadi:
 
 ```yaml
 ports:
@@ -276,7 +276,7 @@ Jika _probe startup_ tidak pernah berhasil, maka Container akan dimatikan setela
 
 ## Mendefinisikan probe readiness
 
-Terkadang aplikasi tidak dapat melayani lalu lintas jaringan (_traffic_) sementara.
+Terkadang aplikasi tidak dapat melayani lalu lintas jaringan sementara.
 Contohnya, aplikasi mungkin perlu untuk memuat data besar atau berkas konfigurasi
 saat dimulai, atau aplikasi bergantung pada layanan eksternal setelah dimulai.
 Pada kasus-kasus ini, kamu tidak ingin mematikan aplikasi, tetapi kamu tidak
@@ -329,9 +329,9 @@ Nilai minimalnya adalah 0.
 setelah mengalami kegagalan. Nilai bawaannya adalah 1. Nilanya harus 1 untuk _liveness_.
 Nilai minimalnya adalah 1.
 * `failureThreshold`: Ketika sebuah Pod dimulai dan _probe_ mengalami kegagalan, Kubernetes
-akan mencoba beberapa kali sesuai nilai `failureThreshold` sebelum menyerah. Menyerah karena
-kasus _probe liveness_ akan membuat Container diulang kembali. Untuk _probe readiness_, menyerah
-akaan menandai Pod menjadi "tidak siap" (Unready). Nilai bawaannya adalah 3. Nilai minimalnya adalah 1.
+akan mencoba beberapa kali sesuai nilai `failureThreshold` sebelum menyerah. Menyerah dalam
+kasus _probe liveness_ berarti Container akan diulang kembali. Untuk _probe readiness_, menyerah
+akan menandai Pod menjadi "tidak siap" (_Unready_). Nilai bawaannya adalah 3. Nilai minimalnya adalah 1.
 
 [_Probe_ HTTP](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 memiliki _field-field_ tambahan yang bisa diatur melalui `httpGet`:
@@ -340,18 +340,18 @@ memiliki _field-field_ tambahan yang bisa diatur melalui `httpGet`:
 juga ingin mengatur "Host" pada httpHeaders.
 * `scheme`: Skema yang digunakan untuk terhubung pada host (HTTP atau HTTPS). Nilai bawaannya adalah HTTP.
 * `path`: _Path_ untuk mengakses server HTTP.
-* `httpHeaders`: _Header_ khusus yang diatur melalui permintaan. HTTP memperbolehkan _header_ yang berulang.
+* `httpHeaders`: _Header_ khusus yang diatur dalam permintaan HTTP. HTTP memperbolehkan _header_ yang berulang.
 * `port`: Nama atau angka dari porta untuk mengakses Container. Angkanya harus ada di antara 1 sampai 65535.
 
 Untuk sebuah _probe_ HTTP, kubelet mengirimkan permintaan HTTP untuk _path_ yang ditentukan
-dan porta untuk mengerjakan pemeriksaan. kubelet mengirimkan _probe_ untuk alamat IP Pod,
+dan porta untuk mengerjakan pemeriksaan. _Probe_ dikirimkan oleh kubelet untuk alamat IP Pod,
 kecuali saat alamat digantikan oleh _field_ opsional pada `httpGet`. Jika _field_ `scheme`
 diatur menjadi `HTTPS`, maka kubelet mengirimkan permintaan HTTPS dan melewati langkah verifikasi
 sertifikat. Pada skenario kebanyakan, kamu tidak menginginkan _field_ `host`.
 Berikut satu skenario yang memerlukan `host`. Misalkan Container mendengarkan permintaan
 melalui 127.0.0.1 dan _field_ `hostNetwork` pada Pod bernilai true. Kemudian `host`, melalui
 `httpGet`, harus diatur menjadi 127.0.0.1. Jika Pod kamu bergantung pada host virtual, dimana
-untuk kasus-kasus umum, kamu tidak perlu menggunakan `host`, tetapi perlu mengaatur _header_
+untuk kasus-kasus umum, kamu tidak perlu menggunakan `host`, tetapi perlu mengatur _header_
 `Host` pada `httpHeaders`.
 
 Untuk _probe_ TCP, kubelet membuat koneksi _probe_ pada Node, tidak pada Pod, yang berarti bahwa
