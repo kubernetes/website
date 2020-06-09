@@ -61,8 +61,7 @@ kubectl scale deployment hostnames --replicas=3
 deployment.apps/hostnames scaled
 ```
 
-{{< note >}}
-This is the same as if you had started the Deployment with the following
+Note that this is the same as if you had started the Deployment with the following
 YAML:
 
 ```yaml
@@ -89,7 +88,6 @@ spec:
 
 The label "app" is automatically set by `kubectl create deployment` to the name of the
 Deployment.
-{{< /note >}}
 
 You can confirm your Pods are running:
 
@@ -195,7 +193,6 @@ hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 
 Now you know that the Service exists.
 
-{{< note >}}
 As before, this is the same as if you had started the Service with YAML:
 
 ```yaml
@@ -218,7 +215,6 @@ spec:
 In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
-{{< /note >}}
 
 ## Does the Service work by DNS name?
 

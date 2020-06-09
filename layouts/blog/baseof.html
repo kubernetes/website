@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}">
 	</head>
 	<body>
+    {{ partial "announcement.html" . }}
 		{{ partial "header.html" . }}
 		<section id="hero" class="light-text no-sub">
 			<h1>{{ .Title }}</h1>

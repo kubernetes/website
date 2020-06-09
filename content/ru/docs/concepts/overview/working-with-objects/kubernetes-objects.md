@@ -65,7 +65,7 @@ deployment.apps/nginx-deployment created
 * `apiVersion` — используемая для создания объекта версия API Kubernetes
 * `kind` — тип создаваемого объекта
 * `metadata` — данные, позволяющие идентифицировать объект (`name`, `UID` и необязательное поле `namespace`)
-* `spec` — требуемое состояние состояние объекта
+* `spec` — требуемое состояние объекта
 
 Конкретный формат поля-объекта `spec` зависит от типа объекта Kubernetes и содержит вложенные поля, предназначенные только для используемого объекта. В [справочнике API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/) можно найти формат спецификации любого объекта Kubernetes.
 Например, формат  `spec` для объекта Pod находится в [ядре PodSpec v1](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core), а формат `spec` для Deployment — в [DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).

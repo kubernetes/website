@@ -277,7 +277,7 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 예를 들어 위 클러스터는 클러스터 수준의 logging(Elasticsearch 사용)이 활성화되었으므로 적절한 인증을 통과하여 
 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`로 액세스할 수 있다. 예를 들어 kubectl proxy로 
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`를 통해 logging에 액세스할 수도 있다.
-(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [위 내용](#rest-api에-직접-액세스)을 참조한다.)
+(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [쿠버네티스 API를 사용해서 클러스터에 접근하기](/docs/tasks/administer-cluster/access-cluster-api/)을 참조한다.)
 
 #### 수작업으로 apiserver proxy URL을 구축
 

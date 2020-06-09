@@ -438,10 +438,10 @@ Pod重启导致 Init 容器重新执行，主要有如下几个原因：
 {{% capture whatsnext %}}
 
 <!--
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 -->
 
-* 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调测 Init 容器](/docs/tasks/debug-application-cluster/debug-init-containers/)
 {{% /capture %}}

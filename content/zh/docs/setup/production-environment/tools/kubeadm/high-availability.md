@@ -126,10 +126,11 @@ option. Your cluster requirements may need a different configuration.
       on the apiserver port. It must also allow incoming traffic on its
       listening port.
 
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
-
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
+      
+    - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
+      guide for more details.
 -->
 
 1.  创建一个名为 kube-apiserver 的负载均衡器解析 DNS。
@@ -140,9 +141,9 @@ option. Your cluster requirements may need a different configuration.
 
     - 负载均衡器必须能够在 apiserver 端口上与所有控制平面节点通信。它还必须允许其监听端口的传入流量。
 
-    - [HA代理](http://www.haproxy.org/)可以被用来做一个负载均衡器。
-
     - 确保负载均衡器的地址始终匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
+    
+    - 阅读[软件负载平衡选项指南](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)以获取更多详细信息。
 
 <!--
 1.  Add the first control plane nodes to the load balancer and test the

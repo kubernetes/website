@@ -380,7 +380,7 @@ Dans la CLI, les modes d'accès sont abrégés comme suit:
   Par exemple, un GCEPersistentDisk peut être monté en tant que ReadWriteOnce par un seul nœud ou ReadOnlyMany par plusieurs nœuds, mais pas en même temps.
 
 | Volume Plugin        | ReadWriteOnce    | ReadOnlyMany     | ReadWriteMany                                    |
-|-:--------------------|-:-:--------------|-:-:--------------|-:-:----------------------------------------------|
+| :-: | :-: | :-: | :-: |
 | AWSElasticBlockStore | &#x2713;         | -                | -                                                |
 | AzureFile            | &#x2713;         | &#x2713;         | &#x2713;                                         |
 | AzureDisk            | &#x2713;         | -                | -                                                |

@@ -91,9 +91,9 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 오직 일부 노드에서만 파드 실행
 
 만약 `.spec.template.spec.nodeSelector` 를 명시하면 데몬셋 컨트롤러는 
-[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector)와 
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector)와 
 일치하는 노드에 파드를 생성한다. 마찬가지로 `.spec.template.spec.affinity` 를 명시하면 
-데몬셋 컨트롤러는 [노트 어피니티](/ko/docs/concepts/configuration/assign-pod-node/#노드-어피니티)와 일치하는 노드에 파드를 생성한다. 
+데몬셋 컨트롤러는 [노트 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-어피니티)와 일치하는 노드에 파드를 생성한다. 
 만약 둘 중 하나를 명시하지 않으면 데몬셋 컨트롤러는 모든 노드에서 파드를 생성한다.
 
 ## 데몬 파드가 스케줄 되는 방법

@@ -75,7 +75,11 @@ external IP address.
 -->
 1. 在集群中运行 Hello World 应用程序：
 
-        kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+{{< codenew file="service/load-balancer-example.yaml" >}}
+
+```shell
+kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
+```
 
 <!--
     The preceding command creates a
@@ -129,8 +133,20 @@ external IP address.
         my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
 
 <!--
-   Note: If the external IP address is shown as \<pending\>, wait for a minute
-   and enter the same command again.
+{{< note >}}
+
+The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+
+{{< /note >}}
+-->
+   注意：`type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，详细信息请参考[此页](/docs/concepts/services-networking/service/#loadbalancer)
+
+<!--
+{{< note >}}
+
+If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
+
+{{< /note >}}
 -->
    注意：如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
 
