@@ -93,7 +93,7 @@ hostaliases-pod                0/1       Completed   0          6s        10.200
 The `hosts` file content would look like this:
 
 ```shell
-kubectl exec hostaliases-pod -- cat /etc/hosts
+kubectl logs hostaliases-pod
 ```
 
 ```none

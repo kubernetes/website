@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 스케줄러
 content_template: templates/concept
-weight: 50
+weight: 10
 ---
 
 {{% capture overview %}}

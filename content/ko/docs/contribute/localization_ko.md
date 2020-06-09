@@ -87,22 +87,39 @@ weight: 10
 기존에 번역된 문서를 참고한다.
 
 {{% note %}}
-한영 병기는 페이지 내에서 해당 용어가 처음 사용되는 경우에만 적용하고 이후 부터는 한글만 표기한다.
+한영 병기는 페이지 내에서 해당 용어가 처음 사용되는 경우에만 1회 적용하고 이후에는 한글만 표기한다.
+한영 병기의 대상에는 제목도 포함되므로 제목에 한영 병기가 제공된 경우, 문서 내부에는
+한글만 표기한다.
 {{% /note %}}
 
-### API 오브젝트 용어 한글화 관련 방침
+### API 오브젝트 용어 한글화 방침
 
-API 오브젝트는 외래어 표기법에 따라 한글 표기한다.
-
-쿠버네티스 API 오브젝트는 원 단어를
+API 오브젝트 중 `kubectl api-resources` 결과의 `kind`에 해당하는 오브젝트는
 [국립국어원 외래어 표기법](http://kornorms.korean.go.kr/regltn/regltnView.do?regltn_code=0003#a)에
-따라 한글화 한다. 예를 들면 다음과 같다.
+따라 한글 표기한다. 예를 들면 다음과 같다.
 
-원 단어    | 외래어 표기
----        | ---
-Deployment | 디플로이먼트
-Pod        | 파드
-Service    | 서비스
+API 오브젝트(kind)      | 한글화(외래어 표기)
+---                   | ---
+ClusterRoleBinding    | 클러스터롤바인딩
+ConfigMap             | 컨피그맵
+Deployment            | 디플로이먼트
+Pod                   | 파드
+PersistentVolumeClaim | 퍼시스턴트볼륨클레임
+Service               | 서비스
+...                   | ...
+
+그 이외의 API 오브젝트는, [한글화 용어집](#한글화-용어집)에 등록된 용어인 경우를 제외하고,
+모두 원문 그대로 표기한다. 예를 들면 다음과 같다.
+
+API 오브젝트(kind가 아닌 경우) | 한글화(원문 유지)
+---                        | ---
+ClusterRoleBindingList     | ClusterRoleBindingList
+ClusterRoleList            | ClusterRoleList
+ConfigMapEnvSource         | ConfigMapEnvSource
+ConfigMapKeySelector       | ConfigMapKeySelector
+PersistentVolumeClaimList  | PersistentVolumeClaimList
+PersistentVolumeClaimSpec  | PersistentVolumeClaimSpec
+...                        | ...
 
 {{% note %}}
 단, API 오브젝트 한글화 원칙에 예외가 있을 수 있으며, 이 경우에는 가능한
@@ -111,9 +128,40 @@ Service    | 서비스
 {{% /note %}}
 
 {{% note %}}
+원문에서는 API 오브젝트를 camelCase(예: configMap)로 표기하는 것을 가이드하고 있다.
+그러나 한글에는 대소문자 구분이 없으므로 이를 띄어쓰기 없이 붙여서 처리한다.
+(예: configMap -> 컨피그맵, config Map -> 컨피그맵)
+{{% /note %}}
+
+{{% note %}}
 API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독자가 구성 파일이나
 커맨드라인에서 그대로 사용할 가능성이 높으므로 한글로 옮기지 않고 원문을 유지한다.
 단, 주석에 포함된 내용은 한글로 옮길 수 있다.
+{{% /note %}}
+
+### 기능 게이트(feature gate) 한글화 방침
+
+쿠버네티스의 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+의미하는 용어는 한글화하지 않고 원문 형태를 유지한다.
+
+기능 게이트의 예시는 다음과 같다.
+- Accelerators
+- AdvancedAuditing
+- AffinityInAnnotations
+- AllowExtTrafficLocalEndpoints
+- ...
+
+전체 기능 게이트 목록은
+[여기](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
+
+{{% note %}}
+단, 해당 원칙에는 예외가 있을 수 있으며, 이 경우에는 가능한
+[한글화 용어집](#한글화-용어집)을 준용한다.
+{{% /note %}}
+
+{{% note %}}
+기능 게이트는 쿠버네티스 버전에 따라 변경될 수 있으므로,
+쿠버네티스 및 쿠버네티스 문서의 버전에 맞는 기능 게이트 목록을 적용하여 한글화를 진행한다.
 {{% /note %}}
 
 ### 한글화 용어집 정보

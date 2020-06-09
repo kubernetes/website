@@ -36,27 +36,30 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
    * 쿠버네티스 1.16 또는 이후 버전
    * 이중 스택 네트워킹을 위한 공급자의 지원(클라우드 공급자 또는 다른 방식으로 쿠버네티스 노드에 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공할 수 있어야 한다.)
    * 이중 스택(예: Kubenet 또는 Calico)을 지원하는 네트워크 플러그인
-   * IPVS 모드에서 구동 중인 Kube-Proxy
 
 ## IPv4/IPv6 이중 스택 활성화
 
 IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요소에 대해 `IPv6DualStack` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 를 활성화 하고, 이중 스택 클러스터 네트워크 할당을 설정한다.
 
+   * kube-apiserver:
+      * `--feature-gates="IPv6DualStack=true"`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` 예: `--cluster-cidr=10.244.0.0/16,fc00::/24`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64이다.
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
-      * `--proxy-mode=ipvs`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
 
-{{< caution >}}
-명령줄에서 `--cluster-cidr` 를 통해 /24보다 큰 IPv6 주소 블럭을 지정하면 할당이 실패한다.
-{{< /caution >}}
+{{< note >}}
+IPv4 CIDR의 예: `10.244.0.0/16` (자신의 주소 범위를 제공하더라도)
+
+IPv6 CIDR의 예: `fdXY:IJKL:MNOP:15::/64` (이 형식으로 표시되지만, 유효한 주소는 아니다 - [RFC 4193](https://tools.ietf.org/html/rfc4193)을 본다.)
+
+{{< /note >}}
 
 ## 서비스
 

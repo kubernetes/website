@@ -32,11 +32,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+    ```shell
+    kubectl get pod pod1
+    kubectl get pods pod1
+    kubectl get po pod1
+    ```
 
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
 
@@ -424,7 +424,7 @@ kubectl hello
 hello world
 ```
 
-```
+```shell
 # we can "uninstall" a plugin, by simply removing it from our PATH
 sudo rm /usr/local/bin/kubectl-hello
 ```
@@ -442,7 +442,7 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
-```
+```shell
 # this command can also warn us about plugins that are
 # not executable, or that are overshadowed by other
 # plugins, for example

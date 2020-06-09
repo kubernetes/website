@@ -42,7 +42,7 @@ Kubernetes provides Containers with lifecycle hooks.
 The hooks enable Containers to be aware of events in their management lifecycle
 and run code implemented in a handler when the corresponding lifecycle hook is executed.
 -->
-类似于许多具有生命周期钩子组件的编程语言框架，例如Angular，Kubernetes为容器提供了生命周期钩子。
+类似于许多具有生命周期钩子组件的编程语言框架，例如 Angular、Kubernetes 为容器提供了生命周期钩子。
 钩子使容器能够了解其管理生命周期中的事件，并在执行相应的生命周期钩子时运行在处理程序中实现的代码。
 
 <!--
@@ -163,7 +163,7 @@ which means that a hook may be called multiple times for any given event,
 such as for `PostStart` or `PreStop`.
 It is up to the hook implementation to handle this correctly.
 -->
-钩子的寄送应该是*至少一次*，这意味着对于任何给定的事件，例如 `PostStart` 或 `PreStop`，钩子可以被调用多次。
+钩子的寄送应该是 *至少一次*，这意味着对于任何给定的事件，例如 `PostStart` 或 `PreStop`，钩子可以被调用多次。
 如何正确处理，是钩子实现所要考虑的问题。
 
 <!--
