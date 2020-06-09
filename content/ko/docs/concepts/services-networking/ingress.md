@@ -132,11 +132,11 @@ spec:
   요소별로 경로 요소에 대해 수행한다.
   모든 _p_ 가 요청 경로의 요소별 접두사가 _p_ 인 경우
   요청은 _p_ 경로에 일치한다.
-    {{< note >}}
-    경로의 마지막 요소가 요청 경로에 있는 마지막 요소의
-    하위 문자열인 경우에는 일치하지 않는다(예시: 
-    `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
-    {{< /note >}}
+
+  {{< note >}}
+  경로의 마지막 요소가 요청 경로에 있는 마지막 요소의 하위 문자열인 경우에는 일치하지 않는다(예시: 
+  `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
+  {{< /note >}}
 
 #### 다중 일치
 경우에 따라 인그레스의 여러 경로가 요청과 일치할 수 있다.
@@ -400,16 +400,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}

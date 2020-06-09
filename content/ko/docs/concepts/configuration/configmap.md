@@ -57,7 +57,7 @@ API [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-ob
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  Name: game-demo
+  name: game-demo
 data:
   # 속성과 비슷한 키; 각 키는 간단한 값으로 매핑됨
   player_initial_lives: 3

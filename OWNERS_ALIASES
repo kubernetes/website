@@ -137,6 +137,7 @@ aliases:
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
+    - bells17
     - cstoku
     - inductor
     - makocchi-git

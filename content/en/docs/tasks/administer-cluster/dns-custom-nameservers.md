@@ -54,8 +54,7 @@ inheriting DNS. Set it to a valid file path to specify a file other than
 
 ## CoreDNS
 
-CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications]
-(https://github.com/kubernetes/dns/blob/master/docs/specification.md). 
+CoreDNS is a general-purpose authoritative DNS server that can serve as cluster DNS, complying with the [dns specifications](https://github.com/kubernetes/dns/blob/master/docs/specification.md).
 
 ### CoreDNS ConfigMap options
 

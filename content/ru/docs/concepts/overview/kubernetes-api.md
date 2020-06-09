@@ -11,7 +11,7 @@ card:
 
 Общие соглашения API описаны на [странице соглашений API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
-Конечные точки API, типы ресурсов и примеры описаны в [справочнике API](/docs/reference).
+Конечные точки API, типы ресурсов и примеры описаны в [справочнике API](/ru/docs/reference).
 
 Удаленный доступ к API обсуждается в [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/).
 
@@ -93,7 +93,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 
 1. Группа *core*, которая часто упоминается как *устаревшая* (*legacy group*), доступна по пути `/api/v1` и использует `apiVersion: v1`.
 
-1. Именованные группы находятся в пути REST `/apis/$GROUP_NAME/$VERSION` и используют `apiVersion: $GROUP_NAME/$VERSION` (например, `apiVersion: batch/v1`). Полный список поддерживаемых групп API можно увидеть в [справочнике API Kubernetes](/docs/reference/).
+1. Именованные группы находятся в пути REST `/apis/$GROUP_NAME/$VERSION` и используют `apiVersion: $GROUP_NAME/$VERSION` (например, `apiVersion: batch/v1`). Полный список поддерживаемых групп API можно увидеть в [справочнике API Kubernetes](/ru/docs/reference/).
 
 Есть два поддерживаемых пути к расширению API с помощью [пользовательских ресурсов](/docs/concepts/api-extension/custom-resources/):
 
