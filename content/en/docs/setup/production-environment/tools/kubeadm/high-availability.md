@@ -77,10 +77,11 @@ option. Your cluster requirements may need a different configuration.
       on the apiserver port. It must also allow incoming traffic on its
       listening port.
 
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
-
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
+
+    - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
+      guide for more details.
 
 1.  Add the first control plane nodes to the load balancer and test the
     connection:

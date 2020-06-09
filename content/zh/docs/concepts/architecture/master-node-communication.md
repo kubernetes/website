@@ -1,7 +1,6 @@
 ---
 approvers:
 - dchen1107
-- roberthbailey
 - liggitt
 
 title: Master 节点通信

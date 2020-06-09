@@ -54,5 +54,8 @@ was wrong, you (and only you, the submitter) can change it.
 
 Limit pull requests to one language per PR. If you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language.
 
+## Tools for contributors
+
+The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
 
 {{% /capture %}}

@@ -374,7 +374,7 @@ Kubernetes 版本对应的 DEB 和 RPM 软件包是：
 |--------------|-------------|
 | `kubeadm`    | 给 kubelet 安装 `/usr/bin/kubeadm` CLI 工具和 [kubelet 插件](#the-kubelet-drop-in-file-for-systemd)。 |
 | `kubelet`    | 安装 `/usr/bin/kubelet` 二进制文件。 |
-| `kubectl`    | 安装 `/usr/bin/kubectl` 二进制问价。 |
+| `kubectl`    | 安装 `/usr/bin/kubectl` 二进制文件。 |
 | `kubernetes-cni` | 将官方的 CNI 二进制文件安装到 `/opt/cni/bin` 目录中 |
 | `cri-tools` | 从 [cri-tools git 仓库](https://github.com/kubernetes-incubator/cri-tools)中安装 `/usr/bin/crictl` 二进制文件。 |
 

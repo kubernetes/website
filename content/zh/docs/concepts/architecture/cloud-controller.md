@@ -247,12 +247,6 @@ In this new model, the kubelet initializes a node without cloud-specific informa
 ## Plugin mechanism
 -->
 
-在这个新模型中，kubelet 初始化一个没有特定于云平台的功能特性的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用云的规格信息初始化节点后，才会清除这种污点，便得该节点可被调度。
-
-<!--
-## Plugin mechanism
--->
-
 ## 插件机制
 
 <!--

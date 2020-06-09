@@ -91,7 +91,7 @@ hostaliases-pod                0/1       Completed   0          6s        10.200
 `hosts` 파일 내용은 아래와 같을 것이다.
 
 ```shell
-kubectl logs hostaliases-pod
+kubectl exec hostaliases-pod -- cat /etc/hosts
 ```
 
 ```none

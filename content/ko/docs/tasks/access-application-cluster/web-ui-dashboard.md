@@ -93,7 +93,7 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
   예를 들면:
 
-  ```conf
+```conf
 release=1.0
 tier=frontend
 environment=pod
