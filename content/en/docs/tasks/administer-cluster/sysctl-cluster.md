@@ -188,9 +188,9 @@ Do not configure these two fields such that there is overlap, meaning that a
 given sysctl is both allowed and forbidden.
 
 {{< warning >}}
-If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+If you allow unsafe sysctls via the `allowedUnsafeSysctls` field
 in a PodSecurityPolicy, any pod using such a sysctl will fail to start
-if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
+if the sysctl is not allowed via the `--allowed-unsafe-sysctls` kubelet
 flag as well on that node.
 {{< /warning >}}
 
