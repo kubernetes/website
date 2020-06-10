@@ -12,6 +12,44 @@ content_type: concept
 
 <!-- body -->
 
+## 팀 마일스톤 관리
+
+쿠버네티스 문서 한글화팀은 커뮤니티의
+[현지화 가이드](/docs/contribute/localization/#branching-strategy)에 따라 한글화를
+위한 팀 마일스톤과 개발 브랜치를 관리한다. 본 섹션은 한글화팀의 팀 마일스톤 관리에 특화된
+내용을 다룬다.
+
+한글화팀은 `master` 브랜치에서 분기한 개발 브랜치를 사용한다. 개발 브랜치 이름은 다음과 같은
+구조를 갖는다.
+
+`dev-<소스 버전>-ko.<팀 마일스톤>`
+
+개발 브랜치는 약 2주에서 3주 사이의 팀 마일스톤 기간 동안 공동의 작업을 위해 사용되며, 팀
+마일스톤이 종료될 때 원 브랜치로 병합(merge)된다.
+
+업스트림(upstream)의 릴리스 주기(약 3개월)에 따라 다음 버전으로 마일스톤을 변경하는 시점에는
+일시적으로 `release-<소스 버전>` 브랜치를 원 브랜치로 사용하는 개발 브랜치를 추가로 운영한다.
+
+[한글화팀의 정기 화상 회의 일정](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)과
+팀 마일스톤 주기는 대체로 일치하며, 정기 회의를 통해 팀 마일스톤마다 PR 랭글러(wrangler)를
+지정한다.
+
+한글화팀의 PR 랭글러가 갖는 의무는 업스트림의
+[PR 랭글러](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기)가 갖는
+의무와 유사하다. 단, 업스트림의 PR 랭글러와는 달리 승인자가 아니어도 팀 마일스톤의 PR 랭글러가
+될 수 있다. 그래서, 보다 상위 권한이 필요한 업무가 발생한 경우, PR 랭글러는 해당 권한을 가진
+한글화팀 멤버에게 처리를 요청한다.
+
+업스트림의 [PR 랭글러에게 유용한 GitHub 쿼리](/ko/docs/contribute/advanced/#랭글러에게-유용한-github-쿼리)를
+기반으로 작성한, 한글화팀의 PR 랭글러에게 유용한 쿼리를 아래에 나열한다.
+
+- [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fko)
+- [LGTM 필요](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fko+-label%3Algtm+)
+- [LGTM 보유, 문서 승인 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fko+label%3Algtm)
+- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fko%22+)
+
+팀 마일스톤 일정과 PR 랭글러는 커뮤니티 슬랙 내 [#kubernetes-docs-ko 채널](https://kubernetes.slack.com/archives/CA1MMR86S)에 공지된다.
+
 ## 문체 가이드
 
 ### 높임말
