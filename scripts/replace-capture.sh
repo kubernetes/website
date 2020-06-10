@@ -10,7 +10,7 @@ CONTENT_DIR=${K8S_WEBSITE}/content
 declare -a DIRS=("concepts" "contribute" "home" "reference" "setup" "tasks" "tutorials")
 declare -a EMPTY_STMTS=("body" "discussion" "lessoncontent" "overview" "steps")
 declare -a REPLACE_STMTS=("cleanup" "objectives" "options" "prerequisites" "seealso" "synopsis" "whatsnext")
-declare -a CONTENT_TYPES=("concept" "task" "tutorial" "tool_reference")
+declare -a CONTENT_TYPES=("concept" "task" "tutorial" "tool-reference")
 END_CAPTURE="{{% \/capture %}}"
 CONTENT_TEMPLATE="content_template:"
 
