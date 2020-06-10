@@ -23,12 +23,16 @@ disableLanguages = ["hi", "no"]
 
 [markup]
  [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
    [markup.goldmark.renderer]
      unsafe = true
-   [markup.goldmark.extensions]
-      definitionList = true
-      table = true
-      typographer = false
   [markup.highlight]
     codeFences = true
     guessSyntax = false
@@ -43,14 +47,6 @@ disableLanguages = ["hi", "no"]
     endLevel = 2
     ordered = false
     startLevel = 2
-  [markup.goldmark.parser]
-      attribute = true
-      autoHeadingID = true
-      autoHeadingIDType = "blackfriday"
-  [markup.goldmark.extensions]
-      definitionList = true
-      table = true
-      typographer = false
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
