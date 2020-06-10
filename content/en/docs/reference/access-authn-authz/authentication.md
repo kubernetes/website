@@ -755,11 +755,28 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Hint to help the user install the executable. Optional.
+      installHint: |
+      example-client-go-exec-plugin is required to authenticate
+      to the current cluster.  It can be installed:
+
+      On macOS: brew install example-client-go-exec-plugin
+
+      On Ubuntu: apt-get install example-client-go-exec-plugin
+
+      On Fedora: dnf install example-client-go-exec-plugin
+
+      ...
 clusters:
 - name: my-cluster
   cluster:
     server: "https://172.17.4.100:6443"
     certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: exec  # reserved extension name for per cluster exec config
+      extension:
+        some-config-per-cluster: config-data  # arbitrary config
 contexts:
 - name: my-cluster
   context:
