@@ -1291,8 +1291,11 @@ Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
 may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
 CSI driver.
 
-The `csi` volume type does not support direct reference from Pod and may only be
-referenced in a Pod via a `PersistentVolumeClaim` object.
+A `csi` volume can be used in a pod in three different ways:
+- through a reference to a [`persistentVolumeClaim`](#persistentvolumeclaim)
+- with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume) (alpha feature)
+- with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) if the driver
+  supports that (beta feature)
 
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
@@ -1355,37 +1358,14 @@ as usual, without any CSI specific changes.
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+You can directly configure CSI volumes within the Pod
+specification. Volumes specified in this way are ephemeral and do not
+persist across Pod restarts. See [Ephemeral
+Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+for more information.
 
-Example:
+#### {{% heading "whatsnext" %}}
 
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: my-csi-app
-spec:
-  containers:
-    - name: my-frontend
-      image: busybox
-      volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-inline-vol
-      command: [ "sleep", "1000000" ]
-  volumes:
-    - name: my-csi-inline-vol
-      csi:
-        driver: inline.storage.kubernetes.io
-        volumeAttributes:
-          foo: bar
-```
-
-This feature requires CSIInlineVolume feature gate to be enabled. It
-is enabled by default starting with Kubernetes 1.16.
-
-CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
-
-# Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
