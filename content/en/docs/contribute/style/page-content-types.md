@@ -16,35 +16,39 @@ The Kubernetes documentation follows several types of page content:
 - Tutorial
 - Reference
 
-Content pages contain HTML headings that create structure on the page.
-
 <!-- body -->
 
 ## Content sections
 
-Each page content type contains a number of sections.
-Most of the main sections are outlined in the page using Markdown comments. 
-This page structure helps to maintain the different content types.
+Each page content type contains a number of sections declared as
+Markdown comments and HTML headings. HTML section headings render using the
+`heading` shortcode. This page structure helps to maintain the different content types.
 
-For example,
+Examples of Markdown comments defining page content sections:
 
-```
+```markdown
 <!-- body -->
 ```
 
-```
+```markdown
 <!-- overview -->
 ```
 
-To create localized headings for common headings, use the `heading` shortcode
-in your content pages. Common localized headings are:
+To create common headings in your content pages, use the `heading` shortcode with
+a heading string.
+
+Examples of heading strings:
 
 - whatsnext
 - prerequisites
 - objectives
 - cleanup
+- synopsis
+- seealso
+- options
 
-To create a localized `whatsnext` heading on a page, you can add to your page:
+To create a `whatsnext` heading, add the heading shortcode
+to your page as follows:
 
 ```none
 ## {{%/* heading "whatsnext" */%}}
@@ -54,29 +58,29 @@ The `whatsnext` heading displays as:
 
 ## {{% heading "whatsnext" %}}
 
-
-To create a localized `prerequisites` heading on a page, you can add to your page:
+You can declare a `prerequisites` heading as:
 
 ```none
 ## {{%/* heading "prerequisites" */%}}
 ```
 
-The `prerequisites heading displays as:
+The `prerequisites` heading displays as:
 
 ## {{% heading "prerequisites" %}}
 
+The `heading` shortcode takes one string parameter. The string matches the prefix
+of a variable in the `i18n/<lang>.toml` files.
 
-The `heading` shortcode takes one parameter.
-The string should match the prefix of a variable in the localized file, such `i18n/en.toml`:
+`i18n/en.toml`:
 
-```
+```toml
 [whatsnext_heading]
 other = "What's next"
 ```
 
-Another localized file, such as `i18n/ko.toml`:
+`i18n/ko.toml`:
 
-```
+```toml
 [whatsnext_heading]
 other = "다음 내용"
 ```
@@ -100,8 +104,8 @@ Concept pages are divided into three sections:
 | body          |
 | whatsnext     |
 
-
 Fill each section with content. Follow these guidelines:
+
 - Organize content with H2 and H3 headings.
 - For `overview`, set the topic's context with a single paragraph.
 - For `body`, explain the concept.
@@ -109,7 +113,7 @@ Fill each section with content. Follow these guidelines:
 
 [Annotations](/docs/concepts/overview/working-with-objects/annotations/) is a published example of a concept page.
 
-## Task 
+## Task
 
 A task page shows how to do a single thing, typically by giving a short
 sequence of steps. Task pages have minimal explanation, but often provide links
@@ -127,6 +131,7 @@ To write a new task page, create a Markdown file in a subdirectory of the
 | whatsnext     |
 
 Within each section, write your content. Use the following guidelines:
+
 - Use a minimum of H2 headings (with two leading `#` characters). The sections
   themselves are titled automatically by the template.
 - For `overview`, use a paragraph to set context for the entire topic.
@@ -138,7 +143,7 @@ Within each section, write your content. Use the following guidelines:
 - For `whatsnext`, give a bullet list of up to 5 topics the reader might be
   interested in reading next.
 
-An example of a published task topic is [Using an HTTP proxy to access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api).
+An example of a published task topic is [Using an HTTP proxy to access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/).
 
 ## Tutorial
 
@@ -162,6 +167,7 @@ To write a new tutorial page, create a Markdown file in a subdirectory of the
 | whatsnext     |
 
 Within each section, write your content. Use the following guidelines:
+
 - Use a minimum of H2 headings (with two leading `#` characters). The sections
   themselves are titled automatically by the template.
 - For `overview`, use a paragraph to set context for the entire topic.
@@ -180,10 +186,11 @@ An example of a published tutorial topic is
 
 ## Reference
 
-A component tool reference page shows the `--help` output for a Kubernetes component tool.
-Each page output depends upon the component tool's source code in `kubernetes/kubernetes`.
+A component tool reference page shows the description and flag options output for
+a Kubernetes component tool. Each page output depends upon the component tool's source
+code in `kubernetes/kubernetes`.
 
-Typically a tool reference page has several sections:
+A tool reference page has several possible sections:
 
 | Page section                 |
 |------------------------------|
@@ -191,10 +198,9 @@ Typically a tool reference page has several sections:
 | options                      |
 | options from parent commands |
 | examples                     |
-| body                         |
 | seealso                      |
 
-An example of a published tool reference topic is:
+Examples of published tool reference pages are:
 
 - [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/)
 - [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
