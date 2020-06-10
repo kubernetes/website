@@ -133,15 +133,15 @@ aliases:
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
-    - cstoku
+    # cstoku
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
     - bells17
-    - cstoku
+    # cstoku
     - inductor
     - makocchi-git
-    - MasayaAoyama
+    # MasayaAoyama
     - nasa9084
     - oke-py
   sig-docs-ko-owners: # Admins for Korean content
