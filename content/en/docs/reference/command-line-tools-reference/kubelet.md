@@ -1,6 +1,6 @@
 ---
 title: kubelet
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 ---
 
