@@ -23,7 +23,7 @@ following diagram:
 
 ## Transport Security
 
-In a typical Kubernetes cluster, the API serves on port 6443.
+In a typical Kubernetes cluster, the API serves on port 443.
 The API server presents a certificate. This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
 contains the root certificate for the API server's certificate, which when specified
