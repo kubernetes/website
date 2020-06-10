@@ -43,9 +43,9 @@ should range from highly restricted to highly flexible:
 The Privileged policy is purposely-open, and entirely unrestricted. This type of policy is typically
 aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The privileged policy is defined by an absence of restrictions. For blacklist-oriented enforcement
+The privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
 mechanisms (such as gatekeeper), the privileged profile may be an absence of applied constraints
-rather than an instantiated policy. In contrast, for a whitelist oriented mechanism (such as Pod
+rather than an instantiated policy. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the privileged policy should enable all controls (disable all restrictions).
 
 ### Baseline/Default
@@ -90,7 +90,7 @@ enforced/disallowed:
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].securityContext.capabilities.add<br>
 				spec.initContainers[*].securityContext.capabilities.add<br>
-				<br><b>Allowed Values:</b> empty (optionally whitelisted defaults)<br>
+				<br><b>Allowed Values:</b> empty (or restricted to a known list)<br>
 			</td>
 		</tr>
 		<tr>
@@ -105,17 +105,17 @@ enforced/disallowed:
 		<tr>
 			<td>Host Ports</td>
 			<td>
-				HostPorts should be disallowed, or at minimum restricted to a whitelist.<br>
+				HostPorts should be disallowed, or at minimum restricted to a known list.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].ports[*].hostPort<br>
 				spec.initContainers[*].ports[*].hostPort<br>
-				<br><b>Allowed Values:</b> 0, undefined, (whitelisted)<br>
+				<br><b>Allowed Values:</b> 0, undefined (or restricted to a known list)<br>
 			</td>
 		</tr>
 		<tr>
 			<td>AppArmor <em>(optional)</em></td>
 			<td>
-				On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to a whitelisted set of profiles.<br>
+				On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
 				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
@@ -145,7 +145,7 @@ enforced/disallowed:
 		<tr>
 			<td>Sysctls</td>
 			<td>
-				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for a whitelisted "safe" subset.
+				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset.
 				A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.securityContext.sysctls<br>
@@ -249,7 +249,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Seccomp</td>
 			<td>
-				The 'runtime/default' seccomp profile must be required, or allow additional whitelisted values.<br>
+				The 'runtime/default' seccomp profile must be required, or allow specific additional profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['seccomp.security.alpha.kubernetes.io/pod']<br>
 				metadata.annotations['container.seccomp.security.alpha.kubernetes.io/*']<br>
