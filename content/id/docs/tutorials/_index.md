@@ -1,5 +1,5 @@
 ---
-title: Tutorials
+title: Tutorial
 main_menu: true
 weight: 60
 content_template: templates/concept
