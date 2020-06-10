@@ -369,7 +369,12 @@ The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
 ### Upgrading Minikube
-If you are using macOS, see [Upgrading Minikube](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube) to upgrade your existing minikube installation.
+If you are using macOS and [Brew Package Manager](https://brew.sh/) is installed run:
+
+```shell
+brew update
+brew upgrade minikube
+```
 
 ## Interacting with Your Cluster
 
