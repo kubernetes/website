@@ -372,8 +372,8 @@ This command shuts down and deletes the Minikube Virtual Machine. No data or sta
 If you are using macOS and [Brew Package Manager](https://brew.sh/) is installed run:
 
 ```shell
-  brew update
-  brew upgrade minikube
+brew update
+brew upgrade minikube
 ```
 
 ## Interacting with Your Cluster
