@@ -245,7 +245,7 @@ Existing static backends that you configure with runtime flags are not affected 
 
 The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
 
-The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
+The `level` field applies the given audit level to all requests. The `stages` field is now a list of allowed stages to record.
 
 #### Contacting the webhook
 

@@ -612,7 +612,7 @@ node selector.
 2. If the namespace lacks such an annotation, use the `clusterDefaultNodeSelector` defined in the `PodNodeSelector`
 plugin configuration file as the node selector.
 3. Evaluate the pod's node selector against the namespace node selector for conflicts. Conflicts result in rejection.
-4. Evaluate the pod's node selector against the namespace-specific whitelist defined the plugin configuration file.
+4. Evaluate the pod's node selector against the namespace-specific allowed selector defined the plugin configuration file.
 Conflicts result in rejection.
 
 {{< note >}}
@@ -674,15 +674,15 @@ for more information.
 The PodTolerationRestriction admission controller verifies any conflict between tolerations of a pod and the tolerations of its namespace.
 It rejects the pod request if there is a conflict.
 It then merges the tolerations annotated on the namespace into the tolerations of the pod.
-The resulting tolerations are checked against a whitelist of tolerations annotated to the namespace.
+The resulting tolerations are checked against a list of allowed tolerations annotated to the namespace.
 If the check succeeds, the pod request is admitted otherwise it is rejected.
 
-If the namespace of the pod does not have any associated default tolerations or a whitelist of
-tolerations annotated, the cluster-level default tolerations or cluster-level whitelist of tolerations are used
+If the namespace of the pod does not have any associated default tolerations or allowed
+tolerations annotated, the cluster-level default tolerations or cluster-level list of allowed tolerations are used
 instead if they are specified.
 
 Tolerations to a namespace are assigned via the `scheduler.alpha.kubernetes.io/defaultTolerations` annotation key.
-The whitelist can be added via the `scheduler.alpha.kubernetes.io/tolerationsWhitelist` annotation key.
+The list of allowed tolerations can be added via the `scheduler.alpha.kubernetes.io/tolerationsWhitelist` annotation key.
 
 Example for namespace annotations:
 
