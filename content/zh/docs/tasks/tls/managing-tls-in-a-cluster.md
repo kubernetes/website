@@ -1,6 +1,6 @@
 ---
 title: 管理集群中的 TLS 认证
-content_template: templates/task
+content_type: task
 reviewers:
 - mikedanese
 - beacham
@@ -9,7 +9,7 @@ reviewers:
 <!--
 ---
 title: Manage TLS Certificates in a Cluster
-content_template: templates/task
+content_type: task
 reviewers:
 - mikedanese
 - beacham
@@ -17,7 +17,7 @@ reviewers:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 
 Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
@@ -48,16 +48,17 @@ CA 可以达到这个目的，但是您永远不要依赖它。不要以为
 这些证书将针对群根目录 CA 进行验证。
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Trusting TLS in a Cluster
@@ -408,4 +409,4 @@ your Certificate Authority's keypair.
 
 本教程假设将签名者设置为服务证书 API。Kubernetes controller manager 提供了一个签名者的默认实现。 要启用它，请将`--cluster-signing-cert-file` 和 `--cluster-signing-key-file` 参数传递给 controller manager，并配置具有证书颁发机构的密钥对的路径。
 
-{{% /capture %}}
+

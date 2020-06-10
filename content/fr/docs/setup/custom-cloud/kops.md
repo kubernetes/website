@@ -1,10 +1,10 @@
 ---
 title: Installer Kubernetes sur AWS avec kops
 description: Installation Kubernetes avec kops sur AWS
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette documentation pour un démarrage rapide montre comment facilement installer un cluster Kubernetes sur AWS.
 L'outil utilisé est [`kops`](https://github.com/kubernetes/kops).
@@ -21,9 +21,9 @@ kops est un système de provisionnement dont les principes sont:
 
 Si ces principes ne vous conviennent pas, vous préférerez probablement construire votre propre cluster selon votre convenance grâce à [kubeadm](/docs/admin/kubeadm/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Créer un cluster
 
@@ -211,12 +211,13 @@ Reportez-vous à la [liste des add-ons] (/docs/concepts/cluster-administration/a
 * Channel Slack: [#kops-users] (https://kubernetes.slack.com/messages/kops-users/)
 * [Problèmes GitHub] (https://github.com/kubernetes/kops/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En apprendre davantages sur les [concepts](/docs/concepts/) Kubernetes et [`kubectl`](/docs/user-guide/kubectl-overview/).
 * En savoir plus sur les [utilisations avancées](https://github.com/kubernetes/kops) de `kops`.
 * Pour les bonnes pratiques et les options de configuration avancées de `kops` se référer à la [documentation](https://github.com/kubernetes/kops)
 
-{{% /capture %}}
+

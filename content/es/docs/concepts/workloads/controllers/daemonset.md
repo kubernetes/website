@@ -1,10 +1,10 @@
 ---
 title: DaemonSet
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un _DaemonSet_ garantiza que todos (o algunos) de los nodos ejecuten una copia de un Pod.  Conforme se añade más nodos
 al clúster, nuevos Pods son añadidos a los mismos.  Conforme se elimina nodos del clúster, dichos Pods se destruyen.
@@ -26,10 +26,10 @@ De forma básica, se debería usar un DaemonSet, cubriendo todos los nodos, por 
 En configuraciones más complejas se podría usar múltiples DaemonSets para un único tipo de proceso, 
 pero con diferentes parámetros y/o diferentes peticiones de CPU y memoria según el tipo de hardware.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Escribir una especificación de DaemonSet
 
@@ -235,4 +235,4 @@ del número de réplicas y las actualizaciones continuas son mucho más importan
 Utiliza un DaemonSet cuando es importante que una copia de un Pod siempre se ejecute en cada uno de los nodos, 
 y cuando se necesite que arranque antes que el resto de Pods.
 
-{{% /capture %}}
+

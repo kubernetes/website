@@ -4,19 +4,20 @@ reviewers:
 - johnbelamaric
 - imroc
 title: Enabling Service Topology
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of enabling Service Topology in Kubernetes.
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
   {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Introduction
 
@@ -45,10 +46,11 @@ To enable service topology, enable the `ServiceTopology` and `EndpointSlice` fea
 ```
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * Read about the [Service Topology](/docs/concepts/services-networking/service-topology) concept
 * Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

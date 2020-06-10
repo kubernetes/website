@@ -2,11 +2,11 @@
 reviewers:
 - tallclair
 title: Pod Security Standards
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Security settings for Pods are typically applied by using [security
 contexts](/docs/tasks/configure-pod-container/security-context/). Security Contexts allow for the
@@ -21,9 +21,9 @@ However, numerous means of policy enforcement have arisen that augment or replac
 PodSecurityPolicy. The intent of this page is to detail recommended Pod security profiles, decoupled
 from any specific instantiation.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Policy Types
 
@@ -322,4 +322,4 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single ‘recommended’ policy is recommended for all sandboxed workloads.
 
-{{% /capture %}}
+

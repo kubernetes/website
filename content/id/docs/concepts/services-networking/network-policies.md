@@ -1,20 +1,20 @@
 ---
 title: NetworkPolicy
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Sebuah NetworkPolicy adalah spesifikasi dari sekelompok Pod atau _endpoint_ yang diizinkan untuk saling berkomunikasi.
 
 `NetworkPolicy` menggunakan label untuk memilih Pod serta mendefinisikan serangkaian _rule_ yang digunakan
 untuk mendefinisikan trafik yang diizinkan untuk suatu Pod tertentu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Prasyarat
 
 NetworkPolicy diimplementasikan dengan menggunakan _plugin_ jaringan,
@@ -275,11 +275,12 @@ Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolic
 _Plugin_ CNI harus mendukung SCTP sebagai _value_ dari `protocol` pada `NetworkPolicy`.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Lihat [Deklarasi _Network Policy_](/docs/tasks/administer-cluster/declare-network-policy/) untuk melihat lebih banyak contoh penggunaan.
 - Baca lebih lanjut soal [panduan](https://github.com/ahmetb/kubernetes-network-policy-recipes) bagi skenario generik _resource_ `NetworkPolicy`.
 
-{{% /capture %}}
+

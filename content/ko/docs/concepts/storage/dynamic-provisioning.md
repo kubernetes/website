@@ -1,10 +1,10 @@
 ---
 title: 동적 볼륨 프로비저닝
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 동적 볼륨 프로비저닝을 통해 온-디맨드 방식으로 스토리지 볼륨을 생성할 수 있다.
 동적 프로비저닝이 없으면 클러스터 관리자는 클라우드 또는 스토리지
@@ -14,10 +14,10 @@ weight: 40
 스토리지를 사전 프로비저닝 할 필요가 없다. 대신 사용자가
 스토리지를 요청하면 자동으로 프로비저닝 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 배경
 
@@ -128,4 +128,4 @@ spec:
 프로비전 해야 한다. [볼륨 바인딩 모드](/docs/concepts/storage/storage-classes/#volume-binding-mode)를
 설정해서 수행할 수 있다.
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: 새로운 콘텐츠 기여하기에 대한 개요
 linktitle: 개요
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 섹션에는 새로운 콘텐츠를 기여하기 전에 알아야 할 정보가 있다.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 기여하기에 대한 기본
 
@@ -55,4 +55,4 @@ CLA에 서명하지 않은 기여자의 풀 리퀘스트(pull request)는 자동
 PR 당 하나의 언어로 풀 리퀘스트를 제한한다. 여러 언어로 동일한 코드 샘플을 동일하게 변경해야 하는 경우 각 언어마다 별도의 PR을 연다.
 
 
-{{% /capture %}}
+

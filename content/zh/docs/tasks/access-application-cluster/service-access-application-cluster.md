@@ -1,18 +1,18 @@
 ---
 title: 使用服务来访问集群中的应用
-content_template: templates/tutorial
+content_type: tutorial
 weight: 60
 ---
 
 <!--
 ---
 title: Use a Service to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create a Kubernetes Service object that external
@@ -21,17 +21,19 @@ provides load balancing for an application that has two running instances.
 -->
 本文展示如何创建一个 Kubernetes 服务对象，能让外部客户端访问在集群中运行的应用。该服务为一个应用的两个运行实例提供负载均衡。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Run two instances of a Hello World application.
@@ -42,10 +44,10 @@ provides load balancing for an application that has two running instances.
 * 创建一个服务对象来暴露 node port。
 * 使用服务对象来访问正在运行的应用。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Creating a service for an application running in two pods
@@ -203,10 +205,11 @@ to create a Service.
 
 作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/docs/concepts/services-networking/service/) 来创建服务。
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 To delete the Service, enter this command:
@@ -223,14 +226,15 @@ the Hello World application, enter this command:
 
     kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
 学习更多关于如何 [通过服务连接应用](/docs/concepts/services-networking/connect-applications-service/)。
-{{% /capture %}}
+

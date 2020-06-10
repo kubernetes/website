@@ -1,13 +1,13 @@
 ---
 title: API Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Общие соглашения API описаны на [странице соглашений API](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 
@@ -21,9 +21,9 @@ Kubernetes также сохраняет сериализованное сост
 
 Kubernetes как таковой состоит из множества компонентов, которые взаимодействуют друг с другом через собственные API.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Изменения в API
 
@@ -114,4 +114,4 @@ DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies и Re
 
 {{< note >}}Включение/отключение отдельных ресурсов поддерживается только в API-группе `extensions/v1beta1` по историческим причинам.{{< /note >}}
 
-{{% /capture %}}
+

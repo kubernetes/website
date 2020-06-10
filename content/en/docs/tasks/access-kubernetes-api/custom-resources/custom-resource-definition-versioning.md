@@ -3,19 +3,20 @@ title: Versions in CustomResourceDefinitions
 reviewers:
 - sttts
 - liggitt
-content_template: templates/task
+content_type: task
 weight: 30
 min-kubernetes-server-version: v1.16
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -23,9 +24,9 @@ You should have a initial understanding of [custom resources](/docs/concepts/api
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Overview
 
@@ -961,4 +962,4 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
     storage version, which is `v1`.
 2. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
-{{% /capture %}}
+

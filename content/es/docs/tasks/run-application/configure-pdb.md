@@ -1,24 +1,25 @@
 ---
 title: Especificando un presupuesto de disrupción para tu aplicación
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ésta pagina enseña como limitar el numero de disrupciones concurrentes que afectan a tu aplicación definiendo presupuestos de disrupción de pods, Pod Disruption Budgets (PDB) en inglés. Estos presupuestos definen el mínimo número de pods que deben estar ejecutándose en todo momento para asegurar la disponibilidad de la aplicación durante operaciones de mantenimiento efectuadas sobre los nodos por los administradores del cluster.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 * Tener permisos de administrador sobre la aplicación que esta corriendo en Kubernetes y requiere alta disponibilidad
 * Deberías saber como desplegar [Múltiples réplicas de aplicaciones stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
   y/o [Múltiples réplicas de aplicaciones stateful](/docs/tasks/run-application/run-replicated-stateful-application/).
 * Deberías haber leido acerca de [Disrupciones de un Pod](/docs/concepts/workloads/pods/disruptions/).
 * Deberías confirmar con el propietario del cluster o proveedor de servicio que respetan Presupuestos de Disrupción para Pods.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Protegiendo una aplicación con un PodDisruptionBudget
 
@@ -27,9 +28,9 @@ weight: 110
 3. Crea un PDB usando un archivo YAML.
 4. Crea el objecto PDB desde el archivo YAML.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Identifica la applicación que quieres proteger
 
@@ -225,6 +226,6 @@ Puedes utilizar un PDB con pods controlados por otro tipo de controlador, por un
 
 Puedes usar un selector que selecciona un subconjunto o superconjunto de los pods que pertenecen a un controlador incorporado. Sin embargo, cuando hay varios PDB en un namespace, debes tener cuidado de no
 crear PDBs cuyos selectores se superponen.
-{{% /capture %}}
+
 
 

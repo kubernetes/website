@@ -1,11 +1,11 @@
 ---
 title: 네임스페이스에 대한 메모리의 최소 및 최대 제약 조건 구성
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 네임스페이스에서 실행되는 컨테이너가 사용하는 메모리의 최솟값과 최댓값을
 설정하는 방법을 보여준다. [리밋레인지(LimitRange)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)
@@ -13,19 +13,20 @@ weight: 30
 지정한다. 파드가 리밋레인지에 의해 부과된 제약 조건을 충족하지 않으면,
 네임스페이스에서 생성될 수 없다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 클러스터의 각 노드에는 최소 1GiB의 메모리가 있어야 한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 네임스페이스 생성
 
@@ -239,9 +240,10 @@ kubectl delete pod constraints-mem-demo-4 --namespace=constraints-mem-example
 kubectl delete namespace constraints-mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 클러스터 관리자를 위한 문서
 
@@ -265,4 +267,4 @@ kubectl delete namespace constraints-mem-example
 
 * [파드에 대한 서비스 품질(QoS) 구성](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+

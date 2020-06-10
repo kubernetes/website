@@ -1,16 +1,16 @@
 ---
 title: 컨테이너 런타임
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 파드에서 컨테이너를 실행하기 위해 쿠버네티스는 컨테이너 런타임을 사용한다.
 이 페이지는 다양한 런타임들에 대한 설치 지침을 담고 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -402,4 +402,4 @@ kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 
 자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
 
-{{% /capture %}}
+

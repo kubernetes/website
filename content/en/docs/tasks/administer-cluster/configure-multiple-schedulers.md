@@ -3,10 +3,10 @@ reviewers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
 If the default scheduler does not suit your needs you can implement your own scheduler.
@@ -19,16 +19,17 @@ document. Please refer to the kube-scheduler implementation in
 [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)
 in the Kubernetes source directory for a canonical example.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Package the scheduler
 
@@ -219,9 +220,9 @@ kubectl create -f pod3.yaml
 kubectl get pods
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ### Verifying that the pods were scheduled using the desired schedulers
 
@@ -241,4 +242,4 @@ verify that the pods were scheduled by the desired schedulers.
 kubectl get events
 ```
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 reviewers:
 title: Configurando o Garbage Collection do kubelet
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 O Garbage collection(Coleta de lixo) é uma função útil do kubelet que limpa imagens e contêineres não utilizados. O kubelet executará o garbage collection para contêineres a cada minuto e para imagens a cada cinco minutos.
 
 Ferramentas externas de garbage collection não são recomendadas, pois podem potencialmente interromper o comportamento do kubelet removendo os contêineres que existem.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Coleta de imagens
 
@@ -62,10 +62,11 @@ Incluindo:
 | `--low-diskspace-threshold-mb`            | `--eviction-hard` ou `eviction-soft`    | O despejo generaliza os limites do disco para outros recursos                        |
 | `--outofdisk-transition-frequency`        | `--eviction-pressure-transition-period` | O despejo generaliza a transição da pressão do disco para outros recursos            |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Consulte [Configurando a Manipulação de Recursos Insuficientes](/docs/tasks/administer-cluster/out-of-resource/) para mais detalhes.
 
-{{% /capture %}}
+

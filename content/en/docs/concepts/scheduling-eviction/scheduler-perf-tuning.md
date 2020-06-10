@@ -2,11 +2,11 @@
 reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -24,9 +24,9 @@ in a process called _Binding_.
 This page explains performance tuning optimizations that are relevant for
 large Kubernetes clusters.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 In large clusters, you can tune the scheduler's behaviour balancing
 scheduling outcomes between latency (new Pods are placed quickly) and
@@ -164,4 +164,4 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 After going over all the Nodes, it goes back to Node 1.
 
-{{% /capture %}}
+

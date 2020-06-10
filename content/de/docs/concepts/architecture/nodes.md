@@ -1,10 +1,10 @@
 ---
 title: Nodes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ein Knoten (Node in Englisch) ist eine Arbeitsmaschine in Kubernetes, früher als `minion` bekannt. Ein Node
 kann je nach Cluster eine VM oder eine physische Maschine sein. Jeder Node enthält
@@ -13,10 +13,10 @@ und wird von den Master-Komponenten verwaltet.
 Die Dienste auf einem Node umfassen die [Container Runtime](/docs/concepts/overview/components/#node-components), das Kubelet und den Kube-Proxy.
 Weitere Informationen finden Sie im Abschnitt Kubernetes Node in der Architekturdesign-Dokumentation.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node Status
 
@@ -244,4 +244,4 @@ Wenn Sie Ressourcen explizit für Nicht-Pod-Prozesse reservieren möchten, folge
 Node ist eine Top-Level-Ressource in der Kubernetes-REST-API. Weitere Details zum API-Objekt finden Sie unter:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

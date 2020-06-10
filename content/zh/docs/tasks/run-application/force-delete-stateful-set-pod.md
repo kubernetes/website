@@ -5,7 +5,7 @@ reviewers:
 - foxish
 - smarterclayton
 title: 强制删除 StatefulSet 类型的 Pods
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
@@ -17,19 +17,20 @@ reviewers:
 - foxish
 - smarterclayton
 title: Force Delete StatefulSet Pods
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to delete Pods which are part of a stateful set, and explains the considerations to keep in mind when doing so.
 --->
 本文介绍了如何删除 StatefulSet 管理的部分 pods，并且解释了这样操作时需要记住的注意事项。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * This is a fairly advanced task and has the potential to violate some of the properties inherent to StatefulSet.
@@ -38,9 +39,9 @@ This page shows how to delete Pods which are part of a stateful set, and explain
 * 这是一项相当高级的任务，并且可能会违反 StatefulSet 固有的某些属性。
 * 继续任务之前，请熟悉下面列举的注意事项。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## StatefulSet considerations
@@ -146,13 +147,14 @@ Always perform force deletion of StatefulSet Pods carefully and with complete kn
 --->
 请始终谨慎地执行强制删除 StatefulSet 类型的 pods，并完全了解所涉及地风险。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 --->
 进一步了解[调试 StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/)。
 
-{{% /capture %}}
+

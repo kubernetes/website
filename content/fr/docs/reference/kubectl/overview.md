@@ -1,22 +1,22 @@
 ---
 title: Aperçu de kubectl
 description: kubectl référence
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl est un outil en ligne de commande pour contrôler des clusters Kubernetes. `kubectl` recherche un fichier appelé config dans le répertoire $HOME/.kube. Vous pouvez spécifier d'autres fichiers [kubeconfig](https://kube
 rnetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) en définissant la variable d'environnement  KUBECONFIG ou en utilisant le paramètre [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
 Cet aperçu couvre la syntaxe `kubectl`, décrit les opérations et fournit des exemples classiques. Pour des détails sur chaque commande, incluant toutes les options et sous-commandes autorisées, voir la documentation de référence de [kubectl](/docs/reference/generated/kubectl/kubectl-commands/). Pour des instructions d'installation, voir [installer kubectl](/docs/tasks/kubectl/install/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Syntaxe
 
@@ -473,10 +473,11 @@ Current user: plugins-user
 
 Pour en savoir plus sur les plugins, examinez [l'exemple de plugin CLI](https://github.com/kubernetes/sample-cli-plugin).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Commencez à utiliser les commandes [kubectl](/docs/reference/generated/kubectl/kubectl-commands/).
 
-{{% /capture %}}
+

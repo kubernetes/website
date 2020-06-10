@@ -3,11 +3,11 @@ reviewers:
 - astuky
 - raelga
 title: Containers Efímeros
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 
@@ -24,9 +24,9 @@ Deprecación de Kubernetes](/docs/reference/using-api/deprecation-policy/), esta
 alfa puede variar significativamente en el futuro o ser eliminada por completo.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Entendiendo los Containers efímeros
 
@@ -211,4 +211,4 @@ PID   USER     TIME  COMMAND
    29 root      0:00 ps auxww
 ```
 
-{{% /capture %}}
+

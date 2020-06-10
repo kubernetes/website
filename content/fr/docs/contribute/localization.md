@@ -1,20 +1,20 @@
 ---
 title: Traduction de la documentation Kubernetes
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 30
   title: Translating the docs
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La documentation de Kubernetes est disponible dans plusieurs langues.
 Nous vous encourageons à ajouter de nouvelles [traductions](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Commencer
 
@@ -221,13 +221,14 @@ Pour plus d'informations sur le travail à partir de forks ou directement à par
 
 SIG Docs souhaite la bienvenue aux [contributions et corrections upstream](/docs/contribute/intermediate#localize-content) à la source anglaise.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Une fois qu'une traduction répond aux exigences de logistique et à une couverture admissible, le SIG docs se chargera des taches suivantes:
 
 - Activer la sélection de la langue sur le site Web
 - Publier la disponibilité de la traduction via les canaux de la [Cloud Native Computing Foundation](https://www.cncf.io/), y compris sur le blog de [Kubernetes](https://kubernetes.io/blog/).
 
-{{% /capture %}}
+

@@ -2,12 +2,12 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
-content_template: templates/task
+content_type: task
 weight: 20
 min-kubernetes-server-version: 1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 1.17.x to version 1.18.x, and from version 1.18.x to 1.18.y (where `y > x`).
@@ -26,9 +26,10 @@ The upgrade workflow at high level is the following:
 1. Upgrade additional control plane nodes.
 1. Upgrade worker nodes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - You need to have a kubeadm Kubernetes cluster running version 1.17.0 or later.
 - [Swap must be disabled](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux).
@@ -44,9 +45,9 @@ The upgrade workflow at high level is the following:
   or between PATCH versions of the same MINOR. That is, you cannot skip MINOR versions when you upgrade.
   For example, you can upgrade from 1.y to 1.y+1, but not from 1.y to 1.y+2.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Determine which version to upgrade to
 
@@ -395,7 +396,7 @@ kubectl get nodes
 
 The `STATUS` column should show `Ready` for all your nodes, and the version number should be updated.
 
-{{% /capture %}}
+
 
 ## Recovering from a failure state
 

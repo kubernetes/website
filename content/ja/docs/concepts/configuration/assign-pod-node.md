@@ -1,20 +1,20 @@
 ---
 title: Node上へのPodのスケジューリング
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 [Pod](/ja/docs/concepts/workloads/pods/pod/)が稼働する[Node](/ja/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
 これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/docs/concepts/overview/working-with-objects/labels/)です。
 スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のNodeへデプロイしたり、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
 SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な制御が必要なこともあります。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## nodeSelector
 
@@ -357,9 +357,10 @@ spec:
 
 上記のPodはkube-01という名前のNodeで稼働します。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
 
@@ -367,4 +368,4 @@ spec:
 [Inter-Pod Affinity/Anti-Affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
 には、Taintsの要点に関して様々な背景が紹介されています。
 
-{{% /capture %}}
+

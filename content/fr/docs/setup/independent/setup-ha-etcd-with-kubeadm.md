@@ -1,20 +1,21 @@
 ---
 title: Configurer un cluster etcd en haute disponibilité avec kubeadm
 description: Configuration d'un cluster etcd en haute disponibilité avec kubeadm
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Par défaut, Kubeadm exécute un cluster etcd mono nœud dans un pod statique géré
 par la kubelet sur le nœud du plan de contrôle (control plane). Ce n'est pas une configuration haute disponibilité puisque le cluster etcd ne contient qu'un seul membre et ne peut donc supporter
 qu'aucun membre ne devienne indisponible. Cette page vous accompagne dans le processus de création
 d'un cluster etcd à trois membres en haute disponibilité, pouvant être utilisé en tant que cluster externe lors de l’utilisation de kubeadm pour configurer un cluster kubernetes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Trois machines pouvant communiquer entre elles via les ports 2379 et 2380. Cette 
 methode utilise ces ports par défaut. Cependant, ils sont configurables via 
@@ -24,9 +25,9 @@ le fichier de configuration kubeadm.
 
 [toolbox]: /docs/setup/independent/install-kubeadm/
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mise en place du cluster
 
@@ -249,14 +250,15 @@ kubeadm contient tout ce qui est nécessaire pour générer les certificats déc
     - Configurez `${ETCD_TAG}` avec la version de votre image etcd. Par exemple `v3.2.24`.
     - Configurez `${HOST0}` avec l'adresse IP de l'hôte que vous testez.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Une fois que vous avez un cluster de 3 membres etcd qui fonctionne, vous pouvez continuer à
  configurer un control plane hautement disponible utilisant la
 [méthode etcd externe avec kubeadm](/docs/setup/independent/high-availability/).
 
-{{% /capture %}}
+
 
 

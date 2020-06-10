@@ -3,19 +3,19 @@ reviewers:
 - dchen1107
 - liggitt
 title: Control Plane-Node Communication
-content_template: templates/concept
+content_type: concept
 weight: 20
 aliases:
 - master-node-communication
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document catalogs the communication paths between the control plane (really the apiserver) and the Kubernetes cluster. The intent is to allow users to customize their installation to harden the network configuration such that the cluster can be run on an untrusted network (or on fully public IPs on a cloud provider).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node to Control Plane
 All communication paths from the nodes to the control plane terminate at the apiserver (none of the other master components are designed to expose remote services). In a typical deployment, the apiserver is configured to listen for remote connections on a secure HTTPS port (443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.

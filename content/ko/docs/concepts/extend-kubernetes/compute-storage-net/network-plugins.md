@@ -1,11 +1,11 @@
 ---
 title: 네트워크 플러그인
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 {{< caution >}}알파 기능은 빨리 변경될 수 있다. {{< /caution >}}
@@ -15,9 +15,9 @@ weight: 10
 * CNI 플러그인: 상호 운용성을 위해 설계된 appc/CNI 명세를 준수한다.
 * Kubenet 플러그인: `bridge` 와 `host-local` CNI 플러그인을 사용하여 기본 `cbr0` 구현한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 설치
 
@@ -160,8 +160,9 @@ AWS에서 `eth0` MTU는 일반적으로 9001이므로, `--network-plugin-mtu=900
 * `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge` 및 `host-local` 플러그인과 함께 kubenet 네트워크 플러그인을 사용하도록 지정한다.
 * 현재 kubenet 네트워크 플러그인에서만 사용하는 `--network-plugin-mtu=9001` 은 사용할 MTU를 지정한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

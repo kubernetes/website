@@ -1,17 +1,17 @@
 ---
 title: 使用配置文件对 Kubernetes 对象进行命令式管理
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 <!--
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Kubernetes objects can be created, updated, and deleted by using the `kubectl`
 command-line tool along with an object configuration file written in YAML or JSON.
@@ -19,9 +19,10 @@ This document explains how to define and manage objects using configuration file
 -->
 可以使用 `kubectl` 命令行工具以及用 YAML 或 JSON 编写的对象配置文件来创建、更新和删除 Kubernetes 对象。
 本文档说明了如何使用配置文件定义和管理对象。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
@@ -30,9 +31,9 @@ Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Trade-offs
@@ -256,9 +257,10 @@ template:
       controller-selector: "apps/v1/deployment/nginx"
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
@@ -271,5 +273,5 @@ template:
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+
 

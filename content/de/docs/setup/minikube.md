@@ -1,15 +1,15 @@
 ---
 title: Kubernetes lokal über Minikube betreiben
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann. Minikube führt einen Kubernetes-Cluster mit einem einzigen Node in einer VM auf Ihrem Laptop aus, damit Anwender Kubernetes ausprobieren oder täglich damit entwickeln können.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Minikube-Funktionen
 
@@ -439,4 +439,4 @@ Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/c
 
 Beiträge, Fragen und Kommentare werden begrüßt und ermutigt! Minikube-Entwickler finden Sie in [Slack](https://kubernetes.slack.com) im #minikube Kanal (Erhalten Sie [hier](http://slack.kubernetes.io/) eine Einladung). Wir haben ausserdem die [kubernetes-dev Google Groups-Mailingliste](https://groups.google.com/forum/#!forum/kubernetes-dev). Wenn Sie in der Liste posten, fügen Sie Ihrem Betreff bitte "minikube:" voran.
 
-{{% /capture %}}
+

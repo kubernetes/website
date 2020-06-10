@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: StatefulSet
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 StatefulSetはステートフルなアプリケーションを管理するためのワークロードAPIです。
 
@@ -14,9 +14,9 @@ StatefulSetはKubernetes1.9において利用可能(GA)です。
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## StatefulSetの使用
 
@@ -195,11 +195,12 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 
 そのテンプレートを戻したあと、ユーザーはまたStatefulSetが異常状態で稼働しようとしていたPodをすべて削除する必要があります。StatefulSetはその戻されたテンプレートを使ってPodの再作成を始めます。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
 * [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
 
-{{% /capture %}}
+
 

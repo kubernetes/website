@@ -3,15 +3,15 @@ reviewers:
 - davidopp
 - lavalamp
 title: Visão Geral da Administração de Cluster
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 A visão geral da administração de cluster é para qualquer um criando ou administrando um cluster Kubernetes. Assume-se que você tenha alguma familiaridade com os [conceitos](/docs/concepts/) centrais do Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Planejando um cluster
 
 Veja os guias em [Setup](/docs/setup/) para exemplos de como planejar, iniciar e configurar clusters Kubernetes. As soluções listadas neste artigo são chamadas *distros*.
@@ -71,6 +71,6 @@ descreve como interagir com os logs de auditoria do Kubernetes.
 
 * [Logando e monitorando a atividade de cluster](/docs/concepts/cluster-administration/logging/) explica como o log funciona no Kubernetes e como implementá-lo.
 
-{{% /capture %}}
+
 
 

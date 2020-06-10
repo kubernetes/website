@@ -23,12 +23,16 @@ disableLanguages = ["hi", "no"]
 
 [markup]
  [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
    [markup.goldmark.renderer]
      unsafe = true
-   [markup.goldmark.extensions]
-      definitionList = true
-      table = true
-      typographer = false
   [markup.highlight]
     codeFences = true
     guessSyntax = false
@@ -39,6 +43,10 @@ disableLanguages = ["hi", "no"]
     noClasses = true
     style = "emacs"
     tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]

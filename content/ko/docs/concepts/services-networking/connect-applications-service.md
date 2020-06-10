@@ -1,11 +1,11 @@
 ---
 title: 서비스와 애플리케이션 연결하기
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## 컨테이너 연결을 위한 쿠버네티스 모델
 
@@ -17,9 +17,9 @@ weight: 30
 
 이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다. 동일한 원칙이 보다 완전한 [Jenkins CI 애플리케이션](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)에서 구현된다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드를 클러스터에 노출하기
 
@@ -414,12 +414,13 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [서비스를 사용해서 클러스터 내 애플리케이션에 접근하기](/docs/tasks/access-application-cluster/service-access-application-cluster/)를 더 자세히 알아본다.
 * [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
 * [외부 로드 밸런서를 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 더 자세히 알아본다.
 
-{{% /capture %}}
+
