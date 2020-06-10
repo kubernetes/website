@@ -29,12 +29,13 @@ Pod specification or in an image. Users can create secrets and the system
 also creates some secrets.
 
 To use a secret, a Pod needs to reference the secret.
-A secret can be used with a Pod in two ways:
+A secret can be used with a Pod in three ways:
 
-- As files in a
+- As [files](#using-secrets-as-files-from-a-pod) in a
 {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
 its containers.
-- By the kubelet when pulling images for the Pod.
+- As [container environment variable](#using-secrets-as-environment-variables).
+- By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 
 ### Built-in Secrets
 
