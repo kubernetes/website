@@ -149,7 +149,7 @@ Find the latest stable 1.18 version:
 {{< note >}}
 `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
 To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
-For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadmkubeadm-certs).
+For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
 {{</ note >}}
 
 -  Choose a version to upgrade to, and run the appropriate command. For example:
