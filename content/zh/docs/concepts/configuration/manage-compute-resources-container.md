@@ -246,9 +246,9 @@ When using Docker:
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 -->
 
-- `spec.containers[].resources.requests.cpu` 的值将转换成 millicore 值，这是个浮点数，并乘以 1024，这个数字中的较大者或 2 用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
+- `spec.containers[].resources.requests.cpu` 先被转换为可能是小数的 core 值，再乘以 1024，这个数字和 2 的较大者用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
 
-- `spec.containers[].resources.limits.cpu` 被转换成 millicore 值。被乘以 100000 然后 除以 1000。这个数字用作 `docker run` 命令中的 [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint) 标志的值。[`--cpu-quota` ] 标志被设置成了 100000，表示测量配额使用的默认100ms 周期。如果 [`--cpu-cfs-quota`] 标志设置为 true，则 kubelet 会强制执行 cpu 限制。从 Kubernetes 1.2 版本起，此标志默认为 true。
+- `spec.containers[].resources.limits.cpu` 先被转换为 millicore 值，再乘以 100，结果就是每 100ms 内 container 可以使用的 CPU 总时间。在此时间间隔（100ms）内，一个 container 使用的 CPU 时间不会超过它被分配的时间。
 
 <!--
   {{< note >}}
@@ -257,7 +257,7 @@ When using Docker:
 -->
 
   {{< note >}}
-  默认配额限制为 100 毫秒。 CPU配额的最小单位为 1 毫秒。
+  默认的配额（quota）周期为 100 毫秒。 CPU配额的最小精度为 1 毫秒。
   {{</ note >}}
 
 <!--
