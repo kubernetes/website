@@ -70,7 +70,7 @@ Keep track of the latest verified Docker version in the Kubernetes release notes
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (Install Docker CE)
@@ -124,8 +124,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (Install Docker CE)
@@ -179,7 +179,7 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
@@ -213,7 +213,7 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
 ```shell
 # Debian Unstable/Sid
@@ -243,9 +243,9 @@ and then install CRI-O:
 ```shell
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
 
 ```shell
 # Configure package repository
@@ -259,9 +259,9 @@ sudo apt-get update
 # Install CRI-O
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # Install prerequisites
@@ -273,14 +273,14 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew late
 # Install CRI-O
 yum install -y cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="openSUSE Tumbleweed" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
 
 ```shell
 sudo zypper install cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Start CRI-O
@@ -323,7 +323,7 @@ sysctl --system
 ### Install containerd
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (Install containerd)
@@ -360,8 +360,8 @@ containerd config default > /etc/containerd/config.toml
 # Restart containerd
 systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (Install containerd)
@@ -389,7 +389,7 @@ containerd config default > /etc/containerd/config.toml
 # Restart containerd
 systemctl restart containerd
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
