@@ -26,9 +26,7 @@ A _LimitRange_ provides constraints that can:
 
 ## Enabling LimitRange
 
-LimitRange support is enabled by default for many Kubernetes distributions. It is
-enabled when the apiserver `--enable-admission-plugins=` flag has `LimitRanger` admission controller as
-one of its arguments.
+LimitRange support has been enabled by default since Kubernetes 1.10.
 
 A LimitRange is enforced in a particular namespace when there is a
 LimitRange object in that namespace.
