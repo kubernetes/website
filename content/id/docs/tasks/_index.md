@@ -1,5 +1,5 @@
 ---
-title: Tugas (Tasks)
+title: Tugas
 main_menu: true
 weight: 50
 content_template: templates/concept
