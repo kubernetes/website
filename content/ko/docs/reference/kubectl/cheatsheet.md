@@ -1,20 +1,20 @@
 ---
 title: kubectl 치트 시트
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 참고 항목: [Kubectl 개요](/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
 
 이 페이지는 `kubectl` 커맨드의 개요이다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - 치트 시트
 
@@ -373,9 +373,10 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 `--v=8` | HTTP 요청 내용을 표시.
 `--v=9` | 내용을 잘라 내지 않고 HTTP 요청 내용을 표시.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubectl 개요](/docs/reference/kubectl/overview/)에 대해 더 배워보자.
 
@@ -385,4 +386,4 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 
 * 더 많은 [kubectl 치트 시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) 커뮤니티 확인
 
-{{% /capture %}}
+

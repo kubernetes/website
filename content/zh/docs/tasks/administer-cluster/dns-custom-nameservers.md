@@ -3,7 +3,7 @@ reviewers:
 - bowei
 - zihongz
 title: 自定义 DNS 服务
-content_template: templates/task
+content_type: task
 ---
 <!-- 
 ---
@@ -11,11 +11,11 @@ reviewers:
 - bowei
 - zihongz
 title: Customizing DNS Service
-content_template: templates/task
+content_type: task
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- 
 This page explains how to configure your DNS Pod and customize the
 DNS resolution process. In Kubernetes version 1.11 and later, CoreDNS is at GA
@@ -25,9 +25,10 @@ and [Using CoreDNS for Service Discovery](/docs/tasks/administer-cluster/coredns
 本页说明如何配置 DNS Pod 和自定义 DNS 解析过程。 在 Kubernetes 1.11 和更高版本中，CoreDNS 位于 GA
 并且默认情况下与 kubeadm 一起安装。 请参见[CoreDNS 的 ConfigMap 选项](#coredns-configmap-options) 
 and [使用 CoreDNS 进行服务发现](/docs/tasks/administer-cluster/coredns/)。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!-- 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes version 1.6 or later. To work with CoreDNS, version 1.9 or later.
@@ -37,9 +38,9 @@ see [the kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/ku
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Kubernetes 版本 1.6 或更新。如果与 CoreDNS 匹配，版本 1.9 或更新。
 * 合适的 add-on 插件: kube-dns 或 CoreDNS. 使用 kubeadm 安装，请参见 [kubeadm 帮助文档](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-phase-addon). 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- 
 ## Introduction 
@@ -351,9 +352,9 @@ details about the configuration option format.
 
 请参见 [ConfigMap options](#configmap-options) 有关配置选项格式的详细信息。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- 
 #### Effects on Pods
@@ -498,7 +499,7 @@ data:
     ["172.16.0.1"]
 ```
 
-{{% /capture %}}
+
 
 <!-- 
 ## CoreDNS configuration equivalent to kube-dns

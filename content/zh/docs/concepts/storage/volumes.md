@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 On-disk files in a Container are ephemeral, which presents some problems for
@@ -31,10 +31,10 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Background
@@ -2401,9 +2401,10 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
@@ -2411,4 +2412,4 @@ sudo systemctl restart docker
 
 * 参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
 
-{{% /capture %}}
+

@@ -3,21 +3,21 @@ reviewers:
 - pweil-
 - tallclair
 title: Pod Security Policies
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## What is a Pod Security Policy?
 
@@ -631,12 +631,13 @@ By default, all safe sysctls are allowed.
 Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
 Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
-{{% /capture %}}
+

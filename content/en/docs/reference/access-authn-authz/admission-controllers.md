@@ -7,15 +7,15 @@ reviewers:
 - janetkuo
 - thockin
 title: Using Admission Controllers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of Admission Controllers.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## What are they?
 
 An admission controller is a piece of code that intercepts requests to the
@@ -773,4 +773,4 @@ in the mutating phase.
     For earlier versions, there was no concept of validating versus mutating and the
 admission controllers ran in the exact order specified.
 
-{{% /capture %}}
+

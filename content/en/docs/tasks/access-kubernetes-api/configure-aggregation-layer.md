@@ -4,17 +4,18 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -26,9 +27,9 @@ Reusing the same CA for different client types can negatively impact the cluster
 {{< /caution >}}
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Authentication Flow
 
@@ -222,7 +223,7 @@ If you are not running kube-proxy on a host running the API server, then you mus
 
     --enable-aggregator-routing=true
 
-{{% /capture %}}
+
 
 ### Register APIService objects
 
@@ -275,11 +276,12 @@ spec:
 ...
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [Setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
 * For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
 
-{{% /capture %}}
+
 

@@ -2,19 +2,19 @@
 title: Tutorial
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Bagian ini membahas tentang tutorial Kubernetes.
 Tutorial berfungsi untuk memperlihatkan bagaimana caranya mencapai suatu tujuan yang lebih dari sekedar [task](/docs/tasks/) sederhana.
 Biasanya, sebuah tutorial punya beberapa bagian, masing-masing bagian terdiri dari langkah-langkah yang berurutan.
 Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus Istilah](/docs/reference/glossary/) untuk referensi nanti.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Prinsip Dasar
 
@@ -64,12 +64,13 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 * [Menggunakan Source IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Tertarik menulis tutorial? Lihat
 [Menggunakan Template Halaman](/docs/home/contribute/page-templates/)
 untuk info mengenai template dan ragam halaman tutorial.
 
-{{% /capture %}}
+

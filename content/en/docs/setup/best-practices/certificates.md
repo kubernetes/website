@@ -2,20 +2,20 @@
 title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes requires PKI certificates for authentication over TLS.
 If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
 You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How certificates are used by your cluster
 
@@ -164,4 +164,4 @@ These files are used as follows:
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
-{{% /capture %}}
+

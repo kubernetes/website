@@ -2,7 +2,7 @@
 reviewers:
 - janetkuo
 title: 工具
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -10,7 +10,7 @@ content_template: templates/concept
 reviewers:
 - janetkuo
 title: Tools
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
@@ -19,11 +19,11 @@ content_template: templates/concept
 <!--
 Kubernetes contains several built-in tools to help you work with the Kubernetes system.
 -->
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernetes 系统。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 <!--
@@ -109,4 +109,4 @@ Use Kompose to:
 * 将一个 Docker Compose 文件解释成 Kubernetes 对象
 * 将本地 Docker 开发 转变成通过 Kubernetes 来管理
 * 转换 v1 或 v2 Docker Compose `yaml` 文件 或 [分布式应用程序包](https://docs.docker.com/compose/bundles/)
-{{% /capture %}}
+

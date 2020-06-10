@@ -1,6 +1,6 @@
 ---
 title: Menginstal dan Menyiapkan kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,15 +8,16 @@ card:
   title: Menginstal kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 [Kubectl](/docs/user-guide/kubectl/) adalah alat baris perintah (_command line tool_) Kubernetes yang digunakan untuk menjalankan berbagai perintah untuk klaster Kubernetes. Kamu dapat menggunakan `kubectl` untuk men-_deploy_ aplikasi, mengatur sumber daya klaster, dan melihat log. Daftar operasi `kubectl` dapat dilihat di [Ikhtisar kubectl](/docs/reference/kubectl/overview/).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Kamu harus menggunakan kubectl dengan perbedaan maksimal satu versi minor dengan klaster kamu. Misalnya, klien v1.2 masih dapat digunakan dengan master v1.1, v1.2, dan 1.3. Menggunakan versi terbaru `kubectl` dapat menghindari permasalahan yang tidak terduga.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Menginstal kubectl pada Linux
 
@@ -485,12 +486,13 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Menginstal Minikube.](/docs/tasks/tools/install-minikube/)
 * Lihat [panduan persiapan](/docs/setup/) untuk mencari tahu tentang pembuatan klaster. 
 * [Pelajari cara untuk menjalankan dan mengekspos aplikasimu.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Jika kamu membutuhkan akses ke klaster yang tidak kamu buat, lihat [dokumen Berbagi Akses Klaster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Baca [dokumen referensi kubectl](/docs/reference/kubectl/kubectl/)
-{{% /capture %}}
+

@@ -1,9 +1,9 @@
 ---
 title: Instalasi Add-ons
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 *Add-ons* berfungsi untuk menambah serta memperluas fungsionalitas dari Kubernetes.
@@ -12,10 +12,10 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 
 *Add-ons* pada setiap bagian akan diurutkan secara alfabet - pengurutan ini tidak dilakukan berdasarkan status preferensi atau keunggulan.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Jaringan dan *Policy* Jaringan
 
@@ -50,4 +50,4 @@ Ada beberapa *add-on* lain yang didokumentasikan pada direktori deprekasi [*clus
 
 *Add-on* lain yang dipelihara dan dikelola dengan baik dapat ditulis di sini. Ditunggu PR-nya!
 
-{{% /capture %}}
+

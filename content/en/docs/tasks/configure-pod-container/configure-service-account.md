@@ -4,11 +4,11 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 A service account provides an identity for processes that run in a Pod.
 
 {{< note >}}
@@ -23,16 +23,17 @@ authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example, `default`).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Use the Default Service Account to access the API server.
 
@@ -370,9 +371,10 @@ override the `jwks_uri` in the OpenID Provider Configuration so that it points
 to the public endpoint, rather than the API server's address, by passing the
 `--service-account-jwks-uri` flag to the API server. Like the issuer URL, the
 JWKS URI is required to use the `https` scheme.
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See also:
 
@@ -380,4 +382,4 @@ See also:
 - [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
-{{% /capture %}}
+

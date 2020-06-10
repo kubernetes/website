@@ -1,10 +1,10 @@
 ---
 title: Ikhtisar Kontainer
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kontainer adalah teknologi untuk mengemas kode (yang telah dikompilasi) menjadi 
 suatu aplikasi beserta dengan dependensi-dependensi yang dibutuhkannya pada saat 
@@ -15,9 +15,9 @@ sama di mana pun Anda menjalankannya.
 Kontainer memisahkan aplikasi dari infrastruktur host yang ada dibawahnya. Hal 
 ini membuat penyebaran lebih mudah di lingkungan cloud atau OS yang berbeda.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Image-Image Kontainer
 
@@ -46,4 +46,3 @@ menjalankan kontainer. Kubernetes mendukung beberapa kontainer *runtime*:
 - Baca tentang [image-image kontainer](https://kubernetes.io/docs/concepts/containers/images/)
 - Baca tentang [Pod](https://kubernetes.io/docs/concepts/workloads/pods/)
 
-{{% /capture %}}

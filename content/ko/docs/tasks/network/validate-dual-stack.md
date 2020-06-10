@@ -1,14 +1,15 @@
 ---
 min-kubernetes-server-version: v1.16
 title: IPv4/IPv6 이중 스택 검증
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 문서는 IPv4/IPv6 이중 스택이 활성화된 쿠버네티스 클러스터들을 어떻게 검증하는지 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * 이중 스택 네트워킹을 위한 제공자 지원 (클라우드 제공자 또는 기타 제공자들은 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공하는 쿠버네티스 노드들을 제공해야 한다.)
 * 이중 스택을 지원하는 [네트워크 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예. Kubenet 또는 Calico)
@@ -17,9 +18,9 @@ content_template: templates/task
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 어드레싱 검증
 
@@ -155,4 +156,4 @@ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S
 my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
 ```
 
-{{% /capture %}}
+

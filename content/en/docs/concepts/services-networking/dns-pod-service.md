@@ -3,14 +3,14 @@ reviewers:
 - davidopp
 - thockin
 title: DNS for Services and Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of DNS support by Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -262,11 +262,11 @@ The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 | 1.10 | Beta (on by default)|
 | 1.9 | Alpha |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
-{{% /capture %}}

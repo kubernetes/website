@@ -1,10 +1,10 @@
 ---
 title: 集群管理概述
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
@@ -13,9 +13,9 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 
 集群管理概述面向任何创建和管理 Kubernetes 集群的读者人群。
 我们假设你对[用户指南](/docs/user-guide/)中的概念大概了解。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Planning a cluster
@@ -142,4 +142,4 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [记录和监控集群活动](/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes 的日志如何工作以及怎样实现。
 
-{{% /capture %}}
+

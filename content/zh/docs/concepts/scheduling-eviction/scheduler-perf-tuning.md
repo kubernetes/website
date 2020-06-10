@@ -1,6 +1,6 @@
 ---
 title: 调度器性能调优
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 <!--
@@ -8,12 +8,12 @@ weight: 70
 reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
@@ -40,9 +40,9 @@ large Kubernetes clusters.
 -->
 这篇文章将会介绍一些在大规模 Kubernetes 集群下调度器性能优化的方式。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- 
 In large clusters, you can tune the scheduler's behaviour balancing
@@ -273,4 +273,4 @@ After going over all the Nodes, it goes back to Node 1.
 -->
 在评估完所有 Node 后，将会返回到 Node 1，从头开始。
 
-{{% /capture %}}
+

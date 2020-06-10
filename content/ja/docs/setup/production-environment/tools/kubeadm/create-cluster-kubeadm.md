@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用したシングルコントロールプレーンクラスターの作成
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/ja/docs/reference/access-authn-authz/bootstrap-tokens/).
@@ -53,9 +53,10 @@ timeframe; which also applies to `kubeadm`.
 | v1.15.x            | June 2019      | March 2020        |
 | v1.16.x            | September 2019 | June 2020         |
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
 - 2 GB or more of RAM per machine. Any less leaves little room for your
@@ -64,9 +65,9 @@ timeframe; which also applies to `kubeadm`.
 - Full network connectivity among all machines in the cluster. A public or
    private network is fine.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 目的
 

@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: 为 Kubernetes 文档做贡献
 linktitle: 贡献
 main_menu: true
@@ -8,7 +8,7 @@ weight: 80
 
 <!--
 ---
-content_template: templates/concept
+content_type: concept
 title: Contribute to Kubernetes docs
 linktitle: Contribute
 main_menu: true
@@ -16,7 +16,7 @@ weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 If you would like to help contribute to the Kubernetes documentation or website,
@@ -42,9 +42,9 @@ Looking for the [style guide](/docs/contribute/style/style-guide/) or the
 
 查找 [样式指南](/docs/contribute/style/style-guide/) 或者 [Kubernetes 社区网站](/community/)？
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Types of contributor
@@ -188,4 +188,4 @@ documentation, but it should help you get started.
 
 - 如果您要开发新的特性，请阅读 [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet).
 
-{{% /capture %}}
+

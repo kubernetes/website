@@ -1,6 +1,6 @@
 ---
 title: 为容器管理计算资源
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: 自动装箱
@@ -11,7 +11,7 @@ feature:
 <!--
 ---
 title: Managing Compute Resources for Containers
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: Automatic binpacking
@@ -20,7 +20,7 @@ feature:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
@@ -33,10 +33,10 @@ the difference between requests and limits, see
 -->
 当您定义 [Pod](/docs/user-guide/pods) 的时候可以选择为每个容器指定需要的 CPU 和内存（RAM）大小。当为容器指定了资源请求后，调度器就能够更好的判断出将容器调度到哪个节点上。如果您还为容器指定了资源限制，Kubernetes 就可以按照指定的方式来处理节点上的资源竞争。关于资源请求和限制的不同点和更多资料请参考 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Resource types
@@ -945,10 +945,11 @@ spec:
         example.com/foo: 1
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
@@ -968,4 +969,4 @@ spec:
 
 * [资源需求](/docs/resources-reference/{{< param "version" >}}/#resourcerequirements-v1-core)
 
-{{% /capture %}}
+

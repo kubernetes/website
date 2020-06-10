@@ -1,19 +1,19 @@
 ---
 title: 초기화 컨테이너
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 초기화 컨테이너에 대한 개요를 제공한다. 초기화 컨테이너는
 {{< glossary_tooltip text="파드" term_id="pod" >}}의 앱 컨테이너들이 실행되기 전에 실행되는 특수한 컨테이너이며, 앱 이미지에는 없는
 유틸리티 또는 설정 스크립트 등을 포함할 수 있다.
 
 초기화 컨테이너는 `containers` 배열(앱 컨테이너를 기술하는)과 나란히
 파드 스펙에 명시할 수 있다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 초기화 컨테이너 이해하기
 
@@ -314,12 +314,13 @@ myapp-pod   1/1       Running   0          9m
   동안 종료되었다. 그리고 초기화 컨테이너의 완료 기록이 가비지 수집
   때문에 유실되었다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [초기화 컨테이너를 가진 파드 생성하기](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 * [초기화 컨테이너 디버깅](/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기
 
-{{% /capture %}}
+

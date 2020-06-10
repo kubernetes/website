@@ -1,6 +1,6 @@
 ---
 title: 複数のクラスターへのアクセスを設定する
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ここでは、設定ファイルを使って複数のクラスターにアクセスする方法を紹介します。クラスター、ユーザー、contextの情報を一つ以上の設定ファイルにまとめることで、`kubectl config use-context`のコマンドを使ってクラスターを素早く切り替えることができます。
 
@@ -16,15 +16,16 @@ card:
 クラスターへのアクセスを設定するファイルを、*kubeconfig* ファイルと呼ぶことがあります。これは設定ファイルの一般的な呼び方です。`kubeconfig`という名前のファイルが存在するわけではありません。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## クラスター、ユーザー、contextを設定する
 
@@ -325,11 +326,11 @@ Windows PowerShell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}

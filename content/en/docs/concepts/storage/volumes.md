@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 On-disk files in a Container are ephemeral, which presents some problems for
 non-trivial applications when running in Containers.  First, when a Container
@@ -20,10 +20,10 @@ Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Background
 
@@ -1481,6 +1481,7 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-{{% /capture %}}
+

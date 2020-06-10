@@ -4,7 +4,7 @@ reviewers:
 - mikedanese
 - rf232
 title: Web UI (Dashboard)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: tasks
@@ -12,7 +12,7 @@ card:
   title: Use the Web UI Dashboard
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
@@ -20,10 +20,10 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Deploying the Dashboard UI
 
@@ -162,11 +162,12 @@ Pod lists and detail pages link to a logs viewer that is built into Dashboard. T
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
 
-{{% /capture %}}
+

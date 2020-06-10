@@ -4,7 +4,7 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 <!--
@@ -14,12 +14,12 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
@@ -27,9 +27,10 @@ Configuring the [aggregation layer](/docs/concepts/extend-kubernetes/api-extensi
 
 配置 [聚合层](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 允许 Kubernetes apiserver 使用其它 API 扩展，这些 API 不是核心 Kubernetes API 的一部分。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -51,9 +52,9 @@ Reusing the same CA for different client types can negatively impact the cluster
 {{< /caution >}}
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Authentication Flow
@@ -455,7 +456,7 @@ If you are not running kube-proxy on a host running the API server, then you mus
 如果您未在运行 API 服务器的主机上运行 kube-proxy，则必须确保使用以下 `kube-apiserver` 标志启用系统：
     --enable-aggregator-routing=true
 
-{{% /capture %}}
+
 
 <!--
 ### Register APIService objects
@@ -527,7 +528,8 @@ spec:
 ...
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 <!--
 * [Setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
 * For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation/).
@@ -538,4 +540,4 @@ spec:
 * 有关高级概述，请参阅 [使用聚合层扩展 Kubernetes API](/zh/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)。
 * 了解如何 [使用自定义资源扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)。
 
-{{% /capture %}}
+

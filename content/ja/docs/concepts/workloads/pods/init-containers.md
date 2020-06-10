@@ -1,16 +1,16 @@
 ---
 title: Initコンテナ(Init Containers)
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、Initコンテナについて概観します。Initコンテナとは、アプリケーションコンテナの前に実行され、アプリケーションコンテナのイメージに存在しないセットアップスクリプトやユーティリティーを含んだ特別なコンテナです。
-{{% /capture %}}
+
 
 この機能はKubernetes1.6からβ版の機能として存在しています。InitコンテナはPodSpec内で、アプリケーションの`containers`という配列と並べて指定されます。そのベータ版のアノテーション値はまだ扱われ、PodSpecのフィールド値を上書きします。しかしながら、それらはKubernetesバージョン1.6と1.7において廃止されました。Kubernetesバージョン1.8からはそのアノテーション値はサポートされず、PodSpecフィールドの値に変換する必要があります。
 
-{{% capture body %}}
+<!-- body -->
 ## Initコンテナを理解する
 
 単一の[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
@@ -266,11 +266,12 @@ ApiServerのバージョン1.6.0かそれ以上のバージョンのクラスタ
 
 ApiServerとKubeletバージョン1.8.0かそれ以上のバージョンでは、α版とβ版のアノテーションは削除されており、廃止されたアノテーションは`.spec.initContainers`フィールドへの移行が必須となります。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Initコンテナを持っているPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 
-{{% /capture %}}
+

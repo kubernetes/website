@@ -7,16 +7,16 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes version and version skew support policy
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported versions
 

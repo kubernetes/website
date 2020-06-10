@@ -1,17 +1,17 @@
 ---
 title: 使用 Kops 安装 Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 <!--
 ---
 title: Installing Kubernetes with kops
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
@@ -46,9 +46,9 @@ a building block.  kops builds on the kubeadm work.
 -->
 如果您有不同的观点，您可能更喜欢使用 [kubeadm](/docs/admin/kubeadm/) 作为构建工具来构建自己的集群。kops 建立在 kubeadm 工作的基础上。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Creating a cluster
@@ -335,9 +335,10 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 * Slack Channel: [#kops-users](https://kubernetes.slack.com/messages/kops-users/)
 * [GitHub Issues](https://github.com/kubernetes/kops/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
@@ -348,4 +349,4 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 * 了解 `kops` [高级用法](https://github.com/kubernetes/kops)。
 * 请参阅 `kops` [文档](https://github.com/kubernetes/kops) 获取教程、最佳做法和高级配置选项。
 
-{{% /capture %}}
+

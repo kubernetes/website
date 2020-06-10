@@ -12,10 +12,10 @@ reviewers:
 - juanvallejo
 - soltysh
 description: With kubectl plugins, you can extend the functionality of the kubectl command by adding new subcommands.
-content_template: templates/task
+content_type: task
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" >}}
 
@@ -27,9 +27,10 @@ of plugins as a means of utilizing these building blocks to create more complex 
 通过将核心 `kubectl` 命令看作与 Kubernetes 集群交互的基本构建块，集群管理员可以将插件视为一种利用这些构建块创建更复杂行为的方法。
 插件用新的子命令扩展了 `kubectl`，允许新的和自定义的特性不包括在 `kubectl` 的主要发行版中。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 You need to have a working `kubectl` binary installed.
@@ -45,9 +46,9 @@ Plugins were officially introduced as an alpha feature in the v1.8.0 release. Th
 
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Installing kubectl plugins
@@ -493,9 +494,10 @@ See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for
 参见 [CLI 插件示例](https://github.com/kubernetes/sample-cli-plugin)了解 CLI Runtime 存储库中提供的工具的使用示例。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Check the Sample CLI Plugin repository for [a detailed example](https://github.com/kubernetes/sample-cli-plugin) of a plugin written in Go.
@@ -507,6 +509,6 @@ See the [Sample CLI Plugin](https://github.com/kubernetes/sample-cli-plugin) for
 * 如有任何问题，请随时联系 [CLI SIG 小组](https://github.com/kubernetes/community/tree/master/sig-cli)
 * 二进制插件是 beta 版的特性，所以现在是时候为代码库贡献一些想法和改进了。我们也很高兴听到您计划用插件实现什么，所以[让我们知道](https://github.com/kubernetes/community/tree/master/sig-cli)！
 
-{{% /capture %}}
+
 
 

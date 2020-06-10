@@ -1,14 +1,14 @@
 ---
 title: 풀 리퀘스트 열기
 slug: new-content
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 **코드 개발자**: 향후 쿠버네티스 릴리스의
@@ -22,9 +22,9 @@ card:
 
 변경 사항이 많으면, [로컬 포크에서 작업하기](#fork-the-repo)를 읽고 컴퓨터에서 로컬로 변경하는 방법을 배운다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## GitHub을 사용하여 변경하기
 
@@ -475,10 +475,11 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
 느낌을 얻으려면 열린 이슈와 PR을 살펴보자. 이슈나 PR을 제출할 때
 가능한 한 상세하게 템플릿의 내용을 작성한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/reviewing/revewing-prs)를 읽어본다.
 
-{{% /capture %}}
+

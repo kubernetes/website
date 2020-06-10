@@ -1,16 +1,16 @@
 ---
 title: 为 Kubernetes 组件和工具生成参考页面
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Generating Reference Pages for Kubernetes Components and Tools
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to use the `update-imported-docs` tool to generate
@@ -21,9 +21,10 @@ reference documentation for tools and components in the
 
 本页面展示了如何使用 `update-imported-docs` 工具来为 [Kubernetes](https://github.com/kubernetes/kubernetes) 和 [Federation](https://github.com/kubernetes/federation) 仓库中的工具和组件生成参考文档。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * You need a machine that is running Linux or macOS.
@@ -68,9 +69,9 @@ information, see
 
 * 你需要知道如何在一个 GitHub 项目仓库中创建一个 PR。一般来说，这涉及到创建仓库的一个分支。想了解更多信息，请参见[创建一个文档 PR](/docs/home/contribute/create-pull-request/)。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Getting two repositories
@@ -395,9 +396,10 @@ topics will be visible in the
 
 在 PR 合入的几分钟后，你更新的参考主题将出现在[已发布文档](/docs/home/)中。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/) 
@@ -409,4 +411,3 @@ topics will be visible in the
 * [为 Kubernetes API 生成参考文档](/docs/home/contribute/generated-reference/kubernetes-api/)
 * [为 Kubernetes 联邦 API 生成参考文档](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}

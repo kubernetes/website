@@ -5,22 +5,23 @@ reviewers:
 - foxish
 - smarterclayton
 title: Force Delete StatefulSet Pods
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to delete Pods which are part of a {{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}}, and explains the considerations to keep in mind when doing so.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * This is a fairly advanced task and has the potential to violate some of the properties inherent to StatefulSet.
 * Before proceeding, make yourself familiar with the considerations enumerated below.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSet considerations
 
@@ -74,10 +75,11 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 
 Always perform force deletion of StatefulSet Pods carefully and with complete knowledge of the risks involved.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 
-{{% /capture %}}
+
