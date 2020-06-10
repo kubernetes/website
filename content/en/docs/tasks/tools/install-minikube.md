@@ -210,6 +210,10 @@ For setting the `--driver` with `minikube start`, enter the name of the hypervis
 
 {{< /note >}}
 
+{{< caution >}}
+When using KVM, note that libvirt's default QEMU URI under Debian and some other systems is `qemu:///session` whereas Minikube's default QEMU URI is `qemu:///system`. If this is the case for your system, you will need to pass `--kvm-qemu-uri qemu:///session` to `minikube start`.
+{{< /caution >}}
+
 ```shell
 minikube start --driver=<driver_name>
 ```
