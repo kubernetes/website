@@ -236,8 +236,7 @@ scheduled - more packed or more scattered.
 
 The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
 topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly.
-See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation) for more details.
+workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
 
 ## Known Limitations
 
