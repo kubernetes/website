@@ -66,6 +66,13 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 
 ## Pods
 
+### A/AAAA records
+
+Any pods created by a Deployment or DaemonSet have the following
+DNS resolution available:
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+
 ### Pod's hostname and subdomain fields
 
 Currently when a pod is created, its hostname is the Pod's `metadata.name` value.
