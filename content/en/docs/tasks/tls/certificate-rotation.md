@@ -2,7 +2,7 @@
 reviewers:
 - jcbsmpsn
 - mikedanese
-title: Certificate Rotation
+title: Configure Certificate Rotation for the Kubelet
 content_type: task
 ---
 
