@@ -427,8 +427,8 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 {{% capture whatsnext %}}
 
-* 詳細: [Serviceを利用したクラスター内のアプリケーションへのアクセス](content/ja/docs/tasks/access-application-cluster/service-access-application-cluster.md)
-* 詳細: [Serviceを使用してフロントエンドをバックエンドに接続する](content/ja/docs/tasks/access-application-cluster/connecting-frontend-backend.md)
-* 詳細: [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
+* 詳細: [Serviceを利用したクラスター内のアプリケーションへのアクセス](docs/tasks/access-application-cluster/service-access-application-cluster.md)
+* 詳細: [Serviceを使用してフロントエンドをバックエンドに接続する](docs/tasks/access-application-cluster/connecting-frontend-backend.md)
+* 詳細: [Creating an External Load Balancer](en/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
 {{% /capture %}}
