@@ -98,7 +98,7 @@ kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシング�
 
 コントロールプレーンコンポーネントやetcdサーバーのliveness probeへのオプションのIPv6の割り当てなど、コントロールプレーンのコンポーネントをカスタマイズしたい場合は、[カスタムの引数](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)に示されている方法で各コンポーネントに追加の引数を与えてください。
 
-`kubeadm init`を再び実行する場合は、初めに[クラスターの削除](#tear-down)を行う必要があります。
+`kubeadm init`を再び実行する場合は、初めに[クラスターの破壊](#tear-down)を行う必要があります。
 
 もし異なるアーキテクチャのノードをクラスターにjoinさせたい場合は、デプロイしたDaemonSetがそのアーキテクチャ向けのコンテナイメージをサポートしているか確認してください。
 
