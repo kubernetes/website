@@ -18,16 +18,16 @@ weight: 80
 ## はじめに
 
 どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、プルリクエスト(PR)を用いて変更に貢献することができます。
-一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセスが必要です。
-役割と権限についての詳細は、[SIGドキュメントへの参加](/docs/contribute/participating/)を参照してください。
+一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
+役割と権限についての詳細は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
 
-Kubernetesのドキュメントは、GitHubのリポジトリにあります。
+Kubernetesのドキュメントは、GitHubのリポジトリーにあります。
 どなたからの貢献も歓迎しますが、Kubernetesコミュニティの効果的な運用のためには、gitとGitHubを基本的に使いこなせる必要があります。
 
 ドキュメンテーションに関わるには:
 
 1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)にサインしてください。
-2. [documentation repository](https://github.com/kubernetes/website)と、ウェブサイトの[static site generator](https://gohugo.io)に慣れ親しんでください。
+2. [ドキュメンテーションのリポジトリー](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
 3. [コンテンツの改善](https://kubernetes.io/docs/contribute/start/#improve-existing-content)と[変更レビュー](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests)の基本的なプロセスを理解していることを確認してください。
 
 ## 貢献するためのベストプラクティス
@@ -52,7 +52,7 @@ Kubernetesのドキュメントは、GitHubのリポジトリにあります。
 
 - ドキュメントへの貢献の基本について、さらに知りたい場合は、[貢献の開始](/docs/contribute/start/)を参照してください。
 - 変更を提案をする際は、[Kubernetesドキュメンテーションスタイルガイド](/docs/contribute/style/style-guide/)に従ってください。
-- SIG Docsについて、さらに知りたい場合は、[SIGドキュメントへの参加](/docs/contribute/participating/)を参照してください。
+- SIG Docsについて、さらに知りたい場合は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
 - Kubernetesドキュメントのローカライズについて、さらに知りたい場合は、[Kubernetesドキュメントのローカライズ](/docs/contribute/localization/)を参照してください。
 
 {{% /capture %}}
