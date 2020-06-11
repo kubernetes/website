@@ -716,7 +716,6 @@ zk-0      1/1       Running   1         29m
 쿠버네티스에게 알리도록 활성도 검사를 이용해야 한다.
 
 `zk` `스테이트풀셋`에 파드 `template`에 활성도 검사를 명시한다.
-``
 
 ```yaml
  livenessProbe:

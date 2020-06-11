@@ -9,7 +9,7 @@ card:
 ---
 
 <!-- overview -->
-쿠버네티스 커맨드 라인 도구인 [kubectl](/docs/user-guide/kubectl/)을 사용하면, 쿠버네티스 클러스터에 대해 명령을 실행할 수 있다. kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하며 로그를 볼 수 있다. kubectl 작업의 전체 목록에 대해서는, [kubectl 개요](/docs/reference/kubectl/overview/)를 참고한다.
+쿠버네티스 커맨드 라인 도구인 [kubectl](/docs/user-guide/kubectl/)을 사용하면, 쿠버네티스 클러스터에 대해 명령을 실행할 수 있다. kubectl을 사용하여 애플리케이션을 배포하고, 클러스터 리소스를 검사 및 관리하며 로그를 볼 수 있다. kubectl 작업의 전체 목록에 대해서는, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참고한다.
 
 
 ## {{% heading "prerequisites" %}}

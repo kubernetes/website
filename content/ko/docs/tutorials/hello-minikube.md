@@ -49,7 +49,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
     {{< kat-button >}}
 
-    {{< note >}}Minikube를 로컬에 설치했다면 `minikube start`을 실행한다.{{< /note >}}
+{{< note >}}
+    Minikube를 로컬에 설치했다면 `minikube start`를 실행한다.
+{{< /note >}}
 
 2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
 
@@ -114,7 +116,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubectl config view
     ```
 
-    {{< note >}}`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개관](/docs/user-guide/kubectl-overview/)을 살펴보자.{{< /note >}}
+{{< note >}}
+    `kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/docs/user-guide/kubectl-overview/)을 살펴보자.
+{{< /note >}}
 
 ## 서비스 만들기
 

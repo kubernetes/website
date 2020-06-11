@@ -16,6 +16,11 @@ weight: 50
 
 HA 클러스터를 구성하기 전에 각 토플로지의 장단점을 주의 깊게 고려해야 한다.
 
+{{< note >}}
+kubeadm은 etcd 클러스터를 정적으로 부트스트랩한다. 자세한 내용은 etcd [클러스터 구성 가이드](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
+를 읽는다.
+{{< /note >}}
+
 
 
 <!-- body -->
