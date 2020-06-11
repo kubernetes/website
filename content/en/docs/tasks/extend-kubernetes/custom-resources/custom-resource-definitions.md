@@ -251,11 +251,11 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
-CustomResources traditionally store arbitrary JSON (next to `apiVersion`, `kind` and `metadata`, which is validated by the API server implicitly). With [OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
+CustomResources traditionally store arbitrary JSON (next to `apiVersion`, `kind` and `metadata`, which is validated by the API server implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
 
 With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions, while in `v1beta1` this is still optional.
 
-A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) which:
+A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) which:
 
 1. specifies a non-empty type (via `type` in OpenAPI) for the root, for each specified field of an object node (via `properties` or `additionalProperties` in OpenAPI) and for each item in an array node (via `items` in OpenAPI), with the exception of:
    * a node with `x-kubernetes-int-or-string: true`
@@ -364,15 +364,15 @@ Violations of the structural schema rules are reported in the `NonStructural` co
 
 Structural schemas are a requirement for `apiextensions.k8s.io/v1`, and disables the following  features for `apiextensions.k8s.io/v1beta1`:
 
-* [Validation Schema Publishing](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
-* [Webhook Conversion](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
+* [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+* [Webhook Conversion](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
 * [Pruning](#preserving-unknown-fields)
 
 ### Pruning versus preserving unknown fields {#preserving-unknown-fields}
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
 
-CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources such as a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
+CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources such as a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
 
 {{< tabs name="CustomResourceDefinition_pruning" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
@@ -427,7 +427,7 @@ spec:
 
 The field `someRandomField` has been pruned.
 
-Note that the `kubectl create` call uses `--validate=false` to skip client-side validation. Because the [OpenAPI validation schemas are also published](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2) to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
+Note that the `kubectl create` call uses `--validate=false` to skip client-side validation. Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2) to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
 
 ### Controlling pruning
 
@@ -533,7 +533,7 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2), `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
+In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2), `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
 
@@ -565,7 +565,7 @@ With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metad
 
 ## Serving multiple versions of a CRD
 
-See [Custom resource definition versioning](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/)
+See [Custom resource definition versioning](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
 
@@ -634,7 +634,7 @@ Additionally, the following restrictions are applied to the schema:
 
 These fields can only be set with specific features enabled:
 
-- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting).
+- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting).
 
 {{< note >}}
 Compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
@@ -1456,6 +1456,6 @@ crontabs/my-new-cron-object   3s
 
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
-* Serve [multiple versions](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/) of a
+* Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
 

@@ -1,5 +1,5 @@
 ---
-title: Setup an Extension API Server
+title: Set up an Extension API Server
 reviewers:
 - lavalamp
 - cheftako
@@ -10,7 +10,7 @@ weight: 15
 
 <!-- overview -->
 
-Setting up an extension API server to work the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs. 
+Setting up an extension API server to work with the aggregation layer allows the Kubernetes apiserver to be extended with additional APIs, which are not part of the core Kubernetes APIs.
 
 
 
@@ -19,7 +19,7 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* You must [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
+* You must [configure the aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) and enable the apiserver flags.
 
 
 
@@ -29,7 +29,7 @@ Setting up an extension API server to work the aggregation layer allows the Kube
 
 The following steps describe how to set up an extension-apiserver *at a high level*. These steps apply regardless if you're using YAML configs or using APIs. An attempt is made to specifically identify any differences between the two. For a concrete example of how they can be implemented using YAML configs, you can look at the [sample-apiserver](https://github.com/kubernetes/sample-apiserver/blob/master/README.md) in the Kubernetes repo.
 
-Alternatively, you can use an existing 3rd party solution, such as [apiserver-builder](https://github.com/Kubernetes-incubator/apiserver-builder/blob/master/README.md), which should generate a skeleton and automate all of the following steps for you.
+Alternatively, you can use an existing 3rd party solution, such as [apiserver-builder](https://github.com/kubernetes-sigs/apiserver-builder-alpha/blob/master/README.md), which should generate a skeleton and automate all of the following steps for you.
 
 1. Make sure the APIService API is enabled (check `--runtime-config`). It should be on by default, unless it's been deliberately turned off in your cluster.
 1. You may need to make an RBAC rule allowing you to add APIService objects, or get your cluster administrator to make one. (Since API extensions affect the entire cluster, it is not recommended to do testing/development/debug of an API extension in a live cluster.)
@@ -45,18 +45,13 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes cluster role binding from the service account in your namespace to the `system:auth-delegator` cluster role to delegate auth decisions to the Kubernetes core API server.
 1. Create a Kubernetes role binding from the service account in your namespace to the `extension-apiserver-authentication-reader` role. This allows your extension api-server to access the `extension-apiserver-authentication` configmap.
 1. Create a Kubernetes apiservice. The CA cert above should be base64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.
-1. Use kubectl to get your resource. It should return "No resources found." Which means that everything worked but you currently have no objects of that resource type created yet.
-
+1. Use kubectl to get your resource. When run, kubectl should return "No resources found.". This message
+indicates that everything worked but you currently have no objects of that resource type created.
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* If you haven't already, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) and enable the apiserver flags.
-* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/api-extension/apiserver-aggregation).
-* Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
-
-
-
-
-
+* Walk through the steps to [configure the API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) and enable the apiserver flags.
+* For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+* Learn how to [Extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).
