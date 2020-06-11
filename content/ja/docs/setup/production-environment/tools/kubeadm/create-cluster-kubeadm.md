@@ -205,7 +205,7 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 
 {{< /caution >}}
 
-CNIを使用するKubernetes Pod networkを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/docs/concepts/services-networking/networkpolicies/)もサポートしています。
+CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/docs/concepts/services-networking/networkpolicies/)もサポートしています。
 
 利用できる[ネットワークアドオンとネットワークポリシーアドオン](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)のリストを確認してください。
 
