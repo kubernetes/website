@@ -72,21 +72,10 @@ tolerations:
 
 두 가지 특별한 경우가 있다.
 
-* operator `Exists` 가 있는 비어있는 `key` 는 모든 키, 값 및 이펙트와 일치하므로
+operator `Exists` 가 있는 비어있는 `key` 는 모든 키, 값 및 이펙트와 일치하므로
 모든 것이 톨러레이션 된다.
 
-```yaml
-tolerations:
-- operator: "Exists"
-```
-
-* 비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
-
-```yaml
-tolerations:
-- key: "key"
-      operator: "Exists"
-```
+비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
 
 {{< /note >}}
 

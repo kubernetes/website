@@ -400,9 +400,9 @@ IBM 클라우드 쿠버네티스 서비스 제공자를 사용하면, 단일 영
 쿠버네티스 노드 오브젝트의 이름은 IBM 클라우드 쿠버네티스 서비스 워커 노드 인스턴스의 프라이빗 IP 주소이다.
 
 ### 네트워킹
-IBM 클라우드 쿠버네티스 서비스 제공자는 노드의 네트워크 성능 품질과 네트워크 격리를 위한 VLAN을 제공한다. 사용자 정의 방화벽 및 Calico 네트워크 폴리시를 설정하여 클러스터에 추가적인 보안 계층을 추가하거나 VPN을 통해 온-프레미스 데이터센터에 클러스터를 연결할 수 있다. 자세한 내용은 [인-클러스터(in-cluster) 및 프라이빗 네트워킹 계획](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster)을 참고한다.
+IBM 클라우드 쿠버네티스 서비스 제공자는 노드의 네트워크 성능 품질과 네트워크 격리를 위한 VLAN을 제공한다. 사용자 정의 방화벽 및 Calico 네트워크 폴리시를 설정하여 클러스터에 추가적인 보안 계층을 추가하거나 VPN을 통해 온-프레미스 데이터센터에 클러스터를 연결할 수 있다. 자세한 내용은 [클러스터 네트워킹 구성](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters)을 참고한다.
 
-퍼블릭 또는 클러스터 내에서 앱을 노출하기 위해 노드포트(NodePort), 로드밸런서 또는 인그레스 서비스를 활용할 수 있다. 어노테이션을 사용하여 인그레스 애플리케이션 로드 밸런서를 커스터마이징 할 수도 있다. 자세한 내용은 [외부 네트워킹으로 앱 노출 계획](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning)을 참고한다.
+퍼블릭 또는 클러스터 내에서 앱을 노출하기 위해 노드포트(NodePort), 로드밸런서 또는 인그레스 서비스를 활용할 수 있다. 어노테이션을 사용하여 인그레스 애플리케이션 로드 밸런서를 커스터마이징 할 수도 있다. 자세한 내용은 [앱을 노출할 서비스 선택하기](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning)을 참고한다.
 
 ### 스토리지
 IBM 클라우드 쿠버네티스 서비스 제공자는 쿠버네티스-네이티브 퍼시스턴트 볼륨을 활용하여 사용자가 파일, 블록 및 클라우드 오브젝트 스토리지를 앱에 마운트할 수 있도록 한다. 데이터를 지속적으로 저장하기 위해 서비스로서의-데이터베이스(database-as-a-service)와 써드파티 애드온을 사용할 수도 있다. 자세한 정보는 [고가용성 퍼시스턴트 스토리지 계획](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning)을 참고한다.

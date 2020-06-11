@@ -371,6 +371,8 @@ podsecuritypolicy "example" deleted
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
+더 많은 예제는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
+
 ## 정책 레퍼런스
 
 ### 특권을 가진
@@ -631,6 +633,8 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 
-API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조
+폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+
+API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
 
 
