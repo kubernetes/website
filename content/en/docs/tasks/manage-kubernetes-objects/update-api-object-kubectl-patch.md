@@ -308,7 +308,7 @@ spec:
 
 Patch your Deployment:
 
-{{< tabs name="kubectl_patch_example" >}}
+{{< tabs name="kubectl_retainkeys_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-no-retainkeys.yaml)"
 {{< /tab >}}
@@ -339,7 +339,7 @@ With this patch, we indicate that we want to retain only the `type` key of the `
 
 Patch your Deployment again with this new patch:
 
-{{< tabs name="kubectl_patch_example" >}}
+{{< tabs name="kubectl_retainkeys2_example" >}}
 {{{< tab name="Bash" codelang="bash" >}}
 kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-retainkeys.yaml)"
 {{< /tab >}}
