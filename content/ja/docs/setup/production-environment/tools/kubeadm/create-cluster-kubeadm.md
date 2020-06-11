@@ -86,7 +86,7 @@ kubeadm init <args>
 192.168.0.102 cluster-endpoint
 ```
 
-ここでは、`192.168.0.102`がこのノードのIPアドレスであり、`cluster-endpoint`がこのIPアドレスへとマッピングされるカスタムのDNSネームです。このように設定することで、`--control-plane-endpoint=cluster-endpoint`を`kubeadm init`に渡せるようになり、`kubeadm join`にも同じDNSネームを渡せます。後で`cluster-endpoint`を修正して、高可用性が必要なシナリオでロードバランサーのアドレスを指すようにすることができます。
+ここでは、`192.168.0.102`がこのノードのIPアドレスであり、`cluster-endpoint`がこのIPアドレスへとマッピングされるカスタムDNSネームです。このように設定することで、`--control-plane-endpoint=cluster-endpoint`を`kubeadm init`に渡せるようになり、`kubeadm join`にも同じDNSネームを渡せます。後で`cluster-endpoint`を修正して、高可用性が必要なシナリオでロードバランサーのアドレスを指すようにすることができます。
 
 kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシングルコントロールプレーンのクラスターを高可用性クラスターに切り替えることはサポートされていません。
 
