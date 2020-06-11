@@ -260,7 +260,7 @@ See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
 APIs, cluster administrators must ensure that:
 
-* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
+* The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
 
 * The corresponding APIs are registered:
 

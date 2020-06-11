@@ -397,7 +397,7 @@ Learn about additional debugging tools, including:
 * [Logging](/docs/concepts/cluster-administration/logging/)
 * [Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 * [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/get-shell-running-container/)
-* [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+* [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Inspect Kubernetes node with crictl](/docs/tasks/debug-application-cluster/crictl/)
 
