@@ -85,6 +85,11 @@ The environment variables set using the `env` or `envFrom` field
 override any environment variables specified in the container image.
 {{< /note >}}
 
+{{< note >}}
+The environment variables can reference each other, and cycles are possible,
+pay attention to the order before using
+{{< /note >}}
+
 ## Using environment variables inside of your config
 
 Environment variables that you define in a Pod's configuration can be used
