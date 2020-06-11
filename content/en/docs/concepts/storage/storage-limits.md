@@ -22,31 +22,6 @@ waiting for volumes to attach.
 
 <!-- body -->
 
-## Kubernetes default limits
-
-The Kubernetes scheduler has default limits on the number of volumes
-that can be attached to a Node:
-
-<table>
-  <tr><th>Cloud service</th><th>Maximum volumes per Node</th></tr>
-  <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
-  <tr><td><a href="https://cloud.google.com/persistent-disk/">Google Persistent Disk</a></td><td>16</td></tr>
-  <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
-</table>
-
-## Custom limits
-
-You can change these limits by setting the value of the
-`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
-CSI drivers might have a different procedure, see their documentation
-on how to customize their limits.
-
-Use caution if you set a limit that is higher than the default limit. Consult
-the cloud provider's documentation to make sure that Nodes can actually support
-the limit you set.
-
-The limit applies to the entire cluster, so it affects all Nodes.
-
 ## Dynamic volume limits
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
@@ -77,5 +52,36 @@ Kubernetes allows 39 volumes to be attached to a Node.
 Refer to the [CSI specifications](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) for details.
 
 * For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
+
+## Custom limits
+
+You can change these limits by setting the value of the
+`KUBE_MAX_PD_VOLS` environment variable, and then starting the scheduler.
+CSI drivers might have a different procedure, see their documentation
+on how to customize their limits.
+
+Use caution if you set a limit that is higher than the default limit. Consult
+the cloud provider's documentation to make sure that Nodes can actually support
+the limit you set.
+
+The limit applies to the entire cluster, so it affects all Nodes.
+
+
+## Kubernetes default limits
+
+{{< note >}}
+Dynamic volume limits is the recommended approach that all storage plugins should use
+{{< /note >}}
+
+The Kubernetes scheduler has default limits on the number of volumes
+that can be attached to a Node:
+
+<table>
+  <tr><th>Cloud service</th><th>Maximum volumes per Node</th></tr>
+  <tr><td><a href="https://aws.amazon.com/ebs/">Amazon Elastic Block Store (EBS)</a></td><td>39</td></tr>
+  <tr><td><a href="https://cloud.google.com/persistent-disk/">Google Persistent Disk</a></td><td>16</td></tr>
+  <tr><td><a href="https://azure.microsoft.com/en-us/services/storage/main-disks/">Microsoft Azure Disk Storage</a></td><td>16</td></tr>
+</table>
+
 
 
