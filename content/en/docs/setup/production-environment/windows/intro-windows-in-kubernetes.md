@@ -33,17 +33,22 @@ In this document, when we talk about Windows containers we mean Windows containe
 
 ### Supported Functionality
 
-#### Compute
+#### Windows OS Version Support
 
-From an API and kubectl perspective, Windows containers behave in much the same way as Linux-based containers. However, there are some notable differences in key functionality which are outlined in the limitation section.
+Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
 
-Let's start with the operating system version. Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
-
-| Kubernetes version | Host OS version (Kubernetes Node) | | |
+| Kubernetes version | Windows Server LTSC releases | Windows Server SAC releases |
 | --- | --- | --- | --- |
-| | *Windows Server 1709* | *Windows Server 1803* | *Windows Server 1809/Windows Server 2019* |
-| *Kubernetes v1.14* | Not Supported | Not Supported| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
+| *Kubernetes v1.14* | Windows Server 2019 | Windows Server ver 1809 |
+| *Kubernetes v1.15* | Windows Server 2019 | Windows Server ver 1809 |
+| *Kubernetes v1.16* | Windows Server 2019 | Windows Server ver 1809 |
+| *Kubernetes v1.17* | Windows Server 2019 | Windows Server ver 1809 |
+| *Kubernetes v1.18* | Windows Server 2019 | Windows Server ver 1809, Windows Server ver 1903, Windows Server ver 1909 |
+| *Kubernetes v1.19* | Windows Server 2019 | Windows Server ver 1909, Windows Server ver 2004 |
 
+{{< note >}}
+Information on the different Windows Server servicing channels including their support models can be found at [Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+{{< /note >}}
 {{< note >}}
 We don't expect all Windows customers to update the operating system for their apps frequently. Upgrading your applications is what dictates and necessitates upgrading or introducing new nodes to the cluster. For the customers that chose to upgrade their operating system for containers running on Kubernetes, we will offer guidance and step-by-step instructions when we add support for a new operating system version. This guidance will include recommended upgrade procedures for upgrading user applications together with cluster nodes. Windows nodes adhere to Kubernetes [version-skew policy](/docs/setup/release/version-skew-policy/) (node to control plane versioning) the same way as Linux nodes do today.
 {{< /note >}}
@@ -53,6 +58,10 @@ The Windows Server Host Operating System is subject to the [Windows Server ](htt
 {{< note >}}
 Windows containers with process isolation have strict compatibility rules, [where the host OS version must match the container base image OS version](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility). Once we support Windows containers with Hyper-V isolation in Kubernetes, the limitation and compatibility rules will change.
 {{< /note >}}
+
+#### Compute
+
+From an API and kubectl perspective, Windows containers behave in much the same way as Linux-based containers. However, there are some notable differences in key functionality which are outlined in the [limitation section](#limitations).
 
 Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we talk about some of the key workload enablers and how they map to Windows.
 
@@ -104,22 +113,21 @@ Pods, Controllers and Services are critical elements to managing Windows workloa
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-Docker EE-basic 18.09+ is the recommended container runtime for Windows Server 2019 / 1809 nodes running Kubernetes. This works with the dockershim code included in the kubelet.
+Docker EE-basic 19.03+ is the recommended container runtime for all Windows Server versions. This works with the dockershim code included in the kubelet.
 
 ##### CRI-ContainerD
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
-
-ContainerD is an OCI-compliant runtime that works with Kubernetes on Linux. Kubernetes v1.18 adds support for {{< glossary_tooltip term_id="containerd" text="ContainerD" >}} on Windows. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001).
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 {{< caution >}}
-
-ContainerD on Windows in Kubernetes v1.18 has the following known shortcomings:
-
-* ContainerD does not have an official release with support for Windows; all development in Kubernetes has been performed against active ContainerD development branches. Production deployments should always use official releases that have been fully tested and are supported with security fixes.
-* Group-Managed Service Accounts are not implemented when using ContainerD - see [containerd/cri#1276](https://github.com/containerd/cri/issues/1276).
-
+There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations) when using GMSA with ContainerD to access Windows network shares which requires a kernel patch. Check for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).
 {{< /caution >}}
+
+{{< glossary_tooltip term_id="containerd" text="ContainerD" >}} 1.4.0-beta.2+ can also be used as the container runtime for Windows Kubernetes nodes.
+
+Initial support for ContainerD on Windows was added in Kubernetes v1.18. Progress for ContainerD on Windows can be tracked at [enhancements#1001](https://github.com/kubernetes/enhancements/issues/1001). 
+
+Learn how to [install ContainerD on a Windows](/docs/setup/production-environment/container-runtimes/#install-containerd).
 
 #### Persistent Storage
 
