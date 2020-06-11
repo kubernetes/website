@@ -142,14 +142,32 @@ Find the latest stable 1.18 version:
         kubeadm upgrade apply v1.18.0
 
     _____________________________________________________________________
+
+    The table below shows the current state of component configs as understood by this version of kubeadm.
+    Configs that have a "yes" mark in the "MANUAL UPGRADE REQUIRED" column require manual config upgrade or
+    resetting to kubeadm defaults before a successful upgrade can be performed. The version to manually
+    upgrade to is denoted in the "PREFERRED VERSION" column.
+
+    API GROUP                 CURRENT VERSION   PREFERRED VERSION   MANUAL UPGRADE REQUIRED
+    kubeproxy.config.k8s.io   v1alpha1          v1alpha1            no
+    kubelet.config.k8s.io     v1beta1           v1beta1             no
+    _____________________________________________________________________
+
     ```
 
     This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
+    It also shows a table with the component config version states.
 
 {{< note >}}
 `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
 To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
 For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+{{</ note >}}
+
+{{< note >}}
+If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
+a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
+Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
 {{</ note >}}
 
 -  Choose a version to upgrade to, and run the appropriate command. For example:
@@ -430,6 +448,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
   - The control plane is healthy
 - Enforces the version skew policies.
 - Makes sure the control plane images are available or available to pull to the machine.
+- Generates replacements and/or uses user supplied overwrites if component configs require version upgrades.
 - Upgrades the control plane components or rollbacks if any of them fails to come up.
 - Applies the new `kube-dns` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
