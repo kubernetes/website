@@ -10,7 +10,7 @@ weight: 30
 
 {{% capture body %}}
 
-## サポートされるバージョン
+## サポートされるバージョン {#supported-versions}
 
 Kubernetesのバージョンは**x.y.z**の形式で表現され、**x**はメジャーバージョン、**y**はマイナーバージョン、**z**はパッチバージョンを指します。これは[セマンティック バージョニング](http://semver.org/)に従っています。詳細は、[Kubernetesのリリースバージョニング](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning)を参照してください。
 
