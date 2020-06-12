@@ -1,11 +1,11 @@
 ---
 
 
-content_template: templates/concept
+content_type: concept
 title: GPU 스케줄링
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
@@ -15,10 +15,10 @@ title: GPU 스케줄링
 이 페이지는 다른 쿠버네티스 버전 간에 걸쳐 사용자가 GPU들을 소비할 수 있는 방법과
 현재의 제약 사항을 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 디바이스 플러그인 사용하기
 
@@ -216,4 +216,4 @@ spec:
 이것은 파드가 사용자가 지정한 GPU 타입을 가진 노드에 스케줄 되도록
 만든다.
 
-{{% /capture %}}
+

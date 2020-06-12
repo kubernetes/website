@@ -1,17 +1,17 @@
 ---
 title: Организация контента
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Этот сайт использует Hugo. В Hugo [организация контента](https://gohugo.io/content-management/organization/) — основная концепция.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{% note %}}
 **Подсказка:** при редактировании контента используйте команду `hugo server --navigateToChanged`, чтобы запустить Hugo.
@@ -120,12 +120,13 @@ en/includes
 
 Исходные файлы стилей в формате [SASS](https://sass-lang.com/) находятся в директории `assets/sass` и автоматически собираются Hugo.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Подробнее про [пользовательские макрокоды Hugo](/ru/docs/contribute/style/hugo-shortcodes/)
 * Подробнее про [оформление документации](/ru/docs/contribute/style/style-guide)
 * Подробнее про [содержание документации](/ru/docs/contribute/style/content-guide)
 
-{{% /capture %}}
+

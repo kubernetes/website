@@ -4,6 +4,13 @@
 		{{ partial "head.html" . }}
 	</head>
 	<body class="page">
+    {{ block "announcement" . }}
+      {{ if .IsHome }}
+        {{ partial "frontpage-announcement.html" . }}
+      {{ else }}
+        {{ partial "announcement.html" . }}
+      {{ end }}
+    {{ end }}
 		{{ partial "header.html" . }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
@@ -16,9 +23,14 @@
 				{{ block "hero-more" . }}{{ end }}
 			</div>
 		</section>
-		{{ block "post-hero" . }}{{ end }}
+		{{ block "post-hero" . }}
+      {{ block "deprecated" . }}
+        {{ if .IsHome }}
+          {{ partial "deprecation-warning.html" . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
 		{{ end }}
-	
 	<main>
 		<article class="page-content">
 		  {{ block "main" . }}{{ end }}

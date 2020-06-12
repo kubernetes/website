@@ -2,21 +2,21 @@
 reviewers:
 - hw-qiaolei
 title: Overview of kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl is a command line tool for controlling Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Syntax
 
@@ -32,11 +32,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+    ```shell
+    kubectl get pod pod1
+    kubectl get pods pod1
+    kubectl get po pod1
+    ```
 
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
 
@@ -424,7 +424,7 @@ kubectl hello
 hello world
 ```
 
-```
+```shell
 # we can "uninstall" a plugin, by simply removing it from our PATH
 sudo rm /usr/local/bin/kubectl-hello
 ```
@@ -442,7 +442,7 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
-```
+```shell
 # this command can also warn us about plugins that are
 # not executable, or that are overshadowed by other
 # plugins, for example
@@ -488,10 +488,11 @@ Current user: plugins-user
 
 To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 
-{{% /capture %}}
+

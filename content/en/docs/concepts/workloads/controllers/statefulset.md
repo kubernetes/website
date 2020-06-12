@@ -7,18 +7,18 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: StatefulSets
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 StatefulSet is the workload API object used to manage stateful applications.
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Using StatefulSets
 
@@ -270,12 +270,13 @@ After reverting the template, you must also delete any Pods that StatefulSet had
 already attempted to run with the bad configuration.
 StatefulSet will then begin to recreate the Pods using the reverted template.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
 
-{{% /capture %}}
+
 

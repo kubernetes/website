@@ -1,19 +1,19 @@
 ---
 title: Escalonador do Kubernetes
 date: 2020-04-19
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 No Kubernetes, _escalonamento_ refere-se a garantir que os {{< glossary_tooltip text="Pods" term_id="pod" >}}
 sejam correspondidos aos {{< glossary_tooltip text="Nodes" term_id="node" >}} para que o
 {{< glossary_tooltip text="Kubelet" term_id="kubelet" >}} possa executá-los.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Visão geral do Escalonamento {#escalonamento}
 
@@ -82,12 +82,13 @@ do escalonador:
 
 1. [Perfis de Escalonamento](/docs/reference/scheduling/profiles) permitem configurar Plugins que implementam diferentes estágios de escalonamento, incluindo: `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, e outros. Você também pode configurar o kube-scheduler para executar diferentes perfis.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Leia sobre [ajuste de desempenho do escalonador](/docs/concepts/scheduling/scheduler-perf-tuning/)
 * Leia sobre [restrições de propagação da topologia de pod](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Leia a [documentação de referência](/docs/reference/command-line-tools-reference/kube-scheduler/) para o kube-scheduler
 * Aprenda como [configurar vários escalonadores](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 * Aprenda sobre [políticas de gerenciamento de topologia](/docs/tasks/administer-cluster/topology-manager/)
 * Aprenda sobre [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
-{{% /capture %}}
+

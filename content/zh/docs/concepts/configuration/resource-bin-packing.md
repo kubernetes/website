@@ -4,7 +4,7 @@ reviewers:
 - k82cn
 - ahg-g
 title: 扩展资源的资源箱打包
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -14,12 +14,12 @@ reviewers:
 - k82cn
 - ahg-g
 title: Resource Bin Packing for Extended Resources
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.16" state="alpha" >}}
 
@@ -29,9 +29,9 @@ The kube-scheduler can be configured to enable bin packing of resources along wi
 可以将 kube-scheduler 配置为使用 `RequestedToCapacityRatioResourceAllocation` 优先级函数启用资源箱打包以及扩展资源。
 优先级函数可用于根据自定义需求微调 kube-scheduler 。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
@@ -254,5 +254,5 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 
 ```
 
-{{% /capture %}}
+
 

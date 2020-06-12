@@ -2,18 +2,18 @@
 reviewers:
 - huynguyennovem
 title: Các biến môi trường của Container
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Trang này mô tả các tài nguyên có sẵn cho các Containers trong môi trường Container. 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Môi trường container
 
@@ -52,12 +52,13 @@ FOO_SERVICE_PORT=<port mà service đang chạy>
 Các services có địa chỉ IP và có sẵn cho Container thông qua DNS 
 nếu [DNS addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) được enable. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Tìm hiểu thêm về [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Trải nhiệm thực tế
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

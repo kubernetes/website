@@ -1,18 +1,18 @@
 ---
 title: Namespace(名前空間)
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesは、同一の物理クラスター上で複数の仮想クラスターの動作をサポートします。  
 この仮想クラスターをNamespaceと呼びます。  
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 複数のNamespaceを使う時
 
@@ -97,4 +97,4 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
+

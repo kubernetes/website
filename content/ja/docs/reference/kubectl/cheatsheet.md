@@ -1,20 +1,20 @@
 ---
 title: kubectlチートシート
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [Kubectl概要](/docs/reference/kubectl/overview/)と[JsonPathガイド](/docs/reference/kubectl/jsonpath)も合わせてご覧ください。
 
 このページは`kubectl`コマンドの概要です。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - チートシート
 
@@ -369,9 +369,10 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 `--v=8`       | HTTPリクエストのコンテンツを表示します
 `--v=9`       | HTTPリクエストのコンテンツをtruncationなしで表示します
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * kubectlについてより深く学びたい方は[kubectl概要](/docs/reference/kubectl/overview/)をご覧ください。
 
@@ -381,4 +382,4 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 
 * コミュニティ版[kubectlチートシート](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)もご覧ください。
 
-{{% /capture %}}
+

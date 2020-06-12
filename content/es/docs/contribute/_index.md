@@ -1,12 +1,12 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Contribuir a la documentación de Kubernetes
 linktitle: Contribuir
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes es posible gracias a la participación de la comunidad y la
 documentación es vital para facilitar el acceso al proyecto.
@@ -22,7 +22,7 @@ aprender sobre nosotros, visite la sección [comunidad de Kubernetes](/community
 Para obtener información cómo escribir documentación de Kubernetes,
 consulte la [guía de estilo](/docs/contribute/style/style-guide/).
 
-{{% capture body %}}
+<!-- body -->
 
 ## Tipos de contribuidores
 
@@ -82,4 +82,4 @@ para proporcionar un punto de partida.
   - Proponer mejoras a los tests de la documentación
   - Proponer mejoras al sitio web de Kubernetes y otras herramientas
 
-{{% /capture %}}
+

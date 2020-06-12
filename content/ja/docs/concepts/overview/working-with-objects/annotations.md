@@ -1,14 +1,14 @@
 ---
 title: アノテーション(Annotations)
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 ユーザーは、識別用途でない任意のメタデータをオブジェクトに割り当てるためにアノテーションを使用できます。ツールやライブラリなどのクライアントは、このメタデータを取得できます。  
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## オブジェクトにメタデータを割り当てる
 
 ユーザーは、Kubernetesオブジェクトに対してラベルやアノテーションの両方またはどちらか一方を割り当てることができます。
@@ -59,9 +59,10 @@ _アノテーション_ はキーとバリューのペアです。有効なア�
 
 `kubernetes.io/`と`k8s.io/`プレフィックスは、Kubernetesコアコンポーネントのために予約されています。  
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [ラベルとセレクター](/docs/concepts/overview/working-with-objects/labels/)について学習してください。
-{{% /capture %}}
+
 

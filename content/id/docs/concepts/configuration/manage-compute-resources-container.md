@@ -1,6 +1,6 @@
 ---
 title: Mengatur Sumber Daya Komputasi untuk Container
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: Bin Packing Otomatis
@@ -8,7 +8,7 @@ feature:
     Menaruh kontainer-kontainer secara otomatis berdasarkan kebutuhan sumber daya mereka dan batasan-batasan lainnya, tanpa mengorbankan ketersediaan. Membaurkan beban-beban kerja kritis dan _best-effort_ untuk meningkatkan penggunaan sumber daya dan menghemat lebih banyak sumber daya.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Saat kamu membuat spesifikasi sebuah [Pod](/docs/concepts/workloads/pods/pod/), kamu
 dapat secara opsional menentukan seberapa banyak CPU dan memori (RAM) yang dibutuhkan
@@ -18,9 +18,9 @@ untuk menaruh Pod-Pod. Dan saat limit (batas) sumber daya Container-Container te
 maka kemungkinan rebutan sumber daya pada sebuah Node dapat dihindari.
 Untuk informasi lebih lanjut mengenai perbedaan `request` dan `limit`, lihat [QoS Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Jenis-jenis sumber daya
 
@@ -615,10 +615,11 @@ spec:
 
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Dapatkan pengalaman langsung [menentukan sumber daya memori untuk Container dan Pod](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
@@ -628,4 +629,4 @@ spec:
 
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core)
 
-{{% /capture %}}
+

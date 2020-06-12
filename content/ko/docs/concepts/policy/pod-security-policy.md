@@ -1,20 +1,20 @@
 ---
 title: 파드 시큐리티 폴리시
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드 시큐리티 폴리시란?
 
@@ -371,6 +371,8 @@ podsecuritypolicy "example" deleted
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
+더 많은 예제는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
+
 ## 정책 레퍼런스
 
 ### 특권을 가진
@@ -626,10 +628,13 @@ spec:
 [Sysctl 문서](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy)를 참고하길 바란다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+
+API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
+
+

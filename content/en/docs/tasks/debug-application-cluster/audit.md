@@ -3,11 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
@@ -22,10 +22,10 @@ answer the following questions:
  - from where was it initiated?
  - to where was it going?
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
@@ -245,7 +245,7 @@ Existing static backends that you configure with runtime flags are not affected 
 
 The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
 
-The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
+The `level` field applies the given audit level to all requests. The `stages` field is now a list of allowed stages to record.
 
 #### Contacting the webhook
 
@@ -503,12 +503,13 @@ plugin which supports full-text search and analytics.
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
 
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 
-{{% /capture %}}
+

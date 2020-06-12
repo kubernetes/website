@@ -1,19 +1,19 @@
 ---
 title: Image
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kamu membuat Docker _image_ dan mengunduhnya ke sebuah registri sebelum digunakan di dalam Kubernetes Pod.
 
 Properti `image` dari sebuah Container mendukung sintaksis yang sama seperti perintah `docker`, termasuk registri privat dan _tag_.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Memperbarui Image
 
@@ -367,4 +367,4 @@ dan solusi yang disarankan.
 Jika kamu memiliki akses pada beberapa registri, kamu dapat membuat satu _secret_ untuk setiap registri.
 Kubelet akan melakukan _merge_ `imagePullSecrets` manapun menjadi sebuah virtual `.docker/config.json`.
 
-{{% /capture %}}
+

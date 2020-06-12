@@ -1,6 +1,6 @@
 ---
 title: 扩展 Kubernetes 集群
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -11,12 +11,12 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes is highly configurable and extensible. As a result,
@@ -34,10 +34,10 @@ Kubernetes 是高度可配置和可扩展的。因此，极少需要分发或提
 
 本文档介绍自定义 Kubernetes 集群的选项。本文档的目标读者 {{< glossary_tooltip text="cluster operators" term_id="cluster-operator" >}} 是希望了解如何使 Kubernetes 集群满足其业务环境需求的集群运维人员。Kubernetes 项目的贡献者 {{< glossary_tooltip text="Contributors" term_id="contributor" >}} 或潜在的平台开发人员 {{< glossary_tooltip text="Platform Developers" term_id="platform-developer" >}} 也可以从本文找到有用的信息，如对已存在扩展点和模式的介绍，以及它们的权衡和限制。 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview
@@ -343,10 +343,11 @@ the nodes chosen for a pod.
 
 调度器也支持 [webhook](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)，它允许一个 webhook 后端（调度器扩展程序）为 pod 筛选节点和确定节点的优先级。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
@@ -365,4 +366,4 @@ the nodes chosen for a pod.
 * 了解 [kubectl 插件](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * 了解[操作者模式](/docs/concepts/extend-kubernetes/operator/)
 
-{{% /capture %}}
+

@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
@@ -15,13 +15,13 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath). -->
 也可以看下: [Kubectl 概述](/docs/reference/kubectl/overview/) 和 [JsonPath 指南](/docs/reference/kubectl/jsonpath)。
@@ -29,9 +29,9 @@ card:
 <!-- This page is an overview of the `kubectl` command. -->
 本页面是 `kubectl` 命令的概述。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- # kubectl - Cheat Sheet -->
 ## kubectl - 备忘单
@@ -657,9 +657,10 @@ Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参�
 `--v=8` | 显示 HTTP 请求内容。
 `--v=9` | 显示 HTTP 请求内容而不截断内容。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- * Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
 
@@ -676,4 +677,4 @@ Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参�
 
 * 查看更多社区 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
 
-{{% /capture %}}
+

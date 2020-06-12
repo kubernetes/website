@@ -1,8 +1,0 @@
-{{ partial "templates/block" (dict "page" .page "block" "overview" "purpose" "states, in one or two sentences, the purpose of this document") }}
-
-{{ .ctx.Scratch.Set "blocks" slice }}
-{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "body" "purpose" "supplies the body of the page content.")  }}
-{{ .ctx.Scratch.Add "blocks" (dict "content" .page.Content) }}
-{{ .ctx.Scratch.Add "blocks" (dict "page" .page "block" "whatsnext" "heading" (i18n "whatsnext_heading") "optional" true )  }}
-
-{{ partial "templates/blocks" . }}

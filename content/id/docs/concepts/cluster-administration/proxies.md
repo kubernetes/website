@@ -1,14 +1,14 @@
 ---
 title: Berbagai Proxy di Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini menjelaskan berbagai <i>proxy</i> yang ada di dalam Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Berbagai Jenis <i>Proxy</i>
 
@@ -62,4 +62,4 @@ Untuk <i>proxy-proxy</i> lain di luar ini, admin klaster biasanya akan memastika
 
 <i>Proxy</i> telah menggantikan fungsi <i>redirect</i>. <i>Redirect</i> telah terdeprekasi.
 
-{{% /capture %}}
+

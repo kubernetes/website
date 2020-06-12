@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: 쿠버네티스 문서에 기여하기
 linktitle: 기여
 main_menu: true
@@ -10,7 +10,7 @@ card:
   title: 기여 시작하기
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 웹사이트는 [쿠버네티스 SIG Docs](/docs/contribute/#get-involved-with-sig-docs)에 의해서 관리됩니다.
 
@@ -23,9 +23,9 @@ card:
 
 쿠버네티스 문서는 새롭고 경험이 풍부한 모든 기여자의 개선을 환영합니다!
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 시작하기
 
@@ -75,4 +75,4 @@ SIG Docs는 여러가지 방법으로 의견을 나누고 있습니다.
 - [기여자 치트시트](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)를 읽고 쿠버네티스 기능 개발에 참여합니다.
 - [블로그 게시물 또는 사례 연구](/docs/contribute/new-content/blogs-case-studies/)를 제출합니다.
 
-{{% /capture %}}
+

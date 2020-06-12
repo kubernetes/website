@@ -1,11 +1,11 @@
 ---
 title: 서비스와 애플리케이션 연결하기
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## 컨테이너 연결을 위한 쿠버네티스 모델
 
@@ -15,11 +15,11 @@ weight: 30
 
 컨테이너를 제공하는 여러 개발자 또는 팀에서 포트를 조정하는 것은 규모면에서 매우 어려우며, 사용자가 제어할 수 없는 클러스터 수준의 문제에 노출된다. 쿠버네티스는 파드가 배치된 호스트와는 무관하게 다른 파드와 통신할 수 있다고 가정한다. 쿠버네티스는 모든 파드에게 자체 클러스터-프라이빗 IP 주소를 제공하기 때문에 파드간에 명시적으로 링크를 만들거나 컨테이너 포트를 호스트 포트에 매핑 할 필요가 없다. 이것은 파드 내의 컨테이너는 모두 로컬호스트에서 서로의 포트에 도달할 수 있으며 클러스터의 모든 파드는 NAT 없이 서로를 볼 수 있다는 의미이다. 이 문서의 나머지 부분에서는 이러한 네트워킹 모델에서 신뢰할 수 있는 서비스를 실행하는 방법에 대해 자세히 설명할 것이다.
 
-이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다. 동일한 원칙이 보다 완전한 [Jenkins CI 애플리케이션](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)에서 구현된다.
+이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드를 클러스터에 노출하기
 
@@ -414,12 +414,13 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [서비스를 사용해서 클러스터 내 애플리케이션에 접근하기](/docs/tasks/access-application-cluster/service-access-application-cluster/)를 더 자세히 알아본다.
 * [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
 * [외부 로드 밸런서를 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 더 자세히 알아본다.
 
-{{% /capture %}}
+

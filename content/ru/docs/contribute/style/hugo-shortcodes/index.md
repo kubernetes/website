@@ -2,16 +2,16 @@
 approvers:
 - chenopis
 title: Пользовательские макрокоды Hugo
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 На этой странице объясняются пользовательские макрокоды Hugo, которые можно использовать в Markdown-файлах документации Kubernetes.
 
 Узнать подробнее про макрокоды можно в [документации Hugo](https://gohugo.io/content-management/shortcodes).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Состояние функциональности
 
@@ -235,11 +235,11 @@ println "Это вкладка 2."
 {{< tab name="JSON File" include="podtemplate" />}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Подробнее про [Hugo](https://gohugo.io/).
 * Подробнее про [написание новой темы](/ru/docs/contribute/style/write-new-topic/).
 * Подробнее про [использование шаблонов страниц](/ru/docs/contribute/style/page-templates/).
 * Подробнее про [создание пулреквеста](/ru/docs/contribute/start/#отправка-пулреквеста).
-{{% /capture %}}

@@ -1,16 +1,16 @@
 ---
 title: 設定のベストプラクティス
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このドキュメントでは、ユーザーガイド、入門マニュアル、および例を通して紹介されている設定のベストプラクティスを中心に説明します。
 
 このドキュメントは生ものです。このリストには載っていないが他の人に役立つかもしれない何かについて考えている場合、IssueまたはPRを遠慮なく作成してください。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 一般的な設定のTips
 - 構成を定義する際には、最新の安定したAPIバージョンを指定してください。
 
@@ -98,6 +98,6 @@ weight: 10
 
 - `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
 
-{{% /capture %}}
+
 
 

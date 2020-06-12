@@ -12,6 +12,9 @@ other = "Cleanup"
 [prerequisites_heading]
 other = "Pré-requis"
 
+[subscribe_button]
+other = "Souscrire"
+
 [whatsnext_heading]
 other = "A suivre"
 

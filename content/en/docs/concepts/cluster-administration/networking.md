@@ -2,11 +2,11 @@
 reviewers:
 - thockin
 title: Cluster Networking
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Networking is a central part of Kubernetes, but it can be challenging to
 understand exactly how it is expected to work.  There are 4 distinct networking
 problems to address:
@@ -17,10 +17,10 @@ problems to address:
 3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 Kubernetes is all about sharing machines between applications.  Typically,
 sharing machines requires ensuring that two applications do not try to use the
@@ -312,12 +312,13 @@ Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-pl
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 The early design of the networking model and its rationale, and some future
 plans are described in more detail in the [networking design
 document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md).
 
-{{% /capture %}}
+

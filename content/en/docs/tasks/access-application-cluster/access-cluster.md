@@ -1,17 +1,17 @@
 ---
 title: Accessing Clusters
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This topic discusses multiple ways to interact with clusters.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Accessing for the first time with kubectl
 
@@ -376,4 +376,3 @@ There are several different proxies you may encounter when using Kubernetes:
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
 will typically ensure that the latter types are setup correctly.
 
-{{% /capture %}}

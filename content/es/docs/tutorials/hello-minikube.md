@@ -1,6 +1,6 @@
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Este tutorial muestra como ejecutar una aplicación Node.js Hola Mundo en Kubernetes utilizando 
 [Minikube](/docs/setup/learning-environment/minikube) y Katacoda.
@@ -23,17 +23,19 @@ Katacoda provee un ambiente de Kubernetes desde el navegador.
 También se puede  seguir este tutorial si se ha instalado [Minikube localmente](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Desplegar una aplicación Hola Mundo en Minikube.
 * Ejecutar la aplicación.
 * Ver los logs de la aplicación.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Este tutorial provee una imagen de contenedor construida desde los siguientes archivos:
 
@@ -43,9 +45,9 @@ Este tutorial provee una imagen de contenedor construida desde los siguientes ar
 
 Para más información sobre el comando `docker build`, lea la [documentación de Docker ](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Crear un clúster Minikube
 
@@ -264,12 +266,13 @@ Opcional, eliminar la máquina virtual de Minikube:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Leer más sobre [Deployments](/docs/concepts/workloads/controllers/deployment/).
 * Leer más sobre [Desplegando aplicaciones](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Leer más sobre [Services](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

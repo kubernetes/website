@@ -2,7 +2,7 @@
 reviewers:
 - mikedanese
 title: Secrets
-content_template: templates/concept
+content_type: concept
 feature:
   title: Secret and configuration management
   description: >
@@ -10,16 +10,16 @@ feature:
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes Secrets let you store and manage sensitive information, such
 as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
 is safer and more flexible than putting it verbatim in a
 {{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview of Secrets
 
@@ -29,12 +29,13 @@ Pod specification or in an image. Users can create secrets and the system
 also creates some secrets.
 
 To use a secret, a Pod needs to reference the secret.
-A secret can be used with a Pod in two ways:
+A secret can be used with a Pod in three ways:
 
-- As files in a
+- As [files](#using-secrets-as-files-from-a-pod) in a
 {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
 its containers.
-- By the kubelet when pulling images for the Pod.
+- As [container environment variable](#using-secrets-as-environment-variables).
+- By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 
 ### Built-in Secrets
 
@@ -725,7 +726,7 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-To use this feature, enable the `ImmutableEmphemeralVolumes`
+To use this feature, enable the `ImmutableEphemeralVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
 your Secret or ConfigMap `immutable` field to `true`. For example:
 ```yaml

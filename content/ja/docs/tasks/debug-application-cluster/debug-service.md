@@ -1,18 +1,18 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Serviceのデバッグ
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 新規にKubernetesをインストールした環境でかなり頻繁に発生する問題は、`Service`が適切に機能しないというものです。
 `Deployment`を実行して`Service`を作成したにもかかわらず、アクセスしようとしても応答がありません。
 何が問題になっているのかを理解するのに、このドキュメントがきっと役立つでしょう。
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 規則
 
@@ -588,10 +588,11 @@ DNSは動作していて、`iptables`ルールがインストールされてい�
 [Forum](https://discuss.kubernetes.io)または
 [GitHub](https://github.com/kubernetes/kubernetes)でお問い合わせください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 詳細については、[トラブルシューティングドキュメント](/docs/troubleshooting/)をご覧ください。
 
-{{% /capture %}}
+

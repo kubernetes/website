@@ -2,23 +2,24 @@
 reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: 1.13
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure encryption of secret data at rest.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * etcd v3.0 or later is required
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configuration and determining whether encryption at rest is already enabled
 
@@ -215,4 +216,4 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 to force all secrets to be decrypted.
 
-{{% /capture %}}
+

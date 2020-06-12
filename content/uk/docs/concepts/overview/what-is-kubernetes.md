@@ -1,20 +1,20 @@
 ---
 title: Що таке Kubernetes?
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page is an overview of Kubernetes.
 -->
 Ця сторінка являє собою узагальнений огляд Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 -->
@@ -170,13 +170,14 @@ Kubernetes:
 * Не надає і не запроваджує жодних систем машинної конфігурації, підтримки, управління або самозцілення.
 * На додачу, Kubernetes - не просто система оркестрації. Власне кажучи, вона усуває потребу оркестрації як такої. Технічне визначення оркестрації - це запуск визначених процесів: спочатку A, за ним B, потім C. На противагу, Kubernetes складається з певної множини незалежних, складних процесів контролерів, що безперервно опрацьовують стан у напрямку, що заданий бажаною конфігурацією. Неважливо, як ви дістанетесь з пункту A до пункту C. Централізоване управління також не є вимогою. Все це виливається в систему, яку легко використовувати, яка є потужною, надійною, стійкою та здатною до легкого розширення.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
 -->
 *   Перегляньте [компоненти Kubernetes](/docs/concepts/overview/components/)
 *   Готові [розпочати роботу](/docs/setup/)?
-{{% /capture %}}
+

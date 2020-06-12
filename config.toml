@@ -23,6 +23,14 @@ disableLanguages = ["hi", "no"]
 
 [markup]
  [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
    [markup.goldmark.renderer]
      unsafe = true
   [markup.highlight]
@@ -35,6 +43,10 @@ disableLanguages = ["hi", "no"]
     noClasses = true
     style = "emacs"
     tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
@@ -82,11 +94,10 @@ nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
-# param for displaying an announcement block on every page; see PR #16210
-announcement = false
-# announcement_message is only displayed when announcement = true; update with your specific message
-announcement_message = "The Kubernetes Documentation team would like your feedback!  Please take a <a href='https://www.surveymonkey.com/r/8R237FN' target='_blank'>short survey</a> so we can improve the Kubernetes online documentation."
-
+# param for displaying an announcement block on every page.
+# See /i18n/en.toml for message text and title.
+announcement = true
+announcement_bg = "#000000" #choose a dark color – text is white
 
 [params.pushAssets]
 css = [

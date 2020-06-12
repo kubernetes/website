@@ -1,6 +1,6 @@
 ---
 title: 镜像
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 <!--
@@ -9,12 +9,12 @@ reviewers:
 - erictune
 - thockin
 title: Images
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
@@ -25,10 +25,10 @@ The `image` property of a container supports the same syntax as the `docker` com
 
 容器的 `image` 属性支持与 `docker` 命令相同的语法，包括私有仓库和标签。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Updating Images
@@ -663,7 +663,7 @@ common use cases and suggested solutions.
    - 为每个租户获取仓库凭证，放置在 secret 中，并发布到每个租户的命名空间下。
    - 租户将 secret 增加到每个命名空间下的 imagePullSecrets 中。
 
-{{% /capture %}}
+
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.

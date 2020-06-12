@@ -1,24 +1,25 @@
 ---
 title: コンテナライフサイクルイベントへのハンドラー紐付け
-content_template: templates/task
+content_type: task
 weight: 140
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、コンテナのライフサイクルイベントにハンドラーを紐付けする方法を説明します。KubernetesはpostStartとpreStopイベントをサポートしています。Kubernetesはコンテナの起動直後にpostStartイベントを送信し、コンテナの終了直前にpreStopイベントを送信します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## postStartハンドラーとpreStopハンドラーを定義する
 
@@ -50,11 +51,11 @@ Pod内で実行されているコンテナでシェルを実行します:
 
     Hello from the postStart handler
 
-{{% /capture %}}
 
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 議論
 
@@ -70,10 +71,11 @@ Kubernetesは、Podが *終了* したときにのみpreStopイベントを送�
 この制限は[issue #55087](https://github.com/kubernetes/kubernetes/issues/55807)で追跡されています。
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [コンテナライフサイクルフック](/ja/docs/concepts/containers/container-lifecycle-hooks/)の詳細
 * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)の詳細
@@ -85,6 +87,6 @@ Kubernetesは、Podが *終了* したときにのみpreStopイベントを送�
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)の`terminationGracePeriodSeconds`
 
-{{% /capture %}}
+
 
 

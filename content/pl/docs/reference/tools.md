@@ -1,13 +1,13 @@
 ---
 title: Narzędzia
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes zawiera różne wbudowane narzędzia służące do pracy z systemem:
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/) to narzędzie tekstowe (linii poleceń) do Kubernetes. Służy do zarządzania klastrem Kubernetes.
@@ -45,4 +45,4 @@ Kompose można używać do:
 * Tłumaczenia plików Docker Compose na obiekty Kubernetes
 * Zmiany sposóbu zarządzania twoimi aplikacjami z lokalnego środowiska Docker na system Kubernetes
 * Zamiany plików `yaml` Docker Compose v1 lub v2 oraz [Distributed Application Bundles](https://docs.docker.com/compose/bundles/)
-{{% /capture %}}
+

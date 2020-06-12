@@ -1,19 +1,19 @@
 ---
 reviewers:
 title: VolumeSnapshotClass
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このドキュメントでは、Kubernetesにおける`VolumeSnapshotClass`のコンセプトについて説明します。  
 関連する項目として、[Volumeのスナップショット](/docs/concepts/storage/volume-snapshots/)と[ストレージクラス](/docs/concepts/storage/storage-classes)も参照してください。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## イントロダクション
 
@@ -45,4 +45,4 @@ VolumeSnapshotClassは、VolumeSnapshotをプロビジョンするときに何�
 VolumeSnapshotClassは、そのクラスに属するVolumeSnapshotを指定するパラメータを持っています。
 `snapshotter`に応じて様々なパラメータを使用できます。
 
-{{% /capture %}}
+

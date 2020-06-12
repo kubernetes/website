@@ -1,16 +1,16 @@
 ---
 title: カスタムリソース
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 *カスタムリソース* はKubernetes APIの拡張です。このページでは、いつKubernetesのクラスターにカスタムリソースを追加するべきなのか、そしていつスタンドアローンのサービスを利用するべきなのかを議論します。カスタムリソースを追加する2つの方法と、それらの選択方法について説明します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## カスタムリソース
 
@@ -213,11 +213,12 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 - 自作のRESTクライアント
 - [Kubernetesクライアント生成ツール](https://github.com/kubernetes/code-generator)を使い生成したクライアント(生成は高度な作業ですが、一部のプロジェクトは、CRDまたはAAとともにクライアントを提供する場合があります)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
 * [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
 
-{{% /capture %}}
+
