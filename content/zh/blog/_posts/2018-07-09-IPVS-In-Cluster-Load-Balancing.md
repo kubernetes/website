@@ -387,7 +387,7 @@ Share your Kubernetes story
 
 参与其中
 
-参与 Kubernetes 的最简单方法是加入众多[特别兴趣小组](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIG）中与您的兴趣一致的小组。 你有什么想要向 Kubernetes 社区广播的吗？ 在我们的每周[社区会议](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting)或通过以下渠道分享您的声音。
+参与 Kubernetes 的最简单方法是加入众多[特别兴趣小组](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIG）中与您的兴趣一致的小组。 你有什么想要向 Kubernetes 社区广播的吗？ 在我们的每周[社区会议](https://github.com/kubernetes/community/blob/master/communication/README.md#weekly-meeting)或通过以下渠道分享您的声音。
 
 感谢您的持续反馈和支持。
 在[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)上发布问题（或回答问题）

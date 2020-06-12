@@ -194,7 +194,7 @@ one of the many [Special Interest
 Groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
 (SIGs) that align with your interests. Have something you’d like to broadcast
 to the Kubernetes community? Share your voice at our weekly [community
-meeting](https://github.com/kubernetes/community/blob/master/communication.md#weekly-meeting),
+meeting](https://github.com/kubernetes/community/blob/master/communication/README.md#weekly-meeting),
 and through the channels below.
 
 Thank you for your continued feedback and support.
