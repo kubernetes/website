@@ -1,19 +1,20 @@
 ---
 title: Minikubeのインストール
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、コンピューターの仮想マシン上で単一ノードのKubernetesクラスターを実行します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# minikubeのインストール
+<!-- steps -->
+
+## minikubeのインストール
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -182,13 +183,7 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-
-* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
-
-{{% /capture %}}
 
 ## ローカル状態のクリーンアップ {#cleanup-local-state}
 
@@ -206,3 +201,10 @@ minikubeのローカル状態をクリアする必要があります:
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
+

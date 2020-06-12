@@ -4,19 +4,19 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
 These virtual clusters are called namespaces.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## When to Use Multiple Namespaces
 
@@ -112,11 +112,12 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 
-{{% /capture %}}
+
 

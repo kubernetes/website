@@ -1,14 +1,14 @@
 ---
 reviewers:
 title: ServiceとPodに対するDNS
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 このページではKubernetesによるDNSサポートについて概観します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## イントロダクション
 
@@ -191,13 +191,14 @@ PodのDNS設定と"`None`"というDNSポリシーの利用可能なバージョ
 | 1.10 | β版 (デフォルトで有効)|
 | 1.9 | α版 |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 DNS設定の管理方法に関しては、[DNS Serviceの設定](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 を確認してください。
 
-{{% /capture %}}
+
 
 

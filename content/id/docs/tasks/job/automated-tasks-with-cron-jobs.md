@@ -1,11 +1,11 @@
 ---
 title: Menjalankan Tugas-Tugas Otomatis dengan CronJob
 min-kubernetes-server-version: v1.8
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kamu dapat menggunakan {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} untuk menjalankan {{< glossary_tooltip text="Job" term_id="job" >}} yang dijadwalkan berbasis waktu. Job akan berjalan seperti pekerjaan-pekerjaan [Cron](https://en.wikipedia.org/wiki/Cron) di Linux atau sistem UNIX.
 
@@ -18,15 +18,16 @@ Karena itu, Job haruslah _idempotent._
 
 Untuk informasi lanjut mengenai keterbatasan, lihat [CronJob](/docs/concepts/workloads/controllers/cron-jobs).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Membuat Sebuah CronJob
 
@@ -211,4 +212,4 @@ _Field_ `.spec.successfulJobHistoryLimit` dan `.spec.failedJobHistoryLimit` juga
 _Field_ tersebut menentukan berapa banyak Job yang sudah selesai dan gagal yang harus disimpan.
 Secara bawaan, masing-masing _field_ tersebut disetel 3 dan 1. Mensetel batas ke `0` untuk menjaga tidak ada Job yang sesuai setelah Job tersebut selesai.
 
-{{% /capture %}}
+

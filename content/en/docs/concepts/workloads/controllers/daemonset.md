@@ -6,11 +6,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes are added to the
 cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
@@ -18,18 +18,18 @@ collected.  Deleting a DaemonSet will clean up the Pods it created.
 
 Some typical uses of a DaemonSet are:
 
-- running a cluster storage daemon, such as `glusterd`, `ceph`, on each node.
-- running a logs collection daemon on every node, such as `fluentd` or `filebeat`.
-- running a node monitoring daemon on every node, such as [Prometheus Node Exporter](https://github.com/prometheus/node_exporter), [Flowmill](https://github.com/Flowmill/flowmill-k8s/), [Sysdig Agent](https://docs.sysdig.com), `collectd`, [Dynatrace OneAgent](https://www.dynatrace.com/technologies/kubernetes-monitoring/), [AppDynamics Agent](https://docs.appdynamics.com/display/CLOUD/Container+Visibility+with+Kubernetes), [Datadog agent](https://docs.datadoghq.com/agent/kubernetes/daemonset_setup/), [New Relic agent](https://docs.newrelic.com/docs/integrations/kubernetes-integration/installation/kubernetes-installation-configuration), Ganglia `gmond`, [Instana Agent](https://www.instana.com/supported-integrations/kubernetes-monitoring/) or [Elastic Metricbeat](https://www.elastic.co/guide/en/beats/metricbeat/current/running-on-kubernetes.html).
+- running a cluster storage daemon on every node
+- running a logs collection daemon on every node
+- running a node monitoring daemon on every node
 
 In a simple case, one DaemonSet, covering all nodes, would be used for each type of daemon.
 A more complex setup might use multiple DaemonSets for a single type of daemon, but with
 different flags and/or different memory and cpu requests for different hardware types.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Writing a DaemonSet Spec
 
@@ -95,7 +95,7 @@ another DaemonSet, or via another workload resource such as ReplicaSet.  Otherwi
 Kubernetes will not stop you from doing this. One case where you might want to do this is manually
 create a Pod with a different value on a node for testing.
 
-### Running Pods on Only Some Nodes
+### Running Pods on select Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create Pods on nodes which match that [node
@@ -103,7 +103,7 @@ selector](/docs/concepts/scheduling-eviction/assign-pod-node/). Likewise if you 
 then DaemonSet controller will create Pods on nodes which match that [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
 
-## How Daemon Pods are Scheduled
+## How Daemon Pods are scheduled
 
 ### Scheduled by default scheduler
 
@@ -144,7 +144,6 @@ In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
 automatically to DaemonSet Pods. The default scheduler ignores
 `unschedulable` Nodes when scheduling DaemonSet Pods.
 
-
 ### Taints and Tolerations
 
 Although Daemon Pods respect
@@ -152,17 +151,14 @@ Although Daemon Pods respect
 the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 
-| Toleration Key                           | Effect     | Version | Description                                                  |
-| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+    | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    |                                                              |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    |                                                              |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler.                                                    |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler.                      |
-
-
-
+| Toleration Key                           | Effect     | Version | Description |
+| ---------------------------------------- | ---------- | ------- | ----------- |
+| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
+| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | |
+| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | |
+| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler. |
+| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
 
 ## Communicating with Daemon Pods
 
@@ -195,7 +191,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 
 ## Alternatives to DaemonSet
 
-### Init Scripts
+### Init scripts
 
 It is certainly possible to run daemon processes by directly starting them on a node (e.g. using
 `init`, `upstartd`, or `systemd`).  This is perfectly fine.  However, there are several advantages to
@@ -233,4 +229,4 @@ number of replicas and rolling out updates are more important than controlling e
 the Pod runs on.  Use a DaemonSet when it is important that a copy of a Pod always run on
 all or certain hosts, and when it needs to start before other Pods.
 
-{{% /capture %}}
+

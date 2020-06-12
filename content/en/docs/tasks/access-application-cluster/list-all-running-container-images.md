@@ -1,23 +1,24 @@
 ---
 title: List All Container Images Running in a Cluster
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use kubectl to list all of the Container images
 for Pods running in a cluster.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 In this exercise you will use kubectl to fetch all of the Pods
 running in a cluster, and format the output to pull out the list
@@ -108,19 +109,20 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 
 
 
-{{% /capture %}}
 
-{{% capture discussion %}}
 
-{{% /capture %}}
+<!-- discussion -->
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 ### Reference
 
 * [Jsonpath](/docs/user-guide/jsonpath/) reference guide
 * [Go template](https://golang.org/pkg/text/template/) reference guide
 
-{{% /capture %}}
+
 
 

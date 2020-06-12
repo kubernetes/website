@@ -1,6 +1,6 @@
 ---
 title: Mengkonfigurasi Akses ke Banyak Klaster
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Halaman ini menunjukkan bagaimana mengkonfigurasi akses ke banyak klaster dengan menggunakan
 berkas (_file_) konfigurasi. Setelah semua klaster, pengguna, dan konteks didefinisikan di
@@ -21,15 +21,16 @@ berkas *kubeconfig*. Ini adalah cara umum untuk merujuk ke berkas konfigurasi.
 Itu tidak berarti bahwa selalu ada berkas bernama `kubeconfig`.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mendefinisikan klaster, pengguna, dan konteks
 
@@ -366,13 +367,14 @@ export KUBECONFIG=$KUBECONFIG_SAVED
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Mengatur Akses Cluster Menggunakan Berkas Kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+
 
 

@@ -1,15 +1,15 @@
 ---
 title: 클라이언트 라이브러리
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 다양한 프로그래밍 언어에서 쿠버네티스 API를 사용하기 위한
 클라이언트 라이브러리에 대한 개요를 포함하고 있다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 [쿠버네티스 REST API](/ko/docs/reference/using-api/api-overview/)를 사용해 애플리케이션을 작성하기 위해
 API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 사용하고 있는 프로그래밍 언어를 위한 클라이언트 라이브러리를 사용하면 된다.
@@ -72,6 +72,6 @@ Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
 | Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
-{{% /capture %}}
+
 
 

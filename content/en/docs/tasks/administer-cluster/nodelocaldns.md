@@ -4,21 +4,22 @@ reviewers:
 - zihongz
 - sftim
 title: Using NodeLocal DNSCache in Kubernetes clusters
-content_template: templates/task
+content_type: task
 ---
-
-{{% capture overview %}}
+ 
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
- {{% capture steps %}}
+
+ <!-- steps -->
 
 ## Introduction
 
@@ -88,4 +89,4 @@ This feature can be enabled using the following steps:
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>` . You should also revert any changes you made to the kubelet configuration.
- {{% /capture %}}
+ 

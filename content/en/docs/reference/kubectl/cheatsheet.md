@@ -4,21 +4,21 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
 This page is an overview of the `kubectl` command.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Cheat Sheet
 
@@ -382,9 +382,10 @@ Verbosity | Description
 `--v=8` | Display HTTP request contents.
 `--v=9` | Display HTTP request contents without truncation of contents.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
 
@@ -394,4 +395,4 @@ Verbosity | Description
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

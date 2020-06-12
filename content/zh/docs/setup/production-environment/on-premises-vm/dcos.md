@@ -2,18 +2,18 @@
 reviewers:
 - smugcloud
 title: DC/OS 上的 Kubernetes
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
 reviewers:
 - smugcloud
 title: Kubernetes on DC/OS
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Mesosphere provides an easy option to provision Kubernetes onto [DC/OS](https://mesosphere.com/product/), offering:
@@ -31,9 +31,9 @@ Mesosphere 提供了一个简单的选项来将 Kubernetes 设置到[DC/OS](http
 * 默认情况下高度可用且安全
 * 与快速数据平台 (例如 Akka、Cassandra、Kafka、Spark) 一起运行的 Kubernetes
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Official Mesosphere Guide
@@ -45,4 +45,4 @@ The canonical source of getting started on DC/OS is located in the [quickstart r
 -->
 DC/OS 入门的正式来源位于[quickstart 仓库](https://github.com/mesosphere/dcos-kubernetes-quickstart)中。
 
-{{% /capture %}}
+

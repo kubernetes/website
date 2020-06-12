@@ -1,11 +1,11 @@
 ---
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
 and Pods in a namespace. You specify minimum and maximum CPU values in a
@@ -13,19 +13,20 @@ and Pods in a namespace. You specify minimum and maximum CPU values in a
 object. If a Pod does not meet the constraints imposed by the LimitRange, it cannot be created
 in the namespace.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Your cluster must have at least 1 CPU available for use to run the task examples.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -239,9 +240,10 @@ Delete your namespace:
 kubectl delete namespace constraints-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For cluster administrators
 
@@ -266,7 +268,7 @@ kubectl delete namespace constraints-cpu-example
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 
-{{% /capture %}}
+
 
 
 

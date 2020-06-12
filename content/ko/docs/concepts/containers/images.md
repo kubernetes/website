@@ -1,19 +1,19 @@
 ---
 title: 이미지
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 사용자 Docker 이미지를 생성하고 레지스트리에 푸시(push)하여 쿠버네티스 파드에서 참조되기 이전에 대비한다.
 
 컨테이너의 `image` 속성은 `docker` 커맨드에서 지원하는 문법과 같은 문법을 지원한다. 이는 프라이빗 레지스트리와 태그를 포함한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 이미지 업데이트
 
@@ -148,7 +148,7 @@ kubelet은 ECR 자격 증명을 가져오고 주기적으로 갱신할 것이다
 ### IBM 클라우드 컨테이너 레지스트리 사용
 IBM 클라우드 컨테이너 레지스트리는 멀티-테넌트 프라이빗 이미지 레지스트리를 제공하여 사용자가 이미지를 안전하게 저장하고 공유할 수 있도록 한다. 기본적으로, 프라이빗 레지스트리의 이미지는 통합된 취약점 조언기(Vulnerability Advisor)를 통해 조사되어 보안 이슈와 잠재적 취약성을 검출한다. IBM 클라우드 계정의 모든 사용자가 이미지에 접근할 수 있도록 하거나, IAM 역할과 정책으로 IBM 클라우드 컨테이너 레지스트리 네임스페이스의 접근 권한을 부여해서 사용할 수 있다.
 
-IBM 클라우드 컨테이너 레지스트리 CLI 플러그인을 설치하고 사용자 이미지를 위한 네임스페이스를 생성하기 위해서는, [IBM 클라우드 컨테이너 레지스트리 시작하기](https://cloud.ibm.com/docs/Registry?topic=registry-getting-started)를 참고한다.
+IBM 클라우드 컨테이너 레지스트리 CLI 플러그인을 설치하고 사용자 이미지를 위한 네임스페이스를 생성하기 위해서는, [IBM 클라우드 컨테이너 레지스트리 시작하기](https://cloud.ibm.com/docs/Registry?topic=Registry-getting-started)를 참고한다.
 
 다른 추가적인 구성이 없는 IBM 클라우드 쿠버네티스 서비스 클러스터의 IBM 클라우드 컨테이너 레지스트리 내 기본 네임스페이스에 저장되어 있는 배포된 이미지를 동일 계정과 동일 지역에서 사용하려면 [이미지로부터 컨테이너 빌드하기](https://cloud.ibm.com/docs/containers?topic=containers-images)를 본다. 다른 구성 옵션에 대한 것은 [레지스트리부터 클러스터에 이미지를 가져오도록 권한을 부여하는 방법 이해하기](https://cloud.ibm.com/docs/containers?topic=containers-registry#cluster_registry_auth)를 본다.
 
@@ -367,4 +367,4 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
 Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상`.docker / config.json` 파일로 병합한다.
 
-{{% /capture %}}
+

@@ -3,20 +3,20 @@ reviewers:
 - erictune
 - thockin
 title: Images
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
 
 The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Updating Images
 
@@ -66,6 +66,7 @@ Credentials can be provided in several ways:
   - Using Oracle Cloud Infrastructure Registry (OCIR)
     - use IAM roles and policies to control access to OCIR repositories
   - Using Azure Container Registry (ACR)
+    - use IAM roles and policies to control access to ACR repositories
   - Using IBM Cloud Container Registry
     - use IAM roles and policies to grant access to IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
@@ -130,9 +131,13 @@ Troubleshooting:
   - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Using Azure Container Registry (ACR)
-When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
-you can authenticate using either an admin user or a service principal.
-In either case, authentication is done via standard Docker authentication.  These instructions assume the
+Kubernetes has native support for the [Azure Container
+Registry (ACR)](https://azure.microsoft.com/en-us/services/container-registry/), when running on Azure Kubernetes Service (AKS).
+
+The AKS cluster service principal must have `AcrPull` permission in the ACR instance.  See [Authenticate with Azure Container Registry from Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/cluster-container-registry-integration) for configuration instructions.  Then, simply use the full ACR image name (e.g. `my_registry.azurecr.io/image:tag`).
+
+You may also authenticate using either an ACR admin user or a service principal.
+In this case, authentication is done via standard Docker authentication.  The following instructions assume the
 [azure-cli](https://github.com/azure/azure-cli) command line tool.
 
 You first need to create a registry and generate credentials, complete documentation for this can be found in
@@ -370,4 +375,4 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 
-{{% /capture %}}
+

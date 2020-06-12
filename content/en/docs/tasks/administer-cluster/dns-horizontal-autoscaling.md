@@ -1,14 +1,15 @@
 ---
 title: Autoscale the DNS Service in a Cluster
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure autoscaling of the DNS service in
 your Kubernetes cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -16,9 +17,9 @@ your Kubernetes cluster.
 
 * Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Determine whether DNS horizontal autoscaling is already enabled {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
@@ -201,9 +202,9 @@ The common path for this dns-autoscaler is:
 After the manifest file is deleted, the Addon Manager will delete the
 dns-autoscaler Deployment.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding how DNS horizontal autoscaling works
 
@@ -226,10 +227,11 @@ the autoscaler Pod.
 * The autoscaler provides a controller interface to support two control
 patterns: *linear* and *ladder*.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about [Guaranteed Scheduling For Critical Add-On Pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 * Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
-{{% /capture %}}
+

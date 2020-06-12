@@ -1,11 +1,11 @@
 ---
 title: Parallel Processing using Expansions
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.8
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This task demonstrates running multiple {{< glossary_tooltip text="Jobs" term_id="job" >}}
 based on a common template. You can use this approach to process batches of work in
@@ -16,9 +16,10 @@ The sample Jobs process each item simply by printing a string then pausing.
 
 See [using Jobs in real workloads](#using-jobs-in-real-workloads) to learn about how
 this pattern fits more realistic use cases.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 You should be familiar with the basic,
 non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
@@ -35,10 +36,10 @@ Once you have Python set up, you can install Jinja2 by running:
 ```shell
 pip install --user jinja2
 ```
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create Jobs based on a template
 
@@ -252,8 +253,8 @@ Kubernetes accepts and runs the Jobs you created.
 kubectl delete job -l jobgroup=jobexample
 ```
 
-{{% /capture %}}
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Using Jobs in real workloads
 
@@ -310,4 +311,4 @@ objects.
 
 You could also consider writing your own [controller](/docs/concepts/architecture/controller/)
 to manage Job objects automatically.
-{{% /capture %}}
+

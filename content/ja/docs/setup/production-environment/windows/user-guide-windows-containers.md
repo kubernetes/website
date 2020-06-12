@@ -1,16 +1,16 @@
 ---
 title: Guide for scheduling Windows containers in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Windows applications constitute a large portion of the services and applications that run in many organizations. This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Objectives
 
@@ -134,4 +134,4 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-{{% /capture %}}
+

@@ -2,7 +2,7 @@
 title: v1.18 Release Notes
 weight: 10
 card:
-  name: download
+  name: release-notes
   weight: 20
   anchors:
   - anchor: "#"

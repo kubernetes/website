@@ -1,10 +1,10 @@
 ---
 title: Nomes
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cada objeto em um cluster possui um Nome que é único para aquele tipo de recurso.
 Todo objeto do Kubernetes também possui um UID que é único para todo o cluster.
@@ -14,10 +14,10 @@ e um Deployment ambos com o nome "myapp-1234".
 
 Para atributos não únicos providenciados por usuário, Kubernetes providencia [labels](/docs/concepts/overview/working-with-objects/labels/) e [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Nomes
 
@@ -49,8 +49,9 @@ Alguns tipos de recursos possuem restrições adicionais em seus nomes.
 Kubernetes UIDs são identificadores únicos universais (também chamados de UUIDs).
 UUIDs utilizam padrões ISO/IEC 9834-8 e ITU-T X.667.
 
-{{% /capture %}}
-{{% capture Qual é o próximo %}}
+
+## {{% heading "whatsnext" %}}
+
 * Leia sobre [labels](/docs/concepts/overview/working-with-objects/labels/) em Kubernetes.
 * Consulte o documento de design [Identificadores e Nomes em Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md).
-{{% /capture %}}
+

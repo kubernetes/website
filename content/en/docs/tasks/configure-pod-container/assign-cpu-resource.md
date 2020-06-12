@@ -1,20 +1,21 @@
 ---
 title: Assign CPU Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to assign a CPU *request* and a CPU *limit* to
 a container. Containers cannot use more CPU than the configured limit.
 Provided the system has CPU time free, a container is guaranteed to be
 allocated as much CPU as it requests.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -48,10 +49,10 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -239,9 +240,10 @@ Delete your namespace:
 kubectl delete namespace cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 ### For app developers
@@ -266,4 +268,4 @@ kubectl delete namespace cpu-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+

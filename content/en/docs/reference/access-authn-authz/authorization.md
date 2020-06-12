@@ -5,16 +5,16 @@ reviewers:
 - deads2k
 - liggitt
 title: Authorization Overview
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Learn more about Kubernetes authorization, including details about creating
 policies using the supported authorization modules.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
 see [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
@@ -197,9 +197,10 @@ namespace can: read all secrets in the namespace; read all config maps in the
 namespace; and impersonate any service account in the namespace and take any
 action the account could take. This applies regardless of authorization mode.
 {{< /caution >}}
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
-{{% /capture %}}
+

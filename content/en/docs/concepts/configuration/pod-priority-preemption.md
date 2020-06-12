@@ -3,11 +3,11 @@ reviewers:
 - davidopp
 - wojtek-t
 title: Pod Priority and Preemption
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
@@ -16,9 +16,9 @@ importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< warning >}}
@@ -407,7 +407,8 @@ usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-{{% /capture %}}
+

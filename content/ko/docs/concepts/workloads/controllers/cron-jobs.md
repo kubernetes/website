@@ -1,10 +1,10 @@
 ---
 title: 크론잡
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
@@ -28,8 +28,8 @@ kube-controller-manager 컨테이너에 설정된 시간대는 크론잡 컨트�
 63자라는 제약 조건이 있기 때문이다.
 
 
-{{% /capture %}}
-{{% capture body %}}
+
+<!-- body -->
 
 ## 크론잡
 
@@ -77,12 +77,13 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 크론 잡은 오직 그 일정에 맞는 잡 생성에 책임이 있고,
 잡은 그 잡이 대표하는 파드 관리에 책임이 있다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [크론 표현 포맷](https://pkg.go.dev/github.com/robfig/cron?tab=doc#hdr-CRON_Expression_Format)은
 크론잡 `schedule` 필드의 포맷을 문서화 한다.
 
 크론 잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
 예는 [크론 잡으로 자동화된 작업 실행하기](/docs/tasks/job/automated-tasks-with-cron-jobs/)를 참조한다.
 
-{{% /capture %}}
+

@@ -1,11 +1,11 @@
 ---
 title: 应用连接到 Service
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 ## The Kubernetes model for connecting containers
@@ -38,9 +38,9 @@ Kubernetes 假设 Pod 可与其它 Pod 通信，不管它们在哪个主机上�
 该指南使用一个简单的 Nginx server 来演示并证明谈到的概念。同样的原则也体现在一个更加完整的 [Jenkins CI 应用](http://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes.html) 中。
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Exposing pods to the cluster
@@ -598,9 +598,10 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Kubernetes also supports Federated Services, which can span multiple
@@ -613,4 +614,3 @@ for further information.
 Kubernetes 也支持联合 Service，能够跨多个集群和云提供商，为 Service 提供逐步增强的可用性、更优的容错、更好的可伸缩性。
 查看 [联合 Service 用户指南](/docs/concepts/cluster-administration/federation-service-discovery/) 获取更进一步信息。
 
-{{% /capture %}}

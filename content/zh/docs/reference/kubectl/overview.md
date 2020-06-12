@@ -2,7 +2,7 @@
 reviewers:
 - hw-qiaolei
 title: kubectl 概述
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
@@ -14,7 +14,7 @@ reviewers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
@@ -22,7 +22,7 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
@@ -34,9 +34,9 @@ This overview covers `kubectl` syntax, describes the command operations, and pro
 -->
 本文概述了 `kubectl` 语法和命令操作描述，并提供了常见的示例。有关每个命令的详细信息，包括所有受支持的参数和子命令，请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。有关安装说明，请参见 [安装 kubectl](/docs/tasks/kubectl/install/) 。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Syntax
@@ -909,13 +909,14 @@ To find out more about plugins, take a look at the [example cli plugin](https://
 -->
 要了解关于插件的更多信息，请查看[示例 cli 插件](https://github.com/kubernetes/sample-cli-plugin)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 -->
 开始使用 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 命令。
 
-{{% /capture %}}
+

@@ -1,9 +1,9 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: 엘라스틱서치(Elasticsearch) 및 키바나(Kibana)를 사용한 로깅
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Google 컴퓨트 엔진(Compute Engine, GCE) 플랫폼에서, 기본 로깅 지원은
 [스택드라이버(Stackdriver) 로깅](https://cloud.google.com/logging/)을 대상으로 한다. 이는
@@ -18,9 +18,9 @@ Google 컴퓨트 엔진(Compute Engine, GCE) 플랫폼에서, 기본 로깅 지�
 Google 쿠버네티스 엔진(Kubernetes Engine)에서 호스팅되는 쿠버네티스 클러스터에는 엘라스틱서치 및 키바나를 자동으로 배포할 수 없다. 수동으로 배포해야 한다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 클러스터 로깅에 엘라스틱서치, 키바나를 사용하려면 kube-up.sh를 사용하여
 클러스터를 생성할 때 아래와 같이 다음의 환경 변수를
@@ -111,11 +111,12 @@ monitoring-influx-grafana-v1-o79xf             2/2       Running   0          2h
 
 ![키바나 로그](/images/docs/kibana-logs.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 키바나는 로그를 탐색하기 위한 모든 종류의 강력한 옵션을 제공한다! 이를 파헤치는 방법에 대한
 아이디어는 [키바나의 문서](https://www.elastic.co/guide/en/kibana/current/discover.html)를 확인한다.
 
-{{% /capture %}}
+

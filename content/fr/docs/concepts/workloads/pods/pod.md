@@ -1,19 +1,19 @@
 ---
 reviewers:
 title: Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Les _Pods_ sont les plus petites unités informatiques déployables
 qui peuvent être créées et gérées dans Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Qu'est-ce qu'un pod ?
 
@@ -196,4 +196,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 Le Pod est une ressource au plus haut niveau dans l'API REST Kubernetes. Plus de détails sur l'objet de l'API peuvent être trouvés à :
 [Objet de l'API Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 
-{{% /capture %}}
+

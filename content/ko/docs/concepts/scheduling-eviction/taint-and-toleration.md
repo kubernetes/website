@@ -1,11 +1,11 @@
 ---
 title: 테인트(Taints)와 톨러레이션(Tolerations)
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 [여기](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)에 설명된 노드 어피니티는
 노드 셋을 *끌어들이는* (기본 설정 또는 어려운 요구 사항)
 *파드* 속성이다. 테인트는 그 반대로, *노드* 가 파드 셋을
@@ -17,9 +17,9 @@ weight: 40
 톨러레이션은 파드에 적용되며, 파드를 일치하는 테인트가 있는 노드에 스케줄되게
 하지만 필수는 아니다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -72,21 +72,10 @@ tolerations:
 
 두 가지 특별한 경우가 있다.
 
-* operator `Exists` 가 있는 비어있는 `key` 는 모든 키, 값 및 이펙트와 일치하므로
+operator `Exists` 가 있는 비어있는 `key` 는 모든 키, 값 및 이펙트와 일치하므로
 모든 것이 톨러레이션 된다.
 
-```yaml
-tolerations:
-- operator: "Exists"
-```
-
-* 비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
-
-```yaml
-tolerations:
-- key: "key"
-      operator: "Exists"
-```
+비어있는 `effect` 는 모든 이펙트를 키 `key` 와 일치시킨다.
 
 {{< /note >}}
 

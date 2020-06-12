@@ -9,11 +9,11 @@ feature:
     <!-- Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions. -->
     Kubernetes 会逐步推出针对应用或其配置的更改，确保在监视应用程序运行状况的同时，不会终止所有实例。如果出现问题，Kubernetes 会为您回滚更改。充分利用不断成长的部署解决方案生态系统。
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 
@@ -40,9 +40,9 @@ Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in th
 
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
 
@@ -2197,4 +2197,4 @@ additional features, such as rolling back to any previous revision even after th
 -->
 [`kubectl rolling update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)更新 Pods 和副本控制器的方式类似。但是，建议采取 Deployments 的方式来更新，因为它们是声明性的，在服务器端，并且具有其他功能，例如，即使在滚动更新完成后，也会回滚到以前的任何修改版本。
 
-{{% /capture %}}
+

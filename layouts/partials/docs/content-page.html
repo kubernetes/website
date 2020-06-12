@@ -8,11 +8,7 @@
 {{ if not .page.Params.notitle }}
 <h1>{{ .page.Title }}</h1>
 {{ end }}
-{{ with .page.Params.content_template }}
-{{ partial . $ }}
-{{ else }}
 {{ if and (not .page.Params.toc_hide) (not (.page.HasShortcode "toc")) }}
 {{ .page.TableOfContents }}
 {{ end }}
 {{ .page.Content }}
-{{ end }}

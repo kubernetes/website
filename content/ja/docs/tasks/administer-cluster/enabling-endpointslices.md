@@ -1,18 +1,19 @@
 ---
 title: EndpointSliceの有効化
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページはKubernetesのEndpointSliceの有効化の概要を説明します。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
   {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 概要
 
@@ -36,9 +37,10 @@ EndpointSliceコントローラーはクラスター内にEndpointSliceを作成
 
 クラスター内でEndpointSliceを完全に有効にすると、各Endpointsリソースに対応するEndpointSliceリソースが表示されます。既存のEndpointsの機能をサポートすることに加えて、EndpointSliceはトポロジーなどの新しい情報を含める必要があります。これらにより、クラスター内のネットワークエンドポイントのスケーラビリティと拡張性が大きく向上します。
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [EndpointSlice](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 
-{{% /capture %}}
+

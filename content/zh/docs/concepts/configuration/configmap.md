@@ -1,10 +1,10 @@
 ---
 title: ConfigMap
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="ConfigMap 是" length="all" >}}
 
@@ -18,9 +18,9 @@ or use additional (third party) tools to keep your data private.
 ConfigMap 并不提供保密或者加密功能。如果你想存储的数据是机密的，请使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} ，或者使用其他第三方工具来保证你的数据的私密性，而不是用 ConfigMap。
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Motivation
 
@@ -213,8 +213,9 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 {{< /note >}}
 
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read about [Secrets](/docs/concepts/configuration/secret/).
@@ -226,4 +227,4 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 * 阅读 [配置 Pod 来使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 * 阅读 [Twelve-Factor 应用](https://12factor.net/) 来了解将代码和配置分开的动机。
 
-{{% /capture %}}
+

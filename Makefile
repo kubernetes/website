@@ -1,4 +1,4 @@
-DOCKER       = docker
+DOCKER      ?= docker
 HUGO_VERSION = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
