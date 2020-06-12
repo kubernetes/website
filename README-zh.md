@@ -43,7 +43,7 @@ For more information about contributing to the Kubernetes documentation, see:
 
 * [Start contributing](https://kubernetes.io/docs/contribute/start/)
 * [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Using Page Templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
  -->
@@ -51,7 +51,7 @@ For more information about contributing to the Kubernetes documentation, see:
 
 * [开始贡献](https://kubernetes.io/docs/contribute/start/)
 * [缓存您的文档变更](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [使用页面模版](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [使用页面模版](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [文档风格指南](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
 
