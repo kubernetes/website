@@ -1,4 +1,5 @@
 [build]
+# new laptop who dis?
 # This default build command adds the robots noindex directive to the site headers.
 # It is turned off for only for the production site by using [context.master] below
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
