@@ -9,7 +9,7 @@ weight: 20
 {{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
 
 {{< caution >}}
-ConfigMap does not provide secrecy or encryption.  
+ConfigMap does not provide secrecy or encryption.
 If the data you want to store are confidential, use a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
 or use additional (third party) tools to keep your data private.
@@ -85,9 +85,9 @@ These different methods lend themselves to different ways of modeling
 the data being consumed.
 For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the Secret when it launches container(s) for a Pod.
+the ConfigMap when it launches container(s) for a Pod.
 
-The fourth method means you have to write code to read the Secret and its data.
+The fourth method means you have to write code to read the ConfigMap and its data.
 However, because you're using the Kubernetes API directly, your application can
 subscribe to get updates whenever the ConfigMap changes, and react
 when that happens. By accessing the Kubernetes API directly, this
