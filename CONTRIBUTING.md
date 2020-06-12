@@ -18,7 +18,7 @@ The [Kubernetes SIG Docs Discussion Group](https://groups.google.com/forum/#!for
 
 ### Style Guides and Templates
 
-Before submitting a pull request to create new content, please review the [Kubernetes.io style guide](http://kubernetes.io/docs/home/contribute/style-guide/) and follow the [instructions for using page templates](http://kubernetes.io/docs/home/contribute/page-templates/).
+Before submitting a pull request to create new content, please review the [Kubernetes.io style guide](http://kubernetes.io/docs/home/contribute/style-guide/) and follow the [instructions for using page templates](https://kubernetes.io/docs/contribute/style/page-content-types/).
 
 
 ## Contributing to Documentation
