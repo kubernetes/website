@@ -53,7 +53,7 @@ Configurations with a single API server will experience unavailability while the
    ```shell
    base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
 
-   for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
+   for namespace in $(kubectl get namespace --no-headers -o name | cut -d / -f 2 ); do
        for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
            kubectl get $token --namespace "$namespace" -o yaml | \
              /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
