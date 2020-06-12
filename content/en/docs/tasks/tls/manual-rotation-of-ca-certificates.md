@@ -83,6 +83,12 @@ Configurations with a single API server will experience unavailability while the
    Additionally, update the `certificate-authority-data` section in the kubeconfig files,
    respectively with Base64-encoded old and new certificate authority data
 
+1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="cloud-controller-manager" >}} to include both old and new CA, then restart the cloud-controller-manager.
+
+   {{< note >}}
+   If your cluster does not have a cloud-controller-manager, you can skip this step.
+   {{< /note >}}
+
 1. Follow the steps below in a rolling fashion.
 
    1. Restart any other
