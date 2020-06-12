@@ -186,7 +186,7 @@ There are some implicit conventions worth noting here:
 
 ### Cluster-level default constraints
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 It is possible to set default topology spread constraints for a cluster. Default
 topology spread constraints are applied to a Pod if, and only if:
@@ -203,7 +203,7 @@ replication controllers, replica sets or stateful sets that the Pod belongs to.
 An example configuration might look like follows:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha2
+apiVersion: kubescheduler.config.k8s.io/v1beta1
 kind: KubeSchedulerConfiguration
 
 profiles:
@@ -212,16 +212,46 @@ profiles:
       args:
         defaultConstraints:
           - maxSkew: 1
-            topologyKey: failure-domain.beta.kubernetes.io/zone
+            topologyKey: topology.kubernetes.io/zone
             whenUnsatisfiable: ScheduleAnyway
 ```
 
 {{< note >}}
 The score produced by default scheduling constraints might conflict with the
 score produced by the
-[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
+[`SelectorSpread` plugin](/docs/reference/scheduling/config/#scheduling-plugins).
 It is recommended that you disable this plugin in the scheduling profile when
 using default constraints for `PodTopologySpread`.
+{{< /note >}}
+
+#### Internal default constraints
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+When the feature gate `DefaultPodTopologySpread` is enabled,
+kube-scheduler uses the following default topology constraints for the
+`PodTopologySpread` plugin configuration:
+
+```yaml
+defaultConstraints:
+  - maxSkew: 3
+    topologyKey: "kubernetes.io/hostname"
+    whenUnsatisfiable: ScheduleAnyway
+  - maxSkew: 5
+    topologyKey: "topology.kubernetes.io/zone"
+    whenUnsatisfiable: ScheduleAnyway
+```
+
+Also, the legacy `SelectorSpread` plugin, which provides an equivalent behavior,
+is disabled.
+
+{{< note >}}
+If your nodes are not expected to have **both** `kubernetes.io/hostname` and
+`topology.kubernetes.io/zone` labels set, you should define your own constraints
+instead of using the Kubernetes default.
+
+The `PodTopologySpread` plugin ignores from scoring the nodes that don't have
+both topologies.
 {{< /note >}}
 
 ## Comparison with PodAffinity/PodAntiAffinity
@@ -239,8 +269,6 @@ topology domains - to achieve high availability or cost-saving. This can also he
 workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
 
 ## Known Limitations
-
-As of 1.18, at which this feature is Beta, there are some known limitations:
 
 - Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
