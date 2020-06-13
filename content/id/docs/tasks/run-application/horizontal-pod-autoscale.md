@@ -164,16 +164,16 @@ perubahan nilai metrik yang cepat.
 
 ## Objek API
 
-HorizontalPodAutoscaler adalah sebuah API dalam `autoscaling` group API Kubernetes.
-Versi stabil, dimana hanya mendukung untuk *auto scale* CPU, dapat ditemukan di API versi
-`autoscaling/v1`.
+HorizontalPodAutoscaler adalah sebuah API dalam grup `autoscaling` pada Kubernetes.
+Versi stabil, yang hanya mendukung untuk *autoscale* CPU, dapat ditemukan pada versi
+API `autoscaling/v1`.
 
-Versi *beta*, dimana mendukung untuk *scaling* merdasarkan memori dan metrik khusus,
+Versi *beta*, yang mendukung untuk *scaling* berdasarkan memori dan metrik khusus,
 dapat ditemukan pada `autoscaling/v2beta2`. *Field* yang baru diperkenalkan pada
 `autoscaling/v2beta2` adalah *preserved* sebagai anotasi ketika menggunakan `autoscaling/v1`. 
 
 Ketika kamu membuat sebuah HorizontalPodAutoscaler, pastikan nama yang ditentukan adalah valid
-[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#nama).
 Untuk lebih detail tentang objek API ini dapat ditemukan di
 [Objek HorizontalPodAutoscaler](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
