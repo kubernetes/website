@@ -76,18 +76,18 @@ Use the following commands to install Docker on your system:
 # (Install Docker CE)
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
 ```
 
 ```shell
 # Add Docker’s official GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 # Add the Docker apt repository:
-add-apt-repository \
+sudo add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
@@ -95,7 +95,7 @@ add-apt-repository \
 
 ```shell
 # Install Docker CE
-apt-get update && apt-get install -y \
+sudo apt-get update && sudo apt-get install -y \
   containerd.io=1.2.13-1 \
   docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
   docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
@@ -103,7 +103,7 @@ apt-get update && apt-get install -y \
 
 ```shell
 # Set up the Docker daemon
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json 
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -116,13 +116,13 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # Restart Docker
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" >}}
@@ -131,18 +131,18 @@ systemctl restart docker
 # (Install Docker CE)
 ## Set up the repository
 ### Install required packages
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 ```
 
 ```shell
 ## Add the Docker repository
-yum-config-manager --add-repo \
+sudo yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
 ```shell
 # Install Docker CE
-yum update -y && yum install -y \
+sudo yum update -y && sudo yum install -y \
   containerd.io-1.2.13 \
   docker-ce-19.03.8 \
   docker-ce-cli-19.03.8
@@ -150,12 +150,12 @@ yum update -y && yum install -y \
 
 ```shell
 ## Create /etc/docker
-mkdir /etc/docker
+sudo mkdir /etc/docker
 ```
 
 ```shell
 # Set up the Docker daemon
-cat > /etc/docker/daemon.json <<EOF
+cat <<EOF | sudo tee /etc/docker/daemon.json 
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
@@ -171,13 +171,13 @@ EOF
 ```
 
 ```shell
-mkdir -p /etc/systemd/system/docker.service.d
+sudo mkdir -p /etc/systemd/system/docker.service.d
 ```
 
 ```shell
 # Restart Docker
-systemctl daemon-reload
-systemctl restart docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 {{< /tab >}}
 {{< /tabs >}}
@@ -199,17 +199,17 @@ For more information, see the [CRI-O compatiblity matrix](https://github.com/cri
 ### Prerequisites
 
 ```shell
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # Set up required sysctl params, these persist across reboots.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf 
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
@@ -271,7 +271,7 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew late
 
 ```shell
 # Install CRI-O
-yum install -y cri-o
+sudo yum install -y cri-o
 ```
 {{< /tab >}}
 
@@ -286,8 +286,8 @@ sudo zypper install cri-o
 ### Start CRI-O
 
 ```shell
-systemctl daemon-reload
-systemctl start crio
+sudo systemctl daemon-reload
+sudo systemctl start crio
 ```
 
 Refer to the [CRI-O installation guide](https://github.com/kubernetes-sigs/cri-o#getting-started)
@@ -302,22 +302,22 @@ Use the following commands to install Containerd on your system:
 ### Prerequisites
 
 ```shell
-cat > /etc/modules-load.d/containerd.conf <<EOF
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
 EOF
 
-modprobe overlay
-modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # Setup required sysctl params, these persist across reboots.
-cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-sysctl --system
+sudo sysctl --system
 ```
 
 ### Install containerd
@@ -329,17 +329,17 @@ sysctl --system
 # (Install containerd)
 ## Set up the repository
 ### Install packages to allow apt to use a repository over HTTPS
-apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 ```
 
 ```shell
 ## Add Docker’s official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 ```shell
 ## Add Docker apt repository.
-add-apt-repository \
+sudo add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
@@ -347,18 +347,18 @@ add-apt-repository \
 
 ```shell
 ## Install containerd
-apt-get update && apt-get install -y containerd.io
+sudo apt-get update && sudo apt-get install -y containerd.io
 ```
 
 ```shell
 # Configure containerd
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
 # Restart containerd
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
 {{< /tab >}}
 {{< tab name="CentOS/RHEL 7.4+" >}}
@@ -367,27 +367,27 @@ systemctl restart containerd
 # (Install containerd)
 ## Set up the repository
 ### Install required packages
-yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ```shell
 ## Add docker repository
-yum-config-manager \
+sudo yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
 ```shell
 ## Install containerd
-yum update -y && yum install -y containerd.io
+sudo yum update -y && sudo yum install -y containerd.io
 
 ```shell
 ## Configure containerd
-mkdir -p /etc/containerd
-containerd config default > /etc/containerd/config.toml
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 ```shell
 # Restart containerd
-systemctl restart containerd
+sudo systemctl restart containerd
 ```
 {{< /tab >}}
 {{< /tabs >}}
