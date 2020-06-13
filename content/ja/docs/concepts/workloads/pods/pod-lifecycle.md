@@ -52,7 +52,7 @@ PodCondition配列の各要素には、次の6つのフィールドがありま�
 
   * `PodScheduled`: PodがNodeにスケジュールされました。
   * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
-  * `Initialized`: すべての[initコンテナ](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
+  * `Initialized`: すべての[Initコンテナ](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
   * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 
 
