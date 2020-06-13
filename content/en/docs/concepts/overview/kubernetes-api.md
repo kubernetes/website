@@ -136,7 +136,7 @@ There are several API groups in a cluster:
 
 There are two paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
 
-1. [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resource-definitions/)
+1. [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    lets you declaratively define how the API server should provide your chosen resource API.
 1. You can also [implement your own extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/)
    and use the [aggregator](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)
