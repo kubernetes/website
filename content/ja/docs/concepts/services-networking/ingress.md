@@ -281,7 +281,7 @@ spec:
 ```
 
 {{< note >}}
-IngressコントローラーによってサポートされるTLSの機能に違いがあります。利用する環境でTLSがどのように動作するかを理解するためには、[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)や、[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)、他のプラットフォーム固有のIngressコントローラーのドキュメントを確認してください。
+サポートされるTLSの機能はIngressコントローラーによって違いがあります。利用する環境でTLSがどのように動作するかを理解するためには、[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)や、[GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https)、他のプラットフォーム固有のIngressコントローラーのドキュメントを確認してください。
 {{< /note >}}
 
 ### 負荷分散
