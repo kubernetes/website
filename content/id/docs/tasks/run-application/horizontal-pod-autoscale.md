@@ -16,8 +16,8 @@ ReplicaSet ataupun StatefulSet berdasarkan hasil observasi penggunaan CPU(atau, 
 [metrik khusus](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), pada beberapa aplikasi yang menyediakan metrik). 
 Perlu dicatat bahwa HorizontalPodAutoscale tidak dapat diterapkan pada objek yang tidak dapat diperbanyak, seperti DeamonSets. 
 
-HorizontalPodAutoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah kontroller.
-*Resource* tersebut akan menentukan perilaku dari kontrolernya.
+HorizontalPodAutoscaler diimplementasikan sebagai Kubernetes API *resource* dan sebuah _controller_.
+*Resource* tersebut akan menentukan perilaku dari _controller_-nya.
 Kontroler akan mengubah jumlah replika pada ReplicationController atau pada Deployment untuk menyesuaikan dengan hasil observasi rata-rata
 penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
 
