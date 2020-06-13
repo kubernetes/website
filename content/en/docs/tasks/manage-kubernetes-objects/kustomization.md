@@ -328,7 +328,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: my-nginx
+    app: my-nginx
 EOF
 
 # Create a kustomization.yaml composing them
@@ -606,7 +606,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: my-nginx
+    app: my-nginx
 EOF
 
 cat <<EOF >./kustomization.yaml
