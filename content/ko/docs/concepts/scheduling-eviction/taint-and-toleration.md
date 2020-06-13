@@ -6,16 +6,17 @@ weight: 40
 
 
 <!-- overview -->
-[여기](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)에 설명된 노드 어피니티는
-노드 셋을 *끌어들이는* (기본 설정 또는 어려운 요구 사항)
-*파드* 속성이다. 테인트는 그 반대로, *노드* 가 파드 셋을
-*제외* 할 수 있다.
+[_노드 어피니티_](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)는
+{{< glossary_tooltip text="노드" term_id="node" >}} 셋을
+(기본 설정 또는 어려운 요구 사항으로) *끌어들이는* {{< glossary_tooltip text="파드" term_id="pod" >}}의 속성이다.
+_테인트_ 는 그 반대로, 노드가 파드 셋을 제외할 수 있다.
+
+_톨러레이션_ 은 파드에 적용되며, 파드를 일치하는 테인트가 있는 노드에
+스케줄되게 하지만 필수는 아니다.
 
 테인트와 톨러레이션은 함께 작동하여 파드가 부적절한 노드에 스케줄되지
 않게 한다. 하나 이상의 테인트가 노드에 적용된다. 이것은
 노드가 테인트를 용인하지 않는 파드를 수용해서는 안 되는 것을 나타낸다.
-톨러레이션은 파드에 적용되며, 파드를 일치하는 테인트가 있는 노드에 스케줄되게
-하지만 필수는 아니다.
 
 
 
@@ -61,12 +62,12 @@ tolerations:
 
 {{< codenew file="pods/pod-with-toleration.yaml" >}}
 
+지정하지 않으면 `operator` 의 기본값은 `Equal` 이다.
+
 톨러레이션은 키가 동일하고 이펙트가 동일한 경우, 테인트와 "일치"한다. 그리고 다음의 경우에도 마찬가지다.
 
 * `operator` 가 `Exists` 인 경우(이 경우 `value` 를 지정하지 않아야 함), 또는
 * `operator` 는 `Equal` 이고 `value` 는 `value` 로 같다.
-
-지정하지 않으면 `operator` 의 기본값은 `Equal` 이다.
 
 {{< note >}}
 
@@ -198,8 +199,7 @@ tolerations:
  * `tolerationSeconds` 가 지정된 테인트를 용인하는 파드는 지정된
   시간 동안 바인딩된 상태로 유지된다.
 
-덧붙여, 쿠버네티스 1.6 버전에서는 노드 문제를 나타내는 알파 지원이
-도입되었다. 다시 말해, 특정 조건이 참일 때 노드 컨트롤러는 자동으로
+노드 컨트롤러는 특정 조건이 참일 때 자동으로
 노드를 테인트시킨다. 다음은 빌트인 테인트이다.
 
  * `node.kubernetes.io/not-ready`: 노드가 준비되지 않았다. 이는 NodeCondition
@@ -221,10 +221,9 @@ tolerations:
 관련 테인트를 제거할 수 있다.
 
 {{< note >}}
-노드 문제로 인해 파드 축출의 기존 [비율 제한](/ko/docs/concepts/architecture/nodes/)
-동작을 유지하기 위해, 시스템은 실제로 테인트를 비율-제한 방식으로
-추가한다. 이는 마스터가 노드에서 분할되는 등의 시나리오에서
-대규모 파드 축출을 방지한다.
+콘트롤 플레인은 노드에 새 테인트를 추가하는 비율을 제한한다.
+이 비율-제한은 많은 노드가 동시에 도달할 수 없을 때(예를 들어, 네트워크 중단으로)
+트리거될 축출 개수를 관리한다.
 {{< /note >}}
 
 이 기능을 `tolerationSeconds` 와 함께 사용하면, 파드에서
@@ -243,20 +242,15 @@ tolerations:
   tolerationSeconds: 6000
 ```
 
-쿠버네티스는 사용자가 제공한 파드 구성에 이미 추가된
-`node.kubernetes.io/not-ready` 에 대한 톨러레이션이 없는 경우
-`tolerationSeconds=300` 으로 `node.kubernetes.io/not-ready` 에 대한
-톨러레이션을 자동으로 추가한다.
-마찬가지로 사용자가 제공한 파드 구성에 이미 추가된
-`node.kubernetes.io/unreachable` 에 대한 톨러레이션이 없는 경우
-`tolerationSeconds=300` 으로 `node.kubernetes.io/unreachable` 에 대한
+{{< note >}}
+쿠버네티스는 사용자나 컨트롤러에서 명시적으로 설정하지 않았다면, 자동으로
+`node.kubernetes.io/not-ready` 와 `node.kubernetes.io/unreachable` 에 대해
+`tolerationSeconds=300` 으로
 톨러레이션을 추가한다.
 
-자동으로 추가된 이 톨러레이션은 이러한 문제 중 하나가
-감지된 후 5분 동안 바인딩 상태로 남아있는 기본 파드
-동작이 유지되도록 한다.
-[DefaultTolerationSecondsadmission controller](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds)
-어드미션 컨트롤러에 의해 두 개의 기본 톨러레이션이 추가된다.
+자동으로 추가된 이 톨러레이션은 이러한 문제 중 하나가 감지된 후 5분 동안
+파드가 노드에 바인딩된 상태를 유지함을 의미한다.
+{{< /note >}}
 
 [데몬셋](/ko/docs/concepts/workloads/controllers/daemonset/) 파드는 `tolerationSeconds` 가 없는
 다음 테인트에 대해 `NoExecute` 톨러레이션를 가지고 생성된다.
@@ -273,8 +267,7 @@ tolerations:
 마찬가지로 스케줄러는 노드 컨디션을 확인하지 않는다. 대신 스케줄러는 테인트를 확인한다. 이렇게 하면 노드 컨디션이 노드에 스케줄된 내용에 영향을 미치지 않는다. 사용자는 적절한 파드 톨러레이션을 추가하여 노드의 일부 문제(노드 컨디션으로 표시)를 무시하도록 선택할 수 있다.
 
 쿠버네티스 1.8 버전부터 데몬셋 컨트롤러는 다음의 `NoSchedule` 톨러레이션을
-모든 데몬에 자동으로 추가하여, 데몬셋이 중단되는 것을
-방지한다.
+모든 데몬에 자동으로 추가하여, 데몬셋이 중단되는 것을 방지한다.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
@@ -284,3 +277,9 @@ tolerations:
 
 이러한 톨러레이션을 추가하면 이전 버전과의 호환성이 보장된다. 데몬셋에
 임의의 톨러레이션을 추가할 수도 있다.
+
+
+## {{% heading "whatsnext" %}}
+
+* [리소스 부족 다루기](/docs/tasks/administer-cluster/out-of-resource/)와 어떻게 구성하는지에 대해 알아보기
+* [파드 우선순위](/ko/docs/concepts/configuration/pod-priority-preemption/)에 대해 알아보기

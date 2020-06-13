@@ -451,15 +451,13 @@ spec:
 ```
 
 #### 지역(Regional) 퍼시스턴트 디스크
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 [지역(Regional) 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds) 기능을 사용하면 동일한 영역 내의 두 영역에서 사용할 수 있는 퍼시스턴트 디스크를 생성할 수 있다. 이 기능을 사용하려면 볼륨을 퍼시스턴트볼륨으로 프로비저닝 해야 한다. 파드에서 직접 볼륨을 참조하는 것은 지원되지 않는다.
 
 #### 지역(Regional) PD 퍼시스턴트볼륨을 수동으로 프로비저닝하기
-[GCE PD 용 StorageClass](/docs/concepts/storage/storage-classes/#gce) 를 사용해서 동적 프로비저닝이 가능하다.
+[GCE PD용 스토리지클래스](/ko/docs/concepts/storage/storage-classes/#gce-pd)를 사용해서 동적 프로비저닝이 가능하다.
 PersistentVolume을 생성하기 전에 PD를 생성해야만 한다.
 ```shell
-gcloud beta compute disks create --size=500GB my-data-disk
+gcloud compute disks create --size=500GB my-data-disk
     --region us-central1
     --replica-zones us-central1-a,us-central1-b
 ```
@@ -470,8 +468,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: test-volume
-  labels:
-    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
 spec:
   capacity:
     storage: 400Gi
@@ -480,6 +476,15 @@ spec:
   gcePersistentDisk:
     pdName: my-data-disk
     fsType: ext4
+      nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: failure-domain.beta.kubernetes.io/zone
+          operator: In
+          values:
+          - us-central1-a
+          - us-central1-b
 ```
 
 #### CSI 마이그레이션
@@ -574,12 +579,13 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
 다음과 같은 이유로 이 유형의 볼륨 사용시 주의해야 한다.
 
 * 동일한 구성(파드템플릿으로 생성한 것과 같은)을
-  가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있음
+  가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있다.
 * 쿠버네티스가 계획한 대로 리소스 인식 스케줄링을 추가하면 `hostPath` 에서
-  사용되는 리소스를 설명할 수 없음
-* 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다. 프로세스를
-  [특권 컨테이너](/docs/user-guide/security-context) 에서 루트로 실행하거나
-  `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 함
+  사용되는 리소스를 설명할 수 없다.
+* 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
+  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/user-guide/security-context)에서
+  루트로 실행하거나
+  `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 한다.
 
 #### 파드 예시
 
@@ -714,7 +720,7 @@ spec:
 
 로컬 볼륨을 사용할 때는 `volumeBindingMode` 가 `WaitForFirstConsumer` 로 설정된
 스토리지클래스(StorageClass)를 생성하는 것을 권장한다.
-[예시](/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키는 것은
+[예시](/ko/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키는 것은
 퍼시스턴트볼륨클래임 바인딩 결정도 노드 리소스 요구사항, 노드 셀렉터,
 파드 어피니티 그리고 파드 안티 어피니티와
 같이 파드가 가질 수 있는 다른 노드 제약 조건으로 평가되도록 만든다.
@@ -1473,4 +1479,3 @@ sudo systemctl restart docker
 ## {{% heading "whatsnext" %}}
 
 * [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
-
