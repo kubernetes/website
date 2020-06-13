@@ -284,6 +284,119 @@ patch-demo-1307768864-69308   1/1       Running   0          1m
 patch-demo-1307768864-c86dc   1/1       Running   0          1m
 ```
 
+## Use strategic merge patch to update a Deployment using the retainKeys strategy
+
+Here's the configuration file for a Deployment that uses the `RollingUpdate` strategy:
+
+{{< codenew file="application/deployment-retainkeys.yaml" >}}
+
+Create the deployment:
+
+```shell
+kubectl apply -f https://k8s.io/examples/application/deployment-retainkeys.yaml
+```
+
+At this point, the deployment is created and is using the `RollingUpdate` strategy.
+
+Create a file named `patch-file-no-retainkeys.yaml` that has this content:
+
+```yaml
+spec:
+  strategy:
+    type: Recreate
+```
+
+Patch your Deployment:
+
+{{< tabs name="kubectl_retainkeys_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
+kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-no-retainkeys.yaml)"
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-no-retainkeys.yaml -Raw)
+{{< /tab >}}}
+{{< /tabs >}}
+
+In the output, you can see that it is not possible to set `type` as `Recreate` when a value is defined for `spec.strategy.rollingUpdate`:
+
+```shell
+The Deployment "retainkeys-demo" is invalid: spec.strategy.rollingUpdate: Forbidden: may not be specified when strategy `type` is 'Recreate'
+```
+
+The way to remove the value for `spec.strategy.rollingUpdate` when updating the value for `type` is to use the `retainKeys` strategy for the strategic merge.
+
+Create another file named `patch-file-retainkeys.yaml` that has this content:
+
+```yaml
+spec:
+  strategy:
+    $retainKeys:
+    - type
+    type: Recreate
+```
+
+With this patch, we indicate that we want to retain only the `type` key of the `strategy` object. Thus, the `rollingUpdate` will be removed during the patch operation.
+
+Patch your Deployment again with this new patch:
+
+{{< tabs name="kubectl_retainkeys2_example" >}}
+{{{< tab name="Bash" codelang="bash" >}}
+kubectl patch deployment retainkeys-demo --patch "$(cat patch-file-retainkeys.yaml)"
+{{< /tab >}}
+{{< tab name="PowerShell" codelang="posh" >}}
+kubectl patch deployment retainkeys-demo --patch $(Get-Content patch-file-retainkeys.yaml -Raw)
+{{< /tab >}}}
+{{< /tabs >}}
+
+Examine the content of the Deployment:
+
+```shell
+kubectl get deployment retainkeys-demo --output yaml
+```
+
+The output shows that the strategy object in the Deployment does not contain the `rollingUpdate` key anymore:
+
+```shell
+spec:
+  strategy:
+    type: Recreate
+  template:
+```
+
+### Notes on the strategic merge patch using the retainKeys strategy
+
+The patch you did in the preceding exercise is called a *strategic merge patch with retainKeys strategy*. This method introduces a new directive `$retainKeys` that has the following strategies:
+
+- It contains a list of strings.
+- All fields needing to be preserved must be present in the `$retainKeys` list.
+- The fields that are present will be merged with live object.
+- All of the missing fields will be cleared when patching.
+- All fields in the `$retainKeys` list must be a superset or the same as the fields present in the patch.
+
+The `retainKeys` strategy does not work for all objects. It only works when the value of the `patchStrategy` key in a field tag in the Kubernetes source code contains `retainKeys`. For example, the `Strategy` field of the `DeploymentSpec` struct has a `patchStrategy` of `retainKeys`:
+
+```go
+type DeploymentSpec struct {
+  ...
+  // +patchStrategy=retainKeys
+  Strategy DeploymentStrategy `json:"strategy,omitempty" patchStrategy:"retainKeys" ...`
+```
+
+You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json):
+
+```json
+"io.k8s.api.apps.v1.DeploymentSpec": {
+   ...
+  "strategy": {
+    "$ref": "#/definitions/io.k8s.api.apps.v1.DeploymentStrategy",
+    "description": "The deployment strategy to use to replace existing pods with new ones.",
+    "x-kubernetes-patch-strategy": "retainKeys"
+  },
+```
+
+And you can see the `retainKeys` strategy in the
+[Kubernetes API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
+
 ## Alternate forms of the kubectl patch command
 
 The `kubectl patch` command takes YAML or JSON. It can take the patch as a file or
