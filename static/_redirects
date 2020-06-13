@@ -99,7 +99,7 @@
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
@@ -126,7 +126,8 @@
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/job/ 301
+/docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
@@ -250,7 +251,7 @@
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
-/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/job/ 301
 /docs/tasks/setup-konnectivity/setup-konnectivity/   /docs/tasks/extend-kubernetes/setup-konnectivity/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
@@ -342,7 +343,7 @@
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
-/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/job/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301

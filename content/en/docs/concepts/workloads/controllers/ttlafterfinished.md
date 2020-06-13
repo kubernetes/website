@@ -3,7 +3,7 @@ reviewers:
 - janetkuo
 title: TTL Controller for Finished Resources
 content_type: concept
-weight: 65
+weight: 70
 ---
 
 <!-- overview -->
@@ -12,8 +12,8 @@ weight: 65
 
 The TTL controller provides a TTL (time to live) mechanism to limit the lifetime of resource
 objects that have finished execution. TTL controller only handles
-[Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) for
-now, and may be expanded to handle other resources that will finish execution,
+{{< glossary_tooltip text="Jobs" term_id="job" >}} for now,
+and may be expanded to handle other resources that will finish execution,
 such as Pods and custom resources.
 
 Alpha Disclaimer: this feature is currently alpha, and can be enabled with both kube-apiserver and kube-controller-manager
@@ -33,7 +33,7 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with both 
 The TTL controller only supports Jobs for now. A cluster operator can use this feature to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 `.spec.ttlSecondsAfterFinished` field of a Job, as in this
-[example](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
+[example](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
 The TTL controller will assume that a resource is eligible to be cleaned up
 TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
 TTL controller cleans up a resource, it will delete it cascadingly, that is to say it will delete

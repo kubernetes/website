@@ -41,7 +41,7 @@ Kubernetes also contains higher-level abstractions that rely on [controllers](/d
 * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
 * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [Job](/docs/concepts/workloads/controllers/job/)
 
 ## Kubernetes Control Plane
 
