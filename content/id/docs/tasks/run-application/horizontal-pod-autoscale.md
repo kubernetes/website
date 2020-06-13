@@ -207,23 +207,23 @@ yang baru adalah HorizontalPodAutoscaler tidak akan terikat dengan ReplicationCo
 
 ## Dukungan untuk *Cooldown* / Penundaan
 
-Ketika mengolah *scale* dari sebuah replika grup menggunakan HorizonalPodAutoscaler,
+Ketika mengolah *scaleing* dari sebuah grup replika menggunakan HorizonalPodAutoscaler,
 jumlah replika dimungkinkan tetap berubah secara sering disebabkan oleh perubahan dinamis
 dari metrik yang dievaluasi. Hal ini sering disebut dengan *thrashing*. 
 
 Mulai dari versi 1.6, operator klaster dapat mengatasi masalah ini dengan mengatur
-setingan HorizontalPodAutoscaler global sebagai *flag* `kube-controller-manager.
+konfigurasi HorizontalPodAutoscaler global sebagai *flag* `kube-controller-manager`.
 
-Mulai dari versi 1.12, sebuah algoritma perbaharuan baru menghilankan kebutuhan terhadap
-penundaan *upscale*.
+Mulai dari versi 1.12, sebuah algoritma pembaruan baru menghilangkan kebutuhan terhadap
+penundaan memperbanyak replika (*upscale*).
 
 - `--horizontal-pod-autoscaler-downscale-stabilization`: Nilai untuk opsi ini adalah
   sebuah durasi yang menentukan berapa lama *autoscaler* menunggu sebelum operasi
-  *downscale* yang lain diklakukan seteleh operasi sekarang selesai. Nilai standarnya
+  pengurangan replika (*downscale*) yang lain dilakukan seteleh operasi sekarang selesai. Nilai bawaannya
   adalah 5 menit (`5m0s`).
 
 {{< note >}}
-Ketika mengubah nilai paramater ini, sebuah operator klaster akan sadar akan kemungkinan
+Ketika mengubah nilai paramater ini, sebuah operator klaster sadar akan kemungkinan
 konsekuensi. Jika waktu penundaan diset terlalu lama, kemungkinan akan membuat
 HorizontalPodAutoscaler tidak responsif terharap perubahan beban kerja. Namun, jika
 waktu penundaan diset terlalu cepat, kemungkinan replikasi akan *trashing* seperti
