@@ -1,18 +1,18 @@
 ---
 title: Container Lifecycle Hooks
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta página describe como los contenedores gestionados por kubelet pueden utilizar el framework _Container lifecycle hook_ (hook del ciclo de vida del contenedor)
 para ejecutar código disparado por eventos durante la gestión de su ciclo de vida (lifecycle).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introducción
 
@@ -109,12 +109,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Aprende más sobre [variables de entorno de contenedores](/docs/concepts/containers/container-environment-variables/).
 * Practica
   [adjuntando controladores a los eventos de lifecycle de los contenedores](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

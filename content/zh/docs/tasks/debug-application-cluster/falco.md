@@ -3,7 +3,7 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: 使用 Falco 审计
 ---
 <!--
@@ -12,11 +12,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing with Falco
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 <!--
 ### Use Falco to collect audit events
 -->
@@ -28,9 +28,9 @@ This section describes how to set up Falco, how to send audit events to the Kube
 -->
 [Falco](https://falco.org/)是一个开源项目，用于为云原生平台提供入侵和异常检测。本节介绍如何设置 Falco、如何将审计事件发送到 Falco 公开的 Kubernetes Audit 端点、以及 Falco 如何应用一组规则来自动检测可疑行为。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 #### Install Falco
@@ -236,4 +236,4 @@ For further details, see [Kubernetes Audit Events][falco_ka_docs] in the Falco d
 [falco_installation]: https://falco.org/docs/installation
 [falco_helm_chart]: https://github.com/helm/charts/tree/master/stable/falco
 
-{{% /capture %}}
+

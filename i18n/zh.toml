@@ -172,6 +172,9 @@ other = "教程目标"
 [prerequisites_heading]
 other = "准备开始"
 
+[subscribe_button]
+other = "订阅"
+
 [ui_search_placeholder]
 other = "搜索"
 

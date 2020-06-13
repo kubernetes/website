@@ -97,7 +97,16 @@ reviews-v2-ccffdd984-9jnsj        2/2     Running   0          101s
 reviews-v3-98dc67b68-nzw97        2/2     Running   0          101s
 ```
 
-This command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. With that said, you should now be able to access your product page!
+This command outputs useful data, so let’s take a second to understand it. If you examine the READY column, each pod has two containers running: the service and an Envoy sidecar injected alongside it. Another thing to highlight is that there are three review pods but only 1 review service. The Envoy sidecar will load balance the traffic to three different review pods that contain different versions, giving us the ability to A/B test our changes. We have one step before we can access the deployed application. We need to add an additional annotation to the `productpage` service. To do so, run:
+
+```
+$ kubectl annotate service productpage ingress.kubernetes.io/service-upstream=true
+service/productpage annotated
+```
+
+Both the API gateway (Kong) and the service mesh (Istio) can handle the load-balancing. Without the additional `ingress.kubernetes.io/service-upstream: "true"` annotation, Kong will try to load-balance by selecting its own endpoint/target from the productpage service. This causes Envoy to receive that pod’s IP as the upstream local address, instead of the service’s cluster IP. But we want the service's cluster IP so that Envoy can properly load balance.  
+
+With that added, you should now be able to access your product page!
 
 ```
 $ kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath='{.items[0].metadata.name}') -c ratings -- curl productpage:9080/productpage | grep -o "<title>.*</title>"
@@ -150,6 +159,8 @@ metadata:
     name: do-not-preserve-host
 route:
   preserve_host: false
+upstream:
+  host_header: productpage.default.svc
 " | kubectl apply -f -
 kongingress.configuration.konghq.com/do-not-preserve-host created
 ```

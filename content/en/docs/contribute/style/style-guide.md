@@ -1,26 +1,25 @@
 ---
 title: Documentation Style Guide
 linktitle: Style guide
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
-documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/) and follow the instructions on
-[using page templates](/docs/contribute/style/page-templates/) and [creating a documentation pull request](/docs/contribute/new-content/open-a-pr).
+documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
 or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< note >}}
 Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
@@ -212,7 +211,7 @@ The output is similar to this:
 
 Code examples and configuration examples that include version information should be consistent with the accompanying text.
 
-If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template](/docs/contribute/style/page-templates/#tutorial-template). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
+If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task) or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
 To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
 
@@ -585,13 +584,12 @@ The Federation feature provides ... | The new Federation feature provides ...
 {{< /table >}}  
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/style/page-templates/).
+* Learn about [using page templates](/docs/contribute/style/page-content-types/).
 * Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
-
-{{% /capture %}}
+* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

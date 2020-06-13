@@ -1,18 +1,19 @@
 ---
 title: Rédiger une nouveau sujet
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page montre comment créer un nouveau sujet pour la documentation Kubernetes.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Créez un fork du dépôt de la documentation de Kubernetes comme décrit dans [Commencez à contribuer](/fr/docs/contribute/start/).
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Choisir un type de page
 
@@ -143,12 +144,13 @@ Pour un exemple d'un sujet qui utilise cette technique, voir [Running a Single-I
 Placez les fichiers images dans le répertoire `/images`.
 Le format d'image préféré est SVG.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur [l'utilisation des templates de pages](/docs/home/contribute/page-templates/).
 * En savoir plus sur [le staging de vos changements](/docs/home/contribute/stage-documentation-changes/).
 * En savoir plus sur [la création d'une pull request](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

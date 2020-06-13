@@ -1,10 +1,10 @@
 ---
 title: StatefulSet
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 StatefulSet merupakan salah satu objek API _workload_ yang digunakan untuk aplikasi _stateful_.
 
@@ -13,9 +13,9 @@ StatefulSet merupakan fitur stabil (GA) sejak versi 1.9.
 {{< /note >}}
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Menggunakan StatefulSet
 
@@ -147,7 +147,7 @@ Domain Klaster | Service (ns/nama) | StatefulSet (ns/nama)  | Domain StatefulSet
 
 {{< note >}}
 Domain klaster akan diatur menjadi `cluster.local` kecuali
-[nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+[nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/).
 {{< /note >}}
 
 ### Penyimpanan Stabil
@@ -267,11 +267,12 @@ Setelah melakukan mekanisme _revert_ templat, kamu juga harus menghapus semua Po
 StatefulSet tersebut yang telah berusaha untuk menggunakan konfigurasi yang _broken_. 
 StatefulSet akan mulai membuat Pod dengan templat konfigurasi yang sudah di-_revert_.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Ikuti contoh yang ada pada [bagaimana cara melakukan deployi aplikasi stateful](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Ikuti contoh yang ada pada [bagaimana cara melakukan deploy Cassandra dengan StatefulSets](/docs/tutorials/stateful-application/cassandra/).
 
-{{% /capture %}}
+
 

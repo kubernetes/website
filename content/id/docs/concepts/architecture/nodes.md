@@ -1,10 +1,10 @@
 ---
 title: Node
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Node merupakan sebuah mesin <i>worker</i> di dalam Kubernetes, yang sebelumnya dinamakan `minion`.
 Sebuah node bisa berupa VM ataupun mesin fisik, tergantung dari klaster-nya.
@@ -12,10 +12,10 @@ Masing-masing node berisi beberapa servis yang berguna untuk menjalankan banyak 
 Servis-servis di dalam sebuah node terdiri dari [runtime kontainer](/docs/concepts/overview/components/#node-components), kubelet dan kube-proxy.
 Untuk lebih detail, lihat dokumentasi desain arsitektur pada [Node Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Status Node
 
@@ -228,4 +228,4 @@ Kalau kamu ingin secara eksplisit menyimpan <i>resource</i> cadangan untuk menja
 Node adalah tingkatan tertinggi dari <i>resource</i> di dalam Kubernetes REST API.
 Penjelasan lebih detail tentang obyek API dapat dilihat pada: [Obyek Node API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

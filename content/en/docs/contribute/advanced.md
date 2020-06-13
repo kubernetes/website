@@ -1,11 +1,11 @@
 ---
 title: Advanced contributing
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 98
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page assumes that you understand how to
 [contribute to new content](/docs/contribute/new-content/overview) and
@@ -13,9 +13,9 @@ This page assumes that you understand how to
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Be the PR Wrangler for a week
 
@@ -245,4 +245,4 @@ When you’re ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
 
-{{% /capture %}}
+

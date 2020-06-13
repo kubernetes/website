@@ -2,7 +2,7 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 高可用拓扑选项
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 50
 reviewers:
 - sig-cluster-lifecycle
 title: Options for Highly Available topology
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
@@ -28,7 +28,8 @@ You can set up an HA cluster:
 您可以设置 HA 集群：
 
 <!--
-- With stacked control plane nodes, where etcd nodes are colocated with control plane nodes- With external etcd nodes, where etcd runs on separate nodes from the control plane
+- With stacked control plane nodes, where etcd nodes are colocated with control plane nodes
+- With external etcd nodes, where etcd runs on separate nodes from the control plane
 -->
  - 使用堆叠（stacked）控制平面节点，其中 etcd 节点与控制平面节点共存
  - 使用外部 etcd 节点，其中 etcd 在与控制平面不同的节点上运行
@@ -38,9 +39,18 @@ You should carefully consider the advantages and disadvantages of each topology 
 -->
 在设置 HA 集群之前，您应该仔细考虑每种拓扑的优缺点。
 
-{{% /capture %}}
+<!--
+kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)
+for more details.
+-->
 
-{{% capture body %}}
+{{< note >}}
+kubeadm 静态引导 etcd 集群。 阅读 etcd [集群指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以获得更多详细信息。
+{{< /note >}}
+
+
+
+<!-- body -->
 
 <!--
 ## Stacked etcd topology
@@ -128,13 +138,14 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 -->
 ！[外部 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 -->
  -  [使用 kubeadm 设置高可用集群](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+

@@ -1,16 +1,16 @@
 ---
 draft: True
 title: Metriche del responsabile del controller
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Le metriche del controller controller forniscono informazioni importanti sulle prestazioni e la salute di
 il responsabile del controller.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cosa sono le metriche del controller
 
@@ -44,4 +44,4 @@ Le metriche sono emesse in [formato prometheus](https://prometheus.io/docs/instr
 In un ambiente di produzione è possibile configurare prometheus o altri strumenti di misurazione delle metriche
 per raccogliere periodicamente queste metriche e renderle disponibili in una sorta di database di serie temporali.
 
-{{% /capture %}}
+

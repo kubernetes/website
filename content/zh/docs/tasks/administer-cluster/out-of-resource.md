@@ -4,7 +4,7 @@ reviewers:
 - vishh
 - timstclair
 title: 配置资源不足时的处理方式
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -13,11 +13,11 @@ reviewers:
 - vishh
 - timstclair
 title: Configure Out Of Resource Handling
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page explains how to configure out of resource handling with `kubelet`.
@@ -32,10 +32,10 @@ nodes become unstable.
 
 当可用计算资源较少时，`kubelet`需要保证节点稳定性。这在处理如内存和硬盘之类的不可压缩资源时尤为重要。如果任意一种资源耗尽，节点将会变得不稳定。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Eviction Policy
@@ -670,4 +670,4 @@ the ability to get root container stats on an on-demand basis [(https://github.c
 ### kubelet 可能会驱逐超过需求数量的 pod
 
 由于状态采集的时间差，驱逐操作可能驱逐比所需的更多的 pod。将来可通过添加从根容器获取所需状态的能力 [https://github.com/google/cadvisor/issues/1247](https://github.com/google/cadvisor/issues/1247) 来减缓这种状况。
-{{% /capture %}}
+

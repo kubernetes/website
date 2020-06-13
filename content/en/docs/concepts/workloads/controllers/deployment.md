@@ -7,11 +7,11 @@ feature:
   description: >
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A _Deployment_ provides declarative updates for [Pods](/docs/concepts/workloads/pods/pod/) and
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
@@ -22,10 +22,10 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Use Case
 
@@ -55,7 +55,10 @@ In this example:
   as long as the Pod template itself satisfies the rule.
 
   {{< note >}}
-  The `.spec.selector.matchLabels` field is a map of {key,value} pairs. A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose key field is "key" the operator is "In", and the values array contains only "value". All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
+  The `.spec.selector.matchLabels` field is a map of {key,value} pairs.
+  A single {key,value} in the `matchLabels` map is equivalent to an element of `matchExpressions`,
+  whose key field is "key" the operator is "In", and the values array contains only "value".
+  All of the requirements, from both `matchLabels` and `matchExpressions`, must be satisfied in order to match.
   {{< /note >}}
 
 * The `template` field contains the following sub-fields:
@@ -75,9 +78,10 @@ Follow the steps given below to create the above Deployment:
    kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    ```
 
-   {{< note >}}
-   You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`. The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
-   {{< /note >}}
+  {{< note >}}
+  You can specify the `--record` flag to write the command executed in the resource annotation `kubernetes.io/change-cause`.
+  The recorded change is useful for future introspection. For example, to see the commands executed in each Deployment revision.
+  {{< /note >}}
 
 
 2. Run `kubectl get deployments` to check if the Deployment was created.
@@ -414,7 +418,7 @@ rolled back.
     ```
 
     {{< note >}}
-    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. sKubernetes by default sets the value to 25%.
+    The Deployment controller stops the bad rollout automatically, and stops scaling up the new ReplicaSet. This depends on the rollingUpdate parameters (`maxUnavailable` specifically) that you have specified. Kubernetes by default sets the value to 25%.
     {{< /note >}}
 
 * Get the description of the Deployment:
@@ -904,9 +908,9 @@ example, rollback the Deployment to its previous version.
 {{< /note >}}
 
 {{< note >}}
-If you pause a Deployment, Kubernetes does not check progress against your specified deadline. You can
-safely pause a Deployment in the middle of a rollout and resume without triggering the condition for exceeding the
-deadline.
+If you pause a Deployment, Kubernetes does not check progress against your specified deadline.
+You can safely pause a Deployment in the middle of a rollout and resume without triggering
+the condition for exceeding the deadline.
 {{< /note >}}
 
 You may experience transient errors with your Deployments, either due to a low timeout that you have set or
@@ -1162,4 +1166,4 @@ a paused Deployment and one that is not paused, is that any changes into the Pod
 Deployment will not trigger new rollouts as long as it is paused. A Deployment is not paused by default when
 it is created.
 
-{{% /capture %}}
+

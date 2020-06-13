@@ -1,16 +1,16 @@
 ---
 title: アグリゲーションレイヤーを使ったKubernetes APIの拡張
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 アグリゲーションレイヤーを使用すると、KubernetesのコアAPIで提供されている機能を超えて、追加のAPIでKubernetesを拡張できます。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -20,13 +20,14 @@ weight: 10
 
 通常、APIServiceは、クラスター上で動いているPod内の *extension-apiserver* で実装されます。このextension-apiserverは、追加されたリソースに対するアクティブな管理が必要な場合、通常、1つか複数のコントローラーとペアになっている必要があります。そのため、実際にapiserver-builderはextension-apiserverとコントローラーの両方のスケルトンを提供します。一例として、service-catalogがインストールされると、extension-apiserverと提供するサービスのコントローラーの両方を提供します。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * アグリゲーターをあなたの環境で動かすには、まず[アグリゲーションレイヤーを設定](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)します
 * そして、アグリゲーションレイヤーと一緒に動作させるために[extension api-serverをセットアップ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)します
 * また、[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)方法を学んで下さい
 
-{{% /capture %}}
+
 

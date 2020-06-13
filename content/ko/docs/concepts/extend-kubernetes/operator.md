@@ -1,20 +1,20 @@
 ---
 title: 오퍼레이터(operator) 패턴
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 오퍼레이터(Operator)는
 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)를
 사용하여 애플리케이션 및 해당 컴포넌트를 관리하는 쿠버네티스의 소프트웨어 익스텐션이다. 오퍼레이터는
 쿠버네티스 원칙, 특히 [컨트롤 루프](/ko/docs/concepts/#쿠버네티스-컨트롤-플레인)를 따른다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 동기 부여
 
@@ -113,9 +113,10 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 또한 [쿠버네티스 API의 클라이언트](/ko/docs/reference/using-api/client-libraries/)
 역할을 할 수 있는 모든 언어 / 런타임을 사용하여 오퍼레이터(즉, 컨트롤러)를 구현한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [OperatorHub.io](https://operatorhub.io/)에서 유스케이스에 맞는 이미 만들어진 오퍼레이터 찾기
@@ -129,5 +130,5 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 * 오퍼레이터 패턴을 소개한 [CoreOS 원본 기사](https://coreos.com/blog/introducing-operators.html) 읽기
 * 오퍼레이터 구축을 위한 모범 사례에 대한 구글 클라우드(Google Cloud)의 [기사](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) 읽기
 
-{{% /capture %}}
+
 

@@ -1,16 +1,16 @@
 ---
 title: Пространства имён
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes поддерживает несколько виртуальных кластеров в одном физическом кластере. Такие виртуальные кластеры называются пространствами имён.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Причины использования нескольких пространств имён
 
@@ -88,10 +88,11 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Узнать подробнее про [создание нового пространства имён](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Узнать подробнее про [удаление пространства имён](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 
-{{% /capture %}}
+

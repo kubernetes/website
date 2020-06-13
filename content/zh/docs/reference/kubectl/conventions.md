@@ -2,7 +2,7 @@
 title: kubectl 的用法约定
 reviewers:
 - janetkuo
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -10,18 +10,18 @@ content_template: templates/concept
 title: kubectl Usage Conventions
 reviewers:
 - janetkuo
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Recommended usage conventions for `kubectl`.
 -->
 `kubectl` 的推荐用法约定
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Using `kubectl` in Reusable Scripts
@@ -157,4 +157,4 @@ You can use the `--dry-run` flag to preview the object that would be sent to you
 
 * 您可以使用 `kubectl apply` 命令创建或更新资源。有关使用 kubectl apply 更新资源的详细信息，请参阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
 
-{{% /capture %}}
+

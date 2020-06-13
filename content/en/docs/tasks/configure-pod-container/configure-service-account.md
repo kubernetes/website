@@ -4,11 +4,11 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 A service account provides an identity for processes that run in a Pod.
 
 {{< note >}}
@@ -23,16 +23,17 @@ authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example, `default`).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Use the Default Service Account to access the API server.
 
@@ -183,27 +184,38 @@ The content of `token` is elided here.
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
-Next, verify it has been created. For example:
+### Create an imagePullSecret
 
-```shell
-kubectl get secrets myregistrykey
-```
+- Create an imagePullSecret, as described in [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
-The output is similar to this:
+    ```shell
+    kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+            --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
+            --docker-email=DUMMY_DOCKER_EMAIL
+    ```
 
-```
-NAME             TYPE                              DATA    AGE
-myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
-```
+- Verify it has been created.
+   ```shell
+   kubectl get secrets myregistrykey
+   ```
+
+    The output is similar to this:
+
+    ```
+    NAME             TYPE                              DATA    AGE
+    myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
+    ```
+
+### Add image pull secret to service account
 
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
+
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
-Interactive version requires manual edit:
+You can instead use `kubectl edit`, or manually edit the YAML manifests as shown below:
 
 ```shell
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
@@ -248,12 +260,19 @@ Finally replace the serviceaccount with the new updated `sa.yaml` file
 kubectl replace serviceaccount default -f ./sa.yaml
 ```
 
-Now, any new pods created in the current namespace will have this added to their spec:
+### Verify imagePullSecrets was added to pod spec
 
-```yaml
-spec:
-  imagePullSecrets:
-  - name: myregistrykey
+Now, when a new Pod is created in the current namespace and using the default ServiceAccount, the new Pod has its  `spec.imagePullSecrets` field set automatically:
+
+```shell
+kubectl run nginx --image=nginx --restart=Never
+kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
+```
+
+The output is:
+
+```
+myregistrykey
 ```
 
 <!--## Adding Secrets to a service account.
@@ -352,9 +371,10 @@ override the `jwks_uri` in the OpenID Provider Configuration so that it points
 to the public endpoint, rather than the API server's address, by passing the
 `--service-account-jwks-uri` flag to the API server. Like the issuer URL, the
 JWKS URI is required to use the `https` scheme.
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See also:
 
@@ -362,4 +382,4 @@ See also:
 - [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
-{{% /capture %}}
+

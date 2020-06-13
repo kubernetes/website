@@ -1,18 +1,19 @@
 ---
 title: Access Clusters Using the Kubernetes API
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to access clusters using the Kubernetes API.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Accessing the Kubernetes API
 
@@ -269,8 +270,8 @@ public class KubeConfigFileClientExample {
     CoreV1Api api = new CoreV1Api();
 
     // invokes the CoreV1Api client
-    V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null);
-    System.out.Println("Listing all pods: ");
+    V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
+    System.out.println("Listing all pods: ");
     for (V1Pod item : list.getItems()) {
       System.out.println(item.getMetadata().getName());
     }
@@ -449,5 +450,5 @@ The output will be similar to this:
 }
 ```
 
-{{% /capture %}}
+
 

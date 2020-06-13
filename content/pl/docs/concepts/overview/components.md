@@ -1,13 +1,13 @@
 ---
 title: Składniki Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 W wyniku instalacji Kubernetes otrzymujesz klaster.
 
 {{< glossary_definition term_id="cluster" length="all" prepend="Klaster Kubernetes to">}}
@@ -17,9 +17,9 @@ W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, popr
 Poniższy rysunek przedstawia klaster Kubernetes i powiązania pomiędzy jego różnymi częściami składowymi.
 
 ![Składniki Kubernetes](/images/docs/components-of-kubernetes.png)
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Częsci składowe warstwy sterowania
 
 Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
@@ -79,7 +79,7 @@ Składniki węzłów uruchomiane są na każdym węźle. Utrzymują pody w dzia�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### Container Runtime
+### Container runtime
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
@@ -109,10 +109,11 @@ Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS
 
 Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/logging/) odpowiada za zapisywanie logów pochodzących z poszczególnych kontenerów do wspólnego magazynu, który posiada interfejs do przeglądania i przeszukiwania.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Więcej o [Węzłach](/docs/concepts/architecture/nodes/)
 * Więcej o [Kontrolerach](/docs/concepts/architecture/controller/)
 * Więcej o [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Oficjalna [dokumentacja](https://etcd.io/docs/) etcd
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 reviewers:
 title: AppArmor
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
@@ -23,9 +23,10 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 애플리케이션 코드 취약점을 보호하기 위한 여러 조치를 할 수 있는 것 뿐임을 잊으면 안된다.
 양호하고 제한적인 프로파일을 제공하고, 애플리케이션과 클러스터를 여러 측면에서 강화하는 것이 중요하다.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 노드에 프로파일을 어떻게 적재하는지 예시를 본다.
 * 파드(Pod)에 프로파일을 어떻게 강제 적용하는지 배운다.
@@ -33,9 +34,10 @@ AppArmor를 이용하면 컨테이너가 수행할 수 있는 작업을 제한�
 * 프로파일을 위반하는 경우를 살펴본다.
 * 프로파일을 적재할 수 없을 경우를 살펴본다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 다음을 보장해야 한다.
 
@@ -110,9 +112,9 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 파드 보안 강화하기 {#securing-a-pod}
 
@@ -340,7 +342,7 @@ Events:
 스케줄러는 어떤 프로파일이 어떤 노드에 적재되는지 고려하지 않으니, 프로파일 전체 집합이
 모든 노드에 적재되어야 한다. 대안적인 방법은
 각 프로파일(혹은 프로파일의 클래스)을 위한 노드 레이블을 노드에 추가하고,
-[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/)를 이용하여
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)를 이용하여
 파드가 필요한 프로파일이 있는 노드에서 실행되도록 한다.
 
 ### PodSecurityPolicy로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
@@ -457,13 +459,14 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
   - 비록 이스케이프된 쉼표(%2C ',')도 프로파일 이름에서 유효한 문자이지만
     여기에서 명시적으로 허용하지 않는다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 참고 자료
 
 * [퀵 가이드 AppArmor 프로파일 언어](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor 코어 정책 참고](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
-{{% /capture %}}
+

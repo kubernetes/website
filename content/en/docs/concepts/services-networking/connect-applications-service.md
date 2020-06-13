@@ -4,12 +4,12 @@ reviewers:
 - lavalamp
 - thockin
 title: Connecting Applications with Services
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## The Kubernetes model for connecting containers
 
@@ -19,11 +19,11 @@ By default, Docker uses host-private networking, so containers can talk to other
 
 Coordinating port allocations across multiple developers or teams that provide containers is very difficult to do at scale, and exposes users to cluster-level issues outside of their control. Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
 
-This guide uses a simple nginx server to demonstrate proof of concept. The same principles are embodied in a more complete [Jenkins CI application](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes).
+This guide uses a simple nginx server to demonstrate proof of concept.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Exposing pods to the cluster
 
@@ -394,8 +394,8 @@ kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
 ```
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   LoadBalancer   10.0.162.149     xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k
@@ -418,12 +418,13 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
-{{% /capture %}}
+

@@ -2,21 +2,21 @@
 reviewers:
 - thockin
 - bowei
-content_template: templates/concept
+content_type: concept
 title: Debug Services
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 An issue that comes up rather frequently for new installations of Kubernetes is
 that a Service is not working properly.  You've run your Pods through a
 Deployment (or other workload controller) and created a Service, but you
 get no response when you try to access it.  This document will hopefully help
 you to figure out what's going wrong.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Running commands in a Pod
 
@@ -45,8 +45,7 @@ probably debugging your own Service you can substitute your own details, or you
 can follow along and get a second data point.
 
 ```shell
-kubectl run hostnames --image=k8s.gcr.io/serve_hostname \
-                      --replicas=3
+kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -54,38 +53,46 @@ deployment.apps/hostnames created
 
 `kubectl` commands will print the type and name of the resource created or mutated, which can then be used in subsequent commands.
 
-{{< note >}}
-This is the same as if you had started the Deployment with the following
+Let's scale the deployment to 3 replicas.
+```shell
+kubectl scale deployment hostnames --replicas=3
+```
+```none
+deployment.apps/hostnames scaled
+```
+
+Note that this is the same as if you had started the Deployment with the following
 YAML:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: hostnames
   name: hostnames
 spec:
   selector:
     matchLabels:
-      run: hostnames
+      app: hostnames
   replicas: 3
   template:
     metadata:
       labels:
-        run: hostnames
+        app: hostnames
     spec:
       containers:
       - name: hostnames
         image: k8s.gcr.io/serve_hostname
 ```
 
-The label "run" is automatically set by `kubectl run` to the name of the
+The label "app" is automatically set by `kubectl create deployment` to the name of the
 Deployment.
-{{< /note >}}
 
 You can confirm your Pods are running:
 
 ```shell
-kubectl get pods -l run=hostnames
+kubectl get pods -l app=hostnames
 ```
 ```none
 NAME                        READY     STATUS    RESTARTS   AGE
@@ -98,7 +105,7 @@ You can also confirm that your Pods are serving.  You can get the list of
 Pod IP addresses and test them directly.
 
 ```shell
-kubectl get pods -l run=hostnames \
+kubectl get pods -l app=hostnames \
     -o go-template='{{range .items}}{{.status.podIP}}{{"\n"}}{{end}}'
 ```
 ```none
@@ -122,9 +129,9 @@ done
 This should produce something like:
 
 ```
-hostnames-0uton
-hostnames-bvc05
-hostnames-yp2kp
+hostnames-632524106-bbpiw
+hostnames-632524106-ly40y
+hostnames-632524106-tlaok
 ```
 
 If you are not getting the responses you expect at this point, your Pods
@@ -186,17 +193,18 @@ hostnames   ClusterIP   10.0.1.175   <none>        80/TCP    5s
 
 Now you know that the Service exists.
 
-{{< note >}}
 As before, this is the same as if you had started the Service with YAML:
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    app: hostnames
   name: hostnames
 spec:
   selector:
-    run: hostnames
+    app: hostnames
   ports:
   - name: default
     protocol: TCP
@@ -207,7 +215,6 @@ spec:
 In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
-{{< /note >}}
 
 ## Does the Service work by DNS name?
 
@@ -345,9 +352,9 @@ done
 This should produce something like:
 
 ```
-hostnames-0uton
-hostnames-bvc05
-hostnames-yp2kp
+hostnames-632524106-bbpiw
+hostnames-632524106-ly40y
+hostnames-632524106-tlaok
 ```
 
 If your Service is working, you should get correct responses.  If not, there
@@ -373,7 +380,7 @@ kubectl get service hostnames -o json
         "resourceVersion": "347189",
         "creationTimestamp": "2015-07-07T15:24:29Z",
         "labels": {
-            "run": "hostnames"
+            "app": "hostnames"
         }
     },
     "spec": {
@@ -387,7 +394,7 @@ kubectl get service hostnames -o json
             }
         ],
         "selector": {
-            "run": "hostnames"
+            "app": "hostnames"
         },
         "clusterIP": "10.0.1.175",
         "type": "ClusterIP",
@@ -414,16 +421,16 @@ actually being selected by the Service.
 Earlier you saw that the Pods were running.  You can re-check that:
 
 ```shell
-kubectl get pods -l run=hostnames
+kubectl get pods -l app=hostnames
 ```
 ```none
 NAME              READY     STATUS    RESTARTS   AGE
-hostnames-0uton   1/1       Running   0          1h
-hostnames-bvc05   1/1       Running   0          1h
-hostnames-yp2kp   1/1       Running   0          1h
+hostnames-632524106-bbpiw   1/1       Running   0          1h
+hostnames-632524106-ly40y   1/1       Running   0          1h
+hostnames-632524106-tlaok   1/1       Running   0          1h
 ```
 
-The `-l run=hostnames` argument is a label selector - just like our Service
+The `-l app=hostnames` argument is a label selector - just like our Service
 has.
 
 The "AGE" column says that these Pods are about an hour old, which implies that
@@ -448,7 +455,8 @@ your Service.  If the `ENDPOINTS` column is `<none>`, you should check that
 the `spec.selector` field of your Service actually selects for
 `metadata.labels` values on your Pods.  A common mistake is to have a typo or
 other error, such as the Service selecting for `app=hostnames`, but the
-Deployment specifying `run=hostnames`.
+Deployment specifying `run=hostnames`, as in versions previous to 1.18, where
+the `kubectl run` command could have been also used to create a Deployment.
 
 ## Are the Pods working?
 
@@ -473,9 +481,9 @@ done
 This should produce something like:
 
 ```
-hostnames-0uton
-hostnames-bvc05
-hostnames-yp2kp
+hostnames-632524106-bbpiw
+hostnames-632524106-ly40y
+hostnames-632524106-tlaok
 ```
 
 You expect each Pod in the Endpoints list to return its own hostname.  If
@@ -617,7 +625,7 @@ IP from one of your Nodes:
 curl 10.0.1.175:80
 ```
 ```none
-hostnames-0uton
+hostnames-632524106-bbpiw
 ```
 
 If this fails and you are using the userspace proxy, you can try accessing the
@@ -631,7 +639,7 @@ examples it is "48577".  Now connect to that:
 curl localhost:48577
 ```
 ```none
-hostnames-yp2kp
+hostnames-632524106-tlaok
 ```
 
 If this still fails, look at the `kube-proxy` logs for specific lines like:
@@ -720,10 +728,11 @@ Contact us on
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
-{{% /capture %}}
+

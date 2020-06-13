@@ -1,18 +1,18 @@
 ---
 reviewers:
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ReplicaSetの目的は、どのような時でも安定したレプリカPodのセットを維持することです。これは、理想的なレプリカ数のPodが利用可能であることを保証するものとして使用されます。
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## ReplicaSetがどのように動くか
 
@@ -312,4 +312,4 @@ ReplicaSetは[_ReplicationControllers_](/docs/concepts/workloads/controllers/rep
 この2つは、ReplicationControllerが[ラベルについてのユーザーガイド](/docs/concepts/overview/working-with-objects/labels/#label-selectors)に書かれているように、集合ベース(set-based)のセレクター要求をサポートしていないことを除いては、同じ目的を果たし、同じようにふるまいます。  
 このように、ReplicaSetはReplicationControllerよりも好まれます。
 
-{{% /capture %}}
+

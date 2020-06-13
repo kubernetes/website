@@ -1,17 +1,17 @@
 ---
 title: 쿠버네티스 오브젝트 이해하기
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지에서는 쿠버네티스 오브젝트가 쿠버네티스 API에서 어떻게 표현되고, 그 오브젝트를 어떻게 `.yaml` 형식으로 표현할 수 있는지에 대해 설명한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 쿠버네티스 오브젝트 이해하기 {#kubernetes-objects}
 
 *쿠버네티스 오브젝트* 는 쿠버네티스 시스템에서 영속성을 가지는 개체이다. 쿠버네티스는 클러스터의 상태를 나타내기 위해 이 개체를 이용한다. 구체적으로 말하자면, 다음을 기술할 수 있다.
@@ -32,8 +32,8 @@ card:
 원하는 특징(_의도한 상태_)에 대한 설명을
 제공해서 설정한다.
 
-`status`는 오브젝트의 _현재 상태_ 를 기술하고, 쿠버네티스
-컴포넌트에 의해 제공되고 업데이트 된다. 쿠버네티스
+`status` 는 쿠버네티스 시스템과 컴포넌트에 의해 제공되고
+업데이트된 오브젝트의 _현재 상태_ 를 설명한다. 쿠버네티스
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은 모든 오브젝트의
 실제 상태를 사용자가 의도한 상태와 일치시키기 위해 끊임없이 그리고
 능동적으로 관리한다.
@@ -86,11 +86,11 @@ deployment.apps/nginx-deployment created
 에서 확인할 수 있고, 디플로이먼트에 대한 `spec` 포맷은 
 [DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)에서 확인할 수 있다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * API 개념의 더 많은 설명은 [Kubernetes API 개요](/ko/docs/reference/using-api/api-overview/)를 본다.
 * [파드(Pod)](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
-{{% /capture %}}
 

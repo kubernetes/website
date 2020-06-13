@@ -3,11 +3,11 @@ reviewers:
 - caesarxuchao
 - dchen1107
 title: Nodes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
@@ -23,9 +23,9 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Management
 
@@ -308,7 +308,7 @@ Node objects track information about the Node's resource capacity (for example: 
 of memory available, and the number of CPUs).
 Nodes that [self register](#self-registration-of-nodes) report their capacity during
 registration. If you [manually](#manual-node-administration) add a Node, then
-you need to set the node's capacity informaton when you add it.
+you need to set the node's capacity information when you add it.
 
 The Kubernetes {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}} ensures that
 there are enough resources for all the Pods on a Node. The scheduler checks that the sum
@@ -332,12 +332,13 @@ the kubelet can use topology hints when making resource assignment decisions.
 See [Control Topology Management Policies on a Node](/docs/tasks/administer-cluster/topology-manager/)
 for more information.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
 * Read about [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/).
 * Read about [cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling).
-{{% /capture %}}
+

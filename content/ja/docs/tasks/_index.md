@@ -2,19 +2,19 @@
 title: タスク
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesドキュメントのこのセクションには、個々のタスクの実行方法を示すページが含まれています。
 タスクページは、通常、短い手順を実行することにより、1つのことを行う方法を示します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Web UI (ダッシュボード)
 
@@ -76,10 +76,11 @@ StatefulSetのスケーリング、削除、デバッグなど、ステートフ
 
 クラスター内のスケジュール可能なリソースとしてHuge Pageを構成およびスケジュールします。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 タスクページを作成する場合は、[ドキュメントのPull Requestの作成](/docs/home/contribute/create-pull-request/)を参照してください。
 
-{{% /capture %}}
+

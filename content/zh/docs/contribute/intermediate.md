@@ -1,7 +1,7 @@
 ---
 title: 中级贡献
 slug: intermediate
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: contribute
@@ -11,7 +11,7 @@ card:
 ---
 title: Intermediate contributing
 slug: intermediate
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: contribute
@@ -19,7 +19,7 @@ card:
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page assumes that you've read and mastered the tasks in the
@@ -36,9 +36,9 @@ Some tasks require you to use the Git command line client and other tools.
 有些任务需要使用 Git 命令行客户端和其他工具。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 Now that you've gotten your feet wet and helped out with the Kubernetes docs in
@@ -696,14 +696,15 @@ most up-to-date version of that branch.
       git commit -m "Your commit message"
       ```
 
-      {{< note >}}
-      <!--
-      Do not reference a GitHub issue or pull request by ID or URL in the
-      commit message. If you do, it will cause that issue or pull request to get
-      a notification every time the commit shows up in a new Git branch. You can
-      link issues and pull requests together later, in the GitHub UI.
-      -->不要在提交消息中引用 GitHub issue 或 PR(通过 ID 或 URL)。如果您这样做了，那么每当提交出现在新的Git 分支中时，就会导致该 issue 或 PR 获得通知。稍后，您可以在 GitHub UI 中链接 issues 并将请求拉到一起。
-      {{< /note >}}
+{{< note >}}
+<!--
+Do not reference a GitHub issue or pull request by ID or URL in the
+commit message. If you do, it will cause that issue or pull request to get
+a notification every time the commit shows up in a new Git branch. You can
+link issues and pull requests together later, in the GitHub UI.
+-->
+不要在提交消息中引用 GitHub issue 或 PR(通过 ID 或 URL)。如果您这样做了，那么每当提交出现在新的 Git 分支中时，就会导致该 issue 或 PR 获得通知。稍后，您可以在 GitHub UI 中链接 issues 并将请求拉到一起。
+{{< /note >}}
 
 5.  <!--
     Optionally, you can test your change by staging the site locally using the
@@ -1435,9 +1436,10 @@ Follow these guidelines for working with localized content:
   
     如果 PR 包含对一种以上源语言的更改，请 PR 贡献者为每种语言打开单独的 PR。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 When you are comfortable with all of the tasks discussed in this topic and you
@@ -1446,4 +1448,4 @@ want to engage with the Kubernetes docs team in even deeper ways, read the
 -->
 如果您熟悉本主题中讨论的所有任务，并且想与 Kubernetes 文档小组进行更深入的接触，
 请阅读[文档高级贡献者](/docs/contribute/advanced/)主题。
-{{% /capture %}}
+

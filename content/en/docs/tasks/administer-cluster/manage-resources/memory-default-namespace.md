@@ -1,27 +1,28 @@
 ---
 title: Configure Default Memory Requests and Limits for a Namespace
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure default memory requests and limits for a namespace.
 If a Container is created in a namespace that has a default memory limit, and the Container
 does not specify its own memory limit, then the Container is assigned the default memory limit.
 Kubernetes assigns a default memory request under certain conditions that are explained later in this topic.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Each node in your cluster must have at least 2 GiB of memory.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -170,9 +171,10 @@ Delete your namespace:
 kubectl delete namespace default-mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For cluster administrators
 
@@ -196,6 +198,6 @@ kubectl delete namespace default-mem-example
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+
 
 

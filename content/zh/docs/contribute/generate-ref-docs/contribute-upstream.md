@@ -1,15 +1,15 @@
 ---
 title: 为上游 Kubernetes 代码库做出贡献
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Contributing to the Upstream Kubernetes Code
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to contribute to the upstream kubernetes/kubernetes project
@@ -31,10 +31,11 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - [生成 Kubernetes API 的参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)
 - [生成 Kubernetes 组件和工具的参考文档](/docs/contribute/generate-ref-docs/kubernetes-components/)
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 You need to have these tools installed:
@@ -70,10 +71,10 @@ information, see
 [GitHub 标准 Fork 和 PR 工作流程](https://gist.github.com/Chaser324/ce0505fbed06b947d962)。
 
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## The big picture
@@ -388,9 +389,10 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 现在，您可以按照[生成 Kubernetes API 的参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)指南来生成
 [已发布的 Kubernetes API 参考文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
@@ -401,5 +403,5 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 * [为 Kubernetes 组件和工具生成参考文档](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [生成 kubectl 命令的参考文档](/docs/home/contribute/generated-reference/kubectl/)
 
-{{% /capture %}}
+
 

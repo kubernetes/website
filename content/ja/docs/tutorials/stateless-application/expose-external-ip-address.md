@@ -1,17 +1,18 @@
 ---
 title: クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、外部IPアドレスを公開するKubernetesのServiceオブジェクトを作成する方法を示します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  * [kubectl](/ja/docs/tasks/tools/install-kubectl/)をインストールしてください。
 
@@ -19,19 +20,20 @@ weight: 10
 
  * Kubernetes APIサーバーと通信するために、`kubectl`を設定してください。手順については、各クラウドプロバイダーのドキュメントを参照してください。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 5つのインスタンスで実際のアプリケーションを起動します。
 * 外部IPアドレスを公開するServiceオブジェクトを作成します。
 * 起動中のアプリケーションにアクセスするためにServiceオブジェクトを使用します。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 5つのPodで起動しているアプリケーションへのServiceの作成
 
@@ -124,10 +126,11 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 Serviceを削除する場合、次のコマンドを実行します:
 
@@ -137,10 +140,11 @@ Deployment、ReplicaSet、およびHello Worldアプリケーションが動作�
 
         kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/)にて詳細を学ぶことができます。
-{{% /capture %}}
+

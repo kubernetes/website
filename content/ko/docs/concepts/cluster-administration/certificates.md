@@ -1,19 +1,19 @@
 ---
 title: 인증서
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 클라이언트 인증서로 인증을 사용하는 경우 `easyrsa`, `openssl` 또는 `cfssl`
 을 통해 인증서를 수동으로 생성할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -249,4 +249,4 @@ done.
 [여기](/docs/tasks/tls/managing-tls-in-a-cluster)에
 설명된 대로 인증에 사용할 x509 인증서를 프로비전 할 수 있다.
 
-{{% /capture %}}
+

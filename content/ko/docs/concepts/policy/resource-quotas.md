@@ -1,20 +1,20 @@
 ---
 title: 리소스 쿼터
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 여러 사용자나 팀이 정해진 수의 노드로 클러스터를 공유할 때
 한 팀이 공정하게 분배된 리소스보다 많은 리소스를 사용할 수 있다는 우려가 있다.
 
 리소스 쿼터는 관리자가 이 문제를 해결하기 위한 도구이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 `ResourceQuota` 오브젝트로 정의된 리소스 쿼터는 네임스페이스별 총 리소스 사용을 제한하는
 제약 조건을 제공한다. 유형별로 네임스페이스에서 만들 수 있는 오브젝트 수와
@@ -193,7 +193,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 ### PriorityClass별 리소스 쿼터
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 특정 [우선 순위](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)로 파드를 생성할 수 있다.
 쿼터 스펙의 `scopeSelector` 필드를 사용하여 파드의 우선 순위에 따라 파드의 시스템 리소스 사용을
@@ -490,7 +490,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
+kubectl scale deployment nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell
@@ -591,10 +592,11 @@ plugins:
 
 [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고하길 바란다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
 
-{{% /capture %}}
+

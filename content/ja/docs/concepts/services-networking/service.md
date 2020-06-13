@@ -5,21 +5,21 @@ feature:
   description: >
     Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
 Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。  
 KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Serviceを利用する動機
 
@@ -30,7 +30,7 @@ KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセッ�
 
 この仕組みはある問題を引き起こします。もし、あるPodのセット(ここでは"バックエンド"と呼びます)がクラスター内で他のPodのセット(ここでは"フロントエンド"と呼びます)に対して機能を提供する場合、フロントエンドのPodがワークロードにおけるバックエンドを使用するために、バックエンドのPodのIPアドレスを探し出したり、記録し続けるためにはどうすればよいでしょうか?  
 
-ここで_Service_ について説明します。
+ここで _Service_ について説明します。
 
 ## Serviceリソース {#service-resource}
 
@@ -941,12 +941,13 @@ Kubernetesプロジェクトは、L7 (HTTP) Serviceへのサポートをもっ�
 
 Kubernetesプロジェクトは、現在利用可能なClusterIP、NodePortやLoadBalancerタイプのServiceに対して、より柔軟なIngressのモードを追加する予定です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)を参照してください。
 * [Ingress](/docs/concepts/services-networking/ingress/)を参照してください。
 * [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)を参照してください。
 
-{{% /capture %}}
+

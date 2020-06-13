@@ -19,7 +19,10 @@
 <link rel="stylesheet" href="{{ "css/jquery-ui.min.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/callouts.css" | relURL }}">
 <link rel="stylesheet" href="{{ "css/custom-jekyll/tags.css" | relURL }}">
-{{- if .Params.deprecated }}
+{{- if .Site.Params.announcement }}
+<link rel="stylesheet" href="{{ "css/announcement.css" | relURL }}">
+{{- end }}
+{{- if .Site.Params.deprecated }}
 <link rel="stylesheet" href="{{ "css/deprecation-warning.css" | relURL }}">
 {{- end }}
 {{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}

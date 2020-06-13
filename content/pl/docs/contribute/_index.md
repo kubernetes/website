@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Współtwórz dokumentację Kubernetesa
 linktitle: Weź udział
 main_menu: true
@@ -10,7 +10,7 @@ card:
   title: Weź udział
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tym serwisem www opiekuje się [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -23,9 +23,9 @@ Współtwórcy dokumentacji Kubernetesa:
 
 Zapraszamy do współpracy wszystkich - zarówno nowicjuszy, jak i doświadczonych!
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Jak zacząć?
 
@@ -76,4 +76,4 @@ Aby włączyć się w komunikację w ramach SIG Docs, możesz:
 - Przeczytaj [ściągawkę dla współtwórców](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet), aby zaangażować się w dalszy rozwój Kubernetesa.
 - Przygotuj [wpis na blogu lub *case study*](/docs/contribute/new-content/blogs-case-studies/).
 
-{{% /capture %}}
+

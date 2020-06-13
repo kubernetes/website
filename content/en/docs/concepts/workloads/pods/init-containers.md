@@ -2,20 +2,20 @@
 reviewers:
 - erictune
 title: Init Containers
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of init containers: specialized containers that run
 before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Init containers can contain utilities or setup scripts not present in an app image.
 
 You can specify init containers in the Pod specification alongside the `containers`
 array (which describes app containers).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Understanding init containers
 
@@ -241,7 +241,7 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#what-s-next) contains a link to a more detailed example.
+init containers. [What's next](#whats-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
@@ -317,12 +317,13 @@ reasons:
   forcing a restart, and the init container completion record has been lost due
   to garbage collection.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+## {{% heading "whatsnext" %}}
+
+
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
-{{% /capture %}}
+

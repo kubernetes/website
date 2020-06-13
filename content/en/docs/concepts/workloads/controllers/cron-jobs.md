@@ -4,11 +4,11 @@ reviewers:
 - soltysh
 - janetkuo
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
@@ -33,8 +33,8 @@ append 11 characters to the job name provided and there is a constraint that the
 maximum length of a Job name is no more than 63 characters.
 
 
-{{% /capture %}}
-{{% capture body %}}
+
+<!-- body -->
 
 ## CronJob
 
@@ -82,12 +82,13 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Cron expression format](https://pkg.go.dev/github.com/robfig/cron?tab=doc#hdr-CRON_Expression_Format)
 documents the format of CronJob `schedule` fields.
 
 For instructions on creating and working with cron jobs, and for an example of CronJob
 manifest, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
-{{% /capture %}}
+

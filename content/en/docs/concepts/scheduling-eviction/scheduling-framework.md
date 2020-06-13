@@ -2,11 +2,11 @@
 reviewers:
 - ahg-g
 title: Scheduling Framework
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
@@ -20,9 +20,9 @@ framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # Framework workflow
 
@@ -157,13 +157,13 @@ the three things:
 1.  **wait** (with a timeout) \
     If a Permit plugin returns "wait", then the Pod is kept in an internal "waiting"
     Pods list, and the binding cycle of this Pod starts but directly blocks until it
-    gets [approved](#frameworkhandle). If a timeout occurs, **wait** becomes **deny**
+    gets approved. If a timeout occurs, **wait** becomes **deny**
     and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
     plugins.
 
 {{< note >}}
 While any plugin can access the list of "waiting" Pods and approve them
-(see [`FrameworkHandle`](#frameworkhandle)), we expect only the permit
+(see [`FrameworkHandle`](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}
@@ -239,4 +239,3 @@ If you are using Kubernetes v1.18 or later, you can configure a set of plugins a
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
 
-{{% /capture %}}

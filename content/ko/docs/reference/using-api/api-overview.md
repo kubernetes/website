@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 API 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: 레퍼런스
@@ -8,17 +8,17 @@ card:
   title: API 개요
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스 API에 대한 개요를 제공한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 REST API는 쿠버네티스의 근본적인 구조이다. 모든 조작, 컴포넌트 간의 통신과 외부 사용자의 명령은 API 서버에서 처리할 수 있는 REST API 호출이다. 따라서, 쿠버네티스 플랫폼 안의 모든 것은
 API 오브젝트로 취급되고,
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)에 상응하는 항목이 있다.
 
 대부분의 작업은 API에 의존하고 있는
-[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
+[kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과 같은 다른 커맨드라인 툴을 통해 수행할 수 있다.
 그러나, REST 호출 사용을 통해서 API에 직접 접근할 수도 있다.
 
@@ -109,6 +109,6 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
 
 {{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
-{{% /capture %}}
+
 
 

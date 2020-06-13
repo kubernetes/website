@@ -1,11 +1,11 @@
 ---
 title: 인그레스 컨트롤러
 reviewers:
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 인그레스 리소스가 작동하려면, 클러스터는 실행 중인 인그레스 컨트롤러가 반드시 필요하다.
 
@@ -15,9 +15,9 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 프로젝트로써 쿠버네티스는 현재 [GCE](https://git.k8s.io/ingress-gce/README.md) 와
   [nginx](https://git.k8s.io/ingress-nginx/README.md) 컨트롤러를 지원하고 유지한다.
   
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 추가 컨트롤러
 
@@ -52,11 +52,12 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 인그레스 컨트롤러의 설명서를 검토하여 선택 시 주의 사항을 이해해야한다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 자세히 알아보기.
 * [NGINX 컨트롤러로 Minikube에서 Ingress를 설정하기](/docs/tasks/access-application-cluster/ingress-minikube).
 
-{{% /capture %}}
+

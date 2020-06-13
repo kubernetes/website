@@ -1,4 +1,4 @@
-DOCKER       = docker
+DOCKER      ?= docker
 HUGO_VERSION = $(shell grep ^HUGO_VERSION netlify.toml | tail -n 1 | cut -d '=' -f 2 | tr -d " \"\n")
 DOCKER_IMAGE = kubernetes-hugo
 DOCKER_RUN   = $(DOCKER) run --rm --interactive --tty --volume $(CURDIR):/src
@@ -45,8 +45,16 @@ docker-build:
 	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo
 
 docker-serve:
-	$(DOCKER_RUN) -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
+	$(DOCKER_RUN) --mount type=tmpfs,destination=/src/resources,tmpfs-mode=0755 -p 1313:1313 $(DOCKER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
 
 test-examples:
 	scripts/test_examples.sh install
 	scripts/test_examples.sh run
+
+.PHONY: link-checker-setup
+link-checker-image-pull:
+	docker pull wjdp/htmltest
+
+docker-internal-linkcheck: link-checker-image-pull
+	$(DOCKER_RUN) $(DOCKER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
+	$(DOCKER) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest

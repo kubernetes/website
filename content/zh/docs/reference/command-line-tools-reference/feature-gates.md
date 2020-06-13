@@ -1,18 +1,18 @@
 ---
 weight: 10
 title: 特性门控
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
 ---
 weight: 10
 title: Feature Gates
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
@@ -24,9 +24,9 @@ See [feature stages](#feature-stages) for an explanation of the stages for a fea
 
 关于特性各个阶段的说明，请参见[特性阶段](#feature-stages)。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview
@@ -776,8 +776,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`：允许 kube-proxy 为 Windows 创建 DSR 负载均衡。
 - `WinOverlay`：允许 kube-proxy 在 Windows 的 overlay 模式下运行。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
@@ -786,4 +787,4 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 * Kubernetes 的 [弃用策略](/docs/reference/using-api/deprecation-policy/) 介绍了项目已移除的特性部件和组件的方法。
 
-{{% /capture %}}
+

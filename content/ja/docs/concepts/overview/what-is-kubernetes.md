@@ -1,17 +1,17 @@
 ---
 title: Kubernetesとは何か？
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、Kubernetesの概要について説明します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetesは、宣言的な構成管理と自動化を促進し、コンテナ化されたワークロードやサービスを管理するための、ポータブルで拡張性のあるオープンソースプラットホームです。
 
 Kubernetesは膨大で、急速に成長しているエコシステムを備えており、それらのサービス、サポート、ツールは幅広い形で利用可能です。
@@ -94,11 +94,12 @@ Kubernetesは...
 
 **Kubernetes** という名前はギリシャ語で *操舵手* や *パイロット* という意味があり、*知事* や[サイバネティックス](http://www.etymonline.com/index.php?term=cybernetics)の語源にもなっています。*K8s* は、8文字の「ubernete」を「8」に置き換えた略語です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   [はじめる](/docs/setup/)準備はできましたか？
 *   さらなる詳細については、[Kubernetesのドキュメント](/ja/docs/home/)を御覧ください。
-{{% /capture %}}
+
 
 

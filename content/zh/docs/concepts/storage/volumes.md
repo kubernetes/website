@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 On-disk files in a Container are ephemeral, which presents some problems for
@@ -31,10 +31,10 @@ Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
 阅读本文前建议您熟悉一下 [Pods](/docs/user-guide/pods)。 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Background
@@ -1771,10 +1771,6 @@ Choose one of the following methods to create a VMDK.
 
 {{< tabs name="tabs_volumes" >}}
 {{% tab name="使用 vmkfstools 创建" %}}
-<!--
-{{% tab name="Create using vmkfstools" %}}
-First ssh into ESX, then use the following command to create a VMDK:
--->
 
 首先 ssh 到 ESX，然后使用下面的命令来创建 VMDK：
 
@@ -1783,10 +1779,6 @@ vmkfstools -c 2G /vmfs/volumes/DatastoreName/volumes/myDisk.vmdk
 ```
 {{% /tab %}}
 {{% tab name="使用 vmware-vdiskmanager 创建" %}}
-<!--
-{{% tab name="Create using vmware-vdiskmanager" %}}
-Use the following command to create a VMDK:
--->
 
 使用下面的命令创建 VMDK：
 
@@ -2411,11 +2403,13 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
 
 * 参考[使用持久卷部署 WordPress 和 MySQL](/zh/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
-{{% /capture %}}
+
+
