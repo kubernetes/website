@@ -329,7 +329,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: my-nginx
+    app: my-nginx
 EOF
 
 # 이들을 구성하는 kustomization.yaml 생성
@@ -607,7 +607,7 @@ spec:
   - port: 80
     protocol: TCP
   selector:
-    run: my-nginx
+    app: my-nginx
 EOF
 
 cat <<EOF >./kustomization.yaml
