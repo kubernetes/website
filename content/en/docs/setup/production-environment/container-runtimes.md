@@ -182,6 +182,12 @@ systemctl restart docker
 {{% /tab %}}
 {{< /tabs >}}
 
+If you want the docker service to start on boot, run the following command:
+
+```shell
+sudo systemctl enable docker
+```
+
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
 
