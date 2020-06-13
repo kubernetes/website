@@ -1,5 +1,5 @@
 ---
-title: Initコンテナ(Init Containers)
+title: Initコンテナ
 content_template: templates/concept
 weight: 40
 ---
@@ -36,7 +36,7 @@ Initコンテナは、リソースリミット、ボリューム、セキュリ�
 
 ## Initコンテナを使用する {#using-init-containers}
 
-Initコンテナはアプリケーションコンテナのイメージとは分離されているため、コンテナの起動に関連したコードにおいていくつかの利点があります。  
+Initコンテナはアプリケーションコンテナのイメージとは分離されているため、コンテナの起動に関連したコードにおいていくつかの利点があります。
 
 * Initコンテナはアプリケーションのイメージに存在しないセットアップ用のユーティリティーやカスタムコードを含むことができます。例えば、セットアップ中に`sed`、`awk`、`python`や、`dig`のようなツールを使うためだけに、別のイメージを元にしてアプリケーションイメージを作る必要がなくなります。
 * アプリケーションイメージをビルドする役割とデプロイする役割は、共同で単一のアプリケーションイメージをビルドする必要がないため、それぞれ独立して実施することができます。
@@ -250,6 +250,6 @@ Podレベルのコントロールグループ（cgroups）は、スケジュー�
 {{% capture whatsnext %}}
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
-* [Init Containerのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
+* [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
 
 {{% /capture %}}
