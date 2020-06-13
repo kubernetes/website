@@ -393,14 +393,13 @@ To confirm successful installation of both a hypervisor and Minikube, you can ru
 
 要确认 hypervisor 和 Minikube 均已成功安装，可以运行以下命令来启动本地 Kubernetes 集群：
 
-{{< note >}}
 <!--
 For setting the `--vm-driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--vm-driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 -->
 
-通过 `minikube start` 设置 `--vm-driver`。在下面提到 `<driver_name>` 的地方，用小写字母，输入你安装的 hypervisor 的名称。
-[指定 VM 驱动程序](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver) 列举了 `--vm-driver` 值的完整列表
-
+{{< note >}}
+若要为 `minikube start` 设置 `--vm-driver`，在下面提到 `<driver_name>` 的地方，用小写字母输入你安装的 hypervisor 的名称。
+[指定 VM 驱动程序](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver) 列举了 `--vm-driver` 值的完整列表。
 {{< /note >}}
 
 ```shell
