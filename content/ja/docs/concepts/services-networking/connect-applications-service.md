@@ -16,7 +16,7 @@ Kubernetesのネットワークのアプローチについて説明する前に�
 Dockerコンテナがノード間で通信するには、マシンのIPアドレスにポートを割り当ててから、コンテナに転送またはプロキシする必要があります。
 これは明らかに、コンテナが使用するポートを非常に慎重に調整するか、ポートを動的に割り当てる必要があることを意味します。
 
-複数の開発者間でポートを調整することは大規模に行うことは非常に難しく、ユーザーが制御できないクラスターレベルの問題にさらされます。
+コンテナを提供する複数の開発者やチーム間でポートの割り当てを調整することは、規模的に大変困難であり、ユーザが制御できないクラスターレベルの問題にさらされます。
 Kubernetesでは、どのホストで稼働するかに関わらず、Podが他のPodと通信できると想定しています。
 すべてのPodに独自のクラスタープライベートIPアドレスを付与するため、Pod間のリンクを明示的に作成したり、コンテナポートをホストポートにマップしたりする必要はありません。
 これは、Pod内のコンテナがすべてlocalhostの相互のポートに到達でき、クラスター内のすべてのPodがNATなしで相互に認識できることを意味します。
@@ -204,9 +204,7 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-実行されていない場合は、[有効にする](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/kube-dns/README.md#how-do-i-configure-it)ことができます。
-このセクションの残りの部分では、寿命の長いIP(my-nginx)を持つServiceと、そのIPに名前を割り当てたDNSサーバー(CoreDNSクラスターアドオン)があることを前提としているため、標準的な方法(gethostbynameなど)を使用してクラスター内の任意のPodからServiceに通信できます。
-curlアプリケーションを実行して、これをテストしてみましょう:
+このセクションの残りの部分は、寿命の長いIP(my-nginx)を持つServiceと、そのIPに名前を割り当てたDNSサーバーがあることを前提にしています。ここではCoreDNSクラスターアドオン(アプリケーション名: `kube-dns`)を使用しているため、標準的なメソッド(`gethostbyname()`など) を使用してクラスター内の任意のPodからServiceに通信できます。CoreDNSが起動していない場合、[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)または[Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照し、有効にする事ができます。curlアプリケーションを実行して、これをテストしてみましょう。
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -254,7 +252,21 @@ kubectl get secrets
 ```
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           Opaque                                2         1m
+nginxsecret           kubernetes.io/tls                     2         1m
+```
+configmapも作成します:
+```shell
+kubectl create configmap nginxconfigmap --from-file=default.conf
+```
+```
+configmap/nginxconfigmap created
+```
+```shell
+kubectl get configmaps
+```
+```
+NAME             DATA   AGE
+nginxconfigmap   1      114s
 ```
 以下は、(Windows上など)makeの実行で問題が発生した場合に実行する手動の手順です:
 
@@ -274,6 +286,7 @@ kind: "Secret"
 metadata:
   name: "nginxsecret"
   namespace: "default"
+  type: kubernetes.io/tls
 data:
   nginx.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIekNDQWdlZ0F3SUJBZ0lKQUp5M3lQK0pzMlpJTUEwR0NTcUdTSWIzRFFFQkJRVUFNQ1l4RVRBUEJnTlYKQkFNVENHNW5hVzU0YzNaak1SRXdEd1lEVlFRS0V3aHVaMmx1ZUhOMll6QWVGdzB4TnpFd01qWXdOekEzTVRKYQpGdzB4T0RFd01qWXdOekEzTVRKYU1DWXhFVEFQQmdOVkJBTVRDRzVuYVc1NGMzWmpNUkV3RHdZRFZRUUtFd2h1CloybHVlSE4yWXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSjFxSU1SOVdWM0IKMlZIQlRMRmtobDRONXljMEJxYUhIQktMSnJMcy8vdzZhU3hRS29GbHlJSU94NGUrMlN5ajBFcndCLzlYTnBwbQppeW1CL3JkRldkOXg5UWhBQUxCZkVaTmNiV3NsTVFVcnhBZW50VWt1dk1vLzgvMHRpbGhjc3paenJEYVJ4NEo5Ci82UVRtVVI3a0ZTWUpOWTVQZkR3cGc3dlVvaDZmZ1Voam92VG42eHNVR0M2QURVODBpNXFlZWhNeVI1N2lmU2YKNHZpaXdIY3hnL3lZR1JBRS9mRTRqakxCdmdONjc2SU90S01rZXV3R0ljNDFhd05tNnNTSzRqYUNGeGpYSnZaZQp2by9kTlEybHhHWCtKT2l3SEhXbXNhdGp4WTRaNVk3R1ZoK0QrWnYvcW1mMFgvbVY0Rmo1NzV3ajFMWVBocWtsCmdhSXZYRyt4U1FVQ0F3RUFBYU5RTUU0d0hRWURWUjBPQkJZRUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjcKTUI4R0ExVWRJd1FZTUJhQUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjdNQXdHQTFVZEV3UUZNQU1CQWY4dwpEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBRVhTMW9FU0lFaXdyMDhWcVA0K2NwTHI3TW5FMTducDBvMm14alFvCjRGb0RvRjdRZnZqeE04Tzd2TjB0clcxb2pGSW0vWDE4ZnZaL3k4ZzVaWG40Vm8zc3hKVmRBcStNZC9jTStzUGEKNmJjTkNUekZqeFpUV0UrKzE5NS9zb2dmOUZ3VDVDK3U2Q3B5N0M3MTZvUXRUakViV05VdEt4cXI0Nk1OZWNCMApwRFhWZmdWQTRadkR4NFo3S2RiZDY5eXM3OVFHYmg5ZW1PZ05NZFlsSUswSGt0ejF5WU4vbVpmK3FqTkJqbWZjCkNnMnlwbGQ0Wi8rUUNQZjl3SkoybFIrY2FnT0R4elBWcGxNSEcybzgvTHFDdnh6elZPUDUxeXdLZEtxaUMwSVEKQ0I5T2wwWW5scE9UNEh1b2hSUzBPOStlMm9KdFZsNUIyczRpbDlhZ3RTVXFxUlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
   nginx.key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2RhaURFZlZsZHdkbFIKd1V5eFpJWmVEZWNuTkFhbWh4d1NpeWF5N1AvOE9ta3NVQ3FCWmNpQ0RzZUh2dGtzbzlCSzhBZi9WemFhWm9zcApnZjYzUlZuZmNmVUlRQUN3WHhHVFhHMXJKVEVGSzhRSHA3VkpMcnpLUC9QOUxZcFlYTE0yYzZ3MmtjZUNmZitrCkU1bEVlNUJVbUNUV09UM3c4S1lPNzFLSWVuNEZJWTZMMDUrc2JGQmd1Z0ExUE5JdWFubm9UTWtlZTRuMG4rTDQKb3NCM01ZUDhtQmtRQlAzeE9JNHl3YjREZXUraURyU2pKSHJzQmlIT05Xc0RadXJFaXVJMmdoY1kxeWIyWHI2UAozVFVOcGNSbC9pVG9zQngxcHJHclk4V09HZVdPeGxZZmcvbWIvNnBuOUYvNWxlQlkrZStjSTlTMkQ0YXBKWUdpCkwxeHZzVWtGQWdNQkFBRUNnZ0VBZFhCK0xkbk8ySElOTGo5bWRsb25IUGlHWWVzZ294RGQwci9hQ1Zkank4dlEKTjIwL3FQWkUxek1yall6Ry9kVGhTMmMwc0QxaTBXSjdwR1lGb0xtdXlWTjltY0FXUTM5SjM0VHZaU2FFSWZWNgo5TE1jUHhNTmFsNjRLMFRVbUFQZytGam9QSFlhUUxLOERLOUtnNXNrSE5pOWNzMlY5ckd6VWlVZWtBL0RBUlBTClI3L2ZjUFBacDRuRWVBZmI3WTk1R1llb1p5V21SU3VKdlNyblBESGtUdW1vVlVWdkxMRHRzaG9reUxiTWVtN3oKMmJzVmpwSW1GTHJqbGtmQXlpNHg0WjJrV3YyMFRrdWtsZU1jaVlMbjk4QWxiRi9DSmRLM3QraTRoMTVlR2ZQegpoTnh3bk9QdlVTaDR2Q0o3c2Q5TmtEUGJvS2JneVVHOXBYamZhRGR2UVFLQmdRRFFLM01nUkhkQ1pKNVFqZWFKClFGdXF4cHdnNzhZTjQyL1NwenlUYmtGcVFoQWtyczJxWGx1MDZBRzhrZzIzQkswaHkzaE9zSGgxcXRVK3NHZVAKOWRERHBsUWV0ODZsY2FlR3hoc0V0L1R6cEdtNGFKSm5oNzVVaTVGZk9QTDhPTm1FZ3MxMVRhUldhNzZxelRyMgphRlpjQ2pWV1g0YnRSTHVwSkgrMjZnY0FhUUtCZ1FEQmxVSUUzTnNVOFBBZEYvL25sQVB5VWs1T3lDdWc3dmVyClUycXlrdXFzYnBkSi9hODViT1JhM05IVmpVM25uRGpHVHBWaE9JeXg5TEFrc2RwZEFjVmxvcG9HODhXYk9lMTAKMUdqbnkySmdDK3JVWUZiRGtpUGx1K09IYnRnOXFYcGJMSHBzUVpsMGhucDBYSFNYVm9CMUliQndnMGEyOFVadApCbFBtWmc2d1BRS0JnRHVIUVV2SDZHYTNDVUsxNFdmOFhIcFFnMU16M2VvWTBPQm5iSDRvZUZKZmcraEppSXlnCm9RN3hqWldVR3BIc3AyblRtcHErQWlSNzdyRVhsdlhtOElVU2FsbkNiRGlKY01Pc29RdFBZNS9NczJMRm5LQTQKaENmL0pWb2FtZm1nZEN0ZGtFMXNINE9MR2lJVHdEbTRpb0dWZGIwMllnbzFyb2htNUpLMUI3MkpBb0dBUW01UQpHNDhXOTVhL0w1eSt5dCsyZ3YvUHM2VnBvMjZlTzRNQ3lJazJVem9ZWE9IYnNkODJkaC8xT2sybGdHZlI2K3VuCnc1YytZUXRSTHlhQmd3MUtpbGhFZDBKTWU3cGpUSVpnQWJ0LzVPbnlDak9OVXN2aDJjS2lrQ1Z2dTZsZlBjNkQKckliT2ZIaHhxV0RZK2Q1TGN1YSt2NzJ0RkxhenJsSlBsRzlOZHhrQ2dZRUF5elIzT3UyMDNRVVV6bUlCRkwzZAp4Wm5XZ0JLSEo3TnNxcGFWb2RjL0d5aGVycjFDZzE2MmJaSjJDV2RsZkI0VEdtUjZZdmxTZEFOOFRwUWhFbUtKCnFBLzVzdHdxNWd0WGVLOVJmMWxXK29xNThRNTBxMmk1NVdUTThoSDZhTjlaMTltZ0FGdE5VdGNqQUx2dFYxdEYKWSs4WFJkSHJaRnBIWll2NWkwVW1VbGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
@@ -287,7 +300,7 @@ kubectl get secrets
 ```
 NAME                  TYPE                                  DATA      AGE
 default-token-il9rc   kubernetes.io/service-account-token   1         1d
-nginxsecret           Opaque                                2         1m
+nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
 次に、nginxレプリカを変更して、シークレットの証明書とServiceを使用してhttpsサーバーを起動し、両方のポート(80と443)を公開します:
@@ -332,7 +345,7 @@ NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 ```
 ```shell
-kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
+kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/tls.crt
 ...
 <title>Welcome to nginx!</title>
 ...
@@ -414,7 +427,8 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 {{% capture whatsnext %}}
 
-Kubernetesは、複数のクラスターおよびクラウドプロバイダーにまたがるフェデレーションサービスもサポートし、可用性の向上、フォールトトレランスの向上、サービスのスケーラビリティの向上を実現します。
-詳細については[フェデレーションサービスユーザーガイド](/docs/concepts/cluster-administration/federation-service-discovery/)を参照してください。
+* 詳細: [Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* 詳細: [Serviceを使用してフロントエンドをバックエンドに接続する](/ja/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* 詳細: [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
 {{% /capture %}}
