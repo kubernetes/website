@@ -48,7 +48,7 @@ metrik dari sumber daya metrik API (untuk metrik per Pod) atau dari API metrik k
 
   Perlu dicatat bahwa jika beberapa Container pada Pod tidak memiliki nilai *resource request*, penggunaan CPU
   pada Pod tersebut tidak akan ditentukan dan *autoscaler* tidak akan melakukan tindakan apapun untuk metrik tersebut.
-  Perhatikan pada bagian [detail algoritma](#algorithm-details) di bawah ini untuk informasi lebih lanjut mengenai
+  Perhatikan pada bagian [detail algoritma](#detail-algoritma) di bawah ini untuk informasi lebih lanjut mengenai
   cara kerja algoritma *autoscale*.
 
 * Untuk metrik khusus per Pod, _controller_ bekerja sama seperti sumber daya metrik per Pod,
@@ -78,90 +78,88 @@ dengan menggunakan *scale sub-resource*. Untuk lebih detail mengenai *scale sub-
 
 ### Detail Algoritma
 
-Dari sudut pandang paling sederhana, kontroler HorizontalPodAutoscaler mengoperasikan
+Dari sudut pandang paling sederhana, _controller_ HorizontalPodAutoscaler mengoperasikan
 perbandingan metrik yang diinginkan dengan kedaan metrik sekarang.
 
 ```
-jumlahReplikaYangDiinginkan = pembulatanKeatas[jumlahReplikaSekarang * ( nilaiMetrikSekarang / nilaiMetrikYangDinginkan )]
+desiredReplicas = ceil[currentReplicas * ( currentMetricValue / desiredMetricValue )]
 ```
 
 Sebagai contoh, jika nilai metrik sekarang adalah `200m` dan nilai metrik yang
 diinginkan adalah `100m`, jumlah replika akan ditambah dua kali lipat, 
 karena `200.0 / 100.0 == 2.0`. Jika nilai metrik sekarang adalah `50m`,
 maka jumlah replika akan dikurangi setengah, karena `50.0 / 100.0 == 0.5`.
-Kita tetap men-*sclae* jika nilai perbandingan mendekati 1.0 (dalam toleransi yang
+Kita tetap memperbanyak replika (_scale_) jika nilai perbandingan mendekati 1.0 (dalam toleransi yang
 dapat dikonfigurasi secata global, dari *flag* `--horizontal-pod-autoscaler-tolerance`
-dengan nilai standar 0.1.
+dengan nilai bawaan 0.1.
 
-Ketika `nilaiTargetRatarata` atau `targetPenggunaanRatarata` ditentukan,
-`nilaiMetrikSekarang` dihitung dengan mengambil rata-rata dari metrik dari
-semua *pods* yang ditargetkan oleh HorizontalPodAutoscaler. Sebelum mengecek
-toleransi dan menentukan nilai akhir, kita mengambil kesiaapn Pod dan metrik
-yang hilang sebagai pertimbangan. 
+Ketika `targetAverageValue` (nilai target rata-rata) atau `targetAverageUtilization` 
+(target penggunaan rata-rata) ditentukan, `currentMetricValue` (nilai metrik sekaraang) 
+dihitung dengan mengambil rata-rata dari metrik dari semua Pod yang ditargetkan oleh
+HorizontalPodAutoscaler. Sebelum mengecek toleransi dan menentukan nilai akhir, 
+kita mengambil kesiapan Pod dan metrik yang hilang sebagai pertimbangan. 
 
-Semua *pods* yang memiliki waktu penghapusan(Pod dalam proses penutupan)
-dan semua *pods* yang *failed* akan dibuang.
+Semua Pod yang memiliki waktu penghapusan (Pod dalam proses penutupan)
+dan semua Pod yang mengalami kegagalan akan dibuang.
 
 Jika ada metrik yang hilang dari Pod, maka Pod akan dievaluasi nanti.
-Pod dengan nilai metrik yang hilang akan digunakan untuk menyesuikan
-jumlah akhir Pod yang akan di-*scale*.
+Pod dengan nilai metrik yang hilang akan digunakan untuk menyesuaikan
+jumlah akhir Pod yang akan diperbanyak atau dikurangi.
 
-Ketika CPU sedang *scale*, jika terdapat Pod yang akan siap (dengan kata lain
+Ketika _scaling_ dilakukan karena CPU, jika terdapat Pod yang akan siap (dengan kata lain
 Pod tersebut sedang dalam tahap inisialisasi) *atau* metrik terakhir dari Pod
 adalah metrik sebelum Pod dalam keadaan siap, maka Pod tersebut juga
-akan dievaluasi nanti.
+akan dievaluasi nantinya.
 
-Akibat keterbatasan teknis, kontroler HorizontalPodAutoscaler tidak dapat
+Akibat keterbatasan teknis, _controller_ HorizontalPodAutoscaler tidak dapat
 menentukan dengan tepat kapan pertama kali Pod akan dalam keadaan siap
-ketika menentukan apakah menyisihkan metrik CPU tertentu. Sebaliknya,
+ketika menentukan apakah metrik CPU tertentu perlu dibuang. Sebaliknya,
 HorizontalPodAutoscaler mempertimbangkan sebuah Pod "tidak dalam keadaan siap"
 jika Pod tersebut dalam keadaan tidak siap dan dalam transisi ke status tidak
-siap dalam waktu singkat, rentang waktu dapat dikonfigurasi, sejak Pod tersebut berjalan.
+siap dalam waktu singkat, rentang waktu dapat dikonfigurasi, sejak Pod tersebut dijalankan.
 Rentang waktu tersebut dapat dikonfigurasi dengan *flag* `--horizontal-pod-autoscaler-initial-readiness-delay`
-dan waktu standarnya adalah 30 detik. Ketika suatu Pod sudah dalam keadaan siap,
+dan waktu bawaannya adalah 30 detik. Ketika suatu Pod sudah dalam keadaan siap,
 Pod tersebut mempertimbangkan untuk siap menjadi yang pertama jika itu terjadi dalam
-waktu yang lebih lama, rentang waktu dapat di konfigurasi, sejak Pod tersebut berjalan.
+waktu yang lebih lama, rentang waktu dapat dikonfigurasi, sejak Pod tersebut dijalankan.
 Rentang waktu tersebut dapat dikonfigurasi dengan *flag* `--horizontal-pod-autoscaler-cpu-initialization-period`
-dan nilai standarnya adalah 5 menit. 
+dan nilai bawaannya adalah 5 menit. 
 
-Skala perbandingan dasar `nilaiMetrikSekarang / nilaiMetrikYangDinginkan`
+Skala perbandingan dasar `currentMetricValue / desiredMetricValue`
 dihitung menggunakan Pod yang tersisa yang belum disisihkan atau dibuang dari
-kondisi diatas.
+kondisi di atas.
 
 Jika terdapat metrik yang hilang, kita menghitung ulang rata-rata dengan lebih
-konservatif, dengan asumsi *pods* menkonsumsi 100% dari nilai yang diharapkan
-jika di *scale down* dan 0% jika di *scale up*. Ini akan mengurangi
-besarnya kemungkinan untuk *scale*.
+konservatif, dengan asumsi Pod mengkonsumsi 100% dari nilai yang diharapkan
+jika jumlahnya dikurangi (*scale down*) dan 0% jika jumlahnya diperbanyak (*scale up*). 
+Ini akan mengurangi besarnya kemungkinan untuk *scale*.
 
-Selanjutnya, jika terdapat Pod dalam keadaan tidak siap, and kita akan
-men-*scale up* tanpa memperhitungkan metrik yang hilang atau Pod yang tidak dalam
+Selanjutnya, jika terdapat Pod dalam keadaan tidak siap, dan kita akan
+memperbanyak replikas (*scale up*) tanpa memperhitungkan metrik yang hilang atau Pod yang tidak dalam
 keadaan siap, kita secara konservatif mengasumsikan Pod yang tidak dalam keadaan siap
-mengkonsumsi 0% dari metrik yang diharapkan, akhirnya mengurasi besarnya *scale up*.
+mengkonsumsi 0% dari metrik yang diharapkan, akhirnya meredam jumlah replika yang diperbanyak (*scale up*).
 
 Seteleh memperhitungkan Pod yang tidak dalam keadaan siap dan metrik yang hilang,
-kite menghitung ulang menggunakan perbandingan. Jika perbandingan yang baru membalikkan
-arah *scale*-nya atau masih didalam toleransi, kita akan tepat *scale*. Jika tidak,
-kita menggunakan perbandingan yang baru untuk *scale*.
+kita menghitung ulang menggunakan perbandingan. Jika perbandingan yang baru membalikkan
+arah *scale*-nya atau masih di dalam toleransi, kita akan melakukan *scale* dengan tepat. Jika tidak,
+kita menggunakan perbandingan yang baru untuk memperbanyak atau mengurangi jumlah replika.
 
-
-Perlu dicatat bahwa nilai *original* untuk rata-rata penggunaan dilaporkan kembali melalui
+Perlu dicatat bahwa nilai asli untuk rata-rata penggunaan dilaporkan kembali melalui
 status HorizontalPodAutoscaler, tanpa memperhitungkan Pod yang tidak dalam keadaan siap atau
-metrik yang hilag, bahkan ketika perbandingan yang baru digunakan.
-
+metrik yang hilang, bahkan ketika perbandingan yang baru digunakan.
 
 Jika beberapa metrik ditentukan pada sebuah HorizontalPodAutoscaler, perhitungan
 dilakukan untuk setiap metrik dan nilai replika terbesar yang diharapkan akan dipilih.
-Jika terdapat metrik yang tidak dapat diubah menjadi jumlah replika yang diharapakan
-(contohnya terdapat kesalahan ketika mengambil metrik dari API metrik) dan *scale down*
+Jika terdapat metrik yang tidak dapat diubah menjadi jumlah replika yang diharapkan
+(contohnya terdapat kesalahan ketika mengambil metrik dari API metrik) dan pengurangan replika
 disarankan dari metrik yang dapat diambil, maka *scaling* akan diabaikan. Ini berarti 
-HorizontalPodAutoscaler masih mampu untuk *scale up* jika satu atau lebih metrik
-memberikan sebuah `jumlahReplikaYangDiinginkan` lebih besar dari nilai yang sekarang.
+HorizontalPodAutoscaler masih mampu untuk memperbanyak replika jika satu atau lebih metrik
+memberikan sebuah `desiredReplicas` lebih besar dari nilai yang sekarang.
 
-Pada akhirnya, sebelum HorizontalPodAutoscaler men-*scale* target, rekomendasi *scale* akan
-dicatat. Kontroler mempertimbangkan semua rekomendasi dalam rentang waktu yang dapat
+Pada akhirnya, sebelum HorizontalPodAutoscaler memperbanyak target, rekomendasi *scaling* akan
+dicatat. _Controller_ mempertimbangkan semua rekomendasi dalam rentang waktu yang dapat
 dikonfigurasi untuk memilih rekomendasi tertinggi. Nilai ini dapat dikonfigurasi menggunakan
-*flag* `--horizontal-pod-autoscaler-downscale-stabilization`, dengan nilai standar
-5 menit. Ini berarti *scale down* akan terjadi secara bertahapn, untuk mengurangi dampak dari
+*flag* `--horizontal-pod-autoscaler-downscale-stabilization`, dengan nilai bawaan
+5 menit. Ini berarti pengurangan replika akan terjadi secara bertahap, untuk mengurangi dampak dari
 perubahan nilai metrik yang cepat. 
 
 ## Objek API
@@ -202,11 +200,10 @@ HorizontalPodAutoscaler terikat dengan objek Deployment, yang mengatur besar dar
 dan Deployment bertugas untuk mengatur besar dari ReplicaSet.
 
 HorizontalPodAutoscaler tidak bekerja dengan *rolling update* yang menggunakan manipulasi
-pada kontroler replikasi secara langsung, dengan kata lain kamu tidak bisa mengikat
-HorizontalPodAutoscaler dengan kontroler replikasi dan melakukan *rolling update*.
-Alasan HorizontalPodAutoscaler tidak bekerja ketika *rolling update* membuat kontroller
-replikasi yang baru adalah HorizontalPodAutoscaler tidak akan terikat dengan kontroler
-replikasi yang baru tersebut.
+pada ReplicationContoller secara langsung, dengan kata lain kamu tidak bisa mengikat
+HorizontalPodAutoscaler dengan ReplicationController dan melakukan *rolling update*.
+Alasan HorizontalPodAutoscaler tidak bekerja ketika *rolling update* membuat ReplicationController
+yang baru adalah HorizontalPodAutoscaler tidak akan terikat dengan ReplicationController yang baru tersebut.
 
 ## Dukungan untuk *Cooldown* / Penundaan
 
@@ -237,7 +234,7 @@ biasanya.
 
 Kubernetes versi 1.6 menambah dukungan untuk *scaling* berdasarkan beberapa metrik.
 Kamu dapat menggunakan API versi `autoscaling/v2beta2` untuk menentukan beberapa metrik
-yang akan digunakan HorizontalPodAutoscaler untuk *scale*. Kemudian, kontroler
+yang akan digunakan HorizontalPodAutoscaler untuk *scale*. Kemudian, _controller_
 HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan *scale* yang
 baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
 yang baru.
@@ -250,7 +247,7 @@ yang spesifik dengan aplikasi menggunakan anotasi khusus. Dukungan untuk anotasi
 dihilangkan pada Kubernetes versi 1.6 untuk mendukung API *autoscaling* yang baru. Selama
 cara lama untuk mendapatkan metrik khusus masih tersedia, metrok ini tidak akan tersedia untuk
 digunakan oleh HorizontalPodAutoscaler dan anotasi sebelumnya untuk menentukan metrik khusus untuk
-*scale* tidak lagi digunakan oleh kontroler HorizontalPodAutscaler.
+*scale* tidak lagi digunakan oleh _controller_ HorizontalPodAutscaler.
 {{< /note >}}
 
 Kubernetes versi 1.6 menambah dukungan untuk menggunakan metrik khusu pada HorizontalPodAutoscaler.
@@ -261,7 +258,7 @@ Lihat [Dukungan untuk API metrik](#support-for-metrics-apis) untuk kubutuhannya.
 
 ## Dukungan untuk API metrik
 
-Secara standar, kontroler HorizontalPodAutoscaler mengambil mentrik dari beberapa API. Untuk dapat
+Secara standar, _controller_ HorizontalPodAutoscaler mengambil mentrik dari beberapa API. Untuk dapat
 mengakses API ini, administrator klaster harus memastikan bahwa:
 
 * [API Later Pengumpulan](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) diaktifkan.
@@ -321,7 +318,7 @@ behavior:
 Ketika jumlah Pod lebih besar dari 40, *policy* kedua akan digunakan untuk *scaling down*.
 Misalnya, jika terdapat 80 replika dan target sudah di *scale down* ke 10 replika, 8 replika
 akan dikurangi pada tahapan pertama. Pada iterasi berikutnya, ketika jumlah replika adalah 72,
-10% dari Pod adalah 7.2 tetapi akan dibulatkan menjadi 8. Dalam setiap iterasi pada kontroler
+10% dari Pod adalah 7.2 tetapi akan dibulatkan menjadi 8. Dalam setiap iterasi pada _controller_
 *autoscaler* jumlah Pod yang akan diubah akan dihitung ulang berdarkan jumlah replika sekarang.
 Ketika jumlah replika dibawah 40, *policy* pertama (Pods) akan digunakan dan 4 replika akan dikurangi
 dalam satu waktu.
