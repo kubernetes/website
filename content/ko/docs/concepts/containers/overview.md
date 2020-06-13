@@ -31,7 +31,6 @@ weight: 10
 애플리케이션을 변경하려는 경우, 변경사항을 포함하여 만든
 새로운 이미지를 통해 컨테이너를 다시 생성해야 한다.
 
-
 ## 컨테이너 런타임
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}

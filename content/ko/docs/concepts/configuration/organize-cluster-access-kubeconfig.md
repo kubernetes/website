@@ -99,7 +99,7 @@ kubectl config view
    `KUBECONFIG` 환경 변수 설정의 예로,
    [KUBECONFIG 환경 변수 설정](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#kubeconfig-환경-변수-설정)를 참조한다.
 
-   그렇지 않다면, 병합하지 않고 기본 kubecofig 파일인 `$HOME/.kube/config`를 사용한다.
+   그렇지 않다면, 병합하지 않고 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 
 1. 이 체인에서 첫 번째를 기반으로 사용할 컨텍스트를 결정한다.
 

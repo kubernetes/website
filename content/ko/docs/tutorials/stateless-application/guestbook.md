@@ -369,4 +369,3 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 * [애플리케이션 접속](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
 * [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아보기
 
-

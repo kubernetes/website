@@ -56,7 +56,8 @@ weight: 10
 API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
-해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에 리소스 쿼터가 적용된다.
+해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에
+리소스 쿼터가 적용된다.
 
 ## 컴퓨트 리소스 쿼터
 
@@ -160,9 +161,10 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `services.nodeports` | 네임스페이스에 존재할 수 있는 노드 포트 유형의 총 서비스 수 |
 | `secrets` | 네임스페이스에 존재할 수 있는 총 시크릿 수 |
 
-예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를 계산하고 최대값을 적용한다.
-사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP 공급이 고갈되는 경우를 피하기 위해
-네임스페이스에 `pods` 쿼터를 설정할 수 있다.
+예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를
+계산하고 최댓값을 적용한다. 사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP
+공급이 고갈되는 경우를 피하기 위해 네임스페이스에
+`pods` 쿼터를 설정할 수 있다.
 
 ## 쿼터 범위
 
@@ -598,5 +600,4 @@ plugins:
 
 
 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
-
 

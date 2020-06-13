@@ -1,22 +1,23 @@
 ---
 title: 초기화 컨테이너에 대한 구성
-content_template: templates/task
+content_type: task
 weight: 130
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 애플리케이션 실행 전에 파드를 초기화하기 위해 어떻게 초기화 컨테이너를
 구성해야 하는지 보여준다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 초기화 컨테이너를 갖는 파드 생성
 
@@ -78,9 +79,10 @@ init-demo 파드 내 실행 중인 nginx 컨테이너의 셸을 실행한다.
       <p>Kubernetes is open source giving you the freedom to take advantage ...</p>
       ...
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [같은 파드 내 실행 중인 컨테이너들간 통신](/ko/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/)에
 대해 배우기.
@@ -88,4 +90,6 @@ init-demo 파드 내 실행 중인 nginx 컨테이너의 셸을 실행한다.
 * [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 배우기.
 * [초기화 컨테이너 디버깅](/docs/tasks/debug-application-cluster/debug-init-containers/)에 대해 배우기.
 
-{{% /capture %}}
+
+
+

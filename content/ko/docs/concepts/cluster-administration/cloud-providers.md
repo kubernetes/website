@@ -134,13 +134,13 @@ CloudStack 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이�
 GCE 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 (kubelet에 의해 결정되거나 `--hostname-override` 로 재정의된) 호스트 이름을 사용한다.
 참고로 쿠버네티스 노드 이름의 첫 번째 세그먼트는 GCE 인스턴스 이름과 일치해야 한다(예: `kubernetes-node-2.c.my-proj.internal` 이름이 지정된 노드는 `kubernetes-node-2` 이름이 지정된 인스턴스에 해당해야 함).
 
-## HUAWEI 클라우드
+## HUAWEI CLOUD
 
 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud)이다.
 
 ### 노드 이름
 
-HUAWEI 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 프라이빗 IP 주소가 필요하다.
+HUAWEI CLOUD 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 프라이빗 IP 주소가 필요하다.
 노드에서 kubelet을 시작할 때 반드시 `--hostname-override=<node private IP>` 를 사용한다.
 
 ## OpenStack
@@ -415,6 +415,7 @@ Baidu 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으
 참고로 쿠버네티스 노드 이름은 Baidu VM 프라이빗 IP와 일치해야 한다.
 
 ## Tencent 쿠버네티스 엔진
+
 이 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [TencentCloud/tencentcloud-cloud-controller-manager](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)이다.
 
 ### 노드 이름
