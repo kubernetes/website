@@ -258,19 +258,19 @@ Lihat [Dukungan untuk API metrik](#dukungan-untuk-api-metrik) untuk kubutuhannya
 
 ## Dukungan untuk API metrik
 
-Secara standar, _controller_ HorizontalPodAutoscaler mengambil mentrik dari beberapa API. Untuk dapat
+Secara standar, _controller_ HorizontalPodAutoscaler mengambil metrik dari beberapa API. Untuk dapat
 mengakses API ini, administrator klaster harus memastikan bahwa:
 
 * [API Later Pengumpulan](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) diaktifkan.
 
 * API berikut ini terdaftar:
 
-    * Untuk metrik *resource*, ini adalah API `metrics.k8s.io`, pada umumnya disediakan oleh 
-      [server metrik](https://github.com/kubernetes-incubator/metrics-server). API tersebut dapat
-      diaktifkan sebagai *addon* di klaster. 
+    * Untuk metrik sumber daya, ini adalah API `metrics.k8s.io`, pada umumnya disediakan oleh 
+      [metrics-server](https://github.com/kubernetes-incubator/metrics-server). API tersebut dapat
+      diaktifkan sebagai *addon* atau tambahan pada klaster. 
 
     * Untuk metrik khusus, ini adalah API `custom.metrics.k8s.io`. API ini disediakan oleh API
-      adaptor server yang disedikaan oleh vendor yang memberi solusi untuk metrik. Cek dengan
+      adaptor server yang disediakan oleh vendor yang memberi solusi untuk metrik. Cek dengan
       *pipeline* metrikmu atau [daftar solusi yang sudah diketahui](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api). Jika kamu ingin membuat sendiri, perhatikan
       [*boilerplate* berikut](https://github.com/kubernetes-incubator/custom-metrics-apiserver) untuk memulai.
 
@@ -278,7 +278,7 @@ mengakses API ini, administrator klaster harus memastikan bahwa:
       metrik khusus diatas.
 
 * Nilai dari `--horizontal-pod-autoscaler-use-rest-clients` adalah `true` atau tidak ada. Ubah nilai tersebut menjadi
-  `false` untuk mengubah ke *Heapster-based autoscaling*, dimana ini sudah tidak didukung lagi.
+  `false` untuk mengubah ke *autoscaling* berdasarkan Heapster, dimana ini sudah tidak didukung lagi.
 
 Untuk informasi lebih lanjut mengenai metrik-metrik ini dan bagaimana perbedaan setiap metrik, perhatikan proposal
 desain untuk [HPA V2](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/hpa-v2.md),
@@ -294,7 +294,7 @@ Mulai dari versi [v1.18](https://github.com/kubernetes/enhancements/blob/master/
 dikonfigurasi melalui *field* `behavior` pada HorizontalPodAutoscaler. Perilaku *scaling up* dan *scaling down*
 ditentukan terpisah pada *field* `slaceUp` dan *field* `scaleDown`, dibawah dari *field* `behavior`.
 Sebuah stabilisator dapat ditentukan untuk kedua arah *scale* untuk mencegah perubahan replika yang terlalu
-berbeda pada target *scaling*. Menentukan *scaling policies* akan mengkontrol perubahan replika
+berbeda pada target *scaling*. Menentukan *scaling policies* akan mengontrol perubahan replika
 ketika *scaling*.
 
 ### Scaling Policies
