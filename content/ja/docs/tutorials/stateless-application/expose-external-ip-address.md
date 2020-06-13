@@ -71,7 +71,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
     {{< note >}}
 
-    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、この例ではカバーされていません。詳細は[このページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
+    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
 
     {{< /note >}}
 
