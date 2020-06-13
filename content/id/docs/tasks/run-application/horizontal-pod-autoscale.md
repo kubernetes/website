@@ -301,7 +301,7 @@ ketika *scaling*.
 
 Satu atau lebih *scaling policies* dapat ditentukan pada *field* `behavior`. Ketika beberapa
 *policies* ditentukan, *policy* yang mengizinkan *scale* terbesar akan dipilih secara *default*.
-Contoh berikut menunjukkan perilaku ketika *scaling down*:
+Contoh berikut menunjukkan perilaku ketika mengurangi replika:
 
 ```yaml
 behavior:
@@ -346,7 +346,7 @@ scaleDown:
   stabilizationWindowSeconds: 300
 ```
 
-Ketika metrik menandakan bahwa target akan di *scale down*, algoritma akan memperhatikan
+Ketika metrik menandakan bahwa replika pada target akan dikurangi, algoritma akan memperhatikan
 jumlah replika yang diharapkan sebelumnya dan menggunakan nilai terbesar dari interval
 yang ditentukan. Pada contoh diatas, semua jumlah replika yang diharapkan pada 5 menit
 yang lalu akan dipertimbangkan.
@@ -381,14 +381,14 @@ Untuk `scaleDown`, nilai dari jendela stabilisasi adalah 300 detik (atau nilai d
 *flag* `--horizontal-pod-autoscaler-downscale-stabilization` jika ditentukan). Hanya terdapat
 satu *policy*, yaitu mengizinkan menghapus 100% dari replika yang berjalan,
 artinya target replikasi di *scale* ke jumlah replika minimum. Untuk `scaleUp`, tidak terdapat
-jendela stabilisasi. Jika metrik menunjukkan bahwa target perlu di *scale up*, maka akan di
-*scale up* secara langsung. Untuk `scaleUp` terdapat dua *policy*, yaitu empat Pod atau 100% dari
+jendela stabilisasi. Jika metrik menunjukkan bahwa replika pada target perlu diperbanyak, maka replika akan
+diperbanyak di secara langsung. Untuk `scaleUp` terdapat dua *policy*, yaitu empat Pod atau 100% dari
 replika yang berjalan akan ditambahkan setiap 15 detik sampai HorizontalPodAutoscaler
 dalam keadaan stabil.
 
 ### Contoh: Mengubah Jendela Stabiliasi pada *field* scaleDown
 
-Untuk membuat jendela stabilisai untuk *downscale* selama satu menit, perilaku
+Untuk membuat jendela stabilisai untuk pengurangan replika selama satu menit, perilaku
 berikut ditambahkan pada HorizontalPodAutoscaler.
 
 ```yaml
@@ -429,7 +429,7 @@ behavior:
 ### Contoh: menonakfitkan *scale down*
 
 Nilai `Disable` pada `selectPolicy` akan menonaktifkan *scaling* pada arah yang
-ditentukan. Untuk mencegah *scaling down* dapat menggunakan *policy* berikut.
+ditentukan. Untuk mencegah pengurangan replika dapat menggunakan *policy* berikut.
 
 ```yaml
 behavior:
