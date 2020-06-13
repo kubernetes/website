@@ -230,13 +230,13 @@ waktu penundaan diset terlalu cepat, kemungkinan replikasi akan *trashing* seper
 biasanya. 
 {{< /note >}}
 
-## Dukukan untuk Beberapa Metrik
+## Dukungan untuk Beberapa Metrik
 
 Kubernetes versi 1.6 menambah dukungan untuk *scaling* berdasarkan beberapa metrik.
 Kamu dapat menggunakan API versi `autoscaling/v2beta2` untuk menentukan beberapa metrik
-yang akan digunakan HorizontalPodAutoscaler untuk *scale*. Kemudian, _controller_
-HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan *scale* yang
-baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
+yang akan digunakan HorizontalPodAutoscaler untuk menambah atau mengurangi jumlah replika. 
+Kemudian, _controller_ HorizontalPodAutoscaler akan mengevaluasi setiap metrik dan menyarankan jenis
+*scaling* yang baru berdasarkan metrik tersebut. Jumlah replika terbanyak akan digunakan untuk *scale*
 yang baru.
 
 ## Dukungan untuk Metrik Khusus
