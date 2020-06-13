@@ -303,7 +303,7 @@ Address 1: 10.0.0.1 kubernetes.default.svc.cluster.local
 
 ## ServiceはIPでは機能するか？
 
-DNSサービスが正しく動作できると仮定すると、次にテストするのはIPによってServiceが動作しているかです。
+DNSサービスが正しく動作できると仮定すると、次にテストするのはIPによってServiceが動作しているかどうかです。
 上述のの`kubectl get`で確認できるIPに、クラスター内のPodからアクセスします。
 
 ```shell
