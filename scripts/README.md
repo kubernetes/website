@@ -17,7 +17,19 @@ Some of those scripts have external requirements. You can install them with the 
 ```
 python3 -m pip install -r requirements.txt
 ```
+If on Python 2.7 or older or using Powershell,you may run the bash file 'requirements_python2.sh' on your command line.
 
+- For those who are on Linux using Python 2, run the command below:
+
+```
+chmod +x requirements_python2.sh && bash requirements_python2.sh
+```
+
+- For those who are using Powershell, you may also use:
+
+```
+bash -c "chmod +x requirements_python2.sh && bash requirements_python2.sh"
+```
 ## find_pr.py
 
 ```
