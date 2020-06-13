@@ -86,7 +86,7 @@ hostnames-632524106-ly40y   1/1       Running   0          2m
 hostnames-632524106-tlaok   1/1       Running   0          2m
 ```
 
-Podが昨日していることも確認できます。
+Podが機能していることも確認できます。
 Pod IP アドレスリストを取得し、直接テストできます。
 
 ```shell
