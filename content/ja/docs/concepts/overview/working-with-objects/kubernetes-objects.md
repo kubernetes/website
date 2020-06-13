@@ -64,7 +64,7 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 * `spec` - オブジェクトの望ましい状態
 
 `spec`の正確なフォーマットは、Kubernetesオブジェクトごとに異なり、オブジェクトごとに特有な入れ子のフィールドを持っています。[Kubernetes API リファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)が、Kubernetesで作成出来る全てのオブジェクトに関するspecのフォーマットを探すのに役立ちます。
-例えば、`Pod`オブジェクトに関する`spec`のフォーマットは[こちら](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を、また`Deployment`オブジェクトに関する`spec`のフォーマットは[こちら](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)をご確認ください。
+例えば、`Pod`オブジェクトに関する`spec`のフォーマットは[PodSpec v1 core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を、また`Deployment`オブジェクトに関する`spec`のフォーマットは[DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)をご確認ください。
 
 {{% /capture %}}
 
