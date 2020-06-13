@@ -50,7 +50,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 
 出力結果は、下記に似た形になります:
 
-```shell
+```
 deployment.apps/nginx-deployment created
 ```
 
