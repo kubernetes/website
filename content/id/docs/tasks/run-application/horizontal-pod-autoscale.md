@@ -194,9 +194,9 @@ Dokumentasi lebih detail tentang `kubectl autoscaler` dapat ditemukan di
 
 ## Autoscaling ketika Rolling Update
 
-Saat ini, dimungkinkan untuk melakukan *rolling update* menggunakan objek Deployment, dimana 
+Saat ini, dimungkinkan untuk melakukan *rolling update* menggunakan objek Deployment, yang akan 
 mengatur ReplicaSet untuk kamu. HorizontalPodAutoscaler hanya mendukung pendekatan terakhir:
-HorizontalPodAutoscaler terikat dengan objek Deployment, yang mengatur besar dari objek Deployment,
+HorizontalPodAutoscaler terikat dengan objek Deployment, yang mengatur seberapa besar dari objek Deployment tersebut,
 dan Deployment bertugas untuk mengatur besar dari ReplicaSet.
 
 HorizontalPodAutoscaler tidak bekerja dengan *rolling update* yang menggunakan manipulasi
