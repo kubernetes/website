@@ -51,7 +51,7 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 
 ## Ingressリソース
 
-Ingressリソースの最小構成の例は下記のとおりです。
+Ingressリソースの最小構成の例は以下のとおりです。
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -76,7 +76,7 @@ Ingress [Spec](https://git.k8s.io/community/contributors/devel/sig-architecture/
 
 ### Ingressのルール
 
-各HTTPルールは下記の情報を含みます。
+各HTTPルールは以下の情報を含みます。
 
 * オプションで設定可能なホスト名。上記のリソースの例では、ホスト名が指定されていないと、そのルールは指定されたIPアドレスを経由する全てのインバウンドHTTPトラフィックに適用されます。ホスト名が指定されていると(例: foo.bar.com)、そのルールはホストに対して適用されます。
 * パスのリスト(例: `/testpath`)。各パスには`serviceName`と`servicePort`で定義されるバックエンドが関連づけられます。ロードバランサーがトラフィックを関連づけられたServiceに転送するために、外部からくるリクエストのホスト名とパスが条件と一致させる必要があります。
@@ -116,14 +116,14 @@ IngressコントローラーとロードバランサーがIPアドレス割り�
 
 ### リクエストのシンプルなルーティング
 
-ファンアウト設定では単一のIPアドレスのトラフィックを、リクエストされたHTTP URIに基づいて1つ以上のServiceに転送します。Ingressによってロードバランサーの数を少なくすることができます。例えば、下記のように設定します。
+ファンアウト設定では単一のIPアドレスのトラフィックを、リクエストされたHTTP URIに基づいて1つ以上のServiceに転送します。Ingressによってロードバランサーの数を少なくすることができます。例えば、以下のように設定します。
 
 ```none
 foo.bar.com -> 178.91.123.132 -> / foo    service1:4200
                                  / bar    service2:8080
 ```
 
-Ingressを下記のように設定します。
+Ingressを以下のように設定します。
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -189,7 +189,7 @@ foo.bar.com --|                 |-> foo.bar.com service1:80
 bar.foo.com --|                 |-> bar.foo.com service2:80
 ```
 
-下記のIngress設定は、ロードバランサーに対して、[Hostヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)に基づいてリクエストを転送するように指示するものです。
+以下のIngress設定は、ロードバランサーに対して、[Hostヘッダー](https://tools.ietf.org/html/rfc7230#section-5.4)に基づいてリクエストを転送するように指示するものです。
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -214,7 +214,7 @@ spec:
 
 rules項目でのホストの設定がないIngressを作成すると、IngressコントローラーのIPアドレスに対するwebトラフィックは、要求されている名前ベースのバーチャルホストなしにマッチさせることができます。
 
-例えば、下記のIngressリソースは`first.bar.com`に対するトラフィックを`service1`へ、`second.foo.com`に対するトラフィックを`service2`へ、リクエストにおいてホスト名が指定されていない(リクエストヘッダーがないことを意味します)トラフィックは`service3`へ転送します。
+例えば、以下のIngressリソースは`first.bar.com`に対するトラフィックを`service1`へ、`second.foo.com`に対するトラフィックを`service2`へ、リクエストにおいてホスト名が指定されていない(リクエストヘッダーがないことを意味します)トラフィックは`service3`へ転送します。
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -382,9 +382,8 @@ Ingressと関連するリソースの今後の開発については[SIG Network]
 
 ## Ingressの代替案 {#alternatives}
 
-Ingressリソースに直接関与しない複数の方法でServiceを公開できます。
+Ingressリソースを直接含まない複数の方法でサービスを公開できます。
 
-下記の2つの使用を検討してください。
 * [Service.Type=LoadBalancer](/ja/docs/concepts/services-networking/service/#loadbalancer)
 * [Service.Type=NodePort](/ja/docs/concepts/services-networking/service/#nodeport)
 
