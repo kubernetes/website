@@ -137,8 +137,6 @@ different Kubernetes components.
 | `StartupProbe` | `false` | Alpha | 1.16 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
-| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
-| `StreamingProxyRedirects` | `true` | Beta | 1.6 | |
 | `SupportNodePidsLimit` | `false` | Alpha | 1.14 | 1.14 |
 | `SupportNodePidsLimit` | `true` | Beta | 1.15 | |
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
@@ -260,6 +258,9 @@ different Kubernetes components.
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | - |
 | `StorageObjectInUseProtection` | `true` | Beta | 1.10 | 1.10 |
 | `StorageObjectInUseProtection` | `true` | GA | 1.11 | - |
+| `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
+| `StreamingProxyRedirects` | `true` | Beta | 1.6 | 1.18 |
+| `StreamingProxyRedirects` | - | Deprecated| 1.19 | - |
 | `SupportIPVSProxyMode` | `false` | Alpha | 1.8 | 1.8 |
 | `SupportIPVSProxyMode` | `false` | Beta | 1.9 | 1.9 |
 | `SupportIPVSProxyMode` | `true` | Beta | 1.10 | 1.10 |
