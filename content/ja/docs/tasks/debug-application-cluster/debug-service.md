@@ -487,7 +487,7 @@ I1027 22:14:54.040223    5063 proxier.go:294] Adding new service "kube-system/ku
 これは、例えばKubernetesをスクラッチからインストールするなど、クラスターのインストール方法に依存して、一部のLinuxシステムで発生する場合があります。
 これが該当する場合は、`conntrack`パッケージを手動でインストール(例: Ubuntuでは`sudo apt install conntrack`)する必要があり、その後に再試行する必要があります。
 
-Kube-proxyは、いくつかのモードのいずれかで実行できます。 上記のログの`Using iptables Proxier`という行は、kube-proxyが「iptables」モードで実行されていることを示しています。
+kube-proxyは、いくつかのモードのいずれかで実行できます。 上記のログの`Using iptables Proxier`という行は、kube-proxyが「iptables」モードで実行されていることを示しています。
 最も一般的な他のモードは「ipvs」です。 古い「ユーザースペース」モードは、主にこれらに置き換えられました。
 
 #### Iptables mode
