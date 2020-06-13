@@ -245,16 +245,16 @@ yang baru.
 Kubernetes versi 1.2 menambah dukungan *alpha* untuk melakukan *scaling* berdasarkan metrik
 yang spesifik dengan aplikasi menggunakan anotasi khusus. Dukungan untuk anotasi ini
 dihilangkan pada Kubernetes versi 1.6 untuk mendukung API *autoscaling* yang baru. Selama
-cara lama untuk mendapatkan metrik khusus masih tersedia, metrok ini tidak akan tersedia untuk
+cara lama untuk mendapatkan metrik khusus masih tersedia, metrik ini tidak akan tersedia untuk
 digunakan oleh HorizontalPodAutoscaler dan anotasi sebelumnya untuk menentukan metrik khusus untuk
-*scale* tidak lagi digunakan oleh _controller_ HorizontalPodAutscaler.
+*scaling* tidak lagi digunakan oleh _controller_ HorizontalPodAutscaler.
 {{< /note >}}
 
-Kubernetes versi 1.6 menambah dukungan untuk menggunakan metrik khusu pada HorizontalPodAutoscaler.
+Kubernetes versi 1.6 menambah dukungan untuk menggunakan metrik khusus pada HorizontalPodAutoscaler.
 Kamu dapat menambahkan metrik khusus untuk HorizontalPodAutoscaler pada API versi `autoscaling/v2beta2`.
 Kubernetes kemudian memanggil API metrik khusu untuk mengambil nilai dari metrik khusus. 
 
-Lihat [Dukungan untuk API metrik](#support-for-metrics-apis) untuk kubutuhannya.
+Lihat [Dukungan untuk API metrik](#dukungan-untuk-api-metrik) untuk kubutuhannya.
 
 ## Dukungan untuk API metrik
 
