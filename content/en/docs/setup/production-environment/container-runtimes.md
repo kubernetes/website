@@ -64,7 +64,7 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 19.03.8 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
+Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
@@ -96,9 +96,9 @@ add-apt-repository \
 ```shell
 # Install Docker CE
 apt-get update && apt-get install -y \
-  containerd.io=1.2.13-1 \
-  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs)
 ```
 
 ```shell
@@ -144,8 +144,8 @@ yum-config-manager --add-repo \
 # Install Docker CE
 yum update -y && yum install -y \
   containerd.io-1.2.13 \
-  docker-ce-19.03.8 \
-  docker-ce-cli-19.03.8
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 ```
 
 ```shell
