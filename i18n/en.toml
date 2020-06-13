@@ -54,6 +54,9 @@ other = "I AM..."
 [docs_label_users]
 other = "Users"
 
+[examples_heading]
+other = "Examples"
+
 [feedback_heading]
 other = "Feedback"
 
