@@ -28,27 +28,22 @@ penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
 
 ## Bagaimana cara kerja HorizontalPodAutoscaler?
 
-![HorizontalPodAutoscaler diagram](/images/docs/horizontal-pod-autoscaler.svg)
+![Diagram HorizontalPodAutoscaler](/images/docs/horizontal-pod-autoscaler.svg)
 
-HorizontalPodAutoscaler diimplementasikan sebagai sebuah *control loop*, yang secara
-berkala dikontrol oleh *flag* `--horizontal-pod-autoscaler-sync-period` pada kontroler manajer
-(dengan nilai standar yaitu 15 detik). 
+HorizontalPodAutoscaler diimplementasikan sebagai sebuah _loop_ kontrol, yang secara
+berkala dikontrol oleh *flag* `--horizontal-pod-autoscaler-sync-period` pada _controller manager_
+(dengan nilai bawaan 15 detik). 
 
-Dalam setiap periode, kontroler manajer melakukan kueri penggunaan sumber daya dan membandingkan
-dengan metrik yang dispesifikasikan pada HorizontalPodAutoscaler. Kontroler manajer mendapat
-metrik dari *resource* metrik API (untuk metrik per *pod*) atau dari *custom* metrik API (untuk semua metrik lainnya).
+Dalam setiap periode, _controller manager_ melakukan kueri penggunaan sumber daya dan membandingkan
+dengan metrik yang dispesifikasikan pada HorizontalPodAutoscaler. _Controller manager_ mendapat
+metrik dari sumber daya metrik API (untuk metrik per Pod) atau dari API metrik khusus (untuk semua metrik lainnya).
 
-During each period, the controller manager queries the resource utilization against the
-metrics specified in each HorizontalPodAutoscaler definition.  The controller manager
-obtains the metrics from either the resource metrics API (for per-pod resource metrics),
-or the custom metrics API (for all other metrics).
-
-* Untuk metrik per *pod* (seperti CPU), kontroler mengambil metrik dari *resource* metrik API
-  untuk setiap *pod* yang ditargetkan oleh HorizontalPodAutoscaler. Kemudian, jika nilai target penggunaan ditentukan,
+* Untuk metrik per Pod (seperti CPU), _controller_ mengambil metrik dari sumber daya metrik API
+  untuk setiap Pod yang ditargetkan oleh HorizontalPodAutoscaler. Kemudian, jika nilai target penggunaan ditentukan,
   maka kontroler akan menghitung nilai penggunaan sebagai persentasi dari pengguaan *resource* dari kontainer 
-  pada masing-masing *pod*. Jika target *raw value* ditentukan, maka nilai *raw metric* akan digunakan
+  pada masing-masing Pod. Jika target *raw value* ditentukan, maka nilai *raw metric* akan digunakan
   secara langsung. Kontroller kemudian mengambil nilai rata-rata penggunaan atau *raw values* (tergantung
-  dengan tipe target yang ditentukan) dari semua *pod* yang targetkan dan menghasilkan perbandingan yang
+  dengan tipe target yang ditentukan) dari semua Pod yang targetkan dan menghasilkan perbandingan yang
   digunakan untuk menentukan jumlah replika yang akan di-*scale*.
 
   Perlu dicatat bahwa jika beberapa kontainer pada pod tidak memiliki nilai *resource request*, penggunaan CPU
@@ -56,12 +51,12 @@ or the custom metrics API (for all other metrics).
   Perhatikan pada bagian [detail algoritma](#algorithm-details) dibawah ini untuk informasi lebih lanjut mengenai
   cara kerja algorihma *autoscale*.
 
-* Untuk *custom* metrik per *pod*, kontroler bekerja sama seperti *resource* metrik per *pod*,
-  kecuali *pod* bekerja dengan *raw values*, bukan dengan *utilization values*.
+* Untuk *custom* metrik per Pod, kontroler bekerja sama seperti *resource* metrik per Pod,
+  kecuali Pod bekerja dengan *raw values*, bukan dengan *utilization values*.
 
 * Untuk objek metrik dan eksternal metrik, sebuah metrik diambil, dimana metrik tersebut menggambarkan
   object tersebut. Metrik ini dibandingkan dengan nilai target untuk menghasilkan perbandingan seperti diatas.
-  Pada API `autoscaling/v2beta2`, nilai perbandingan dapat secara opsional dibagi dengan jumlah *pod*
+  Pada API `autoscaling/v2beta2`, nilai perbandingan dapat secara opsional dibagi dengan jumlah Pod
   sebelum perbandingan dibuat. 
 
 Pada normalnya, HorizontalPodAutoscaler mengambil metrik dari serangkaian APIs yang sudah diagregat 
@@ -101,23 +96,23 @@ dengan nilai standar 0.1.
 Ketika `nilaiTargetRatarata` atau `targetPenggunaanRatarata` ditentukan,
 `nilaiMetrikSekarang` dihitung dengan mengambil rata-rata dari metrik dari
 semua *pods* yang ditargetkan oleh HorizontalPodAutoscaler. Sebelum mengecek
-toleransi dan menentukan nilai akhir, kita mengambil kesiaapn *pod* dan metrik
+toleransi dan menentukan nilai akhir, kita mengambil kesiaapn Pod dan metrik
 yang hilang sebagai pertimbangan. 
 
-Semua *pods* yang memiliki waktu penghapusan(*pod* dalam proses penutupan)
+Semua *pods* yang memiliki waktu penghapusan(Pod dalam proses penutupan)
 dan semua *pods* yang *failed* akan dibuang.
 
-Jika ada metrik yang hilang dari *pod*, maka *pod* akan dievaluasi nanti.
-*Pod* dengan nilai metrik yang hilang akan digunakan untuk menyesuikan
-jumlah akhir *pod* yang akan di-*scale*.
+Jika ada metrik yang hilang dari Pod, maka Pod akan dievaluasi nanti.
+Pod dengan nilai metrik yang hilang akan digunakan untuk menyesuikan
+jumlah akhir Pod yang akan di-*scale*.
 
-Ketika CPU sedang *scale*, jika terdapat *pod* yang akan siap (dengan kata lain
-*pod* tersebut sedang dalam tahap inisialisasi) *atau* metrik terakhir dari *pod*
-adalah metrik sebelum *pod* dalam keadaan siap, maka *pod* tersebut juga
+Ketika CPU sedang *scale*, jika terdapat Pod yang akan siap (dengan kata lain
+Pod tersebut sedang dalam tahap inisialisasi) *atau* metrik terakhir dari Pod
+adalah metrik sebelum Pod dalam keadaan siap, maka Pod tersebut juga
 akan dievaluasi nanti.
 
 Akibat keterbatasan teknis, kontroler HorizontalPodAutoscaler tidak dapat
-menentukan dengan tepat kapan pertama kali *pod* akan dalam keadaan siap
+menentukan dengan tepat kapan pertama kali Pod akan dalam keadaan siap
 ketika menentukan apakah menyisihkan metrik CPU tertentu. Sebaliknya,
 HorizontalPodAutoscaler mempertimbangkan sebuah Pod "tidak dalam keadaan siap"
 jika Pod tersebut dalam keadaan tidak siap dan dalam transisi ke status tidak
@@ -323,11 +318,11 @@ behavior:
       periodSeconds: 60
 ```
 
-Ketika jumlah *pod* lebih besar dari 40, *policy* kedua akan digunakan untuk *scaling down*.
+Ketika jumlah Pod lebih besar dari 40, *policy* kedua akan digunakan untuk *scaling down*.
 Misalnya, jika terdapat 80 replika dan target sudah di *scale down* ke 10 replika, 8 replika
 akan dikurangi pada tahapan pertama. Pada iterasi berikutnya, ketika jumlah replika adalah 72,
-10% dari *pod* adalah 7.2 tetapi akan dibulatkan menjadi 8. Dalam setiap iterasi pada kontroler
-*autoscaler* jumlah *pod* yang akan diubah akan dihitung ulang berdarkan jumlah replika sekarang.
+10% dari Pod adalah 7.2 tetapi akan dibulatkan menjadi 8. Dalam setiap iterasi pada kontroler
+*autoscaler* jumlah Pod yang akan diubah akan dihitung ulang berdarkan jumlah replika sekarang.
 Ketika jumlah replika dibawah 40, *policy* pertama (Pods) akan digunakan dan 4 replika akan dikurangi
 dalam satu waktu.
 
@@ -390,7 +385,7 @@ Untuk `scaleDown`, nilai dari jendela stabilisasi adalah 300 detik (atau nilai d
 satu *policy*, yaitu mengizinkan menghapus 100% dari replika yang berjalan,
 artinya target replikasi di *scale* ke jumlah replika minimum. Untuk `scaleUp`, tidak terdapat
 jendela stabilisasi. Jika metrik menunjukkan bahwa target perlu di *scale up*, maka akan di
-*scale up* secara langsung. Untuk `scaleUp` terdapat dua *policy*, yaitu empat *pod* atau 100% dari
+*scale up* secara langsung. Untuk `scaleUp` terdapat dua *policy*, yaitu empat Pod atau 100% dari
 replika yang berjalan akan ditambahkan setiap 15 detik sampai HorizontalPodAutoscaler
 dalam keadaan stabil.
 
@@ -407,7 +402,7 @@ behavior:
 
 ### Contoh: Membatasi nilai *scale down*
 
-Untuk membatasi total berapa *pod* yang akan dihapus, 10% setiap menut, perilaku
+Untuk membatasi total berapa Pod yang akan dihapus, 10% setiap menut, perilaku
 berikut ditambahkan pada HorizontalPodAutoscaler.
 
 ```yaml
@@ -419,7 +414,7 @@ behavior:
       periodSeconds: 60
 ```
 
-Untuk mengizinkan penghapusan 5 *pod* terakhir, *policy* lain dapat ditambahkan.
+Untuk mengizinkan penghapusan 5 Pod terakhir, *policy* lain dapat ditambahkan.
 
 ```yaml
 behavior:
