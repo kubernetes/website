@@ -179,13 +179,13 @@ Untuk lebih detail tentang objek API ini dapat ditemukan di
 
 ## Dukungan untuk HorizontalPodAutoscaler pada kubectl
 
-Seperti API *resource* lainnya, HorizontalPodAutoscaler didukung dengan standar oleh `kubectl`.
+Seperti sumber daya API lainnya, HorizontalPodAutoscaler didukung secara bawaan oleh `kubectl`.
 Kita dapat membuat *autoscaler* yang baru dengan menggunakan perintah `kubectl create`.
 Kita dapat melihat daftar *autoscaler* dengan perintah `kubectl get hpa` dan melihat deskripsi
-detailnnya dengan perintah `kubectl describe hpa`. Akhirnya, kita dapat menghapus *autoscaler*
+detailnya dengan perintah `kubectl describe hpa`. Akhirnya, kita dapat menghapus *autoscaler*
 meggunakan perintah `kubectl delete hpa`. 
 
-Sebagai tambahan, terdapat sebuah perintah kusus `kubectl autoscaler` untuk mempermudah pembuatan
+Sebagai tambahan, terdapat sebuah perintah khusus `kubectl autoscaler` untuk mempermudah pembuatan
 HorizontalPodAutoscaler. Sebagai contoh, mengeksekusi
 `kubectl autoscaler rs foo --min=2 --max=5 --cpu-percent=80` akan membuat sebuah *autoscaler* untuk
 ReplicaSet *foo*, dengan target pengguaan CPU `80%` dan jumlah replika antara 2 sampai dengan 5.
