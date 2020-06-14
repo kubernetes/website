@@ -4,16 +4,13 @@ content_type: concept
 weight: 1
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 コンテナは、アプリケーションの(コンパイルされた)コードと、実行時に必要な依存関係をパッケージ化するための技術です。実行する各コンテナは再現性があります。依存関係を含めることによる標準化は、どこで実行しても同じ動作が得られることを意味します。
 
 コンテナは、基礎となるホストインフラストラクチャからアプリケーションを切り離します。これにより、さまざまなクラウド環境やOS環境でのデプロイが容易になります。
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## コンテナイメージ {#container-images}
 [コンテナイメージ](/docs/concepts/containers/images/)は、アプリケーションを実行するために必要なすべてのものを含んだ、すぐに実行可能なソフトウェアパッケージです。コードとそれが必要とする任意のランタイム、アプリケーションとシステムのライブラリ、および必須の設定のデフォルト値が含まれています。
@@ -24,8 +21,6 @@ weight: 1
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 * [コンテナイメージ](/docs/concepts/containers/images/)についてお読みください。
 * [Pod](/ja/docs/concepts/workloads/pods/)についてお読みください。
-{{% /capture %}}
