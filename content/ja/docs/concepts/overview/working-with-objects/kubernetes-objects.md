@@ -28,7 +28,7 @@ Kubernetesオブジェクトを操作するには、作成、変更、または�
 
 ほとんどのKubernetesオブジェクトは、オブジェクトの設定を管理する２つの入れ子になったオブジェクトのフィールドを持っています。それはオブジェクト *`spec`* とオブジェクト *`status`* です。`spec`を持っているオブジェクトに関しては、オブジェクト作成時に`spec`を設定する必要があり、望ましい状態としてオブジェクトに持たせたい特徴を記述する必要があります。
 
-`status` オブジェクトはオブジェクトの *現在の状態* を示し、その情報はKubernetesから与えられ、更新されます。Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は、あなたから指定された望ましい状態と現在の状態が一致するよう常にかつ積極的に管理をします。
+`status` オブジェクトはオブジェクトの *現在の状態* を示し、その情報はKubernetesとそのコンポーネントにより提供、更新されます。Kubernetes{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}は、あなたから指定された望ましい状態と現在の状態が一致するよう常にかつ積極的に管理をします。
 
 例えば、KubernetesのDeploymentはクラスター上で稼働するアプリケーションを表現するオブジェクトです。Deploymentを作成するとき、アプリケーションの複製を３つ稼働させるようDeploymentのspecで指定するかもしれません。KubernetesはDeploymentのspecを読み取り、指定されたアプリケーションを３つ起動し、現在の状態がspecに一致するようにします。もしこれらのインスタンスでどれかが落ちた場合（statusが変わる）、Kubernetesはspecと、statusの違いに反応し、修正しようとします。この場合は、落ちたインスタンスの代わりのインスタンスを立ち上げます。
 
@@ -50,7 +50,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml --record
 
 出力結果は、下記に似た形になります:
 
-```shell
+```
 deployment.apps/nginx-deployment created
 ```
 
@@ -64,7 +64,7 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 * `spec` - オブジェクトの望ましい状態
 
 `spec`の正確なフォーマットは、Kubernetesオブジェクトごとに異なり、オブジェクトごとに特有な入れ子のフィールドを持っています。[Kubernetes API リファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)が、Kubernetesで作成出来る全てのオブジェクトに関するspecのフォーマットを探すのに役立ちます。
-例えば、`Pod`オブジェクトに関する`spec`のフォーマットは[こちら](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を、また`Deployment`オブジェクトに関する`spec`のフォーマットは[こちら](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)をご確認ください。
+例えば、`Pod`オブジェクトに関する`spec`のフォーマットは[PodSpec v1 core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を、また`Deployment`オブジェクトに関する`spec`のフォーマットは[DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)をご確認ください。
 
 {{% /capture %}}
 

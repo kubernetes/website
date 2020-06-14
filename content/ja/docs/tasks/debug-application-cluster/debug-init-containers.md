@@ -1,11 +1,11 @@
 ---
-title: Init Containerのデバッグ
+title: Initコンテナのデバッグ
 content_template: templates/task
 ---
 
 {{% capture overview %}}
 
-このページでは、Init Containerの実行に関連する問題を調査する方法を説明します。以下のコマンドラインの例では、Podを`<pod-name>`、Init Containerを`<init-container-1>`および`<init-container-2>`として参照しています。
+このページでは、Initコンテナの実行に関連する問題を調査する方法を説明します。以下のコマンドラインの例では、Podを`<pod-name>`、Initコンテナを`<init-container-1>`および`<init-container-2>`として参照しています。
 
 {{% /capture %}}
 
@@ -13,14 +13,14 @@ content_template: templates/task
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Init Container](/docs/concepts/abstractions/init-containers/)の基本を理解しておきましょう。
-* [Init Containerを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
+* [Initコンテナ](/ja/docs/concepts/abstractions/init-containers/)の基本を理解しておきましょう。
+* [Initコンテナを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
 
 {{% /capture %}}
 
 {{% capture steps %}}
 
-## Init Containerのステータスを確認する
+## Initコンテナのステータスを確認する
 
 Podのステータスを表示します:
 
@@ -28,7 +28,7 @@ Podのステータスを表示します:
 kubectl get pod <pod-name>
 ```
 
-たとえば、`Init：1/2`というステータスは、2つのInit Containerのうちの1つが正常に完了したことを示します。
+たとえば、`Init：1/2`というステータスは、2つのInitコンテナのうちの1つが正常に完了したことを示します。
 
 ```
 NAME         READY     STATUS     RESTARTS   AGE
@@ -37,15 +37,15 @@ NAME         READY     STATUS     RESTARTS   AGE
 
 ステータス値とその意味の例については、[Podのステータスを理解する](#understanding-pod-status)を参照してください。
 
-## Init Containerの詳細を取得する
+## Initコンテナの詳細を取得する
 
-Init Containerの実行に関する詳細情報を表示します:
+Initコンテナの実行に関する詳細情報を表示します:
 
 ```shell
 kubectl describe pod <pod-name>
 ```
 
-たとえば、2つのInit Containerを持つPodでは、次のように表示されます:
+たとえば、2つのInitコンテナを持つPodでは、次のように表示されます:
 
 ```
 Init Containers:
@@ -75,7 +75,7 @@ Init Containers:
     ...
 ```
 
-また、Pod Specの`status.initContainerStatuses`フィールドを読むことでプログラムでInit Containerのステータスにアクセスすることもできます。:
+また、Pod Specの`status.initContainerStatuses`フィールドを読むことでプログラムでInitコンテナのステータスにアクセスすることもできます。:
 
 
 ```shell
@@ -85,15 +85,15 @@ kubectl get pod nginx --template '{{.status.initContainerStatuses}}'
 
 このコマンドは生のJSONで上記と同じ情報を返します。
 
-## Init Containerのログにアクセスする
+## Initコンテナのログにアクセスする
 
-ログにアクセスするには、Init Container名とPod名を渡します。
+ログにアクセスするには、Initコンテナ名とPod名を渡します。
 
 ```shell
 kubectl logs <pod-name> -c <init-container-2>
 ```
 
-シェルスクリプトを実行するInit Containerは、実行時にコマンドを出力します。たとえば、スクリプトの始めに`set -x`を実行することでBashで同じことができます。
+シェルスクリプトを実行するInitコンテナは、実行時にコマンドを出力します。たとえば、スクリプトの始めに`set -x`を実行することでBashで同じことができます。
 
 {{% /capture %}}
 
@@ -101,15 +101,15 @@ kubectl logs <pod-name> -c <init-container-2>
 
 ## Podのステータスを理解する
 
-`Init：`で始まるPodステータスはInit Containerの実行ステータスを要約します。以下の表は、Init Containerのデバッグ中に表示される可能性のあるステータス値の例をいくつか示しています。
+`Init：`で始まるPodステータスはInitコンテナの実行ステータスを要約します。以下の表は、Initコンテナのデバッグ中に表示される可能性のあるステータス値の例をいくつか示しています。
 
 ステータス | 意味
 ------ | -------
-`Init:N/M` | Podは`M`個のInit Containerを持ち、これまでに`N`個完了しました。
-`Init:Error` | Init Containerが実行に失敗しました。
-`Init:CrashLoopBackOff` | Init Containerが繰り返し失敗しました。
-`Pending` | PodはまだInit Containerの実行を開始していません。
-`PodInitializing` or `Running` | PodはすでにInit Containerの実行を終了しています。
+`Init:N/M` | Podは`M`個のInitコンテナを持ち、これまでに`N`個完了しました。
+`Init:Error` | Initコンテナが実行に失敗しました。
+`Init:CrashLoopBackOff` | Initコンテナが繰り返し失敗しました。
+`Pending` | PodはまだInitコンテナの実行を開始していません。
+`PodInitializing` or `Running` | PodはすでにInitコンテナの実行を終了しています。
 
 {{% /capture %}}
 
