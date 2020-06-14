@@ -28,7 +28,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 * `command`: 1つ以上のリソースに対して実行したい操作を指定します。例えば、`create`、`get`、`describe`、`delete`です。
 
-* `TYPE`: [リソースタイプ](#リソースタイプ)を指定します。リソースタイプは大文字と小文字を区別せず、単数形や複数形、省略形を指定できます。例えば、以下のコマンドは同じ出力を生成します。
+* `TYPE`: [リソースタイプ](#resource-types)を指定します。リソースタイプは大文字と小文字を区別せず、単数形や複数形、省略形を指定できます。例えば、以下のコマンドは同じ出力を生成します。
 
       ```shell
       kubectl get pod pod1
@@ -96,7 +96,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 コマンド操作の詳細については、[kubectl](/docs/user-guide/kubectl/)リファレンスドキュメントを参照してください。
 
-## リソースタイプ
+## リソースタイプ {#resource-types}
 
 以下の表に、サポートされているすべてのリソースと、省略されたエイリアスの一覧を示します。
 
@@ -172,8 +172,8 @@ kubectl [command] [TYPE] [NAME] -o <output_format>
 
 出力フォーマット | 説明
 --------------| -----------
-`-o custom-columns=<spec>` | [カスタムカラム](#カスタムカラム)のコンマ区切りのリストを使用して、テーブルを表示します。
-`-o custom-columns-file=<filename>` | `<filename>`ファイル内の[カスタムカラム](#カスタムカラム)のテンプレートを使用して、テーブルを表示します。
+`-o custom-columns=<spec>` | [カスタムカラム](#custom-columns)のコンマ区切りのリストを使用して、テーブルを表示します。
+`-o custom-columns-file=<filename>` | `<filename>`ファイル内の[カスタムカラム](#custom-columns)のテンプレートを使用して、テーブルを表示します。
 `-o json`     | JSON形式のAPIオブジェクトを出力します。
 `-o jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
 `-o jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath/)式で定義されたフィールドを表示します。
@@ -191,7 +191,7 @@ kubectl get pod web-pod-13je7 -o yaml
 
 各コマンドでサポートされている出力フォーマットの詳細については、[kubectl](/docs/user-guide/kubectl/)リファレンスドキュメントを参照してください。
 
-#### カスタムカラム
+#### カスタムカラム {#custom-columns}
 
 カスタムカラムを定義して、必要な詳細のみをテーブルに出力するには、`custom-columns`オプションを使います。カスタムカラムをインラインで定義するか、`-o custom-columns=<spec>`または`-o custom-columns-file=<filename>`のようにテンプレートファイルを使用するかを選択できます。
 
