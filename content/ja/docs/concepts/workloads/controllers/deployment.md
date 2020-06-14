@@ -13,7 +13,7 @@ weight: 30
 
 _Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
 
-ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deployment {{< glossary_tooltip term_id="controller" >}} は指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
+ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deployment {{< glossary_tooltip term_id="コントローラー" >}} は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
 Deploymentによって作成されたReplicaSetを管理しないでください。ユーザーのユースケースが下記の項目をカバーできていない場合はメインのKubernetesリポジトリーにイシューを作成することを検討してください。
@@ -1013,6 +1013,6 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ## Deploymentの代替案
 ### kubectl rolling-update
 
-[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があります。
+[`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。
 
 {{% /capture %}}
