@@ -1,24 +1,22 @@
 ---
 title: Podを構成してConfigMapを使用する
-content_template: templates/task
+content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 ConfigMapを使用すると、設定をイメージのコンテンツから切り離して、コンテナ化されたアプリケーションの移植性を維持できます。このページでは、ConfigMapを作成し、ConfigMapに保存されているデータを使用してPodを構成する一連の使用例を示します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+<!-- steps -->
 
 
 ## ConfigMapを作成する
@@ -557,7 +555,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 
 ### ConfigMapに保存されているデータをボリュームに入力する
 
-ConfigMap名をPod specificationの`volumes`セクション配下に追加します。  
+ConfigMap名をPod specificationの`volumes`セクション配下に追加します。
 これによりConfigMapデータが`volumeMounts.mountPath`で指定されたディレクトリに追加されます (このケースでは、`/etc/config`に)。`command`セクションはConfigMapのキーに合致したディレクトリファイルを名前別でリスト表示します。
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
@@ -614,9 +612,8 @@ very
 ConfigMapを[subPath](/docs/concepts/storage/volumes/#using-subpath)ボリュームとして利用するコンテナはConfigMapの更新を受け取りません。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+<!-- discussion -->
 
 ## ConfigMapとPodsを理解する
 
@@ -666,9 +663,7 @@ data:
 
 - {{< glossary_tooltip text="static pods" term_id="static-pod" >}}はKubeletがサポートしていないため、ConfigMapに使用できません。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 * 実践例[Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)を続けて読む。
 
-{{% /capture %}}

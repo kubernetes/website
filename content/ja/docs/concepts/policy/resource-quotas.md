@@ -1,20 +1,19 @@
 ---
 reviewers:
 title: リソースクォータ
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 複数のユーザーやチームが決められた数のノードを持つクラスターを共有しているとき、1つのチームが公平に使えるリソース量を超えて使用するといった問題が出てきます。
 
 リソースクォータはこの問題に対処するための管理者向けツールです。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+<!-- body -->
 
 `ResourceQuota`オブジェクトによって定義されるリソースクォータは、名前空間ごとの総リソース消費を制限するための制約を提供します。リソースクォータは同じ名前空間のクラスター内でタイプごとに作成できるオブジェクト数や、プロジェクト内のリソースによって消費されるコンピュートリソースの総量を制限できます。
 
@@ -547,10 +546,8 @@ plugins:
 
 [リソースクォータの使用方法の例](/docs/tasks/administer-cluster/quota-api-object/)を参照してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 さらなる情報は[クォータの design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)を参照してください。
 
-{{% /capture %}}

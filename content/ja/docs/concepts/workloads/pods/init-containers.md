@@ -4,12 +4,11 @@ content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、Initコンテナについて概観します。Initコンテナとは、{{< glossary_tooltip text="Pod" term_id="pod" >}}内でアプリケーションコンテナの前に実行される特別なコンテナです。
 Initコンテナにはアプリケーションコンテナのイメージに存在しないセットアップスクリプトやユーティリティーを含めることができます。
 
 Initコンテナは、Podの仕様のうち`containers`という配列（これがアプリケーションコンテナを示します）と並べて指定します。
-{{% /capture %}}
 
 <!-- body -->
 ## Initコンテナを理解する {#understanding-init-containers}
@@ -246,7 +245,7 @@ Podレベルのコントロールグループ（cgroups）は、スケジュー�
 * `restartPolicy`が`Always`と設定されているPod内の全てのコンテナが停止され、再起動が行われた場合。およびガーベージコレクションによりInitコンテナの完了記録が失われた場合。
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
 * [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。

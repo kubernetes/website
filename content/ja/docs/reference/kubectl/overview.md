@@ -1,20 +1,19 @@
 ---
 title: kubectlの概要
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 `kubectl`は、Kubernetesクラスターを制御するためのコマンドラインツールです。`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
 
 この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/kubectl/install/)をご覧ください。
 
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## 構文
 
@@ -457,10 +456,8 @@ Current user: plugins-user
 
 プラグインについてより詳しく知りたい場合は、[example cli plugin](https://github.com/kubernetes/sample-cli-plugin)をご覧ください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/)を使い始めてください。
 
-{{% /capture %}}
