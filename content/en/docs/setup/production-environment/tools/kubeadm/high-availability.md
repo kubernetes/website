@@ -108,19 +108,20 @@ option. Your cluster requirements may need a different configuration.
     sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
     ```
 
-
     - You can use the `--kubernetes-version` flag to set the Kubernetes version to use.
-    It is recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
+      It is recommended that the versions of kubeadm, kubelet, kubectl and Kubernetes match.
     - The `--control-plane-endpoint` flag should be set to the address or DNS and port of the load balancer.
 
     - The `--upload-certs` flag is used to upload the certificates that should be shared
-    across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
-    control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
-    certificate distribution](#manual-certs) section below.
+      across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
+      control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
+      certificate distribution](#manual-certs) section below.
 
     {{< note >}}
     The `kubeadm init` flags `--config` and `--certificate-key` cannot be mixed, therefore if you want
-    to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2) you must add the `certificateKey` field in the appropriate config locations (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
+    to use the [kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
+    you must add the `certificateKey` field in the appropriate config locations
+    (under `InitConfiguration` and `JoinConfiguration: controlPlane`).
     {{< /note >}}
 
     {{< note >}}
@@ -132,34 +133,34 @@ option. Your cluster requirements may need a different configuration.
 
     - The output looks similar to:
 
-```sh
-...
-You can now join any number of control-plane node by running the following command on each as a root:
-    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
-
-Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
-
-Then you can join any number of worker nodes by running the following on each as root:
-    kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
-```
+      ```sh
+      ...
+      You can now join any number of control-plane node by running the following command on each as a root:
+          kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+      
+      Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+      As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
+      
+      Then you can join any number of worker nodes by running the following on each as root:
+          kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+      ```
 
     - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
     - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
-     are encrypted and uploaded in the `kubeadm-certs` Secret.
+       are encrypted and uploaded in the `kubeadm-certs` Secret.
     - To re-upload the certificates and generate a new decryption key, use the following command on a control plane
       node that is already joined to the cluster:
 
-    ```sh
-    sudo kubeadm init phase upload-certs --upload-certs
-    ```
+      ```sh
+      sudo kubeadm init phase upload-certs --upload-certs
+      ```
 
     - You can also specify a custom `--certificate-key` during `init` that can later be used by `join`.
       To generate such a key you can use the following command:
 
-    ```sh
-    kubeadm alpha certs certificate-key
-    ```
+      ```sh
+      kubeadm alpha certs certificate-key
+      ```
 
     {{< note >}}
     The `kubeadm-certs` Secret and decryption key expire after two hours.
@@ -170,7 +171,8 @@ Then you can join any number of worker nodes by running the following on each as
     {{< /caution >}}
 
 1.  Apply the CNI plugin of your choice:
-    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network) to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
+    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
+    to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
 
     In this example we are using Weave Net:
 
@@ -203,7 +205,7 @@ For each additional control plane node you should:
 
     - The `--control-plane` flag tells `kubeadm join` to create a new control plane.
     - The `--certificate-key ...` will cause the control plane certificates to be downloaded
-    from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
+      from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
 ## External etcd nodes
 
