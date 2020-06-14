@@ -195,7 +195,6 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
 
     ```shell
     kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development --replicas=2
-    kubectl scale deployment snowflake --replicas=2 -n=development
     ```
     We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
 

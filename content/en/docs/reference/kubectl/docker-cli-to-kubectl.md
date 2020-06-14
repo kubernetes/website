@@ -41,7 +41,7 @@ kubectl create deployment --image=nginx nginx-app --port=80
 deployment.apps/nginx-app created
 ```
 
-```
+```shell
 # add env to nginx-app
 kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
