@@ -1,15 +1,16 @@
 ---
+draft: True
 title: Panoramica sull'amministrazione del cluster
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 La panoramica dell'amministrazione del cluster è per chiunque crei o gestisca un cluster Kubernetes.
 Presuppone una certa dimestichezza con i core Kubernetes [concetti](/docs/concepts/).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Progettare un cluster
 
 Consulta le guide di [Setup](/docs/setup) per avere degli esempi su come pianificare, impostare e configurare cluster Kubernetes. Le soluzioni elencate in questo articolo sono chiamate *distribuzioni*.
@@ -66,5 +67,5 @@ Nota: non tutte le distro vengono mantenute attivamente. Scegli le distro che so
 
 * [Registrazione e monitoraggio delle attività del cluster](/docs/concepts/cluster-administration/logging/) spiega come funziona il logging in Kubernetes e come implementarlo.
 
-{{% /capture %}}
+
 

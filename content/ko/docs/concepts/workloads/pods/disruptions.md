@@ -1,10 +1,10 @@
 ---
 title: 중단(disruption)
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 가이드는 고가용성 애플리케이션을 구성하려는 소유자와
 파드에서 발생하는 장애 유형을 이해하기
 원하는 애플리케이션 소유자를 위한 것이다.
@@ -12,10 +12,10 @@ weight: 60
 또한 클러스터의 업그레이드와 오토스케일링과 같은 
 클러스터의 자동화 작업을 하려는 관리자를 위한 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 자발적 중단과 비자발적 중단
 
@@ -82,6 +82,8 @@ weight: 60
 우리는 이 기능을 *Disruption Budgets* 이라 부른다.
 
 ## Disruption Budgets의 작동 방식
+
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
 
 애플리케이션 소유자는 각 애플리케이션에 대해 `PodDisruptionBudget` 오브젝트(PDB)를 만들 수 있다.
 PDB는 자발적 중단으로 일시에 중지되는 복제된 애플리케이션 파드의 수를 제한한다.
@@ -192,7 +194,7 @@ drain 커멘드는 `pod-b`를 축출하는데 성공했다.
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
-|                      | pod-b *available*   | pod-c *available*  | pod-e *pending*    |
+|                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
 이 시점에서 클러스터 관리자는
@@ -240,13 +242,14 @@ Pod Disruption Budgets를 사용할 필요가 없다.
      자발적 중단를 허용하는 작업의 대부분은 오토스케일링과
      비자발적 중단를 지원하는 작업과 겹친다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Pod Disruption Budget 설정하기](/docs/tasks/run-application/configure-pdb/)의 단계를 따라서 애플리케이션을 보호한다.
 
 * [노드 비우기](/docs/tasks/administer-cluster/safely-drain-node/)에 대해 자세히 알아보기
 
-{{% /capture %}}
+

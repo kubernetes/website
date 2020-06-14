@@ -1,15 +1,15 @@
 ---
 title: 인그레스
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 용어
 
@@ -122,7 +122,7 @@ spec:
 유형이 있다.
 
 * _`ImplementationSpecific`_ (기본): 이 경로 유형의 일치 여부는 IngressClass에 따라
-  달라진다. 이를 구현할 때 별도 pathType으로 처리하거나, `Prefix` 또는 `Exact`
+  달라진다. 이를 구현할 때 별도 `pathType` 으로 처리하거나, `Prefix` 또는 `Exact`
   경로 유형과 같이 동일하게 처리할 수 있다.
 
 * _`Exact`_: URL 경로의 대소문자를 엄격하게 일치시킨다.
@@ -132,11 +132,11 @@ spec:
   요소별로 경로 요소에 대해 수행한다.
   모든 _p_ 가 요청 경로의 요소별 접두사가 _p_ 인 경우
   요청은 _p_ 경로에 일치한다.
-    {{< note >}}
-    경로의 마지막 요소가 요청 경로에 있는 마지막 요소의
-    하위 문자열인 경우에는 일치하지 않는다(예시: 
-    `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
-    {{< /note >}}
+
+  {{< note >}}
+  경로의 마지막 요소가 요청 경로에 있는 마지막 요소의 하위 문자열인 경우에는 일치하지 않는다(예시: 
+  `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
+  {{< /note >}}
 
 #### 다중 일치
 경우에 따라 인그레스의 여러 경로가 요청과 일치할 수 있다.
@@ -400,16 +400,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
@@ -541,10 +541,11 @@ Events:
 * [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
 * [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [인그레스] API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
 * [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

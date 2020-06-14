@@ -226,6 +226,10 @@ other = "Цілі"
 # other = "Before you begin"
 other = "Перш ніж ви розпочнете"
 
+[subscribe_button]
+# other = "Subscribe"
+other = "Підписатися"
+
 [ui_search_placeholder]
 # other = "Search"
 other = "Пошук"

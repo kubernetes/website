@@ -1,18 +1,18 @@
 ---
 title: 레플리카셋
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 레플리카셋의 목적은 레플리카 파드 집합의 실행을 항상 안정적으로 유지하는 것이다.
 이처럼 레플리카셋은 보통 명시된 동일 파드 개수에 대한 가용성을 보증하는데 사용한다.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 레플리카셋의 작동 방식
 
@@ -22,8 +22,8 @@ weight: 10
 레플리카셋이 새로운 파드를 생성해야 할 경우, 명시된 파드 템플릿을
 사용한다.
 
-레플리카셋과 파드와의 링크는 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
-필드를 통해서 제공되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
+레플리카셋은 파드의 [metadata.ownerReferences](/ko/docs/concepts/workloads/controllers/garbage-collection/#소유자-owner-와-종속-dependent)
+필드를 통해 파드에 연결되며, 이는 현재 오브젝트가 소유한 리소스를 명시한다.
 레플리카셋이 가지고 있는 모든 파드의 ownerReferences 필드는 해당 파드를 소유한 레플리카셋을 식별하기 위한 소유자 정보를 가진다.
 이 링크를 통해 레플리카셋은 자신이 유지하는 파드의 상태를 확인하고 이에 따라 관리 한다.
 
@@ -326,7 +326,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 (그리고 더 쉽다!)
 
 ```shell
-kubectl autoscale rs frontend --max=10
+kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 ```
 
 ## 레플리카셋의 대안
@@ -362,4 +362,4 @@ kubectl autoscale rs frontend --max=10
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
 
-{{% /capture %}}
+

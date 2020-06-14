@@ -84,6 +84,7 @@
 .case-study img {
     position: absolute;
     top: 0;
+    width:215px;
     left: 0;
 }
 

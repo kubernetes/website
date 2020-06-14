@@ -1,23 +1,24 @@
 ---
 title: 명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 오브젝트는 `kubectl` 커맨드 라인 툴 속에 내장된 명령형 커맨드를 이용함으로써
 바로 신속하게 생성, 업데이트 및 삭제할 수 있다. 이 문서는 어떻게 커맨드가 구성되어 있으며,
 이를 사용하여 활성 오브젝트를 어떻게 관리하는 지에 대해 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 [`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 트레이드 오프
 
@@ -159,11 +160,12 @@ kubectl create --edit -f /tmp/srv.yaml
 1. `kubectl create service` 커맨드는 서비스에 대한 구성을 생성하고 이를 `/tmp/srv.yaml`에 저장한다.
 1. `kubectl create --edit` 커맨드는 오브젝트를 생성하기 전에 편집을 위해 구성파일을 열어준다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+

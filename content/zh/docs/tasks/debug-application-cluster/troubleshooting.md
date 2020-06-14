@@ -2,7 +2,7 @@
 reviewers:
 - brendandburns
 - davidopp
-content_template: templates/concept
+content_type: concept
 title: 排错
 ---
 
@@ -11,12 +11,12 @@ title: 排错
 reviewers:
 - brendandburns
 - davidopp
-content_template: templates/concept
+content_type: concept
 title: Troubleshooting
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Sometimes things go wrong. This guide is aimed at making them right. It has
@@ -40,10 +40,10 @@ you're using.
 
 您也应该查看所用[版本](https://github.com/kubernetes/kubernetes/releases)的已知问题。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Getting help
@@ -217,4 +217,4 @@ problem, such as:
 * 云提供商，OS 发行版、网络配置和 Docker 版本
 * 重现问题的步骤
 
-{{% /capture %}}
+

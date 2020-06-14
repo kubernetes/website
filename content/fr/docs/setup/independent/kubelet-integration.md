@@ -1,11 +1,11 @@
 ---
 title: Configuration des kubelet de votre cluster avec kubeadm
 description: Configuration kubelet Kubernetes cluster kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
@@ -26,9 +26,9 @@ d’une machine donnée, telles que le système d’exploitation, le stockage et
 mise en réseau. Vous pouvez gérer la configuration manuellement de vos kubelets,
 mais [kubeadm fournit maintenant un type d’API `KubeletConfiguration` pour la gestion centralisée de vos configurations de kubelets](#configure-kubelets-using-kubeadm).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Patterns de configuration des Kubelets
 
@@ -206,4 +206,4 @@ Les packages DEB et RPM fournis avec les versions de Kubernetes sont les suivant
 | `kubernetes-cni` | Installe les binaires officiels du CNI dans le repertoire `/opt/cni/bin`.                                                                      |
 | `cri-tools`      | Installe `/usr/bin/crictl` à partir de [https://github.com/kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools). |
 
-{{% /capture %}}
+

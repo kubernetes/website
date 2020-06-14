@@ -1,6 +1,7 @@
 ---
 title: Docs smoke test page
 main_menu: false
+mermaid: true
 ---
 
 This page serves two purposes:
@@ -294,6 +295,60 @@ tables, use HTML instead.
   </tr>
 </tbody>
 </table>
+
+## Visualizations with Mermaid
+
+Add `mermaid: true` to the [front matter](https://gohugo.io/content-management/front-matter/) of any page to enable [Mermaid JS](https://mermaidjs.github.io) visualizations. The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+
+```
+{{</* mermaid */>}}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{{</*/ mermaid */>}}
+```
+
+Produces: 
+
+{{< mermaid >}}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{{</ mermaid >}}
+
+```
+{{</* mermaid */>}}
+sequenceDiagram
+    Alice ->> Bob: Hello Bob, how are you?
+    Bob-->>John: How about you John?
+    Bob--x Alice: I am good thanks!
+    Bob-x John: I am good thanks!
+    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+
+    Bob-->Alice: Checking with John...
+    Alice->John: Yes... John, how are you?
+{{</*/ mermaid */>}}
+```
+
+Produces: 
+
+{{< mermaid >}}
+sequenceDiagram
+    Alice ->> Bob: Hello Bob, how are you?
+    Bob-->>John: How about you John?
+    Bob--x Alice: I am good thanks!
+    Bob-x John: I am good thanks!
+    Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+
+    Bob-->Alice: Checking with John...
+    Alice->John: Yes... John, how are you?
+{{</ mermaid >}}
+
+<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the offical docs.
 
 ## Sidebars and Admonitions
 

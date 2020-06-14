@@ -1,15 +1,15 @@
 ---
 title: 파드
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 _파드_ 는 쿠버네티스에서 생성되고 관리될 수 있는 배포 가능한 최소 컴퓨팅 단위이다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드는 무엇인가?
 _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로) 하나 이상의(도커 컨테이너 같은) 컨테이너 그룹이다.
@@ -33,7 +33,7 @@ _파드_ 는 (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지
 그들은 또한 SystemV 세마포어나, POSIX 공유 메모리와 같은 표준 프로세스 간 통신 방식으로
 서로 통신할 수 있다.
 다른 파드의 컨테이너에는 고유한 IP 주소가 있고,
-[특별한 구성](/docs/concepts/policy/pod-security-policy/) 없이는 IPC에 의해서 통신 할 수 없다.
+[특별한 구성](/ko/docs/concepts/policy/pod-security-policy/) 없이는 IPC에 의해서 통신 할 수 없다.
 컨테이너는 주로 서로의 IP 주소를 통해 소통한다.
 
 또한 파드 안의 애플리케이션은 파드의 일부로 정의되어,
@@ -203,4 +203,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 파드 오브젝트에 대한 매니페스트를 생성할때는 지정된 이름이 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)인지 확인해야 한다.
 
-{{% /capture %}}
+

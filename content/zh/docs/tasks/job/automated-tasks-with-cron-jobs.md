@@ -3,7 +3,7 @@ reviewers:
 - chenopis
 
 title: 使用 CronJob 运行自动化任务
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
@@ -12,12 +12,12 @@ weight: 10
 title: Running Automated Tasks with a CronJob
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
@@ -53,9 +53,10 @@ CronJobs 有一些限制和特点。
 因此，任务应该是幂等的。
 查看更多限制，请参考 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 <!--
@@ -69,9 +70,9 @@ component.
 * 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 ), 然后重启 API 服务器和控制管理器。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Cron Job
@@ -359,4 +360,4 @@ By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corres
 这两个域声明了有多少执行完成和失败的任务会被保留。
 默认设置为3和1。限制设置为0代表相应类型的任务完成后不会保留。
 
-{{% /capture %}}
+

@@ -1,21 +1,21 @@
 ---
 title: Tłumaczenie dokumentacji na język polski
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 35
   title: Tłumaczenie dokumentacji na język polski
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Na tej stronie znajdziesz wskazówki i wytyczne przydatne przy tłumaczeniu dokumentacji Kubernetesa na język polski.
 
 Dokumentem nadrzędnym jest angielski [opis stylu dokumentacji](/docs/contribute/style/style-guide).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Wskazówki ogólne
 
@@ -52,4 +52,4 @@ rolling update | aktualizacje stopniowe
 volume | volume (opcjonalnie: wolumin)
 worker node | węzeł roboczy
 
-{{% /capture %}}
+

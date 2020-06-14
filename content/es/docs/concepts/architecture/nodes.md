@@ -2,18 +2,18 @@
 reviewers:
 - glo-pena
 title: Nodos
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un nodo es una máquina de trabajo en Kubernetes, previamente conocida como `minion`. Un nodo puede ser una máquina virtual o física, dependiendo del tipo de clúster. Cada nodo está gestionado por el componente máster y contiene los servicios necesarios para ejecutar [pods](/docs/concepts/workloads/pods/pod). Los servicios en un nodo incluyen el [container runtime](/docs/concepts/overview/components/#node-components), kubelet y el kube-proxy. Accede a la sección [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) en el documento de diseño de arquitectura para más detalle.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Estado del Nodo
 
@@ -180,4 +180,4 @@ Para reservar explícitamente recursos en la máquina huésped para procesos no 
 Un nodo es un recurso principal dentro de la REST API de Kubernetes. Más detalles sobre el objeto en la  API se puede encontrar en: [Object Node API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
 
-{{% /capture %}}
+

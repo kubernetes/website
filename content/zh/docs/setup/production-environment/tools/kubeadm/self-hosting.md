@@ -2,7 +2,7 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 配置您的 kubernetes 集群以自托管控制平台
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 100
 reviewers:
 - sig-cluster-lifecycle
 title: Configuring your kubernetes cluster to self-host the control plane
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 ### Self-hosting the Kubernetes control plane {#self-hosting}
@@ -38,9 +38,9 @@ To create a self-hosted cluster see the
 -->
 要创建自托管集群，请参见 [kubeadm alpha 自托管枢纽](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/#cmd-selfhosting) 命令。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 #### Caveats
@@ -130,5 +130,5 @@ In summary, `kubeadm alpha selfhosting` works as follows:
 -->
   1. 当原始静态控制平面停止时，新的自托管控制平面能够绑定到侦听端口并变为活动状态。
 
-{{% /capture %}}
+
 

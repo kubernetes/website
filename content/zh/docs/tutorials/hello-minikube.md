@@ -1,6 +1,6 @@
 ---
 title: 你好 Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -15,7 +15,7 @@ card:
 <!--
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -29,7 +29,7 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial shows you how to run a simple Hello World Node.js app
@@ -46,9 +46,10 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Deploy a hello world application to Minikube.
@@ -59,9 +60,10 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 * 运行应用程序。
 * 查看应用日志
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 This tutorial provides a container image built from the following files:
@@ -77,9 +79,9 @@ For more information on the `docker build` command, read the [Docker documentati
 -->
 有关 `docker build` 命令的更多信息，请参阅 [Docker 文档](https://docs.docker.com/engine/reference/commandline/build/)。
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Create a Minikube cluster
@@ -137,7 +139,7 @@ Pod runs a Container based on the provided Docker image.
 1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker 镜像运行 Container。
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 <!--
@@ -205,7 +207,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 -->
-    {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
+   {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
 
 <!--
 ## Create a Service
@@ -261,7 +263,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
 -->
-    在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
+   在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
 
 <!--
 3. Run the following command:
@@ -442,9 +444,10 @@ Optionally, delete the Minikube VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
@@ -455,4 +458,4 @@ minikube delete
 * 学习更多关于 [部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 学习更多关于 [Service 对象](/zh/docs/concepts/services-networking/service/)。
 
-{{% /capture %}}
+

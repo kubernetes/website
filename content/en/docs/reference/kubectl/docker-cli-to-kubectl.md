@@ -1,16 +1,16 @@
 ---
 title: kubectl for Docker Users
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## docker run
 
 To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run).
@@ -361,4 +361,4 @@ Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-{{% /capture %}}
+

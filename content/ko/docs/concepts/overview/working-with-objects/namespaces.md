@@ -1,18 +1,18 @@
 ---
 title: 네임스페이스
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스는 동일한 물리 클러스터를 기반으로 하는 여러 가상 클러스터를 지원한다.
 이런 가상 클러스터를 네임스페이스라고 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 여러 개의 네임스페이스를 사용하는 경우
 
@@ -25,7 +25,7 @@ weight: 30
 네임스페이스를 통틀어서 유일할 필요는 없다. 네임스페이스는 서로 중첩될 수 없으며,
 각 쿠버네티스 리소스는 하나의 네임스페이스에만 있을 수 있다.
 
-네임스페이스는 클러스터 자원을 ([리소스 쿼터](/docs/concepts/policy/resource-quotas/)를 통해) 여러 사용자 사이에서 나누는 방법이다.
+네임스페이스는 클러스터 자원을 ([리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 통해) 여러 사용자 사이에서 나누는 방법이다.
 
 이후 버전의 쿠버네티스에서는 같은 네임스페이스의 오브젝트는 기본적으로 
 동일한 접근 제어 정책을 갖게 된다.
@@ -47,10 +47,11 @@ weight: 30
 kubectl get namespace
 ```
 ```
-NAME          STATUS    AGE
-default       Active    1d
-kube-system   Active    1d
-kube-public   Active    1d
+NAME              STATUS   AGE
+default           Active   1d
+kube-node-lease   Active   1d
+kube-public       Active   1d
+kube-system       Active   1d
 ```
 
 쿠버네티스는 처음에 세 개의 초기 네임스페이스를 갖는다.
@@ -107,11 +108,12 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
 * [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
 
-{{% /capture %}}
+
 

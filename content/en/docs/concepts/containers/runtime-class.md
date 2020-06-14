@@ -3,11 +3,11 @@ reviewers:
 - tallclair
 - dchen1107
 title: Runtime Class
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -16,10 +16,10 @@ This page describes the RuntimeClass resource and runtime selection mechanism.
 RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
 configuration is used to run a Pod's containers.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -163,7 +163,7 @@ with the pod's tolerations in admission, effectively taking the union of the set
 by each.
 
 To learn more about configuring the node selector and tolerations, see [Assigning Pods to
-Nodes](/docs/concepts/configuration/assign-pod-node/).
+Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 [RuntimeClass admission controller]: /docs/reference/access-authn-authz/admission-controllers/#runtimeclass
 
@@ -180,12 +180,13 @@ Pod overhead is defined in RuntimeClass through the `overhead` fields. Through t
 you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
 are accounted for in Kubernetes.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
 - Read about the [Pod Overhead](/docs/concepts/configuration/pod-overhead/) concept
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: Kubernetes 组件
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
@@ -11,7 +11,7 @@ card:
 reviewers:
 - lavalamp
 title: Kubernetes Components
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
@@ -30,7 +30,7 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 ![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
 -->
-{{% capture overview %}}
+<!-- overview -->
 当你部署完 Kubernetes, 即拥有了一个完整的集群。
 {{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
 
@@ -40,9 +40,9 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 ![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!-- 
 ## Control Plane Components
 -->
@@ -59,7 +59,7 @@ for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
  -->
-控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，安装脚本通常会启动同一个计算机上所有控制平面组件，并且不会在计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)示例对于多主机 VM 的安装。
+控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)中对于多主机 VM 的设置示例。
 
 ### kube-apiserver
 
@@ -222,8 +222,9 @@ saving container logs to a central log store with search/browsing interface.
 -->
 [集群层面日志](/docs/concepts/cluster-administration/logging/) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
@@ -232,4 +233,4 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解 [Nodes](/docs/concepts/architecture/nodes/)
 * 进一步了解 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-{{% /capture %}}
+

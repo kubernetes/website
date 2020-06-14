@@ -1,17 +1,17 @@
 ---
 title: 쿠버네티스 오브젝트 관리
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 `kubectl` 커맨드라인 툴은 쿠버네티스 오브젝트를 생성하고 관리하기 위한
 몇 가지 상이한 방법을 지원한다. 이 문서는 여러가지 접근법에 대한 개요을
 제공한다. Kubectl로 오브젝트 관리하기에 대한 자세한 설명은 
 [Kubectl 서적](https://kubectl.docs.kubernetes.io)에서 확인한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 관리 기법
 
@@ -38,7 +38,7 @@ weight: 15
 
 ### 예시
 
-디프롤이먼트 오브젝트를 생성하기 위해 nginx 컨테이너의 인스턴스를 구동 시킨다.
+디플로이먼트 오브젝트를 생성하기 위해 nginx 컨테이너의 인스턴스를 구동시킨다.
 
 ```sh
 kubectl run nginx --image nginx
@@ -174,9 +174,10 @@ kubectl apply -R -f configs/
 - 선언형 오브젝트 구성은 예상치 못한 결과를 디버깅하고 이해하기가 더 어렵다.
 - diff를 사용한 부분 업데이트는 복잡한 병합 및 패치 작업을 일으킨다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 - [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 - [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
@@ -187,4 +188,4 @@ kubectl apply -R -f configs/
 
 {{< comment >}}
 {{< /comment >}}
-{{% /capture %}}
+

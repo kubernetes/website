@@ -1,18 +1,18 @@
 ---
 title: Volume
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Berkas-berkas yang disimpan di _disk_ di dalam Container bersifat tidak permanen (akan terhapus seiring dengan dihapusnya Container/Pod), yang menimbulkan beberapa masalah untuk aplikasi biasa saat berjalan di dalam Container. Pertama, saat sebuah Container mengalami kegagalan, Kubelet akan memulai kembali Container tersebut, tetapi semua berkas di dalamnya akan hilang - Container berjalan dalam kondisi yang bersih. Kedua, saat menjalankan banyak Container bersamaan di dalam sebuah `Pod`, biasanya diperlukan untuk saling berbagi berkas-berkas di antara Container-container tersebut. Kedua masalah tersebut dipecahkan oleh abstraksi `Volume` pada Kubernetes.
 
 Pengetahuan tentang [Pod](/docs/user-guide/pods) disarankan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Latar Belakang
 
@@ -1144,8 +1144,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * Ikuti contoh [memasang WordPress dan MySQL dengan Persistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 
-{{% /capture %}}
+

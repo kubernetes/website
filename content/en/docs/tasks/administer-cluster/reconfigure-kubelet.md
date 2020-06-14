@@ -3,11 +3,11 @@ reviewers:
 - mtaufen
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.11
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
@@ -25,9 +25,10 @@ of nodes before rolling them out cluster-wide. Advice on configuring specific
 fields is available in the inline `KubeletConfiguration`
 [type documentation](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
 {{< /warning >}}
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 You need to have a Kubernetes cluster.
 You also need kubectl v1.11 or higher, configured to communicate with your cluster.
 {{< version-check >}}
@@ -43,9 +44,9 @@ because there are manual alternatives.
 
 For each node that you're reconfiguring, you must set the kubelet
 `--dynamic-config-dir` flag to a writable directory.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Reconfiguring the kubelet on a running node in your cluster
 
@@ -70,10 +71,10 @@ and is overridden by command-line flags. Unspecified values in the new configura
 will receive default values appropriate to the configuration version
 (e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 
-The status of the Node's kubelet configuration is reported via 
-`Node.Spec.Status.Config`. Once you have updated a Node to use the new
+The status of the Node's kubelet configuration is reported via
+`Node.Status.Config`. Once you have updated a Node to use the new
 ConfigMap, you can observe this status to confirm that the Node is using the
-intended configuration. 
+intended configuration.
 
 This document describes editing Nodes using `kubectl edit`.
 There are other ways to modify a Node's spec, including `kubectl patch`, for
@@ -136,7 +137,7 @@ adapt the steps if you prefer to extract the `kubeletconfig` subobject manually.
 
 1.  Choose a Node to reconfigure. In this example, the name of this Node is
     referred to as `NODE_NAME`.
-2.  Start the kubectl proxy in the background using the following command: 
+2.  Start the kubectl proxy in the background using the following command:
 
       ```bash
       kubectl proxy --port=8001 &
@@ -236,8 +237,8 @@ Retrieve the Node using the `kubectl get node ${NODE_NAME} -o yaml` command and 
 
 The`lastKnownGood` configuration might not be present if it is set to its default value,
 the local config deployed with the node. The status will update `lastKnownGood` to
-match a valid `assigned` config after the kubelet becomes comfortable with the config. 
-The details of how the kubelet determines a config should become the `lastKnownGood` are 
+match a valid `assigned` config after the kubelet becomes comfortable with the config.
+The details of how the kubelet determines a config should become the `lastKnownGood` are
 not guaranteed by the API, but is currently implemented as a 10-minute grace period.
 
 You can use the following command (using `jq`) to filter down
@@ -287,7 +288,7 @@ by eye).
 
 If an error occurs, the kubelet reports it in the `Node.Status.Config.Error`
 structure. Possible errors are listed in
-[Understanding Node.Status.Config.Error messages](#understanding-node-status-config-error-messages).
+[Understanding Node.Status.Config.Error messages](#understanding-node-config-status-errors).
 You can search for the identical text in the kubelet log for additional details
 and context about the error.
 
@@ -311,9 +312,9 @@ empty, since all config sources have been reset to `nil`, which indicates that
 the local default config is `assigned`, `active`, and `lastKnownGood`, and no
 error is reported.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 ## `kubectl patch` example
 
 You can change a Node's configSource using several different mechanisms.
@@ -355,7 +356,7 @@ metadata and checkpoints. The structure of the kubelet's checkpointing directory
   | - ...
 ```
 
-## Understanding Node.Status.Config.Error messages
+## Understanding Node.Status.Config.Error messages {#understanding-node-config-status-errors}
 
 The following table describes error messages that can occur
 when using Dynamic Kubelet Config. You can search for the identical text
@@ -374,9 +375,9 @@ internal failure, see Kubelet log for details | The kubelet encountered some int
 
 {{< /table >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
  - For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
 - See the reference documentation for [`NodeConfigSource`](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
-{{% /capture %}}

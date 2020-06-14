@@ -5,21 +5,21 @@ feature:
   description: >
     Pelacakan _endpoint_ jaringan yang dapat diskalakan pada klaster Kubernetes.
 
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 EndpointSlice menyediakan sebuah cara yang mudah untuk melacak _endpoint_ jaringan dalam sebuah
 klaster Kubernetes. EndpointSlice memberikan alternatif yang lebih _scalable_ dan lebih dapat diperluas dibandingkan dengan Endpoints.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivasi
 
@@ -174,11 +174,12 @@ akan segera dibutuhkan. Pembaruan bertahap (_rolling update_) dari Deployment ju
 pengemasan ulang EndpointSlice yang natural seiring dengan digantikannya seluruh Pod dan _endpoint_ yang 
 bersangkutan.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Mengaktifkan EndpointSlice](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Baca [Menghubungkan Aplikasi dengan Service](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

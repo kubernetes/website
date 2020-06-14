@@ -1,9 +1,10 @@
 ---
+draft: True
 title: Installazione dei componenti aggiuntivi
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 I componenti aggiuntivi estendono la funzionalità di Kubernetes.
@@ -12,10 +13,10 @@ Questa pagina elenca alcuni componenti aggiuntivi disponibili e collegamenti all
 
 I componenti aggiuntivi in ogni sezione sono ordinati alfabeticamente - l'ordine non implica uno stato preferenziale.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Networking and Network Policy
 
@@ -48,4 +49,4 @@ qui ci sono molti altri componenti aggiuntivi documentati nella directory deprec
 
 Quelli ben mantenuti dovrebbero essere collegati qui.
 
-{{% /capture %}}
+

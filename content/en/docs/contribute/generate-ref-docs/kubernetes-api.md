@@ -1,10 +1,10 @@
 ---
 title: Generating Reference Documentation for the Kubernetes API
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to update the Kubernetes API reference documentation.
 
@@ -18,15 +18,16 @@ If you find bugs in the generated documentation, you need to
 If you need only to regenerate the reference documentation from the [OpenAPI](https://github.com/OAI/OpenAPI-Specification)
 spec, continue reading this page.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Setting up the local repositories
 
@@ -138,19 +139,19 @@ git status
 The output is similar to:
 
 ```
-static/docs/reference/generated/kubernetes-api/v1.17/css/bootstrap.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/font-awesome.min.css
-static/docs/reference/generated/kubernetes-api/v1.17/css/stylesheet.css
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/FontAwesome.otf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.eot
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.svg
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.ttf
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff
-static/docs/reference/generated/kubernetes-api/v1.17/fonts/fontawesome-webfont.woff2
-static/docs/reference/generated/kubernetes-api/v1.17/index.html
-static/docs/reference/generated/kubernetes-api/v1.17/js/jquery.scrollTo.min.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/navData.js
-static/docs/reference/generated/kubernetes-api/v1.17/js/scroll.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/bootstrap.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/font-awesome.min.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/css/stylesheet.css
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/FontAwesome.otf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.eot
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.svg
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.ttf
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/fonts/fontawesome-webfont.woff2
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/index.html
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/jquery.scrollTo.min.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/navData.js
+static/docs/reference/generated/kubernetes-api/{{< param "version" >}}/js/scroll.js
 ```
 
 ## Updating the API reference index pages
@@ -177,7 +178,7 @@ version number.
 ## Locally test the API reference
 
 Publish a local version of the API reference.
-Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/v1.17/).
+Verify the [local preview](http://localhost:1313/docs/reference/generated/kubernetes-api/{{< param "version">}}/).
 
 ```shell
 cd <web-base>
@@ -194,12 +195,13 @@ Submit your changes as a
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 
-{{% /capture %}}
+

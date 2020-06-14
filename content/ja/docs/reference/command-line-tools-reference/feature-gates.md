@@ -1,16 +1,16 @@
 ---
 title: フィーチャーゲート
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは管理者がそれぞれのKubernetesコンポーネントで指定できるさまざまなフィーチャーゲートの概要について説明しています。
 
 各機能におけるステージの説明については、[機能のステージ](#feature-stages)を参照してください。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 概要
 
 フィーチャーゲートはアルファ機能または実験的機能を記述するkey=valueのペアのセットです。管理者は各コンポーネントで`--feature-gates`コマンドラインフラグを使用することで機能をオンまたはオフにできます。
@@ -398,7 +398,8 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `WinDSR`: kube-proxyがWindows用のDSRロードバランサーを作成できるようにします。
 - `WinOverlay`: kube-proxyをWindowsのオーバーレイモードで実行できるようにします。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Kubernetesの[非推奨ポリシー](/docs/reference/using-api/deprecation-policy/)では、機能とコンポーネントを削除するためのプロジェクトのアプローチを説明しています。
-{{% /capture %}}
+

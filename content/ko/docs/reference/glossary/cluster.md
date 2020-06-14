@@ -2,18 +2,19 @@
 title: 클러스터(Cluster)
 id: cluster
 date: 2019-06-15
-full_link: 
+full_link:
 short_description: >
-   컨테이너화된 애플리케이션을 실행하는 {{< glossary_tooltip text="노드" term_id="node" >}}라고 하는 워커 머신의 집합. 모든 클러스터는 최소 한 개의 워커 노드를 가진다.
+   컨테이너화된 애플리케이션을 실행하는 노드라고 하는 워커 머신의 집합. 모든 클러스터는 최소 한 개의 워커 노드를 가진다.
 
 aka:
 tags:
 - fundamental
 - operation
 ---
-컨테이너화된 애플리케이션을 실행하는 노드라고 하는 워커 머신의 집합. 모든 클러스터는 최소 한 개의 워커 노드를 가진다.
+컨테이너화된 애플리케이션을 실행하는 {{< glossary_tooltip text="노드" term_id="node" >}}라고
+하는 워커 머신의 집합. 모든 클러스터는 최소 한 개의 워커 노드를 가진다.
 
-<!--more--> 
+<!--more-->
 워커 노드는 애플리케이션의 구성요소인
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 호스트한다.
 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은 워커 노드와

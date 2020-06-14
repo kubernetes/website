@@ -1,6 +1,6 @@
 ---
-title: Привет Minikube
-content_template: templates/tutorial
+title: Привет, Minikube
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Это руководство покажет вам, как запустить простое Hello World Node.js приложение
 на Kubernetes используя [Minikube](/docs/getting-started-guides/minikube) и Katacoda.
@@ -23,17 +23,19 @@ Katacoda предоставляет бесплатную, встроенную �
 Вы также можете следовать этому руководству, если вы установили [Minikube locally](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Разверните hello world приложение в Minikube.
 * Запустите приложение.
 * Посмотрите логи приложения.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Для этого примера создан образ контейнера, собранный на основе следующих файлов:
 
@@ -43,9 +45,9 @@ Katacoda предоставляет бесплатную, встроенную �
 
 Чтобы получить больше информации по запуску команды `docker build`, ознакомьтесь с [документацией по Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Создание кластера Minikube
 
@@ -261,12 +263,13 @@ minikube stop
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Больше об [объектах деплоймента](/docs/concepts/workloads/controllers/deployment/).
 * Больше о [развёртывании приложения](/docs/user-guide/deploying-applications/).
 * Больше об [объектах сервиса](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

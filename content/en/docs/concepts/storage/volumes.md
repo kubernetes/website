@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 On-disk files in a Container are ephemeral, which presents some problems for
 non-trivial applications when running in Containers.  First, when a Container
@@ -20,10 +20,10 @@ Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Background
 
@@ -248,14 +248,14 @@ spec:
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 The CSI Migration feature for Cinder, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `cinder.csi.openstack.org` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Openstack Cinder CSI
 Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/using-cinder-csi-plugin.md)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationOpenStack`
-Alpha features must be enabled.
+Beta features must be enabled.
 
 ### configMap {#configmap}
 
@@ -304,6 +304,11 @@ You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-
 A Container using a ConfigMap as a [subPath](#using-subpath) volume mount will not
 receive ConfigMap updates.
 {{< /note >}}
+
+{{< note >}}
+Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
+{{< /note >}}
+
 
 ### downwardAPI {#downwardapi}
 
@@ -451,15 +456,13 @@ spec:
 ```
 
 #### Regional Persistent Disks
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 The [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#repds) feature allows the creation of Persistent Disks that are available in two zones within the same region. In order to use this feature, the volume must be provisioned as a PersistentVolume; referencing the volume directly from a pod is not supported.
 
 #### Manually provisioning a Regional PD PersistentVolume
 Dynamic provisioning is possible using a [StorageClass for GCE PD](/docs/concepts/storage/storage-classes/#gce).
 Before creating a PersistentVolume, you must create the PD:
 ```shell
-gcloud beta compute disks create --size=500GB my-data-disk
+gcloud compute disks create --size=500GB my-data-disk
     --region us-central1
     --replica-zones us-central1-a,us-central1-b
 ```
@@ -470,8 +473,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: test-volume
-  labels:
-    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
 spec:
   capacity:
     storage: 400Gi
@@ -480,6 +481,15 @@ spec:
   gcePersistentDisk:
     pdName: my-data-disk
     fsType: ext4
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: failure-domain.beta.kubernetes.io/zone
+          operator: In
+          values:
+          - us-central1-a
+          - us-central1-b
 ```
 
 #### CSI Migration
@@ -1471,6 +1481,7 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-{{% /capture %}}
+

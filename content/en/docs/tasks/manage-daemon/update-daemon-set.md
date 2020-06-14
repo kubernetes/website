@@ -2,25 +2,26 @@
 reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to perform a rolling update on a DaemonSet.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * The DaemonSet rolling update feature is only supported in Kubernetes version 1.6 or later.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## DaemonSet Update Strategy
 
@@ -102,7 +103,7 @@ If you update DaemonSets using
 use `kubectl apply`:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/fluentd-daemonset-update.yaml
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset-update.yaml
 ```
 
 #### Imperative commands
@@ -190,13 +191,14 @@ Delete DaemonSet from a namespace :
 kubectl delete ds fluentd-elasticsearch -n kube-system
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * See [Task: Performing a rollback on a
   DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
 * See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
-{{% /capture %}}
+

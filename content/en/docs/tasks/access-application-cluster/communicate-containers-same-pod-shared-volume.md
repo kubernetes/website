@@ -1,25 +1,26 @@
 ---
 title: Communicate Between Containers in the Same Pod Using a Shared Volume
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use a Volume to communicate between two Containers running
 in the same Pod. See also how to allow processes to communicate by [sharing process namespace](/docs/tasks/configure-pod-container/share-process-namespace/) between containers.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ##  Creating a Pod that runs two Containers
 
@@ -108,10 +109,10 @@ The output shows that nginx serves a web page written by the debian container:
 
     Hello from the debian container
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Discussion
 
@@ -127,10 +128,11 @@ The Volume in this exercise provides a way for Containers to communicate during
 the life of the Pod. If the Pod is deleted and recreated, any data stored in
 the shared Volume is lost.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about
 [patterns for composite containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
@@ -147,7 +149,7 @@ the shared Volume is lost.
 
 * See [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 
-{{% /capture %}}
+
 
 
 

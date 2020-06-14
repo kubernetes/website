@@ -1,15 +1,15 @@
 ---
 title: AppArmor
-content_template: templates/tutorial
+content_type: tutorial
 ---
 <!-- ---
 reviewers:
 - stclair
 title: AppArmor
-content_template: templates/tutorial
+content_type: tutorial
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
@@ -24,9 +24,10 @@ violations. -->
 Apparmor 是一个 Linux 内核安全模块，它补充了标准的基于 Linux 用户和组的安全模块将程序限制为有限资源集的权限。AppArmor 可以配置为任何应用程序减少潜在的攻击面，并且提供更加深入的防御。AppArmor 是通过配置文件进行配置的，这些配置文件被调整为报名单，列出了特定程序或者容器所需要的访问权限，如 Linux 功能、网络访问、文件权限等。每个配置文件都可以在*强制*模式(阻止访问不允许的资源)或*投诉*模式(仅报告冲突)下运行。
 
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!-- * See an example of how to load a profile on a node
 * Learn how to enforce the profile on a Pod
@@ -39,9 +40,10 @@ Apparmor 是一个 Linux 内核安全模块，它补充了标准的基于 Linux 
 * 查看违反配置文件时会发生什么情况
 * 查看无法加载配置文件时会发生什么情况
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!-- Make sure: -->
 务必：
@@ -175,9 +177,9 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!-- ## Securing a Pod -->
 ## 保护 Pod
@@ -214,7 +216,7 @@ specifies the profile to apply. The `profile_ref` can be one of: -->
 <!-- Kubernetes AppArmor enforcement works by first checking that all the prerequisites have been
 met, and then forwarding the profile selection to the container runtime for enforcement. If the
 prerequisites have not been met, the Pod will be rejected, and will not run. -->
-Kubernetes AppArmor 强制首先通过检查所有先决条件都已满足，然后将配置文件选择转发到容器运行时进行强制。如果未满足先决条件， Pod 将被拒绝，并且不会运行。
+Kubernetes AppArmor 强制执行方式首先通过检查所有先决条件都已满足，然后将配置文件选择转发到容器运行时进行强制执行。如果未满足先决条件， Pod 将被拒绝，并且不会运行。
 
 <!-- To verify that the profile was applied, you can look for the AppArmor security option listed in the container created event: -->
 要验证是否应用了配置文件，可以查找容器创建事件中列出的 AppArmor 安全选项：
@@ -586,9 +588,10 @@ logs or through `journalctl`. More information is provided in
 * **value**: 配置文件引用的逗号分隔列表(如上所述)
   - 尽管转义逗号是配置文件名中的合法字符，但此处不能显式允许。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- Additional resources: -->
 其他资源
@@ -598,4 +601,4 @@ logs or through `journalctl`. More information is provided in
 * [Apparmor 配置文件语言快速指南](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [Apparmor 核心策略参考](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
-{{% /capture %}}
+

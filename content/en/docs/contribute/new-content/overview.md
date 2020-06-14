@@ -1,25 +1,25 @@
 ---
 title: Contributing new content overview
 linktitle: Overview
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section contains information you should know before contributing new content.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Contributing basics
 
 - Write Kubernetes documentation in Markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
 - The source is in [GitHub](https://github.com/kubernetes/website). You can find Kubernetes documentation at `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
-- [Page templates](/docs/contribute/style/page-templates/) control the presentation of documentation content in Hugo.
+- [Page content types](/docs/contribute/style/page-content-types/) describe the presentation of documentation content in Hugo.
 - In addition to the standard Hugo shortcodes, we use a number of [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
 - Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
 - For more information about contributing to documentation in multiple languages or starting a new translation, see [localization](/docs/contribute/localization).
@@ -30,22 +30,7 @@ This section contains information you should know before contributing new conten
 
 All Kubernetes contributors **must** read the [Contributor guide](https://github.com/kubernetes/community/blob/master/contributors/guide/README.md) and [sign the Contributor License Agreement (CLA)](https://github.com/kubernetes/community/blob/master/CLA.md).
 
-Pull requests from contributors who haven't signed the CLA fail the automated tests.
-
-### Configure commit signoffs
-
-All commits to Kubernetes repositories must be _signed off_ using the Git `--signoff` or `-s` flag.
-The signoff acknowledges that you have the rights to submit contributions under the same
-license and [Developer Certificate of Origin](https://developercertificate.org/).
-
-If you're using a Git UI app, you can use the app's commit template functionality if it
-exists, or add the following to your commit message body:
-
-```
-Signed-off-by: Your Name <youremail@domain.com>
-```
-
-In both cases, the name and email you provide must match those found in your `git config`, and your git name and email must match those used for the CNCF CLA.
+Pull requests from contributors who haven't signed the CLA fail the automated tests. The name and email you provide must match those found in your `git config`, and your git name and email must match those used for the CNCF CLA.
 
 ### Choose which Git branch to use
 
@@ -69,5 +54,8 @@ was wrong, you (and only you, the submitter) can change it.
 
 Limit pull requests to one language per PR. If you need to make an identical change to the same code sample in multiple languages, open a separate PR for each language.
 
+## Tools for contributors
 
-{{% /capture %}}
+The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
+
+

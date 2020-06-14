@@ -1,19 +1,20 @@
 ---
 title: Installer Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page vous montre comment installer [Minikube](/fr/docs/tutorials/hello-minikube/), qui est un outil qui fait tourner un cluster Kubernetes à un noeud unique dans une machine virtuelle sur votre machine.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,11 +54,11 @@ Configuration requise pour Hyper-V: un hyperviseur a été détecté. Les foncti
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# Installer Minikube
+<!-- steps -->
+
+## Installer Minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -200,13 +201,11 @@ Pour installer Minikube manuellement sur Windows, téléchargez [`minikube-windo
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [Exécutez Kubernetes localement via Minikube](/fr/docs/setup/learning-environment/minikube/)
 
-{{% /capture %}}
+
+
 
 ## Confirmer l'installation
 
@@ -259,3 +258,8 @@ Vous devez supprimer les fichiers de configuration :
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Exécutez Kubernetes localement via Minikube](/fr/docs/setup/learning-environment/minikube/)

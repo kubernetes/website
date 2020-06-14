@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - lavalamp
 - jbeda
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: reference
@@ -12,11 +12,11 @@ card:
   title: Overview of API
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of the Kubernetes API. 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The REST API is the fundamental fabric of Kubernetes. All operations and communications between components, and external user commands are REST API calls that the API Server handles. Consequently, everything in the Kubernetes
 platform is treated as an API object and has a corresponding entry in the
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
@@ -86,7 +86,7 @@ Currently, there are several API groups in use:
 
 The two paths that support extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
 
- - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+ - [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    for basic CRUD needs.
  - [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) for a full set of Kubernetes API semantics to implement their own apiserver.
  

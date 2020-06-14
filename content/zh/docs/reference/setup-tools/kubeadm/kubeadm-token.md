@@ -1,6 +1,6 @@
 ---
 title: kubeadm 令牌
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
@@ -11,12 +11,12 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm token
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Bootstrap tokens are used for establishing bidirectional trust between a node joining
 the cluster and a master node, as described in [authenticating with bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
@@ -31,9 +31,9 @@ such a token and also to create and manage new ones.
 
 `kubeadm init` 创建了一个有效期为 24 小时的令牌，下面的命令允许您管理令牌，也可以创建和管理新的令牌。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## kubeadm token create {#cmd-token-create}
 {{< include "generated/kubeadm_token_create.md" >}}
 
@@ -45,11 +45,12 @@ such a token and also to create and manage new ones.
 
 ## kubeadm token list {#cmd-token-list}
 {{< include "generated/kubeadm_token_list.md" >}}
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 引导 Kubernetes 工作节点并将其加入群集
-{{% /capture %}}
+
 <!--
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 -->

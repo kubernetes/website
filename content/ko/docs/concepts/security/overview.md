@@ -1,12 +1,12 @@
 ---
 title: 클라우드 네이티브 보안 개요
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 보안(일반적인 보안)은 관련된 많은 부분이 상호작용하는 
 방대한 주제다. 오늘날에는 웹 애플리케이션의 실행을 돕는 
 수많은 시스템에 오픈소스 소프트웨어가 통합되어 있으며, 
@@ -15,9 +15,9 @@ weight: 1
 몇 가지 일반적인 개념에 대한 멘탈 모델(mental model)을 정의한다. 멘탈 모델은 완전히 임의적이며 
 소프트웨어 스택을 보호할 위치를 생각하는데 도움이되는 경우에만 사용해야 
 한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 클라우드 네이티브 보안의 4C
 계층적인 보안에 대해서 어떻게 생각할 수 있는지 이해하는 데 도움이 될 수 있는 다이어그램부터 살펴보자.
@@ -140,8 +140,8 @@ RBAC 인증(쿠버네티스 API에 대한 접근) | https://kubernetes.io/docs/r
 TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 클라이언트와 먼저 TLS 핸드 셰이크를 수행하는 것이 이상적이다. 몇 가지 경우를 제외하고, 기본 동작은 전송 중인 모든 것을 암호화하는 것이다. 한걸음 더 나아가, VPC의 "방화벽 뒤"에서도 서비스 간 네트워크 트래픽을 암호화하는 것이 좋다. 이것은 인증서를 가지고 있는 두 서비스의 양방향 검증을 [mTLS](https://en.wikipedia.org/wiki/Mutual_authentication)를 통해 수행할 수 있다. 이것을 수행하기 위해 쿠버네티스에는 [Linkerd](https://linkerd.io/) 및 [Istio](https://istio.io/)와 같은 수많은 도구가 있다. |
 통신 포트 범위 제한 | 이 권장사항은 당연할 수도 있지만, 가능하면 통신이나 메트릭 수집에 꼭 필요한 서비스의 포트만 노출시켜야 한다. |
 타사 종속성 보안 | 애플리케이션은 자체 코드베이스의 외부에 종속적인 경향이 있기 때문에, 코드의 종속성을 정기적으로 스캔하여 현재 알려진 취약점이 없는지 확인하는 것이 좋다. 각 언어에는 이런 검사를 자동으로 수행하는 도구를 가지고 있다. |
-정적 코드 분석 | 대부분 언어에는 잠재적으로 안전하지 않은 코딩 방법에 대해 코드 스니펫을 분석할 수 있는 방법을 제공한다. 가능한 언제든지 일반적인 보안 오류에 대해 코드베이스를 스캔할 수 있는 자동화된 도구를 사용하여 검사를 한다. 도구는 다음에서 찾을 수 있다: https://www.owasp.org/index.php/Source_Code_Analysis_Tools |
-동적 탐지 공격 | 일반적으로 서비스에서 발생할 수 있는 잘 알려진 공격 중 일부를 서비스에 테스트할 수 있는 자동화된 몇 가지 도구가 있다. 이런 잘 알려진 공격에는 SQL 인젝션, CSRF 및 XSS가 포함된다. 가장 널리 사용되는 동적 분석 도구는 OWASP Zed Attack 프록시다. https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project |
+정적 코드 분석 | 대부분 언어에는 잠재적으로 안전하지 않은 코딩 방법에 대해 코드 스니펫을 분석할 수 있는 방법을 제공한다. 가능한 언제든지 일반적인 보안 오류에 대해 코드베이스를 스캔할 수 있는 자동화된 도구를 사용하여 검사를 한다. 도구는 다음에서 찾을 수 있다. https://owasp.org/www-community/Source_Code_Analysis_Tools |
+동적 탐지 공격 | 일반적으로 서비스에서 발생할 수 있는 잘 알려진 공격 중 일부를 서비스에 테스트할 수 있는 자동화된 몇 가지 도구가 있다. 이런 잘 알려진 공격에는 SQL 인젝션, CSRF 및 XSS가 포함된다. 가장 널리 사용되는 동적 분석 도구는 OWASP Zed Attack 프록시다. https://owasp.org/www-project-zap/ |
 
 
 ## 강력한(robust) 자동화
@@ -150,12 +150,13 @@ TLS를 통한 접근 | 코드가 TCP를 통해 통신해야 한다면, 클라이
 전달하는 파이프라인에 의해 자동화 될 수 있다. 소프트웨어 전달을 위한 
 "지속적인 해킹(Continuous Hacking)"에 대한 접근 방식에 대해 알아 보려면, 자세한 설명을 제공하는 [이 기사](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/)를 참고한다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [파드에 대한 네트워크 정책](/ko/docs/concepts/services-networking/network-policies/) 알아보기
 * [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/)에 대해 알아보기
 * [API 접근 통제](/docs/reference/access-authn-authz/controlling-access/)에 대해 알아보기
 * 컨트롤 플레인에 대한 [전송 데이터 암호화](/docs/tasks/tls/managing-tls-in-a-cluster/) 알아보기
 * [Rest에서 데이터 암호화](/docs/tasks/administer-cluster/encrypt-data/) 알아보기
 * [쿠버네티스 시크릿](/docs/concepts/configuration/secret/)에 대해 알아보기
-{{% /capture %}}
+

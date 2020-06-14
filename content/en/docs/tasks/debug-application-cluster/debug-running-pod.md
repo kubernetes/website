@@ -3,16 +3,17 @@ reviewers:
 - verb
 - soltysh
 title: Debug Running Pods
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains how to debug Pods running (or crashing) on a Node.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Your {{< glossary_tooltip text="Pod" term_id="pod" >}} should already be
   scheduled and running. If your Pod is not yet running, start with [Troubleshoot
@@ -21,9 +22,9 @@ This page explains how to debug Pods running (or crashing) on a Node.
   Pod is running and have shell access to run commands on that Node. You don't
   need that access to run the standard debug steps that use `kubectl`.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Examining pod logs {#examine-pod-logs}
 
@@ -187,4 +188,4 @@ given tools in the Kubernetes API. Therefore, if you find yourself needing to
 ssh into a machine, please file a feature request on GitHub describing your use
 case and why these tools are insufficient.
 
-{{% /capture %}}
+

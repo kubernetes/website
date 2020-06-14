@@ -1,18 +1,18 @@
 ---
 title: HostAliases로 파드의 /etc/hosts 항목 추가하기
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 파드의 /etc/hosts 파일에 항목을 추가하는 것은 DNS나 다른 방법들이 적용되지 않을 때 파드 수준의 호스트네임 해석을 제공한다. 1.7 버전에서는, 사용자들이 PodSpec의 HostAliases 항목을 사용하여 이러한 사용자 정의 항목들을 추가할 수 있다.
 
 HostAliases를 사용하지 않은 수정은 권장하지 않는데, 이는 호스트 파일이 Kubelet에 의해 관리되고, 파드 생성/재시작 중에 덮어쓰여질 수 있기 때문이다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 기본 호스트 파일 내용
 
@@ -91,7 +91,7 @@ hostaliases-pod                0/1       Completed   0          6s        10.200
 `hosts` 파일 내용은 아래와 같을 것이다.
 
 ```shell
-kubectl logs hostaliases-pod
+kubectl exec hostaliases-pod -- cat /etc/hosts
 ```
 
 ```none
@@ -123,4 +123,4 @@ fe00::2	ip6-allrouters
 덮어쓰여진다. 따라서, 호스트 파일의 내용을 
 직접 바꾸는 것은 권장하지 않는다.
 
-{{% /capture %}}
+

@@ -1,15 +1,15 @@
 ---
 title: Support de JSONPath
 description: JSONPath kubectl Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl prend en charge les modèles JSONPath.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Un modèle JSONPath est composé d'expressions JSONPath entourées par des accolades {}.
 Kubectl utilise les expressions JSONPath pour filtrer sur des champs spécifiques de l'objet JSON et formater la sortie.
@@ -71,10 +71,10 @@ Fonction            | Description                | Exemple                      
 --------------------|----------------------------|-----------------------------------------------------------------|------------------
 `text`              | le texte en clair          | `le type est {.kind}`                                           | `le type est List`
 `@`                 | l'objet courant            | `{@}`                                                           | identique à l'entrée
-`.` ou `[]`         | opérateur fils             | `{.kind}` ou `{['kind']}`                                       | `List`
+`.` ou `[]`         | opérateur fils             | `{.kind}`, `{['kind']}` ou `{['name\.type']}`                   | `List`
 `..`                | descente récursive         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | joker. Tous les objets     | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
-`[start:end :step]` | opérateur d'indice         | `{.users[0].name}`                                              | `myself`
+`[start:end:step]`  | opérateur d'indice         | `{.users[0].name}`                                              | `myself`
 `[,]`               | opérateur d'union          | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
 `?()`               | filtre                     | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
 `range`, `end`      | itération de liste         | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
@@ -87,14 +87,18 @@ kubectl get pods -o json
 kubectl get pods -o=jsonpath='{@}'
 kubectl get pods -o=jsonpath='{.items[0]}'
 kubectl get pods -o=jsonpath='{.items[0].metadata.name}'
+kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'status.capacity']}"
 kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
 ```
 
+{{< note >}}
 Sous Windows, vous devez utiliser des guillemets _doubles_ autour des modèles JSONPath qui contiennent des espaces (et non des guillemets simples comme ci-dessus pour bash). Ceci entraîne que vous devez utiliser un guillemet simple ou un double guillemet échappé autour des chaînes litérales dans le modèle. Par exemple :
 
 ```cmd
-C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
-C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
 
-{{% /capture %}}
+{{< /note >}}
+
+

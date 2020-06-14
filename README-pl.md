@@ -22,14 +22,17 @@ Więcej informacji na temat współpracy przy tworzeniu dokumentacji znajdziesz 
 * [Lokalizacja dokumentacji Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
 ## Różne wersje językowe `README.md`
-|  |  |
-|---|---|
-|[README po francusku](README-fr.md)|[README po koreańsku](README-ko.md)|
-|[README po niemiecku](README-de.md)|[README po portugalsku](README-pt.md)|
-|[README w hindi](README-hi.md)|[README po hiszpańsku](README-es.md)|
-|[README po indonezyjsku](README-id.md)|[README po chińsku](README-zh.md)|
-|[README po japońsku](README-ja.md)|[README po polsku](README-pl.md)|
-|||
+
+|                                        |                                        |
+|----------------------------------------|----------------------------------------|
+| [README po angielsku](README.md)       | [README po francusku](README-fr.md)    |
+| [README po koreańsku](README-ko.md)    | [README po niemiecku](README-de.md)    |
+| [README po portugalsku](README-pt.md)  | [README w hindi](README-hi.md)        |
+| [README po hiszpańsku](README-es.md)   | [README po indonezyjsku](README-id.md) |
+| [README po chińsku](README-zh.md)      | [README po japońsku](README-ja.md)     |
+| [README po wietnamsku](README-vi.md)   | [README po rosyjsku](README-ru.md)     |
+| [README po włosku](README-it.md)       | [README po ukraińsku](README-uk.md)    |
+|                                        |                                        |
 
 ## Jak uruchomić lokalną kopię strony przy pomocy Dockera?
 

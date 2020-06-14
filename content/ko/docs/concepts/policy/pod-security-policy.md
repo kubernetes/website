@@ -1,20 +1,20 @@
 ---
 title: 파드 시큐리티 폴리시
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드 시큐리티 폴리시란?
 
@@ -26,17 +26,17 @@ _Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 
 
 | 제어 측면                                            | 필드 이름                                 |
 | ----------------------------------------------------| ------------------------------------------- |
-| 특권을 가진(privileged) 컨테이너의 실행                                | [`privileged`](#privileged)                                |
-| 호스트 네임스페이스의 사용                                 | [`hostPID`, `hostIPC`](#host-namespaces)    |
-| 호스트 네트워킹과 포트의 사용                               | [`hostNetwork`, `hostPorts`](#host-namespaces) |
-| 볼륨 유형의 사용                                        | [`volumes`](#volumes-and-file-systems)      |
-| 호스트 파일시스템의 사용                                  | [`allowedHostPaths`](#volumes-and-file-systems) |
-| FlexVolume 드라이버의 화이트리스트                         | [`allowedFlexVolumes`](#flexvolume-drivers) |
-| 파드 볼륨을 소유한 FSGroup 할당                           | [`fsGroup`](#volumes-and-file-systems)      |
-| 읽기 전용 루트 파일시스템 사용 필요                          | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
-| 컨테이너의 사용자 및 그룹 ID                               | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
-| 루트 특권으로의 에스컬레이션 제한                            | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#privilege-escalation) |
-| 리눅스 기능                                             | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#capabilities) |
+| 특권을 가진(privileged) 컨테이너의 실행                                | [`privileged`](#특권을-가진)                                |
+| 호스트 네임스페이스의 사용                                 | [`hostPID`, `hostIPC`](#호스트-네임스페이스)    |
+| 호스트 네트워킹과 포트의 사용                               | [`hostNetwork`, `hostPorts`](#호스트-네임스페이스) |
+| 볼륨 유형의 사용                                        | [`volumes`](#볼륨-및-파일시스템)      |
+| 호스트 파일시스템의 사용                                  | [`allowedHostPaths`](#볼륨-및-파일시스템) |
+| FlexVolume 드라이버의 화이트리스트                         | [`allowedFlexVolumes`](#flexvolume-드라이버) |
+| 파드 볼륨을 소유한 FSGroup 할당                           | [`fsGroup`](#볼륨-및-파일시스템)      |
+| 읽기 전용 루트 파일시스템 사용 필요                          | [`readOnlyRootFilesystem`](#볼륨-및-파일시스템) |
+| 컨테이너의 사용자 및 그룹 ID                               | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#사용자-및-그룹) |
+| 루트 특권으로의 에스컬레이션 제한                            | [`allowPrivilegeEscalation`, `defaultAllowPrivilegeEscalation`](#권한-에스컬레이션) |
+| 리눅스 기능                                             | [`defaultAddCapabilities`, `requiredDropCapabilities`, `allowedCapabilities`](#기능) |
 | 컨테이너의 SELinux 컨텍스트                               | [`seLinux`](#selinux)                       |
 | 컨테이너에 허용된 Proc 마운트 유형                           | [`allowedProcMountTypes`](#allowedprocmounttypes) |
 | 컨테이너가 사용하는 AppArmor 프로파일                        | [어노테이션](#apparmor)                    |
@@ -371,6 +371,8 @@ podsecuritypolicy "example" deleted
 
 {{< codenew file="policy/restricted-psp.yaml" >}}
 
+더 많은 예제는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/#policy-instantiation)을 본다.
+
 ## 정책 레퍼런스
 
 ### 특권을 가진
@@ -626,10 +628,13 @@ spec:
 [Sysctl 문서](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy)를 참고하길 바란다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+
+API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
+
+

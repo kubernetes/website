@@ -1,19 +1,19 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Kubernetesのドキュメントに貢献する
 linktitle: 貢献
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ドキュメントやウェブサイトに貢献したい方、ご協力お待ちしています。
 はじめての方、久しぶりの方、開発者でもエンドユーザでも、はたまたタイポを見逃せない方でもどなたでも貢献可能です。
 
 ドキュメントのスタイルガイドについては[こちら](/docs/contribute/style/style-guide/)。
 
-{{% capture body %}}
+<!-- body -->
 
 ## コントリビューターの種類
 
@@ -60,4 +60,4 @@ weight: 80
 - TwitterやStack Overflowといったオンラインフォーラムを通してKubernetesコミュニティに貢献したい方、または各地のミートアップやイベントについて知りたい方は[Kubernetes community site](/community/)へ。
 - 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 
-{{% /capture %}}
+

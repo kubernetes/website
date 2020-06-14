@@ -3,14 +3,14 @@ reviewers:
 - davidopp
 - thockin
 title: DNS for Services and Pods
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of DNS support by Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -65,6 +65,13 @@ that is backing the service, and contains the port number and the domain name of
 of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## Pods
+
+### A/AAAA records
+
+Any pods created by a Deployment or DaemonSet have the following
+DNS resolution available:
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
 
 ### Pod's hostname and subdomain fields
 
@@ -171,7 +178,7 @@ following pod-specific DNS policies. These policies are specified in the
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
   `dnsConfig` field in the Pod Spec.
-  See [Pod's DNS config](#pod-s-dns-config) subsection below.
+  See [Pod's DNS config](#pod-dns-config) subsection below.
 
 {{< note >}}
 "Default" is not the default DNS policy. If `dnsPolicy` is not
@@ -201,7 +208,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### Pod's DNS Config
+### Pod's DNS Config {#pod-dns-config}
 
 Pod's DNS Config allows users more control on the DNS settings for a Pod.
 
@@ -254,7 +261,7 @@ options ndots:5
 
 ### Feature availability
 
-The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
+The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 
 | k8s version | Feature support |
 | :---------: |:-----------:|
@@ -262,13 +269,11 @@ The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
 | 1.10 | Beta (on by default)|
 | 1.9 | Alpha |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
-
-{{% /capture %}}
-
 

@@ -1,27 +1,28 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Configuration Files
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes objects can be created, updated, and deleted by storing multiple
 object configuration files in a directory and using `kubectl apply` to
 recursively create and update those objects as needed. This method
 retains writes made to live objects without merging the changes
 back into the object configuration files. `kubectl diff` also gives you a
 preview of what changes `apply` will make.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trade-offs
 
@@ -237,7 +238,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get deployment nginx-deployment -o yaml
 ```
 
 The output shows that the `replicas` field has been set to 2, and the `last-applied-configuration`
@@ -296,7 +297,7 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 Print the live configuration using `kubectl get`:
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yaml
 ```
 
 The output shows the following changes to the live configuration:
@@ -999,11 +1000,12 @@ template:
       controller-selector: "apps/v1/deployment/nginx"
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

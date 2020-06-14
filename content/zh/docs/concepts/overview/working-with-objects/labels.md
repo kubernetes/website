@@ -1,6 +1,6 @@
 ---
 title: 标签和选择器
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -8,11 +8,11 @@ weight: 40
 reviewers:
 - mikedanese
 title: Labels and Selectors
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 _Labels_ are key/value pairs that are attached to objects, such as pods.
@@ -40,10 +40,10 @@ We'll eventually index and reverse-index labels for efficient queries and watche
 
 我们最终将标签索引和反向索引，用于高效查询和监视，使用它们在 UI 和 CLI 中进行排序和分组等。我们不希望将非标识性的、尤其是大型或结构化数据用作标签，给后者带来污染。应使用 [注解](/docs/concepts/overview/working-with-objects/annotations/) 记录非识别信息
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Motivation
@@ -375,4 +375,4 @@ See the documentation on [node selection](/docs/concepts/configuration/assign-po
 通过标签进行选择的一个用例是确定节点集，方便 pod 调度。
 有关更多信息，请参阅 [选择节点](/docs/concepts/configuration/assign-pod-node/) 上的文档。
 
-{{% /capture %}}
+

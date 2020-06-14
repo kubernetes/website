@@ -1,17 +1,17 @@
 ---
 title: Pod 与 Service 的 DNS
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page provides an overview of DNS support by Kubernetes.
 -->
 该页面概述了Kubernetes对DNS的支持。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -391,7 +391,7 @@ options ndots:5
 <!--
 ### Feature availability
 
-The availability of Pod DNS Config and DNS Policy "`None`"" is shown as below.
+The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 -->
 
 ### 可用功能
@@ -404,9 +404,10 @@ Pod DNS 配置和 DNS 策略 "`None`" 的版本对应如下所示。
 | 1.10 | Beta (on by default)|
 | 1.9 | Alpha |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 For guidance on administering DNS configurations, check
@@ -416,5 +417,5 @@ For guidance on administering DNS configurations, check
 有关管理 DNS 配置的指导，请查看
 [配置 DNS 服务](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
-{{% /capture %}}
+
 

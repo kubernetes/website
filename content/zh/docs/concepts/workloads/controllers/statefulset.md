@@ -1,6 +1,6 @@
 ---
 title: StatefulSets
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
@@ -14,12 +14,12 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: StatefulSets
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 StatefulSet is the workload API object used to manage stateful applications.
@@ -28,9 +28,9 @@ StatefulSet is the workload API object used to manage stateful applications.
 StatefulSet 是用来管理有状态应用的工作负载 API 对象。
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Using StatefulSets
@@ -227,7 +227,7 @@ Cluster Domain will be set to `cluster.local` unless
 [otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
 -->
 {{< note >}}
-集群域会被设置为 `cluster.local`，除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/#how-it-works)。
+集群域会被设置为 `cluster.local`，除非有[其他配置](/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
 
 <!--
@@ -433,8 +433,9 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 恢复模板后，还必须删除 StatefulSet 尝试使用错误的配置来运行的 Pod。这样，StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
@@ -446,5 +447,5 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 * 示例二：[使用 StatefulSet 部署 Cassandra](/docs/tutorials/stateful-application/cassandra/)。
 * 示例三：[运行多副本的有状态应用程序](/docs/tasks/run-application/run-replicated-stateful-application/)。
 
-{{% /capture %}}
+
 

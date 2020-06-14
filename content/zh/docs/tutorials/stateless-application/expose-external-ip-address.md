@@ -1,18 +1,18 @@
 ---
 title: 公开外部 IP 地址以访问集群中应用程序
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
 <!--
 ---
 title: Exposing an External IP Address to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create a Kubernetes Service object that exposes an
@@ -20,10 +20,11 @@ external IP address.
 -->
 此页面显示如何创建公开外部 IP 地址的 Kubernetes 服务对象。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
  * Install [kubectl](/docs/tasks/tools/install-kubectl/).
@@ -44,10 +45,11 @@ external IP address.
 
  * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Run five instances of a Hello World application.
@@ -59,10 +61,10 @@ external IP address.
 * 创建一个公开外部 IP 地址的 Service 对象。
 * 使用 Service 对象访问正在运行的应用程序。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Creating a service for an application running in five pods
@@ -75,7 +77,11 @@ external IP address.
 -->
 1. 在集群中运行 Hello World 应用程序：
 
-        kubectl run hello-world --replicas=5 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+{{< codenew file="service/load-balancer-example.yaml" >}}
+
+```shell
+kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
+```
 
 <!--
     The preceding command creates a
@@ -86,9 +92,9 @@ external IP address.
     [Pods](/docs/concepts/workloads/pods/pod/),
     each of which runs the Hello World application.
 -->
-    前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
-    对象和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)对象。
-    ReplicaSet 有五个 [Pod](/zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
+   前面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)
+   对象和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/)对象。
+   ReplicaSet 有五个 [Pod](/zh/docs/concepts/workloads/pods/pod/)，每个都运行 Hello World 应用程序。
 
 <!--
 1. Display information about the Deployment:
@@ -129,8 +135,20 @@ external IP address.
         my-service   ClusterIP   10.3.245.137   104.198.205.71   8080/TCP   54s
 
 <!--
-   Note: If the external IP address is shown as \<pending\>, wait for a minute
-   and enter the same command again.
+{{< note >}}
+
+The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+
+{{< /note >}}
+-->
+   注意：`type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，详细信息请参考[此页](/docs/concepts/services-networking/service/#loadbalancer)
+
+<!--
+{{< note >}}
+
+If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
+
+{{< /note >}}
 -->
    注意：如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
 
@@ -222,10 +240,11 @@ external IP address.
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 To delete the Service, enter this command:
@@ -242,10 +261,11 @@ the Hello World application, enter this command:
 
         kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Learn more about
@@ -254,4 +274,4 @@ Learn more about
 
 了解更多关于[将应用程序与服务连接](/zh/docs/concepts/services-networking/connect-applications-service/)。
 
-{{% /capture %}}
+

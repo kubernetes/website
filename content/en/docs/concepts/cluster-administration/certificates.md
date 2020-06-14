@@ -1,19 +1,19 @@
 ---
 title: Certificates
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 When using client certificate authentication, you can generate certificates
 manually through `easyrsa`, `openssl` or `cfssl`.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -249,4 +249,4 @@ You can use the `certificates.k8s.io` API to provision
 x509 certificates to use for authentication as documented
 [here](/docs/tasks/tls/managing-tls-in-a-cluster).
 
-{{% /capture %}}
+
