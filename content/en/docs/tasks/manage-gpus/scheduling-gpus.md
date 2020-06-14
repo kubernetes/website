@@ -3,6 +3,7 @@ reviewers:
 - vishh
 content_type: concept
 title: Schedule GPUs
+description: Configure and schedule GPUs for use as a resource by nodes in a cluster.
 ---
 
 <!-- overview -->
