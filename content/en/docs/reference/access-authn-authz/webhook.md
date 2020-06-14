@@ -164,8 +164,8 @@ Access to non-resource paths are sent as:
 }
 ```
 
-Non-resource paths include: `/api`, `/apis`, `/metrics`, `/resetMetrics`,
-`/logs`, `/debug`, `/healthz`, `/swagger-ui/`, `/swaggerapi/`, `/ui`, and
+Non-resource paths include: `/api`, `/apis`, `/metrics`,
+`/logs`, `/debug`, `/healthz`, `/livez`, `/openapi/v2`, `/readyz`, and
 `/version.` Clients require access to `/api`, `/api/*`, `/apis`, `/apis/*`,
 and `/version` to discover what resources and versions are present on the server.
 Access to other non-resource paths can be disallowed without restricting access
@@ -173,7 +173,4 @@ to the REST api.
 
 For further documentation refer to the authorization.v1beta1 API objects and
 [webhook.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
-
-
-
 
