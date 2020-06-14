@@ -1,6 +1,6 @@
 ---
 title: コンテナの概要
-content_template: templates/concept
+content_type: concept
 weight: 1
 ---
 
