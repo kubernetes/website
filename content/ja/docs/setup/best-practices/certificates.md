@@ -8,7 +8,7 @@ weight: 40
 
 Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)でKubernetesをインストールする場合、必要な証明書は自動で生成されます。
-自身で証明書を作成することも可能です。例えば、秘密鍵をAPIサーバーに保持しないことでよりセキュアにするために実施します。
+自身で証明書を作成することも可能です。例えば、秘密鍵をAPIサーバーに保持しないことで、管理をよりセキュアにする場合が挙げられます。
 本ページでは、クラスターに必要な証明書について説明します。
 
 {{% /capture %}}
@@ -76,7 +76,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 
 `kind`は下記の[x509の鍵用途][usage]のタイプにマッピングされます:
 
-| 種類   | 鍵用途  　　　                                                                     |
+| 種類   | 鍵の用途  　　　                                                                     |
 |--------|---------------------------------------------------------------------------------|
 | server | digital signature, key encipherment, server auth                                |
 | client | digital signature, key encipherment, client auth                                |
@@ -90,7 +90,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 kubeadm利用者のみ：
 
 * 秘密鍵なしでCA証明書をクラスターにコピーするシナリオは、kubeadmドキュメントの外部認証局の項目で言及されています。
-* kubeadmでPKIを生成すると、`kube-etcd`、`kube-etcd-peer`および `kube-etcd-healthcheck-client`証明書は外部etcdを利用するケースでは生成されない事に留意ください。
+* kubeadmでPKIを生成すると、`kube-etcd`、`kube-etcd-peer`および `kube-etcd-healthcheck-client`証明書は外部etcdを利用するケースでは生成されない事に留意してください。
 
 {{< /note >}}
 
