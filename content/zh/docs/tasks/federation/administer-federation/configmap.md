@@ -1,15 +1,15 @@
 ---
 title: 联邦 ConfigMap
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Federated ConfigMap
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -28,9 +28,10 @@ across all the clusters in federation.
 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 非常相似且提供相同的功能。
 在联邦控制平面中创建它们可以确保它们在联邦的所有集群中同步。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 <!--
@@ -40,9 +41,9 @@ general and [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-confi
 -->
 * 通常我们还期望您拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，
 特别是 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) 相关的应用知识。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Federated ConfigMap
@@ -142,6 +143,6 @@ Deleting a Federated ConfigMap does not delete the corresponding ConfigMaps from
 要注意的是这时删除联邦 ConfigMap 并不会删除底层集群中对应的 ConfigMap。您必须自己手动删除底层集群中的 ConfigMap。
 {{< /note >}}
 
-{{% /capture %}}
+
 
 

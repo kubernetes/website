@@ -1,6 +1,6 @@
 ---
 title: Kubernetes 组件
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
@@ -11,7 +11,7 @@ card:
 reviewers:
 - lavalamp
 title: Kubernetes Components
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
@@ -19,33 +19,47 @@ card:
 ---
 -->
 
-{{% capture overview %}}
 <!--
-This document outlines the various binary components needed to
-deliver a functioning Kubernetes cluster.
--->
-本文档概述了交付正常运行的 Kubernetes 集群所需的各种二进制组件。
-{{% /capture %}}
+When you deploy Kubernetes, you get a cluster.
+{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
-{{% capture body %}}
-<!--
-## Master Components
--->
-## Master 组件
+This document outlines the various components you need to have
+a complete and working Kubernetes cluster.
 
-<!--
-Master components provide the cluster's control plane. Master components make global decisions about the
-cluster (for example, scheduling), and they detect and respond to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
--->
-Master 组件提供集群的控制平面。Master 组件对集群进行全局决策（例如，调度），并检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+Here's the diagram of a Kubernetes cluster with all the components tied together.
 
-<!--
-Master components can be run on any machine in the cluster. However,
-for simplicity, set up scripts typically start all master components on
+![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+-->
+<!-- overview -->
+当你部署完 Kubernetes, 即拥有了一个完整的集群。
+{{< glossary_definition term_id="cluster" length="all" prepend="一个 Kubernetes 集群包含">}}
+
+本文档概述了交付正常运行的 Kubernetes 集群所需的各种组件。
+
+这张图表展示了包含所有相互关联组件的 Kubernetes 集群。
+
+![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
+
+
+
+<!-- body -->
+<!-- 
+## Control Plane Components
+-->
+## 控制平面组件（Control Plane Components）
+
+<!-- 
+The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
+ -->
+控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
+
+<!-- 
+Control Plane components can be run on any machine in the cluster. However,
+for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
--->
-Master 组件可以在集群中的任何节点上运行。然而，为了简单起见，安装脚本通常会启动同一个计算机上所有 Master 组件，并且不会在计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)示例对于多主机 VM 的安装。
+ -->
+控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)中对于多主机 VM 的设置示例。
 
 ### kube-apiserver
 
@@ -208,8 +222,9 @@ saving container logs to a central log store with search/browsing interface.
 -->
 [集群层面日志](/docs/concepts/cluster-administration/logging/) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
@@ -218,4 +233,4 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解 [Nodes](/docs/concepts/architecture/nodes/)
 * 进一步了解 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-{{% /capture %}}
+

@@ -5,16 +5,16 @@ reviewers:
 - aaron-prindle
 title: Установка Kubernetes с помощью Minikube
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube — это инструмент, позволяющий легко запускать Kubernetes на локальной машине. Для тех, кто хочет попробовать Kubernetes или рассмотреть возможность его использования в повседневной разработке, Minikube станет отличным вариантом, потому что он запускает одноузловой кластер Kubernetes внутри виртуальной машины (VM) на компьютере пользователя.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Возможности Minikube
 
@@ -67,7 +67,7 @@ Minikube поддерживает следующие возможности Kube
     deployment.apps/hello-minikube created
     ```
 
-3.  Чтобы получить доступ к объекту Deployment `hello-minikube` извне, создайте объект сервиса (Service):
+3. Чтобы получить доступ к объекту Deployment `hello-minikube` извне, создайте объект сервиса (Service):
 
     ```shell
     kubectl expose deployment hello-minikube --type=NodePort --port=8080
@@ -81,32 +81,34 @@ Minikube поддерживает следующие возможности Kube
     service/hello-minikube exposed
     ```
 
-4.  Под (Pod) `hello-minikube` теперь запущен, но нужно подождать, пока он начнёт функционировать, прежде чем обращаться к нему.
+4. Под (Pod) `hello-minikube` теперь запущен, но нужно подождать, пока он начнёт функционировать, прежде чем обращаться к нему.
 
-	Проверьте, что под работает:
+    Проверьте, что под работает:
 
-	```shell
-	kubectl get pod
-	```
+    ```shell
+    kubectl get pod
+    ```
 
-  Если в столбце вывода `STATUS` выводится `ContainerCreating`, значит под все еще создается:
+    Если в столбце вывода `STATUS` выводится `ContainerCreating`, значит под все еще создается:
 
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
+    ```
+    NAME                              READY     STATUS              RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+    ```
 
-  Если в столбце `STATUS` указано `Running`, то под теперь в рабочем состоянии:
+    Если в столбце `STATUS` указано `Running`, то под теперь в рабочем состоянии:
 
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+    ```
+    NAME                              READY     STATUS    RESTARTS   AGE
+    hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+    ```
+
 5. Узнайте URL-адрес открытого (exposed) сервиса, чтобы просмотреть подробные сведения о сервисе:
 
-	```shell
-	minikube service hello-minikube --url
-	```
+    ```shell
+    minikube service hello-minikube --url
+    ```
+
 6. Чтобы ознакомиться с подробной информацией о локальном кластере, скопируйте и откройте полученный из вывода команды на предыдущем шаге URL-адрес в браузере.
 
     Вывод будет примерно следующим:
@@ -138,7 +140,8 @@ Minikube поддерживает следующие возможности Kube
         -no body in request-
     ```
 
-  Если сервис и кластер вам больше не нужны, их можно удалить.
+    Если сервис и кластер вам больше не нужны, их можно удалить.
+
 7. Удалите сервис `hello-minikube`:
 
     ```shell
@@ -150,6 +153,7 @@ Minikube поддерживает следующие возможности Kube
     ```
     service "hello-minikube" deleted
     ```
+
 8. Удалите развёртывание `hello-minikube`:
 
     ```shell
@@ -161,17 +165,24 @@ Minikube поддерживает следующие возможности Kube
     ```
     deployment.extensions "hello-minikube" deleted
     ```
+
 9. Остановите локальный кластер Minikube:
+
     ```shell
     minikube stop
     ```
+
     Вывод будет примерно следующим:
+
     ```
     Stopping "minikube"...
     "minikube" stopped.
     ```
-	  Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
+
+    Подробности смотрите в разделе [Остановка кластера](#остановка-кластера).
+
 10. Удалите локальный кластер Minikube:
+
     ```shell
     minikube delete
     ```
@@ -182,7 +193,8 @@ Minikube поддерживает следующие возможности Kube
     Deleting "minikube" ...
     The "minikube" cluster has been deleted.
     ```
-	Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
+
+    Подробности смотрите в разделе [Удаление кластера](#удаление-кластера).
 
 ## Управление кластером
 
@@ -226,16 +238,18 @@ minikube start --vm-driver=<driver_name>
 Minikube поддерживает следующие драйверы:
 
 {{< note >}}
-Смотрите файл [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
+Смотрите страницу [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) для получения подробной информации о поддерживаемых драйверах и как устанавливать плагины.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([установка драйвера](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* docker (ЭКСПЕРИМЕНТАЛЬНЫЙ)
+* kvm2 ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 Обратите внимание, что указанный IP-адрес на этой странице является динамическим и может изменяться. Его можно получить с помощью `minikube ip`.
-* vmware ([установка драйвера](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([установка драйвера](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
 * none (Запускает компоненты Kubernetes на хосте, а не на виртуальной машине. Использование этого драйвера требует использование Linux и установленного {{< glossary_tooltip term_id="docker" >}}.)
 
 {{< caution >}}
@@ -357,16 +371,19 @@ Minikube имеет такую возможность как "конфигура
 Чтобы изменить настройку `AuthorizationMode` в `apiserver` на значение `RBAC`, используйте флаг `--extra-config=apiserver.authorization-mode=RBAC`.
 
 ### Остановка кластера
+
 Команда `minikube stop` используется для остановки кластера.
 Эта команда выключает виртуальную машины Minikube, но сохраняет всё состояние кластера и данные.
 Повторный запуск кластера вернет его в прежнее состояние.
 
 ### Удаление кластера
+
 Команда `minikube delete` используется для удаления кластера.
 Эта команда выключает и удаляет виртуальную машину Minikube.
 Данные или состояние не сохраняются.
 
 ### Обновление minikube
+
 Смотрите [инструкцию по обновлению minikube](https://minikube.sigs.k8s.io/docs/start/macos/).
 
 ## Работа с кластером
@@ -440,6 +457,7 @@ spec:
 ```
 
 ## Смонтированные директории хоста
+
 Некоторые драйверы монтируют директорию хоста в виртуальную машину, чтобы можно было легко обмениваться файлами между виртуальной машиной и хостом. В настоящее время это не настраивается и отличается от используемого драйвера и ОС.
 
 {{< note >}}
@@ -509,4 +527,4 @@ Minikube использует [libmachine](https://github.com/docker/machine/tre
 
 Помощь, вопросы и комментарии приветствуются и поощряются! Разработчики Minikube проводят время на [Slack](https://kubernetes.slack.com) в канале #minikube (получить приглашение можно [здесь](http://slack.kubernetes.io/)). У нас также есть [список рассылки kubernetes-dev на Google Groups](https://groups.google.com/forum/#!forum/kubernetes-dev). Если вы отправляете сообщение в список, пожалуйста, начните вашу тему с "minikube: ".
 
-{{% /capture %}}
+

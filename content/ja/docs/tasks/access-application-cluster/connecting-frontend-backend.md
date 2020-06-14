@@ -1,38 +1,40 @@
 ---
 title: Serviceを使用してフロントエンドをバックエンドに接続する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このタスクでは、フロントエンドとバックエンドのマイクロサービスを作成する方法を示します。
 バックエンドのマイクロサービスは挨拶です。
 フロントエンドとバックエンドは、Kubernetes {{< glossary_tooltip term_id="service" >}}オブジェクトを使用して接続されます。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * {{< glossary_tooltip term_id="deployment" >}}オブジェクトを使用してマイクロサービスを作成および実行します。
 * フロントエンドを経由してトラフィックをバックエンドにルーティングします。
 * Serviceオブジェクトを使用して、フロントエンドアプリケーションをバックエンドアプリケーションに接続します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
   ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Deploymentを使用したバックエンドの作成
 
@@ -184,14 +186,15 @@ curl http://${EXTERNAL_IP} # これを前に見たEXTERNAL-IPに置き換えま�
 {"message":"Hello"}
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Service](/ja/docs/concepts/services-networking/service/)の詳細
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
 
-{{% /capture %}}
+
 
 

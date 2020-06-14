@@ -3,17 +3,17 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: 命名空间演练
-content_template: templates/task
+content_type: task
 ---
 <!-- ---
 reviewers:
 - derekwaynecarr
 - janetkuo
 title: Namespaces Walkthrough
-content_template: templates/task
+content_type: task
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- Kubernetes {{< glossary_tooltip text="namespaces" term_id="namespace" >}}
 help different projects, teams, or customers to share a Kubernetes cluster. -->
 
@@ -38,16 +38,17 @@ Kubernetes {{< glossary_tooltip text="命名空间" term_id="namespace" >}}
 
 此示例演示了如何使用 Kubernetes 命名空间细分群集。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Prerequisites -->
 
@@ -383,4 +384,4 @@ authorization rules for each namespace. -->
 
 随着 Kubernetes 中的策略支持的发展，我们将扩展此场景，以展示如何为每个命名空间提供不同的授权规则。
 
-{{% /capture %}}
+

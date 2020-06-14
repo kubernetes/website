@@ -4,13 +4,14 @@ reviewers:
 - danwinship
 title: Declare Network Policy
 min-kubernetes-server-version: v1.8
-content_template: templates/task
+content_type: task
 ---
-{{% capture overview %}}
+<!-- overview -->
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -25,9 +26,9 @@ Make sure you've configured a network provider with network policy support. Ther
 {{< note >}}
 The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
 {{< /note >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create an `nginx` deployment and expose it via a service
 
@@ -70,7 +71,7 @@ pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 You should be able to access the new `nginx` service from other Pods. To access the `nginx` Service from another Pod in the `default` namespace, start a busybox container:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 In your shell, run the following command:
@@ -113,7 +114,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 When you attempt to access the `nginx` Service from a Pod without the correct labels, the request times out:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
 In your shell, run the command:
@@ -132,7 +133,7 @@ wget: download timed out
 You can create a Pod with the correct labels to see that the request is allowed:
 
 ```console
-kubectl run --generator=run-pod/v1 busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
 In your shell, run the command:
@@ -146,4 +147,4 @@ Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
 
-{{% /capture %}}
+

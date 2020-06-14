@@ -4,11 +4,11 @@ reviewers:
 - foxish
 - davidopp
 title: Disruptions
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This guide is for application owners who want to build
 highly available applications, and thus need to understand
 what types of Disruptions can happen to Pods.
@@ -16,10 +16,10 @@ what types of Disruptions can happen to Pods.
 It is also for Cluster Administrators who want to perform automated
 cluster actions, like upgrading and autoscaling clusters.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Voluntary and Involuntary Disruptions
 
@@ -96,6 +96,8 @@ time as frequent voluntary disruptions.  We call this set of features
 
 
 ## How Disruption Budgets Work
+
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
 
 An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
 A PDB limits the number of pods of a replicated application that are down simultaneously from
@@ -211,7 +213,7 @@ state:
 
 |    node-1 *drained*  |       node-2        |       node-3       | *no node*          |
 |:--------------------:|:-------------------:|:------------------:|:------------------:|
-|                      | pod-b *available*   | pod-c *available*  | pod-e *pending*    |
+|                      | pod-b *terminating* | pod-c *available*  | pod-e *pending*    |
 |                      | pod-d *available*   | pod-y              |                    |
 
 At this point, the cluster administrator needs to
@@ -260,13 +262,14 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
      disruptions largely overlaps with work to support autoscaling and tolerating
      involuntary disruptions.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
 
-{{% /capture %}}
+

@@ -1,17 +1,17 @@
 ---
 title: Understanding Kubernetes Objects
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can express them in `.yaml` format.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Understanding Kubernetes objects {#kubernetes-objects}
 
 *Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. Specifically, they can describe:
@@ -33,7 +33,7 @@ providing a description of the characteristics you want the resource to have:
 its _desired state_.
 
 The `status` describes the _current state_ of the object, supplied and updated
-by the Kubernetes and its components. The Kubernetes
+by the Kubernetes system and its components. The Kubernetes
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} continually
 and actively manages every object's actual state to match the desired state you
 supplied.
@@ -87,12 +87,13 @@ For example, the `spec` format for a Pod can be found in
 and the `spec` format for a Deployment can be found in
 [DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
 * Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
-{{% /capture %}}
+
 
 

@@ -1,19 +1,19 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Kubernetesのドキュメントに貢献する
 linktitle: 貢献
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ドキュメントやウェブサイトに貢献したい方、ご協力お待ちしています。
 はじめての方、久しぶりの方、開発者でもエンドユーザでも、はたまたタイポを見逃せない方でもどなたでも貢献可能です。
 
 {{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## はじめに
 
@@ -36,7 +36,7 @@ Kubernetesのドキュメントは、GitHubのリポジトリーにあります�
 - PRがマージされたときにissueを参照し、自動的にissueをクローズする_Github Special Keywords_を必ず含めるようにしてください。
 - タイプミスの修正や、スタイルの変更、文法の変更などのような小さな変更をPRに加える場合は、比較的小さな変更のためにコミットの数が増えすぎないように、コミットはまとめてください。
 - あなたがコードを変更をした理由を示し、レビュアーがあなたのPRを理解するのに十分な情報を確保した適切なPR説明を、必ず含めるようにしてください。
-- 追加文献 : 
+- 追加文献 :
     - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
     - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
     - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )
@@ -46,13 +46,11 @@ Kubernetesのドキュメントは、GitHubのリポジトリーにあります�
 - TwitterやStack Overflowといったオンラインフォーラムを通してKubernetesコミュニティに貢献したい方、または各地のミートアップやイベントについて知りたい方は[Kubernetes community site](/community/)へ。
 - 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 - ドキュメントへの貢献の基本について、さらに知りたい場合は、[貢献の開始](/docs/contribute/start/)を参照してください。
 - 変更を提案をする際は、[Kubernetesドキュメンテーションスタイルガイド](/docs/contribute/style/style-guide/)に従ってください。
 - SIG Docsについて、さらに知りたい場合は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
 - Kubernetesドキュメントのローカライズについて、さらに知りたい場合は、[Kubernetesドキュメントのローカライズ](/docs/contribute/localization/)を参照してください。
 
-{{% /capture %}}

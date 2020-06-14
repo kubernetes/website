@@ -1,16 +1,16 @@
 ---
 title: Cloud Providers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains how to manage Kubernetes running on a specific
 cloud provider.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) is a popular option for creating kubernetes clusters.
 kubeadm has configuration options to specify configuration information for cloud providers. For example a typical
@@ -133,6 +133,15 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 
 The GCE cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the first segment of the Kubernetes Node name must match the GCE instance name (e.g. a Node named `kubernetes-node-2.c.my-proj.internal` must correspond to an instance named `kubernetes-node-2`).
+
+## HUAWEI CLOUD
+
+If you wish to use the external cloud provider, its repository is [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud).
+
+### Node Name
+
+The HUAWEI CLOUD provider needs the private IP address of the node as the name of the Kubernetes Node object.
+Please make sure indicating `--hostname-override=<node private IP>` when starting kubelet on the node.
 
 ## OpenStack
 This section describes all the possible configurations which can
@@ -354,7 +363,7 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 
@@ -386,14 +395,14 @@ For in-depth documentation on the vSphere cloud provider, visit the [vSphere clo
 ## IBM Cloud Kubernetes Service
 
 ### Compute nodes
-By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters#plan_clusters).
+By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-planning_worker_nodes).
 
 The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance.
 
 ### Networking
-The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning in-cluster and private networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster).
+The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning your cluster network setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters).
 
-To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Planning to expose your apps with external networking](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
+To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Choosing an app exposure service](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
 
 ### Storage
 The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
@@ -413,3 +422,15 @@ If you wish to use the external cloud provider, its repository is [TencentCloud/
 
 The Tencent cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Tencent VM private IP.
+
+## Alibaba Cloud Kubernetes  
+
+ If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud).   
+
+### Node Name  
+
+Alibaba Cloud does not require the format of node name, but the kubelet needs to add `--provider-id=${REGION_ID}.${INSTANCE_ID}`. The parameter `${REGION_ID}` represents the region id of the Kubernetes and `${INSTANCE_ID}` denotes the Alibaba ECS (Elastic Compute Service) ID.  
+
+### Load Balancers  
+
+You can setup external load balancers to use specific features in Alibaba Cloud by configuring the [annotations](https://www.alibabacloud.com/help/en/doc-detail/86531.htm) .

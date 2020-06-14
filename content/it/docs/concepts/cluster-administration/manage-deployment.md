@@ -1,20 +1,21 @@
 ---
+draft: True
 title: Gestione delle risorse
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Hai distribuito la tua applicazione e l'hai esposta tramite un servizio. Ora cosa? Kubernetes fornisce una serie di
 strumenti per aiutarti a gestire la distribuzione delle applicazioni, compreso il ridimensionamento e l'aggiornamento.
 Tra le caratteristiche che discuteremo in modo più approfondito ci sono [file di configurazione](/docs/concepts/configuration/overview/)
 e [labels](/docs/concepts/overview/working-with-objects/labels/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Organizzazione delle configurazioni delle risorse
 
@@ -436,11 +437,12 @@ dietro la scena. Garantisce che solo un certo numero di vecchie repliche potrebb
 aggiornate e solo un certo numero di nuove repliche può essere creato sopra il numero desiderato di pod. Per ulteriori
 informazioni su di esso, visitare [Pagina di distribuzione](/docs/concepts/workloads/controller/deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [[Scopri come usare `kubectl` per l'introspezione e il debug delle applicazioni.](/Docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [Best practice e suggerimenti sulla configurazione](/docs/concepts/configuration/overview/)
 
-{{% /capture %}}
+

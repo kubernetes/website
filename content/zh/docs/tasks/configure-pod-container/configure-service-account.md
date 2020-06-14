@@ -4,7 +4,7 @@ reviewers:
 - liggitt
 - thockin
 title: 为 Pod 配置服务账户
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
@@ -15,12 +15,12 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 A service account provides an identity for processes that run in a Pod.
@@ -59,16 +59,17 @@ When they do, they are authenticated as a particular Service Account (for exampl
 当您（人类）访问集群时（例如，使用 `kubectl`），api 服务器将您的身份验证为特定的用户帐户（当前这通常是 `admin`，除非您的集群管理员已经定制了您的集群配置）。
 Pod 内的容器中的进程也可以与 api 服务器接触。
 当它们进行身份验证时，它们被验证为特定的服务帐户（例如，`default`）。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Use the Default Service Account to access the API server.
@@ -448,4 +449,4 @@ Kubelet 将代表 Pod 请求和存储令牌，使令牌在可配置的文件路�
 应用程序负责在令牌旋转时重新加载令牌。
 对于大多数情况，定期重新加载（例如，每 5 分钟一次）就足够了。
 
-{{% /capture %}}
+

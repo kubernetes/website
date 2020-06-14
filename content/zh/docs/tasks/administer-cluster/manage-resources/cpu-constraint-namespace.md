@@ -1,18 +1,18 @@
 ---
 title: 为命名空间配置CPU最小和最大限制
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 <!--
 ---
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
@@ -24,10 +24,11 @@ in the namespace.
 
 本章介绍命名空间中可以被容器和Pod使用的CPU资源的最小和最大值。你可以通过 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) 对象声明 CPU 的最小和最大值. 如果 Pod 不能满足 LimitRange 的限制，它就不能在命名空间中创建。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -37,10 +38,10 @@ Each node in your cluster must have at least 1 CPU.
 
 你的集群中每个节点至少要有1个CPU。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -401,9 +402,10 @@ Delete your namespace:
 kubectl delete namespace constraints-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -453,4 +455,4 @@ kubectl delete namespace constraints-cpu-example
 
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+

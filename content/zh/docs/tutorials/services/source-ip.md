@@ -1,17 +1,18 @@
 ---
 
 title: 使用 Source IP
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信和与外部世界沟通。本文介绍被发送到不同类型 Services 的数据包源 IP 的变化过程，你可以根据你的需求改变这些行为。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -24,8 +25,8 @@ Kubernetes 集群中运行的应用通过 Service 抽象来互相查找、通信
 * [NAT](https://en.wikipedia.org/wiki/Network_address_translation): 网络地址转换
 * [Source NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT): 替换数据包的源 IP, 通常为节点的 IP
 * [Destination NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT): 替换数据包的目的 IP, 通常为 Pod 的 IP
-* [VIP](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个虚拟 IP, 例如分配给每个 Kubernetes Service 的 IP
-* [Kube-proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个网络守护程序，在每个节点上协调 Service VIP 管理
+* [VIP](/zh/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个虚拟 IP, 例如分配给每个 Kubernetes Service 的 IP
+* [Kube-proxy](/zh/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies): 一个网络守护程序，在每个节点上协调 Service VIP 管理
 
 
 ## 准备工作
@@ -41,25 +42,26 @@ kubectl run source-ip-app --image=k8s.gcr.io/echoserver:1.4
 deployment.apps/source-ip-app created
 ```
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 
 * 通过多种类型的 Services 暴露一个简单应用
 * 理解每种 Service 类型如何处理源 IP NAT
 * 理解保留源IP所涉及的折中
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## Type=ClusterIP 类型 Services 的 Source IP
 
 
-如果你的 kube-proxy 运行在 [iptables 模式](/docs/user-guide/services/#proxy-mode-iptables)下，从集群内部发送到 ClusterIP 的包永远不会进行源地址 NAT，这从 Kubernetes 1.2 开始是默认选项。Kube-proxy 通过一个 `proxyMode` endpoint 暴露它的模式。
+如果你的 kube-proxy 运行在 [iptables 模式](/zh/docs/user-guide/services/#proxy-mode-iptables)下，从集群内部发送到 ClusterIP 的包永远不会进行源地址 NAT，这从 Kubernetes 1.2 开始是默认选项。Kube-proxy 通过一个 `proxyMode` endpoint 暴露它的模式。
 
 ```console
 kubectl get nodes
@@ -136,7 +138,7 @@ command=GET
 ## Type=NodePort 类型 Services 的 Source IP
 
 
-从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
+从 Kubernetes 1.5 开始，发送给类型为 [Type=NodePort](/zh/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT。你可以通过创建一个 `NodePort` Service 来进行测试：
 
 ```console
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
@@ -189,7 +191,7 @@ client_address=10.240.0.3
 ```
 
 
-为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
+为了防止这种情况发生，Kubernetes 提供了一个特性来保留客户端的源 IP 地址[(点击此处查看可用特性)](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)。设置 `service.spec.externalTrafficPolicy` 的值为 `Local`，请求就只会被代理到本地 endpoints 而不会被转发到其它节点。这样就保留了最初的源 IP 地址。如果没有本地 endpoints，发送到这个节点的数据包将会被丢弃。这样在应用到数据包的任何包处理规则下，你都能依赖这个正确的 source-ip 使数据包通过并到达 endpoint。
 
 
 设置 `service.spec.externalTrafficPolicy` 字段如下：
@@ -244,7 +246,7 @@ client_address=104.132.1.79
 ## Type=LoadBalancer 类型 Services 的 Source IP
 
 
-从Kubernetes1.5开始，发送给类型为 [Type=LoadBalancer](/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT，这是因为所有处于 `Ready` 状态的可调度 Kubernetes 节点对于负载均衡的流量都是符合条件的。所以如果数据包到达一个没有 endpoint 的节点，系统将把这个包代理到*有* endpoint 的节点，并替换数据包的源 IP 为节点的 IP（如前面章节所述）。
+从Kubernetes1.5开始，发送给类型为 [Type=LoadBalancer](/zh/docs/user-guide/services/#type-nodeport) Services 的数据包默认进行源地址 NAT，这是因为所有处于 `Ready` 状态的可调度 Kubernetes 节点对于负载均衡的流量都是符合条件的。所以如果数据包到达一个没有 endpoint 的节点，系统将把这个包代理到*有* endpoint 的节点，并替换数据包的源 IP 为节点的 IP（如前面章节所述）。
 
 
 你可以通过在一个 loadbalancer 上暴露这个 source-ip-app 来进行测试。
@@ -368,9 +370,10 @@ __跨平台支持__
 第一类负载均衡器必须使用一种它和后端之间约定的协议来和真实的客户端 IP 通信，例如 HTTP [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For) 头，或者 [proxy 协议](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过简单的在保存于 Service 的 `service.spec.healthCheckNodePort` 字段上创建一个 HTTP 健康检查点来使用上面描述的特性。
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 
 删除服务：
@@ -386,10 +389,11 @@ $ kubectl delete svc -l run=source-ip-app
 $ kubectl delete deployment source-ip-app
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* 学习更多关于 [通过 services 连接应用](/docs/concepts/services-networking/connect-applications-service/)
-* 学习更多关于 [负载均衡](/docs/user-guide/load-balancer)
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+* 学习更多关于 [通过 services 连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)
+* 学习更多关于 [负载均衡](/zh/docs/user-guide/load-balancer)
+

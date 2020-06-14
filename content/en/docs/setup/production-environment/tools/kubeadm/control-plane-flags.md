@@ -2,13 +2,13 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Customizing control plane configuration with kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+{{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
 The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
 components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:
@@ -30,9 +30,9 @@ For more details on each field in the configuration you can navigate to our
 You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIServer flags
 
@@ -83,4 +83,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+

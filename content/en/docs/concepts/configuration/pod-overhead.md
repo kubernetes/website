@@ -4,11 +4,11 @@ reviewers:
 - egernst
 - tallclair
 title: Pod Overhead
-content_template: templates/concept
-weight: 20
+content_type: concept
+weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -19,10 +19,10 @@ _Pod Overhead_ is a feature for accounting for the resources consumed by the Pod
 on top of the container requests & limits.
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 In Kubernetes, the Pod's overhead is set at
 [admission](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
@@ -188,11 +188,12 @@ running with a defined Overhead. This functionality is not available in the 1.9 
 kube-state-metrics, but is expected in a following release. Users will need to build kube-state-metrics
 from source in the meantime.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

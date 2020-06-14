@@ -1,10 +1,10 @@
 ---
 title: API Priority and Fairness
-content_template: templates/concept
+content_type: concept
 min-kubernetes-server-version: v1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha"  for_k8s_version="v1.18" >}}
 
@@ -18,12 +18,12 @@ potentially crashing the API server, but these flags are not enough to ensure
 that the most important requests get through in a period of high traffic.
 
 The API Priority and Fairness feature (APF) is an alternative that improves upon
-aforementioned max-inflight limitations.  APF classifies
-and isolates requests in a more fine-grained way.  It also introduces
+aforementioned max-inflight limitations. APF classifies
+and isolates requests in a more fine-grained way. It also introduces
 a limited amount of queuing, so that no requests are rejected in cases
 of very brief bursts.  Requests are dispatched from queues using a
-fair queuing technique so that, for example, a poorly-behaved {{<
-glossary_tooltip text="controller" term_id="controller" >}}) need not
+fair queuing technique so that, for example, a poorly-behaved
+{{< glossary_tooltip text="controller" term_id="controller" >}} need not
 starve others (even at the same priority level).
 
 {{< caution >}}
@@ -33,9 +33,9 @@ the `--max-requests-inflight` flag without the API Priority and
 Fairness feature enabled.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Enabling API Priority and Fairness
 
@@ -131,14 +131,14 @@ classes:
   namespace). These are important to isolate from other traffic because failures
   in leader election cause their controllers to fail and restart, which in turn
   causes more expensive traffic as the new controllers sync their informers.
-  
+
 * The `workload-high` priority level is for other requests from built-in
   controllers.
-  
+
 * The `workload-low` priority level is for requests from any other service
-  account, which will typically include all requests from controllers runing in
+  account, which will typically include all requests from controllers running in
   Pods.
-  
+
 * The `global-default` priority level handles all other traffic, e.g.
   interactive `kubectl` commands run by nonprivileged users.
 
@@ -150,7 +150,7 @@ are built in and may not be overwritten:
   special `exempt` FlowSchema classifies all requests from the `system:masters`
   group into this priority level. You may define other FlowSchemas that direct
   other requests to this priority level, if appropriate.
-  
+
 * The special `catch-all` priority level is used in combination with the special
   `catch-all` FlowSchema to make sure that every request gets some kind of
   classification. Typically you should not rely on this catch-all configuration,
@@ -164,10 +164,10 @@ are built in and may not be overwritten:
 
 ## Resources
 The flow control API involves two kinds of resources.
-[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol) 
+[PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
 define the available isolation classes, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
-[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol)
+[FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1alpha1-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a single
 PriorityLevelConfiguration.
 
@@ -204,7 +204,7 @@ to balance progress between request flows.
 
 The queuing configuration allows tuning the fair queuing algorithm for a
 priority level. Details of the algorithm can be read in the [enhancement
-proposal](#what-s-next), but in short:
+proposal](#whats-next), but in short:
 
 * Increasing `queues` reduces the rate of collisions between different flows, at
   the cost of increased memory usage. A value of 1 here effectively disables the
@@ -233,20 +233,21 @@ given mouse (low-intensity flow) is squished by the elephants (high-intensity fl
 an illustrative collection of numbers of elephants. See
 https://play.golang.org/p/Gi0PLgVHiUg , which computes this table.
 
-{{< table caption="Example Shuffle Sharding Configurations" >}}
-|HandSize|     Queues|	1 elephant|		4 elephants|		16 elephants|
-|--------|-----------|------------|----------------|--------------------|
-|      12|         32|	4.428838398950118e-09|	0.11431348830099144|	0.9935089607656024|
-|      10|         32|	1.550093439632541e-08|	0.0626479840223545|	0.9753101519027554|
-|      10|         64|	6.601827268370426e-12|	0.00045571320990370776|	0.49999929150089345|
-|       9|         64|	3.6310049976037345e-11|	0.00045501212304112273|	0.4282314876454858|
-|       8|         64|	2.25929199850899e-10|	0.0004886697053040446|	0.35935114681123076|
-|       8|        128|	6.994461389026097e-13|	3.4055790161620863e-06|	0.02746173137155063|
-|       7|        128|	1.0579122850901972e-11|	6.960839379258192e-06|	0.02406157386340147|
-|       7|        256|	7.597695465552631e-14|	6.728547142019406e-08|	0.0006709661542533682|
-|       6|        256|	2.7134626662687968e-12|	2.9516464018476436e-07|	0.0008895654642000348|
-|       6|        512|	4.116062922897309e-14|	4.982983350480894e-09|	2.26025764343413e-05|
-|       6|       1024|	6.337324016514285e-16|	8.09060164312957e-11|	4.517408062903668e-07|
+{{< table caption = "Example Shuffle Sharding Configurations" >}}
+HandSize | Queues | 1 elephant | 4 elephants | 16 elephants
+|----------|-----------|------------|----------------|--------------------|
+| 12 | 32 | 4.428838398950118e-09 | 0.11431348830099144 | 0.9935089607656024 |
+| 10 | 32 | 1.550093439632541e-08 | 0.0626479840223545 | 0.9753101519027554 |
+| 10 | 64 | 6.601827268370426e-12 | 0.00045571320990370776 | 0.49999929150089345 |
+| 9 | 64 | 3.6310049976037345e-11 | 0.00045501212304112273 | 0.4282314876454858 |
+| 8 | 64 | 2.25929199850899e-10 | 0.0004886697053040446 | 0.35935114681123076 |
+| 8 | 128 | 6.994461389026097e-13 | 3.4055790161620863e-06 | 0.02746173137155063 |
+| 7 | 128 | 1.0579122850901972e-11 | 6.960839379258192e-06 | 0.02406157386340147 |
+| 7 | 256 | 7.597695465552631e-14 | 6.728547142019406e-08 | 0.0006709661542533682 |
+| 6 | 256 | 2.7134626662687968e-12 | 2.9516464018476436e-07 | 0.0008895654642000348 |
+| 6 | 512 | 4.116062922897309e-14 | 4.982983350480894e-09 | 2.26025764343413e-05 |
+| 6 | 1024 | 6.337324016514285e-16 | 8.09060164312957e-11 | 4.517408062903668e-07 |
+{{< /table >}}
 
 ### FlowSchema
 
@@ -291,7 +292,7 @@ enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
 `X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
 and the priority level to which it was assigned, respectively. The API objects'
 names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like 
+have permission to view them, so when debugging you can use a command like
 
 ```shell
 kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
@@ -363,15 +364,15 @@ poorly-behaved workloads that may be harming system health.
 * `apiserver_flowcontrol_request_execution_seconds` gives a histogram of how
   long requests took to actually execute, grouped by the FlowSchema that matched the
   request and the PriorityLevel to which it was assigned.
-    
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
 You can make suggestions and feature requests via [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 
-{{% /capture %}}

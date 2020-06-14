@@ -1,19 +1,20 @@
 ---
 title: 새로운 주제의 문서 작성
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스 문서에서 새로운 주제를 생성하는 방법을 보여준다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 [기여 시작하기](/docs/contribute/start/)에 설명된 대로 쿠버네티스
 문서 저장소의 포크(fork)를 생성하자.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 페이지 타입 선택
 
@@ -159,10 +160,10 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 이미지 파일을 `/images` 디렉토리에 넣는다. 기본
 이미지 형식은 SVG 이다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* [페이지 템플릿 사용](/docs/home/contribute/page-templates/)에 대해 알아보기.
-* [변경 사항 준비](/docs/home/contribute/stage-documentation-changes/)에 대해 알아보기.
-* [풀 리퀘스트 작성](/docs/home/contribute/create-pull-request/)에 대해 알아보기.
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* [페이지 템플릿 사용](/docs/contribute/page-templates/))에 대해 알아보기.
+* [풀 리퀘스트 작성](/docs/contribute/new-content/open-a-pr/)에 대해 알아보기.
+

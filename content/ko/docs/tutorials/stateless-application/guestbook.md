@@ -1,6 +1,6 @@
 ---
 title: "예시: Redis를 사용한 PHP 방명록 애플리케이션 배포하기"
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 card:
   name: tutorials
@@ -8,32 +8,34 @@ card:
   title: "상태를 유지하지 않는 예제: Redis를 사용한 PHP 방명록"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 튜토리얼에서는 쿠버네티스와 [Docker](https://www.docker.com/)를 사용하여 간단한 멀티 티어 웹 애플리케이션을 빌드하고 배포하는 방법을 보여준다. 이 예제는 다음과 같은 구성으로 이루어져 있다.
 
 * 방명록을 저장하는 단일 인스턴스 [Redis](https://redis.io/) 마스터
 * 읽기를 제공하는 여러 개의 [복제된 Redis](https://redis.io/topics/replication) 인스턴스
 * 여러 개의 웹 프론트엔드 인스턴스
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * Redis 마스터를 시작
 * Redis 슬레이브를 시작
 * 방명록 프론트엔드를 시작
 * 프론트엔드 서비스를 노출하고 확인
 * 정리 하기
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Redis 마스터를 실행하기
 
@@ -319,9 +321,10 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
         
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 디플로이먼트 및 서비스를 삭제하면 실행 중인 모든 파드도 삭제된다. 레이블을 사용하여 하나의 명령어로 여러 자원을 삭제해보자.
 
 1. 모든 파드, 디플로이먼트, 서비스를 삭제하기 위해 아래 명령어를 실행한다.
@@ -356,13 +359,14 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [ELK 로깅과 모니터링](/ko/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)을 방명록 애플리케이션에 추가하기
 * [쿠버네티스 기초](/ko/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
 * [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
 * [애플리케이션 접속](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
 * [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아보기
-{{% /capture %}}
+
 

@@ -1,0 +1,4 @@
+Esse recurso é *estável*, o que significa:
+
+* O nome da versão é vX, em que X é um número inteiro.
+* Versões estáveis dos recursos aparecerão no software lançado para muitas versões subsequentes.

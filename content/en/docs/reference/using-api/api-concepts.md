@@ -4,15 +4,15 @@ reviewers:
 - smarterclayton
 - lavalamp
 - liggitt
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page describes common concepts in the Kubernetes API.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The Kubernetes API is a resource-based (RESTful) programmatic interface provided via HTTP. It supports retrieving, creating,
 updating, and deleting primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE, GET), includes additional subresources for many objects that allow fine grained authorization (such as binding a pod to a node), and can accept and serve those resources in different representations for convenience or efficiency. It also supports efficient change notifications on resources via "watches" and consistent lists to allow other components to effectively cache and synchronize the state of resources.
 
@@ -89,7 +89,7 @@ A given Kubernetes server will only preserve a historical list of changes for a 
 
 ### Watch bookmarks
 
-To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to pass an information that all changes up to a given `resourceVersion` client is requesting has already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
+To mitigate the impact of short history window, we introduced a concept of `bookmark` watch event. It is a special kind of event to mark that all changes up to a given `resourceVersion` the client is requesting have already been sent. Object returned in that event is of the type requested by the request, but only `resourceVersion` field is set, e.g.:
 
         GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245&allowWatchBookmarks=true
         ---
@@ -109,6 +109,7 @@ To mitigate the impact of short history window, we introduced a concept of `book
 `Bookmark` events can be requested by `allowWatchBookmarks=true` option in watch requests, but clients shouldn't assume bookmarks are returned at any specific interval, nor may they assume the server will send any `bookmark` event.
 
 ## Retrieving large results sets in chunks
+{{< feature-state for_k8s_version="v1.9" state="beta" >}}
 
 On large clusters, retrieving the collection of some resource types may result in very large responses that can impact the server and client. For instance, a cluster may have tens of thousands of pods, each of which is 1-2kb of encoded JSON. Retrieving all pods across all namespaces may result in a very large response (10-20MB) and consume a large amount of server resources. Starting in Kubernetes 1.9 the server supports the ability to break a single large collection request into many smaller chunks while preserving the consistency of the total request. Each chunk can be returned sequentially which reduces both the total size of the request and allows user-oriented clients to display results incrementally to improve responsiveness.
 
@@ -334,6 +335,17 @@ are not vulnerable to ordering changes in the list.
 Once the last finalizer is removed, the resource is actually removed from etcd.
 
 
+## Single resource API
+
+API verbs GET, CREATE, UPDATE, PATCH, DELETE and PROXY support single resources only.
+These verbs with single resource support have no support for submitting
+multiple resources together in an ordered or unordered list or transaction.
+Clients including kubectl will parse a list of resources and make
+single-resource API requests.
+
+API verbs LIST and WATCH support getting multiple resources, and
+DELETECOLLECTION supports deleting multiple resources.
+
 ## Dry-run
 
  {{< feature-state for_k8s_version="v1.18" state="stable" >}}
@@ -345,7 +357,7 @@ The modifying verbs (`POST`, `PUT`, `PATCH`, and `DELETE`) can accept requests i
 
 Dry-run is triggered by setting the `dryRun` query parameter. This parameter is a string, working as an enum, and the only accepted values are:
 
-* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry-run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry-run requests.
+* `All`: Every stage runs as normal, except for the final storage stage. Admission controllers are run to check that the request is valid, mutating controllers mutate the request, merge is performed on `PATCH`, fields are defaulted, and schema validation occurs. The changes are not persisted to the underlying storage, but the final object which would have been persisted is still returned to the user, along with the normal status code. If the request would trigger an admission controller which would have side effects, the request will be failed rather than risk an unwanted side effect. All built in admission control plugins support dry-run. Additionally, admission webhooks can declare in their [configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io) that they do not have side effects by setting the sideEffects field to "None". If a webhook actually does have side effects, then the sideEffects field should be set to "NoneOnDryRun", and the webhook should also be modified to understand the `DryRun` field in AdmissionReview, and prevent side effects on dry-run requests.
 * Leave the value empty, which is also the default: Keep the default modifying behavior.
 
 For example:
@@ -438,7 +450,7 @@ request (if not forced, see [Conflicts](#conflicts)).
 
 Field management is stored in a newly introduced `managedFields` field that is
 part of an object's
-[`metadata`](/docs/reference/generated/kubernetes-api/v1.16/#objectmeta-v1-meta).
+[`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
 
@@ -478,7 +490,7 @@ Nevertheless it is possible to change `metadata.managedFields` through an
 option to try if, for example, the `managedFields` get into an inconsistent
 state (which clearly should not happen).
 
-The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/v1.16/#fieldsv1-v1-meta).
+The format of the `managedFields` is described in the [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#fieldsv1-v1-meta).
 
 ### Conflicts
 
@@ -694,9 +706,9 @@ Resource versions are strings that identify the server's internal version of an 
 
 Clients find resource versions in resources, including the resources in watch events, and list responses returned from the server:
 
-[v1.meta/ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
+[v1.meta/ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
 
-[v1.meta/ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
+[v1.meta/ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
 
 ### The ResourceVersion Parameter
 

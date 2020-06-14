@@ -1,10 +1,10 @@
 ---
 title: Scheduling Profiles
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
@@ -20,9 +20,9 @@ or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion"
 The `v1alpha2` API allows you to configure kube-scheduler to run
 [multiple profiles](#multiple-profiles).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Extension points
 
@@ -68,7 +68,7 @@ extension points:
   Pod runs.
   Extension points: `Score`.
 - `TaintToleration`: Implements
-  [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/).
+  [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
   Implements extension points: `Filter`, `Prescore`, `Score`.
 - `NodeName`: Checks if a Pod spec node name matches the current node.
   Extension points: `Filter`.
@@ -79,8 +79,8 @@ extension points:
   `scheduler.alpha.kubernetes.io/preferAvoidPods`.
   Extension points: `Score`.
 - `NodeAffinity`: Implements
-  [node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector)
-  and [node affinity](/docs/concepts/configuration/assign-pod-node/#node-affinity).
+  [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)
+  and [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity).
   Extension points: `Filter`, `Score`.
 - `PodTopologySpread`: Implements
   [Pod topology spread](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
@@ -117,7 +117,7 @@ extension points:
   the node.
   Extension points: `Filter`.
 - `InterPodAffinity`: Implements
-  [inter-Pod affinity and anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
+  [inter-Pod affinity and anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
   Extension points: `PreFilter`, `Filter`, `PreScore`, `Score`.
 - `PrioritySort`: Provides the default priority based sorting.
   Extension points: `QueueSort`.
@@ -174,8 +174,9 @@ the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
+

@@ -1,18 +1,18 @@
 ---
 title: アグリゲーションレイヤーを使ったKubernetes APIの拡張
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 アグリゲーションレイヤーを使用すると、KubernetesのコアAPIで提供されている機能を超えて、追加のAPIでKubernetesを拡張できます。追加のAPIは、[service-catalog](/docs/concepts/extend-kubernetes/service-catalog/)のような既製のソリューション、または自分で開発したAPIのいずれかです。
 
 アグリゲーションレイヤーは、[カスタムリソース](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)とは異なり、{{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}に新しい種類のオブジェクトを認識させる方法です。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## アグリゲーションレイヤー
 
@@ -27,14 +27,15 @@ kube-apiserverとの間を5秒以内に往復するためには、ディスカ�
 
 拡張APIサーバーがそのレイテンシ要件を達成できない場合は、その要件を満たすように変更することを検討してください。また、kube-apiserverで`EnableAggregatedDiscoveryTimeout=false` [フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を設定することで、タイムアウト制限を無効にすることができます。この非推奨のフィーチャーゲートは将来のリリースで削除される予定です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * アグリゲーターをあなたの環境で動かすには、まず[アグリゲーションレイヤーを設定](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)します
 * そして、アグリゲーションレイヤーと一緒に動作させるために[extension api-serverをセットアップ](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)します
 * また、[Custom Resource Definitionを使いKubernetes APIを拡張する](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)方法を学んで下さい
 * [APIService](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)の仕様をお読み下さい
 
-{{% /capture %}}
+
 

@@ -1,29 +1,30 @@
 ---
 title: 포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기
-content_template: templates/task
+content_type: task
 weight: 40
 min-kubernetes-server-version: v1.10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 `kubectl port-forward` 를 사용해서 쿠버네티스 클러스터 내에서 
 실행중인 Redis 서버에 연결하는 방법을 보여준다. 이 유형의 연결은 데이터베이스
 디버깅에 유용할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * [redis-cli](http://redis.io/topics/rediscli)를 설치한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Redis 디플로이먼트와 서비스 생성하기
 
@@ -178,10 +179,10 @@ min-kubernetes-server-version: v1.10
     PONG
     ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 토의
 
@@ -196,12 +197,13 @@ UDP 프로토콜에 대한 지원은
 에서 추적되고 있다.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward)에 대해 더 알아본다.
-{{% /capture %}}
+
 
 
 

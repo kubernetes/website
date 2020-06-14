@@ -2,20 +2,20 @@
 reviewers:
 - nelvadas
 title: Limit Ranges
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 By default, containers run with unbounded [compute resources](/docs/user-guide/compute-resources) on a Kubernetes cluster.
-With resource quotas, cluster administrators can restrict resource consumption and creation on a namespace basis.
+With resource quotas, cluster administrators can restrict resource consumption and creation on a {{< glossary_tooltip text="namespace" term_id="namespace" >}} basis.
 Within a namespace, a Pod or Container can consume as much CPU and memory as defined by the namespace's resource quota. There is a concern that one Pod or Container could monopolize all available resources. A LimitRange is a policy to constrain resource allocations (to Pods or Containers) in a namespace.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 A _LimitRange_ provides constraints that can:
 
@@ -26,9 +26,7 @@ A _LimitRange_ provides constraints that can:
 
 ## Enabling LimitRange
 
-LimitRange support is enabled by default for many Kubernetes distributions. It is
-enabled when the apiserver `--enable-admission-plugins=` flag has `LimitRanger` admission controller as
-one of its arguments.
+LimitRange support has been enabled by default since Kubernetes 1.10.
 
 A LimitRange is enforced in a particular namespace when there is a
 LimitRange object in that namespace.
@@ -38,7 +36,7 @@ The name of a LimitRange object must be a valid
 
 ### Overview of Limit Range
 
-- The administrator creates one `LimitRange` in one namespace.
+- The administrator creates one LimitRange in one namespace.
 - Users create resources like Pods, Containers, and PersistentVolumeClaims in the namespace.
 - The `LimitRanger` admission controller enforces defaults and limits for all Pods and Containers that do not set compute resource requirements and tracks usage to ensure it does not exceed resource minimum, maximum and ratio defined in any LimitRange present in the namespace.
 - If creating or updating a resource (Pod, Container, PersistentVolumeClaim) that violates a LimitRange constraint, the request to the API server will fail with an HTTP status code `403 FORBIDDEN` and a message explaining the constraint that have been violated.
@@ -48,7 +46,7 @@ The name of a LimitRange object must be a valid
 
 Examples of policies that could be created using limit range are:
 
-- In a 2 node cluster with a capacity of 8 GiB RAM and 16 cores, constrain Pods in a namespace to request 100m of CPU with a max limit of 500m for CPU and request 200Mi for Memory with a max limit of 600Mi for Memory. 
+- In a 2 node cluster with a capacity of 8 GiB RAM and 16 cores, constrain Pods in a namespace to request 100m of CPU with a max limit of 500m for CPU and request 200Mi for Memory with a max limit of 600Mi for Memory.
 - Define default CPU limit and request to 150m and memory default request to 300Mi for Containers started with no cpu and memory requests in their specs.
 
 In the case where the total limits of the namespace is less than the sum of the limits of the Pods/Containers,
@@ -56,342 +54,21 @@ there may be contention for resources. In this case, the Containers or Pods will
 
 Neither contention nor changes to a LimitRange will affect already created resources.
 
-## Limiting Container compute resources
 
-The following section discusses the creation of a LimitRange acting at Container Level.
-A Pod with 04 Containers is first created. Each Container within the Pod has a specific `spec.resource` configuration.
-Each Container within the Pod is handled differently by the `LimitRanger` admission controller.
 
-Create a namespace `limitrange-demo` using the following kubectl command:
+## {{% heading "whatsnext" %}}
 
-```shell
-kubectl create namespace limitrange-demo
-```
 
-To avoid passing the target limitrange-demo in your kubectl commands, change your context with the following command:
+Refer to the [LimitRanger design document](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
 
-```shell
-kubectl config set-context --current --namespace=limitrange-demo
-```
+For examples on using limits, see:
 
-Here is the configuration file for a LimitRange object:
-{{< codenew file="admin/resource/limit-mem-cpu-container.yaml" >}}
+- [how to configure minimum and maximum CPU constraints per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
+- [how to configure minimum and maximum Memory constraints per namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+- [how to configure default CPU Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
+- [how to configure default Memory Requests and Limits per namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
+- [how to configure minimum and maximum Storage consumption per namespace](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
+- a [detailed example on configuring quota per namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/).
 
-This object defines minimum and maximum CPU/Memory limits, default CPU/Memory requests, and default limits for CPU/Memory resources to be apply to containers.
 
-Create the `limit-mem-cpu-per-container` LimitRange with the following kubectl command:
 
-```shell
-kubectl create -f https://k8s.io/examples/admin/resource/limit-mem-cpu-container.yaml
-```
-
-```shell
-kubectl describe limitrange/limit-mem-cpu-per-container
-```
-
-```shell
-Type        Resource  Min   Max   Default Request  Default Limit  Max Limit/Request Ratio
-----        --------  ---   ---   ---------------  -------------  -----------------------
-Container   cpu       100m  800m  110m             700m           -
-Container   memory    99Mi  1Gi   111Mi            900Mi          -
-```
-
-Here is the configuration file for a Pod with 04 Containers to demonstrate LimitRange features:
-{{< codenew file="admin/resource/limit-range-pod-1.yaml" >}}
-
-Create the `busybox1` Pod:
-
-```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-1.yaml
-```
-
-### Container spec with valid CPU/Memory requests and limits
-
-View the `busybox-cnt01` resource configuration:
-
-```shell
-kubectl get po/busybox1 -o json | jq ".spec.containers[0].resources"
-```
-
-```json
-{
-  "limits": {
-    "cpu": "500m",
-    "memory": "200Mi"
-  },
-  "requests": {
-    "cpu": "100m",
-    "memory": "100Mi"
-  }
-}
-```
-
-- The `busybox-cnt01` Container inside `busybox` Pod defined `requests.cpu=100m` and `requests.memory=100Mi`.
--  `100m <= 500m <= 800m` , The Container cpu limit (500m) falls inside the authorized CPU LimitRange.
--  `99Mi <= 200Mi <= 1Gi` , The Container memory limit (200Mi) falls inside the authorized Memory LimitRange.
--  No request/limits ratio validation for CPU/Memory, so the Container is valid and created.
-
-
-### Container spec with a valid  CPU/Memory requests but no limits
-
-View the  `busybox-cnt02` resource configuration
-
-```shell
-kubectl get po/busybox1 -o json | jq ".spec.containers[1].resources"
-```
-
-```json
-{
-  "limits": {
-    "cpu": "700m",
-    "memory": "900Mi"
-  },
-  "requests": {
-    "cpu": "100m",
-    "memory": "100Mi"
-  }
-}
-```
--  The `busybox-cnt02` Container inside `busybox1` Pod defined `requests.cpu=100m` and `requests.memory=100Mi` but not limits for cpu and memory.
--  The Container does not have a limits section. The default limits defined in the `limit-mem-cpu-per-container` LimitRange object are injected in to this Container: `limits.cpu=700mi` and `limits.memory=900Mi`.
--  `100m <= 700m <= 800m` , The Container cpu limit (700m) falls inside the authorized CPU limit range.
--  `99Mi <= 900Mi <= 1Gi` , The Container memory limit (900Mi) falls inside the authorized Memory limit range.
--  No request/limits ratio set, so the Container is valid and created.
-
-
-### Container spec with a valid CPU/Memory limits but no requests
-
-View the `busybox-cnt03` resource configuration:
-
-```shell
-kubectl get po/busybox1 -o json | jq ".spec.containers[2].resources"
-```
-```json
-{
-  "limits": {
-    "cpu": "500m",
-    "memory": "200Mi"
-  },
-  "requests": {
-    "cpu": "500m",
-    "memory": "200Mi"
-  }
-}
-```
-
--  The `busybox-cnt03` Container inside `busybox1` Pod defined `limits.cpu=500m` and `limits.memory=200Mi` but no `requests` for cpu and memory.
--  The Container does not define a request section. The default request defined in the limit-mem-cpu-per-container LimitRange is not used to fill its limits section, but the limits defined by the Container are set as requests `limits.cpu=500m` and `limits.memory=200Mi`.
--  `100m <= 500m <= 800m` , The Container cpu limit (500m) falls inside the authorized CPU limit range.
--  `99Mi <= 200Mi <= 1Gi` , The Container memory limit (200Mi) falls inside the authorized Memory limit range.
--  No request/limits ratio set, so the Container is valid and created.
-
-### Container spec with no CPU/Memory requests/limits
-
-View the `busybox-cnt04` resource configuration:
-
-```shell
-kubectl get po/busybox1 -o json | jq ".spec.containers[3].resources"
-```
-
-```json
-{
-  "limits": {
-    "cpu": "700m",
-    "memory": "900Mi"
-  },
-  "requests": {
-    "cpu": "110m",
-    "memory": "111Mi"
-  }
-}
-```
-
--  The `busybox-cnt04` Container inside `busybox1` define neither `limits` nor  `requests`.
--  The Container do not define a limit section, the default limit defined in the limit-mem-cpu-per-container LimitRange is used to fill its request
-   `limits.cpu=700m and` `limits.memory=900Mi` .
--  The Container do not define a request section, the defaultRequest defined in the `limit-mem-cpu-per-container` LimitRange is used to fill its request section requests.cpu=110m and requests.memory=111Mi
--  `100m <= 700m <= 800m` , The Container cpu limit (700m) falls inside the authorized CPU limit range.
--  `99Mi <= 900Mi <= 1Gi` , The Container memory limit (900Mi) falls inside the authorized Memory limit range .
--  No request/limits ratio set, so the Container is valid and created.
-
-All Containers defined in the `busybox` Pod passed LimitRange validations, so this the Pod is valid and created in the namespace.
-
-## Limiting Pod compute resources
-
-The following section discusses how to constrain resources at the Pod level.
-
-{{< codenew file="admin/resource/limit-mem-cpu-pod.yaml" >}}
-
-Without having to delete the `busybox1` Pod, create the `limit-mem-cpu-pod` LimitRange in the `limitrange-demo` namespace:
-
-```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-mem-cpu-pod.yaml
-```
-The LimitRange is created and limits CPU to 2 Core and Memory to 2Gi per Pod:
-
-```shell
-limitrange/limit-mem-cpu-per-pod created
-```
-
-Describe the `limit-mem-cpu-per-pod` limit object using the following kubectl command:
-
-```shell
-kubectl describe limitrange/limit-mem-cpu-per-pod
-```
-
-```shell
-Name:       limit-mem-cpu-per-pod
-Namespace:  limitrange-demo
-Type        Resource  Min  Max  Default Request  Default Limit  Max Limit/Request Ratio
-----        --------  ---  ---  ---------------  -------------  -----------------------
-Pod         cpu       -    2    -                -              -
-Pod         memory    -    2Gi  -                -              -
-```
-
-Now create the `busybox2` Pod:
-
-{{< codenew file="admin/resource/limit-range-pod-2.yaml" >}}
-
-```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-2.yaml
-```
-
-The `busybox2` Pod definition is identical to `busybox1`, but an error is reported since the Pod's resources are now limited:
-
-```shell
-Error from server (Forbidden): error when creating "limit-range-pod-2.yaml": pods "busybox2" is forbidden: [maximum cpu usage per Pod is 2, but limit is 2400m., maximum memory usage per Pod is 2Gi, but limit is 2306867200.]
-```
-
-```shell
-kubectl get po/busybox1 -o json | jq ".spec.containers[].resources.limits.memory"
-"200Mi"
-"900Mi"
-"200Mi"
-"900Mi"
-```
-
-`busybox2` Pod will not be admitted on the cluster since the total memory limit of its Container is greater than the limit defined in the LimitRange.
-`busybox1` will not be evicted since it was created and admitted on the cluster before the LimitRange creation.
-
-## Limiting Storage resources
-
-You can enforce minimum and maximum size of [storage resources](/docs/concepts/storage/persistent-volumes/) that can be requested by each PersistentVolumeClaim in a namespace using a LimitRange:
-
-{{< codenew file="admin/resource/storagelimits.yaml" >}}
-
-Apply the YAML using `kubectl create`:
-
-```shell
-kubectl create -f https://k8s.io/examples/admin/resource/storagelimits.yaml
-```
-
-```shell
-limitrange/storagelimits created
-```
-
-Describe the created object:
-
-```shell
-kubectl describe limits/storagelimits
-```
-
-The output should look like:
-
-```shell
-Name:                  storagelimits
-Namespace:             limitrange-demo
-Type                   Resource  Min  Max  Default Request  Default Limit  Max Limit/Request Ratio
-----                   --------  ---  ---  ---------------  -------------  -----------------------
-PersistentVolumeClaim  storage   1Gi  2Gi  -                -              -
-```
-
-{{< codenew file="admin/resource/pvc-limit-lower.yaml" >}}
-
-```shell
-kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-lower.yaml
-```
-
-While creating a PVC with `requests.storage` lower than the Min value in the LimitRange, an Error thrown by the server:
-
-```shell
-Error from server (Forbidden): error when creating "pvc-limit-lower.yaml": persistentvolumeclaims "pvc-limit-lower" is forbidden: minimum storage usage per PersistentVolumeClaim is 1Gi, but request is 500Mi.
-```
-
-Same behaviour is noted if  the `requests.storage` is greater than the Max value in the LimitRange:
-
-{{< codenew file="admin/resource/pvc-limit-greater.yaml" >}}
-
-```shell
-kubectl create -f https://k8s.io/examples/admin/resource/pvc-limit-greater.yaml
-```
-
-```shell
-Error from server (Forbidden): error when creating "pvc-limit-greater.yaml": persistentvolumeclaims "pvc-limit-greater" is forbidden: maximum storage usage per PersistentVolumeClaim is 2Gi, but request is 5Gi.
-```
-
-## Limits/Requests Ratio
-
-If `LimitRangeItem.maxLimitRequestRatio` is specified in the `LimitRangeSpec`, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value.
-
-The following LimitRange enforces memory limit to be at most twice the amount of the memory request for any Pod in the namespace:
-
-{{< codenew file="admin/resource/limit-memory-ratio-pod.yaml" >}}
-
-```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-memory-ratio-pod.yaml
-```
-
-Describe the <limit-memory-ratio-pod> LimitRange with the following kubectl command:
-
-```shell
-kubectl describe limitrange/limit-memory-ratio-pod
-```
-
-```shell
-Name:       limit-memory-ratio-pod
-Namespace:  limitrange-demo
-Type        Resource  Min  Max  Default Request  Default Limit  Max Limit/Request Ratio
-----        --------  ---  ---  ---------------  -------------  -----------------------
-Pod         memory    -    -    -                -              2
-```
-
-Create a pod with `requests.memory=100Mi` and `limits.memory=300Mi`:
-
-{{< codenew file="admin/resource/limit-range-pod-3.yaml" >}}
-
-```shell
-kubectl apply -f https://k8s.io/examples/admin/resource/limit-range-pod-3.yaml
-```
-
-The pod creation failed as the ratio here (`3`) is greater than the enforced limit (`2`) in `limit-memory-ratio-pod` LimitRange:
-
-```
-Error from server (Forbidden): error when creating "limit-range-pod-3.yaml": pods "busybox3" is forbidden: memory max limit to request ratio per Pod is 2, but provided ratio is 3.000000.
-```
-
-## Clean up
-
-Delete the `limitrange-demo` namespace to free all resources:
-
-```shell
-kubectl delete ns limitrange-demo
-```
-Change your context to `default` namespace with the following command:
-
-```shell
-kubectl config set-context --current --namespace=default
-```
-
-## Examples
-
-- See  [a tutorial on how to limit compute resources per namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/) .
-- Check [how to limit storage consumption](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
-- See a [detailed example on quota per namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/).
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-See [LimitRanger design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) for more information.
-
-{{% /capture %}}

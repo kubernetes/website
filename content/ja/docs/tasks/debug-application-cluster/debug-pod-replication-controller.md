@@ -1,23 +1,24 @@
 ---
 title: PodとReplicationControllerのデバッグ
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、PodとReplicationControllerをデバッグする方法を説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * [Pod](/ja/docs/concepts/workloads/pods/pod/)と[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)の基本を理解している必要があります。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Podのデバッグ
 
@@ -124,4 +125,4 @@ Podを作成できない場合は、[上述の手順](#Podのデバッグ)を参
 
 `kubectl describe rc ${CONTROLLER_NAME}`を使用して、レプリケーションコントローラーに関連するイベントを調べることもできます。
 
-{{% /capture %}}
+

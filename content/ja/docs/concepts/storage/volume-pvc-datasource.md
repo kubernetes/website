@@ -1,18 +1,18 @@
 ---
 title: CSI Volume Cloning
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 このドキュメントではKubernetesで既存のCSIボリュームの複製についてのコンセプトを説明します。このページを読む前にあらかじめ[ボリューム](/docs/concepts/storage/volumes)についてよく理解していることが望ましいです。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## イントロダクション
 
@@ -65,4 +65,4 @@ spec:
 
 新しいPVCが使用可能になると、複製されたPVCは他のPVCと同じように利用されます。またこの時点で新しく作成されたPVCは独立したオブジェクトであることが期待されます。元のdataSource PVCを考慮せず個別に利用、複製、スナップショット、削除できます。これはまた複製元が新しく作成された複製にリンクされておらず、新しく作成された複製に影響を与えずに変更または削除できることを意味します。
 
-{{% /capture %}}
+

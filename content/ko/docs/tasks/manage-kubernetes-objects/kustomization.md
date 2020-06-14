@@ -1,10 +1,10 @@
 ---
 title: Kustomize를 이용한 쿠버네티스 오브젝트의 선언형 관리
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize)는 
 [kustomization 파일](https://github.com/kubernetes-sigs/kustomize/blob/master/docs/glossary.md#kustomization)을 
@@ -24,17 +24,18 @@ kubectl kustomize <kustomization_directory>
 kubectl apply -k <kustomization_directory>
 ```
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Kustomize 개요
 
@@ -47,12 +48,12 @@ Kustomize는 쿠버네티스 구성을 사용자 정의화하는 도구이다. �
 ### 리소스 생성
 
 컨피그 맵과 시크릿은 파드같은 다른 쿠버네티스 오브젝트에서 사용되는 설정이나 민감한 데이터를 가지고 있다. 
-컨피그 맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일같이 다른 곳에서 가져온다. 
+컨피그 맵이나 시크릿의 실질적인 소스는 일반적으로 `.properties` 파일이나 ssh key 파일과 같은 것들은 클러스터 외부에 있다.
 Kustomize는 시크릿과 컨피그 맵을 파일이나 문자열에서 생성하는 `secretGenerator`와 `configMapGenerator`를 가지고 있다.
 
 #### configMapGenerator
 
-파일에서 컨피그 맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 파일 콘텐츠에서 데이터 항목으로 컨피그 맵을 생성하는 예제이다.
+파일에서 컨피그 맵을 생성하려면 `configMapGenerator` 내의 `files` 리스트에 항목을 추가한다. 다음은 하나의 `.properties` 파일에서 데이터 항목으로 컨피그 맵을 생성하는 예제이다.
 
 ```shell
 # application.properties 파일을 생성
@@ -68,7 +69,7 @@ configMapGenerator:
 EOF
 ```
 
-생성된 컨피그 맵은 다음 명령어를 통해 확인할 수 있다.
+생성된 컨피그 맵은 다음 명령어로 검사할 수 있다.
 
 ```shell
 kubectl kustomize ./
@@ -172,7 +173,7 @@ type: Opaque
 
 #### generatorOptions
 
-생성된 컨피그 맵과 시크릿은 콘텐츠를 해쉬화하여 덧붙이는 접미사를 가진다. 이는 콘텐츠가 변경될 때 새로운 컨피그 맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그 맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
+생성된 컨피그 맵과 시크릿은 콘텐츠 해시 접미사가 추가된다. 이는 콘텐츠가 변경될 때 새로운 컨피그 맵 이나 시크릿이 생성되는 것을 보장한다. 접미사를 추가하는 동작을 비활성화하는 방법으로 `generatorOptions`를 사용할 수 있다. 그밖에, 생성된 컨피그 맵과 시크릿에 교차 편집 옵션들을 지정해주는 것도 가능하다.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -289,7 +290,7 @@ Kustomize는 서로 다른 파일들로 리소스를 구성하고 패치나 다�
 #### 구성
 
 Kustomize는 서로 다른 리소스들의 구성을 지원한다. `kustomization.yaml` 파일 내 `resources` 필드는 구성 내에 포함하려는 리소스들의 리스트를 정의한다. `resources` 리스트 내에 리소스의 구성 파일의 경로를 설정한다. 
-다음 예제는 디플로이먼트와 서비스를 가지는 nginx 애플리케이션이다.
+다음 예제는 디플로이먼트와 서비스로 구성된 NGINX 애플리케이션이다.
 
 ```shell
 # deployment.yaml 파일 생성
@@ -339,11 +340,11 @@ resources:
 EOF
 ```
 
-`kubectl kustomize ./`의 리소스는 디플로이먼트와 서비스 오브젝트 모두를 포함한다.
+`kubectl kustomize ./`의 리소스에는 디플로이먼트와 서비스 오브젝트가 모두 포함되어 있다.
 
 #### 사용자 정의
 
-리소스 위에 패치를 적용하는 것으로 서로 다른 사용자 정의들을 적용할 수 있다. Kustomize는 
+패치는 리소스에 다른 사용자 정의를 적용하는 데 사용할 수 있다. Kustomize는 
 `patchesStrategicMerge`와 `patchesJson6902`를 통해 서로 다른 패치 메커니즘을 지원한다. `patchesStrategicMerge`는 파일 경로들의 리스트이다. 각각의 파일은 [전략적 병합 패치](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md)로 분석될 수 있어야 한다. 패치 내부의 네임은 반드시 이미 읽혀진 리소스 네임과 일치해야 한다. 한 가지 일을 하는 작은 패치가 권장된다. 예를 들기 위해 디플로이먼트 레플리카 숫자를 증가시키는 하나의 패치와 메모리 상한을 설정하는 다른 패치를 생성한다.
 
 ```shell
@@ -791,6 +792,12 @@ kubectl get -k ./
 kubectl describe -k ./
 ```
 
+다음 명령을 실행해서 디플로이먼트 오브젝트 `dev-my-nginx` 를 매니페스트가 적용된 경우의 클러스터 상태와 비교한다.
+
+```shell
+kubectl diff -k ./
+```
+
 디플로이먼트 오브젝트 `dev-my-nginx`를 삭제하려면 다음 명령어를 실행한다.
 
 ```shell
@@ -819,13 +826,14 @@ deployment.apps "dev-my-nginx" deleted
 | configurations        | []string                                                                                                     | 이 리스트 내 각각의 항목은 [Kustomize 변환 설정](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs)을 포함하는 파일로 해석되어져야 한다 |
 | crds                  | []string                                                                                                     | 이 리스트 내 각각의 항목은 쿠버네티스 타입에 대한 OpenAPI 정의 파일로 해석되어져야 한다               |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

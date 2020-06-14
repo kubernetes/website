@@ -14,23 +14,39 @@ contentDir = "content/en"
 
 timeout = 3000
 
-# Highlighting config.
-pygmentsCodeFences = true
-pygmentsUseClasses = false
-# See https://help.farbox.com/pygments.html
-pygmentsStyle = "emacs"
-
 # Enable Git variables like commit, lastmod
 enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
 # Hindi is disabled because it's currently in development.
-# Italian is disabled until it meets minimum standards for quality.
-disableLanguages = ["hi", "it", "no"]
+disableLanguages = ["hi", "no"]
 
-[blackfriday]
-hrefTargetBlank = true
-fractions = false
+[markup]
+ [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
+   [markup.goldmark.renderer]
+     unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "emacs"
+    tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 2
+    ordered = false
+    startLevel = 2
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
@@ -78,11 +94,10 @@ nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
-# param for displaying an announcement block on every page; see PR #16210
-announcement = false
-# announcement_message is only displayed when announcement = true; update with your specific message
-announcement_message = "The Kubernetes Documentation team would like your feedback!  Please take a <a href='https://www.surveymonkey.com/r/8R237FN' target='_blank'>short survey</a> so we can improve the Kubernetes online documentation."
-
+# param for displaying an announcement block on every page.
+# See /i18n/en.toml for message text and title.
+announcement = true
+announcement_bg = "#000000" #choose a dark color – text is white
 
 [params.pushAssets]
 css = [
@@ -187,8 +202,8 @@ language_alternatives = ["en"]
 
 [languages.it]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName ="Italian"
+description = "Orchestrazione di Container in produzione"
+languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
 
@@ -296,5 +311,17 @@ contentDir = "content/pl"
 
 [languages.pl.params]
 time_format_blog = "01.02.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.uk]
+title = "Kubernetes"
+description = "Довершена система оркестрації контейнерів"
+languageName = "Українська"
+weight = 14
+contentDir = "content/uk"
+
+[languages.uk.params]
+time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]

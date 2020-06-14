@@ -1,10 +1,10 @@
 ---
 title: DaemonSet
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 DaemonSet memastikan semua atau sebagian Node memiliki salinan sebuah Pod.
 Ketika Node baru ditambahkan ke klaster, Pod ditambahkan ke Node tersebut.
@@ -24,10 +24,10 @@ setiap jenis _daemon_. Pengaturan yang lebih rumit bisa saja menggunakan lebih
 dari satu DaemonSet untuk satu jenis _daemon_, tapi dengan _flag_ dan/atau
 permintaan cpu/memori yang berbeda untuk jenis _hardware_ yang berbeda.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Menulis Spek DaemonSet
 
@@ -233,4 +233,4 @@ host mana Pod berjalan. Gunakan DaemonSet ketika penting untuk satu salinan Pod
 selalu berjalan di semua atau sebagian host, dan ketika Pod perlu berjalan
 sebelum Pod lainnya.
 
-{{% /capture %}}
+

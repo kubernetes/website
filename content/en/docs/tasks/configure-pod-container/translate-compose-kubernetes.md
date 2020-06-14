@@ -2,26 +2,27 @@
 reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
-content_template: templates/task
+content_type: task
 weight: 200
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
 
 More information can be found on the Kompose website at [http://kompose.io](http://kompose.io).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Install Kompose
 
@@ -200,9 +201,9 @@ you need is an existing `docker-compose.yml` file.
       $ curl http://192.0.2.89
       ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## User Guide
 
@@ -606,4 +607,4 @@ Kompose supports Docker Compose versions: 1, 2 and 3. We have limited support on
 
 A full list on compatibility between all three versions is listed in our [conversion document](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) including a list of all incompatible Docker Compose keys.
 
-{{% /capture %}}
+

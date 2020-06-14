@@ -1,13 +1,13 @@
 ---
 title: Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
@@ -34,10 +34,10 @@ Kubernetes 通过API资源存储自己序列化状态(现在存储在[etcd](http
 
 Kubernetes 被分成多个组件，各部分通过API相互交互。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## API changes
@@ -226,14 +226,14 @@ There are two supported paths to extending the API with [custom resources](/docs
    为客户提供无缝的服务。
 
 <!--
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default.  They can be enabled or disabled by setting `--runtime-config`
-on apiserver. `--runtime-config` accepts comma separated values. For ex: to disable batch/v1, set
+on apiserver. `--runtime-config` accepts comma separated values. For example: to disable batch/v1, set
 `--runtime-config=batch/v1=false`, to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`.
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
-IMPORTANT: Enabling or disabling groups or resources requires restarting apiserver and controller-manager
+Enabling or disabling groups or resources requires restarting apiserver and controller-manager
 to pick up the `--runtime-config` changes.
 -->
 
@@ -244,22 +244,31 @@ to pick up the `--runtime-config` changes.
 例如：要禁用batch/v1，请设置 `--runtime-config=batch/v1=false`，以启用batch/v2alpha1，请设置`--runtime-config=batch/v2alpha1`。
 该标志接受描述apiserver的运行时配置的逗号分隔的一组键值对。
 
-重要：启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 `--runtime-config` 更改生效。
+{{< note >}}
+
+启用或禁用组或资源需要重新启动apiserver和控制器管理器来使得 `--runtime-config` 更改生效。
+
+{{< /note >}}
 
 <!--
-## Enabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs and ReplicaSets are enabled by default.
-Other extensions resources can be enabled by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example: to disable deployments and ingress, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
+
+Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.
 -->
 
-## 启用组中资源
+## 启用 extensions/v1beta1 组中资源
 
-DaemonSets，Deployments，HorizontalPodAutoscalers，Ingress，Jobs 和 ReplicaSets是默认启用的。
-其他扩展资源可以通过在apiserver上设置 `--runtime-config` 来启用。
-`--runtime-config` 接受逗号分隔的值。 例如：要禁用 Deployment 和 Ingress，
-请设置 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingress=false`
+在 `extensions/v1beta1` API 组中，DaemonSets，Deployments，StatefulSet, NetworkPolicies, PodSecurityPolicies 和 ReplicaSets 是默认禁用的。
+例如：要启用 deployments 和 daemonsets，请设置 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`。
 
-{{% /capture %}}
+{{< note >}}
+
+出于遗留原因，仅在 `extensions / v1beta1` API 组中支持各个资源的启用/禁用。
+
+{{< /note >}}
+
+

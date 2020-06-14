@@ -5,19 +5,19 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -169,9 +169,9 @@ will delay the binding and provisioning of a PersistentVolume until a Pod using 
 PersistentVolumes will be selected or provisioned conforming to the topology that is
 specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
 requirements](/docs/concepts/configuration/manage-compute-resources-container),
-[node selectors](/docs/concepts/configuration/assign-pod-node/#nodeselector),
+[node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
 [pod affinity and
-anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
+anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
@@ -185,7 +185,7 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 * All of the above
 * [Local](#local)
 
-{{< feature-state state="stable" for_k8s_version="1.17" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
@@ -281,6 +281,7 @@ metadata:
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-standard
+  fstype: ext4
   replication-type: none
 ```
 
@@ -292,18 +293,21 @@ parameters:
   is specified, volumes are generally round-robin-ed across all active zones
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
+* `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
+
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 
 If `replication-type` is set to `none`, a regular (zonal) PD will be provisioned.
 
 If `replication-type` is set to `regional-pd`, a
 [Regional Persistent Disk](https://cloud.google.com/compute/docs/disks/#repds)
-will be provisioned. In this case, users must use `zones` instead of `zone` to
-specify the desired replication zones. If exactly two zones are specified, the
-Regional PD will be provisioned in those zones. If more than two zones are
-specified, Kubernetes will arbitrarily choose among the specified zones. If the
-`zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
-managed by the cluster.
+will be provisioned. It's highly recommended to have
+`volumeBindingMode: WaitForFirstConsumer` set, in which case when you create
+a Pod that consumes a PersistentVolumeClaim which uses this StorageClass, a
+Regional Persistent Disk is provisioned with two zones. One zone is the same
+as the zone that the Pod is scheduled in. The other zone is randomly picked
+from the zones available to the cluster. Disk zones can be further constrained
+using `allowedTopologies`.
 
 {{< note >}}
 `zone` and `zones` parameters are deprecated and replaced with
@@ -407,7 +411,7 @@ parameters:
   round-robin-ed across all active zones where Kubernetes cluster has a node.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
 {{< /note >}}
 
@@ -810,11 +814,11 @@ volumeBindingMode: WaitForFirstConsumer
 ```
 
 Local volumes do not currently support dynamic provisioning, however a StorageClass
-should still be created to delay volume binding until pod scheduling. This is
+should still be created to delay volume binding until Pod scheduling. This is
 specified by the `WaitForFirstConsumer` volume binding mode.
 
-Delaying volume binding allows the scheduler to consider all of a pod's
+Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 
-{{% /capture %}}
+

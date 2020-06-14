@@ -1,19 +1,20 @@
 ---
 title: Install Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# Installing minikube
+<!-- steps -->
+
+## Installing minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -199,15 +200,6 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 {{% /tab %}}
 {{< /tabs >}}
 
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
-
-{{% /capture %}}
-
 ## Confirm Installation
 
 To confirm successful installation of both a hypervisor and Minikube, you can run the following command to start up a local Kubernetes cluster:
@@ -217,6 +209,10 @@ To confirm successful installation of both a hypervisor and Minikube, you can ru
 For setting the `--driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 
 {{< /note >}}
+
+{{< caution >}}
+When using KVM, note that libvirt's default QEMU URI under Debian and some other systems is `qemu:///session` whereas Minikube's default QEMU URI is `qemu:///system`. If this is the case for your system, you will need to pass `--kvm-qemu-uri qemu:///session` to `minikube start`.
+{{< /caution >}}
 
 ```shell
 minikube start --driver=<driver_name>
@@ -259,3 +255,8 @@ then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)

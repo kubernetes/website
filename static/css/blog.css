@@ -497,6 +497,14 @@ img.big-img {
   overflow-x: scroll;
 }
 
+.flyout-button {
+  display: none;
+}
+
+.global-nav {
+  padding: 0;
+}
+
 /* .content img {
 max-width: 100%;
 } */

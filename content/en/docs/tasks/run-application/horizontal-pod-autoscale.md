@@ -9,11 +9,11 @@ feature:
   description: >
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with
@@ -26,10 +26,10 @@ The resource determines the behavior of the controller.
 The controller periodically adjusts the number of replicas in a replication controller or deployment
 to match the observed average CPU utilization to the target specified by user.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How does the Horizontal Pod Autoscaler work?
 
@@ -75,7 +75,7 @@ metrics-server, which needs to be launched separately. See
 for instructions. The HorizontalPodAutoscaler can also fetch metrics directly from Heapster.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 Fetching metrics from Heapster is deprecated as of Kubernetes 1.11.
 {{< /note >}}
 
@@ -199,13 +199,12 @@ The detailed documentation of `kubectl autoscale` can be found [here](/docs/refe
 
 ## Autoscaling during rolling update
 
-Currently in Kubernetes, it is possible to perform a [rolling update](/docs/tasks/run-application/rolling-update-replication-controller/) by managing replication controllers directly,
-or by using the deployment object, which manages the underlying replica sets for you.
+Currently in Kubernetes, it is possible to perform a rolling update by using the deployment object, which manages the underlying replica sets for you.
 Horizontal Pod Autoscaler only supports the latter approach: the Horizontal Pod Autoscaler is bound to the deployment object,
 it sets the size for the deployment object, and the deployment is responsible for setting sizes of underlying replica sets.
 
 Horizontal Pod Autoscaler does not work with rolling update using direct manipulation of replication controllers,
-i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update (e.g. using `kubectl rolling-update`).
+i.e. you cannot bind a Horizontal Pod Autoscaler to a replication controller and do rolling update.
 The reason this doesn't work is that when rolling update creates a new replication controller,
 the Horizontal Pod Autoscaler will not be bound to the new replication controller.
 
@@ -261,7 +260,7 @@ See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
 APIs, cluster administrators must ensure that:
 
-* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
+* The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
 
 * The corresponding APIs are registered:
 
@@ -292,7 +291,7 @@ the `v2beta2` API allows scaling behavior to be configured through the HPA
 `behavior` field. Behaviors are specified separately for scaling up and down in
 `scaleUp` or `scaleDown` section under the `behavior` field. A stabilization
 window can be specified for both directions which prevents the flapping of the
-number of the replicas in the scaling target. Similarly specifing scaling
+number of the replicas in the scaling target. Similarly specifying scaling
 policies controls the rate of change of replicas while scaling.
 
 ### Scaling Policies
@@ -333,7 +332,7 @@ scaling in that direction.
 
 ### Stabilization Window
 
-The stabilization window is used to retrict the flapping of replicas when the metrics
+The stabilization window is used to restrict the flapping of replicas when the metrics
 used for scaling keep fluctuating. The stabilization window is used by the autoscaling
 algorithm to consider the computed desired state from the past to prevent scaling. In
 the following example the stabilization window is specified for `scaleDown`.
@@ -377,7 +376,7 @@ For scaling down the stabilization window is _300_ seconds(or the value of the
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
-scaled up the target is scaled up immediately. There are 2 policies which. 4 pods or a 100% of the currently
+scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 
 ### Example: change downscale stabilization window
@@ -432,12 +431,13 @@ behavior:
     selectPolicy: Disabled
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

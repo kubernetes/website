@@ -15,7 +15,7 @@ menu:
     title: "Documentation"
     weight: 20
     post: >
-      <p>Learn how to use Kubernetes with conceptual, tutorial, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude>help contribute to the docs</a>!</p>
+      <p>Learn how to use Kubernetes with conceptual, tutorial, and reference documentation. You can even <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>help contribute to the docs</a>!</p>
 description: >
   Kubernetes is an open source container orchestration engine for automating deployment, scaling, and management of containerized applications. The open source project is hosted by the Cloud Native Computing Foundation.
 overview: >
@@ -38,7 +38,7 @@ cards:
   button_path: "/docs/setup"
 - name: tasks
   title: "Learn how to use Kubernetes"
-  description: "Look up common tasks and how to perform them using a short sequence of steps."  
+  description: "Look up common tasks and how to perform them using a short sequence of steps."
   button: "View Tasks"
   button_path: "/docs/tasks"
 - name: training
@@ -56,8 +56,8 @@ cards:
   description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
   button: Contribute to the docs
   button_path: /docs/contribute
-- name: download
-  title: Download Kubernetes
+- name: release-notes
+  title: Release Notes
   description: If you are installing Kubernetes or upgrading to the newest version, refer to the current release notes.
 - name: about
   title: About the documentation

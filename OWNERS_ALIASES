@@ -41,13 +41,13 @@ aliases:
   sig-docs-en-owners: # Admins for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
     - makoscafee
     - onlydole
     - Rajakavitha1
+    - savitharaghunathan
     - sftim
     - steveperry-53
     - tengqm
@@ -58,7 +58,6 @@ aliases:
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
     - daminisatya
-    - jaredbhatti
     - jimangel
     - kbarnard10
     - kbhawkey
@@ -124,6 +123,8 @@ aliases:
   sig-docs-id-reviews: # PR reviews for Indonesian content
     - girikuncoro
     - irvifa
+    - wahyuoi
+    - phanama
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - mattiaperi
@@ -133,14 +134,15 @@ aliases:
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
-    - cstoku
+    # cstoku
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
-    - cstoku
+    - bells17
+    # cstoku
     - inductor
     - makocchi-git
-    - MasayaAoyama
+    # MasayaAoyama
     - nasa9084
     - oke-py
   sig-docs-ko-owners: # Admins for Korean content
@@ -148,6 +150,7 @@ aliases:
     - gochist
     - ianychoi
     - seokho-son
+    - ysyukr
     - zacharysarah
   sig-docs-ko-reviews: # PR reviews for Korean content
     - ClaudiaJKang
@@ -155,13 +158,13 @@ aliases:
     - ianychoi
     - seokho-son
     - ysyukr
-  sig-docs-maintainers: # Website maintainers
+  sig-docs-leads: # Website chairs and tech leads
     - jimangel
     - kbarnard10
-    - pwittrock
-    - steveperry-53
+    - kbhawkey
+    - onlydole
+    - sftim
     - zacharysarah
-    - zparnold
   sig-docs-zh-owners: # Admins for Chinese content
     - chenopis
     - chenrui333
@@ -169,7 +172,6 @@ aliases:
     - haibinxie
     - hanjiayao
     - lichuqiang
-    - markthink
     - SataQiu
     - tengqm
     - xiangpengzhao
@@ -179,8 +181,8 @@ aliases:
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - chenrui333
     - idealhack
-    - markthink
     - SataQiu
+    - tanjunchen
     - tengqm
     - xiangpengzhao
     - xichengliudui
@@ -221,3 +223,14 @@ aliases:
     - mfilocha
     - nvtkaszpir
     - kpucynski
+  sig-docs-uk-owners: # Admins for Ukrainian content
+    - anastyakulyk
+    - butuzov
+    - MaxymVlasov
+  sig-docs-uk-reviews: # PR reviews for Ukrainian content
+    - anastyakulyk
+    - Arhell
+    - butuzov
+    - idvoretskyi
+    - MaxymVlasov
+    - Potapy4

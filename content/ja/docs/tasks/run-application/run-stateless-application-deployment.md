@@ -1,34 +1,36 @@
 ---
 title: Deploymentを使用してステートレスアプリケーションを実行する
 min-kubernetes-server-version: v1.9
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、Kubernetes Deploymentオブジェクトを使用してアプリケーションを実行する方法を説明します。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * nginx deploymentを作成します。
 * kubectlを使ってdeploymentに関する情報を一覧表示します。
 * deploymentを更新します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## nginx deploymentの作成と探検
 
@@ -138,13 +140,14 @@ Deploymentを名前を指定して削除します:
 
 複製アプリケーションを作成するための好ましい方法はDeploymentを使用することです。そして、DeploymentはReplicaSetを使用します。 DeploymentとReplicaSetがKubernetesに追加される前は、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を使用して複製アプリケーションを構成していました。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)の詳細
 
-{{% /capture %}}
+
 
 

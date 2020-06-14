@@ -1,16 +1,16 @@
 ---
 title: Pengaturan Objek Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Perangkat `kubectl` mendukung beberapa cara untuk membuat dan mengatur objek-objek Kubernetes.
 Laman ini menggambarkan berbagai macam metodenya. Baca [Kubectl gitbook](https://kubectl.docs.kubernetes.io)
 untuk penjelasan pengaturan objek dengan Kubectl secara detail.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Metode pengaturan
 
@@ -170,9 +170,10 @@ Beberapa kekurangan dibandingkan konfigurasi objek imperatif:
 - Konfigurasi objek deklaratif lebih sulit untuk di-_debug_ dan hasilnya lebih sulit dimengerti untuk perilaku yang tidak diinginkan.
 - Pembaruan sebagian menggunakan _diff_ menghasilkan operasi _merge_ dan _patch_ yang rumit.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Mengatur Objek Kubernetes menggunakan Perintah Imperatif](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [Mengatur Objek Kubernetes menggunakan Konfigurasi Objek (Imperatif)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
@@ -182,4 +183,4 @@ Beberapa kekurangan dibandingkan konfigurasi objek imperatif:
 - [Kubectl Gitbook](https://kubectl.docs.kubernetes.io)
 - [Referensi API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: 为容器管理计算资源
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: 自动装箱
@@ -11,7 +11,7 @@ feature:
 <!--
 ---
 title: Managing Compute Resources for Containers
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: Automatic binpacking
@@ -20,7 +20,7 @@ feature:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
@@ -33,15 +33,29 @@ the difference between requests and limits, see
 -->
 当您定义 [Pod](/docs/user-guide/pods) 的时候可以选择为每个容器指定需要的 CPU 和内存（RAM）大小。当为容器指定了资源请求后，调度器就能够更好的判断出将容器调度到哪个节点上。如果您还为容器指定了资源限制，Kubernetes 就可以按照指定的方式来处理节点上的资源竞争。关于资源请求和限制的不同点和更多资料请参考 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Resource types
 *CPU* and *memory* are each a *resource type*. A resource type has a base unit.
 CPU is specified in units of cores, and memory is specified in units of bytes.
+
+If you're using Kubernetes v1.14 or newer, you can specify _huge page_ resources.
+Huge pages are a Linux-specific feature where the node kernel allocates blocks of memory
+that are much larger than the default page size.
+
+For example, on a system where the default page size is 4KiB, you could specify a limit,
+`hugepages-2Mi: 80Mi`. If the container tries allocating over 40 2MiB huge pages (a
+total of 80 MiB), that allocation fails.
+
+{{< note >}}
+You cannot overcommit `hugepages-*` resources.
+This is different from the `memory` and `cpu` resources.
+{{< /note >}}
+
 CPU and memory are collectively referred to as *compute resources*, or just
 *resources*. Compute
 resources are measurable quantities that can be requested, allocated, and
@@ -54,6 +68,15 @@ through the Kubernetes API server.
 ## 资源类型
 
 *CPU* 和*内存*都是*资源类型*。资源类型具有基本单位。CPU 的单位是核心数，内存的单位是字节。
+
+如果您使用的是 Kubernetes v1.14 或更高版本，则可以指定巨页资源。巨页是 Linux 特有的功能，节点内核在其中分配的内存块比默认页大小大得多。
+
+例如，在默认页面大小为 4KiB 的系统上，您可以指定一个限制，`hugepages-2Mi: 80Mi`。如果容器尝试分配 40 个 2MiB 大页面（总共 80 MiB ），则分配失败。
+
+{{< note >}}
+您不能过量使用`hugepages- *`资源。
+这与`memory`和`cpu`资源不同。
+{{< /note >}}
 
 CPU和内存统称为*计算资源*，也可以称为*资源*。计算资源的数量是可以被请求、分配、消耗和可测量的。它们与 [API 资源](/docs/concepts/overview/kubernetes-api/) 不同。 API 资源（如 Pod 和 [Service](/docs/concepts/services-networking/service/)）是可通过 Kubernetes API server 读取和修改的对象。
 
@@ -223,9 +246,9 @@ When using Docker:
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 -->
 
-- `spec.containers[].resources.requests.cpu` 的值将转换成 millicore 值，这是个浮点数，并乘以 1024，这个数字中的较大者或 2 用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
+- `spec.containers[].resources.requests.cpu` 先被转换为可能是小数的 core 值，再乘以 1024，这个数字和 2 的较大者用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
 
-- `spec.containers[].resources.limits.cpu` 被转换成 millicore 值。被乘以 100000 然后 除以 1000。这个数字用作 `docker run` 命令中的 [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint) 标志的值。[`--cpu-quota` ] 标志被设置成了 100000，表示测量配额使用的默认100ms 周期。如果 [`--cpu-cfs-quota`] 标志设置为 true，则 kubelet 会强制执行 cpu 限制。从 Kubernetes 1.2 版本起，此标志默认为 true。
+- `spec.containers[].resources.limits.cpu` 先被转换为 millicore 值，再乘以 100，结果就是每 100ms 内 container 可以使用的 CPU 总时间。在此时间间隔（100ms）内，一个 container 使用的 CPU 时间不会超过它被分配的时间。
 
 <!--
   {{< note >}}
@@ -234,7 +257,7 @@ When using Docker:
 -->
 
   {{< note >}}
-  默认配额限制为 100 毫秒。 CPU配额的最小单位为 1 毫秒。
+  默认的配额（quota）周期为 100 毫秒。 CPU配额的最小精度为 1 毫秒。
   {{</ note >}}
 
 <!--
@@ -275,16 +298,18 @@ resource limits, see the
 
 The resource usage of a Pod is reported as part of the Pod status.
 
-If [optional monitoring](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)
-is configured for your cluster, then Pod resource usage can be retrieved from
-the monitoring system.
+If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+are available in your cluster, then Pod resource usage can be retrieved either
+from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+directly or from your monitoring tools.
 -->
 
 ## 监控计算资源使用
 
 Pod 的资源使用情况被报告为 Pod 状态的一部分。
 
-如果为集群配置了 [可选监控](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/)，则可以从监控系统检索 Pod 资源的使用情况。
+如果为集群配置了可选 [监控工具](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，则可以直接从
+[指标 API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 或者监控工具检索 Pod 资源的使用情况。
 
 <!--
 ## Troubleshooting
@@ -920,10 +945,11 @@ spec:
         example.com/foo: 1
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
@@ -943,4 +969,4 @@ spec:
 
 * [资源需求](/docs/resources-reference/{{< param "version" >}}/#resourcerequirements-v1-core)
 
-{{% /capture %}}
+

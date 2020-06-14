@@ -1,14 +1,14 @@
 ---
 title: Scheduling Policies
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
-runs to [filter and score nodes](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation),
+runs to [filter and score nodes](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation),
 respectively.
 
 You can set a scheduling policy by running
@@ -16,9 +16,9 @@ You can set a scheduling policy by running
 `kube-scheduler --policy-configmap <ConfigMap>`
 and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Predicates
 
@@ -77,7 +77,7 @@ The following *priorities* implement scoring:
    {{< glossary_tooltip term_id="replica-set" >}}.
 
 - `InterPodAffinityPriority`: Implements preferred
-  [inter pod affininity and antiaffinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
+  [inter pod affininity and antiaffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity).
 
 - `LeastRequestedPriority`: Favors nodes with fewer requested resources. In other
   words, the more Pods that are placed on a Node, and the more resources those
@@ -97,7 +97,7 @@ The following *priorities* implement scoring:
 
 - `NodeAffinityPriority`: Prioritizes nodes according to node affinity scheduling
    preferences indicated in PreferredDuringSchedulingIgnoredDuringExecution.
-   You can read more about this in [Assigning Pods to Nodes](/docs/concepts/configuration/assign-pod-node/).
+   You can read more about this in [Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 - `TaintTolerationPriority`: Prepares the priority list for all the nodes, based on
   the number of intolerable taints on the node. This policy adjusts a node's rank
@@ -117,9 +117,10 @@ The following *priorities* implement scoring:
 - `EvenPodsSpreadPriority`: Implements preferred
   [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Learn about [scheduling](/docs/concepts/scheduling/kube-scheduler/)
+
+## {{% heading "whatsnext" %}}
+
+* Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
-{{% /capture %}}
+

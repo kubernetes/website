@@ -2,24 +2,28 @@
 reviewers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
-min-kubernetes-server-version: v1.10
-content_template: templates/task
+min-kubernetes-server-version: v1.6
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
+{{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 This page shows how to use PodPreset objects to inject information like {{< glossary_tooltip text="Secrets" term_id="secret" >}}, volume mounts, and {{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}} into Pods at creation time.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+## {{% heading "prerequisites" %}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](/docs/setup/learning-environment/minikube/).
+Make sure that you have [enabled PodPreset](/docs/concepts/workloads/pods/podpreset/#enable-pod-preset) in your cluster.
+
+
+
+<!-- steps -->
 
 
 ## Use Pod presets to inject environment variables and volumes
@@ -318,4 +322,4 @@ The output shows that the PodPreset was deleted:
 podpreset "allow-database" deleted
 ```
 
-{{% /capture %}}
+

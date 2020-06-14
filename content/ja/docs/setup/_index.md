@@ -3,7 +3,7 @@ no_issue: true
 title: はじめに
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -14,7 +14,7 @@ card:
     title: 本番環境
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このセクションではKubernetesをセットアップして動かすための複数のやり方について説明します。
 
@@ -24,9 +24,9 @@ Kubernetesクラスタはローカルマシン、クラウド、オンプレの�
 
 簡潔に言えば、学習用としても、本番環境用としてもKubernetesクラスターを作成することができます。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 環境について学ぶ
 
@@ -51,4 +51,4 @@ Kubernetesについて学んでいる場合、Dockerベースのソリューシ�
 
 [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes)プロバイダーの一覧については、"[Partners](https://kubernetes.io/partners/#conformance)"を参照してください。 
 
-{{% /capture %}}
+

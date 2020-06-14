@@ -58,6 +58,9 @@ other = "Czy ta strona była przydatna?"
 [feedback_yes]
 other = "Tak"
 
+[input_placeholder_email_address]
+other = "adres e-mail"
+
 [latest_version]
 other = "to najnowsza wersja."
 
@@ -171,6 +174,9 @@ other = "Cele"
 
 [prerequisites_heading]
 other = "Nim zaczniesz"
+
+[subscribe_button]
+other = "Subskrybuj"
 
 [ui_search_placeholder]
 other = "Szukaj"

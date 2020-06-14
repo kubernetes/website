@@ -2,53 +2,51 @@
 title: Example Task Template
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 toc_hide: true
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
-Be sure to also [create an entry in the table of contents](/docs/home/contribute/write-new-topic/#creating-an-entry-in-the-table-of-contents) for your new document.
+Be sure to also [create an entry in the table of contents](/docs/contribute/style/write-new-topic/#placing-your-topic-in-the-table-of-contents) for your new document.
 {{< /note >}}
 
 This page shows how to ...
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Do this.
 * Do this too.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Doing ...
 
 1. Do this.
-1. Do this next. Possibly read this [related explanation](...).
+1. Do this next. Possibly read this [related explanation](#).
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding ...
 **[Optional Section]**
 
 Here's an interesting thing to know about the steps you just did.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 **[Optional Section]**
 
 * Learn more about [Writing a New Topic](/docs/home/contribute/write-new-topic/).
-* See [Using Page Templates - Task template](/docs/home/contribute/page-templates/#task_template) for how to use this template.
-
-{{% /capture %}}
-
-
+* Learn about [Page Content Types - Task](/docs/home/contribute/style/page-content-types/#task).

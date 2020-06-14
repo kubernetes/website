@@ -1,35 +1,37 @@
 ---
 title: 単一レプリカのステートフルアプリケーションを実行する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、PersistentVolumeとDeploymentを使用して、Kubernetesで単一レプリカのステートフルアプリケーションを実行する方法を説明します。アプリケーションはMySQLです。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 自身の環境のディスクを参照するPersistentVolumeを作成します。
 * MySQLのDeploymentを作成します。
 * MySQLをDNS名でクラスター内の他のPodに公開します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * {{< include "default-storage-class-prereqs.md" >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## MySQLをデプロイする
 
@@ -163,10 +165,11 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 動的プロビジョニング機能を使用した場合は、PersistentVolumeClaimを削除すれば、自動的にPersistentVolumeも削除されます。
 一部の動的プロビジョナー(EBSやPDなど)は、PersistentVolumeを削除すると同時に下層にあるリソースも解放します。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)についてもっと学ぶ
 
@@ -176,6 +179,6 @@ PersistentVolumeを手動でプロビジョニングした場合は、Persistent
 
 * [Volumes](/docs/concepts/storage/volumes/)と[Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
-{{% /capture %}}
+
 
 

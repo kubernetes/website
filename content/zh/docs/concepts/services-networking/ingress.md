@@ -1,6 +1,6 @@
 ---
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -8,17 +8,17 @@ weight: 40
 reviewers:
 - bprashanth
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Terminology
@@ -30,65 +30,31 @@ For clarity, this guide defines the following terms:
 -->
 为了表达更加清晰，本指南定义了以下术语：
 
-
-<!--
-Node
-: A worker machine in Kubernetes, part of a cluster.
--->
-
-节点（Node）:
-
-Kubernetes 集群中其中一台工作机器，是集群的一部分。
-
-<!--
-Cluster
-: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet. 
--->
-
-集群（Cluster）: 
-
-一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
-
-<!--
-Edge router
-: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware. 
--->
-
-边缘路由器（Edge router）: 
-
-在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
-
-<!--
-Cluster network
-: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/). 
--->
-
-集群网络（Cluster network）: 
-
-一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
-
-<!--
-Service
-: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network. 
--->
-
-服务（Service）：
-
-Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
-
+<!-- 
+* Node: A worker machine in Kubernetes, part of a cluster.
+* Cluster: A set of Nodes that run containerized applications managed by Kubernetes. For this example, and in most common Kubernetes deployments, nodes in the cluster are not part of the public internet.
+* Edge router: A router that enforces the firewall policy for your cluster. This could be a gateway managed by a cloud provider or a physical piece of hardware.
+* Cluster network: A set of links, logical or physical, that facilitate communication within a cluster according to the Kubernetes [networking model](/docs/concepts/cluster-administration/networking/).
+* Service: A Kubernetes {{< glossary_tooltip term_id="service" >}} that identifies a set of Pods using {{< glossary_tooltip text="label" term_id="label" >}} selectors. Unless mentioned otherwise, Services are assumed to have virtual IPs only routable within the cluster network.
+ -->
+* 节点（Node）: Kubernetes 集群中其中一台工作机器，是集群的一部分。
+* 集群（Cluster）: 一组运行程序（这些程序是容器化的，被 Kubernetes 管理的）的节点。 在此示例中，和在大多数常见的Kubernetes部署方案，集群中的节点都不会是公共网络。
+* 边缘路由器（Edge router）: 在集群中强制性执行防火墙策略的路由器（router）。可以是由云提供商管理的网关，也可以是物理硬件。
+* 集群网络（Cluster network）: 一组逻辑或物理的链接，根据 Kubernetes [网络模型](/docs/concepts/cluster-administration/networking/) 在集群内实现通信。
+* 服务（Service）：Kubernetes {{< glossary_tooltip term_id="service" >}} 使用 {{< glossary_tooltip text="标签" term_id="label" >}} 选择器（selectors）标识的一组 Pod。除非另有说明，否则假定服务只具有在集群网络中可路由的虚拟 IP。
 
 <!--
 ## What is Ingress?
 -->
 ## Ingress 是什么？
 
-<!-- 
-Ingress exposes HTTP and HTTPS routes from outside the cluster to
+<!--
+[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io) exposes HTTP and HTTPS routes from outside the cluster to
 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} within the cluster.
-Traffic routing is controlled by rules defined on the Ingress resource. 
+Traffic routing is controlled by rules defined on the Ingress resource.
 -->
 
-Ingress 公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的HTTP和HTTPS路由。
+[Ingress](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io) 公开了从集群外部到集群内 {{< link text="services" url="/docs/concepts/services-networking/service/" >}} 的 HTTP 和 HTTPS 路由。
 流量路由由 Ingress 资源上定义的规则控制。
 
 ```none
@@ -100,9 +66,9 @@ Ingress 公开了从集群外部到集群内 {{< link text="services" url="/docs
 ```
 
 <!-- 
-An Ingress can be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
+An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 -->
-可以将 Ingress 配置为提供服务外部可访问的 URL、负载均衡流量、终止 SSL / TLS 并提供基于名称的虚拟主机。[Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)通常负责通过负载均衡器来实现 Ingress，尽管它也可以配置边缘路由器或其他前端来帮助处理流量。
+可以将 Ingress 配置为提供服务外部可访问的 URL、负载均衡流量、终止 SSL / TLS，以及提供基于名称的虚拟主机。[Ingress 控制器](/docs/concepts/services-networking/ingress-controllers) 通常负责通过负载均衡器来实现 Ingress，尽管它也可以配置边缘路由器或其他前端来帮助处理流量。
 
 <!-- 
 An Ingress does not expose arbitrary ports or protocols. Exposing services other than HTTP and HTTPS to the internet typically
@@ -112,10 +78,6 @@ uses a service of type [Service.Type=NodePort](/docs/concepts/services-networkin
 Ingress 不会公开任意端口或协议。
 将 HTTP 和 HTTPS 以外的服务公开到 Internet 时，通常使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) 类型的服务。
 
-可以将Ingress配置为提供服务外部可访问的URL，负载均衡流量，终止 SSL / TLS 并提供基于名称的虚拟主机。 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)通常负责通过负载平衡器来实现入口，尽管它也可以配置边缘路由器或其他前端以帮助处理流量。
-
-Ingress 不会公开任意端口或协议。 将 HTTP 和 HTTPS 以外的服务公开给 Internet 时，通常使用以下类型的服务 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) 或者 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
-
 <!--
 ## Prerequisites
 -->
@@ -124,29 +86,24 @@ Ingress 不会公开任意端口或协议。 将 HTTP 和 HTTPS 以外的服务�
 <!-- 
 You must have an [ingress controller](/docs/concepts/services-networking/ingress-controllers) to satisfy an Ingress. Only creating an Ingress resource has no effect.
 -->
-您必须具有 [ingress 控制器](/docs/concepts/services-networking/ingress-controllers)才能满足 Ingress 的要求。仅创建 Ingress 资源无效。
+您必须具有 [ingress 控制器](/docs/concepts/services-networking/ingress-controllers) 才能满足 Ingress 的要求。仅创建 Ingress 资源无效。
 
 <!-- 
 You may need to deploy an Ingress controller such as [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). You can choose from a number of
 [Ingress controllers](/docs/concepts/services-networking/ingress-controllers).
 -->
-您可能需要部署 Ingress 控制器，例如 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)。您可以从许多[ Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)中进行选择。
+您可能需要部署 Ingress 控制器，例如 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/)。您可以从许多[Ingress 控制器](/docs/concepts/services-networking/ingress-controllers) 中进行选择。
 
-{{< note >}}
+<!-- 
+Ideally, all Ingress controllers should fit the reference specification. In reality, the various Ingress
+controllers operate slightly differently.
+ -->
+理想情况下，所有 Ingress 控制器都应符合参考规范。但实际上，不同的 Ingress 控制器操作略有不同。
 
 <!--
 Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
 -->
-确保您查看了 Ingress 控制器的文档，以了解选择它的注意事项。
-{{< /note >}}
-
-一定要检查一下这个控制器的 [beta 限制](https://github.com/kubernetes/ingress-gce/blob/master/LIMITATIONS.md)。
-在 GCE／Google Kubernetes Engine 之外的环境中，需要将[控制器部署](https://git.k8s.io/ingress-nginx/README.md) 为 Pod。
-
 {{< note >}}
-<!--
-Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
--->
 确保您查看了 Ingress 控制器的文档，以了解选择它的注意事项。
 {{< /note >}}
 
@@ -172,23 +129,27 @@ spec:
   - http:
       paths:
       - path: /testpath
+        pathType: Prefix
         backend:
           serviceName: test
           servicePort: 80
 ```
 
 <!-- 
- As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
- For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
+As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+The name of an Ingress object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
  is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
- Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
+Different [Ingress controller](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 -->
  与所有其他 Kubernetes 资源一样，Ingress 需要使用 `apiVersion`、`kind` 和 `metadata` 字段。
+ Ingress 对象的命名必须是合法的 [DNS 子域名名称](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
  有关使用配置文件的一般信息，请参见[部署应用](/docs/tasks/run-application/run-stateless-application-deployment/)、 [配置容器](/docs/tasks/configure-pod-container/configure-pod-configmap/)、[管理资源](/docs/concepts/cluster-administration/manage-deployment/)。
  Ingress 经常使用注解（annotations）来配置一些选项，具体取决于 Ingress 控制器，例如 [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)。
- 不同的 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)支持不同的注解（annotations）。查看文档以供您选择 Ingress 控制器，以了解支持哪些注解（annotations）。
+ 不同的 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers) 支持不同的注解（annotations）。查看文档以供您选择 Ingress 控制器，以了解支持哪些注解（annotations）。
 
 <!-- 
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -221,7 +182,7 @@ Each HTTP rule contains the following information:
 -->
 * 可选主机。在此示例中，未指定主机，因此该规则适用于通过指定 IP 地址的所有入站 HTTP 通信。如果提供了主机（例如 foo.bar.com），则规则适用于该主机。
 * 路径列表（例如，`/testpath`）,每个路径都有一个由 `serviceName` 和 `servicePort` 定义的关联后端。在负载均衡器将流量定向到引用的服务之前，主机和路径都必须匹配传入请求的内容。
-* 后端是[服务文档](/docs/concepts/services-networking/service/)中所述的服务和端口名称的组合。与规则的主机和路径匹配的对 Ingress 的HTTP（和HTTPS）请求将发送到列出的后端。
+* 后端是 [Service 文档](/docs/concepts/services-networking/service/)中所述的服务和端口名称的组合。与规则的主机和路径匹配的对 Ingress 的 HTTP（和 HTTPS ）请求将发送到列出的后端。
 
 <!-- 
 A default backend is often configured in an Ingress controller to service any requests that do not
@@ -246,10 +207,137 @@ routed to your default backend.
 -->
 如果没有主机或路径与 Ingress 对象中的 HTTP 请求匹配，则流量将路由到您的默认后端。
 
+<!-- 
+### Path Types
+ -->
+### 路径类型
+
+<!-- 
+Each path in an Ingress has a corresponding path type. There are three supported
+path types:
+ -->
+Ingress 中的每个路径都有对应的路径类型。支持三种类型：
+
+<!-- 
+* _`ImplementationSpecific`_ (default): With this path type, matching is up to
+  the IngressClass. Implementations can treat this as a separate `pathType` or
+  treat it identically to `Prefix` or `Exact` path types.
+
+* _`Exact`_: Matches the URL path exactly and with case sensitivity.
+
+* _`Prefix`_: Matches based on a URL path prefix split by `/`. Matching is case
+  sensitive and done on a path element by element basis. A path element refers
+  to the list of labels in the path split by the `/` separator. A request is a
+  match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
+  request path.
+    If the last element of the path is a substring of the
+    last element in request path, it is not a match (for example:
+    `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+ -->
+* _`ImplementationSpecific`_ （默认）：对于这种类型，匹配取决于 IngressClass. 具体实现可以将其作为单独的 `pathType` 处理或者与 `Prefix` 或 `Exact` 类型作相同处理。
+
+* _`Exact`_：精确匹配 URL 路径且对大小写敏感。
+
+* _`Prefix`_：基于以 `/` 分割的 URL 路径前缀匹配。匹配对大小写敏感，并且对路径中的元素逐个完成。路径元素指的是由 `/` 分隔符分割的路径中的标签列表。如果每个 _p_ 都是请求路径 _p_ 的元素前缀，则请求与路径 _p_ 匹配。
+    {{< note >}}
+    如果路径的最后一个元素是请求路径中最后一个元素的子字符串，则不会匹配（例如：`/foo/bar` 匹配 `/foo/bar/baz`, 但不匹配 `/foo/barbaz`）。
+    {{< /note >}}
+
+<!-- 
+#### Multiple Matches
+In some cases, multiple paths within an Ingress will match a request. In those
+cases precedence will be given first to the longest matching path. If two paths
+are still equally matched, precedence will be given to paths with an exact path
+type over prefix path type.
+ -->
+#### 多重匹配
+
+在某些情况下，Ingress 中的多条路径会匹配同一个请求。这种情况下最长的匹配路径优先。如果仍然有两条同等的匹配路径，则精确路径类型优先于前缀路径类型。
+
+<!-- 
+## Ingress Class
+ -->
+## Ingress 类
+
+<!-- 
+Ingresses can be implemented by different controllers, often with different
+configuration. Each Ingress should specify a class, a reference to an
+IngressClass resource that contains additional configuration including the name
+of the controller that should implement the class.
+ -->
+Ingress 可以由不同的控制器实现，通常使用不同的配置。每个 Ingress 应当指定一个类，一个对 IngressClass 资源的引用，该资源包含额外的配置，其中包括应当实现该类的控制器名称。
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: example.com/ingress-controller
+  parameters:
+    apiGroup: k8s.example.com/v1alpha
+    kind: IngressParameters
+    name: external-lb
+```
+
+<!-- 
+IngressClass resources contain an optional parameters field. This can be used to
+reference additional configuration for this class.
+ -->
+IngressClass 资源包含一个可选的参数字段。可用于引用该类的额外配置。
+
+<!-- 
+### Deprecated Annotation
+ -->
+### 废弃的注解
+
+<!-- 
+Before the IngressClass resource and `ingressClassName` field were added in
+Kubernetes 1.18, Ingress classes were specified with a
+`kubernetes.io/ingress.class` annotation on the Ingress. This annotation was
+never formally defined, but was widely supported by Ingress controllers.
+ -->
+在 IngressClass 资源和 `ingressClassName` 字段被引入 Kubernetes 1.18 之前，Ingress 类是通过 Ingress 中的一个 
+`kubernetes.io/ingress.class` 注解来指定的。这个注解从未被正式定义过，但是得到了 Ingress 控制器的广泛支持。
+
+<!-- 
+The newer `ingressClassName` field on Ingresses is a replacement for that
+annotation, but is not a direct equivalent. While the annotation was generally
+used to reference the name of the Ingress controller that should implement the
+Ingress, the field is a reference to an IngressClass resource that contains
+additional Ingress configuration, including the name of the Ingress controller.
+ -->
+Ingress 中新的 `ingressClassName` 字段是该注解的替代品，但并非完全等价。该注解通常用于引用实现该 Ingress 的控制器的名称，
+而这个新的字段则是对一个包含额外 Ingress 配置的 IngressClass 资源的引用，包括 Ingress 控制器的名称。
+
+<!-- 
+### Default Ingress Class
+ -->
+### 默认 Ingress 类
+
+<!-- 
+You can mark a particular IngressClass as default for your cluster. Setting the
+`ingressclass.kubernetes.io/is-default-class` annotation to `true` on an
+IngressClass resource will ensure that new Ingresses without an
+`ingressClassName` field specified will be assigned this default IngressClass.
+ -->
+您可以将一个特定的 IngressClass 标记为集群默认项。将一个 IngressClass 资源的 `ingressclass.kubernetes.io/is-default-class` 注解设置为 `true` 将确保新的未指定 `ingressClassName` 字段的 Ingress 能够分配为这个默认的 IngressClass.
+
+<!-- 
+If you have more than one IngressClass marked as the default for your cluster,
+the admission controller prevents creating new Ingress objects that don't have
+an `ingressClassName` specified. You can resolve this by ensuring that at most 1
+IngressClasess are marked as default in your cluster.
+ -->
+{{< caution >}}
+如果集群中有多个 IngressClass 被标记为默认，准入控制器将阻止创建新的未指定 `ingressClassName` 字段的 Ingress 对象。
+解决这个问题只需确保集群中最多只能有一个 IngressClass 被标记为默认。
+{{< /caution >}}
+
 <!--
 ## Types of Ingress
 -->
-Ingress 类型
+## Ingress 类型
 
 <!-- 
 ### Single Service Ingress
@@ -277,30 +365,20 @@ kubectl get ingress test-ingress
 
 ```
 NAME           HOSTS     ADDRESS           PORTS     AGE
-test-ingress   *         107.178.254.228   80        59s
+test-ingress   *         203.0.113.123     80        59s
 ```
 
 <!-- 
-Where `107.178.254.228` is the IP allocated by the Ingress controller to satisfy
+Where `203.0.113.123` is the IP allocated by the Ingress controller to satisfy
 this Ingress.
 -->
-其中 `107.178.254.228` 是由 Ingress 控制器分配以满足该 Ingress 的 IP。
-
-{{< note >}}
-<!-- 
-Ingress controllers and load balancers may take a minute or two to allocate an IP address.
-Until that time, you often see the address listed as `<pending>`.
--->
-Ingress 控制器和负载均衡器可能需要一两分钟才能分配 IP 地址。
-在此之前，您通常会看到地址为 `<pending>`。
-{{< /note >}}
-
-{{< note >}}
+其中 `203.0.113.123` 是由 Ingress 控制器分配以满足该 Ingress 的 IP。
 
 <!--
 Ingress controllers and load balancers may take a minute or two to allocate an IP address.
 Until that time, you often see the address listed as `<pending>`.
 -->
+{{< note >}}
 入口控制器和负载平衡器可能需要一两分钟才能分配IP地址。 在此之前，您通常会看到地址字段的值被设定为 `<pending>`。
 {{< /note >}}
 
@@ -384,16 +462,15 @@ When it has done so, you can see the address of the load balancer at the
 Address field.
 -->
 
-Ingress 控制器将提供实现特定的负载均衡器来满足 Ingress，只要 Service (`s1`，`s2`) 存在。
-当它这样做了，你会在地址栏看到负载均衡器的地址。
-
-{{< note >}}
+Ingress 控制器将提供实现特定的负载均衡器来满足 Ingress，只要 Service (`service1`，`service2`) 存在。
+当它这样做了，您会在地址栏看到负载均衡器的地址。
 
 <!--
 Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
 you are using, you may need to create a default-http-backend
 [Service](/docs/concepts/services-networking/service/).
 -->
+{{< note >}}
 根据您使用的 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)，您可能需要创建默认 HTTP 后端 [Service](/docs/concepts/services-networking/service/)。
 {{< /note >}}
 
@@ -521,11 +598,10 @@ type: kubernetes.io/tls
 <!--
 Referencing this secret in an Ingress tells the Ingress controller to
 secure the channel from the client to the load balancer using TLS. You need to make
-sure the TLS secret you created came from a certificate that contains a CN
-for `sslexample.foo.com`.
+sure the TLS secret you created came from a certificate that contains a Common
+Name (CN), also known as a Fully Qualified Domain Name (FQDN) for `sslexample.foo.com`.
 -->
-
-在 Ingress 中引用此 Secret 将会告诉 Ingress 控制器使用 TLS 加密从客户端到负载均衡器的通道。您需要确保创建的 TLS secret 来自包含 `sslexample.foo.com` 的 CN 的证书。
+在 Ingress 中引用此 Secret 将会告诉 Ingress 控制器使用 TLS 加密从客户端到负载均衡器的通道。您需要确保创建的 TLS secret 来自包含 `sslexample.foo.com` 的公用名称（CN）的证书，也被称为全限定域名（FQDN）。
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -546,22 +622,18 @@ spec:
             serviceName: service1
             servicePort: 80
 ```
-{{< note >}}
 
-
-{{< note >}}
 <!-- 
 There is a gap between TLS features supported by various Ingress
 controllers. Please refer to documentation on
-[nginx](https://git.k8s.io/ingress-nginx/README.md#https),
+[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/),
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https), or any other
 platform specific Ingress controller to understand how TLS works in your environment.
 -->
-
+{{< note >}}
 各种 Ingress 控制器所支持的 TLS 功能之间存在差异。请参阅有关文件
-[nginx](https://git.k8s.io/ingress-nginx/README.md#https)、
+[nginx](https://kubernetes.github.io/ingress-nginx/user-guide/tls/)、
 [GCE](https://git.k8s.io/ingress-gce/README.md#frontend-https) 或者任何其他平台特定的 Ingress 控制器，以了解 TLS 如何在您的环境中工作。
-
 {{< /note >}}
 
 <!--
@@ -707,13 +779,13 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 
 <!--
 Techniques for spreading traffic across failure domains differs between cloud providers.
-Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](/docs/concepts/cluster-administration/federation/)
+Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](https://github.com/kubernetes-sigs/federation-v2)
 for details on deploying Ingress in a federated cluster.
 -->
 
 用于跨故障域传播流量的技术在云提供商之间是不同的。详情请查阅相关 Ingress 控制器的文档。
-请查看相关[ Ingress 控制器](/docs/concepts/services-networking/ingress-controllers)的文档以了解详细信息。
-您还可以参考[联邦文档](/docs/concepts/cluster-administration/federation/)，以获取有关在联合集群中部署Ingress的详细信息。
+请查看相关[ Ingress 控制器](/docs/concepts/services-networking/ingress-controllers) 的文档以了解详细信息。
+您还可以参考[联邦文档](https://github.com/kubernetes-sigs/federation-v2)，以获取有关在联合集群中部署 Ingress 的详细信息。
 
 
 <!--
@@ -746,13 +818,16 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * 使用 [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * 使用 [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
-* Learn about [ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
+* Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
 -->
-* 了解更多 [ingress 控制器](/docs/concepts/services-networking/ingress-controllers/)
+* 了解更多 [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
+* 了解更多 [Ingress 控制器](/docs/concepts/services-networking/ingress-controllers/)
 * [使用 NGINX 控制器在 Minikube 上安装 Ingress](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

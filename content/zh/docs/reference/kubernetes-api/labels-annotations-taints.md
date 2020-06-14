@@ -1,10 +1,10 @@
 ---
 title: 知名标签（Label）、注解（Annotation）和 Taints
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes reserves all labels and annotations in the kubernetes.io namespace.
@@ -16,9 +16,9 @@ Kubernetes 保留了 kubernetes.io 命名空间下的所有标签和注解。
 
 本文既作为这些标签和注解的参考，也就这些标签和注解的赋值进行了说明。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## kubernetes.io/arch
 
@@ -263,7 +263,7 @@ The expectation is that failures of nodes in different zones should be uncorrela
 -->
 区域和地域（region）的实际值无关紧要，两者的层次含义也没有严格的定义。最终期望是，除非整个地域故障，
 否则某一区域节点的故障不应该影响到其他区域的节点。例如，通常区域间应该避免共用同一个网络交换机。
-具体的规划取决于特定的基础设备 - three-rack 设备所选择的设置与多数据中心截然不同。
+具体的规划取决于特定的基础设备 - 三机架安装所选择的设置与多数据中心截然不同。
 
 <!--
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
@@ -272,4 +272,4 @@ adding the labels manually (or adding support for `PersistentVolumeLabel`). With
 如果 `PersistentVolumeLabel` 准入控制器不支持自动为 PersistentVolume 打标签，且用户希望防止 pod 跨区域进行卷的挂载，
 应考虑手动打标签 (或对 `PersistentVolumeLabel` 增加支持）。如果用户的基础设施没有这种约束，则不需要为卷添加区域标签。
 
-{{% /capture %}}
+

@@ -2,16 +2,16 @@
 reviewers:
 - bprashanth
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Terminology
 
@@ -124,7 +124,7 @@ Each path in an Ingress has a corresponding path type. There are three supported
 path types:
 
 * _`ImplementationSpecific`_ (default): With this path type, matching is up to
-  the IngressClass. Implementations can treat this as a separate `pathType or
+  the IngressClass. Implementations can treat this as a separate `pathType` or
   treat it identically to `Prefix` or `Exact` path types.
 
 * _`Exact`_: Matches the URL path exactly and with case sensitivity.
@@ -134,11 +134,10 @@ path types:
   to the list of labels in the path split by the `/` separator. A request is a
   match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
   request path.
-    {{< note >}}
-    If the last element of the path is a substring of the
-    last element in request path, it is not a match (for example:
-    `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
-    {{< /note >}}
+  
+  {{< note >}}
+  If the last element of the path is a substring of the last element in request path, it is not a match (for example: `/foo/bar` matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+  {{< /note >}}
 
 #### Multiple Matches
 In some cases, multiple paths within an Ingress will match a request. In those
@@ -402,16 +401,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
@@ -543,10 +542,11 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Use [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
 * Use [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
 * Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

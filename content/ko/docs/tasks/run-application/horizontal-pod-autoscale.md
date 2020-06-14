@@ -5,11 +5,11 @@ feature:
   description: >
     간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Horizontal Pod Autoscaler는 CPU 사용량
 (또는 [사용자 정의 메트릭](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md),
@@ -22,10 +22,10 @@ Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 �
 컨트롤러는 관찰된 평균 CPU 사용률이 사용자가 지정한 대상과 일치하도록 레플리케이션
 컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Horizontal Pod Autoscaler는 어떻게 작동하는가?
 
@@ -71,7 +71,7 @@ HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`,
 참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 힙스터에서 메트릭 가져오기는 Kubernetes 1.11에서 사용 중단(deprecated)됨.
 {{< /note >}}
 
@@ -199,13 +199,12 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 레플리케이션 컨트롤러를 직접 관리하거나,
-기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 [롤링 업데이트](/docs/tasks/run-application/rolling-update-replication-controller/)를 수행 할 수 있다.
+현재 쿠버네티스에서는 기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
 Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
 디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카 셋의 크기를 결정한다.
 
 Horizontal Pod Autoscaler는 레플리케이션 컨트롤러를 직접 조작하는 롤링 업데이트에서 작동하지 않는다.
-즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수ㄴ 없다. (예 : `kubectl rolling-update`)
+즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수 없다. (예 : `kubectl rolling-update`)
 작동하지 않는 이유는 롤링 업데이트에서 새 레플리케이션 컨트롤러를 만들 때,
 Horizontal Pod Autoscaler가 새 레플리케이션 컨트롤러에 바인딩되지 않기 때문이다.
 
@@ -291,7 +290,7 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
 ## 구성가능한 스케일링 동작 지원
 
-[v1.17](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
 부터 `v2beta2` API는 HPA `behavior` 필드를 통해
 스케일링 동작을 구성할 수 있다.
 동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`
@@ -437,12 +436,12 @@ behavior:
     selectPolicy: Disabled
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 디자인 문서: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl 오토스케일 커맨드: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)의 사용 예제.
 
-{{% /capture %}}

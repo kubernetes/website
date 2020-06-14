@@ -1,17 +1,17 @@
 ---
 weight: 10
 title: Feature Gates
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
 
 See [feature stages](#feature-stages) for an explanation of the stages for a feature.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Overview
 
 Feature gates are a set of key=value pairs that describe Kubernetes features.
@@ -105,6 +105,7 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
+| `IPv6DualStack` | `false` | Alpha | 1.16 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
@@ -114,6 +115,8 @@ different Kubernetes components.
 | `MountContainers` | `false` | Alpha | 1.9 | |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | |
+| `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
+| `PodDisruptionBudget` | `true` | Beta | 1.5 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
@@ -333,7 +336,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 - `Accelerators`: Enable Nvidia GPU support when using Docker
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug-application-cluster/audit/#advanced-audit)
-- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity).
+- `AffinityInAnnotations`(*deprecated*): Enable setting [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
@@ -441,6 +444,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NonPreemptingPriority`: Enable NonPreempting option for PriorityClass and Pod.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
+- `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/configuration/pod-overhead/) feature to account for pod overheads.
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their [priorities](/docs/concepts/configuration/pod-priority-preemption/).
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
@@ -486,7 +490,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be set for each pod.
   See [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.
 - `TaintBasedEvictions`: Enable evicting pods from nodes based on taints on nodes and tolerations on Pods.
-  See [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/) for more details.
+  See [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) for more details.
 - `TaintNodesByCondition`: Enable automatic tainting nodes based on [node conditions](/docs/concepts/architecture/nodes/#condition).
 - `TokenRequest`: Enable the `TokenRequest` endpoint on service account resources.
 - `TokenRequestProjection`: Enable the injection of service account tokens into
@@ -507,8 +511,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
   the project's approach to removing features and components.
-{{% /capture %}}
+

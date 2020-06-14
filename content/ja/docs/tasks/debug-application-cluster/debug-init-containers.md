@@ -1,24 +1,25 @@
 ---
 title: Initコンテナのデバッグ
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、Initコンテナの実行に関連する問題を調査する方法を説明します。以下のコマンドラインの例では、Podを`<pod-name>`、Initコンテナを`<init-container-1>`および`<init-container-2>`として参照しています。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * [Initコンテナ](/ja/docs/concepts/abstractions/init-containers/)の基本を理解しておきましょう。
 * [Initコンテナを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Initコンテナのステータスを確認する
 
@@ -95,9 +96,9 @@ kubectl logs <pod-name> -c <init-container-2>
 
 シェルスクリプトを実行するInitコンテナは、実行時にコマンドを出力します。たとえば、スクリプトの始めに`set -x`を実行することでBashで同じことができます。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Podのステータスを理解する
 
@@ -111,7 +112,7 @@ kubectl logs <pod-name> -c <init-container-2>
 `Pending` | PodはまだInitコンテナの実行を開始していません。
 `PodInitializing` or `Running` | PodはすでにInitコンテナの実行を終了しています。
 
-{{% /capture %}}
+
 
 
 

@@ -4,20 +4,20 @@ reviewers:
 - caseydavenport
 - danwinship
 title: Network Policies
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 A network policy is a specification of how groups of {{< glossary_tooltip text="pods" term_id="pod">}} are allowed to communicate with each other and other network endpoints.
 
 NetworkPolicy resources use {{< glossary_tooltip text="labels" term_id="label">}} to select pods and define rules which specify what traffic is allowed to the selected pods.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Prerequisites
 
 Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). To use network policies, you must be using a networking solution which supports NetworkPolicy. Creating a NetworkPolicy resource without a controller that implements it will have no effect.
@@ -28,7 +28,7 @@ By default, pods are non-isolated; they accept traffic from any source.
 
 Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
 
-Network policies do not conflict, they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
+Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
 
 ## The NetworkPolicy resource {#networkpolicy-resource}
 
@@ -89,9 +89,9 @@ __podSelector__: Each NetworkPolicy includes a `podSelector` which selects the g
 
 __policyTypes__: Each NetworkPolicy includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
 
-__ingress__: Each NetworkPolicy may include a list of whitelist `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
+__ingress__: Each NetworkPolicy may include a list of allowed `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
 
-__egress__: Each NetworkPolicy may include a list of whitelist `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
+__egress__: Each NetworkPolicy may include a list of allowed `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 
 So, the example NetworkPolicy:
 
@@ -215,12 +215,13 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 {{< /note >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
 
-{{% /capture %}}
+

@@ -4,19 +4,19 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
 used to guarantee the availability of a specified number of identical Pods.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How a ReplicaSet works
 
@@ -26,7 +26,7 @@ it should create to meet the number of replicas criteria. A ReplicaSet then fulf
 and deleting Pods as needed to reach the desired number. When a ReplicaSet needs to create new Pods, it uses its Pod
 template.
 
-The link a ReplicaSet has to its Pods is via the Pods' [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+A ReplicaSet is linked to its Pods via the Pods' [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
 field, which specifies what resource the current object is owned by. All Pods acquired by a ReplicaSet have their owning
 ReplicaSet's identifying information within their ownerReferences field. It's through this link that the ReplicaSet
 knows of the state of the Pods it is maintaining and plans accordingly.
@@ -330,7 +330,7 @@ Alternatively, you can use the `kubectl autoscale` command to accomplish the sam
 (and it's easier!)
 
 ```shell
-kubectl autoscale rs frontend --max=10
+kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 ```
 
 ## Alternatives to ReplicaSet
@@ -366,4 +366,4 @@ The two serve the same purpose, and behave similarly, except that a ReplicationC
 selector requirements as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 As such, ReplicaSets are preferred over ReplicationControllers
 
-{{% /capture %}}
+

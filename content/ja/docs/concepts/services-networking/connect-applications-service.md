@@ -1,11 +1,11 @@
 ---
 title: サービスとアプリケーションの接続
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## コンテナを接続するためのKubernetesモデル
 
@@ -25,9 +25,9 @@ Kubernetesでは、どのホストで稼働するかに関わらず、Podが他�
 このガイドでは、シンプルなnginxサーバーを使用して概念実証を示します。
 同じ原則が、より完全な[Jenkins CIアプリケーション](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)で具体化されています。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Podをクラスターに公開する
 
@@ -423,12 +423,13 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 詳細: [Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * 詳細: [Serviceを使用してフロントエンドをバックエンドに接続する](/ja/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * 詳細: [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 
-{{% /capture %}}
+

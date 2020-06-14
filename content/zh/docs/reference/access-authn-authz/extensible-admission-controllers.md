@@ -1,18 +1,18 @@
 ---
 title: 动态准入控制
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 <!--
 ---
 title: Dynamic Admission Control
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 In addition to [compiled-in admission plugins](/docs/reference/access-authn-authz/admission-controllers/),
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
@@ -20,9 +20,9 @@ This page describes how to build, configure, use, and monitor admission webhooks
 -->
 除了[内置的 admission 插件](/docs/reference/access-authn-authz/admission-controllers/)，admission 插件可以作为扩展独立开发，并以运行时所配置的 webhook 的形式运行。
 此页面描述了如何构建、配置、使用和监视 admission webhook。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## What are admission webhooks?
 -->
@@ -2018,7 +2018,7 @@ In the cases above, the webhook can be safely reinvoked, or admit an object that
 
 2. 对于 `CREATE` Pod 请求，如果未设置容器的字段 `.spec.containers[].resources.limits`，设置默认资源限制值。
 
-3. 对于 `CREATE` pod 请求，盲目地添加一个名为 `foo-sidecar` 的 sidecar 容器，而未查看 Pod 中是否已经有 `foo-sidecar` 容器。
+3. 对于 `CREATE` pod 请求，如果 Pod 中不存在名为 `foo-sidecar` 的 sidecar 容器，向 Pod 注入一个 `foo-sidecar` 容器。
 
 在上述情况下，可以安全地重新调用 Webhook，或接受已经设置了字段的对象。
 
@@ -2174,4 +2174,4 @@ plane, exclude the `kube-system` namespace from being intercepted using a
 意外更改或拒绝 `kube-system` 命名空间中的请求可能会导致控制平面组件停止运行或者导致未知行为发生。
 如果您的 admission webhook 不想修改 Kubernetes 控制平面的行为，请使用 [`namespaceSelector`](#matching-requests-namespaceselector) 避免拦截 `kube-system` 命名空间。
 
-{{% /capture %}}
+

@@ -2,23 +2,24 @@
 reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: 1.13
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure encryption of secret data at rest.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * etcd v3.0 or later is required
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configuration and determining whether encryption at rest is already enabled
 
@@ -62,12 +63,12 @@ but not both in the same item).
 
 The first provider in the list is used to encrypt resources going into storage. When reading
 resources from storage each provider that matches the stored data attempts to decrypt the data in
-order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
-is returned which prevents clients from accessing that resource. 
+order. If no provider can read the stored data due to a mismatch in format or secret key, an error
+is returned which prevents clients from accessing that resource.
 
 {{< caution >}}
-**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
+**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed),
+the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
@@ -117,9 +118,9 @@ To create a new secret perform the following steps:
 
 1. Generate a 32 byte random key and base64 encode it. If you're on Linux or macOS, run the following command:
 
-    ```
-    head -c 32 /dev/urandom | base64
-    ```
+   ```shell
+   head -c 32 /dev/urandom | base64
+   ```
 
 2. Place that value in the secret field.
 3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
@@ -138,39 +139,42 @@ program to retrieve the contents of your secret.
 
 1. Create a new secret called `secret1` in the `default` namespace:
 
-    ```
-    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
-    ```
+   ```shell
+   kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
+   ```
 
 2. Using the etcdctl commandline, read that secret out of etcd:
 
-    ```
-    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
-    ```
+   `ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C`
 
-    where `[...]` must be the additional arguments for connecting to the etcd server. 
-3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data. 
+   where `[...]` must be the additional arguments for connecting to the etcd server.
+
+3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data.
+
 4. Verify the secret is correctly decrypted when retrieved via the API:
 
-    ```
-    kubectl describe secret secret1 -n default
-    ```
+   ```shell
+   kubectl describe secret secret1 -n default
+   ```
 
-    should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
-    completely decode the secret.
+   should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+   completely decode the secret.
 
 
 ## Ensure all secrets are encrypted
 
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
-```
+```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.
+
+{{< note >}}
 If an error occurs due to a conflicting write, retry the command.
 For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
+{{< /note >}}
 
 
 ## Rotating a decryption key
@@ -206,7 +210,10 @@ resources:
           secret: <BASE 64 ENCODED SECRET>
 ```
 
-and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+and restart all `kube-apiserver` processes. Then run:
+```shell
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
+```
 to force all secrets to be decrypted.
 
-{{% /capture %}}
+

@@ -1,11 +1,11 @@
 ---
 title: Taint dan Toleration
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 Afinitas Node, seperti yang dideskripsikan [di sini](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 adalah salah satu properti dari Pod yang menyebabkan pod tersebut memiliki preferensi
 untuk ditempatkan di sekelompok Node tertentu (preferensi ini dapat berupa _soft constraints_ atau
@@ -16,9 +16,9 @@ _Taint_ dan _toleration_ bekerja sama untuk memastikan Pod dijadwalkan pada Node
 yang sesuai. Satu atau lebih _taint_ akan diterapkan pada suatu node; hal ini akan menyebabkan
 node tidak akan menerima pod yang tidak mengikuti _taint_ yang sudah diterapkan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Konsep
 

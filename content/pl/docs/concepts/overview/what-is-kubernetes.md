@@ -2,18 +2,18 @@
 title: Kubernetes — co to jest?
 description: >
  Kubernetes to przenośna, rozszerzalna platforma oprogramowania *open-source* służąca do zarządzania zadaniami i serwisami uruchamianymi w kontenerach. Umożliwia ich deklaratywną konfigurację i automatyzację. Kubernetes posiada duży i dynamicznie rozwijający się ekosystem. Szeroko dostępne są serwisy, wsparcie i dodatkowe narzędzia.
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Na tej stronie znajdziesz ogólne informacje o Kubernetesie.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes to przenośna, rozszerzalna platforma oprogramowania *open-source* służąca do zarządzania zadaniami i serwisami uruchamianymi w kontenerach, która umożliwia deklaratywną konfigurację i automatyzację. Ekosystem Kubernetesa jest duży i dynamicznie się rozwija. Serwisy Kubernetesa, wsparcie i narzędzia są szeroko dostępne.
 
 Nazwa Kubernetes pochodzi z greki i oznacza sternika albo pilota. Google otworzyło projekt Kubernetes publicznie w 2014. Kubernetes korzysta z [piętnastoletniego doświadczenia Google w uruchamianiu wielkoskalowych serwisów](/blog/2015/04/borg-predecessor-to-kubernetes/) i łączy je z najlepszymi pomysłami i praktykami wypracowanymi przez społeczność.
@@ -85,9 +85,10 @@ Kubernetes:
 * Nie zapewnia, ani nie wykorzystuje żadnego ogólnego systemu do zarządzania konfiguracją, utrzymaniem i samo-naprawianiem maszyn.
 * Co więcej, nie jest zwykłym systemem planowania *(orchestration)*. W rzeczywistości, eliminuje konieczność orkiestracji. Zgodnie z definicją techniczną, orkiestracja to wykonywanie określonego ciągu zadań: najpierw A, potem B i następnie C. Dla kontrastu, Kubernetes składa się z wielu niezależnych, możliwych do złożenia procesów sterujących, których zadaniem jest doprowadzenie stanu faktycznego do stanu oczekiwanego. Nie ma znaczenia, w jaki sposób przechodzi się od A do C. Nie ma konieczności scentralizowanego zarządzania. Dzięki temu otrzymujemy system, który jest potężniejszy, bardziej odporny i niezawodny i dający więcej możliwości rozbudowy.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   Dowiedz się o [komponentach Kubernetesa](/pl/docs/concepts/overview/components/)
 *   Jesteś gotowy [zacząć pracę](/pl/docs/setup/)?
-{{% /capture %}}
+

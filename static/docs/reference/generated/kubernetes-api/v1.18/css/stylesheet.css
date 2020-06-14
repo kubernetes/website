@@ -21,7 +21,6 @@ light grey - rgb(161, 160, 158)
 
 .body-content table {
     margin-bottom: 1em;
-    width: 100%;
     overflow: auto;
 }
 
@@ -76,7 +75,6 @@ body > #wrapper {
 #sidebar-wrapper {
     display: block;
     height: 100%;
-    width: 20%;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -124,7 +122,6 @@ body > #wrapper {
 }
 
 #page-content-wrapper {
-    margin-left: 20%;
     padding-top: 60px;
 }
 

@@ -1,25 +1,26 @@
 ---
 title: 컨테이너를 위한 환경 변수 정의하기
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 본 페이지는 쿠버네티스 파드의 컨테이너를 위한 환경 변수를
 정의하는 방법에 대해 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 컨테이너를 위한 환경 변수 정의하기
 
@@ -109,12 +110,12 @@ spec:
 
 컨테이너가 생성되면, `echo Warm greetings to The Most Honorable Kubernetes` 커맨드가 컨테이너에서 실행된다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
 * [시크릿을 환경 변수로 사용하기](/docs/user-guide/secrets/#using-secrets-as-environment-variables)에 대해 알아본다.
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)를 확인한다.
 
-{{% /capture %}}

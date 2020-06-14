@@ -2,21 +2,21 @@
 reviewers:
 - bgrant0607
 - mikedanese
-title: What is Kubernetes
+title: What is Kubernetes?
 description: >
   Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page is an overview of Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 
 The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes combines [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running production workloads at scale with best-of-breed ideas and practices from the community.
@@ -86,9 +86,10 @@ Kubernetes:
 * Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
 * Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn’t matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
-{{% /capture %}}
+

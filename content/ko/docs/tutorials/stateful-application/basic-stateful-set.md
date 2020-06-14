@@ -1,24 +1,25 @@
 ---
 reviewers:
 title: 스테이트풀셋 기본
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 튜토리얼은 스테이트풀셋([StatefulSets](/ko/docs/concepts/workloads/controllers/statefulset/))을 이용하여
 애플리케이션을 관리하는 방법을 소개한다. 어떻게 스테이트풀셋의 파드(Pod)을 생성하고 삭제하며
 스케일링하고 업데이트하는지 시연한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 튜토리얼을 시작하기 전에 다음의 쿠버네티스 컨셉에 대해
 익숙해야 한다.
 
 * [파드](/docs/user-guide/pods/single-container/)
 * [클러스터 DNS(Cluster DNS)](/ko/docs/concepts/services-networking/dns-pod-service/)
 * [헤드리스 서비스(Headless Services)](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)
-* [퍼시스턴트볼륨(PersistentVolumes)](/docs/concepts/storage/persistent-volumes/)
+* [퍼시스턴트볼륨(PersistentVolumes)](/ko/docs/concepts/storage/persistent-volumes/)
 * [퍼시턴트볼륨 프로비저닝](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
 * [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl CLI](/docs/user-guide/kubectl/)
@@ -27,9 +28,10 @@ weight: 10
 설정되었다고 가정한다. 만약 클러스터가 이렇게 설정되어 있지 않다면,
 튜토리얼 시작 전에 수동으로 2개의 1 GiB 볼륨을
 프로비저닝해야 한다.
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 스테이트풀셋은 상태 유지가 필요한(stateful) 애플리케이션과 분산시스템에서
 이용하도록 의도했다. 그러나 쿠버네티스 상에 스테이트풀 애플리케이션과
 분산시스템을 관리하는 것은 광범위하고 복잡한 주제이다. 스테이트풀셋의 기본 기능을 보여주기 위해
@@ -43,9 +45,9 @@ weight: 10
 * 스테이트풀셋을 어떻게 삭제하는지
 * 스테이트풀셋은 어떻게 스케일링하는지
 * 스테이트풀셋의 파드는 어떻게 업데이트하는지
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 ## 스테이트풀셋 생성하기
 
 아래 예제를 이용해서 스테이트풀셋을 생성하자. 이는
@@ -257,7 +259,7 @@ NAME        STATUS    VOLUME                                     CAPACITY   ACCE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
-스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/docs/concepts/storage/persistent-volumes/)에
+스테이트풀셋 컨트롤러는 2개의 [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)에
 묶인 2개의 퍼시스턴트볼륨클레임을 생성했다. 본 튜토리얼에서 사용되는 클러스터는 퍼시스턴트볼륨을 동적으로
 프로비저닝하도록 설정되었으므로 생성된 퍼시스턴트볼륨도 자동으로 묶인다.
 
@@ -1026,13 +1028,14 @@ web-3     0/1       Terminating   0         9m
 ```shell
 kubectl delete svc nginx
 ```
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 이 튜토리얼에서 사용된 퍼시턴트볼륨을 위한
 퍼시스턴트 스토리지 미디어를 삭제해야 한다.
 모든 스토리지를 반환하도록 환경, 스토리지 설정과
 프로비저닝 방법에 따른 단계를 따르자.
-{{% /capture %}}
+
 
 

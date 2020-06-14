@@ -1,18 +1,18 @@
 <!--
 ---
 title: Assign CPU Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
 ---
 title: 为容器和 Pods 分配 CPU 资源
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to assign a CPU *request* and a CPU *limit* to
@@ -23,10 +23,11 @@ allocated as much CPU as it requests.
 此页面显示如何将 CPU *request* 和 CPU *limit* 分配给一个容器。容器使用的 CPU 不能超过配额限制。
 如果系统有空闲的 CPU 时间，则可以保证根据请求给容器分配尽可能多的 CPU 资源。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -61,7 +62,7 @@ API, `metrics.k8s.io`) is running, type the following command:
 查看是 metrics-server（或者其他资源度量 API 服务提供者，`metrics.k8s.io` ）是否正在运行，请键入以下命令：
 
 ```shell
-kubectl get  API services
+kubectl get apiservices
 ```
 <!-- 
 If the resource metrics  API  is available, the output will include a
@@ -76,10 +77,10 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 <!-- 
@@ -92,7 +93,7 @@ create in this exercise are isolated from the rest of your cluster.
 创建一个命名空间 {{< glossary_tooltip term_id="namespace" >}}，以便在本练习中创建的资源与集群的其余部分资源隔离。
 
 ```shell
-kubectl create namespace CPU -example
+kubectl create namespace cpu-example
 ```
 
 <!-- 
@@ -159,9 +160,9 @@ and a CPU limit of 1 CPU.
 ```yaml
 resources:
   limits:
-   CPU : "1"
+    cpu: "1"
   requests:
-   CPU : 500m
+    cpu: 500m
 ```
 
 <!-- 
@@ -179,8 +180,8 @@ just a bit less than the limit of 1 CPU specified in the Pod configuration.
 -->
 此示例的输出，显示 Pod 使用的是974 milliCPU，即仅略低于 Pod 配置中指定的 1 个 CPU 的限制。
 ```
-NAME                       CPU (cores)   MEMORY(bytes)
- CPU -demo                    974m         <something>
+NAME                        CPU(cores)   MEMORY(bytes)
+cpu-demo                    974m         <something>
 ```
 <!-- 
 Recall that by setting `-cpu "2"`, you configured the Container to attempt to use 2 CPUs, but the Container is only being allowed to use about 1 CPU. The container's CPU use is being throttled, because the container is attempting to use more CPU resources than its limit.
@@ -405,9 +406,10 @@ Delete your namespace:
 kubectl delete namespace cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- 
 ### For app developers
@@ -456,5 +458,5 @@ kubectl delete namespace cpu-example
 
 * [配置 API 对象的配额](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+
 

@@ -3,22 +3,22 @@ reviewers:
 - davidopp
 - wojtek-t
 title: Pod Priority and Preemption
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.14" state="stable" >}}
+{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 [Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< warning >}}
@@ -50,13 +50,6 @@ Kubernetes already ships with two PriorityClasses:
 `system-cluster-critical` and `system-node-critical`.
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 {{< /note >}}
-
-If you try the feature and then decide to disable it, you must remove the
-PodPriority command-line flag or set it to `false`, and then restart the API
-server and scheduler. After the feature is disabled, the existing Pods keep
-their priority fields, but preemption is disabled, and priority fields are
-ignored. If the feature is disabled, you cannot set `priorityClassName` in new
-Pods.
 
 ## How to disable preemption
 
@@ -120,7 +113,7 @@ cluster when they should use this PriorityClass.
 
 ### Notes about PodPriority and existing clusters
 
--   If you upgrade your existing cluster and enable this feature, the priority
+-   If you upgrade an existing cluster without this feature, the priority
     of your existing Pods is effectively zero.
 
 -   Addition of a PriorityClass with `globalDefault` set to `true` does not
@@ -145,7 +138,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
 Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
@@ -409,12 +402,13 @@ See
 [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
 for more details.
 
-kubelet out-of-resource eviction does not evict Pods wheir their
+kubelet out-of-resource eviction does not evict Pods when their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
-{{% /capture %}}
+

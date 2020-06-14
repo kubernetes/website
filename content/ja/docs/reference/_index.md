@@ -3,16 +3,16 @@ title: リファレンス
 linkTitle: "リファレンス"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本セクションには、Kubernetesのドキュメントのリファレンスが含まれています。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIリファレンス
 
@@ -46,4 +46,4 @@ content_template: templates/concept
 
 Kubernetesの機能に関する設計ドキュメントのアーカイブです。[Kubernetesアーキテクチャ](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) と[Kubernetesデザイン概要](https://git.k8s.io/community/contributors/design-proposals)から読み始めると良いでしょう。
 
-{{% /capture %}}
+

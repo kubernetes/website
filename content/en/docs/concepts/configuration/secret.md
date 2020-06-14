@@ -2,24 +2,24 @@
 reviewers:
 - mikedanese
 title: Secrets
-content_template: templates/concept
+content_type: concept
 feature:
   title: Secret and configuration management
   description: >
     Deploy and update secrets and application configuration without rebuilding your image and without exposing secrets in your stack configuration.
-weight: 50
+weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes Secrets let you store and manage sensitive information, such
 as passwords, OAuth tokens, and ssh keys. Storing confidential information in a Secret
 is safer and more flexible than putting it verbatim in a
 {{< glossary_tooltip term_id="pod" >}} definition or in a {{< glossary_tooltip text="container image" term_id="image" >}}. See [Secrets design document](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) for more information.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview of Secrets
 
@@ -29,12 +29,13 @@ Pod specification or in an image. Users can create secrets and the system
 also creates some secrets.
 
 To use a secret, a Pod needs to reference the secret.
-A secret can be used with a Pod in two ways:
+A secret can be used with a Pod in three ways:
 
-- As files in a
+- As [files](#using-secrets-as-files-from-a-pod) in a
 {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
 its containers.
-- By the kubelet when pulling images for the Pod.
+- As [container environment variable](#using-secrets-as-environment-variables).
+- By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
 
 ### Built-in Secrets
 
@@ -81,13 +82,19 @@ The output is similar to:
 secret "db-user-pass" created
 ```
 
-{{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
-In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+Default key name is the filename. You may optionally set the key name using `[--from-file=[key=]source]`.
 
 ```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+kubectl create secret generic db-user-pass --from-file=username=./username.txt --from-file=password=./password.txt
+```
+
+{{< note >}}
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
+For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
+
+```shell
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
 You do not need to escape special characters in passwords from files (`--from-file`).
@@ -574,7 +581,7 @@ spec:
   - name: foo
     secret:
       secretName: mysecret
-      defaultMode: 256
+      defaultMode: 0400
 ```
 
 Then, the secret will be mounted on `/etc/foo` and all the files created by the
@@ -583,6 +590,38 @@ secret volume mount will have permission `0400`.
 Note that the JSON spec doesn't support octal notation, so use the value 256 for
 0400 permissions. If you use YAML instead of JSON for the Pod, you can use octal
 notation to specify permissions in a more natural way.
+
+Note if you `kubectl exec` into the Pod, you need to follow the symlink to find
+the expected file mode. For example,
+
+Check the secrets file mode on the pod.
+```
+kubectl exec mypod -it sh
+
+cd /etc/foo
+ls -l
+```
+
+The output is similar to this:
+```
+total 0
+lrwxrwxrwx 1 root root 15 May 18 00:18 password -> ..data/password
+lrwxrwxrwx 1 root root 15 May 18 00:18 username -> ..data/username
+```
+
+Follow the symlink to find the correct file mode.
+
+```
+cd /etc/foo/..data
+ls -l
+```
+
+The output is similar to this:
+```
+total 8
+-r-------- 1 root root 12 May 18 00:18 password
+-r-------- 1 root root  5 May 18 00:18 username
+```
 
 You can also use mapping, as in the previous example, and specify different
 permissions for different files like this:
@@ -606,12 +645,12 @@ spec:
       items:
       - key: username
         path: my-group/my-username
-        mode: 511
+        mode: 0777
 ```
 
 In this case, the file resulting in `/etc/foo/my-group/my-username` will have
-permission value of `0777`. Owing to JSON limitations, you must specify the mode
-in decimal notation.
+permission value of `0777`. If you use JSON, owing to JSON limitations, you
+must specify the mode in decimal notation, `511`.
 
 Note that this permission value might be displayed in decimal notation if you
 read it later.
@@ -687,7 +726,7 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-To use this feature, enable the `ImmutableEmphemeralVolumes`
+To use this feature, enable the `ImmutableEphemeralVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
 your Secret or ConfigMap `immutable` field to `true`. For example:
 ```yaml
@@ -854,6 +893,43 @@ start until all the Pod's volumes are mounted.
 
 ## Use cases
 
+### Use-Case: As container environment variables
+
+Create a secret
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  USER_NAME: YWRtaW4=
+  PASSWORD: MWYyZDFlMmU2N2Rm
+```
+
+Create the Secret:
+```shell
+kubectl apply -f mysecret.yaml
+```
+
+Use `envFrom` to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: k8s.gcr.io/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      envFrom:
+      - secretRef:
+          name: mysecret
+  restartPolicy: Never
+```
+
 ### Use-Case: Pod with ssh keys
 
 Create a secret containing some ssh keys:
@@ -937,12 +1013,12 @@ secret "test-db-secret" created
 ```
 
 {{< note >}}
-Special characters such as `$`, `\`, `*`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
-For example, if your actual password is `S!B\*d$zDsb`, you should execute the command this way:
+For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
 
 ```shell
-kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb'
+kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
 ```
 
  You do not need to escape special characters in passwords from files (`--from-file`).

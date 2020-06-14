@@ -7,8 +7,8 @@ approvers:
 - sig-docs-en-owners # Defined in OWNERS_ALIASES
 
 emeritus_approvers:
-- chenopis
-- jaredbhatti
+# chenopis, you're welcome to return when you're ready to resume PR wrangling
+# jaredbhatti, you're welcome to return when you're ready to resume PR wrangling
 # stewart-yu, you're welcome to return when you're ready to resume PR wrangling
 - stewart-yu 
 

@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: オブジェクトの名前とID
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 クラスター内の各オブジェクトには、そのタイプのリソースに固有の[_名前_](#names)があります。すべてのKubernetesオブジェクトには、クラスター全体で一意の[_UID_](#uids)もあります。
 
@@ -13,9 +13,9 @@ weight: 20
 
 ユーザーが一意ではない属性を付与するために、Kubernetesは[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)と[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を提供しています。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 名前 {#names}
 
@@ -74,8 +74,6 @@ spec:
 Kubernetes UIDは、UUIDのことを指します。
 UUIDは、ISO/IEC 9834-8およびITU-T X.667として標準化されています。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 * Kubernetesの[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)についてお読みください。
 * [Kubernetesの識別子と名前](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md)デザインドキュメントをご覧ください。
-{{% /capture %}}

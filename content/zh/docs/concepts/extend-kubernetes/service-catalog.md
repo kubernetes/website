@@ -2,7 +2,7 @@
 title: 服务目录
 reviewers:
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 40
 title: Service Catalog
 reviewers:
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="" >}}  
 
 <!--
@@ -29,10 +29,10 @@ Using Service Catalog, a {{< glossary_tooltip text="cluster operator" term_id="c
 
 使用服务目录，集群操作者可以浏览其提供的托管服务列表，提供托管服务实例并与之绑定，以使其可以被 Kubernetes 集群中的应用程序使用。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Example use case
 
@@ -437,10 +437,11 @@ The following example describes how to map secret values into application enviro
                    key: topic
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * If you are familiar with {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
@@ -451,7 +452,7 @@ The following example describes how to map secret values into application enviro
 * 查看[服务代理示例](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)。
 * 浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
 * 查看 [svc-cat.io](https://svc-cat.io/docs/)。
-{{% /capture %}}
+
 
 
 

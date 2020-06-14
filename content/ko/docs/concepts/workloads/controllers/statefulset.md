@@ -1,17 +1,17 @@
 ---
 title: 스테이트풀셋
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 스테이트풀셋은 애플리케이션의 스테이트풀을 관리하는데 사용하는 워크로드 API 오브젝트이다.
 
 {{< glossary_definition term_id="statefulset" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 스테이트풀셋 사용
 
@@ -99,7 +99,7 @@ spec:
 
 * 이름이 nginx라는 헤드리스 서비스는 네트워크 도메인을 컨트롤하는데 사용 한다.
 * 이름이 web인 스테이트풀셋은 3개의 nginx 컨테이너의 레플리카가 고유의 파드에서 구동될 것이라 지시하는 Spec을 갖는다.
-* volumeClaimTemplates은 퍼시스턴트 볼륨 프로비저너에서 프로비전한 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 사용해서 안정적인 스토리지를 제공한다.
+* volumeClaimTemplates은 퍼시스턴트 볼륨 프로비저너에서 프로비전한 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 사용해서 안정적인 스토리지를 제공한다.
 스테이트풀셋 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
@@ -147,13 +147,13 @@ N개의 레플리카가 있는 스테이트풀셋은 스테이트풀셋에 있�
  kube.local    | foo/nginx         | foo/web           | nginx.foo.svc.kube.local        | web-{0..N-1}.nginx.foo.svc.kube.local        | web-{0..N-1} |
 
 {{< note >}}
-클러스터 도메인이 달리 [구성된 경우](/ko/docs/concepts/services-networking/dns-pod-service/#how-it-works)가 
+클러스터 도메인이 달리 [구성된 경우](/ko/docs/concepts/services-networking/dns-pod-service/)가 
 아니라면 `cluster.local`로 설정된다.
 {{< /note >}}
 
 ### 안정된 스토리지
 
-쿠버네티스는 각 VolumeClaimTemplate마다 하나의 [퍼시스턴트 볼륨](/docs/concepts/storage/persistent-volumes/)을 
+쿠버네티스는 각 VolumeClaimTemplate마다 하나의 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)을 
 생성한다. 위의 nginx 예시에서 각 파드는 `my-storage-class` 라는 스토리지 클래스와 
 1 Gib의 프로비전된 스토리지를 가지는 단일 퍼시스턴트 볼륨을 받게된다. 만약 스토리지 클래스가 
 명시되지 않은 경우 기본 스토리지 클래스를 사용된다. 파드가 노드에서 스케줄 혹은 재스케줄이되면 
@@ -262,12 +262,13 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 실행하려고 시도한 모든 파드를 삭제해야 한다.
 그러면 스테이트풀셋은 되돌린 템플릿을 사용해서 파드를 다시 생성하기 시작 한다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [스테이트풀 애플리케이션의 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/)의 예시를 따른다.
 * [카산드라와 스테이트풀셋 배포](/ko/docs/tutorials/stateful-application/cassandra/)의 예시를 따른다.
 * [레플리케이티드(replicated) 스테이트풀 애플리케이션 실행하기](/docs/tasks/run-application/run-replicated-stateful-application/)의 예시를 따른다.
 
-{{% /capture %}}
+
 

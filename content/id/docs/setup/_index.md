@@ -3,10 +3,10 @@ no_issue: true
 title: Persiapan
 main_menu: true
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Gunakan halaman ini untuk mencari solusi yang paling sesuai dengan kebutuhan kamu.
 
@@ -14,9 +14,9 @@ Menentukan dimana sebaiknya Kubernetes dijalankan sangat tergantung pada kapasit
 Kamu dapat menjalankan Kubernetes hampir dimana saja, mulai dari laptop, VM di penyedia cloud, sampai pada rak-rak berisi server <i>baremetal</i>.
 Kamu juga bisa menyiapkan klaster yang diatur sepenuhnya (<i>fully-managed</i>), dengan hanya menjalankan satu perintah, ataupun membuat klaster dengan solusi <i>custom</i> kamu sendiri pada server <i>baremetal</i>.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Solusi pada Mesin Lokal
 
@@ -74,8 +74,9 @@ Solusi-solusi ini cukup beragam, mulai dari bare-metal sampai ke penyedia cloud,
 
 Pilih [solusi <i>custom</i>](/docs/setup/pick-right-solution/#custom-solutions).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Lihat [Memilih Solusi Terbaik](/docs/setup/pick-right-solution/) untuk daftar solusi yang lengkap.
-{{% /capture %}}
+

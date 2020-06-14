@@ -3,14 +3,14 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 This command initializes a Kubernetes control-plane node.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
@@ -23,8 +23,7 @@ following steps:
    considered errors and will exit kubeadm until the problem is corrected or the
    user specifies `--ignore-preflight-errors=<list-of-errors>`.
 
-1. Generates a self-signed CA (or using an existing one if provided) to set up
-   identities for each component in the cluster. If the user has provided their
+1. Generates a self-signed CA to set up identities for each component in the cluster. The user can provide their
    own CA cert and/or key by dropping it in the cert directory configured via `--cert-dir`
    (`/etc/kubernetes/pki` by default).
    The APIServer certs will have additional SAN entries for any `--apiserver-cert-extra-sans` arguments, lowercased if necessary.
@@ -256,12 +255,13 @@ it does not allow the root CA hash to be validated with
 `--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
 provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
 `kubeadm init` phases
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-{{% /capture %}}
+

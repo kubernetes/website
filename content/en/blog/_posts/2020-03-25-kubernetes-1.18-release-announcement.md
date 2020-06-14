@@ -37,8 +37,7 @@ SIG-CLI was debating the need for a debug utility for quite some time already. W
 
 ### Introducing Windows CSI support alpha for Kubernetes
 
-With the release of Kubernetes 1.18, an alpha version of CSI Proxy for Windows is getting released. CSI proxy enables non-privileged (pre-approved) containers to perform privileged storage operations on Windows. CSI drivers can now be supported in Windows by leveraging CSI proxy.
-
+The alpha version of CSI Proxy for Windows is being released with Kubernetes 1.18. CSI proxy enables CSI Drivers on Windows by allowing containers in Windows to perform privileged storage operations.
 
 ## Other Updates
 
