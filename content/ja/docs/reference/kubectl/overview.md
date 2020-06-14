@@ -18,7 +18,7 @@ card:
 
 ## 構文
 
-ターミナルウィンドウから `kubectl` コマンドを実行するには、以下の構文を使用します。
+ターミナルウィンドウから`kubectl`コマンドを実行するには、以下の構文を使用します。
 
 ```shell
 kubectl [command] [TYPE] [NAME] [flags]
