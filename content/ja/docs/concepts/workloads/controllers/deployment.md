@@ -13,7 +13,7 @@ weight: 30
 
 _Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
 
-ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deployment {{< glossary_tooltip term_id="コントローラー" >}} は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
+ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
 Deploymentによって作成されたReplicaSetを管理しないでください。ユーザーのユースケースが下記の項目をカバーできていない場合はメインのKubernetesリポジトリーにイシューを作成することを検討してください。
