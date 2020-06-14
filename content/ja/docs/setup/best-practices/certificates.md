@@ -26,7 +26,7 @@ Kubernetesは下記の用途でPKIを必要とします：
 * APIサーバーがetcdと通信するためのクライアント証明書
 * controller managerがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
 * スケジューラーがAPIサーバーと通信するためのクライアント証明書およびkubeconfig
-* [front-proxy][proxy]用のクライアント証明書およびサーバ証明書
+* [front-proxy][proxy]用のクライアント証明書およびサーバー証明書
 
 {{< note >}}
 `front-proxy`証明書は、[Kubernetes APIの拡張](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)をサポートするためにkube-proxyを実行する場合のみ必要です。
@@ -134,7 +134,7 @@ kubeadm利用者のみ：
 | scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
 
 {{< note >}}
-`kubelet.conf`における`<nodeName>`の値は**必ず**APIサーバに登録されたkubeletのノード名と一致しなければなりません。詳細は、[Node Authorization](/docs/reference/access-authn-authz/node/)を参照してください。
+`kubelet.conf`における`<nodeName>`の値は**必ず**APIサーバーに登録されたkubeletのノード名と一致しなければなりません。詳細は、[Node Authorization](/docs/reference/access-authn-authz/node/)を参照してください。
 {{< /note >}}
 
 1. 各コンフィグ毎に、CN名と組織を指定してx509証明書と鍵ペアを生成してください。
