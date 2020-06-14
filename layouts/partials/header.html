@@ -1,40 +1,40 @@
 <div id="cellophane" onclick="kub.toggleMenu()"></div>
 
 <header>
-    <a href="{{ site.Home.RelPermalink }}" class="logo" title="{{ site.Home.Title }} - {{ site.Params.title }}" aria-label="Kubernetes website"></a>
+    <a href="{{ site.Home.RelPermalink }}" class="logo" title="{{ site.Home.Title }} - {{ site.Params.title }}" aria-label="Kubernetes website" data-proofer-ignore></a>
 
     <div class="nav-buttons" data-auto-burger="primary">
         <ul class="global-nav">
             {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}}>{{ .LinkTitle }}</a></li>{{ end }}
+            {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}} data-proofer-ignore>{{ .LinkTitle }}</a></li>{{ end }}
             {{ end }}
             {{/* Link directly to documentation etc., if possible. */}}
             {{ $langPage := cond (gt (len .Translations) 0) . site.Home }}
              <li>
-                <a href="#">
+                <a href="#" data-proofer-ignore>
                     {{ $langPage.Language.LanguageName }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
                 {{ range $langPage.Translations }}
-                    <li><a href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a></li>
+                    <li><a href="{{ .RelPermalink }}" data-proofer-ignore>{{ .Language.LanguageName }}</a></li>
                 {{ end }}
                 </ul>
             </li>
 
             <li>
-                <a href="#">
+                <a href="#" data-proofer-ignore>
                     {{ site.Params.version }} <span class="ui-icon ui-icon-carat-1-s"></span>
                 </a>
                 <ul>
                 {{ range site.Params.versions }}
-                    <li><a href="{{ .url }}{{ $.RelPermalink }}">{{ .version }}</a></li>
+                    <li><a href="{{ .url }}{{ $.RelPermalink }}" data-proofer-ignore>{{ .version }}</a></li>
                 {{ end }}
                 </ul>
             </li>
         </ul>
         {{ with site.GetPage "section" "docs/tutorials/kubernetes-basics" }}
-        <a href="{{ .RelPermalink }}" class="button" id="tryKubernetes" data-auto-burger-exclude>{{ .LinkTitle }}</a>
+        <a href="{{ .RelPermalink }}" class="button" id="tryKubernetes" data-auto-burger-exclude data-proofer-ignore>{{ .LinkTitle }}</a>
         {{ end }}
 
         <button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
@@ -44,7 +44,7 @@
         <div class="main-section" data-auto-burger="primary">
          {{ range site.Menus.main }}
            <div class="nav-box">
-            <h3><a href="{{ .URL }}">{{ .Title }}</a></h3>
+            <h3><a href="{{ .URL }}" data-proofer-ignore>{{ .Title }}</a></h3>
            {{ .Post }}
             </div>
          {{ end }}
@@ -60,11 +60,11 @@
                 <div class="social">
                     <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
                     <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
-                    <a href="http://slack.k8s.io/" class="slack"><span>{{ T "community_slack_name" }} Slack</span></a>
+                    <a href="http://slack.k8s.io/" class="slack"><span>{{ T "community_slack_name" }}</span></a>
                     <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
                     <a href="https://www.youtube.com/kubernetescommunity" class="youtube"><span>{{ T "community_youtube_name" }}</span></a>
                     <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
-                    <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
+                    <a href="https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
                 </div>
             </div>
             <div class="clear" style="clear: both"></div>

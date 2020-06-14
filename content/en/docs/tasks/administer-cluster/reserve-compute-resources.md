@@ -4,11 +4,11 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: 1.8
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes nodes can be scheduled to `Capacity`. Pods can consume all the
 available capacity on a node by default. This is an issue because nodes
@@ -22,19 +22,20 @@ compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure `Node Allocatable` based on their workload density
 on each node.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 Your Kubernetes server must be at or later than version 1.17 to use
 the kubelet command line option `--reserved-cpus` to set an
 [explicitly reserved CPU list](#explicitly-reserved-cpu-list).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Node Allocatable
 
@@ -173,7 +174,7 @@ For example: in Centos, you can do this using the tuned toolset.
 Memory pressure at the node level leads to System OOMs which affects the entire
 node and all pods running on it. Nodes can go offline temporarily until memory
 has been reclaimed. To avoid (or reduce the probability of) system OOMs kubelet
-provides [`Out of Resource`](./out-of-resource.md) management. Evictions are
+provides [`Out of Resource`](/docs/tasks/administer-cluster/out-of-resource/) management. Evictions are
 supported for `memory` and `ephemeral-storage` only. By reserving some memory via
 `--eviction-hard` flag, the `kubelet` attempts to `evict` pods whenever memory
 availability on the node drops below the reserved value. Hypothetically, if
@@ -190,7 +191,7 @@ The scheduler treats `Allocatable` as the available `capacity` for pods.
 `kubelet` enforce `Allocatable` across pods by default. Enforcement is performed
 by evicting pods whenever the overall usage across all pods exceeds
 `Allocatable`. More details on eviction policy can be found
-[here](./out-of-resource.md#eviction-policy). This enforcement is controlled by
+[here](/docs/tasks/administer-cluster/out-of-resource/#eviction-policy). This enforcement is controlled by
 specifying `pods` value to the kubelet flag `--enforce-node-allocatable`.
 
 
@@ -226,9 +227,9 @@ more features are added. Over time, kubernetes project will attempt to bring
 down utilization of node system daemons, but that is not a priority as of now.
 So expect a drop in `Allocatable` capacity in future releases.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Example Scenario
 
@@ -251,4 +252,3 @@ If `kube-reserved` and/or `system-reserved` is not enforced and system daemons
 exceed their reservation, `kubelet` evicts pods whenever the overall node memory
 usage is higher than `31.5Gi` or `storage` is greater than `90Gi`
 
-{{% /capture %}}

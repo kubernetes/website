@@ -1,6 +1,6 @@
 ---
 title: 干扰
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
@@ -11,12 +11,12 @@ reviewers:
 - foxish
 - davidopp
 title: Disruptions
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This guide is for application owners who want to build
 highly available applications, and thus need to understand
@@ -32,10 +32,10 @@ cluster actions, like upgrading and autoscaling clusters.
 
 文档同样适用于想要执行自动化集群操作（例如升级和自动扩展集群）的集群管理员。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Voluntary and Involuntary Disruptions
@@ -505,17 +505,17 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 - 故障转移到另一个完整的副本集群。
    -  没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
 - 编写可容忍干扰的应用程序和使用 PDB。
-   - 没有停机
-   间。
+   - 不停机。
    - 最小的资源重复。
    - 允许更多的集群管理自动化。
    - 编写可容忍干扰的应用程序是棘手的，但对于支持容忍自愿干扰所做的工作，和支持自动扩缩和容忍非
    愿干扰所做工作相比，有大量的重叠
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
@@ -530,4 +530,4 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
 
 * 了解更多关于[排空节点](/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 
-{{% /capture %}}
+

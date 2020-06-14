@@ -1,20 +1,20 @@
 ---
 title: Images
 description: Images conteneur Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Vous créez une image Docker et la poussez dans un registre avant de la référencer depuis un pod Kubernetes.
 
 La propriété `image` d'un conteneur utilise la même syntaxe que la commande `docker`, y compris pour les registres privés et les tags.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mettre à jour des images
 
@@ -60,12 +60,13 @@ Ces certificats peuvent être fournis de différentes manières :
     - automatiqueent configuré dans Google Compute Engine ou Google Kubernetes Engine
     - tous les pods peuvent lire le registre privé du projet
   - En utilisant Amazon Elastic Container Registry (ECR)
-    - utilise des rôles et politiques IAM pour contrôler l'accès aux dépôts ECR
+    - utilise les rôles et politiques IAM pour contrôler l'accès aux dépôts ECR
     - rafraîchit automatiquement les certificats de login ECR
   - En utilisant Oracle Cloud Infrastructure Registry (OCIR)
-    - utilisez les rôles et politiques IAM pour contrôler l'accès aux dépôts OCIR
+    - utilise les rôles et politiques IAM pour contrôler l'accès aux dépôts OCIR
   - En utilisant Azure Container Registry (ACR)
   - En utilisant IBM Cloud Container Registry
+    - utilise les rôles et politiques IAM pour contrôler l'accès à l'IBM Cloud Container Registry
   - En configurant les nœuds pour s'authentifier auprès d'un registre privé
     - tous les pods peuvent lire les registres privés configurés
     - nécessite la configuration des nœuds par un administrateur du cluster
@@ -120,9 +121,9 @@ Dépannage :
 - Vérifiez toutes les exigences ci-dessus.
 - Copiez les certificats de $REGION (par ex. `us-west-2`) sur votre poste de travail. Connectez-vous en SSH sur l'hôte et exécutez Docker manuellement avec ces certificats. Est-ce que ça marche ?
 - Vérifiez que kubelet s'exécute avec `--cloud-provider=aws`.
-- Recherchez dans les logs de kubelet (par ex. `journalctl -u kubelet`) des lignes de logs ressemblant à :
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
+- Augmentez la verbosité des logs de kubelet à au moins 3 et recherchez dans les logs de kubelet (par exemple avec `journalctl -u kubelet`) des lignes similaires à :
++  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
++  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Utiliser Azure Container Registry (ACR)
 En utilisant [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
@@ -143,11 +144,11 @@ Une fois que vous avez défini ces variables, vous pouvez
 
 ### Utiliser IBM Cloud Container Registry
 
-IBM Cloud Container Registry fournit un registre d'images multi-tenant privé que vous pouvez utiliser pour stocker et partager de manière sécurisée vos images Docker. Par défaut, les images de votre registre privé sont scannées par le Vulnerability Advisor intégré pour détecter des failles de sécurité et des vulnérabilités potentielles. Les utilisateurs de votre compte IBM Cloud peuvent accéder à vos images, ou vous pouvez créer un token pour garantir l'accès à des namespaces du registre.
+IBM Cloud Container Registry fournit un registre d'images multi-tenant privé que vous pouvez utiliser pour stocker et partager de manière sécurisée vos images. Par défaut, les images de votre registre privé sont scannées par le Vulnerability Advisor intégré pour détecter des failles de sécurité et des vulnérabilités potentielles. Les utilisateurs de votre compte IBM Cloud peuvent accéder à vos images, ou vous pouvez des rôles et politiques IAM pour fournir l'accès aux namespaces de l'IBM Cloud Container Registry.
 
-Pour installer le plugin du CLI de IBM Cloud Container Registry et créer un namespace pour vos images, voir [Débuter avec IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started).
+Pour installer le plugin du CLI de IBM Cloud Container Registry et créer un namespace pour vos images, voir [Débuter avec IBM Cloud Container Registry](https://cloud.ibm.com/docs/Registry?topic=registry-getting-started).
 
-Vous pouvez utiliser le IBM Cloud Container Registry pour déployer des conteneurs depuis des [images publiques de IBM Cloud](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) et vos images privées dans le namespace `default` de votre cluster IBM Cloud Kubernetes Service. Pour déployer un conteneur dans d'autres namespaces, ou pour utiliser une image d'une autre région de IBM Cloud Container Registry ou d'un autre compte IBM Cloud, créez un `imagePullSecret` Kubernetes. Pour plus d'informations, voir [Construire des conteneurs à partir d'images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
+Si vous utilisez le même compte et la même région, vous pouvez déployer des images stockées dans IBM Cloud Container Registry vers la namespace `default` de votre cluster IBM Cloud Kubernetes Service sans configuration supplémentaire, voir [Construire des conteneurs à partir d'images](https://cloud.ibm.com/docs/containers?topic=containers-images). Pour les autres options de configuration, voir [Comprendre comment autoriser votre cluster à télécharger des images depuis un registre](https://cloud.ibm.com/docs/containers?topic=containers-registry#cluster_registry_auth).
 
 ### Configurer les nœuds pour s'authentifier auprès d'un registre privé
 
@@ -209,19 +210,33 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+
+```
 pod/test-image-privee-1 created
 ```
-Si tout fonctionne, alors, après quelques instants, vous devriez voir :
+
+Si tout fonctionne, alors, après quelques instants, vous pouvez exécuter :
 
 ```shell
 kubectl logs test-image-privee-1
+```
+
+et voir que la commande affiche :
+
+```
 SUCCESS
 ```
 
-En cas de problèmes, vous verrez :
+Si vous suspectez que la commande a échouée, vous pouvez exécuter :
 
 ```shell
-kubectl describe pods/test-image-privee-1 | grep "Failed"
+kubectl describe pods/test-image-privee-1 | grep 'Failed'
+```
+
+En cas d'échec, l'affichage sera similaire à :
+
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -338,7 +353,7 @@ Il y a plusieurs solutions pour configurer des registres privés. Voici quelques
    - Générez des certificats de registre pour chaque *tenant*, placez-les dans des secrets, et placez ces secrets dans les namespaces de chaque *tenant*.
 pod   - Le *tenant* ajoute ce secret dans les imagePullSecrets de chaque pod.
 
-{{% /capture %}}
-
 Si vous devez accéder à plusieurs registres, vous pouvez créer un secret pour chaque registre.
 Kubelet va fusionner tous les `imagePullSecrets` dans un unique `.docker/config.json` virtuel.
+
+

@@ -3,7 +3,7 @@ title: 쿠버네티스 문서
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "홈"
 main_menu: true
 weight: 10
@@ -13,7 +13,7 @@ menu:
     title: "문서"
     weight: 20
     post: >
-      <p>개념, 튜토리얼 및 참조 문서와 함께 쿠버네티스 사용하는 방법을 익힐 수 있다. 또한, <a href="/editdocs/" data-auto-burger-exclude>문서에 기여하는 것도 도움을 줄 수 있다</a>!</p>
+      <p>개념, 튜토리얼 및 참조 문서와 함께 쿠버네티스 사용하는 방법을 익힐 수 있다. 또한, <a href="/editdocs/" data-auto-burger-exclude data-proofer-ignore>문서에 기여하는 것도 도움을 줄 수 있다</a>!</p>
 description: >
   쿠버네티스는 컨테이너화된 애플리케이션의 배포, 확장 및 관리를 자동화하기 위한 오픈소스 컨테이너 오케스트레이션 엔진이다. 오픈소스 프로젝트는 Cloud Native Computing Foundation에서 주관한다.
 overview: >
@@ -40,7 +40,7 @@ cards:
   button: "태스크 보기"
   button_path: "/ko/docs/tasks"
 - name: training
-  title: 교육"
+  title: "교육"
   description: "공인 쿠버네티스 인증을 획득하고 클라우드 네이티브 프로젝트를 성공적으로 수행하세요!"
   button: "교육 보기"
   button_path: "/training"  

@@ -3,10 +3,10 @@ reviewers:
 - davidopp
 - madhusudancs
 title: Configure Multiple Schedulers
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
 If the default scheduler does not suit your needs you can implement your own scheduler.
@@ -19,16 +19,17 @@ document. Please refer to the kube-scheduler implementation in
 [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)
 in the Kubernetes source directory for a canonical example.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Package the scheduler
 
@@ -108,40 +109,63 @@ my-scheduler-lnf4s-4744f                       1/1       Running   0          2m
 You should see a "Running" my-scheduler pod, in addition to the default kube-scheduler
 pod in this list.
 
+### Enable leader election
+
 To run multiple-scheduler with leader election enabled, you must do the following:
 
 First, update the following fields in your YAML file:
 
 * `--leader-elect=true`
-* `--lock-object-namespace=lock-object-namespace`
-* `--lock-object-name=lock-object-name`
+* `--lock-object-namespace=<lock-object-namespace>`
+* `--lock-object-name=<lock-object-name>`
 
-If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for endpoints resources, as in the following example:
+{{< note >}}
+The control plane creates the lock objects for you, but the namespace must already exist.
+You can use the `kube-system` namespace.
+{{< /note >}}
+
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for `endpoints` and `leases` resources, as in the following example:
 ```
 kubectl edit clusterrole system:kube-scheduler
 ```
 ```yaml
-- apiVersion: rbac.authorization.k8s.io/v1
-  kind: ClusterRole
-  metadata:
-    annotations:
-      rbac.authorization.kubernetes.io/autoupdate: "true"
-    labels:
-      kubernetes.io/bootstrapping: rbac-defaults
-    name: system:kube-scheduler
-  rules:
-  - apiGroups:
-    - ""
-    resourceNames:
-    - kube-scheduler
-    - my-scheduler
-    resources:
-    - endpoints
-    verbs:
-    - delete
-    - get
-    - patch
-    - update
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  labels:
+    kubernetes.io/bootstrapping: rbac-defaults
+  name: system:kube-scheduler
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+- apiGroups:
+  - coordination.k8s.io
+  resourceNames:
+  - kube-scheduler
+  - my-scheduler
+  resources:
+  - leases
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  resourceNames:
+  - kube-scheduler
+  - my-scheduler
+  resources:
+  - endpoints
+  verbs:
+  - delete
+  - get
+  - patch
+  - update
 ```
 
 ## Specify schedulers for pods
@@ -196,9 +220,9 @@ kubectl create -f pod3.yaml
 kubectl get pods
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ### Verifying that the pods were scheduled using the desired schedulers
 
@@ -218,4 +242,4 @@ verify that the pods were scheduled by the desired schedulers.
 kubectl get events
 ```
 
-{{% /capture %}}
+

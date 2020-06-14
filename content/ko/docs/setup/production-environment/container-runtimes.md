@@ -1,16 +1,16 @@
 ---
 title: 컨테이너 런타임
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 파드에서 컨테이너를 실행하기 위해 쿠버네티스는 컨테이너 런타임을 사용한다.
 이 페이지는 다양한 런타임들에 대한 설치 지침을 담고 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -18,8 +18,8 @@ weight: 10
 악성 컨테이너는 이 결함을 사용하여 runc 바이너리의 내용을 덮어쓸 수 있으며
 따라서 컨테이너 호스트 시스템에서 임의의 명령을 실행할 수 있다.
 
-이 문제에 대한 자세한 내용은
-[cve-2019-5736 : runc 취약점 ] (https://access.redhat.com/security/cve/cve-2019-5736) 참고하자.
+문제에 대한 자세한 내용은 [CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736)
+를 참고한다.
 {{< /caution >}}
 
 ### 적용 가능성
@@ -49,7 +49,7 @@ Control group은 프로세스에 할당된 리소스를 제한하는데 사용�
 리소스가 부족할 때 불안정해지는 사례를 본 적이 있다.
 
 컨테이너 런타임과 kubelet이 `systemd`를 cgroup 드라이버로 사용하도록 설정을 변경하면
-시스템이 안정화된다. 아래의 Docker 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
+시스템이 안정화된다. 아래의 도커 설정에서 `native.cgroupdriver=systemd` 옵션을 확인하라.
 
 {{< caution >}}
 클러스터에 결합되어 있는 노드의 cgroup 관리자를 변경하는 것은 권장하지 않는다.
@@ -59,38 +59,48 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 추천하는 방법은 워크로드에서 노드를 제거하고, 클러스터에서 제거한 다음 다시 결합시키는 것이다.
 {{< /caution >}}
 
-## Docker
+## 도커
 
-각 머신들에 대해서, Docker를 설치한다.
-버전 19.03.4가 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
-쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 Docker 버전의 지속적인 파악이 필요하다.
+각 머신들에 대해서, 도커를 설치한다.
+버전 19.03.8이 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
+쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 도커 버전의 지속적인 파악이 필요하다.
 
-시스템에 Docker를 설치하기 위해서 아래의 커맨드들을 사용한다.
+시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-# Docker CE 설치
+{{< tab name="Ubuntu 16.04+" >}}
+
+```shell
+# (도커 CE 설치)
 ## 리포지터리 설정
 ### apt가 HTTPS 리포지터리를 사용할 수 있도록 해주는 패키지 설치
 apt-get update && apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
+```
 
-### Docker의 공식 GPG 키 추가
+```shell
+# 도커 공식 GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Docker apt 리포지터리 추가.
+```shell
+# 도커 apt 리포지터리 추가.
 add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
+```
 
-## Docker CE 설치.
+```shell
+# 도커 CE 설치.
 apt-get update && apt-get install -y \
-  containerd.io=1.2.10-3 \
-  docker-ce=5:19.03.4~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.4~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-1 \
+  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
+```
 
-# 데몬 설정.
+```shell
+# 도커 데몬 설정
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -101,34 +111,48 @@ cat > /etc/docker/daemon.json <<EOF
   "storage-driver": "overlay2"
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
-# Docker 재시작.
+```shell
+# 도커 재시작.
 systemctl daemon-reload
 systemctl restart docker
+```
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+{{< tab name="CentOS/RHEL 7.4+" >}}
 
-# Docker CE 설치
+```shell
+# (도커 CE 설치)
 ## 리포지터리 설정
-### 필요한 패키지 설치.
+### 필요한 패키지 설치
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
-### Docker 리포지터리 추가
+```shell
+## 도커 리포지터리 추가
 yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
+```
 
-## Docker CE 설치.
+```shell
+# 도커 CE 설치.
 yum update -y && yum install -y \
-  containerd.io-1.2.10 \
-  docker-ce-19.03.4 \
-  docker-ce-cli-19.03.4
+  containerd.io-1.2.13 \
+  docker-ce-19.03.8 \
+  docker-ce-cli-19.03.8
+```
 
-## /etc/docker 디렉터리 생성.
+```shell
+## /etc/docker 생성.
 mkdir /etc/docker
+```
 
-# 데몬 설정.
+```shell
+# 도커 데몬 설정.
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -142,16 +166,21 @@ cat > /etc/docker/daemon.json <<EOF
   ]
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
-# Docker 재시작.
+```shell
+# 도커 재시작.
 systemctl daemon-reload
 systemctl restart docker
+```
 {{< /tab >}}
 {{< /tabs >}}
 
-자세한 내용은 [공식 Docker 설치 가이드](https://docs.docker.com/engine/installation/)
+자세한 내용은 [공식 도커 설치 가이드](https://docs.docker.com/engine/installation/)
 를 참고한다.
 
 ## CRI-O
@@ -182,33 +211,78 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Debian" >}}
 
-# 선행 조건 설치
-apt-get update
-apt-get install -y software-properties-common
+```shell
+# Debian 개발 배포본(Unstable/Sid)
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+```
 
-add-apt-repository ppa:projectatomic/ppa
-apt-get update
+```shell
+# Debian Testing
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
+```
 
-# CRI-O 설치
-apt-get install -y cri-o-1.15
+```shell
+# Debian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+```
 
+```shell
+# Raspbian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
+```
+
+그리고 다음과 같이 CRI-O 설치한다.
+```shell
+sudo apt-get install cri-o-1.17
+```
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
 
-# 선행 조건 설치
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
 
+```shell
+#  패키지 리포지터리 설정
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
+sudo apt-get update
+```
+
+```shell
 # CRI-O 설치
-yum install --nogpgcheck -y cri-o
+sudo apt-get install cri-o-1.17
+```
+{{< /tab >}}
 
+{{< tab name="CentOS/RHEL 7.4+" >}}
+
+```shell
+# 선행 조건 설치
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
+```
+
+```shell
+# CRI-O 설치
+yum install -y cri-o
+```
+
+{{< tab name="openSUSE Tumbleweed" >}}
+
+```shell
+sudo zypper install cri-o
+```
 {{< /tab >}}
 {{< /tabs >}}
 
 ### CRI-O 시작
 
-```
+```shell
 systemctl daemon-reload
 systemctl start crio
 ```
@@ -246,51 +320,75 @@ sysctl --system
 ### containerd 설치
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# containerd 설치
+{{< tab name="Ubuntu 16.04" >}}
+
+```shell
+# (containerd 설치)
 ## 리포지터리 설정
 ### apt가 HTTPS로 리포지터리를 사용하는 것을 허용하기 위한 패키지 설치
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
 
-### Docker의 공식 GPG 키 추가
+```shell
+## 도커 공식 GPG 키 추가
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Docker apt 리포지터리 추가.
+```shell
+## 도커 apt 리포지터리 추가.
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
+```
 
+```shell
 ## containerd 설치
 apt-get update && apt-get install -y containerd.io
+```
 
+```shell
 # containerd 설정
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # containerd 재시작
 systemctl restart containerd
+```
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-# containerd 설치
+{{< tab name="CentOS/RHEL 7.4+" >}}
+
+```shell
+# (containerd 설치)
 ## 리포지터리 설정
 ### 필요한 패키지 설치
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
-### Docker 리포지터리 추가리
+```shell
+## 도커 리포지터리 추가
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## containerd 설치
 yum update -y && yum install -y containerd.io
+```
 
-# containerd 설정
+```shell
+## containerd 설정
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # containerd 재시작
 systemctl restart containerd
+```
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -304,4 +402,4 @@ kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 
 자세한 정보는 [Frakti 빠른 시작 가이드](https://github.com/kubernetes/frakti#quickstart)를 참고한다.
 
-{{% /capture %}}
+

@@ -1,70 +1,60 @@
 ---
-title: Panoramica sull'amministrazione del cluster
-content_template: templates/concept
-weight: 10
+title: Orchestrazione di Container in produzione
+abstract: Deployment, scalabilità, e gestione di container automatizzata
+cid: home
 ---
 
-{{% capture overview %}}
-La panoramica dell'amministrazione del cluster è per chiunque crei o gestisca un cluster Kubernetes.
-Presuppone una certa dimestichezza con i core Kubernetes [concetti](/docs/concepts/).
-{{% /capture %}}
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) è un software open-source per l'automazione del deployment, scalabilità, e gestione di applicativi in containers.
 
-{{% capture body %}}
-## Progettare un cluster
+K8s raggruppa i containers che compongono gli applicativi in unità logiche per semplificare la gestione e la visibilità. Kubernetes si basa su [15 anni di esperienza di esecuzione di workload in produzione presso Google](http://queue.acm.org/detail.cfm?id=2898444), combinata con le migliori idee e pratiche dalla community.
+{{% /blocks/feature %}}
 
-Consulta le guide di [Setup](/docs/setup) per avere degli esempi su come pianificare, impostare e configurare cluster Kubernetes. Le soluzioni elencate in questo articolo sono chiamate *distribuzioni*.
+{{% blocks/feature image="scalable" %}}
+#### Scala planetaria
 
-Prima di scegliere una guida, ecco alcune considerazioni:
+Progettato con gli stessi principi che permettono a Google di eseguire miliardi di container ogni settimana, Kubernetes può scalare evitando di aumentare il lavoro per il tuo team.
 
- - Vuoi provare Kubernetes sul tuo computer o vuoi creare un cluster multi-nodo ad alta disponibilità? Scegli la distro che più si adatti alle tue esigenze.
- - **Se si sta progettando per l'alta disponibilità**, impara a configurare [cluster in più zone](/docs/concepts/cluster-administration/federation/).
- - Utilizzerai **un cluster di Kubernetes ospitato**, come [Motore di Google Kubernetes](https://cloud.google.com/kubernetes-engine/) o **che ospita il tuo cluster**?
- - Il tuo cluster sarà **on-premises** o **nel cloud (IaaS)**? Kubernetes non supporta direttamente i cluster ibridi. Invece, puoi impostare più cluster.
- - **Se stai configurando Kubernetes on-premises**, considera quale [modello di rete](/docs/concepts/cluster-administration/networking/) si adatti meglio.
- - Eseguirai Kubernetes su **hardware "bare metal"** o su **macchine virtuali (VM)**?
- - Vuoi **solo eseguire un cluster**, oppure ti aspetti di fare **lo sviluppo attivo del codice del progetto di Kubernetes**?
-   In quest'ultimo caso, scegli una distribuzione sviluppata attivamente. Alcune distribuzioni utilizzano solo versioni binarie, ma offrono una maggiore varietà di scelte
- - Familiarizzare con i [componenti](/docs/admin/cluster-components/) necessari per eseguire un cluster.
+{{% /blocks/feature %}}
 
-Nota: non tutte le distro vengono mantenute attivamente. Scegli le distro che sono state testate con una versione recente di Kubernetes.
+{{% blocks/feature image="blocks" %}}
+#### Semplice e flessibile
 
-## Managing a cluster
+Che tu stia facendo dei test locali o supportando una azienda enterprise, la flessibilità di Kubernetes ti permette di eseguire le tue applicazioni coerentemente e facilmente, indipendentemente dalla complessità delle tue esigenze.
 
-* [Gestione di un cluster](/docs/tasks/administration-cluster/cluster-management/) descrive diversi argomenti relativi al ciclo di vita di un cluster: creazione di un nuovo cluster, aggiornamento dei nodi master e worker del cluster, esecuzione della manutenzione del nodo (ad esempio kernel aggiornamenti) e aggiornamento della versione dell'API di Kubernetes di un cluster in esecuzione.
+{{% /blocks/feature %}}
 
-* Scopri come [gestire i nodi](/docs/concepts/nodi/node/).
+{{% blocks/feature image="suitcase" %}}
+#### Eseguibile ovunque
 
-* Scopri come impostare e gestire la [quota di risorse](/docs/concepts/policy/resource-quote/) per i cluster condivisi.
+Kubernetes è open source, e ti offre la libertà di spostare i tuoi carichi di lavoro senza fatica tra ambienti on-premises, ibridi, e cloud pubblici.
 
-## Proteggere un cluster
+{{% /blocks/feature %}}
 
-* [Certificati](/docs/concepts/cluster-administration/certificates/) descrive i passaggi per generare certificati utilizzando diverse catene di strumenti.
+{{< /blocks/section >}}
 
-* [Kubernetes Container Environment](/docs/concepts/containers/container-environment-variables/) descrive l'ambiente per i contenitori gestiti Kubelet su un nodo Kubernetes.
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>La sfida di migrare 150+ Microservizi su Kubernetes</h2>
+        <p>Di Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Guarda il Video</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu20" button id="desktopKCButton">Partecipa alla KubeCon ad Amsterdam (13-16 Agosto 2020)</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncna20" button id="desktopKCButton">Partecipa alla KubeCon a Boston (17-20 Novembre 2020)</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
 
-* [Controllo dell'accesso all'API di Kubernetes](/docs/reference/access-authn-authz/controlling-access/) descrive come impostare le autorizzazioni per gli utenti e gli account di servizio.
+{{< blocks/kubernetes-features >}}
 
-* [Autenticazione](/docs/reference/access-authn-authz/authentication/) spiega l'autenticazione in Kubernetes, incluse le varie opzioni di autenticazione.
-
-* [Autorizzazione](/docs/reference/access-authn-authz/authorization/) è separato dall'autenticazione e controlla come vengono gestite le chiamate HTTP.
-
-* [Utilizzo dei controller di ammissione](/docs/reference/access-authn-authz/admission-controller/) spiega i plug-in che intercettano le richieste al server API Kubernetes dopo l'autenticazione e l'autorizzazione.
-
-* [Uso di Sysctls in un cluster Kubernetes](/docs/concepts/cluster-administration/sysctl-cluster/) descrive a un amministratore come utilizzare lo strumento da riga di comando `sysctl` per impostare i parametri del kernel.
-
-* [Controllo](/docs/tasks/debug-application-cluster/audit/) descrive come interagire con i log di controllo di Kubernetes.
-
-
-### Securing the kubelet
-  * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
-  * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-  * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
-
-## Optional Cluster Services
-
-* [Integrazione DNS](/docs/concepts/services-networking/dns-pod-service/) descrive come risolvere un nome DNS direttamente su un servizio Kubernetes.
-
-* [Registrazione e monitoraggio delle attività del cluster](/docs/concepts/cluster-administration/logging/) spiega come funziona il logging in Kubernetes e come implementarlo.
-
-{{% /capture %}}
-
+{{< blocks/case-studies >}}

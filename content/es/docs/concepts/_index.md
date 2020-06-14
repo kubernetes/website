@@ -1,17 +1,17 @@
 ---
 title: Conceptos
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La sección de conceptos te ayudará a conocer los componentes de Kubernetes así como las abstracciones que utiliza para representar tu cluster. Además, te ayudará a obtener un conocimiento más profundo sobre cómo funciona Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introducción
 
@@ -66,12 +66,13 @@ En un clúster de Kubernetes, los nodos son las máquinas (máquinas virtuales, 
 
 * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si estás interesado en escribir una página sobre conceptos,
 revisa [Usando Templates de Páginas](/docs/home/contribute/page-templates/)
 para obtener información sobre el tipo de página conceptos y la plantilla conceptos.
 
-{{% /capture %}}
+

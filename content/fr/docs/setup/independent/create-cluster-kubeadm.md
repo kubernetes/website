@@ -1,11 +1,11 @@
 ---
 title: Création d'un Cluster a master unique avec kubeadm
 description: Création d'un Cluster a master unique avec kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
 viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
@@ -78,18 +78,19 @@ problème de sécurité est trouvé. Voici les dernières versions de Kubernetes
 | v1.12.x               | Septembre 2018               | Juin 2019      |
 | v1.13.x               | Décembre 2018                | Septembre 2019 |
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 - Une ou plusieurs machines exécutant un système d'exploitation compatible deb/rpm, par exemple Ubuntu ou CentOS
 - 2 Go ou plus de RAM par machine. Si vous essayez moins cela laissera trop peu de place pour vos applications.
 - 2 processeurs ou plus sur le master
 - Connectivité réseau entre toutes les machines du cluster, qu'il soit public ou privé.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Objectifs
 

@@ -1,6 +1,6 @@
 ---
 title: 本地化 Kubernetes 文档
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 30
@@ -9,7 +9,7 @@ card:
 <!-- 
 ---
 title: Localizing Kubernetes Documentation
-content_template: templates/concept
+content_type: concept
 approvers:
 - remyleone
 - rlenferink
@@ -21,16 +21,16 @@ card:
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- 
 This page shows you how to [localize](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/) the docs for a different language. 
 -->
 此页面显示了如何为其他语言的文档提供[本地化](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- 
 ## Getting started
@@ -540,9 +540,10 @@ You can also help add or improve content to an existing localization. Join the [
 -->
 您还可以向现有本地化添加或改进内容提供帮助。加入 [Slack 频道](https://kubernetes.slack.com/messages/C1J0BPD2M/)进行本地化，然后开始新建 PR 来提供帮助。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- 
 Once a localization meets requirements for workflow and minimum output, SIG docs will: 
@@ -556,4 +557,4 @@ Once a localization meets requirements for workflow and minimum output, SIG docs
 - 在网站上启用语言选择
 - 通过[Cloud Native Computing Foundation](https://www.cncf.io/about/) (CNCF) 频道, 包括[ Kubernetes 博客](https://kubernetes.io/blog/)公开本地化的可用性。
 
-{{% /capture %}}
+

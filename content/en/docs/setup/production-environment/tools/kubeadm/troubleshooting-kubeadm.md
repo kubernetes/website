@@ -1,10 +1,10 @@
 ---
 title: Troubleshooting kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 As with any program, you might run into an error installing or running kubeadm.
 This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
@@ -18,9 +18,52 @@ If your problem is not listed below, please follow the following steps:
 - If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
+
+## Not possible to join a v1.18 Node to a v1.17 cluster due to missing RBAC
+
+In v1.18 kubeadm added prevention for joining a Node in the cluster if a Node with the same name already exists.
+This required adding RBAC for the bootstrap-token user to be able to GET a Node object.
+
+However this causes an issue where `kubeadm join` from v1.18 cannot join a cluster created by kubeadm v1.17.
+
+To workaround the issue you have two options:
+
+Execute `kubeadm init phase bootstrap-token` on a control-plane node using kubeadm v1.18.
+Note that this enables the rest of the bootstrap-token permissions as well.
+
+or
+
+Apply the following RBAC manually using `kubectl apply -f ...`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubeadm:get-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm:get-nodes
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubeadm:get-nodes
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: system:bootstrappers:kubeadm:default-node-token
+```
 
 ## `ebtables` or some similar executable not found during installation
 
@@ -313,7 +356,7 @@ the field will be omitted when marshalling. When the field is omitted, kubeadm a
 
 There are at least two workarounds:
 
-1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/configuration/taint-and-toleration/), unless other nodes have capacity.
+1. Use the `node-role.kubernetes.io/master:PreferNoSchedule` taint instead of an empty slice. [Pods will get scheduled on masters](/docs/concepts/scheduling-eviction/taint-and-toleration/), unless other nodes have capacity.
 
 2. Remove the taint after kubeadm init exits:
 ```bash
@@ -361,4 +404,4 @@ nodeRegistration:
 Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
 be advised that this is modifying a design principle of the Linux distribution.
 
-{{% /capture %}}
+

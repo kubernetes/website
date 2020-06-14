@@ -1,17 +1,17 @@
 ---
 title: 클러스터 액세스
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 여기에서는 클러스터와 통신을 하는 다양한 방식에 대해서 다룰 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 처음이라면 kubectl을 사용하여 액세스
 
@@ -277,7 +277,7 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 예를 들어 위 클러스터는 클러스터 수준의 logging(Elasticsearch 사용)이 활성화되었으므로 적절한 인증을 통과하여 
 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`로 액세스할 수 있다. 예를 들어 kubectl proxy로 
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`를 통해 logging에 액세스할 수도 있다.
-(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [위 내용](#rest-api에-직접-액세스)을 참조한다.)
+(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [쿠버네티스 API를 사용해서 클러스터에 접근하기](/docs/tasks/administer-cluster/access-cluster-api/)을 참조한다.)
 
 #### 수작업으로 apiserver proxy URL을 구축
 
@@ -376,4 +376,4 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
 일반적으로 쿠버네티스 사용자들은 처음 두 타입이 아닌 다른 방식은 고려할 필요가 없지만 클러스터 관리자는 
 나머지 타입을 적절하게 구성해줘야 한다.
 
-{{% /capture %}}
+

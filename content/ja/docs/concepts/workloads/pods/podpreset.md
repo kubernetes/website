@@ -1,16 +1,16 @@
 ---
 reviewers:
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページではPodPresetについて概観します。PodPresetは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## PodPresetを理解する
 
 `PodPreset`はPodの作成時に追加のランタイム要求を注入するためのAPIリソースです。
@@ -57,10 +57,11 @@ PodPresetによるPodの変更を受け付けたくないようなインスタ�
   を追加することで可能になります。
 1.  ユーザーが使う予定のNamespaceにおいて、`PodPreset`オブジェクトを作成することによりPodPresetを定義します。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodPresetを使ったPodへのデータの注入](/docs/tasks/inject-data-application/podpreset/)
 
-{{% /capture %}}
+

@@ -1,9 +1,9 @@
 ---
 title: Cloudstack
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [CloudStack](https://cloudstack.apache.org/) is a software to build public and private clouds based on hardware virtualization principles (traditional IaaS). To deploy Kubernetes on CloudStack there are several possibilities depending on the Cloud being used and what images are made available. CloudStack also has a vagrant plugin available, hence Vagrant could be used to deploy Kubernetes either using the existing shell provisioner or using new Salt based recipes.
 
@@ -11,9 +11,9 @@ content_template: templates/concept
 
 This guide uses a single [Ansible playbook](https://github.com/apachecloudstack/k8s), which is completely automated and can deploy Kubernetes on a CloudStack based Cloud using CoreOS images. The playbook, creates an ssh key pair, creates a security group and associated rules and finally starts coreOS instances configured via cloud-init.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 前提条件
 
@@ -115,4 +115,4 @@ IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs               
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 CloudStack           | Ansible      | CoreOS | flannel     | [docs](/docs/setup/production-environment/on-premises-vm/cloudstack/)                             |          | Community ([@Guiques](https://github.com/ltupin/))
 
-{{% /capture %}}
+

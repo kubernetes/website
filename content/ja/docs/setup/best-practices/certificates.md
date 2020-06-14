@@ -1,19 +1,19 @@
 ---
 title: PKI証明書とその要件
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)でKubernetesをインストールする場合、必要な証明書は自動で生成されます。
 自身で証明書を作成することも可能です。例えば、秘密鍵をAPIサーバーに保持しないことで、管理をよりセキュアにする場合が挙げられます。
 本ページでは、クラスターに必要な証明書について説明します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## クラスタではどのように証明書が使われているのか
 
@@ -161,4 +161,4 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
-{{% /capture %}}
+

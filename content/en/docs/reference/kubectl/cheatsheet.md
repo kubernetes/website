@@ -4,21 +4,21 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
 This page is an overview of the `kubectl` command.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Cheat Sheet
 
@@ -68,7 +68,7 @@ kubectl config get-contexts                          # display list of contexts
 kubectl config current-context                       # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
-# add a new cluster to your kubeconf that supports basic auth
+# add a new user to your kubeconf that supports basic auth
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
 # permanently save the namespace for all subsequent kubectl commands in that context.
@@ -204,7 +204,6 @@ kubectl diff -f ./my-manifest.yaml
 
 ## Updating Resources
 
-As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), use `rollout` instead.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
@@ -214,12 +213,6 @@ kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
 kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
-
-# deprecated starting version 1.11
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
 
 cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
@@ -358,6 +351,21 @@ Output format | Description
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
 `-o=yaml`     | Output a YAML formatted API object
 
+Examples using `-o=custom-columns`:
+
+```bash
+# All images running in a cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # All images excluding "k8s.gcr.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# All fields under metadata regardless of name
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+
 ### Kubectl output verbosity and debugging
 
 Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
@@ -374,9 +382,10 @@ Verbosity | Description
 `--v=8` | Display HTTP request contents.
 `--v=9` | Display HTTP request contents without truncation of contents.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
 
@@ -386,4 +395,4 @@ Verbosity | Description
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

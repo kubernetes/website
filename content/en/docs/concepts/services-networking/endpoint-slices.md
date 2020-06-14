@@ -2,17 +2,12 @@
 reviewers:
 - freehan
 title: EndpointSlices
-feature:
-  title: EndpointSlices
-  description: >
-    Scalable tracking of network endpoints in a Kubernetes cluster.
-
-content_template: templates/concept
-weight: 10
+content_type: concept
+weight: 15
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -20,9 +15,24 @@ _EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
 Endpoints.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
+
+## Motivation
+
+The Endpoints API has provided a simple and straightforward way of
+tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
+and Services have gotten larger, limitations of that API became more visible.
+Most notably, those included challenges with scaling to larger numbers of
+network endpoints.
+
+Since all network endpoints for a Service were stored in a single Endpoints
+resource, those resources could get quite large. That affected the performance
+of Kubernetes components (notably the master control plane) and resulted in
+significant amounts of network traffic and processing when Endpoints changed.
+EndpointSlices help you mitigate those issues as well as provide an extensible
+platform for additional features such as topological routing.
 
 ## EndpointSlice resources {#endpointslice-resource}
 
@@ -165,26 +175,12 @@ necessary soon anyway. Rolling updates of Deployments also provide a natural
 repacking of EndpointSlices with all pods and their corresponding endpoints
 getting replaced.
 
-## Motivation
 
-The Endpoints API has provided a simple and straightforward way of
-tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and Services have gotten larger, limitations of that API became more visible.
-Most notably, those included challenges with scaling to larger numbers of
-network endpoints.
 
-Since all network endpoints for a Service were stored in a single Endpoints
-resource, those resources could get quite large. That affected the performance
-of Kubernetes components (notably the master control plane) and resulted in
-significant amounts of network traffic and processing when Endpoints changed.
-EndpointSlices help you mitigate those issues as well as provide an extensible
-platform for additional features such as topological routing.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
 
 * [Enabling EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: 高可用性トポロジーのためのオプション
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、高可用性(HA)Kubernetesクラスターのトポロジーを設定するための2つのオプションについて説明します。
 
@@ -15,9 +15,9 @@ HAクラスターは次の方法で設定できます。
 
 HAクラスターをセットアップする前に、各トポロジーの利点と欠点について注意深く考慮する必要があります。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 積層etcdトポロジー
 
@@ -49,10 +49,11 @@ HAクラスターをセットアップする前に、各トポロジーの利点
 
 ![外部のetcdトポロジー](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [kubeadmを使用した高可用性クラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+

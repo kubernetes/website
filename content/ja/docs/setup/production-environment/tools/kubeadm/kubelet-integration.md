@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用したクラスター内の各kubeletの設定
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
@@ -24,9 +24,9 @@ characteristics of a given machine, such as OS, storage, and networking. You can
 of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kubeletの設定パターン
 
@@ -197,4 +197,4 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | `kubernetes-cni` | Installs the official CNI binaries into the `/opt/cni/bin` directory. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-incubator/cri-tools). |
 
-{{% /capture %}}
+

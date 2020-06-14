@@ -2,25 +2,26 @@
 title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Listing all Sysctl Parameters
 
@@ -140,9 +141,9 @@ spec:
       value: "65536"
   ...
 ```
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 {{< warning >}}
 Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
@@ -159,7 +160,7 @@ A pod with the _unsafe_ sysctls will fail to launch on any node which has not
 enabled those two _unsafe_ sysctls explicitly. As with _node-level_ sysctls it
 is recommended to use
 [_taints and toleration_ feature](/docs/reference/generated/kubectl/kubectl-commands/#taint) or
-[taints on nodes](/docs/concepts/configuration/taint-and-toleration/)
+[taints on nodes](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to schedule those pods onto the right nodes.
 
 ## PodSecurityPolicy
@@ -188,9 +189,9 @@ Do not configure these two fields such that there is overlap, meaning that a
 given sysctl is both allowed and forbidden.
 
 {{< warning >}}
-If you whitelist unsafe sysctls via the `allowedUnsafeSysctls` field
+If you allow unsafe sysctls via the `allowedUnsafeSysctls` field
 in a PodSecurityPolicy, any pod using such a sysctl will fail to start
-if the sysctl is not whitelisted via the `--allowed-unsafe-sysctls` kubelet
+if the sysctl is not allowed via the `--allowed-unsafe-sysctls` kubelet
 flag as well on that node.
 {{< /warning >}}
 
@@ -210,4 +211,4 @@ spec:
  ...
 ```
 
-{{% /capture %}}
+

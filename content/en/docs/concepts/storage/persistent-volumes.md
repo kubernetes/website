@@ -11,26 +11,26 @@ feature:
   description: >
     Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://cloud.google.com/storage/">GCP</a> or <a href="https://aws.amazon.com/products/storage/">AWS</a>, or a network storage system such as NFS, iSCSI, Gluster, Ceph, Cinder, or Flocker.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
 Managing storage is a distinct problem from managing compute instances. The PersistentVolume subsystem provides an API for users and administrators that abstracts details of how storage is provided from how it is consumed. To do this, we introduce two new API resources:  PersistentVolume and PersistentVolumeClaim.
 
-A PersistentVolume (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
+A _PersistentVolume_ (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
-A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted once read/write or many times read-only).
+A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted once read/write or many times read-only).
 
 While PersistentVolumeClaims allow a user to consume abstract storage resources, it is common that users need PersistentVolumes with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the _StorageClass_ resource.
 
@@ -334,7 +334,7 @@ Such volume is presented into a Pod as a block device, without any filesystem on
 This mode is useful to provide a Pod the fastest possible way to access a volume, without
 any filesystem layer between the Pod and the volume. On the other hand, the application
 running in the Pod must know how to handle a raw block device.
-See [Raw Block Volume Support](docs/concepts/storage/persistent-volumes/#raw-block-volume-support)
+See [Raw Block Volume Support](#raw-block-volume-support)
 for an example on how to use a volume with `volumeMode: Block` in a Pod.
 
 ### Access Modes
@@ -736,9 +736,9 @@ and need persistent storage, it is recommended that you use the following patter
     `persistentVolumeClaim.storageClassName` field.
     This will cause the PVC to match the right storage
     class if the cluster has StorageClasses enabled by the admin.
-  - If the user does not provide a storage class name, leave the 
-    `persistentVolumeClaim.storageClassName` field as nil. This will cause a 
-    PV to be automatically provisioned for the user with the default StorageClass 
+  - If the user does not provide a storage class name, leave the
+    `persistentVolumeClaim.storageClassName` field as nil. This will cause a
+    PV to be automatically provisioned for the user with the default StorageClass
     in the cluster. Many cluster environments have a default StorageClass installed,
     or administrators can create their own default StorageClass.
 - In your tooling, watch for PVCs that are not getting bound after some time
@@ -746,8 +746,9 @@ and need persistent storage, it is recommended that you use the following patter
   dynamic storage support (in which case the user should create a matching PV)
   or the cluster has no storage system (in which case the user cannot deploy
   config requiring PVCs).
-{{% /capture %}}
-  {{% capture whatsnext %}}
+
+  ## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Creating a PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Learn more about [Creating a PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
@@ -759,4 +760,3 @@ and need persistent storage, it is recommended that you use the following patter
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-{{% /capture %}}

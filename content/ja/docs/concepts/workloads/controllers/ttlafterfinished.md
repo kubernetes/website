@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: 終了したリソースのためのTTLコントローラー(TTL Controller for Finished Resources)
-content_template: templates/concept
+content_type: concept
 weight: 65
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -14,12 +14,12 @@ TTLコントローラーは現在[Job](/docs/concepts/workloads/controllers/jobs
 
 α版の免責事項: この機能は現在α版の機能で、kube-apiserverとkube-controller-managerの[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
 
-{{% /capture %}}
 
 
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## TTLコントローラー
 
@@ -45,12 +45,13 @@ TTLコントローラーが、TTL値が期限切れかそうでないかを決�
 
 Kubernetesにおいてタイムスキューを避けるために、全てのNode上でNTPの稼働を必須とします([#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)を参照してください)。クロックは常に正しいものではありませんが、Node間におけるその差はとても小さいものとなります。TTLに0でない値をセットするときにこのリスクに対して注意してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Jobの自動クリーンアップ](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
 [設計ドキュメント](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
-{{% /capture %}}
+

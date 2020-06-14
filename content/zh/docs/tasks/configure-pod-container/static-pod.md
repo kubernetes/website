@@ -3,10 +3,10 @@ reviewers:
 - jsafrane
 title: 创建静态 Pod
 weight: 170
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
@@ -45,26 +45,25 @@ kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建
 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod，就可能需要考虑使用 {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} 替代这种方式。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-<!--
+## {{% heading "prerequisites" %}}
+
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+<!--
 This page assumes you're using {{< glossary_tooltip term_id="docker" >}} to run Pods,
 and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 -->
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
 本文假定你在使用 {{< glossary_tooltip term_id="docker" >}} 来运行 Pod，并且你的节点是运行着 Fedora 操作系统。
 其它发行版或者 Kubernetes 部署版本上操作方式可能不一样。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a static pod {#static-pod-creation}
@@ -165,7 +164,7 @@ For example, this is how to start a simple web server as a static Pod:
 
 <!--
 1. Restart the kubelet. On Fedora, you would run:
-   
+
     ```shell
     # Run this command on the node where the kubelet is running
     systemctl restart kubelet
@@ -187,7 +186,7 @@ Similar to how [filesystem-hosted manifests](#configuration-files) work, the kub
 refetches the manifest on a schedule. If there are changes to the list of static
 Pods, the kubelet applies them.
 
-To use this approach: 
+To use this approach:
 -->
 
 ### Web 网上的静态 Pod 声明文件 {#pods-created-via-http}
@@ -264,7 +263,7 @@ The output might be something like:
 
 当 kubelet 启动时，会自动启动所有定义的静态 Pod。当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
 
-可以在节点上云心下面的命令来看运行的容器（包括静态 Pod）：
+可以在节点上运行下面的命令来查看正在运行的容器（包括静态 Pod）：
 ```shell
 # 在 kubelet 运行的节点上执行以下命令
 docker ps
@@ -380,7 +379,7 @@ docker ps
 -->
 ## 动态增加和删除静态 pod
 
-运行的 kubelet 定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
+运行中的 kubelet 会定期扫描配置的目录(比如例子中的 `/etc/kubelet.d` 目录)中的变化，并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
 
 ```shell
 # 前提是你在用主机文件系统上的静态 Pod 配置文件
@@ -399,4 +398,4 @@ CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
 
-{{% /capture %}}
+

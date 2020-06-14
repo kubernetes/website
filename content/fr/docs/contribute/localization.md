@@ -1,20 +1,20 @@
 ---
 title: Traduction de la documentation Kubernetes
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 30
   title: Translating the docs
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La documentation de Kubernetes est disponible dans plusieurs langues.
 Nous vous encourageons à ajouter de nouvelles [traductions](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)!
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Commencer
 
@@ -64,7 +64,7 @@ Par exemple, le code à deux lettres pour l'allemand est `de`.
 These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php) language code for German (`de`) as an example.
 {{< /note >}}
 
-### Modify the site configuration
+### Modifier la configuration du site
 
 Le site web de Kubernetes utilise Hugo comme son web framework.
 La configuration Hugo du site Web se trouve dans le fichier [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml).
@@ -86,7 +86,7 @@ Lors de l'attribution d'un paramètre de `weight` à votre bloc, trouvez le bloc
 
 Pour plus d'informations sur le support multilingue de Hugo, voir "[Multilingual Mode](https://gohugo.io/content-management/multilingual/)".
 
-### Add a new localization directory
+### Ajouter un nouveau répertoire de localisation
 
 Ajoutez un sous-répertoire spécifique à la langue dans le répertoire [`content`](https://github.com/kubernetes/website/tree/master/content) du dépôt.
 Par exemple, le code à deux lettres pour l'allemand est "de" :
@@ -221,13 +221,14 @@ Pour plus d'informations sur le travail à partir de forks ou directement à par
 
 SIG Docs souhaite la bienvenue aux [contributions et corrections upstream](/docs/contribute/intermediate#localize-content) à la source anglaise.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Une fois qu'une traduction répond aux exigences de logistique et à une couverture admissible, le SIG docs se chargera des taches suivantes:
 
 - Activer la sélection de la langue sur le site Web
 - Publier la disponibilité de la traduction via les canaux de la [Cloud Native Computing Foundation](https://www.cncf.io/), y compris sur le blog de [Kubernetes](https://kubernetes.io/blog/).
 
-{{% /capture %}}
+

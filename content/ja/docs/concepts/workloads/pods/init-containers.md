@@ -1,6 +1,6 @@
 ---
 title: Initコンテナ
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
@@ -11,7 +11,7 @@ Initコンテナにはアプリケーションコンテナのイメージに存�
 Initコンテナは、Podの仕様のうち`containers`という配列（これがアプリケーションコンテナを示します）と並べて指定します。
 {{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 ## Initコンテナを理解する {#understanding-init-containers}
 
 単一の{{< glossary_tooltip text="Pod" term_id="pod" >}}は、Pod内にアプリケーションを実行している複数のコンテナを持つことができますが、同様に、アプリケーションコンテナが起動する前に実行されるInitコンテナも1つ以上持つことができます。
@@ -245,11 +245,10 @@ Podレベルのコントロールグループ（cgroups）は、スケジュー�
 * そのPodのインフラストラクチャーコンテナが再起動された場合。これはあまり起きるものでなく、Nodeに対するルート権限を持ったユーザーにより行われることがあります。
 * `restartPolicy`が`Always`と設定されているPod内の全てのコンテナが停止され、再起動が行われた場合。およびガーベージコレクションによりInitコンテナの完了記録が失われた場合。
 
-{{% /capture %}}
 
 {{% capture whatsnext %}}
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
 * [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
 
-{{% /capture %}}
+

@@ -25,6 +25,9 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+[community_youtube_name]
+other = "YouTube"
+
 [deprecation_warning]
 other = " 版本的文档已不再维护。您现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
 
@@ -168,6 +171,9 @@ other = "教程目标"
 
 [prerequisites_heading]
 other = "准备开始"
+
+[subscribe_button]
+other = "订阅"
 
 [ui_search_placeholder]
 other = "搜索"

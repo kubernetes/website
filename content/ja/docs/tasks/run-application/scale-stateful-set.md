@@ -1,14 +1,15 @@
 ---
 title: StatefulSetのスケール
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このタスクは、StatefulSetをスケールする方法を示します。StatefulSetをスケーリングするとは、レプリカの数を増減することです。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * StatefulSetはKubernetesバージョン1.5以降でのみ利用可能です。
   Kubernetesのバージョンを確認するには、`kubectl version`を実行してください。
@@ -17,9 +18,9 @@ weight: 50
 
 * ステートフルアプリケーションクラスターが完全に健全であると確信できる場合にのみ、スケーリングを実行してください。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetのスケール
 
@@ -71,10 +72,11 @@ spec.replicas > 1の場合、Kubernetesは不健康なPodの理由を判断で�
 
 一時的な障害によってPodが正常でなくなり、Podが再び使用可能になる可能性がある場合は、一時的なエラーがスケールアップまたはスケールダウン操作の妨げになる可能性があります。一部の分散データベースでは、ノードが同時に参加および脱退するときに問題があります。このような場合は、アプリケーションレベルでスケーリング操作を考えることをお勧めします。また、ステートフルアプリケーションクラスタが完全に健全であることが確実な場合にのみスケーリングを実行してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [StatefulSetの削除](/ja/docs/tasks/run-application/delete-stateful-set/)の詳細
 
-{{% /capture %}}
+

@@ -1,17 +1,18 @@
 ---
 title: コンテナおよびPodへのCPUリソースの割り当て
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、CPUの *request* と *limit* をコンテナに割り当てる方法について示します。コンテナは設定された制限を超えてCPUを使用することはできません。システムにCPUの空き時間がある場合、コンテナには要求されたCPUを割り当てられます。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -38,10 +39,10 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## namespaceの作成
 
@@ -207,9 +208,10 @@ namespaceを削除してください:
 kubectl delete namespace cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 ### アプリケーション開発者向け
@@ -234,4 +236,4 @@ kubectl delete namespace cpu-example
 
 * [APIオブジェクトのクォータを設定する](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+

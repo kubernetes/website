@@ -2,11 +2,11 @@
 reviewers:
 title: Plugin Perangkat
 description: Gunakan kerangka kerja _plugin_ perangkat Kubernetes untuk mengimplementasikan plugin untuk GPU, NIC, FPGA, InfiniBand, dan sumber daya sejenis yang membutuhkan setelan spesifik vendor.
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 Kubernetes menyediakan [kerangka kerja _plugin_ perangkat](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
@@ -17,9 +17,9 @@ _plugin_ perangkat yang di-_deploy_ secara manual atau sebagai {{< glossary_tool
 Perangkat yang dituju termasuk GPU, NIC berkinerja tinggi, FPGA, adaptor InfiniBand,
 dan sumber daya komputasi sejenis lainnya yang perlu inisialisasi dan setelan spesifik vendor.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pendaftaran _plugin_ perangkat
 
@@ -223,12 +223,13 @@ Berikut beberapa contoh implementasi _plugin_ perangkat:
 * [Plugin perangkat SR-IOV Network](https://github.com/intel/sriov-network-device-plugin)
 * [Plugin perangkat Xilinx FPGA](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) untuk perangkat Xilinx FPGA
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari bagaimana [menjadwalkan sumber daya GPU](/docs/tasks/manage-gpus/scheduling-gpus/) dengan _plugin_ perangkat
 * Pelajari bagaimana [mengumumkan sumber daya ekstensi](/docs/tasks/administer-cluster/extended-resource-node/) pada node
 * Baca tentang penggunaan [akselerasi perangkat keras untuk ingress TLS](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) dengan Kubernetes
 * Pelajari tentang [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 
-{{% /capture %}}
+

@@ -1,17 +1,17 @@
 ---
 title: Kubernetesオブジェクトを理解する
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、KubernetesオブジェクトがKubernetes APIでどのように表現されているか、またそれらを`.yaml`フォーマットでどのように表現するかを説明します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubernetesオブジェクトを理解する
 
 *Kubernetesオブジェクト* は、Kubernetes上で永続的なエンティティです。Kubernetesはこれらのエンティティを使い、クラスターの状態を表現します。具体的に言うと、下記のような内容が表現出来ます:
@@ -66,13 +66,14 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 `spec`の正確なフォーマットは、Kubernetesオブジェクトごとに異なり、オブジェクトごとに特有な入れ子のフィールドを持っています。[Kubernetes API リファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)が、Kubernetesで作成出来る全てのオブジェクトに関するspecのフォーマットを探すのに役立ちます。
 例えば、`Pod`オブジェクトに関する`spec`のフォーマットは[PodSpec v1 core](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)を、また`Deployment`オブジェクトに関する`spec`のフォーマットは[DeploymentSpec v1 apps](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)をご確認ください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 * [Kubernetes API overview](/docs/reference/using-api/api-overview/)はこのページでは取り上げていない他のAPIについて説明します。
 * 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)です。
 * Kubernetesの[コントローラー](/docs/concepts/architecture/controller/)を学びましょう。
 
-{{% /capture %}}
+

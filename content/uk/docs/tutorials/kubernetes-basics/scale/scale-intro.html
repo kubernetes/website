@@ -1,0 +1,145 @@
+---
+title: Запуск вашого застосунку на декількох Pod'ах
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <!--<h3>Objectives</h3>
+          -->
+          <h3>Цілі</h3>
+                <ul>
+                    <!--<li>Scale an app using kubectl.</li>
+                    -->
+                    <li>Масштабувати застосунок за допомогою kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <!--<h3>Scaling an application</h3>
+       -->
+       <h3>Масштабування застосунку</h3>
+
+            <!--<p>In the previous modules we created a <a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with  user demand.</p>
+            -->
+            <p>У попередніх модулях ми створили <a href="/docs/concepts/workloads/controllers/deployment/">Deployment</a> і відкрили його для зовнішнього трафіка за допомогою <a href="/docs/concepts/services-networking/service/">Service</a>. Deployment створив лише один Pod для запуску нашого застосунку. Коли трафік збільшиться, нам доведеться масштабувати застосунок, аби задовольнити вимоги користувачів.</p>
+
+            <!--<p><b>Scaling</b> is accomplished by changing the number of replicas in a Deployment</p>
+            -->
+            <p><b>Масштабування</b> досягається шляхом зміни кількості реплік у Deployment'і.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--<h3>Summary:</h3>
+                    -->
+                    <h3>Зміст:</h3>
+                    <ul>
+                        <!--<li>Scaling a Deployment</li>
+                        -->
+                        <li>Масштабування Deployment'а</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!--<p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl run command </i></p>
+                    -->
+                    <p><i> Кількість Pod'ів можна вказати одразу при створенні Deployment'а за допомогою параметра --replicas, під час запуску команди kubectl run </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Загальна інформація про масштабування</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Previous</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!--<p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports <a href="/docs/user-guide/horizontal-pod-autoscaling/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p>
+                -->
+                <p>Масштабування Deployment'а забезпечує створення нових Pod'ів і їх розподілення по вузлах з доступними ресурсами. Масштабування збільшить кількість Pod'ів відповідно до нового бажаного стану. Kubernetes також підтримує <a href="/docs/user-guide/horizontal-pod-autoscaling/">автоматичне масштабування</a>, однак це виходить за межі даного матеріалу. Масштабування до нуля також можливе - це призведе до видалення всіх Pod'ів у визначеному Deployment'і.</p>
+
+                <!--<p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p>
+                -->
+                <p>Запустивши застосунок на декількох Pod'ах, необхідно розподілити між ними трафік. Services мають інтегрований балансувальник навантаження, що розподіляє мережевий трафік між усіма Pod'ами відкритого Deployment'а. Services безперервно моніторять запущені Pod'и за допомогою кінцевих точок, для того щоб забезпечити надходження трафіка лише на доступні Pod'и.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--p><i>Scaling is accomplished by changing the number of replicas in a Deployment.</i></p>
+                    -->
+                    <p><i>Масштабування досягається шляхом зміни кількості реплік у Deployment'і.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!--<p> Once you have multiple instances of an Application running, you would be able to do Rolling updates without downtime. We'll cover that in the next module. Now, let's go to the online terminal and scale our application.</p>
+                -->
+                <p> Після запуску декількох примірників застосунку ви зможете виконувати послідовне оновлення без шкоди для доступності системи. Ми розповімо вам про це у наступному модулі. А зараз давайте повернемось до онлайн термінала і масштабуємо наш застосунок.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

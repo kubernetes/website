@@ -1,29 +1,26 @@
 ---
 title: Set up Ingress on Minikube with the NGINX Ingress Controller
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
-to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress. 
-
-{{< caution >}}
-For the Ingress resource to work, the cluster **must** also have an Ingress controller running.
-{{< /caution >}}
+to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress.
 
 This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a Minikube cluster
 
@@ -70,7 +67,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Create a Deployment using the following command:
 
     ```shell
-    kubectl run web --image=gcr.io/google-samples/hello-app:1.0 --port=8080
+    kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
     ```
 
     Output:
@@ -82,7 +79,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 1. Expose the Deployment: 
 
     ```shell
-    kubectl expose deployment web --target-port=8080 --type=NodePort
+    kubectl expose deployment web --type=NodePort --port=8080
     ```
     
     Output: 
@@ -207,7 +204,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Create a v2 Deployment using the following command:
 
     ```shell
-    kubectl run web2 --image=gcr.io/google-samples/hello-app:2.0 --port=8080
+    kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
     ```
     Output:
     
@@ -218,7 +215,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Expose the Deployment:
 
     ```shell
-    kubectl expose deployment web2 --target-port=8080 --type=NodePort
+    kubectl expose deployment web2 --port=8080 --type=NodePort
     ```
 
     Output: 
@@ -232,7 +229,7 @@ The following file is an Ingress resource that sends traffic to your Service via
 1. Edit the existing `example-ingress.yaml` and add the following lines:  
 
     ```yaml
-          - path: /v2/*
+          - path: /v2
             backend:
               serviceName: web2
               servicePort: 8080
@@ -279,13 +276,14 @@ The following file is an Ingress resource that sends traffic to your Service via
 
     {{< note >}}If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.{{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read more about [Ingress](/docs/concepts/services-networking/ingress/)
 * Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * Read more about [Services](/docs/concepts/services-networking/service/)
 
-{{% /capture %}}
+
 

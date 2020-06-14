@@ -1,6 +1,6 @@
 ---
 title: kubectlのインストールおよびセットアップ
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,15 +8,16 @@ card:
   title: Install kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetesのコマンドラインツールである[kubectl](/docs/user-guide/kubectl/)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理および検査を行うことができます。kubectlの操作に関する完全なリストは、[Overview of kubectl](/docs/reference/kubectl/overview/)を参照してください。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 kubectlのバージョンは、クラスターのマイナーバージョンとの差分が1つ以内でなければなりません。たとえば、クライアントがv1.2であれば、v1.1、v1.2、v1.3のマスターで動作するはずです。最新バージョンのkubectlを使うことで、不測の事態を避けることができるでしょう。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Linuxへkubectlをインストールする {#install-kubectl-on-linux}
 
@@ -488,12 +489,13 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Minikubeをインストールする](/ja/docs/tasks/tools/install-minikube/)
 * クラスターの作成に関する詳細を[スタートガイド](/docs/setup/)で確認する
 * [アプリケーションを起動して公開する方法を学ぶ](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください
 * [kubectlリファレンスドキュメント](/docs/reference/kubectl/kubectl/)を参照する
-{{% /capture %}}
+

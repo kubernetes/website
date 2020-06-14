@@ -2,32 +2,52 @@
 reviewers:
 - jessfraz
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+{{< feature-state for_k8s_version="v1.6" state="alpha" >}}
+
 This page provides an overview of PodPresets, which are objects for injecting
 certain information into pods at creation time. The information can include
 secrets, volumes, volume mounts, and environment variables.
-{{% /capture %}}
 
 
-{{% capture body %}}
-## Understanding Pod Presets
 
-A `Pod Preset` is an API resource for injecting additional runtime requirements
+<!-- body -->
+## Understanding Pod presets
+
+A PodPreset is an API resource for injecting additional runtime requirements
 into a Pod at creation time.
 You use [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-to specify the Pods to which a given Pod Preset applies.
+to specify the Pods to which a given PodPreset applies.
 
-Using a Pod Preset allows pod template authors to not have to explicitly provide
+Using a PodPreset allows pod template authors to not have to explicitly provide
 all information for every pod. This way, authors of pod templates consuming a
 specific service do not need to know all the details about that service.
 
-For more information about the background, see the [design proposal for PodPreset](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md).
 
-## How It Works
+## Enable PodPreset in your cluster {#enable-pod-preset}
+
+In order to use Pod presets in your cluster you must ensure the following:
+
+1.  You have enabled the API type `settings.k8s.io/v1alpha1/podpreset`. For
+    example, this can be done by including `settings.k8s.io/v1alpha1=true` in
+    the `--runtime-config` option for the API server. In minikube add this flag
+    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` while
+    starting the cluster.
+1.  You have enabled the admission controller `PodPreset`. One way to doing this
+    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
+    for the API server. In minikube, add this flag
+    
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+    
+    while starting the cluster.
+
+## How it works
 
 Kubernetes provides an admission controller (`PodPreset`) which, when enabled,
 applies Pod Presets to incoming pod creation requests.
@@ -62,31 +82,13 @@ There may be instances where you wish for a Pod to not be altered by any Pod
 Preset mutations. In these cases, you can add an annotation in the Pod Spec
 of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
-## Enable Pod Preset
 
-In order to use Pod Presets in your cluster you must ensure the following:
 
-1.  You have enabled the API type `settings.k8s.io/v1alpha1/podpreset`. For
-    example, this can be done by including `settings.k8s.io/v1alpha1=true` in
-    the `--runtime-config` option for the API server. In minikube add this flag
-    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` while
-    starting the cluster.
-1.  You have enabled the admission controller `PodPreset`. One way to doing this
-    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
-    for the API server. In minikube add this flag
-    
-    ```shell
-    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
-    ```
-    
-    while starting the cluster.
-1.  You have defined your Pod Presets by creating `PodPreset` objects in the
-    namespace you will use.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+See [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 
-* [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
+For more information about the background, see the [design proposal for PodPreset](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md).
 
-{{% /capture %}}
+

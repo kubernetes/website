@@ -2,7 +2,7 @@
 reviewers:
 - hw-qiaolei
 title: kubectl 概述
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
@@ -14,7 +14,7 @@ reviewers:
 - bgrant0607
 - hw-qiaolei
 title: Overview of kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
@@ -22,7 +22,7 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubectl is a command line interface for running commands against Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
@@ -34,9 +34,9 @@ This overview covers `kubectl` syntax, describes the command operations, and pro
 -->
 本文概述了 `kubectl` 语法和命令操作描述，并提供了常见的示例。有关每个命令的详细信息，包括所有受支持的参数和子命令，请参阅 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 参考文档。有关安装说明，请参见 [安装 kubectl](/docs/tasks/kubectl/install/) 。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Syntax
@@ -166,7 +166,7 @@ Operation       | Syntax    |       Description
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Run a proxy to the Kubernetes API server.
 `replace`        | `kubectl replace -f FILENAME` | Replace a resource from a file or stdin.
 `rolling-update`    | `kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE \| -f NEW_CONTROLLER_SPEC) [flags]` | Perform a rolling update by gradually replacing the specified replication controller and its pods.
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | Run a specified image on the cluster.
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server &#124; client &#124; none] [--overrides=inline-json] [flags]</code> | Run a specified image on the cluster.
 `scale`        | `kubectl scale (-f FILENAME \| TYPE NAME \| TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]` | Update the size of the specified replication controller.
 `stop`        | `kubectl stop` | Deprecated: Instead, see `kubectl delete`.
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
@@ -197,7 +197,7 @@ Operation       | Syntax    |       Description
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | 运行 Kubernetes API 服务器的代理。
 `replace`        | `kubectl replace -f FILENAME` | 从文件或标准输入中替换资源。
 `rolling-update`    | <code>kubectl rolling-update OLD_CONTROLLER_NAME ([NEW_CONTROLLER_NAME] --image=NEW_CONTAINER_IMAGE &#124; -f NEW_CONTROLLER_SPEC) [flags]</code> | 通过逐步替换指定的副本控制器及其 pod 来执行滚动更新。
-`run`        | `kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]` | 在集群上运行指定的镜像。
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server &#124; client &#124; none] [--overrides=inline-json] [flags]</code> | 在集群上运行指定的镜像。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 更新指定副本控制器的大小。
 `stop`        | `kubectl stop` | 不推荐：相反，请参阅 kubectl delete。
 `version`        | `kubectl version [--client] [flags]` | 显示运行在客户端和服务器上的 Kubernetes 版本。
@@ -909,13 +909,14 @@ To find out more about plugins, take a look at the [example cli plugin](https://
 -->
 要了解关于插件的更多信息，请查看[示例 cli 插件](https://github.com/kubernetes/sample-cli-plugin)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 -->
 开始使用 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 命令。
 
-{{% /capture %}}
+

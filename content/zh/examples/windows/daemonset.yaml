@@ -17,5 +17,5 @@ spec:
       - name: foo
         image: microsoft/windowsservercore:1709
       nodeSelector:
-        beta.kubernetes.io/os: windows
+        kubernetes.io/os: windows
 

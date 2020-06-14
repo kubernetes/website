@@ -1,16 +1,16 @@
 ---
 title: 서비스 및 파드용 DNS
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스의 DNS 지원에 대한 개요를 설명한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -164,14 +164,14 @@ DNS 정책은 파드별로 설정할 수 있다. 현재 쿠버네티스는 다�
   일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다. 
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다. 
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은 
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#impacts-on-pods)
+  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)
   에서 확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인 
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
 - "`None`": 이 정책은 파드가 쿠버네티스 환경의 DNS 설정을 무시하도록 한다. 
   모든 DNS 설정은 파드 스펙 내에 `dnsConfig`필드를 사용하여 제공해야 한다.
   아래 절인 
-  [파드의 DNS 설정](#파드의-dns-설정)
+  [파드의 DNS 설정](#pod-dns-config)
   에서 자세한 내용을 확인할 수 있다.
 
 {{< note >}}
@@ -202,7 +202,7 @@ spec:
   dnsPolicy: ClusterFirstWithHostNet
 ```
 
-### 파드의 DNS 설정
+### 파드의 DNS 설정 {#pod-dns-config}
 
 사용자들은 파드의 DNS 설정을 통해서 직접 파드의 DNS를 세팅할 수 있다.
 
@@ -262,14 +262,14 @@ options ndots:5
 | 1.10 | 베타 (기본)|
 | 1.9 | 알파 |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 DNS 구성 관리에 대한 지침은 
 [DNS 서비스 구성](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 에서 확인 할 수 있다.
 
-{{% /capture %}}
 
 

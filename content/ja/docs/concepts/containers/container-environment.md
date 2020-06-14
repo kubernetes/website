@@ -1,17 +1,17 @@
 ---
 title: コンテナ環境
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、コンテナ環境で利用可能なリソースについて説明します。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## コンテナ環境
 
@@ -45,11 +45,12 @@ FOO_SERVICE_PORT=<サービスが実行されているポート>
 
 サービスは専用のIPアドレスを持ち、[DNSアドオン](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)が有効の場合、DNSを介してコンテナで利用可能です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [コンテナライフサイクルフック](/docs/concepts/containers/container-lifecycle-hooks/)の詳細
 * [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 
-{{% /capture %}}
+

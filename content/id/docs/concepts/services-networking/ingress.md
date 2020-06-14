@@ -1,14 +1,14 @@
 ---
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Terminologi
 
 Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipakai:
@@ -467,8 +467,9 @@ Kamu dapat mengekspos sebuah *Service* dalam berbagai cara, tanpa harus mengguna
 * [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 * [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Melakukan konfigurasi Ingress pada Minikube dengan kontroler NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

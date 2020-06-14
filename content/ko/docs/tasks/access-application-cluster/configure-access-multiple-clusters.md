@@ -1,6 +1,6 @@
 ---
 title: 다중 클러스터 접근 구성
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 구성 파일을 사용하여 다수의 클러스터에 접근할 수 있도록 
 설정하는 방식을 보여준다. 클러스터, 사용자, 컨텍스트가 하나 이상의 
@@ -21,15 +21,16 @@ card:
 반드시 존재해야 한다는 것을 의미하는 것은 아니다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 클러스터, 사용자, 컨텍스트 정의
 
@@ -149,17 +150,17 @@ users:
     username: exp
 ```
 
-위 `fake-ca-file`, `fake-cert-file`, `fake-key-file`은 인증서 파일들의 실제 경로를 위한 
+위 `fake-ca-file`, `fake-cert-file`, `fake-key-file`은 인증서 파일들의 실제 경로 이름을 위한 
 플레이스홀더(placeholder)이다. 
 당신의 환경에 맞게 이들을 실제 인증서 경로로 변경해줘야 한다.
 
-만약 당신이 인증서 파일들의 경로 대신에 base64로 인코딩된 데이터를 여기에 사용하려고 한다면 
-키에 `-data` 접미사를 추가해야 한다. 예를 들면 `certificate-authority-data`, 
+만약 당신이 인증서 파일들의 경로 대신에 여기에 포함된 base64로 인코딩된 데이터를 사용하려고 한다면 
+이 경우 키에 `-data` 접미사를 추가해야 한다. 예를 들면 `certificate-authority-data`, 
 `client-certificate-data`, `client-key-data` 같이 사용할 수 있다.
 
 컨텍스트는 세 가지(클러스터, 사용자, 네임스페이스) 요소들로 이뤄진다. 예를 들어 
-`dev-frontend` 컨텍스트는 `development` 클러스터의 `frontend` 네임스페이스에 접근하는데 
-`developer` 사용자 자격증명을 사용하라고 알려준다.
+`dev-frontend` 컨텍스트는 "`development` 클러스터의 `frontend` 네임스페이스에 접근하는데 
+`developer` 사용자 자격증명을 사용하라고 알려준다."
 
 현재 컨텍스트를 설정한다.
 
@@ -275,7 +276,7 @@ Linux와 Mac에서는 콜론으로 구분되며 Windows에서는 세미콜론으
 `KUBECONFIG` 환경 변수를 가지고 있다면, 리스트에 포함된 구성 파일들에  
 익숙해지길 바란다.
 
-다음 예와 같이 임시로 `KUBECONFIG` 환경 변수에 두 개의 경로들을 덧붙여보자.<br>
+다음 예와 같이 임시로 `KUBECONFIG` 환경 변수에 두 개의 경로들을 덧붙여보자.
 
 ### Linux
 ```shell
@@ -346,7 +347,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
 ### Windows Powershell
 ```shell
- $Env:KUBECONFIG=($Env:KUBECONFIG;$HOME/.kube/config)
+ $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
 
 이제 `KUBECONFIG` 환경 변수에 리스트에 포함된 모든 파일들이 합쳐진 구성 정보를 보자. 
@@ -359,23 +360,25 @@ kubectl config view
 ## 정리
 
 `KUBECONFIG` 환경 변수를 원래 값으로 되돌려 놓자. 예를 들면:<br>
-Linux:
+
+### Linux
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
-Windows PowerShell
+
+### Windows PowerShell
 ```shell
  $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
 
 
 

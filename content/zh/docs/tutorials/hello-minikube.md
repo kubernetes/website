@@ -1,6 +1,6 @@
 ---
 title: 你好 Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -15,7 +15,7 @@ card:
 <!--
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -29,26 +29,27 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial shows you how to run a simple Hello World Node.js app
 on Kubernetes using [Minikube](/docs/setup/learning-environment/minikube) and Katacoda.
 Katacoda provides a free, in-browser Kubernetes environment.
 -->
-本教程向您展示如何使用 [Minikube](/docs/setup/learning-environment/minikube) 和 Katacoda 在 Kubernetes 上运行一个简单的 “Hello World” Node.js 应用程序。Katacoda 提供免费的浏览器内 Kubernetes 环境。
+本教程向您展示如何使用 [Minikube](/zh/docs/setup/learning-environment/minikube) 和 Katacoda 在 Kubernetes 上运行一个简单的 “Hello World” Node.js 应用程序。Katacoda 提供免费的浏览器内 Kubernetes 环境。
 
 {{< note >}}
 <!--
 You can also follow this tutorial if you've installed [Minikube locally](/docs/tasks/tools/install-minikube/).
 -->
-如果您已在本地安装 [Minikube](/docs/tasks/tools/install-minikube/)，也可以按照本教程操作。
+如果您已在本地安装 [Minikube](/zh/docs/tasks/tools/install-minikube/)，也可以按照本教程操作。
 
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Deploy a hello world application to Minikube.
@@ -59,9 +60,10 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 * 运行应用程序。
 * 查看应用日志
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 This tutorial provides a container image built from the following files:
@@ -77,9 +79,9 @@ For more information on the `docker build` command, read the [Docker documentati
 -->
 有关 `docker build` 命令的更多信息，请参阅 [Docker 文档](https://docs.docker.com/engine/reference/commandline/build/)。
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Create a Minikube cluster
@@ -127,7 +129,7 @@ recommended way to manage the creation and scaling of Pods.
 
 ## 创建 Deployment
 
-Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) 是由一个或多个为了管理和联网而绑定在一起的容器构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
+Kubernetes [*Pod*](/zh/docs/concepts/workloads/pods/pod/) 是由一个或多个为了管理和联网而绑定在一起的容器构成的组。本教程中的 Pod 只有一个容器。Kubernetes [*Deployment*](/zh/docs/concepts/workloads/controllers/deployment/) 检查 Pod 的健康状况，并在 Pod 中的容器终止的情况下重新启动新的容器。Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
@@ -137,7 +139,7 @@ Pod runs a Container based on the provided Docker image.
 1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker 镜像运行 Container。
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 <!--
@@ -205,7 +207,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
     {{< note >}}For more information about `kubectl`commands, see the [kubectl overview](/docs/user-guide/kubectl-overview/).{{< /note >}}
 -->
-    {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/docs/user-guide/kubectl-overview/)。{{< /note >}}
+   {{< note >}}有关 kubectl 命令的更多信息，请参阅 [kubectl 概述](/zh/docs/user-guide/kubectl-overview/)。{{< /note >}}
 
 <!--
 ## Create a Service
@@ -218,7 +220,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
 
 ## 创建 Service
 
-默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，您必须将 Pod 暴露为 Kubernetes [*Service*](/docs/concepts/services-networking/service/)。
+默认情况下，Pod 只能通过 Kubernetes 集群中的内部 IP 地址访问。要使得 `hello-node` 容器可以从 Kubernetes 虚拟网络的外部访问，您必须将 Pod 暴露为 Kubernetes [*Service*](/zh/docs/concepts/services-networking/service/)。
 
 <!--
 1. Expose the Pod to the public internet using the `kubectl expose` command:
@@ -261,7 +263,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     the `LoadBalancer` type makes the Service accessible through the `minikube service`
     command.
 -->
-    在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
+   在支持负载均衡器的云服务提供商上，将提供一个外部 IP 来访问该服务。在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
 
 <!--
 3. Run the following command:
@@ -442,17 +444,18 @@ Optionally, delete the Minikube VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).
 -->
-* 进一步了解 [Deployment 对象](/docs/concepts/workloads/controllers/deployment/)。
-* 学习更多关于 [部署应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
-* 学习更多关于 [Service 对象](/docs/concepts/services-networking/service/)。
+* 进一步了解 [Deployment 对象](/zh/docs/concepts/workloads/controllers/deployment/)。
+* 学习更多关于 [部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
+* 学习更多关于 [Service 对象](/zh/docs/concepts/services-networking/service/)。
 
-{{% /capture %}}
+

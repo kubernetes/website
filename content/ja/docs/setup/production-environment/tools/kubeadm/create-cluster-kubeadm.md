@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用したシングルコントロールプレーンクラスターの作成
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm`ツールは、ベストプラクティスに準拠した実用最小限のKubernetesクラスターをブートストラップする手助けをします。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
 
@@ -16,9 +16,7 @@ weight: 30
 
 `kubeadm`は、ラップトップ、クラウドのサーバー群、Raspberry Piなどの様々なマシンにインストールして使えます。クラウドとオンプレミスのどちらにデプロイする場合でも、`kubeadm`はAnsibleやTerraformなどのプロビジョニングシステムに統合できます。
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 このガイドを進めるには、以下の環境が必要です。
 
@@ -37,9 +35,9 @@ kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。
 `kubeadm alpha`以下のすべてのコマンドは、定義通り、アルファレベルでサポートされています。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 目的
 

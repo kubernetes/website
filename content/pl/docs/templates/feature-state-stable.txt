@@ -1,5 +1,0 @@
-
-Ta funkcjonalność jest *stabilna*, co oznacza:
-
-* Nazwa wersji jest w postaci vX, gdzie X jest liczbą naturalną.
-* Stabilne funkcjonalności będą dostępne w wielu kolejnych wersjach oprogramowania.

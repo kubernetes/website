@@ -4,11 +4,11 @@ reviewers:
 - mikedanese
 - munnerz
 title: Certificate Signing Requests
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -21,9 +21,9 @@ A CertificateSigningRequest (CSR) resource is used to request that a certificate
 by a denoted signer, after which the request may be approved or denied before
 finally being signed.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Request signing process
 
 The _CertificateSigningRequest_ resource type allows a client to ask for an X.509 certificate
@@ -292,10 +292,10 @@ status:
     type: Denied
 ```
 
-It's usual to set `status.condtions.reason` to a machine-friendly reason
+It's usual to set `status.conditions.reason` to a machine-friendly reason
 code using TitleCase; this is a convention but you can set it to anything
 you like. If you want to add a note just for human consumption, use the
-`status.condtions.message` field.
+`status.conditions.message` field.
 
 ## Signing
 
@@ -317,9 +317,10 @@ subresource of the CSR to be signed.
 As part of this request, the `status.certificate` field should be set to contain the
 signed certificate.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read [Manage TLS Certificates in a Cluster](https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster/)
 * View the source code for the kube-controller-manager built in [signer](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)
@@ -327,4 +328,4 @@ signed certificate.
 * For details of X.509 itself, refer to [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) section 3.1
 * For information on the syntax of PKCS#10 certificate signing requests, refer to [RFC 2986](https://tools.ietf.org/html/rfc2986)
 
-{{% /capture %}}
+

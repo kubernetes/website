@@ -3,11 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
@@ -22,10 +22,10 @@ answer the following questions:
  - from where was it initiated?
  - to where was it going?
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
@@ -119,6 +119,7 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
   }
 ]
 ```
+
 {{< /note >}}
 
 ### Log backend
@@ -234,7 +235,7 @@ spec:
       url: "https://audit.app"
 ```
 
-For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration). Multiple objects will exist as independent solutions.
+For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#auditsink-v1alpha1-auditregistration). Multiple objects will exist as independent solutions.
 The name of an AuditSink object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -244,7 +245,7 @@ Existing static backends that you configure with runtime flags are not affected 
 
 The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
 
-The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
+The `level` field applies the given audit level to all requests. The `stages` field is now a list of allowed stages to record.
 
 #### Contacting the webhook
 
@@ -339,12 +340,12 @@ audit policies.
 [Fluentd][fluentd] is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
-1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
-{{< note >}}
-Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
+{{< note >}}Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
 {{< /note >}}
 
-1. create a config file for fluentd
+1. Install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
+
+1. Create a config file for fluentd
 
     ```
     cat <<'EOF' > /etc/fluentd/config
@@ -399,19 +400,19 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
     EOF
     ```
 
-1. start fluentd
+1. Start fluentd
 
     ```shell
     fluentd -c /etc/fluentd/config  -vv
     ```
 
-1. start kube-apiserver with the following options:
+1. Start kube-apiserver with the following options:
 
     ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
     ```
 
-1. check audits for different namespaces in `/var/log/audit-*.log`
+1. Check audits for different namespaces in `/var/log/audit-*.log`
 
 ### Use logstash to collect and distribute audit events from webhook backend
 
@@ -490,8 +491,7 @@ Note that in addition to file output plugin, logstash has a variety of outputs t
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
 
-
-[kube-apiserver]: /docs/admin/kube-apiserver
+[kube-apiserver]: /docs/reference/command-line-tools-reference/kube-apiserver/
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
 [configure-helper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
@@ -503,12 +503,13 @@ plugin which supports full-text search and analytics.
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
 
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 
-{{% /capture %}}
+

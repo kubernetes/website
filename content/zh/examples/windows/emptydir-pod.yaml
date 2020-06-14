@@ -17,4 +17,4 @@ spec:
   - name: scratch-volume
     emptyDir: {}
   nodeSelector:
-    beta.kubernetes.io/os: windows
+    kubernetes.io/os: windows

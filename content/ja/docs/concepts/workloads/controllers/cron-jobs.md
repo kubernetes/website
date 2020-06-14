@@ -1,10 +1,10 @@
 ---
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
@@ -24,9 +24,9 @@ CronJobリソースのためのマニフェストを作成する場合、その�
 
 cronジョブを作成し、実行するインストラクション、または、cronジョブ仕様ファイルのサンプルについては、[Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs)をご覧ください。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## CronJobの制限
 
@@ -50,4 +50,4 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 CronJobはスケジュールに一致するJobの作成にのみ関与するのに対して、JobはJobが示すPod管理を担います。
 
-{{% /capture %}}
+

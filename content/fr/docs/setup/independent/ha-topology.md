@@ -1,11 +1,11 @@
 ---
 title: Options pour la topologie en haute disponibilité
 description: Topologie haute-disponibilité Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page explique les deux options de configuration de topologie de vos clusters Kubernetes
 pour la haute disponibilité.
@@ -17,9 +17,9 @@ Vous pouvez configurer un cluster en haute disponibilité:
 
 Vous devez examiner attentivement les avantages et les inconvénients de chaque topologie avant
 de configurer un cluster en haute disponibilité.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Topologie etcd empilée
 
@@ -73,10 +73,10 @@ Un minimum de trois machines pour les nœuds du control plane et de trois machin
 
 Schéma de la [Topologie externe etcd](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Configurer un cluster hautement disponible avec kubeadm](/docs/setup/independent/high-availability/)
 
-{{% /capture %}}

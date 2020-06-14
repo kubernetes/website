@@ -1,12 +1,13 @@
 ---
 title: Participating in SIG Docs
-content_template: templates/concept
+content_type: concept
+weight: 60
 card:
   name: contribute
-  weight: 40
+  weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs is one of the
 [special interest groups](https://github.com/kubernetes/community/blob/master/sig-list.md)
@@ -29,13 +30,13 @@ The rest of this document outlines some unique ways these roles function within
 SIG Docs, which is responsible for maintaining one of the most public-facing
 aspects of Kubernetes -- the Kubernetes website and documentation.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Roles and responsibilities
 
-- **Anyone** can contribute to Kubernetes documentation. To contribute, you must [sign the CLA](/docs/contribute/start#sign-the-cla) and have a GitHub account.
+- **Anyone** can contribute to Kubernetes documentation. To contribute, you must [sign the CLA](/docs/contribute/new-content/overview/#sign-the-cla) and have a GitHub account.
 - **Members** of the Kubernetes organization are contributors who have spent time and effort on the Kubernetes project, usually by opening pull requests with accepted changes. See [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md) for membership criteria.
 - A SIG Docs **Reviewer** is a member of the Kubernetes organization who has
   expressed interest in reviewing documentation pull requests, and has been
@@ -61,7 +62,7 @@ Anyone can do the following:
   If you are not a member of the Kubernetes organization, using `/lgtm` has no effect on automated systems.
   {{< /note >}}
 
-After [signing the CLA](/docs/contribute/start#sign-the-cla), anyone can also:
+After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
 - Open a pull request to improve existing content, add new content, or write a blog post or case study.
 
 ## Members
@@ -222,7 +223,7 @@ Approvers improve the documentation by reviewing and merging pull requests into 
 
 - Visit the Netlify page preview for a PR to make sure things look good before approving.
 
-- Participate in the [PR Wrangler rotation scheduler](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
+- Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
 rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
 for more details.
 
@@ -298,16 +299,18 @@ SIG Docs approvers. Here's how it works.
 - Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
 - Only SIG Docs approvers can merge a pull request
   by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](#pr-wrangler) or
+  specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For more information about contributing to the Kubernetes documentation, see:
 
-- [Start contributing](/docs/contribute/start/)
-- [Documentation style](/docs/contribute/style/)
+- [Contributing new content](/docs/contribute/overview/)
+- [Reviewing content](/docs/contribute/review/reviewing-prs)
+- [Documentation style guide](/docs/contribute/style/)
 
-{{% /capture %}}
+

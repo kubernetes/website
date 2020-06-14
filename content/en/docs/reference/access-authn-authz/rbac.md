@@ -4,17 +4,17 @@ reviewers:
 - deads2k
 - liggitt
 title: Using RBAC Authorization
-content_template: templates/concept
-aliases: [../../../rbac/]
+content_type: concept
+aliases: [/rbac/]
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Role-based access control (RBAC) is a method of regulating access to computer or
 network resources based on the roles of individual users within your organization.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 RBAC authorization uses the `rbac.authorization.k8s.io`
 {{< glossary_tooltip text="API group" term_id="api-group" >}} to drive authorization
 decisions, allowing you to dynamically configure policies through the Kubernetes API.
@@ -1079,37 +1079,37 @@ In order from most secure to least secure, the approaches are:
 
 2. Grant a role to the "default" service account in a namespace
 
-    If an application does not specify a `serviceAccountName`, it uses the "default" service account.
+If an application does not specify a `serviceAccountName`, it uses the "default" service account.
 
-    {{< note >}}
-    Permissions given to the "default" service account are available to any pod
-    in the namespace that does not specify a `serviceAccountName`.
-    {{< /note >}}
+{{< note >}}
+Permissions given to the "default" service account are available to any pod
+in the namespace that does not specify a `serviceAccountName`.
+{{< /note >}}
 
-    For example, grant read-only permission within "my-namespace" to the "default" service account:
+For example, grant read-only permission within "my-namespace" to the "default" service account:
 
-    ```shell
-    kubectl create rolebinding default-view \
-      --clusterrole=view \
-      --serviceaccount=my-namespace:default \
-      --namespace=my-namespace
-    ```
+```shell
+kubectl create rolebinding default-view \
+  --clusterrole=view \
+  --serviceaccount=my-namespace:default \
+  --namespace=my-namespace
+```
 
-    Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
-    "default" service account in the `kube-system` namespace.
-    To allow those add-ons to run with super-user access, grant cluster-admin
-    permissions to the "default" service account in the `kube-system` namespace.
+Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
+"default" service account in the `kube-system` namespace.
+To allow those add-ons to run with super-user access, grant cluster-admin
+permissions to the "default" service account in the `kube-system` namespace.
 
-    {{< caution >}}
-    Enabling this means the `kube-system` namespace contains Secrets
-    that grant super-user access to your cluster's API.
-    {{< /caution >}}
+{{< caution >}}
+Enabling this means the `kube-system` namespace contains Secrets
+that grant super-user access to your cluster's API.
+{{< /caution >}}
 
-    ```shell
-    kubectl create clusterrolebinding add-on-cluster-admin \
-      --clusterrole=cluster-admin \
-      --serviceaccount=kube-system:default
-    ```
+```shell
+kubectl create clusterrolebinding add-on-cluster-admin \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kube-system:default
+```
 
 3. Grant a role to all service accounts in a namespace
 
@@ -1182,7 +1182,7 @@ allowed by *either* the RBAC or ABAC policies is allowed.
 
 When the kube-apiserver is run with a log level of 5 or higher for the RBAC component
 (`--vmodule=rbac*=5` or `--v=5`), you can see RBAC denials in the API server log
-(prefixed with `RBAC DENY:`).
+(prefixed with `RBAC`).
 You can use that information to determine which roles need to be granted to which users, groups, or service accounts.
 
 Once you have [granted roles to service accounts](#service-account-permissions) and workloads
@@ -1209,5 +1209,3 @@ kubectl create clusterrolebinding permissive-binding \
 
 After you have transitioned to use RBAC, you should adjust the access controls
 for your cluster to ensure that these meet your information security needs.
-
-{{% /capture %}}

@@ -4,14 +4,13 @@
 -->
 ### 摘要
 
-
-
 <!--
 When joining a kubeadm initialized cluster, we need to establish
 bidirectional trust. This is split into discovery (having the Node
 trust the Kubernetes Control Plane) and TLS bootstrap (having the Kubernetes
 Control Plane trust the Node).
 -->
+
 当节点加入 kubeadm 初始化的集群时，我们需要建立双向信任。
 这个过程可以分解为发现（让待加入节点信任 Kubernetes 控制平面节点）和 TLS 引导（让Kubernetes 控制平面节点信任待加入节点）两个部分。
 
@@ -27,11 +26,12 @@ the discovery information is loaded from a URL, HTTPS must be used.
 Also, in that case the host installed CA bundle is used to verify
 the connection.
 -->
+
 有两种主要的发现方案。
 第一种方法是使用共享令牌和 API 服务器的 IP 地址。
 第二种是提供一个文件 - 标准 kubeconfig 文件的一个子集。
 该文件可以是本地文件，也可以通过 HTTPS URL 下载。
-格式是 kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443、kubeadm join--discovery-file path/to/file.conf、或者 kubeadm join --discovery-file `https://url/file.conf`。
+格式是 `kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443`、`kubeadm join--discovery-file path/to/file.conf` 或者`kubeadm join --discovery-file https://url/file.conf`。
 只能使用其中一种。
 如果发现信息是从 URL 加载的，必须使用 HTTPS。
 此外，在这种情况下，主机安装的 CA 包用于验证连接。
@@ -80,11 +80,12 @@ TLS 引导机制也通过共享令牌驱动。
 通常两个部分会使用相同的令牌。
 在这种情况下可以使用 --token 参数，而不是单独指定每个令牌。
 
-
 <!-- 
 The "join [api-server-endpoint]" command executes the following phases:
 -->
+
 "join [api-server-endpoint]" 命令执行下列阶段：
+
 ```
 preflight              Run join pre-flight checks
 control-plane-prepare  Prepare the machine for serving a control plane
@@ -108,250 +109,250 @@ kubeadm join [api-server-endpoint] [flags]
 -->
 ### 选项
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
+<tr>
+<td colspan="2">--apiserver-advertise-address string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
+-->
+如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--apiserver-advertise-address string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If the node should host a new control plane instance, the IP address the API Server will advertise it's listening on. If not set the default network interface will be used.
-      -->
-      如果该节点托管一个新的控制平面实例，则 API 服务器将公布其正在侦听的 IP 地址。如果未设置，则使用默认网络接口。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">
+<!--
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
+-->
+--apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 6443
+</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+If the node should host a new control plane instance, the port for the API Server to bind to.
+-->
+如果节点应该托管新的控制平面实例，则为 API 服务器要绑定的端口。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">
-      <!--
-      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 6443
-      -->
-      --apiserver-bind-port int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值: 6443
-      </td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      If the node should host a new control plane instance, the port for the API Server to bind to.
-      -->
-      如果节点应该托管新的控制平面实例，则为 API 服务器要绑定的端口。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--certificate-key string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Use this key to decrypt the certificate secrets uploaded by init.
+-->
+使用此密钥可以解密由 init 上传的证书 secret。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--certificate-key string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Use this key to decrypt the certificate secrets uploaded by init.
-      -->
-      使用此密钥可以解密由 init 上传的证书 secret。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--config string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to kubeadm config file.
+-->
+kubeadm 配置文件的路径。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--config string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to kubeadm config file.
-      -->
-       kubeadm 配置文件的路径。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--control-plane</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Create a new control plane instance on this node
+-->
+在此节点上创建一个新的控制平面实例
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--control-plane</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Create a new control plane instance on this node
-      -->
-      在此节点上创建一个新的控制平面实例
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--cri-socket string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
+-->
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--cri-socket string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
-      -->
-      要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--discovery-file string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+For file-based discovery, a file or URL from which to load cluster information.
+-->
+对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--discovery-file string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      For file-based discovery, a file or URL from which to load cluster information.
-      -->
-      对于基于文件的发现，给出用于加载集群信息的文件或者 URL。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--discovery-token string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+For token-based discovery, the token used to validate cluster information fetched from the API server.
+-->
+对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--discovery-token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      For token-based discovery, the token used to validate cluster information fetched from the API server.
-      -->
-      对于基于令牌的发现，该令牌用于验证从 API 服务器获取的集群信息。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--discovery-token-ca-cert-hash stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").
+-->
+对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式: "&lt;type&gt;:&lt;value&gt;")。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--discovery-token-ca-cert-hash stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      For token-based discovery, validate that the root CA public key matches this hash (format: "&lt;type&gt;:&lt;value&gt;").
-      -->
-      对基于令牌的发现，验证根 CA 公钥是否与此哈希匹配 (格式: "&lt;type&gt;:&lt;value&gt;")。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
+-->
+对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--discovery-token-unsafe-skip-ca-verification</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.
-      -->
-      对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">-k, --experimental-kustomize string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+The path where kustomize patches for static pod manifests are stored.
+-->
+用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">-k, --experimental-kustomize string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      The path where kustomize patches for static pod manifests are stored.
-      -->
-      用于存储 kustomize 为静态 pod 清单所提供的补丁的路径。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">-h, --help</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+help for join
+-->
+join 操作的帮助命令
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">-h, --help</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      help for join
-      -->
-       join 操作的帮助命令
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--ignore-preflight-errors stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
+-->
+错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--ignore-preflight-errors stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.
-      -->
-      错误将显示为警告的检查列表；例如：'IsPrivilegedUser,Swap'。取值为 'all' 时将忽略检查中的所有错误。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--node-name string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Specify the node name.
+-->
+指定节点的名称
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--node-name string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Specify the node name.
-      -->
-      指定节点的名称
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--skip-phases stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+List of phases to be skipped
+-->
+要跳过的阶段列表
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--skip-phases stringSlice</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      List of phases to be skipped
-      -->
-      要跳过的阶段列表
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--tls-bootstrap-token string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
+-->
+指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--tls-bootstrap-token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Specify the token used to temporarily authenticate with the Kubernetes Control Plane while joining the node.
-      -->
-      指定在加入节点时用于临时通过 Kubernetes 控制平面进行身份验证的令牌。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--token string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
+-->
+如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
+</td>
+</tr>
 
-    <tr>
-      <td colspan="2">--token string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      Use this token for both discovery-token and tls-bootstrap-token when those values are not provided.
-      -->
-      如果未提供这些值，则将它们用于 discovery-token 令牌和 tls-bootstrap 令牌。
-      </td>
-    </tr>
-
-  </tbody>
+</tbody>
 </table>
 
 
 <!-- 
 ### Options inherited from parent commands 
 -->
+
 ### 从父命令继承的选项
 
-<table style="width: 100%; table-layout: fixed;">
-  <colgroup>
-    <col span="1" style="width: 10px;" />
-    <col span="1" />
-  </colgroup>
-  <tbody>
+   <table style="width: 100%; table-layout: fixed;">
+<colgroup>
+<col span="1" style="width: 10px;" />
+<col span="1" />
+</colgroup>
+<tbody>
 
-    <tr>
-      <td colspan="2">--rootfs string</td>
-    </tr>
-    <tr>
-      <td></td><td style="line-height: 130%; word-wrap: break-word;">
-      <!--
-      [EXPERIMENTAL] The path to the 'real' host root filesystem.
-      -->
-      [实验] 指向 '真实' 宿主机根文件系统的路径。
-      </td>
-    </tr>
+<tr>
+<td colspan="2">--rootfs string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+[EXPERIMENTAL] The path to the 'real' host root filesystem.
+-->
+[实验] 指向 '真实' 宿主机根文件系统的路径。
+</td>
+</tr>
 
-  </tbody>
+</tbody>
 </table>
 

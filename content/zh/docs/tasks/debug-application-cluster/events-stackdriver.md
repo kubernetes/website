@@ -2,7 +2,7 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: StackDriver 中的事件
 ---
 
@@ -11,12 +11,12 @@ title: StackDriver 中的事件
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Events in Stackdriver
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes events are objects that provide insight into what is happening
@@ -38,8 +38,8 @@ and aggregation capabilities, a third party solution should be installed
 to capture events.
 -->
 
-由于事件是 API 对象，因此它们存储在主节点上的 apiserver 中。
-为了避免主节点磁盘空间被填满，将强制执行保留策略：在最后一次事件发生一小时后删除事件。
+因为事件是 API 对象，所以它们存储在主节点上的 apiserver 中。
+为了避免主节点磁盘空间被填满，将强制执行保留策略：事件在最后一次发生的一小时后将会被删除。
 为了提供更长的历史记录和聚合能力，应该安装第三方解决方案来捕获事件。
 
 <!--
@@ -66,10 +66,10 @@ of the potential inaccuracy.
 [sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
 [sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Deployment
@@ -164,4 +164,4 @@ jsonPayload.involvedObject.name:"nginx-deployment"
 
 {{< figure src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500" >}}
 
-{{% /capture %}}
+

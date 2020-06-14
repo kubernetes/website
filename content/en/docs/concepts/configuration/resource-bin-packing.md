@@ -4,19 +4,19 @@ reviewers:
 - k82cn
 - ahg-g
 title: Resource Bin Packing for Extended Resources
-content_template: templates/concept
-weight: 10
+content_type: concept
+weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.16" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 The kube-scheduler can be configured to enable bin packing of resources along with extended resources using `RequestedToCapacityRatioResourceAllocation` priority function. Priority functions can be used to fine-tune the kube-scheduler as per custom needs. 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Enabling Bin Packing using RequestedToCapacityRatioResourceAllocation
 
@@ -132,23 +132,23 @@ CPU: 1
 Node Score:
 
 intel.com/foo  = resourceScoringFunction((2+1),4)
-               =  (100 - ((4-3)*100/4)
-               =  (100 - 25)
-               =  75
-               =  rawScoringFunction(75)
-               = 7
+               = (100 - ((4-3)*100/4)
+               = (100 - 25)
+               = 75                       # requested + used = 75% * available
+               = rawScoringFunction(75) 
+               = 7                        # floor(75/10) 
 
 Memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
-               = 50
+               = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
-               = 5
+               = 5                        # floor(50/10)
 
 CPU            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
-               = 37.5
+               = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
-               = 3
+               = 3                        # floor(37.5/10)
 
 NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
             =  5
@@ -194,4 +194,4 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 
 ```
 
-{{% /capture %}}
+

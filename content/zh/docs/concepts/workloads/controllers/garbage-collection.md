@@ -1,18 +1,18 @@
 ---
 title: 垃圾收集
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
 <!--
 ---
 title: Garbage Collection
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The role of the Kubernetes garbage collector is to delete certain objects
@@ -21,10 +21,10 @@ that once had an owner, but no longer have an owner.
 
 Kubernetes 垃圾收集器的作用是删除某些曾经拥有所有者（owner）但现在不再拥有所有者的对象。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Owners and dependents
@@ -50,7 +50,7 @@ Here's a configuration file for a ReplicaSet that has three Pods:
 ## 所有者和附属
 
 某些 Kubernetes 对象是其它一些对象的所有者。例如，一个 ReplicaSet 是一组 Pod 的所有者。
-具有所有者的对象被称为是所有者的*附属*。
+具有所有者的对象被称为是所有者的 *附属* 。
 每个附属对象具有一个指向其所属对象的 `metadata.ownerReferences` 字段。
 
 有时，Kubernetes 会自动设置 `ownerReference` 的值。
@@ -142,7 +142,7 @@ the following things are true:
  * The object's `deletionTimestamp` is set
  * The object's `metadata.finalizers` contains the value "foregroundDeletion".
 -->
-在*显式级联删除*模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
+在 *显式级联删除* 模式下，根对象首先进入 `deletion in progress` 状态。在 `deletion in progress` 状态会有如下的情况：
 
  * 对象仍然可以通过 REST API 可见。
  * 会设置对象的 `deletionTimestamp` 字段。
@@ -288,10 +288,11 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 跟踪 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 
 <!--
@@ -303,7 +304,7 @@ Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
 [设计文档 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
 
 
 

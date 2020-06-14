@@ -1,19 +1,20 @@
 ---
 title: Установка Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 На этой странице рассказано, как установить [Minikube](/ru/docs/tutorials/hello-minikube), инструмент для запуска одноузлового кластера Kubernetes на виртуальной машине в персональном компьютере.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -51,18 +52,18 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# Установка minikube
+<!-- steps -->
+
+## Установка minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
 
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-linux).
 
 ### Установка Hypervisor
 
@@ -122,7 +123,7 @@ brew install minikube
 {{% tab name="macOS" %}}
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-macos).
 
 ### Установка Hypervisor
 
@@ -158,7 +159,7 @@ sudo mv minikube /usr/local/bin
 {{% tab name="Windows" %}}
 ### Установка kubectl
 
-Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows).
+Убедитесь, что у вас установлен kubectl. Вы можете установить kubectl согласно инструкциям в разделе [Установка и настройка kubectl](/ru/docs/tasks/tools/install-kubectl/#установка-kubectl-в-windows).
 
 ### Установка Hypervisor
 
@@ -194,21 +195,13 @@ choco install minikube
 {{< /tabs >}}
 
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
-
-{{% /capture %}}
-
 ## Проверка установки
 
 Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, выполните следующую команду, которая запускает локальный кластер Kubernetes:
 
 {{< note >}}
 
-Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+Для использования опции `--vm-driver` с командой `minikube start` укажите имя установленного вами гипервизора в нижнем регистре в заполнителе `<driver_name>` команды ниже. Полный список значений для опции  `--vm-driver` перечислен в разделе по [указанию драйвера виртуальной машины](/ru/docs/setup/learning-environment/minikube/#указание-драйвера-виртуальной-машины).
 
 {{< /note >}}
 
@@ -253,3 +246,9 @@ machine does not exist
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+* [Локальный запуск Kubernetes при помощи Minikube](/ru/docs/setup/learning-environment/minikube/)

@@ -1,9 +1,9 @@
 ---
 title: Kubernetesクラウドコントローラーマネージャー
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
@@ -11,10 +11,10 @@ Kubernetes v1.6では`cloud-controller-manager`という新しいバイナリが
 
 `cloud-controller-manager`は、[cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)を満たす任意のクラウドプロバイダーと接続できます。下位互換性のためにKubernetesのコアプロジェクトで提供される[cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)は`kube-controller-manager`と同じクラウドライブラリを使用します。Kubernetesのコアリポジトリで既にサポートされているクラウドプロバイダーは、Kubernetesリポジトリにあるcloud-controller-managerを使用してKubernetesのコアから移行することが期待されています。今後のKubernetesのリリースでは、すべてのクラウドコントローラーマネージャーはsigリードまたはクラウドベンダーが管理するKubernetesのコアプロジェクトの外で開発される予定です。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 運用
 
@@ -87,4 +87,4 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 独自のクラウドコントローラーマネージャーを構築および開発するには[クラウドコントローラーマネージャーの開発](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md)のドキュメントを参照してください。
 
-{{% /capture %}}
+

@@ -2,10 +2,10 @@
 approvers:
 - erictune
 title: Init 容器
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page provides an overview of init containers: specialized containers that run before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
@@ -13,14 +13,14 @@ Init containers can contain utilities or setup scripts not present in an app ima
 -->
 
 本页提供了 Init 容器的概览，它是一种专用的容器，在{{< glossary_tooltip text="Pod" term_id="pod" >}}内的应用容器启动之前运行，并包括一些应用镜像中不存在的实用工具和安装脚本。
-{{% /capture %}}
+
 
 
 <!--
   You can specify init containers in the Pod specification alongside the `containers` array (which describes app containers).
 -->
 你可以在Pod的规格信息中与containers数组同级的位置指定 Init 容器。
-{{% capture body %}}
+<!-- body -->
 
 
 <!--
@@ -135,7 +135,7 @@ Here are some ideas for how to use init containers:
 
 * 在启动应用容器之前等一段时间，使用类似命令：
 
-        `sleep 60` 
+        sleep 60 
 
 * 克隆 Git 仓库到 {{< glossary_tooltip text="Volume" term_id="volume" >}}。
 * 将配置值放到配置文件中，运行模板工具为主应用容器动态地生成配置文件。例如，在配置文件中存放 POD_IP 值，并使用 Jinja 生成主应用配置文件。
@@ -404,7 +404,7 @@ Pod level control groups (cgroups) are based on the effective Pod request and li
 给定Init 容器的执行顺序下，资源使用适用于如下规则：
 
 * 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为 Pod *有效初始 request/limit*
-* Pod 对资源的 *有效 limit/request * 是如下两者的较大者：
+* Pod 对资源的 *有效 limit/request* 是如下两者的较大者：
   * 所有应用容器对某个资源的 limit/request 之和
   * 对某个资源的有效初始 limit/request
 * 基于有效 limit/request 完成调度，这意味着 Init 容器能够为初始化过程预留资源，这些资源在 Pod 生命周期过程中并没有被使用。
@@ -432,16 +432,17 @@ Pod重启导致 Init 容器重新执行，主要有如下几个原因：
 * 当 `restartPolicy` 设置为 Always，Pod 中所有容器会终止而强制重启，由于垃圾收集导致 Init 容器的完成记录丢失。
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 -->
 
-* 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调测 Init 容器](/docs/tasks/debug-application-cluster/debug-init-containers/)
-{{% /capture %}}
+

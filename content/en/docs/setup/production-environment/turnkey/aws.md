@@ -3,16 +3,17 @@ reviewers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how to install a Kubernetes cluster on AWS.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 
@@ -28,9 +29,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Getting started with your cluster
 
@@ -90,4 +91,4 @@ AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weave
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
 
-{{% /capture %}}
+

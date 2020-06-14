@@ -1,6 +1,6 @@
 ---
 title: 잡 - 실행부터 완료까지
-content_template: templates/concept
+content_type: concept
 feature:
   title: 배치 실행
   description: >
@@ -8,7 +8,7 @@ feature:
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 잡에서 하나 이상의 파드를 생성하고 지정된 수의 파드가 성공적으로 종료되도록 한다.
 파드가 성공적으로 완료되면, 성공적으로 완료된 잡을 추적한다.  지정된 수의
@@ -21,10 +21,10 @@ weight: 70
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 예시 잡 실행하기
 
@@ -469,10 +469,10 @@ spec:
 스파크 드라이버를 실행한 다음, 정리한다.
 
 이 접근 방식의 장점은 전체 프로세스가 잡 오브젝트의 완료를 보장하면서도,
-파드 생성과 작업 할당 방법을 완전히 제어할 수 있다는 점이다.
+파드 생성과 작업 할당 방법을 완전히 제어하고 유지한다는 것이다.
 
 ## 크론 잡 {#cron-jobs}
 
 [`크론잡`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
 
-{{% /capture %}}
+

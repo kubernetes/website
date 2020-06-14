@@ -1,10 +1,10 @@
 ---
 title: Declarative Management of Kubernetes Objects Using Kustomize
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) is a standalone tool
 to customize Kubernetes objects
@@ -24,17 +24,18 @@ To apply those Resources, run `kubectl apply` with `--kustomize` or `-k` flag:
 kubectl apply -k <kustomization_directory>
 ```
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Overview of Kustomize
 
@@ -46,13 +47,12 @@ Kustomize is a tool for customizing Kubernetes configurations. It has the follow
 
 ### Generating Resources
 
-ConfigMap and Secret hold config or sensitive data that are used by other Kubernetes objects, such as Pods. The source
-of truth of ConfigMap or Secret are usually from somewhere else, such as a `.properties` file or a ssh key file.
+ConfigMaps and Secrets hold configuration or sensitive data that are used by other Kubernetes objects, such as Pods. The source of truth of ConfigMaps or Secrets are usually external to a cluster, such as a `.properties` file or an SSH keyfile.
 Kustomize has `secretGenerator` and `configMapGenerator`, which generate Secret and ConfigMap from files or literals.
 
 #### configMapGenerator
 
-To generate a ConfigMap from a file, add an entry to `files` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a file content.
+To generate a ConfigMap from a file, add an entry to the `files` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.properties` file:
 
 ```shell
 # Create a application.properties file
@@ -68,7 +68,7 @@ configMapGenerator:
 EOF
 ```
 
-The generated ConfigMap can be checked by the following command:
+The generated ConfigMap can be examined with the following command:
 
 ```shell
 kubectl kustomize ./
@@ -86,7 +86,7 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-ConfigMap can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair.
+ConfigMaps can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to the `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair:
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -103,7 +103,7 @@ The generated ConfigMap can be checked by the following command:
 kubectl kustomize ./
 ```
 
-The generated ConfigMap is
+The generated ConfigMap is:
 
 ```yaml
 apiVersion: v1
@@ -116,7 +116,7 @@ metadata:
 
 #### secretGenerator
 
-You can generate Secrets from files or literal key-value pairs. To generate a Secret from a file, add an entry to `files` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a file.
+You can generate Secrets from files or literal key-value pairs. To generate a Secret from a file, add an entry to the `files` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a file:
 
 ```shell
 # Create a password.txt file
@@ -145,7 +145,7 @@ metadata:
 type: Opaque
 ```
 
-To generate a Secret from a literal key-value pair, add an entry to `literals` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a key-value pair.
+To generate a Secret from a literal key-value pair, add an entry to `literals` list in `secretGenerator`. Here is an example of generating a Secret with a data item from a key-value pair:
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -172,7 +172,7 @@ type: Opaque
 
 #### generatorOptions
 
-The generated ConfigMaps and Secrets have a suffix appended by hashing the contents. This ensures that a new ConfigMap or Secret is generated when the content is changed. To disable the behavior of appending a suffix, one can use `generatorOptions`. Besides that, it is also possible to specify cross-cutting options for generated ConfigMaps and Secrets.
+The generated ConfigMaps and Secrets have a content hash suffix appended. This ensures that a new ConfigMap or Secret is generated when the contents are changed. To disable the behavior of appending a suffix, one can use `generatorOptions`. Besides that, it is also possible to specify cross-cutting options for generated ConfigMaps and Secrets.
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -209,7 +209,7 @@ metadata:
 It is quite common to set cross-cutting fields for all Kubernetes resources in a project.
 Some use cases for setting cross-cutting fields:
 
-* setting the same namespace for all Resource
+* setting the same namespace for all Resources
 * adding the same name prefix or suffix
 * adding the same set of labels
 * adding the same set of annotations
@@ -289,7 +289,7 @@ Kustomize offers composing Resources from different files and applying patches o
 #### Composing
 
 Kustomize supports composition of different resources. The `resources` field, in the `kustomization.yaml` file, defines the list of resources to include in a configuration. Set the path to a resource's configuration file in the `resources` list.
-Here is an example for an nginx application with a Deployment and a Service.
+Here is an example of an NGINX application comprised of a Deployment and a Service:
 
 ```shell
 # Create a deployment.yaml file
@@ -339,11 +339,11 @@ resources:
 EOF
 ```
 
-The Resources from `kubectl kustomize ./` contains both the Deployment and the Service objects.
+The Resources from `kubectl kustomize ./` contain both the Deployment and the Service objects.
 
 #### Customizing
 
-On top of Resources, one can apply different customizations by applying patches. Kustomize supports different patching
+Patches can be used to apply different customizations to Resources. Kustomize supports different patching
 mechanisms through `patchesStrategicMerge` and `patchesJson6902`. `patchesStrategicMerge` is a list of file paths. Each file should be resolved to a [strategic merge patch](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/strategic-merge-patch.md). The names inside the patches must match Resource names that are already loaded. Small patches that do one thing are recommended. For example, create one patch for increasing the deployment replica number and another patch for setting the memory limit.
 
 ```shell
@@ -825,13 +825,14 @@ deployment.apps "dev-my-nginx" deleted
 | configurations        | []string                                                                                                     | Each entry in this list should resolve to a file containing [Kustomize transformer configurations](https://github.com/kubernetes-sigs/kustomize/tree/master/examples/transformerconfigs) |
 | crds                  | []string                                                                                                     | Each entry in this list should resolve to an OpenAPI definition file for Kubernetes types |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

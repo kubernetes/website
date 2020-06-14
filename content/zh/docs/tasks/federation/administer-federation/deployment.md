@@ -1,15 +1,15 @@
 ---
 title: 联邦 Deployment
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Federated Deployment
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -36,9 +36,10 @@ Some features
 (such as full rollout compatibility) are still in development.
 -->
 一些特性（例如完整的 rollout 兼容性）仍在开发中。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 <!--
@@ -48,9 +49,9 @@ general and [Deployments](/docs/concepts/workloads/controllers/deployment/) in p
 -->
 * 您还应当拥有基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是在 [Deployments](/docs/concepts/workloads/controllers/deployment/) 方面。 
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Creating a Federated Deployment
 
@@ -171,6 +172,6 @@ kubectl --context=federation-cluster delete deployment mydep
 kubectl --context=federation-cluster delete deployment mydep
 ```
 
-{{% /capture %}}
+
 
 

@@ -5,23 +5,24 @@ reviewers:
 - ericchiang
 - destijl
 title: Securing a Cluster
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Controlling access to the Kubernetes API
 
@@ -173,8 +174,8 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 ### Controlling which nodes pods may access
 
 By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
-[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
-and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
+[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+and the [taint based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
@@ -254,6 +255,6 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
 
-{{% /capture %}}
+
 
 

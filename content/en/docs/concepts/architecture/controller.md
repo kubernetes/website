@@ -1,10 +1,10 @@
 ---
 title: Controllers
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In robotics and automation, a _control loop_ is
 a non-terminating loop that regulates the state of a system.
@@ -18,10 +18,10 @@ closer to the desired state, by turning equipment on or off.
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Controller pattern
 
@@ -52,7 +52,7 @@ Job is a Kubernetes resource that runs a
 {{< glossary_tooltip term_id="pod" >}}, or perhaps several Pods, to carry out
 a task and then stop.
 
-(Once [scheduled](/docs/concepts/scheduling/), Pod objects become part of the
+(Once [scheduled](/docs/concepts/scheduling-eviction/), Pod objects become part of the
 desired state for a kubelet).
 
 When the Job controller sees a new task it makes sure that, somewhere
@@ -113,16 +113,14 @@ useful changes, it doesn't matter if the overall state is or is not stable.
 As a tenet of its design, Kubernetes uses lots of controllers that each manage
 a particular aspect of cluster state. Most commonly, a particular control loop
 (controller) uses one kind of resource as its desired state, and has a different
-kind of resource that it manages to make that desired state happen.
+kind of resource that it manages to make that desired state happen. For example, 
+a controller for Jobs tracks Job objects (to discover new work) and Pod objects
+(to run the Jobs, and then to see when the work is finished). In this case 
+something else creates the Jobs, whereas the Job controller creates Pods.
 
 It's useful to have simple controllers rather than one, monolithic set of control
 loops that are interlinked. Controllers can fail, so Kubernetes is designed to
 allow for that.
-
-For example: a controller for Jobs tracks Job objects (to discover
-new work) and Pod object (to run the Jobs, and then to see when the work is
-finished). In this case something else creates the Jobs, whereas the Job
-controller creates Pods.
 
 {{< note >}}
 There can be several controllers that create or update the same kind of object.
@@ -152,11 +150,12 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
 * Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
-{{% /capture %}}
+

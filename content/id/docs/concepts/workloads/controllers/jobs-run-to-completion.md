@@ -1,6 +1,6 @@
 ---
 title: Job - Dijalankan Hingga Selesai
-content_template: templates/concept
+content_type: concept
 feature:
   title: Eksekusi batch
   description: >
@@ -8,7 +8,7 @@ feature:
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Sebuah Job membuat satu atau beberapa Pod dan menjamin bahwa jumlah Pod yang telah dispesifikasikan sebelumnya 
 berhasil dijalankan. Pada saat Pod telah dihentikan, Job akan menandainya sebagai Job yang sudah berhasil dijalankan.
@@ -22,10 +22,10 @@ perangkat keras atau terjadinya _reboot_ pada Node).
 
 Kamu juga dapat menggunakan Job untuk menjalankan beberapa Pod secara paralel.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Menjalankan Contoh Job
 
@@ -502,4 +502,4 @@ dari sebuah Job, tetapi kontrol secara mutlak atas Pod yang dibuat serta tugas y
 Kamu dapat menggunakan [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) untuk membuat Job yang akan 
 dijalankan pada waktu/tanggal yang spesifik, mirip dengan perangkat lunak `cron` yang ada pada Unix.
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: 초기화 컨테이너
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 초기화 컨테이너에 대한 개요를 제공한다. 초기화 컨테이너는
 {{< glossary_tooltip text="파드" term_id="pod" >}}의 앱 컨테이너들이 실행되기 전에 실행되는 특수한 컨테이너이며, 앱 이미지에는 없는
 유틸리티 또는 설정 스크립트 등을 포함할 수 있다.
 
 초기화 컨테이너는 `containers` 배열(앱 컨테이너를 기술하는)과 나란히
 파드 스펙에 명시할 수 있다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 초기화 컨테이너 이해하기
 
@@ -44,8 +44,8 @@ weight: 40
 그러나, 초기화 컨테이너를 위한 리소스 요청량과 상한은
 [리소스](#리소스)에 문서화된 것처럼 다르게 처리된다.
 
-또한, 초기화 컨테이너는 준비성 프로브(readiness probe)를 지원하지 않는다. 왜냐하면 초기화 컨테이너는
-파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
+또한, 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 를 지원하지 않는다.
+왜냐하면 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
 
 만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, Kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
@@ -239,12 +239,15 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는데
-영감을 줄 것이다. [다음 순서](#what-s-next)에는 더 자세한 예제의 링크가 있다.
+영감을 줄 것이다. [다음 순서](#다음-내용)에는 더 자세한 예제의 링크가 있다.
 
 ## 자세한 동작
 
-파드 시동 시, 네트워크와 볼륨이 초기화되고 나면, 초기화 컨테이너가
-순서대로 시작된다. 각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
+파드 시작 시에 kubelet은 네트워크와 스토리지가 준비될 때까지
+초기화 컨테이너의 실행을 지연시킨다. 그런 다음 kubelet은 파드 사양에
+나와있는 순서대로 파드의 초기화 컨테이너를 실행한다.
+
+각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
 종료되어야 한다. 만약 런타임 문제나 실패 상태로 종료되는 문제로인하여 초기화 컨테이너의 시작이
 실패된다면, 초기화 컨테이너는 파드의 `restartPolicy`에 따라서 재시도 된다. 다만,
 파드의 `restartPolicy`이 항상(Always)으로 설정된 경우, 해당 초기화 컨테이너는
@@ -311,12 +314,13 @@ myapp-pod   1/1       Running   0          9m
   동안 종료되었다. 그리고 초기화 컨테이너의 완료 기록이 가비지 수집
   때문에 유실되었다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [초기화 컨테이너를 가진 파드 생성하기](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+## {{% heading "whatsnext" %}}
+
+
+* [초기화 컨테이너를 가진 파드 생성하기](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * [초기화 컨테이너 디버깅](/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기
 
-{{% /capture %}}
+

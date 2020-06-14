@@ -3,17 +3,17 @@ reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 To run containers in Pods, Kubernetes uses a container runtime. Here are
 the installation instructions for various runtimes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -21,8 +21,8 @@ A flaw was found in the way runc handled system file descriptors when running co
 A malicious container could use this flaw to overwrite contents of the runc binary and
 consequently run arbitrary commands on the container host system.
 
-Please refer to this link for more information about this issue
-[cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+Please refer to [CVE-2019-5736](https://access.redhat.com/security/cve/cve-2019-5736) for more
+information about the issue.
 {{< /caution >}}
 
 ### Applicability
@@ -41,7 +41,7 @@ When systemd is chosen as the init system for a Linux distribution, the init pro
 and consumes a root control group (`cgroup`) and acts as a cgroup manager. Systemd has a tight
 integration with cgroups and will allocate cgroups per process. It's possible to configure your
 container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside systemd means
-that there will then be two different cgroup managers.
+that there will be two different cgroup managers.
 
 Control groups are used to constrain resources that are allocated to processes.
 A single cgroup manager will simplify the view of what resources are being allocated
@@ -64,35 +64,45 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 19.03.8 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
+Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
-# Install Docker CE
+{{% tab name="Ubuntu 16.04+" %}}
+
+```shell
+# (Install Docker CE)
 ## Set up the repository:
 ### Install packages to allow apt to use a repository over HTTPS
 apt-get update && apt-get install -y \
   apt-transport-https ca-certificates curl software-properties-common gnupg2
+```
 
-### Add Docker’s official GPG key
+```shell
+# Add Docker’s official GPG key:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Add Docker apt repository.
+```shell
+# Add the Docker apt repository:
 add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
+```
 
-## Install Docker CE.
+```shell
+# Install Docker CE
 apt-get update && apt-get install -y \
-  containerd.io=1.2.13-1 \
-  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs)
+```
 
-# Setup daemon.
+```shell
+# Set up the Docker daemon
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -103,34 +113,48 @@ cat > /etc/docker/daemon.json <<EOF
   "storage-driver": "overlay2"
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
-# Restart docker.
+```shell
+# Restart Docker
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
-# Install Docker CE
+```shell
+# (Install Docker CE)
 ## Set up the repository
-### Install required packages.
+### Install required packages
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
-### Add Docker repository.
+```shell
+## Add the Docker repository
 yum-config-manager --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
+```
 
-## Install Docker CE.
+```shell
+# Install Docker CE
 yum update -y && yum install -y \
   containerd.io-1.2.13 \
-  docker-ce-19.03.8 \
-  docker-ce-cli-19.03.8
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
+```
 
-## Create /etc/docker directory.
+```shell
+## Create /etc/docker
 mkdir /etc/docker
+```
 
-# Setup daemon.
+```shell
+# Set up the Docker daemon
 cat > /etc/docker/daemon.json <<EOF
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -144,14 +168,25 @@ cat > /etc/docker/daemon.json <<EOF
   ]
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
+```
 
+```shell
 # Restart Docker
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
+
+If you want the docker service to start on boot, run the following command:
+
+```shell
+sudo systemctl enable docker
+```
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
@@ -173,7 +208,7 @@ For more information, see the [CRI-O compatiblity matrix](https://github.com/cri
 modprobe overlay
 modprobe br_netfilter
 
-# Setup required sysctl params, these persist across reboots.
+# Set up required sysctl params, these persist across reboots.
 cat > /etc/sysctl.d/99-kubernetes-cri.conf <<EOF
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
@@ -184,54 +219,79 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" codelang="bash" >}}
+{{% tab name="Debian" %}}
+
+```shell
 # Debian Unstable/Sid
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+```
 
+```shell
 # Debian Testing
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
+```
 
+```shell
 # Debian 10
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+```
 
+```shell
 # Raspbian 10
 echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
+```
 
-# Install CRI-O
+and then install CRI-O:
+```shell
 sudo apt-get install cri-o-1.17
-{{< /tab >}}
+```
+{{% /tab %}}
 
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" codelang="bash" >}}
-# Setup repository
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
+
+```shell
+# Configure package repository
 . /etc/os-release
 sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
 wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
 sudo apt-get update
+```
 
+```shell
 # Install CRI-O
 sudo apt-get install cri-o-1.17
-{{< /tab >}}
+```
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
+
+```shell
 # Install prerequisites
-yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:{{< skew latestVersion >}}.repo
+```
 
+```shell
 # Install CRI-O
-yum install --nogpgcheck -y cri-o
-{{< /tab >}}
+yum install -y cri-o
+```
+{{% /tab %}}
 
-{{< tab name="openSUSE Tumbleweed" codelang="bash" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
+
+```shell
 sudo zypper install cri-o
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Start CRI-O
 
-```
+```shell
 systemctl daemon-reload
 systemctl start crio
 ```
@@ -269,52 +329,73 @@ sysctl --system
 ### Install containerd
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
-# Install containerd
+{{% tab name="Ubuntu 16.04" %}}
+
+```shell
+# (Install containerd)
 ## Set up the repository
 ### Install packages to allow apt to use a repository over HTTPS
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
 
-### Add Docker’s official GPG key
+```shell
+## Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
-### Add Docker apt repository.
+```shell
+## Add Docker apt repository.
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
+```
 
+```shell
 ## Install containerd
 apt-get update && apt-get install -y containerd.io
+```
 
+```shell
 # Configure containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # Restart containerd
 systemctl restart containerd
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
-# Install containerd
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
+
+```shell
+# (Install containerd)
 ## Set up the repository
 ### Install required packages
 yum install -y yum-utils device-mapper-persistent-data lvm2
 
-### Add docker repository
+```shell
+## Add docker repository
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
 
+```shell
 ## Install containerd
 yum update -y && yum install -y containerd.io
 
-# Configure containerd
+```shell
+## Configure containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
+```shell
 # Restart containerd
 systemctl restart containerd
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
@@ -327,4 +408,4 @@ When using kubeadm, manually configure the
 
 Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
-{{% /capture %}}
+

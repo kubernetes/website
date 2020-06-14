@@ -1,10 +1,10 @@
 ---
 title: 완료된 리소스를 위한 TTL 컨트롤러
-content_template: templates/concept
+content_type: concept
 weight: 65
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -18,12 +18,12 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 로 `TTLAfterFinished` 를 활성화 할 수 있다.
 
 
-{{% /capture %}}
 
 
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## TTL 컨트롤러
 
@@ -75,12 +75,13 @@ TTL 컨트롤러는 쿠버네티스 리소스에
 에서 NTP를 실행해야 한다. 시계가 항상 정확한 것은 아니지만, 그 차이는 
 아주 작아야 한다. 0이 아닌 TTL을 설정할때는 이 위험에 대해 유의해야 한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
 
 [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
-{{% /capture %}}
+

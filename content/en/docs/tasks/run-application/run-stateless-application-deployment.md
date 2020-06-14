@@ -1,34 +1,36 @@
 ---
 title: Run a Stateless Application Using a Deployment
 min-kubernetes-server-version: v1.9
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to run an application using a Kubernetes Deployment object.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Create an nginx deployment.
 * Use kubectl to list information about the deployment.
 * Update the deployment.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Creating and exploring an nginx deployment
 
@@ -88,16 +90,16 @@ a Deployment that runs the nginx:1.14.2 Docker image:
         nginx-deployment-1771418926-7o5ns   1/1       Running   0          16h
         nginx-deployment-1771418926-r18az   1/1       Running   0          16h
 
-1. Display information about a pod:
+1. Display information about a Pod:
 
         kubectl describe pod <pod-name>
 
-    where `<pod-name>` is the name of one of your pods.
+    where `<pod-name>` is the name of one of your Pods.
 
 ## Updating the deployment
 
 You can update the deployment by applying a new YAML file. This YAML file
-specifies that the deployment should be updated to use nginx 1.8.
+specifies that the deployment should be updated to use nginx 1.16.1.
 
 {{< codenew file="application/deployment-update.yaml" >}}
 
@@ -146,13 +148,14 @@ which in turn uses a ReplicaSet. Before the Deployment and ReplicaSet were
 added to Kubernetes, replicated applications were configured using a
 [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
+
 
 

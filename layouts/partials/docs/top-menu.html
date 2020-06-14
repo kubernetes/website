@@ -12,7 +12,7 @@
 	<ul>
 		{{ range $menuSections }}
 		{{ $yah := $p.IsDescendant . }}
-		<li><a href="{{ .RelPermalink }}"{{ if $yah }} class="YAH"{{ end }}>{{ .LinkTitle | upper }}</a></li>
+		<li><a href="{{ .RelPermalink }}"{{ if $yah }} class="YAH"{{ end }} data-proofer-ignore>{{ .LinkTitle | upper }}</a></li>
 		{{ end }}
 	</ul>
 	<form id="searchBox" action="/docs/search/" role="search">

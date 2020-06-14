@@ -8,18 +8,19 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Running ZooKeeper, A Distributed System Coordinator
-content_template: templates/tutorial
+content_type: tutorial
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial demonstrates running [Apache Zookeeper](https://zookeeper.apache.org) on
 Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
 [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget),
 and [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Before starting this tutorial, you should be familiar with the following
 Kubernetes concepts.
@@ -40,18 +41,19 @@ This tutorial assumes that you have configured your cluster to dynamically provi
 PersistentVolumes. If your cluster is not configured to do so, you
 will have to manually provision three 20 GiB volumes before starting this
 tutorial.
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 After this tutorial, you will know the following.
 
 -   How to deploy a ZooKeeper ensemble using StatefulSet.
 -   How to consistently configure the ensemble using ConfigMaps.
 -   How to spread the deployment of ZooKeeper servers in the ensemble.
 -   How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
-    {{% /capture %}}
+    
 
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 ### ZooKeeper Basics
 
@@ -723,7 +725,6 @@ unhealthy. You should use liveness probes to notify Kubernetes
 that your application's processes are unhealthy and it should restart them.
 
 The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
-``
 
 ```yaml
  livenessProbe:
@@ -1091,9 +1092,10 @@ node "kubernetes-node-ixsl" uncordoned
 
 You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure that your services remain available during maintenance. If drain is used to cordon nodes and evict pods prior to taking the node offline for maintenance, services that express a disruption budget will have that budget respected. You should always allocate additional capacity for critical services so that their Pods can be immediately rescheduled.
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 - Use `kubectl uncordon` to uncordon all the nodes in your cluster.
 - You will need to delete the persistent storage media for the PersistentVolumes
@@ -1101,5 +1103,5 @@ You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure
   storage configuration, and provisioning method, to ensure that all storage is
   reclaimed.
 
-{{% /capture %}}
+
     

@@ -3,19 +3,20 @@ reviewers:
 - bowei
 - freehan
 title: Enabling EndpointSlices
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of enabling EndpointSlices in Kubernetes.
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
   {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Introduction
 
@@ -55,9 +56,10 @@ existing Endpoints functionality, EndpointSlices include new bits of information
 such as topology. They will allow for greater scalability and extensibility of
 network endpoints in your cluster.
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

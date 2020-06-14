@@ -1,10 +1,10 @@
 ---
 title: Configure Liveness, Readiness and Startup Probes
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
@@ -25,15 +25,16 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Define a liveness command
 
@@ -49,7 +50,7 @@ In this exercise, you create a Pod that runs a container based on the
 In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
 probe every 5 seconds. The `initialDelaySeconds` field tells the kubelet that it
-should wait 5 second before performing the first probe. To perform a probe, the
+should wait 5 seconds before performing the first probe. To perform a probe, the
 kubelet executes the command `cat /tmp/healthy` in the target container. If the
 command succeeds, it returns 0, and the kubelet considers the container to be alive and
 healthy. If the command returns a non-zero value, the kubelet kills the container
@@ -360,9 +361,10 @@ For a TCP probe, the kubelet makes the probe connection at the node, not in the 
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -373,6 +375,6 @@ You can also read the API references for:
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+
 
 
