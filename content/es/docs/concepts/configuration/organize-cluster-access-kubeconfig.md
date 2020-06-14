@@ -24,7 +24,7 @@ de entorno `KUBECONFIG` o mediante la configuracion del flag
 
 Para obtener instrucciones paso a paso acerca de cómo crear y especificar los archivos kubeconfig,
 consulte el recurso
-[Configurar El Acceso A Múltiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
+[Configurar El Acceso A Múltiples Clústeres - Versión en inglés](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
 
 
@@ -148,7 +148,7 @@ se almacenan absolutamente.
 ## {{% heading "whatsnext" %}}
 
 
-* [Configurar el acceso a multiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+* [Configurar el acceso a multiples Clústeres - Versión en inglés](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 
