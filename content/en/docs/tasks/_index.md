@@ -50,7 +50,7 @@ Learn various methods to directly access the Kubernetes API.
 
 ## Using TLS
 
-Configure your application to trust and use the cluster root Certificate Authority (CA).
+Understand how to protect traffic within your cluster using Transport Layer Security (TLS).
 
 ## Administering a Cluster
 
@@ -66,11 +66,11 @@ Perform common tasks for managing a DaemonSet, such as performing a rolling upda
 
 ## Managing GPUs
 
-Configure and schedule NVIDIA GPUs for use as a resource by nodes in a cluster.
+Configure and schedule GPUs for use as a resource by nodes in a cluster.
 
 ## Managing HugePages
 
-Configure and schedule huge pages as a schedulable resource in a cluster.
+Configure and manage huge pages as a schedulable resource in a cluster.
 
 
 
