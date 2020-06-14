@@ -222,10 +222,10 @@ example, to run version {{< param "fullversion" >}}, you would run the following
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### Specifying the VM driver
-You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
 For example the command would be.
 ```shell
-minikube start --driver=<driver_name>
+minikube start --vm-driver=<driver_name>
 ```
 Minikube supports the following drivers:
 {{< note >}}
