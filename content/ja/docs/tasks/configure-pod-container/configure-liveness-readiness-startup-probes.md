@@ -1,10 +1,10 @@
 ---
 title: Liveness Probe、Readiness ProbeおよびStartup Probeを使用する
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、Liveness Probe、Readiness ProbeおよびStartup Probeの使用方法について説明します。
 
@@ -23,15 +23,13 @@ Readiness Probeによるチェックを無効にし、これらがアプリケ�
 例えば、これを起動が遅いコンテナの起動チェックとして使用することで、起動する前にkubeletによって
 強制終了されることを防ぐことができます。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+<!-- steps -->
 
 ## コマンド実行によるLiveness Probeを定義する {#define-a-liveness-command}
 
@@ -322,9 +320,8 @@ HTTPによるProbeの場合、kubeletは指定したパスとポートに対す�
 TCPによるProbeの場合、kubeletはPodの中ではなく、ノードに対してコネクションを確立するProbeを実行します。
 kubeletはServiceの名前を解決できないため、`host`パラメーター内でServiceの名前を使用することはできません。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 * [Container Probes](/ja/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)についてもっと学ぶ
 
@@ -334,4 +331,3 @@ kubeletはServiceの名前を解決できないため、`host`パラメーター
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}

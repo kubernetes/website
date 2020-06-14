@@ -1,24 +1,22 @@
 ---
 title: コンテナの環境変数の定義
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、Kubernetes Podでコンテナの環境変数を定義する方法を説明します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+<!-- steps -->
 
 ## コンテナの環境変数を定義する {#define-an-environment-variable-for-a-container}
 
@@ -102,12 +100,10 @@ spec:
 
 作成されると、コンテナ上で`echo Warm greetings to The Most Honorable Kubernetes`というコマンドが実行されます。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 * [環境変数](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)の詳細
 * [Secretを環境変数として使用する](/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)詳細
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)をご覧ください。
 
-{{% /capture %}}

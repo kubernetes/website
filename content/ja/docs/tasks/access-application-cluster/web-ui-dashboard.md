@@ -1,6 +1,6 @@
 ---
 title: Web UI (Dashboard)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
   title: Web UIダッシュボードを使用する
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ダッシュボードは、WebベースのKubernetesユーザーインターフェイスです。ダッシュボードを使用して、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、コンテナ化されたアプリケーションをトラブルシューティングしたり、クラスターリソースを管理したりすることができます。ダッシュボードを使用して、クラスター上で実行されているアプリケーションの概要を把握したり、個々のKubernetesリソース(Deployments、Jobs、DaemonSetsなど)を作成または修正したりすることができます。たとえば、Deploymentのスケール、ローリングアップデートの開始、Podの再起動、デプロイウィザードを使用した新しいアプリケーションのデプロイなどが可能です。
 
@@ -16,10 +16,9 @@ card:
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+<!-- body -->
 
 ## ダッシュボードUIのデプロイ
 
@@ -158,10 +157,8 @@ Podのリストと詳細ページは、ダッシュボードに組み込まれ�
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 詳細については[Kubernetes Dashboardプロジェクトページ](https://github.com/kubernetes/dashboard)をご覧ください。
 
-{{% /capture %}}
