@@ -85,7 +85,7 @@ the Job in turn is responsible for the management of the Pods it represents.
 
 ## {{% heading "whatsnext" %}}
 
-[Cron expression format](https://pkg.go.dev/github.com/robfig/cron?tab=doc#hdr-CRON_Expression_Format)
+[Cron expression format](https://en.wikipedia.org/wiki/Cron)
 documents the format of CronJob `schedule` fields.
 
 For instructions on creating and working with cron jobs, and for an example of CronJob
