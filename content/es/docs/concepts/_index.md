@@ -27,7 +27,7 @@ Una vez que se especifica el estado deseado, el *Plano de Control de Kubernetes*
 
 ## Objetos de Kubernetes
 
-Kubernetes tiene diferentes abstracciones que representan el estado de tu sistema: aplicaciones contenerizadas desplegadas y cargas de trabajo, sus recursos de red y almacenamiento asociados e información adicional acerca de lo que el clúster está haciendo en un momento dado. Estas abstracciones están representadas por objetos de la API de Kubernetes. Puedes revisar [Entendiendo los Objetos de Kubernetes] (/docs/concepts/overview/working-with-objects/kubernetes-objects/) para obtener más detalles.
+Kubernetes tiene diferentes abstracciones que representan el estado de tu sistema: aplicaciones contenerizadas desplegadas y cargas de trabajo, sus recursos de red y almacenamiento asociados e información adicional acerca de lo que el clúster está haciendo en un momento dado. Estas abstracciones están representadas por objetos de la API de Kubernetes. Puedes revisar [Entendiendo los Objetos de Kubernetes](/docs/concepts/overview/working-with-objects/kubernetes-objects/) para obtener más detalles.
 
 Los objetos básicos de Kubernetes incluyen:
 

@@ -66,7 +66,7 @@ Kamu bisa mengatur ambang batas untuk menentukan berapa banyak jumlah Node minim
 persentase bagian dari seluruh Node di dalam klaster kamu. kube-scheduler akan mengubahnya menjadi
 bilangan bulat berisi jumlah Node. Saat penjadwalan, jika kube-scheduler mengidentifikasi
 cukup banyak Node-Node layak untuk melewati jumlah persentase yang diatur, maka kube-scheduler
-akan berhenti mencari Node-Node layak dan lanjut ke [fase penskoran] (/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation).
+akan berhenti mencari Node-Node layak dan lanjut ke [fase penskoran](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation).
 
 [Bagaimana penjadwal mengecek Node](#bagaimana-penjadwal-mengecek-node) menjelaskan proses ini secara detail.
 

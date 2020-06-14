@@ -27,7 +27,7 @@ Komponen master dapat dijalankan di mesin manapun yang ada di klaster. Meski beg
 untuk memudahkan proses yang ada, <i>script</i> inisiasi awal yang dijalankan
 biasanya memulai komponen master pada mesin yang sama, serta tidak menjalankan
 kontainer bagi pengguna di mesin ini. Contoh konfigurasi <i>multi-master VM</i>
-dapat dilihat di modul [Membangun Klaster HA] (/docs/admin/high-availability/).
+dapat dilihat di modul [Membangun Klaster HA](/docs/admin/high-availability/).
 
 
 ### kube-apiserver

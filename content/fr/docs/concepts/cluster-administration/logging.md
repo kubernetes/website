@@ -84,7 +84,7 @@ Si le Pod a plusieurs conteneurs, il faut spécifier le nom du conteneur dont on
 veut récupérer le journal d'évènement. Dans notre exemple le conteneur s'appelle
 `count` donc vous pouvez utiliser `kubectl logs counter count`. Plus de détails
 dans la [documentation de `kubectl
-logs`] (/docs/reference/generated/kubectl/kubectl-commands#logs)
+logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)
 
 ## Journalisation d'évènements au niveau du nœud
 

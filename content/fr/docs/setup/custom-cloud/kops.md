@@ -200,7 +200,7 @@ pour les clusters de production !
 
 ### Explorer d'autres composants additionnels (add-ons)
 
-Reportez-vous à la [liste des add-ons] (/docs/concepts/cluster-administration/addons/) pour explorer d'autres add-ons, y compris des outils de journalisation, de surveillance, de stratégie réseau, de visualisation ou de contrôle de votre cluster Kubernetes.
+Reportez-vous à la [liste des add-ons](/docs/concepts/cluster-administration/addons/) pour explorer d'autres add-ons, y compris des outils de journalisation, de surveillance, de stratégie réseau, de visualisation ou de contrôle de votre cluster Kubernetes.
 
 ## Nettoyer
 

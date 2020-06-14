@@ -146,7 +146,7 @@ La sortie est similaire à celle-ci :
 
 Code examples and configuration examples that include version information should be consistent with the accompanying text.
 
-If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template] (/docs/contribute/style/page-templates/#tutorial-template).
+If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template](/docs/contribute/style/page-templates/#tutorial-template).
 Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
 Pour spécifier la version de Kubernetes pour une tâche ou une page de tutoriel, incluez `min-kubernetes-server-version` dans l'entête de la page.

@@ -59,7 +59,7 @@ and reports two healthy devices on a node, the node status is updated
 to advertise that the node has 2 “Foo” devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
-  
+
   * 设备插件的 Unix 套接字。
   * 设备插件的 API 版本。
   * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循[扩展资源命名方案](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)，类似于 `vendor-domain/resourcetype`。（比如 NVIDIA GPU 就被公布为 `nvidia.com/gpu`。）
@@ -327,7 +327,7 @@ Here are some examples of device plugin implementations:
 ## 设备插件示例 {#examples}
 
 下面是一些设备插件实现的示例：
- 
+
 * [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) 支持 Intel GPU、FPGA 和 QuickAssist 设备
 * [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
@@ -347,11 +347,11 @@ Here are some examples of device plugin implementations:
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/adminster-cluster/topology-manager/)
 -->
 * 查看 [调度 GPU 资源](/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
 * 查看在 node 上如何[广告扩展资源](/docs/tasks/administer-cluster/extended-resource-node/)
-* 阅读如何在 Kubernetes 中如何使用 [TLS 入口的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
-* 学习 [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* 阅读如何在 Kubernetes 中如何使用 [TLS 入口的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+* 学习 [Topology Manager](/docs/tasks/adminster-cluster/topology-manager/)
 
 

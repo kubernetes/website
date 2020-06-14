@@ -41,8 +41,8 @@ Dalam pendaftaran, _plugin_ perangkat perlu mengirim:
     sebagai `vendor-domain/tipe-sumber-daya`.
     (Contohnya, NVIDIA GPU akan dinamai `nvidia.com/gpu`.)
 
-Setelah registrasi sukses, _plugin_ perangkat mengirim daftar perangkat yang diatur 
-ke kubelet, lalu kubelet kemudian bertanggung jawab untuk mengumumkan sumber daya tersebut 
+Setelah registrasi sukses, _plugin_ perangkat mengirim daftar perangkat yang diatur
+ke kubelet, lalu kubelet kemudian bertanggung jawab untuk mengumumkan sumber daya tersebut
 ke peladen API sebagai bagian pembaruan status node kubelet.
 Contohnya, setelah _plugin_ perangkat mendaftarkan `hardware-vendor.example/foo` dengan kubelet
 dan melaporkan kedua perangkat dalam node dalam kondisi sehat, status node diperbarui
@@ -109,16 +109,16 @@ Alur kerja umum dari _plugin_ perangkat adalah sebagai berikut:
 
 * Seteleh sukses mendaftarkan dirinya sendiri, _plugin_ perangkat berjalan dalam mode peladen, dan selama itu
 dia tetap mengawasi kesehatan perangkat dan melaporkan balik ke kubelet terhadap perubahan status perangkat.
-Dia juga bertanggung jawab untuk melayani _request_ gRPC `Allocate`. Selama `Allocate`, _plugin_ perangkat dapat 
+Dia juga bertanggung jawab untuk melayani _request_ gRPC `Allocate`. Selama `Allocate`, _plugin_ perangkat dapat
 membuat persiapan spesifik-perangkat; contohnya, pembersihan GPU atau inisiasi QRNG.
-Jika operasi berhasil, _plugin_ perangkat mengembalikan `AllocateResponse` yang memuat konfigurasi 
+Jika operasi berhasil, _plugin_ perangkat mengembalikan `AllocateResponse` yang memuat konfigurasi
 runtime kontainer untuk mengakses perangkat teralokasi. Kubelet memberikan informasi ini ke runtime kontainer.
 
 ### Menangani kubelet yang _restart_
 
-Plugin perangkat diharapkan dapat mendeteksi kubelet yang _restart_ dan mendaftarkan dirinya sendiri kembali dengan 
-_instance_ kubelet baru. Pada implementasi sekarang, sebuah _instance_ kubelet baru akan menghapus semua socket Unix yang ada 
-di dalam `/var/lib/kubelet/device-plugins` ketika dijalankan. Plugin perangkat dapat mengawasi penghapusan 
+Plugin perangkat diharapkan dapat mendeteksi kubelet yang _restart_ dan mendaftarkan dirinya sendiri kembali dengan
+_instance_ kubelet baru. Pada implementasi sekarang, sebuah _instance_ kubelet baru akan menghapus semua socket Unix yang ada
+di dalam `/var/lib/kubelet/device-plugins` ketika dijalankan. Plugin perangkat dapat mengawasi penghapusan
 socket Unix miliknya dan mendaftarkan dirinya sendiri kembali ketika hal tersebut terjadi.
 
 ## Deployment _plugin_ perangkat
@@ -129,11 +129,11 @@ atau secara manual.
 Direktori _canonical_ `/var/lib/kubelet/device-plugins` membutuhkan akses berprivilese,
 sehingga _plugin_ perangkat harus berjalan dalam konteks keamanan dengan privilese.
 Jika kamu melakukan _deploy_ _plugin_ perangkat sebagai DaemonSet, `/var/lib/kubelet/device-plugins`
-harus dimuat sebagai {{< glossary_tooltip term_id="volume" >}} pada 
-[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 
+harus dimuat sebagai {{< glossary_tooltip term_id="volume" >}} pada
+[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 plugin.
 
-Jika kamu memilih pendekatan DaemonSet, kamu dapat bergantung pada Kubernetes untuk meletakkan Pod 
+Jika kamu memilih pendekatan DaemonSet, kamu dapat bergantung pada Kubernetes untuk meletakkan Pod
 _plugin_ perangkat ke Node, memulai-ulang Pod daemon setelah kegagalan, dan membantu otomasi pembaruan.
 
 ## Kecocokan API
@@ -144,7 +144,7 @@ dalam cara yang tidak kompatibel. Sebagai proyek, Kubernetes merekomendasikan pa
 * Mengamati perubahan pada rilis mendatang.
 * Mendukung versi API _plugin_ perangkat berbeda untuk kompatibilitas-maju/mundur.
 
-Jika kamu menyalakan fitur DevicePlugins dan menjalankan _plugin_ perangkat pada node yang perlu diperbarui 
+Jika kamu menyalakan fitur DevicePlugins dan menjalankan _plugin_ perangkat pada node yang perlu diperbarui
 ke rilis Kubernetes dengan versi API plugin yang lebih baru, perbarui _plugin_ perangkatmu
 agar mendukung kedua versi sebelum membarui para node ini. Memilih pendekatan demikian akan
 menjamin fungsi berkelanjutan dari alokasi perangkat selama pembaruan.
@@ -176,10 +176,10 @@ Agen pengawas untuk sumber daya _plugin_ perangkat dapat di-_deploy_ sebagai dae
 Direktori _canonical_ `/var/lib/kubelet/pod-resources` perlu akses berprivilese,
 sehingga agen pengawas harus berjalan dalam konteks keamanan dengan privilese. Jika agen pengawas perangkat berjalan
 sebagai DaemonSet, `/var/lib/kubelet/pod-resources` harus dimuat sebagai
-{{< glossary_tooltip term_id="volume" >}} pada plugin 
+{{< glossary_tooltip term_id="volume" >}} pada plugin
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Dukungan untuk "servis PodResources" butuh [gerbang fitur](/docs/reference/command-line-tools-reference/feature-gates/) 
+Dukungan untuk "servis PodResources" butuh [gerbang fitur](/docs/reference/command-line-tools-reference/feature-gates/)
 `KubeletPodResources` untuk dinyalakan. Mulai dari Kubernetes 1.15 nilai bawaannya telah dinyalakan.
 
 ## Integrasi Plugin Perangkat dengan Topology Manager
@@ -214,7 +214,7 @@ Berikut beberapa contoh implementasi _plugin_ perangkat:
 
 * [Plugin perangkat AMD GPU](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * [Plugin perangkat Intel](https://github.com/intel/intel-device-plugins-for-kubernetes) untuk perangkat GPU, FPGA, dan QuickAssist Intel
-* [Plugin perangkat KubeVirt](https://github.com/kubevirt/kubernetes-device-plugins) untuk virtualisasi hardware-assisted 
+* [Plugin perangkat KubeVirt](https://github.com/kubevirt/kubernetes-device-plugins) untuk virtualisasi hardware-assisted
 * [Plugin perangkat NVIDIA GPU](https://github.com/NVIDIA/k8s-device-plugin)
     * Perlu [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) versi 2.0 yang memungkinkan untuk menjalakan kontainer Docker yang memuat GPU.
 * [Plugin perangkat NVIDIA GPU untuk Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
@@ -230,6 +230,6 @@ Berikut beberapa contoh implementasi _plugin_ perangkat:
 * Pelajari bagaimana [menjadwalkan sumber daya GPU](/docs/tasks/manage-gpus/scheduling-gpus/) dengan _plugin_ perangkat
 * Pelajari bagaimana [mengumumkan sumber daya ekstensi](/docs/tasks/administer-cluster/extended-resource-node/) pada node
 * Baca tentang penggunaan [akselerasi perangkat keras untuk ingress TLS](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) dengan Kubernetes
-* Pelajari tentang [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Pelajari tentang [Topology Manager](/docs/tasks/adminster-cluster/topology-manager/)
 
 
