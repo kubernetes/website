@@ -462,9 +462,7 @@ ipvsadm -C
 
 このサブコマンドとオプションに関するより詳しい情報は、[`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)リファレンスドキュメントを読んでください。
 
-{{% /capture %}}
-
-{{% capture discussion %}}
+<!-- discussion -->
 
 ## 次の手順 {#whats-next}
 
@@ -523,4 +521,3 @@ kubeadmのdeb/rpmパッケージおよびバイナリは、[multi-platform propo
 
 kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
 
-{{% /capture %}}
