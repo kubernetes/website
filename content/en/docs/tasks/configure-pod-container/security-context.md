@@ -240,6 +240,56 @@ Exit your shell:
 exit
 ```
 
+### Configure SELinux label change policy for Pods
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+By default, the container runtime recursively changes SELinux labels of each
+file on all volumes to match the SELinux context of a container. For large
+volumes, changing the SELinux label can take a lot of time, resulting in slow
+Pod startup.
+
+You can use the `seLinuxRelabelPolicy` field inside a `securityContext`to
+control the way how Kubernetes applies the SELinux label to all volumes in a
+Pod. It has two possible values:
+
+* _Always_: Always let the container runtime to change SELinux labels on pod's
+volumes. This is the default value.
+* _OnVolumeMount_: If supported by the underlying storage backend, mount all
+  Pod's volumes with the right SELinux label. This allows the container runtime
+  to skip whole recursive SELinux label change of all files on the volume and
+  thus faster Pod startup. However, this value can be used only when Kubernetes
+  knows SELinux context of the Pod to run, i.e. when
+  `pod.spec.securityContext.seLinuxOptions` is set.
+
+  Not all storage backends support mounting volumes with a SELinux context. For
+  these backends, Kubernetes quietly lets the container runtime to relabel
+  these volumes recursively even when `seLinuxRelabelPolicy: OnVolumeMount` was
+  specified:
+
+  * ConfigMap
+  * DownwardAPI
+  * EmptyDir
+  * Projected
+  * Secrets
+
+  CSI driverS must advertise if their driver supports mounting volumes
+  provided by the driver with SELinux context in the driver's CSIDriver object
+  instance  (TODO: link kubernetes-csi docs).
+
+Some volume plugins don't support SELinux at all, thus `seLinuxRelabelPolicy`
+has no effect on them and the container runtime does not recursively relabel
+their content either:
+
+* Azure File (CIFS)
+* CephFS
+* Flocker
+* Gluster
+* HostPath
+* NFS
+* Quobyte
+* Portworx
+
 ## Set capabilities for a Container
 
 With [Linux capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html),
