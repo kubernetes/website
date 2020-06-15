@@ -39,14 +39,27 @@ request a particular class. Administrators set the name and other parameters
 of a class when first creating VolumeSnapshotClass objects, and the objects cannot
 be updated once they are created.
 
-Administrators can specify a default VolumeSnapshotClass just for VolumeSnapshots
-that don't request any particular class to bind to.
+```yaml
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: csi-hostpath-snapclass
+driver: hostpath.csi.k8s.io
+deletionPolicy: Delete
+parameters:
+```
+
+Administrators can specify a default VolumeSnapshotClass for VolumeSnapshots
+that don't request any particular class to bind to by adding the
+`snapshot.storage.kubernetes.io/is-default-class: "true"` annotation:
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshotClass
 metadata:
   name: csi-hostpath-snapclass
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "true"
 driver: hostpath.csi.k8s.io
 deletionPolicy: Delete
 parameters:
