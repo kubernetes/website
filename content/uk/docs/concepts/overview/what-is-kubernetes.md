@@ -21,9 +21,9 @@ Kubernetes is a portable, extensible, open-source platform for managing containe
 Kubernetes - це платформа з відкритим вихідним кодом для управління контейнеризованими робочими навантаженнями та супутніми службами. Її основні характеристики - кросплатформенність, розширюваність, успішне використання декларативної конфігурації та автоматизації. Вона має гігантську, швидкопрогресуючу екосистему.
 
 <!--
-The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://ai.google/research/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
+The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
 -->
-Назва Kubernetes походить з грецької та означає керманич або пілот. Google відкрив доступ до вихідного коду проекту Kubernetes у 2014 році. Kubernetes побудовано [на базі п'ятнадцятирічного досвіду, що Google отримав, оперуючи масштабними робочими навантаженнями](https://ai.google/research/pubs/pub43438) у купі з найкращими у своєму класі ідеями та практиками, які може запропонувати спільнота.
+Назва Kubernetes походить з грецької та означає керманич або пілот. Google відкрив доступ до вихідного коду проекту Kubernetes у 2014 році. Kubernetes побудовано [на базі п'ятнадцятирічного досвіду, що Google отримав, оперуючи масштабними робочими навантаженнями](https://research.google/pubs/pub43438) у купі з найкращими у своєму класі ідеями та практиками, які може запропонувати спільнота.
 
 <!--
 ## Going back in time

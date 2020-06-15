@@ -16,7 +16,7 @@ Trang tổng quan của Kubernetes.
 <!-- body -->
 Kubernetes là một nền tảng nguồn mở, khả chuyển, có thể mở rộng để quản lý các ứng dụng được đóng gói và các service, giúp thuận lợi trong việc cấu hình và tự động hoá việc triển khai ứng dụng. Kubernetes là một hệ sinh thái lớn và phát triển nhanh chóng. Các dịch vụ, sự hỗ trợ và công cụ có sẵn rộng rãi.
 
-Tên gọi Kubernetes có nguồn gốc từ tiếng Hy Lạp, có ý nghĩa là người lái tàu hoặc hoa tiêu. Google mở mã nguồn Kubernetes từ năm 2014. Kubernetes xây dựng dựa trên [một thập kỷ rưỡi kinh nghiệm mà Google có được với việc vận hành một khối lượng lớn workload trong thực tế](https://ai.google/research/pubs/pub43438), kết hợp với các ý tưởng và thực tiễn tốt nhất từ cộng đồng.
+Tên gọi Kubernetes có nguồn gốc từ tiếng Hy Lạp, có ý nghĩa là người lái tàu hoặc hoa tiêu. Google mở mã nguồn Kubernetes từ năm 2014. Kubernetes xây dựng dựa trên [một thập kỷ rưỡi kinh nghiệm mà Google có được với việc vận hành một khối lượng lớn workload trong thực tế](https://research.google/pubs/pub43438), kết hợp với các ý tưởng và thực tiễn tốt nhất từ cộng đồng.
 
 ## Quay ngược thời gian
 Chúng ta hãy xem tại sao Kubernetes rất hữu ích bằng cách quay ngược thời gian.
