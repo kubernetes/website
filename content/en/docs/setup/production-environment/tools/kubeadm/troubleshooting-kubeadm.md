@@ -131,7 +131,7 @@ sudo kubeadm reset
 Inspecting the logs for docker may also be useful:
 
 ```sh
-journalctl -ul docker
+journalctl -u docker
 ```
 
 ## Pods in `RunContainerError`, `CrashLoopBackOff` or `Error` state
