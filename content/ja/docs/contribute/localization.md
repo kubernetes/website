@@ -7,7 +7,7 @@ card:
   title: Translating the docs
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、ドキュメントを異なる言語に[ローカライズ](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)する方法について紹介します。
 
