@@ -11,8 +11,6 @@ card:
 
 このページでは、ドキュメントを異なる言語に[ローカライズ](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)する方法について紹介します。
 
-{{% /capture %}}
-
 <!-- body -->
 
 ## はじめる
@@ -274,13 +272,9 @@ SIG Docsでは、英語のソースに対する[アップストリームへの�
 
 コンテンツの追加や改善により既存のローカライゼーションを助けることもできます。ローカライゼーションのための[Slackチャンネル](https://kubernetes.slack.com/messages/C1J0BPD2M/)に参加して、助けとなるPRを開くことを始めましょう。
 
-{{% /capture %}}
-
 ## {{% heading "whatsnext" %}}
 
 ローカライゼーションがワークフローと最小限のコンテンツの要件を満たしたら、SIG docsは次の作業を行います。
 
 - ウェブサイト上で言語の選択を有効にする。
 - [Kubernetesブログ](https://kubernetes.io/blog/)を含む[Cloud Native Computing Foundation](https://www.cncf.io/about/)(CNCF)のチャンネルで、ローカライゼーションが利用できるようになったことを公表する。
-
-{{% /capture %}}
