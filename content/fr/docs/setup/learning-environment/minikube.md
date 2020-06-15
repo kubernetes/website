@@ -519,7 +519,7 @@ Pour plus d'informations sur Minikube, voir la [proposition](https://git.k8s.io/
 * **Objectifs et non-objectifs**: Pour les objectifs et non-objectifs du projet Minikube, veuillez consulter notre [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Guide de développement**: Voir [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) pour avoir un aperçu de comment envoyer des pull requests.
 * **Construire Minikube**: Pour obtenir des instructions sur la création / test de Minikube à partir des sources, voir le [guide de build](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Ajout d'une nouvelle dépendance**: Pour savoir comment ajouter une nouvelle dépendance à Minikube, voir la section [guide d'ajout de dépendances](https://minikube.sigs.k8s.io/docs/contrib/building/iso/).
+* **Ajout d'une nouvelle dépendance**: Pour savoir comment ajouter une nouvelle dépendance à Minikube, voir la section [guide d'ajout de dépendances](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
 * **Ajout d'un nouvel addon**: Pour savoir comment ajouter un nouvel addon pour Minikube, reportez-vous au [Ajout d’un addon](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **MicroK8s**: Les utilisateurs de Linux qui souhaitent éviter d’exécuter une machine virtuelle peuvent envisager [MicroK8s](https://microk8s.io/).
 

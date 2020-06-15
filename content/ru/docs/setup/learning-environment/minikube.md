@@ -519,7 +519,7 @@ Minikube использует [libmachine](https://github.com/docker/machine/tre
 * **Цели**: цели проекта Minikube смотрите в [дорожной карте](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Руководство по разработке**: посмотрите [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md), чтобы ознакомиться с тем, как отправлять пулрексты.
 * **Сборка Minikube**: инструкции по сборке/тестированию Minikube из исходного кода смотрите в [руководстве по сборке](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Добавление новой зависимости**: инструкции по добавлению новой зависимости в Minikube смотрите в [руководстве по добавлению зависимостей](https://minikube.sigs.k8s.io/docs/contrib/building/iso/).
+* **Добавление новой зависимости**: инструкции по добавлению новой зависимости в Minikube смотрите в [руководстве по добавлению зависимостей](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
 * **Добавление нового дополнения**: инструкции по добавлению нового дополнения для Minikube смотрите в [руководстве по добавлению дополнений](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **MicroK8**: пользователи Linux, которые не хотят использовать виртуальную машину, могут в качестве альтернативы посмотреть в сторону [MicroK8s](https://microk8s.io/).
 
