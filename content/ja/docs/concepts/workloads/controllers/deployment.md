@@ -11,12 +11,12 @@ weight: 30
 
 <!-- overview -->
 
-_Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
+_Deployment_ は[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。
 
-ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
+Deploymentにおいて_理想的な状態_ を記述すると、Deployment{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は指定された頻度で現在の状態を理想的な状態に変更します。Deploymentを定義することによって、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
 {{< note >}}
-Deploymentによって作成されたReplicaSetを管理しないでください。ユーザーのユースケースが下記の項目をカバーできていない場合はメインのKubernetesリポジトリーにイシューを作成することを検討してください。
+Deploymentによって作成されたReplicaSetを管理しないでください。ご自身のユースケースが以下の項目に含まれない場合、メインのKubernetesリポジトリーにIssueを作成することを検討してください。
 {{< /note >}}
 
 
@@ -26,41 +26,41 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 ## ユースケース
 
-下記の項目はDeploymentの典型的なユースケースです。
+以下の項目はDeploymentの典型的なユースケースです。
 
-* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
+* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
-* PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始する。
+* PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始します。
 * 今後必要としない[古いReplicaSetのクリーンアップ](#clean-up-policy)
 
 ## Deploymentの作成 {#creating-a-deployment}
 
-下記の内容はDeploymentの例です。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
+以下はDeploymentの例です。これは`nginx`Podのレプリカを3つ持つReplicaSetを作成します。
 
 {{< codenew file="controllers/nginx-deployment.yaml" >}}
 
-この例において、
+この例では、
 
-* `nginx-deployment`という名前のDeploymentが作成され、`.metadata.name`フィールドで名前を指定します。
-* Deploymentは3つのレプリカPodを作成し、`replicas`フィールドによってレプリカ数を指定します。
-* `selector`フィールドは、Deploymentが管理するPodのラベルを定義します。このケースにおいて、ユーザーはPodテンプレートにて定義されたラベル(`app: nginx`)を選択します。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
+* `.metadata.name`フィールドで指定された`nginx-deployment`という名前のDeploymentが作成されます。
+* このDeploymentは`replicas`フィールドで指定された通り、3つのレプリカPodを作成します。
+* `selector`フィールドは、Deploymentが管理するPodのラベルを定義します。ここでは、Podテンプレートにて定義されたラベル(`app: nginx`)を選択しています。しかし、PodTemplate自体がそのルールを満たす限り、さらに洗練された方法でセレクターを指定することができます。
 
     {{< note >}}
-    `matchLabels`フィールドは、キーとバリューのペアのマップとなります。`matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しいです。
+    `matchLabels`フィールドはキーバリューペアのマップです。`matchLabels`マップにおいて、{key, value}というペアは、keyというフィールドの値が"key"で、その演算子が"In"で、値の配列が"value"のみ含むような`matchExpressions`の要素と等しくなります。
     `matchLabels`と`matchExpressions`の両方が設定された場合、条件に一致するには両方とも満たす必要があります。
     {{< /note >}}
 
-* `template`フィールドは、下記のサブフィールドを持ちます。:
-  * Podは`labels`フィールドによって指定された`app: nginx`というラベルがつけられる
-  * PodTemplateの仕様もしくは、`.template.spec`フィールドは、このPodは`nginx`という名前のコンテナーを1つ稼働させ、それは`nginx`というさせ、[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2を使うことを示します
-  * 1つのコンテナを作成し、`name`フィールドを使って`nginx`という名前をつけます
+* `template`フィールドは、以下のサブフィールドを持ちます。:
+  * Podは`labels`フィールドによって指定された`app: nginx`というラベルがつけられます。
+  * PodTemplate、または`.template.spec`フィールドは、Podが`nginx`という名前で[Docker Hub](https://hub.docker.com/)にある`nginx`のバージョン1.14.2が動くコンテナを1つ動かすことを示します。
+  * 1つのコンテナを作成し、`name`フィールドを使って`nginx`という名前をつけます。
 
-作成を始める前に、ユーザーのKubernetesクラスターが稼働していることを確認してください。
-上記のDeploymentを作成するために、以下に示すステップにしたがってください。
+上記のDeploymentを作成するためには以下のステップにしたがってください。
+作成を始める前に、Kubernetesクラスターが稼働していることを確認してください。
 
-1. 下記のコマンドを実行してDeploymentを作成してください。
+1. 以下のコマンドを実行してDeploymentを作成してください。
 
   ```shell
   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
@@ -73,53 +73,52 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 2. Deploymentが作成されたことを確認するために、`kubectl get deployment`を実行してください。
 
-  Deploymentがまだ作成中の場合、コマンドの実行結果は下記のとおりです。
+  Deploymentがまだ作成中の場合、コマンドの実行結果は以下のとおりです。
   ```shell
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   0/3     0            0           1s
   ```
-  ユーザーのクラスターにおいてDeploymentを調査するとき、下記のフィールドが出力されます。
-  * `NAME` クラスター内のDeploymentの名前を表示する
-  * `DESIRED` アプリケーションの理想的な_replicas_ の値を表示する: これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
-  * `CURRENT` 現在稼働中のレプリカ数
-  * `UP-TO-DATE` 理想的な状態にするために、アップデートが完了したレプリカ数
-  * `AVAILABLE` ユーザーが利用可能なレプリカ数
-  * `AGE` アプリケーションが稼働してからの時間
+  クラスターにてDeploymentを調査するとき、以下のフィールドが出力されます。
+  * `NAME`は、クラスター内にあるDeploymentの名前一覧です。
+  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
+  * `UP-TO-DATE`は、理想的な状態を満たすためにアップデートが完了したレプリカの数です。
+  * `AVAILABLE`は、ユーザーが利用可能なレプリカの数です。
+  * `AGE`は、アプリケーションが稼働してからの時間です。
 
-  上記のyamlの例だと、`.spec.replicas`フィールドの値によると、理想的なレプリカ数は3です。
+  `.spec.replicas`フィールドの値によると、理想的なレプリカ数は3であることがわかります。
 
 3. Deploymentのロールアウトステータスを確認するために、`kubectl rollout status deployment.v1.apps/nginx-deployment`を実行してください。
 
-  コマンドの実行結果は下記のとおりです。
+  コマンドの実行結果は以下のとおりです。
   ```shell
   Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
   deployment.apps/nginx-deployment successfully rolled out
   ```
 
-4. 数秒後、再度`kubectl get deployments`を実行してください。コマンドの実行結果は下記のとおりです。
+4. 数秒後、再度`kubectl get deployments`を実行してください。コマンドの実行結果は以下のとおりです。
   ```shell
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           18s
   ```
   Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
 
-5. Deploymentによって作成されたReplicaSet (`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は下記のとおりです。
+5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです。
   ```shell
   NAME                          DESIRED   CURRENT   READY   AGE
   nginx-deployment-75675f5897   3         3         3       18s
   ```
   ReplicaSetの出力には次のフィールドが表示されます:
 
-  * `NAME`は名前空間内のReplicaSetの名前を一覧表示します。
-  * `DESIRED`は、アプリケーションの_replicas_の希望数を表示します。これは、Deploymentを作成するときに定義します。これが_desired state_です。
-  * `CURRENT`は現在実行されているレプリカの数を表示します。
-  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数を表示します。
-  * `AGE`は、アプリケーションが実行されている時間を表示します。
+  * `NAME`は、名前空間内にあるReplicaSetの名前の一覧です。
+  * `DESIRED`は、アプリケーションの理想的な_レプリカ_ の値です。これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
+  * `CURRENT`は現在実行されているレプリカの数です。
+  * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
+  * `AGE`は、アプリケーションが稼働してからの時間です。
 
   ReplicaSetの名前は`[Deployment名]-[ランダム文字列]`という形式になることに注意してください。ランダム文字列はランダムに生成され、pod-template-hashをシードとして使用します。
 
 
-6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。コマンドの実行結果は下記のとおりです。
+6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。コマンドの実行結果は以下のとおりです。
   ```shell
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -148,7 +147,7 @@ Deploymentに対して適切なセレクターとPodテンプレートのラベ�
 Deploymentのロールアウトは、DeploymentのPodテンプレート(この場合`.spec.template`)が変更された場合にのみトリガーされます。例えばテンプレートのラベルもしくはコンテナーイメージが更新された場合です。Deploymentのスケールのような更新では、ロールアウトはトリガーされません。
 {{< /note >}}
 
-Deploymentを更新するには下記のステップに従ってください。
+Deploymentを更新するには以下のステップに従ってください。
 
 1. nginxのPodで、`nginx:1.14.2`イメージの代わりに`nginx:1.16.1`を使うように更新します。
 
@@ -156,12 +155,12 @@ Deploymentを更新するには下記のステップに従ってください。
     kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
     または単に次のコマンドを使用します。
-    
+
     ```shell
     kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1 --record
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment image updated
     ```
@@ -172,18 +171,18 @@ Deploymentを更新するには下記のステップに従ってください。
     kubectl edit deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment edited
     ```
 
-2. ロールアウトのステータスを確認するには、下記のコマンドを実行してください。
+2. ロールアウトのステータスを確認するには、以下のコマンドを実行してください。
 
     ```shell
     kubectl rollout status deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     ```
@@ -192,10 +191,10 @@ Deploymentを更新するには下記のステップに従ってください。
     deployment.apps/nginx-deployment successfully rolled out
     ```
 
-更新されたDeploymentのさらなる情報を取得するには、下記を確認してください。
+更新されたDeploymentのさらなる情報を取得するには、以下を確認してください。
 
 * ロールアウトが成功したあと、`kubectl get deployments`を実行してDeploymentを確認できます。
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3/3     3            3           36s
@@ -207,7 +206,7 @@ Deploymentを更新するには下記のステップに従ってください。
     kubectl get rs
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-1564180365   3         3         3       6s
@@ -220,7 +219,7 @@ Deploymentを更新するには下記のステップに従ってください。
     kubectl get pods
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                                READY     STATUS    RESTARTS   AGE
     nginx-deployment-1564180365-khku8   1/1       Running   0          14s
@@ -240,7 +239,7 @@ Deploymentを更新するには下記のステップに従ってください。
   ```shell
   kubectl describe deployments
   ```
-  実行結果は下記のとおりです。
+  実行結果は以下のとおりです。
   ```
   Name:                   nginx-deployment
   Namespace:              default
@@ -303,7 +302,7 @@ Deploymentのロールアウトが進行中にDeploymentを更新すると、Dep
 
 ## Deploymentのロールバック {#rolling-back-a-deployment}
 
-Deploymentのロールバックを行いたい場合があります。例えば、Deploymentがクラッシュ状態になりそれがループしたりする不安定なときです。デフォルトではユーザーがいつでもロールバックできるようにDeploymentの全てのロールアウト履歴がシステムに保持されます(リビジョン履歴の上限は設定することで変更可能です)。
+例えば、クラッシュループ状態などのようにDeploymentが不安定な場合においては、Deploymentをロールバックしたくなることがあります。Deploymentの全てのロールアウト履歴は、いつでもロールバックできるようにデフォルトでシステムに保持されています(リビジョン履歴の上限は設定することで変更可能です)。
 
 {{< note >}}
 Deploymentのリビジョンは、Deploymentのロールアウトがトリガーされた時に作成されます。これはDeploymentのPodテンプレート(`.spec.template`)が変更されたときのみ新しいリビジョンが作成されることを意味します。Deploymentのスケーリングなど、他の種類の更新においてはDeploymentのリビジョンは作成されません。これは手動もしくはオートスケーリングを同時に行うことができるようにするためです。これは過去のリビジョンにロールバックするとき、DeploymentのPodテンプレートの箇所のみロールバックされることを意味します。
@@ -315,18 +314,18 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment image updated
     ```
 
-* このロールアウトはうまくいきません。ユーザーロールアウトのステータスを見ることでロールアウトがうまくいくか確認できます。
+* このロールアウトはうまくいきません。ロールアウトのステータスを見るとそれを確認できます。
 
     ```shell
     kubectl rollout status deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     Waiting for rollout to finish: 1 out of 3 new replicas have been updated...
     ```
@@ -339,7 +338,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     kubectl get rs
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-1564180365   3         3         3       25s
@@ -353,7 +352,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     kubectl get pods
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                                READY     STATUS             RESTARTS   AGE
     nginx-deployment-1564180365-70iae   1/1       Running            0          25s
@@ -371,7 +370,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     kubectl describe deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     Name:           nginx-deployment
     Namespace:      default
@@ -416,13 +415,13 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 
 ### Deploymentのロールアウト履歴の確認
 
-ロールアウトの履歴を確認するには、下記の手順に従って下さい。
+ロールアウトの履歴を確認するには、以下の手順に従って下さい。
 
 1. 最初に、Deploymentのリビジョンを確認します。
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployments "nginx-deployment"
     REVISION    CHANGE-CAUSE
@@ -431,18 +430,18 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
-    `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。下記の手段により`CHANGE-CAUSE`メッセージを指定できます。
+    `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の方法により`CHANGE-CAUSE`メッセージを指定できます。
 
-    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加する。
-    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加する。
-    * リソースのマニフェストを手動で編集する。
+    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加します。
+    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加します。
+    * リソースのマニフェストを手動で編集します。
 
-2. 各リビジョンの詳細を確認するためには下記のコマンドを実行してください。
+2. 各リビジョンの詳細を確認するためには以下のコマンドを実行してください。
     ```shell
     kubectl rollout history deployment.v1.apps/nginx-deployment --revision=2
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployments "nginx-deployment" revision 2
       Labels:       app=nginx
@@ -460,14 +459,14 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
 
 ### 過去のリビジョンにロールバックする {#rolling-back-to-a-previous-revision}
-現在のリビジョンから過去のリビジョン(リビジョン番号2)にロールバックさせるには、下記の手順に従ってください。
+現在のリビジョンから過去のリビジョン(リビジョン番号2)にロールバックさせるには、以下の手順に従ってください。
 
 1. 現在のリビジョンから過去のリビジョンにロールバックします。
     ```shell
     kubectl rollout undo deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment
     ```
@@ -477,7 +476,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment
     ```
@@ -486,12 +485,12 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 
     Deploymentが過去の安定したリビジョンにロールバックされました。Deploymentコントローラーによって、リビジョン番号2にロールバックする`DeploymentRollback`イベントが作成されたのを確認できます。
 
-2. ロールバックが成功し、Deploymentが正常に稼働していることを確認するために、下記のコマンドを実行してください。
+2. ロールバックが成功し、Deploymentが正常に稼働していることを確認するために、以下のコマンドを実行してください。
     ```shell
     kubectl get deployment nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME               READY   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3/3     3            3           30m
@@ -500,7 +499,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```shell
     kubectl describe deployment nginx-deployment
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     Name:                   nginx-deployment
     Namespace:              default
@@ -546,30 +545,30 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
 
 ## Deploymentのスケーリング {#scaling-a-deployment}
-下記のコマンドを実行させてDeploymentをスケールできます。
+以下のコマンドを実行させてDeploymentをスケールできます。
 
 ```shell
 kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
 ```
 
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 deployment.apps/nginx-deployment scaled
 ```
 
-クラスター内で[水平Podオートスケーラー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)が有効になっていると仮定します。ここでDeploymentのオートスケーラーを設定し、稼働しているPodのCPU使用量に基づいて、ユーザーが稼働させたいPodのレプリカ数の最小値と最大値を設定できます。
+クラスター内で[水平Podオートスケーラー](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)が有効になっていると仮定します。ここでDeploymentのオートスケーラーを設定し、稼働しているPodのCPU使用量に基づいて、稼働させたいPodのレプリカ数の最小値と最大値を設定できます。
 
 ```shell
 kubectl autoscale deployment.v1.apps/nginx-deployment --min=10 --max=15 --cpu-percent=80
 ```
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 deployment.apps/nginx-deployment scaled
 ```
 
 ### 比例スケーリング
 
-Deploymentのローリングアップデートは、同時に複数のバージョンのアプリケーションの稼働をサポートします。ユーザーやオートスケーラーがロールアウト中(更新中もしくは一時停止中)のDeploymentのローリングアップデートを行うとき、Deploymentコントローラーはリスクを削減するために既存のアクティブなReplicaSetのレプリカのバランシングを行います。これを*比例スケーリング* と呼びます。
+Deploymentのローリングアップデートは、同時に複数のバージョンのアプリケーションの稼働をサポートします。ユーザーやオートスケーラーがローリングアップデートをロールアウト中(更新中もしくは一時停止中)のDeploymentに対して行うと、Deploymentコントローラーはリスクを削減するために既存のアクティブなReplicaSetのレプリカのバランシングを行います。これを*比例スケーリング* と呼びます。
 
 レプリカ数が10、[maxSurge](#max-surge)=3、[maxUnavailable](#max-unavailable)=2であるDeploymentが稼働している例です。
 
@@ -577,7 +576,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
   ```shell
   kubectl get deploy
   ```
-  実行結果は下記のとおりです。
+  実行結果は以下のとおりです。
 
   ```
   NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
@@ -590,7 +589,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     The output is similar to this:
     ```
     deployment.apps/nginx-deployment image updated
@@ -600,7 +599,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl get rs
     ```
-      実行結果は下記のとおりです。
+      実行結果は以下のとおりです。
     ```
     NAME                          DESIRED   CURRENT   READY     AGE
     nginx-deployment-1989198191   5         5         0         9s
@@ -609,12 +608,12 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
 
 * 次にDeploymentのスケーリングをするための新しい要求が発生します。オートスケーラーはDeploymentのレプリカ数を15に増やします。Deploymentコントローラーは新しい5つのレプリカをどこに追加するか決める必要がでてきます。比例スケーリングを使用していない場合、5つのレプリカは全て新しいReplicaSetに追加されます。比例スケーリングでは、追加されるレプリカは全てのReplicaSetに分散されます。比例割合が大きいものはレプリカ数の大きいReplicaSetとなり、比例割合が低いときはレプリカ数の小さいReplicaSetとなります。残っているレプリカはもっとも大きいレプリカ数を持つReplicaSetに追加されます。レプリカ数が0のReplicaSetはスケールアップされません。
 
-上記の例では、3つのレプリカが古いReplicaSetに追加され、2つのレプリカが新しいReplicaSetに追加されました。ロールアウトの処理では、新しいレプリカ数のPodが正常になったと仮定すると、最終的に新しいReplicaSetに全てのレプリカを移動させます。これを確認するためには下記のコマンドを実行して下さい。
+上記の例では、3つのレプリカが古いReplicaSetに追加され、2つのレプリカが新しいReplicaSetに追加されました。ロールアウトの処理では、新しいレプリカ数のPodが正常になったと仮定すると、最終的に新しいReplicaSetに全てのレプリカを移動させます。これを確認するためには以下のコマンドを実行して下さい。
 
     ```shell
     kubectl get deploy
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment     15        18        7            8           7m
@@ -623,7 +622,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl get rs
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME                          DESIRED   CURRENT   READY     AGE
     nginx-deployment-1989198191   7         7         0         7m
@@ -634,12 +633,12 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
 
 ユーザーは1つ以上の更新処理をトリガーする前に更新の一時停止と再開ができます。これにより、不必要なロールアウトを実行することなく一時停止と再開を行う間に複数の修正を反映できます。
 
-* 例えば、作成直後のDeploymentを考えます。  
+* 例えば、作成直後のDeploymentを考えます。
   Deploymentの詳細情報を確認します。
   ```shell
   kubectl get deploy
   ```
-  実行結果は下記のとおりです。
+  実行結果は以下のとおりです。
   ```
   NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
   nginx     3         3         3            3           1m
@@ -648,18 +647,18 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
   ```shell
   kubectl get rs
   ```
-  実行結果は下記のとおりです。
+  実行結果は以下のとおりです。
   ```
   NAME               DESIRED   CURRENT   READY     AGE
   nginx-2142116321   3         3         3         1m
   ```
 
-* 下記のコマンドを実行して更新処理の一時停止を行います。
+* 以下のコマンドを実行して更新処理の一時停止を行います。
     ```shell
     kubectl rollout pause deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment paused
     ```
@@ -669,7 +668,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.16.1
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment image updated
     ```
@@ -679,7 +678,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     kubectl rollout history deployment.v1.apps/nginx-deployment
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployments "nginx"
     REVISION  CHANGE-CAUSE
@@ -689,18 +688,18 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl get rs
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME               DESIRED   CURRENT   READY     AGE
     nginx-2142116321   3         3         3         2m
     ```
 
-* ユーザーは何度も更新を行えます。例えばDeploymentが使用するリソースを更新します。
+* 更新は何度でも実行できます。例えば、Deploymentが使用するリソースを更新します。
     ```shell
     kubectl set resources deployment.v1.apps/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment resource requirements updated
     ```
@@ -710,7 +709,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl rollout resume deployment.v1.apps/nginx-deployment
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     deployment.apps/nginx-deployment resumed
     ```
@@ -718,7 +717,7 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     ```shell
     kubectl get rs -w
     ```
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME               DESIRED   CURRENT   READY     AGE
     nginx-2142116321   2         2         2         2m
@@ -741,14 +740,14 @@ Deploymentのローリングアップデートは、同時に複数のバージ�
     kubectl get rs
     ```
 
-    実行結果は下記のとおりです。
+    実行結果は以下のとおりです。
     ```
     NAME               DESIRED   CURRENT   READY     AGE
     nginx-2142116321   0         0         0         2m
     nginx-3926361531   3         3         3         28s
     ```
 {{< note >}}
-一時停止したDeploymentの稼働を再開させない限り、ユーザーはDeploymentのロールバックはできません。
+一時停止したDeploymentの稼働を再開させない限り、Deploymentをロールバックすることはできません。
 {{< /note >}}
 
 ## Deploymentのステータス {#deployment-status}
@@ -757,29 +756,29 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 ### Deploymentの更新処理 {#progressing-deployment}
 
-下記のタスクが実行中のとき、KubernetesはDeploymentの状態を_progressing_ にします。
+以下のタスクが実行中のとき、KubernetesはDeploymentの状態を_progressing_ にします。
 
-* Deploymentが新しいReplicaSetを作成する。
-* Deploymentが新しいReplicaSetをスケールアップさせている。
-* Deploymentが古いReplicaSetをスケールダウンさせている。
-* 新しいPodが準備中もしくは利用可能な状態になる(少なくとも[MinReadySeconds](#min-ready-seconds)の間は準備中になります)。
+* Deploymentが新しいReplicaSetを作成します。
+* Deploymentが新しいReplicaSetをスケールアップさせています。
+* Deploymentが古いReplicaSetをスケールダウンさせています。
+* 新しいPodが準備中もしくは利用可能な状態になります(少なくとも[MinReadySeconds](#min-ready-seconds)の間は準備中になります)。
 
-ユーザーは`kubectl rollout status`を実行してDeploymentの進行状態を確認できます。
+`kubectl rollout status`を実行すると、Deploymentの進行状態を確認できます。
 
 ### Deploymentの更新処理の完了 {#complete-deployment}
 
-Deploymentが下記の状態になったとき、KubernetesはDeploymentのステータスを_complete_ にします。
+Deploymentが以下の状態になったとき、KubernetesはDeploymentのステータスを_complete_ にします。
 
-* Deploymentの全てのレプリカが、指定された最新のバージョンに更新される。これはユーザーが指定した更新処理が完了したことを意味します。
-* Deploymentの全てのレプリカが利用可能になる。
-* Deploymentの古いレプリカが1つも稼働していない。
+* Deploymentの全てのレプリカが、指定された最新のバージョンに更新されます。これは指定した更新処理が完了したことを意味します。
+* Deploymentの全てのレプリカが利用可能になります。
+* Deploymentの古いレプリカが1つも稼働していません。
 
 `kubectl rollout status`を実行して、Deploymentの更新が完了したことを確認できます。ロールアウトが正常に完了すると`kubectl rollout status`の終了コードが0で返されます。
 
 ```shell
 kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
@@ -789,7 +788,7 @@ $ echo $?
 
 ### Deploymentの更新処理の失敗 {#failed-deployment}
 
-新しいReplicaSetのデプロイが完了せず、更新処理が止まる場合があります。これは主に下記の要因によるものです。
+新しいReplicaSetのデプロイが完了せず、更新処理が止まる場合があります。これは主に以下の要因によるものです。
 
 * 不十分なリソースの割り当て
 * ReadinessProbeの失敗
@@ -800,16 +799,16 @@ $ echo $?
 
 このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメータを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
 
-下記の`kubectl`コマンドでリソース定義に`progressDeadlineSeconds`を設定します。これはDeploymentの更新が止まってから10分後に、コントローラーが失敗を通知させるためです。
+以下の`kubectl`コマンドでリソース定義に`progressDeadlineSeconds`を設定します。これはDeploymentの更新が止まってから10分後に、コントローラーが失敗を通知させるためです。
 
 ```shell
 kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
 ```
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 deployment.apps/nginx-deployment patched
 ```
-一度デッドラインを超過すると、DeploymentコントローラーはDeploymentの`.status.conditions`に下記のDeploymentConditionを追加します。
+一度デッドラインを超過すると、DeploymentコントローラーはDeploymentの`.status.conditions`に以下のDeploymentConditionを追加します。
 
 * Type=Progressing
 * Status=False
@@ -822,15 +821,15 @@ Kubernetesは停止状態のDeploymentに対して、ステータス状態を報
 {{< /note >}}
 
 {{< note >}}
-Deploymentを停止すると、Kubernetesはユーザーが指定したデッドラインを超えたかどうかチェックしません。ユーザーはロールアウトのとゆうでもDeploymentを安全に一時停止でき、デッドラインを超えたイベントをトリガーすることなく再開できます。
+Deploymentを停止すると、Kubernetesは指定したデッドラインを超えたかどうかチェックしません。ロールアウトの途中でもDeploymentを安全に一時停止でき、デッドラインを超えたイベントをトリガーすることなく再開できます。
 {{< /note >}}
 
-設定したタイムアウトの秒数が小さかったり、一時的なエラーとして扱える他の種類のエラーが原因となり、Deploymentで一時的なエラーが出る場合があります。例えば、リソースの割り当てが不十分な場合を考えます。Deploymentの詳細情報を確認すると、下記のセクションが表示されます。
+設定したタイムアウトの秒数が小さかったり、一時的なエラーとして扱える他の種類のエラーが原因となり、Deploymentで一時的なエラーが出る場合があります。例えば、リソースの割り当てが不十分な場合を考えます。Deploymentの詳細情報を確認すると、以下のセクションが表示されます。
 
 ```shell
 kubectl describe deployment nginx-deployment
 ```
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 <...>
 Conditions:
@@ -842,7 +841,7 @@ Conditions:
 <...>
 ```
 
-`kubectl get deployment nginx-deployment -o yaml`を実行すると、Deploymentのステータスは下記のようになります。
+`kubectl get deployment nginx-deployment -o yaml`を実行すると、Deploymentのステータスは以下のようになります。
 
 ```
 status:
@@ -900,7 +899,7 @@ Conditions:
 ```shell
 kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
-実行結果は下記のとおりです。
+実行結果は以下のとおりです。
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
@@ -922,7 +921,7 @@ Deploymentが管理する古いReplicaSetをいくつ保持するかを指定す
 
 ## カナリアパターンによるデプロイ
 
-Deploymentを使って一部のユーザーやサーバーに対してリリースのロールアウトをしたいとき、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)に記載されているカナリアパターンに従って、リリース毎に1つずつ、複数のDeploymentを作成できます。
+Deploymentを使って一部のユーザーやサーバーに対してリリースのロールアウトをしたい場合、[リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)に記載されているカナリアパターンに従って、リリース毎に1つずつ、複数のDeploymentを作成できます。
 
 ## Deployment Specの記述
 
@@ -955,7 +954,7 @@ Podの必須フィールドに加えて、Deployment内のPodテンプレート�
 Deploymentのテンプレートが`.spec.template`と異なる場合や、`.spec.replicas`の値を超えてPodが稼働している場合、Deploymentはセレクターに一致するラベルを持つPodを削除します。Podの数が理想状態より少ない場合Deploymentは`.spec.template`をもとに新しいPodを作成します。
 
 {{< note >}}
-ユーザーは、Deploymentのセレクターに一致するラベルを持つPodを、直接作成したり他のDeploymentやReplicaSetやReplicationControllerによって作成するべきではありません。作成した場合は最初のDeploymentが、ラベルに一致する新しいPodを作成したとみなしてしまいます。Kubernetesはユーザーがこれを行ってもエラーなどを出さず、処理を止めません。
+Deploymentのセレクターに一致するラベルを持つPodを直接作成したり、他のDeploymentやReplicaSetやReplicationControllerによって作成するべきではありません。作成してしまうと、最初のDeploymentがラベルに一致する新しいPodを作成したとみなされます。こうなったとしても、Kubernetesは処理を止めません。
 {{< /note >}}
 
 セレクターが重複する複数のコントローラーを持つとき、そのコントローラーは互いに競合状態となり、正しくふるまいません。
@@ -1014,5 +1013,3 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ### kubectl rolling-update
 
 [`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。
-
-
