@@ -21,7 +21,7 @@ card:
 
 ### 2文字の言語コードを探す
 
-まず最初に、[ISO 639-1標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)のドキュメントから、ローカライゼーションの2文字の国コードを探してください。たとえば、韓国語のための国コードは`ko`です。
+最初に、[ISO 639-1標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)のドキュメントから、翻訳先の言語に対応する2文字の国コードを探してください。たとえば、韓国語の国コードは`ko`です。
 
 ### リポジトリをフォーク・クローンする {#fork-and-clone-the-repo}
 
