@@ -433,7 +433,7 @@ Minikubeの詳細については、[proposal](https://git.k8s.io/community/contr
 * **目標と非目標**: Minikubeプロジェクトの目標と非目標については、[ロードマップ](https://git.k8s.io/minikube/docs/contributors/roadmap.md)を参照してください。
 * **開発ガイド**: プルリクエストを送る方法の概要については、[CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md)を参照してください。
 * **Minikubeのビルド**: Minikubeをソースからビルド/テストする方法については、[ビルドガイド](https://git.k8s.io/minikube/docs/contributors/build_guide.md)を参照してください。
-* **新しい依存性の追加**: Minikubeに新しい依存性を追加する方法については、[依存性追加ガイド](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)を参照してください。
+* **新しい依存性の追加**: Minikubeに新しい依存性を追加する方法については、[依存性追加ガイド](https://minikube.sigs.k8s.io/docs/contrib/building/iso/)を参照してください。
 * **新しいアドオンの追加**: Minikubeに新しいアドオンを追加する方法については、[アドオン追加ガイド](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)を参照してください。
 * **MicroK8s**: 仮想マシンを実行したくないLinuxユーザーは代わりに[MicroK8s](https://microk8s.io/)を検討してみてください。
 
