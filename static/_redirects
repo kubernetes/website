@@ -194,7 +194,7 @@
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301!
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 
-/docs/tasks/access-kubernetes-api/access-kubernetes-api/custom-resources/custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
+/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/ 301
 /docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/extend-kubernetes/http-proxy-access-api/ 301
 /docs/tasks/access-kubernetes-api/configure-aggregation-layer/   /docs/tasks/extend-kubernetes/configure-aggregation-layer/ 301
