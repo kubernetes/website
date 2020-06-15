@@ -4,7 +4,7 @@ content_type: concept
 card:
   name: contribute
   weight: 30
-  title: Translating the docs
+  title: Kubernetesのドキュメントを翻訳する
 ---
 
 <!-- overview -->
