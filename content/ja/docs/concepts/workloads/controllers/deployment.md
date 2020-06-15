@@ -109,7 +109,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   ```
   ReplicaSetの出力には次のフィールドが表示されます:
 
-  * `NAME`は、名前空間内にあるReplicaSetの名前一覧です。
+  * `NAME`は、名前空間内にあるReplicaSetの名前の一覧です。
   * `DESIRED`は、アプリケーションの理想的な_replicas_ の値です。これはDeploymentを作成したときに定義したもので、これが_理想的な状態_ と呼ばれるものです。
   * `CURRENT`は現在実行されているレプリカの数です。
   * `READY`は、ユーザーが使用できるアプリケーションのレプリカの数です。
@@ -1013,5 +1013,4 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ### kubectl rolling-update
 
 [`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。
-
 
