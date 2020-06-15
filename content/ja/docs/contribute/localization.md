@@ -240,7 +240,7 @@ other = "ICH BIN..."
 
     [`kubernetes/org`](https://github.com/kubernetes/org)リポジトリに[ローカライゼーションチームを追加](#add-your-localization-team-in-github)したとき、チームの承認者は`@kubernetes/website-maintainers`チームに参加します。
 
-    次のようなブランチの命名スキームを推奨します。
+    次のようなブランチの命名規則に従うことを推奨します。
 
     `dev-<ソースのバージョン>-<言語コード>.<チームのマイルストーン>`
 
