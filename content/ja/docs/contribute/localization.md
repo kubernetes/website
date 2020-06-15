@@ -66,7 +66,7 @@ cd website
 
 ### コミュニティを見つける
 
-Kubernetes SIG Docsに、翻訳を作りたいと思っていることを知らせてください！[SIG Docs Slackチャンネル](https://kubernetes.slack.com/messages/C1J0BPD2M/)に参加してください。他の翻訳メンバーが、あなたが翻訳を始めるのを喜んで助けてくれ、どんな疑問にも答えてくれます。
+Kubernetes SIG Docsに、新しく翻訳チームを作りたいという意思を知らせてください！[SIG Docs Slackチャンネル](https://kubernetes.slack.com/messages/C1J0BPD2M/)に参加してください。他の言語のメンバーが、翻訳を始めるのを喜んで助けてくれ、どんな疑問にも答えてくれます。
 
 `kubernetes/community`リポジトリ内で、翻訳用のSlackチャンネルを作ることもできます。Slackチャンネルを追加する例としては、[インドネシア語とポルトガル語用のチャンネルを追加する](https://github.com/kubernetes/community/pull/3605)ためのPRを見てください。
 
