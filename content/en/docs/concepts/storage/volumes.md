@@ -1323,7 +1323,7 @@ persistent volume:
   of a volume. This map must correspond to the map returned in the
   `volume.attributes` field of the `CreateVolumeResponse` by the CSI driver as
   defined in the [CSI spec](https://github.com/container-storage-interface/spec/blob/master/spec.md#createvolume).
-  The map is passed to the CSI driver via the `volume_attributes` field in the
+  The map is passed to the CSI driver via the `volume_context` field in the
   `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`, and
   `NodePublishVolumeRequest`.
 - `controllerPublishSecretRef`: A reference to the secret object containing
