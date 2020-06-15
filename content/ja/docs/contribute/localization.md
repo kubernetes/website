@@ -56,7 +56,7 @@ cd website
 
 各ローカライゼーションごとに、新しいPRに対して`@kubernetes/sig-docs-**-reviews`チームがレビューに自動的にアサインされます。
 
-`@kubernetes/website-maintainers`のメンバーは、翻訳作業をコーディネートするために新しい開発ブランチを作ることができます。
+`@kubernetes/website-maintainers`のメンバーは、翻訳作業を調整するために新しい開発ブランチを作ることができます。
 
 `@kubernetes/website-milestone-maintainers`のメンバーは、issueやPRにマイルストーンをアサインするために、`/milestone`[Prowコマンド](https://prow.k8s.io/command-help)が使用できます。
 
