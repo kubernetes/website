@@ -71,7 +71,7 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 Any pods created by a Deployment or DaemonSet have the following
 DNS resolution available:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.deployment-name.my-namespace.pod.cluster-domain.example.`
 
 ### Pod's hostname and subdomain fields
 
