@@ -12,7 +12,7 @@ url: /blog/2020/06/better-docs-ux-with-docsy
 
 I'm pleased to announce that the [Kubernetes website](https://kubernetes.io) now features the [Docsy Hugo theme](https://docsy.dev).
 
-The Docsy theme improves the site's organization, navigability, and opens a path to improved API references. After over 4 years with few meaningful UX improvements, Docsy implements some best practices for technical content that make the Kubernetes site easier to read and makes individual pages easier to navigate. It gives the site a much-needed facelift.
+The Docsy theme improves the site's organization and navigability, and opens a path to improved API references. After over 4 years with few meaningful UX improvements, Docsy implements some best practices for technical content. The theme makes the Kubernetes site easier to read and makes individual pages easier to navigate. It gives the site a much-needed facelift.
 
 For example: adding a right-hand rail for navigating topics on the page. No more scrolling up to navigate!
 
