@@ -32,7 +32,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
-* PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始する。
+* PodTemplateSpecに対する複数の修正を適用するために[Deploymentを停止(Pause)し](#pausing-and-resuming-a-deployment)、それを再開して新しいロールアウトを開始します。
 * 今後必要としない[古いReplicaSetのクリーンアップ](#clean-up-policy)
 
 ## Deploymentの作成 {#creating-a-deployment}
@@ -432,9 +432,9 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
 
     `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の手段により`CHANGE-CAUSE`メッセージを指定できます。
 
-    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加する。
-    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加する。
-    * リソースのマニフェストを手動で編集する。
+    * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加します。
+    * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加します。
+    * リソースのマニフェストを手動で編集します。
 
 2. 各リビジョンの詳細を確認するためには以下のコマンドを実行してください。
     ```shell
@@ -758,10 +758,10 @@ Deploymentは、そのライフサイクルの間に様々な状態に遷移し�
 
 以下のタスクが実行中のとき、KubernetesはDeploymentの状態を_progressing_ にします。
 
-* Deploymentが新しいReplicaSetを作成する。
-* Deploymentが新しいReplicaSetをスケールアップさせている。
-* Deploymentが古いReplicaSetをスケールダウンさせている。
-* 新しいPodが準備中もしくは利用可能な状態になる(少なくとも[MinReadySeconds](#min-ready-seconds)の間は準備中になります)。
+* Deploymentが新しいReplicaSetを作成します。
+* Deploymentが新しいReplicaSetをスケールアップさせています。
+* Deploymentが古いReplicaSetをスケールダウンさせています。
+* 新しいPodが準備中もしくは利用可能な状態になります(少なくとも[MinReadySeconds](#min-ready-seconds)の間は準備中になります)。
 
 `kubectl rollout status`を実行すると、Deploymentの進行状態を確認できます。
 
