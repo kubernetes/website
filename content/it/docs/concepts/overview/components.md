@@ -1,4 +1,4 @@
-„---
+---
 title: I componenti di Kubernetes
 content_type: concept
 weight: 20
