@@ -1,5 +1,5 @@
 ---
-title: Kubernetesのドキュメントをローカライズする
+title: Kubernetesのドキュメントを翻訳する
 content_template: templates/concept
 card:
   name: contribute
