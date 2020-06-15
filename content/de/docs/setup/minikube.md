@@ -34,10 +34,10 @@ Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
-* kvm ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm-driver))
-* hyperkit ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
-* xhyve ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#xhyve-driver)) (deprecated)
+* kvm2 ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* kvm ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
+* hyperkit ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
 * hyperv ([Treiber installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Beachten Sie, dass die unten angegebene IP-Adresse dynamisch ist und sich ändern kann. Sie kann mit `minikube ip` abgerufen werden.
 * none (Führt die Kubernetes-Komponenten auf dem Host und nicht in einer VM aus. Die Verwendung dieses Treibers erfordert Docker ([Docker installieren](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) und eine Linux-Umgebung)
@@ -201,7 +201,7 @@ Hierbei wird ein alternatives Minikube-ISO-Image verwendet, das sowohl rkt als a
 
 ### Treiber Plugins
 
-Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://minikube.sigs.k8s.io/docs/drivers/).
+Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://git.k8s.io/minikube/docs/drivers.md).
 
 ### Lokale Images durch erneute Verwendung des Docker-Daemon ausführen
 
