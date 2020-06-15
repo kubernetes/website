@@ -95,7 +95,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     <!--
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
     -->
-    
+
     有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
 
 2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
@@ -396,14 +396,14 @@ minikube start --vm-driver=<driver_name>
 Minikube 支持以下驱动程序：
 
 <!--
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install plugins.
+ See [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) for details on supported drivers and how to install plugins.
 -->
 
 <!--
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
@@ -412,13 +412,13 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
 
  {{< note >}}
-有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://git.k8s.io/minikube/docs/drivers.md)。
+有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/drivers/)。
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 <!--
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
@@ -616,7 +616,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，您可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
 
 <!--
-### Stopping a ClusterThe 
+### Stopping a ClusterThe
 
 `minikube stop` command can be used to stop your cluster.
 -->
@@ -633,7 +633,7 @@ Starting the cluster again will restore it to its previous state.
 再次启动集群会将其恢复到以前的状态。
 
 <!--
-### Deleting a ClusterThe 
+### Deleting a ClusterThe
 
 `minikube delete` command can be used to delete your cluster.
 -->
