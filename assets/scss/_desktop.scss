@@ -1,0 +1,99 @@
+$main-max-width: 1200px;
+$vendor-strip-height: 44px;
+$video-section-height: 550px;
+
+@media screen and (min-width: 1024px) {
+
+  .td-home {
+    .header-hero {
+      #vendorStrip {
+        display: block;
+      }
+    }
+  }
+
+  .td-home {
+
+    section,
+    header,
+    footer {
+      .main-section {
+        max-width: 1000px;
+      }
+    }
+  }
+
+  #oceanNodes {
+    .main-section {
+      position: relative;
+
+      &:nth-child(1) {
+        max-width: 1000px;
+        padding-right: 475px;
+
+        h3,
+        p {
+          text-align: left
+        }
+
+        .image-wrapper {
+          position: absolute;
+          max-width: 48%;
+          transform: translateY(-50%);
+        }
+
+        img {
+          width: 425px;
+        }
+      }
+    }
+  }
+
+  #video {
+    height: $video-section-height;
+    position: relative;
+    background-position: center center;
+    background-size: cover;
+
+    &>.light-text {
+      margin-right: 10%;
+    }
+  }
+
+
+
+  #talkToUs {
+    h4 {
+      br {
+        display: block;
+      }
+    }
+
+    #bigSocial {
+      div {
+        width: calc(25% - 18px);
+      }
+
+      div+div {
+        margin-left: 20px;
+      }
+    }
+
+    .td-home #bigSocial {
+      div {
+        width: calc(33% - 15px);
+      }
+
+      div:nth-child(3) {
+        margin-top: inherit;
+      }
+    }
+  }
+
+  .td-home #caseStudiesWrapper {
+    div {
+      width: 24%;
+      min-height: 260px;
+    }
+  }
+}

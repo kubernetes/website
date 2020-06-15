@@ -1,43 +1,47 @@
-<!DOCTYPE html>
-<html id="blog" lang="{{ .Language }}" class="gr__kubernetes_io fontawesome-i2svg-active fontawesome-i2svg-complete">
-	<head>
-		{{ partial "head.html" . }}
-		<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-		<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-		<link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}">
-	</head>
-	<body>
-    {{ partial "announcement.html" . }}
-		{{ partial "header.html" . }}
-		<section id="hero" class="light-text no-sub">
-			<h1>{{ .Title }}</h1>
-		</section>
-		<main>
-			<div class="container-fluid" style="padding-top: 2em">
-				<div class="row">
-					<div class="col-xs-12 col-md-9 text blog-content">
-						{{ block "main" . }}{{ end }}
-					</div>
-					<div class="col-xs-12 col-md-3 text">
-						<div class="widget-content">
-							{{ with site.Home.OutputFormats.Get "rss" -}}
-							<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
-							<a class="widget-link" href="{{ .Permalink | safeURL }}"><div> <i class="fas fa-rss fab-icon"> </i> <div class="widget-link-text">RSS Feed</div></div> </a>
-							{{ end -}}
-							<a class="widget-link" href="https://kubernetes.io/docs/contribute/start/#write-a-blog-post"><div> <i class="fa fa-edit fab-icon"></i> <div class="widget-link-text">Submit a Post</div></div></a>
-							<a class="widget-link" href="https://twitter.com/kubernetesio"><div> <i class="fab fa-twitter-square fab-icon"> </i> <div class="widget-link-text"> @Kubernetesio</div></div></a>
-							<a class="widget-link" href="https://github.com/kubernetes/kubernetes"><div> <i class="fab fa-github-square fab-icon"></i> <div class="widget-link-text"> on GitHub </div></div></a>
-							<a class="widget-link" href="http://slack.k8s.io"><div><i class="fab fa-slack fab-icon"> </i> <div class="widget-link-text">#kubernetes-users </div></div></a>
-							<a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes"><div><i class="fab fa-stack-overflow fab-icon"></i> <div class="widget-link-text"> Overflow</div></div></a>
-							<a class="widget-link" href="https://discuss.kubernetes.io"><div> <i class="fab fa-discourse fab-icon"></i><div class="widget-link-text"> Forum </div></div></a>
-							<a class="widget-link" href="https://kubernetes.io/docs/setup"><div><i class="fa fa-download fab-icon"></i> <div class="widget-link-text"> Kubernetes</div></div></a>
-						</div>
-						{{ partialCached "blog/archive.html" . }}
-					</div>
-				</div>
-			</div>
-		</main>
-		{{ partialCached "footer.html" . }}
-		{{ partialCached "footer-scripts.html" . }}
-	</body>
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+  <head>
+    {{ partial "head.html" . }}
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <!-- Disabled as Docsy is primarily handling styles for this template now -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ "css/blog.css" | relURL }}"> -->
+  </head>
+  <body class="td-{{ .Kind }} td-blog">
+    <header>
+      {{ partial "navbar.html" . }}
+      {{ partial "announcement.html" . }}
+      <section class="header-hero text-center text-white font-bold pb-4">
+        <h1>
+          {{ $sectionHeading := .Site.GetPage "section" .Section }}
+          {{ with $sectionHeading }}
+            {{ .Title }}
+          {{ end }}
+        </h1>
+      </section>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            {{ partial "blog-sidebar.html" . }}
+          </div>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            {{ with .CurrentSection.OutputFormats.Get "rss" -}}
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="{{ .Permalink | safeURL }}" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            {{ end -}}
+            {{ block "main" . }}{{ end }}
+          </main>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            {{ partial "blog-meta-links.html" . }}
+            {{ partial "toc.html" . }}
+          </div>
+        </div>
+      </div>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+  </body>
 </html>
