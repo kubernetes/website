@@ -13,7 +13,7 @@ card:
 
 {{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## はじめる
 
