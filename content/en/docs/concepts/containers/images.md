@@ -61,6 +61,8 @@ you can do one of the following:
 - omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 
+When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
+
 ## Multi-architecture Images with Manifests
 
 As well as providing binary images, a container registry can also server a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecturew-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
