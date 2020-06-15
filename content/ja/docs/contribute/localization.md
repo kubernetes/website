@@ -268,7 +268,7 @@ other = "ICH BIN..."
 
 ## アップストリームのコントリビューター
 
-SIG Docsでは、英語のソースに対する[アップストリームのコントリビューションや誤りの訂正](/docs/contribute/intermediate#localize-content)を歓迎しています。
+SIG Docsでは、英語のソースに対する[アップストリームへのコントリビュートや誤りの訂正](/docs/contribute/intermediate#localize-content)を歓迎しています。
 
 ## 既存のローカライゼーションを助ける
 
