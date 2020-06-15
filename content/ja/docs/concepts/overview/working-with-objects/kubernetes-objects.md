@@ -2,7 +2,7 @@
 title: Kubernetesオブジェクトを理解する
 content_type: concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 40
 ---
@@ -12,7 +12,7 @@ card:
 
 
 <!-- body -->
-## Kubernetesオブジェクトを理解する
+## Kubernetesオブジェクトを理解する {#kubernetes-objects}
 
 *Kubernetesオブジェクト* は、Kubernetes上で永続的なエンティティです。Kubernetesはこれらのエンティティを使い、クラスターの状態を表現します。具体的に言うと、下記のような内容が表現出来ます:
 
