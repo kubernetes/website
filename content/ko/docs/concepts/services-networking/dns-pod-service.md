@@ -78,7 +78,7 @@ SRV 레코드는 노멀 서비스 또는
 또한, 파드 스펙에는 선택적 필드인 `subdomain`이 있다. 이 필드는 서브도메인을 지정할 수 있다. 
 예를 들어 "`my-namespace`" 네임스페이스에서, `hostname` 필드가 "`foo`"로 설정되고, 
 `subdomain` 필드가 "`bar`"로 설정된 파드는 전체 주소 도메인 네임(FQDN)을 가지게 된다. 
-"`foo.bar.my-namespace.svc.cluster-domain.example`".
+"`foo.bar.my-namespace.pod.cluster-domain.example`".
 
 예시:
 
