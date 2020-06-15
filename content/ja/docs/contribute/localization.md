@@ -276,7 +276,7 @@ SIG Docsでは、英語のソースに対する[アップストリームへの�
 
 {{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 ローカライゼーションがワークフローと最小限のコンテンツの要件を満たしたら、SIG docsは次の作業を行います。
 
