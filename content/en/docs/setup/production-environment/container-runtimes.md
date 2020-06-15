@@ -97,8 +97,8 @@ add-apt-repository \
 # Install Docker CE
 apt-get update && apt-get install -y \
   containerd.io=1.2.13-2 \
-  docker-ce=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.11~3-0~~ubuntu-$(lsb_release -cs)
+  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
 ```
 
 ```shell
