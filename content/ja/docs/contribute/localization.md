@@ -1,6 +1,6 @@
 ---
 title: Kubernetesのドキュメントを翻訳する
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 30
