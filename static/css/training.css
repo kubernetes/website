@@ -173,12 +173,13 @@ h5 {
 .landscape-section {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 #landscape {
   opacity: 1;
   visibility: visible;
   overflow: hidden;
-  width: 1200px;
+  width: 100%;
 }
