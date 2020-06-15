@@ -5,7 +5,6 @@ weight: 50
 content_type: concept
 ---
 
-{{< toc >}}
 
 <!-- overview -->
 
