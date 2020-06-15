@@ -430,7 +430,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     3           kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:1.161 --record=true
     ```
 
-    `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の手段により`CHANGE-CAUSE`メッセージを指定できます。
+    `CHANGE-CAUSE`はリビジョンの作成時にDeploymentの`kubernetes.io/change-cause`アノテーションからリビジョンにコピーされます。以下の方法により`CHANGE-CAUSE`メッセージを指定できます。
 
     * `kubectl annotate deployment.v1.apps/nginx-deployment kubernetes.io/change-cause="image updated to 1.16.1"`の実行によりアノテーションを追加します。
     * リソースの変更時に`kubectl`コマンドの内容を記録するために`--record`フラグを追加します。
@@ -1013,4 +1013,3 @@ Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに�
 ### kubectl rolling-update
 
 [`kubectl rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update)によって、同様の形式でPodとReplicationControllerを更新できます。しかしDeploymentの使用が推奨されます。なぜならDeploymentの作成は宣言的であり、ローリングアップデートが更新された後に過去のリビジョンにロールバックできるなど、いくつかの追加機能があるためです。
-
