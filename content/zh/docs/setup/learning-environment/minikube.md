@@ -95,7 +95,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     <!--
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
     -->
-    
+
     有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
 
 2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
@@ -616,7 +616,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，您可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
 
 <!--
-### Stopping a ClusterThe 
+### Stopping a ClusterThe
 
 `minikube stop` command can be used to stop your cluster.
 -->
@@ -633,7 +633,7 @@ Starting the cluster again will restore it to its previous state.
 再次启动集群会将其恢复到以前的状态。
 
 <!--
-### Deleting a ClusterThe 
+### Deleting a ClusterThe
 
 `minikube delete` command can be used to delete your cluster.
 -->
@@ -906,7 +906,7 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
 * **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://minikube.sigs.k8s.io/docs/contrib/building/iso/).
 * **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 -->
@@ -914,7 +914,7 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **目标和非目标**: 有关 Minikube 项目的目标和非目标，请参阅我们的 [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md)。
 * **开发指南**: 请查阅 [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) 获取有关如何提交 Pull Request 的概述。
 * **构建 Minikube**: 有关如何从源代码构建/测试 Minikube 的说明，请参阅[构建指南](https://git.k8s.io/minikube/docs/contributors/build_guide.md)。
-* **添加新依赖**: 有关如何向 Minikube 添加新依赖的说明，请参阅[添加依赖项指南](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)。
+* **添加新依赖**: 有关如何向 Minikube 添加新依赖的说明，请参阅[添加依赖项指南](https://minikube.sigs.k8s.io/docs/contrib/building/iso/)。
 * **添加新插件**: 有关如何为 Minikube 添加新插件的说明，请参阅[添加插件指南](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)。
 * **MicroK8s**: 希望避免运行虚拟机的 Linux 用户可以考虑使用 [MicroK8s](https://microk8s.io/) 作为替代品。
 
