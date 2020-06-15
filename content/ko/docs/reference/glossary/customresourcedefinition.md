@@ -2,7 +2,7 @@
 title: 커스텀 리소스 데피니션(CustomResourceDefinition)
 id: CustomResourceDefinition
 date: 2018-04-12
-full_link: /docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/
+full_link: /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
 short_description: >
   사용자 정의 서버를 완전히 새로 구축할 필요가 없도록 쿠버네티스 API 서버에 추가할 리소스를 정의하는 사용자 정의 코드.
 

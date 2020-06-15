@@ -79,7 +79,11 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
   클러스터에 의도한 파드의 수를 유지하기 위해서 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)가 생성될 것이다.
 
-- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/ko/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다. 외부 서비스들을 위해, 한개 또는 여러 개의 포트들을 열어 둘 필요가 있다. [이 곳](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/) 내용을 참고한다.
+- **서비스(Service)** (선택): 일부 애플리케이션의 경우, (예를 들어, 프론트엔드) 아마도 클러스터 바깥의 퍼블릭 IP 주소를 가진 (외부 서비스) 외부에 [서비스(Service)](/ko/docs/concepts/services-networking/service/)를 노출 시키고 싶을 수 있다.
+
+  {{< note >}}
+  외부 서비스들을 위해, 한 개 또는 여러 개의 포트를 열어 둘 필요가 있다.
+  {{< /note >}}
 
   클러스터 내부에서만 보고 싶은 어떤 서비스(Serivce)들이 있을 것인다. 이를 내부 서비스라고 한다.
 
@@ -125,7 +129,7 @@ track=stable
 
 쿠버네티스는 선언적인 설정을 제공한다. 이 방식으로 모든 설정은 쿠버네티스 [API](/docs/concepts/overview/kubernetes-api/) 리소스 스키마를 이용하여 YAML 또는 JSON 설정 파일에 저장한다.
 
-배포 마법사를 통해 애플리케이션 세부사항들을 지정하는 대신, 애플리케이션을 YAML 또는 JSON 파일로 정의할 수 있고 대시보드를 이용해서 파일을 업로드할 수 있다.  
+배포 마법사를 통해 애플리케이션 세부사항들을 지정하는 대신, 애플리케이션을 YAML 또는 JSON 파일로 정의할 수 있고 대시보드를 이용해서 파일을 업로드할 수 있다.
 
 ## 대시보드 사용
 다음 섹션들은 어떻게 제공하고 어떻게 사용할 수 있는지에 대한 쿠버네티스 대시보드 UI의 모습을 보여준다.
@@ -163,7 +167,7 @@ track=stable
 ## {{% heading "whatsnext" %}}
 
 
-더 많은 정보는 
+더 많은 정보는
 [쿠버네티스 대시보드 프로젝트 페이지](https://github.com/kubernetes/dashboard)를 참고한다.
 
 

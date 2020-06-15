@@ -294,6 +294,7 @@ sudo kubeadm upgrade apply
 kubelet을 다시 시작한다.
 
 ```shell
+sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 ```
 
@@ -372,6 +373,7 @@ sudo systemctl restart kubelet
 -  kubelet을 다시 시작한다.
 
     ```shell
+    sudo systemctl daemon-reload
     sudo systemctl restart kubelet
     ```
 
