@@ -120,7 +120,7 @@ mkdir content/de
 
 ローカライゼーションにコントリビュートする各ユーザーのロールを設定するには、言語用のサブディレクトリの中に`OWNERS`ファイルを作成し、以下の項目を設定します。
 
-- **レビュア**: レビュアのロールを持つkubernetesチームのリストです。この場合は、[GitHubでローカライゼーションチームを追加](#add-your-localization-team-in-github)で作成した`sig-docs-**-reviews`チームです。
+- **レビュアー**: レビュアーのロールを持つkubernetesチームのリストです。この場合は、[GitHubでローカライゼーションチームを追加](#add-your-localization-team-in-github)で作成した`sig-docs-**-reviews`チームです。
 - **承認者**: 承認者のロールを持つkubernetesチームのリストです。この場合は、[GitHubでローカライゼーションチームを追加](#add-your-localization-team-in-github)で追加した`sig-docs-**-owners`チームです。
 - **ラベル**: PRに自動的に適用されるGitHub上のラベルのリストです。この場合は、[ワークフローを設定する](#configure-the-workflow)で作成した言語ラベルです。
 
