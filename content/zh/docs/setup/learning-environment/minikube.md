@@ -396,14 +396,14 @@ minikube start --vm-driver=<driver_name>
 Minikube 支持以下驱动程序：
 
 <!--
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install plugins.
+ See [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) for details on supported drivers and how to install plugins.
 -->
 
 <!--
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
@@ -412,13 +412,13 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
 
  {{< note >}}
-有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://git.k8s.io/minikube/docs/drivers.md)。
+有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/drivers/)。
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 <!--
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
