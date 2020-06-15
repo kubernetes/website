@@ -8,7 +8,6 @@ weight: 60
 min-kubernetes-server-version: 1.7
 ---
 
-{{< toc >}}
 
 <!-- overview -->
 
