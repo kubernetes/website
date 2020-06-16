@@ -73,7 +73,7 @@ weight: 40
 
 먼저, 클러스터 운영자는 `servicecatalog.k8s.io` 그룹 내에 `ClusterServiceBroker` 리소스를 생성해야 한다. 이 자원은 서비스 브로커 엔드포인트에 접근하는데 필요한 URL과 연결 세부 사항이 포함한다.
 
-This is an example of a `ClusterServiceBroker` resource:
+다음은 `ClusterServiceBroker` 리소스 예시이다:
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -81,46 +81,46 @@ kind: ClusterServiceBroker
 metadata:
   name: cloud-broker
 spec:
-  # Points to the endpoint of a service broker. (This example is not a working URL.)
+  # 서비스 브로커의 엔드 포인트를 가리킨다. (이 예시는 동작하지 않는 URL 이다.)
   url:  https://servicebroker.somecloudprovider.com/v1alpha1/projects/service-catalog/brokers/default
   #####
-  # Additional values can be added here, which may be used to communicate
-  # with the service broker, such as bearer token info or a caBundle for TLS.
+  # 베어러 토큰 정보 혹은 TLS용 caBundle과 같은 
+  # 서비스 브로커와 통신 하는데 사용될 수 있는 값을 여기에 추가 할 수 있다.
   #####
 ```
 
-The following is a sequence diagram illustrating the steps involved in listing managed services and Plans available from a service broker:
+다음은 서비스 브로커에서 사용 가능한 매니지드 서비스와 플랜을 나열하는 단계를 설명하는 시퀀스 다이어그램이다:
 
 ![List Services](/images/docs/service-catalog-list.svg)
 
-1. Once the `ClusterServiceBroker` resource is added to Service Catalog, it triggers a call to the external service broker for a list of available services.
-1. The service broker returns a list of available managed services and a list of Service Plans, which are cached locally as `ClusterServiceClass` and `ClusterServicePlan` resources respectively.
-1. A cluster operator can then get the list of available managed services using the following command:
+1. `ClusterServiceBroker` 자원이 서비스 카탈로그에 추가되면, 사용 가능한 서비스 목록에 대한 외부 서비스 브로커에 대한 호출을 발생시킵니다.
+1. 서비스 브로커는 사용 가능한 매니지드 서비스 목록과 서비스 플랜 목록을 반환한다. 이 목록은 각각 로컬 `ClusterServiceClass`와 `ClusterServicePlan` 리소스로 캐시됩니다.
+1. 그런 다음 클러스터 운영자는 다음의 명령어를 사용하여 가용한 관리 서비스 목록을 얻을 수 있다:
 
         kubectl get clusterserviceclasses -o=custom-columns=SERVICE\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
 
-    It should output a list of service names with a format similar to:
+    아래와 같은 형태의 서비스 이름 목록이 출력된다:
 
         SERVICE NAME                           EXTERNAL NAME
         4f6e6cf6-ffdd-425f-a2c7-3c9258ad2468   cloud-provider-service
         ...                                    ...
 
-    They can also view the Service Plans available using the following command:
+    또한 다음의 명령어를 사용하여 가용한 서비스 플랜을 볼 수 있다:
 
         kubectl get clusterserviceplans -o=custom-columns=PLAN\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
 
-    It should output a list of plan names with a format similar to:
+    아래와 같은 형태의 플랜 이름 목록이 출력된다:
 
         PLAN NAME                              EXTERNAL NAME
         86064792-7ea2-467b-af93-ac9694d96d52   service-plan-name
         ...                                    ...
 
 
-### Provisioning a new instance
+### 새 인스턴스 프로비져닝
 
-A cluster operator can initiate the provisioning of a new instance by creating a `ServiceInstance` resource.
+클러스터 운영자는 `ServiceInstance` 리소스를 생성하여 새 인스턴스 프로비져닝을 시작할 수 있다.
 
-This is an example of a `ServiceInstance` resource:
+다음은 `ServiceInstance` 리소스의 예시이다:
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -129,28 +129,28 @@ metadata:
   name: cloud-queue-instance
   namespace: cloud-apps
 spec:
-  # References one of the previously returned services
+  # 이전에 반환 된 서비스 중 하나를 참조
   clusterServiceClassExternalName: cloud-provider-service
   clusterServicePlanExternalName: service-plan-name
   #####
-  # Additional parameters can be added here,
-  # which may be used by the service broker.
+  # 이곳에 서비스 브로커가 사용 할 수 있는
+  # 파라미터를 추가 할 수 있다.
   #####
 ```
 
-The following sequence diagram illustrates the steps involved in provisioning a new instance of a managed service:
+다음의 시퀀스 다이어그램은 매니지드 서비스의 새 인스턴스 프로비져닝과 관련된 일련의 단계를 보여준다:
 
 ![Provision a Service](/images/docs/service-catalog-provision.svg)
 
-1. When the `ServiceInstance` resource is created, Service Catalog initiates a call to the external service broker to provision an instance of the service.
-1. The service broker creates a new instance of the managed service and returns an HTTP response.
-1. A cluster operator can then check the status of the instance to see if it is ready.
+1. `ServiceInstance` 리소스가 생성되면, 서비스 카탈로그는 서비스 인스턴스를 프로비저닝 하기 위해 외부의 서비스 브로커 호출을 초기화 한다.
+1. 서비스 브로커는 새로운 매니지드 서비스 인스턴스를 생성하고 HHTP 응답을 리턴한다.
+1. 그 후 클러스터 운영자는 인스턴스 상태가 준비 되었는지 점검 할 수 있다.
 
-### Binding to a managed service
+### 매니지드 서비스에 바인딩
 
-After a new instance has been provisioned, a cluster operator must bind to the managed service to get the connection credentials and service account details necessary for the application to use the service. This is done by creating a `ServiceBinding` resource.
+새 인스턴스가 프로비저닝 된 후, 클러스터 운영자는 애플리케이션이 서비스를 사용 하는데 필요한 자격 증명을 얻기 위해 매니지드 서비스에 바인드 해야 한다. 이것은 `ServiceBinding` 리소스를 생성하는 것으로 이루어진다.
 
-The following is an example of a `ServiceBinding` resource:
+다음은 `ServiceBinding` 리소스의 예시다:
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -162,33 +162,34 @@ spec:
   instanceRef:
     name: cloud-queue-instance
   #####
-  # Additional information can be added here, such as a secretName or
-  # service account parameters, which may be used by the service broker.
+  # 서비스 브로커가 사용 할 수 있는 secretName, 서비스 계정 파라미터 등의 
+  # 추가 정보를 여기에 추가 할 수 있다.
   #####
 ```
 
-The following sequence diagram illustrates the steps involved in binding to a managed service instance:
+다음의 시퀀스 다이어그램은 매니지드 서비스 인스턴스에 바인딩하는 단계를 보여준다:
 
 ![Bind to a managed service](/images/docs/service-catalog-bind.svg)
 
-1. After the `ServiceBinding` is created, Service Catalog makes a call to the external service broker requesting the information necessary to bind with the service instance.
-1. The service broker enables the application permissions/roles for the appropriate service account.
-1. The service broker returns the information necessary to connect and access the managed service instance. This is provider and service-specific so the information returned may differ between Service Providers and their managed services.
+1. `ServiceBinding`이 생성 된 이후, 서비스 카탈로그는 서비스 인스턴스와 바인딩 하는데 필요한 정보를 요청하는 외부 서비스 브로커를 호출한다.
+1. 서비스 브로커는 적절한 서비스 계정에 대한 애플리케이션 권한/역할을 활성화 한다.
+1. 서비스 브로커는 매니지드 서비스 인스턴스에 연결하고 액세서 하는데 필요한 정보를 리턴한다. 이는 제공자와 서비스에 특화되어 있으므로 서비스 프로바이더와 매니지드 서비스에 따라 다를 수 있다.
 
-### Mapping the connection credentials
+### 연결 자격 증명 매핑
 
-After binding, the final step involves mapping the connection credentials and service-specific information into the application.
-These pieces of information are stored in secrets that the application in the cluster can access and use to connect directly with the managed service.
+바인딩 후 마지막 단계는 연결 자격 증명과 서비스 특화 정보를 애플리케이션에 매핑 하는 것이다.
+이런 정보는 클러스터의 애플리케이션이 액세시 하여 매니지드 서비스와 직접 연결 하는데 사용 할 수 있는 시크릿(Secret)으로 저장된다.
 
 <br>
 
 ![Map connection credentials](/images/docs/service-catalog-map.svg)
 
-#### Pod configuration File
+#### 파드 구성 파일
 
-One method to perform this mapping is to use a declarative Pod configuration.
 
-The following example describes how to map service account credentials into the application. A key called `sa-key` is stored in a volume named `provider-cloud-key`, and the application mounts this volume at `/var/secrets/provider/key.json`. The environment variable `PROVIDER_APPLICATION_CREDENTIALS` is mapped from the value of the mounted file.
+이 매핑을 수행하는 한 가지 방법은 선언적 파드 구성을 사용하는 것이다.
+
+다음 예시는 서비스 자격 증명을 애플리케이션에 매핑하는 방법을 설명한다. `sa-key`라는 키는 `provider-cloud-key`라는 볼륨에 저장되며, 애플리케이션은 이 볼륨을 `/var/secrets/provider/key.json`에 마운트한다. 환경 변수 `PROVIDER_APPLICATION_CREDENTIALS`는 마운트 된 파일의 값에서 매핑된다.
 
 ```yaml
 ...
@@ -207,7 +208,7 @@ The following example describes how to map service account credentials into the 
             value: "/var/secrets/provider/key.json"
 ```
 
-The following example describes how to map secret values into application environment variables. In this example, the messaging queue topic name is mapped from a secret named `provider-queue-credentials` with a key named `topic` to the environment variable `TOPIC`.
+다음 예시는 시크릿 값을 애플리케이션 환경 변수에 매핑하는 방법을 설명한다. 이 예시에서 메시지 큐 토픽 이름은 `topic` 라는 키의 `provider-queue-credentials` 시크릿에서 환경 변수 `TOPIC`에 매핑된다.
 
 
 ```yaml
