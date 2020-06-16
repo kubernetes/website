@@ -51,7 +51,7 @@ For minikube you can deploy this simple ''all-in-one'' YAML file that includes
 DaemonSet configurations for Cilium as well as appropriate RBAC settings:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 ```
 configmap/cilium-config created
