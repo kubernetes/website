@@ -118,8 +118,3 @@ gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
 glossary_tooltip text="kube-apiserver"
 term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`).
-
-## Future
-
-- NUMA locality guarantees as a feature of quality of service.
-- LimitRange support.
