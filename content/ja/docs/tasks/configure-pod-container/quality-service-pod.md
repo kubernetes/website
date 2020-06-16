@@ -231,9 +231,9 @@ kubectl delete namespace qos-example
 
 ### アプリケーション開発者向け
 
-* [コンテナとPodにメモリーリソースを割り当てる](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [コンテナとPodにCPUリソースを割り当てる](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナとPodにCPUリソースを割り当てる](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 ### クラスター管理者向け
 
@@ -251,6 +251,7 @@ kubectl delete namespace qos-example
 
 * [APIオブジェクトのクォータを設定する](/docs/tasks/administer-cluster/quota-api-object/)
 
+* [ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)
 
 
 

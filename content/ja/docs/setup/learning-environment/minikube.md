@@ -317,7 +317,7 @@ Minikubeはこのコンテキストを自動的にデフォルトに設定しま
 
 ### ダッシュボード
 
-[Kubernetes Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/)にアクセスするには、Minikubeを起動してアドレスを取得した後、シェルでこのコマンドを実行してください:
+[Kubernetes Dashboard](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)にアクセスするには、Minikubeを起動してアドレスを取得した後、シェルでこのコマンドを実行してください:
 
 ```shell
 minikube dashboard

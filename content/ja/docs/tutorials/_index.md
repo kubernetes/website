@@ -17,8 +17,6 @@ content_type: concept
 
 * [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
 
-* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
-
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
 * [Hello Minikube](/ja/docs/tutorials/hello-minikube/)
@@ -29,7 +27,7 @@ content_type: concept
 
 ## ステートレスアプリケーション
 
-* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/ja/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 

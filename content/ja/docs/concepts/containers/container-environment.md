@@ -1,5 +1,5 @@
 ---
-title: コンテナ環境変数
+title: コンテナ環境
 content_type: concept
 weight: 20
 ---

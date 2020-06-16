@@ -93,7 +93,7 @@ Port mapping is also supported, but for simplicity in this example the container
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
+    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
 

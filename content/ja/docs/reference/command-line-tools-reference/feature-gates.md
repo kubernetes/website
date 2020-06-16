@@ -322,7 +322,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CSIPersistentVolume`: [CSI(Container Storage Interface)](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md)互換のボリュームプラグインを通してプロビジョニングされたボリュームの検出とマウントを有効にします。
   詳細については[`csi`ボリュームタイプ](/docs/concepts/storage/volumes/#csi)ドキュメントを確認してください。
 - `CustomCPUCFSQuotaPeriod`: ノードがCPUCFSQuotaPeriodを変更できるようにします。
-- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
+- `CustomPodDNS`: `dnsConfig`プロパティを使用したPodのDNS設定のカスタマイズを有効にします。詳細は[PodのDNS構成](/ja/docs/concepts/services-networking/dns-pod-service/#pods-dns-config)で確認できます。
 - `CustomResourceDefaulting`: OpenAPI v3バリデーションスキーマにおいて、デフォルト値のCRDサポートを有効にします。
 - `CustomResourcePublishOpenAPI`: CRDのOpenAPI仕様での公開を有効にします。
 - `CustomResourceSubresources`: [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/)から作成されたリソースの`/status`および`/scale`サブリソースを有効にします。
@@ -333,7 +333,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
-- `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/docs/concepts/storage/dynamic-provisioning/)を有効にします。
+- `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/ja/docs/concepts/storage/dynamic-provisioning/)を有効にします。
 - `EnableAggregatedDiscoveryTimeout` (*非推奨*): 集約されたディスカバリーコールで5秒のタイムアウトを有効にします。
 - `EnableEquivalenceClassCache`: Podをスケジュールするときにスケジューラーがノードの同等をキャッシュできるようにします。
 - `EphemeralContainers`: 稼働するPodに{{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}を追加する機能を有効にします。
@@ -361,7 +361,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `PersistentLocalVolumes`: Podで`local`ボリュームタイプの使用を有効にします。`local`ボリュームを要求する場合、podアフィニティを指定する必要があります。
 - `PodOverhead`: [PodOverhead](/docs/concepts/configuration/pod-overhead/)機能を有効にして、Podのオーバーヘッドを考慮するようにします。
 - `PodPriority`: [優先度](/docs/concepts/configuration/pod-priority-preemption/)に基づいてPodの再スケジューリングとプリエンプションを有効にします。
-- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
+- `PodReadinessGates`: Podのreadinessの評価を拡張するために`PodReadinessGate`フィールドの設定を有効にします。詳細は[Pod readiness gate](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)で確認できます。
 - `PodShareProcessNamespace`: Podで実行されているコンテナ間で単一のプロセス名前空間を共有するには、Podで`shareProcessNamespace`の設定を有効にします。 詳細については、[Pod内のコンテナ間でプロセス名前空間を共有する](/docs/tasks/configure-pod-container/share-process-namespace/)をご覧ください。
 - `ProcMountType`: コンテナのProcMountTypeの制御を有効にします。
 - `PVCProtection`: 永続ボリューム要求（PVC）がPodでまだ使用されているときに削除されないようにします。詳細は[ここ](/docs/tasks/administer-cluster/storage-object-in-use-protection/)で確認できます。
@@ -377,7 +377,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `ServerSideApply`: APIサーバーで[サーバーサイドApply(SSA)](/docs/reference/using-api/api-concepts/#server-side-apply)のパスを有効にします。
 - `ServiceLoadBalancerFinalizer`: サービスロードバランサーのファイナライザー保護を有効にします。
 - `ServiceNodeExclusion`: クラウドプロバイダーによって作成されたロードバランサーからのノードの除外を有効にします。"`alpha.service-controller.kubernetes.io/exclude-balancer`"キーまたは`node.kubernetes.io/exclude-from-external-load-balancers`でラベル付けされている場合ノードは除外の対象となります。
-- `StartupProbe`: kubeletで[startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
+- `StartupProbe`: kubeletで[startup](/ja/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe)プローブを有効にします。
 - `StorageObjectInUseProtection`: PersistentVolumeまたはPersistentVolumeClaimオブジェクトがまだ使用されている場合、それらの削除を延期します。
 - `StorageVersionHash`: apiserversがディスカバリーでストレージのバージョンハッシュを公開できるようにします。
 - `StreamingProxyRedirects`: ストリーミングリクエストのバックエンド(kubelet)からのリダイレクトをインターセプト（およびフォロー）するようAPIサーバーに指示します。ストリーミングリクエストの例には`exec`、`attach`、`port-forward`リクエストが含まれます。

@@ -49,10 +49,10 @@ metadata:
 
 ## アプリケーションとアプリケーションのインスタンス
 
-単一のアプリケーションは、Kubernetesクラスタ内で、いくつかのケースでは同一の名前空間に対して1回または複数回インストールされることがあります。  
+単一のアプリケーションは、Kubernetesクラスタ内で、いくつかのケースでは同一の名前空間に対して1回または複数回インストールされることがあります。
 例えば、WordPressは複数のウェブサイトがあれば、それぞれ別のWordPressが複数回インストールされることがあります。
 
-アプリケーション名と、アプリケーションのインスタンス名はそれぞれ別に記録されます。  
+アプリケーション名と、アプリケーションのインスタンス名はそれぞれ別に記録されます。
 例えば、WordPressは`app.kubernetes.io/name`に`wordpress`と記述され、インスタンス名に関しては`app.kubernetes.io/instance`に`wordpress-abcxzy`と記述されます。この仕組みはアプリケーションと、アプリケーションのインスタンスを特定可能にします。全てのアプリケーションインスタンスは固有の名前を持たなければなりません。
 
 ## ラベルの使用例
@@ -86,7 +86,7 @@ metadata:
 
 ### データベースを使ったウェブアプリケーション
 
-次にもう少し複雑なアプリケーションについて考えます。データベース(MySQL)を使ったウェブアプリケーション(WordPress)で、Helmを使ってインストールします。  
+次にもう少し複雑なアプリケーションについて考えます。データベース(MySQL)を使ったウェブアプリケーション(WordPress)で、Helmを使ってインストールします。
 下記のスニペットは、このアプリケーションをデプロイするために使うオブジェクト設定の出だし部分です。
 
 はじめに下記の`Deployment`は、WordPressのために使われます。
@@ -128,11 +128,11 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
@@ -143,11 +143,11 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
+    app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/managed-by: helm
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
-    app.kubernetes.io/version: "5.7.21"
 ...
 ```
 
