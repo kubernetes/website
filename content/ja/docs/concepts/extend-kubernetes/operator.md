@@ -1,17 +1,17 @@
 ---
 title: オペレーターパターン
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 オペレーターはサードパーティのアプリケーション、コンポーネントを管理するためのリソースを活用する、Kubernetesへのソフトウェア拡張です。
 オペレーターは、特に[制御ループ](/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## モチベーション
 
@@ -79,11 +79,12 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 
 オペレーター（すなわち、コントローラー）はどの言語/ランタイムでも実装でき、[Kubernetes APIのクライアント](/docs/reference/using-api/client-libraries/)として機能させることができます。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)をより深く学びます
+## {{% heading "whatsnext" %}}
+
+
+* [Custom Resources](/ja/docs/concepts/extend-kubernetes/api-extension/custom-resources/)をより深く学びます
 * ユースケースに合わせた、既製のオペレーターを[OperatorHub.io](https://operatorhub.io/)から見つけます
 * 自前のオペレーターを書くために既存のツールを使います、例:
   * [KUDO](https://kudo.dev/)（Kubernetes Universal Declarative Operator）を使います
@@ -94,4 +95,4 @@ kubectl edit SampleDB/example-database # 手動でいくつかの設定を変更
 * オペレーターパターンを紹介している[CoreOSオリジナル記事](https://coreos.com/blog/introducing-operators.html)を読みます
 * Google Cloudが出したオペレーター作成のベストプラクティス[記事](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)を読みます
 
-{{% /capture %}}
+

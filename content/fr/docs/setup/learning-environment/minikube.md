@@ -1,16 +1,16 @@
 ---
 title: Installer Kubernetes avec Minikube
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube est un outil facilitant l’exécution locale de Kubernetes.
 Minikube exécute un cluster Kubernetes à nœud unique dans une machine virtuelle (VM) de votre ordinateur portable pour les utilisateurs qui souhaitent essayer Kubernetes ou le développer au quotidien.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Fonctionnalités de Minikube
 
@@ -530,4 +530,4 @@ Les développeurs de minikube sont dans le canal #minikube du [Slack](https://ku
 Nous avons également la liste de diffusion [kubernetes-dev Google Groupes](https://groups.google.com/forum/#!forum/kubernetes-dev).
 Si vous publiez sur la liste, veuillez préfixer votre sujet avec "minikube:".
 
-{{% /capture %}}
+

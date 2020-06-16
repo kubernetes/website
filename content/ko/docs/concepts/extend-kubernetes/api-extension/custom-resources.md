@@ -1,18 +1,18 @@
 ---
 title: 커스텀 리소스
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 *커스텀 리소스* 는 쿠버네티스 API의 익스텐션이다. 이 페이지에서는 쿠버네티스 클러스터에
 커스텀 리소스를 추가할 시기와 독립형 서비스를 사용하는 시기에 대해 설명한다. 커스텀 리소스를
 추가하는 두 가지 방법과 이들 중에서 선택하는 방법에 대해 설명한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 커스텀 리소스
 
 *리소스* 는 [쿠버네티스 API](/ko/docs/reference/using-api/api-overview/)에서 특정 종류의
@@ -243,12 +243,13 @@ CRD는 항상 API 서버의 빌트인 리소스와 동일한 인증, 권한 부�
 - 작성한 REST 클라이언트
 - [쿠버네티스 클라이언트 생성 도구](https://github.com/kubernetes/code-generator)를 사용하여 생성된 클라이언트(하나를 생성하는 것은 고급 기능이지만, 일부 프로젝트는 CRD 또는 AA와 함께 클라이언트를 제공할 수 있다).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [애그리게이션 레이어(aggregation layer)로 쿠버네티스 API 확장](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)하는 방법에 대해 배우기.
 
 * [커스텀리소스데피니션으로 쿠버네티스 API 확장](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)하는 방법에 대해 배우기.
 
-{{% /capture %}}
+

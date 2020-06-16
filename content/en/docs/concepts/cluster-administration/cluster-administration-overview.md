@@ -3,16 +3,16 @@ reviewers:
 - davidopp
 - lavalamp
 title: Cluster Administration Overview
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
 It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Planning a cluster
 
 See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed in this article are called *distros*.
@@ -68,6 +68,6 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Logging and Monitoring Cluster Activity](/docs/concepts/cluster-administration/logging/) explains how logging in Kubernetes works and how to implement it.
 
-{{% /capture %}}
+
 
 

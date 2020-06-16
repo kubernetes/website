@@ -4,13 +4,14 @@ reviewers:
 - danwinship
 title: Declare Network Policy
 min-kubernetes-server-version: v1.8
-content_template: templates/task
+content_type: task
 ---
-{{% capture overview %}}
+<!-- overview -->
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -25,9 +26,9 @@ Make sure you've configured a network provider with network policy support. Ther
 {{< note >}}
 The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
 {{< /note >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create an `nginx` deployment and expose it via a service
 
@@ -146,4 +147,4 @@ Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
 
-{{% /capture %}}
+

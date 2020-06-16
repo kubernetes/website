@@ -2,23 +2,24 @@
 reviewers:
 - jcbsmpsn
 - mikedanese
-title: Certificate Rotation
-content_template: templates/task
+title: Configure Certificate Rotation for the Kubelet
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure certificate rotation for the kubelet.
-{{% /capture %}}
+
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 * Kubernetes version 1.8.0 or later is required
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Overview
 
@@ -77,6 +78,6 @@ kubelet will retrieve the new signed certificate from the Kubernetes API and
 write that to disk. Then it will update the connections it has to the
 Kubernetes API to reconnect using the new certificate.
 
-{{% /capture %}}
+
 
 

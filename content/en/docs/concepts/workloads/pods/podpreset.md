@@ -2,20 +2,20 @@
 reviewers:
 - jessfraz
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 This page provides an overview of PodPresets, which are objects for injecting
 certain information into pods at creation time. The information can include
 secrets, volumes, volume mounts, and environment variables.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Understanding Pod presets
 
 A PodPreset is an API resource for injecting additional runtime requirements
@@ -82,12 +82,13 @@ There may be instances where you wish for a Pod to not be altered by any Pod
 Preset mutations. In these cases, you can add an annotation in the Pod Spec
 of the form: `podpreset.admission.kubernetes.io/exclude: "true"`.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See [Injecting data into a Pod using PodPreset](/docs/tasks/inject-data-application/podpreset/)
 
 For more information about the background, see the [design proposal for PodPreset](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md).
 
-{{% /capture %}}
+

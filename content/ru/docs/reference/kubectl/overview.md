@@ -2,21 +2,21 @@
 reviewers:
 - hw-qiaolei
 title: Обзор kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl — это инструмент командной строки для управления кластерами Kubernetes. `kubectl` ищет файл config в директории $HOME/.kube. Вы можете указать другие файлы [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/), установив переменную окружения KUBECONFIG или флаг [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
 На этой странице рассматривается синтаксис kubectl, описаны командные операции и приведены распространённые примеры. Подробную информацию о каждой команде, включая все поддерживаемые в ней флаги и подкоманды, смотрите в справочной документации [kubectl](/docs/reference/generated/kubectl/kubectl-commands/). Инструкции по установке находятся на странице [Установка и настройка kubectl](/ru/docs/tasks/kubectl/install/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Синтаксис
 
@@ -454,10 +454,11 @@ Current user: plugins-user
 
 Чтобы узнать больше о плагинах, изучите [пример CLI-плагина](https://github.com/kubernetes/sample-cli-plugin).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Начните использовать команды [kubectl](/ru/docs/reference/generated/kubectl/kubectl-commands/).
 
-{{% /capture %}}
+

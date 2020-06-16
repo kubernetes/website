@@ -1,15 +1,15 @@
 ---
 title: 联邦 DaemonSet
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Federated DaemonSet
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -28,9 +28,10 @@ across all the clusters in federation.
 
 联邦控制平面中的 DaemonSet（在本指南中称为 “联邦 DaemonSet”）与传统的 Kubernetes [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 非常类似，并提供相同的功能。在联邦控制平面中创建联邦 DaemonSet 可以确保它们同步到联邦的所有集群中。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 <!--
@@ -40,9 +41,9 @@ general and [DaemonSets](/docs/concepts/workloads/controllers/daemonset/) in par
 -->
 * 你还应该具备基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) 相关的应用知识。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Federated Daemonset
@@ -130,6 +131,6 @@ kubectl --context=federation-cluster delete daemonset mydaemonset
 kubectl --context=federation-cluster delete daemonset mydaemonset
 ```
 
-{{% /capture %}}
+
 
 

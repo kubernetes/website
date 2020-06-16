@@ -1,18 +1,18 @@
 ---
 title: 파드(Pod) 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스 객체 모델 중 가장 작은 배포 가능한 객체인 `파드` 에 대한 개요를 제공한다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## 파드에 대해 이해하기
 
 *파드* 는 쿠버네티스 애플리케이션의 기본 실행 단위이다. 쿠버네티스 객체 모델 중 만들고 배포할 수 있는 가장 작고 간단한 단위이다. 파드는 {{< glossary_tooltip term_id="cluster" text="클러스터" >}} 에서의 Running 프로세스를 나타낸다.
@@ -104,12 +104,13 @@ metadata:
 
 노드에서 "kubelet"이 파드 템플릿과 업데이트에 관련된 세부 정보를 직접 관찰하거나 관리하지 않으며, 이러한 세부 정보는 추상화되지 않는다. 이러한 추상화와 분리는 시스템 시맨틱을 단순화하며, 기존 코드를 변경하지 않고 클러스터의 동작을 확장할 수 있도록 한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [파드](/ko/docs/concepts/workloads/pods/pod/)에 대해 더 배워보자.
 * [분산 시스템 툴킷: 복합 컨테이너의 패턴](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)은 둘 이상의 컨테이너가 있는 파드의 공통 레이아웃에 대해 설명한다.
 * 파드의 동작에 대해 더 알아보자.
   * [파드 종료](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)
   * [파드 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

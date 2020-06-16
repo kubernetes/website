@@ -1,10 +1,10 @@
 ---
 title: 컨피그맵(ConfigMap)
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="컨피그맵은" length="all" >}}
 
@@ -15,9 +15,9 @@ weight: 20
 사용하여 데이터를 비공개로 유지하자.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 사용 동기
 
 애플리케이션 코드와 별도로 구성 데이터를 설정하려면 컨피그맵을 사용하자.
@@ -158,12 +158,13 @@ spec:
 {{< /note >}}
 
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [시크릿](/docs/concepts/configuration/secret/)에 대해 읽어본다.
 * [컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 읽어본다.
 * 코드를 구성에서 분리하려는 동기를 이해하려면
   [Twelve-Factor 앱](https://12factor.net/ko/)을 읽어본다.
 
-{{% /capture %}}
+

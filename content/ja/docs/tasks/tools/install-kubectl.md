@@ -1,6 +1,6 @@
 ---
 title: kubectlのインストールおよびセットアップ
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,15 +8,16 @@ card:
   title: Install kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetesのコマンドラインツールである[kubectl](/docs/user-guide/kubectl/)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理および検査を行うことができます。kubectlの操作に関する完全なリストは、[Overview of kubectl](/docs/reference/kubectl/overview/)を参照してください。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 kubectlのバージョンは、クラスターのマイナーバージョンとの差分が1つ以内でなければなりません。たとえば、クライアントがv1.2であれば、v1.1、v1.2、v1.3のマスターで動作するはずです。最新バージョンのkubectlを使うことで、不測の事態を避けることができるでしょう。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Linuxへkubectlをインストールする {#install-kubectl-on-linux}
 
@@ -51,7 +52,7 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 4. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### ネイティブなパッケージマネージャーを使用してインストールする
@@ -80,21 +81,24 @@ yum install -y kubectl
 
 ### 他のパッケージマネージャーを使用してインストールする
 
+{{< tabs name="other_kubectl_install" >}}
+{{% tab name="Snap" %}}
 Ubuntuまたは[snap](https://snapcraft.io/docs/core/install)パッケージマネージャーをサポートする別のLinuxディストリビューションを使用している場合、kubectlは[snap](https://snapcraft.io/)アプリケーションとして使用できます。
 
-Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
-
-{{< tabs name="other_kubectl_install" >}}
-{{< tab name="Snap" codelang="bash" >}}
-sudo snap install kubectl --classic
+```shell
+snap install kubectl --classic
 
 kubectl version
-{{< /tab >}}
-{{< tab name="Homebrew" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="Homebrew" %}}
+Linuxで[Homebrew](https://docs.brew.sh/Homebrew-on-Linux)パッケージマネージャーを使用している場合は、kubectlを[インストール](https://docs.brew.sh/Homebrew-on-Linux#install)することが可能です。
+```shell
 brew install kubectl
 
 kubectl version
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ## macOSへkubectlをインストールする {#install-kubectl-on-macos}
@@ -129,7 +133,7 @@ kubectl version
 4. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### Homebrewを使用してmacOSへインストールする
@@ -150,7 +154,7 @@ macOSで[Homebrew](https://brew.sh/)パッケージマネージャーを使用�
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ### MacPortsを使用してmacOSへインストールする
@@ -167,7 +171,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
@@ -188,7 +192,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 3. `kubectl`のバージョンがダウンロードしたものと同じであることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)は、それ自身のバージョンの`kubectl`をPATHに追加します。Docker Desktopをすでにインストールしている場合、Docker Desktopインストーラーによって追加されたPATHの前に追加するか、Docker Desktopの`kubectl`を削除してください。
@@ -212,7 +216,7 @@ Windowsで[Powershell Gallery](https://www.powershellgallery.com/)パッケー�
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}アップデートする際は、手順1に示した2つのコマンドを再実行してください。{{< /note >}}
@@ -235,7 +239,7 @@ Windowsへkubectlをインストールするために、[Chocolatey](https://cho
 2. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 3. ホームディレクトリへ移動してください:
@@ -277,7 +281,7 @@ Google Cloud SDKの一部として、kubectlをインストールすることも
 3. インストールしたバージョンが最新であることを確認してください:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 ## kubectlの設定を検証する
@@ -381,6 +385,27 @@ Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コ�
 bash-completionにはv1とv2のバージョンがあり、v1はBash 3.2（macOSのデフォルト）用で、v2はBash 4.1以降向けです。kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。**bash-completion v2**および**Bash 4.1**が必要になります。したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。以下の手順では、Bash4.1以降（Bashのバージョンが4.1またはそれより新しいことを指します）を使用することを前提とします。
 {{< /warning >}}
 
+### bashのアップグレード
+
+ここではBash 4.1以降の使用を前提としています。Bashのバージョンは下記のコマンドで調べることができます。
+
+```shell
+echo $BASH_VERSION
+```
+
+バージョンが古い場合、Homebrewを使用してインストールもしくはアップグレードできます。
+
+```shell
+brew install bash
+```
+
+シェルをリロードし、希望するバージョンを使用していることを確認してください。
+
+```shell
+echo $BASH_VERSION $SHELL
+```
+
+Homebrewは通常、`/usr/local/bin/bash`にインストールします。
 
 ### bash-completionをインストールする
 
@@ -464,12 +489,13 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Minikubeをインストールする](/ja/docs/tasks/tools/install-minikube/)
 * クラスターの作成に関する詳細を[スタートガイド](/docs/setup/)で確認する
 * [アプリケーションを起動して公開する方法を学ぶ](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください
 * [kubectlリファレンスドキュメント](/docs/reference/kubectl/kubectl/)を参照する
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: 创建一个外部负载均衡器
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 
 <!--
 ---
 title: Create an External Load Balancer
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create an External Load Balancer.
@@ -43,15 +43,16 @@ documentation.
 -->
 有关如何配置和使用 Ingress 资源为服务提供外部可访问的 URL、负载均衡流量、终止 SSL 等功能，请查看 [Ingress](/docs/concepts/services-networking/ingress/) 文档。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Configuration file
@@ -305,4 +306,4 @@ Internal pod to pod traffic should behave similar to ClusterIP services, with eq
 
 内部 pod 到 pod 的流量应该与 ClusterIP 服务类似，所有 pod 的概率相同。
 
-{{% /capture %}}
+

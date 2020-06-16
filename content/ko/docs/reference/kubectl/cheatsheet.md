@@ -1,20 +1,20 @@
 ---
 title: kubectl 치트 시트
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-참고 항목: [Kubectl 개요](/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
+참고 항목: [Kubectl 개요](/ko/docs/reference/kubectl/overview/)와 [JsonPath 가이드](/docs/reference/kubectl/jsonpath).
 
 이 페이지는 `kubectl` 커맨드의 개요이다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - 치트 시트
 
@@ -203,7 +203,7 @@ kubectl diff -f ./my-manifest.yaml
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # "frontend" 디플로이먼트의 "www" 컨테이너 이미지를 업데이트하는 롤링 업데이트
-kubectl rollout history deployment/frontend                      # 현 리비전을 포함한 디플로이먼트의 이력을 체크 
+kubectl rollout history deployment/frontend                      # 현 리비전을 포함한 디플로이먼트의 이력을 체크
 kubectl rollout undo deployment/frontend                         # 이전 디플로이먼트로 롤백
 kubectl rollout undo deployment/frontend --to-revision=2         # 특정 리비전으로 롤백
 kubectl rollout status -w deployment/frontend                    # 완료될 때까지 "frontend" 디플로이먼트의 롤링 업데이트 상태를 감시
@@ -355,7 +355,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+더 많은 예제는 kubectl [참조 문서](/ko/docs/reference/kubectl/overview/#custom-columns)를 참고한다.
 
 ### Kubectl 출력 로그 상세 레벨(verbosity)과 디버깅
 
@@ -373,11 +373,12 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 `--v=8` | HTTP 요청 내용을 표시.
 `--v=9` | 내용을 잘라 내지 않고 HTTP 요청 내용을 표시.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [kubectl 개요](/docs/reference/kubectl/overview/)에 대해 더 배워보자.
+## {{% heading "whatsnext" %}}
+
+
+* [kubectl 개요](/ko/docs/reference/kubectl/overview/)에 대해 더 배워보자.
 
 * [kubectl](/docs/reference/kubectl/kubectl/) 옵션을 참고한다.
 
@@ -385,4 +386,4 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 
 * 더 많은 [kubectl 치트 시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) 커뮤니티 확인
 
-{{% /capture %}}
+

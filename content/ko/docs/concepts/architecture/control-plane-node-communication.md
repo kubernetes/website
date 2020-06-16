@@ -1,18 +1,18 @@
 ---
 title: 컨트롤 플레인-노드 간 통신
-content_template: templates/concept
+content_type: concept
 weight: 20
 aliases:
 - master-node-communication
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 컨트롤 플레인(실제로는 API 서버)과 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 노드에서 컨트롤 플레인으로의 통신
 노드에서 컨트롤 플레인까지의 모든 통신 경로는 API 서버에서 종료된다(다른 마스터 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 설계되지 않았다). 일반적인 배포에서 API 서버는 하나 이상의 클라이언트 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된 보안 HTTPS 포트(443)에서 원격 연결을 수신하도록 구성된다.

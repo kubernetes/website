@@ -1,22 +1,23 @@
 ---
 title: 通过文件将Pod信息呈现给容器
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 此页面描述Pod如何使用DownwardAPIVolumeFile把自己的信息呈现给pod中运行的容器。DownwardAPIVolumeFile可以呈现pod的字段和容器字段。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Downward API
 
@@ -175,9 +176,9 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 ```
 你可以使用同样的命令查看`cpu_request`, `mem_limit` 和`mem_request` 文件.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Capabilities of the Downward API
 
@@ -225,10 +226,11 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 对于容器来说，有时候拥有自己的信息是很有用的，可避免与Kubernetes过度耦合。Downward API使得容器使用自己或者集群的信息，而不必通过Kubernetes客户端或API服务器。
 
 一个例子是有一个现有的应用假定要用一个非常熟悉的环境变量来保存一个唯一标识。一种可能是给应用增加处理层，但这样是冗余和易出错的，而且它违反了低耦合的目标。更好的选择是使用Pod名称作为标识，把Pod名称注入这个环境变量中。
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodSpec](/docs/resources-reference/{{< param "version" >}}/#podspec-v1-core)
 * [Volume](/docs/resources-reference/{{< param "version" >}}/#volume-v1-core)
@@ -236,6 +238,6 @@ kubectl exec -it kubernetes-downwardapi-volume-example-2 -- sh
 * [DownwardAPIVolumeFile](/docs/resources-reference/{{< param "version" >}}/#downwardapivolumefile-v1-core)
 * [ResourceFieldSelector](/docs/resources-reference/{{< param "version" >}}/#resourcefieldselector-v1-core)
 
-{{% /capture %}}
+
 
 

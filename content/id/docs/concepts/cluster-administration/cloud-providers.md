@@ -1,15 +1,15 @@
 ---
 title: Penyedia Layanan Cloud
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pada penyedia layanan cloud tertentu.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### Kubeadm
 [Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat klaster Kubernetes.
 Kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm adalah sebagai berikut:
@@ -303,7 +303,7 @@ dan harus berada pada bagian `[Router]` dari *file* `cloud.conf`:
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 

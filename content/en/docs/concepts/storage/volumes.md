@@ -5,11 +5,11 @@ reviewers:
 - thockin
 - msau42
 title: Volumes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 On-disk files in a Container are ephemeral, which presents some problems for
 non-trivial applications when running in Containers.  First, when a Container
@@ -20,15 +20,15 @@ Kubernetes `Volume` abstraction solves both of these problems.
 
 Familiarity with [Pods](/docs/user-guide/pods) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Background
 
 Docker also has a concept of
-[volumes](https://docs.docker.com/engine/admin/volumes/), though it is
+[volumes](https://docs.docker.com/storage/), though it is
 somewhat looser and less managed.  In Docker, a volume is simply a directory on
 disk or in another Container.  Lifetimes are not managed and until very
 recently there were only local-disk-backed volumes.  Docker now provides volume
@@ -1480,6 +1480,7 @@ sudo systemctl restart docker
 
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
-{{% /capture %}}
+

@@ -2,7 +2,7 @@
 reviewers:
 - cdrage
 title: 将 Docker Compose 文件转换为 Kubernetes 资源
-content_template: templates/task
+content_type: task
 weight: 200
 ---
 
@@ -11,12 +11,12 @@ weight: 200
 reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
-content_template: templates/task
+content_type: task
 weight: 170
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 What's Kompose? It's a conversion tool for all things compose (namely Docker Compose) to container orchestrators (Kubernetes or OpenShift).
@@ -30,16 +30,17 @@ More information can be found on the Kompose website at [http://kompose.io](http
 
 更多信息请参考 Kompose 官网 [http://kompose.io](http://kompose.io)。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Install Kompose
@@ -271,9 +272,9 @@ you need is an existing `docker-compose.yml` file.
       $ curl http://192.0.2.89
       ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## User Guide
@@ -841,4 +842,4 @@ Kompose 支持的 Docker Compose 版本包括：1、2 和 3。有限支持 2.1 �
 
 所有三个版本的兼容性列表请查看我们的 [转换文档](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md)，文档中列出了所有不兼容的 Docker Compose 关键字。
 
-{{% /capture %}}
+

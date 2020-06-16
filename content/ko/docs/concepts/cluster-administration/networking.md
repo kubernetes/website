@@ -1,10 +1,10 @@
 ---
 title: 클러스터 네트워킹
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 네트워킹은 쿠버네티스의 중심적인 부분이지만, 어떻게 작동하는지 정확하게
 이해하기가 어려울 수 있다. 쿠버네티스에는 4가지 대응해야 할 네트워킹
 문제가 있다.
@@ -15,10 +15,10 @@ weight: 50
 3. 파드와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
 4. 외부와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 쿠버네티스는 애플리케이션 간에 머신을 공유하는 것이다. 일반적으로,
 머신을 공유하려면 두 애플리케이션이 동일한 포트를 사용하지 않도록
@@ -310,12 +310,13 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 독립형으로 실행된다. 두 버전에서, 실행하기 위해 구성이나 추가 코드가 필요하지 않으며,
 두 경우 모두, 쿠버네티스의 표준과 같이 네트워크에서 파드별로 하나의 IP 주소를 제공한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
 [네트워킹 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)에
 자세히 설명되어 있다.
 
-{{% /capture %}}
+

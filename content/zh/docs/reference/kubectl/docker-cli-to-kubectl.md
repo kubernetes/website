@@ -1,6 +1,6 @@
 ---
 title: 适用于 Docker 用户的 kubectl
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
@@ -8,21 +8,21 @@ reviewers:
 <!-- 
 ---
 title: kubectl for Docker Users
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- 
 You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command. 
 -->
 您可以使用 Kubernetes 命令行工具 kubectl 与 API 服务器进行交互。如果您熟悉 Docker 命令行工具，则使用 kubectl 非常简单。但是，docker 命令和 kubectl 命令之间有一些区别。以下显示了 docker 子命令，并描述了等效的 kubectl 命令。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## docker run
 
 <!-- 
@@ -487,4 +487,4 @@ Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-{{% /capture %}}
+

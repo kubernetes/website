@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: kubeadm으로 컨트롤 플레인 사용자 정의하기
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
@@ -28,9 +28,9 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니
 `kubeadm config print init-defaults`를 실행하고 원하는 파일에 출력을 저장하여 기본값인 `ClusterConfiguration` 오브젝트를 생성할 수 있다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIServer 플래그
 
@@ -81,4 +81,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+

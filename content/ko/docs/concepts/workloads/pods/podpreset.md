@@ -1,19 +1,19 @@
 ---
 title: 파드 프리셋
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 이 페이지는 파드프리셋(PodPreset)에 대한 개요를 제공한다. 파드프리셋은 파드 생성 시간에 파드에
 특정 정보를 주입하기 위한 오브젝트이다. 해당 정보에는
 시크릿, 볼륨, 볼륨 마운트, 환경 변수가 포함될 수 있다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## 파드 프리셋 이해하기
 
 파드프리셋은 파드 생성 시간에 파드에 추가적인 런타임 요구사항을
@@ -79,12 +79,13 @@ weight: 50
 있을 것이다. 이 경우에는, 다음과 같은 양식으로 어노테이션을 파드 스펙에
 추가한다. `podpreset.admission.kubernetes.io/exclude: "true"`.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [파드프리셋을 사용하여 파드에 데이터 주입하기](/docs/tasks/inject-data-application/podpreset/)를 본다.
 
 배경에 대한 자세한 정보를 위해서는, [파드프리셋을 위한 디자인 제안](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md)을 본다.
 
-{{% /capture %}}
+

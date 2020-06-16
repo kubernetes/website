@@ -1,19 +1,20 @@
 ---
 title: Minikubeのインストール
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは[Minikube](/ja/docs/tutorials/hello-minikube)のインストール方法を説明し、コンピューターの仮想マシン上で単一ノードのKubernetesクラスターを実行します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# minikubeのインストール
+<!-- steps -->
+
+## minikubeのインストール
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -75,12 +76,22 @@ kubectlがインストールされていることを確認してください。
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-{{< note >}}
-minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
+Minikubeは、VMではなくホストでKubernetesコンポーネントを実行する`--vm-driver=none`オプションもサポートしています。
 このドライバーを使用するには、[Docker](https://www.docker.com/products/docker-desktop)とLinux環境が必要ですが、ハイパーバイザーは不要です。
-noneドライバーを使用する場合は、[Docker](https://www.docker.com/products/docker-desktop)からdockerのaptインストールを使用することをおすすめします。
-dockerのsnapインストールは、minikubeでは機能しません。
-{{< /note >}}
+
+Debian系のLinuxで`none`ドライバーを使用する場合は、snapパッケージではなく`.deb`パッケージを使用してDockerをインストールしてください。snapパッケージはMinikubeでは機能しません。
+[Docker](https://www.docker.com/products/docker-desktop)から`.deb`パッケージをダウンロードできます。
+
+{{< caution >}}
+`none` VMドライバーは、セキュリティとデータ損失の問題を引き起こす可能性があります。
+`--vm-driver=none`を使用する前に、詳細について[このドキュメント](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) を参照してください。
+{{< /caution >}}
+
+MinikubeはDockerドライバーと似たような`vm-driver=podman`もサポートしています。Podmanを特権ユーザー権限(root user)で実行することは、コンテナがシステム上の利用可能な機能へ完全にアクセスするための最もよい方法です。
+
+{{< caution >}}
+`podman` ドライバーは、rootでコンテナを実行する必要があります。これは、通常のユーザーアカウントが、コンテナの実行に必要とされるすべてのOS機能への完全なアクセスを持っていないためです。
+{{< /caution >}}
 
 ### パッケージを利用したMinikubeのインストール
 
@@ -103,6 +114,14 @@ Minikube実行可能バイナリをパスに追加する簡単な方法を次に
 ```shell
 sudo mkdir -p /usr/local/bin/
 sudo install minikube /usr/local/bin/
+```
+
+### Homebrewを利用したMinikubeのインストール
+
+別の選択肢として、Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)を利用してインストールできます。
+
+```shell
+brew install minikube
 ```
 
 {{% /tab %}}
@@ -182,13 +201,42 @@ WindowsにMinikubeを手動でインストールするには、[`minikube-window
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
+## インストールの確認
 
-{{% /capture %}}
+ハイパーバイザーとMinikube両方のインストール成功を確認するため、以下のコマンドをローカルKubernetesクラスターを起動するために実行してください:
+
+{{< note >}}
+
+`minikube start`で`--vm-driver`の設定をするため、次の`<driver_name>`の部分では、インストールしたハイパーバイザーの名前を小文字で入力してください。`--vm-driver`値のすべてのリストは、[specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)で確認できます。
+
+{{< /note >}}
+
+```shell
+minikube start --vm-driver=<driver_name>
+```
+
+`minikube start`が完了した場合、次のコマンドを実行してクラスターの状態を確認します。
+
+```shell
+minikube status
+```
+
+クラスターが起動していると、`minikube status`の出力はこのようになります。
+
+```
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+```
+
+選択したハイパーバイザーでMinikubeが動作しているか確認した後は、そのままMinikubeを使い続けることもできます。また、クラスターを停止することもできます。クラスターを停止するためには、次を実行してください。
+
+```shell
+minikube stop
+```
 
 ## ローカル状態のクリーンアップ {#cleanup-local-state}
 
@@ -206,3 +254,10 @@ minikubeのローカル状態をクリアする必要があります:
 ```shell
 minikube delete
 ```
+
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikubeを使ってローカルでKubernetesを実行する](/ja/docs/setup/learning-environment/minikube/)
+

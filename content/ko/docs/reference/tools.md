@@ -2,14 +2,14 @@
 
 
 title: 도구
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스는 쿠버네티스 시스템으로 작업하는 데 도움이되는 몇 가지 기본 제공 도구를 포함한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/)은 쿠버네티스를 위한 커맨드라인 툴이며, 쿠버네티스 클러스터 매니저을 제어한다.
@@ -51,4 +51,4 @@ Kompose의 용도
 * 도커 컴포즈 파일을 쿠버네티스 오브젝트로 변환
 * 로컬 도커 개발 환경에서 나의 애플리케이션을 쿠버네티스를 통해 관리하도록 이전
 * V1 또는 V2 도커 컴포즈 `yaml` 파일 또는 [분산 애플리케이션 번들](https://docs.docker.com/compose/bundles/)을 변환
-{{% /capture %}}
+

@@ -2,7 +2,7 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 高可用拓扑选项
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 50
 reviewers:
 - sig-cluster-lifecycle
 title: Options for Highly Available topology
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
@@ -48,9 +48,9 @@ for more details.
 kubeadm 静态引导 etcd 集群。 阅读 etcd [集群指南](https://github.com/etcd-io/etcd/blob/release-3.4/Documentation/op-guide/clustering.md#static)以获得更多详细信息。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Stacked etcd topology
@@ -138,13 +138,14 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 -->
 ！[外部 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 -->
  -  [使用 kubeadm 设置高可用集群](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: Podのライフサイクル
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページではPodのライフサイクルについて説明します。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
 
-## PodのPhase
+<!-- body -->
+
+## PodのPhase {#pod-phase}
 
 Podの`status`項目は[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)オブジェクトで、それは`phase`のフィールドがあります。
 
@@ -33,7 +33,7 @@ Podの各フェーズの値と意味は厳重に守られています。
 `Failed` | Pod内のすべてのコンテナが終了し、少なくとも1つのコンテナが異常終了しました。つまり、コンテナはゼロ以外のステータスで終了したか、システムによって終了されました。
 `Unknown` | 何らかの理由により、通常はPodのホストとの通信にエラーが発生したために、Podの状態を取得できませんでした。
 
-## Podのconditions
+## Podのconditions {#pod-conditions}
 
 PodにはPodStatusがあります。それはPodが成功したかどうかの情報を持つ[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)の配列です。
 PodCondition配列の各要素には、次の6つのフィールドがあります。
@@ -52,12 +52,11 @@ PodCondition配列の各要素には、次の6つのフィールドがありま�
 
   * `PodScheduled`: PodがNodeにスケジュールされました。
   * `Ready`: Podはリクエストを処理でき、一致するすべてのサービスの負荷分散プールに追加されます。
-  * `Initialized`: すべての[init containers](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
-  * `Unschedulable`: リソースの枯渇やその他の理由で、Podがスケジュールできない状態です。
+  * `Initialized`: すべての[Initコンテナ](/docs/concepts/workloads/pods/init-containers)が正常に実行されました。
   * `ContainersReady`: Pod内のすべてのコンテナが準備できた状態です。
 
 
-## コンテナのProbe
+## コンテナのProbe {#container-probes}
 
 [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) は [kubelet](/docs/admin/kubelet/) により定期的に実行されるコンテナの診断です。
 診断を行うために、kubeletはコンテナに実装された [ハンドラー](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler)を呼びます。
@@ -80,7 +79,7 @@ Handlerには次の3つの種類があります:
 * Failure: コンテナの診断が失敗しました。
 * Unknown: コンテナの診断が失敗し、取れるアクションがありません。
 
-Kubeletは2種類のProbeを実行中のコンテナで行い、また反応することができます:
+Kubeletは3種類のProbeを実行中のコンテナで行い、また反応することができます:
 
 * `livenessProbe`: コンテナが動いているかを示します。
    livenessProbe に失敗すると、kubeletはコンテナを殺します、そしてコンテナは[restart policy](#restart-policy)に従います。
@@ -91,13 +90,24 @@ Kubeletは2種類のProbeを実行中のコンテナで行い、また反応す�
    initial delay前のデフォルトのreadinessProbeの初期値は`Failure`です。
    コンテナにreadinessProbeが設定されていない場合、デフォルトの状態は`Success`です。
 
-### livenessProbeとreadinessProbeをいつ使うべきか?
+* `startupProbe`: コンテナ内のアプリケーションが起動したかどうかを示します。
+   startupProbeが設定された場合、完了するまでその他のすべてのProbeは無効になります。
+   startupProbeに失敗すると、kubeletはコンテナを殺します、そしてコンテナは[restart policy](#restart-policy)に従います。
+   コンテナにstartupProbeが設定されていない場合、デフォルトの状態は`Success`です。
+
+### livenessProbeをいつ使うべきか? {#when-should-you-use-a-liveness-probe}
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 コンテナ自体に問題が発生した場合や状態が悪くなった際にクラッシュすることができれば
 livenessProbeは不要です。この場合kubeletが自動でPodの`restartPolicy`に基づいたアクションを実行します。
 
 Probeに失敗したときにコンテナを殺したり再起動させたりするには、
 livenessProbeを設定し`restartPolicy`をAlwaysまたはOnFailureにします。
+
+### readinessProbeをいつ使うべきか? {#when-should-you-use-a-readiness-probe}
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 Probeが成功したときにのみPodにトラフィックを送信したい場合は、readinessProbeを指定します。
 この場合readinessProbeはlivenessProbeと同じになる可能性がありますが、
@@ -108,19 +118,28 @@ readinessProbeが存在するということは、Podがトラフィックを受
 livenessProbeとは異なる、特定のエンドポイントを確認するreadinessProbeを指定することができます。
 
 Podが削除されたときにリクエストを来ないようにするためには必ずしもreadinessProbeが必要というわけではありません。
-Podの削除時にはreadinessProbeが存在するかどうかに関係なくPodは自動的に自身をunhealthyにします。
-Pod内のコンテナが停止するのを待つ間Podはunhealthyのままです。
+Podの削除時にはreadinessProbeが存在するかどうかに関係なくPodは自動的に自身をunreadyにします。
+Pod内のコンテナが停止するのを待つ間Podはunreadyのままです。
 
-livenessProbeまたはreadinessProbeを設定する方法の詳細については、
-[Configure Liveness and Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)を参照してください
+### startupProbeをいつ使うべきか? {#when-should-you-use-a-startup-probe}
 
-## Podとコンテナのステータス
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+コンテナの起動時間が `initialDelaySeconds + failureThreshold × periodSeconds` よりも長い場合は、livenessProbeと同じエンドポイントをチェックするためにstartupProbeを指定します。
+`periodSeconds`のデフォルトは30秒です。
+
+`failureThreshold` は、livenessProbeのデフォルト値を変更せずに、コンテナが起動するのに十分な値に設定します。これによりデッドロックを防ぐことができます。
+
+livenessProbe、readinessProbeまたはstartupProbeを設定する方法の詳細については、
+[Configure Liveness, Readiness and Startup Probes](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)を参照してください。
+
+## Podとコンテナのステータス {#pod-and-container-status}
 
 PodとContainerのステータスについての詳細の情報は、それぞれ[PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)と
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)を参照してください。
 Podのステータスとして報告される情報は、現在の[ContainerState](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core)に依存しています。
 
-## コンテナのステータス
+## コンテナのステータス {#container-states}
 
 PodがスケジューラによってNodeに割り当てられると、
 kubeletはコンテナのランタイムを使用してコンテナの作成を開始します。
@@ -137,7 +156,7 @@ Pod内のコンテナごとにStateの項目として表示されます。
    ...
    ```
 
-* `Running`: コンテナが問題なく実行されていることを示します。コンテナがRunningに入ると`postStart`フック（もしあれば）が実行されます。この状態にはコンテナが実行中状態に入った時刻も表示されます。
+* `Running`: コンテナが問題なく実行されていることを示します。コンテナがRunning状態に入る前に`postStart`フック（もしあれば）が実行されます。この状態にはコンテナが実行中状態に入った時刻も表示されます。
 
    ```yaml
    ...
@@ -146,7 +165,7 @@ Pod内のコンテナごとにStateの項目として表示されます。
    ...
    ```
 
-* `Terminated`: コンテナの実行が完了しコンテナの実行が停止したことを示します。コンテナは実行が正常に完了したときまたは何らかの理由で失敗したときにこの状態になります。いずれにせよ理由と終了コード、コンテナの開始時刻と終了時刻が表示されます。コンテナがTerminatedに入る前に`preStop`フックがあればあれば実行されます。
+* `Terminated`: コンテナの実行が完了しコンテナの実行が停止したことを示します。コンテナは実行が正常に完了したときまたは何らかの理由で失敗したときにこの状態になります。いずれにせよ理由と終了コード、コンテナの開始時刻と終了時刻が表示されます。コンテナがTerminatedに入る前に`preStop`フックがあれば実行されます。
 
    ```yaml
    ...
@@ -158,7 +177,7 @@ Pod内のコンテナごとにStateの項目として表示されます。
     ...
    ```
 
-## PodReadinessGate
+## PodReadinessGate {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
@@ -190,7 +209,7 @@ status:
 ...
 ```
 
-新しいPod Conditionは、Kubernetesの[label key format](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
+新しいPod Conditionは、Kubernetesの[label key format](/ja/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set)に準拠している必要があります。
 `kubectl patch`コマンドはオブジェクトステータスのパッチ適用をまだサポートしていないので、
 新しいPod Conditionは[KubeClient libraries](/docs/reference/using-api/client-libraries/)のどれかを使用する必要があります。
 
@@ -201,18 +220,14 @@ status:
 
 PodのReadinessの評価へのこの変更を容易にするために、新しいPod Conditionである`ContainersReady`が導入され、古いPodの`Ready`条件を取得します。
 
-K8s 1.1ではAlpha機能のため"Pod Ready++" 機能は`PodReadinessGates` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)にて明示的に指定する必要があります。
-
-K8s 1.12ではこの機能はデフォルトで有効になっています。
-
-## RestartPolicy
+## RestartPolicy {#restart-policy}
 
 PodSpecには、Always、OnFailure、またはNeverのいずれかの値を持つ`restartPolicy`フィールドがあります。
 デフォルト値はAlwaysです。`restartPolicy`は、Pod内のすべてのコンテナに適用されます。
 `restartPolicy`は、同じNode上のkubeletによるコンテナの再起動のみを参照します。
 kubeletによって再起動される終了したコンテナは、5分後にキャップされた指数バックオフ遅延（10秒、20秒、40秒...）で再起動され、10分間の実行後にリセットされます。[Pods document](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof)に書かれているように、一度NodeにバインドされるとPodは別のポートにバインドされ直すことはありません。
 
-## Podのライフタイム
+## Podのライフタイム {#pod-lifetime}
 
 一般にPodは人間またはコントローラーが明示的に削除するまで存在します。
 コントロールプレーンは終了状態のPod(SucceededまたはFailedの`phase`を持つ)の数が設定された閾値（kube-controller-manager内の`terminated-pod-gc-threshold`によって定義される）を超えたとき、それらのPodを削除します。
@@ -317,15 +332,16 @@ spec:
      * NodeコントローラがPodの`phase`をFailedにします。
      * Podがコントローラで作成されていた場合は、別の場所で再作成されます。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオンをやってみる
 
-* [configuring liveness and readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)のハンズオンをやってみる
+* [Configure Liveness, Readiness and Startup Probes](/ja/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)のハンズオンをやってみる
 
 * [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/)についてもっと学ぶ
 
-{{% /capture %}}
+

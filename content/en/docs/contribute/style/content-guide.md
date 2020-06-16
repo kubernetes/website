@@ -1,11 +1,11 @@
 ---
 title: Documentation Content Guide
 linktitle: Content guide
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page contains guidelines for Kubernetes documentation.
 
@@ -17,9 +17,9 @@ You can register for Kubernetes Slack at http://slack.k8s.io/.
 For information on creating new content for the Kubernetes
 docs, follow the [style guide](/docs/contribute/style/style-guide).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -69,10 +69,11 @@ ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/mes
 
 If you have questions about allowed content, join the [Kubernetes Slack](http://slack.k8s.io/) #sig-docs channel and ask!
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read the [Style guide](/docs/contribute/style/style-guide).
 
-{{% /capture %}}
+

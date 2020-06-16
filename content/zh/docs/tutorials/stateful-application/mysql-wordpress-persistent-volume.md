@@ -2,7 +2,7 @@
 title: 示例：使用 Persistent Volumes 部署 WordPress 和 MySQL
 reviewers:
 - ahmetb
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 card:
   name: tutorials
@@ -10,7 +10,7 @@ card:
   title: "Stateful 示例: Wordpress with Persistent Volumes"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
@@ -43,9 +43,10 @@ deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MyS
 本教程中提供的文件使用 GA Deployment API，并且特定于 kubernetes 1.9 或更高版本。如果您希望将本教程与 Kubernetes 的早期版本一起使用，请相应地更新 API 版本，或参考本教程的早期版本。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 <!--
 * Create PersistentVolumeClaims and PersistentVolumes
 * Create a `kustomization.yaml` with
@@ -64,9 +65,10 @@ deployment 在生产场景中并不适合，它使用单实例 WordPress 和 MyS
 * 应用整个 kustomization 目录 `kubectl apply -k ./`
 * 清理
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -88,9 +90,9 @@ Download the following configuration files:
 
 2. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Create PersistentVolumeClaims and PersistentVolumes
@@ -424,7 +426,7 @@ kubectl apply -k ./
 
       ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
-{{% /capture %}}
+
 
 {{< warning >}}
 <!--
@@ -434,7 +436,8 @@ Do not leave your WordPress installation on this page. If another user finds it,
 
 {{< /warning >}}
 
-{{% capture cleanup %}}
+## {{% heading "cleanup" %}}
+
 <!--
 1. Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
 
@@ -449,9 +452,10 @@ Do not leave your WordPress installation on this page. If another user finds it,
       kubectl delete -k ./
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
@@ -465,4 +469,4 @@ Do not leave your WordPress installation on this page. If another user finds it,
 * 了解更多关于 [Port Forwarding](/zh/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * 了解如何 [Get a Shell to a Container](/zh/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
-{{% /capture %}}
+

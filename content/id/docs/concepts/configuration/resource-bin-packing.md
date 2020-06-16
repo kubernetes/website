@@ -1,10 +1,10 @@
 ---
 title: Bin Packing Sumber Daya untuk Sumber Daya Tambahan
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.16" state="alpha" >}}
 
@@ -13,9 +13,9 @@ _Kube-scheduler_ dapat dikonfigurasikan untuk mengaktifkan pembungkusan rapat
 `RequestedToCapacityRatioResourceAllocation`. Fungsi-fungsi prioritas dapat digunakan 
 untuk menyempurnakan _kube-scheduler_ sesuai dengan kebutuhan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengaktifkan _Bin Packing_ menggunakan RequestedToCapacityRatioResourceAllocation
 
@@ -214,4 +214,4 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 
 ```
 
-{{% /capture %}}
+

@@ -1,23 +1,23 @@
 ---
 title: ConfigMaps
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
 
 {{< caution >}}
-ConfigMap does not provide secrecy or encryption.  
+ConfigMap does not provide secrecy or encryption.
 If the data you want to store are confidential, use a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Motivation
 
 Use a ConfigMap for setting configuration data separately from application code.
@@ -85,9 +85,9 @@ These different methods lend themselves to different ways of modeling
 the data being consumed.
 For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the Secret when it launches container(s) for a Pod.
+the ConfigMap when it launches container(s) for a Pod.
 
-The fourth method means you have to write code to read the Secret and its data.
+The fourth method means you have to write code to read the ConfigMap and its data.
 However, because you're using the Kubernetes API directly, your application can
 subscribe to get updates whenever the ConfigMap changes, and react
 when that happens. By accessing the Kubernetes API directly, this
@@ -243,12 +243,13 @@ Existing Pods maintain a mount point to the deleted ConfigMap - it is recommende
 these pods.
 {{< /note >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 
-{{% /capture %}}
+
