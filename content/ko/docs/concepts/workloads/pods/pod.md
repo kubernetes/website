@@ -133,10 +133,10 @@ _컨테이너의 어피니티(affinity) 기반 공동 스케줄링을 지원하�
 노드 장애 또는 그 밖에 리소스가 부족해서, 또는 노드 정비를 위한 경우와 같이 축출(eviction)되는 상황에서는 살아남을 수 없을 것이다.
 
 일반적으로 사용자는 파드를 직접 만들 필요가 없다.
-싱글톤이라도 대부분 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)와 같은 컨트롤러를 사용한다.
+싱글톤이라도 대부분 [디플로이먼트(Deployment)](/ko/docs/concepts/workloads/controllers/deployment/)와 같은 컨트롤러를 사용한다.
 컨트롤러는 클러스터 범위에서
 복제와 롤아웃 관리 뿐 만 아니라 자가치료 기능도 제공한다.
-[StatefulSet](/ko/docs/concepts/workloads/controllers/statefulset.md)과 같은 컨트롤러는 상태를 저장하는 파드에도
+[스테이트풀셋(StatefulSet)](/ko/docs/concepts/workloads/controllers/statefulset.md)과 같은 컨트롤러는 상태를 저장하는 파드에도
 위와 같은 기능 제공을 할 수 있다.
 
 사용자 지향적으로 선정된 API를 사용하는 것은 [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)와 [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)를 비롯한 클러스터 스케줄링 시스템에서 비교적 일반적이다.
