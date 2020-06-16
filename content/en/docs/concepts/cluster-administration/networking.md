@@ -266,7 +266,7 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking
 
-### Netris (Cloud UX for your Private Network.Just like Kubernetes for networking.)
+### Netris
 
 [Netris](https://www.netris.ai) is an automatic netops system that abstracts away the complexity of operating a physical network, provides you a cloud UX and turns your network into service for your applications. Through seamless API integration with Kubernetes, Netris stays in sync with your cluster and automatically applies the intent to the physical network following instrumentation policies specified by NetOps. An overview of the integration is provided [here](https://www.netris.ai/kubernetes/).
 
