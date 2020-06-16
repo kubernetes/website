@@ -8,8 +8,8 @@ card:
 ---
 
 {{% capture overview %}}
-ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable.
-This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
+Les ConfigMaps vous permettent de découpler les artefacts de configuration du contenu de l'image pour garder les applications conteneurisées portables.
+Cette page fournit une série d'exemples d'utilisation montrant comment créer des ConfigMaps et configurer des pods à l'aide des données stockées dans des ConfigMaps.
 
 {{% /capture %}}
 
@@ -21,60 +21,60 @@ This page provides a series of usage examples demonstrating how to create Config
 
 {{% capture steps %}}
 
-## Create a ConfigMap
+## Créer un ConfigMap
 
-You can use either `kubectl create configmap` or a ConfigMap generator in `kustomization.yaml` to create a ConfigMap.
-Note that `kubectl` starts to support `kustomization.yaml` since 1.14.
+Vous pouvez utiliser soit `kubectl create configmap` ou un générateur ConfigMap dans `kustomization.yaml` pour créer un ConfigMap.
+Notez que `kubectl` prends en charge `kustomization.yaml` à partir de la version 1.14.
 
-### Create a ConfigMap Using kubectl create configmap
+### Créer un ConfigMap à l'aide de kubectl create configmap
 
-Use the `kubectl create configmap` command to create configmaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
+Utilisez la commande `kubectl create configmap` pour créer des Configmaps depuis des [dossiers](#create-configmaps-from-directories), [fichiers](#create-configmaps-from-files), ou des [valeurs littérales](#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap <map-name> <data-source>
 ```
 
-where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the directory, file, or literal value to draw the data from.
+où \<map-name> est le nom que vous souhaitez attribuer à ConfigMap et \<data-source> est le répertoire, le fichier ou la valeur littérale à partir de laquelle récupérer les données.
 
-The data source corresponds to a key-value pair in the ConfigMap, where
+La source de données correspond à une paire clé-valeur dans ConfigMap, où
 
-* key = the file name or the key you provided on the command line, and
-* value = the file contents or the literal value you provided on the command line.
+* clé = le nom du fichier ou la clé que vous avez fournie sur la ligne de commande, et
+* valeur = le contenu du fichier ou la valeur littérale que vous avez fournie sur la ligne de commande.
 
-You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information about a ConfigMap.
+Vous pouvez utiliser [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) ou [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) pour récupérer des informations sur un ConfigMap.
 
-#### Create ConfigMaps from directories
+#### Créer des ConfigMaps à partir de répertoires
 
-You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
+Vous pouvez utiliser `kubectl create configmap` pour créer un ConfigMap à partir de plusieurs fichiers dans le même répertoire.
 
-For example:
+Par exemple:
 
 ```shell
-# Create the local directory
+# Créez le répertoire local
 mkdir -p configure-pod-container/configmap/
 
-# Download the sample files into `configure-pod-container/configmap/` directory
+# Téléchargez les exemples de fichiers dans le répertoire `configure-pod-container/configmap/`
 wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
 wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
 
-# Create the configmap
+# Créer la configmap
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-combines the contents of the `configure-pod-container/configmap/` directory
+combine le contenu du répertoire `configure-pod-container/configmap/`
 
 ```shell
 game.properties
 ui.properties
 ```
 
-into the following ConfigMap:
+dans le ConfigMap suivant:
 
 ```shell
 kubectl describe configmaps game-config
 ```
 
-where the output is similar to this:
+où la sortie est similaire à ceci:
 
 ```text
 Name:           game-config
@@ -88,13 +88,13 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/` directory are represented in the `data` section of the ConfigMap.
+Les fichiers `game.properties` et `ui.properties` dans le répertoire `configure-pod-container/configmap/` sont représentés dans la section `data` de la ConfigMap.
 
 ```shell
 kubectl get configmaps game-config -o yaml
 ```
 
-The output is similar to this:
+La sortie est similaire à ceci:
 
 ```yaml
 apiVersion: v1
@@ -121,23 +121,23 @@ data:
     how.nice.to.look=fairlyNice
 ```
 
-#### Create ConfigMaps from files
+#### Créer des ConfigMaps à partir de fichiers
 
-You can use `kubectl create configmap` to create a ConfigMap from an individual file, or from multiple files.
+Vous pouvez utiliser `kubectl create configmap` pour créer un ConfigMap à partir d'un fichier individuel ou de plusieurs fichiers.
 
-For example,
+Par exemple,
 
 ```shell
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties
 ```
 
-would produce the following ConfigMap:
+produirait le ConfigMap suivant:
 
 ```shell
 kubectl describe configmaps game-config-2
 ```
 
-where the output is similar to this:
+où la sortie est similaire à ceci:
 
 ```text
 Name:           game-config-2
@@ -150,19 +150,19 @@ Data
 game.properties:        158 bytes
 ```
 
-You can pass in the `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
+Vous pouvez passer l'argument `--from-file` plusieurs fois pour créer un ConfigMap à partir de plusieurs sources de données.
 
 ```shell
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
 ```
 
-Describe the above `game-config-2` configmap created
+Décrivez la ConfigMap crée `game-config-2`:
 
 ```shell
 kubectl describe configmaps game-config-2
 ```
 
-The output is similar to this:
+La sortie est similaire à ceci:
 
 ```text
 Name:           game-config-2
@@ -176,26 +176,26 @@ game.properties:        158 bytes
 ui.properties:          83 bytes
 ```
 
-Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
+Utilisez l'option `--from-env-file` pour créer un ConfigMap à partir d'un fichier env, par exemple:
 
 ```shell
-# Env-files contain a list of environment variables.
-# These syntax rules apply:
-#   Each line in an env file has to be in VAR=VAL format.
-#   Lines beginning with # (i.e. comments) are ignored.
-#   Blank lines are ignored.
-#   There is no special handling of quotation marks (i.e. they will be part of the ConfigMap value)).
+# Les fichiers env contiennent une liste de variables d'environnement.
+# Ces règles de syntaxe s'appliquent:
+#   Chaque ligne d'un fichier env doit être au format VAR=VAL.
+#   Les lignes commençant par # (c'est-à-dire les commentaires) sont ignorées.
+#   Les lignes vides sont ignorées.
+#   Il n'y a pas de traitement spécial des guillemets (c'est-à-dire qu'ils feront partie de la valeur ConfigMap)).
 
-# Download the sample files into `configure-pod-container/configmap/` directory
+# Téléchargez les exemples de fichiers dans le dossier `configure-pod-container/configmap/`
 wget https://kubernetes.io/examples/configmap/game-env-file.properties -O configure-pod-container/configmap/game-env-file.properties
 
-# The env-file `game-env-file.properties` looks like below
+# Le fichier env `game-env-file.properties` ressemble à ceci
 cat configure-pod-container/configmap/game-env-file.properties
 enemies=aliens
 lives=3
 allowed="true"
 
-# This comment and the empty line above it are ignored
+# Ce commentaire et la ligne vide au-dessus sont ignorés
 ```
 
 ```shell
@@ -203,13 +203,13 @@ kubectl create configmap game-config-env-file \
        --from-env-file=configure-pod-container/configmap/game-env-file.properties
 ```
 
-would produce the following ConfigMap:
+produirait le ConfigMap suivant:
 
 ```shell
 kubectl get configmap game-config-env-file -o yaml
 ```
 
-where the output is similar to this:
+où la sortie est similaire à ceci:
 
 ```yaml
 apiVersion: v1
@@ -227,28 +227,28 @@ data:
 ```
 
 {{< caution >}}
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
+Lorsque vous passez plusieurs fois `--from-env-file` pour créer un ConfigMap à partir de plusieurs sources de données, seul le dernier fichier env est utilisé.
 {{< /caution >}}
 
-The behavior of passing `--from-env-file` multiple times is demonstrated by:
+Le comportement consistant à passer plusieurs fois `--from-env-file` est démontré par:
 
 ```shell
-# Download the sample files into `configure-pod-container/configmap/` directory
+# Téléchargez les exemples de fichiers dans le répertoire `configure-pod-container/configmap/`
 wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
-# Create the configmap
+# Créez le configmap
 kubectl create configmap config-multi-env-files \
         --from-env-file=configure-pod-container/configmap/game-env-file.properties \
         --from-env-file=configure-pod-container/configmap/ui-env-file.properties
 ```
 
-would produce the following ConfigMap:
+produirait le ConfigMap suivant:
 
 ```shell
 kubectl get configmap config-multi-env-files -o yaml
 ```
 
-where the output is similar to this:
+où la sortie est similaire à ceci:
 
 ```yaml
 apiVersion: v1
@@ -265,29 +265,29 @@ data:
   textmode: "true"
 ```
 
-#### Define the key to use when creating a ConfigMap from a file
+#### Définissez la clé à utiliser lors de la création d'un ConfigMap à partir d'un fichier
 
-You can define a key other than the file name to use in the `data` section of your ConfigMap when using the `--from-file` argument:
+Vous pouvez définir une clé autre que le nom de fichier à utiliser dans la section `data` de votre ConfigMap lorsque vous utilisez l'argument `--from-file`:
 
 ```shell
 kubectl create configmap game-config-3 --from-file=<my-key-name>=<path-to-file>
 ```
 
-where `<my-key-name>` is the key you want to use in the ConfigMap and `<path-to-file>` is the location of the data source file you want the key to represent.
+où `<my-key-name>` est la clé que vous souhaitez utiliser dans la ConfigMap et `<path-to-file>` est l'emplacement du fichier de source de données que vous souhaitez que la clé représente.
 
-For example:
+Par exemple:
 
 ```shell
 kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/game.properties
 ```
 
-would produce the following ConfigMap:
+produirait la ConfigMap suivante:
 
 ```shell
 kubectl get configmaps game-config-3 -o yaml
 ```
 
-where the output is similar to this:
+où la sortie est similaire à ceci:
 
 ```yaml
 apiVersion: v1
@@ -309,22 +309,22 @@ data:
     secret.code.lives=30
 ```
 
-#### Create ConfigMaps from literal values
+#### Créer des ConfigMaps à partir de valeurs littérales
 
-You can use `kubectl create configmap` with the `--from-literal` argument to define a literal value from the command line:
+Vous pouvez utiliser `kubectl create configmap` avec l'argument `--from-literal` définir une valeur littérale à partir de la ligne de commande:
 
 ```shell
 kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
 ```
 
-You can pass in multiple key-value pairs.
-Each pair provided on the command line is represented as a separate entry in the `data` section of the ConfigMap.
+Vous pouvez transmettre plusieurs paires clé-valeur.
+Chaque paire fournie sur la ligne de commande est représentée comme une entrée distincte dans la section `data` de la ConfigMap.
 
 ```shell
 kubectl get configmaps special-config -o yaml
 ```
 
-The output is similar to this:
+La sortie est similaire à ceci:
 
 ```yaml
 apiVersion: v1
@@ -340,15 +340,15 @@ data:
   special.type: charm
 ```
 
-### Create a ConfigMap from generator
+### Créer un ConfigMap à partir du générateur
 
-`kubectl` supports `kustomization.yaml` since 1.14.
-You can also create a ConfigMap from generators and then apply it to create the object on the Apiserver.
-The generators should be specified in a `kustomization.yaml` inside a directory.
+`kubectl` supporte `kustomization.yaml` depuis 1.14.
+Vous pouvez également créer un ConfigMap à partir de générateurs, puis l'appliquer pour créer l'objet sur l'Apiserver.
+Les générateurs doivent être spécifiés dans un `kustomization.yaml` à l'intérieur d'un répertoire.
 
-#### Generate ConfigMaps from files
+#### Générer des ConfigMaps à partir de fichiers
 
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
+Par exemple, pour générer un ConfigMap à partir de fichiers `configure-pod-container/configmap/game.properties`
 
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
@@ -360,14 +360,14 @@ configMapGenerator:
 EOF
 ```
 
-Apply the kustomization directory to create the ConfigMap object.
+Appliquer le dossier kustomization pour créer l'objet ConfigMap.
 
 ```shell
 kubectl apply -k .
 configmap/game-config-4-m9dm2f92bt created
 ```
 
-You can check that the ConfigMap was created like this:
+Vous pouvez vérifier que le ConfigMap a été créé comme ceci:
 
 ```text
 kubectl get configmap
@@ -396,17 +396,17 @@ secret.code.lives=30
 Events:  <none>
 ```
 
-Note that the generated ConfigMap name has a suffix appended by hashing the contents.
-This ensures that a new ConfigMap is generated each time the content is modified.
+Notez que le nom ConfigMap généré a un suffixe obtenu par hachage de son contenu.
+Cela garantit qu'un nouveau ConfigMap est généré chaque fois que le contenu est modifié.
 
-#### Define the key to use when generating a ConfigMap from a file
+#### Définissez la clé à utiliser lors de la génération d'un ConfigMap à partir d'un fichier
 
-You can define a key other than the file name to use in the ConfigMap generator.
-For example, to generate a ConfigMap from files `configure-pod-container/configmap/game.properties`
-with the key `game-special-key`
+Vous pouvez définir une clé autre que le nom de fichier à utiliser dans le générateur ConfigMap.
+Par exemple, pour générer un ConfigMap à partir du fichier `configure-pod-container/configmap/game.properties`
+avec la clé `game-special-key`
 
 ```shell
-# Create a kustomization.yaml file with ConfigMapGenerator
+# Créer un fichier kustomization.yaml avec ConfigMapGenerator
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
@@ -415,16 +415,16 @@ configMapGenerator:
 EOF
 ```
 
-Apply the kustomization directory to create the ConfigMap object.
+Appliquer le dossier kustomization pour créer l'objet ConfigMap.
 
 ```text
 kubectl apply -k .
 configmap/game-config-5-m67dt67794 created
 ```
 
-#### Generate ConfigMaps from Literals
+#### Générer des ConfigMaps à partir de littéraux
 
-To generate a ConfigMap from literals `special.type=charm` and `special.how=very`, you can specify the ConfigMap generator in `kustomization.yaml` as
+Pour générer un ConfigMap à partir de littéraux `special.type=charm` et `special.how=very`, vous pouvez spécifier le générateur ConfigMap dans `kustomization.yaml` comme
 
 ```shell
 # Create a kustomization.yaml file with ConfigMapGenerator
@@ -437,137 +437,138 @@ configMapGenerator:
 EOF
 ```
 
-Apply the kustomization directory to create the ConfigMap object.
+Appliquez le dossier kustomization pour créer l'objet ConfigMap.
 
 ```text
 kubectl apply -k .
 configmap/special-config-2-c92b5mmcf2 created
 ```
 
-## Define container environment variables using ConfigMap data
+## Définir des variables d'environnement de conteneur à l'aide des données ConfigMap
 
-### Define a container environment variable with data from a single ConfigMap
+### Définissez une variable d'environnement de conteneur avec les données d'une seule ConfigMap
 
-1. Define an environment variable as a key-value pair in a ConfigMap:
+1. Définissez une variable d'environnement comme paire clé-valeur dans un ConfigMap:
 
     ```shell
     kubectl create configmap special-config --from-literal=special.how=very
     ```
 
-1. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+1. Attribuez la valeur `special.how` défini dans ConfigMap à la variable d'environnement `SPECIAL_LEVEL_KEY` dans la spécification du Pod.
 
    {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
-   Create the Pod:
+   Créez le pod:
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
  ```
 
-   Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`.
+   Maintenant, la sortie du Pod comprend une variable d'environnement `SPECIAL_LEVEL_KEY=very`.
 
-### Define container environment variables with data from multiple ConfigMaps
+### Définir des variables d'environnement de conteneur avec des données de plusieurs ConfigMaps
 
-* As with the previous example, create the ConfigMaps first.
+* Comme avec l'exemple précédent, créez d'abord les ConfigMaps.
 
    {{< codenew file="configmap/configmaps.yaml" >}}
 
-   Create the ConfigMap:
+   Créez le ConfigMap:
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
  ```
 
-* Define the environment variables in the Pod specification.
+* Définissez les variables d'environnement dans la spécification Pod.
 
   {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
 
-  Create the Pod:
+  Créez le pod:
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
  ```
 
-  Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
+  Maintenant, la sortie du Pod comprend des variables d'environnement `SPECIAL_LEVEL_KEY=very` et `LOG_LEVEL=INFO`.
 
-## Configure all key-value pairs in a ConfigMap as container environment variables
+## Configurer toutes les paires clé-valeur dans un ConfigMap en tant que variables d'environnement de conteneur
 
 {{< note >}}
-This functionality is available in Kubernetes v1.6 and later.
+Cette fonctionnalité est disponible dans Kubernetes v1.6 et versions ultérieures.
 {{< /note >}}
 
-* Create a ConfigMap containing multiple key-value pairs.
+* Créez un ConfigMap contenant plusieurs paires clé-valeur.
 
   {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
-  Create the ConfigMap:
+  Créez le ConfigMap:
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
  ```
 
-* Use `envFrom` to define all of the ConfigMap's data as container environment variables.
-  The key from the ConfigMap becomes the environment variable name in the Pod.
+* Utilisez `envFrom` pour définir toutes les données du ConfigMap en tant que variables d'environnement du conteneur.
+  La clé de ConfigMap devient le nom de la variable d'environnement dans le pod.
 
  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
 
- Create the Pod:
+ Créez le pod:
 
  ```shell
  kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
  ```
 
- Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
+ Maintenant, la sortie du Pod comprend les variables d'environnement `SPECIAL_LEVEL=very` et `SPECIAL_TYPE=charm`.
 
-## Use ConfigMap-defined environment variables in Pod commands
+## Utiliser des variables d'environnement définies par ConfigMap dans les commandes du Pod
 
-You can use ConfigMap-defined environment variables in the `command` section of the Pod specification using the `$(VAR_NAME)` Kubernetes substitution syntax.
+Vous pouvez utiliser des variables d'environnement définies par ConfigMap dans la section `command` de la spécification du Pod en utilisant la syntaxe de substitution Kubernetes `$(VAR_NAME)`.
 
-For example, the following Pod specification
+Par exemple, la spécification de pod suivante
 
 {{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
 
-created by running
+créé en exécutant
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
-produces the following output in the `test-container` container:
+produit la sortie suivante dans le conteneur `test-container`:
 
 ```shell
 very charm
 ```
 
-## Add ConfigMap data to a Volume
+## Ajouter des données ConfigMap à un volume
 
-As explained in [Create ConfigMaps from files](#create-configmaps-from-files), when you create a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of the ConfigMap. The file contents become the key's value.
+Comme expliqué dans [Créer des ConfigMaps à partir de fichiers](#create-configmaps-from-files), lorsque vous créez un ConfigMap à l'aide `--from-file`, le nom de fichier devient une clé stockée dans la section `data` du ConfigMap.
+Le contenu du fichier devient la valeur de la clé.
 
-The examples in this section refer to a ConfigMap named special-config, shown below.
+Les exemples de cette section se réfèrent à un ConfigMap nommé special-config, illustré ci-dessous.
 
 {{< codenew file="configmap/configmap-multikeys.yaml" >}}
 
-Create the ConfigMap:
+Créez le ConfigMap:
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
 ```
 
-### Populate a Volume with data stored in a ConfigMap
+### Remplissez un volume avec des données stockées dans un ConfigMap
 
-Add the ConfigMap name under the `volumes` section of the Pod specification.
-This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section lists directory files with names that match the keys in ConfigMap.
+Ajoutez le nom ConfigMap sous la section `volumes` de la spécification Pod.
+Ceci ajoute les données ConfigMap au répertoire spécifié comme `volumeMounts.mountPath` (dans ce cas, `/etc/config`).
+La section `command` répertorie les fichiers de répertoire dont les noms correspondent aux clés de ConfigMap.
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
 
-Create the Pod:
+Créez le pod:
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 ```
 
-When the pod runs, the command `ls /etc/config/` produces the output below:
+Lorsque le pod s'exécute, la commande `ls /etc/config/` produit la sortie ci-dessous:
 
 ```shell
 SPECIAL_LEVEL
@@ -575,7 +576,7 @@ SPECIAL_TYPE
 ```
 
 {{< caution >}}
-If there are some files in the `/etc/config/` directory, they will be deleted.
+S'il y a des fichiers dans le dossier `/etc/config/`, ils seront supprimés.
 {{< /caution >}}
 
 ### Add ConfigMap data to a specific path in the Volume
