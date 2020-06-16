@@ -71,7 +71,17 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    注意: 外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+    {{< note >}}
+
+    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+
+    {{< /note >}}
 
 1. Serviceに関する詳細な情報を表示します:
 
@@ -134,11 +144,11 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 Serviceを削除する場合、次のコマンドを実行します:
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 Deployment、ReplicaSet、およびHello Worldアプリケーションが動作しているPodを削除する場合、次のコマンドを実行します:
 
-        kubectl delete deployment hello-world
+    kubectl delete deployment hello-world
 
 
 

@@ -9,10 +9,10 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTLメカニズムを提供します。  
+TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTL (time to live) メカニズムを提供します。  
 TTLコントローラーは現在[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のみ扱っていて、将来的にPodやカスタムリソースなど、他のリソースの実行終了を扱えるように拡張される予定です。
 
-α版の免責事項: この機能は現在α版の機能で、[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
+α版の免責事項: この機能は現在α版の機能で、kube-apiserverとkube-controller-managerの[Feature Gate](/docs/reference/command-line-tools-reference/feature-gates/)の`TTLAfterFinished`を有効にすることで使用可能です。
 
 
 
@@ -52,6 +52,6 @@ Kubernetesにおいてタイムスキューを避けるために、全てのNode
 
 [Jobの自動クリーンアップ](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
-[設計ドキュメント](https://github.com/kubernetes/community/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+[設計ドキュメント](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
 

@@ -81,7 +81,7 @@ spec:
   # ...
 ```
 
-これは、Kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
+これは、Kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
 エラーメッセージに関しては対応する[イベント](/docs/tasks/debug-application-cluster/debug-application-introspection/)を参照して下さい。
 
 もし`runtimeClassName`が指定されていない場合、デフォルトのRuntimeHandlerが使用され、これはRuntimeClassの機能が無効であるときのふるまいと同じものとなります。

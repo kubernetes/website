@@ -114,6 +114,8 @@ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${AR
 kubectl exec cassandra -- cat /var/log/cassandra/system.log
 ```
 
+クラスターで有効にしていれば、 [エフェメラルコンテナ](/docs/concepts/workloads/pods/ephemeral-containers/) を既存のPodに追加することもできます。 新しい一時的なコンテナを利用して、たとえばPod内の問題の診断のために任意のコマンドを実行することができます。利用できる機能を含む詳細については、 [エフェメラルコンテナ](/docs/concepts/workloads/pods/ephemeral-containers/) のページを参照してください。
+
 これらのアプローチがいずれも機能しない場合、Podが実行されているホストマシンを見つけて、そのホストにSSH接続することができます。
 
 ## ReplicationControllerのデバッグ

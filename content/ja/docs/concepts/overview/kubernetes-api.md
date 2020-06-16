@@ -86,7 +86,7 @@ APIとソフトウエアのバージョニングは、間接的にしか関連�
   - バージョン名は`vX`のようになっており、`X`は整数です。
   - 安定版の機能は、今後のリリースバージョンにも適用されます。
 
-## APIグループ
+## APIグループ {#api-groups}
 
 KubernetesAPIの拡張を簡易に行えるようにするため、[*APIグループ*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)を実装しました。
 APIグループは、RESTのパスとシリアライズされたオブジェクトの`apiVersion`フィールドで指定されます。

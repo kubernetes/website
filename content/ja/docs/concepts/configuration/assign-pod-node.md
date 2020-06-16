@@ -8,7 +8,7 @@ weight: 30
 <!-- overview -->
 
 [Pod](/ja/docs/concepts/workloads/pods/pod/)が稼働する[Node](/ja/docs/concepts/architecture/nodes/)を特定のものに指定したり、優先条件を指定して制限することができます。
-これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/docs/concepts/overview/working-with-objects/labels/)です。
+これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/ja/docs/concepts/overview/working-with-objects/labels/)です。
 スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のNodeへデプロイしたり、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
 SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な制御が必要なこともあります。
 

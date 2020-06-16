@@ -31,7 +31,7 @@ weight: 10
 
 - 可能な限り、"真っ裸"のPod([ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
 
-  明示的に[`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)を使いたいシーンを除いて、DeploymentはPodを直接作成するよりもほとんど常に望ましい方法です。Deploymentには、希望する数のPodが常に使用可能であることを確認するためにReplicaSetを作成したり、Podを置き換えるための戦略（RollingUpdateなど）を指定したりできます。[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のほうが適切な場合もあるかもしれません。
+  明示的に[`restartPolicy: Never`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)を使いたいシーンを除いて、DeploymentはPodを直接作成するよりもほとんど常に望ましい方法です。Deploymentには、希望する数のPodが常に使用可能であることを確認するためにReplicaSetを作成したり、Podを置き換えるための戦略（RollingUpdateなど）を指定したりできます。[Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)のほうが適切な場合もあるかもしれません。
 
 ## Service
 
@@ -58,7 +58,7 @@ weight: 10
 
 ## ラベルの使用
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの__セマンティック属性__を識別する[ラベル](/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なポッドを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの__セマンティック属性__を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なポッドを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
@@ -96,7 +96,7 @@ weight: 10
 
 - `kubectl apply -f <directory>`を使いましょう。これを使うと、ディレクトリ内のすべての`.yaml`、`.yml`、および`.json`ファイルが`apply`に渡されます。
 
-- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
+- `get`や`delete`を行う際は、特定のオブジェクト名を指定するのではなくラベルセレクターを使いましょう。[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)と[ラベルの効果的な使い方](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)のセクションを参照してください。
 
 
 

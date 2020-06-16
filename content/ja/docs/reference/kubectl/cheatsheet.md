@@ -38,7 +38,7 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # 現在のzshシェルでコマンド補完を設定します
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # zshシェルでのコマンド補完を永続化するために.zshrcに追記します。
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # zshシェルでのコマンド補完を永続化するために.zshrcに追記します。
 ```
 
 ## Kubectlコンテキストの設定
@@ -84,7 +84,7 @@ kubectl config unset users.foo    # ユーザーfooを削除します
 
 ## Objectの作成
 
-Kubernetesのマニフェストファイルは、jsonまたはyamlで定義できます。ファイル拡張子として、`.yaml`や`.yml`、`.json`が使えます。
+Kubernetesのマニフェストファイルは、JSONまたはYAMLで定義できます。ファイル拡張子として、`.yaml`や`.yml`、`.json`が使えます。
 
 ```bash
 kubectl apply -f ./my-manifest.yaml            # リソースを作成します
@@ -92,7 +92,7 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # 複数のファイルからリ�
 kubectl apply -f ./dir                         # dirディレクトリ内のすべてのマニフェストファイルからリソースを作成します
 kubectl apply -f https://git.io/vPieo          # urlで公開されているファイルからリソースを作成します
 kubectl create deployment nginx --image=nginx  # 単一のnginx Deploymentを作成します
-kubectl explain pods,svc                       # PodおよびServiceマニフェストのドキュメントを取得します
+kubectl explain pods                           # Podマニフェストのドキュメントを取得します
 
 # 標準入力から複数のYAMLオブジェクトを作成します
 
@@ -147,7 +147,6 @@ kubectl get pods -o wide                      # 現在のネームスペース�
 kubectl get deployment my-dep                 # 特定のDeploymentを表示します
 kubectl get pods                              # 現在のネームスペース上にあるすべてのPodのリストを表示します
 kubectl get pod my-pod -o yaml                # PodのYAMLを表示します
-kubectl get pod my-pod -o yaml --export       # クラスター固有の情報を除いたPodのマニフェストをYAMLで表示します
 
 # Describeコマンドで詳細な情報を確認します
 kubectl describe nodes my-node
@@ -159,8 +158,8 @@ kubectl get services --sort-by=.metadata.name
 # Restartカウント順にPodのリストを表示します
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# capacity順にソートしたtestネームスペースに存在するPodのリストを表示します
-kubectl get pods -n test --sort-by=.spec.capacity.storage
+# capacity順にソートしたPersistentVolumeのリストを表示します
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # app=cassandraラベルのついたすべてのPodのversionラベルを表示します
 kubectl get pods --selector=app=cassandra -o \
@@ -195,9 +194,16 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
+# すべてのPodのInitContainerのコンテナIDのリストを表示します
+# initContainerの削除を回避しながら、停止したコンテナを削除するときに役立つでしょう
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
 # タイムスタンプでソートされたEventのリストを表示します
 
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# クラスターの現在の状態を、マニフェストが適用された場合のクラスターの状態と比較します。
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## リソースのアップデート
@@ -210,6 +216,7 @@ kubectl rollout history deployment/frontend                      # frontend Depl
 kubectl rollout undo deployment/frontend                         # 1つ前のDeploymentにロールバックします
 kubectl rollout undo deployment/frontend --to-revision=2         # 特定のバージョンにロールバックします
 kubectl rollout status -w deployment/frontend                    # frontend Deploymentのローリングアップデートを状態をwatchします
+kubectl rollout restart deployment/frontend                      # frontend Deployment を再起動します
 
 
 # これらのコマンドは1.11から廃止されました
@@ -322,7 +329,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### リソースタイプ
 
-サポートされているすべてのリソースタイプを、それらが[API group](/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
+サポートされているすべてのリソースタイプを、それらが[API group](/ja/docs/concepts/overview/kubernetes-api/#api-groups)か[Namespaced](/docs/concepts/overview/working-with-objects/namespaces)、[Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)に関わらずその短縮名をリストします。
 
 ```bash
 kubectl api-resources
@@ -341,7 +348,7 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 
 ### 出力のフォーマット
 
-特定の形式で端末ウィンドウに詳細を出力するには、サポートされている`kubectl`コマンドに`-o`または`--output`フラグを追加します。
+特定の形式で端末ウィンドウに詳細を出力するには、サポートされている`kubectl`コマンドに`-o`(または`--output`)フラグを追加します。
 
 出力フォーマット | 説明
 ---------------- | -----------

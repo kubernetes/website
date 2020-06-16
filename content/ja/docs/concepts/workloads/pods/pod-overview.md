@@ -2,7 +2,7 @@
 title: Podについての概観(Pod Overview)
 content_type: concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 60
 ---
@@ -11,9 +11,8 @@ card:
 このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して概観します。
 
 
-
 <!-- body -->
-## Podについて理解する
+## Podについて理解する {#understanding-pods}
 
 *Pod* は、Kubernetesアプリケーションの基本的な実行単位です。これは、作成またはデプロイするKubernetesオブジェクトモデルの中で最小かつ最も単純な単位です。Podは、{{< glossary_tooltip term_id="cluster" >}}で実行されているプロセスを表します。
 
@@ -23,19 +22,19 @@ Podは、アプリケーションのコンテナ(いくつかの場合におい�
 
 Kubernetesクラスター内でのPodは2つの主な方法で使うことができます。
 
-* **単一のコンテナを稼働させるPod** : いわゆる*「1Pod1コンテナ」* 構成のモデルは、最も一般的なKubernetesのユースケースです。  
+* **単一のコンテナを稼働させるPod** : いわゆる*「1Pod1コンテナ」* 構成のモデルは、最も一般的なKubernetesのユースケースです。
 このケースでは、ユーザーはPodを単一のコンテナのラッパーとして考えることができ、Kubernetesはコンテナを直接扱うというよりは、Podを管理することになります。
-* **協調して稼働させる必要がある複数のコンテナを稼働させるPod** : 単一のPodは、リソースを共有する必要があるような、密接に連携した複数の同じ環境にあるコンテナからなるアプリケーションをカプセル化することもできます。  これらの同じ環境にあるコンテナ群は、サービスの結合力の強いユニットを構成することができます。  
+* **協調して稼働させる必要がある複数のコンテナを稼働させるPod** : 単一のPodは、リソースを共有する必要があるような、密接に連携した複数の同じ環境にあるコンテナからなるアプリケーションをカプセル化することもできます。  これらの同じ環境にあるコンテナ群は、サービスの結合力の強いユニットを構成することができます。
 -- 1つのコンテナが、共有されたボリュームからファイルをパブリックな場所に送信し、一方では分割された*サイドカー* コンテナがそれらのファイルを更新します。そのPodはそれらのコンテナとストレージリソースを、単一の管理可能なエンティティとしてまとめます。
 
-[Kubernetes Blog](http://kubernetes.io/blog)にて、Podのユースケースに関するいくつかの追加情報を見ることができます。さらなる情報を得たい場合は、下記のページを参照ください。  
+[Kubernetes Blog](https://kubernetes.io/blog)にて、Podのユースケースに関するいくつかの追加情報を見ることができます。さらなる情報を得たい場合は、下記のページを参照ください。
 
-  * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)  
+  * [The Distributed System Toolkit: Patterns for Composite Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)
   * [Container Design Patterns](https://kubernetes.io/blog/2016/06/container-design-patterns)
 
 各Podは、与えられたアプリケーションの単一のインスタンスを稼働するためのものです。もしユーザーのアプリケーションを水平にスケールさせたい場合(例: 複数インスタンスを稼働させる)、複数のPodを使うべきです。1つのPodは各インスタンスに対応しています。
-Kubernetesにおいて、これは一般的に_レプリケーション_ と呼ばれます。  
-レプリケーションされたPodは、通常コントローラーと呼ばれる抽象概念によって単一のグループとして作成、管理されます。  
+Kubernetesにおいて、これは一般的に_レプリケーション_ と呼ばれます。
+レプリケーションされたPodは、通常コントローラーと呼ばれる抽象概念によって単一のグループとして作成、管理されます。
 さらなる情報に関しては[Podとコントローラー](#pods-and-controllers)を参照して下さい。
 
 ### Podがどのように複数のコンテナを管理しているか
@@ -57,7 +56,7 @@ Podは、Podによって構成されたコンテナ群のために2種類の共�
 
 #### ストレージ
 
-単一のPodは共有されたストレージ{{< glossary_tooltip term_id="volume" >}}のセットを指定できます。Pod内の全てのコンテナは、その共有されたボリュームにアクセスでき、コンテナ間でデータを共有することを可能にします。ボリュームもまた、もしPod内のコンテナの1つが再起動が必要になった場合に備えて、データを永続化できます。  
+単一のPodは共有されたストレージ{{< glossary_tooltip term_id="volume" >}}のセットを指定できます。Pod内の全てのコンテナは、その共有されたボリュームにアクセスでき、コンテナ間でデータを共有することを可能にします。ボリュームもまた、もしPod内のコンテナの1つが再起動が必要になった場合に備えて、データを永続化できます。
 単一のPod内での共有ストレージをKubernetesがどう実装しているかについてのさらなる情報については、[Volumes](/docs/concepts/storage/volumes/)を参照してください。
 
 ## Podを利用する
@@ -69,7 +68,7 @@ Podは、Podによって構成されたコンテナ群のために2種類の共�
 単一のPod内でのコンテナを再起動することと、そのPodを再起動することを混同しないでください。Podはそれ自体は実行されませんが、コンテナが実行される環境であり、削除されるまで存在し続けます。
 {{< /note >}}
 
-Podは、Podそれ自体によって自己修復しません。もし、稼働されていないノード上にPodがスケジュールされた場合や、スケジューリング操作自体が失敗した場合、Podが削除されます。同様に、Podはリソースの欠如や、ノードのメンテナンスによる追い出しがあった場合はそこで停止します。Kubernetesは*コントローラー* と呼ばれる高レベルの抽象概念を使用し、それは比較的使い捨て可能なPodインスタンスの管理を行います。  
+Podは、Podそれ自体によって自己修復しません。もし、稼働されていないノード上にPodがスケジュールされた場合や、スケジューリング操作自体が失敗した場合、Podが削除されます。同様に、Podはリソースの欠如や、ノードのメンテナンスによる追い出しがあった場合はそこで停止します。Kubernetesは*コントローラー* と呼ばれる高レベルの抽象概念を使用し、それは比較的使い捨て可能なPodインスタンスの管理を行います。
 このように、Podを直接使うのは可能ですが、コントローラーを使用したPodを管理する方がより一般的です。KubernetesがPodのスケーリングと修復機能を実現するためにコントローラーをどのように使うかに関する情報は[Podとコントローラー](#pods-and-controllers)を参照してください。
 
 ### Podとコントローラー
@@ -88,7 +87,7 @@ Podは、Podそれ自体によって自己修復しません。もし、稼働�
 
 Podテンプレートは、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)、 [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/)や、
 [DaemonSet](/ja/docs/concepts/workloads/controllers/daemonset/)のような他のオブジェクト内で含まれるPodの仕様となります。
-コントローラーは実際のPodを作成するためにPodテンプレートを使用します。  
+コントローラーは実際のPodを作成するためにPodテンプレートを使用します。
 下記のサンプルは、メッセージを表示する単一のコンテナを含んだ、シンプルなPodのマニフェストとなります。
 
 ```yaml
@@ -114,6 +113,6 @@ spec:
 
 * [Pod](/ja/docs/concepts/workloads/pods/pod/)について更に学びましょう
 * Podの振る舞いに関して学ぶには下記を参照してください
-   * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#podの終了)
+   * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)
    * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)
 

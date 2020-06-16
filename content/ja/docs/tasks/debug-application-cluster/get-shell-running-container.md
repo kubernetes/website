@@ -31,7 +31,7 @@ content_type: task
 Podを作成します:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/shell-demo.yaml
+kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
 コンテナが実行中であることを確認します:

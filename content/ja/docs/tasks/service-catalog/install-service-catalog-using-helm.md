@@ -19,7 +19,7 @@ content_type: task
   * クラウド上のKubernetesクラスター、または{{< glossary_tooltip text="Minikube" term_id="minikube" >}}を使用している場合、クラスターDNSはすでに有効化されています。
   * `hack/local-up-cluster.sh`を使用している場合は、環境変数`KUBE_ENABLE_CLUSTER_DNS`が設定されていることを確認し、インストールスクリプトを実行してください。
 * [kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参考に、v1.7以降のkubectlをインストールし、設定を行ってください。
-* v2.7.0以降の[Helm](http://helm.sh/)をインストールしてください。
+* v2.7.0以降の[Helm](https://helm.sh/)をインストールしてください。
   * [Helm install instructions](https://helm.sh/docs/intro/install/)を参考にしてください。
   * 上記のバージョンのHelmをすでにインストールしている場合は、`helm init`を実行し、HelmのサーバーサイドコンポーネントであるTillerをインストールしてください。
 
