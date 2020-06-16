@@ -13,6 +13,7 @@ To run the website locally when you have Hugo installed:
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
+git submodule update --init --recursive
 hugo server --buildFuture
 ```
 
