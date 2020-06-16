@@ -1,10 +1,10 @@
 ---
 title: 스케줄러 성능 튜닝
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
@@ -22,9 +22,9 @@ API 서버에 해당 결정을 통지한다.
 본 페이지에서는 상대적으로 큰 규모의 쿠버네티스 클러스터에 대한 성능 튜닝 
 최적화에 대해 설명한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 큰 규모의 클러스터에서는 스케줄러의 동작을 튜닝하여 응답 시간
 (새 파드가 빠르게 배치됨)과 정확도(스케줄러가 배치 결정을 잘 못하는 경우가 드물게 됨)
@@ -161,4 +161,4 @@ percentageOfNodesToScore: 50
 
 모든 노드를 검토한 후, 노드 1로 돌아간다.
 
-{{% /capture %}}
+

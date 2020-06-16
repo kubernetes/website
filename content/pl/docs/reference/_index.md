@@ -3,16 +3,16 @@ title: Materiały źródłowe
 linkTitle: "Materiały źródłowe"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tutaj znajdziesz dokumentację źródłową Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Dokumentacja API
 
@@ -50,4 +50,4 @@ biblioteki to:
 
 Archiwum dokumentacji projektowej różnych funkcjonalności Kubernetes. Warto zacząć od [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) oraz [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

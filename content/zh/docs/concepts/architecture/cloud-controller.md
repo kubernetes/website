@@ -1,19 +1,19 @@
 ---
 title: 云控制器管理器的基础概念
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 <!--
 ---
 title: Concepts Underlying the Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
@@ -45,10 +45,10 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 
 ![没有云控制器管理器的 Kubernetes 架构](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Design
@@ -496,5 +496,5 @@ Complete instructions for configuring and running the CCM are provided
 
 [这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 
-{{% /capture %}}
+
 

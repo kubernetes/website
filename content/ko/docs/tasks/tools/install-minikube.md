@@ -1,19 +1,20 @@
 ---
 title: Minikube 설치
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 단일 노드 쿠버네티스 클러스터를 노트북의 가상 머신에서 구동하는 도구인 [Minikube](/ko/docs/tutorials/hello-minikube)의 설치 방법을 설명한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="리눅스" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# minikube 설치하기
+<!-- steps -->
+
+## minikube 설치하기
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="리눅스" %}}
@@ -200,14 +201,6 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 {{< /tabs >}}
 
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)
-
-{{% /capture %}}
-
 ## 설치 확인
 
 하이퍼바이저와 Minikube의 성공적인 설치를 확인하려면, 다음 명령어를 실행해서 로컬 쿠버네티스 클러스터를 시작할 수 있다.
@@ -259,3 +252,8 @@ machine does not exist
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)

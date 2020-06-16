@@ -1,17 +1,17 @@
 ---
 title: 配置 Pod 以使用卷进行存储
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 <!--
 ---
 title: Configure a Pod to Use a Volume for Storage
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 此页面展示了如何配置 Pod 以使用卷进行存储。
 
@@ -27,15 +27,16 @@ consistent storage that is independent of the Container, you can use a
 applications, such as key-value stores (such as Redis) and databases.
 -->
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 为 Pod 配置卷
 
@@ -178,9 +179,10 @@ of `Always`.
     kubectl delete pod redis
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 参阅[卷](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)。
 
@@ -200,4 +202,4 @@ details such as mounting and unmounting the devices on the nodes. See
 [Volumes](/docs/concepts/storage/volumes/) for more details.
 -->
 
-{{% /capture %}}
+

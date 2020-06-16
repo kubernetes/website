@@ -1,19 +1,19 @@
 ---
 title: 네트워크 정책
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 네트워크 정책은 {{< glossary_tooltip text="파드" term_id="pod">}} 그룹이 서로 간에 또는 다른 네트워크 엔드포인트와 통신할 수 있도록 허용하는 방법에 대한 명세이다.
 
 `NetworkPolicy` 리소스는 {{< glossary_tooltip text="레이블" term_id="label">}}을 사용해서 파드를 선택하고 선택한 파드에 허용되는 트래픽을 지정하는 규칙을 정의한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 전제 조건
 
 네트워크 정책은 [네트워크 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)으로 구현된다. 네트워크 정책을 사용하려면 NetworkPolicy를 지원하는 네트워킹 솔루션을 사용해야만 한다. 이를 구현하는 컨트롤러 없이 NetworkPolicy 리소스를 생성해도 아무런 효과가 없기 때문이다.
@@ -211,12 +211,13 @@ SCTP 프로토콜 NetworkPolicy을 지원하는 {{< glossary_tooltip text="CNI" 
 {{< /note >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - 자세한 설명과 추가 예시는
   [네트워크 정책 선언](/docs/tasks/administer-cluster/declare-network-policy/)을 본다.
 - NetworkPolicy 리소스에서 사용되는 일반적인 시나리오는 [레시피](https://github.com/ahmetb/kubernetes-network-policy-recipes)를 본다.
 
-{{% /capture %}}
+

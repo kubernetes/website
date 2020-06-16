@@ -1,5 +1,10 @@
 # i18n strings for the English (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
+[announcement_title]
+other = "Black lives matter."
+
+[announcement_message]
+other = "We stand in solidarity with the Black community.<br/>Racism is unacceptable.<br/> It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it."
 
 [caution]
 other = "Caution:"
@@ -28,6 +33,9 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+[deprecation_title]
+other = "You are viewing documentation for Kubernetes version:"
+
 [deprecation_warning]
 other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
 
@@ -45,6 +53,9 @@ other = "I AM..."
 
 [docs_label_users]
 other = "Users"
+
+[examples_heading]
+other = "Examples"
 
 [feedback_heading]
 other = "Feedback"
@@ -172,11 +183,20 @@ other = "Note:"
 [objectives_heading]
 other = "Objectives"
 
+[options_heading]
+other = "Options"
+
 [prerequisites_heading]
 other = "Before you begin"
 
+[seealso_heading]
+other = "See Also"
+
 [subscribe_button]
 other = "Subscribe"
+
+[synopsis_heading]
+other = "Synopsis"
 
 [ui_search_placeholder]
 other = "Search"

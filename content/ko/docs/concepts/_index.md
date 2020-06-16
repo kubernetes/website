@@ -1,17 +1,17 @@
 ---
 title: 개념
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 개념 섹션을 통해 쿠버네티스 시스템을 구성하는 요소와 {{< glossary_tooltip text="클러스터" term_id="cluster" length="all" >}}를 표현하는데 사용되는 추상 개념에 대해 배우고 쿠버네티스가 작동하는 방식에 대해 보다 깊이 이해할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -60,12 +60,13 @@ weight: 40
 클러스터 내 노드는 애플리케이션과 클라우드 워크플로우를 구동시키는 머신(VM, 물리 서버 등)이다. 쿠버네티스 마스터는 각 노드를 관리한다. 직접 노드와 직접 상호 작용할 일은 거의 없을 것이다.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 개념 페이지를 작성하기를 원하면,
 개념 페이지 유형과 개념 템플릿에 대한 정보가 있는
 [페이지 템플릿 사용하기](/docs/home/contribute/page-templates/)를 참조한다.
 
-{{% /capture %}}
+

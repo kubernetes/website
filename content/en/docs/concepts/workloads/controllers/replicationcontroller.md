@@ -9,11 +9,11 @@ feature:
   description: >
     Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 A [`Deployment`](/docs/concepts/workloads/controllers/deployment/) that configures a [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) is now the recommended way to set up replication.
@@ -23,10 +23,10 @@ A _ReplicationController_ ensures that a specified number of pod replicas are ru
 time. In other words, a ReplicationController makes sure that a pod or a homogeneous set of pods is
 always up and available.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How a ReplicationController Works
 
@@ -285,4 +285,4 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 Read [Run Stateless AP Replication Controller](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
-{{% /capture %}}
+

@@ -3,7 +3,7 @@ reviewers:
 - bowei
 - freehan
 title: 启用端点切片
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -12,28 +12,29 @@ reviewers:
 - bowei
 - freehan
 title: Enabling Endpoint Slices
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page provides an overview of enabling Endpoint Slices in Kubernetes.
 -->
 本页提供启用 Kubernetes 端点切片的总览
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
   {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Introduction

@@ -1,17 +1,17 @@
 ---
 title: 为容器设置环境变量
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Define Environment Variables for a Container
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to define environment variables for a container
@@ -20,17 +20,18 @@ in a Kubernetes Pod.
 
 本页将展示如何为 kubernetes Pod 下的容器设置环境变量。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Define an environment variable for a container
@@ -133,6 +134,10 @@ will override any environment variables specified in the container image.
 通过 `env` 或 `envFrom` 字段设置的环境变量将覆盖容器镜像中指定的所有环境变量。
 {{< /note >}}
 
+{{< note >}}
+环境变量之间可能出现互相依赖或者循环引用的情况，使用之前需注意引用顺序
+{{< /note >}}
+
 <!--
 ## Using environment variables inside of your config
 
@@ -167,9 +172,10 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 -->
 创建后，命令 `echo Warm greetings to The Most Honorable Kubernetes` 将在容器中运行。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
@@ -181,4 +187,4 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 * 有关如何通过环境变量来使用 Secret，请参阅[这里](/docs/user-guide/secrets/#using-secrets-as-environment-variables)。
 * 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
@@ -11,12 +11,12 @@ reviewers:
 - soltysh
 - janetkuo
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
@@ -62,10 +62,10 @@ For instructions on creating and working with cron jobs, and for an example of a
 有关创建和使用 CronJob 的说明及规范文件的示例，请参见[使用 CronJob 运行自动化任务](/docs/tasks/job/automated-tasks-with-cron-jobs)。
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Cron Job Limitations
@@ -133,4 +133,5 @@ the Job in turn is responsible for the management of the Pods it represents.
 -->
 CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管理其代表的 Pod。
 
-{{% /capture %}}
+
+ 

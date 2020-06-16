@@ -1,11 +1,11 @@
 ---
 title: 设备插件
 description: 使用 Kubernetes 设备插件框架来实现适用于 GPU、NIC、FPGA、InfiniBand 以及类似的需要特定于供应商设置的资源的插件。
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 <!--
@@ -23,9 +23,9 @@ Kubernetes 提供了一个[设备插件框架](https://github.com/kubernetes/com
 
 供应商可以实现设备插件，由您手动部署或作为 {{< glossary_tooltip term_id="daemonset" >}} 来部署，而不必定制 Kubernetes 本身的代码。目标设备包括 GPU、高性能 NIC、FPGA、InfiniBand 适配器以及其他类似的、可能需要特定于供应商的初始化和设置的计算资源。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 注册设备插件
 
@@ -339,8 +339,9 @@ Here are some examples of device plugin implementations:
 * [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk)
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
@@ -353,4 +354,4 @@ Here are some examples of device plugin implementations:
 * 阅读如何在 Kubernetes 中如何使用 [TLS 入口的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
 * 学习 [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 
-{{% /capture %}}
+

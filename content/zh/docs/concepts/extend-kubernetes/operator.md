@@ -1,18 +1,18 @@
 ---
 title: Operator 模式
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 <!--
 ---
 title: Operator pattern
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Operators are software extensions to Kubernetes that make use of [custom
@@ -24,9 +24,9 @@ Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-con
 Operator 是 Kubernetes 的扩展软件，它利用[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
 Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/docs/concepts/#kubernetes-control-plane)方面。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Motivation
@@ -200,9 +200,10 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 
 您还可以使用任何支持 [Kubernetes API 客户端](/docs/reference/using-api/client-libraries/)的语言或运行时来实现 Operator（即控制器）。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
@@ -229,4 +230,4 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * 阅读 [CoreOS 原文](https://coreos.com/blog/introducing-operators.html)，其介绍了 Operator 介绍
 * 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的[文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
 
-{{% /capture %}}
+

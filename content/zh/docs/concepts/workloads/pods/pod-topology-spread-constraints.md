@@ -1,20 +1,20 @@
 ---
 title: Pod 拓扑扩展约束
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 <!--
 
 title: Pod Topology Spread Constraints
-content_template: templates/concept
+content_type: concept
 weight: 50
 
 ---
 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -24,9 +24,9 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 
 可以使用*拓扑扩展约束*来控制 {{< glossary_tooltip text="Pods" term_id="Pod" >}} 在集群内故障域（例如地区，区域，节点和其他用户自定义拓扑域）之间的分布。这可以帮助实现高可用以及提升资源利用率。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Prerequisites
@@ -399,4 +399,4 @@ As of 1.16, at which this feature is Alpha, there are some known limitations:
 - `Deployment` 的缩容可能导致 pod 分布不平衡。
 - pod 匹配到污点节点是允许的。参考 [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)。
 
-{{% /capture %}}
+

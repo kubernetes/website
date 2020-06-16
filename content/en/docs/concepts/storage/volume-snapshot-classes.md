@@ -7,20 +7,20 @@ reviewers:
 - xing-yang
 - yuxiangqian
 title: Volume Snapshot Classes
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document describes the concept of `VolumeSnapshotClass` in Kubernetes. Familiarity
 with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 [storage classes](/docs/concepts/storage/storage-classes) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -69,4 +69,4 @@ Volume snapshot classes have parameters that describe volume snapshots belonging
 the volume snapshot class. Different parameters may be accepted depending on the
 `driver`.
 
-{{% /capture %}}
+

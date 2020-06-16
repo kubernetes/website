@@ -7,16 +7,16 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes version and version skew support policy
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported versions
 
@@ -27,11 +27,11 @@ For more information, see [Kubernetes Release Versioning](https://github.com/kub
 The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
-Patch releases are cut from those branches at a regular cadence, or as needed.
-This decision is owned by the [patch release team](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-team.md#release-timing).
-The patch release team is part of [release managers](https://github.com/kubernetes/sig-release/blob/master/release-managers.md). For more information, see [Kubernetes Patch releases](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
+Patch releases are cut from those branches at a [regular cadence](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence), plus additional urgent releases, when required.
 
-Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
+The [Release Managers](https://git.k8s.io/sig-release/release-managers.md) group owns this decision.
+
+For more information, see the Kubernetes [patch releases](https://git.k8s.io/sig-release/releases/patch-releases.md) page.
 
 ## Supported version skew
 

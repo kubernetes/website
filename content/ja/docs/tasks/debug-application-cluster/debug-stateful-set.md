@@ -1,22 +1,23 @@
 ---
 title: StatefulSetのデバッグ
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このタスクでは、StatefulSetをデバッグする方法を説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Kubernetesクラスターが必要です。また、kubectlコマンドラインツールがクラスターと通信するように設定されている必要があります。
 * 調べたいStatefulSetを実行しておきましょう。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetのデバッグ
 
@@ -29,12 +30,13 @@ kubectl get pods -l app=myapp
 Podが長期間`Unknown`または`Terminating`の状態になっていることがわかった場合は、それらを処理する方法について[StatefulSet Podsの削除](/docs/tasks/manage-stateful-set/delete-pods/)タスクを参照してください。
 [Podのデバッグ](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/)ガイドを使用して、StatefulSet内の個々のPodをデバッグできます。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-[Init Containerのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)の詳細
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+[Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)の詳細
+
+
 
 

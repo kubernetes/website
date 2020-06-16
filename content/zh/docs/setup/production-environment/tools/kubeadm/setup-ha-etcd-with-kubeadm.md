@@ -1,6 +1,6 @@
 ---
 title: 使用 kubeadm 创建一个高可用 etcd 集群
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
@@ -9,12 +9,12 @@ weight: 70
 reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 <!--
@@ -37,9 +37,10 @@ when using kubeadm to set up a kubernetes cluster.
 -->
 默认情况下，kubeadm 运行单成员的 etcd 集群，该集群由控制面节点上的 kubelet 以静态 Pod 的方式进行管理。由于 etcd 集群只包含一个成员且不能在任一成员不可用时保持运行，所以这不是一种高可用设置。本任务，将告诉您如何在使用 kubeadm 创建一个 kubernetes 集群时创建一个外部 etcd：有三个成员的高可用 etcd 集群。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * Three hosts that can talk to each other over ports 2379 and 2380. This document assumes these default ports. However, they are configurable through the kubeadm config file.
@@ -61,9 +62,9 @@ when using kubeadm to set up a kubernetes cluster.
 -->
 [工具箱]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Setting up the cluster
@@ -413,9 +414,10 @@ kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这
     -->
     - 将 `${HOST0}` 设置为要测试的主机的 IP 地址
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 Once your have a working 3 member etcd cluster, you can continue setting up a
@@ -424,5 +426,5 @@ kubeadm](/docs/setup/independent/high-availability/).
 -->
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于[使用 kubeadm 的外部 etcd 方法](/docs/setup/independent/high-availability/)，继续部署一个高可用的控制平面。
 
-{{% /capture %}}
+
 

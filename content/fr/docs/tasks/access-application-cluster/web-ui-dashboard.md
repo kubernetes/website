@@ -1,6 +1,6 @@
 ---
 title: Tableau de bord (Dashboard)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: tasks
@@ -8,7 +8,7 @@ card:
   title: Utiliser le tableau de bord (Dashboard)
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Le tableau de bord (Dashboard) est une interface web pour Kubernetes.
 Vous pouvez utiliser ce tableau de bord pour déployer des applications conteneurisées dans un cluster Kubernetes, dépanner votre application conteneurisée et gérer les ressources du cluster.
@@ -19,9 +19,9 @@ Le tableau de bord fournit également des informations sur l'état des ressource
 
 ![Tableau de bord Kubernetes](/images/docs/ui-dashboard.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Déploiement du tableau de bord
 
@@ -212,10 +212,11 @@ Le visualiseur permet d’exploiter les logs des conteneurs appartenant à un se
 
 ![Visualisation de journaux](/images/docs/ui-dashboard-logs-view.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Pour plus d'informations, voir la page du projet [Kubernetes Dashboard](https://github.com/kubernetes/dashboard).
 
-{{% /capture %}}
+

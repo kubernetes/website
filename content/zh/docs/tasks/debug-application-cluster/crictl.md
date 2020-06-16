@@ -4,7 +4,7 @@ reviewers:
 - feiskyer
 - mrunalp
 title: 使用 crictl 对 Kubernetes 节点进行调试
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -14,12 +14,12 @@ reviewers:
 - feiskyer
 - mrunalp
 title: Debugging Kubernetes nodes with crictl
-content_template: templates/task
+content_type: task
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
@@ -34,9 +34,10 @@ Kubernetes node. `crictl` and its source are hosted in the
 您可以使用它来检查和调试 Kubernetes 节点上的容器运行时和应用程序。
 `crictl`和它的源代码在 [cri-tools](https://github.com/kubernetes-incubator/cri-tools) 代码库。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 `crictl` requires a Linux operating system with a CRI runtime.
@@ -44,9 +45,9 @@ Kubernetes node. `crictl` and its source are hosted in the
 
 `crictl` 需要带有 CRI 运行时的 Linux 操作系统。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Installing crictl
@@ -473,10 +474,10 @@ CONTAINER ID        IMAGE               CREATED              STATE              
 3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
 ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 See [kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools)
@@ -485,4 +486,4 @@ for more information.
 
 更多信息请参考 [kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools)。
 
-{{% /capture %}}
+

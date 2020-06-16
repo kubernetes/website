@@ -1,18 +1,18 @@
 ---
 title: 概念
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 <!-- ---
 title: Concepts
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The Concepts section helps you learn about the parts of the Kubernetes system and the abstractions Kubernetes uses to represent your {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}, and helps you obtain a deeper understanding of how Kubernetes works.
@@ -20,9 +20,9 @@ The Concepts section helps you learn about the parts of the Kubernetes system an
 
 概念部分可以帮助你了解 Kubernetes 的各个组成部分以及 Kubernetes 用来表示集群的一些抽象概念，并帮助你更加深入的理解 Kubernetes 是如何工作的。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview
@@ -138,9 +138,10 @@ The nodes in a cluster are the machines (VMs, physical servers, etc) that run yo
 集群中的 node 节点（虚拟机、物理机等等）都是用来运行你的应用和云工作流的机器。Kubernetes master 节点控制所有 node 节点；你很少需要和 node 节点进行直接通信。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 If you would like to write a concept page, see
@@ -150,4 +151,4 @@ for information about the concept page type and the concept template.
 
 如果你想编写一个概念页面，请参阅[使用页面模板](/docs/home/contribute/page-templates/)获取更多有关概念页面类型和概念模板的信息。
 
-{{% /capture %}}
+

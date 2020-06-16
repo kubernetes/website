@@ -1,17 +1,17 @@
 ---
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tujuan dari ReplicaSet adalah untuk memelihara himpunan stabil dari replika Pod yang sedang berjalan pada satu waktu tertentu. Maka dari itu, ReplicaSet seringkali digunakan untuk menjamin ketersediaan dari beberapa Pod identik dalam jumlah tertentu. 
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cara kerja ReplicaSet
 
@@ -295,4 +295,3 @@ Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) alih-alih
 
 ReplicaSet adalah suksesor dari [_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/). Keduanya memenuhi tujuan yang sama dan memiliki perilaku yang serupa, kecuali bahwa ReplicationController tidak mendukung kebutuhan selektor _set-based_ seperti yang dijelaskan pada [panduan penggunaan label](/docs/concepts/overview/working-with-objects/labels/#label-selectors). Pada kasus tersebut, ReplicaSet lebih direkomendasikan dibandingkan ReplicationController.
 
-{{% /capture %}}

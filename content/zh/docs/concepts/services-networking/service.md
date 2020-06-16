@@ -7,7 +7,7 @@ feature:
   description: >
     无需修改您的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载平衡。
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
@@ -21,12 +21,12 @@ feature:
   description: >
     No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
@@ -38,9 +38,9 @@ and can load-balance across them.
 使用Kubernetes，您无需修改应用程序即可使用不熟悉的服务发现机制。
 Kubernetes为Pods提供自己的IP地址和一组Pod的单个DNS名称，并且可以在它们之间进行负载平衡。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Motivation
@@ -1872,9 +1872,10 @@ Kubernetes 项目打算为 L7（HTTP）`Service` 改进我们对它的支持。
 Kubernetes 项目打算为 `Service` 实现更加灵活的请求进入模式，这些 `Service` 包含当前 `ClusterIP`、`NodePort` 和 `LoadBalancer` 模式，或者更多。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
@@ -1886,4 +1887,4 @@ Kubernetes 项目打算为 `Service` 实现更加灵活的请求进入模式，�
 * 阅读 [Ingress](/docs/concepts/services-networking/ingress/)
 * 阅读 [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 
-{{% /capture %}}
+

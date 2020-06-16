@@ -1,10 +1,10 @@
 ---
 title: Kubernetes 对象管理
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 The `kubectl` command-line tool supports several different ways to create and manage
 Kubernetes objects. This document provides an overview of the different
@@ -12,9 +12,9 @@ approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
 details of managing objects by Kubectl.
 -->
 `kubectl` 命令行工具支持多种不同的方式来创建和管理 Kubernetes 对象。本文档概述了不同的方法。阅读 [Kubectl book](https://kubectl.docs.kubernetes.io) 来了解 kubectl 管理对象的详细信息。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Management techniques
@@ -310,9 +310,10 @@ Disadvantages compared to imperative object configuration:
 - 声明式对象配置难于调试并且出现异常时结果难以理解。
 - 使用 diff 产生的部分更新会创建复杂的合并和补丁操作。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
@@ -331,4 +332,4 @@ Disadvantages compared to imperative object configuration:
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

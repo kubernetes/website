@@ -4,7 +4,7 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
-content_template: templates/task
+content_type: task
 ---
 <!--
 
@@ -13,10 +13,10 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
-content_template: templates/task
+content_type: task
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
@@ -31,15 +31,16 @@ directives.
 按照设计，Kubernetes 对 pod 执行相关的很多方面进行了抽象，使得用户不必关心。然
 而，为了正常运行，有些工作负载要求在延迟和/或性能方面有更强的保证。 为此，kubelet 提供方法来实现更复杂的负载放置策略，同时保持抽象，避免显式的放置指令。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## CPU Management Policies
@@ -311,4 +312,4 @@ equal to one. The `nginx` container is granted 2 exclusive CPUs.
 --->
 该 pod 属于 `Guaranteed` QoS 类型，因其指定了 `limits` 值，同时当未显式指定时，`requests` 值被设置为与 `limits` 值相等。同时，容器对 CPU 资源的限制值是一个大于或等于 1 的整数值。所以，该 `nginx` 容器被赋予 2 个独占 CPU。
 
-{{% /capture %}}
+
