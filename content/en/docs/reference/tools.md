@@ -14,6 +14,10 @@ Kubernetes contains several built-in tools to help you work with the Kubernetes 
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/) is the command line tool for Kubernetes. It controls the Kubernetes cluster manager.
 
+## Podtnl
+
+[`Podtnl`](https://github.com/narendranathreddythota/podtnl) is the command line tool for Kubernetes. It exposes the kubernetes pod online  
+
 ## Kubeadm
 
 [`kubeadm`](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
