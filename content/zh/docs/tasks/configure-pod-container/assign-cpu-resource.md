@@ -1,3 +1,9 @@
+---
+title: 为容器和 Pods 分配 CPU 资源
+content_type: task
+weight: 20
+---
+
 <!--
 ---
 title: Assign CPU Resources to Containers and Pods
@@ -5,12 +11,6 @@ content_type: task
 weight: 20
 ---
 -->
-
----
-title: 为容器和 Pods 分配 CPU 资源
-content_type: task
-weight: 20
----
 
 <!-- overview -->
 
