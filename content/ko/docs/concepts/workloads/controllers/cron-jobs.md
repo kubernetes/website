@@ -80,7 +80,7 @@ Cannot determine if job needs to be started. Too many missed start time (> 100).
 
 ## {{% heading "whatsnext" %}}
 
-[크론 표현 포맷](https://pkg.go.dev/github.com/robfig/cron?tab=doc#hdr-CRON_Expression_Format)은
+[크론 표현 포맷](https://ko.wikipedia.org/wiki/Cron)은
 크론잡 `schedule` 필드의 포맷을 문서화 한다.
 
 크론 잡 생성과 작업에 대한 지침과 크론잡 매니페스트의
