@@ -131,7 +131,7 @@ spec:
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
-What matters how Pods and other objects consume those values.
+What matters is how Pods and other objects consume those values.
 For this example, defining a volume and mounting it inside the `demo`
 container as `/config` creates four files:
 
