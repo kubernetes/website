@@ -3,7 +3,31 @@
 [![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
 [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-ようこそ！このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
+このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
+
+## Hugoを使ってローカル環境でWebサイトを動かす
+
+Hugoのインストール方法については[Hugoの公式ドキュメント](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L10)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
+
+Hugoがインストールできたら、以下のコマンドを使ってWebサイトをローカル上で動かすことができます:
+
+```bash
+git clone https://github.com/kubernetes/website.git
+cd website
+git submodule update --init --recursive
+hugo server --buildFuture
+```
+
+これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+
+## SIG Docsに参加する
+
+[コミュニティのページ](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)をご覧になることで、SIG Docs Kubernetesコミュニティとの関わり方を学ぶことができます。
+
+本プロジェクトのメンテナーには以下の方法で連絡することができます:
+
+- [Slack](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
+- [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
 ## ドキュメントに貢献する
 
@@ -12,63 +36,31 @@ GitHubの画面右上にある**Fork**ボタンをクリックすると、お使
 Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。
 Pull Requestの所有者は作成者であるため、**ご自身で作成したPull Requestを編集し、フィードバックに対応するのはご自身の役目です。**
 また、状況によっては2人以上のレビュアーからフィードバックが返されたり、アサインされていないレビュー担当者からのフィードバックが来ることがある点もご注意ください。
-さらに、特定のケースにおいては、レビュー担当者が[Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers)に対してレビューを依頼することもあります。
+さらに、特定のケースにおいては、レビュー担当者がKubernetesの技術的なレビュアーに対してレビューを依頼することもあります。
 レビュー担当者はタイムリーにフィードバックを提供するために最善を尽くしますが、応答時間は状況に応じて異なる場合があります。
 
 Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
 
-* [貢献のはじめ方](https://kubernetes.io/docs/contribute/start/)
-* [ドキュメントの変更をステージする](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
+* [Kubernetesのドキュメントへの貢献](https://kubernetes.io/docs/contribute/)
 * [ページテンプレートの使い方](http://kubernetes.io/docs/contribute/style/page-templates/)
 * [ドキュメントのスタイルガイド](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
 
-## Dockerを使ってローカル環境でWebサイトを動かす
+## 翻訳された`README.md`一覧
 
-ローカル環境で本ページを動かすのに推奨される方法は、静的サイトジェネレータの[Hugo](https://gohugo.io)を動かすのに特化した[Docker](https://docker.com)イメージを使うことです。
-
-> Windows上で環境を作る場合は[Chocolatey](https://chocolatey.org)を使ってインストール可能な追加のツールが必要になります。 `choco install make`
-
-> Dockerを使わずに環境を構築したい場合は、[Hugoをローカル環境で動かす](#hugoをローカル環境で動かす)をご覧ください。
-
-既に[Dockerが動いている環境](https://www.docker.com/get-started)であれば、以下のコマンドを使って`kubernetes-hugo`イメージをローカルでビルドします:
-
-```bash
-make docker-image
-```
-
-イメージが作成されたら、以下のコマンドを使ってWebサイトをローカル上で動かすことができます:
-
-```bash
-make docker-serve
-```
-
-お使いのブラウザにて http://localhost:1313 にアクセスすることでWebサイトが開きます。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
-
-## Hugoをローカル環境で動かす
-
-Hugoのインストール方法については[Hugoの公式ドキュメント](https://gohugo.io/getting-started/installing/)をご覧ください。このとき、[`netlify.toml`](netlify.toml#L9)ファイルに記述されている`HUGO_VERSION`と同じバージョンをインストールするようにしてください。
-
-Hugoがインストールできたら、以下のコマンドを使ってWebサイトをローカル上で動かすことができます:
-
-```bash
-make serve
-```
-
-これで、Hugoのサーバーが1313番ポートを使って開始します。 お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
-
-## コミュニティ内での議論、貢献、サポートなどについて
-
-[コミュニティのページ](http://kubernetes.io/community/)をご覧になることで、Kubernetesコミュニティとの関わり方を学ぶことができます。
-
-本プロジェクトのメンテナーには以下の方法で連絡することができます:
-
-- [Slack](https://kubernetes.slack.com/messages/kubernetes-docs-ja)
-- [メーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+| Language  | Language |
+|---|---|
+|[中国語](README-zh.md)|[韓国語](README-ko.md)|
+|[フランス語](README-fr.md)|[ポーランド語](README-pl.md)|
+|[ドイツ語](README-de.md)|[ポルトガル語](README-pt.md)|
+|[ヒンディー語](README-hi.md)|[ロシア語](README-ru.md)|
+|[インドネシア語](README-id.md)|[スペイン語](README-es.md)|
+|[イタリア語](README-it.md)|[ウクライナ語](README-uk.md)|
+|[日本語](README-ja.md)|[ベトナム語](README-vi.md)|
 
 ### 行動規範
 
-Kubernetesコミュニティへの参加については、[Kubernetesの行動規範](code-of-conduct.md)によって管理されています。
+Kubernetesコミュニティへの参加については、[CNCFの行動規範](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)によって管理されています。
 
 ## ありがとうございます！
 
