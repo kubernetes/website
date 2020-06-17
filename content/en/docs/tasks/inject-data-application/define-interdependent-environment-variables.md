@@ -10,14 +10,10 @@ This page shows how to define dependent environment variables for a container
 in a Kubernetes Pod.
 
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 
 <!-- steps -->
@@ -51,7 +47,7 @@ Pod:
     dependent-envars-demo     1/1       Running   0          9s
     ```
 
-3. Get log to the container running in your Pod:
+3. Check the logs for the container running in your Pod:
 
     ```shell
     kubectl logs pod/dependent-envars-demo
@@ -59,17 +55,17 @@ Pod:
     ```
     SERVICE_ADDRESS
     https://172.17.0.1:80
-    UNCHANGE_REFERENCE
+    UNCHANGED_REFERENCE
     $(PROTOCOL)://172.17.0.1:80
     ESCAPED_REFERENCE
     $(PROTOCOL)://172.17.0.1:80
     ```
 
-As shown above, we have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGE_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
+As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
 
 When the environment variable is defined, you can use it directly. You can use it after the definition is completed, such as `SERVICE_ADDRESS`.
 
-When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGE_REFERENCE`. A bad reference does not interfere with the operation of the container.
+When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. A bad reference does not interfere with the operation of the container.
 
 The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME).Escaped references will never be expanded, regardless of whether the variable exists or not.
 
