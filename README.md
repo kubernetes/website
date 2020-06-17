@@ -41,7 +41,7 @@ Furthermore, in some cases, one of your reviewers might ask for a technical revi
 For more information about contributing to the Kubernetes documentation, see:
 
 * [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
-* [Using Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 
