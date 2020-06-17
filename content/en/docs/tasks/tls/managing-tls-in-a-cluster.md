@@ -1,13 +1,13 @@
 ---
 title: Manage TLS Certificates in a Cluster
-content_template: templates/task
+content_type: task
 reviewers:
 - mikedanese
 - beacham
 - liggit
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes provides a `certificates.k8s.io` API, which lets you provision TLS
 certificates signed by a Certificate Authority (CA) that you control. These CA
@@ -23,16 +23,17 @@ CA for this purpose, but you should never rely on this. Do not assume that
 these certificates will validate against the cluster root CA.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trusting TLS in a Cluster
 
@@ -222,4 +223,4 @@ enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to
 your Certificate Authority's keypair.
 
-{{% /capture %}}
+

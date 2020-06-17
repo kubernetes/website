@@ -1,6 +1,6 @@
 ---
 title: 为容器管理计算资源
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: 自动装箱
@@ -11,7 +11,7 @@ feature:
 <!--
 ---
 title: Managing Compute Resources for Containers
-content_template: templates/concept
+content_type: concept
 weight: 20
 feature:
   title: Automatic binpacking
@@ -20,7 +20,7 @@ feature:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When you specify a [Pod](/docs/concepts/workloads/pods/pod/), you can optionally specify how
@@ -33,10 +33,10 @@ the difference between requests and limits, see
 -->
 当您定义 [Pod](/docs/user-guide/pods) 的时候可以选择为每个容器指定需要的 CPU 和内存（RAM）大小。当为容器指定了资源请求后，调度器就能够更好的判断出将容器调度到哪个节点上。如果您还为容器指定了资源限制，Kubernetes 就可以按照指定的方式来处理节点上的资源竞争。关于资源请求和限制的不同点和更多资料请参考 [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/resource-qos.md)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Resource types
@@ -246,9 +246,9 @@ When using Docker:
   every 100ms. A container cannot use more than its share of CPU time during this interval.
 -->
 
-- `spec.containers[].resources.requests.cpu` 的值将转换成 millicore 值，这是个浮点数，并乘以 1024，这个数字中的较大者或 2 用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
+- `spec.containers[].resources.requests.cpu` 先被转换为可能是小数的 core 值，再乘以 1024，这个数字和 2 的较大者用作 `docker run` 命令中的[ `--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint) 标志的值。
 
-- `spec.containers[].resources.limits.cpu` 被转换成 millicore 值。被乘以 100000 然后 除以 1000。这个数字用作 `docker run` 命令中的 [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint) 标志的值。[`--cpu-quota` ] 标志被设置成了 100000，表示测量配额使用的默认100ms 周期。如果 [`--cpu-cfs-quota`] 标志设置为 true，则 kubelet 会强制执行 cpu 限制。从 Kubernetes 1.2 版本起，此标志默认为 true。
+- `spec.containers[].resources.limits.cpu` 先被转换为 millicore 值，再乘以 100，结果就是每 100ms 内 container 可以使用的 CPU 总时间。在此时间间隔（100ms）内，一个 container 使用的 CPU 时间不会超过它被分配的时间。
 
 <!--
   {{< note >}}
@@ -257,7 +257,7 @@ When using Docker:
 -->
 
   {{< note >}}
-  默认配额限制为 100 毫秒。 CPU配额的最小单位为 1 毫秒。
+  默认的配额（quota）周期为 100 毫秒。 CPU配额的最小精度为 1 毫秒。
   {{</ note >}}
 
 <!--
@@ -945,10 +945,11 @@ spec:
         example.com/foo: 1
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
@@ -968,4 +969,4 @@ spec:
 
 * [资源需求](/docs/resources-reference/{{< param "version" >}}/#resourcerequirements-v1-core)
 
-{{% /capture %}}
+

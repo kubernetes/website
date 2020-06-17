@@ -2,20 +2,20 @@
 title: Zadania
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 W tej części dokumentacji Kubernetesa znajdują się opisy
 sposobu realizacji różnych zadań. Przedstawione są one zazwyczaj jako
 krótka sekwencja kilku kroków związanych z pojedynczym zadaniem.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Graficzny interfejs użytkownika _(Dashboard)_
 
@@ -73,11 +73,12 @@ Konfiguracja i przydzielanie węzłom klastra procesorów GPU NVIDIA jako zasob�
 
 Konfiguracja i dysponowanie _huge pages_ jako zasobu klastra.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jeśli chciałbyś stworzyć nową stronę poświęconą jakiemuś zadaniu, przeczytaj
 [Jak przygotować propozycję zmian (PR)](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

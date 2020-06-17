@@ -1,14 +1,14 @@
 ---
 title: 콘텐츠 개선 제안
 slug: suggest-improvements
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 문서에 문제가 있거나, 새로운 내용에 대한 아이디어가 있으면, 이슈를 연다. [GitHub 계정](https://github.com/join)과 웹 브라우저만 있으면 된다.
 
@@ -16,9 +16,9 @@ card:
 쿠버네티스 기여자는 필요에 따라 이슈를 리뷰, 분류하고 태그를 지정한다. 다음으로, 여러분이나
 다른 쿠버네티스 커뮤니티 멤버가 문제를 해결하기 위한 변경 사항이 있는 풀 리퀘스트를 연다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 이슈 열기
 
@@ -62,4 +62,4 @@ card:
   존중한다. 예를 들어, "문서가 끔찍하다"는 도움이
   되지 않거나 예의 바르지 않은 피드백이다.
 
-{{% /capture %}}
+

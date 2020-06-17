@@ -1,10 +1,10 @@
 ---
 title: CronJob
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un _Cron Job_ ejecuta tareas, [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/), a intervalos regulares.
 
@@ -19,10 +19,10 @@ Para instrucciones sobre cómo crear y trabajar con trabajos programados,
 incluyendo definiciones de ejemplo, 
 puedes consultar [Ejecutar tareas automatizadas con trabajos programados](/docs/tasks/job/automated-tasks-with-cron-jobs).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Limitaciones de las tareas programados
 
@@ -58,4 +58,4 @@ Esto ocurre porque el controlador en este caso comprueba cuántas programaciones
 El CronJob es únicamente responsable de crear los Jobs que coinciden con su programación, y
 el Job por otro lado es el responsable de gestionar los Pods que representa.
 
-{{% /capture %}}
+

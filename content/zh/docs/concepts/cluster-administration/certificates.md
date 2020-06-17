@@ -2,12 +2,12 @@
 cn-approvers:
 - lichuqiang
 title: 证书
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When using client certificate authentication, you can generate certificates
@@ -17,10 +17,10 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 当使用客户端证书进行认证时，用户可以使用现有部署脚本，或者通过 `easyrsa`、`openssl` 或
 `cfssl` 手动生成证书。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -473,4 +473,4 @@ x509 certificates to use for authentication as documented
 您可以按照[这里](/docs/tasks/tls/managing-tls-in-a-cluster)记录的方式，
 使用 `certificates.k8s.io` API 来准备 x509 证书，用于认证。
 
-{{% /capture %}}
+

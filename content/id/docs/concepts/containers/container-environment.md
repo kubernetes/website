@@ -1,17 +1,17 @@
 ---
 title: Kontainer Environment
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan berbagai *resource* yang tersedia di dalam Kontainer pada suatu *environment*.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## *Environment* Kontainer
 
@@ -48,12 +48,13 @@ FOO_SERVICE_PORT=<port dimana service dijalankan>
 Semua *Service* memiliki alamat-alamat IP yang bisa didapatkan di dalam Kontainer melalui DNS,
 jika [*addon* DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) diaktifkan. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [berbagai *hook* pada *lifecycle* Kontainer](/docs/concepts/containers/container-lifecycle-hooks/).
 * Dapatkan pengalaman praktis soal
   [memberikan *handler* untuk *event* dari *lifecycle* Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

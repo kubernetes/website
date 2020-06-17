@@ -1,17 +1,17 @@
 ---
 title: 권장 레이블
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 kubectl과 대시보드와 같은 많은 도구들로 쿠버네티스 오브젝트를 시각화 하고 관리할 수 있다.
 공통 레이블 셋은 모든 도구들이 이해할 수 있는 공통의 방식으로 오브젝트를 식별하고
 도구들이 상호 운용적으로 작동할 수 있도록 한다.
 
 권장 레이블은 지원 도구 외에도 쿼리하는 방식으로 애플리케이션을 식별하게 한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 메타데이터는 _애플리케이션_ 의 개념을 중심으로 정리된다.
 쿠버네티스는 플랫폼 서비스(PaaS)가 아니며 애플리케이션에 대해 공식적인 개념이 없거나 강요하지 않는다.
 대신 애플리케이션은 비공식적이며 메타데이터로 설명된다.
@@ -166,4 +166,4 @@ metadata:
 
 MySQL `StatefulSet` 과 `Service` 로 MySQL과 WordPress가 더 큰 범위의 애플리케이션에 포함되어 있는 것을 알게 된다.
 
-{{% /capture %}}
+

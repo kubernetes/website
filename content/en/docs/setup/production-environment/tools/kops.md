@@ -1,10 +1,10 @@
 ---
 title: Installing Kubernetes with kops
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
 It uses a tool called [`kops`](https://github.com/kubernetes/kops).
@@ -18,9 +18,10 @@ kops is an automated provisioning system:
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * You must have [kubectl](/docs/tasks/tools/install-kubectl/) installed.
 
@@ -28,9 +29,9 @@ kops is an automated provisioning system:
 
 * You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Creating a cluster
 
@@ -225,13 +226,14 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
 * Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
 * Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
 
-{{% /capture %}}
+

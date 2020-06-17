@@ -1,10 +1,10 @@
 ---
 title: 配置存活、就绪和启动探测器
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to configure liveness, readiness and startup probes for Containers.
 
@@ -34,15 +34,16 @@ kubelet 使用就绪探测器可以知道容器什么时候准备好了并可以
 
 kubelet 使用启动探测器可以知道应用程序容器什么时候启动了。如果配置了这类探测器，就可以控制容器在启动成功后再进行存活性和就绪检查，确保这些存活、就绪探测器不会影响应用程序的启动。这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Define a liveness command
@@ -505,9 +506,10 @@ to resolve it.
 
 对于一次 TCP 探测，kubelet 在节点上（不是在 Pod 里面）建立探测连接，这意味着你不能在 `host` 参数上配置 service name，因为 kubelet 不能解析 service name。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about
@@ -527,4 +529,4 @@ to resolve it.
 * [容器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [探测器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+

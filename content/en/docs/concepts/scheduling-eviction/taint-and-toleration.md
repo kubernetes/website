@@ -4,12 +4,12 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Taints and Tolerations
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 [_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
@@ -22,9 +22,9 @@ Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Concepts
 
@@ -250,7 +250,7 @@ tolerations:
 Kubernetes automatically adds a toleration for
 `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable`
 with `tolerationSeconds=300`,
-unless you, or a controller, set those tolerations explictly.
+unless you, or a controller, set those tolerations explicitly.
 
 These automatically-added tolerations mean that Pods remain bound to
 Nodes for 5 minutes after one of these problems is detected.
@@ -282,9 +282,10 @@ tolerations to all daemons, to prevent DaemonSets from breaking.
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about [out of resource handling](/docs/tasks/administer-cluster/out-of-resource/) and how you can configure it
 * Read about [pod priority](/docs/concepts/configuration/pod-priority-preemption/)
 
-{{% /capture %}}
+

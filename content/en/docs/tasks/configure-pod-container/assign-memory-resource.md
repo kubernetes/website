@@ -1,19 +1,20 @@
 ---
 title: Assign Memory Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to assign a memory *request* and a memory *limit* to a
 Container. A Container is guaranteed to have as much memory as it requests,
 but is not allowed to use more memory than its limit.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -46,9 +47,9 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -330,9 +331,10 @@ Delete your namespace. This deletes all the Pods that you created for this task:
 kubectl delete namespace mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For app developers
 
@@ -356,7 +358,7 @@ kubectl delete namespace mem-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+
 
 
 

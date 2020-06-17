@@ -1,10 +1,10 @@
 ---
 title: Overhead Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -13,10 +13,10 @@ Ketika kamu menjalankan Pod pada Node, Pod itu akan mengambil sejumlah sumber da
 _Pod Overhead_ adalah fitur yang berfungsi untuk menghitung sumber daya digunakan oleh infrastruktur Pod selain permintaan dan limit Container.
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overhead Pod
 
@@ -44,11 +44,12 @@ Pengguna yang dapat mengubah sumber daya RuntimeClass dapat memengaruhi kinerja 
 Lihat [Ringkasan Otorisasi](/docs/reference/access-authn-authz/authorization/) untuk lebih lanjut.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [Desain PodOverhead](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: 파드 토폴로지 분배 제약 조건
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 필수 구성 요소
 
@@ -245,4 +245,4 @@ profiles:
 - 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: Các khái niệm nền tảng của Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Khái niệm Cloud Controller Manager (CCM) (để tránh nhầm lẫn với bản binary build cùng tên) được định nghĩa riêng biệt để cho phép các bên cung cấp dịch vụ cloud và thành phần chính của Kubernetes phát triển độc lập với nhau. CCM chạy đồng thời với những thành phần khác thuộc máy chủ của một cluster như Controller Manager của Kubernetes, API server, và Scheduler. Nó cũng có thể đóng vai trò như một addon cho Kubernetes.
 
@@ -16,9 +16,9 @@ Dưới đây là kiến trúc của một Kubernetes cluster khi không đi cù
 
 ![Kiến trúc CCM Kube trước đây](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Thiết kế
 
@@ -238,4 +238,4 @@ Sau đây là danh sách các nhà cung cấp dịch vụ cloud đã triển kha
 
 Hướng dẫn chi tiết cho việc cấu hình và chạy CCM được cung cấp tại [đây](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
-{{% /capture %}}
+

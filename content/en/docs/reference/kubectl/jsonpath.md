@@ -1,14 +1,14 @@
 ---
 title: JSONPath Support
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl supports JSONPath template.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 JSONPath template is composed of JSONPath expressions enclosed by curly braces {}.
 Kubectl uses JSONPath expressions to filter on specific fields in the JSON object and format the output.
@@ -98,4 +98,4 @@ kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.
 ```
 {{< /note >}}
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: クラウドコントローラーマネージャーとそのコンセプト
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 クラウドコントローラマネージャー(CCM)のコンセプト(バイナリと混同しないでください)は、もともとクラウドベンダー固有のソースコードと、Kubernetesのコアソースコードを独立して進化させることが出来るように作られました。クラウドコントローラーマネージャーは、Kubernetesコントローラーマネージャー、APIサーバー、そしてスケジューラーのような他のマスターコンポーネントと並行して動きます。またKubernetesのアドオンとしても動かすことができ、その場合はKubernetes上で動きます。
 
@@ -16,10 +16,10 @@ weight: 30
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 設計
 
@@ -235,4 +235,4 @@ rules:
 
 CCMを設定、動かすための完全な手順は[こちら](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)で提供されています。
 
-{{% /capture %}}
+

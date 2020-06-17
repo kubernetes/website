@@ -1,19 +1,19 @@
 ---
 title: Komponen-Komponen Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Dokumen ini merupakan ikhtisar yang mencakup berbagai komponen
 yang dibutuhkan agar klaster Kubernetes dapat berjalan secara fungsional.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Komponen <i>Master</i>
 
 Komponen <i>master</i> menyediakan <i>control plane</i> bagi klaster.
@@ -147,6 +147,6 @@ untuk melakukan pencarian data yang dibutuhkan.
 penyimpanan <i>log</i> terpusat dengan antar muka yang dapat digunakan untuk melakukan
 pencarian.
 
-{{% /capture %}}
+
 
 

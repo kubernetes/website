@@ -1,19 +1,20 @@
 ---
 title: 컨테이너 및 파드 메모리 리소스 할당
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 메모리 *요청량* 과 메모리 *상한* 을 컨테이너에 어떻게 지정하는지 보여준다.
 컨테이너는 요청량 만큼의 메모리 확보가 보장되나
 상한보다 더 많은 메모리는 사용할 수 없다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -45,9 +46,9 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 네임스페이스 생성
 
@@ -327,9 +328,10 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 kubectl delete namespace mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 앱 개발자들을 위한
 
@@ -353,4 +355,4 @@ kubectl delete namespace mem-example
 
 * [API 오브젝트에 할당량 구성 ](/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+

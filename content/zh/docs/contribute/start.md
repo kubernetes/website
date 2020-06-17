@@ -1,7 +1,7 @@
 ---
 title: 开始贡献
 slug: start
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
@@ -11,7 +11,7 @@ card:
 ---
 title: Start contributing
 slug: start
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
@@ -19,7 +19,7 @@ card:
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- 
 If you want to get started contributing to the Kubernetes documentation, this
@@ -36,10 +36,10 @@ code repositories, refer to
 
 如果您在寻找有关如何开始向 Kubernetes 仓库贡献代码的信息，请参考 [Kubernetes 社区指南](https://github.com/kubernetes/community/blob/master/governance.md)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!-- 
 ## The basics about our docs 
@@ -620,9 +620,10 @@ to submit your proposal.
 看一下[现有案例研究](https://github.com/kubernetes/website/tree/master/content/en/case-studies)的源码。
 使用 [Kubernetes 案例研究提交表](https://www.cncf.io/people/end-user-community/)提交您的提案。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- 
 When you are comfortable with all of the tasks discussed in this topic and you
@@ -631,4 +632,4 @@ want to engage with the Kubernetes docs team in deeper ways, read the
 -->
 当您对本主题中讨论的所有任务感到满意，并且您希望以更深入的方式与 Kubernetes 文档团队合作，请阅读[中级贡献者指南](/docs/contribute/intermediate/)。
 
-{{% /capture %}}
+

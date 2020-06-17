@@ -1,10 +1,10 @@
 ---
 title: Pod 开销
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -18,10 +18,10 @@ on top of the container requests & limits.
 在节点上运行 Pod 时，Pod 本身占用大量系统资源。这些资源是运行 Pod 内容器所需资源的附加资源。
 _POD 开销_ 是一个特性，用于计算 Pod 基础设施在容器请求和限制之上消耗的资源。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Pod Overhead
@@ -298,11 +298,12 @@ from source in the meantime.
 在 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 中可以通过 `kube_pod_overhead` 指标来协助确定何时使用 PodOverhead 以及协助观察以一个既定开销运行的工作负载的稳定性。
 该特性在 kube-state-metrics 的 1.9 发行版本中不可用，不过预计将在后续版本中发布。在此之前，用户需要从源代码构建 kube-state-metrics. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [PodOverhead 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

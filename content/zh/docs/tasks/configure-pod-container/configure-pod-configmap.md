@@ -1,6 +1,6 @@
 ---
 title: 使用 ConfigMap 配置 Pod
-content_template: templates/task
+content_type: task
 weight: 150
 card:
   name: tasks
@@ -8,26 +8,27 @@ card:
 ---
 <!-- ---
 title: Configure a Pod to Use a ConfigMap
-content_template: templates/task
+content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps. -->
 ConfigMap 允许您将配置文件与镜像文件分离，以使容器化的应用程序具有可移植性。该页面提供了一系列使用示例，这些示例演示了如何使用存储在 ConfigMap 中的数据创建 ConfigMap 和配置 Pod。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 <!-- ## Create a ConfigMap
@@ -756,9 +757,9 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 使用 ConfigMap 作为子路径[subPath](/docs/concepts/storage/volumes/#using-subpath)的容器将不会收到 ConfigMap 更新。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- ## Understanding ConfigMaps and Pods -->
 ## 了解 ConfigMap 和 Pod
@@ -824,11 +825,12 @@ ConfigMap 驻留在特定的[命令空间](/docs/concepts/overview/working-with-
   这些不是创建 pods 的常用方法。
   {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!-- * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/). -->
 * 遵循[使用ConfigMap配置Redis](/docs/tutorials/configuration/configure-redis-using-configmap/)的真实案例。
 
-{{% /capture %}}
+
 

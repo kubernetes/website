@@ -1,9 +1,9 @@
 ---
 title: クラウドコントローラーマネージャーの開発
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 今後のリリースで、クラウドコントローラーマネージャーはKubernetesを任意のクラウドと統合するための良い方法となります。これによりクラウドプロバイダーはKubernetesのコアリリースサイクルから独立して機能を開発できるようになります。
@@ -13,12 +13,12 @@ content_template: templates/concept
 独自のクラウドコントローラーマネージャーを構築する方法を説明する前に、クラウドコントローラーマネージャーがKubernetesの内部でどのように機能するかに関する背景を知っておくと役立ちます。
 クラウドコントローラーマネージャーはGoインターフェースを利用する`kube-controller-manager`のコードで、任意のクラウドの実装をプラグインとして利用できるようになっています。スキャフォールディングと汎用のコントローラー実装の大部分はKubernetesのコアになりますが、[クラウドプロバイダーのインターフェイス](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L42-L62)が満たされていれば提供されているクラウドプロバイダーのインターフェイスが実行されるようになります。
 
-実装の詳細をもう少し掘り下げてみましょう。すべてのクラウドコントローラーマネージャーはKubernetesコアからパッケージをインポートします。唯一の違いは、各プロジェクトが利用可能なクラウドプロバイダーの情報(グローバル変数)が更新される場所である[cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go#L56-L66)を呼び出すことによって独自のクラウドプロバイダーを登録する点です。
-
-{{% /capture %}}
+実装の詳細をもう少し掘り下げてみましょう。すべてのクラウドコントローラーマネージャーはKubernetesコアからパッケージをインポートします。唯一の違いは、各プロジェクトが利用可能なクラウドプロバイダーの情報(グローバル変数)が更新される場所である[cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/6371aabbd7a7726f4b358444cca40def793950c2/plugins.go#L55-L63)を呼び出すことによって独自のクラウドプロバイダーを登録する点です。
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## 開発
 
@@ -36,4 +36,4 @@ Kubernetesには登録されていない独自のクラウドプロバイダー�
 
 Kubernetesに登録されているクラウドプロバイダーであれば、[Daemonset](https://kubernetes.io/examples/admin/cloud/ccm-example.yaml) を使ってあなたのクラスターで動かすことができます。詳細については[Kubernetesクラウドコントローラーマネージャードキュメント](/docs/tasks/administer-cluster/running-cloud-controller/)を参照してください。
 
-{{% /capture %}}
+

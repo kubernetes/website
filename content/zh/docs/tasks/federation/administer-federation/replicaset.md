@@ -1,15 +1,15 @@
 ---
 title: 联邦 ReplicaSet
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Federated ReplicaSets
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -27,9 +27,10 @@ replicas exist across the registered clusters.
 本指南阐述了如何在联邦控制平面中使用 ReplicaSet。
 在联邦控制平面中的 ReplicaSet (在本指南中称为”联邦 ReplicaSet”) 和传统的 [Kubernetes
 ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 很相似，提供了一样的功能。在联邦控制平面中创建联邦 ReplicaSet 可以确保在联邦的所有集群中都有预期数量的副本。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 <!--
@@ -39,9 +40,9 @@ general and [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) in p
 -->
 * 你还应该具备基本的 [Kubernetes 应用知识](/docs/tutorials/kubernetes-basics/)，特别是 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/) 相关的应用知识。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Federated ReplicaSet
@@ -214,6 +215,6 @@ At this point, deleting a federated ReplicaSet will not delete the corresponding
 要注意的是这时删除联邦 ReplicaSet 并不会删除底层集群中对应的 ReplicaSet。您必须自己手动删除底层集群中的 ReplicaSet。我们打算在将来修复这个问题。
 {{< /note >}}
 
-{{% /capture %}}
+
 
 

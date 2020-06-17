@@ -3,11 +3,11 @@ title: Running Automated Tasks with a CronJob
 min-kubernetes-server-version: v1.8
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
@@ -21,15 +21,16 @@ Therefore, jobs should be idempotent.
 
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Creating a Cron Job
 
@@ -157,8 +158,8 @@ A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, t
 ### Job Template
 
 The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except that it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that it is nested and does not have an `apiVersion` or `kind`.
+For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### Starting Deadline
 
@@ -207,4 +208,4 @@ The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields
 These fields specify how many completed and failed jobs should be kept.
 By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
 
-{{% /capture %}}
+

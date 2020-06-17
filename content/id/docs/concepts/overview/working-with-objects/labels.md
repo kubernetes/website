@@ -1,10 +1,10 @@
 ---
 title: Label dan Selektor
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Label_ merupakan pasangan _key/value_ yang melekat pada objek-objek, misalnya pada Pod.
 Label digunakan untuk menentukan atribut identitas dari objek agar memiliki arti dan relevan bagi para pengguna, namun tidak secara langsung memiliki makna terhadap sistem inti.
@@ -22,10 +22,10 @@ Setiap objek dapat memiliki satu set label _key/value_. Setiap _Key_ harus unik 
 
 Label memungkinkan untuk menjalankan kueri dan pengamatan dengan efisien, serta ideal untuk digunakan pada UI dan CLI. Informasi yang tidak digunakan untuk identifikasi sebaiknya menggunakan [anotasi](/id/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivasi
 
@@ -222,4 +222,4 @@ selector:
 Salah satu contoh penggunaan pemilihan dengan menggunakan label yaitu untuk membatasi suatu kumpulan Node tertentu yang dapat digunakan oleh Pod.
 Lihat dokumentasi pada [pemilihan Node](/id/docs/concepts/configuration/assign-pod-node/) untuk informasi lebih lanjut.
 
-{{% /capture %}}
+

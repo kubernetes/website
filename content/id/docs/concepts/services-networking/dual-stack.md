@@ -5,11 +5,11 @@ feature:
   description: >
     Pengalokasian alamat IPv4 dan IPv6 untuk Pod dan Service
 
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -20,9 +20,9 @@ Jika kamu mengaktifkan jaringan _dual-stack_ IPv4/IPv6 untuk klaster Kubernetes
 kamu, klaster akan mendukung pengalokasian kedua alamat IPv4 dan IPv6 secara 
 bersamaan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Fitur-fitur yang didukung
 
@@ -131,10 +131,11 @@ _masquerading_ IP dari klaster _dual-stack_.
 
 * Kubenet memaksa pelaporan posisi IP untuk IPv4,IPv6 IP (--cluster-cidr)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Validasi jaringan _dual-stack_ IPv4/IPv6](/docs/tasks/network/validate-dual-stack)
 
-{{% /capture %}}
+
