@@ -18,7 +18,7 @@ git submodule update --init --recursive
 hugo server --buildFuture
 ```
 
-これで、Hugoのサーバーが1313番ポートを使って開始します。 お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
+これで、Hugoのサーバーが1313番ポートを使って開始します。お使いのブラウザにて http://localhost:1313 にアクセスしてください。リポジトリ内のソースファイルに変更を加えると、HugoがWebサイトの内容を更新してブラウザに反映します。
 
 ## SIG Docsに参加する
 
