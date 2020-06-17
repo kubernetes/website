@@ -118,7 +118,7 @@ While `--apiserver-advertise-address` can be used to set the advertise address f
 control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
 for all control-plane nodes.
 
-`--control-plane-endpoint` allows IP addresses but also DNS names that can map to IP addresses.
+`--control-plane-endpoint` allows both IP addresses and DNS names that can map to IP addresses.
 Please contact your network administrator to evaluate possible solutions with respect to such mapping.
 
 Here is an example mapping:
