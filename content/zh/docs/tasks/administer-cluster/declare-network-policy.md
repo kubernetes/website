@@ -3,17 +3,18 @@ approvers:
 - caseydavenport
 - danwinship
 title: 声明网络策略
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 本文可以帮助您开始使用 Kubernetes 的 [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) 声明网络策略去管理 Pod 之间的通信
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 
 您首先需要有一个支持网络策略的 Kubernetes 集群。已经有许多支持 NetworkPolicy 的网络提供商，包括：
@@ -25,9 +26,9 @@ content_template: templates/task
 
 **注意**：以上列表是根据产品名称按字母顺序排序，而不是按推荐或偏好排序。下面示例对于使用了上面任何提供商的 Kubernetes 集群都是有效的
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## 创建一个`nginx` deployment 并且通过服务将其暴露
@@ -143,6 +144,6 @@ Hit enter for command prompt
 Connecting to nginx (10.100.0.16:80)
 / #
 ```
-{{% /capture %}}
+
 
 

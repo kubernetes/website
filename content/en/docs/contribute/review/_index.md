@@ -3,12 +3,12 @@ title: Reviewing changes
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section describes how to review content.
 
-{{% /capture %}}
 
-{{% capture body %}}
 
-{{% /capture %}}
+<!-- body -->
+
+

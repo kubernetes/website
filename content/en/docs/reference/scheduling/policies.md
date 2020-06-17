@@ -1,10 +1,10 @@
 ---
 title: Scheduling Policies
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A scheduling Policy can be used to specify the *predicates* and *priorities*
 that the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
@@ -16,9 +16,9 @@ You can set a scheduling policy by running
 `kube-scheduler --policy-configmap <ConfigMap>`
 and using the [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Predicates
 
@@ -117,9 +117,10 @@ The following *priorities* implement scoring:
 - `EvenPodsSpreadPriority`: Implements preferred
   [pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
-{{% /capture %}}
+

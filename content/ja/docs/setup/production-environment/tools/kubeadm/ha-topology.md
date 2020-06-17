@@ -1,69 +1,59 @@
 ---
-title: Options for Highly Available topology
-content_template: templates/concept
+title: 高可用性トポロジーのためのオプション
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
+このページでは、高可用性(HA)Kubernetesクラスターのトポロジーを設定するための2つのオプションについて説明します。
 
-You can set up an HA cluster:
+HAクラスターは次の方法で設定できます。
 
-- With stacked control plane nodes, where etcd nodes are colocated with control plane nodes
-- With external etcd nodes, where etcd runs on separate nodes from the control plane
+- 積層コントロールプレーンノードを使用する方法。こちらの場合、etcdノードはコントロールプレーンノードと同じ場所で動作します。
+- 外部のetcdノードを使用する方法。こちらの場合、etcdがコントロールプレーンとは分離されたノードで動作します。
 
-You should carefully consider the advantages and disadvantages of each topology before setting up an HA cluster.
+HAクラスターをセットアップする前に、各トポロジーの利点と欠点について注意深く考慮する必要があります。
 
-{{% /capture %}}
 
-{{% capture body %}}
 
-## Stacked etcd topology
+<!-- body -->
 
-A stacked HA cluster is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed
-data storage cluster provided by etcd is stacked on top of the cluster formed by the nodes managed by
-kubeadm that run control plane components.
+## 積層etcdトポロジー
 
-Each control plane node runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`.
-The `kube-apiserver` is exposed to worker nodes using a load balancer.
+積層HAクラスターは、コントロールプレーンのコンポーネントを実行する、kubeadmで管理されたノードで構成されるクラスターの上に、etcdにより提供される分散データストレージクラスターがあるような[トポロジー](https://en.wikipedia.org/wiki/Network_topology)です。
 
-Each control plane node creates a local etcd member and this etcd member communicates only with
-the `kube-apiserver` of this node. The same applies to the local `kube-controller-manager`
-and `kube-scheduler` instances.
+各コントロールプレーンノードは、`kube-apiserver`、`kube-scheduler`、および`kube-controller-manager`を実行します。`kube-apiserver` はロードバランサーを用いてワーカーノードに公開されます。
 
-This topology couples the control planes and etcd members on the same nodes. It is simpler to set up than a cluster
-with external etcd nodes, and simpler to manage for replication.
+各コントロールプレーンノードはローカルのetcdメンバーを作り、このetcdメンバーはそのノードの`kube-apiserver`とだけ通信します。ローカルの`kube-controller-manager`と`kube-scheduler`のインスタンスも同様です。
 
-However, a stacked cluster runs the risk of failed coupling. If one node goes down, both an etcd member and a control
-plane instance are lost, and redundancy is compromised. You can mitigate this risk by adding more control plane nodes.
+このトポロジーは、同じノード上のコントロールプレーンとetcdのメンバーを結合します。外部のetcdノードを使用するクラスターよりはセットアップがシンプルで、レプリケーションの管理もシンプルです。
 
-You should therefore run a minimum of three stacked control plane nodes for an HA cluster.
+しかし、積層クラスターには、結合による故障のリスクがあります。1つのノードがダウンすると、etcdメンバーとコントロールプレーンのインスタンスの両方が失われ、冗長性が損なわれます。より多くのコントロールプレーンノードを追加することで、このリスクは緩和できます。
 
-This is the default topology in kubeadm. A local etcd member is created automatically
-on control plane nodes when using `kubeadm init` and `kubeadm join --control-plane`.
+そのため、HAクラスターのためには、最低でも3台の積層コントロールプレーンノードを実行しなければなりません。
 
-![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
+これがkubeadmのデフォルトのトポロジーです。`kubeadm init`や`kubeadm join --control-place`を実行すると、ローカルのetcdメンバーがコントロールプレーンノード上に自動的に作成されます。
 
-## External etcd topology
+![積層etcdトポロジー](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 
-An HA cluster with external etcd is a [topology](https://en.wikipedia.org/wiki/Network_topology) where the distributed data storage cluster provided by etcd is external to the cluster formed by the nodes that run control plane components.
+## 外部のetcdトポロジー
 
-Like the stacked etcd topology, each control plane node in an external etcd topology runs an instance of the `kube-apiserver`, `kube-scheduler`, and `kube-controller-manager`. And the `kube-apiserver` is exposed to worker nodes using a load balancer. However, etcd members run on separate hosts, and each etcd host communicates with the `kube-apiserver` of each control plane node.
+外部のetcdを持つHAクラスターは、コントロールプレーンコンポーネントを実行するノードで構成されるクラスターの外部に、etcdにより提供される分散データストレージクラスターがあるような[トポロジー](https://en.wikipedia.org/wiki/Network_topology)です。
 
-This topology decouples the control plane and etcd member. It therefore provides an HA setup where
-losing a control plane instance or an etcd member has less impact and does not affect
-the cluster redundancy as much as the stacked HA topology.
+積層etcdトポロジーと同様に、外部のetcdトポロジーにおける各コントロールプレーンノードは、`kube-apiserver`、`kube-scheduler`、および`kube-controller-manager`のインスタンスを実行します。そして、`kube-apiserver`は、ロードバランサーを使用してワーカーノードに公開されます。しかし、etcdメンバーは異なるホスト上で動作しており、各etcdホストは各コントロールプレーンノードの`kube-api-server`と通信します。
 
-However, this topology requires twice the number of hosts as the stacked HA topology.
-A minimum of three hosts for control plane nodes and three hosts for etcd nodes are required for an HA cluster with this topology.
+このトポロジーは、コントロールプレーンとetcdメンバーを疎結合にします。そのため、コントロールプレーンインスタンスまたはetcdメンバーを失うことによる影響は少なく、積層HAトポロジーほどクラスターの冗長性に影響しないHAセットアップが実現します。
 
-![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
+しかし、このトポロジーでは積層HAトポロジーの2倍の数のホストを必要とします。このトポロジーのHAクラスターのためには、最低でもコントロールプレーンのために3台のホストが、etcdノードのために3台のホストがそれぞれ必要です。
 
-{{% /capture %}}
+![外部のetcdトポロジー](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% capture whatsnext %}}
 
-- [Set up a highly available cluster with kubeadm](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+- [kubeadmを使用した高可用性クラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)
+
+

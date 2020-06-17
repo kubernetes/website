@@ -1,10 +1,10 @@
 ---
 title: kubeadmのトラブルシューティング
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 As with any program, you might run into an error installing or running kubeadm.
 This page lists some common failure scenarios and have provided steps that can help you understand and fix the problem.
@@ -18,9 +18,9 @@ If your problem is not listed below, please follow the following steps:
 - If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## インストール中に`ebtables`もしくは他の似たような実行プログラムが見つからない
 
@@ -318,4 +318,4 @@ There are at least two workarounds:
 ```bash
 kubectl taint nodes NODE_NAME role.kubernetes.io/master:NoSchedule-
 ```
-{{% /capture %}}
+

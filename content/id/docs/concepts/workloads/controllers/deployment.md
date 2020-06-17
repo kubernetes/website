@@ -5,11 +5,11 @@ feature:
   description: >
     Kubernetes merilis perubahan secara progresif pada aplikasimu atau konfigurasinya sambil memonitor kesehatan aplikasi untuk menjamin bahwa semua instances tidak mati bersamaan. Jika sesuatu yang buruk terjadi, Kubernetes akan melakukan rollback pada perubahanmu. Take advantage of a growing ecosystem of deployment solutions.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Deployment menyediakan pembaruan [Pods](/id/docs/concepts/workloads/pods/pod/) dan
 [ReplicaSets](/id/docs/concepts/workloads/controllers/replicaset/) secara deklaratif.
@@ -20,10 +20,10 @@ Kamu mendeskripsikan sebuah state yang diinginkan dalam Deployment, kemudian Dep
 Jangan mengganti ReplicaSets milik Deployment. Pertimbangkan untuk membuat isu pada repositori utama Kubernetes jika kasusmu tidak diatasi semua kasus di bawah.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Penggunaan
 
@@ -1125,4 +1125,4 @@ Deployment umumnya tidak terjeda saat dibuat.
 dengan cara yang serupa. Namun, Deployments lebih disarankan karena deklaratif, berjalan di sisi server, dan punya fitur tambahan, 
 seperti pembalikkan ke revisi manapun sebelumnya bahkan setelah pembaruan rolling selesais.
 
-{{% /capture %}}
+

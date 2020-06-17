@@ -2,11 +2,11 @@
 reviewers:
 - thockin
 title: 集群网络系统
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Networking is a central part of Kubernetes, but it can be challenging to
 understand exactly how it is expected to work.  There are 4 distinct networking
@@ -25,10 +25,10 @@ problems to address:
 3. Pod 和 Service 间通信：这个已经在 [services](/docs/concepts/services-networking/service/) 里讲述过了。
 4. 外部和 Service 间通信：这个也已经在 [services](/docs/concepts/services-networking/service/) 讲述过了。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 Kubernetes is all about sharing machines between applications.  Typically,
@@ -555,9 +555,10 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 [Weave Net](https://www.weave.works/products/weave-net/) 是 Kubernetes 及其托管应用程序的弹性和易于使用的网络系统。Weave Net 可以作为 [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/) 运行或者独立运行。在这两种运行方式里，都不需要任何配置或额外的代码即可运行，并且在两种情况下，网络都为每个 Pod 提供一个 IP 地址-这是 Kubernetes 的标准配置。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 The early design of the networking model and its rationale, and some future
@@ -567,4 +568,4 @@ document](https://git.k8s.io/community/contributors/design-proposals/network/net
 网络模型的早期设计、运行原理以及未来的一些计划，都在 [networking design
 document](https://git.k8s.io/community/contributors/design-proposals/network/networking.md) 文档里进行了更详细的描述。
 
-{{% /capture %}}
+

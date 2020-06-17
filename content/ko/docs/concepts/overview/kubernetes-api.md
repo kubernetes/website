@@ -1,13 +1,13 @@
 ---
 title: 쿠버네티스 API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 전체 API 관례는 [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)에 기술되어 있다.
 
@@ -15,16 +15,16 @@ API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/docs/referen
 
 API에 원격 접속하는 방법은 [Controlling API Access doc](/docs/reference/access-authn-authz/controlling-access/)에서 논의되었다.
 
-쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
+쿠버네티스 API는 시스템을 위한 선언적 설정 스키마를 위한 기초가 되기도 한다. [kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 툴을 사용해서 API 오브젝트를 생성, 업데이트, 삭제 및 조회할 수 있다.
 
 쿠버네티스는 또한 API 리소스에 대해 직렬화된 상태를 (현재는 [etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)에) 저장한다.
 
 쿠버네티스 자체는 여러 컴포넌트로 나뉘어져서 각각의 API를 통해 상호작용한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API 변경
 
@@ -137,4 +137,4 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 {{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
 
-{{% /capture %}}
+

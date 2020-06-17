@@ -1,15 +1,15 @@
 ---
 title: 为节点发布扩展资源
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Advertise Extended Resources for a Node
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to specify extended resources for a Node.
@@ -19,17 +19,18 @@ resources that would otherwise be unknown to Kubernetes.
 本文展示了如何为节点指定扩展资源。 扩展资源允许集群管理员发布节点级别的资源，这些资源在不进行发布的情况下无法被 Kubernetes 感知。
 
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Get the names of your Nodes
@@ -342,10 +343,11 @@ http://localhost:8001/api/v1/nodes/<your-node-name>/status
 kubectl describe node <your-node-name> | grep dongle
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 (你不应该看到任何输出)
 
@@ -368,4 +370,4 @@ kubectl describe node <your-node-name> | grep dongle
 * [为 Namespace 配置最小和最大内存约束](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 * [为 Namespace 配置最小和最大 CPU 约束](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-{{% /capture %}}
+

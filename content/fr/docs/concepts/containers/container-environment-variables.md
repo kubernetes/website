@@ -1,18 +1,18 @@
 ---
 title: Les variables d’environnement du conteneur
 description: Variables d'environnement pour conteneur Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page décrit les ressources disponibles pour les conteneurs dans l'environnement de conteneur.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## L'environnement du conteneur
 
@@ -51,12 +51,13 @@ FOO_SERVICE_PORT=<le port sur lequel le service fonctionne>
 Les services ont des adresses IP dédiées et sont disponibles pour le conteneur avec le DNS,
 si le [module DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) est activé. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur [les hooks du cycle de vie d'un conteneur](/docs/concepts/containers/container-lifecycle-hooks/).
 * Acquérir une expérience pratique
   [en attachant les handlers aux événements du cycle de vie du conteneur](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

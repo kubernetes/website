@@ -4,7 +4,7 @@ reviewers:
 - thockin
 - wlan0
 title: 开发云控制器管理器
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -14,13 +14,13 @@ reviewers:
 - thockin
 - wlan0
 title: Developing Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 <!--
@@ -42,10 +42,10 @@ To dive a little deeper into implementation details, all cloud controller manage
 -->
 为了深入了解实施细节，所有云控制器管理器都将从 Kubernetes 核心导入依赖包，唯一的区别是每个项目都会通过调用 [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go#L56-L66) 来注册自己的驱动，更新可用驱动的全局变量。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Developing
@@ -81,4 +81,4 @@ For in-tree cloud providers, you can run the in-tree cloud controller manager as
 -->
 对于 in-tree 驱动，您可以将 in-tree 云控制器管理器作为群集中的 [Daemonset](/examples/admin/cloud/ccm-example.yaml) 运行。有关详细信息，请参阅 [运行的云控制器管理器文档](/docs/tasks/administer-cluster/running-cloud-controller.md)。
 
-{{% /capture %}}
+

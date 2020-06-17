@@ -1,10 +1,10 @@
 ---
 title: 중단(disruption)
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 가이드는 고가용성 애플리케이션을 구성하려는 소유자와
 파드에서 발생하는 장애 유형을 이해하기
 원하는 애플리케이션 소유자를 위한 것이다.
@@ -12,10 +12,10 @@ weight: 60
 또한 클러스터의 업그레이드와 오토스케일링과 같은 
 클러스터의 자동화 작업을 하려는 관리자를 위한 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 자발적 중단과 비자발적 중단
 
@@ -242,13 +242,14 @@ Pod Disruption Budgets를 사용할 필요가 없다.
      자발적 중단를 허용하는 작업의 대부분은 오토스케일링과
      비자발적 중단를 지원하는 작업과 겹친다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Pod Disruption Budget 설정하기](/docs/tasks/run-application/configure-pdb/)의 단계를 따라서 애플리케이션을 보호한다.
 
 * [노드 비우기](/docs/tasks/administer-cluster/safely-drain-node/)에 대해 자세히 알아보기
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: StatefulSet 基础
-content_template: templates/tutorial
+content_type: tutorial
 approvers:
 - enisoc
 - erictune
@@ -11,7 +11,7 @@ approvers:
 
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial provides an introduction to managing applications with
@@ -21,9 +21,10 @@ demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 
 本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 来管理应用。演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 Before you begin this tutorial, you should familiarize yourself with the
@@ -49,9 +50,10 @@ tutorial.
 
 本教程假设你的集群被配置为动态的提供 PersistentVolumes。如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷。
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 StatefulSets are intended to be used with stateful applications and distributed
@@ -79,10 +81,10 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 * 如何对 StatefulSet 进行扩容/缩容
 * 如何更新一个 StatefulSet 的 Pods
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 创建 StatefulSet
 
@@ -1516,9 +1518,10 @@ StatefulSet 控制器将并发的删除所有 Pod，在删除一个 Pod 前不�
 kubectl delete svc nginx
 ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 You will need to delete the persistent storage media for the PersistentVolumes
@@ -1528,6 +1531,6 @@ reclaimed.
 -->
 
 你需要删除本教程中用到的 PersistentVolumes 的持久化存储介质。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
-{{% /capture %}}
+
 
 

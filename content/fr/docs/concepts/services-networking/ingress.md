@@ -5,17 +5,17 @@ reviewers:
 - rekcah78
 - rbenzair
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Un Ingress est un objet Kubernetes qui gère l'accès externe aux services dans un cluster, généralement du trafic HTTP.
 
 Un Ingress peut fournir un équilibrage de charge, une terminaison TLS et un hébergement virtuel basé sur un nom.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Terminologie
 
@@ -431,8 +431,9 @@ Vous pouvez exposer un service de plusieurs manières sans impliquer directement
 * Utilisez [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 * Utilisez un [Proxy du port](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Configurer Ingress sur Minikube avec le contrôleur NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

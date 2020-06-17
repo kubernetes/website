@@ -2,18 +2,18 @@
 reviewers:
 - derekwaynecarr
 title: 管理巨页（HugePages）
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 reviewers:
 - derekwaynecarr
 title: Manage HugePages
-content_template: templates/task
+content_type: task
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state state="stable" >}}
 
 <!--
@@ -23,9 +23,10 @@ can consume huge pages and the current limitations.
 --->
 作为 **GA** 特性，Kubernetes 支持在 Pod 应用中使用预先分配的巨页。本文描述了用户如何使用巨页，以及当前的限制。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 1. Kubernetes nodes must pre-allocate huge pages in order for the node to report
@@ -39,9 +40,9 @@ schedulable resource.
 
 节点会自动发现全部巨页资源，并作为可供调度的资源进行上报。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## API
 
@@ -121,6 +122,6 @@ token.
 - 作为服务质量特性，保证巨页的 NUMA 局部性。
 - 支持 LimitRange 。
 
-{{% /capture %}}
+
 
 

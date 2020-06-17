@@ -1,23 +1,24 @@
 ---
 title: 集群 DNS 服务自动伸缩
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Autoscale the DNS Service in a Cluster
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to enable and configure autoscaling of the DNS service in a
 Kubernetes cluster.
 -->
 本页展示了如何在集群中启用和配置 DNS 服务的自动伸缩功能。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -34,9 +35,9 @@ Kubernetes cluster.
 
 * 建议使用 Kubernetes 1.4.0 或更高版本。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Determining whether DNS horizontal autoscaling is already enabled
@@ -414,9 +415,9 @@ dns-autoscaler 的路径一般为：
 
 当 manifest 文件删除后，插件管理器将删除 dns-autoscaler Deployment。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Understanding how DNS horizontal autoscaling works
@@ -476,12 +477,13 @@ is under consideration as a future development.
 
 支持自定义 metric，类似于 [Horizontal Pod 自动伸缩](/docs/tasks/run-application/horizontal-pod-autoscale/) 所提供的，考虑未来进行开发。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn more about the
 [implementation of cluster-proportional-autoscaler](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler).
 -->
 * 了解更多关于 [cluster-proportional-autoscaler 实现](https://github.com/kubernetes-incubator/cluster-proportional-autoscaler)的相关信息。
-{{% /capture %}}
+

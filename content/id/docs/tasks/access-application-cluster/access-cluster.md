@@ -1,17 +1,17 @@
 ---
 title: Mengakses Klaster
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Topik ini membahas tentang berbagai cara untuk berinteraksi dengan klaster.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mengakses untuk pertama kalinya dengan kubectl
 
@@ -340,4 +340,4 @@ Ada beberapa proksi berbeda yang mungkin kamu temui saat menggunakan Kubernetes:
 
 Pengguna Kubernetes biasanya tidak perlu khawatir tentang apa pun selain dua jenis pertama. Admin klaster biasanya akan memastikan bahwa tipe yang terakhir telah diatur dengan benar.
 
-{{% /capture %}}
+

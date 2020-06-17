@@ -1,16 +1,16 @@
 ---
 title: 서비스 및 파드용 DNS
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스의 DNS 지원에 대한 개요를 설명한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -262,13 +262,14 @@ options ndots:5
 | 1.10 | 베타 (기본)|
 | 1.9 | 알파 |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 DNS 구성 관리에 대한 지침은 
 [DNS 서비스 구성](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 에서 확인 할 수 있다.
 
-{{% /capture %}}
+
 

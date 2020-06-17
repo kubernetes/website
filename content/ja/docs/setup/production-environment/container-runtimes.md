@@ -1,16 +1,16 @@
 ---
 title: CRIのインストール
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 Podのコンテナを実行するために、Kubernetesはコンテナランタイムを使用します。
 様々なランタイムのインストール手順は次のとおりです。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -253,4 +253,4 @@ systemctl start containerd
 
 詳細については[Fraktiのクイックスタートガイド](https://github.com/kubernetes/frakti#quickstart)を参照してください。
 
-{{% /capture %}}
+

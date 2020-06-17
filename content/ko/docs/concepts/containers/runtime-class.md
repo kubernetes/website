@@ -1,10 +1,10 @@
 ---
 title: 런타임 클래스
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -13,10 +13,10 @@ weight: 20
 런타임클래스는 컨테이너 런타임을 구성을 선택하는 기능이다. 컨테이너 런타임
 구성은 파드의 컨테이너를 실행하는데 사용된다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 동기
 
@@ -176,12 +176,13 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/docs/reference/c
 해당 런타임 클래스를 사용해서 구동 중인 파드의 오버헤드를 특정할 수 있고 이 오버헤드가
 쿠버네티스 내에서 처리된다는 것을 보장할 수 있다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [런타임 클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
 - [런타임 클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
 - [파드 오버헤드](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
 - [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

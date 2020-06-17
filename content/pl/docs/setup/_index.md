@@ -3,7 +3,7 @@ no_issue: true
 title: Od czego zacząć
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -14,7 +14,7 @@ card:
     title: Środowisko produkcyjne  
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Ten rozdział poświęcony jest różnym metodom konfiguracji i uruchomienia Kubernetesa.
 
@@ -24,9 +24,9 @@ Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w
 
 W dużym uproszczeniu, możesz zbudować klaster Kubernetes zarówno w środowisku szkoleniowym, jak i na potrzeby produkcyjne.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Środowisko do nauki {#srodowisko-do-nauki}
 
@@ -46,4 +46,4 @@ Wybierając rozwiązanie dla środowiska produkcyjnego musisz zdecydować, któr
 
 Na stronie [Partnerzy Kubernetes](https://kubernetes.io/partners/#conformance) znajdziesz listę dostawców posiadających [certyfikację Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
 
-{{% /capture %}}
+

@@ -3,21 +3,21 @@ reviewers:
 - pweil-
 - tallclair
 title: Pod Security Policies
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## What is a Pod Security Policy?
 
@@ -34,7 +34,7 @@ administrator to control the following:
 | Usage of host networking and ports                  | [`hostNetwork`, `hostPorts`](#host-namespaces) |
 | Usage of volume types                               | [`volumes`](#volumes-and-file-systems)      |
 | Usage of the host filesystem                        | [`allowedHostPaths`](#volumes-and-file-systems) |
-| White list of FlexVolume drivers                    | [`allowedFlexVolumes`](#flexvolume-drivers) |
+| Allow specific FlexVolume drivers                   | [`allowedFlexVolumes`](#flexvolume-drivers) |
 | Allocating an FSGroup that owns the pod's volumes   | [`fsGroup`](#volumes-and-file-systems)      |
 | Requiring the use of a read only root file system   | [`readOnlyRootFilesystem`](#volumes-and-file-systems) |
 | The user and group IDs of the container             | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#users-and-groups) |
@@ -401,13 +401,13 @@ namespace. Doing so gives the pod access to the loopback device, services
 listening on localhost, and could be used to snoop on network activity of other
 pods on the same node.
 
-**HostPorts** - Provides a whitelist of ranges of allowable ports in the host
+**HostPorts** - Provides a list of ranges of allowable ports in the host
 network namespace. Defined as a list of `HostPortRange`, with `min`(inclusive)
 and `max`(inclusive). Defaults to no allowed host ports.
 
 ### Volumes and file systems
 
-**Volumes** - Provides a whitelist of allowed volume types. The allowable values
+**Volumes** - Provides a list of allowed volume types. The allowable values
 correspond to the volume sources that are defined when creating a volume. For
 the complete list of volume types, see [Types of
 Volumes](/docs/concepts/storage/volumes/#types-of-volumes). Additionally, `*`
@@ -438,7 +438,7 @@ minimum value of the first range as the default. Validates against all ranges.
 all ranges if `FSGroups` is set.
 - *RunAsAny* - No default provided. Allows any `fsGroup` ID to be specified.
 
-**AllowedHostPaths** - This specifies a whitelist of host paths that are allowed
+**AllowedHostPaths** - This specifies a list of host paths that are allowed
 to be used by hostPath volumes. An empty list means there is no restriction on
 host paths used. This is defined as a list of objects with a single `pathPrefix`
 field, which allows hostPath volumes to mount a path that begins with an
@@ -469,7 +469,7 @@ root filesystem (i.e. no writable layer).
 
 ### FlexVolume drivers
 
-This specifies a whitelist of FlexVolume drivers that are allowed to be used
+This specifies a list of FlexVolume drivers that are allowed to be used
 by flexvolume. An empty list or nil means there is no restriction on the drivers.
 Please make sure [`volumes`](#volumes-and-file-systems) field contains the
 `flexVolume` volume type; no FlexVolume driver is allowed otherwise.
@@ -555,7 +555,7 @@ the PodSecurityPolicy. For more details on Linux capabilities, see
 The following fields take a list of capabilities, specified as the capability
 name in ALL_CAPS without the `CAP_` prefix.
 
-**AllowedCapabilities** - Provides a whitelist of capabilities that may be added
+**AllowedCapabilities** - Provides a list of capabilities that are allowed to be added
 to a container. The default set of capabilities are implicitly allowed. The
 empty set means that no additional capabilities may be added beyond the default
 set. `*` can be used to allow all capabilities.
@@ -579,7 +579,7 @@ specified.
 
 ### AllowedProcMountTypes
 
-`allowedProcMountTypes` is a whitelist of allowed ProcMountTypes.
+`allowedProcMountTypes` is a list of allowed ProcMountTypes.
 Empty or nil indicates that only the `DefaultProcMountType` may be used.
 
 `DefaultProcMount` uses the container runtime defaults for readonly and masked
@@ -631,12 +631,13 @@ By default, all safe sysctls are allowed.
 Refer to the [Sysctl documentation](
 /docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
 Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
-{{% /capture %}}
+

@@ -2,10 +2,10 @@
 approvers:
 - erictune
 title: Init 容器
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page provides an overview of init containers: specialized containers that run before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
@@ -13,14 +13,14 @@ Init containers can contain utilities or setup scripts not present in an app ima
 -->
 
 本页提供了 Init 容器的概览，它是一种专用的容器，在{{< glossary_tooltip text="Pod" term_id="pod" >}}内的应用容器启动之前运行，并包括一些应用镜像中不存在的实用工具和安装脚本。
-{{% /capture %}}
+
 
 
 <!--
   You can specify init containers in the Pod specification alongside the `containers` array (which describes app containers).
 -->
 你可以在Pod的规格信息中与containers数组同级的位置指定 Init 容器。
-{{% capture body %}}
+<!-- body -->
 
 
 <!--
@@ -432,10 +432,11 @@ Pod重启导致 Init 容器重新执行，主要有如下几个原因：
 * 当 `restartPolicy` 设置为 Always，Pod 中所有容器会终止而强制重启，由于垃圾收集导致 Init 容器的完成记录丢失。
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
@@ -444,4 +445,4 @@ Pod重启导致 Init 容器重新执行，主要有如下几个原因：
 
 * 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调测 Init 容器](/docs/tasks/debug-application-cluster/debug-init-containers/)
-{{% /capture %}}
+

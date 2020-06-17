@@ -4,7 +4,8 @@ content_template: templates/tool-reference
 weight: 28
 ---
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 <!--
 The kubelet is the primary "node agent" that runs on each node. It can register the node with the apiserver using one of: the hostname; a flag to override the hostname; or specific logic for a cloud provider.
@@ -41,10 +42,11 @@ HTTP server（HTTP 服务器）：kubelet 还可以侦听 HTTP 并响应简单�
 kubelet [flags]
 ```
 
-{{% /capture %}}
 
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -2158,4 +2160,4 @@ Specifies interval for kubelet to calculate and cache the volume disk usage for 
 </tbody>
 </table>
 
-{{% /capture %}}
+

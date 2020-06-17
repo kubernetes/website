@@ -1,10 +1,10 @@
 ---
 
 title: 安装扩展（Addons）
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 <!--
@@ -21,10 +21,10 @@ Add-ons 扩展了 Kubernetes 的功能。
 
 每个 add-ons 按字母顺序排序 - 顺序不代表任何优先地位。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Networking and Network Policy
@@ -110,4 +110,4 @@ Well-maintained ones should be linked to here. PRs welcome!
 
 维护完善的 add-ons 应该被链接到这里。欢迎提出 PRs！
 
-{{% /capture %}}
+

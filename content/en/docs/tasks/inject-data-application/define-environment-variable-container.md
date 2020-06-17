@@ -1,25 +1,26 @@
 ---
 title: Define Environment Variables for a Container
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to define environment variables for a container
 in a Kubernetes Pod.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Define an environment variable for a container
 
@@ -84,6 +85,11 @@ The environment variables set using the `env` or `envFrom` field
 override any environment variables specified in the container image.
 {{< /note >}}
 
+{{< note >}}
+The environment variables can reference each other, and cycles are possible,
+pay attention to the order before using
+{{< /note >}}
+
 ## Using environment variables inside of your config
 
 Environment variables that you define in a Pod's configuration can be used
@@ -117,12 +123,13 @@ spec:
 
 Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes` is run on the container.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
 * Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
 
-{{% /capture %}}
+

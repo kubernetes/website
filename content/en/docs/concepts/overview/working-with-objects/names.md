@@ -3,11 +3,11 @@ reviewers:
 - mikedanese
 - thockin
 title: Object Names and IDs
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Each object in your cluster has a [_Name_](#names) that is unique for that type of resource.
 Every Kubernetes object also has a [_UID_](#uids) that is unique across your whole cluster.
@@ -16,9 +16,9 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Names
 
@@ -81,8 +81,9 @@ Some resource types have additional restrictions on their names.
 Kubernetes UIDs are universally unique identifiers (also known as UUIDs).
 UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) design document.
-{{% /capture %}}
+

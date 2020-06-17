@@ -1,18 +1,18 @@
 ---
 title: Pod Topology Spread Constraints
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Prerequisites
 
@@ -236,8 +236,7 @@ scheduled - more packed or more scattered.
 
 The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
 topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly.
-See [Motivation](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation) for more details.
+workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
 
 ## Known Limitations
 
@@ -246,4 +245,4 @@ As of 1.18, at which this feature is Beta, there are some known limitations:
 - Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
-{{% /capture %}}
+

@@ -1,16 +1,16 @@
 ---
 title: 指定应用程序的中断预算（Disruption Budget）
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
 <!-- ---
 title: Specifying a Disruption Budget for your Application
-content_template: templates/task
+content_type: task
 weight: 110
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
@@ -19,9 +19,10 @@ nodes. -->
 
 本文展示了如何限制应用程序的并发中断数量，在允许集群管理员管理集群节点的同时保证高可用。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!-- * You are the owner of an application running on a Kubernetes cluster that requires
   high availability. -->
@@ -39,9 +40,9 @@ nodes. -->
   Pod Disruption Budgets. -->
 * 用户应当与集群所有者或服务提供者确认其遵从 Pod 中断预算（Pod Disruption Budgets）的规则。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Protecting an Application with a PodDisruptionBudget -->
 ## 用 PodDisruptionBudget 来保护应用
@@ -56,9 +57,9 @@ nodes. -->
 1. 以 YAML 文件形式定义 PDB 。
 1. 通过 YAML 文件创建 PDB 对象。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- ## Identify an Application to Protect -->
 ## 确定要保护的应用
@@ -329,6 +330,6 @@ to create PDBs whose selectors overlap. -->
 用户可以令选择器选择一个内置控制器所控制 pod 的子集或父集。然而，当名字空间下存在多个 PDB 时，
 用户必须小心，保证 PDB 的选择器之间不重叠。
 
-{{% /capture %}}
+
 
 

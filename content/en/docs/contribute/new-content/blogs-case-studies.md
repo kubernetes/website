@@ -2,19 +2,19 @@
 title: Submitting blog posts and case studies
 linktitle: Blogs and case studies
 slug: blogs-case-studies
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Anyone can write a blog post and submit it for review.
 Case studies require extensive review before they're approved.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Write a blog post
 
@@ -52,8 +52,9 @@ Have a look at the source for the
 
 Refer to the [case study guidelines](https://github.com/cncf/foundation/blob/master/case-study-guidelines.md) and submit your request as outlined in the guidelines. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

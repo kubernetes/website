@@ -2,21 +2,21 @@
 title: Cos'è Kubernetes?
 description: >
   Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes .
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Questa pagina è una panoramica generale su Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetes è una piattaforma portatile, estensibile e open-source per la gestione di carichi di lavoro e servizi containerizzati, in grado di facilitare sia la configurazione dichiarativa che l'automazione. La piattaforma vanta un grande ecosistema in rapida crescita. Servizi, supporto e strumenti sono ampiamente disponibili nel mondo Kubernetes .
 
-Il nome Kubernetes deriva dal greco, significa timoniere o pilota. Google ha reso open-source il progetto Kubernetes nel 2014. Kubernetes unisce [oltre quindici anni di esperienza di Google nella gestione di carichi di lavoro di produzione su scala mondiale](https://ai.google/research/pubs/pub43438) con le migliori idee e pratiche della comunità.
+Il nome Kubernetes deriva dal greco, significa timoniere o pilota. Google ha reso open-source il progetto Kubernetes nel 2014. Kubernetes unisce [oltre quindici anni di esperienza di Google](/blog/2015/04/borg-predecessor-to-kubernetes/) nella gestione di carichi di lavoro di produzione su scala mondiale con le migliori idee e pratiche della comunità.
 
 ## Facciamo un piccolo salto indietro
 Diamo un'occhiata alla ragione per cui Kubernetes è così utile facendo un piccolo salto indietro nel tempo.
@@ -38,12 +38,12 @@ I container sono simili alle macchine virtuali, ma presentano un modello di isol
 
 I container sono diventati popolari dal momento che offrono molteplici vantaggi, ad esempio:
 
-* Creazione e distribuzione di applicazioni Agile: maggiore facilità ed efficienza nella creazione di immagini container rispetto all'uso di immagini VM.
+* Creazione e distribuzione di applicazioni in modalità Agile: maggiore facilità ed efficienza nella creazione di immagini container rispetto all'uso di immagini VM.
 * Adozione di pratiche per lo sviluppo/test/rilascio continuativo: consente la frequente creazione e la distribuzione di container image affidabili, dando la possibilità di fare rollback rapidi e semplici (grazie all'immutabilità dell'immagine stessa).
 * Separazione delle fasi di Dev e Ops: le container image vengono prodotte al momento della compilazione dell'applicativo piuttosto che nel momento del rilascio, permettendo così di disaccoppiare le applicazioni dall'infrastruttura sottostante.
 * L'osservabilità non riguarda solo le informazioni e le metriche del sistema operativo, ma anche lo stato di salute e altri segnali dalle applicazioni.
 * Coerenza di ambiente tra sviluppo, test e produzione: i container funzionano allo stesso modo su un computer portatile come nel cloud.
-* Portabilità tra cloud e sistemi operativi differenti: lo stesso container funziona su Ubuntu, RHEL, CoreOS, on-premise, Google Kubernetes Engine e da qualsiasi altra parte.
+* Portabilità tra cloud e sistemi operativi differenti: lo stesso container funziona su Ubuntu, RHEL, CoreOS, on-premise, nei più grandi cloud pubblici e da qualsiasi altra parte.
 * Gestione incentrata sulle applicazioni: Aumenta il livello di astrazione dall'esecuzione di un sistema operativo su hardware virtualizzato all'esecuzione di un'applicazione su un sistema operativo utilizzando risorse logiche.
 * Microservizi liberamente combinabili, distribuiti, ad alta scalabilità: le applicazioni sono suddivise in pezzi più piccoli e indipendenti che possono essere distribuite e gestite dinamicamente - niente stack monolitici che girano su una singola grande macchina.
 * Isolamento delle risorse: le prestazioni delle applicazioni sono prevedibili.
@@ -84,9 +84,10 @@ Kubernetes:
 * Non fornisce né adotta alcun sistema di gestione completa della macchina, configurazione, manutenzione, gestione o sistemi di self healing.
 * Inoltre, Kubernetes non è un semplice sistema di orchestrazione. Infatti, questo sistema elimina la necessità di orchestrazione. La definizione tecnica di orchestrazione è l'esecuzione di un flusso di lavoro definito: prima si fa A, poi B, poi C. Al contrario, Kubernetes è composto da un insieme di processi di controllo indipendenti e componibili che guidano costantemente lo stato attuale verso lo stato desiderato. Non dovrebbe importare come si passa dalla A alla C. Anche il controllo centralizzato non è richiesto. Questo si traduce in un sistema più facile da usare, più potente, robusto, resiliente ed estensibile.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   Dai un'occhiata alla pagina [i componenti di Kubernetes](/docs/concepts/overview/components/)
 *   Sai già [Come Iniziare](/docs/setup/)?
-{{% /capture %}}
+

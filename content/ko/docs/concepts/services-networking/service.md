@@ -5,14 +5,14 @@ feature:
   description: >
     쿠버네티스를 사용하면 익숙하지 않은 서비스 디스커버리 메커니즘을 사용하기 위해 애플리케이션을 수정할 필요가 없다. 쿠버네티스는 파드에게 고유한 IP 주소와 파드 집합에 대한 단일 DNS 명을 부여하고, 그것들 간에 로드-밸런스를 수행할 수 있다.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
@@ -20,9 +20,9 @@ weight: 10
 쿠버네티스는 파드에게 고유한 IP 주소와 파드 집합에 대한 단일 DNS 명을 부여하고,
 그것들 간에 로드-밸런스를 수행할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 동기
 
@@ -1226,12 +1226,13 @@ SCTP는 Windows 기반 노드를 지원하지 않는다.
 kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지원하지 않는다.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
 * [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에 대해 알아보기
 
-{{% /capture %}}
+

@@ -5,12 +5,12 @@ feature:
   description: >
     Kamu tidak perlu memodifikasi aplikasi kamu untuk menggunakan mekanisme _service discovery_ tambahan. Kubernetes menyediakan IP untuk setiap kontainer serta sebuah DNS bagi sebuah sekumpulan kontainer, serta akan melakukan mekanisme _load balance_ bagi sekumpulan kontainer tersebut.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 [`Pod`](/docs/concepts/workloads/pods/pod/) pada Kubernetes bersifat *mortal*.
 Artinya apabila _pod-pod_ tersebut dibuat dan kemudian mati, _pod-pod_ tersebut
@@ -41,9 +41,9 @@ yang terus diubah apabila _state_ sebuah sekumpulan `Pod` di dalam suatu `Servic
 aplikasi _non-native_, Kubernetes menyediakan _bridge_ yang berbasis _virtual-IP_ bagi `Service`
 yang diarahkan pada `Pod` _backend_.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Mendefinisikan sebuah `Service`
 
@@ -1056,10 +1056,11 @@ SCTP tidak didukung pada _node_ berbasis Windows.
 _Kube-proxy_ tidak mendukung manajemen asosiasi SCTP ketika hal ini dilakukan pada mode
 _userspace_
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Baca [Bagaimana cara menghubungkan _Front End_ ke _Back End_ menggunakan sebuah `Service`](/docs/tasks/access-application-cluster/connecting-frontend-backend/).
 
-{{% /capture %}}
+

@@ -6,7 +6,7 @@ reviewers:
 - lmdaly
 - nolancon
 
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -17,11 +17,11 @@ reviewers:
 - lmdaly
 - nolancon
 
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 
@@ -43,15 +43,16 @@ _Topology Manager_ is a Kubelet component that aims to co-ordinate the set of co
 -->
 _拓扑管理器（Topology Manager）_ 是一个 Kubelet 的一部分，旨在协调负责这些优化的一组组件。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## How Topology Manager Works
@@ -345,4 +346,4 @@ Using this information the Topology Manager calculates the optimal hint for the 
 3. 调度器不支持拓扑功能，因此可能会由于拓扑管理器的原因而在节点上进行调度，然后在该节点上调度失败。
 
 
-{{% /capture %}}
+
