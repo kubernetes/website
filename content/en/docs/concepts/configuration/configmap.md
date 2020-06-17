@@ -168,7 +168,7 @@ ConfigMaps can hold data that other parts of the system should use for configura
 To consume a ConfigMap in a volume in a Pod:
 
 1. Create a config map or use an existing one. Multiple Pods can reference the same config map.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configmap.localObjectReference` field set to reference your ConfigMap object.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configMap.name` field set to reference your ConfigMap object.
 1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the config map. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the config map to appear.
 1. Modify your image or command line so that the program looks for files in that directory. Each key in the config map `data` map becomes the filename under `mountPath`.
 
