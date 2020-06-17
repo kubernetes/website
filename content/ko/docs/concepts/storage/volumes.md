@@ -456,7 +456,7 @@ spec:
 [지역(Regional) 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds) 기능을 사용하면 동일한 영역 내의 두 영역에서 사용할 수 있는 퍼시스턴트 디스크를 생성할 수 있다. 이 기능을 사용하려면 볼륨을 퍼시스턴트볼륨으로 프로비저닝 해야 한다. 파드에서 직접 볼륨을 참조하는 것은 지원되지 않는다.
 
 #### 지역(Regional) PD 퍼시스턴트볼륨을 수동으로 프로비저닝하기
-[GCE PD 용 StorageClass](/docs/concepts/storage/storage-classes/#gce) 를 사용해서 동적 프로비저닝이 가능하다.
+[GCE PD 용 스토리지클래스(StorageClass)](/docs/concepts/storage/storage-classes/#gce) 를 사용해서 동적 프로비저닝이 가능하다.
 PersistentVolume을 생성하기 전에 PD를 생성해야만 한다.
 ```shell
 gcloud beta compute disks create --size=500GB my-data-disk
