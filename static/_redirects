@@ -185,6 +185,12 @@
 
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 
+/docs/reference/generated/kubernetes-api/v1.14/    https://v1-14.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/  301
+/docs/reference/generated/kubernetes-api/v1.15/    https://v1-15.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/  301
+/docs/reference/generated/kubernetes-api/v1.16/    https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/  301
+/docs/reference/generated/kubernetes-api/v1.17/    https://v1-17.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/  301
+
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
