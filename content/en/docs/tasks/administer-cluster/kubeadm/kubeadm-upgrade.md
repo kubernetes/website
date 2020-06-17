@@ -4,7 +4,7 @@ reviewers:
 title: Upgrading kubeadm clusters
 content_template: templates/task
 weight: 20
-min-kubernetes-server-version: 1.18
+min-kubernetes-server-version: 1.19
 ---
 
 {{% capture overview %}}
