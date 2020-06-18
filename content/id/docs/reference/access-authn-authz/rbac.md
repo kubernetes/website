@@ -561,17 +561,17 @@ Modifikasi sumber daya ini dapat mengakibatkan klaster yang malfungsi.
 Pada setiap _start-up-_, server API memperbaharui ClusterRole bawaan dengan berbagai izin yang hilang, 
 dan memperbaharui ikatan ClusterRole bawaan dengan subjek yang hilang.
 Ini memungkinkan klaster untuk memperbaiki modifikasi yang tidak disengaja, dan membantu menjaga peran 
-dan ikatan peran selalu terkini karena izin dan subjek berubah pada rilis terbaru Kubernetes.
+dan RoleBinding selalu terkini karena izin dan subjek berubah pada rilis terbaru Kubernetes.
 
 Untuk menon-aktifkan rekonsiliasi ini, setel anotasi `rbac.authorization.kubernetes.io/autoupdate`
-pada ClusterRole bawaan atau ikatan peran bawaan menjadi `false`.
+pada ClusterRole bawaan atau RoleBinding bawaan menjadi `false`.
 Ingat bahwa hilangnya izin dan subjek bawaan dapat mengakibatkan klaster tidak berfungsi.
 
 Rekonsiliasi otomatis diaktifkan secara bawaan jika otorizer RBAC aktif.
 
 ### API discovery roles {#discovery-roles}
 
-Ikatan peran bawaan memberi otorisasi kepada pengguna yang tidak terotentikasi untuk membaca informasi API yang dianggap aman
+RoleBinding bawaan memberi otorisasi kepada pengguna yang tidak terotentikasi untuk membaca informasi API yang dianggap aman
 untuk diakses publik (termasuk CustomResourceDefinitions). Untuk menonaktifkan akses anonim, tambahkan `--anonymous-auth=false` ke konfigurasi server API.
 
 Untuk melihat konfigurasi peran ini melalui `kubectl` jalankan perintah:
@@ -641,14 +641,14 @@ metadata:
 <td><b>system:masters</b> group</td>
 <td>Mengizinkan akses super-user access untuk melakukan berbagai aksi pada berbagai sumber daya. 
 Ketika digunakan pada <b>ClusterRoleBinding</b>, ini memberikan kendali penuh terhadap seluruh sumber daya pada klaster dan seluruh namespace. 
-Ketika digunakan pada <b>RoleBinding</b>, ini memberikan kendali penuh terhadap setiap sumber daya pada namespace ikatan peran, termasuk namespace itu sendiri.</td>
+Ketika digunakan pada <b>RoleBinding</b>, ini memberikan kendali penuh terhadap setiap sumber daya pada namespace RoleBinding, termasuk namespace itu sendiri.</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
 <td>None</td>
 <td>mengizinkan akses admin, yang dimaksudkan untuk diberikan dalam sebuah namespace menggunakan <b>RoleBinding</b>.
 Jika digunakan dalam <b>RoleBinding</b>, ini memungkikan akses baca/tulis ke sebagian besar sumber daya di sebuah namespace,
-termasuk kemampuan untuk membuat peran dan ikatan peran dalam namespace. 
+termasuk kemampuan untuk membuat Role dan RoleBinding dalam namespace. 
 Peran ini tidak memungkinkan akses tulis pada kuota sumber daya atau ke namespace itu sendiri.</td>
 </tr>
 <tr>
@@ -656,7 +656,7 @@ Peran ini tidak memungkinkan akses tulis pada kuota sumber daya atau ke namespac
 <td>None</td>
 <td>Mengizinkan akses baca/tulis pada seluruh objek dalam namespace.
 
-Peran ini tidak memungkinkan untuk melihat dan merubah peran dan ikatan peran.
+Peran ini tidak memungkinkan untuk melihat dan merubah Role dan RoleBinding.
 Namun, peran ini memungkinkan untuk mengakses secret dan menjalankan pod seperti ServiceAccount dalam namespace, 
 sehingga dapat digunakan untuk mendapatkan tingkat akses API dari setiap ServiceAccount di namespace. 
 </td>
@@ -666,7 +666,7 @@ sehingga dapat digunakan untuk mendapatkan tingkat akses API dari setiap Service
 <td>None</td>
 <td>Mengizinkan akses baca untuk melihat hampir seluruh objek dalam namespace.
 
-Ini tidak memungkinkan untuk melihat peran dan ikatan peran.
+Ini tidak memungkinkan untuk melihat peran dan RoleBinding.
 
 Peran ini tidak memungkikan melihat Secret, karena pembacaan konten Secret memungkinkan
 akses ke kredensial ServiceAccount dalam namespace, yang akan memungkinkan akses API sebagai
