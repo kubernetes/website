@@ -240,8 +240,8 @@ Renders to:
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/home/contribute/style/write-new-topic/).
-* Learn about [page content types](/docs/home/contribute/style/page-content-types/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [page content types](/docs/contribute/style/page-content-types/).
+* Learn about [creating a pull request](/docs/contribute/new-content/new-content/).
+* Learn about [advanced contributing](docs/contribute/advanced/).
 
