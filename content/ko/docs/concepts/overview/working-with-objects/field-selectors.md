@@ -53,7 +53,7 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 
 ## 여러 개의 리소스 종류
 
-필드 셀렉터를 여러 개의 리소스 종류에 걸쳐 사용할 수 있다. 다음의 `kubectl` 커맨드는 `default` 네임스페이스에 속해있지 않은 모든 스테이트풀 셋과 서비스를 선택한다.
+필드 셀렉터를 여러 개의 리소스 종류에 걸쳐 사용할 수 있다. 다음의 `kubectl` 커맨드는 `default` 네임스페이스에 속해있지 않은 모든 스테이트풀셋(StatefulSet)과 서비스를 선택한다.
 
 ```shell
 kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
