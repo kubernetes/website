@@ -80,6 +80,11 @@ The output shows that nginx is serving the web page that was written by the init
       ...
 
 
+Exit the shell.
+
+Delete the Pod that you created for this exercise:
+
+    kubectl delete pod init-demo
 
 ## {{% heading "whatsnext" %}}
 
