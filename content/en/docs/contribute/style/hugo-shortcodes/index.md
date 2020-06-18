@@ -243,5 +243,5 @@ Renders to:
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [page content types](/docs/contribute/style/page-content-types/).
 * Learn about [creating a pull request](/docs/contribute/new-content/new-content/).
-* Learn about [advanced contributing](docs/contribute/advanced/).
+* Learn about [advanced contributing](/docs/contribute/advanced/).
 
