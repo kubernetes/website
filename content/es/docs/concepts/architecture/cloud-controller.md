@@ -10,7 +10,7 @@ El concepto del Cloud Controller Manager (CCM) (no confundir con el ejecutable) 
 
 El diseño del Cloud Controller Manager está basado en un sistema de plugins, lo que permite a nuevos proveedores de servicios integrarse de forma fácil con Kubernetes. Se está trabajando en implementar nuevos proveedores de servicios y para migrar los existentes del antiguo modelo al nuevo CCM.
 
-Este documento describe los conceptos tras el Cloud Controller Manager e informar detalles sobre sus funciones asociadas.
+Este documento describe los conceptos tras el Cloud Controller Manager y detalla sus funciones asociadas.
 
 En la siguiente imagen, se puede visualizar la arquitectura de un cluster de Kubernetes que no utiliza el Cloud Controller Manager:
 
@@ -234,5 +234,4 @@ Los siguientes proveedores de servicios en la nube han implementado CCMs:
 ## Administración del Clúster
 
 Instrucciones para configurar y ejecutar el CCM pueden encontrarse [aquí](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
-
 
