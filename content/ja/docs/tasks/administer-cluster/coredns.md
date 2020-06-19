@@ -17,7 +17,7 @@ content_type: task
 
 ## CoreDNSについて {#about-coredns}
 
-[CoreDNS](https://coredns.io)は、KubernetesクラスターDNSとして機能できる柔軟で拡張可能なDNSサーバーです。Kubernetesと同様に、CoreDNSプロジェクトは{{< glossary_tooltip text="CNCF" term_id="cncf" >}}によってホストされています。
+[CoreDNS](https://coredns.io)は、KubernetesクラスターDNSとして稼働させることができる柔軟で拡張可能なDNSサーバーです。Kubernetesと同様に、CoreDNSプロジェクトは{{< glossary_tooltip text="CNCF" term_id="cncf" >}}によってホストされています。
 
 既存のデプロイでkube-dnsを置き換えるか、クラスターのデプロイとアップグレードを代行してくれるkubeadmのようなツールを使用することで、クラスターでkube-dnsの代わりにCoreDNSを使用することができます。
 
@@ -74,7 +74,6 @@ CoreDNSだけをアップグレードしたい場合や、独自のカスタム�
 
 
 [CoreDNS](https://coredns.io)は、`Corefile`を変更することで、kube-dnsよりも多くのユースケースをサポートするように設定することができます。詳細は[CoreDNSサイト](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)を参照してください。
-
 
 
 
