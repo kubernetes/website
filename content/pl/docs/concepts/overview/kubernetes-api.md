@@ -169,4 +169,4 @@ sposoby, jakimi klaster zarządza dostępem do API.
 Ogólne wytyczne dotyczące API opisano w
 [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions).
 
-Punkty dostępowe API endpoints, typy zasobów i przykłady zamieszczono w [API Reference](/docs/reference/kubernetes-api/).
+Punkty dostępowe API _(endpoints)_, typy zasobów i przykłady zamieszczono w [API Reference](/docs/reference/kubernetes-api/).
