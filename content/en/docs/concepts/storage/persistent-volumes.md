@@ -254,6 +254,19 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 {{< /note >}}
 
 
+#### Recover from volume expansion failure
+
+{{< feature-state for_k8s_version="v1.19" state="alpha" >}}
+
+
+Once user requests expansion of a PVC then Kuberneretes attempts to expand the underlying volume continuously until
+volume is expanded to desired size. In some cases if underlying storage system can not provision requested capacity
+then it may be desirable to retry expansion with a lower value.
+
+To support this if feature-gate `RecoverExpansionFailure` is enabled then a user may reduce requested capacity upto value in `pvc.Status.Capacity`
+and retry volume expansion with a lower value.
+
+
 ## Types of Persistent Volumes
 
 PersistentVolume types are implemented as plugins.  Kubernetes currently supports the following plugins:
