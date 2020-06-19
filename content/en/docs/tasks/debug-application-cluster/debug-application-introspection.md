@@ -190,6 +190,11 @@ but you have to remember that events are namespaced. This means that if you're i
 ```shell
 kubectl get events --namespace=my-namespace
 ```
+or
+   
+```shell
+   kubectl alpha events --namespace=my-namespace
+```
 
 To see events from all namespaces, you can use the `--all-namespaces` argument.
 

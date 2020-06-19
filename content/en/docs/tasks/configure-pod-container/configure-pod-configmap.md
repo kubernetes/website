@@ -670,6 +670,11 @@ data:
    ```shell
    kubectl get events
    ```
+or
+   
+```shell
+   kubectl alpha events
+```
 
    The output is similar to this:
    ```
