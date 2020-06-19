@@ -80,7 +80,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubobjectPath          Type      Reason               Message
+  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
   ---------  --------  -----  ----                                                   -------------          --------  ------               -------
   1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
   1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
