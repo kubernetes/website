@@ -113,7 +113,7 @@ spec:
 to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
 token.
 - Support of multiple sizes huge pages is feature gated. It can be
-  enabled with the `HugePageStorageMediumSize` [feature
+  disabled with the `HugePageStorageMediumSize` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) on the {{<
 glossary_tooltip text="kubelet" term_id="kubelet" >}} and {{<
 glossary_tooltip text="kube-apiserver"
