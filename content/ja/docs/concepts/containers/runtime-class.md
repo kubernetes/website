@@ -39,7 +39,7 @@ RuntimeClassを通じて利用可能な設定はContainer Runtime Interface (CRI
 ユーザーの環境のCRI実装の設定方法は、対応するドキュメント([下記](#cri-configuration))を参照ください。
 
 {{< note >}}
-RuntimeClassは、クラスター全体で同じ種類のノード設定であることを仮定しています。(これは全てのNodeがコンテナランタイムに関して同じ方法で構成されていることを意味します)。
+RuntimeClassは、クラスター全体で同じ種類のノード設定であることを仮定しています。(これは全てのノードがコンテナランタイムに関して同じ方法で構成されていることを意味します)。
 設定が異なるノードをサポートするには、[スケジューリング](#scheduling)を参照してください。
 {{< /note >}}
 
@@ -139,7 +139,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 もしサポートされているノードが他のRuntimeClassのPodが稼働しないようにtaint付与されていた場合、RuntimeClassに対して`tolerations`を付与することができます。
 `nodeSelector`と同様に、tolerationsはPodのtolerationsにアドミッション機能によって統合され、効率よく許容されたノードを選択します。
 
-ノードの選択とtolerationsについての詳細は[Node上へのPodのスケジューリング](/ja/docs/concepts/configuration/assign-pod-node/)を参照してください。
+ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/ja/docs/concepts/configuration/assign-pod-node/)を参照してください。
 
 [admission controller]: /docs/reference/access-authn-authz/admission-controllers/
 
