@@ -17,7 +17,7 @@ content_type: task
 
 ## CoreDNSについて {#about-coredns}
 
-[CoreDNS](https://coredns.io)は、KubernetesクラスターDNSとして稼働させることができる柔軟で拡張可能なDNSサーバーです。Kubernetesと同様に、CoreDNSプロジェクトは{{< glossary_tooltip text="CNCF" term_id="cncf" >}}によってホストされています。
+[CoreDNS](https://coredns.io)は、KubernetesクラスターDNSとして機能できる柔軟で拡張可能なDNSサーバーです。Kubernetesと同様に、CoreDNSプロジェクトは{{< glossary_tooltip text="CNCF" term_id="cncf" >}}によってホストされています。
 
 既存のデプロイでkube-dnsを置き換えるか、クラスターのデプロイとアップグレードを代行してくれるkubeadmのようなツールを使用することで、クラスターでkube-dnsの代わりにCoreDNSを使用することができます。
 
@@ -39,7 +39,7 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 
 Kubernetesバージョン1.13以降では、`CoreDNS`フィーチャーゲートが削除され、CoreDNSがデフォルトで使用されます。アップグレードしたクラスターでkube-dnsを使用する場合は、[こちら](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)のガイドに従ってください。
 
-1.11以前のバージョンでは、Corefileはアップグレード中に作成されたものによって**上書き**されます。**カスタマイズしている場合は、既存のConfigMapを保存する必要があります。** 新しいConfigMapが稼働したら、カスタマイズを再適用できます。
+1.11以前のバージョンでは、Corefileはアップグレード中に作成されたものによって**上書き**されます。**カスタマイズしている場合は、既存のConfigMapを保存する必要があります。**新しいConfigMapが稼働したら、カスタマイズを再適用できます。
 
 Kubernetesバージョン1.11以降でCoreDNSを実行している場合、アップグレード中、既存のCorefileは保持されます。
 
@@ -49,10 +49,6 @@ Kubernetesバージョン1.11以降でCoreDNSを実行している場合、ア�
 {{< note >}}
 Kubernetes 1.11では、CoreDNSは一般利用可能(GA)にアップグレードされ、デフォルトでインストールされます。
 {{< /note >}}
-
-{{< warning >}}
-Kubernetes 1.18では、kubeadmでのkube-dns使用は非推奨となり、将来のバージョンでは削除されます。
-{{< /warning >}}
 
 1.13以前のバージョンにkube-dnsをインストールするには、`CoreDNS`フィーチャーゲートの値を`false`に設定します:
 
@@ -78,5 +74,7 @@ CoreDNSだけをアップグレードしたい場合や、独自のカスタム�
 
 
 [CoreDNS](https://coredns.io)は、`Corefile`を変更することで、kube-dnsよりも多くのユースケースをサポートするように設定することができます。詳細は[CoreDNSサイト](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)を参照してください。
+
+
 
 
