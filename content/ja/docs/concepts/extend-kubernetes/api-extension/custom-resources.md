@@ -108,7 +108,7 @@ CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類�
 ## CustomResourceDefinition
 
 [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)APIリソースは、カスタムリソースを定義します。CRDオブジェクトを定義することで、指定した名前、スキーマで新しいカスタムリソースが作成されます。Kubernetes APIは、作成したカスタムリソースのストレージを提供、および処理します。
-CRDオブジェクトの名前は[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)に従わなければなりません。
+CRDオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)に従わなければなりません。
 
 これはカスタムリソースを処理するために、独自のAPIサーバーを書くことから解放してくれますが、一般的な性質として[APIサーバーアグリゲーション](#APIサーバーアグリゲーション)と比べると、柔軟性に欠けます。
 
@@ -221,5 +221,4 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 
 * [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
 * [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
-
 
