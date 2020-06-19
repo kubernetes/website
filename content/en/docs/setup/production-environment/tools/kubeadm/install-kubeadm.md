@@ -178,6 +178,8 @@ For more information on version skews, see:
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+Kubernetes provides all official `deb` packages from
+[apt.k8s.io](https://apt.k8s.io).
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -190,6 +192,14 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
+Kubernetes provides all official `rpm` packages from
+[yum.k8s.io](https://yum.k8s.io).
+{{< warning >}}
+The `kubernetes-cni` package is obsoleted. This means in case of doing an
+upgrade from Kubernetes v1.18.3, v1.17.6, v1.16.10 or any other prior version,
+please ensure that the package gets **manually** removed before doing the
+upgrade by executing `yum remove kubernetes-cni-0.7.5-0`.
+{{</ warning >}}
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]

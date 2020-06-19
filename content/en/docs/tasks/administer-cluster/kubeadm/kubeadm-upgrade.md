@@ -37,6 +37,12 @@ The upgrade workflow at high level is the following:
 - Make sure you read the [release notes]({{< latest-release-notes >}}) carefully.
 - Make sure to back up any important components, such as app-level state stored in a database.
   `kubeadm upgrade` does not touch your workloads, only components internal to Kubernetes, but backups are always a best practice.
+- If you're running CentOS, RHEL, Fedora or directly use the
+  [yum.k8s.io](https://yum.k8s.io) repositories: The `kubernetes-cni` package
+  is obsoleted from now on. This means in case of doing an upgrade from
+  Kubernetes v1.18.3, v1.17.6, v1.16.10 or any other prior version, please
+  ensure that the package gets **manually** removed before doing the upgrade by
+  executing `yum remove kubernetes-cni-0.7.5-0`.
 
 ### Additional information
 
