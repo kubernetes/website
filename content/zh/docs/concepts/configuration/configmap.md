@@ -84,7 +84,7 @@ format.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  Name: game-demo
+  name: game-demo
 data:
   # 类属性键；每一个键都映射到一个简单的值
   player_initial_lives: 3
