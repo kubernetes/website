@@ -39,6 +39,7 @@ The PR wrangler’s duties include:
     - Assign `Doc Review: Open Issues` or `Tech Review: Open Issues` for PRs that have been reviewed and require further input or action before merging.
     - Assign `/lgtm` and `/approve` labels to PRs that can be merged.
 - Merge PRs when they are ready, or close PRs that shouldn’t be accepted.
+    - Because we are limited on resources, we are willing to accept solid technical content even if all [style guidelines](/docs/contribute/style/style-guide/) are not met. Consider merging this type of content and opening a good first issue to address the style concerns.
 - Triage and tag incoming issues daily. See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
 
 ### Helpful GitHub queries for wranglers
