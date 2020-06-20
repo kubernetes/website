@@ -390,7 +390,7 @@ PersistentVolume | 퍼시스턴트볼륨(PersistentVolume) | API 오브젝트인
 PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim) | API 오브젝트인 경우
 pipeline | 파이프라인 |
 placeholder pod | 플레이스홀더(placeholder) 파드 |
-Pod | 파드(Pod) | API 오브젝트인 경우
+Pod | 파드 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
 Pod Preset | 파드 프리셋 |
 PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) |
 PodDisruptionBudget | PodDisruptionBudget | API 오브젝트인 경우
@@ -439,7 +439,7 @@ Selector | 셀렉터 |
 Self-healing | 자가 치유 |
 SelfSubjectAccessReview | 셀프서브젝트액세스리뷰(SelfSubjectAccessReview) | API 오브젝트인 경우
 SelfSubjectRulesReview | SelfSubjectRulesReview | API 오브젝트이지만 용어를 구성하는 단어 중 복수형 Rules를 '룰스'로 외래어 표기하는 경우 한국어 독자에게 다소 생경할 수 있어 예외적으로 영문 용어를 사용함
-Service | 서비스(Service) | API 오브젝트인 경우
+Service | 서비스 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
 ServiceAccount | 서비스어카운트(ServiceAccount) | API 오브젝트인 경우
 service discovery | 서비스 디스커버리 |
 service mesh | 서비스 메시 |
