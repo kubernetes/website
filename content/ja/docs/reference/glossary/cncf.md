@@ -17,5 +17,4 @@ KubernetesはCNCFプロジェクトです。
 <!--more-->
 
 CNCFは[Linux Foundation](https://www.linuxfoundation.org/)のサブファウンデーションです。
-その使命は、クラウドネイティブコンピューティングをユビキタスにすることです。
-
+CNCFの使命は、クラウドネイティブコンピューティングをユビキタスにすることです。
