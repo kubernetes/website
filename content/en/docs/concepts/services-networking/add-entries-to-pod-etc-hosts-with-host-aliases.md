@@ -71,7 +71,7 @@ For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`
 
 {{< codenew file="service/networking/hostaliases-pod.yaml" >}}
 
-Yoyu can start a Pod with that configuration by running:
+You can start a Pod with that configuration by running:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml
