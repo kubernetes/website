@@ -189,7 +189,8 @@
 /docs/reference/generated/kubernetes-api/v1.15/    https://v1-15.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/  301
 /docs/reference/generated/kubernetes-api/v1.16/    https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/  301
 /docs/reference/generated/kubernetes-api/v1.17/    https://v1-17.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/  301
-
+# "latest" API version is a transparent redirect (i.e. rewrite) to the current version.
+/docs/reference/generated/kubernetes-api/latest/*    /docs/reference/generated/kubernetes-api/v1.18/:splat  200
 
 /docs/reporting-security-issues/     /security/ 301
 
