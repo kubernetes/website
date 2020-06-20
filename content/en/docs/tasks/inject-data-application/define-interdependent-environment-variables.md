@@ -63,16 +63,18 @@ Pod:
 
 As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
 
-When the environment variable is defined, you can use it directly. You can use it after the definition is completed, such as `SERVICE_ADDRESS`.
+When an environment variable is already defined when being referenced,
+the reference can be correctly resolved, such as in the `SERVICE_ADDRESS` case.
 
-When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. A bad reference does not interfere with the operation of the container.
+When the environment variable is undefined or only includes some variables, the undefined environment variable is treated as a normal string, such as `UNCHANGED_REFERENCE`. Note that incorrectly parsed environment variables, in general, will not block the container from starting.
 
-The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME).Escaped references will never be expanded, regardless of whether the variable exists or not.
+The `$(VAR_NAME)` syntax can be escaped with a double `$`, ie: `$$(VAR_NAME)`.
+Escaped references are never expanded, regardless of whether the referenced variable
+is defined or not. This can be seen from the `ESCAPED_REFERENCE` case above.
 
 ## {{% heading "whatsnext" %}}
 
 
 * Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
-
 
