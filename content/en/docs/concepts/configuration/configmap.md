@@ -60,7 +60,7 @@ metadata:
   name: game-demo
 data:
   # property-like keys; each key maps to a simple value
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # file-like keys
