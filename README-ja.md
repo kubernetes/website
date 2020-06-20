@@ -41,9 +41,9 @@ Pull Requestの所有者は作成者であるため、**ご自身で作成した
 
 Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
 
-* [Kubernetesのドキュメントへの貢献](https://kubernetes.io/docs/contribute/)
-* [ページテンプレートの使い方](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [ドキュメントのスタイルガイド](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Kubernetesのドキュメントへの貢献](https://kubernetes.io/ja/docs/contribute/)
+* [ページコンテントタイプ](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [ドキュメントのスタイルガイド](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Kubernetesドキュメントの翻訳方法](https://kubernetes.io/docs/contribute/localization/)
 
 ## 翻訳された`README.md`一覧
