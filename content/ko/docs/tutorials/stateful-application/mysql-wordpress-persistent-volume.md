@@ -1,6 +1,5 @@
 ---
 title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
-reviewers:
 content_type: tutorial
 weight: 20
 card: 
@@ -8,6 +7,8 @@ card:
   weight: 40
   title: "스테이트풀셋 예시: Wordpress와 퍼시스턴트 볼륨"
 ---
+
+
 
 <!-- overview -->
 이 튜토리얼은 WordPress 사이트와 MySQL 데이터베이스를 Minikube를 이용하여 어떻게 배포하는지 보여준다. 애플리케이션 둘 다 퍼시스턴트 볼륨과 퍼시스턴트볼륨클레임을 데이터를 저장하기 위해 사용한다.

@@ -1095,3 +1095,5 @@ node "kubernetes-node-ixsl" uncordoned
   모든 스토리지가 재확보되도록 하자.
 
 
+
+

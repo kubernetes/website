@@ -65,7 +65,7 @@ weight: 10
 kubectl apply -f <디렉터리>/
 ```
 
-이것은  각 오브젝트에 대해 `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
+이것은 각 오브젝트에 대해 `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
 어노테이션을 설정한다. 해당 어노테이션은 오브젝트를 생성하기 위해 사용했던
 오브젝트 구성 파일의 내용을 포함한다. 
 
@@ -78,9 +78,11 @@ kubectl apply -f <디렉터리>/
 {{< codenew file="application/simple_deployment.yaml" >}}
 
 생성될 오브젝트를 출력하려면 `kubectl diff`를 실행한다. 
+
 ```shell
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
+
 {{< note >}}
 `diff`는 `kube-apiserver`의 활성화가 필요한
 [서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
@@ -1000,8 +1002,10 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
+
 * [명령형 커맨드 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 

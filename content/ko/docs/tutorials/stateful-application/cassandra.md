@@ -1,9 +1,10 @@
 ---
 title: "예시: 카산드라를 스테이트풀셋으로 배포하기"
-reviewers:
 content_type: tutorial
 weight: 30
 ---
+
+
 
 <!-- overview -->
 이 튜토리얼은 쿠버네티스에서 [아파치 카산드라](http://cassandra.apache.org/)를 실행하는 방법을 소개한다. 데이터베이스인 카산드라는 데이터 내구성을 제공하기 위해 퍼시스턴트 스토리지가 필요하다(애플리케이션 _상태_). 이 예제에서 사용자 지정 카산드라 시드 공급자는 카산드라가 클러스터에 가입할 때 카산드라가 인스턴스를 검색할 수 있도록 한다.
@@ -24,7 +25,6 @@ weight: 30
 {{< /note >}}
 
 
-
 ## {{% heading "objectives" %}}
 
 * 카산드라 헤드리스 {{< glossary_tooltip text="Service" term_id="service" >}}를 생성하고 검증한다.
@@ -36,18 +36,9 @@ weight: 30
 
 ## {{% heading "prerequisites" %}}
 
-이 튜토리얼을 완료하려면, [파드](/ko/docs/concepts/workloads/pods/pod/), [서비스](/ko/docs/concepts/services-networking/service/), [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)의 기본 개념에 친숙해야한다. 추가로
+{{< include "task-tutorial-prereqs.md" >}}
 
-* *kubectl* 커맨드라인 도구를 [설치와 설정](/docs/tasks/tools/install-kubectl/)하자.
-
-* [`cassandra-service.yaml`](/examples/application/cassandra/cassandra-service.yaml)와
-  [`cassandra-statefulset.yaml`](/examples/application/cassandra/cassandra-statefulset.yaml)를 다운로드한다.
-
-* 실행 중인 쿠버네티스 클러스터를 소유
-
-{{< note >}}
-아직 클러스터가 없다면 [설치](/ko/docs/setup/)를 읽도록 하자.
-{{< /note >}}
+이 튜토리얼을 완료하려면 {{< glossary_tooltip text="파드" term_id="pod" >}}, {{< glossary_tooltip text="서비스" term_id="service" >}}, {{< glossary_tooltip text="스테이트풀셋" term_id="StatefulSet" >}}에 대한 기본 지식이 있어야 한다.
 
 ### 추가적인 Minikube 설정 요령
 
@@ -274,12 +265,12 @@ kubectl apply -f cassandra-statefulset.yaml
 
 
 
-
 ## {{% heading "whatsnext" %}}
 
 
 * 어떻게 [스테이트풀셋 스케일](/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
 * 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.
+
 
 

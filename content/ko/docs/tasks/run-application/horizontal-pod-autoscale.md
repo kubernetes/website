@@ -9,6 +9,10 @@ content_type: concept
 weight: 90
 ---
 
+
+
+
+
 <!-- overview -->
 
 Horizontal Pod Autoscaler는 CPU 사용량
@@ -160,11 +164,7 @@ HPA가 여전히 확장할 수 있음을 의미한다.
 
 마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이
 기록된다. 컨트롤러는 구성 가능한 창(window) 내에서 가장 높은 권장
-사항을 선택하도록 해당 창 내의 모든 권장 사항을 고려한다. 이 값은
-`--horizontal-pod-autoscaler-downscale-stabilization` 플래그 또는 HPA 오브젝트
-동작 `behavior.scaleDown.stabilizationWindowSeconds` ([구성가능한
-스케일링 동작 지원](#구성가능한-스케일링-동작-지원)을 본다)을
-사용하여 설정할 수 있고, 기본 값은 5분이다.
+사항을 선택하도록 해당 창 내의 모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를  사용하여 설정할 수 있고, 기본값은 5분이다.
 즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는 메트릭 값의
 영향을 완만하게 한다.
 
@@ -233,11 +233,6 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 있다.
 {{< /note >}}
 
-v1.17 부터 v2beta2 API 필드에서 `behavior.scaleDown.stabilizationWindowSeconds`
-를 설정하여 다운스케일 안정화 창을 HPA별로 설정할 수 있다.
-[구성가능한 스케일링
-동작 지원](#구성가능한-스케일링-동작-지원)을 본다.
-
 ## 멀티 메트릭을 위한 지원
 
 Kubernetes 1.6은 멀티 메트릭을 기반으로 스케일링을 지원한다. `autoscaling/v2beta2` API
@@ -265,7 +260,7 @@ Horizontal Pod Autoscaler 컨트롤러에서는 더 이상 스케일 할 사용�
 기본적으로 HorizontalPodAutoscaler 컨트롤러는 일련의 API에서 메트릭을 검색한다. 이러한
 API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
-* [API 집합 레이어](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 활성화
+* [API 애그리게이션 레이어](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 활성화
 
 * 해당 API 등록:
 
@@ -444,4 +439,5 @@ behavior:
 * 디자인 문서: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl 오토스케일 커맨드: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)의 사용 예제.
+
 
