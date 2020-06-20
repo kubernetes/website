@@ -402,8 +402,14 @@ For setting the `--vm-driver` with `minikube start`, enter the name of the hyper
 [指定 VM 驱动程序](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver) 列举了 `--vm-driver` 值的完整列表。
 {{< /note >}}
 
+{{< note >}}
+由于国内无法直接连接k8s.gcr.io，推荐使用阿里云镜像，在`minikube start`中添加镜像参数
+{{< /note >}}
+
 ```shell
 minikube start --vm-driver=<driver_name>
+# Or when you need
+minikube start --vm-driver=<driver_name> --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers
 ```
 
 <!--
