@@ -181,7 +181,8 @@ are preserved as annotations when working with `autoscaling/v1`.
 When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling).
+
 
 ## Support for Horizontal Pod Autoscaler in kubectl
 
