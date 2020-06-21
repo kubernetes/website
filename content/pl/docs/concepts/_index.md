@@ -41,7 +41,7 @@ Kubernetes zawiera także obiekty abstrakcyjne wyższego poziomu, zbudowane z ob
  * [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
  * [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
  * [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
- * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+ * [Job](/docs/concepts/workloads/controllers/job/)
 
 ## Warstwa sterowania (*Kubernetes Control Plane*) {#warstwa-sterowania}
 
@@ -65,7 +65,7 @@ Węzły klastra to maszyny (wirtualne, fizyczne i in.), na których uruchamiane 
 
 
 Jeśli chcesz dodać stronę z nowym pojęciem, odwiedź
-[Jak używać szablonu strony](/docs/home/contribute/page-templates/)
-aby dowiedzieć się o tworzeniu stron opisujących pojęcia i o dostępnych szablonach.
+[Page Content Types](/docs/home/contribute/style/page-content-types/#concept),
+aby dowiedzieć się o tworzeniu stron opisujących pojęcia.
 
 
