@@ -226,6 +226,100 @@ rules:
   - sign
 ```
 
+## Normal User
+
+Few steps are required in order to get normal user to be able to authenticate and invoke API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate into the API call as the Certificate Header, or through the kubectl.
+
+### Create Private Key
+
+The following scripts show how to generate PKI private key and CSR. It is important to set CN and O attribute of the CSR. CN is the name of the user and O is the group that this user will belong to. You can refer to [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
+
+```
+openssl genrsa -out john.key 2048
+openssl req -new -key john.key -out john.csr
+```
+
+### Create Certificate Request Kubernetes Object
+
+Create a CertificateSigningRequest and submit it to Kubernetes Cluster via kubectl. Below is script to generate one.
+
+```
+cat <<EOF | kubectl apply -f -
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata:
+  name: john
+spec:
+  groups:
+  - system:authenticated
+  request: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURSBSRVFVRVNULS0tLS0KTUlJQ1ZqQ0NBVDRDQVFBd0VURVBNQTBHQTFVRUF3d0dZVzVuWld4aE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRgpBQU9DQVE4QU1JSUJDZ0tDQVFFQTByczhJTHRHdTYxakx2dHhWTTJSVlRWMDNHWlJTWWw0dWluVWo4RElaWjBOCnR2MUZtRVFSd3VoaUZsOFEzcWl0Qm0wMUFSMkNJVXBGd2ZzSjZ4MXF3ckJzVkhZbGlBNVhwRVpZM3ExcGswSDQKM3Z3aGJlK1o2MVNrVHF5SVBYUUwrTWM5T1Nsbm0xb0R2N0NtSkZNMUlMRVI3QTVGZnZKOEdFRjJ6dHBoaUlFMwpub1dtdHNZb3JuT2wzc2lHQ2ZGZzR4Zmd4eW8ybmlneFNVekl1bXNnVm9PM2ttT0x1RVF6cXpkakJ3TFJXbWlECklmMXBMWnoyalVnald4UkhCM1gyWnVVV1d1T09PZnpXM01LaE8ybHEvZi9DdS8wYk83c0x0MCt3U2ZMSU91TFcKcW90blZtRmxMMytqTy82WDNDKzBERHk5aUtwbXJjVDBnWGZLemE1dHJRSURBUUFCb0FBd0RRWUpLb1pJaHZjTgpBUUVMQlFBRGdnRUJBR05WdmVIOGR4ZzNvK21VeVRkbmFjVmQ1N24zSkExdnZEU1JWREkyQTZ1eXN3ZFp1L1BVCkkwZXpZWFV0RVNnSk1IRmQycVVNMjNuNVJsSXJ3R0xuUXFISUh5VStWWHhsdnZsRnpNOVpEWllSTmU3QlJvYXgKQVlEdUI5STZXT3FYbkFvczFqRmxNUG5NbFpqdU5kSGxpT1BjTU1oNndLaTZzZFhpVStHYTJ2RUVLY01jSVUyRgpvU2djUWdMYTk0aEpacGk3ZnNMdm1OQUxoT045UHdNMGM1dVJVejV4T0dGMUtCbWRSeEgvbUNOS2JKYjFRQm1HCkkwYitEUEdaTktXTU0xMzhIQXdoV0tkNjVoVHdYOWl4V3ZHMkh4TG1WQzg0L1BHT0tWQW9FNkpsYWFHdTlQVmkKdjlOSjVaZlZrcXdCd0hKbzZXdk9xVlA3SVFjZmg3d0drWm89Ci0tLS0tRU5EIENFUlRJRklDQVRFIFJFUVVFU1QtLS0tLQo=
+  usages:
+  - client auth
+```
+
+Few points to note:
+
+- usage has to be 'client auth'
+- request is the base64 encoded value of the CSR file content. You can use this command to get that ```cat john.csr | base64 | tr -d "\n"```
+
+### Approve Certificate Request
+
+Use kubeadmin to create a CSR and approve it.
+
+Get the list of CSRs
+```
+kubectl get csr
+```
+
+Approve the CSR
+```
+kubectl certificate approve john
+```
+
+### Get the Certificate
+
+Retrieve the Certificate from the CSR.
+
+```
+kubectl get csr/john -o yaml
+```
+
+The Certifcate value is in Base64 format, under status.certificate.
+
+### Create Role and Role Binding
+
+You get the Certificate already. Now it is time to define the Role and Role Binding for this user to access Kubernetes Cluster resources.
+
+This is a sample script to create role for this new user
+```
+kubectl create role developer --verb=create --verb=get --verb=list --verb=update --verb=delete --resource=pods
+```
+
+This is a sample script to create role binding for this new user
+```
+kubectl create rolebinding developer-binding-john --role=developer --user=john
+```
+
+### Add to KubeConfig
+
+The last step is to add this user into the KubeConfig. We assume the key and crt files are located here "/home/vagrant/work/".
+
+First, we need to add new credentials
+```
+kubectl config set-credentials john --client-key=/home/vagrant/work/john.key --client-certificate=/home/vagrant/work/john.crt --embed-certs=true
+
+```
+
+Then, we need to add the context
+```
+kubectl config set-context john --cluster=kubernetes --user=john
+```
+
+To test it, change kubecontext to john
+```
+kubectl config use-context john
+```
+
 ## Approval & rejection
 
 ### Control plane automated approval {#approval-rejection-control-plane}
