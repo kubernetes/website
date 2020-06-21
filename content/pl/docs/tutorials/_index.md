@@ -70,7 +70,7 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 
 Jeśli chciałbyś napisać nowy samouczek, odwiedź
-[Content Page Types](/docs/home/contribute/style/page-content-types/),
+[Content Page Types](/docs/contribute/style/page-content-types/),
 gdzie znajdziesz dodatkowe informacje o tym typie strony.
 
 
