@@ -37,7 +37,7 @@ Podとコンテナのフィールドを実行中のコンテナに公開する�
 
 {{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
 
-設定ファイルには、5つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素は、環境変数`MY_NODE_NAME`の値をPodの`spec.nodeName`フィールドから取得することを指定します。同様に、他の環境変数もPodのフィールドから名前を取得します。
+設定ファイルには、5つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素では、環境変数`MY_NODE_NAME`の値をPodの`spec.nodeName`フィールドから取得することを指定します。同様に、他の環境変数もPodのフィールドから名前を取得します。
 
 {{< note >}}
 この例のフィールドはPodのフィールドです。これらはPod内のコンテナのフィールドではありません。
@@ -104,7 +104,7 @@ MY_POD_NAME=dapi-envars-fieldref
 
 {{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
 
-設定ファイルには、4つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素は、環境変数`MY_CPU_REQUEST`の値を`test-container`という名前のコンテナの`requests.cpu`フィールドから取得することを指定します。同様に、他の環境変数もコンテナのフィールドから値を取得します。
+設定ファイルには、4つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素では、環境変数`MY_CPU_REQUEST`の値を`test-container`という名前のコンテナの`requests.cpu`フィールドから取得することを指定します。同様に、他の環境変数もコンテナのフィールドから値を取得します。
 
 Podを作成します:
 
