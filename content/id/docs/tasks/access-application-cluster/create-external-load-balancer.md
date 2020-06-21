@@ -176,7 +176,7 @@ dinding api (_firewall_) (jika dibutuhkan), dan mengambil IP eksternal yang dial
 
 ## Peringatan dan and Limitasi ketika preservasi sumber IP
 
-_Load balancers_ GCE/AWS tidak menyediakan bobot pada kolam targetnya. Hal ini bukan merupakan isu dengan aturan kube-proxy
+_Load balancers_ GCE/AWS tidak menyediakan bobot pada kolam targetnya (target pools). Hal ini bukan merupakan isu dengan aturan kube-proxy
 _Load balancer_ lama yang akan menyeimbangkan semua titik akhir dengan benar.
 
 Dengan fungsionalitas yang baru, lalu lintas eksternal tidak menyeimbangkan beban secara merata pada seluruh Pod, namun
