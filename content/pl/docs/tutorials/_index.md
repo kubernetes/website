@@ -69,8 +69,8 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 ## {{% heading "whatsnext" %}}
 
 
-Jeśli chciałbyś napisać nowy samouczek, zajrzyj na stronę
-[Jak używać szablonów stron](/docs/home/contribute/page-templates/)
-gdzie znajdziesz dodatkowe informacje na temat stron i szablonów samouczków.
+Jeśli chciałbyś napisać nowy samouczek, odwiedź
+[Content Page Types](/docs/home/contribute/style/page-content-types/),
+gdzie znajdziesz dodatkowe informacje o tym typie strony.
 
 
