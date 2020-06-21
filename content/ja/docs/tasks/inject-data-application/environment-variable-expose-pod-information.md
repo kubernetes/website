@@ -1,12 +1,12 @@
 ---
-title: 環境変数によりコンテナにPod情報を公開する
+title: 環境変数によりコンテナにPod情報を共有する
 content_type: task
 weight: 30
 ---
 
 <!-- overview -->
 
-このページでは、Podが環境変数を使用して、Pod内で実行されているコンテナに自分自身の情報を公開する方法を説明します。環境変数は、Podのフィールドとコンテナのフィールドを公開できます。
+このページでは、Podが環境変数を使用して、Pod内で実行されているコンテナに自分自身の情報を共有する方法を説明します。環境変数は、Podのフィールドとコンテナのフィールドを共有できます。
 
 
 
@@ -23,12 +23,12 @@ weight: 30
 
 ## Downward API {#the-downward-api}
 
-Podとコンテナのフィールドを実行中のコンテナに公開する方法は2つあります:
+Podとコンテナのフィールドを実行中のコンテナに共有する方法は2つあります:
 
 * 環境変数
 * [ボリュームファイル](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
 
-これら2つの方法を合わせて、Podとコンテナフィールドを公開する方法を*Downward API*と呼びます。
+これら2つの方法を合わせて、Podとコンテナフィールドを共有する方法を*Downward API*と呼びます。
 
 
 ## Podフィールドを環境変数の値として使用する {#use-pod-fields-as-values-for-environment-variables}
