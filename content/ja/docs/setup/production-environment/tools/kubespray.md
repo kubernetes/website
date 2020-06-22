@@ -6,14 +6,14 @@ weight: 30
 
 <!-- overview -->
 
-このクイックスタートはGCE、Azure、OpenStack、AWS、vSphere、Packet(ベアメタル)、Oracle Cloud Infrastructure(実験段階)またはベアメタルに上にKubesprayを使ったKubernetesクラスタをインストールするのに役立ちます。
+このクイックスタートはGCE、Azure、OpenStack、AWS、vSphere、Packet(ベアメタル)、Oracle Cloud Infrastructure(実験段階)またはベアメタルに上にKubesprayを使ったKubernetesクラスターをインストールするのに役立ちます。
 
-Kubesprayは、一般的なOS/Kubernetesクラスタの構成管理タスクのための[Ansible](http://docs.ansible.com/)プレイブック、[インベントリ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、プロビジョニングツール、ドメインナレッジで構成されています。
+Kubesprayは、一般的なOS/Kubernetesクラスターの構成管理タスクのための[Ansible](http://docs.ansible.com/)プレイブック、[インベントリ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、プロビジョニングツール、ドメインナレッジで構成されています。
 
 Kubesprayは以下を提供します:
 
-* ハイアベイラビリティクラスタ
-* Kubernetesクラスタの構成変更
+* ハイアベイラビリティクラスター
+* Kubernetesクラスターの構成変更
 * 最も人気なLinuxディストリビューションをサポート
   * Container Linux by CoreOS
   * Debian Buster, Jessie, Stretch, Wheezy
@@ -29,7 +29,7 @@ Kubesprayは以下を提供します:
 
 <!-- body -->
 
-## クラスタの作成
+## クラスターの作成
 
 ### (1/5) 下地の要件の確認
 
@@ -54,7 +54,7 @@ Kubespray は、環境のプロビジョニングに役立つ以下のユーテ�
 
 サーバをプロビジョニングしたら、[Ansible用のインベントリファイル]((http://docs.ansible.com/ansible/intro_inventory.html))を作成します。これは、手動で行うことも、動的なインベントリスクリプトを使用して行うこともできます。詳細については、[独自のインベントリを作成する]((https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory))を参照してください。
 
-### (3/5) クラスタ作成の計画
+### (3/5) クラスター作成の計画
 
 Kubesprayはデプロイの様々な設定をカスタマイズする機能を提供します:
 
@@ -70,12 +70,12 @@ Kubesprayはデプロイの様々な設定をカスタマイズする機能を�
   * {{< glossary_tooltip term_id="cri-o" >}}
 * 証明書の生成方法
 
-Kubesprayのカスタマイズは[変数ファイル](http://docs.ansible.com/ansible/playbooks_variables.html)で行うことができます。Kubesprayを使い始めたばかりの方は、Kubesprayのデフォルト設定を使ってクラスタをデプロイし、Kubernetes触ってみることを検討してみてください。
+Kubesprayのカスタマイズは[変数ファイル](http://docs.ansible.com/ansible/playbooks_variables.html)で行うことができます。Kubesprayを使い始めたばかりの方は、Kubesprayのデフォルト設定を使ってクラスターをデプロイし、Kubernetes触ってみることを検討してみてください。
 
-### (4/5) クラスタのデプロイ
+### (4/5) クラスターのデプロイ
 
-次に、クラスタをデプロイします:
-クラスタのデプロイには[ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)を使用します。
+次に、クラスターをデプロイします:
+クラスターのデプロイには[ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)を使用します。
 
 ```shell
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
@@ -86,20 +86,20 @@ ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
 
 ### (5/5) デプロイの確認
 
-Kubesprayは、[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)でポッド間の接続性とDNS解決を検証する方法を提供しています。Netcheckerはnetchecker-agentsポッドがDNSリクエストを解決し、デフォルトの名前空間内でそれぞれのポッドにpingできることを保証します。これらのポッドは、他のワークロードの類似した動作を模倣し、クラスタの健全性を示す指標として機能します。
+Kubesprayは、[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)でポッド間の接続性とDNS解決を検証する方法を提供しています。Netcheckerはnetchecker-agentsポッドがDNSリクエストを解決し、デフォルトの名前空間内でそれぞれのポッドにpingできることを保証します。これらのポッドは、他のワークロードの類似した動作を模倣し、クラスターの健全性を示す指標として機能します。
 
-## クラスタの操作
+## クラスターの操作
 
-Kubesprayはクラスタを管理するための追加のplaybookを提供します: _scale_ と _upgrade_ です。
+Kubesprayはクラスターを管理するための追加のplaybookを提供します: _scale_ と _upgrade_ です。
 
-### クラスタのスケール
+### クラスターのスケール
 
-scale playbookを実行することで、クラスタへワーカーノードを追加することができます。詳細については[ノードの追加](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)を参照してください。
-remove-node playbookを実行することで、クラスタからワーカーノードを削除することができます。詳細については[ノードの削除](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)を参照してください。
+scale playbookを実行することで、クラスターへワーカーノードを追加することができます。詳細については[ノードの追加](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)を参照してください。
+remove-node playbookを実行することで、クラスターからワーカーノードを削除することができます。詳細については[ノードの削除](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)を参照してください。
 
-### クラスタのアップグレード
+### クラスターのアップグレード
 
-Uupgrade-cluster playbookを実行することで、クラスタをアップグレードすることができます。詳細については[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)を参照してください。
+Uupgrade-cluster playbookを実行することで、クラスターをアップグレードすることができます。詳細については[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)を参照してください。
 
 ## クリーンアップ
 
@@ -107,7 +107,7 @@ Uupgrade-cluster playbookを実行することで、クラスタをアップグ�
 
 
 {{< caution >}}
-reset playbookを実行する際には、誤って本番クラスタをターゲットにしないように注意してください。
+reset playbookを実行する際には、誤って本番クラスターをターゲットにしないように注意してください。
 {{< /caution >}}
 
 ## フィードバック
