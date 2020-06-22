@@ -130,7 +130,7 @@ CRI-Oの[設定に関するドキュメント][100]の詳細は下記を参照�
 
 Kubernetes 1.16では、RuntimeClassは`scheduling`フィールドを使ったクラスター内での異なる設定をサポートしています。
 このフィールドによって、設定されたRuntimeClassをサポートするノードに対してPodがスケジュールされることを保証できます。
-スケジューリングをサポートするためにはRuntimeClass [admission controller][]を有効にしなければなりません。（1.16ではデフォルトです）
+スケジューリングをサポートするためにはRuntimeClass [アドミッションコントローラー][]を有効にしなければなりません。（1.16ではデフォルトです）
 
 特定のRuntimeClassをサポートしているノードへPodが配置されることを保証するために、各ノードは`runtimeclass.scheduling.nodeSelector`フィールドによって選択される共通のラベルを持つべきです。
 RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSelectorに統合され、効率よくノードを選択します。
@@ -141,7 +141,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 
 ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/ja/docs/concepts/configuration/assign-pod-node/)を参照してください。
 
-[admission controller]: /docs/reference/access-authn-authz/admission-controllers/
+[アドミッションコントローラー]: /docs/reference/access-authn-authz/admission-controllers/
 
 ### Podオーバーヘッド
 
