@@ -11,7 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
- 데이터를 포함하고 있는 디렉토리이며, {{< glossary_tooltip term_id="pod" >}}의 {{< glossary_tooltip text="컨테이너" term_id="container" >}}에서 접근 가능하다.
+ 데이터를 포함하고 있는 디렉토리이며, {{< glossary_tooltip text="파드" term_id="pod" >}}의 {{< glossary_tooltip text="컨테이너" term_id="container" >}}에서 접근 가능하다.
 
 <!--more--> 
 
