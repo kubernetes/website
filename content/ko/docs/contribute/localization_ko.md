@@ -421,7 +421,7 @@ skew | 차이(skew) |
 snippet | 스니펫(snippet) |
 spec | 명세, 스펙, 사양 |
 specification | 명세 |
-Stateful Set | 스테이트풀 셋 |
+Stateful Set | 스테이트풀셋(StatefulSet) |
 stateless | 스테이트리스 |
 Static pod | 스태틱(static) 파드 |
 Storage Class | 스토리지 클래스 |

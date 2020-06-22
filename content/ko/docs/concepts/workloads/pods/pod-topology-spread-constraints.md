@@ -18,8 +18,8 @@ weight: 50
 
 ### 기능 게이트 활성화
 
-를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와** 
-{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 
+를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와**
+{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에
 대해 `EvenPodsSpread`
 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어야 한다.
 
@@ -191,13 +191,13 @@ spec:
 토폴로지 분배 제약 조건은 다음과 같은 경우에만 파드에 적용된다.
 
 - `.spec.topologySpreadConstraints` 에는 어떠한 제약도 정의되어 있지 않는 경우.
-- 서비스, 레플리케이션 컨트롤러, 레플리카 셋 또는 스테이트풀 셋에 속해있는 경우.
+- 서비스, 레플리케이션컨트롤러(ReplicationController), 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)에 속해있는 경우.
 
 기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/profiles)에서
 `PodTopologySpread` 플러그인의 일부로 설정할 수 있다.
 제약 조건은 `labelSelector` 가 비어 있어야 한다는 점을 제외하고, [위와 동일한 API](#api)로
 제약 조건을 지정한다. 셀렉터는 파드가 속한 서비스, 레플리케이션 컨트롤러,
-레플리카 셋 또는 스테이트풀 셋에서 계산한다.
+레플리카 셋 또는 스테이트풀셋에서 계산한다.
 
 예시 구성은 다음과 같다.
 
@@ -226,14 +226,14 @@ profiles:
 ## 파드어피니티(PodAffinity)/파드안티어피니티(PodAntiAffinity)와의 비교
 
 쿠버네티스에서 "어피니티(Affinity)"와 관련된 지침은 파드가
-더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다. 
+더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다.
 
 - `PodAffinity` 는, 사용자가 자격이 충족되는 토폴로지 도메인에
   원하는 수의 파드를 얼마든지 채울 수 있다.
 - `PodAntiAffinity` 로는, 단일 토폴로지 도메인에
   단 하나의 파드만 스케줄 될 수 있다.
 
-"EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서 
+"EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서
 고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와
 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
 더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation)를 참조한다.
