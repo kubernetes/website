@@ -147,8 +147,10 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
+
 * [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [오브젝트 구성을 이용하여 쿠버네티스 오브젝트 관리하기 (선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 커멘드 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
+
 

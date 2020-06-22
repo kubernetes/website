@@ -1,9 +1,10 @@
 ---
-reviewers:
 title: 네트워크 폴리시로 큐브 라우터(Kube-router) 사용하기
 content_type: task
 weight: 30
 ---
+
+
 
 <!-- overview -->
 이 페이지는 네트워크 폴리시(NetworkPolicy)로 [큐브 라우터(Kube-router)](https://github.com/cloudnativelabs/kube-router)를 사용하는 방법을 살펴본다.
