@@ -12,7 +12,7 @@ Kubesprayは、一般的なOS/Kubernetesクラスターの構成管理タスク�
 
 Kubesprayは以下を提供します:
 
-* ハイアベイラビリティクラスター
+* 高可用性クラスター
 * Kubernetesクラスターの構成変更
 * 最も人気なLinuxディストリビューションをサポート
   * Container Linux by CoreOS
