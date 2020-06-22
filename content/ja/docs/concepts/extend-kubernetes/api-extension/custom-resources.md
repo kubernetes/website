@@ -152,7 +152,7 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 | カスタムストレージ | 異なる性能のストレージが必要な場合(例えば、キーバリューストアの代わりに時系列データベース)または、セキュリティの分離(例えば、機密情報の暗号化、その他)| いいえ | はい |
 | カスタムビジネスロジック | オブジェクトが作成、読み込み、更新、また削除されるときに任意のチェック、アクションを実行する| はい、[Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を利用 | はい |
 | サブリソースのスケール | HorizontalPodAutoscalerやPodDisruptionBudgetなどのシステムが、新しいリソースと連携できるようにする | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource) | はい |
-| サブリソースの状態 | ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む際により詳細なアクセスコントロールができるようにする。カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする(リソース内のspecとstatusでセクションが分離している必要がある) | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | はい |
+| サブリソースの状態 | ユーザーがspecセクションに書き込み、コントローラーがstatusセクションに書き込む際に、より詳細なアクセスコントロールができるようにする。カスタムリソースのデータ変換時にオブジェクトの世代を上げられるようにする(リソース内のspecとstatusでセクションが分離している必要がある) | [はい](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | はい |
 | その他のサブリソース | "logs"や"exec"のような、CRUD以外の処理の追加 | いいえ | はい |
 | strategic-merge-patch |`Content-Type: application/strategic-merge-patch+json`で、PATCHをサポートする新しいエンドポイント。ローカル、サーバー、どちらでも更新されうるオブジェクトに有用。さらなる情報は["APIオブジェクトをkubectl patchで決まった場所で更新"](/docs/tasks/run-application/update-api-object-kubectl-patch/)を参照 | いいえ | はい |
 | プロトコルバッファ | プロトコルバッファを使用するクライアントをサポートする新しいリソース | いいえ | はい |
