@@ -1,7 +1,7 @@
 ---
 title: クラウドコントローラーマネージャーとそのコンセプト
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -52,7 +52,7 @@ CCMは、Kubernetesコントローラーマネージャー(KCM)からいくつ�
 ボリュームコントローラーは、意図的にCCMの一部になっていません。複雑さと、ベンダー固有のボリュームロジックを抽象化するのに費やした労力を考え、CCMの一部に移行しないことが決定されました。
 {{< /note >}}
 
-CCMを使ったボリュームをサポートする元の計画は、プラガブルなボリュームをサポートするため、Flexボリュームを使うことでした。しかし、競合しているCSIとして知られている機能が、Flexを置き換える予定です。
+CCMを使ったボリュームをサポートする元の計画は、プラガブルなボリュームをサポートするため、[Flex](/docs/concepts/storage/volumes/#flexVolume)ボリュームを使うことでした。しかし、競合している[CSI](/docs/concepts/storage/volumes/#csi)として知られている機能が、Flexを置き換える予定です。
 
 これらのダイナミクスを考慮し、我々はCSIが利用できるようになるまで、間を取った暫定措置を取ることにしました。
 
@@ -223,13 +223,18 @@ rules:
 
 下記のクラウドプロバイダーがCCMを実装しています:
 
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
-* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/cloud-provider-azure)
-* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
+* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Hetzner](https://github.com/hetznercloud/hcloud-cloud-controller-manager)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
+* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
+* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
+
 
 ## クラスター管理
 
