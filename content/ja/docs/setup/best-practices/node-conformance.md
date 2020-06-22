@@ -27,8 +27,7 @@ Kubernetesのバージョン1.5ではノード適合テストには以下の制�
 ノード適合テストを実行するには、以下の手順に従います:
 
 1. Kubeletをlocalhostに指定します(`--api-servers="http://localhost:8080"`)、
-なぜならテストフレームワークはKubeletをテストするためにローカルマスターを起動するからです。
-他にも配慮するべきKubeletフラグがいくつかあります:
+このテストフレームワークはKubeletのテストにローカルマスターを起動するため、Kubeletをローカルホストに設定します(`--api-servers="http://localhost:8080"`)。他にも配慮するべきKubeletフラグがいくつかあります:
   * `--pod-cidr`: `kubenet`を利用している場合は、Kubeletに任意のCIDR(例: `--pod-cidr=10.180.0.0/24`)を指定する必要があります。
   * `--cloud-provider`: `--cloud-provider=gce`を指定している場合は、テストを実行する前にこのフラグを取り除いてください。
 
