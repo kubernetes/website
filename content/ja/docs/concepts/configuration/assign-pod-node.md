@@ -1,5 +1,5 @@
 ---
-title: ノード上へのPodのスケジューリング
+title: Node上へのPodのスケジューリング
 content_type: concept
 weight: 30
 ---
@@ -7,10 +7,10 @@ weight: 30
 
 <!-- overview -->
 
-{{< glossary_tooltip text="Pod" term_id="pod" >}}が稼働する{{< glossary_tooltip text="ノード" term_id="node" >}}を特定のものに指定したり、優先条件を指定して制限することができます。
+{{< glossary_tooltip text="Pod" term_id="pod" >}}が稼働する{{< glossary_tooltip text="Node(s)" term_id="node" >}}を特定のものに指定したり、優先条件を指定して制限することができます。
 これを実現するためにはいくつかの方法がありますが、推奨されている方法は[ラベルでの選択](/ja/docs/concepts/overview/working-with-objects/labels/)です。
-スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のノードへデプロイしたり、Podを配置する際にリソースが不十分なノードにはデプロイされないことが挙げられます)が、
-SSDが搭載されているノードにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じノードにデプロイする等、柔軟な制御が必要なこともあります。
+スケジューラーが最適な配置を選択するため、一般的にはこのような制限は不要です(例えば、複数のPodを別々のNodeへデプロイしたり、Podを配置する際にリソースが不十分なNodeにはデプロイされないことが挙げられます)が、
+SSDが搭載されているNodeにPodをデプロイしたり、同じアベイラビリティーゾーン内で通信する異なるサービスのPodを同じNodeにデプロイする等、柔軟な制御が必要なこともあります。
 
 
 
@@ -18,9 +18,9 @@ SSDが搭載されているノードにPodをデプロイしたり、同じア�
 
 ## nodeSelector
 
-`nodeSelector`は、ノードを選択するための、最も簡単で推奨されている手法です。
+`nodeSelector`は、Nodeを選択するための、最も簡単で推奨されている手法です。
 `nodeSelector`はPodSpecのフィールドです。これはkey-valueペアのマップを特定します。
-あるノードでPodを稼働させるためには、そのノードがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
+あるNodeでPodを稼働させるためには、そのNodeがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
 最も一般的な使用方法は、1つのkey-valueペアを付与する方法です。
 
 以下に、`nodeSelector`の使用例を紹介します。
@@ -60,12 +60,12 @@ nodeSelectorを以下のように追加します:
 
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
-`kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`により、Podは先ほどラベルを付与したノードへスケジュールされます。
-`kubectl get pods -o wide`で表示される"NODE"の列から、Podがデプロイされているノードを確認することができます。
+`kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml`により、Podは先ほどラベルを付与したNodeへスケジュールされます。
+`kubectl get pods -o wide`で表示される"NODE"の列から、PodがデプロイされているNodeを確認することができます。
 
-## 補足: ビルトインノードラベル {#built-in-node-labels}
+## 補足: ビルトインNodeラベル {#built-in-node-labels}
 
-明示的に[付与](#step-one-attach-label-to-the-node)するラベルの他に、事前にノードへ付与されているものもあります。
+明示的に[付与](#step-one-attach-label-to-the-node)するラベルの他に、事前にNodeへ付与されているものもあります。
 以下のようなラベルが該当します。
 
 * [`kubernetes.io/hostname`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
@@ -80,103 +80,103 @@ nodeSelectorを以下のように追加します:
 
 {{< note >}}
 これらのラベルは、クラウドプロバイダー固有であり、確実なものではありません。
-例えば、`kubernetes.io/hostname`の値はノードの名前と同じである環境もあれば、異なる環境もあります。
+例えば、`kubernetes.io/hostname`の値はNodeの名前と同じである環境もあれば、異なる環境もあります。
 {{< /note >}}
 
 
-## ノードの隔離や制限
+## Nodeの隔離や制限
 
-ノードにラベルを付与することで、Podは特定のノードやノードグループにスケジュールされます。
-これにより、特定のPodを、確かな隔離性や安全性、特性を持ったノードで稼働させることができます。
-この目的でラベルを使用する際に、ノード上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
-これは、安全性が損なわれたノードがkubeletの認証情報をノードのオブジェクトに設定したり、スケジューラーがそのようなノードにデプロイすることを防ぎます。
+Nodeにラベルを付与することで、Podは特定のNodeやNodeグループにスケジュールされます。
+これにより、特定のPodを、確かな隔離性や安全性、特性を持ったNodeで稼働させることができます。
+この目的でラベルを使用する際に、Node上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
+これは、安全性が損なわれたNodeがkubeletの認証情報をNodeのオブジェクトに設定したり、スケジューラーがそのようなNodeにデプロイすることを防ぎます。
 
 `NodeRestriction`プラグインは、kubeletが`node-restriction.kubernetes.io/`プレフィックスを有するラベルの設定や上書きを防ぎます。
-ノードの隔離にラベルのプレフィックスを使用するためには、以下のようにします。
+Nodeの隔離にラベルのプレフィックスを使用するためには、以下のようにします。
 
 1. [Node authorizer](/docs/reference/access-authn-authz/node/)を使用していることと、[NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が_有効_になっていること。
-2. ノードに`node-restriction.kubernetes.io/` プレフィックスのラベルを付与し、そのラベルがnode selectorに指定されていること。
+2. Nodeに`node-restriction.kubernetes.io/` プレフィックスのラベルを付与し、そのラベルがnode selectorに指定されていること。
 例えば、`example.com.node-restriction.kubernetes.io/fips=true` または `example.com.node-restriction.kubernetes.io/pci-dss=true`のようなラベルです。
 
 ## アフィニティとアンチアフィニティ {#affinity-and-anti-affinity}
 
-`nodeSelector`はPodの稼働を特定のラベルが付与されたノードに制限する最も簡単な方法です。
+`nodeSelector`はPodの稼働を特定のラベルが付与されたNodeに制限する最も簡単な方法です。
 アフィニティ/アンチアフィニティでは、より柔軟な指定方法が提供されています。
 拡張機能は以下の通りです。
 
 1. アフィニティ/アンチアフィニティという用語はとても表現豊かです。この用語は論理AND演算で作成された完全一致だけではなく、より多くのマッチングルールを提供します。
 2. 必須条件ではなく優先条件を指定でき、条件を満たさない場合でもPodをスケジュールさせることができます。
-3. ノード自体のラベルではなく、ノード(または他のトポロジカルドメイン)上で稼働している他のPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができます。
+3. Node自体のラベルではなく、Node(または他のトポロジカルドメイン)上で稼働している他のPodのラベルに対して条件を指定することができ、そのPodと同じ、または異なるドメインで稼働させることができます。
 
-アフィニティは"ノードアフィニティ"と"Pod間アフィニティ/アンチアフィニティ"の2種類から成ります。
-ノードアフィニティは`nodeSelector`(前述の2つのメリットがあります)に似ていますが、Pod間アフィニティ/アンチアフィニティは、上記の3番目の機能に記載している通り、ノードのラベルではなくPodのラベルに対して制限をかけます。
+アフィニティは"Nodeアフィニティ"と"Pod間アフィニティ/アンチアフィニティ"の2種類から成ります。
+Nodeアフィニティは`nodeSelector`(前述の2つのメリットがあります)に似ていますが、Pod間アフィニティ/アンチアフィニティは、上記の3番目の機能に記載している通り、NodeのラベルではなくPodのラベルに対して制限をかけます。
 
-### ノードアフィニティ
+### Nodeアフィニティ
 
-ノードアフィニティはα機能としてKubernetesのv1.2から導入されました。
-ノードアフィニティは概念的には、ノードのラベルによってPodがどのノードにスケジュールされるかを制限する`nodeSelector`と同様です。
+Nodeアフィニティはα機能としてKubernetesのv1.2から導入されました。
+Nodeアフィニティは概念的には、NodeのラベルによってPodがどのNodeにスケジュールされるかを制限する`nodeSelector`と同様です。
 
-現在は2種類のノードアフィニティがあり、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`です。
-前者はノードにスケジュールされるPodが条件を満たすことが必須(`nodeSelector`に似ていますが、より柔軟に条件を指定できます)であり、後者は条件を指定できますが保証されるわけではなく、優先的に考慮されます。
-"IgnoredDuringExecution"の意味するところは、`nodeSelector`の機能と同様であり、ノードのラベルが変更され、Podがその条件を満たさなくなった場合でも
-Podはそのノードで稼働し続けるということです。
-将来的には、`requiredDuringSchedulingIgnoredDuringExecution`に、Podのノードアフィニティに記された必須要件を満たさなくなったノードからそのPodを退避させることができる機能を備えた`requiredDuringSchedulingRequiredDuringExecution`が提供される予定です。
+現在は2種類のNodeアフィニティがあり、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`です。
+前者はNodeにスケジュールされるPodが条件を満たすことが必須(`nodeSelector`に似ていますが、より柔軟に条件を指定できます)であり、後者は条件を指定できますが保証されるわけではなく、優先的に考慮されます。
+"IgnoredDuringExecution"の意味するところは、`nodeSelector`の機能と同様であり、Nodeのラベルが変更され、Podがその条件を満たさなくなった場合でも
+PodはそのNodeで稼働し続けるということです。
+将来的には、`requiredDuringSchedulingIgnoredDuringExecution`に、PodのNodeアフィニティに記された必須要件を満たさなくなったNodeからそのPodを退避させることができる機能を備えた`requiredDuringSchedulingRequiredDuringExecution`が提供される予定です。
 
 それぞれの使用例として、
-`requiredDuringSchedulingIgnoredDuringExecution` は、"インテルCPUを供えたノード上でPodを稼働させる"、
+`requiredDuringSchedulingIgnoredDuringExecution` は、"インテルCPUを供えたNode上でPodを稼働させる"、
 `preferredDuringSchedulingIgnoredDuringExecution`は、"ゾーンXYZでPodの稼働を試みますが、実現不可能な場合には他の場所で稼働させる"
 といった方法が挙げられます。
 
-ノードアフィニティは、PodSpecの`affinity`フィールドにある`nodeAffinity`フィールドで特定します。
+Nodeアフィニティは、PodSpecの`affinity`フィールドにある`nodeAffinity`フィールドで特定します。
 
-ノードアフィニティを使用したPodの例を以下に示します:
+Nodeアフィニティを使用したPodの例を以下に示します:
 
 {{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
-このノードアフィニティでは、Podはキーが`kubernetes.io/e2e-az-name`、値が`e2e-az1`または`e2e-az2`のラベルが付与されたノードにしか配置されません。
-加えて、キーが`another-node-label-key`、値が`another-node-label-value`のラベルが付与されたノードが優先されます。
+このNodeアフィニティでは、Podはキーが`kubernetes.io/e2e-az-name`、値が`e2e-az1`または`e2e-az2`のラベルが付与されたNodeにしか配置されません。
+加えて、キーが`another-node-label-key`、値が`another-node-label-value`のラベルが付与されたNodeが優先されます。
 
 この例ではオペレーター`In`が使われています。
-ノードアフィニティでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレーターが使用できます。
-`NotIn`と`DoesNotExist`はノードアンチアフィニティ、またはPodを特定のノードにスケジュールさせない場合に使われる[Taints](/docs/concepts/configuration/taint-and-toleration/)に使用します。
+Nodeアフィニティでは、`In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt`、`Lt`のオペレーターが使用できます。
+`NotIn`と`DoesNotExist`はNodeアンチアフィニティ、またはPodを特定のNodeにスケジュールさせない場合に使われる[Taints](/docs/concepts/configuration/taint-and-toleration/)に使用します。
 
-`nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすノードにスケジュールされます。
+`nodeSelector`と`nodeAffinity`の両方を指定した場合、Podは**両方の**条件を満たすNodeにスケジュールされます。
 
-`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**全ての**`nodeSelectorTerms`を満たしたノードへスケジュールされます。
+`nodeAffinity`内で複数の`nodeSelectorTerms`を指定した場合、Podは**全ての**`nodeSelectorTerms`を満たしたNodeへスケジュールされます。
 
-`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**いずれかの**`matchExpressions`を満たしたノードへスケジュールされます。
+`nodeSelectorTerms`内で複数の`matchExpressions`を指定した場合にはPodは**いずれかの**`matchExpressions`を満たしたNodeへスケジュールされます。
 
-Podがスケジュールされたノードのラベルを削除したり変更しても、Podは削除されません。
+PodがスケジュールされたNodeのラベルを削除したり変更しても、Podは削除されません。
 言い換えると、アフィニティはPodをスケジュールする際にのみ考慮されます。
 
 `preferredDuringSchedulingIgnoredDuringExecution`内の`weight`フィールドは、1から100の範囲で指定します。
-全ての必要条件(リソースやRequiredDuringSchedulingアフィニティ等)を満たしたノードに対して、スケジューラーはそのノードがMatchExpressionsを満たした場合に、このフィルードの"weight"を加算して合計を計算します。
-このスコアがノードの他の優先機能のスコアと組み合わせれ、最も高いスコアを有したノードが優先されます。
+全ての必要条件(リソースやRequiredDuringSchedulingアフィニティ等)を満たしたNodeに対して、スケジューラーはそのNodeがMatchExpressionsを満たした場合に、このフィルードの"weight"を加算して合計を計算します。
+このスコアがNodeの他の優先機能のスコアと組み合わせれ、最も高いスコアを有したNodeが優先されます。
 
 ### Pod間アフィニティとアンチアフィニティ
 
-Pod間アフィニティとアンチアフィニティは、ノードのラベルではなく、すでにノードで稼働しているPodのラベルに従ってPodがスケジュールされるノードを制限します。
+Pod間アフィニティとアンチアフィニティは、Nodeのラベルではなく、すでにNodeで稼働しているPodのラベルに従ってPodがスケジュールされるNodeを制限します。
 このポリシーは、"XにてルールYを満たすPodがすでに稼働している場合、このPodもXで稼働させる(アンチアフィニティの場合は稼働させない)"という形式です。
 Yはnamespaceのリストで指定したLabelSelectorで表されます。
-ノードと異なり、Podはnamespaceで区切られているため(それゆえPodのラベルも暗黙的にnamespaceで区切られます)、Podのラベルを指定するlabel selectorは、どのnamespaceにselectorを適用するかを指定する必要があります。
-概念的に、Xはノードや、ラック、クラウドプロバイダゾーン、クラウドプロバイダのリージョン等を表すトポロジードメインです。
-これらを表すためにシステムが使用するノードラベルのキーである`topologyKey`を使うことで、トポロジードメインを指定することができます。
-先述のセクション[補足: ビルトインノードラベル](#interlude-built-in-node-labels)にてラベルの例が紹介されています。
+Nodeと異なり、Podはnamespaceで区切られているため(それゆえPodのラベルも暗黙的にnamespaceで区切られます)、Podのラベルを指定するlabel selectorは、どのnamespaceにselectorを適用するかを指定する必要があります。
+概念的に、XはNodeや、ラック、クラウドプロバイダゾーン、クラウドプロバイダのリージョン等を表すトポロジードメインです。
+これらを表すためにシステムが使用するNodeラベルのキーである`topologyKey`を使うことで、トポロジードメインを指定することができます。
+先述のセクション[補足: ビルトインNodeラベル](#interlude-built-in-node-labels)にてラベルの例が紹介されています。
 
 
 {{< note >}}
 Pod間アフィニティとアンチアフィニティは、大規模なクラスター上で使用する際にスケジューリングを非常に遅くする恐れのある多くの処理を要します。
-そのため、数百台以上のノードから成るクラスターでは使用することを推奨されません。
+そのため、数百台以上のNodeから成るクラスターでは使用することを推奨されません。
 {{< /note >}}
 
 {{< note >}}
-Podのアンチアフィニティは、ノードに必ずラベルが付与されている必要があります。
-言い換えると、クラスターの全てのノードが、`topologyKey`で指定されたものに合致する適切なラベルが必要になります。
-それらが付与されていないノードが存在する場合、意図しない挙動を示すことがあります。
+Podのアンチアフィニティは、Nodeに必ずラベルが付与されている必要があります。
+言い換えると、クラスターの全てのNodeが、`topologyKey`で指定されたものに合致する適切なラベルが必要になります。
+それらが付与されていないNodeが存在する場合、意図しない挙動を示すことがあります。
 {{< /note >}}
 
-ノードアフィニティと同様に、PodアフィニティとPodアンチアフィニティにも必須条件と優先条件を示す`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`があります。
-前述のノードアフィニティのセクションを参照してください。
+Nodeアフィニティと同様に、PodアフィニティとPodアンチアフィニティにも必須条件と優先条件を示す`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`があります。
+前述のNodeアフィニティのセクションを参照してください。
 `requiredDuringSchedulingIgnoredDuringExecution`を指定するアフィニティの使用例は、"Service AのPodとService BのPodが密に通信する際、それらを同じゾーンで稼働させる場合"です。
 また、`preferredDuringSchedulingIgnoredDuringExecution`を指定するアンチアフィニティの使用例は、"ゾーンをまたいでPodのサービスを稼働させる場合"(Podの数はゾーンの数よりも多いため、必須条件を指定すると合理的ではありません)です。
 
@@ -188,10 +188,10 @@ Pod間アフィニティは、PodSpecの`affinity`フィールド内に`podAffin
 
 このPodのアフィニティは、PodアフィニティとPodアンチアフィニティを1つずつ定義しています。
 この例では、`podAffinity`に`requiredDuringSchedulingIgnoredDuringExecution`、`podAntiAffinity`に`preferredDuringSchedulingIgnoredDuringExecution`が設定されています。
-Podアフィニティは、「キーが"security"、値が"S1"のラベルが付与されたPodが少なくとも1つは稼働しているノードが同じゾーンにあれば、Podはそのノードにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、値が"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、値がVであるノードが少なくとも1つはある状態で、
-ノードNがキー`failure-domain.beta.kubernetes.io/zone`、値Vのラベルを持つ場合に、PodはノードNで稼働させることができます)。
-Podアンチアフィニティは、「すでにあるノード上で、キーが"security"、値が"S2"であるPodが稼働している場合に、Podを可能な限りそのノード上で稼働させない」という条件を指定しています
-(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、値が"S2"であるであるPodが稼働しているゾーンと同じゾーン内のノードにはスケジュールされなくなります)。
+Podアフィニティは、「キーが"security"、値が"S1"のラベルが付与されたPodが少なくとも1つは稼働しているNodeが同じゾーンにあれば、Podはそのノードにスケジュールされる」という条件を指定しています(より正確には、キーが"security"、値が"S1"のラベルが付与されたPodが稼働しており、キーが`failure-domain.beta.kubernetes.io/zone`、値がVであるノードが少なくとも1つはある状態で、
+NodeNがキー`failure-domain.beta.kubernetes.io/zone`、値Vのラベルを持つ場合に、PodはノードNで稼働させることができます)。
+Podアンチアフィニティは、「すでにあるNode上で、キーが"security"、値が"S2"であるPodが稼働している場合に、Podを可能な限りそのノード上で稼働させない」という条件を指定しています
+(`topologyKey`が`failure-domain.beta.kubernetes.io/zone`であった場合、キーが"security"、値が"S2"であるであるPodが稼働しているゾーンと同じゾーン内のNodeにはスケジュールされなくなります)。
 PodアフィニティとPodアンチアフィニティや、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`に関する他の使用例は[デザインドック](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)を参照してください。
 
 PodアフィニティとPodアンチアフィニティで使用できるオペレーターは、`In`、`NotIn`、 `Exists`、 `DoesNotExist`です。
@@ -208,22 +208,22 @@ PodアフィニティとPodアンチアフィニティで使用できるオペ�
 `labelSelector`と`topologyKey`に加え、`labelSelector`が合致すべき`namespaces`のリストを特定することも可能です(これは`labelSelector`と`topologyKey`を定義することと同等です)。
 省略した場合や空の場合は、アフィニティとアンチアフィニティが定義されたPodのnamespaceがデフォルトで設定されます。
 
-`requiredDuringSchedulingIgnoredDuringExecution`が指定されたアフィニティとアンチアフィニティでは、`matchExpressions`に記載された全ての条件が満たされるノードにPodがスケジュールされます。 
+`requiredDuringSchedulingIgnoredDuringExecution`が指定されたアフィニティとアンチアフィニティでは、`matchExpressions`に記載された全ての条件が満たされるNodeにPodがスケジュールされます。
 
 
 #### 実際的なユースケース
 
 Pod間アフィニティとアンチアフィニティは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用すると更に有用です。
-Workloadが、ノード等の定義された同じトポロジーに共存させるよう、簡単に設定できます。
+Workloadが、Node等の定義された同じトポロジーに共存させるよう、簡単に設定できます。
 
 
-##### 常に同じノードで稼働させる場合
+##### 常に同じNodeで稼働させる場合
 
-３つのノードから成るクラスターでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
+３つのNodeから成るクラスターでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
 このような場合、ウェブサーバーは可能な限りキャッシュと共存させることが望ましいです。
 
 ラベル`app=store`を付与した3つのレプリカから成るredisのdeploymentを記述したyamlファイルを示します。
-Deploymentには、1つのノードにレプリカを共存させないために`PodAntiAffinity`を付与しています。
+Deploymentには、1つのNodeにレプリカを共存させないために`PodAntiAffinity`を付与しています。
 
 
 ```yaml
@@ -258,7 +258,7 @@ spec:
 
 ウェブサーバーのDeploymentを記載した以下のyamlファイルには、`podAntiAffinity` と`podAffinity`が設定されています。
 全てのレプリカが`app=store`のラベルが付与されたPodと同じゾーンで稼働するよう、スケジューラーに設定されます。
-また、それぞれのウェブサーバーは1つのノードで稼働されないことも保証されます。
+また、それぞれのウェブサーバーは1つのNodeで稼働されないことも保証されます。
 
 
 ```yaml
@@ -300,7 +300,7 @@ spec:
         image: nginx:1.16-alpine
 ```
 
-上記2つのDeploymentが生成されると、3つのノードは以下のようになります。
+上記2つのDeploymentが生成されると、3つのNodeは以下のようになります。
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
@@ -323,7 +323,7 @@ web-server-1287567482-6f7v5    1/1       Running   0          7m        10.192.4
 web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3.2   kube-node-2
 ```
 
-##### 同じノードに共存させない場合
+##### 同じNodeに共存させない場合
 
 上記の例では `PodAntiAffinity`を`topologyKey: "kubernetes.io/hostname"`と合わせて指定することで、redisクラスター内の2つのインスタンスが同じホストにデプロイされない場合を扱いました。
 同様の方法で、アンチアフィニティを用いて高可用性を実現したStatefulSetの使用例は[ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
@@ -331,16 +331,16 @@ web-server-1287567482-s330j    1/1       Running   0          7m        10.192.3
 
 ## nodeName
 
-`nodeName`はノードの選択を制限する最も簡単な方法ですが、制約があることからあまり使用されません。
+`nodeName`はNodeの選択を制限する最も簡単な方法ですが、制約があることからあまり使用されません。
 `nodeName`はPodSpecのフィールドです。
-ここに値が設定されると、schedulerはそのPodを考慮しなくなり、その名前が付与されているノードのkubeletはPodを稼働させようとします。
-そのため、PodSpecに`nodeName`が指定されると、上述のノードの選択方法よりも優先されます。
+ここに値が設定されると、schedulerはそのPodを考慮しなくなり、その名前が付与されているNodeのkubeletはPodを稼働させようとします。
+そのため、PodSpecに`nodeName`が指定されると、上述のNodeの選択方法よりも優先されます。
 
  `nodeName`を使用することによる制約は以下の通りです:
 
--   その名前のノードが存在しない場合、Podは起動されす、自動的に削除される場合があります。
--   その名前のノードにPodを稼働させるためのリソースがない場合、Podの起動は失敗し、理由は例えばOutOfmemoryやOutOfcpuになります。
--   クラウド上のノードの名前は予期できず、変更される可能性があります。
+-   その名前のNodeが存在しない場合、Podは起動されす、自動的に削除される場合があります。
+-   その名前のNodeにPodを稼働させるためのリソースがない場合、Podの起動は失敗し、理由は例えばOutOfmemoryやOutOfcpuになります。
+-   クラウド上のNodeの名前は予期できず、変更される可能性があります。
 
 `nodeName`を指定したPodの設定ファイルの例を示します:
 
@@ -356,18 +356,18 @@ spec:
   nodeName: kube-01
 ```
 
-上記のPodはkube-01という名前のノードで稼働します。
+上記のPodはkube-01という名前のNodeで稼働します。
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-[Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、ノードはPodを追い出すことができます。
+[Taints](/docs/concepts/configuration/taint-and-toleration/)を使うことで、NodeはPodを追い出すことができます。
 
-[ノードアフィニティ](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)と
+[Nodeアフィニティ](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)と
 [Pod間アフィニティ/アンチアフィニティ](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
 のデザインドキュメントには、これらの機能の追加のバックグラウンドの情報が記載されています。
 
-一度Podがノードに割り当たると、kubeletはPodを起動してノード内のリソースを確保します。
-[トポロジーマネージャー](/docs/tasks/administer-cluster/topology-manager/)はノードレベルのリソース割り当てを決定する際に関与します。
+一度PodがNodeに割り当たると、kubeletはPodを起動してノード内のリソースを確保します。
+[トポロジーマネージャー](/docs/tasks/administer-cluster/topology-manager/)はNodeレベルのリソース割り当てを決定する際に関与します。
