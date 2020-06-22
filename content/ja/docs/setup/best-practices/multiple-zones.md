@@ -12,8 +12,6 @@ This page describes how to run a cluster in multiple zones.
 
 {{% capture body %}}
 
-<!-- body -->
-
 ## 始めに
 
 Kubernetes 1.2 adds support for running a single cluster in multiple failure zones
