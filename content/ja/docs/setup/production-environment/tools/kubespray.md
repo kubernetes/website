@@ -82,7 +82,7 @@ ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
-大規模なデプロイ（100ノード以上）ではデプロイ速度の最適化や大規模向けの構成ために[設定の調整]((https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md))が必要な場合があります。
+大規模なデプロイ（100ノード以上）ではデプロイ速度の最適化や大規模向けの構成のために[設定の調整]((https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md))が必要な場合があります。
 
 ### (5/5) デプロイの確認
 
