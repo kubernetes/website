@@ -20,7 +20,7 @@ SSDが搭載されているNodeにPodをデプロイしたり、同じアベイ�
 
 `nodeSelector`は、Nodeを選択するための、最も簡単で推奨されている手法です。
 `nodeSelector`はPodSpecのフィールドです。これはkey-valueペアのマップを特定します。
-あるNodeでPodを稼働させるためには、そのNodeがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
+あるノードでPodを稼働させるためには、そのノードがラベルとして指定されたkey-valueペアを保持している必要があります(複数のラベルを保持することも可能です)。
 最も一般的な使用方法は、1つのkey-valueペアを付与する方法です。
 
 以下に、`nodeSelector`の使用例を紹介します。
@@ -31,11 +31,11 @@ SSDが搭載されているNodeにPodをデプロイしたり、同じアベイ�
 
 ### ステップ1: Nodeへのラベルの付与
 
-`kubectl get nodes`で、クラスターのNodeの名前を取得してください。
+`kubectl get nodes`で、クラスターのノードの名前を取得してください。
 そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`で選択したNodeにラベルを付与します。
 例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`によってラベルが付与されます。
 
-`kubectl get nodes --show-labels`によって、Nodeにラベルが付与されたかを確認することができます。
+`kubectl get nodes --show-labels`によって、ノードにラベルが付与されたかを確認することができます。
 また、`kubectl describe node "nodename"`から、そのNodeの全てのラベルを表示することもできます。
 
 ### ステップ2: PodへのnodeSelectorフィールドの追加
@@ -219,7 +219,7 @@ Workloadが、Node等の定義された同じトポロジーに共存させる�
 
 ##### 常に同じNodeで稼働させる場合
 
-３つのNodeから成るクラスターでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
+３つのノードから成るクラスターでは、ウェブアプリケーションはredisのようにインメモリキャッシュを保持しています。
 このような場合、ウェブサーバーは可能な限りキャッシュと共存させることが望ましいです。
 
 ラベル`app=store`を付与した3つのレプリカから成るredisのdeploymentを記述したyamlファイルを示します。
@@ -258,7 +258,7 @@ spec:
 
 ウェブサーバーのDeploymentを記載した以下のyamlファイルには、`podAntiAffinity` と`podAffinity`が設定されています。
 全てのレプリカが`app=store`のラベルが付与されたPodと同じゾーンで稼働するよう、スケジューラーに設定されます。
-また、それぞれのウェブサーバーは1つのNodeで稼働されないことも保証されます。
+また、それぞれのウェブサーバーは1つのノードで稼働されないことも保証されます。
 
 
 ```yaml
@@ -300,7 +300,7 @@ spec:
         image: nginx:1.16-alpine
 ```
 
-上記2つのDeploymentが生成されると、3つのNodeは以下のようになります。
+上記2つのDeploymentが生成されると、3つのノードは以下のようになります。
 
 |       node-1         |       node-2        |       node-3       |
 |:--------------------:|:-------------------:|:------------------:|
