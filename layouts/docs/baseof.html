@@ -4,16 +4,13 @@
     {{ partial "head.html" . }}
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
   </head>
-  <body class="td-{{ .Kind }}">
+  <body class="documentation td-{{ .Kind }}">
     <header>
       {{ partial "navbar.html" . }}
       {{ partial "announcement.html" . }}
       <section class="header-hero text-center text-white font-bold pb-4">
         <h1>
-          {{ $sectionHeading := .Site.GetPage "section" .Section }}
-          {{ with $sectionHeading }}
-            {{ .Title }}
-          {{ end }}
+          {{ .Title }}
         </h1>
       </section>
     </header>

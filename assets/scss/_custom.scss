@@ -391,3 +391,16 @@ main.content {
     }
   }
 }
+
+/* DOCUMENTATION */
+
+body.documentation {
+  main[role="main"] {
+    div.td-content > h1:first-of-type {
+      display: none;
+    }
+    > h1:first-of-type {
+      display: none;
+    }
+  }
+}
