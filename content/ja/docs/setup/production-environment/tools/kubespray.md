@@ -99,7 +99,7 @@ remove-node playbookを実行することで、クラスターからワーカー
 
 ### クラスターのアップグレード
 
-Uupgrade-cluster playbookを実行することで、クラスターをアップグレードすることができます。詳細については[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)を参照してください。
+Upgrade-cluster playbookを実行することで、クラスターをアップグレードすることができます。詳細については[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)を参照してください。
 
 ## クリーンアップ
 
@@ -121,4 +121,3 @@ reset playbookを実行する際には、誤って本番クラスターをター
 
 
 Kubesprayの[ロードマップ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)で予定されている作業をチェックしてみてください。
-
