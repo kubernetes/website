@@ -403,7 +403,7 @@ For setting the `--vm-driver` with `minikube start`, enter the name of the hyper
 {{< /note >}}
 
 {{< note >}}
-由于国内无法直接连接k8s.gcr.io，推荐使用阿里云镜像，在`minikube start`中添加镜像参数
+由于国内无法直接连接 k8s.gcr.io，推荐使用阿里云镜像仓库，在 `minikube start` 中添加 `--image-repository` 参数。
 {{< /note >}}
 
 ```shell
@@ -487,4 +487,3 @@ minikube delete
 -->
 
 * [使用 Minikube 在本地运行 Kubernetes](/docs/setup/learning-environment/minikube/)
-
