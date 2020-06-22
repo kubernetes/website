@@ -129,7 +129,7 @@ CRI-Oの[設定に関するドキュメント][100]の詳細は下記を参照�
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 Kubernetes 1.16では、RuntimeClassは`scheduling`フィールドを使ったクラスター内での異なる設定をサポートしています。
-このフィールドを使うことで、Podに設定されたRuntimeClassをサポートしているノードへPodがスケジュールされることを保証することができます。
+このフィールドによって、設定されたRuntimeClassをサポートするノードに対してPodがスケジュールされることを保証できます。
 スケジューリングをサポートするためにはRuntimeClass [admission controller][]を有効にしなければなりません。（1.16ではデフォルトです）
 
 特定のRuntimeClassをサポートしているノードへPodが配置されることを保証するために、各ノードは`runtimeclass.scheduling.nodeSelector`フィールドによって選択される共通のラベルを持つべきです。
