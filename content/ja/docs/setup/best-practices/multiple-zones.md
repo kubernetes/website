@@ -4,11 +4,13 @@ weight: 10
 content_type: concept
 ---
 
-<!-- overview -->
+{{% capture overview %}}
 
 This page describes how to run a cluster in multiple zones.
 
+{{% /capture %}}
 
+{{% capture body %}}
 
 <!-- body -->
 
