@@ -222,7 +222,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * [RDMA 장치 플러그인](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [Solarflare 장치 플러그인](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 네트워크 장치 플러그인](https://github.com/intel/sriov-network-device-plugin)
-* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk)
+* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
 
 
 ## {{% heading "whatsnext" %}}
