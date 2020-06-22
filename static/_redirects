@@ -213,6 +213,7 @@
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
+/docs/tasks/administer-cluster/configure-multiple-schedulers/     /docs/tasks/extend-kubernetes/configure-multiple-schedulers/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
 /docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
 /docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
