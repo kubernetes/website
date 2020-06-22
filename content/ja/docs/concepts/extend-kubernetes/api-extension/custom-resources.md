@@ -147,7 +147,7 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 | 機能 | 詳細 | CRD | アグリゲートAPI |
 | ---- | ---- | --- | --------------- |
 | バリデーション | エラーを予防し、クライアントと無関係にAPIを発達させることができるようになる。これらの機能は多数のクライアントがおり、同時に全てを更新できないときに最も効果を発揮する | はい、ほとんどのバリデーションは[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation)で、CRDに指定できる。その他のバリデーションは[Webhookのバリデーション](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)によりサポートされている | はい、任意のバリデーションが可能 |
-| デフォルト設定 | 上記を参照 | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)の`default`キーワード(1.17でGA)、または[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)を通じて可能 (しかしこの方法は古いオブジェクトをetcdから読み込む場合には動きません) | はい |
+| デフォルト設定 | 上記を参照 | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)の`default`キーワード(1.17でGA)、または[Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)を通じて可能 (ただし、この方法は古いオブジェクトをetcdから読み込む場合には動きません) | はい |
 | 複数バージョニング | 同じオブジェクトを、違うAPIバージョンで利用可能にする。フィールドの名前を変更するなどのAPIの変更を簡単に行うのに役立つ。クライアントのバージョンを管理する場合、重要性は下がる | [はい](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning) | はい |
 | カスタムストレージ | 異なる性能のストレージが必要な場合(例えば、キーバリューストアの代わりに時系列データベース)または、セキュリティの分離(例えば、機密情報の暗号化、その他)| いいえ | はい |
 | カスタムビジネスロジック | オブジェクトが作成、読み込み、更新、また削除されるときに任意のチェック、アクションを実行する| はい、[Webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)を利用 | はい |
@@ -221,4 +221,3 @@ Kubernetesの[クライアントライブラリー](/docs/reference/using-api/cl
 
 * [Kubernetes APIをアグリゲーションレイヤーで拡張する方法](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)について学ぶ
 * [Kubernetes APIをCustomResourceDefinitionで拡張する方法](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)について学ぶ
-
