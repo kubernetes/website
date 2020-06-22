@@ -35,7 +35,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 
 * **Ansible v2.7.8 and python-netaddr is installed on the machine that will run Ansible commands**
 * **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
+* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
 * **Your ssh key must be copied** to all the servers part of your inventory
 * The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
