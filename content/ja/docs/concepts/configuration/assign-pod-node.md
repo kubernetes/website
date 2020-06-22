@@ -29,14 +29,14 @@ SSDが搭載されているノードにPodをデプロイしたり、同じア�
 
 この例では、KubernetesのPodに関して基本的な知識を有していることと、[Kubernetesクラスターのセットアップ](/ja/docs/setup/)がされていることが前提となっています。
 
-### ステップ1: ノードへのラベルの付与
+### ステップ1: Nodeへのラベルの付与
 
-`kubectl get nodes`で、クラスターのノードの名前を取得してください。
-そして、ラベルを付与するノードを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`で選択したノードにラベルを付与します。
-例えば、ノードの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`によってラベルが付与されます。
+`kubectl get nodes`で、クラスターのNodeの名前を取得してください。
+そして、ラベルを付与するNodeを選び、`kubectl label nodes <node-name> <label-key>=<label-value>`で選択したNodeにラベルを付与します。
+例えば、Nodeの名前が'kubernetes-foo-node-1.c.a-robinson.internal'、付与するラベルが'disktype=ssd'の場合、`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`によってラベルが付与されます。
 
-`kubectl get nodes --show-labels`によって、ノードにラベルが付与されたかを確認することができます。
-また、`kubectl describe node "nodename"`から、そのノードの全てのラベルを表示することもできます。
+`kubectl get nodes --show-labels`によって、Nodeにラベルが付与されたかを確認することができます。
+また、`kubectl describe node "nodename"`から、そのNodeの全てのラベルを表示することもできます。
 
 ### ステップ2: PodへのnodeSelectorフィールドの追加
 
@@ -89,7 +89,7 @@ nodeSelectorを以下のように追加します:
 ノードにラベルを付与することで、Podは特定のノードやノードグループにスケジュールされます。
 これにより、特定のPodを、確かな隔離性や安全性、特性を持ったノードで稼働させることができます。
 この目的でラベルを使用する際に、ノード上のkubeletプロセスに上書きされないラベルキーを選択することが強く推奨されています。
-これは、安全性が損なわれたノードがkubeletの認証情報をノードのオブジェクトに設定したり、スケジューラーがそのようなノードにデプロイすることを防ぎます。
+これは、安全性が損なわれたノードがkubeletの認証情報をiノードのオブジェクトに設定したり、スケジューラーがそのようなノードにデプロイすることを防ぎます。
 
 `NodeRestriction`プラグインは、kubeletが`node-restriction.kubernetes.io/`プレフィックスを有するラベルの設定や上書きを防ぎます。
 ノードの隔離にラベルのプレフィックスを使用するためには、以下のようにします。
