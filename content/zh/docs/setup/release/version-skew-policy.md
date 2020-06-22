@@ -58,7 +58,9 @@ Minor releases occur approximately every 3 months, so each minor release branch 
 
 ### kube-apiserver
 
+<!--
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+-->
 在 [高可用（HA）集群](/docs/setup/production-environment/tools/kubeadm/high-availability/) 中，
 多个 `kube-apiserver` 实例小版本号最多差1。
 
