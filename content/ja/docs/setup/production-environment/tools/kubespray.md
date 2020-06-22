@@ -1,27 +1,29 @@
 ---
-title: kubesprayを使ったオンプレミス/クラウドプロバイダへのKubernetesのインストール
+title: kubesprayを使ったKubernetesのインストール
 content_type: concept
 weight: 30
 ---
 
 <!-- overview -->
 
-This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
+このクイックスタートはGCE、Azure、OpenStack、AWS、vSphere、Packet(ベアメタル)、Oracle Cloud Infrastructure(実験段階)またはベアメタルに上にKubesprayを使ったKubernetesクラスタをインストールするのに役立ちます。
 
-Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
+Kubesprayは、一般的なOS/Kubernetesクラスタの構成管理タスクのための[Ansible](http://docs.ansible.com/)プレイブック、[インベントリ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md)、プロビジョニングツール、ドメインナレッジで構成されています。
 
-* a highly available cluster
-* composable attributes
-* support for most popular Linux distributions
+Kubesprayは以下を提供します:
+
+* ハイアベイラビリティクラスタ
+* Kubernetesクラスタの構成変更
+* 最も人気なLinuxディストリビューションをサポート
   * Container Linux by CoreOS
   * Debian Buster, Jessie, Stretch, Wheezy
   * Ubuntu 16.04, 18.04
   * CentOS/RHEL/Oracle Linux 7
   * Fedora 28
   * openSUSE Leap 15
-* continuous integration tests
+* 継続的インテグレーションテスト
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
+あなたのユースケースに最も適したツールを選ぶには、[この比較](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)と[kubeadm](/docs/admin/kubeadm/)と[kops](/docs/setup/production-environment/tools/kops/)を読んでください。
 
 
 
@@ -31,86 +33,86 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 ### (1/5) 下地の要件の確認
 
-Provision servers with the following [requirements](https://github.com/kubernetes-sigs/kubespray#requirements):
+プロビジョニングを行うサーバーには以下の[要件](https://github.com/kubernetes-sigs/kubespray#requirements)が求められます:
 
-* **Ansible v2.7.8 and python-netaddr is installed on the machine that will run Ansible commands**
-* **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
-* The target servers are configured to allow **IPv4 forwarding**
-* **Your ssh key must be copied** to all the servers part of your inventory
-* The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
-* If kubespray is ran from non-root user account, correct privilege escalation method should be configured in the target servers. Then the `ansible_become` flag or command parameters `--become` or `-b` should be specified
+* **Ansible v2.7.8とpython-netaddrがAnsibleコマンドを実行するサーバーにインストールされている必要があります**
+* **Ansible Playbooks実行のためにJinja 2.9 (またはそれ以上)が必要です**
+* 対象のサーバーはdockerイメージをpullするためにインターネットにアクセスできる必要があります。それ以外の場合は追加の設定が必要です([オフライン環境を参照](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))。
+* 対象のサーバーには**IPv4フォワーディング**の許可設定が必要です
+* **SSHキー**がインベントリのすべてのサーバにコピーされている必要があります
+* **ファイアウォールは管理されていない**ので、自分自身で管理する必要があります。デプロイ時の問題を避けるためには、ファイアウォールを無効にする必要があります
+* kubesprayをroot以外のユーザアカウントから実行する場合は、対象のサーバで正しい権限昇格方法を設定しておく必要があります。その際 `ansible_become` フラグまたはコマンドパラメータ `--become` または `-b` を指定する必要があります
 
-Kubespray provides the following utilities to help provision your environment:
+Kubespray は、環境のプロビジョニングに役立つ以下のユーティリティを提供しています。
 
-* [Terraform](https://www.terraform.io/) scripts for the following cloud providers:
+* [Terraform](https://www.terraform.io/)の以下のクラウドプロバイダー用のスクリプト:
   * [AWS](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/aws)
   * [OpenStack](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/openstack)
   * [Packet](https://github.com/kubernetes-sigs/kubespray/tree/master/contrib/terraform/packet)
 
 ### (2/5) インベントリファイルの用意
 
-After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+サーバをプロビジョニングしたら、[Ansible用のインベントリファイル]((http://docs.ansible.com/ansible/intro_inventory.html))を作成します。これは、手動で行うことも、動的なインベントリスクリプトを使用して行うこともできます。詳細については、[独自のインベントリを作成する]((https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory))を参照してください。
 
 ### (3/5) クラスタ作成の計画
 
-Kubespray provides the ability to customize many aspects of the deployment:
+Kubesprayはデプロイの様々な設定をカスタマイズする機能を提供します:
 
-* Choice deployment mode: kubeadm or non-kubeadm
-* CNI (networking) plugins
-* DNS configuration
-* Choice of control plane: native/binary or containerized
-* Component versions
-* Calico route reflectors
-* Component runtime options
+* デプロイモードの選択: kubeadmまたはnon-kubeadm
+* CNI (ネットワーキング)プラグイン
+* DNS設定
+* コントロールプレーンの選択: バイナリまたはコンテナ化されたコントロールプレーン
+* コンポーネントのバージョン
+* Calicoのルートリフレクタ
+* コンポーネントのコンテナランタイムの選択
   * {{< glossary_tooltip term_id="docker" >}}
   * {{< glossary_tooltip term_id="containerd" >}}
   * {{< glossary_tooltip term_id="cri-o" >}}
-* Certificate generation methods
+* 証明書の生成方法
 
-Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubesprayのカスタマイズは[変数ファイル](http://docs.ansible.com/ansible/playbooks_variables.html)で行うことができます。Kubesprayを使い始めたばかりの方は、Kubesprayのデフォルト設定を使ってクラスタをデプロイし、Kubernetes触ってみることを検討してみてください。
 
 ### (4/5) クラスタのデプロイ
 
-Next, deploy your cluster:
-
-Cluster deployment using [ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment).
+次に、クラスタをデプロイします:
+クラスタのデプロイには[ansible-playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#starting-custom-deployment)を使用します。
 
 ```shell
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
 
-Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) for best results.
+大規模なデプロイ（100ノード以上）ではデプロイ速度の最適化や大規模向けの構成ために[設定の調整]((https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md))が必要な場合があります。
 
 ### (5/5) デプロイの確認
 
-Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md). Netchecker ensures the netchecker-agents pods can resolve DNS requests and ping each over within the default namespace. Those pods mimic similar behavior of the rest of the workloads and serve as cluster health indicators.
+Kubesprayは、[Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)でポッド間の接続性とDNS解決を検証する方法を提供しています。Netcheckerはnetchecker-agentsポッドがDNSリクエストを解決し、デフォルトの名前空間内でそれぞれのポッドにpingできることを保証します。これらのポッドは、他のワークロードの類似した動作を模倣し、クラスタの健全性を示す指標として機能します。
 
 ## クラスタの操作
 
-Kubespray provides additional playbooks to manage your cluster: _scale_ and _upgrade_.
+Kubesprayはクラスタを管理するための追加のplaybookを提供します: _scale_ と _upgrade_ です。
 
 ### クラスタのスケール
 
-You can add worker nodes from your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
-You can remove worker nodes from your cluster by running the remove-node playbook. For more information, see "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
+scale playbookを実行することで、クラスタへワーカーノードを追加することができます。詳細については[ノードの追加](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)を参照してください。
+remove-node playbookを実行することで、クラスタからワーカーノードを削除することができます。詳細については[ノードの削除](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)を参照してください。
 
 ### クラスタのアップグレード
 
-You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)".
+Uupgrade-cluster playbookを実行することで、クラスタをアップグレードすることができます。詳細については[アップグレード](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)を参照してください。
 
 ## クリーンアップ
 
-You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
+[reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)によってノードをリセットし、Kubesprayでインストールしたコンポーネントを一掃することができます。
+
 
 {{< caution >}}
-When running the reset playbook, be sure not to accidentally target your production cluster!
+reset playbookを実行する際には、誤って本番クラスタをターゲットにしないように注意してください。
 {{< /caution >}}
 
 ## フィードバック
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](http://slack.k8s.io/))
+* Slackチャンネル: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) ([ここ](http://slack.k8s.io/)から招待を受け取れます)
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
 
 
@@ -118,6 +120,5 @@ When running the reset playbook, be sure not to accidentally target your product
 ## {{% heading "whatsnext" %}}
 
 
-Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
-
+Kubesprayの[ロードマップ](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)で予定されている作業をチェックしてみてください。
 
