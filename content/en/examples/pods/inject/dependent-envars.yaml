@@ -16,7 +16,7 @@ spec:
       value: "80"
     - name: SERVICE_IP
       value: "172.17.0.1"
-    - name: UNCHANGE_REFERENCE
+    - name: UNCHANGED_REFERENCE
       value: "$(PROTOCOL)://$(SERVICE_IP):$(SERVICE_PORT)"
     - name: PROTOCOL
       value: "https"
