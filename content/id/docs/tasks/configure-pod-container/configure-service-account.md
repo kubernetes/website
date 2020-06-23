@@ -221,7 +221,7 @@ secrets:
 - name: default-token-uudge
 ```
 
-Menggunakan _editor_ pilihanmu (misalnya `vi`), buka berkas `sa.yaml`, hapus baris dengan _key_ `resourceVersion`, tambahkan baris dengan `imagePullSecrets:` dan simpan.
+Menggunakan _editor_ pilihanmu (misalnya `vi`), buka berkas `sa.yaml`, hapus baris dengan key `resourceVersion`, tambahkan baris dengan `imagePullSecrets:` dan simpan.
 
 Keluaran dari berkas `sa.yaml` akan serupa dengan:
 
