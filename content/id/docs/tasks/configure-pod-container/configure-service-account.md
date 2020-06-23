@@ -270,7 +270,7 @@ TODO: Tes dan jelaskan bagaimana cara menambahkan Secret tambahan non-K8s dengan
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 {{< note >}}
-ServiceAccountTokenVolumeProjection masih dalam tahap __beta__ untuk versi 1.12 dan diaktifkan dengan memberikan _flag_ berikut ini ke API _server_:
+ServiceAccountTokenVolumeProjection masih dalam tahap __beta__ untuk versi 1.12 dan diaktifkan dengan memberikan _flag_ berikut ini ke API server:
 
 * `--service-account-issuer`
 * `--service-account-signing-key-file`
@@ -308,7 +308,7 @@ Jika URL tidak sesuai dengan aturan, _endpoint_ `ServiceAccountIssuerDiscovery` 
 
 Fitur _Service Account Issuer Discovery_ memungkinkan federasi dari berbagai _token_ ServiceAccount Kubernetes yang dibuat oleh sebuah klaster (penyedia identitas) dan sistem eksternal.
 
-Ketika diaktifkan, _server_ API Kubernetes menyediakan dokumen OpenID Provider Configuration pada `/.well-known/openid-configuration` dan JSON Web Key Set (JWKS) terkait pada `/openid/v1/jwks`. OpenID Provider Configuration terkadang disebut juga dengan sebutan _discovery document_.
+Ketika diaktifkan, server API Kubernetes menyediakan dokumen OpenID Provider Configuration pada `/.well-known/openid-configuration` dan JSON Web Key Set (JWKS) terkait pada `/openid/v1/jwks`. OpenID Provider Configuration terkadang disebut juga dengan sebutan _discovery document_.
 
 Ketika diaktifkan, klaster juga dikonfigurasi dengan RBAC ClusterRole standar yaitu `system:service-account-issuer-discovery`. _Role binding_ tidak disediakan secara _default_. Administrator dimungkinkan untuk, sebagai contoh, menentukan apakah peran akan disematkan ke `system:authenticated` atau `system:unauthenticated` tergantung terhadap kebutuhan keamanan dan sistem eksternal yang direncakanan untuk diintegrasikan.
 
@@ -318,7 +318,7 @@ Respons yang disediakan pada `/.well-known/openid-configuration` dan`/openid/v1/
 
 Respons JWKS memuat kunci publik yang dapat digunakan oleh sistem eksternal untuk melakukan validasi _token_ ServiceAccount Kubernetes. Awalnya sistem eksternal akan mengkueri OpenID Provider Configuration, dan selanjutnya dapat menggunakan _field_ `jwks_uri` pada respons kueri untuk mendapatkan JWKS.
 
-Pada banyak kasus, _server_ API Kubernetes tidak tersedia di internet publik, namun _endpoint_ publik yang menyediakan respons hasil _cache_ dari _server_ API dapat dibuat menjadi tersedia oleh pengguna atau penyedia servis. Pada kasus ini, dimungkinkan untuk mengganti `jwks_uri` pada OpenID Provider Configuration untuk diarahkan ke _endpoint_ publik sebagai ganti alamat _server_ API dengan memberikan _flag_ `--service-account-jwks-uri` ke API server. serupa dengan URL _issuer_, URI JWKS diharuskan untuk menggunakan skema `https`.
+Pada banyak kasus, server API Kubernetes tidak tersedia di internet publik, namun _endpoint_ publik yang menyediakan respons hasil _cache_ dari server API dapat dibuat menjadi tersedia oleh pengguna atau penyedia servis. Pada kasus ini, dimungkinkan untuk mengganti `jwks_uri` pada OpenID Provider Configuration untuk diarahkan ke _endpoint_ publik sebagai ganti alamat server API dengan memberikan _flag_ `--service-account-jwks-uri` ke API server. serupa dengan URL _issuer_, URI JWKS diharuskan untuk menggunakan skema `https`.
 
 
 ## {{% heading "whatsnext" %}}
