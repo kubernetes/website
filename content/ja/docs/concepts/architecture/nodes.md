@@ -70,7 +70,7 @@ Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`
 
 ノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/configuration/taint-and-toleration/)を自動的に生成します。
 
-スケジューラーがPodをノードにアサインする際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
+スケジューラーがPodをノードに割り当てる際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
 
 ### CapacityとAllocatable {#capacity}
 
@@ -233,4 +233,3 @@ NodeはKubernetesのREST APIにおけるトップレベルのリソースです�
 * [ノードコンポーネント](/ja/docs/concepts/overview/components/#ノードコンポーネント)について読む。
 * ノードレベルのトポロジーについて読む: [ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}
-
