@@ -200,7 +200,7 @@ Selanjutnya, modifikasi ServiceAccount standar dari Namespace untuk menggunakan 
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
-Sebagai gantinya kamu dapat menggunakan `kubectl edit`, atau melakukan pengubahan secara manual _manifest_ YAML seperti di bawah ini:
+Sebagai gantinya kamu dapat menggunakan `kubectl edit`, atau melakukan pengubahan secara manual manifes YAML seperti di bawah ini:
 
 ```shell
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
