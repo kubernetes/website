@@ -112,7 +112,6 @@ Nodeアフィニティは`nodeSelector`(前述の2つのメリットがありま
 
 ### Nodeアフィニティ
 
-Nodeアフィニティはα機能としてKubernetesのv1.2から導入されました。
 Nodeアフィニティは概念的には、NodeのラベルによってPodがどのNodeにスケジュールされるかを制限する`nodeSelector`と同様です。
 
 現在は2種類のNodeアフィニティがあり、`requiredDuringSchedulingIgnoredDuringExecution`と`preferredDuringSchedulingIgnoredDuringExecution`です。
