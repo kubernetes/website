@@ -290,7 +290,7 @@ Buat Pod:
 kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 ```
 
-Kubelet akan me-_request_ dan menyimpan _token_ mewakili Pod, buat _token_ dapat diakses oleh Pod pada _file path_ yang ditentukan, dan _refresh_ _token_ ketika telah mendekati waktu berakhir. Kubelet akan mengganti _token_ jika _token_ telah melewati 80% dari total TTL, atau jika _token_ telah melebihi waktu 24 jam.
+_Token_ yang mewakili Pod akan diminta dan disimpan kubelet, lalu kubelet akan membuat _token_ yang dapat diakses oleh Pod pada _file path_ yang ditentukan, dan melakukan _refresh_ _token_ ketika telah mendekati waktu berakhir. _Token_ akan diganti oleh kubelet jika _token_ telah melewati 80% dari total TTL, atau jika _token_ telah melebihi waktu 24 jam.
 
 Aplikasi bertanggung jawab untuk memuat ulang _token_ ketika terjadi penggantian. Pemuatan ulang teratur (misalnya sekali setiap 5 menit) cukup untuk mencakup kebanyakan kasus. 
 
