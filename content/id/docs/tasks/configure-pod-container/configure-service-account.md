@@ -73,7 +73,7 @@ NAME      SECRETS    AGE
 default   1          1d
 ```
 
-Kamu dapat membuat obyek ServiceAccount tambahan seperti ini:
+Kamu dapat membuat objek ServiceAccount tambahan seperti ini:
 
 ```shell
 kubectl apply -f - <<EOF
@@ -84,9 +84,9 @@ metadata:
 EOF
 ```
 
-Nama dari obyek ServiceAccount haruslah sebuah [nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang valid.
+Nama dari objek ServiceAccount haruslah sebuah [nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang valid.
 
-Jika kamu mendapatkan obyek ServiceAccount secara komplit, seperti ini:
+Jika kamu mendapatkan objek ServiceAccount secara komplit, seperti ini:
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
