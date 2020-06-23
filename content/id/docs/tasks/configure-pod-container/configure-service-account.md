@@ -167,11 +167,11 @@ token:          ...
 Isi dari `token` tidak dirinci di sini.
 {{< /note >}}
 
-## Menambahkan ImagePullSecrets ke ServiceAccount.
+## Menambahkan ImagePullSecret ke ServiceAccount.
 
 ### Membuat imagePullSecret
 
-- Membuat sebuah imagePullSecret, seperti yang dijelaskan pada [Menentukan ImagePullSecrets pada Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+- Membuat sebuah imagePullSecret, seperti yang dijelaskan pada [Menentukan ImagePullSecret pada Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
     ```shell
     kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
