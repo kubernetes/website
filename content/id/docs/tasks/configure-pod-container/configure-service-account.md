@@ -11,7 +11,7 @@ ServiceAccount menyediakan identitas untuk proses yang sedang berjalan dalam seb
 Dokumen ini digunakan sebagai pengenalan untuk pengguna terhadap ServiceAccount dan menjelaskan bagaimana perilaku ServiceAccount dalam konfigurasi klaster seperti yang direkomendasikan Kubernetes. Pengubahan perilaku yang bisa saja dilakukan administrator klaster terhadap klaster tidak menjadi bagian pembahasan dokumentasi ini.
 {{< /note >}}
 
-Ketika kamu mengakses klaster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah akun pengguna (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah ServiceAccount (contohnya sebagai `default`).
+Ketika kamu mengakses klaster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah akun pengguna (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam Pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah ServiceAccount (contohnya sebagai `default`).
 
 
 
@@ -27,9 +27,9 @@ Ketika kamu mengakses klaster (contohnya menggunakan `kubectl`), kamu terautenti
 
 ## Menggunakan Default ServiceAccount untuk Mengakses API server.
 
-Ketika kamu membuat sebuah pod, jika kamu tidak menentukan sebuah ServiceAccount, maka ia akan otomatis ditetapkan sebagai ServiceAccount`default` di namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
+Ketika kamu membuat sebuah Pod, jika kamu tidak menentukan sebuah ServiceAccount, maka ia akan otomatis ditetapkan sebagai ServiceAccount`default` di namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah Pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
-Kamu dapat mengakses API dari dalam pod menggunakan kredensial ServiceAccount yang ditambahkan secara otomatis seperti yang dijelaskan dalam [Mengakses Klaster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
+Kamu dapat mengakses API dari dalam Pod menggunakan kredensial ServiceAccount yang ditambahkan secara otomatis seperti yang dijelaskan dalam [Mengakses Klaster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
 Hak akses API dari ServiceAccount menyesuaikan dengan [kebijakan dan plugin otorisasi](/docs/reference/access-authn-authz/authorization/#authorization-modules) yang sedang digunakan.
 
 Di versi 1.6+, kamu dapat tidak memilih _automounting_ kredensial API dari sebuah ServiceAccount dengan mengatur `automountServiceAccountToken: false` pada ServiceAccount:
@@ -43,7 +43,7 @@ automountServiceAccountToken: false
 ...
 ```
 
-Di versi 1.6+, kamu juga dapat tidak memilih _automounting_ kredensial API dari suatu pod tertentu:
+Di versi 1.6+, kamu juga dapat tidak memilih _automounting_ kredensial API dari suatu Pod tertentu:
 
 ```yaml
 apiVersion: v1
@@ -56,7 +56,7 @@ spec:
   ...
 ```
 
-Pengaturan dari spesifikasi pod didahulukan dibanding ServiceAccount jika keduanya menentukan nilai dari `automountServiceAccountToken`.
+Pengaturan dari spesifikasi Pod didahulukan dibanding ServiceAccount jika keduanya menentukan nilai dari `automountServiceAccountToken`.
 
 ## Menggunakan Beberapa ServiceAccount.
 
@@ -110,11 +110,11 @@ maka kamu dapat melihat bahwa _token_ telah dibuat secara otomatis dan dirujuk o
 
 Kamu dapat menggunakan _plugin_ otorisasi untuk [mengatur hak akses dari ServiceAccount](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-Untuk menggunakan ServiceAccount selain nilai standar, atur _field_ `spec.serviceAccountName` dari pod menjadi nama dari ServiceAccount yang hendak kamu gunakan.
+Untuk menggunakan ServiceAccount selain nilai standar, atur _field_ `spec.serviceAccountName` dari Pod menjadi nama dari ServiceAccount yang hendak kamu gunakan.
 
-_Service account_ harus ada ketika pod dibuat, jika tidak maka akan ditolak.
+_Service account_ harus ada ketika Pod dibuat, jika tidak maka akan ditolak.
 
-Kamu tidak dapat memperbarui ServiceAccount dari pod yang telah dibuat.
+Kamu tidak dapat memperbarui ServiceAccount dari Pod yang telah dibuat.
 
 Kamu dapat menghapus ServiceAccount dari contoh seperti ini:
 
@@ -245,7 +245,7 @@ Terakhir ganti serviceaccount dengan _file_ `sa.yaml` yang telah diperbarui.
 kubectl replace serviceaccount default -f ./sa.yaml
 ```
 
-### Memverifikasi imagePullSecrets sudah ditambahkan ke spesifikasi pod
+### Memverifikasi imagePullSecrets sudah ditambahkan ke spesifikasi Pod
 
 Ketika Pod baru dibuat dalam namespace yang sedang aktif dan menggunakan ServiceAccount, Pod baru akan memiliki _field_ `spec.imagePullSecrets` yang ditentukan secara otomatis:
 
@@ -280,7 +280,7 @@ ServiceAccountTokenVolumeProjection masih dalam tahap __beta__ untuk versi 1.12 
 
 Kubelet juga dapat memproyeksikan _token_ ServiceAccount ke Pod. Kamu dapat menentukan properti yang diinginkan dari _token_ seperti target pengguna dan durasi validitas. Properti tersebut tidak dapat diubah pada _token_ ServiceAccount standar. _Token_ ServiceAccount juga akan menjadi tidak valid terhadap API ketika Pod atau ServiceAccount dihapus.
 
-Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/docs/concepts/storage/volumes/#projected). Untuk memungkinkan pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
+Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/docs/concepts/storage/volumes/#projected). Untuk memungkinkan Pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
 
 {{< codenew file="pods/pod-projected-svc-token.yaml" >}}
 
@@ -290,7 +290,7 @@ Buat Pod:
 kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 ```
 
-Kubelet akan me-_request_ dan menyimpan _token_ mewakili pod, buat _token_ dapat diakses oleh pod pada _file path_ yang ditentukan, dan _refresh_ _token_ ketika telah mendekati waktu berakhir. Kubelet akan mengganti _token_ jika _token_ telah melewati 80% dari total TTL, atau jika _token_ telah melebihi waktu 24 jam.
+Kubelet akan me-_request_ dan menyimpan _token_ mewakili Pod, buat _token_ dapat diakses oleh Pod pada _file path_ yang ditentukan, dan _refresh_ _token_ ketika telah mendekati waktu berakhir. Kubelet akan mengganti _token_ jika _token_ telah melewati 80% dari total TTL, atau jika _token_ telah melebihi waktu 24 jam.
 
 Aplikasi bertanggung jawab untuk memuat ulang _token_ ketika terjadi penggantian. Pemuatan ulang teratur (misalnya sekali setiap 5 menit) cukup untuk mencakup kebanyakan kasus. 
 
