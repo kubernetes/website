@@ -70,7 +70,7 @@ Ready conditionが`pod-eviction-timeout`に設定された時間を超えても`
 
 ノードのライフサイクルコントローラーがconditionを表した[taint](/docs/concepts/configuration/taint-and-toleration/)を自動的に生成します。
 
-スケジューラーがPodをノードにアサインする際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
+スケジューラーがPodをノードに割り当てる際、ノードのtaintを考慮します。Podが許容するtaintは例外です。
 
 ### CapacityとAllocatable {#capacity}
 
@@ -222,7 +222,7 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 ## ノードのトポロジー
 
 {{< feature-state state="alpha" >}}
-`TopologyManager`の[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
+`TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
 
 ## APIオブジェクト
@@ -230,7 +230,6 @@ kubeletはリソースの割当を決定する際にトポロジーのヒント�
 NodeはKubernetesのREST APIにおけるトップレベルのリソースです。APIオブジェクトに関する詳細は以下の記事にてご覧いただけます:
 [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 {{% capture whatsnext %}}
-* [ノードコンポーネント](/ja/docs/concepts/overview/components/#ノードコンポーネント)について読む。
+* [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について読む。
 * ノードレベルのトポロジーについて読む: [ノードのトポロジー管理ポリシーを制御する](/docs/tasks/administer-cluster/topology-manager/)
 {{% /capture %}}
-
