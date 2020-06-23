@@ -124,7 +124,7 @@ kubectl delete serviceaccount/build-robot
 
 ## Membuat token API ServiceAccount secara manual.
 
-Asumsikan kita memiliki ServiceAccount dengan nama "build-robot" seperti yang disebukan di atas, dan kita membuat _secret_ secara manual.
+Asumsikan kita memiliki ServiceAccount dengan nama "build-robot" seperti yang disebukan di atas, dan kita membuat Secret secara manual.
 
 ```shell
 kubectl apply -f - <<EOF
@@ -138,7 +138,7 @@ type: kubernetes.io/service-account-token
 EOF
 ```
 
-Sekarang kamu dapat mengonfirmasi bahwa _secret_ yang baru saja dibuat diisi dengan _token_ API dari ServiceAccount "build-robot".
+Sekarang kamu dapat mengonfirmasi bahwa Secret yang baru saja dibuat diisi dengan _token_ API dari ServiceAccount "build-robot".
 
 Setiap _token_ dari ServiceAccount yang tidak ada akan dihapus oleh _token controller_.
 
@@ -179,7 +179,7 @@ Isi dari `token` tidak dirinci di sini.
             --docker-email=DUMMY_DOCKER_EMAIL
     ```
 
-- Memastikan bahwa _secret_ telah terbuat.
+- Memastikan bahwa Secret telah terbuat.
    ```shell
    kubectl get secrets myregistrykey
    ```
@@ -193,7 +193,7 @@ Isi dari `token` tidak dirinci di sini.
 
 ### Menambahkan imagePullSecret ke ServiceAccount
 
-Selanjutnya, modifikasi ServiceAccount standar dari Namespace untuk menggunakan _secret_ ini sebagai imagePullSecret.
+Selanjutnya, modifikasi ServiceAccount standar dari Namespace untuk menggunakan Secret ini sebagai imagePullSecret.
 
 
 ```shell
@@ -262,7 +262,7 @@ myregistrykey
 
 <!--## Menambahkan Secrets ke sebuah ServiceAccount.
 
-TODO: Tes dan jelaskan bagaimana cara menambahkan secret tambahan non-K8s dengan ServiceAccount yang sudah ada.
+TODO: Tes dan jelaskan bagaimana cara menambahkan Secret tambahan non-K8s dengan ServiceAccount yang sudah ada.
 -->
 
 ## ServiceAccount Token Volume Projection
