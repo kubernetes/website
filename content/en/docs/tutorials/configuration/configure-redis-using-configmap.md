@@ -93,7 +93,7 @@ Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
 the configuration was correctly applied:
 
 ```shell
-kubectl exec -it redis redis-cli
+kubectl exec -it redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"
