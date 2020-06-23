@@ -265,7 +265,7 @@ myregistrykey
 TODO: Tes dan jelaskan bagaimana cara menambahkan Secret tambahan non-K8s dengan ServiceAccount yang sudah ada.
 -->
 
-## ServiceAccount Token Volume Projection
+## ServiceAccountTokenVolumeProjection
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
@@ -294,11 +294,11 @@ _Token_ yang mewakili Pod akan diminta dan disimpan kubelet, lalu kubelet akan m
 
 Aplikasi bertanggung jawab untuk memuat ulang _token_ ketika terjadi penggantian. Pemuatan ulang teratur (misalnya sekali setiap 5 menit) cukup untuk mencakup kebanyakan kasus. 
 
-## ServiceAccount Issuer Discovery
+## ServiceAccountIssuerDiscovery
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
-Fitur _Service Account Issuer Discovery_ diaktifkan dengan mengaktifkan [gerbang fitur](/docs/reference/command-line-tools-reference/feature-gate) `ServiceAccountIssuerDiscovery` dan mengaktifkan fitur _Service Account Token Volume Projection_ seperti yang telah dijelaskan [di atas](#service-account-token-volume-projection).
+Fitur ServiceAccountIssuerDiscovery diaktifkan dengan mengaktifkan [gerbang fitur](/docs/reference/command-line-tools-reference/feature-gate) `ServiceAccountIssuerDiscovery` dan mengaktifkan fitur _Service Account Token Volume Projection_ seperti yang telah dijelaskan [di atas](#service-account-token-volume-projection).
 
 {{< note >}}
 URL _issuer_ harus sesuai dengan _[OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)_. Pada implementasinya, hal ini berarti URL harus menggunakan skema `https` dan harus menyediakan konfigurasi penyedia OpenID pada `{service-account-issuer}/.well-known/openid-configuration`.
