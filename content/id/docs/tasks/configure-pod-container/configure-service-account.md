@@ -60,8 +60,8 @@ Pengaturan dari spesifikasi Pod didahulukan dibanding ServiceAccount jika keduan
 
 ## Menggunakan Beberapa ServiceAccount.
 
-Setiap Namespace memiliki _resource_ ServiceAccount standar `default`.
-Kamu dapat melihatnya dan _resource_ serviceAccount lainnya di Namespace tersebut dengan perintah:
+Setiap Namespace memiliki sumber daya ServiceAccount standar `default`.
+Kamu dapat melihatnya dan sumber daya serviceAccount lainnya di Namespace tersebut dengan perintah:
 
 ```shell
 kubectl get serviceaccounts
