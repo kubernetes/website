@@ -41,7 +41,10 @@ $video-section-height: 200px;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 body {
-  background-color: white;
+  main {
+    width: 100vw;
+    overflow-x: auto;
+  }
 }
 
 section {
