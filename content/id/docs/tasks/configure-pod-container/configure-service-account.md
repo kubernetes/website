@@ -171,7 +171,7 @@ Isi dari `token` tidak dirinci di sini.
 
 ### Membuat imagePullSecret
 
-- Membuat sebuah imagePullSecret, seperti yang dijelaskan pada [Menentukan ImagePullSecret pada Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+- Membuat sebuah imagePullSecret, seperti yang dijelaskan pada [Menentukan ImagePullSecret pada Pod](/id/docs/concepts/containers/images/#tentukan-imagepullsecrets-pada-sebuah-pod).
 
     ```shell
     kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
