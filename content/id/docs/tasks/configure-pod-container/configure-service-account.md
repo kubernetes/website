@@ -8,10 +8,10 @@ weight: 90
 ServiceAccount menyediakan identitas untuk proses yang sedang berjalan dalam sebuah Pod.
 
 {{< note >}}
-Dokumen ini digunakan sebagai pengenalan untuk pengguna terhadap ServiceAccount dan menjelaskan bagaimana perilaku ServiceAccount dalam konfigurasi kluster seperti yang direkomendasikan Kubernetes. Pengubahan perilaku yang bisa saja dilakukan administrator kluster terhadap kluster tidak menjadi bagian pembahasan dokumentasi ini.
+Dokumen ini digunakan sebagai pengenalan untuk pengguna terhadap ServiceAccount dan menjelaskan bagaimana perilaku ServiceAccount dalam konfigurasi klaster seperti yang direkomendasikan Kubernetes. Pengubahan perilaku yang bisa saja dilakukan administrator klaster terhadap klaster tidak menjadi bagian pembahasan dokumentasi ini.
 {{< /note >}}
 
-Ketika kamu mengakses kluster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah User Account (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah ServiceAccount (contohnya sebagai `default`).
+Ketika kamu mengakses klaster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah User Account (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah ServiceAccount (contohnya sebagai `default`).
 
 
 
@@ -306,11 +306,11 @@ URL _issuer_ harus sesuai dengan _[OIDC Discovery Spec](https://openid.net/specs
 Jika URL tidak sesuai dengan aturan, _endpoint_ `ServiceAccountIssuerDiscovery` tidak akan didaftarkan meskipun fitur telah diaktifkan.
 {{< /note >}}
 
-Fitur _Service Account Issuer Discovery_ memungkinkan federasi dari berbagai _token_ ServiceAccount Kubernetes yang dibuat oleh sebuah kluster (penyedia identitas) dan sistem eksternal.
+Fitur _Service Account Issuer Discovery_ memungkinkan federasi dari berbagai _token_ ServiceAccount Kubernetes yang dibuat oleh sebuah klaster (penyedia identitas) dan sistem eksternal.
 
 Ketika diaktifkan, _server_ API Kubernetes menyediakan dokumen OpenID Provider Configuration pada `/.well-known/openid-configuration` dan JSON Web Key Set (JWKS) terkait pada `/openid/v1/jwks`. OpenID Provider Configuration terkadang disebut juga dengan sebutan _discovery document_.
 
-Ketika diaktifkan, kluster juga dikonfigurasi dengan RBAC ClusterRole standar yaitu `system:service-account-issuer-discovery`. _Role binding_ tidak disediakan secara _default_. Administrator dimungkinkan untuk, sebagai contoh, menentukan apakah peran akan disematkan ke `system:authenticated` atau `system:unauthenticated` tergantung terhadap kebutuhan keamanan dan sistem eksternal yang direncakanan untuk diintegrasikan.
+Ketika diaktifkan, klaster juga dikonfigurasi dengan RBAC ClusterRole standar yaitu `system:service-account-issuer-discovery`. _Role binding_ tidak disediakan secara _default_. Administrator dimungkinkan untuk, sebagai contoh, menentukan apakah peran akan disematkan ke `system:authenticated` atau `system:unauthenticated` tergantung terhadap kebutuhan keamanan dan sistem eksternal yang direncakanan untuk diintegrasikan.
 
 {{< note >}}
 Respons yang disediakan pada `/.well-known/openid-configuration` dan`/openid/v1/jwks` dirancang untuk kompatibel dengan OIDC, tetapi tidak sepenuhnya sesuai dengan ketentuan OIDC. Dokumen tersebut hanya berisi parameter yang dibutuhkan untuk melakukan validasi terhadap _token_ ServiceAccount Kubernetes.
