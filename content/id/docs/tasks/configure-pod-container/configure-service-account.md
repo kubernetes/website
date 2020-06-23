@@ -206,7 +206,7 @@ Sebagai gantinya kamu dapat menggunakan `kubectl edit`, atau melakukan pengubaha
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
 ```
 
-Keluaran dari _file_ `sa.yaml` akan serupa dengan:
+Keluaran dari berkas `sa.yaml` akan serupa dengan:
 
 ```shell
 apiVersion: v1
@@ -221,9 +221,9 @@ secrets:
 - name: default-token-uudge
 ```
 
-Menggunakan _editor_ pilihanmu (misalnya `vi`), buka _file_ `sa.yaml`, hapus baris dengan _key_ `resourceVersion`, tambahkan baris dengan `imagePullSecrets:` dan simpan.
+Menggunakan _editor_ pilihanmu (misalnya `vi`), buka berkas `sa.yaml`, hapus baris dengan _key_ `resourceVersion`, tambahkan baris dengan `imagePullSecrets:` dan simpan.
 
-Keluaran dari _file_ `sa.yaml` akan serupa dengan:
+Keluaran dari berkas `sa.yaml` akan serupa dengan:
 
 ```shell
 apiVersion: v1
@@ -239,7 +239,7 @@ imagePullSecrets:
 - name: myregistrykey
 ```
 
-Terakhir ganti serviceaccount dengan _file_ `sa.yaml` yang telah diperbarui.
+Terakhir ganti serviceaccount dengan berkas `sa.yaml` yang telah diperbarui.
 
 ```shell
 kubectl replace serviceaccount default -f ./sa.yaml
