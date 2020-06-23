@@ -38,32 +38,32 @@ untuk memahami bagaimana pembatasan tersebut dapat mencegah kamu melakukan beber
 Sebuah RBAC Role atau ClusterRole berisi aturan yang mewakili sekumpulan izin.
 Izin bersifat aditif (tidak ada aturan "tolak").
 
-Sebuah Role selalu mengatur izin dalam _namespace_ tertentu;
-ketika kamu membuat Role, kamu harus menentukan _namespace_ tempat Role tersebut berada.
+Sebuah Role selalu mengatur izin dalam Namespace tertentu;
+ketika kamu membuat Role, kamu harus menentukan Namespace tempat Role tersebut berada.
 
-ClusterRole, sebaliknya, adalah sumber daya tanpa _namespace_. Sumber daya tersebut memiliki nama yang berbeda (Role
-dan ClusterRole) karena objek Kubernetes selalu harus menggunakan _namespace_ atau tanpa _namespace_;
+ClusterRole, sebaliknya, adalah sumber daya tanpa Namespace. Sumber daya tersebut memiliki nama yang berbeda (Role
+dan ClusterRole) karena objek Kubernetes selalu harus menggunakan Namespace atau tanpa Namespace;
 tidak mungkin keduanya.
 
-ClusterRoles memiliki beberapa kegunaan. kamu bisa menggunakan ClusterRole untuk:
+ClusterRole memiliki beberapa kegunaan. Kamu bisa menggunakan ClusterRole untuk:
 
-1. mendefinisikan izin pada sumber daya dalam _namespace_ dan diberikan dalam sebuah _namespace_ atau lebih
-1. mendefinisikan izin pada sumber daya dalam _namespace_ dan diberikan dalam seluruh _namespace_
+1. mendefinisikan izin pada sumber daya dalam Namespace dan diberikan dalam sebuah Namespace atau lebih
+1. mendefinisikan izin pada sumber daya dalam Namespace dan diberikan dalam seluruh Namespace
 1. mendefinisikan izin pada sumber daya yang dicakup klaster
 
-Jika kamu ingin mendefinisikan sebuah peran dalam _namespace_, gunakan Role; jika kamu ingin mendefinisikan
+Jika kamu ingin mendefinisikan sebuah peran dalam Namespace, gunakan Role; jika kamu ingin mendefinisikan
 peran di level klaster, gunakan ClusterRole.
  
 #### Contoh Role 
 
-Berikut adalah contoh Role dalam _namespace_ bawaan yang dapat digunakan 
+Berikut adalah contoh Role dalam Namespace bawaan yang dapat digunakan 
 untuk memberikan akses baca pada Pod:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: default
+  Namespace: default
   name: pod-reader
 rules:
 - apiGroups: [""] # "" mengindikasikan core API group
@@ -74,22 +74,22 @@ rules:
 #### Contoh ClusterRole
 
 ClusterRole dapat digunakan untuk memberikan izin yang sama dengan Role.
-Karena ClusterRoles memiliki lingkup-klaster, kamu juga dapat menggunakannya untuk memberikan akses ke:
+Karena ClusterRole memiliki lingkup-klaster, kamu juga dapat menggunakannya untuk memberikan akses ke:
 
 * sumber daya lingkup-klaster (seperti Nodes)
-* _endpoints_ non-sumber daya (seperti `/healthz`)
-* sumber daya _namespace_ (seperti Pod), di semua _namespace_
+* berbagai _endpoint_ non-sumber daya (seperti `/healthz`)
+* sumber daya Namespace (seperti Pod), di semua Namespace
  Sebagai contoh: kamu bisa menggunakan ClusterRole untuk memungkinkan pengguna tertentu untuk menjalankan 
 `kubectl get pods --all-namespaces`.
 
 Berikut adalah contoh ClusterRole yang dapat digunakan untuk memberikan akses baca pada
-Secret di _namespace_ tertentu, atau di semua _namespace_ (tergantung bagaimana itu [terikat](#rolebinding-and-clusterrolebinding)):
+Secret di Namespace tertentu, atau di semua Namespace (tergantung bagaimana itu [terikat](#rolebinding-dan-clusterrolebinding)):
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  # "namespace" dihilangkan karena ClusterRoles tidak menggunakan namespace
+  # "namespace" dihilangkan karena ClusterRole tidak menggunakan Namespace
   name: secret-reader
 rules:
 - apiGroups: [""]
@@ -105,29 +105,29 @@ Nama objek Role dan ClusterRole harus menggunakan [nama _path segment_](/docs/co
 ### RoleBinding dan ClusterRoleBinding
 
 Sebuah RoleBinding memberikan izin yang ditentukan dalam sebuah Role kepada pengguna atau sekelompok pengguna.
-Ini menyimpan daftar subjek (pengguna, grup, atau _service accounts_), dan referensi ke
-peran yang diberikan.
-RoleBinding memberikan izin dalam _namespace_ tertentu sedangkan ClusterRoleBinding
+Ini menyimpan daftar subjek (pengguna, grup, atau ServiceAccount), dan referensi ke
+Role yang diberikan.
+RoleBinding memberikan izin dalam Namespace tertentu sedangkan ClusterRoleBinding
 memberikan akses tersebut pada lingkup klaster.
 
-RoleBinding dapat merujuk Role apa pun di _namespace_ yang sama. Atau, RoleBinding
-dapat mereferensikan ClusterRole dan memasangkan ClusterRole tersebut ke _namespace_ dari RoleBinding.
-Jika kamu ingin memasangkan ClusterRole ke semua _namespace_ di klaster kamu, kamu dapat menggunakan 
+RoleBinding dapat merujuk Role apa pun di Namespace yang sama. Atau, RoleBinding
+dapat mereferensikan ClusterRole dan memasangkan ClusterRole tersebut ke Namespace dari RoleBinding.
+Jika kamu ingin memasangkan ClusterRole ke semua Namespace di klaster kamu, kamu dapat menggunakan 
 ClusterRoleBinding.
 
 Nama objek RoleBinding atau ClusterRoleBinding harus valid menggunakan
 [nama _path segment_](/docs/concepts/overview/working-with-objects/names#path-segment-names) yang valid.
 
-#### Contoh RoleBinding {#rolebinding-example}
+#### Contoh RoleBinding
 
 Berikut adalah contoh dari RoleBinding yang memberikan Role "pod-reader" kepada pengguna "jane"
-pada _namespace_ bawaan.
-Ini memungkinkan "jane" untuk membaca Pod di _namespace_ bawaan.
+pada Namespace bawaan.
+Ini memungkinkan "jane" untuk membaca Pod di Namespace bawaan.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# Role binding memungkinkan "jane" untuk membaca Pod di namespace bawaan
-# Kamu harus sudah memiliki Role bernama "pod-reader" di namespace tersebut.
+# Role binding memungkinkan "jane" untuk membaca Pod di Namespace bawaan
+# Kamu harus sudah memiliki Role bernama "pod-reader" di Namespace tersebut.
 kind: RoleBinding
 metadata:
   name: read-pods
@@ -144,25 +144,25 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-RoleBinding juga bisa mereferensikan ClusterRole untuk memberikan izin yang didenisifikan di dalam
-ClusterRole ke sumber daya di dalam _namespace_ RoleBinding. Referensi semacam ini
-memungkinkan kamu menentukan sekumpulan peran yang umum di seluruh klaster kamu, lalu menggunakannya kembali di dalam
-beberapa _namespace_.
+RoleBinding juga bisa mereferensikan ClusterRole untuk memberikan izin yang didefinisikan di dalam
+ClusterRole ke sumber daya di dalam Namespace RoleBinding. Referensi semacam ini
+memungkinkan kamu menentukan sekumpulan Role yang umum di seluruh klaster kamu, lalu menggunakannya kembali di dalam
+beberapa Namespace.
 
 Sebagai contoh, meskipun RoleBinding berikut merujuk ke ClusterRole,
-"dave" (subjek, peka huruf besar-kecil) hanya akan dapat membaca Secrets di dalam _namespace_ "development", 
-karena _namespace_ RoleBinding (di dalam metadata-nya) adalah "development".
+"dave" (subjek, peka huruf besar-kecil) hanya akan dapat membaca Secret di dalam Namespace "development", 
+karena Namespace RoleBinding (di dalam metadata-nya) adalah "development".
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# role binding memungkinkan "dave" untuk membaca Secrets di namespace "development".
+# role binding memungkinkan "dave" untuk membaca Secret di Namespace "development".
 # Kamu sudah harus memiliki ClusterRole bernama "secret-reader".
 kind: RoleBinding
 metadata:
   name: read-secrets
   #
   # Namespace dari RoleBinding menentukan dimana izin akan diberikan.  
-  # Ini hanya memberikan izin di dalam namespace "development".
+  # Ini hanya memberikan izin di dalam Namespace "development".
   namespace: development
 subjects:
 - kind: User
@@ -176,13 +176,13 @@ roleRef:
 
 #### Contoh ClusterRoleBinding
 
-Untuk memberikan izin diseluruh klaster, kamu dapat menggunakan ClusterRoleBinding.
+Untuk memberikan izin di seluruh klaster, kamu dapat menggunakan ClusterRoleBinding.
 ClusterRoleBinding berikut memungkinkan seluruh pengguna di dalam kelompok "manager" untuk
-membaca rahasia di berbagai _namespace_.
+membaca Secret di berbagai Namespace.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
-# Cluster role binding ini memungkinkan siapapun di dalam kelompok "manager" untuk membaca rahasia di berbagai namespace.
+# Cluster role binding ini memungkinkan siapapun di dalam kelompok "manager" untuk membaca Secret di berbagai Namespace.
 kind: ClusterRoleBinding
 metadata:
   name: read-secrets-global
@@ -204,23 +204,23 @@ Ada dua alasan untuk pembatasan tersebut:
 
 1. Membuat `roleRef` tidak dapat diubah memungkinkan seseorang untuk melakukan `update` pada objek ikatan yang ada, 
 sehingga mereka dapat mengelola daftar subyek, tanpa bisa berubah
-peran yang diberikan kepada subyek tersebut.
+Role yang diberikan kepada subyek tersebut.
 
-1. Ikatan pada peran yang berbeda adalah ikatan yang berbeda secara fundamental.
+1. Ikatan pada Role yang berbeda adalah ikatan yang berbeda secara fundamental.
 Mengharuskan sebuah ikatan untuk dihapus/diciptakan kembali untuk dalam upaya mengubah `roleRef` akan
 memastikan daftar lengkap subyek dalam ikatan akan diberikan diberikan
-peran baru (sebagai langkah untuk mencegah modifikasi secara tidak sengaja hanya pada roleRef
-tanpa memverifikasi semua subyek yang seharusnya diberikan izin pada peran baru).
+Role baru (sebagai langkah untuk mencegah modifikasi secara tidak sengaja hanya pada roleRef
+tanpa memverifikasi semua subyek yang seharusnya diberikan izin pada Role baru).
 
 Utilitas baris perintah `kubectl auth reconcile` membuat atau memperbaharui berkas manifes yang mengandung objek RBAC,
-dan menangani penghapusan dan pembuatan objek ikatan jika dibutuhkan untuk mengganti peran yang dirunjuk.
+dan menangani penghapusan dan pembuatan objek ikatan jika dibutuhkan untuk mengganti Role yang dirujuk.
 Lihat [penggunaan perintah dan contoh](#kubectl-auth-reconcile) untuk informasi tambahan.
 
 ### Mengacu pada sumber daya
 
 Pada API Kubernetes, sebagian besar sumber daya diwakili dan diakses menggunakan representasi 
 nama objek, seperti `pods` untuk Pod. RBAC mengacu pada sumber daya yang menggunakan nama yang persis sama
-dengan yang muncul di URL untuk _endpoints_ API yang relevan.
+dengan yang muncul di URL untuk berbagai _endpoint_ API yang relevan.
 Beberapa Kubernetes APIs melibatkan 
 _subresource_, seperti catatan untuk Pod. Permintaan untuk catatan Pod terlihat seperti:
 
@@ -228,8 +228,8 @@ _subresource_, seperti catatan untuk Pod. Permintaan untuk catatan Pod terlihat 
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
-Dalam hal ini, `pods` adalah sumber daya _namespaced_ untuk sumber daya Pod, dan` log` adalah a
-sub-sumber daya `pods`. Untuk mewakili ini dalam sebuah peran RBAC, gunakan garis miring (`/`) untuk
+Dalam hal ini, `pods` adalah sumber daya Namespace untuk sumber daya Pod, dan `log` adalah sebuah
+sub-sumber daya `pods`. Untuk mewakili ini dalam sebuah Role RBAC, gunakan garis miring (`/`) untuk
 membatasi sumber daya dan sub-sumber daya. Untuk memungkinkan subjek membaca `pods` dan
 juga mengakses sub-sumber daya `log` untuk masing-masing Pod tersebut, kamu dapat menulis:
 
@@ -271,12 +271,12 @@ Kamu tidak dapat membatasi permintaan `create` atau` deletecollection` dengan na
 Keterbatasan ini dikarenakan nama objek yang tidak dikenal pada waktu otorisasi.
 {{< /note >}}
 
-### Agregat ClusterRoles
+### Agregat ClusterRole
 
-Kamu dapat mengumpulkan beberapa ClusterRoles menjadi satu ClusterRole gabungan.
-Controller, yang berjalan sebagai bagian dari _control plane_ klaster, mengamati objek ClusterRole
+Kamu dapat mengumpulkan beberapa ClusterRole menjadi satu ClusterRole gabungan.
+_Controller_, yang berjalan sebagai bagian dari _control plane_ klaster, mengamati objek ClusterRole
 dengan `aggregationRule`. `AggregationRule` mendefinisikan label
-Selector yang digunakan oleh Controller untuk mencocokkan objek ClusterRole lain 
+Selector yang digunakan oleh _Controller_ untuk mencocokkan objek ClusterRole lain 
 yang harus digabungkan ke dalam `rules`.
 
 Berikut adalah contoh ClusterRole agregat:
@@ -313,12 +313,12 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-[Peran bawaan pengguna](#default-roles-and-role-bindings) menggunakan agregasi ClusterRole. Ini memungkinkan kamu,
+[Role bawaan pengguna](#role-dan-role-binding-bawaan) menggunakan agregasi ClusterRole. Ini memungkinkan kamu,
 sebagai administrator klaster, menambahkan aturan untuk sumber daya kustom, seperti yang dilayani oleh CustomResourceDefinition
-atau _aggregated_ server API, untuk memperluas peran bawaan.
+atau _aggregated_ server API, untuk memperluas Role bawaan.
 
-Sebagai contoh: ClusterRoles berikut mengizinkan peran bawaan "admin" dan "edit" mengelola sumber daya kustom
-bernama CronTab, sedangkan peran "view" hanya dapat melakukan tindakan membaca sumber daya CronTab.
+Sebagai contoh: ClusterRole berikut mengizinkan Role bawaan "admin" dan "edit" mengelola sumber daya kustom
+bernama CronTab, sedangkan Role "view" hanya dapat melakukan tindakan membaca sumber daya CronTab.
 Kamu dapat mengasumsikan bahwa objek CronTab dinamai `"crontab"` dalam URL yang terlihat oleh server API.
 
 ```yaml
@@ -327,7 +327,7 @@ kind: ClusterRole
 metadata:
   name: aggregate-cron-tabs-edit
   labels:
-    # Tambahkan izin berikut ke peran bawaan "admin" and "edit".
+    # Tambahkan izin berikut ke Role bawaan "admin" and "edit".
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
 rules:
@@ -340,7 +340,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: aggregate-cron-tabs-view
   labels:
-    # Tambahkan izin berikut ke peran bawaan "view"    
+    # Tambahkan izin berikut ke Role bawaan "view"    
     rbac.authorization.k8s.io/aggregate-to-view: "true"
 rules:
 - apiGroups: ["stable.example.com"]
@@ -350,7 +350,7 @@ rules:
 
 #### Contoh Role
 
-Contoh berikut adalah potongan dari objek Peran atau ClusterRole, yang hanya menampilkan
+Contoh berikut adalah potongan dari objek Role atau ClusterRole, yang hanya menampilkan
 bagian `rules`.
 
 Mengizinkan pembacaan sumber daya `"pods`` pada kumpulan API inti:
@@ -365,7 +365,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-Mengizinkan pembacaan/penulisan Deployments (pada tingkat HTTP: objek dengan `"deployments"` 
+Mengizinkan pembacaan/penulisan Deployment (pada tingkat HTTP: objek dengan `"deployments"` 
 di bagian sumber daya dari URL) pada masing-masing kumpulan API `"extensions"` dan `"apps"`:
 
 ```yaml
@@ -398,7 +398,7 @@ rules:
 ```
 
 Mengizinkan pembacaan ConfigMap bernama "my-config" (harus terikat dengan
-RoleBinding untuk membatasi pada sebuah ConfigMap di sebuah _namespace_):
+RoleBinding untuk membatasi pada sebuah ConfigMap di sebuah Namespace):
 
 ```yaml
 rules:
@@ -436,14 +436,14 @@ rules:
 
 ### Mengacu Pada Subjek
 
-RoleBinding atau ClusterRoleBinding mengikat sebuah peran ke subjek.
-Subjek dapat berupa kelompok, pengguna atau ServiceAccounts.
+RoleBinding atau ClusterRoleBinding mengikat sebuah Role ke subjek.
+Subjek dapat berupa kelompok, pengguna atau ServiceAccount.
 
-Kubernetes merepresentasikan _usernames_ sebagai string.
+Kubernetes merepresentasikan _username_ sebagai string.
 Ini bisa berupa: nama sederhana, seperti "alice"; email, seperti "bob@example.com";
 atau ID pengguna numerik yang direpresentasikan sebagai string. Terserah kamu sebagai administrator klaster
-untuk mengkonfigurasi [authentication modules](/docs/reference/access-authn-authz/authentication/)
-sehingga otentikasi menghasilkan _usernames_ dalam format yang kamu inginkan.
+untuk mengkonfigurasi [modul otentikasi](/docs/reference/access-authn-authz/authentication/)
+sehingga otentikasi menghasilkan _username_ dalam format yang kamu inginkan.
 
 {{< caution >}}
 Awalan `system:` direservasi untuk sistem Kubernetes, jadi kamu harus memastikan
@@ -456,16 +456,16 @@ Di Kubernetes, modul otentikasi menyediakan informasi grup.
 Grup, seperti halnya pengguna, direpresentasikan sebagai string, dan string tersebut tidak memiliki format tertentu,
 selain awalan `system:` yang sudah direservasi.
 
-[ServiceAccounts](/docs/tasks/configure-pod-container/configure-service-account/) memiliki nama yang diawali dengan `system:serviceaccount:`, dan menjadi milik grup yang diawali dengan nama `system:serviceaccounts:`.
+[ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) memiliki nama yang diawali dengan `system:serviceaccount:`, dan menjadi milik grup yang diawali dengan nama `system:serviceaccounts:`.
 
 {{< note >}}
-- `system:serviceaccount:` (tunggal) adalah awalan untuk _service account usernames_.
-- `system:serviceaccounts:` (jamak) adalah awalan untuk _service account_ grup.
+- `system:serviceaccount:` (tunggal) adalah awalan untuk ServiceAccount _username_.
+- `system:serviceaccounts:` (jamak) adalah awalan untuk ServiceAccount grup.
 {{< /note >}}
 
 #### Contoh RoleBinding {#role-binding-examples}
 
-Contoh-contoh berikut ini hanya potongan `RoleBinding` yang hanya memperlihatkan
+Contoh-contoh berikut ini hanya potongan RoleBinding yang hanya memperlihatkan
 bagian `subjects`.
 
 Untuk pengguna bernama `alice@example.com`:
@@ -486,7 +486,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-Untuk _service account_ bawaan di _namespace_ "kube-system":
+Untuk ServiceAccount bawaan di Namespace "kube-system":
 
 ```yaml
 subjects:
@@ -495,7 +495,7 @@ subjects:
   namespace: kube-system
 ```
 
-Untuk seluruh _service account_ di _namespace_ qa:
+Untuk seluruh ServiceAccount di Namespace qa:
 
 ```yaml
 subjects:
@@ -504,7 +504,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-Untuk seluruh _service account_ di _namespace_ apapun:
+Untuk seluruh ServiceAccount di Namespace apapun:
 
 ```yaml
 subjects:
@@ -543,7 +543,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-## Role dan RoleBindings Bawaan
+## Role dan RoleBinding Bawaan
 
 API membuat satu set objek ClusterRole dan ClusterRoleBinding bawaan. 
 Sebagian besar dari objek berawalan `system:`, menunjukkan bahwa sumber daya tersebut
@@ -551,7 +551,7 @@ secara langsung dikelolah oleh _control plane_ klaster. Seluruh ClusterRole dan 
 `kubernetes.io/bootstrapping=rbac-defaults`.
 
 {{< caution >}}
-Berhati-hatilah saat memodifikasih CLusterRole dan ClusterRoleBinding dengan nama yang
+Berhati-hatilah saat memodifikasi CLusterRole dan ClusterRoleBinding dengan nama yang
 memiliki awalan `system:`.
 Modifikasi sumber daya ini dapat mengakibatkan klaster yang malfungsi.
 {{< /caution >}}
@@ -560,7 +560,7 @@ Modifikasi sumber daya ini dapat mengakibatkan klaster yang malfungsi.
 
 Pada setiap _start-up-_, server API memperbaharui ClusterRole bawaan dengan berbagai izin yang hilang, 
 dan memperbaharui ikatan ClusterRole bawaan dengan subjek yang hilang.
-Ini memungkinkan klaster untuk memperbaiki modifikasi yang tidak disengaja, dan membantu menjaga peran 
+Ini memungkinkan klaster untuk memperbaiki modifikasi yang tidak disengaja, dan membantu menjaga Role 
 dan RoleBinding selalu terkini karena izin dan subjek berubah pada rilis terbaru Kubernetes.
 
 Untuk menon-aktifkan rekonsiliasi ini, setel anotasi `rbac.authorization.kubernetes.io/autoupdate`
@@ -569,12 +569,12 @@ Ingat bahwa hilangnya izin dan subjek bawaan dapat mengakibatkan klaster tidak b
 
 Rekonsiliasi otomatis diaktifkan secara bawaan jika otorizer RBAC aktif.
 
-### API discovery roles {#discovery-roles}
+### Role API discovery {#discovery-roles}
 
 RoleBinding bawaan memberi otorisasi kepada pengguna yang tidak terotentikasi untuk membaca informasi API yang dianggap aman
 untuk diakses publik (termasuk CustomResourceDefinitions). Untuk menonaktifkan akses anonim, tambahkan `--anonymous-auth=false` ke konfigurasi server API.
 
-Untuk melihat konfigurasi peran ini melalui `kubectl` jalankan perintah:
+Untuk melihat konfigurasi Role ini melalui `kubectl` jalankan perintah:
 
 ```shell
 kubectl get clusterroles system:discovery -o yaml
@@ -582,7 +582,7 @@ kubectl get clusterroles system:discovery -o yaml
 
 {{< note >}}
 Jika kamu mengubah ClusterRole tersebut, perubahan kamu akan ditimpa pada penyalaan ulang server API melalui 
-[rekonsiliasi-otomatis](#auto-reconciliation). Untuk menghindari penulisan ulang tersebut, hindari mengubah peran secara manual, 
+[rekonsiliasi-otomatis](#auto-reconciliation). Untuk menghindari penulisan ulang tersebut, hindari mengubah Role secara manual, 
 atau nonaktifkan rekonsiliasi otomatis
 {{< /note >}}
 
@@ -597,12 +597,12 @@ atau nonaktifkan rekonsiliasi otomatis
 <tr>
 <td><b>system:basic-user</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Mengizinkan pengguna hanya dengan akses baca untuk mengakses informasi dasar tentang diri mereka sendiri. Sebelum  v1.14, peran ini juga terikat pada <tt>system:unauthenticated</tt> secara bawaan.</td>
+<td>Mengizinkan pengguna hanya dengan akses baca untuk mengakses informasi dasar tentang diri mereka sendiri. Sebelum  v1.14, Role ini juga terikat pada <tt>system:unauthenticated</tt> secara bawaan.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Mengizinkan akses baca pada _API discovery endpoints_ yang dibutuhkan untuk menemukan dan melakukan negosiasi pada tingkat API. Sebelum v1.14, peran ini juga terikat pada <tt>system:unauthenticated</tt> secara bawaan.</td>
+<td>Mengizinkan akses baca pada berbagai _API discovery endpoint_ yang dibutuhkan untuk menemukan dan melakukan negosiasi pada tingkat API. Sebelum v1.14, Role ini juga terikat pada <tt>system:unauthenticated</tt> secara bawaan.</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
@@ -611,14 +611,14 @@ atau nonaktifkan rekonsiliasi otomatis
 </tr>
 </table>
 
-### Peran Pengguna
+### Role Pengguna
 
-Beberapa ClusterRole bawaan tidak diawali dengan `system:`. Ini dimaksudkan untuk peran pengguna.
-Ini termasuk peran super-user (`cluster-admin`), peran yang dimaksudkan untuk diberikan akses seluruh klaster dengan
-menggunakan ClusterRoleBinding, dan peran yang dimaksudkan untuk diberikan pada namespace tertentu 
+Beberapa ClusterRole bawaan tidak diawali dengan `system:`. Ini dimaksudkan untuk Role pengguna.
+Ini termasuk Role super-user (`cluster-admin`), Role yang dimaksudkan untuk diberikan akses seluruh klaster dengan
+menggunakan ClusterRoleBinding, dan Role yang dimaksudkan untuk diberikan pada Namespace tertentu 
 dengan menggunakan RoleBinding (`admin`, `edit`, `view`).
 
-ClusterRoles menggunakan [aggregasi ClusterRole](#aggregated-clusterroles) untuk mengizinkan admin untuk memasukan peraturan untuk sumber daya khusus pada ClusterRole ini. Untuk menambahkan aturan kepada peran `admin`, `edit`, atau `view`, buat sebuah CLusterRole
+ClusterRole menggunakan [aggregasi ClusterRole](#aggregated-clusterroles) untuk mengizinkan admin untuk memasukan peraturan untuk sumber daya khusus pada ClusterRole ini. Untuk menambahkan aturan kepada Role `admin`, `edit`, atau `view`, buat sebuah CLusterRole
 dengan satu atau lebih label berikut:
 
 ```yaml
@@ -640,37 +640,37 @@ metadata:
 <td><b>cluster-admin</b></td>
 <td><b>system:masters</b> group</td>
 <td>Mengizinkan akses super-user access untuk melakukan berbagai aksi pada berbagai sumber daya. 
-Ketika digunakan pada <b>ClusterRoleBinding</b>, ini memberikan kendali penuh terhadap seluruh sumber daya pada klaster dan seluruh namespace. 
-Ketika digunakan pada <b>RoleBinding</b>, ini memberikan kendali penuh terhadap setiap sumber daya pada namespace RoleBinding, termasuk namespace itu sendiri.</td>
+Ketika digunakan pada <b>ClusterRoleBinding</b>, ini memberikan kendali penuh terhadap seluruh sumber daya pada klaster dan seluruh Namespace. 
+Ketika digunakan pada <b>RoleBinding</b>, ini memberikan kendali penuh terhadap setiap sumber daya pada Namespace RoleBinding, termasuk Namespace itu sendiri.</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
 <td>None</td>
-<td>mengizinkan akses admin, yang dimaksudkan untuk diberikan dalam sebuah namespace menggunakan <b>RoleBinding</b>.
-Jika digunakan dalam <b>RoleBinding</b>, ini memungkikan akses baca/tulis ke sebagian besar sumber daya di sebuah namespace,
-termasuk kemampuan untuk membuat Role dan RoleBinding dalam namespace. 
-Peran ini tidak memungkinkan akses tulis pada kuota sumber daya atau ke namespace itu sendiri.</td>
+<td>mengizinkan akses admin, yang dimaksudkan untuk diberikan dalam sebuah Namespace menggunakan <b>RoleBinding</b>.
+Jika digunakan dalam <b>RoleBinding</b>, ini memungkikan akses baca/tulis ke sebagian besar sumber daya di sebuah Namespace,
+termasuk kemampuan untuk membuat Role dan RoleBinding dalam Namespace. 
+Role ini tidak memungkinkan akses tulis pada kuota sumber daya atau ke Namespace itu sendiri.</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
 <td>None</td>
-<td>Mengizinkan akses baca/tulis pada seluruh objek dalam namespace.
+<td>Mengizinkan akses baca/tulis pada seluruh objek dalam Namespace.
 
-Peran ini tidak memungkinkan untuk melihat dan merubah Role dan RoleBinding.
-Namun, peran ini memungkinkan untuk mengakses secret dan menjalankan pod seperti ServiceAccount dalam namespace, 
-sehingga dapat digunakan untuk mendapatkan tingkat akses API dari setiap ServiceAccount di namespace. 
+Role ini tidak memungkinkan untuk melihat dan merubah Role dan RoleBinding.
+Namun, Role ini memungkinkan untuk mengakses Secret dan menjalankan Pod seperti ServiceAccount dalam Namespace, 
+sehingga dapat digunakan untuk mendapatkan tingkat akses API dari setiap ServiceAccount di Namespace. 
 </td>
 </tr>
 <tr>
 <td><b>view</b></td>
 <td>None</td>
-<td>Mengizinkan akses baca untuk melihat hampir seluruh objek dalam namespace.
+<td>Mengizinkan akses baca untuk melihat hampir seluruh objek dalam Namespace.
 
-Ini tidak memungkinkan untuk melihat peran dan RoleBinding.
+Ini tidak memungkinkan untuk melihat Role dan RoleBinding.
 
-Peran ini tidak memungkikan melihat Secret, karena pembacaan konten Secret memungkinkan
-akses ke kredensial ServiceAccount dalam namespace, yang akan memungkinkan akses API sebagai
-ServiceAccount apapun di namespace (bentuk eskalasi hak istimewa).
+Role ini tidak memungkikan melihat Secret, karena pembacaan konten Secret memungkinkan
+akses ke kredensial ServiceAccount dalam Namespace, yang akan memungkinkan akses API sebagai
+ServiceAccount apapun di Namespace (bentuk eskalasi hak istimewa).
 </td>
 </tr>
 </table>
