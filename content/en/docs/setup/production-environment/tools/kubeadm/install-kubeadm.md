@@ -191,7 +191,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```bash
-cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
@@ -203,12 +203,12 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 # Set SELinux in permissive mode (effectively disabling it)
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
-systemctl enable --now kubelet
+sudo systemctl enable --now kubelet
 ```
 
   **Notes:**
