@@ -222,7 +222,7 @@ Pod以外のプロセス用にリソースを明示的に予約したい場合�
 ## ノードのトポロジー
 
 {{< feature-state state="alpha" >}}
-`TopologyManager`の[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
+`TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
 kubeletはリソースの割当を決定する際にトポロジーのヒントを利用できます。
 
 ## APIオブジェクト
