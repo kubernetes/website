@@ -1,17 +1,17 @@
 ---
-title: Mengatur Service Account untuk Pod
+title: Mengatur ServiceAccount untuk Pod
 content_type: task
 weight: 90
 ---
 
 <!-- overview -->
-Akun servis (_service account_) menyediakan identitas untuk proses yang sedang berjalan dalam sebuah Pod.
+ServiceAccount menyediakan identitas untuk proses yang sedang berjalan dalam sebuah Pod.
 
 {{< note >}}
-Dokumen ini digunakan sebagai pengenalan untuk pengguna terhadap _Service Account_ dan menjelaskan bagaimana perilaku _service account_ dalam konfigurasi kluster seperti yang direkomendasikan Kubernetes. Pengubahan perilaku yang bisa saja dilakukan administrator kluster terhadap kluster tidak menjadi bagian pembahasan dokumentasi ini.
+Dokumen ini digunakan sebagai pengenalan untuk pengguna terhadap ServiceAccount dan menjelaskan bagaimana perilaku ServiceAccount dalam konfigurasi kluster seperti yang direkomendasikan Kubernetes. Pengubahan perilaku yang bisa saja dilakukan administrator kluster terhadap kluster tidak menjadi bagian pembahasan dokumentasi ini.
 {{< /note >}}
 
-Ketika kamu mengakses kluster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah User Account (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah Service Account (contohnya sebagai `default`).
+Ketika kamu mengakses kluster (contohnya menggunakan `kubectl`), kamu terautentikasi oleh apiserver sebagai sebuah User Account (untuk sekarang umumnya sebagai `admin`, kecuali jika administrator klustermu telah melakukan pengubahan). Berbagai proses yang ada di dalam kontainer dalam pod juga dapat mengontak apiserver. Ketika itu terjadi, mereka akan diautentikasi sebagai sebuah ServiceAccount (contohnya sebagai `default`).
 
 
 
@@ -25,14 +25,14 @@ Ketika kamu mengakses kluster (contohnya menggunakan `kubectl`), kamu terautenti
 
 <!-- steps -->
 
-## Menggunakan Default Service Account untuk Mengakses API server.
+## Menggunakan Default ServiceAccount untuk Mengakses API server.
 
-Ketika kamu membuat sebuah pod, jika kamu tidak menentukan sebuah _service account_, maka ia akan otomatis ditetapkan sebagai _service account_`default` di namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
+Ketika kamu membuat sebuah pod, jika kamu tidak menentukan sebuah ServiceAccount, maka ia akan otomatis ditetapkan sebagai ServiceAccount`default` di namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
-Kamu dapat mengakses API dari dalam pod menggunakan kredensial _service account_ yang ditambahkan secara otomatis seperti yang dijelaskan dalam [Mengakses Klaster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
-Hak akses API dari _service account_ menyesuaikan dengan [kebijakan dan plugin otorisasi](/docs/reference/access-authn-authz/authorization/#authorization-modules) yang sedang digunakan.
+Kamu dapat mengakses API dari dalam pod menggunakan kredensial ServiceAccount yang ditambahkan secara otomatis seperti yang dijelaskan dalam [Mengakses Klaster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
+Hak akses API dari ServiceAccount menyesuaikan dengan [kebijakan dan plugin otorisasi](/docs/reference/access-authn-authz/authorization/#authorization-modules) yang sedang digunakan.
 
-Di versi 1.6+, kamu dapat tidak memilih _automounting_ kredensial API dari sebuah _service account_ dengan mengatur `automountServiceAccountToken: false` pada _service account_:
+Di versi 1.6+, kamu dapat tidak memilih _automounting_ kredensial API dari sebuah ServiceAccount dengan mengatur `automountServiceAccountToken: false` pada ServiceAccount:
 
 ```yaml
 apiVersion: v1
@@ -56,11 +56,11 @@ spec:
   ...
 ```
 
-Pengaturan dari spesifikasi pod didahulukan dibanding _service account_ jika keduanya menentukan nilai dari `automountServiceAccountToken`.
+Pengaturan dari spesifikasi pod didahulukan dibanding ServiceAccount jika keduanya menentukan nilai dari `automountServiceAccountToken`.
 
-## Menggunakan Beberapa Service Account.
+## Menggunakan Beberapa ServiceAccount.
 
-Setiap namespace memiliki _resource_ _service account_ standar `default`.
+Setiap namespace memiliki _resource_ ServiceAccount standar `default`.
 Kamu dapat melihatnya dan _resource_ serviceAccount lainnya di namespace tersebut dengan perintah:
 
 ```shell
@@ -86,7 +86,7 @@ EOF
 
 Nama dari obyek ServiceAccount haruslah sebuah [nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang valid.
 
-Jika kamu mendapatkan obyek _service account_ secara komplit, seperti ini:
+Jika kamu mendapatkan obyek ServiceAccount secara komplit, seperti ini:
 
 ```shell
 kubectl get serviceaccounts/build-robot -o yaml
@@ -106,25 +106,25 @@ secrets:
 - name: build-robot-token-bvbk5
 ```
 
-maka kamu dapat melihat bahwa _token_ telah dibuat secara otomatis dan dirujuk oleh _service account_.
+maka kamu dapat melihat bahwa _token_ telah dibuat secara otomatis dan dirujuk oleh ServiceAccount.
 
-Kamu dapat menggunakan _plugin_ otorisasi untuk [mengatur hak akses dari service account](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
+Kamu dapat menggunakan _plugin_ otorisasi untuk [mengatur hak akses dari ServiceAccount](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-Untuk menggunakan _service account_ selain nilai standar, atur _field_ `spec.serviceAccountName` dari pod menjadi nama dari _service account_ yang hendak kamu gunakan.
+Untuk menggunakan ServiceAccount selain nilai standar, atur _field_ `spec.serviceAccountName` dari pod menjadi nama dari ServiceAccount yang hendak kamu gunakan.
 
 _Service account_ harus ada ketika pod dibuat, jika tidak maka akan ditolak.
 
-Kamu tidak dapat memperbarui _service account_ dari pod yang telah dibuat.
+Kamu tidak dapat memperbarui ServiceAccount dari pod yang telah dibuat.
 
-Kamu dapat menghapus _service account_ dari contoh seperti ini:
+Kamu dapat menghapus ServiceAccount dari contoh seperti ini:
 
 ```shell
 kubectl delete serviceaccount/build-robot
 ```
 
-## Membuat token API service account secara manual.
+## Membuat token API ServiceAccount secara manual.
 
-Asumsikan kita memiliki _service account_ dengan nama "build-robot" seperti yang disebukan di atas, dan kita membuat _secret_ secara manual.
+Asumsikan kita memiliki ServiceAccount dengan nama "build-robot" seperti yang disebukan di atas, dan kita membuat _secret_ secara manual.
 
 ```shell
 kubectl apply -f - <<EOF
@@ -138,9 +138,9 @@ type: kubernetes.io/service-account-token
 EOF
 ```
 
-Sekarang kamu dapat mengonfirmasi bahwa _secret_ yang baru saja dibuat diisi dengan _token_ API dari _service account_ "build-robot".
+Sekarang kamu dapat mengonfirmasi bahwa _secret_ yang baru saja dibuat diisi dengan _token_ API dari ServiceAccount "build-robot".
 
-Setiap _token_ dari _service account_ yang tidak ada akan dihapus oleh _token controller_.
+Setiap _token_ dari ServiceAccount yang tidak ada akan dihapus oleh _token controller_.
 
 ```shell
 kubectl describe secrets/build-robot-secret
@@ -167,7 +167,7 @@ token:          ...
 Isi dari `token` tidak dirinci di sini.
 {{< /note >}}
 
-## Menambahkan ImagePullSecrets ke service account.
+## Menambahkan ImagePullSecrets ke ServiceAccount.
 
 ### Membuat imagePullSecret
 
@@ -191,9 +191,9 @@ Isi dari `token` tidak dirinci di sini.
     myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
     ```
 
-### Menambahkan imagePullSecret ke service account
+### Menambahkan imagePullSecret ke ServiceAccount
 
-Selanjutnya, modifikasi _service account_ standar dari namespace untuk menggunakan _secret_ ini sebagai imagePullSecret.
+Selanjutnya, modifikasi ServiceAccount standar dari namespace untuk menggunakan _secret_ ini sebagai imagePullSecret.
 
 
 ```shell
@@ -260,12 +260,12 @@ Keluarannya adalah:
 myregistrykey
 ```
 
-<!--## Menambahkan Secrets ke sebuah service account.
+<!--## Menambahkan Secrets ke sebuah ServiceAccount.
 
-TODO: Tes dan jelaskan bagaimana cara menambahkan secret tambahan non-K8s dengan service account yang sudah ada.
+TODO: Tes dan jelaskan bagaimana cara menambahkan secret tambahan non-K8s dengan ServiceAccount yang sudah ada.
 -->
 
-## Service Account Token Volume Projection
+## ServiceAccount Token Volume Projection
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
@@ -278,7 +278,7 @@ ServiceAccountTokenVolumeProjection masih dalam tahap __beta__ untuk versi 1.12 
 
 {{< /note >}}
 
-Kubelet juga dapat memproyeksikan _token_ _service account_ ke Pod. Kamu dapat menentukan properti yang diinginkan dari _token_ seperti target pengguna dan durasi validitas. Properti tersebut tidak dapat diubah pada _token_ _service account_ standar. _Token_ _service account_ juga akan menjadi tidak valid terhadap API ketika Pod atau ServiceAccount dihapus.
+Kubelet juga dapat memproyeksikan _token_ ServiceAccount ke Pod. Kamu dapat menentukan properti yang diinginkan dari _token_ seperti target pengguna dan durasi validitas. Properti tersebut tidak dapat diubah pada _token_ ServiceAccount standar. _Token_ ServiceAccount juga akan menjadi tidak valid terhadap API ketika Pod atau ServiceAccount dihapus.
 
 Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/docs/concepts/storage/volumes/#projected). Untuk memungkinkan pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
 
@@ -294,7 +294,7 @@ Kubelet akan me-_request_ dan menyimpan _token_ mewakili pod, buat _token_ dapat
 
 Aplikasi bertanggung jawab untuk memuat ulang _token_ ketika terjadi penggantian. Pemuatan ulang teratur (misalnya sekali setiap 5 menit) cukup untuk mencakup kebanyakan kasus. 
 
-## Service Account Issuer Discovery
+## ServiceAccount Issuer Discovery
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
@@ -306,17 +306,17 @@ URL _issuer_ harus sesuai dengan _[OIDC Discovery Spec](https://openid.net/specs
 Jika URL tidak sesuai dengan aturan, _endpoint_ `ServiceAccountIssuerDiscovery` tidak akan didaftarkan meskipun fitur telah diaktifkan.
 {{< /note >}}
 
-Fitur _Service Account Issuer Discovery_ memungkinkan federasi dari berbagai _token_ _service account_ Kubernetes yang dibuat oleh sebuah kluster (penyedia identitas) dan sistem eksternal.
+Fitur _Service Account Issuer Discovery_ memungkinkan federasi dari berbagai _token_ ServiceAccount Kubernetes yang dibuat oleh sebuah kluster (penyedia identitas) dan sistem eksternal.
 
 Ketika diaktifkan, _server_ API Kubernetes menyediakan dokumen OpenID Provider Configuration pada `/.well-known/openid-configuration` dan JSON Web Key Set (JWKS) terkait pada `/openid/v1/jwks`. OpenID Provider Configuration terkadang disebut juga dengan sebutan _discovery document_.
 
 Ketika diaktifkan, kluster juga dikonfigurasi dengan RBAC ClusterRole standar yaitu `system:service-account-issuer-discovery`. _Role binding_ tidak disediakan secara _default_. Administrator dimungkinkan untuk, sebagai contoh, menentukan apakah peran akan disematkan ke `system:authenticated` atau `system:unauthenticated` tergantung terhadap kebutuhan keamanan dan sistem eksternal yang direncakanan untuk diintegrasikan.
 
 {{< note >}}
-Respons yang disediakan pada `/.well-known/openid-configuration` dan`/openid/v1/jwks` dirancang untuk kompatibel dengan OIDC, tetapi tidak sepenuhnya sesuai dengan ketentuan OIDC. Dokumen tersebut hanya berisi parameter yang dibutuhkan untuk melakukan validasi terhadap _token_ _service account_ Kubernetes.
+Respons yang disediakan pada `/.well-known/openid-configuration` dan`/openid/v1/jwks` dirancang untuk kompatibel dengan OIDC, tetapi tidak sepenuhnya sesuai dengan ketentuan OIDC. Dokumen tersebut hanya berisi parameter yang dibutuhkan untuk melakukan validasi terhadap _token_ ServiceAccount Kubernetes.
 {{< /note >}}
 
-Respons JWKS memuat kunci publik yang dapat digunakan oleh sistem eksternal untuk melakukan validasi _token_ _service account_ Kubernetes. Awalnya sistem eksternal akan mengkueri OpenID Provider Configuration, dan selanjutnya dapat menggunakan _field_ `jwks_uri` pada respons kueri untuk mendapatkan JWKS.
+Respons JWKS memuat kunci publik yang dapat digunakan oleh sistem eksternal untuk melakukan validasi _token_ ServiceAccount Kubernetes. Awalnya sistem eksternal akan mengkueri OpenID Provider Configuration, dan selanjutnya dapat menggunakan _field_ `jwks_uri` pada respons kueri untuk mendapatkan JWKS.
 
 Pada banyak kasus, _server_ API Kubernetes tidak tersedia di internet publik, namun _endpoint_ publik yang menyediakan respons hasil _cache_ dari _server_ API dapat dibuat menjadi tersedia oleh pengguna atau penyedia servis. Pada kasus ini, dimungkinkan untuk mengganti `jwks_uri` pada OpenID Provider Configuration untuk diarahkan ke _endpoint_ publik sebagai ganti alamat _server_ API dengan memberikan _flag_ `--service-account-jwks-uri` ke API server. serupa dengan URL _issuer_, URI JWKS diharuskan untuk menggunakan skema `https`.
 
@@ -326,8 +326,8 @@ Pada banyak kasus, _server_ API Kubernetes tidak tersedia di internet publik, na
 
 Lihat juga:
 
-- [Panduan Admin Kluster mengenai Service Account](/docs/reference/access-authn-authz/service-accounts-admin/)
-- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [Panduan Admin Kluster mengenai ServiceAccount](/docs/reference/access-authn-authz/service-accounts-admin/)
+- [ServiceAccount Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
 - [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
 
 
