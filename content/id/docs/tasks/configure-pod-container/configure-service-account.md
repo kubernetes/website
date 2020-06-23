@@ -27,7 +27,7 @@ Ketika kamu mengakses klaster (contohnya menggunakan `kubectl`), kamu terautenti
 
 ## Menggunakan Default ServiceAccount untuk Mengakses API server.
 
-Ketika kamu membuat sebuah Pod, jika kamu tidak menentukan sebuah ServiceAccount, maka ia akan otomatis ditetapkan sebagai ServiceAccount`default` di namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah Pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
+Ketika kamu membuat sebuah Pod, jika kamu tidak menentukan sebuah ServiceAccount, maka ia akan otomatis ditetapkan sebagai ServiceAccount`default` di Namespace yang sama. Jika kamu mendapatkan json atau yaml mentah untuk sebuah Pod yang telah kamu buat (contohnya menggunakan `kubectl get pods/<podname> -o yaml`), kamu akan melihat _field_ `spec.serviceAccountName` yang telah secara [otomatis ditentukan](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
 
 Kamu dapat mengakses API dari dalam Pod menggunakan kredensial ServiceAccount yang ditambahkan secara otomatis seperti yang dijelaskan dalam [Mengakses Klaster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
 Hak akses API dari ServiceAccount menyesuaikan dengan [kebijakan dan plugin otorisasi](/docs/reference/access-authn-authz/authorization/#authorization-modules) yang sedang digunakan.
@@ -60,8 +60,8 @@ Pengaturan dari spesifikasi Pod didahulukan dibanding ServiceAccount jika keduan
 
 ## Menggunakan Beberapa ServiceAccount.
 
-Setiap namespace memiliki _resource_ ServiceAccount standar `default`.
-Kamu dapat melihatnya dan _resource_ serviceAccount lainnya di namespace tersebut dengan perintah:
+Setiap Namespace memiliki _resource_ ServiceAccount standar `default`.
+Kamu dapat melihatnya dan _resource_ serviceAccount lainnya di Namespace tersebut dengan perintah:
 
 ```shell
 kubectl get serviceaccounts
@@ -193,7 +193,7 @@ Isi dari `token` tidak dirinci di sini.
 
 ### Menambahkan imagePullSecret ke ServiceAccount
 
-Selanjutnya, modifikasi ServiceAccount standar dari namespace untuk menggunakan _secret_ ini sebagai imagePullSecret.
+Selanjutnya, modifikasi ServiceAccount standar dari Namespace untuk menggunakan _secret_ ini sebagai imagePullSecret.
 
 
 ```shell
@@ -247,7 +247,7 @@ kubectl replace serviceaccount default -f ./sa.yaml
 
 ### Memverifikasi imagePullSecrets sudah ditambahkan ke spesifikasi Pod
 
-Ketika Pod baru dibuat dalam namespace yang sedang aktif dan menggunakan ServiceAccount, Pod baru akan memiliki _field_ `spec.imagePullSecrets` yang ditentukan secara otomatis:
+Ketika Pod baru dibuat dalam Namespace yang sedang aktif dan menggunakan ServiceAccount, Pod baru akan memiliki _field_ `spec.imagePullSecrets` yang ditentukan secara otomatis:
 
 ```shell
 kubectl run nginx --image=nginx --restart=Never
