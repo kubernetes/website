@@ -298,7 +298,7 @@ Aplikasi bertanggung jawab untuk memuat ulang _token_ ketika terjadi penggantian
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
-Fitur _Service Account Issuer Discovery_ diaktifkan dengan mengaktifkan _[feature gate](/docs/reference/command-line-tools-reference/feature-gate)_ `ServiceAccountIssuerDiscovery` dan mengaktifkan fitur _Service Account Token Volume Projection_ seperti yang telah dijelaskan [di atas](#service-account-token-volume-projection).
+Fitur _Service Account Issuer Discovery_ diaktifkan dengan mengaktifkan [gerbang fitur](/docs/reference/command-line-tools-reference/feature-gate) `ServiceAccountIssuerDiscovery` dan mengaktifkan fitur _Service Account Token Volume Projection_ seperti yang telah dijelaskan [di atas](#service-account-token-volume-projection).
 
 {{< note >}}
 URL _issuer_ harus sesuai dengan _[OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)_. Pada implementasinya, hal ini berarti URL harus menggunakan skema `https` dan harus menyediakan konfigurasi penyedia OpenID pada `{service-account-issuer}/.well-known/openid-configuration`.
