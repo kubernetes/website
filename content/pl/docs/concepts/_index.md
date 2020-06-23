@@ -65,7 +65,7 @@ Węzły klastra to maszyny (wirtualne, fizyczne i in.), na których uruchamiane 
 
 
 Jeśli chcesz dodać stronę z nowym pojęciem, odwiedź
-[Page Content Types](/docs/home/contribute/style/page-content-types/#concept),
+[Page Content Types](/docs/contribute/style/page-content-types/#concept),
 aby dowiedzieć się o tworzeniu stron opisujących pojęcia.
 
 
