@@ -209,9 +209,11 @@ has signed the CLA.
 -->
 如果 PR 拥有来自 Kubernetes 社区的任何人的 `/lgtm` 评论和来自 `sig-docs-maintainers` 组的 `/approve` 评论，只要它没有被 hold 并且作者已签署了 CLA，PR 就会被合并。
 
-{{< note >}}
 <!-- 
-The ["Participating"](/docs/contribute/participating/#approvers) section contains more information for reviewers and approvers, including specific responsibilities for approvers. -->
+The ["Participating"](/docs/contribute/participating/#approvers) section contains more information for reviewers and approvers, including specific responsibilities for approvers.
+-->
+
+{{< note >}}
 ["参与"](/docs/contribute/participating/#approvers)部分包含有关 reviewers 和 approvers 的更多信息，包括 approvers 的具体职责。
 {{< /note >}}
 
