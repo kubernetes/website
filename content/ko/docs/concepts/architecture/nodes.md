@@ -31,7 +31,8 @@ weight: 10
 1. 노드의 kubelet으로 컨트롤 플레인에 자체 등록
 2. 사용자 또는 다른 사용자가 노드 오브젝트를 수동으로 추가
 
-노드 오브젝트 또는 노드의 kubelet으로 자체 등록한 후 컨트롤 플레인은 새 노드 오브젝트가 유효한지 확인한다.
+노드 오브젝트 또는 노드의 kubelet으로 자체 등록한 후
+컨트롤 플레인은 새 노드 오브젝트가 유효한지 확인한다.
 예를 들어 다음 JSON 매니페스트에서 노드를 만들려는 경우이다.
 
 ```json
@@ -61,7 +62,8 @@ kubelet이 노드의 `metadata.name` 필드와 일치하는 API 서버에 등록
 노드 오브젝트를 명시적으로 삭제해야한다.
 {{< /note >}}
 
-노드 오브젝트의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+노드 오브젝트의 이름은 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
 
 ### 노드에 대한 자체-등록
 
@@ -73,7 +75,9 @@ kubelet 플래그 `--register-node`는 참(기본값)일 경우, kubelet 은 API
   - `--kubeconfig` - apiserver에 스스로 인증하기 위한 자격증명에 대한 경로.
   - `--cloud-provider` - 자신에 대한 메터데이터를 읽기 위해 어떻게 {{< glossary_tooltip text="클라우드 제공자" term_id="cloud-provider" >}}와 소통할지에 대한 방법.
   - `--register-node` - 자동으로 API 서버에 등록.
-  - `--register-with-taints` - 주어진 taint 리스트 (콤마로 분리된 `<key>=<value>:<effect>`)를 가진 노드 등록. `register-node`가 거짓이면 동작 안함.
+  - `--register-with-taints` - 주어진 {{< glossary_tooltip text="테인트(taint)" term_id="taint" >}} 리스트(콤마로 분리된 `<key>=<value>:<effect>`)를 가진 노드 등록. 
+
+    `register-node`가 거짓이면 동작 안 함.
   - `--node-ip` - 노드의 IP 주소.
   - `--node-labels` - 클러스터에 노드를 등록할 때 추가 할 {{< glossary_tooltip text="레이블" term_id="label" >}}([NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)에 의해 적용되는 레이블 제한 사항 참고).
   - `--node-status-update-frequency` - 얼마나 자주 kubelet이 마스터에 노드 상태를 게시할 지 정의.
@@ -188,6 +192,9 @@ apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳
 스케줄러는 파드를 노드에 할당 할 때 노드의 테인트를 고려한다.
 또한 파드는 노드의 테인트를 극복(tolerate)할 수 있는 톨러레이션(toleration)을 가질 수 있다.
 
+자세한 내용은
+[컨디션별 노드 테인트하기](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/#컨디션별-노드-테인트하기)를 참조한다.
+
 ### 용량과 할당가능 {#capacity}
 
 노드 상에 사용 가능한 리소스를 나타낸다. 리소스에는 CPU, 메모리 그리고 
@@ -201,7 +208,7 @@ apiserver로부터 삭제되어 그 이름을 사용할 수 있는 결과를 낳
 [컴퓨팅 리소스 예약](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)하는 방법을
 배우는 동안 용량 및 할당가능 리소스에 대해 자세히 읽어보자.
 
-### 정보 {#info}
+### 정보
 
 커널 버전, 쿠버네티스 버전 (kubelet과 kube-proxy 버전), (사용하는 경우) Docker 버전, OS 이름과 같은노드에 대한 일반적인 정보를 보여준다.
 이 정보는 Kubelet에 의해 노드로부터 수집된다.
@@ -285,6 +292,7 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 추가한다.
 이는 스케줄러가 비정상적인 노드에 파드를 배치하지 않게 된다.
 
+
 {{< caution >}}
 `kubectl cordon` 은 노드를 'unschedulable'로 표기하는데, 이는
 서비스 컨트롤러가 이전에 자격 있는 로드밸런서 노드 대상 목록에서 해당 노드를 제거하기에
@@ -318,7 +326,6 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 `TopologyManager` 
 [기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
 활성화 시켜두면, kubelet이 리소스 할당 결정을 할 때 토폴로지 힌트를 사용할 수 있다.
-
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
 
@@ -331,4 +338,3 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
   섹션을 읽어본다.
 * [테인트와 톨러레이션](/ko/docs/concepts/configuration/taint-and-toleration/)을 읽어본다.
 * [클러스터 오토스케일링](/ko/docs/tasks/administer-cluster/cluster-management/#클러스터-오토스케일링)을 읽어본다.
-

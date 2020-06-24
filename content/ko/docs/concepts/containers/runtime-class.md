@@ -143,14 +143,16 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-쿠버네티스 v1.16 부터, 런타임클래스는 `scheduling` 필드를 통해 이종의 클러스터 지원을 포함한다.
-이 필드를 사용하면, 이 런타임클래스를 갖는 파드가 이를 지원하는 노드로 스케줄된다는 것을 보장할 수 있다.
-이 스케줄링 기능을 사용하려면, [런타임클래스 어드미션(admission) 컨트롤러][]를 활성화(1.16 부터 기본 값)해야 한다.
+쿠버네티스 v1.16 부터, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터
+지원을 포함한다. 이 필드를 사용하면, 이 런타임 클래스를 갖는 파드가 이를 지원하는
+노드로 스케줄된다는 것을 보장할 수 있다. 이 스케줄링 기능을 사용하려면,
+[런타임 클래스 어드미션(admission) 컨트롤러][]를 활성화(1.16 부터 기본값)해야 한다.
 
 파드가 지정된 런타임클래스를 지원하는 노드에 안착한다는 것을 보장하려면,
 해당 노드들은 `runtimeClass.scheduling.nodeSelector` 필드에서 선택되는 공통 레이블을 가져야한다.
-런타임클래스의 nodeSelector는 파드의 nodeSelector와 어드미션 시 병합되어서, 실질적으로
-각각에 의해 선택된 노드의 교집합을 취한다. 충돌이 있는 경우, 파드는 거부된다.
+런타임 클래스의 nodeSelector는 파드의 nodeSelector와 어드미션 시 병합되어서, 실질적으로
+각각에 의해 선택된 노드의 교집합을 취한다. 충돌이 있는 경우,
+파드는 거부된다.
 
 지원되는 노드가 테인트(taint)되어서 다른 런타임클래스 파드가 노드에서 구동되는 것을 막고 있다면,
 `tolerations`를 런타임클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시 
@@ -171,9 +173,8 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 PodOverhead를 사용하려면, PodOverhead [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
 를 활성화 시켜야 한다. (기본으로 활성화 되어 있다.)
 
-
-파드 오버헤드는 런타임클래스에서 `overhead` 필드를 통해 정의된다. 이 필드를 사용하면,
-해당 런타임클래스를 사용해서 구동 중인 파드의 오버헤드를 특정할 수 있고 이 오버헤드가
+파드 오버헤드는 런타임 클래스에서 `overhead` 필드를 통해 정의된다. 이 필드를 사용하면,
+해당 런타임 클래스를 사용해서 구동 중인 파드의 오버헤드를 특정할 수 있고 이 오버헤드가
 쿠버네티스 내에서 처리된다는 것을 보장할 수 있다.
 
 
@@ -184,3 +185,5 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/docs/reference/c
 - [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
 - [파드 오버헤드](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
 - [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+
+

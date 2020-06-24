@@ -66,7 +66,6 @@ weight: 40
 
 
 개념 페이지를 작성하기를 원하면,
-개념 페이지 유형과 개념 템플릿에 대한 정보가 있는
-[페이지 템플릿 사용하기](/docs/home/contribute/page-templates/)를 참조한다.
-
+개념 페이지 유형에 대한 정보가 있는
+[페이지 컨텐츠 유형](/docs/contribute/style/page-content-types/#concept)을 참조한다.
 
