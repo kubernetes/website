@@ -3,14 +3,13 @@ title: CRIのインストール
 content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 Podのコンテナを実行するために、Kubernetesはコンテナランタイムを使用します。
 様々なランタイムのインストール手順は次のとおりです。
 
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 
 {{< caution >}}
@@ -320,5 +319,4 @@ kubeadmを使う場合は[kubeletのためのcgroupドライバー](/ja/docs/set
 
 詳細については[Fraktiのクイックスタートガイド](https://github.com/kubernetes/frakti#quickstart)を参照してください。
 
-{{% /capture %}}
 
