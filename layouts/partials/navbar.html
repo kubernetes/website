@@ -10,7 +10,7 @@
 			{{ with site.GetPage "section" . }}
 			<li class="nav-item mr-2 mb-lg-0">
 				{{ $active := eq .Section $.Section }}
-				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .LinkTitle }}</span></a>
+				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</span></a>
 			</li>
 			{{ end }}
 			{{ end }}
