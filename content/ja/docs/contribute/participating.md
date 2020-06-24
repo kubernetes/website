@@ -62,133 +62,86 @@ SIG DocsはKubernetesコミュニティーにおけるすべてのメンバー�
 
 ### メンバーになる
 
-After you have successfully submitted at least 5 substantive pull requests, you
-can request [membership](https://github.com/kubernetes/community/blob/master/community-membership.md#member)
-in the Kubernetes organization. Follow these steps:
+最低5つのPull Requestを投稿した後、Kubernetesオーガニゼーションの[メンバーシップ](https://github.com/kubernetes/community/blob/master/community-membership.md#member)を要求することができます。そのためには、以下の手順に従って下さい:
 
-1.  Find two reviewers or approvers to [sponsor](/docs/contribute/advanced#sponsor-a-new-contributor)
-    your membership.
+1.  あなたのメンバーシップを[スポンサー](/docs/contribute/advanced#sponsor-a-new-contributor)してくれる2人のレビュアーまたは承認者を見つけてください。
 
-      Ask for sponsorship in the [#sig-docs channel on the
-      Kubernetes Slack instance](https://kubernetes.slack.com) or on the
-      [SIG Docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
+      [Kubernetes Slackの#sig-docsチャンネル](https://kubernetes.slack.com)か[SIG Docsのメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)でスポンサーをしてもらえないか聞いてみてください。
 
       {{< note >}}
-      Don't send a direct email or Slack direct message to an individual
-      SIG Docs member.
+      SIG Docsのメンバー個人に直接メールしたり、Slackのダイレクトメッセージを送ったりしないでください。
       {{< /note >}}
 
-2.  Open a GitHub issue in the `kubernetes/org` repository to request membership.
-    Fill out the template using the guidelines at
-    [Community membership](https://github.com/kubernetes/community/blob/master/community-membership.md).
+2.  メンバーシップを要求するためにGitHubの`kubernetes/org`リポジトリーにIssueを作成してください。
+    [コミュニティーメンバーシップ](https://github.com/kubernetes/community/blob/master/community-membership.md)のページにあるガイドラインを見て、テンプレートを埋めてください。
 
-3.  Let your sponsors know about the GitHub issue, either by at-mentioning them
-    in the GitHub issue (adding a comment with `@<GitHub-username>`) or by sending them the link directly,
-    so that they can add a `+1` vote.
+3.  `+1`と投票できるように、GitHub Issueでメンションする(`@<GitHubのユーザー名>`を含んだコメントを追加する)、またはリンクを直接送るといった方法であなたのスポンサーへとGitHub Issueのことを伝えてください。
 
-4.  When your membership is approved, the github admin team member assigned to your request updates the
-    GitHub issue to show approval and then closes the GitHub issue.
-    Congratulations, you are now a member!
+4.  メンバーシップが承認されると、あなたの要求にアサインされたGitHub管理メンバーがGitHub Issueを更新して承認し、GitHub Issueを閉じます。
+    メンバーになれました。おめでとうございます！
 
-If your membership request is not accepted, the
-membership committee provides information or steps to take before applying
-again.
+メンバーシップ要求が承認されなかった場合、メンバーシップ委員会は、承認までに必要な手順を提供します。
 
-## Reviewers
+## レビュアー {#reviewers}
 
-Reviewers are members of the
-[@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
-GitHub group. Reviewers review documentation pull requests and provide feedback on proposed
-changes. Reviewers can:
+レビュアーは[@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews) GitHubグループのメンバーです。レビュアーはドキュメンテーションへのPull Requestをレビューし、提案された変更へのフィードバックを送ります。レビュアーは以下のことができます:
 
-- Do everything listed under [Anyone](#anyone) and [Members](#members)
-- Document new features
-- Triage and categorize issues
-- Review pull requests and provide binding feedback
-- Create diagrams, graphics assets, and embeddable screencasts and videos
-- Edit user-facing strings in code
-- Improve code comments
+- [誰でも](#anyone)と[メンバー](#members)で説明されたすべてのこと
+- 新しい機能についてのドキュメントを書くこと
+- Issueをカテゴライズし、優先順位を付けること
+- Pull Requestをレビューし、フィードバックを送ること
+- 図や画像、埋め込み可能なスクリーンキャストや映像を作成すること
+- コード中の、ユーザーに表示される文字列を編集すること
+- コードのコメントを改善すること
 
-### Assigning reviewers to pull requests
+### レビュアーをPull Requestにアサインする
 
-Automation assigns reviewers to all pull requests. You can request a
-review from a specific reviewer with a comment on the pull request: `/assign
-[@_github_handle]`. To indicate that a pull request is technically accurate and
-requires no further changes, a reviewer adds a `/lgtm` comment to the pull
-request.
+すべてのPull Requestへのレビュアー割り当ては自動化されています。Pull Requestに`/assing [@GitHubのユーザー名]`とコメントをすることで、特定のレビュアーにレビューを依頼することができます。Pull Requestの内容が技術的に正確で、それ以上の変更が必要ないということを示すために、レビュアーは`/lgtm`というコメントをPull Requestにつけます。
 
-If the assigned reviewer has not yet reviewed the content, another reviewer can
-step in. In addition, you can assign technical reviewers and wait for them to
-provide a `/lgtm` comment.
+アサインされたレビュアーが内容をまだレビューしていない場合、他のレビュアーが参加することもできます。これに加えて、技術的なレビュアーを追加し、彼らが`/lgtm`コメントをつけてくれることを待つこともできます。
 
-For a trivial change or one that needs no technical review, SIG Docs
-[approvers](#approvers) can provide the `/lgtm` as well.
+ささいな変更の場合や、技術的なレビューが必要無い場合には、SIG Docsの[承認者](#approvers)が`/lgtm`を付けることもできます。
 
-An `/approve` comment from a reviewer is ignored by automation.
+レビュアーからの`/approve`コメントは自動化システムには無視されます。
 
-### Becoming a reviewer
+### レビュアーになる
 
-When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer),
-you can become a SIG Docs reviewer. Reviewers in other SIGs must apply
-separately for reviewer status in SIG Docs.
+[要件](https://github.com/kubernetes/community/blob/master/community-membership.md#reviewer)を満たしている場合、SIG Docsのレビュアーになることができます。他のSIGのレビュアーであっても、SIG Docsでレビュアーになるには別途申請が必要です。
 
-To apply, open a pull request to add yourself to the `reviewers` section of the
-[top-level OWNERS file](https://github.com/kubernetes/website/blob/master/OWNERS)
-in the `kubernetes/website` repository. Assign the PR to one or more current SIG
-Docs approvers.
+申請するには、`Kubernetes/website`リポジトリーの[トップレベルにあるOWNERSファイル](https://github.com/kubernetes/website/blob/master/OWNERS)の`reviewers`セクションにあなたのユーザー名を追加するPull Requestを作成してください。現在のSIG Docsの承認者を一人以上アサインしてください。
 
-If your pull request is approved, you are now a SIG Docs reviewer.
-[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
-will assign and suggest you as a reviewer on new pull requests.
+Pull Requestが承認されたら、SIG Docsのレビュアーになることができます。[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)が新しいPull Requestに対して、あなたをレビュアーとしてアサインしたり提案したりします。
 
-If you are approved, request that a current SIG Docs approver add you to the
-[@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews)
-GitHub group. Only members of the `kubernetes-website-admins` GitHub group can
-add new members to a GitHub group.
+承認されたなら、現在のSIG Docsの承認者に、[@kubernetes/sig-docs-pr-reviews](https://github.com/orgs/kubernetes/teams/sig-docs-pr-reviews) GitHubグループへ追加するよう依頼してください。`kubernetes-website-admins` GitHubグループのメンバーのみが新しいメンバーを追加することができます。
 
-## Approvers
+## 承認者
 
-Approvers are members of the
-[@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub group. See [SIG Docs teams and automation](#sig-docs-teams-and-automation) for details.
+承認者は[@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers) GitHubグループのメンバーです。詳細は[SIG Docsのチームと自動化](#sig-docs-teams-and-automation)を見てください。
 
-Approvers can do the following:
+承認者は以下のことができます:
 
-- Everything listed under [Anyone](#anyone), [Members](#members) and [Reviewers](#reviewers)
-- Publish contributor content by approving and merging pull requests using the `/approve` comment.
-  If someone who is not an approver leaves the approval comment, automation ignores it.
-- Participate in a Kubernetes release team as a docs representative
-- Propose improvements to the style guide
-- Propose improvements to docs tests
-- Propose improvements to the Kubernetes website or other tooling
+- [誰でも](#anyone)、[メンバー](#members)、[レビュアー](#reviewers)で説明されたすべてのこと
+- `/approve`コメントを使用し、Pull Requestを承認・マージすることでコンテンツを公開すること。
+  承認者ではない誰かが承認コメントをしても、自動化システムは無視します。
+- ドキュメントチームの代表としてKubernetesリリースチームに参加すること
+- スタイルガイドへの改善を提案すること
+- ドキュメントのテストへの改善を提案すること
+- Kubernetesのウェブサイトやその他のツールについて改善を提案すること
 
-If the PR already has a `/lgtm`, or if the approver also comments with `/lgtm`,
-the PR merges automatically. A SIG Docs approver should only leave a `/lgtm` on
-a change that doesn't need additional technical review.
+PRに対してすでに`/lgtm`コメントがついているか、承認者が`/lgtm`と一緒に承認コメントをした場合、そのPRは自動的にマージされます。SIG Docsの承認者は、追加の技術的なレビューが必要無い場合に限り`/lgtm`コメントをつけるべきです。
 
-### Becoming an approver
+### 承認者になる
 
 When you meet the
-[requirements](https://github.com/kubernetes/community/blob/master/community-membership.md#approver),
-you can become a SIG Docs approver. Approvers in other SIGs must apply
-separately for approver status in SIG Docs.
+[要件](https://github.com/kubernetes/community/blob/master/community-membership.md#approver)を満たしている場合、SIG Docsの承認者になることができます。他のSIGの承認者であっても、SIG Docsで承認者になるには別途申請が必要です。
 
-To apply, open a pull request to add yourself to the `approvers` section of the
-[top-level OWNERS file](https://github.com/kubernetes/website/blob/master/OWNERS)
-in the `kubernetes/website` repository. Assign the PR to one or more current SIG
-Docs approvers.
+申請するには、`Kubernetes/website`リポジトリーの[トップレベルにあるOWNERSファイル](https://github.com/kubernetes/website/blob/master/OWNERS)の`approvers`セクションにあなたのユーザー名を追加するPull Requestを作成してください。現在のSIG Docsの承認者を一人以上アサインしてください。
 
-If your pull request is approved, you are now a SIG Docs approver.
-[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
-will assign and suggest you as a reviewer on new pull requests.
+Pull Requestが承認されたら、SIG Docsのレビュアーになることができます。[K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)が新しいPull Requestに対して、あなたをレビュアーとしてアサインしたり提案したりします。
 
-If you are approved, request that a current SIG Docs approver add you to the
-[@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers)
-GitHub group. Only members of the `kubernetes-website-admins` GitHub group can
-add new members to a GitHub group.
+承認されたなら、現在のSIG Docsの承認者に、[@kubernetes/sig-docs-maintainers](https://github.com/orgs/kubernetes/teams/sig-docs-maintainers) GitHubグループへ追加するよう依頼してください。`kubernetes-website-admins` GitHubグループのメンバーのみが新しいメンバーを追加することができます。
 
-### Approver responsibilities
+### 承認者の責任
 
 Approvers improve the documentation by reviewing and merging pull requests into the website repository. Because this role carries additional privileges, approvers have additional responsibilities:
 
