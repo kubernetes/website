@@ -415,6 +415,7 @@ Baidu 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으
 참고로 쿠버네티스 노드 이름은 Baidu VM 프라이빗 IP와 일치해야 한다.
 
 ## Tencent 쿠버네티스 엔진
+
 이 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [TencentCloud/tencentcloud-cloud-controller-manager](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)이다.
 
 ### 노드 이름

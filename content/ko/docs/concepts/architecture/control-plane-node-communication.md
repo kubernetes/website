@@ -15,7 +15,7 @@ aliases:
 <!-- body -->
 
 ## 노드에서 컨트롤 플레인으로의 통신
-노드에서 컨트롤 플레인까지의 모든 통신 경로는 API 서버에서 종료된다(다른 마스터 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 설계되지 않았다). 일반적인 배포에서 API 서버는 하나 이상의 클라이언트 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된 보안 HTTPS 포트(443)에서 원격 연결을 수신하도록 구성된다.
+쿠버네티스에는 "허브 앤 스포크(hub-and-spoke)" API 패턴을 가지고 있다. 노드(또는 노드에서 실행되는 파드들)의 모든 API 사용은 API 서버에서 종료된다(다른 컨트롤 플레인 컴포넌트 중 어느 것도 원격 서비스를 노출하도록 설계되지 않았다). API 서버는 하나 이상의 클라이언트 [인증](/docs/reference/access-authn-authz/authentication/) 형식이 활성화된 보안 HTTPS 포트(일반적으로 443)에서 원격 연결을 수신하도록 구성된다.
 특히 [익명의 요청](/docs/reference/access-authn-authz/authentication/#anonymous-requests) 또는 [서비스 어카운트 토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)이 허용되는 경우, 하나 이상의 [권한 부여](/docs/reference/access-authn-authz/authorization/) 형식을 사용해야 한다.
 
 노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 클러스터에 대한 공개 루트 인증서로 프로비전해야 한다. 예를 들어, 기본 GKE 배포에서, kubelet에 제공되는 클라이언트 자격 증명은 클라이언트 인증서 형식이다. kubelet 클라이언트 인증서의 자동 프로비저닝은 [kubelet TLS 부트스트랩](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)을 참고한다.
@@ -28,9 +28,11 @@ API 서버에 연결하려는 파드는 쿠버네티스가 공개 루트 인증�
 결과적으로, 노드 및 노드에서 실행되는 파드에서 컨트롤 플레인으로 연결하기 위한 기본 작동 모드는 기본적으로 보호되며 신뢰할 수 없는 네트워크 및/또는 공용 네트워크에서 실행될 수 있다.
 
 ## 컨트롤 플레인에서 노드로의 통신
+
 컨트롤 플레인(API 서버)에서 노드로는 두 가지 기본 통신 경로가 있다. 첫 번째는 API 서버에서 클러스터의 각 노드에서 실행되는 kubelet 프로세스이다. 두 번째는 API 서버의 프록시 기능을 통해 API 서버에서 모든 노드, 파드 또는 서비스에 이르는 것이다.
 
 ### API 서버에서 kubelet으로의 통신
+
 API 서버에서 kubelet으로의 연결은 다음의 용도로 사용된다.
 
 * 파드에 대한 로그를 가져온다.
@@ -58,9 +60,10 @@ API 서버에서 노드, 파드 또는 서비스로의 연결은 기본적으로
 SSH 터널은 현재 더 이상 사용되지 않으므로 수행 중인 작업이 어떤 것인지 모른다면 사용하면 안된다. Konnectivity 서비스는 이 통신 채널을 대체한다.
 
 ### Konnectivity 서비스
+
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-SSH 터널을 대체하는 Konnectivity 서비스는 컨트롤 플레인에서 클러스터 통신에 TCP 레벨 프록시를 제공한다. Konnectivity는 컨트롤 플레인 네트워크와 노드 네트워크에서 각각 실행되는 Konnectivity 서버와 Konnectivity 에이전트의 두 부분으로 구성된다. Konnectivity 에이전트는 Konnectivity 서버에 대한 연결을 시작하고 연결을 유지한다.
-그런 다음 컨트롤 플레인에서 노드로의 모든 트래픽은 이 연결을 통과한다.
+SSH 터널을 대체하는 Konnectivity 서비스는 컨트롤 플레인에서 클러스터 통신에 TCP 레벨 프록시를 제공한다. Konnectivity 서비스는 컨트롤 플레인 네트워크와 노드 네트워크에서 각각 실행되는 Konnectivity 서버와 Konnectivity 에이전트의 두 부분으로 구성된다. Konnectivity 에이전트는 Konnectivity 서버에 대한 연결을 시작하고 네트워크 연결을 유지한다.
+Konnectivity 서비스를 활성화한 후, 모든 컨트롤 플레인에서 노드로의 트래픽은 이 연결을 통과한다.
 
-클러스터에서 설정하는 방법에 대해서는 [Konnectivity 서비스 설정](/docs/tasks/setup-konnectivity/)을 참조한다.
+[Konnectivity 서비스 태스크](/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 클러스터에서 Konnectivity 서비스를 설정한다.
