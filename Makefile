@@ -4,7 +4,7 @@ NETLIFY_FUNC      = $(NODE_BIN)/netlify-lambda
 
 # The CONTAINER_ENGINE variable is used for specifying the container engine. By default 'docker' is used
 # but this can be overridden when calling make, e.g.
-#   CONTAINER_ENGINE=podman make container-image
+# CONTAINER_ENGINE=podman make container-image
 CONTAINER_ENGINE ?= docker
 CONTAINER_IMAGE   = kubernetes-hugo
 CONTAINER_RUN     = $(CONTAINER_ENGINE) run --rm --interactive --tty --volume $(CURDIR):/src
