@@ -421,3 +421,18 @@ section#announcement ~ .header-hero {
       margin: #{$announcement-size-adjustment / 2} 0;
     }
 }
+
+/* DOCUMENTATION */
+
+/* Don't show lead text */
+body.td-documentation {
+  main {
+    @media only screen {
+       > * {
+         > .lead:first-of-type {
+         display: none;
+        }
+      }
+    }
+  }
+}
