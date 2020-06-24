@@ -129,17 +129,23 @@ Plugins wishing to perform "pre-reserve" work should use the
 NormalizeScore extension point.
 {{< /note >}}
 
-### Reserve
+### Reserve {#reserve}
 
-This is an informational extension point. Plugins which maintain runtime state
-(aka "stateful plugins") should use this extension point to be notified by the
-scheduler when resources on a node are being reserved for a given Pod. This
-happens before the scheduler actually binds the Pod to the Node, and it exists
-to prevent race conditions while the scheduler waits for the bind to succeed.
+The Reserve extension point happens before the scheduler actually binds a Pod to
+a node. Its uses are three-fold. First, it serves as a hook to allocate
+resources in the designated node that the scheduled Pod might need. Second, it
+serves as an informational plugin which maintain runtime state (aka "stateful
+plugins") to be notified by the scheduler when resources on a node are being
+reserved for a given Pod. Third, it exists to prevent race conditions while the
+scheduler waits for the bind to succeed. This is the penultimate step in the
+scheduling cycle.
 
-This is the last step in a scheduling cycle. Once a Pod is in the reserved
-state, it will either trigger [Unreserve](#unreserve) plugins (on failure) or
-[PostBind](#post-bind) plugins (on success) at the end of the binding cycle.
+The Reserve extension point may fail or succeed. If it fails, the
+[Unreserve](#unreserve) extension point is triggered. Alternatively, if it
+succeeds, the Pod is deemed to be in the reserved state, at which point,
+depending on the outcome of the [Permit](#permit) plugins and the binding cycle,
+either the Unreserve extension point or [PostBind](#post-bind) extension point
+will be triggered.
 
 ### Permit
 
@@ -193,12 +199,17 @@ to clean up associated resources.
 
 ### Unreserve
 
-This is an informational extension point. If a Pod was reserved and then
-rejected in a later phase, then unreserve plugins will be notified. Unreserve
-plugins should clean up state associated with the reserved Pod.
+If a Pod's [Reserve](#reserve) extension point failed or if the Pod was reserved
+and then rejected in a later phase, the unreserve extension point will be
+triggered.
 
-Plugins that use this extension point usually should also use
-[Reserve](#reserve).
+The Unreserve extension point is implemented by reserve plugins as a
+complementary method to the Reserve extension point, and should clean up the
+state and free any allocated resources associated with the reserved Pod. The
+implementation must also be idempotent and may not fail.
+
+When triggered, the scheduler will execute the Unreserve method of reserve
+plugins in the reverse order of reserves.
 
 ## Plugin API
 
