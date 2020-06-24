@@ -1,6 +1,6 @@
 {{ if .Page.Param "announcement" }}
 <section lang="en" id="fp-announcement" style="background-color:{{ .Page.Param "announcement_bg" }}">
-  <main>
+  <aside>
     <div class="content announcement main-section">
 
       <h3>
@@ -9,6 +9,6 @@
       <p>{{ T "announcement_message" | markdownify }}</p>
 
     </div>
-  </main>
+  </aside>
 </section>
 {{ end }}
