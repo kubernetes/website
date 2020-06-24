@@ -77,7 +77,7 @@ A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prob
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
-[Handler](https://godoc.org/k8s.io/api/core/v1#Handler) implemented by
+[Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
 the Container. There are three types of handlers:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
@@ -403,7 +403,6 @@ spec:
   [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
-
 
 
 
