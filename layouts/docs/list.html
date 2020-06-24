@@ -1,6 +1,5 @@
 {{ define "main" }}
 	<div class="td-content">
-		{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
 		{{ $hasContent := false }}
 		{{ with .File }}
 			{{ if ne .Filename "" }}
@@ -12,6 +11,7 @@
 		{{ else }}
 			<h1>{{ .Title }}</h1>
 		{{ end }}
+		{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
 		{{ partial "section-index.html" . }}
 	</div>
 {{ end }}
