@@ -77,7 +77,7 @@ A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prob
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
-[Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
+[Handler](https://godoc.org/k8s.io/api/core/v1#Handler) implemented by
 the Container. There are three types of handlers:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
@@ -281,7 +281,7 @@ once bound to a node, a Pod will never be rebound to another node.
 In general, Pods remain until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
