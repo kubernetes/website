@@ -27,7 +27,7 @@ weight: 10
 - よりよいイントロスペクションのために、オブジェクトの説明をアノテーションに入れましょう。
 
 
-## "真っ裸"のPod に対する ReplicaSet、Deployment、およびJob{#naked-pods-vs-replicasets-deployments-and-jobs}
+## "真っ裸"のPod に対する ReplicaSet、Deployment、およびJob {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - 可能な限り、"真っ裸"のPod([ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
 
