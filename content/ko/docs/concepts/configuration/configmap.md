@@ -43,7 +43,7 @@ API [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-ob
 컨피그맵의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
-## 컨피그맵과 파드(Pod)
+## 컨피그맵과 파드
 
 컨피그맵을 참조하는 파드 `spec` 을 작성하고 컨피그맵의 데이터를
 기반으로 해당 파드의 컨테이너를 구성할 수 있다. 파드와 컨피그맵은
