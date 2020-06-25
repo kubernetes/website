@@ -1,4 +1,6 @@
 ---
+
+
 title: 디플로이먼트
 feature:
   title: 자동화된 롤아웃과 롤백
@@ -71,7 +73,6 @@ _디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
 
 
 1. 다음 명령어를 실행해서 디플로이먼트를 생성한다.
-
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
@@ -1064,7 +1065,6 @@ $ echo $?
 
 API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설정되지 않으면 `.spec.template.metadata.labels` 은 기본 설정되지 않는다. 그래서 이것들은 명시적으로 설정되어야 한다. 또한 `apps/v1` 에서는 디플로이먼트를 생성한 후에는 `.spec.selector` 이 변경되지 않는 점을 참고한다.
 
-
 디플로이먼트는 템플릿의 `.spec.template` 와 다르거나 파드의 수가 `.spec.replicas` 를 초과할 경우
 셀렉터와 일치하는 레이블을 가진 파드를 종료할 수 있다.
 파드의 수가 의도한 수량보다 적을 경우 `.spec.template` 에 맞는 새 파드를 띄운다.
@@ -1112,7 +1112,8 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 즉각 이전 레플리카셋의 크기를
 의도한 파드 중 70%를 스케일 다운할 수 있다. 새 파드가 준비되면 기존 레플리카셋을 스케일 다운할 수 있으며,
-업데이트 중에 항상 사용가능한 전체 파드의 수는  의도한 파드의 수의 70%이상이 되도록 새 레플리카셋을 스케일을 업 할수 있다.
+업데이트 중에 항상 사용 가능한 전체 파드의 수는
+의도한 파드의 수의 70% 이상이 되도록 새 레플리카셋을 스케일 업할 수 있다.
 
 ##### 최대 서지(Max Surge)
 
@@ -1164,5 +1165,3 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 일시 중지 된 디플로이먼트와 일시 중지 되지 않은 디플로이먼트 사이의 유일한 차이점은
 일시 중지된 디플로이먼트는 PodTemplateSpec에 대한 변경 사항이 일시중지 된 경우 새 롤아웃을 트리거 하지 않는다.
 디플로이먼트는 생성시 기본적으로 일시 중지되지 않는다.
-
-

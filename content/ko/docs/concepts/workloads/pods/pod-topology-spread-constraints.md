@@ -19,9 +19,9 @@ weight: 50
 ### 기능 게이트 활성화
 
 를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와**
-{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에
-대해 `EvenPodsSpread`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어야 한다.
+{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 대해
+`EvenPodsSpread` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+활성화되어야 한다.
 
 ### 노드 레이블
 
@@ -160,6 +160,7 @@ spec:
 - 신규 파드와 같은 네임스페이스를 갖는 파드만이 매칭의 후보가 된다.
 
 - `topologySpreadConstraints[*].topologyKey` 가 없는 노드는 무시된다. 이것은 다음을 의미한다.
+
   1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone" 레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
   2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
 
@@ -234,9 +235,8 @@ profiles:
   단 하나의 파드만 스케줄 될 수 있다.
 
 "EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서
-고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와
-레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
-더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation)를 참조한다.
+고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
+더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)를 참조한다.
 
 ## 알려진 제한사항
 

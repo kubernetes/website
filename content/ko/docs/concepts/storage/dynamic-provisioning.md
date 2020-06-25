@@ -33,7 +33,7 @@ API 오브젝트를 기반으로 한다. 클러스터 관리자는 볼륨을 프
 여전히 여러 스토리지 옵션들을 선택할 수 있다.
 
 스토리지 클래스에 대한 자세한 정보는
-[여기](/docs/concepts/storage/storage-classes/)에서 찾을 수 있다.
+[여기](/ko/docs/concepts/storage/storage-classes/)에서 찾을 수 있다.
 
 ## 동적 프로비저닝 활성화하기
 
@@ -125,7 +125,6 @@ spec:
 
 [다중 영역](/ko/docs/setup/best-practices/multiple-zones/) 클러스터에서 파드는 한 지역 내
 여러 영역에 걸쳐 분산될 수 있다. 파드가 예약된 영역에서 단일 영역 스토리지 백엔드를
-프로비전 해야 한다. [볼륨 바인딩 모드](/docs/concepts/storage/storage-classes/#volume-binding-mode)를
+프로비전해야 한다. [볼륨 바인딩 모드](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드)를
 설정해서 수행할 수 있다.
-
 

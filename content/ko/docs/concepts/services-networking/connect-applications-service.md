@@ -73,7 +73,7 @@ service/my-nginx exposed
 
 이 사양은 `run: my-nginx` 레이블이 부착된 모든 파드에 TCP 포트 80을
 대상으로 하는 서비스를 만들고 추상화된 서비스 포트에 노출시킨다
-(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는 
+(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는
 추상화된 서비스 포트로 다른 파드들이 서비스에 접속하기위해 사용하는
 모든 포트일 수 있다).
 [서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)의
@@ -390,8 +390,8 @@ kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
 ```
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   LoadBalancer   10.0.162.149   xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k
