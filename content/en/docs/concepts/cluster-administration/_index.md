@@ -19,6 +19,10 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 
 See the guides in [Setup](/docs/setup/) for examples of how to plan, set up, and configure Kubernetes clusters. The solutions listed in this article are called *distros*.
 
+   {{< note  >}}
+   Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
+   {{< /note >}}
+
 Before choosing a guide, here are some considerations:
 
  - Do you just want to try out Kubernetes on your computer, or do you want to build a high-availability, multi-node cluster? Choose distros best suited for your needs.
@@ -31,7 +35,6 @@ Before choosing a guide, here are some considerations:
    offer a greater variety of choices.
  - Familiarize yourself with the [components](/docs/admin/cluster-components/) needed to run a cluster.
 
-Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
 
 ## Managing a cluster
 
