@@ -88,7 +88,7 @@ Each HTTP rule contains the following information:
   and a `service.Port.Name` or `service.Port.Number`. Both the host and path must match the content of an incoming request before the
   load balancer directs traffic to the referenced Service.
 * A backend is a combination of Service and port names as described in the
-  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend]() by way of a CRD. HTTP (and HTTPS) requests to the
+  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backends) by way of a CRD. HTTP (and HTTPS) requests to the
   Ingress that matches the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
@@ -101,6 +101,36 @@ of the [Ingress controller](/docs/concepts/services-networking/ingress-controlle
 
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
+
+### Resource Backends {#resource-backend}
+
+A _`Resource`_ backend is an ObjectRef to another Kubernetes resource within the
+same namespace of the Ingress object. A _`Resource`_ is a mutually exclusive
+setting with Service, and will fail validation if both are specified. A common
+usage for a _`Resource`_ backend is to ingress data to a object storage backend
+with static assets.
+
+{{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
+
+After creating the Ingress above, you can view it with the following command:
+
+```
+kubectl describe ingress ingress-resource-backend
+```
+
+```
+Name:             ingress-resource-backend
+Namespace:        default
+Address:
+Default backend:  APIGroup: k8s.example.com, Kind: StorageBucket, Name: static-assets
+Rules:
+  Host        Path  Backends
+  ----        ----  --------
+  *
+              /icons   APIGroup: k8s.example.com, Kind: StorageBucket, Name: icon-assets
+Annotations:  <none>
+Events:       <none>
+```
 
 ### Path Types
 
