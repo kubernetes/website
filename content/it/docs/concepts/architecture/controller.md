@@ -1,10 +1,10 @@
 ---
 title: Controller
-content_template: templates/concept
-weight: 40
+content_template: concept
+weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Nella robotica e nell'automazione, un _circuito di controllo_ (_control loop_) è un un'iterazione senza soluzione di continuità che regola lo stato di un sistema.
 
@@ -14,10 +14,7 @@ Quando viene impostata la temperatura, si definisce attraverso il termostato lo 
 
 {{< glossary_definition term_id="controller" length="short" >}}
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Il modello del controller
 
@@ -85,11 +82,9 @@ Kubernetes consente di eseguire un _piano di controllo_(_control plane_) resilie
 
 Al fine di estendere Kubernetes, si possono avere _controller_ in esecuzione al di fuori del piano di controllo. Oppure, se si desidera, è possibile scriversi un nuovo _controller_. È possibile eseguire il proprio controller come una serie di _Pod_, oppure esternamente rispetto a Kubernetes. Quale sia la soluzione migliore, dipende dalla responsabilità di un dato controller.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 * Leggi in merito [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
 * Scopri alcune delle basi degli [oggetti di Kubernetes](/docs/concepts/#kubernetes-objects)
 * Per saperne di più riguardo alle [API di Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se vuoi creare un tuo _controller_, guarda [i modelli per l'estensibilità](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Estendere Kubernetes.
-{{% /capture %}}
+
