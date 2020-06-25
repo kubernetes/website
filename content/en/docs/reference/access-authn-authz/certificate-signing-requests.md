@@ -48,7 +48,7 @@ The CertificateSigningRequest `status.certificate` field is empty until the sign
 
 Once the `status.certificate` field has been populated, the request has been completed and clients can now
 fetch the signed certificate PEM data from the CertificateSigningRequest resource.
-Signers can instead deny certificate signing if the approval conditions are not met.
+The signers can instead deny certificate signing if the approval conditions are not met.
 
 In order to reduce the number of old CertificateSigningRequest resources left in a cluster, a garbage collection
 controller runs periodically. The garbage collection removes CertificateSigningRequests that have not changed
@@ -67,10 +67,10 @@ This includes:
 1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
 1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
 1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
-1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc and behavior if an expiration different than the signer-determined expiration is specified in the CSR.
+1. **Expiration/certificate lifetime**: whether it is fixed by the signer, configurable by the admin, determined by the CSR object etc and the behavior when an expiration is different than the signer-determined expiration that is specified in the CSR.
 1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
 
-Commonly, the `status.certificate` field contains a single PEM-encoded X.509 certificate once the CSR is approved and the certificate is issued. Some signers store multiple certificates into the `status.certificate` field. In that case, the documentation for the signer should specify the meaning of additional certificates; for example, this might be certificate plus intermediates to be presented during TLS handshakes.
+Commonly, the `status.certificate` field contains a single PEM-encoded X.509 certificate once the CSR is approved and the certificate is issued. Some signers store multiple certificates into the `status.certificate` field. In that case, the documentation for the signer should specify the meaning of additional certificates; for example, this might be the certificate plus intermediates to be presented during TLS handshakes.
 
 ### Kubernetes signers
 
@@ -88,19 +88,18 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
 1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client-certs by the
   kube-apiserver.
   May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored as client-certificates by the kube-apiserver.  The CA bundle
+    1. Trust distribution: signed certificates must be honored as client-certificates by the kube-apiserver. The CA bundle
        is not distributed by any other means.
     1. Permitted subjects - organizations are exactly `[]string{"system:nodes"}`, common name starts with `"system:node:"`
-    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions, drops other extensions.
+    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
     1. Permitted key usages - exactly `[]string{"key encipherment", "digital signature", "client auth"}`
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.  Sanity of the time is the concern of the signer.
+    1. Expiration/certificate lifetime - minimum of CSR signer or request. The signer is responsible for checking that the certificate lifetime is valid and permissible.
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
   by the kube-apiserver, but has no other guarantees.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored by the kube-apiserver as valid to terminate connections to a kubelet.
-       The CA bundle is not distributed by any other means.
+    1. Trust distribution: signed certificates must be honored by the kube-apiserver as valid to terminate connections to a kubelet. The CA bundle is not distributed by any other means.
     1. Permitted subjects - organizations are exactly `[]string{"system:nodes"}`, common name starts with `"system:node:"`
     1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
     1. Permitted key usages - exactly `[]string{"key encipherment", "digital signature", "server auth"}`
@@ -108,13 +107,13 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
     1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some distributions may honor these as client
-  certs, but that behavior is not standard Kubernetes behavior.
+  certs, but that behavior is non-standard Kubernetes behavior.
   Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
     1. Trust distribution: None.  There is no standard trust or distribution for this signer in a Kubernetes cluster.
     1. Permitted subjects - any
     1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
     1. Permitted key usages - any
-    1. Expiration/certificate lifetime - minimum of CSR signer or request.  Sanity of the time is the concern of the signer.
+    1. Expiration/certificate lifetime - minimum of CSR signer or request. The signer is responsible for checking that the certificate lifetime is valid and permissible.
     1. CA bit allowed/disallowed - not allowed.
 
 {{< note >}}
@@ -228,7 +227,7 @@ rules:
 
 ## Normal User
 
-Few steps are required in order to get normal user to be able to authenticate and invoke API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate into the API call as the Certificate Header, or through the kubectl.
+There are a few steps are required in order to get normal user to be able to authenticate and invoke API. First, this user must have certificate issued by the Kubernetes Cluster, and then present that Certificate into the API call as the Certificate Header, or through the kubectl.
 
 ### Create Private Key
 
@@ -241,7 +240,7 @@ openssl req -new -key john.key -out john.csr
 
 ### Create Certificate Request Kubernetes Object
 
-Create a CertificateSigningRequest and submit it to Kubernetes Cluster via kubectl. Below is script to generate one.
+Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the certificate.
 
 ```
 cat <<EOF | kubectl apply -f -
@@ -257,7 +256,7 @@ spec:
   - client auth
 ```
 
-Few points to note:
+Some points to note:
 
 - usage has to be 'client auth'
 - request is the base64 encoded value of the CSR file content. You can use this command to get that ```cat john.csr | base64 | tr -d "\n"```
@@ -284,7 +283,7 @@ Retrieve the Certificate from the CSR.
 kubectl get csr/john -o yaml
 ```
 
-The Certifcate value is in Base64 format, under status.certificate.
+The Certificate value is in encrypted with Base64 format under status.certificate.
 
 ### Create Role and Role Binding
 
