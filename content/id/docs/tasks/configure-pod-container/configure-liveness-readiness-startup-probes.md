@@ -26,14 +26,9 @@ berhasil, kamu harus memastikan _probe_ tersebut tidak mengganggu _startup_ dari
 Mekanisme ini dapat digunakan untuk mengadopsi pemeriksaan _liveness_ pada saat memulai Container yang lambat,
 untuk menghindari Container dimatikan oleh kubelet sebelum Container mulai dan berjalan.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -359,10 +354,7 @@ Untuk _probe_ TCP, kubelet membuat koneksi _probe_ pada Node, tidak pada Pod, ya
 kamu tidak menggunakan nama Service di dalam parameter `host` karena kubelet tidak bisa
 me-_resolve_-nya.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Pelajari lebih lanjut tentang
 [Probe Container](/id/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -372,5 +364,3 @@ Kamu juga dapat membaca rujukan API untuk:
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-
-
