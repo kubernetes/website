@@ -486,7 +486,7 @@ CoreDNS 处于 `CrashLoopBackOff` 时的另一个原因是当 Kubernetes 中部�
 Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 -->
-**警告**：禁用 SELinux 或设置 `allowPrivilegeEscalation` 为 `true` 可能会损害集群的安全性。
+禁用 SELinux 或设置 `allowPrivilegeEscalation` 为 `true` 可能会损害集群的安全性。
 {{< /warning >}}
 
 <!--
