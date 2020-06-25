@@ -240,7 +240,7 @@ openssl req -new -key john.key -out john.csr
 
 ### Create Certificate Request Kubernetes Object
 
-Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the certificate.
+Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
 
 ```
 cat <<EOF | kubectl apply -f -
@@ -283,7 +283,7 @@ Retrieve the Certificate from the CSR.
 kubectl get csr/john -o yaml
 ```
 
-The Certificate value is in encrypted with Base64 format under status.certificate.
+The Certificate value is in Base64-encoded format under status.certificate.
 
 ### Create Role and Role Binding
 
