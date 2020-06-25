@@ -183,6 +183,20 @@ cases precedence will be given first to the longest matching path. If two paths
 are still equally matched, precedence will be given to paths with an exact path
 type over prefix path type.
 
+## Hostname Wildcards
+Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for
+example “`*.foo.com`”). Precise matches require that the http host header
+matches the Host setting. Wildcard matches require the http host header is equal
+to the suffix of the wildcard rule.
+
+| Host        | Host header       | Match?                                            |
+| ----------- |-------------------| --------------------------------------------------|
+| `*.foo.com` | `bar.foo.com`     | Matches based on shared suffix                    |
+| `*.foo.com` | `baz.bar.foo.com` | No match, wildcard only covers a single DNS label |
+| `*.foo.com` | `foo.com`         | No match, wildcard only covers a single DNS label |
+
+{{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
+
 ## Ingress Class
 
 Ingresses can be implemented by different controllers, often with different
