@@ -8,7 +8,7 @@ Hi, I’m Evan Brown [(@evandbrown](http://twitter.com/evandbrown)) and I work o
 
 ### In the beginning
 
-In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:  
+In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:
 
 - The Jenkins leader was just a single container in one pod, but it was managed by a replication controller, so if it failed it would automatically respawn.
 - The Jenkins leader exposes two ports - TCP 8080 for the web UI and TCP 50000 for build agents to register - and those ports are made available as a Kubernetes service with a public load balancer.
@@ -99,7 +99,7 @@ LIke every other pod in this example, we’ll deploy Nginx with a replication co
 
 
 
-The pod will have a service exposing TCP 80 and 443 to a public load balancer. Here’s the service descriptor [(also available in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/master/service_ssl_proxy.yaml)):
+The pod will have a service exposing TCP 80 and 443 to a public load balancer. Here’s the service descriptor [(also available in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/v0.1/service_ssl_proxy.yaml)):
 
 
 
@@ -178,7 +178,7 @@ You can create secrets in your cluster in 3 simple steps:
 Base64-encode your secret data (i.e., SSL key pair or htpasswd file)
 
 ```
-$ cat ssl.key | base64  
+$ cat ssl.key | base64
    LS0tLS1CRUdJTiBDRVJUS...
  ```
 
