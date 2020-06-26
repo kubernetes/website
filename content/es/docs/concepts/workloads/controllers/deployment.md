@@ -1,9 +1,9 @@
 ---
-title: Despliegues
+title: Deployment
 feature:
-  title: Despliegues y retrocesiones automáticos
+  title: Despliegues y _rollback_ automáticos
   description: >
-    Kubernetes despliega los cambios a tu aplicación o su configuración de forma progresiva mientras monitoriza la salud de la aplicación para asegurarse que no elimina todas tus instancias al mismo tiempo. Si algo sale mal, Kubernetes retrocederá el cambio por ti. Aprovéchate del creciente ecosistema de soluciones de despliegue.
+    Kubernetes despliega los cambios a tu aplicación o su configuración de forma progresiva mientras monitoriza la salud de la aplicación para asegurarse que no elimina todas tus instancias al mismo tiempo. Si algo sale mal, Kubernetes revertirá el cambio por ti. Aprovéchate del creciente ecosistema de soluciones de despliegue.
 
 content_template: templates/concept
 weight: 30
@@ -14,11 +14,11 @@ weight: 30
 Un controlador de _Deployment_ proporciona actualizaciones declarativas para los [Pods](/docs/concepts/workloads/pods/pod/) y los
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
-Cuando describes el _estado deseado_ en un objeto Deployment, el controlador del Deployment se encarga de cambiar el estado actual al estado deseado de forma controlada. 
+Cuando describes el _estado deseado_ en un objeto Deployment, el controlador del Deployment se encarga de cambiar el estado actual al estado deseado de forma controlada.
 Puedes definir Deployments para crear nuevos ReplicaSets, o eliminar Deployments existentes y adoptar todos sus recursos con nuevos Deployments.
 
 {{< note >}}
-No deberías gestionar directamente los ReplicaSets que pertenecen a un Deployment. 
+No deberías gestionar directamente los ReplicaSets que pertenecen a un Deployment.
 Todos los casos de uso deberían cubrirse manipulando el objeto Deployment.
 Considera la posibilidad de abrir un incidente en el repositorio principal de Kubernetes si tu caso de uso no está soportado por el motivo que sea.
 {{< /note >}}
@@ -64,7 +64,7 @@ En este ejemplo:
 * El campo `template` contiene los siguientes sub-campos:
   * Los Pods se etiquetan como `app: nginx` usando el campo `labels`.
   * La especificación de la plantilla Pod, o el campo `.template.spec`, indica
-  que los Pods ejecutan un contenedor, `nginx`, que utiliza la versión 1.7.9 de la imagen de `nginx` de 
+  que los Pods ejecutan un contenedor, `nginx`, que utiliza la versión 1.7.9 de la imagen de `nginx` de
   [Docker Hub](https://hub.docker.com/).
   * Crea un contenedor y lo llamar `nginx` usando el campo `name`.
   * Ejecuta la imagen `nginx` en su versión `1.7.9`.
@@ -77,7 +77,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 ```
 
 {{< note >}}
-Debes indicar el parámetro `--record` para registrar el comando ejecutado en la anotación de recurso `kubernetes.io/change-cause`. 
+Debes indicar el parámetro `--record` para registrar el comando ejecutado en la anotación de recurso `kubernetes.io/change-cause`.
 Esto es útil para futuras introspecciones, por ejemplo para comprobar qué comando se ha ejecutado en cada revisión del Deployment.
 {{< /note >}}
 
@@ -119,7 +119,7 @@ NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   3         3         3            3           18s
 ```
 
-Fíjate que el Deployment ha creado todas las tres réplicas, y que todas las réplicas están actualizadas (contienen 
+Fíjate que el Deployment ha creado todas las tres réplicas, y que todas las réplicas están actualizadas (contienen
 la última plantilla Pod) y están disponibles (el estado del Pod tiene el valor Ready al menos para el campo `.spec.minReadySeconds` del Deployment).
 
 Para ver el ReplicaSet (`rs`) creado por el Deployment, ejecuta el comando `kubectl get rs`:
@@ -129,7 +129,7 @@ NAME                          DESIRED   CURRENT   READY   AGE
 nginx-deployment-75675f5897   3         3         3       18s
 ```
 
-Fíjate que el nombre del ReplicaSet siempre se formatea con el patrón `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. La cadena aleatoria se 
+Fíjate que el nombre del ReplicaSet siempre se formatea con el patrón `[DEPLOYMENT-NAME]-[RANDOM-STRING]`. La cadena aleatoria se
 genera de forma aleatoria y usa el pod-template-hash como semilla.
 
 Para ver las etiquetas generadas automáticamente en cada pod, ejecuta el comando `kubectl get pods --show-labels`. Se devuelve la siguiente salida:
@@ -145,7 +145,7 @@ El ReplicaSet creado garantiza que hay tres Pods de `nginx` ejecutándose en tod
 
 {{< note >}}
 En un Deployment, debes especificar un selector apropiado y etiquetas de plantilla Pod (en este caso,
-`app: nginx`). No entremezcles etiquetas o selectores con otros controladores (incluyendo otros Deployments y StatefulSets). 
+`app: nginx`). No entremezcles etiquetas o selectores con otros controladores (incluyendo otros Deployments y StatefulSets).
 Kubernetes no te impide que lo hagas, pero en el caso de que múltiples controladores tengan selectores mezclados, dichos controladores pueden entrar en conflicto y provocar resultados inesperados.
 {{< /note >}}
 
@@ -157,7 +157,7 @@ No cambies esta etiqueta.
 
 La etiqueta `pod-template-hash` es añadida por el controlador del Deployment a cada ReplicaSet que el Deployment crea o adopta.
 
-Esta etiqueta garantiza que todos los hijos ReplicaSets de un Deployment no se entremezclan. Se genera mediante una función hash aplicada al `PodTemplate` del ReplicaSet 
+Esta etiqueta garantiza que todos los hijos ReplicaSets de un Deployment no se entremezclan. Se genera mediante una función hash aplicada al `PodTemplate` del ReplicaSet
 y usando el resultado de la función hash como el valor de la etiqueta que se añade al selector del ReplicaSet, en las etiquetas de la plantilla Pod,
 y en cualquier Pod existente que el ReplicaSet tenga.
 
@@ -165,7 +165,7 @@ y en cualquier Pod existente que el ReplicaSet tenga.
 
 {{< note >}}
 El lanzamiento de un Deployment se activa si y sólo si la plantilla Pod del Deployment (esto es, `.spec.template`)
-se cambia, por ejemplo si se actualiza las etiquetas o las imágenes de contenedor de la plantilla. 
+se cambia, por ejemplo si se actualiza las etiquetas o las imágenes de contenedor de la plantilla.
 Otras actualizaciones, como el escalado del Deployment, no conllevan un lanzamiento de despliegue.
 {{< /note >}}
 
@@ -238,7 +238,7 @@ nginx-deployment-1564180365-z9gth   1/1       Running   0          14s
 
 La próxima vez que quieras actualizar estos Pods, sólo necesitas actualizar la plantilla Pod del Deployment otra vez.
 
-El Deployment permite garantizar que sólo un número determinado de Pods puede eliminarse mientras se están actualizando. 
+El Deployment permite garantizar que sólo un número determinado de Pods puede eliminarse mientras se están actualizando.
 Por defecto, garantiza que al menos el 25% menos del número deseado de Pods se está ejecutando (máx. 25% no disponible).
 
 El Deployment tmabién permite garantizar que sólo un número determinado de Pods puede crearse por encima del número deseado de
@@ -294,7 +294,7 @@ Events:
 Aquí puedes ver que cuando creaste por primera vez el Deployment, este creó un ReplicaSet (nginx-deployment-2035384211)
 y lo escaló a 3 réplicas directamente. Cuando actualizaste el Deployment, creó un nuevo ReplicaSet
 (nginx-deployment-1564180365) y lo escaló a 1 y entonces escaló el viejo ReplicaSet a 2, de forma que al menos
-hubiera 2 Pods disponibles y como mucho 4 Pods en total en todo momento. Entonces, continuó escalando 
+hubiera 2 Pods disponibles y como mucho 4 Pods en total en todo momento. Entonces, continuó escalando
 el nuevo y el viejo ReplicaSet con la misma estrategia de actualización continua. Finalmente, el nuevo ReplicaSet acaba con 3 réplicas
 disponibles, y el viejo ReplicaSet se escala a 0.
 
@@ -302,7 +302,7 @@ disponibles, y el viejo ReplicaSet se escala a 0.
 
 Cada vez que el controlador del Deployment observa un nuevo objeto de despliegue, se crea un ReplicaSet para arrancar
 los Pods deseados si es que no existe otro ReplicaSet haciéndolo. Los ReplicaSet existentes que controlan los Pods cuyas etiquetas
-coinciden con el valor del campo `.spec.selector`, pero cuya plantilla no coincide con el valor del campo `.spec.template` se reducen. Al final, 
+coinciden con el valor del campo `.spec.selector`, pero cuya plantilla no coincide con el valor del campo `.spec.template` se reducen. Al final,
 el nuevo ReplicaSet se escala hasta el valor del campo `.spec.replicas` y todos los viejos ReplicaSets se escalan a 0.
 
 Si actualizas un Deployment mientras otro despliegue está en curso, el Deployment creará un nuevo ReplicaSet
@@ -311,8 +311,8 @@ como consecuencia de la actualización y comenzará a escalarlo, y sobrescribir�
 
 Por ejemplo, supongamos que creamos un Deployment para crear 5 réplicas de `nginx:1.7.9`,
 pero entonces actualizamos el Deployment para crear 5 réplicas de `nginx:1.9.1` cuando sólo se ha creado 3
-réplicas de `nginx:1.7.9`. En este caso, el Deployment comenzará automáticamente a matar los 3 Pods de `nginx:1.7.9` 
-que había creado, y empezará a crear los Pods de `nginx:1.9.1`. Es decir, no esperará a que se creen las 5 réplicas de `nginx:1.7.9` 
+réplicas de `nginx:1.7.9`. En este caso, el Deployment comenzará automáticamente a matar los 3 Pods de `nginx:1.7.9`
+que había creado, y empezará a crear los Pods de `nginx:1.9.1`. Es decir, no esperará a que se creen las 5 réplicas de `nginx:1.7.9`
 antes de aplicar la nueva configuración.
 
 ### Actualizaciones del selector de etiquetas
@@ -330,19 +330,19 @@ no selecciona los ReplicaSets y Pods creados con el viejo selector, lo que provo
 la creación de un nuevo ReplicaSet.
 * Las actualizaciones de selector -- esto es, cambiar el valor actual en una clave de selector -- provocan el mismo comportamiento que las adiciones.
 * Las eliminaciones de selector -- esto es, eliminar una clave actual del selector del Deployment -- no necesitan de cambios en las etiquetas de la plantilla Pod.
-No se marca ningún ReplicaSet existente como huérfano, y no se crea ningún ReplicaSet nuevo, pero debe tenerse en cuenta que 
+No se marca ningún ReplicaSet existente como huérfano, y no se crea ningún ReplicaSet nuevo, pero debe tenerse en cuenta que
 la etiqueta eliminada todavía existe en los Pods y ReplicaSets que se están ejecutando.
 
-## Retroceder un Deployment
+## Revertir un Deployment
 
-En ocasiones necesitas retroceder un Deployment; por ejemplo, cuando el Deployment no es estable, como cuando no para de reiniciarse.
+En ocasiones necesitas revertir un Deployment; por ejemplo, cuando el Deployment no es estable, como cuando no para de reiniciarse.
 Por defecto, toda la historia de despliegue del Deployment se mantiene en el sistema de forma que puedes retroceder en cualquier momento
 (se puede modificar este comportamiento cambiando el límite de la historia de revisiones de modificaciones).
 
 {{< note >}}
 Cuando se lanza el despligue de un Deployment, se crea una nueva revisión. Esto quiere decir que
 la nueva revisión se crea si y sólo si la plantilla Pod del Deployment (`.spec.template`) se cambia;
-por ejemplo, si cambias las etiquetas o la imagen del contenedor de la plantilla. 
+por ejemplo, si cambias las etiquetas o la imagen del contenedor de la plantilla.
 Otras actualizaciones, como escalar el Deployment,
 no generan una nueva revisión del Deployment, para poder facilitar el escalado manual simultáneo - o auto-escalado.
 Esto significa que cuando retrocedes a una versión anterior, sólo la parte de la plantilla Pod del Deployment se retrocede.
@@ -577,7 +577,7 @@ kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
 deployment.apps/nginx-deployment scaled
 ```
 
-Asumiendo que se ha habilitado el [escalado horizontal de pod](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) 
+Asumiendo que se ha habilitado el [escalado horizontal de pod](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)
 en tu clúster, puedes configurar un auto-escalado para tu Deployment y elegir el mínimo y máximo número de Pods
 que quieres ejecutar en base al uso de CPU de tus Pods actuales.
 
@@ -591,8 +591,8 @@ deployment.apps/nginx-deployment scaled
 ### Escalado proporcional
 
 La actualización continua de los Deployments permite la ejecución de múltiples versiones de una aplicación al mismo tiempo.
-Cuando tú o un auto-escalado escala un Deployment con actualización continua que está en medio de otro despliegue (bien en curso o pausado), 
-entonces el controlador del Deployment balanceará las réplicas adicionales de los ReplicaSets activos (ReplicaSets con Pods) 
+Cuando tú o un auto-escalado escala un Deployment con actualización continua que está en medio de otro despliegue (bien en curso o pausado),
+entonces el controlador del Deployment balanceará las réplicas adicionales de los ReplicaSets activos (ReplicaSets con Pods)
 para así poder mitigar el riesgo. Esto se conoce como *escalado proporcional*.
 
 Por ejemplo, imagina que estás ejecutando un Deployment con 10 réplicas, donde [maxSurge](#max-surge)=3, y [maxUnavailable](#max-unavailable)=2.
@@ -614,7 +614,7 @@ kubectl set image deployment.v1.apps/nginx-deployment nginx=nginx:sometag
 deployment.apps/nginx-deployment image updated
 ```
 
-La actualización de la imagen arranca un nuevo despliegue con el ReplicaSet nginx-deployment-1989198191, 
+La actualización de la imagen arranca un nuevo despliegue con el ReplicaSet nginx-deployment-1989198191,
 pero se bloquea debido al requisito `maxUnavailable` indicado arriba:
 
 ```shell
@@ -630,10 +630,10 @@ Y entonces se origina una nueva petición de escalado para el Deployment. El aut
 a 15. El controlador del Deployment necesita ahora decidir dónde añadir esas nuevas 5 réplicas.
 Si no estuvieras usando el escalado proporcional, las 5 se añadirían al nuevo ReplicaSet. Pero con el escalado proporcional,
 las réplicas adicionales se distribuyen entre todos los ReplicaSets. Las partes más grandes van a los ReplicaSets
-con el mayor número de réplicas y las partes más pequeñas van a los ReplicaSets con menos réplicas. Cualquier resto sobrante se añade 
+con el mayor número de réplicas y las partes más pequeñas van a los ReplicaSets con menos réplicas. Cualquier resto sobrante se añade
 al ReplicaSet con mayor número de réplicas. Aquellos ReplicaSets con 0 réplicas no se escalan.
 
-En nuestro ejemplo anterior, se añadirán 3 réplicas al viejo ReplicaSet y 2 réplicas al nuevo ReplicaSet. 
+En nuestro ejemplo anterior, se añadirán 3 réplicas al viejo ReplicaSet y 2 réplicas al nuevo ReplicaSet.
 EL proceso de despliegue debería al final mover todas las réplicas al nuevo ReplicaSet, siempre que las nuevas
 réplicas arranquen positivamente.
 
@@ -834,7 +834,7 @@ kubectl patch deployment.v1.apps/nginx-deployment -p '{"spec":{"progressDeadline
 ```
 deployment.apps/nginx-deployment patched
 ```
-Una vez que se ha excedido el vencimiento, el controlador del Deployment añade una DeploymentCondition 
+Una vez que se ha excedido el vencimiento, el controlador del Deployment añade una DeploymentCondition
 con los siguientes atributos al campo `.status.conditions` del Deployment:
 
 * Type=Progressing
@@ -855,7 +855,7 @@ de forma segura un Deployment en medio de un despliegue y reanudarlo sin que se 
 {{< /note >}}
 
 Puede que notes errores transitorios en tus Deployments, bien debido a un tiempo de vencimiento muy pequeño que hayas configurado
-o bien a cualquier otro tipo de error que puede considerarse como transitorio. Por ejemplo, 
+o bien a cualquier otro tipo de error que puede considerarse como transitorio. Por ejemplo,
 supongamos que no tienes suficiente cuota. Si describes el Deployment, te darás cuenta de la sección siguiente:
 
 ```shell
@@ -929,7 +929,7 @@ Conditions:
 `Type=Available` con `Status=True` significa que tu Deployment tiene disponibilidad mínima. La disponibilidad mínima se prescribe
 mediante los parámetros indicados en la estrategia de despligue. `Type=Progressing` con `Status=True` significa que tu Deployment
 está bien en medio de un despliegue y está avanzando o bien que se ha completado de forma satisfactoria y el número mímino
-requerido de nuevas réplicas ya está disponible (ver la Razón del estado para cada caso particular - en nuestro caso 
+requerido de nuevas réplicas ya está disponible (ver la Razón del estado para cada caso particular - en nuestro caso
 `Reason=NewReplicaSetAvailable` significa que el Deployment se ha completado).
 
 Puedes comprobar si un Deployment ha fallado en su avance usando el comando `kubectl rollout status`. `kubectl rollout status`
@@ -964,7 +964,7 @@ por lo que tu Deployment no podrá retroceder a revisiones previas.
 
 ### Despligue Canary
 
-Si quieres desplegar nuevas versiones a un sub-conjunto de usuarios o servidores usando el Deployment, 
+Si quieres desplegar nuevas versiones a un sub-conjunto de usuarios o servidores usando el Deployment,
 puedes hacerlo creando múltiples Deployments, uno para cada versión nueva, siguiendo el patrón canary descrito en
 [gestionar recursos](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
 
@@ -980,13 +980,13 @@ Un Deployment también necesita una [sección `.spec`](https://git.k8s.io/commun
 
 Tanto `.spec.template` como `.spec.selector` sin campos obligatorios dentro de `.spec`.
 
-El campo `.spec.template` es una [plantilla Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). Tiene exactamente el mismo esquema que un [Pod](/docs/concepts/workloads/pods/pod/), 
+El campo `.spec.template` es una [plantilla Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). Tiene exactamente el mismo esquema que un [Pod](/docs/concepts/workloads/pods/pod/),
 excepto por el hecho de que está anidado y no tiene `apiVersion` ni `kind`.
 
-Junto con los campos obligatorios de un Pod, una plantilla Pod de un Deployment debe indicar las etiquetas 
+Junto con los campos obligatorios de un Pod, una plantilla Pod de un Deployment debe indicar las etiquetas
 y las reglas de reinicio apropiadas. Para el caso de las etiquetas, asegúrate que no se entremezclan con otros controladores. Ver [selector](#selector)).
 
-Únicamente se permite una [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) igual a `Always`, 
+Únicamente se permite una [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) igual a `Always`,
 que es el valor por defecto si no se indica.
 
 ### Réplicas
@@ -1000,16 +1000,16 @@ para los Pods objetivo del deployment.
 
 `.spec.selector` debe coincidir con `.spec.template.metadata.labels`, o será descartado por la API.
 
-A partir de la versión `apps/v1` de la API, `.spec.selector` y `.metadata.labels` no toman como valor por defecto el valor de `.spec.template.metadata.labels` si no se indica. 
+A partir de la versión `apps/v1` de la API, `.spec.selector` y `.metadata.labels` no toman como valor por defecto el valor de `.spec.template.metadata.labels` si no se indica.
 Por ello, debe especificarse de forma explícita. Además hay que mencionar que `.spec.selector` es inmutable tras la creación del Deployment en `apps/v1`.
 
 Un Deployment puede finalizar aquellos Pods cuyas etiquetas coincidan con el selector si su plantilla es diferente
-de `.spec.template` o si el número total de dichos Pods excede `.spec.replicas`. Arranca nuevos 
+de `.spec.template` o si el número total de dichos Pods excede `.spec.replicas`. Arranca nuevos
 Pods con `.spec.template` si el número de Pods es menor que el número deseado.
 
 {{< note >}}
-No deberías crear otros Pods cuyas etiquetas coincidan con este selector, ni directamente creando 
-otro Deployment, ni creando otro controlador como un ReplicaSet o un ReplicationController. Si lo haces, 
+No deberías crear otros Pods cuyas etiquetas coincidan con este selector, ni directamente creando
+otro Deployment, ni creando otro controlador como un ReplicaSet o un ReplicationController. Si lo haces,
 el primer Deployment pensará que también creó esos otros Pods. Kubernetes no te impide hacerlo.
 {{< /note >}}
 
@@ -1021,14 +1021,14 @@ y no se comportarán de forma correcta.
 `.spec.strategy` especifica la estrategia usada para remplazar los Pods viejos con los nuevos.
 `.spec.strategy.type` puede tener el valor "Recreate" o "RollingUpdate". "RollingUpdate" el valor predeterminado.
 
-#### Despliegue de recreación
+#### Despliegue mediante recreación
 
 Todos los Pods actuales se eliminan antes de que los nuevos se creen cuando `.spec.strategy.type==Recreate`.
 
 #### Despliegue de Actualización Continua
 
 El Deployment actualiza los Pods en modo de [actualización continua](/docs/tasks/run-application/rolling-update-replication-controller/)
-cuando `.spec.strategy.type==RollingUpdate`. Puedes configurar los valores de `maxUnavailable` y `maxSurge` 
+cuando `.spec.strategy.type==RollingUpdate`. Puedes configurar los valores de `maxUnavailable` y `maxSurge`
 para controlar el proceso de actualización continua.
 
 ##### Máx. no disponible
@@ -1038,29 +1038,29 @@ de Pods que pueden no estar disponibles durante el proceso de actualización. El
 o un porcentaje de los Pods deseados (por ejemplo, 10%). El número absoluto se calcula a partir del porcentaje
 con redondeo a la baja. El valor no puede ser 0 si `.spec.strategy.rollingUpdate.maxSurge` es 0. El valor predeterminado es 25%.
 
-Por ejemplo, cuando este valor es 30%, el ReplicaSet viejo puede escalarse al 70% de los 
-Pods deseados de forma inmediata tras comenzar el proceso de actualización. Una vez que los Pods están listos, 
-el ReplicaSet viejo puede reducirse aún mas, seguido de un escalado del nuevo ReplicaSet, 
+Por ejemplo, cuando este valor es 30%, el ReplicaSet viejo puede escalarse al 70% de los
+Pods deseados de forma inmediata tras comenzar el proceso de actualización. Una vez que los Pods están listos,
+el ReplicaSet viejo puede reducirse aún mas, seguido de un escalado del nuevo ReplicaSet,
 asegurándose que el número total de Pods disponibles en todo momento durante la actualización
 es de al menos el 70% de los Pods deseados.
 
-##### Máx. Aumento
+##### Número máximo de pods por encima del número deseado
 
 `.spec.strategy.rollingUpdate.maxSurge` es un campo opcional que indica el número máximo de Pods
 que puede crearse por encima del número deseado de Pods. El valor puede ser un número absoluto (por ejemplo, 5)
-o un porcentaje de los Pods deseados (por ejemplo, 10%). El valor no puede ser 0 si `MaxUnavailable` es 0. 
+o un porcentaje de los Pods deseados (por ejemplo, 10%). El valor no puede ser 0 si `MaxUnavailable` es 0.
 El número absoluto se calcula a partir del porcentaje con redondeo al alza. El valor predeterminado es 25%.
 
 Por ejemplo, cuando este valor es 30%, el nuevo ReplicaSet puede escalarse inmediatamente cuando
-comienza la actualización continua, de forma que el número total de Pods viejos y nuevos no 
-excede el 130% de los Pods deseados. Una vez que los viejos Pods se han eliminado, el nuevo ReplicaSet 
+comienza la actualización continua, de forma que el número total de Pods viejos y nuevos no
+excede el 130% de los Pods deseados. Una vez que los viejos Pods se han eliminado, el nuevo ReplicaSet
 puede seguir escalándose, asegurándose que el número total de Pods ejecutándose en todo momento
 durante la actualización es como mucho del 130% de los Pods deseados.
 
-### Segundos para vencimiento del avance
+### Segundos para vencimiento del progreso
 
 `.spec.progressDeadlineSeconds` es un campo opcional que indica el número de segundos que quieres
-esperar a que tu Deployment avance antes de que el sistema reporte que dicho Deployment 
+esperar a que tu Deployment avance antes de que el sistema reporte que dicho Deployment
 [ha fallado en su avance](#failed-deployment) - expresado como un estado con `Type=Progressing`, `Status=False`.
 y `Reason=ProgressDeadlineExceeded` en el recurso. El controlador del Deployment seguirá intentando
 el despliegue. En el futuro, una vez que se implemente el retroceso automático, el controlador del Deployment
@@ -1068,26 +1068,26 @@ retrocederá el despliegue en cuanto detecte ese estado.
 
 Si se especifica, este campo debe ser mayor que `.spec.minReadySeconds`.
 
-### Segundos Mínimos para Listo
+### Tiempo mínimo para considerar el Pod disponible
 
 `.spec.minReadySeconds` es un campo opcional que indica el número mínimo de segundos en que
 un Pod recién creado debería estar listo sin que falle ninguno de sus contenedores, para que se considere disponible.
-Por defecto su valor es 0 (el Pod se considera disponible en el momento que está listo). Para aprender más acerca de 
+Por defecto su valor es 0 (el Pod se considera disponible en el momento que está listo). Para aprender más acerca de
 cuándo un Pod se considera que está listo, ver las [pruebas de contenedor](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 ### Vuelta atrás
 
-El campo `.spec.rollbackTo` se ha quitado de las versiones `extensions/v1beta1` y `apps/v1beta1` de la API, y ya no se permite en las versiones de la API a partir de `apps/v1beta2`. 
+El campo `.spec.rollbackTo` se ha quitado de las versiones `extensions/v1beta1` y `apps/v1beta1` de la API, y ya no se permite en las versiones de la API a partir de `apps/v1beta2`.
 En su caso, se debería usar `kubectl rollout undo`, tal y como se explicó en [Retroceder a una Revisión Previa](#rolling-back-to-a-previous-revision).
 
-### Límite de Historia de Revisiones
+### Límite del histórico de revisiones
 
 La historia de revisiones de un Deployment se almacena en los ReplicaSets que este controla.
 
 `.spec.revisionHistoryLimit` es un campo opcional que indica el número de ReplicaSets viejos a retener
-para permitir los retrocesos. Estos ReplicaSets viejos consumen recursos en `etcd` y rebosan la salida de `kubectl get rs`. 
-La configuración de cada revisión de Deployment se almacena en sus ReplicaSets; 
-por lo tanto, una vez que se elimina el ReplicaSet viejo, se pierde la posibilidad de retroceder a dicha revisión del Deployment. 
+para permitir los retrocesos. Estos ReplicaSets viejos consumen recursos en `etcd` y rebosan la salida de `kubectl get rs`.
+La configuración de cada revisión de Deployment se almacena en sus ReplicaSets;
+por lo tanto, una vez que se elimina el ReplicaSet viejo, se pierde la posibilidad de retroceder a dicha revisión del Deployment.
 Por defecto, se retienen hasta 10 ReplicaSets viejos; pero su valor ideal depende de la frecuencia y la estabilidad de los nuevos Deployments.
 
 De forma más específica, si ponemos este campo a cero quiere decir que todos los ReplicaSets viejos con 0 réplicas se limpiarán.
