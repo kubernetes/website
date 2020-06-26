@@ -59,7 +59,7 @@ kubeadm join phase kubelet-start --help
 ```
 
 Similar to the [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init/#init-phases)
-command, `kubadm join phase` allows you to skip a list of phases using the `--skip-phases` flag.
+command, `kubeadm join phase` allows you to skip a list of phases using the `--skip-phases` flag.
 
 For example:
 
