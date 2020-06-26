@@ -8,7 +8,7 @@ Hi, I’m Evan Brown [(@evandbrown](http://twitter.com/evandbrown)) and I work o
 
 ### In the beginning
 
-In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:  
+In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:
 
 - The Jenkins leader was just a single container in one pod, but it was managed by a replication controller, so if it failed it would automatically respawn.
 - The Jenkins leader exposes two ports - TCP 8080 for the web UI and TCP 50000 for build agents to register - and those ports are made available as a Kubernetes service with a public load balancer.
@@ -40,7 +40,7 @@ Finally, start.sh evaluates the SERVICE\_HOST\_ENV\_NAME and SERVICE\_PORT\_ENV\
 
 ### Defining the Controller and Service
 
-LIke every other pod in this example, we’ll deploy Nginx with a replication controller, allowing us to scale out or in, and recover automatically from container failures. This excerpt from a[complete descriptor in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/master/ssl_proxy.yaml#L20-L48) shows some relevant bits of the pod spec:
+LIke every other pod in this example, we’ll deploy Nginx with a replication controller, allowing us to scale out or in, and recover automatically from container failures. This excerpt from a[complete descriptor in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/v0.1/ssl_proxy.yaml#L20-L48) shows some relevant bits of the pod spec:
 
 
 
@@ -178,7 +178,7 @@ You can create secrets in your cluster in 3 simple steps:
 Base64-encode your secret data (i.e., SSL key pair or htpasswd file)
 
 ```
-$ cat ssl.key | base64  
+$ cat ssl.key | base64
    LS0tLS1CRUdJTiBDRVJUS...
  ```
 
@@ -219,7 +219,7 @@ $ kubectl create -f secrets.json
  ```
 
 
-To access the secrets from a container, specify them as a volume mount in your pod spec. Here’s the relevant excerpt from the [Nginx proxy template](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/master/ssl_proxy.yaml###L41-L48) we saw earlier:
+To access the secrets from a container, specify them as a volume mount in your pod spec. Here’s the relevant excerpt from the [Nginx proxy template](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/v0.1/ssl_proxy.yaml###L41-L48) we saw earlier:
 
 
 
