@@ -99,7 +99,7 @@ LIke every other pod in this example, we’ll deploy Nginx with a replication co
 
 
 
-The pod will have a service exposing TCP 80 and 443 to a public load balancer. Here’s the service descriptor [(also available in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/master/service_ssl_proxy.yaml)):
+The pod will have a service exposing TCP 80 and 443 to a public load balancer. Here’s the service descriptor [(also available in the sample app](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/v0.1/service_ssl_proxy.yaml)):
 
 
 
@@ -219,7 +219,7 @@ $ kubectl create -f secrets.json
  ```
 
 
-To access the secrets from a container, specify them as a volume mount in your pod spec. Here’s the relevant excerpt from the [Nginx proxy template](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/master/ssl_proxy.yaml###L41-L48) we saw earlier:
+To access the secrets from a container, specify them as a volume mount in your pod spec. Here’s the relevant excerpt from the [Nginx proxy template](https://github.com/GoogleCloudPlatform/kube-jenkins-imager/blob/v0.1/service_ssl_proxy.yaml###L41-L48) we saw earlier:
 
 
 
