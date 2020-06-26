@@ -43,6 +43,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 ## Visualization &amp; Control
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) is a dashboard web interface for Kubernetes.
+* [Kubevious](https://kubevious.io) is an application-centric Kubernetes visualizer and configuration validator.
 * [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a tool for graphically visualizing your containers, pods, services etc. Use it in conjunction with a [Weave Cloud account](https://cloud.weave.works/) or host the UI yourself.
 
 ## Infrastructure
