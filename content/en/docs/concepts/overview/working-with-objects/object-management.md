@@ -41,12 +41,6 @@ objects, it provides no history of previous configurations.
 Run an instance of the nginx container by creating a Deployment object:
 
 ```sh
-kubectl run nginx --image nginx
-```
-
-Do the same thing using a different syntax:
-
-```sh
 kubectl create deployment nginx --image nginx
 ```
 
