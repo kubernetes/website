@@ -3,13 +3,14 @@ title: Minikubeを使用してローカル環境でKubernetesを動かす
 content_type: concept
 ---
 
-<!-- overview -->
+
+{{% capture overview %}}
 
 Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でシングルノードのKubernetesクラスタを実行することができます。
 
+{{% /capture %}}
 
-
-<!-- body -->
+{{% capture body %}}
 
 ## Minikubeの機能
 
@@ -18,75 +19,91 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
   * NodePorts
   * ConfigMapsとSecrets
   * ダッシュボード
-  * コンテナランタイム: Docker, [rkt](https://github.com/rkt/rkt), [CRI-O](https://cri-o.io/), [containerd](https://github.com/containerd/containerd)
+  * コンテナランタイム: Docker、[CRI-O](https://cri-o.io/)および[containerd](https://github.com/containerd/containerd)
   * CNI (Container Network Interface) の有効化
   * Ingress
 
 ## インストール
 
-[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/) を参照
+[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/) を参照してください。
 
 ## クイックスタート
 
-これはMinikubeの使い方の簡単なデモです。
-もしVMドライバを変更したい場合は、適切な `--vm-driver=xxx` フラグを `minikube start` に設定してください。Minikubeは以下のドライバをサポートしています。
+これはMinikubeの起動、使用、削除をローカルで実施する簡単なデモです。下記の手順に従って、Minikubeを起動し試してください。
 
-* virtualbox
-* vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
-注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
-* none (VMではなくホスト上でKubernetesコンポーネントを起動する。このドライバを使用するにはDocker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) とLinux環境を必要とします)
+ 1. Minikubeを起動し、クラスターを作成します:
 
 ```shell
 minikube start
 ```
+
+出力はこのようになります:
+
 ```
 Starting local Kubernetes cluster...
 Running pre-create checks...
 Creating machine...
 Starting local Kubernetes cluster...
 ```
+特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してください。
+
+2. kubectlを使用してクラスターと対話できるようになります。詳細は[クラスターに触れてみよう](#interacting-with-your-cluster)を参照してください。
+単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentオブジェクトを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
+
 ```shell
 kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
 ```
+
+出力はこのようになります:
+
 ```
 deployment.apps/hello-minikube created
 ```
 
+ 3. `hello-minikube`Deploymentに接続するために、Serviceとして公開します:
+
 ```shell
 kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
+
+`--type=NodePort`オプションで、Serviceのタイプを指定します。
+出力はこのようになります:
+
 ```
 service/hello-minikube exposed
 ```
-```
-# We have now launched an echoserver pod but we have to wait until the pod is up before curling/accessing it
-# via the exposed service.
-# To check whether the pod is up and running we can use the following:
+
+4. `hello-minikube`Podが起動開始されましたが、公開したService経由で接続する前にPodが起動完了になるまで待つ必要があります。
+
+Podが稼働しているか確認する:
+```shell
 kubectl get pod
 ```
+
+`STATUS`に`ContainerCreating`と表示されている場合、Podはまだ作成中です:
+
 ```
 NAME                              READY     STATUS              RESTARTS   AGE
 hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
 ```
-```shell
-# We can see that the pod is still being created from the ContainerCreating status
-kubectl get pod
-```
+
+`STATUS`に`Running`と表示されている場合、Podは稼働中です:
+
 ```
 NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
 ```
+
+ 5. Serviceの詳細を確認するため、公開したServiceのURLを取得します:
+
 ```shell
-# We can see that the pod is now Running and we will now be able to curl it:
 curl $(minikube service hello-minikube --url)
 ```
-```
 
+ 6. ローカル環境のクラスターについて詳細を確認するには、出力から得たURLをブラウザー上でコピーアンドペーストしてください。
+ 出力はこのようになります:
+
+```
 Hostname: hello-minikube-7c77b68cff-8wdzq
 
 Pod Information:
@@ -113,31 +130,124 @@ Request Body:
 	-no body in request-
 ```
 
+Serviceやクラスターをこれ以上稼働させない場合、削除する事ができます。
+
+ 7. `hello-minikube`Serviceを削除します:
+
 ```shell
 kubectl delete services hello-minikube
 ```
+
+出力はこのようになります:
+
 ```
 service "hello-minikube" deleted
 ```
 
+ 8. `hello-minikube`Deploymentを削除します:
+
 ```shell
 kubectl delete deployment hello-minikube
 ```
+
+出力はこのようになります:
+
 ```
 deployment.extensions "hello-minikube" deleted
 ```
 
+ 9. ローカル環境のMinikubeクラスターを停止します:
+
 ```shell
 minikube stop
 ```
+
+出力はこのようになります:
+
 ```
 Stopping local Kubernetes cluster...
 Stopping "minikube"...
 ```
 
-### コンテナランタイムの代替
+詳細は[クラスターの停止](#stopping-a-cluster)を参照ください。
 
-#### containerd
+ 10. ローカルのMinikubeクラスターを削除します:
+
+```shell
+minikube delete
+```
+
+出力はこのようになります:
+
+```
+Deleting "minikube" ...
+The "minikube" cluster has been deleted.
+```
+
+詳細は[クラスターの削除](#deleting-a-cluster)を参照ください。
+
+## クラスターの管理
+
+### クラスターの起動{#starting-a-cluster}
+
+`minikube start` コマンドはクラスターを起動することができます。
+このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
+また、このクラスターと通信する [kubectl](/ja/docs/reference/kubectl/overview/) のインストールも設定します。
+
+{{< note >}} もしWebプロキシーを通している場合、そのプロキシー情報を `minikube start` コマンドに渡す必要があります:
+
+```shell
+https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
+```
+
+残念なことに、ただ環境変数を設定するだけではうまく動作しません。
+
+Minikubeは "minikube" コンテキストも作成し、そのコンテキストをデフォルト設定としてkubectlに設定します。
+あとでコンテキストを切り戻すには、このコマンドを実行してください: `kubectl config use-context minikube`{{< /note >}}
+
+#### Kubernetesバージョンの指定
+
+`minikube start` コマンドに `--kubernetes-version` 文字列を追加することで、
+MinikubeにKubernetesの特定のバージョンを指定することができます。
+例えば、`v1.7.3` のバージョンを実行するには以下を実行します:
+
+```
+minikube start --kubernetes-version v1.7.3
+```
+
+#### VMドライバーの指定
+
+もしVMドライバーを変更したい場合は、`--vm-driver=<enter_driver_name>`フラグを`minikube start`に設定してください。例えば、コマンドは以下のようになります。
+
+```
+minikube start --vm-driver=<driver_name>
+```
+
+Minikubeは以下のドライバーをサポートしています:
+ {{< note >}}
+サポートされているドライバーとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
+{{< /note >}}
+
+* virtualbox  
+* vmwarefusion
+* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
+* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
+* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
+* none (VMではなくホスト上でKubernetesコンポーネントを起動。このドライバーを使用するには{{< glossary_tooltip term_id="docker" >}}とLinux環境を必要とします)
+
+{{< caution >}}
+`none`ドライバーを使用する場合、一部のKubernetesのコンポーネントは特権付きのコンテナとして稼働するため、Minikube環境外に副作用をもたらします。
+この副作用から、`none`ドライバーは、個人の作業環境では推奨されません。
+{{< /caution >}}
+
+### コンテナランタイムの代替
+下記のコンテナランタイム上でMinikubeを起動できます。
+
+{{< tabs name="container_runtimes" >}}
+{{% tab name="containerd" %}}
 
 [containerd](https://github.com/containerd/containerd) をコンテナランタイムとして使用するには以下を実行してください:
 
@@ -160,9 +270,8 @@ minikube start \
     --extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock \
     --bootstrapper=kubeadm
 ```
-
-#### CRI-O
-
+{{% /tab %}}
+{{% tab name="CRI-O" %}}
 [CRI-O](https://github.com/kubernetes-incubator/cri-o) をコンテナランタイムとして使用するには以下を実行してください:
 
 ```bash
@@ -184,23 +293,8 @@ minikube start \
     --extra-config=kubelet.image-service-endpoint=/var/run/crio.sock \
     --bootstrapper=kubeadm
 ```
-
-#### rktコンテナエンジン
-
-[rkt](https://github.com/rkt/rkt) をコンテナランタイムとして使用するには以下を実行してください:
-
-```shell
-minikube start \
-    --network-plugin=cni \
-    --enable-default-cni \
-    --container-runtime=rkt
-```
-
-これはrktとDockerの両方を含んだ代替のMinikubeのISOイメージを使用し、CNIネットワークを有効にします。
-
-### ドライバープラグイン
-
-サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
+{{% /tab %}}
+{{< /tabs >}}
 
 ### Dockerデーモンの再利用によるローカルイメージの使用
 
@@ -236,35 +330,6 @@ Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no 
 
 imagePullPolicy:Alwaysをオフにすることを忘れないでください: さもなければKubernetesはローカルに構築したイメージを使用しません。
 
-## クラスターの管理
-
-### クラスターの起動
-
-`minikube start` コマンドはクラスターを起動することができます。
-このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
-また、このクラスターと通信する [kubectl](/docs/user-guide/kubectl-overview/) のインストールも設定します。
-
-もしWebプロキシーを通している場合、そのプロキシー情報を `minikube start` コマンドに渡す必要があります:
-
-```shell
-https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
-```
-
-残念なことに、ただ環境変数を設定するだけではうまく動作しません。
-
-Minikubeは "minikube" コンテキストも作成し、そのコンテキストをデフォルト設定としてkubectlに設定します。
-あとでコンテキストを切り戻すには、このコマンドを実行してください: `kubectl config use-context minikube`
-
-#### Kubernetesバージョンの指定
-
-`minikube start` コマンドに `--kubernetes-version` 文字列を追加することで、
-MinikubeにKubernetesの特定のバージョンを指定することができます。
-例えば、`v1.7.3` のバージョンを実行するには以下を実行します:
-
-```
-minikube start --kubernetes-version v1.7.3
-```
-
 ### Kubernetesの設定
 
 Minikubeにはユーザーが任意の値でKubenetesコンポーネントを設定することを可能にする "configurator" 機能があります。
@@ -293,16 +358,19 @@ Kubeletの `MaxPods` 設定を5に変更するには、このフラグを渡し�
 
 `apiserver` の `AuthorizationMode` を `RABC` に設定するには、このフラグを使います: `--extra-config=apiserver.authorization-mode=RBAC`.
 
-### クラスターの停止
+### クラスターの停止 {#stopping-a-cluster}
 `minikube stop` コマンドを使ってクラスターを停止することができます。
 このコマンドはMinikube仮想マシンをシャットダウンしますが、すべてのクラスターの状態とデータを保存します。
 クラスターを再起動すると、以前の状態に復元されます。
 
-### クラスターの削除
+### クラスターの削除 {#deleting-a-cluster}
 `minikube delete` コマンドを使ってクラスターを削除することができます。
 このコマンドはMinikube仮想マシンをシャットダウンして削除します。データや状態は保存されません。
 
-## クラスターに触れてみよう
+### minikubeのアップグレード {#upgrading-minikube}
+[minikubeのアップグレード](https://minikube.sigs.k8s.io/docs/start/macos/)を参照してください。
+
+## クラスターに触れてみよう {#interacting-with-your-cluster}
 
 ### Kubectl
 
@@ -441,4 +509,4 @@ Minikubeの詳細については、[proposal](https://git.k8s.io/community/contr
 
 コントリビューションや質問、コメントは歓迎・奨励されています! Minikubeの開発者は[Slack](https://kubernetes.slack.com)の#minikubeチャンネルにいます(Slackへの招待状は[こちら](http://slack.kubernetes.io/))。[kubernetes-dev Google Groupsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-dev)もあります。メーリングリストに投稿する際は件名の最初に "minikube: " をつけてください。
 
-
+{{% /capture %}}
