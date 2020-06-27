@@ -98,7 +98,7 @@ Minikube також підтримує `vm-driver=podman` схожий на Dock
 `podman` драйвер вимагає запущені контейнери з під root користувача оскільки звичайні облікові записи користувачів не мають повного доступу до всіх функцій операційної системи, які, можливо, потребуватимуть їх роботи.
 {{< /caution >}}
 
-###Встановлення Minikube як Linux пакет
+### Встановлення Minikube як Linux пакет
 
 Доступні *experimental* пакети для Minikube; ви можете знайти Linux (AMD64) пакети
 для Minikube's [releases](https://github.com/kubernetes/minikube/releases) на сторінці GitHub.
