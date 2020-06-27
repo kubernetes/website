@@ -91,7 +91,7 @@ These options are explaind in more detail below.
 ### Configuring Nodes to authenticate to a Private Registry
 
 If you run Docker on your nodes, you can configure the Docker container
-runtuime to authenticate to a private container registry.
+runtime to authenticate to a private container registry.
 
 This approach is suitable if you can control node configuration.
 
