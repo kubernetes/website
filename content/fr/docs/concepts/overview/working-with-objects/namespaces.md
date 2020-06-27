@@ -1,8 +1,4 @@
 ---
-reviewers:
-- derekwaynecarr
-- mikedanese
-- thockin
 title: Namespaces
 content_type: concept
 weight: 30
@@ -21,21 +17,20 @@ Les namespaces sont destinés à être utilisés dans les environnements ayant d
 besoin d'utiliser de namespaces. Commencez à utiliser des namespaces lorsque vous avez
 besoin des fonctionnalités qu'ils fournissent.
 
-Les namespaces offrent une portée (TODO remplacer par espace conteneur ?) pour les noms. Les noms des ressources doivent être uniques dans un namespace,
+Les namespaces sont des groupes de noms. Ils fournissent un modèle d'isolation de nommage des ressources. Les noms des ressources doivent être uniques dans un namespace,
 mais pas dans l'ensemble des namespaces. Les namespaces ne peuvent pas être imbriqués les uns dans les autres et chaque ressource Kubernetes ne peut se trouver que dans un seul namespace.
 
-Les namespaces sont un moyen de diviser (TODO remplacer avec repartir?) les ressources d'un cluster entre plusieurs utilisateurs (via [quota de ressources](/docs/concepts/policy/resource-quotas/)).
+Les namespaces sont un moyen de répartir les ressources d'un cluster entre plusieurs utilisateurs (via [quota de ressources](/docs/concepts/policy/resource-quotas/)).
 
 Dans les futures versions de Kubernetes, les objets du même namespace auront les mêmes
 stratégies de contrôle d'accès par défaut.
 
-Ce n'est pas nécessaire d'utiliser plusieurs namespaces juste pour séparer des ressources légèrement différentes, telles que les versions du même logiciel: utiliser les[étiquettes](/docs/user-guide/labels) pour distinguer les
+Il n'est pas nécessaire d'utiliser plusieurs namespaces juste pour séparer des ressources légèrement différentes, telles que les versions du même logiciel: utiliser les [labels](/docs/user-guide/labels) pour distinguer les
 ressources dans le même namespace.
 
 ## Utilisation des namespaces
 
-La création et la suppression des namespaces sont décrites dans la [Documentation du guide d'administration
-pour les namespaces](/docs/admin/namespaces).
+La création et la suppression des namespaces sont décrites dans la [Documentation du guide d'administration pour les namespaces](/docs/admin/namespaces).
 
 {{< note >}}
 Évitez de créer des namespaces avec le préfixe `kube-`, car il est réservé aux namespaces système de Kubernetes.
@@ -57,16 +52,16 @@ kube-public       Active   1d
 kube-system       Active   1d
 ```
 
-Kubernetes commence avec quatre namespaces initiaux:
+Kubernetes démarre avec quatre namespaces initiaux:
 
 - `default` Le namespace par défaut pour les objets sans autre namespace
-- `kube-system` Le namespace pour les objets créés par le système (TODO supprimer le système?) Kubernetes
-- `kube-public` Ce namespace est créé automatiquement et est visible par tous les utilisateurs (y compris ceux qui ne sont pas authentifiés). Ce namespace est principalement réservé à l'utilisation du cluster, au cas où certaines ressources devraient être visibles et accessibles (TODO garder lisibles?) publiquement dans l'ensemble du cluster. L'aspect public de ce namespace n'est qu'une convention, pas une exigence.
+- `kube-system` Le namespace pour les objets créés par Kubernetes lui-même
+- `kube-public` Ce namespace est créé automatiquement et est visible par tous les utilisateurs (y compris ceux qui ne sont pas authentifiés). Ce namespace est principalement réservé à l'utilisation du cluster, au cas où certaines ressources devraient être disponibles publiquement dans l'ensemble du cluster. L'aspect public de ce namespace n'est qu'une convention, pas une exigence.
 - `kube-node-lease` Ce namespace contient les objets de bail associés à chaque nœud, ce qui améliore les performances des pulsations du nœud à mesure que le cluster évolue.
 
-### Définition du namespaces pour une demande
+### Définition du namespaces pour une requête
 
-Pour définir le namespace pour une demande en cours, utilisez l'indicateur `--namespace`.
+Pour définir le namespace pour une requête en cours, utilisez l'indicateur `--namespace`.
 
 Par exemple:
 
@@ -87,7 +82,7 @@ kubectl config view --minify | grep namespace:
 
 ## Namespaces et DNS
 
-Lorsque vous créez un [Service](/docs/user-guide/services), il crée une [entrée DNS](/docs/concepts/services-networking/dns-pod-service/) correspondante.
+Lorsque vous créez un [Service](/fr/docs/concepts/services-networking/service/), il crée une [entrée DNS](/fr/docs/concepts/services-networking/dns-pod-service/) correspondante.
 Cette entrée est de la forme `<nom-service>.<nom-namespace>.svc.cluster.local`, ce qui signifie
 que si un conteneur utilise simplement `<nom-service>`, il résoudra le service qui
 est local à un namespace. Ceci est utile pour utiliser la même configuration pour
