@@ -2,9 +2,9 @@
 title: Workload
 id: workloads
 date: 2019-02-13
-full_link: /docs/concepts/workloads/
+full_link: /fr/docs/concepts/workloads/
 short_description: >
-   Une charge de travail est une application exécutée sur Kubernetes.
+   Une charge de travail (workload) est une application exécutée sur Kubernetes.
 
 aka: 
 tags:
