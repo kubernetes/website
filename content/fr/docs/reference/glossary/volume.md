@@ -17,4 +17,4 @@ tags:
 
 Un volume Kubernetes vit aussi longtemps que le pod qui le contient. Par conséquent, un volume survit à tous les conteneurs qui s'exécutent dans le pod, et les données contenues dans le volume sont préservées lors des redémarrages du conteneur.
 
-Voir [storage](https://kubernetes.io/docs/concepts/storage/) pour plus d'informations.
+Voir [stockage](https://kubernetes.io/docs/concepts/storage/) pour plus d'informations.
