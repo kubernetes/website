@@ -16,7 +16,7 @@ APIエンドポイント、リソースタイプ、そしてサンプルは[API�
 
 APIへの外部からのアクセスは、[APIアクセス制御ドキュメント](/docs/reference/access-authn-authz/controlling-access/)に記載されています。
 
-Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。 
+Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することができます。
 
 また、Kubernetesは、シリアライズされた状態を(現在は[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)に)APIリソースの単位で保存しています。
 
@@ -41,10 +41,10 @@ Kubernetes 1.10から、KubernetesAPIサーバーは`/openapi/v2`のエンドポ
 
 ヘッダ | 設定可能な値
 ------ | ---------------
-Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` （デフォルトのcontent-typeは、`*/*`に対して`application/json`か、もしくはこのヘッダーを送信しません）
-Accept-Encoding | `gzip` （このヘッダーを送信しないことも許容されています）
+Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (デフォルトのcontent-typeは、`*/*`に対して`application/json`か、もしくはこのヘッダーを送信しません)
+Accept-Encoding | `gzip` (このヘッダーを送信しないことも許容されています)
 
-1.14より前のバージョンでは、フォーマット分離エンドポイント（`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`）が、OpenAPI仕様を違うフォーマットで提供しています。これらのエンドポイントは非推奨となっており、Kubernetes1.14で削除されました。
+1.14より前のバージョンでは、フォーマット分離エンドポイント(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)が、OpenAPI仕様を違うフォーマットで提供しています。これらのエンドポイントは非推奨となっており、Kubernetes1.14で削除されました。
 
 **OpenAPI仕様の取得サンプル**:
 
@@ -67,16 +67,16 @@ APIが、システムリソースと動作について明確かつ一貫した�
 
 APIとソフトウエアのバージョニングは、間接的にしか関連していないことに注意してください。[APIとリリースバージョニング提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)で、APIとソフトウェアのバージョニングの関連について記載しています。
 
-異なるバージョンのAPIは、異なるレベル（版）の安定性とサポートを持っています。それぞれのレベル（版）の基準は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に詳細が記載されています。下記に簡潔にまとめます:
+異なるバージョンのAPIは、異なるレベル(版)の安定性とサポートを持っています。それぞれのレベル(版)の基準は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に詳細が記載されています。下記に簡潔にまとめます:
 
-- アルファレベル（版）:
-  - バージョン名に`alpha`を含みます（例、`v1alpha1`）。
+- アルファレベル(版):
+  - バージョン名に`alpha`を含みます(例、`v1alpha1`)。
   - バグが多いかもしれません。アルファ機能の有効化がバグを顕在化させるかもしれません。デフォルトでは無効となっています。
   - アルファ機能のサポートは、いつでも通知無しに取りやめられる可能性があります。
   - ソフトウェアリリース後、APIが通知無しに互換性が無い形で変更される可能性があります。
   - バグが増えるリスク、また長期サポートが無いことから、短期間のテスト用クラスターでの利用を推奨します。
-- ベータレベル（版）:
-  - バージョン名に`beta`を含みます（例、`v2beta3`）。
+- ベータレベル(版):
+  - バージョン名に`beta`を含みます(例、`v2beta3`)。
   - コードは十分にテストされています。ベータ機能の有効化は安全だと考えられます。デフォルトで有効化されています。
   - 全体的な機能のサポートは取りやめられませんが、詳細は変更される可能性があります。
   - オブジェクトのスキーマ、意味はその後のベータ、安定版リリースで互換性が無い形で変更される可能性があります。その場合、次のバージョンへアップデートするための手順を提供します。その手順ではAPIオブジェクトの削除、修正、再作成が必要になるかもしれません。修正のプロセスは多少の検討が必要になるかもしれません。これは、この機能を利用しているアプリケーションでダウンタイムが必要になる可能性があるためです。
@@ -93,9 +93,9 @@ APIグループは、RESTのパスとシリアライズされたオブジェク�
 
 現在、いくつかのAPIグループが利用されています:
 
-1. *core* グループ（度々、*legacy group* と呼ばれます）は、`/api/v1`というRESTのパスで、`apiVersion: v1`を使います。
+1. *core* グループ(たびたび、*legacy group* と呼ばれます)は、`/api/v1`というRESTのパスで、`apiVersion: v1`を使います。
 
-1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`（例、`apiVersion: batch/v1`）を使います。サポートされているAPIグループの全リストは、[Kubernetes APIリファレンス](/docs/reference/)を参照してください。
+1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`(例、`apiVersion: batch/v1`)を使います。サポートされているAPIグループの全リストは、[Kubernetes APIリファレンス](/docs/reference/)を参照してください。
 
 [カスタムリソース](/docs/concepts/api-extension/custom-resources/)でAPIを拡張するために、2つの方法がサポートされています:
 

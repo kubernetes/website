@@ -81,7 +81,7 @@ Details on how the AOS system works can be accessed here: http://www.apstra.com/
 
 [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s)は、Kubernetesクラスター向けの統合されたAWS Virtual Private Cloud(VPC)ネットワーキングを提供します。このCNIプラグインは、高いスループットと可用性、低遅延、および最小のネットワークジッタを提供します。さらに、ユーザーは、Kubernetesクラスターを構築するための既存のAWS VPCネットワーキングとセキュリティのベストプラクティスを適用できます。これには、ネットワークトラフィックの分離にVPCフローログ、VPCルーティングポリシー、およびセキュリティグループを使用する機能が含まれます。
 
-このCNIプラグインを使用すると、Kubernetes PodはVPCネットワーク上と同じIPアドレスをPod内に持つことができます。CNIはAWS Elastic Networking Interfaces（ENI）を各Kubernetesノードに割り当て、ノード上のPodに各ENIのセカンダリIP範囲を使用します。このCNIには、Podの起動時間を短縮するためのENIとIPアドレスの事前割り当ての制御が含まれており、最大2,000ノードの大規模クラスターが可能です。
+このCNIプラグインを使用すると、Kubernetes PodはVPCネットワーク上と同じIPアドレスをPod内に持つことができます。CNIはAWS Elastic Networking Interfaces(ENI)を各Kubernetesノードに割り当て、ノード上のPodに各ENIのセカンダリIP範囲を使用します。このCNIには、Podの起動時間を短縮するためのENIとIPアドレスの事前割り当ての制御が含まれており、最大2,000ノードの大規模クラスターが可能です。
 
 さらに、このCNIは[ネットワークポリシーの適用のためにCalico](https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/calico.html)と一緒に実行できます。AWS VPC CNIプロジェクトは、[GitHubのドキュメント](https://github.com/aws/amazon-vpc-cni-k8s)とともにオープンソースで公開されています。
 
@@ -89,7 +89,7 @@ Details on how the AOS system works can be accessed here: http://www.apstra.com/
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
 
 Azure CNI is available natively in the [Azure Kubernetes Service (AKS)] (https://docs.microsoft.com/en-us/azure/aks/configure-azure-cni).
- 
+
 
 ### Big Cloud Fabric from Big Switch Networks
 
