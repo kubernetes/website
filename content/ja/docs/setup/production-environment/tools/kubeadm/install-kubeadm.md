@@ -11,6 +11,7 @@ card:
 <!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
+
 このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 
@@ -55,7 +56,7 @@ Linuxでは、カーネルのiptablesサブシステムの最新の代替品と�
 もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
 
 {{< tabs name="iptables_legacy" >}}
-{{% tab name="Debian or Ubuntu" %}}
+{{% tab name="DebiaまたはUbuntu" %}}
 ```bash
 # レガシーバイナリがインストールされていることを確認してください
 sudo apt-get install -y iptables arptables ebtables
@@ -98,7 +99,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 etcdポートはコントロールプレーンノードに含まれていますが、独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
 
-使用するPodネットワークプラグイン（以下を参照）のポートも開く必要があります。これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
+使用するPodネットワークプラグイン(以下を参照)のポートも開く必要があります。これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
 
 ## ランタイムのインストール {#installing-runtime}
 
@@ -151,7 +152,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 * Kubeadm-specific [バージョン互換ポリシー](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy)
 
 {{< tabs name="k8s_install" >}}
-{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+{{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
 ```bash
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -163,7 +164,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
 {{% /tab %}}
-{{% tab name="CentOS, RHEL or Fedora" %}}
+{{% tab name="CentOS、RHEL、またはFedora" %}}
 ```bash
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -255,7 +256,7 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 
 このファイルは、kubeletの追加のユーザー定義引数を取得するために、`kubeadm init`および`kubeadm join`によって使用されます。
 
-CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。なぜなら、これは既にkubeletのデフォルト値であるためです。
+CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。なぜなら、これはすでにkubeletのデフォルト値であるためです。
 
 kubeletをリスタートする方法:
 
