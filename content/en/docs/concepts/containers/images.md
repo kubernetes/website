@@ -10,7 +10,7 @@ weight: 10
 <!-- overview -->
 
 A container image represents binary data that encapsulates an application and all its
-software depencies. Container images are executable software bundles that can run
+software dependencies. Container images are executable software bundles that can run
 standalone and that make very well defined assumptions about their runtime environment.
 
 You typically create a container image of your application and push it to a registry
