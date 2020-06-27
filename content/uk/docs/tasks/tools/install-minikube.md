@@ -9,6 +9,10 @@ card:
 
 <!-- overview -->
 
+<!--This page shows you how to install [Minikube](/docs/tutorials/hello-minikube),
+a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
+-->
+
 Ця сторінка описує як встановити [Minikube](/docs/tutorials/hello-minikube), інструмент який дозволяє
 запустити  Kubernetes кластер з однієї ноди у віртуальній машині на персональному комп'ютері.
 
@@ -33,7 +37,7 @@ sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 
 {{% tab name="Windows" %}}
 Для перевірки, чи підтримується віртуалізація на  Windows 8 та версіях вище,запустіть наступну команду в терміналі
- вашого або через command prompt.
+вашого або через command prompt.
 ```
 systeminfo
 ```
