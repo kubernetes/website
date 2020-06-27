@@ -24,7 +24,7 @@ Depending on the installation method, your Kubernetes cluster may be deployed wi
 an existing StorageClass that is marked as default. This default StorageClass
 is then used to dynamically provision storage for PersistentVolumeClaims
 that do not require any specific storage class. See
-[PersistentVolumeClaim documentation](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim documentation](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
 
 The pre-installed default StorageClass may not fit well with your expected workload;
