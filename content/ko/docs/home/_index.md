@@ -43,7 +43,7 @@ cards:
   title: "교육"
   description: "공인 쿠버네티스 인증을 획득하고 클라우드 네이티브 프로젝트를 성공적으로 수행하세요!"
   button: "교육 보기"
-  button_path: "/training"  
+  button_path: "/training"
 - name: reference
   title: 레퍼런스 정보 찾기
   description: 용어, 커맨드 라인 구문, API 자원 종류, 그리고 설치 툴 문서를 살펴본다.
@@ -54,8 +54,8 @@ cards:
   description: 이 프로젝트가 처음인 사람이든, 오래 활동한 사람이든 상관없이 누구나 기여할 수 있다.
   button: 문서에 기여하기
   button_path: "/ko/docs/contribute"
-- name: download
-  title: 쿠버네티스 내려받기
+- name: release-notes
+  title: 릴리스 노트
   description: 쿠버네티스를 설치하거나 최신의 버전으로 업그레이드하는 경우, 현재 릴리스 노트를 참고한다.
 - name: about
   title: 문서에 대하여

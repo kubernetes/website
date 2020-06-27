@@ -1,27 +1,30 @@
 ---
 title: 데몬셋(DaemonSet)에서 롤백 수행
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+
+
+<!-- overview -->
 
 이 페이지는 데몬셋에서 롤백을 수행하는 방법을 보여준다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * 데몬셋 롤아웃 기록과 데몬셋 롤백 기능은
   쿠버네티스 버전 1.7 이상의 `kubectl` 에서만 지원된다.
 * [데몬셋에서 롤링 업데이트를
   수행](/ko/docs/tasks/manage-daemon/update-daemon-set/)하는 방법을 알고 있어야 한다.
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 데몬셋에서 롤백 수행
 
@@ -102,10 +105,10 @@ kubectl rollout status ds/<daemonset-name>
 daemonset "<daemonset-name>" successfully rolled out
 ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 데몬셋 리비전의 이해
 
@@ -152,4 +155,6 @@ NAME                               CONTROLLER                     REVISION   AGE
 * [데몬셋 롤링 업데이트
   문제 해결](/ko/docs/tasks/manage-daemon/update-daemon-set/#문제-해결)을 참고한다.
 
-{{% /capture %}}
+
+
+
