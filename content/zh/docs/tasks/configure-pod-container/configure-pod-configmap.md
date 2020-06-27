@@ -6,14 +6,14 @@ card:
   name: tasks
   weight: 50
 ---
-<!-- ---
+<!--
 title: Configure a Pod to Use a ConfigMap
 content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
---- -->
+-->
 
 <!-- overview -->
 <!-- ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps. -->

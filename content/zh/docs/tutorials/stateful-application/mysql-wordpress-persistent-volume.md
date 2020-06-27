@@ -1,15 +1,23 @@
 ---
 title: 示例：使用 Persistent Volumes 部署 WordPress 和 MySQL
-reviewers:
-- ahmetb
 content_type: tutorial
 weight: 20
 card:
   name: tutorials
   weight: 40
-  title: "Stateful 示例: Wordpress with Persistent Volumes"
+  title: "有状态应用示例: 带持久卷的 Wordpress"
 ---
-
+<!--
+title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
+reviewers:
+- ahmetb
+content_type: tutorial
+weight: 20
+card: 
+  name: tutorials
+  weight: 40
+  title: "Stateful Example: Wordpress with Persistent Volumes"
+-->
 <!-- overview -->
 
 <!--
