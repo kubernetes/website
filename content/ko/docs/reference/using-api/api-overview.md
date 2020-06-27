@@ -83,7 +83,7 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 [사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
 
  - 기본적인 CRUD 요구에는
-   [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
  - 쿠버네티스 API의 의미론적 전체 집합으로 사용자만의 Apiserver를 구현하려는 경우에는 [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
 
 

@@ -14,8 +14,9 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
-알파(Alpha) 고지 사항: 이 기능은 현재 알파이다, 그리고 kube-apiserver 와 kube-controller-manager 와 함께
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 로 `TTLAfterFinished` 를 활성화 할 수 있다.
+알파(Alpha) 고지 사항: 이 기능은 현재 알파이고,
+kube-apiserver와 kube-controller-manager와 함께
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)로 `TTLAfterFinished` 를 활성화할 수 있다.
 
 
 
@@ -66,13 +67,13 @@ TTL 기간은, 예를 들어 잡의 `.spec.ttlSecondsAfterFinished` 필드는
 ### 시간 차이(Skew)
 
 TTL 컨트롤러는 쿠버네티스 리소스에
-저장된 타임스탬프를 사용해서 TTL의 만료 여부를 결정하기 때문에, 이 기능은 클러스터 간의 
+저장된 타임스탬프를 사용해서 TTL의 만료 여부를 결정하기 때문에, 이 기능은 클러스터 간의
 시간 차이에 민감하며, 시간 차이에 의해서 TTL 컨트롤러가 잘못된 시간에 리소스
 오브젝트를 정리하게 될 수 있다.
 
 쿠버네티스에서는 시간 차이를 피하기 위해 모든 노드
 ([#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)를 본다)
-에서 NTP를 실행해야 한다. 시계가 항상 정확한 것은 아니지만, 그 차이는 
+에서 NTP를 실행해야 한다. 시계가 항상 정확한 것은 아니지만, 그 차이는
 아주 작아야 한다. 0이 아닌 TTL을 설정할때는 이 위험에 대해 유의해야 한다.
 
 
@@ -83,5 +84,3 @@ TTL 컨트롤러는 쿠버네티스 리소스에
 [자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
 
 [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
-
-

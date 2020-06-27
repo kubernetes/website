@@ -111,7 +111,7 @@ kubectl logs $pods
 ## 잡 사양 작성하기
 
 다른 쿠버네티스의 설정과 마찬가지로 잡에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
-잡의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+잡의 이름은 유효한 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 잡에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
@@ -175,8 +175,8 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 - _고정적인 완료 횟수(fixed completion count)_ 잡의 경우, 병렬로 실행 중인 파드의 수는 남은 완료 수를
   초과하지 않는다.  `.spec.parallelism` 의 더 큰 값은 사실상 무시된다.
 - _작업 큐_ 잡은 파드가 성공한 이후에 새로운 파드가 시작되지 않는다. 그러나 나머지 파드는 완료될 수 있다.
-- 만약 잡 {{< glossary_tooltip term_id="controller" >}} 가 반응할 시간이 없는 경우
-- 만약 잡 컨트롤러가 어떤 이유(`리소스 쿼터` 의 부족, 권한 부족 등)로든 파드 생성에 실패한 경우, 
+- 만약 잡 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}} 가 반응할 시간이 없는 경우
+- 만약 잡 컨트롤러가 어떤 이유(`ResourceQuota` 의 부족, 권한 부족 등)로든 파드 생성에 실패한 경우,
   요청한 것보다 적은 수의 파드가 있을 수 있다.
 - 잡 컨트롤러는 동일한 잡에서 과도하게 실패한 이전 파드들로 인해 새로운 파드의 생성을 조절할 수 있다.
 - 파드가 정상적으로(gracefully) 종료되면, 중지하는데 시간이 소요된다.
@@ -327,7 +327,7 @@ spec:
 여기에는 전송할 이메일들, 렌더링할 프레임, 코드 변환이 필요한 파일, NoSQL 데이터베이스에서의
 키 범위 스캔 등이 있다.
 
-복잡한 시스템에는 여러개의 다른 작업 항목 집합이 있을 수 있다.  여기서는 사용자와 
+복잡한 시스템에는 여러 개의 다른 작업 항목 집합이 있을 수 있다.  여기서는 사용자와
 함께 관리하려는 하나의 작업 항목 집합 &mdash; *배치 잡* 을 고려하고 있다.
 
 병렬 계산에는 몇몇 다른 패턴이 있으며 각각의 장단점이 있다.
@@ -471,8 +471,6 @@ spec:
 이 접근 방식의 장점은 전체 프로세스가 잡 오브젝트의 완료를 보장하면서도,
 파드 생성과 작업 할당 방법을 완전히 제어하고 유지한다는 것이다.
 
-## 크론 잡 {#cron-jobs}
+## 크론잡 {#cron-jobs}
 
-[`크론잡`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
-
-
+[`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)을 사용해서 Unix 도구인 `cron`과 유사하게 지정된 시간/일자에 실행되는 잡을 생성할 수 있다.
