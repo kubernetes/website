@@ -10,50 +10,45 @@ weight: 30
 
 <!-- overview -->
 
-Kubernetes supports multiple virtual clusters backed by the same physical cluster.
-These virtual clusters are called namespaces.
-
-
-
+Kubernetes prend en charge plusieurs clusters virtuels presents sur le même cluster physique.
+Ces clusters virtuels sont appelés namespaces (espaces de noms en français).
 
 <!-- body -->
 
-## When to Use Multiple Namespaces
+## Quand utiliser plusieurs namespaces
 
-Namespaces are intended for use in environments with many users spread across multiple
-teams, or projects.  For clusters with a few to tens of users, you should not
-need to create or think about namespaces at all.  Start using namespaces when you
-need the features they provide.
+Les namespaces sont destinés à être utilisés dans les environnements ayant de nombreux utilisateurs répartis en plusieurs équipes ou projets. Pour les clusters de quelques dizaines d'utilisateurs, vous n'avez pas
+besoin d'utiliser de namespaces. Commencez à utiliser des namespaces lorsque vous avez
+besoin des fonctionnalités qu'ils fournissent.
 
-Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
-resource can only be in one namespace.
+Les namespaces offrent une portée (TODO remplacer par espace conteneur ?) pour les noms. Les noms des ressources doivent être uniques dans un namespace,
+mais pas dans l'ensemble des namespaces. Les namespaces ne peuvent pas être imbriqués les uns dans les autres et chaque ressource Kubernetes ne peut se trouver que dans un seul namespace.
 
-Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
+Les namespaces sont un moyen de diviser (TODO remplacer avec repartir?) les ressources d'un cluster entre plusieurs utilisateurs (via [quota de ressources](/docs/concepts/policy/resource-quotas/)).
 
-In future versions of Kubernetes, objects in the same namespace will have the same
-access control policies by default.
+Dans les futures versions de Kubernetes, les objets du même namespace auront les mêmes
+stratégies de contrôle d'accès par défaut.
 
-It is not necessary to use multiple namespaces just to separate slightly different
-resources, such as different versions of the same software: use [labels](/docs/user-guide/labels) to distinguish
-resources within the same namespace.
+Ce n'est pas nécessaire d'utiliser plusieurs namespaces juste pour séparer des ressources légèrement différentes, telles que les versions du même logiciel: utiliser les[étiquettes](/docs/user-guide/labels) pour distinguer les
+ressources dans le même namespace.
 
-## Working with Namespaces
+## Utilisation des namespaces
 
-Creation and deletion of namespaces are described in the [Admin Guide documentation
-for namespaces](/docs/admin/namespaces).
+La création et la suppression des namespaces sont décrites dans la [Documentation du guide d'administration
+pour les namespaces](/docs/admin/namespaces).
 
 {{< note >}}
-    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+Évitez de créer des namespaces avec le préfixe `kube-`, car il est réservé aux namespaces système de Kubernetes.
 {{< /note >}}
 
-### Viewing namespaces
+### Affichage des namespaces
 
-You can list the current namespaces in a cluster using:
+Dans un cluster vous pouvez lister les namespaces actuels à l'aide de:
 
 ```shell
 kubectl get namespace
 ```
+
 ```
 NAME              STATUS   AGE
 default           Active   1d
@@ -62,67 +57,60 @@ kube-public       Active   1d
 kube-system       Active   1d
 ```
 
-Kubernetes starts with four initial namespaces:
+Kubernetes commence avec quatre namespaces initiaux:
 
-   * `default` The default namespace for objects with no other namespace
-   * `kube-system` The namespace for objects created by the Kubernetes system
-   * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-   * `kube-node-lease` This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
-   
-### Setting the namespace for a request
+- `default` Le namespace par défaut pour les objets sans autre namespace
+- `kube-system` Le namespace pour les objets créés par le système (TODO supprimer le système?) Kubernetes
+- `kube-public` Ce namespace est créé automatiquement et est visible par tous les utilisateurs (y compris ceux qui ne sont pas authentifiés). Ce namespace est principalement réservé à l'utilisation du cluster, au cas où certaines ressources devraient être visibles et accessibles (TODO garder lisibles?) publiquement dans l'ensemble du cluster. L'aspect public de ce namespace n'est qu'une convention, pas une exigence.
+- `kube-node-lease` Ce namespace contient les objets de bail associés à chaque nœud, ce qui améliore les performances des pulsations du nœud à mesure que le cluster évolue.
 
-To set the namespace for a current request, use the `--namespace` flag.
+### Définition du namespaces pour une demande
 
-For example:
+Pour définir le namespace pour une demande en cours, utilisez l'indicateur `--namespace`.
+
+Par exemple:
 
 ```shell
 kubectl run nginx --image=nginx --namespace=<insert-namespace-name-here>
 kubectl get pods --namespace=<insert-namespace-name-here>
 ```
 
-### Setting the namespace preference
+### Spécifier un namespace
 
-You can permanently save the namespace for all subsequent kubectl commands in that
-context.
+Vous pouvez enregistrer de manière permanente le namespace à utiliser pour toutes les commandes kubectl à suivre.
 
 ```shell
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
-# Validate it
+# Validez-le
 kubectl config view --minify | grep namespace:
 ```
 
-## Namespaces and DNS
+## Namespaces et DNS
 
-When you create a [Service](/docs/user-guide/services), it creates a corresponding [DNS entry](/docs/concepts/services-networking/dns-pod-service/).
-This entry is of the form `<service-name>.<namespace-name>.svc.cluster.local`, which means
-that if a container just uses `<service-name>`, it will resolve to the service which
-is local to a namespace.  This is useful for using the same configuration across
-multiple namespaces such as Development, Staging and Production.  If you want to reach
-across namespaces, you need to use the fully qualified domain name (FQDN).
+Lorsque vous créez un [Service](/docs/user-guide/services), il crée une [entrée DNS](/docs/concepts/services-networking/dns-pod-service/) correspondante.
+Cette entrée est de la forme `<nom-service>.<nom-namespace>.svc.cluster.local`, ce qui signifie
+que si un conteneur utilise simplement `<nom-service>`, il résoudra le service qui
+est local à un namespace. Ceci est utile pour utiliser la même configuration pour
+plusieurs namespaces tels que le Développement, la Qualification et la Production. Si vous voulez naviguer
+entre plusieurs namespaces, vous devez utiliser le nom de domaine complet (FQDN ou nom de domaine complet en français).
 
-## Not All Objects are in a Namespace
+## Tous les objets ne se trouvent pas dans un namespace
 
-Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are
-in some namespaces.  However namespace resources are not themselves in a namespace.
-And low-level resources, such as [nodes](/docs/admin/node) and
-persistentVolumes, are not in any namespace.
+La plupart des ressources Kubernetes (par exemple, pods, services, contrôleurs de réplication et autres) sont
+dans des namespaces. Cependant, les ressources de type namespace ne sont pas elles-mêmes dans un namespace.
+Et les ressources de bas niveau, telles que les [noeuds](/docs/admin/node) et les volumes persistants, ne se trouvent dans aucun namespace.
 
-To see which Kubernetes resources are and aren't in a namespace:
+Pour voir quelles ressources Kubernetes sont et ne sont pas dans un namespace:
 
 ```shell
-# In a namespace
+# Dans un namespace
 kubectl api-resources --namespaced=true
 
-# Not in a namespace
+# Pas dans un namespace
 kubectl api-resources --namespaced=false
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
-* Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
-
-
-
+- En savoir plus sur [créer un nouveau namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
+- En savoir plus sur [suppression d'un namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
