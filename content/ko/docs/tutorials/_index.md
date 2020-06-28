@@ -70,7 +70,7 @@ content_type: concept
 
 
 튜토리얼을 작성하고 싶다면, 튜토리얼 페이지 유형에 대한 정보가 있는
-[내용 페이지 유형](/docs/contribute/style/page-content-types/)
+[콘텐츠 페이지 유형](/docs/contribute/style/page-content-types/)
 페이지를 참조한다.
 
 

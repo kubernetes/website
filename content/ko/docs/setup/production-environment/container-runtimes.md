@@ -62,7 +62,7 @@ kubelet을 재시작 하는 것은 에러를 해결할 수 없을 것이다.
 ## 도커
 
 각 머신들에 대해서, 도커를 설치한다.
-버전 19.03.8이 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
+버전 19.03.11이 추천된다. 그러나 1.13.1, 17.03, 17.06, 17.09, 18.06 그리고 18.09도 동작하는 것으로 알려져 있다.
 쿠버네티스 릴리스 노트를 통해서, 최신에 검증된 도커 버전의 지속적인 파악이 필요하다.
 
 시스템에 도커를 설치하기 위해서 아래의 커맨드들을 사용한다.
@@ -94,9 +94,9 @@ add-apt-repository \
 ```shell
 # 도커 CE 설치.
 apt-get update && apt-get install -y \
-  containerd.io=1.2.13-1 \
-  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
 ```
 
 ```shell
@@ -142,8 +142,8 @@ yum-config-manager --add-repo \
 # 도커 CE 설치.
 yum update -y && yum install -y \
   containerd.io-1.2.13 \
-  docker-ce-19.03.8 \
-  docker-ce-cli-19.03.8
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 ```
 
 ```shell
@@ -179,6 +179,12 @@ systemctl restart docker
 ```
 {{< /tab >}}
 {{< /tabs >}}
+
+부팅 시 도커 서비스를 시작하려면, 다음 명령을 실행한다.
+
+```shell
+sudo systemctl enable docker
+```
 
 자세한 내용은 [공식 도커 설치 가이드](https://docs.docker.com/engine/installation/)
 를 참고한다.
