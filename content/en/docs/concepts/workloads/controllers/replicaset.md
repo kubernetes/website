@@ -302,7 +302,7 @@ To update Pods to a new spec in a controlled way, use a
 
 You can remove Pods from a ReplicaSet by changing their labels. This technique may be used to remove Pods
 from service for debugging, data recovery, etc. Pods that are removed in this way will be replaced automatically (
-assuming that the number of replicas is not also changed).
+assuming that the number of replicas has not also changed).
 
 ### Scaling a ReplicaSet
 
