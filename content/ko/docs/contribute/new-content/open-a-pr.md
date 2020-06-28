@@ -217,21 +217,39 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 변경 사항을 푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을 로컬에서 미리 보는 것이 좋다. 미리보기를 사용하면 빌드 오류나 마크다운 형식 문제를 알아낼 수 있다.
 
-website의 도커 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
+website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="Hugo 컨테이너" %}}
+
+{{< note >}}
+아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면 `CONTAINER_ENGINE` 환경변수를 설정한다.
+{{< /note >}}
 
 1.  로컬에서 이미지를 빌드한다.
 
       ```bash
       make docker-image
+      # docker 사용(기본값)
+      make container-image
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-image
       ```
 
 2. 로컬에서 `kubernetes-hugo` 이미지를 빌드한 후, 사이트를 빌드하고 서비스한다.
 
       ```bash
       make docker-serve
+      # docker 사용(기본값)
+      make container-serve
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-serve
       ```
 
 3.  웹 브라우저에서 `https://localhost:1313` 로 이동한다. Hugo는

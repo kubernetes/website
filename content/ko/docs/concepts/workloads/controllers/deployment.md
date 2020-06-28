@@ -861,7 +861,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
-$ echo $?
+```
+그리고 `kubectl rollout` 의 종료 상태는 0(success)이다.
+```shell
+echo $?
+```
+```
 0
 ```
 
@@ -1003,7 +1008,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
-$ echo $?
+```
+그리고 `kubectl rollout` 의 종료 상태는 1(error를 의미함)이다.
+```shell
+echo $?
+```
+```
 1
 ```
 
