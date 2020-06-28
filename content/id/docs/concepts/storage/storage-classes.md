@@ -40,7 +40,7 @@ dan objek yang sudah dibuat tidak dapat diubah lagi definisinya.
 
 Administrator dapat memberikan spesifikasi StorageClass _default_ bagi
 PVC yang tidak membutuhkan kelas tertentu untuk dapat melakukan mekanisme _bind_:
-kamu dapat membaca [bagian `PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#class-1)
+kamu dapat membaca [bagian `PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 untuk penjelasan lebih lanjut.
 
 ```yaml
