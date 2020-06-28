@@ -8,7 +8,7 @@ Hi, I’m Evan Brown [(@evandbrown](http://twitter.com/evandbrown)) and I work o
 
 ### In the beginning
 
-In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:  
+In the spirit of minimum viability, the first version of Jenkins-on-Kubernetes I built was very basic but functional:
 
 - The Jenkins leader was just a single container in one pod, but it was managed by a replication controller, so if it failed it would automatically respawn.
 - The Jenkins leader exposes two ports - TCP 8080 for the web UI and TCP 50000 for build agents to register - and those ports are made available as a Kubernetes service with a public load balancer.
@@ -166,7 +166,7 @@ Now, how did the Nginx pods get ahold of the super-secret SSL key/cert and htpas
 
 ### Keep it secret, keep it safe
 
-Kubernetes has an [API and resource for Secrets](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/secrets.md). Secrets “are intended to hold sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it verbatim in a pod definition or in a docker image.”
+Kubernetes has an [API and resource for Secrets](https://github.com/kubernetes/kubernetes/blob/release-0.15/docs/secrets.md). Secrets “are intended to hold sensitive information, such as passwords, OAuth tokens, and ssh keys. Putting this information in a secret is safer and more flexible than putting it verbatim in a pod definition or in a docker image.”
 
 
 
@@ -178,7 +178,7 @@ You can create secrets in your cluster in 3 simple steps:
 Base64-encode your secret data (i.e., SSL key pair or htpasswd file)
 
 ```
-$ cat ssl.key | base64  
+$ cat ssl.key | base64
    LS0tLS1CRUdJTiBDRVJUS...
  ```
 
