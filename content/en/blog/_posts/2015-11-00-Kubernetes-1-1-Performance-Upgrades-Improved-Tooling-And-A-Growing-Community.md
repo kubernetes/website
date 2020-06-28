@@ -4,9 +4,9 @@ date: 2015-11-09
 slug: kubernetes-1-1-performance-upgrades-improved-tooling-and-a-growing-community
 url: /blog/2015/11/Kubernetes-1-1-Performance-Upgrades-Improved-Tooling-And-A-Growing-Community
 ---
-Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.  
+Since the Kubernetes 1.0 release in July, we’ve seen tremendous adoption by companies building distributed systems to manage their container clusters. We’re also been humbled by the rapid growth of the community who help make Kubernetes better everyday. We have seen commercial offerings such as Tectonic by CoreOS and RedHat Atomic Host emerge to deliver deployment and support of Kubernetes. And a growing ecosystem has added Kubernetes support including tool vendors such as Sysdig and Project Calico.
 
-With the help of hundreds of contributors, we’re proud to announce the availability of Kubernetes 1.1, which offers major performance upgrades, improved tooling, and new features that make applications even easier to build and deploy.  
+With the help of hundreds of contributors, we’re proud to announce the availability of Kubernetes 1.1, which offers major performance upgrades, improved tooling, and new features that make applications even easier to build and deploy.
 
 Some of the work we’d like to highlight includes:
 
@@ -18,7 +18,7 @@ Some of the work we’d like to highlight includes:
 
 - **HTTP load balancer (Beta)**: Kubernetes now has the built-in ability to route HTTP traffic based on the packets introspection. This means you can have ‘http://foo.com/bar’ go to one service, and ‘http://foo.com/meep’ go to a completely independent service. Read more about the [Ingress object](http://kubernetes.io/v1.1/docs/user-guide/ingress.html).&nbsp;
 
-- **Job objects (Beta)**: We’ve also had frequent request for integrated batch jobs, such as processing a batch of images to create thumbnails or a particularly large data file that has been broken down into many chunks. [Job objects](https://github.com/kubernetes/kubernetes/blob/master/docs/user-guide/jobs.md#writing-a-job-spec) introduces a new API object that runs a workload, restarts it if it fails, and keeps trying until it’s successfully completed. Read more about the[Job object](http://kubernetes.io/v1.1/docs/user-guide/jobs.html).&nbsp;
+- **Job objects (Beta)**: We’ve also had frequent request for integrated batch jobs, such as processing a batch of images to create thumbnails or a particularly large data file that has been broken down into many chunks. [Job objects](https://github.com/kubernetes/kubernetes/blob/release-1.1/docs/user-guide/jobs.md#writing-a-job-spec) introduces a new API object that runs a workload, restarts it if it fails, and keeps trying until it’s successfully completed. Read more about the[Job object](http://kubernetes.io/v1.1/docs/user-guide/jobs.html).&nbsp;
 
 - **New features to shorten the test cycle for developers** : We continue to work on making developing for applications for Kubernetes quick and easy. Two new features that speeds developer’s workflows include the ability to run containers interactively, and improved schema validation to let you know if there are any issues with your configuration files before you deploy them.&nbsp;
 
@@ -28,9 +28,9 @@ Some of the work we’d like to highlight includes:
 
 
 
-Today, we’re also proud to mark the inaugural Kubernetes conference, [KubeCon](https://kubecon.io/), where some 400 community members along with dozens of vendors are in attendance supporting the Kubernetes project.  
+Today, we’re also proud to mark the inaugural Kubernetes conference, [KubeCon](https://kubecon.io/), where some 400 community members along with dozens of vendors are in attendance supporting the Kubernetes project.
 
-We’d love to highlight just a few of the many partners making Kubernetes better:  
+We’d love to highlight just a few of the many partners making Kubernetes better:
 
 > “We are betting our major product, Tectonic – which enables any company to deploy, manage and secure its containers anywhere – on Kubernetes because we believe it is the future of the data center. The release of Kubernetes 1.1 is another major milestone that will create more widespread adoption of distributed systems and containers, and puts us on a path that will inevitably lead to a whole new generation of products and services.” – Alex Polvi, CEO, CoreOS.
 
@@ -40,7 +40,7 @@ We’d love to highlight just a few of the many partners making Kubernetes bette
 
 >
 
-As we mentioned above, we would love your help:  
+As we mentioned above, we would love your help:
 
 - Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)&nbsp;
 - Connect with the community on [Slack](http://slack.kubernetes.io/)
@@ -48,6 +48,6 @@ As we mentioned above, we would love your help:
 - Post questions (or answer questions) on Stackoverflow&nbsp;
 - Get started running, deploying, and using Kubernetes [guides](/docs/tutorials/kubernetes-basics/);
 
-But, most of all, just let us know how you are transforming your business using Kubernetes, and how we can help you do it even faster. Thank you for your support!  
+But, most of all, just let us know how you are transforming your business using Kubernetes, and how we can help you do it even faster. Thank you for your support!
 
 &nbsp;- David Aronchick, Senior Product Manager for Kubernetes and Google Container Engine
