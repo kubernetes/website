@@ -150,7 +150,7 @@ The following resource types are supported:
 In addition to the resources mentioned above, in release 1.10, quota support for
 [extended resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources) is added.
 -->
-除上述资源外，在 Kubernetes 1.10 版本中，还添加了对[扩展资源](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)的支持。
+除上述资源外，在 Kubernetes 1.10 版本中，还添加了对[扩展资源](/zh/docs/concepts/configuration/manage-resources-containers/#扩展资源-extended-resources)的支持。
 
 <!--
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
@@ -820,7 +820,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -839,7 +839,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -888,5 +888,3 @@ See a [detailed example for how to use resource quota](/docs/tasks/administer-cl
 See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
 -->
 查看[资源配额设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)了解更多信息。
-
-
