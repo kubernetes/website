@@ -146,7 +146,7 @@ CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAME
 f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
 ```
 
-Vous pouvez voir le pod miroir sur le API Server :
+Vous pouvez voir le pod miroir sur l'API Server :
 
 ```shell
 kubectl get pods
