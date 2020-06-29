@@ -326,7 +326,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
 
 {{% tab name="Cilium" %}}
 Pour plus d'informations sur l'utilisation de Cilium avec Kubernetes, voir
-[Guide d'installation de Kubernetes pour Cilium](https://docs.cilium.io/en/stable/kubernetes/).
+[Guide d'installation de Kubernetes pour Cilium](https://docs.cilium.io/en/stable/gettingstarted/k8s-install-managed/).
 
 Ces commandes déploieront Cilium avec son propre etcd géré par l'opérateur etcd.
 
