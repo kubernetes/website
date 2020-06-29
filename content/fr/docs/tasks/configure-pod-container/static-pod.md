@@ -4,9 +4,6 @@ weight: 170
 content_template: templates/task
 ---
 
-{{% capture overview %}}
-
-
 Les *pods statiques* sont gérés directement par le démon de kubelet sur un noeud spécifique,
 sans les observer par l'{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 Contrairement aux pods qui sont gérés par le control plane (par exemple, un {{< glossary_tooltip text="Deployment" term_id="deployment" >}}), le kubelet surveille chaque pod statique (et le redémarre s'il plante).
@@ -20,19 +17,10 @@ Cela signifie que les pods fonctionnant sur un noeud sont visibles sur l'API Ser
 Si vous utilisez un clustered Kubernetes et des pods statiques pour faire tourner un pod sur chaque noeud, vous devriez probablement utiliser un {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}} à la place.
 {{< /note >}}
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 Cette page suppose que vous utilisez {{< glossary_tooltip term_id="docker" >}} pour faire tourner les pods, et que vos nœuds utilisent le système d'exploitation Fedora.
 Les instructions pour d'autres distributions ou installations de Kubernetes peuvent varier.
-
-{{% /capture %}}
-
-
-{{% capture steps %}}
 
 ## Créer un pod statique {#static-pod-creation}
 
@@ -45,7 +33,7 @@ Notez que le kubelet ignorera les fichiers commençant par des points lors de l'
 
 Voici, par exemple, comment lancer un simple serveur web en tant que pod statique :
 
-1.  Choisissez un nœud où vous voulez démarrer le pod statique. Dans cet exemple, c'est `my-node1`.
+1. Choisissez un nœud où vous voulez démarrer le pod statique. Dans cet exemple, c'est `my-node1`.
 
     ```shell
     ssh my-node1
@@ -76,9 +64,10 @@ Voici, par exemple, comment lancer un simple serveur web en tant que pod statiqu
 
 3. Configurez votre kubelet sur le noeud pour utiliser ce répertoire en le lançant avec l'argument `--pod-manifest-path=/etc/kubelet.d/`. Sur Fedora, éditez `/etc/kubernetes/kubelet` pour inclure cette ligne :
 
-    ```
+    ```shell
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
     ```
+
     ou ajoutez le `staticPodPath' : <le répertoire>` dans le [fichier de configuration du kubelet](/docs/tasks/administer-cluster/kubelet-config-file).
 
 4. Redémarrez le kubelet. Sur Fedora, vous devez exécuter :
@@ -95,7 +84,7 @@ et l'interprète comme un fichier JSON/YAML qui contient les définitions des po
 De manière similaire au fonctionnement des [manifestes hébergées par des systèmes de fichiers](#configuration-files),  le kubelet
 récupère le manifeste selon un calendrier. Si des changements sont apportés à la liste des pods statiques, le kubelet les applique.
 
-Pour utiliser cette approche : 
+Pour utiliser cette approche :
 
 1. Créer un fichier YAML et le placer sur un serveur web pour que vous puissiez transmettre l'URL de ce fichier au kubelet.
 
@@ -118,7 +107,7 @@ Pour utiliser cette approche :
 
 2. Configurez le kubelet sur le nœud sélectionné pour utiliser ce manifeste web en l'exécutant avec `--manifest-url=<url-du-manifeste>`. Sur Fedora, éditez `/etc/kubernetes/kubelet` pour inclure cette ligne :
 
-    ```
+    ```shell
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<url-du-manifeste>"
     ```
 
@@ -134,6 +123,7 @@ Pour utiliser cette approche :
 Lorsque le kubelet démarre, il démarre automatiquement tous les pods statiques définis. Une fois que vous avez défini un pod statique et redémarré le kubelet, le nouveau pod statique devrait déjà être en cours d'exécution.
 
 Vous pouvez voir les conteneurs en cours d'exécution (y compris les Pods statiques) en exécutant cette commande (sur le nœud) :
+
 ```shell
 # Exécutez cette commande sur le nœud sur lequel le kubelet fonctionne
 docker ps
@@ -141,7 +131,7 @@ docker ps
 
 Le résultat obtenu ressemble à cela :
 
-```
+```text
 CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
 f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
 ```
@@ -151,7 +141,8 @@ Vous pouvez voir le pod miroir sur l'API Server :
 ```shell
 kubectl get pods
 ```
-```
+
+```text
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          2m
 ```
@@ -161,7 +152,6 @@ Vérifiez que le kubelet a la permission de créer le pod miroir dans l'API Serv
 [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
 
-
 Les {{< glossary_tooltip term_id="label" text="Labels" >}} du pod statique se propagent dans le pod mirroir. Vous pouvez utiliser ces labels comme d'habitude via {{< glossary_tooltip term_id="selector" text="selectors" >}}, etc.
 
 Si vous essayez d'utiliser `kubectl` pour supprimer le pod miroir du API Server,
@@ -170,14 +160,18 @@ le kubelet _ne_ _supprime_ _pas_ le pod statique :
 ```shell
 kubectl delete pod static-web-my-node1
 ```
-```
+
+```text
 pod "static-web-my-node1" deleted
 ```
+
 Vous pouvez voir que le pod est toujours en cours d'exécution :
+
 ```shell
 kubectl get pods
 ```
-```
+
+```text
 NAME                       READY     STATUS    RESTARTS   AGE
 static-web-my-node1        1/1       Running   0          12s
 ```
@@ -191,7 +185,8 @@ docker stop f6d05272b57e # remplacer par l'identifiant de votre conteneur
 sleep 20
 docker ps
 ```
-```
+
+```text
 CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 5b920cbaf8b1        nginx:latest  "nginx -g 'daemon of   2 seconds ago ...
 ```
@@ -212,9 +207,8 @@ mv /tmp/static-web.yaml  /etc/kubelet.d/
 sleep 20
 docker ps
 ```
-```
+
+```text
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
-
-{{% /capture %}}
