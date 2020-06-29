@@ -8,7 +8,7 @@ content_template: templates/task
 
 
 Les *pods statiques* sont gérés directement par le démon de kubelet sur un noeud spécifique,
-sans les observant par l'{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+sans les observer par l'{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 Contrairement aux pods qui sont gérés par le control plane (par exemple, un {{< glossary_tooltip text="Deployment" term_id="deployment" >}}), le kubelet surveille chaque pod statique (et le redémarre s'il plante).
 
 Les pods statiques sont toujours liés à un {{< glossary_tooltip term_id="kubelet" >}} sur un noeud spécifique.
