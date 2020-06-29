@@ -5,9 +5,9 @@ title: Services
 feature:
   title: 服务发现与负载均衡
   description: >
-    无需修改您的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载平衡。
+    无需修改您的应用程序即可使用陌生的服务发现机制。Kubernetes 为容器提供了自己的 IP 地址和一个 DNS 名称，并且可以在它们之间实现负载均衡。
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
@@ -21,12 +21,12 @@ feature:
   description: >
     No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
@@ -38,9 +38,9 @@ and can load-balance across them.
 使用Kubernetes，您无需修改应用程序即可使用不熟悉的服务发现机制。
 Kubernetes为Pods提供自己的IP地址和一组Pod的单个DNS名称，并且可以在它们之间进行负载平衡。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Motivation
@@ -328,6 +328,27 @@ Endpoint 切片是一种 API 资源，可以为 Endpoint 提供更可扩展的�
 
 Endpoint 切片提供了附加的属性和功能，这些属性和功能在 [Endpoint 切片](/docs/concepts/services-networking/endpoint-slices/)中进行了详细描述。
 
+<!-- 
+### Application protocol
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The AppProtocol field provides a way to specify an application protocol to be
+used for each Service port.
+
+As an alpha feature, this field is not enabled by default. To use this field,
+enable the `ServiceAppProtocol` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+### 应用程序协议
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+AppProtocol 字段提供了一种为每个 Service 端口指定应用程序协议的方式。
+
+作为一个 alpha 特性，该字段默认未启用。要使用该字段，请启用 `ServiceAppProtocol` [特性开关]
+(/docs/reference/command-line-tools-reference/feature-gates/)。
+
 <!--
 ## Virtual IPs and service proxies
 
@@ -458,7 +479,7 @@ having traffic sent via kube-proxy to a Pod that's known to have failed.
 
 使用 iptables 处理流量具有较低的系统开销，因为流量由 Linux netfilter 处理，而无需在用户空间和内核空间之间切换。 这种方法也可能更可靠。
 
-如果 kube-proxy 在 iptable s模式下运行，并且所选的第一个 Pod 没有响应，则连接失败。 这与用户空间模式不同：在这种情况下，kube-proxy 将检测到与第一个 Pod 的连接已失败，并会自动使用其他后端 Pod 重试。
+如果 kube-proxy 在 iptables 模式下运行，并且所选的第一个 Pod 没有响应，则连接失败。 这与用户空间模式不同：在这种情况下，kube-proxy 将检测到与第一个 Pod 的连接已失败，并会自动使用其他后端 Pod 重试。
 
 您可以使用 Pod [ readiness 探测器](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)
 验证后端 Pod 可以正常工作，以便 iptables 模式下的 kube-proxy 仅看到测试正常的后端。 这样做意味着您避免将流量通过 kube-proxy 发送到已知已失败的Pod。
@@ -868,6 +889,25 @@ to just expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+
+For example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+```
 -->
 
 ### NodePort 类型
@@ -890,6 +930,25 @@ and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in
 使用 NodePort 可以让您自由设置自己的负载平衡解决方案，配置 Kubernetes 不完全支持的环境，甚至直接暴露一个或多个节点的IP。
 
 需要注意的是，Service 能够通过 `<NodeIP>:spec.ports[*].nodePort` 和 `spec.clusterIp:spec.ports[*].port` 而对外可见。
+
+例如：
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
+    - port: 80
+      targetPort: 80
+      # 可选字段
+      # 默认情况下，为了方便起见，Kubernetes 控制平面会从某个范围内分配一个端口号（默认：30000-32767）
+      nodePort: 30007
+```
 
 <!--
 ### Type LoadBalancer {#loadbalancer}
@@ -1029,6 +1088,16 @@ metadata:
     name: my-service
     annotations:
         service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+[...]
+```
+{{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
 [...]
 ```
 {{% /tab %}}
@@ -1561,7 +1630,7 @@ worth understanding.
 One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
-you choose your own port number for a if that choice might collide with
+you choose your own port number if that choice might collide with
 someone else's choice.  That is an isolation failure.
 
 In order to allow you to choose a port number for your Services, we must
@@ -1576,7 +1645,7 @@ fail with a message indicating an IP address could not be allocated.
 
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
-in-memory locking). Kubernetes also uses controllers to checking for invalid
+in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
@@ -1585,15 +1654,16 @@ IP addresses that are no longer used by any Services.
 ### 避免冲突
 
 Kubernetes 最主要的哲学之一，是用户不应该暴露那些能够导致他们操作失败、但又不是他们的过错的场景。
-这种场景下，让我们来看一下网络端口 —— 用户不应该必须选择一个端口号，而且该端口还有可能与其他用户的冲突。
-这就是说，在彼此隔离状态下仍然会出现失败。
+对于 Service 资源的设计，这意味着如果用户的选择有可能与他人冲突，那就不要让用户自行选择端口号。
+这是一个隔离性的失败。
 
-为了使用户能够为他们的 `Service` 选择一个端口号，我们必须确保不能有2个 `Service` 发生冲突。
-我们可以通过为每个 `Service` 分配它们自己的 IP 地址来实现。
+为了使用户能够为他们的 Service 选择一个端口号，我们必须确保不能有2个 Service 发生冲突。
+Kubernetes 通过为每个 Service 分配它们自己的 IP 地址来实现。
 
-为了保证每个 `Service` 被分配到一个唯一的 IP，需要一个内部的分配器能够原子地更新 etcd 中的一个全局分配映射表，这个更新操作要先于创建每一个 `Service`。
-为了使 `Service` 能够获取到 IP，这个映射表对象必须在注册中心存在，否则创建 `Service` 将会失败，指示一个 IP 不能被分配。
-一个后台 Controller 的职责是创建映射表（从 Kubernetes 的旧版本迁移过来，旧版本中是通过在内存中加锁的方式实现），并检查由于管理员干预和清除任意 IP 造成的不合理分配，这些 IP 被分配了但当前没有 `Service` 使用它们。
+为了保证每个 Service 被分配到一个唯一的 IP，需要一个内部的分配器能够原子地更新 {{< glossary_tooltip term_id="etcd" >}} 中的一个全局分配映射表，这个更新操作要先于创建每一个 Service。
+为了使 Service 能够获取到 IP，这个映射表对象必须在注册中心存在，否则创建 Service 将会失败，指示一个 IP 不能被分配。
+
+在控制平面中，一个后台 Controller 的职责是创建映射表（需要支持从使用了内存锁的 Kubernetes 的旧版本迁移过来）。同时 Kubernetes 会通过控制器检查不合理的分配（如管理员干预导致的）以及清理已被分配但不再被任何 Service 使用的 IP 地址。
 
 <!--
 ### Service IP addresses {#ips-and-vips}
@@ -1872,9 +1942,10 @@ Kubernetes 项目打算为 L7（HTTP）`Service` 改进我们对它的支持。
 Kubernetes 项目打算为 `Service` 实现更加灵活的请求进入模式，这些 `Service` 包含当前 `ClusterIP`、`NodePort` 和 `LoadBalancer` 模式，或者更多。
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
@@ -1886,4 +1957,4 @@ Kubernetes 项目打算为 `Service` 实现更加灵活的请求进入模式，�
 * 阅读 [Ingress](/docs/concepts/services-networking/ingress/)
 * 阅读 [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 
-{{% /capture %}}
+

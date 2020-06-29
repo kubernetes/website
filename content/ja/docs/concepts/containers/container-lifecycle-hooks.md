@@ -1,17 +1,17 @@
 ---
 title: コンテナライフサイクルフック
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、kubeletにより管理されるコンテナがコンテナライフサイクルフックフレームワークを使用して、管理ライフサイクル中にイベントによって引き起こされたコードを実行する方法について説明します。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -34,7 +34,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 これはブロッキング、つまり同期的であるため、コンテナを削除するための呼び出しを送信する前に完了する必要があります。
 ハンドラーにパラメーターは渡されません。
 
-終了動作の詳細な説明は、[Termination of Pods](/ja/docs/concepts/workloads/pods/pod/#podの終了)にあります。
+終了動作の詳細な説明は、[Termination of Pods](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)にあります。
 
 ### フックハンドラーの実装
 
@@ -93,12 +93,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [コンテナ環境](/docs/concepts/containers/container-environment-variables/)の詳細
+## {{% heading "whatsnext" %}}
+
+
+* [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
 * [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 
 
-{{% /capture %}}
+

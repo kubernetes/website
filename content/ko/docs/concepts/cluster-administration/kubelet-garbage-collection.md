@@ -1,19 +1,19 @@
 ---
 title: kubelet 가비지(Garbage) 수집 설정하기
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 가비지 수집은 사용되지 않는 이미지들과 컨테이너들을 정리하는 kubelet의 유용한 기능이다. Kubelet은 1분마다 컨테이너들에 대하여 가비지 수집을 수행하며, 5분마다 이미지들에 대하여 가비지 수집을 수행한다.
 
 별도의 가비지 수집 도구들을 사용하는 것은, 이러한 도구들이 존재할 수도 있는 컨테이너들을 제거함으로써 kubelet 을 중단시킬 수도 있으므로 권장하지 않는다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 이미지 수집
 
@@ -77,10 +77,10 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 | `--outofdisk-transition-frequency` | `--eviction-pressure-transition-period` | 축출이 다른 리소스로의 디스크 압력전환을 일반화 함 |
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 자세한 내용은 [리소스 부족 처리 구성](/docs/tasks/administer-cluster/out-of-resource/)를 본다.
 
-{{% /capture %}}
+

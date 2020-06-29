@@ -1,25 +1,25 @@
 ---
-title: 인그레스
-content_template: templates/concept
+title: 인그레스(Ingress)
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.1" state="beta" >}}
 {{< glossary_definition term_id="ingress" length="all" >}}
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 용어
 
 이 가이드는 용어의 명확성을 위해 다음과 같이 정의한다.
 
-노드(Node): 클러스터의 일부이며, 쿠버네티스에 속한 워커 머신.
-클러스터(Cluster): 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 퍼블릭 인터넷의 일부가 아니다.
-에지 라우터(Edge router): 클러스터에 방화벽 정책을 적용하는 라우터. 이것은 클라우드 공급자 또는 물리적 하드웨어의 일부에서 관리하는 게이트웨이일 수 있다.
-클러스터 네트워크(Cluster network): 쿠버네티스 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)에 따라 클러스터 내부에서 통신을 용이하게 하는 논리적 또는 물리적 링크 집합.
-서비스(Service): {{< glossary_tooltip text="레이블" term_id="label" >}} 셀렉터를 사용해서 파드 집합을 식별하는 쿠버네티스 {{< glossary_tooltip term_id="service" >}}. 달리 언급하지 않으면 서비스는 클러스터 네트워크 내에서만 라우팅 가능한 가상 IP를 가지고 있다고 가정한다.
+* 노드(Node): 클러스터의 일부이며, 쿠버네티스에 속한 워커 머신.
+* 클러스터(Cluster): 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 퍼블릭 인터넷의 일부가 아니다.
+* 에지 라우터(Edge router): 클러스터에 방화벽 정책을 적용하는 라우터. 이것은 클라우드 공급자 또는 물리적 하드웨어의 일부에서 관리하는 게이트웨이일 수 있다.
+* 클러스터 네트워크(Cluster network): 쿠버네티스 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)에 따라 클러스터 내부에서 통신을 용이하게 하는 논리적 또는 물리적 링크 집합.
+* 서비스: {{< glossary_tooltip text="레이블" term_id="label" >}} 셀렉터를 사용해서 파드 집합을 식별하는 쿠버네티스 {{< glossary_tooltip text="서비스" term_id="service" >}}. 달리 언급하지 않으면 서비스는 클러스터 네트워크 내에서만 라우팅 가능한 가상 IP를 가지고 있다고 가정한다.
 
 ## 인그레스란?
 
@@ -132,11 +132,10 @@ spec:
   요소별로 경로 요소에 대해 수행한다.
   모든 _p_ 가 요청 경로의 요소별 접두사가 _p_ 인 경우
   요청은 _p_ 경로에 일치한다.
-    {{< note >}}
-    경로의 마지막 요소가 요청 경로에 있는 마지막 요소의
-    하위 문자열인 경우에는 일치하지 않는다(예시: 
-    `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
-    {{< /note >}}
+
+  {{< note >}}
+  경로의 마지막 요소가 요청 경로에 있는 마지막 요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
+  {{< /note >}}
 
 #### 다중 일치
 경우에 따라 인그레스의 여러 경로가 요청과 일치할 수 있다.
@@ -216,7 +215,7 @@ NAME           HOSTS     ADDRESS           PORTS     AGE
 test-ingress   *         203.0.113.123   80        59s
 ```
 
-여기서 `203.0.113.123` 는 인그레스 컨트롤러가 인그레스를 충족시키기 위해 
+여기서 `203.0.113.123` 는 인그레스 컨트롤러가 인그레스를 충족시키기 위해
 할당한 IP 이다.
 
 {{< note >}}
@@ -400,16 +399,16 @@ metadata:
 spec:
   tls:
   - hosts:
-    - sslexample.foo.com
+      - sslexample.foo.com
     secretName: testsecret-tls
   rules:
-    - host: sslexample.foo.com
-      http:
-        paths:
-        - path: /
-          backend:
-            serviceName: service1
-            servicePort: 80
+  - host: sslexample.foo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service1
+          servicePort: 80
 ```
 
 {{< note >}}
@@ -541,10 +540,11 @@ Events:
 * [Service.Type=LoadBalancer](/ko/docs/concepts/services-networking/service/#loadbalancer) 사용.
 * [Service.Type=NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 사용.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [인그레스] API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
 * [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

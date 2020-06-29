@@ -1,11 +1,11 @@
 ---
 draft: True
 title: Nodi
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un nodo è una macchina worker in Kubernetes, precedentemente noto come `minion`. Un nodo
 può essere una VM o una macchina fisica, a seconda del cluster. Ogni nodo contiene
@@ -14,10 +14,10 @@ componenti. I servizi su un nodo includono il [container runtime](/docs/concepts
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) sezione in
 documento di progettazione dell'architettura per maggiori dettagli.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node Status
 
@@ -283,4 +283,4 @@ Il nodo è una risorsa di livello superiore nell'API REST di Kubernetes. Maggior
 L'oggetto API può essere trovato a:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

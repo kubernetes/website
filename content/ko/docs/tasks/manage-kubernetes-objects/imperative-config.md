@@ -1,24 +1,25 @@
 ---
 title: 구성파일을 이용한 명령형 쿠버네티스 오브젝트 관리
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 오브젝트는 YAML 또는 JSON으로 작성된 오프젝트 구성파일과 함께 `kubectl`
 커맨드 라인 툴을 이용하여 생성, 업데이트 및 삭제할 수 있다.
 이 문서는 구성파일을 이용하여 어떻게 오브젝트를 정의하고 관리할 수 있는지에 대해 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 트레이드 오프
 
@@ -142,11 +143,14 @@ template:
       controller-selector: "apps/v1/deployment/nginx"
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
+
 * [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [오브젝트 구성을 이용하여 쿠버네티스 오브젝트 관리하기 (선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 커멘드 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+
+

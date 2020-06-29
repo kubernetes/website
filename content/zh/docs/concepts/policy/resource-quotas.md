@@ -2,7 +2,7 @@
 approvers:
 - derekwaynecarr
 title: 资源配额
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
@@ -11,12 +11,12 @@ weight: 10
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 When several users or teams share a cluster with a fixed number of nodes,
@@ -29,10 +29,10 @@ Resource quotas are a tool for administrators to address this concern.
 -->
 资源配额是帮助管理员解决这一问题的工具。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
@@ -729,7 +729,7 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
 ```
 
 ```shell
@@ -879,13 +879,14 @@ See a [detailed example for how to use resource quota](/docs/tasks/administer-cl
 -->
 查看[如何使用资源配额的详细示例](/docs/tasks/administer-cluster/quota-api-object/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
 -->
 查看[资源配额设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)了解更多信息。
 
-{{% /capture %}}
+

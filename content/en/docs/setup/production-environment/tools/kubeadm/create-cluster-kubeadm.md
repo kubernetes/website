@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Creating a single control-plane cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">The `kubeadm` tool helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
 `kubeadm` also supports other cluster
@@ -24,9 +24,10 @@ of cloud servers, a Raspberry Pi, and more. Whether you're deploying into the
 cloud or on-premises, you can integrate `kubeadm` into provisioning systems such
 as Ansible or Terraform.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 To follow this guide, you need:
 
@@ -53,9 +54,9 @@ slightly as the tool evolves, but the overall implementation should be pretty st
 Any commands under `kubeadm alpha` are, by definition, supported on an alpha level.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Objectives
 
@@ -117,7 +118,7 @@ While `--apiserver-advertise-address` can be used to set the advertise address f
 control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
 for all control-plane nodes.
 
-`--control-plane-endpoint` allows IP addresses but also DNS names that can map to IP addresses.
+`--control-plane-endpoint` allows both IP addresses and DNS names that can map to IP addresses.
 Please contact your network administrator to evaluate possible solutions with respect to such mapping.
 
 Here is an example mapping:
@@ -312,12 +313,11 @@ kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
 
 To deploy Cilium you just need to run:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 
 Once all Cilium Pods are marked as `READY`, you start using your cluster.
@@ -495,10 +495,10 @@ and `scp` using that other user instead.
 
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
-generate an unique credential to which you whitelist privileges. You can do
+generate an unique credential to which you grant privileges. You can do
 this with the `kubeadm alpha kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
-should save to a file and distribute to your user. After that, whitelist
+should save to a file and distribute to your user. After that, grant
 privileges by using `kubectl create (cluster)rolebinding`.
 {{< /note >}}
 
@@ -531,10 +531,9 @@ Talking to the control-plane node with the appropriate credentials, run:
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
-kubectl delete node <node name>
 ```
 
-Then, on the node being removed, reset all `kubeadm` installed state:
+Before removing the node, reset the state installed by `kubeadm`:
 
 ```bash
 kubeadm reset
@@ -552,6 +551,11 @@ If you want to reset the IPVS tables, you must run the following command:
 ipvsadm -C
 ```
 
+Now remove the node:
+```bash
+kubectl delete node <node name>
+```
+
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
 appropriate arguments.
 
@@ -564,9 +568,9 @@ See the [`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
 reference documentation for more information about this subcommand and its
 options.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## What's next {#whats-next}
 
@@ -641,4 +645,4 @@ supports your chosen platform.
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
-{{% /capture %}}
+

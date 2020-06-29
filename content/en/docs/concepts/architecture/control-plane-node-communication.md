@@ -1,25 +1,24 @@
 ---
 reviewers:
 - dchen1107
-- roberthbailey
 - liggitt
 title: Control Plane-Node Communication
-content_template: templates/concept
+content_type: concept
 weight: 20
 aliases:
 - master-node-communication
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document catalogs the communication paths between the control plane (really the apiserver) and the Kubernetes cluster. The intent is to allow users to customize their installation to harden the network configuration such that the cluster can be run on an untrusted network (or on fully public IPs on a cloud provider).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node to Control Plane
-All communication paths from the nodes to the control plane terminate at the apiserver (none of the other master components are designed to expose remote services). In a typical deployment, the apiserver is configured to listen for remote connections on a secure HTTPS port (443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
+Kubernetes has a "hub-and-spoke" API pattern. All API usage from nodes (or the pods they run) terminate at the apiserver (none of the other control plane components are designed to expose remote services). The apiserver is configured to listen for remote connections on a secure HTTPS port (typically 443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
 One or more forms of [authorization](/docs/reference/access-authn-authz/authorization/) should be enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/authentication/#anonymous-requests) or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) are allowed.
 
 Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. For example, on a default GKE deployment, the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
@@ -32,9 +31,11 @@ The control plane components also communicate with the cluster apiserver over th
 As a result, the default operating mode for connections from the nodes and pods running on the nodes to the control plane is secured by default and can run over untrusted and/or public networks.
 
 ## Control Plane to node
+
 There are two primary communication paths from the control plane (apiserver) to the nodes. The first is from the apiserver to the kubelet process which runs on each node in the cluster. The second is from the apiserver to any node, pod, or service through the apiserver's proxy functionality.
 
 ### apiserver to kubelet
+
 The connections from the apiserver to the kubelet are used for:
 
 * Fetching logs for pods.
@@ -62,9 +63,10 @@ This tunnel ensures that the traffic is not exposed outside of the network in wh
 SSH tunnels are currently deprecated so you shouldn't opt to use them unless you know what you are doing. The Konnectivity service is a replacement for this communication channel.
 
 ### Konnectivity service
+
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to Cluster communication. The Konnectivity consists of two parts, the Konnectivity server and the Konnectivity agents, running in the control plane network and the nodes network respectively. The Konnectivity agents initiate connections to the Konnectivity server and maintain the connections.
-All control plane to nodes traffic then goes through these connections.
+As a replacement to the SSH tunnels, the Konnectivity service provides TCP level proxy for the control plane to cluster communication. The Konnectivity service consists of two parts: the Konnectivity server and the Konnectivity agents, running in the control plane network and the nodes network respectively. The Konnectivity agents initiate connections to the Konnectivity server and maintain the network connections.
+After enabling the Konnectivity service, all control plane to nodes traffic goes through these connections.
 
-See [Konnectivity Service Setup](/docs/tasks/setup-konnectivity/) on how to set it up in your cluster.
+Follow the [Konnectivity service task](/docs/tasks/extend-kubernetes/setup-konnectivity/) to set up the Konnectivity service in your cluster.

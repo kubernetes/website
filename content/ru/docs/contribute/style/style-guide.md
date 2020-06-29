@@ -1,7 +1,7 @@
 ---
 title: Руководство по оформлению документации
 linktitle: Руководство по оформлению
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
@@ -9,14 +9,14 @@ card:
   title: Руководство по оформлению документации
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 На этой странице вы найдёте рекомендации по оформлению написания документации Kubernetes. Это рекомендации, а не правила. Используйте здравый смысл и не стесняйтесь предлагать изменения в этот документ в виде пулреквеста.
 
 Для получения подробной информации о создании нового контента в документацию Kubernetes посмотрите [руководство по контенту документации](/ru/docs/contribute/style/content-guide/), а также следуйте инструкциям по [использованию шаблонов страниц](/ru/docs/contribute/style/page-templates/) и [открытию пулревеста в документацию](/ru/docs/contribute/start/#улучшение-существующего-текста).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< note >}}
 В документации Kubernetes используется [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) вместе с несколькими [макрокодами Hugo](/docs/home/contribute/includes/) для добавления поддержки записей глоссария, вкладок и отображения состояний функциональностей.
@@ -559,12 +559,13 @@ Create a new cluster. | Turn up a new cluster.
 {{< /table >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Подробнее про [написание новой темы](/ru/docs/contribute/style/write-new-topic/).
 * Подробнее про [использование шаблонов страниц](/ru/docs/contribute/style/page-templates/).
 * Подробнее про [создание пулреквеста](/ru/docs/contribute/start/#отправка-пулреквеста)).
 
-{{% /capture %}}
+

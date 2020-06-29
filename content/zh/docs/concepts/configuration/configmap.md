@@ -1,16 +1,16 @@
 ---
 title: ConfigMap
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< glossary_definition term_id="configmap" prepend="ConfigMap 是" length="all" >}}
+{{< glossary_definition term_id="configmap" length="all" >}}
 
 {{< caution >}}
 <!--
-ConfigMap does not provide secrecy or encryption.  
+ConfigMap does not provide secrecy or encryption.
 If the data you want to store are confidential, use a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
 or use additional (third party) tools to keep your data private.
@@ -18,9 +18,9 @@ or use additional (third party) tools to keep your data private.
 ConfigMap 并不提供保密或者加密功能。如果你想存储的数据是机密的，请使用 {{< glossary_tooltip text="Secret" term_id="secret" >}} ，或者使用其他第三方工具来保证你的数据的私密性，而不是用 ConfigMap。
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Motivation
 
@@ -84,7 +84,7 @@ format.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  Name: game-demo
+  name: game-demo
 data:
   # 类属性键；每一个键都映射到一个简单的值
   player_initial_lives: 3
@@ -112,7 +112,7 @@ These different methods lend themselves to different ways of modeling
 the data being consumed.
 For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the Secret when it launches container(s) for a Pod.
+the ConfigMap when it launches container(s) for a Pod.
 -->
 您可以使用四种方式来使用 ConfigMap 配置 Pod 中的容器：
 
@@ -121,10 +121,10 @@ the Secret when it launches container(s) for a Pod.
 1. 在只读卷里面添加一个文件，让应用来读取
 1. 编写代码在 Pod 中运行，使用 Kubernetes API 来读取 ConfigMap
 
-这些不同的方法适用于不同的数据使用方式。对前三个方法，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 使用 Secret 中的数据在 Pod 中启动容器。
+这些不同的方法适用于不同的数据使用方式。对前三个方法，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 使用 ConfigMap 中的数据在 Pod 中启动容器。
 
 <!--
-The fourth method means you have to write code to read the Secret and its data.
+The fourth method means you have to write code to read the ConfigMap and its data.
 However, because you're using the Kubernetes API directly, your application can
 subscribe to get updates whenever the ConfigMap changes, and react
 when that happens. By accessing the Kubernetes API directly, this
@@ -132,7 +132,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 -->
-第四种方法意味着你必须编写代码才能读取 Secret 和它的数据。然而，由于您是直接使用 Kubernetes API，因此只要 ConfigMap 发生更改，您的应用就能够通过订阅来获取更新，并且在这样的情况发生的时候做出反应。通过直接进入 Kubernetes API，这个技术也可以让你能够获取到不同的命名空间里的 ConfigMap。
+第四种方法意味着你必须编写代码才能读取 ConfigMap 和它的数据。然而，由于您是直接使用 Kubernetes API，因此只要 ConfigMap 发生更改，您的应用就能够通过订阅来获取更新，并且在这样的情况发生的时候做出反应。通过直接进入 Kubernetes API，这个技术也可以让你能够获取到不同的命名空间里的 ConfigMap。
 
 这是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
@@ -213,8 +213,9 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 {{< /note >}}
 
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read about [Secrets](/docs/concepts/configuration/secret/).
@@ -226,4 +227,4 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 * 阅读 [配置 Pod 来使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 * 阅读 [Twelve-Factor 应用](https://12factor.net/) 来了解将代码和配置分开的动机。
 
-{{% /capture %}}
+

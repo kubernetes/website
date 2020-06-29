@@ -2,12 +2,12 @@
 reviewers:
 - freehan
 title: EndpointSlices
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -15,9 +15,9 @@ _EndpointSlices_ provide a simple way to track network endpoints within a
 Kubernetes cluster. They offer a more scalable and extensible alternative to
 Endpoints.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -175,11 +175,12 @@ necessary soon anyway. Rolling updates of Deployments also provide a natural
 repacking of EndpointSlices with all pods and their corresponding endpoints
 getting replaced.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Enabling EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

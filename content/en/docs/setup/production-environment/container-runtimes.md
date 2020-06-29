@@ -3,17 +3,17 @@ reviewers:
 - vincepri
 - bart0sh
 title: Container runtimes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.6" state="stable" >}}
 To run containers in Pods, Kubernetes uses a container runtime. Here are
 the installation instructions for various runtimes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< caution >}}
@@ -64,13 +64,13 @@ is to drain the Node from its workloads, remove it from the cluster and re-join 
 ## Docker
 
 On each of your machines, install Docker.
-Version 19.03.8 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
+Version 19.03.11 is recommended, but 1.13.1, 17.03, 17.06, 17.09, 18.06 and 18.09 are known to work as well.
 Keep track of the latest verified Docker version in the Kubernetes release notes.
 
 Use the following commands to install Docker on your system:
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" >}}
+{{% tab name="Ubuntu 16.04+" %}}
 
 ```shell
 # (Install Docker CE)
@@ -96,9 +96,9 @@ add-apt-repository \
 ```shell
 # Install Docker CE
 apt-get update && apt-get install -y \
-  containerd.io=1.2.13-1 \
-  docker-ce=5:19.03.8~3-0~ubuntu-$(lsb_release -cs) \
-  docker-ce-cli=5:19.03.8~3-0~ubuntu-$(lsb_release -cs)
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
 ```
 
 ```shell
@@ -124,8 +124,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (Install Docker CE)
@@ -144,8 +144,8 @@ yum-config-manager --add-repo \
 # Install Docker CE
 yum update -y && yum install -y \
   containerd.io-1.2.13 \
-  docker-ce-19.03.8 \
-  docker-ce-cli-19.03.8
+  docker-ce-19.03.11 \
+  docker-ce-cli-19.03.11
 ```
 
 ```shell
@@ -179,8 +179,14 @@ mkdir -p /etc/systemd/system/docker.service.d
 systemctl daemon-reload
 systemctl restart docker
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
+
+If you want the docker service to start on boot, run the following command:
+
+```shell
+sudo systemctl enable docker
+```
 
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
@@ -213,7 +219,7 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Debian" >}}
+{{% tab name="Debian" %}}
 
 ```shell
 # Debian Unstable/Sid
@@ -243,9 +249,9 @@ and then install CRI-O:
 ```shell
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="Ubuntu 18.04, 19.04 and 19.10" >}}
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
 
 ```shell
 # Configure package repository
@@ -259,9 +265,9 @@ sudo apt-get update
 # Install CRI-O
 sudo apt-get install cri-o-1.17
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # Install prerequisites
@@ -273,14 +279,14 @@ curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:{{< skew late
 # Install CRI-O
 yum install -y cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
 
-{{< tab name="openSUSE Tumbleweed" >}}
+{{% tab name="openSUSE Tumbleweed" %}}
 
 ```shell
 sudo zypper install cri-o
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### Start CRI-O
@@ -323,7 +329,7 @@ sysctl --system
 ### Install containerd
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" >}}
+{{% tab name="Ubuntu 16.04" %}}
 
 ```shell
 # (Install containerd)
@@ -360,24 +366,27 @@ containerd config default > /etc/containerd/config.toml
 # Restart containerd
 systemctl restart containerd
 ```
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" >}}
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 ```shell
 # (Install containerd)
 ## Set up the repository
 ### Install required packages
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
 ```shell
 ## Add docker repository
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
 ```shell
 ## Install containerd
 yum update -y && yum install -y containerd.io
+```
 
 ```shell
 ## Configure containerd
@@ -389,7 +398,7 @@ containerd config default > /etc/containerd/config.toml
 # Restart containerd
 systemctl restart containerd
 ```
-{{< /tab >}}
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd
@@ -402,4 +411,4 @@ When using kubeadm, manually configure the
 
 Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
 
-{{% /capture %}}
+

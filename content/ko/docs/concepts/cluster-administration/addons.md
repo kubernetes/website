@@ -1,9 +1,9 @@
 ---
 title: 애드온 설치
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 애드온은 쿠버네티스의 기능을 확장한다.
@@ -12,10 +12,10 @@ content_template: templates/concept
 
 각 섹션의 애드온은 알파벳 순으로 정렬되어 있다. 순서는 우선 순위와는 상관없다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 네트워킹과 네트워크 폴리시
 
@@ -30,6 +30,7 @@ content_template: templates/concept
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md)은 쿠버네티스와 함께 사용할 수 있는 오버레이 네트워크 제공자이다.
 * [Knitter](https://github.com/ZTE/Knitter/)는 쿠버네티스 파드에서 여러 네트워크 인터페이스를 지원하는 플러그인이다.
 * [Multus](https://github.com/Intel-Corp/multus-cni)는 쿠버네티스에서 SRIOV, DPDK, OVS-DPDK 및 VPP 기반 워크로드 외에 모든 CNI 플러그인(예: Calico, Cilium, Contiv, Flannel)을 지원하기 위해 쿠버네티스에서 다중 네트워크 지원을 위한 멀티 플러그인이다.
+* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)은 OVN 기반의 CNI 컨트롤러 플러그인으로 클라우드 네이티브 기반 서비스 기능 체인(Service function chaining(SFC)), 다중 OVN 오버레이 네트워킹, 동적 서브넷 생성, 동적 가상 네트워크 생성, VLAN 공급자 네트워크, 직접 공급자 네트워크와 멀티 클러스터 네트워킹의 엣지 기반 클라우드 등 네이티브 워크로드에 이상적인 멀티 네티워크 플러그인이다.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) 컨테이너 플러그인(NCP)은 VMware NSX-T와 쿠버네티스와 같은 컨테이너 오케스트레이터 간의 통합은 물론 NSX-T와 PKS(Pivotal 컨테이너 서비스) 및 OpenShift와 같은 컨테이너 기반 CaaS/PaaS 플랫폼 간의 통합을 제공한다.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)는 가시성과 보안 모니터링 기능을 통해 쿠버네티스 파드와 비-쿠버네티스 환경 간에 폴리시 기반 네트워킹을 제공하는 SDN 플랫폼이다.
 * [Romana](http://romana.io)는 [네트워크폴리시 API](/docs/concepts/services-networking/network-policies/)도 지원하는 파드 네트워크용 Layer 3 네트워킹 솔루션이다. Kubeadm 애드온 설치에 대한 세부 정보는 [여기](https://github.com/romana/romana/tree/master/containerize)에 있다.
@@ -54,4 +55,4 @@ content_template: templates/concept
 
 잘 관리된 것들이 여기에 연결되어 있어야 한다. PR을 환영한다!
 
-{{% /capture %}}
+

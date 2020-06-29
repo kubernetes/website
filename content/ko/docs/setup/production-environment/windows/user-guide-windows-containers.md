@@ -1,16 +1,16 @@
 ---
 title: 쿠버네티스에서 윈도우 컨테이너 스케줄링을 위한 가이드
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 많은 조직에서 실행하는 서비스와 애플리케이션의 상당 부분이 윈도우 애플리케이션으로 구성된다. 이 가이드는 쿠버네티스에서 윈도우 컨테이너를 구성하고 배포하는 단계를 안내한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 목표
 
@@ -20,7 +20,7 @@ weight: 75
 ## 시작하기 전에
 
 * [윈도우 서버에서 운영하는 마스터와 워커 노드](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)를 포함한 쿠버네티스 클러스터를 생성한다.
-* 쿠버네티스에서 서비스와 워크로드를 생성하고 배포하는 것은 리눅스나 윈도우 컨테이너 모두 비슷한 방식이라는 것이 중요하다. [Kubectl 커맨드](/docs/reference/kubectl/overview/)로 클러스터에 접속하는 것은 동일하다. 아래 단원의 예시는 윈도우 컨테이너를 경험하기 위해 제공한다.
+* 쿠버네티스에서 서비스와 워크로드를 생성하고 배포하는 것은 리눅스나 윈도우 컨테이너 모두 비슷한 방식이라는 것이 중요하다. [Kubectl 커맨드](/ko/docs/reference/kubectl/overview/)로 클러스터에 접속하는 것은 동일하다. 아래 단원의 예시는 윈도우 컨테이너를 경험하기 위해 제공한다.
 
 ## 시작하기: 윈도우 컨테이너 배포하기
 
@@ -67,7 +67,7 @@ spec:
         - -command
         - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
      nodeSelector:
-      beta.kubernetes.io/os: windows
+      kubernetes.io/os: windows
 ```
 
 {{< note >}}
@@ -114,7 +114,7 @@ LogMonitor Github 페이지의 지침에 따라 모든 컨테이너 바이너리
 
 ## 설정 가능한 컨테이너 username 사용하기
 
-쿠버네티스 v1.16 부터, 윈도우 컨테이너는 이미지 기본 값과는 다른 username으로 엔트리포인트와 프로세스를 실행하도록 설정할 수 있다. 이 방식은 리눅스 컨테이너에서 지원되는 방식과는 조금 차이가 있다. [여기](/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다. 
+쿠버네티스 v1.16 부터, 윈도우 컨테이너는 이미지 기본 값과는 다른 username으로 엔트리포인트와 프로세스를 실행하도록 설정할 수 있다. 이 방식은 리눅스 컨테이너에서 지원되는 방식과는 조금 차이가 있다. [여기](/docs/tasks/configure-pod-container/configure-runasusername/)에서 이에 대해 추가적으로 배울 수 있다.
 
 ## 그룹 매니지드 서비스 어카운트를 이용하여 워크로드 신원 관리하기
 
@@ -170,7 +170,7 @@ tolerations:
 
 ### RuntimeClass로 단순화
 
-[RuntimeClass] 를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화 할 수 있다. 클러스터 관리자는 
+[RuntimeClass] 를 사용해서 테인트(taint)와 톨러레이션(toleration)을 사용하는 프로세스를 간소화 할 수 있다. 클러스터 관리자는
 이 테인트와 톨러레이션을 캡슐화하는데 사용되는 `RuntimeClass` 오브젝트를 생성할 수 있다.
 
 
@@ -245,6 +245,6 @@ spec:
 ```
 
 
-{{% /capture %}}
+
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

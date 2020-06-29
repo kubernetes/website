@@ -5,18 +5,18 @@ feature:
   description: >
     ローカルストレージや<a href="https://cloud.google.com/storage/">GCP</a>、<a href="https://aws.amazon.com/products/storage/">AWS</a>などのパブリッククラウドプロバイダー、もしくはNFS、iSCSI、Gluster、Ceph、Cinder、Flockerのようなネットワークストレージシステムの中から選択されたものを自動的にマウントします。
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このドキュメントではKubernetesの`PersistentVolume`について説明します。[ボリューム](/docs/concepts/storage/volumes/)を一読することをおすすめします。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 概要
 
@@ -54,7 +54,7 @@ APIサーバーのコマンドラインフラグの詳細については[kube-ap
 
 ### バインディング
 
-ユーザは、特定のサイズのストレージとアクセスモードを指定した上で`PersistentVolumeClaim`を作成します（動的プロビジョニングの場合は、すでに作られています）。マスター内のコントロールループは、新しく作られるPVCをウォッチして、それにマッチするPVが見つかったときに、それらを紐付けます。PVが新しいPVC用に動的プロビジョニングされた場合、コントロールループは常にPVをそのPVCに紐付けます。そうでない場合、ユーザーは常に少なくとも要求したサイズ以上のボリュームを取得しますが、ボリュームは要求されたサイズを超えている可能性があります。一度紐付けされると、どのように紐付けられたかに関係なく`PersistentVolumeClaim`の紐付けは排他的（決められた特定のPVとしか結びつかない状態）になります。PVCからPVへの紐付けは1対1です。
+ユーザは、特定のサイズのストレージとアクセスモードを指定した上でPersistentVolumeClaimを作成します（動的プロビジョニングの場合は、すでに作られています）。マスター内のコントロールループは、新しく作られるPVCをウォッチして、それにマッチするPVが見つかったときに、それらを紐付けます。PVが新しいPVC用に動的プロビジョニングされた場合、コントロールループは常にPVをそのPVCに紐付けます。そうでない場合、ユーザーは常に少なくとも要求したサイズ以上のボリュームを取得しますが、ボリュームは要求されたサイズを超えている可能性があります。一度紐付けされると、どのように紐付けられたかに関係なくPersistentVolumeClaimの紐付けは排他的（決められた特定のPVとしか結びつかない状態）になります。PVCからPVへの紐付けは、PersistentVolumeとPersistentVolumeClaim間の双方向の紐付けであるClaimRefを使用した1対1のマッピングになっています。
 
 一致するボリュームが存在しない場合、クレームはいつまでも紐付けされないままになります。一致するボリュームが利用可能になると、クレームがバインドされます。たとえば、50GiのPVがいくつもプロビジョニングされているクラスターだとしても、100Giを要求するPVCとは一致しません。100GiのPVがクラスターに追加されると、PVCを紐付けできます。
 
@@ -99,7 +99,7 @@ Labels:          type=local
 Annotations:     <none>
 Finalizers:      [kubernetes.io/pv-protection]
 StorageClass:    standard
-Status:          Available
+Status:          Terminating
 Claim:
 Reclaim Policy:  Delete
 Access Modes:    RWO
@@ -131,7 +131,7 @@ Events:            <none>
 #### リサイクル
 
 {{< warning >}}
-`Recycle`再クレームポリシーは廃止されました。代わりに、動的プロビジョニングを使用することをおすすめします。
+`Recycle`再クレームポリシーは非推奨になりました。代わりに、動的プロビジョニングを使用することをおすすめします。
 {{< /warning >}}
 
 基盤となるボリュームプラグインでサポートされている場合、`Recycle`再クレームポリシーはボリュームに対して基本的な削除(`rm -rf /thevolume/*`)を実行し、新しいクレームに対して再び利用できるようにします。
@@ -260,6 +260,8 @@ EBSの拡張は時間がかかる操作です。また変更は、ボリュー�
 ## 永続ボリューム
 
 各PVには、仕様とボリュームのステータスが含まれているspecとstatusが含まれています。
+PersistentVolumeオブジェクトの名前は、有効な
+[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -281,6 +283,11 @@ spec:
     path: /tmp
     server: 172.17.0.2
 ```
+
+{{< note >}}
+クラスター内でPersistentVolumeを使用するには、ボリュームタイプに関連するヘルパープログラムが必要な場合があります。
+この例では、PersistentVolumeはNFSタイプで、NFSファイルシステムのマウントをサポートするためにヘルパープログラム`/sbin/mount.nfs`が必要になります。
+{{< /note >}}
 
 ### 容量
 
@@ -400,9 +407,12 @@ PVは[ノードアフィニティ](/docs/reference/generated/kubernetes-api/{{< 
 
 CLIにはPVに紐付いているPVCの名前が表示されます。
 
-## 永続ボリューム要求
+## 永続ボリューム要求 {#persistentvolumeclaims}
 
 各PVCにはspecとステータスが含まれます。これは、仕様とクレームのステータスです。
+
+PersistentVolumeClaimオブジェクトの名前は、有効な
+[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 ```yaml
 apiVersion: v1
@@ -438,7 +448,7 @@ Podと同様に、クレームは特定の量のリソースを要求できま�
 
 ### セレクター
 
-クレームでは、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
+クレームでは、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を指定して、ボリュームセットをさらにフィルター処理できます。ラベルがセレクターに一致するボリュームのみがクレームにバインドできます。セレクターは2つのフィールドで構成できます。
 
 * `matchLabels` - ボリュームはこの値のラベルが必要です
 * `matchExpressions` - キー、値のリスト、およびキーと値を関連付ける演算子を指定することによって作成された要件のリスト。有効な演算子は、In、NotIn、ExistsおよびDoesNotExistです。
@@ -594,7 +604,7 @@ Podにrawブロックデバイスを追加する場合は、マウントパス�
 
 ## ボリュームのスナップショットとスナップショットからのボリュームの復元のサポート
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 ボリュームスナップショット機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームのスナップショット](/docs/concepts/storage/volume-snapshots/)を参照してください。
 
@@ -624,7 +634,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
+ボリュームの複製機能は、CSIボリュームプラグインのみをサポートするために追加されました。詳細については、[ボリュームの複製](/ja/docs/concepts/storage/volume-pvc-datasource/)を参照してください。
 
 PVCデータソースからのボリューム複製機能を有効にするには、apiserverおよびcontroller-managerで`VolumeSnapshotDataSource`フィーチャーゲートを有効にします。
 
@@ -658,4 +668,15 @@ spec:
   - ユーザーがストレージクラス名を指定しない場合、`persistentVolumeClaim.storageClassName`フィールドはnilのままにする。これにより、PVはユーザーにクラスターのデフォルトストレージクラスで自動的にプロビジョニングされる。多くのクラスター環境ではデフォルトのストレージクラスがインストールされているが、管理者は独自のデフォルトストレージクラスを作成することができる。
 - ツールがPVCを監視し、しばらくしてもバインドされないことをユーザーに表示する。これはクラスターが動的ストレージをサポートしない(この場合ユーザーは対応するPVを作成するべき)、もしくはクラスターがストレージシステムを持っていない(この場合ユーザーはPVCを必要とする設定をデプロイできない)可能性があることを示す。
 
-{{% /capture %}}
+  ## {{% heading "whatsnext" %}}
+
+* [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)について学ぶ
+* [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)について学ぶ
+* [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)を読む
+
+### リファレンス
+
+* [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
+* [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
+* [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
+* [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)

@@ -1,27 +1,27 @@
 ---
 title: 파드 토폴로지 분배 제약 조건
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 사용자는 _토폴로지 분배 제약 조건_ 을 사용해서 지역, 영역, 노드 그리고 기타 사용자-정의 토폴로지 도메인과 같이 장애-도메인으로 설정된 클러스터에 걸쳐 파드가 분산되는 방식을 제어할 수 있다. 이를 통해 고가용성뿐만 아니라, 효율적인 리소스 활용의 목적을 이루는 데 도움이 된다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 필수 구성 요소
 
 ### 기능 게이트 활성화
 
-를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와** 
-{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 
-대해 `EvenPodsSpread`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되어야 한다.
+를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와**
+{{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 대해
+`EvenPodsSpread` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+활성화되어야 한다.
 
 ### 노드 레이블
 
@@ -55,7 +55,7 @@ node4   Ready    <none>   2m43s   v1.16.0   node=node4,zone=zoneB
 
 `pod.spec.topologySpreadConstraints` 필드는 1.16에서 다음과 같이 도입되었다.
 
-```yaml
+```
 apiVersion: v1
 kind: Pod
 metadata:
@@ -97,7 +97,7 @@ spec:
 
 {{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
 
-`topologyKey: zone` 는 "zone:<any value>" 레이블 쌍을 가지는 노드에 대해서만 균등한 분배를 적용하는 것을 의미한다. `whenUnsatisfiable: DoNotSchedule` 은 만약 들어오는 파드가 제약 조건을 만족시키지 못하면 스케줄러에게 pending 상태를 유지하도록 지시한다.
+`topologyKey: zone` 는 "zone:&lt;any value&gt;" 레이블 쌍을 가지는 노드에 대해서만 균등한 분배를 적용하는 것을 의미한다. `whenUnsatisfiable: DoNotSchedule` 은 만약 들어오는 파드가 제약 조건을 만족시키지 못하면 스케줄러에게 pending 상태를 유지하도록 지시한다.
 
 만약 스케줄러가 이 신규 파드를 "zoneA"에 배치하면 파드 분포는 [3, 1]이 되며, 따라서 실제 차이(skew)는 2 (3 - 1)가 되어 `maxSkew: 1` 를 위반하게 된다. 이 예시에서는 들어오는 파드는 오직 "zoneB"에만 배치할 수 있다.
 
@@ -160,6 +160,7 @@ spec:
 - 신규 파드와 같은 네임스페이스를 갖는 파드만이 매칭의 후보가 된다.
 
 - `topologySpreadConstraints[*].topologyKey` 가 없는 노드는 무시된다. 이것은 다음을 의미한다.
+
   1. 이러한 노드에 위치한 파드는 "maxSkew" 계산에 영향을 미치지 않는다. - 위의 예시에서, "node1"은 "zone" 레이블을 가지고 있지 않다고 가정하면, 파드 2개는 무시될 것이고, 이런 이유로 신규 파드는 "zoneA"로 스케줄된다.
   2. 신규 파드는 이런 종류의 노드에 스케줄 될 기회가 없다. - 위의 예시에서, 레이블로 `{zone-typo: zoneC}` 를 가지는 "node5"가 클러스터에 편입한다고 가정하면, 레이블 키에 "zone"이 없기 때문에 무시하게 된다.
 
@@ -191,13 +192,13 @@ spec:
 토폴로지 분배 제약 조건은 다음과 같은 경우에만 파드에 적용된다.
 
 - `.spec.topologySpreadConstraints` 에는 어떠한 제약도 정의되어 있지 않는 경우.
-- 서비스, 레플리케이션 컨트롤러, 레플리카 셋 또는 스테이트풀 셋에 속해있는 경우.
+- 서비스, 레플리케이션컨트롤러(ReplicationController), 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)에 속해있는 경우.
 
 기본 제약 조건은 [스케줄링 프로파일](/docs/reference/scheduling/profiles)에서
 `PodTopologySpread` 플러그인의 일부로 설정할 수 있다.
 제약 조건은 `labelSelector` 가 비어 있어야 한다는 점을 제외하고, [위와 동일한 API](#api)로
 제약 조건을 지정한다. 셀렉터는 파드가 속한 서비스, 레플리케이션 컨트롤러,
-레플리카 셋 또는 스테이트풀 셋에서 계산한다.
+레플리카 셋 또는 스테이트풀셋에서 계산한다.
 
 예시 구성은 다음과 같다.
 
@@ -226,17 +227,16 @@ profiles:
 ## 파드어피니티(PodAffinity)/파드안티어피니티(PodAntiAffinity)와의 비교
 
 쿠버네티스에서 "어피니티(Affinity)"와 관련된 지침은 파드가
-더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다. 
+더 많이 채워지거나 더 많이 분산되는 방식으로 스케줄 되는 방법을 제어한다.
 
 - `PodAffinity` 는, 사용자가 자격이 충족되는 토폴로지 도메인에
   원하는 수의 파드를 얼마든지 채울 수 있다.
 - `PodAntiAffinity` 로는, 단일 토폴로지 도메인에
   단 하나의 파드만 스케줄 될 수 있다.
 
-"EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서 
-고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와
-레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
-더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20190221-pod-topology-spread.md#motivation)를 참조한다.
+"EvenPodsSpread" 기능은 다양한 토폴로지 도메인에 파드를 균등하게 분배해서
+고 가용성 또는 비용 절감을 달성할 수 있는 유연한 옵션을 제공한다. 또한 워크로드의 롤링 업데이트와 레플리카의 원활한 스케일링 아웃에 도움이 될 수 있다.
+더 자세한 내용은 [모티베이션(Motivation)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)를 참조한다.
 
 ## 알려진 제한사항
 
@@ -245,4 +245,4 @@ profiles:
 - 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
 
-{{% /capture %}}
+

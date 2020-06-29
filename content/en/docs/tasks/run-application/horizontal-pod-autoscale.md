@@ -9,11 +9,11 @@ feature:
   description: >
     Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with
@@ -26,10 +26,10 @@ The resource determines the behavior of the controller.
 The controller periodically adjusts the number of replicas in a replication controller or deployment
 to match the observed average CPU utilization to the target specified by user.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How does the Horizontal Pod Autoscaler work?
 
@@ -181,7 +181,8 @@ are preserved as annotations when working with `autoscaling/v1`.
 When you create a HorizontalPodAutoscaler API object, make sure the name specified is a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 More details about the API object can be found at
-[HorizontalPodAutoscaler Object](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
+[HorizontalPodAutoscaler Object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling).
+
 
 ## Support for Horizontal Pod Autoscaler in kubectl
 
@@ -260,7 +261,7 @@ See [Support for metrics APIs](#support-for-metrics-apis) for the requirements.
 By default, the HorizontalPodAutoscaler controller retrieves metrics from a series of APIs.  In order for it to access these
 APIs, cluster administrators must ensure that:
 
-* The [API aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) is enabled.
+* The [API aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) is enabled.
 
 * The corresponding APIs are registered:
 
@@ -376,7 +377,7 @@ For scaling down the stabilization window is _300_ seconds(or the value of the
 for scaling down which allows a 100% of the currently running replicas to be removed which
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
-scaled up the target is scaled up immediately. There are 2 policies which. 4 pods or a 100% of the currently
+scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 
 ### Example: change downscale stabilization window
@@ -431,12 +432,13 @@ behavior:
     selectPolicy: Disabled
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Design documentation: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale command: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Usage example of [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

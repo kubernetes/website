@@ -1,10 +1,10 @@
 ---
 title: 파드 우선순위(priority)와 선점(preemption)
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
@@ -13,9 +13,9 @@ weight: 70
 스케줄러는 우선순위가 낮은 파드를 선점(축출)하여 보류 중인 파드를
 스케줄링할 수 있게 한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< warning >}}
@@ -47,13 +47,6 @@ weight: 70
 두 개의 프라이어리티클래스를 제공한다.
 이들은 일반적인 클래스이며 [중요한(critical) 컴포넌트가 항상 먼저 스케줄링이 되도록 하는 데](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 사용된다.
 {{< /note >}}
-
-기능을 사용해 본 후 사용하지 않기로 했다면, PodPriority
-커맨드-라인 플래그를 제거하거나 `false` 로 설정한 후, API 서버와
-스케줄러를 다시 시작해야 한다. 기능이 비활성화된 후, 기존 파드는
-우선순위 필드를 유지하지만, 선점은 비활성화되며, 우선순위 필드는
-무시된다. 이 기능이 비활성화되면, 새로운 파드에서 `priorityClassName` 을 설정할 수
-없다.
 
 ## 선점을 비활성화하는 방법
 
@@ -117,7 +110,7 @@ disablePreemption: true
 
 ### PodPriority와 기존 클러스터에 대한 참고 사항
 
--   기존 클러스터를 업그레이드하고 이 기능을 활성화하면, 기존 파드의
+-   이 기능없이 기존 클러스터를 업그레이드 하는 경우, 기존 파드의
     우선순위는 사실상 0이다.
 
 -   `globalDefault` 가 `true` 로 설정된 프라이어리티클래스를 추가해도 기존 파드의
@@ -411,7 +404,8 @@ kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 �
 초과하지 않으면, 축출되지 않는다. 요청을 초과하는 우선순위가
 더 높은 다른 파드가 축출될 수 있다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
-{{% /capture %}}
+

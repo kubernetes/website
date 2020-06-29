@@ -3,7 +3,7 @@ reviewers:
 - lachie83
 - khenidak
 title: 验证 IPv4/IPv6 双协议栈
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -11,18 +11,19 @@ reviewers:
 - lachie83
 - khenidak
 title: Validate IPv4/IPv6 dual-stack
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 -->
 这篇文章分享了如何验证 IPv4/IPv6 双协议栈的 Kubernetes 集群。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 * Kubernetes 1.16 or later
@@ -37,9 +38,9 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 * Kube-proxy 在 IPVS 模式下运行
 * [启用双协议栈](/docs/concepts/services-networking/dual-stack/) 集群
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Validate addressing
@@ -236,7 +237,7 @@ NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S
 my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
 ```
 
-{{% /capture %}}
+
 
 
 

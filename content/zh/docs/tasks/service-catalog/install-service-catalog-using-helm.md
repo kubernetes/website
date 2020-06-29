@@ -1,17 +1,17 @@
 ---
 title: 使用 Helm 安装 Service Catalog
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 title: Install Service Catalog using Helm
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
 
 <!--
@@ -20,9 +20,10 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 使用 [Helm](https://helm.sh/) 在 Kubernetes 集群上安装 Service Catalog。
 要获取有关此过程的最新信息，请浏览 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/docs/install.md) 仓库。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 * Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
 * Service Catalog requires a Kubernetes cluster running version 1.7 or higher.
@@ -44,9 +45,9 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
     * 遵照 [Helm 安装说明](https://github.com/kubernetes/helm/blob/master/docs/install.md)。
     * 如果已经安装了适当版本的 Helm，请执行 `helm init` 来安装 Helm 的服务器端组件 Tiller。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Add the service-catalog Helm repository
 -->
@@ -141,14 +142,21 @@ Install Service Catalog from the root of the Helm repository using the following
 -->
 使用以下命令从 Helm 存储库的根目录安装 Service Catalog：
 
+{{< tabs name="helm-versions" >}} 
+{{% tab name="Helm version 3" %}}
 ```shell
-helm install svc-cat/catalog \
-    --name catalog --namespace catalog
+helm install catalog svc-cat/catalog --namespace catalog
+```
+{{% /tab %}}
+{{% tab name="Helm version 2" %}}
+```shell
+helm install svc-cat/catalog --name catalog --namespace catalog
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
@@ -156,4 +164,4 @@ helm install svc-cat/catalog \
 * 查看[示例服务代理](https://github.com/openservicebrokerapi/servicebroker/blob/mastergettingStarted.md#sample-service-brokers)。
 * 探索 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
 
-{{% /capture %}}
+

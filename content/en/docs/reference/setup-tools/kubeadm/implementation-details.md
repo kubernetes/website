@@ -3,10 +3,10 @@ reviewers:
 - luxas
 - jbeda
 title: Implementation details
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.10" state="stable" >}}
 
@@ -14,9 +14,9 @@ weight: 100
 However, it might not be obvious _how_ kubeadm does that.
 
 This document provides additional details on what happen under the hood, with the aim of sharing knowledge on Kubernetes cluster best practices.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Core design principles
 
 The cluster that `kubeadm init` and `kubeadm join` set up should be:
@@ -531,4 +531,4 @@ Please note that:
 
 1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
 
-{{% /capture %}}
+

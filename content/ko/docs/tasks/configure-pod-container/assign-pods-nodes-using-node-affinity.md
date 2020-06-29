@@ -1,22 +1,23 @@
 ---
 title: 노드 어피니티를 사용해 노드에 파드 할당
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 문서는 쿠버네티스 클러스터의 특정 노드에 노드 어피니티를 사용해 쿠버네티스 파드를 할당하는
 방법을 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 노드에 레이블 추가
 
@@ -112,9 +113,10 @@ weight: 120
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-[노드 어피니티](/ko/docs/concepts/configuration/assign-pod-node/#node-affinity)에
+
+## {{% heading "whatsnext" %}}
+
+[노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)에
 대해 더 알아보기.
-{{% /capture %}}
+

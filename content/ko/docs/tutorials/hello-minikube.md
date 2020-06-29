@@ -1,51 +1,47 @@
 ---
 title: Hello Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
     title: "Get Started"
     weight: 10
     post: >
-      <p>Ready to get your hands dirty? Build a simple Kubernetes cluster that runs "Hello World" for Node.js.</p>
+      <p>작업할 준비가 되었나요? 샘플 애플리케이션을 실행하는 간단한 쿠버네티스 클러스터를 구축합니다.</p>
 card:
   name: tutorials
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 튜토리얼에서는 [Minikube](/ko/docs/setup/learning-environment/minikube)와 Katacoda를 이용하여
-쿠버네티스에서 Node.js 로 작성된 간단한 Hello World 애플리케이션을 어떻게 실행하는지 살펴본다.
+쿠버네티스에서 샘플 애플리케이션을 어떻게 실행하는지 살펴본다.
 Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 {{< note >}}
 [로컬에서 Minikube](/ko/docs/tasks/tools/install-minikube/)를 설치했다면 이 튜토리얼도 따라 할 수 있다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
 
-* hello world 애플리케이션을 Minikube에 배포한다.
+## {{% heading "objectives" %}}
+
+
+* 샘플 애플리케이션을 Minikube에 배포한다.
 * 배포한 애플리케이션을 실행한다.
 * 애플리케이션의 로그를 확인한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-이 튜토리얼에서 아래 파일들을 빌드한 컨테이너 이미지를 제공한다.
+## {{% heading "prerequisites" %}}
 
-{{< codenew language="js" file="minikube/server.js" >}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+이 튜토리얼은 NGINX를 사용해서 모든 요청에 응답하는 컨테이너 이미지를 제공한다.
 
-`docker build`명령에 대한 자세한 설명은 [Docker 문서](https://docs.docker.com/engine/reference/commandline/build/)를 읽어보자.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 ## Minikubue 클러스터 만들기
 
@@ -53,7 +49,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
     {{< kat-button >}}
 
-    {{< note >}}Minikube를 로컬에 설치했다면 `minikube start`을 실행한다.{{< /note >}}
+{{< note >}}
+    Minikube를 로컬에 설치했다면 `minikube start`를 실행한다.
+{{< /note >}}
 
 2. 브라우저에서 쿠버네티스 대시보드를 열어보자.
 
@@ -99,6 +97,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl get pods
     ```
+    
     다음과 유사하게 출력된다.
 
     ```
@@ -118,7 +117,9 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     kubectl config view
     ```
 
-    {{< note >}}`kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개관](/docs/user-guide/kubectl-overview/)을 살펴보자.{{< /note >}}
+{{< note >}}
+    `kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/docs/user-guide/kubectl-overview/)을 살펴보자.
+{{< /note >}}
 
 ## 서비스 만들기
 
@@ -165,7 +166,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
 
 5. Katacoda 환경에서만: 서비스 출력에서 `8080`의 반대편에 표시되는 5자리 포트 번호를 기록 한다. 이 포트 번호는 무작위로 생성되며, 사용자마다 다를 수 있다. 포트 번호 텍스트 상자에 포트 번호를 입력한 다음, 포트 표시를 클릭한다. 이전 예시를 사용해서 `30369` 를 입력한다.
 
-    이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 "Hello World" 메시지를 보여준다.
+    이렇게 하면 당신의 앱을 서비스하는 브라우저 윈도우를 띄우고 애플리케이션의 응답을 볼 수 있다.
 
 ## 애드온 사용하기
 
@@ -273,12 +274,13 @@ minikube stop
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
 * [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
 * [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
 
-{{% /capture %}}
+

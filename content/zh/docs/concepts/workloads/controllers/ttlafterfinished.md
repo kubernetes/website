@@ -1,6 +1,6 @@
 ---
 title: 已完成资源的 TTL 控制器
-content_template: templates/concept
+content_type: concept
 weight: 65
 ---
 <!--
@@ -8,12 +8,12 @@ weight: 65
 reviewers:
 - janetkuo
 title: TTL Controller for Finished Resources
-content_template: templates/concept
+content_type: concept
 weight: 65
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
@@ -33,10 +33,10 @@ Alpha Disclaimer: this feature is currently alpha, and can be enabled with both 
 -->
 Alpha 免责声明：此功能目前是 alpha 版，并且可以通过 kube-apiserver 和 kube-controller-manager [特性开关](/docs/reference/command-line-tools-reference/feature-gates/) `TTLAfterFinished` 启用。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## TTL Controller
@@ -124,9 +124,10 @@ very small. Please be aware of this risk when setting a non-zero TTL.
 -->
 在 Kubernetes 中，需要在所有节点上运行 NTP（参见 [#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058)）以避免时间偏差。时钟并不总是如此正确，但差异应该很小。设置非零 TTL 时请注意避免这种风险。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 [Clean up Jobs automatically](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
@@ -138,4 +139,4 @@ very small. Please be aware of this risk when setting a non-zero TTL.
 -->
 [设计文档](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
-{{% /capture %}}
+

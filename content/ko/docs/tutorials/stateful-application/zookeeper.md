@@ -1,17 +1,18 @@
 ---
 title: 분산 시스템 코디네이터 ZooKeeper 실행하기
-content_template: templates/tutorial
+content_type: tutorial
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 튜토리얼은 [아파치 ZooKeeper](https://zookeeper.apache.org)
 쿠버네티스에서 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)과
 [파드디스룹선버짓(PodDisruptionBudget)](/ko/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)과
 [파드안티어피니티(PodAntiAffinity)](/ko/docs/user-guide/node-selection/#파드간-어피니티와-안티-어피니티)를 이용한 [Apache Zookeeper](https://zookeeper.apache.org) 실행을 설명한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 이 튜토리얼을 시작하기 전에
 다음 쿠버네티스 개념에 친숙해야 한다.
@@ -32,18 +33,19 @@ weight: 40
 그렇게 설정되어 있지 않다면
 튜토리얼을 시작하기 전에 수동으로 3개의 20 GiB 볼륨을
 프로비저닝해야 한다.
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 이 튜토리얼을 마치면 다음에 대해 알게 된다.
 
 -   어떻게 스테이트풀셋을 이용하여 ZooKeeper 앙상블을 배포하는가.
 -   어떻게 지속적해서 컨피그맵을 이용해서 앙상블을 설정하는가.
 -   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 -   어떻게 파드디스룹션버짓을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
-    {{% /capture %}}
+    
 
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 ### ZooKeeper 기본 {#zookeeper-basics}
 
@@ -714,7 +716,6 @@ zk-0      1/1       Running   1         29m
 쿠버네티스에게 알리도록 활성도 검사를 이용해야 한다.
 
 `zk` `스테이트풀셋`에 파드 `template`에 활성도 검사를 명시한다.
-``
 
 ```yaml
  livenessProbe:
@@ -1082,14 +1083,17 @@ node "kubernetes-node-ixsl" uncordoned
 ```
 
 `kubectl drain`을 `PodDisruptionBudget`과 결합하면 유지보수 중에도 서비스를 가용하게 할 수 있다. drain으로 노드를 통제하고 유지보수를 위해 노드를 오프라인하기 전에 파드를 추출하기 위해 사용한다면 서비스는 혼란 예산을 표기한 서비스는 그 예산이 존중은 존중될 것이다. 파드가 즉각적으로 재스케줄 할 수 있도록 항상 중요 서비스를 위한 추가 용량을 할당해야 한다.
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 - `kubectl uncordon`은 클러스터 내에 모든 노드를 통제 해제한다.
 - 이 튜토리얼에서 사용한 퍼시스턴트 볼륨을 위한
   퍼시스턴트 스토리지 미디어를 삭제하자.
   귀하의 환경과 스토리지 구성과 프로비저닝 방법에서 필요한 절차를 따라서
   모든 스토리지가 재확보되도록 하자.
-{{% /capture %}}
+
+
+
 

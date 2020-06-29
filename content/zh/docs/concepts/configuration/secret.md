@@ -1,11 +1,11 @@
 ---
 title: Secret
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes `secret` objects let you store and manage sensitive information, such
@@ -18,9 +18,9 @@ is safer and more flexible than putting it verbatim in a
 将这些信息放在 `secret` 中比放在 {{< glossary_tooltip term_id="pod" >}} 的定义或者 {{< glossary_tooltip text="容器镜像" term_id="image" >}} 中来说更加安全和灵活。
 参阅 [Secret 设计文档](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) 获取更多详细信息。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Overview of Secrets
@@ -1561,6 +1561,7 @@ for secret data, so that the secrets are not stored in the clear into {{< glossa
 - 可以创建和使用 secret 的 pod 的用户也可以看到该 secret 的值。即使 API server 策略不允许用户读取 secret 对象，用户也可以运行暴露 secret 的 pod。
 - 目前，任何节点的 root 用户都可以通过模拟 kubelet 来读取 API server 中的任何 secret。只有向实际需要它们的节点发送 secret 才能限制单个节点的根漏洞的影响，该功能还在计划中。
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+

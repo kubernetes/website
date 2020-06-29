@@ -1,18 +1,18 @@
 ---
 title: 스토리지 클래스
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 쿠버네티스의 스토리지클래스의 개념을 설명한다.
 [볼륨](/ko/docs/concepts/storage/volumes/)과
 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes)에 익숙해지는 것을 권장한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -162,11 +162,11 @@ CSI | 1.14 (alpha), 1.16 (beta)
 클러스터 관리자는 `WaitForFirstConsumer` 모드를 지정해서 이 문제를 해결할 수 있는데
 이 모드는 퍼시스턴트볼륨클레임을 사용하는 파드가 생성될 때까지 퍼시스턴트볼륨의 바인딩과 프로비저닝을 지연시킨다.
 퍼시스턴트볼륨은 파드의 스케줄링 제약 조건에 의해 지정된 토폴로지에
-따라 선택되거나 프로비전된다. 여기에는 [리소스
-요구 사항](/docs/concepts/configuration/manage-compute-resources-container/),
-[노드 셀렉터](/ko/docs/concepts/configuration/assign-pod-node/#노드-셀렉터-nodeselector),
+따라 선택되거나 프로비전된다. 여기에는
+[리소스 요구 사항](/ko/docs/concepts/configuration/manage-resources-containers/),
+[노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
-안티-어피니티(anti-affinity)](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
 그리고 [테인트(taint)와 톨러레이션(toleration)](/docs/concepts/configuration/taint-and-toleration/)이 포함된다.
 
 다음 플러그인은 동적 프로비저닝과 `WaitForFirstConsumer` 를 지원한다.
@@ -816,4 +816,3 @@ volumeBindingMode: WaitForFirstConsumer
 적절한 퍼시스턴트볼륨을 선택할 때 파드의 모든 스케줄링
 제약 조건을 고려할 수 있다.
 
-{{% /capture %}}

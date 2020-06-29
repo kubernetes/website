@@ -1,6 +1,39 @@
-.announcement {
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: 3px;
-    background-color: #eeeeee;
+.announcement.content {
+  margin-bottom: 0px;
+}
+
+.announcement > p,
+.gridPage #announcement .content p,
+.announcement > h4,
+.announcement > h3 {
+  color: #ffffff;
+}
+
+#announcement a,
+#fp-announcement a {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+#announcement a:hover,
+#fp-announcement a:hover {
+  border-bottom: none;
+}
+
+#announcement {
+  padding-top: 125px;
+  padding-bottom: 25px;
+}
+
+.header-hero {
+  padding-top: 40px;
+}
+
+#fp-announcement {
+  min-height: 30vh;
+}
+
+#fp-announcement aside {
+  padding-top: 125px;
+  padding-bottom: 35px;
 }

@@ -3,9 +3,9 @@ no_issue: true
 title: 入门
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
-  name: 设置
+  name: setup
   weight: 20
   anchors:
   - anchor: "#learning-environment"
@@ -15,7 +15,6 @@ card:
 ---
 
 <!--
----
 reviewers:
 - brendandburns
 - erictune
@@ -24,7 +23,7 @@ no_issue: true
 title: Getting started
 main_menu: true
 weight: 20
-content_template: templates/concept
+content_type: concept
 card:
   name: setup
   weight: 20
@@ -33,10 +32,9 @@ card:
     title: Learning environment
   - anchor: "#production-environment"
     title: Production environment  
----
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This section covers different options to set up and run Kubernetes.
@@ -58,9 +56,9 @@ More simply, you can create a Kubernetes cluster in learning and production envi
 -->
 更简单地说，可以在学习和生产环境中创建一个 Kubernetes 集群。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Learning environment
@@ -104,4 +102,4 @@ When evaluating a solution for a production environment, consider which aspects 
 -->
 [Kubernetes 合作伙伴](https://kubernetes.io/partners/#conformance) 包括一个 [已认证的 Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 提供商列表。
 
-{{% /capture %}}
+

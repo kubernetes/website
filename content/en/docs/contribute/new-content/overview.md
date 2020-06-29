@@ -1,25 +1,25 @@
 ---
 title: Contributing new content overview
 linktitle: Overview
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section contains information you should know before contributing new content.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Contributing basics
 
 - Write Kubernetes documentation in Markdown and build the Kubernetes site using [Hugo](https://gohugo.io/).
 - The source is in [GitHub](https://github.com/kubernetes/website). You can find Kubernetes documentation at `/content/en/docs/`. Some of the reference documentation is automatically generated from scripts in the `update-imported-docs/` directory.
-- [Page templates](/docs/contribute/style/page-templates/) control the presentation of documentation content in Hugo.
+- [Page content types](/docs/contribute/style/page-content-types/) describe the presentation of documentation content in Hugo.
 - In addition to the standard Hugo shortcodes, we use a number of [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/) in our documentation to control the presentation of content.
 - Documentation source is available in multiple languages in `/content/`. Each language has its own folder with a two-letter code determined by the [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php). For example, English documentation source is stored in `/content/en/docs/`.
 - For more information about contributing to documentation in multiple languages or starting a new translation, see [localization](/docs/contribute/localization).
@@ -58,4 +58,4 @@ Limit pull requests to one language per PR. If you need to make an identical cha
 
 The [doc contributors tools](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) directory in the `kubernetes/website` repository contains tools to help your contribution journey go more smoothly.
 
-{{% /capture %}}
+

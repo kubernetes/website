@@ -3,11 +3,11 @@ reviewers:
 - sieben
 title: Noeuds
 description: Concept Noeud Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un nœud est une machine de travail dans Kubernetes, connue auparavant sous le nom de `minion`.
 Un nœud peut être une machine virtuelle ou une machine physique, selon le cluster.
@@ -15,9 +15,9 @@ Chaque nœud contient les services nécessaires à l'exécution de [pods](/docs/
 Les services sur un nœud incluent le [container runtime](/docs/concepts/overview/components/#node-components), kubelet and kube-proxy.
 Consultez la section [Le Nœud Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) dans le document de conception de l'architecture pour plus de détails.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Statut du nœud
 
@@ -229,4 +229,4 @@ Si vous souhaitez réserver explicitement des ressources pour des processus autr
 L'objet Node est une ressource de niveau supérieur dans l'API REST de Kubernetes.
 Plus de détails sur l'objet API peuvent être trouvés à l'adresse suivante: [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

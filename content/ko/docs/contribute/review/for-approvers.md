@@ -2,11 +2,11 @@
 title: 승인자와 리뷰어의 리뷰
 linktitle: 승인자와 리뷰어용
 slug: for-approvers
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자](/ko/docs/contribute/participating/#승인자)는 변경 사항을 리뷰할 때 몇 가지 추가 작업을 수행한다.
 
@@ -19,10 +19,10 @@ SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자
 로테이션 외에도, 봇은 영향을 받는 파일의 소유자를 기반으로
 PR에 대한 리뷰어와 승인자를 할당한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## PR 리뷰
 
@@ -73,8 +73,7 @@ PR 코멘트를 남기는 것이 도움이 되지만, 대신 다른 사람의 PR
 [Prow](https://github.com/kubernetes/test-infra/blob/master/prow/README.md)는
 풀 리퀘스트 (PR)에 대한 작업을 실행하는 쿠버네티스 기반 CI/CD 시스템이다. Prow는
 챗봇 스타일 명령으로 쿠버네티스
-조직 전체에서 [레이블 추가와
-제거](#이슈-레이블-추가와-제거), 이슈 종료 및 승인자 할당과 같은 GitHub 작업을 처리할 수 ​​있다. `/<command-name>` 형식을 사용하여 Prow 명령을 GitHub 코멘트로 입력한다.
+조직 전체에서 [레이블 추가와 제거](#이슈-레이블-추가와-제거), 이슈 종료 및 승인자 할당과 같은 GitHub 작업을 처리할 수 ​​있다. `/<command-name>` 형식을 사용하여 Prow 명령을 GitHub 코멘트로 입력한다.
 
 리뷰어와 승인자가 사용하는 가장 일반적인 Prow 명령은 다음과 같다.
 
@@ -225,4 +224,4 @@ https://github.com/kubernetes/kubernetes 에서
 ```
 
 
-{{% /capture %}}
+

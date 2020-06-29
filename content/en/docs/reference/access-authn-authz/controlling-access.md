@@ -3,15 +3,15 @@ reviewers:
 - erictune
 - lavalamp
 title: Controlling Access to the Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of controlling access to the Kubernetes API.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Users [access the API](/docs/tasks/access-application-cluster/access-cluster/) using `kubectl`,
 client libraries, or by making REST requests.  Both human users and
 [Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/) can be
@@ -23,7 +23,7 @@ following diagram:
 
 ## Transport Security
 
-In a typical Kubernetes cluster, the API serves on port 6443.
+In a typical Kubernetes cluster, the API serves on port 443.
 The API server presents a certificate. This certificate is
 often self-signed, so `$USER/.kube/config` on the user's machine typically
 contains the root certificate for the API server's certificate, which when specified
@@ -63,9 +63,9 @@ users in its object store.
 
 ## Authorization
 
-After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram. 
+After the request is authenticated as coming from a specific user, the request must be authorized. This is shown as step **2** in the diagram.
 
-A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action. 
+A request must include the username of the requester, the requested action, and the object affected by the action. The request is authorized if an existing policy declares that the user has permissions to complete the requested action.
 
 For example, if Bob has the policy below, then he can read pods only in the namespace `projectCaribou`:
 
@@ -97,7 +97,7 @@ If Bob makes the following request, the request is authorized because he is allo
   }
 }
 ```
-If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied. 
+If Bob makes a request to write (`create` or `update`) to the objects in the `projectCaribou` namespace, his authorization is denied. If Bob makes a request to read (`get`) objects in a different namespace such as `projectFish`, then his authorization is denied.
 
 Kubernetes authorization requires that you use common REST attributes to interact with existing organization-wide or cloud-provider-wide access control systems. It is important to use REST formatting because these control systems might interact with other APIs besides the Kubernetes API.
 
@@ -110,10 +110,11 @@ To learn more about Kubernetes authorization, including details about creating p
 
 Admission Control Modules are software modules that can modify or reject requests.
 In addition to the attributes available to Authorization Modules, Admission
-Control Modules can access the contents of the object that is being created or updated.
-They act on objects being created, deleted, updated or connected (proxy), but not reads.
+Control Modules can access the contents of the object that is being created or modified.
 
-Multiple admission controllers can be configured.  Each is called in order.
+Admission controllers act on requests that create, modify, delete, or connect to (proxy) an object.
+Admission controllers do not act on requests that merely read objects.
+When multiple admission controllers are configured, they are called in order.
 
 This is shown as step **3** in the diagram.
 
@@ -161,4 +162,4 @@ When the cluster is created by `kube-up.sh`, on Google Compute Engine (GCE),
 and on several other cloud providers, the API server serves on port 443.  On
 GCE, a firewall rule is configured on the project to allow external HTTPS
 access to the API. Other cluster setup methods vary.
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: Espacios de nombres
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes soporta múltiples clústeres virtuales respaldados por el mismo clúster físico.
 Estos clústeres virtuales se denominan espacios de nombres (namespaces).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cuándo Usar Múltiple Espacios de Nombre
 
@@ -112,4 +112,4 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
+

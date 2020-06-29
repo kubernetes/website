@@ -1,10 +1,10 @@
 ---
 title: 集群管理概述
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The cluster administration overview is for anyone creating or administering a Kubernetes cluster.
@@ -13,9 +13,9 @@ It assumes some familiarity with core Kubernetes [concepts](/docs/concepts/).
 
 集群管理概述面向任何创建和管理 Kubernetes 集群的读者人群。
 我们假设你对[用户指南](/docs/user-guide/)中的概念大概了解。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Planning a cluster
@@ -27,7 +27,7 @@ Before choosing a guide, here are some considerations:
 
 ## 规划集群
 
-查阅 [安装](/docs/setup/) 中的指导，获取如何规划、建立以及配置 Kubernetes 集群的示例。本文所列的文章称为*发行版* 。
+查阅[安装](/docs/setup/)中的指导，获取如何规划、建立以及配置 Kubernetes 集群的示例。本文所列的文章称为*发行版* 。
 
 在选择一个指南前，有一些因素需要考虑：
 
@@ -46,12 +46,12 @@ Before choosing a guide, here are some considerations:
 
  - 你是打算在你的电脑上尝试 Kubernetes，还是要构建一个高可用的多节点集群？请选择最适合你需求的发行版。
  - **如果你正在设计一个高可用集群**，请了解[在多个 zones 中配置集群](/docs/concepts/cluster-administration/federation/)。
- - 您正在使用 类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 这样的**被托管的Kubernetes集群**, 还是**管理您自己的集群**?
- - 你的集群是在**本地**还是 **云（IaaS）** 上？ Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
+ - 您正在使用类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 这样的 **被托管的Kubernetes集群**, 还是 **管理您自己的集群**？
+ - 你的集群是在 **本地** 还是 **云（IaaS）** 上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
  - **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/docs/concepts/cluster-administration/networking/)最适合。
  - 你的 Kubernetes 在 **裸金属硬件** 还是 **虚拟机（VMs）** 上运行？
- - 你**只想运行一个集群**，还是打算**活动开发 Kubernetes 项目代码**？如果是后者，请选择一个活动开发的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
- - 让你自己熟悉运行一个集群所需的[组件](/docs/admin/cluster-components) 。
+ - 你 **只想运行一个集群**，还是打算 **活动开发 Kubernetes 项目代码**？如果是后者，请选择一个活动开发的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
+ - 让你自己熟悉运行一个集群所需的[组件](/docs/admin/cluster-components)。
 
 <!--
 Note: Not all distros are actively maintained. Choose distros which have been tested with a recent version of Kubernetes.
@@ -73,9 +73,9 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [管理集群](/docs/concepts/cluster-administration/cluster-management/)叙述了和集群生命周期相关的几个主题：创建一个新集群、升级集群的 master 和 worker 节点、执行节点维护（例如内核升级）以及升级活动集群的 Kubernetes API 版本。
 
-* 学习如何 [管理节点](/docs/concepts/nodes/node/).
+* 学习如何[管理节点](/docs/concepts/nodes/node/)。
 
-* 学习如何设定和管理集群共享的 [资源配额](/docs/concepts/policy/resource-quotas/) 。
+* 学习如何设定和管理集群共享的[资源配额](/docs/concepts/policy/resource-quotas/) 。
 
 <!--
 ## Securing a cluster
@@ -101,7 +101,7 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [Certificates](/docs/concepts/cluster-administration/certificates/) 描述了使用不同的工具链生成证书的步骤。
 
-* [Kubernetes 容器环境](/docs/concepts/containers/container-environment-variables/) 描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
+* [Kubernetes 容器环境](/docs/concepts/containers/container-environment-variables/)描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
 
 * [控制到 Kubernetes API 的访问](/docs/reference/access-authn-authz/controlling-access/)描述了如何为用户和 service accounts 建立权限许可。
 
@@ -142,4 +142,4 @@ Note: Not all distros are actively maintained. Choose distros which have been te
 
 * [记录和监控集群活动](/docs/concepts/cluster-administration/logging/)阐述了 Kubernetes 的日志如何工作以及怎样实现。
 
-{{% /capture %}}
+

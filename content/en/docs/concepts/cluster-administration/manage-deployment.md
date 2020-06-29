@@ -2,18 +2,18 @@
 reviewers:
 - janetkuo
 title: Managing Resources
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Organizing resource configurations
 
@@ -402,7 +402,7 @@ For more information, please see [kubectl edit](/docs/reference/generated/kubect
 
 You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
 JSON merge patch, and strategic merge patch. See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 and
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
@@ -449,11 +449,12 @@ kubectl edit deployment/my-nginx
 
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/).
 - See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
 
-{{% /capture %}}
+

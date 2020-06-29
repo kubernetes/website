@@ -1,31 +1,32 @@
 ---
 title: Helmを使用したサービスカタログのインストール
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="サービスカタログは" >}}  
 
 [Helm](https://helm.sh/)を使用してKubernetesクラスターにサービスカタログをインストールします。手順の最新情報は[kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md)リポジトリーを参照してください。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 * [サービスカタログ](/docs/concepts/service-catalog/)の基本概念を理解してください。
 * サービスカタログを使用するには、Kubernetesクラスターのバージョンが1.7以降である必要があります。
 * KubernetesクラスターのクラスターDNSを有効化する必要があります。
   * クラウド上のKubernetesクラスター、または{{< glossary_tooltip text="Minikube" term_id="minikube" >}}を使用している場合、クラスターDNSはすでに有効化されています。
   * `hack/local-up-cluster.sh`を使用している場合は、環境変数`KUBE_ENABLE_CLUSTER_DNS`が設定されていることを確認し、インストールスクリプトを実行してください。
 * [kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参考に、v1.7以降のkubectlをインストールし、設定を行ってください。
-* v2.7.0以降の[Helm](http://helm.sh/)をインストールしてください。
+* v2.7.0以降の[Helm](https://helm.sh/)をインストールしてください。
   * [Helm install instructions](https://helm.sh/docs/intro/install/)を参考にしてください。
   * 上記のバージョンのHelmをすでにインストールしている場合は、`helm init`を実行し、HelmのサーバーサイドコンポーネントであるTillerをインストールしてください。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 ## Helmリポジトリーにサービスカタログを追加
 
 Helmをインストールし、以下のコマンドを実行することでローカルマシンに*service-catalog*のHelmリポジトリーを追加します。
@@ -106,11 +107,12 @@ helm install svc-cat/catalog --name catalog --namespace catalog
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)
 * [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog)
 
-{{% /capture %}}
+

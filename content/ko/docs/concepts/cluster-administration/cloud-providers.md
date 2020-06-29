@@ -1,16 +1,16 @@
 ---
 title: 클라우드 제공자
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지에서는 특정 클라우드 제공자에서 실행 중인 쿠버네티스를 관리하는 방법에
 대해 설명한다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)은 쿠버네티스 클러스터를 생성하는 데 많이 사용하는 옵션이다.
 kubeadm에는 클라우드 제공자에 대한 구성 정보를 지정하는 구성 옵션이 있다. 예를 들어
@@ -133,6 +133,15 @@ CloudStack 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이�
 
 GCE 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 (kubelet에 의해 결정되거나 `--hostname-override` 로 재정의된) 호스트 이름을 사용한다.
 참고로 쿠버네티스 노드 이름의 첫 번째 세그먼트는 GCE 인스턴스 이름과 일치해야 한다(예: `kubernetes-node-2.c.my-proj.internal` 이름이 지정된 노드는 `kubernetes-node-2` 이름이 지정된 인스턴스에 해당해야 함).
+
+## HUAWEI CLOUD
+
+외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud)이다.
+
+### 노드 이름
+
+HUAWEI CLOUD 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 프라이빗 IP 주소가 필요하다.
+노드에서 kubelet을 시작할 때 반드시 `--hostname-override=<node private IP>` 를 사용한다.
 
 ## OpenStack
 이 섹션에서는 쿠버네티스와 함께 OpenStack을 사용할 때 사용할 수 있는
@@ -354,7 +363,7 @@ OpenStack 제공자에 대한 다음의 구성 옵션은 [kubenet]
 
 [kubenet]: /ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 
@@ -391,9 +400,9 @@ IBM 클라우드 쿠버네티스 서비스 제공자를 사용하면, 단일 영
 쿠버네티스 노드 오브젝트의 이름은 IBM 클라우드 쿠버네티스 서비스 워커 노드 인스턴스의 프라이빗 IP 주소이다.
 
 ### 네트워킹
-IBM 클라우드 쿠버네티스 서비스 제공자는 노드의 네트워크 성능 품질과 네트워크 격리를 위한 VLAN을 제공한다. 사용자 정의 방화벽 및 Calico 네트워크 폴리시를 설정하여 클러스터에 추가적인 보안 계층을 추가하거나 VPN을 통해 온-프레미스 데이터센터에 클러스터를 연결할 수 있다. 자세한 내용은 [인-클러스터(in-cluster) 및 프라이빗 네트워킹 계획](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_cluster#cs_network_cluster)을 참고한다.
+IBM 클라우드 쿠버네티스 서비스 제공자는 노드의 네트워크 성능 품질과 네트워크 격리를 위한 VLAN을 제공한다. 사용자 정의 방화벽 및 Calico 네트워크 폴리시를 설정하여 클러스터에 추가적인 보안 계층을 추가하거나 VPN을 통해 온-프레미스 데이터센터에 클러스터를 연결할 수 있다. 자세한 내용은 [클러스터 네트워킹 구성](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters)을 참고한다.
 
-퍼블릭 또는 클러스터 내에서 앱을 노출하기 위해 노드포트(NodePort), 로드밸런서 또는 인그레스 서비스를 활용할 수 있다. 어노테이션을 사용하여 인그레스 애플리케이션 로드 밸런서를 커스터마이징 할 수도 있다. 자세한 내용은 [외부 네트워킹으로 앱 노출 계획](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning)을 참고한다.
+퍼블릭 또는 클러스터 내에서 앱을 노출하기 위해 노드포트(NodePort), 로드밸런서 또는 인그레스 서비스를 활용할 수 있다. 어노테이션을 사용하여 인그레스 애플리케이션 로드 밸런서를 커스터마이징 할 수도 있다. 자세한 내용은 [앱을 노출할 서비스 선택하기](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning)을 참고한다.
 
 ### 스토리지
 IBM 클라우드 쿠버네티스 서비스 제공자는 쿠버네티스-네이티브 퍼시스턴트 볼륨을 활용하여 사용자가 파일, 블록 및 클라우드 오브젝트 스토리지를 앱에 마운트할 수 있도록 한다. 데이터를 지속적으로 저장하기 위해 서비스로서의-데이터베이스(database-as-a-service)와 써드파티 애드온을 사용할 수도 있다. 자세한 정보는 [고가용성 퍼시스턴트 스토리지 계획](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning)을 참고한다.
@@ -406,9 +415,22 @@ Baidu 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으
 참고로 쿠버네티스 노드 이름은 Baidu VM 프라이빗 IP와 일치해야 한다.
 
 ## Tencent 쿠버네티스 엔진
+
 이 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [TencentCloud/tencentcloud-cloud-controller-manager](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)이다.
 
 ### 노드 이름
 
 Tencent 클라우드 제공자는 쿠버네티스 노드 오브젝트의 이름으로 노드의 (kubelet에 의해 결정되거나 `--hostname-override` 로 재정의된) 호스트 이름을 사용한다.
 참고로 쿠버네티스 노드 이름은 Tencent VM 프라이빗 IP와 일치해야 한다.
+
+## Alibaba 클라우드 쿠버네티스
+
+ 이 외부 클라우드 제공자를 사용하려는 경우, 해당 리포지터리는 [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)이다.
+
+### 노드 이름
+
+Alibaba 클라우드는 노드 이름의 형식을 요구하지는 않지만, kubelet은 `--provider-id=${REGION_ID}.${INSTANCE_ID}` 를 추가해야만 한다. 파라미터 `${REGION_ID}` 는 쿠버네티스의 지역 ID에 해당하고, `${INSTANCE_ID}` 는 Alibaba ECS (Elastic Compute Service) ID를 의미한다.
+
+### 로드 밸런서
+
+[어노테이션](https://www.alibabacloud.com/help/en/doc-detail/86531.htm)을 구성해서 Alibaba 클라우드의 특정 기능을 사용하도록 외부 로드 밸런서를 설정할 수 있다.

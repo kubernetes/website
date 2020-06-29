@@ -1,10 +1,10 @@
 ---
-title: Kubernetes 控制面板的指标
-content_template: templates/concept
+title: Kubernetes 控制面的指标
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 System component metrics can give a better look into what is happening inside them. Metrics are particularly useful for building dashboards and alerts.
@@ -16,9 +16,9 @@ Metrics in Kubernetes control plane are emitted in [prometheus format](https://p
 
 Kubernetes 控制面板中的指标是以 [prometheus](https://prometheus.io/docs/instrumenting/exposition_formats/) 格式发出的，而且是易于阅读的。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Metrics in Kubernetes
@@ -205,9 +205,10 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
@@ -219,4 +220,4 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 * 查看 [Kubernetes 稳定版指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)列表
 * 了解有关 [Kubernetes 指标弃用策略](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
 
-{{% /capture %}}
+

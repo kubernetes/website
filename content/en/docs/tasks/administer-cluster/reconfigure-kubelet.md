@@ -3,11 +3,11 @@ reviewers:
 - mtaufen
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.11
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 [Dynamic Kubelet Configuration](https://github.com/kubernetes/enhancements/issues/281)
@@ -25,9 +25,10 @@ of nodes before rolling them out cluster-wide. Advice on configuring specific
 fields is available in the inline `KubeletConfiguration`
 [type documentation](https://github.com/kubernetes/kubernetes/blob/release-1.11/pkg/kubelet/apis/kubeletconfig/v1beta1/types.go).
 {{< /warning >}}
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 You need to have a Kubernetes cluster.
 You also need kubectl v1.11 or higher, configured to communicate with your cluster.
 {{< version-check >}}
@@ -43,9 +44,9 @@ because there are manual alternatives.
 
 For each node that you're reconfiguring, you must set the kubelet
 `--dynamic-config-dir` flag to a writable directory.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Reconfiguring the kubelet on a running node in your cluster
 
@@ -71,7 +72,7 @@ will receive default values appropriate to the configuration version
 (e.g. `kubelet.config.k8s.io/v1beta1`), unless overridden by flags.
 
 The status of the Node's kubelet configuration is reported via
-`Node.Spec.Status.Config`. Once you have updated a Node to use the new
+`Node.Status.Config`. Once you have updated a Node to use the new
 ConfigMap, you can observe this status to confirm that the Node is using the
 intended configuration.
 
@@ -311,9 +312,9 @@ empty, since all config sources have been reset to `nil`, which indicates that
 the local default config is `assigned`, `active`, and `lastKnownGood`, and no
 error is reported.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 ## `kubectl patch` example
 
 You can change a Node's configSource using several different mechanisms.
@@ -374,9 +375,9 @@ internal failure, see Kubelet log for details | The kubelet encountered some int
 
 {{< /table >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
  - For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
 - See the reference documentation for [`NodeConfigSource`](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
-{{% /capture %}}

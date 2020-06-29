@@ -1,26 +1,25 @@
 ---
 title: Documentation Style Guide
 linktitle: Style guide
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page gives writing style guidelines for the Kubernetes documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
 
 For additional information on creating new content for the Kubernetes
-documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/) and follow the instructions on
-[using page templates](/docs/contribute/style/page-templates/) and [creating a documentation pull request](/docs/contribute/new-content/open-a-pr).
+documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
 or addition, [add it to the agenda](https://docs.google.com/document/d/1ddHwLK3kUMX1wVFIwlksjTk0MsqitBnWPe1LRa1Rx5A/edit) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
 discussion.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< note >}}
 Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
@@ -122,7 +121,7 @@ document, use the backtick (`` ` ``).
 {{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
 Do | Don't
 :--| :-----
-The `kubectl run`command creates a Deployment. | The "kubectl run" command creates a Deployment.
+The `kubectl run`command creates a Pod. | The "kubectl run" command creates a Pod.
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -212,7 +211,7 @@ The output is similar to this:
 
 Code examples and configuration examples that include version information should be consistent with the accompanying text.
 
-If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-templates/#task-template) or the [Tutorial template](/docs/contribute/style/page-templates/#tutorial-template). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
+If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task) or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
 To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
 
@@ -497,7 +496,7 @@ Do | Don't
 :--| :-----
 You can explore the API using a browser. | The API can be explored using a browser.
 The YAML file specifies the replica count. | The replica count is specified in the YAML file.
-{{< /table >}}  
+{{< /table >}}
 
 
 Exception: Use passive voice if active voice leads to an awkward construction.
@@ -512,7 +511,7 @@ Do | Don't
 To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
 See the configuration file. | Please see the configuration file.
 View the Pods. | With this next command, we'll view the Pods.
-{{< /table >}}  
+{{< /table >}}
 
 ### Address the reader as "you"
 
@@ -521,7 +520,7 @@ Do | Don't
 :--| :-----
 You can create a Deployment by ... | We'll create a Deployment by ...
 In the preceding output, you can see... | In the preceding output, we can see ...
-{{< /table >}}  
+{{< /table >}}
 
 
 ### Avoid Latin phrases
@@ -533,7 +532,7 @@ Do | Don't
 :--| :-----
 For example, ... | e.g., ...
 That is, ...| i.e., ...
-{{< /table >}}   
+{{< /table >}}
 
 
 Exception: Use "etc." for et cetera.
@@ -551,7 +550,7 @@ Do | Don't
 Version 1.4 includes ... | In version 1.4, we have added ...
 Kubernetes provides a new feature for ... | We provide a new feature ...
 This page teaches you how to use Pods. | In this page, we are going to learn about Pods.
-{{< /table >}}   
+{{< /table >}}
 
 
 ### Avoid jargon and idioms
@@ -563,7 +562,7 @@ Do | Don't
 :--| :-----
 Internally, ... | Under the hood, ...
 Create a new cluster. | Turn up a new cluster.
-{{< /table >}}   
+{{< /table >}}
 
 
 ### Avoid statements about the future
@@ -582,16 +581,15 @@ Do | Don't
 :--| :-----
 In version 1.4, ... | In the current version, ...
 The Federation feature provides ... | The new Federation feature provides ...
-{{< /table >}}  
+{{< /table >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
-* Learn about [using page templates](/docs/contribute/style/page-templates/).
+* Learn about [using page templates](/docs/contribute/style/page-content-types/).
 * Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/contribute/start/#submit-a-pull-request/).
-
-{{% /capture %}}
+* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

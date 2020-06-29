@@ -5,7 +5,7 @@ reviewers:
 - deads2k
 - liggitt
 title: Webhook 模式
-content_template: templates/concept
+content_type: concept
 weight: 95
 ---
 <!-- 
@@ -16,19 +16,19 @@ reviewers:
 - deads2k
 - liggitt
 title: Webhook Mode
-content_template: templates/concept
+content_type: concept
 weight: 95
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- 
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen. 
 -->
 WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST 发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!-- 
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
 service when determining user privileges. 
@@ -270,6 +270,6 @@ For further documentation refer to the authorization.v1beta1 API objects and
 -->
 更多信息可以参考 authorization.v1beta1 API 对象和[webhook.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。
 
-{{% /capture %}}
+
 
 

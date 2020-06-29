@@ -1,15 +1,15 @@
 ---
 title: Kubernetes lokal über Minikube betreiben
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube ist ein Tool, mit dem Kubernetes lokal einfach ausgeführt werden kann. Minikube führt einen Kubernetes-Cluster mit einem einzigen Node in einer VM auf Ihrem Laptop aus, damit Anwender Kubernetes ausprobieren oder täglich damit entwickeln können.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Minikube-Funktionen
 
@@ -34,11 +34,11 @@ Minikube unterstützt die folgenden Treiber:
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* hyperkit ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([Treiber installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (deprecated)
-* hyperv ([Treiber installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* kvm2 ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* kvm ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm-driver))
+* hyperkit ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
+* xhyve ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#xhyve-driver)) (deprecated)
+* hyperv ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperv-driver))
 Beachten Sie, dass die unten angegebene IP-Adresse dynamisch ist und sich ändern kann. Sie kann mit `minikube ip` abgerufen werden.
 * none (Führt die Kubernetes-Komponenten auf dem Host und nicht in einer VM aus. Die Verwendung dieses Treibers erfordert Docker ([Docker installieren](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) und eine Linux-Umgebung)
 
@@ -201,7 +201,7 @@ Hierbei wird ein alternatives Minikube-ISO-Image verwendet, das sowohl rkt als a
 
 ### Treiber Plugins
 
-Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://git.k8s.io/minikube/docs/drivers.md).
+Weitere Informationen zu unterstützten Treibern und zur Installation von Plugins finden Sie bei Bedarf unter [TREIBER](https://minikube.sigs.k8s.io/docs/drivers/).
 
 ### Lokale Images durch erneute Verwendung des Docker-Daemon ausführen
 
@@ -431,7 +431,7 @@ Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/c
 * **Ziele und Nichtziele**: Die Ziele und Nichtziele des Minikube-Projekts finden Sie in unserer [Roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Entwicklungshandbuch**: Lesen Sie [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) für einen Überblick über das Senden von Pull-Requests.
 * **Minikube bauen**: Anweisungen zum Erstellen/Testen von Minikube aus dem Quellcode finden Sie im [build Handbuch](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Neue Abhängigkeit hinzufügen**: Anweisungen zum Hinzufügen einer neuen Abhängigkeit zu Minikube finden Sie in der [Anleitung zum Hinzufügen von Abhängigkeiten](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
+* **Neue Abhängigkeit hinzufügen**: Anweisungen zum Hinzufügen einer neuen Abhängigkeit zu Minikube finden Sie in der [Anleitung zum Hinzufügen von Abhängigkeiten](https://minikube.sigs.k8s.io/docs/drivers/).
 * **Neues Addon hinzufügen**: Anweisungen zum Hinzufügen eines neuen Addons für Minikube finden Sie im [Anleitung zum Hinzufügen eines Addons](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **MicroK8s**: Linux-Benutzer, die die Ausführung einer virtuellen Maschine vermeiden möchten, sollten [MicroK8s](https://microk8s.io/) als Alternative in Betracht ziehen.
 
@@ -439,4 +439,4 @@ Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/c
 
 Beiträge, Fragen und Kommentare werden begrüßt und ermutigt! Minikube-Entwickler finden Sie in [Slack](https://kubernetes.slack.com) im #minikube Kanal (Erhalten Sie [hier](http://slack.kubernetes.io/) eine Einladung). Wir haben ausserdem die [kubernetes-dev Google Groups-Mailingliste](https://groups.google.com/forum/#!forum/kubernetes-dev). Wenn Sie in der Liste posten, fügen Sie Ihrem Betreff bitte "minikube:" voran.
 
-{{% /capture %}}
+

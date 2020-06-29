@@ -2,11 +2,11 @@
 reviewers:
 - tallclair
 title: Pod Security Standards
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Security settings for Pods are typically applied by using [security
 contexts](/docs/tasks/configure-pod-container/security-context/). Security Contexts allow for the
@@ -21,9 +21,9 @@ However, numerous means of policy enforcement have arisen that augment or replac
 PodSecurityPolicy. The intent of this page is to detail recommended Pod security profiles, decoupled
 from any specific instantiation.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Policy Types
 
@@ -43,9 +43,9 @@ should range from highly restricted to highly flexible:
 The Privileged policy is purposely-open, and entirely unrestricted. This type of policy is typically
 aimed at system- and infrastructure-level workloads managed by privileged, trusted users.
 
-The privileged policy is defined by an absence of restrictions. For blacklist-oriented enforcement
+The privileged policy is defined by an absence of restrictions. For allow-by-default enforcement
 mechanisms (such as gatekeeper), the privileged profile may be an absence of applied constraints
-rather than an instantiated policy. In contrast, for a whitelist oriented mechanism (such as Pod
+rather than an instantiated policy. In contrast, for a deny-by-default mechanism (such as Pod
 Security Policy) the privileged policy should enable all controls (disable all restrictions).
 
 ### Baseline/Default
@@ -56,8 +56,8 @@ developers of non-critical applications. The following listed controls should be
 enforced/disallowed:
 
 <table>
-    <caption style="display:none">Baseline policy specification</caption>
-    <tbody>
+	<caption style="display:none">Baseline policy specification</caption>
+	<tbody>
 		<tr>
 			<td><strong>Control</strong></td>
 			<td><strong>Policy</strong></td>
@@ -90,7 +90,7 @@ enforced/disallowed:
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].securityContext.capabilities.add<br>
 				spec.initContainers[*].securityContext.capabilities.add<br>
-				<br><b>Allowed Values:</b> empty (optionally whitelisted defaults)<br>
+				<br><b>Allowed Values:</b> empty (or restricted to a known list)<br>
 			</td>
 		</tr>
 		<tr>
@@ -105,20 +105,20 @@ enforced/disallowed:
 		<tr>
 			<td>Host Ports</td>
 			<td>
-				HostPorts should be disallowed, or at minimum restricted to a whitelist.<br>
+				HostPorts should be disallowed, or at minimum restricted to a known list.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].ports[*].hostPort<br>
 				spec.initContainers[*].ports[*].hostPort<br>
-				<br><b>Allowed Values:</b> 0, undefined, (whitelisted)<br>
+				<br><b>Allowed Values:</b> 0, undefined (or restricted to a known list)<br>
 			</td>
 		</tr>
 		<tr>
 			<td>AppArmor <em>(optional)</em></td>
 			<td>
-				On supported hosts, the `runtime/default` AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to a whitelisted set of profiles.<br>
+				On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']<br>
-				<br><b>Allowed Values:</b> runtime/default, undefined<br>
+				<br><b>Allowed Values:</b> 'runtime/default', undefined<br>
 			</td>
 		</tr>
 		<tr>
@@ -132,6 +132,31 @@ enforced/disallowed:
 				<br><b>Allowed Values:</b> undefined/nil<br>
 			</td>
 		</tr>
+		<tr>
+			<td>/proc Mount Type</td>
+			<td>
+				The default /proc masks are set up to reduce attack surface, and should be required.<br>
+				<br><b>Restricted Fields:</b><br>
+				spec.containers[*].securityContext.procMount<br>
+				spec.initContainers[*].securityContext.procMount<br>
+				<br><b>Allowed Values:</b> undefined/nil, 'Default'<br>
+			</td>
+		</tr>
+		<tr>
+			<td>Sysctls</td>
+			<td>
+				Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed "safe" subset.
+				A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node.<br>
+				<br><b>Restricted Fields:</b><br>
+				spec.securityContext.sysctls<br>
+				<br><b>Allowed Values:</b><br>
+				kernel.shm_rmid_forced<br>
+				net.ipv4.ip_local_port_range<br>
+				net.ipv4.tcp_syncookies<br>
+				net.ipv4.ping_group_range<br>
+				undefined/empty<br>
+			</td>
+		</tr>
 	</tbody>
 </table>
 
@@ -143,7 +168,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 
 
 <table>
-    <caption style="display:none">Restricted policy specification</caption>
+	<caption style="display:none">Restricted policy specification</caption>
 	<tbody>
 		<tr>
 			<td><strong>Control</strong></td>
@@ -184,7 +209,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Privilege Escalation</td>
 			<td>
-                Privilege escalation to root should not be allowed.<br>
+				Privilege escalation to root should not be allowed.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].securityContext.privileged<br>
 				spec.initContainers[*].securityContext.privileged<br>
@@ -194,7 +219,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Running as Non-root</td>
 			<td>
-                Containers must be required to run as non-root users.<br>
+				Containers must be required to run as non-root users.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.securityContext.runAsNonRoot<br>
 				spec.containers[*].securityContext.runAsNonRoot<br>
@@ -205,7 +230,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Non-root groups <em>(optional)</em></td>
 			<td>
-                Containers should be forbidden from running with a root primary or supplementary GID.<br>
+				Containers should be forbidden from running with a root primary or supplementary GID.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.securityContext.runAsGroup<br>
 				spec.securityContext.supplementalGroups[*]<br>
@@ -224,12 +249,12 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Seccomp</td>
 			<td>
-				The runtime/default seccomp profile must be required, or allow additional whitelisted values.<br>
+				The 'runtime/default' seccomp profile must be required, or allow specific additional profiles.<br>
 				<br><b>Restricted Fields:</b><br>
 				metadata.annotations['seccomp.security.alpha.kubernetes.io/pod']<br>
 				metadata.annotations['container.seccomp.security.alpha.kubernetes.io/*']<br>
 				<br><b>Allowed Values:</b><br>
-				runtime/default<br>
+				'runtime/default'<br>
 				undefined (container annotation)<br>
 			</td>
 		</tr>
@@ -297,4 +322,4 @@ kernel. This allows for workloads requiring heightened permissions to still be i
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
 sandboxing. As such, no single ‘recommended’ policy is recommended for all sandboxed workloads.
 
-{{% /capture %}}
+
