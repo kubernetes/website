@@ -387,7 +387,7 @@ with namespaces, it can prevent one team from hogging all the resources.
 
 Pod 可用的资源量小于节点容量，因为系统守护程序使用一部分可用资源。
 [NodeStatus](/docs/resources-reference/{{< param "version" >}}/#nodestatus-v1-core) 的 `allocatable` 字段给出了可用于 Pod 的资源量。
-有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
+有关更多信息，请参阅 [节点可分配资源](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/node/node-allocatable.md)。
 
 可以将 [资源配额](/docs/concepts/policy/resource-quotas/) 功能配置为限制可以使用的资源总量。如果与 namespace 配合一起使用，就可以防止一个团队占用所有资源。
 
