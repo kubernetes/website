@@ -53,8 +53,8 @@ API 서버에서 제어될 수는 없다.
 
 ### 파일시스템이 호스팅 하는 스태틱 파드 매니페스트 {#configuration-files}
 
-매니페스트는 특정 디렉토리에 있는 JSON 이나 YAML 형식의 표준 파드 정의이다. [kubelet 구성 파일](/docs/tasks/administer-cluster/kubelet-config-file)의 `staticPodPath: <the directory>` 필드를 사용하자. 이 디렉토리를 정기적으로 스캔하여, 디렉토리 안의 YAML/JSON 파일이 생성되거나 삭제되었을 때 스태틱 파드를 생성하거나 삭제한다.
-Kubelet 이 특정 디렉토리를 스캔할 때 점(.)으로 시작하는 단어를 무시한다는 점을 유의하자.
+매니페스트는 특정 디렉터리에 있는 JSON 이나 YAML 형식의 표준 파드 정의이다. [kubelet 구성 파일](/docs/tasks/administer-cluster/kubelet-config-file)의 `staticPodPath: <the directory>` 필드를 사용하자. 이 디렉터리를 정기적으로 스캔하여, 디렉터리 안의 YAML/JSON 파일이 생성되거나 삭제되었을 때 스태틱 파드를 생성하거나 삭제한다.
+Kubelet 이 특정 디렉터리를 스캔할 때 점(.)으로 시작하는 단어를 무시한다는 점을 유의하자.
 
 예를 들어, 다음은 스태틱 파드로 간단한 웹 서버를 구동하는 방법을 보여준다.
 
@@ -64,7 +64,7 @@ Kubelet 이 특정 디렉토리를 스캔할 때 점(.)으로 시작하는 단�
     ssh my-node1
     ```
 
-2. `/etc/kubelet.d` 와 같은 디렉토리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubelet.d/static-web.yaml` 에 배치한다.  
+2. `/etc/kubelet.d` 와 같은 디렉터리를 선택하고 웹 서버 파드의 정의를 해당 위치에, 예를 들어 `/etc/kubelet.d/static-web.yaml` 에 배치한다.  
 
     ```shell
 	  # kubelet 이 동작하고 있는 노드에서 이 명령을 수행한다.
@@ -87,7 +87,7 @@ Kubelet 이 특정 디렉토리를 스캔할 때 점(.)으로 시작하는 단�
     EOF
     ```
 
-3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubelet.d/` 와 같이 인자를 제공하여 해당 디렉토리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
+3. 노드에서 kubelet 실행 시에 `--pod-manifest-path=/etc/kubelet.d/` 와 같이 인자를 제공하여 해당 디렉터리를 사용하도록 구성한다. Fedora 의 경우 이 줄을 포함하기 위하여 `/etc/kubernetes/kubelet` 파일을 다음과 같이 수정한다.
 
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
@@ -218,7 +218,7 @@ CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 
 ## 스태틱 파드의 동적 추가 및 제거
 
-실행 중인 kubelet 은 주기적으로, 설정된 디렉토리(예제에서는 `/etc/kubelet.d`)에서 변경 사항을 스캔하고, 이 디렉토리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
+실행 중인 kubelet 은 주기적으로, 설정된 디렉터리(예제에서는 `/etc/kubelet.d`)에서 변경 사항을 스캔하고, 이 디렉터리에 새로운 파일이 생성되거나 삭제될 경우, 파드를 생성/삭제 한다.
 
 ```shell
 # 예제를 수행하는 사용자가 파일시스템이 호스팅하는 스태틱 파드 설정을 사용한다고 가정한다.

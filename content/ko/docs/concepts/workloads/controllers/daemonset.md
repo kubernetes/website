@@ -206,7 +206,7 @@ nodeAffinity:
 
 ### 스태틱(static) 파드
 
-Kubelet이 감시하는 특정 디렉토리에 파일을 작성하는 파드를 생성할 수 있다. 이것을
+Kubelet이 감시하는 특정 디렉터리에 파일을 작성하는 파드를 생성할 수 있다. 이것을
 [스태틱 파드](/ko/docs/tasks/configure-pod-container/static-pod/)라고 부른다.
 데몬셋과는 다르게 스태틱 파드는 kubectl
 또는 다른 쿠버네티스 API 클라이언트로 관리할 수 없다.  스태틱 파드는 API 서버에 의존하지

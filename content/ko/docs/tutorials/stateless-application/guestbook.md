@@ -47,7 +47,7 @@ card:
 
 {{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
 
-1. 매니페스트 파일을 다운로드한 디렉토리에서 터미널 창을 시작한다.
+1. 매니페스트 파일을 다운로드한 디렉터리에서 터미널 창을 시작한다.
 1. `redis-master-deployment.yaml` 파일을 통해 Redis 마스터의 디플로이먼트에 적용한다.
 
       ```shell

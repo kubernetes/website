@@ -255,7 +255,7 @@ Windows에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지
     kubectl version --client
     ```
 
-3. 홈 디렉토리로 이동한다.
+3. 홈 디렉터리로 이동한다.
 
     ```
     cd %USERPROFILE%
