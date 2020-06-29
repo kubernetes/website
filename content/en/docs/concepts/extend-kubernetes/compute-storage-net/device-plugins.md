@@ -232,6 +232,6 @@ Here are some examples of device plugin implementations:
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 
 
