@@ -157,7 +157,7 @@ static-web-my-node1        1/1       Running   0          2m
 ```
 
 {{< note >}}
-Vérifiez que le kubelet a la permission de créer le pod miroir dans le API Server. Sinon, la demande de création est rejetée par le API Server. Voir
+Vérifiez que le kubelet a la permission de créer le pod miroir dans l'API Server. Sinon, la demande de création est rejetée par l'API Server. Voir
 [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
 
