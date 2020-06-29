@@ -1,12 +1,12 @@
 ---
 title: kubectl
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 ---
 <!--
 ---
 title: kubectl
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 ---
 -->
