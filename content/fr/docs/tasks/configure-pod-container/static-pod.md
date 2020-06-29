@@ -13,7 +13,7 @@ Contrairement aux pods qui sont gérés par le control plane (par exemple, un {{
 
 Les pods statiques sont toujours liés à un {{< glossary_tooltip term_id="kubelet" >}} sur un noeud spécifique.
 
-Le kubelet crée automatiquement un {{< glossary_tooltip text="Pod mirror" term_id="mirror-pod" >}} sur le API Server de Kubernetes pour chaque Pod statique.
+Le kubelet crée automatiquement un {{< glossary_tooltip text="Pod mirror" term_id="mirror-pod" >}} sur l'API Server de Kubernetes pour chaque Pod statique.
 Cela signifie que les pods fonctionnant sur un noeud sont visibles sur le API Server, mais ne peuvent pas être contrôlées à partir de là.
 
 {{< note >}}
