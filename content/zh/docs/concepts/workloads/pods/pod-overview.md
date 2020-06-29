@@ -3,7 +3,7 @@ title: Pod 概览
 content_type: concept
 weight: 10
 card: 
-  name: 概念
+  name: concepts
   weight: 60
 ---
 
