@@ -1,9 +1,9 @@
 ---
 title: Installing Addons
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 Add-ons extend the functionality of Kubernetes.
@@ -12,10 +12,10 @@ This page lists some of the available add-ons and links to their respective inst
 
 Add-ons in each section are sorted alphabetically - the ordering does not imply any preferential status.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Networking and Network Policy
 
@@ -55,4 +55,4 @@ There are several other add-ons documented in the deprecated [cluster/addons](ht
 
 Well-maintained ones should be linked to here. PRs welcome!
 
-{{% /capture %}}
+

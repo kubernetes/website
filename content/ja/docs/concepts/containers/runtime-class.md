@@ -1,11 +1,11 @@
 ---
 reviewers:
 title: ランタイムクラス(Runtime Class)
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
@@ -15,10 +15,10 @@ weight: 20
 RuntimeClassはKubernetes1.14のβ版アップグレードにおいて*破壊的な* 変更を含んでいます。もしユーザーがKubernetes1.14以前のバージョンを使っていた場合、[RuntimeClassのα版からβ版へのアップグレード](#upgrading-runtimeclass-from-alpha-to-beta)を参照してください。
 {{< /warning >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## RuntimeClassについて
 
@@ -81,7 +81,7 @@ spec:
   # ...
 ```
 
-これは、Kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
+これは、Kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
 エラーメッセージに関しては対応する[イベント](/docs/tasks/debug-application-cluster/debug-application-introspection/)を参照して下さい。
 
 もし`runtimeClassName`が指定されていない場合、デフォルトのRuntimeHandlerが使用され、これはRuntimeClassの機能が無効であるときのふるまいと同じものとなります。
@@ -139,4 +139,4 @@ RuntimeClassのβ版の機能は、下記の変更点を含みます。
   ```
 - `runtimeHandler`の指定がないか、もしくは空文字の場合や、ハンドラー名に`.`文字列が使われている場合はα版のRuntimeClassにおいてもはや有効ではありません。正しい形式のハンドラー設定に変更しなくてはなりません(先ほど記載した内容を確認ください)。
 
-{{% /capture %}}
+

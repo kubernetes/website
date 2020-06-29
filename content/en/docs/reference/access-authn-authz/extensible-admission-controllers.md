@@ -7,17 +7,17 @@ reviewers:
 - liggitt
 - jpbetz
 title: Dynamic Admission Control
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 In addition to [compiled-in admission plugins](/docs/reference/access-authn-authz/admission-controllers/),
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
@@ -549,7 +549,7 @@ Example of a minimal response from a webhook to forbid a request:
 
 When rejecting a request, the webhook can customize the http code and message returned to the user using the `status` field.
 The specified status object is returned to the user.
-See the [API documentation](/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
+See the [API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta) for details about the status type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 {{< tabs name="AdmissionReview_response_forbid_details" >}}
 {{% tab name="admission.k8s.io/v1" %}}
@@ -1588,4 +1588,4 @@ If your admission webhooks don't intend to modify the behavior of the Kubernetes
 plane, exclude the `kube-system` namespace from being intercepted using a
 [`namespaceSelector`](#matching-requests-namespaceselector).
 
-{{% /capture %}}
+

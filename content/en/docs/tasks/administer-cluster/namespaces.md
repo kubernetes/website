@@ -3,19 +3,20 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: Share a Cluster with Namespaces
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to view, work in, and delete {{< glossary_tooltip text="namespaces" term_id="namespace" >}}. The page also shows how to use Kubernetes namespaces to subdivide your cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 * Have an [existing Kubernetes cluster](/docs/setup/).
 * Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Viewing namespaces
 
@@ -80,6 +81,10 @@ A namespace can be in one of two phases:
 See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
 
 ## Creating a new namespace
+
+{{< note >}}
+    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+{{< /note >}}
 
 1. Create a new YAML file called `my-namespace.yaml` with the contents:
 
@@ -189,12 +194,10 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development
+    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname -n=development
     kubectl scale deployment snowflake --replicas=2 -n=development
     ```
     We have just created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that just serves the hostname.
-    Note that `kubectl run` creates deployments only on Kubernetes cluster >= v1.2. If you are running older versions, it creates replication controllers instead.
-    If you want to obtain the old behavior, use `--generator=run/v1` to create replication controllers. See [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) for more details.
 
     ```shell
     kubectl get deployment -n=development
@@ -204,7 +207,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     snowflake    2/2     2            2           2m
     ```
     ```shell
-    kubectl get pods -l run=snowflake -n=development
+    kubectl get pods -l app=snowflake -n=development
     ```
     ```
     NAME                         READY     STATUS    RESTARTS   AGE
@@ -226,7 +229,8 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Production likes to run cattle, so let's create some cattle pods.
 
     ```shell
-    kubectl run cattle --image=k8s.gcr.io/serve_hostname --replicas=5 -n=production
+    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production
     ```
@@ -236,7 +240,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     ```
 
     ```shell
-    kubectl get pods -l run=cattle -n=production
+    kubectl get pods -l app=cattle -n=production
     ```
     ```
     NAME                      READY     STATUS    RESTARTS   AGE
@@ -252,9 +256,9 @@ At this point, it should be clear that the resources users create in one namespa
 As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
 authorization rules for each namespace.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding the motivation for using namespaces
 
@@ -304,12 +308,13 @@ is local to a namespace.  This is useful for using the same configuration across
 multiple namespaces such as Development, Staging and Production.  If you want to reach
 across namespaces, you need to use the fully qualified domain name (FQDN).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
 * See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
-{{% /capture %}}
+
 
 

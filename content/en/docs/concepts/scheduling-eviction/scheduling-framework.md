@@ -2,11 +2,11 @@
 reviewers:
 - ahg-g
 title: Scheduling Framework
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.15" state="alpha" >}}
 
@@ -20,9 +20,9 @@ framework.
 
 [kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/20180409-scheduling-framework.md
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # Framework workflow
 
@@ -239,4 +239,3 @@ If you are using Kubernetes v1.18 or later, you can configure a set of plugins a
 a scheduler profile and then define multiple profiles to fit various kinds of workload.
 Learn more at [multiple profiles](/docs/reference/scheduling/profiles/#multiple-profiles).
 
-{{% /capture %}}

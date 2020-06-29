@@ -1,16 +1,16 @@
 ---
 title: 複数のゾーンで動かす
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how to run a cluster in multiple zones.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 始めに
 
@@ -184,7 +184,7 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
-```json
+```bash
 kubectl apply -f - <<EOF
 {
   "apiVersion": "v1",
@@ -397,4 +397,4 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b k
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
 
-{{% /capture %}}
+

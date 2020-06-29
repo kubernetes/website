@@ -6,24 +6,24 @@ feature:
   description: >
     오류가 발생한 컨테이너를 재시작하고, 노드가 죽었을 때 컨테이너를 교체하기 위해 다시 스케줄하고, 사용자 정의 상태 체크에 응답하지 않는 컨테이너를 제거하며, 서비스를 제공할 준비가 될 때까지 클라이언트에 해당 컨테이너를 알리지 않는다.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
-[`ReplicaSet`](/ko/docs/concepts/workloads/controllers/replicaset/) 을 구성하는 [`Deployment`](/ko/docs/concepts/workloads/controllers/deployment/) 가 현재 권장되는 레플리케이션 설정 방법이다.
+[`ReplicaSet`](/ko/docs/concepts/workloads/controllers/replicaset/)을 구성하는 [`Deployment`](/ko/docs/concepts/workloads/controllers/deployment/)가 현재 권장하는 레플리케이션 설정 방법이다.
 {{< /note >}}
 
-_레플리케이션 컨트롤러_ 는 언제든지 지정된 수의 파드 레플리카가
+_레플리케이션컨트롤러_ 는 언제든지 지정된 수의 파드 레플리카가
 실행 중임을 보장한다.
 다시 말하면, 레플리케이션 컨트롤러는 파드 또는 동일 종류의 파드의 셋이 항상 기동되고 사용 가능한지 확인한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 레플리케이션 컨트롤러의 동작방식
 
@@ -105,8 +105,8 @@ echo $pods
 nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 ```
 
-여기서 셀렉터는 레플리케이션 컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
-다른 형식의 파일인 `replication.yaml` 의 것과 동일하다.  `--output=jsonpath` 옵션은
+여기서 셀렉터는 레플리케이션컨트롤러(`kubectl describe` 의 출력에서 보인)의 셀렉터와 같고,
+다른 형식의 파일인 `replication.yaml` 의 것과 동일하다. `--output=jsonpath` 옵션은
 반환된 목록의 각 파드에서 이름을 가져오는 표현식을 지정한다.
 
 
@@ -123,7 +123,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 
 `.spec.template` 는 오직 `.spec` 필드에서 요구되는 것이다.
 
-`.spec.template` 는 [파드(Pod) 개요](/ko/docs/concepts/workloads/pods/pod-overview/#pod-templates) 이다. 정확하게 [파드](/ko/docs/concepts/workloads/pods/pod/) 스키마와 동일하나, 중첩되어 있고 `apiVersion` 혹은 `kind`를 갖지 않는다.
+`.spec.template` 는 [파드 개요](/ko/docs/concepts/workloads/pods/pod-overview/#pod-templates) 이다. 정확하게 [파드](/ko/docs/concepts/workloads/pods/pod/) 스키마와 동일하나, 중첩되어 있고 `apiVersion` 혹은 `kind`를 갖지 않는다.
 
 파드에 필요한 필드 외에도 레플리케이션 컨트롤러의 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 지정해야 한다. 레이블의 경우 다른 컨트롤러와
 중첩되지 않도록 하라. [파드 셀렉터](#파드-셀렉터)를 참조하라.
@@ -223,12 +223,12 @@ REST API나 go 클라이언트 라이브러리를 사용하는 경우 간단히 
 
 예를 들어, 서비스는 `tier in (frontend), environment in (prod)` 이 있는 모든 파드를 대상으로 할 수 있다. 이제 이 계층을 구성하는 10 개의 복제된 파드가 있다고 가정해 보자. 하지만 이 구성 요소의 새로운 버전을 '카나리' 하기를 원한다. 대량의 레플리카에 대해 `replicas` 를 9로 설정하고 `tier=frontend, environment=prod, track=stable` 레이블을 설정한 레플리케이션 컨트롤러와, 카나리에 `replicas` 가 1로 설정된 다른 레플리케이션 컨트롤러에 `tier=frontend, environment=prod, track=canary` 라는 레이블을 설정할 수 있다. 이제 이 서비스는 카나리와 카나리 이외의 파드 모두를 포함한다. 그러나 레플리케이션 컨트롤러를 별도로 조작하여 테스트하고 결과를 모니터링하는 등의 작업이 혼란스러울 수 있다.
 
-### 서비스와 레플리케이션 컨트롤러 사용
+### 서비스와 레플리케이션컨트롤러 사용
 
-하나의 서비스 뒤에 여러 개의 레플리케이션 컨트롤러가 있을 수 있다. 예를 들어 일부 트래픽은 이전 버전으로 이동하고 일부는 새 버전으로 이동한다.
+하나의 서비스 뒤에 여러 개의 레플리케이션컨트롤러가 있을 수 있다.
+예를 들어 일부 트래픽은 이전 버전으로 이동하고 일부는 새 버전으로 이동한다.
 
-레플리케이션 컨트롤러는 자체적으로 종료되지 않지만 서비스만큼 오래 지속될 것으로 기대되지는 않는다. 서비스는 여러 레플리케이션 컨트롤러에 의해 제어되는 파드로 구성될 수 있으며 서비스 라이프사이클 동안 (예를 들어 서비스를 실행하는 파드 업데이트 수행을 위해)
-많은 레플리케이션 컨트롤러가 생성 및 제거될 것으로 예상된다. 서비스 자체와 클라이언트 모두 파드를 유지하는 레플리케이션 컨트롤러를 의식하지 않는 상태로 남아 있어야 한다.
+레플리케이션컨트롤러는 자체적으로 종료되지 않지만, 서비스만큼 오래 지속될 것으로 기대되지는 않는다. 서비스는 여러 레플리케이션컨트롤러에 의해 제어되는 파드로 구성될 수 있으며, 서비스 라이프사이클 동안(예를 들어, 서비스를 실행하는 파드 업데이트 수행을 위해) 많은 레플리케이션컨트롤러가 생성 및 제거될 것으로 예상된다. 서비스 자체와 클라이언트 모두 파드를 유지하는 레플리케이션컨트롤러를 의식하지 않는 상태로 남아 있어야 한다.
 
 ## 레플리케이션을 위한 프로그램 작성
 
@@ -280,6 +280,4 @@ API 오브젝트에 대한 더 자세한 것은
 
 ## 더 자세한 정보는
 
-[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/) 를 참조하라.
-
-{{% /capture %}}
+[스테이트리스 애플리케이션 레플리케이션 컨트롤러 실행하기](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/)를 참고한다.

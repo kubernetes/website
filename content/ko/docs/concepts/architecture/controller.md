@@ -1,10 +1,10 @@
 ---
 title: 컨트롤러
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 로보틱스와 자동화에서 _컨트롤 루프_ 는 
 시스템 상태를 조절하는 종료되지 않는 루프이다.
@@ -18,10 +18,10 @@ weight: 30
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 컨트롤러 패턴
 
@@ -48,7 +48,7 @@ weight: 30
 내장 컨트롤러의 예시이다. 내장 컨트롤러는 클러스터 API 서버와 
 상호 작용하며 상태를 관리한다.
 
-잡은 단일 {{< glossary_tooltip term_id="pod" >}} 또는 여러 파드를 실행하고, 
+잡은 단일 {{< glossary_tooltip text="파드" term_id="pod" >}} 또는 여러 파드를 실행하고, 
 작업을 수행한 다음 중지하는 
 쿠버네티스 리소스 이다.
 
@@ -150,11 +150,12 @@ weight: 30
 또는 쿠버네티스 외부에서 실행할 수 있다. 가장 적합한 것은 특정 컨트롤러의 기능에
 따라 달라진다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [쿠버네티스 컨트롤 플레인](/ko/docs/concepts/#쿠버네티스-컨트롤-플레인)에 대해 읽기
 * [쿠버네티스 오브젝트](/ko/docs/concepts/#쿠버네티스-오브젝트)의 몇 가지 기본 사항을 알아보자.
 * [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 배워 보자.
 * 만약 자신만의 컨트롤러를 작성하기 원한다면, 쿠버네티스 확장하기의 [확장 패턴](/ko/docs/concepts/extend-kubernetes/extend-cluster/#익스텐션-패턴)을 본다.
-{{% /capture %}}
+

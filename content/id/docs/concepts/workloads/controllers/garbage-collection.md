@@ -1,16 +1,16 @@
 ---
 title: Garbage Collection
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Peran daripada _garbage collector_ Kubernetes adalah untuk menghapus objek tertentu yang sebelumnya mempunyai pemilik, tetapi tidak lagi mempunyai pemilik.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pemilik dan dependen
 
@@ -125,12 +125,13 @@ Sebelum versi 1.7, ketika menggunakan _cascading delete_ dengan Deployment, kamu
 
 Ditemukan pada [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Dokumen Desain 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Dokumen Desain 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+

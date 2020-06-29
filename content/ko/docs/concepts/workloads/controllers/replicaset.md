@@ -1,18 +1,18 @@
 ---
 title: 레플리카셋
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 레플리카셋의 목적은 레플리카 파드 집합의 실행을 항상 안정적으로 유지하는 것이다.
 이처럼 레플리카셋은 보통 명시된 동일 파드 개수에 대한 가용성을 보증하는데 사용한다.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 레플리카셋의 작동 방식
 
@@ -326,7 +326,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 (그리고 더 쉽다!)
 
 ```shell
-kubectl autoscale rs frontend --max=10
+kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 ```
 
 ## 레플리카셋의 대안
@@ -362,4 +362,4 @@ kubectl autoscale rs frontend --max=10
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
 
-{{% /capture %}}
+

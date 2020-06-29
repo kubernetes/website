@@ -1,20 +1,20 @@
 ---
 title: 리소스 쿼터
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 여러 사용자나 팀이 정해진 수의 노드로 클러스터를 공유할 때
 한 팀이 공정하게 분배된 리소스보다 많은 리소스를 사용할 수 있다는 우려가 있다.
 
 리소스 쿼터는 관리자가 이 문제를 해결하기 위한 도구이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 `ResourceQuota` 오브젝트로 정의된 리소스 쿼터는 네임스페이스별 총 리소스 사용을 제한하는
 제약 조건을 제공한다. 유형별로 네임스페이스에서 만들 수 있는 오브젝트 수와
@@ -56,7 +56,8 @@ weight: 10
 API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
-해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에 리소스 쿼터가 적용된다.
+해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에
+리소스 쿼터가 적용된다.
 
 ## 컴퓨트 리소스 쿼터
 
@@ -160,9 +161,10 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `services.nodeports` | 네임스페이스에 존재할 수 있는 노드 포트 유형의 총 서비스 수 |
 | `secrets` | 네임스페이스에 존재할 수 있는 총 시크릿 수 |
 
-예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를 계산하고 최대값을 적용한다.
-사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP 공급이 고갈되는 경우를 피하기 위해
-네임스페이스에 `pods` 쿼터를 설정할 수 있다.
+예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를
+계산하고 최댓값을 적용한다. 사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP
+공급이 고갈되는 경우를 피하기 위해 네임스페이스에
+`pods` 쿼터를 설정할 수 있다.
 
 ## 쿼터 범위
 
@@ -490,7 +492,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
+kubectl scale deployment nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell
@@ -591,10 +594,10 @@ plugins:
 
 [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고하길 바란다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
 
-{{% /capture %}}

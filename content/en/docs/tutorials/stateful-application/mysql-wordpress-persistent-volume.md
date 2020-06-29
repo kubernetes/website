@@ -2,7 +2,7 @@
 title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
 reviewers:
 - ahmetb
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 card: 
   name: tutorials
@@ -10,7 +10,7 @@ card:
   title: "Stateful Example: Wordpress with Persistent Volumes"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data. 
 
 A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
@@ -23,9 +23,10 @@ This deployment is not suitable for production use cases, as it uses single inst
 The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * Create PersistentVolumeClaims and PersistentVolumes
 * Create a `kustomization.yaml` with
   * a Secret generator
@@ -34,9 +35,10 @@ The files provided in this tutorial are using GA Deployment APIs and are specifi
 * Apply the kustomization directory by `kubectl apply -k ./`
 * Clean up
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 The example shown on this page works with `kubectl` 1.14 and above.
@@ -47,9 +49,9 @@ Download the following configuration files:
 
 1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}} 
+
+<!-- lessoncontent --> 
 
 ## Create PersistentVolumeClaims and PersistentVolumes
 
@@ -188,8 +190,8 @@ Now you can verify that all objects exist.
       The response should be like this:
 
       ```
-      NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
+      NAME        TYPE            CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      wordpress   LoadBalancer    10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
       {{< note >}}
@@ -218,9 +220,10 @@ Now you can verify that all objects exist.
 Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 1. Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
 
@@ -228,14 +231,15 @@ Do not leave your WordPress installation on this page. If another user finds it,
       kubectl delete -k ./
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* Learn more about [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
 * Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
 
-{{% /capture %}}
+
 

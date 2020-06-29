@@ -1,18 +1,18 @@
 ---
 title: 가비지(Garbage) 수집
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스의 가비지 수집기는 한때 소유자가 있었지만, 더 이상
 소유자가 없는 오브젝트들을 삭제하는 역할을 한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소유자(owner)와 종속(dependent)
 
@@ -22,7 +22,7 @@ weight: 60
 필드를 가지고 있다.
 
 때때로, 쿠버네티스는 `ownerReference` 값을 자동적으로 설정한다.
-예를 들어 레플리카셋을 만들 때 쿠버네티스는 레플리카셋에 있는 각 파드의 
+예를 들어 레플리카셋을 만들 때 쿠버네티스는 레플리카셋에 있는 각 파드의
 `ownerReference` 필드를 자동으로 설정한다. 1.8 에서는 쿠버네티스가
 레플리케이션컨트롤러, 레플리카셋, 스테이트풀셋, 데몬셋, 디플로이먼트, 잡
 그리고 크론잡에 의해서 생성되거나 차용된 오브젝트의 `ownerReference` 값을
@@ -35,7 +35,7 @@ weight: 60
 
 {{< codenew file="controllers/replicaset.yaml" >}}
 
-레플리카셋을 생성하고 파드의 메타데이터를 본다면, 
+레플리카셋을 생성하고 파드의 메타데이터를 본다면,
 OwnerReferences 필드를 찾을 수 있다.
 
 ```shell
@@ -72,7 +72,7 @@ metadata:
 
 오브젝트를 삭제할 때, 오브젝트의 종속 항목을 자동으로 삭제하는지의
 여부를 지정할 수 있다. 종속 항목을 자동으로 삭제하는 것을 *캐스케이딩(cascading)
-삭제* 라고 한다.  *캐스케이딩 삭제* 에는 *백그라운드* 와 *포어그라운드* 2가지 모드가 있다.
+삭제* 라고 한다. *캐스케이딩 삭제* 에는 *백그라운드* 와 *포어그라운드* 2가지 모드가 있다.
 
 만약 종속 항목을 자동으로 삭제하지 않고 오브젝트를 삭제한다면,
 종속 항목은 *분리됨(orphaned)* 이라고 한다.
@@ -147,8 +147,8 @@ curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/replicasets/my-rep
 ```
 
 kubectl도 캐스케이딩 삭제를 지원한다.
-kubectl을 사용해서 종속 항목을 자동으로 삭제하려면 `--cascade` 를 true로 설정한다.  종속 항목을
-분리하기 위해서는 `--cascase` 를 false로 설정한다. `--cascade` 의 기본값은
+kubectl을 사용해서 종속 항목을 자동으로 삭제하려면 `--cascade` 를 true로 설정한다. 종속 항목을
+분리하기 위해서는 `--cascade` 를 false로 설정한다. `--cascade` 의 기본값은
 true 이다.
 
 여기에 레플리카셋의 종속 항목을 분리로 만드는 예시가 있다.
@@ -168,15 +168,17 @@ kubectl delete replicaset my-repset --cascade=false
 
 [#26120](https://github.com/kubernetes/kubernetes/issues/26120)을 추적한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [디자인 문서 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [디자인 문서 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
 
-{{% /capture %}}
+
+
 
 

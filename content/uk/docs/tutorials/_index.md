@@ -3,10 +3,10 @@
 title: Навчальні матеріали
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--This section of the Kubernetes documentation contains tutorials.
 A tutorial shows how to accomplish a goal that is larger than a single
@@ -17,9 +17,9 @@ Before walking through each tutorial, you may want to bookmark the
 -->
 У цьому розділі документації Kubernetes зібрані навчальні матеріали. Кожний матеріал показує, як досягти окремої мети, що більша за одне [завдання](/docs/tasks/). Зазвичай навчальний матеріал має декілька розділів, кожен з яких містить певну послідовність дій. До ознайомлення з навчальними матеріалами вам, можливо, знадобиться додати у закладки сторінку з [Глосарієм](/docs/reference/glossary/) для подальшого консультування.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--## Basics
 -->
@@ -75,9 +75,10 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--If you would like to write a tutorial, see
 [Using Page Templates](/docs/home/contribute/page-templates/)
@@ -87,4 +88,4 @@ for information about the tutorial page type and the tutorial template.
 [Використання шаблонів сторінок](/docs/home/contribute/page-templates/)
 ви знайдете інформацію про тип навчальної сторінки і шаблон.
 
-{{% /capture %}}
+

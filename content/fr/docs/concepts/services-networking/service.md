@@ -6,21 +6,21 @@ feature:
     Pas besoin de modifier votre application pour utiliser un mécanisme de découverte de services inconnu.
     Kubernetes donne aux pods leurs propres adresses IP et un nom DNS unique pour un ensemble de pods, et peut équilibrer la charge entre eux.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
 Avec Kubernetes, vous n'avez pas besoin de modifier votre application pour utiliser un mécanisme de découverte de services inconnu.
 Kubernetes donne aux pods leurs propres adresses IP et un nom DNS unique pour un ensemble de pods, et peut équilibrer la charge entre eux.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -995,12 +995,13 @@ Le projet Kubernetes vise à améliorer la prise en charge des services L7 (HTTP
 Le projet Kubernetes prévoit d'avoir des modes d'entrée plus flexibles pour les services, qui englobent les modes ClusterIP, NodePort et LoadBalancer actuels et plus encore.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Voir [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Voir [Ingress](/docs/concepts/services-networking/ingress/)
 * Voir [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
 
-{{% /capture %}}
+

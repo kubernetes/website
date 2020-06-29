@@ -1,10 +1,10 @@
 ---
 title: Configure Default CPU Requests and Limits for a Namespace
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure default CPU requests and limits for a namespace.
 A Kubernetes cluster can be divided into namespaces. If a Container is created in a namespace
@@ -12,14 +12,15 @@ that has a default CPU limit, and the Container does not specify its own CPU lim
 the Container is assigned the default CPU limit. Kubernetes assigns a default CPU request
 under certain conditions that are explained later in this topic.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a namespace
 
@@ -163,9 +164,10 @@ Delete your namespace:
 kubectl delete namespace default-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For cluster administrators
 
@@ -189,6 +191,6 @@ kubectl delete namespace default-cpu-example
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 
-{{% /capture %}}
+
 
 

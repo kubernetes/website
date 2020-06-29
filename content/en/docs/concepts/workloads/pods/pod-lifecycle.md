@@ -1,20 +1,20 @@
 ---
 title: Pod Lifecycle
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< comment >}}Updated: 4/14/2015{{< /comment >}}
 {{< comment >}}Edited and moved to Concepts section: 2/2/17{{< /comment >}}
 
 This page describes the lifecycle of a Pod.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pod phase
 
@@ -77,7 +77,7 @@ A [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prob
 performed periodically by the [kubelet](/docs/admin/kubelet/)
 on a Container. To perform a diagnostic,
 the kubelet calls a
-[Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler) implemented by
+[Handler](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core) implemented by
 the Container. There are three types of handlers:
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core):
@@ -216,7 +216,7 @@ a list of additional conditions that the kubelet evaluates for Pod readiness.
 Readiness gates are determined by the current state of `status.condition`
 fields for the Pod. If Kubernetes cannot find such a
 condition in the `status.conditions` field of a Pod, the status of the condition
-is defaulted to "`False`". Below is an example:
+is defaulted to "`False`".
 
 Here is an example:
 
@@ -281,7 +281,7 @@ once bound to a node, a Pod will never be rebound to another node.
 In general, Pods remain until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or 
+The control plane cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
@@ -390,10 +390,11 @@ spec:
      * Node controller sets Pod `phase` to Failed.
      * If running under a controller, Pod is recreated elsewhere.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
@@ -403,7 +404,6 @@ spec:
 
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 
-{{% /capture %}}
 
 
 

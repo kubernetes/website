@@ -1,22 +1,26 @@
 ---
 title: "示例：使用 Redis 部署 PHP 留言板应用程序"
-reviewers:
-- ahmetb
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
+card:
+  name: tutorials
+  weight: 30
+  title: "无状态应用示例：基于 Redis 的 PHP Guestbook"
 ---
 
 <!--
----
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
 - ahmetb
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
----
+card:
+  name: tutorials
+  weight: 30
+  title: "Stateless Example: PHP Guestbook with Redis"
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
@@ -35,9 +39,10 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * 多个 web 前端实例
 
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 * Start up a Redis master.
@@ -53,17 +58,18 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 * 公开并查看前端服务。
 * 清理。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!--
 ## Start up the Redis Master
@@ -549,9 +555,10 @@ Scaling up or down is easy because your servers are defined as a Service that us
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
@@ -602,9 +609,10 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
@@ -618,5 +626,5 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 * 阅读更多关于[连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 * 阅读更多关于[管理资源](/zh/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 
-{{% /capture %}}
+
 

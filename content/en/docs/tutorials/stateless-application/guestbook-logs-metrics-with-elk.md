@@ -2,7 +2,7 @@
 title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
 reviewers:
 - sftim
-content_template: templates/tutorial
+content_type: tutorial
 weight: 21
 card:
   name: tutorials
@@ -10,7 +10,7 @@ card:
   title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
 
 * A running instance of the [PHP Guestbook with Redis tutorial](/docs/tutorials/stateless-application/guestbook)
@@ -19,17 +19,19 @@ This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/statele
 * Metricbeat
 * Packetbeat
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * Start up the PHP Guestbook with Redis.
 * Install kube-state-metrics.
 * Create a Kubernetes secret.
 * Deploy the Beats.
 * View dashboards of your logs and metrics.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 {{< version-check >}}
@@ -40,9 +42,9 @@ Additionally you need:
 
 * A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Start up the  PHP Guestbook with Redis
 This tutorial builds on the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
@@ -366,9 +368,10 @@ kubectl scale --replicas=3 deployment/frontend
 See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
 ![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
 
 1. Run the following commands to delete all Pods, Deployments, and Services.
@@ -396,11 +399,11 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [tools for monitoring resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 * Read more about [logging architecture](/docs/concepts/cluster-administration/logging/)
 * Read more about [application introspection and debugging](/docs/tasks/debug-application-cluster/)
 * Read more about [troubleshoot applications](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-{{% /capture %}}

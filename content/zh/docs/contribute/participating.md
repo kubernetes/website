@@ -1,12 +1,12 @@
 ---
 title: 参与 SIG Docs
-content_template: templates/concept
+content_type: concept
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 SIG Docs is one of the
@@ -42,9 +42,9 @@ aspects of Kubernetes -- the Kubernetes website and documentation.
 有关 Kubernetes 社区中的成员如何工作的更多信息，请参见 [community-membership](https://github.com/kubernetes/community/blob/master/community-membership.md)。
 本文档的其余部分概述了这些角色在 SIG Docs 中发挥作用的一些独特方式，
 SIG Docs 负责维护 Kubernetes 最面向公众的方面之一 —— Kubernetes 网站和文档。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Roles and responsibilities
@@ -515,9 +515,10 @@ and editorial review of their PR.
 -->
 结合 OWNERS 文件及扉页可以给 PR 作者提供向谁请求检视的建议。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 For more information about contributing to the Kubernetes documentation, see:
@@ -527,6 +528,6 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Start contributing](/docs/contribute/start/)
 - [Documentation style](/docs/contribute/style/)
 
-{{% /capture %}}
+
 
 

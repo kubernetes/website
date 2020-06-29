@@ -1,20 +1,20 @@
 ---
 title: 파드 라이프사이클
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< comment >}}Updated: 4/14/2015{{< /comment >}}
 {{< comment >}}Edited and moved to Concepts section: 2/2/17{{< /comment >}}
 
 이 페이지는 파드의 라이프사이클을 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드의 단계(phase)
 
@@ -114,9 +114,9 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
    지원하지 않는다면, 기본 상태는 `Success`이다.
 
 * `startupProbe`: 컨테이너 내의 애플리케이션이 시작되었는지를 나타낸다.
-   스타트업 프로브(startup probe)가 주어진 경우, 성공할 때 까지 다른 나머지 프로브는 
+   스타트업 프로브(startup probe)가 주어진 경우, 성공할 때 까지 다른 나머지 프로브는
    활성화 되지 않는다. 만약 스타트업 프로브가 실패하면, kubelet이 컨테이너를 죽이고,
-   컨테이너는 [재시작 정책](#재시작-정책)에 따라 처리된다. 컨테이너에 스타트업 
+   컨테이너는 [재시작 정책](#재시작-정책)에 따라 처리된다. 컨테이너에 스타트업
    프로브가 없는 경우, 기본 상태는 `Success`이다.
 
 ### 언제 활성 프로브를 사용해야 하는가?
@@ -193,8 +193,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
    ...
    ```
 
-* `Terminated`:  컨테이너가 실행이 완료되어 구동을 멈추었다는 뜻이다. 컨테이너가 성공적으로 작업을 완료했을 때나 어떤 이유에서 실패했을 때 이 상태가 된다. 원인과 종료 코드(exit code)가 컨테이너의 시작과 종료 시간과 함께 무조건 출력된다.
-  컨테이너가 Terminated 상태가 되기 전에, `preStop` 훅이 (존재한다면) 실행된다.
+* `Terminated`:  컨테이너가 실행이 완료되어 구동을 멈추었다는 뜻이다. 컨테이너가 성공적으로 작업을 완료했을 때나 어떤 이유에서 실패했을 때 이 상태가 된다. 원인과 종료 코드(exit code)가 컨테이너의 시작과 종료 시간과 함께 무조건 출력된다. 컨테이너가 Terminated 상태가 되기 전에, `preStop` 훅이 (존재한다면) 실행된다.
 
    ```yaml
    ...
@@ -212,7 +211,7 @@ kubelet은 실행 중인 컨테이너들에 대해서 선택적으로 세 가지
 
 애플리케이션은 추가 피드백 또는 신호를 PodStatus: _Pod readiness_
 와 같이 주입할 수 있다. 이를 사용하기 위해, 파드의 준비성을 평가하기
-위한 추가적인 조건들을 `PodSpec` 내의 `ReadinessGate` 필드를 통해서 지정할 수 있다. 
+위한 추가적인 조건들을 `PodSpec` 내의 `ReadinessGate` 필드를 통해서 지정할 수 있다.
 
 준비성 게이트는 파드에 대한 `status.condition` 필드의 현재
 상태에 따라 결정된다. 만약 쿠버네티스가 `status.conditions` 필드에서 해당하는
@@ -260,6 +259,9 @@ status:
 
 * 파드 내의 모든 컨테이너들이 준비 상태이다.
 * `ReadinessGates`에 지정된 모든 조건들이 `True` 이다.
+
+파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 조건이 빠졌거나 `False` 이면,
+Kubelet은 파드의 상태를 `ContainerReady`로 설정한다.
 
 ## 재시작 정책
 
@@ -388,10 +390,11 @@ spec:
      * 노드 컨트롤러가 파드의 `phase`를 Failed로 설정한다.
      * 만약 컨트롤러로 실행되었다면, 파드는 어딘가에서 재생성된다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Hands-on 경험하기
   [컨테이너 라이프사이클 이벤트에 핸들러 부착하기](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
@@ -401,6 +404,6 @@ spec:
 
 * [컨테이너 라이프사이클 후크(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
 
-{{% /capture %}}
+
 
 

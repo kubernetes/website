@@ -1,10 +1,10 @@
 ---
 title: 컨테이너 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 컨테이너는 런타임에 필요한 종속성과 애플리케이션의
 컴파일 된 코드를 패키징 하는 기술이다. 실행되는 각각의
@@ -15,10 +15,10 @@ weight: 10
 컨테이너는 기본 호스트 인프라 환경에서 애플리케이션의 실행환경을 분리한다.
 따라서 다양한 클라우드 환경이나 운영체제에서 쉽게 배포 할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 컨테이너 이미지
 [컨테이너 이미지](/ko/docs/concepts/containers/images/) 는 즉시 실행할 수 있는
@@ -31,13 +31,13 @@ weight: 10
 애플리케이션을 변경하려는 경우, 변경사항을 포함하여 만든
 새로운 이미지를 통해 컨테이너를 다시 생성해야 한다.
 
-
 ## 컨테이너 런타임
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [컨테이너 이미지](/ko/docs/concepts/containers/images/)에 대해 읽어보기 
 * [파드](/ko/docs/concepts/workloads/pods/)에 대해 읽어보기
-{{% /capture %}}
+

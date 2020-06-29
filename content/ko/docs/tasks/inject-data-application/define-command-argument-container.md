@@ -1,25 +1,26 @@
 ---
 title: 컨테이너를 위한 커맨드와 인자 정의하기
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 본 페이지는 {{< glossary_tooltip text="파드" term_id="pod" >}} 안에서 컨테이너를 실행할
 때 커맨드와 인자를 정의하는 방법에 대해 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 파드를 생성할 때 커맨드와 인자를 정의하기
 
@@ -145,14 +146,15 @@ EntryPoint 값과 기본 Cmd 값이 덮어쓰여진다. `command`가 `args` 값�
 |     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [파드와 컨테이너를 구성하는 방법](/ko/docs/tasks/)에 대해 더 알아본다.
 * [컨테이너 안에서 커맨드를 실행하는 방법](/docs/tasks/debug-application-cluster/get-shell-running-container/)에 대해 더 알아본다.
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)를 확인한다.
 
-{{% /capture %}}
+
 
 

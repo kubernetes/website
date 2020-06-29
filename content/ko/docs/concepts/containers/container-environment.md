@@ -1,17 +1,17 @@
 ---
 title: 컨테이너 환경 변수
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 컨테이너 환경에서 컨테이너에 가용한 리소스에 대해 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 컨테이너 환경
 
@@ -50,11 +50,13 @@ FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 
 서비스에 지정된 IP 주소가 있고 [DNS 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [컨테이너 라이프사이클 훅(hooks)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배워 보기.
-* [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/) 실제 경험 얻기.
+* [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+  실제 경험 얻기.
 
-{{% /capture %}}
+

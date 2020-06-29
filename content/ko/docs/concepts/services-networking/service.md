@@ -5,14 +5,12 @@ feature:
   description: >
     쿠버네티스를 사용하면 익숙하지 않은 서비스 디스커버리 메커니즘을 사용하기 위해 애플리케이션을 수정할 필요가 없다. 쿠버네티스는 파드에게 고유한 IP 주소와 파드 집합에 대한 단일 DNS 명을 부여하고, 그것들 간에 로드-밸런스를 수행할 수 있다.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-
-
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
@@ -20,9 +18,9 @@ weight: 10
 쿠버네티스는 파드에게 고유한 IP 주소와 파드 집합에 대한 단일 DNS 명을 부여하고,
 그것들 간에 로드-밸런스를 수행할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 동기
 
@@ -242,7 +240,8 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 추가와 제거를 감시한다. 각 서비스는 로컬 노드에서
 포트(임의로 선택됨)를 연다. 이 "프록시 포트"에 대한 모든
 연결은 (엔드포인트를 통해 보고된대로) 서비스의 백엔드 파드 중 하나로
-프록시된다. kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
+프록시된다.
+kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
 `SessionAffinity` 설정을 고려한다.
 
 마지막으로, 유저-스페이스 프록시는 서비스의
@@ -310,7 +309,7 @@ IPVS는 트래픽을 백엔드 파드로 밸런싱하기 위한 추가 옵션을
 - `nq`: 큐 미사용 (never queue)
 
 {{< note >}}
-IPVS 모드에서 kube-proxy를 실행하려면, kube-proxy를 시작하기 전에 노드에서 IPVS Linux를
+IPVS 모드에서 kube-proxy를 실행하려면, kube-proxy를 시작하기 전에 노드에서 IPVS를
 사용 가능하도록 해야한다.
 
 kube-proxy가 IPVS 프록시 모드에서 시작될 때, IPVS 커널 모듈을
@@ -497,14 +496,14 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
      서비스를 외부에 노출시킨다. 외부 로드 밸런서가 라우팅되는
      `NodePort`와 `ClusterIP` 서비스가 자동으로 생성된다.
    * [`ExternalName`](#externalname): 값과 함께 CNAME 레코드를 리턴하여, 서비스를
-     `externalName` 필드의 컨텐츠 (예:`foo.bar.example.com`)에
-     맵핑한다. 어떤 종류의 프록시도 설정되어 있지 않다.
+     `externalName` 필드의 콘텐츠 (예:`foo.bar.example.com`)에
+     매핑한다.
+     어떤 종류의 프록시도 설정되어 있지 않다.
      {{< note >}}
      `ExternalName` 유형을 사용하려면 kube-dns 버전 1.7 또는 CoreDNS 버전 1.7 이상이 필요하다.
      {{< /note >}}
 
 [인그레스](/ko/docs/concepts/services-networking/ingress/)를 사용하여 서비스를 노출시킬 수도 있다. 인그레스는 서비스 유형이 아니지만, 클러스터의 진입점 역할을 한다. 동일한 IP 주소로 여러 서비스를 노출시킬 수 있기 때문에 라우팅 규칙을 단일 리소스로 통합할 수 있다.
-
 
 ### NodePort 유형 {#nodeport}
 
@@ -686,8 +685,17 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
 [...]
 ```
 {{% /tab %}}
@@ -895,7 +903,7 @@ NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스�
 헬스 체크에 실패하고 트래픽을 수신하지 못하게 된다.
 
 트래픽을 균일하게 하려면, DaemonSet을 사용하거나,
-[파드 안티어피니티(pod anti-affinity)](/ko/docs/concepts/configuration/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
+[파드 안티어피니티(pod anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
 를 지정하여 동일한 노드에 위치하지 않도록 한다.
 
 [내부 로드 밸런서](/ko/docs/concepts/services-networking/service/#internal-load-balancer) 어노테이션과 함께 NLB 서비스를
@@ -1217,12 +1225,11 @@ SCTP는 Windows 기반 노드를 지원하지 않는다.
 kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지원하지 않는다.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
 * [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에 대해 알아보기
-
-{{% /capture %}}

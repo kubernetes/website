@@ -1,18 +1,18 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Участие в документации Kubernetes
 linktitle: Contribute
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Если вы хотите внести свой вклад в документацию или сайт Kubernetes, мы будем рады вашей помощи! Любой может принять участие в проекте, независимо от того, знакомы ли вы с проектом или нет, кроме этого не имеет значения кто вы — разработчик, обычный пользователь или всего лишь тот, кто терпеть не может опечаток.
 
 С деталями о содержании и стиле документации Kubernetes вы можете ознакомиться в [Documentation style overview](/docs/contribute/style/).
 
-{{% capture body %}}
+<!-- body -->
 
 ## Типы участников документации
 
@@ -58,4 +58,4 @@ weight: 80
 - Чтобы помочь сообществу Kubernetes с помощью онлайн-форумов, таких как Twitter или Stack Overflow, либо узнать о местных встречах и мероприятиях по Kubernetes, [посетите страницу сообщества Kubernetes](/community/).
 - Чтобы поучаствовать в разработке функциональности, ознакомьтесь со [шпаргалкой для участника](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet), чтобы начать.
 
-{{% /capture %}}
+

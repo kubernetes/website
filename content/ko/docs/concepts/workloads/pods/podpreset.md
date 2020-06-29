@@ -1,29 +1,51 @@
 ---
+
+
 title: 파드 프리셋
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
-이 페이지는 파드 프리셋에 대한 개요를 제공한다. 파드 프리셋은 파드 생성 시간에 파드에
+<!-- overview -->
+{{< feature-state for_k8s_version="v1.6" state="alpha" >}}
+
+이 페이지는 파드프리셋(PodPreset)에 대한 개요를 제공한다. 파드프리셋은 파드 생성 시간에 파드에
 특정 정보를 주입하기 위한 오브젝트이다. 해당 정보에는
 시크릿, 볼륨, 볼륨 마운트, 환경 변수가 포함될 수 있다.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## 파드 프리셋 이해하기
 
-`Pod Preset`은 파드 생성 시간에 파드에 추가적인 런타임 요구사항을
+파드프리셋은 파드 생성 시간에 파드에 추가적인 런타임 요구사항을
 주입하기 위한 API 리소스이다.
-주어진 파드 프리셋이 적용되도록 파드에 명시하기 위해서는
+주어진 파드프리셋이 적용되도록 파드에 명시하기 위해서는
 [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 사용한다.
 
-파드 프리셋을 사용하는 것은 파드 템플릿 작성자에게 모든 파드를 위한 모든 정보를 명시적으로
+파드프리셋을 사용하는 것은 파드 템플릿 작성자에게 모든 파드를 위한 모든 정보를 명시적으로
 제공하지는 않아도 되도록 한다. 이렇게 하면, 어떤 특정 서비스를 사용할 파드의 파드
 템플릿 작성자는 해당 서비스에 대한 모든 세부 사항을 알 필요가 없다.
 
-그 배경에 대한 자세한 정보를 위해서는, [파드 프리셋을 위한 디자인 제안](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md)을 참고한다.
+
+## 클러스터에서 파드프리셋 활성화하기 {#enable-pod-preset}
+
+클러스터에서 파드 프리셋을 사용하기 위해서는 다음 사항이 반드시 이행되어야 한다.
+
+1.  API 타입 `settings.k8s.io/v1alpha1/podpreset`을 활성화하였다.
+    예를 들면, 이것은 API 서버의 `--runtime-config` 옵션에 `settings.k8s.io/v1alpha1=true`을 포함하여 완료할 수 있다.
+    minikube에서는 클러스터가 시작할 때
+    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`
+    플래그를 추가한다.
+1.  어드미션 컨트롤러 `PodPreset`을 활성화하였다. 이것을 이루는 방법 중 하나는
+    API 서버를 위해서 명시된 `--enable-admission-plugins` 옵션에 `PodPreset`을 포함하는 것이다.
+    minikube에서는 클러스터가 시작할 때
+
+    ```shell
+    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+    ```
+
+    플래그를 추가한다.
 
 ## 어떻게 동작하는가
 
@@ -60,31 +82,13 @@ weight: 50
 있을 것이다. 이 경우에는, 다음과 같은 양식으로 어노테이션을 파드 스펙에
 추가한다. `podpreset.admission.kubernetes.io/exclude: "true"`.
 
-## 파드 프리셋 활성화하기
 
-클러스터에서 파드 프리셋을 사용하기 위해서는 다음 사항이 반드시 이행되어야 한다.
 
-1.  API 타입 `settings.k8s.io/v1alpha1/podpreset`을 활성화하였다.
-    예를 들면, 이것은 API 서버의 `--runtime-config` 옵션에 `settings.k8s.io/v1alpha1=true`을 포함하여 완료할 수 있다.
-    minikube에서는 클러스터가 시작할 때
-    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`
-    플래그를 추가한다.
-1.  어드미션 컨트롤러 `PodPreset`을 활성화하였다. 이것을 이루는 방법 중 하나는
-    API 서버를 위해서 명시된 `--enable-admission-plugins` 옵션에 `PodPreset`을 포함하는 것이다.
-    minikube에서는 클러스터가 시작할 때
+## {{% heading "whatsnext" %}}
 
-    ```shell
-    --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
-    ```
 
-    플래그를 추가한다.
-1.  사용할 네임스페이스 안에서 `PodPreset` 오브젝트를 생성하여
-    파드 프리셋을 정의하였다.
+[파드프리셋을 사용하여 파드에 데이터 주입하기](/docs/tasks/inject-data-application/podpreset/)를 본다.
 
-{{% /capture %}}
+배경에 대한 자세한 정보를 위해서는, [파드프리셋을 위한 디자인 제안](https://git.k8s.io/community/contributors/design-proposals/service-catalog/pod-preset.md)을 본다.
 
-{{% capture whatsnext %}}
 
-* [파드 프리셋을 사용하여 파드에 데이터 주입하기](/docs/tasks/inject-data-application/podpreset/)
-
-{{% /capture %}}

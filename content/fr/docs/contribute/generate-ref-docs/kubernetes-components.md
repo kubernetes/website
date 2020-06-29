@@ -1,15 +1,16 @@
 ---
 title: Génération de pages de référence pour les composants et les outils Kubernetes
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment utiliser l'outil `update-importer-docs` pour générer une documentation de référence pour les outils et les composants des dépôts [Kubernetes](https://github.com/kubernetes/kubernetes) et [Federation](https://github.com/kubernetes/federation).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Vous avez besoin d'une machine qui exécute Linux ou macOS.
 
@@ -29,9 +30,9 @@ Cette page montre comment utiliser l'outil `update-importer-docs` pour générer
 Cela implique généralement la création d’un fork d'un dépôt.
 Pour plus d'informations, consultez [Créer une Pull Request de documentation](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Obtenir deux dépôts
 
@@ -193,12 +194,13 @@ Consultez votre pull request et répondez aux corrections suggérées par les r�
 
 Quelques minutes après le merge votre pull request, vos références mises à jour seront visibles dans la [documentation publiée](/docs/home/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
 * [Génération de documentation de référence pour l'API Kubernetes](/fr/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Génération de documentation de référence pour l'API de fédération Kubernetes](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}
+

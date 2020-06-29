@@ -3,7 +3,7 @@ reviewers:
 - justinsb
 - clove
 title: 在 AWS EC2 上运行 Kubernetes
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -11,21 +11,22 @@ reviewers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2
-content_template: templates/task
+content_type: task
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page describes how to install a Kubernetes cluster on AWS.
 -->
 本页面介绍了如何在 AWS 上安装 Kubernetes 集群。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 -->
@@ -61,9 +62,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 -->
 * [KubeOne](https://github.com/kubermatic/kubeone) 是一个开源集群生命周期管理工具，它可用于创建，升级和管理高可用 Kubernetes 集群。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Getting started with your cluster
@@ -174,4 +175,4 @@ and using a Kubernetes cluster.
 
 请参阅 [Kubernetes 文档](/docs/)了解有关管理和使用 Kubernetes 集群的更多详细信息。
 
-{{% /capture %}}
+

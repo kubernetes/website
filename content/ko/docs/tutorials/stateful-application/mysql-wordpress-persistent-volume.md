@@ -1,7 +1,6 @@
 ---
 title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
-reviewers:
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 card: 
   name: tutorials
@@ -9,7 +8,9 @@ card:
   title: "스테이트풀셋 예시: Wordpress와 퍼시스턴트 볼륨"
 ---
 
-{{% capture overview %}}
+
+
+<!-- overview -->
 이 튜토리얼은 WordPress 사이트와 MySQL 데이터베이스를 Minikube를 이용하여 어떻게 배포하는지 보여준다. 애플리케이션 둘 다 퍼시스턴트 볼륨과 퍼시스턴트볼륨클레임을 데이터를 저장하기 위해 사용한다.
 
 [퍼시스턴트볼륨](/ko/docs/concepts/storage/persistent-volumes/)(PV)는 관리자가 수동으로 프로비저닝한 클러스터나 쿠버네티스 [스토리지클래스](/docs/concepts/storage/storage-classes)를 이용해 동적으로 프로비저닝된 저장소의 일부이다. [퍼시스턴트볼륨클레임](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)(PVC)은 PV로 충족할 수 있는 사용자에 의한 스토리지 요청이다. 퍼시스턴트볼륨은 파드 라이프사이클과 독립적이며 재시작, 재스케줄링이나 파드를 삭제할 때에도 데이터를 보존한다.
@@ -22,9 +23,10 @@ card:
 이 튜토리얼에 제공된 파일들은 GA 디플로이먼트 API를 사용하며 쿠버네티스 버전 1.9 이상을 이용한다. 이 튜토리얼을 쿠버네티스 하위 버전에서 적용한다면 API 버전을 적절히 갱신하거나 이 튜토리얼의 이전 버전을 참고하자.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * 퍼시스턴트볼륨클레임과 퍼시스턴트볼륨 생성
 * 다음을 포함하는 `kustomization.yaml` 생성
   * 시크릿 생성자
@@ -33,9 +35,10 @@ card:
 * `kubectl apply -k ./`로 생성한 kustomization 을 적용
 * 정리
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 이 예시는 `kubectl` 1.14 이상 버전에서 동작한다.
@@ -46,9 +49,9 @@ card:
 
 1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 퍼시스턴트볼륨클레임과 퍼시스턴트볼륨 생성
 
@@ -217,9 +220,10 @@ kubectl apply -k ./
 이 페이지의 WordPress 설치를 내버려 두지 말자. 다른 사용자가 이 페이지를 발견하고 귀하의 인스턴스에 웹 사이트를 설정하고 악의적인 컨텐츠를 게시하는데 사용할 수 있다. <br/><br/>WordPress를 사용자명과 암호를 넣어 생성하거나 인스턴스를 삭제하자.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 1. 다음 명령을 실행하여 시크릿, 디플로이먼트, 서비스와 퍼시스턴트볼륨클레임을 삭제하자.
 
@@ -227,14 +231,15 @@ kubectl apply -k ./
       kubectl delete -k ./
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
 * [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
 * [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
 * 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
 
-{{% /capture %}}
+
 

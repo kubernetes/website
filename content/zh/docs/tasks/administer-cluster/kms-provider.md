@@ -2,22 +2,23 @@
 reviewers:
 - smarterclayton
 title: 使用 KMS 提供商进行数据加密
-content_template: templates/task
+content_type: task
 ---
 <!-- ---
 reviewers:
 - smarterclayton
 title: Using a KMS provider for data encryption
-content_template: templates/task
+content_type: task
 --- -->
-{{% capture overview %}}
+<!-- overview -->
 <!-- This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption. -->
 
 本页展示了如何配置秘钥管理服务—— Key Management Service (KMS) 提供商和插件以启用数据加密。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -31,9 +32,9 @@ content_template: templates/task
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- The KMS encryption provider uses an envelope encryption scheme to encrypt data in etcd. The data is encrypted using a data encryption key (DEK); a new DEK is generated for each encryption. The DEKs are encrypted with a key encryption key (KEK) that is stored and managed in a remote KMS. The KMS provider uses gRPC to communicate with a specific KMS 
 plugin. The KMS plugin, which is implemented as a gRPC server and deployed on the same host(s) as the Kubernetes master(s), is responsible for all communication with the remote KMS. -->
@@ -278,6 +279,6 @@ resources:
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
-{{% /capture %}}
+
 
 

@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Options for Highly Available topology
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains the two options for configuring the topology of your highly available (HA) Kubernetes clusters.
 
@@ -22,9 +22,9 @@ kubeadm bootstraps the etcd cluster statically. Read the etcd [Clustering Guide]
 for more details.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Stacked etcd topology
 
@@ -67,10 +67,11 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Set up a highly available cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
 
-{{% /capture %}}
+

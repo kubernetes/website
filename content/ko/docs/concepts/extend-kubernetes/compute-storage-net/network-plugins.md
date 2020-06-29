@@ -1,11 +1,11 @@
 ---
 title: 네트워크 플러그인
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
 {{< caution >}}알파 기능은 빨리 변경될 수 있다. {{< /caution >}}
@@ -15,9 +15,9 @@ weight: 10
 * CNI 플러그인: 상호 운용성을 위해 설계된 appc/CNI 명세를 준수한다.
 * Kubenet 플러그인: `bridge` 와 `host-local` CNI 플러그인을 사용하여 기본 `cbr0` 구현한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 설치
 
@@ -79,11 +79,13 @@ CNI 네트워킹 플러그인은 `hostPort` 를 지원한다. CNI 플러그인 �
 
 #### 트래픽 셰이핑 지원
 
+**실험적인 기능입니다**
+
 CNI 네트워킹 플러그인은 파드 수신 및 송신 트래픽 셰이핑도 지원한다. CNI 플러그인 팀에서 제공하는 공식 [대역폭(bandwidth)](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 플러그인을 사용하거나 대역폭 제어 기능이 있는 자체 플러그인을 사용할 수 있다.
 
 트래픽 셰이핑 지원을 활성화하려면, CNI 구성 파일 (기본값 `/etc/cni/net.d`)에 `bandwidth` 플러그인을
-추가해야 한다.
+추가하고, 바이너리가 CNI 실행 파일 디렉터리(기본값: `/opt/cni/bin`)에 포함되어있는지 확인한다.
 
 ```json
 {
@@ -160,8 +162,9 @@ AWS에서 `eth0` MTU는 일반적으로 9001이므로, `--network-plugin-mtu=900
 * `--network-plugin=kubenet` 은 `/opt/cni/bin` 또는 `cni-bin-dir` 에 있는 CNI `bridge` 및 `host-local` 플러그인과 함께 kubenet 네트워크 플러그인을 사용하도록 지정한다.
 * 현재 kubenet 네트워크 플러그인에서만 사용하는 `--network-plugin-mtu=9001` 은 사용할 MTU를 지정한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

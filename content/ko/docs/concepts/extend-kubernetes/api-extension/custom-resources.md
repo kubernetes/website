@@ -1,18 +1,18 @@
 ---
 title: 커스텀 리소스
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 *커스텀 리소스* 는 쿠버네티스 API의 익스텐션이다. 이 페이지에서는 쿠버네티스 클러스터에
 커스텀 리소스를 추가할 시기와 독립형 서비스를 사용하는 시기에 대해 설명한다. 커스텀 리소스를
 추가하는 두 가지 방법과 이들 중에서 선택하는 방법에 대해 설명한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 커스텀 리소스
 
 *리소스* 는 [쿠버네티스 API](/ko/docs/reference/using-api/api-overview/)에서 특정 종류의
@@ -175,15 +175,15 @@ CRD는 애그리게이트 API보다 생성하기가 쉽다.
 
 | 기능     | 설명         | CRD  | 애그리게이트 API        |
 | ------- | ----------- | ---- | -------------- |
-| 유효성 검사 | 사용자가 오류를 방지하고 클라이언트와 독립적으로 API를 발전시킬 수 있도록 도와준다. 이러한 기능은 동시에 많은 클라이언트를 모두 업데이트할 수 없는 경우에 아주 유용하다. | 예. [OpenAPI v3.0 유효성 검사](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation)를 사용하여 CRD에서 대부분의 유효성 검사를 지정할 수 있다. [웹훅 유효성 검사](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)를 추가해서 다른 모든 유효성 검사를 지원한다. | 예, 임의의 유효성 검사를 지원한다. |
-| 기본 설정 | 위를 참고하자. | 예, [OpenAPI v3.0 유효성 검사](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#defaulting)의 `default` 키워드(1.17에서 GA) 또는 [웹훅 변형(mutating)](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)(이전 오브젝트의 etcd에서 읽을 때는 실행되지 않음)을 통해 지원한다. | 예 |
-| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 ​​경우는 덜 중요하다. | [예](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definition-versioning) | 예 |
+| 유효성 검사 | 사용자가 오류를 방지하고 클라이언트와 독립적으로 API를 발전시킬 수 있도록 도와준다. 이러한 기능은 동시에 많은 클라이언트를 모두 업데이트할 수 없는 경우에 아주 유용하다. | 예. [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation)를 사용하여 CRD에서 대부분의 유효성 검사를 지정할 수 있다. [웹훅 유효성 검사](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)를 추가해서 다른 모든 유효성 검사를 지원한다. | 예, 임의의 유효성 검사를 지원한다. |
+| 기본 설정 | 위를 참고하자. | 예, [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)의 `default` 키워드(1.17에서 GA) 또는 [웹훅 변형(mutating)](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)(이전 오브젝트의 etcd에서 읽을 때는 실행되지 않음)을 통해 지원한다. | 예 |
+| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 ​​경우는 덜 중요하다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | 예 |
 | 사용자 정의 스토리지 | 다른 성능 모드(예를 들어, 키-값 저장소 대신 시계열 데이터베이스)나 보안에 대한 격리(예를 들어, 암호화된 시크릿이나 다른 암호화) 기능을 가진 스토리지가 필요한 경우 | 아니오 | 예 |
 | 사용자 정의 비즈니스 로직 | 오브젝트를 생성, 읽기, 업데이트 또는 삭제를 할 때 임의의 점검 또는 조치를 수행한다. | 예, [웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)을 사용한다. | 예 |
-| 서브리소스 크기 조정 | HorizontalPodAutoscaler 및 PodDisruptionBudget과 같은 시스템이 새로운 리소스와 상호 작용할 수 있다. | [예](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#scale-subresource)  | 예 |
-| 서브리소스 상태 | 사용자가 스펙 섹션을 작성하고 컨트롤러가 상태 섹션을 작성하는 세분화된 접근 제어를 허용한다. 커스텀 리소스 데이터 변형 시 오브젝트 생성을 증가시킨다(리소스에서 별도의 스펙과 상태 섹션 필요). | [예](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#status-subresource) | 예 |
+| 서브리소스 크기 조정 | HorizontalPodAutoscaler 및 PodDisruptionBudget과 같은 시스템이 새로운 리소스와 상호 작용할 수 있다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)  | 예 |
+| 서브리소스 상태 | 사용자가 스펙 섹션을 작성하고 컨트롤러가 상태 섹션을 작성하는 세분화된 접근 제어를 허용한다. 커스텀 리소스 데이터 변형 시 오브젝트 생성을 증가시킨다(리소스에서 별도의 스펙과 상태 섹션 필요). | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource) | 예 |
 | 기타 서브리소스 | "logs" 또는 "exec"과 같은 CRUD 이외의 작업을 추가한다. | 아니오 | 예 |
-| strategic-merge-patch | 새로운 엔드포인트는 `Content-Type: application/strategic-merge-patch+json` 형식의 PATCH를 지원한다. 로컬 및 서버 양쪽에서 수정할 수도 있는 오브젝트를 업데이트하는 데 유용하다. 자세한 내용은 ["kubectl 패치를 사용한 API 오브젝트 업데이트"](/docs/tasks/run-application/update-api-object-kubectl-patch/)를 참고한다. | 아니오 | 예 |
+| strategic-merge-patch | 새로운 엔드포인트는 `Content-Type: application/strategic-merge-patch+json` 형식의 PATCH를 지원한다. 로컬 및 서버 양쪽에서 수정할 수도 있는 오브젝트를 업데이트하는 데 유용하다. 자세한 내용은 ["kubectl 패치를 사용한 API 오브젝트 업데이트"](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)를 참고한다. | 아니오 | 예 |
 | 프로토콜 버퍼 | 새로운 리소스는 프로토콜 버퍼를 사용하려는 클라이언트를 지원한다. | 아니오 | 예 |
 | OpenAPI 스키마 | 서버에서 동적으로 가져올 수 있는 타입에 대한 OpenAPI(스웨거(swagger)) 스키마가 있는가? 허용된 필드만 설정하여 맞춤법이 틀린 필드 이름으로부터 사용자를 보호하는가? 타입이 적용되는가(즉, `string` 필드에 `int`를 넣지 않는가?) | 예, [OpenAPI v3.0 유효성 검사](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation)를 기반으로 하는 스키마(1.16에서 GA) | 예 |
 
@@ -243,12 +243,12 @@ CRD는 항상 API 서버의 빌트인 리소스와 동일한 인증, 권한 부�
 - 작성한 REST 클라이언트
 - [쿠버네티스 클라이언트 생성 도구](https://github.com/kubernetes/code-generator)를 사용하여 생성된 클라이언트(하나를 생성하는 것은 고급 기능이지만, 일부 프로젝트는 CRD 또는 AA와 함께 클라이언트를 제공할 수 있다).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [애그리게이션 레이어(aggregation layer)로 쿠버네티스 API 확장](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)하는 방법에 대해 배우기.
 
-* [커스텀리소스데피니션으로 쿠버네티스 API 확장](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)하는 방법에 대해 배우기.
+* [커스텀리소스데피니션으로 쿠버네티스 API 확장](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)하는 방법에 대해 배우기.
 
-{{% /capture %}}

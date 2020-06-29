@@ -1,22 +1,23 @@
 ---
 title: Horizontal Pod Autoscaler 연습
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
-레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀 셋의 파드 개수를 자동으로 스케일한다.
+레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀셋(StatefulSet)의 파드 개수를 자동으로 스케일한다.
 
 이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 
-{{% /capture %}}
 
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 이 예제는 버전 1.2 또는 이상의 쿠버네티스 클러스터와 kubectl을 필요로 한다.
 [메트릭-서버](https://github.com/kubernetes-incubator/metrics-server/) 모니터링을 클러스터에 배포하여 리소스 메트릭 API를 통해 메트릭을 제공해야 한다.
@@ -30,9 +31,9 @@ Horizontal Pod Autoscaler에 다양한 자원 메트릭을 적용하고자 하�
 버전 1.10 또는 이상의 쿠버네티스 클러스터와 kubectl을 사용해야 하며, 외부 메트릭 API와 통신이 가능해야 한다.
 자세한 사항은 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/#사용자-정의-메트릭을-위한-지원)를 참고하길 바란다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## php-apache 서버 구동 및 노출
 
@@ -109,7 +110,7 @@ php-apache   Deployment/php-apache/scale   0% / 50%  1         10        1      
 
 
 ```shell
-kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
+kubectl run -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
@@ -175,9 +176,9 @@ CPU 사용량은 0으로 떨어졌고, HPA는 레플리카의 개수를 1로 낮
 레플리카 오토스케일링은 몇 분 정도 소요된다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 다양한 메트릭 및 사용자 정의 메트릭을 기초로한 오토스케일링
 
@@ -481,4 +482,4 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 
-{{% /capture %}}
+

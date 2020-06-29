@@ -2,14 +2,17 @@
 reviewers:
 - lavalamp
 title: Kubernetes Components
-content_template: templates/concept
+content_type: concept
+description: >
+  A Kubernetes cluster consists of the components that represent the control plane
+  and a set of machines called nodes.
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 When you deploy Kubernetes, you get a cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
@@ -20,9 +23,9 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 ![Components of Kubernetes](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Control Plane Components
 
 The control plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
@@ -122,10 +125,11 @@ about containers in a central database, and provides a UI for browsing that data
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [Nodes](/docs/concepts/architecture/nodes/)
 * Learn about [Controllers](/docs/concepts/architecture/controller/)
 * Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
-{{% /capture %}}
+

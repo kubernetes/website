@@ -1,11 +1,11 @@
 ---
 title: 풀 리퀘스트 리뷰
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 누구나 문서화에 대한 풀 리퀘스트를 리뷰할 수 있다. 쿠버네티스 website 리포지터리의 [풀 리퀘스트](https://github.com/kubernetes/website/pulls) 섹션을 방문하여 열린(open) 풀 리퀘스트를 확인한다.
 
@@ -19,9 +19,9 @@ weight: 10
 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
 - 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/docs/contribute/participating/#roles-and-responsibilities)을 이해한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 시작하기 전에
 
@@ -86,7 +86,7 @@ weight: 10
 
 - 이 PR이 페이지 제목, slug/alias 또는 앵커(anchor) 링크를 변경 또는 제거하는가? 그렇다면, 이 PR의 결과로 끊어진 링크가 있는가? slug를 변경 없이 페이지 제목을 변경하는 등의 다른 옵션이 있는가?
 - PR이 새로운 페이지를 소개하는가? 그렇다면,
-  - 페이지가 올바른 [페이지 템플릿](/docs/contribute/style/page-templates/)과 연관된 Hugo 단축 코드를 사용하는가?
+  - 페이지가 올바른 [페이지 콘텐츠 타입](/docs/contribute/style/page-content-types/)과 연관된 Hugo 단축 코드를 사용하는가?
   - 섹션의 측면 탐색에 페이지가 올바르게 나타나는가?
   - 페이지가 [문서 홈](/ko/docs/home/) 목록에 나타나야 하는가?
 - 변경 사항이 Netlify 미리보기에 표시되는가? 목록, 코드 블록, 표, 메모 및 이미지에 특히 주의한다.
@@ -95,4 +95,4 @@ weight: 10
 
 오타나 공백과 같은 작은 이슈의 PR인 경우, 코멘트 앞에 `nit:` 를 추가한다. 이를 통해 문서의 저자는 이슈가 긴급하지 않다는 것을 알 수 있다.
 
-{{% /capture %}}
+

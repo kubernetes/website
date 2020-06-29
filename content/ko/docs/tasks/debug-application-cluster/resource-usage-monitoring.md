@@ -1,9 +1,9 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: 리소스 모니터링 도구
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 애플리케이션을 스케일하여 신뢰할 수 있는 서비스를 제공하려면, 
 애플리케이션이 배포되었을 때 애플리케이션이 어떻게 동작하는지를 이해해야 한다. 
@@ -14,19 +14,15 @@ title: 리소스 모니터링 도구
 이 정보는 애플리케이션의 성능을 평가하고 
 병목 현상을 제거하여 전체 성능을 향상할 수 있게 해준다.
 
-{{% /capture %}}
 
-{{% capture body %}}
 
-쿠버네티스에서 애플리케이션 모니터링은 단일 모니터링 솔루션에 의존하지 않는다.
-신규 클러스터에서는, [리소스 메트릭](#리소스-메트릭-파이프라인) 또는 [완전한
-메트릭 파이프라인](#완전한-메트릭-파이프라인) 파이프라인으로 모니터링 통계를
-수집할 수 있다.
+<!-- body -->
+
+쿠버네티스에서 애플리케이션 모니터링은 단일 모니터링 솔루션에 의존하지 않는다. 신규 클러스터에서는, [리소스 메트릭](#리소스-메트릭-파이프라인) 또는 [완전한 메트릭](#완전한-메트릭-파이프라인) 파이프라인으로 모니터링 통계를 수집할 수 있다.
 
 ## 리소스 메트릭 파이프라인
 
-리소스 메트릭 파이프라인은 
-[Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale)
+리소스 메트릭 파이프라인은 [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale)
 컨트롤러와 같은 클러스터 구성요소나 `kubectl top` 유틸리티에 관련되어 있는
 메트릭들로 제한된 집합을 제공한다. 이 메트릭은 경량의 단기 인메모리 저장소인
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server)에
@@ -55,4 +51,4 @@ kubelet의 인증이 필요한 읽기 전용 포트 상의 `/metrics/resource/v1
 CNCF 프로젝트인, [프로메테우스](https://prometheus.io)는 기본적으로 쿠버네티스, 노드, 프로메테우스 자체를 모니터링할 수 있다.
 CNCF 프로젝트가 아닌 완전한 메트릭 파이프라인 프로젝트는 쿠버네티스 문서의 범위가 아니다.
 
-{{% /capture %}}
+

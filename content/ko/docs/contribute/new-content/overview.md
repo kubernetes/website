@@ -1,25 +1,25 @@
 ---
 title: 새로운 콘텐츠 기여하기에 대한 개요
 linktitle: 개요
-content_template: templates/concept
+content_type: concept
 main_menu: true
 weight: 5
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 섹션에는 새로운 콘텐츠를 기여하기 전에 알아야 할 정보가 있다.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 기여하기에 대한 기본
 
 - 마크다운(Markdown)으로 쿠버네티스 문서를 작성하고 [Hugo](https://gohugo.io/)를 사용하여 쿠버네티스 사이트를 구축한다.
 - 소스는 [GitHub](https://github.com/kubernetes/website)에 있다. 쿠버네티스 문서는 `/content/ko/docs/` 에서 찾을 수 있다. 일부 참조 문서는 `update-imported-docs/` 디렉터리의 스크립트에서 자동으로 생성된다.
-- [페이지 템플릿](/docs/contribute/style/page-templates/)은 Hugo에서 문서 콘텐츠의 프리젠테이션을 제어한다.
+- [페이지 템플릿](/docs/contribute/style/page-content-types/)은 Hugo에서 문서 콘텐츠의 프리젠테이션을 제어한다.
 - 표준 Hugo 단축코드(shortcode) 이외에도 설명서에서 여러 [사용자 정의 Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 사용하여 콘텐츠 표시를 제어한다.
 - 문서 소스는 `/content/` 에서 여러 언어로 제공된다. 각 언어는 [ISO 639-1 표준](https://www.loc.gov/standards/iso639-2/php/code_list.php)에 의해 결정된 2문자 코드가 있는 자체 폴더가 있다. 예를 들어, 한글 문서의 소스는 `/content/ko/docs/` 에 저장된다.
 - 여러 언어로 문서화에 기여하거나 새로운 번역을 시작하는 방법에 대한 자세한 내용은 [현지화](/ko/docs/contribute/localization_ko/)를 참고한다.
@@ -54,5 +54,8 @@ CLA에 서명하지 않은 기여자의 풀 리퀘스트(pull request)는 자동
 
 PR 당 하나의 언어로 풀 리퀘스트를 제한한다. 여러 언어로 동일한 코드 샘플을 동일하게 변경해야 하는 경우 각 언어마다 별도의 PR을 연다.
 
+## 기여자를 위한 도구들
 
-{{% /capture %}}
+`kubernetes/website` 리포지터리의 [문서 기여자를 위한 도구](https://github.com/kubernetes/website/tree/master/content/en/docs/doc-contributor-tools) 디렉터리에는 기여 여정이 좀 더 순조롭게 진행되도록 도와주는 도구들이 포함되어 있다.
+
+

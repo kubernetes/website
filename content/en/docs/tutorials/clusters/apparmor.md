@@ -2,10 +2,10 @@
 reviewers:
 - stclair
 title: AppArmor
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
 
@@ -13,7 +13,7 @@ content_template: templates/tutorial
 AppArmor is a Linux kernel security module that supplements the standard Linux user and group based
 permissions to confine programs to a limited set of resources. AppArmor can be configured for any
 application to reduce its potential attack surface and provide greater in-depth defense. It is
-configured through profiles tuned to whitelist the access needed by a specific program or container,
+configured through profiles tuned to allow the access needed by a specific program or container,
 such as Linux capabilities, network access, file permissions, etc. Each profile can be run in either
 *enforcing* mode, which blocks access to disallowed resources, or *complain* mode, which only reports
 violations.
@@ -24,9 +24,10 @@ that AppArmor is not a silver bullet and can only do so much to protect against 
 application code. It is important to provide good, restrictive profiles, and harden your
 applications and cluster from other angles as well.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * See an example of how to load a profile on a node
 * Learn how to enforce the profile on a Pod
@@ -34,9 +35,10 @@ applications and cluster from other angles as well.
 * See what happens when a profile is violated
 * See what happens when a profile cannot be loaded
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Make sure:
 
@@ -111,9 +113,9 @@ gke-test-default-pool-239f5d02-x1kf: kubelet is posting ready status. AppArmor e
 gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor enabled
 ```
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Securing a Pod
 
@@ -458,13 +460,14 @@ Specifying the list of profiles Pod containers is allowed to specify:
   - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
     allowed here.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
 
-{{% /capture %}}
+

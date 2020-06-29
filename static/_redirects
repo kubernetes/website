@@ -20,7 +20,7 @@
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
-/docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/admin/     /docs/concepts/cluster-administration/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
@@ -75,7 +75,8 @@
 /docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/pod-overview/ 301
 /docs/concepts/api-extension/apiserver-aggregation/     /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/ 301
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
-/docs/concepts/cluster/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/concepts/containers/overview/     /docs/concepts/containers/ 301
+/docs/concepts/cluster-administration/cluster-administration-overview/     /docs/concepts/cluster-administration/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
@@ -98,13 +99,13 @@
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
-/docs/concepts/ecosystem/thirdpartyresource/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
+/docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/jobs/run-to-completion-finite-workloads/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
-/docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/extend-cluster/ 301
+/docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
@@ -127,7 +128,8 @@
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
 /docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/job/ 301
+/docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
@@ -142,7 +144,6 @@
 /docs/contribute/write-new-topic/        /docs/home/contribute/write-new-topic/ 301
 /docs/contribute/start/        /docs/contribute/ 301
 /docs/contribute/intermediate/        /docs/contribute/ 301
-
 
 /docs/deprecate/     /docs/reference/using-api/deprecation-policy/ 301
 /docs/deprecated/     /docs/reference/using-api/deprecation-policy/ 301
@@ -186,6 +187,12 @@
 
 /docs/reference/kubectl/kubectl/kubectl_*.md    /docs/reference/generated/kubectl/kubectl-commands#:splat 301
 
+/docs/reference/generated/kubernetes-api/v1.14/    https://v1-14.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.14/  301
+/docs/reference/generated/kubernetes-api/v1.15/    https://v1-15.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/  301
+/docs/reference/generated/kubernetes-api/v1.16/    https://v1-16.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.16/  301
+/docs/reference/generated/kubernetes-api/v1.17/    https://v1-17.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.17/  301
+
+
 /docs/reporting-security-issues/     /security/ 301
 
 /docs/roadmap/     https://github.com/kubernetes/kubernetes/milestones/ 301
@@ -194,9 +201,13 @@
 
 /docs/tasks/access-application-cluster/access-cluster.md     /docs/tasks/access-application-cluster/access-cluster/ 301!
 /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
-/docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/access-kubernetes-api/http-proxy-access-api/ 301
-/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/ 301
-/docs/tasks/access-kubernetes-api/migrate-third-party-resource/    /docs/tasks/access-kubernetes-api/custom-resources/migrate-third-party-resource/ 301
+
+/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
+/docs/tasks/access-kubernetes-api/access-kubernetes-api/custom-resources/custom-resource-definition-versioning/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/ 301
+/docs/tasks/access-kubernetes-api/access-kubernetes-api/http-proxy-access-api/     /docs/tasks/extend-kubernetes/http-proxy-access-api/ 301
+/docs/tasks/access-kubernetes-api/configure-aggregation-layer/   /docs/tasks/extend-kubernetes/configure-aggregation-layer/ 301
+/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/     /docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/ 301
+/docs/tasks/access-kubernetes-api/setup-extension-api-server/     /docs/tasks/extend-kubernetes/setup-extension-api-server/ 301
 
 /docs/tasks/administer-cluster/apply-resource-quota-limit/     /docs/tasks/administer-cluster/quota-api-object/ 301
 /docs/tasks/administer-cluster/assign-pods-nodes/     /docs/tasks/configure-pod-container/assign-pods-nodes/ 301
@@ -204,6 +215,7 @@
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
+/docs/tasks/administer-cluster/configure-multiple-schedulers/     /docs/tasks/extend-kubernetes/configure-multiple-schedulers/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
 /docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
 /docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
@@ -215,15 +227,12 @@
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-14     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
-#/docs/tasks/administer-cluster/kubeadm-upgrade-1-7/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-7/ 301
-#/docs/tasks/administer-cluster/kubeadm-upgrade-1-8/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-8/ 301
-#/docs/tasks/administer-cluster/kubeadm-upgrade-1-9/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-1-9/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
 /docs/tasks/administer-cluster/kube-router-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/ 301
 /docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
 /docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
-/docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
 /docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
@@ -231,7 +240,6 @@
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/administer-cluster/static-pod/ /docs/tasks/configure-pod-container/static-pod/ 301
-#/docs/tasks/administer-cluster/upgrade-1-6/      /docs/tasks/administer-cluster/upgrade-downgrade/upgrade-1-6/ 301
 /docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
 /docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
@@ -252,7 +260,8 @@
 /docs/tasks/configure-pod-container/romana-network-policy/     /docs/tasks/administer-cluster/romana-network-policy/ 301
 /docs/tasks/configure-pod-container/weave-network-policy/     /docs/tasks/administer-cluster/weave-network-policy/ 301
 /docs/tasks/debug-application-cluster/sematext-logging-monitoring/     https://sematext.com/kubernetes/ 301
-/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/tasks/job/work-queue-1/     /docs/concepts/workloads/controllers/job/ 301
+/docs/tasks/setup-konnectivity/setup-konnectivity/   /docs/tasks/extend-kubernetes/setup-konnectivity/ 301
 /docs/tasks/kubectl/get-shell-running-container/     /docs/tasks/debug-application-cluster/get-shell-running-container/ 301
 /docs/tasks/kubectl/install/     /docs/tasks/tools/install-kubectl/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
@@ -262,6 +271,7 @@
 /docs/tasks/manage-stateful-set/scale-stateful-set/     /docs/tasks/run-application/scale-stateful-set/ 301
 /docs/tasks/manage-stateful-set/upgrade-pet-set-to-stateful-set/     /docs/tasks/run-application/upgrade-pet-set-to-stateful-set/ 301
 /docs/tasks/run-application/podpreset/     /docs/tasks/inject-data-application/podpreset/ 301
+/docs/tasks/run-application/update-api-object-kubectl-patch/    /docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/ 301
 /docs/tasks/stateful-sets/deleting-pods/     /docs/tasks/run-application/force-delete-stateful-set-pod/ 301
 /docs/tasks/troubleshoot/debug-init-containers/     /docs/tasks/debug-application-cluster/debug-init-containers/ 301
 /docs/tasks/web-ui-dashboard/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
@@ -342,7 +352,7 @@
 /docs/user-guide/ingress.md     /docs/concepts/services-networking/ingress/ 301
 /docs/user-guide/introspection-and-debugging/     /docs/tasks/debug-application-cluster/debug-application-introspection/ 301
 /docs/user-guide/jsonpath/     /docs/reference/kubectl/jsonpath/
-/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/jobs-run-to-completion/ 301
+/docs/user-guide/jobs/     /docs/concepts/workloads/controllers/job/ 301
 /docs/user-guide/jobs/expansions/     /docs/tasks/job/parallel-processing-expansion/ 301
 /docs/user-guide/jobs/work-queue-1/     /docs/tasks/job/coarse-parallel-processing-work-queue/ 301
 /docs/user-guide/jobs/work-queue-2/     /docs/tasks/job/fine-parallel-processing-work-queue/ 301
@@ -403,7 +413,6 @@
 /docs/user-guide/sharing-clusters/     /docs/tasks/administer-cluster/share-configuration/ 301
 /docs/user-guide/simple-nginx/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
 /docs/user-guide/StatefulSet/     /docs/concepts/workloads/controllers/statefulset/ 301
-/docs/user-guide/thirdpartyresources/     /docs/tasks/access-kubernetes-api/extend-api-third-party-resource/ 301
 /docs/user-guide/ui/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 /docs/user-guide/ui-access/     /docs/tasks/access-application-cluster/web-ui-dashboard/ 301
 /docs/user-guide/update-dem/     /docs/tasks/run-application/rolling-update-replication-controller/ 301
@@ -470,11 +479,9 @@
 /docs/setup/independent/kubelet-integration/     /docs/setup/production-environment/tools/kubeadm/kubelet-integration/   301
 /docs/setup/custom-cloud/kops/     /docs/setup/production-environment/tools/kops/   301
 /docs/setup/custom-cloud/kubespray/     /docs/setup/production-environment/tools/kubespray/   301
-/docs/setup/on-premises-metal/krib/     /docs/setup/production-environment/tools/krib/   301
 /docs/setup/turnkey/aws/     /docs/setup/production-environment/turnkey/aws/   301
 /docs/setup/turnkey/alibaba-cloud/     /docs/setup/production-environment/turnkey/alibaba-cloud/   301
 /docs/setup/turnkey/azure/     /docs/setup/production-environment/turnkey/azure/   301
-/docs/setup/turnkey/clc/     /docs/setup/production-environment/turnkey/clc/   301
 /docs/setup/turnkey/gce/     /docs/setup/production-environment/turnkey/gce/   301
 /docs/setup/turnkey/icp/     /docs/setup/production-environment/turnkey/icp/   301
 /docs/setup/on-premises-vm/cloudstack/     /docs/setup/production-environment/on-premises-vm/cloudstack/   301

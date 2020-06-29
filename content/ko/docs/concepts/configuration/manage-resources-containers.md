@@ -1,6 +1,6 @@
 ---
 title: 컨테이너 리소스 관리
-content_template: templates/concept
+content_type: concept
 weight: 40
 feature:
   title: 자동 빈 패킹(bin packing)
@@ -8,7 +8,7 @@ feature:
     리소스 요구 사항과 기타 제약 조건에 따라 컨테이너를 자동으로 배치하지만, 가용성은 그대로 유지한다. 활용도를 높이고 더 많은 리소스를 절약하기 위해 중요한(critical) 워크로드와 최선의(best-effort) 워크로드를 혼합한다.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 지정할 때,
 {{< glossary_tooltip text="컨테이너" term_id="container" >}}에 필요한 각 리소스의 양을 선택적으로 지정할 수 있다.
@@ -21,10 +21,10 @@ feature:
 컨테이너가 사용할 수 있도록 해당 시스템 리소스의 최소 _요청_ 량을
 예약한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 요청 및 제한
 
@@ -321,7 +321,7 @@ Ei, Pi, Ti, Gi, Mi, Ki와 같은 2의 거듭제곱을 사용할 수도 있다.
 128974848, 129e6, 129M, 123Mi
 ```
 
-다음 예에서, 파드에 두 개의 컨테이너가 있다. 각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB 스토리지 제한을 가진다.
+다음 예에서, 파드에 두 개의 컨테이너가 있다. 각 컨테이너에는 2GiB의 로컬 임시 스토리지 요청이 있다. 각 컨테이너에는 4GiB의 로컬 임시 스토리지 제한이 있다. 따라서, 파드는 4GiB의 로컬 임시 스토리지 요청과 8GiB 로컬 임시 스토리지 제한을 가진다.
 
 ```yaml
 apiVersion: v1
@@ -740,10 +740,11 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [컨테이너와 파드에 메모리 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는 핸즈온 경험을 해보자.
 
@@ -758,4 +759,4 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 * XFS의 [프로젝트 쿼터](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: kubeconfig 파일을 사용하여 클러스터 접근 구성하기
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스 및 인증 메커니즘에 대한 정보를 관리하자.
 `kubectl` 커맨드라인 툴은 kubeconfig 파일을 사용하여
@@ -25,10 +25,10 @@ kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스
 kubeconfig 파일을 생성하고 지정하는 단계별 지시사항은
 [다중 클러스터로 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참조한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 다중 클러스터, 사용자와 인증 메커니즘 지원
 
@@ -99,7 +99,7 @@ kubectl config view
    `KUBECONFIG` 환경 변수 설정의 예로,
    [KUBECONFIG 환경 변수 설정](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#kubeconfig-환경-변수-설정)를 참조한다.
 
-   그렇지 않다면, 병합하지 않고 기본 kubecofig 파일인 `$HOME/.kube/config`를 사용한다.
+   그렇지 않다면, 병합하지 않고 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 
 1. 이 체인에서 첫 번째를 기반으로 사용할 컨텍스트를 결정한다.
 
@@ -143,14 +143,15 @@ kubeconfig 파일에서 파일과 경로 참조는 kubeconfig 파일의 위치�
 `$HOME/.kube/config`에서 상대 경로는 상대적으로, 절대 경로는
 절대적으로 저장한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [다중 클러스터 접근 구성하기](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+
 
 

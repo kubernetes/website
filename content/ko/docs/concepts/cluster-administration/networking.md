@@ -1,10 +1,10 @@
 ---
 title: 클러스터 네트워킹
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 네트워킹은 쿠버네티스의 중심적인 부분이지만, 어떻게 작동하는지 정확하게
 이해하기가 어려울 수 있다. 쿠버네티스에는 4가지 대응해야 할 네트워킹
 문제가 있다.
@@ -15,10 +15,10 @@ weight: 50
 3. 파드와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
 4. 외부와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 쿠버네티스는 애플리케이션 간에 머신을 공유하는 것이다. 일반적으로,
 머신을 공유하려면 두 애플리케이션이 동일한 포트를 사용하지 않도록
@@ -260,6 +260,10 @@ Lars Kellogg-Stedman이 제공하는 [이 훌륭한
 
 Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://github.com/containernetworking/plugins)(예: [플라넬](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) 및 써드파티 플러그인(예: [캘리코](https://github.com/projectcalico/cni-plugin), [위브(Weave)](https://github.com/weaveworks/weave), [실리움](https://github.com/cilium/cilium), [콘티브](https://github.com/contiv/netplugin))을 지원한다. 또한, Multus는 쿠버네티스의 클라우드 네이티브 애플리케이션과 NFV 기반 애플리케이션을 통해 쿠버네티스의 [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK 및 VPP](https://github.com/intel/vhost-user-net-plugin) 워크로드를 지원한다.
 
+### OVN4NFV-K8s-Plugin (OVN 기반의 CNI 컨트롤러 & 플러그인)
+
+[OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin)은 OVN 기반의 CNI 컨트롤러 플러그인으로 클라우드 네이티브 기반 서비스 기능 체인(Service function chaining(SFC)), 다중 OVN 오버레이 네트워킹, 동적 서브넷 생성, 동적 가상 네트워크 생성, VLAN 공급자 네트워크, 직접 공급자 네트워크와 멀티 클러스터 네트워킹의 엣지 기반 클라우드 등 네이티브 워크로드에 이상적인 멀티 네티워크 플러그인이다.
+
 ### NSX-T
 
 [VMware NSX-T](https://docs.vmware.com/en/VMware-NSX-T/index.html)는 네트워크 가상화 및 보안 플랫폼이다. NSX-T는 멀티 클라우드 및 멀티 하이퍼바이저 환경에 네트워크 가상화를 제공할 수 있으며 이기종 엔드포인트와 기술 스택이 있는 새로운 애플리케이션 프레임워크 및 아키텍처에 중점을 둔다. vSphere 하이퍼바이저 외에도, 이러한 환경에는 KVM, 컨테이너 및 베어메탈과 같은 다른 하이퍼바이저가 포함된다.
@@ -306,12 +310,13 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 독립형으로 실행된다. 두 버전에서, 실행하기 위해 구성이나 추가 코드가 필요하지 않으며,
 두 경우 모두, 쿠버네티스의 표준과 같이 네트워크에서 파드별로 하나의 IP 주소를 제공한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
 [네트워킹 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)에
 자세히 설명되어 있다.
 
-{{% /capture %}}
+

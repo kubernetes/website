@@ -1,31 +1,31 @@
 ---
 title: I componenti di Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Facendo il deployment di Kubernetes, ottieni un cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="Un cluster è">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="Un cluster Kubernetes è">}}
 
-Questo documento describe i diversi componenti che sono necessari per avere 
+Questo documento descrive i diversi componenti che sono necessari per avere 
 un cluster Kubernetes completo e funzionante.
 
 Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro relazioni.
 
 ![I componenti di Kubernetes](/images/docs/components-of-kubernetes.png)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Componenti della Control Plane
 
-La Control Plane è responsabile di tutte le decisioni globali sul cluster (ad esempio, lo scheduling), e l'individuazione e la risposta ad eventi derivanti dal cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
+I componenti del Control Plane sono responsabili di tutte le decisioni globali sul cluster (ad esempio, lo scheduling) oltre che a rilevare e rispondere agli eventi del cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
 
-I componenti della Control Plane possono essere eseguiti su qualsiasi nodo del cluster, ma solitamente gli script di installazione tendono a eseguire tutti i componenti della Control Plane sulla stessa macchina, separando la Control Plane dai workload dell'utente.
+I componenti della Control Plane possono essere eseguiti su qualsiasi nodo del cluster stesso. Solitamente, per semplicità, gli script di installazione tendono a eseguire tutti i componenti della Control Plane sulla stessa macchina, separando la Control Plane dai workload dell'utente.
 Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) per un esempio di un'installazione multi-master.
 
 ### kube-apiserver
@@ -53,27 +53,25 @@ Alcuni esempi di controller gestiti dal kube-controller-manager sono:
 
 ### cloud-controller-manager
 
-Il [cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) esegue i controller che interagiscono con i cloud provider responsabili per la gestione dell'infrastruttura sottostante al cluster, in caso di deployment in cloud.
-Il cloud-controller-manager è una funzionalità alpha introdotta in Kubernetes 1.6.
+{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
-Il cloud-controller-manager esegue esclusivamente i cicli di controllo specifici dei cloud provider.
-È possibile disabilitare questi cicli di controllo usando il kube-controller-manager.
-È inoltre possibile disabilitare i cicli di controllo settando il parametro `--cloud-provider` con il valore `external` durante l'esecuzione del kube-controller-manager.
+Il cloud-controller-manager esegue dei controller specifici del tuo cloud provider.
+Se hai una installazione Kubernetes on premises, o un ambiente di laboratorio
+nel tuo PC, il cluster non ha un cloud-controller-manager.
 
-Il cloud-controller-manager permette l'evoluzione indipendente al codice di Kubernetes e a quello dei singoli cloud vendor.
-Precedentemente, il codice core di Kubernetes dipendeva da implementazioni specifiche dei cloud provider.
-In futuro, implementazioni specifiche per singoli cloud provider devono essere mantenuti dai cloud provider interessati e collegati al cloud-controller-manager.
+Come nel kube-controller-manager, il cloud-controller-manager combina diversi control loop 
+logicamente indipendenti in un singolo binario che puoi eseguire come un singolo processo. Tu puoi
+scalare orizzontalmente (eseguire più di una copia) per migliorare la responsività o per migliorare la tolleranza ai fallimenti.
 
 I seguenti controller hanno dipendenze verso implementazioni di specifici cloud provider:
 
   * Node Controller: Per controllare se sul cloud provider i nodi che hanno smesso di rispondere sono stati cancellati
-  * Route Controller: Per configurare le regole di route nella sottostante infrastruttura cloud
-  * Service Controller: Per creare, aggiornare ed eliminare i load balancer nella infrastruttura del cloud provider
-  * Volume Controller: Per creare, associare e montare i volumi e per interagire con il cloud provider per orchestrare i volumi
-
+  * Route Controller: Per configurare le network route nella sottostante infrastruttura cloud
+  * Service Controller: Per creare, aggiornare ed eliminare i load balancer del cloud provider
+ 
 ## Componenti dei Nodi
 
-I componenti di Kubernetes che girano sui Worker Node sono responsabili dell'esecuzione dei workload degli utenti.
+I componenti del nodo vengono eseguiti su ogni nodo, mantenendo i pod in esecuzione e fornendo l'ambiente di runtime Kubernetes.
 
 ### kubelet
 
@@ -89,10 +87,10 @@ I componenti di Kubernetes che girano sui Worker Node sono responsabili dell'ese
 
 ## Addons
 
-Gli Addons usano le risorse Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, etc) per implementare nuove funzionalità a livello di cluster.
+Gli Addons usano le risorse Kubernetes ({{< glossary_tooltip term_id="daemonset" >}}, {{< glossary_tooltip term_id="deployment" >}}, etc) per implementare funzionalità di cluster.
 Dal momento che gli addons forniscono funzionalità a livello di cluster, le risorse che necessitano di un namespace, vengono collocate nel namespace `kube-system`.
 
-Alcuni addons sono descritti di seguito; mentre per una più estesa lista di addons, riferirsi ad [Addons](/docs/concepts/cluster-administration/addons/).
+Alcuni addons sono descritti di seguito; mentre per una più estesa lista di addons, per favore vedere [Addons](/docs/concepts/cluster-administration/addons/).
 
 ### DNS
 
@@ -100,7 +98,7 @@ Mentre gli altri addons non sono strettamente richiesti, tutti i cluster Kuberne
 
 Il DNS del cluster è un server DNS aggiuntivo rispetto ad altri server DNS presenti nella rete, e si occupa specificatamente dei record DNS per i servizi Kubernetes.
 
-I container eseguiti da Kubernetes possono utilizzare questo server per la risoluzione DNS.
+I container eseguiti da Kubernetes automaticamente usano questo server per la risoluzione DNS.
 
 ### Interfaccia web (Dashboard)
 
@@ -115,10 +113,11 @@ Il [Monitoraggio dei Container](/docs/tasks/debug-application-cluster/resource-u
 
 Un [log a livello di cluster](/docs/concepts/cluster-administration/logging/) è responsabile per il salvataggio dei log dei container in un log centralizzato la cui interfaccia permette di cercare e navigare nei log.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Scopri i concetti relativi ai [Nodi](/docs/concepts/architecture/nodes/)
 * Scopri i concetti relativi ai [Controller](/docs/concepts/architecture/controller/)
 * Scopri i concetti relativi al [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Leggi la [documentazione](https://etcd.io/docs/) ufficiale di etcd
-{{% /capture %}}
+

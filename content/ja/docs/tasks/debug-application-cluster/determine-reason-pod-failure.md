@@ -1,25 +1,26 @@
 ---
 title: Pod障害の原因を特定する
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、コンテナ終了メッセージの読み書き方法を説明します。
 
 終了メッセージは、致命的なイベントに関する情報を、ダッシュボードや監視ソフトウェアなどのツールで簡単に取得して表示できる場所にコンテナが書き込むための手段を提供します。 ほとんどの場合、終了メッセージに入力した情報も一般的な[Kubernetesログ](/docs/concepts/cluster-administration/logging/)に書き込まれるはずです。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 終了メッセージの書き込みと読み取り
 
@@ -82,15 +83,16 @@ spec:
 
 さらに、ユーザーは追加のカスタマイズをするためにContainerの`terminationMessagePolicy`フィールドを設定できます。このフィールドのデフォルト値は`File`です。これは、終了メッセージが終了メッセージファイルからのみ取得されることを意味します。`terminationMessagePolicy`を`FallbackToLogsOnError`に設定することで、終了メッセージファイルが空でコンテナがエラーで終了した場合に、コンテナログ出力の最後のチャンクを使用するようにKubernetesに指示できます。ログ出力は、2048バイトまたは80行のどちらか小さい方に制限されています。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)の`terminationMessagePath`フィールド参照
 * [ログ取得](/docs/concepts/cluster-administration/logging/)について
 * [Goテンプレート](https://golang.org/pkg/text/template/)について
 
-{{% /capture %}}
+
 
 
 

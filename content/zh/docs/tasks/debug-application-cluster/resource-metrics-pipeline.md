@@ -3,7 +3,7 @@ reviewers:
 - fgrzadkowski
 - piosz
 title: 资源指标管道
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -11,11 +11,11 @@ reviewers:
 - fgrzadkowski
 - piosz
 title: Resource metrics pipeline
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Starting from Kubernetes 1.8, resource usage metrics, such as container CPU and memory usage,
@@ -25,10 +25,10 @@ Horizontal Pod Autoscaler, to make decisions.
 -->
 从 Kubernetes 1.8开始，资源使用指标，例如容器 CPU 和内存使用率，可通过 Metrics API 在 Kubernetes 中获得。这些指标可以直接被用户访问，比如使用`kubectl top`命令行，或者这些指标由集群中的控制器使用，例如，Horizontal Pod Autoscaler，使用这些指标来做决策。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## The Metrics API
@@ -102,4 +102,4 @@ Learn more about the metrics server in [the design doc](https://github.com/kuber
 -->
 在[设计文档](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md)中可以了解到有关 Metrics Server 的更多信息。
 
-{{% /capture %}}
+

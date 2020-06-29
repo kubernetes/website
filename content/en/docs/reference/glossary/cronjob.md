@@ -11,7 +11,7 @@ tags:
 - core-object
 - workload
 ---
- Manages a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) that runs on a periodic schedule.
+ Manages a [Job](/docs/concepts/workloads/controllers/job/) that runs on a periodic schedule.
 
 <!--more-->
 

@@ -5,24 +5,24 @@ feature:
   description: >
     로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 쿠버네티스의 _퍼시스턴트 볼륨_ 의 현재 상태를 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
 스토리지 관리는 컴퓨트 인스턴스 관리와는 별개의 문제다. 퍼시스턴트볼륨 서브시스템은 사용자 및 관리자에게 스토리지 사용 방법에서부터 스토리지가 제공되는 방법에 대한 세부 사항을 추상화하는 API를 제공한다. 이를 위해 퍼시스턴트볼륨 및 퍼시스턴트볼륨클레임이라는 두 가지 새로운 API 리소스를 소개한다.
 
-_퍼시스턴트볼륨_ (PV)은 관리자가 프로비저닝하거나 [스토리지 클래스](/docs/concepts/storage/storage-classes/)를 사용하여 동적으로 프로비저닝한 클러스터의 스토리지이다. 노드가 클러스터 리소스인 것처럼 PV는 클러스터 리소스이다. PV는 Volumes와 같은 볼륨 플러그인이지만, PV를 사용하는 개별 파드와는 별개의 라이프사이클을 가진다. 이 API 오브젝트는 NFS, iSCSI 또는 클라우드 공급자별 스토리지 시스템 등 스토리지 구현에 대한 세부 정보를 담아낸다.
+_퍼시스턴트볼륨_ (PV)은 관리자가 프로비저닝하거나 [스토리지 클래스](/ko/docs/concepts/storage/storage-classes/)를 사용하여 동적으로 프로비저닝한 클러스터의 스토리지이다. 노드가 클러스터 리소스인 것처럼 PV는 클러스터 리소스이다. PV는 Volumes와 같은 볼륨 플러그인이지만, PV를 사용하는 개별 파드와는 별개의 라이프사이클을 가진다. 이 API 오브젝트는 NFS, iSCSI 또는 클라우드 공급자별 스토리지 시스템 등 스토리지 구현에 대한 세부 정보를 담아낸다.
 
 _퍼시스턴트볼륨클레임_ (PVC)은 사용자의 스토리지에 대한 요청이다. 파드와 비슷하다. 파드는 노드 리소스를 사용하고 PVC는 PV 리소스를 사용한다. 파드는 특정 수준의 리소스(CPU 및 메모리)를 요청할 수 있다. 클레임은 특정 크기 및 접근 모드를 요청할 수 있다(예: 한 번 읽기/쓰기 또는 여러 번 읽기 전용으로 마운트 할 수 있음).
 
@@ -47,7 +47,7 @@ PV를 프로비저닝 할 수 있는 두 가지 방법이 있다: 정적(static)
 관리자가 생성한 정적 PV가 사용자의 퍼시스턴트볼륨클레임과 일치하지 않으면
 클러스터는 PVC를 위해 특별히 볼륨을 동적으로 프로비저닝 하려고 시도할 수 있다.
 이 프로비저닝은 스토리지클래스를 기반으로 한다. PVC는
-[스토리지 클래스](/docs/concepts/storage/storage-classes/)를
+[스토리지 클래스](/ko/docs/concepts/storage/storage-classes/)를
 요청해야 하며 관리자는 동적 프로비저닝이 발생하도록 해당 클래스를 생성하고 구성해야 한다.
 `""` 클래스를 요청하는 클레임은 동적 프로비저닝을 효과적으로
 비활성화한다.
@@ -244,7 +244,7 @@ FlexVolume의 크기 조정은 기본 드라이버가 크기 조정을 지원하
 {{< /note >}}
 
 {{< note >}}
-EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마다 한 번의 수정을 할 수 있는 볼륨별 쿼터(quota)가 있다.
+EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마다 한 번의 수정을 할 수 있는 볼륨별 쿼터가 있다.
 {{< /note >}}
 
 
@@ -329,7 +329,7 @@ spec:
 가장 빠른 방법을 파드에 제공하는 데 유용하다. 반면에 파드에서 실행되는 애플리케이션은
 원시 블록 장치를 처리하는 방법을 알아야 한다.
 파드에서 `volumeMode: Block`으로 볼륨을 사용하는 방법에 대한 예는
-[원시 블록 볼륨 지원](/ko/docs/concepts/storage/persistent-volumes/#원시-블록-볼륨-지원)를 참조하십시오.
+[원시 블록 볼륨 지원](#원시-블록-볼륨-지원)를 참조하십시오.
 
 ### 접근 모드
 
@@ -376,7 +376,7 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 ### 클래스
 
 PV는 `storageClassName` 속성을
-[스토리지클래스](/docs/concepts/storage/storage-classes/)의
+[스토리지클래스](/ko/docs/concepts/storage/storage-classes/)의
 이름으로 설정하여 지정하는 클래스를 가질 수 있다.
 특정 클래스의 PV는 해당 클래스를 요청하는 PVC에만 바인딩될 수 있다.
 `storageClassName`이 없는 PV에는 클래스가 없으며 특정 클래스를 요청하지 않는 PVC에만
@@ -449,8 +449,7 @@ CLI는 PV에 바인딩된 PVC의 이름을 표시한다.
 
 각 PVC에는 스펙과 상태(클레임의 명세와 상태)가 포함된다.
 퍼시스턴트볼륨클레임 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야
-한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 ```yaml
 apiVersion: v1
@@ -496,7 +495,7 @@ spec:
 ### 클래스
 
 클레임은 `storageClassName` 속성을 사용하여
-[스토리지클래스](/docs/concepts/storage/storage-classes/)의 이름을 지정하여
+[스토리지클래스](/ko/docs/concepts/storage/storage-classes/)의 이름을 지정하여
 특정 클래스를 요청할 수 있다.
 요청된 클래스의 PV(PVC와 동일한 `storageClassName`을 갖는 PV)만 PVC에
 바인딩될 수 있다.
@@ -741,12 +740,13 @@ spec:
   않거나(이 경우 사용자가 일치하는 PV를 생성해야 함),
   클러스터에 스토리지 시스템이 없음을 나타낸다(이 경우
   사용자는 PVC가 필요한 구성을 배포할 수 없음).
-{{% /capture %}}
-  {{% capture whatsnext %}}
+
+  ## {{% heading "whatsnext" %}}
+
 
 * [퍼시스턴트볼륨 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)에 대해 자세히 알아보기
-* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽기
+* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
 
 ### 참고
 
@@ -754,4 +754,3 @@ spec:
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
 * [퍼시스턴트볼륨클레임](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
-{{% /capture %}}

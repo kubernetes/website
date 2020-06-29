@@ -2,16 +2,16 @@
 approvers:
 - chenopis
 title: Custom Hugo Shortcodes
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation.
 
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Feature state
 
@@ -235,12 +235,13 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate" />}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
-{{% /capture %}}
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [page content types](/docs/contribute/style/page-content-types/).
+* Learn about [creating a pull request](/docs/contribute/new-content/new-content/).
+* Learn about [advanced contributing](/docs/contribute/advanced/).
+

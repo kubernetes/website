@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使ったコントロールプレーンの設定のカスタマイズ
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.12" state="stable" >}}
 
@@ -27,9 +27,9 @@ kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManag
 `kubeadm config print init-defaults`を実行し、選択したファイルに出力を保存することで、デフォルト値で`ClusterConfiguration`オブジェクトを生成できます。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIServerフラグ
 
@@ -80,4 +80,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+
