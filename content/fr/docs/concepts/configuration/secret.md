@@ -973,8 +973,6 @@ Vous pouvez activer le [chiffrement au repos](/docs/tasks/administer-cluster/enc
 * Les applications doivent toujours protéger la valeur du secret après l'avoir lu dans le volume, comme ne pas le mettre accidentellement dans un journal ou le transmettre à une partie non fiable.
 * Un utilisateur qui peut créer un pod qui utilise un secret peut également voir la valeur de ce secret.
   Même si la stratégie apiserver ne permet pas à cet utilisateur de lire l'objet secret, l'utilisateur peut créer un pod qui expose le secret.
-* Actuellement, toute personne disposant des droit root sur n'importe quel nœud peut lire _n'importe quel_ secret depuis l'apiserver, en usurpant l'identité du kubelet.
-  Il est prévu de n'envoyer des secrets qu'aux nœuds qui en ont réellement besoin, pour limiter l'impact d'un exploit root sur un seul nœud.
 
 ## {{% heading "whatsnext" %}}
 
