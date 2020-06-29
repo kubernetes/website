@@ -1,6 +1,6 @@
 ---
 title: kubectl 개요
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
