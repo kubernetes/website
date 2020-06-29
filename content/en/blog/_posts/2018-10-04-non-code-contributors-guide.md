@@ -25,10 +25,10 @@ Some of the ways that you can contribute to the Kubernetes community without wri
 - Writing [project documentation](https://github.com/kubernetes/community/tree/master/sig-docs)
 - Writing operational manuals, helping users understand how to run Kubernetes
 - Helping deliver Kubernetes, as a part of the [release team](https://github.com/kubernetes/sig-release/blob/master/release-team/README.md)
-- Project, program, and [product management](https://github.com/kubernetes/community/blob/master/sig-pm/README.md)
+- Project, program, and [product management](https://github.com/kubernetes/community/blob/a3b5235c23aa2e4cb4f4d0e2b7de947af01fad5b/sig-pm/README.md)
 - And many more!
 
-The guide to get started with Kubernetes project contribution is [documented on GitHub](https://github.com/kubernetes/community/tree/master/contributors/guide), and as the Non-Code Contributors Guide is a part of that Kubernetes Contributors Guide, it can be found [here](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md). As stated earlier, this list is not exhaustive and will continue to be a work in progress.   
+The guide to get started with Kubernetes project contribution is [documented on GitHub](https://github.com/kubernetes/community/tree/master/contributors/guide), and as the Non-Code Contributors Guide is a part of that Kubernetes Contributors Guide, it can be found [here](https://github.com/kubernetes/community/blob/master/contributors/guide/non-code-contributions.md). As stated earlier, this list is not exhaustive and will continue to be a work in progress.
 
 To date, the typical Non-Code contributions fall into the following categories:
 
