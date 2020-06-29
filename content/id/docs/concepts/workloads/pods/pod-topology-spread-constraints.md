@@ -1,10 +1,10 @@
 ---
 title: Batasan Persebaran Topologi Pod
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
@@ -14,9 +14,9 @@ pada klaster yang ditetapkan sebagai _failure-domains_, seperti wilayah, zona, N
 topologi yang ditentukan oleh pengguna. Ini akan membantu untuk mencapai ketersediaan yang tinggi
 dan juga penggunaan sumber daya yang efisien.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Persyaratan
 
@@ -287,4 +287,4 @@ Pada versi 1.18, dimana fitur ini masih Beta, beberapa limitasi yang sudah diket
 - Pengurangan jumlah Deployment akan membuat ketidakseimbangan pada persebaran Pod.
 - Pod yang cocok pada _tainted_ Node akan dihargai. Lihat [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
-{{% /capture %}}
+

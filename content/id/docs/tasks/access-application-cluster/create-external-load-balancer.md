@@ -1,11 +1,11 @@
 ---
 title: Membuat Load Balancer Eksternal
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan bagaimana membuat _Load Balancer_ Eksternal.
 
@@ -21,15 +21,16 @@ Untuk informasi mengenai penyediaan dan penggunaan sumber daya Ingress yang dapa
 servis URL yang dapat dijangkau secara eksternal, penyeimbang beban lalu lintas, terminasi SSL, dll.,
 silahkan cek dokumentasi [Ingress](/docs/concepts/services-networking/ingress/)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Berkas konfigurasi
 
@@ -193,4 +194,4 @@ Sekali _load balancer_ eksternal menyediakan bobot, fungsionalitas ini dapat dit
 
 Pod internal ke lalu lintas Pod harus berperilaku sama seperti Service ClusterIP, dengan probabilitas yang sama pada seluruh Pod. 
 
-{{% /capture %}}
+
