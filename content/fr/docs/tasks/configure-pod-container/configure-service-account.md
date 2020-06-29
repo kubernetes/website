@@ -1,10 +1,10 @@
 ---
 title: Configurer les comptes de service pour les pods
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Un ServiceAccount (compte de service) fournit une identité pour les processus qui s'exécutent dans un Pod.
 
 *Ceci est une introduction aux comptes de service pour les utilisateurs. Voir aussi
@@ -18,16 +18,17 @@ Lorsque vous (un humain) accédez au cluster (par exemple, en utilisant `kubectl
 authentifié par l'apiserver en tant que compte d'utilisateur particulier (actuellement, il s'agit 
 généralement de l'utilisateur `admin`, à moins que votre administrateur de cluster n'ait personnalisé votre cluster). Les processus dans les conteneurs dans les Pods peuvent également contacter l'apiserver. Dans ce cas, ils sont authentifiés en tant que compte de service particulier (par exemple, `default`).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Utiliser le compte de service par défaut pour accéder au API server.
 
@@ -279,5 +280,3 @@ kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 Kubelet demandera et stockera le token a la place du Pod, rendra le token disponible pour le Pod à un chemin d'accès configurable, et rafraîchissez le token à l'approche de son expiration. Kubelet fait tourner le token de manière proactive s'il est plus vieux que 80% de son TTL total, ou si le token est plus vieux que 24 heures.
 
 L'application est responsable du rechargement du token lorsque celui ci est renouvelé. Un rechargement périodique (par ex. toutes les 5 minutes) est suffisant pour la plupart des cas d'utilisation.
-
-{{% /capture %}}
