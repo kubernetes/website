@@ -2,7 +2,7 @@
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
 [caution]
-other = "警告:"
+other = "注意："
 
 [cleanup_heading]
 other = "清理现场"
@@ -164,7 +164,7 @@ other = "了解"
 other = "了解更多"
 
 [note]
-other = "注意："
+other = "说明："
 
 [objectives_heading]
 other = "教程目标"

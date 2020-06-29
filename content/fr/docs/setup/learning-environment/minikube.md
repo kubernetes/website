@@ -235,13 +235,13 @@ minikube start --vm-driver=<nom_du_pilote>
 
 Minikube prend en charge les pilotes suivants:
 {{< note >}}
-Voir [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) pour plus de détails sur les pilotes pris en charge et comment installer les plugins.
+Voir [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) pour plus de détails sur les pilotes pris en charge et comment installer les plugins.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([installation du pilote](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([installation du pilote](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#hyperv-driver))
 Notez que l'adresse IP ci-dessous est dynamique et peut changer. Il peut être récupéré avec `minikube ip`.
 * vmware ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#vmware-unified-driver)) (VMware unified driver)
