@@ -1,18 +1,19 @@
 ---
 title: 외부 IP 주소를 노출하여 클러스터의 애플리케이션에 접속하기
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 외부 IP 주소를 노출하는
 쿠버네티스 서비스 오브젝트를 생성하는 방법에 대해 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  * [kubectl](/docs/tasks/tools/install-kubectl/)을 설치한다.
 
@@ -24,19 +25,20 @@ weight: 10
  * `kubectl`이 쿠버네티스 API 서버와 통신하도록 설정한다.
  자세한 내용은 클라우드 공급자의 설명을 참고한다.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Hello World 애플리케이션을 다섯 개의 인스턴스로 실행한다.
 * 외부 IP 주소를 노출하는 서비스를 생성한다.
 * 실행 중인 애플리케이션에 접근하기 위해 서비스 오브젝트를 사용한다.
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 다섯 개의 파드에서 실행되는 애플리케이션에 대한 서비스 만들기
 
@@ -50,11 +52,11 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 
 위의 명령어는
-    [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)
+    [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
     오브젝트와 관련된
-    [레플리카 셋](/docs/concepts/workloads/controllers/replicaset/)
+    [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
     오브젝트를 생성한다. 레플리카 셋은 다섯 개의
-    [파드](/docs/concepts/workloads/pods/pod/)가 있으며,
+    [파드](/ko/docs/concepts/workloads/pods/pod/)가 있으며,
     각 파드는 Hello World 애플리케이션을 실행한다.
 
 1. 디플로이먼트에 대한 정보를 확인한다.
@@ -80,8 +82,17 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    참고: 만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음,
-    동일한 명령어를 다시 입력한다.
+    {{< note >}}
+
+    `type=LoadBalancer` 서비스는 이 예시에서 다루지 않은 외부 클라우드 공급자가 지원하며, 자세한 내용은 [이 페이지](/ko/docs/concepts/services-networking/service/#loadbalancer를 참조한다.
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    만약 외부 IP 주소가 \<pending\>으로 표시되면 잠시 기다린 다음, 동일한 명령어를 다시 입력한다.
+
+    {{< /note >}}
 
 1. 서비스에 대한 자세한 정보를 확인한다.
 
@@ -139,25 +150,27 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 서비스를 삭제하려면, 아래의 명령어를 입력한다.
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카 셋, 파드를 삭제하려면,
 아래의 명령어를 입력한다.
 
-        kubectl delete deployment hello-world
-
-{{% /capture %}}
+    kubectl delete deployment hello-world
 
 
-{{% capture whatsnext %}}
 
-[애플리케이션과 서비스 연결하기](/docs/concepts/services-networking/connect-applications-service/)에 대해
+
+## {{% heading "whatsnext" %}}
+
+
+[애플리케이션과 서비스 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해
 더 배워 본다.
-{{% /capture %}}
+

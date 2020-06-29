@@ -1,16 +1,16 @@
 ---
 title: 여러 영역에서 구동
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다. 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -184,7 +184,7 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
-```json
+```bash
 kubectl apply -f - <<EOF
 {
   "apiVersion": "v1",
@@ -397,4 +397,4 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b k
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
 
-{{% /capture %}}
+

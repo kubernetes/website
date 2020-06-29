@@ -1,43 +1,45 @@
 ---
 title: 使用Deployment运行一个无状态应用
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文介绍通过Kubernetes Deployment对象如何去运行一个应用.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 创建一个nginx deployment.
 * 使用kubectl列举关于deployment信息.
 * 更新deployment.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 创建和探究一个nginx deployment
 
 你可以通过创建一个Kubernetes Deployment对象来运行一个应用, 可以在一个YAML文件中描述Deployment. 例如, 下面这个YAML文件描述了一个运行nginx:1.7.9 Docker镜像的Deployment:
 
-{{< code file="deployment.yaml" >}}
+{{< codenew file="application/deployment.yaml" >}}
 
 
 1. 通过YAML文件创建一个Deployment:
 
-       kubectl create -f https://k8s.io/docs/tasks/run-application/deployment.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 
 1. 展示Deployment相关信息:
 
@@ -90,29 +92,29 @@ content_template: templates/tutorial
 
 你可以通过更新一个新的YAML文件来更新deployment. 下面的YAML文件指定该deployment镜像更新为nginx 1.8.
 
-{{< code file="deployment-update.yaml" >}}
+{{< codenew file="application/deployment-update.yaml" >}}
 
 1. 应用新的YAML:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-update.yaml
+         kubectl apply -f https://k8s.io/examples/application/deployment-update.yaml
 
 1. 查看该deployment创建的pods以新的名称同时删除旧的pods:
 
-       kubectl get pods -l app=nginx
+         kubectl get pods -l app=nginx
 
 ## 通过增加副本数来弹缩应用
 
 你可以通过应用新的YAML文件来增加Deployment中pods的数量. 该YAML文件将`replicas`设置为4, 指定该Deployment应有4个pods:
 
-{{< code file="deployment-scale.yaml" >}}
+{{< codenew file="application/deployment-scale.yaml" >}}
 
 1. 应用新的YAML文件:
 
-       kubectl apply -f https://k8s.io/docs/tutorials/stateless-application/deployment-scale.yaml
+        kubectl apply -f https://k8s.io/examples/application/deployment-scale.yaml
 
 1. 验证Deployment有4个pods:
 
-       kubectl get pods -l app=nginx
+        kubectl get pods -l app=nginx
 
     输出的结果类似于:
 
@@ -132,13 +134,14 @@ content_template: templates/tutorial
 
 创建一个多副本应用首选方法是使用Deployment,反过来使用ReplicaSet. 在Deployment和ReplicaSet加入到Kubernetes之前, 多副本应用通过[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)来配置.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 了解更多 [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
+
 
 

@@ -1,18 +1,18 @@
 ---
 reviewers:
 title: Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Pod_ は、Kubernetesで作成および管理できる、デプロイ可能な最小のコンピューティング単位です。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Podとは
 
@@ -34,7 +34,7 @@ Pod内のアプリケーションからアクセスできる共有ボリュー�
 [Docker](https://www.docker.com/)の用語でいえば、Podは共有namespaceと共有[ボリューム](/docs/concepts/storage/volumes/)を持つDockerコンテナのグループとしてモデル化されています。
 
 個々のアプリケーションコンテナと同様に、Podは（永続的ではなく）比較的短期間の存在と捉えられます。
-[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
+[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)で説明しているように、Podが作成されると、一意のID（UID）が割り当てられ、（再起動ポリシーに従って）終了または削除されるまでNodeで実行されるようにスケジュールされます。
 Nodeが停止した場合、そのNodeにスケジュールされたPodは、タイムアウト時間の経過後に削除されます。
 特定のPod（UIDで定義）は新しいNodeに「再スケジュール」されません。
 代わりに、必要に応じて同じ名前で、新しいUIDを持つ同一のPodに置き換えることができます（詳細については[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を参照してください）。
@@ -110,9 +110,9 @@ Podは、耐久性のある存在として扱われることを意図してい�
 リソースの不足やNodeのメンテナンスといった場合に、追い出されて停止することもあり得ます。
 
 一般に、ユーザーはPodを直接作成する必要はありません。
-ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
+ほとんどの場合、対象がシングルトンであったとしても、[Deployments](/ja/docs/concepts/workloads/controllers/deployment/)などのコントローラーを使用するべきです。
 コントローラーは、レプリケーションとロールアウト管理だけでなく、クラスターレベルの自己修復機能も提供します。
-[StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
+[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset.md)ようなコントローラーもステートフルなPodをサポートします。
 
 主要なユーザー向けのプリミティブとして集合APIを使用することは、[Borg](https://research.google.com/pubs/pub43438.html)、 [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)、[Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)、[Tupperware](http://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)などのクラスタースケジューリングシステムで比較的一般的です。
 
@@ -126,7 +126,7 @@ Podは、以下のことを容易にするためにプリミティブとして�
 * アプリケーションの可用性を高める。
 即ち、計画的な追い出しやイメージのプリフェッチなどの場合に、Podが停止し削除される前に、必ず事前に入れ換えられることを期待する
 
-## Podの終了
+## Podの終了 {#termination-of-pods}
 
 Podは、クラスター内のNodeで実行中のプロセスを表すため、不要になったときにそれらのプロセスを正常に終了できるようにすることが重要です（対照的なケースは、KILLシグナルで強制終了され、クリーンアップする機会がない場合）。
 ユーザーは削除を要求可能であるべきで、プロセスがいつ終了するかを知ることができなければなりませんが、削除が最終的に完了することも保証できるべきです。
@@ -141,7 +141,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 1. クライアントのコマンドに表示されたとき、Podは「終了中」と表示される
 1. （3と同時に）Kubeletは、2の期間が設定されたためにPodが終了中となったことを認識すると、Podのシャットダウン処理を開始する
     1. Pod内のコンテナの1つが[preStopフック](/docs/concepts/containers/container-lifecycle-hooks/#hook-details)を定義している場合は、コンテナの内側で呼び出される。
-    猶予期間が終了した後も `preStop` フックがまだ実行されている場合は、次に、短い延長された猶予期間（2秒）でステップ2が呼び出される
+    猶予期間が終了した後も `preStop`フックがまだ実行されている場合は、一度だけ猶予期間を延長して（2秒）、ステップ2が呼び出される。`preStop`フックが完了するまでにより長い時間が必要な場合は、`terminationGracePeriodSeconds`を変更する必要がある。
     1. コンテナにTERMシグナルが送信される。Pod内のすべてのコンテナが同時にTERMシグナルを受信するわけではなく、シャットダウンの順序が問題になる場合はそれぞれに `preStop` フックが必要になることがある
 1. （3と同時に）Podはサービスを提供するエンドポイントのリストから削除され、ReplicationControllerの実行中のPodの一部とは見なされなくなる。
 ゆっくりとシャットダウンするPodは、（サービスプロキシのような）ロードバランサーがローテーションからそれらを削除するので、トラフィックを処理し続けることはできない
@@ -151,20 +151,20 @@ PodはAPIから消え、クライアントからは見えなくなる
 
 デフォルトでは、すべての削除は30秒以内に正常に行われます。
 `kubectl delete` コマンドは、ユーザーがデフォルト値を上書きして独自の値を指定できるようにする `--grace-period=<seconds>` オプションをサポートします。
-値 `0` はPodを[強制的に削除](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)します。
+値 `0` はPodを[強制的に削除](/ja/docs/concepts/workloads/pods/pod/#podの強制削除)します。
 kubectlのバージョン1.5以降では、強制削除を実行するために `--grace-period=0` と共に `--force` というフラグを追加で指定する必要があります。
 
 ### Podの強制削除
 
 Podの強制削除は、クラスターの状態やetcdからPodを直ちに削除することと定義されます。
-強制削除が実行されると、apiserverは、Podが実行されていたNode上でPodが停止されたというkubeletからの確認を待ちません。
+強制削除が実行されると、API serverは、Podが実行されていたNode上でPodが停止されたというkubeletからの確認を待ちません。
 API内のPodは直ちに削除されるため、新しいPodを同じ名前で作成できるようになります。
 Node上では、すぐに終了するように設定されるPodは、強制終了される前にわずかな猶予期間が与えられます。
 
 強制削除は、Podによっては潜在的に危険な場合があるため、慎重に実行する必要があります。
-StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
+StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-## Podコンテナの特権モード
+## Podコンテナの特権モード {#privileged-mode-for-pod-containers}
 
 Kubernetes v1.1以降、Pod内のどのコンテナでも、コンテナ仕様の `SecurityContext` の `privileged ` フラグを使用して特権モードを有効にできます。
 これは、ネットワークスタックの操作やデバイスへのアクセスなど、Linuxの機能を使用したいコンテナにとって役立ちます。
@@ -187,4 +187,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 PodはKubernetes REST APIのトップレベルのリソースです。
 APIオブジェクトの詳細については、[Pod APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照してください 。
 
-{{% /capture %}}
+

@@ -1,59 +1,55 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Kubernetesのドキュメントに貢献する
 linktitle: 貢献
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-あなたがKubernetesのドキュメンテーションやWebサイトに貢献するのを手伝いたいのであれば、私たちはあなたの貢献を嬉しく思います！プロジェクトに関わって日が浅いのか、それとも長きに渡って関わっているのか、開発者、エンドユーザ、または誤植に耐えられない人かどうかに関係なく、誰でも貢献できます。
-
-Kubernetesコミュニティに参加する、または私たちについて学ぶためのより多くの方法については、[Kubernetesコミュニティサイト](/community/)をご覧ください。Kubernetesドキュメントのスタイルガイドについては、[スタイルガイド](/docs/contribute/style/style-guide/)を参照してください。
-
-{{% capture body %}}
-
-## 寄稿者のタイプ
-
-- [CLAに署名](/docs/contribute/start#sign-the-cla)し、プロジェクトにいくらかの時間と努力を費やしたKubernetes組織の*メンバー*。メンバーシップの具体的な基準については、[コミュニティメンバーシップ](https://github.com/kubernetes/community/blob/master/community-membership.md)を参照してください。
-- SIG Docs*レビューワー*は、ドキュメントのプルリクエストのレビューに関心を示し、SIG Docs承認者によってGithubリポジトリの適切なGithubグループと`OWNERS`ファイルに追加されたKubernetes組織のメンバーです。
-- SIG Docs*承認者*は、プロジェクトに対する継続的なコミットメントを示している優秀なメンバーです。承認者はKubernetes組織に代わってプルリクエストをマージし、コンテンツを公開できます。承認者は、より大きなKubernetesコミュニティのSIG Docsを代表することもできます。リリースの調整など、SIG Docs承認者の任務の中には、かなりの時間を要するものがあります。
-
-## 貢献する方法
-
-このリストは、誰でもできること、Kubernetes組織のメンバーができること、そしてより高いレベルのアクセスとSIG Docsプロセスへの精通を必要とすることに分けられます。時間をかけて一貫して貢献することで、すでに行われた作業や組織上の決定について理解するのに役立ちます。
-
-これはKubernetesのドキュメントに貢献できる方法の網羅的なリストではありませんが、始めるのに役立ちます。
-
-- [全ての人](/docs/contribute/start/)
-  - 対処可能なバグのファイル
-- [メンバー](/docs/contribute/start/)
-  - 既存のドキュメントの改善
-  - [Slack](http://slack.k8s.io/)または[SIG docsメーリングリスト](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)で改善のためのアイデアを発案
-  - ドキュメントのアクセシビリティの向上
-  - PRに拘束力のないフィードバックの提供
-  - ブログ記事やケーススタディの執筆・投稿
-- [レビューワー](/docs/contribute/intermediate/)
-  - 新機能のドキュメンテーション
-  - 問題のトリアージと分類
-  - PRの確認
-  - ダイアグラム、グラフィックアセット、および埋め込み可能なスクリーンキャスト/ビデオの作成
-  - ローカライゼーション
-  - ドキュメントの代表として他のリポジトリに貢献する
-  - コード内のユーザー向け文字列を編集する
-  - Godoc、コードのコメントを改善する
-- [承認者](/docs/contribute/advanced/)
-  - PRを承認およびマージして寄稿者コンテンツを公開
-  - ドキュメント代表としてKubernetesリリースチームに参加する
-  - スタイルガイドに改善を提案する
-  - docsテストの改善を提案する
-  - KubernetesのWebサイトまたはその他のツールの改良を提案する
+ドキュメントやウェブサイトに貢献したい方、ご協力お待ちしています。
+はじめての方、久しぶりの方、開発者でもエンドユーザでも、はたまたタイポを見逃せない方でもどなたでも貢献可能です。
 
 
-## 貢献するその他の方法
+<!-- body -->
 
-- TwitterやStack Overflowなどのオンラインフォーラムを通じてKubernetesコミュニティに貢献したり、ローカルのミートアップやKubernetesイベントについて学ぶには、[Kubernetesコミュニティサイト](/community/)にアクセスしてください。
-- 機能の開発に貢献するには、[コントリビューターチートシート](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)を読んで始めてください。
+## はじめに
 
-{{% /capture %}}
+どなたでも、問題を説明するissueや、ドキュメントの改善を求めるissueを作成し、プルリクエスト(PR)を用いて変更に貢献することができます。
+一部のタスクでは、Kubernetes organizationで、より多くの信頼とアクセス権限が必要です。
+役割と権限についての詳細は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
+
+Kubernetesのドキュメントは、GitHubのリポジトリーにあります。
+どなたからの貢献も歓迎しますが、Kubernetesコミュニティの効果的な運用のためには、gitとGitHubを基本的に使いこなせる必要があります。
+
+ドキュメンテーションに関わるには:
+
+1. CNCFの[Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)にサインしてください。
+2. [ドキュメンテーションのリポジトリー](https://github.com/kubernetes/website)と、ウェブサイトの[静的サイトジェネレーター](https://gohugo.io)に慣れ親しんでください。
+3. [コンテンツの改善](https://kubernetes.io/docs/contribute/start/#improve-existing-content)と[変更レビュー](https://kubernetes.io/docs/contribute/start/#review-docs-pull-requests)の基本的なプロセスを理解していることを確認してください。
+
+## 貢献するためのベストプラクティス
+
+- 明快で意味のあるGitコミットメッセージを書いてください。
+- PRがマージされたときにissueを参照し、自動的にissueをクローズする_Github Special Keywords_を必ず含めるようにしてください。
+- タイプミスの修正や、スタイルの変更、文法の変更などのような小さな変更をPRに加える場合は、比較的小さな変更のためにコミットの数が増えすぎないように、コミットはまとめてください。
+- あなたがコードを変更をした理由を示し、レビュアーがあなたのPRを理解するのに十分な情報を確保した適切なPR説明を、必ず含めるようにしてください。
+- 追加文献 :
+    - [chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/)
+    - [github.com/blog/1506-closing-issues-via-pull-requests ](https://github.com/blog/1506-closing-issues-via-pull-requests )
+    - [davidwalsh.name/squash-commits-git ](https://davidwalsh.name/squash-commits-git )
+
+## その他の貢献方法
+
+- TwitterやStack Overflowといったオンラインフォーラムを通してKubernetesコミュニティに貢献したい方、または各地のミートアップやイベントについて知りたい方は[Kubernetes community site](/community/)へ。
+- 機能開発に貢献したい方は、まずはじめに[Kubernetesコントリビューターチートシート](https://github.com/kubernetes/community/blob/master/contributors/guide/contributor-cheatsheet/README-ja.md)を読んでください。
+
+
+## {{% heading "whatsnext" %}}
+
+- ドキュメントへの貢献の基本について、さらに知りたい場合は、[貢献の開始](/docs/contribute/start/)を参照してください。
+- 変更を提案をする際は、[Kubernetesドキュメンテーションスタイルガイド](/docs/contribute/style/style-guide/)に従ってください。
+- SIG Docsについて、さらに知りたい場合は、[SIG Docsへの参加](/docs/contribute/participating/)を参照してください。
+- Kubernetesドキュメントのローカライズについて、さらに知りたい場合は、[Kubernetesドキュメントのローカライズ](/docs/contribute/localization/)を参照してください。
+

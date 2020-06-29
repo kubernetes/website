@@ -1,9 +1,9 @@
 ---
 title: Kubernetes cloud-controller-manager
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
@@ -17,9 +17,9 @@ Pour des raisons de retro-compatibilité, le [cloud-controller-manager](https://
 Les fournisseurs de cloud déjà pris en charge nativement par Kubernetes devraient utiliser le cloud-controller-manager ​disponible ​dans le code de Kubernetes pour effectuer une transition visant à faire sortir cette prise en charge du code de Kubernetes.
 Dans les futures versions de Kubernetes, tous les cloud-controller-manager seront développés en dehors du projet de base de Kubernetes géré par des sig leads ou des fournisseurs de cloud.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Administration
 
@@ -69,6 +69,7 @@ Pour les cloud-controller-manager ne faisant pas partie de Kubernetes, vous pouv
 * [keepalived](https://github.com/munnerz/keepalived-cloud-provider)
 * [Oracle Cloud Infrastructure](https://github.com/oracle/oci-cloud-controller-manager)
 * [Rancher](https://github.com/rancher/rancher-cloud-controller-manager)
+* [Scaleway](https://github.com/scaleway/scaleway-cloud-controller-manager)
 
 Pour les fournisseurs qui se trouvent déjà dans Kubernetes, vous pouvez exécuter le cloud-controller-manager dans l'arborescence en tant que Daemonset dans votre cluster.
 Utilisez ce qui suit comme guide:
@@ -107,4 +108,4 @@ Actuellement, l’amorçage TLS suppose que Kubelet aie la possibilité de deman
 
 Pour créer et développer votre propre cloud-controller-manager, lisez la documentation [Développer un cloud-controller-manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md).
 
-{{% /capture %}}
+

@@ -1,20 +1,20 @@
 ---
 title: Operator pattern
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Operators are software extensions to Kubernetes that make use of [custom
 resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-control-plane).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -69,7 +69,7 @@ detail:
      to provide durable database storage, a StatefulSet to run SampleDB and
      a Job to handle initial configuration.
    * If you delete it, the Operator takes a snapshot, then makes sure that
-     the the StatefulSet and Volumes are also removed.
+     the StatefulSet and Volumes are also removed.
 6. The operator also manages regular database backups. For each SampleDB
    resource, the operator determines when to create a Pod that can connect
    to the database and take backups. These Pods would rely on a ConfigMap
@@ -106,16 +106,17 @@ as well as keeping the existing service in good shape.
 ## Writing your own Operator {#writing-operator}
 
 If there isn't an Operator in the ecosystem that implements the behavior you
-want, you can code your own. In [What's next](#what-s-next) you'll find a few
+want, you can code your own. In [What's next](#whats-next) you'll find a few
 links to libraries and tools you can use to write your own cloud native
 Operator.
 
 You also implement an Operator (that is, a Controller) using any language / runtime
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Find ready-made operators on [OperatorHub.io](https://operatorhub.io/) to suit your use case
@@ -129,4 +130,3 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * Read [CoreOS' original article](https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 
-{{% /capture %}}

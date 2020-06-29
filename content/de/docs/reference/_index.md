@@ -5,31 +5,31 @@ approvers:
 linkTitle: "Referenzen"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieser Abschnitt der Kubernetes-Dokumentation enthält Referenzinformationen.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API-Referenz
 
 * [Kubernetes API Überblick](/docs/reference/using-api/api-overview/) - Übersicht über die API für Kubernetes.
 * Kubernetes API Versionen
+  * [1.17](/docs/reference/generated/kubernetes-api/v1.17/)
+  * [1.16](/docs/reference/generated/kubernetes-api/v1.16/)
+  * [1.15](/docs/reference/generated/kubernetes-api/v1.15/)
   * [1.14](/docs/reference/generated/kubernetes-api/v1.14/)
   * [1.13](/docs/reference/generated/kubernetes-api/v1.13/)
-  * [1.12](/docs/reference/generated/kubernetes-api/v1.12/)
-  * [1.11](/docs/reference/generated/kubernetes-api/v1.11/)
-  * [1.10](/docs/reference/generated/kubernetes-api/v1.10/)
 
 ## API-Clientbibliotheken
 
 Um die Kubernetes-API aus einer Programmiersprache aufzurufen, können Sie
-[Clientbibliotheken](/docs/reference/using-api/client-libraries/) verwenden. 
+[Clientbibliotheken](/docs/reference/using-api/client-libraries/) verwenden.
 Offiziell unterstützte Clientbibliotheken:
 
 - [Kubernetes Go Clientbibliothek](https://github.com/kubernetes/client-go/)
@@ -58,4 +58,4 @@ Offiziell unterstützte Clientbibliotheken:
 
 Ein Archiv der Designdokumente für Kubernetes-Funktionalität. Gute Ansatzpunkte sind [Kubernetes Architektur](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) und [Kubernetes Design Übersicht](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

@@ -2,33 +2,30 @@
 reviewers:
 - smarterclayton
 title: Encrypting Secret Data at Rest
-content_template: templates/task
+content_type: task
+min-kubernetes-server-version: 1.13
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure encryption of secret data at rest.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* Kubernetes version 1.13.0 or later is required
+* etcd v3.0 or later is required
 
-* etcd v3 or later is required
 
-{{% /capture %}}
 
-{{% capture steps %}}
+<!-- steps -->
 
 ## Configuration and determining whether encryption at rest is already enabled
 
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd. An example configuration
 is provided below.
-
-Note:
-The alpha version of the encryption feature prior to 1.13 used the `--experimental-encryption-provider-config` flag.
 
 ## Understanding the encryption at rest configuration.
 
@@ -66,26 +63,23 @@ but not both in the same item).
 
 The first provider in the list is used to encrypt resources going into storage. When reading
 resources from storage each provider that matches the stored data attempts to decrypt the data in
-order. If no provider can read the stored data due to a mismatch in format or secret key, an error 
-is returned which prevents clients from accessing that resource. 
-
-Note:
-The alpha version of the encryption feature prior to 1.13 required to be configured with
-`kind: EncryptionConfig` and `apiVersion: v1`.
+order. If no provider can read the stored data due to a mismatch in format or secret key, an error
+is returned which prevents clients from accessing that resource.
 
 {{< caution >}}
-**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed), 
-the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to 
+**IMPORTANT:** If any resource is not readable via the encryption config (because keys were changed),
+the only recourse is to delete that key from the underlying etcd directly. Calls that attempt to
 read that resource will fail until it is deleted or a valid decryption key is provided.
 {{< /caution >}}
 
 ### Providers:
 
+{{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
 `aescbc` | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than `secretbox`.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. 
+`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
@@ -95,12 +89,12 @@ is the first provider, the first key is used for encryption.
 __Storing the raw encryption key in the EncryptionConfig only moderately improves your security posture, compared to no encryption.
 Please use `kms` provider for additional security.__ By default, the `identity` provider is used to protect secrets in etcd, which
 provides no encryption. `EncryptionConfiguration` was introduced to encrypt secrets locally, with a locally managed key.
+
 Encrypting secrets with a locally managed key protects against an etcd compromise, but it fails to protect against a host compromise.
 Since the encryption keys are stored on the host in the EncryptionConfig YAML file, a skilled attacker can access that file and
-extract the encryption keys. This was a stepping stone in development to the `kms` provider, introduced in 1.10, and beta since 1.12. Envelope encryption
-creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the
-kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than
-locally-stored encryption keys.
+extract the encryption keys.
+
+Envelope encryption creates dependence on a separate key, not stored in Kubernetes. In this case, an attacker would need to compromise etcd, the kubeapi-server, and the third-party KMS provider to retrieve the plaintext values, providing a higher level of security than locally-stored encryption keys.
 
 ## Encrypting your data
 
@@ -124,9 +118,9 @@ To create a new secret perform the following steps:
 
 1. Generate a 32 byte random key and base64 encode it. If you're on Linux or macOS, run the following command:
 
-    ```
-    head -c 32 /dev/urandom | base64
-    ```
+   ```shell
+   head -c 32 /dev/urandom | base64
+   ```
 
 2. Place that value in the secret field.
 3. Set the `--encryption-provider-config` flag on the `kube-apiserver` to point to the location of the config file.
@@ -137,7 +131,7 @@ Your config file contains keys that can decrypt content in etcd, so you must pro
 {{< /caution >}}
 
 
-## Verifying that data is encrypted 
+## Verifying that data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, any newly created or
 updated secret should be encrypted when stored. To check, you can use the `etcdctl` command line
@@ -145,39 +139,42 @@ program to retrieve the contents of your secret.
 
 1. Create a new secret called `secret1` in the `default` namespace:
 
-    ```
-    kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
-    ```
+   ```shell
+   kubectl create secret generic secret1 -n default --from-literal=mykey=mydata
+   ```
 
 2. Using the etcdctl commandline, read that secret out of etcd:
 
-    ```
-    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
-    ```
+   `ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C`
 
-    where `[...]` must be the additional arguments for connecting to the etcd server. 
-3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data. 
+   where `[...]` must be the additional arguments for connecting to the etcd server.
+
+3. Verify the stored secret is prefixed with `k8s:enc:aescbc:v1:` which indicates the `aescbc` provider has encrypted the resulting data.
+
 4. Verify the secret is correctly decrypted when retrieved via the API:
 
-    ```
-    kubectl describe secret secret1 -n default
-    ```
+   ```shell
+   kubectl describe secret secret1 -n default
+   ```
 
-    should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
-    completely decode the secret.
+   should match `mykey: bXlkYXRh`, mydata is encoded, check [decoding a secret](/docs/concepts/configuration/secret#decoding-a-secret) to
+   completely decode the secret.
 
 
 ## Ensure all secrets are encrypted
 
 Since secrets are encrypted on write, performing an update on a secret will encrypt that content.
 
-```
+```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 The command above reads all secrets and then updates them to apply server side encryption.
+
+{{< note >}}
 If an error occurs due to a conflicting write, retry the command.
 For larger clusters, you may wish to subdivide the secrets by namespace or script an update.
+{{< /note >}}
 
 
 ## Rotating a decryption key
@@ -213,9 +210,10 @@ resources:
           secret: <BASE 64 ENCODED SECRET>
 ```
 
-and restart all `kube-apiserver` processes. Then run the command `kubectl get secrets --all-namespaces -o json | kubectl replace -f -`
+and restart all `kube-apiserver` processes. Then run:
+```shell
+kubectl get secrets --all-namespaces -o json | kubectl replace -f -
+```
 to force all secrets to be decrypted.
-
-{{% /capture %}}
 
 

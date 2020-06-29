@@ -5,7 +5,6 @@ title: Validate node setup
 weight: 30
 ---
 
-{{< toc >}}
 
 ## Node Conformance Test
 
@@ -84,7 +83,7 @@ sudo docker run -it --rm --privileged --net=host \
   k8s.gcr.io/node-test:0.2
 ```
 
-Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/e2e-node-tests.md).
+Node conformance test is a containerized version of [node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md).
 By default, it runs all conformance tests.
 
 Theoretically, you can run any node e2e test if you configure the container and

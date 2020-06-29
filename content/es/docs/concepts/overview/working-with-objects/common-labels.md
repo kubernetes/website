@@ -1,19 +1,19 @@
 ---
 title: Etiquetas recomendadas
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Puedes visualizar y gestionar los objetos de Kubernetes con herramientas adicionales a kubectl
-y el propio tablero de control. Un conjunto común de etiquetas permite a dichas herramientas 
+y el propio tablero de control. Un conjunto común de etiquetas permite a dichas herramientas
 trabajar de forma interoperable, describiendo los objetos de una forma común que todas las
 herramientas puedan entender.
 
 Además del soporte a herramientas, las etiquetas recomendadas describen las aplicaciones
 de forma que puedan ser consultadas.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Los metadatos se organizan en torno al concepto de una _aplicación_. Kubernetes no es
 una plataforma como servicio (PaaS) y ni tiene o restringe la definición formal de una aplicación.
 Al contrario, las aplicaciones son informales y se describen mediante el uso de los metadatos.
@@ -24,7 +24,7 @@ Estas son las etiquetas recomendadas. Estas facilitan la gestión de aplicacione
 pero no son obligatorias para las herramientas en general.
 {{< /note >}}
 
-Las etiquetas compartidas y las anotaciones comparten un prefijo común: `app.kubernetes.io`. 
+Las etiquetas compartidas y las anotaciones comparten un prefijo común: `app.kubernetes.io`.
 Las etiquetas sin un prefijo son privadas para los usuarios. El prefijo compartido
 garantiza que las etiquetas compartidas no entran en conflicto con las etiquetas
 personalizadas de usuario.
@@ -63,10 +63,10 @@ Una misma aplicación puede desplegarse una o más veces en un clúster de Kuber
 incluso, el mismo espacio de nombres. Por ejemplo, wordpress puede instalarse más de una
 vez de forma que sitios web diferentes sean instalaciones diferentes de wordpress.
 
-El nombre de una aplicación y el nombre de la instancia se almacenan de forma separada. 
-Por ejemplo, WordPress tiene un `app.kubernetes.io/name` igual a `wordpress` mientras que 
-tiene un nombre de instancia, representado como `app.kubernetes.io/instance` con un valor de 
-`wordpress-abcxzy`. Esto permite identificar tanto a la aplicación como a sus instancias. 
+El nombre de una aplicación y el nombre de la instancia se almacenan de forma separada.
+Por ejemplo, WordPress tiene un `app.kubernetes.io/name` igual a `wordpress` mientras que
+tiene un nombre de instancia, representado como `app.kubernetes.io/instance` con un valor de
+`wordpress-abcxzy`. Esto permite identificar tanto a la aplicación como a sus instancias.
 Cada instancia de una aplicación tiene su propio nombre único.
 
 ## Ejemplos
@@ -171,4 +171,3 @@ metadata:
 
 Con los objetos `StatefulSet` y `Service` de MySQL te darás cuenta que se incluye la información acerca de MySQL y Wordpress, la aplicación global.
 
-{{% /capture %}}

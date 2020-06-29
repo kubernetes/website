@@ -2,9 +2,9 @@
 title: " How we improved Kubernetes Dashboard UI in 1.4 for your production needs​ "
 date: 2016-10-03
 slug: production-kubernetes-dashboard-ui-1.4-improvements_3
-url: /blog/2016/10/Production-Kubernetes-Dashboard-UI-1.4-improvements_3
+url: /blog/2016/10/Production-Kubernetes-Dashboard-UI-1-4-improvements_3
 ---
-With the release of [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere) last week, Dashboard – the official web UI for Kubernetes – has a number of exciting updates and improvements of its own. The past three months have been busy ones for the Dashboard team, and we’re excited to share the resulting features of that effort here. If you’re not familiar with Dashboard, the [GitHub repo](https://github.com/kubernetes/dashboard#kubernetes-dashboard) is a great place to get started.  
+With the release of [Kubernetes 1.4](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/) last week, Dashboard – the official web UI for Kubernetes – has a number of exciting updates and improvements of its own. The past three months have been busy ones for the Dashboard team, and we’re excited to share the resulting features of that effort here. If you’re not familiar with Dashboard, the [GitHub repo](https://github.com/kubernetes/dashboard#kubernetes-dashboard) is a great place to get started.
 
 A quick recap before unwrapping our shiny new features: Dashboard was initially released March 2016. One of the focuses for Dashboard throughout its lifetime has been the onboarding experience; it’s a less intimidating way for Kubernetes newcomers to get started, and by showing multiple resources at once, it provides contextualization lacking in [kubectl](/docs/user-guide/kubectl-overview/) (the CLI). After that initial release though, the product team realized that fine-tuning for a beginner audience was getting ahead of ourselves: there were still fundamental product requirements that Dashboard needed to satisfy in order to have a productive UX to onboard new users too. That became our mission for this release: closing the gap between Dashboard and kubectl by showing more resources, leveraging a web UI’s strengths in monitoring and troubleshooting, and architecting this all in a user friendly way.  
 

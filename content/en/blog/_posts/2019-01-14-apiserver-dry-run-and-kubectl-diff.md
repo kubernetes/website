@@ -60,9 +60,7 @@ using `kube-apiserver --feature-gates DryRun=true`.
 If you have dynamic admission controllers, you might have to fix them to:
 
 - Remove any side-effects when the dry-run parameter is specified on the webhook request,
-- Specify in the [`sideEffects`](/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration) 
-field of the `admissionregistration.k8s.io/v1beta1.Webhook` object to indicate that the object doesn't
-have side-effects on dry-run (or at all).
+- Specify in the [`sideEffects`](https://v1-13.docs.kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#webhook-v1beta1-admissionregistration) field of the `admissionregistration.k8s.io/v1beta1.Webhook` object to indicate that the object doesn't have side-effects on dry-run (or at all).
 
 ### How to use it
 
@@ -97,3 +95,11 @@ semantics to fields! It's also going to improve support for CRDs and unions!
 - Some kubectl apply features are missing from diff and could be useful, like the ability
 to filter by label, or to display pruned resources.
 - Eventually, kubectl diff will use server-side apply!
+
+{{< note >}}
+
+The flag `kubectl apply --server-dry-run` is deprecated in v1.18.
+Use the flag `--dry-run=server` for using server-side dry-run in
+`kubectl apply` and other subcommands.
+
+{{< /note >}}

@@ -1,10 +1,10 @@
 ---
-title: 레플리카 셋(ReplicaSet)
+title: 레플리카셋(ReplicaSet)
 id: replica-set
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/replicaset/
+full_link: /ko/docs/concepts/workloads/controllers/replicaset/
 short_description: >
-  레플리카 셋은 차세대 레플리케이션 컨트롤러이다.
+  레플리카셋은 지정된 수의 파드 레플리카가 동시에 실행이 되도록 보장한다
 
 aka: 
 tags:
@@ -12,9 +12,10 @@ tags:
 - core-object
 - workload
 ---
- 레플리카 셋은 차세대 레플리케이션 컨트롤러이다.
+ 레플리카셋은 (목표로) 주어진 시간에 실행되는 레플리카 파드 셋을 유지 관리 한다.
 
 <!--more--> 
 
-레플리케이션 컨트롤러와 같은 레플리카 셋은, 지정된 수의 파드 레플리카가 동시에 동작하게 관리한다. 레플리카 셋은 레이블 사용자 가이드에 기술된 대로 셋(set) 기반의 셀렉터 요구 사항을 지원한다. 반면, 레플리케이션 컨트롤러는 동일성 기반의 셀렉터 요구 사항만 제공한다.
-
+{{< glossary_tooltip term_id="deployment" >}} 와 같은 워크로드 오브젝트는 레플리카셋을
+사용해서 해당 레플리카셋의 스펙에 따라 구성된 {{< glossary_tooltip term_id="pod" text="파드" >}} 의
+수를 클러스터에서 실행한다.

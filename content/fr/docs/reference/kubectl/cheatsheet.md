@@ -1,21 +1,25 @@
 ---
 title: Aide-mémoire kubectl
 description: Cheatsheet kubectl aide-mémoire
-content_template: templates/concept
+reviewers:
+- rbenzair
+- feloy
+- remyleone
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Voir aussi : [Aperçu Kubectl](/docs/reference/kubectl/overview/) et [Guide JsonPath](/docs/reference/kubectl/jsonpath).
 
 Cette page donne un aperçu de la commande `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # Aide-mémoire kubectl
 
@@ -28,7 +32,7 @@ source <(kubectl completion bash) # active l'auto-complétion pour bash dans le 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # ajoute l'auto-complétion de manière permanente à votre shell bash
 ```
 
-Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :  
+Vous pouvez de plus déclarer un alias pour `kubectl` qui fonctionne aussi avec l'auto-complétion :
 
 ```bash
 alias k=kubectl
@@ -39,48 +43,63 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # active l'auto-complétion pour zsh dans le shell courant
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # ajoute l'auto-complétion de manière permanente à votre shell zsh
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # ajoute l'auto-complétion de manière permanente à votre shell zsh
 ```
 
 ## Contexte et configuration de Kubectl
 
 Indique avec quel cluster Kubernetes `kubectl` communique et modifie les informations de configuration. Voir la documentation [Authentification multi-clusters avec kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) pour des informations détaillées sur le fichier de configuration.
+Information. Voir la documentation [Authentification à travers des clusters avec kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+pour des informations détaillées sur le fichier de configuration.
 
 ```bash
 kubectl config view # Affiche les paramètres fusionnés de kubeconfig
 
 # Utilise plusieurs fichiers kubeconfig en même temps et affiche la configuration fusionnée
-KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
+KUBECONFIG=~/.kube/config:~/.kube/kubconfig2
+
+kubectl config view
 
 # Affiche le mot de passe pour l'utilisateur e2e
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # Affiche le contexte courant (current-context)
-kubectl config use-context my-cluster-name  # Définit my-cluster-name comme contexte courant
+kubectl config view -o jsonpath='{.users[].name}'  # Affiche le premier utilisateur
+kubectl config view -o jsonpath='{.users[*].name}' # Affiche une liste d'utilisateurs
+kubectl config get-contexts                        # Affiche la liste des contextes
+kubectl config current-context                     # Affiche le contexte courant (current-context)
+kubectl config use-context my-cluster-name         # Définit my-cluster-name comme contexte courant
 
 # Ajoute un nouveau cluster à votre kubeconf, prenant en charge l'authentification de base (basic auth)
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
+# Enregistre de manière permanente le namespace pour toutes les commandes kubectl suivantes dans ce contexte
+kubectl config set-context --current --namespace=ggckad-s2
+
 # Définit et utilise un contexte qui utilise un nom d'utilisateur et un namespace spécifiques
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+
+kubectl config unset users.foo                       # Supprime l'utilisateur foo
 ```
+
+## Apply
+`apply` gère des applications en utilisant des fichiers définissant des ressources Kubernetes.  Elle crée et met à jour des ressources dans un cluster en exécutant `kubectl apply`.  C'est la manière recommandée de gérer des applications Kubernetes en production. Voir le [Livre Kubectl](https://kubectl.docs.kubernetes.io).
 
 ## Création d'objets
 
-Les manifests Kubernetes peuvent être définis en json ou yaml. Les extensions de fichier `.yaml`,
+Les manifests Kubernetes peuvent être définis en YAML ou JSON. Les extensions de fichier `.yaml`,
 `.yml`, et `.json` peuvent être utilisés.
 
 ```bash
-kubectl create -f ./my-manifest.yaml           # crée une ou plusieurs ressources
-kubectl create -f ./my1.yaml -f ./my2.yaml     # crée depuis plusieurs fichiers
-kubectl create -f ./dir                        # crée une ou plusieurs ressources depuis tous les manifests dans dir
-kubectl create -f https://git.io/vPieo         # crée une ou plusieurs ressources depuis une url
-kubectl create deployment nginx --image=nginx  # démarre une instance unique de nginx
-kubectl explain pods,svc                       # affiche la documentation pour les manifests pod et svc
+kubectl apply -f ./my-manifest.yaml            # Crée une ou plusieurs ressources
+kubectl apply -f ./my1.yaml -f ./my2.yaml      # Crée depuis plusieurs fichiers
+kubectl apply -f ./dir                         # Crée une ou plusieurs ressources depuis tous les manifests dans dir
+kubectl apply -f https://git.io/vPieo          # Crée une ou plusieurs ressources depuis une url
+kubectl create deployment nginx --image=nginx  # Démarre une instance unique de nginx
+kubectl explain pods                           # Affiche la documentation pour les manifests pod
 
 # Crée plusieurs objets YAML depuis l'entrée standard (stdin)
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
 metadata:
@@ -107,7 +126,7 @@ spec:
 EOF
 
 # Crée un Secret contenant plusieurs clés
-cat <<EOF | kubectl create -f -
+cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
 metadata:
@@ -124,26 +143,32 @@ EOF
 
 ```bash
 # Commandes Get avec un affichage basique
-kubectl get services                          # Liste tous les services d'un namespace
-kubectl get pods --all-namespaces             # Liste tous les pods de tous les namespaces
-kubectl get pods -o wide                      # Liste tous les pods du namespace, avec plus de détails
-kubectl get deployment my-dep                 # Liste un déploiement particulier
-kubectl get pods --include-uninitialized      # Liste tous les pods dans un namespace, incluant ceux non initialisés
+kubectl get services                     # Liste tous les services d'un namespace
+kubectl get pods --all-namespaces        # Liste tous les Pods de tous les namespaces
+kubectl get pods -o wide                 # Liste tous les Pods du namespace courant, avec plus de détails
+kubectl get deployment my-dep            # Liste un déploiement particulier
+kubectl get pods                         # Liste tous les Pods dans un namespace
+kubectl get pod my-pod -o yaml           # Affiche le YAML du Pod
 
 # Commandes Describe avec un affichage verbeux
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # Liste les services classés par nom
+# Liste les services triés par nom
+kubectl get services --sort-by=.metadata.name
 
 # Liste les pods classés par nombre de redémarrages
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
+
+# Affiche les volumes persistants classés par capacité de stockage
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # Affiche la version des labels de tous les pods ayant un label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# Affiche tous les noeuds, en utilisant un sélecteur pour exclure ceux ayant un label 'node-role.kubernetes.io/master'
+# Affiche tous les noeuds (en utilisant un sélecteur pour exclure ceux ayant un label
+# nommé 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
 # Affiche tous les pods en cours d'exécution (Running) dans le namespace
@@ -158,8 +183,7 @@ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries 
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # Affiche les labels pour tous les pods (ou tout autre objet Kubernetes prenant en charge les labels)
-# Utilise aussi "jq"
-for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
+kubectl get pods --show-labels
 
 # Vérifie quels noeuds sont prêts
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
@@ -168,24 +192,29 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 # Liste tous les Secrets actuellement utilisés par un pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
+# Liste les containerIDs des initContainer de tous les Pods
+# Utile lors du nettoyage des conteneurs arrêtés, tout en évitant de retirer les initContainers.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
 # Liste les événements (Events) classés par timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# Compare l'état actuel du cluster à l'état du cluster si le manifeste était appliqué.
+kubectl diff -f ./my-manifest.yaml
 ```
 
 ## Mise à jour de ressources
 
-Depuis la version 1.11, `rolling-update` a été déprécié (voir [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), utilisez plutôt `rollout`.
+Depuis la version 1.11, `rolling-update` a été déprécié (voir [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilisez plutôt `rollout`.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update du conteneur "www" du déploiement "frontend", par mise à jour de son image
+kubectl rollout history deployment/frontend                      # Vérifie l'historique de déploiements incluant la révision
 kubectl rollout undo deployment/frontend                         # Rollback du déploiement précédent
+kubectl rollout undo deployment/frontend --to-revision=2         # Rollback à une version spécifique
 kubectl rollout status -w deployment/frontend                    # Écoute (Watch) le status du rolling update du déploiement "frontend" jusqu'à ce qu'il se termine
+kubectl rollout restart deployment/frontend                      # Rolling restart du déploiement "frontend"
 
-# déprécié depuis la version 1.11
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (déprécié) Rolling update des pods de frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (déprécié) Modifie le nom de la ressource et met à jour l'image
-kubectl rolling-update frontend --image=image:v2                 # (déprécié) Met à jour l'image du pod du déploiement frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (déprécié) Annule (rollback) le rollout en cours
 
 cat pod.json | kubectl replace -f -                              # Remplace un pod, en utilisant un JSON passé en entrée standard
 
@@ -206,6 +235,7 @@ kubectl autoscale deployment foo --min=2 --max=10                # Mise à l'éc
 ## Mise à jour partielle de ressources
 
 ```bash
+# Mise à jour partielle d'un node
 kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Met à jour partiellement un noeud
 
 # Met à jour l'image d'un conteneur ; spec.containers[*].name est requis car c'est une clé du merge
@@ -217,12 +247,12 @@ kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/
 # Désactive la livenessProbe d'un déploiement en utilisant un patch json avec tableaux indexés
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
-# Ajoute un nouvel élément à un tableau indexé 
+# Ajoute un nouvel élément à un tableau indexé
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
 ## Édition de ressources
-Ceci édite n'importe quelle ressource de l'API dans un éditeur.
+Édite n'importe quelle ressource de l'API dans un éditeur.
 
 ```bash
 kubectl edit svc/docker-registry                      # Édite le service nommé docker-registry
@@ -244,20 +274,29 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale plusie
 kubectl delete -f ./pod.json                                              # Supprime un pod en utilisant le type et le nom spécifiés dans pod.json
 kubectl delete pod,service baz foo                                        # Supprime les pods et services ayant les mêmes noms "baz" et "foo"
 kubectl delete pods,services -l name=myLabel                              # Supprime les pods et services ayant le label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Supprime les pods et services, dont ceux non initialisés, ayant le label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Supprime tous les pods et services, dont ceux non initialisés, dans le namespace my-ns
+kubectl -n my-ns delete pod,svc --all                                     # Supprime tous les pods et services dans le namespace my-ns
+# Supprime tous les pods correspondants à pattern1 ou pattern2 avec awk
+kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
 ## Interaction avec des Pods en cours d'exécution
 
 ```bash
 kubectl logs my-pod                                 # Affiche les logs du pod (stdout)
+kubectl logs -l name=myLabel                        # Affiche les logs des pods ayant le label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # Affiche les logs du pod (stdout) pour une instance précédente du conteneur
 kubectl logs my-pod -c my-container                 # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
+kubectl logs -l name=myLabel -c my-container        # Affiche les logs des pods avec le label name=myLabel (stdout, cas d'un pod multi-conteneurs)
 kubectl logs my-pod -c my-container --previous      # Affiche les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs) pour une instance précédente du conteneur
 kubectl logs -f my-pod                              # Fait défiler (stream) les logs du pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fait défiler (stream) les logs d'un conteneur particulier du pod (stdout, cas d'un pod multi-conteneurs)
+kubectl logs -f -l name=myLabel --all-containers    # Fait défiler (stream) les logs de tous les pods ayant le label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Exécute un pod comme un shell interactif
+kubectl run nginx --image=nginx --restart=Never -n
+mynamespace                                         # Exécute le pod nginx dans un namespace spécifique
+kubectl run nginx --image=nginx --restart=Never     # Simule l'exécution du pod nginx et écrit sa spécification dans un fichier pod.yaml
+--dry-run -o yaml > pod.yaml
+
 kubectl attach my-pod -i                            # Attache à un conteneur en cours d'exécution
 kubectl port-forward my-pod 5000:6000               # Écoute le port 5000 de la machine locale et forwarde vers le port 6000 de my-pod
 kubectl exec my-pod -- ls /                         # Exécute une commande dans un pod existant (cas d'un seul conteneur)
@@ -301,36 +340,54 @@ kubectl api-resources --api-group=extensions # Toutes les ressources dans le gro
 
 ### Formattage de l'affichage
 
-Pour afficher les détails sur votre terminal dans un format spécifique, vous pouvez utiliser une des options `-o` ou `--output` avec les commandes `kubectl` qui les prennent en charge.
+Pour afficher les détails sur votre terminal dans un format spécifique, utilisez l'option `-o` (ou `--output`) avec les commandes `kubectl` qui la prend en charge.
 
-| Format d'affichage                  | Description                                                                                                           |
-|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `-o=custom-columns=<spec>`          | Affiche un tableau en spécifiant une liste de colonnes séparées par des virgules                                      |
-| `-o=custom-columns-file=<filename>` | Affiche un tableau en utilisant les colonnes spécifiées dans le fichier `<filename>`                                  |
-| `-o=json`                           | Affiche un objet de l'API formaté en JSON                                                                             |
-| `-o=jsonpath=<template>`            | Affiche les champs définis par une expression [jsonpath](/docs/reference/kubectl/jsonpath)                            |
-| `-o=jsonpath-file=<filename>`       | Affiche les champs définis par l'expression [jsonpath](/docs/reference/kubectl/jsonpath) dans le fichier `<filename>` |
-| `-o=name`                           | Affiche seulement le nom de la ressource et rien de plus                                                              |
-| `-o=wide`                           | Affiche dans le format texte avec toute information supplémentaire, et pour des pods, le nom du noeud est inclus      |
-| `-o=yaml`                           | Affiche un objet de l'API formaté en YAML                                                                             |
+Format d'affichage                  | Description                                                                                                          
+--------------| -----------
+`-o=custom-columns=<spec>`          | Affiche un tableau en spécifiant une liste de colonnes séparées par des virgules                                     
+`-o=custom-columns-file=<filename>` | Affiche un tableau en utilisant les colonnes spécifiées dans le fichier `<filename>`                                 
+`-o=json`                           | Affiche un objet de l'API formaté en JSON                                                                            
+`-o=jsonpath=<template>`            | Affiche les champs définis par une expression [jsonpath](/docs/reference/kubectl/jsonpath)                           
+`-o=jsonpath-file=<filename>`       | Affiche les champs définis par l'expression [jsonpath](/docs/reference/kubectl/jsonpath) dans le fichier `<filename>`
+`-o=name`                           | Affiche seulement le nom de la ressource et rien de plus                                                             
+`-o=wide`                           | Affiche dans le format texte avec toute information supplémentaire, et pour des pods, le nom du noeud est inclus     
+`-o=yaml`                           | Affiche un objet de l'API formaté en YAML                                                                            
+
+Exemples utilisant `-o=custom-columns` :
+
+```bash
+# Toutes les images s'exécutant dans un cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # Toutes les images excepté "k8s.gcr.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# Tous les champs dans metadata quel que soit leur nom
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+Plus d'exemples dans la [documentation de référence](/fr/docs/reference/kubectl/overview/#colonnes-personnalisées) de kubectl.
+
 ### Verbosité de l'affichage de Kubectl et débogage
 
 La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivie d'un entier représentant le niveau de log. Les conventions générales de logging de Kubernetes et les niveaux de log associés sont décrits [ici](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
-| Verbosité | Description                                                                                                                                                                                                                           |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `--v=0`   | Le minimum qui doit TOUJOURS être affiché à un opérateur.                                                                                                                                                                             |
-| `--v=1`   | Un niveau de log par défaut raisonnable si vous n'avez pas besoin de verbosité.                                                                                                                                                       |
-| `--v=2`   | Informations utiles sur l'état stable du service et messages de logs importants qui peuvent être corrélés à des changements significatifs dans le système. C'est le niveau de log par défaut recommandé pour la plupart des systèmes. |
-| `--v=3`   | Informations étendues sur les changements.                                                                                                                                                                                            |
-| `--v=4`   | Verbosité de Debug.                                                                                                                                                                                                                   |
-| `--v=6`   | Affiche les ressources requêtées.                                                                                                                                                                                                     |
-| `--v=7`   | Affiche les entêtes des requêtes HTTP.                                                                                                                                                                                                |
-| `--v=8`   | Affiche les contenus des requêtes HTTP.                                                                                                                                                                                               |
-| `--v=9`   | Affiche les contenus des requêtes HTTP sans les tronquer.                                                                                                                                                                             |
-{{% /capture %}}
+Verbosité | Description
+--------------| -----------
+`--v=0`   | Le minimum qui doit *toujours* être affiché à un opérateur.
+`--v=1`   | Un niveau de log par défaut raisonnable si vous n'avez pas besoin de verbosité.
+`--v=2`   | Informations utiles sur l'état stable du service et messages de logs importants qui peuvent être corrélés à des changements significatifs dans le système. C'est le niveau de log par défaut recommandé pour la plupart des systèmes.
+`--v=3`   | Informations étendues sur les changements.
+`--v=4`   | Verbosité de Debug.
+`--v=6`   | Affiche les ressources requêtées.
+`--v=7`   | Affiche les entêtes des requêtes HTTP.
+`--v=8`   | Affiche les contenus des requêtes HTTP.
+`--v=9`   | Affiche les contenus des requêtes HTTP sans les tronquer.
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur l'[Aperçu de kubectl](/docs/reference/kubectl/overview/).
 
@@ -340,4 +397,4 @@ La verbosité de Kubectl est contrôlée par une des options `-v` ou `--v` suivi
 
 * Voir plus d'[aides-mémoire kubectl](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

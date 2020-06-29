@@ -28,12 +28,12 @@ weight: 10
             <div class="col-md-8">
                 <h3>Kubernetes Deployments</h3>
                 <p>
-                実行中のKubernetesクラスタを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、Kubernetesマスターは指定されたアプリケーションインスタンスをクラスタ内の個々のNodeにスケジュールします。
+                実行中のKubernetesクラスターを入手すると、その上にコンテナ化アプリケーションをデプロイすることができます。そのためには、Kubernetesの<b>Deployment</b> の設定を作成します。DeploymentはKubernetesにあなたのアプリケーションのインスタンスを作成し、更新する方法を指示します。Deploymentを作成すると、Kubernetesマスターは指定されたアプリケーションインスタンスをクラスター内の個々のノードにスケジュールします。
                 </p>
 
-                <p>アプリケーションインスタンスが作成されると、Kubernetes Deploymentコントローラーは、それらのインスタンスを継続的に監視します。インスタンスをホストしているNodeが停止、削除された場合、Deploymentコントローラーはそのインスタンスをクラスター内の別のノード上のインスタンスと置き換えます。<b>これは、マシンの故障やメンテナンスに対処するためのセルフヒーリングの仕組みを提供しています。</b></p>
+                <p>アプリケーションインスタンスが作成されると、Kubernetes Deploymentコントローラーは、それらのインスタンスを継続的に監視します。インスタンスをホストしているノードが停止、削除された場合、Deploymentコントローラーはそのインスタンスをクラスター内の別のノード上のインスタンスと置き換えます。<b>これは、マシンの故障やメンテナンスに対処するためのセルフヒーリングの仕組みを提供しています。</b></p>
 
-                <p>オーケストレーションが入る前の世界では、インストールスクリプトを使用してアプリケーションを起動することはよくありましたが、マシン障害が発生した場合に復旧する事はできませんでした。アプリケーションのインスタンスを作成し、それらをNode間で実行し続けることで、Kubernetes Deploymentsはアプリケーションの管理に根本的に異なるアプローチを提供します。</p>
+                <p>オーケストレーションが入る前の世界では、インストールスクリプトを使用してアプリケーションを起動することはよくありましたが、マシン障害が発生した場合に復旧する事はできませんでした。アプリケーションのインスタンスを作成し、それらをノード間で実行し続けることで、Kubernetes Deploymentsはアプリケーションの管理に根本的に異なるアプローチを提供します。</p>
 
             </div>
 
@@ -56,7 +56,7 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <h2 style="color: #3771e3;">Kubenretes上にはじめてのアプリケーションをデプロイする</h2>
+                <h2 style="color: #3771e3;">Kubernetes上にはじめてのアプリケーションをデプロイする</h2>
             </div>
         </div>
 
@@ -70,7 +70,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Kubernetesのコマンドラインインターフェイスである<b>kubectl</b>を使用して、Deploymentを作成、管理できます。kubectlはKubernetes APIを使用してクラスタと対話します。このモジュールでは、Kubernetesクラスタでアプリケーションを実行するDeploymentを作成するために必要な、最も一般的なkubectlコマンドについて学びます。</p>
+                <p>Kubernetesのコマンドラインインターフェイスである<b>kubectl</b>を使用して、Deploymentを作成、管理できます。kubectlはKubernetes APIを使用してクラスターと対話します。このモジュールでは、Kubernetesクラスターでアプリケーションを実行するDeploymentを作成するために必要な、最も一般的なkubectlコマンドについて学びます。</p>
 
                 <p>Deploymentを作成するときは、アプリケーションのコンテナイメージと実行するレプリカの数を指定する必要があります。Deploymentを更新することで、あとでその情報を変更できます。チュートリアルのモジュール<a href="/ja/docs/tutorials/kubernetes-basics/scale-intro/">5</a>と<a href="/ja/docs/tutorials/kubernetes-basics/update-intro/">6</a>では、Deploymentをどのようにスケール、更新できるかについて説明します。</p>
 
@@ -85,7 +85,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>最初のDeploymentには、DockerコンテナにパッケージされたNode.jsアプリケーションを使用します。Node.jsアプリケーションを作成してDockerコンテナをデプロイするには、<a href="/ja/docs/tutorials/hello-minikube/">Hello Minikubeチュートリアル</a>の指示に従ってください。</p>
+                <p>最初のDeploymentには、DockerコンテナにパッケージされたNode.jsアプリケーションを使用します。(まだNode.jsアプリケーションを作成してデプロイしていない場合、<a href="/ja/docs/tutorials/hello-minikube/">Hello Minikubeチュートリアル</a>の通りにやってみましょう。)</p>
 
                 <p>Deploymentが何であるかがわかったので、オンラインチュートリアルに行き、最初のアプリケーションをデプロイしましょう！</p>
 

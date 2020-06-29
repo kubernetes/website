@@ -75,16 +75,16 @@ Within just a few commands, data scientists and software engineers can now creat
 # Community Contributions
 It’d be impossible to have gotten where we are without enormous help from everyone in the community. Some specific contributions that we want to highlight include:
 
-* [Argo](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/argo) for managing ML workflows
+* [Argo](https://github.com/kubeflow/kubeflow/tree/v0.7.0/kubeflow/argo) for managing ML workflows
 * [Caffe2 Operator](https://github.com/kubeflow/caffe2-operator) for running Caffe2 jobs
-* [Horovod & OpenMPI](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/openmpi) for improved distributed training performance of TensorFlow
-* [Identity Aware Proxy](https://github.com/kubeflow/kubeflow/blob/master/docs/gke/iap.md), which enables using security your services with identities, rather than VPNs and Firewalls
+* [Horovod & OpenMPI](https://github.com/kubeflow/kubeflow/tree/master/components/openmpi-controller) for improved distributed training performance of TensorFlow
+* [Identity Aware Proxy](https://github.com/kubeflow/kubeflow/blob/master/docs/gke/iap_request.py), which enables using security your services with identities, rather than VPNs and Firewalls
 * [Katib](https://github.com/kubeflow/katib) for hyperparameter tuning
 * [Kubernetes volume controller](https://github.com/kubeflow/experimental-kvc) which provides basic volume and data management using volumes and volume sources in a Kubernetes cluster.
 * [Kubebench](https://github.com/kubeflow/kubebench) for benchmarking of HW and ML stacks
-* [Pachyderm](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/pachyderm) for managing complex data pipelines
+* [Pachyderm](https://github.com/kubeflow/kubeflow/tree/v0.7.0/kubeflow/pachyderm) for managing complex data pipelines
 * [PyTorch operator](https://github.com/kubeflow/pytorch-operator) for running PyTorch jobs
-* [Seldon Core](https://github.com/kubeflow/kubeflow/tree/master/kubeflow/seldon) for running complex model deployments and non-TensorFlow serving
+* [Seldon Core](https://github.com/kubeflow/kubeflow/tree/v0.7.0/kubeflow/seldon) for running complex model deployments and non-TensorFlow serving
 
 It’s difficult to overstate how much the community has helped bring all these projects (and more) to fruition. Just a few of the contributing companies include: Alibaba Cloud, Ant Financial, Caicloud, Canonical, Cisco, Datawire, Dell, GitHub, Google, Heptio, Huawei, Intel, Microsoft, Momenta, One Convergence, Pachyderm, Project Jupyter, Red Hat, Seldon, Uber and Weaveworks.
 
@@ -93,7 +93,7 @@ It’s difficult to overstate how much the community has helped bring all these 
 If you’d like to try out Kubeflow, we have a number of options for you:
 
 1. You can use sample walkthroughs hosted on [Katacoda](https://www.katacoda.com/kubeflow)
-2. You can follow a guided tutorial with existing models from the [examples repository](https://github.com/kubeflow/examples). These include the [GitHub Issue Summarization](https://github.com/kubeflow/examples/tree/master/github_issue_summarization), [MNIST](https://github.com/kubeflow/examples/tree/master/mnist) and [Reinforcement Learning with Agents](https://github.com/kubeflow/examples/tree/master/agents).
+2. You can follow a guided tutorial with existing models from the [examples repository](https://github.com/kubeflow/examples). These include the [GitHub Issue Summarization](https://github.com/kubeflow/examples/tree/master/github_issue_summarization), [MNIST](https://github.com/kubeflow/examples/tree/master/mnist) and [Reinforcement Learning with Agents](https://github.com/kubeflow/examples/tree/v0.5.1/agents).
 3. You can start a cluster on your own and try your own model. Any Kubernetes conformant cluster will support Kubeflow including those from contributors [Caicloud](https://www.prnewswire.com/news-releases/caicloud-releases-its-kubernetes-based-cluster-as-a-service-product-claas-20-and-the-first-tensorflow-as-a-service-taas-11-while-closing-6m-series-a-funding-300418071.html), [Canonical](https://jujucharms.com/canonical-kubernetes/), [Google](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-container-cluster), [Heptio](https://heptio.com/products/kubernetes-subscription/), [Mesosphere](https://github.com/mesosphere/dcos-kubernetes-quickstart), [Microsoft](https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough), [IBM](https://cloud.ibm.com/docs/containers?topic=containers-cs_cluster_tutorial#cs_cluster_tutorial), [Red Hat/Openshift ](https://docs.openshift.com/container-platform/3.3/install_config/install/quick_install.html#install-config-install-quick-install)and [Weaveworks](https://www.weave.works/product/cloud/).
 
 There were also a number of sessions at KubeCon + CloudNativeCon  EU 2018 covering Kubeflow. The links to the talks are here; the associated videos will be posted in the coming days. 

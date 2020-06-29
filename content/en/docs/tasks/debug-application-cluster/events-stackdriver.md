@@ -2,11 +2,11 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Events in Stackdriver
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes events are objects that provide insight into what is happening
 inside a cluster, such as what decisions were made by scheduler or why some
@@ -29,17 +29,15 @@ It is not guaranteed that all events happening in a cluster will be
 exported to Stackdriver. One possible scenario when events will not be
 exported is when event exporter is not running (e.g. during restart or
 upgrade). In most cases it's fine to use events for purposes like setting up
-[metrics][sdLogMetrics] and [alerts][sdAlerts], but you should be aware
+[metrics](https://cloud.google.com/logging/docs/logs-based-metrics/) and [alerts](https://cloud.google.com/logging/docs/logs-based-metrics/charts-and-alerts), but you should be aware
 of the potential inaccuracy.
 {{< /note >}}
 
-[sdLogMetrics]: https://cloud.google.com/logging/docs/view/logs_based_metrics
-[sdAlerts]: https://cloud.google.com/logging/docs/view/logs_based_metrics#creating_an_alerting_policy
-
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Deployment
 
@@ -93,4 +91,4 @@ jsonPayload.involvedObject.name:"nginx-deployment"
 
 {{< figure src="/images/docs/stackdriver-event-exporter-filter.png" alt="Filtered events in the Stackdriver Logging interface" width="500" >}}
 
-{{% /capture %}}
+

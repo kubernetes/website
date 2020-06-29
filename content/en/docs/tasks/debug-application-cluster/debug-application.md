@@ -3,19 +3,19 @@ reviewers:
 - mikedanese
 - thockin
 title: Troubleshoot Applications
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
 This is *not* a guide for people who want to debug their cluster.  For that you should check out
 [this guide](/docs/admin/cluster-troubleshooting).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Diagnosing the problem
 
@@ -64,38 +64,8 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 
 #### My pod is crashing or otherwise unhealthy
 
-First, take a look at the logs of
-the current container:
-
-```shell
-kubectl logs ${POD_NAME} ${CONTAINER_NAME}
-```
-
-If your container has previously crashed, you can access the previous container's crash log with:
-
-```shell
-kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
-```
-
-Alternately, you can run commands inside that container with `exec`:
-
-```shell
-kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
-```
-
-{{< note >}}
-`-c ${CONTAINER_NAME}` is optional. You can omit it for Pods that only contain a single container.
-{{< /note >}}
-
-As an example, to look at the logs from a running Cassandra pod, you might run
-
-```shell
-kubectl exec cassandra -- cat /var/log/cassandra/system.log
-```
-
-If none of these approaches work, you can find the host machine that the pod is running on and SSH into that host,
-but this should generally not be necessary given tools in the Kubernetes API. Therefore, if you find yourself needing to ssh into a machine, please file a
-feature request on GitHub describing your use case and why these tools are insufficient.
+Once your pod has been scheduled, the methods described in [Debug Running Pods](
+/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
 
 #### My pod is running but not doing what I told it to do
 
@@ -177,7 +147,7 @@ If the list of pods matches expectations, but your endpoints are still empty, it
 have the right ports exposed.  If your service has a `containerPort` specified, but the Pods that are
 selected don't have that port listed, then they won't be added to the endpoints list.
 
-Verify that the pod's `containerPort` matches up with the Service's `containerPort`
+Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 
 #### Network traffic is not forwarded
 
@@ -191,12 +161,13 @@ check:
    * Can you connect to your pods directly?  Get the IP address for the Pod, and try to connect directly to that IP.
    * Is your application serving on the port that you configured?  Kubernetes doesn't do port remapping, so if your application serves on 8080, the `containerPort` field needs to be 8080.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 If none of the above solves your problem, follow the instructions in [Debugging Service document](/docs/user-guide/debugging-services) to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are actually serving; you have DNS working, iptables rules installed, and kube-proxy does not seem to be misbehaving.
 
 You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
-{{% /capture %}}
+

@@ -1,9 +1,9 @@
 ---
 title: Instalasi Add-ons
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 *Add-ons* berfungsi untuk menambah serta memperluas fungsionalitas dari Kubernetes.
@@ -12,10 +12,10 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 
 *Add-ons* pada setiap bagian akan diurutkan secara alfabet - pengurutan ini tidak dilakukan berdasarkan status preferensi atau keunggulan.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Jaringan dan *Policy* Jaringan
 
@@ -25,7 +25,7 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 * [Canal](https://github.com/tigera/canal/tree/master/k8s-install) menggabungkan Flannel dan Calico, menyediakan jaringan serta *policy* jaringan.
 * [Cilium](https://github.com/cilium/cilium) merupakan *plugin* jaringan L3 dan *policy* jaringan yang dapat menjalankan *policy* HTTP/API/L7 secara transparan. Mendukung mode *routing* maupun *overlay/encapsulation*.
 * [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) memungkinkan Kubernetes agar dapat terkoneksi dengan beragam *plugin* CNI, seperti Calico, Canal, Flannel, Romana, atau Weave dengan mulus.
-* [Contiv](http://contiv.github.io) menyediakan jaringan yang dapat dikonfigurasi (*native* L3 menggunakan BGP, *overlay* menggunakan vxlan, klasik L2, dan Cisco-SDN/ACI) untuk berbagai penggunaan serta *policy framework* yang kaya dan beragam. Proyek Contiv merupakan proyek [open source](http://github.com/contiv). Laman [instalasi](http://github.com/contiv/install) ini akan menjabarkan cara instalasi, baik untuk kluster dengan kubeadm maupun non-kubeadm.
+* [Contiv](http://contiv.github.io) menyediakan jaringan yang dapat dikonfigurasi (*native* L3 menggunakan BGP, *overlay* menggunakan vxlan, klasik L2, dan Cisco-SDN/ACI) untuk berbagai penggunaan serta *policy framework* yang kaya dan beragam. Proyek Contiv merupakan proyek [open source](http://github.com/contiv). Laman [instalasi](http://github.com/contiv/install) ini akan menjabarkan cara instalasi, baik untuk klaster dengan kubeadm maupun non-kubeadm.
 * [Contrail](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), yang berbasis dari [Tungsten Fabric](https://tungsten.io), merupakan sebuah proyek *open source* yang menyediakan virtualisasi jaringan *multi-cloud* serta platform manajemen *policy*. Contrail dan Tungsten Fabric terintegrasi dengan sistem orkestrasi lainnya seperti Kubernetes, OpenShift, OpenStack dan Mesos, serta menyediakan mode isolasi untuk mesin virtual (VM), kontainer/pod dan *bare metal*.
 * [Flannel](https://github.com/coreos/flannel/blob/master/Documentation/kubernetes.md) merupakan penyedia jaringan *overlay* yang dapat digunakan pada Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) merupakan solusi jaringan yang mendukung multipel jaringan pada Kubernetes.
@@ -50,4 +50,4 @@ Ada beberapa *add-on* lain yang didokumentasikan pada direktori deprekasi [*clus
 
 *Add-on* lain yang dipelihara dan dikelola dengan baik dapat ditulis di sini. Ditunggu PR-nya!
 
-{{% /capture %}}
+

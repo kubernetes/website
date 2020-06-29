@@ -3,18 +3,18 @@ approvers:
 - mikedanese
 - thockin
 title: 容器环境变量
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-本文介绍容器环境中对容器可用的资源。 
+本文介绍容器环境中对容器可用的资源。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## 容器环境
 
@@ -50,13 +50,14 @@ FOO_SERVICE_PORT=<服务所启用的端口>
 
 服务具有专用 IP 地址，如果启用了 [DNS 插件](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)，还可以在容器中通过 DNS 进行访问。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 查看[容器生命周期挂钩（hooks）](/docs/concepts/containers/container-lifecycle-hooks/)了解更多。
 * 获取[为容器生命周期事件附加处理程序](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)的实践经验。
 
-{{% /capture %}}
+
 
 

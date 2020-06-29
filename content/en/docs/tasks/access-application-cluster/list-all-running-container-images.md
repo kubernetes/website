@@ -1,29 +1,30 @@
 ---
 title: List All Container Images Running in a Cluster
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use kubectl to list all of the Container images
 for Pods running in a cluster.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 In this exercise you will use kubectl to fetch all of the Pods
 running in a cluster, and format the output to pull out the list
 of Containers for each.
 
-## List all Containers in all namespaces
+## List all Container images in all namespaces
 
 - Fetch all Pods in all namespaces using `kubectl get pods --all-namespaces`
 - Format the output to include only the list of Container image names
@@ -63,12 +64,12 @@ The jsonpath is interpreted as follows:
 - `.image`: get the image
 
 {{< note >}}
-When fetching a single Pod by name, e.g. `kubectl get pod nginx`,
+When fetching a single Pod by name, for example `kubectl get pod nginx`,
 the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
 {{< /note >}}
 
-## List Containers by Pod
+## List Container images by Pod
 
 The formatting can be controlled further by using the `range` operation to
 iterate over elements individually.
@@ -78,7 +79,7 @@ kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata
 sort
 ```
 
-## List Containers filtering by Pod label
+## List Container images filtering by Pod label
 
 To target only Pods matching a specific label, use the -l flag.  The
 following matches only Pods with labels matching `app=nginx`.
@@ -87,7 +88,7 @@ following matches only Pods with labels matching `app=nginx`.
 kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
 ```
 
-## List Containers filtering by Pod namespace
+## List Container images filtering by Pod namespace
 
 To target only pods in a specific namespace, use the namespace flag. The
 following matches only Pods in the `kube-system` namespace.
@@ -96,7 +97,7 @@ following matches only Pods in the `kube-system` namespace.
 kubectl get pods --namespace kube-system -o jsonpath="{..image}"
 ```
 
-## List Containers using a go-template instead of jsonpath
+## List Container images using a go-template instead of jsonpath
 
 As an alternative to jsonpath, Kubectl supports using [go-templates](https://golang.org/pkg/text/template/)
 for formatting the output:
@@ -108,19 +109,20 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 
 
 
-{{% /capture %}}
 
-{{% capture discussion %}}
 
-{{% /capture %}}
+<!-- discussion -->
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 ### Reference
 
 * [Jsonpath](/docs/user-guide/jsonpath/) reference guide
 * [Go template](https://golang.org/pkg/text/template/) reference guide
 
-{{% /capture %}}
+
 
 

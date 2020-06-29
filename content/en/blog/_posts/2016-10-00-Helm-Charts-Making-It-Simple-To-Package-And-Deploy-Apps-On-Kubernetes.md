@@ -18,7 +18,7 @@ So what do you do when there are too many places for things to be found?
 
 
 
-In this case, we’re not creating Yet Another Place for Applications, rather promoting an existing one as the canonical location. As part of the Special Interest Group Apps ([SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)) work for the [Kubernetes 1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1.4-making-it-easy-to-run-on-kuberentes-anywhere), we began to provide a home for these Kubernetes deployable applications that provides continuous releases of well documented and user friendly packages. These packages are being created as Helm [**Charts**](https://github.com/kubernetes/helm/blob/master/docs/charts.md) and can be installed using the Helm tool. **[Helm](https://github.com/kubernetes/helm)** allows users to easily templatize their Kubernetes manifests and provide a set of configuration parameters that allows users to customize their deployment.   
+In this case, we’re not creating Yet Another Place for Applications, rather promoting an existing one as the canonical location. As part of the Special Interest Group Apps ([SIG Apps](https://github.com/kubernetes/community/tree/master/sig-apps)) work for the [Kubernetes 1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/), we began to provide a home for these Kubernetes deployable applications that provides continuous releases of well documented and user friendly packages. These packages are being created as Helm [**Charts**](https://github.com/kubernetes/helm/blob/master/docs/charts.md) and can be installed using the Helm tool. **[Helm](https://github.com/kubernetes/helm)** allows users to easily templatize their Kubernetes manifests and provide a set of configuration parameters that allows users to customize their deployment.
 
 **Helm is the package manager** (analogous to yum and apt) and **Charts are packages** (analogous to debs and rpms). The home for these Charts is the [Kubernetes Charts repository](https://github.com/kubernetes/charts) which provides continuous integration for pull requests, as well as automated releases of Charts in the master branch.   
 
@@ -34,11 +34,11 @@ The following applications are now available:
 |[Drupal](https://github.com/kubernetes/charts/tree/master/stable/drupal) | [Consul](https://github.com/kubernetes/charts/tree/master/incubator/consul) |
 |[Jenkins](https://github.com/kubernetes/charts/tree/master/stable/jenkins)|[Elasticsearch](https://github.com/kubernetes/charts/tree/master/incubator/elasticsearch) |
 | [MariaDB](https://github.com/kubernetes/charts/tree/master/stable/mariadb) | [etcd](https://github.com/kubernetes/charts/tree/master/incubator/etcd) |
-| [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/kubernetes/charts/tree/master/incubator/grafana) |
-| [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/kubernetes/charts/tree/master/incubator/mongodb)|
+| [MySQL](https://github.com/kubernetes/charts/tree/master/stable/mysql) | [Grafana](https://github.com/helm/charts/tree/master/stable/grafana) |
+| [Redmine](https://github.com/kubernetes/charts/tree/master/stable/redmine)|[MongoDB](https://github.com/helm/charts/tree/master/stable/mongodb)|
 | [Wordpress](https://github.com/kubernetes/charts/tree/master/stable/wordpress)|[Patroni](https://github.com/kubernetes/charts/tree/master/incubator/patroni) |
-||[Prometheus](https://github.com/kubernetes/charts/tree/master/incubator/prometheus)|
-|  | [Spark](https://github.com/kubernetes/charts/tree/master/incubator/spark)|
+||[Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)|
+|  | [Spark](https://github.com/helm/charts/tree/master/stable/spark)|
 |    | [ZooKeeper](https://github.com/kubernetes/charts/tree/master/incubator/zookeeper) |
 
 
@@ -48,7 +48,7 @@ The following applications are now available:
 1. [Create a chart](https://github.com/kubernetes/helm/blob/master/docs/charts.md)
 2. Developer provides parameters via the [values.yaml](https://github.com/kubernetes/helm/blob/master/docs/charts.md#values-files) file allowing users to customize their deployment. This can be seen as the API between chart devs and chart users.
 3. A [README](https://github.com/kubernetes/charts/tree/master/stable/mariadb) is written to help describe the application and its parameterized values.
-4. Once the application installs properly and the values customize the deployment appropriately, the developer adds a [NOTES.txt](https://github.com/kubernetes/helm/blob/master/docs/charts.md#chart-license-readme-and-notes) file that is shown as soon as the user installs. This file generally points out the next steps for the user to connect to or use the application.
+4. Once the application installs properly and the values customize the deployment appropriately, the developer adds a [NOTES.txt](https://github.com/helm/helm/blob/dev-v2/docs/charts.md) file that is shown as soon as the user installs. This file generally points out the next steps for the user to connect to or use the application.
 5. If the application requires persistent storage, the developer adds a mechanism to store the data such that pod restarts do not lose data. Most charts requiring this today are using [dynamic volume provisioning](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes) to abstract away underlying storage details from the user which allows a single configuration to work against Kubernetes installations.
 6. Submit a [Pull Request to the Kubernetes Charts repo](https://github.com/kubernetes/charts/pulls). Once tested and reviewed, the PR will be merged.
 7. Once merged to the master branch, the chart will be packaged and released to Helm’s default repository and available for users to install.
@@ -56,16 +56,16 @@ The following applications are now available:
 **Example workflow for a Chart user**  
 
 
-1. 1.[Install Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-helm)
-2. 2.[Initialize Helm](https://github.com/kubernetes/helm/blob/master/docs/quickstart.md#install-an-example-chart)
-3. 3.[Search for a chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-search-finding-charts)   
+1. 1.[Install Helm](https://helm.sh/docs/intro/quickstart/#install-helm)
+2. 2.[Initialize Helm](https://helm.sh/docs/intro/quickstart/#install-an-example-chart)
+3. 3.[Search for a chart](https://helm.sh/docs/intro/using_helm/#helm-search-finding-charts)
 
 ```
 $ helm search  
 NAME VERSION DESCRIPTION stable/drupal 0.3.1 One of the most versatile open source content m...stable/jenkins 0.1.0 A Jenkins Helm chart for Kubernetes. stable/mariadb 0.4.0 Chart for MariaDB stable/mysql 0.1.0 Chart for MySQL stable/redmine 0.3.1 A flexible project management web application. stable/wordpress 0.3.0 Web publishing platform for building blogs and ...
  ```
 
-4. 4.[Install the chart](https://github.com/kubernetes/helm/blob/master/docs/using_helm.md#helm-install-installing-a-package)  
+4. 4.[Install the chart](https://helm.sh/docs/intro/using_helm/#helm-install-installing-a-package)
 
 ```
 $ helm install stable/jenkins

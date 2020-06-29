@@ -4,9 +4,9 @@ date: 2016-12-20
 slug: statefulset-run-scale-stateful-applications-in-kubernetes
 url: /blog/2016/12/Statefulset-Run-Scale-Stateful-Applications-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
-In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.  
+In the latest release, [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/), we’ve moved the feature formerly known as PetSet into beta as [StatefulSet](/docs/concepts/abstractions/controllers/statefulsets/). There were no major changes to the API Object, other than the community selected name, but we added the semantics of “at most one pod per index” for deployment of the Pods in the set. Along with ordered deployment, ordered termination, unique network names, and persistent stable storage, we think we have the right primitives to support many containerized stateful workloads. We don’t claim that the feature is 100% complete (it is software after all), but we believe that it is useful in its current form, and that we can extend the API in a backwards-compatible way as we progress toward an eventual GA release.
 
 **When is StatefulSet the Right Choice for my Storage Application?**  
 
@@ -418,7 +418,7 @@ zk-budget   2               1                     2h
 
 
 
-zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](/docs/user-guide/kubectl/kubectl_drain/), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
+zk-budget indicates that at least two members of the ensemble must be available at all times for the ensemble to be healthy. If you attempt to drain a node prior taking it offline, and if draining it would terminate a Pod that violates the budget, the drain operation will fail. If you use [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain), in conjunction with PodDisruptionBudgets, to cordon your nodes and to evict all Pods prior to maintenance or decommissioning, you can ensure that the procedure won’t be disruptive to your stateful applications.
 
 
 

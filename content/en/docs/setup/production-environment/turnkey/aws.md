@@ -3,34 +3,33 @@ reviewers:
 - justinsb
 - clove
 title: Running Kubernetes on AWS EC2
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how to install a Kubernetes cluster on AWS.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secret Access Key from AWS.
 
 ### Supported Production Grade Tools
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
+* [conjure-up](https://docs.conjure-up.io/stable/en/cni/k8s-and-aws) is an open-source installer for Kubernetes that creates Kubernetes clusters with native AWS integrations on Ubuntu.
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
-* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
-
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws), creates and manages Kubernetes clusters with [Flatcar Linux](https://www.flatcar-linux.org/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Getting started with your cluster
 
@@ -90,4 +89,4 @@ AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weave
 Please see the [Kubernetes docs](/docs/) for more details on administering
 and using a Kubernetes cluster.
 
-{{% /capture %}}
+

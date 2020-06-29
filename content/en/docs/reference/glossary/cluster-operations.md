@@ -4,10 +4,18 @@ id: cluster-operations
 date: 2019-05-12
 full_link:
 short_description: >
- Activities such as upgrading the clusters, implementing security, storage, ingress, networking, logging and monitoring, and other operations involved in managing a Kubernetes cluster.
+ The work involved in managing a Kubernetes cluster.
 
 aka:
 tags:
-- operations
+- operation
 ---
- Activities such as upgrading the clusters, implementing security, storage, ingress, networking, logging and monitoring, and other operations involved in managing a Kubernetes cluster.
+ The work involved in managing a Kubernetes cluster: managing
+day-to-day operations, and co-ordinating upgrades.
+
+<!--more-->
+
+ Examples of cluster operations work include: deploying new Nodes to
+scale the cluster; performing software upgrades; implementing security
+controls; adding or removing storage; configuring cluster networking;
+managing cluster-wide observability; and responding to events.

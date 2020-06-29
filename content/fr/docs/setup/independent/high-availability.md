@@ -1,28 +1,28 @@
 ---
 title: Création de clusters hautement disponibles avec kubeadm
 description: Cluster Kubernetes haute-disponibilité kubeadm
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page explique deux approches différentes pour configurer un Kubernetes à haute disponibilité.
 cluster utilisant kubeadm:
 
-- Avec des nœuds de control plane empilés. Cette approche nécessite moins d'infrastructure. 
+- Avec des nœuds de control plane empilés. Cette approche nécessite moins d'infrastructure.
 Les membres etcd et les nœuds du control plane sont co-localisés.
-- Avec un cluster etcd externe cette approche nécessite plus d'infrastructure. 
+- Avec un cluster etcd externe cette approche nécessite plus d'infrastructure.
 Les nœuds du control plane et les membres etcd sont séparés.
 
-Avant de poursuivre, vous devez déterminer avec soin quelle approche répond le mieux 
-aux besoins de vos applications et de l'environnement. [Cette comparaison](/docs/setup/independent/ha-topology/) 
+Avant de poursuivre, vous devez déterminer avec soin quelle approche répond le mieux
+aux besoins de vos applications et de l'environnement. [Cette comparaison](/docs/setup/independent/ha-topology/)
 décrit les avantages et les inconvénients de chacune.
 
 Vos clusters doivent exécuter Kubernetes version 1.12 ou ultérieure. Vous devriez aussi savoir que
 la mise en place de clusters HA avec kubeadm est toujours expérimentale et sera simplifiée davantage
 dans les futures versions. Vous pouvez par exemple rencontrer des problèmes lors de la mise à niveau de vos clusters.
-Nous vous encourageons à essayer l’une ou l’autre approche et à nous faire part de vos commentaires dans 
+Nous vous encourageons à essayer l’une ou l’autre approche et à nous faire part de vos commentaires dans
 [Suivi des problèmes Kubeadm](https://github.com/kubernetes/kubeadm/issues/new).
 
 Notez que la fonctionnalité alpha `HighAvailability` est obsolète dans la version 1.12 et supprimée dans la version 1.13
@@ -30,14 +30,15 @@ Notez que la fonctionnalité alpha `HighAvailability` est obsolète dans la vers
 Voir aussi [La documentation de mise à niveau HA](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13).
 
 {{< caution >}}
-Cette page ne traite pas de l'exécution de votre cluster sur un fournisseur de cloud. Dans un 
+Cette page ne traite pas de l'exécution de votre cluster sur un fournisseur de cloud. Dans un
 environnement Cloud, les approches documentées ici ne fonctionne ni avec des objets de type
 load balancer, ni avec des volumes persistants dynamiques.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Pour les deux méthodes, vous avez besoin de cette infrastructure:
 
@@ -57,9 +58,9 @@ Les exemples suivants utilisent Calico en tant que fournisseur de réseau de Pod
 CNI, pensez à remplacer les valeurs par défaut si nécessaire.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Premières étapes pour les deux méthodes
 
@@ -69,7 +70,7 @@ Toutes les commandes d'un control plane ou d'un noeud etcd doivent être
 {{< /note >}}
 
 - Certains plugins réseau CNI tels que Calico nécessitent un CIDR tel que `192.168.0.0 / 16` et 
-certains comme Weave n'en ont pas besoin. Voir la 
+certains comme Weave n'en ont pas besoin. Voir la
 [Documentation du CNI réseau](/docs/setup/independent/create-cluster-kubeadm/#pod-network).
   Pour ajouter un CIDR de pod, définissez le champ `podSubnet: 192.168.0.0 / 16` sous
   l'objet `networking` de` ClusterConfiguration`.
@@ -77,20 +78,20 @@ certains comme Weave n'en ont pas besoin. Voir la
 ### Créez un load balancer pour kube-apiserver
 
 {{< note >}}
-Il existe de nombreuses configurations pour les équilibreurs de charge (load balancer). 
+Il existe de nombreuses configurations pour les équilibreurs de charge (load balancer).
 L'exemple suivant n'est qu'un exemple. Vos exigences pour votre cluster peuvent nécessiter une configuration différente.
 {{< /note >}}
 
 1. Créez un load balancer kube-apiserver avec un nom résolu en DNS.
 
-    - Dans un environnement cloud, placez vos nœuds du control plane derrière un load balancer TCP. 
-    Ce load balancer distribue le trafic à tous les nœuds du control plane sains dans sa liste. 
-    La vérification de la bonne santé d'un apiserver est une vérification TCP sur le port que 
+    - Dans un environnement cloud, placez vos nœuds du control plane derrière un load balancer TCP.
+    Ce load balancer distribue le trafic à tous les nœuds du control plane sains dans sa liste.
+    La vérification de la bonne santé d'un apiserver est une vérification TCP sur le port que
     kube-apiserver écoute (valeur par défaut: `6443`).
 
     - Il n'est pas recommandé d'utiliser une adresse IP directement dans un environnement cloud.
 
-    - Le load balancer doit pouvoir communiquer avec tous les nœuds du control plane sur le 
+    - Le load balancer doit pouvoir communiquer avec tous les nœuds du control plane sur le
     port apiserver. Il doit également autoriser le trafic entrant sur son réseau de port d'écoute.
 
     - [HAProxy](http://www.haproxy.org/) peut être utilisé comme load balancer.
@@ -105,7 +106,7 @@ L'exemple suivant n'est qu'un exemple. Vos exigences pour votre cluster peuvent 
     ```
 
     - Une erreur `connection refused` est attendue car l'apiserver n'est pas encore en fonctionnement.
-     Cependant, un timeout signifie que le load balancer ne peut pas communiquer avec le nœud du 
+     Cependant, un timeout signifie que le load balancer ne peut pas communiquer avec le nœud du
      control plane. Si un timeout survient, reconfigurez le load balancer pour communiquer avec le nœud du control plane.
 
 1.  Ajouter les nœuds du control plane restants au groupe cible du load balancer.
@@ -163,18 +164,18 @@ SSH est requis si vous souhaitez contrôler tous les nœuds à partir d'une seul
     ```sh
     sudo kubeadm init --config=kubeadm-config.yaml
     ```
-    
+
     Vous devriez voir quelque chose comme:
-    
+
     ```sh
     ...
-Vous pouvez à présent joindre n'importe quelle machine au cluster en lancant la commande suivante sur 
+Vous pouvez à présent joindre n'importe quelle machine au cluster en lancant la commande suivante sur
 chaque nœeud en tant que root:
-    
+
     kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
     ```
 
-1.  Copiez ce jeton dans un fichier texte. Vous en aurez besoin plus tard pour joindre 
+1.  Copiez ce jeton dans un fichier texte. Vous en aurez besoin plus tard pour joindre
 d’autres nœuds du control plane au cluster.
 
 1.  Activez l'extension CNI Weave:
@@ -192,7 +193,7 @@ d’autres nœuds du control plane au cluster.
     - Il est recommandé de ne joindre les nouveaux nœuds du control plane qu'après l'initialisation du premier nœud.
 
 1.  Copiez les fichiers de certificat du premier nœud du control plane dans les autres:
- 
+
     Dans l'exemple suivant, remplacez `CONTROL_PLANE_IPS` par les adresses IP des autres nœuds du control plane.
     ```sh
     USER=ubuntu # customizable
@@ -211,7 +212,7 @@ d’autres nœuds du control plane au cluster.
     ```
 
 {{< caution >}}
-N'utilisez que les certificats de la liste ci-dessus. kubeadm se chargera de générer le reste des certificats avec les SANs requis pour les instances du control plane qui se joignent. 
+N'utilisez que les certificats de la liste ci-dessus. kubeadm se chargera de générer le reste des certificats avec les SANs requis pour les instances du control plane qui se joignent.
 Si vous copiez tous les certificats par erreur, la création de noeuds supplémentaires pourrait
  échouer en raison d'un manque de SANs requis.
 {{< /caution >}}
@@ -236,7 +237,7 @@ Si vous copiez tous les certificats par erreur, la création de noeuds suppléme
 
     Ce processus écrit tous les fichiers demandés dans le dossier `/etc/kubernetes`.
 
-1.  Lancez `kubeadm join` sur ce nœud en utilisant la commande de join qui vous avait été précédemment 
+1.  Lancez `kubeadm join` sur ce nœud en utilisant la commande de join qui vous avait été précédemment
 donnée par` kubeadm init` sur le premier noeud. Ça devrait ressembler a quelque chose
  comme ça:
 
@@ -244,7 +245,7 @@ donnée par` kubeadm init` sur le premier noeud. Ça devrait ressembler a quelqu
     sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
     ```
 
-    - Remarquez l'ajout de l'option `--experimental-control-plane`. Ce paramètre automatise l'adhésion au 
+    - Remarquez l'ajout de l'option `--experimental-control-plane`. Ce paramètre automatise l'adhésion au
     control plane du cluster.
 
 1.  Tapez ce qui suit et observez les pods des composants démarrer:
@@ -295,9 +296,9 @@ donnée par` kubeadm init` sur le premier noeud. Ça devrait ressembler a quelqu
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
     - La différence entre etcd empilé et externe, c’est que nous utilisons le champ `external`
-     pour `etcd` dans la configuration de kubeadm. Dans le cas de la topologie etcd empilée, 
+     pour `etcd` dans la configuration de kubeadm. Dans le cas de la topologie etcd empilée,
      c'est géré automatiquement.
-     
+
     - Remplacez les variables suivantes dans le modèle (template) par les valeurs appropriées
      pour votre cluster:
 
@@ -335,13 +336,13 @@ Pour résumer:
 ### Installer un réseau de pod
 
 [Suivez ces instructions](/docs/setup/independent/create-cluster-kubeadm/#pod-network) afin
- d'installer le réseau de pod. Assurez-vous que cela correspond au pod CIDR que vous avez fourni 
+ d'installer le réseau de pod. Assurez-vous que cela correspond au pod CIDR que vous avez fourni
  dans le fichier de configuration principal.
 
 ### Installer les workers
 
 Chaque nœud worker peut maintenant être joint au cluster avec la commande renvoyée à partir du resultat
- de n’importe quelle commande `kubeadm init`. L'option `--experimental-control-plane` ne doit pas 
+ de n’importe quelle commande `kubeadm init`. L'option `--experimental-control-plane` ne doit pas
  être ajouté aux nœuds workers.
 
-{{% /capture %}}
+

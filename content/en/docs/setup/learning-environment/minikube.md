@@ -4,16 +4,17 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
-content_template: templates/concept
+weight: 30
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Minikube Features
 
@@ -23,7 +24,7 @@ Minikube supports the following Kubernetes features:
 * NodePorts
 * ConfigMaps and Secrets
 * Dashboards
-* Container Runtime: Docker, [CRI-O](https://github.com/kubernetes-incubator/cri-o), and [containerd](https://github.com/containerd/containerd)
+* Container Runtime: [Docker](https://www.docker.com/), [CRI-O](https://cri-o.io/), and [containerd](https://github.com/containerd/containerd)
 * Enabling CNI (Container Network Interface)
 * Ingress
 
@@ -36,116 +37,151 @@ See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 This brief demo guides you on how to start, use, and delete Minikube locally. Follow the steps given below to start and explore Minikube.
 
 1. Start Minikube and create a cluster:
-    ```shell
-    minikube start
-    ```
-    The output is similar to this:
 
-    ```
-    Starting local Kubernetes cluster...
-    Running pre-create checks...
-    Creating machine...
-    Starting local Kubernetes cluster...
-    ```
-    For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
+   ```shell
+    minikube start
+   ```
+
+   The output is similar to this:
+
+   ```
+   Starting local Kubernetes cluster...
+   Running pre-create checks...
+   Creating machine...
+   Starting local Kubernetes cluster...
+   ```
+
+   For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
 
 2. Now, you can interact with your cluster using kubectl. For more information, see [Interacting with Your Cluster](#interacting-with-your-cluster).
 
-    Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
-    ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
-    ```
-    The output is similar to this:
-    ```
-    deployment.apps/hello-minikube created
-    ```
-3. To access the `hello-minikube` Deployment, expose it as a Service:
-    ```shell
-    kubectl expose deployment hello-minikube --type=NodePort
-    ```
-    The option `--type=NodePort` specifies the type of the Service.
+   Let’s create a Kubernetes Deployment using an existing image named `echoserver`, which is a simple HTTP server and expose it on port 8080 using `--port`.
 
-    The output is similar to this:
-    ```
-    service/hello-minikube exposed
-    ```
+   ```shell
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+   ```
+
+   The output is similar to this:
+
+   ```
+   deployment.apps/hello-minikube created
+   ```
+3. To access the `hello-minikube` Deployment, expose it as a Service:
+
+   ```shell
+   kubectl expose deployment hello-minikube --type=NodePort --port=8080
+   ```
+
+   The option `--type=NodePort` specifies the type of the Service.
+
+   The output is similar to this:
+
+   ```
+   service/hello-minikube exposed
+   ```
+
 4. The `hello-minikube` Pod is now launched but you have to wait until the Pod is up before accessing it via the exposed Service.
 
-	Check if the Pod is up and running:
-	```shell
-	kubectl get pod
-	```
-	If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
-	```
-	NAME                              READY     STATUS              RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-	```
-	If the output shows the `STATUS` as `Running`, the Pod is now up and running:
-	```
-	NAME                              READY     STATUS    RESTARTS   AGE
-	hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-	```
+   Check if the Pod is up and running:
+
+   ```shell
+   kubectl get pod
+   ```
+
+   If the output shows the `STATUS` as `ContainerCreating`, the Pod is still being created:
+
+   ```
+   NAME                              READY     STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
+   ```
+
+   If the output shows the `STATUS` as `Running`, the Pod is now up and running:
+
+   ```
+   NAME                              READY     STATUS    RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running   0          13s
+   ```
+
 5. Get the URL of the exposed Service to view the Service details:
-	```shell
-	minikube service hello-minikube --url
-	```
+
+   ```shell
+   minikube service hello-minikube --url
+   ```
+
 6. To view the details of your local cluster, copy and paste the URL you got as the output, on your browser.
 
-    The output is similar to this:
-    ```
-    Hostname: hello-minikube-7c77b68cff-8wdzq
+   The output is similar to this:
 
-    Pod Information:
-        -no pod information available-
+   ```
+   Hostname: hello-minikube-7c77b68cff-8wdzq
 
-    Server values:
-        server_version=nginx: 1.13.3 - lua: 10008
+   Pod Information:
+    -no pod information available-
 
-    Request Information:
-        client_address=172.17.0.1
-        method=GET
-        real path=/
-        query=
-        request_version=1.1
-        request_scheme=http
-        request_uri=http://192.168.99.100:8080/
+   Server values:
+    server_version=nginx: 1.13.3 - lua: 10008
 
-    Request Headers:
+   Request Information:
+    client_address=172.17.0.1
+    method=GET
+    real path=/
+    query=
+    request_version=1.1
+    request_scheme=http
+    request_uri=http://192.168.99.100:8080/
+
+   Request Headers:
         accept=*/*
         host=192.168.99.100:30674
         user-agent=curl/7.47.0
 
-    Request Body:
+   Request Body:
         -no body in request-
-    ```
-	If you no longer want the Service and cluster to run, you can delete them.
+   ```
+
+   If you no longer want the Service and cluster to run, you can delete them.
+
 7. Delete the `hello-minikube` Service:
-    ```shell
-    kubectl delete services hello-minikube
-    ```
-    The output is similar to this:
-    ```
-    service "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete services hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   service "hello-minikube" deleted
+   ```
+
 8. Delete the `hello-minikube` Deployment:
-    ```shell
-    kubectl delete deployment hello-minikube
-    ```
-    The output is similar to this:
-    ```
-    deployment.extensions "hello-minikube" deleted
-    ```
+
+   ```shell
+   kubectl delete deployment hello-minikube
+   ```
+
+   The output is similar to this:
+
+   ```
+   deployment.extensions "hello-minikube" deleted
+   ```
+
 9. Stop the local Minikube cluster:
-    ```shell
-    minikube stop
-    ```
-    The output is similar to this:
-    ```
-    Stopping "minikube"...
-    "minikube" stopped.
-    ```
-	For more information, see [Stopping a Cluster](#stopping-a-cluster).
+
+   ```shell
+   minikube stop
+   ```
+
+   The output is similar to this:
+
+   ```
+   Stopping "minikube"...
+   "minikube" stopped.
+   ```
+
+   For more information, see [Stopping a Cluster](#stopping-a-cluster).
+
 10. Delete the local Minikube cluster:
+
     ```shell
     minikube delete
     ```
@@ -186,25 +222,32 @@ example, to run version {{< param "fullversion" >}}, you would run the following
 minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 #### Specifying the VM driver
-You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
+You can change the VM driver by adding the `--driver=<enter_driver_name>` flag to `minikube start`.
 For example the command would be.
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
- Minikube supports the following drivers:
- {{< note >}}
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install
+Minikube supports the following drivers:
+{{< note >}}
+See [DRIVERS](https://minikube.sigs.k8s.io/docs/reference/drivers/) for details on supported drivers and how to install
 plugins.
 {{< /note >}}
 
-* virtualbox
+* docker ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/docker/))
+* virtualbox ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/virtualbox/))
+* podman ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/podman/)) (EXPERIMENTAL)
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/kvm2/))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperkit/))
+* hyperv ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/hyperv/))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
-* vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
-* none (Runs the Kubernetes components on the host and not in a VM. Using this driver requires Docker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) and a Linux environment)
+* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
+* parallels ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/parallels/))
+* none (Runs the Kubernetes components on the host and not in a virtual machine. You need to be running Linux and to have {{< glossary_tooltip term_id="docker" >}} installed.)
+
+{{< caution >}}
+If you use the `none` driver, some Kubernetes components run as privileged containers that have side effects outside of the Minikube environment. Those side effects mean that the `none` driver is not recommended for personal workstations.
+{{< /caution >}}
 
 #### Starting a cluster on alternative container runtimes
 You can start Minikube on the following container runtimes.
@@ -232,7 +275,7 @@ minikube start \
 ```
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
-To use [CRI-O](https://github.com/kubernetes-incubator/cri-o) as the container runtime, run:
+To use [CRI-O](https://cri-o.io/) as the container runtime, run:
 ```bash
 minikube start \
     --network-plugin=cni \
@@ -262,11 +305,7 @@ When using a single VM for Kubernetes, it's useful to reuse Minikube's built-in 
 Be sure to tag your Docker image with something other than latest and use that tag to pull the image. Because `:latest` is the default value, with a corresponding default image pull policy of `Always`, an image pull error (`ErrImagePull`) eventually results if you do not have the Docker image in the default Docker registry (usually DockerHub).
 {{< /note >}}
 
-To work with the Docker daemon on your Mac/Linux host, use the `docker-env command` in your shell:
-
-```shell
-eval $(minikube docker-env)
-```
+To work with the Docker daemon on your Mac/Linux host, run the last line from `minikube docker-env`.
 
 You can now use Docker at the command line of your host Mac/Linux machine to communicate with the Docker daemon inside the Minikube VM:
 
@@ -329,6 +368,14 @@ Starting the cluster again will restore it to its previous state.
 The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
+### Upgrading Minikube
+If you are using macOS and [Brew Package Manager](https://brew.sh/) is installed run:
+
+```shell
+brew update
+brew upgrade minikube
+```
+
 ## Interacting with Your Cluster
 
 ### Kubectl
@@ -338,9 +385,11 @@ This context contains the configuration to communicate with your Minikube cluste
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
 
-`kubectl config use-context minikube`,
+`kubectl config use-context minikube`
 
-Or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this:
+
+`kubectl get pods --context=minikube`
 
 ### Dashboard
 
@@ -406,7 +455,7 @@ Host folder sharing is not implemented in the KVM driver yet.
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## Private Container Registries
@@ -456,15 +505,15 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 ## Additional Links
 
-* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
-* **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
-* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
-* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://minikube.sigs.k8s.io/docs/contrib/roadmap/).
+* **Development Guide**: See [Contributing](https://minikube.sigs.k8s.io/docs/contrib/) for an overview of how to send pull requests.
+* **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://minikube.sigs.k8s.io/docs/contrib/building/).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://minikube.sigs.k8s.io/docs/contrib/drivers/).
+* **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://minikube.sigs.k8s.io/docs/contrib/addons/).
 * **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 
 ## Community
 
 Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 
-{{% /capture %}}
+

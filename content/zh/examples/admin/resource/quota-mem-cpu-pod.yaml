@@ -9,8 +9,7 @@ spec:
     resources:
       limits:
         memory: "800Mi"
-        cpu: "800m" 
+        cpu: "800m"
       requests:
         memory: "600Mi"
         cpu: "400m"
-      

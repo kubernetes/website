@@ -336,7 +336,7 @@ la etiqueta eliminada todavía existe en los Pods y ReplicaSets que se están ej
 ## Revertir un Deployment
 
 En ocasiones necesitas revertir un Deployment; por ejemplo, cuando el Deployment no es estable, como cuando no para de reiniciarse.
-Por defecto, toda la historia de despliegue del Deployment se mantiene en el sistema de forma que puedes retroceder en cualquier momento
+Por defecto, toda la historia de despliegue del Deployment se mantiene en el sistema de forma que puedes revertir en cualquier momento
 (se puede modificar este comportamiento cambiando el límite de la historia de revisiones de modificaciones).
 
 {{< note >}}
@@ -345,7 +345,7 @@ la nueva revisión se crea si y sólo si la plantilla Pod del Deployment (`.spec
 por ejemplo, si cambias las etiquetas o la imagen del contenedor de la plantilla.
 Otras actualizaciones, como escalar el Deployment,
 no generan una nueva revisión del Deployment, para poder facilitar el escalado manual simultáneo - o auto-escalado.
-Esto significa que cuando retrocedes a una versión anterior, sólo la parte de la plantilla Pod del Deployment se retrocede.
+Esto significa que cuando reviertes a una versión anterior, sólo la parte de la plantilla Pod del Deployment se revierte.
 {{< /note >}}
 
 Vamos a suponer que hemos cometido un error al actualizar el Deployment, poniendo como nombre de imagen `nginx:1.91` en vez de `nginx:1.9.1`:
@@ -443,7 +443,7 @@ Events:
   13s       13s         1       {deployment-controller }                Normal      ScalingReplicaSet   Scaled up replica set nginx-deployment-3066724191 to 1
 ```
 
-Para arreglar este problema, necesitas retroceder a una revisión previa del Deployment que sea estable.
+Para arreglar este problema, necesitas volver a una revisión previa del Deployment que sea estable.
 
 ### Comprobar la Historia de Despliegues de un Deployment
 
@@ -488,7 +488,7 @@ deployments "nginx-deployment" revision 2
 
 ### Retroceder a una Revisión Previa
 
-Ahora has decidido que quieres deshacer el despliegue actual y retrocederlo a la revisñion previa:
+Ahora has decidido que quieres deshacer el despliegue actual y retrocederlo a la revisión previa:
 
 ```shell
 kubectl rollout undo deployment.v1.apps/nginx-deployment
@@ -506,9 +506,9 @@ kubectl rollout undo deployment.v1.apps/nginx-deployment --to-revision=2
 deployment.apps/nginx-deployment
 ```
 
-Para más detalles acerca de los comandos relacionados con el retroceso de revisiones, echa un vistazo a [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
+Para más detalles acerca de los comandos relacionados con las revisiones de un Deployment, echa un vistazo a [`kubectl rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout).
 
-El Deployment se ha retrocedido ahora a una revisión previa estable. Como se puede comprobar, el controlador del Deployment genera un evento `DeploymentRollback`
+El Deployment se ha revertido ahora a una revisión previa estable. Como se puede comprobar, el controlador del Deployment genera un evento `DeploymentRollback`
 al retroceder a la revisión 2.
 
 ```shell
@@ -767,24 +767,24 @@ nginx-3926361531   3         3         3         28s
 ```
 
 {{< note >}}
-No se puede retroceder un Deployment pausado hasta que se vuelve a reanudar.
+No se puede revertir un Deployment pausado hasta que se vuelve a reanudar.
 {{< /note >}}
 
 ## Estado del Deployment
 
-Un Deployment pasa por varios estados a lo largo de su ciclo de vida. Así, puede estar [avanzando](#progressing-deployment) mientras
-se despliega un nuevo ReplicaSet, puede estar [completo](#complete-deployment), o puede [fallar en su avance](#failed-deployment).
+Un Deployment pasa por varios estados a lo largo de su ciclo de vida. Así, puede estar [progresando](#progressing-deployment) mientras
+se despliega un nuevo ReplicaSet, puede estar [completo](#complete-deployment), o puede quedar en estado [fallido](#failed-deployment).
 
-### Avanzar un Deployment
+### Progresar un Deployment
 
-Kubernetes marca un Deployment como _avanzando_ cuando se realizar cualquiera de las siguientes tareas:
+Kubernetes marca un Deployment como _progresando_ cuando se realiza cualquiera de las siguientes tareas:
 
 * El Deployment crea un nuevo ReplicaSet.
 * El Deployment está escalando su ReplicaSet más nuevo.
 * El Deployment está reduciendo su(s) ReplicaSet(s) más antiguo(s).
 * Hay nuevos Pods disponibles y listos (listo por lo menos [MinReadySeconds](#min-ready-seconds)).
 
-Puedes monitorizar el avance de un Deployment usando el comando `kubectl rollout status`.
+Puedes monitorizar el progreso de un Deployment usando el comando `kubectl rollout status`.
 
 ### Completar un Deployment
 
@@ -902,8 +902,8 @@ status:
   unavailableReplicas: 2
 ```
 
-Al final, una vez que se supera el vencimiento del avance del Deployment, Kubernetes actualiza el estado
-y la razón de el estado de avance:
+Al final, una vez que se supera el vencimiento del progreso del Deployment, Kubernetes actualiza el estado
+y la razón de el estado de progreso:
 
 ```
 Conditions:
@@ -928,11 +928,11 @@ Conditions:
 
 `Type=Available` con `Status=True` significa que tu Deployment tiene disponibilidad mínima. La disponibilidad mínima se prescribe
 mediante los parámetros indicados en la estrategia de despligue. `Type=Progressing` con `Status=True` significa que tu Deployment
-está bien en medio de un despliegue y está avanzando o bien que se ha completado de forma satisfactoria y el número mímino
+está bien en medio de un despliegue y está progresando o bien que se ha completado de forma satisfactoria y el número mínimo
 requerido de nuevas réplicas ya está disponible (ver la Razón del estado para cada caso particular - en nuestro caso
 `Reason=NewReplicaSetAvailable` significa que el Deployment se ha completado).
 
-Puedes comprobar si un Deployment ha fallado en su avance usando el comando `kubectl rollout status`. `kubectl rollout status`
+Puedes comprobar si un Deployment ha fallado en su progreso usando el comando `kubectl rollout status`. `kubectl rollout status`
 devuelve un código de salida distinto de 0 si el Deployment ha excedido su tiempo de vencimiento.
 
 ```shell
@@ -1025,13 +1025,13 @@ y no se comportarán de forma correcta.
 
 Todos los Pods actuales se eliminan antes de que los nuevos se creen cuando `.spec.strategy.type==Recreate`.
 
-#### Despliegue de Actualización Continua
+#### Despliegue mediante actualización continua
 
 El Deployment actualiza los Pods en modo de [actualización continua](/docs/tasks/run-application/rolling-update-replication-controller/)
 cuando `.spec.strategy.type==RollingUpdate`. Puedes configurar los valores de `maxUnavailable` y `maxSurge`
 para controlar el proceso de actualización continua.
 
-##### Máx. no disponible
+##### Número máximo de pods no disponibles
 
 `.spec.strategy.rollingUpdate.maxUnavailable` es un campo opcional que indica el número máximo
 de Pods que pueden no estar disponibles durante el proceso de actualización. El valor puede ser un número absoluto (por ejemplo, 5)

@@ -7,24 +7,26 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Run a Replicated Stateful Application
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to run a replicated stateful application using a
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
 The example is a MySQL single-master topology with multiple slaves running
 asynchronous replication.
 
-Note that **this is not a production configuration**.
-In particular, MySQL settings remain on insecure defaults to keep the focus
+{{< note >}}
+**This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
 on general patterns for running stateful applications in Kubernetes.
+{{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
@@ -37,18 +39,19 @@ on general patterns for running stateful applications in Kubernetes.
 * Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Deploy a replicated MySQL topology with a StatefulSet controller.
 * Send MySQL client traffic.
 * Observe resistance to downtime.
 * Scale the StatefulSet up and down.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Deploy MySQL
 
@@ -478,9 +481,10 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 1. Cancel the `SELECT @@server_id` loop by pressing **Ctrl+C** in its terminal,
    or running the following from another terminal:
@@ -521,14 +525,18 @@ kubectl delete pvc data-mysql-4
    Some dynamic provisioners (such as those for EBS and PD) also release the
    underlying resources upon deleting the PersistentVolumes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
+## {{% heading "whatsnext" %}}
+
+* Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+* Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
+* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+* Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 * Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
   for other stateful application examples.
 
-{{% /capture %}}
+
 
 
 

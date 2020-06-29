@@ -1,55 +1,53 @@
 ---
-title: "Container Orchestration a livello di produzione"
-abstract: "Implementazione, ridimensionamento e gestione automatizzata dei container "
+title: Orchestrazione di Container in produzione
+abstract: Deployment, scalabilità, e gestione di container automatizzata
 cid: home
 ---
 
-{{< deprecationwarning >}}
-
 {{< blocks/section id="oceanNodes" >}}
 {{% blocks/feature image="flower" %}}
-### [Kubernetes (k8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}})
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) è un software open-source per l'automazione del deployment, scalabilità, e gestione di applicativi in containers.
 
-è un sistema open source per automatizzare la distribuzione il ridimensionamento e la gestione di applicazioni containerizzate.
-
-Raggruppa i contenitori che costituiscono un'applicazione in unità logiche per una piu facile gestione. Kubernetes si basa [su 15 anni di esperienza di Google](http://queue.acm.org/detail.cfm?id=2898444) ,combinando idee e messe in pratica suggerite da una comunità.
+K8s raggruppa i containers che compongono gli applicativi in unità logiche per semplificare la gestione e la visibilità. Kubernetes si basa su [15 anni di esperienza di esecuzione di workload in produzione presso Google](http://queue.acm.org/detail.cfm?id=2898444), combinata con le migliori idee e pratiche dalla community.
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="scalable" %}}
-#### Planet Scale
+#### Scala planetaria
 
-Progettato secondo gli stessi principi che consentono a Google di gestire miliardi di container alla settimana, Kubernetes può scalare senza aumentare il tuo team operativo.
+Progettato con gli stessi principi che permettono a Google di eseguire miliardi di container ogni settimana, Kubernetes può scalare evitando di aumentare il lavoro per il tuo team.
 
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="blocks" %}}
-#### Never Outgrow
+#### Semplice e flessibile
 
-Che si tratti di eseguire test localmente o di gestire un'azienda globale, la flessibilità di Kubernetes cresce con te per fornire le tue applicazioni in modo coerente e semplice, indipendentemente dalla complessità delle tue esigenze.
+Che tu stia facendo dei test locali o supportando una azienda enterprise, la flessibilità di Kubernetes ti permette di eseguire le tue applicazioni coerentemente e facilmente, indipendentemente dalla complessità delle tue esigenze.
+
 {{% /blocks/feature %}}
 
 {{% blocks/feature image="suitcase" %}}
-#### Run Anywhere
+#### Eseguibile ovunque
 
-Kubernetes è open source e ti offre la libertà di trarre vantaggio dall'infrastruttura cloud locale, ibrida o pubblica, consentendo di spostare facilmente i carichi di lavoro nel punto in cui è importante per te.
+Kubernetes è open source, e ti offre la libertà di spostare i tuoi carichi di lavoro senza fatica tra ambienti on-premises, ibridi, e cloud pubblici.
+
 {{% /blocks/feature %}}
 
 {{< /blocks/section >}}
 
 {{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
 <div class="light-text">
-    <h2>Le sfide della migrazione di oltre 150 microservizi a Kubernetes</h2>
-    <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
-    <button id="desktopShowVideoButton" onclick="kub.showVideo()">Guarda i Video</button>
-    <br>
-    <br>
-    <br>
-    <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2019" button id="desktopKCButton">Attend KubeCon in San Diego on Nov. 18-21, 2019</a>
-    <br>
-    <br>
-    <br>
-    <br>
-    <a href="https://events.linuxfoundation.org/events/kubecon-cloudnativecon-europe-2020/" button id="desktopKCButton">Attend KubeCon in Amsterdam on Mar. 30-Apr. 2, 2020</a>
+<h2>La sfida di migrare 150+ Microservizi su Kubernetes</h2>
+        <p>Di Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Guarda il Video</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu20" button id="desktopKCButton">Partecipa alla KubeCon ad Amsterdam (13-16 Agosto 2020)</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncna20" button id="desktopKCButton">Partecipa alla KubeCon a Boston (17-20 Novembre 2020)</a>
 </div>
 <div id="videoPlayer">
     <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>

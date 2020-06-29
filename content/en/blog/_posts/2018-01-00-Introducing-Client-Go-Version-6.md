@@ -74,7 +74,7 @@ spec:
 ```
 $ kubectl create -f app.yaml
 
-The App "example-app" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"mygroup.example.com/v1", "kind":"App", "metadata":map[string]interface {}{"creationTimestamp":"2017-08-31T20:52:54Z", "uid":"5c674651-8e8e-11e7-86ad-f0761cb232d1", "selfLink":"", "clusterName":"", "name":"example-app", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(\*int64)(nil)}, "spec":map[string]interface {}{"replicas":15, "version":"v1.0.2"}}:  
+The App "example-app" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"mygroup.example.com/v1", "kind":"App", "metadata":map[string]interface {}{"creationTimestamp":"2017-08-31T20:52:54Z", "uid":"5c674651-8e8e-11e7-86ad-f0761cb232d1", "clusterName":"", "name":"example-app", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(\*int64)(nil)}, "spec":map[string]interface {}{"replicas":15, "version":"v1.0.2"}}:
 validation failure list:  
 spec.replicas in body should be less than or equal to 10  
 spec.version in body should be one of [v1.0.0 v1.0.1]
@@ -252,7 +252,7 @@ It’s finally possible to have dots in Go package names. In this section’s ex
 Kubernetes 1.9 includes a number of example projects which can serve as a blueprint for your own projects:  
 
 - [k8s.io/sample-apiserver](https://github.com/kubernetes/sample-apiserver) is a simple user-provided API server that is integrated into a cluster via [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/).
-- [k8s.io/sample-controller](https://github.com/kubernetes/sample-controller) is a full-featured [controller](https://github.com/kubernetes/community/blob/master/contributors/devel/controllers.md) (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses [k8s.io/code-generator](https://github.com/kubernetes/code-generator) to generate deepcopy functions, typed clientsets, informers, and listers.
+- [k8s.io/sample-controller](https://github.com/kubernetes/sample-controller) is a full-featured [controller](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/controllers.md) (also called an operator) with shared informers and a workqueue to process created, changed or deleted objects. It is based on CustomResourceDefinitions and uses [k8s.io/code-generator](https://github.com/kubernetes/code-generator) to generate deepcopy functions, typed clientsets, informers, and listers.
 
 
 

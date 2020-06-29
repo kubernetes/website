@@ -2,11 +2,11 @@
 reviewers:
 - mikedanese
 title: Labels and Selectors
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
@@ -24,10 +24,10 @@ Each object can have a set of key/value labels defined. Each Key must be unique 
 
 Labels allow for efficient queries and watches and are ideal for use in UIs and CLIs. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivation
 
@@ -69,10 +69,10 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## Label selectors
@@ -91,6 +91,10 @@ them.
 {{< note >}}
 For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
 {{< /note >}}
+
+{{< caution >}}
+For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
+{{< /caution >}}
 
 ### _Equality-based_ requirement
 
@@ -206,7 +210,7 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
 
 ```yaml
 selector:
@@ -222,6 +226,6 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
+See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
 
-{{% /capture %}}
+

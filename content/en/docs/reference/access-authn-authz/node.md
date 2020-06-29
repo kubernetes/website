@@ -5,15 +5,15 @@ reviewers:
 - liggitt
 - ericchiang
 title: Using Node Authorization
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Node authorization is a special-purpose authorization mode that specifically authorizes API requests made by kubelets.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Overview
 
 The Node authorizer allows a kubelet to perform API operations. This includes:
@@ -50,7 +50,7 @@ For specifics about how the kubelet determines the hostname, as well as cloud pr
 
 To enable the Node authorizer, start the apiserver with `--authorization-mode=Node`.
 
-To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#NodeRestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
+To limit the API objects kubelets are able to write, enable the [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers#noderestriction) admission plugin by starting the apiserver with `--enable-admission-plugins=...,NodeRestriction,...`
 
 ## Migration considerations
 
@@ -96,4 +96,4 @@ In 1.8, the binding will not be created at all.
 
 When using RBAC, the `system:node` cluster role will continue to be created,
 for compatibility with deployment methods that bind other users or groups to that role.
-{{% /capture %}}
+

@@ -1,14 +1,14 @@
 ---
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyajikan gambaran umum tentang PodPreset, yang merupakan objek untuk memasukkan informasi tertentu ke dalam Pod pada saat waktu penciptaan. Informasi dapat berupa _secret_, _volume_, _volume mount_, dan variabel _environment_.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Pod Preset
 ---
 
@@ -40,9 +40,9 @@ Mungkin akan ada keadaan dimana kamu menginginkan sebuah Pod tidak bisa diubah o
 
 ## Mengaktifkan Pod Preset
 ---
-Dalam rangka untuk menggunakan Pod Preset di dalam kluster kamu, kamu harus memastikan hal berikut:
+Dalam rangka untuk menggunakan Pod Preset di dalam klaster kamu, kamu harus memastikan hal berikut:
 
-1. Kamu telah mengaktifkan tipe API `settings.k8s.io/v1alpha1/podpreset`. Sebagai contoh, ini bisa dilakukan dengan menambahkan `settings.k8s.io/v1alpha1=true` di dalam opsi `--runtime-config` untuk API _server_. Dalam _minikube_ tambahkan argumen berikut `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` saat menginisialisasi kluster.
+1. Kamu telah mengaktifkan tipe API `settings.k8s.io/v1alpha1/podpreset`. Sebagai contoh, ini bisa dilakukan dengan menambahkan `settings.k8s.io/v1alpha1=true` di dalam opsi `--runtime-config` untuk API _server_. Dalam _minikube_ tambahkan argumen berikut `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` saat menginisialisasi klaster.
 
 1. Kamu telah mengaktifkan _admission controller_ dari `PodPreset`. Salah satu cara untuk melakukannya adalah dengan menambahkan `PodPreset` di dalam nilai opsi `--enable-admission-plugins` yang dispesifikasikan untuk API _server_. Dalam _minikube_ tambahkan argumen berikut
 
@@ -50,12 +50,13 @@ Dalam rangka untuk menggunakan Pod Preset di dalam kluster kamu, kamu harus mema
     --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
     ```
 
-    saat menginisialisasi kluster.
+    saat menginisialisasi klaster.
 1. Kamu telah membuat objek `PodPreset` pada _namespace_ yang kamu gunakan dengan cara mendefinisikan Pod Preset.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
   * [Memasukkan data ke dalam sebuah Pod dengan PodPreset](/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
 
-{{% /capture %}}
+

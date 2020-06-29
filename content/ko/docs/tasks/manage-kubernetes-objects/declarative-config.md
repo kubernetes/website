@@ -1,27 +1,28 @@
 ---
 title: 구성 파일을 이용한 쿠버네티스 오브젝트의 선언형 관리
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 오브젝트는 여러 개의 오브젝트 구성 파일을
 디렉터리에 저장하고 필요에 따라 `kubectl apply`를
 사용하여 재귀적으로 오브젝트를 생성하고 업데이트함으로써 생성, 업데이트 및 삭제할 수 있다.
 이 방식은 변경사항을 되돌려 오브젝트 구성 파일에 병합하지 않고
 활성 오브젝트에 가해진 기록을 유지한다. `kubectl diff`는 또한
 `apply`가 어떠한 변경사항을 이루어질지에 대한 프리뷰를 제공한다.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [`kubectl`](/docs/tasks/tools/install-kubectl/)를 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 트레이드 오프
 
@@ -64,7 +65,7 @@ weight: 10
 kubectl apply -f <디렉터리>/
 ```
 
-이것은  각 오브젝트에 대해 `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
+이것은 각 오브젝트에 대해 `kubectl.kubernetes.io/last-applied-configuration: '{...}'`
 어노테이션을 설정한다. 해당 어노테이션은 오브젝트를 생성하기 위해 사용했던
 오브젝트 구성 파일의 내용을 포함한다. 
 
@@ -77,11 +78,20 @@ kubectl apply -f <디렉터리>/
 {{< codenew file="application/simple_deployment.yaml" >}}
 
 생성될 오브젝트를 출력하려면 `kubectl diff`를 실행한다. 
+
 ```shell
 kubectl diff -f https://k8s.io/examples/application/simple_deployment.yaml
 ```
+
 {{< note >}}
-`diff`는 `kube-apiserver`의 활성화가 필요한 [서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+`diff`는 `kube-apiserver`의 활성화가 필요한
+[서버사이드 dry-run](/docs/reference/using-api/api-concepts/#dry-run)을 사용한다.
+
+`diff` 는 dry-run 모드에서 서버 측 적용 요청을 수행하므로,
+`PATCH`, `CREATE`, 그리고 `UPDATE` 권한을 부여해야 한다.
+자세한 것은
+[Dry-Run 인증](/docs/reference/using-api/api-concepts#dry-run-authorization)을 본다.
+
 {{< /note >}}
 
 `kubectl apply`를 사용하여 오브젝트를 생성한다.
@@ -110,7 +120,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -127,7 +137,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -190,7 +200,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -207,7 +217,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -228,7 +238,7 @@ kubectl scale deployment/nginx-deployment --replicas=2
 `kubectl get`을 사용하여 활성 구성을 출력한다.
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get deployment nginx-deployment -o yaml
 ```
 
 출력은 `replicas` 필드가 2로 설정된 것을 보여주며, `last-applied-configuration`
@@ -246,7 +256,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -264,7 +274,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -272,7 +282,7 @@ spec:
       # ...
 ```
 
-`nginx:1.7.9`에서 `nginx:1.11.9`로 이미지를 변경하기 위해 `simple_deployment.yaml`
+`nginx:1.14.2`에서 `nginx:1.16.1`로 이미지를 변경하기 위해 `simple_deployment.yaml`
 구성 파일을 업데이트 하고, `minReadySeconds` 필드를 삭제한다.
 
 {{< codenew file="application/update_deployment.yaml" >}}
@@ -287,14 +297,14 @@ kubectl apply -f https://k8s.io/examples/application/update_deployment.yaml
 `kubectl get`을 사용하여 활성 구성을 출력한다.
 
 ```shell
-kubectl get -f https://k8s.io/examples/application/simple_deployment.yaml -o yaml
+kubectl get -f https://k8s.io/examples/application/update_deployment.yaml -o yaml
 ```
 
 출력은 활성 구성에 다음의 변경사항을 보여준다.
 
 * `replicas` 필드는 `kubectl scale`에 의해 설정된 값 2를 유지한다.  
   이는 구성 파일에서 생략되었기 때문에 가능하다.
-* `image` 필드는 `nginx:1.7.9`에서 `nginx:1.11.9`로 업데이트되었다.
+* `image` 필드는 `nginx:1.14.2`에서 `nginx:1.16.1`로 업데이트되었다.
 * `last-applied-configuration` 어노테이션은 새로운 이미지로 업데이트되었다.
 * `minReadySeconds` 필드는 지워졌다.
 * `last-applied-configuration` 어노테이션은 더 이상 `minReadySeconds` 필드를 포함하지 않는다.
@@ -311,7 +321,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -329,7 +339,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -451,7 +461,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"minReadySeconds":5,"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.7.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
   # ...
 spec:
@@ -469,7 +479,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         # ...
         name: nginx
         ports:
@@ -509,7 +519,7 @@ metadata:
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
       "spec":{"selector":{"matchLabels":{"app":nginx}},"template":{"metadata":{"labels":{"app":"nginx"}},
-      "spec":{"containers":[{"image":"nginx:1.11.9","name":"nginx",
+      "spec":{"containers":[{"image":"nginx:1.16.1","name":"nginx",
       "ports":[{"containerPort":80}]}]}}}}
     # ...
 spec:
@@ -527,7 +537,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.11.9 # Set by `kubectl apply`
+      - image: nginx:1.16.1 # Set by `kubectl apply`
         # ...
         name: nginx
         ports:
@@ -762,7 +772,7 @@ spec:
     rollingUpdate: # defaulted by apiserver - derived from strategy.type
       maxSurge: 1
       maxUnavailable: 1
-    type: RollingUpdate # defaulted apiserver
+    type: RollingUpdate # defaulted by apiserver
   template:
     metadata:
       creationTimestamp: null
@@ -770,7 +780,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: nginx:1.7.9
+      - image: nginx:1.14.2
         imagePullPolicy: IfNotPresent # defaulted by apiserver
         name: nginx
         ports:
@@ -810,7 +820,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -825,7 +835,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -843,7 +853,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 
@@ -861,7 +871,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.7.9
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
 ```
@@ -983,16 +993,19 @@ TODO(pwittrock): Why doesn't export remove the status field?  Seems like it shou
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
+
 * [명령형 커맨드 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+
+

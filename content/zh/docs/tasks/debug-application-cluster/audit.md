@@ -3,11 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
@@ -37,11 +37,11 @@ Kubernetes 审计功能提供了与安全相关的按时间顺序排列的记录
  - 它从哪触发的？
  - 活动的后续处理行为是什么？
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture body %}}
+<!-- body -->
 
 <!--
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
@@ -123,7 +123,7 @@ A policy with no (0) rules is treated as illegal.
 
 Below is an example audit policy file:
 -->
-您可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 [kube-apiserver][kube-apiserver]。如果不设置该标志，则不记录事件。 
+您可以使用 `--audit-policy-file` 标志将包含策略的文件传递给 [kube-apiserver][kube-apiserver]。如果不设置该标志，则不记录事件。
 注意 `rules` 字段 __必须__ 在审计策略文件中提供。没有（0）规则的策略将被视为非法配置。
 
 以下是一个审计策略文件的示例：
@@ -529,7 +529,7 @@ plugin which supports full-text search and analytics.
 <!--
 ## Legacy Audit
 
-__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and 
+__Note:__ Legacy Audit is deprecated and is disabled by default since 1.8 and
 will be removed in 1.12. To fallback to this legacy audit, disable the advanced
 auditing feature using the `AdvancedAuditing` feature gate in [kube-apiserver][kube-apiserver]:
 -->
@@ -602,11 +602,11 @@ Kubernetes 可能会在创建新的日志文件时删除旧的日志文件; 您�
 [auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
 [auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1beta1/types.go
 [gce-audit-profile]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh#L735
-[kubeconfig]: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+[kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
 [fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: http://docs.fluentd.org/v0.12/articles/quickstart#step1-installing-fluentd
+[fluentd_install_doc]: https://docs.fluentd.org/v/0.12/articles/quickstart#step1-installing-fluentd
 [logstash]: https://www.elastic.co/products/logstash
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
+---
+title: 为命名空间配置默认的内存请求和限制
+content_type: task
+weight: 10
+---
+
 <!--
 ---
 title: Configure Default Memory Requests and Limits for a Namespace
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 -->
 
----
-title: 为命名空间配置默认的内存请求和限制
-content_template: templates/task
-weight: 10
----
-
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to configure default memory requests and limits for a namespace.
@@ -23,9 +23,10 @@ Kubernetes assigns a default memory request under certain conditions that are ex
 
 本文介绍怎样给命名空间配置默认的内存请求和限制。如果在一个有默认内存限制的命名空间创建容器，该容器没有声明自己的内存限制时，将会被指定默认内存限制。Kubernetes 还为某些情况指定了默认的内存请求，本章后面会进行介绍。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -35,9 +36,9 @@ Each node in your cluster must have at least 2 GiB of memory.
 
 你的集群中的每个节点必须至少有2 GiB的内存。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -265,7 +266,7 @@ Here are two of the restrictions that a resource quota imposes on a namespace:
 -->
 
 * 运行在命名空间中的每个容器必须有自己的内存限制。
-* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。 
+* 命名空间中所有容器的内存使用量之和不能超过声明的限制值。
 
 <!--
 If a Container does not specify its own memory limit, it is given the default limit, and then
@@ -274,9 +275,10 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 如果一个容器没有声明自己的内存限制，会被指定默认限制，然后它才会被允许在限定了配额的命名空间中运行。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -329,7 +331,5 @@ it can be allowed to run in a namespace that is restricted by a quota.
 * [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [为 Pod 配置服务数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}
 
 

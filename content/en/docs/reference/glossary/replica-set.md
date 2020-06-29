@@ -4,7 +4,7 @@ id: replica-set
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/replicaset/
 short_description: >
-  ReplicaSet is the next-generation Replication Controller.
+ ReplicaSet ensures that a specified number of Pod replicas are running at one time
 
 aka: 
 tags:
@@ -12,8 +12,10 @@ tags:
 - core-object
 - workload
 ---
- ReplicaSet is the next-generation Replication Controller.
+ A ReplicaSet (aims to) maintain a set of replica Pods running at any given time.
 
-<!--more--> 
+<!--more-->
 
-ReplicaSet, like ReplicationController, ensures that a specified number of pods replicas are running at one time. ReplicaSet supports the new set-based selector requirements as described in the labels user guide, whereas a Replication Controller only supports equality-based selector requirements.
+Workload objects such as {{< glossary_tooltip term_id="deployment" >}} make use of ReplicaSets
+to ensure that the configured number of {{< glossary_tooltip term_id="pod" text="Pods" >}} are
+running in your cluster, based on the spec of that ReplicaSet.

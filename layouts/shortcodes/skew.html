@@ -1,0 +1,52 @@
+<!-- capture version from first argument in "skew" -->
+{{- $version := .Get 0 -}}
+
+<!-- strip "v" from latest verison  -->
+{{- $latestVersion := site.Params.latest -}}
+{{- $latestVersion := (replace $latestVersion "v" "") -}}
+
+<!-- splits a string x.Xy into substrings separated by a "." delimiter  -->
+{{- $versionArray := split $latestVersion "." -}}
+
+<!-- capture minorVersion ("Xy") in a variable -->
+{{- $minorVersion := int (index $versionArray 1) -}}
+
+<!-- increment latest 1 minor number for "nextMinorVerison" -->
+{{- $nextMinorVersion := add $minorVersion 1 -}}
+
+<!-- subtract latest 1 minor number for "prevMinorVerison" -->
+{{- $prevMinorVersion := sub $minorVersion 1 -}}
+
+<!-- subtract latest 2 minor numbers for "oldestMinorVerison" -->
+{{- $oldestMinorVersion := sub $minorVersion 2 -}}
+
+<!-- output nextMinorVersion based on captured arg -->
+{{- if eq $version "nextMinorVersion" -}}
+    {{- $nextMinorVersion := printf "%s.%d" (index $versionArray 0) $nextMinorVersion -}}
+    {{- $nextMinorVersion -}}
+{{- end -}}
+
+<!-- output latestVersion based on captured arg -->
+{{- if eq $version "latestVersion" -}}
+    {{- $latestVersion -}}
+{{- end -}}
+
+<!-- output prevMinorVersion based on captured arg -->
+{{- if eq $version "prevMinorVersion" -}}
+    {{- $prevMinorVersion := printf "%s.%d" (index $versionArray 0) $prevMinorVersion -}}
+    {{- $prevMinorVersion -}}
+{{- end -}}
+
+<!-- output oldestMinorVersion based on captured arg -->
+{{- if eq $version "oldestMinorVersion" -}}
+    {{- $oldestMinorVersion := printf "%s.%d" (index $versionArray 0) $oldestMinorVersion -}}
+    {{- $oldestMinorVersion -}}
+{{- end -}}
+
+<!--
+example shortcode use:
+- skew nextMinorVersion
+- skew latestVersion
+- skew prevMinorVersion
+- skew oldestMinorVersion
+-->

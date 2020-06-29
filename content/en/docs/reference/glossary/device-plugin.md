@@ -4,14 +4,26 @@ id: device-plugin
 date: 2019-02-02
 full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
-  Containers running in Kubernetes that provide access to a vendor specific resource.
+  Software extensions to let Pods access devices that need vendor-specific initialization or setup
 aka:
 tags:
 - fundamental
 - extension
 ---
- Device Plugins are containers running in Kubernetes that provide access to a vendor specific resource.
+ Device plugins run on worker
+{{< glossary_tooltip term_id="node" text="Nodes">}} and provide
+{{< glossary_tooltip term_id="pod" text="Pods ">}} with access to resources,
+such as local hardware, that require vendor-specific initialization or setup
+steps.
 
 <!--more-->
 
-[Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) are containers running in Kubernetes that provide access to a vendor-specific resource. Device Plugins advertise these resources to {{< glossary_tooltip term_id="kubelet" >}}. They can be deployed manually or as a {{< glossary_tooltip term_id="daemonset" >}}, rather than writing custom Kubernetes code.
+Device plugins advertise resources to the
+{{< glossary_tooltip term_id="kubelet" text="kubelet" >}}, so that workload
+Pods can access hardware features that relate to the Node where that Pod is running.
+You can deploy a device plugin as a {{< glossary_tooltip term_id="daemonset" >}},
+or install the device plugin software directly on each target Node.
+
+See
+[Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+for more information.

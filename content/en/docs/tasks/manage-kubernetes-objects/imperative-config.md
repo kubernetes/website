@@ -1,24 +1,25 @@
 ---
 title: Imperative Management of Kubernetes Objects Using Configuration Files
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes objects can be created, updated, and deleted by using the `kubectl`
 command-line tool along with an object configuration file written in YAML or JSON.
 This document explains how to define and manage objects using configuration files.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trade-offs
 
@@ -28,7 +29,7 @@ The `kubectl` tool supports three kinds of object management:
 * Imperative object configuration
 * Declarative object configuration
 
-See [Kubernetes Object Management](/docs/concepts/overview/object-management-kubectl/overview/)
+See [Kubernetes Object Management](/docs/concepts/overview/working-with-objects/object-management/)
 for a discussion of the advantages and disadvantage of each kind of object management.
 
 ## How to create objects
@@ -109,17 +110,17 @@ several manual steps.
 
 1. Export the live object to a local object configuration file:
 
-```shell
-kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
-```
+    ```shell
+    kubectl get <kind>/<name> -o yaml > <kind>_<name>.yaml
+    ```
 
 1. Manually remove the status field from the object configuration file.
 
 1. For subsequent object management, use `replace` exclusively.
 
-```shell
-kubectl replace -f <kind>_<name>.yaml
-```
+    ```shell
+    kubectl replace -f <kind>_<name>.yaml
+    ```
 
 ## Defining controller selectors and PodTemplate labels
 
@@ -135,20 +136,21 @@ Example label:
 ```yaml
 selector:
   matchLabels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 template:
   metadata:
     labels:
-      controller-selector: "extensions/v1beta1/deployment/nginx"
+      controller-selector: "apps/v1/deployment/nginx"
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

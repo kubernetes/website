@@ -1,38 +1,40 @@
 ---
 title: Deploymentを使用してステートレスアプリケーションを実行する
 min-kubernetes-server-version: v1.9
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、Kubernetes Deploymentオブジェクトを使用してアプリケーションを実行する方法を説明します。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * nginx deploymentを作成します。
 * kubectlを使ってdeploymentに関する情報を一覧表示します。
 * deploymentを更新します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## nginx deploymentの作成と探検
 
-Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.7.9 Dockerイメージを実行するデプロイメントを記述しています:
+Kubernetes Deploymentオブジェクトを作成することでアプリケーションを実行できます。また、YAMLファイルでDeploymentを記述できます。例えば、このYAMLファイルはnginx:1.14.2 Dockerイメージを実行するデプロイメントを記述しています:
 
 {{< codenew file="application/deployment.yaml" >}}
 
@@ -62,7 +64,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
           Labels:       app=nginx
           Containers:
            nginx:
-            Image:              nginx:1.7.9
+            Image:              nginx:1.14.2
             Port:               80/TCP
             Environment:        <none>
             Mounts:             <none>
@@ -138,13 +140,14 @@ Deploymentを名前を指定して削除します:
 
 複製アプリケーションを作成するための好ましい方法はDeploymentを使用することです。そして、DeploymentはReplicaSetを使用します。 DeploymentとReplicaSetがKubernetesに追加される前は、[ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)を使用して複製アプリケーションを構成していました。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)の詳細
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)の詳細
+
+
 
 

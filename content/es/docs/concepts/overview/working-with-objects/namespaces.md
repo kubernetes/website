@@ -1,24 +1,24 @@
 ---
 title: Espacios de nombres
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes soporta múltiples clústeres virtuales respaldados por el mismo clúster físico.
 Estos clústeres virtuales se denominan espacios de nombres (namespaces).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cuándo Usar Múltiple Espacios de Nombre
 
 Los espacios de nombres están pensados para utilizarse en entornos con muchos usuarios
-distribuidos entre múltiples equipos, o proyectos. Para aquellos clústeres con 
-unas pocas decenas de usuarios, no deberías necesitar crear o pensar en espacios de 
+distribuidos entre múltiples equipos, o proyectos. Para aquellos clústeres con
+unas pocas decenas de usuarios, no deberías necesitar crear o pensar en espacios de
 nombres en absoluto. Empieza a usarlos solamente si necesitas las características
 que proporcionan.
 
@@ -31,7 +31,7 @@ entre múltiples usuarios (via [cuotas de recursos](/docs/concepts/policy/resour
 En futuras versiones de Kubernetes, los objetos de un mismo espacio de nombres
 tendrán las mismas políticas de control de acceso por defecto.
 
-No es necesario usar múltiples espacios de nombres sólo para separar recursos 
+No es necesario usar múltiples espacios de nombres sólo para separar recursos
 ligeramente diferentes, como versiones diferentes de la misma aplicación: para ello
 utiliza [etiquetas](/docs/user-guide/labels) para distinguir tus recursos dentro
 del mismo espacio de nombres.
@@ -58,8 +58,8 @@ Kubernetes arranca con tres espacios de nombres inicialmente:
 
    * `default` El espacio de nombres por defecto para aquellos objetos que no especifican ningún espacio de nombres
    * `kube-system` El espacio de nombres para aquellos objetos creados por el sistema de Kubernetes
-   * `kube-public` Este espacio de nombres se crea de forma automática y es legible por todos los usuarios (incluyendo aquellos no autenticados). 
-   Este espacio de nombres se reserva principalmente para uso interno del clúster, en caso de que algunos recursos necesiten ser visibles y legibles de forma pública para todo el clúster. 
+   * `kube-public` Este espacio de nombres se crea de forma automática y es legible por todos los usuarios (incluyendo aquellos no autenticados).
+   Este espacio de nombres se reserva principalmente para uso interno del clúster, en caso de que algunos recursos necesiten ser visibles y legibles de forma pública para todo el clúster.
    La naturaleza pública de este espacio de nombres es simplemente por convención, no es un requisito.
 
 ### Establecer el espacio de nombres para una petición
@@ -112,4 +112,4 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
+

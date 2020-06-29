@@ -3,11 +3,11 @@ reviewers:
 - derekwaynecarr
 - vishh
 - timstclair
-title: Configure Out Of Resource Handling
-content_template: templates/concept
+title: Configure Out of Resource Handling
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page explains how to configure out of resource handling with `kubelet`.
 
@@ -16,10 +16,10 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Eviction Policy
 
@@ -329,17 +329,11 @@ and trigger eviction assuming those Pods use less than their configured request.
 
 ### DaemonSet
 
-It is never desired for `kubelet` to evict a `DaemonSet` Pod, since the Pod is
-immediately recreated and rescheduled back to the same node.
+As `Priority` is a key factor in the eviction strategy, if you do not want 
+pods belonging to a `DaemonSet` to be evicted, specify a sufficiently high priorityClass 
+in the pod spec template. If you want pods belonging to a `DaemonSet` to run only if 
+there are sufficient resources, specify a lower or default priorityClass.
 
-At the moment, the `kubelet` has no ability to distinguish a Pod created
-from `DaemonSet` versus any other object. If/when that information is
-available, the `kubelet` could pro-actively filter those Pods from the
-candidate set of Pods provided to the eviction strategy.
-
-In general, it is strongly recommended that `DaemonSet` not
-create `BestEffort` Pods to avoid being identified as a candidate Pod
-for eviction. Instead `DaemonSet` should ideally launch `Guaranteed` Pods.
 
 ## Deprecation of existing feature flags to reclaim disk
 
@@ -378,4 +372,4 @@ to prevent system OOMs, and promote eviction of workloads so cluster state can r
 The Pod eviction may evict more Pods than needed due to stats collection timing gap. This can be mitigated by adding
 the ability to get root container stats on an on-demand basis [(https://github.com/google/cadvisor/issues/1247)](https://github.com/google/cadvisor/issues/1247) in the future.
 
-{{% /capture %}}
+

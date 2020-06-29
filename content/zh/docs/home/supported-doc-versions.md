@@ -1,21 +1,21 @@
 ---
 title: Kubernetes 文档支持的版本
-content_template: templates/concept
+content_type: concept
 card:
   name: about
   weight: 10
   title: Kubernetes 文档支持的版本
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-本网站包含了当前最新版本和之前四个版本的 Kubernetes。
+本网站包含当前版本和之前四个版本的 Kubernetes 文档。
 
-{{% /capture %}}
 
-{{% capture body %}}
 
-## 当前最新版本
+<!-- body -->
+
+## 当前版本
 
 当前版本是
 [{{< param "version" >}}](/)。
@@ -24,6 +24,6 @@ card:
 
 {{< versions-other >}}
 
-{{% /capture %}}
+
 
 

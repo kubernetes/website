@@ -1,11 +1,11 @@
 ---
 reviewers:
 - mikedanese
-content_template: templates/concept
+content_type: concept
 title: Tools for Monitoring Resources
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 To scale an application and provide a reliable service, you need to
 understand how the application behaves when it is deployed. You can examine
@@ -16,9 +16,9 @@ information about an application's resource usage at each of these levels.
 This information allows you to evaluate your application's performance and
 where bottlenecks can be removed to improve overall performance.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 In Kubernetes, application monitoring does not depend on a single monitoring solution. On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
 
@@ -55,4 +55,4 @@ then exposes them to Kubernetes via an adapter by implementing either the
 [Prometheus](https://prometheus.io), a CNCF project, can natively monitor Kubernetes, nodes, and Prometheus itself.
 Full metrics pipeline projects that are not part of the CNCF are outside the scope of Kubernetes documentation.  
 
-{{% /capture %}}
+

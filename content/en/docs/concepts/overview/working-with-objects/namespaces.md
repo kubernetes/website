@@ -4,19 +4,19 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
 These virtual clusters are called namespaces.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## When to Use Multiple Namespaces
 
@@ -43,6 +43,10 @@ resources within the same namespace.
 Creation and deletion of namespaces are described in the [Admin Guide documentation
 for namespaces](/docs/admin/namespaces).
 
+{{< note >}}
+    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+{{< /note >}}
+
 ### Viewing namespaces
 
 You can list the current namespaces in a cluster using:
@@ -51,18 +55,20 @@ You can list the current namespaces in a cluster using:
 kubectl get namespace
 ```
 ```
-NAME          STATUS    AGE
-default       Active    1d
-kube-system   Active    1d
-kube-public   Active    1d
+NAME              STATUS   AGE
+default           Active   1d
+kube-node-lease   Active   1d
+kube-public       Active   1d
+kube-system       Active   1d
 ```
 
-Kubernetes starts with three initial namespaces:
+Kubernetes starts with four initial namespaces:
 
    * `default` The default namespace for objects with no other namespace
    * `kube-system` The namespace for objects created by the Kubernetes system
    * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-
+   * `kube-node-lease` This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scales.
+   
 ### Setting the namespace for a request
 
 To set the namespace for a current request, use the `--namespace` flag.
@@ -82,7 +88,7 @@ context.
 ```shell
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 # Validate it
-kubectl config view | grep namespace:
+kubectl config view --minify | grep namespace:
 ```
 
 ## Namespaces and DNS
@@ -111,11 +117,12 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 
-{{% /capture %}}
+
 

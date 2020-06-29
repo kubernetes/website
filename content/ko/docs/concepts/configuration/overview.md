@@ -1,16 +1,16 @@
 ---
 title: 구성 모범 사례
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 문서는 사용자 가이드, 시작하기 문서 및 예제들에 걸쳐 소개된 구성 모범 사례를 강조하고 통합한다.
 
 이 문서는 지속적으로 변경 가능하다. 이 목록에 없지만 다른 사람들에게 유용할 것 같은 무엇인가를 생각하고 있다면, 새로운 이슈를 생성하거나 풀 리퀘스트를 제출하는 것을 망설이지 말기를 바란다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 일반적인 구성 팁
 
 - 구성을 정의할 때, 안정된 최신 API 버전을 명시한다.
@@ -28,16 +28,16 @@ weight: 10
 - 더 나은 인트로스펙션(introspection)을 위해서, 어노테이션에 오브젝트의 설명을 넣는다.
 
 
-## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡
+## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡 {#naked-pods-vs-replicasets-deployments-and-jobs}
 
-- 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
+- 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
 
-  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
+  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-롤링-업데이트)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
 
 
 ## 서비스
 
-- 서비스에 대응하는 백엔드 워크로드(디플로이먼트 또는 레플리카 셋) 또는 서비스 접근이 필요한 어떠한 워크로드를 생성하기 전에 [서비스](/docs/concepts/services-networking/service/)를 미리 생성한다. 쿠버네티스가 컨테이너를 시작할 때, 쿠버네티스는 컨테이너 시작 당시에 생성되어 있는 모든 서비스를 가리키는 환경 변수를 컨테이너에 제공한다. 예를 들어, `foo` 라는 이름의 서비스가 존재한다면, 모든 컨테이너들은 초기 환경에서 다음의 변수들을 얻을 것이다.
+- 서비스에 대응하는 백엔드 워크로드(디플로이먼트 또는 레플리카 셋) 또는 서비스 접근이 필요한 어떠한 워크로드를 생성하기 전에 [서비스](/ko/docs/concepts/services-networking/service/)를 미리 생성한다. 쿠버네티스가 컨테이너를 시작할 때, 쿠버네티스는 컨테이너 시작 당시에 생성되어 있는 모든 서비스를 가리키는 환경 변수를 컨테이너에 제공한다. 예를 들어, `foo` 라는 이름의 서비스가 존재한다면, 모든 컨테이너들은 초기 환경에서 다음의 변수들을 얻을 것이다.
 
   ```shell
   FOO_SERVICE_HOST=<서비스가 동작 중인 호스트>
@@ -51,20 +51,19 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - 반드시 필요한 것이 아니라면 파드에 `hostPort` 를 명시하지 않는다. <`hostIP`, `hostPort`, `protocol`> 조합은 유일해야 하기 때문에, `hostPort`로 바인드하는 것은 파드가 스케줄링될 수 있는 위치의 개수를 제한한다. 만약 `hostIP`와 `protocol`을 뚜렷히 명시하지 않으면, 쿠버네티스는 `hostIP`의 기본 값으로 `0.0.0.0`를, `protocol`의 기본 값으로 `TCP`를 사용한다.
 
-  만약 오직 디버깅의 목적으로 포트에 접근해야 한다면, [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#수작업으로-apiserver-proxy-url을-구축) 또는 [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 사용할 수 있다.
+  만약 오직 디버깅의 목적으로 포트에 접근해야 한다면, [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#수작업으로-apiserver-proxy-url을-구축) 또는 [`kubectl port-forward`](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 사용할 수 있다.
 
-  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/docs/concepts/services-networking/service/#nodeport) 서비스를 사용하는 것을 고려할 수 있다.
+  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 서비스를 사용하는 것을 고려할 수 있다.
 
 - `hostPort`와 같은 이유로, `hostNetwork`를 사용하는 것을 피한다.
 
-- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 쉬운 서비스 발견을 위해 [헤드리스 서비스](/docs/concepts/services-networking/service/#headless-
-services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
+- `kube-proxy` 로드 밸런싱이 필요하지 않을 때, 쉬운 서비스 발견을 위해 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 ## 레이블 사용하기
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__를 식별하는 [레이블](/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
 
-릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
+릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
 
 오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가 _적용될_ 경우, 디플로이먼트 컨트롤러는 일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
 
@@ -76,7 +75,7 @@ services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 - `imagePullPolicy: IfNotPresent`: 이미지가 로컬에 이미 존재하지 않으면 이미지가 풀(Pull) 된다.
 
-- `imagePullPolicy: Always`: 파드가 시작될 때마다 이미지가 풀(Pull) 된다.
+- `imagePullPolicy: Always`: kubelet이 컨테이너를 시작할 때마다, kubelet은 컨테이너 이미지 레지스트리를 쿼리해서 이름을 이미지 다이제스트(digest)로 확인한다. kubelet에 정확한 다이제스트가 저장된 컨테이너 이미지가 로컬로 캐시된 경우, kubelet은 캐시된 이미지를 사용한다. 그렇지 않으면, kubelet은 확인한 다이제스트를 사용해서 이미지를 다운로드(pull)하고, 해당 이미지를 사용해서 컨테이너를 시작한다.
 
 - `imagePullPolicy`가 생략되어 있고, 이미지 태그가 `:latest` 이거나 생략되어 있다면 `Always`가 적용된다.
 
@@ -85,7 +84,7 @@ services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 - `imagePullPolicy: Never`: 이미지가 로컬에 존재한다고 가정한다. 이미지를 풀(Pull) 하기 위해 시도하지 않는다.
 
 {{< note >}}
-컨테이너가 항상 같은 버전의 이미지를 사용하도록 만들기 위해, `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`와 같은 이미지의 [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)를 명시할 수 있다. 다이제스트는 특정 버전의 이미지를 고유하게 식별하며, 다이제스트 값을 변경하지 않는 한 쿠버네티스에 의해 절대로 변경되지 않는다.
+컨테이너가 항상 같은 버전의 이미지를 사용하도록 하기 위해, `<이미지 이름>:<태그>` 를 `<이미지 이름>@<다이제스트>` (예시 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)로 변경해서 이미지의 [다이제스트](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)를 명시할 수 있다. 다이제스트는 특정 버전의 이미지를 고유하게 식별하며, 다이제스트 값을 변경하지 않는 한 쿠버네티스에 의해 절대로 변경되지 않는다.
 {{< /note >}}
 
 {{< note >}}
@@ -100,8 +99,8 @@ services)(`ClusterIP`의 값을 `None`으로 가지는)를 사용한다.
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
 
-- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/docs/concepts/overview/working-with-objects/labels/#label-selectors)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
+- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
 
 - 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
 
-{{% /capture %}}
+

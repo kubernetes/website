@@ -1,10 +1,11 @@
 ---
+draft: True
 title: Nodi
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un nodo è una macchina worker in Kubernetes, precedentemente noto come `minion`. Un nodo
 può essere una VM o una macchina fisica, a seconda del cluster. Ogni nodo contiene
@@ -13,10 +14,10 @@ componenti. I servizi su un nodo includono il [container runtime](/docs/concepts
 [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) sezione in
 documento di progettazione dell'architettura per maggiori dettagli.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Node Status
 
@@ -97,7 +98,7 @@ numero di pod che possono essere programmati sul nodo.
 
 Informazioni generali sul nodo, come la versione del kernel, la versione di Kubernetes
 (versione kubelet e kube-proxy), versione Docker (se utilizzata), nome del sistema operativo.
-Le informazioni sono raccolte da Kubelet dal nodo. 
+Le informazioni sono raccolte da Kubelet dal nodo.
 
 ## Management
 
@@ -211,7 +212,7 @@ NodeController è responsabile per l'aggiunta di taints corrispondenti ai proble
 nodo irraggiungibile o non pronto. Vedi [questa documentazione](/docs/concepts/configuration/taint-and-toleration/)
 per i dettagli su `NoExecute` taints e la funzione alpha.
 
-partire dalla versione 1.8, il controller del nodo può essere reso responsabile della creazione di taints che rappresentano le condizioni del nodo. 
+partire dalla versione 1.8, il controller del nodo può essere reso responsabile della creazione di taints che rappresentano le condizioni del nodo.
 Questa è una caratteristica alfa della versione 1.8.
 
 ### Self-Registration of Nodes
@@ -229,7 +230,7 @@ Per l'autoregistrazione, il kubelet viene avviato con le seguenti opzioni:
   - `--node-labels` - Etichette da aggiungere quando si registra il nodo nel cluster (vedere le restrizioni dell'etichetta applicate dal [plugin di accesso NodeRestriction](/docs/reference/access-authn-authz/admission-controller/#noderestriction) in 1.13+).
   - `--node-status-update-frequency` - Specifica la frequenza con cui kubelet invia lo stato del nodo al master
 
-Quando [Node authorization mode](/docs/reference/access-authn-authz/node/) e 
+Quando [Node authorization mode](/docs/reference/access-authn-authz/node/) e
 [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) sono abilitati,
 kubelets è autorizzato solo a creare / modificare la propria risorsa nodo.
 
@@ -282,4 +283,4 @@ Il nodo è una risorsa di livello superiore nell'API REST di Kubernetes. Maggior
 L'oggetto API può essere trovato a:
 [Node API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
-{{% /capture %}}
+

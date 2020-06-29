@@ -1,22 +1,22 @@
 ---
 title: Limit Volume yang Spesifik terhadap Node
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan soal jumlah volume maksimal yang dapat dihubungkan
 ke sebuah Node untuk berbagai penyedia layanan cloud.
 
 Penyedia layanan cloud seperti Google, Amazon, dan Microsoft pada umumnya memiliki
-keterbatasan dalam jumlah volume yang bisa terhubung ke sebuah Node. Keterbatasn ini 
+keterbatasan dalam jumlah volume yang bisa terhubung ke sebuah Node. Keterbatasn ini
 sangatlah penting untuk diketahui Kubernetes dalam menentukan keputusan. Jika tidak,
 Pod-pod yang telah dijadwalkan pada sebuah Node akan macet dan menunggu terus-menerus
 untuk terhubung pada volume.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Limit _default_ pada Kubernetes
 
@@ -39,7 +39,7 @@ Berhati-hatilah jika kamu menerapkan limit yang lebih besar dari limit _default_
 Perhatikan dokumentasi penyedia layanan cloud untuk hal ini, dan pastikan Node
 benar-benar dapat mendukung nilai limit yang kamu inginkan.
 
-Limit ini diterapkan untuk seluruh kluster, jadi akan berdampak pada semua Node.
+Limit ini diterapkan untuk seluruh klaster, jadi akan berdampak pada semua Node.
 
 ## Limit volume dinamis
 
@@ -77,4 +77,4 @@ bisa dilihat pada [Ukuran mesin virtual (VM) di Azure](https://docs.microsoft.co
   sebagai properti Node dan Scheduler tidak akan menjadwalkan Pod dengan volume pada Node manapun yang sudah penuh kapasitasnya. Untuk penjelasan lebih jauh
   lihat [spek CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo).
 
-{{% /capture %}}
+

@@ -1,33 +1,33 @@
 ---
 title: Penyediaan Volume Dinamis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Penyediaan volume dinamis memungkinkan volume penyimpanan untuk dibuat sesuai permintaan (_on-demand_).
-Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin kluster secara manual harus
+Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin klaster secara manual harus
 memanggil penyedia layanan cloud atau layanan penyimpanan, dan kemudian membuat [objek PersistentVolume](/docs/concepts/storage/persistent-volumes/)
-sebagai representasi di Kubernetes. Fitur penyediaan dinamis menghilangkan kebutuhan admin kluster untuk menyediakan
+sebagai representasi di Kubernetes. Fitur penyediaan dinamis menghilangkan kebutuhan admin klaster untuk menyediakan
 penyimpanan sebelumnya (_pre-provision_). Dengan demikian, penyimpanan akan tersedia secara otomatis
 ketika diminta oleh pengguna.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Latar Belakang
 
 Penyediaan volume dinamis diimplementasi berdasarkan objek API StorageClass dari
-grup API `storage.k8s.io`. Seorang admin kluster dapat mendefinisikan berbagai macam
+grup API `storage.k8s.io`. Seorang admin klaster dapat mendefinisikan berbagai macam
 objek StorageClass sesuai kebutuhan, masing-masing menentukan *plugin volume* (disebut
 juga *provisioner*) yang menyediakan sebuah volume beserta kumpulan parameter untuk
 diteruskan oleh _provisioner_ ketika proses penyediaan.
 
-Seorang kluster admin dapat mendefinisikan dan mengekspos berbagai templat penyimpanan
-(dari sistem penyimpanan yang sama maupun berbeda) di dalam kluster, masing-masing dengan
+Seorang klaster admin dapat mendefinisikan dan mengekspos berbagai templat penyimpanan
+(dari sistem penyimpanan yang sama maupun berbeda) di dalam klaster, masing-masing dengan
 kumpulan parameter tertentu. Desain ini memastikan bahwa pengguna tidak perlu khawatir betapa
 rumitnya mekanisme penyediaan penyimpanan, tapi tetap memiliki kemampuan untuk
 memilih berbagai macam pilihan penyimpanan.
@@ -36,7 +36,7 @@ Info lebih lanjut mengenai _storage class_ dapat dilihat [di sini](/docs/concept
 
 ## Mengaktifkan Penyediaan Dinamis (_Dynamic Provisioning_)
 
-Untuk mengaktifkan penyediaan dinamis, seorang admin kluster perlu untuk
+Untuk mengaktifkan penyediaan dinamis, seorang admin klaster perlu untuk
 terlebih dahulu membuat (_pre-create_) satu atau beberapa objek StorageClass
 untuk pengguna.
 Objek StorageClass mendefinisikan _provisioner_ mana yang seharusnya digunakan
@@ -100,9 +100,9 @@ Ketika klaim dihilangkan, volume akan musnah.
 
 ## Perilaku _Default_
 
-Penyediaan dinamis dapat diaktifkan pada setiap kluster supaya semua klaim
+Penyediaan dinamis dapat diaktifkan pada setiap klaster supaya semua klaim
 dapat disediakan secara dinamis jika tidak ada StorageClass yang dispesifikasikan.
-Seorang kluster admin dapat mengaktifkan perilaku ini dengan cara:
+Seorang klaster admin dapat mengaktifkan perilaku ini dengan cara:
 
 - Menandai satu objek StorageClass sebagai _default_;
 - Memastikan bahwa [_admission controller_ `DefaultStorageClass`](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
@@ -110,19 +110,19 @@ Seorang kluster admin dapat mengaktifkan perilaku ini dengan cara:
 
 Seorang admin dapat menandai StorageClass yang spesifik sebagai _default_ dengan menambahkan
 anotasi `storageclass.kubernetes.io/is-default-class`.
-Ketika StorageClass default tersebut ada pada kluster dan pengguna membuat PersistentVolumeClaim
+Ketika StorageClass default tersebut ada pada klaster dan pengguna membuat PersistentVolumeClaim
 tanpa menspesifikasikan `storageClassName`, _admission controller_ `DefaultStorageClass` secara
 otomatis menambahkan _field_ `storageClassName` dengan StorageClass _default_.
 
-Perhatikan bahwa hanya bisa ada satu _default_ StorageClass pada sebuah kluster,
+Perhatikan bahwa hanya bisa ada satu _default_ StorageClass pada sebuah klaster,
 atau PersistentVolumeClaim tanpa menspesifikasikan `storageClassName` secara eksplisit
 tidak bisa terbuat.
 
 ## Kesadaran (_Awareness_) Topologi
 
-Pada kluster [Multi-Zona](/docs/setup/multiple-zones), Pod dapat tersebar di banyak Zona
+Pada klaster [Multi-Zona](/docs/setup/multiple-zones), Pod dapat tersebar di banyak Zona
 pada sebuah Region. Penyimpanan dengan *backend* Zona-Tunggal seharusnya disediakan pada
-Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur 
+Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur
 [Mode Volume Binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
-{{% /capture %}}
+

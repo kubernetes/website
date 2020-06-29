@@ -1,22 +1,22 @@
 ---
 title: Lifecyle Hook pada Kontainer
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan bagaimana semua Kontainer yang diatur kubelet menggunakan *framework lifecycle hook*
 untuk menjalankan kode yang di-*trigger* oleh *event* selama *lifecycle* berlangsung.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 
-Kubernetes menyediakan *hook* untuk *lifecycle* Kontainer. Hal ini sejalan dengan *framework* bahasa 
+Kubernetes menyediakan *hook* untuk *lifecycle* Kontainer. Hal ini sejalan dengan *framework* bahasa
 pemrograman pada umumnya yang memiliki *hook* untuk *lifecycle* komponen, seperti Angular contohnya.
 *Hook* tersebut digunakan Kontainer untuk selalu siap menerima *event* selama *lifecycle* dan
 menjalankan kode yang diimplementasi pada suatu *handler*, ketika *hook lifecycle* terkait telah dieksekusi.
@@ -62,7 +62,7 @@ atau *hang*, Kontainer tersebut tidak bisa sampai ke *state* `running`.
 
 Perilaku ini mirip dengan yang terjadi pada *hook* `PreStop`.
 Jika *hook* terlalu lama atau *hang* saat dieksekusi, Pod tersebut tetap ada pada *state* `Terminating`
-dan akan dimatikan setelah `terminationGracePeriodSeconds` Pod selesai. 
+dan akan dimatikan setelah `terminationGracePeriodSeconds` Pod selesai.
 Jika sebuah *hook* `PostStart` atau `PreStop` gagal dieksekusi, Kontainer akan dimatikan.
 
 Para pengguna sangat disarankan membuat *handler* untuk *hook* seringan mungkin (*lightweight*).
@@ -72,7 +72,7 @@ suatu perintah, misalnya saat proses penyimpanan *state* sebelum Kontainer dimat
 ### Jaminan pengiriman *hook*
 
 Proses pengiriman *hook* akan dilakukan **paling tidak satu kali**.
-Artinya suatu *hook* boleh dipanggil beberapa kali untuk *event* yang sama, 
+Artinya suatu *hook* boleh dipanggil beberapa kali untuk *event* yang sama,
 seperti dalam `PostStart` atau`PreStop`.
 Namun begitu, implementasi *hook* masing-masing harus memastikan bagaimana
 menangani kasus ini dengan benar.
@@ -108,12 +108,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [*environment* Kontainer](/docs/concepts/containers/container-environment-variables/).
 * Pelajari bagaimana caranya
   [melakukan *attach handler* pada *event lifecycle* sebuah Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

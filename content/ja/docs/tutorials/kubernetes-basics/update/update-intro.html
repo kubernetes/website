@@ -9,8 +9,7 @@ weight: 10
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -28,7 +27,7 @@ weight: 10
             <div class="col-md-8">
             <h3>アプリケーションのアップデート</h3>
 
-            <p>ユーザーはアプリケーションが常に利用可能であることを期待し、開発者はそれらの新しいバージョンを1日に数回デプロイすることが期待されます。Kubernetesでは、アプリケーションのアップデートをローリングアップデートで行います。<b>ローリングアップデート</b>では、Podインスタンスを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしでDeploymentをアップデートできます。新しいPodは、利用可能なリソースを持つNodeにスケジュールされます。</p>
+            <p>ユーザーはアプリケーションが常に利用可能であることを期待し、開発者はそれらの新しいバージョンを1日に数回デプロイすることが期待されます。Kubernetesでは、アプリケーションのアップデートをローリングアップデートで行います。<b>ローリングアップデート</b>では、Podインスタンスを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしでDeploymentをアップデートできます。新しいPodは、利用可能なリソースを持つノードにスケジュールされます。</p>
 
             <p>前回のモジュールでは、複数のインスタンスを実行するようにアプリケーションをデプロイしました。これは、アプリケーションの可用性に影響を与えずにアップデートを行うための要件です。デフォルトでは、アップデート中に使用できなくなる可能性があるPodの最大数と作成できる新しいPodの最大数は1です。どちらのオプションも、Podの数または全体数に対する割合(%)のいずれかに設定できます。Kubernetesでは、アップデートはバージョン管理されており、Deploymentにおけるアップデートは以前の(stable)バージョンに戻すことができます。</p>
 

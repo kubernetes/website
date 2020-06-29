@@ -5,6 +5,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+/*
 html
 {
     font-family: sans-serif;
@@ -57,6 +59,7 @@ template
 {
     display: none;
 }
+*/
 
 a
 {
@@ -69,6 +72,7 @@ a:hover
     outline: 0;
 }
 
+/*
 abbr[title]
 {
     border-bottom: 1px dotted;
@@ -91,7 +95,9 @@ h1
 
     margin: .67em 0;
 }
+*/
 
+/*
 mark
 {
     color: #000;
@@ -123,6 +129,7 @@ sub
 {
     bottom: -.25em;
 }
+*/
 
 img
 {
@@ -366,17 +373,22 @@ th
     }
 }
 
+/*
 *
 {
     box-sizing: border-box;
 }
+*/
 
+/*
 *:before,
 *:after
 {
     box-sizing: border-box;
 }
+*/
 
+/*
 html
 {
     font-size: 10px;
@@ -393,6 +405,7 @@ body
     color: #333;
     background-color: #fff;
 }
+*/
 
 input,
 button,
@@ -404,6 +417,7 @@ textarea
     line-height: inherit;
 }
 
+/*
 a
 {
     text-decoration: none;
@@ -422,6 +436,8 @@ a:focus
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
 }
+*/
+
 
 figure
 {
@@ -511,6 +527,7 @@ hr
     cursor: pointer;
 }
 
+/*
 h1,
 h2,
 h3,
@@ -560,7 +577,10 @@ h6 .small,
 
     color: #777;
 }
+*/
 
+
+/*
 h1,
 .h1,
 h2,
@@ -586,7 +606,9 @@ h3 .small,
 {
     font-size: 65%;
 }
+*/
 
+/*
 h4,
 .h4,
 h5,
@@ -612,12 +634,15 @@ h6 .small,
 {
     font-size: 75%;
 }
+*/
 
+/*
 h1,
 .h1
 {
     font-size: 36px;
 }
+*/
 
 h2,
 .h2
@@ -637,6 +662,7 @@ h4,
     font-size: 18px;
 }
 
+/*
 h5,
 .h5
 {
@@ -648,6 +674,7 @@ h6,
 {
     font-size: 12px;
 }
+*/
 
 p
 {
@@ -853,6 +880,7 @@ a.bg-danger:focus
     border-bottom: 1px solid #eee;
 }
 
+/*
 ul,
 ol
 {
@@ -888,6 +916,9 @@ ol ol
     padding-right: 5px;
     padding-left: 5px;
 }
+*/
+
+
 
 dl
 {
@@ -2574,7 +2605,7 @@ output
     color: #555;
 }
 
-.form-control
+/* .form-control
 {
     font-size: 14px;
     line-height: 1.42857;
@@ -2640,7 +2671,7 @@ textarea.form-control
 input[type='search']
 {
     -webkit-appearance: none;
-}
+} */
 
 @media screen and (-webkit-min-device-pixel-ratio: 0)
 {
@@ -5976,7 +6007,7 @@ a.badge:focus
 {
     padding: 9px;
 
-    color: #333;
+    /*color: #333;*/
 }
 
 a.thumbnail:hover,
@@ -8769,10 +8800,10 @@ button.close
     border-top: 1px solid #e5eaf9;
 }
 
+
 .content
 {
     position: relative;
-    z-index: 500;
 
     box-sizing: border-box;
     margin: 0 0 0 -200px;
@@ -8781,13 +8812,15 @@ button.close
     -webkit-transition: .12s ease-out;
             transition: .12s ease-out;
 
-    background: #fff;
+    /* background: #fff; */
     /*box-shadow: -6px 0 14px -4px rgba(0, 0, 0, .5);*/
 
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
         flex: 1 1 auto;
 }
+
+
 @media screen and (max-width: 998px)
 {
     .content
@@ -9042,6 +9075,7 @@ button.close
     max-width: 300px;
 }
 
+/*
 .header
 {
     padding: 20px 20px;
@@ -9532,7 +9566,9 @@ button.close
         display: none;
     }
 }
+*/
 
+/*
 .scrolltop
 {
     position: fixed;
@@ -9603,16 +9639,15 @@ button.close
 
     opacity: 1;
 }
+*/
 
+
+/*
 body
 {
     font-family: Roboto, 'Helvetica Neue', Helvetica, 'Open Sans', Arial, sans-serif;
     font-size: 15px;
     line-height: 1.5;
-
-    /*display: -webkit-box;*/
-    /*display: -ms-flexbox;*/
-    /*display: flex;*/
 
     min-height: 100vh;
 
@@ -9672,6 +9707,8 @@ p a:hover
 {
     text-decoration: none;
 }
+*/
+
 
 .breadcrumb
 {
@@ -9698,12 +9735,12 @@ p a:hover
     content: '|';
 }
 
-.btn
+/* .btn
 {
     font-family: Roboto Slab, Roboto, 'Helvetica Neue', Helvetica, 'Open Sans', Arial, sans-serif;
 
     border-radius: 0;
-}
+} */
 .btn.btn-success
 {
     color: #273d6d;
@@ -9876,11 +9913,11 @@ p a:hover
     padding-bottom: 0;
 }
 
-.form-control
+/* .form-control
 {
     border-radius: 0;
     background: #f8f8f8;
-}
+} */
 
 .content.katacoda-content {
     padding: 0;
@@ -10106,6 +10143,7 @@ p a:hover
 {
     display: block;
 }
+
 @media screen and (max-width: 992px)
 {
     .quiz__box

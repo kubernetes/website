@@ -29,14 +29,14 @@ weight: 10
                 <h3>Kubernetes-Bereitstellungen (Deployments)</h3>
                 <p>
                 Sobald Sie einen Kubernetes-Cluster ausgeführt haben, können Sie Ihre containerisierten Anwendungen darüber bereitstellen.
-                Dazu erstellen Sie eine Kubernetes <b>Deployment</b>-Konfiguration. Das Deployment weist Kubernetes an, wie Instanzen Ihrer 
-                Anwendung erstellt und aktualisiert werden. Nachdem Sie ein Deployment erstellt haben, plant der Kubernetes-Master die genannten 
+                Dazu erstellen Sie eine Kubernetes <b>Deployment</b>-Konfiguration. Das Deployment weist Kubernetes an, wie Instanzen Ihrer
+                Anwendung erstellt und aktualisiert werden. Nachdem Sie ein Deployment erstellt haben, plant der Kubernetes-Master die genannten
                 Anwendungsinstanzen für einzelne Nodes im Cluster.
                 </p>
 
                 <p>Sobald die Anwendungsinstanzen erstellt wurden, überwacht ein Kubernetes Deployment Controller diese Instanzen kontinuierlich. Wenn der Node, der eine Instanz hostet, ausfällt oder gelöscht wird, ersetzt der Deployment Controller die Instanz durch eine Instanz auf einem anderen Node im Cluster. <b>Dies bietet einen Selbstheilungsmechanismus, um Maschinenausfälle oder -wartungen zu vermeiden.</b></p>
 
-                <p>In einer Welt vor der Orchestrierung wurden häufig Installationsskripts zum Starten von Anwendungen verwendet, sie erlaubten jedoch keine Wiederherstellung nach einem Maschinenausfall.  
+                <p>In einer Welt vor der Orchestrierung wurden häufig Installationsskripts zum Starten von Anwendungen verwendet, sie erlaubten jedoch keine Wiederherstellung nach einem Maschinenausfall.
                     Kubernetes Deployments erstellen Ihre Anwendungsinstanzen und sorgen dafür, dass sie über mehrere Nodes hinweg ausgeführt werden. Dadurch bieten Kubernetes Deployments einen grundlegend anderen Ansatz für die Anwendungsverwaltung.</p>
 
             </div>
@@ -74,7 +74,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
 
-                <p>Sie können eine Bereitstellung mithilfe der Kubernetes-Befehlszeilenschnittstelle  <b>Kubectl</b> erstellen und verwalten. 
+                <p>Sie können eine Bereitstellung mithilfe der Kubernetes-Befehlszeilenschnittstelle  <b>Kubectl</b> erstellen und verwalten.
                     Kubectl verwendet die Kubernetes-API, um mit dem Cluster zu interagieren.
                     In diesem Modul lernen Sie die gebräuchlichsten Kubectl-Befehle kennen, die zum Erstellen von Deployments zum Ausführen Ihrer Anwendungen in einem Kubernetes-Cluster erforderlich sind.</p>
 

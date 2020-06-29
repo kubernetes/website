@@ -6,13 +6,13 @@ full_link: /docs/getting-started-guides/minikube/
 short_description: >
   Herramienta para ejecutar Kubernetes de forma local.
 
-aka: 
+aka:
 tags:
 - fundamental
 - tool
 ---
  Herramienta para ejecutar Kubernetes de forma local.
 
-<!--more--> 
+<!--more-->
 
 Minikube ejecuta un clúster de un solo nodo en una máquina virtual (VM) en tu máquina local.

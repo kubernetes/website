@@ -1,17 +1,17 @@
 ---
 title: Kubernetes Komponenten
-content_template: templates/concept
+content_type: concept
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 In diesem Dokument werden die verschiedenen binären Komponenten beschrieben, die zur Bereitstellung eines funktionsfähigen Kubernetes-Clusters erforderlich sind.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Master-Komponenten
 
 Master-Komponenten stellen die Steuerungsebene des Clusters bereit. Master-Komponenten treffen globale Entscheidungen über den Cluster (z. B. Zeitplanung) und das Erkennen und Reagieren auf Clusterereignisse (Starten eines neuen Pods, wenn das `replicas`-Feld eines Replikationscontrollers nicht zufriedenstellend ist).
@@ -50,7 +50,7 @@ Der cloud-controller-manager ist eine Alpha-Funktion, die in Kubernetes Version 
 
 cloud-controller-manager führt nur Cloud-Provider-spezifische Controller-Schleifen aus. Sie müssen diese Controller-Schleifen im Cube-Controller-Manager deaktivieren. Sie können die Controller-Schleifen deaktivieren, indem Sie beim Starten des kube-controller-manager das Flag `--cloud-provider` auf `external` setzen.
 
-cloud-controller-manager erlaubt es dem Cloud-Anbieter Code und dem Kubernetes-Code, sich unabhängig voneinander zu entwickeln. 
+cloud-controller-manager erlaubt es dem Cloud-Anbieter Code und dem Kubernetes-Code, sich unabhängig voneinander zu entwickeln.
 In früheren Versionen war der Kerncode von Kubernetes für die Funktionalität von Cloud-Provider-spezifischem Code abhängig.
 In zukünftigen Versionen sollte der für Cloud-Anbieter spezifische Code vom Cloud-Anbieter selbst verwaltet und mit dem Cloud-Controller-Manager verknüpft werden, während Kubernetes ausgeführt wird.
 
@@ -81,7 +81,7 @@ Kubernetes unterstützt mehrere Laufzeiten: [Docker](http://www.docker.com), [co
 ## Addons
 
 Addons sind Pods und Dienste, die Clusterfunktionen implementieren. Die Pods können verwaltet werden
-durch Deployments, ReplicationControllers, und so wieter. 
+durch Deployments, ReplicationControllers, und so wieter.
 Namespace-Addon-Objekte werden im Namespace `kube-system` erstellt.
 
 Ausgewählte Addons werden unten beschrieben. Eine erweiterte Liste verfügbarer Addons finden Sie unter [Addons](/docs/concepts/cluster-administration/addons/).
@@ -107,6 +107,6 @@ Von Kubernetes gestartete Container schließen diesen DNS-Server automatisch in 
 
 Ein [Cluster-level logging](/docs/concepts/cluster-administration/logging/) Mechanismus ist für das Speichern von Containerprotokollen in einem zentralen Protokollspeicher mit Such- / Browsing-Schnittstelle verantwortlich.
 
-{{% /capture %}}
+
 
 

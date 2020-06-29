@@ -2,20 +2,20 @@
 title: 태스크
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스 문서에서 이 섹션은 개별의 태스크를 수행하는 방법을 
 보여준다. 한 태스크 페이지는 일반적으로 여러 단계로 이루어진 짧은 
 시퀀스를 제공함으로써, 하나의 일을 수행하는 방법을 보여준다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 웹 UI (대시보드)
 
@@ -57,13 +57,9 @@ content_template: templates/concept
 
 클러스터를 운영하기 위한 일반적인 태스크를 배운다.
 
-## 페더레이션(federation) 운영하기(administering)
-
-클러스터 페더레이션의 컴포넌트들을 구성한다.
-
 ## 스테이트풀 애플리케이션 관리하기
 
-스테이트풀 셋의 스케일링, 삭제하기, 디버깅을 포함하는 스테이트풀 애플리케이션 관리를 위한 일반적인 태스크를 수행한다.
+스테이트풀셋(StatefulSet)의 스케일링, 삭제하기, 디버깅을 포함하는 스테이트풀 애플리케이션 관리를 위한 일반적인 태스크를 수행한다.
 
 ## 클러스터 데몬
 
@@ -77,11 +73,12 @@ content_template: templates/concept
 
 클러스터에서 스케줄 가능한 리소스로서 Huge Page들을 구성 및 스케줄한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 만약 태스크 페이지를 작성하고 싶다면, 
 [문서 풀 리퀘스트(Pull Request) 생성하기](/docs/home/contribute/create-pull-request/)를 참조한다.
 
-{{% /capture %}}
+

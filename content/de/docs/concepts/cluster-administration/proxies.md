@@ -1,14 +1,14 @@
 ---
 title: Proxies in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Auf dieser Seite werden die im Kubernetes verwendeten Proxies erläutert.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Proxies
 
@@ -17,7 +17,7 @@ Es gibt mehrere verschiedene Proxies, die die bei der Verwendung von Kubernetes 
 1.  Der [kubectl Proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - läuft auf dem Desktop eines Benutzers oder in einem Pod
-    - Proxy von einer lokalen Host-Adresse zum Kubernetes API Server 
+    - Proxy von einer lokalen Host-Adresse zum Kubernetes API Server
     - Client zu Proxy verwendet HTTP
     - Proxy zu API Server verwendet HTTPS
     - lokalisiert den API Server
@@ -61,4 +61,3 @@ Kubernetes Benutzer müssen sich in der Regel um nichts anderes als die ersten b
 
 Proxies haben die Möglichkeit der Umleitung (redirect) ersetzt. Umleitungen sind veraltet.
 
-{{% /capture %}}

@@ -1,6 +1,6 @@
 ---
 title: Hallo Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -8,12 +8,12 @@ menu:
     weight: 10
     post: >
       <p>Sind Sie bereit, Ihre Hände schmutzig zu machen? Erstellen Sie einen einfachen Kubernetes-Cluster, auf dem "Hallo Welt" für Node.js ausgeführt wird.</p>
-card: 
+card:
   name: tutorials
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieses Tutorial zeigt Ihnen, wie Sie eine einfache "Hallo Welt" Node.js-Anwendung auf Kubernetes mit [Minikube](/docs/getting-started-guides/minikube) und Katacoda ausführen.
 Katacoda bietet eine kostenlose Kubernetes-Umgebung im Browser.
@@ -22,17 +22,19 @@ Katacoda bietet eine kostenlose Kubernetes-Umgebung im Browser.
 Sie können dieses Tutorial auch verwenden, wenn Sie [Minikube lokal](/docs/tasks/tools/install-minikube/) installiert haben.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Stellen Sie eine Hallo-Welt-Anwendung für Minikube bereit.
 * Führen Sie die App aus.
 * Betrachten Sie die Log Dateien.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Dieses Lernprogramm enthält ein aus den folgenden Dateien erstelltes Container-Image:
 
@@ -42,9 +44,9 @@ Dieses Lernprogramm enthält ein aus den folgenden Dateien erstelltes Container-
 
 Weitere Informationen zum `docker build` Befehl, lesen Sie die [Docker Dokumentation](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Erstellen Sie einen Minikube-Cluster
 
@@ -62,7 +64,7 @@ Weitere Informationen zum `docker build` Befehl, lesen Sie die [Docker Dokumenta
 
 3. In einer Katacoda-Umgebung: Klicken Sie oben im Terminalbereich auf das Pluszeichen und anschließend auf **Select port to view on Host 1**.
 
-4. In einer Katacoda-Umgebung: Geben Sie `30000` ein und klicken Sie dann auf **Display Port**. 
+4. In einer Katacoda-Umgebung: Geben Sie `30000` ein und klicken Sie dann auf **Display Port**.
 
 ## Erstellen eines Deployments
 
@@ -71,11 +73,11 @@ Der Pod in diesem Tutorial hat nur einen Container.
 Ein Kubernetes [*Deployment*](/docs/concepts/workloads/controllers/deployment/) überprüft den Zustand Ihres Pods und startet den Container des Pods erneut, wenn er beendet wird.
 Deployments sind die empfohlene Methode zum Verwalten der Erstellung und Skalierung von Pods.
 
-1. Verwenden Sie den Befehl `kubectl create`, um ein Deployment zu erstellen, die einen Pod verwaltet. 
-Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image aus. 
+1. Verwenden Sie den Befehl `kubectl create`, um ein Deployment zu erstellen, die einen Pod verwaltet.
+Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image aus.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Anzeigen des Deployments:
@@ -114,7 +116,7 @@ Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image a
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}Weitere Informationen zu `kubectl`-Befehlen finden Sie im [kubectl Überblick](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Erstellen Sie einen Service
@@ -127,7 +129,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-    
+
     Das Flag `--type = LoadBalancer` zeigt an, dass Sie Ihren Service außerhalb des Clusters verfügbar machen möchten.
 
 2. Zeigen Sie den gerade erstellten Service an:
@@ -145,7 +147,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
     ```
 
     Bei Cloud-Anbietern, die Load-Balancer unterstützen, wird eine externe IP-Adresse für den Zugriff auf den Dienst bereitgestellt.
-    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfuügbar zu machen.
+    Bei Minikube ermöglicht der Typ `LoadBalancer` den Dienst über den Befehl `minikube service` verfügbar zu machen.
 
 
 3. Führen Sie den folgenden Befehl aus:
@@ -160,7 +162,7 @@ Um den "Hallo-Welt"-Container außerhalb des virtuellen Netzwerks von Kubernetes
 
     Daraufhin wird ein Browserfenster geöffnet, in dem Ihre App ausgeführt wird und die Meldung "Hello World" (Hallo Welt) angezeigt wird.
 
-## Addons aktivieren 
+## Addons aktivieren
 
 Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen Kubernetes-Umgebung aktiviert, deaktiviert und geöffnet werden können.
 
@@ -189,13 +191,13 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
     registry-creds: disabled
     storage-provisioner: enabled
     ```
-   
+
 2. Aktivieren Sie ein Addon, zum Beispiel `heapster`:
 
     ```shell
     minikube addons enable heapster
     ```
-  
+
     Ausgabe:
 
     ```shell
@@ -232,7 +234,7 @@ Minikube verfügt über eine Reihe von integrierten Add-Ons, die in der lokalen 
     ```shell
     minikube addons disable heapster
     ```
-  
+
     Ausgabe:
 
     ```shell
@@ -260,12 +262,13 @@ Löschen Sie optional die Minikube-VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Lernen Sie mehr über [Bereitstellungsobjekte](/docs/concepts/workloads/controllers/deployment/).
 * Lernen Sie mehr über [Anwendungen bereitstellen](/docs/user-guide/deploying-applications/).
 * Lernen Sie mehr über [Serviceobjekte](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

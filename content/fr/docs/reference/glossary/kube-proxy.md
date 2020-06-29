@@ -11,13 +11,13 @@ tags:
 - fundamental
 - networking
 ---
- [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) est un 
-proxy réseau qui s'exécute sur chaque nœud du cluster et implémente une partie du 
+ [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) est un
+proxy réseau qui s'exécute sur chaque nœud du cluster et implémente une partie du
 concept Kubernetes de {{< glossary_tooltip term_id="service">}}.
 
 <!--more-->
 
-kube-proxy maintient les règles réseau sur les nœuds. Ces règles réseau permettent 
+kube-proxy maintient les règles réseau sur les nœuds. Ces règles réseau permettent
 une communication réseau vers les Pods depuis des sessions réseau à l'intérieur ou à l'extérieur
 du cluster.
 

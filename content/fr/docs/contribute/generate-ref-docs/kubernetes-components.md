@@ -1,15 +1,16 @@
 ---
 title: Génération de pages de référence pour les composants et les outils Kubernetes
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment utiliser l'outil `update-importer-docs` pour générer une documentation de référence pour les outils et les composants des dépôts [Kubernetes](https://github.com/kubernetes/kubernetes) et [Federation](https://github.com/kubernetes/federation).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Vous avez besoin d'une machine qui exécute Linux ou macOS.
 
@@ -17,7 +18,7 @@ Cette page montre comment utiliser l'outil `update-importer-docs` pour générer
 
     * [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-    * [Golang](https://golang.org/doc/install) version 1.9 ou ultérieure
+    * [Golang](https://golang.org/doc/install) version 1.13 ou ultérieure
 
     * [make](https://www.gnu.org/software/make/)
 
@@ -29,9 +30,9 @@ Cette page montre comment utiliser l'outil `update-importer-docs` pour générer
 Cela implique généralement la création d’un fork d'un dépôt.
 Pour plus d'informations, consultez [Créer une Pull Request de documentation](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Obtenir deux dépôts
 
@@ -81,7 +82,7 @@ Vos commits sont sur la branche master, qui est utilisée pour le développement
 Si vous souhaitez que vos commits apparaissent dans la documentation d'une version Kubernetes déjà publiée, vous devez proposer que vos commits soit sélectionnée dans la branche de publication.
 
 Par exemple, supposons que la branche master est utilisée pour développer Kubernetes 1.10, et vous voulez transférer vos commits sur la branche release-1.9.
-Pour savoir comment faire cela, consultez [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/cherry-picks.md).
+Pour savoir comment faire cela, consultez [Propose a Cherry Pick](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md).
 
 Surveillez votre pull request cherry-pick jusqu'à ce qu'elle soit mergée dans la branche release.
 
@@ -193,12 +194,13 @@ Consultez votre pull request et répondez aux corrections suggérées par les r�
 
 Quelques minutes après le merge votre pull request, vos références mises à jour seront visibles dans la [documentation publiée](/docs/home/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
 * [Génération de documentation de référence pour l'API Kubernetes](/fr/docs/contribute/generate-ref-docs/kubernetes-api/)
 * [Génération de documentation de référence pour l'API de fédération Kubernetes](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}
+
