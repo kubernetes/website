@@ -255,7 +255,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # 다른 편집기 사용
 ## 리소스 스케일링
 
 ```bash
-kubectl scale --replicas=3 rs/foo                                 # 'foo'라는 레플리카 셋을 3으로 스케일
+kubectl scale --replicas=3 rs/foo                                 # 'foo'라는 레플리카셋을 3으로 스케일
 kubectl scale --replicas=3 -f foo.yaml                            # "foo.yaml"에 지정된 리소스의 크기를 3으로 스케일
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysql이라는 디플로이먼트의 현재 크기가 2인 경우, mysql을 3으로 스케일
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 여러 개의 레플리케이션 컨트롤러 스케일
