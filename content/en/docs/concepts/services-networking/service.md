@@ -1193,11 +1193,11 @@ followed by the data from the client.
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Kubernetes supports SCTP as a `protocol` value in Service, Endpoint, NetworkPolicy and Pod definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `--feature-gates=SCTPSupport=true,…`.
+Kubernetes supports SCTP as a `protocol` value in Service, Endpoints, EndpointSlice, NetworkPolicy and Pod definitions. As a beta feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
 
-When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoints, EndpointSlice, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 #### Warnings {#caveat-sctp-overview}
 
