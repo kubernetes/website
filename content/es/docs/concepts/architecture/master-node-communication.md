@@ -1,21 +1,21 @@
 ---
-reviewers: 
+reviewers:
 - glo-pena
 title: Comunicación Nodo-Maestro
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Este documento cataloga las diferentes vías de comunicación entre el nodo máster (en realidad el apiserver) y el clúster de Kubernetes. La intención es permitir a los usuarios personalizar sus instalaciones para proteger sus configuraciones de red de forma que el clúster pueda ejecutarse en una red insegura. (o en un proveedor de servicios en la nube con direcciones IP públicas)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### Clúster a Máster
- 
+
 Todos los canales de comunicación desde el clúster hacia el máster terminan en el apiserver (ningún otro componente del máster está diseñado para exponer servicios remotos). En un despliegue típico, el apiserver está configurado para escuchar conexiones remotas en un canal seguro cómo HTTPS en el puerto (443) con una o más formas de [autenticación de clientes](/docs/reference/access-authn-authz/authentication/) habilitada. Una o más formas de [autorización](/docs/reference/access-authn-authz/authorization/) deberían ser habilitadas, especialmente si se permiten [peticiones anónimas](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
 o [tokens de cuenta de servicio](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
@@ -48,7 +48,7 @@ Finalmente, [autenticación y/o autorización al kubelet](/docs/admin/kubelet-au
 
 ### apiserver a nodos, pods y servicios
 
-Las conexiones desde el apiserver a un nodo, pod o servicio se realizan por defecto con HTTP y, por consiguiente, no son autentificadas o encriptadas. Pueden ser ejecutadas en una conexión HTTPS segura añadiendo el prefijo `https:` al nodo, pod o nombre de servicio en la API URL, pero los receptores no validan el certificado provisto por el endpoint HTTPS ni facilitan credenciales de cliente asi que, aunque la conexión esté encriptada, esta no ofrece garantía de integridad. Estas conexiones **no son seguras** para conectar a través de redes públicas o inseguras.  
+Las conexiones desde el apiserver a un nodo, pod o servicio se realizan por defecto con HTTP y, por consiguiente, no son autentificadas o encriptadas. Pueden ser ejecutadas en una conexión HTTPS segura añadiendo el prefijo `https:` al nodo, pod o nombre de servicio en la API URL, pero los receptores no validan el certificado provisto por el endpoint HTTPS ni facilitan credenciales de cliente asi que, aunque la conexión esté encriptada, esta no ofrece garantía de integridad. Estas conexiones **no son seguras** para conectar a través de redes públicas o inseguras.
 
 ### Túneles SSH
 
@@ -56,4 +56,3 @@ Kubernetes ofrece soporte para túneles SSH que protegen la comunicación  Mást
 
 Los túneles SSH se consideran obsoletos, y no deberían utilizarse a menos que se sepa lo que se está haciendo. Se está diseñando un reemplazo para este canal de comunicación.
 
-{{% /capture %}}

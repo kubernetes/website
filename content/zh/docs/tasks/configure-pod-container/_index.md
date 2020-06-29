@@ -1,12 +1,4 @@
-<!--
 ---
-title: "Configure Pods and Containers"
+title: "配置 Pods 和容器"
 weight: 20
 ---
--->
-
----
-title: "配置 Pod 和 容器"
-weight: 20
----
-

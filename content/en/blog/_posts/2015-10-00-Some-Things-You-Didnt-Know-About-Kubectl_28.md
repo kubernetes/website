@@ -146,6 +146,6 @@ Ahh, that’s better.
 
 ##### Conclusion
 
-So there you have it, nine new and exciting things you can do with your Kubernetes cluster and the kubectl command line. If you’re just getting started with Kubernetes, check out [Google Container Engine](https://cloud.google.com/container-engine/) or other ways to [get started with Kubernetes](http://kubernetes.io/gettingstarted/).  
+So there you have it, nine new and exciting things you can do with your Kubernetes cluster and the kubectl command line. If you’re just getting started with Kubernetes, check out [Google Container Engine](https://cloud.google.com/container-engine/) or other ways to [get started with Kubernetes](/docs/tutorials/kubernetes-basics/).  
 
 - Brendan Burns, Google Software Engineer

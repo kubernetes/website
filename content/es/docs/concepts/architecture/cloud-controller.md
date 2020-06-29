@@ -1,25 +1,25 @@
 ---
 title: Conceptos subyacentes del Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-El concepto del Cloud Controller Manager (CCM) (no confundir con el ejecutable) fue creado originalmente para permitir que Kubernetes y el código específico de proveedores de servicios en la nube evolucionasen de forma independiente. El Cloud Controller Manager se ejecuta a la par con otros componentes maestros como el Kubernetes Controller Manager, el API Server y el planificador. También puede ejecutarse como un extra, en cuyo caso se ejecuta por encima de Kubernetes.
+El concepto del Cloud Controller Manager (CCM) (no confundir con el ejecutable) fue creado originalmente para permitir que Kubernetes y el código específico de proveedores de servicios en la nube evolucionen de forma independiente. El Cloud Controller Manager se ejecuta a la par con otros componentes maestros como el Kubernetes Controller Manager, el API Server y el planificador. También puede ejecutarse como un extra, en cuyo caso se ejecuta por encima de Kubernetes.
 
-El diseño del Cloud Controller Manager está basado en un sistema de plugins, lo que permite a nuevos proveedores de servicios integrarse de forma fácil con Kubernetes. Se está trabajando en incorporar nuevos proveedores de servicios y para migrar los existentes del viejo modelo al nuevo CCM.
+El diseño del Cloud Controller Manager está basado en un sistema de plugins, lo que permite a nuevos proveedores de servicios integrarse de forma fácil con Kubernetes. Se está trabajando en implementar nuevos proveedores de servicios y para migrar los existentes del antiguo modelo al nuevo CCM.
 
-Este documento describe los conceptos tras el Cloud Controller Manager y da detalles sobre sus funciones asociadas.
+Este documento describe los conceptos tras el Cloud Controller Manager y detalla sus funciones asociadas.
 
-En la siguiente imagen, se puede ver la arquitectura de un cluster de Kubernetes que no utiliza el Cloud Controller Manager:
+En la siguiente imagen, se puede visualizar la arquitectura de un cluster de Kubernetes que no utiliza el Cloud Controller Manager:
 
 ![Arquitectura previa a CCM](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Diseño
 
@@ -62,7 +62,7 @@ El CCM hereda sus funciones de componentes que son dependientes de un proveedor 
 
 ### 1. Kubernetes Controller Manager
 
-La mayoría de las funciones del CCM derivan del KCM. Como se ha mencionado en la sección anterior, el CCM es responsable de los siguientes circuitos de control: 
+La mayoría de las funciones del CCM derivan del KCM. Como se ha mencionado en la sección anterior, el CCM es responsable de los siguientes circuitos de control:
 
  * Controlador de Nodos
  * Controlador de Rutas
@@ -70,7 +70,7 @@ La mayoría de las funciones del CCM derivan del KCM. Como se ha mencionado en l
 
 #### Controlador de Nodos
 
-El controlador de nodos es responsable de inicializar un nodo obteniendo información del proveedor de servicios sobre los nodos ejecutándose en el clúster. El controlador de nodos lleva a cabo las siguientes funciones: 
+El controlador de nodos es responsable de inicializar un nodo obteniendo información del proveedor de servicios sobre los nodos ejecutándose en el clúster. El controlador de nodos lleva a cabo las siguientes funciones:
 
 1. Inicializa un nodo con etiquetas de región y zona específicas del proveedor.
 2. Inicializa un nodo con detalles de la instancia específicos del proveedor, como por ejemplo, el tipo o el tamaño.
@@ -95,7 +95,7 @@ En este nuevo modelo, el kubelet inicializa un nodo sin información especifica 
 
 El Cloud Controller Manager utiliza interfaces Go(lang), lo que permite que implementaciones de cualquier proveedor de servicios sean conectadas. Específicamente, utiliza el CloudProvider Interface definido [aquí](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62).
 
-La implementación de los cuatro controladores referenciados en este documento, algunas estructuras de inicialización junto con el interface CloudProvider, permanecerán como parte del núcleo de Kubernetes. 
+La implementación de los cuatro controladores referenciados en este documento, algunas estructuras de inicialización junto con el interface CloudProvider, permanecerán como parte del núcleo de Kubernetes.
 
 Para más información sobre el desarrollo de extensiones/plugins, consultar [Desarrollo del CCM](https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
 
@@ -119,7 +119,7 @@ v1/Node:
 
 ### Controlador de Rutas
 
-El controlador de rutas permanece a la escucha de eventos de creación de nodos y configura sus rutas. Necesita acceso a los objetos Nodo. 
+El controlador de rutas permanece a la escucha de eventos de creación de nodos y configura sus rutas. Necesita acceso a los objetos Nodo.
 
 v1/Node:
 
@@ -235,4 +235,3 @@ Los siguientes proveedores de servicios en la nube han implementado CCMs:
 
 Instrucciones para configurar y ejecutar el CCM pueden encontrarse [aquí](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 
-{{% /capture %}}

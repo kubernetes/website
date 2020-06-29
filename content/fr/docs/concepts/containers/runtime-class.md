@@ -1,20 +1,20 @@
 ---
 title: Classe d'exécution (Runtime Class)
 description: Classe d'execution conteneur pour Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
 Cette page décrit la ressource RuntimeClass et le mécanisme de sélection d'exécution (runtime).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Runtime Class
 
@@ -112,4 +112,4 @@ message d'erreur.
 Si aucun `runtimeClassName` n'est spécifié, le RuntimeHandler par défault sera utilisé, qui équivaut
 au comportement lorsque la fonctionnalité RuntimeClass est désactivée.
 
-{{% /capture %}}
+

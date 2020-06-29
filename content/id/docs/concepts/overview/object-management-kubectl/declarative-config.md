@@ -1,14 +1,14 @@
 ---
 title: Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Objek-objek Kubernetes dapat dibuat, diperbarui, dan dihapus dengan menjalankan perintah `kubectl apply` terhadap file-file konfigurasi objek yang disimpan dalam sebuah direktori secara rekursif sesuai dengan kebutuhan. Perintah `kubectl diff` bisa digunakan untuk menampilkan pratinjau tentang perubahan apa saja yang akan dibuat oleh perintah `kubectil apply`.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kelebihan dan kekurangan
 
@@ -33,7 +33,7 @@ dalam dokumen ini:
 
 - *objek file konfigurasi / file konfigurasi*: Sebuah *file* yang
 mendefinisikan konfigurasi untuk sebuah objek Kubernetes. Dokumen ini akan memperlihatkan cara menggunakan *file* konfigurasi dengan perintah `kubectl apply`. *File-file* konfigurasi biasanya disimpan di sebuah *source control* seperti Git.
-- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di kluster Kubernetes. Nilai-nilai ini disimpan di *storage* kluster Kubernetes, biasanya etcd.
+- *konfigurasi objek live / konfigurasi live*: nilai konfigurasi *live* dari sebuah objek, sebagaimana yang tersimpan di klaster Kubernetes. Nilai-nilai ini disimpan di *storage* klaster Kubernetes, biasanya etcd.
 - *writer konfigurasi deklaratif / writer deklaratif*: Seseorang atau sebuah komponen perangkat lunak yang membuat pembaruan ke objek *live*. *Live writer* yang disebut pada dokumen ini adalah *writer* yang membuat perubahan terhadap *file* konfigurasi objek dan menjalankan perintah `kubectl apply` untuk menulis perubahan-perubahan tersebut.
 
 ## Cara membuat objek
@@ -860,9 +860,10 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 - [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+

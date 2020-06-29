@@ -1,4 +1,40 @@
 # i18n strings for the English (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+[announcement_title]
+other = "Black lives matter."
+
+[announcement_message]
+other = "We stand in solidarity with the Black community.<br/>Racism is unacceptable.<br/> It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it."
+
+[caution]
+other = "Caution:"
+
+[cleanup_heading]
+other = "Cleaning up"
+
+[community_events_calendar]
+other = "Events Calendar"
+
+[community_forum_name]
+other = "Forum"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "You are viewing documentation for Kubernetes version:"
 
 [deprecation_warning]
 other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
@@ -6,20 +42,26 @@ other = " documentation is no longer actively maintained. The version you are cu
 [deprecation_file_warning]
 other = "Deprecated"
 
-[objectives_heading]
-other = "Objectives"
+[docs_label_browse]
+other = "Browse Docs"
 
-[cleanup_heading]
-other = "Cleaning up"
+[docs_label_contributors]
+other = "Contributors"
 
-[prerequisites_heading]
-other = "Before you begin"
+[docs_label_i_am]
+other = "I AM..."
 
-[whatsnext_heading]
-other = "What's next"
+[docs_label_users]
+other = "Users"
+
+[examples_heading]
+other = "Examples"
 
 [feedback_heading]
 other = "Feedback"
+
+[feedback_no]
+other = "No"
 
 [feedback_question]
 other = "Was this page helpful?"
@@ -27,35 +69,83 @@ other = "Was this page helpful?"
 [feedback_yes]
 other = "Yes"
 
-[feedback_no]
-other = "No"
+[input_placeholder_email_address]
+other = "email address"
 
 [latest_version]
 other = "latest version."
 
-[version_check_mustbe]
-other = "Your Kubernetes server must be version "
+[layouts_blog_pager_prev]
+other = "<< Prev"
 
-[version_check_mustbeorlater]
-other = "Your Kubernetes server must be at or later than version "
+[layouts_blog_pager_next]
+other = "Next >>"
 
-[version_check_tocheck]
-other = "To check the version, enter "
+[layouts_case_studies_list_tell]
+other = "Tell your story"
 
-[caution]
-other = "Caution:"
+[layouts_docs_glossary_aka]
+other = "Also known as"
 
-[note]
-other = "Note:"
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
 
-[warning]
-other = "Warning:"
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
 
-[main_read_about]
-other = "Read about"
+[layouts_docs_glossary_click_details_after]
+other = "indicators below to get a longer explanation for any particular term."
 
-[main_read_more]
-other = "Read more"
+[layouts_docs_glossary_click_details_before]
+other = "Click on the"
+
+[layouts_docs_glossary_filter]
+other = "Filter terms according to their tags"
+
+[layouts_docs_glossary_select_all]
+other = "Select all"
+
+[layouts_docs_partials_feedback_improvement]
+other = "suggest an improvement"
+
+[layouts_docs_partials_feedback_issue]
+other = "Open an issue in the GitHub repo if you want to "
+
+[layouts_docs_partials_feedback_or]
+other = "or"
+
+[layouts_docs_partials_feedback_problem]
+other = "report a problem"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+
+[layouts_docs_search_fetching]
+other = "Fetching results..."
+
+[main_by]
+other = "by"
+
+[main_cncf_project]
+other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+
+[main_community_explore]
+other = "Explore the community"
+
+[main_contribute]
+other = "Contribute"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "Edit This Page"
+
+[main_github_create_an_issue]
+other = "Create an Issue"
 
 [main_github_invite]
 other = "Interested in hacking on the core Kubernetes code base?"
@@ -63,17 +153,8 @@ other = "Interested in hacking on the core Kubernetes code base?"
 [main_github_view_on]
 other = "View On GitHub"
 
-[main_github_create_an_issue]
-other = "Create an Issue"
-
-[main_community_explore]
-other = "Explore the community"
-
 [main_kubernetes_features]
 other = "Kubernetes Features"
-
-[main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
 [main_kubeweekly_baseline]
 other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
@@ -84,112 +165,53 @@ other = "View past newsletters"
 [main_kubeweekly_signup]
 other = "Subscribe"
 
-[main_contribute]
-other = "Contribute"
-
-[main_edit_this_page]
-other = "Edit This Page"
-
 [main_page_history]
 other ="Page History"
 
 [main_page_last_modified_on]
 other = "Page last modified on"
 
-[main_by]
-other = "by"
+[main_read_about]
+other = "Read about"
 
-[main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+[main_read_more]
+other = "Read more"
 
-[main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+[note]
+other = "Note:"
 
-# Labels for the docs portal home page.
-[docs_label_browse]
-other = "Browse Docs"
+[objectives_heading]
+other = "Objectives"
 
-[docs_label_contributors]
-other = "Contributors"
+[options_heading]
+other = "Options"
 
-[docs_label_users]
-other = "Users"
+[prerequisites_heading]
+other = "Before you begin"
 
-[docs_label_i_am]
-other = "I AM..."
+[seealso_heading]
+other = "See Also"
 
-# layouts > blog > pager
+[subscribe_button]
+other = "Subscribe"
 
-[layouts_blog_pager_prev]
-other = "<< Prev"
+[synopsis_heading]
+other = "Synopsis"
 
-[layouts_blog_pager_next]
-other = "Next >>"
-
-# layouts > blog > list
-
-[layouts_case_studies_list_tell]
-other = "Tell your story"
-
-# layouts > docs > glossary
-
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to K8s, as well as more general terms that provide useful context."
-
-[layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
-
-[layouts_docs_glossary_select_all]
-other = "Select all"
-
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
-
-[layouts_docs_glossary_aka]
-other = "Also known as"
-
-[layouts_docs_glossary_click_details_before]
-other = "Click on the"
-
-[layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
-
-# layouts > docs > search
-
-[layouts_docs_search_fetching]
-other = "Fetching results.."
-
-# layouts > partial > feedback
-
-[layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
-
-[layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
-
-[layouts_docs_partials_feedback_problem]
-other = "report a problem"
-
-[layouts_docs_partials_feedback_or]
-other = "or"
-
-[layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
-
-# Community links
-[community_twitter_name]
-other = "Twitter"
-[community_github_name]
-other = "GitHub"
-[community_slack_name]
-other = "Slack"
-[community_stack_overflow_name]
-other = "Stack Overflow"
-[community_forum_name]
-other = "Forum"
-[community_events_calendar]
-other = "Events Calendar"
-
-# UI elements
 [ui_search_placeholder]
 other = "Search"
+
+[version_check_mustbe]
+other = "Your Kubernetes server must be version "
+
+[version_check_mustbeorlater]
+other = "Your Kubernetes server must be at or later than version "
+
+[version_check_tocheck]
+other = "To check the version, enter "
+
+[warning]
+other = "Warning:"
+
+[whatsnext_heading]
+other = "What's next"

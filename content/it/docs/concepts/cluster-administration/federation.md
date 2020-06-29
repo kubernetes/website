@@ -1,10 +1,11 @@
 ---
+draft: True
 title: Federation
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -12,9 +13,9 @@ weight: 80
 
 Questa pagina spiega perché e come gestire più cluster di Kubernetes utilizzando
 federazione.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Perché la federation
 
 La federation facilita la gestione di più cluster. Lo fa fornendo 2
@@ -169,9 +170,10 @@ Infine, se uno qualsiasi dei tuoi cluster richiederebbe più del numero massimo 
 potresti aver bisogno di più cluster. Kubernetes v1.3 supporta cluster di dimensioni fino a 1000 nodi. Supporta Kubernetes v1.8
 cluster fino a 5000 nodi. Vedi [Costruire cluster di grandi dimensioni](/docs/setup/cluster-large/) per maggiori informazioni.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Ulteriori informazioni sulla [Federazione proposta](https://github.com/kubernetes/community/blob/{{<param "githubbranch">}}/contributors/design-proposal/multicluster/federation.md).
 * Vedi questo [guida alla configurazione](/docs/tutorial/federazione/set-up-cluster-federation-kubefed/) per la federazione dei cluster.
 * Vedi questo [Kubecon2016 talk on federation](https://www.youtube.com/watch?v=pq9lbkmxpS8)
@@ -179,4 +181,4 @@ cluster fino a 5000 nodi. Vedi [Costruire cluster di grandi dimensioni](/docs/se
 * Vedi questo [Kubecon2018 aggiornamento Europa su sig-multicluster](https://www.youtube.com/watch?v=vGZo5DaThQU)
 * Vedi questo [Kubecon2018 Europe Federation-v2 presentazione prototipo](https://youtu.be/q27rbaX5Jis?t=7m20s)
 * Vedi questo [Federation-v2 Userguide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
-{{% /capture %}}
+

@@ -2,7 +2,7 @@
 title: 네임스페이스(Namespace)
 id: namespace
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/namespaces
+full_link: /ko/docs/concepts/overview/working-with-objects/namespaces
 short_description: >
   쿠버네티스에서 동일한 물리 클러스터에서 다중의 가상 클러스터를 지원하기 위해 사용하는 추상화.
 

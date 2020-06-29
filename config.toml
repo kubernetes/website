@@ -1,6 +1,11 @@
 baseURL = "https://kubernetes.io"
 title = "Kubernetes"
 
+# Hugo allows theme composition (and inheritance). The precedence is from left to right.
+theme = ["docsy"]
+
+# Language settings
+contentDir = "content/en"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
@@ -10,13 +15,14 @@ disableKinds = ["taxonomy", "taxonomyTerm"]
 
 ignoreFiles = [ "^OWNERS$", "README[-]+[a-z]*\\.md", "^node_modules$", "content/en/docs/doc-contributor-tools" ]
 
-contentDir = "content/en"
-
 timeout = 3000
 
 # Highlighting config.
 pygmentsCodeFences = true
 pygmentsUseClasses = false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "emacs"
 
@@ -25,12 +31,34 @@ enableGitInfo = true
 
 # Norwegian ("no") is sometimes but not currently used for testing.
 # Hindi is disabled because it's currently in development.
-# Italian is disabled until it meets minimum standards for quality.
-disableLanguages = ["hi", "it", "no"]
+disableLanguages = ["hi", "no"]
 
-[blackfriday]
-hrefTargetBlank = true
-fractions = false
+[markup]
+ [markup.goldmark]
+   [markup.goldmark.extensions]
+     definitionList = true
+     table = true
+     typographer = false
+   [markup.goldmark.parser]
+     attribute = true
+     autoHeadingID = true
+     autoHeadingIDType = "blackfriday"
+   [markup.goldmark.renderer]
+     unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "emacs"
+    tabWidth = 4
+  [markup.tableOfContents]
+    endLevel = 3
+    ordered = false
+    startLevel = 2
 
 [frontmatter]
 date = ["date", ":filename", "publishDate", "lastmod"]
@@ -60,16 +88,37 @@ baseName = "_headers"
 isPlainText = true
 notAlternative = true
 
+# Image processing configuration.
+[imaging]
+resampleFilter = "CatmullRom"
+quality = 75
+anchor = "smart"
+
+[services]
+[services.googleAnalytics]
+# Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
+id = "UA-00000000-0"
+
 [params]
+copyright_k8s = "The Kubernetes Authors"
+copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
+# privacy_policy = "https://policies.google.com/privacy"
+
+# First one is picked as the Twitter card image if not set on page.
+# images = ["images/project-illustration.png"]
+
+# Menu title if your navbar has a versions selector to access old versions of your site.
+# This menu appears only if you have at least one [params.versions] set.
+version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.15"
+latest = "v1.18"
 
-fullversion = "v1.15.0"
-version = "v1.15"
+fullversion = "v1.18.0"
+version = "v1.18"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -78,12 +127,24 @@ nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
 githubWebsiteRepo = "github.com/kubernetes/website"
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
 
-[[params.versions]]
-fullversion = "v1.15.0"
-version = "v1.15"
-githubbranch = "v1.15.0"
-docsbranch = "release-1.15"
-url = "https://kubernetes.io"
+# param for displaying an announcement block on every page.
+# See /i18n/en.toml for message text and title.
+announcement = true
+announcement_bg = "#000000" #choose a dark color – text is white
+
+#Searching
+k8s_search = true
+
+#The following search parameters are specific to Docsy's implementation. Kubernetes implementes its own search-related partials and scripts.
+
+# Google Custom Search Engine ID. Remove or comment out to disable search.
+#gcs_engine_id = "011737558837375720776:fsdu1nryfng"
+
+# Enable Algolia DocSearch
+algolia_docsearch = false
+
+# Enable Lunr.js offline search
+offlineSearch = false
 
 [params.pushAssets]
 css = [
@@ -97,32 +158,113 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.14.3"
+fullversion = "v1.18.0"
+version = "v1.18"
+githubbranch = "v1.18.0"
+docsbranch = "release-1.18"
+url = "https://kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.17.4"
+version = "v1.17"
+githubbranch = "v1.17.4"
+docsbranch = "release-1.17"
+url = "https://v1-17.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.16.8"
+version = "v1.16"
+githubbranch = "v1.16.8"
+docsbranch = "release-1.16"
+url = "https://v1-16.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.15.11"
+version = "v1.15"
+githubbranch = "v1.15.11"
+docsbranch = "release-1.15"
+url = "https://v1-15.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.14.10"
 version = "v1.14"
-githubbranch = "v1.14.3"
+githubbranch = "v1.14.10"
 docsbranch = "release-1.14"
 url = "https://v1-14.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.13.7"
-version = "v1.13"
-githubbranch = "v1.13.7"
-docsbranch = "release-1.13"
-url = "https://v1-13.docs.kubernetes.io"
+# User interface configuration
+[params.ui]
+# Enable to show the side bar menu in its compact state.
+sidebar_menu_compact = false
+#  Set to true to disable breadcrumb navigation.
+breadcrumb_disable = false
+#  Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = false
+#  Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top nav bar
+navbar_logo = true
+# Set to true to disable the About link in the site footer
+footer_about_disable = false
 
-[[params.versions]]
-fullversion = "v1.12.9"
-version = "v1.12"
-githubbranch = "v1.12.9"
-docsbranch = "release-1.12"
-url = "https://v1-12.docs.kubernetes.io"
+# Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+# This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+# If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+# add "hide_feedback: true" to the page's front matter.
+[params.ui.feedback]
+enable = true
+# The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
 
-[[params.versions]]
-fullversion = "v1.11.10"
-version = "v1.11"
-githubbranch = "v1.11.10"
-docsbranch = "release-1.11"
-url = "https://v1-11.docs.kubernetes.io"
+[params.links]
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+[[params.links.user]]
+	name = "User mailing list"
+	url = "https://discuss.kubernetes.io"
+	icon = "fa fa-envelope"
+  desc = "Discussion and help from your fellow users"
+  
+[[params.links.user]]
+	name = "Twitter"
+	url = "https://twitter.com/kubernetesio"
+	icon = "fab fa-twitter"
+  desc = "Follow us on Twitter to get the latest news!"
+
+[[params.links.user]]
+	name = "Calendar"
+	url = "https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com"
+	icon = "fas fa-calendar-alt"
+  desc = "Google Calendar for Kubernetes"
+
+[[params.links.user]]
+	name = "Youtube"
+	url = "https://youtube.com/kubernetescommunity"
+	icon = "fab fa-youtube"
+  desc = "Youtube community videos"
+
+# Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+[[params.links.developer]]
+	name = "GitHub"
+	url = "https://github.com/kubernetes/kubernetes"
+	icon = "fab fa-github"
+  desc = "Development takes place here!"
+
+[[params.links.developer]]
+	name = "Slack"
+	url = "https://slack.k8s.io"
+	icon = "fab fa-slack"
+  desc = "Chat with other project developers"
+
+[[params.links.developer]]
+	name = "Contribute"
+	url = "https://git.k8s.io/community/contributors/guide"
+	icon = "fas fa-edit"
+  desc = "Contribute to the Kubernetes website"
+  
+[[params.links.developer]]
+	name = "Stack Overflow"
+	url = "https://stackoverflow.com/questions/tagged/kubernetes"
+	icon = "fab fa-stack-overflow"
+  desc = "Practical questions and curated answers"
 
 # Language definitions.
 
@@ -136,7 +278,7 @@ weight = 1
 
 [languages.zh]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
@@ -147,7 +289,7 @@ language_alternatives = ["en"]
 
 [languages.ko]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
@@ -169,7 +311,7 @@ language_alternatives = ["en"]
 
 [languages.fr]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Solution professionnelle d’orchestration de conteneurs"
 languageName ="Français"
 weight = 5
 contentDir = "content/fr"
@@ -181,8 +323,8 @@ language_alternatives = ["en"]
 
 [languages.it]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
-languageName ="Italian"
+description = "Orchestrazione di Container in produzione"
+languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
 
@@ -205,7 +347,7 @@ language_alternatives = ["en"]
 
 [languages.de]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Produktionsreife Container-Orchestrierung"
 languageName ="Deutsch"
 weight = 8
 contentDir = "content/de"
@@ -217,7 +359,7 @@ language_alternatives = ["en"]
 
 [languages.es]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orquestación de contenedores para producción"
 languageName ="Español"
 weight = 9
 contentDir = "content/es"
@@ -241,7 +383,7 @@ language_alternatives = ["en"]
 
 [languages.id]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
@@ -260,4 +402,47 @@ contentDir = "content/hi"
 
 [languages.hi.params]
 time_format_blog = "01.02.2006"
+language_alternatives = ["en"]
+
+[languages.vi]
+title = "Kubernetes"
+description = "Giải pháp điều phối container trong môi trường production"
+languageName = "Tiếng Việt"
+contentDir = "content/vi"
+weight = 12
+
+[languages.ru]
+title = "Kubernetes"
+description = "Первоклассная оркестрация контейнеров"
+languageName = "Русский"
+weight = 12
+contentDir = "content/ru"
+
+[languages.ru.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.pl]
+title = "Kubernetes"
+description = "Produkcyjny system zarządzania kontenerami"
+languageName = "Polski"
+weight = 13
+contentDir = "content/pl"
+
+[languages.pl.params]
+time_format_blog = "01.02.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
+language_alternatives = ["en"]
+
+[languages.uk]
+title = "Kubernetes"
+description = "Довершена система оркестрації контейнерів"
+languageName = "Українська"
+weight = 14
+contentDir = "content/uk"
+
+[languages.uk.params]
+time_format_blog = "02.01.2006"
+# A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]

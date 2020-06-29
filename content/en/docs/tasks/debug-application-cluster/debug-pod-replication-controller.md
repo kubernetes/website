@@ -2,25 +2,26 @@
 reviewers:
 - bprashanth
 title: Debug Pods and ReplicationControllers
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to debug Pods and ReplicationControllers.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * You should be familiar with the basics of
   [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Debugging Pods
 
@@ -93,38 +94,9 @@ worker node, but it can't run on that machine. Again, the information from
 
 ### My pod is crashing or otherwise unhealthy
 
-First, take a look at the logs of the current container:
+Once your pod has been scheduled, the methods described in [Debug Running Pods](
+/docs/tasks/debug-application-cluster/debug-running-pod/) are available for debugging.
 
-```shell
-kubectl logs ${POD_NAME} ${CONTAINER_NAME}
-```
-
-If your container has previously crashed, you can access the previous
-container's crash log with:
-
-```shell
-kubectl logs --previous ${POD_NAME} ${CONTAINER_NAME}
-```
-
-Alternately, you can run commands inside that container with `exec`:
-
-```shell
-kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${ARGN}
-```
-
-{{< note >}}
-`-c ${CONTAINER_NAME}` is optional. You can omit it for pods that
-only contain a single container.
-{{< /note >}}
-
-As an example, to look at the logs from a running Cassandra pod, you might run:
-
-```shell
-kubectl exec cassandra -- cat /var/log/cassandra/system.log
-```
-
-If none of these approaches work, you can find the host machine that the pod is
-running on and SSH into that host.
 
 ## Debugging ReplicationControllers
 
@@ -135,4 +107,4 @@ or they can't. If they can't create pods, then please refer to the
 You can also use `kubectl describe rc ${CONTROLLER_NAME}` to inspect events
 related to the replication controller.
 
-{{% /capture %}}
+

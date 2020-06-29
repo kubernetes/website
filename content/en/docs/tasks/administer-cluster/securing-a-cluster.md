@@ -5,23 +5,24 @@ reviewers:
 - ericchiang
 - destijl
 title: Securing a Cluster
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document covers topics related to protecting a cluster from accidental or malicious access
 and provides recommendations on overall security.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Controlling access to the Kubernetes API
 
@@ -114,6 +115,36 @@ client applications from escaping their containers should use a restrictive pod 
 policy.
 
 
+### Preventing containers from loading unwanted kernel modules
+
+The Linux kernel automatically loads kernel modules from disk if needed in certain
+circumstances, such as when a piece of hardware is attached or a filesystem is mounted. Of
+particular relevance to Kubernetes, even unprivileged processes can cause certain
+network-protocol-related kernel modules to be loaded, just by creating a socket of the
+appropriate type. This may allow an attacker to exploit a security hole in a kernel module
+that the administrator assumed was not in use.
+
+To prevent specific modules from being automatically loaded, you can uninstall them from
+the node, or add rules to block them. On most Linux distributions, you can do that by
+creating a file such as `/etc/modprobe.d/kubernetes-blacklist.conf` with contents like:
+
+```
+# DCCP is unlikely to be needed, has had multiple serious
+# vulnerabilities, and is not well-maintained.
+blacklist dccp
+
+# SCTP is not used in most Kubernetes clusters, and has also had
+# vulnerabilities in the past.
+blacklist sctp
+```
+
+To block module loading more generically, you can use a Linux Security Module (such as
+SELinux) to completely deny the `module_request` permission to containers, preventing the
+kernel from loading modules for containers under any circumstances. (Pods would still be
+able to use modules that had been loaded manually, or modules that were loaded by the
+kernel on behalf of some more-privileged process.)
+
+
 ### Restricting network access
 
 The [network policies](/docs/tasks/administer-cluster/declare-network-policy/) for a namespace 
@@ -143,8 +174,8 @@ to the metadata API, and avoid using provisioning data to deliver secrets.
 ### Controlling which nodes pods may access
 
 By default, there are no restrictions on which nodes may run a pod.  Kubernetes offers a 
-[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/configuration/assign-pod-node/)
-and the [taint based pod placement and eviction](/docs/concepts/configuration/taint-and-toleration/)
+[rich set of policies for controlling placement of pods onto nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)
+and the [taint based pod placement and eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 that are available to end users. For many clusters use of these policies to separate workloads
 can be a convention that authors adopt or enforce via tooling.
 
@@ -213,9 +244,9 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes 1.7 contains [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), an alpha feature that will encrypt `Secret` resources in etcd, preventing
+Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature introduced in 1.7, and beta since 1.13. This will encrypt `Secret` resources in etcd, preventing
 parties that gain access to your etcd backups from viewing the content of those secrets. While
-this feature is currently experimental, it may offer an additional level of defense when backups
+this feature is currently beta, it offers an additional level of defense when backups
 are not encrypted or an attacker gains read access to etcd.
 
 ### Receiving alerts for security updates and reporting vulnerabilities
@@ -224,6 +255,6 @@ Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernete
 group for emails about security announcements. See the [security reporting](/security/)
 page for more on how to report vulnerabilities.
 
-{{% /capture %}}
+
 
 

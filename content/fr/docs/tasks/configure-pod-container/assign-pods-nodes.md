@@ -1,20 +1,21 @@
 ---
 title: Assigner des pods aux nœuds
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page montre comment assigner un Pod à un nœud particulier dans un cluster Kubernetes.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Ajouter un label à un nœud
 
@@ -64,7 +65,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
 {{< codenew file="pods/pod-nginx.yaml" >}}
 
 1. Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur votre nœud choisi :
-    
+
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml
     ```
@@ -76,7 +77,7 @@ Le fichier de configuration de pod décrit un pod qui possède un selector de n�
     ```
 
     La sortie est la suivante :
-    
+
     ```shell
     NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
     nginx    1/1       Running   0          13s    10.200.0.4   worker0
@@ -89,10 +90,11 @@ Vous pouvez également ordonnancer un pod sur un nœud spécifique via le param�
 
 Utilisez le fichier de configuration pour créer un pod qui sera ordonnancé sur `foo-node` uniquement.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Pour en savoir plus sur
 [labels et selectors](/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+
 

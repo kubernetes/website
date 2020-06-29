@@ -3,16 +3,16 @@ title: Documents de Référence
 linkTitle: "Référence"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette section de la documentation de Kubernetes contient les informations de références.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Documents de Référence de l'API
 
@@ -35,7 +35,7 @@ Pour appeler l'API de Kubernetes depuis un langage de programmation on peut util
 
 ## Documents de Référence des outils en ligne de commande (CLI)
 
-* [kubectl](docs/reference/command-line-tools-reference/kubelet/) - Principal outil en ligne de commande (CLI) pour exécuter et gérer un cluster Kubernetes.
+* [kubectl](/docs/reference/kubectl/overview/) - Principal outil en ligne de commande (CLI) pour exécuter et gérer un cluster Kubernetes.
     * [JSONPath](/docs/user-guide/jsonpath/) - Guide de la syntaxe des [expressions JSONPath](http://goessner.net/articles/JsonPath/) avec kubectl.
 * [kubeadm](/docs/admin/kubeadm/) - Outil en ligne de commande (CLI) pour provisionner facilement un cluster Kubernetes sécurisé.
 * [kubefed](/docs/admin/kubefed/) - Outil en ligne de commande (CLI) pour aider à administrer des clusters fédérés.
@@ -55,4 +55,4 @@ Pour appeler l'API de Kubernetes depuis un langage de programmation on peut util
 * [Architecture de Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)
 * [Vue d'ensemble des documents de conception de Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
 
-{{% /capture %}}
+

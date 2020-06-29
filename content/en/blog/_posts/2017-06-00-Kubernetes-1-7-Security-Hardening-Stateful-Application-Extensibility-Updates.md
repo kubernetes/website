@@ -2,7 +2,7 @@
 title: " Kubernetes 1.7: Security Hardening, Stateful Application Updates and Extensibility "
 date: 2017-06-30
 slug: kubernetes-1.7-security-hardening-stateful-application-extensibility-updates
-url: /blog/2017/06/Kubernetes-1.7-Security-Hardening-Stateful-Application-Extensibility-Updates
+url: /blog/2017/06/Kubernetes-1-7-Security-Hardening-Stateful-Application-Extensibility-Updates
 ---
 Today we’re announcing Kubernetes 1.7, a milestone release that adds security, storage and extensibility features motivated by widespread production use of Kubernetes in the most demanding enterprise environments.&nbsp;  
 
@@ -32,7 +32,8 @@ Stateful workloads:
 Extensibility:  
 
 - [API aggregation](/docs/concepts/api-extension/apiserver-aggregation/) at runtime is the most powerful extensibility features in this release, allowing power users to add Kubernetes-style pre-built, 3rd party or user-created APIs to their cluster.
-- [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
+
+- [Container Runtime Interface](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) (CRI) has been enhanced with New RPC calls to retrieve container metrics from the runtime. [Validation tests for the CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/cri-validation.md) have been published and Alpha integration with [containerd](http://containerd.io/), which supports basic pod lifecycle and image management is now available. Read our previous [in-depth post introducing CRI](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes).
 
 Additional Features:  
 

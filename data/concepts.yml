@@ -93,8 +93,10 @@ toc:
   - docs/concepts/services-networking/dns-pod-service.md
   - docs/concepts/services-networking/connect-applications-service.md
   - docs/concepts/services-networking/ingress.md
+  - docs/concepts/services-networking/endpoint-slices.md
   - docs/concepts/services-networking/network-policies.md
   - docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases.md
+  - docs/concepts/services-networking/dual-stack.md
 
 - title: Storage
   landing_page: /docs/concepts/storage/volumes/
@@ -114,13 +116,12 @@ toc:
   - docs/concepts/cluster-administration/networking.md
   - docs/concepts/cluster-administration/network-plugins.md
   - docs/concepts/cluster-administration/logging.md
+  - docs/concepts/cluster-administration/monitoring.md
   - docs/concepts/cluster-administration/kubelet-garbage-collection.md
-  - docs/concepts/cluster-administration/federation.md
   - docs/concepts/cluster-administration/sysctl-cluster.md
   - docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig.md
   - docs/concepts/cluster-administration/master-node-communication.md
   - docs/concepts/cluster-administration/proxies.md
-  - docs/concepts/cluster-administration/controller-metrics.md
   - docs/concepts/cluster-administration/device-plugins.md
   - title: Policies
     section:

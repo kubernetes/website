@@ -3,19 +3,19 @@ reviewers:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -99,7 +99,7 @@ Here is some example output of events from running this command:
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubobjectPath          Type      Reason               Message
+  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
   ---------  --------  -----  ----                                                   -------------          --------  ------               -------
   1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
   1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
@@ -112,12 +112,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables/).
+## {{% heading "whatsnext" %}}
+
+
+* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

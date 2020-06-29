@@ -1,0 +1,393 @@
+/* GLOBAL */
+.td-main {
+  .row {
+    margin: 0;
+  }
+
+  main {
+    img {
+      max-width: 100%;
+    }
+
+    table {
+      margin-bottom: 1rem;
+      display: initial;
+    }
+
+    @media only screen and (min-width: 768px) {
+      padding-top: 2rem !important;
+    }
+  }
+}
+
+section {
+  .main-section {
+    @media only screen and (min-width: 1024px) {
+      max-width: 1200px;
+    }
+  }
+}
+
+.td-outer {
+  padding: 0 !important;
+}
+
+#desktopShowVideoButton {
+  border: none
+}
+
+#videoPlayer {
+  #closeButton {
+    background: transparent;
+  }
+}
+
+/* HEADER */
+
+.td-navbar {
+  position: fixed !important;
+  width: 100%;
+  padding-bottom: 1rem !important;
+  background: transparent !important;
+  transition: 0.3s;
+
+  .navbar-brand {
+    position: absolute;
+    width: 45px;
+    height: 44px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("/images/favicon.png");
+  }
+
+  #hamburger {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .navbar-brand {
+      background-image: url("/images/nav_logo.svg");
+      top: 1.5rem;
+      width: 180px;
+      margin-left: 1rem;
+    }
+  }
+}
+
+.td-navbar-nav-scroll {
+  overflow: visible !important;
+  display: none;
+
+  .navbar-nav {
+    overflow: visible !important;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .nav-item {
+      position: relative;
+      height: 10%;
+
+      .active::after {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        content: "";
+        bottom: -4px;
+        left: 0;
+        background: #fff;
+      }
+
+      .dropdown-menu {
+        left: -80px;
+      }
+
+      &.dropdown:hover {
+        color: $medium-grey;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    display: block;
+    margin-top: 3.5rem !important;
+  }
+
+  @media only screen and (min-width: 1075px) {
+    margin-top: 1.5rem !important;
+  }
+}
+
+// Flip-Nav
+.flip-nav .td-navbar {
+  background-color: white !important;
+  box-shadow: 0 1px 2px $medium-grey;
+
+  .navbar-nav {
+    .nav-item {
+      &.show .nav-link,
+      .nav-link {
+        color: $dark-grey;
+
+        &:hover {
+          color: $medium-grey;
+        }
+      }
+
+      .dropdown {
+        &:hover {
+          color: $medium-grey;
+        }
+      }
+    }
+  }
+
+  .navbar-nav .nav-item .active {
+    color: $dark-grey;
+
+    &::after {
+      background: $dark-grey;
+    }
+  }
+
+  #hamburger:hover {
+    div,
+    &:before,
+    &:after {
+      background-color: $dark-grey;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .navbar-brand {
+      background-image: url("/images/nav_logo2.svg");
+    }
+  }
+}
+
+/* FOOTER */
+footer {
+  background-color: #303030;
+  background-image: url("/images/texture.png");
+  padding: 1rem !important;
+  min-height: initial !important;
+
+  .footer__links {
+    width: 100%;
+    margin: auto;
+    padding-bottom: 1rem;
+
+    nav a {
+      display: block;
+      text-align: center;
+    }
+
+    @media only screen and (min-width: 768px) {
+      nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+  }
+
+  small {
+    color: $light-grey;
+    font-size: 0.64rem;
+
+    a {
+      text-decoration: inherit;
+      color: inherit;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
+}
+
+/* SIDE-DRAWER MENU */
+
+.pi-pushmenu .sled {
+  .content ul {
+    padding: 0;
+
+    li {
+      &:first-child {
+        display: none;
+      }
+
+      a.nav-link {
+        padding: 0;
+      }
+    }
+  }
+  .push-menu-close-button {
+    background: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+/* DOCS */
+
+.launch-cards {
+  button {
+    cursor: pointer;
+    box-sizing: border-box;
+    background: none;
+    margin: 0;
+    border: 0;
+  }
+
+  ul,
+  li {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+// table of contents
+.td-toc {
+  padding-top: 1.5rem !important;
+  top: 5rem !important;
+
+  #TableOfContents {
+    padding-top: 1rem;
+  }
+}
+
+// blockquotes and callouts
+
+blockquote {
+  padding: 0.4rem 0.4rem 0.4rem 1rem !important;
+}
+
+// callouts are contained in static CSS as well. these require override.
+
+.caution {
+  border-left-color: #f0ad4e !important;
+}
+
+.note {
+  border-left-color: #428bca !important;
+}
+
+.warning {
+  border-left-color: #d9534f !important;
+}
+
+// search & sidebar
+.td-sidebar {
+  @media only screen and (min-width: 768px) {
+    padding-top: 1.5rem !important;
+
+    .td-sidebar__inner {
+      top: 8.5rem;
+
+      @media only screen and (min-width: 1075px) {
+        top: 6.5rem;
+      }
+    }
+  }
+}
+
+.td-sidebar-nav {
+  & > .td-sidebar-nav__section {
+    padding-top: .5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.td-sidebar__inner {
+  form.td-sidebar__search {
+
+    button.td-sidebar__toggle {
+      &:hover {
+        color: #000000;
+      }
+
+      color: $blue;
+    }
+  }
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.td-sidebar-link__page {
+  &#m-docs-search {
+    display: none;
+  }
+
+  &#m-docs-test {
+    display: none;
+  }
+}
+
+//Tutorials
+main.content {
+  position: inherit;
+}
+
+/* BLOG */
+
+.td-blog {
+
+  .td-sidebar-nav {
+    max-height: calc(100vh - 8rem);
+  }
+
+  .widget-link {
+    margin-bottom: 1rem;
+
+    .svg-inline--fa {
+      width: 25px;
+    }
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+/* COMMUNITY */
+
+.newcommunitywrapper {
+  .news {
+    margin-left: 0;
+
+    @media screen and (min-width: 768px) {
+      margin-left: 10%;
+    }
+  }
+}
+
+/* CASE-STUDIES */
+
+// Many of the case studies have small variations in markup and styles;
+// some issues cannot be addressed due to inlined !important rules.
+#caseStudies {
+  section .cols {
+    margin-left: 11%;
+
+    div {
+      width: initial !important;
+      h2 {
+        margin-top: 1rem;
+      }
+    }
+  }
+}

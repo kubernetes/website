@@ -5,11 +5,11 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes is highly configurable and extensible. As a result,
 there is rarely a need to fork or submit patches to the Kubernetes
@@ -22,10 +22,10 @@ their work environment. Developers who are prospective {{< glossary_tooltip text
 useful as an introduction to what extension points and patterns
 exist, and their trade-offs and limitations.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -50,7 +50,7 @@ Extensions are software components that extend and deeply integrate with Kuberne
 They adapt it to support new types and new kinds of hardware.
 
 Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will need to
+instance of Kubernetes. As a result, most Kubernetes users will not need to
 install extensions and fewer will need to author new ones.
 
 ## Extension Patterns
@@ -74,12 +74,12 @@ failure.
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
 Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/flexvolume.md)
+Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
 and [Network
 Plugins](/docs/concepts/cluster-administration/network-plugins/))
 and by kubectl.
 
-Below is a diagram showing how the extensions points interact with the
+Below is a diagram showing how the extension points interact with the
 Kubernetes control plane.
 
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vQBRWyXLVUlQPlp7BvxvV9S1mxyXSM6rAc_cbLANvKlu6kCCf-kGTporTMIeG5GZtUdxXz1xowN7RmL/pub?w=960&h=720">
@@ -147,7 +147,7 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 
 ### Authorization
 
- [Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
+[Authorization](/docs/reference/access-authn-authz/webhook/) determines whether specific users can read, write, and do other operations on API resources. It just works at the level of whole resources -- it doesn't discriminate based on arbitrary object fields. If the built-in authorization options don't meet your needs, and [Authorization webhook](/docs/reference/access-authn-authz/webhook/) allows calling out to user-provided code to make an authorization decision.
 
 
 ### Dynamic Admission Control
@@ -194,10 +194,11 @@ The scheduler also supports a
 that permits a webhook backend (scheduler extension) to filter and prioritize
 the nodes chosen for a pod.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
 * Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
@@ -207,4 +208,4 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: Installieren und konfigurieren von kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -8,17 +8,18 @@ card:
   title: Kubectl installieren
 ---
 
-{{% capture overview %}}
-Verwenden Sie das Kubernetes Befehlszeilenprogramm, [kubectl](/docs/user-guide/kubectl/), um Anwendungen auf Kubernetes bereitzustellen und zu verwalten. 
+<!-- overview -->
+Verwenden Sie das Kubernetes Befehlszeilenprogramm, [kubectl](/docs/user-guide/kubectl/), um Anwendungen auf Kubernetes bereitzustellen und zu verwalten.
 Mit kubectl können Sie Clusterressourcen überprüfen, Komponenten erstellen, löschen und aktualisieren; Ihren neuen Cluster betrachten; und Beispielanwendungen aufrufen.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Sie müssen eine kubectl-Version verwenden, die innerhalb eines geringfügigen Versionsunterschieds zur Version Ihres Clusters liegt. Ein v1.2-Client sollte beispielsweise mit einem v1.1, v1.2 und v1.3-Master arbeiten. Die Verwendung der neuesten Version von kubectl verhindert unvorhergesehene Probleme.
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Kubectl installieren
 
@@ -90,7 +91,7 @@ Wenn Sie mit macOS arbeiten und den [Macports](https://macports.org/) Paketmanag
     sudo port selfupdate
     sudo port install kubectl
     ```
-    
+
 2. Testen Sie, ob die installierte Version ausreichend aktuell ist:
 
     ```
@@ -107,9 +108,9 @@ Wenn Sie mit Windows arbeiten und den [Powershell Gallery](https://www.powershel
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
     install-kubectl.ps1 [-DownloadLocation <path>]
     ```
-    
+
     {{< note >}}Wenn Sie keine `DownloadLocation` angeben, wird `kubectl` im temporären Verzeichnis des Benutzers installiert.{{< /note >}}
-    
+
     Das Installationsprogramm erstellt `$HOME/.kube` und weist es an, eine Konfigurationsdatei zu erstellen
 
 2. Testen Sie, ob die installierte Version ausreichend aktuell ist:
@@ -164,7 +165,7 @@ Um kubectl unter Windows zu installieren, können Sie entweder den Paketmanager 
     ```
     New-Item config -type file
     ```
-    
+
     {{< note >}}Bearbeiten Sie die Konfigurationsdatei mit einem Texteditor Ihrer Wahl, z.B. Notepad.{{< /note >}}
 
 ## Download als Teil des Google Cloud SDK herunter
@@ -177,7 +178,7 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
     ```
     gcloud components install kubectl
     ```
-    
+
 3. Testen Sie, ob die installierte Version ausreichend aktuell ist:
 
     ```
@@ -190,14 +191,14 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 {{% tab name="macOS" %}}
 1. Laden Sie die neueste Version herunter:
 
-    ```		 
+    ```		
     curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
     Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` mit der jeweiligen Version.
 
     Um beispielsweise die Version {{< param "fullversion" >}} auf macOS herunterzuladen, verwenden Sie den folgenden Befehl:
-		  
+		
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
@@ -225,7 +226,7 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
     Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` mit der jeweiligen Version.
 
     Um beispielsweise die Version {{< param "fullversion" >}} auf Linux herunterzuladen, verwenden Sie den folgenden Befehl:
-    
+
     ```
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
     ```
@@ -243,7 +244,7 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
     ```
 {{% /tab %}}
 {{% tab name="Windows" %}}
-1. Laden Sie das aktuellste Release {{< param "fullversion" >}} von [disem link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe) herunter.
+1. Laden Sie das aktuellste Release {{< param "fullversion" >}} von [diesem link](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe) herunter.
 
     Oder, sofern Sie `curl` installiert haven, verwenden Sie den folgenden Befehl:
 
@@ -261,7 +262,7 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 
 ## kubectl konfigurieren
 
-Damit kubectl einen Kubernetes-Cluster finden und darauf zugreifen kann, benötigt es eine [kubeconfig Datei](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). Diese wird automatisch erstellt, wenn Sie einen Cluster mit kube-up.sh erstellen oder einen Minikube-Cluster erfolgreich implementieren. Weitere Informationen zum Erstellen von Clustern finden Sie in den [Anleitungen für die ersten Schritte](/docs/setup/). Wenn Sie Zugriff auf einen Cluster benötigen, den Sie nicht erstellt haben, lesen Sie die [Cluster-Zugriff freigeben Dokumentation](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+Damit kubectl einen Kubernetes-Cluster finden und darauf zugreifen kann, benötigt es eine [kubeconfig Datei](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/). Diese wird automatisch erstellt, wenn Sie einen Cluster mit [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)  erstellen oder einen Minikube-Cluster erfolgreich implementieren. Weitere Informationen zum Erstellen von Clustern finden Sie in den [Anleitungen für die ersten Schritte](/docs/setup/). Wenn Sie Zugriff auf einen Cluster benötigen, den Sie nicht erstellt haben, lesen Sie die [Cluster-Zugriff freigeben Dokumentation](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 Die kubectl-Konfiguration befindet sich standardmäßig unter `~/.kube/config`.
 
 ## Überprüfen der kubectl-Konfiguration
@@ -421,9 +422,10 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 [Erfahren Sie, wie Sie Ihre Anwendung starten und verfügbar machen.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-{{% /capture %}}
+
 

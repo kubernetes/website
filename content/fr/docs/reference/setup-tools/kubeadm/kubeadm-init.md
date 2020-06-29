@@ -1,13 +1,13 @@
 ---
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 Cette commande initialise un noeud Kubernetes control-plane.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
@@ -15,42 +15,42 @@ Cette commande initialise un noeud Kubernetes control-plane.
 `kubeadm init` assemble un noeud Kubernetes control-plane en effectuant les étapes suivantes :
 
 1. Exécute une série de contrôles pour valider l'état du système avant d'y apporter des changements.
-   Certaines validations peuvent émettre seulement des avertissements (warnings), 
-   d'autres peuvent générer des erreurs qui forceront l'interruption de kubeadm 
+   Certaines validations peuvent émettre seulement des avertissements (warnings),
+   d'autres peuvent générer des erreurs qui forceront l'interruption de kubeadm
    jusqu'à ce que le problème soit résolu
    ou jusqu'à ce que l'utilisateur spécifie `--ignore-preflight-errors=<list-des-erreurs>`.
 
 1. Génère une autorité de certification (CA) auto signée (ou utilise une existante si spécifiée) pour
-   installer les identités de chaque composant du cluster. Si l'utilisateur a fourni son propre certificat 
+   installer les identités de chaque composant du cluster. Si l'utilisateur a fourni son propre certificat
    et/ou clef de CA en le (la) copiant dans le répertoire des certificats, configuré avec  `--cert-dir`
    (`/etc/kubernetes/pki` par défaut) cette étape est sautée comme expliqué dans le document
    [utiliser ses propres certificats](#custom-certificates).
    Les certificats de l'API Server auront des entrées SAN additionnelles pour chaque argument `--apiserver-cert-extra-sans`.
 
 1. Ecrit les fichiers kubeconfig dans `/etc/kubernetes/` pour
-   kubelet, le controller-manager et l'ordonnanceur (scheduler) 
-   qui seront utlisés pour les connexions à l'API server, chacun avec sa propre identité, 
+   kubelet, le controller-manager et l'ordonnanceur (scheduler)
+   qui seront utlisés pour les connexions à l'API server, chacun avec sa propre identité,
    ainsi qu'un fichier kubeconfig supplémentaire pour l'administration, nommé `admin.conf`.
 
 1. Génère des manifestes statiques de Pod pour l'API server,
-   le controller manager et l'ordonnanceur. Au cas où aucun etcd externe n'est fourni, 
+   le controller manager et l'ordonnanceur. Au cas où aucun etcd externe n'est fourni,
    un manifeste statique de Pod pour etcd est généré.
 
-   Les manifestes statiques de Pod sont écrits dans `/etc/kubernetes/manifestes`; 
+   Les manifestes statiques de Pod sont écrits dans `/etc/kubernetes/manifestes`;
    kubelet surveille ce répertoire afin que les Pods soient créés au démarrage.
 
    Dès lors que les pods de control-plane sont démarrés, la séquence de `kubeadm init` peut alors continuer.
 
 1. Applique les étiquettes (labels) et marques (taints) au noeud control-plane afin qu'aucune charge de travail additionnelle ne s'y exécute.
 
-1. Génère le jeton que les noeuds additionnels peuvent utiliser pour s'enregistrer avec un control-plane. Il est possible que l'utilisateur fournisse un jeton en utilisant `--token`, 
+1. Génère le jeton que les noeuds additionnels peuvent utiliser pour s'enregistrer avec un control-plane. Il est possible que l'utilisateur fournisse un jeton en utilisant `--token`,
    comme décrit dans la documentation [à propos du jeton kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm-token/).
 
-1. Produit tous les fichiers de configuration requis pour autoriser les noeuds à rejoindre le cluster avec les 
+1. Produit tous les fichiers de configuration requis pour autoriser les noeuds à rejoindre le cluster avec les
    [jetons d'assemblage](/docs/reference/access-authn-authz/bootstrap-tokens/) et le mécanisme
    [d'assemblage TLS](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) :
 
-   - Ecrit une ConfigMap pour produire toute la configuration nécessaire 
+   - Ecrit une ConfigMap pour produire toute la configuration nécessaire
      pour rejoindre le cluster et installer les règles d'accès RBAC sous jacentes.
 
    - Permet aux jetons d'assemblage d'accéder à l'API CSR (Certificate Signing Request, requête de signature de certificat).
@@ -61,7 +61,7 @@ Cette commande initialise un noeud Kubernetes control-plane.
 
 1. Installe un serveur DNS (CoreDNS) et les modules de l'extension kube-proxy en utilisant l'API Server.
    Dans la version 1.11 (et au delà) de Kubernetes, CoreDNS est le serveur DNS par défaut.
-   Pour installer kube-dns au lieu de CoreDNS, l'extension DNS doit être configurée dans la `ClusterConfiguration` de kubeadm. 
+   Pour installer kube-dns au lieu de CoreDNS, l'extension DNS doit être configurée dans la `ClusterConfiguration` de kubeadm.
    Pour plus d'information, se référer à la section ci-dessous intitulée :
    `Utiliser kubeadm init avec un fichier de configuration`.
    Vous remarquerez que bien que le serveur DNS soit déployé, il ne sera pas programmé pour exécution avant que le CNI soit installé.
@@ -113,7 +113,7 @@ Il est **recommandé** que vous migriez votre configuration `v1alpha3` vers `v1b
 la commande [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/),
 car le support de `v1alpha3` sera supprimé dans Kubernetes 1.15.
 
-Pour plus de détails à propos de chaque option de la configuration `v1beta1` vous pouvez consulter la 
+Pour plus de détails à propos de chaque option de la configuration `v1beta1` vous pouvez consulter la
 [référence de l'API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta1).
 
 ### Ajouter des paramètres kube-proxy {#kube-proxy}
@@ -156,9 +156,9 @@ et `/etc/kubernetes/pki/ca.key`, et kubeadm utilisera ce CA pour signer le reste
 
 #### Mode CA externe {#external-ca-mode}
 
-Il est aussi possible de fournir seulement le fichier `ca.crt` sans le fichier 
+Il est aussi possible de fournir seulement le fichier `ca.crt` sans le fichier
 `ca.key`  (seulement dans le cas d'un fichier CA racine, pas pour d'autres paires de certificats).
-Si tous les certificats et fichiers kubeconfig sont en place, kubeadm activera le mode "CA externe". 
+Si tous les certificats et fichiers kubeconfig sont en place, kubeadm activera le mode "CA externe".
 Kubeadm continuera sans clef CA locale.
 
 Ou alors, vous pouvez utiliser l'outil controller-manager avec `--controllers=csrsigner` en fournissant les emplacements du certificat CA et la clef.
@@ -169,7 +169,7 @@ Le paquet kubeadm vient avec de la configuration concernant comment kubelet doit
 Vous remarquerez que la commande CLI `kubeadm` ne modifiera jamais ce fichier.
 Ce fichier ad-hoc appartient au paquet deb/rpm de kubeadm.
 
-Pour en savoir plus sur comment kubeadm gère kubelet, vous pouvez consulter 
+Pour en savoir plus sur comment kubeadm gère kubelet, vous pouvez consulter
 [cette page](/docs/setup/independent/kubelet-integration).
 
 ### Utilisation de kubeadm avec des runtimes CRI
@@ -180,7 +180,7 @@ Le runtime utilisé par défaut est Docker, activé à travers l'adaptateur four
 Parmi les autres runtimes CRI, on retrouvera :
 
 - [cri-containerd](https://github.com/containerd/cri-containerd)
-- [cri-o](https://github.com/kubernetes-incubator/cri-o)
+- [cri-o](https://cri-o.io/)
 - [frakti](https://github.com/kubernetes/frakti)
 - [rkt](https://github.com/kubernetes-incubator/rktlet)
 
@@ -215,20 +215,20 @@ Faîtes attention car forcer un nom d'hôte peut [interférer avec les fournisse
 ### Héberger soi même le control plane Kubernetes {#self-hosting}
 
 A partir de la version 1.8, vous pouvez expérimentalement créer un control plane Kubernetes _auto-hébergé (self-hosted)_ .
-Cela signifie que des composants clefs comme le serveur d'API, le controller manager et l'ordonnanceur sont démarrés en tant que 
-[pods DaemonSet](/docs/concepts/workloads/controllers/daemonset/), configurés via l'API Kubernetes 
+Cela signifie que des composants clefs comme le serveur d'API, le controller manager et l'ordonnanceur sont démarrés en tant que
+[pods DaemonSet](/docs/concepts/workloads/controllers/daemonset/), configurés via l'API Kubernetes
 plutôt qu'en tant que [pods static](/docs/tasks/administer-cluster/static-pod/) configurés avec des fichiers statiques dans kubelet.
 
 Pour créer un cluster auto-hébergé, se référer à la commande `kubeadm alpha selfhosting`.
 
 #### Avertissements
 
-1. L'auto-hébergement dans la version 1.8 et au delà comporte de sérieuses limitations. 
+1. L'auto-hébergement dans la version 1.8 et au delà comporte de sérieuses limitations.
   En particulier, un cluster auto-hébergé _ne peut pas survivre au redémarrage du noeud control plane_ sans intervention manuelle.
 
 1. Un cluster auto-hébergé ne peut pas être mis à jour via la commande `kubeadm upgrade`.
 
-1. Par défaut, les Pods d'un control plane auto-hébergé dépendent des identifiants chargés depuis des volumes de type 
+1. Par défaut, les Pods d'un control plane auto-hébergé dépendent des identifiants chargés depuis des volumes de type
   [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)
   A part pour la création initiale, ces identifiants ne sont pas gérés par kubeadm.
 
@@ -248,7 +248,7 @@ En bref, `kubeadm alpha selfhosting` fonctionne de la manière suivante :
 
   1. Crée des DaemonSets dans le namespace `kube-system` et attend que les pods ainsi créés soient démarrés.
 
-  1. Une fois que les Pods auto-hébergés sont opérationnels, les Pods statiques qui leurs sont associés sont supprimés et kubeadm installe ensuite le prochain composant. 
+  1. Une fois que les Pods auto-hébergés sont opérationnels, les Pods statiques qui leurs sont associés sont supprimés et kubeadm installe ensuite le prochain composant.
    Cela déclenche l'arrêt par kubelet de ces Pods statiques.
 
   1. Quand le control plane statique d'origine s'arrête, le nouveau control plane auto-hébergé est capable d'écouter sur les mêmes ports et devenir actif.
@@ -269,7 +269,7 @@ ne nécessitent pas un suffix `-${ARCH}`.
 
 ### Automatiser kubeadm
 
-Plutôt que copier sur chaque noeud le jeton que vous avez obtenu avec `kubeadm init`, comme décrit dans 
+Plutôt que copier sur chaque noeud le jeton que vous avez obtenu avec `kubeadm init`, comme décrit dans
 le [tutoriel basique de kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/), vous pouvez paralléliser la distribution du jeton afin d'automatiser cette tâche.
 Pour ce faire, vous devez connaître l'adresse IP que le noeud control plane obtiendra après son démarrage.
 
@@ -287,17 +287,18 @@ Pour ce faire, vous devez connaître l'adresse IP que le noeud control plane obt
    Lors de leurs démarrages, ils devraient pouvoir se trouver les uns les autres et former le cluster.
    L'option `--token`  peut être utilisée aussi bien pour `kubeadm init` que pour `kubeadm join`.
 
-Une fois que le cluster est correctement démarré, vous pouvez obtenir les identifiants admin depuis le noeud control plane depuis le fichier `/etc/kubernetes/admin.conf` 
+Une fois que le cluster est correctement démarré, vous pouvez obtenir les identifiants admin depuis le noeud control plane depuis le fichier `/etc/kubernetes/admin.conf`
 et les utiliser pour communiquer avec le cluster.
 
-Vous remarquerez que ce type d'installation présente un niveau de sécurité inférieur puisqu'il ne permet pas la validation du hash du certificat racine avec `--discovery-token-ca-cert-hash` 
+Vous remarquerez que ce type d'installation présente un niveau de sécurité inférieur puisqu'il ne permet pas la validation du hash du certificat racine avec `--discovery-token-ca-cert-hash`
 (puisqu'il n'est pas généré quand les noeuds sont provisionnés). Pour plus d'information, se référer à [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) pour mieux comprendre les phases `kubeadm init`
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) pour amorcer un noeud Kubernetes worker node Kubernetes et le faire joindre le cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) pour mettre à jour un cluster Kubernetes vers une version plus récente
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) pour annuler les changements appliqués avec `kubeadm init` ou `kubeadm join` à un noeud
-{{% /capture %}}
+

@@ -189,7 +189,12 @@ other = "Stack Overflow"
 other = "Foro"
 [community_events_calendar]
 other = "Calendario de eventos"
+[community_youtube_name]
+other = "YouTube"
 
 # UI elements
 [ui_search_placeholder]
 other = "Buscar"
+
+[input_placeholder_email_address]
+other = "dirección de correo electrónico"

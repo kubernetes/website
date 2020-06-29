@@ -1,46 +1,35 @@
 ---
 title: Writing a new topic
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to create a new topic for the Kubernetes docs.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Create a fork of the Kubernetes documentation repository as described in
-[Start contributing](/docs/contribute/start/).
-{{% /capture %}}
+[Open a PR](/docs/new-content/open-a-pr/).
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Choosing a page type
 
 As you prepare to write a new topic, think about the page type that would fit your content the best:
 
-<table>
+{{< table caption = "Guidelines for choosing a page type" >}}
+Type | Description
+:--- | :----------
+Concept | A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application while it is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.
+Task | A task page shows how to do a single thing. The idea is to give readers a sequence of steps that they can actually do as they read the page. A task page can be short or long, provided it stays focused on one area. In a task page, it is OK to blend brief explanations with the steps to be performed, but if you need to provide a lengthy explanation, you should do that in a concept topic. Related task and concept topics should link to each other. For an example of a short task page, see <a href="/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage</a>. For an example of a longer task page, see <a href="/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">Configure Liveness and Readiness Probes</a>
+Tutorial | A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied together, but should link to related concept topics for deep explanations of individual features.
+{{< /table >}}
 
-  <tr>
-    <td>Concept</td>
-    <td>A concept page explains some aspect of Kubernetes. For example, a concept page might describe the Kubernetes Deployment object and explain the role it plays as an application while it is deployed, scaled, and updated. Typically, concept pages don't include sequences of steps, but instead provide links to tasks or tutorials. For an example of a concept topic, see <a href="/docs/concepts/architecture/nodes/">Nodes</a>.</td>
-  </tr>
-
-  <tr>
-    <td>Task</td>
-    <td>A task page shows how to do a single thing. The idea is to give readers a sequence of steps that they can actually do as they read the page. A task page can be short or long, provided it stays focused on one area. In a task page, it is OK to blend brief explanations with the steps to be performed, but if you need to provide a lengthy explanation, you should do that in a concept topic. Related task and concept topics should link to each other. For an example of a short task page, see <a href="/docs/tasks/configure-pod-container/configure-volume-storage/">Configure a Pod to Use a Volume for Storage</a>. For an example of a longer task page, see <a href="/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">Configure Liveness and Readiness Probes</a></td>
-  </tr>
-
-  <tr>
-    <td>Tutorial</td>
-    <td>A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied together, but should link to related concept topics for deep explanations of individual features.</td>
-  </tr>
-
-</table>
-
-Use a template for each new page. Each page type has a
-[template](/docs/contribute/style/page-templates/)
-that you can use as you write your topic. Using templates helps ensure
+Use a [content type](/docs/contribute/style/page-content-types/) for each new page
+that you write. Using page type helps ensure
 consistency among topics of a given type.
 
 ## Choosing a title and filename
@@ -48,12 +37,12 @@ consistency among topics of a given type.
 Choose a title that has the keywords you want search engines to find.
 Create a filename that uses the words in your title separated by hyphens.
 For example, the topic with title
-[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 has filename `http-proxy-access-api.md`. You don't need to put
 "kubernetes" in the filename, because "kubernetes" is already in the
 URL for the topic, for example:
 
-       /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+       /docs/tasks/extend-kubernetes/http-proxy-access-api/
 
 ## Adding the topic title to the front matter
 
@@ -105,7 +94,7 @@ following cases (not an exhaustive list):
 - The code is not generic enough for users to try out. As an example, you can
   embed the YAML
   file for creating a Pod which depends on a specific
-  [Flexvolume](/docs/concepts/storage/volumes#flexvolume) implementation.
+  [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
   customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
@@ -126,8 +115,9 @@ When adding a new standalone sample file, such as a YAML file, place the code in
 one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
 the topic. In your topic file, use the `codenew` shortcode:
 
-<pre>&#123;&#123;&lt; codenew file="&lt;RELPATH&gt;/my-example-yaml&gt;" &gt;&#125;&#125;</pre>
-
+```none
+{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+```
 where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
@@ -169,10 +159,10 @@ For an example of a topic that uses this technique, see
 Put image files in the `/images` directory. The preferred
 image format is SVG.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/).
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* Learn about [using page content types](/docs/contribute/style/page-content-types/).
+* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
+

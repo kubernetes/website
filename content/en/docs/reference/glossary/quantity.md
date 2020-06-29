@@ -24,7 +24,7 @@ can be represented as `1k`, and `1000000` as `1M`. You can also specify
 binary-notation suffixes; the number 2048 can be written as `2Ki`.
 
 The accepted decimal (power-of-10) units are `m` (milli), `k` (kilo,
-intentionally lowercase), `M` (mega), `G` (giga), `T` (terra), `P` (peta),
+intentionally lowercase), `M` (mega), `G` (giga), `T` (tera), `P` (peta),
 `E` (exa).
 
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),

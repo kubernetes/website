@@ -1,23 +1,24 @@
 ---
 title: Managing Kubernetes Objects Using Imperative Commands
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes objects can quickly be created, updated, and deleted directly using
 imperative commands built into the `kubectl` command-line tool. This document
 explains how those commands are organized and how to use them to manage live objects.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Install [`kubectl`](/docs/tasks/tools/install-kubectl/).
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Trade-offs
 
@@ -139,10 +140,10 @@ creation. This is done by piping the output of the `create` command to the
 `set` command, and then back to the `create` command. Here's an example:
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client | kubectl set selector --local -f - 'environment=qa' -o yaml | kubectl create -f -
 ```
 
-1. The `kubectl create service -o yaml --dry-run` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
+1. The `kubectl create service -o yaml --dry-run=client` command creates the configuration for the Service, but prints it to stdout as YAML instead of sending it to the Kubernetes API server.
 1. The `kubectl set selector --local -f - -o yaml` command reads the configuration from stdin, and writes the updated configuration to stdout as YAML.
 1. The `kubectl create -f -` command creates the object using the configuration provided via stdin.
 
@@ -152,20 +153,21 @@ You can use `kubectl create --edit` to make arbitrary changes to an object
 before it is created. Here's an example:
 
 ```sh
-kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run > /tmp/srv.yaml
+kubectl create service clusterip my-svc --clusterip="None" -o yaml --dry-run=client > /tmp/srv.yaml
 kubectl create --edit -f /tmp/srv.yaml
 ```
 
 1. The `kubectl create service` command creates the configuration for the Service and saves it to `/tmp/srv.yaml`.
 1. The `kubectl create --edit` command opens the configuration file for editing before it creates the object.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

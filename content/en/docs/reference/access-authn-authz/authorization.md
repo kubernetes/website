@@ -5,19 +5,19 @@ reviewers:
 - deads2k
 - liggitt
 title: Authorization Overview
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Learn more about Kubernetes authorization, including details about creating
 policies using the supported authorization modules.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
-see [Accessing Control Overview](/docs/reference/access-authn-authz/controlling-access/).
+see [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
 
 Kubernetes expects attributes that are common to REST API requests. This means
 that Kubernetes authorization works with existing organization-wide or
@@ -52,7 +52,7 @@ Kubernetes reviews only the following API request attributes:
  * **Resource** - The ID or name of the resource that is being accessed (for resource requests only) -- For resource requests using `get`, `update`, `patch`, and `delete` verbs, you must provide the resource name.
  * **Subresource** - The subresource that is being accessed (for resource requests only).
  * **Namespace** - The namespace of the object that is being accessed (for namespaced resource requests only).
- * **API group** - The API group being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
+ * **API group** - The {{< glossary_tooltip text="API Group" term_id="api-group" >}} being accessed (for resource requests only). An empty string designates the [core API group](/docs/concepts/overview/kubernetes-api/).
 
 ## Determine the Request Verb
 
@@ -197,9 +197,10 @@ namespace can: read all secrets in the namespace; read all config maps in the
 namespace; and impersonate any service account in the namespace and take any
 action the account could take. This applies regardless of authorization mode.
 {{< /caution >}}
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
-{{% /capture %}}
+

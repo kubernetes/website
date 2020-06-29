@@ -1,23 +1,23 @@
-<!--
----
-title: Running Automated Tasks with a CronJob
-reviewers:
-- chenopis
-content_template: templates/task
-weight: 10
----
--->
-
 ---
 reviewers:
 - chenopis
 
 title: 使用 CronJob 运行自动化任务
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!--
+---
+title: Running Automated Tasks with a CronJob
+reviewers:
+- chenopis
+content_type: task
+weight: 10
+---
+-->
+
+<!-- overview -->
 
 <!--
 You can use [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) to run jobs on a time-based schedule.
@@ -53,9 +53,10 @@ CronJobs 有一些限制和特点。
 因此，任务应该是幂等的。
 查看更多限制，请参考 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 <!--
@@ -69,9 +70,9 @@ component.
 * 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
 ), 然后重启 API 服务器和控制管理器。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a Cron Job
@@ -209,9 +210,9 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 
 CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
-{{< note >}} 
+{{< note >}}
 <!--
-All modifications to a cron job, especially its `.spec`, are applied only to the following runs. 
+All modifications to a cron job, especially its `.spec`, are applied only to the following runs.
 -->
 对 CronJob 的所有改动，特别是它的 `.spec`，只会影响将来的运行实例。
 {{< /note >}}
@@ -235,16 +236,16 @@ The format also includes extended `vixie cron` step values. As explained in the 
 
 <!--
 > Step values can be	used in	conjunction with ranges.  Following a range
-> with ``/<number>''	specifies skips	of the number's	value through the
-> range.  For example, ``0-23/2'' can be used in the	hours field to specify
+> with `/<number>` specifies skips	of the number's	value through the
+> range.  For example, `0-23/2` can be used in the	hours field to specify
 > command execution every other hour	(the alternative in the	V7 standard is
-> ``0,2,4,6,8,10,12,14,16,18,20,22'').  Steps are also permitted after an
-> asterisk, so if you want to say ``every two hours'', just use ``*/2''.
+> `0,2,4,6,8,10,12,14,16,18,20,22`).  Steps are also permitted after an
+> asterisk, so if you want to say "every two hours", just use `*/2`.
 -->
 
-> 步长可被用于范围组合。范围后面带有 ``/<数字>'' 可以声明范围内的步幅数值。
-> 例如，``0-23/2'' 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是``0,2,4,6,8,10,12,14,16,18,20,22''）。
-> 步长也可以放在通配符后面，因此如果你想表达 ``每两小时''，就用 ``*/2'' 。
+> 步长可被用于范围组合。范围后面带有 `/<数字>` 可以声明范围内的步幅数值。
+> 例如，`0-23/2` 可被用在小时域来声明命令在其他数值的小时数执行（ V7 标准中对应的方法是`0,2,4,6,8,10,12,14,16,18,20,22`）。
+> 步长也可以放在通配符后面，因此如果你想表达 "每两小时"，就用 `*/2` 。
 
 {{< note >}}
 <!--
@@ -291,7 +292,7 @@ That means 120 schedules were missed, so the cron job is no longer scheduled. If
 field is set (not null), the CronJob controller counts how many missed jobs occurred from the value of
 `.spec.startingDeadlineSeconds` until now. For example, if it is set to `200`, it counts how many missed
 schedules occurred in the last 200 seconds. In that case, if there were more than 100 missed schedules in the
-last 200 seconds, the cron job is no longer scheduled. 
+last 200 seconds, the cron job is no longer scheduled.
 -->
 
 CronJob 控制器会统计错过了多少次调度。如果错过了100次以上的调度，CronJob 就不再调度了。当没有设置 `.spec.startingDeadlineSeconds` 时，CronJob 控制器统计从`status.lastScheduleTime`到当前的调度错过次数。
@@ -359,4 +360,4 @@ By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corres
 这两个域声明了有多少执行完成和失败的任务会被保留。
 默认设置为3和1。限制设置为0代表相应类型的任务完成后不会保留。
 
-{{% /capture %}}
+

@@ -1,0 +1,151 @@
+---
+title: Використання kubectl для створення Deployment'а
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+         <div class="col-md-8">
+          <!--<h3>Objectives</h3>
+          -->
+          <h3>Цілі</h3>
+                <ul>
+                    <!--<li>Learn about application Deployments.</li>
+                    -->
+                    <li>Дізнатися, що таке Deployment застосунків.</li>
+                    <!--<li>Deploy your first app on Kubernetes with kubectl.</li>
+                    -->
+                    <li>Розгорнути свій перший застосунок у Kubernetes за допомогою kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <!--<h3>Kubernetes Deployments</h3>
+                -->
+                <h3>Процеси Kubernetes Deployment</h3>
+                <!--<p>
+                Once you have a running Kubernetes cluster, you can deploy your containerized applications on top of it.
+                To do so, you create a Kubernetes <b>Deployment</b> configuration. The Deployment instructs Kubernetes
+                how to create and update instances of your application. Once you've created a Deployment, the Kubernetes
+                master schedules mentioned application instances onto individual Nodes in the cluster.
+                </p>
+                -->
+                <p>
+                Після того, як ви запустили Kubernetes кластер, ви можете розгортати в ньому контейнеризовані застосунки. Для цього вам необхідно створити <b>Deployment</b> конфігурацію. Вона інформує Kubernetes, як створювати і оновлювати Pod'и для вашого застосунку. Після того, як ви створили Deployment, Kubernetes master розподіляє ці Pod'и по окремих вузлах кластера.
+                </p>
+
+                <!--<p>Once the application instances are created, a Kubernetes Deployment Controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces the instance with an instance on another Node in the cluster. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
+                -->
+                <p>Після створення Pod'и застосунку безперервно моніторяться контролером Kubernetes Deployment. Якщо вузол, на якому розміщено Pod, зупинив роботу або був видалений, Deployment контролер переміщає цей Pod на інший вузол кластера. <b>Так працює механізм самозцілення, що підтримує робочий стан кластера у разі апаратного збою чи технічних робіт.</b></p>
+
+                <!--<p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p>
+                -->
+                <p>До появи оркестрації застосунки часто запускали за допомогою скриптів установлення. Однак скрипти не давали можливості відновити працездатний стан застосунку після апаратного збою. Завдяки створенню Pod'ів та їхньому запуску на вузлах кластера, Kubernetes Deployment надає цілковито інший підхід до управління застосунками. </p>
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <!--<h3>Summary:</h3>
+                    -->
+                    <h3>Зміст:</h3>
+                    <ul>
+                        <!--<li>Deployments</li>
+                        -->
+                        <li>Deployment'и</li>
+                        <li>Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <!--<p><i>
+                        A Deployment is responsible for creating and updating instances of your application
+                    </i></p>
+                    -->
+                    <p><i>
+                        Deployment відповідає за створення і оновлення Pod'ів для вашого застосунку
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Як розгорнути ваш перший застосунок у Kubernetes</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!--<p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>Kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common Kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p>
+                -->
+                <p>Ви можете створити Deployment і керувати ним за допомогою командного рядка Kubernetes - <b>kubectl</b>. kubectl взаємодіє з кластером через API Kubernetes. У цьому модулі ви вивчите найпоширеніші команди kubectl для створення Deployment'ів, які запускатимуть ваші застосунки у Kubernetes кластері.</p>
+
+                <!--<p>When you create a Deployment, you'll need to specify the container image for your application and the number of replicas that you want to run. You can change that information later by updating your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale-intro/">5</a> and <a href="/docs/tutorials/kubernetes-basics/update-intro/">6</a> of the bootcamp discuss how you can scale and update your Deployments.</p>
+                -->
+                <p>Коли ви створюєте Deployment, вам необхідно задати образ контейнера для вашого застосунку і скільки реплік ви хочете запустити. Згодом цю інформацію можна змінити, оновивши Deployment. У навчальних модулях <a href="/uk/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> і <a href="/uk/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> йдеться про те, як масштабувати і оновлювати Deployment'и.</p>
+
+
+
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <!--<p><i> Applications need to be packaged into one of the supported container formats in order to be deployed on Kubernetes </i></p>
+                    -->
+                    <p><i> Для того, щоб розгортати застосунки в Kubernetes, їх потрібно упакувати в один із підтримуваних форматів контейнерів </i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+              <!--<p>
+                For your first Deployment, you'll use a Node.js application packaged in a Docker container. (If you didn't already try creating a 
+	              Node.js application and deploying it using a container, you can do that first by following the 
+	              instructions from the <a href="/docs/tutorials/hello-minikube/">Hello Minikube tutorial</a>).
+              <p>
+              -->
+                <p>
+                    Для створення Deployment'а ви використовуватимете застосунок, написаний на Node.js і упакований в Docker контейнер. (Якщо ви ще не пробували створити Node.js застосунок і розгорнути його у контейнері, радимо почати саме з цього; інструкції ви знайдете у навчальному матеріалі <a href="/uk/docs/tutorials/hello-minikube/">Привіт Minikube</a>).
+                  <p>
+              
+               <!--<p>Now that you know what Deployments are, let's go to the online tutorial and deploy our first app!</p>
+               -->
+               <p>Тепер ви знаєте, що таке Deployment. Тож давайте перейдемо до інтерактивного уроку і розгорнемо ваш перший застосунок!</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/deploy-app/deploy-interactive/" role="button">Почати інтерактивний урок <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

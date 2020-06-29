@@ -2,19 +2,19 @@
 title: Tutorials
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieser Abschnitt der Kubernetes-Dokumentation enthält Tutorials.
-Ein Tutorial zeigt, wie Sie ein Ziel erreichen, das größer ist als eine einzelne [Aufgabe](/docs/tasks/). 
+Ein Tutorial zeigt, wie Sie ein Ziel erreichen, das größer ist als eine einzelne [Aufgabe](/docs/tasks/).
 Ein Tutorial besteht normalerweise aus mehreren Abschnitten, die jeweils eine Abfolge von Schritten haben.
 Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise ein Lesezeichen zur Seite mit dem [Standardisierten Glossar](/docs/reference/glossary/) setzen um später Informationen nachzuschlagen.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Grundlagen
 
@@ -64,12 +64,13 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 * [Source IP verwenden](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Wenn Sie ein Tutorial schreiben möchten, lesen Sie
 [Seitenvorlagen verwenden](/docs/home/contribute/page-templates/)
 für weitere Informationen zum Typ der Tutorial-Seite und zur Tutorial-Vorlage.
 
-{{% /capture %}}
+

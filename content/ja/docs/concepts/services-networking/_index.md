@@ -1,5 +1,4 @@
 ---
-title: "Services, Load Balancing, and Networking"
+title: "Service、負荷分散とネットワーキング"
 weight: 60
 ---
-

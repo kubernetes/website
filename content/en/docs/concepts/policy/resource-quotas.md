@@ -2,21 +2,21 @@
 reviewers:
 - derekwaynecarr
 title: Resource Quotas
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 When several users or teams share a cluster with a fixed number of nodes,
 there is a concern that one team could use more than its fair share of resources.
 
 Resource quotas are a tool for administrators to address this concern.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
 aggregate resource consumption per namespace.  It can limit the quantity of objects that can
@@ -36,6 +36,9 @@ Resource quotas work like this:
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
   See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+
+The name of a `ResourceQuota` object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Examples of policies that could be created using namespaces and quotas are:
 
@@ -194,7 +197,7 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 
 ### Resource Quota Per PriorityClass
 
-{{< feature-state for_k8s_version="1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
@@ -376,7 +379,7 @@ pods        0     10
 * `Exist`
 * `DoesNotExist`
 
-## Requests vs Limits
+## Requests compared to Limits {#requests-vs-limits}
 
 When allocating compute resources, each container may specify a request and a limit value for either CPU or memory.
 The quota can be configured to quota either value.
@@ -401,7 +404,6 @@ metadata:
   name: compute-resources
 spec:
   hard:
-    pods: "4"
     requests.cpu: "1"
     requests.memory: 1Gi
     limits.cpu: "2"
@@ -424,6 +426,7 @@ spec:
   hard:
     configmaps: "10"
     persistentvolumeclaims: "4"
+    pods: "4"
     replicationcontrollers: "20"
     secrets: "10"
     services: "10"
@@ -456,7 +459,6 @@ Resource                 Used  Hard
 --------                 ----  ----
 limits.cpu               0     2
 limits.memory            0     2Gi
-pods                     0     4
 requests.cpu             0     1
 requests.memory          0     1Gi
 requests.nvidia.com/gpu  0     4
@@ -473,6 +475,7 @@ Resource                Used    Hard
 --------                ----    ----
 configmaps              0       10
 persistentvolumeclaims  0       4
+pods                    0       4
 replicationcontrollers  0       20
 secrets                 1       10
 services                0       10
@@ -491,7 +494,8 @@ kubectl create quota test --hard=count/deployments.extensions=2,count/replicaset
 ```
 
 ```shell
-kubectl run nginx --image=nginx --replicas=2 --namespace=myspace
+kubectl create deployment nginx --image=nginx --namespace=myspace
+kubectl scale deployment nginx --replicas=2 --namespace=myspace
 ```
 
 ```shell
@@ -537,12 +541,33 @@ With this mechanism, operators will be able to restrict usage of certain high pr
 
 To enforce this, kube-apiserver flag `--admission-control-config-file` should be used to pass path to the following configuration file:
 
+{{< tabs name="example1" >}}
+{{% tab name="apiserver.config.k8s.io/v1" %}}
 ```yaml
+apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: "ResourceQuota"
+  configuration:
+    apiVersion: apiserver.config.k8s.io/v1
+    kind: ResourceQuotaConfiguration
+    limitedResources:
+    - resource: pods
+      matchScopes:
+      - scopeName: PriorityClass 
+        operator: In
+        values: ["cluster-services"]
+```
+{{% /tab %}}
+{{% tab name="apiserver.k8s.io/v1alpha1" %}}
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
 kind: AdmissionConfiguration
 plugins:
 - name: "ResourceQuota"
   configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, ResourceQuotaConfiguration
     apiVersion: resourcequota.admission.k8s.io/v1beta1
     kind: Configuration
     limitedResources:
@@ -552,6 +577,8 @@ plugins:
         operator: In
         values: ["cluster-services"]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Now, "cluster-services" pods will be allowed in only those namespaces where a quota object with a matching `scopeSelector` is present.
 For example:
@@ -569,10 +596,11 @@ See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and 
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
 
-{{% /capture %}}
+

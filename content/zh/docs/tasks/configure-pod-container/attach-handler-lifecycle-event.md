@@ -1,17 +1,17 @@
 ---
 title: 为容器的生命周期事件设置处理函数
-content_template: templates/task
+content_type: task
 weight: 140
 ---
 <!--
 ---
 title: Attach Handlers to Container Lifecycle Events
-content_template: templates/task
+content_type: task
 weight: 140
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to attach handlers to Container lifecycle events. Kubernetes supports
@@ -23,17 +23,17 @@ Container is terminated.
 当一个容器启动后，Kubernetes 将立即发送 postStart 事件；在容器被终结之前，
 Kubernetes 将发送一个 preStop 事件。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+<!-- steps -->
 
 <!--
 ## Define postStart and preStop handlers
@@ -44,7 +44,7 @@ Kubernetes 将发送一个 preStop 事件。
 In this exercise, you create a Pod that has one Container. The Container has handlers
 for the postStart and preStop events.
 -->
-在本练习中，你将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。 
+在本练习中，你将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。
 
 <!--
 Here is the configuration file for the Pod:
@@ -96,11 +96,11 @@ The output shows the text written by the postStart handler:
 
     Hello from the postStart handler
 
-{{% /capture %}}
 
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Discussion
@@ -133,7 +133,7 @@ Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 宽限期�
 <!--
 {{< note >}}
 Kubernetes only sends the preStop event when a Pod is *terminated*.
-This means that the preStop hook is not invoked when the Pod is *completed*. 
+This means that the preStop hook is not invoked when the Pod is *completed*.
 This limitation is tracked in [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807).
 {{< /note >}}
 -->
@@ -143,10 +143,11 @@ preStop 的事件处理逻辑不会被触发。这个限制在
 [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807) 中被追踪。
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
@@ -169,6 +170,6 @@ preStop 的事件处理逻辑不会被触发。这个限制在
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * 参阅 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中关于`terminationGracePeriodSeconds` 的部分
 
-{{% /capture %}}
+
 
 

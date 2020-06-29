@@ -1,15 +1,15 @@
 ---
 title: 어노테이션
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 쿠버네티스 어노테이션을 사용하여 임의의 비-식별 메타데이터를
 오브젝트에 첨부할 수 있다. 도구 및 라이브러리와 같은 클라이언트는 이 메타데이터를 검색할 수 있다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 오브젝트에 메타데이터 첨부
 
 레이블이나 어노테이션을 사용하여 쿠버네티스
@@ -82,16 +82,17 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-[레이블과 셀렉터](/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+[레이블과 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/)에 대해 알아본다.
+
 
 

@@ -6,12 +6,12 @@ full_link: /docs/concepts/overview/working-with-objects/names
 short_description: >
   String yang dihasilkan oleh sistem Kubernetes untuk mengidentifikasi objek secara unik.
 
-aka: 
+aka:
 tags:
 - fundamental
 ---
  String yang dihasilkan oleh sistem Kubernetes untuk mengidentifikasi objek secara unik.
 
-<!--more--> 
+<!--more-->
 
-Setiap objek yang ada pada kluster Kubernetes memiliki UID yang unik. Hal ini dilakukan untuk membedakan keberadaan historis suatu entitas dengan kind dan nama yang serupa.
+Setiap objek yang ada pada klaster Kubernetes memiliki UID yang unik. Hal ini dilakukan untuk membedakan keberadaan historis suatu entitas dengan kind dan nama yang serupa.

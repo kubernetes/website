@@ -1,19 +1,18 @@
+---
+title: 为命名空间配置内存和 CPU 配额
+content_type: task
+weight: 50
+---
+
 <!--
 ---
 title: Configure Memory and CPU Quotas for a Namespace
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 -->
 
----
-title: 为命名空间配置内存和 CPU 配额
-content_template: templates/task
-weight: 50
----
-
-
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to set quotas for the total amount memory and CPU that
@@ -26,10 +25,11 @@ object.
 对象设置配额.
 
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -39,10 +39,10 @@ Each node in your cluster must have at least 1 GiB of memory.
 
 集群中每个节点至少有1 GiB的内存。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -246,9 +246,10 @@ Delete your namespace:
 kubectl delete namespace quota-mem-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -297,10 +298,5 @@ kubectl delete namespace quota-mem-cpu-example
 * [为容器和 Pod 分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}
-
-
-
 
 

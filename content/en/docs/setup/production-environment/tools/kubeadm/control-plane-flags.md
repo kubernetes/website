@@ -2,13 +2,13 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Customizing control plane configuration with kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+{{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
 The kubeadm `ClusterConfiguration` object exposes the field `extraArgs` that can override the default flags passed to control plane
 components such as the APIServer, ControllerManager and Scheduler. The components are defined using the following fields:
@@ -30,9 +30,9 @@ For more details on each field in the configuration you can navigate to our
 You can generate a `ClusterConfiguration` object with default values by running `kubeadm config print init-defaults` and saving the output to a file of your choice.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIServer flags
 
@@ -42,7 +42,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 apiServer:
   extraArgs:
     advertise-address: 192.168.0.103
@@ -59,7 +59,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 controllerManager:
   extraArgs:
     cluster-signing-key-file: /home/johndoe/keys/ca.key
@@ -75,7 +75,7 @@ Example usage:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.0
+kubernetesVersion: v1.16.0
 scheduler:
   extraArgs:
     address: 0.0.0.0
@@ -83,4 +83,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+

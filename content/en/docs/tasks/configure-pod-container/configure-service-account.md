@@ -4,18 +4,15 @@ reviewers:
 - liggitt
 - thockin
 title: Configure Service Accounts for Pods
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 A service account provides an identity for processes that run in a Pod.
 
-*This is a user introduction to Service Accounts. See also the
-[Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/).*
-
 {{< note >}}
-This document describes how service accounts behave in a cluster set up
+This document is a user introduction to Service Accounts and describes how service accounts behave in a cluster set up
 as recommended by the Kubernetes project. Your cluster administrator may have
 customized the behavior in your cluster, in which case this documentation may
 not apply.
@@ -26,16 +23,17 @@ authenticated by the apiserver as a particular User Account (currently this is
 usually `admin`, unless your cluster administrator has customized your cluster). Processes in containers inside pods can also contact the apiserver.
 When they do, they are authenticated as a particular Service Account (for example, `default`).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Use the Default Service Account to access the API server.
 
@@ -78,7 +76,7 @@ Every namespace has a default service account resource called `default`.
 You can list this and any other serviceAccount resources in the namespace with this command:
 
 ```shell
-kubectl get serviceAccounts
+kubectl get serviceaccounts
 ```
 The output is similar to this:
 
@@ -98,6 +96,9 @@ metadata:
 EOF
 ```
 
+The name of a ServiceAccount object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 If you get a complete dump of the service account object, like this:
 
 ```shell
@@ -113,7 +114,6 @@ metadata:
   name: build-robot
   namespace: default
   resourceVersion: "272500"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/build-robot
   uid: 721ab723-13bc-11e5-aec2-42010af0021e
 secrets:
 - name: build-robot-token-bvbk5
@@ -184,27 +184,38 @@ The content of `token` is elided here.
 
 ## Add ImagePullSecrets to a service account
 
-First, create an imagePullSecret, as described [here](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
-Next, verify it has been created. For example:
+### Create an imagePullSecret
 
-```shell
-kubectl get secrets myregistrykey
-```
+- Create an imagePullSecret, as described in [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
-The output is similar to this:
+    ```shell
+    kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+            --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
+            --docker-email=DUMMY_DOCKER_EMAIL
+    ```
 
-```
-NAME             TYPE                              DATA    AGE
-myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
-```
+- Verify it has been created.
+   ```shell
+   kubectl get secrets myregistrykey
+   ```
+
+    The output is similar to this:
+
+    ```
+    NAME             TYPE                              DATA    AGE
+    myregistrykey    kubernetes.io/.dockerconfigjson   1       1d
+    ```
+
+### Add image pull secret to service account
 
 Next, modify the default service account for the namespace to use this secret as an imagePullSecret.
+
 
 ```shell
 kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "myregistrykey"}]}'
 ```
 
-Interactive version requires manual edit:
+You can instead use `kubectl edit`, or manually edit the YAML manifests as shown below:
 
 ```shell
 kubectl get serviceaccounts default -o yaml > ./sa.yaml
@@ -220,7 +231,6 @@ metadata:
   name: default
   namespace: default
   resourceVersion: "243024"
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -237,7 +247,6 @@ metadata:
   creationTimestamp: 2015-08-07T22:02:39Z
   name: default
   namespace: default
-  selfLink: /api/v1/namespaces/default/serviceaccounts/default
   uid: 052fb0f4-3d50-11e5-b066-42010af0d7b6
 secrets:
 - name: default-token-uudge
@@ -251,12 +260,19 @@ Finally replace the serviceaccount with the new updated `sa.yaml` file
 kubectl replace serviceaccount default -f ./sa.yaml
 ```
 
-Now, any new pods created in the current namespace will have this added to their spec:
+### Verify imagePullSecrets was added to pod spec
 
-```yaml
-spec:
-  imagePullSecrets:
-  - name: myregistrykey
+Now, when a new Pod is created in the current namespace and using the default ServiceAccount, the new Pod has its  `spec.imagePullSecrets` field set automatically:
+
+```shell
+kubectl run nginx --image=nginx --restart=Never
+kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
+```
+
+The output is:
+
+```
+myregistrykey
 ```
 
 <!--## Adding Secrets to a service account.
@@ -302,4 +318,68 @@ token available to the pod at a configurable file path, and refresh the token as
 
 The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most usecases.
 
-{{% /capture %}}
+## Service Account Issuer Discovery
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The Service Account Issuer Discovery feature is enabled by enabling the
+`ServiceAccountIssuerDiscovery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates)
+and then enabling the Service Account Token Projection feature as described
+[above](#service-account-token-volume-projection).
+
+{{< note >}}
+The issuer URL must comply with the
+[OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html). In
+practice, this means it must use the `https` scheme, and should serve an OpenID
+provider configuration at `{service-account-issuer}/.well-known/openid-configuration`.
+
+If the URL does not comply, the `ServiceAccountIssuerDiscovery` endpoints will
+not be registered, even if the feature is enabled.
+{{< /note >}}
+
+The Service Account Issuer Discovery feature enables federation of Kubernetes
+service account tokens issued by a cluster (the _identity provider_) with
+external systems (_relying parties_).
+
+When enabled, the Kubernetes API server provides an OpenID Provider
+Configuration document at `/.well-known/openid-configuration` and the associated
+JSON Web Key Set (JWKS) at `/openid/v1/jwks`. The OpenID Provider Configuration
+is sometimes referred to as the _discovery document_.
+
+When enabled, the cluster is also configured with a default RBAC ClusterRole
+called `system:service-account-issuer-discovery`. No role bindings are provided
+by default. Administrators may, for example, choose whether to bind the role to
+`system:authenticated` or `system:unauthenticated` depending on their security
+requirements and which external systems they intend to federate with.
+
+{{< note >}}
+The responses served at `/.well-known/openid-configuration` and
+`/openid/v1/jwks` are designed to be OIDC compatible, but not strictly OIDC
+compliant. Those documents contain only the parameters necessary to perform
+validation of Kubernetes service account tokens.
+{{< /note >}}
+
+The JWKS response contains public keys that a relying party can use to validate
+the Kubernetes service account tokens. Relying parties first query for the
+OpenID Provider Configuration, and use the `jwks_uri` field in the response to
+find the JWKS.
+
+In many cases, Kubernetes API servers are not available on the public internet,
+but public endpoints that serve cached responses from the API server can be made
+available by users or service providers. In these cases, it is possible to
+override the `jwks_uri` in the OpenID Provider Configuration so that it points
+to the public endpoint, rather than the API server's address, by passing the
+`--service-account-jwks-uri` flag to the API server. Like the issuer URL, the
+JWKS URI is required to use the `https` scheme.
+
+
+## {{% heading "whatsnext" %}}
+
+
+See also:
+
+- [Cluster Admin Guide to Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
+- [Service Account Signing Key Retrieval KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/20190730-oidc-discovery.md)
+- [OIDC Discovery Spec](https://openid.net/specs/openid-connect-discovery-1_0.html)
+
+

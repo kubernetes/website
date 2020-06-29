@@ -2,10 +2,10 @@
 title: Tutorials
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This section of the Kubernetes documentation contains tutorials.
 A tutorial shows how to accomplish a goal that is larger than a single
@@ -14,15 +14,13 @@ each of which has a sequence of steps.
 Before walking through each tutorial, you may want to bookmark the
 [Standardized Glossary](/docs/reference/glossary/) page for later references.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Basics
 
 * [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) is an in-depth interactive tutorial that helps you understand the Kubernetes system and try out some basic Kubernetes features.
-
-* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
@@ -66,12 +64,13 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 If you would like to write a tutorial, see
-[Using Page Templates](/docs/home/contribute/page-templates/)
-for information about the tutorial page type and the tutorial template.
+[Content Page Types](/docs/contribute/style/page-content-types/)
+for information about the tutorial page type.
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
+---
+title: 配置命名空间的最小和最大内存约束
+content_type: task
+weight: 30
+---
+
 <!--
 ---
 title: Configure Minimum and Maximum Memory Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 -->
 
----
-title: 配置命名空间的最小和最大内存约束
-content_template: templates/task
-weight: 30
----
-
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to set minimum and maximum values for memory used by Containers
@@ -24,10 +24,11 @@ it cannot be created in the namespace.
 
 此页面介绍如何设置在命名空间中运行的容器使用的内存的最小值和最大值。 您可以在 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core)对象中指定最小和最大内存值。 如果 Pod 不满足 LimitRange 施加的约束，则无法在命名空间中创建它。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -37,10 +38,10 @@ Each node in your cluster must have at least 1 GiB of memory.
 
 集群中每个节点必须至少要有1 GiB 的内存。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -387,9 +388,10 @@ Delete your namespace:
 kubectl delete namespace constraints-mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -438,10 +440,5 @@ kubectl delete namespace constraints-mem-example
 * [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}
-
-
-
 
 

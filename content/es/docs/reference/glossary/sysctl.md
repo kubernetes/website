@@ -10,7 +10,7 @@ aka:
 tags:
 - tool
 ---
- `sysctl` es una interfaz común usada para consultar o modificar atributos del 
+ `sysctl` es una interfaz común usada para consultar o modificar atributos del
  núcleo Unix durante su ejecución.
 
 <!--more-->
@@ -19,5 +19,5 @@ En los sistemas Unix-like, `sysctl` es el comando que usan los administradores,
 para ver o modificar esos valores y también el nombre de la llamada al sistema
 que realiza esta función.
 
-La ejecución del {{< glossary_tooltip text="Contenedor" term_id="container" >}} 
+La ejecución del {{< glossary_tooltip text="Contenedor" term_id="container" >}}
 y de los complementos de red puede depender de los valores asignados via `sysctl`.

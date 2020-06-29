@@ -1,17 +1,17 @@
 ---
 title: 클러스터 액세스
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 여기에서는 클러스터와 통신을 하는 다양한 방식에 대해서 다룰 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 처음이라면 kubectl을 사용하여 액세스
 
@@ -20,7 +20,7 @@ content_template: templates/concept
 
 클러스터에 액세스하려면 클러스터의 위치정보를 알아야 하고 클러스터에 접속하기 위한 
 인증정보를 가져야 한다. 일반적으로 이는 당신이 
-[Getting started guide](/docs/setup/)를 다 진행했을 때 자동으로 구성되거나, 
+[Getting started guide](/ko/docs/setup/)를 다 진행했을 때 자동으로 구성되거나, 
 다른 사람이 클러스터를 구성하고 당신에게 인증정보와 위치정보를 제공할 수도 있다.
 
 kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확인한다.
@@ -29,7 +29,7 @@ kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확�
 kubectl config view
 ```
 
-많은 [예제들](/docs/user-guide/kubectl-cheatsheet)에서 kubectl을 사용하는 것을 소개하고 있으며 
+많은 [예제들](/ko/docs/reference/kubectl/cheatsheet/)에서 kubectl을 사용하는 것을 소개하고 있으며 
 완전한 문서는 [kubectl manual](/docs/user-guide/kubectl-overview)에서 찾아볼 수 있다.
 
 ## REST API에 직접 액세스
@@ -68,12 +68,19 @@ IPv6 주소 [::1]로도 대체할 수 있다.
 curl http://localhost:8080/api/
 ```
 
-결과값은 다음과 같을 것이다.
+결괏값은 다음과 같을 것이다.
 
 ```json
 {
+  "kind": "APIVersions",
   "versions": [
     "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
   ]
 }
 ```
@@ -155,8 +162,8 @@ localhost에서 제공되거나 방화벽으로 보호되는 몇몇 클러스터
 
 ### Go 클라이언트
 
-* 라이브러리를 취득하려면 `go get k8s.io/client-go/<version number>/kubernetes` 커맨드를 실행한다. [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)에서 상세한 설치 방법을 알 수 있다. [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)에서 어떤 버젼이 지원되는지 확인할 수 있다.
-* client-go 클라이언트 위에 애플리케이션을 작성하자. client-go는 자체적으로 API 오브젝트를 정의하므로 필요하다면 main 레포지터리보다는 client-go에서 API 정의들을 import하기를 바란다. 정확하게 import "k8s.io/client-go/1.4/pkg/api/v1"로 import하는 것을 예로 들 수 있다.
+* 라이브러리를 취득하려면 `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>` 커맨드를 실행한다. [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)에서 상세한 설치 방법을 알 수 있다. [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)에서 어떤 버젼이 지원되는지 확인할 수 있다.
+* client-go 클라이언트 위에 애플리케이션을 작성하자. client-go는 자체적으로 API 오브젝트를 정의하므로 필요하다면 main 레포지터리보다는 client-go에서 API 정의들을 import하기를 바란다. 정확하게 `import "k8s.io/client-go/kubernetes"`로 import하는 것을 예로 들 수 있다.
 
 Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)을 사용할 수 있다. 
 [예제](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)를 참고한다.
@@ -168,11 +175,11 @@ Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동�
 Python 클라이언트를 사용하려면 `pip install kubernetes` 커맨드를 실행한다. 설치 옵션에 대한 상세 사항은 [Python Client Library page](https://github.com/kubernetes-client/python)를 참조한다.
 
 Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)을 사용할 수 있다. 
-[예제](https://github.com/kubernetes-client/python/tree/master/examples/example1.py)를 참조한다.
+[예제](https://github.com/kubernetes-client/python/tree/master/examples)를 참조한다.
 
 ### 다른 언어
 
-다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/docs/reference/using-api/client-libraries/)도 존재한다.
+다른 언어에서 API를 접속하기 위한 [클라이언트 라이브러리들](/ko/docs/reference/using-api/client-libraries/)도 존재한다.
 이들이 어떻게 인증하는지는 다른 라이브러리들의 문서를 참조한다.
 
 ## 파드에서 API 액세스
@@ -210,23 +217,23 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
 ## 클러스터에서 실행되는 서비스로 액세스
 
-이전 장은 쿠버네티스 API server 접속에 대한 내용들을 다루었다. 이번 장은 
+이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은 
 쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서 
-[노드들](/docs/admin/node), [파드들](/docs/user-guide/pods), [서비스들](/docs/user-guide/services)은 
+[노드들](/ko/docs/concepts/architecture/nodes/), [파드들](/ko/docs/concepts/workloads/pods/pod/), [서비스들](/docs/user-guide/services)은 
 모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는 
 클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을 
 할 수 없을 것이다.
 
 ### 통신을 위한 방식들
 
-클러스터 외부에서 노드들, 파드들, 서비스들에 접속하는데는 몇 가지 선택지들이 있다.
+클러스터 외부에서 노드들, 파드들, 서비스들에 접속하는 데는 몇 가지 선택지들이 있다.
 
   - 공인 IP를 통해 서비스에 액세스.
     - 클러스터 외부에서 접근할 수 있도록 `NodePort` 또는 `LoadBalancer` 타입의 
       서비스를 사용한다. [서비스](/docs/user-guide/services)와 
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참조한다.
-    - 당신의 클러스터 환경에 따라 회사 네트워크에만 서비스를 노출시키거나 
-      인터넷으로 노출시킬 수 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다. 
+    - 당신의 클러스터 환경에 따라 회사 네트워크에만 서비스를 노출하거나 
+      인터넷으로 노출할 수 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다. 
       해당 서비스는 자체적으로 인증을 수행하는가?
     - 파드들은 서비스 뒤에 위치시킨다. 레플리카들의 집합에서 특정 파드 하나에 debugging 같은 목적으로 접근하려면 
       해당 파드에 고유의 레이블을 붙이고 셀렉터에 해당 레이블을 선택한 신규 서비스를 생성한다.
@@ -234,7 +241,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
       액세스할 필요는 없다.
   - Proxy Verb를 사용하여 서비스, 노드, 파드에 액세스.
     - 원격 서비스에 액세스하기에 앞서 apiserver의 인증과 인가를 받아야 한다. 
-      서비스가 인터넷에 노출시키기에 보안이 충분하지 않거나 노드 IP 상의 port에 
+      서비스가 인터넷에 노출하기에 보안이 충분하지 않거나 노드 IP 상의 port에 
       액세스를 취득하려고 하거나 debugging을 하려면 이를 사용한다.
     - 어떤 web 애플리케이션에서는 proxy가 문제를 일으킬 수 있다.
     - HTTP/HTTPS에서만 동작한다.
@@ -255,7 +262,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 kubectl cluster-info
 ```
 
-결과값은 다음과 같을 것이다.
+결괏값은 다음과 같을 것이다.
 
 ```
 Kubernetes master is running at https://104.197.5.247
@@ -270,7 +277,7 @@ heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/servi
 예를 들어 위 클러스터는 클러스터 수준의 logging(Elasticsearch 사용)이 활성화되었으므로 적절한 인증을 통과하여 
 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`로 액세스할 수 있다. 예를 들어 kubectl proxy로 
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`를 통해 logging에 액세스할 수도 있다.
-(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [위 내용](#rest-api에-직접-액세스)을 참조한다.)
+(인증을 통과하는 방법이나 kubectl proxy를 사용하는 것은 [쿠버네티스 API를 사용해서 클러스터에 접근하기](/docs/tasks/administer-cluster/access-cluster-api/)을 참조한다.)
 
 #### 수작업으로 apiserver proxy URL을 구축
 
@@ -316,7 +323,7 @@ URL의 네임 부분에 지원되는 양식은 다음과 같다.
   - 웹브라우저는 일반적으로 토큰을 전달할 수 없으므로 basic (password) auth를 사용해야 할 것이다. basic auth를 수용할 수 있도록 apiserver를 구성할 수 있지만, 
     당신의 클러스터가 basic auth를 수용할 수 있도록 구성되어 있지 않을 수도 있다.
   - 몇몇 web app은 동작하지 않을 수도 있다. 특히 proxy path prefix를 인식하지 않는 방식으로 url을 
-    구성하는 client side javascript를 가진 web app은 동작되지 않을 수 있다.
+    구성하는 client side javascript를 가진 web app은 동작하지 않을 수 있다.
 
 ## 요청 redirect
 
@@ -342,16 +349,16 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
     - apiserver process들 내에서 실행된다
     - proxy하는 클라이언트는 HTTPS를 사용한다(또는 apiserver가 http로 구성되었다면 http)
     - 타겟으로의 proxy는 가용정보를 사용하는 proxy에 의해서 HTTP 또는 HTTPS를 사용할 수도 있다
-    - 노드, 파드, 서비스에 접근하는데 사용될 수 있다
-    - 서비스에 접근하는데 사용되면 load balacing한다
+    - 노드, 파드, 서비스에 접근하는 데 사용될 수 있다
+    - 서비스에 접근하는 데 사용되면 load balacing한다
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드 상에서 실행된다
     - UDP와 TCP를 proxy한다
     - HTTP를 인지하지 않는다
     - load balancing을 제공한다
-    - 서비스에 접근하는데만 사용된다
+    - 서비스에 접근하는 데만 사용된다
 
 1.  apiserver(s) 전면의 Proxy/Load-balancer:
 
@@ -369,4 +376,4 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
 일반적으로 쿠버네티스 사용자들은 처음 두 타입이 아닌 다른 방식은 고려할 필요가 없지만 클러스터 관리자는 
 나머지 타입을 적절하게 구성해줘야 한다.
 
-{{% /capture %}}
+

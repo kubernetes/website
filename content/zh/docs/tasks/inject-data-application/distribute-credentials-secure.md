@@ -1,19 +1,20 @@
 ---
 title: 使用 Secret 安全地分发凭证
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 本文展示如何安全地将敏感数据（如密码和加密密钥）注入到 Pods 中。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 将 secret 数据转换为 base-64 形式
 
@@ -38,10 +39,10 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
 
     ```shell
     kubectl create -f https://k8s.io/examples/pods/inject/secret.yaml
-    ```  
+    ```
 
     {{< note >}}
-    **注意：** 如果想要跳过 Base64 编码的步骤，可以使用 `kubectl create secret` 命令来创建 Secret：
+    如果想要跳过 Base64 编码的步骤，可以使用 `kubectl create secret` 命令来创建 Secret：
     {{< /note >}}
 
     ```shell
@@ -105,7 +106,7 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
     ```
 											
 1. 在 Pod 中运行的容器中获取一个 shell：
-       
+
     ```shell
     kubectl exec -it secret-test-pod -- /bin/bash
     ```
@@ -117,7 +118,7 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
     root@secret-test-pod:/# cd /etc/secret-volume
     ```
 1. 在 shell 中，列出 `/etc/secret-volume` 目录的文件：
- 
+
     ```shell
     root@secret-test-pod:/etc/secret-volume# ls
     ```
@@ -154,26 +155,26 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
     ```
 
 1. 确认 Pod 正在运行：
- 
+
     ```shell
     kubectl get pod secret-envars-test-pod
     ```
 
     输出：
-        
+
     ```shell
     NAME                     READY     STATUS    RESTARTS   AGE
     secret-envars-test-pod   1/1       Running   0          4m
     ```
 
 1. 在 Pod 中运行的容器中获取一个 shell：
-       
+
     ```shell
     kubectl exec -it secret-envars-test-pod -- /bin/bash
     ```
 
 1. 在 shell 中，显示环境变量：
-        
+
     ```shell
     root@secret-envars-test-pod:/# printenv
     ```
@@ -187,9 +188,10 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
     SECRET_PASSWORD=39528$vdg7Jb
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 了解更多关于 [Secrets](/docs/concepts/configuration/secret/)。
 * 了解 [Volumes](/docs/concepts/storage/volumes/)。
@@ -200,4 +202,4 @@ base-64 形式的密码为 `Mzk1MjgkdmRnN0pi`。
 * [Volume](/docs/api-reference/{{< param "version" >}}/#volume-v1-core)
 * [Pod](/docs/api-reference/{{< param "version" >}}/#pod-v1-core)
 
-{{% /capture %}}
+

@@ -1,21 +1,22 @@
 ---
 title: 更改 PersistentVolume 的回收策略
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文展示了如何更改 Kubernetes PersistentVolume 的回收策略。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## 为什么要更改 PersistentVolume 的回收策略
@@ -30,7 +31,7 @@ content_template: templates/task
 1. 列出你集群中的 PersistentVolumes
 
        kubectl get pv
-       
+
     输出类似于这样：
 
         NAME                                       CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                  REASON    AGE
@@ -47,7 +48,7 @@ content_template: templates/task
     ```shell
     kubectl patch pv <your-pv-name> -p '{"spec":{"persistentVolumeReclaimPolicy":"Retain"}}'
     ```
-       
+
     这里的 `<your-pv-name>` 是你选择的 PersistentVolume 的名字。
 
 3. 验证你选择的 PersistentVolume 拥有正确的策略：
@@ -66,9 +67,10 @@ content_template: templates/task
 
     在前面的输出中，你可以看到绑定到 claim `default/claim3` 的 volume 拥有的回收策略为 `Retain`。当用户删除 claim `default/claim3` 时，它不会被自动删除。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 了解更多关于 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)的信息。
 * 了解更多关于 [PersistentVolumeClaims](/docs/user-guide/persistent-volumes/#persistentvolumeclaims) 的信息。
@@ -80,6 +82,6 @@ content_template: templates/task
 * [PersistentVolumeClaim](/docs/api-reference/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 
 * 查阅  [PersistentVolumeSpec](/docs/api-reference/{{< param "version" >}}/#persistentvolumeclaim-v1-core) 的 `persistentVolumeReclaimPolicy` 字段。
-{{% /capture %}}
+
 
 

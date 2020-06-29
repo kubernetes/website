@@ -1,14 +1,14 @@
 ---
 title: Penglolaan Objek Kubernetes Secara Imperatif dengan Menggunakan File Konfigurasi
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Objek-objek Kubernetes bisa dibuat, diperbarui, dan dihapus dengan menggunakan perangkat *command-line* `kubectl` dan file konfigurasi objek yang ditulis dalam format YAML atau JSON. Dokumen ini menjelaskan cara mendefinisikan dan mengelola objek dengan menggunakan file konfigurasi.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kelebihan dan kekurangan
 
@@ -29,7 +29,7 @@ Kamu bisa menggunakan perintah `kubectl create -f` untuk membuat sebuah objek da
 ## Cara memperbarui objek
 
 {{< warning >}}
-Memperbarui objek dengan perintah `replace` akan menghilangkan semua bagian dari spesifikasi objek yang tidak dispesifikasikan pada file konfigurasi. Oleh karena itu, perintah ini sebaiknya tidak digunakan terhadap objek-objek yang spesifikasinya sebagian dikelola oleh kluster, misalnya Service dengan tipe `LoadBalancer`, di mana *field* `externalIPs` dikelola secara terpisah dari file konfigurasi. *Field-field* yang dikelola secara terpisah harus disalin ke file konfigurasi untuk mencegah terhapus oleh perintah `replace`.
+Memperbarui objek dengan perintah `replace` akan menghilangkan semua bagian dari spesifikasi objek yang tidak dispesifikasikan pada file konfigurasi. Oleh karena itu, perintah ini sebaiknya tidak digunakan terhadap objek-objek yang spesifikasinya sebagian dikelola oleh klaster, misalnya Service dengan tipe `LoadBalancer`, di mana *field* `externalIPs` dikelola secara terpisah dari file konfigurasi. *Field-field* yang dikelola secara terpisah harus disalin ke file konfigurasi untuk mencegah terhapus oleh perintah `replace`.
 {{< /warning >}}
 
 Kamu bisa menggunakan perintah `kubectl replace -f` untuk memperbarui sebuah objek *live* sesuai dengan sebuah file konfigurasi.
@@ -104,13 +104,14 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 - [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
 - [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+
 
 

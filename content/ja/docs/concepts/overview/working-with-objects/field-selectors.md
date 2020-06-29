@@ -10,14 +10,14 @@ _フィールドセレクター(Field Selectors)_ は、1つかそれ以上の�
 * `metadata.namespace!=default`
 * `status.phase=Pending`  
 
-下記の`kubectl`コマンドは、[`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)フィールドの値が`Running`である全てのPodを選択します。  
+下記の`kubectl`コマンドは、[`status.phase`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)フィールドの値が`Running`である全てのPodを選択します。  
 
 ```shell
 kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-フィールドセレクターは本質的にリソースの*フィルター*となります。デフォルトでは、セレクター/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、下記の2つの`kubectl`クエリが同じであることを意味します。  
+フィールドセレクターは本質的にリソースの _フィルター_ となります。デフォルトでは、セレクター/フィルターが指定されていない場合は、全てのタイプのリソースが取得されます。これは、下記の2つの`kubectl`クエリが同じであることを意味します。  
 
 ```shell
 kubectl get pods
@@ -43,7 +43,7 @@ Error from server (BadRequest): Unable to find "ingresses" that match label sele
 例として、下記の`kubectl`コマンドは`default`ネームスペースに属していない全てのKubernetes Serviceを選択します。
 
 ```shell
-kubectl get services --field-selector metadata.namespace!=default
+kubectl get services  --all-namespaces --field-selector metadata.namespace!=default
 ```
 
 ## 連結されたセレクター
@@ -51,7 +51,7 @@ kubectl get services --field-selector metadata.namespace!=default
 下記の`kubectl`コマンドは、`status.phase`が`Runnning`でなく、かつ`spec.restartPolicy`フィールドが`Always`に等しいような全てのPodを選択します。  
 
 ```shell
-kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Always
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
 ```
 
 ## 複数のリソースタイプ

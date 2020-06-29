@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 API 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: 레퍼런스
@@ -8,22 +8,22 @@ card:
   title: API 개요
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스 API에 대한 개요를 제공한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 REST API는 쿠버네티스의 근본적인 구조이다. 모든 조작, 컴포넌트 간의 통신과 외부 사용자의 명령은 API 서버에서 처리할 수 있는 REST API 호출이다. 따라서, 쿠버네티스 플랫폼 안의 모든 것은
 API 오브젝트로 취급되고,
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)에 상응하는 항목이 있다.
 
 대부분의 작업은 API에 의존하고 있는
-[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
+[kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과 같은 다른 커맨드라인 툴을 통해 수행할 수 있다.
 그러나, REST 호출 사용을 통해서 API에 직접 접근할 수도 있다.
 
 쿠버네티스 API를 사용하는 애플리케이션을 작성하는 경우
-[클라이언트 라이브러리](/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
+[클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
 
 ## API 버전 규칙
 
@@ -83,16 +83,18 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 [사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
 
  - 기본적인 CRUD 요구에는
-   [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
  - 쿠버네티스 API의 의미론적 전체 집합으로 사용자만의 Apiserver를 구현하려는 경우에는 [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
 
 
-## API 그룹 활성화 시키기
+## API 그룹 활성화 또는 비활성화 하기
 
 특정 리소스와 API 그룹은 기본적으로 활성화되어 있다. 이들은 apiserver에서 `--runtime-config`를 설정해서 활성화하거나
 비활성화 시킬 수 있다. `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어:
+
  - batch/v1을 비활성화하려면 `--runtime-config=batch/v1=false`로 설정
  - batch/v2alpha1을 활성화하려면 `--runtime-config=batch/v2alpha1`로 설정
+
 이 플래그는 apiserver의 런타임 구성을 설명하는 쉼표로 분리된 키=값 쌍의 집합을 허용한다.
 
 {{< note >}}
@@ -100,12 +102,13 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 `--runtime-config` 변경을 반영해야 한다.
 {{< /note >}}
 
-## 그룹 내 리소스 활성화 시키기
+## extensions/v1beta1 그룹 내 특정 리소스 활성화 하기
 
-데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
-다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서
-활성화할 수 있다. `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 잡을 비활성화하려면,
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
-{{% /capture %}}
+데몬셋, 디플로이먼트, 스테이트풀셋, 네트워크정책, 파드보안정책 그리고 레플리카셋은 `extensions/v1beta1` API 그룹에서 기본적으로 비활성화되어있다.
+예시: 디플로이먼트와 데몬셋의 활성화 설정은
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
+
+{{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
+
 
 

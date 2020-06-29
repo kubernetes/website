@@ -1,22 +1,22 @@
 ---
 title: Sertifikat
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Saat menggunakan autentikasi sertifikat klien, kamu dapat membuat sertifikat
 secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
-**easyrsa** dapat digunakan untuk menghasilkan sertifikat kluster kamu secara manual.
+**easyrsa** dapat digunakan untuk menghasilkan sertifikat klaster kamu secara manual.
 
 1. Unduh, buka paket, dan inisialisasi versi tambal easyrsa3.
 
@@ -54,7 +54,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
 ### openssl
 
-**openssl** secara manual dapat menghasilkan sertifikat untuk kluster kamu.
+**openssl** secara manual dapat menghasilkan sertifikat untuk klaster kamu.
 
 1.  Hasilkan ca.key dengan 2048bit:
 
@@ -68,7 +68,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 1. Buat _file_ konfigurasi untuk menghasilkan _Certificate Signing Request_ (CSR).
     Pastikan untuk mengganti nilai yang ditandai dengan kurung sudut (mis. `<MASTER_IP>`)
     dengan nilai sebenarnya sebelum menyimpan ke _file_ (mis. `csr.conf`).
-    Perhatikan bahwa nilai `MASTER_CLUSTER_IP` adalah layanan IP kluster untuk
+    Perhatikan bahwa nilai `MASTER_CLUSTER_IP` adalah layanan IP klaster untuk
     _server_ API seperti yang dijelaskan dalam subbagian sebelumnya.
     Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local`
     sebagai nama _domain_ DNS _default_.
@@ -184,7 +184,7 @@ Terakhir, tambahkan parameter yang sama ke dalam parameter mulai _server_ API.
 1.  Buat _file_ konfigurasi JSON untuk menghasilkan kunci dan sertifikat untuk API
     _server_, misalnya, `server-csr.json`. Pastikan untuk mengganti nilai dalam kurung sudut
     dengan nilai sebenarnya yang ingin kamu gunakan. `MASTER_CLUSTER_IP` adalah layanan
-    kluster IP untuk _server_ API seperti yang dijelaskan dalam subbagian sebelumnya.
+    klaster IP untuk _server_ API seperti yang dijelaskan dalam subbagian sebelumnya.
     Sampel di bawah ini juga mengasumsikan bahwa kamu menggunakan `cluster.local` sebagai
     nama _domain_ DNS _default_.
 
@@ -247,4 +247,4 @@ Kamu dapat menggunakan API `Certificate.k8s.io` untuk menyediakan
 sertifikat x509 yang digunakan untuk autentikasi seperti yang didokumentasikan
 [di sini](/docs/tasks/tls/managing-tls-in-a-cluster).
 
-{{% /capture %}}
+

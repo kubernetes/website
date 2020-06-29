@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: extended-resource-demo-2
+spec:
+  containers:
+  - name: extended-resource-demo-2-ctr
+    image: nginx
+    resources:
+      requests:
+        example.com/dongle: 2
+      limits:
+        example.com/dongle: 2

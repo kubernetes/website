@@ -1,17 +1,17 @@
 ---
 title: Kubernetesとは何か？
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、Kubernetesの概要について説明します。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Kubernetesは、宣言的な構成管理と自動化を促進し、コンテナ化されたワークロードやサービスを管理するための、ポータブルで拡張性のあるオープンソースプラットホームです。
 
 Kubernetesは膨大で、急速に成長しているエコシステムを備えており、それらのサービス、サポート、ツールは幅広い形で利用可能です。
@@ -34,9 +34,9 @@ Kubernetesは、**コンテナを中心とした**管理基盤です。ユーザ
 
 Kubernetesが多くの機能を提供すると言いつつも、新しい機能から恩恵を受ける新しいシナリオは常にあります。アプリケーション固有のワークフローを効率化して開発者のスピードを早めることができます。最初は許容できるアドホックなオーケストレーションでも、大規模で堅牢な自動化が必要となることはしばしばあります。これが、Kubernetesがアプリケーションのデプロイ、拡張、および管理を容易にするために、コンポーネントとツールのエコシステムを構築するための基盤としても機能するように設計された理由です。
 
-[ラベル](/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
+[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を使用すると、ユーザーは自分のリソースを整理できます。[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を使用すると、ユーザーは自分のワークフローを容易にし、管理ツールが状態をチェックするための簡単な方法を提供するためにカスタムデータを使ってリソースを装飾できるようになります。
 
-さらに、[Kubernetesコントロールプレーン](/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
+さらに、[Kubernetesコントロールプレーン](/ja/docs/concepts/overview/components/)は、開発者やユーザーが使える[API](/docs/reference/using-api/api-overview/)の上で成り立っています。ユーザーは[スケジューラー](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md)などの独自のコントローラーを、汎用の[コマンドラインツール](/docs/user-guide/kubectl-overview/)で使える[独自のAPI](/docs/concepts/api-extension/custom-resources/)を持たせて作成することができます。
 
 この[デザイン](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)によって、他の多くのシステムがKubernetes上で構築できるようになりました。
 
@@ -94,11 +94,12 @@ Kubernetesは...
 
 **Kubernetes** という名前はギリシャ語で *操舵手* や *パイロット* という意味があり、*知事* や[サイバネティックス](http://www.etymonline.com/index.php?term=cybernetics)の語源にもなっています。*K8s* は、8文字の「ubernete」を「8」に置き換えた略語です。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   [はじめる](/docs/setup/)準備はできましたか？
-*   さらなる詳細については、[Kubernetesのドキュメント](/docs/home/)を御覧ください。
-{{% /capture %}}
+*   さらなる詳細については、[Kubernetesのドキュメント](/ja/docs/home/)を御覧ください。
+
 
 

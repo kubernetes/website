@@ -1,19 +1,18 @@
+---
+title: 为命名空间配置CPU最小和最大限制
+content_type: task
+weight: 40
+---
+
 <!--
 ---
 title: Configure Minimum and Maximum CPU Constraints for a Namespace
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
----
-title: 为命名空间配置CPU最小和最大限制
-content_template: templates/task
-weight: 40
----
-
-
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to set minimum and maximum values for the CPU resources used by Containers
@@ -25,10 +24,11 @@ in the namespace.
 
 本章介绍命名空间中可以被容器和Pod使用的CPU资源的最小和最大值。你可以通过 [LimitRange](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#limitrange-v1-core) 对象声明 CPU 的最小和最大值. 如果 Pod 不能满足 LimitRange 的限制，它就不能在命名空间中创建。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -38,10 +38,10 @@ Each node in your cluster must have at least 1 CPU.
 
 你的集群中每个节点至少要有1个CPU。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -402,9 +402,10 @@ Delete your namespace:
 kubectl delete namespace constraints-cpu-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -428,13 +429,13 @@ kubectl delete namespace constraints-cpu-example
 
 * [为命名空间配置内存限制的最小值和最大值](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-* [为命名空间配置CPU限制的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [为命名空间配置 CPU 限制的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [为命名空间配置内存和CPU配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [为命名空间配置Pod配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
-* [为API对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
+* [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -448,15 +449,10 @@ kubectl delete namespace constraints-cpu-example
 
 ### 应用开发者参考：
 
-* [为容器和Pod分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [为容器和Pod分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [为Pod配置Service数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}
-
-
-
+* [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 

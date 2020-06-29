@@ -1,24 +1,25 @@
 ---
 title: Configure a Pod to Use a ConfigMap
-content_template: templates/task
+content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## Create a ConfigMap
@@ -26,18 +27,17 @@ You can use either `kubectl create configmap` or a ConfigMap generator in `kusto
 
 ### Create a ConfigMap Using kubectl create configmap
 
-Use the `kubectl create configmap` command to create configmaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
+Use the `kubectl create configmap` command to create ConfigMaps from [directories](#create-configmaps-from-directories), [files](#create-configmaps-from-files), or [literal values](#create-configmaps-from-literal-values):
 
 ```shell
 kubectl create configmap <map-name> <data-source>
 ```
 
 where \<map-name> is the name you want to assign to the ConfigMap and \<data-source> is the directory, file, or literal value to draw the data from.
+The name of a ConfigMap object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-The data source corresponds to a key-value pair in the ConfigMap, where
-
-* key = the file name or the key you provided on the command line, and
-* value = the file contents or the literal value you provided on the command line.
+When you are creating a ConfigMap based on a file, the key in the \<data-source> defaults to the basename of the file, and the value defaults to the file content.
 
 You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) or
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
@@ -45,7 +45,7 @@ about a ConfigMap.
 
 #### Create ConfigMaps from directories
 
-You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory.
+You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory. When you are creating a ConfigMap based on a directory, kubectl identifies files whose basename is a valid key in the directory and packages each of those files into the new ConfigMap. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
 
 For example:
 
@@ -61,30 +61,36 @@ wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-con
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-combines the contents of the `configure-pod-container/configmap/` directory
-
-```shell
-game.properties
-ui.properties
-```
-
-into the following ConfigMap:
+The above command packages each file, in this case, `game.properties` and `ui.properties` in the `configure-pod-container/configmap/` directory into the game-config ConfigMap. You can display details of the ConfigMap using the following command:
 
 ```shell
 kubectl describe configmaps game-config
 ```
 
-where the output is similar to this:
+The output is similar to this:
 ```
-Name:           game-config
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
-ui.properties:          83 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
 ```
 
 The `game.properties` and `ui.properties` files in the `configure-pod-container/configmap/` directory are represented in the `data` section of the ConfigMap.
@@ -102,7 +108,6 @@ metadata:
   name: game-config
   namespace: default
   resourceVersion: "516"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config
   uid: b4952dc3-d670-11e5-8cd0-68f728db1985
 data:
   game.properties: |
@@ -139,14 +144,22 @@ kubectl describe configmaps game-config-2
 where the output is similar to this:
 
 ```
-Name:           game-config-2
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
 ```
 
 You can pass in the `--from-file` argument multiple times to create a ConfigMap from multiple data sources.
@@ -155,7 +168,7 @@ You can pass in the `--from-file` argument multiple times to create a ConfigMap 
 kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
 ```
 
-Describe the above `game-config-2` configmap created
+You can display details of the `game-config-2` ConfigMap using the following command:
 
 ```shell
 kubectl describe configmaps game-config-2
@@ -164,15 +177,28 @@ kubectl describe configmaps game-config-2
 The output is similar to this:
 
 ```
-Name:           game-config-2
-Namespace:      default
-Labels:         <none>
-Annotations:    <none>
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
 
 Data
 ====
-game.properties:        158 bytes
-ui.properties:          83 bytes
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
 ```
 
 Use the option `--from-env-file` to create a ConfigMap from an env-file, for example:
@@ -217,7 +243,6 @@ metadata:
   name: game-config-env-file
   namespace: default
   resourceVersion: "809965"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
 data:
   allowed: '"true"'
@@ -225,11 +250,15 @@ data:
   lives: "3"
 ```
 
-When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used:
+{{< caution >}}
+When passing `--from-env-file` multiple times to create a ConfigMap from multiple data sources, only the last env-file is used.
+{{< /caution >}}
+
+The behavior of passing `--from-env-file` multiple times is demonstrated by:
 
 ```shell
 # Download the sample files into `configure-pod-container/configmap/` directory
-wget https://k8s.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
+wget https://kubernetes.io/examples/configmap/ui-env-file.properties -O configure-pod-container/configmap/ui-env-file.properties
 
 # Create the configmap
 kubectl create configmap config-multi-env-files \
@@ -252,7 +281,6 @@ metadata:
   name: config-multi-env-files
   namespace: default
   resourceVersion: "810136"
-  selfLink: /api/v1/namespaces/default/configmaps/config-multi-env-files
   uid: 252c4572-eb35-11e7-887b-42010a8002b8
 data:
   color: purple
@@ -290,7 +318,6 @@ metadata:
   name: game-config-3
   namespace: default
   resourceVersion: "530"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-3
   uid: 05f8da22-d671-11e5-8cd0-68f728db1985
 data:
   game-special-key: |
@@ -326,7 +353,6 @@ metadata:
   name: special-config
   namespace: default
   resourceVersion: "651"
-  selfLink: /api/v1/namespaces/default/configmaps/special-config
   uid: dadce046-d673-11e5-8cd0-68f728db1985
 data:
   special.how: very
@@ -542,7 +568,7 @@ kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.y
 
 Add the ConfigMap name under the `volumes` section of the Pod specification.
 This adds the ConfigMap data to the directory specified as `volumeMounts.mountPath` (in this case, `/etc/config`).
-The `command` section references the `special.level` item stored in the ConfigMap.
+The `command` section lists directory files with names that match the keys in ConfigMap.
 
 {{< codenew file="pods/pod-configmap-volume.yaml" >}}
 
@@ -562,6 +588,10 @@ SPECIAL_TYPE
 {{< caution >}}
 If there are some files in the `/etc/config/` directory, they will be deleted.
 {{< /caution >}}
+
+{{< note >}}
+Text data is exposed as files using the UTF-8 character encoding. To use some other character encoding, use binaryData.
+{{< /note >}}
 
 ### Add ConfigMap data to a specific path in the Volume
 
@@ -593,15 +623,15 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 
 ### Mounted ConfigMaps are updated automatically
 
-When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet.
+When a ConfigMap already being consumed in a volume is updated, projected keys are eventually updated as well. Kubelet is checking whether the mounted ConfigMap is fresh on every periodic sync. However, it is using its local ttl-based cache for getting the current value of the ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as kubelet sync period (1 minute by default) + ttl of ConfigMaps cache (1 minute by default) in kubelet. You can trigger an immediate refresh by updating one of the pod's annotations.
 
 {{< note >}}
 A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Understanding ConfigMaps and Pods
 
@@ -647,18 +677,14 @@ data:
    0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
    ```
 
-- ConfigMaps reside in a specific [namespace](/docs/concepts/overview/working-with-objects/namespaces/). A ConfigMap can only be referenced by pods residing in the same namespace.
+- ConfigMaps reside in a specific {{< glossary_tooltip term_id="namespace" >}}. A ConfigMap can only be referenced by pods residing in the same namespace.
 
-- Kubelet doesn't support the use of ConfigMaps for pods not found on the API server. This includes pods created via the Kubelet's `--manifest-url` flag, `--config` flag, or the Kubelet REST API.
+- You can't use ConfigMaps for {{< glossary_tooltip text="static pods" term_id="static-pod" >}}, because the Kubelet does not support this.
 
-   {{< note >}}
-   These are not commonly-used ways to create pods.
-   {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
 
-{{% /capture %}}
 

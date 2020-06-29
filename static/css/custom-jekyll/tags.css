@@ -53,5 +53,7 @@
 .glossary-tooltip:hover .tooltip-text {
     visibility: visible;
     opacity: 1;
+    font-size: 1rem;
+    font-weight: 400;
 }
 

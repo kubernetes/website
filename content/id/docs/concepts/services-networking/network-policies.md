@@ -1,34 +1,34 @@
 ---
 title: NetworkPolicy
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Sebuah NetworkPolicy adalah spesifikasi dari sekelompok Pod atau _endpoint_ yang diizinkan untuk saling berkomunikasi.
 
-`NetworkPolicy` menggunakan label untuk memilih Pod serta mendefinisikan serangkaian _rule_ yang digunakan 
+`NetworkPolicy` menggunakan label untuk memilih Pod serta mendefinisikan serangkaian _rule_ yang digunakan
 untuk mendefinisikan trafik yang diizinkan untuk suatu Pod tertentu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Prasyarat
 
-NetworkPolicy diimplementasikan dengan menggunakan _plugin_ jaringan, 
-dengan demikian kamu harus memiliki penyedia jaringan yang mendukung `NetworkPolicy` - 
-membuat _resource_ tanpa adanya _controller_ tidak akan berdampak apa pun. 
+NetworkPolicy diimplementasikan dengan menggunakan _plugin_ jaringan,
+dengan demikian kamu harus memiliki penyedia jaringan yang mendukung `NetworkPolicy` -
+membuat _resource_ tanpa adanya _controller_ tidak akan berdampak apa pun.
 
 ## Pod yang terisolasi dan tidak terisolasi
 
-Secara _default_, Pod bersifat tidak terisolasi; Pod-Pod tersebut 
+Secara _default_, Pod bersifat tidak terisolasi; Pod-Pod tersebut
 menerima trafik dari _resource_ apa pun.
 
-Pod menjadi terisolasi apabila terdapat `NetworkPolicy` yang dikenakan pada Pod-Pod tersebut. 
-Apabila terdapat `NetworkPolicy` di dalam _namespace_ yang dikenakan pada suatu Pod, Pod tersebut 
-akan menolak koneksi yang tidak diizinkan `NetworkPolicy`. (Pod lain dalam _namespace_ 
+Pod menjadi terisolasi apabila terdapat `NetworkPolicy` yang dikenakan pada Pod-Pod tersebut.
+Apabila terdapat `NetworkPolicy` di dalam _namespace_ yang dikenakan pada suatu Pod, Pod tersebut
+akan menolak koneksi yang tidak diizinkan `NetworkPolicy`. (Pod lain dalam _namespace_
 yang tidak dikenakan `NetworkPolicy` akan tetap menerima trafik dari semua _resource_.)
 
 ## _Resource_ `NetworkPolicy`
@@ -74,12 +74,12 @@ spec:
       port: 5978
 ```
 
-Mengirimkan ini ke API server dengan metode POST tidak akan berdampak apa pun 
+Mengirimkan ini ke API server dengan metode POST tidak akan berdampak apa pun
 kecuali penyedia jaringan mendukung network policy.
 
 **_Field-field_ yang bersifat wajib**: Sama dengan seluruh _config_ Kubernetes lainnya, sebuah `NetworkPolicy`
-membutuhkan _field-field_ `apiVersion`, `kind`, dan `metadata`.  Informasi generik mengenai 
-bagaimana bekerja dengan _file_ `config`, dapat dilihat di 
+membutuhkan _field-field_ `apiVersion`, `kind`, dan `metadata`.  Informasi generik mengenai
+bagaimana bekerja dengan _file_ `config`, dapat dilihat di
 [Konfigurasi Kontainer menggunakan `ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 serta [Manajemen Objek](/docs/concepts/overview/object-management-kubectl/overview/).
 
@@ -143,37 +143,37 @@ mengandung sebuah elemen `from` yang mengizinkan koneksi dari Pod-Pod dengan lab
   ...
 ```
 
-mengandung dua elemen pada _array_ `from`, dan mengizinkan koneksi dari Pod pada Namespace lokal dengan label 
+mengandung dua elemen pada _array_ `from`, dan mengizinkan koneksi dari Pod pada Namespace lokal dengan label
 `role=client`, *atau* dari Pod di _namespace_ apa pun dengan label `user=alice`.
 
-Ketika kamu merasa ragu, gunakan `kubectl describe` untuk melihat bagaimana Kubernetes 
+Ketika kamu merasa ragu, gunakan `kubectl describe` untuk melihat bagaimana Kubernetes
 menginterpretasikan _policy_ tersebut.
 
-**ipBlock**: Ini digunakan untuk memilih _range_ IP CIDR tertentu untuk berperan sebagai 
-_source_ _ingress_ atau destinasi _egress_. Alamat yang digunakan harus merupakan 
-alamat IP eksternal kluster, karena alamat IP Pod bersifat _ephemeral_ dan tidak dapat ditebak. 
+**ipBlock**: Ini digunakan untuk memilih _range_ IP CIDR tertentu untuk berperan sebagai
+_source_ _ingress_ atau destinasi _egress_. Alamat yang digunakan harus merupakan
+alamat IP eksternal klaster, karena alamat IP Pod bersifat _ephemeral_ dan tidak dapat ditebak.
 
-Mekanisme _ingress_ dan _egress_ kluster seringkali membutuhkan mekanisme _rewrite_ alamat IP _source_ dan destinasi 
-paket. Pada kasus-kasus dimana hal ini, tidak dapat dipastikan bahwa apakah hal ini 
- terjadi sebelum atau setelah pemrosesan `NetworkPolicy`, dan perilaku yang ada mungkin saja berbeda 
- untuk kombinasi _plugin_ jaringan, penyedia layanan _cloud_, serta implementasi `Service` yang berbeda. 
+Mekanisme _ingress_ dan _egress_ klaster seringkali membutuhkan mekanisme _rewrite_ alamat IP _source_ dan destinasi
+paket. Pada kasus-kasus dimana hal ini, tidak dapat dipastikan bahwa apakah hal ini
+ terjadi sebelum atau setelah pemrosesan `NetworkPolicy`, dan perilaku yang ada mungkin saja berbeda
+ untuk kombinasi _plugin_ jaringan, penyedia layanan _cloud_, serta implementasi `Service` yang berbeda.
 
-Pada _ingress_, artinya bisa saja kamu melakukan _filter_ paket yang masuk berdasarkan `source IP`, 
-sementara di kasus lain "source IP" yang digunakan oleh Network Policy adalah alamat IP `LoadBalancer`, 
+Pada _ingress_, artinya bisa saja kamu melakukan _filter_ paket yang masuk berdasarkan `source IP`,
+sementara di kasus lain "source IP" yang digunakan oleh Network Policy adalah alamat IP `LoadBalancer`,
 _node_ dimana Pod berada, dsb.
 
-Pada _egress_, bisa saja sebuah koneksi dari Pod ke IP `Service` di-_rewrite_ ke IP eksternal kluster 
+Pada _egress_, bisa saja sebuah koneksi dari Pod ke IP `Service` di-_rewrite_ ke IP eksternal klaster
 atau bahkan tidak termasuk di dalam `ipBlock` _policy_.
 
 ## _Policy_ _Default_
 
-Secara _default_, jika tidak ada _policy_ yang ada dalam suatu _namespace_, maka semua trafik _ingress_ dan _egress_ yang diizinkan ke atau dari Pod dalam _namespace_. 
+Secara _default_, jika tidak ada _policy_ yang ada dalam suatu _namespace_, maka semua trafik _ingress_ dan _egress_ yang diizinkan ke atau dari Pod dalam _namespace_.
 Contoh di bawah ini akan memberikan gambaran bagaimana kamu dapat mengubah perilaku _default_ pada sebuah _namespace_.
 
 ### _Default_: tolak semua trafik _ingress_
 
-Kamu dapat membuat _policy_ isolasi `"default"` untuk sebuah _namespace_ 
-dengan membuat sebuah `NetworkPolicy` yang memilih semua Pod tapi tidak mengizinkan 
+Kamu dapat membuat _policy_ isolasi `"default"` untuk sebuah _namespace_
+dengan membuat sebuah `NetworkPolicy` yang memilih semua Pod tapi tidak mengizinkan
 trafik _ingress_ masuk ke Pod-Pod tersebut.
 
 ```yaml
@@ -187,13 +187,13 @@ spec:
   - Ingress
 ```
 
-Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` lain masih terisolasi. 
+Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` lain masih terisolasi.
 _Policy_ ini tidak mengubah perilaku _default_ dari _egress_.
 
 ### _Default_: izinkan semua trafik _ingress_
 
-Jika kamu ingin mengizinkan semua trafik _ingress_ pada semua Pod dalam sebuah _namespace_ 
-(bahkan jika _policy_ ditambahkan dan menyebabkan beberapa Pod menjadi terisolasi), kamu 
+Jika kamu ingin mengizinkan semua trafik _ingress_ pada semua Pod dalam sebuah _namespace_
+(bahkan jika _policy_ ditambahkan dan menyebabkan beberapa Pod menjadi terisolasi), kamu
 dapat secara eksplisit mengizinkan semua trafik bagi _namespace_ tersebut.
 
 ```yaml
@@ -211,8 +211,8 @@ spec:
 
 ### _Default_: tolak semua trafik _egress_
 
-Kamu dapat membuat _policy_ isolasi `"default"` untuk sebuah _namespace_ 
-dengan membuat sebuah `NetworkPolicy` yang memilih semua Pod tapi tidak mengizinkan 
+Kamu dapat membuat _policy_ isolasi `"default"` untuk sebuah _namespace_
+dengan membuat sebuah `NetworkPolicy` yang memilih semua Pod tapi tidak mengizinkan
 trafik _egress_ keluar dari Pod-Pod tersebut.
 
 ```yaml
@@ -226,13 +226,13 @@ spec:
   - Egress
 ```
 
-Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` lain masih terisolasi. 
+Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` lain masih terisolasi.
 _Policy_ ini tidak mengubah perilaku _default_ dari _ingress_.
 
 ### _Default_: izinkan semua trafik _egress_
 
-Jika kamu ingin mengizinkan semua trafik _egress_ pada semua Pod dalam sebuah _namespace_ 
-(bahkan jika _policy_ ditambahkan dan menyebabkan beberapa Pod menjadi terisolasi), kamu 
+Jika kamu ingin mengizinkan semua trafik _egress_ pada semua Pod dalam sebuah _namespace_
+(bahkan jika _policy_ ditambahkan dan menyebabkan beberapa Pod menjadi terisolasi), kamu
 dapat secara eksplisit mengizinkan semua trafik bagi _namespace_ tersebut.
 
 ```yaml
@@ -270,16 +270,17 @@ Hal ini menjamin bahwa bahkan Pod yang tidak dipilih oleh `NetworkPolicy` tidak 
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolicy` sebagai fitur alpha. Untuk mengaktifkan fitur ini, administrator kluster harus mengaktifkan gerbang fitur `SCTPSupport` pada `apiserver`, contohnya `“--feature-gates=SCTPSupport=true,...”`. Ketika gerbang fitur ini diaktifkan, pengguna dapat menerapkan `value` dari _field_ `protocol` pada `NetworkPolicy` menjadi `SCTP`. Kubernetes akan mengatur jaringan sesuai dengan SCTP, seperti halnya koneksi TCP.
+Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolicy` sebagai fitur alpha. Untuk mengaktifkan fitur ini, administrator klaster harus mengaktifkan gerbang fitur `SCTPSupport` pada `apiserver`, contohnya `“--feature-gates=SCTPSupport=true,...”`. Ketika gerbang fitur ini diaktifkan, pengguna dapat menerapkan `value` dari _field_ `protocol` pada `NetworkPolicy` menjadi `SCTP`. Kubernetes akan mengatur jaringan sesuai dengan SCTP, seperti halnya koneksi TCP.
 
 _Plugin_ CNI harus mendukung SCTP sebagai _value_ dari `protocol` pada `NetworkPolicy`.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Lihat [Deklarasi _Network Policy_](/docs/tasks/administer-cluster/declare-network-policy/) untuk melihat lebih banyak contoh penggunaan.
 - Baca lebih lanjut soal [panduan](https://github.com/ahmetb/kubernetes-network-policy-recipes) bagi skenario generik _resource_ `NetworkPolicy`.
 
-{{% /capture %}}
+

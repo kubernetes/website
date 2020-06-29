@@ -15,7 +15,7 @@ Note that markdown can be used in the description.
 
  */}}
 <section id="features">
-    <main>
+    <div class="main-section">
         <h3 class="center">{{ T "main_kubernetes_features" }}</h3>
         {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
         {{range $i, $p := $pages }}
@@ -32,5 +32,5 @@ Note that markdown can be used in the description.
             </div>
      
         {{ end }}
-    </main>
+    </div>
 </section>

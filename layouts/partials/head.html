@@ -9,10 +9,51 @@
 
   gtag('config', 'UA-36037335-10');
 </script>
+
+<!-- Docsy head.html begins here -->
+
 <meta charset="utf-8">
-<title>{{ if .Title }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/png" href="{{ "images/favicon.png" | relURL }}">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{ hugo.Generator }}
+{{ if eq (getenv "HUGO_ENV") "production" }}
+<META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+{{ else }}
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+{{ end }}
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}
+{{ partialCached "favicons.html" . }}
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+{{- template "_internal/opengraph.html" . -}}
+{{- template "_internal/google_news.html" . -}}
+{{- template "_internal/schema.html" . -}}
+{{- template "_internal/twitter_cards.html" . -}}
+{{ if eq (getenv "HUGO_ENV") "production" }}
+{{ template "_internal/google_analytics_async.html" . }}
+{{ end }}
+{{ partialCached "head-css.html" . "asdf" }}
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+{{ if and (.Site.Params.offlineSearch) (not .Site.Params.gcs_engine_id) }}
+<script src="https://unpkg.com/lunr@2.1.6/lunr.js"></script>
+<script src="/js/offline-search.js"></script>
+{{end}}
+{{ partial "hooks/head-end.html" . }}
+
+<!-- Docsy head.html ends here -->
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://kubernetes.io",
+    "logo": "https://kubernetes.io/images/favicon.png"
+  }
+</script>
+<meta name="theme-color" content="#326ce5">
 {{ partial "css.html" . }}
 <!-- Content for social media sharing previews -->
 <!-- Facebook uses the og: stuff, while Twitter and others use twitter: -->
@@ -34,10 +75,13 @@
 {{ end }}
 <meta property="og:type" content="{{ $ogType }}">
 <script src="{{ "js/anchor-4.1.1.min.js" | relURL }}"></script>
-<script src="{{ "js/jquery-3.2.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
-<script src="{{ "js/bootstrap-4.3.1.min.js" | relURL }}"></script>
 <script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
+
+{{ if eq .Params.mermaid true }}
+<!-- Copied from https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js -->
+<script async src="{{ "js/mermaid.min.js" | relURL }}"></script>
+{{ end }}
 
 <script src="{{ "js/script.js" | relURL }}"></script>
 <script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>

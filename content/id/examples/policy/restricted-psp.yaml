@@ -1,0 +1,48 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: restricted
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'runtime/default'
+    apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+spec:
+  privileged: false
+  # Dibutuhkan untuk menghindari eskalasi ke _root_.
+  allowPrivilegeEscalation: false
+  # Hal ini berlebihan dengan _non-root_ + melarang eskalasi _privilege_,
+  # tetapi kita dapat menyediakannya untuk _defense in depth_
+  requiredDropCapabilities:
+    - ALL
+  # Izinkan tipe-tipe volume inti.
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'secret'
+    - 'downwardAPI'
+    # Berasumsi bahwa persistentVolumes yang disetel oleh admin klaster aman untuk digunakan.
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    # Mengharuskan container untuk berjalan tanpa hak sebagai _root_.
+    rule: 'MustRunAsNonRoot'
+  seLinux:
+    # Kebijakan ini mengasumsikan bahwa node-node menggunakan AppArmor daripada SELinux.
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # Larang menambahkan grup _root_.
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # Larang menambahkan grup _root_.
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false

@@ -1,10 +1,10 @@
 ---
-title: Kubernetes Blog
+title: Blog di Kubernetes
 linkTitle: Blog
 menu:
   main:
     title: "Blog"
     weight: 40
     post: >
-       <p>Read the latest news for Kubernetes and the containers space in general, and get technical how-tos hot off the presses.</p>
+       <p>Leggi le ultime notizie su Kubernetes e su tutto quello che riguarda il mondo dei containers.</p>
 ---

@@ -4,14 +4,14 @@ date: 2016-12-19
 slug: container-runtime-interface-cri-in-kubernetes
 url: /blog/2016/12/Container-Runtime-Interface-Cri-In-Kubernetes
 ---
-_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1.5) on what's new in Kubernetes 1.5_  
+_Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/12/five-days-of-kubernetes-1-5/) on what's new in Kubernetes 1.5_
 
 
 At the lowest layers of a Kubernetes node is the software that, among other things, starts and stops containers. We call this the “Container Runtime”. The most widely known container runtime is Docker, but it is not alone in this space. In fact, the container runtime space has been rapidly evolving. As part of the effort to make Kubernetes more extensible, we've been working on a new plugin API for container runtimes in Kubernetes, called "CRI".
 
 **What is the CRI and why does Kubernetes need it?**  
 
-Each container runtime has it own strengths, and many users have asked for Kubernetes to support more runtimes. In the Kubernetes 1.5 release, we are proud to introduce the [Container Runtime Interface](https://github.com/kubernetes/kubernetes/blob/242a97307b34076d5d8f5bbeb154fa4d97c9ef1d/docs/devel/container-runtime-interface.md) (CRI) -- a plugin interface which enables kubelet to use a wide variety of container runtimes, without the need to recompile. CRI consists of a [protocol buffers](https://developers.google.com/protocol-buffers/) and [gRPC API](http://www.grpc.io/), and [libraries](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/server/streaming), with additional specifications and tools under active development. CRI is being released as Alpha in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1.5-supporting-production-workloads).  
+Each container runtime has it own strengths, and many users have asked for Kubernetes to support more runtimes. In the Kubernetes 1.5 release, we are proud to introduce the [Container Runtime Interface](https://github.com/kubernetes/kubernetes/blob/242a97307b34076d5d8f5bbeb154fa4d97c9ef1d/docs/devel/container-runtime-interface.md) (CRI) -- a plugin interface which enables kubelet to use a wide variety of container runtimes, without the need to recompile. CRI consists of a [protocol buffers](https://developers.google.com/protocol-buffers/) and [gRPC API](http://www.grpc.io/), and [libraries](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/server/streaming), with additional specifications and tools under active development. CRI is being released as Alpha in [Kubernetes 1.5](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads).
 
 Supporting interchangeable container runtimes is not a new concept in Kubernetes. In the 1.3 release, we announced the [rktnetes](https://kubernetes.io/blog/2016/07/rktnetes-brings-rkt-container-engine-to-Kubernetes) project to enable [rkt container engine](https://github.com/coreos/rkt) as an alternative to the Docker container runtime. However, both Docker and rkt were integrated directly and deeply into the kubelet source code through an internal and volatile interface. Such an integration process requires a deep understanding of Kubelet internals and incurs significant maintenance overhead to the Kubernetes community. These factors form high barriers to entry for nascent container runtimes. By providing a clearly-defined abstraction layer, we eliminate the barriers and allow developers to focus on building their container runtimes. This is a small, yet important step towards truly enabling pluggable container runtimes and building a healthier ecosystem.  
 
@@ -90,7 +90,7 @@ Another potential issue with the kubelet implementation today is that kubelet ha
 
 
 
-There are many other aspects of CRI that are not covered in this blog post. Please see the list of [design docs and proposals](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md#design-docs-and-proposals) for all the details.
+There are many other aspects of CRI that are not covered in this blog post. Please see the list of [design docs and proposals](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md#design-docs-and-proposals) for all the details.
 
 
 
@@ -100,7 +100,7 @@ Although CRI is still in its early stages, there are already several projects un
 
 
 
-- [cri-o](https://github.com/kubernetes-incubator/cri-o): OCI conformant runtimes.
+- [cri-o](https://cri-o.io/): OCI conformant runtimes.
 - [rktlet](https://github.com/kubernetes-incubator/rktlet): the rkt container runtime.
 - [frakti](https://github.com/kubernetes/frakti): hypervisor-based container runtimes.
 - [docker CRI shim](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/dockershim).
@@ -112,7 +112,7 @@ If you are interested in trying these alternative runtimes, you can follow the i
 
 
 
-For developers interested in integrating a new container runtime, please see the [developer guide](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md) for the known limitations and issues of the API. We are actively incorporating feedback from early developers to improve the API. Developers should expect occasional API breaking changes (it is Alpha, after all).
+For developers interested in integrating a new container runtime, please see the [developer guide](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md) for the known limitations and issues of the API. We are actively incorporating feedback from early developers to improve the API. Developers should expect occasional API breaking changes (it is Alpha, after all).
 
 
 
@@ -124,7 +124,7 @@ Kubelet does not yet use CRI by default, but we are actively working on making t
 
 
 
-Besides a few [missing features](https://github.com/kubernetes/community/blob/master/contributors/devel/container-runtime-interface.md#docker-cri-integration-known-issues), the new integration has consistently passed the main end-to-end tests. We plan to expand the test coverage soon and would like to encourage the community to report any issues to help with the transition.
+Besides a few [missing features](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md#docker-cri-integration-known-issues), the new integration has consistently passed the main end-to-end tests. We plan to expand the test coverage soon and would like to encourage the community to report any issues to help with the transition.
 
 
 

@@ -2,11 +2,19 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
+{{< note >}}
+While kubeadm is being used as the management tool for external etcd nodes
+in this guide, please note that kubeadm does not plan to support certificate rotation
+or upgrades for such nodes. The long term plan is to empower the tool
+[etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
+aspects.
+{{< /note >}}
 
 Kubeadm defaults to running a single member etcd cluster in a static pod managed
 by the kubelet on the control plane node. This is not a high availability setup
@@ -15,9 +23,10 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
@@ -28,9 +37,9 @@ when using kubeadm to set up a kubernetes cluster.
 
 [toolbox]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Setting up the cluster
 
@@ -243,23 +252,26 @@ this example.
     ```sh
     docker run --rm -it \
     --net host \
-    -v /etc/kubernetes:/etc/kubernetes quay.io/coreos/etcd:${ETCD_TAG} etcdctl \
-    --cert-file /etc/kubernetes/pki/etcd/peer.crt \
-    --key-file /etc/kubernetes/pki/etcd/peer.key \
-    --ca-file /etc/kubernetes/pki/etcd/ca.crt \
-    --endpoints https://${HOST0}:2379 cluster-health
+    -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+    --cert /etc/kubernetes/pki/etcd/peer.crt \
+    --key /etc/kubernetes/pki/etcd/peer.key \
+    --cacert /etc/kubernetes/pki/etcd/ca.crt \
+    --endpoints https://${HOST0}:2379 endpoint health --cluster
     ...
-    cluster is healthy
+    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
+    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
+    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
     ```
-    - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `v3.2.24`.
+    - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`
     - Set `${HOST0}`to the IP address of the host you are testing.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Once you have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
-{{% /capture %}}
+

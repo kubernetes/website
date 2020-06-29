@@ -1,18 +1,18 @@
+---
+title: 为命名空间配置默认的CPU请求和限制
+content_type: task
+weight: 20
+---
+
 <!--
 ---
 title: Configure Default CPU Requests and Limits for a Namespace
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 -->
 
----
-title: 为命名空间配置默认的CPU请求和限制
-content_template: templates/task
-weight: 20
----
-
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to configure default CPU requests and limits for a namespace.
 A Kubernetes cluster can be divided into namespaces. If a Container is created in a namespace
@@ -23,14 +23,15 @@ under certain conditions that are explained later in this topic.
 
 本章介绍怎样为命名空间配置默认的 CPU 请求和限制。
 一个 Kubernetes 集群可被划分为多个命名空间。如果在配置了 CPU 限制的命名空间创建容器，并且该容器没有声明自己的 CPU 限制，那么这个容器会被指定默认的 CPU 限制。Kubernetes 在一些特定情况还会指定 CPU 请求，本文后续章节将会对其进行解释。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -256,9 +257,10 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 如果容器没有声明自己的 CPU 限制，将会给它一个默认限制，这样它就能被允许运行在一个有配额限制的命名空间中。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 ### For cluster administrators
@@ -284,13 +286,13 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [为命名空间配置内存限制的最小值和最大值](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
-* [为命名空间配置CPU限制的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [为命名空间配置 CPU 限制的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
 
-* [为命名空间配置内存和CPU配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
 
-* [为命名空间配置Pod配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
 
-* [为API对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
+* [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
@@ -306,12 +308,10 @@ it can be allowed to run in a namespace that is restricted by a quota.
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 -->
 
-* [为容器和Pod分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [为容器和Pod分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [为Pod配置Service数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}
+* [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
 
 

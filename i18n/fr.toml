@@ -12,6 +12,9 @@ other = "Cleanup"
 [prerequisites_heading]
 other = "Pré-requis"
 
+[subscribe_button]
+other = "Souscrire"
+
 [whatsnext_heading]
 other = "A suivre"
 
@@ -134,3 +137,6 @@ other = "Calendrier"
 # UI elements
 [ui_search_placeholder]
 other = "Recherche"
+
+[input_placeholder_email_address]
+other = "adresse email"

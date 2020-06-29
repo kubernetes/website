@@ -5,22 +5,23 @@ reviewers:
 - foxish
 - smarterclayton
 title: Force Delete StatefulSet Pods
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to delete Pods which are part of a {{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}}, and explains the considerations to keep in mind when doing so.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * This is a fairly advanced task and has the potential to violate some of the properties inherent to StatefulSet.
 * Before proceeding, make yourself familiar with the considerations enumerated below.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSet considerations
 
@@ -36,7 +37,7 @@ You can perform a graceful pod deletion with the following command:
 kubectl delete pods <pod>
 ```
 
-For the above to lead to graceful termination, the Pod **must not** specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged for StatefulSet Pods. Graceful deletion is safe and will ensure that the [Pod shuts down gracefully](/docs/user-guide/pods/#termination-of-pods) before the kubelet deletes the name from the apiserver.
+For the above to lead to graceful termination, the Pod **must not** specify a `pod.Spec.TerminationGracePeriodSeconds` of 0. The practice of setting a `pod.Spec.TerminationGracePeriodSeconds` of 0 seconds is unsafe and strongly discouraged for StatefulSet Pods. Graceful deletion is safe and will ensure that the [Pod shuts down gracefully](/docs/concepts/workloads/pods/pod/#termination-of-pods) before the kubelet deletes the name from the apiserver.
 
 Kubernetes (versions 1.5 or newer) will not delete Pods just because a Node is unreachable. The Pods running on an unreachable Node enter the 'Terminating' or 'Unknown' state after a [timeout](/docs/admin/node/#node-condition). Pods may also enter these states when the user attempts graceful deletion of a Pod on an unreachable Node. The only ways in which a Pod in such a state can be removed from the apiserver are as follows:
 
@@ -74,10 +75,11 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 
 Always perform force deletion of StatefulSet Pods carefully and with complete knowledge of the risks involved.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about [debugging a StatefulSet](/docs/tasks/debug-application-cluster/debug-stateful-set/).
 
-{{% /capture %}}
+

@@ -2,32 +2,6 @@ id: cluster-operator
 name: Cluster Operator
 glossary_id: cluster-operator
 index: 1
-foundational:
-  - label: Get an overview of Kubernetes
-    icon: fa-globe
-    url: /docs/user-journeys/users/cluster-operator/foundational
-  - label: Learn about Kubernetes basics
-    icon: fa-cog
-    url: /docs/user-journeys/users/cluster-operator/foundational#section-2
-  - label: Get information about my cluster
-    icon: fa-info-circle
-    url: /docs/user-journeys/users/cluster-operator/foundational#section-3
-  - label: Explore additional resources
-    icon: fa-compass
-    url: /docs/user-journeys/users/cluster-operator/foundational#section-4
-intermediate:
-  - label: "Work with Ingress, Networking, Storage, Workloads"
-    icon: fa-sliders
-    url: /docs/user-journeys/users/cluster-operator/intermediate
-  - label: "Implement security best practices"
-    icon: fa-shield
-    url: /docs/user-journeys/users/cluster-operator/intermediate#section-2
-  - label: "Implement custom logging and monitoring"
-    icon: fa-heartbeat
-    url: /docs/user-journeys/users/cluster-operator/intermediate#section-3
-  - label: "Additional Resources"
-    icon: fa-book
-    url: /docs/user-journeys/users/cluster-operator/intermediate#section-4
 advanced:
   - label: "Connect to managed services using Service Catalog"
     icon: fa-puzzle-piece

@@ -52,7 +52,7 @@ In this way, admission controllers and policy management help make sure that app
 
 To illustrate how admission controller webhooks can be leveraged to establish custom security policies, let’s consider an example that addresses one of the shortcomings of Kubernetes: a lot of its defaults are optimized for ease of use and reducing friction, sometimes at the expense of security. One of these settings is that containers are by default allowed to run as root (and, without further configuration and no `USER` directive in the Dockerfile, will also do so). Even though containers are isolated from the underlying host to a certain extent, running containers as root does increase the risk profile of your deployment— and should be avoided as one of many [security best practices](https://www.stackrox.com/post/2018/12/6-container-security-best-practices-you-should-be-following/). The [recently exposed runC vulnerability](https://www.stackrox.com/post/2019/02/the-runc-vulnerability-a-deep-dive-on-protecting-yourself/) ([CVE-2019-5736](https://nvd.nist.gov/vuln/detail/CVE-2019-5736)), for example, could be exploited only if the container ran as root.
 
-You can use a custom mutating admission controller webhook to apply more secure defaults: unless explicitly requested, our webhook will ensure that pods run as a non-root user (we assign the user ID 1234 if no explicit assignment has been made). Note that this setup does not prevent you from deploying any workloads in your cluster, including those that legitimately require running as root. It only requires you to explicitly enable this risker mode of operation in the deployment configuration, while defaulting to non-root mode for all other workloads.
+You can use a custom mutating admission controller webhook to apply more secure defaults: unless explicitly requested, our webhook will ensure that pods run as a non-root user (we assign the user ID 1234 if no explicit assignment has been made). Note that this setup does not prevent you from deploying any workloads in your cluster, including those that legitimately require running as root. It only requires you to explicitly enable this riskier mode of operation in the deployment configuration, while defaulting to non-root mode for all other workloads.
 
 The full code along with deployment instructions can be found in our accompanying [GitHub repository](https://github.com/stackrox/admission-controller-webhook-demo). Here, we will highlight a few of the more subtle aspects about how webhooks work.
 
@@ -80,7 +80,7 @@ webhooks:
         resources: ["pods"]
 ```
 
-This configuration defines a `webhook webhook-server.webhook-demo.svc`, and instructs the Kubernetes API server to consult the service `webhook-server` in n`amespace webhook-demo` whenever a pod is created by making a HTTP POST request to the `/mutate` URL. For this configuration to work, several prerequisites have to be met.
+This configuration defines a `webhook webhook-server.webhook-demo.svc`, and instructs the Kubernetes API server to consult the service `webhook-server` in `namespace webhook-demo` whenever a pod is created by making a HTTP POST request to the `/mutate` URL. For this configuration to work, several prerequisites have to be met.
 
 ## Webhook REST API
 

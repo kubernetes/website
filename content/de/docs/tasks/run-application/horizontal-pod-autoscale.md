@@ -5,11 +5,11 @@ feature:
   description: >
     Skaliere deine Anwendung mit einem einfachen Befehl, über die Benutzeroberfläche oder automatisch, basierend auf der CPU-Auslastung.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Der Horizontal Pod Autoscaler skaliert automatisch die Anzahl der Pods eines Replication Controller, Deployment oder Replikat Set basierend auf der beobachteten CPU-Auslastung (oder, mit Unterstützung von [benutzerdefinierter Metriken](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), von der Anwendung bereitgestellten Metriken). Beachte, dass die horizontale Pod Autoskalierung nicht für Objekte gilt, die nicht skaliert werden können, z. B. DaemonSets.
 
@@ -17,9 +17,9 @@ Der Horizontal Pod Autoscaler ist als Kubernetes API-Ressource und einem Control
 Die Ressource bestimmt das Verhalten des Controllers.
 Der Controller passt die Anzahl der Replikate eines Replication Controller oder Deployments regelmäßig an, um die beobachtete durchschnittliche CPU-Auslastung an das vom Benutzer angegebene Ziel anzupassen.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Wie funktioniert der Horizontal Pod Autoscaler?
 
@@ -88,7 +88,7 @@ Schließlich, kurz bevor HPA das Ziel skaliert, wird die Skalierungsempfehlung a
 Der Horizontal Pod Autoscaler ist eine API Ressource in der Kubernetes `autoscaling` API Gruppe.
 Die aktuelle stabile Version, die nur die Unterstützung für die automatische Skalierung der CPU beinhaltet, befindet sich in der `autoscaling/v1` API Version.
 
-Die Beta-Version, weclhe die Skalierung des Speichers und benutzerdefinierte Metriken unterstützt, befindet sich unter `autoscaling/v2beta2`. Die in `autoscaling/v2beta2` neu eingeführten Felder bleiben bei der Arbeit mit `autoscaling/v1` als Anmerkungen erhalten.
+Die Beta-Version, welche die Skalierung des Speichers und benutzerdefinierte Metriken unterstützt, befindet sich unter `autoscaling/v2beta2`. Die in `autoscaling/v2beta2` neu eingeführten Felder bleiben bei der Arbeit mit `autoscaling/v1` als Anmerkungen erhalten.
 
 Weitere Details über das API Objekt kann unter dem [HorizontalPodAutoscaler Objekt](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object) gefunden werden.
 
@@ -131,6 +131,7 @@ Beim Abstimmen dieser Parameterwerte sollte sich ein Clusterbetreiber der mögli
 Kubernetes 1.6 bietet Unterstützung für die Skalierung basierend auf mehreren Metriken. Du kannst die API Version `autoscaling/v2beta2` verwenden, um mehrere Metriken für den Horizontal Pod Autoscaler zum Skalieren festzulegen. Anschließend wertet der Horizontal Pod Autoscaler Controller jede Metrik aus und schlägt eine neue Skalierung basierend auf diesen Metrik vor. Die größte der vorgeschlagenen Skalierung wird als neue Skalierung verwendet.
 
 ## Unterstützung von benutzerdefinierte Metriken
+
 {{< note >}}
 Kubernetes 1.2 bietet Alpha Unterstützung für die Skalierung basierend auf anwendungsspezifischen Metriken über speziellen Annotations. Die Unterstützung für diese Annotations wurde in Kubernetes 1.6 zugunsten der neuen autoskalierenden API entfernt. Während die alte Methode zum Sammeln von benutzerdefinierten Metriken weiterhin verfügbar ist, stehen diese Metriken dem Horizontal Pod Autoscaler nicht mehr zur Verfügung, ebenso wenig wie die früheren Annotations zur Angabe, welche benutzerdefinierten Metriken zur Skalierung vom Horizontal Pod Autoscaler Controller berücksichtigt werden sollen.
 {{< /note >}}
@@ -148,24 +149,25 @@ Standardmäßig ruft der HorizontalPodAutoscaler Controller Metriken aus einer R
 * Der [API Aggregations Layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) aktiviert ist.
 
 * Die entsprechenden APIs registriert sind:
-  
-  *  Für Ressourcenmetriken ist dies die API `metrics.k8s.io`, die im Allgemeinen von [metrics-server](https://github.com/kubernetes-incubator/metrics-server) bereitgestellt wird.
+
+  * Für Ressourcenmetriken ist dies die API `metrics.k8s.io`, die im Allgemeinen von [metrics-server](https://github.com/kubernetes-incubator/metrics-server) bereitgestellt wird.
   Es kann als Cluster-Addon gestartet werden.
 
   * Für benutzerdefinierte Metriken ist dies die API `custom.metrics.k8s.io`. Diese wird vom "Adapter" API Servern bereitgestellt, welches von Anbietern von Metrik Lösungen beliefert wird.
     Überprüfe dies mit deiner Metrik Pipeline oder der [Liste bekannter Lösungen](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
      Falls du deinen eigenen schreiben möchtest hilft dir folgender [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) um zu starten.
-  
+
   * Für externe Metriken ist dies die `external.metrics.k8s.io` API. Es kann sein, dass dies durch den benutzerdefinierten Metrik Adapter bereitgestellt wird.
 
 * Das Flag `--horizontal-pod-autoscaler-use-rest-clients` ist auf `true` oder ungesetzt. Wird dies auf `false` gesetzt wird die Heapster basierte Autoskalierung aktiviert, welche veraltet ist.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Design Dokument [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale Befehl: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Verwenden des [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

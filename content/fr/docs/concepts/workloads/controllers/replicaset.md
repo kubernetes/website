@@ -1,28 +1,28 @@
 ---
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un ReplicaSet (ensemble de réplicas en français) a pour but de maintenir un ensemble stable de Pods à un moment donné.
-Cet objet est souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods. 
+Cet objet est souvent utilisé pour garantir la disponibilité d'un certain nombre identique de Pods.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Comment un ReplicaSet fonctionne
 
-Un ReplicaSet est défini avec des champs, incluant un selecteur qui spécifie comment identifier les Pods qu'il peut posséder, 
+Un ReplicaSet est défini avec des champs, incluant un selecteur qui spécifie comment identifier les Pods qu'il peut posséder,
 un nombre de replicas indiquant le nombre de Pods qu'il doit maintenir et un modèle de Pod spécifiant les données que les
 nouveaux Pods que le replicatSet va créer jusqu'au nombre de replicas demandé.
 
 Un ReplicaSet va atteindre son objectif en créant et supprimant des Pods pour atteindre le nombre de réplicas désirés.
 Quand un ReplicaSet a besoin de créer de nouveaux Pods, il utilise alors son Pod template.
 
-Le lien d'un ReplicaSet à ses Pods est fait par le champ [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents), 
+Le lien d'un ReplicaSet à ses Pods est fait par le champ [metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents),
 qui spécifie la ressource de l'objet par lequel il est détenu. Tous les Pods acquis par un ReplicaSet ont leurs propres informations d'identification de leur Replicaset, avec leur propre champ ownerReferences. C'est par ce lien que le ReplicaSet connait l'état des Pods qu'il maintient et agit en fonction de ces derniers.
 
 Un ReplicaSet identifie des nouveaux Pods à acquérir en utilisant son selecteur.
@@ -276,7 +276,7 @@ Pour mettre à jour les Pods à une nouvelle spec de manière contrôlée, utili
 ### Isoler les pods d'un ReplicaSet
 
 Vous pouvez supprimer les pods d'un ReplicaSet en modifiant leurs labels. Cette technique peut être utilisée pour enlever les pods
-pour le débogage, récupération de données, etc. Les pods ainsi supprimés seront automatiquement remplacés 
+pour le débogage, récupération de données, etc. Les pods ainsi supprimés seront automatiquement remplacés
 (en supposant que le nombre de réplicas n’est pas également modifié).
 
 ### Scaling d'un ReplicaSet
@@ -287,7 +287,7 @@ garantit que le nombre souhaité de pods avec un sélecteur de label corresponda
 ### ReplicaSet en tant que Horizontal Pod Autoscaler Target
 
 Un ReplicaSet peut également être une cible pour
-[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). 
+[Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/).
 Un ReplicaSet peut être mis à l'échelle automatiquement par un HPA. Voici un exemple HPA qui cible
 le ReplicaSet que nous avons créé dans l'exemple précédent.
 
@@ -332,7 +332,7 @@ Utilisez un [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) au 
 
 Utilisez un [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) au lieu d’un ReplicaSet pour les pods qui fournissent une
 fonction au niveau du noeud, comme le monitoring ou la gestion des logs de ce noeud. Ces pods ont une durée de vie qui est liée
-durée de vie d’une machine : le pod doit être en cours d’exécution sur la machine avant le démarrage des autres Pods et sont 
+durée de vie d’une machine : le pod doit être en cours d’exécution sur la machine avant le démarrage des autres Pods et sont
 sûrs de se terminer lorsque la machine est prête à être redémarrée/arrêtée.
 
 ### ReplicationController
@@ -342,4 +342,4 @@ Les deux servent le même objectif et se comportent de la même manière, à la 
 les exigences de sélecteur décrites dans le [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 En tant que tels, les ReplicaSets sont préférés aux ReplicationControllers.
 
-{{% /capture %}}
+

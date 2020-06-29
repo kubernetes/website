@@ -1,27 +1,27 @@
 ---
 title: 클러스터 관리
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 문서는 클러스터의 라이프사이클에 관련된 몇 가지 주제들을 설명한다. 신규 클러스터 생성, 
 클러스터의 마스터와 워커 노드들의 업그레이드, 
 노드 유지보수(예. 커널 업그레이드) 수행, 운영 중인 클러스터의 
 쿠버네티스 API 버전 업그레이드.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 클러스터 생성과 설정
 
-일련의 머신들에 쿠버네티스를 설치하려면, 환경에 맞게 기존의 [시작하기](/docs/setup/) 안내서들 중에 하나를 선택하여 참조한다.
+일련의 머신들에 쿠버네티스를 설치하려면, 환경에 맞게 기존의 [시작하기](/ko/docs/setup/) 안내서들 중에 하나를 선택하여 참조한다.
 
 ## 클러스터 업그레이드
 
-클러스터 업그레이드 상태의 현황은 제공자에 따라 달라지며, 몇몇 릴리스들은 업그레이드에 각별한 주의를 요하기도 한다. 관리자들에게는 클러스터 업그레이드에 앞서 [릴리스 노트](https://git.k8s.io/kubernetes/CHANGELOG.md)와 버전에 맞는 업그레이드 노트 모두를 검토하도록 권장하고 있다.
+클러스터 업그레이드 상태의 현황은 제공자에 따라 달라지며, 몇몇 릴리스들은 업그레이드에 각별한 주의를 요하기도 한다. 관리자들에게는 클러스터 업그레이드에 앞서 [릴리스 노트](https://git.k8s.io/kubernetes/CHANGELOG/README.md)와 버전에 맞는 업그레이드 노트 모두를 검토하도록 권장하고 있다.
 
 ### Azure Kubernetes Service (AKS) 클러스터 업그레이드
 
@@ -60,6 +60,9 @@ Google Kubernetes Engine은 자동으로 마스터 구성요소들(예. `kube-ap
 
 노드 업그레이드 프로세스는 사용자가 직접 시작하는 방식이며 [Google Kubernetes Engine 문서](https://cloud.google.com/kubernetes-engine/docs/clusters/upgrade)에 설명되어 있다.
 
+### Amazon EKS 클러스터 업그레이드
+Amazon EKS 클러스터는 eksctl, AWS 관리 콘솔, AWS CLI를 사용해서 마스터 구성요소를 업그레이드할 수 있다. 프로세스는 사용자가 시작하며 [Amazon EKS 문서](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html)에 설명되어 있다.
+
 ### Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE) 클러스터 업그레이드
 
 Oracle은 당신이 고가용성의 관리형 쿠버네티스 컨트롤 플레인을 가질 수 있도록 사용자를 대신하여 Oracle 컨트롤 플레인 내에 마스터 노드들의 세트를 (그리고 etcd 노드들과 같은 관련 쿠버네티스 인프라스트럭처를) 생성하고 관리한다. 또한 이 마스터 노드들을 다운타임 없이 쿠버네티스 신규 버전으로 유연하게 업그레이드할 수도 있다. 이 기능들은 [OKE 문서](https://docs.cloud.oracle.com/iaas/Content/ContEng/Tasks/contengupgradingk8smasternode.htm)에 설명되어 있다.
@@ -78,7 +81,7 @@ Oracle은 당신이 고가용성의 관리형 쿠버네티스 컨트롤 플레�
 
 ## 클러스터 크기 재조정
 
-[노드 자가 등록 모드](/docs/concepts/architecture/nodes/#self-registration-of-nodes)로 운영 중인 클러스터가 리소스가 부족하다면 쉽게 머신들을 더 추가할 수 있다. GCE나 Google Kubernetes Engine을 사용하고 있다면 노드들을 관리하는 인스턴스 그룹의 크기를 재조정하여 이를 수행할 수 있다. 
+[노드 자가 등록 모드](/ko/docs/concepts/architecture/nodes/#노드에-대한-자체-등록)로 운영 중인 클러스터가 리소스가 부족하다면 쉽게 머신들을 더 추가할 수 있다. GCE나 Google Kubernetes Engine을 사용하고 있다면 노드들을 관리하는 인스턴스 그룹의 크기를 재조정하여 이를 수행할 수 있다. 
 [Google Cloud 콘솔 페이지](https://console.developers.google.com)를 사용한다면 `Compute > Compute Engine > Instance groups > your group > Edit group`에서 인스턴스들의 숫자를 고쳐서 이를 수행할 수 있으며 gcloud CLI를 사용한다면 다음 커맨드를 사용하여 이를 수행할 수 있다.
 
 ```shell
@@ -178,7 +181,7 @@ kubectl uncordon $NODENAME
 
 해당 노드의 VM 인스턴스를 삭제하고 신규로 생성했다면, 신규로 스케줄 가능한 노드 리소스가 
 자동으로 생성될 것이다.(당신이 노드 디스커버리를 지원하는 클라우드 제공자를 사용한다면; 
-이는 현재 Google Compute Engine만 지원되며 Google Compute Engine 상에서 kube-register를 사용하는 CoreOS를 포함하지는 않는다.) 상세 내용은 [노드](/docs/concepts/architecture/nodes)를 참조하라.
+이는 현재 Google Compute Engine만 지원되며 Google Compute Engine 상에서 kube-register를 사용하는 CoreOS를 포함하지는 않는다.) 상세 내용은 [노드](/ko/docs/concepts/architecture/nodes)를 참조하라.
 
 ## 고급 주제들
 
@@ -217,4 +220,4 @@ kubectl convert -f pod.yaml --output-version v1
 
 옵션에 대한 상세 정보는 [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) 커맨드의 사용법을 참조하기를 바란다.
 
-{{% /capture %}}
+

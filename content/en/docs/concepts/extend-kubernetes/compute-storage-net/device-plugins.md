@@ -2,26 +2,26 @@
 reviewers:
 title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
 that you can use to advertise system hardware resources to the
 {{< glossary_tooltip term_id="kubelet" >}}.
 
-Instead of customising the code for Kubernetes itself, vendors can implement a
+Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
 The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adapters,
 and other similar computing resources that may require vendor specific initialization
 and setup.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Device plugin registration
 
@@ -154,7 +154,7 @@ ensure the continuous functioning of the device allocations during the upgrade.
 
 ## Monitoring Device Plugin Resources
 
-{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
 discover the set of devices that are in-use on the node and obtain metadata to describe which
@@ -182,7 +182,33 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the plugin's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
-Support for the "PodResources service" is in beta, and is enabled by default.
+Support for the "PodResources service" requires `KubeletPodResources` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
+
+## Device Plugin integration with the Topology Manager
+
+{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+
+The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
+
+
+```gRPC
+message TopologyInfo {
+	repeated NUMANode nodes = 1;
+}
+
+message NUMANode {
+    int64 ID = 1;
+}
+```
+Device Plugins that wish to leverage the Topology Manager can send back a populated TopologyInfo struct as part of the device registration, along with the device IDs and the health of the device. The device manager will then use this information to consult with the Topology Manager and make resource assignment decisions.
+
+`TopologyInfo` supports a `nodes` field that is either `nil` (the default) or a list of NUMA nodes. This lets the Device Plugin publish that can span NUMA nodes.
+
+An example `TopologyInfo` struct populated for a device by a Device Plugin:
+
+```
+pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.TopologyInfo{Nodes: []*pluginapi.NUMANode{&pluginapi.NUMANode{ID: 0,},}}}
+```
 
 ## Device plugin examples {#examples}
 
@@ -197,13 +223,15 @@ Here are some examples of device plugin implementations:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
-* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl-tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
+* Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
+* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 
-{{% /capture %}}
+

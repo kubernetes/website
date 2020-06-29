@@ -5,17 +5,17 @@ reviewers:
 - rekcah78
 - rbenzair
 title: Ingress
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Un Ingress est un objet Kubernetes qui gère l'accès externe aux services dans un cluster, généralement du trafic HTTP.
 
 Un Ingress peut fournir un équilibrage de charge, une terminaison TLS et un hébergement virtuel basé sur un nom.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Terminologie
 
@@ -29,7 +29,7 @@ Par souci de clarté, ce guide définit les termes suivants :
 
 ## Qu'est-ce qu'un ingress ?
 
-Ingress (ou une entrée réseau), ajouté à Kubernetes v1.1, expose les routes HTTP et HTTPS de l'extérieur du cluster à
+Ingress (ou une entrée réseau), ajouté à Kubernetes v1.1, expose les routes HTTP et HTTPS de l'extérieur du cluster à des
 {{<link text = "services" url = "/docs/concepts/services-networking/service/">}} au sein du cluster.
 Le routage du trafic est contrôlé par des règles définies sur la ressource Ingress.
 
@@ -89,7 +89,7 @@ spec:
 ```
 
 Comme pour toutes les autres ressources Kubernetes, un ingress (une entrée) a besoin des champs `apiVersion`,` kind` et `metadata`.
- Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configurer des conteneurs](/docs/tasks/configure-pod-container/configure-pod-configmap/), [gestion des ressources](/docs/ concepts/cluster-administration/manage-deployment/).
+ Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configurer des conteneurs](/docs/tasks/configure-pod-container/configure-pod-configmap/), [gestion des ressources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress utilise fréquemment des annotations pour configurer certaines options en fonction du contrôleur Ingress, dont un exemple
  est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
  Différents [Ingress controller](/docs/concepts/services-networking/ingress-controllers) prennent en charge différentes annotations. Consultez la documentation de votre choix de contrôleur Ingress pour savoir quelles annotations sont prises en charge.
@@ -431,8 +431,9 @@ Vous pouvez exposer un service de plusieurs manières sans impliquer directement
 * Utilisez [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
 * Utilisez un [Proxy du port](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Configurer Ingress sur Minikube avec le contrôleur NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
-{{% /capture %}}
+

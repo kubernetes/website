@@ -1,0 +1,29 @@
+{{ range .Params.cards }}
+<div class="launch-card">
+    <h2 id="{{ replace .title " " "-" | lower }}">{{ .title }}</h2>
+    <p>{{ .description }}</p>
+    <ul>
+    {{ $name := .name }}
+    {{ range where ($.Site.Pages.ByParam "card.weight") ".Params.card" "!=" nil }}
+        {{ if eq .Params.card.name $name }}
+        {{ $p := . }}
+        {{ if (isset .Params.card "anchors") }}
+            {{ range .Params.card.anchors }}
+            <li><a href="{{ $p.Permalink }}{{ .anchor }}">{{ .title }}</a></li>
+            {{ end }}
+        {{ else }}
+            <li><a href={{ .Permalink }}>
+            {{ if (isset .Params.card "title") }}{{ .Params.card.title }}{{ else }}{{ .LinkTitle }}{{ end }}
+            </a></li>
+        {{ end }}
+        {{ end }}
+    {{ end }}
+    </ul>
+    {{ if .button }}
+      <br>
+      <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';" aria-label="{{ .title }}">{{ .button }}</button>
+      <br>
+      <br>
+    {{ end }}
+</div>
+{{ end }}

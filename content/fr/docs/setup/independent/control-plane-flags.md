@@ -1,24 +1,24 @@
 ---
 title: Personnalisation de la configuration du control plane avec kubeadm
 description: Personnalisation de la configuration du control plane avec kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.12" state="stable" >}}
 
-L'objet `ClusterConfiguration` de kubeadm expose le champ `extraArgs` qui peut 
-remplacer les indicateurs par défaut transmis au control plane à des composants 
-tels que l'APIServer, le ControllerManager et le Scheduler. Les composants sont 
+L'objet `ClusterConfiguration` de kubeadm expose le champ `extraArgs` qui peut
+remplacer les indicateurs par défaut transmis au control plane à des composants
+tels que l'APIServer, le ControllerManager et le Scheduler. Les composants sont
 définis à l'aide des champs suivants:
 
 - `apiServer`
 - `controllerManager`
 - `scheduler`
 
-Le champ `extraArgs` se compose de paires` clé: valeur`. Pour remplacer un indicateur 
+Le champ `extraArgs` se compose de paires` clé: valeur`. Pour remplacer un indicateur
 pour un composant du control plane:
 
 1. Ajoutez les champs appropriés à votre configuration.
@@ -27,9 +27,9 @@ pour un composant du control plane:
 Pour plus de détails sur chaque champ de la configuration, vous pouvez accéder aux
 [pages de référence de l'API](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#ClusterConfiguration).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Paramètres pour l'API Server
 
@@ -86,4 +86,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+
