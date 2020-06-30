@@ -46,6 +46,9 @@ other = "私は..."
 [docs_label_users]
 other = "ユーザー"
 
+[examples_heading]
+other = "例"
+
 [feedback_heading]
 other = "フィードバック"
 
