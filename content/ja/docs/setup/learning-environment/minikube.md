@@ -14,14 +14,15 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 ## Minikubeの機能
 
-* MinikubeのサポートするKubernetesの機能:
-  * DNS
-  * NodePorts
-  * ConfigMapsとSecrets
-  * ダッシュボード
-  * コンテナランタイム: Docker、[CRI-O](https://cri-o.io/)および[containerd](https://github.com/containerd/containerd)
-  * CNI (Container Network Interface) の有効化
-  * Ingress
+MinikubeのサポートするKubernetesの機能:
+
+* DNS
+* NodePorts
+* ConfigMapsとSecrets
+* ダッシュボード
+* コンテナランタイム: Docker、[CRI-O](https://cri-o.io/)および[containerd](https://github.com/containerd/containerd)
+* CNI (Container Network Interface) の有効化
+* Ingress
 
 ## インストール
 
@@ -31,7 +32,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 これはMinikubeの起動、使用、削除をローカルで実施する簡単なデモです。下記の手順に従って、Minikubeを起動し試してください。
 
- 1. Minikubeを起動し、クラスターを作成します:
+1. Minikubeを起動し、クラスターを作成します:
 
 ```shell
 minikube start
@@ -60,7 +61,7 @@ kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
 deployment.apps/hello-minikube created
 ```
 
- 3. `hello-minikube`Deploymentに接続するために、Serviceとして公開します:
+3. `hello-minikube`Deploymentに接続するために、Serviceとして公開します:
 
 ```shell
 kubectl expose deployment hello-minikube --type=NodePort --port=8080
@@ -94,13 +95,13 @@ NAME                              READY     STATUS    RESTARTS   AGE
 hello-minikube-3383150820-vctvh   1/1       Running   0          13s
 ```
 
- 5. Serviceの詳細を確認するため、公開したServiceのURLを取得します:
+5. Serviceの詳細を確認するため、公開したServiceのURLを取得します:
 
 ```shell
 curl $(minikube service hello-minikube --url)
 ```
 
- 6. ローカル環境のクラスターについて詳細を確認するには、出力から得たURLをブラウザー上でコピーアンドペーストしてください。
+6. ローカル環境のクラスターについて詳細を確認するには、出力から得たURLをブラウザー上でコピーアンドペーストしてください。
  出力はこのようになります:
 
 ```
@@ -132,7 +133,7 @@ Request Body:
 
 Serviceやクラスターをこれ以上稼働させない場合、削除する事ができます。
 
- 7. `hello-minikube`Serviceを削除します:
+7. `hello-minikube`Serviceを削除します:
 
 ```shell
 kubectl delete services hello-minikube
@@ -144,7 +145,7 @@ kubectl delete services hello-minikube
 service "hello-minikube" deleted
 ```
 
- 8. `hello-minikube`Deploymentを削除します:
+8. `hello-minikube`Deploymentを削除します:
 
 ```shell
 kubectl delete deployment hello-minikube
@@ -156,7 +157,7 @@ kubectl delete deployment hello-minikube
 deployment.extensions "hello-minikube" deleted
 ```
 
- 9. ローカル環境のMinikubeクラスターを停止します:
+9. ローカル環境のMinikubeクラスターを停止します:
 
 ```shell
 minikube stop
@@ -171,7 +172,7 @@ Stopping "minikube"...
 
 詳細は[クラスターの停止](#stopping-a-cluster)を参照ください。
 
- 10. ローカルのMinikubeクラスターを削除します:
+10. ローカルのMinikubeクラスターを削除します:
 
 ```shell
 minikube delete
@@ -235,6 +236,7 @@ Minikubeは以下のドライバーをサポートしています:
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
+* vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
 * none (VMではなくホスト上でKubernetesコンポーネントを起動。このドライバーを使用するには{{< glossary_tooltip term_id="docker" >}}とLinux環境を必要とします)
 
 {{< caution >}}
