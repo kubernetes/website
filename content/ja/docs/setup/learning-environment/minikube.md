@@ -9,7 +9,6 @@ content_type: concept
 
 Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でシングルノードのKubernetesクラスタを実行することができます。
 
-{{% /capture %}}
 
 <!-- body -->
 
