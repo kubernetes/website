@@ -31,7 +31,7 @@ _Pod Security Policy_ 는 파드 명세의 보안 관련 측면을 제어하는 
 | 호스트 네트워킹과 포트의 사용                               | [`hostNetwork`, `hostPorts`](#호스트-네임스페이스) |
 | 볼륨 유형의 사용                                        | [`volumes`](#볼륨-및-파일시스템)      |
 | 호스트 파일시스템의 사용                                  | [`allowedHostPaths`](#볼륨-및-파일시스템) |
-| FlexVolume 드라이버의 화이트리스트                         | [`allowedFlexVolumes`](#flexvolume-드라이버) |
+| 특정 FlexVolume 드라이버의 허용                         | [`allowedFlexVolumes`](#flexvolume-드라이버) |
 | 파드 볼륨을 소유한 FSGroup 할당                           | [`fsGroup`](#볼륨-및-파일시스템)      |
 | 읽기 전용 루트 파일시스템 사용 필요                          | [`readOnlyRootFilesystem`](#볼륨-및-파일시스템) |
 | 컨테이너의 사용자 및 그룹 ID                               | [`runAsUser`, `runAsGroup`, `supplementalGroups`](#사용자-및-그룹) |
@@ -398,13 +398,13 @@ podsecuritypolicy "example" deleted
 동일한 노드에 있는 다른 파드의 네트워크 활동을 스누핑(snoop)하는 데
 사용할 수 있다.
 
-**HostPorts** - 호스트 네트워크 네임스페이스에 허용되는 포트 범위의 화이트리스트(whitelist)를
+**HostPorts** - 호스트 네트워크 네임스페이스에 허용되는 포트 범위의 목록을
 제공한다. `min`과 `max`를 포함하여 `HostPortRange`의 목록으로 정의된다.
 기본값은 허용하는 호스트 포트 없음(no allowed host ports)이다.
 
 ### 볼륨 및 파일시스템
 
-**Volumes** - 허용되는 볼륨 유형의 화이트리스트를 제공한다. 허용 가능한 값은
+**Volumes** - 허용되는 볼륨 유형의 목록을 제공한다. 허용 가능한 값은
 볼륨을 생성할 때 정의된 볼륨 소스에 따른다. 볼륨 유형의 전체 목록은
 [볼륨 유형들](/ko/docs/concepts/storage/volumes/#볼륨-유형들)에서 참고한다.
 또한 `*`를 사용하여 모든 볼륨 유형을
@@ -435,7 +435,7 @@ podsecuritypolicy "example" deleted
 유효성을 검사한다.
 - *RunAsAny* - 기본값은 제공되지 않는다. 어떠한 `fsGroup` ID의 지정도 허용한다.
 
-**AllowedHostPaths** - hostPath 볼륨에서 사용할 수 있는 호스트 경로의 화이트리스트를
+**AllowedHostPaths** - hostPath 볼륨에서 사용할 수 있는 호스트 경로의 목록을
 지정한다. 빈 목록은 사용되는 호스트 경로에 제한이 없음을 의미한다.
 이는 단일 `pathPrefix` 필드가 있는 오브젝트 목록으로 정의되며, hostPath 볼륨은
 허용된 접두사로 시작하는 경로를 마운트할 수 있으며 `readOnly` 필드는
@@ -466,7 +466,7 @@ allowedHostPaths:
 
 ### FlexVolume 드라이버
 
-flexvolume에서 사용할 수 있는 FlexVolume 드라이버의 화이트리스트를 지정한다.
+flexvolume에서 사용할 수 있는 FlexVolume 드라이버의 목록을 지정한다.
 빈 목록 또는 nil은 드라이버에 제한이 없음을 의미한다.
 [`volumes`](#볼륨-및-파일시스템) 필드에 `flexVolume` 볼륨 유형이 포함되어
 있는지 확인한다. 그렇지 않으면 FlexVolume 드라이버가 허용되지 않는다.
@@ -552,7 +552,7 @@ spec:
 다음 필드는 대문자로 표기된 기능 이름 목록을
 `CAP_` 접두사 없이 가져온다.
 
-**AllowedCapabilities** - 컨테이너에 추가될 수 있는 기능의 화이트리스트를
+**AllowedCapabilities** - 컨테이너에 추가될 수 있는 기능의 목록을
 제공한다. 기본적인 기능 셋은 암시적으로 허용된다. 비어있는 셋은
 기본 셋을 넘어서는 추가 기능이 추가되지 않는 것을
 의미한다. `*`는 모든 기능을 허용하는 데 사용할 수 있다.
@@ -576,7 +576,7 @@ spec:
 
 ### AllowedProcMountTypes
 
-`allowedProcMountTypes`는 허용된 ProcMountTypes의 화이트리스트이다.
+`allowedProcMountTypes`는 허용된 ProcMountTypes의 목록이다.
 비어 있거나 nil은 `DefaultProcMountType`만 사용할 수 있음을 나타낸다.
 
 `DefaultProcMount`는 /proc의 읽기 전용 및 마스킹(masking)된 경로에 컨테이너 런타임
@@ -636,5 +636,4 @@ spec:
 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
 
 API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
-
 

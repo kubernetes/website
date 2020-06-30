@@ -78,7 +78,7 @@ Les déploiements sont le moyen recommandé pour gérer la création et la mise 
 Pod utilise un conteneur basé sur l'image Docker fournie.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Affichez le déploiement :

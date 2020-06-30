@@ -97,6 +97,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl get pods
     ```
+    
     다음과 유사하게 출력된다.
 
     ```

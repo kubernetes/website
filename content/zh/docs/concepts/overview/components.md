@@ -21,7 +21,7 @@ card:
 
 <!--
 When you deploy Kubernetes, you get a cluster.
-{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have
 a complete and working Kubernetes cluster.

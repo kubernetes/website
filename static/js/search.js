@@ -11,7 +11,7 @@
     }
 
     window.getPaginationAnchors = (pages) => {
-        var pageAnchors = '', searchTerm  = window.location.search.split("=")[1].split("&")[0];
+        var pageAnchors = '', searchTerm  = window.location.search.split("=")[1].split("&")[0].replace(/%20/g, ' ');
         var currentPage = window.location.search.split("=")[2];
         currentPage = (!currentPage) ?  1 : currentPage.split("&")[0];
 
@@ -33,7 +33,7 @@
     }
 
     window.renderBingSearchResults = () => {
-        var searchTerm  = window.location.search.split("=")[1].split("&")[0],
+        var searchTerm  = window.location.search.split("=")[1].split("&")[0].replace(/%20/g,' '),
             page        = window.location.search.split("=")[2],
             q           = "site:kubernetes.io " + searchTerm;
 
@@ -47,6 +47,7 @@
         ajaxConf.beforeSend = function(xhr){ xhr.setRequestHeader('Ocp-Apim-Subscription-Key', '51efd23677624e04b4abe921225ea7ec'); };
 
         $.ajax(ajaxConf).done(function(res) {
+            if (res.webPages == null) return; // If no result, 'webPages' is 'undefined'
             var paginationAnchors = window.getPaginationAnchors(Math.ceil(res.webPages.totalEstimatedMatches / 10));
             res.webPages.value.map(ob => { results += window.getResultMarkupString(ob); })
 

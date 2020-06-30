@@ -1,51 +1,27 @@
 ---
-translator:
-- nicksu
-reviewers:
-- bowei
-- zihongz
-title:  Debug DNS 方案
+title: 调试 DNS 问题
 content_type: task
 ---
 
-<!--
-
 <!-- overview -->
+<!--
 This page provides hints on diagnosing DNS problems.
-
-
 -->
 
-<!-- overview -->
 这篇文章提供了一些关于 DNS 问题诊断的方法。
-
-
-<!--
-
-## {{% heading "prerequisites" %}}
-
-
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Kubernetes version 1.6 and above.
-* The cluster must be configured to use the `coredns` (or `kube-dns`) addons.
-
 
 <!-- steps -->
 
--->
-
 ## {{% heading "prerequisites" %}}
 
+<!-- ZH: The following include shortcode misbehaves even when inside a HTML
+comment. This may be a generic problem to be fixed.-->
 
 - {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 - Kubernetes 1.6 或者以上版本。
 - 集群必须使用了 `coredns` (或者 `kube-dns`)插件。
   
-
-<!-- steps -->
-
 <!--
-
 ### Create a simple Pod to use as a test environment
 
 Create a file named busybox.yaml with the following contents:
@@ -62,7 +38,6 @@ kubectl get pods busybox
 NAME      READY     STATUS    RESTARTS   AGE
 busybox   1/1       Running   0          <some-time>
 ```
-
 -->
 
 ### 创建一个简单的 Pod 作为测试环境
@@ -134,7 +109,6 @@ search default.svc.cluster.local svc.cluster.local cluster.local google.internal
 nameserver 10.0.0.10
 options ndots:5
 ```
-
 -->
 
 ### 先检查本地的 DNS 配置

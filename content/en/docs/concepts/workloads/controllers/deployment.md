@@ -861,7 +861,12 @@ The output is similar to this:
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
-$ echo $?
+```
+and the exit status from `kubectl rollout` is 0 (success):
+```shell
+echo $?
+```
+```
 0
 ```
 
@@ -1003,7 +1008,12 @@ The output is similar to this:
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
-$ echo $?
+```
+and the exit status from `kubectl rollout` is 1 (indicating an error):
+```shell
+echo $?
+```
+```
 1
 ```
 

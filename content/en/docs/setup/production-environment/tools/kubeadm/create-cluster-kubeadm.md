@@ -118,7 +118,7 @@ While `--apiserver-advertise-address` can be used to set the advertise address f
 control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
 for all control-plane nodes.
 
-`--control-plane-endpoint` allows IP addresses but also DNS names that can map to IP addresses.
+`--control-plane-endpoint` allows both IP addresses and DNS names that can map to IP addresses.
 Please contact your network administrator to evaluate possible solutions with respect to such mapping.
 
 Here is an example mapping:
@@ -531,10 +531,9 @@ Talking to the control-plane node with the appropriate credentials, run:
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
-kubectl delete node <node name>
 ```
 
-Then, on the node being removed, reset all `kubeadm` installed state:
+Before removing the node, reset the state installed by `kubeadm`:
 
 ```bash
 kubeadm reset
@@ -550,6 +549,11 @@ If you want to reset the IPVS tables, you must run the following command:
 
 ```bash
 ipvsadm -C
+```
+
+Now remove the node:
+```bash
+kubectl delete node <node name>
 ```
 
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the

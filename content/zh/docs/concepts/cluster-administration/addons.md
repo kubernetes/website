@@ -94,7 +94,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 
 ## 基础设施
 
-* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以让 Kubernetes 运行虚拟机的 add-ons。通常运行在裸机群集上。
+* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以让 Kubernetes 运行虚拟机的 add-ons。通常运行在裸机集群上。
 
 <!--
 ## Legacy Add-ons

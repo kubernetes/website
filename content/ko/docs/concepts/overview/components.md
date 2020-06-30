@@ -56,6 +56,8 @@ card:
 
 ### cloud-controller-manager
 
+{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
+
 cloud-controller-manager는 클라우드 제공자 전용 컨트롤러만 실행한다.
 자신의 사내 또는 PC 내부의 학습 환경에서 쿠버네티스를 실행 중인 경우
 클러스터에는 클라우드 컨트롤러 매니저가 없다.

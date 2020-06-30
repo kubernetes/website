@@ -7,7 +7,7 @@ weight: 10
 
 <!-- overview -->
 이 튜토리얼은 스테이트풀셋([StatefulSets](/ko/docs/concepts/workloads/controllers/statefulset/))을 이용하여
-애플리케이션을 관리하는 방법을 소개한다. 어떻게 스테이트풀셋의 파드(Pod)을 생성하고 삭제하며
+애플리케이션을 관리하는 방법을 소개한다. 어떻게 스테이트풀셋의 파드를 생성하고 삭제하며
 스케일링하고 업데이트하는지 시연한다.
 
 

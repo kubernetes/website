@@ -374,16 +374,19 @@ systemctl restart containerd
 ## Set up the repository
 ### Install required packages
 yum install -y yum-utils device-mapper-persistent-data lvm2
+```
 
 ```shell
 ## Add docker repository
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
 ```shell
 ## Install containerd
 yum update -y && yum install -y containerd.io
+```
 
 ```shell
 ## Configure containerd

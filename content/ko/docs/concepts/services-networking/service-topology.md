@@ -194,7 +194,7 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 
-* [서비스 토폴로지 활성화하기](/docs/tasks/administer-cluster/enabling-service-topology)를 읽는다.
-* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽는다.
+* [서비스 토폴로지 활성화하기](/docs/tasks/administer-cluster/enabling-service-topology)를 읽어보기.
+* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기.
 
 

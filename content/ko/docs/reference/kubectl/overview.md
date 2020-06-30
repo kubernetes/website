@@ -7,14 +7,13 @@ card:
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다. `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다. KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 파일을 지정할 수 있다.
 
 이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다. 지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다. 설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## 구문
 
@@ -441,7 +440,7 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-bar
 ```
 ```shell
-# 또한, 이 명령은 예를 들어 실행 불가능한 파일이거나, 
+# 또한, 이 명령은 예를 들어 실행 불가능한 파일이거나,
 # 다른 플러그인에 의해 가려진 플러그인에 대해
 # 경고할 수 있다
 sudo chmod -x /usr/local/bin/kubectl-foo
@@ -486,10 +485,9 @@ Current user: plugins-user
 
 플러그인에 대한 자세한 내용은 [cli plugin 예제](https://github.com/kubernetes/sample-cli-plugin)를 참고한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 명령을 사용하여 시작한다.
 
-{{% /capture %}}
+

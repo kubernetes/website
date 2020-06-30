@@ -101,12 +101,12 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   Example:
 
-```conf
-release=1.0
-tier=frontend
-environment=pod
-track=stable
-```
+  ```conf
+  release=1.0
+  tier=frontend
+  environment=pod
+  track=stable
+  ```
 
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/). They let you partition resources into logically named groups.
 
