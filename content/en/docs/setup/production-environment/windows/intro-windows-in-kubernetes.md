@@ -214,7 +214,7 @@ This wording makes it clear that “Service” refers to the Kubernetes resource
 You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
-Requires Windows Server vNext Insider Preview Build 19603 (or higher). 
+On Windows, using IPv6 with Kubernetes requires Windows Server vNext Insider Preview Build 19603 (or higher). 
 
 Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
 
