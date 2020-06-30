@@ -189,7 +189,7 @@ For the node, pod, and service objects, the following network flows are supporte
 * Node -> Pod
 * Pod -> Node
 
-##### IPAM
+##### IP address management (IPAM) {#ipam}
 The following IPAM options are supported on Windows:
 
 * [Host-local](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
