@@ -48,14 +48,9 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - 生产级 K8s 的安装、升级和管理。支持在 AWS 运行 Debian、Ubuntu、CentOS 和 RHEL。
 
 <!--
-* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws), creates and manages Kubernetes clusters with [Flatcar Linux](https://www.flatcar-linux.org/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 -->
-* [CoreOS Tectonic](https://coreos.com/tectonic/) 包括开源的 [Tectonic 安装程序](https://github.com/coreos/tectonic-installer)，它用于在 AWS 上创建带有 Container Linux 节点的 Kubernetes 集群。
-
-<!--
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
--->
-* 起源于 CoreOS，Kubernetes Incubator 维护的 [CLI 工具， kube-aws ](https://github.com/kubernetes-incubator/kube-aws)，该工具使用 [Container Linux](https://coreos.com/why/) 节点创建和管理 Kubernetes 集群，它使用了 AWS 工具：EC2、CloudFormation 和 Autoscaling。
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws) 使用 [Flatcar Linux](https://www.flatcar-linux.org/) 节点创建和管理 Kubernetes 集群，它使用了 AWS 工具：EC2、CloudFormation 和 Autoscaling。
 
 <!--
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
