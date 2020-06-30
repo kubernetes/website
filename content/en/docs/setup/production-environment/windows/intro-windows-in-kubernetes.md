@@ -198,30 +198,27 @@ The following IPAM options are supported on Windows:
 
 ##### Load balancing and Services
 
-On Windows, you can use the following settings to configure Services and load balancing behavior:```
+On Windows, you can use the following settings to configure Services and load balancing behavior:
 
-This wording makes it clear that “Service” refers to the Kubernetes resource by that name.
-
+{{< table caption="Windows Service Settings" >}}
 | Feature | Description | Supported Kubernetes version  | Supported Windows OS build | How to enable |
 | ------- | ----------- | ----------------------------- | -------------------------- | ------------- |
 | Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | v1.19+ | [Windows Server vNext Insider Preview Build 19551](https://blogs.windows.com/windowsexperience/2020/01/28/announcing-windows-server-vnext-insider-preview-build-19551/) (or higher) | Set `service.spec.sessionAffinity` to "ClientIP" |
-| Direct Server Return | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. Promises lower latency and scalability. | v1.15+ | Windows Server, version 2004 | Set the following flags in kube-proxy: `feature-gates="WinDSR=true" --enable-dsr=true` |
-| Preserve-DIP | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. This setting will also ensure that the client IP of incoming packets get preserved. | v1.15+ | Windows Server, version 1903 (or higher) | Set `"preserve-destination": "true"` in service annotations and enable DSR. |
+| Direct Server Return | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. Promises lower latency and scalability. | v1.15+ | Windows Server, version 2004 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
+| Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. This setting will also ensure that the client IP of incoming packets get preserved. | v1.15+ | Windows Server, version 1903 (or higher) | Set `"preserve-destination": "true"` in service annotations and enable DSR flags in kube-proxy. |
 | IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | v1.19+ | Windows Server vNext Insider Preview Build 19603 (or higher) | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
-
+{{< /table >}}
 
 #### IPv4/IPv6 dual-stack
 You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
-On Windows, using IPv6 with Kubernetes requires Windows Server vNext Insider Preview Build 19603 (or higher). 
-
-Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
-
-This feature will become available on Windows Server, version 2004 through a cumulative update tentatively scheduled to be released in 1.19 - 1.20 release timeframe.
-
+On Windows, using IPv6 with Kubernetes require Windows Server vNext Insider Preview Build 19603 (or higher).
 {{< /note >}}
 
+{{< note >}}
+Overlay (VXLAN) networks on Windows do not support dual-stack networking today.
+{{< /note >}}
 
 ### Limitations
 
@@ -327,11 +324,11 @@ These features were added in Kubernetes v1.15:
 * On Windows, there are multiple DNS resolvers that can be used. As these come with slightly different behaviors, using the `Resolve-DNSName` utility for name query resolutions is recommended.
 
 ##### IPv6
-Windows does not support "IPv6-only" networking. However, Windows does support dual-stack IPv4/IPv6 networking for pods and nodes with single-family services. See [IPv4/IPv6 dual-stack networking](#ipv4ipv6-dual-stack) for more details.
+Kubernetes on Windows does not support single-stack "IPv6-only" networking. However,dual-stack IPv4/IPv6 networking for pods and nodes with single-family services is supported. See [IPv4/IPv6 dual-stack networking](#ipv4ipv6-dual-stack) for more details.
 
 
 ##### Session affinity
-Setting the maximum session sticky time using `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not implemented for Windows nodes.
+Setting the maximum session sticky time for Windows services using `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not supported.
 
 ##### Security
 
