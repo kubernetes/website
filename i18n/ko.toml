@@ -121,6 +121,9 @@ other = "사용자"
 [docs_label_i_am]
 other = "나는..."
 
+[examples_heading]
+other = "예제"
+
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
