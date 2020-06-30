@@ -24,7 +24,7 @@ _"When looking at Windows support in Kubernetes," says SIG (Special Interest Gro
 
 In essence, any "container" is simply a process being run on its host operating system, with some key tooling in place to isolate that process and its dependencies from the rest of the environment. The goal is to make that running process safely isolated, while taking up minimal resources from the system to perform that isolation. On Linux, the tooling used to isolate processes to create "containers" commonly boils down to cgroups and namespaces (among a few others), which are themselves tools built in to the Linux Kernel.
 
-<img alt="If dogs were processes: containerization would be like giving each dog their own resources like toys and food using cgroups, and isolating troublesome dogs using namespaces" width="40%" src="cgroupsNamespacesComboPic.png">
+<img alt="A visual analogy using dogs to explain Linux cgroups and namespaces." width="40%" src="cgroupsNamespacesComboPic.png">
 
 #### _If dogs were processes: containerization would be like giving each dog their own resources like toys and food using cgroups, and isolating troublesome dogs using namespaces._
 
