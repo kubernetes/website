@@ -23,7 +23,7 @@ content_type: task
 ## 为什么要改变默认 storage class？
 
 
-取决于安装模式，您的 Kubernetes 集群可能和一个被标记为默认的已有 StorageClass 一起部署。这个默认的 StorageClass 以后将被用于动态的为没有特定 storage class 需求的 PersistentVolumeClaims 配置存储。更多细节请查看 [PersistentVolumeClaim 文档](/docs/user-guide/persistent-volumes/#class-1)。
+取决于安装模式，您的 Kubernetes 集群可能和一个被标记为默认的已有 StorageClass 一起部署。这个默认的 StorageClass 以后将被用于动态的为没有特定 storage class 需求的 PersistentVolumeClaims 配置存储。更多细节请查看 [PersistentVolumeClaim 文档](/docs/user-guide/persistent-volumes/#persistentvolumeclaims)。
 
 
 预先安装的默认 StorageClass 可能不能很好的适应您期望的工作负载；例如，它配置的存储可能太过昂贵。如果是这样的话，您可以改变默认 StorageClass，或者完全禁用它以防止动态配置存储。
