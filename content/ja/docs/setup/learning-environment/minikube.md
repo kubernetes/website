@@ -214,7 +214,7 @@ MinikubeにKubernetesの特定のバージョンを指定することができ�
 例えば、{{< param "fullversion" >}}のバージョンを実行するには以下を実行します:
 
 ```
-minikube start --kubernetes-version v1.7.3
+minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 
 #### VMドライバーの指定
