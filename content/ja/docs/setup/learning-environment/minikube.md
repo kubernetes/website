@@ -202,7 +202,8 @@ MinikubeのサポートするKubernetesの機能:
 このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
 また、このクラスターと通信する [kubectl](/ja/docs/reference/kubectl/overview/) のインストールも設定します。
 
-{{< note >}} もしWebプロキシーを通している場合、そのプロキシー情報を `minikube start` コマンドに渡す必要があります:
+{{< note >}}
+もしWebプロキシーを通している場合、そのプロキシー情報を`minikube start`コマンドに渡す必要があります:
 
 ```shell
 https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docker-env https_proxy=<my proxy> --docker-env no_proxy=192.168.99.0/24
