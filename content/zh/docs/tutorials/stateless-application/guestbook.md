@@ -1,19 +1,23 @@
 ---
 title: "示例：使用 Redis 部署 PHP 留言板应用程序"
-reviewers:
-- ahmetb
 content_type: tutorial
 weight: 20
+card:
+  name: tutorials
+  weight: 30
+  title: "无状态应用示例：基于 Redis 的 PHP Guestbook"
 ---
 
 <!--
----
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
 - ahmetb
 content_type: tutorial
 weight: 20
----
+card:
+  name: tutorials
+  weight: 30
+  title: "Stateless Example: PHP Guestbook with Redis"
 -->
 
 <!-- overview -->

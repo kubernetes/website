@@ -47,8 +47,8 @@ card:
 - [kubernetes/website에 기여하기](https://github.com/kubernetes/website/contribute)를 참조하여 좋은 진입점이 되는 이슈를 찾을 수 있습니다.
 - 기존 문서에 대해 [GitHub을 사용해서 풀 리퀘스트 열거나](/docs/contribute/new-content/new-content/#changes-using-github) GitHub에서의 이슈 제기에 대해 자세히 알아봅니다.
 - 정확성과 언어에 대해 다른 쿠버네티스 커뮤니티 맴버의 [풀 리퀘스트 검토](/docs/contribute/review/reviewing-prs/)를 합니다.
-- 쿠버네티스 [컨텐츠](/docs/contribute/style/content-guide/)와 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽고 정보에 대한 코멘트를 남길 수 있습니다.
-- [페이지 템플릿 사용](/docs/contribute/style/page-templates/)과 [휴고(Hugo) 단축코드(shortcodes)](/docs/contribute/style/hugo-shortcodes/)를 사용해서 큰 변경을 하는 방법에 대해 배워봅니다.
+- 쿠버네티스 [콘텐츠](/docs/contribute/style/content-guide/)와 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽고 정보에 대한 코멘트를 남길 수 있습니다.
+- [페이지 템플릿 사용](/docs/contribute/style/page-content-types/)과 [휴고(Hugo) 단축코드(shortcodes)](/docs/contribute/style/hugo-shortcodes/)를 사용해서 큰 변경을 하는 방법에 대해 배워봅니다.
 
 ## 다음 단계
 
@@ -67,12 +67,10 @@ SIG Docs는 여러가지 방법으로 의견을 나누고 있습니다.
   자신을 소개하세요!
 - 더 광범위한 토론이 이루어지고 공식적인 결정이 기록이 되는
   [`kubernetes-sig-docs` 메일링 리스트에 가입](https://groups.google.com/forum/#!forum/kubernetes-sig-docs) 하세요.
-- [주간 SIG Docs 화상 회의](https://github.com/kubernetes/community/tree/master/sig-docs)에 참여하세요. 회의는 항상 `#sig-docs` 에 발표되며 [쿠버네티스 커뮤니티 회의 일정](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)에 추가됩니다. [줌(Zoon) 클라이언트](https://zoom.us/download)를 다운로드 하거나 전화를 이용하여 전화 접속해야 합니다.
+- [주간 SIG Docs 화상 회의](https://github.com/kubernetes/community/tree/master/sig-docs)에 참여하세요. 회의는 항상 `#sig-docs` 에 발표되며 [쿠버네티스 커뮤니티 회의 일정](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)에 추가됩니다. [줌(Zoom) 클라이언트](https://zoom.us/download)를 다운로드하거나 전화를 이용하여 전화 접속해야 합니다.
 
 ## 다른 기여 방법들
 
 - [쿠버네티스 커뮤니티 사이트](/community/)를 방문하십시오. 트위터 또는 스택 오버플로우에 참여하고, 현지 쿠버네티스 모임과 이벤트 등에 대해 알아봅니다.
 - [기여자 치트시트](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet)를 읽고 쿠버네티스 기능 개발에 참여합니다.
 - [블로그 게시물 또는 사례 연구](/docs/contribute/new-content/blogs-case-studies/)를 제출합니다.
-
-

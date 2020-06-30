@@ -23,5 +23,3 @@ Bieżąca wersja to
 ## Poprzednie wersje
 
 {{< versions-other >}}
-
-

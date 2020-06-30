@@ -28,9 +28,8 @@ weight: 20
 튜토리얼 | 튜토리얼 페이지는 여러 쿠버네티스의 특징들을 하나로 묶어서 목적을 달성하는 방법을 보여준다. 튜토리얼은 독자들이 페이지를 읽을 때 실제로 할 수 있는 몇 가지 단계의 순서를 제공한다. 또는 관련 코드 일부에 대한 설명을 제공할 수도 있다. 예를 들어 튜토리얼은 코드 샘플의 연습을 제공할 수 있다. 튜토리얼에는 쿠버네티스의 특징에 대한 간략한 설명이 포함될 수 있지만 개별 기능에 대한 자세한 설명은 관련 개념 문서과 연결지어야 한다.
 {{< /table >}}
 
-새 페이지에 대한 템플릿을 사용하자. 각 페이지 타입에 있는
-[템플릿](/docs/contribute/style/page-templates/)
-은 문서를 작성할 때 사용할 수 있다. 템플릿을 사용하면
+작성하는 각각의 새 페이지에 대해 [콘텐츠 타입](/docs/contribute/style/page-content-types/)을
+사용하자. 페이지 타입을 사용하면
 지정된 타입의 문서 간에 일관성을 보장할 수 있다.
 
 ## 제목과 파일 이름 선택
@@ -38,12 +37,12 @@ weight: 20
 검색 엔진에서 찾을 키워드가 있는 제목을 선택하자.
 제목에 있는 단어를 하이픈으로 구분하여 사용하는 파일 이름을 만들자.
 예를 들어
-[HTTP 프록시를 사용하여 쿠버네티스 API에 접근](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[HTTP 프록시를 사용하여 쿠버네티스 API에 접근](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 이라는 제목의 문서는 `http-proxy-access-api.md`라는 이름의 파일을 가진다.
 "쿠버네티스"가 이미 해당 주제의 URL에 있기 때문에 파일 이름에 "쿠버네티스" 를 넣을 필요가 없다.
 예를 들면 다음과 같다.
 
-       /docs/tasks/access-kubernetes-api/http-proxy-access-api/
+       /docs/tasks/extend-kubernetes/http-proxy-access-api/
 
 ## 전문에 항목 제목 추가
 
@@ -164,6 +163,6 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 
 ## {{% heading "whatsnext" %}}
 
-* [페이지 템플릿 사용](/docs/contribute/page-templates/))에 대해 알아보기.
+* [페이지 콘텐츠 타입 사용](/docs/contribute/style/page-content-types/)에 대해 알아보기.
 * [풀 리퀘스트 작성](/docs/contribute/new-content/open-a-pr/)에 대해 알아보기.
 

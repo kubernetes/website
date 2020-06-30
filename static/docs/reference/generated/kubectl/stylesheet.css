@@ -296,11 +296,7 @@ hr {
         clear: both;
     }
 
-    .body-content > h3, .body-content > h4, .body-content > h5, .body-content > h6, .body-content > p, .body-content > ul > li, .body-content > ul > li {
-        width: 52%;
-    }
-
-    .body-content table {
+    .body-content > * {
         width: 52%;
     }
 

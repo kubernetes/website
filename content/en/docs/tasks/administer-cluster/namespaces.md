@@ -82,6 +82,10 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
 ## Creating a new namespace
 
+{{< note >}}
+    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+{{< /note >}}
+
 1. Create a new YAML file called `my-namespace.yaml` with the contents:
 
     ```yaml

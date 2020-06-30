@@ -256,10 +256,12 @@ SIG Docs 团队交流采用如下机制：
 - 参与 [SIG Docs 视频周例会](https://github.com/kubernetes/community/tree/master/sig-docs)，会通过 Slack 频道和邮件列表通知。
   目前通过 Zoom 进行会议，所以您需要下载 [Zoom 客户端](https://zoom.us/download)，或者通过手机拨入。
 
-{{< note >}}
 <!-- 
-You can also check the SIG Docs weekly meeting on the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles). 
--->您也可以查看 [Kubernetes 社区会议日历](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)。
+You can also check the SIG Docs weekly meeting on the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
+-->
+
+{{< note >}}
+您也可以查看 [Kubernetes 社区会议日历](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles)。
 {{< /note >}}
 
 <!-- 
@@ -277,13 +279,15 @@ need more background in Git terminology.
 要改进现有的内容，您可以在创建 _fork_ 之后起草一个 _拉取请求（PR）_ 。这两个术语是 [Github 专用的](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/)。
 出于本主题的目的，您无需了解有关它们的所有信息，因为您可以通过浏览器做所有的事情。当您继续阅读[贡献者中级指南](/docs/contribute/intermediate/)，您会需要更多 Git 术语的背景知识。
 
-{{< note >}}
 <!-- 
 **Kubernetes code developers**: If you are documenting a new feature for an
 upcoming Kubernetes release, your process is a bit different. See
 [Document a feature](/docs/contribute/intermediate/#sig-members-documenting-new-features) for
-process guidelines and information about deadlines. 
--->**Kubernetes 代码开发者**：如果您在撰写 Kubernetes 新版本的新功能文档，流程会稍有不同。
+process guidelines and information about deadlines.
+-->
+
+{{< note >}}
+**Kubernetes 代码开发者**：如果您在撰写 Kubernetes 新版本的新功能文档，流程会稍有不同。
 关于流程指南和最后期限的信息，请参阅[编写功能文档](/docs/contribute/intermediate/#sig-members-documenting-new-features)。
 {{< /note >}}
 
