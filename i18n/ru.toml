@@ -121,6 +121,9 @@ other = "Пользователи"
 [docs_label_i_am]
 other = "Я ..."
 
+[examples_heading]
+other = "пример"
+
 # layouts > blog > pager
 
 [layouts_blog_pager_prev]
