@@ -34,158 +34,165 @@ MinikubeのサポートするKubernetesの機能:
 
 1. Minikubeを起動し、クラスターを作成します:
 
-```shell
-minikube start
-```
+   ```shell
+   minikube start
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-Starting local Kubernetes cluster...
-Running pre-create checks...
-Creating machine...
-Starting local Kubernetes cluster...
-```
-特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してください。
+   ```
+  
+   Starting local Kubernetes cluster...
+  
+   Running pre-create checks...
+  
+   Creating machine...
+  
+   Starting local Kubernetes cluster...
+
+   ```
+
+   特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動   するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してくだ   さい。
 
 2. kubectlを使用してクラスターと対話できるようになります。詳細は[クラスターに触れてみよう](#interacting-with-your-cluster)を参照してください。
 単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentオブジェクトを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
 
-```shell
-kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
-```
+   ```shell
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/   echoserver:1.10
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-deployment.apps/hello-minikube created
-```
+   ```
+   deployment.apps/hello-minikube created
+   ```
 
 3. `hello-minikube`Deploymentに接続するために、Serviceとして公開します:
 
-```shell
-kubectl expose deployment hello-minikube --type=NodePort --port=8080
-```
+   ```shell
+   kubectl expose deployment hello-minikube --type=NodePort    --port=8080
+   ```
 
-`--type=NodePort`オプションで、Serviceのタイプを指定します。
-出力はこのようになります:
+   `--type=NodePort`オプションで、Serviceのタイプを指定します。
+   出力はこのようになります:
 
-```
-service/hello-minikube exposed
-```
+   ```
+   service/hello-minikube exposed
+   ```
 
 4. `hello-minikube`Podが起動開始されましたが、公開したService経由で接続する前にPodが起動完了になるまで待つ必要があります。
 
-Podが稼働しているか確認する:
-```shell
-kubectl get pod
-```
+   Podが稼働しているか確認する:
+   ```shell
+   kubectl get pod
+   ```
 
-`STATUS`に`ContainerCreating`と表示されている場合、Podはまだ作成中です:
+   `STATUS`に`ContainerCreating`と表示されている場合、Podはまだ作成中です:
 
-```
-NAME                              READY     STATUS              RESTARTS   AGE
-hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
-```
+   ```
+   NAME                              READY        STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1          ContainerCreating   0          3s
+   ```
 
-`STATUS`に`Running`と表示されている場合、Podは稼働中です:
+   `STATUS`に`Running`と表示されている場合、Podは稼働中です:
 
-```
-NAME                              READY     STATUS    RESTARTS   AGE
-hello-minikube-3383150820-vctvh   1/1       Running   0          13s
-```
+   ```
+   NAME                              READY     STATUS       RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running      0          13s
+   ```
 
 5. Serviceの詳細を確認するため、公開したServiceのURLを取得します:
 
-```shell
-curl $(minikube service hello-minikube --url)
-```
+   ```shell
+   minikube service hello-minikube --url
+   ```
 
 6. ローカル環境のクラスターについて詳細を確認するには、出力から得たURLをブラウザー上でコピーアンドペーストしてください。
- 出力はこのようになります:
 
-```
-Hostname: hello-minikube-7c77b68cff-8wdzq
+   出力はこのようになります:
 
-Pod Information:
-	-no pod information available-
+   ```
+   Hostname: hello-minikube-7c77b68cff-8wdzq
+   
+   Pod Information:
+   	-no pod information available-
+   
+   Server values:
+   	server_version=nginx: 1.13.3 - lua: 10008
+   
+   Request Information:
+   	client_address=172.17.0.1
+   	method=GET
+   	real path=/
+   	query=
+   	request_version=1.1
+   	request_scheme=http
+   	request_uri=http://192.168.99.100:8080/
+   
+   Request Headers:
+   	accept=*/*
+   	host=192.168.99.100:30674
+   	user-agent=curl/7.47.0
+   
+   Request Body:
+   	-no body in request-
+   ```
 
-Server values:
-	server_version=nginx: 1.13.3 - lua: 10008
-
-Request Information:
-	client_address=172.17.0.1
-	method=GET
-	real path=/
-	query=
-	request_version=1.1
-	request_scheme=http
-	request_uri=http://192.168.99.100:8080/
-
-Request Headers:
-	accept=*/*
-	host=192.168.99.100:30674
-	user-agent=curl/7.47.0
-
-Request Body:
-	-no body in request-
-```
-
-Serviceやクラスターをこれ以上稼働させない場合、削除する事ができます。
+   Serviceやクラスターをこれ以上稼働させない場合、削除する事ができます。
 
 7. `hello-minikube`Serviceを削除します:
 
-```shell
-kubectl delete services hello-minikube
-```
+   ```shell
+   kubectl delete services hello-minikube
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-service "hello-minikube" deleted
-```
+   ```
+   service "hello-minikube" deleted
+   ```
 
 8. `hello-minikube`Deploymentを削除します:
 
-```shell
-kubectl delete deployment hello-minikube
-```
+   ```shell
+   kubectl delete deployment hello-minikube
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-deployment.extensions "hello-minikube" deleted
-```
+   ```
+   deployment.extensions "hello-minikube" deleted
+   ```
 
 9. ローカル環境のMinikubeクラスターを停止します:
 
-```shell
-minikube stop
-```
+   ```shell
+   minikube stop
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-Stopping local Kubernetes cluster...
-Stopping "minikube"...
-```
+   ```
+   Stopping local Kubernetes cluster...
+   Stopping "minikube"...
+   ```
 
-詳細は[クラスターの停止](#stopping-a-cluster)を参照ください。
+   詳細は[クラスターの停止](#stopping-a-cluster)を参照ください。
 
 10. ローカルのMinikubeクラスターを削除します:
 
-```shell
-minikube delete
-```
+   ```shell
+   minikube delete
+   ```
 
-出力はこのようになります:
+   出力はこのようになります:
 
-```
-Deleting "minikube" ...
-The "minikube" cluster has been deleted.
-```
+   ```
+   Deleting "minikube" ...
+   The "minikube" cluster has been deleted.
+   ```
 
-詳細は[クラスターの削除](#deleting-a-cluster)を参照ください。
+   詳細は[クラスターの削除](#deleting-a-cluster)を参照ください。
 
 ## クラスターの管理
 
