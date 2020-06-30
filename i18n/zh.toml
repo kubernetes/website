@@ -1,6 +1,12 @@
 # i18n strings for the Chinese version of the site (https://kubernetes.io/zh/)
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
+[announcement_title]
+other = "黑人的命也是命。"
+
+[announcement_message]
+other = "我们声援黑人社区。<br/> 种族主义是不可接受的。<br/> 它与[Kubernetes项目核心价值观](https://git.k8s.io/community/values.md)相冲突，我们的社区不能容忍它。"
+
 [caution]
 other = "注意："
 
