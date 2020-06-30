@@ -291,7 +291,7 @@ checks the state of each node every `-node-monitor-period` seconds.
 第三个是监控节点的健康情况。节点控制器负责在节点不可达
 （即，节点控制器因为某些原因没有收到心跳，例如节点宕机）时，
 将它的 NodeStatus 的 NodeReady 条件更新为 ConditionUnknown。
-后续如果节点持续不可达，节点控制器将逐出节点上的所有 Pods（使用体面终止）。
+后续如果节点持续不可达，节点控制器将逐出节点上的所有 Pods（使用优雅终止）。
 （默认情况下 40s 后开始报告 ConditionUnknown，在那之后 5m 开始逐出 Pods。）
 节点控制器每隔 `--node-monitor-period` 秒检查每个节点的状态。
 
