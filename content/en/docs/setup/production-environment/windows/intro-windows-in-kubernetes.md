@@ -208,7 +208,7 @@ The following settings applicable to services and load balancing are available o
 
 
 #### IPv4/IPv6 dual-stack
-IPv4/IPv6 dual-stack networking on Windows can be enabled for `l2bridge` networks using the `IPv6DualStack` feature gate. For more details, see how to [enable IPv4/IPv6 dual stack](../../../../concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack).
+You can enable IPv4/IPv6 dual-stack networking for `l2bridge` networks using the `IPv6DualStack` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/). See [enable IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack#enable-ipv4ipv6-dual-stack) for more details.
 
 {{< note >}}
 Requires Windows Server vNext Insider Preview Build 19603 (or higher). 
