@@ -255,7 +255,7 @@ API 오브젝트에 대한 더 자세한 것은
 
 [`레플리카셋`](/ko/docs/concepts/workloads/controllers/replicaset/)은 새로운 [집합성 기준 레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#집합성-기준-요건) 이다.
 이것은 주로 [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/) 에 의해 파드의 생성, 삭제 및 업데이트를 오케스트레이션 하는 메커니즘으로 사용된다.
-사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카 셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
+사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
 
 
 ### 디플로이먼트 (권장되는)
