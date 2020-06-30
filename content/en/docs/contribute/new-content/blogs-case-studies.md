@@ -25,7 +25,7 @@ Anyone can write a blog post and submit it for review.
 ### Guidelines and expectations
 
 - Blog posts should not be vendor pitches. 
-  - Articles must contain content that applies broadly to the Kubernetes community - For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations.
+  - Articles must contain content that applies broadly to the Kubernetes community - For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations. Check the [Documentation style guide](https://kubernetes.io/docs/contribute/style/content-guide/#what-s-allowed) for what is typically allowed on Kubernetes properties. 
   - Links should primarily be to the official Kubernetes documentation. When using external references, links should be diverse - For example a submission shouldn't contain only links back to a single company's blog.
   - This can sometime be a delicate balance. The [blog team](https://kubernetes.slack.com/messages/sig-docs-blog/) is there to give guidance on whether a post is appropriate for the Kubernetes blog, so don't hesistate to reach out. 
 - Blog posts do not offer deadlines.
@@ -38,6 +38,9 @@ Anyone can write a blog post and submit it for review.
   - The components of Kubernetes are purposely modular, so tools that use existing integration points like CNI and CSI are on topic. 
   - Posts about other CNCF projects may or may not be on topic. We recommend asking the blog team before submitting a draft.
     - Many CNCF projects have their own blog. These are often a better choice for posts. There are times of major feature or milestone for a CNCF project that users would be interested in reading on the Kubernetes blog.
+- Blog posts should be original content
+    - The official blog is not for repurposing existing content from a third party as new content.
+    - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog does allow commercial use of the content for commercial purposes, just not the other way around. 
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content, that won't require updates to stay accurate to the reader. 
   - It can be a better choice to add a tutorial or update official documentation, then write a higher level overview as a blog post.
