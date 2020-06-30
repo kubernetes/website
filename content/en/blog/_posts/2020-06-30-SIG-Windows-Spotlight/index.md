@@ -95,7 +95,7 @@ When asked if there were any useful skills for new contributors, the co-chairs s
 
 "We are always looking for expertise in Go and Networking and Storage, along with a passion for Windows. Those are huge skills to have. However, we don’t require such skills, and we welcome any and all contributors, with varying skill sets. If you don’t know something, we will help you acquire them."
 
-You can get in touch with the folks at SIG-Windows in their [Slack channel](https://kubernetes.slack.com/archives/C0SJ4AFB7) or attend one of their regular meetings - currently 30min long on Tuesdays at 12:30PM EST! You can find links to their regular meetings as well as past meeting notes and recordings on [their github here](https://github.com/kubernetes/community/tree/master/sig-windows).
+You can get in touch with the folks at SIG-Windows in their [Slack channel](https://kubernetes.slack.com/archives/C0SJ4AFB7) or attend one of their regular meetings - currently 30min long on Tuesdays at 12:30PM EST! You can find links to their regular meetings as well as past meeting notes and recordings from the [SIG-Windows README](https://github.com/kubernetes/community/tree/master/sig-windows#readme) on GitHub.
 
 As a closing message from SIG-Windows:
 
