@@ -17,7 +17,7 @@ about your *desired state*. The actual room temperature is the
 closer to the desired state, by turning equipment on or off.
 -->
 
-在机器人技术和自动化中，控制环是一个控制系统状态的不终止的循环。
+在机器人技术和自动化中，控制回路是一个非终止回路，用于调节系统状态。
 
 这是一个控制环的例子：房间里的温度自动调节器。
 
