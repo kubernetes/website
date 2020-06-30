@@ -221,7 +221,7 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 
 もしVMドライバーを変更したい場合は、`--vm-driver=<enter_driver_name>`フラグを`minikube start`に設定してください。例えば、コマンドは以下のようになります。
 
-```
+```shell
 minikube start --vm-driver=<driver_name>
 ```
 
