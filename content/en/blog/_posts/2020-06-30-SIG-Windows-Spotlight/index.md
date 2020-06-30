@@ -48,7 +48,7 @@ Kubernetes was initially designed with Linux containers in mind and was itself d
 _"A common question we get is, will I be able to have a Windows-only cluster. The answer is NO. Kubernetes control plane components will continue to be based on Linux, while SIG-Windows is concentrating on the experience of having Windows worker nodes in a Kubernetes cluster."_
 ***
 
-Rather than separating out the concepts of "Windows Kubernetes," and "Linux Kubernetes," the community of SIG-Windows works toward adding functionality to the main Kubernetes project which allows it to handle use cases for Windows. These Windows capabilities mirror, and in some cases add unique functionality to, the Linux use cases Kubernetes has served since its release in 2014 (want to learn more history? Scroll through [this original design document](https://github.com/kubernetes/kubernetes/blob/e2b948dbfbba62b8cb681189377157deee93bb43/DESIGN.md).
+Rather than separating out the concepts of "Windows Kubernetes," and "Linux Kubernetes," the community of SIG-Windows works toward adding functionality to the main Kubernetes project which allows it to handle use cases for Windows. These Windows capabilities mirror, and in some cases add unique functionality to, the Linux use cases Kubernetes has served since its release in 2014 (want to learn more history? Scroll through this [original design document](https://github.com/kubernetes/kubernetes/blob/e2b948dbfbba62b8cb681189377157deee93bb43/DESIGN.md).
 
 
 ## What Does SIG-Windows Do?
