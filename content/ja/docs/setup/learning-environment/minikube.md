@@ -198,7 +198,7 @@ MinikubeのサポートするKubernetesの機能:
 
 ### クラスターの起動 {#starting-a-cluster}
 
-`minikube start` コマンドはクラスターを起動することができます。
+`minikube start`コマンドを使用してクラスターを起動することができます。
 このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
 また、このクラスターと通信する [kubectl](/ja/docs/reference/kubectl/overview/) のインストールも設定します。
 
