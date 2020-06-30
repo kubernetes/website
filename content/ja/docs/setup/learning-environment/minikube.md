@@ -1,5 +1,6 @@
 ---
 title: Minikubeを使用してローカル環境でKubernetesを動かす
+weight: 30
 content_type: concept
 ---
 
