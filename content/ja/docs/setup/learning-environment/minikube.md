@@ -11,7 +11,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 {{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
 ## Minikubeの機能
 
