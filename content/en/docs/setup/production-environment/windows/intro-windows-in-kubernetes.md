@@ -328,7 +328,7 @@ Windows does not support "IPv6-only" networking. However, Windows does support d
 
 
 ##### Session affinity
-Setting the maximum session sticky time using `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not supported on Windows as this has not been implemented.
+Setting the maximum session sticky time using `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` is not implemented for Windows nodes.
 
 ##### Security
 
