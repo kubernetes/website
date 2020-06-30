@@ -196,8 +196,11 @@ The following IPAM options are supported on Windows:
 * HNS IPAM (Inbox platform IPAM, this is a fallback when no IPAM is set)
 * [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) (for azure-cni only)
 
-##### Services & Load Balancing
-The following settings applicable to services and load balancing are available on Windows:
+##### Load balancing and Services
+
+On Windows, you can use the following settings to configure Services and load balancing behavior:```
+
+This wording makes it clear that “Service” refers to the Kubernetes resource by that name.
 
 | Feature | Description | Supported Kubernetes version  | Supported Windows OS build | How to enable |
 | ------- | ----------- | ----------------------------- | -------------------------- | ------------- |
