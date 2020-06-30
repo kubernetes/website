@@ -19,7 +19,7 @@ content_type: task
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 1.16.x to version 1.17.x, and from version 1.17.x to 1.17.y (where `y > x`).
 -->
-本页介绍了如何将 `kubeadm` 创建的 Kubernetes 集群从 1.16.x 版本升级到 1.17.x 版本，以及从版本 1.17.x 升级到 1.17.y ，其中 `y > x`。
+本页介绍了如何将 `kubeadm` 创建的 Kubernetes 集群从 1.16.x 版本升级到 1.17.x 版本，以及从版本 1.17.x 升级到 1.17.y，其中 `y > x`。
 
 <!--
 To see information about upgrading clusters created using older versions of kubeadm,
@@ -64,7 +64,7 @@ The upgrade workflow at high level is the following:
 -->
 - 您需要有一个由 `kubeadm` 创建并运行着 1.16.0 或更高版本的 Kubernetes 集群。
 - [禁用 Swap](https://serverfault.com/questions/684771/best-way-to-disable-swap-in-linux)。
-- 集群应使用静态的控制平面和 etcd pod 或者 外部 etcd。
+- 集群应使用静态的控制平面和 etcd pod 或者外部 etcd。
 - 务必仔细认真阅读[发行说明]({{< latest-release-notes >}})。
 - 务必备份所有重要组件，例如存储在数据库中应用层面的状态。
   `kubeadm upgrade` 不会影响您的工作负载，只会涉及 Kubernetes 内部的组件，但备份终究是好的。
@@ -82,7 +82,7 @@ The upgrade workflow at high level is the following:
 -->
 - 升级后，因为容器 spec 哈希值已更改，所以所有容器都会重新启动。
 - 您只能从一个次版本升级到下一个次版本，或者同样次版本的补丁版。也就是说，升级时无法跳过版本。
-  例如，您只能从 1.y 升级到 1.y+1，而不能从 from 1.y 升级到 1.y+2。
+  例如，您只能从 1.y 升级到 1.y+1，而不能从 1.y 升级到 1.y+2。
 
 
 
@@ -110,19 +110,19 @@ The upgrade workflow at high level is the following:
     {{% /tab %}}
     {{< /tabs >}}
 -->
-1.  找到最新的稳定版 1.17:
+1.  找到最新的稳定版 1.17：
 
     {{< tabs name="k8s_install_versions" >}}
     {{% tab name="Ubuntu, Debian or HypriotOS" %}}
     apt update
     apt-cache policy kubeadm
     # 在列表中查找最新的 1.17 版本
-    # 它看起来应该是 1.17.x-00 ，其中 x 是最新的补丁
+    # 它看起来应该是 1.17.x-00，其中 x 是最新的补丁
     {{% /tab %}}
     {{% tab name="CentOS, RHEL or Fedora" %}}
     yum list --showduplicates kubeadm --disableexcludes=kubernetes
     # 在列表中查找最新的 1.17 版本
-    # 它看起来应该是 1.17.x-0 ，其中 x 是最新的补丁
+    # 它看起来应该是 1.17.x-0，其中 x 是最新的补丁
     {{% /tab %}}
     {{< /tabs >}}
 
@@ -187,7 +187,7 @@ The upgrade workflow at high level is the following:
 <!--
 1.  On the control plane node, run:
 -->
-1.  在主节点上，运行:
+1.  在主节点上，运行：
 
     ```shell
     sudo kubeadm upgrade plan
@@ -648,7 +648,7 @@ To recover from a bad state, you can also run `kubeadm upgrade --force` without 
 
 `kubeadm upgrade apply` 做了以下工作：
 
-- 检查您的集群是否处于可升级状态:
+- 检查您的集群是否处于可升级状态：
   - API 服务器是可访问的
   - 所有节点处于 `Ready` 状态
   - 控制平面是健康的
