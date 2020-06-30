@@ -1,29 +1,29 @@
 ---
 title: 理解 Kubernetes 对象
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
-  name: 概念
+  name: concepts
   weight: 40
 ---
 
 <!---
 title: Understanding Kubernetes Objects
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
   weight: 40
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can express them in `.yaml` format.
 -->
 本页说明了 Kubernetes 对象在 Kubernetes API 中是如何表示的，以及如何在 `.yaml` 格式的文件中表示。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Understanding Kubernetes Objects
 
@@ -155,9 +155,10 @@ and the `spec` format for a `Deployment` can be found
 并且可以从
 [这里](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps)
 查看 `Deployment` 的 `spec` 格式。
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
@@ -166,6 +167,6 @@ and the `spec` format for a `Deployment` can be found
 * [Kubernetes API 概述](/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
 * 了解最重要的 Kubernetes 基本对象，例如 [Pod](/docs/concepts/workloads/pods/pod-overview/)。
 * 了解 Kubernetes 中的[控制器](/docs/concepts/architecture/controller/)。
-{{% /capture %}}
+
 
 

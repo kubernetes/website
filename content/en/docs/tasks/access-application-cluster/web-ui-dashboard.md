@@ -4,7 +4,7 @@ reviewers:
 - mikedanese
 - rf232
 title: Web UI (Dashboard)
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: tasks
@@ -12,7 +12,7 @@ card:
   title: Use the Web UI Dashboard
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dashboard is a web-based Kubernetes user interface. You can use Dashboard to deploy containerized applications to a Kubernetes cluster, troubleshoot your containerized application, and manage the cluster resources. You can use Dashboard to get an overview of applications running on your cluster, as well as for creating or modifying individual Kubernetes resources (such as Deployments, Jobs, DaemonSets, etc). For example, you can scale a Deployment, initiate a rolling update, restart a pod or deploy new applications using a deploy wizard.
 
@@ -20,10 +20,10 @@ Dashboard also provides information on the state of Kubernetes resources in your
 
 ![Kubernetes Dashboard UI](/images/docs/ui-dashboard.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Deploying the Dashboard UI
 
@@ -83,7 +83,11 @@ The deploy wizard expects that you provide the following information:
 
   A [Deployment](/docs/concepts/workloads/controllers/deployment/) will be created to maintain the desired number of Pods across your cluster.
 
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service). For external Services, you may need to open up one or more ports to do so. Find more details [here](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service).
+
+  {{< note >}}
+  For external Services, you may need to open up one or more ports to do so.
+  {{< /note >}}
 
   Other Services that are only visible from inside the cluster are called internal Services.
 
@@ -97,12 +101,12 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   Example:
 
-```conf
-release=1.0
-tier=frontend
-environment=pod
-track=stable
-```
+  ```conf
+  release=1.0
+  tier=frontend
+  environment=pod
+  track=stable
+  ```
 
 - **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/). They let you partition resources into logically named groups.
 
@@ -162,11 +166,12 @@ Pod lists and detail pages link to a logs viewer that is built into Dashboard. T
 
 ![Logs viewer](/images/docs/ui-dashboard-logs-view.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
 
-{{% /capture %}}
+

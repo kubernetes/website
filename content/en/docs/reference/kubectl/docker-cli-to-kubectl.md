@@ -1,19 +1,19 @@
 ---
 title: kubectl for Docker Users
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## docker run
 
-To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run).
+To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 
 docker:
 
@@ -36,10 +36,18 @@ kubectl:
 
 ```shell
 # start the pod running nginx
-kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl create deployment --image=nginx nginx-app
 ```
 ```
-deployment "nginx-app" created
+deployment.apps/nginx-app created
+```
+
+```
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
+```
+```
+deployment.apps/nginx-app env updated
 ```
 
 {{< note >}}
@@ -56,7 +64,7 @@ service "nginx-http" exposed
 
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
-By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use:
+By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -64,9 +72,6 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
-
-Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
-To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
 
 ## docker ps
 
@@ -180,7 +185,7 @@ docker exec -ti 55c103fa1296 /bin/sh
 kubectl:
 
 ```shell
-kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
@@ -361,4 +366,4 @@ Grafana is running at https://203.0.113.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://203.0.113.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-{{% /capture %}}
+

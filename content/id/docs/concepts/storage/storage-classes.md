@@ -1,19 +1,19 @@
 ---
 title: StorageClass
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dokumen ini mendeskripsikan konsep StorageClass yang ada pada Kubernetes.
 Sebelum lanjut membaca, sangat dianjurkan untuk memiliki pengetahuan terhadap
 [volumes](/docs/concepts/storage/volumes/) dan
 [peristent volume](/docs/concepts/storage/persistent-volumes) terlebih dahulu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -40,7 +40,7 @@ dan objek yang sudah dibuat tidak dapat diubah lagi definisinya.
 
 Administrator dapat memberikan spesifikasi StorageClass _default_ bagi
 PVC yang tidak membutuhkan kelas tertentu untuk dapat melakukan mekanisme _bind_:
-kamu dapat membaca [bagian `PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#class-1)
+kamu dapat membaca [bagian `PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 untuk penjelasan lebih lanjut.
 
 ```yaml
@@ -785,4 +785,4 @@ sampai _scheduling_ pod dilakukan. Hal ini dispesifikasikan oleh mode _binding_ 
 Memperlambat _binding_ volume mengizinkan _scheduler_ untuk memastikan
 batasan _scheduling_ semua pod ketika memilih PersistentVolume untuk sebuah PersistentVolumeClaim.
 
-{{% /capture %}}
+

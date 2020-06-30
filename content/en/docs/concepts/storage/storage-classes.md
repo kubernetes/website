@@ -5,19 +5,19 @@ reviewers:
 - thockin
 - msau42
 title: Storage Classes
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -41,7 +41,7 @@ be updated once they are created.
 
 Administrators can specify a default StorageClass just for PVCs that don't
 request any particular class to bind to: see the
-[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
 
 ```yaml
@@ -821,4 +821,4 @@ Delaying volume binding allows the scheduler to consider all of a Pod's
 scheduling constraints when choosing an appropriate PersistentVolume for a
 PersistentVolumeClaim.
 
-{{% /capture %}}
+

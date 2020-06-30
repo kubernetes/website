@@ -172,6 +172,9 @@ other = "目標"
 [prerequisites_heading]
 other = "始める前に"
 
+[subscribe_button]
+other = "購読する"
+
 [ui_search_placeholder]
 other = "検索"
 

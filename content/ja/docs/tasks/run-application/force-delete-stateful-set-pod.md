@@ -1,20 +1,21 @@
 ---
 title: StatefulSet Podの強制削除
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、StatefulSetの一部であるPodを削除する方法と、削除する際に考慮すべき事項について説明します。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * これはかなり高度なタスクであり、StatefulSetに固有のいくつかの特性に反する可能性があります。
 * 先に進む前に、以下に列挙されている考慮事項をよく理解してください。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetに関する考慮事項
 
@@ -30,7 +31,7 @@ StatefulSetの通常の操作では、StatefulSet Podを強制的に削除する
 kubectl delete pods <pod>
 ```
 
-上記がグレースフルターミネーションにつながるためには、`pod.Spec.TerminationGracePeriodSeconds`に0を指定しては**いけません**。`pod.Spec.TerminationGracePeriodSeconds`を0秒に設定することは安全ではなく、StatefulSet Podには強くお勧めできません。グレースフル削除は安全で、kubeletがapiserverから名前を削除する前に[Podが適切にシャットダウンする](/docs/user-guide/pods/#termination-of-pods)ことを保証します。
+上記がグレースフルターミネーションにつながるためには、`pod.Spec.TerminationGracePeriodSeconds`に0を指定しては**いけません**。`pod.Spec.TerminationGracePeriodSeconds`を0秒に設定することは安全ではなく、StatefulSet Podには強くお勧めできません。グレースフル削除は安全で、kubeletがapiserverから名前を削除する前に[Podが適切にシャットダウンする](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)ことを保証します。
 
 Kubernetes（バージョン1.5以降）は、Nodeにアクセスできないという理由だけでPodを削除しません。到達不能なNodeで実行されているPodは、[タイムアウト](/docs/admin/node/#node-condition)の後に`Terminating`または`Unknown`状態になります。到達不能なNode上のPodをユーザーが適切に削除しようとすると、Podはこれらの状態に入ることもあります。そのような状態のPodをapiserverから削除することができる唯一の方法は以下の通りです:
 
@@ -68,10 +69,11 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 
 StatefulSet Podの強制削除は、常に慎重に、関連するリスクを完全に把握して実行してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [StatefulSetのデバッグ](/docs/tasks/debug-application-cluster/debug-stateful-set/)の詳細
 
-{{% /capture %}}
+

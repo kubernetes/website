@@ -3,16 +3,16 @@ title: 레퍼런스
 linkTitle: "레퍼런스"
 main_menu: true
 weight: 70
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-쿠버네티스 문서의 본 섹션에서는 레퍼런스를 다룬다. 
+쿠버네티스 문서의 본 섹션에서는 레퍼런스를 다룬다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## API 레퍼런스
 
@@ -21,8 +21,8 @@ content_template: templates/concept
 
 ## API 클라이언트 라이브러리
 
-프로그래밍 언어에서 쿠버네티스 API를 호출하기 위해서, 
-[클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 사용할 수 있다. 
+프로그래밍 언어에서 쿠버네티스 API를 호출하기 위해서,
+[클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 사용할 수 있다.
 공식적으로 지원되는 클라이언트 라이브러리는 다음과 같다.
 
 - [쿠버네티스 Go 클라이언트 라이브러리](https://github.com/kubernetes/client-go/)
@@ -32,7 +32,7 @@ content_template: templates/concept
 
 ## CLI 레퍼런스
 
-* [kubectl](/docs/reference/kubectl/overview/) - 명령어를 실행하거나 쿠버네티스 클러스터를 관리하기 위해 사용하는 주된 CLI 도구.
+* [kubectl](/ko/docs/reference/kubectl/overview/) - 명령어를 실행하거나 쿠버네티스 클러스터를 관리하기 위해 사용하는 주된 CLI 도구.
     * [JSONPath](/docs/reference/kubectl/jsonpath/) - kubectl에서 [JSONPath 표현](http://goessner.net/articles/JsonPath/)을 사용하기 위한 문법 가이드.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - 안정적인 쿠버네티스 클러스터를 쉽게 프로비전하기 위한 CLI 도구.
 
@@ -50,4 +50,4 @@ content_template: templates/concept
 
 쿠버네티스 기능에 대한 설계 문서의 아카이브. [쿠버네티스 아키텍처](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md)와 [쿠버네티스 디자인 개요](https://git.k8s.io/community/contributors/design-proposals)가 좋은 출발점이다.
 
-{{% /capture %}}
+

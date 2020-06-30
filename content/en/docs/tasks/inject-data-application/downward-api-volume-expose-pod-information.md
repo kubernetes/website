@@ -1,25 +1,26 @@
 ---
 title: Expose Pod Information to Containers Through Files
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how a Pod can use a DownwardAPIVolumeFile to expose information
 about itself to Containers running in the Pod. A DownwardAPIVolumeFile can expose
 Pod fields and Container fields.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## The Downward API
 
@@ -189,9 +190,9 @@ In your shell, view the `cpu_limit` file:
 You can use similar commands to view the `cpu_request`, `mem_limit` and
 `mem_request` files.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Capabilities of the Downward API
 
@@ -249,10 +250,11 @@ application, but that is tedious and error prone, and it violates the goal of lo
 coupling. A better option would be to use the Pod's name as an identifier, and
 inject the Pod's name into the well-known environment variable.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
@@ -260,7 +262,7 @@ inject the Pod's name into the well-known environment variable.
 * [DownwardAPIVolumeFile](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#downwardapivolumefile-v1-core)
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
 
-{{% /capture %}}
+
 
 
 

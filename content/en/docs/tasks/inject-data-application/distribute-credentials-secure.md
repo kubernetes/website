@@ -1,24 +1,21 @@
 ---
 title: Distribute Credentials Securely Using Secrets
-content_template: templates/task
+content_type: task
 weight: 50
 min-kubernetes-server-version: v1.6
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to securely inject sensitive data, such as passwords and
 encryption keys, into Pods.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
-
-## Convert your secret data to a base-64 representation
+### Convert your secret data to a base-64 representation
 
 Suppose you want to have two pieces of secret data: a username `my-app` and a password
 `39528$vdg7Jb`. First, use a base64 encoding tool to convert your username and password to a base64 representation. Here's an example using the commonly available base64 program:
@@ -34,6 +31,8 @@ and the base-64 representation of your password is `Mzk1MjgkdmRnN0pi`.
 {{< caution >}}
 Use a local tool trusted by your OS to decrease the security risks of external tools.
 {{< /caution >}}
+
+<!-- steps -->
 
 ## Create a Secret
 
@@ -83,14 +82,18 @@ username and password:
     username:   7 bytes
     ```
 
-{{< note >}}
-If you want to skip the Base64 encoding step, you can create a Secret
-by using the `kubectl create secret` command:
-{{< /note >}}
+### Create a Secret directly with kubectl
+
+If you want to skip the Base64 encoding step, you can create the
+same Secret using the `kubectl create secret` command. For example:
 
 ```shell
-kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
+kubectl create secret generic test-secret --from-literal='username=my-app' --from-literal='password=39528$vdg7Jb'
 ```
+
+This is more convenient. The detailed approach shown earlier runs
+through each step explicitly to demonstrate what is happening.
+
 
 ## Create a Pod that has access to the secret data through a Volume
 
@@ -100,52 +103,51 @@ Here is a configuration file you can use to create a Pod:
 
 1. Create the Pod:
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/secret-pod.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/secret-pod.yaml
+   ```
 
 1. Verify that your Pod is running:
 
-    ```shell
-    kubectl get pod secret-test-pod
-    ```
+   ```shell
+   kubectl get pod secret-test-pod
+   ```
 
-    Output:
-    ```shell
-    NAME              READY     STATUS    RESTARTS   AGE
-    secret-test-pod   1/1       Running   0          42m
-    ```
+   Output:
+   ```
+   NAME              READY     STATUS    RESTARTS   AGE
+   secret-test-pod   1/1       Running   0          42m
+   ```
 
 1. Get a shell into the Container that is running in your Pod:
-    ```shell
-    kubectl exec -it secret-test-pod -- /bin/bash
-    ```
+   ```shell
+   kubectl exec -i -t secret-test-pod -- /bin/bash
+   ```
 
 1. The secret data is exposed to the Container through a Volume mounted under
-`/etc/secret-volume`. In your shell, go to the directory where the secret data
-is exposed:
-    ```shell
-    root@secret-test-pod:/# cd /etc/secret-volume
-    ```
+`/etc/secret-volume`.
 
-1. In your shell, list the files in the `/etc/secret-volume` directory:
-    ```shell
-    root@secret-test-pod:/etc/secret-volume# ls
-    ```
-    The output shows two files, one for each piece of secret data:
-    ```shell
-    password username
-    ```
+   In your shell, list the files in the `/etc/secret-volume` directory:
+   ```shell
+   # Run this in the shell inside the container
+   ls /etc/secret-volume
+   ```
+   The output shows two files, one for each piece of secret data:
+   ```
+   password username
+   ```
 
 1. In your shell, display the contents of the `username` and `password` files:
-    ```shell
-    root@secret-test-pod:/etc/secret-volume# cat username; echo; cat password; echo
-    ```
-    The output is your username and password:
-    ```shell
-    my-app
-    39528$vdg7Jb
-    ```
+   ```shell
+   # Run this in the shell inside the container
+   echo "$( cat /etc/secret-volume/username )"
+   echo "$( cat /etc/secret-volume/password )"
+   ```
+   The output is your username and password:
+   ```
+   my-app
+   39528$vdg7Jb
+   ```
 
 ## Define container environment variables using Secret data
 
@@ -170,13 +172,13 @@ is exposed:
 *  In your shell, display the content of `SECRET_USERNAME` container environment variable
 
    ```shell
-   kubectl exec -it env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
+   kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
    ```
 
    The output is
-    ```shell
-    backend-admin
-    ```
+   ```
+   backend-admin
+   ```
 
 ### Define container environment variables with data from multiple Secrets
 
@@ -200,10 +202,10 @@ is exposed:
 *  In your shell, display the container environment variables
 
    ```shell
-   kubectl exec -it envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
+   kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
    ```
    The output is
-   ```shell
+   ```
    DB_USERNAME=db-admin
    BACKEND_USERNAME=backend-admin
    ```
@@ -233,28 +235,23 @@ This functionality is available in Kubernetes v1.6 and later.
 
 * In your shell, display `username` and `password` container environment variables
 
-  ````shell
-  kubectl exec -it envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password"'
-  ````
+  ```shell
+  kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
+  ```
 
   The output is
-  ````shell
+  ```
   username: my-app
   password: 39528$vdg7Jb
-  ````
+  ```
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* Learn more about [Secrets](/docs/concepts/configuration/secret/).
-* Learn about [Volumes](/docs/concepts/storage/volumes/).
-
-### Reference
+### References
 
 * [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
+* Learn more about [Secrets](/docs/concepts/configuration/secret/).
+* Learn about [Volumes](/docs/concepts/storage/volumes/).

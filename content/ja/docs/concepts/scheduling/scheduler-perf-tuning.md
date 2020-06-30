@@ -1,10 +1,10 @@
 ---
 title: スケジューラーのパフォーマンスチューニング
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
@@ -14,9 +14,9 @@ weight: 70
 
 このページでは、大規模のKubernetesクラスターにおけるパフォーマンス最適化のためのチューニングについて説明します。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## スコア付けするノードの割合
 
@@ -71,4 +71,4 @@ Node 1, Node 5, Node 2, Node 6, Node 3, Node 4
 
 全てのノードのチェックを終えたら、1番目のノードに戻ってチェックをします。
 
-{{% /capture %}}
+

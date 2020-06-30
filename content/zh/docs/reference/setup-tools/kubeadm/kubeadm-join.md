@@ -4,17 +4,17 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm join
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This command initializes a Kubernetes worker node and joins it to the cluster.
 -->
 此命令用来初始化 Kubernetes 工作节点并将其加入集群。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 {{< include "generated/kubeadm_join.md" >}}
 
 <!--
@@ -385,9 +385,10 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 -->
 
 要了解 `JoinConfiguration` 中各个字段的详细信息请参考 [godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration)。
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
@@ -396,4 +397,4 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 管理 `kubeadm join` 的令牌
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
-{{% /capture %}}
+

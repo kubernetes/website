@@ -1,19 +1,17 @@
-{{ define "content" }}
-    {{ $hasContent := false }}
-    {{ with .File }}
-    {{ if ne .Filename "" }}
-    {{ $hasContent =  (ge (len $.RawContent) 100) }}
-    {{ end }}
-    {{ end }}
-	 {{ if $hasContent }}
-	 {{ partial "docs/content-page" (dict "ctx" $ "page" $ ) }}
-	 {{ else }}
-    {{ if ge (len .Pages) 1 }}
-    {{ $page := index .Pages 0 }}
-    {{ partial "docs/content-page" (dict "ctx" $ "page" $page) }}
-    {{ end }}
-    {{ end }}
-{{ end }}
-{{ define "side-menu" }}
-{{ partial "docs/side-menu.html" . }}
+{{ define "main" }}
+	<div class="td-content">
+		{{ $hasContent := false }}
+		{{ with .File }}
+			{{ if ne .Filename "" }}
+				{{ $hasContent =  (ge (len $.RawContent) 100) }}
+			{{ end }}
+		{{ end }}
+		{{ if $hasContent }}
+			{{ partial "docs/content-page" (dict "ctx" $ "page" $ ) }}
+		{{ else }}
+			<h1>{{ .Title }}</h1>
+			{{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+		{{ end }}
+		{{ partial "section-index.html" . }}
+	</div>
 {{ end }}

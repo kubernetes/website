@@ -1,17 +1,18 @@
 ---
 title: クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、外部IPアドレスを公開するKubernetesのServiceオブジェクトを作成する方法を示します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  * [kubectl](/ja/docs/tasks/tools/install-kubectl/)をインストールしてください。
 
@@ -19,19 +20,20 @@ weight: 10
 
  * Kubernetes APIサーバーと通信するために、`kubectl`を設定してください。手順については、各クラウドプロバイダーのドキュメントを参照してください。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 5つのインスタンスで実際のアプリケーションを起動します。
 * 外部IPアドレスを公開するServiceオブジェクトを作成します。
 * 起動中のアプリケーションにアクセスするためにServiceオブジェクトを使用します。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 5つのPodで起動しているアプリケーションへのServiceの作成
 
@@ -69,7 +71,17 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    注意: 外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+    {{< note >}}
+
+    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+
+    {{< /note >}}
 
 1. Serviceに関する詳細な情報を表示します:
 
@@ -124,23 +136,25 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 Serviceを削除する場合、次のコマンドを実行します:
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 Deployment、ReplicaSet、およびHello Worldアプリケーションが動作しているPodを削除する場合、次のコマンドを実行します:
 
-        kubectl delete deployment hello-world
-
-{{% /capture %}}
+    kubectl delete deployment hello-world
 
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/)にて詳細を学ぶことができます。
-{{% /capture %}}
+

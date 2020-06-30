@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Contribuer à la documentation Kubernetes
 description: Contribution documentation Kubernetes
 linktitle: Contribuer
@@ -7,7 +7,7 @@ main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Si vous souhaitez contribuer à la documentation ou au site Web de Kubernetes, nous serons ravis de vous aider!
 Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou que vous y travailliez depuis longtemps, et que vous vous identifiez vous-même en tant que développeur, utilisateur final ou quelqu'un qui ne supporte tout simplement pas les fautes de frappe.
@@ -15,7 +15,7 @@ Tout le monde peut contribuer, que vous soyez nouveau dans le projet ou que vous
 Pour vous impliquer de plusieurs façons dans la communauté Kubernetes ou d’en savoir plus sur nous, visitez le [Site de la communauté Kubernetes](/community/).
 Pour plus d'informations sur le guide de style de la documentation Kubernetes, reportez-vous à la section [style guide](/docs/contribute/style/style-guide/).
 
-{{% capture body %}}
+<!-- body -->
 
 ## Types de contributeurs
 
@@ -59,4 +59,4 @@ Il ne s'agit pas d'une liste exhaustive des manières dont vous pouvez contribue
   - Proposer des améliorations aux tests de documentation
   - Proposer des améliorations au site Web de Kubernetes ou à d'autres outils
 
-{{% /capture %}}
+

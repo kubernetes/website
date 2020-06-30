@@ -1,17 +1,17 @@
 ---
 title: 개념
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 개념 섹션을 통해 쿠버네티스 시스템을 구성하는 요소와 {{< glossary_tooltip text="클러스터" term_id="cluster" length="all" >}}를 표현하는데 사용되는 추상 개념에 대해 배우고 쿠버네티스가 작동하는 방식에 대해 보다 깊이 이해할 수 있다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -33,15 +33,15 @@ weight: 40
 * [파드](/ko/docs/concepts/workloads/pods/pod-overview/)
 * [서비스](/ko/docs/concepts/services-networking/service/)
 * [볼륨](/ko/docs/concepts/storage/volumes/)
-* [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/)
+* [네임스페이스(Namespace)](/ko/docs/concepts/overview/working-with-objects/namespaces/)
 
 또한, 쿠버네티스에는 기초 오브젝트를 기반으로, 부가 기능 및 편의 기능을 제공하는 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 의존하는 보다 높은 수준의 추상 개념도 포함되어 있다. 다음이 포함된다.
 
-* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
-* [데몬 셋](/ko/docs/concepts/workloads/controllers/daemonset/)
-* [스테이트풀 셋](/ko/docs/concepts/workloads/controllers/statefulset/)
-* [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
-* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [디플로이먼트(Deployment)](/ko/docs/concepts/workloads/controllers/deployment/)
+* [데몬셋(DaemonSet)](/ko/docs/concepts/workloads/controllers/daemonset/)
+* [스테이트풀셋(StatefulSet)](/ko/docs/concepts/workloads/controllers/statefulset/)
+* [레플리카셋(ReplicaSet)](/ko/docs/concepts/workloads/controllers/replicaset/)
+* [잡(Job)](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## 쿠버네티스 컨트롤 플레인
 
@@ -60,12 +60,12 @@ weight: 40
 클러스터 내 노드는 애플리케이션과 클라우드 워크플로우를 구동시키는 머신(VM, 물리 서버 등)이다. 쿠버네티스 마스터는 각 노드를 관리한다. 직접 노드와 직접 상호 작용할 일은 거의 없을 것이다.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 개념 페이지를 작성하기를 원하면,
-개념 페이지 유형과 개념 템플릿에 대한 정보가 있는
-[페이지 템플릿 사용하기](/docs/home/contribute/page-templates/)를 참조한다.
+개념 페이지 유형에 대한 정보가 있는
+[페이지 컨텐츠 유형](/docs/contribute/style/page-content-types/#concept)을 참조한다.
 
-{{% /capture %}}

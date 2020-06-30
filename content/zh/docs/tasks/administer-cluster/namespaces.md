@@ -3,33 +3,34 @@ reviewers:
 - derekwaynecarr
 - janetkuo
 title: 通过命名空间共享集群
-content_template: templates/task
+content_type: task
 ---
 <!-- ---
 reviewers:
 - derekwaynecarr
 - janetkuo
 title: Share a Cluster with Namespaces
-content_template: templates/task
+content_type: task
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- This page shows how to view, work in, and delete {{< glossary_tooltip text="namespaces" term_id="namespace" >}}. The page also shows how to use Kubernetes namespaces to subdivide your cluster. -->
 
 本页展示了如何查看、使用和删除{{< glossary_tooltip text="namespaces" term_id="namespace" >}}。本页同时展示了如何使用 Kubernetes 命名空间去细分集群。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!-- * Have an [existing Kubernetes cluster](/docs/setup/).
 * Have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_. -->
 
 * 您已拥有一个 [配置好的 Kubernetes 集群](/docs/setup/).
 * 您已对 Kubernetes 的 _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, 和 _[Deployments](/docs/concepts/workloads/controllers/deployment/)_ 有基本理解。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## Viewing namespaces -->
 
@@ -460,9 +461,9 @@ authorization rules for each namespace. -->
 
 随着 Kubernetes 中的策略支持的发展，我们将扩展此场景，以展示如何为每个命名空间提供不同的授权规则。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!-- ## Understanding the motivation for using namespaces -->
 
@@ -552,9 +553,10 @@ across namespaces, you need to use the fully qualified domain name (FQDN). -->
 
 当您创建 [Service](/docs/concepts/services-networking/service/) 时，它会创建相应的 [DNS 条目](/docs/concepts/services-networking/dns-pod-service/)。此条目的格式为 `<service-name>。<namespace-name> .svc.cluster.local`，这意味着如果容器只使用 `<service-name>`，它将解析为本地服务到命名空间。 这对于在多个命名空间（如开发，暂存和生产）中使用相同的配置非常有用。 如果要跨命名空间访问，则需要使用完全限定的域名（FQDN）。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!-- * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
 * See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md). -->
@@ -564,6 +566,6 @@ across namespaces, you need to use the fully qualified domain name (FQDN). -->
 * 了解更多 [设置请求的命名空间](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request) 的内容。
 * 参见 [命名空间设计](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md)。
 
-{{% /capture %}}
+
 
 

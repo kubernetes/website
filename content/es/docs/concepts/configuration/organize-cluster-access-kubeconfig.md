@@ -1,10 +1,10 @@
 ---
 title: Organizar el acceso a los clústeres utilizando archivos kubeconfig
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Utilice los archivos kubeconfig para organizar la información acerca de los clústeres, los
 usuarios, los Namespaces y los mecanismos de autenticación. La herramienta de
@@ -26,9 +26,9 @@ Para obtener instrucciones paso a paso acerca de cómo crear y especificar los a
 consulte el recurso
 [Configurar El Acceso A Múltiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Compatibilidad con múltiples clústeres, usuarios y mecanismos de autenticación
 
@@ -143,11 +143,12 @@ Las referencias de un archivo en la línea de comandos son relativas al director
 Dentro de `$HOME/.kube/config`, las rutas relativas se almacenan de manera relativa a la ubicación del archivo kubeconfig , al igual que las rutas absolutas
 se almacenan absolutamente.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Configurar el acceso a multiples Clústeres](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+

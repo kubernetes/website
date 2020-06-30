@@ -1,14 +1,14 @@
 ---
 title: 在联邦中设置放置策略
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 title: Set up placement policies in Federation
-content_template: templates/task
+content_type: task
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -20,9 +20,10 @@ resources using an external policy engine.
 -->
 此页面显示如何使用外部策略引擎对联邦资源强制执行基于策略的放置决策。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 You need to have a running Kubernetes cluster (which is referenced as host
@@ -31,9 +32,9 @@ guides for installation instructions for your platform.
 -->
 您需要一个正在运行的 Kubernetes 集群(它被引用为主机集群)。有关您的平台的安装说明，请参阅[入门](/docs/setup/)指南。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Deploying Federation and configuring an external policy engine
@@ -325,6 +326,6 @@ Inspect the ReplicaSet to confirm the appropriate annotations have been applied:
 
     kubectl --context=federation get rs nginx-pci -o jsonpath='{.metadata.annotations}'
 
-{{% /capture %}}
+
 
 

@@ -1,6 +1,6 @@
 ---
 title: 使用 kubeadm 定制控制平面配置
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -8,12 +8,12 @@ weight: 40
 reviewers:
 - sig-cluster-lifecycle
 title: Customizing control plane configuration with kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.12" state="stable" >}}
 
@@ -55,9 +55,9 @@ You can generate a `ClusterConfiguration` object with default values by running 
 您可以通过运行 `kubeadm config print init-defaults` 并将输出保存到您选择的文件中，以默认值形式生成 `ClusterConfiguration` 对象。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## APIServer flags
@@ -135,4 +135,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+

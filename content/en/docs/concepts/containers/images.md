@@ -3,24 +3,56 @@ reviewers:
 - erictune
 - thockin
 title: Images
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
+A container image represents binary data that encapsulates an application and all its
+software dependencies. Container images are executable software bundles that can run
+standalone and that make very well defined assumptions about their runtime environment.
 
-The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
+You typically create a container image of your application and push it to a registry
+before referring to it in a
+{{< glossary_tooltip text="Pod" term_id="pod" >}}
 
-{{% /capture %}}
+This page provides an outline of the container image concept.
 
 
-{{% capture body %}}
+
+<!-- body -->
+
+## Image names
+
+Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
+Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
+and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+
+If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+
+After the image name part you can add a _tag_ (as also using with commands such
+as `docker` and `podman`).
+Tags let you identify different versions of the same series of images.
+
+Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
+periods (`.`), and dashes (`-`).  
+There are additional rules about where you can place the separator
+characters (`_`, `-`, and `.`) inside an image tag.  
+If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
+
+{{< caution >}}
+You should avoid using the `latest` tag when deploying containers in production,
+as it is harder to track which version of the image is running and more difficult
+to roll back to a working version.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+{{< /caution >}}
 
 ## Updating Images
 
-The default pull policy is `IfNotPresent` which causes the Kubelet to skip
+The default pull policy is `IfNotPresent` which causes the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 
@@ -29,45 +61,18 @@ you can do one of the following:
 - omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
 
-Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
+When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
 
-## Building Multi-architecture Images with Manifests
+## Multi-architecture Images with Manifests
 
-Docker CLI now supports the following command `docker manifest` with sub commands like `create`, `annotate` and `push`. These commands can be used to build and push the manifests. You can use `docker manifest inspect` to view the manifest.
+As well as providing binary images, a container registry can also server a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
 
-Please see docker documentation here:
-https://docs.docker.com/edge/engine/reference/commandline/manifest/
-
-See examples on how we use this in our build harness:
-https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
-
-These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
-
-{{< note >}}
-Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
-{{< /note >}}
-
-If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
-
-For Kubernetes, we have typically used images with suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 
 ## Using a Private Registry
 
-Private registries may require keys to read images from them.
+Private registries may require keys to read images from them.  
 Credentials can be provided in several ways:
-
-  - Using Google Container Registry
-    - Per-cluster
-    - automatically configured on Google Compute Engine or Google Kubernetes Engine
-    - all pods can read the project's private registry
-  - Using Amazon Elastic Container Registry (ECR)
-    - use IAM roles and policies to control access to ECR repositories
-    - automatically refreshes ECR login credentials
-  - Using Oracle Cloud Infrastructure Registry (OCIR)
-    - use IAM roles and policies to control access to OCIR repositories
-  - Using Azure Container Registry (ACR)
-  - Using IBM Cloud Container Registry
-    - use IAM roles and policies to grant access to IBM Cloud Container Registry
   - Configuring Nodes to Authenticate to a Private Registry
     - all pods can read any configured private registries
     - requires node configuration by cluster administrator
@@ -76,135 +81,59 @@ Credentials can be provided in several ways:
     - requires root access to all nodes to setup
   - Specifying ImagePullSecrets on a Pod
     - only pods which provide own keys can access the private registry
+  - Vendor-specific or local extensions
+    - if you're using a custom node configuration, you (or your cloud
+      provider) can implement your mechanism for authenticating the node
+      to the container registry.
 
-Each option is described in more detail below.
+These options are explaind in more detail below.
 
+### Configuring Nodes to authenticate to a Private Registry
 
-### Using Google Container Registry
+If you run Docker on your nodes, you can configure the Docker container
+runtime to authenticate to a private container registry.
 
-Kubernetes has native support for the [Google Container
-Registry (GCR)](https://cloud.google.com/tools/container-registry/), when running on Google Compute
-Engine (GCE).  If you are running your cluster on GCE or Google Kubernetes Engine, simply
-use the full image name (e.g. gcr.io/my_project/image:tag).
-
-All pods in a cluster will have read access to images in this registry.
-
-The kubelet will authenticate to GCR using the instance's
-Google service account.  The service account on the instance
-will have a `https://www.googleapis.com/auth/devstorage.read_only`,
-so it can pull from the project's GCR, but not push.
-
-### Using Amazon Elastic Container Registry
-
-Kubernetes has native support for the [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
-
-Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
-in the Pod definition.
-
-All users of the cluster who can create pods will be able to run pods that use any of the
-images in the ECR registry.
-
-The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
-
-- `ecr:GetAuthorizationToken`
-- `ecr:BatchCheckLayerAvailability`
-- `ecr:GetDownloadUrlForLayer`
-- `ecr:GetRepositoryPolicy`
-- `ecr:DescribeRepositories`
-- `ecr:ListImages`
-- `ecr:BatchGetImage`
-
-Requirements:
-
-- You must be using kubelet version `v1.2.0` or newer.  (e.g. run `/usr/bin/kubelet --version=true`).
-- If your nodes are in region A and your registry is in a different region B, you need version `v1.3.0` or newer.
-- ECR must be offered in your region
-
-Troubleshooting:
-
-- Verify all requirements above.
-- Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
-- Verify kubelet is running with `--cloud-provider=aws`.
-- Increase kubelet log level verbosity to at least 3 and check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
-  - `aws_credentials.go:109] unable to get ECR credentials from cache, checking ECR API`
-  - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
-
-### Using Azure Container Registry (ACR)
-When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
-you can authenticate using either an admin user or a service principal.
-In either case, authentication is done via standard Docker authentication.  These instructions assume the
-[azure-cli](https://github.com/azure/azure-cli) command line tool.
-
-You first need to create a registry and generate credentials, complete documentation for this can be found in
-the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
-
-Once you have created your container registry, you will use the following credentials to login:
-
-   * `DOCKER_USER` : service principal, or admin username
-   * `DOCKER_PASSWORD`: service principal password, or admin user password
-   * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
-   * `DOCKER_EMAIL`: `${some-email-address}`
-
-Once you have those variables filled in you can
-[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
-
-### Using IBM Cloud Container Registry
-IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your  images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can use IAM roles and policies to grant access to IBM Cloud Container Registry namespaces.
-
-To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/Registry?topic=Registry-getting-started).
-
-If you are using the same account and region, you can deploy images that are stored in IBM Cloud Container Registry into the default namespace of your IBM Cloud Kubernetes Service cluster without any additional configuration, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images). For other configuration options, see [Understanding how to authorize your cluster to pull images from a registry](https://cloud.ibm.com/docs/containers?topic=containers-registry#cluster_registry_auth).
-
-### Configuring Nodes to Authenticate to a Private Registry
+This approach is suitable if you can control node configuration.
 
 {{< note >}}
-If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
-{{< /note >}}
-
-{{< note >}}
-If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
-manage and update the ECR login credentials. You cannot use this approach.
-{{< /note >}}
-
-{{< note >}}
-This approach is suitable if you can control node configuration.  It
-will not work reliably on GCE, and any other cloud provider that does automatic
-node replacement.
-{{< /note >}}
-
-{{< note >}}
-Kubernetes as of now only supports the `auths` and `HttpHeaders` section of docker config. This means credential helpers (`credHelpers` or `credsStore`) are not supported.
+Kubernetes as only supports the `auths` and `HttpHeaders` section in Docker configuration.
+Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
 {{< /note >}}
 
 
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
 
-*   `{--root-dir:-/var/lib/kubelet}/config.json`
-*   `{cwd of kubelet}/config.json`
-*   `${HOME}/.docker/config.json`
-*   `/.docker/config.json`
-*   `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-*   `{cwd of kubelet}/.dockercfg`
-*   `${HOME}/.dockercfg`
-*   `/.dockercfg`
+* `{--root-dir:-/var/lib/kubelet}/config.json`
+* `{cwd of kubelet}/config.json`
+* `${HOME}/.docker/config.json`
+* `/.docker/config.json`
+* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
+* `{cwd of kubelet}/.dockercfg`
+* `${HOME}/.dockercfg`
+* `/.dockercfg`
 
 {{< note >}}
-You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
 {{< /note >}}
 
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
 
-   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json`.
+   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
    1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
-   1. Get a list of your nodes, for example:
-      - if you want the names: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-      - if you want to get the IPs: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
+   1. Get a list of your nodes; for example:
+      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
+      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
    1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done`
+      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 
-Verify by creating a pod that uses a private image, e.g.:
+{{< note >}}
+For production clusers, use a configuration management tool so that you can apply this
+setting to all the nodes where you need it.
+{{< /note >}}
+
+Verify by creating a Pod that uses a private image; for example:
 
 ```shell
 kubectl apply -f - <<EOF
@@ -254,16 +183,12 @@ registry keys are added to the `.docker/config.json`.
 ### Pre-pulled Images
 
 {{< note >}}
-If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
-{{< /note >}}
-
-{{< note >}}
 This approach is suitable if you can control node configuration.  It
-will not work reliably on GCE, and any other cloud provider that does automatic
-node replacement.
+will not work reliably if your cloud provider manages nodes and replaces
+them automatically.
 {{< /note >}}
 
-By default, the kubelet will try to pull each image from the specified registry.
+By default, the kubelet tries to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
 then a local image is used (preferentially or exclusively, respectively).
 
@@ -277,11 +202,11 @@ All pods will have read access to any pre-pulled images.
 ### Specifying ImagePullSecrets on a Pod
 
 {{< note >}}
-This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
-where node creation is automated.
+This is the recommended approach to run containers based on images
+in private registries.
 {{< /note >}}
 
-Kubernetes supports specifying registry keys on a pod.
+Kubernetes supports specifying container image registry keys on a Pod.
 
 #### Creating a Secret with a Docker Config
 
@@ -292,11 +217,13 @@ kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SER
 ```
 
 If you already have a Docker credentials file then, rather than using the above
-command, you can import the credentials file as a Kubernetes secret.
+command, you can import the credentials file as a Kubernetes
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+
 This is particularly useful if you are using multiple private container
-registries, as `kubectl create secret docker-registry` creates a Secret that will
-only work with a single private registry.
+registries, as `kubectl create secret docker-registry` creates a Secret that
+only works with a single private registry.
 
 {{< note >}}
 Pods can only reference image pull secrets in their own namespace,
@@ -306,7 +233,9 @@ so this process needs to be done one time per namespace.
 #### Referring to an imagePullSecrets on a Pod
 
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a pod definition.
+section to a Pod definition.
+
+For example:
 
 ```shell
 cat <<EOF > pod.yaml
@@ -332,13 +261,14 @@ EOF
 This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [serviceAccount](/docs/user-guide/service-accounts) resource.
+in a [ServiceAccount](/docs/user-guide/service-accounts) resource.
+
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
-will be merged.  This approach will work on Google Kubernetes Engine.
+will be merged.
 
-### Use Cases
+## Use Cases
 
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
@@ -346,7 +276,7 @@ common use cases and suggested solutions.
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
      - No configuration required.
-     - On GCE/Google Kubernetes Engine, a local mirror is automatically used for improved speed and availability.
+     - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
    visible to all cluster users.
    - Use a hosted private [Docker registry](https://docs.docker.com/registry/).
@@ -354,7 +284,7 @@ common use cases and suggested solutions.
      - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
-   - Or, when on GCE/Google Kubernetes Engine, use the project's Google Container Registry.
+   - Use a hosted container image registry service that controls image access
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 1. Cluster with proprietary images, a few of which require stricter access control.
@@ -370,4 +300,6 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)

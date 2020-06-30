@@ -1,15 +1,15 @@
-<!--
-layout: blog
-title: "Kubernetes on MIPS"
-date: 2020-01-15
-slug: Kubernetes-on-MIPS
--->
 ---
 layout: blog
 title: "基于 MIPS 架构的 Kubernetes 方案"
 date: 2020-01-15
 slug: Kubernetes-on-MIPS
 ---
+<!--
+layout: blog
+title: "Kubernetes on MIPS"
+date: 2020-01-15
+slug: Kubernetes-on-MIPS
+-->
 
 <!-- 
 **Authors:** TimYin Shi, Dominic Yin, Wang Zhan, Jessica Jiang, Will Cai, Jeffrey Gao, Simon Sun (Inspur)

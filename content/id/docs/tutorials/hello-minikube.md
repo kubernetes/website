@@ -1,6 +1,6 @@
 ---
 title: Halo Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,7 +13,7 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tutorial ini menunjukkan bagaimana caranya menjalankan aplikasi sederhana Node.js Halo Dunia di Kubernetes, dengan [Minikube](/docs/getting-started-guides/minikube) dan Katacoda.
 Katacoda menyediakan <i>environment</i> Kubernetes secara gratis di dalam browser.
@@ -22,17 +22,19 @@ Katacoda menyediakan <i>environment</i> Kubernetes secara gratis di dalam browse
 Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/docs/tasks/tools/install-minikube/) kamu.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Deploy aplikasi halo dunia pada Minikube.
 * Jalankan aplikasinya.
 * Melihat log aplikasi.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode berikut:
 
@@ -42,9 +44,9 @@ Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode beriku
 
 Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Membuat sebuah klaster Minikube
 
@@ -259,12 +261,13 @@ Kamu juga boleh menghapus Minikube VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [Deployment](/docs/concepts/workloads/controllers/deployment/).
 * Pelajari lebih lanjut tentang [Deploy aplikasi](/docs/user-guide/deploying-applications/).
 * Pelajari lebih lanjut tentang [Servis](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

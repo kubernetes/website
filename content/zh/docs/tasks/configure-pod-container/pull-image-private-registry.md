@@ -1,18 +1,18 @@
 ---
 title: 从私有仓库拉取镜像
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
 <!--
 ---
 title: Pull an Image from a Private Registry
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create a Pod that uses a Secret to pull an image from a
@@ -21,9 +21,10 @@ private Docker registry or repository.
 
 本文介绍如何使用 Secret 从私有的 Docker 镜像仓库或代码仓库拉取镜像来创建 Pod。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -34,9 +35,9 @@ private Docker registry or repository.
 
 您需要 [Docker ID](https://docs.docker.com/docker-id/) 和密码来进行本练习。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Log in to Docker
@@ -265,9 +266,10 @@ kubectl create -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about [Secrets](/docs/concepts/configuration/secret/).
@@ -283,4 +285,4 @@ kubectl get pod private-reg
 * 参考 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)。
 * 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) 中的 `imagePullSecrets` 字段 。
 
-{{% /capture %}}
+

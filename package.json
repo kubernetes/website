@@ -3,8 +3,10 @@
   "devDependencies": {
     "@babel/core": "^7.0.1",
     "@slack/client": "^4.4.0",
+    "autoprefixer": "^9.7.6",
     "babel-loader": "^8.0.2",
     "netlify-lambda": "^0.4.0",
-    "node-fetch": "^2.2.0"
+    "node-fetch": "^2.2.0",
+    "postcss-cli": "^7.1.1"
   }
 }

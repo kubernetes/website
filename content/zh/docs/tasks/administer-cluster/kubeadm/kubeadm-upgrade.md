@@ -2,18 +2,18 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 升级 kubeadm 集群
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
 reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
@@ -49,9 +49,10 @@ The upgrade workflow at high level is the following:
 1. 升级其他控制平面节点。
 1. 升级工作节点。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 - You need to have a kubeadm Kubernetes cluster running version 1.16.0 or later.
@@ -83,9 +84,9 @@ The upgrade workflow at high level is the following:
 - 您只能从一个次版本升级到下一个次版本，或者同样次版本的补丁版。也就是说，升级时无法跳过版本。
   例如，您只能从 1.y 升级到 1.y+1，而不能从 from 1.y 升级到 1.y+2。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Determine which version to upgrade to
@@ -612,7 +613,7 @@ The `STATUS` column should show `Ready` for all your nodes, and the version numb
 -->
 `STATUS` 应显示所有节点为 `Ready` 状态，并且版本号已经被更新。 
 
-{{% /capture %}}
+
 
 <!--
 ## Recovering from a failure state

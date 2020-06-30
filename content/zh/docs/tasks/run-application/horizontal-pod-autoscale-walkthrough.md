@@ -5,11 +5,11 @@ reviewers:
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaler演练
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Horizontal Pod Autoscaler automatically scales the number of pods
@@ -25,11 +25,12 @@ This document walks you through an example of enabling Horizontal Pod Autoscaler
 本文将引导您了解如何为 php-apache 服务器配置和使用 Horizontal Pod Autoscaler。
 更多 Horizontal Pod Autoscaler 的信息请参阅 [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/)。
 
-{{% /capture %}}
 
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
@@ -55,9 +56,9 @@ See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horiz
 最后，如果要使用与 Kubernetes 对象无关的度量指标，则 Kubernetes 集群版本至少需要达到1.10版本，同样，需要保证集群能够与提供这些外部指标的API服务器通信。
 更多详细信息，请参阅[Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Run & expose php-apache server
@@ -261,9 +262,9 @@ Autoscaling the replicas may take a few minutes.
 自动伸缩完成副本数量的改变可能需要几分钟的时间。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Autoscaling on multiple metrics and custom metrics
@@ -690,4 +691,4 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 
-{{% /capture %}}
+

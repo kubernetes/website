@@ -1,13 +1,13 @@
 ---
 title: SIG Docs에 참여하기
-content_template: templates/concept
+content_type: concept
 weight: 60
 card:
   name: contribute
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 SIG Docs는 쿠버네티스 프로젝트의
 [분과회(special interest group)](https://github.com/kubernetes/community/blob/master/sig-list.md)
@@ -30,13 +30,13 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 문서를 관리하는 책임을 가지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 역할과 책임
 
-- **모든 사람** 은 쿠버네티스 문서에 기여할 수 있다. 기여시 [CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla))하고 GitHub 계정을 가지고 있어야 한다.
+- **모든 사람** 은 쿠버네티스 문서에 기여할 수 있다. 기여 시 [CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla)하고 GitHub 계정을 가지고 있어야 한다.
 - 쿠버네티스 조직의 **멤버** 는 쿠버네티스 프로젝트에 시간과 노력을 투자한 기여자이다. 일반적으로 승인되는 변경이 되는 풀 리퀘스트를 연다. 멤버십 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을 참조한다.
 - SIG Docs의 **리뷰어** 는 쿠버네티스 조직의 일원으로
   문서 풀 리퀘스트에 관심을 표명했고, SIG Docs 승인자에
@@ -75,7 +75,7 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 - [모든 사람](#모든-사람) 하위에 나열된 모든 것
 - 풀 리퀘스트 코멘트에 `/lgtm` 을 사용해서 LGTM(looks good to me) 레이블을 붙일 수 있다.
 - 풀 리퀘스트에 이미 LGTM 과 승인 레이블이 있는 경우에 풀 리퀘스트가 병합되지 않도록 코멘트에 `/hold` 를 사용할 수 있다.
-- 코멘트에 `/assgin` 을 사용해서 풀 리퀘스트에 리뷰어를 배정한다.
+- 코멘트에 `/assign` 을 사용해서 풀 리퀘스트에 리뷰어를 배정한다.
 
 ### 멤버 되기
 
@@ -302,15 +302,13 @@ PR 소유자에게 조언하는데 활용된다.
   [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 쿠버네티스 문서화에 기여하는 일에 대한 보다 많은 정보는 다음 문서를 참고한다.
 
-- [신규 컨텐츠 기여하기](/docs/contribute/overview/)
-- [컨텐츠 검토하기](/docs/contribute/review/reviewing-prs)
-- [문서 스타일 가이드](/docs/contribute/style/)
-
-{{% /capture %}}
-
+- [신규 콘텐츠 기여하기](/ko/docs/contribute/new-content/overview/)
+- [콘텐츠 검토하기](/ko/docs/contribute/review/reviewing-prs/)
+- [문서 스타일 가이드](/ko/docs/contribute/style/)

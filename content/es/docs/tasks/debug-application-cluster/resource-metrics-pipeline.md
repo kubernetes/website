@@ -2,20 +2,20 @@
 reviewers:
 - raelga
 title: Pipeline de métricas de recursos
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Desde Kubernetes 1.8, las métricas de uso de recursos, tales como el uso de CPU y memoria del contenedor,
 están disponibles en Kubernetes a través de la API de métricas. Estas métricas son accedidas directamente
 por el usuario, por ejemplo usando el comando `kubectl top`, o usadas por un controlador en el cluster,
 por ejemplo el Horizontal Pod Autoscaler, para la toma de decisiones.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## La API de Métricas
 
@@ -54,4 +54,4 @@ El servidor de métricas se añadió a la API de Kubernetes utilizando el
 
 Puedes aprender más acerca del servidor de métricas en el [documento de diseño](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
 
-{{% /capture %}}
+

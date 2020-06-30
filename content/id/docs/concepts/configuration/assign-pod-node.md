@@ -1,19 +1,19 @@
 ---
 title: Menetapkan Pod ke Node
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kamu dapat memaksa sebuah [pod](/docs/concepts/workloads/pods/pod/) untuk hanya dapat berjalan pada [node](/docs/concepts/architecture/nodes/) tertentu atau mengajukannya agar berjalan pada node tertentu. Ada beberapa cara untuk melakukan hal tersebut. Semua cara yang direkomendasikan adalah dengan menggunakan [_selector_ label](/docs/concepts/overview/working-with-objects/labels/) untuk menetapkan pilihan yang kamu inginkan. Pada umumnya, pembatasan ini tidak dibutuhkan, sebagaimana _scheduler_ akan melakukan penempatan yang proporsional dengan otomatis (seperti contohnya menyebar pod di node-node, tidak menempatkan pod pada node dengan sumber daya yang tidak memadai, dst.) tetapi ada keadaan-keadaan tertentu yang membuat kamu memiliki kendali lebih  terhadap node yang menjadi tempat pod dijalankan, contohnya untuk memastikan pod dijalankan pada mesin yang telah terpasang SSD, atau untuk menempatkan pod-pod dari dua servis yang berbeda yang sering berkomunikasi bersamaan ke dalam zona ketersediaan yang sama.
 
 Kamu dapat menemukan semua berkas untuk contoh-contoh berikut pada [dokumentasi yang kami sediakan di sini](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/)
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## nodeSelector
 
@@ -317,8 +317,9 @@ spec:
 ```
 Pod di atas akan berjalan pada node kube-01.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

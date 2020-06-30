@@ -2,7 +2,7 @@
 title: PKI 证书和要求
 reviewers:
 - sig-cluster-lifecycle
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -10,12 +10,12 @@ weight: 40
 title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes requires PKI certificates for authentication over TLS.
@@ -25,9 +25,9 @@ This page explains the certificates that your cluster requires.
 -->
 Kubernetes 需要 PKI 证书才能进行基于 TLS 的身份验证。如果您是使用 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 安装的 Kubernetes，则会自动生成集群所需的证书。您还可以生成自己的证书。例如，不将私钥存储在 API 服务器上，可以让私钥更加安全。此页面说明了集群必需的证书。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## How certificates are used by your cluster
@@ -282,4 +282,4 @@ These files are used as follows:
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
 
-{{% /capture %}}
+

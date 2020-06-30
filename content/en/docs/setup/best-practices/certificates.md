@@ -2,20 +2,20 @@
 title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes requires PKI certificates for authentication over TLS.
 If you install Kubernetes with [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/), the certificates that your cluster requires are automatically generated.
 You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.
 This page explains the certificates that your cluster requires.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How certificates are used by your cluster
 
@@ -31,7 +31,7 @@ Kubernetes requires PKI for the following operations:
 * Client and server certificates for the [front-proxy][proxy]
 
 {{< note >}}
-`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/).
+`front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 {{< /note >}}
 
 etcd also implements mutual TLS to authenticate clients and peers.
@@ -162,6 +162,6 @@ These files are used as follows:
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
+[proxy]: /docs/tasks/extend-kubernetes/configure-aggregation-layer/
 
-{{% /capture %}}
+

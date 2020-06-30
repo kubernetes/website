@@ -1,11 +1,11 @@
 ---
 title: Advanced contributing
 slug: advanced
-content_template: templates/concept
+content_type: concept
 weight: 98
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page assumes that you understand how to
 [contribute to new content](/docs/contribute/new-content/overview) and
@@ -13,9 +13,9 @@ This page assumes that you understand how to
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Be the PR Wrangler for a week
 
@@ -39,6 +39,7 @@ The PR wrangler’s duties include:
     - Assign `Doc Review: Open Issues` or `Tech Review: Open Issues` for PRs that have been reviewed and require further input or action before merging.
     - Assign `/lgtm` and `/approve` labels to PRs that can be merged.
 - Merge PRs when they are ready, or close PRs that shouldn’t be accepted.
+    - Consider accepting accurate technical content even if the content meets only some of the docs' [style guidelines](/docs/contribute/style/style-guide/). Open a new issue with the label `good first issue` to address style concerns.
 - Triage and tag incoming issues daily. See [Triage and categorize issues](/docs/contribute/review/for-approvers/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
 
 ### Helpful GitHub queries for wranglers
@@ -245,4 +246,4 @@ When you’re ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
 
-{{% /capture %}}
+

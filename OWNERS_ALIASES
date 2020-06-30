@@ -124,6 +124,7 @@ aliases:
     - girikuncoro
     - irvifa
     - wahyuoi
+    - phanama
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
     - mattiaperi
@@ -133,14 +134,15 @@ aliases:
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
-    - cstoku
+    # cstoku
     - inductor
     - nasa9084
   sig-docs-ja-reviews: # PR reviews for Japanese content
-    - cstoku
+    - bells17
+    # cstoku
     - inductor
     - makocchi-git
-    - MasayaAoyama
+    # MasayaAoyama
     - nasa9084
     - oke-py
   sig-docs-ko-owners: # Admins for Korean content
@@ -227,6 +229,7 @@ aliases:
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
     - anastyakulyk
+    - Arhell
     - butuzov
     - idvoretskyi
     - MaxymVlasov

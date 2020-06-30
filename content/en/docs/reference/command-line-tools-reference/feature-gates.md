@@ -1,17 +1,17 @@
 ---
 weight: 10
 title: Feature Gates
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page contains an overview of the various feature gates an administrator
 can specify on different Kubernetes components.
 
 See [feature stages](#feature-stages) for an explanation of the stages for a feature.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Overview
 
 Feature gates are a set of key=value pairs that describe Kubernetes features.
@@ -105,6 +105,7 @@ different Kubernetes components.
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | |
 | `HyperVContainer` | `false` | Alpha | 1.10 | |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | |
+| `IPv6DualStack` | `false` | Alpha | 1.16 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `LegacyNodeRoleBehavior` | `true` | Alpha | 1.16 | |
@@ -133,7 +134,8 @@ different Kubernetes components.
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
-| `StartupProbe` | `false` | Alpha | 1.16 | |
+| `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
+| `StartupProbe` | `true` | Beta | 1.18 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `StreamingProxyRedirects` | `false` | Beta | 1.5 | 1.5 |
@@ -510,8 +512,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
   the project's approach to removing features and components.
-{{% /capture %}}
+

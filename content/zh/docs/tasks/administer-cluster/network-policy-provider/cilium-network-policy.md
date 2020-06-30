@@ -2,11 +2,11 @@
 reviewers:
 - danwent
 title: 使用 Cilium 作为 NetworkPolicy
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- This page shows how to use Cilium for NetworkPolicy.
 
 For background on Cilium, read the [Introduction to Cilium](https://cilium.readthedocs.io/en/latest/intro). -->
@@ -15,15 +15,16 @@ For background on Cilium, read the [Introduction to Cilium](https://cilium.readt
 
 关于 Cilium 的背景知识，请阅读 [Cilium 介绍](https://cilium.readthedocs.io/en/latest/intro)。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Deploying Cilium on Minikube for Basic Testing
 
@@ -71,9 +72,9 @@ production DaemonSet files.
 关于部署 Cilium 用于生产的详细说明，请见[Cilium Kubernetes 安装指南](https://cilium.readthedocs.io/en/latest/gettingstarted/#installation)
 ，此文档包括详细的需求、说明和生产用途 DaemonSet 文件示例。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 <!--
 ##  Understanding Cilium components
 
@@ -116,9 +117,10 @@ configuration because it automatically connects to the minikube's etcd instance.
 包括了一个示例 DaemonSet，可以自定义指定此键值存储集群。
 简单的 minikube 的“一体化” DaemonSet 不需要这样的配置，因为它会自动连接到 minikube 的 etcd 实例。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!-- Once your cluster is running, you can follow the
 [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
 to try out Kubernetes NetworkPolicy with Cilium.
@@ -129,5 +131,5 @@ Have fun, and if you have questions, contact us using the
 玩得开心，如果您有任何疑问，请联系我们
 [Cilium Slack Channel](https://cilium.herokuapp.com/)。
 
-{{% /capture %}}
+
 

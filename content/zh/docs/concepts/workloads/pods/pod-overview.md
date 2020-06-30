@@ -1,9 +1,9 @@
 ---
 title: Pod 概览
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
-  name: 概念
+  name: concepts
   weight: 60
 ---
 
@@ -12,7 +12,7 @@ card:
 reviewers:
 - erictune
 title: Pod Overview
-content_template: templates/concept
+content_type: concept
 weight: 10
 card: 
   name: concepts
@@ -23,12 +23,12 @@ card:
 <!--
 This page provides an overview of `Pod`, the smallest deployable object in the Kubernetes object model.
 -->
-{{% capture overview %}}
+<!-- overview -->
 本节提供了 `Pod` 的概览信息，`Pod` 是最小可部署的 Kubernetes 对象模型。
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Understanding Pods
@@ -248,7 +248,7 @@ Pod 模板就像饼干切割器，而不是指定所有副本的当前期望状�
 这与 Pod 形成有意的对比，Pod 指定了属于 Pod 的所有容器的当前期望状态。
 这种方法从根本上简化了系统语义，增加了原语的灵活性。
 
-{{% /capture %}}
+
 
 <!--
 * Learn more about [Pods](/docs/concepts/workloads/pods/pod/)
@@ -256,9 +256,10 @@ Pod 模板就像饼干切割器，而不是指定所有副本的当前期望状�
   * [Pod Termination](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/)
 -->
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * 详细了解 [Pod](/docs/concepts/workloads/pods/pod/)
 * 了解有关 Pod 行为的更多信息：
   * [Pod 的终止](/docs/concepts/workloads/pods/pod/#termination-of-pods)
   * [Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+

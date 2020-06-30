@@ -1,6 +1,6 @@
 ---
 title: 使用 Minikube 安装 Kubernetes
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -9,20 +9,20 @@ reviewers:
 - balopat
 - aaron-prindle
 title: Installing Kubernetes with Minikube
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 -->
 Minikube 是一种可以让您在本地轻松运行 Kubernetes 的工具。Minikube 在笔记本电脑上的虚拟机（VM）中运行单节点 Kubernetes 集群，供那些希望尝试 Kubernetes 或进行日常开发的用户使用。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Minikube Features
@@ -95,7 +95,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     <!--
     For more information on starting your cluster on a specific Kubernetes version, VM, or container runtime, see [Starting a Cluster](#starting-a-cluster).
     -->
-    
+
     有关使用特定 Kubernetes 版本、VM 或容器运行时启动集群的详细信息，请参阅[启动集群](#starting-a-cluster)。
 
 2. 现在，您可以使用 kubectl 与集群进行交互。有关详细信息，请参阅[与集群交互](#interacting-with-your-cluster)。
@@ -110,7 +110,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     让我们使用名为 `echoserver` 的镜像创建一个 Kubernetes Deployment，并使用 `--port` 在端口 8080 上暴露服务。`echoserver` 是一个简单的 HTTP 服务器。
 
     ```shell
-    kubectl run hello-minikube --image=k8s.gcr.io/echoserver:1.10 --port=8080
+    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
     ```
     <!--
     The output is similar to this:
@@ -128,7 +128,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
     -->
 
     ```shell
-    kubectl expose deployment hello-minikube --type=NodePort
+    kubectl expose deployment hello-minikube --type=NodePort --port=8080
     ```
     <!--
     The option `--type=NodePort` specifies the type of the Service.
@@ -396,14 +396,14 @@ minikube start --vm-driver=<driver_name>
 Minikube 支持以下驱动程序：
 
 <!--
- See [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) for details on supported drivers and how to install plugins.
+ See [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) for details on supported drivers and how to install plugins.
 -->
 
 <!--
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
 * vmware ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
@@ -412,13 +412,13 @@ Note that the IP below is dynamic and can change. It can be retrieved with `mini
 
 
  {{< note >}}
-有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://git.k8s.io/minikube/docs/drivers.md)。
+有关支持的驱动程序以及如何安装插件的详细信息，请参阅[驱动程序](https://minikube.sigs.k8s.io/docs/drivers/)。
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([驱动安装](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
+* kvm2 ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([驱动安装](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * hyperv ([驱动安装](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 <!--
 Note that the IP below is dynamic and can change. It can be retrieved with `minikube ip`.
@@ -616,7 +616,7 @@ To set the `AuthorizationMode` on the `apiserver` to `RBAC`, you can use: `--ext
 要将 `apiserver` 的 `AuthorizationMode` 设置为 `RBAC`，您可以使用：`--extra-config=apiserver.authorization-mode=RBAC`。
 
 <!--
-### Stopping a ClusterThe 
+### Stopping a ClusterThe
 
 `minikube stop` command can be used to stop your cluster.
 -->
@@ -633,7 +633,7 @@ Starting the cluster again will restore it to its previous state.
 再次启动集群会将其恢复到以前的状态。
 
 <!--
-### Deleting a ClusterThe 
+### Deleting a ClusterThe
 
 `minikube delete` command can be used to delete your cluster.
 -->
@@ -906,7 +906,7 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **Goals and Non-Goals**: For the goals and non-goals of the Minikube project, please see our [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
 * **Development Guide**: See [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) for an overview of how to send pull requests.
 * **Building Minikube**: For instructions on how to build/test Minikube from source, see the [build guide](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
-* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md).
+* **Adding a New Dependency**: For instructions on how to add a new dependency to Minikube, see the [adding dependencies guide](https://minikube.sigs.k8s.io/docs/contrib/building/iso/).
 * **Adding a New Addon**: For instructions on how to add a new addon for Minikube, see the [adding an addon guide](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
 * **MicroK8s**: Linux users wishing to avoid running a virtual machine may consider [MicroK8s](https://microk8s.io/) as an alternative.
 -->
@@ -914,7 +914,7 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 * **目标和非目标**: 有关 Minikube 项目的目标和非目标，请参阅我们的 [roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md)。
 * **开发指南**: 请查阅 [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) 获取有关如何提交 Pull Request 的概述。
 * **构建 Minikube**: 有关如何从源代码构建/测试 Minikube 的说明，请参阅[构建指南](https://git.k8s.io/minikube/docs/contributors/build_guide.md)。
-* **添加新依赖**: 有关如何向 Minikube 添加新依赖的说明，请参阅[添加依赖项指南](https://git.k8s.io/minikube/docs/contributors/adding_a_dependency.md)。
+* **添加新依赖**: 有关如何向 Minikube 添加新依赖的说明，请参阅[添加依赖项指南](https://minikube.sigs.k8s.io/docs/contrib/building/iso/)。
 * **添加新插件**: 有关如何为 Minikube 添加新插件的说明，请参阅[添加插件指南](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md)。
 * **MicroK8s**: 希望避免运行虚拟机的 Linux 用户可以考虑使用 [MicroK8s](https://microk8s.io/) 作为替代品。
 
@@ -928,4 +928,4 @@ Contributions, questions, and comments are all welcomed and encouraged! Minikube
 -->
 我们欢迎您向社区提交贡献、提出问题以及参与评论！Minikube 开发人员可以在 [Slack](https://kubernetes.slack.com) 的 #minikube 频道上互动交流（点击[这里](http://slack.kubernetes.io/)获得邀请）。我们还有 [kubernetes-dev Google Groups 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-dev)。如果您要发信到列表中，请在主题前加上 "minikube: "。
 
-{{% /capture %}}
+

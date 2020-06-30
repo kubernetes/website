@@ -1,23 +1,23 @@
 ---
 title: ConfigMaps
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
 
 {{< caution >}}
-ConfigMap does not provide secrecy or encryption.  
+ConfigMap does not provide secrecy or encryption.
 If the data you want to store are confidential, use a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Motivation
 
 Use a ConfigMap for setting configuration data separately from application code.
@@ -60,7 +60,7 @@ metadata:
   name: game-demo
 data:
   # property-like keys; each key maps to a simple value
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # file-like keys
@@ -85,9 +85,9 @@ These different methods lend themselves to different ways of modeling
 the data being consumed.
 For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the Secret when it launches container(s) for a Pod.
+the ConfigMap when it launches container(s) for a Pod.
 
-The fourth method means you have to write code to read the Secret and its data.
+The fourth method means you have to write code to read the ConfigMap and its data.
 However, because you're using the Kubernetes API directly, your application can
 subscribe to get updates whenever the ConfigMap changes, and react
 when that happens. By accessing the Kubernetes API directly, this
@@ -131,7 +131,7 @@ spec:
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
-What matters how Pods and other objects consume those values.
+What matters is how Pods and other objects consume those values.
 For this example, defining a volume and mounting it inside the `demo`
 container as `/config` creates four files:
 
@@ -157,13 +157,99 @@ or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 {{< /note >}}
 
+## Using ConfigMaps
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
+parts of the system, without being directly exposed to the Pod. For example,
+ConfigMaps can hold data that other parts of the system should use for configuration.
+
+### Using ConfigMaps as files from a Pod
+
+To consume a ConfigMap in a volume in a Pod:
+
+1. Create a config map or use an existing one. Multiple Pods can reference the same config map.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configMap.name` field set to reference your ConfigMap object.
+1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the config map. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the config map to appear.
+1. Modify your image or command line so that the program looks for files in that directory. Each key in the config map `data` map becomes the filename under `mountPath`.
+
+This is an example of a Pod that mounts a ConfigMap in a volume:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    configMap:
+      name: myconfigmap
+```
+
+Each ConfigMap you want to use needs to be referred to in `.spec.volumes`.
+
+If there are multiple containers in the Pod, then each container needs its
+own `volumeMounts` block, but only one `.spec.volumes` is needed per ConfigMap.
+
+#### Mounted ConfigMaps are updated automatically
+
+When a config map currently consumed in a volume is updated, projected keys are eventually updated as well.
+The kubelet checks whether the mounted config map is fresh on every periodic sync.
+However, the kubelet uses its local cache for getting the current value of the ConfigMap.
+The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
+the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+A ConfigMap can be either propagated by watch (default), ttl-based, or simply redirecting
+all requests directly to the API server.
+As a result, the total delay from the moment when the ConfigMap is updated to the moment
+when new keys are projected to the Pod can be as long as the kubelet sync period + cache
+propagation delay, where the cache propagation delay depends on the chosen cache type
+(it equals to watch propagation delay, ttl of cache, or zero correspondingly).
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
+(at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
+data has the following advantages:
+
+- protects you from accidental (or unwanted) updates that could cause applications outages
+- improves performance of your cluster by significantly reducing load on kube-apiserver, by
+closing watches for config maps marked as immutable.
+
+To use this feature, enable the `ImmutableEmphemeralVolumes`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
+your Secret or ConfigMap `immutable` field to `true`. For example:
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+Once a ConfigMap or Secret is marked as immutable, it is _not_ possible to revert this change
+nor to mutate the contents of the `data` field. You can only delete and recreate the ConfigMap.
+Existing Pods maintain a mount point to the deleted ConfigMap - it is recommended to recreate
+these pods.
+{{< /note >}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 
-{{% /capture %}}
+

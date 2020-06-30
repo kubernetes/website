@@ -1,19 +1,20 @@
 ---
 title: Minikube 설치
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 단일 노드 쿠버네티스 클러스터를 노트북의 가상 머신에서 구동하는 도구인 [Minikube](/ko/docs/tutorials/hello-minikube)의 설치 방법을 설명한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="리눅스" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# minikube 설치하기
+<!-- steps -->
+
+## minikube 설치하기
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="리눅스" %}}
@@ -199,15 +200,6 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 {{% /tab %}}
 {{< /tabs >}}
 
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Minikube로 로컬에서 쿠버네티스 실행하기](/docs/setup/minikube/)
-
-{{% /capture %}}
-
 ## 설치 확인
 
 하이퍼바이저와 Minikube의 성공적인 설치를 확인하려면, 다음 명령어를 실행해서 로컬 쿠버네티스 클러스터를 시작할 수 있다.
@@ -217,6 +209,10 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 `minikube start` 시 `--driver` 를 설정하려면, 아래에 `<driver_name>` 로 소문자로 언급된 곳에 설치된 하이퍼바이저의 이름을 입력한다. `--driver` 값의 전체 목록은 [VM driver 문서에서 지정하기](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)에서 확인할 수 있다.
 
 {{< /note >}}
+
+{{< caution >}}
+KVM을 사용할 때 Debian과 다른 시스템에서 libvirt의 기본 QEMU URI는 `qemu:///session`이고, Minikube의 기본 QEMU URI는 `qemu:///system`이다. 시스템이 이런 환경이라면, `--kvm-qemu-uri qemu:///session`을 `minikube start`에 전달해야 한다.
+{{< /caution >}}
 
 ```shell
 minikube start --driver=<driver_name>
@@ -259,3 +255,8 @@ machine does not exist
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Minikube로 로컬에서 쿠버네티스 실행하기](/ko/docs/setup/learning-environment/minikube/)
