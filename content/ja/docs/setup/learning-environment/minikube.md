@@ -189,7 +189,7 @@ The "minikube" cluster has been deleted.
 
 ## クラスターの管理
 
-### クラスターの起動{#starting-a-cluster}
+### クラスターの起動 {#starting-a-cluster}
 
 `minikube start` コマンドはクラスターを起動することができます。
 このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
