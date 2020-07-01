@@ -9,12 +9,13 @@ card:
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
 Este documento describe los distintos componentes que
 son necesarios para operar un clúster de Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
+
 ## Componentes maestros
 
 Los componentes maestros proveen el plano de control del clúster. Ellos toman decisiones globales sobre
@@ -113,7 +114,3 @@ datos.
 
 El mecanismo de [registros del clúster](/docs/concepts/cluster-administration/logging/) está a cargo de almacenar
 los registros de los contenedores de forma centralizada, proporcionando una interfaz de búsqueda y navegación.
-
-{{% /capture %}}
-
-
