@@ -45,7 +45,7 @@ weight: 10
 이들 컴포넌트는 쿠버네티스가 새로운 유형과 새로운 종류의 하드웨어를 지원할 수 있게 해준다.
 
 대부분의 클러스터 관리자는 쿠버네티스의 호스팅 또는 배포판 인스턴스를 사용한다.
-결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 있고
+결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 없고
 새로운 익스텐션 기능을 작성할 필요가 있는 사람은 더 적다.
 
 ## 익스텐션 패턴
@@ -202,5 +202,3 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
   * [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)
 * [kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
 * [오퍼레이터 패턴](/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
-
-

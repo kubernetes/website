@@ -99,7 +99,7 @@ _어노테이션_ 을 사용하여 AWS의 로드 밸런서 서비스에 다른 �
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`: 서비스에서 연결 드레이닝 타임아웃 값을 지정하는 데 사용된다.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout`: 서비스에서 유휴 연결 타임아웃 값을 지정하는 데 사용된다.
 * `service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled`: 서비스에서 교차 영역의 로드 밸런싱을 활성화하거나 비활성화하는 데 사용된다.
-* `service.beta.kubernetes.io/aws-load-balancer-security-groups`: 생성된 ELB에 추가할 보안 그룹을 지정하는 데 사용된다. 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다.
+* `service.beta.kubernetes.io/aws-load-balancer-security-groups`: 생성된 ELB에 추가할 보안 그룹을 지정하는 데 사용된다. 이는 이전에 ELB에 할당된 다른 모든 보안 그룹을 대체한다. 여기에 정의된 보안 그룹은 서비스 간에 공유해서는 안된다.
 * `service.beta.kubernetes.io/aws-load-balancer-extra-security-groups`: 서비스에서 생성된 ELB에 추가할 추가적인 보안 그룹을 지정하는 데 사용된다.
 * `service.beta.kubernetes.io/aws-load-balancer-internal`: 서비스에서 내부 ELB 사용 희망을 표시하기 위해 사용된다.
 * `service.beta.kubernetes.io/aws-load-balancer-proxy-protocol`: 서비스에서 ELB에서 프록시 프로토콜을 활성화하는 데 사용된다. 현재는 모든 ELB 백엔드에서 프록시 프로토콜을 사용하도록 설정하는 `*` 값만 허용한다. 향후에는 특정 백엔드에서만 프록시 프로토콜을 설정할 수 있도록 이를 조정할 수 있게 된다.
