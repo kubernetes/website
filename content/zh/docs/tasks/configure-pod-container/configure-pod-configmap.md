@@ -487,7 +487,7 @@ new ConfigMap is generated each time the content is modified. -->
 请注意，生成的 ConfigMap 名称具有通过对内容进行散列而附加的后缀，这样可以确保每次修改内容时都会生成新的 ConfigMap。
 
 <!-- #### Define the key to use when generating a ConfigMap from a file -->
-#### 定义从文件生成 ConfigMap 时要使用的密钥
+#### 定义从文件生成 ConfigMap 时要使用的键
 <!-- You can define a key other than the file name to use in the ConfigMap generator.
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
 with the key `game-special-key` -->
