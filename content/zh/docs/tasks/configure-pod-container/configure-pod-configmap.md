@@ -83,7 +83,7 @@ wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-c
 wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
 
 # 创建 configmap
-kubectl create c game-config --from-file=configure-pod-container/configmap/
+kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
 <!-- combines the contents of the `configure-pod-container/configmap/` directory -->
