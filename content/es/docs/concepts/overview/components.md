@@ -100,7 +100,7 @@ El DNS interno del clúster es un servidor DNS, adicional a los que ya podrías 
 
 Los contenedores que son iniciados por Kubernetes incluyen automáticamente este servidor en sus búsquedas DNS.
 
-### Web UI (Dashboard)
+### Interfaz Web (Dashboard) {#dashboard}
 
 El [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) es una interfaz Web de propósito general para clústeres de Kubernetes. Le permite a los usuarios administrar y resolver problemas que puedan presentar tanto las aplicaciones como el clúster.
 
