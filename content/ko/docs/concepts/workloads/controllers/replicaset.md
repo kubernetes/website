@@ -250,7 +250,7 @@ matchLabels:
 그렇지 않으면 API에 의해 거부된다.
 
 {{< note >}}
-2개의 레플리카셋이 동일한 `.spec.selector`필드를 지정한 반면, 다른 `.spec.template.metadata.labels`와 `.spec.template.spec` 필드를 명시한 경우, 각 레플리카 셋은 다른 레플리카 셋이 생성한 파드를 무시한다.
+2개의 레플리카셋이 동일한 `.spec.selector`필드를 지정한 반면, 다른 `.spec.template.metadata.labels`와 `.spec.template.spec` 필드를 명시한 경우, 각 레플리카셋은 다른 레플리카셋이 생성한 파드를 무시한다.
 {{< /note >}}
 
 ### 레플리카
@@ -307,7 +307,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 ### 레플리카셋을 Horizontal Pod Autoscaler 대상으로 설정
 
-레플리카 셋은
+레플리카셋은
 [Horizontal Pod Autoscalers (HPA)](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)의 대상이 될 수 있다.
 즉, 레플리카셋은 HPA에 의해 오토스케일될 수 있다.
 다음은 이전에 만든 예시에서 만든 레플리카셋을 대상으로 하는 HPA 예시이다.
@@ -316,7 +316,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스
 클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는
-오토스케일 레플리카 셋 HPA가 생성된다.
+오토스케일 레플리카셋 HPA가 생성된다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml

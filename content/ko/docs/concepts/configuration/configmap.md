@@ -60,7 +60,7 @@ metadata:
   name: game-demo
 data:
   # 속성과 비슷한 키; 각 키는 간단한 값으로 매핑됨
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # 파일과 비슷한 키
@@ -85,9 +85,9 @@ data:
 방식에 따라 다르게 쓰인다.
 처음 세 가지 방법의 경우,
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}은 파드의 컨테이너를 시작할 때
-시크릿의 데이터를 사용한다.
+컨피그맵의 데이터를 사용한다.
 
-네 번째 방법은 시크릿과 데이터를 읽기 위해 코드를 작성해야 한다는 것을 의미한다.
+네 번째 방법은 컨피그맵과 데이터를 읽기 위해 코드를 작성해야 한다는 것을 의미한다.
 그러나, 쿠버네티스 API를 직접 사용하기 때문에, 애플리케이션은
 컨피그맵이 변경될 때마다 업데이트를 받기 위해 구독할 수 있고, 업데이트가
 있으면 반응한다. 쿠버네티스 API에 직접 접근하면, 이
@@ -168,7 +168,7 @@ spec:
 파드의 볼륨에서 컨피그맵을 사용하려면 다음을 수행한다.
 
 1. 컨피그맵을 생성하거나 기존 컨피그맵을 사용한다. 여러 파드가 동일한 컨피그맵을 참조할 수 있다.
-1. 파드 정의를 수정해서 `.spec.volumes[]` 아래에 볼륨을 추가한다. 볼륨 이름은 원하는 대로 정하고, 컨피그맵 오브젝트를 참조하도록 `.spec.volumes[].configmap.localObjectReference` 필드를 설정한다.
+1. 파드 정의를 수정해서 `.spec.volumes[]` 아래에 볼륨을 추가한다. 볼륨 이름은 원하는 대로 정하고, 컨피그맵 오브젝트를 참조하도록 `.spec.volumes[].configMap.name` 필드를 설정한다.
 1. 컨피그맵이 필요한 각 컨테이너에 `.spec.containers[].volumeMounts[]` 를 추가한다. `.spec.containers[].volumeMounts[].readOnly = true` 를 설정하고 컨피그맵이 연결되기를 원하는 곳에 사용하지 않은 디렉터리 이름으로 `.spec.containers[].volumeMounts[].mountPath` 를 지정한다.
 1. 프로그램이 해당 디렉터리에서 파일을 찾도록 이미지 또는 커맨드 라인을 수정한다. 컨피그맵의 `data` 맵 각 키는 `mountPath` 아래의 파일 이름이 된다.
 
@@ -250,4 +250,3 @@ immutable: true
 * [컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 읽어본다.
 * 코드를 구성에서 분리하려는 동기를 이해하려면
   [Twelve-Factor 앱](https://12factor.net/ko/)을 읽어본다.
-

@@ -1,6 +1,7 @@
 ---
 content_type: concept
 title: GPU 스케줄링
+description: 클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
 ---
 
 

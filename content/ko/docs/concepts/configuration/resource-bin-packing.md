@@ -128,23 +128,23 @@ CPU: 1
 Node Score:
 
 intel.com/foo  = resourceScoringFunction((2+1),4)
-               =  (100 - ((4-3)*100/4)
-               =  (100 - 25)
-               =  75
-               =  rawScoringFunction(75)
-               = 7
+               = (100 - ((4-3)*100/4)
+               = (100 - 25)
+               = 75                       # requested + used = 75% * available
+               = rawScoringFunction(75)
+               = 7                        # floor(75/10)
 
 Memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
-               = 50
+               = 50                       # requested + used = 50% * available
                = rawScoringFunction(50)
-               = 5
+               = 5                        # floor(50/10)
 
 CPU            = resourceScoringFunction((2+1),8)
                = (100 -((8-3)*100/8))
-               = 37.5
+               = 37.5                     # requested + used = 37.5% * available
                = rawScoringFunction(37.5)
-               = 3
+               = 3                        # floor(37.5/10)
 
 NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
             =  5
@@ -189,5 +189,3 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
             =  7
 
 ```
-
-
