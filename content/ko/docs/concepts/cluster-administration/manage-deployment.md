@@ -400,7 +400,7 @@ rm /tmp/nginx.yaml
 
 `kubectl patch` 를 사용하여 API 오브젝트를 인플레이스 업데이트할 수 있다. 이 명령은 JSON 패치,
 JSON 병합 패치 그리고 전략적 병합 패치를 지원한다.
-[kubectl patch를 사용한 인플레이스 API 오브젝트 업데이트](/docs/tasks/run-application/update-api-object-kubectl-patch/)와
+[kubectl patch를 사용한 인플레이스 API 오브젝트 업데이트](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)와
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch)를
 참조한다.
 

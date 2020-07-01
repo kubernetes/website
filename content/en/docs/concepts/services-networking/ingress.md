@@ -91,7 +91,7 @@ Different [Ingress controller](/docs/concepts/services-networking/ingress-contro
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
-for directing HTTP traffic.
+for directing HTTP(S) traffic.
 
 ### Ingress rules
 

@@ -250,7 +250,7 @@ tolerations:
 Kubernetes automatically adds a toleration for
 `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable`
 with `tolerationSeconds=300`,
-unless you, or a controller, set those tolerations explictly.
+unless you, or a controller, set those tolerations explicitly.
 
 These automatically-added tolerations mean that Pods remain bound to
 Nodes for 5 minutes after one of these problems is detected.

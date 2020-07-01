@@ -237,7 +237,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 
 [[params.links.user]]
 	name = "Youtube"
-	url = "https://youtbue.com/kubernetescommunity"
+	url = "https://youtube.com/kubernetescommunity"
 	icon = "fab fa-youtube"
   desc = "Youtube community videos"
 

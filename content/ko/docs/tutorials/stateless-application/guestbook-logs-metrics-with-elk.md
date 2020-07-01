@@ -1,6 +1,5 @@
 ---
 title: "예제: PHP / Redis 방명록 예제에 로깅과 메트릭 추가"
-reviewers:
 content_type: tutorial
 weight: 21
 card:
@@ -406,4 +405,3 @@ kubectl scale --replicas=3 deployment/frontend
 * [로깅 아키텍처](/docs/concepts/cluster-administration/logging/)를 더 읽어본다.
 * [애플리케이션 검사 및 디버깅](/ko/docs/tasks/debug-application-cluster/)을 더 읽어본다.
 * [애플리케이션 문제 해결](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
-

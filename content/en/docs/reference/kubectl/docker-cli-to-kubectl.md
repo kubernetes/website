@@ -73,9 +73,6 @@ kubectl run [-i] [--tty] --attach <name> --image=<image>
 Unlike `docker run ...`, if you specify `--attach`, then you attach `stdin`, `stdout` and `stderr`. You cannot control which streams are attached (`docker -a ...`).
 To detach from the container, you can type the escape sequence Ctrl+P followed by Ctrl+Q.
 
-Because the kubectl run command starts a Deployment for the container, the Deployment restarts if you terminate the attached process by using Ctrl+C, unlike `docker run -it`.
-To destroy the Deployment and its pods you need to run `kubectl delete deployment <name>`.
-
 ## docker ps
 
 To list what is currently running, see [kubectl get](/docs/reference/generated/kubectl/kubectl-commands/#get).
@@ -188,7 +185,7 @@ docker exec -ti 55c103fa1296 /bin/sh
 kubectl:
 
 ```shell
-kubectl exec -ti nginx-app-5jyvm -- /bin/sh      
+kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 

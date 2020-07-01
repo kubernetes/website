@@ -43,7 +43,7 @@ API [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-ob
 컨피그맵의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
-## 컨피그맵과 파드(Pod)
+## 컨피그맵과 파드
 
 컨피그맵을 참조하는 파드 `spec` 을 작성하고 컨피그맵의 데이터를
 기반으로 해당 파드의 컨테이너를 구성할 수 있다. 파드와 컨피그맵은
@@ -157,7 +157,91 @@ spec:
 사용할 수도 있다.
 {{< /note >}}
 
+## 컨피그맵 사용하기
 
+컨피그맵은 데이터 볼륨으로 마운트할 수 있다. 컨피그맵은 파드에 직접적으로
+노출되지 않고, 시스템의 다른 부분에서도 사용할 수 있다. 예를 들어,
+컨피그맵은 시스템의 다른 부분이 구성을 위해 사용해야 하는 데이터를 보유할 수 있다.
+
+### 파드에서 컨피그맵을 파일로 사용하기
+
+파드의 볼륨에서 컨피그맵을 사용하려면 다음을 수행한다.
+
+1. 컨피그맵을 생성하거나 기존 컨피그맵을 사용한다. 여러 파드가 동일한 컨피그맵을 참조할 수 있다.
+1. 파드 정의를 수정해서 `.spec.volumes[]` 아래에 볼륨을 추가한다. 볼륨 이름은 원하는 대로 정하고, 컨피그맵 오브젝트를 참조하도록 `.spec.volumes[].configmap.localObjectReference` 필드를 설정한다.
+1. 컨피그맵이 필요한 각 컨테이너에 `.spec.containers[].volumeMounts[]` 를 추가한다. `.spec.containers[].volumeMounts[].readOnly = true` 를 설정하고 컨피그맵이 연결되기를 원하는 곳에 사용하지 않은 디렉터리 이름으로 `.spec.containers[].volumeMounts[].mountPath` 를 지정한다.
+1. 프로그램이 해당 디렉터리에서 파일을 찾도록 이미지 또는 커맨드 라인을 수정한다. 컨피그맵의 `data` 맵 각 키는 `mountPath` 아래의 파일 이름이 된다.
+
+다음은 볼륨에 컨피그맵을 마운트하는 파드의 예시이다.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    configmap:
+      name: myconfigmap
+```
+
+사용하려는 각 컨피그맵은 `.spec.volumes` 에서 참조해야 한다.
+
+파드에 여러 컨테이너가 있는 경우 각 컨테이너에는 자체 `volumeMounts` 블록이 필요하지만,
+컨피그맵은 각 컨피그맵 당 하나의 `.spec.volumes` 만 필요하다.
+
+#### 마운트된 컨피그맵이 자동으로 업데이트
+
+현재 볼륨에서 사용된 컨피그맵이 업데이트되면, 프로젝션된 키도 마찬가지로 업데이트된다.
+kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최신 상태인지 확인한다.
+그러나, kubelet은 로컬 캐시를 사용해서 컨피그맵의 현재 값을 가져온다.
+캐시 유형은 [KubeletConfiguration 구조체](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)의
+`ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
+
+컨피그맵은 watch(기본값), ttl 기반 또는 API 서버로 직접
+모든 요청을 리디렉션할 수 있다.
+따라서 컨피그맵이 업데이트되는 순간부터 새 키가 파드에 업데이트되는 순간까지의
+총 지연시간은 kubelet 동기화 기간 + 캐시 전파 지연만큼 길 수 있다. 여기서 캐시
+전파 지연은 선택한 캐시 유형에 따라 달라질 수 있다(전파
+지연을 지켜보거나, 캐시의 ttl 또는 0에 상응함).
+
+{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+
+쿠버네티스 알파 기능인 _변경할 수 없는(immutable) 시크릿과 컨피그맵_ 은 개별 시크릿과
+컨피그맵을 변경할 수 없는 것으로 설정하는 옵션을 제공한다. 컨피그맵을 광범위하게
+사용하는 클러스터(최소 수만 개의 고유한 컨피그맵이 파드에 마운트)의 경우
+데이터 변경을 방지하면 다음과 같은 이점이 있다.
+
+- 애플리케이션 중단을 일으킬 수 있는 우발적(또는 원하지 않는) 업데이트로부터 보호
+- immutable로 표시된 컨피그맵에 대한 감시를 중단하여, kube-apiserver의 부하를 크게 줄임으로써 클러스터의 성능을 향상시킴
+
+이 기능을 사용하려면 `ImmutableEmphemeralVolumes`
+[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하고
+시크릿 또는 컨피그맵의 `immutable` 필드를 `true` 로 한다. 다음은 예시이다.
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  ...
+data:
+  ...
+immutable: true
+```
+
+{{< note >}}
+컨피그맵 또는 시크릿을 immutable로 표시하면, 이 변경 사항을 되돌리거나
+`data` 필드 내용을 변경할 수 _없다_. 컨피그맵만 삭제하고 다시 작성할 수 있다.
+기존 파드는 삭제된 컨피그맵에 대한 마운트 지점을 유지하며, 이러한 파드를 다시 작성하는
+것을 권장한다.
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
@@ -166,5 +250,4 @@ spec:
 * [컨피그맵을 사용하도록 파드 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 읽어본다.
 * 코드를 구성에서 분리하려는 동기를 이해하려면
   [Twelve-Factor 앱](https://12factor.net/ko/)을 읽어본다.
-
 

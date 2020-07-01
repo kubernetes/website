@@ -217,21 +217,37 @@ When you are ready to submit a pull request, commit your changes.
 
 It's a good idea to preview your changes locally before pushing them or opening a pull request. A preview lets you catch build errors or markdown formatting problems.
 
-You can either build the website's docker image or run Hugo locally. Building the docker image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can be useful for debugging.
+You can either build the website's container image or run Hugo locally. Building the container image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can be useful for debugging.
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="Hugo in a container" %}}
 
+{{< note >}}
+The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment variable to override this behaviour.
+{{< /note >}}
+
 1.  Build the image locally:
 
       ```bash
-      make docker-image
+      # Use docker (default)
+      make container-image
+
+      ### OR ###
+
+      # Use podman
+      CONTAINER_ENGINE=podman make container-image
       ```
 
 2. After building the `kubernetes-hugo` image locally, build and serve the site:
 
       ```bash
-      make docker-serve
+      # Use docker (default)
+      make container-serve
+
+      ### OR ###
+
+      # Use podman
+      CONTAINER_ENGINE=podman make container-serve
       ```
 
 3.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the

@@ -6,14 +6,14 @@ card:
   name: tasks
   weight: 50
 ---
-<!-- ---
+<!--
 title: Configure a Pod to Use a ConfigMap
 content_type: task
 weight: 150
 card:
   name: tasks
   weight: 50
---- -->
+-->
 
 <!-- overview -->
 <!-- ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps. -->
@@ -83,7 +83,7 @@ wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-c
 wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
 
 # 创建 configmap
-kubectl create c game-config --from-file=configure-pod-container/configmap/
+kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
 <!-- combines the contents of the `configure-pod-container/configmap/` directory -->
@@ -487,7 +487,7 @@ new ConfigMap is generated each time the content is modified. -->
 请注意，生成的 ConfigMap 名称具有通过对内容进行散列而附加的后缀，这样可以确保每次修改内容时都会生成新的 ConfigMap。
 
 <!-- #### Define the key to use when generating a ConfigMap from a file -->
-#### 定义从文件生成 ConfigMap 时要使用的密钥
+#### 定义从文件生成 ConfigMap 时要使用的键
 <!-- You can define a key other than the file name to use in the ConfigMap generator.
 For example, to generate a ConfigMap from files `configure-pod-container/configmap/kubectl/game.properties`
 with the key `game-special-key` -->

@@ -99,7 +99,9 @@ NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, Priority
 
 ## What does each admission controller do?
 
-### AlwaysAdmit {#alwaysadmit} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### AlwaysAdmit {#alwaysadmit}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller allows all pods into the cluster. It is deprecated because its behavior is the same as if there were no admission controller at all.
 
@@ -113,7 +115,9 @@ scheduled onto the right node), without any authorization check against the imag
 is enabled, images are always pulled prior to starting containers, which means valid credentials are
 required.
 
-### AlwaysDeny {#alwaysdeny} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### AlwaysDeny {#alwaysdeny}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 Rejects all requests. AlwaysDeny is DEPRECATED as no real meaning.
 
@@ -164,7 +168,9 @@ if the pods don't already have toleration for taints
 `node.kubernetes.io/not-ready:NoExecute` or
 `node.alpha.kubernetes.io/unreachable:NoExecute`.
 
-### DenyExecOnPrivileged {#denyexeconprivileged} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### DenyExecOnPrivileged {#denyexeconprivileged}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller will intercept all requests to exec a command in a pod if that pod has a privileged container.
 
@@ -175,7 +181,9 @@ Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypol
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
 
-### DenyEscalatingExec {#denyescalatingexec} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### DenyEscalatingExec {#denyescalatingexec}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller will deny exec and attach commands to pods that run with escalated privileges that
 allow host access.  This includes pods that run as privileged, have access to the host IPC namespace, and
@@ -187,7 +195,9 @@ Use of a policy-based admission plugin (like [PodSecurityPolicy](#podsecuritypol
 which can be targeted at specific users or Namespaces and also protects against creation of overly privileged Pods
 is recommended instead.
 
-### EventRateLimit {#eventratelimit} {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+### EventRateLimit {#eventratelimit}
+
+{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
 
 This admission controller mitigates the problem where the API server gets flooded by
 event requests. The cluster admin can specify event rate limits by:
@@ -446,7 +456,9 @@ applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
 See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
 
-### MutatingAdmissionWebhook {#mutatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
+### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
+
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 This admission controller calls any mutating webhooks which match the request. Matching
 webhooks are called in serial; each one may modify the object if it desires.
@@ -537,7 +549,9 @@ This admission controller also protects the access to `metadata.ownerReferences[
 of an object, so that only users with "update" permission to the `finalizers`
 subresource of the referenced *owner* can change it.
 
-### PersistentVolumeLabel {#persistentvolumelabel} {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+### PersistentVolumeLabel {#persistentvolumelabel}
+
+{{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, GCE or AWS).
@@ -708,7 +722,9 @@ objects in your Kubernetes deployment, you MUST use this admission controller to
 
 See the [resourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for more details.
 
-### RuntimeClass {#runtimeclass} {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+### RuntimeClass {#runtimeclass}
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 For [RuntimeClass](/docs/concepts/containers/runtime-class/) definitions which describe an overhead associated with running a pod,
 this admission controller will set the pod.Spec.Overhead field accordingly.
@@ -729,11 +745,15 @@ We strongly recommend using this admission controller if you intend to make use 
 
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
 
-### TaintNodesByCondition {#taintnodesbycondition} {{< feature-state for_k8s_version="v1.12" state="beta" >}}
+### TaintNodesByCondition {#taintnodesbycondition}
+
+{{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods to be scheduled on new Nodes before their taints were updated to accurately reflect their reported conditions.
 
-### ValidatingAdmissionWebhook {#validatingadmissionwebhook} {{< feature-state for_k8s_version="v1.13" state="beta" >}}
+### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
+
+{{< feature-state for_k8s_version="v1.13" state="beta" >}}
 
 This admission controller calls any validating webhooks which match the request. Matching
 webhooks are called in parallel; if any of them rejects the request, the request
@@ -774,5 +794,3 @@ in the mutating phase.
 
     For earlier versions, there was no concept of validating versus mutating and the
 admission controllers ran in the exact order specified.
-
-

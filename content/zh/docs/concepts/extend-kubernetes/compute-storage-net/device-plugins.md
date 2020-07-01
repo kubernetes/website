@@ -322,7 +322,7 @@ Here are some examples of device plugin implementations:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
 -->
 ## 设备插件示例 {#examples}
 
@@ -337,7 +337,7 @@ Here are some examples of device plugin implementations:
 * [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk)
+* [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
 
 
 ## {{% heading "whatsnext" %}}

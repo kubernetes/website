@@ -43,6 +43,10 @@ resources within the same namespace.
 Creation and deletion of namespaces are described in the [Admin Guide documentation
 for namespaces](/docs/admin/namespaces).
 
+{{< note >}}
+    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+{{< /note >}}
+
 ### Viewing namespaces
 
 You can list the current namespaces in a cluster using:

@@ -63,11 +63,11 @@ StorageClass 对象的命名很重要，用户使用这个命名来请求生成�
 <!--
 Administrators can specify a default StorageClass just for PVCs that don't
 request any particular class to bind to: see the
-[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#class-1)
+[PersistentVolumeClaim section](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 for details.
  -->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
-更多详情请参阅 [PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#class-1)。
+更多详情请参阅 [PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
