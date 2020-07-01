@@ -4,7 +4,7 @@
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
-command = "git submodule update --init --recursive --depth 1 && make non-production-build"
+command = "git submodule update --init --recursive --depth 1 && npm install postcss-cli && make non-production-build"
 
 [build.environment]
 HUGO_VERSION = "0.70.0"
