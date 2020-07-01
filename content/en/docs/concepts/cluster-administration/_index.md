@@ -7,6 +7,7 @@ weight: 100
 content_type: concept
 description: >
   Lower-level detail relevant to creating or administering a Kubernetes cluster.
+no_list: true
 ---
 
 <!-- overview -->
