@@ -97,10 +97,12 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 ### Create a local clone and set the upstream
 
-3. In a terminal window, clone your fork:
+3. In a terminal window, clone your fork and update the [Docsy Hugo theme](https://github.com/google/docsy#readme):
 
     ```bash
     git clone git@github.com/<github_username>/website
+    cd website
+    git submodule update --init --recursive --depth 1
     ```
 
 4. Navigate to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
@@ -261,18 +263,26 @@ The commands below use Docker as default container engine. Set the `CONTAINER_EN
 
 Alternately, install and use the `hugo` command on your computer:
 
-5.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
+1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
 
-6.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
+2.  If you have not updated your website repository, the `website/themes/docsy` directory is empty.
+    The site cannot build without a local copy of the theme. To update the website theme, run:
+
+    ```bash
+    git submodule update --init --recursive --depth 1
+    ```
+
+3.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
 
       ```bash
       cd <path_to_your_repo>/website
-      hugo server
+      hugo server --buildFuture
       ```
 
-7.  In your browser’s address bar, enter `https://localhost:1313`.
+4.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+    changes and rebuilds the site as needed.
 
-8.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
+5.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
     or close the terminal window.
 
 {{% /tab %}}
