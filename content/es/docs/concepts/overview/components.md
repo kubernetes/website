@@ -2,7 +2,7 @@
 reviewers:
 - raelga
 title: Componentes de Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
