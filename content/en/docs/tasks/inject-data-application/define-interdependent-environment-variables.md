@@ -53,12 +53,10 @@ Pod:
     kubectl logs pod/dependent-envars-demo
     ```
     ```
-    SERVICE_ADDRESS
-    https://172.17.0.1:80
-    UNCHANGED_REFERENCE
-    $(PROTOCOL)://172.17.0.1:80
-    ESCAPED_REFERENCE
-    $(PROTOCOL)://172.17.0.1:80
+
+    UNCHANGED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
+    SERVICE_ADDRESS=https://172.17.0.1:80
+    ESCAPED_REFERENCE=$(PROTOCOL)://172.17.0.1:80
     ```
 
 As shown above, you have defined the correct dependency reference of `SERVICE_ADDRESS`, bad dependency reference of `UNCHANGED_REFERENCE` and skip dependent references of `ESCAPED_REFERENCE`.
