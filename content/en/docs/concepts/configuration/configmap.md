@@ -126,25 +126,32 @@ spec:
       configMap:
         # Provide the name of the ConfigMap you want to mount.
         name: game-demo
+        # An array of keys from the ConfigMap to create as files
+        items:
+        - key: "game.properties"
+          path: "game.properties"
+        - key: "user-interface.properties"
+          path: "user-interface.properties"
 ```
 
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
 What matters is how Pods and other objects consume those values.
+
 For this example, defining a volume and mounting it inside the `demo`
-container as `/config` creates four files:
+container as `/config` creates two files,
+`/config/game.properties` and `/config/user-interface.properties`,
+even though there are four keys in the ConfigMap. This is because the Pod
+definition specifies an `items` array in the `volumes` section.
+If you omit the `items` array entirely, every key  in the ConfigMap becomes
+a file with the same name as the key, and you get 4 files.
 
-- `/config/player_initial_lives`
-- `/config/ui_properties_file_name`
-- `/config/game.properties`
-- `/config/user-interface.properties`
+## Using ConfigMaps
 
-If you want to make sure that `/config` only contains files with a
-`.properties` extension, use two different ConfigMaps, and refer to both
-ConfigMaps in the `spec` for a Pod. The first ConfigMap defines
-`player_initial_lives` and `ui_properties_file_name`. The second
-ConfigMap defines the files that the kubelet places into `/config`.
+ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
+parts of the system, without being directly exposed to the Pod. For example,
+ConfigMaps can hold data that other parts of the system should use for configuration.
 
 {{< note >}}
 The most common way to use ConfigMaps is to configure settings for
@@ -156,12 +163,6 @@ might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
 or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 {{< /note >}}
-
-## Using ConfigMaps
-
-ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
-parts of the system, without being directly exposed to the Pod. For example,
-ConfigMaps can hold data that other parts of the system should use for configuration.
 
 ### Using ConfigMaps as files from a Pod
 
