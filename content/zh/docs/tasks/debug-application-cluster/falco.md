@@ -18,7 +18,7 @@
 
 ### 使用 Falco 收集审核事件
 
-Falco 是一个用于云原生平台入侵和异常检测的开源项目。 本节介绍如何设置 Falco，如何将审核事件发送到Falco公开的 Kubernetes Audit 端点以及 Falco 如何用一组规则来自动检测可疑行为。
+[Falco](https://falco.org/) 是一个用于云原生平台入侵和异常检测的开源项目。 本节介绍如何设置 Falco，如何将审核事件发送到Falco公开的 Kubernetes Audit 端点以及 Falco 如何用一组规则来自动检测可疑行为。
 
 <!--
 
