@@ -1,8 +1,11 @@
 ---
 title: 쿠버네티스 컴포넌트
 content_type: concept
+description: >
+  쿠버네티스 클러스터는 컴퓨터 집합인 노드 컴포넌트와 컨트롤 플레인
+  컴포넌트로 구성된다.
 weight: 20
-card:
+card: 
   name: concepts
   weight: 20
 ---
