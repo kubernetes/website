@@ -145,7 +145,7 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 
 ```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
