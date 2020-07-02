@@ -15,7 +15,7 @@ content_type: tutorial
 * 다음을 포함하는 `kustomization.yaml` 파일을 생성한다.
   * 컨피그 맵 생성자
   * 컨피그 맵을 사용하는 파드 리소스
-* `kubectl apply -k ./`를 실행하여 작업한 디렉토리를 적용한다.
+* `kubectl apply -k ./`를 실행하여 작업한 디렉터리를 적용한다.
 * 구성이 잘 적용되었는지 확인한다.
 
 
@@ -65,7 +65,7 @@ resources:
 EOF
 ```
 
-컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉토리를 적용한다.
+컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉터리를 적용한다.
 
 ```shell
 kubectl apply -k .
