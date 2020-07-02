@@ -84,6 +84,5 @@
 {{ end }}
 
 <script src="{{ "js/script.js" | relURL }}"></script>
-<script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}
