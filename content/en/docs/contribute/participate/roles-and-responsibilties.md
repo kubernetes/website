@@ -171,7 +171,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 - Visit the Netlify page preview for a PR to make sure things look good before approving.
 
 - Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
-rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+rotation. See [PR wranglers](/docs/contribute/participating/pr-wranglers)
 for more details.
 
 ### Becoming an approver
@@ -189,3 +189,9 @@ To apply:
 2. Assign the PR to one or more current SIG Docs approvers.
 
 If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added, [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
+
+## {{% heading "whatsnext" %}}
+
+Learn about specialized roles in SIG Docs:
+
+- [PR wranglers](/docs/contribute/participating/pr-wranglers)
