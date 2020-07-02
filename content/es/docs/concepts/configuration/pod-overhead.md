@@ -6,17 +6,14 @@ content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 Cuando se está ejecutando un Pod en un Nodo, el Pod por si mismo toma una cantidad de recursos del sistema. Estos recursos son adicionales a los recursos necesarios para hacer funcionar el/los contenedor(es) dentro del Pod.
 La _Sobrecarga de Pod_ es una característica para contabilizar los recursos consumidos por la infraestructura de pods que están arriba de las solicitudes y límites del/los contenedores.
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Sobrecarga de Pod
 
@@ -39,11 +36,8 @@ Los usuarios que pueden escribir recursos del tipo RuntimeClass pueden tener imp
 Para obtener más detalles vea [Resumen de Autorización](/docs/reference/access-authn-authz/authorization/).
 {{< /note >}}
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+<!-- whatsnext -->
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
