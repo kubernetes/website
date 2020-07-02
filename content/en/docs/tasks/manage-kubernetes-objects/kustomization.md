@@ -289,7 +289,7 @@ Kustomize offers composing Resources from different files and applying patches o
 #### Composing
 
 Kustomize supports composition of different resources. The `resources` field, in the `kustomization.yaml` file, defines the list of resources to include in a configuration. Set the path to a resource's configuration file in the `resources` list.
-Here is an example of an NGINX application comprised of a Deployment and a Service:
+Here is an example of an NGINX application comprising a Deployment and a Service:
 
 ```shell
 # Create a deployment.yaml file
