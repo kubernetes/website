@@ -70,7 +70,7 @@ weight: 10
 *바이너리 플러그인* 모델에서 쿠버네티스는 바이너리(프로그램)를 실행한다.
 바이너리 플러그인은 kubelet(예:
 [Flex Volume 플러그인](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)과
-[네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/))과
+[네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
 kubectl에서
 사용한다.
 
@@ -164,7 +164,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 ### 장치 플러그인
 
-장치 플러그인은 노드가 [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)을
+장치 플러그인은 노드가 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을
 통해 새로운 노드 리소스(CPU 및 메모리와 같은 빌트인 자원 외에)를
 발견할 수 있게 해준다.
 
@@ -198,8 +198,8 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 * [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
 * 인프라스트럭처 익스텐션에 대해 더 알아보기
-  * [네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/)
-  * [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)
+  * [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  * [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
 * [오퍼레이터 패턴](/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
 

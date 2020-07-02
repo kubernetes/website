@@ -80,7 +80,7 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 *  이름이 있는 그룹은 REST 경로 `/apis/$GROUP_NAME/$VERSION`에 있으며 `apiVersion: $GROUP_NAME/$VERSION`을 사용한다
    (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/docs/reference/)에서 확인할 수 있다.
 
-[사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
+[사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
 
  - 기본적인 CRUD 요구에는
    [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)

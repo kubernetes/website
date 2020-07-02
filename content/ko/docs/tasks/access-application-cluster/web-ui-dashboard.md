@@ -121,7 +121,7 @@ track=stable
 
 - **커맨드 실행** 와 **커맨드 인수 실행**: 기본적으로, 컨테이너는 선택된 도커 이미지의 [기본 엔트리포인트 커맨드](/docs/tasks/inject-data-application/define-command-argument-container/)를 실행한다. 커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
 
-- **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이 [특권을 가진 컨테이너](/docs/user-guide/pods/#privileged-mode-for-pod-containers)의 프로세스들과 동등한 지 아닌지 정의한다. 특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
+- **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이 [특권을 가진 컨테이너](/ko/docs/concepts/workloads/pods/pod/#파드-컨테이너의-특권-privileged-모드)의 프로세스들과 동등한 지 아닌지 정의한다. 특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 
 - **환경 변수**: 쿠버네티스 서비스를 [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)를 통해 노출한다. 환경 변수 또는 인자를 환경 변수들의 값으로 커맨드를 통해 구성할 수 있다. 애플리케이션들이 서비스를 찾는데 사용된다. 값들은 `$(VAR_NAME)` 구문을 사용하는 다른 변수들로 참조할 수 있다.
 

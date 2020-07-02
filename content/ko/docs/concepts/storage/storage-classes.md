@@ -167,7 +167,7 @@ CSI | 1.14 (alpha), 1.16 (beta)
 [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
 안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
-그리고 [테인트(taint)와 톨러레이션(toleration)](/docs/concepts/configuration/taint-and-toleration/)이 포함된다.
+그리고 [테인트(taint)와 톨러레이션(toleration)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)이 포함된다.
 
 다음 플러그인은 동적 프로비저닝과 `WaitForFirstConsumer` 를 지원한다.
 
