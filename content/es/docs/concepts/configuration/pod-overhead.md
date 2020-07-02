@@ -1,10 +1,8 @@
 ---
 reviewers:
-- dchen1107
-- egernst
-- tallclair
+- raelga
 title: Sobrecarga de Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
