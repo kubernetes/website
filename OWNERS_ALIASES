@@ -40,6 +40,7 @@ aliases:
     - rlenferink
   sig-docs-en-owners: # Admins for English content
     - bradtopol
+    - celestehorgan
     - daminisatya
     - jimangel
     - kbarnard10
@@ -57,6 +58,7 @@ aliases:
     - zparnold
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
+    - celestehorgan
     - daminisatya
     - jimangel
     - kbarnard10
