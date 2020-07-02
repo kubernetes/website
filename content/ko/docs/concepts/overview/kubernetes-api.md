@@ -2,6 +2,9 @@
 title: 쿠버네티스 API
 content_type: concept
 weight: 30
+description: >
+  쿠버네티스 API를 사용하면 쿠버네티스 오브젝트들의 상태를 쿼리하고 조작할 수 있다. 
+  쿠버네티스 컨트롤 플레인의 핵심은 API 서버와 그것이 노출하는 HTTP API이다. 사용자와 클러스터의 다른 부분 및 모든 외부 컴포넌트는 API 서버를 통해 서로 통신한다.
 card:
   name: concepts
   weight: 30
