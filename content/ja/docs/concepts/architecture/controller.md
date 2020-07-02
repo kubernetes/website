@@ -1,162 +1,90 @@
 ---
-title: Controllers
+title: コントローラー
 content_template: templates/concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-In robotics and automation, a _control loop_ is
-a non-terminating loop that regulates the state of a system.
+ロボット工学やオートメーションの分野において、 _制御ループ_ とは、あるシステムの状態を制御する終了状態のないループのことです。
 
-Here is one example of a control loop: a thermostat in a room.
+ここでは、制御ループの一例として、部屋の中にあるサーモスタットを挙げます。
 
-When you set the temperature, that's telling the thermostat
-about your *desired state*. The actual room temperature is the
-*current state*. The thermostat acts to bring the current state
-closer to the desired state, by turning equipment on or off.
+あなたが温度を設定すると、それはサーモスタットに *目的の状態(desired state)* を伝えることになります。実際の部屋の温度は *現在の状態* です。サーモスタットは、装置をオンまたはオフにすることによって、現在の状態を目的の状態に近づけるように動作します。
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
+<!-- body -->
 
+## コントローラーパターン
 
-{{% capture body %}}
+コントローラーは少なくとも1種類のKubernetesのリソースを監視します。これらの[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)には目的の状態を表すspecフィールドがあります。リソースのコントローラーは、現在の状態を目的の状態に近づける責務を持ちます。
 
-## Controller pattern
-
-A controller tracks at least one Kubernetes resource type.
-These [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-have a spec field that represents the desired state. The
-controller(s) for that resource are responsible for making the current
-state come closer to that desired state.
-
-The controller might carry the action out itself; more commonly, in Kubernetes,
-a controller will send messages to the
-{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} that have
-useful side effects. You'll see examples of this below.
+コントローラーは自分自身でアクションを実行する場合もありますが、Kubernetesではコントローラーが{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}に意味のある副作用を持つメッセージを送信することが一般的です。以下では、このような例を見ていきます。
 
 {{< comment >}}
-Some built-in controllers, such as the namespace controller, act on objects
-that do not have a spec. For simplicity, this page omits explaining that
-detail.
+ネームスペースコントローラーなどの一部のビルトインのコントローラーは、specのないオブジェクトに対して作用します。簡単のため、このページではそのような詳細な説明は省略します。
 {{< /comment >}}
 
-### Control via API server
+### APIサーバー経由でコントロールする
 
-The {{< glossary_tooltip term_id="job" >}} controller is an example of a
-Kubernetes built-in controller. Built-in controllers manage state by
-interacting with the cluster API server.
+{{< glossary_tooltip term_id="job" >}}コントローラーはKubernetesのビルトインのコントローラーの一例です。ビルトインのコントローラーは、クラスターのAPIサーバーとやりとりをして状態を管理します。
 
-Job is a Kubernetes resource that runs a
-{{< glossary_tooltip term_id="pod" >}}, or perhaps several Pods, to carry out
-a task and then stop.
+Jobは、1つ以上の{{< glossary_tooltip term_id="pod" >}}を起動して、タスクを実行した後に停止する、Kubernetesのリソースです。
 
-(Once [scheduled](/docs/concepts/scheduling/), Pod objects become part of the
-desired state for a kubelet).
+(1度[スケジュール](/docs/concepts/scheduling-eviction/)されると、Podオブジェクトはkubeletに対する目的の状態の一部になります。)
 
-When the Job controller sees a new task it makes sure that, somewhere
-in your cluster, the kubelets on a set of Nodes are running the right
-number of Pods to get the work done.
-The Job controller does not run any Pods or containers
-itself. Instead, the Job controller tells the API server to create or remove
-Pods.
-Other components in the
-{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
-act on the new information (there are new Pods to schedule and run),
-and eventually the work is done.
+Jobコントローラーが新しいタスクを見つけると、その処理が完了するように、クラスター上のどこかで、一連のNode上のkubeletが正しい数のPodを実行することを保証します。ただし、Jobコントローラーは、自分自身でPodやコンテナーを実行することはありません。代わりに、APIサーバーに対してPodの作成や削除を依頼します。{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}上の他のコンポーネントが(スケジュールして実行するべき新しいPodが存在するという)新しい情報を基に動作することによって、最終的に目的の処理が完了します。
 
-After you create a new Job, the desired state is for that Job to be completed.
-The Job controller makes the current state for that Job be nearer to your
-desired state: creating Pods that do the work you wanted for that Job, so that
-the Job is closer to completion.
+新しいJobが作成されたとき、目的の状態は、そのJobが完了することです。JobコントローラーはそのJobに対する現在の状態を目的の状態に近づけるようにします。つまり、そのJobが行ってほしい処理を実行するPodを作成し、Jobが完了に近づくようにします。
 
-Controllers also update the objects that configure them.
-For example: once the work is done for a Job, the Job controller
-updates that Job object to mark it `Finished`.
+コントローラーは、コントローラーを設定するオブジェクトも更新します。たとえば、あるJobが完了した場合、Jobコントローラーは、Jobオブジェクトに`Finished`というマークを付けます。
 
-(This is a bit like how some thermostats turn a light off to
-indicate that your room is now at the temperature you set).
+(これは、部屋が設定温度になったことを示すために、サーモスタットがランプを消灯するのに少し似ています。)
 
-### Direct control
+### 直接的なコントロール
 
-By contrast with Job, some controllers need to make changes to
-things outside of your cluster.
+Jobとは対照的に、クラスターの外部に変更を加える必要があるコントローラーもあります。
 
-For example, if you use a control loop to make sure there
-are enough {{< glossary_tooltip text="Nodes" term_id="node" >}}
-in your cluster, then that controller needs something outside the
-current cluster to set up new Nodes when needed.
+たとえば、クラスターに十分な数の{{< glossary_tooltip text="Node" term_id="node" >}}が存在することを保証する制御ループの場合、そのコントローラーは、必要に応じて新しいNodeをセットアップするために、現在のクラスターの外部とやりとりをする必要があります。
 
-Controllers that interact with external state find their desired state from
-the API server, then communicate directly with an external system to bring
-the current state closer in line.
+外部の状態とやりとりをするコントローラーは、目的の状態をAPIサーバーから取得した後、外部のシステムと直接通信し、現在の状態を目的の状態に近づけます。
 
-(There actually is a controller that horizontally scales the
-nodes in your cluster. See
-[Cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)).
+(クラスター内のノードを水平にスケールさせるコントローラーが実際に存在します。詳しくは、[クラスターのオートスケーリング](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling)を読んでください。)
 
-## Desired versus current state {#desired-vs-current}
+## 目的の状態 vs 現在の状態 {#desired-vs-current}
 
-Kubernetes takes a cloud-native view of systems, and is able to handle
-constant change.
+Kubernetesはシステムに対してクラウドネイティブな見方をするため、常に変化し続けるような状態を扱えるように設計されています。
 
-Your cluster could be changing at any point as work happens and
-control loops automatically fix failures. This means that,
-potentially, your cluster never reaches a stable state.
+処理を実行したり、制御ループが故障を自動的に修正したりしているどの時点でも、クラスターは変化中である可能性があります。つまり、クラスターは決して安定した状態にならない可能性があるということです。
 
-As long as the controllers for your cluster are running and able to make
-useful changes, it doesn't matter if the overall state is or is not stable.
+コントローラーがクラスターのために実行されていて、有用な変更が行われるのであれば、全体的な状態が安定しているかどうかは問題にはなりません。
 
-## Design
+## 設計
 
-As a tenet of its design, Kubernetes uses lots of controllers that each manage
-a particular aspect of cluster state. Most commonly, a particular control loop
-(controller) uses one kind of resource as its desired state, and has a different
-kind of resource that it manages to make that desired state happen.
+設計理念として、Kubernetesは多数のコントローラーを使用しており、各コントローラーはクラスターの状態の特定の側面をそれぞれ管理しています。最もよくあるパターンは、特定の制御ループ(コントローラー)が目的の状態として1種類のリソースを使用し、目的の状態を実現することを管理するために別の種類のリソースを用意するというものです。
 
-It's useful to have simple controllers rather than one, monolithic set of control
-loops that are interlinked. Controllers can fail, so Kubernetes is designed to
-allow for that.
+相互にリンクされた単一のモノリシックな制御ループよりは、複数のシンプルなコントローラーが存在する方が役に立ちます。コントローラーは故障することがあるため、Kubernetesは故障を許容するように設計されています。
 
-For example: a controller for Jobs tracks Job objects (to discover
-new work) and Pod object (to run the Jobs, and then to see when the work is
-finished). In this case something else creates the Jobs, whereas the Job
-controller creates Pods.
+たとえば、Jobのコントローラーは、Jobオブジェクト(新しい処理を見つけるため)およびPodオブジェクト(Jobを実行し、処理が完了したか確認するため)を監視します。この場合、なにか別のものがJobを作成し、JobコントローラーはPodを作成します。
 
 {{< note >}}
-There can be several controllers that create or update the same kind of object.
-Behind the scenes, Kubernetes controllers make sure that they only pay attention
-to the resources linked to their controlling resource.
+同じ種類のオブジェクトを作成または更新するコントローラーが、複数存在する場合があります。実際には、Kubernetesコントローラーは、自分が制御するリソースに関連するリソースにのみ注意を払うように作られています。
 
-For example, you can have Deployments and Jobs; these both create Pods.
-The Job controller does not delete the Pods that your Deployment created,
-because there is information ({{< glossary_tooltip term_id="label" text="labels" >}})
-the controllers can use to tell those Pods apart.
+たとえば、DeploymentとJobがありますが、これらは両方ともPodを作成するものです。しかし、JobコントローラーはDeploymentが作成したPodを削除することはありません。各コントローラーが2つのPodを区別できる情報({{< glossary_tooltip term_id="label" text="ラベル" >}})が存在するためです。
 {{< /note >}}
 
-## Ways of running controllers {#running-controllers}
+## コントローラーを実行する方法 {#running-controllers}
 
-Kubernetes comes with a set of built-in controllers that run inside
-the {{< glossary_tooltip term_id="kube-controller-manager" >}}. These
-built-in controllers provide important core behaviors.
+Kubernetesには、{{< glossary_tooltip term_id="kube-controller-manager" >}}内部で動作する一組のビルトインのコントローラーが用意されています。これらビルトインのコントローラーは、コアとなる重要な振る舞いを提供します。
 
-The Deployment controller and Job controller are examples of controllers that
-come as part of Kubernetes itself (“built-in” controllers).
-Kubernetes lets you run a resilient control plane, so that if any of the built-in
-controllers were to fail, another part of the control plane will take over the work.
+DeploymentコントローラーとJobコントローラーは、Kubernetes自体の一部として同梱されているコントローラーの例です(それゆえ「ビルトイン」のコントローラーと呼ばれます)。Kubernetesは回復性のあるコントロールプレーンを実行できるようにしているため、ビルトインのコントローラーの一部が故障しても、コントロールプレーンの別の部分が作業を引き継いでくれます。
 
-You can find controllers that run outside the control plane, to extend Kubernetes.
-Or, if you want, you can write a new controller yourself.
-You can run your own controller as a set of Pods,
-or externally to Kubernetes. What fits best will depend on what that particular
-controller does.
+Kubernetesを拡張するためにコントロールプレーンの外で動作するコントローラーもあります。もし望むなら、新しいコントローラーを自分で書くこともできます。自作のコントローラーをPodセットとして動作させたり、Kubernetesの外部で動作させることもできます。どのような動作方法が最も適しているかは、そのコントローラーがどのようなことを行うのかに依存します。
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
-{{% capture whatsnext %}}
-* Read about the [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
-* Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
-{{% /capture %}}
+* [Kubernetesコントロールプレーン](/ja/docs/concepts/#kubernetes-control-plane)について読む
+* 基本的な[Kubernetesオブジェクト](/ja/docs/concepts/#kubernetes-objects)について学ぶ
+* [Kubernetes API](/ja/docs/concepts/overview/kubernetes-api/)について学ぶ
+* 自分でコントローラーを書きたい場合は、「Kubernetesを拡張する」の[エクステンションパターン](/ja/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)を読んでください。
