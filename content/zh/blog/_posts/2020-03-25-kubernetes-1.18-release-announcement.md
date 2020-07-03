@@ -122,7 +122,7 @@ The alpha version of CSI Proxy for Windows is being released with Kubernetes 1.1
 - [对 Windows 负载支持 GMSA](https://github.com/kubernetes/enhancements/issues/689)
 - [对不可挂载的CSI卷跳过挂载](https://github.com/kubernetes/enhancements/issues/770)
 - [PVC 克隆](https://github.com/kubernetes/enhancements/issues/989)
-- [移动 kubectl 包代码到筹备阶段](https://github.com/kubernetes/enhancements/issues/1020)
+- [移动 kubectl 包代码到 staging](https://github.com/kubernetes/enhancements/issues/1020)
 - [Windows 的 RunAsUserName](https://github.com/kubernetes/enhancements/issues/1043)
 - [服务和端点的 AppProtocol](https://github.com/kubernetes/enhancements/issues/1507)
 - [扩展 Hugepage 特性](https://github.com/kubernetes/enhancements/issues/1539)
@@ -146,7 +146,7 @@ The alpha version of CSI Proxy for Windows is being released with Kubernetes 1.1
 - [Moving kubectl package code to staging](https://github.com/kubernetes/enhancements/issues/1020)
 - [CertificateSigningRequest API](https://github.com/kubernetes/enhancements/issues/1513)
 - [Extending Hugepage Feature](https://github.com/kubernetes/enhancements/issues/1539)
-- [client-go 的关键重构来标准化选项和管理上下文](https://github.com/kubernetes/enhancements/issues/1601)
+- [client-go 的调用规范重构来标准化选项和管理上下文](https://github.com/kubernetes/enhancements/issues/1601)
 
 
 <!--
