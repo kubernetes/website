@@ -24,9 +24,9 @@ Deployment (or other workload controller) and created a Service, but you
 get no response when you try to access it.  This document will hopefully help
 you to figure out what's going wrong.
 -->
-对于新安装的 Kubernetes，经常出现的问题是服务无法正常运行。 您已经通过
-Deployment（或其他工作负载控制器）运行了 Pod，并创建服务，但是
-当您尝试访问它时，没有任何响应。 该文档有望对您有所帮助并找出问题所在。
+对于新安装的 Kubernetes，经常出现的问题是 Service 无法正常运行。 您已经通过
+Deployment（或其他工作负载控制器）运行了 Pod，并创建 Service ，但是
+当您尝试访问它时，没有任何响应。此文档有望对您有所帮助并找出问题所在。
 
 
 <!-- body -->
@@ -72,7 +72,7 @@ can follow along and get a second data point.
 -->
 ## 设置
 
-为了完成本次实践的任务，我们先运行几个 Pod。由于您可能正在调试自己的服务，所以，您可以使用自己的信息进行替换，或者，您也可以跟随并开始下面的步骤来获得第二个数据点。
+为了完成本次实践的任务，我们先运行几个 Pod。由于您可能正在调试自己的 Service，所以，您可以使用自己的信息进行替换，或者，您也可以跟随并开始下面的步骤来获得第二个数据点。
 
 ```shell
 $ kubectl  create deployment hostnames --image=k8s.gcr.io/serve_hostname 
@@ -199,7 +199,7 @@ your Service doesn't work.
 如果此时您没有收到期望的响应，则您的 Pod 状态可能不健康，或者可能没有在您认为正确的端口上进行监听。
 您可能会发现 `kubectl logs` 命令对于查看正在发生的事情很有用，或者您可能需要通过`kubectl exec` 直接进入 Pod 中并从那里进行调试。
 
-假设到目前为止一切都已按计划进行，那么您可以开始调查为何您的服务无法正常工作。
+假设到目前为止一切都已按计划进行，那么您可以开始调查为何您的 Service 无法正常工作。
 
 <!--
 ## Does the Service exist?
@@ -214,9 +214,9 @@ something like:
 -->
 ## Service 是否存在？
 
-细心的读者会注意到我们实际上尚未创建`Service`-这是有意而为之。 这一步有时会被遗忘，这是首先要检查的步骤。
+细心的读者会注意到我们实际上尚未创建 Service -这是有意而为之。 这一步有时会被遗忘，这是首先要检查的步骤。
 
-那么，如果我尝试访问不存在的 ‘服务’ 会怎样？ 假设您有另一个`Pod`通过名称匹配到`Service`，您将得到类似结果：
+那么，如果我尝试访问不存在的 Service 会怎样？ 假设您有另一个 Pod 通过名称匹配到 Service ，您将得到类似结果：
 
 ```shell
 wget -O- hostnames
@@ -228,7 +228,7 @@ wget: unable to resolve host address 'hostnames'
 <!--
 The first thing to check is whether that Service actually exists:
 -->
-首先要检查的是该服务是否真实存在：
+首先要检查的是该 Service 是否真实存在：
 
 ```shell
 kubectl get svc hostnames
@@ -242,7 +242,7 @@ Error from server (NotFound): services "hostnames" not found
 Let's create the Service.  As before, this is for the walk-through - you can
 use your own Service's details here.
 -->
-让我们创建 '服务'。 和以前一样，在这次实践中 - 您可以在此处使用自己的 `Service` 的内容。
+让我们创建 Service。 和以前一样，在这次实践中 - 您可以在此处使用自己的 Service 的内容。
 ```shell
 kubectl expose deployment hostnames --port=80 --target-port=9376
 ```
@@ -268,9 +268,9 @@ Now you know that the Service exists.
 
 As before, this is the same as if you had started the `Service` with YAML:
 -->
-现在您知道了服务确实存在。
+现在您知道了 Service 确实存在。
 
-就像之前通过 YAML 方式启动 '服务'一样：
+就像之前通过 YAML 方式启动 'Service' 一样：
 
 ```yaml
 apiVersion: v1
@@ -291,7 +291,7 @@ In order to highlight the full range of configuration, the Service you created
 here uses a different port number than the Pods.  For many real-world
 Services, these values might be the same.
 -->
-为了突出配置范围的完整性，您在此处创建的服务使用的端口号与 Pods 不同。对于许多真实的服务，这些值可以是相同的。
+为了突出配置范围的完整性，您在此处创建的 Service 使用的端口号与 Pods 不同。对于许多真实的 Service，这些值可以是相同的。
 
 
 <!--
@@ -302,7 +302,7 @@ name.
 
 From a Pod in the same Namespace:
 -->
-## Service 是否通过 DNS 工作？
+## Service 是否可通过 DNS 名字访问？
 
 通常客户端通过 DNS 名称来匹配到 Service。
 
@@ -337,7 +337,7 @@ If this works, you'll need to adjust your app to use a cross-namespace name, or
 run your app and Service in the same Namespace.  If this still fails, try a
 fully-qualified name:
 -->
-如果成功，那么需要调整您的应用，使用跨命名空间的名称去访问服务，或者，在相同的命名空间中运行应用和 Service。如果仍然失败，请尝试一个完全限定的名称：
+如果成功，那么需要调整您的应用，使用跨命名空间的名称去访问它，或者，在相同的命名空间中运行应用和 Service。如果仍然失败，请尝试一个完全限定的名称：
 
 ```shell
 nslookup hostnames.default.svc.cluster.local
@@ -361,7 +361,7 @@ You can also try this from a `Node` in the cluster:
 10.0.0.10 is the cluster's DNS Service IP, yours might be different.
 {{< /note >}}
 -->
-注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的命名空间。"svc" 表示这是一个Service。"cluster.local" 是您的集群域，在您自己的集群中可能会有所不同。
+注意这里的后缀："default.svc.cluster.local"。"default" 是我们正在操作的命名空间。"svc" 表示这是一个 Service。"cluster.local" 是您的集群域，在您自己的集群中可能会有所不同。
 
 您也可以在集群中的节点上尝试此操作：
 
@@ -422,7 +422,7 @@ high enough to cover all of the DNS names it generates.
 -->
 `nameserver` 行必须指示您的集群的 DNS Service，它通过 `--cluster-dns` 标志传递到 kubelet。
 
-`search` 行必须包含一个适当的后缀，以便查找服务名称。在本例中，它在本地命名空间（`default.svc.cluster.local`）、所有命名空间中的 `Service`（`svc.cluster.local`）最后是集群（`cluster.local`）中查找服务的名称。根据您自己的安装情况，可能会有额外的记录（最多 6 条）。
+`search` 行必须包含一个适当的后缀，以便查找 Service 名称。在本例中，它在本地命名空间（`default.svc.cluster.local`）、所有命名空间中的 `Service`（`svc.cluster.local`）最后是集群（`cluster.local`）中查找 Service 的名称。根据您自己的安装情况，可能会有额外的记录（最多 6 条）。
 集群后缀通过 `--cluster-domain` 标志传递给 `kubelet`。 本文档中，我们假定后缀是 “cluster.local”。您的集群配置可能不同，这种情况下，您应该在上面的所有命令中更改它。
 
 `options` 行必须设置足够高的 `ndots`，以便 DNS 客户端库考虑搜索路径。在默认情况下，Kubernetes 将这个值设置为 5，这个值足够高，足以覆盖它生成的所有 DNS 名称。
@@ -434,9 +434,9 @@ If the above still fails, DNS lookups are not working for your Service.  You
 can take a step back and see what else is not working.  The Kubernetes master
 Service should always work.  From within a Pod:
 -->
-### Service 是否通过 DNS 名称来工作？{#does-any-service-exist-in-dns}
+### 是否存在 Service 能通过 DNS 名称访问？{#does-any-service-exist-in-dns}
 
-如果上面的方式仍然失败，DNS 查找不到您需要的服务名，您可以后退一步，看看还有什么其它东西没有正常工作。Kubernetes 主服务应该一直是工作的。在 Pod 中运行如下命令：
+如果上面的方式仍然失败，DNS 查找不到您需要的 Service ，您可以后退一步，看看还有什么其它东西没有正常工作。Kubernetes 主 Service 应该一直是工作的。在 Pod 中运行如下命令：
 
 ```shell
 nslookup kubernetes.default
@@ -460,11 +460,11 @@ Assuming you have confirmed that DNS works, the next thing to test is whether yo
 Service works by its IP address.  From a Pod in your cluster, access the
 Service's IP (from `kubectl get` above).
 -->
-如果失败，您可能需要转到这个文档的 [kube-proxy](#is-the-kube-proxy-working) 部分，或者甚至回到文档的顶部重新开始，但不是调试您自己的服务，而是调试 DNS。
+如果失败，您可能需要转到这个文档的 [kube-proxy](#is-the-kube-proxy-working) 部分，或者甚至回到文档的顶部重新开始，但不是调试您自己的 Service ，而是调试 DNS Service。
 
 ### Service 能够通过 IP 访问么？
 
-假设您已经确认 DNS 工作正常，那么接下来要测试的是您的能否通过它的 IP 正常访问。从集群中的一个 Pod，尝试访问服务的 IP（从上面的 `kubectl get` 命令获取）。
+假设您已经确认 DNS 工作正常，那么接下来要测试的是您的 Service 能否通过它的 IP 正常访问。从集群中的一个 Pod，尝试访问 Service 的 IP（从上面的 `kubectl get` 命令获取）。
 
 ```shell
 for i in $(seq 1 3); do 
@@ -487,7 +487,7 @@ hostnames-632524106-tlaok
 If your Service is working, you should get correct responses.  If not, there
 are a number of things that could be going wrong.  Read on.
 -->
-如果服务状态是正常的，您应该得到正确的响应。如果没有，有很多可能出错的地方，请继续阅读。
+如果 Service 状态是正常的，您应该得到正确的响应。如果没有，有很多可能出错的地方，请继续阅读。
 
 <!--
 ## Is the Service defined correctly?
@@ -498,7 +498,7 @@ and verify it:
 -->
 ## Service 的配置是否正确？
 
-这听起来可能很愚蠢，但您应该两次甚至三次检查您的服务配置是否正确，并且与您的 Pod 匹配。查看您的服务配置并验证它：
+这听起来可能很愚蠢，但您应该两次甚至三次检查您的 Service 配置是否正确，并且与您的 Pod 匹配。查看您的 Service 配置并验证它：
 
 ```shell
 kubectl get service hostnames -o json
@@ -546,7 +546,7 @@ kubectl get service hostnames -o json
 * If you meant to use a named port, do your Pods expose a port with the same name?
 * Is the port's `protocol` correct for your Pods?
 -->
-* 您想要访问的端口是否在 `spec.ports[]` 中列出？
+* 您想要访问的 Service 端口是否在 `spec.ports[]` 中列出？
 * `targetPort` 对您的 Pod 来说正确吗（许多 Pod 使用与 Service 不同的端口）？
 * 如果您想使用数值型端口，那么它的类型是一个数值（9376）还是字符串 “9376”？
 * 如果您想使用名称型端口，那么您的 Pod 是否暴露了一个同名端口？
@@ -561,9 +561,9 @@ actually being selected by the Service.
 
 Earlier you saw that the Pods were running.  You can re-check that:
 -->
-## Service 有端点吗？
+## Service 有 Endpoint 吗？
 
-如果您已经走到了这一步，您已经确认您的服务被正确定义，并能通过 DNS 解析。现在，让我们检查一下，您运行的 Pod 确实是由 Service 选择的。
+如果您已经走到了这一步，您已经确认您的 Service 被正确定义，并能通过 DNS 解析。现在，让我们检查一下，您运行的 Pod 确实是由 Service 选择的。
 
 早些时候，我们已经看到 Pod 是运行状态。我们可以再检查一下：
 
@@ -614,7 +614,7 @@ other error, such as the Service selecting for `app=hostnames`, but the
 Deployment specifying `run=hostnames`, as in versions previous to 1.18, where
 the `kubectl run` command could have been also used to create a Deployment.
 -->
-这证实端点控制器已经为您的服务找到了正确的 Pods。如果 `端点` 列的值为 `<none>`，则应检查 `Service` 的 `spec.selector` 字段，以及您实际想选择的 `Pods` 的 `metadata.labels` 的值。常见的错误是输入错误或其他错误，例如 Service 想选择 `app=hostnames`，但是 Deployment 指定的是 `run=hostnames`。在 1.18之前的版本中 `kubectl run` 也可以被用来创建 Deployment。
+这证实 endpoint 控制器已经为您的 Service 找到了正确的 Pods。如果 `Endpoint` 列的值为 `<none>`，则应检查 Service 的 `spec.selector` 字段，以及您实际想选择的 Pod 的 `metadata.labels` 的值。常见的错误是输入错误或其他错误，例如 Service 想选择 `app=hostnames`，但是 Deployment 指定的是 `run=hostnames`。在 1.18之前的版本中 `kubectl run` 也可以被用来创建 Deployment。
 
 <!--
 ## Are the Pods working?
@@ -633,8 +633,8 @@ From within a Pod:
 -->
 ## Pod 正常工作吗？
 
-至此，您知道您的服务已存在，并且已匹配到您的Pod。在本实践的开始，您验证了 Pod 本身。
-让我们再次检查 Pod 是否确实在工作-您可以绕过 Service 机制并直接转到 Pod，如上面的端点所示。
+至此，您知道您的 Service 已存在，并且已匹配到您的Pod。在本实践的开始，您验证了 Pod 本身。
+让我们再次检查 Pod 是否确实在工作-您可以绕过 Service 机制并直接转到 Pod，如上面的 Endpoint 所示。
 
 {{< note >}}
 这些命令使用的是 Pod 端口（9376），而不是 Service 端口（80）。
@@ -663,7 +663,7 @@ You expect each Pod in the Endpoints list to return its own hostname.  If
 this is not what happens (or whatever the correct behavior is for your own
 Pods), you should investigate what's happening there.
 -->
-您希望端点列表中的每个 Pod 都返回自己的主机名。 如果这不是发生的情况（或您自己的 Pod 的正确行为是什么），您应调查那里发生了什么。
+您希望 Endpoint 列表中的每个 Pod 都返回自己的主机名。 如果这不是发生的情况（或您自己的 Pod 的正确行为是什么），您应调查那里发生了什么。
 
 <!--
 ## Is the kube-proxy working?
@@ -680,9 +680,9 @@ will have to investigate whatever implementation of Services you are using.
 -->
 ## kube-proxy 正常工作吗？
 
-如果您到达这里，则说明您的服务正在运行，拥有端点，Pod 真正在运行。 此时此刻，整个服务代理机制是可疑的。 让我们一步一步地确认它没问题。
+如果您到达这里，则说明您的 Service 正在运行，拥有 Endpoint ，Pod 真正在运行。 此时此刻，整个 Service 代理机制是可疑的。 让我们一步一步地确认它没问题。
 
-服务的默认实现（在大多数集群上应用的）是kube-proxy。这是一个在每个节点上运行的程序，并配置一小组用于提供服务抽象的机制之一。如果您的集群不使用kube-proxy，则以下各节将不适用，您将必须检查您正在使用的服务的实现方式。
+ Service 的默认实现（在大多数集群上应用的）是 kube-proxy。这是一个在每个节点上运行的程序，并配置一小组用于提供 Service 抽象的机制之一。如果您的集群不使用 kube-proxy，则以下各节将不适用，您将必须检查您正在使用的 Service 的实现方式。
 
 <!--
 ## Is the kube-proxy working?
@@ -782,15 +782,16 @@ config (including node-ports and load-balancers).
 
 In "ipvs" mode, you should see something like the following on a Node:
 -->
+对于每个 Service 的所有端口，应有 1 条规则、一个链。对于每个 Pod endpoint，在那个XX应该有一些规则，也应该包含小数目的规则。实际的规则数量可能会根据您实际的配置（包括节点端口和负载均衡）有所不同。
 For each port of each Service, there should be 1 rule in `KUBE-SERVICES` and
 one `KUBE-SVC-<hash>` chain.  For each Pod endpoint, there should be a small
 number of rules in that `KUBE-SVC-<hash>` and one `KUBE-SEP-<hash>` chain with
 a small number of rules in it.  The exact rules will vary based on your exact
 config (including node-ports and load-balancers).
 
-#### IPVS mode
+#### IPVS 模式
 
-In "ipvs" mode, you should see something like the following on a Node:
+在 "ipvs" 模式中, 您应该在节点下看到如下输出：
 
 ```shell
 ipvsadm -ln
@@ -817,8 +818,8 @@ hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
 
 In rare cases, you may be using "userspace" mode.  From your Node:
 -->
-对于每个服务的每个端口，还有 NodePort，外部 IP 和
-负载平衡器 IP，kube-proxy 将创建一个虚拟服务器。 对于每个 Pod 端点，它将创建相应的真实服务器。 在此示例中，服务主机名(`10.0.1.175:80`)拥有 3 个端点（`10.244.0.5:9376`,
+对于每个 Service 的每个端口，还有 NodePort，外部 IP 和
+负载平衡器 IP，kube-proxy 将创建一个虚拟服务器。 对于每个 Pod  Endpoint ，它将创建相应的真实服务器。 在此示例中，服务主机名(`10.0.1.175:80`)拥有 3 个 endpoint（`10.244.0.5:9376`,
 `10.244.0.6:9376`, `10.244.0.7:9376`)。
 
 #### Userspace 模式
@@ -845,13 +846,13 @@ more time on it here.
 Assuming you do see one the above cases, try again to access your Service by
 IP from one of your Nodes:
 -->
-对于服务（本例中只有一个）的每个端口，应当有 2 条规则： 一个 "KUBE-PORTALS-CONTAINER" 和一个 "KUBE-PORTALS-HOST"。
+对于 Service （本例中只有一个）的每个端口，应当有 2 条规则： 一个 "KUBE-PORTALS-CONTAINER" 和一个 "KUBE-PORTALS-HOST"。
 
 几乎没有人应该再使用 "userspace" 模式，因此您在这里不会花更多的时间。
 
 ### kube-proxy 是否在运行?
 
-假设您确实遇到上述情况之一，请重试从节点上通过 IP 访问您的服务：
+假设您确实遇到上述情况之一，请重试从节点上通过 IP 访问您的 Service ：
 
 ```shell
 curl 10.0.1.175:80
@@ -870,7 +871,7 @@ examples it is "48577".  Now connect to that:
 -->
 如果失败，并且您正在使用用户空间代理，则可以尝试直接访问代理。 如果您使用的是 iptables 代理，请跳过本节。
 
-回顾上面的 `iptables-save` 输出，并提取 `kube-proxy` 用于您的服务的端口号。在上面的例子中，它是 “48577”。现在试着连接它：
+回顾上面的 `iptables-save` 输出，并提取 `kube-proxy` 用于您的 Service 的端口号。在上面的例子中，它是 “48577”。现在试着连接它：
 
 ```shell
 curl localhost:48577
@@ -912,11 +913,11 @@ You should see something like the below. `hairpin-mode` is set to
 -->
 如果您没有看到这些，请尝试将 `-V` 标志设置为 4 并重新启动 `kube-proxy`，然后再查看日志。
 
-### 边缘案例: 一个 Pod 无法通过服务 IP 连接到它本身{#a-pod-fails-to-reach-itself-via-the-service-ip}。
+### 边缘案例: 一个 Pod 无法通过 Service  IP 连接到它本身{#a-pod-fails-to-reach-itself-via-the-service-ip}。
 
 这听起来似乎不太可能，但是确实发生了，并且应该可行。
 
-如果网络没有为“发夹模式”流量生成正确配置，通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。`Kubelet`暴露了 `hairpin-mode`[标志](/docs/admin/kubelet/)，如果服务的端点尝试访问自己的服务VIP，则该端点可以把流量负载均衡回来到它们自身。
+如果网络没有为“发夹模式”流量生成正确配置，通常当 `kube-proxy` 以 `iptables` 模式运行，并且 Pod 与桥接网络连接时，就会发生这种情况。`Kubelet`暴露了 `hairpin-mode`[标志](/docs/admin/kubelet/)，如果 Service 的 endpoint 尝试访问自己的 Service VIP，则该端点可以把流量负载均衡回来到它们自身。
 `hairpin-mode` 标志必须被设置为 `hairpin-veth` 或者`promiscuous-bridge`。
 
 解决此问题的常见步骤如下：
@@ -1006,7 +1007,7 @@ Visit [troubleshooting document](/docs/troubleshooting/) for more information.
 
 ## 寻求帮助
 
-如果您走到这一步，那么就真的是奇怪的事情发生了。您的  Service  正在运行，有  Endpoints ，您的 Pods 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而服务还是没有正常工作。这种情况下，请告诉我们，这样我们可以帮助调查！
+如果您走到这一步，那么就真的是奇怪的事情发生了。您的  Service  正在运行，有 Endpoint ，您的 Pods 也确实在服务中。您的 DNS 正常，`iptables` 规则已经安装，`kube-proxy` 看起来也正常。然而 Service 还是没有正常工作。这种情况下，请告诉我们，这样我们可以帮助调查！
 
 通过
 [Slack](/docs/troubleshooting/#slack) 或者
