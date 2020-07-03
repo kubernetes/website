@@ -141,6 +141,7 @@ kubeadm upgrade diff [version] [flags]
 
 </tbody>
 </table>
+
 <!--
 ### Options inherited from parent commands
 
