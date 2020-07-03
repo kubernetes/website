@@ -8,6 +8,7 @@ reviewers:
 - cheftako
 - chenopis
 content_type: concept
+no_list: true
 ---
 
 <!-- overview -->
