@@ -496,6 +496,6 @@ the templates with as much detail as possible when you file issues or PRs.
 ## {{% heading "whatsnext" %}}
 
 
-- Read [Reviewing](/docs/contribute/reviewing/revewing-prs) to learn more about the review process.
+- Read [Reviewing](/docs/contribute/review/reviewing-prs) to learn more about the review process.
 
 
