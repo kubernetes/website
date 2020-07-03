@@ -200,7 +200,7 @@ minikube start \
 
 ### ドライバープラグイン
 
-サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
+サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) を参照してください。
 
 ### Dockerデーモンの再利用によるローカルイメージの使用
 
