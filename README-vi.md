@@ -15,7 +15,7 @@ Một khi Pull Request của bạn được tạo, reviewer sẽ chịu trách n
 
 * [Bắt đầu đóng góp](https://kubernetes.io/docs/contribute/start/)
 * [Các giai đoạn thay đổi tài liệu](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Sử dụng các trang templates](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Sử dụng các trang templates](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Hướng dẫn biểu mẫu tài liệu](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Địa phương hóa tài liệu Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
