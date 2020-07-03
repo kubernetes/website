@@ -22,10 +22,10 @@ Si estas buscando información sobre cómo comenzar a contribuir a los repositor
 ## Lo básico sobre nuestra documentación
 
 La documentación de Kuberentes esta escrita usando Markdown, procesada y
-desplegada usando Hugo. El código fuente está en GitHub [https://github.com/kubernetes/website](https://github.com/kubernetes/website).
-La mayoría de la documentación está en `/content/es/doc`. Alguna de
+desplegada usando Hugo. El código fuente está en GitHub accessible en [git.k8s.io/website/](https://github.com/kubernetes/website).
+La mayoría de la documentación en castellano está en `/content/es/docs`. Alguna de
 la documentación de referencia se genera automática con los scripts del
-directorio `update-imported-docks/`.
+directorio `/update-imported-docs`.
 
 Puedes clasificar incidencias, editar contenido y revisar cambios de otros, todo ello
 desde la página de GitHub. También puedes usar la historia embebida de GitHub  y
@@ -47,7 +47,7 @@ participantes al grupo. Para más información ver
 
 Se mantienen unas [guías de estilo](/docs/contribute/style/style-guide/) con la información sobre las elecciones que cada comunidad SIG Docs ha realizado referente a gramática, sintaxis, formato del código fuente y convenciones tipográficas. Revisa la guía de estilos antes de hacer tu primera contribución y úsala para resolver tus dudas.
 
-Los cambios en la guía de estilos se hacen desde el SIG Docs como grupo. Para añadir o proponer cambios [añade esto a tu agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) para las próximas reuniones del SIG Docs y participe en las discusiones durante la reunión. Revisa el apartado [avanzado](/docs/contribute/advanced/) para más información.
+Los cambios en la guía de estilos se hacen desde el SIG Docs como grupo. Para añadir o proponer cambios [añade tus comentarios en la agenda](https://docs.google.com/document/d/1Ds87eRiNZeXwRBEbFr6Z7ukjbTow5RQcNZLaSvWWQsE/edit#) para las próximas reuniones del SIG Docs y participe en las discusiones durante la reunión. Revisa el apartado [avanzado](/docs/contribute/advanced/) para más información.
 
 ### Plantillas para páginas
 
@@ -59,7 +59,7 @@ La documentación de Kubernetes se transforma a partir de Markdown para obtener 
 
 ### Múltiples idiomas
 
-La documentación original está disponible en múltiples idiomas en `/content/`. Cada idioma tiene su propia carpeta con el código de dos letras determinado por el [estándar ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). Por ejemplo, la documentación original en Ingles se encuentra en `/content/en/docs/`.
+La documentación original está disponible en múltiples idiomas en `/content/`. Cada idioma tiene su propia carpeta con el código de dos letras determinado por el [estándar ISO 639-1](https://www.loc.gov/standards/iso639-2/php/code_list.php). Por ejemplo, la documentación original en inglés se encuentra en `/content/en/docs/`.
 
 Para más información sobre como contribuir a la documentación en múltiples idiomas revisa ["Localizar contenido"](/docs/contribute/intermediate#localize-content)
 
@@ -67,7 +67,7 @@ Si te interesa empezar una nueva localización revisa ["Localization"](/docs/con
 
 ## Registro de incidencias
 
-Cualquier persona con una cuenta de GitHub puede reportar una incidencia en la documentación de Kubernetes. Si ves algo erróneo, aunque no sepas como resolverlo, [reporta una incidencia](#cómo-reportar-una-incidencia). La única excepción a la regla es si se trata de un pequeño error, como alguno que puedes resolver por ti mismo. En este último caso, puedes tratar de [resolverlo](#improve-existing-content) sin necesidad de reportar una incidencia primero.
+Cualquier persona con una cuenta de GitHub puede reportar una incidencia en la documentación de Kubernetes. Si ves algo erróneo, aunque no sepas como resolverlo, [reporta una incidencia](#cómo-reportar-una-incidencia). La única excepción a la regla es si se trata de un pequeño error, como alguno que puedes resolver por ti mismo. En este último caso, puedes tratar de [resolverlo](#mejorar-contenido-existente) sin necesidad de reportar una incidencia primero.
 
 ### Cómo reportar una incidencia
 
@@ -91,15 +91,15 @@ Para estar seguros que tu incidencia se entiende y se puede procesar ten en cuen
 
     Por ejemplo, "Arreglar la documentación de seguridad" no es una incidencia procesable, pero "Añadir detalles en el tema 'Restringir acceso a la red'" si lo es.
 - Si la incidencia está relacionada con otra o con una petición de cambio puedes referirte a ella tanto por la URL como con el número de la incidencia o petición de cambio con el carácter `#` delante. Por ejemplo `Introducido por #987654`.
-- Se respetuoso y evita desahogarte. Por ejemplo, "La documentación sobre X apesta" no es útil o una critica constructiva. El [Código de conducta](/community/code-of-conduct/) también aplica para las interacciones en los repositorios de Kubernetes en GitHub.
+- Se respetuoso y evita desahogarte. Por ejemplo, "La documentación sobre X apesta" no es útil o una crítica constructiva. El [Código de conducta](/community/code-of-conduct/) también aplica para las interacciones en los repositorios de Kubernetes en GitHub.
 
 ## Participa en las discusiones de SIG Docs
 
 El equipo de SIG Docs se comunica por las siguientes vías:
 
-- [Únete a la instancia Slack de Kubernetes](http://slack.k8s.io/) y entra al canal `#sig-docs` o `#kubernetes-docs-es` para la documentación en castellano. En Slack, discutimos sobre las incidencias de documentación en tiempo real, nos coordinamos y hablamos de temas relacionados con la documentación. No olvides presentarte cuando entres en el canal para que podamos saber un poco más de ti!
-- [Únete a la lista de correo `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs), donde tienen lugar las discusiones más amplias y se registras las decisiones oficiales.
-- Participa en la video-conferencia [semanal de SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs), ésta se anuncia en el canal de Slack y la lista de correo. Actualmente esta reunión tiene lugar usando Zoom, por lo que necesitas descargar el [cliente Zoom](https://zoom.us/download) o llamar usando un teléfono.
+- [Únete al Slack de Kubernetes](http://slack.k8s.io/) y entra al canal `#sig-docs` o `#kubernetes-docs-es` para la documentación en castellano. En Slack, discutimos sobre las incidencias de documentación en tiempo real, nos coordinamos y hablamos de temas relacionados con la documentación. No olvides presentarte cuando entres en el canal para que podamos saber un poco más de ti!
+- [Únete a la lista de correo `kubernetes-sig-docs`](https://groups.google.com/forum/#!forum/kubernetes-sig-docs), donde tienen lugar las discusiones más amplias y se registran las decisiones oficiales.
+- Participa en la video-conferencia [semanal de SIG Docs](https://github.com/kubernetes/community/tree/master/sig-docs), esta se anuncia en el canal de Slack y la lista de correo. Actualmente esta reunión tiene lugar usando Zoom, por lo que necesitas descargar el [cliente Zoom](https://zoom.us/download) o llamar usando un teléfono.
 
 {{< note >}}
 Puedes revisar la reunión semanal de SIG Docs en el [Calendario de reuniones de la comunidad Kubernetes](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles).
@@ -119,7 +119,7 @@ Antes de poder contribuir o documentar en Kubernetes **es necesario** leer [Guí
 
 ### Busca algo con lo que trabajar
 
-Si ves algo que quieras arreglar directamente, simplemente sigue las instrucciones más abajo. No es necesario que [reportes una incidencia][#file-actionable-issues] (aunque de todas formas puedes).
+Si ves algo que quieras arreglar directamente, simplemente sigue las instrucciones más abajo. No es necesario que [reportes una incidencia](#registro-de-incidencias) (aunque de todas formas puedes).
 
 Si quieres empezar por buscar una incidencia existente para trabajar puedes ir [https://github.com/kubernetes/website/issues](https://github.com/kubernetes/website/issues) y buscar una incidencia con la etiqueta  `good first issue` (puedes usar [este](https://github.com/kubernetes/website/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22) atajo). Lee los comentarios y asegurate de que no hay una petición de cambio abierta para esa incidencia y que nadie a dejado un comentario indicando que están trabajando en esa misma incidencia recientemente (3 días es una buena regla). Deja un  comentario indicando que te gustaría trabajar en la incidencia.
 
@@ -172,19 +172,19 @@ cliente se discuten en la guía de documentación [intermedia](/docs/contribute/
 
 ## Revisar peticiones de cambio de documentación
 
-Las personas que aun no son aprobadores o revisores todavía pueden revisar peticiones de cambio. Las revisiones no se consideran "vinculantes", lo que significa que su revisión por sí sola no hará que se fusionen las peticiones de cambio. Sin embargo, aún puede ser útil. Incluso si no deja ningún comentario de revisión, puede tener una idea de las convenciones y etiquetas en una petición de cambio y acostumbrarse al flujo de trabajo.
+Las personas que aún no son aprobadores o revisores todavía pueden revisar peticiones de cambio. Las revisiones no se consideran "vinculantes", lo que significa que su revisión por sí sola no hará que se fusionen las peticiones de cambio. Sin embargo, aún puede ser útil. Incluso si no deja ningún comentario de revisión, puede tener una idea de las convenciones y etiquetas en una petición de cambio y acostumbrarse al flujo de trabajo.
 
 1. Ve a [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls). Desde ahí podrás ver una lista de todas las peticiones de cambio en la documentación del website de Kubernetes.
 
 2.  Por defecto el único filtro que se aplica es `open`, por lo que no puedes ver las que ya se han cerrado o fusionado. Es una buena idea aplicar el filtro `cncf-cla: yes` y para tu primera revisión es una buena idea añadir `size/S` o `size/XS`. La etiqueta `size` se aplica automáticamente basada en el número de lineas modificadas en la PR. Puedes aplicar filtros con las cajas de selección al principio de la página, o usar [estos atajos](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+yes%22+label%3Asize%2FS) solo para PRs pequeñas. Los filtros son aplicados con `AND` todos juntos, por lo que no se puede buscar a la vez `size/S` y `size/XS` en la misma consulta.
 
-3.  Ve a la pestaña **Files changed**. Mira los cambios introducidos en la PR, y si aplica, mira también los incidentes enlazados. Si ves un algún problema o posibilidad de mejora pasa el cursor sobre la linea y haz clic en el símbolo `+` que aparece.
+3.  Ve a la pestaña **Files changed**. Mira los cambios introducidos en la PR, y si aplica, mira también los incidentes enlazados. Si ves un algún problema o posibilidad de mejora pasa el cursor sobre la línea y haz click en el símbolo `+` que aparece.
 
     Puedes entonces dejar un comentario seleccionando **Add single comment** o **Start a review**. Normalmente empezar una revisión es la forma recomendada, ya que te permite hacer varios comentarios y avisar a propietario de la PR solo cuando tu revisión este completada, en lugar de notificar cada comentario.
 
 4.  Cuando hayas acabado de revisar, haz clic en **Review changes** en la parte superior de la página. Puedes ver un resumen de la revisión y puedes elegir entre comentar, aprobar o solicitar cambios. Los nuevos contribuidores siempre deben elegir **Comment**.
 
-Gracias por revisar una petición de cambio! Cuando eres nuevo en un proyecto es buena idea solicitar comentarios y opiniones en las revisiones de una petición de cambio. Otro buen lugar para solicitar comentarios es en la canal de Slack `#sig-docs`.
+Gracias por revisar una petición de cambio! Cuando eres nuevo en un proyecto es buena idea solicitar comentarios y opiniones en las revisiones de una petición de cambio. Otro buen lugar para solicitar comentarios es en el canal de Slack `#sig-docs`.
 
 ## Escribir un artículo en el blog
 
