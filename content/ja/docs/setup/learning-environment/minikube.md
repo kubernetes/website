@@ -33,7 +33,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
 * kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
