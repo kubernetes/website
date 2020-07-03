@@ -1,83 +1,57 @@
 ---
-reviewers:
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
-title: StatefulSet Basics
+title: StatefulSetの基本
 content_type: tutorial
 weight: 10
 ---
 
 <!-- overview -->
-This tutorial provides an introduction to managing applications with
-{{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}.
-It demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
-
+このチュートリアルでは、{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}を使用したアプリケーションを管理するための基本を説明します。StatefulSetのPodを作成、削除、スケール、そして更新する方法について紹介します。
 
 ## {{% heading "prerequisites" %}}
 
-Before you begin this tutorial, you should familiarize yourself with the
-following Kubernetes concepts:
+このチュートリアルを始める前に、以下のKubernetesの概念について理解しておく必要があります。
 
-* [Pods](/docs/concepts/workloads/pods/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
-* [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-* The [kubectl](/docs/reference/kubectl/kubectl/) command line tool
+* [Pod](/ja/docs/concepts/workloads/pods/)
+* [Cluster DNS](/ja/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)
+* [PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
+* [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
+* [kubectl](/docs/reference/kubectl/kubectl/)コマンドラインツール
 
 {{< note >}}
-This tutorial assumes that your cluster is configured to dynamically provision
-PersistentVolumes. If your cluster is not configured to do so, you
-will have to manually provision two 1 GiB volumes prior to starting this
-tutorial.
+このチュートリアルでは、クラスターがPersistentVolumeの動的なプロビジョニングが行われるように設定されていることを前提としています。クラスターがそのように設定されていない場合、チュートリアルを始める前に1GiBのボリュームを2つ手動でプロビジョニングする必要があります。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
 
-StatefulSets are intended to be used with stateful applications and distributed
-systems. However, the administration of stateful applications and
-distributed systems on Kubernetes is a broad, complex topic. In order to
-demonstrate the basic features of a StatefulSet, and not to conflate the former
-topic with the latter, you will deploy a simple web application using a StatefulSet.
+StatefulSetはステートフルアプリケーションや分散システムで使用するために存在します。しかし、Kubernetes上のステートフルアプリケーションや分散システムは、広範で複雑なトピックです。StatefulSetの基本的な機能を示すという目的のため、また、分散システムをステートフルアプリケーションと混同しないようにするために、ここでは、Statefulsetを使用する単純なウェブアプリケーションのデプロイを行います。
 
-After this tutorial, you will be familiar with the following.
+このチュートリアルを終えると、以下のことが理解できるようになります。
 
-* How to create a StatefulSet
-* How a StatefulSet manages its Pods
-* How to delete a StatefulSet
-* How to scale a StatefulSet
-* How to update a StatefulSet's Pods
+* StatefulSetの作成方法
+* StatefulSetがどのようにPodを管理するのか
+* StatefulSetの削除方法
+* StatefulSetのスケール方法
+* StatefulSetが管理するPodの更新方法
 
 <!-- lessoncontent -->
 
-## Creating a StatefulSet
+## StatefulSetを作成する {#ordered-pod-creation}
 
-Begin by creating a StatefulSet using the example below. It is similar to the
-example presented in the
-[StatefulSets](/docs/concepts/workloads/controllers/statefulset/) concept.
-It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
-`nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
+はじめに、以下の例を使ってStatefulSetを作成しましょう。これは、コンセプトの[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)のページで使ったものと同じような例です。`nginx`という[headless Service](/ja/docs/concepts/services-networking/service/#headless-services)を作成し、`web`というStatefulSet内のPodのIPアドレスを公開します。
 
 {{< codenew file="application/web/web.yaml" >}}
 
-Download the example above, and save it to a file named `web.yaml`
+上の例をダウンロードして、`web.yaml`という名前で保存します。
 
-You will need to use two terminal windows. In the first terminal, use
-[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the creation
-of the StatefulSet's Pods.
+ここでは、ターミナルウィンドウを2つ使う必要があります。1つ目のターミナルでは、[`kubectl get`](/ja/docs/reference/generated/kubectl/kubectl-commands/#get)を使って、StatefulSetのPodの作成を監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-In the second terminal, use
-[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to create the
-headless Service and StatefulSet defined in `web.yaml`.
+2つ目のターミナルでは、[`kubectl apply`](/ja/docs/reference/generated/kubectl/kubectl-commands/#apply)を使って、`web.yaml`に定義されたheadless ServiceとStatefulSetを作成します。
 
 ```shell
 kubectl apply -f web.yaml
@@ -87,8 +61,7 @@ service/nginx created
 statefulset.apps/web created
 ```
 
-The command above creates two Pods, each running an
-[NGINX](https://www.nginx.com) webserver. Get the `nginx` Service...
+上のコマンドを実行すると、2つのPodが作成され、それぞれのPodで[NGINX](https://www.nginx.com)ウェブサーバーが実行されます。`nginx`Serviceを取得してみましょう。
 ```shell
 kubectl get service nginx
 ```
@@ -96,7 +69,7 @@ kubectl get service nginx
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
 ```
-...then get the `web` StatefulSet, to verify that both were created successfully:
+そして、`web`StatefulSetを取得して、2つのリソースの作成が成功したことも確認します。
 ```shell
 kubectl get statefulset web
 ```
@@ -105,12 +78,9 @@ NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
 
-### Ordered Pod Creation
+### 順序付きPodの作成
 
-For a StatefulSet with _n_ replicas, when Pods are being deployed, they are
-created sequentially, ordered from _{0..n-1}_. Examine the output of the
-`kubectl get` command in the first terminal. Eventually, the output will
-look like the example below.
+_n_ 個のレプリカを持つStatefulSetは、Podをデプロイするとき、1つずつ順番に作成し、 _{0..n-1}_ という順序付けを行います。1つ目のターミナルで`kubectl get`コマンドの出力を確認しましょう。最終的に、以下の例のような出力が表示されるはずです。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -127,17 +97,15 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-Notice that the `web-1` Pod is not launched until the `web-0` Pod is
-_Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
-and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
+`web-0`Podが _Running_ ([Pod Phase](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)を参照)かつ _Ready_ ([Pod Conditions](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)の`type`を参照)の状態になるまでは、`web-1`Podが起動していないことに注目してください。
 
-## Pods in a StatefulSet
+## StatefulSet内のPod
 
-Pods in a StatefulSet have a unique ordinal index and a stable network identity.
+StatefulSet内のPodは、ユニークな順序インデックスと安定したネットワーク識別子を持ちます。
 
-### Examining the Pod's Ordinal Index
+### Podの順序インデックスを確かめる
 
-Get the StatefulSet's Pods:
+StatefulSetのPodを取得します。
 
 ```shell
 kubectl get pods -l app=nginx
@@ -148,18 +116,11 @@ web-0     1/1       Running   0          1m
 web-1     1/1       Running   0          1m
 ```
 
-As mentioned in the [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
-concept, the Pods in a StatefulSet have a sticky, unique identity. This identity
-is based on a unique ordinal index that is assigned to each Pod by the
-StatefulSet {{< glossary_tooltip term_id="controller" text="controller">}}.  
-The Pods' names take the form `<statefulset name>-<ordinal index>`.
-Since the `web` StatefulSet has two replicas, it creates two Pods, `web-0` and `web-1`.
+[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)のコンセプトで説明したように、StatefulSet内のPodは安定したユニークな識別子を持ちます。この識別子は、StatefulSet{{< glossary_tooltip term_id="controller" text="コントローラー">}}によって各Podに割り当てられる、ユニークな順序インデックスに基づいて付けられます。Podの名前は、`<statefulsetの名前>-<順序インデックス>`という形式です。`web`StatefulSetは2つのレプリカを持つため、`web-0`と`web-1`という2つのPodを作成します。
 
-### Using Stable Network Identities
+### 安定したネットワーク識別子の使用
 
-Each Pod has a stable hostname based on its ordinal index. Use
-[`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to execute the
-`hostname` command in each Pod:
+各Podは、順序インデックスに基づいた安定したホスト名を持ちます。[`kubectl exec`](/ja/docs/reference/generated/kubectl/kubectl-commands/#exec)を使用して、各Pod内で`hostname`コマンドを実行してみましょう。
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'hostname'; done
@@ -169,20 +130,17 @@ web-0
 web-1
 ```
 
-Use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to execute
-a container that provides the `nslookup` command from the `dnsutils` package.
-Using `nslookup` on the Pods' hostnames, you can examine their in-cluster DNS
-addresses:
+[`kubectl run`](/ja/docs/reference/generated/kubectl/kubectl-commands/#run)を使用して、`dnsutils`パッケージの`nslookup`コマンドを提供するコンテナを実行します。Podのホスト名に対して`nslookup`を実行すると、クラスター内のDNSアドレスが確認できます。
 
 ```shell
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
-which starts a new shell. In that new shell, run:
+これにより、新しいシェルが起動します。新しいシェルで、次のコマンドを実行します。
 ```shell
-# Run this in the dns-test container shell
+# このコマンドは、dns-testコンテナのシェルで実行してください
 nslookup web-0.nginx
 ```
-The output is similar to:
+出力は次のようになります。
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -198,20 +156,16 @@ Name:      web-1.nginx
 Address 1: 10.244.2.6
 ```
 
-(and now exit the container shell: `exit`)
+(コンテナのシェルを終了するために、`exit`コマンドを実行してください。)
 
-The CNAME of the headless service points to SRV records (one for each Pod that
-is Running and Ready). The SRV records point to A record entries that
-contain the Pods' IP addresses.
+headless serviceのCNAMEは、SRVレコードを指しています(1つのレコードがRunningかつReadyのPodに対応します)。SRVレコードは、PodのIPアドレスを含むAレコードを指します。
 
-In one terminal, watch the StatefulSet's Pods:
+1つ目のターミナルで、StatefulSetのPodを監視します。
 
 ```shell
 kubectl get pod -w -l app=nginx
 ```
-In a second terminal, use
-[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete all
-the Pods in the StatefulSet:
+2つ目のターミナルで、[`kubectl delete`](/ja/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetのすべてのPodを削除します。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -221,8 +175,7 @@ pod "web-0" deleted
 pod "web-1" deleted
 ```
 
-Wait for the StatefulSet to restart them, and for both Pods to transition to
-Running and Ready:
+StatefulSetがPodを再起動して、2つのPodがRunningかつReadyの状態に移行するのを待ちます。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -238,8 +191,7 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         34s
 ```
 
-Use `kubectl exec` and `kubectl run` to view the Pods' hostnames and in-cluster
-DNS entries. First, view the Pods' hostnames:
+`kubectl exec`と`kubectl run`コマンドを使用して、Podのホスト名とクラスター内DNSエントリーを確認します。まず、Podのホスト名を見てみましょう。
 
 ```shell
 for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
@@ -248,17 +200,16 @@ for i in 0 1; do kubectl exec web-$i -- sh -c 'hostname'; done
 web-0
 web-1
 ```
-then, run:
+その後、次のコマンドを実行します。
 ```
 kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
 ```
-which starts a new shell.  
-In that new shell, run:
+これにより、新しいシェルが起動します。新しいシェルで、次のコマンドを実行します。
 ```shell
-# Run this in the dns-test container shell
+# このコマンドは、dns-testコンテナのシェルで実行してください
 nslookup web-0.nginx
 ```
-The output is similar to:
+出力は次のようになります。
 ```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
@@ -274,56 +225,35 @@ Name:      web-1.nginx
 Address 1: 10.244.2.8
 ```
 
-(and now exit the container shell: `exit`)
+(コンテナのシェルを終了するために、`exit`コマンドを実行してください。)
 
-The Pods' ordinals, hostnames, SRV records, and A record names have not changed,
-but the IP addresses associated with the Pods may have changed. In the cluster
-used for this tutorial, they have. This is why it is important not to configure
-other applications to connect to Pods in a StatefulSet by IP address.
+Podの順序インデックス、ホスト名、SRVレコード、そしてAレコード名は変化していませんが、Podに紐付けられたIPアドレスは変化する可能性があります。このチュートリアルで使用しているクラスターでは、IPアドレスは変わりました。このようなことがあるため、他のアプリケーションがStatefulSet内のPodに接続するときには、IPアドレスで指定しないことが重要です。
 
+StatefulSetの有効なメンバーを探して接続する必要がある場合は、headless ServiceのCNAME(`nginx.default.svc.cluster.local`)をクエリしなければなりません。CNAMEに紐付けられたSRVレコードには、StatefulSet内のRunnningかつReadyなPodだけが含まれます。
 
-If you need to find and connect to the active members of a StatefulSet, you
-should query the CNAME of the headless Service
-(`nginx.default.svc.cluster.local`). The SRV records associated with the
-CNAME will contain only the Pods in the StatefulSet that are Running and
-Ready.
+アプリケーションがlivenessとreadinessをテストするコネクションのロジックをすでに実装している場合、PodのSRVレコード(`web-0.nginx.default.svc.cluster.local`、`web-1.nginx.default.svc.cluster.local`)をPodが安定しているものとして使用できます。PodがRunning and Readyな状態に移行すれば、アプリケーションはPodのアドレスを発見できるようになります。
 
-If your application already implements connection logic that tests for
-liveness and readiness, you can use the SRV records of the Pods (
-`web-0.nginx.default.svc.cluster.local`,
-`web-1.nginx.default.svc.cluster.local`), as they are stable, and your
-application will be able to discover the Pods' addresses when they transition
-to Running and Ready.
+### 安定したストレージへの書き込み {#writing-to-stable-storage}
 
-### Writing to Stable Storage
-
-Get the PersistentVolumeClaims for `web-0` and `web-1`:
+`web-0`および`web-1`のためのPersistentVolumeClaimを取得しましょう。
 
 ```shell
 kubectl get pvc -l app=nginx
 ```
-The output is similar to:
+出力は次のようになります。
 ```
 NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 www-web-0   Bound     pvc-15c268c7-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 www-web-1   Bound     pvc-15c79307-b507-11e6-932f-42010a800002   1Gi        RWO           48s
 ```
 
-The StatefulSet controller created two
-{{< glossary_tooltip text="PersistentVolumeClaims" term_id="persistent-volume-claim" >}}
-that are bound to two
-{{< glossary_tooltip text="PersistentVolumes" term_id="persistent-volume" >}}.
+StatefulSetコントローラーは、2つの{{< glossary_tooltip text="PersistentVolume" term_id="persistent-volume" >}}にバインドされた2つの{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}を作成しています。
 
-As the cluster used in this tutorial is configured to dynamically provision PersistentVolumes,
-the PersistentVolumes were created and bound automatically.
+このチュートリアルで使用しているクラスターでは、PersistentVolumeの動的なプロビジョニングが設定されているため、PersistentVolumeが自動的に作成されてバインドされています。
 
-The NGINX webserver, by default, serves an index file from
-`/usr/share/nginx/html/index.html`. The `volumeMounts` field in the
-StatefulSet's `spec` ensures that the `/usr/share/nginx/html` directory is
-backed by a PersistentVolume.
+デフォルトでは、NGINXウェブサーバーは`/usr/share/nginx/html/index.html`に置かれたindexファイルを配信します。StatefulSetの`spec`内の`volumeMounts`フィールドによって、`/usr/share/nginx/html`ディレクトリがPersistentVolume上にあることが保証されます。
 
-Write the Pods' hostnames to their `index.html` files and verify that the NGINX
-webservers serve the hostnames:
+Podのホスト名を`index.html`ファイルに書き込むことで、NGINXウェブサーバーがホスト名を配信することを検証しましょう。
 
 ```shell
 for i in 0 1; do kubectl exec "web-$i" -- sh -c 'echo "$(hostname)" > /usr/share/nginx/html/index.html'; done
@@ -336,23 +266,18 @@ web-1
 ```
 
 {{< note >}}
-If you instead see **403 Forbidden** responses for the above curl command,
-you will need to fix the permissions of the directory mounted by the `volumeMounts`
-(due to a [bug when using hostPath volumes](https://github.com/kubernetes/kubernetes/issues/2630)),
-by running:
+上記のcurlコマンドに対して代わりに**403 Forbidden**というレスポンスが返ってくる場合、`volumeMounts`でマウントしたディレクトリのパーミッションを修正する必要があります(これは、[hostPathボリュームを使用したときに起こるバグ](https://github.com/kubernetes/kubernetes/issues/2630)が原因です)。この問題に対処するには、上の`curl`コマンドを再実行する前に、次のコマンドを実行します。
 
 `for i in 0 1; do kubectl exec web-$i -- chmod 755 /usr/share/nginx/html; done`
-
-before retrying the `curl` command above.
 {{< /note >}}
 
-In one terminal, watch the StatefulSet's Pods:
+1つ目のターミナルで、StatefulSetのPodを監視します。
 
 ```shell
 kubectl get pod -w -l app=nginx
 ```
 
-In a second terminal, delete all of the StatefulSet's Pods:
+2つ目のターミナルで、StatefulSetのすべてのPodを削除します。
 
 ```shell
 kubectl delete pod -l app=nginx
@@ -361,8 +286,7 @@ kubectl delete pod -l app=nginx
 pod "web-0" deleted
 pod "web-1" deleted
 ```
-Examine the output of the `kubectl get` command in the first terminal, and wait
-for all of the Pods to transition to Running and Ready.
+1つ目のターミナルで`kubectl get`コマンドの出力を確認して、すべてのPodがRunningかつReadyの状態に変わるまで待ちます。
 
 ```shell
 kubectl get pod -w -l app=nginx
@@ -378,7 +302,7 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         34s
 ```
 
-Verify the web servers continue to serve their hostnames:
+ウェブサーバーがホスト名を配信し続けていることを確認します。
 
 ```
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -388,29 +312,22 @@ web-0
 web-1
 ```
 
-Even though `web-0` and `web-1` were rescheduled, they continue to serve their
-hostnames because the PersistentVolumes associated with their
-PersistentVolumeClaims are remounted to their `volumeMounts`. No matter what
-node `web-0`and `web-1` are scheduled on, their PersistentVolumes will be
-mounted to the appropriate mount points.
+もし`web-0`および`web-1`が再スケジュールされたとしても、Podは同じホスト名を配信し続けます。これは、PodのPersistentVolumeClaimに紐付けられたPersistentVolumeが、Podの`volumeMounts`に再マウントされるためです。`web-0`と`web-1`がどんなノードにスケジュールされたとしても、PodのPersistentVolumeは適切なマウントポイントにマウントされます。
 
-## Scaling a StatefulSet
+## StatefulSetをスケールする
 
-Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
-This is accomplished by updating the `replicas` field. You can use either
-[`kubectl scale`](/docs/reference/generated/kubectl/kubectl-commands/#scale) or
-[`kubectl patch`](/docs/reference/generated/kubectl/kubectl-commands/#patch) to scale a StatefulSet.
+StatefulSetのスケールとは、レプリカ数を増減することを意味します。これは、`replicas`フィールドを更新することによって実現できます。StatefulSetのスケールには、[`kubectl scale`](/ja/docs/reference/generated/kubectl/kubectl-commands/#scale)と
+[`kubectl patch`](/ja/docs/reference/generated/kubectl/kubectl-commands/#patch)のどちらも使用できます。
 
-### Scaling Up
+### スケールアップ
 
-In one terminal window, watch the Pods in the StatefulSet:
+1つ目のターミナルで、StatefulSet内のPodを監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-In another terminal window, use `kubectl scale` to scale the number of replicas
-to 5:
+2つ目のターミナルで、`kubectl scale`を使って、レプリカ数を5にスケールします。
 
 ```shell
 kubectl scale sts web --replicas=5
@@ -419,8 +336,7 @@ kubectl scale sts web --replicas=5
 statefulset.apps/web scaled
 ```
 
-Examine the output of the `kubectl get` command in the first terminal, and wait
-for the three additional Pods to transition to Running and Ready.
+1つ目のターミナルの`kubectl get`コマンドの出力を確認して、3つの追加のPodがRunningかつReadyの状態に変わるまで待ちます。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -444,22 +360,18 @@ web-4     0/1       ContainerCreating   0         0s
 web-4     1/1       Running   0         19s
 ```
 
-The StatefulSet controller scaled the number of replicas. As with
-[StatefulSet creation](#ordered-pod-creation), the StatefulSet controller
-created each Pod sequentially with respect to its ordinal index, and it
-waited for each Pod's predecessor to be Running and Ready before launching the
-subsequent Pod.
+StatefulSetコントローラーはレプリカ数をスケールします。
+[StatefulSetを作成する](#ordered-pod-creation)で説明したように、StatefulSetコントローラーは各Podを順序インデックスに従って1つずつ作成し、次のPodを起動する前に、1つ前のPodがRunningかつReadyの状態になるまで待ちます。
 
-### Scaling Down
+### スケールダウン {#scaling-down}
 
-In one terminal, watch the StatefulSet's Pods:
+1つ目のターミナルで、StatefulSetのPodを監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-In another terminal, use `kubectl patch` to scale the StatefulSet back down to
-three replicas:
+2つ目のターミナルで、`kubectl patch`コマンドを使用して、StatefulSetを3つのレプリカにスケールダウンします。
 
 ```shell
 kubectl patch sts web -p '{"spec":{"replicas":3}}'
@@ -468,7 +380,7 @@ kubectl patch sts web -p '{"spec":{"replicas":3}}'
 statefulset.apps/web patched
 ```
 
-Wait for `web-4` and `web-3` to transition to Terminating.
+`web-4`および`web-3`がTerminatingの状態になるまで待ちます。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -488,13 +400,11 @@ web-3     1/1       Terminating   0         42s
 web-3     1/1       Terminating   0         42s
 ```
 
-### Ordered Pod Termination
+### 順序付きPodを削除する
 
-The controller deleted one Pod at a time, in reverse order with respect to its
-ordinal index, and it waited for each to be completely shutdown before
-deleting the next.
+コントローラーは、順序インデックスの逆順に1度に1つのPodを削除し、次のPodを削除する前には、各Podが完全にシャットダウンするまで待機しています。
 
-Get the StatefulSet's PersistentVolumeClaims:
+StatefulSetのPersistentVolumeClaimを取得しましょう。
 
 ```shell
 kubectl get pvc -l app=nginx
@@ -509,26 +419,19 @@ www-web-4   Bound     pvc-e11bb5f8-b508-11e6-932f-42010a800002   1Gi        RWO 
 
 ```
 
-There are still five PersistentVolumeClaims and five PersistentVolumes.
-When exploring a Pod's [stable storage](#writing-to-stable-storage), we saw that the PersistentVolumes mounted to the Pods of a StatefulSet are not deleted when the StatefulSet's Pods are deleted. This is still true when Pod deletion is caused by scaling the StatefulSet down.
+まだ、5つのPersistentVolumeClaimと5つのPersistentVolumeが残っています。[安定したストレージへの書き込み](#writing-to-stable-storage)を読むと、StatefulSetのPodが削除されても、StatefulSetのPodにマウントされたPersistentVolumeは削除されないと書かれています。このことは、StatefulSetのスケールダウンによってPodが削除された場合にも当てはまります。
 
-## Updating StatefulSets
+## StatefulSetsを更新する
 
-In Kubernetes 1.7 and later, the StatefulSet controller supports automated updates.  The
-strategy used is determined by the `spec.updateStrategy` field of the
-StatefulSet API Object. This feature can be used to upgrade the container
-images, resource requests and/or limits, labels, and annotations of the Pods in a
-StatefulSet. There are two valid update strategies, `RollingUpdate` and
-`OnDelete`.
+Kubernetes 1.7以降では、StatefulSetコントローラーは自動アップデートをサポートしています。使われる戦略は、StatefulSet APIオブジェクトの`spec.updateStrategy`フィールドによって決まります。この機能はコンテナイメージのアップグレード、リソースのrequestsやlimits、ラベル、StatefulSet内のPodのアノテーションの更新時に利用できます。有効なアップデートの戦略は、`RollingUpdate`と`OnDelete`の2種類です。
 
-`RollingUpdate` update strategy is the default for StatefulSets.
+`RollingUpdate`は、StatefulSetのデフォルトのアップデート戦略です。
 
-### Rolling Update
+### RollingUpdate
 
-The `RollingUpdate` update strategy will update all Pods in a StatefulSet, in
-reverse ordinal order, while respecting the StatefulSet guarantees.
+`RollingUpdate`アップデート戦略は、StatefulSetの保証を尊重しながら、順序インデックスの逆順にStatefulSet内のすべてのPodをアップデートします。
 
-Patch the `web` StatefulSet to apply the `RollingUpdate` update strategy:
+`web`StatefulSetにpatchを当てて、`RollingUpdate`アップデート戦略を適用しましょう。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate"}}}'
@@ -537,8 +440,7 @@ kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpda
 statefulset.apps/web patched
 ```
 
-In one terminal window, patch the `web` StatefulSet to change the container
-image again:
+1つ目のターミナルで、`web`StatefulSetに再度patchを当てて、コンテナイメージを変更します。
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"gcr.io/google_containers/nginx-slim:0.8"}]'
@@ -547,12 +449,12 @@ kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spe
 statefulset.apps/web patched
 ```
 
-In another terminal, watch the Pods in the StatefulSet:
+2つ目のターミナルで、StatefulSet内のPodを監視します。
 
 ```shell
 kubectl get pod -l app=nginx -w
 ```
-The output is simular to:
+出力は次のようになります。
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          7m
@@ -588,19 +490,11 @@ web-0     0/1       ContainerCreating   0         0s
 web-0     1/1       Running   0         10s
 ```
 
-The Pods in the StatefulSet are updated in reverse ordinal order. The
-StatefulSet controller terminates each Pod, and waits for it to transition to Running and
-Ready prior to updating the next Pod. Note that, even though the StatefulSet
-controller will not proceed to update the next Pod until its ordinal successor
-is Running and Ready, it will restore any Pod that fails during the update to
-its current version.
+StatefulSet内のPodは、順序インデックスの逆順に更新されました。StatefulSetコントローラーは各Podを終了させ、次のPodを更新する前に、新しいPodがRunningかつReadyの状態に変わるまで待機します。ここで、StatefulSetコントローラーは順序インデックスの前のPodがRunningかつReadyの状態になるまで次のPodの更新を始めず、現在の状態へのアップデートに失敗したPodがあった場合、そのPodをリストアすることに注意してください。
 
-Pods that have already received the update will be restored to the updated version,
-and Pods that have not yet received the update will be restored to the previous
-version. In this way, the controller attempts to continue to keep the application
-healthy and the update consistent in the presence of intermittent failures.
+すでにアップデートを受け取ったPodは、アップデートされたバージョンにリストアされます。まだアップデートを受け取っていないPodは、前のバージョンにリストアされます。このような方法により、もし途中で失敗が起こっても、コントローラはアプリケーションが健全な状態を保ち続けられるようにし、更新が一貫したものになるようにします。
 
-Get the Pods to view their container images:
+Podを取得して、コンテナイメージを確認してみましょう。
 
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
@@ -612,21 +506,17 @@ k8s.gcr.io/nginx-slim:0.8
 
 ```
 
-All the Pods in the StatefulSet are now running the previous container image.
+現在、StatefulSet内のすべてのPodは、前のコンテナイメージを実行しています。
 
 {{< note >}}
-You can also use `kubectl rollout status sts/<name>` to view
-the status of a rolling update to a StatefulSet
+`kubectl rollout status sts/<name>`を使って、StatefulSetへのローリングアップデートの状態を確認することもできます。
 {{< /note >}}
 
-#### Staging an Update
+#### ステージングアップデート {#staging-an-update}
 
-You can stage an update to a StatefulSet by using the `partition` parameter of
-the `RollingUpdate` update strategy. A staged update will keep all of the Pods
-in the StatefulSet at the current version while allowing mutations to the
-StatefulSet's `.spec.template`.
+`RollingUpdate`アップデート戦略に`partition`パラメーターを使用すると、StatefulSetへのアップデートをステージングすることができます。ステージングアップデートを利用すれば、StatefulSet内のすべてのPodを現在のバージョンにしたまま、StatefulSetの`.spec.template`を変更することが可能になります。
 
-Patch the `web` StatefulSet to add a partition to the `updateStrategy` field:
+`web`StatefulSetにpatchを当てて、`updateStrategy`フィールドにpartitionを追加しましょう。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":3}}}}'
@@ -635,7 +525,7 @@ kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpda
 statefulset.apps/web patched
 ```
 
-Patch the StatefulSet again to change the container's image:
+StatefulSetに再度patchを当てて、コンテナイメージを変更します。
 
 ```shell
 kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
@@ -644,7 +534,7 @@ kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spe
 statefulset.apps/web patched
 ```
 
-Delete a Pod in the StatefulSet:
+StatefulSet内のPodを削除します。
 
 ```shell
 kubectl delete pod web-2
@@ -653,7 +543,7 @@ kubectl delete pod web-2
 pod "web-2" deleted
 ```
 
-Wait for the Pod to be Running and Ready.
+PodがRunningかつReadyになるまで待ちます。
 
 ```shell
 kubectl get pod -l app=nginx -w
@@ -666,7 +556,7 @@ web-2     0/1       ContainerCreating   0          11s
 web-2     1/1       Running   0         18s
 ```
 
-Get the Pod's container image:
+Podのコンテナイメージを取得します。
 
 ```shell
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
@@ -675,17 +565,13 @@ kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image
 k8s.gcr.io/nginx-slim:0.8
 ```
 
-Notice that, even though the update strategy is `RollingUpdate` the StatefulSet
-restored the Pod with its original container. This is because the
-ordinal of the Pod is less than the `partition` specified by the
-`updateStrategy`.
+アップデート戦略が`RollingUpdate`であっても、StatefulSetが元のコンテナを持つPodをリストアしたことがわかります。これは、Podの順序インデックスが`updateStrategy`で指定した`partition`より小さいためです。
 
-#### Rolling Out a Canary
+#### カナリア版をロールアウトする {#rolling-out-a-canary}
 
-You can roll out a canary to test a modification by decrementing the `partition`
-you specified [above](#staging-an-update).
+[ステージングアップデート](#staging-an-update)のときに指定した`partition`を小さくすることで、変更をテストするためのカナリア版をロールアウトできます。
 
-Patch the StatefulSet to decrement the partition:
+StatefulSetにpatchを当てて、partitionを小さくします。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
@@ -694,7 +580,7 @@ kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpda
 statefulset.apps/web patched
 ```
 
-Wait for `web-2` to be Running and Ready.
+`web-2`がRunningかつReadyの状態になるまで待ちます。
 
 ```shell
 kubectl get pod -l app=nginx -w
@@ -707,7 +593,7 @@ web-2     0/1       ContainerCreating   0          11s
 web-2     1/1       Running   0         18s
 ```
 
-Get the Pod's container:
+Podのコンテナを取得します。
 
 ```shell
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
@@ -717,11 +603,9 @@ k8s.gcr.io/nginx-slim:0.7
 
 ```
 
-When you changed the `partition`, the StatefulSet controller automatically
-updated the `web-2` Pod because the Pod's ordinal was greater than or equal to
-the `partition`.
+`partition`を変更すると、StatefulSetコントローラーはPodを自動的に更新します。Podの順序インデックスが`partition`以上の値であるためです。
 
-Delete the `web-1` Pod:
+`web-1`Podを削除します。
 
 ```shell
 kubectl delete pod web-1
@@ -730,12 +614,12 @@ kubectl delete pod web-1
 pod "web-1" deleted
 ```
 
-Wait for the `web-1` Pod to be Running and Ready.
+`web-1`PodがRunningかつReadyになるまで待ちます。
 
 ```shell
 kubectl get pod -l app=nginx -w
 ```
-The output is similar to:
+出力は次のようになります。
 ```
 NAME      READY     STATUS        RESTARTS   AGE
 web-0     1/1       Running       0          6m
@@ -750,7 +634,7 @@ web-1     0/1       ContainerCreating   0         0s
 web-1     1/1       Running   0         18s
 ```
 
-Get the `web-1` Pod's container image:
+`web-1`Podのコンテナイメージを取得します。
 
 ```shell
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
@@ -759,22 +643,13 @@ kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image
 k8s.gcr.io/nginx-slim:0.8
 ```
 
-`web-1` was restored to its original configuration because the Pod's ordinal
-was less than the partition. When a partition is specified, all Pods with an
-ordinal that is greater than or equal to the partition will be updated when the
-StatefulSet's `.spec.template` is updated. If a Pod that has an ordinal less
-than the partition is deleted or otherwise terminated, it will be restored to
-its original configuration.
+Podの順序インデックスがpartitionよりも小さいため、`web-1`は元の設定のコンテナイメージにリストアされました。partitionを指定すると、StatefulSetの`.spec.template`が更新されたときに、順序インデックスがそれ以上の値を持つすべてのPodがアップデートされます。partitionよりも小さな順序インデックスを持つPodが削除されたり終了されたりすると、元の設定のPodにリストアされます。
 
-#### Phased Roll Outs
+#### フェーズロールアウト
 
-You can perform a phased roll out (e.g. a linear, geometric, or exponential
-roll out) using a partitioned rolling update in a similar manner to how you
-rolled out a [canary](#rolling-out-a-canary). To perform a phased roll out, set
-the `partition` to the ordinal at which you want the controller to pause the
-update.
+[カナリア版](#rolling-out-a-canary)をロールアウトするのと同じような方法でパーティションされたローリングアップデートを使用すると、フェーズロールアウト(例: 線形、幾何級数的、指数関数的ロールアウト)を実行できます。フェーズロールアウトを実行するには、コントローラーがアップデートを途中で止めてほしい順序インデックスを`partition`に設定します。
 
-The partition is currently set to `2`. Set the partition to `0`:
+現在、partitionは`2`に設定されています。partitionを`0`に設定します。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":0}}}}'
@@ -783,12 +658,12 @@ kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpda
 statefulset.apps/web patched
 ```
 
-Wait for all of the Pods in the StatefulSet to become Running and Ready.
+StatefulSet内のすべてのPodがRunningかつReadyの状態になるまで待ちます。
 
 ```shell
 kubectl get pod -l app=nginx -w
 ```
-The output is similar to:
+出力は次のようになります。
 ```
 NAME      READY     STATUS              RESTARTS   AGE
 web-0     1/1       Running             0          3m
@@ -807,7 +682,7 @@ web-0     0/1       ContainerCreating   0         0s
 web-0     1/1       Running   0         3s
 ```
 
-Get the container image details for the Pods in the StatefulSet:
+StatefulSet内のPodのコンテナイメージの詳細を取得します。
 
 ```shell
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
@@ -818,36 +693,25 @@ k8s.gcr.io/nginx-slim:0.7
 k8s.gcr.io/nginx-slim:0.7
 ```
 
-By moving the `partition` to `0`, you allowed the StatefulSet to
-continue the update process.
+`partition`を`0`に移動することで、StatefulSetがアップデート処理を続けられるようにできます。
 
-### On Delete
+### OnDelete
 
-The `OnDelete` update strategy implements the legacy (1.6 and prior) behavior,
-When you select this update strategy, the StatefulSet controller will not
-automatically update Pods when a modification is made to the StatefulSet's
-`.spec.template` field. This strategy can be selected by setting the
-`.spec.template.updateStrategy.type` to `OnDelete`.
+`OnDelete`アップデート戦略は、(1.6以前の)レガシーな動作を実装しています。このアップデート戦略を選択すると、StatefulSetの`.spec.template`フィールドへ変更を加えても、StatefulSetコントローラーが自動的にPodを更新しなくなります。この戦略を選択するには、`.spec.template.updateStrategy.type`に`OnDelete`を設定します。
 
+## StatefulSetを削除する
 
-## Deleting StatefulSets
+StatefulSetは、非カスケードな削除とカスケードな削除の両方をサポートしています。非カスケードな削除では、StatefulSetが削除されても、StatefulSet内のPodは削除されません。カスケードな削除では、StatefulSetとPodが一緒に削除されます。
 
-StatefulSet supports both Non-Cascading and Cascading deletion. In a
-Non-Cascading Delete, the StatefulSet's Pods are not deleted when the StatefulSet is deleted. In a Cascading Delete, both the StatefulSet and its Pods are
-deleted.
+### 非カスケードな削除
 
-### Non-Cascading Delete
-
-In one terminal window, watch the Pods in the StatefulSet.
+1つ目のターミナルで、StatefulSet内のPodを監視します
 
 ```
 kubectl get pods -w -l app=nginx
 ```
 
-Use [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) to delete the
-StatefulSet. Make sure to supply the `--cascade=false` parameter to the
-command. This parameter tells Kubernetes to only delete the StatefulSet, and to
-not delete any of its Pods.
+[`kubectl delete`](/ja/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetを削除します。このとき、`--cascade=false`パラメーターをコマンドに与えてください。このパラメーターは、Kubernetesに対して、StatefulSetだけを削除して配下のPodは削除しないように指示します。
 
 ```shell
 kubectl delete statefulset web --cascade=false
@@ -856,7 +720,7 @@ kubectl delete statefulset web --cascade=false
 statefulset.apps "web" deleted
 ```
 
-Get the Pods, to examine their status:
+Podを取得して、ステータスを確認します。
 
 ```shell
 kubectl get pods -l app=nginx
@@ -868,8 +732,7 @@ web-1     1/1       Running   0          7m
 web-2     1/1       Running   0          5m
 ```
 
-Even though `web` has been deleted, all of the Pods are still Running and Ready.
-Delete `web-0`:
+`web`が削除されても、すべてのPodはまだRunningかつReadyの状態のままです。`web-0`を削除します。
 
 ```shell
 kubectl delete pod web-0
@@ -878,7 +741,7 @@ kubectl delete pod web-0
 pod "web-0" deleted
 ```
 
-Get the StatefulSet's Pods:
+StatefulSetのPodを取得します。
 
 ```shell
 kubectl get pods -l app=nginx
@@ -889,17 +752,15 @@ web-1     1/1       Running   0          10m
 web-2     1/1       Running   0          7m
 ```
 
-As the `web` StatefulSet has been deleted, `web-0` has not been relaunched.
+`web`StatefulSetはすでに削除されているため、`web-0`は再起動しません。
 
-In one terminal, watch the StatefulSet's Pods.
+1つ目のターミナルで、StatefulSetのPodを監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-In a second terminal, recreate the StatefulSet. Note that, unless
-you deleted the `nginx` Service (which you should not have), you will see
-an error indicating that the Service already exists.
+2つ目のターミナルで、StatefulSetを再作成します。もし`nginx`Serviceを削除しなかった場合(この場合は削除するべきではありませんでした)、Serviceがすでに存在することを示すエラーが表示されます。
 
 ```shell
 kubectl apply -f web.yaml
@@ -909,10 +770,9 @@ statefulset.apps/web created
 service/nginx unchanged
 ```
 
-Ignore the error. It only indicates that an attempt was made to create the _nginx_
-headless Service even though that Service already exists.
+このエラーは無視してください。このメッセージは、すでに存在する _nginx_ というheadless Serviceを作成しようと試みたということを示しているだけです。
 
-Examine the output of the `kubectl get` command running in the first terminal.
+1つ目のターミナルで、`kubectl get`コマンドの出力を確認します。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -932,15 +792,9 @@ web-2     0/1       Terminating   0         3m
 web-2     0/1       Terminating   0         3m
 ```
 
-When the `web` StatefulSet was recreated, it first relaunched `web-0`.
-Since `web-1` was already Running and Ready, when `web-0` transitioned to
- Running and Ready, it simply adopted this Pod. Since you recreated the StatefulSet
- with `replicas` equal to 2, once `web-0` had been recreated, and once
- `web-1` had been determined to already be Running and Ready, `web-2` was
- terminated.
+ `web`StatefulSetが再作成されると、最初に`web-0`を再実行します。`web-1`はすでにRunningかつReadyの状態であるため、`web-0`がRunningかつReadyの状態に移行すると、StatefulSetは単純にこのPodを選びます。StatefulSetを`replicas`を2にして再作成したため、一度`web-0`が再作成されて、`web-1`がすでにRunningかつReadyの状態であることが判明したら、`web-2`は停止されます。
 
-Let's take another look at the contents of the `index.html` file served by the
-Pods' webservers:
+Podのウェブサーバーが配信している`index.html`ファイルのコンテンツをもう一度見てみましょう。
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -950,22 +804,17 @@ web-0
 web-1
 ```
 
-Even though you deleted both the StatefulSet and the `web-0` Pod, it still
-serves the hostname originally entered into its `index.html` file. This is
-because the StatefulSet never deletes the PersistentVolumes associated with a
-Pod. When you recreated the StatefulSet and it relaunched `web-0`, its original
-PersistentVolume was remounted.
+たとえStatefulSetと`web-0`Podの両方が削除されても、Podは最初に`index.html`ファイルに書き込んだホスト名をまだ配信しています。これは、StatefulSetがPodに紐付けられたPersistentVolumeを削除しないためです。StatefulSetを再作成して`web-0`を再実行すると、元のPersistentVolumeが再マウントされます。
 
-### Cascading Delete
+### カスケードな削除
 
-In one terminal window, watch the Pods in the StatefulSet.
+1つ目のターミナルで、StatefulSet内のPodを監視します。
 
 ```shell
 kubectl get pods -w -l app=nginx
 ```
 
-In another terminal, delete the StatefulSet again. This time, omit the
-`--cascade=false` parameter.
+2つ目のターミナルで、StatefulSetをもう一度削除します。今回は、`--cascade=false`パラメーターを省略します。
 
 ```shell
 kubectl delete statefulset web
@@ -973,8 +822,8 @@ kubectl delete statefulset web
 ```
 statefulset.apps "web" deleted
 ```
-Examine the output of the `kubectl get` command running in the first terminal,
-and wait for all of the Pods to transition to Terminating.
+
+1つ目のターミナルで実行している`kubectl get`コマンドの出力を確認し、すべてのPodがTerminatingの状態に変わるまで待ちます。
 
 ```shell
 kubectl get pods -w -l app=nginx
@@ -995,15 +844,10 @@ web-1     0/1       Terminating   0         29m
 
 ```
 
-As you saw in the [Scaling Down](#scaling-down) section, the Pods
-are terminated one at a time, with respect to the reverse order of their ordinal
-indices. Before terminating a Pod, the StatefulSet controller waits for
-the Pod's successor to be completely terminated.
+[スケールダウン](#scaling-down)のセクションで見たように、順序インデックスの逆順に従って、Podは一度に1つずつ終了します。StatefulSetコントローラーは、次のPodを終了する前に、前のPodが完全に終了するまで待ちます。
 
 {{< note >}}
-Although a cascading delete removes a StatefulSet together with its Pods,
-the cascade does not delete the headless Service associated with the StatefulSet.
-You must delete the `nginx` Service manually.
+カスケードな削除ではStatefulSetがPodとともに削除されますが、StatefulSetと紐付けられたheadless Serviceは削除されません。そのため、`nginx`Serviceは手動で削除する必要があります。
 {{< /note >}}
 
 
@@ -1014,7 +858,7 @@ kubectl delete service nginx
 service "nginx" deleted
 ```
 
-Recreate the StatefulSet and headless Service one more time:
+さらにもう一度、StatefulSetとheadless Serviceを再作成します。
 
 ```shell
 kubectl apply -f web.yaml
@@ -1024,8 +868,7 @@ service/nginx created
 statefulset.apps/web created
 ```
 
-When all of the StatefulSet's Pods transition to Running and Ready, retrieve
-the contents of their `index.html` files:
+StatefulSet上のすべてのPodがRunningかつReadyの状態に変わったら、Pod上の`index.html`ファイルのコンテンツを取得します。
 
 ```shell
 for i in 0 1; do kubectl exec -i -t "web-$i" -- curl http://localhost/; done
@@ -1035,11 +878,9 @@ web-0
 web-1
 ```
 
-Even though you completely deleted the StatefulSet, and all of its Pods, the
-Pods are recreated with their PersistentVolumes mounted, and `web-0` and
-`web-1` continue to serve their hostnames.
+StatefulSetを完全に削除して、すべてのPodが削除されたとしても、PersistentVolumeがマウントされたPodが再生成されて、`web-0`と`web-1`はホスト名の配信を続けます。
 
-Finally, delete the `web` StatefulSet...
+最後に、`web`StatefulSetを削除します。
 
 ```shell
 kubectl delete service nginx
@@ -1047,7 +888,7 @@ kubectl delete service nginx
 ```
 service "nginx" deleted
 ```
-...and the `nginx` Service:
+そして、`nginx`Serviceも削除します。
 ```shell
 kubectl delete statefulset web
 ```
@@ -1055,40 +896,31 @@ kubectl delete statefulset web
 statefulset "web" deleted
 ```
 
-## Pod Management Policy
+## Pod管理ポリシー
 
-For some distributed systems, the StatefulSet ordering guarantees are
-unnecessary and/or undesirable. These systems require only uniqueness and
-identity. To address this, in Kubernetes 1.7, we introduced
-`.spec.podManagementPolicy` to the StatefulSet API Object.
+分散システムによっては、StatefulSetの順序の保証が不必要であったり望ましくない場合もあります。こうしたシステムでは、一意性と同一性だけが求められます。この問題に対処するために、Kubernetes 1.7でStatefulSet APIオブジェクトに`.spec.podManagementPolicy`が導入されました。
 
-### OrderedReady Pod Management
+### OrderedReadyのPod管理
 
-`OrderedReady` pod management is the default for StatefulSets. It tells the
-StatefulSet controller to respect the ordering guarantees demonstrated
-above.
+`OrderedReady`のPod管理はStatefulSetのデフォルトの設定です。StatefulSetコントローラーに対して、これまでに紹介したような順序の保証を尊重するように指示します。
 
-### Parallel Pod Management
+### ParallelのPod管理
 
-`Parallel` pod management tells the StatefulSet controller to launch or
-terminate all Pods in parallel, and not to wait for Pods to become Running
-and Ready or completely terminated prior to launching or terminating another
-Pod.
+`Parallel`のPod管理では、StatefulSetコントローラーに対して、PodがRunningかつReadyの状態や完全に停止するまで待たないように指示し、すべてのPodを並列に起動または停止させるようにします。
 
 {{< codenew file="application/web/web-parallel.yaml" >}}
 
-Download the example above, and save it to a file named `web-parallel.yaml`
+上の例をダウンロードして、`web-parallel.yaml`という名前でファイルに保存してください。
 
-This manifest is identical to the one you downloaded above except that the `.spec.podManagementPolicy`
-of the `web` StatefulSet is set to `Parallel`.
+このマニフェストは、`.spec.podManagementPolicy`が`Parallel`に設定されている以外は、前にダウンロードした`web`StatefulSetと同一です。
 
-In one terminal, watch the Pods in the StatefulSet.
+1つ目のターミナルで、StatefulSet内のPodを監視します。
 
 ```shell
 kubectl get pod -l app=nginx -w
 ```
 
-In another terminal, create the StatefulSet and Service in the manifest:
+2つ目のターミナルで、マニフェスト内のStatefulSetとServiceを作成します。
 
 ```shell
 kubectl apply -f web-parallel.yaml
@@ -1098,7 +930,7 @@ service/nginx created
 statefulset.apps/web created
 ```
 
-Examine the output of the `kubectl get` command that you executed in the first terminal.
+1つ目のターミナルで実行した`kubectl get`コマンドの出力を確認します。
 
 ```shell
 kubectl get pod -l app=nginx -w
@@ -1115,10 +947,9 @@ web-0     1/1       Running   0         10s
 web-1     1/1       Running   0         10s
 ```
 
-The StatefulSet controller launched both `web-0` and `web-1` at the same time.
+StatefulSetコントローラーは`web-0`と`web-1`を同時に起動しています。
 
-Keep the second terminal open, and, in another terminal window scale the
-StatefulSet:
+2つ目のターミナルで、StatefulSetをスケールしてみます。
 
 ```shell
 kubectl scale statefulset/web --replicas=4
@@ -1127,7 +958,7 @@ kubectl scale statefulset/web --replicas=4
 statefulset.apps/web scaled
 ```
 
-Examine the output of the terminal where the `kubectl get` command is running.
+`kubectl get`コマンドを実行しているターミナルの出力を確認します。
 
 ```
 web-3     0/1       Pending   0         0s
@@ -1138,21 +969,19 @@ web-2     1/1       Running   0         10s
 web-3     1/1       Running   0         26s
 ```
 
-
-The StatefulSet launched two new Pods, and it did not wait for
-the first to become Running and Ready prior to launching the second.
+StatefulSetが2つのPodを実行し、1つ目のPodがRunningかつReadyの状態になるのを待たずに2つ目のPodを実行しているのがわかります。
 
 ## {{% heading "cleanup" %}}
 
-You should have two terminals open, ready for you to run `kubectl` commands as
-part of cleanup.
+2つのターミナルが開かれているはずなので、クリーンアップの一部として`kubectl`コマンドを実行する準備ができています。
 
 ```shell
 kubectl delete sts web
-# sts is an abbreviation for statefulset
+# stsは、statefulsetの略です。
 ```
 
-You can watch `kubectl get` to see those Pods being deleted.
+`kubectl get`を監視すると、Podが削除されていく様子を確認できます。
+
 ```shell
 kubectl get pod -l app=nginx -w
 ```
@@ -1182,22 +1011,16 @@ web-3     0/1       Terminating   0         9m
 web-3     0/1       Terminating   0         9m
 ```
 
-During deletion, a StatefulSet removes all Pods concurrently; it does not wait for
-a Pod's ordinal successor to terminate prior to deleting that Pod.
+削除の間、StatefulSetはすべてのPodを並列に削除し、順序インデックスが1つ前のPodが停止するのを待つことはありません。
 
-Close the terminal where the `kubectl get` command is running and delete the `nginx`
-Service:
+`kubectl get`コマンドを実行しているターミナルを閉じて、`nginx`Serviceを削除します。
 
 ```shell
 kubectl delete svc nginx
 ```
 
-
 {{< note >}}
-You also need to delete the persistent storage media for the PersistentVolumes
-used in this tutorial.
+このチュートリアルで使用したPersistentVolumeのための永続ストレージも削除する必要があります。
 
-
-Follow the necessary steps, based on your environment, storage configuration,
-and provisioning method, to ensure that all storage is reclaimed.
+すべてのストレージが再利用できるようにするために、環境、ストレージの設定、プロビジョニング方法に基づいて必要な手順に従ってください。
 {{< /note >}}

@@ -1,5 +1,5 @@
 ---
-title: "Stateful Applications"
+title: "ステートフルアプリケーション"
 weight: 50
 ---
 
