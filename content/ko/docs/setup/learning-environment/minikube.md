@@ -194,7 +194,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 
 클러스터를 시작하기 위해서 `minikube start` 커멘드를 사용할 수 있다.
 이 커멘드는 단일 노드 쿠버네티스 클러스터를 구동하는 가상 머신을 생성하고 구성한다.
-이 커멘드는 또한 [kubectl](/docs/user-guide/kubectl-overview/)도 설정해서 클러스터와 통신할 수 있도록 한다.
+이 커멘드는 또한 [kubectl](/ko/docs/reference/kubectl/overview/)도 설정해서 클러스터와 통신할 수 있도록 한다.
 
 {{< note >}}
 웹 프록시 뒤에 있다면, `minikube start` 커맨드에 해당 정보를 전달해야 한다.

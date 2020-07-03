@@ -152,7 +152,7 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 {{< /note >}}
 
 이 기술을 사용하는 문서의 예로
-[단일 인스턴스 스테이트풀 어플리케이션 실행](/docs/tutorials/stateful-application/run-stateful-application/)을 참조하자.
+[단일 인스턴스 스테이트풀 어플리케이션 실행](/ko/docs/tasks/run-application/run-single-instance-stateful-application/)을 참조하자.
 
 ## 문서에 이미지 추가
 
