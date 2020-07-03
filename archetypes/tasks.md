@@ -7,7 +7,11 @@ content_type: task
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
+
+<!-- If you set the min-kubernetes-server-version parameter in the page's front matter,
+    add the version check shortcode {{< version-check >}}.
+-->
 
 <!-- steps -->
 
