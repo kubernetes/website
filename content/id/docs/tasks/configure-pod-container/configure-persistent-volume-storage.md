@@ -1,10 +1,10 @@
 ---
 title: Mengatur Pod untuk Penyimpanan dengan PersistentVolume
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini akan menjelaskan bagaimana kamu dapat mengatur sebuah Pod dengan menggunakan
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
@@ -19,9 +19,10 @@ PersistentVolumeClaim yang secara otomatis terikat dengan PersistentVolume yang 
 
 3. Kamu membuat sebuah Pod yang menggunakan PersistentVolumeClaim di atas untuk penyimpanan.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Kamu membutuhkan sebuah klaster Kubernetes yang hanya memiliki satu Node, dan 
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
@@ -32,9 +33,9 @@ tidak memiliki sebuah klaster dengan Node tunggal, kamu dapat membuatnya dengan
 * Familiar dengan materi di
 [Persistent Volumes](/id/docs/concepts/storage/persistent-volumes/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Membuat sebuah berkas index.html di dalam Node kamu
 
@@ -235,10 +236,10 @@ sudo rmdir /mnt/data
 
 Sekarang kamu dapat menutup _shell_ Node kamu.
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Kontrol akses
 
@@ -266,10 +267,11 @@ Ketika sebuah Pod mengkonsumsi PersistentVolume, GID yang terkait dengan Persist
 tidak ada di dalam sumberdaya Pod itu sendiri.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Belajar lebih lanjut tentang [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/).
 * Baca [dokumen perancangan Penyimpanan _Persistent_](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
@@ -281,4 +283,4 @@ tidak ada di dalam sumberdaya Pod itu sendiri.
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
 
-{{% /capture %}}
+

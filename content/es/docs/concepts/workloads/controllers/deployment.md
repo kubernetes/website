@@ -5,11 +5,11 @@ feature:
   description: >
     Kubernetes despliega los cambios a tu aplicación o su configuración de forma progresiva mientras monitoriza la salud de la aplicación para asegurarse que no elimina todas tus instancias al mismo tiempo. Si algo sale mal, Kubernetes revertirá el cambio por ti. Aprovéchate del creciente ecosistema de soluciones de despliegue.
 
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un controlador de _Deployment_ proporciona actualizaciones declarativas para los [Pods](/docs/concepts/workloads/pods/pod/) y los
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
@@ -23,10 +23,10 @@ Todos los casos de uso deberían cubrirse manipulando el objeto Deployment.
 Considera la posibilidad de abrir un incidente en el repositorio principal de Kubernetes si tu caso de uso no está soportado por el motivo que sea.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Casos de uso
 
@@ -1107,4 +1107,4 @@ no generará nuevos despliegues mientras esté pausado. Un Deployment se pausa d
 de forma similar. Pero se recomienda el uso de Deployments porque se declaran del lado del servidor, y proporcionan características adicionales
 como la posibilidad de retroceder a revisiones anteriores incluso después de haber terminado una actualización continua.
 
-{{% /capture %}}
+
