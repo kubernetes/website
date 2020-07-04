@@ -1,6 +1,6 @@
 ---
 title: 파드 실패의 원인 검증하기
-content_template: templates/task
+content_type: task
 ---
 
 <!-- overview -->

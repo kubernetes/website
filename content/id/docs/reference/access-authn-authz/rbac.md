@@ -1,16 +1,16 @@
 ---
 title: Menggunakan Otorisasi RBAC
-content_template: templates/concept
+content_type: concept
 aliases: [../../../rbac/]
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kontrol akses berbasis peran (RBAC) adalah metode pengaturan akses ke sumber daya komputer 
 atau jaringan berdasarkan peran pengguna individu dalam organisasi kamu.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 Otorisasi RBAC menggunakan `rbac.authorization.k8s.io` kelompok API untuk mengendalikan keputusan
 otorisasi, memungkinkan kamu untuk mengkonfigurasi kebijakan secara dinamis melalui API Kubernetes.
 
@@ -1192,4 +1192,4 @@ kubectl create clusterrolebinding permissive-binding \
 After you have transitioned to use RBAC, you should adjust the access controls
 for your cluster to ensure that these meet your information security needs.
 
-{{% /capture %}}
+

@@ -1,24 +1,25 @@
 ---
 title: Mendapatkan Shell Untuk Masuk ke Container yang Sedang Berjalan
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menunjukkan bagaimana cara menggunakan `kubectl exec` untuk 
 mendapatkan _shell_ untuk masuk ke dalam Container yang sedang berjalan.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mendapatkan sebuah _shell_ untuk masuk ke sebuah Container
 
@@ -118,9 +119,9 @@ kubectl exec shell-demo ls /
 kubectl exec shell-demo cat /proc/1/mounts
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Membuka sebuah _shell_ ketika sebuah Pod memiliki lebih dari satu Container
 
@@ -134,14 +135,15 @@ _shell_ ke Container dengan nama main-app.
 kubectl exec -it my-pod --container main-app -- /bin/bash
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
 
-{{% /capture %}}
+
 
 
 

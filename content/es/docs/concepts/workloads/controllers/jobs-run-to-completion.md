@@ -1,6 +1,6 @@
 ---
 title: Jobs - Ejecución hasta el final
-content_template: templates/concept
+content_type: concept
 feature:
   title: Ejecución en lotes
   description: >
@@ -8,7 +8,7 @@ feature:
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un Job crea uno o más Pods y se asegura de que un número específico de ellos termina de forma satisfactoria.
 Conforme los pods terminan satisfactoriamente, el Job realiza el seguimiento de las ejecuciones satisfactorias.
@@ -21,10 +21,10 @@ como consecuencia de un fallo de hardware o un reinicio en un nodo).
 
 También se puede usar un Job para ejecutar múltiples Pods en paralelo.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ejecutar un Job de ejemplo
 
@@ -454,4 +454,4 @@ además del control completo de los Pods que se crean y cómo se les asigna trab
 Puedes utilizar un [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) para crear un Job que se ejecute en una hora/fecha determinadas, de forma similar
 a la herramienta `cron` de Unix.
 
-{{% /capture %}}
+
