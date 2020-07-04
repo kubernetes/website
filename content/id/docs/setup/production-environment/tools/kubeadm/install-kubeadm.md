@@ -264,7 +264,7 @@ systemctl enable --now kubelet
 
 Sekarang kubelet akan melakukan _restart_ setiap beberapa detik, sambil menunggu dalam kondisi _crashloop_ sampai kubeadm memberikan instruksi yang harus dilakukan.
 
-## Mengonfigurasi _driver_ cgroup yang digunakan oleh kubelet pada Node _control-plane_
+## Mengonfigurasi _driver_ cgroup yang digunakan oleh kubelet pada Node _control-plane_ {#mengonfigurasi-cgroup-untuk-kubelet-pada-node-control-plane}
 
 Ketika menggunakan Docker, kubeadm akan mendeteksi secara otomatis _driver_ cgroup untuk kubelet
 dan mengaturnya pada berkas `/var/lib/kubelet/config.yaml` pada saat _runtime_.
