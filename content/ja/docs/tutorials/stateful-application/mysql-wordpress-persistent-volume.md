@@ -1,37 +1,37 @@
 ---
-title: "Example: Deploying WordPress and MySQL with Persistent Volumes"
+title: "例: Persistent Volumeを使用したWordpressとMySQLをデプロイする"
 content_type: tutorial
 weight: 20
 card:
   name: tutorials
   weight: 40
-  title: "Stateful Example: Wordpress with Persistent Volumes"
+  title: "ステートフルの例: Persistent Volumeを使用したWordpress"
 ---
 
 <!-- overview -->
-This tutorial shows you how to deploy a WordPress site and a MySQL database using Minikube. Both applications use PersistentVolumes and PersistentVolumeClaims to store data.
+このチュートリアルでは、WordPressのサイトとMySQLデータベースをMinikubeを使ってデプロイする方法を紹介します。2つのアプリケーションとも、データを保存するためにPersistentVolumeとPersistentVolumeClaimを使用します。
 
-A [PersistentVolume](/docs/concepts/storage/persistent-volumes/) (PV) is a piece of storage in the cluster that has been manually provisioned by an administrator, or dynamically provisioned by Kubernetes using a [StorageClass](/docs/concepts/storage/storage-classes).  A [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVC) is a request for storage by a user that can be fulfilled by a PV. PersistentVolumes and PersistentVolumeClaims are independent from Pod lifecycles and preserve data through restarting, rescheduling, and even deleting Pods.
+[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)(PV)とは、管理者が手動でプロビジョニングを行うか、[StorageClass](/docs/concepts/storage/storage-classes)を使ってKubernetesによって動的にプロビジョニングされた、ストレージから切り出された部分のことです。[PersistentVolumeClaim](/ja/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)(PVC)は、PVによって満たすことができる、ユーザーによるストレージへのリクエストのことです。PersistentVolumeとPersistentVolumeClaimは、Podのライフサイクルからは独立していて、Podの再起動、Podの再スケジューリング、さらにはPodの削除が行われたとしても、その中のデータは削除されずに残ります。
 
 {{< warning >}}
-This deployment is not suitable for production use cases, as it uses single instance WordPress and MySQL Pods. Consider using [WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress) to deploy WordPress in production.
+シングルインスタンスのWordPressとMySQLのPodを使用しているため、ここで行うデプロイは本番のユースケースには適しません。WordPressを本番環境にデプロイするときは、[WordPress Helm Chart](https://github.com/kubernetes/charts/tree/master/stable/wordpress)を使用することを検討してください。
 {{< /warning >}}
 
 {{< note >}}
-The files provided in this tutorial are using GA Deployment APIs and are specific to kubernetes version 1.9 and later. If you wish to use this tutorial with an earlier version of Kubernetes, please update the API version appropriately, or reference earlier versions of this tutorial.
+このチュートリアルで提供されるファイルは、GAとなっているDeployment APIを使用しているため、Kubernetesバージョン1.9以降のためのものになっています。もしこのチュートリアルを古いバージョンのKubernetesで使いたい場合は、PAIのバージョンを適切にアップデートするか、このチュートリアルの古いバージョンを参照してください。
 {{< /note >}}
 
 
 
 ## {{% heading "objectives" %}}
 
-* Create PersistentVolumeClaims and PersistentVolumes
-* Create a `kustomization.yaml` with
-  * a Secret generator
-  * MySQL resource configs
-  * WordPress resource configs
-* Apply the kustomization directory by `kubectl apply -k ./`
-* Clean up
+* PersistentVolumeClaimとPersistentVolumeを作成する
+* 以下を含む`kustomization.yaml`を作成する
+  * Secret generator
+  * MySQLリソースの設定
+  * WordPressリソースの設定
+* kustomizationディレクトリを`kubectl apply -k ./`で適用する
+* クリーンアップする
 
 
 
@@ -39,9 +39,9 @@ The files provided in this tutorial are using GA Deployment APIs and are specifi
 
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-The example shown on this page works with `kubectl` 1.14 and above.
+このページで示された例は、`kubectl` 1.14以降で動作します。
 
-Download the following configuration files:
+以下の設定ファイルをダウンロードします。
 
 1. [mysql-deployment.yaml](/examples/application/wordpress/mysql-deployment.yaml)
 
@@ -51,32 +51,33 @@ Download the following configuration files:
 
 <!-- lessoncontent -->
 
-## Create PersistentVolumeClaims and PersistentVolumes
+## PersistentVolumeClaimとPersistentVolumeを作成する
 
-MySQL and Wordpress each require a PersistentVolume to store data.  Their PersistentVolumeClaims will be created at the deployment step.
+MySQLとWordpressはそれぞれ、データを保存するためのPersistentVolumeを必要とします。各PersistentVolumeClaimはデプロイの段階で作成されます。
 
-Many cluster environments have a default StorageClass installed.  When a StorageClass is not specified in the PersistentVolumeClaim, the cluster's default StorageClass is used instead.
+多くのクラスタ環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
 
-When a PersistentVolumeClaim is created, a PersistentVolume is dynamically provisioned based on the StorageClass configuration.
+PersistentVolumeClaimが作成されるとき、StorageClassの設定に基づいてPersistentVolumeが動的にプロビジョニングされます。
 
 {{< warning >}}
-In local clusters, the default StorageClass uses the `hostPath` provisioner.  `hostPath` volumes are only suitable for development and testing. With `hostPath` volumes, your data lives in `/tmp` on the node the Pod is scheduled onto and does not move between nodes. If a Pod dies and gets scheduled to another node in the cluster, or the node is rebooted, the data is lost.
+ローカルのクラスターでは、デフォルトのStorageClassには`hostPath`プロビジョナーが使われます。`hostPath`ボリュームは開発およびテストにのみ適しています。`hostPath`ボリュームでは、データはPodがスケジュールされたノード上の`/tmp`内に保存されます。そのため、もしPodが死んだり、クラスター上の他のノードにスケジュールされたり、ノードが再起動すると、データは失われます。
 {{< /warning >}}
 
 {{< note >}}
-If you are bringing up a cluster that needs to use the `hostPath` provisioner, the `--enable-hostpath-provisioner` flag must be set in the `controller-manager` component.
+`hostPath`プロビジョナーを使う必要があるクラスターを立ち上げたい場合は、`controller-manager`内に`--enable-hostpath-provisioner`フラグを設定しなければなりません。
 {{< /note >}}
 
 {{< note >}}
-If you have a Kubernetes cluster running on Google Kubernetes Engine, please follow [this guide](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk).
+Google Kubernetes Engine上で動作するKubernetesクラスターを使っている場合は、[このガイド](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-disk?hl=ja)に従ってください。
 {{< /note >}}
 
-## Create a kustomization.yaml
+## kustomization.yamlを作成する
 
-### Add a Secret generator
-A [Secret](/docs/concepts/configuration/secret/) is an object that stores a piece of sensitive data like a password or key. Since 1.14, `kubectl` supports the management of Kubernetes objects using a kustomization file. You can create a Secret by generators in `kustomization.yaml`.
+### Secret generatorを追加する
 
-Add a Secret generator in `kustomization.yaml` from the following command. You will need to replace `YOUR_PASSWORD` with the password you want to use.
+[Secret](/docs/concepts/configuration/secret/)とは、パスワードやキーのような機密性の高いデータ片を保存するためのオブジェクトです。バージョン1.14からは、`kubectl`がkustomizationファイルを使用したKubernetesオブジェクトの管理をサポートしています。`kustomization.yaml`内のgeneratorによってSecretを作成することができます。
+
+以下のコマンドを実行して、`kustomization.yaml`の中にSecret generatorを追加します。`YOUR_PASSWORD`の部分を使いたいパスワードに置換してください。
 
 ```shell
 cat <<EOF >./kustomization.yaml
@@ -87,32 +88,30 @@ secretGenerator:
 EOF
 ```
 
-## Add resource configs for MySQL and WordPress
+## MySQLとWordPressのためのリソースの設定を追加する
 
-The following manifest describes a single-instance MySQL Deployment. The MySQL container mounts the PersistentVolume at /var/lib/mysql. The `MYSQL_ROOT_PASSWORD` environment variable sets the database password from the Secret.
+以下のマニフェストには、シングルインスタンスのMySQLのDeploymentが書かれています。MySQLコンテナはPersistentVolumeを`/var/lib/mysql`にマウントします。`MYSQL_ROOT_PASSWORD`環境変数には、Secretから得られたデータベースのパスワードが設定されます。
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
-The following manifest describes a single-instance WordPress Deployment. The WordPress container mounts the
-PersistentVolume at `/var/www/html` for website data files. The `WORDPRESS_DB_HOST` environment variable sets
-the name of the MySQL Service defined above, and WordPress will access the database by Service. The
-`WORDPRESS_DB_PASSWORD` environment variable sets the database password from the Secret kustomize generated.
+以下のマニフェストには、シングルインスタンスのWordPressのDeploymentが書かれています。WordPressコンテナはPersistentVolumeをウェブサイトのデータファイルのために`/var/www/html`にマウントします。`WORDPRESS_DB_HOST`環境変数に上で定義したMySQLのServiceの名前を設定すると、WordPressはServiceによってデータバースにアクセスします。`WORDPRESS_DB_PASSWORD`環境変数には、kustomizeが生成したSecretから得たデータベースのパスワードが設定されます。
+
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
 
-1. Download the MySQL deployment configuration file.
+1. MySQLのDeploymentの設定ファイルをダウンロードします。
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/mysql-deployment.yaml
       ```
 
-2. Download the WordPress configuration file.
+2. WordPressの設定ファイルをダウンロードします。
 
       ```shell
       curl -LO https://k8s.io/examples/application/wordpress/wordpress-deployment.yaml
       ```
 
-3. Add them to `kustomization.yaml` file.
+3. これらを`kustomization.yaml`ファイルに追加します。
 
 ```shell
 cat <<EOF >>./kustomization.yaml
@@ -122,39 +121,40 @@ resources:
 EOF
 ```
 
-## Apply and Verify
-The `kustomization.yaml` contains all the resources for deploying a WordPress site and a
-MySQL database. You can apply the directory by
+## 適用と確認
+
+`kustomization.yaml`には、WordPressのサイトとMySQLデータベースのためのすべてのリソースが含まれています。次のコマンドでこのディレクトリを適用できます。
+
 ```shell
 kubectl apply -k ./
 ```
 
-Now you can verify that all objects exist.
+これで、すべてのオブジェクトが存在していることを確認できます。
 
-1. Verify that the Secret exists by running the following command:
+1. 次のコマンドを実行して、Secretが存在していることを確認します。
 
       ```shell
       kubectl get secrets
       ```
 
-      The response should be like this:
+      結果は次のようになるはずです。
 
       ```shell
       NAME                    TYPE                                  DATA   AGE
       mysql-pass-c57bb4t7mf   Opaque                                1      9s
       ```
 
-2. Verify that a PersistentVolume got dynamically provisioned.
+1. 次のコマンドを実行して、PersistentVolumeが動的にプロビジョニングされていることを確認します。
 
       ```shell
       kubectl get pvc
       ```
 
       {{< note >}}
-      It can take up to a few minutes for the PVs to be provisioned and bound.
+      PVがプロビジョニングされてバインドされるまでに、最大で数分かかる場合があります。
       {{< /note >}}
 
-      The response should be like this:
+      結果は次のようになるはずです。
 
       ```shell
       NAME             STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS       AGE
@@ -162,30 +162,30 @@ Now you can verify that all objects exist.
       wp-pv-claim      Bound     pvc-8cd0df54-4044-11e9-b2bb-42010a800002   20Gi       RWO            standard           77s
       ```
 
-3. Verify that the Pod is running by running the following command:
+3. 次のコマンドを実行して、Podが実行中であることを確認します。
 
       ```shell
       kubectl get pods
       ```
 
       {{< note >}}
-      It can take up to a few minutes for the Pod's Status to be `RUNNING`.
+      PodのStatusが`Running`の状態になる前に、最大で数分かかる場合があります。
       {{< /note >}}
 
-      The response should be like this:
+      結果は次のようになるはずです。
 
       ```
       NAME                               READY     STATUS    RESTARTS   AGE
       wordpress-mysql-1894417608-x5dzt   1/1       Running   0          40s
       ```
 
-4. Verify that the Service is running by running the following command:
+4. 次のコマンドを実行して、Serviceが実行中であることを確認します。
 
       ```shell
       kubectl get services wordpress
       ```
 
-      The response should be like this:
+      結果は次のようになるはずです。
 
       ```
       NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
@@ -193,29 +193,29 @@ Now you can verify that all objects exist.
       ```
 
       {{< note >}}
-      Minikube can only expose Services through `NodePort`. The EXTERNAL-IP is always pending.
+      MinikubeではServiceを`NodePort`経由でしか公開できません。EXTERNAL-IPは常にpendingのままになります。
       {{< /note >}}
 
-5. Run the following command to get the IP Address for the WordPress Service:
+5. 次のコマンドを実行して、WordPress ServiceのIPアドレスを取得します。
 
       ```shell
       minikube service wordpress --url
       ```
 
-      The response should be like this:
+      結果は次のようになるはずです。
 
       ```
       http://1.2.3.4:32406
       ```
 
-6. Copy the IP address, and load the page in your browser to view your site.
+6. IPアドレスをコピーして、ブラウザーで読み込み、サイトを表示しましょう。
 
-   You should see the WordPress set up page similar to the following screenshot.
+   WordPressによりセットアップされた次のスクリーンショットのようなページが表示されるはずです。
 
    ![wordpress-init](https://raw.githubusercontent.com/kubernetes/examples/master/mysql-wordpress-pd/WordPress.png)
 
 {{< warning >}}
-Do not leave your WordPress installation on this page. If another user finds it, they can set up a website on your instance and use it to serve malicious content. <br/><br/>Either install WordPress by creating a username and password or delete your instance.
+WordPressのインストールをこのページのまま放置してはいけません。もしほかのユーザーがこのページを見つけた場合、その人はインスタンス上にウェブサイトをセットアップして、悪意のあるコンテンツの配信に利用できてしまいます。<br/><br/>ユーザー名とパスワードを決めてWordPressをインストールするか、このインスタンスを削除してください。
 {{< /warning >}}
 
 
@@ -223,7 +223,7 @@ Do not leave your WordPress installation on this page. If another user finds it,
 ## {{% heading "cleanup" %}}
 
 
-1. Run the following command to delete your Secret, Deployments, Services and PersistentVolumeClaims:
+1. 次のコマンドを実行して、Secret、Deployment、Service、およびPersistentVolumeClaimを削除します。
 
       ```shell
       kubectl delete -k ./
@@ -234,10 +234,10 @@ Do not leave your WordPress installation on this page. If another user finds it,
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Introspection and Debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-* Learn more about [Jobs](/docs/concepts/workloads/controllers/job/)
-* Learn more about [Port Forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
-* Learn how to [Get a Shell to a Container](/docs/tasks/debug-application-cluster/get-shell-running-container/)
+* [イントロスペクションとデバッグ](/docs/tasks/debug-application-cluster/debug-application-introspection/)についてさらに学ぶ
+* [Job](/docs/concepts/workloads/controllers/job/)についてさらに学ぶ
+* [Portフォワーディング](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)についてさらに学ぶ
+* [コンテナへのシェルを取得する](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)方法について学ぶ
 
 
 
