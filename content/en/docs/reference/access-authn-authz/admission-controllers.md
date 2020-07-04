@@ -677,9 +677,6 @@ for more information.
 This admission controller acts on creation and modification of the pod and determines if it should be admitted
 based on the requested security context and the available Pod Security Policies.
 
-For Kubernetes < 1.6.0, the API Server must enable the extensions/v1beta1/podsecuritypolicy API
-extensions group (`--runtime-config=extensions/v1beta1/podsecuritypolicy=true`).
-
 See also [Pod Security Policy documentation](/docs/concepts/policy/pod-security-policy/)
 for more information.
 
