@@ -8,16 +8,13 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Si quieres empezar a contribuir a la documentación de Kubernetes esta página y su temas enlazados pueden ayudarte a empezar. No necesitas ser un desarrollador o saber escribir de forma técnica para tener un gran impacto en la documentación y experiencia de usuario en Kubernetes! Todo lo que necesitas para los temas en esta página es una [Cuenta en GitHub](https://github.com/join) y un navegador web.
 
 Si estas buscando información sobre cómo comenzar a contribuir a los repositorios de Kubernetes, entonces dirígete a [las guías de la comunidad Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md)
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Lo básico sobre nuestra documentación
 
@@ -205,10 +202,6 @@ Un caso de estudio destaca como organizaciones están usando Kubernetes para res
 
 Revisa el código fuente para ver los [casos de estudio existentes](https://github.com/kubernetes/website/tree/master/content/en/case-studies). Usa el formulario [Kubernetes case study submission form](https://www.cncf.io/people/end-user-community/) para enviar tu propuesta.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 Cuando entiendas mejor las tareas mostradas en este tema y quieras formar parte del equipo de documentación de Kubernetes de una forma más activa lee la [guía intermedia de contribución](/docs/contribute/intermediate/).
-
-{{% /capture %}}
