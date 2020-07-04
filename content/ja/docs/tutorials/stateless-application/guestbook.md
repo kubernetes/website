@@ -1,29 +1,29 @@
 ---
-title: "Example: Deploying PHP Guestbook application with Redis"
+title: "例: Redisを使用したPHPのゲストブックアプリケーションのデプロイ"
 content_type: tutorial
 weight: 20
 card:
   name: tutorials
   weight: 30
-  title: "Stateless Example: PHP Guestbook with Redis"
+  title: "ステートレスの例: Redisを使用したPHPのゲストブック"
 ---
 
 <!-- overview -->
-This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
+このチュートリアルでは、Kubernetesと[Docker](https://www.docker.com/)を使用した、シンプルなマルチティアのウェブアプリケーションのビルトとデプロイの方法を紹介します。この例は、以下のコンポーネントから構成されています。
 
-* A single-instance [Redis](https://redis.io/) master to store guestbook entries
-* Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads
-* Multiple web frontend instances
+* ゲストブックのエントリーを保存するための、シングルインスタンスの[Redis](https://redis.io/)マスター
+* 読み込みデータ配信用の、複数の[レプリケーションされたRedis](https://redis.io/topics/replication)インスタンス
+* 複数のウェブフロントエンドのインスタンス
 
 
 
 ## {{% heading "objectives" %}}
 
-* Start up a Redis master.
-* Start up Redis slaves.
-* Start up the guestbook frontend.
-* Expose and view the Frontend Service.
-* Clean up.
+* Redisのマスターを起動する。
+* Redisのスレーブを起動する。
+* ゲストブックのフロントエンドを起動する。
+* フロントエンドのServiceを公開して表示を確認する。
+* クリーンアップする。
 
 
 ## {{% heading "prerequisites" %}}
@@ -37,59 +37,59 @@ This tutorial shows you how to build and deploy a simple, multi-tier web applica
 
 <!-- lessoncontent -->
 
-## Start up the Redis Master
+## Redisのマスターを起動する
 
-The guestbook application uses Redis to store its data. It writes its data to a Redis master instance and reads data from multiple Redis slave instances.
+ゲストブックアプリケーションでは、データを保存するためにRedisを使用します。ゲストブックはRedisのマスターインスタンスにデータを書き込み、複数のRedisのスレーブインスタンスからデータを読み込みます。
 
-### Creating the Redis Master Deployment
+### RedisのマスターのDeploymentを作成する
 
-The manifest file, included below, specifies a Deployment controller that runs a single replica Redis master Pod.
+以下のマニフェストファイルは、シングルレプリカのRedisのマスターPodを実行するDeploymentコントローラーを指定しています。
 
 {{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
 
-1. Launch a terminal window in the directory you downloaded the manifest files.
-1. Apply the Redis Master Deployment from the `redis-master-deployment.yaml` file:
+1. マニフェストファイルをダウンロードしたディレクトリ内で、ターミナルウィンドウを起動します。
+1. `redis-master-deployment.yaml`ファイルから、RedisのマスターのDeploymentを適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
       ```
 
-1. Query the list of Pods to verify that the Redis Master Pod is running:
+1. Podのリストを問い合わせて、RedisのマスターのPodが実行中になっていることを確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```shell
       NAME                            READY     STATUS    RESTARTS   AGE
       redis-master-1068406935-3lswp   1/1       Running   0          28s
       ```
 
-1. Run the following command to view the logs from the Redis Master Pod:
+1. 次のコマンドを実行して、RedisのマスターのPodからログを表示します。
 
      ```shell
      kubectl logs -f POD-NAME
      ```
 
 {{< note >}}
-Replace POD-NAME with the name of your Pod.
+POD-NAMEの部分を実際のPodの名前に書き換えてください。
 {{< /note >}}
 
-### Creating the Redis Master Service
+### RedisのマスターのServiceを作成する
 
-The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシーしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
-1. Apply the Redis Master Service from the following `redis-master-service.yaml` file:
+1. 次の`redis-master-service.yaml`から、RedisのマスターのServiceを適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-service.yaml
       ```
 
-1. Query the list of Services to verify that the Redis Master Service is running:
+1. Serviceのリストを問い合わせて、RedisのマスターのServiceが実行中になっていることを確認します。
 
       ```shell
       kubectl get service
@@ -104,35 +104,35 @@ The guestbook application needs to communicate to the Redis master to write its 
       ```
 
 {{< note >}}
-This manifest file creates a Service named `redis-master` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis master Pod.
+このマニフェストファイルは、`redis-master`という名前のServiceを、前に定義したラベルにマッチする一連のラベル付きで作成します。これにより、ServiceはネットワークトラフィックをRedisのマスターのPodへとルーティングできるようになります。
 {{< /note >}}
 
 
-## Start up the Redis Slaves
+## Redisのスレーブを起動する
 
-Although the Redis master is a single pod, you can make it highly available to meet traffic demands by adding replica Redis slaves.
+Redisのマスターは1つのPodですが、レプリカのRedisのスレーブを追加することで、トラフィックの需要を満たすための高い可用性を持たせることができます。
 
-### Creating the Redis Slave Deployment
+### RedisのスレーブのDeploymentを作成する
 
-Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
+Deploymentはマニフェストファイル内に書かれた設定に基づいてスケールします。ここでは、Deploymentオブジェクトは2つのレプリカを指定しています。
 
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas running, it would scale down until two replicas are running.
+もし1つもレプリカが実行されていなければ、このDeploymentは2つのレプリカをコンテナクラスター上で起動します。逆に、もしすでに2つ以上のレプリカが実行されていれば、実行中のレプリカが2つになるようにスケールダウンします。
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 
-1. Apply the Redis Slave Deployment from the `redis-slave-deployment.yaml` file:
+1. redis-slave-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを`適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
       ```
 
-1. Query the list of Pods to verify that the Redis Slave Pods are running:
+1. Podのリストを問い合わせて、RedisのスレーブのPodが実行中になっていることを確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```shell
       NAME                            READY     STATUS              RESTARTS   AGE
@@ -141,25 +141,25 @@ If there are not any replicas running, this Deployment would start the two repli
       redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
       ```
 
-### Creating the Redis Slave Service
+### RedisのスレーブのServiceを作成する
 
-The guestbook application needs to communicate to Redis slaves to read data. To make the Redis slaves discoverable, you need to set up a Service. A Service provides transparent load balancing to a set of Pods.
+ゲストブックアプリケーションは、データを読み込むためにRedisのスレーブと通信する必要があります。Redisのスレーブが発見できるようにするためには、Serviceをセットアップする必要があります。Serviceは一連のPodに対する透過的なロードバランシングを提供します。
 
 {{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
 
-1. Apply the Redis Slave Service from the following `redis-slave-service.yaml` file:
+1. 次の`redis-slave-service.yaml`ファイルから、RedisのスレーブのServiceを適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-service.yaml
       ```
 
-1. Query the list of Services to verify that the Redis slave service is running:
+1. Serviceのリストを問い合わせて、RedisのスレーブのServiceが実行中になっていることを確認します。
 
       ```shell
       kubectl get services
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
@@ -168,27 +168,27 @@ The guestbook application needs to communicate to Redis slaves to read data. To 
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
       ```
 
-## Set up and Expose the Guestbook Frontend
+## ゲストブックのフロントエンドをセットアップして公開する
 
-The guestbook application has a web frontend serving the HTTP requests written in PHP. It is configured to connect to the `redis-master` Service for write requests and the `redis-slave` service for Read requests.
+ゲストブックアプリケーションには、HTTPリクエストをサーブするPHPで書かれたウェブフロントエンドがあります。このアプリケーションは、書き込みリクエストに対しては`redis-master`Serviceに、読み込みリクエストに対しては`redis-slave`Serviceに接続するように設定されています。
 
-### Creating the Guestbook Frontend Deployment
+### ゲストブックのフロントエンドのDeploymentを作成する
 
 {{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
 
-1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
+1. `frontend-deployment.yaml`ファイルから、フロントエンドのDeploymentを適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-deployment.yaml
       ```
 
-1. Query the list of Pods to verify that the three frontend replicas are running:
+1. Podのリストを問い合わせて、3つのフロントエンドのレプリカが実行中になっていることを確認します。
 
       ```shell
       kubectl get pods -l app=guestbook -l tier=frontend
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME                        READY     STATUS    RESTARTS   AGE
@@ -197,31 +197,31 @@ The guestbook application has a web frontend serving the HTTP requests written i
       frontend-3823415956-w9gbt   1/1       Running   0          54s
       ```
 
-### Creating the Frontend Service
+### フロントエンドのServiceを作成する
 
-The `redis-slave` and `redis-master` Services you applied are only accessible within the container cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+適用した`redis-slave`および`redis-master`Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
 
-If you want guests to be able to access your guestbook, you must configure the frontend Service to be externally visible, so a client can request the Service from outside the container cluster. Minikube can only expose Services through `NodePort`.
+もしゲストの人にゲストブックにアクセスしてほしいのなら、フロントエンドServiceを外部から見えるように設定しなければなりません。そうすれば、クライアントはコンテナクラスターの外部からServiceにリクエストを送れるようになります。Minikubeでは、Serviceを`NodePort`でのみ公開できます。
 
 {{< note >}}
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, simply delete or comment out `type: NodePort`, and uncomment `type: LoadBalancer`.
+一部のクラウドプロバイダーでは、Google Compute EngineやGoogle Kubernetes Engineなど、外部のロードバランサーをサポートしているものがあります。もしクラウドプロバイダーがロードバランサーをサポートしていて、それを使用したい場合は、`type: NodePort`という行を単に削除またはコメントアウトして、`type: LoadBalancer`のコメントアウトを外せば使用できます。
 {{< /note >}}
 
 {{< codenew file="application/guestbook/frontend-service.yaml" >}}
 
-1. Apply the frontend Service from the `frontend-service.yaml` file:
+1. `frontend-service.yaml`ファイルから、フロントエンドのServiceを提供します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/frontend-service.yaml
       ```
 
-1. Query the list of Services to verify that the frontend Service is running:
+1. Serviceのリストを問い合わせて、フロントエンドのServiceが実行中であることを確認します。
 
       ```shell
       kubectl get services
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
@@ -231,60 +231,60 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
       redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP       1m
       ```
 
-### Viewing the Frontend Service via `NodePort`
+### フロントエンドのServiceを`NodePort`経由で表示する
 
-If you deployed this application to Minikube or a local cluster, you need to find the IP address to view your Guestbook.
+このアプリケーションをMinikubeやローカルのクラスターにデプロイした場合、ゲストブックを表示するためのIPアドレスを見つける必要があります。
 
-1. Run the following command to get the IP address for the frontend Service.
+1. 次のコマンドを実行すると、フロントエンドServiceに対するIPアドレスを取得できます。
 
       ```shell
       minikube service frontend --url
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```
       http://192.168.99.100:31323
       ```
 
-1. Copy the IP address, and load the page in your browser to view your guestbook.
+1. IPアドレスをコピーして、ブラウザー上でページを読み込み、ゲストブックを表示しましょう。
 
-### Viewing the Frontend Service via `LoadBalancer`
+### フロントエンドのServiceを`LoadBalancer`経由で表示する
 
-If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` you need to find the IP address to view your Guestbook.
+もし`frontend-service.yaml`マニフェストを`type: LoadBalancer`でデプロイした場合、ゲストブックを表示するためのIPアドレスを見つける必要があります。
 
-1. Run the following command to get the IP address for the frontend Service.
+1. 次のコマンドを実行すると、フロントエンドServiceに対するIPアドレスを取得できます。
 
       ```shell
       kubectl get service frontend
       ```
 
-      The response should be similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME       TYPE        CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
       frontend   ClusterIP   10.51.242.136   109.197.92.229     80:32372/TCP   1m
       ```
 
-1. Copy the external IP address, and load the page in your browser to view your guestbook.
+1. 外部IPアドレス(EXTERNAL-IP)をコピーして、ブラウザー上でページを読み込み、ゲストブックを表示しましょう。
 
-## Scale the Web Frontend
+## ウェブフロントエンドをスケールする
 
-Scaling up or down is easy because your servers are defined as a Service that uses a Deployment controller.
+サーバーがDeploymentコントローラーを使用するServiceとして定義されているため、スケールアップやスケールダウンは簡単です。
 
-1. Run the following command to scale up the number of frontend Pods:
+1. 次のコマンドを実行すると、フロントエンドのPodの数をスケールアップできます。
 
       ```shell
       kubectl scale deployment frontend --replicas=5
       ```
 
-1. Query the list of Pods to verify the number of frontend Pods running:
+1. Podのリストを問い合わせて、実行中のフロントエンドのPodの数を確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should look similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME                            READY     STATUS    RESTARTS   AGE
@@ -298,19 +298,19 @@ Scaling up or down is easy because your servers are defined as a Service that us
       redis-slave-2005841000-phfv9    1/1       Running   0          55m
       ```
 
-1. Run the following command to scale down the number of frontend Pods:
+1. 次のコマンドを実行すると、フロントエンドのPodの数をスケールダウンできます。
 
       ```shell
       kubectl scale deployment frontend --replicas=2
       ```
 
-1. Query the list of Pods to verify the number of frontend Pods running:
+1. Podのリストを問い合わせて、実行中のフロントエンドのPodの数を確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should look similar to this:
+      結果は次のようになるはずです。
 
       ```
       NAME                            READY     STATUS    RESTARTS   AGE
@@ -325,9 +325,9 @@ Scaling up or down is easy because your servers are defined as a Service that us
 
 ## {{% heading "cleanup" %}}
 
-Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
+DeploymentとServiceを削除すると、実行中のPodも削除されます。ラベルを使用すると、複数のリソースを1つのコマンドで削除できます。
 
-1. Run the following commands to delete all Pods, Deployments, and Services.
+1. 次のコマンドを実行すると、すべてのPod、Deployment、Serviceが削除されます。
 
       ```shell
       kubectl delete deployment -l app=redis
@@ -336,7 +336,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       kubectl delete service -l app=guestbook
       ```
 
-      The responses should be:
+      結果は次のようになるはずです。
 
       ```
       deployment.apps "redis-master" deleted
@@ -347,13 +347,13 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       service "frontend" deleted
       ```
 
-1. Query the list of Pods to verify that no Pods are running:
+1. Podのリストを問い合わせて、実行中のPodが存在しないことを確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should be this:
+      結果は次のようになるはずです。
 
       ```
       No resources found.
@@ -363,9 +363,9 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 ## {{% heading "whatsnext" %}}
 
-* Add [ELK logging and monitoring](../guestbook-logs-metrics-with-elk/) to your Guestbook application
-* Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
-* Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
-* Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
+* ゲストブックアプリケーションに対する[ELKによるロギングとモニタリング](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/)
+* [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)のインタラクティブチュートリアルを終わらせる
+* Kubernetesを使って、[MySQLとWordpressのためにPersistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)を使用したブログを作成する
+* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)についてもっと読む
+* [リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
 
