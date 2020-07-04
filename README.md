@@ -8,12 +8,27 @@ This repository contains the assets required to build the [Kubernetes website an
 
 See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
 
-To run the website locally when you have Hugo installed:
+Before building the site, clone the Kubernetes website repository:
 
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
-git submodule update --init --recursive
+git submodule update --init --recursive --depth 1
+```
+
+**Note:**  The Kubernetes website deploys the [Docsy Hugo theme](https://github.com/google/docsy#readme).
+If you have not updated your website repository, the `website/themes/docsy` directory is empty. The site cannot build
+without a local copy of the theme.
+
+Update the website theme:
+
+```bash
+git submodule update --init --recursive --depth 1
+```
+
+To build and test the site locally, run:
+
+```bash
 hugo server --buildFuture
 ```
 
