@@ -222,7 +222,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	url = "https://discuss.kubernetes.io"
 	icon = "fa fa-envelope"
   desc = "Discussion and help from your fellow users"
-  
+
 [[params.links.user]]
 	name = "Twitter"
 	url = "https://twitter.com/kubernetesio"
@@ -259,7 +259,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 	url = "https://git.k8s.io/community/contributors/guide"
 	icon = "fas fa-edit"
   desc = "Contribute to the Kubernetes website"
-  
+
 [[params.links.developer]]
 	name = "Stack Overflow"
 	url = "https://stackoverflow.com/questions/tagged/kubernetes"
