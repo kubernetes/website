@@ -16,15 +16,16 @@ son necesarios para operar un clúster de Kubernetes.
 
 <!-- body -->
 
-## Componentes maestros
+## Componentes del plano de control
 
-Los componentes maestros proveen el plano de control del clúster. Ellos toman decisiones globales sobre
+Los componentes que forman el plano de control toman decisiones globales sobre
 el clúster (por ejemplo, la planificación) y detectan y responden a eventos del clúster, como la creación
 de un nuevo pod cuando la propiedad `replicas` de un controlador de replicación no se cumpla.
 
 Estos componentes pueden ejecutarse en cualquier nodo del clúster. Sin embargo, y para simplificar, los
-scripts de instalación típicamente inician todos los componentes maestros en el mismo nodo de forma exclusiva,
-sin ejecutar contenedores de los usuarios en esos nodos. Vea [Construyendo clústeres de alta disponibilidad](/docs/admin/high-availability/) para un ejemplo de configuración multi-master.
+scripts de instalación típicamente los inicican en el mismo nodo de forma exclusiva,
+sin que se ejeccuten contenedores de los usuarios en esos nodo. El plano de control en varios nodos
+para garantizar [alta disponibilidad](/docs/admin/high-availability/).
 
 ### kube-apiserver
 
