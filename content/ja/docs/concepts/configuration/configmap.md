@@ -1,57 +1,38 @@
 ---
-title: ConfigMaps
+title: ConfigMap
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-{{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
+{{< glossary_definition term_id="configmap" prepend="ConfigMapは、" length="all" >}}
 
 {{< caution >}}
-ConfigMap does not provide secrecy or encryption.
-If the data you want to store are confidential, use a
-{{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
-or use additional (third party) tools to keep your data private.
+ConfigMapは機密性や暗号化を提供しません。保存したいデータが機密情報である場合は、ConfigMapの代わりに{{< glossary_tooltip text="Secret" term_id="secret" >}}を使用するか、追加の(サードパーティーの)ツールを使用してデータが非公開になるようにしてください。
 {{< /caution >}}
 
-
-
 <!-- body -->
-## Motivation
 
-Use a ConfigMap for setting configuration data separately from application code.
+## 動機
 
-For example, imagine that you are developing an application that you can run on your
-own computer (for development) and in the cloud (to handle real traffic).
-You write the code to
-look in an environment variable named `DATABASE_HOST`. Locally, you set that variable
-to `localhost`. In the cloud, you set it to refer to a Kubernetes
-{{< glossary_tooltip text="Service" term_id="service" >}} that exposes the database
-component to your cluster.
+アプリケーションのコードとは別に構成データを設定するには、ConfigMapを使用します。
 
-This lets you fetch a container image running in the cloud and
-debug the exact same code locally if needed.
+たとえば、アプリケーションを開発していて、(開発用時には)自分のコンピューター上と、(実際のトラフィックをハンドルするときは)クラウド上とで実行することを想像してみてください。あなたは、`DATABASE_HOST`という名前の環境変数を使用するコードを書きます。ローカルでは、この変数を`localhost`に設定します。クラウド上では、データベースコンポーネントをクラスター内に公開するKubernetesの{{< glossary_tooltip text="Service" term_id="service" >}}を指すように設定します。
 
-## ConfigMap object
+こうすることで、必要であればクラウド上で実行しているコンテナイメージを取得することで、ローカルでも完全に同じコードを使ってデバッグができるようになります。
 
-A ConfigMap is an API [object](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
-that lets you store configuration for other objects to use. Unlike most
-Kubernetes objects that have a `spec`, a ConfigMap has a `data` section to
-store items (keys) and their values.
+## ConfigMapオブジェクト
 
-The name of a ConfigMap must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapにはアイテム(キー)と値を保存するための`data`セクションがあります。
 
-## ConfigMaps and Pods
+ConfigMapの名前は、有効な[DNSのサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
-You can write a Pod `spec` that refers to a ConfigMap and configures the container(s)
-in that Pod based on the data in the ConfigMap. The Pod and the ConfigMap must be in
-the same {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+## ConfigMapとPod
 
-Here's an example ConfigMap that has some keys with single values,
-and other keys where the value looks like a fragment of a configuration
-format.
+ConfigMapを参照して、ConfigMap内のデータを元にしてPod内のコンテナを設定するようなPodの`spec`を書くことができます。このとき、PodとConfigMapは同じ{{< glossary_tooltip text="namespace" term_id="namespace" >}}内に存在する必要があります。
+
+以下に、ConfigMapの例を示します。単一の値を持つキーと、Configuration形式のデータ片のような値を持つキーがあります。
 
 ```yaml
 apiVersion: v1
@@ -59,11 +40,11 @@ kind: ConfigMap
 metadata:
   name: game-demo
 data:
-  # property-like keys; each key maps to a simple value
+  # プロパティーに似たキー。各キーは単純な値にマッピングされている
   player_initial_lives: 3
   ui_properties_file_name: "user-interface.properties"
   #
-  # file-like keys
+  # ファイルに似たキー
   game.properties: |
     enemy.types=aliens,monsters
     player.maximum-lives=5
@@ -73,27 +54,18 @@ data:
     allow.textmode=true
 ```
 
-There are four different ways that you can use a ConfigMap to configure
-a container inside a Pod:
+Pod内のコンテナを設定するためにConfigMapを利用する方法には、次の4種類があります。
 
-1. Command line arguments to the entrypoint of a container
-1. Environment variables for a container
-1. Add a file in read-only volume, for the application to read
-1. Write code to run inside the Pod that uses the Kubernetes API to read a ConfigMap
+1. コマンドライン引数をコンテナのエントリーポイントに渡す
+1. 環境変数をコンテナに渡す
+1. 読み取り専用のボリューム内にファイルを追加し、アプリケーションがそのファイルを読み取る
+1. Kubernetes APIを使用してConfigMapを読み込むコードを書き、そのコードをPod内で実行する
 
-These different methods lend themselves to different ways of modeling
-the data being consumed.
-For the first three methods, the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the ConfigMap when it launches container(s) for a Pod.
+これらのさまざまな方法は、消費されるデータをモデル化するさまざまな方法に適しています。最初の3つの方法では、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}は、Podのコンテナの起動時にConfigMapのデータを使用します。
 
-The fourth method means you have to write code to read the ConfigMap and its data.
-However, because you're using the Kubernetes API directly, your application can
-subscribe to get updates whenever the ConfigMap changes, and react
-when that happens. By accessing the Kubernetes API directly, this
-technique also lets you access a ConfigMap in a different namespace.
+4番目の方法では、ConfigMapとそのデータを読み込むためのコードを自分自身で書く必要があります。しかし、Kubernetes APIを直接使用するため、アプリケーションはConfigMapがいつ変更されても更新を購読でき、変更が発生したときにすぐに反応できます。この手法では、Kubernetes APIに直接アクセスすることで、別の名前空間にあるConfigMapにもアクセスできます。
 
-Here's an example Pod that uses values from `game-demo` to configure a Pod:
+以下に、Podを設定するために`game-demo`から値を使用するPodの例を示します。
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -104,13 +76,13 @@ spec:
     - name: demo
       image: game.example/demo-game
       env:
-        # Define the environment variable
-        - name: PLAYER_INITIAL_LIVES # Notice that the case is different here
-                                     # from the key name in the ConfigMap.
+        # 環境変数を定義します。
+        - name: PLAYER_INITIAL_LIVES # ここではConfigMap内のキーの名前とは違い
+                                     # 大文字が使われていることに着目してください。
           valueFrom:
             configMapKeyRef:
-              name: game-demo           # The ConfigMap this value comes from.
-              key: player_initial_lives # The key to fetch.
+              name: game-demo           # この値を取得するConfigMap。
+              key: player_initial_lives # 取得するキー。
         - name: UI_PROPERTIES_FILE_NAME
           valueFrom:
             configMapKeyRef:
@@ -121,58 +93,42 @@ spec:
         mountPath: "/config"
         readOnly: true
   volumes:
-    # You set volumes at the Pod level, then mount them into containers inside that Pod
+    # Podレベルでボリュームを設定し、Podの内側でコンテナにマウントします。
     - name: config
       configMap:
-        # Provide the name of the ConfigMap you want to mount.
+        # マウントしたいConfigMapの名前を指定します。
         name: game-demo
 ```
 
-
-A ConfigMap doesn't differentiate between single line property values and
-multi-line file-like values.
-What matters is how Pods and other objects consume those values.
-For this example, defining a volume and mounting it inside the `demo`
-container as `/config` creates four files:
+ConfigMapは1行のプロパティの値と複数行のファイルに似た形式の値を区別しません。問題となるのは、Podや他のオブジェクトによる値の使用方法です。この例では、ボリュームを定義して、`demo`コンテナの内部で`/config`にマウントすることにより、次の4つのファイルが作成されます。
 
 - `/config/player_initial_lives`
 - `/config/ui_properties_file_name`
 - `/config/game.properties`
 - `/config/user-interface.properties`
 
-If you want to make sure that `/config` only contains files with a
-`.properties` extension, use two different ConfigMaps, and refer to both
-ConfigMaps in the `spec` for a Pod. The first ConfigMap defines
-`player_initial_lives` and `ui_properties_file_name`. The second
-ConfigMap defines the files that the kubelet places into `/config`.
+`/config`の中に`.properties`拡張子が付いたファイルだけを配置したい場合、2つの別のConfigMapを使用して、両方のConfigMapをPodの`spec`内で参照するようにします。1つ目のConfigMapでは`player_initial_lives`と`ui_properties_file_name`を定義し、2つ目のConfigMapでは、kubeletが`/config`の中に配置するファイルを定義します。
 
 {{< note >}}
-The most common way to use ConfigMaps is to configure settings for
-containers running in a Pod in the same namespace. You can also use a
-ConfigMap separately.
+ConfigMapの最も一般的な使い方では、同じ名前空間にあるPod内で実行されているコンテナに設定を構成します。ConfigMapを独立して使用することもできます。
 
-For example, you
-might encounter {{< glossary_tooltip text="addons" term_id="addons" >}}
-or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
-adjust their behavior based on a ConfigMap.
+たとえば、ConfigMapに基づいて動作を調整する{{< glossary_tooltip text="アドオン" term_id="addons" >}}や{{< glossary_tooltip text="オペレーター" term_id="operator-pattern" >}}を見かけることがあるかもしれません。
 {{< /note >}}
 
-## Using ConfigMaps
+## ConfigMapを使う
 
-ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
-parts of the system, without being directly exposed to the Pod. For example,
-ConfigMaps can hold data that other parts of the system should use for configuration.
+ConfigMapは、データボリュームとしてマウントできます。ConfigMapは、Podへ直接公開せずにシステムの他の部品として使うこともできます。たとえば、ConfigMapには、システムの他の一部が設定のために使用するデータを保存できます。
 
-### Using ConfigMaps as files from a Pod
+### ConfigMapをPodからファイルとして使う
 
-To consume a ConfigMap in a volume in a Pod:
+ConfigMapをPod内のボリュームで使用するには、次のようにします。
 
-1. Create a config map or use an existing one. Multiple Pods can reference the same config map.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configMap.name` field set to reference your ConfigMap object.
-1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the config map. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the config map to appear.
-1. Modify your image or command line so that the program looks for files in that directory. Each key in the config map `data` map becomes the filename under `mountPath`.
+1. ConfigMapを作成するか、既存のConfigMapを使用します。複数のPodから同じConfigMapを参照することもできます。
+1. Podの定義を修正して、`.spec.volumes[]`以下にボリュームを追加します。ボリュームに任意の名前を付け、`.spec.volumes[].configMap.name`フィールドにConfigMapオブジェクトへの参照を設定します。
+1. ConfigMapが必要な各コンテナに`.spec.containers[].volumeMounts[]`を追加します。`.spec.containers[].volumeMounts[].readOnly = true`を指定して、`.spec.containers[].volumeMounts[].mountPath`には、ConfigMapのデータを表示したい未使用のディレクトリ名を指定します。
+1. イメージまたはコマンドラインを修正して、プログラムがそのディレクトリ内のファイルを読み込むように設定します。ConfigMapの`data`マップ内の各キーが、`mountPath`以下のファイル名になります。
 
-This is an example of a Pod that mounts a ConfigMap in a volume:
+以下は、ボリューム内にConfigMapをマウントするPodの例です。
 
 ```yaml
 apiVersion: v1
@@ -193,39 +149,23 @@ spec:
       name: myconfigmap
 ```
 
-Each ConfigMap you want to use needs to be referred to in `.spec.volumes`.
+使用したいそれぞれのConfigMapごとに、`.spec.volumes`内で参照する必要があります。
 
-If there are multiple containers in the Pod, then each container needs its
-own `volumeMounts` block, but only one `.spec.volumes` is needed per ConfigMap.
+Pod内に複数のコンテナが存在する場合、各コンテナにそれぞれ別の`volumeMounts`のブロックが必要ですが、`.spec.volumes`はConfigMapごとに1つしか必要ありません。
 
-#### Mounted ConfigMaps are updated automatically
+#### マウントしたConfigMapの自動的な更新
 
-When a config map currently consumed in a volume is updated, projected keys are eventually updated as well.
-The kubelet checks whether the mounted config map is fresh on every periodic sync.
-However, the kubelet uses its local cache for getting the current value of the ConfigMap.
-The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
-the [KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
-A ConfigMap can be either propagated by watch (default), ttl-based, or simply redirecting
-all requests directly to the API server.
-As a result, the total delay from the moment when the ConfigMap is updated to the moment
-when new keys are projected to the Pod can be as long as the kubelet sync period + cache
-propagation delay, where the cache propagation delay depends on the chosen cache type
-(it equals to watch propagation delay, ttl of cache, or zero correspondingly).
+ボリューム内で現在使用中のConfigMapが更新されると、射影されたキーも最終的に(eventually)更新されます。kubeletは定期的な同期のたびにマウントされたConfigMapが新しいかどうか確認します。しかし、kubeletが現在のConfigMapの値を取得するときにはローカルキャッシュを使用します。キャッシュの種類は、[KubeletConfiguration構造体](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)の中の`ConfigMapAndSecretChangeDetectionStrategy`フィールドで設定可能です。ConfigMapは、監視(デフォルト)、ttlベース、またはすべてのリクエストを直接APIサーバーへ単純にリダイレクトする方法のいずれかによって伝搬されます。その結果、ConfigMapが更新された瞬間から、新しいキーがPodに射影されるまでの遅延の合計は、最長でkubeletの同期期間+キャッシュの伝搬遅延になります。ここで、キャッシュの伝搬遅延は選択したキャッシュの種類に依存します(監視の伝搬遅延、キャッシュのttl、または0に等しくなります)。
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
-individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
-(at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
-data has the following advantages:
+Kubernetesのアルファ版の機能である _イミュータブルなSecretおよびConfigMap_ は、個別のSecretやConfigMapをイミュータブルに設定するオプションを提供します。ConfigMapを広範に使用している(少なくとも数万のConfigMapがPodにマウントされている)クラスターでは、データの変更を防ぐことにより、以下のような利点が得られます。
 
-- protects you from accidental (or unwanted) updates that could cause applications outages
-- improves performance of your cluster by significantly reducing load on kube-apiserver, by
-closing watches for config maps marked as immutable.
+- アプリケーションの停止を引き起こす可能性のある予想外の(または望まない)変更を防ぐことができる
+- ConfigMapをイミュータブルにマークして監視を停止することにより、kube-apiserverへの負荷を大幅に削減し、クラスターの性能が向上する
 
-To use this feature, enable the `ImmutableEmphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
+この機能を使用するには、`ImmutableEmphemeralVolumes`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、SecretやConfigMapの`immutable`フィールドを`true`に設定してください。次に例を示します。
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -237,19 +177,13 @@ immutable: true
 ```
 
 {{< note >}}
-Once a ConfigMap or Secret is marked as immutable, it is _not_ possible to revert this change
-nor to mutate the contents of the `data` field. You can only delete and recreate the ConfigMap.
-Existing Pods maintain a mount point to the deleted ConfigMap - it is recommended to recreate
-these pods.
+一度ConfigMapやSecretがイミュータブルに設定すると、この変更を元に戻したり、`data`フィールドのコンテンツを変更することは*できません*。既存のPodは削除されたConfigMapのマウントポイントを保持するため、こうしたPodは再作成することをおすすめします。
 {{< /note >}}
-
 
 ## {{% heading "whatsnext" %}}
 
-
-* Read about [Secrets](/docs/concepts/configuration/secret/).
-* Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
-  separating code from configuration.
+* [Secret](/docs/concepts/configuration/secret/)について読む。
+* [Podを構成してConfigMapを使用する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
+* コードを設定から分離する動機を理解するために[The Twelve-Factor App](https://12factor.net/ja/)を読む。
 
 
