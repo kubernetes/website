@@ -42,7 +42,7 @@ To follow this guide, you need:
 You also need to use a version of `kubeadm` that can deploy the version
 of Kubernetes that you want to use in your new cluster.
 
-[Kubernetes' version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
+[Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 
@@ -287,7 +287,7 @@ Several external projects provide Kubernetes Pod networks using CNI, some of whi
 support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
 
 See the list of available
-[networking and network policy add-ons](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
+[networking and network policy add-ons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
 
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
@@ -644,5 +644,3 @@ supports your chosen platform.
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
-
-
