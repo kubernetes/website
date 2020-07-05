@@ -1,12 +1,12 @@
 ---
-title: Komunikasi Master-Node
+title: Komunikasi antara Control Plane dan Node
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-Dokumen ini menjelaskan tentang jalur-jalur komunikasi di antara klaster Kubernetes dan master yang sebenarnya hanya berhubungan dengan apiserver saja.
+Dokumen ini menjelaskan tentang jalur-jalur komunikasi di antara klaster Kubernetes dan control plane yang sebenarnya hanya berhubungan dengan apiserver saja.
 Kenapa ada dokumen ini? Supaya kamu, para pengguna Kubernetes, punya gambaran bagaimana mengatur instalasi untuk memperketat konfigurasi jaringan di dalam klaster.
 Hal ini cukup penting, karena klaster bisa saja berjalan pada jaringan tak terpercaya (<i>untrusted network</i>), ataupun melalui alamat-alamat IP publik pada penyedia cloud.
 
@@ -15,31 +15,24 @@ Hal ini cukup penting, karena klaster bisa saja berjalan pada jaringan tak terpe
 
 <!-- body -->
 
-## Klaster menuju Master
+## Node Menuju Control Plane
 
-Semua jalur komunikasi dari klaster menuju master diterminasi pada apiserver.
-Tidak ada komponen apapun di dalam master, selain apiserver, yang terekspos ke luar untuk diakses dari servis <i>remote</i>.
-Untuk instalasi klaster pada umumnya, apiserver diatur untuk <i>listen</i> ke koneksi <i>remote</i> melalui port HTTPS (443) yang aman, dengan satu atau beberapa metode [autentikasi](/docs/reference/access-authn-authz/authentication/) <i>client</i> yang telah terpasang.
+Kubernetes memiliki sebuah pola API "hub-and-spoke". Semua penggunaan API dari Node (atau Pod dimana Pod-Pod tersebut dijalankan) akan diterminasi pada apiserver (tidak ada satu komponen _control plane_ apa pun yang didesain untuk diekspos pada servis _remote_).
+Apiserver dikonfigurasi untuk mendengarkan koneksi aman _remote_ yang pada umumnya terdapat pada porta HTTPS (443) dengan satu atau lebih bentuk [autentikasi](/docs/reference/access-authn-authz/authentication/) klien yang dipasang.
 Sebaiknya, satu atau beberapa metode [otorisasi](/docs/reference/access-authn-authz/authorization/) juga dipasang, terutama jika kamu memperbolehkan [permintaan anonim (<i>anonymous request</i>)](/docs/reference/access-authn-authz/authentication/#anonymous-requests) ataupun [service account token](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
-Node-node seharusnya disediakan dengan <i>public root certificate</i> untuk klaster, sehingga node-node tersebut bisa terhubung secara aman ke apiserver dengan kredensial <i>client</i> yang valid.
-Contohnya, untuk instalasi GKE dengan standar konfigurasi, kredensial <i>client</i> harus diberikan kepada kubelet dalam bentuk <i>client certificate</i>.
-Lihat [menghidupkan TLS kubelet](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) untuk menyediakan <i>client certificate</i> untuk kubelet secara otomatis.
+Jika diperlukan, Pod-Pod dapat terhubung pada apiserver secara aman dengan menggunakan ServiceAccount.
+Dengan ini, Kubernetes memasukkan _public root certificate_ dan _bearer token_ yang valid ke dalam Pod, secara otomatis saat Pod mulai dijalankan.
+Kubernetes Service (di dalam semua Namespace) diatur dengan sebuah alamat IP virtual. Semua yang mengakses alamat IP ini akan dialihkan (melalui kube-proxy) menuju _endpoint_ HTTPS dari apiserver.
 
-Jika diperlukan, pod-pod dapat terhubung pada apiserver secara aman dengan menggunakan <i>service account</i>.
-Dengan ini, Kubernetes memasukkan <i>public root certificate</i> dan <i>bearer token</i> yang valid ke dalam pod, secara otomatis saat pod mulai dijalankan.
-Kubernetes <i>service</i> (di dalam semua <i>namespace</i>) diatur dengan sebuah alamat IP virtual.
-Semua yang mengakses alamat IP ini akan dialihkan (melalui kube-proxy) menuju <i>endpoint</i> HTTPS dari apiserver.
+Komponen-komponen  juga melakukan koneksi pada apiserver klaster melalui porta yang aman.
 
-Komponen-komponen master juga berkomunikasi dengan apiserver melalui port yang aman di dalam klaster.
-Akibatnya, untuk konfigurasi yang umum dan standar, semua koneksi dari klaster (node-node dan pod-pod yang berjalan di atas node tersebut) menuju master sudah terhubung dengan aman.
-Dan juga, klaster dan master bisa terhubung melalui jaringan publik dan/atau yang tak terpercaya (<i>untrusted</i>).
+Akibatnya, untuk konfigurasi yang umum dan standar, semua koneksi dari klaster (node-node dan pod-pod yang berjalan di atas node tersebut) menujucontrol planesudah terhubung dengan aman.
+Dan juga, klaster dancontrol planebisa terhubung melalui jaringan publik dan/atau yang tak terpercaya (<i>untrusted</i>).
 
-## Master menuju Klaster
+## Control Plane menuju Node
 
-Ada dua jalur komunikasi utama dari master (apiserver) menuju klaster.
-Pertama, dari apiserver ke <i>process</i> kubelet yang berjalan pada setiap node di dalam klaster.
-Kedua, dari apiserver ke setiap node, pod, ataupun service melalui fungsi <i>proxy</i> pada apiserver.
+Ada dua jalur komunikasi utama dari _control plane_ (apiserver) menuju klaster. Pertama, dari apiserver ke proses kubelet yang berjalan pada setiap Node di dalam klaster. Kedua, dari apiserver ke setiap Node, Pod, ataupun Service melalui fungsi proksi pada apiserver
 
 ### Apiserver menuju kubelet
 
@@ -67,11 +60,9 @@ Koneksi ini **tidak aman** untuk dilalui pada jaringan publik dan/atau tak terpe
 
 ### Tunnel SSH
 
-Kubernetes menyediakan tunnel SSH untuk mengamankan jalur komunikasi Master -> Klaster.
+Kubernetes menyediakan tunnel SSH untuk mengamankan jalur komunikasi control plane -> Klaster.
 Dengan ini, apiserver menginisiasi sebuah <i>tunnel</i> SSH untuk setiap node di dalam klaster (terhubung ke server SSH di port 22) dan membuat semua trafik menuju kubelet, node, pod, atau service dilewatkan melalui <i>tunnel</i> tesebut.
 <i>Tunnel</i> ini memastikan trafik tidak terekspos keluar jaringan dimana node-node berada.
 
 <i>Tunnel</i> SSH saat ini sudah usang (<i>deprecated</i>), jadi sebaiknya jangan digunakan, kecuali kamu tahu pasti apa yang kamu lakukan.
 Sebuah desain baru untuk mengganti kanal komunikasi ini sedang disiapkan.
-
-
