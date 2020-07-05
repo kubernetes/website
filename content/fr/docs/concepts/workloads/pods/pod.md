@@ -196,5 +196,3 @@ Le Pod est une ressource au plus haut niveau dans l'API REST Kubernetes. Plus de
 [Objet de l'API Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 
 Lorsque vous créez un manifest pour un objet Pod, soyez certain que le nom spécifié est un [nom de sous-domaine DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) valide.
-
-{{% /capture %}}
