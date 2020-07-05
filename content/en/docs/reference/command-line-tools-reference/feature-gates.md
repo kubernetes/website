@@ -476,7 +476,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`alpha.service-controller.kubernetes.io/exclude-balancer`" key or `node.kubernetes.io/exclude-from-external-load-balancers`.
-- `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](https://kubernetes.io/docs/concepts/services-networking/service-topology/) for more details.
+- `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster. See [ServiceTopology](/docs/concepts/services-networking/service-topology/) for more details.
 - `StartupProbe`: Enable the [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) probe in the kubelet.
 - `StorageObjectInUseProtection`: Postpone the deletion of PersistentVolume or
   PersistentVolumeClaim objects if they are still being used.
@@ -516,4 +516,3 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
 * The [deprecation policy](/docs/reference/using-api/deprecation-policy/) for Kubernetes explains
   the project's approach to removing features and components.
-

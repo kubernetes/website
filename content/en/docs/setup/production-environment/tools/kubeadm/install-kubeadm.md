@@ -66,7 +66,7 @@ sudo sysctl --system
 
 Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
 
-For more details please see the [Network Plugin Requirements](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
+For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
 
 ## Check required ports
 
@@ -218,7 +218,7 @@ sudo systemctl enable --now kubelet
     You have to do this until SELinux support is improved in the kubelet.
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
-    
+
 {{% /tab %}}
 {{% tab name="Fedora CoreOS" %}}
 Install CNI plugins (required for most pod network):
@@ -310,4 +310,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 
 
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-

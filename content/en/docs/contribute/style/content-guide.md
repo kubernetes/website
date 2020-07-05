@@ -9,10 +9,10 @@ weight: 10
 
 This page contains guidelines for Kubernetes documentation.
 
-If you have questions about what's allowed, join the #sig-docs channel in 
-[Kubernetes Slack](http://slack.k8s.io/) and ask! 
+If you have questions about what's allowed, join the #sig-docs channel in
+[Kubernetes Slack](http://slack.k8s.io/) and ask!
 
-You can register for Kubernetes Slack at http://slack.k8s.io/. 
+You can register for Kubernetes Slack at http://slack.k8s.io/.
 
 For information on creating new content for the Kubernetes
 docs, follow the [style guide](/docs/contribute/style/style-guide).
@@ -28,7 +28,7 @@ Source for the Kubernetes website, including the docs, resides in the
 
 Located in the `kubernetes/website/content/<language_code>/docs` folder, the
 majority of Kubernetes documentation is specific to the [Kubernetes
-project](https://github.com/kubernetes/kubernetes). 
+project](https://github.com/kubernetes/kubernetes).
 
 ## What's allowed
 
@@ -41,12 +41,12 @@ Kubernetes docs allow content for third-party projects only when:
 ### Third party content
 
 Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
-[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations. 
+[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
 
-Links to active content in the Kubernetes project are always allowed. 
+Links to active content in the Kubernetes project are always allowed.
 
-Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker), 
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and [logging](https://kubernetes.io/docs/concepts/cluster-administration/logging/).
+Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
+[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
 
 Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
 
@@ -60,7 +60,7 @@ and grows stale more quickly.
 
 {{< note >}}
 
-If you're a maintainer for a Kubernetes project and need help hosting your own docs, 
+If you're a maintainer for a Kubernetes project and need help hosting your own docs,
 ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
 
 {{< /note >}}
@@ -75,5 +75,3 @@ If you have questions about allowed content, join the [Kubernetes Slack](http://
 
 
 * Read the [Style guide](/docs/contribute/style/style-guide).
-
-
