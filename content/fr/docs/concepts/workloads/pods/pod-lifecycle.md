@@ -63,7 +63,7 @@ du tableau de PodCondition a six champs possibles :
   * `PodScheduled` : le Pod a été affecté à un nœud ;
   * `Ready` : le Pod est prêt à servir des requêtes et doit être rajouté aux équilibreurs
     de charge de tous les Services correspondants ;
-  * `Initialized` : tous les [init containers](/docs/concepts/workloads/pods/init-containers)
+  * `Initialized` : tous les [init containers](/fr/docs/concepts/workloads/pods/init-containers)
     ont démarré correctement ;
   * `ContainersReady` : tous les conteneurs du Pod sont prêts.
 
@@ -236,7 +236,7 @@ spec:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready  # builtin PodCondition
+    - type: Ready  # une PodCondition intégrée
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z

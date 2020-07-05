@@ -74,7 +74,7 @@ Voici quelques exemples de ressources de charges de travail qui gèrent un ou pl
 ## Templates de Pod
 
 Les Templates de Pod sont des spécifications pour créer des Pods, et sont inclus dans les ressources de charges de travail comme
-les [Deployments](/docs/concepts/workloads/controllers/deployment/), les [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) et
+les [Deployments](/fr/docs/concepts/workloads/controllers/deployment/), les [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/) et
 les [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
 Chaque contrôleur pour une ressource de charges de travail utilise le template de pod à l'intérieur de l'objet pour créer les Pods. Le template de pod fait partie de l'état désiré de la ressource de charges de travail que vous avez utilisé pour exécuter votre application.
