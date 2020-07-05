@@ -32,7 +32,7 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
-2. You, or another human user, manually add a Node object
+2. You, or another human user, manually adds a Node object
 
 After you create a Node object, or the kubelet on a node self-registers, the
 control plane checks whether the new Node object is valid. For example, if you
