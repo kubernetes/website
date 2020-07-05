@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-このページでは、Podが環境変数を使用して、Pod内で実行されているコンテナに自分自身の情報を共有する方法を説明します。環境変数を使うと、Podのフィールドとコンテナのフィールドを共有できます。
+このページでは、Podが内部で実行しているコンテナに自身の情報を共有する方法を説明します。環境変数ではPodのフィールドとコンテナのフィールドを共有することができます。
 
 
 
@@ -145,6 +145,5 @@ kubectl logs dapi-envars-resourcefieldref
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)
 * [ObjectFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectfieldselector-v1-core)
 * [ResourceFieldSelector](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcefieldselector-v1-core)
-
 
 
