@@ -10,7 +10,7 @@ _This post tells the story of how Kubernetes contributors work together to provi
 
 <img alt="Image of a computer with Kubernetes logo" width="30%" src="KubernetesComputer_transparent.png">
 
-Most people who are familiar with Kubernetes are probably used to associating it with Linux. The connection makes sense, since Kubernetes ran on Linux from its very beginning. However, many teams and organizations working on adopting Kubernetes need the ability to orchestrate containers on Windows. Since the release of Docker and rise to popularity of containers, there have been efforts both from the communit and from Microsoft itself to make container technology as accessible in Windows systems as it is in Linux systems.
+Most people who are familiar with Kubernetes are probably used to associating it with Linux. The connection makes sense, since Kubernetes ran on Linux from its very beginning. However, many teams and organizations working on adopting Kubernetes need the ability to orchestrate containers on Windows. Since the release of Docker and rise to popularity of containers, there have been efforts both from the community and from Microsoft itself to make container technology as accessible in Windows systems as it is in Linux systems.
 
 Within the Kubernetes community, those who are passionate about making Kubernetes accessible to the Windows community can find a home in the Windows Special Interest Group. To learn more about SIG-Windows and the future of Kubernetes on Windows, I spoke to co-chairs [Mark Rossetti](https://github.com/marosset)  and [Michael Michael](https://github.com/michmike) about the SIG's goals and how others can contribute.
 
