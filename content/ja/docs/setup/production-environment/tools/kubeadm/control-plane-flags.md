@@ -35,7 +35,7 @@ kubeadmの`ClusterConfiguration`オブジェクトはAPIServer、ControllerManag
 
 詳細は[kube-apiserverのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
-Example usage:
+使用例:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
@@ -52,7 +52,7 @@ apiServer:
 
 詳細は[kube-controller-managerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-controller-manager/)を参照してください。
 
-Example usage:
+使用例:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
@@ -68,7 +68,7 @@ controllerManager:
 
 詳細は[kube-schedulerのリファレンスドキュメント](/docs/reference/command-line-tools-reference/kube-scheduler/)を参照してください。
 
-Example usage:
+使用例:
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
