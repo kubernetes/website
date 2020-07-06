@@ -124,9 +124,7 @@ Kamu juga dapat mengimplementasikan Operator (yaitu, _Controller_) dengan
 menggunakan bahasa / _runtime_ yang dapat bertindak sebagai 
 [klien dari API Kubernetes](/docs/reference/using-api/client-libraries/).
 
-
-
-{{% capture Selanjutnya %}}
+## {{% heading "whatsnext" %}}
 
 * Memahami lebih lanjut tentang [_custome resources_](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Temukan "ready-made" _operators_ dalam [OperatorHub.io](https://operatorhub.io/) 
