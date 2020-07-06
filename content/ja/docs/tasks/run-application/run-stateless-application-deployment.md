@@ -143,7 +143,7 @@ Deploymentを名前を指定して削除します:
 
 {{% capture whatsnext %}}
 
-* [Deploymentオブジェクト](/docs/concepts/workloads/controllers/deployment/)の詳細
+* [Deploymentオブジェクト](/ja/docs/concepts/workloads/controllers/deployment/)の詳細
 
 {{% /capture %}}
 

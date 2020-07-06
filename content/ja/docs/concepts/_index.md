@@ -31,7 +31,7 @@ Kubernetesには、デプロイ済みのコンテナ化されたアプリケー�
 基本的なKubernetesのオブジェクトは次のとおりです。
 
 * [Pod](/ja/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
+* [Service](/ja/docs/concepts/services-networking/service/)
 * [Volume](/docs/concepts/storage/volumes/)
 * [Namespace](/ja/docs/concepts/overview/working-with-objects/namespaces/)
 

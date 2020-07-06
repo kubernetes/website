@@ -18,7 +18,7 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 
 {{% capture steps %}}
 
-## Linuxへkubectlをインストールする
+## Linuxへkubectlをインストールする {#install-kubectl-on-linux}
 
 ### curlを使用してLinuxへkubectlのバイナリをインストールする
 
@@ -97,7 +97,7 @@ kubectl version
 {{< /tab >}}
 {{< /tabs >}}
 
-## macOSへkubectlをインストールする
+## macOSへkubectlをインストールする {#install-kubectl-on-macos}
 
 ### curlを使用してmacOSへkubectlのバイナリをインストールする
 
@@ -170,7 +170,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
     kubectl version
     ```
 
-## Windowsへkubectlをインストールする
+## Windowsへkubectlをインストールする {#install-kubectl-on-windows}
 
 ### curlを使用してWindowsへkubectlのバイナリをインストールする
 
@@ -467,7 +467,7 @@ compinit
 {{% /capture %}}
 
 {{% capture whatsnext %}}
-* [Minikubeをインストールする](/docs/tasks/tools/install-minikube/)
+* [Minikubeをインストールする](/ja/docs/tasks/tools/install-minikube/)
 * クラスターの作成に関する詳細を[スタートガイド](/docs/setup/)で確認する
 * [アプリケーションを起動して公開する方法を学ぶ](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * あなたが作成していないクラスターにアクセスする必要がある場合は、[クラスターアクセスドキュメントの共有](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)を参照してください

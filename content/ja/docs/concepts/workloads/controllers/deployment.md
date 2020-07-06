@@ -11,7 +11,7 @@ weight: 30
 
 {{% capture overview %}}
 
-_Deployment_ コントローラーは[Pod](/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
+_Deployment_ コントローラーは[Pod](/ja/docs/concepts/workloads/pods/pod/)と[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)の宣言的なアップデート機能を提供します。  
 
 ユーザーはDeploymentにおいて_理想的な状態_ を定義し、Deploymentコントローラーは指定された頻度で現在の状態を理想的な状態に変更させます。ユーザーはDeploymentを定義して、新しいReplicaSetを作成したり、既存のDeploymentを削除して新しいDeploymentで全てのリソースを適用できます。
 
@@ -28,7 +28,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 下記の項目はDeploymentの典型的なユースケースです。
 
-* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
+* ReplicaSetをロールアウトするために[Deploymentの作成](#creating-a-deployment)を行う: ReplicaSetはバックグラウンドでPodを作成します。Podの作成が完了したかどうかは、ロールアウトのステータスを確認してください。  
 * DeploymentのPodTemplateSpecを更新することにより[Podの新しい状態を宣言する](#updating-a-deployment): 新しいReplicaSetが作成され、Deploymentは指定された頻度で古いReplicaSetから新しいReplicaSetへのPodの移行を管理します。新しいReplicaSetはDeploymentのリビジョンを更新します。
 * Deploymentの現在の状態が不安定な場合、[Deploymentのロールバック](#rolling-back-a-deployment)をする: ロールバックによる各更新作業は、Deploymentのリビジョンを更新します。
 * より多くの負荷をさばけるように、[Deploymentをスケールアップ](#scaling-a-deployment)する
@@ -915,7 +915,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/pod-overview/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては[Pod](/ja/docs/concepts/workloads/pods/pod/)と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 

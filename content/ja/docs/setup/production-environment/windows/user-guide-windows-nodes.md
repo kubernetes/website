@@ -1,7 +1,4 @@
 ---
-reviewers:
-- michmike
-- patricklang
 title: Guide for adding Windows Nodes in Kubernetes
 content_template: templates/concept
 weight: 70

@@ -2,7 +2,7 @@
 title: Deployment
 id: deployment
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/deployment/
+full_link: /ja/docs/concepts/workloads/controllers/deployment/
 short_description: >
   複製されたアプリケーションを管理するAPIオブジェクト。
 

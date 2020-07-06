@@ -40,7 +40,7 @@ RuntimeClassを通じて利用可能な設定はContainer Runtime Interface (CRI
 
 {{< note >}}
 RuntimeClassは現時点において、クラスター全体で同じ種類のNode設定であることを仮定しています。(これは全てのNodeがコンテナランタイムに関して同じ方法で構成されていることを意味します)。
-設定が異なるNodeに関しては、スケジューリング機能を通じてRuntimeClassとは独立して管理されなくてはなりません。([PodをNodeに割り当てる方法](/docs/concepts/configuration/assign-pod-node/)を参照して下さい)。
+設定が異なるNodeに関しては、スケジューリング機能を通じてRuntimeClassとは独立して管理されなくてはなりません。([PodをNodeに割り当てる方法](/ja/docs/concepts/configuration/assign-pod-node/)を参照して下さい)。
 {{< /note >}}
 
 RuntimeClassの設定は、RuntimeClassによって参照される`ハンドラー`名を持ちます。そのハンドラーは正式なDNS-1123に準拠する形式のラベルでなくてはなりません(英数字 + `-`の文字で構成されます)。

@@ -7,7 +7,7 @@ weight: 160
 
 {{% capture overview %}}
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 このページでは、プロセス名前空間を共有するPodを構成する方法を示します。
 プロセス名前空間の共有が有効になっている場合、コンテナ内のプロセスは、そのPod内の他のすべてのコンテナに表示されます。
@@ -19,9 +19,6 @@ weight: 160
 {{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-プロセス名前空間の共有は**ベータ**機能であり、デフォルトで有効になっています。
-`--feature-gates=PodShareProcessNamespace=false`を設定することで無効にできます。
 
 {{% /capture %}}
 

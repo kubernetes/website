@@ -1,7 +1,4 @@
 ---
-reviewers:
-- michmike
-- patricklang
 title: Guide for scheduling Windows containers in Kubernetes
 content_template: templates/concept
 weight: 75

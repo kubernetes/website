@@ -67,6 +67,6 @@ Kubernetesオブジェクトを`.yaml`ファイルに記載して作成する場
 
 {{% capture whatsnext %}}
 
-* 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/docs/concepts/workloads/pods/pod-overview/)です。
+* 最も重要、かつ基本的なKubernetesオブジェクト群を学びましょう、例えば、[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)です。
 
 {{% /capture %}}

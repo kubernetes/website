@@ -192,11 +192,11 @@ pod2             1/1     Running   0          13s
 ReplicaSetでは、`kind`フィールドの値は`ReplicaSet`です。
 Kubernetes1.9において、ReplicaSetは`apps/v1`というAPIバージョンが現在のバージョンで、デフォルトで有効です。`apps/v1beta2`というAPIバージョンは廃止されています。先ほど作成した`frontend.yaml`ファイルの最初の行を参考にしてください。
 
-また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status)も必須です。
+また、ReplicaSetは[`.spec` セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必須です。
 
 ### Pod テンプレート
 
-`.spec.template`はラベルを持つことが必要な[Pod テンプレート](/docs/concepts/workloads/Pods/pod-overview/#pod-templates) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
+`.spec.template`はラベルを持つことが必要な[Pod テンプレート](/ja/docs/concepts/workloads/pods/pod-overview/#podテンプレート) です。先ほど作成した`frontend.yaml`の例では、`tier: frontend`というラベルを1つ持っています。
 他のコントローラーがこのPodを所有しようとしないためにも、他のコントローラーのセレクターでラベルを上書きしないように注意してください。
 
 テンプレートの[再起動ポリシー](/docs/concepts/workloads/Pods/pod-lifecycle/#restart-policy)のためのフィールドである`.spec.template.spec.restartPolicy`は`Always`のみ許可されていて、そしてそれがデフォルト値です。
@@ -287,7 +287,7 @@ kubectl autoscale rs frontend --max=10
 
 ### Deployment (推奨)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
+[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)はReplicaSetを所有することのできるオブジェクトで、宣言的なサーバサイドのローリングアップデートを介してReplicaSetとPodをアップデートできます。
 ReplicaSetは単独で使用可能ですが、現在では、ReplicaSetは主にPodの作成、削除とアップデートを司るためのメカニズムとしてDeploymentによって使用されています。ユーザーがDeploymentを使用するとき、Deploymentによって作成されるReplicaSetの管理について心配する必要はありません。DeploymentはReplicaSetを所有し、管理します。
 このため、もしユーザーがReplicaSetを必要とするとき、Deploymentの使用を推奨します。
 
@@ -303,7 +303,7 @@ PodをPodそれ自身で停止させたいような場合(例えば、バッチ�
 
 ### DaemonSet
 
-マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)を使用してください。
+マシンの監視やロギングなど、マシンレベルの機能を提供したい場合は、ReplicaSetの代わりに[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)を使用してください。
 これらのPodはマシン自体のライフタイムに紐づいています: そのPodは他のPodが起動する前に、そのマシン上で稼働される必要があり、マシンが再起動またはシャットダウンされるときには、安全に停止されます。
 
 ### ReplicationController

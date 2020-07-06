@@ -24,7 +24,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 ## マスターコンポーネント
 
 マスターコンポーネントは、クラスターのコントロールプレーンを提供します。
-マスターコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replica`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="pod" term_id="pod">}} を起動する等)。
+マスターコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="pod" term_id="pod">}} を起動する等)。
 
 マスターコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのマスターコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
 マルチマスター VMセットアップの例については、[高可用性クラスターの構築](/docs/admin/high-availability/) を参照してください。
@@ -80,7 +80,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### コンテナランタイム
+### コンテナランタイム {#container-runtime}
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 

@@ -13,7 +13,7 @@ content_template: templates/task
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Pod](/docs/concepts/workloads/pods/pod/)と[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)の基本を理解している必要があります。
+* [Pod](/ja/docs/concepts/workloads/pods/pod/)と[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)の基本を理解している必要があります。
 
 {{% /capture %}}
 
