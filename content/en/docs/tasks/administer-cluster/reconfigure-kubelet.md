@@ -380,4 +380,4 @@ internal failure, see Kubelet log for details | The kubelet encountered some int
 
  - For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
-- See the reference documentation for [`NodeConfigSource`](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
+- See the reference documentation for [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
