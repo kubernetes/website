@@ -6,8 +6,8 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The `KubeSchedulerConfiguration` is a configuration API for `kube-scheduler`
-that can be provided as a file via `--config` command line flag.
+You can customize the behavior of the `kube-scheduler` by writing a configuration
+file and passing its path as a command line argument.
 
 <!-- overview -->
 
@@ -24,22 +24,6 @@ clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
 ```
 
-## Upgrading from `v1alpha2` to `v1beta1` {#beta-changes}
-
-When migrating from `kubescheduler.config.k8s.io/v1alpha2` to `kubescheduler.config.k8s.io/v1beta1`,
-beware of the following changes, if applicable:
-
-- `.bindTimeoutSeconds` was moved as part of plugin args for `VolumeBinding`,
-  which can be configured separately per [profile](#profiles).
-- `.extenders` are updated to satisfy API standards. In particular:
-  - `.extenders` decoding is case sensitive. All fields are affected.
-  - `.extenders[*].httpTimeout` is of type `metav1.Duration`.
-  - `.extenders[*].enableHttps` is renamed to `.extenders[*].enableHTTPS`.
-- `RequestedToCapacityRatio` args decoding is case sensitive. All fields are affected.
-- `DefaultPodTopologySpread` [plugin](#scheduling-plugins) is renamed to `SelectorSpread`.
-- `Unreserve` extension point is removed from Profile definition. All `Reserve`
-  plugins implement an `Unreserve` call.
-
 ## Profiles
 
 A scheduling Profile allows you to configure the different stages of scheduling
@@ -48,7 +32,7 @@ Each stage is exposed in a [extension point](#extension-points).
 [Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
 or more of these extension points.
 
-A single instance of `kube-scheduler` can be configured to run
+You can configure a single instance of `kube-scheduler` to run
 [multiple profiles](#multiple-profiles)
 
 ### Extension points
@@ -60,10 +44,12 @@ extension points:
    sort pending Pods in the scheduling queue. Exactly one queue sort plugin
    may be enabled at a time.
 1. `PreFilter`: These plugins are used to pre-process or check information
-   about a Pod or the cluster before filtering.
+   about a Pod or the cluster before filtering. They can mark a pod as
+   unschedulable.
 1. `Filter`: These plugins are the equivalent of Predicates in a scheduling
    Policy and are used to filter out nodes that can not run the Pod. Filters
-   are called in the configured order.
+   are called in the configured order. A pod is marked as unschedulable if no
+   nodes pass all the filters.
 1. `PreScore`: This is an informational extension point that can be used
    for doing pre-scoring work.
 1. `Score`: These plugins provide a score to each node that has passed the
@@ -198,10 +184,9 @@ that are not enabled by default:
   
 ### Multiple profiles
 
-`kube-scheduler` can be configured to
-run more than one profile. Each profile has an associated scheduler name. Each
-profile can have a different set of plugins configured in its
-[extension points](#extension-points).
+You can configure `kube-scheduler` to run more than one profile.
+Each profile has an associated scheduler name and can have a different set of
+plugins configured in its [extension points](#extension-points). For example:
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta1
@@ -238,7 +223,24 @@ the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
 
+## Upgrading from `v1alpha2` to `v1beta1` {#beta-changes}
+
+When migrating from `kubescheduler.config.k8s.io/v1alpha2` to `kubescheduler.config.k8s.io/v1beta1`,
+beware of the following changes, if applicable:
+
+- `.bindTimeoutSeconds` was moved as part of plugin args for `VolumeBinding`,
+  which can be configured separately per [profile](#profiles).
+- `.extenders` are updated to satisfy API standards. In particular:
+  - `.extenders` decoding is case sensitive. All fields are affected.
+  - `.extenders[*].httpTimeout` is of type `metav1.Duration`.
+  - `.extenders[*].enableHttps` is renamed to `.extenders[*].enableHTTPS`.
+- `RequestedToCapacityRatio` args decoding is case sensitive. All fields are affected.
+- `DefaultPodTopologySpread` [plugin](#scheduling-plugins) is renamed to `SelectorSpread`.
+- `Unreserve` extension point is removed from Profile definition. All `Reserve`
+  plugins implement an `Unreserve` call.
+
 ## {{% heading "whatsnext" %}}
 
+* Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
 
