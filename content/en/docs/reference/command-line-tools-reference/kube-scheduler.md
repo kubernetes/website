@@ -14,7 +14,7 @@ and capacity. The scheduler needs to take into account individual and collective
 resource requirements, quality of service requirements, hardware/software/policy
 constraints, affinity and anti-affinity specifications, data locality, inter-workload
 interference, deadlines, and so on. Workload-specific requirements will be exposed
-through the API as necessary. See [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/)
+through the API as necessary. See [scheduling](/docs/concepts/scheduling-eviction/)
 for more information about scheduling and the kube-scheduler component.
 
 ```
@@ -511,8 +511,3 @@ kube-scheduler [flags]
 
 </tbody>
 </table>
-
-
-
-
-
