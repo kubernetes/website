@@ -120,6 +120,7 @@ different Kubernetes components.
 | `PodOverhead` | `false` | Alpha | 1.16 | - |
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
+| `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.19 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | |
@@ -459,6 +460,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   being deleted when it is still used by any Pod.
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
   bursting into resources requested at higher QoS levels (memory only for now).
+- `RecoverVolumeExpansionFailure`: Allows user to cancel previously issued volume expansion request. More details can be found in [Recover from volume expansion failure](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
