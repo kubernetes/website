@@ -192,6 +192,4 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 
 ## {{% heading "whatsnext" %}}
 
-Learn about specialized roles in SIG Docs:
-
-- [PR wranglers](/docs/contribute/participating/pr-wranglers)
+- Read about [PR wrangling](/docs/contribute/participating/pr-wranglers), a role all approvers take on rotation.
