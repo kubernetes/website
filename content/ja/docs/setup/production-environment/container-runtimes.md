@@ -60,13 +60,13 @@ kubeletを再起動しても問題は解決しないでしょう。
 ## Docker
 
 それぞれのマシンに対してDockerをインストールします。
-バージョン18.06.2が推奨されていますが、1.11、1.12、1.13、17.03、18.09についても動作が確認されています。
+バージョン19.03.11が推奨されていますが、1.13.1、17.03、17.06、17.09、18.06、18.09についても動作が確認されています。
 Kubernetesのリリースノートにある、Dockerの動作確認済み最新バージョンについてもご確認ください。
 
 システムへDockerをインストールするには、次のコマンドを実行します。
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
 # Docker CEのインストール
 ## リポジトリをセットアップ
 ### HTTPS越しのリポジトリの使用をaptに許可するために、パッケージをインストール
@@ -111,7 +111,7 @@ systemctl restart docker
 # Docker CEのインストール
 ## リポジトリをセットアップ
 ### 必要なパッケージのインストール
-    yum install yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils device-mapper-persistent-data lvm2
 
 ### Dockerリポジトリの追加
 yum-config-manager --add-repo \
@@ -314,7 +314,7 @@ systemctl restart containerd
 ### systemd
 
 `systemd`のcgroupドライバーを使うには、`/etc/containerd/config.toml`内で`plugins.cri.systemd_cgroup = true`を設定してください。
-kubeadmを使う場合は[kubeletのためのcgroupドライバー](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)を手動で設定してください。
+kubeadmを使う場合は[kubeletのためのcgroupドライバー](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#マスターノードのkubeletによって使用されるcgroupドライバーの設定)を手動で設定してください。
 
 ## その他のCRIランタイム: frakti
 
