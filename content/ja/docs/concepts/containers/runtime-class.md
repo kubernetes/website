@@ -26,9 +26,8 @@ RuntimeClassはコンテナランタイムの設定を選択するための機�
 
 ### セットアップ
 
-RuntimeClass機能のFeature Gateが有効になっていることを確認してください(デフォルトで有効です)。Feature Gateを有効にする方法については、[Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
-その`RuntimeClass`のFeature GateはApiServerとkubeletのどちらも有効になっていなければなりません。
+RuntimeClass機能のフィーチャーゲートが有効になっていることを確認してください(デフォルトで有効です)。フィーチャーゲートを有効にする方法については、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
+その`RuntimeClass`のフィーチャーゲートはApiServerとkubeletのどちらも有効になっていなければなりません。
 
 1. ノード上でCRI実装を設定する。（ランタイムに依存）
 2. 対応するRuntimeClassリソースを作成する。

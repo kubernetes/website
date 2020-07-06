@@ -14,7 +14,7 @@ content_type: task
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Initコンテナ](/ja/docs/concepts/abstractions/init-containers/)の基本を理解しておきましょう。
+* [Initコンテナ](/ja/docs/concepts/workloads/pods/init-containers/)の基本を理解しておきましょう。
 * [Initコンテナを設定](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)しておきましょう。
 
 
@@ -100,7 +100,7 @@ kubectl logs <pod-name> -c <init-container-2>
 
 <!-- discussion -->
 
-## Podのステータスを理解する
+## Podのステータスを理解する {#understanding-pod-status}
 
 `Init：`で始まるPodステータスはInitコンテナの実行ステータスを要約します。以下の表は、Initコンテナのデバッグ中に表示される可能性のあるステータス値の例をいくつか示しています。
 
