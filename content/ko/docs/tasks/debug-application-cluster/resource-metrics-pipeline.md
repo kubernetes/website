@@ -38,7 +38,7 @@ Horizontal Pod Autoscaler 같은 클러스터의 컨트롤러에서 결정을 �
 
 ### CPU
 
-CPU는 일정 기간 동안 [CPU 코어](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu)에서 평균 사용량으로 리포트된다. 이 값은 커널(리눅스와 윈도우 커널 모두)에서 제공하는 누적 CPU 카운터보다 높은 비율을 적용해서 얻는다. kubelet은 비율 계산에 사용할 윈도우를 선택한다.
+CPU는 일정 기간 동안 [CPU 코어](/ko/docs/concepts/configuration/manage-resources-containers/#cpu의-의미)에서 평균 사용량으로 리포트된다. 이 값은 커널(리눅스와 윈도우 커널 모두)에서 제공하는 누적 CPU 카운터보다 높은 비율을 적용해서 얻는다. kubelet은 비율 계산에 사용할 윈도우를 선택한다.
 
 ### 메모리
 

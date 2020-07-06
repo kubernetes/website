@@ -206,7 +206,7 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 
 {{< note >}}
 
-`minikube start` 시 `--driver` 를 설정하려면, 아래에 `<driver_name>` 로 소문자로 언급된 곳에 설치된 하이퍼바이저의 이름을 입력한다. `--driver` 값의 전체 목록은 [VM driver 문서에서 지정하기](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)에서 확인할 수 있다.
+`minikube start` 시 `--driver` 를 설정하려면, 아래에 `<driver_name>` 로 소문자로 언급된 곳에 설치된 하이퍼바이저의 이름을 입력한다. `--driver` 값의 전체 목록은 [VM driver 지정하기 문서](/ko/docs/setup/learning-environment/minikube/#vm-드라이버-지정하기)에서 확인할 수 있다.
 
 {{< /note >}}
 
