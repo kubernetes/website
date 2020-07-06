@@ -268,26 +268,26 @@ contexts:
 이후에 복원할 수 있도록 `KUBECONFIG` 환경 변수의 현재 값을 저장한다.
 예:
 
-### Linux
+### 리눅스
 ```shell
 export  KUBECONFIG_SAVED=$KUBECONFIG
 ```
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
 $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 `KUBECONFIG` 환경 변수는 구성 파일들의 경로의 리스트이다. 이 리스트는
-Linux와 Mac에서는 콜론으로 구분되며 Windows에서는 세미콜론으로 구분된다.
+리눅스와 Mac에서는 콜론으로 구분되며 윈도우에서는 세미콜론으로 구분된다.
 `KUBECONFIG` 환경 변수를 가지고 있다면, 리스트에 포함된 구성 파일들에
 익숙해지길 바란다.
 
 다음 예와 같이 임시로 `KUBECONFIG` 환경 변수에 두 개의 경로들을 덧붙여보자.
 
-### Linux
+### 리눅스
 ```shell
 export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
 $Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
@@ -346,11 +346,11 @@ kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
 환경 변수에 나타나지 않는다면 `KUBECONFIG` 환경 변수에 추가해보자.
 예:
 
-### Linux
+### 리눅스
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
-### Windows Powershell
+### 윈도우 Powershell
 ```shell
  $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
@@ -366,12 +366,12 @@ kubectl config view
 
 `KUBECONFIG` 환경 변수를 원래 값으로 되돌려 놓자. 예를 들면:<br>
 
-### Linux
+### 리눅스
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
 
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
  $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```

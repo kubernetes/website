@@ -25,7 +25,7 @@ weight: 10
 ### 적용 가능성
 
 {{< note >}}
-이 문서는 Linux에 CRI를 설치하는 사용자를 위해 작성되었다.
+이 문서는 리눅스에 CRI를 설치하는 사용자를 위해 작성되었다.
 다른 운영 체제의 경우, 해당 플랫폼과 관련된 문서를 찾아보자.
 {{< /note >}}
 
@@ -34,7 +34,7 @@ weight: 10
 
 ### Cgroup 드라이버
 
-Linux 배포판의 init 시스템이 systemd인 경우, init 프로세스는
+리눅스 배포판의 init 시스템이 systemd인 경우, init 프로세스는
 root control group(`cgroup`)을 생성 및 사용하는 cgroup 관리자로 작동한다.
 Systemd는 cgroup과의 긴밀한 통합을 통해 프로세스당 cgroup을 할당한다.
 컨테이너 런타임과 kubelet이 `cgroupfs`를 사용하도록 설정할 수 있다.

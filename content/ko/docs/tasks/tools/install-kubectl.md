@@ -179,9 +179,9 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    kubectl version --client
    ```
 
-## Windows에 kubectl 설치
+## 윈도우에 kubectl 설치
 
-### Windows에서 curl을 사용하여 kubectl 바이너리 설치
+### 윈도우에서 curl을 사용하여 kubectl 바이너리 설치
 
 1. [이 링크](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)에서 최신 릴리스 {{< param "fullversion" >}}을 다운로드한다.
 
@@ -202,13 +202,13 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
    ```
 
 {{< note >}}
-[Windows용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 PATH에 추가한다.
+[윈도우용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 PATH에 추가한다.
 도커 데스크톱을 이전에 설치한 경우, 도커 데스크톱 설치 프로그램에서 추가한 PATH 항목 앞에 PATH 항목을 배치하거나 도커 데스크톱의 `kubectl` 을 제거해야 할 수도 있다.
 {{< /note >}}
 
 ### PSGallery에서 Powershell로 설치
 
-Windows에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지 관리자를 사용하는 경우, Powershell로 kubectl을 설치하고 업데이트할 수 있다.
+윈도우에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지 관리자를 사용하는 경우, Powershell로 kubectl을 설치하고 업데이트할 수 있다.
 
 1. 설치 명령을 실행한다(`DownloadLocation` 을 지정해야 한다).
 
@@ -233,9 +233,9 @@ Windows에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지
 설치 업데이트는 1 단계에서 나열한 두 명령을 다시 실행하여 수행한다.
 {{< /note >}}
 
-### Chocolatey 또는 Scoop을 사용하여 Windows에 설치
+### Chocolatey 또는 Scoop을 사용하여 윈도우에 설치
 
-1. Windows에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자나 [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램을 사용할 수 있다.
+1. 윈도우에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자나 [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램을 사용할 수 있다.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}

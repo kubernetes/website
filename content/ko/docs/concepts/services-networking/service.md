@@ -1094,7 +1094,7 @@ IP 주소를 정리한다.
 
 실제로 고정된 목적지로 라우팅되는 파드 IP 주소와 달리,
 서비스 IP는 실제로 단일 호스트에서 응답하지 않는다. 대신에, kube-proxy는
-iptables (Linux의 패킷 처리 로직)를 필요에 따라
+iptables (리눅스의 패킷 처리 로직)를 필요에 따라
 명백하게 리다이렉션되는 _가상_ IP 주소를 정의하기 위해 사용한다. 클라이언트가 VIP에
 연결하면, 트래픽이 자동으로 적절한 엔드포인트로 전송된다.
 환경 변수와 서비스 용 DNS는 실제로 서비스의
@@ -1213,10 +1213,10 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 클라우드 공급자의 로드 밸런서 구현이 프로토콜로서 SCTP를 지원하는 경우에만 LoadBalancer `유형`과 SCTP `프로토콜`을 사용하여 서비스를 생성할 수 있다. 그렇지 않으면, 서비스 생성 요청이 거부된다. 현재 클라우드 로드 밸런서 공급자 세트 (Azure, AWS, CloudStack, GCE, OpenStack)는 모두 SCTP에 대한 지원이 없다.
 {{< /warning >}}
 
-##### Windows {#caveat-sctp-windows-os}
+##### 윈도우 {#caveat-sctp-windows-os}
 
 {{< warning >}}
-SCTP는 Windows 기반 노드를 지원하지 않는다.
+SCTP는 윈도우 기반 노드를 지원하지 않는다.
 {{< /warning >}}
 
 ##### 유저스페이스 kube-proxy {#caveat-sctp-kube-proxy-userspace}
