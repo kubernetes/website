@@ -300,7 +300,7 @@ language_alternatives = ["en"]
 
 [languages.ja]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
+description = "プロダクショングレードのコンテナ管理基盤"
 languageName = "日本語 Japanese"
 weight = 4
 contentDir = "content/ja"
