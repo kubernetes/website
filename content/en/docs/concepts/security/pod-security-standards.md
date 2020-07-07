@@ -245,13 +245,14 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Seccomp</td>
 			<td>
-				The 'runtime/default' seccomp profile must be required, or allow specific additional profiles.<br>
+				The RuntimeDefault seccomp profile must be required, or allow specific additional profiles.<br>
 				<br><b>Restricted Fields:</b><br>
-				metadata.annotations['seccomp.security.alpha.kubernetes.io/pod']<br>
-				metadata.annotations['container.seccomp.security.alpha.kubernetes.io/*']<br>
+				spec.securityContext.seccompProfile.type<br>
+				spec.containers[*].securityContext.seccompProfile<br>
+				spec.initContainers[*].securityContext.seccompProfile<br>
 				<br><b>Allowed Values:</b><br>
 				'runtime/default'<br>
-				undefined (container annotation)<br>
+				undefined / nil<br>
 			</td>
 		</tr>
 	</tbody>
