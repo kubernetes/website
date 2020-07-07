@@ -116,6 +116,6 @@ For further details, see [Kubernetes Audit Events][falco_ka_docs] in the Falco d
 [falco_k8s_audit_rules]: https://github.com/falcosecurity/falco/blob/master/rules/k8s_audit_rules.yaml
 [falco_ka_docs]: https://falco.org/docs/event-sources/kubernetes-audit
 [falco_installation]: https://falco.org/docs/installation
-[falco_helm_chart]: https://github.com/helm/charts/tree/master/stable/falco
+[falco_helm_chart]: https://github.com/falcosecurity/charts/tree/master/falco
 
 

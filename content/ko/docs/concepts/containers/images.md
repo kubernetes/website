@@ -63,6 +63,7 @@ Docker *18.06 또는 그 이상* 을 사용하길 바란다. 더 낮은 버전�
   - Oracle 클라우드 인프라스트럭처 레지스트리(OCIR) 사용
     - IAM 역할과 정책을 사용하여 OCIR 저장소에 접근을 제어함
   - Azure 컨테이너 레지스트리(ACR) 사용
+    - IAM 역할과 정책을 사용하여 ACR 저장소에 접근을 제어함
   - IBM 클라우드 컨테이너 레지스트리 사용
     - IAM 역할 및 정책을 사용하여 IBM 클라우드 컨테이너 레지스트리에 대한 접근 권한 부여
   - 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
@@ -127,13 +128,19 @@ kubelet은 ECR 자격 증명을 가져오고 주기적으로 갱신할 것이다
   - `aws_credentials.go:116] Got ECR credentials from ECR API for <AWS account ID for ECR>.dkr.ecr.<AWS region>.amazonaws.com`
 
 ### Azure 컨테이너 레지스트리(ACR) 사용
-[Azure 컨테이너 레지스트리](https://azure.microsoft.com/en-us/services/container-registry/)를 사용하는 경우
-관리자 역할의 사용자나 서비스 주체(principal) 중 하나를 사용하여 인증할 수 있다.
+쿠버네티스는 Azure 쿠버네티스 서비스(AKS)를 사용할 때
+[Azure 컨테이너 레지스트리(ACR)](https://azure.microsoft.com/ko-kr/services/container-registry/)를
+기본적으로 지원한다.
+
+AKS 클러스터 서비스 주체(principal)는 ACR 인스턴스에서 `ArcPull` 권한이 있어야 한다.  구성에 대한
+지침은 [Azure 쿠버네티스 서비스에서 Azure 컨테이너 레지스트리로 인증](https://docs.microsoft.com/ko-kr/azure/aks/cluster-container-registry-integration)을 참조한다.  그런 다음, 전체 ACR 이미지 이름(예: `my_registry.azurecr.io/image:tag`)을 사용한다.
+
+ACR 관리자 또는 서비스 주체를 사용해서 인증할 수도 있다.
 어느 경우라도, 인증은 표준 Docker 인증을 통해서 수행된다. 이러한 지침은
 [azure-cli](https://github.com/azure/azure-cli) 명령줄 도구 사용을 가정한다.
 
 우선 레지스트리를 생성하고 자격 증명을 만들어야한다. 이에 대한 전체 문서는
-[Azure 컨테이너 레지스트리 문서](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli)에서 찾을 수 있다.
+[Azure 컨테이너 레지스트리 문서](https://docs.microsoft.com/ko-kr/azure/container-registry/container-registry-get-started-azure-cli)에서 찾을 수 있다.
 
 컨테이너 레지스트리를 생성하고 나면, 다음의 자격 증명을 사용하여 로그인한다.
 
@@ -366,5 +373,4 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
 
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
 Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상`.docker / config.json` 파일로 병합한다.
-
 

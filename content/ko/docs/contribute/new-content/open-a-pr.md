@@ -408,7 +408,7 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
     git rebase -i HEAD~<number_of_commits_in_branch>
     ```
 
-    커밋을 스쿼시하는 것은 일종의 리베이스이다. git의 `-i` 스위치는 리베이스를 대화형으로 할 수 있게 한다. `HEAD~<number_of_commits_in_branch` 는 리베이스를 위해 살펴볼 커밋 수를 나타낸다.
+    커밋을 스쿼시하는 것은 일종의 리베이스이다. git의 `-i` 스위치는 리베이스를 대화형으로 할 수 있게 한다. `HEAD~<number_of_commits_in_branch>` 는 리베이스를 위해 살펴볼 커밋 수를 나타낸다.
 
     출력은 다음과 비슷하다.
 

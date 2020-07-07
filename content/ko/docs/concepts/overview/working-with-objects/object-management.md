@@ -127,7 +127,6 @@ kubectl replace -f nginx.yaml
 - 명령형 오브젝트 구성은 디렉토리가 아닌, 파일에 대해 가장 효과가 있다.
 - 활성 오브젝트에 대한 업데이트는 구성 파일에 반영되어야 한다. 그렇지 않으면 다음 교체 중에 손실된다.
 
-
 ## 선언형 오브젝트 구성
 
 선언형 오브젝트 구성을 사용할 경우, 사용자는 로컬에 보관된 오브젝트
@@ -178,6 +177,7 @@ kubectl apply -R -f configs/
 
 ## {{% heading "whatsnext" %}}
 
+
 - [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 - [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
@@ -186,6 +186,4 @@ kubectl apply -R -f configs/
 - [Kubectl 서적](https://kubectl.docs.kubernetes.io)
 - [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{< comment >}}
-{{< /comment >}}
 

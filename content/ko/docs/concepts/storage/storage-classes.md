@@ -162,8 +162,8 @@ CSI | 1.14 (alpha), 1.16 (beta)
 클러스터 관리자는 `WaitForFirstConsumer` 모드를 지정해서 이 문제를 해결할 수 있는데
 이 모드는 퍼시스턴트볼륨클레임을 사용하는 파드가 생성될 때까지 퍼시스턴트볼륨의 바인딩과 프로비저닝을 지연시킨다.
 퍼시스턴트볼륨은 파드의 스케줄링 제약 조건에 의해 지정된 토폴로지에
-따라 선택되거나 프로비전된다. 여기에는 [리소스
-요구 사항](/docs/concepts/configuration/manage-compute-resources-container/),
+따라 선택되거나 프로비전된다. 여기에는
+[리소스 요구 사항](/ko/docs/concepts/configuration/manage-resources-containers/),
 [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
 안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
@@ -815,5 +815,4 @@ volumeBindingMode: WaitForFirstConsumer
 볼륨 바인딩을 지연시키면 스케줄러가 퍼시스턴트볼륨클레임에
 적절한 퍼시스턴트볼륨을 선택할 때 파드의 모든 스케줄링
 제약 조건을 고려할 수 있다.
-
 

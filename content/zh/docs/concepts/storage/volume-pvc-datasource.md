@@ -135,6 +135,6 @@ The result is a new PVC with the name `clone-of-pvc-1` that has the exact same c
 Upon availability of the new PVC, the cloned PVC is consumed the same as other PVC.  It's also expected at this point that the newly created PVC is an independent object.  It can be consumed, cloned, snapshotted, or deleted independently and without consideration for it's original dataSource PVC.  This also implies that the source is not linked in any way to the newly created clone, it may also be modified or deleted without affecting the newly created clone.
 -->
 
-一旦新的 PVC 可用，被克隆的 PVC 项其他 PVC 一样被使用。可以预期的是，新创建的 PVC 是一个独立的对象。可以独立使用，克隆，快照或删除它，而不需要考虑它的原始数据源 PVC。这也意味着，源没有以任何方式链接到新创建的 PVC，它也可以被修改或删除，而不会影响到新创建的克隆。
+一旦新的 PVC 可用，被克隆的 PVC 像其他 PVC 一样被使用。可以预期的是，新创建的 PVC 是一个独立的对象。可以独立使用，克隆，快照或删除它，而不需要考虑它的原始数据源 PVC。这也意味着，源没有以任何方式链接到新创建的 PVC，它也可以被修改或删除，而不会影响到新创建的克隆。
 
 

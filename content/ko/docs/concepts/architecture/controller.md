@@ -48,7 +48,7 @@ weight: 30
 내장 컨트롤러의 예시이다. 내장 컨트롤러는 클러스터 API 서버와 
 상호 작용하며 상태를 관리한다.
 
-잡은 단일 {{< glossary_tooltip term_id="pod" >}} 또는 여러 파드를 실행하고, 
+잡은 단일 {{< glossary_tooltip text="파드" term_id="pod" >}} 또는 여러 파드를 실행하고, 
 작업을 수행한 다음 중지하는 
 쿠버네티스 리소스 이다.
 

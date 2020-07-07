@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< glossary_definition term_id="configmap" prepend="ConfigMap 是" length="all" >}}
+{{< glossary_definition term_id="configmap" length="all" >}}
 
 {{< caution >}}
 <!--
@@ -84,10 +84,10 @@ format.
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  Name: game-demo
+  name: game-demo
 data:
   # 类属性键；每一个键都映射到一个简单的值
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # 类文件键

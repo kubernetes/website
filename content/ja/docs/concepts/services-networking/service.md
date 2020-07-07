@@ -894,7 +894,7 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-KubernetseはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というFeature Gateを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
+KubernetesはService、Endpoints、NetworkPolicyとPodの定義においてα版の機能として`protocol`フィールドの値でSCTPをサポートしています。この機能を有効にするために、クラスター管理者はAPI Serverにおいて`SCTPSupport`というFeature Gateを有効にする必要があります。例えば、`--feature-gates=SCTPSupport=true,…`といったように設定します。
 
 そのFeature Gateが有効になった時、ユーザーはService、Endpoints、NetworkPolicyの`protocol`フィールドと、Podの`SCTP`フィールドを設定できます。
 Kubernetesは、TCP接続と同様に、SCTPアソシエーションに応じてネットワークをセットアップします。

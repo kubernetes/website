@@ -235,16 +235,16 @@ minikube start --vm-driver=<nom_du_pilote>
 
 Minikube prend en charge les pilotes suivants:
 {{< note >}}
-Voir [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) pour plus de détails sur les pilotes pris en charge et comment installer les plugins.
+Voir [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) pour plus de détails sur les pilotes pris en charge et comment installer les plugins.
 {{< /note >}}
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([installation du pilote](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* hyperkit ([installation du pilote](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* hyperv ([installation du pilote](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* kvm2 ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* hyperkit ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
+* hyperv ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#hyperv-driver))
 Notez que l'adresse IP ci-dessous est dynamique et peut changer. Il peut être récupéré avec `minikube ip`.
-* vmware ([installation du pilote](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#vmware-unified-driver)) (VMware unified driver)
+* vmware ([installation du pilote](https://minikube.sigs.k8s.io/docs/drivers/#vmware-unified-driver)) (VMware unified driver)
 * none (Exécute les composants Kubernetes sur l’hôte et non sur une machine virtuelle. Il n'est pas recommandé d'exécuter le pilote none sur des postes de travail personnels. L'utilisation de ce pilote nécessite Docker ([docker installer](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) et un environnement Linux)
 
 #### Démarrage d'un cluster sur des exécutions de conteneur alternatives
