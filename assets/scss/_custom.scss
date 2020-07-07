@@ -101,18 +101,6 @@ section {
         left: 0;
         background: #fff;
       }
-
-      .dropdown-menu {
-        left: -80px;
-      }
-
-      &.dropdown:hover {
-        color: $medium-grey;
-
-        .dropdown-menu {
-          display: block;
-        }
-      }
     }
   }
 
