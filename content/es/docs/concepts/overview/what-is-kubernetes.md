@@ -49,7 +49,7 @@ una plataforma: para poder construir un ecosistema de componentes y herramientas
 más fácil el desplegar, escalar y administrar aplicaciones.
 
 Las etiquetas, o [Labels](/es/docs/concepts/overview/working-with-objects/labels/), le
-permiten a los usuarios organizar sus recursos como deseen. Las anotaciones , o [Annotations](/es/docs/concepts/overview/working-with-objects/annotations/), les permiten asignar información arbitraria a un recurso para
+permiten a los usuarios organizar sus recursos como deseen. Las anotaciones, o [Annotations](/es/docs/concepts/overview/working-with-objects/annotations/), les permiten asignar información arbitraria a un recurso para
 facilitar sus flujos de trabajo y hacer más fácil a las herramientas administrativas inspeccionar el estado.
 
 Además, el [Plano de Control](/docs/concepts/overview/components/) de Kubernetes usa las mismas
@@ -127,7 +127,7 @@ En resumen, los beneficios de usar contenedores incluyen:
 
 * **Ágil creación y despliegue de aplicaciones**:
     Mayor facilidad y eficiencia al crear imágenes de contenedor en vez de máquinas virtuales
-* **Desarrollo, integración y despliegue continuos**:
+* **Desarrollo, integración y despliegue continuo**:
     Permite que la imagen de contenedor se construya y despliegue de forma frecuente y confiable,
     facilitando los rollbacks pues la imagen es inmutable
 * **Separación de tareas entre Dev y Ops**:

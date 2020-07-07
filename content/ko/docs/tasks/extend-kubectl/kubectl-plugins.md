@@ -1,23 +1,24 @@
 ---
 title: 플러그인으로 kubectl 확장
 description: kubectl 플러그인을 사용하면, 새로운 하위 명령을 추가하여 kubectl 명령의 기능을 확장할 수 있다.
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 가이드는 [kubectl](/docs/reference/kubectl/kubectl/) 확장을 설치하고 작성하는 방법을 보여준다. 핵심 `kubectl` 명령을 쿠버네티스 클러스터와 상호 작용하기 위한 필수 구성 요소로 생각함으로써, 클러스터 관리자는
 플러그인을 이러한 구성 요소를 활용하여 보다 복잡한 동작을 만드는 수단으로 생각할 수 있다. 플러그인은 새로운 하위 명령으로 `kubectl` 을 확장하고, 주요 배포판에 포함되지 않은 `kubectl` 의 새로운 사용자 정의 기능을 허용한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 동작하는 `kubectl` 바이너리가 설치되어 있어야 한다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## kubectl 플러그인 설치
 
@@ -372,9 +373,10 @@ kubectl 플러그인의 배포 패키지를
 컴파일된 패키지를 사용 가능하게 하거나, Krew를 사용하면 설치가
 더 쉬워진다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Go로 작성된 플러그인의
   [자세한 예제](https://github.com/kubernetes/sample-cli-plugin)에 대해서는
@@ -383,4 +385,4 @@ kubectl 플러그인의 배포 패키지를
   [SIG CLI 팀](https://github.com/kubernetes/community/tree/master/sig-cli)에 문의한다.
 * kubectl 플러그인 패키지 관리자인 [Krew](https://krew.dev/)에 대해 읽어본다.
 
-{{% /capture %}}
+

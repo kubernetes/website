@@ -69,9 +69,8 @@ content_type: concept
 ## {{% heading "whatsnext" %}}
 
 
-튜토리얼을 작성하고 싶다면,
-튜토리얼 페이지 유형과 튜토리얼 템플릿에 대한 정보가 있는
-[Using Page Templates](/docs/home/contribute/page-templates/)
+튜토리얼을 작성하고 싶다면, 튜토리얼 페이지 유형에 대한 정보가 있는
+[내용 페이지 유형](/docs/contribute/style/page-content-types/)
 페이지를 참조한다.
 
 

@@ -132,21 +132,29 @@ weight: 10
 
 ### API 오브젝트 용어 한글화 방침
 
-API 오브젝트 중 `kubectl api-resources` 결과의 `kind`에 해당하는 오브젝트는
+일반적으로 `kubectl api-resources` 결과의 `kind` 에 해당하는 API 오브젝트는
 [국립국어원 외래어 표기법](http://kornorms.korean.go.kr/regltn/regltnView.do?regltn_code=0003#a)에
-따라 한글 표기한다. 예를 들면 다음과 같다.
+따라 한글로 표기하고 영문을 병기한다. 예를 들면 다음과 같다.
+
+API 오브젝트(kind)      | 한글화(외래어 표기 및 영문 병기)
+---                   | ---
+ClusterRoleBinding    | 클러스터롤바인딩(ClusterRoleBinding)
+ConfigMap             | 컨피그맵(ConfigMap)
+Deployment            | 디플로이먼트(Deployment)
+PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim)
+...                   | ...
+
+`kind` 에 속하는 API 오브젝트 중에서도 일부는 표현의 간결함을 위해 한영병기를 하지 않는 등의 예외가 있으며,
+예외에 대해서는 [한글화 용어집](#한글화-용어집)에 등록된 방식을 준용한다. 예를 들면 다음과 같다.
 
 API 오브젝트(kind)      | 한글화(외래어 표기)
 ---                   | ---
-ClusterRoleBinding    | 클러스터롤바인딩
-ConfigMap             | 컨피그맵
-Deployment            | 디플로이먼트
 Pod                   | 파드
-PersistentVolumeClaim | 퍼시스턴트볼륨클레임
 Service               | 서비스
 ...                   | ...
 
-그 이외의 API 오브젝트는, [한글화 용어집](#한글화-용어집)에 등록된 용어인 경우를 제외하고,
+
+`kind` 에 속하지 않는 API 오브젝트는, [한글화 용어집](#한글화-용어집)에 등록된 용어인 경우를 제외하고,
 모두 원문 그대로 표기한다. 예를 들면 다음과 같다.
 
 API 오브젝트(kind가 아닌 경우) | 한글화(원문 유지)
@@ -287,8 +295,6 @@ Daemon | 데몬 |
 DaemonSet | 데몬셋(DaemonSet) | API 오브젝트인 경우
 Dashboard | 대시보드 |
 Data Plane | 데이터 플레인 |
-Default Limit | 기본 상한 |
-Default Request | 기본 요청량 |
 Deployment | 디플로이먼트(Deployment) | API 오브젝트인 경우
 deprecated | 사용 중단(deprecated) |
 descriptor | 디스크립터, 식별자 |
@@ -348,6 +354,7 @@ label | 레이블 |
 Lease | 리스(Lease) | API 오브젝트인 경우
 lifecycle | 라이프사이클 |
 LimitRange | 리밋레인지(LimitRange) | API 오브젝트인 경우
+limit | 한도(limit) | 리소스의 개수나 용량을 한정하기 위한 수치로 사용된 경우 선택적으로 사용 (API 오브젝트의 속성으로 limit을 사용한 경우는 가능한 영문 유지)
 Linux | 리눅스 |
 load | 부하 |
 LocalSubjectAccessReview | 로컬서브젝트액세스리뷰(LocalSubjectAccessReview) | API 오브젝트인 경우
@@ -357,7 +364,6 @@ Lost | Lost | 클레임의 상태에 한함
 Machine | 머신 |
 manifest | 매니페스트 |
 Master | 마스터 |
-max limit/request ratio | 최대 상한/요청량 비율 |
 metadata | 메타데이터 |
 metric | 메트릭 |
 masquerading | 마스커레이딩 |
@@ -382,7 +388,7 @@ PersistentVolume | 퍼시스턴트볼륨(PersistentVolume) | API 오브젝트인
 PersistentVolumeClaim | 퍼시스턴트볼륨클레임(PersistentVolumeClaim) | API 오브젝트인 경우
 pipeline | 파이프라인 |
 placeholder pod | 플레이스홀더(placeholder) 파드 |
-Pod | 파드(Pod) | API 오브젝트인 경우
+Pod | 파드 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
 Pod Preset | 파드 프리셋 |
 PodAntiAffinity | 파드안티어피니티(PodAntiAffinity) |
 PodDisruptionBudget | PodDisruptionBudget | API 오브젝트인 경우
@@ -410,8 +416,8 @@ ReplicaSet | 레플리카셋(ReplicaSet) | API 오브젝트인 경우
 replicas | 레플리카 |
 ReplicationController | 레플리케이션컨트롤러(ReplicationController) | API 오브젝트인 경우
 repository | 리포지터리 |
+request | 요청(request) | 리소스의 개수나 용량에 대한 요청 수치를 표현하기 위해 사용된 경우 선택적으로 사용 (API 오브젝트 속성으로 request를 사용한 경우는 가능한 영문을 유지)
 resource | 리소스 |
-Resource Limit | 리소스 상한 |
 ResourceQuota | 리소스쿼터(ResourceQuota) | API 오브젝트인 경우
 return | 반환하다 |
 revision | 리비전 |
@@ -431,7 +437,7 @@ Selector | 셀렉터 |
 Self-healing | 자가 치유 |
 SelfSubjectAccessReview | 셀프서브젝트액세스리뷰(SelfSubjectAccessReview) | API 오브젝트인 경우
 SelfSubjectRulesReview | SelfSubjectRulesReview | API 오브젝트이지만 용어를 구성하는 단어 중 복수형 Rules를 '룰스'로 외래어 표기하는 경우 한국어 독자에게 다소 생경할 수 있어 예외적으로 영문 용어를 사용함
-Service | 서비스(Service) | API 오브젝트인 경우
+Service | 서비스 | API 오브젝트인 경우에도 표현의 간결함을 위해 한영병기를 하지 않음
 ServiceAccount | 서비스어카운트(ServiceAccount) | API 오브젝트인 경우
 service discovery | 서비스 디스커버리 |
 service mesh | 서비스 메시 |
@@ -479,5 +485,3 @@ Windows | 윈도우 |
 Worker | 워커 | 노드의 형태에 한함
 Workload | 워크로드 |
 YAML | YAML |
-
-

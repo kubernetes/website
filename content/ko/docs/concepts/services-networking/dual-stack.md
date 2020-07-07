@@ -47,7 +47,7 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64이다.
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64 이다.
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
