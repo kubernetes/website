@@ -102,7 +102,7 @@ Azure Kubernetes Service는 사용자가 CLI나 Azure 포털에서 클러스터�
 GCE나 Google Kubernetes Engine을 사용한다면, 파드가 필요로하는 리소스를 기반으로 클러스터의 크기를 자동으로
 재조정하도록 클러스터를 구성할 수 있다.
 
-[컴퓨트 리소스](/docs/concepts/configuration/manage-compute-resources-container/)에 기술된 것처럼 사용자들은 파드에 얼마만큼의 CPU와 메모리를 할당할 것인지 예약할 수 있다.
+[컴퓨트 리소스](/ko/docs/concepts/configuration/manage-resources-containers/)에 기술된 것처럼 사용자들은 파드에 얼마만큼의 CPU와 메모리를 할당할 것인지 예약할 수 있다. 
 이 정보는 쿠버네티스 스케줄러가 해당 파드를 어디에서 실행시킬 것인지를 결정할 때 사용된다.
 여유 용량이 넉넉한 노드가 없다면 (또는 다른 파드 요구조건을 충족하지 못한다면) 해당 파드는
 다른 파드들이 종료될 때까지 기다리거나 신규 노드가 추가될 때까지 기다린다.
@@ -219,5 +219,3 @@ kubectl convert -f pod.yaml --output-version v1
 ```
 
 옵션에 대한 상세 정보는 [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) 커맨드의 사용법을 참조하기를 바란다.
-
-

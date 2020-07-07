@@ -592,7 +592,7 @@ spec:
 ### AppArmor
 
 파드시큐리티폴리시의 어노테이션을 통해 제어된다. [AppArmor
-문서](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
+문서](/ko/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
 
 ### Seccomp
 
@@ -636,4 +636,3 @@ spec:
 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
 
 API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
-

@@ -223,7 +223,7 @@ pod2             1/1     Running   0          36s
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
 레플리카셋 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 레플리카셋도 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)이 필요하다.
 
@@ -233,7 +233,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
-템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 필드인
+템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 필드인
 `.spec.template.spec.restartPolicy`는 기본값인 `Always`만 허용된다.
 
 ### 파드 셀렉터
@@ -361,5 +361,3 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
-
-

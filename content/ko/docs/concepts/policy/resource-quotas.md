@@ -197,7 +197,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
-특정 [우선 순위](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)로 파드를 생성할 수 있다.
+특정 [우선 순위](/ko/docs/concepts/configuration/pod-priority-preemption/#파드-우선순위)로 파드를 생성할 수 있다.
 쿼터 스펙의 `scopeSelector` 필드를 사용하여 파드의 우선 순위에 따라 파드의 시스템 리소스 사용을
 제어할 수 있다.
 
@@ -600,4 +600,3 @@ plugins:
 
 
 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
-

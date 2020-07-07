@@ -214,7 +214,7 @@ CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 �
 
 {{< note >}}
 전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드 공급자
-구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
+구성에 대해서는 [오픈스택 클라우드 공급자](/ko/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
 {{< /note >}}
 
 `cinder` 는 오픈스택 Cinder 볼륨을 파드에 마운트하는 데 사용한다.

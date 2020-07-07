@@ -119,7 +119,7 @@ track=stable
 
 - **CPU 요구 사항 (cores)** 와 **메모리 요구 사항 (MiB)**: 컨테이너를 위한 최소 [리소스 상한](/docs/tasks/configure-pod-container/limit-range/)을 정의할 수 있다. 기본적으로, 파드는 CPU와 메모리 상한을 두지 않고 동작한다.
 
-- **커맨드 실행** 와 **커맨드 인수 실행**: 기본적으로, 컨테이너는 선택된 도커 이미지의 [기본 엔트리포인트 커맨드](/docs/tasks/inject-data-application/define-command-argument-container/)를 실행한다. 커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
+- **커맨드 실행** 와 **커맨드 인수 실행**: 기본적으로, 컨테이너는 선택된 도커 이미지의 [기본 엔트리포인트 커맨드](/ko/docs/tasks/inject-data-application/define-command-argument-container/)를 실행한다. 커맨드 옵션과 인자를 기본 옵션에 우선 적용하여 사용할 수 있다.
 
 - **특권을 가진(privileged) 상태로 실행**: 다음 세팅은 호스트에서 루트 권한을 가진 프로세스들이 [특권을 가진 컨테이너](/ko/docs/concepts/workloads/pods/pod/#파드-컨테이너의-특권-privileged-모드)의 프로세스들과 동등한 지 아닌지 정의한다. 특권을 가진(privileged) 컨테이너는 네트워크 스택과 디바이스에 접근하는 것을 조작하도록 활용할 수 있다.
 
@@ -127,7 +127,7 @@ track=stable
 
 ### YAML 또는 JSON 파일 업로드
 
-쿠버네티스는 선언적인 설정을 제공한다. 이 방식으로 모든 설정은 쿠버네티스 [API](/docs/concepts/overview/kubernetes-api/) 리소스 스키마를 이용하여 YAML 또는 JSON 설정 파일에 저장한다.
+쿠버네티스는 선언적인 설정을 제공한다. 이 방식으로 모든 설정은 쿠버네티스 [API](/ko/docs/concepts/overview/kubernetes-api/) 리소스 스키마를 이용하여 YAML 또는 JSON 설정 파일에 저장한다.
 
 배포 마법사를 통해 애플리케이션 세부사항들을 지정하는 대신, 애플리케이션을 YAML 또는 JSON 파일로 정의할 수 있고 대시보드를 이용해서 파일을 업로드할 수 있다.
 
@@ -169,5 +169,3 @@ track=stable
 
 더 많은 정보는
 [쿠버네티스 대시보드 프로젝트 페이지](https://github.com/kubernetes/dashboard)를 참고한다.
-
-

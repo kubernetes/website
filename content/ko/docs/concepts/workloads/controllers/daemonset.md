@@ -54,7 +54,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 `.spec.template` 는 `.spec` 의 필수 필드 중 하나이다.
 
-`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#pod-templates)이다. 이것은 중첩되어 있다는 점과 `apiVersion` 또는 `kind` 를 가지지 않는 것을 제외하면 [파드](/ko/docs/concepts/workloads/pods/pod/)와 정확히 같은 스키마를 가진다.
+`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿)이다. 이것은 중첩되어 있다는 점과 `apiVersion` 또는 `kind` 를 가지지 않는 것을 제외하면 [파드](/ko/docs/concepts/workloads/pods/pod/)와 정확히 같은 스키마를 가진다.
 
 데몬셋의 파드 템플릿에는 파드의 필수 필드 외에도 적절한 레이블이 명시되어야
 한다([파드 셀렉터](#파드-셀렉터)를 본다).

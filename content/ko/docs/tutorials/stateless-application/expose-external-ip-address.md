@@ -15,7 +15,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 
- * [kubectl](/docs/tasks/tools/install-kubectl/)을 설치한다.
+ * [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 설치한다.
 
  * Google Kubernetes Engine 또는 Amazon Web Services와 같은 클라우드 공급자를 사용하여
 쿠버네티스 클러스터를 생성한다.
@@ -173,4 +173,3 @@ Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카
 
 [애플리케이션과 서비스 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해
 더 배워 본다.
-

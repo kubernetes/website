@@ -65,7 +65,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 ### kubectl 설치
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#리눅스에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ## 하이퍼바이저(hypervisor) 설치
 
@@ -129,7 +129,7 @@ brew install minikube
 {{% tab name="맥OS" %}}
 ### kubectl 설치
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#macos에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ### 하이퍼바이저(hypervisor) 설치
 
@@ -165,7 +165,7 @@ sudo mv minikube /usr/local/bin
 {{% tab name="윈도우" %}}
 ### kubectl 설치하기
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#windows에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ### 하이퍼바이저(hypervisor) 설치하기
 

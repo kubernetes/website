@@ -242,7 +242,7 @@ min-kubernetes-server-version: 1.18
 -  CNI 제공자 플러그인을 수동으로 업그레이드한다.
 
     CNI(컨테이너 네트워크 인터페이스) 제공자는 자체 업그레이드 지침을 따를 수 있다.
-    [애드온](/docs/concepts/cluster-administration/addons/) 페이지에서
+    [애드온](/ko/docs/concepts/cluster-administration/addons/) 페이지에서
     사용하는 CNI 제공자를 찾고 추가 업그레이드 단계가 필요한지 여부를 확인한다.
 
     CNI 제공자가 데몬셋(DaemonSet)으로 실행되는 경우 추가 컨트롤 플레인 노드에는 이 단계가 필요하지 않다.

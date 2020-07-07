@@ -72,7 +72,7 @@ _서비스_ 로 들어가보자.
 마찬가지로, 서비스 정의를 API 서버에 `POST`하여
 새 인스턴스를 생성할 수 있다.
 서비스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 예를 들어, 각각 TCP 포트 9376에서 수신하고
 `app=MyApp` 레이블을 가지고 있는 파드 세트가 있다고 가정해 보자.
@@ -168,7 +168,7 @@ subsets:
 ```
 
 엔드포인트 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 {{< note >}}
 엔드포인트 IP는 루프백(loopback) (IPv4의 경우 127.0.0.0/8, IPv6의 경우 ::1/128), 또는
@@ -272,7 +272,7 @@ kube-proxy가 iptables 모드에서 실행 중이고 선택된 첫 번째 파드
 다르다. 해당 시나리오에서는, kube-proxy는 첫 번째
 파드에 대한 연결이 실패했음을 감지하고 다른 백엔드 파드로 자동으로 재시도한다.
 
-파드 [준비성 프로브(readiness probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)를 사용하여
+파드 [준비성 프로브(readiness probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 사용하여
 백엔드 파드가 제대로 작동하는지 확인할 수 있으므로, iptables 모드의 kube-proxy는
 정상으로 테스트된 백엔드만 볼 수 있다. 이렇게 하면 트래픽이 kube-proxy를 통해
 실패한 것으로 알려진 파드로 전송되는 것을 막을 수 있다.
@@ -418,7 +418,7 @@ DNS 만 사용하여 서비스의 클러스터 IP를 검색하는 경우, 이 �
 
 ### DNS
 
-[애드-온](/docs/concepts/cluster-administration/addons/)을 사용하여 쿠버네티스
+[애드-온](/ko/docs/concepts/cluster-administration/addons/)을 사용하여 쿠버네티스
 클러스터의 DNS 서비스를 설정할 수(대개는 필수적임) 있다.
 
 CoreDNS와 같은, 클러스터-인식 DNS 서버는 새로운 서비스를 위해 쿠버네티스 API를 감시하고
@@ -1176,7 +1176,7 @@ HTTP / HTTPS 서비스를 노출할 수도 있다.
 
 ### PROXY 프로토콜
 
-클라우드 공급자가 지원하는 경우에 (예: [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+클라우드 공급자가 지원하는 경우에 (예: [AWS](/ko/docs/concepts/cluster-administration/cloud-providers/#aws)),
 LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부에
 로드 밸런서를 구성할 수 있으며, 이때 접두사가
 [PROXY 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) 인 연결을 전달하게 된다.

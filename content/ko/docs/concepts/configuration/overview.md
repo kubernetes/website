@@ -46,7 +46,7 @@ weight: 10
 
   *이는 순서를 정하는 일이 요구됨을 암시한다* - `파드`가 접근하기를 원하는 어떠한 `서비스`는 `파드` 스스로가 생성되기 전에 미리 생성되어 있어야 하며, 그렇지 않으면 환경 변수가 설정되지 않을 것이다. DNS는 이러한 제한을 가지고 있지 않다.
 
-- 선택적인(그렇지만 매우 권장되는) [클러스터 애드온](/docs/concepts/cluster-administration/addons/)은 DNS 서버이다.
+- 선택적인(그렇지만 매우 권장되는) [클러스터 애드온](/ko/docs/concepts/cluster-administration/addons/)은 DNS 서버이다.
 DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며, 각 서비스를 위한 DNS 레코드 셋을 생성한다. 만약 DNS가 클러스터에 걸쳐 활성화되어 있다면, 모든 `파드`는 `서비스`의 이름을 자동으로 해석할 수 있어야 한다.
 
 - 반드시 필요한 것이 아니라면 파드에 `hostPort` 를 명시하지 않는다. <`hostIP`, `hostPort`, `protocol`> 조합은 유일해야 하기 때문에, `hostPort`로 바인드하는 것은 파드가 스케줄링될 수 있는 위치의 개수를 제한한다. 만약 `hostIP`와 `protocol`을 뚜렷히 명시하지 않으면, 쿠버네티스는 `hostIP`의 기본 값으로 `0.0.0.0`를, `protocol`의 기본 값으로 `TCP`를 사용한다.
@@ -99,6 +99,6 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
 
-- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
+- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/ko/docs/concepts/cluster-administration/manage-deployment/#효과적인-레이블-사용)를 참고할 수 있다.
 
 - 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl create deployment` 와 `kubectl expose` 를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.

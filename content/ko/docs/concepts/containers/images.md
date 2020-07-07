@@ -221,7 +221,7 @@ kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SER
 만약 도커 자격 증명 파일이 이미 존재한다면, 위의 명령을 사용하지 않고,
 자격 증명 파일을 쿠버네티스 {{< glossary_tooltip text="시크릿" term_id="secret" >}}으로
 가져올 수 있다.
-[기존 도커 자격 증명으로 시크릿 생성](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 관련 방법을 설명하고 있다.
+[기존 도커 자격 증명으로 시크릿 생성](/ko/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)에서 관련 방법을 설명하고 있다.
 
 `kubectl create secret docker-registry`는
 하나의 프라이빗 레지스트리에서만 작동하는 시크릿을 생성하기 때문에,
@@ -300,7 +300,7 @@ imagePullSecrets을 셋팅하여 자동화할 수 있다.
 
 
 다중 레지스트리에 접근해야 하는 경우, 각 레지스트리에 대해 하나의 시크릿을 생성할 수 있다.
-Kubelet은 모든`imagePullSecrets` 파일을 하나의 가상 `.docker/config.json` 파일로 병합한다.
+Kubelet은 모든 `imagePullSecrets` 파일을 하나의 가상 `.docker/config.json` 파일로 병합한다.
 
 ## {{% heading "whatsnext" %}}
 

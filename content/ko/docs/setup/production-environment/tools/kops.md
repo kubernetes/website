@@ -23,7 +23,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 ## {{% heading "prerequisites" %}}
 
 
-* [kubectl](/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
+* [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
@@ -220,7 +220,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 
 ### 다른 애드온 탐험
 
-[애드온 리스트](/docs/concepts/cluster-administration/addons/) 에서 쿠버네티스 클러스터용 로깅, 모니터링, 네트워크 정책, 시각화 &amp; 제어 등을 포함한 다른 애드온을 확인해본다.
+[애드온 리스트](/ko/docs/concepts/cluster-administration/addons/) 에서 쿠버네티스 클러스터용 로깅, 모니터링, 네트워크 정책, 시각화 &amp; 제어 등을 포함한 다른 애드온을 확인해본다.
 
 ## 정리하기
 
@@ -235,5 +235,3 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 * 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
 * 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)
-
-

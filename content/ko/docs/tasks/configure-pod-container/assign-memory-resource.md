@@ -340,7 +340,7 @@ kubectl delete namespace mem-example
 
 * [CPU 리소스를 컨테이너와 파드에 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [파드에 서비스 품질 설정](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [파드에 서비스 품질 설정](/ko/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### 클러스터 관리자들을 위한
 
