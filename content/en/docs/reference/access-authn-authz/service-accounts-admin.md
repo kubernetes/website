@@ -101,7 +101,7 @@ secret.json:
 ```
 
 ```shell
-kubectl create -f ./secret.json
+kubectl apply -f ./secret.json
 kubectl describe secret mysecretname
 ```
 

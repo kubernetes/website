@@ -94,8 +94,8 @@ Port mapping is also supported, but for simplicity in this example the container
 
 1. Check that the deployment succeeded. To verify:
 
-    * Two containers per pod on the Windows node, use `docker ps` 
-    * Two pods listed from the Linux master, use `kubectl get pods` 
+    * Two containers per pod on the Windows node, use `docker ps`
+    * Two pods listed from the Linux master, use `kubectl get pods`
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
@@ -194,7 +194,7 @@ scheduling:
     value: "windows"
 ```
 
-1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
+1. Run `kubectl apply -f runtimeClasses.yml` using as a cluster administrator
 1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
 
 For example:

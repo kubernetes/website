@@ -6,7 +6,7 @@ reviewers:
 title: Using NodeLocal DNSCache in Kubernetes clusters
 content_type: task
 ---
- 
+
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
@@ -82,11 +82,11 @@ This feature can be enabled using the following steps:
      In this mode, node-local-dns pods listen only on `<node-local-address>`. The node-local-dns interface cannot bind the kube-dns cluster IP since the interface used for IPVS loadbalancing already uses this address.
      `__PILLAR__UPSTREAM__SERVERS__` will be populated by the node-local-dns pods.
 
-* Run `kubectl create -f nodelocaldns.yaml`
+* Run `kubectl apply -f nodelocaldns.yaml`
 * If using kube-proxy in IPVS mode, `--cluster-dns` flag to kubelet needs to be modified to use `<node-local-address>` that NodeLocal DNSCache is listening on.
   Otherwise, there is no need to modify the value of the `--cluster-dns` flag, since NodeLocal DNSCache listens on both the kube-dns service IP as well as `<node-local-address>`.
 
 Once enabled, node-local-dns Pods will run in the kube-system namespace on each of the cluster nodes. This Pod runs [CoreDNS](https://github.com/coredns/coredns) in cache mode, so all CoreDNS metrics exposed by the different plugins will be available on a per-node basis.
 
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>` . You should also revert any changes you made to the kubelet configuration.
- 
+

@@ -310,7 +310,7 @@ hours, you would configure the following in your PodSpec:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
+kubectl apply -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 ```
 
 The kubelet will request and store the token on behalf of the pod, make the

@@ -95,16 +95,16 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
       name: <insert-namespace-name-here>
     ```
     Then run:
-   
+
     ```
-    kubectl create -f ./my-namespace.yaml
+    kubectl apply -f ./my-namespace.yaml
     ```
 
 2. Alternatively, you can create namespace using below command:
 
     ```
     kubectl create namespace <insert-namespace-name-here>
-    ``` 
+    ```
 
 The name of your namespace must be a valid
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
@@ -164,13 +164,13 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Create the `development` namespace using kubectl:
 
     ```shell
-    kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+    kubectl apply -f https://k8s.io/examples/admin/namespace-dev.json
     ```
 
     And then let's create the `production` namespace using kubectl:
 
     ```shell
-    kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+    kubectl apply -f https://k8s.io/examples/admin/namespace-prod.json
     ```
 
     To be sure things are right, list all of the namespaces in our cluster.

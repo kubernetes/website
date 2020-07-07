@@ -166,7 +166,7 @@ Here is a configuration file you can use to create a Pod:
 *  Create the Pod:
 
    ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
+   kubectl apply -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
    ```
 
 *  In your shell, display the content of `SECRET_USERNAME` container environment variable
@@ -196,7 +196,7 @@ Here is a configuration file you can use to create a Pod:
 *  Create the Pod:
 
    ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
+   kubectl apply -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
    ```
 
 *  In your shell, display the container environment variables
@@ -230,7 +230,7 @@ This functionality is available in Kubernetes v1.6 and later.
 *  Create the Pod:
 
    ```shell
-   kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
+   kubectl apply -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
    ```
 
 * In your shell, display `username` and `password` container environment variables

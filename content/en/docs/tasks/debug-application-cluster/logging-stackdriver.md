@@ -182,7 +182,7 @@ pod "counter" deleted
 and then recreating it:
 
 ```shell
-kubectl create -f https://k8s.io/examples/debug/counter-pod.yaml
+kubectl apply -f https://k8s.io/examples/debug/counter-pod.yaml
 ```
 ```
 pod/counter created

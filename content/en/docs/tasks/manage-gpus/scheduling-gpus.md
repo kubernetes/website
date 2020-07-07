@@ -79,7 +79,7 @@ has the following requirements:
 To deploy the AMD device plugin once your cluster is running and the above
 requirements are satisfied:
 ```shell
-kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
+kubectl apply -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
 ```
 
 You can report issues with this third-party device plugin by logging an issue in
@@ -105,7 +105,7 @@ To deploy the NVIDIA device plugin once your cluster is running and the above
 requirements are satisfied:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
+kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
 
 You can report issues with this third-party device plugin by logging an issue in
@@ -123,13 +123,13 @@ You can use the following commands to install the NVIDIA drivers and device plug
 
 ```shell
 # Install NVIDIA drivers on Container-Optimized OS:
-kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
+kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
 
 # Install NVIDIA drivers on Ubuntu (experimental):
-kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/ubuntu/daemonset.yaml
+kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/ubuntu/daemonset.yaml
 
 # Install the device plugin:
-kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
 ```
 
 You can report issues with using or deploying this third-party device plugin by logging an issue in

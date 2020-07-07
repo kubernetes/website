@@ -261,10 +261,10 @@ items:
         values: ["low"]
 ```
 
-Apply the YAML using `kubectl create`.
+Apply the YAML using `kubectl apply`.
 
 ```shell
-kubectl create -f ./quota.yml
+kubectl apply -f ./quota.yml
 ```
 
 ```shell
@@ -331,10 +331,10 @@ spec:
   priorityClassName: high
 ```
 
-Apply it with `kubectl create`.
+Apply it with `kubectl apply`.
 
 ```shell
-kubectl create -f ./high-priority-pod.yml
+kubectl apply -f ./high-priority-pod.yml
 ```
 
 Verify that "Used" stats for "high" priority quota, `pods-high`, has changed and that
@@ -413,7 +413,7 @@ EOF
 ```
 
 ```shell
-kubectl create -f ./compute-resources.yaml --namespace=myspace
+kubectl apply -f ./compute-resources.yaml --namespace=myspace
 ```
 
 ```shell
@@ -435,7 +435,7 @@ EOF
 ```
 
 ```shell
-kubectl create -f ./object-counts.yaml --namespace=myspace
+kubectl apply -f ./object-counts.yaml --namespace=myspace
 ```
 
 ```shell
@@ -554,7 +554,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -573,7 +573,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```

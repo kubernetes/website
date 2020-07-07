@@ -137,7 +137,7 @@ These APIs can be queried by creating normal Kubernetes resources, where the res
 field of the returned object is the result of the query.
 
 ```bash
-kubectl create -f - -o yaml << EOF
+kubectl apply -f - -o yaml << EOF
 ```
 ```
 apiVersion: authorization.k8s.io/v1

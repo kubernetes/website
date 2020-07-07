@@ -92,7 +92,7 @@ In order to run your scheduler in a Kubernetes cluster, just create the deployme
 specified in the config above in a Kubernetes cluster:
 
 ```shell
-kubectl create -f my-scheduler.yaml
+kubectl apply -f my-scheduler.yaml
 ```
 
 Verify that the scheduler pod is running:
@@ -185,7 +185,7 @@ scheduler in that pod spec. Let's look at three examples.
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
 
 ```shell
-kubectl create -f pod1.yaml
+kubectl apply -f pod1.yaml
 ```
 
 - Pod spec with `default-scheduler`
@@ -198,7 +198,7 @@ kubectl create -f pod1.yaml
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
 
 ```shell
-kubectl create -f pod2.yaml
+kubectl apply -f pod2.yaml
 ```
 
 - Pod spec with `my-scheduler`
@@ -212,7 +212,7 @@ kubectl create -f pod2.yaml
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
 ```shell
-kubectl create -f pod3.yaml
+kubectl apply -f pod3.yaml
 ```
 
   Verify that all three pods are running.

@@ -63,7 +63,7 @@ This manifest defines a Pod labelled `role: frontend` (matching the PodPreset's 
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 Verify that the Pod is running:
@@ -103,7 +103,7 @@ Here is the manifest containing the definition of the ConfigMap:
 Create the ConfigMap:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/configmap.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/configmap.yaml
 ```
 
 Here is a PodPreset manifest referencing that ConfigMap:
@@ -113,7 +113,7 @@ Here is a PodPreset manifest referencing that ConfigMap:
 Create the preset that references the ConfigMap:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/allow-db.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/allow-db.yaml
 ```
 
 The following manifest defines a Pod matching the PodPreset for this example:
@@ -123,7 +123,7 @@ The following manifest defines a Pod matching the PodPreset for this example:
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 View the Pod spec altered by the admission controller in order to see the effects of the preset
@@ -160,7 +160,7 @@ This manifest defines a ReplicaSet that manages three application Pods:
 Create the ReplicaSet:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/replicaset.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/replicaset.yaml
 ```
 
 Verify that the Pods created by the ReplicaSet are running:
@@ -235,7 +235,7 @@ Here's a manifest containing the definition of an applicable Pod (matched by two
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/pod.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/pod.yaml
 ```
 
 View the Pod spec altered by the admission controller in order to see the effects of both presets
@@ -276,7 +276,7 @@ Note the volumeMount element with the same path as in the PodPreset.
 Create the Pod:
 
 ```shell
-kubectl create -f https://k8s.io/examples/podpreset/conflict-pod.yaml
+kubectl apply -f https://k8s.io/examples/podpreset/conflict-pod.yaml
 ```
 
 View the Pod spec:

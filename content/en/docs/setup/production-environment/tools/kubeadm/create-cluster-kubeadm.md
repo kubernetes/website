@@ -317,7 +317,7 @@ kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
 To deploy Cilium you just need to run:
 
 ```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
+kubectl apply -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 
 Once all Cilium Pods are marked as `READY`, you start using your cluster.

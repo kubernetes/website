@@ -254,7 +254,7 @@ This configures Filebeat to apply the Filebeat module `redis` when a container i
 
 ### Deploy Filebeat:
 ```shell
-kubectl create -f filebeat-kubernetes.yaml
+kubectl apply -f filebeat-kubernetes.yaml
 ```
 
 #### Verify
@@ -279,7 +279,7 @@ This configures Metricbeat to apply the Metricbeat module `redis` when a contain
 
 ### Deploy Metricbeat
 ```shell
-kubectl create -f metricbeat-kubernetes.yaml
+kubectl apply -f metricbeat-kubernetes.yaml
 ```
 #### Verify
 ```shell
@@ -318,7 +318,7 @@ packetbeat.flows:
 
 #### Deploy Packetbeat
 ```shell
-kubectl create -f packetbeat-kubernetes.yaml
+kubectl apply -f packetbeat-kubernetes.yaml
 ```
 
 #### Verify

@@ -95,7 +95,7 @@ write a program to generate the Job manifests.
 Next, create all the Jobs with one kubectl command:
 
 ```shell
-kubectl create -f ./jobs
+kubectl apply -f ./jobs
 ```
 
 The output is similar to this:

@@ -53,7 +53,7 @@ This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
 
 ```shell
-kubectl create -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
+kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml
 ```
 
 Alternatively, use `kubectl apply` to create the same DaemonSet if you plan to

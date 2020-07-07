@@ -149,7 +149,7 @@ under `<LANG>/examples`.
 In your topic, show this command:
 
 ```
-kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
+kubectl apply -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
 {{< note >}}

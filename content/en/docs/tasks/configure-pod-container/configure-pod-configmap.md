@@ -472,7 +472,7 @@ configmap/special-config-2-c92b5mmcf2 created
    Create the Pod:
 
  ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
+ kubectl apply -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
  ```
 
    Now, the Pod's output includes environment variable `SPECIAL_LEVEL_KEY=very`.
@@ -486,7 +486,7 @@ configmap/special-config-2-c92b5mmcf2 created
    Create the ConfigMap:
 
  ```shell
- kubectl create -f https://kubernetes.io/examples/configmap/configmaps.yaml
+ kubectl apply -f https://kubernetes.io/examples/configmap/configmaps.yaml
  ```
 
 * Define the environment variables in the Pod specification.
@@ -496,7 +496,7 @@ configmap/special-config-2-c92b5mmcf2 created
   Create the Pod:
 
  ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
+ kubectl apply -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
  ```
 
   Now, the Pod's output includes environment variables `SPECIAL_LEVEL_KEY=very` and `LOG_LEVEL=INFO`.
@@ -514,7 +514,7 @@ This functionality is available in Kubernetes v1.6 and later.
   Create the ConfigMap:
 
  ```shell
- kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
+ kubectl apply -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
  ```
 
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The key from the ConfigMap becomes the environment variable name in the Pod.
@@ -524,7 +524,7 @@ This functionality is available in Kubernetes v1.6 and later.
  Create the Pod:
 
  ```shell
- kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
+ kubectl apply -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
  ```
 
  Now, the Pod's output includes environment variables `SPECIAL_LEVEL=very` and `SPECIAL_TYPE=charm`.
@@ -541,7 +541,7 @@ For example, the following Pod specification
 created by running
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
 produces the following output in the `test-container` container:
@@ -561,7 +561,7 @@ The examples in this section refer to a ConfigMap named special-config, shown be
 Create the ConfigMap:
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
+kubectl apply -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
 ```
 
 ### Populate a Volume with data stored in a ConfigMap
@@ -575,7 +575,7 @@ The `command` section lists directory files with names that match the keys in Co
 Create the Pod:
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
 ```
 
 When the pod runs, the command `ls /etc/config/` produces the output below:
@@ -603,7 +603,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 Create the Pod:
 
 ```shell
-kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
+kubectl apply -f https://kubernetes.io/examples/pods/pod-configmap-volume-specific-key.yaml
 ```
 
 When the pod runs, the command `cat /etc/config/keys` produces the output below:
