@@ -61,6 +61,7 @@ To submit a blog post follow these directions:
 - Ensure that your blog post follows the correct naming conventions and the following frontmatter (metadata) information:
 
   - The Markdown file name must follow the format `YYYY-MM-DD-Your-Title-Here.md`. For example, `2020-02-07-Deploying-External-OpenStack-Cloud-Provider-With-Kubeadm.md`.
+  - Do **not** include dots in the filename. A name like `2020-01-01-whats-new-in-1.19.md` will causes failures during a build.
   - Do NOT include dots in the filename, this will break the renderer. Pay close attention when dealing with versions in your filename and slug, for example `1.15-is-great.md` will break, `1-15-is-great.md` is correct.
   - The front matter must include the following:
 
