@@ -28,12 +28,12 @@ clientConnection:
 
 A scheduling Profile allows you to configure the different stages of scheduling
 in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
-Each stage is exposed in a [extension point](#extension-points).
+Each stage is exposed in an [extension point](#extension-points).
 [Plugins](#scheduling-plugins) provide scheduling behaviors by implementing one
 or more of these extension points.
 
 You can configure a single instance of `kube-scheduler` to run
-[multiple profiles](#multiple-profiles)
+[multiple profiles](#multiple-profiles).
 
 ### Extension points
 
@@ -85,7 +85,7 @@ profiles:
           weight: 1
 ```
 
-You can use `*`  as name in the disabled array to disable all default plugins
+You can use `*` as name in the disabled array to disable all default plugins
 for that extension point. This can also be used to rearrange plugins order, if
 desired.
    
@@ -186,7 +186,11 @@ that are not enabled by default:
 
 You can configure `kube-scheduler` to run more than one profile.
 Each profile has an associated scheduler name and can have a different set of
-plugins configured in its [extension points](#extension-points). For example:
+plugins configured in its [extension points](#extension-points).
+
+With the following sample configuration, the scheduler will run with two
+profiles: one with the default plugins and one with all scoring plugins
+disabled.
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1beta1
@@ -195,6 +199,9 @@ profiles:
   - schedulerName: default-scheduler
   - schedulerName: no-scoring-scheduler
     plugins:
+      prescore:
+        disabled:
+        - name: '*'
       score:
         disabled:
         - name: '*'
