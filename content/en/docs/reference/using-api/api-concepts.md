@@ -414,12 +414,6 @@ object or is [combined](#merge-strategy), by the server, with the existing objec
 
 The system supports multiple appliers collaborating on a single object.
 
-This model of specifying intent makes it difficult to remove existing fields.
-When a field is removed from one's config and applied, the value will be kept
-(the system assumes that you don't care about that value anymore). If an item is
-removed from a list or a map, it will be removed if no other appliers care about
-its presence.
-
 Changes to an object's fields are tracked through a "[field management](#field-management)"
 mechanism. When a field's value changes, ownership moves from its current
 manager to the manager making the change. When trying to apply an object, fields
@@ -428,8 +422,14 @@ that have a different value and are owned by another manager will result in a
 collaborator's changes. Conflicts can be forced, in which case the value will be
 overridden, and the ownership will be transferred.
 
-It is meant both as a replacement for the original `kubectl apply` and as a
-simpler mechanism to write controllers.
+If you remove a field from a configuration and apply the configuration, server side apply checks
+if there are any other field managers that also own the field.  If the field is
+not owned by any other field managers, it is either deleted from the live
+object or reset to its default value, if it has one. The same rule applies to associative list or
+map items.
+
+Server side apply is meant both as a replacement for the original `kubectl
+apply` and as a simpler mechanism for controllers to enact their changes.
 
 ### Field Management
 
@@ -448,8 +448,12 @@ to the Server Side Apply endpoint. When using Server-Side Apply, trying to
 change a field which is managed by someone else will result in a rejected
 request (if not forced, see [Conflicts](#conflicts)).
 
-Field management is stored in a newly introduced `managedFields` field that is
-part of an object's
+When two or more appliers set a field to the same value, they share ownership of
+that field. Any subsequent attempt to change the value of the shared field, by any of
+the appliers, results in a conflict. Shared field owners may give up ownership
+of a field by removing it from their configuration.
+
+Field management is stored in a`managedFields` field that is part of an object's
 [`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
@@ -627,13 +631,88 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
 
+### Transferring Ownership
+
+In addition to the concurrency controls provided by [conflict
+resolution](#conflicts), Server Side Apply provides ways to perform coordinated
+field ownership transfers from users to controllers.
+
+This is best explained by example. Let's look at how to safely transfer
+ownership of the `replicas` field from a user to a controller while enabling
+automatic horizontal scaling for a Deployment, using the HorizontalPodAutoscaler
+resource and its accompanying controller.
+
+Say a user has defined deployment with `replicas` set to the desired value:
+
+{{< codenew file="application/ssa/nginx-deployment.yaml" >}}
+
+And the user has created the deployment using server side apply like so:
+
+```shell
+kubectl apply -f application/ssa/nginx-deployment.yaml --server-side
+```
+
+Then later, HPA is enabled for the deployment, e.g.:
+
+```
+kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
+```
+
+Now, the user would like to remove `replicas` from their configuration, so they
+don't accidentally fight with the HPA controller. However, there is a race: it
+might take some time before HPA feels the need to adjust `replicas`, and if
+the user removes `replicas` before the HPA writes to the field and becomes
+its owner, then apiserver will set `replicas` to 1, its default value. This
+is not what the user wants to happen, even temporarily.
+
+There are two solutions:
+
+- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
+  field, the system gives the user a conflict over it. At that point, it is safe
+  to remove from the configuration.
+
+- (more advanced) If, however, the user doesn't want to wait, for example
+  because they want to keep the cluster legible to coworkers, then they can take
+  the following steps to make it safe to remove `replicas` from their
+  configuration:
+
+First, the user defines a new configuration containing only the `replicas` field:
+
+{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+
+The user applies that configuration using the field manager name `handover-to-hpa`:
+
+```shell
+kubectl apply -f application/ssa/nginx-deployment-replicas-only.yaml --server-side --field-manager=handover-to-hpa --validate=false
+```
+
+If the apply results in a conflict with the HPA controller, then do nothing. The
+conflict just indicates the controller has claimed the field earlier in the
+process that it sometimes does.
+
+At this point the user may remove the `replicas` field from their configuration.
+
+{{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
+
+Note that whenever the HPA controller sets the `replicas` field to a new value,
+the temporary field manager will no longer own any fields and will be
+automatically deleted. No clean up is required.
+
+### Transferring Ownership Between Users
+
+Users can transfer ownership of a field between each other by setting the field
+to the same value in both of their applied configs, causing them to share
+ownership of the field. Once the users share ownership of the field, one of them
+can remove the field from their applied configuration to give up ownership and
+complete the transfer to the other user.
+
 ### Comparison with Client Side Apply
 
 A consequence of the conflict detection and resolution implemented by Server
 Side Apply is that an applier always has up to date field values in their local
 state. If they don't, they get a conflict the next time they apply. Any of the
-three options to resolve conflicts results in the applied config being an up to
-date subset of the object on the server's fields.
+three options to resolve conflicts results in the applied configuration being an
+up to date subset of the object on the server's fields.
 
 This is different from Client Side Apply, where outdated values which have been
 overwritten by other users are left in an applier's local config. These values
