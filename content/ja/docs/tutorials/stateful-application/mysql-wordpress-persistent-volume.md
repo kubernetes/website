@@ -18,7 +18,7 @@ card:
 {{< /warning >}}
 
 {{< note >}}
-このチュートリアルで提供されるファイルは、GAとなっているDeployment APIを使用しているため、Kubernetesバージョン1.9以降のためのものになっています。もしこのチュートリアルを古いバージョンのKubernetesで使いたい場合は、PAIのバージョンを適切にアップデートするか、このチュートリアルの古いバージョンを参照してください。
+このチュートリアルで提供されるファイルは、GAとなっているDeployment APIを使用しているため、Kubernetesバージョン1.9以降のためのものになっています。もしこのチュートリアルを古いバージョンのKubernetesで使いたい場合は、APIのバージョンを適切にアップデートするか、このチュートリアルの古いバージョンを参照してください。
 {{< /note >}}
 
 
@@ -94,7 +94,7 @@ EOF
 
 {{< codenew file="application/wordpress/mysql-deployment.yaml" >}}
 
-以下のマニフェストには、シングルインスタンスのWordPressのDeploymentが書かれています。WordPressコンテナはPersistentVolumeをウェブサイトのデータファイルのために`/var/www/html`にマウントします。`WORDPRESS_DB_HOST`環境変数に上で定義したMySQLのServiceの名前を設定すると、WordPressはServiceによってデータバースにアクセスします。`WORDPRESS_DB_PASSWORD`環境変数には、kustomizeが生成したSecretから得たデータベースのパスワードが設定されます。
+以下のマニフェストには、シングルインスタンスのWordPressのDeploymentが書かれています。WordPressコンテナはPersistentVolumeをウェブサイトのデータファイルのために`/var/www/html`にマウントします。`WORDPRESS_DB_HOST`環境変数に上で定義したMySQLのServiceの名前を設定すると、WordPressはServiceによってデータベースにアクセスします。`WORDPRESS_DB_PASSWORD`環境変数には、kustomizeが生成したSecretから得たデータベースのパスワードが設定されます。
 
 
 {{< codenew file="application/wordpress/wordpress-deployment.yaml" >}}
@@ -238,6 +238,5 @@ WordPressのインストールをこのページのまま放置してはいけ�
 * [Job](/docs/concepts/workloads/controllers/job/)についてさらに学ぶ
 * [Portフォワーディング](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)についてさらに学ぶ
 * [コンテナへのシェルを取得する](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)方法について学ぶ
-
 
 
