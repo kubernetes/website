@@ -123,7 +123,6 @@ different Kubernetes components.
 | `ProcMountType` | `false` | Alpha | 1.12 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | |
-| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `RunAsGroup` | `true` | Beta | 1.14 | |
@@ -251,6 +250,8 @@ different Kubernetes components.
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | - |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
+| `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
+| `ResourceLimitsPriorityFunction` | - | Deprecated | 1.19 | - |
 | `ResourceQuotaScopeSelectors` | `false` | Alpha | 1.11 | 1.11 |
 | `ResourceQuotaScopeSelectors` | `true` | Beta | 1.12 | 1.16 |
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | - |
@@ -465,7 +466,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   being deleted when it is still used by any Pod.
 - `QOSReserved`: Allows resource reservations at the QoS level preventing pods at lower QoS levels from
   bursting into resources requested at higher QoS levels (memory only for now).
-- `ResourceLimitsPriorityFunction`: Enable a scheduler priority function that
+- `ResourceLimitsPriorityFunction` (*deprecated*): Enable a scheduler priority function that
   assigns a lowest possible score of 1 to a node that satisfies at least one of
   the input Pod's cpu and memory limits. The intent is to break ties between
   nodes with same scores.
