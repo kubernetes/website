@@ -1,12 +1,12 @@
 ---
 title: kube-scheduler
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 ---
 <!-- 
 ---
 title: kube-scheduler
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 --- 
 -->

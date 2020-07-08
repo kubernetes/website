@@ -206,7 +206,7 @@ To confirm successful installation of both a hypervisor and Minikube, you can ru
 
 {{< note >}}
 
-For setting the `--driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+For setting the `--driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--driver` values is available in [specifying the VM driver documentation](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 
 {{< /note >}}
 
