@@ -726,11 +726,11 @@ For get and list, the semantics of resource version are:
 
 **List:**
 
-| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
-|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
-| limit unset                   | Most Recent           | Any                                            | Not older than                         |
-| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
+| paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                     | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset       | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="\<token\>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 
