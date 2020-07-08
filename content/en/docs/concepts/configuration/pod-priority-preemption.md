@@ -65,24 +65,20 @@ PriorityClasses have the option to set `preemptionPolicy: Never`.
 This will prevent pods of that PriorityClass from preempting other pods.
 {{< /note >}}
 
-Preemption is controlled by a kube-scheduler flag `disablePreemption`, which is
-set to `false` by default.
-If you want to disable preemption despite the above note, you can set
-`disablePreemption` to `true`.
-
-This option is available in component configs only and is not available in
-old-style command line options. Below is a sample component config to disable
-preemption:
+Starting from Kubernetes 1.19, Preemption is controlled by a kube-scheduler
+plugin: `DefaultPreemption`, which is enabled by default.
+If you want to disable preemption despite the above note, below is a sample
+component config:
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
+apiVersion: kubescheduler.config.k8s.io/v1beta1
 kind: KubeSchedulerConfiguration
-algorithmSource:
-  provider: DefaultProvider
-
-...
-
-disablePreemption: true
+profiles:
+  - schedulerName: default-scheduler
+    plugins:
+      postFilter:
+        disabled:
+        - name: DefaultPreemption
 ```
 
 ## PriorityClass
