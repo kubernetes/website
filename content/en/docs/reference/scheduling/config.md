@@ -158,6 +158,8 @@ extension points:
   Extension points: `QueueSort`.
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `Bind`.
+- `DefaultPreemption`: Provides the default preemption mechanism.
+  Extension points: `PostFilter`.
   
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
@@ -199,7 +201,7 @@ profiles:
   - schedulerName: default-scheduler
   - schedulerName: no-scoring-scheduler
     plugins:
-      prescore:
+      preScore:
         disabled:
         - name: '*'
       score:
@@ -245,6 +247,8 @@ beware of the following changes, if applicable:
 - `DefaultPodTopologySpread` [plugin](#scheduling-plugins) is renamed to `SelectorSpread`.
 - `Unreserve` extension point is removed from Profile definition. All `Reserve`
   plugins implement an `Unreserve` call.
+- `.disablePreemption` was removed. Users can disable preemption by disabling the
+  "DefaultPreemption" PostFilter plugin.
 
 ## {{% heading "whatsnext" %}}
 
