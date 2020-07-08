@@ -15,11 +15,11 @@ tags:
 Componente del plano de control que está pendiente de los
 {{< glossary_tooltip term_id="pod" text="Pods" >}} que no tienen ningún
 {{< glossary_tooltip term_id="node" text="nodo">}} asignado
-y seleciona uno dónde ejecutarlo.
+y seleciona uno donde ejecutarlo.
 
 <!--more-->
 
-Para decidir en que {{< glossary_tooltip term_id="node" text="nodo">}}
+Para decidir en qué {{< glossary_tooltip term_id="node" text="nodo">}}
 se ejecutará el {{< glossary_tooltip term_id="pod" text="pod" >}}, se tienen
-en cuenta diversos factores: requisitos de recursos, restricciones de hardware/software/polítcas,
+en cuenta diversos factores: requisitos de recursos, restricciones de hardware/software/políticas,
 afinidad y anti-afinidad, localización de datos dependientes, entre otros.

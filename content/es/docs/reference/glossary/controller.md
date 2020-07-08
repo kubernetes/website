@@ -16,7 +16,7 @@ tags:
 
 En Kubernetes, los controladores son bucles de control que observan el estado del
 {{< glossary_tooltip term_id="cluster" text="clúster">}}, y ejecutan o solicitan
-los cambios que sean necesarios para llevar el estado actual del cluster más
+los cambios que sean necesarios para llevar el estado actual del clúster más
 cerca del estado deseado.
 
 <!--more-->
@@ -29,5 +29,5 @@ Algunos controladores también se ejecutan dentro del mismo plano de control,
 proporcionado los bucles de control necesarios para las operaciones principales
 de Kubernetes. Por ejemplo, el controlador de Deployments, el controlador de
 DaemonSets, el controlador de Namespaces y el controlador de volúmenes
-persistentes entre otros, se ejecutan dentro del
+persistentes, entre otros, se ejecutan dentro del
 {{< glossary_tooltip term_id="kube-controller-manager" >}}.
