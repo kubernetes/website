@@ -1,10 +1,10 @@
 ---
 title: Membuat sebuah klaster dengan control-plane tunggal menggunakan kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Perkakas <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
 `kubeadm` juga mendukung fungsi siklus hidup (_lifecycle_)
@@ -22,9 +22,10 @@ server di _cloud_, sebuah Raspberry Pi, dan lain-lain. Baik itu men-_deploy_ pad
 _cloud_ ataupun _on-premise_, kamu dapat mengintegrasikan `kubeadm` pada sistem _provisioning_ seperti
 Ansible atau Terraform.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Untuk mengikuti panduan ini, kamu membutuhkan:
 
@@ -51,9 +52,9 @@ sedikit seiring dengan berevolusinya kubeadm, namun secara umum implementasinya 
 Semua perintah di dalam `kubeadm alpha`, sesuai definisi, didukung pada level _alpha_.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Tujuan
 
@@ -559,9 +560,9 @@ Lihat dokumentasi referensi [`kubeadm reset`](/docs/reference/setup-tools/kubead
 untuk informasi lebih lanjut mengenai sub-perintah ini dan
 opsinya.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Selanjutnya
 
@@ -635,4 +636,4 @@ mendukung platform pilihanmu.
 
 Jika kamu menemui kesulitan dengan kubeadm, silakan merujuk pada [dokumen penyelesaian masalah](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
-{{% /capture %}}
+

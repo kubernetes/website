@@ -146,3 +146,16 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
+
+### kube-proxy
+
+* `kube-proxy` must be the same minor version as `kubelet` on the node.
+* `kube-proxy` must not be newer than `kube-apiserver`.
+* `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
+
+Example:
+
+If `kube-proxy` version is **{{< skew latestVersion >}}**:
+
+* `kubelet` version must be at the same minor version as **{{< skew latestVersion >}}**.
+* `kube-apiserver` version must be between **{{ skew oldestMinorVersion }}** and **{{ skew latestVersion }}**, inclusive.

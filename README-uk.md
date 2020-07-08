@@ -55,7 +55,7 @@ hugo server --buildFuture
 Більше інформації про внесок у документацію Kubernetes ви знайдете у наступних джерелах:
 
 * [Внесок: з чого почати](https://kubernetes.io/docs/contribute/)
-* [Використання шаблонів сторінок](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Використання шаблонів сторінок](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Керівництво зі стилю оформлення документації](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Переклад документації Kubernetes іншими мовами](https://kubernetes.io/docs/contribute/localization/)
 

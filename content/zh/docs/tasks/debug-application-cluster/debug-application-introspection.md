@@ -532,14 +532,14 @@ Learn about additional debugging tools, including:
 * [Logging](/docs/concepts/cluster-administration/logging/)
 * [Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 * [Getting into containers via `exec`](/docs/tasks/debug-application-cluster/get-shell-running-container/)
-* [Connecting to containers via proxies](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+* [Connecting to containers via proxies](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Inspect Kubernetes node with crictl](/docs/tasks/debug-application-cluster/crictl/)
 -->
 * [日志](/docs/concepts/cluster-administration/logging/)
 * [监控](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
 * [使用 `exec` 进入容器](/docs/tasks/debug-application-cluster/get-shell-running-container/)
-* [使用代理连接容器](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+* [使用代理连接容器](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 * [使用端口转发连接容器](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [使用 crictl 检查节点](/docs/tasks/debug-application-cluster/crictl/)
 
