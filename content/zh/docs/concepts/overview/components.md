@@ -59,7 +59,7 @@ for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
 [Building High-Availability Clusters](/docs/admin/high-availability/) for an example multi-master-VM setup.
  -->
-控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。请参阅[构建高可用性集群](/docs/admin/high-availability/)中对于多主机 VM 的设置示例。
+控制平面组件可以在集群中的任何节点上运行。然而，为了简单起见，设置脚本通常会在同一个计算机上启动所有控制平面组件，并且不会在此计算机上运行用户容器。请参阅[构建高可用性集群](/zh/docs/admin/high-availability/)中对于多主机 VM 的设置示例。
 
 ### kube-apiserver
 
@@ -101,7 +101,7 @@ These controllers include:
 <!--
 [cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) runs controllers that interact with the underlying cloud providers. The cloud-controller-manager binary is an alpha feature introduced in Kubernetes release 1.6.
 -->
-[cloud-controller-manager](/docs/tasks/administer-cluster/running-cloud-controller/) 运行与基础云提供商交互的控制器。cloud-controller-manager 二进制文件是 Kubernetes 1.6 版本中引入的 alpha 功能。
+[cloud-controller-manager](/zh/docs/tasks/administer-cluster/running-cloud-controller/) 运行与基础云提供商交互的控制器。cloud-controller-manager 二进制文件是 Kubernetes 1.6 版本中引入的 alpha 功能。
 
 <!--
 cloud-controller-manager runs cloud-provider-specific controller loops only. You must disable these controller loops in the kube-controller-manager. You can disable the controller loops by setting the `--cloud-provider` flag to `external` when starting the kube-controller-manager.
@@ -171,7 +171,7 @@ for addons belong within the `kube-system` namespace.
 Selected addons are described below; for an extended list of available addons, please
 see [Addons](/docs/concepts/cluster-administration/addons/).
 -->
-所选的插件如下所述：有关可用插件的扩展列表，请参见[插件 (Addons)](/docs/concepts/cluster-administration/addons/)。
+所选的插件如下所述：有关可用插件的扩展列表，请参见[插件 (Addons)](/zh/docs/concepts/cluster-administration/addons/)。
 
 ### DNS
 
@@ -182,7 +182,7 @@ Cluster DNS is a DNS server, in addition to the other DNS server(s) in your envi
 
 Containers started by Kubernetes automatically include this DNS server in their DNS searches.
 -->
-尽管并非严格要求其他附加组件，但所有示例都依赖[集群 DNS](/docs/concepts/services-networking/dns-pod-service/)，因此所有 Kubernetes 集群都应具有 DNS。
+尽管并非严格要求其他附加组件，但所有示例都依赖[集群 DNS](/zh/docs/concepts/services-networking/dns-pod-service/)，因此所有 Kubernetes 集群都应具有 DNS。
 
 除了您环境中的其他 DNS 服务器之外，集群 DNS 还是一个 DNS 服务器，它为 Kubernetes 服务提供 DNS 记录。
 
@@ -198,7 +198,7 @@ Kubernetes 启动的容器自动将 DNS 服务器包含在 DNS 搜索中。
 <!--
 [Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) is a general purpose, web-based UI for Kubernetes clusters. It allows users to manage and troubleshoot applications running in the cluster, as well as the cluster itself.
 -->
-[Dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard/) 是 Kubernetes 集群的通用基于 Web 的 UI。它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
+[Dashboard](/zh/docs/tasks/access-application-cluster/web-ui-dashboard/) 是 Kubernetes 集群的通用基于 Web 的 UI。它使用户可以管理集群中运行的应用程序以及集群本身并进行故障排除。
 
 <!--
 ### Container Resource Monitoring
@@ -209,7 +209,7 @@ Kubernetes 启动的容器自动将 DNS 服务器包含在 DNS 搜索中。
 [Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 -->
-[容器资源监控](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
+[容器资源监控](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)将关于容器的一些常见的时间序列度量值保存到一个集中的数据库中，并提供用于浏览这些数据的界面。
 
 <!--
 ### Cluster-level Logging
@@ -220,7 +220,7 @@ about containers in a central database, and provides a UI for browsing that data
 A [Cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 -->
-[集群层面日志](/docs/concepts/cluster-administration/logging/) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
+[集群层面日志](/zh/docs/concepts/cluster-administration/logging/) 机制负责将容器的日志数据保存到一个集中的日志存储中，该存储能够提供搜索和浏览接口。
 
 
 ## {{% heading "whatsnext" %}}
@@ -230,7 +230,7 @@ saving container logs to a central log store with search/browsing interface.
 * Learn about [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Read etcd's official [documentation](https://etcd.io/docs/)
 -->
-* 进一步了解 [Nodes](/docs/concepts/architecture/nodes/)
-* 进一步了解 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
+* 进一步了解 [Nodes](/zh/docs/concepts/architecture/nodes/)
+* 进一步了解 [kube-scheduler](/zh/docs/concepts/scheduling/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
 
