@@ -1,7 +1,7 @@
 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  {{ T "version_menu" }}
+	{{ T "version_menu" }}
 </a>
-<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
 	{{ range .Site.Params.versions }}
 	<a class="dropdown-item" href="{{ .url }}">{{ .version }}</a>
 	{{ end }}
