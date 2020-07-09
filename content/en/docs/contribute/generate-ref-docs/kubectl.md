@@ -237,6 +237,9 @@ Build the Kubernetes documentation in your local `<web-base>`.
 cd <web-base>
 make docker-serve
 ```
+{{< note >}}
+The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
+{{< /note >}}
 
 View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
 
