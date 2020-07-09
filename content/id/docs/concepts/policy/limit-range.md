@@ -1,6 +1,6 @@
 ---
 title: LimitRange
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 

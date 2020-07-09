@@ -1,7 +1,7 @@
 ---
 title: Manual Rotation of CA Certificates
 min-kubernetes-server-version: v1.13
-content_template: templates/task
+content_type: task
 ---
 
 <!-- overview -->

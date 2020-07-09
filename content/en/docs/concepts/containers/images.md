@@ -65,7 +65,7 @@ When `imagePullPolicy` is defined without a specific value, it is also set to `A
 
 ## Multi-architecture Images with Manifests
 
-As well as providing binary images, a container registry can also server a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+As well as providing binary images, a container registry can also serve a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
 
 Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 

@@ -33,10 +33,10 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 
 * virtualbox
 * vmwarefusion
-* kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
-* kvm ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm-driver))
-* hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
-* xhyve ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#xhyve-driver)) (非推奨)
+* kvm2 ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm2-driver))
+* kvm ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm-driver))
+* hyperkit ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
+* xhyve ([driver installation](https://minikube.sigs.k8s.io/docs/drivers/#xhyve-driver)) (非推奨)
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
 注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
 * none (VMではなくホスト上でKubernetesコンポーネントを起動する。このドライバを使用するにはDocker ([docker install](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) とLinux環境を必要とします)
@@ -200,7 +200,7 @@ minikube start \
 
 ### ドライバープラグイン
 
-サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
+サポートされているドライバとプラグインのインストールの詳細については [DRIVERS](https://minikube.sigs.k8s.io/docs/drivers/) を参照してください。
 
 ### Dockerデーモンの再利用によるローカルイメージの使用
 

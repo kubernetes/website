@@ -235,7 +235,6 @@ link target in parentheses. [Link to Kubernetes.io](https://kubernetes.io/) or
 You can also use HTML, but it is not preferred.
 <a href="https://kubernetes.io/">Link to Kubernetes.io</a>
 
-
 ## Images
 
 To format an image, use similar syntax to [links](#links), but add a leading `!`

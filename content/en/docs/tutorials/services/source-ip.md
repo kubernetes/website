@@ -447,6 +447,4 @@ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
-* Read how to [Create an External Load Balancer](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)
-
-
+* Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)

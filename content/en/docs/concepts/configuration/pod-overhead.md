@@ -87,7 +87,7 @@ spec:
         memory: 100Mi
 ```
 
-At admission time the RuntimeClass [admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)
+At admission time the RuntimeClass [admission controller](/docs/reference/access-authn-authz/admission-controllers/)
 updates the workload's PodSpec to include the `overhead` as described in the RuntimeClass. If the PodSpec already has this field defined,
 the Pod will be rejected. In the given example, since only the RuntimeClass name is specified, the admission controller mutates the Pod
 to include an `overhead`.
@@ -195,5 +195,3 @@ from source in the meantime.
 
 * [RuntimeClass](/docs/concepts/containers/runtime-class/)
 * [PodOverhead Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
-
