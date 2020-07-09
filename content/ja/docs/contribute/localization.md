@@ -15,13 +15,13 @@ card:
 
 ## ドキュメントを日本語に翻訳するまでの流れ
 
-翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてご連絡ください。
+翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。
 
 ### 前提知識
 
 翻訳作業は全て[GitHubのIssue](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+label%3Alanguage%2Fja)によって管理されています。翻訳作業を行いたい場合は、Issueの一覧をまず最初にご確認ください。
 
-また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名されたGitHubユーザーのみがパッチを送ることができます。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
+また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
 
 ### 翻訳を始めるまで
 
@@ -31,7 +31,7 @@ card:
 2. 自分自身を翻訳作業に割り当てたい場合は、Issueのメッセージまたはコメントに`/assign`と書く
 3. [新規ページを翻訳する場合](#translate-new-page)のステップに進む
 
-**分からないことがあれば上記Slackチャンネルまでご質問をお願いします。**
+**不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。**
 
 #### 翻訳を希望するページのIssueが存在する場合
 
