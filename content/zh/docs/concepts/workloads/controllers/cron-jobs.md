@@ -59,7 +59,7 @@ maximum length of a Job name is no more than 63 characters.
 For instructions on creating and working with cron jobs, and for an example of a spec file for a cron job, see [Running automated tasks with cron jobs](/docs/tasks/job/automated-tasks-with-cron-jobs).
 -->
 
-有关创建和使用 CronJob 的说明及规范文件的示例，请参见[使用 CronJob 运行自动化任务](/docs/tasks/job/automated-tasks-with-cron-jobs)。
+有关创建和使用 CronJob 的说明及规范文件的示例，请参见[使用 CronJob 运行自动化任务](/zh/docs/tasks/job/automated-tasks-with-cron-jobs/)。
 
 
 
