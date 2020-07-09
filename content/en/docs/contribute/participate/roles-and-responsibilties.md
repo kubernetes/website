@@ -126,9 +126,9 @@ To apply:
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
 in the `kubernetes/website` repository.
 
-  {{ note }}
+  {{< note >}}
   If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
-  {{ /note }}
+  {{< /note >}}
 
 2. Assign the PR to one or more SIG-Docs approvers (user names listed under `sig-docs-{language}-owners`).
 
@@ -182,9 +182,9 @@ To apply:
 
 1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
 
-    {{ note }}
+    {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
-    {{ /note }}
+    {{< /note >}}
 
 2. Assign the PR to one or more current SIG Docs approvers.
 
