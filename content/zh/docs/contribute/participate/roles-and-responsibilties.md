@@ -271,9 +271,9 @@ To apply:
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
 in the `kubernetes/website` repository.
 
-  {{ note }}
+  {{< note >}}
   If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
-  {{ /note }}
+  {{< /note >}}
 
 2. Assign the PR to one or more SIG-Docs approvers (user names listed under `sig-docs-{language}-owners`).
 
@@ -283,9 +283,9 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
    文件的特定节。
 
-   {{ note }}
+   {{< note >}}
    如果你不确定要添加到哪个位置，可以将自己添加到 `sig-docs-en-reviews`。
-   {{ /note }}
+   {{< /note >}}
 
 2. 将 PR 指派给一个或多个 SIG Docs 批准人（`sig-docs-{language}-owners`
    下列举的用户名）。
@@ -383,9 +383,9 @@ To apply:
 
 1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
 
-    {{ note }}
+    {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
-    {{ /note }}
+    {{< /note >}}
 
 2. Assign the PR to one or more current SIG Docs approvers.
 
@@ -397,9 +397,9 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
    文件的对应节区。
 
-   {{ note }}
+   {{< note >}}
    如果你不确定要添加到哪个位置，可以将自己添加到 `sig-docs-en-owners` 中。
-   {{ /note }}
+   {{< /note >}}
 
 2. 将 PR 指派给一个或多个 SIG Docs 批准人。
 
