@@ -87,7 +87,7 @@ Lihat [dokumentasi desain](https://git.k8s.io/community/contributors/design-prop
     apiVersion: v1
     kind: Namespace
     metadata:
-      name: <insert-namespace-name-here>
+      name: <masukkan-nama-namespace-disini>
     ```
     Then run:
    
@@ -98,7 +98,7 @@ Lihat [dokumentasi desain](https://git.k8s.io/community/contributors/design-prop
 2. Sebagai alternatif, kamu bisa membuat Namespace menggunakan perintah dibawah ini:
 
     ```
-    kubectl create namespace <insert-namespace-name-here>
+    kubectl create namespace <masukkan-nama-namespace-disini>
     ``` 
 
 Nama Namespace kamu harus merupakan 
@@ -267,7 +267,7 @@ Tiap komunitas pengguna ingin bisa bekerja secara terisolasi dari komunitas lain
 
 Tiap komunitas pengguna memiliki hal berikut sendiri:
 
-1. sumber daya (Pod, Service, _controller_ replikasi, dll.)
+1. sumber daya (Pod, Service, ReplicationController, dll.)
 2. kebijakan (siapa yang bisa atau tidak bisa melakukan hal tertentu dalam komunitasnya)
 3. batasan (komunitas ini diberi kuota sekian, dll.)
 
