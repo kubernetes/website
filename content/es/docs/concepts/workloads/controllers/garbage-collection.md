@@ -1,18 +1,15 @@
 ---
 title: Recolección de Basura
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 El papel del recolector de basura de Kubernetes es el de eliminar determinados objetos
 que en algún momento tuvieron un propietario, pero que ahora ya no.
 
-{{% /capture %}}
-
-
-{{% capture body %}}referencias de propietario
+<!-- body -->
 
 ## Propietarios y subordinados
 
@@ -168,16 +165,12 @@ Ver [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment
 
 Seguimiento en [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 [Documento de Diseño 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Documento de Diseño 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
-
-{{% /capture %}}
-
-
 

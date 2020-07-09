@@ -281,7 +281,7 @@ Incluso se plantea excluir el mecanismo de creación de pods a granel ([#170](ht
 El ReplicationController está pensado para ser una primitiva de bloques is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale, rolling-update) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](http://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 
 
-## Obejto API
+## Objeto API
 
 El ReplicationController es un recurso de alto nivel en la API REST de Kubernetes. Más detalles acerca del
 objeto API se pueden encontrar aquí:

@@ -38,7 +38,7 @@ if your cluster is running v1.16 then you can use kubectl v1.15, v1.16
 or v1.17; other combinations
 [aren't supported](/docs/setup/release/version-skew-policy/#kubectl).
 
-Some of the examples use the commandline tool
+Some of the examples use the command line tool
 [jq](https://stedolan.github.io/jq/). You do not need `jq` to complete the task,
 because there are manual alternatives.
 
@@ -380,4 +380,4 @@ internal failure, see Kubelet log for details | The kubelet encountered some int
 
  - For more information on configuring the kubelet via a configuration file, see
 [Set kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file).
-- See the reference documentation for [`NodeConfigSource`](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)
+- See the reference documentation for [`NodeConfigSource`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodeconfigsource-v1-core)

@@ -164,7 +164,7 @@ Un exemple de déroulement :
 1. Le Pod dans l'API server est mis à jour avec le temps au delà duquel le Pod est considéré "mort" ainsi que la période de grâce.
 1. Le Pod est affiché comme "Terminating" dans les listes des commandes client
 1. (en même temps que 3) Lorsque Kubelet voit qu'un Pod a été marqué "Terminating", le temps ayant été mis en 2, il commence le processus de suppression du pod.
-    1. Si un des conteneurs du Pod a défini un [preStop hook](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), il est exécuté à l'intérieur du conteneur. Si le `preStop` hook est toujours en cours d'exécution à la fin de la période de grâce, l'étape 2 est invoquée avec une courte (2 secondes) période de grâce supplémentaire.
+    1. Si un des conteneurs du Pod a défini un [preStop hook](/fr/docs/concepts/containers/container-lifecycle-hooks/#hook-details), il est exécuté à l'intérieur du conteneur. Si le `preStop` hook est toujours en cours d'exécution à la fin de la période de grâce, l'étape 2 est invoquée avec une courte (2 secondes) période de grâce supplémentaire une seule fois. Vous devez modifier `terminationGracePeriodSeconds` si le hook `preStop` a besoin de plus de temps pour se terminer.
     1. Le signal TERM est envoyé aux conteneurs. Notez que tous les conteneurs du Pod ne recevront pas le signal TERM en même temps et il peut être nécessaire de définir des `preStop` hook si l'ordre d'arrêt est important.
 1. (en même temps que 3) Le Pod est supprimé des listes d'endpoints des services, et n'est plus considéré comme faisant partie des pods en cours d'exécution pour les contrôleurs de réplication. Les Pods s'arrêtant lentement ne peuvent pas continuer à servir du trafic, les load balancers (comme le service proxy) les supprimant de leurs rotations.
 1. Lorsque la période de grâce expire, les processus s'exécutant toujours dans le Pod sont tués avec SIGKILL.
@@ -186,7 +186,6 @@ Si le master exécute Kubernetes v1.1 ou supérieur, et les nœuds exécutent un
 Si l'utilisateur appelle `kubectl describe pod FooPodName`, l'utilisateur peut voir la raison pour laquelle le pod est en état "pending". La table d'événements dans la sortie de la commande "describe" indiquera :
 `Error validating pod "FooPodName"."FooPodNamespace" from api, ignoring: spec.containers[0].securityContext.privileged: forbidden '<*>(0xc2089d3248)true'`
 
-
 Si le master exécute une version antérieure à v1.1, les pods privilégiés ne peuvent alors pas être créés. Si l'utilisateur tente de créer un pod ayant un conteneur privilégié, l'utilisateur obtiendra l'erreur suivante :
 `The Pod "FooPodName" is invalid.
 spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'`
@@ -196,4 +195,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 Le Pod est une ressource au plus haut niveau dans l'API REST Kubernetes. Plus de détails sur l'objet de l'API peuvent être trouvés à :
 [Objet de l'API Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 
-
+Lorsque vous créez un manifest pour un objet Pod, soyez certain que le nom spécifié est un [nom de sous-domaine DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) valide.

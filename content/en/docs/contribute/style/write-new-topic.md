@@ -28,9 +28,17 @@ Task | A task page shows how to do a single thing. The idea is to give readers a
 Tutorial | A tutorial page shows how to accomplish a goal that ties together several Kubernetes features. A tutorial might provide several sequences of steps that readers can actually do as they read the page. Or it might provide explanations of related pieces of code. For example, a tutorial could provide a walkthrough of a code sample. A tutorial can include brief explanations of the Kubernetes features that are being tied together, but should link to related concept topics for deep explanations of individual features.
 {{< /table >}}
 
+### Creating a new page
+
 Use a [content type](/docs/contribute/style/page-content-types/) for each new page
-that you write. Using page type helps ensure
-consistency among topics of a given type.
+that you write. The docs site provides templates or
+[Hugo archetypes](https://gohugo.io/content-management/archetypes/) to create
+new content pages. To create a new type of page, run `hugo new` with the path to the file
+you want to create. For example:
+
+```
+hugo new docs/concepts/my-first-concept.md
+```
 
 ## Choosing a title and filename
 

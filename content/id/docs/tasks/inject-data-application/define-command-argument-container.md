@@ -1,26 +1,27 @@
 ---
 title: Mendefinisikan Perintah dan Argumen untuk sebuah Kontainer
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menunjukkan bagaimana cara mendefinisikan perintah-perintah
 dan argumen-argumen saat kamu menjalankan Container
 dalam sebuah {{< glossary_tooltip term_id="Pod" >}}.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mendefinisikan sebuah perintah dan argumen-argumen saat kamu membuat sebuah Pod
 
@@ -145,12 +146,13 @@ Berikut ini beberapa contoh:
 |     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang [mengatur Pod and Container](/id/docs/tasks/).
 * Pelajari lebih lanjut tentang [menjalankan perintah di dalam sebuah Container](/id/docs/tasks/debug-application-cluster/get-shell-running-container/).
 * Lihat [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 
-{{% /capture %}}
+

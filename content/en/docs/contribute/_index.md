@@ -3,6 +3,7 @@ content_type: concept
 title: Contribute to Kubernetes docs
 linktitle: Contribute
 main_menu: true
+no_list: true
 weight: 80
 card:
   name: contribute
@@ -22,8 +23,6 @@ Kubernetes documentation contributors:
 - Manage and publish the documentation parts of the Kubernetes release cycle
 
 Kubernetes documentation welcomes improvements from all contributors, new and experienced!
-
-
 
 <!-- body -->
 
@@ -74,5 +73,3 @@ SIG Docs communicates with different methods:
 - Visit the [Kubernetes community site](/community/). Participate on Twitter or Stack Overflow, learn about local Kubernetes meetups and events, and more.
 - Read the [contributor cheatsheet](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) to get involved with Kubernetes feature development.
 - Submit a [blog post or case study](/docs/contribute/new-content/blogs-case-studies/).
-
-
