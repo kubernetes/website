@@ -47,19 +47,15 @@ card:
 #### 新規ページを翻訳する場合の手順 {#translate-new-page}
 
 1. `kubernetes/website`リポジトリをフォークする
-2. `master`から任意の名前でブランチを作成し、翻訳する箇所を編集する
-3. `master`ブランチに向けてPull Requestを作成する
+2. `master`から任意の名前でブランチを作成する
+3. `content/en`のディレクトリから必要なファイルを`content/ja`にコピーし、翻訳する
+4. `master`ブランチに向けてPull Requestを作成する
 
 #### 既存のページの誤字脱字や古い記述を修正する場合の手順
 
 1. `kubernetes/website`リポジトリをフォークする
 2. `dev-1.18-ja.1`(最新のマイルストーンブランチに適宜読み替えること)から任意の名前でブランチを作成し、該当箇所を編集する
 3. `dev-1.18-ja.1`(最新のマイルストーンブランチに適宜読み替えること)ブランチに向けてPull Requestを作成する
-
-- masterを追随
-    - 更新があり次第、次のMilestoneで追随を行う
-- コントリビューション方法については[こちら](https://kubernetes-docs-ja.kibe.la/shared/entries/c5878aa5-ad1f-4f29-a5bb-25853cbc14ec)を参照
-- 翻訳スタイルガイドについては[こちら](https://kubernetes-docs-ja.kibe.la/shared/entries/5efe4fa7-d2a1-4a1d-8bc3-ce7ccdc064a6)を参照
 
 ### マイルストーンについて {#milestones}
 
@@ -113,7 +109,11 @@ secure | セキュア
 
 ### 備考
 
-ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様的な固有名詞は、無理に日本語訳せずそのまま書いてください。日本語では複数形にする意味はあまりないので、原則として単数形に統一します。
+ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様的な固有名詞は、無理に日本語訳せずそのまま書いてください。
+
+また、日本語では名詞を複数形にする意味はあまりないので、英語の名詞を利用する場合は原則として単数形で表現してください。
+
+例:
 
 - Kubernetes Service
 - Node
