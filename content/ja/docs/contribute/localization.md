@@ -67,7 +67,7 @@ card:
 
 各マイルストーンでは、
 
-- 最低要件のコンテンツの追加・更新(項目については[こちら](https://kubernetes.io/docs/contribute/localization/#translating-documents))
+- 最低要件のコンテンツの追加・更新(項目については[こちら](https://kubernetes.io/docs/contribute/localization/#translating-documents)を参照してください)
 - バージョンに追従できていない翻訳済みコンテンツの更新
 
 を行い、ドキュメントの全体的なメンテナンスを行っています。
