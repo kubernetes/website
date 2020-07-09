@@ -141,6 +141,12 @@ As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
 
+Note initial availability of stable DNS name's responsiveness:  The initial reachability of a Pod via its DNS
+depends on the settings of your DNS provider.  It may be 30 seconds before the DNS name for your Pod
+is reachable from another Pod in your cluster.   For StatefulSets which need to come online via a quorum
+in a very short (< 30s) time period, consider tuning your DNS settings
+or another mechanism (such as querying the Kubernetes endpoints directly for IP addresses).
+
 As mentioned in the [limitations](#limitations) section, you are responsible for
 creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 responsible for the network identity of the pods.
