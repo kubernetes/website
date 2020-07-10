@@ -215,8 +215,8 @@ To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
-back-off count is reset if no new failed Pods appear before the Job's next
-status check.
+back-off count is reset when a job pod is deleted or successful without any
+other pods failing around that time.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
