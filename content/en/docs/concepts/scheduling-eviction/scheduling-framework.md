@@ -77,11 +77,11 @@ called for that node. Nodes may be evaluated concurrently.
 
 ### PostFilter {#post-filter}
 
-These plugins are called after Filter phase, but only when there is no feasible
-node. Each plugin is called by their configured order. If any postFilter plugin
-marks the node as `Schedulable`, the remaining plugins will not be called.
-A typical PostFilter implementation is preemption, which tries to make the pod
-schedulable by preempting other Pods.
+These plugins are called after Filter phase, but only when no feasible nodes
+were found for the node. Plugins are called called in their configured order. If
+any postFilter plugin marks the node as `Schedulable`, the remaining plugins
+will not be called. A typical PostFilter implementation is preemption, which
+tries to make the pod schedulable by preempting other Pods.
 
 ### PreScore {#pre-score}
 
