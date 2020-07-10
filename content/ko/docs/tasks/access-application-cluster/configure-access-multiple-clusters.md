@@ -46,7 +46,7 @@ card:
 네임스페이스들을 생성하고 있다. development 클러스터에 접근하려면 인증서로 인증을 해야 하고,
 scratch 클러스터에 접근하려면 사용자네임과 패스워드로 인증을 해야 한다.
 
-`config-exercise`라는 디렉토리를 생성한다. `config-exercise` 디렉토리에
+`config-exercise`라는 디렉터리를 생성한다. `config-exercise` 디렉터리에
 다음 내용을 가진 `config-demo`라는 파일을 생성한다.
 
 ```shell
@@ -76,7 +76,7 @@ contexts:
 구성 파일은 클러스터들, 사용자들, 컨텍스트들을 기술한다. `config-demo` 파일은 두 클러스터들과
 두 사용자들, 세 컨텍스트들을 기술하기 위한 프레임워크를 가진다.
 
-`config-exercise` 디렉토리로 이동한다. 그리고 다음 커맨드들을 실행하여 구성 파일에 클러스터의
+`config-exercise` 디렉터리로 이동한다. 그리고 다음 커맨드들을 실행하여 구성 파일에 클러스터의
 세부사항들을 추가한다.
 
 ```shell
@@ -245,7 +245,7 @@ kubectl config --kubeconfig=config-demo view --minify
 
 ## 두 번째 구성 파일 생성
 
-`config-exercise` 디렉토리에서 다음 내용으로 `config-demo-2`라는 파일을 생성한다.
+`config-exercise` 디렉터리에서 다음 내용으로 `config-demo-2`라는 파일을 생성한다.
 
 ```shell
 apiVersion: v1
@@ -268,31 +268,31 @@ contexts:
 이후에 복원할 수 있도록 `KUBECONFIG` 환경 변수의 현재 값을 저장한다.
 예:
 
-### Linux
+### 리눅스
 ```shell
 export  KUBECONFIG_SAVED=$KUBECONFIG
 ```
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
 $Env:KUBECONFIG_SAVED=$ENV:KUBECONFIG
 ```
 `KUBECONFIG` 환경 변수는 구성 파일들의 경로의 리스트이다. 이 리스트는
-Linux와 Mac에서는 콜론으로 구분되며 Windows에서는 세미콜론으로 구분된다.
+리눅스와 Mac에서는 콜론으로 구분되며 윈도우에서는 세미콜론으로 구분된다.
 `KUBECONFIG` 환경 변수를 가지고 있다면, 리스트에 포함된 구성 파일들에
 익숙해지길 바란다.
 
 다음 예와 같이 임시로 `KUBECONFIG` 환경 변수에 두 개의 경로들을 덧붙여보자.
 
-### Linux
+### 리눅스
 ```shell
 export  KUBECONFIG=$KUBECONFIG:config-demo:config-demo-2
 ```
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
 $Env:KUBECONFIG=("config-demo;config-demo-2")
 ```
 
-`config-exercise` 디렉토리에서 다음 커맨드를 입력한다.
+`config-exercise` 디렉터리에서 다음 커맨드를 입력한다.
 
 ```shell
 kubectl config view
@@ -330,14 +330,14 @@ contexts:
 kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
 [kubeconfig 파일을 사용하여 클러스터 접근 구성하기](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)를 참조한다.
 
-## $HOME/.kube 디렉토리 탐색
+## $HOME/.kube 디렉터리 탐색
 
 만약 당신이 이미 클러스터를 가지고 있고 `kubectl`을 사용하여
-해당 클러스터를 제어하고 있다면, 아마 `$HOME/.kube` 디렉토리에 `config`라는
+해당 클러스터를 제어하고 있다면, 아마 `$HOME/.kube` 디렉터리에 `config`라는
 파일을 가지고 있을 것이다.
 
 `$HOME/.kube`로 가서 어떤 파일들이 존재하는지 보자.
-보통 `config`라는 파일이 존재할 것이다. 해당 디렉토리 내에는 다른 구성 파일들도 있을 수 있다.
+보통 `config`라는 파일이 존재할 것이다. 해당 디렉터리 내에는 다른 구성 파일들도 있을 수 있다.
 간단하게 말하자면 당신은 이 파일들의 컨텐츠에 익숙해져야 한다.
 
 ## $HOME/.kube/config를 KUBECONFIG 환경 변수에 추가
@@ -346,17 +346,17 @@ kubeconfig 파일들을 어떻게 병합하는지에 대한 상세정보는
 환경 변수에 나타나지 않는다면 `KUBECONFIG` 환경 변수에 추가해보자.
 예:
 
-### Linux
+### 리눅스
 ```shell
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 ```
-### Windows Powershell
+### 윈도우 Powershell
 ```shell
  $Env:KUBECONFIG="$Env:KUBECONFIG;$HOME\.kube\config"
 ```
 
 이제 `KUBECONFIG` 환경 변수에 리스트에 포함된 모든 파일들이 합쳐진 구성 정보를 보자.
-config-exercise 디렉토리에서 다음 커맨드를 실행한다.
+config-exercise 디렉터리에서 다음 커맨드를 실행한다.
 
 ```shell
 kubectl config view
@@ -366,12 +366,12 @@ kubectl config view
 
 `KUBECONFIG` 환경 변수를 원래 값으로 되돌려 놓자. 예를 들면:<br>
 
-### Linux
+### 리눅스
 ```shell
 export KUBECONFIG=$KUBECONFIG_SAVED
 ```
 
-### Windows PowerShell
+### 윈도우 PowerShell
 ```shell
  $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```

@@ -25,7 +25,7 @@ weight: 10
 동적 등록을 통해 실행 중인 클러스터에서 커스텀 리소스가 나타나거나 사라질 수 있으며
 클러스터 관리자는 클러스터 자체와 독립적으로 커스텀 리소스를 업데이트 할 수 있다.
 커스텀 리소스가 설치되면 사용자는 *파드* 와 같은 빌트인 리소스와 마찬가지로
-[kubectl](/docs/user-guide/kubectl-overview/)을 사용하여 해당 오브젝트를 생성하고
+[kubectl](/ko/docs/reference/kubectl/overview/)을 사용하여 해당 오브젝트를 생성하고
 접근할 수 있다.
 
 ## 커스텀 컨트롤러
@@ -234,7 +234,7 @@ CRD는 항상 API 서버의 빌트인 리소스와 동일한 인증, 권한 부�
 
 ## 커스텀 리소스에 접근
 
-쿠버네티스 [클라이언트 라이브러리](/docs/reference/using-api/client-libraries/)를 사용하여 커스텀 리소스에 접근할 수 있다. 모든 클라이언트 라이브러리가 커스텀 리소스를 지원하는 것은 아니다. _Go_ 와 _python_ 클라이언트 라이브러리가 지원한다.
+쿠버네티스 [클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)를 사용하여 커스텀 리소스에 접근할 수 있다. 모든 클라이언트 라이브러리가 커스텀 리소스를 지원하는 것은 아니다. _Go_ 와 _python_ 클라이언트 라이브러리가 지원한다.
 
 커스텀 리소스를 추가하면 다음을 사용하여 접근할 수 있다.
 
@@ -251,4 +251,3 @@ CRD는 항상 API 서버의 빌트인 리소스와 동일한 인증, 권한 부�
 * [애그리게이션 레이어(aggregation layer)로 쿠버네티스 API 확장](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)하는 방법에 대해 배우기.
 
 * [커스텀리소스데피니션으로 쿠버네티스 API 확장](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)하는 방법에 대해 배우기.
-

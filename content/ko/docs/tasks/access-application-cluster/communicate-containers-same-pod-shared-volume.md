@@ -139,7 +139,7 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 * [모듈 구조를 위한 합성 컨테이너 구조](http://www.slideshare.net/Docker/slideshare-burns)에 관하여
 더 공부한다.
 
-* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여
+* [파드에서 저장소로 볼룸을 사용하도록 구성하기](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)에 관하여
 확인한다.
 
 * [파드에서 컨테이너 간에 프로세스 네임스페이스를 공유하는 파드 구성하는 방법](/docs/tasks/configure-pod-container/share-process-namespace/)을 참고한다.
@@ -147,8 +147,3 @@ Debian 컨테이너에서 nginx 웹 서버가 호스팅하는 문서의 루트 �
 * [볼륨](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)을 확인한다.
 
 * [파드](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)을 확인한다.
-
-
-
-
-

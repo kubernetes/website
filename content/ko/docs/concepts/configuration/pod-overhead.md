@@ -83,7 +83,7 @@ spec:
         memory: 100Mi
 ```
 
-어드미션 수행 시에, [어드미션 컨트롤러](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)는 
+어드미션 수행 시에, [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)는 
 런타임클래스에 기술된 `overhead` 를 포함하기 위하여 워크로드의 PodSpec 항목을 갱신한다. 만약 PodSpec이 이미 해당 필드에 정의되어 있으면, 
 파드는 거부된다. 주어진 예제에서, 오직 런타임클래스의 이름만이 정의되어 있기 때문에, 어드미션 컨트롤러는 파드가 
 `overhead` 를 포함하도록 변경한다.

@@ -38,7 +38,7 @@ service Registration {
   * 유닉스 소켓의 이름.
   * 빌드된 장치 플러그인 API 버전.
   * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
-	  [확장된 리소스 네이밍 체계](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)를
+	  [확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
 		`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
 		(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
@@ -228,9 +228,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 ## {{% heading "whatsnext" %}}
 
 
-* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
+* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/ko/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
 * 노드에서의 [확장 리소스 알리기](/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
 * 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
 * [토폴로지 관리자](/docs/tasks/adminster-cluster/topology-manager/)에 대해 알아보기
-
-
