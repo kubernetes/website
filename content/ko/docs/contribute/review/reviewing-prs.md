@@ -17,7 +17,7 @@ weight: 10
 
 - 적합한 코멘트를 남길 수 있도록 [콘텐츠 가이드](/docs/contribute/style/content-guide/)와
 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
-- 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/docs/contribute/participating/#roles-and-responsibilities)을 이해한다.
+- 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/ko/docs/contribute/participating/#역할과-책임)을 이해한다.
 
 
 
@@ -44,7 +44,7 @@ weight: 10
     표시된다.
 
 2.  다음 레이블 중 하나 또는 모두를 사용하여 열린 PR을 필터링한다.
-    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/docs/contribute/new-content/overview/#sign-the-cla)을 참고한다.
+    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla)을 참고한다.
     - `language/en`(권장): 영어 문서에 대한 PR 전용 필터이다.
     - `size/<size>`: 특정 크기의 PR을 필터링한다. 새로 시작하는 사람이라면, 더 작은 PR로 시작한다.
 
@@ -94,5 +94,3 @@ weight: 10
 ### 기타
 
 오타나 공백과 같은 작은 이슈의 PR인 경우, 코멘트 앞에 `nit:` 를 추가한다. 이를 통해 문서의 저자는 이슈가 긴급하지 않다는 것을 알 수 있다.
-
-

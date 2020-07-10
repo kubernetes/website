@@ -12,7 +12,7 @@ content_type: task
 
 
 * 이중 스택 네트워킹을 위한 제공자 지원 (클라우드 제공자 또는 기타 제공자들은 라우팅 가능한 IPv4/IPv6 네트워크 인터페이스를 제공하는 쿠버네티스 노드들을 제공해야 한다.)
-* 이중 스택을 지원하는 [네트워크 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예. Kubenet 또는 Calico)
+* 이중 스택을 지원하는 [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)  (예. Kubenet 또는 Calico)
 * IPVS 모드로 구동되는 Kube-proxy
 * [이중 스택 활성화](/ko/docs/concepts/services-networking/dual-stack/) 클러스터
 
@@ -155,5 +155,3 @@ my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE
 my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
 ```
-
-

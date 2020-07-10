@@ -1,6 +1,6 @@
 ---
 title: 플러그인으로 kubectl 확장
-description: kubectl 플러그인을 사용하면, 새로운 하위 명령을 추가하여 kubectl 명령의 기능을 확장할 수 있다.
+description: kubectl 플러그인을 작성하고 설치해서 kubectl을 확장한다.
 content_type: task
 ---
 

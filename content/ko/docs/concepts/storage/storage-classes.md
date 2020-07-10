@@ -34,9 +34,9 @@ weight: 30
 처음 생성할 때 클래스의 이름과 기타 파라미터를 설정하며,
 일단 생성된 오브젝트는 업데이트할 수 없다.
 
-관리자는 특정 클래스에 바인딩을 요청하지 않는 PVC에 대해서만 기본 
+관리자는 특정 클래스에 바인딩을 요청하지 않는 PVC에 대해서만 기본
 스토리지클래스를 지정할 수 있다. 자세한 내용은
-[퍼시스턴트볼륨클레임 섹션](/ko/docs/concepts/storage/persistent-volumes/#클래스-1)을
+[퍼시스턴트볼륨클레임 섹션](/ko/docs/concepts/storage/persistent-volumes/#퍼시스턴트볼륨클레임)을
 본다.
 
 ```yaml
@@ -167,7 +167,7 @@ CSI | 1.14 (alpha), 1.16 (beta)
 [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-셀렉터-nodeselector),
 [파드 어피니티(affinity)와
 안티-어피니티(anti-affinity)](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#어피니티-affinity-와-안티-어피니티-anti-affinity)
-그리고 [테인트(taint)와 톨러레이션(toleration)](/docs/concepts/configuration/taint-and-toleration/)이 포함된다.
+그리고 [테인트(taint)와 톨러레이션(toleration)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)이 포함된다.
 
 다음 플러그인은 동적 프로비저닝과 `WaitForFirstConsumer` 를 지원한다.
 
@@ -251,11 +251,11 @@ parameters:
 * `iopsPerGB`: `io1` 볼륨 전용이다. 1초당 GiB에 대한 I/O 작업 수이다. AWS
   볼륨 플러그인은 요청된 볼륨 크기에 곱셈하여 볼륨의 IOPS를
   계산하고 이를 20,000 IOPS로 제한한다(AWS에서 지원하는 최대값으로,
-  [AWS 문서](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-volume-types.html)를 본다). 
+  [AWS 문서](https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/ebs-volume-types.html)를 본다).
   여기에는 문자열, 즉 `10` 이 아닌, `"10"` 이 필요하다.
 * `fsType`: fsType은 쿠버네티스에서 지원된다. 기본값: `"ext4"`.
 * `encrypted`: EBS 볼륨의 암호화 여부를 나타낸다.
-  유효한 값은 `"ture"` 또는 `"false"` 이다. 여기에는 문자열, 
+  유효한 값은 `"ture"` 또는 `"false"` 이다. 여기에는 문자열,
   즉 `true` 가 아닌, `"true"` 가 필요하다.
 * `kmsKeyId`: 선택 사항. 볼륨을 암호화할 때 사용할 키의 전체 Amazon
   리소스 이름이다. 아무것도 제공되지 않지만, `encrypted` 가 true라면
@@ -348,7 +348,7 @@ parameters:
 * `secretNamespace`, `secretName` : Gluster REST 서비스와 통신할 때 사용할
   사용자 암호가 포함된 시크릿 인스턴스를 식별한다. 이 파라미터는
   선택 사항으로 `secretNamespace` 와 `secretName` 을 모두 생략하면
-  빈 암호가 사용된다. 제공된 시크릿은 `"kubernetes.io/glusterfs"` 유형이어야 
+  빈 암호가 사용된다. 제공된 시크릿은 `"kubernetes.io/glusterfs"` 유형이어야
   하며, 예를 들어 다음과 같이 생성한다.
 
     ```
@@ -664,7 +664,7 @@ parameters:
 [RBAC](/docs/reference/access-authn-authz/rbac/)과
 [컨트롤러의 롤(role)들](/docs/reference/access-authn-authz/rbac/#controller-roles)을
 모두 활성화한 경우, clusterrole `system:controller:persistent-volume-binder`
-에 대한 `secret` 리소스에 `create` 권한을 추가한다. 
+에 대한 `secret` 리소스에 `create` 권한을 추가한다.
 
 다중 테넌시 컨텍스트에서 `secretNamespace` 의 값을 명시적으로 설정하는
 것을 권장하며, 그렇지 않으면 다른 사용자가 스토리지 계정 자격증명을
@@ -688,16 +688,16 @@ parameters:
 * `fs`: 배치할 파일 시스템: `none/xfs/ext4` (기본값: `ext4`)
 * `block_size`: Kbytes 단위의 블록 크기(기본값: `32`).
 * `repl`: 레플리케이션 팩터 `1..3` (기본값: `1`)의 형태로 제공될
-  동기 레플리카의 수. 여기에는 문자열, 
+  동기 레플리카의 수. 여기에는 문자열,
   즉 `0` 이 아닌, `"0"` 이 필요하다.
 * `io_priority`: 볼륨이 고성능 또는 우선 순위가 낮은 스토리지에서
   생성될 것인지를 결정한다 `high/medium/low` (기본값: `low`).
 * `snap_interval`: 스냅샷을 트리거할 때의 시각/시간 간격(분).
   스냅샷은 이전 스냅샷과의 차이에 따라 증분되며, 0은 스냅을
-  비활성화 한다(기본값: `0`). 여기에는 문자열, 
+  비활성화 한다(기본값: `0`). 여기에는 문자열,
   즉 `70` 이 아닌, `"70"` 이 필요하다.
 * `aggregation_level`: 볼륨이 분배될 청크 수를 지정하며, 0은 집계되지 않은
-  볼륨을 나타낸다(기본값: `0`). 여기에는 문자열, 
+  볼륨을 나타낸다(기본값: `0`). 여기에는 문자열,
   즉 `0` 이 아닌, `"0"` 이 필요하다.
 * `ephemeral`: 마운트 해제 후 볼륨을 정리해야 하는지 혹은 지속적이어야
   하는지를 지정한다. `emptyDir` 에 대한 유스케이스는 이 값을 true로
@@ -815,4 +815,3 @@ volumeBindingMode: WaitForFirstConsumer
 볼륨 바인딩을 지연시키면 스케줄러가 퍼시스턴트볼륨클레임에
 적절한 퍼시스턴트볼륨을 선택할 때 파드의 모든 스케줄링
 제약 조건을 고려할 수 있다.
-

@@ -227,7 +227,7 @@ kubelet은 파드의 컨테이너를 시작할 때, CPU와 메모리 제한을
 
 파드는 스크래치 공간, 캐싱 및 로그에 대해 임시 로컬 스토리지를 사용한다.
 kubelet은 로컬 임시 스토리지를 사용하여 컨테이너에
-[`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)
+[`emptyDir`](/ko/docs/concepts/storage/volumes/#emptydir)
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}을 마운트하기 위해 파드에 스크래치 공간을 제공할 수 있다.
 
 kubelet은 이러한 종류의 스토리지를 사용하여
