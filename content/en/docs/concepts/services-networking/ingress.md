@@ -84,11 +84,13 @@ Each HTTP rule contains the following information:
 * An optional host. In this example, no host is specified, so the rule applies to all inbound
   HTTP traffic through the IP address specified. If a host is provided (for example,
   foo.bar.com), the rules apply to that host.
-* A list of paths (for example, `/testpath`), each of which has an associated backend defined with a `service.Name`
-  and a `service.Port.Name` or `service.Port.Number`. Both the host and path must match the content of an incoming request before the
-  load balancer directs traffic to the referenced Service.
+* A list of paths (for example, `/testpath`), each of which has an associated
+  backend defined with a `service.name` and a `service.port.name` or
+  `service.port.number`. Both the host and path must match the content of an
+  incoming request before the load balancer directs traffic to the referenced
+  Service.
 * A backend is a combination of Service and port names as described in the
-  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backends) by way of a CRD. HTTP (and HTTPS) requests to the
+  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a CRD. HTTP (and HTTPS) requests to the
   Ingress that matches the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
@@ -104,10 +106,10 @@ routed to your default backend.
 
 ### Resource Backends {#resource-backend}
 
-A _`Resource`_ backend is an ObjectRef to another Kubernetes resource within the
-same namespace of the Ingress object. A _`Resource`_ is a mutually exclusive
+A `Resource` backend is an ObjectRef to another Kubernetes resource within the
+same namespace of the Ingress object. A `Resource` is a mutually exclusive
 setting with Service, and will fail validation if both are specified. A common
-usage for a _`Resource`_ backend is to ingress data to a object storage backend
+usage for a `Resource` backend is to ingress data to an object storage backend
 with static assets.
 
 {{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
@@ -138,13 +140,13 @@ Each path in an Ingress is required to have a corresponding path type. Paths
 that do not include an explicit `pathType` will fail validation. There are three
 supported path types:
 
-* _`ImplementationSpecific`_: With this path type, matching is up to the
+* `ImplementationSpecific`: With this path type, matching is up to the
   IngressClass. Implementations can treat this as a separate `pathType` or treat
   it identically to `Prefix` or `Exact` path types.
 
-* _`Exact`_: Matches the URL path exactly and with case sensitivity.
+* `Exact`: Matches the URL path exactly and with case sensitivity.
 
-* _`Prefix`_: Matches based on a URL path prefix split by `/`. Matching is case
+* `Prefix`: Matches based on a URL path prefix split by `/`. Matching is case
   sensitive and done on a path element by element basis. A path element refers
   to the list of labels in the path split by the `/` separator. A request is a
   match for path _p_ if every _p_ is an element-wise prefix of _p_ of the
@@ -185,9 +187,9 @@ type over prefix path type.
 
 ## Hostname Wildcards
 Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for
-example “`*.foo.com`”). Precise matches require that the http host header
-matches the Host setting. Wildcard matches require the http host header is equal
-to the suffix of the wildcard rule.
+example “`*.foo.com`”). Precise matches require that the HTTP `host` header
+matches the `host` field. Wildcard matches require the HTTP `host` header is
+equal to the suffix of the wildcard rule.
 
 | Host        | Host header       | Match?                                            |
 | ----------- |-------------------| --------------------------------------------------|
