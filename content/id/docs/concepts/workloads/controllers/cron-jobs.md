@@ -6,7 +6,7 @@ weight: 80
 
 <!-- overview -->
 
-Suatu CronJob menciptakan [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) yang dijadwalkan berdasarkan waktu tertentu.
+Suatu CronJob menciptakan [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/) yang dijadwalkan berdasarkan waktu tertentu.
 
 Satu objek CronJob sepadan dengan satu baris pada _file_ _crontab_ (_cron table_). CronJob tersebut menjalankan suatu pekerjaan secara berkala
 pada waktu tertentu, dituliskan dalam format [Cron](https://en.wikipedia.org/wiki/Cron).
@@ -15,7 +15,7 @@ pada waktu tertentu, dituliskan dalam format [Cron](https://en.wikipedia.org/wik
 Seluruh waktu `schedule:` pada _**CronJob**_ mengikuti zona waktu dari _master_ di mana Job diinisiasi.
 {{< /note >}}
 
-Untuk panduan dalam berkreasi dengan _cron job_, dan contoh _spec file_ untuk suatu _cron job_, lihat [Menjalankan otomasi _task_ dengan _cron job_](/docs/tasks/job/automated-tasks-with-cron-jobs).
+Untuk panduan dalam berkreasi dengan _cron job_, dan contoh _spec file_ untuk suatu _cron job_, lihat [Menjalankan otomasi _task_ dengan _cron job_](/id/docs/tasks/job/automated-tasks-with-cron-jobs).
 
 
 

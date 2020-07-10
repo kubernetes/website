@@ -7,7 +7,7 @@ weight: 30
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
-Dokumen ini mendeskripsikan konsep pengklonaan Volume CSI yang telah tersedia di dalam Kubernetes. Pengetahuan tentang [Volume](/docs/concepts/storage/volumes) disarankan.
+Dokumen ini mendeskripsikan konsep pengklonaan Volume CSI yang telah tersedia di dalam Kubernetes. Pengetahuan tentang [Volume](/id/docs/concepts/storage/volumes) disarankan.
 
 
 

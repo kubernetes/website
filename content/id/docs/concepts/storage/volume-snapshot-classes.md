@@ -7,8 +7,8 @@ weight: 30
 <!-- overview -->
 
 Laman ini menjelaskan tentang konsep VolumeSnapshotClass pada Kubernetes. Sebelum melanjutkan,
-sangat disarankan untuk membaca [_snapshot_ volume](/docs/concepts/storage/volume-snapshots/)
-dan [kelas penyimpanan (_storage class_)](/docs/concepts/storage/storage-classes) terlebih dahulu.
+sangat disarankan untuk membaca [_snapshot_ volume](/id/docs/concepts/storage/volume-snapshots/)
+dan [kelas penyimpanan (_storage class_)](/id/docs/concepts/storage/storage-classes) terlebih dahulu.
 
 
 

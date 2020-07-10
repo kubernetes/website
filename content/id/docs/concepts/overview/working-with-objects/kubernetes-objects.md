@@ -30,7 +30,7 @@ memberikan informasi pada sistem Kubernetes mengenai perilaku apakah yang kamu i
 dengan kata lain ini merupakan definisi _state_ klaster yang kamu inginkan.
 
 Untuk menggunakan objek-objek Kubernetes--baik membuat, mengubah, atau menghapus objek-objek tersebut--kamu
-harus menggunakan [API Kubernetes](/docs/concepts/overview/kubernetes-api/).
+harus menggunakan [API Kubernetes](/id/docs/concepts/overview/kubernetes-api/).
 Ketika kamu menggunakan perintah `kubectl`, perintah ini akan melakukan _API call_ untuk perintah
 yang kamu berikan. Kamu juga dapat menggunakan API Kubernetes secara langsung pada program yang kamu miliki
 menggunakan salah satu [_library_ klien](/docs/reference/using-api/client-libraries/) yang disediakan.
@@ -103,7 +103,7 @@ dan format _spec_ untuk _Deployment_ dapat ditemukan
 
 ## {{% heading "whatsnext" %}}
 
-* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/docs/concepts/workloads/pods/pod-overview/).
+* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/id/docs/concepts/workloads/pods/pod-overview/).
 
 
 
