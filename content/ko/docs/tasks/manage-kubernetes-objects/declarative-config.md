@@ -16,7 +16,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 
-[`kubectl`](/docs/tasks/tools/install-kubectl/)를 설치한다.
+[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)를 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -1007,5 +1007,3 @@ template:
 * [구성 파일 사용하여 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [Kubectl 명령어 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
-

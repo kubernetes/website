@@ -36,7 +36,7 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 
 ## 역할과 책임
 
-- **모든 사람** 은 쿠버네티스 문서에 기여할 수 있다. 기여 시 [CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla)하고 GitHub 계정을 가지고 있어야 한다.
+- **모든 사람** 은 쿠버네티스 문서에 기여할 수 있다. 기여 시 [CLA에 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla)하고 GitHub 계정을 가지고 있어야 한다.
 - 쿠버네티스 조직의 **멤버** 는 쿠버네티스 프로젝트에 시간과 노력을 투자한 기여자이다. 일반적으로 승인되는 변경이 되는 풀 리퀘스트를 연다. 멤버십 기준은 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)을 참조한다.
 - SIG Docs의 **리뷰어** 는 쿠버네티스 조직의 일원으로
   문서 풀 리퀘스트에 관심을 표명했고, SIG Docs 승인자에
@@ -62,7 +62,7 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
   만약 쿠버네티스 조직의 멤버가 아니라면, `/lgtm` 을 사용하는 것은 자동화된 시스템에 아무런 영향을 주지 않는다.
   {{< /note >}}
 
-[CLA에 서명](/docs/contribute/new-content/overview/#sign-the-cla)) 후에 누구나 다음을 할 수 있다.
+[CLA에 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla) 후에 누구나 다음을 할 수 있다.
 - 기존 콘텐츠를 개선하거나, 새 콘텐츠를 추가하거나, 블로그 게시물 또는 사례연구 작성을 위해 풀 리퀘스트를 연다.
 
 ## 멤버
@@ -224,7 +224,7 @@ GitHub 그룹에 당신을 추가하기를 요청한다. `kubernetes-website-adm
 - 승인 전에 PR에 대한 Netlify 프리뷰 페이지를 방문하여, 제대로 보이는지 확인한다.
 
 - 주간 로테이션을 위해 [PR Wrangler 로테이션 스케줄](https://github.com/kubernetes/website/wiki/PR-Wranglers)에 참여한다. SIG Docs는 모든 승인자들이 이 로테이션에 참여할
-것으로 기대한다. [일주일 간 PR Wrangler 되기](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+것으로 기대한다. [일주일 간 PR Wrangler 되기](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기)
 문서를 참고한다.
 
 ## SIG Docs 의장
@@ -299,7 +299,7 @@ PR 소유자에게 조언하는데 활용된다.
 - 모든 쿠버네티스 멤버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
 - SIG Docs 승인자들만이 코멘트에 `/approve` 를
   추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
-  [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 또는 [SIG Docs 의장](#sig-docs-의장)과
+  [PR Wrangler](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
 

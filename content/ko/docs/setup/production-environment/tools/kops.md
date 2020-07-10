@@ -9,7 +9,7 @@ weight: 20
 이곳 빠른 시작에서는 사용자가 얼마나 쉽게 AWS에 쿠버네티스 클러스터를 설치할 수 있는지 보여준다.
 [`kops`](https://github.com/kubernetes/kops)라는 이름의 툴을 이용할 것이다.
 
-kops는 자동화된 프로비저닝 시스템인데, 
+kops는 자동화된 프로비저닝 시스템인데,
 
 * 완전 자동화된 설치
 * DNS를 통해 클러스터들의 신원 확인
@@ -23,7 +23,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 ## {{% heading "prerequisites" %}}
 
 
-* [kubectl](/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
+* [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 반드시 설치해야 한다.
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
@@ -82,7 +82,7 @@ brew update && brew install kops
 ```
 
 {{% /tab %}}
-{{% tab name="Linux" %}}
+{{% tab name="리눅스" %}}
 
 최신 릴리즈를 다운로드 받는 명령어:
 
@@ -127,7 +127,7 @@ brew update && brew install kops
 kops는 클러스터 내부와 외부 모두에서 검색을 위해 DNS을 사용하기에 클라이언트에서 쿠버네티스 API 서버에 연결할
 수 있다.
 
-이런 클러스터 이름에 kops는 명확한 견해을 가지는데: 반드시 유효한 DNS 이름이어야 한다. 이렇게 함으로써 
+이런 클러스터 이름에 kops는 명확한 견해을 가지는데: 반드시 유효한 DNS 이름이어야 한다. 이렇게 함으로써
 사용자는 클러스터를 헷갈리지 않을것이고, 동료들과 혼선없이 공유할 수 있으며,
 IP를 기억할 필요없이 접근할 수 있다.
 
@@ -140,7 +140,7 @@ Route53 hosted zone은 서브도메인도 지원한다. 여러분의 hosted zone
 `example.com`하위에는 그렇지 않을 수 있다).
 
 `dev.example.com`을 hosted zone으로 사용하고 있다고 가정해보자.
-보통 사용자는 [일반적인 방법](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나 
+보통 사용자는 [일반적인 방법](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html) 에 따라 생성하거나
 `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1` 와 같은 커맨드를 이용한다.
 
 그 후 도메인 내 레코드들을 확인할 수 있도록 상위 도메인내에 NS 레코드를 생성해야 한다. 여기서는,
@@ -175,7 +175,7 @@ S3 버킷 이름으로 정하자.
 
 * `aws s3 mb s3://clusters.dev.example.com`를 이용해 S3 버킷을 생성한다.
 
-* `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 하면, kops는 이 위치를 기본값으로 인식할 것이다. 
+* `export KOPS_STATE_STORE=s3://clusters.dev.example.com` 하면, kops는 이 위치를 기본값으로 인식할 것이다.
    이 부분을 bash profile등에 넣어두는것을 권장한다.
 
 
@@ -185,7 +185,7 @@ S3 버킷 이름으로 정하자.
 
 `kops create cluster --zones=us-east-1c useast1.dev.example.com`
 
-kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의할 점은 실제 클러스트 리소스가 아닌 _설정_ 
+kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의할 점은 실제 클러스트 리소스가 아닌 _설정_
 만을 생성한다는 것에 주의하자 - 이 부분은 다음 단계에서 `kops update cluster` 으로
 구성해볼 것이다. 그 때 만들어진 설정을 점검하거나 변경할 수 있다.
 
@@ -220,7 +220,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 
 ### 다른 애드온 탐험
 
-[애드온 리스트](/docs/concepts/cluster-administration/addons/) 에서 쿠버네티스 클러스터용 로깅, 모니터링, 네트워크 정책, 시각화 &amp; 제어 등을 포함한 다른 애드온을 확인해본다.
+[애드온 리스트](/ko/docs/concepts/cluster-administration/addons/) 에서 쿠버네티스 클러스터용 로깅, 모니터링, 네트워크 정책, 시각화 &amp; 제어 등을 포함한 다른 애드온을 확인해본다.
 
 ## 정리하기
 
@@ -231,9 +231,7 @@ kops는 클러스터에 사용될 설정을 생성할것이다. 여기서 주의
 ## {{% heading "whatsnext" %}}
 
 
-* 쿠버네티스 [개념](/docs/concepts/) 과 [`kubectl`](/docs/user-guide/kubectl-overview/)에 대해 더 알아보기.
+* 쿠버네티스 [개념](/ko/docs/concepts/) 과 [`kubectl`](/ko/docs/reference/kubectl/overview/)에 대해 더 알아보기.
 * 튜토리얼, 모범사례 및 고급 구성 옵션에 대한 `kops` [고급 사용법](https://kops.sigs.k8s.io/)에 대해 더 자세히 알아본다.
 * 슬랙(Slack)에서 `kops` 커뮤니티 토론을 할 수 있다: [커뮤니티 토론](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * 문제를 해결하거나 이슈를 제기하여 `kops` 에 기여한다. [깃헙 이슈](https://github.com/kubernetes/kops/issues)
-
-

@@ -39,6 +39,7 @@ PR 랭글러의 임무는 다음과 같다.
   - 리뷰가 진행되었고, 병합하기 전에 추가 입력이나 조치가 필요한 PR에 `Doc Review: Open Issues` 나 `Tech Review: Open Issues` 를 할당한다.
   - 병합할 수 있는 PR에 `/lgtm` 과 `/approve` 를 할당한다.
 - PR이 준비가 되면 병합하거나, 수락해서는 안되는 PR을 닫는다.
+  - 콘텐츠가 문서의 [스타일 가이드라인](/docs/contribute/style/style-guide/) 중 일부만 충족하더라도 정확한 기술 콘텐츠를 수락하는 것이 좋다. 스타일 문제를 해결하기 위해 `good first issue` 라는 레이블로 새로운 이슈를 연다.
 - 새로운 이슈를 매일 심사하고 태그를 지정한다. SIG Docs가 메타데이터를 사용하는 방법에 대한 지침은 [이슈 심사 및 분류](/ko/docs/contribute/review/for-approvers/#이슈-심사와-분류)를 참고한다.
 
 ## 랭글러에게 유용한 GitHub 쿼리
