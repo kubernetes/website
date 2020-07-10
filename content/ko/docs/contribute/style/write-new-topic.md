@@ -55,30 +55,30 @@ YAML 블록이다. 여기 예시가 있다.
     title: HTTP 프록시를 사용하여 쿠버네티스 API에 접근
     ---
 
-## 디렉토리 선택
+## 디렉터리 선택
 
-페이지 타입에 따라 새로운 파일을 다음 중 하나의 하위 디렉토리에 넣자.
+페이지 타입에 따라 새로운 파일을 다음 중 하나의 하위 디렉터리에 넣자.
 
 * /content/en/docs/tasks/
 * /content/en/docs/tutorials/
 * /content/en/docs/concepts/
 
-파일을 기존 하위 디렉토리에 넣거나 새 하위 디렉토리에
+파일을 기존 하위 디렉터리에 넣거나 새 하위 디렉터리에
 넣을 수 있다.
 
 ## 목차에 항목 배치
 
-목차는 문서 소스의 디렉토리 구조를 사용하여
-동적으로 작성된다. `/content/en/docs/` 아래의 최상위 디렉토리는 최상위 레벨 탐색 기능을
-생성하고, 하위 디렉토리는 각각 목차에 항목을
+목차는 문서 소스의 디렉터리 구조를 사용하여
+동적으로 작성된다. `/content/en/docs/` 아래의 최상위 디렉터리는 최상위 레벨 탐색 기능을
+생성하고, 하위 디렉터리는 각각 목차에 항목을
 갖는다.
 
-각 하위 디렉토리에는 `_index.md` 파일이 있으며 이는 해당 하위 디렉토리의 컨텐츠에 대한
+각 하위 디렉터리에는 `_index.md` 파일이 있으며 이는 해당 하위 디렉터리의 컨텐츠에 대한
 "홈" 페이지를 나타낸다. `_index.md`에는 템플릿이 필요없다. 그것은
-하위 디렉토리의 항목에 대한 개요 내용을 포함할 수 있다.
+하위 디렉터리의 항목에 대한 개요 내용을 포함할 수 있다.
 
-디렉토리의 다른 파일들은 기본적으로 알파벳순으로 정렬된다. 이것은 거의
-최적의 순서가 아니다. 하위 디렉토리에서 항목의 상대적 정렬을 제어하려면
+디렉터리의 다른 파일들은 기본적으로 알파벳순으로 정렬된다. 이것은 거의
+최적의 순서가 아니다. 하위 디렉터리에서 항목의 상대적 정렬을 제어하려면
 `가중치:` 전문의 키를 정수로 설정하자. 일반적으로 우리는
 나중에 항목을 추가하기 위해 10의 배수를 사용한다. 예를 들어 가중치가
 `10`인 항목은 가중치가 `20`인 항목보다 우선한다.
@@ -112,13 +112,13 @@ YAML 블록이다. 여기 예시가 있다.
 샘플 YAML 파일을 포함시키려면 이 방법을 사용하자.
 
 YAML 파일과 같은 새로운 독립형 샘플 파일을 추가할 때
-`<LANG>/examples/` 의 하위 디렉토리 중 하나에 코드를 배치하자. 여기서 `<LANG>`은
+`<LANG>/examples/` 의 하위 디렉터리 중 하나에 코드를 배치하자. 여기서 `<LANG>`은
 주제에 관한 언어이다. 문서 파일에서 `codenew` 단축 코드(shortcode)를 사용하자.
 
 ```none
 {{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
 ```
-여기서 `<RELPATH>` 는 `examples` 디렉토리와 관련하여 포함될
+여기서 `<RELPATH>` 는 `examples` 디렉터리와 관련하여 포함될
 파일의 경로이다. 다음 Hugo 단축 코드(shortcode)는 `/content/en/examples/pods/storage/gce-volume.yaml`
 에 있는 YAML 파일을 참조한다.
 
@@ -135,7 +135,7 @@ YAML 파일과 같은 새로운 독립형 샘플 파일을 추가할 때
 ## 구성 파일에서 API 오브젝트를 작성하는 방법 표시
 
 구성 파일을 기반으로 API 오브젝트를 생성하는 방법을 보여주려면
-`<LANG>/examples` 아래의 하위 디렉토리 중 하나에
+`<LANG>/examples` 아래의 하위 디렉터리 중 하나에
 구성 파일을 배치하자.
 
 문서에서 이 명령을 띄워보자.
@@ -145,18 +145,18 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ```
 
 {{< note >}}
-`<LANG>/examples` 디렉토리에 새 YAMl 파일을 추가할 때 파일이
+`<LANG>/examples` 디렉터리에 새 YAMl 파일을 추가할 때 파일이
 `<LANG>/examples_test.go` 파일에도 포함되어 있는지 확인하자.
 웹 사이트의 Travis CI 는 PR이 제출될 때 이 예제를 자동으로
 실행하여 모든 예제가 테스트를 통과하도록 한다.
 {{< /note >}}
 
 이 기술을 사용하는 문서의 예로
-[단일 인스턴스 스테이트풀 어플리케이션 실행](/docs/tutorials/stateful-application/run-stateful-application/)을 참조하자.
+[단일 인스턴스 스테이트풀 어플리케이션 실행](/ko/docs/tasks/run-application/run-single-instance-stateful-application/)을 참조하자.
 
 ## 문서에 이미지 추가
 
-이미지 파일을 `/images` 디렉토리에 넣는다. 기본
+이미지 파일을 `/images` 디렉터리에 넣는다. 기본
 이미지 형식은 SVG 이다.
 
 
@@ -164,5 +164,4 @@ kubectl create -f https://k8s.io/examples/pods/storage/gce-volume.yaml
 ## {{% heading "whatsnext" %}}
 
 * [페이지 콘텐츠 타입 사용](/docs/contribute/style/page-content-types/)에 대해 알아보기.
-* [풀 리퀘스트 작성](/docs/contribute/new-content/open-a-pr/)에 대해 알아보기.
-
+* [풀 리퀘스트 작성](/ko/docs/contribute/new-content/new-content/)에 대해 알아보기.

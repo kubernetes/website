@@ -8,7 +8,7 @@ weight: 100
 
 Horizontal Pod Autoscaler는
 CPU 사용량(또는 베타 지원의 다른 애플리케이션 지원 메트릭)을 관찰하여
-레플리케이션 컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀셋(StatefulSet)의 파드 개수를 자동으로 스케일한다.
+레플리케이션 컨트롤러, 디플로이먼트, 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)의 파드 개수를 자동으로 스케일한다.
 
 이 문서는 php-apache 서버를 대상으로 Horizontal Pod Autoscaler를 동작해보는 예제이다. Horizontal Pod Autoscaler 동작과 관련된 더 많은 정보를 위해서는 [Horizontal Pod Autoscaler 사용자 가이드](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)를 참고하기 바란다.
 

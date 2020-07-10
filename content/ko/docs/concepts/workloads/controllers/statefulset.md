@@ -25,7 +25,7 @@ weight: 40
 
 위의 안정은 파드의 (재)스케줄링 전반에 걸친 지속성과 같은 의미이다.
 만약 애플리케이션이 안정적인 식별자 또는 순차적인 배포,
-삭제 또는 스케일링이 필요하지 않으면, 스테이트리스 레플리카 셋을
+삭제 또는 스케일링이 필요하지 않으면, 스테이트리스 레플리카셋(ReplicaSet)을
 제공하는 워크로드 오브젝트를 사용해서 애플리케이션을 배포해야 한다.
 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/) 또는
 [레플리카셋](/ko/docs/concepts/workloads/controllers/replicaset/)과 같은 컨트롤러가 스테이트리스 요구에 더 적합할 수 있다.

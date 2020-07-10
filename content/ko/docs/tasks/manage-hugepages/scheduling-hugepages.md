@@ -1,16 +1,14 @@
 ---
 title: HugePages 관리
 content_type: task
+description: 클러스터에서 huge page를 스케줄할 수 있는 리소스로 구성하고 관리한다.
 ---
 
 <!-- overview -->
 {{< feature-state state="stable" >}}
 
-쿠버네티스는 **GA** 기능으로 파드의 애플리케이션에 미리 할당된
-huge page의 할당과 사용을 지원한다. 이 페이지에서는 사용자가
-huge page를 사용하는 방법과 현재의 제약 사항에 대해 설명한다.
-
-
+쿠버네티스는 파드의 애플리케이션에 미리 할당된
+huge page의 할당과 사용을 지원한다. 이 페이지에서는 사용자가 huge page를 사용하는 방법에 대해 설명한다.
 
 ## {{% heading "prerequisites" %}}
 
@@ -118,11 +116,3 @@ glossary_tooltip text="kube-apiserver"
 term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`)의
 `HugePageStorageMediumSize` [기능
 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 활성화할 수 있다.
-
-## 향후 버전
-
-- NUMA 지역성(locality)은 서비스 품질(QoS)의 기능으로 보장할 예정이다.
-- 리밋레인지(LimitRange)를 지원할 예정이다.
-
-
-

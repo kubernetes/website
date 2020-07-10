@@ -117,6 +117,5 @@ weight: 120
 
 ## {{% heading "whatsnext" %}}
 
-[노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)에
+[노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-어피니티)에
 대해 더 알아보기.
-
