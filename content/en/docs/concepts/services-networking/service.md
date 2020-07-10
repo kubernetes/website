@@ -204,14 +204,11 @@ described in detail in [EndpointSlices](/docs/concepts/services-networking/endpo
 
 ### Application protocol
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 The AppProtocol field provides a way to specify an application protocol to be
-used for each Service port.
-
-As an alpha feature, this field is not enabled by default. To use this field,
-enable the `ServiceAppProtocol` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/).
+used for each Service port. The value of this field is mirrored by corresponding
+Endpoints and EndpointSlice resources.
 
 ## Virtual IPs and service proxies
 
