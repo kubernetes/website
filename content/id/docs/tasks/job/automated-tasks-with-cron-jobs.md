@@ -16,7 +16,7 @@ CronJob  memiliki keterbatasan dan kekhasan.
 Misalnya, dalam keadaan tertentu, sebuah CronJob  dapat membuat banyak Job.
 Karena itu, Job haruslah _idempotent._
 
-Untuk informasi lanjut mengenai keterbatasan, lihat [CronJob](/docs/concepts/workloads/controllers/cron-jobs).
+Untuk informasi lanjut mengenai keterbatasan, lihat [CronJob](/id/docs/concepts/workloads/controllers/cron-jobs).
 
 
 
@@ -127,7 +127,7 @@ kubectl delete cronjob hello
 ```
 
 Menghapus CronJob akan menghapus semua Job dan Pod yang telah terbuat dan menghentikanya dari pembuatan Job tambahan.
-Kamu dapat membaca lebih lanjut tentang menghapus Job di [_garbage collection_](/docs/concepts/workloads/controllers/garbage-collection/).
+Kamu dapat membaca lebih lanjut tentang menghapus Job di [_garbage collection_](/id/docs/concepts/workloads/controllers/garbage-collection/).
 
 ## Menulis Speifikasi Sebuah Cron
 
@@ -162,8 +162,8 @@ Sebuah tanda tanya (`?`) dalam penjadwalan memiliki makna yang sama dengan tanda
 ### Templat Job
 
 `.spec.JobTemplate` adalah templat untuk sebuah Job, dan itu wajib.
-Templat Job memiliki skema yang sama dengan [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
-Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+Templat Job memiliki skema yang sama dengan [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/), kecuali jika bersarang dan tidak memiliki sebuah `apiVersion` atau `kind`.
+Untuk informasi lebih lanjut tentang menulis sebuah Job `.spec` lihat [Menulis spesifikasi Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
 
 ### _Starting Deadline_
 
