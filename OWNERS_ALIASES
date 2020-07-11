@@ -1,21 +1,4 @@
 aliases:
-  sig-cluster-lifecycle-kubeadm-approvers: # Approving changes to kubeadm documentation
-    - timothysc
-    - lukemarsden
-    - luxas
-    - fabriziopandini
-  sig-cluster-lifecycle-kubeadm-reviewers: # Reviewing kubeadm documentation
-    - timothysc
-    - lukemarsden
-    - luxas
-    - fabriziopandini
-    - kad
-    - xiangpengzhao
-    - stealthybox
-    - liztio
-    - chuckha
-    - detiber
-    - dixudx
   sig-docs-blog-owners: # Approvers for blog content
     - castrojo
     - kbarnard10
