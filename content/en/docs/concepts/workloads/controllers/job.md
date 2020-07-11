@@ -215,8 +215,8 @@ To do so, set `.spec.backoffLimit` to specify the number of retries before
 considering a Job as failed. The back-off limit is set by default to 6. Failed
 Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes. The
-back-off count is reset when a job pod is deleted or successful without any
-other pods failing around that time.
+back-off count is reset when a Job's Pod is deleted or successful without any
+other Pods for the Job failing around that time.
 
 {{< note >}}
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your container running the Job
@@ -474,4 +474,3 @@ object, but maintains complete control over what Pods are created and how work i
 ## Cron Jobs {#cron-jobs}
 
 You can use a [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) to create a Job that will run at specified times/dates, similar to the Unix tool `cron`.
-
