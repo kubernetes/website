@@ -657,7 +657,7 @@ Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   CPU Requests    CPU Limits    Memory Requests    Memory Limits
   ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+  680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
 위의 출력에서, ​파드가 1120m 이상의 CPU 또는 6.23Gi의 메모리를
@@ -758,5 +758,3 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
 
 * XFS의 [프로젝트 쿼터](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
-
-

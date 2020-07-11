@@ -95,4 +95,3 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 * [멀티 스케줄러 구성하기](/docs/tasks/administer-cluster/configure-multiple-schedulers/)에 대해 배우기
 * [토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)에 대해 배우기
 * [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/)에 대해 배우기
-
