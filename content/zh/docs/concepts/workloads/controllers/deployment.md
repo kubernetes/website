@@ -44,11 +44,6 @@ Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in th
 
 <!-- body -->
 
-You describe a _desired state_ in a Deployment, and the Deployment controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
-
--->
-描述 Deployment 中的 _desired state_，并且 Deployment 控制器以受控速率更改实际状态，以达到期望状态。可以定义 Deployments 以创建新的 ReplicaSets ，或删除现有 Deployments ，并通过新的 Deployments 使用其所有资源。
-
 <!--
 
 ## Use Case
