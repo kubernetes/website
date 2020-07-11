@@ -300,7 +300,6 @@
 /docs/tutorials/kubernetes-basics/update-intro/     /docs/tutorials/kubernetes-basics/update/update-intro/ 301
 /ja/docs/tutorials/kubernetes-basics/update-intro/     /ja/docs/tutorials/kubernetes-basics/update/update-intro/ 301
 /ko/docs/tutorials/kubernetes-basics/update-intro/     /ko/docs/tutorials/kubernetes-basics/update/update-intro/ 301
-/docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
 /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
