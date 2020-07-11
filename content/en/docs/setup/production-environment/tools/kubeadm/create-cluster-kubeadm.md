@@ -301,6 +301,16 @@ Below you can find installation instructions for some popular Pod network plugin
 
 {{< tabs name="tabs-pod-install" >}}
 
+{{% tab name="Antrea" %}}
+[Antrea](https://github.com/vmware-tanzu/antrea) is an [Open vSwitch](https://www.openvswitch.org/) based networking and network policy solution. Open vSwitch enables Antrea to implement Kubernetes Network Policies in a high-performance and efficient manner.
+In order Antrea to detect POD network range, you must pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/vmware-tanzu/antrea/master/build/yamls/antrea.yml
+```
+
+{{% /tab %}}
+
 {{% tab name="Calico" %}}
 [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer. Calico works on several architectures, including `amd64`, `arm64`, and `ppc64le`.
 
