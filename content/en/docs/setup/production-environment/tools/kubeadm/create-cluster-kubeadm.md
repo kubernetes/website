@@ -303,7 +303,7 @@ Below you can find installation instructions for some popular Pod network plugin
 
 {{% tab name="Antrea" %}}
 [Antrea](https://github.com/vmware-tanzu/antrea) is an [Open vSwitch](https://www.openvswitch.org/) based networking and network policy solution. Open vSwitch enables Antrea to implement Kubernetes Network Policies in a high-performance and efficient manner.
-In order Antrea to detect POD network range, you must pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init`.
+In order Antrea to detect POD network range, you must pass `--pod-network-cidr` parameter to `kubeadm init`.
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/vmware-tanzu/antrea/master/build/yamls/antrea.yml
