@@ -41,7 +41,6 @@ MinikubeのサポートするKubernetesの機能:
    出力はこのようになります:
 
    ```
-  
    Starting local Kubernetes cluster...
   
    Running pre-create checks...
@@ -49,7 +48,6 @@ MinikubeのサポートするKubernetesの機能:
    Creating machine...
   
    Starting local Kubernetes cluster...
-
    ```
 
    特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動   するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してください。
