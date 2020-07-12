@@ -241,7 +241,4 @@ spec:
     app: iis-2019
 ```
 
-
-{{% /capture %}}
-
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
