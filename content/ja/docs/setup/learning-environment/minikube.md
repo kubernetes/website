@@ -80,7 +80,7 @@ MinikubeのサポートするKubernetesの機能:
 
 4. `hello-minikube`Podが起動開始されましたが、公開したService経由で接続する前にPodが起動完了になるまで待つ必要があります。
 
-   Podが稼働しているか確認する:
+   Podが稼働しているか確認します:
    ```shell
    kubectl get pod
    ```
