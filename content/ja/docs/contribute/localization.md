@@ -9,272 +9,146 @@ card:
 
 <!-- overview -->
 
-このページでは、ドキュメントを異なる言語に[翻訳](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)する方法について紹介します。
+このページでは、Kubernetesドキュメントにおける日本語翻訳の方針について説明します。
 
 <!-- body -->
 
-## はじめる
+## ドキュメントを日本語に翻訳するまでの流れ
 
-コントリビューターが自分自身のプルリクエストを承認することはできないため、翻訳を始めるには、最低でも2人が必要です。
+翻訳を行うための基本的な流れについて説明します。不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。
 
-すべての翻訳チームは、自分たちのリソースを継続的に自己管理しなければいけません。私たちはドキュメントを喜んでホストしますが、あなたの代わりに翻訳することはできないからです。
+### 前提知識
 
-### 2文字の言語コードを探す
+翻訳作業は全て[GitHubのIssue](https://github.com/kubernetes/website/issues?q=is%3Aissue+is%3Aopen+label%3Alanguage%2Fja)によって管理されています。翻訳作業を行いたい場合は、Issueの一覧をまず最初にご確認ください。
 
-最初に、[ISO 639-1標準](https://www.loc.gov/standards/iso639-2/php/code_list.php)のドキュメントから、翻訳先の言語に対応する2文字の国コードを探してください。たとえば、韓国語の国コードは`ko`です。
+また、Kubernetes傘下のリポジトリでは`CLA`と呼ばれる同意書に署名しないと、Pull Requestをマージすることができません。詳しくは[英語のドキュメント](https://github.com/kubernetes/community/blob/master/CLA.md)や、[Qiitaに有志の方が書いてくださった日本語のまとめ](https://qiita.com/jlandowner/items/d14d9bc8797a62b65e67)をご覧ください。
 
-### リポジトリをフォーク・クローンする {#fork-and-clone-the-repo}
+### 翻訳を始めるまで
 
-初めに、[kubernetes/website](https://github.com/kubernetes/website)リポジトリの[自分用のフォークを作成](/docs/contribute/start/#improve-existing-content)します。
+#### 翻訳を希望するページのIssueが存在しない場合
 
-そして、フォークをクローンして、ディレクトリに`cd`します。
+1. [こちらのサンプル](https://github.com/kubernetes/website/issues/22340)に従う形でIssueを作成する
+2. 自分自身を翻訳作業に割り当てたい場合は、Issueのメッセージまたはコメントに`/assign`と書く
+3. [新規ページを翻訳する場合](#translate-new-page)のステップに進む
 
-```shell
-git clone https://github.com/<username>/website
-cd website
-```
+**不明点がある場合は[Kubernetes公式Slack](http://slack.kubernetes.io/)の`#kubernetes-docs-ja`チャンネルにてお気軽にご質問ください。**
 
-### プルリクエストを開く
+#### 翻訳を希望するページのIssueが存在する場合
 
-次に、`kubernetes/website`リポジトリに翻訳を追加するための[プルリクエスト(PR)を開きます](/docs/contribute/start/#submit-a-pull-request)。
+1. 自分自身を翻訳作業に割り当てるために、Issueのコメントに`/assign`と書く
+2. [新規ページを翻訳する場合](#translate-new-page)のステップに進む
 
-このPRが承認されるためには、[最低限必要なコンテンツ](#minimum-required-content)が含まれていなければなりません。
+### Pull Requestを送るまで
 
-新しい翻訳を追加する例としては、[フランス語版ドキュメントを追加するPR](https://github.com/kubernetes/website/pull/12548)を参考にしてください。
+未翻訳ページの新規翻訳作業と既存ページの修正作業でそれぞれ手順が異なります。
 
-### Kubernetes GitHub organizationに参加する
+既存ページへの追加修正については、後述の[マイルストーンについて](#milestones)に目を通すことをおすすめします。
 
-翻訳のPRを作ると、Kubernetes GitHub organizationのメンバーになることができます。チームの各個人は、それぞれ`kubernetes/org`リポジトリに[Organization Membership Request](https://github.com/kubernetes/org/issues/new/choose)を作成する必要があります。
+#### 新規ページを翻訳する場合の手順 {#translate-new-page}
 
-### 翻訳チームをGitHubに追加する {#add-your-localization-team-in-github}
+1. `kubernetes/website`リポジトリをフォークする
+2. `master`から任意の名前でブランチを作成する
+3. `content/en`のディレクトリから必要なファイルを`content/ja`にコピーし、翻訳する
+4. `master`ブランチに向けてPull Requestを作成する
 
-次に、Kubernetesの翻訳チームを[`sig-docs/teams.yaml`](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)に追加します。翻訳チームを追加する例として、[スペイン語の翻訳チーム](https://github.com/kubernetes/org/pull/685)を追加するPRを見てください。
+#### 既存のページの誤字脱字や古い記述を修正する場合の手順
 
-`@kubernetes/sig-docs-**-owners`のメンバーは、翻訳のディレクトリ`/content/**/`以下のコンテンツのみを変更するPRを承認できます。
+1. `kubernetes/website`リポジトリをフォークする
+2. `dev-1.18-ja.1`(最新のマイルストーンブランチに適宜読み替えること)から任意の名前でブランチを作成し、該当箇所を編集する
+3. `dev-1.18-ja.1`(最新のマイルストーンブランチに適宜読み替えること)ブランチに向けてPull Requestを作成する
 
-各翻訳ごとに、新しいPRに対して`@kubernetes/sig-docs-**-reviews`チームがレビューに自動的にアサインされます。
+### マイルストーンについて {#milestones}
 
-`@kubernetes/website-maintainers`のメンバーは、翻訳作業を調整するために新しい開発ブランチを作ることができます。
+翻訳作業を集中的に管理するために、日本語を含む複数の言語ではマイルストーンを採用しています。
 
-`@kubernetes/website-milestone-maintainers`のメンバーは、issueやPRにマイルストーンをアサインするために、`/milestone`[Prowコマンド](https://prow.k8s.io/command-help)が使用できます。
+各マイルストーンでは、
 
-### ワークフローを設定する {#configure-the-workflow}
+- 最低要件のコンテンツの追加・更新(項目については[こちら](https://kubernetes.io/docs/contribute/localization/#translating-documents)を参照してください)
+- バージョンに追従できていない翻訳済みコンテンツの更新
 
-次に、`kubernetes/test-infra`リポジトリに新しい翻訳用のGitHubラベルを追加します。ラベルを利用すると、issueやプルリクエストを特定の言語のものだけにフィルタできます。
+を行い、ドキュメントの全体的なメンテナンスを行っています。
 
-ラベルを追加する例としては、[イタリア語の言語ラベル](https://github.com/kubernetes/test-infra/pull/11316)を追加するPRを見てください。
+マイルストーンのバージョンはOwner権限を持つメンバーが管理するものとします。
 
-### コミュニティを見つける
+## 翻訳スタイルガイド
 
-Kubernetes SIG Docsに、新しく翻訳チームを作りたいという意思を知らせてください！[SIG Docs Slackチャンネル](https://kubernetes.slack.com/messages/C1J0BPD2M/)に参加してください。他の言語のメンバーが、翻訳を始めるのを喜んで助けてくれ、どんな疑問にも答えてくれます。
+### 基本方針
 
-`kubernetes/community`リポジトリ内で、翻訳用のSlackチャンネルを作ることもできます。Slackチャンネルを追加する例としては、[インドネシア語とポルトガル語用のチャンネルを追加する](https://github.com/kubernetes/community/pull/3605)ためのPRを見てください。
+- 本文を、敬体（ですます調）で統一
+    - 特に、「〜になります」「〜となります」という表現は「〜です」の方が適切な場合が多いため注意
+- 句読点は「、」と「。」を使用
+- 漢字、ひらがな、カタカナは全角で表記
+- 数字とアルファベットは半角で表記
+- スペースと括弧 `()` 、コロン `:` は半角、それ以外の記号類は全角で表記
+- 英単語と日本語の間に半角スペースは不要
 
-## 最低限必要なコンテンツ {#minimum-required-content}
+### 頻出単語
 
-### サイトの設定を修正する
+英語 | 日本語
+--------- | ---------
+cluster|クラスター
+orchestrate(動詞)|オーケストレーションする
+Persistent Volume|KubernetesリソースとしてのPersistentVolumeはママ表記、一般的な用語としての場合は、永続ボリューム
+Deployment/Deploy|KubernetesリソースとしてのDeploymentはママ表記、一般的な用語としてのdeployの場合は、デプロイ
+Addon/Add-on|アドオン
+Quota|クォータ
+For more information|さらなる情報(一時的)
+prefix | プレフィックス
+container | コンテナ
+directory | ディレクトリ
+binary | バイナリ
+controller | コントローラー
+opeartor | オペレーター
+Aggregation Layer | アグリゲーションレイヤー
+Issue | Issue (ママ表記)
+Pull Request | Pull Request (ママ表記)
+GitHub | GitHub (ママ表記)
+registry | レジストリ
+architecture | アーキテクチャ
+secure | セキュア
 
-Kubernetesのウェブサイトでは、Hugoをウェブフレームワークとして使用しています。ウェブサイトのHugoの設定は、[`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml)ファイルの中に書かれています。新しい翻訳をサポートするには、`config.toml`を修正する必要があります。
+### 備考
 
-`config.toml`の既存の`[languages]`ブロックの下に、新しい言語の設定ブロックを追加してください。たとえば、ドイツ語のブロックの場合、次のようになります。
+ServiceやDeploymentなどのKubernetesのAPIオブジェクトや技術仕様的な固有名詞は、無理に日本語訳せずそのまま書いてください。
 
-```toml
-[languages.de]
-title = "Kubernetes"
-description = "Produktionsreife Container-Verwaltung"
-languageName = "Deutsch"
-contentDir = "content/de"
-weight = 3
-```
+また、日本語では名詞を複数形にする意味はあまりないので、英語の名詞を利用する場合は原則として単数形で表現してください。
 
-ブロックの`weight`パラメーターの設定では、言語の一覧から最も数字の大きい番号を探し、その値に1を加えた値を指定してください。
+例:
 
-Hugoの多言語サポートについての詳しい情報は、「[多言語モード](https://gohugo.io/content-management/multilingual/)」を参照してください。
+- Kubernetes Service
+- Node
+- Pod
 
-### 新しい翻訳のディレクトリを追加する
+外部サイトへの参照の記事タイトルは翻訳しましょう。(一時的)
 
-[`content`](https://github.com/kubernetes/website/tree/master/content)フォルダーに、言語用のサブディレクトリを追加してください。2文字の言語コードが`de`であるドイツ語の場合、次のようにディレクトリを作ります。
+### 頻出表記（日本語）
 
-```shell
-mkdir content/de
-```
+よくある表記 | あるべき形
+--------- | ---------
+〜ので、〜から、〜だから| 〜のため 、〜ため
+（あいうえお。）| （あいうえお）。
+〇,〇,〇|〇、〇、〇（※今回列挙はすべて読点で統一）
 
-### Community Code of Conductを翻訳する
+### 単語末尾に長音記号(「ー」)を付けるかどうか
 
-あなたの言語のcode of conductを追加するために、PRを[`cncf/foundation`](https://github.com/cncf/foundation/tree/master/code-of-conduct-languages)リポジトリに対して開いてください。
+「サーバー」「ユーザー」など英単語をカタカナに訳すときに、末尾の「ー」を付けるかどうか。
 
-### 翻訳したREADMEを追加する
+- 「r」「re」「y」などで終わる単語については、原則付ける
+- 上の頻出語のように、別途まとめたものは例外とする
 
-他の翻訳のコントリビューターをガイドするために、kubernetes/websiteのトップレベルに新しい[`README-**.md`](https://help.github.com/articles/about-readmes/)を追加してください。ここで、`**`は2文字の言語コードです。たとえば、ドイツ語のREADMEファイルは`README-de.md`です。
+参考: https://kubernetes.slack.com/archives/CAG2M83S8/p1554096635015200 辺りのやりとり
 
-翻訳された`README-**.md`ファイルの中で、翻訳のコントリビューターにガイダンスを提供してください。`README.md`に含まれているのと同じ情報に加えて、以下の情報も追加してください。
+### cron jobの訳し方に関して
 
-- 翻訳プロジェクトのための連絡先
-- 翻訳固有の情報
+混同を避けるため、cron jobはcronジョブと訳し、CronJobはリソース名としてのままにする。
+cron「の」ジョブは、「の」が続く事による解釈の難から基本的にはつけないものとする。
 
-翻訳されたREADMEを作成したら、メインの英語の`README.md`からそのファイルへのリンクを追加し、英語で連絡先情報も書いてください。GitHub ID、メールアドレス、[Slackチャンネル](https://slack.com)、その他の連絡手段を提供できます。翻訳されたCommunity Code of Conductへのリンクも必ず提供してください。
+### その他基本方針など
 
-### OWNERSファイルを設定する
-
-翻訳にコントリビュートする各ユーザーのロールを設定するには、言語用のサブディレクトリの中に`OWNERS`ファイルを作成し、以下の項目を設定します。
-
-- **レビュアー**: レビュアーのロールを持つkubernetesチームのリストです。この場合は、[GitHubで翻訳チームを追加](#add-your-localization-team-in-github)で作成した`sig-docs-**-reviews`チームです。
-- **承認者**: 承認者のロールを持つkubernetesチームのリストです。この場合は、[GitHubで翻訳チームを追加](#add-your-localization-team-in-github)で追加した`sig-docs-**-owners`チームです。
-- **ラベル**: PRに自動的に適用されるGitHub上のラベルのリストです。この場合は、[ワークフローを設定する](#configure-the-workflow)で作成した言語ラベルです。
-
-`OWNERS`ファイルに関するより詳しい情報は、[go.k8s.io/owners](https://go.k8s.io/owners)を参照してください。
-
-言語コードが`es`の[スペイン語のOWNERSファイル](https://git.k8s.io/website/content/es/OWNERS)は次のようになります。
-
-```yaml
-# See the OWNERS docs at https://go.k8s.io/owners
-
-# This is the localization project for Spanish.
-# Teams and members are visible at https://github.com/orgs/kubernetes/teams.
-
-reviewers:
-- sig-docs-es-reviews
-
-approvers:
-- sig-docs-es-owners
-
-labels:
-- language/es
-```
-
-特定の言語用の`OWNERS`ファイルを追加したら、[ルートの`OWNERS_ALIASES`](https://git.k8s.io/website/OWNERS_ALIASES)ファイルを、翻訳のための新しいKuerbetesチーム、`sig-docs-**-owners`および`sig-docs-**-reviews`で更新します。
-
-各チームごとに、[翻訳チームをGitHubに追加する](#add-your-localization-team-in-github)でリクエストしたGitHubユーザーのリストをアルファベット順で追加してください。
-
-```diff
---- a/OWNERS_ALIASES
-+++ b/OWNERS_ALIASES
-@@ -48,6 +48,14 @@ aliases:
-     - stewart-yu
-     - xiangpengzhao
-     - zhangxiaoyu-zidif
-+  sig-docs-es-owners: # Admins for Spanish content
-+    - alexbrand
-+    - raelga
-+  sig-docs-es-reviews: # PR reviews for Spanish content
-+    - alexbrand
-+    - electrocucaracha
-+    - glo-pena
-+    - raelga
-   sig-docs-fr-owners: # Admins for French content
-     - perriea
-     - remyleone
-```
-
-## コンテンツを翻訳する
-
-Kubernetesのドキュメントの *すべて* を翻訳するのは、非常に大きな作業です。小さく始めて、時間をかけて拡大していけば大丈夫です。
-
-最低限、すべての翻訳には以下のコンテンツが必要です。
-
-説明 | URL
------|-----
-ホーム | [すべての見出しと小見出しのURL](/docs/home/)
-セットアップ | [すべての見出しと小見出しのURL](/docs/setup/)
-チュートリアル | [Kubernetes Basics](/docs/tutorials/kubernetes-basics/)、[Hello Minikube](/docs/tutorials/hello-minikube/)
-サイト文字列 | [翻訳された新しいTOMLファイル内のすべてのサイト文字列](https://github.com/kubernetes/website/tree/master/i18n)
-
-翻訳されたドキュメントは、言語ごとに`content/**/`サブディレクトリに置き、英語のソースと同じURLパスに従うようにしなければいけません。たとえば、[Kubernetes Basics](/docs/tutorials/kubernetes-basics/)のチュートリアルをドイツ語に翻訳する準備をするには、次のように、`content/de/`フォルダ以下にサブディレクトリを作り、英語のソースをコピーします。
-
-```shell
-mkdir -p content/de/docs/tutorials
-cp content/en/docs/tutorials/kubernetes-basics.md content/de/docs/tutorials/kubernetes-basics.md
-```
-
-翻訳ツールを使えば、翻訳のプロセスをスピードアップできます。たとえば、エディタによってはテキストを高速に翻訳してくれるプラグインがあります。
-
-{{< caution >}}
-機械生成された翻訳は、そのままでは最低限の品質基準を満たしません。基準を満たすためには、人間による十分なレビューが必要です。
-{{< /caution >}}
-
-文法と意味の正確さを保証するために、公開する前に翻訳チームのメンバーが機械生成されたすべての翻訳を注意深くレビューしなければいけません。
-
-### ソースファイル
-
-翻訳は、最新のリリース{{< latest-version >}}の英語のファイルをベースにしなければなりません。
-
-最新のリリースのソースファイルを見つけるには、次のように探してください。
-
-1. Kubernetesのウェブサイトのリポジトリ https://github.com/kubernetes/website に移動する。
-2. 最新バージョンの`release-1.X`ブランチを選択する。
-
-最新バージョンは{{< latest-version >}}であるため、最新のリリースブランチは[`{{< release-branch >}}`](https://github.com/kubernetes/website/tree/{{< release-branch >}})です。
-
-### i18n/内のサイト文字列
-
-翻訳には、[`i18n/en.toml`](https://github.com/kubernetes/website/blob/master/i18n/en.toml)の内容を新しい言語用のファイル内に含める必要があります。ドイツ語を例に取ると、ファイル名は`i18n/de.toml`です。
-
-新しい翻訳ファイルを`i18n/`に追加します。たとえば、ドイツ語(`de`)であれば次のようになります。
-
-```shell
-cp i18n/en.toml i18n/de.toml
-```
-
-そして、各文字列の値を翻訳します。
-
-```TOML
-[docs_label_i_am]
-other = "ICH BIN..."
-```
-
-サイト文字列を翻訳することで、サイト全体で使われるテキストや機能をカスタマイズできます。たとえば、各ページのフッターにある著作権のテキストなどです。
-
-### 言語固有のスタイルガイドと用語集
-
-一部の言語チームには、言語固有のスタイルガイドや用語集があります。たとえば、[韓国語の翻訳ガイド](/ko/docs/contribute/localization_ko/)を見てください。
-
-## ブランチの戦略
-
-翻訳プロジェクトは協力が非常に重要な活動のため、チームごとに共有の開発ブランチで作業することを推奨します。
-
-開発ブランチ上で共同作業するためには、以下の手順を行います。
-
-1. [@kubernetes/website-maintainers](https://github.com/orgs/kubernetes/teams/website-maintainers)のチームメンバーが https://github.com/kubernetes/website のソースブランチから開発ブランチを作る。
-
-    [`kubernetes/org`](https://github.com/kubernetes/org)リポジトリに[翻訳チームを追加](#add-your-localization-team-in-github)したとき、チームの承認者は`@kubernetes/website-maintainers`チームに参加します。
-
-    次のようなブランチの命名規則に従うことを推奨します。
-
-    `dev-<ソースのバージョン>-<言語コード>.<チームのマイルストーン>`
-
-    たとえば、ドイツ語の翻訳チームの承認者は、Kubernetes v1.12のソースブランチをベースに、k/websiteリポジトリから直接開発ブランチ`dev-1.12-de.1`を作ります。
-
-2. 各コントリビューターが、開発ブランチをベースにフィーチャーブランチを作る。
-
-    たとえば、ドイツ語のコントリビューターは、`username:local-branch-name`から`kubernetes:dev-1.12-de.1`に対して、変更を含むプルリクエストを開きます。
-
-3. 承認者がフィーチャーブランチをレビューして、開発ブランチにマージする。
-
-4. 定期的に新しいプルリクエストを開いて承認することで、承認者が開発ブランチをソースブランチにマージする。プルリクエストを承認する前にコミットをsquashするようにしてください。
-
-翻訳が完了するまで、1-4のステップを必要なだけ繰り返します。たとえば、ドイツ語のブランチは、`dev-1.12-de.2`、`dev-1.12-de.3`と続きます。
-
-チームは、翻訳したコンテンツを元となったリリースブランチにマージする必要があります。たとえば、{{< release-branch >}}から作られた開発ブランチは、必ず{{< release-branch >}}にマージしなければなりません。
-
-承認者は、ソースブランチを最新の状態に保ち、マージのコンフリクトを解決することで、開発ブランチをメンテナンスしなければなりません。開発ブランチが長く開いたままであるほど、一般により多くのメンテナンスが必要になります。そのため、非常に長い期間に渡って開発ブランチを維持するよりは、定期的に開発ブランチをマージして、新しいブランチを作ることを考えてください。
-
-各チームマイルストーンの最初には、1つ前の開発ブランチと現在の開発ブランチの間のアップストリームの変更を比較するissueを開くと役に立ちます。
-
-新しい開発ブランチを開いたりプルリクエストをマージできるのは承認者だけですが、新しい開発ブランチには誰でもプルリクエストを開くことができます。特別な許可は必要ありません。
-
-フォークやリポジトリから直接行う作業についての詳しい情報は、「[リポジトリをフォーク・クローンする](#fork-and-clone-the-repo)」を読んでください。
+- 意訳と直訳で迷った場合は「直訳」で訳す
+- 訳で難しい・わからないと感じたらSlackの#kubernetes-docs-jaでみんなに聞く
+- できることを挙手制で、できないときは早めに報告
 
 ## アップストリームのコントリビューター
 
 SIG Docsでは、英語のソースに対する[アップストリームへのコントリビュートや誤りの訂正](/docs/contribute/intermediate#localize-content)を歓迎しています。
-
-## 既存の翻訳を助ける
-
-コンテンツの追加や改善により既存の翻訳を助けることもできます。翻訳のための[Slackチャンネル](https://kubernetes.slack.com/messages/C1J0BPD2M/)に参加して、助けとなるPRを開くことを始めましょう。
-
-## {{% heading "whatsnext" %}}
-
-翻訳がワークフローと最小限のコンテンツの要件を満たしたら、SIG docsは次の作業を行います。
-
-- ウェブサイト上で言語の選択を有効にする。
-- [Kubernetesブログ](https://kubernetes.io/blog/)を含む[Cloud Native Computing Foundation](https://www.cncf.io/about/)(CNCF)のチャンネルで、翻訳が利用できるようになったことを公表する。

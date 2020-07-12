@@ -47,7 +47,7 @@ card:
 
 {{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
 
-1. 매니페스트 파일을 다운로드한 디렉토리에서 터미널 창을 시작한다.
+1. 매니페스트 파일을 다운로드한 디렉터리에서 터미널 창을 시작한다.
 1. `redis-master-deployment.yaml` 파일을 통해 Redis 마스터의 디플로이먼트에 적용한다.
 
       ```shell
@@ -218,7 +218,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 1. 서비스의 목록을 질의하여 프론트엔드 서비스가 실행 중인지 확인한다.
 
       ```shell
-      kubectl get services 
+      kubectl get services
       ```
 
       결과는 아래와 같은 형태로 나타난다.
@@ -320,7 +320,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       redis-slave-2005841000-fpvqc    1/1       Running   0          1h
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
-        
+
 
 
 ## {{% heading "cleanup" %}}
@@ -346,7 +346,7 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
       deployment.apps "frontend" deleted    
       service "frontend" deleted
       ```
-       
+
 1. 파드의 목록을 질의하여 실행 중인 파드가 없는지 확인한다.
 
       ```shell
@@ -367,5 +367,4 @@ Google Compute Engine 또는 Google Kubernetes Engine과 같은 일부 클라우
 * [쿠버네티스 기초](/ko/docs/tutorials/kubernetes-basics/) 튜토리얼을 완료
 * [MySQL과 Wordpress을 위한 퍼시스턴트 볼륨](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)을 사용하여 블로그 생성하는데 쿠버네티스 이용하기
 * [애플리케이션 접속](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해 더 알아보기
-* [자원 관리](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)에 대해 더 알아보기
-
+* [자원 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#효과적인-레이블-사용)에 대해 더 알아보기

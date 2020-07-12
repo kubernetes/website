@@ -16,7 +16,7 @@ API 호출 또는 요청/응답 타입을 직접 구현할 필요는 없다.
 
 클라이언트 라이브러리는 대체로 인증과 같은 공통의 태스크를 처리한다.
 대부분의 클라이언트 라이브러리들은 API 클라이언트가 쿠버네티스 클러스터 내부에서 동작하는 경우 인증
-또는 [kubeconfig 파일](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) 포맷을 통해
+또는 [kubeconfig 파일](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 포맷을 통해
 자격증명과 API 서버 주소를 읽을 수 있게
 쿠버네티스 서비스 어카운트를 발견하고 사용할 수 있다.
 

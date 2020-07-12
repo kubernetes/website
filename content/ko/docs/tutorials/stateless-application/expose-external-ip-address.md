@@ -15,7 +15,7 @@ weight: 10
 ## {{% heading "prerequisites" %}}
 
 
- * [kubectl](/docs/tasks/tools/install-kubectl/)을 설치한다.
+ * [kubectl](/ko/docs/tasks/tools/install-kubectl/)을 설치한다.
 
  * Google Kubernetes Engine 또는 Amazon Web Services와 같은 클라우드 공급자를 사용하여
 쿠버네티스 클러스터를 생성한다.
@@ -52,10 +52,10 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 
 위의 명령어는
-    [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
+    [디플로이먼트(Deployment)](/ko/docs/concepts/workloads/controllers/deployment/)
     오브젝트와 관련된
-    [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)
-    오브젝트를 생성한다. 레플리카 셋은 다섯 개의
+    [레플리카셋(ReplicaSet)](/ko/docs/concepts/workloads/controllers/replicaset/)
+    오브젝트를 생성한다. 레플리카셋은 다섯 개의
     [파드](/ko/docs/concepts/workloads/pods/pod/)가 있으며,
     각 파드는 Hello World 애플리케이션을 실행한다.
 
@@ -64,7 +64,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         kubectl get deployments hello-world
         kubectl describe deployments hello-world
 
-1. 레플리카 셋 오브젝트에 대한 정보를 확인한다.
+1. 레플리카셋 오브젝트에 대한 정보를 확인한다.
 
         kubectl get replicasets
         kubectl describe replicasets
@@ -160,7 +160,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
     kubectl delete services my-service
 
-Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카 셋, 파드를 삭제하려면,
+Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카셋, 파드를 삭제하려면,
 아래의 명령어를 입력한다.
 
     kubectl delete deployment hello-world
@@ -173,4 +173,3 @@ Hello World 애플리케이션을 실행 중인 디플로이먼트, 레플리카
 
 [애플리케이션과 서비스 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 대해
 더 배워 본다.
-

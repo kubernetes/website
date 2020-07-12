@@ -1,6 +1,7 @@
 ---
 content_type: concept
 title: GPU 스케줄링
+description: 클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
 ---
 
 
@@ -140,7 +141,7 @@ Google은 GKE에서 NVIDIA GPU 사용에 대한 자체 [설명서](https://cloud
 
 만약 클러스터의 노드들이 서로 다른 타입의 GPU를 가지고 있다면, 사용자는
 파드를 적합한 노드에 스케줄 하기 위해서
-[노드 레이블과 노드 셀렉터](/docs/tasks/configure-pod-container/assign-pods-nodes/)를 사용할 수 있다.
+[노드 레이블과 노드 셀렉터](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)를 사용할 수 있다.
 
 예를 들면,
 
@@ -215,5 +216,3 @@ spec:
 
 이것은 파드가 사용자가 지정한 GPU 타입을 가진 노드에 스케줄 되도록
 만든다.
-
-

@@ -316,7 +316,7 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 디플로이먼트 컨트롤러는 각 시간마다 새로운 디플로이먼트에서 레플리카셋이
 의도한 파드를 생성하고 띄우는 것을 주시한다. 만약 디플로이먼트가 업데이트되면, 기존 레플리카셋에서
 `.spec.selector` 레이블과 일치하는 파드를 컨트롤 하지만, 템플릿과 `.spec.template` 이 불일치하면 스케일 다운이 된다.
-결국 새로운 레플리카셋은 `.spec.replicas` 로 스케일되고, 모든 기존 레플리카 셋은 0개로 스케일된다.
+결국 새로운 레플리카셋은 `.spec.replicas` 로 스케일되고, 모든 기존 레플리카셋은 0개로 스케일된다.
 
 만약 기존 롤아웃이 진행되는 중에 디플로이먼트를 업데이트하는 경우 디플로이먼트가 업데이트에 따라 새 레플리카셋을 생성하고,
 스케일 업하기 시작한다. 그리고 이전에 스케일 업 하던 레플리카셋에 롤오버 한다.
@@ -671,7 +671,7 @@ deployment.apps/nginx-deployment scaled
 디플로이먼트 컨트롤러는 새로운 5개의 레플리카의 추가를 위한 위치를 결정해야 한다.
 만약 비례적 스케일링을 사용하지 않으면 5개 모두 새 레플리카셋에 추가된다.
 비례적 스케일링으로 추가 레플리카를 모든 레플리카셋에 걸쳐 분산할 수 있다.
-비율이 높을수록 가장 많은 레플리카가 있는 레플리카셋으로 이동하고, 비율이 낮을 수록 적은 레플리카가 있는 레플리카 셋으로 이동한다.
+비율이 높을수록 가장 많은 레플리카가 있는 레플리카셋으로 이동하고, 비율이 낮을 수록 적은 레플리카가 있는 레플리카셋으로 이동한다.
 남은 것들은 대부분의 레플리카가 있는 레플리카셋에 추가된다. 0개의 레플리카가 있는 레플리카셋은 스케일 업 되지 않는다.
 
 위의 예시에서 기존 레플리카셋에 3개의 레플리카가 추가되고, 2개의 레플리카는 새 레플리카에 추가된다.
@@ -861,7 +861,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 of 3 updated replicas are available...
 deployment.apps/nginx-deployment successfully rolled out
-$ echo $?
+```
+그리고 `kubectl rollout` 의 종료 상태는 0(success)이다.
+```shell
+echo $?
+```
+```
 0
 ```
 
@@ -1003,7 +1008,12 @@ kubectl rollout status deployment.v1.apps/nginx-deployment
 ```
 Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
 error: deployment "nginx" exceeded its progress deadline
-$ echo $?
+```
+그리고 `kubectl rollout` 의 종료 상태는 1(error를 의미함)이다.
+```shell
+echo $?
+```
+```
 1
 ```
 
@@ -1026,7 +1036,7 @@ $ echo $?
 ## 카나리 디플로이먼트
 
 만약 디플로이먼트를 이용해서 일부 사용자 또는 서버에 릴리즈를 롤아웃 하기 위해서는
-[리소스 관리](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)에
+[리소스 관리](/ko/docs/concepts/cluster-administration/manage-deployment/#카나리-canary-디플로이먼트)에
 설명된 카나리 패던에 따라 각 릴리스 마다 하나씩 여러 디플로이먼트를 생성할 수 있다.
 
 ## 디플로이먼트 사양 작성
@@ -1035,7 +1045,7 @@ $ echo $?
 설정 파일 작업에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 디플로이먼트에는 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)도 필요하다.
 
