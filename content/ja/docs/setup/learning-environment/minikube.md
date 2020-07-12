@@ -52,7 +52,7 @@ MinikubeのサポートするKubernetesの機能:
 
    ```
 
-   特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動   するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してくだ   さい。
+   特定のKubernetesのバージョン、VM、コンテナランタイム上でクラスターを起動   するための詳細は、[クラスターの起動](#starting-a-cluster)を参照してください。
 
 2. kubectlを使用してクラスターと対話できるようになります。詳細は[クラスターに触れてみよう](#interacting-with-your-cluster)を参照してください。
 単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentオブジェクトを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
