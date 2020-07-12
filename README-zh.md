@@ -1,74 +1,139 @@
 # Kubernetes 文档
+
 <!--
 # The Kubernetes documentation
- -->
+-->
 
-[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 <!--
-Welcome! This repository houses all of the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/).
-We're glad that you want to contribute!
- -->
-欢迎！本仓库包含了所有用于构建 [Kubernetes 网站和文档](https://kubernetes.io/)的内容。
+This repository contains the assets required to build the [Kubernetes website and documentation](https://kubernetes.io/). We're glad that you want to contribute!
+-->
+本仓库包含了所有用于构建 [Kubernetes 网站和文档](https://kubernetes.io/) 的软件资产。
 我们非常高兴您想要参与贡献！
 
 <!--
+## Running the website locally using Hugo
+
+See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions. Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+-->
+## 在本地使用 Hugo 来运行网站
+
+请参考 [Hugo 的官方文档](https://gohugo.io/getting-started/installing/)了解 Hugo 的安装指令。
+请确保安装的是 [`netlify.toml`](netlify.toml#L10) 文件中环境变量 `HUGO_VERSION` 所指定的
+Hugo 扩展版本。
+
+<!--
+Before building the site, clone the Kubernetes website repository:
+-->
+在构造网站之前，先克隆 Kubernetes website 仓库：
+
+```bash
+git clone https://github.com/kubernetes/website.git
+cd website
+git submodule update --init --recursive
+```
+
+<!--
+**Note:**  The Kubernetes website deploys the [Docsy Hugo theme](https://github.com/google/docsy#readme).
+If you have not updated your website repository, the `website/themes/docsy` directory is empty.
+The site cannot build without a local copy of the theme.
+
+Update the website theme:
+-->
+**注意：** Kubernetes 网站要部署 [Docsy Hugo 主题](https://github.com/google/docsy#readme).
+如果你还没有更新你本地的 website 仓库，目录 `website/themes/docsy`
+会是空目录。
+在本地没有主题副本的情况下，网站无法正常构造。
+
+使用下面的命令更新网站主题：
+
+```bash
+git submodule update --init --recursive --depth 1
+```
+
+<!--
+To build and test the site locally, run:
+-->
+若要在本地构造和测试网站，请运行：
+
+```bash
+hugo server --buildFuture
+```
+
+<!--
+This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
+-->
+上述命令会在端口 1313 上启动本地 Hugo 服务器。
+启动浏览器，打开 http://localhost:1313 来查看网站。
+当你对源文件作出修改时，Hugo 会更新网站并强制浏览器执行刷新操作。
+
+<!--
+## Get involved with SIG Docs
+
+Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).
+
+You can also reach the maintainers of this project at:
+
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+-->
+## 参与 SIG Docs 工作
+
+通过 [社区页面](https://github.com/kubernetes/community/tree/master/sig-docs#meetings)
+进一步了解 SIG Docs Kubernetes 社区和会议信息。
+
+你也可以通过以下渠道联系本项目的维护人员：
+
+- [Slack](https://kubernetes.slack.com/messages/sig-docs)
+- [邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
+
+<!--
 ## Contributing to the docs
- -->
-## 贡献文档
+
+You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account. This copy is called a *fork*. Make any changes you want in your fork, and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
+
+Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.  As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
+-->
+## 为文档做贡献
+
+你也可以点击屏幕右上方区域的 **Fork** 按钮，在你自己的 GitHub
+账号下创建本仓库的拷贝。此拷贝被称作 *fork*。
+你可以在自己的拷贝中任意地修改文档，并在你已准备好将所作修改提交给我们时，
+在你自己的拷贝下创建一个拉取请求（Pull Request），以便让我们知道。
+
+一旦你创建了拉取请求，某个 Kubernetes 评审人会负责提供明确的、可执行的反馈意见。
+作为拉取请求的拥有者，*修改拉取请求以解决 Kubernetes
+评审人所提出的反馈是你的责任*。
 
 <!--
-You can click the **Fork** button in the upper-right area of the screen to create a copy of this repository in your GitHub account.
-This copy is called a *fork*. Make any changes you want in your fork,
-and when you are ready to send those changes to us, go to your fork and create a new pull request to let us know about it.
- -->
-您可以点击屏幕右上方的 **Fork** 按钮，在您的 GitHub 账户下创建一份本仓库的副本。这个副本叫做 *fork*。您可以对 fork 副本进行任意修改，
-当准备好把修改提交给我们时，您可以通过创建一个 pull request 来告知我们。
-
-<!--
-Once your pull request is created, a Kubernetes reviewer will take responsibility for providing clear, actionable feedback.
-As the owner of the pull request, **it is your responsibility to modify your pull request to address the feedback that has been provided to you by the Kubernetes reviewer.**
 Also, note that you may end up having more than one Kubernetes reviewer provide you feedback or you may end up getting feedback from a Kubernetes reviewer that is different than the one initially assigned to provide you feedback.
-Furthermore, in some cases, one of your reviewers might ask for a technical review from a [Kubernetes tech reviewer](https://github.com/kubernetes/website/wiki/Tech-reviewers) when needed.
-Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
- -->
-创建 pull request 后，Kubernetes 审核人员将负责提供清晰且可操作的反馈。作为 pull request 的所有者，**您有责任修改 pull request 以解决 Kubernetes 审核者提供给您的反馈。**
-另请注意，您最终可能会收到多个 Kubernetes 审核人员为您提供的反馈，也可能出现后面 Kubernetes 审核人员的反馈与前面审核人员的反馈不尽相同的情况。
-此外，在某些情况下，您的某位评审员可能会在需要时要求 [Kubernetes 技术评审员](https://github.com/kubernetes/website/wiki/Tech-reviewers) 进行技术评审。
-审稿人将尽最大努力及时提供反馈，但响应时间可能因情况而异。
+
+Furthermore, in some cases, one of your reviewers might ask for a technical review from a Kubernetes tech reviewer when needed.  Reviewers will do their best to provide feedback in a timely fashion but response time can vary based on circumstances.
+-->
+还要提醒的一点，有时可能会有不止一个 Kubernetes 评审人为你提供反馈意见。
+有时候，某个评审人的意见和另一个最初被指派的评审人的意见不同。
+
+更进一步，在某些时候，评审人之一可能会在需要的时候请求 Kubernetes
+技术评审人来执行技术评审。
+评审人会尽力及时地提供反馈意见，不过具体的响应时间可能会因时而异。
 
 <!--
 For more information about contributing to the Kubernetes documentation, see:
 
-* [Start contributing](https://kubernetes.io/docs/contribute/start/)
-* [Staging Your Documentation Changes](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Using Page Templates](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Documentation Style Guide](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
+* [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
- -->
+-->
 有关为 Kubernetes 文档做出贡献的更多信息，请参阅：
 
-* [开始贡献](https://kubernetes.io/docs/contribute/start/)
-* [缓存您的文档变更](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [使用页面模版](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [贡献 Kubernetes 文档](https://kubernetes.io/docs/contribute/)
+* [页面内容类型](http://kubernetes.io/docs/contribute/style/page-content-types/)
 * [文档风格指南](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [本地化 Kubernetes 文档](https://kubernetes.io/docs/contribute/localization/)
 
-<!--
-## `README.md`'s Localizing Kubernetes Documentation
- -->
-## `README.md` 的本地化 Kubernetes 文档
-
-<!--
-### Korean
-
-You can reach the maintainers of Korean localization at:
-
-* June Yi ([GitHub - @gochist](https://github.com/gochist))
-* [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-ko)
- -->
-### 中文
+## 中文本地化
 
 可以通过以下方式联系中文本地化的维护人员：
 
@@ -77,106 +142,19 @@ You can reach the maintainers of Korean localization at:
 * [Slack channel](https://kubernetes.slack.com/messages/kubernetes-docs-zh)
 
 <!--
-## Running the website locally using Docker
- -->
-## 在本地使用 docker 运行网站
-
-<!--
-The recommended way to run the Kubernetes website locally is to run a specialized [Docker](https://docker.com) image that includes the [Hugo](https://gohugo.io) static website generator.
- -->
-在本地运行 Kubernetes 网站的推荐方法是运行包含 [Hugo](https://gohugo.io) 静态网站生成器的专用 [Docker](https://docker.com) 镜像。
-
-<!--
-> If you are running on Windows, you'll need a few more tools which you can install with [Chocolatey](https://chocolatey.org). `choco install make`
- -->
-> 如果您使用的是 Windows，则需要一些工具，可以使用 [Chocolatey](https://chocolatey.org) 进行安装。`choco install make`
-
-<!--
-> If you'd prefer to run the website locally without Docker, see [Running the website locally using Hugo](#running-the-site-locally-using-hugo) below.
- -->
-> 如果您更喜欢在没有 Docker 的情况下在本地运行网站，请参阅下面的[使用 Hugo 在本地运行网站](#running-the-site-locally-using-hugo) 章节。
-
-<!--
-If you have Docker [up and running](https://www.docker.com/get-started), build the `kubernetes-hugo` Docker image locally:
- -->
-如果您已经[安装运行](https://www.docker.com/get-started)了 Docker，使用以下命令在本地构建 `kubernetes-hugo` Docker 镜像：
-
-```bash
-make docker-image
-```
-
-<!--
-Once the image has been built, you can run the website locally:
- -->
-一旦创建了镜像，您就可以在本地运行网站了：
-
-```bash
-make docker-serve
-```
-
-<!--
-Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
- -->
-打开浏览器访问 http://localhost:1313 以查看网站。当您对源文件进行更改时，Hugo 会更新网站并强制刷新浏览器。
-
-<!--
-## Running the website locally using Hugo
- -->
-## 使用 Hugo 在本地运行网站 {#running-the-site-locally-using-hugo}
-
-<!--
-See the [official Hugo documentation](https://gohugo.io/getting-started/installing/) for Hugo installation instructions.
-Make sure to install the Hugo version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L9) file.
- -->
-有关 Hugo 的安装说明，请参阅 [Hugo 官方文档](https://gohugo.io/getting-started/installing/)。
-确保安装对应版本的 Hugo，版本号由 [`netlify.toml`](netlify.toml#L9) 文件中的 `HUGO_VERSION` 环境变量指定。
-
-<!--
-To run the website locally when you have Hugo installed:
- -->
-安装 Hugo 后，在本地运行网站：
-
-```bash
-make serve
-```
-
-<!--
-This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
- -->
-这将在 1313 端口上启动本地 Hugo 服务器。打开浏览器访问 http://localhost:1313 查看网站。当您对源文件进行更改时，Hugo 会更新网站并强制刷新浏览器。
-
-<!--
-## Community, discussion, contribution, and support
- -->
-## 社区、讨论、贡献和支持
-
-<!--
-Learn how to engage with the Kubernetes community on the [community page](http://kubernetes.io/community/).
- -->
-在[社区页面](http://kubernetes.io/community/)了解如何与 Kubernetes 社区互动。
-
-<!--
-You can reach the maintainers of this project at:
- -->
-您可以通过以下方式联系该项目的维护人员：
-
-- [Slack](https://kubernetes.slack.com/messages/sig-docs)
-- [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
-
-<!--
 ### Code of conduct
 
-Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
- -->
+Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
+-->
 ### 行为准则
 
-参与 Kubernetes 社区受 [Kubernetes 行为准则](code-of-conduct.md)的约束。
+参与 Kubernetes 社区受 [CNCF 行为准则](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)约束。
 
 <!--
 ## Thank you!
 
 Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
- -->
+-->
 ## 感谢！
 
 Kubernetes 因为社区的参与而蓬勃发展，感谢您对我们网站和文档的贡献！
