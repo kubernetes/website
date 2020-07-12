@@ -243,7 +243,7 @@ Minikubeは以下のドライバーをサポートしています:
 * kvm2 ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#kvm2-driver))
 * hyperkit ([driver installation](https://git.k8s.io/minikube/docs/drivers.md#hyperkit-driver))
 * hyperv ([driver installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
-注意: 以下のIPは動的であり、変更される可能性があります。IPは `minikube ip` で取得することができます。
+注意: 以下のIPは動的であり、変更される可能性があります。IPは`minikube ip`で取得することができます。
 * vmware ([driver installation](https://minikube.sigs.k8s.io/docs/reference/drivers/vmware/)) (VMware unified driver)
 * none (VMではなくホスト上でKubernetesコンポーネントを起動。このドライバーを使用するには{{< glossary_tooltip term_id="docker" >}}とLinux環境を必要とします)
 
