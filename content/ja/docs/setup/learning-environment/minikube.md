@@ -56,7 +56,7 @@ MinikubeのサポートするKubernetesの機能:
 単純なHTTPサーバーである`echoserver`という既存のイメージを使用して、Kubernetes Deploymentオブジェクトを作りましょう。そして`--port`を使用して8080番ポートで公開しましょう。
 
    ```shell
-   kubectl create deployment hello-minikube --image=k8s.gcr.io/   echoserver:1.10
+   kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
    ```
 
    出力はこのようになります:
