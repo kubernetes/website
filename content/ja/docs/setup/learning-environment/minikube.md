@@ -217,7 +217,7 @@ Minikubeは "minikube" コンテキストも作成し、そのコンテキスト
 
 #### Kubernetesバージョンの指定
 
-`minikube start` コマンドに `--kubernetes-version` 文字列を追加することで、
+`minikube start`コマンドに`--kubernetes-version`文字列を追加することで、
 MinikubeにKubernetesの特定のバージョンを指定することができます。
 例えば、{{< param "fullversion" >}}のバージョンを実行するには以下を実行します:
 
