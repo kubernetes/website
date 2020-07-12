@@ -211,7 +211,7 @@ https_proxy=<my proxy> minikube start --docker-env http_proxy=<my proxy> --docke
 
 残念なことに、ただ環境変数を設定するだけではうまく動作しません。
 
-Minikubeは "minikube" コンテキストも作成し、そのコンテキストをデフォルト設定としてkubectlに設定します。
+Minikubeは"minikube"コンテキストも作成し、そのコンテキストをデフォルト設定としてkubectlに設定します。
 あとでコンテキストを切り戻すには、このコマンドを実行してください: `kubectl config use-context minikube`
 {{< /note >}}
 
