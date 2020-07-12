@@ -68,7 +68,7 @@ MinikubeのサポートするKubernetesの機能:
 3. `hello-minikube`Deploymentに接続するために、Serviceとして公開します:
 
    ```shell
-   kubectl expose deployment hello-minikube --type=NodePort    --port=8080
+   kubectl expose deployment hello-minikube --type=NodePort --port=8080
    ```
 
    `--type=NodePort`オプションで、Serviceのタイプを指定します。
