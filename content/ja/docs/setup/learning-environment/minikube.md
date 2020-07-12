@@ -235,7 +235,7 @@ minikube start --vm-driver=<driver_name>
 
 Minikubeは以下のドライバーをサポートしています:
  {{< note >}}
-サポートされているドライバーとプラグインのインストールの詳細については [DRIVERS](https://git.k8s.io/minikube/docs/drivers.md) を参照してください。
+サポートされているドライバーとプラグインのインストールの詳細については[DRIVERS](https://git.k8s.io/minikube/docs/drivers.md)を参照してください。
 {{< /note >}}
 
 * virtualbox  
