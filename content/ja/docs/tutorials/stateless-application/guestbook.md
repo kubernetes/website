@@ -120,7 +120,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 
-1. redis-slave-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを`適用します。
+1. `redis-slave-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを適用します。
 
       ```shell
       kubectl apply -f https://k8s.io/examples/application/guestbook/redis-slave-deployment.yaml
