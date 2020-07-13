@@ -30,7 +30,7 @@ Anyone can write a blog post and submit it for review.
   - Sometimes this is a delicate balance. The [blog team](https://kubernetes.slack.com/messages/sig-docs-blog/) is there to give guidance on whether a post is appropriate for the Kubernetes blog, so don't hesitate to reach out. 
 - Blog posts are not published on specific dates.
     - Articles are reviewed by community volunteers. We'll try our best to accommodate specific timing, but we make no guarantees.
-  - Many core parts of the project are submitting posts during release windows and publication time will be delayed. Consider submitting during a quieter period of the release cycle.
+  - Many core parts of the Kubernetes projects submit blog posts during release windows, delaying publication times. Consider submitting during a quieter period of the release cycle.
   - If you are looking for greater coordination on post release dates, coordinating with [CNCF marketing](https://www.cncf.io/about/contact/) is a more appropriate choice than submitting a blog post.
   - Sometimes reviews can get backed up. If you feel your review isn't getting the attention it needs, you can reach out to the blog team via [this slack channel](https://kubernetes.slack.com/messages/sig-docs-blog/) to ask in real time. 
 - Blog posts should be relevant to Kubernetes users.
