@@ -1,9 +1,9 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Escribiendo Logs con Elasticsearch y Kibana
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 En la plataforma Google Compute Engine (GCE), por defecto da soporte a la escritura de logs haciendo uso de
 [Stackdriver Logging](https://cloud.google.com/logging/), el cual se describe en detalle en [Logging con Stackdriver Logging](/docs/user-guide/logging/stackdriver).
@@ -17,9 +17,9 @@ Stackdriver Logging cuando se utiliza la plataforma GCE.
 No se puede desplegar de forma automática Elasticsearch o Kibana en un clúster alojado en Google Kubernetes Engine. Hay que desplegarlos de forma manual.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Para utilizar Elasticsearch y Kibana para escritura de logs del clúster, deberías configurar
 la siguiente variable de entorno que se muestra a continuación como parte de la creación
@@ -108,11 +108,12 @@ Aquí se muestra una vista típica de logs desde el visor de Kibana:
 
 ![Kibana logs](/images/docs/kibana-logs.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ¡Kibana te permite todo tipo de potentes opciones para explorar tus logs! Puedes encontrar
 algunas ideas para profundizar en el tema en la [documentación de Kibana](https://www.elastic.co/guide/en/kibana/current/discover.html).
 
-{{% /capture %}}
+
