@@ -66,15 +66,16 @@ Required certificates:
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`                        |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`, `[1]`             |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
-| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[1]` |
+| kube-apiserver                | kubernetes-ca             |                | server                                 | `<hostname>`, `<Host_IP>`, `<advertise_IP>`, `[2]` |
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: any other IP or DNS name you contact your cluster on (as used by [kubeadm][kubeadm] the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: any other IP or DNS name you contact your etcd cluster members on (eg: IPs and DNS name of your ETCD hosts) 
+[2]: any other IP or DNS name you contact your cluster on (as used by [kubeadm][kubeadm] the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
 where `kind` maps to one or more of the [x509 key usage][usage] types:
@@ -129,12 +130,15 @@ Same considerations apply for the service account key pair:
 
 You must manually configure these administrator account and service accounts:
 
-| filename                | credential name            | Default CN                     | O (in Subject) |
-|-------------------------|----------------------------|--------------------------------|----------------|
-| admin.conf              | default-admin              | kubernetes-admin               | system:masters |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   |
-| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |
-| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |
+| filename                | credential name            | Default CN                     | O (in Subject) | hosts (SAN) |
+|-------------------------|----------------------------|--------------------------------|----------------|-------------|
+| admin.conf              | default-admin              | kubernetes-admin               | system:masters |             |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   | `[3]`  |
+| controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |             |
+| scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |             |
+| proxier.conf            | default-proxier            | system:kube-proxy              |                |    `[3]`    |
+
+[3]: any IP or DNS name assigned to your kubelet/kube-proxy host.
 
 {{< note >}}
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
@@ -159,6 +163,7 @@ These files are used as follows:
 | kubelet.conf            | kubelet                 | One required for each node in the cluster.                            |
 | controller-manager.conf | kube-controller-manager | Must be added to manifest in `manifests/kube-controller-manager.yaml` |
 | scheduler.conf          | kube-scheduler          | Must be added to manifest in `manifests/kube-scheduler.yaml`          |
+| proxier.conf            | kube-proxy              | Must be added to manifest in `manifests/kube-proxy.yaml`              |
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
