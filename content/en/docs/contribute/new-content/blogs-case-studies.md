@@ -25,7 +25,7 @@ Anyone can write a blog post and submit it for review.
 ### Guidelines and expectations
 
 - Blog posts should not be vendor pitches. 
-  - Articles must contain content that applies broadly to the Kubernetes community - For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations. Check the [Documentation style guide](https://kubernetes.io/docs/contribute/style/content-guide/#what-s-allowed) for what is typically allowed on Kubernetes properties. 
+  - Articles must contain content that applies broadly to the Kubernetes community. For example, a submission should focus on upstream Kubernetes as opposed to vendor-specific configurations. Check the [Documentation style guide](https://kubernetes.io/docs/contribute/style/content-guide/#what-s-allowed) for what is typically allowed on Kubernetes properties. 
   - Links should primarily be to the official Kubernetes documentation. When using external references, links should be diverse - For example a submission shouldn't contain only links back to a single company's blog.
   - This can sometime be a delicate balance. The [blog team](https://kubernetes.slack.com/messages/sig-docs-blog/) is there to give guidance on whether a post is appropriate for the Kubernetes blog, so don't hesistate to reach out. 
 - Blog posts do not offer deadlines.
