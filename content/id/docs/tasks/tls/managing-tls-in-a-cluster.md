@@ -1,6 +1,6 @@
 ---
 title: Kelola Sertifikat TLS Pada Klaster
-content_template: templates/task
+content_type: task
 ---
 
 <!-- overview -->
