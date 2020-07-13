@@ -9,7 +9,7 @@ card:
 ---
 
 <!-- overview -->
-このチュートリアルでは、Kubernetesと[Docker](https://www.docker.com/)を使用した、シンプルなマルチティアのウェブアプリケーションのビルトとデプロイの方法を紹介します。この例は、以下のコンポーネントから構成されています。
+このチュートリアルでは、Kubernetesと[Docker](https://www.docker.com/)を使用した、シンプルなマルチティアのウェブアプリケーションのビルドとデプロイの方法を紹介します。この例は、以下のコンポーネントから構成されています。
 
 * ゲストブックのエントリーを保存するための、シングルインスタンスの[Redis](https://redis.io/)マスター
 * 読み込みデータ配信用の、複数の[レプリケーションされたRedis](https://redis.io/topics/replication)インスタンス
@@ -368,4 +368,3 @@ DeploymentとServiceを削除すると、実行中のPodも削除されます。
 * Kubernetesを使って、[MySQLとWordpressのためにPersistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)を使用したブログを作成する
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)についてもっと読む
 * [リソースの管理](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)についてもっと読む
-
