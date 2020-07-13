@@ -66,7 +66,7 @@ Required certificates:
 
 | Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
-| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`, `[1]`             |
+| kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`, (See annotation [1])           |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
 | kube-etcd-healthcheck-client  | etcd-ca                   |                | client                                 |                                             |
 | kube-apiserver-etcd-client    | etcd-ca                   | system:masters | client                                 |                                             |
@@ -169,4 +169,3 @@ These files are used as follows:
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/extend-kubernetes/configure-aggregation-layer/
-
