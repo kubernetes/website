@@ -1,6 +1,6 @@
 ---
 title: Escribiendo Logs con Stackdriver
-content_template: templates/concept
+content_type: concept
 ---
 
 <!-- overview -->

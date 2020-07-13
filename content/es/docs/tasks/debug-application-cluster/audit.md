@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Auditoría
 ---
 

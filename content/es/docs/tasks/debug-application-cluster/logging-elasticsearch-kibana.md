@@ -1,6 +1,6 @@
 ---
-content_template: templates/concept
 title: Escribiendo Logs con Elasticsearch y Kibana
+content_type: concept
 ---
 
 <!-- overview -->

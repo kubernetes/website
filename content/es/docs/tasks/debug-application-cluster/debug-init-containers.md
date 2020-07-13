@@ -1,6 +1,6 @@
 ---
 title: Depurar Contenedores de Inicialización
-content_template: templates/task
+content_type: task
 ---
 
 <!-- overview -->
