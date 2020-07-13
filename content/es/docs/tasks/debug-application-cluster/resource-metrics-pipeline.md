@@ -12,9 +12,6 @@ están disponibles en Kubernetes a través de la API de métricas. Estas métric
 por el usuario, por ejemplo usando el comando `kubectl top`, o usadas por un controlador en el cluster,
 por ejemplo el Horizontal Pod Autoscaler, para la toma de decisiones.
 
-
-
-
 <!-- body -->
 
 ## La API de Métricas
