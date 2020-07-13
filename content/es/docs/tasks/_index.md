@@ -65,7 +65,7 @@ Configura componentes en una federación de clústers.
 
 Realiza tareas comunes de gestión de aplicaciones con estado, incluyendo escalado, borrado y depuración de StatefulSets.
 
-## Demonios del Clúster
+## Daemons del Clúster
 
 Realiza tareas comunes de gestión de un DaemonSet, como llevar a cabo una actualización de lanzamiento.
 
