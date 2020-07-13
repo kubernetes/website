@@ -43,7 +43,7 @@ Anyone can write a blog post and submit it for review.
     - The [license](https://github.com/kubernetes/website/blob/master/LICENSE) for the blog does allow commercial use of the content for commercial purposes, just not the other way around. 
 - Blog posts should aim to be future proof
   - Given the development velocity of the project, we want evergreen content that won't require updates to stay accurate for the reader. 
-  - It can be a better choice to add a tutorial or update official documentation, then write a higher level overview as a blog post.
+  - It can be a better choice to add a tutorial or update official documentation than to write a high level overview as a blog post.
     - Consider concentrating the long technical content as a call to action of the blog post, and focus on the problem space or why readers should care.
 
 ### Technical Considerations for submitting a blog post
