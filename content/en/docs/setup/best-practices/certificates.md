@@ -75,6 +75,7 @@ Required certificates:
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
 [1]: any other IP or DNS name you contact your etcd cluster members on (eg: IPs and DNS name of your ETCD hosts) 
+
 [2]: any other IP or DNS name you contact your cluster on (as used by [kubeadm][kubeadm] the load balancer stable IP and/or DNS name, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
@@ -168,5 +169,4 @@ These files are used as follows:
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
 [proxy]: /docs/tasks/extend-kubernetes/configure-aggregation-layer/
-
 
