@@ -1,9 +1,9 @@
 ---
 title: Escribiendo Logs con Stackdriver
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Antes de seguir leyendo esta página, deberías familiarizarte con el
 [resumen de escritura de logs en Kubernetes](/docs/concepts/cluster-administration/logging).
@@ -15,10 +15,10 @@ ver la [estrategia de sidecar](/docs/concepts/cluster-administration/logging#sid
 en el resumen de escritura de logs en Kubernetes.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Despliegue
 
@@ -363,4 +363,4 @@ con algunos pequeños cambios:
 Luego, ejecuta `make build push` desde ese directorio. Cuando el `DaemonSet` haya tomado los cambios de la nueva imagen,
 podrás usar el plugin que has indicado en la configuración de fluentd.
 
-{{% /capture %}}
+

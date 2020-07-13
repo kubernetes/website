@@ -1,27 +1,28 @@
 ---
 title: Depurar Contenedores de Inicialización
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta página muestra cómo investigar problemas relacionados con la ejecución
 de los contenedores de inicialización (init containers). Las líneas de comando del ejemplo de abajo
 se refieren al Pod como `<pod-name>` y a los Init Containers como `<init-container-1>` e
   `<init-container-2>` respectivamente.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * Deberías estar familizarizado con el concepto de [Init Containers](/docs/concepts/abstractions/init-containers/).
 * Deberías conocer la [Configuración de un Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Comprobar el estado de los Init Containers
 
@@ -104,9 +105,9 @@ Los Init Containers que ejecutan secuencias de línea de comandos muestran los c
 conforme se van ejecutando. Por ejemplo, puedes hacer lo siguiente en Bash
 indicando `set -x` al principio de la secuencia.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Comprender el estado de un Pod
 
@@ -122,7 +123,7 @@ Estado | Significado
 `Pending` | El Pod todavía no ha comenzado a ejecutar sus Init Containers.
 `PodInitializing` o `Running` | El Pod ya ha terminado de ejecutar sus Init Containers.
 
-{{% /capture %}}
+
 
 
 

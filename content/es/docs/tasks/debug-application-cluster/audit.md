@@ -1,9 +1,9 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Auditoría
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La auditoría de Kubernetes proporciona un conjunto de registros cronológicos referentes a la seguridad
 que documentan la secuencia de actividades que tanto los usuarios individuales, como 
@@ -18,10 +18,10 @@ los administradores y otros componentes del sistema ha realizado en el sistema.
  - ¿desde dónde se ha iniciado?
  - ¿hacia dónde iba?
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 El componente [Kube-apiserver][kube-apiserver] lleva a cabo la auditoría. Cada petición en cada fase
 de su ejecución genera un evento, que se pre-procesa según un cierto reglamento y 
@@ -431,4 +431,4 @@ al plugin de elasticsearch que soporta búsquedas avanzadas y analíticas.
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
+
