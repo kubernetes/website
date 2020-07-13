@@ -681,7 +681,7 @@ provisioner: kubernetes.io/portworx-volume
 parameters:
   repl: "1"
   snap_interval:   "70"
-  io_priority:  "high"
+  priority_io:  "high"
 
 ```
 
@@ -690,7 +690,7 @@ parameters:
 * `repl`: 레플리케이션 팩터 `1..3` (기본값: `1`)의 형태로 제공될
   동기 레플리카의 수. 여기에는 문자열,
   즉 `0` 이 아닌, `"0"` 이 필요하다.
-* `io_priority`: 볼륨이 고성능 또는 우선 순위가 낮은 스토리지에서
+* `priority_io`: 볼륨이 고성능 또는 우선 순위가 낮은 스토리지에서
   생성될 것인지를 결정한다 `high/medium/low` (기본값: `low`).
 * `snap_interval`: 스냅샷을 트리거할 때의 시각/시간 간격(분).
   스냅샷은 이전 스냅샷과의 차이에 따라 증분되며, 0은 스냅을
