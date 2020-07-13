@@ -18,7 +18,7 @@ Case studies require extensive review before they're approved.
 
 The Kubernetes blog is used by the project to communicate new features, community reports, and any news that might be relevant to the Kubernetes community. 
 This includes end users and developers. 
-Generally speaking the blog tends to skew towards things that happen in the core project, however the community is always interested in things that are happening in the Kubernetes ecosystem, so we encourage you to consider submitting content to the blog. 
+Most of the blog's content is about things happening in the core project, but we encourage you to submit about things happening elsewhere in the ecosystem too!
 
 Anyone can write a blog post and submit it for review.
 
