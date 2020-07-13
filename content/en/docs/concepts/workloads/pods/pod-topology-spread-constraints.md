@@ -228,7 +228,8 @@ using default constraints for `PodTopologySpread`.
 
 {{< feature-state for_k8s_version="v1.19" state="alpha" >}}
 
-When the feature gate `DefaultPodTopologySpread` is enabled,
+When you enable the `DefaultPodTopologySpread` feature gate, the
+legacy `SelectorSpread` plugin is disabled.
 kube-scheduler uses the following default topology constraints for the
 `PodTopologySpread` plugin configuration:
 
@@ -247,11 +248,11 @@ is disabled.
 
 {{< note >}}
 If your nodes are not expected to have **both** `kubernetes.io/hostname` and
-`topology.kubernetes.io/zone` labels set, you should define your own constraints
-instead of using the Kubernetes default.
+`topology.kubernetes.io/zone` labels set, define your own constraints
+instead of using the Kubernetes defaults.
 
-The `PodTopologySpread` plugin ignores from scoring the nodes that don't have
-both topologies.
+The `PodTopologySpread` plugin does not score the nodes that don't have
+the topology keys specified in the spreading constraints.
 {{< /note >}}
 
 ## Comparison with PodAffinity/PodAntiAffinity
