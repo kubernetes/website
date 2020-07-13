@@ -134,10 +134,10 @@ You must manually configure these administrator account and service accounts:
 | filename                | credential name            | Default CN                     | O (in Subject) | hosts (SAN) |
 |-------------------------|----------------------------|--------------------------------|----------------|-------------|
 | admin.conf              | default-admin              | kubernetes-admin               | system:masters |             |
-| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   | `[3]`  |
+| kubelet.conf            | default-auth               | system:node:`<nodeName>` (see note) | system:nodes   | See annotation [3]  |
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                |             |
 | scheduler.conf          | default-scheduler          | system:kube-scheduler          |                |             |
-| proxier.conf            | default-proxier            | system:kube-proxy              |                |    `[3]`    |
+| proxier.conf            | default-proxier            | system:kube-proxy              |                |    See annotation [3]   |
 
 [3]: any IP or DNS name assigned to your kubelet/kube-proxy host.
 
