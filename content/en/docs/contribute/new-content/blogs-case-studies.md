@@ -50,7 +50,7 @@ Anyone can write a blog post and submit it for review.
 
 Submissions need to be in Markdown format to be used by the [Hugo](https://gohugo.io/) generator for the blog. There are [many resources available](https://gohugo.io/documentation/) on how to use this technology stack.
 
-We recognize that this requirement makes the process more difficult for less-familiar folks to submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to lower the barrier, please volunteers to help out. 
+We recognize that this requirement makes the process more difficult for less-familiar folks to submit, and we're constantly looking at solutions to lower this bar. If you have ideas on how to lower the barrier, please volunteer to help out. 
 
 The SIG Docs [blog subproject](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject) manages the review process for blog posts. For more information, see [Submit a post](https://github.com/kubernetes/community/tree/master/sig-docs/blog-subproject#submit-a-post).
 
