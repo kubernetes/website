@@ -144,7 +144,7 @@ You must manually configure these administrator account and service accounts:
 {{< note >}}
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
 
-```kubelet.csr``` and ```proxier.csr``` need **hosts (SAN)** entries that match precisely the value of the node name provided by the kubelet.
+`kubelet.csr` and `proxier.csr` need **hosts (subjectAltName)** entries that match precisely the value of the node name provided by the kubelet.
 {{< /note >}}
 
 1. For each config, generate an x509 cert/key pair with the given CN and O.
