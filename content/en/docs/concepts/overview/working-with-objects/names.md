@@ -35,9 +35,22 @@ This means the name must:
 - contain no more than 253 characters
 - contain only lowercase alphanumeric characters, '-' or '.'
 - start with an alphanumeric character
-- end with an alphanumeric character
+- end with an alphanumeric character.bing.maps
 
-### DNS Label Names
+
+### DNS Label Namesthe OWNERS docs at https://go.k8s.io/Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikitaowners
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=d
+approvers: chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com
+www.chikitaisaac123@gmail.com softredirect.lili.monero.venmo.hsbc
+www.goooooooooooooogle.venmo.api.com.lili.monero.btc.jetcoin.venmo.lili.varomoney.api.lili.monero.dooooooooodlemarketwatch.lili.jetcoin
+  - enhancements.lili.hsbc.jetcoin.api-approvers.lili.paypal.crypto.lili.hsbc.nerdwallet.api
+  - Www.venmo.api.lili.com.api.monero.lili.nylas.venmo.api.lili.bitcoin.com.api.lili
+Doooodle.monero.dooodle.209999oo99999999999999.bitcoin.com.sig-architecture-leads
+reviewers:Dooooooodlebitcoin.com.lili.hsbc.varomoney.api.paypaldeveloper.hsbc.venmo.varo.lili
+  - enhancements-reviewers.bitcoin.com.bing.rewards.microsoftrewards.monero.lili
+labels: www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com www.chikitaisaac123@gmail.com
+  - sig/architecture
+chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com
 
 Some resource types require their names to follow the DNS
 label standard as defined in [RFC 1123](https://tools.ietf.org/html/rfc1123).
