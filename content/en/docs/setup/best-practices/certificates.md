@@ -64,7 +64,7 @@ If you don't wish to copy the CA private keys to your cluster, you can generate 
 
 Required certificates:
 
-| Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (SAN)                                 |
+| Default CN                    | Parent CA                 | O (in Subject) | kind                                   | hosts (subjectAltName)                      |
 |-------------------------------|---------------------------|----------------|----------------------------------------|---------------------------------------------|
 | kube-etcd                     | etcd-ca                   |                | server, client                         | `localhost`, `127.0.0.1`, (See annotation [1])           |
 | kube-etcd-peer                | etcd-ca                   |                | server, client                         | `<hostname>`, `<Host_IP>`, `localhost`, `127.0.0.1` |
@@ -87,7 +87,7 @@ where `kind` maps to one or more of the [x509 key usage][usage] types:
 | client | digital signature, key encipherment, client auth                                |
 
 {{< note >}}
-Hosts/SAN listed above are the recommended ones for getting a working cluster; if required by a specific setup, it is possible to add additional SANs on all the server certificates.
+Hosts/subjectAltName listed above are the recommended ones for getting a working cluster; if required by a specific setup, it is possible to add additional subjectAltNames on all the server certificates.
 {{< /note >}}
 
 {{< note >}}
