@@ -106,11 +106,11 @@ Kubernetes [volumes](/docs/concepts/storage/volumes/) enable complex application
 ##### In-tree Volume Plugins
 Code associated with in-tree volume plugins ship as part of the core Kubernetes code base. Deployment of in-tree volume plugins do not require installation of additional scripts or deployment of separate containerized plugin components. These plugins can handle: provisioning/de-provisioning and resizing of volumes in the storage backend, attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod. The following in-tree plugins support Windows nodes:
 
-* [awsElasticBlockStore](/ja/docs/concepts/storage/volumes/#awselasticblockstore)
-* [azureDisk](/ja/docs/concepts/storage/volumes/#azuredisk)
-* [azureFile](/ja/docs/concepts/storage/volumes/#azurefile)
-* [gcePersistentDisk](/ja/docs/concepts/storage/volumes/#gcepersistentdisk)
-* [vsphereVolume](/ja/docs/concepts/storage/volumes/#vspherevolume)
+* [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
+* [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
+* [azureFile](/docs/concepts/storage/volumes/#azurefile)
+* [gcePersistentDisk](/docs/concepts/storage/volumes/#gcepersistentdisk)
+* [vsphereVolume](/docs/concepts/storage/volumes/#vspherevolume)
 
 ##### FlexVolume Plugins
 Code associated with [FlexVolume](/docs/concepts/storage/volumes/#flexVolume) plugins ship as out-of-tree scripts or binaries that need to be deployed directly on the host. FlexVolume plugins handle attaching/detaching of volumes to/from a Kubernetes node and mounting/dismounting a volume to/from individual containers in a pod. Provisioning/De-provisioning of persistent volumes associated with FlexVolume plugins may be handled through an external provisioner that is typically separate from the FlexVolume plugins. The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows), deployed as powershell scripts on the host, support Windows nodes:
@@ -616,4 +616,3 @@ Kubeadm is becoming the de facto standard for users to deploy a Kubernetes clust
 * Beta support for Group Managed Service Accounts
 * More CNIs
 * More Storage Plugins
-
