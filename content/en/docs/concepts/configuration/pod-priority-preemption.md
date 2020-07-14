@@ -138,7 +138,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
@@ -161,10 +161,6 @@ which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
 If `PreemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
-
-The use of the `PreemptionPolicy` field requires the `NonPreemptingPriority`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
