@@ -268,7 +268,7 @@ Multus supports all [reference plugins](https://github.com/containernetworking/p
 
 ### Netris
 
-[Netris](https://www.netris.ai) is an automatic netops system that abstracts away the complexity of operating a physical network, provides you a cloud UX and turns your network into service for your applications. Through seamless API integration with Kubernetes, Netris stays in sync with your cluster and automatically applies the intent to the physical network following instrumentation policies specified by NetOps. An overview of the integration is provided [here](https://www.netris.ai/kubernetes/).
+[Netris](https://www.netris.ai) is an automatic netops system that abstracts away the complexity of operating a physical network. Netris provides you a cloud UX and turns your network into service for your applications. [Netris](https://www.netris.ai/kubernetes/) offers API-aware physical networking essential for running Kubernetes in on/off prem local/private infrastructures. An overview of the integration is provided [here](https://www.netris.ai/docs-category/kubernetes/).
 
 ### NSX-T
 
