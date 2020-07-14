@@ -158,6 +158,8 @@ extension points:
   Extension points: `QueueSort`.
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `Bind`.
+- `DefaultPreemption`: Provides the default preemption mechanism.
+  Extension points: `PostFilter`.
   
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
@@ -199,7 +201,7 @@ profiles:
   - schedulerName: default-scheduler
   - schedulerName: no-scoring-scheduler
     plugins:
-      prescore:
+      preScore:
         disabled:
         - name: '*'
       score:
@@ -229,22 +231,6 @@ All profiles must use the same plugin in the QueueSort extension point and have
 the same configuration parameters (if applicable). This is because the scheduler
 only has one pending pods queue.
 {{< /note >}}
-
-## Upgrading from `v1alpha2` to `v1beta1` {#beta-changes}
-
-When migrating from `kubescheduler.config.k8s.io/v1alpha2` to `kubescheduler.config.k8s.io/v1beta1`,
-beware of the following changes, if applicable:
-
-- `.bindTimeoutSeconds` was moved as part of plugin args for `VolumeBinding`,
-  which can be configured separately per [profile](#profiles).
-- `.extenders` are updated to satisfy API standards. In particular:
-  - `.extenders` decoding is case sensitive. All fields are affected.
-  - `.extenders[*].httpTimeout` is of type `metav1.Duration`.
-  - `.extenders[*].enableHttps` is renamed to `.extenders[*].enableHTTPS`.
-- `RequestedToCapacityRatio` args decoding is case sensitive. All fields are affected.
-- `DefaultPodTopologySpread` [plugin](#scheduling-plugins) is renamed to `SelectorSpread`.
-- `Unreserve` extension point is removed from Profile definition. All `Reserve`
-  plugins implement an `Unreserve` call.
 
 ## {{% heading "whatsnext" %}}
 

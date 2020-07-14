@@ -51,40 +51,6 @@ Kubernetes already ships with two PriorityClasses:
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 {{< /note >}}
 
-## How to disable preemption
-
-{{< caution >}}
-Critical pods rely on scheduler preemption to be scheduled when a cluster
-is under resource pressure. For this reason, it is not recommended to
-disable preemption.
-{{< /caution >}}
-
-{{< note >}}
-In Kubernetes 1.15 and later, if the feature `NonPreemptingPriority` is enabled,
-PriorityClasses have the option to set `preemptionPolicy: Never`.
-This will prevent pods of that PriorityClass from preempting other pods.
-{{< /note >}}
-
-Preemption is controlled by a kube-scheduler flag `disablePreemption`, which is
-set to `false` by default.
-If you want to disable preemption despite the above note, you can set
-`disablePreemption` to `true`.
-
-This option is available in component configs only and is not available in
-old-style command line options. Below is a sample component config to disable
-preemption:
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
-kind: KubeSchedulerConfiguration
-algorithmSource:
-  provider: DefaultProvider
-
-...
-
-disablePreemption: true
-```
-
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a
