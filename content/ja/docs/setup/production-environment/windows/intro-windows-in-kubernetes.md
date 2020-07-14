@@ -128,7 +128,7 @@ CSI node plugins (especially those associated with persistent volumes exposed as
 
 #### Networking
 
-Networking for Windows containers is exposed through [CNI plugins](/ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
+Networking for Windows containers is exposed through [CNI plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
 
 * Virtual networks (including creation of vSwitches)
 * Endpoints / vNICs
@@ -282,7 +282,7 @@ Secrets are written in clear text on the node's volume (as compared to tmpfs/in-
 1. Use file ACLs to secure the secrets file location
 2. Use volume-level encryption using [BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
 
-[RunAsUser ](/ja/docs/concepts/policy/pod-security-policy/#users-and-groups)is not currently supported on Windows. The workaround is to create local accounts before packaging the container. The RunAsUsername capability may be added in a future release.
+[RunAsUser ](/docs/concepts/policy/pod-security-policy/#users-and-groups)is not currently supported on Windows. The workaround is to create local accounts before packaging the container. The RunAsUsername capability may be added in a future release.
 
 Linux specific pod security context privileges such as SELinux, AppArmor, Seccomp, Capabilities (POSIX Capabilities), and others are not supported.
 
@@ -346,7 +346,7 @@ None of the PodSecurityContext fields work on Windows. They're listed here for r
 
 ## Getting Help and Troubleshooting {#troubleshooting}
 
-Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/ja/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
+Your main source of help for troubleshooting your Kubernetes cluster should start with this [section](/docs/tasks/debug-application-cluster/troubleshooting/). Some additional, Windows-specific troubleshooting help is included in this section. Logs are an important element of troubleshooting issues in Kubernetes. Make sure to include them any time you seek troubleshooting assistance from other contributors. Follow the instructions in the SIG-Windows [contributing guide on gathering logs](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs).
 
 1. How do I know start.ps1 completed successfully?
 
@@ -463,7 +463,7 @@ Your main source of help for troubleshooting your Kubernetes cluster should star
 
 1. vNICs and HNS endpoints of containers are being deleted
 
-    This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](/ja/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
+    This issue can be caused when the `hostname-override` parameter is not passed to [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/). To resolve it, users need to pass the hostname to kube-proxy as follows:
 
     ```powershell
     C:\k\kube-proxy.exe --hostname-override=$(hostname)
