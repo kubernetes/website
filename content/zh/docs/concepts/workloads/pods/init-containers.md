@@ -74,7 +74,7 @@ If you specify multiple init containers for a Pod, Kubelet runs each init contai
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、数据卷和安全设置。 然而，Init 容器对资源请求和限制的处理稍有不同，在下面 [资源](#资源) 处有说明。
 
-同时 Init 容器不支持 Readiness Probe，因为它们必须在 Pod 就绪之前运行完成。
+同时 Init 容器不支持 Lifecycle、LivenessProbe、ReadinessProbe和StartupProbe，因为它们必须在 Pod 就绪之前运行完成。
 
 如果为一个 Pod 指定了多个 Init 容器，这些容器会按顺序逐个运行。每个 Init 容器必须运行成功，下一个才能够运行。当所有的 Init 容器运行完成时，Kubernetes 才会为 Pod 初始化应用容器并像平常一样运行。
 
@@ -135,7 +135,7 @@ Here are some ideas for how to use init containers:
 
 * 在启动应用容器之前等一段时间，使用类似命令：
 
-        sleep 60 
+        sleep 60
 
 * 克隆 Git 仓库到 {{< glossary_tooltip text="Volume" term_id="volume" >}}。
 * 将配置值放到配置文件中，运行模板工具为主应用容器动态地生成配置文件。例如，在配置文件中存放 POD_IP 值，并使用 Jinja 生成主应用配置文件。
@@ -351,7 +351,7 @@ During the startup of a Pod, each init container starts in order, after the netw
 A Pod cannot be `Ready` until all init containers have succeeded. The ports on an init container are not aggregated under a Service. A Pod that is initializing
  is in the `Pending` state but should have a condition `Initializing` set to true.
 
-If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers must execute again. 
+If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers must execute again.
 
 Changes to the init container spec are limited to the container image field. Altering an init container image field is equivalent to restarting the Pod.
 
