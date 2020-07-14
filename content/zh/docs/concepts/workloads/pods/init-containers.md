@@ -74,7 +74,7 @@ If you specify multiple init containers for a Pod, Kubelet runs each init contai
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、数据卷和安全设置。 然而，Init 容器对资源请求和限制的处理稍有不同，在下面 [资源](#资源) 处有说明。
 
-同时 Init 容器不支持 Lifecycle、LivenessProbe、ReadinessProbe和StartupProbe，因为它们必须在 Pod 就绪之前运行完成。
+同时 Init 容器不支持 `lifecycle`、`livenessProbe`、`readinessProbe` 和 `startupProbe`，因为它们必须在 Pod 就绪之前运行完成。
 
 如果为一个 Pod 指定了多个 Init 容器，这些容器会按顺序逐个运行。每个 Init 容器必须运行成功，下一个才能够运行。当所有的 Init 容器运行完成时，Kubernetes 才会为 Pod 初始化应用容器并像平常一样运行。
 
@@ -445,4 +445,3 @@ Pod重启导致 Init 容器重新执行，主要有如下几个原因：
 
 * 阅读[创建包含 Init 容器的 Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * 学习如何[调测 Init 容器](/docs/tasks/debug-application-cluster/debug-init-containers/)
-
