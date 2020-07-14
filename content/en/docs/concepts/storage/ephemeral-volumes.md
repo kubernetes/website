@@ -39,7 +39,7 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
-- [emptyDir]((/docs/concepts/volumes/#emptydir): empty at Pod startup,
+- [emptyDir](/docs/concepts/volumes/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
 - [configMap](/docs/concepts/volumes/#configmap),
