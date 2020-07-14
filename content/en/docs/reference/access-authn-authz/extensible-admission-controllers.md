@@ -628,10 +628,10 @@ So a webhook response to add that label would be:
 {{% /tab %}}
 {{< /tabs >}}
 
-Starting in v1.19, admission webhooks can optionally return warning messages that are returned to the requesting client.
+Starting in Kubernetes v1.19, admission webhooks can optionally return warning message responses to client requests.
 Warnings can be sent with allowed or rejected admission responses.
-No "Warning:" prefix should be included in the message.
-Warning messages should describe a problem the client making the API request should correct or be aware of.
+Warning messages do not require a "Warning:" prefix.
+Warning messages describe a problem which the requesting client should correct or be aware of.
 Limit warnings to 120 characters if possible. Warnings over 256 characters and large numbers of warnings may be truncated.
 
 {{< tabs name="AdmissionReview_response_warning" >}}
