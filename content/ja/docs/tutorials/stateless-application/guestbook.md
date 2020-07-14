@@ -170,7 +170,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ## ゲストブックのフロントエンドをセットアップして公開する
 
-ゲストブックアプリケーションには、HTTPリクエストをサーブするPHPで書かれたウェブフロントエンドがあります。このアプリケーションは、書き込みリクエストに対しては`redis-master`Serviceに、読み込みリクエストに対しては`redis-slave`Serviceに接続するように設定されています。
+ゲストブックアプリケーションには、HTTPリクエストをサーブするPHPで書かれたウェブフロントエンドがあります。このアプリケーションは、書き込みリクエストに対しては`redis-master` Serviceに、読み込みリクエストに対しては`redis-slave` Serviceに接続するように設定されています。
 
 ### ゲストブックのフロントエンドのDeploymentを作成する
 
@@ -199,7 +199,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ### フロントエンドのServiceを作成する
 
-適用した`redis-slave`および`redis-master`Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
+適用した`redis-slave`および`redis-master` Serviceは、コンテナクラスター内部からのみアクセス可能です。これは、デフォルトのServiceのtypeが[ClusterIP](/docs/concepts/services-networking/service/#publishing-services---service-types)であるためです。`ClusterIP`は、Serviceが指している一連のPodに対して1つのIPアドレスを提供します。このIPアドレスはクラスター内部からのみアクセスできます。
 
 もしゲストの人にゲストブックにアクセスしてほしいのなら、フロントエンドServiceを外部から見えるように設定しなければなりません。そうすれば、クライアントはコンテナクラスターの外部からServiceにリクエストを送れるようになります。Minikubeでは、Serviceを`NodePort`でのみ公開できます。
 
