@@ -108,7 +108,7 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 쿠버네�
 
 각 쿠버네티스 릴리스는 sig-release SIG(Special Interest Group)에 참여하는
 사람들의 팀에 의해 조정된다. 특정 릴리스에 대한 릴리스 팀의 다른 구성원에는
-전체 릴리스 리드와 sig-pm, sig-testing 및 기타 담당자가
+전체 릴리스 리드와 sig-testing 및 기타 담당자가
 포함된다. 쿠버네티스 릴리스 프로세스에 대한 자세한 내용은
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release)를
 참고한다.
