@@ -148,8 +148,11 @@ cluster have already sent queries for the hostname of the Pod before it was crea
 Negative caching (normal in DNS) means that the results of previous failed lookups are
 remembered and reused, even after the Pod is running, for at least a few seconds.
 
-If you need to discover Pods promptly after they are created, consider querying the
-Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
+If you need to discover Pods promptly after they are created, you have a few options:
+
+- Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
+- Decrease the time of caching in your Kubernetes DNS provider (tpyically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
+
 {{< /note >}}
 
 As mentioned in the [limitations](#limitations) section, you are responsible for
