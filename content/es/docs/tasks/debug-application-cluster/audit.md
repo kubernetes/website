@@ -6,8 +6,8 @@ title: Auditoría
 {{% capture overview %}}
 
 La auditoría de Kubernetes proporciona un conjunto de registros cronológicos referentes a la seguridad
-que documentan la secuencia de actividades que tanto los usuarios individuales, como 
-los administradores y otros componentes del sistema ha realizado en el sistema.
+que documentan la secuencia de actividades que tanto los usuarios individuales, como
+los administradores y otros componentes han realizado en el sistema.
  Así, permite al administrador del clúster responder a las siguientes cuestiones:
 
  - ¿qué ha pasado?
@@ -24,14 +24,14 @@ los administradores y otros componentes del sistema ha realizado en el sistema.
 {{% capture body %}}
 
 El componente [Kube-apiserver][kube-apiserver] lleva a cabo la auditoría. Cada petición en cada fase
-de su ejecución genera un evento, que se pre-procesa según un cierto reglamento y 
+de su ejecución genera un evento, que se pre-procesa según un cierto reglamento y
 se escribe en un backend. Este reglamento determina lo que se audita
 y los backends persisten los registros. Las implementaciones actuales de backend
 incluyen los archivos de logs y los webhooks.
 
 Cada petición puede grabarse junto con una "etapa" asociada. Las etapas conocidas son:
 
-- `RequestReceived` - La etapa para aquellos eventos generados tan pronto como 
+- `RequestReceived` - La etapa para aquellos eventos generados tan pronto como
 el responsable de la auditoría recibe la petición, pero antes de que sea delegada al
 siguiente responsable en la cadena.
 - `ResponseStarted` - Una vez que las cabeceras de la respuesta se han enviado,
@@ -48,8 +48,8 @@ De forma adicional, el consumo de memoria depende de la configuración misma del
 
 ## Reglamento de Auditoría
 
-El reglamento de auditoría define las reglas acerca de los eventos que deberían registrarse y 
-los datos que deberían incluir. La estructura del objeto de reglas de auditoría se define 
+El reglamento de auditoría define las reglas acerca de los eventos que deberían registrarse y
+los datos que se deberían incluir. La estructura del objeto de reglas de auditoría se define
 en el [`audit.k8s.io` grupo de API][auditing-api]. Cuando se procesa un evento, se compara
 con la lista de reglas en orden. La primera regla coincidente establece el "nivel de auditoría"
 del evento. Los niveles de auditoría conocidos son:
@@ -63,7 +63,7 @@ del evento. Los niveles de auditoría conocidos son:
   Esto no aplica para las peticiones que no son de recurso.
 
 Es posible indicar un archivo al definir el reglamento en el [kube-apiserver][kube-apiserver]
-usando el parámetro `--audit-policy-file`. Si dicho parámetros se omite, no se registra ningún evento.
+usando el parámetro `--audit-policy-file`. Si dicho parámetro se omite, no se registra ningún evento.
 Nótese que el campo `rules` __debe__ proporcionarse en el archivo del reglamento de auditoría.
 Un reglamento sin (0) reglas se considera ilegal.
 
@@ -82,7 +82,7 @@ rules:
 ```
 
 El [perfil de auditoría utilizado por GCE][gce-audit-profile] debería servir como referencia para
-que los administradores construyeran sus propios perfiles de auditoría.
+que los administradores construyan sus propios perfiles de auditoría.
 
 ## Backends de auditoría
 
@@ -93,13 +93,13 @@ El [Kube-apiserver][kube-apiserver] por defecto proporciona tres backends:
 - Backend de webhook, que envía los eventos a una API externa
 - Backend dinámico, que configura backends de webhook a través de objetos de la API AuditSink.
 
-En todos los casos, la estructura de los eventos de auditoría se define por la API del grupo 
+En todos los casos, la estructura de los eventos de auditoría se define por la API del grupo
 `audit.k8s.io`. La versión actual de la API es
 [`v1`][auditing-api].
 
 {{< note >}}
 En el caso de parches, el cuerpo de la petición es una matriz JSON con operaciones de parcheado, en vez
-de un objeto JSON que incluya el objeto de la API de Kubernetes apropiado. Por ejemplo, 
+de un objeto JSON que incluya el objeto de la API de Kubernetes apropiado. Por ejemplo,
 el siguiente cuerpo de mensaje es una petición de parcheado válida para
 `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 
@@ -121,10 +121,10 @@ el siguiente cuerpo de mensaje es una petición de parcheado válida para
 ### Backend de Logs
 
 El backend de logs escribe los eventos de auditoría a un archivo en formato JSON.
- Puedes configurar el backend de logs de auditoría usando el siguiente
- parámetro de [kube-apiserver][kube-apiserver] flags:
+ Puedes configurar el backend de logs de auditoría usando los siguientes
+ parámetros de [kube-apiserver][kube-apiserver]:
 
-- `--audit-log-path` especifica la ruta al archivo de log que el backend utiliza para 
+- `--audit-log-path` especifica la ruta al archivo de log que el backend utiliza para
 escribir los eventos de auditoría. Si no se especifica, se deshabilita el backend de logs. `-` significa salida estándar
 - `--audit-log-maxage` define el máximo número de días a retener los archivos de log
 - `--audit-log-maxbackup` define el máximo número de archivos de log a retener
@@ -133,13 +133,13 @@ escribir los eventos de auditoría. Si no se especifica, se deshabilita el backe
 ### Backend de Webhook
 
 El backend de Webhook envía eventos de auditoría a una API remota, que se supone es la misma API
-que expone el [kube-apiserver][kube-apiserver]. Puedes configurar el backend de webhook de auditoría usando
+que expone [kube-apiserver][kube-apiserver]. Puedes configurar el backend de webhook de auditoría usando
 los siguientes parámetros de kube-apiserver:
 
-- `--audit-webhook-config-file` especifica la ruta a un archivo con configuración del webhook. 
+- `--audit-webhook-config-file` especifica la ruta a un archivo con la configuración del webhook.
 La configuración del webhook es, de hecho, un archivo [kubeconfig][kubeconfig].
 - `--audit-webhook-initial-backoff` especifica la cantidad de tiempo a esperar tras una petición fallida
-antes de volver a intentarla. Los reintentos posteriores se ejecutan con retraso exponencial.
+antes de volver a intentar. Los reintentos posteriores se ejecutan con retraso exponencial.
 
 El archivo de configuración del webhook usa el formato kubeconfig para especificar la dirección remota
 del servicio y las credenciales para conectarse al mismo.
@@ -150,11 +150,11 @@ En la versión 1.13, los backends de webhook pueden configurarse [dinámicamente
 
 Tanto el backend de logs como el de webhook permiten procesamiento por lotes. Si usamos el webhook como ejemplo,
  aquí se muestra la lista de parámetros disponibles. Para aplicar el mismo parámetro al backend de logs,
-  simplemente sustituye `webhook` por `log` en el nombre del parámetro. Por defecto, 
-  el procesimiento por lotes está habilitado en `webhook` y deshabilitado en `log`. De forma similar,
+  simplemente sustituye `webhook` por `log` en el nombre del parámetro. Por defecto,
+  el procesamiento por lotes está habilitado en `webhook` y deshabilitado en `log`. De forma similar,
   por defecto la regulación (throttling) está habilitada en `webhook` y deshabilitada en `log`.
 
-- `--audit-webhook-mode` define la estrategia de memoria intermedia (búfer), que puede ser una de las siguientes:
+- `--audit-webhook-mode` define la estrategia de memoria intermedia (búfer), que puede ser una de las siguientes opciones:
   - `batch` - almacenar eventos y procesarlos de forma asíncrona en lotes. Esta es la estrategia por defecto.
   - `blocking` - bloquear todas las respuestas del servidor API al procesar cada evento de forma individual.
   - `blocking-strict` - igual que blocking, pero si ocurre un error durante el registro de la audtoría en la etapa RequestReceived, la petición completa al apiserver fallará.
@@ -173,16 +173,16 @@ Los siguientes parámetros se usan únicamente en el modo `batch`:
 Los parámetros deberían ajustarse a la carga del apiserver.
 
 Por ejemplo, si kube-apiserver recibe 100 peticiones por segundo, y para cada petición se audita
-las etapas `ResponseStarted` y `ResponseComplete`, deberías esperar unos ~200 
+las etapas `ResponseStarted` y `ResponseComplete`, deberías esperar unos ~200
 eventos de auditoría generados por segundo. Asumiendo que hay hasta 100 eventos en un lote,
-deberías establecer el nivel de regulación (throttling) por lo menos a 2 QPS. Además, asumiendo 
+deberías establecer el nivel de regulación (throttling) por lo menos a 2 QPS. Además, asumiendo
 que el backend puede tardar hasta 5 segundos en escribir eventos, deberías configurar el tamaño de la memoria intermedia para almacenar hasta 5 segundos de eventos, esto es,
 10 lotes, o sea, 1000 eventos.
 
-En la mayoría de los casos, sin embargo, los valores por defecto de los parámetros 
+En la mayoría de los casos, sin embargo, los valores por defecto de los parámetros
 deberían ser suficientes y no deberías preocuparte de ajustarlos manualmente.
-Puedes echar un vistazo a la siguientes métricas de Prometheus que expone kube-apiserver 
-y también los logs para monitorizar el estado del subsistema de auditoría:
+Puedes echar un vistazo a la siguientes métricas de Prometheus que expone kube-apiserver
+y también los logs para monitorear el estado del subsistema de auditoría:
 
 - `apiserver_audit_event_total` métrica que contiene el número total de eventos de auditoría exportados.
 - `apiserver_audit_error_total` métrica que contiene el número total de eventos descartados debido a un error durante su exportación.
@@ -206,7 +206,7 @@ En la versión 1.13 de Kubernetes, puedes configurar de forma dinámica los back
 
 Para habilitar la auditoría dinámica, debes configurar los siguientes parámetros de apiserver:
 
-- `--audit-dynamic-configuration`: el interruptor principal. Cuando esta característica sea GA, el único parámetro necesario.
+- `--audit-dynamic-configuration`: el interruptor principal. Cuando esta característica sea GA será el único parámetro necesario.
 - `--feature-gates=DynamicAuditing=true`: en evaluación en alpha y beta.
 - `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: habilitar la API.
 
@@ -237,8 +237,7 @@ Aquellos backends estáticos que se configuran con parámetros en tiempo de ejec
 
 #### Reglamento
 
-El reglamento de AuditSink es diferente del de la auditoría en tiempo de ejecución. Esto es debido a que el objeto de la API sirve para casos de uso diferentes. El reglamento continuará
-evolucionando para dar cabida a más casos de uso.
+El reglamento de AuditSink es diferente al de la auditoría en tiempo de ejecución. Esto es debido a que el objeto de la API sirve para casos de uso diferentes. La evolución es para dar cabida a más casos de uso.
 
 El campo `level` establece el nivel de auditoría indicado a todas las peticiones. El campo `stages` es actualmente una lista de las etapas que se permite registrar.
 
@@ -249,15 +248,15 @@ a toda la información del clúster. Así, el acceso debería gestionarse como u
 
 #### Rendimiento
 
-Actualmente, esta característica tiene implicaciones en el apiserver en forma de incrementos en el uso de la CPU y la memoria. 
+Actualmente, esta característica tiene implicaciones en el apiserver en forma de incrementos en el uso de la CPU y la memoria.
 Aunque debería ser nominal cuando se trata de un número pequeño de destinos, se realizarán pruebas adicionales de rendimiento para entender su impacto real antes de que esta API pase a beta.
 
 ## Configuración multi-clúster
 
 Si estás extendiendo la API de Kubernetes mediante la [capa de agregación][kube-aggregator], puedes también
 configurar el registro de auditoría para el apiserver agregado. Para ello, pasa las opciones
-de configuración en el mismo formato que se describe arriba al apiserver agregado 
-y configura el mecanismo de ingestión de logs para que recolecte los logs de auditoría. 
+de configuración en el mismo formato que se describe arriba al apiserver agregado
+y configura el mecanismo de ingestión de logs para que recolecte los logs de auditoría.
 Cada uno de los apiservers puede tener configuraciones de auditoría diferentes con
 diferentes reglamentos de auditoría.
 
@@ -344,8 +343,8 @@ Fluent-plugin-forest y fluent-plugin-rewrite-tag-filter son plugins de fluentd. 
 
 ### Uso de logstash para recolectar y distribuir eventos de auditoría desde un backend de webhook
 
-[Logstash][logstash] es una herramienta de libre distribución de procesamiento de datos en servidor. 
-En este ejemplo, vamos a usar logstash para recolectar eventos de auditoría a partir de un backend de webhook, 
+[Logstash][logstash] es una herramienta de libre distribución de procesamiento de datos en servidor.
+En este ejemplo, vamos a usar logstash para recolectar eventos de auditoría a partir de un backend de webhook,
 y grabar los eventos de usuarios diferentes en archivos distintos.
 
 1. Instala [logstash][logstash_install_doc]
@@ -413,7 +412,7 @@ y grabar los eventos de usuarios diferentes en archivos distintos.
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-webhook-config-file=/etc/kubernetes/audit-webhook-kubeconfig
     ```
 
-1. Comprueba las auditorías en los directorios `/var/log/kube-audit-*/audit` de los nodos de logstash 
+1. Comprueba las auditorías en los directorios `/var/log/kube-audit-*/audit` de los nodos de logstash
 
 Nótese que además del plugin para salida en archivos, logstash ofrece una variedad de salidas adicionales
 que permiten a los usuarios enviar la información donde necesiten. Por ejemplo, se puede enviar los eventos de auditoría
