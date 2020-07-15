@@ -6,8 +6,6 @@ weight: 50
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
-
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
 
@@ -15,13 +13,6 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 <!-- body -->
 
 ## Prerequisites
-
-### Enable Feature Gate
-
-The `EvenPodsSpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled for the
-{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} **and**
-{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 
 ### Node Labels
 
@@ -53,7 +44,7 @@ Instead of manually applying labels, you can also reuse the [well-known labels](
 
 ### API
 
-The field `pod.spec.topologySpreadConstraints` is introduced in 1.16 as below:
+The API field `pod.spec.topologySpreadConstraints` is defined as below:
 
 ```
 apiVersion: v1
@@ -265,13 +256,14 @@ scheduled - more packed or more scattered.
 - For `PodAntiAffinity`, only one Pod can be scheduled into a
   single topology domain.
 
-The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
-topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
+For finer control, you can specify topology spread constraints to distribute
+Pods across different topology domains - to achieve either high availability or
+cost-saving. This can also help on rolling update workloads and scaling out
+replicas smoothly. See
+[Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)
+for more details.
 
 ## Known Limitations
 
 - Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
-
-
