@@ -1,11 +1,12 @@
 ---
-
-
-content_template: templates/concept
+content_type: concept
 title: GPU 스케줄링
+description: 클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
 ---
 
-{{% capture overview %}}
+
+
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
@@ -15,10 +16,10 @@ title: GPU 스케줄링
 이 페이지는 다른 쿠버네티스 버전 간에 걸쳐 사용자가 GPU들을 소비할 수 있는 방법과
 현재의 제약 사항을 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 디바이스 플러그인 사용하기
 
@@ -98,7 +99,7 @@ kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device
 - Kubelet은 자신의 컨테이너 런타임으로 도커를 사용해야 한다.
 - 도커는 runc 대신 `nvidia-container-runtime` 이 [기본 런타임](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)으로
   설정되어야 한다.
-- NVIDIA 드라이버의 버전은 조건 ~= 361.93 을 만족해야 한다.
+- NVIDIA 드라이버의 버전은 조건 ~= 384.81을 만족해야 한다.
 
 클러스터가 실행 중이고 위의 요구 사항이 만족된 후, NVIDIA 디바이스 플러그인을 배치하기 위해서는
 아래 명령어를 실행한다.
@@ -140,7 +141,7 @@ Google은 GKE에서 NVIDIA GPU 사용에 대한 자체 [설명서](https://cloud
 
 만약 클러스터의 노드들이 서로 다른 타입의 GPU를 가지고 있다면, 사용자는
 파드를 적합한 노드에 스케줄 하기 위해서
-[노드 레이블과 노드 셀렉터](/docs/tasks/configure-pod-container/assign-pods-nodes/)를 사용할 수 있다.
+[노드 레이블과 노드 셀렉터](/ko/docs/tasks/configure-pod-container/assign-pods-nodes/)를 사용할 수 있다.
 
 예를 들면,
 
@@ -215,5 +216,3 @@ spec:
 
 이것은 파드가 사용자가 지정한 GPU 타입을 가진 노드에 스케줄 되도록
 만든다.
-
-{{% /capture %}}

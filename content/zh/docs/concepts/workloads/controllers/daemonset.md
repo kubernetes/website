@@ -1,6 +1,6 @@
 ---
 title: DaemonSet
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
@@ -13,12 +13,12 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 --->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes are added to the
@@ -51,10 +51,10 @@ different flags and/or different memory and cpu requests for different hardware 
 一个稍微复杂的用法是单独对每种 daemon 类型使用多个 DaemonSet，但具有不同的标志，
 并且对不同硬件类型具有不同的内存、CPU 要求。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Writing a DaemonSet Spec
@@ -391,4 +391,4 @@ DaemonSet 与 [Deployments](/docs/concepts/workloads/controllers/deployment/) �
 为无状态的 Service 使用 Deployments，比如前端 Frontend 服务，实现对副本的数量进行扩缩容、平滑升级，比基于精确控制 Pod 运行在某个主机上要重要得多。
 需要 Pod 副本总是运行在全部或特定主机上，并需要先于其他 Pod 启动，当这被认为非常重要时，应该使用 Daemon Controller。
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: 使用 RBAC 鉴权
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
@@ -11,19 +11,19 @@ reviewers:
 - deads2k
 - liggitt
 title: Using RBAC Authorization
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
 -->
 基于角色（Role）的访问控制（RBAC）是一种基于企业中用户的角色来调节控制对计算机或网络资源的访问方法。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 `RBAC` uses the `rbac.authorization.k8s.io` {{< glossary_tooltip text="API Group" term_id="api-group" >}}
 to drive authorization decisions, allowing admins to dynamically configure policies
@@ -2135,4 +2135,4 @@ kubectl create clusterrolebinding permissive-binding \
 ```
 {{< /warning >}}
 
-{{% /capture %}}
+

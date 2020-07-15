@@ -1,10 +1,10 @@
 ---
 
 title: 安装扩展（Addons）
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 <!--
@@ -21,10 +21,10 @@ Add-ons 扩展了 Kubernetes 的功能。
 
 每个 add-ons 按字母顺序排序 - 顺序不代表任何优先地位。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Networking and Network Policy
@@ -94,7 +94,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 
 ## 基础设施
 
-* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以让 Kubernetes 运行虚拟机的 add-ons。通常运行在裸机群集上。
+* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) 是可以让 Kubernetes 运行虚拟机的 add-ons。通常运行在裸机集群上。
 
 <!--
 ## Legacy Add-ons
@@ -110,4 +110,4 @@ Well-maintained ones should be linked to here. PRs welcome!
 
 维护完善的 add-ons 应该被链接到这里。欢迎提出 PRs！
 
-{{% /capture %}}
+

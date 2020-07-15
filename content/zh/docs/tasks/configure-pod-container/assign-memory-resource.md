@@ -1,18 +1,18 @@
 ---
 title: 为容器和 Pod 分配内存资源
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
 <!--
 ---
 title: Assign Memory Resources to Containers and Pods
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to assign a memory *request* and a memory *limit* to a
@@ -21,10 +21,11 @@ but is not allowed to use more memory than its limit.
 -->
 此页面显示如何将内存 *请求* （request）和内存 *限制* （limit）分配给一个容器。我们保障容器拥有它请求数量的内存，但不允许使用超过限制数量的内存。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -72,9 +73,9 @@ NAME
 v1beta1.metrics.k8s.io
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -507,33 +508,34 @@ Delete your namespace. This deletes all the Pods that you created for this task:
 kubectl delete namespace mem-example
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### 应用开发者扩展阅读
 
-* [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [配置 Pod 的服务质量](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [配置 Pod 的服务质量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### 集群管理员扩展阅读
 
-* [为命名空间配置默认的内存请求和限制](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [为命名空间配置默认的内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [为命名空间配置默认的 CPU 请求和限制](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [为命名空间配置默认的 CPU 请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [配置命名空间的最小和最大内存约束](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [配置命名空间的最小和最大内存约束](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [配置命名空间的最小和最大 CPU 约束](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [配置命名空间的最小和最大 CPU 约束](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [配置命名空间下 Pod 总数](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [配置命名空间下 Pod 总数](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [配置 API 对象配额](/docs/tasks/administer-cluster/quota-api-object/)
+* [配置 API 对象配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
 
-{{% /capture %}}
+
 
 
 

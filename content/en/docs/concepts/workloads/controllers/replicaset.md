@@ -4,19 +4,19 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
 used to guarantee the availability of a specified number of identical Pods.
 
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## How a ReplicaSet works
 
@@ -366,4 +366,4 @@ The two serve the same purpose, and behave similarly, except that a ReplicationC
 selector requirements as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
 As such, ReplicaSets are preferred over ReplicationControllers
 
-{{% /capture %}}
+

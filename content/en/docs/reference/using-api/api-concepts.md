@@ -4,15 +4,15 @@ reviewers:
 - smarterclayton
 - lavalamp
 - liggitt
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page describes common concepts in the Kubernetes API.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The Kubernetes API is a resource-based (RESTful) programmatic interface provided via HTTP. It supports retrieving, creating,
 updating, and deleting primary resources via the standard HTTP verbs (POST, PUT, PATCH, DELETE, GET), includes additional subresources for many objects that allow fine grained authorization (such as binding a pod to a node), and can accept and serve those resources in different representations for convenience or efficiency. It also supports efficient change notifications on resources via "watches" and consistent lists to allow other components to effectively cache and synchronize the state of resources.
 
@@ -706,9 +706,9 @@ Resource versions are strings that identify the server's internal version of an 
 
 Clients find resource versions in resources, including the resources in watch events, and list responses returned from the server:
 
-[v1.meta/ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
+[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
 
-[v1.meta/ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
+[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
 
 ### The ResourceVersion Parameter
 
@@ -726,11 +726,11 @@ For get and list, the semantics of resource version are:
 
 **List:**
 
-| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
-|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
-| limit unset                   | Most Recent           | Any                                            | Not older than                         |
-| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
+| paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                     | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset       | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="\<token\>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 

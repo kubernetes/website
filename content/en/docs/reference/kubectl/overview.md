@@ -2,21 +2,21 @@
 reviewers:
 - hw-qiaolei
 title: Overview of kubectl
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
-Kubectl is a command line tool for controlling Kubernetes clusters. `kubectl` looks for a file named config in the $HOME/.kube directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+<!-- overview -->
+The kubectl command line tool lets you control Kubernetes clusters. For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
 This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Syntax
 
@@ -32,11 +32,11 @@ where `command`, `TYPE`, `NAME`, and `flags` are:
 
 * `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
 
-      ```shell
-      kubectl get pod pod1
-      kubectl get pods pod1
-      kubectl get po pod1
-      ```
+   ```shell
+   kubectl get pod pod1
+   kubectl get pods pod1
+   kubectl get po pod1
+   ```
 
 * `NAME`: Specifies the name of the resource. Names are case-sensitive. If the name is omitted, details for all resources are displayed, for example `kubectl get pods`.
 
@@ -113,13 +113,13 @@ Operation       | Syntax    |       Description
 `version`        | `kubectl version [--client] [flags]` | Display the Kubernetes version running on the client and server.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Experimental: Wait for a specific condition on one or many resources.
 
-Remember: For more about command operations, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+To learn more about command operations, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 
 ## Resource types
 
 The following table includes a list of all the supported resource types and their abbreviated aliases.
 
-(This output can be retrieved from `kubectl api-resources`, and is accurate as of Kubernetes 1.13.3.)
+(This output can be retrieved from `kubectl api-resources`, and was accurate as of Kubernetes 1.13.3.)
 
 | Resource Name | Short Names | API Group | Namespaced | Resource Kind |
 |---|---|---|---|---|
@@ -175,7 +175,7 @@ The following table includes a list of all the supported resource types and thei
 
 ## Output options
 
-Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/user-guide/kubectl/) reference documentation.
+Use the following sections for information about how you can format or sort the output of certain commands. For details about which commands support the various output options, see the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation.
 
 ### Formatting output
 
@@ -234,9 +234,9 @@ where the `template.txt` file contains:
 NAME          RSRC
 metadata.name metadata.resourceVersion
 ```
-The result of running either command is:
+The result of running either command is similar to:
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -247,7 +247,7 @@ submit-queue   610995
 This means that for any given resource, the server will return columns and rows relevant to that resource, for the client to print.
 This allows for consistent human-readable output across clients used against the same cluster, by having the server encapsulate the details of printing.
 
-This feature is enabled by default in `kubectl` 1.11 and higher. To disable it, add the
+This feature is enabled by default. To disable it, add the
 `--server-print=false` flag to the `kubectl get` command.
 
 ##### Examples
@@ -258,9 +258,9 @@ To print information about the status of a pod, use a command like the following
 kubectl get pods <pod-name> --server-print=false
 ```
 
-Output looks like this:
+The output is similar to:
 
-```shell
+```
 NAME       AGE
 pod-name   1m
 ```
@@ -405,36 +405,42 @@ Use the following set of examples to help you familiarize yourself with writing 
 # create a simple plugin in any language and name the resulting executable file
 # so that it begins with the prefix "kubectl-"
 cat ./kubectl-hello
-#!/bin/bash
+```
+```shell
+#!/bin/sh
 
 # this plugin prints the words "hello world"
 echo "hello world"
-
-# with our plugin written, let's make it executable
-sudo chmod +x ./kubectl-hello
+```
+With a plugin written, let's make it executable:
+```bash
+chmod a+x ./kubectl-hello
 
 # and move it to a location in our PATH
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
-# we have now created and "installed" a kubectl plugin.
-# we can begin using our plugin by invoking it from kubectl as if it were a regular command
+# You have now created and "installed" a kubectl plugin.
+# You can begin using this plugin by invoking it from kubectl as if it were a regular command
 kubectl hello
 ```
 ```
 hello world
 ```
 
-```
-# we can "uninstall" a plugin, by simply removing it from our PATH
+```shell
+# You can "uninstall" a plugin, by removing it from the folder in your
+# $PATH where you placed it
 sudo rm /usr/local/bin/kubectl-hello
 ```
 
-In order to view all of the plugins that are available to `kubectl`, we can use
+In order to view all of the plugins that are available to `kubectl`, use
 the `kubectl plugin list` subcommand:
 
 ```shell
 kubectl plugin list
 ```
+The output is similar to:
 ```
 The following kubectl-compatible plugins are available:
 
@@ -442,11 +448,11 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
-```
-# this command can also warn us about plugins that are
-# not executable, or that are overshadowed by other
-# plugins, for example
-sudo chmod -x /usr/local/bin/kubectl-foo
+
+`kubectl plugin list` also warns you about plugins that are not
+executable, or that are shadowed by other plugins; for example:
+```shell
+sudo chmod -x /usr/local/bin/kubectl-foo # remove execute permission
 kubectl plugin list
 ```
 ```
@@ -460,11 +466,15 @@ The following kubectl-compatible plugins are available:
 error: one plugin warning was found
 ```
 
-We can think of plugins as a means to build more complex functionality on top
+You can think of plugins as a means to build more complex functionality on top
 of the existing kubectl commands:
 
 ```shell
 cat ./kubectl-whoami
+```
+The next few examples assume that you already made `kubectl-whoami` have
+the following contents:
+```shell
 #!/bin/bash
 
 # this plugin makes use of the `kubectl config` command in order to output
@@ -472,26 +482,28 @@ cat ./kubectl-whoami
 kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
-Running the above plugin gives us an output containing the user for the currently selected
-context in our KUBECONFIG file:
+Running the above command gives you an output containing the user for the
+current context in your KUBECONFIG file:
 
 ```shell
 # make the file executable
 sudo chmod +x ./kubectl-whoami
 
-# and move it into our PATH
+# and move it into your PATH
 sudo mv ./kubectl-whoami /usr/local/bin
 
 kubectl whoami
 Current user: plugins-user
 ```
 
-To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+* Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
+
+* To find out more about plugins, take a look at the [example cli plugin](https://github.com/kubernetes/sample-cli-plugin).
+
+

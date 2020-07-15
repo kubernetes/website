@@ -1,16 +1,16 @@
 ---
 title: 联邦 Job
-content_template: templates/task
+content_type: task
 ---
 
 <!--
 ---
 title: Federated Jobs
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -30,9 +30,10 @@ parallelism and completions exist across the registered clusters.
 联邦控制平面中的一次性任务（在本指南中称为“联邦一次性任务”）类似于传统的 [Kubernetes 一次性任务](/docs/concepts/workloads/controllers/job/)，并且提供相同的功能。
 在联邦控制平面中创建 job 可以确保在已注册的集群中存在所需的并行性和完成数。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "federated-task-tutorial-prereqs.md" >}}
 * 你需要具备基本的 [Kubernetes 的工作知识](/docs/tutorials/kubernetes-basics/)，特别是 [job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
@@ -43,9 +44,9 @@ parallelism and completions exist across the registered clusters.
 general and [jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/) in particular.
 -->
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating a federated job
@@ -185,6 +186,6 @@ You must delete the underlying jobs manually.
 
 {{< /note >}}
 
-{{% /capture %}}
+
 
 

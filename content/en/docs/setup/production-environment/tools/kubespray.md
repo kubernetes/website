@@ -1,10 +1,10 @@
 ---
 title: Installing Kubernetes with Kubespray
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 
@@ -23,9 +23,9 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
 
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Creating a cluster
 
@@ -35,7 +35,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 
 * **Ansible v2.7.8 and python-netaddr is installed on the machine that will run Ansible commands**
 * **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
+* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
 * **Your ssh key must be copied** to all the servers part of your inventory
 * The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
@@ -113,10 +113,10 @@ When running the reset playbook, be sure not to accidentally target your product
 * Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](http://slack.k8s.io/))
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
 
-{{% /capture %}}

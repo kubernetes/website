@@ -8,7 +8,7 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: 调试 Init 容器
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -22,11 +22,11 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Debug Init Containers
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to investigate problems related to the execution of
@@ -38,9 +38,10 @@ Init Containers. The example command lines below refer to the Pod as
 此页显示如何核查与 init 容器执行相关的问题。
 下面的示例命令行将 Pod 称为 `<pod-name>`，而 init 容器称为 `<init-container-1>` 和 `<init-container-2>`。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -53,9 +54,9 @@ Init Containers. The example command lines below refer to the Pod as
 * 您应该熟悉 [Init 容器](/docs/concepts/abstractions/init-containers/)的基础知识。
 * 您应该已经[配置好一个 Init 容器](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/)。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Checking the status of Init Containers
@@ -183,9 +184,9 @@ commands as they're executed. For example, you can do this in Bash by running
 运行 shell 脚本打印命令的init容器,执行 shell 脚本。
 例如，您可以在 Bash 中通过在脚本的开头运行 `set -x` 来实现。
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Understanding Pod status
@@ -220,5 +221,5 @@ Status | Meaning
 `Pending` | Pod 还没有开始执行 Init 容器。
 `PodInitializing` or `Running` | Pod 已经完成执行 Init 容器。
 
-{{% /capture %}}
+
 

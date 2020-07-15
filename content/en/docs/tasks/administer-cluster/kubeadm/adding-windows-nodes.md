@@ -4,20 +4,21 @@ reviewers:
 - patricklang
 title: Adding Windows nodes
 min-kubernetes-server-version: 1.17
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 You can use Kubernetes to run a mixture of Linux and Windows nodes, so you can mix Pods that run on Linux on with Pods that run on Windows. This page shows how to register Windows nodes to your cluster.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}} {{< version-check >}}
+
+## {{% heading "prerequisites" %}}
+ {{< version-check >}}
 
 * Obtain a [Windows Server 2019 license](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)
 (or higher) in order to configure the Windows node that hosts Windows containers.
@@ -25,18 +26,19 @@ If you are using VXLAN/Overlay networking you must have also have [KB4489899](ht
 
 * A Linux-based Kubernetes kubeadm cluster in which you have access to the control plane (see [Creating a single control-plane cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)).
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Register a Windows node to the cluster
 * Configure networking so Pods and Services on Linux and Windows can communicate with each other
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Getting Started: Adding a Windows Node to Your Cluster
 
@@ -176,10 +178,11 @@ kubectl -n kube-system get pods -l app=flannel
 
 Once the flannel Pod is running, your node should enter the `Ready` state and then be available to handle workloads.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [Upgrading Windows kubeadm nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: kubeadmを使用したクラスター内の各kubeletの設定
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.11" state="stable" >}}
 
@@ -24,9 +24,9 @@ characteristics of a given machine, such as OS, storage, and networking. You can
 of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kubeletの設定パターン
 
@@ -167,7 +167,7 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
-#the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
+# the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
 # KUBELET_EXTRA_ARGS should be sourced from this file.
 EnvironmentFile=-/etc/default/kubelet
 ExecStart=
@@ -192,9 +192,8 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
+| `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
-| `kubernetes-cni` | Installs the official CNI binaries into the `/opt/cni/bin` directory. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-incubator/cri-tools). |
 
-{{% /capture %}}
+

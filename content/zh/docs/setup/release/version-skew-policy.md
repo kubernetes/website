@@ -7,22 +7,25 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes 版本及版本倾斜支持策略
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
 -->
 本文描述 Kubernetes 各组件之间版本倾斜支持策略。
 特定的集群部署工具可能会有额外的限制。
-{{% /capture %}}
 
-{{% capture body %}}
 
+<!-- body -->
+
+<!--
 ## Supported versions
+-->
+## 版本支持策略
 
 <!--
 Kubernetes versions are expressed as **x.y.z**,
@@ -54,11 +57,16 @@ Minor releases occur approximately every 3 months, so each minor release branch 
 -->
 小版本大约每3个月发布一个，所以每个小版本分支会维护9个月。
 
+<!--
 ## Supported version skew
+-->
+## 版本倾斜策略
 
 ### kube-apiserver
 
+<!--
 In [highly-available (HA) clusters](/docs/setup/production-environment/tools/kubeadm/high-availability/), the newest and oldest `kube-apiserver` instances must be within one minor version.
+-->
 在 [高可用（HA）集群](/docs/setup/production-environment/tools/kubeadm/high-availability/) 中，
 多个 `kube-apiserver` 实例小版本号最多差1。
 
@@ -109,7 +117,10 @@ Example:
 * 如果 `kube-apiserver` 的多个实例同时存在 **1.13** 和 **1.12**
 * `kubelet` 只能是 **1.12** 或 **1.11**（**1.13** 不再支持，因为它比**1.12**版本的 `kube-apiserver` 更新）
 
+<!--
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+-->
+### kube-controller-manager、 kube-scheduler 和 cloud-controller-manager
 
 <!--
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
@@ -232,7 +243,10 @@ require `kube-apiserver` to not skip minor versions when upgrading, even in sing
 
 {{< /note >}}
 
+<!--
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
+-->
+### kube-controller-manager、 kube-scheduler 和 cloud-controller-manager
 
 <!--
 Pre-requisites:

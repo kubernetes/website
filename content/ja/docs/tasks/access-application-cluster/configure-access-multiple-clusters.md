@@ -1,6 +1,6 @@
 ---
 title: 複数のクラスターへのアクセスを設定する
-content_template: templates/task
+content_type: task
 weight: 30
 card:
   name: tasks
@@ -8,25 +8,26 @@ card:
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
-ここでは、設定ファイルを使って複数のクラスターにアクセスする方法を紹介します。クラスター、ユーザー、contextの情報を一つ以上の設定ファイルにまとめることで、`kubectl config use-context`のコマンドを使ってクラスターを素早く切り替えることができます。
+ここでは、設定ファイルを使って複数のクラスターにアクセスする方法を紹介します。クラスター、ユーザー、コンテキストの情報を一つ以上の設定ファイルにまとめることで、`kubectl config use-context`のコマンドを使ってクラスターを素早く切り替えることができます。
 
 {{< note >}}
 クラスターへのアクセスを設定するファイルを、*kubeconfig* ファイルと呼ぶことがあります。これは設定ファイルの一般的な呼び方です。`kubeconfig`という名前のファイルが存在するわけではありません。
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-## クラスター、ユーザー、contextを設定する
+<!-- steps -->
+
+## クラスター、ユーザー、コンテキストを設定する
 
 例として、開発用のクラスターが一つ、実験用のクラスターが一つ、計二つのクラスターが存在する場合を考えます。`development`と呼ばれる開発用のクラスター内では、フロントエンドの開発者は`frontend`というnamespace内で、ストレージの開発者は`storage`というnamespace内で作業をします。`scratch`と呼ばれる実験用のクラスター内では、開発者はデフォルトのnamespaceで作業をするか、状況に応じて追加のnamespaceを作成します。開発用のクラスターは証明書を通しての認証を必要とします。実験用のクラスターはユーザーネームとパスワードを通しての認証を必要とします。
 
@@ -56,7 +57,7 @@ contexts:
   name: exp-scratch
 ```
 
-設定ファイルには、クラスター、ユーザー、contextの情報が含まれています。上記の`config-demo`設定ファイルには、二つのクラスター、二人のユーザー、三つのcontextの情報が含まれています。
+設定ファイルには、クラスター、ユーザー、コンテキストの情報が含まれています。上記の`config-demo`設定ファイルには、二つのクラスター、二人のユーザー、三つのコンテキストの情報が含まれています。
 
 `config-exercise`ディレクトリに移動してください。クラスター情報を設定ファイルに追加するために、以下のコマンドを実行してください:
 
@@ -73,10 +74,12 @@ kubectl config --kubeconfig=config-demo set-credentials experimenter --username=
 ```
 
 {{< note >}}
-`kubectl config unset users.<name>`を実行すると、ユーザーを削除することができます。
+`kubectl --kubeconfig=config-demo config unset users.<name>`を実行すると、ユーザーを削除することができます。
+`kubectl --kubeconfig=config-demo config unset clusters.<name>`を実行すると、クラスターを除去することができます。
+`kubectl --kubeconfig=config-demo config unset contexts.<name>`を実行すると、コンテキスト情報を除去することができます。
 {{< /note >}}
 
-context情報を設定ファイルに追加してください:
+コンテキスト情報を設定ファイルに追加してください:
 
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
@@ -90,7 +93,7 @@ kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratc
 kubectl config --kubeconfig=config-demo view
 ```
 
-出力には、二つのクラスター、二人のユーザー、三つのcontextが表示されます:
+出力には、二つのクラスター、二人のユーザー、三つのコンテキストが表示されます:
 
 ```shell
 apiVersion: v1
@@ -137,23 +140,23 @@ users:
 
 証明書ファイルのパスの代わりにbase64にエンコードされたデータを使用したい場合は、キーに`-data`の接尾辞を加えてください。例えば、`certificate-authority-data`、`client-certificate-data`、`client-key-data`とできます。
 
-それぞれのcontextは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`contextは、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceへのアクセスを意味しています。
+それぞれのコンテキストは、クラスター、ユーザー、namespaceの三つ組からなっています。例えば、`dev-frontend`は、`developer`ユーザーの認証情報を使って`development`クラスターの`frontend`namespaceへのアクセスを意味しています。
 
-現在のcontextを設定してください:
+現在のコンテキストを設定してください:
 
 ```shell
 kubectl config --kubeconfig=config-demo use-context dev-frontend
 ```
 
-これ以降実行される`kubectl`コマンドは、`dev-frontend`contextに設定されたクラスターとnamespaceに適用されます。また、`dev-frontend`contextに設定されたユーザーの認証情報を使用します。
+これ以降実行される`kubectl`コマンドは、`dev-frontend`に設定されたクラスターとnamespaceに適用されます。また、`dev-frontend`に設定されたユーザーの認証情報を使用します。
 
-現在のcontextの設定情報のみを確認するには、`--minify`フラグを使用してください。
+現在のコンテキストの設定情報のみを確認するには、`--minify`フラグを使用してください。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
 ```
 
-出力には、`dev-frontend`contextの設定情報が表示されます:
+出力には、`dev-frontend`の設定情報が表示されます:
 
 ```shell
 apiVersion: v1
@@ -180,15 +183,15 @@ users:
 
 今度は、実験用のクラスター内でしばらく作業する場合を考えます。
 
-現在のcontextを`exp-scratch`に切り替えてください:
+現在のコンテキストを`exp-scratch`に切り替えてください:
 
 ```shell
 kubectl config --kubeconfig=config-demo use-context exp-scratch
 ```
 
-これ以降実行される`kubectl`コマンドは、`scratch`クラスター内のデフォルトnamespaceに適用されます。また、`exp-scratch`contextに設定されたユーザーの認証情報を使用します。
+これ以降実行される`kubectl`コマンドは、`scratch`クラスター内のデフォルトnamespaceに適用されます。また、`exp-scratch`に設定されたユーザーの認証情報を使用します。
 
-新しく切り替えた`exp-scratch`contextの設定を確認してください。
+新しく切り替えた`exp-scratch`の設定を確認してください。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -196,13 +199,13 @@ kubectl config --kubeconfig=config-demo view --minify
 
 最後に、`development`クラスター内の`storage`namespaceでしばらく作業する場合を考えます。
 
-現在のcontextを`dev-storage`に切り替えてください:
+現在のコンテキストを`dev-storage`に切り替えてください:
 
 ```shell
 kubectl config --kubeconfig=config-demo use-context dev-storage
 ```
 
-新しく切り替えた`dev-storage`contextの設定を確認してください。
+新しく切り替えた`dev-storage`の設定を確認してください。
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -225,7 +228,7 @@ contexts:
   name: dev-ramp-up
 ```
 
-上記の設定ファイルは、`dev-ramp-up`というcontextを表します。
+上記の設定ファイルは、`dev-ramp-up`というコンテキストを表します。
 
 ## KUBECONFIG環境変数を設定する
 
@@ -259,7 +262,7 @@ $Env:KUBECONFIG=("config-demo;config-demo-2")
 kubectl config view
 ```
 
-出力には、`KUBECONFIG`環境変数に含まれる全てのファイルの情報がまとめて表示されます。`config-demo-2`ファイルに設定された`dev-ramp-up`contextの情報と、`config-demo`ファイルに設定された三つのcontextの情報がまとめてあることに注目してください:
+出力には、`KUBECONFIG`環境変数に含まれる全てのファイルの情報がまとめて表示されます。`config-demo-2`ファイルに設定された`dev-ramp-up`の情報と、`config-demo`に設定された三つのコンテキストの情報がまとめてあることに注目してください:
 
 ```shell
 contexts:
@@ -325,11 +328,11 @@ Windows PowerShell
 $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}

@@ -1,12 +1,13 @@
 ---
 title: 파드 오버헤드
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
+
 
 노드 위에서 파드를 구동할 때, 파드는 그 자체적으로 많은 시스템 리소스를 사용한다.
 이러한 리소스는 파드 내의 컨테이너들을 구동하기 위한 리소스 이외에 추가적으로 필요한 것이다.
@@ -14,10 +15,10 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 소비되는 리소스를 계산하는 기능이다.
 
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 쿠버네티스에서 파드의 오버헤드는 파드의 
 [런타임클래스](/ko/docs/concepts/containers/runtime-class/) 와 관련된 오버헤드에 따라 
@@ -82,7 +83,7 @@ spec:
         memory: 100Mi
 ```
 
-어드미션 수행 시에, [어드미션 컨트롤러](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/)는 
+어드미션 수행 시에, [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)는 
 런타임클래스에 기술된 `overhead` 를 포함하기 위하여 워크로드의 PodSpec 항목을 갱신한다. 만약 PodSpec이 이미 해당 필드에 정의되어 있으면, 
 파드는 거부된다. 주어진 예제에서, 오직 런타임클래스의 이름만이 정의되어 있기 때문에, 어드미션 컨트롤러는 파드가 
 `overhead` 를 포함하도록 변경한다.
@@ -183,11 +184,12 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 이 기능은 kube-state-metrics 의 1.9 릴리스에서는 사용할 수 없지만, 다음 릴리스에서는 가능할 예정이다.
 그 전까지는 소스로부터 kube-state-metric 을 빌드해야 한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [런타임클래스](/ko/docs/concepts/containers/runtime-class/)
 * [파드오버헤드 디자인](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
-{{% /capture %}}
+

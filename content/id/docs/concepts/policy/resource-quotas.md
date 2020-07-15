@@ -1,10 +1,10 @@
 ---
 title: Resource Quota
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Saat beberapa pengguna atau tim berbagi sebuah klaster dengan jumlah Node yang tetap,
 ada satu hal yang perlu diperhatikan yaitu suatu tim dapat menggunakan sumber daya
@@ -13,9 +13,9 @@ lebih dari jatah yang mereka perlukan.
 _Resource Quota_ (kuota sumber daya) adalah sebuah alat yang dapat digunakan oleh
 administrator untuk mengatasi hal ini.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Sebuah Resource Quota, didefinisikan oleh objek API `ResourceQuota`, menyediakan batasan-batasan
 yang membatasi konsumsi gabungan sumber daya komputasi untuk tiap Namespace. Resource Quota dapat
@@ -613,10 +613,11 @@ Lihat [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) da
 
 Lihat [contoh detail cara menggunakan sebuah Resource Quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Lihat [dokumen desain ResourceQuota](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) untuk informasi lebih lanjut.
 
-{{% /capture %}}
+

@@ -2,22 +2,20 @@
 title: チュートリアル
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本セクションにはチュートリアルが含まれています。チュートリアルでは、単一の[タスク](/docs/tasks/)よりも大きな目標を達成する方法を示します。通常、チュートリアルにはいくつかのセクションがあり、各セクションには一連のステップがあります。各チュートリアルを進める前に、後で参照できるように[標準化された用語集](/docs/reference/glossary/)ページをブックマークしておくことをお勧めします。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 基本
 
 * [Kubernetesの基本](/ja/docs/tutorials/kubernetes-basics/)は、Kubernetesのシステムを理解し、基本的な機能を試すのに役立つ、詳細な対話式のチュートリアルです。
-
-* [Scalable Microservices with Kubernetes (Udacity)](https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615)
 
 * [Introduction to Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
@@ -29,7 +27,7 @@ content_template: templates/concept
 
 ## ステートレスアプリケーション
 
-* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する](/ja/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [例: Redisを使用したPHPゲストブックアプリケーションのデプロイ](/docs/tutorials/stateless-application/guestbook/)
 
@@ -61,10 +59,11 @@ content_template: templates/concept
 
 * [Source IPを使う](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 チュートリアルを書きたい場合は、[ページテンプレートの使用](/docs/contribute/style/page-templates/)を参照し、チュートリアルのページタイプとチュートリアルテンプレートについてご確認ください。
 
-{{% /capture %}}
+

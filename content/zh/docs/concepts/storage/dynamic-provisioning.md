@@ -1,6 +1,6 @@
 ---
 title: 动态卷供应
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 <!--
@@ -11,12 +11,12 @@ reviewers:
 - thockin
 - msau42
 title: Dynamic Volume Provisioning
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Dynamic volume provisioning allows storage volumes to be created on-demand.
@@ -32,9 +32,9 @@ automatically provisions storage when it is requested by users.
 然后在 Kubernetes 集群创建 [`PersistentVolume` 对象](/docs/concepts/storage/persistent-volumes/)来表示这些卷。
 动态供应功能消除了集群管理员预先配置存储的需要。 相反，它在用户请求时自动供应存储。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Background
@@ -176,7 +176,7 @@ can enable this behavior by:
   is enabled on the API server.
 -->
 - 标记一个 `StorageClass` 为 *默认*；
-- 确保 [`DefaultStorageClass` 准入控制器](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
+- 确保 [`DefaultStorageClass` 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the
@@ -211,5 +211,3 @@ Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 在[多区域](/docs/setup/multiple-zones)集群中，Pod 可以被分散到多个区域。
 单区域存储后端应该被供应到 Pod 被调度到的区域。
 这可以通过设置[卷绑定模式](/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
-
-{{% /capture %}}

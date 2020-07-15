@@ -1,10 +1,10 @@
 ---
 title: 파드 우선순위(priority)와 선점(preemption)
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
@@ -13,9 +13,9 @@ weight: 70
 스케줄러는 우선순위가 낮은 파드를 선점(축출)하여 보류 중인 파드를
 스케줄링할 수 있게 한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 {{< warning >}}
@@ -404,7 +404,8 @@ kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 �
 초과하지 않으면, 축출되지 않는다. 요청을 초과하는 우선순위가
 더 높은 다른 파드가 축출될 수 있다.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
-{{% /capture %}}
+

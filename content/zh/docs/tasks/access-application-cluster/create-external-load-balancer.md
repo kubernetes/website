@@ -1,18 +1,18 @@
 ---
 title: 创建一个外部负载均衡器
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 
 <!--
 ---
 title: Create an External Load Balancer
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create an External Load Balancer.
@@ -43,15 +43,16 @@ documentation.
 -->
 有关如何配置和使用 Ingress 资源为服务提供外部可访问的 URL、负载均衡流量、终止 SSL 等功能，请查看 [Ingress](/docs/concepts/services-networking/ingress/) 文档。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Configuration file
@@ -189,13 +190,16 @@ traffic spreading.
 
 <!--
 * `service.spec.healthCheckNodePort` - specifies the health check nodePort
-(numeric port number) for the service. If not specified, `healthCheckNodePort` is
-created by the service API backend with the allocated `nodePort`. It will use the
-user-specified `nodePort` value if specified by the client. It only has an
+(numeric port number) for the service. If `healthCheckNodePort` isn't specified,
+the service controller allocates a port from your cluster's NodePort range. You
+can configure that range by setting an API server command line option,
+`--service-node-port-range`. It will use the
+user-specified `healthCheckNodePort` value if specified by the client. It only has an
 effect when `type` is set to LoadBalancer and `externalTrafficPolicy` is set
 to Local.
 -->
-* `service.spec.healthCheckNodePort` - 指定服务的 healthcheck nodePort（数字端口号）。如果未指定，则 serviceCheckNodePort 由服务 API 后端使用已分配的 nodePort 创建。如果客户端指定，它将使用客户端指定的 nodePort 值。仅当 type 设置为 LoadBalancer 并且 externalTrafficPolicy 设置为 Local 时才生效。
+
+* `service.spec.healthCheckNodePort` - 指定服务的 healthcheck nodePort（数字端口号）。如果未指定 `healthCheckNodePort`，服务控制器从集群的 NodePort 范围内分配一个端口。您可以通过设置 API 服务器的命令行选项 `--service-node-port-range` 来配置上述范围。它将会使用用户指定的 `healthCheckNodePort` 值（如果被客户端指定）。仅当 `type`  设置为 LoadBalancer 并且  `externalTrafficPolicy` 设置为 Local 时才生效。
 
 <!--
 Setting `externalTrafficPolicy` to Local in the Service configuration file
@@ -305,4 +309,4 @@ Internal pod to pod traffic should behave similar to ClusterIP services, with eq
 
 内部 pod 到 pod 的流量应该与 ClusterIP 服务类似，所有 pod 的概率相同。
 
-{{% /capture %}}
+

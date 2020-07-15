@@ -1,10 +1,10 @@
 ---
 title: 쿠버네티스 클러스터 확장
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 쿠버네티스는 매우 유연하게 구성할 수 있고 확장 가능하다. 결과적으로
 쿠버네티스 프로젝트를 포크하거나 코드에 패치를 제출할 필요가
@@ -17,10 +17,10 @@ weight: 10
 어떤 익스텐션 포인트와 패턴이 있는지,
 그리고 그것들의 트레이드오프와 제약에 대한 소개 자료로 유용할 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -45,7 +45,7 @@ weight: 10
 이들 컴포넌트는 쿠버네티스가 새로운 유형과 새로운 종류의 하드웨어를 지원할 수 있게 해준다.
 
 대부분의 클러스터 관리자는 쿠버네티스의 호스팅 또는 배포판 인스턴스를 사용한다.
-결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 있고
+결과적으로 대부분의 쿠버네티스 사용자는 익스텐션 기능을 설치할 필요가 없고
 새로운 익스텐션 기능을 작성할 필요가 있는 사람은 더 적다.
 
 ## 익스텐션 패턴
@@ -70,7 +70,7 @@ weight: 10
 *바이너리 플러그인* 모델에서 쿠버네티스는 바이너리(프로그램)를 실행한다.
 바이너리 플러그인은 kubelet(예:
 [Flex Volume 플러그인](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)과
-[네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/))과
+[네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))과
 kubectl에서
 사용한다.
 
@@ -90,7 +90,7 @@ kubectl에서
 
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
-1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
+1.   사용자는 종종 `kubectl`을 사용하여 쿠버네티스 API와 상호 작용한다. [Kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)은 kubectl 바이너리를 확장한다. 개별 사용자의 로컬 환경에만 영향을 미치므로 사이트 전체 정책을 적용할 수는 없다.
 2.   apiserver는 모든 요청을 처리한다. apiserver의 여러 유형의 익스텐션 포인트는 요청을 인증하거나, 콘텐츠를 기반으로 요청을 차단하거나, 콘텐츠를 편집하고, 삭제 처리를 허용한다. 이 내용은 [API 접근 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#api-접근-익스텐션) 섹션에 설명되어 있다.
 3.   apiserver는 다양한 종류의 *리소스* 를 제공한다. `pods`와 같은 *빌트인 리소스 종류* 는 쿠버네티스 프로젝트에 의해 정의되며 변경할 수 없다. 직접 정의한 리소스를 추가할 수도 있고, [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/extend-cluster/#사용자-정의-유형) 섹션에 설명된대로 *커스텀 리소스* 라고 부르는 다른 프로젝트에서 정의한 리소스를 추가할 수도 있다. 커스텀 리소스는 종종 API 접근 익스텐션과 함께 사용된다.
 4.   쿠버네티스 스케줄러는 파드를 배치할 노드를 결정한다. 스케줄링을 확장하는 몇 가지 방법이 있다. 이들은 [스케줄러 익스텐션](/ko/docs/concepts/extend-kubernetes/extend-cluster/#스케줄러-익스텐션) 섹션에 설명되어 있다.
@@ -164,7 +164,7 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 
 ### 장치 플러그인
 
-장치 플러그인은 노드가 [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)을
+장치 플러그인은 노드가 [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)을
 통해 새로운 노드 리소스(CPU 및 메모리와 같은 빌트인 자원 외에)를
 발견할 수 있게 해준다.
 
@@ -189,17 +189,16 @@ Kubelet이 바이너리 플러그인을 호출하여 볼륨을 마운트하도�
 [웹훅](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/scheduler_extender.md)을
 지원한다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [커스텀 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [동적 어드미션 컨트롤](/docs/reference/access-authn-authz/extensible-admission-controllers/)에 대해 알아보기
 * 인프라스트럭처 익스텐션에 대해 더 알아보기
-  * [네트워크 플러그인](/docs/concepts/cluster-administration/network-plugins/)
-  * [장치 플러그인](/docs/concepts/cluster-administration/device-plugins/)
-* [kubectl 플러그인](/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
-* [오퍼레이터 패턴](/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기
-
-{{% /capture %}}
+  * [네트워크 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  * [장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+* [kubectl 플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)에 대해 알아보기
+* [오퍼레이터 패턴](/ko/docs/concepts/extend-kubernetes/operator/)에 대해 알아보기

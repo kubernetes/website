@@ -1,10 +1,10 @@
 ---
 title: Controller
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dalam bidang robotika dan otomatisasi, _control loop_ atau kontrol tertutup adalah
 lingkaran tertutup yang mengatur keadaan suatu sistem.
@@ -24,10 +24,10 @@ klaster saat ini mendekati keadaan yang diinginkan.
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pola _controller_ 
 
@@ -168,11 +168,12 @@ satu kumpulan dari beberapa Pod, atau bisa juga sebagai bagian eksternal dari
 Kubernetes. Manakah yang paling sesuai akan tergantung pada apa yang _controller_
 khusus itu lakukan.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Silahkan baca tentang [_control plane_ Kubernetes](/docs/concepts/#kubernetes-control-plane)
 * Temukan beberapa dasar tentang [objek-objek Kubernetes](/docs/concepts/#kubernetes-objects)
 * Pelajari lebih lanjut tentang [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * Apabila kamu ingin membuat _controller_ sendiri, silakan lihat [pola perluasan](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) dalam memperluas Kubernetes.
-{{% /capture %}}
+

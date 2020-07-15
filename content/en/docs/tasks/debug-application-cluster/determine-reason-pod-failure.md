@@ -1,9 +1,9 @@
 ---
 title: Determine the Reason for Pod Failure
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to write and read a Container
 termination message.
@@ -16,17 +16,18 @@ put in a termination message should also be written to
 the general
 [Kubernetes logs](/docs/concepts/cluster-administration/logging/).
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Writing and reading a termination message
 
@@ -77,7 +78,7 @@ only the termination message:
 ## Customizing the termination message
 
 Kubernetes retrieves termination messages from the termination message file
-specified in the `terminationMessagePath` field of a Container, which as a default
+specified in the `terminationMessagePath` field of a Container, which has a default
 value of `/dev/termination-log`. By customizing this field, you can tell Kubernetes
 to use a different file. Kubernetes use the contents from the specified file to
 populate the Container's status message on both success and failure.
@@ -110,16 +111,17 @@ to use the last chunk of container log output if the termination message file
 is empty and the container exited with an error. The log output is limited to
 2048 bytes or 80 lines, whichever is smaller.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * See the `terminationMessagePath` field in
   [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
 * Learn about [Go templates](https://golang.org/pkg/text/template/).
 
-{{% /capture %}}
+
 
 
 

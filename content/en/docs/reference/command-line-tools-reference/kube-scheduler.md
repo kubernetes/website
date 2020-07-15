@@ -1,10 +1,11 @@
 ---
 title: kube-scheduler
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 30
 ---
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 The Kubernetes scheduler is a policy-rich, topology-aware,
@@ -13,16 +14,17 @@ and capacity. The scheduler needs to take into account individual and collective
 resource requirements, quality of service requirements, hardware/software/policy
 constraints, affinity and anti-affinity specifications, data locality, inter-workload
 interference, deadlines, and so on. Workload-specific requirements will be exposed
-through the API as necessary. See [scheduling](https://kubernetes.io/docs/concepts/scheduling-eviction/)
+through the API as necessary. See [scheduling](/docs/concepts/scheduling-eviction/)
 for more information about scheduling and the kube-scheduler component.
 
 ```
 kube-scheduler [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -509,8 +511,3 @@ kube-scheduler [flags]
 
 </tbody>
 </table>
-
-
-
-{{% /capture %}}
-

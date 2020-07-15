@@ -7,7 +7,7 @@ feature:
   description: >
     Kubernetes 集群中网络端点的可扩展跟踪。
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
@@ -21,12 +21,12 @@ feature:
   description: >
     Scalable tracking of network endpoints in a Kubernetes cluster.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -37,9 +37,9 @@ Endpoints.
 -->
 _Endpoint Slices_ 提供了一种简单的方法来跟踪 Kubernetes 集群中的网络端点（network endpoints）。它们为 Endpoints 提供了一种可伸缩和可拓展的替代方案。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Endpoint Slice resources {#endpointslice-resource}
@@ -137,9 +137,10 @@ Endpoints API 提供了一种简单明了的方法在 Kubernetes 中跟踪网络
 由于服务的所有网络端点都存储在单个 Endpoints 资源中，因此这些资源可能会变得很大。这影响了 Kubernetes 组件（尤其是主控制平面）的性能，并在 Endpoints 发生更改时导致大量网络流量和处理。Endpoint Slices 可帮助您缓解这些问题并提供可扩展的
 附加特性（例如拓扑路由）平台。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * [Enabling Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices)
@@ -147,4 +148,4 @@ Endpoints API 提供了一种简单明了的方法在 Kubernetes 中跟踪网络
 -->
 * [启用 Endpoint Slices](/docs/tasks/administer-cluster/enabling-endpoint-slices)
 * 阅读 [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
-{{% /capture %}}
+

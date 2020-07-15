@@ -1,10 +1,10 @@
 ---
 title: Configure Liveness, Readiness and Startup Probes
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
@@ -25,15 +25,16 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Define a liveness command
 
@@ -331,7 +332,7 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
-* `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
+* `failureThreshold`: When a probe fails, Kubernetes will
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 
@@ -360,9 +361,10 @@ For a TCP probe, the kubelet makes the probe connection at the node, not in the 
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about
 [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -373,6 +375,6 @@ You can also read the API references for:
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+
 
 

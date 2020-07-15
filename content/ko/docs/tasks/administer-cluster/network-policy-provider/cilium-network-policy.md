@@ -1,22 +1,23 @@
 ---
 title: 네트워크 폴리시로 실리움(Cilium) 사용하기
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 어떻게 네트워크 폴리시(NetworkPolicy)로 실리움(Cilium)를 사용하는지 살펴본다.
 
 실리움의 배경에 대해서는 [실리움 소개](https://docs.cilium.io/en/stable/intro)를 읽어보자.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 ## 기본 시험을 위해 실리움을 Minikube에 배포하기
 
 실리움에 쉽게 친숙해지기 위해
@@ -47,7 +48,7 @@ Minikube에서 실리움의 데몬셋 구성과 적절한 RBAC 설정을 포함�
 간단한 ``올인원`` YAML 파일로 배포할 수 있다.
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
+kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 ```
 configmap/cilium-config created
@@ -72,9 +73,9 @@ L3/L4(예, IP 주소 + 포트) 모두의 보안 정책 뿐만 아니라 L7(예, 
 이 문서는 자세한 요구사항, 방법과
 실제 데몬셋 예시를 포함한다.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 ## 실리움 구성요소 이해하기
 
 실리움으로 클러스터를 배포하면 파드가 `kube-system` 네임스페이스에 추가된다.
@@ -95,14 +96,15 @@ cilium-6rxbd    1/1     Running   0          1m
 `cilium` 파드는 클러스터 각 노드에서 실행되며, 리눅스 BPF를 사용해서
 해당 노드의 파드에 대한 트래픽 네트워크 폴리시를 적용한다.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 클러스터가 동작하면,
 실리움으로 쿠버네티스 네트워크 폴리시를 시도하기 위해
 [네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 재미있게 즐기고, 질문이 있다면
 [실리움 슬랙 채널](https://cilium.herokuapp.com/)을 이용하여 연락한다.
-{{% /capture %}}
+
 
 

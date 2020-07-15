@@ -1,10 +1,10 @@
 ---
 title: Generating Reference Documentation for kubectl Commands
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to generate the `kubectl` command reference.
 
@@ -21,15 +21,16 @@ reference page, see
 [Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Setting up the local repositories
 
@@ -236,6 +237,9 @@ Build the Kubernetes documentation in your local `<web-base>`.
 cd <web-base>
 make docker-serve
 ```
+{{< note >}}
+The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
+{{< /note >}}
 
 View the [local preview](https://localhost:1313/docs/reference/generated/kubectl/kubectl-commands/).
 
@@ -253,12 +257,13 @@ A few minutes after your pull request is merged, your updated reference
 topics will be visible in the
 [published documentation](/docs/home).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
 * [Generating Reference Documentation for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for the Kubernetes API](/docs/contribute/generate-ref-docs/kubernetes-api/)
 
-{{% /capture %}}
+

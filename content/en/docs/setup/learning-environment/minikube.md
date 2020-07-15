@@ -5,16 +5,16 @@ reviewers:
 - aaron-prindle
 title: Installing Kubernetes with Minikube
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube is a tool that makes it easy to run Kubernetes locally. Minikube runs a single-node Kubernetes cluster inside a Virtual Machine (VM) on your laptop for users looking to try out Kubernetes or develop with it day-to-day.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Minikube Features
 
@@ -369,7 +369,12 @@ The `minikube delete` command can be used to delete your cluster.
 This command shuts down and deletes the Minikube Virtual Machine. No data or state is preserved.
 
 ### Upgrading Minikube
-If you are using macOS, see [Upgrading Minikube](https://minikube.sigs.k8s.io/docs/start/macos/#upgrading-minikube) to upgrade your existing minikube installation.
+If you are using macOS and [Brew Package Manager](https://brew.sh/) is installed run:
+
+```shell
+brew update
+brew upgrade minikube
+```
 
 ## Interacting with Your Cluster
 
@@ -380,9 +385,11 @@ This context contains the configuration to communicate with your Minikube cluste
 
 Minikube sets this context to default automatically, but if you need to switch back to it in the future, run:
 
-`kubectl config use-context minikube`,
+`kubectl config use-context minikube`
 
-Or pass the context on each command like this: `kubectl get pods --context=minikube`.
+Or pass the context on each command like this:
+
+`kubectl get pods --context=minikube`
 
 ### Dashboard
 
@@ -509,4 +516,4 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 
-{{% /capture %}}
+

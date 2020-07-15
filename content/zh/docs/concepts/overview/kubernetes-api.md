@@ -1,13 +1,13 @@
 ---
 title: Kubernetes API
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: concepts
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Overall API conventions are described in the [API conventions doc](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
@@ -34,10 +34,10 @@ Kubernetes 通过API资源存储自己序列化状态(现在存储在[etcd](http
 
 Kubernetes 被分成多个组件，各部分通过API相互交互。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## API changes
@@ -271,4 +271,4 @@ Individual resource enablement/disablement is only supported in the `extensions/
 
 {{< /note >}}
 
-{{% /capture %}}
+

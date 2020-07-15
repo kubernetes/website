@@ -1,24 +1,25 @@
 ---
 title: kubeadm을 사용한 인증서 관리
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.15" state="stable" >}}
 
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)으로 생성된 클라이언트 인증서는 1년 후에 만료된다. 이 페이지는 kubeadm으로 인증서 갱신을 관리하는 방법을 설명한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 [쿠버네티스의 PKI 인증서와 요구 조건](/ko/docs/setup/best-practices/certificates/)에 익숙해야 한다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## 사용자 정의 인증서 사용 {#custom-certificates}
 
@@ -240,4 +241,8 @@ CSR에는 인증서 이름, 도메인 및 IP가 포함되지만, 용도를 지�
 [cert-cas]: /ko/docs/setup/best-practices/certificates/#단일-루트-ca
 [cert-table]: /ko/docs/setup/best-practices/certificates/#모든-인증서
 
-{{% /capture %}}
+## 인증 기관(CA) 순환(rotation) {#certificate-authority-rotation}
+
+Kubeadm은 CA 인증서의 순환이나 교체 기능을 기본적으로 지원하지 않는다.
+
+CA의 수동 순환이나 교체에 대한 보다 상세한 정보는 [CA 인증서 수동 순환](/docs/tasks/tls/manual-rotation-of-ca-certificates/) 문서를 참조한다.

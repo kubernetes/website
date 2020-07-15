@@ -1,48 +1,47 @@
-<!DOCTYPE html>
-<html id="docs" lang="{{ .Language }}" class="{{ .Params.class }}">
-	<head>
-	{{ partial "head.html" . }}
-	</head>
-	<body>
-    {{ partial "announcement.html" . }}
-		{{ partial "header.html" . }}
-		{{ block "hero" . }}
-		<!--  HERO  -->
-		<section id="hero" class="light-text no-sub">
-			{{ partial "docs/top-menu.html" . }}
-		</section>
-		{{ end }}
-		{{ block "deprecation" . }}{{ partial "deprecation-warning.html" . }}{{ end }}
-    <main>
-        <section id="encyclopedia">
-          {{ block "side-menu" . }}<div id="docsToc" style="display:none;"></div>{{ end }}
-          <div id="{{ block "content-id" . }}docsContent{{ end }}">
-            {{ block "content" . }}{{ end }}
-
-            {{ partial "feedback.html" . }}
-
-            {{ partial "git-info.html" . }}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+  <head>
+    {{ partial "head.html" . }}
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
+  </head>
+  <body class="td-{{ .Kind }}">
+    <header>
+      {{ partial "navbar.html" . }}
+      {{ partial "announcement.html" . }}
+      <section class="header-hero text-center text-white font-bold pb-4">
+        <h1>
+          {{ $sectionHeading := .Site.GetPage "section" .Section }}
+          {{ with $sectionHeading }}
+            {{ .Title }}
+          {{ end }}
+        </h1>
+      </section>
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-md-nowrap">
+          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            {{ partial "sidebar.html" . }}
           </div>
-        </section>
-    </main>
-		{{ partialCached "footer.html" . }}
-		{{ partialCached "footer-scripts.html" . }}
-    <script language="application/javascript">
-      // This script turns in-page headers into clickable and shareable
-      (function addHeadingLinks(){
-        var article = document.getElementById('docsContent');
-        var headings = article.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        headings.forEach(function(heading){
-          if(heading.id){
-            var a = document.createElement('a');
-            a.innerHTML = heading.innerHTML;
-            a.href = '#'+heading.id;
-            a.classList.add('inpage_heading');
-            heading.innerHTML = '';
-            heading.appendChild(a);
-          }
-        });
-      })();
-    </script>
-	</body>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+              {{ block "main" . }}{{ end }}
+            {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
+              {{ partial "feedback.html" .Site.Params.ui.feedback }}
+            {{ end }}
+            {{ partial "git-info.html" . }}
+            {{ if (.Site.DisqusShortname) }}
+              <br />
+              {{ partial "disqus-comment.html" . }}
+            {{ end }}
+          </main>
+          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+            {{ partial "toc.html" . }}
+          </div>
+        </div>
+      </div>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+  </body>
 </html>

@@ -1,34 +1,36 @@
 ---
 title: 컨피그 맵을 사용해서 Redis 설정하기
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지에서는 컨피그 맵을 사용해서 Redis를 설정하는 방법에 대한 실세계 예제를 제공하고, [컨피그 맵을 사용해서 컨테이너 설정하기](/docs/tasks/configure-pod-container/configure-pod-configmap/) 태스크로 빌드를 한다.
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 다음을 포함하는 `kustomization.yaml` 파일을 생성한다.
   * 컨피그 맵 생성자
   * 컨피그 맵을 사용하는 파드 리소스
-* `kubectl apply -k ./`를 실행하여 작업한 디렉토리를 적용한다.
+* `kubectl apply -k ./`를 실행하여 작업한 디렉터리를 적용한다.
 * 구성이 잘 적용되었는지 확인한다.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * 예시는 `kubectl` 1.14 이상 버전에서 동작한다.
 * [컨피그 맵을 사용해서 컨테이너 설정하기](/docs/tasks/configure-pod-container/configure-pod-configmap/)를 이해한다.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## 실세상 예제: 컨피그 맵을 사용해서 Redis 설정하기
@@ -63,7 +65,7 @@ resources:
 EOF
 ```
 
-컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉토리를 적용한다.
+컨피그 맵과 파드 개체를 생성하도록 kustomization 디렉터리를 적용한다.
 
 ```shell
 kubectl apply -k .
@@ -88,7 +90,7 @@ pod/redis   1/1     Running   0          52s
 `kubectl exec`를 사용해 파드 속에서 `redis-cli` 툴을 실행해 본다.
 
 ```shell
-kubectl exec -it redis redis-cli
+kubectl exec -it redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"
@@ -102,12 +104,13 @@ kubectl exec -it redis redis-cli
 kubectl delete pod redis
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [컨피그 맵](/docs/tasks/configure-pod-container/configure-pod-configmap/) 배우기.
 
-{{% /capture %}}
+
 
 

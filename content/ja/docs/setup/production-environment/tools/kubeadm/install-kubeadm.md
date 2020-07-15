@@ -1,6 +1,6 @@
 ---
 title: kubeadmのインストール
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: setup
@@ -8,14 +8,15 @@ card:
   title: kubeadmセットアップツールのインストール
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
 このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * 次のいずれかが動作しているマシンが必要です
   - Ubuntu 16.04+
@@ -32,9 +33,9 @@ card:
 * マシン内の特定のポートが開いていること。詳細は[ここ](#必須ポートの確認)を参照してください。
 * Swapがオフであること。kubeletが正常に動作するためにはswapは**必ず**オフでなければなりません。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## MACアドレスとproduct_uuidが全てのノードでユニークであることの検証
 
@@ -99,7 +100,7 @@ etcdポートはコントロールプレーンノードに含まれています�
 
 使用するPodネットワークプラグイン（以下を参照）のポートも開く必要があります。これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
 
-## ランタイムのインストール
+## ランタイムのインストール {#installing-runtime}
 
 v1.6.0以降、KubernetesはデフォルトでCRI(Container Runtime Interface)の使用を有効にしています。
 
@@ -269,8 +270,9 @@ CRI-Oやcontainerdといった他のコンテナランタイムのcgroup driver�
 
 kubeadmで問題が発生した場合は、[トラブルシューティング](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を参照してください。
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
-{{% /capture %}}
+

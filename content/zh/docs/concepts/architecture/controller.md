@@ -1,10 +1,10 @@
 ---
 title: 控制器
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 In robotics and automation, a _control loop_ is
 a non-terminating loop that regulates the state of a system.
@@ -17,7 +17,7 @@ about your *desired state*. The actual room temperature is the
 closer to the desired state, by turning equipment on or off.
 -->
 
-在机器人技术和自动化中，控制环是一个控制系统状态的不终止的循环。
+在机器人技术和自动化中，控制回路是一个非终止回路，用于调节系统状态。
 
 这是一个控制环的例子：房间里的温度自动调节器。
 
@@ -25,10 +25,10 @@ closer to the desired state, by turning equipment on or off.
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 ## Controller pattern
 
@@ -244,11 +244,12 @@ Deployment 控制器和 Job 控制器是 Kubernetes 内置控制器的典型例�
 
 你会发现控制平面外面运行的控制器，扩展了 Kubernetes 的能力。或者，如果你愿意，你也可以写一个新控制器。你可以以一组 Pod 来运行你的控制器，或者运行在 Kubernetes 外面。什么是最合适的控制器，这将取决于特定控制器的功能。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * 请阅读 [Kubernetes 控制平面](/docs/concepts/#kubernetes-control-plane)
 * 了解一些基本的 [Kubernetes 对象](/docs/concepts/#kubernetes-objects)
 * 学习更多的 [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * 如果你想写自己的控制器，请看 Kubernetes 的[扩展模式](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)。
-{{% /capture %}}
+

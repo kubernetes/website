@@ -1,6 +1,6 @@
 ---
 title: Managing Resources for Containers
-content_template: templates/concept
+content_type: concept
 weight: 40
 feature:
   title: Automatic bin packing
@@ -8,7 +8,7 @@ feature:
     Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
 much of each resource a {{< glossary_tooltip text="Container" term_id="container" >}} needs.
@@ -21,10 +21,10 @@ allowed to use more of that resource than the limit you set. The kubelet also re
 at least the _request_ amount of that system resource specifically for that container
 to use.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Requests and limits
 
@@ -227,7 +227,7 @@ locally-attached writeable devices or, sometimes, by RAM.
 
 Pods use ephemeral local storage for scratch space, caching, and for logs.
 The kubelet can provide scratch space to Pods using local ephemeral storage to
-mount [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)
+mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
  {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 
 The kubelet also uses this kind of storage to hold
@@ -657,7 +657,7 @@ Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   CPU Requests    CPU Limits    Memory Requests    Memory Limits
   ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+  680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
 In the preceding output, you can see that if a Pod requests more than 1120m
@@ -740,10 +740,11 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Get hands-on experience [assigning Memory resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 
@@ -757,5 +758,3 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 * Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
 
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
-
-{{% /capture %}}

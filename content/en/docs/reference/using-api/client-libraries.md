@@ -2,16 +2,16 @@
 title: Client Libraries
 reviewers:
 - ahmetb
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page contains an overview of the client libraries for using the Kubernetes
 API from various programming languages.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 To write applications using the [Kubernetes REST API](/docs/reference/using-api/api-overview/),
 you do not need to implement the API calls and request/response types yourself.
 You can use a client library for the programming language you are using.
@@ -75,6 +75,6 @@ their authors, not the Kubernetes team.
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
 | Elixir               | [github.com/coryodaniel/k8s](https://github.com/coryodaniel/k8s) |
-{{% /capture %}}
+
 
 

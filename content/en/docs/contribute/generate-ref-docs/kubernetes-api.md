@@ -1,10 +1,10 @@
 ---
 title: Generating Reference Documentation for the Kubernetes API
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to update the Kubernetes API reference documentation.
 
@@ -18,15 +18,16 @@ If you find bugs in the generated documentation, you need to
 If you need only to regenerate the reference documentation from the [OpenAPI](https://github.com/OAI/OpenAPI-Specification)
 spec, continue reading this page.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "prerequisites-ref-docs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Setting up the local repositories
 
@@ -184,6 +185,10 @@ cd <web-base>
 make docker-serve
 ```
 
+{{< note >}}
+The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
+{{< /note >}}
+
 ## Commit the changes
 
 In `<web-base>` run `git add` and `git commit` to commit the change.
@@ -194,12 +199,13 @@ Submit your changes as a
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/contribute/generate-ref-docs/kubectl/)
 
-{{% /capture %}}
+

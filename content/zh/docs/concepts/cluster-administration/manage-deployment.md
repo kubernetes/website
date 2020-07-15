@@ -1,20 +1,20 @@
 ---
 title: 管理资源
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
  -->
 您已经部署了应用并通过服务暴露它。然后呢？Kubernetes 提供了一些工具来帮助管理您的应用部署，包括缩扩容和更新。我们将更深入讨论的特性包括[配置文件](/docs/concepts/configuration/overview/)和[标签](/docs/concepts/overview/working-with-objects/labels/)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Organizing resource configurations
@@ -631,7 +631,7 @@ Let's say you were running version 1.7.9 of nginx:
 假设您正运行的是 1.7.9 版本的 nginx：
 
 ```shell
-kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+kubectl create deployment my-nginx --image=nginx:1.7.9
 ```
 ```shell
 deployment.apps/my-nginx created
@@ -651,9 +651,10 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
  -->
 没错，就是这样！Deployment 将在后台逐步更新已经部署的 nginx 应用。它确保在更新过程中，只有一定数量的旧副本被开闭，并且只有一定基于所需 pod 数量的新副本被创建。想要了解更多细节，请参考 [Deployment](/docs/concepts/workloads/controllers/deployment/)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
@@ -662,4 +663,4 @@ That's it! The Deployment will declaratively update the deployed nginx applicati
 - [学习怎么样使用 `kubectl` 观察和调试应用](/docs/tasks/debug-application-cluster/debug-application-introspection/)
 - [配置最佳实践和技巧](/docs/concepts/configuration/overview/)
 
-{{% /capture %}}
+

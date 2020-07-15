@@ -3,26 +3,27 @@ reviewers:
 - jessfraz
 title: Inject Information into Pods Using a PodPreset
 min-kubernetes-server-version: v1.6
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.6" state="alpha" >}}
 
 This page shows how to use PodPreset objects to inject information like {{< glossary_tooltip text="Secrets" term_id="secret" >}}, volume mounts, and {{< glossary_tooltip text="environment variables" term_id="container-env-variables" >}} into Pods at creation time.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. If you do not already have a cluster, you can create one using [Minikube](/docs/setup/learning-environment/minikube/).
 Make sure that you have [enabled PodPreset](/docs/concepts/workloads/pods/podpreset/#enable-pod-preset) in your cluster.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 
 ## Use Pod presets to inject environment variables and volumes
@@ -139,7 +140,7 @@ verify that the preset has been applied.
 
 ## ReplicaSet with Pod spec example
 
-This is an example to show that only Pod specs are modified by Pod presets. Other workload types 
+This is an example to show that only Pod specs are modified by Pod presets. Other workload types
 like ReplicaSets or Deployments are unaffected.
 
 Here is the manifest for the PodPreset for this example:
@@ -289,7 +290,7 @@ kubectl get pod website -o yaml
 You can see there is no preset annotation (`podpreset.admission.kubernetes.io`). Seeing no annotation tells you that no preset has not been applied to the Pod.
 
 However, the
-[PodPreset admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#podpreset)
+[PodPreset admission controller](/docs/reference/access-authn-authz/admission-controllers/#podpreset)
 logs a warning containing details of the conflict.
 You can view the warning using `kubectl`:
 
@@ -300,7 +301,7 @@ kubectl -n kube-system logs -l=component=kube-apiserver
 The output should look similar to:
 
 ```
-W1214 13:00:12.987884       1 admission.go:147] conflict occurred while applying podpresets: allow-database on pod:  err: merging volume mounts for allow-database has a conflict on mount path /cache: 
+W1214 13:00:12.987884       1 admission.go:147] conflict occurred while applying podpresets: allow-database on pod:  err: merging volume mounts for allow-database has a conflict on mount path /cache:
 v1.VolumeMount{Name:"other-volume", ReadOnly:false, MountPath:"/cache", SubPath:"", MountPropagation:(*v1.MountPropagationMode)(nil), SubPathExpr:""}
 does not match
 core.VolumeMount{Name:"cache-volume", ReadOnly:false, MountPath:"/cache", SubPath:"", MountPropagation:(*core.MountPropagationMode)(nil), SubPathExpr:""}
@@ -320,5 +321,3 @@ The output shows that the PodPreset was deleted:
 ```
 podpreset "allow-database" deleted
 ```
-
-{{% /capture %}}

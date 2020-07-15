@@ -1,29 +1,29 @@
 ﻿---
 title: 访问集群
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
 ---
 title: Accessing Clusters
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This topic discusses multiple ways to interact with clusters.
 -->
 本文阐述多种与集群交互的方法。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture body %}}
+<!-- body -->
 
 <!--
 ## Accessing for the first time with kubectl
@@ -145,7 +145,7 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 
 ```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
@@ -600,4 +600,4 @@ will typically ensure that the latter types are setup correctly.
 
 除了前两种类型之外，Kubernetes 用户通常不需要担心任何其他问题。集群管理员通常会确保后者的正确配置。
 
-{{% /capture %}}
+

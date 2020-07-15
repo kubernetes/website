@@ -1,17 +1,17 @@
 ---
 title: 클러스터 액세스
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 여기에서는 클러스터와 통신을 하는 다양한 방식에 대해서 다룰 것이다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 처음이라면 kubectl을 사용하여 액세스
 
@@ -145,7 +145,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 위 예제에서는 `--insecure` flag를 사용했다. 이는 MITM 공격을 받을 수 있는 상태로 
 두는 것이다. kubectl로 클러스터에 접속할 때 저장된 root 인증서와 클라이언트 인증서들을 
 서버 접속에 사용한다.
-(이들은 `~/.kube` 디렉토리에 설치된다.) 
+(이들은 `~/.kube` 디렉터리에 설치된다.) 
 일반적으로 self-signed 인증서가 클러스터 인증서로 사용되므로 당신의 http 클라이언트가 
 root 인증서를 사용하려면 특수한 설정을 필요로 할 것이다.
 
@@ -376,4 +376,4 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) proxy�
 일반적으로 쿠버네티스 사용자들은 처음 두 타입이 아닌 다른 방식은 고려할 필요가 없지만 클러스터 관리자는 
 나머지 타입을 적절하게 구성해줘야 한다.
 
-{{% /capture %}}
+

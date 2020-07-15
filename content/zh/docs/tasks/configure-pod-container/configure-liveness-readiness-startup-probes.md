@@ -1,10 +1,10 @@
 ---
 title: 配置存活、就绪和启动探测器
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page shows how to configure liveness, readiness and startup probes for Containers.
 
@@ -34,15 +34,16 @@ kubelet 使用就绪探测器可以知道容器什么时候准备好了并可以
 
 kubelet 使用启动探测器可以知道应用程序容器什么时候启动了。如果配置了这类探测器，就可以控制容器在启动成功后再进行存活性和就绪检查，确保这些存活、就绪探测器不会影响应用程序的启动。这可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Define a liveness command
@@ -456,7 +457,7 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
-* `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
+* `failureThreshold`: When a probe fails, Kubernetes will
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 -->
@@ -464,7 +465,7 @@ Defaults to 3. Minimum value is 1.
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探测器在失败后，被视为成功的最小连续成功数。默认值是 1。存活探测的这个值必须是 1。最小值是 1。
-* `failureThreshold`：当 Pod 启动了并且探测到失败，Kubernetes 的重试次数。存活探测情况下的放弃就意味着重新启动容器。就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
+* `failureThreshold`：当探测失败时，Kubernetes 的重试次数。存活探测情况下的放弃就意味着重新启动容器。就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
 
 <!--
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
@@ -505,9 +506,10 @@ to resolve it.
 
 对于一次 TCP 探测，kubelet 在节点上（不是在 Pod 里面）建立探测连接，这意味着你不能在 `host` 参数上配置 service name，因为 kubelet 不能解析 service name。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Learn more about
@@ -527,4 +529,4 @@ to resolve it.
 * [容器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [探测器](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+

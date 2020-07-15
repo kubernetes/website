@@ -3,11 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
@@ -37,11 +37,11 @@ Kubernetes 审计功能提供了与安全相关的按时间顺序排列的记录
  - 它从哪触发的？
  - 活动的后续处理行为是什么？
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture body %}}
+<!-- body -->
 
 <!--
 [Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
@@ -609,4 +609,4 @@ Kubernetes 可能会在创建新的日志文件时删除旧的日志文件; 您�
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
+

@@ -5,16 +5,16 @@ reviewers:
 - aaron-prindle
 title: Установка Kubernetes с помощью Minikube
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Minikube — это инструмент, позволяющий легко запускать Kubernetes на локальной машине. Для тех, кто хочет попробовать Kubernetes или рассмотреть возможность его использования в повседневной разработке, Minikube станет отличным вариантом, потому что он запускает одноузловой кластер Kubernetes внутри виртуальной машины (VM) на компьютере пользователя.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Возможности Minikube
 
@@ -527,4 +527,4 @@ Minikube использует [libmachine](https://github.com/docker/machine/tre
 
 Помощь, вопросы и комментарии приветствуются и поощряются! Разработчики Minikube проводят время на [Slack](https://kubernetes.slack.com) в канале #minikube (получить приглашение можно [здесь](http://slack.kubernetes.io/)). У нас также есть [список рассылки kubernetes-dev на Google Groups](https://groups.google.com/forum/#!forum/kubernetes-dev). Если вы отправляете сообщение в список, пожалуйста, начните вашу тему с "minikube: ".
 
-{{% /capture %}}
+

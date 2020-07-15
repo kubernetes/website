@@ -1,6 +1,6 @@
 ---
 title: StatefulSet 基础
-content_template: templates/tutorial
+content_type: tutorial
 approvers:
 - enisoc
 - erictune
@@ -11,7 +11,7 @@ approvers:
 
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This tutorial provides an introduction to managing applications with
@@ -21,9 +21,10 @@ demonstrates how to create, delete, scale, and update the Pods of StatefulSets.
 
 本教程介绍如何了使用 [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/) 来管理应用。演示了如何创建、删除、扩容/缩容和更新 StatefulSets 的 Pods。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 Before you begin this tutorial, you should familiarize yourself with the
@@ -49,9 +50,10 @@ tutorial.
 
 本教程假设你的集群被配置为动态的提供 PersistentVolumes。如果没有这样配置，在开始本教程之前，你需要手动准备 2 个 1 GiB 的存储卷。
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!--
 StatefulSets are intended to be used with stateful applications and distributed
@@ -79,10 +81,10 @@ StatefulSets 旨在与有状态的应用及分布式系统一起使用。然而�
 * 如何对 StatefulSet 进行扩容/缩容
 * 如何更新一个 StatefulSet 的 Pods
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 创建 StatefulSet
 
@@ -865,12 +867,12 @@ Patch the StatefulSet to decrement the partition.
 请注意，虽然更新策略是 `RollingUpdate`，StatefulSet 控制器还是会使用原始的容器恢复 Pod。这是因为 Pod 的序号比 `updateStrategy` 指定的 `partition` 更小。
 
 
-#### 灰度扩容
+#### 灰度发布
 
-你可以通过减少 [上文](#分段更新)指定的 `partition` 来进行灰度扩容，以此来测试你的程序的改动。
+你可以通过减少 [上文](#分段更新)指定的 `partition` 来进行灰度发布，以此来测试你的程序的改动。
 
 
-Patch StatefulSet 来减少分区。
+通过 patch 命令修改 StatefulSet 来减少分区。
 
 ```shell
 kubectl patch statefulset web -p '{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
@@ -975,9 +977,9 @@ The partition is currently set to `2`. Set the partition to `0`.
 `web-1` 被按照原来的配置恢复，因为 Pod 的序号小于分区。当指定了分区时，如果更新了 StatefulSet 的 `.spec.template`，则所有序号大于或等于分区的 Pod 都将被更新。如果一个序号小于分区的 Pod 被删除或者终止，它将被按照原来的配置恢复。
 
 
-#### 分阶段的扩容
+#### 分阶段的发布
 
-你可以使用类似[灰度扩容](#灰度扩容)的方法执行一次分阶段的扩容（例如一次线性的、等比的或者指数形式的扩容）。要执行一次分阶段的扩容，你需要设置 `partition` 为希望控制器暂停更新的序号。
+你可以使用类似[灰度发布](#灰度发布)的方法执行一次分阶段的发布（例如一次线性的、等比的或者指数形式的发布）。要执行一次分阶段的发布，你需要设置 `partition` 为希望控制器暂停更新的序号。
 
 
 分区当前为`2`。请将分区设置为`0`。
@@ -1516,9 +1518,10 @@ StatefulSet 控制器将并发的删除所有 Pod，在删除一个 Pod 前不�
 kubectl delete svc nginx
 ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!--
 You will need to delete the persistent storage media for the PersistentVolumes
@@ -1528,6 +1531,6 @@ reclaimed.
 -->
 
 你需要删除本教程中用到的 PersistentVolumes 的持久化存储介质。基于你的环境、存储配置和提供方式，按照必须的步骤保证回收所有的存储。
-{{% /capture %}}
+
 
 

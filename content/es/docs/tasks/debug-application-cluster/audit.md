@@ -1,9 +1,9 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Auditoría
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 La auditoría de Kubernetes proporciona un conjunto de registros cronológicos referentes a la seguridad
 que documentan la secuencia de actividades que tanto los usuarios individuales, como
@@ -18,10 +18,10 @@ los administradores y otros componentes han realizado en el sistema.
  - ¿desde dónde se ha iniciado?
  - ¿hacia dónde iba?
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 El componente [Kube-apiserver][kube-apiserver] lleva a cabo la auditoría. Cada petición en cada fase
 de su ejecución genera un evento, que se pre-procesa según un cierto reglamento y
@@ -121,8 +121,8 @@ el siguiente cuerpo de mensaje es una petición de parcheado válida para
 ### Backend de Logs
 
 El backend de logs escribe los eventos de auditoría a un archivo en formato JSON.
- Puedes configurar el backend de logs de auditoría usando los siguientes
- parámetros de [kube-apiserver][kube-apiserver]:
+ Puedes configurar el backend de logs de auditoría usando el siguiente
+ parámetro de [kube-apiserver][kube-apiserver] flags:
 
 - `--audit-log-path` especifica la ruta al archivo de log que el backend utiliza para
 escribir los eventos de auditoría. Si no se especifica, se deshabilita el backend de logs. `-` significa salida estándar
@@ -133,13 +133,13 @@ escribir los eventos de auditoría. Si no se especifica, se deshabilita el backe
 ### Backend de Webhook
 
 El backend de Webhook envía eventos de auditoría a una API remota, que se supone es la misma API
-que expone [kube-apiserver][kube-apiserver]. Puedes configurar el backend de webhook de auditoría usando
+que expone el [kube-apiserver][kube-apiserver]. Puedes configurar el backend de webhook de auditoría usando
 los siguientes parámetros de kube-apiserver:
 
-- `--audit-webhook-config-file` especifica la ruta a un archivo con la configuración del webhook.
+- `--audit-webhook-config-file` especifica la ruta a un archivo con configuración del webhook.
 La configuración del webhook es, de hecho, un archivo [kubeconfig][kubeconfig].
 - `--audit-webhook-initial-backoff` especifica la cantidad de tiempo a esperar tras una petición fallida
-antes de volver a intentar. Los reintentos posteriores se ejecutan con retraso exponencial.
+antes de volver a intentarla. Los reintentos posteriores se ejecutan con retraso exponencial.
 
 El archivo de configuración del webhook usa el formato kubeconfig para especificar la dirección remota
 del servicio y las credenciales para conectarse al mismo.
@@ -151,7 +151,7 @@ En la versión 1.13, los backends de webhook pueden configurarse [dinámicamente
 Tanto el backend de logs como el de webhook permiten procesamiento por lotes. Si usamos el webhook como ejemplo,
  aquí se muestra la lista de parámetros disponibles. Para aplicar el mismo parámetro al backend de logs,
   simplemente sustituye `webhook` por `log` en el nombre del parámetro. Por defecto,
-  el procesamiento por lotes está habilitado en `webhook` y deshabilitado en `log`. De forma similar,
+  el procesimiento por lotes está habilitado en `webhook` y deshabilitado en `log`. De forma similar,
   por defecto la regulación (throttling) está habilitada en `webhook` y deshabilitada en `log`.
 
 - `--audit-webhook-mode` define la estrategia de memoria intermedia (búfer), que puede ser una de las siguientes opciones:
@@ -430,4 +430,4 @@ al plugin de elasticsearch que soporta búsquedas avanzadas y analíticas.
 [logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
 [kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
 
-{{% /capture %}}
+

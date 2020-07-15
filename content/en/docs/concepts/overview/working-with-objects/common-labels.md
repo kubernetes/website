@@ -1,18 +1,18 @@
 ---
 title: Recommended Labels
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 You can visualize and manage Kubernetes objects with more tools than kubectl and
 the dashboard. A common set of labels allows tools to work interoperably, describing
 objects in a common manner that all tools can understand.
 
 In addition to supporting tooling, the recommended labels describe applications
 in a way that can be queried.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The metadata is organized around the concept of an _application_. Kubernetes is not
 a platform as a service (PaaS) and doesn't have or enforce a formal notion of an application.
 Instead, applications are informal and described with metadata. The definition of
@@ -35,7 +35,7 @@ on every resource object.
 | Key                                 | Description           | Example  | Type |
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
-| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `wordpress-abcxzy` | string |
+| `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
 | `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
@@ -49,7 +49,7 @@ kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/name: mysql
-    app.kubernetes.io/instance: wordpress-abcxzy
+    app.kubernetes.io/instance: mysql-abcxzy
     app.kubernetes.io/version: "5.7.21"
     app.kubernetes.io/component: database
     app.kubernetes.io/part-of: wordpress
@@ -170,4 +170,4 @@ metadata:
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and Wordpress, the broader application, are included.
 
-{{% /capture %}}
+

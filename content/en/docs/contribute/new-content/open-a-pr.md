@@ -1,14 +1,14 @@
 ---
 title: Opening a pull request
 slug: new-content
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 **Code developers**: If you are documenting a new feature for an
@@ -22,9 +22,9 @@ If your change is small, or you're unfamiliar with git, read [Changes using GitH
 
 If your changes are large, read [Work from a local fork](#fork-the-repo) to learn how to make changes locally on your computer.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Changes using GitHub
 
@@ -97,10 +97,12 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 ### Create a local clone and set the upstream
 
-3. In a terminal window, clone your fork:
+3. In a terminal window, clone your fork and update the [Docsy Hugo theme](https://github.com/google/docsy#readme):
 
     ```bash
     git clone git@github.com/<github_username>/website
+    cd website
+    git submodule update --init --recursive --depth 1
     ```
 
 4. Navigate to the new `website` directory. Set the `kubernetes/website` repository as the `upstream` remote:
@@ -217,21 +219,37 @@ When you are ready to submit a pull request, commit your changes.
 
 It's a good idea to preview your changes locally before pushing them or opening a pull request. A preview lets you catch build errors or markdown formatting problems.
 
-You can either build the website's docker image or run Hugo locally. Building the docker image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can be useful for debugging.
+You can either build the website's container image or run Hugo locally. Building the container image is slower but displays [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/), which can be useful for debugging.
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="Hugo in a container" %}}
 
+{{< note >}}
+The commands below use Docker as default container engine. Set the `CONTAINER_ENGINE` environment variable to override this behaviour.
+{{< /note >}}
+
 1.  Build the image locally:
 
       ```bash
-      make docker-image
+      # Use docker (default)
+      make container-image
+
+      ### OR ###
+
+      # Use podman
+      CONTAINER_ENGINE=podman make container-image
       ```
 
 2. After building the `kubernetes-hugo` image locally, build and serve the site:
 
       ```bash
-      make docker-serve
+      # Use docker (default)
+      make container-serve
+
+      ### OR ###
+
+      # Use podman
+      CONTAINER_ENGINE=podman make container-serve
       ```
 
 3.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
@@ -245,18 +263,26 @@ You can either build the website's docker image or run Hugo locally. Building th
 
 Alternately, install and use the `hugo` command on your computer:
 
-5.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
+1.  Install the [Hugo](https://gohugo.io/getting-started/installing/) version specified in [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml).
 
-6.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
+2.  If you have not updated your website repository, the `website/themes/docsy` directory is empty.
+    The site cannot build without a local copy of the theme. To update the website theme, run:
+
+    ```bash
+    git submodule update --init --recursive --depth 1
+    ```
+
+3.  In a terminal, go to your Kubernetes website repository and start the Hugo server:
 
       ```bash
       cd <path_to_your_repo>/website
-      hugo server
+      hugo server --buildFuture
       ```
 
-7.  In your browser’s address bar, enter `https://localhost:1313`.
+4.  In a web browser, navigate to `https://localhost:1313`. Hugo watches the
+    changes and rebuilds the site as needed.
 
-8.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
+5.  To stop the local Hugo instance, go back to the terminal and type `Ctrl+C`,
     or close the terminal window.
 
 {{% /tab %}}
@@ -475,10 +501,11 @@ Most repositories use issue and PR templates. Have a look through some open
 issues and PRs to get a feel for that team's processes. Make sure to fill out
 the templates with as much detail as possible when you file issues or PRs.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-- Read [Reviewing](/docs/contribute/reviewing/revewing-prs) to learn more about the review process.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+- Read [Reviewing](/docs/contribute/review/reviewing-prs) to learn more about the review process.
+
+

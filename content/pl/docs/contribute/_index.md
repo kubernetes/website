@@ -1,5 +1,5 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Współtwórz dokumentację Kubernetesa
 linktitle: Weź udział
 main_menu: true
@@ -10,7 +10,7 @@ card:
   title: Weź udział
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tym serwisem www opiekuje się [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -23,9 +23,7 @@ Współtwórcy dokumentacji Kubernetesa:
 
 Zapraszamy do współpracy wszystkich - zarówno nowicjuszy, jak i doświadczonych!
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Jak zacząć?
 
@@ -49,7 +47,7 @@ ról i uprawnień.
 - [Otwórz *pull request* przy pomocy GitHub-a](/docs/contribute/new-content/new-content/#changes-using-github) dotyczący zmiany istniejącej dokumentacji i dowiedz się, jak otwierać zgłoszenia przy GitHub-ie.
 - [Zrecenzuj *pull requests*](/docs/contribute/review/reviewing-prs/) innego członka społeczności Kubernetes pod kątem dokładności i stylu.
 - Zapoznaj się z poradnikami Kubernetesa dotyczącymi [zawartości](/docs/contribute/style/content-guide/) i [stylu](/docs/contribute/style/style-guide/), aby twoje uwagi były zgodne z tymi wytycznymi.
-- Dowiedz się, jak [używać szablonów stron](/docs/contribute/style/page-templates/) i [skrótów Hugo](/docs/contribute/style/hugo-shortcodes/), aby wprowadzać większe zmiany.
+- Przeczytaj o [różnych typach zawartości na stronie](/docs/contribute/style/page-content-types/) i [skrótach Hugo](/docs/contribute/style/hugo-shortcodes/).
 
 ## Co dalej?
 
@@ -76,4 +74,4 @@ Aby włączyć się w komunikację w ramach SIG Docs, możesz:
 - Przeczytaj [ściągawkę dla współtwórców](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet), aby zaangażować się w dalszy rozwój Kubernetesa.
 - Przygotuj [wpis na blogu lub *case study*](/docs/contribute/new-content/blogs-case-studies/).
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: 命名空间
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 <!--
@@ -10,12 +10,12 @@ reviewers:
 - mikedanese
 - thockin
 title: Namespaces
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Kubernetes supports multiple virtual clusters backed by the same physical cluster.
@@ -24,9 +24,9 @@ These virtual clusters are called namespaces.
 Kubernetes 支持多个虚拟集群，它们底层依赖于同一个物理集群。
 这些虚拟集群被称为命名空间。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## When to Use Multiple Namespaces
@@ -76,6 +76,13 @@ Creation and deletion of namespaces are described in the [Admin Guide documentat
 for namespaces](/docs/admin/namespaces).
 -->
 命名空间的创建和删除已在[命名空间的管理指南文档](/docs/admin/namespaces)中进行了描述。
+
+<!--
+Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+-->
+{{< note >}}
+避免使用前缀 `kube-` 创建命名空间，因为它是为 Kubernetes 系统命名空间保留的。
+{{< /note >}}
 
 <!--
 ### Viewing namespaces
@@ -197,9 +204,10 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
@@ -207,5 +215,5 @@ kubectl api-resources --namespaced=false
 * 进一步了解[建立新的命名空间](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
 * 进一步了解[删除命名空间](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
 
-{{% /capture %}}
+
 

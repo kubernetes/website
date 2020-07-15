@@ -1,17 +1,18 @@
 ---
 title: kube-proxy
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 30
 ---
 <!-- 
 ---
 title: kube-proxy
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 --- 
 -->
 
-{{% capture synopsis %}}
+## {{% heading "synopsis" %}}
+
 
 
 <!--
@@ -29,9 +30,10 @@ Kubernetes 网络代理在每个节点上运行。网络代理反映了每个节
 kube-proxy [flags]
 ```
 
-{{% /capture %}}
 
-{{% capture options %}}
+
+## {{% heading "options" %}}
+
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -637,4 +639,4 @@ If set, write the default configuration values to this file and exit.
 
 
 
-{{% /capture %}}
+

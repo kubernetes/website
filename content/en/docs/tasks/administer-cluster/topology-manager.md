@@ -8,11 +8,11 @@ reviewers:
 - nolancon
 - bg-chun
 
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.18
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.18" >}}
 
@@ -22,15 +22,16 @@ In order to extract the best performance, optimizations related to CPU isolation
 
 _Topology Manager_ is a Kubelet component that aims to co-ordinate the set of components that are responsible for these optimizations.
  
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## How Topology Manager Works
 
@@ -216,4 +217,4 @@ Using this information the Topology Manager calculates the optimal hint for the 
 
 3. The Device Manager and the CPU Manager are the only components to adopt the Topology Manager's HintProvider interface. This means that NUMA alignment can only be achieved for resources managed by the CPU Manager and the Device Manager. Memory or Hugepages are not considered by the Topology Manager for NUMA alignment.
 
-{{% /capture %}}
+

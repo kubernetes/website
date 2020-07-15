@@ -6,20 +6,20 @@ feature:
   description: >
     Suivi évolutif des réseaux Endpoints dans un cluster Kubernetes.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
 _EndpointSlices_ offrent une méthode simple pour suivre les Endpoints d'un réseau au sein d'un cluster de Kubernetes. Ils offrent une alternative plus évolutive et extensible aux Endpoints.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Resource pour EndpointSlice {#endpointslice-resource}
 
@@ -112,11 +112,11 @@ Puisque tous les Endpoints d'un réseau pour un Service ont été stockés dans 
 Cela a affecté les performances des composants Kubernetes (notamment le plan de contrôle) et a causé une grande quantité de trafic réseau et de traitements lorsque les Endpoints changent. 
 Les EndpointSlices aident à atténuer ces problèmes ainsi qu'à fournir une plate-forme extensible pour des fonctionnalités supplémentaires telles que le routage topologique. 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Activer EndpointSlices](/docs/tasks/administer-cluster/enabling-endpointslices)
 * Lire [Connecter des applications aux Services](/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}

@@ -3,20 +3,20 @@ reviewers:
 - fgrzadkowski
 - piosz
 title: Resource metrics pipeline
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Resource usage metrics, such as container CPU and memory usage,
 are available in Kubernetes through the Metrics API. These metrics can be either accessed directly
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
 Horizontal Pod Autoscaler, to make decisions.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## The Metrics API
 
@@ -41,7 +41,7 @@ The API requires metrics server to be deployed in the cluster. Otherwise it will
 
 ### CPU
 
-CPU is reported as the average usage, in [CPU cores](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu), over a period of time. This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The kubelet chooses the window  for the rate calculation.
+CPU is reported as the average usage, in [CPU cores](/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu), over a period of time. This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The kubelet chooses the window  for the rate calculation.
 
 ### Memory
 
@@ -60,5 +60,3 @@ Metrics Server is registered with the main API server through
 [Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
 
 Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
-
-{{% /capture %}}

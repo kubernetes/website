@@ -1,20 +1,20 @@
 ---
-content_template: templates/concept
+content_type: concept
 title: Contribua com o Kubernetes docs
 linktitle: Contribute
 main_menu: true
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Caso você gostaria de contribuir com a documentação ou o site do Kubernetes,
 ficamos felizes em ter sua ajuda! Qualquer pessoa pode contribuir, seja você novo no
 projeto ou se você já esta no mercado há muito tempo. Além disso, Se você se identifica como
 desenvolvedor, usuário final ou alguém que simplesmente não suporta ver erros de digitação.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Começando
 
@@ -49,13 +49,14 @@ Para se envolver com a documentação:
 - Para contribuir com a comunidade Kubernetes por meio de fóruns on-line, como Twitter ou Stack Overflow, ou aprender sobre encontros locais e eventos do Kubernetes, visite o a area de [comunidade Kubernetes](/community/).
 - Para contribuir com o desenvolvimento de novas funções, leia o [cheatsheet do colaborador](https://github.com/kubernetes/community/tree/master/contributors/guide/contributor-cheatsheet) para começar.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Para obter mais informações sobre os conceitos básicos de contribuição para a documentação, leia [Comece a contribuir](/docs/contribute/start/).
 - Siga o [Guia de estilo de documentação do Kubernetes](/docs/contribute/style/style-guide/) ao propor mudanças.
 - Para mais informações sobre o SIG Docs, leia [Participando do SIG Docs](/docs/contribute/participating/).
 - Para mais informações sobre a localização de documentos do Kubernetes, leia [Localização da documentação do Kubernetes](/docs/contribute/localization/).
 
-{{% /capture %}}
+

@@ -1,6 +1,6 @@
 ---
 title: 网络策略
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
@@ -11,14 +11,14 @@ reviewers:
 - caseydavenport
 - danwinship
 title: Network Policies
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
  -->
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 A network policy is a specification of how groups of {{< glossary_tooltip text="pods" term_id="pod">}} are allowed to communicate with each other and other network endpoints.
@@ -30,9 +30,9 @@ NetworkPolicy resources use {{< glossary_tooltip text="labels" term_id="label">}
 
 NetworkPolicy 资源使用 {{< glossary_tooltip text="标签" term_id="label">}} 选择 Pod，并定义选定 Pod 所允许的通信规则。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Prerequisites
@@ -372,9 +372,10 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 {{< /note >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
@@ -386,4 +387,4 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
   来进行更多的示例演练
 - 有关 NetworkPolicy 资源启用的常见场景的更多信息，请参见 [指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。
 
-{{% /capture %}}
+

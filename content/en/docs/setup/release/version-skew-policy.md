@@ -7,16 +7,16 @@ reviewers:
 - sig-node
 - sig-release
 title: Kubernetes version and version skew support policy
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document describes the maximum version skew supported between various Kubernetes components.
 Specific cluster deployment tools may place additional restrictions on version skew.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported versions
 
@@ -27,11 +27,11 @@ For more information, see [Kubernetes Release Versioning](https://github.com/kub
 The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
-Patch releases are cut from those branches at a regular cadence, or as needed.
-This decision is owned by the [patch release team](https://github.com/kubernetes/sig-release/blob/master/release-engineering/role-handbooks/patch-release-team.md#release-timing).
-The patch release team is part of [release managers](https://github.com/kubernetes/sig-release/blob/master/release-managers.md). For more information, see [Kubernetes Patch releases](https://github.com/kubernetes/sig-release/blob/master/releases/patch-releases.md).
+Patch releases are cut from those branches at a [regular cadence](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence), plus additional urgent releases, when required.
 
-Minor releases occur approximately every 3 months, so each minor release branch is maintained for approximately 9 months.
+The [Release Managers](https://git.k8s.io/sig-release/release-managers.md) group owns this decision.
+
+For more information, see the Kubernetes [patch releases](https://git.k8s.io/sig-release/releases/patch-releases.md) page.
 
 ## Supported version skew
 
@@ -146,3 +146,16 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
+
+### kube-proxy
+
+* `kube-proxy` must be the same minor version as `kubelet` on the node.
+* `kube-proxy` must not be newer than `kube-apiserver`.
+* `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
+
+Example:
+
+If `kube-proxy` version is **{{< skew latestVersion >}}**:
+
+* `kubelet` version must be at the same minor version as **{{< skew latestVersion >}}**.
+* `kube-apiserver` version must be between **{{< skew oldestMinorVersion >}}** and **{{< skew latestVersion >}}**, inclusive.

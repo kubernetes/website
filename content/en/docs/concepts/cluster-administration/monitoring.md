@@ -4,21 +4,21 @@ reviewers:
 - brancz
 - logicalhan
 - RainbowMango
-content_template: templates/concept
+content_type: concept
 weight: 60
 aliases:
 - controller-metrics.md
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 System component metrics can give a better look into what is happening inside them. Metrics are particularly useful for building dashboards and alerts.
 
 Metrics in Kubernetes control plane are emitted in [prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/) and are human readable.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Metrics in Kubernetes
 
@@ -40,14 +40,14 @@ Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing `/metrics`.
 For example:
 ```
-apiVersion: rbac.authorization.k8s.io/v1	
-kind: ClusterRole	
-metadata:	
-  name: prometheus	
-rules:	
-  - nonResourceURLs:	
-      - "/metrics"	
-    verbs:	
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+  - nonResourceURLs:
+      - "/metrics"
+    verbs:
       - get
 ```
 
@@ -124,10 +124,10 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
 * See the list of [stable Kubernetes metrics](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)
-* Read about the [Kubernetes deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
-{{% /capture %}}
+* Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)

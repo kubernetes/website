@@ -4,12 +4,12 @@ reviewers:
 - kevin-wangzefeng
 - bsalamat
 title: Assigning Pods to Nodes
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 You can constrain a {{< glossary_tooltip text="Pod" term_id="pod" >}} to only be able to run on particular 
 {{< glossary_tooltip text="Node(s)" term_id="node" >}}, or to prefer to run on particular nodes.
@@ -21,9 +21,9 @@ but there are some circumstances where you may want more control on a node where
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## nodeSelector
 
@@ -213,10 +213,8 @@ as at least one already-running pod that has a label with key "security" and val
 on node N if node N has a label with key `failure-domain.beta.kubernetes.io/zone` and some value V
 such that there is at least one node in the cluster with key `failure-domain.beta.kubernetes.io/zone` and
 value V that is running a pod that has a label with key "security" and value "S1".) The pod anti-affinity
-rule says that the pod prefers not to be scheduled onto a node if that node is already running a pod with label
-having key "security" and value "S2". (If the `topologyKey` were `failure-domain.beta.kubernetes.io/zone` then
-it would mean that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
-label having key "security" and value "S2".) See the
+rule says that the pod cannot be scheduled onto a node if that node is in the same zone as a pod with
+label having key "security" and value "S2". See the
 [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)
 for many more examples of pod affinity and anti-affinity, both the `requiredDuringSchedulingIgnoredDuringExecution`
 flavor and the `preferredDuringSchedulingIgnoredDuringExecution` flavor.
@@ -388,9 +386,10 @@ spec:
 
 The above pod will run on the node kube-01.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [Taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
 
@@ -402,4 +401,4 @@ Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-lo
 The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can take part in node-level
 resource allocation decisions. 
 
-{{% /capture %}}
+

@@ -1,10 +1,10 @@
 ---
 title: Controladores
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Em robótica e automação um _control loop_, ou em português _ciclo de controle_, é
 um ciclo não terminado que regula o estado de um sistema.
@@ -18,10 +18,10 @@ mais perto do estado desejado, ligando ou desligando o equipamento.
 
 {{< glossary_definition term_id="controller" length="short">}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Padrão Controlador (Controller pattern)
 
@@ -146,11 +146,12 @@ Pode correr o seu próprio controlador como um conjunto de *Pods*,
 ou externo ao Kubernetes. O que encaixa melhor vai depender no que esse
 controlador faz em particular.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Leia mais sobre o [plano de controle do Kubernetes](/docs/concepts/#kubernetes-control-plane)
 * Descubra alguns dos [objetos Kubernetes](/docs/concepts/#kubernetes-objects) básicos.
 * Aprenda mais sobre [API do Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se pretender escrever o seu próprio controlador, veja [Padrões de Extensão](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)
-{{% /capture %}}
+

@@ -1,18 +1,19 @@
 ---
 title: Access Services Running on Clusters
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to connect to services running on the Kubernetes cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Accessing services running on the cluster
 
@@ -132,6 +133,6 @@ You may be able to put an apiserver proxy URL into the address bar of a browser.
   - Some web apps may not work, particularly those with client side javascript that construct URLs in a
     way that is unaware of the proxy path prefix.
 
-{{% /capture %}}
+
 
 

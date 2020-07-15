@@ -1,11 +1,11 @@
 ---
 title: Taint 和 Toleration
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 Node affinity, described [here](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 is a property of *pods* that *attracts* them to a set of nodes (either as a
@@ -23,9 +23,9 @@ onto nodes with matching taints.
 -->
 Taint 和 toleration 相互配合，可以用来避免 pod 被分配到不合适的节点上。每个节点上都可以应用一个或多个 taint ，这表示对于那些不能容忍这些 taint 的 pod，是不会被该节点接受的。如果将 toleration 应用于 pod 上，则表示这些 pod 可以（但不要求）被调度到具有匹配 taint 的节点上。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 
@@ -154,9 +154,9 @@ effect `PreferNoSchedule` then Kubernetes will *try* to not schedule the pod ont
 the node (if it is already running on the node), and will not be
 scheduled onto the node (if it is not yet running on the node).
 -->
-* 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoSchedule` 的 taint，则 Kubernetes 不会将 pod 分配到该节点。
+* 如果未被过滤的 taint 中存在至少一个 effect 值为 `NoSchedule` 的 taint，则 Kubernetes 不会将 pod 分配到该节点。
 * 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会 *尝试* 将 pod 分配到该节点。
-* 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoExecute` 的 taint，则 Kubernetes 不会将 pod 分配到该节点（如果 pod 还未在节点上运行），或者将 pod 从该节点驱逐（如果 pod 已经在节点上运行）。
+* 如果未被过滤的 taint 中存在至少一个 effect 值为 `NoExecute` 的 taint，则 Kubernetes 不会将 pod 分配到该节点（如果 pod 还未在节点上运行），或者将 pod 从该节点驱逐（如果 pod 已经在节点上运行）。
 
 <!--
 For example, imagine you taint a node like this

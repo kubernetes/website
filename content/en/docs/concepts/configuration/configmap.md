@@ -1,23 +1,23 @@
 ---
 title: ConfigMaps
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="configmap" prepend="A ConfigMap is" length="all" >}}
 
 {{< caution >}}
-ConfigMap does not provide secrecy or encryption.  
+ConfigMap does not provide secrecy or encryption.
 If the data you want to store are confidential, use a
 {{< glossary_tooltip text="Secret" term_id="secret" >}} rather than a ConfigMap,
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Motivation
 
 Use a ConfigMap for setting configuration data separately from application code.
@@ -60,7 +60,7 @@ metadata:
   name: game-demo
 data:
   # property-like keys; each key maps to a simple value
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # file-like keys
@@ -85,9 +85,9 @@ These different methods lend themselves to different ways of modeling
 the data being consumed.
 For the first three methods, the
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} uses the data from
-the Secret when it launches container(s) for a Pod.
+the ConfigMap when it launches container(s) for a Pod.
 
-The fourth method means you have to write code to read the Secret and its data.
+The fourth method means you have to write code to read the ConfigMap and its data.
 However, because you're using the Kubernetes API directly, your application can
 subscribe to get updates whenever the ConfigMap changes, and react
 when that happens. By accessing the Kubernetes API directly, this
@@ -126,25 +126,32 @@ spec:
       configMap:
         # Provide the name of the ConfigMap you want to mount.
         name: game-demo
+        # An array of keys from the ConfigMap to create as files
+        items:
+        - key: "game.properties"
+          path: "game.properties"
+        - key: "user-interface.properties"
+          path: "user-interface.properties"
 ```
 
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
-What matters how Pods and other objects consume those values.
+What matters is how Pods and other objects consume those values.
+
 For this example, defining a volume and mounting it inside the `demo`
-container as `/config` creates four files:
+container as `/config` creates two files,
+`/config/game.properties` and `/config/user-interface.properties`,
+even though there are four keys in the ConfigMap. This is because the Pod
+definition specifies an `items` array in the `volumes` section.
+If you omit the `items` array entirely, every key  in the ConfigMap becomes
+a file with the same name as the key, and you get 4 files.
 
-- `/config/player_initial_lives`
-- `/config/ui_properties_file_name`
-- `/config/game.properties`
-- `/config/user-interface.properties`
+## Using ConfigMaps
 
-If you want to make sure that `/config` only contains files with a
-`.properties` extension, use two different ConfigMaps, and refer to both
-ConfigMaps in the `spec` for a Pod. The first ConfigMap defines
-`player_initial_lives` and `ui_properties_file_name`. The second
-ConfigMap defines the files that the kubelet places into `/config`.
+ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
+parts of the system, without being directly exposed to the Pod. For example,
+ConfigMaps can hold data that other parts of the system should use for configuration.
 
 {{< note >}}
 The most common way to use ConfigMaps is to configure settings for
@@ -157,18 +164,12 @@ or {{< glossary_tooltip text="operators" term_id="operator-pattern" >}} that
 adjust their behavior based on a ConfigMap.
 {{< /note >}}
 
-## Using ConfigMaps
-
-ConfigMaps can be mounted as data volumes. ConfigMaps can also be used by other
-parts of the system, without being directly exposed to the Pod. For example,
-ConfigMaps can hold data that other parts of the system should use for configuration.
-
 ### Using ConfigMaps as files from a Pod
 
 To consume a ConfigMap in a volume in a Pod:
 
 1. Create a config map or use an existing one. Multiple Pods can reference the same config map.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configmap.localObjectReference` field set to reference your ConfigMap object.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].configMap.name` field set to reference your ConfigMap object.
 1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the config map. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the config map to appear.
 1. Modify your image or command line so that the program looks for files in that directory. Each key in the config map `data` map becomes the filename under `mountPath`.
 
@@ -189,7 +190,7 @@ spec:
       readOnly: true
   volumes:
   - name: foo
-    configmap:
+    configMap:
       name: myconfigmap
 ```
 
@@ -243,12 +244,13 @@ Existing Pods maintain a mount point to the deleted ConfigMap - it is recommende
 these pods.
 {{< /note >}}
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 
-{{% /capture %}}
+

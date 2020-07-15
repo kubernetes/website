@@ -3,7 +3,7 @@ reviewers:
 - johnbelamaric
 title: 使用 CoreDNS 进行服务发现
 min-kubernetes-server-version: v1.9
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -12,24 +12,25 @@ reviewers:
 - johnbelamaric
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
 -->
 此页面介绍了 CoreDNS 升级过程以及如何安装 CoreDNS 而不是 kube-dns。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## About CoreDNS
@@ -174,9 +175,10 @@ When resource utilisation is a concern, it may be useful to tune the configurati
 -->
 当涉及到资源利用时，优化内核的配置可能是有用的。有关详细信息，请参阅 [关于扩展 CoreDNS 的文档](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 You can configure [CoreDNS](https://coredns.io) to support many more use cases than
@@ -185,6 +187,6 @@ kube-dns by modifying the `Corefile`. For more information, see the
 -->
 您可以通过修改 `Corefile` 来配置 [CoreDNS](https://coredns.io)，以支持比 ku-dns 更多的用例。有关更多信息，请参考 [CoreDNS 网站](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)。
 
-{{% /capture %}}
+
 
 
