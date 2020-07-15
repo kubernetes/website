@@ -226,7 +226,7 @@ client_address=10.240.0.3
 다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
 소스 IP 주소를 보존한다. 만약 로컬 엔드 포인트가 없다면,
 그 노드로 보내진 패킷은 버려지므로
-패킷 처리 규칙에서 정확한 소스 IP 임을 신뢰할 수 있으므로, 
+패킷 처리 규칙에서 정확한 소스 IP 임을 신뢰할 수 있으므로,
 패킷을 엔드포인트까지 전달할 수 있다.
 
 다음과 같이 `service.spec.externalTrafficPolicy` 필드를 설정하자.
@@ -249,7 +249,7 @@ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i cli
 client_address=104.132.1.79
 ```
 
-엔드포인트 파드가 실행 중인 노드에서 *올바른* 클라이언트 IP 주소인 
+엔드포인트 파드가 실행 중인 노드에서 *올바른* 클라이언트 IP 주소인
 딱 한 종류의 응답만 수신한다.
 
 어떻게 이렇게 되었는가:
@@ -319,7 +319,7 @@ client_address=10.240.0.5
 
 그러나 구글 클라우드 엔진/GCE 에서 실행 중이라면 동일한 `service.spec.externalTrafficPolicy` 필드를 `Local`로 설정하면
 서비스 엔드포인트가 *없는* 노드는 고의로 헬스 체크에 실패하여
-강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서 
+강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
 시각적으로:
@@ -448,5 +448,3 @@ kubectl delete deployment source-ip-app
 
 * [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
 * 어떻게 [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
-
-
