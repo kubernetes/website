@@ -97,12 +97,12 @@ Kubeconfig 인증 방법은 외부 아이덴티티 프로파이더 또는 x509 �
 
   예를 들면:
 
-```conf
-release=1.0
-tier=frontend
-environment=pod
-track=stable
-```
+  ```conf
+  release=1.0
+  tier=frontend
+  environment=pod
+  track=stable
+  ```
 
 - **네임스페이스**: 쿠버네티스는 동일한 물리 클러스터를 바탕으로 여러 가상의 클러스터를 제공한다. 이러한 가상 클러스터들을 [네임스페이스](/docs/tasks/administer-cluster/namespaces/)라고 부른다. 논리적으로 명명된 그룹으로 리소스들을 분할 할 수 있다.
 
