@@ -256,6 +256,14 @@ footer {
   }
 }
 
+main {
+  .td-content table code,
+  .td-content>table td {
+    word-break: break-word;
+  }
+}
+
+
 // blockquotes and callouts
 
 blockquote {
