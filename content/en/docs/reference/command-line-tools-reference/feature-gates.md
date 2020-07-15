@@ -103,8 +103,6 @@ different Kubernetes components.
 | `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
 | `ExpandPersistentVolumes` | `true` | Beta | 1.11 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
-| `EvenPodsSpread` | `true` | Beta | 1.18 | |
 | `GenericEphemeralVolume` | `false` | Alpha | 1.19 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HugePageStorageMediumSize` | `false` | Alpha | 1.18 | 1.18 |
@@ -227,6 +225,9 @@ different Kubernetes components.
 | `EnableEquivalenceClassCache` | - | Deprecated | 1.15 | - |
 | `ExperimentalCriticalPodAnnotation` | `false` | Alpha | 1.5 | 1.12 |
 | `ExperimentalCriticalPodAnnotation` | `false` | Deprecated | 1.13 | - |
+| `EvenPodsSpread` | `false` | Alpha | 1.16 | 1.17 |
+| `EvenPodsSpread` | `true` | Beta | 1.18 | 1.18 |
+| `EvenPodsSpread` | `true` | GA | 1.19 | - |
 | `GCERegionalPersistentDisk` | `true` | Beta | 1.10 | 1.12 |
 | `GCERegionalPersistentDisk` | `true` | GA | 1.13 | - |
 | `HugePages` | `false` | Alpha | 1.8 | 1.9 |
