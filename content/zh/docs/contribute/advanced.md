@@ -214,7 +214,7 @@ refer to
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 -->
 每一个 Kubernetes 版本都是由参与 sig-release 的 SIG（特别兴趣小组）的一个团队协调的。
-指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-pm、sig-testing 的代表等。
+指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-testing 的代表等。
 要了解更多关于 Kubernetes 版本发布的流程，请参考
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release)。
 
