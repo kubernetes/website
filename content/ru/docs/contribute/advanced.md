@@ -80,7 +80,7 @@ weight: 30
 
 [Утверждающие](/ru/docs/contribute/participating/#утверждающие) SIG Docs могут координировать документацию для выпуска Kubernetes.
 
-Каждый выпуск Kubernetes координируется командой людей, участвующих в специальной группе (Special Interest Group, SIG) sig-release. Другие члены команды в данном выпуске включают в себя общего руководителя выпуском, а также представителей sig-pm, sig-testing и др. Чтобы узнать больше о процессах выпуска версий Kubernetes, обратитесь к [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
+Каждый выпуск Kubernetes координируется командой людей, участвующих в специальной группе (Special Interest Group, SIG) sig-release. Другие члены команды в данном выпуске включают в себя общего руководителя выпуском, а также представителей sig-testing и др. Чтобы узнать больше о процессах выпуска версий Kubernetes, обратитесь к [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
 Представитель SIG Docs для данного выпуска координирует следующие задачи:
 
