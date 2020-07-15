@@ -64,7 +64,7 @@ Par exemple, une mise à jour du guide de style ou du fonctionnement du site Web
 [Les approbateurs](/docs/contribute/participating/#approvers) SIG Docs peuvent coordonner les tâches liées à la documentation pour une release de Kubernetes.
 
 Chaque release de Kubernetes est coordonnée par une équipe de personnes participant au sig-release Special Interest Group (SIG).
-Les autres membres de l'équipe de publication pour une release donnée incluent un responsable général de la publication, ainsi que des représentants de sig-pm, de sig-testing et d'autres.
+Les autres membres de l'équipe de publication pour une release donnée incluent un responsable général de la publication, ainsi que des représentants de sig-testing et d'autres.
 Pour en savoir plus sur les processus de release de Kubernetes, reportez-vous à la section [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
 Le représentant de SIG Docs pour une release donnée coordonne les tâches suivantes:
