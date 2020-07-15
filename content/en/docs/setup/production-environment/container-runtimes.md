@@ -413,7 +413,7 @@ Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -F
 cd $Env:ProgramFiles\containerd\
 .\containerd.exe config default | Out-File config.toml -Encoding ascii
 
-# review configuration.  depending on your set up, you may want to adjust:
+# review the configuration. depending on setup you may want to adjust:
 # - the sandbox_image (kubernetes pause image)
 # - cni bin_dir and conf_dir locations
 Get-Content config.toml
