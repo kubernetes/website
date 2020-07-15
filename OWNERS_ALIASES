@@ -62,7 +62,6 @@ aliases:
     - kbhawkey
     - makoscafee
     - onlydole
-    - rajakavitha1
     - rajeshdeshpande02
     - sftim
     - steveperry-53
@@ -110,12 +109,10 @@ aliases:
     - avidLearnerInProgress
     - daminisatya
     - mittalyashu
-    - Rajakavitha1
   sig-docs-hi-reviews: # PR reviews for Hindi content
     - avidLearnerInProgress
     - daminisatya
     - mittalyashu
-    - Rajakavitha1
   sig-docs-id-owners: # Admins for Indonesian content
     - girikuncoro
     - irvifa
