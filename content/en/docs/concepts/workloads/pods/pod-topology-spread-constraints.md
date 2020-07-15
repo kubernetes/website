@@ -61,7 +61,15 @@ spec:
 
 You can define one or multiple `topologySpreadConstraint` to instruct the kube-scheduler how to place each incoming Pod in relation to the existing Pods across your cluster. The fields are:
 
-- **maxSkew** describes the degree to which Pods may be unevenly distributed. It's the maximum permitted difference between the number of matching Pods in any two topology domains of a given topology type. It must be greater than zero.
+- **maxSkew** describes the degree to which Pods may be unevenly distributed.
+  It's the maximum permitted difference between the number of matching Pods in
+  any two topology domains of a given topology type. It must be greater than
+  zero. Its semantics differs according to the value of `whenUnsatisfiable`:
+  - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
+    permitted difference between the number of matching pods in the target
+    topology and the global minimum.
+  - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
+    precedence to topologies that would help reduce the skew.
 - **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
@@ -267,3 +275,8 @@ for more details.
 
 - Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
+
+## {{% heading "whatsnext" %}}
+
+- [Blog: Introducing PodTopologySpread](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
+  explains `maxSkew` in details, as well as bringing up some advanced usage examples.
