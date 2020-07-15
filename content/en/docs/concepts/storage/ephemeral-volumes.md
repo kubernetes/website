@@ -14,7 +14,7 @@ weight: 50
 
 This document describes _ephemeral volumes_ in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) is suggested, in
-particular `PersistentVolumeClaim` and `PersistentVolume`.
+particular PersistentVolumeClaim and PersistentVolume.
 
 <!-- body -->
 
