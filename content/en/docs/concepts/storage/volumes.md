@@ -1160,6 +1160,37 @@ spec:
 
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
+#### CSI migration
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The CSI Migration feature for vsphereVolume, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this feature, the [vSphere CSI
+Driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+
+This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+
+{{< note >}}
+The following StorageClass parameters from the built-in vsphereVolume plugin are not supported by the vSphere CSI driver:
+
+* `diskformat`
+* `hostfailurestotolerate`
+* `forceprovisioning`
+* `cachereservation`
+* `diskstripes`
+* `objectspacereservation`
+* `iopslimit`
+
+Existing volumes created using these parameters will be migrated to the vSphere CSI driver, but new volumes created by the vSphere CSI driver will not be honoring these parameters.
+{{< /note >}}
+
+#### CSI Migration Complete
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+To turn off the vsphereVolume plugin from being loaded by controller manager and kubelet, you need to set this feature flag to true. This requires `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver being installed on all worker nodes.
+
 
 ## Using subPath
 
