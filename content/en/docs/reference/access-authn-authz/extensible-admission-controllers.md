@@ -628,11 +628,18 @@ So a webhook response to add that label would be:
 {{% /tab %}}
 {{< /tabs >}}
 
-Starting in v1.19, admission webhooks can optionally return warning messages that are returned to the requesting client.
-Warnings can be sent with allowed or rejected admission responses.
-No "Warning:" prefix should be included in the message.
-Warning messages should describe a problem the client making the API request should correct or be aware of.
-Limit warnings to 120 characters if possible. Warnings over 256 characters and large numbers of warnings may be truncated.
+Starting in v1.19, admission webhooks can optionally return warning messages that are returned to the requesting client
+in HTTP `Warning` headers with a warning code of 299. Warnings can be sent with allowed or rejected admission responses.
+
+If you're implementing a webhook that returns a warning:
+* Don't include a "Warning:" prefix in the message
+* Use warning messages to describe problems the client making the API request should correct or be aware of
+* Limit warnings to 120 characters if possible
+
+{{< caution >}}
+Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
+If more than 4096 characters of warning messages are added (from all sources), additional warning messages are ignored.
+{{< /caution >}}
 
 {{< tabs name="AdmissionReview_response_warning" >}}
 {{% tab name="admission.k8s.io/v1" %}}

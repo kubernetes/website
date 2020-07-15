@@ -276,6 +276,8 @@ the version.
 
 ### Version deprecation
 
+{{< feature-state state="stable" for_k8s_version="v1.19" >}}
+
 Starting in v1.19, a CustomResourceDefinition can indicate a particular version of the resource it defines is deprecated.
 When API requests to a deprecated version of that resource are made, a warning message is returned in the API response as a header.
 The warning message for each deprecated version of the resource can be customized if desired.
