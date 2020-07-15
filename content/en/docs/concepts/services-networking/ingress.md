@@ -57,7 +57,7 @@ controllers operate slightly differently.
 Make sure you review your Ingress controller's documentation to understand the caveats of choosing it.
 {{< /note >}}
 
-## The Ingress Resource
+## The Ingress resource
 
 A minimal Ingress resource example:
 
@@ -90,7 +90,7 @@ Each HTTP rule contains the following information:
   incoming request before the load balancer directs traffic to the referenced
   Service.
 * A backend is a combination of Service and port names as described in the
-  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a CRD. HTTP (and HTTPS) requests to the
+  [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
   Ingress that matches the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
@@ -104,7 +104,7 @@ of the [Ingress controller](/docs/concepts/services-networking/ingress-controlle
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
 
-### Resource Backends {#resource-backend}
+### Resource backends {#resource-backend}
 
 A `Resource` backend is an ObjectRef to another Kubernetes resource within the
 same namespace of the Ingress object. A `Resource` is a mutually exclusive
@@ -116,7 +116,7 @@ with static assets.
 
 After creating the Ingress above, you can view it with the following command:
 
-```
+```bash
 kubectl describe ingress ingress-resource-backend
 ```
 
@@ -134,7 +134,7 @@ Annotations:  <none>
 Events:       <none>
 ```
 
-### Path Types
+### Path types
 
 Each path in an Ingress is required to have a corresponding path type. Paths
 that do not include an explicit `pathType` will fail validation. There are three
@@ -179,13 +179,13 @@ supported path types:
 | Prefix | `/aaa`                          | `/ccc`                        | No, uses default backend           |
 | Mixed  | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Yes, prefers Exact                 |
 
-#### Multiple Matches
+#### Multiple matches
 In some cases, multiple paths within an Ingress will match a request. In those
 cases precedence will be given first to the longest matching path. If two paths
 are still equally matched, precedence will be given to paths with an exact path
 type over prefix path type.
 
-## Hostname Wildcards
+## Hostname wildcards
 Hosts can be precise matches (for example “`foo.bar.com`”) or a wildcard (for
 example “`*.foo.com`”). Precise matches require that the HTTP `host` header
 matches the `host` field. Wildcard matches require the HTTP `host` header is
@@ -199,7 +199,7 @@ equal to the suffix of the wildcard rule.
 
 {{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
 
-## Ingress Class
+## Ingress class
 
 Ingresses can be implemented by different controllers, often with different
 configuration. Each Ingress should specify a class, a reference to an
@@ -211,7 +211,7 @@ of the controller that should implement the class.
 IngressClass resources contain an optional parameters field. This can be used to
 reference additional configuration for this class.
 
-### Deprecated Annotation
+### Deprecated annotation
 
 Before the IngressClass resource and `ingressClassName` field were added in
 Kubernetes 1.18, Ingress classes were specified with a
@@ -224,7 +224,7 @@ used to reference the name of the Ingress controller that should implement the
 Ingress, the field is a reference to an IngressClass resource that contains
 additional Ingress configuration, including the name of the Ingress controller.
 
-### Default Ingress Class
+### Default IngressClass {#default-ingress-class}
 
 You can mark a particular IngressClass as default for your cluster. Setting the
 `ingressclass.kubernetes.io/is-default-class` annotation to `true` on an
@@ -240,7 +240,7 @@ IngressClasess are marked as default in your cluster.
 
 ## Types of Ingress
 
-### Single Service Ingress
+### Ingress backed by a single Service {#single-service-ingress}
 
 There are existing Kubernetes concepts that allow you to expose a single Service
 (see [alternatives](#alternatives)). You can also do this with an Ingress by specifying a
@@ -251,7 +251,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 If you create it using `kubectl apply -f` you should be able to view the state
 of the Ingress you just added:
 
-```
+```bash
 kubectl get ingress test-ingress
 ```
 
@@ -312,7 +312,7 @@ When it has done so, you can see the address of the load balancer at the
 Address field.
 
 {{< note >}}
-Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers)
+Depending on the [Ingress controller](/docs/concepts/services-networking/ingress-controllers/)
 you are using, you may need to create a default-http-backend
 [Service](/docs/concepts/services-networking/service/).
 {{< /note >}}
@@ -336,7 +336,7 @@ If you create an Ingress resource without any hosts defined in the rules, then a
 web traffic to the IP address of your Ingress controller can be matched without a name based
 virtual host being required.
 
-For example, the following Ingress resource will route traffic
+For example, the following Ingress routes traffic
 requested for `first.bar.com` to `service1`, `second.foo.com` to `service2`, and any traffic
 to the IP address without a hostname defined in request (that is, without a request header being
 presented) to `service3`.
@@ -346,9 +346,10 @@ presented) to `service3`.
 ### TLS
 
 You can secure an Ingress by specifying a {{< glossary_tooltip term_id="secret" >}}
-that contains a TLS private key and certificate. Currently the Ingress only
-supports a single TLS port, 443, and assumes TLS termination. If the TLS
-configuration section in an Ingress specifies different hosts, they are
+that contains a TLS private key and certificate. The Ingress resource only
+supports a single TLS port, 443, and assumes TLS termination at the ingress point
+(traffic to the Service and its Pods is in plaintext).
+If the TLS configuration section in an Ingress specifies different hosts, they are
 multiplexed on the same port according to the hostname specified through the
 SNI TLS extension (provided the Ingress controller supports SNI). The TLS secret
 must contain keys named `tls.crt` and `tls.key` that contain the certificate
@@ -381,7 +382,7 @@ controllers. Please refer to documentation on
 platform specific Ingress controller to understand how TLS works in your environment.
 {{< /note >}}
 
-### Loadbalancing
+### Load balancing {#load-balancing}
 
 An Ingress controller is bootstrapped with some load balancing policy settings
 that it applies to all Ingress, such as the load balancing algorithm, backend
@@ -394,8 +395,8 @@ It's also worth noting that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
 [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
 that allow you to achieve the same end result. Please review the controller
-specific documentation to see how they handle health checks (
-[nginx](https://git.k8s.io/ingress-nginx/README.md),
+specific documentation to see how they handle health checks (for example:
+[nginx](https://git.k8s.io/ingress-nginx/README.md), or
 [GCE](https://git.k8s.io/ingress-gce/README.md#health-checks)).
 
 ## Updating an Ingress
@@ -491,15 +492,8 @@ You can achieve the same outcome by invoking `kubectl replace -f` on a modified 
 ## Failing across availability zones
 
 Techniques for spreading traffic across failure domains differs between cloud providers.
-Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details. You can also refer to the [federation documentation](https://github.com/kubernetes-sigs/federation-v2)
+Please check the documentation of the relevant [Ingress controller](/docs/concepts/services-networking/ingress-controllers) for details.
 for details on deploying Ingress in a federated cluster.
-
-## Future Work
-
-Track [SIG Network](https://github.com/kubernetes/community/tree/master/sig-network)
-for more details on the evolution of Ingress and related resources. You may also track the
-[Ingress repository](https://github.com/kubernetes/ingress/tree/master) for more details on the
-evolution of various Ingress controllers.
 
 ## Alternatives
 
@@ -513,6 +507,6 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 ## {{% heading "whatsnext" %}}
 
 * Learn about the [Ingress API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)
-* Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
-* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
+* Learn about [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/)
+* [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
 
