@@ -22,12 +22,10 @@ answer the following questions:
  - from where was it initiated?
  - to where was it going?
 
-
-
-
 <!-- body -->
 
-[Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
+[Kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+performs auditing. Each request on each stage
 of its execution generates an event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
@@ -55,7 +53,8 @@ Additionally, memory consumption depends on the audit logging configuration.
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
-[`audit.k8s.io` API group][auditing-api]. When an event is processed, it's
+[`audit.k8s.io` API group](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+When an event is processed, it's
 compared against the list of rules in order. The first matching rule sets the
 "audit level" of the event. The known audit levels are:
 
@@ -67,7 +66,7 @@ compared against the list of rules in order. The first matching rule sets the
 - `RequestResponse` - log event metadata, request and response bodies.
   This does not apply for non-resource requests.
 
-You can pass a file with the policy to [kube-apiserver][kube-apiserver]
+You can pass a file with the policy to `kube-apiserver`
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 Note that the `rules` field __must__ be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
@@ -86,12 +85,14 @@ rules:
 - level: Metadata
 ```
 
-The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the [configure-helper.sh][configure-helper] script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
+The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides three backends:
+`Kube-apiserver` out of the box provides three backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
@@ -99,7 +100,7 @@ Audit backends persist audit events to an external storage.
 
 In all cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1`][auditing-api].
+[`v1`](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
 
 {{< note >}}
 In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -125,7 +126,7 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
 ### Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
-log audit backend using the following [kube-apiserver][kube-apiserver] flags:
+log audit backend using the following `kube-apiserver` flags:
 
 - `--audit-log-path` specifies the log file path that log backend uses to write
   audit events. Not specifying this flag disables log backend. `-` means standard out
@@ -136,11 +137,12 @@ log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 ### Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
-same API as [kube-apiserver][kube-apiserver] exposes. You can configure webhook
+same API as `kube-apiserver` exposes. You can configure webhook
 audit backend using the following kube-apiserver flags:
 
 - `--audit-webhook-config-file` specifies the path to a file with a webhook
-  configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
+  configuration. Webhook configuration is effectively a
+  [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 - `--audit-webhook-initial-backoff` specifies the amount of time to wait after the first failed
   request before retrying. Subsequent requests are retried with exponential backoff.
 
@@ -327,23 +329,29 @@ Currently, this feature has performance implications for the apiserver in the fo
 
 ## Setup for multiple API servers
 
-If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
-set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
-same format as described above to the aggregated apiserver and set up the log ingesting pipeline
-to pick up audit logs. Different apiservers can have different audit configurations and different
-audit policies.
+If you're extending the Kubernetes API with the [aggregation
+layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/),
+y ou can also set up audit logging for the aggregated apiserver. To do this,
+pass the configuration options in the same format as described above to the
+aggregated apiserver and set up the log ingesting pipeline to pick up audit
+logs. Different apiservers can have different audit configurations and
+different audit policies.
 
 ## Log Collector Examples
 
 ### Use fluentd to collect and distribute audit events from log file
 
-[Fluentd][fluentd] is an open source data collector for unified logging layer.
+[Fluentd](http://www.fluentd.org/) is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
-{{< note >}}Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
+{{< note >}}
+The `fluent-plugin-forest` and `fluent-plugin-rewrite-tag-filter` are plugins for fluentd.
+You can get details about plugin installation from
+[fluentd plugin-management](https://docs.fluentd.org/v1.0/articles/plugin-management).
 {{< /note >}}
 
-1. Install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
+1. Install [`fluentd`](https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd),
+   `fluent-plugin-forest` and `fluent-plugin-rewrite-tag-filter` in the kube-apiserver node
 
 1. Create a config file for fluentd
 
@@ -416,11 +424,12 @@ In this example, we will use fluentd to split audit events by different namespac
 
 ### Use logstash to collect and distribute audit events from webhook backend
 
-[Logstash][logstash] is an open source, server-side data processing tool. In this example,
+[Logstash](https://www.elastic.co/products/logstash)
+is an open source, server-side data processing tool. In this example,
 we will use logstash to collect audit events from webhook backend, and save events of
 different users into different files.
 
-1. install [logstash][logstash_install_doc]
+1. install [logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html)
 
 1. create config file for logstash
 
@@ -490,19 +499,6 @@ different users into different files.
 Note that in addition to file output plugin, logstash has a variety of outputs that
 let users route data where they want. For example, users can emit audit events to elasticsearch
 plugin which supports full-text search and analytics.
-
-[kube-apiserver]: /docs/reference/command-line-tools-reference/kube-apiserver/
-[auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
-[configure-helper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-[kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
-[fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
-[fluentd_plugin_management_doc]: https://docs.fluentd.org/v1.0/articles/plugin-management
-[logstash]: https://www.elastic.co/products/logstash
-[logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
-[kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
-
 
 
 ## {{% heading "whatsnext" %}}

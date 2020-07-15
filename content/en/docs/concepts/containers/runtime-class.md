@@ -138,9 +138,7 @@ table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntim
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-See CRI-O's [config documentation][100] for more details.
-
-[100]: https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md
+See CRI-O's [config documentation](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md) for more details.
 
 ## Scheduling
 
@@ -149,7 +147,8 @@ See CRI-O's [config documentation][100] for more details.
 As of Kubernetes v1.16, RuntimeClass includes support for heterogenous clusters through its
 `scheduling` fields. Through the use of these fields, you can ensure that pods running with this
 RuntimeClass are scheduled to nodes that support it. To use the scheduling support, you must have
-the [RuntimeClass admission controller][] enabled (the default, as of 1.16).
+the [RuntimeClass admission controller](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)
+enabled (the default, as of 1.16).
 
 To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
 common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
@@ -164,8 +163,6 @@ by each.
 
 To learn more about configuring the node selector and tolerations, see [Assigning Pods to
 Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
-
-[RuntimeClass admission controller]: /docs/reference/access-authn-authz/admission-controllers/#runtimeclass
 
 ### Pod Overhead
 
