@@ -47,8 +47,8 @@ docs for a Kubernetes release.
 
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release Special Interest Group (SIG). Others on the release team for a given
-release include an overall release lead, as well as representatives from sig-pm,
-sig-testing, and others. To find out more about Kubernetes release processes,
+release include an overall release lead, as well as representatives from
+sig-testing and others. To find out more about Kubernetes release processes,
 refer to
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 
