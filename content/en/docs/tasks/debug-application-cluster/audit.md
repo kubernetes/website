@@ -91,7 +91,7 @@ The audit profile used by GCE should be used as reference by admins constructing
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides three backends:
+[Kube-apiserver][kube-apiserver] out of the box provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
