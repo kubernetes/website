@@ -209,7 +209,7 @@ parameters:
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
 - matchLabelExpressions:
-  - key: failure-domain.beta.kubernetes.io/zone
+  - key: topology.kubernetes.io/zone
     values:
     - us-central1-a
     - us-central1-b
