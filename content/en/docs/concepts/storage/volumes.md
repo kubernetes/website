@@ -173,14 +173,14 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{<
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
 Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-Alpha features must be enabled.
+features must be enabled.
 
 ### azureFile {#azurefile}
 
