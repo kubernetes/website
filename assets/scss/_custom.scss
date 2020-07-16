@@ -110,7 +110,7 @@ section {
   }
 
   @media only screen and (min-width: 1075px) {
-    margin-top: 1.5rem !important;
+    margin-top: 1rem !important;
   }
 }
 
@@ -255,6 +255,14 @@ footer {
     padding-top: 1rem;
   }
 }
+
+main {
+  .td-content table code,
+  .td-content>table td {
+    word-break: break-word;
+  }
+}
+
 
 // blockquotes and callouts
 

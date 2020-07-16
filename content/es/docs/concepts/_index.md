@@ -17,11 +17,11 @@ La sección de conceptos te ayudará a conocer los componentes de Kubernetes as�
 
 En Kubernetes se utilizan los *objetos de la API de Kubernetes* para describir el *estado deseado* del clúster: qué aplicaciones u otras cargas de trabajo se quieren ejecutar, qué imagenes de contenedores usan, el número de replicas, qué red y qué recursos de almacenamiento quieres que tengan disponibles, etc. Se especifica el estado deseado del clúster mediante la creación de objetos usando la API de Kubernetes, típicamente mediante la interfaz de línea de comandos, `kubectl`. También se puede usar la API de Kubernetes directamente para interactuar con el clúster y especificar o modificar tu estado deseado.
 
-Una vez que se especifica el estado deseado, el *Plano de Control de Kubernetes* realizará las acciones necesarias para que el estado actual del clúster coincida con el estado deseado. Para ello, Kubernetes realiza diferentes tareas de forma automática, como pueden ser: parar o arrancar contenedores, escalar el número de réplicas de una aplicación dada, etc. El Plano de Control de Kubernetes consiste en un grupo de procesos que corren en tu clúster:
+Una vez que se especifica el estado deseado, el *Plano de Control de Kubernetes* realizará las acciones necesarias para que el estado actual del clúster coincida con el estado deseado. Para ello, Kubernetes realiza diferentes tareas de forma automática, como pueden ser: parar o arrancar contenedores, escalar el número de réplicas de una aplicación dada, etc. El Plano de Control de Kubernetes consiste en un grupo de daemons que corren en tu clúster:
 
-* El **Master de Kubernetes** es un conjunto de tres procesos que se ejecutan en un único nodo del clúster, que se denomina nodo master. Estos procesos son: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) y [kube-scheduler](/docs/admin/kube-scheduler/).
+* El **Master de Kubernetes** es un conjunto de tres daemons que se ejecutan en un único nodo del clúster, que se denomina nodo master. Estos daemons son: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) y [kube-scheduler](/docs/admin/kube-scheduler/).
 
-* Los restantes nodos no master contenidos en tu clúster, ejecutan los siguientes dos procesos:
+* Los restantes nodos no master contenidos en tu clúster, ejecutan los siguientes dos daemons:
   * **[kubelet](/docs/admin/kubelet/)**, el cual se comunica con el Master de Kubernetes.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, un proxy de red que implementa los servicios de red de Kubernetes en cada nodo.
 
@@ -55,7 +55,7 @@ Por ejemplo, cuando usas la API de Kubernetes para crear un Deployment, estás p
 
 El Master de Kubernetes es el responsable de mantener el estado deseado de tu clúster. Cuando interactuas con Kubernetes, como por ejemplo cuando utilizas la interfaz de línea de comandos `kubectl`, te estás comunicando con el master de tu clúster de Kubernetes.
 
-> Por "master" entendemos la colección de procesos que gestionan el estado del clúster. Típicamente, estos procesos se ejecutan todos en un único nodo del clúster, y este nodo recibe por tanto la denominación de master. El master puede estar replicado por motivos de disponibilidad y redundancia.
+> Por "master" entendemos la colección de daemons que gestionan el estado del clúster. Típicamente, estos daemons se ejecutan todos en un único nodo del clúster, y este nodo recibe por tanto la denominación de master. El master puede estar replicado por motivos de disponibilidad y redundancia.
 
 ### Kubernetes Nodes
 
