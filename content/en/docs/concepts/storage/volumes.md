@@ -449,7 +449,7 @@ spec:
     required:
       nodeSelectorTerms:
       - matchExpressions:
-        - key: failure-domain.beta.kubernetes.io/zone
+        - key: topology.kubernetes.io/zone
           operator: In
           values:
           - us-central1-a
