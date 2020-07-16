@@ -64,7 +64,7 @@ container-image:
 		--build-arg HUGO_VERSION=$(HUGO_VERSION)
 
 container-build: module-check
-	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo
+	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --minify
 
 container-serve: module-check
 	$(CONTAINER_RUN) --mount type=tmpfs,destination=/src/resources,tmpfs-mode=0755 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0
