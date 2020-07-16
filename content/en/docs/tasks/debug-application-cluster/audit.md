@@ -92,7 +92,7 @@ script, which generates the audit policy file. You can see most of the audit pol
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-`Kube-apiserver` out of the box provides three backends:
+[Kube-apiserver][kube-apiserver] out of the box provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
