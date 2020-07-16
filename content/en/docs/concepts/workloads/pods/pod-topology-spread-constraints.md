@@ -6,8 +6,6 @@ weight: 50
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
-
 You can use _topology spread constraints_ to control how {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster among failure-domains such as regions, zones, nodes, and other user-defined topology domains. This can help to achieve high availability as well as efficient resource utilization.
 
 
@@ -15,13 +13,6 @@ You can use _topology spread constraints_ to control how {{< glossary_tooltip te
 <!-- body -->
 
 ## Prerequisites
-
-### Enable Feature Gate
-
-The `EvenPodsSpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-must be enabled for the
-{{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}} **and**
-{{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}.
 
 ### Node Labels
 
@@ -53,7 +44,7 @@ Instead of manually applying labels, you can also reuse the [well-known labels](
 
 ### API
 
-The field `pod.spec.topologySpreadConstraints` is introduced in 1.16 as below:
+The API field `pod.spec.topologySpreadConstraints` is defined as below:
 
 ```
 apiVersion: v1
@@ -70,7 +61,15 @@ spec:
 
 You can define one or multiple `topologySpreadConstraint` to instruct the kube-scheduler how to place each incoming Pod in relation to the existing Pods across your cluster. The fields are:
 
-- **maxSkew** describes the degree to which Pods may be unevenly distributed. It's the maximum permitted difference between the number of matching Pods in any two topology domains of a given topology type. It must be greater than zero.
+- **maxSkew** describes the degree to which Pods may be unevenly distributed.
+  It's the maximum permitted difference between the number of matching Pods in
+  any two topology domains of a given topology type. It must be greater than
+  zero. Its semantics differs according to the value of `whenUnsatisfiable`:
+  - when `whenUnsatisfiable` equals to "DoNotSchedule", `maxSkew` is the maximum
+    permitted difference between the number of matching pods in the target
+    topology and the global minimum.
+  - when `whenUnsatisfiable` equals to "ScheduleAnyway", scheduler gives higher
+    precedence to topologies that would help reduce the skew.
 - **topologyKey** is the key of node labels. If two Nodes are labelled with this key and have identical values for that label, the scheduler treats both Nodes as being in the same topology. The scheduler tries to place a balanced number of Pods into each topology domain.
 - **whenUnsatisfiable** indicates how to deal with a Pod if it doesn't satisfy the spread constraint:
   - `DoNotSchedule` (default) tells the scheduler not to schedule it.
@@ -265,13 +264,19 @@ scheduled - more packed or more scattered.
 - For `PodAntiAffinity`, only one Pod can be scheduled into a
   single topology domain.
 
-The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
-topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
+For finer control, you can specify topology spread constraints to distribute
+Pods across different topology domains - to achieve either high availability or
+cost-saving. This can also help on rolling update workloads and scaling out
+replicas smoothly. See
+[Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation)
+for more details.
 
 ## Known Limitations
 
 - Scaling down a Deployment may result in imbalanced Pods distribution.
 - Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
 
+## {{% heading "whatsnext" %}}
 
+- [Blog: Introducing PodTopologySpread](https://kubernetes.io/blog/2020/05/introducing-podtopologyspread/)
+  explains `maxSkew` in details, as well as bringing up some advanced usage examples.
