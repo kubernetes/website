@@ -1,0 +1,212 @@
+# i18n strings for the ّFarsi (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "توجه:"
+
+[cleanup_heading]
+other = "پاکسازی"
+
+[community_events_calendar]
+other = "تقویم رویداد‌ها"
+
+[community_forum_name]
+other = "فروم"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "نسخۀ مستنداتی که درحال مشاهده آن هستید: "
+
+[deprecation_warning]
+other = "مستنداتی که درحال مشاهده آن هستید در حال حاضر دیگر به صورت فعالانه مورد نگهداری نیست و شما فقط تصویری از آن را مشاهده می‌کنید برای دیریافت مستندات بروز مراجعه کنید به"
+
+[deprecation_file_warning]
+other = "منسوخ شده"
+
+[docs_label_browse]
+other = "مشاهده مستندات"
+
+[docs_label_contributors]
+other = "مشارکت"
+
+[docs_label_i_am]
+other = "من هستم ..."
+
+[docs_label_users]
+other = "کاربران"
+
+[examples_heading]
+other = "مثال‌ها"
+
+[feedback_heading]
+other = "بازخورد"
+
+[feedback_no]
+other = "نه"
+
+[feedback_question]
+other = "آیا این صفحه مفید بود؟"
+
+[feedback_yes]
+other = "بله"
+
+[input_placeholder_email_address]
+other = "پست الکترونیکی"
+
+[latest_version]
+other = "آخرین نسخه."
+
+[layouts_blog_pager_prev]
+other = "<< قبلی"
+
+[layouts_blog_pager_next]
+other = "بعدی >>"
+
+[layouts_case_studies_list_tell]
+other = "داستان خود را تعریف کنید"
+
+[layouts_docs_glossary_aka]
+other = "همچنین شناخته می‌شود به عنوان"
+
+[layouts_docs_glossary_description]
+other = "این واژه‌نامه قرار است یک لیست جامع و استاندارد از اصطلاحات کوبرنتیز باشد که شامل واژه‌های فنی برای کوبرنتیز و واژه‌هایی عمومی‌تر که در این بافتار مفید است ‌می‌باشد."
+
+[layouts_docs_glossary_deselect_all]
+other = "همه را از حالت انتخاب دربیار"
+
+[layouts_docs_glossary_click_details_after]
+other = "شاخص‌خای زیر برای دریافت توضیحات طولانی‌تر در خصوص واژه‌های خاص هستند."
+
+[layouts_docs_glossary_click_details_before]
+other = "کلیک بر روی"
+
+[layouts_docs_glossary_filter]
+other = "عبارت‌ها را بر اساس بر‌چسب‌های آنها فیلتر کنید"
+
+[layouts_docs_glossary_select_all]
+other = "انتخاب همه"
+
+[layouts_docs_partials_feedback_improvement]
+other = "پیشنهاد بهبود"
+
+[layouts_docs_partials_feedback_issue]
+other = "باز کردن یک issue جدید در GitHub اگر میخواهید."
+
+[layouts_docs_partials_feedback_or]
+other = "یا"
+
+[layouts_docs_partials_feedback_problem]
+other = "گزارش یک خطا"
+
+[layouts_docs_partials_feedback_thanks]
+other = "از بازخورد شما سپاسگزاریم. اگر سوال خاص و قابل پاسخگویی در مود نحوه استفاده از کوبرنتیز دارید، آن را بپرسید."
+
+[layouts_docs_search_fetching]
+other = "بازیابی نتایج..."
+
+[main_by]
+other = "به وسیله"
+
+[main_cncf_project]
+other = """ما یک پروژه زیر مجموعه <a href="https://cncf.io/">CNCF</a> هستیم.</p>"""
+
+[main_community_explore]
+other = "کاوش در اجتماع"
+
+[main_contribute]
+other = "مشارکت"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "ویرایش این صفحه"
+
+[main_github_create_an_issue]
+other = "ساخت یک Issue"
+
+[main_github_invite]
+other = "آیا مشتاق هستید که کدهای هستۀ کوبرنتیز را هک کنید؟"
+
+[main_github_view_on]
+other = "مشاهده در GitHub"
+
+[main_kubernetes_features]
+other = "ویژگی‌های کوبرنتیز"
+
+[main_kubeweekly_baseline]
+other = "مشتاق به دریافت آخرین اخبار از کوبرنتیز هستید؟ پس در KubeWeekly ثبت نام کنید."
+
+[main_kubernetes_past_link]
+other = "مشاهده آخرین خبرنامه‌ها"
+
+[main_kubeweekly_signup]
+other = "عضویت"
+
+[main_page_history]
+other ="تاریخچه صفحه"
+
+[main_page_last_modified_on]
+other = "آخرین تغییر صفحه"
+
+[main_read_about]
+other = "مطالعه در خصوص"
+
+[main_read_more]
+other = "مطالعه بیشتر"
+
+[note]
+other = "توجه:"
+
+[objectives_heading]
+other = "اهداف"
+
+[options_heading]
+other = "گزینه‌ها"
+
+[prerequisites_heading]
+other = "قبل از شروع به کار"
+
+[seealso_heading]
+other = "همچنین ببینید"
+
+[subscribe_button]
+other = "عضویت"
+
+[ui_search_placeholder]
+other = "جستجو"
+
+[version_check_mustbe]
+other = "نسخه سرور کوبرنتیز شما است "
+
+[version_check_mustbeorlater]
+other = "نسخه سرور کوبرنتیز شما باید حداقل باشد "
+
+[version_check_tocheck]
+other = "برای مشاهده نسخه وارد شوید "
+
+[version_menu]
+other = "نسخه‌ها"
+
+[warning]
+other = "توجه:"
+
+[whatsnext_heading]
+other = "قدم بعدی چیست؟"

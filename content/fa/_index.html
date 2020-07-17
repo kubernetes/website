@@ -1,0 +1,60 @@
+---
+title: "ارکستراسیون کانتینرها برای محیطهای عملیاتی"
+abstract: "استقرار، مقیاس‌پذیری و مدیریت خودکار کانتینرها"
+cid: خانه
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [کوبرنتیز (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) یک سیستم منبع باز است که امکان استقرار، مقیاس‌پذیری و مدیریت اپلیکیشن‌های مبتنی بر کانتینرها را ایجاد می‌کند.
+
+این سیستم کانتینرهای یک اپلیکیشن را در واحدهای منطقی گروه‌بندی می‌کند تا در ادامه بتوان آنها را به راحتی جستجو و مدیریت نمود. کوبرنتیز بر اساس [15 سال تجربه با بارکار عمیلاتی شرکت گوگل](http://queue.acm.org/detail.cfm?id=2898444), ساخته شده است و در این راه از بهترین ایده‌ها و به‌روش‌های جامعه نیز بهره گرفته شده است.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### هر چقدر بزرگ باشد
+
+این سیستم با همان اصولی طراحی شده است که گوگل را قادر می‌کند تا میلیاردها کانتینر را در هفته اجرا کند، کوبرنتیز بدون اینکه تیم عملیاتی خود را بزرگتر کنید مقیاس بزرگتری می‌توان بپذیرد.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### هر چقدر پیچیده باشد
+
+فرقی ندارد از کوبرنتیز برای تست در سیستم خود استفاده می‌کنید یا از آن برای یک شرکت بزرگ در حال استفاده هستید، انعطاف‌پذیری بالای آن با شما رشد می‌کند تا بتوانید اپلیکیشن خود را به صورت پیوسته و راحت صرفنظر از پیچیدگی‌ها ارانه کنید.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### هر مکانی باشد
+
+کوبرنتیز منبع باز است و این اجازه را به شما می‌دهد که از زیرساخت‌های ابری داخلی سازمان، ترکیبی و یا عمومی استفاده کنید، همچنین این امکان برای شما فراهم شده است که بدون هیچ زحمتی بارکاری را به جایی که برای شما مهم است انتقال دهد.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>چالش انتقال بیشتر از 150 میکروسرویس به کوبرنتیز</h2>
+        <p>ارائه شده توسط سارا ولز، مدیر فنی تیم عملیات فایننشیال تایمز</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">مشاهده ویدیو</button>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccnceu20" button id="desktopKCButton">به صورت مجازی در کنفرانس کیوب کان که در  27 تا 30 مرداد 1399 برگزار می‌شود شرکت کنید</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=nav&utm_campaign=kccncna20" button id="desktopKCButton">در کنفرانس کیوب کان که در 27 تا 30 آبان 1399 در بوستون برگزار می‌شود شرکت کنید</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

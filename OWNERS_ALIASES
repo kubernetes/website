@@ -58,6 +58,14 @@ aliases:
     - alexbrand
     # glo-pena
     - electrocucaracha
+  sig-docs-fa-owners: # Admins for Persian content
+    - FaezeAzimi
+    - kasramp
+    - sattarfeizollahibarough
+  sig-docs-fa-reviews: # PR reviews for Persian content
+    - FaezeAzimi
+    - kasramp
+    - sattarfeizollahibarough
   sig-docs-fr-owners: # Admins for French content
     - remyleone
     - perriea
