@@ -4,6 +4,11 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
+# Bump this by 1 whenever you change the Dockerfile below, e.g. if
+# `DOCKERFFILE_VERSION=1` then change this to `DOCKERFILE_VERSION=2` when you
+# change something else in this file.
+# DOCKERFILE_VERSION=0
+
 FROM alpine:latest
 
 LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
