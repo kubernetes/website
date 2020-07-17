@@ -24,7 +24,7 @@ Kubernetesを機能させるには、*Kubernetes API オブジェクト* を使�
   * **[kubelet](/docs/admin/kubelet/)**: Kubernetes Masterと通信します。
   * **[kube-proxy](/docs/admin/kube-proxy/)**: 各ノードのKubernetesネットワークサービスを反映するネットワークプロキシです。
 
-## Kubernetesオブジェクト
+## Kubernetesオブジェクト {#kubernetes-objects}
 
 Kubernetesには、デプロイ済みのコンテナ化されたアプリケーションやワークロード、関連するネットワークとディスクリソース、クラスターが何をしているかに関するその他の情報といった、システムの状態を表現する抽象が含まれています。これらの抽象は、Kubernetes APIのオブジェクトによって表現されます。詳細については、[Kubernetesオブジェクトについて知る](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)をご覧ください。
 
@@ -43,7 +43,7 @@ Kubernetesには、[コントローラー](/docs/concepts/architecture/controlle
 * [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
 * [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
-## Kubernetesコントロールプレーン
+## Kubernetesコントロールプレーン {#kubernetes-control-plane}
 
 Kubernetesマスターや kubeletプロセスといったKubernetesコントロールプレーンのさまざまなパーツは、Kubernetesがクラスターとどのように通信するかを統制します。コントロールプレーンはシステム内のすべてのKubernetesオブジェクトの記録を保持し、それらのオブジェクトの状態を管理するために継続的制御ループを実行します。コントロールプレーンの制御ループは常にクラスターの変更に反応し、システム内のすべてのオブジェクトの実際の状態が、指定した状態に一致するように動作します。
 
