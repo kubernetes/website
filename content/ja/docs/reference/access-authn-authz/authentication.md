@@ -404,7 +404,7 @@ POSTボディは、以下の形式になります。
 }
 ```
 
-HTTP ステータスコードは、追加のエラーコンテキストを提供するために使うことができます。
+HTTPステータスコードは、追加のエラーコンテキストを提供するために使うことができます。
 
 
 ### 認証プロキシー {#authenticating-proxy}
@@ -489,7 +489,7 @@ extra:
 
 * `Impersonate-User`: ユーザー名を指定します。このユーザーとして振る舞います。
 * `Impersonate-Group`: グループ名を指定します。このグループとして振る舞います。複数回指定して複数のグループを設定することができます。任意であり、"Impersonate-User"が必要です。
-* `Impersonate-Extra-( extra name )`:  追加フィールドをユーザーに関連付けるために使用される動的なヘッダーです。任意であり、"Impersonate-User"が必要です。一貫して保存されるためには、`( extra name )`は小文字である必要があり、[HTTPヘッダーラベルで使用可能な文字](https://tools.ietf.org/html/rfc7230#section-3.2.6)以外の文字は、UTF-8であり、[パーセントエンコーディング](https://tools.ietf.org/html/rfc3986#section-2.1)されている必要があります.
+* `Impersonate-Extra-( extra name )`: 追加フィールドをユーザーに関連付けるために使用される動的なヘッダーです。任意であり、"Impersonate-User"が必要です。一貫して保存されるためには、`( extra name )`は小文字である必要があり、[HTTPヘッダーラベルで使用可能な文字](https://tools.ietf.org/html/rfc7230#section-3.2.6)以外の文字は、UTF-8であり、[パーセントエンコーディング](https://tools.ietf.org/html/rfc3986#section-2.1)されている必要があります.
 
 {{< note >}}
 1.11.3(および1.10.7、1.9.11)よりも前のバージョンでは、`( extra name )`には[HTTPヘッダーラベルで使用可能な文字](https://tools.ietf.org/html/rfc7230#section-3.2.6)のみを含めることができました。
