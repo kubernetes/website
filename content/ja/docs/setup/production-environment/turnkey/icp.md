@@ -37,7 +37,7 @@ IBM Cloud Private can also run on the AWS cloud platform by using Terraform. To 
 
 You can enable Microsoft Azure as a cloud provider for IBM Cloud Private deployment and take advantage of all the IBM Cloud Private features on the Azure public cloud. For more information, see [IBM Cloud Private on Azure](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.2.0/supported_environments/azure_overview.html).
 
-## Red Hat OpenShift上でのIBM Cloud Private
+## Red Hat OpenShiftを用いたIBM Cloud Private
 
 You can deploy IBM certified software containers that are running on IBM Cloud Private onto Red Hat OpenShift.
 
