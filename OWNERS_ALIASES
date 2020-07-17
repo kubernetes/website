@@ -214,3 +214,9 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+    sig-docs-fa-owners: # Admins for Persian content
+    - sattarfeizollahibarough
+    - FaezeAzimi 
+   sig-docs-uk-reviews: # PR reviews for Persian content
+    - sattarfeizollahibarough
+    - FaezeAzimi
