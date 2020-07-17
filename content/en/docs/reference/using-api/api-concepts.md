@@ -714,31 +714,74 @@ Clients find resource versions in resources, including the resources in watch ev
 
 The get, list and watch operations support the `resourceVersion` parameter.
 
-The exact meaning of this parameter differs depending on the operation and the value of the resource version.
+The exact meaning of this parameter differs depending on the operation and the value of `resourceVersion`.
 
 For get and list, the semantics of resource version are:
 
 **Get:**
 
-| resourceVersion unset | resourceVersion is `0` | resourceVersion is set but not `0` |
-|-----------------------|------------------------|------------------------------------|
-| Most Recent           | Any                    | Not older than                     |
+| resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-----------------------|---------------------|----------------------------------------|
+| Most Recent           | Any                 | Not older than                         |
 
 **List:**
 
-| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
-|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
-| limit unset                   | Most Recent           | Any                                            | Not older than                         |
-| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
+v1.19+ API servers and newer support the `resourceVersionMatch` parameter, which
+determines how resourceVersion is applied to list calls.  It is highly
+recommended that `resourceVersionMatch` be set for list calls where
+`resourceVersion` is set. If `resourceVersion` is unset, `resourceVersionMatch`
+is not allowed.  For backward compatibility, clients must tolerate the server
+ignoring `resourceVersionMatch`:
+- When using `resourceVersionMatch=NotOlderThan` and limit is set, clients must
+  handle HTTP 410 "Gone" responses. For example, the client might retry with a
+  newer `resourceVersion` or fall back to `resourceVersion=""`.
+- When using `resourceVersionMatch=Exact` and `limit` is unset, clients must
+  verify that the `resourceVersion` in the `ListMeta` of the response matches
+  the requested `resourceVersion`, and handle the case where it does not. For
+  example, the client might fall back to a request with `limit` set.
+
+Unless you have strong consistency requirements, using `resourceVersionMatch=NotOlderThan` and
+a known `resourceVersion` is preferable since it can achieve better performance and scalability
+of your cluster than leaving `resourceVersion` and `resourceVersionMatch` unset, which requires
+quorum read to be served.
+
+| resourceVersionMatch param            | paging params                 | resourceVersion unset | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
+|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
+| resourceVersionMatch unset            | limit unset                   | Most Recent           | Any                                       | Not older than                         |
+| resourceVersionMatch unset            | limit="n", continue unset     | Most Recent           | Any                                       | Exact                                  |
+| resourceVersionMatch unset            | limit="n", continue="<token>" | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
+| resourceVersionMatch=Exact[^1]        | limit unset                   | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=Exact[^1]        | limit="n", continue unset     | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=NotOlderThan[^1] | limit unset                   | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch=NotOlderThan[^1] | limit="n", continue unset     | Invalid               | Any                                       | Not older than                         |
+
+[^1]: If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
 
 The meaning of the get and list semantics are:
 
-- **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
-- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
-- **Not older than:** Return data at least as new as the provided resource version. The newest available data is preferred, but any data not older than this resource version may be served. Note that this ensures only that the objects returned are no older than they were at the time of the provided resource version. The resource version in the `ObjectMeta` of individual object may be older than the provide resource version so long it is for the latest modification to the object at the time of the provided resource version.
-- **Exact:** Return data at the exact resource version provided.
-- **Continue Token, Exact:** Return data at the resource version of the initial paginated list call. The returned Continue Tokens are responsible for keeping track of the initially provided resource version for all paginated list calls after the initial paginated list call.
+- **Most Recent:** Return data at the most recent resource version. The returned data must be
+  consistent (i.e. served from etcd via a quorum read).
+- **Any:** Return data at any resource version. The newest available resource version is preferred,
+  but strong consistency is not required; data at any resource version may be served. It is possible
+  for the request to return data at a much older resource version that the client has previously
+  observed, particularly in high availabiliy configurations, due to partitions or stale
+  caches. Clients that cannot tolerate this should not use this semantic.
+- **Not older than:** Return data at least as new as the provided resourceVersion. The newest
+  available data is preferred, but any data not older than the provided resourceVersion may be
+  served.  For list requests to servers that honor the resourceVersionMatch parameter, this
+  guarantees that resourceVersion in the ListMeta is not older than the requested resourceVersion,
+  but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
+  since ObjectMeta.resourceVersion tracks when an object was last updated, not how up-to-date the
+  object is when served.
+- **Exact:** Return data at the exact resource version provided. If the provided resourceVersion is
+  unavailable, the server responds with HTTP 410 "Gone".  For list requests to servers that honor the
+  resourceVersionMatch parameter, this guarantees that resourceVersion in the ListMeta is the same as
+  the requested resourceVersion, but does not make any guarantee about the resourceVersion in the
+  ObjectMeta of the list items since ObjectMeta.resourceVersion tracks when an object was last
+  updated, not how up-to-date the object is when served.
+- **Continue Token, Exact:** Return data at the resource version of the initial paginated list
+  call. The returned Continue Tokens are responsible for keeping track of the initially provided
+  resource version for all paginated list calls after the initial paginated list call.
 
 For watch, the semantics of resource version are:
 
@@ -750,8 +793,8 @@ For watch, the semantics of resource version are:
 
 The meaning of the watch semantics are:
 
-- **Get State and Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). To establish initial state, the watch begins with synthetic “Added” events of all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
-- **Get State and Start at Any:** Warning: Watches initialize this way may return arbitrarily stale data! Please review this semantic before using it, and favor the other semantics where possible. Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic “Added” events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
+- **Get State and Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). To establish initial state, the watch begins with synthetic "Added" events of all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
+- **Get State and Start at Any:** Warning: Watches initialize this way may return arbitrarily stale data! Please review this semantic before using it, and favor the other semantics where possible. Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic "Added" events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
 - **Start at Exact:** Start a watch at an exact resource version. The watch events are for all changes after the provided resource version. Unlike "Get State and Start at Most Recent" and "Get State and Start at Any", the watch is not started with synthetic "Added" events for the provided resource version. The client is assumed to already have the initial state at the starting resource version since the client provided the resource version.
 
 ### "410 Gone" responses
