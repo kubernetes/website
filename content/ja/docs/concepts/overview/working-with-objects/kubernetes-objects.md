@@ -2,7 +2,7 @@
 title: Kubernetesオブジェクトを理解する
 content_type: concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 40
 ---
