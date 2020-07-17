@@ -552,7 +552,7 @@ In another terminal, watch the Pods in the StatefulSet:
 ```shell
 kubectl get pod -l app=nginx -w
 ```
-The output is simular to:
+The output is similar to:
 ```
 NAME      READY     STATUS    RESTARTS   AGE
 web-0     1/1       Running   0          7m
