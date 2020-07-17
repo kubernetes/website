@@ -13,6 +13,7 @@ To run the website locally when you have Hugo installed:
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
+git submodule update --init --recursive
 hugo server --buildFuture
 ```
 
@@ -40,7 +41,7 @@ Furthermore, in some cases, one of your reviewers might ask for a technical revi
 For more information about contributing to the Kubernetes documentation, see:
 
 * [Contribute to Kubernetes docs](https://kubernetes.io/docs/contribute/)
-* [Using Page Templates](https://kubernetes.io/docs/contribute/style/page-templates/)
+* [Page Content Types](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 

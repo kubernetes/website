@@ -24,8 +24,6 @@ Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w
 
 W dużym uproszczeniu, możesz zbudować klaster Kubernetes zarówno w środowisku szkoleniowym, jak i na potrzeby produkcyjne.
 
-
-
 <!-- body -->
 
 ## Środowisko do nauki {#srodowisko-do-nauki}
@@ -45,5 +43,3 @@ Aby uruchomić klaster Kubernetes do nauki na lokalnym komputerze, skorzystaj z 
 Wybierając rozwiązanie dla środowiska produkcyjnego musisz zdecydować, którymi poziomami zarządzania klastrem (_abstrakcjami_) chcesz zajmować się sam, a które będą realizowane po stronie zewnętrznego operatora.
 
 Na stronie [Partnerzy Kubernetes](https://kubernetes.io/partners/#conformance) znajdziesz listę dostawców posiadających [certyfikację Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
-
-

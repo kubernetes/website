@@ -6,7 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-{{< glossary_definition term_id="configmap" prepend="ConfigMap 是" length="all" >}}
+{{< glossary_definition term_id="configmap" length="all" >}}
 
 {{< caution >}}
 <!--
