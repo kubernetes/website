@@ -445,3 +445,10 @@ contentDir = "content/uk"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+
+[languages.fa]
+title = "Kubernetes"
+description = "ارکستراسیون کانتینرها برای محیطهای عملیاتی"
+languageName = "Persian"
+contentDir = "content/fa"
+weight = 15
