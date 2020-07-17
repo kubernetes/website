@@ -20,9 +20,6 @@ managed in Kubernetes.
 
 _Pod_ 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
 
-
-
-
 <!-- body -->
 
 <!--
@@ -260,7 +257,7 @@ always use controllers even for singletons, for example,
 [Deployments](/docs/concepts/workloads/controllers/deployment/).
 Controllers provide self-healing with a cluster scope, as well as replication
 and rollout management.
-Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset.md)
+Controllers like [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
 can also provide support to stateful Pods.
 -->
 一般来说，用户不需要直接创建 Pod。他们几乎都是使用控制器进行创建，即使对于单例的 Pod 创建也一样使用控制器，例如 [Deployments](/docs/concepts/workloads/controllers/deployment/)。
@@ -270,7 +267,6 @@ can also provide support to stateful Pods.
 <!--
 The use of collective APIs as the primary user-facing primitive is relatively common among cluster scheduling systems, including [Borg](https://research.google.com/pubs/pub43438.html), [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html), [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema), and [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997).
 -->
-
 在集群调度系统中，使用 API 合集作为面向用户的主要原语是比较常见的，包括 [Borg](https://research.google.com/pubs/pub43438.html)、[Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)、[Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)、和 [Tupperware](https://www.slideshare.net/Docker/aravindnarayanan-facebook140613153626phpapp02-37588997)。
 
 <!--

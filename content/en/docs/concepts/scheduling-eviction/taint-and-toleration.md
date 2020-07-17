@@ -175,7 +175,7 @@ toleration to pods that use the special hardware. As in the dedicated nodes use 
 it is probably easiest to apply the tolerations using a custom
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/).
 For example, it is recommended to use [Extended
-Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
 to represent the special hardware, taint your special hardware nodes with the
 extended resource name and run the
 [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
