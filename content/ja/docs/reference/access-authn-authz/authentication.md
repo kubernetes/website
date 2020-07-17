@@ -15,7 +15,7 @@ weight: 10
 
 通常のユーザーは外部の独立したサービスが管理することを想定しています。秘密鍵を配布する管理者、KeystoneやGoogle Accountsのようなユーザーストア、さらにはユーザー名とパスワードのリストを持つファイルなどです。この点では、_Kubernetesは通常のユーザーアカウントを表すオブジェクトを持っていません。_APIコールを介して、通常のユーザーをクラスターに追加することはできません。
 
-対照的に、サービスアカウントはKubernetes APIによって管理されるユーザーです。サービスアカウントは特定の名前空間にバインドされており、APIサーバーによって自動的に作成されるか、APIコールによって手動で作成されます。サービスアカウントは、 `Secrets`として保存された資格情報のセットに紐付けられています。これをPodにマウントすることで、クラスター内のプロセスがKubernetes APIと通信できるようにします。
+対照的に、サービスアカウントはKubernetes APIによって管理されるユーザーです。サービスアカウントは特定の名前空間にバインドされており、APIサーバーによって自動的に作成されるか、APIコールによって手動で作成されます。サービスアカウントは、`Secrets`として保存された資格情報のセットに紐付けられています。これをPodにマウントすることで、クラスター内のプロセスがKubernetes APIと通信できるようにします。
 
 APIリクエストは、通常のユーザーかサービスアカウントに紐付けられているか、[匿名リクエスト](#anonymous-requests)として扱われます。つまり、ワークステーションで`kubectl`を入力する人間のユーザーから、ノード上の`kubelets`やコントロールプレーンのメンバーまで、クラスター内外の全てのプロセスは、APIサーバーへのリクエストを行う際に認証を行うか匿名ユーザーとして扱われる必要があります。
 
@@ -45,7 +45,7 @@ Kubernetesは、クライアント証明書、Bearerトークン、認証プロ�
 
 ### X509クライアント証明書
 
-クライアント証明書認証は、APIサーバーに`--client-ca-file=SOMEFILE`オプションを渡すことで有効になります。参照されるファイルには、APIサーバーに提示されたクライアント証明書を検証するために使用する1つ以上の認証局が含まれている必要があります。クライアント証明書が提示され、検証された場合、サブジェクトのCommon Nameがリクエストのユーザー名として使用されます。Kubernetes 1.4時点では、クライアント証明書は、証明書のOrganizationフィールドを使用して、ユーザーのグループメンバーシップを示すこともできます。あるユーザーに対して複数のグループメンバーシップを含めるには、証明書に複数のOrganizationフィールドを含めます。
+クライアント証明書認証は、APIサーバーに`--client-ca-file=SOMEFILE`オプションを渡すことで有効になります。参照されるファイルには、APIサーバーに提示されたクライアント証明書を検証するために使用する1つ以上の認証局が含まれている必要があります。クライアント証明書が提示され、検証された場合、サブジェクトのCommon Nameがリクエストのユーザー名として使用されます。Kubernetes1.4時点では、クライアント証明書は、証明書のOrganizationフィールドを使用して、ユーザーのグループメンバーシップを示すこともできます。あるユーザーに対して複数のグループメンバーシップを含めるには、証明書に複数のOrganizationフィールドを含めます。
 
 例えば、証明書署名要求を生成するために、`openssl`コマンドラインツールを使用します。
 
@@ -59,7 +59,7 @@ openssl req -new -key jbeda.pem -out jbeda-csr.pem -subj "/CN=jbeda/O=app1/O=app
 
 ### 静的なトークンファイル
 
-コマンドラインで `--token-auth-file=SOMEFILE`オプションを指定すると、APIサーバーはファイルからBearerトークンを読み込みます。現在のところ、トークンの有効期限は無く、API サーバーを再起動しない限りトークンのリストを変更することはできません。
+コマンドラインで`--token-auth-file=SOMEFILE`オプションを指定すると、APIサーバーはファイルからBearerトークンを読み込みます。現在のところ、トークンの有効期限は無く、APIサーバーを再起動しない限りトークンのリストを変更することはできません。
 
 トークンファイルは、トークン、ユーザー名、ユーザーUIDの少なくとも3つの列を持つcsvファイルで、その後にオプションでグループ名が付きます。
 
@@ -73,7 +73,7 @@ token,user,uid,"group1,group2,group3"
 
 #### リクエストにBearerトークンを含める {#putting-a-bearer-token-in-a-request}
 
-HTTPクライアントからBearerトークン認証を利用する場合、APIサーバーは`Bearer THETOKEN`という値を持つ `Authorization`ヘッダーを待ち受けます。Bearerトークンは、HTTPのエンコーディングとクォート機能を利用してHTTPヘッダーの値に入れることができる文字列でなければなりません。 例えば、Bearerトークンが `31ada4fd-adec-460c-809a-9e56ceb75269`であれば、HTTPのヘッダを以下のようにします。
+HTTPクライアントからBearerトークン認証を利用する場合、APIサーバーは`Bearer THETOKEN`という値を持つ`Authorization`ヘッダーを待ち受けます。Bearerトークンは、HTTPのエンコーディングとクォート機能を利用してHTTPヘッダーの値に入れることができる文字列でなければなりません。例えば、Bearerトークンが`31ada4fd-adec-460c-809a-9e56ceb75269`であれば、HTTPのヘッダを以下のようにします。
 
 ```http
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
@@ -83,7 +83,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-新しいクラスタの効率的なブートストラップを可能にするために、Kubernetesには*ブートストラップトークン*と呼ばれる動的に管理されたBearerトークンタイプが含まれています。これらのトークンは、`kube-system`名前空間にSecretsとして格納され、動的に管理したり作成したりすることができます。Controller Managerには、TokenCleanerコントローラーが含まれており、ブートストラップトークンの有効期限が切れると削除します。
+新しいクラスタの効率的なブートストラップを可能にするために、Kubernetesには*ブートストラップトークン*と呼ばれる動的に管理されたBearerトークンタイプが含まれています。これらのトークンは、`kube-system`名前空間にSecretsとして格納され、動的に管理したり作成したりすることができます。コントローラーマネージャーには、TokenCleanerコントローラーが含まれており、ブートストラップトークンの有効期限が切れると削除します。
 
 トークンの形式は`[a-z0-9]{6}.[a-z0-9]{16}`です。最初のコンポーネントはトークンIDであり、第2のコンポーネントはToken Secretです。以下のように、トークンをHTTPヘッダーに指定します。
 
@@ -91,9 +91,9 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 Authorization: Bearer 781292.db7bc3a58fc5f07e
 ```
 
-API サーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token Authenticatorを有効にする必要があります。TokenCleanerコントローラーを有効にするには、Controller Managerの`--controllers`フラグを使います。`--controllers=*,tokencleaner`のようにして行います。クラスターをブートストラップするために`kubeadm`を使用している場合は、`kubeadm`がこれを代行してくれます。
+APIサーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token Authenticatorを有効にする必要があります。TokenCleanerコントローラーを有効にするには、コントローラーマネージャーの`--controllers`フラグを使います。`--controllers=*,tokencleaner`のようにして行います。クラスターをブートストラップするために`kubeadm`を使用している場合は、`kubeadm`がこれを代行してくれます。
 
-認証機能は `system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。 ユーザー名とグループは、クラスタのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
+認証機能は`system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。ユーザー名とグループは、クラスタのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
 
 ブートストラップトークンの認証機能やコントローラーについての詳細な説明、`kubeadm`でこれらのトークンを管理する方法については、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)を参照してください。
 
@@ -108,7 +108,7 @@ Kubernetesのバージョン1.6以降では、オプションとしてカンマ�
 password,user,uid,"group1,group2,group3"
 ```
 
-HTTPクライアントからBasic認証を利用する場合、APIサーバーは`Basic BASE64ENCODED(USER:PASSWORD)`の値を持つ `Authorization`ヘッダーを待ち受けます。
+HTTPクライアントからBasic認証を利用する場合、APIサーバーは`Basic BASE64ENCODED(USER:PASSWORD)`の値を持つ`Authorization`ヘッダーを待ち受けます。
 
 ### サービスアカウントトークン
 
@@ -117,7 +117,7 @@ HTTPクライアントからBasic認証を利用する場合、APIサーバー�
 * `--service-account-key-file`: Bearerトークンに署名するためのPEMエンコードされた鍵を含むファイルです。指定しない場合は、APIサーバーのTLS秘密鍵が使われます。
 * `--service-account-lookup`: 有効にすると、APIから削除されたトークンは取り消されます。
 
-サービスアカウントは通常、APIサーバーによって自動的に作成され、`ServiceAccount` [Admission Controller] (/docs/reference/access-authn-authz/admission-controllers/)を介してクラスター内のPodに関連付けられます。Bearerトークンは、Podのよく知られた場所にマウントされ、これによりクラスター内のプロセスがAPIサーバー通信できるようになります。アカウントは`PodSpec`の`serviceAccountName`フィールドを使って、明示的にPodに関連付けることができます。
+サービスアカウントは通常、APIサーバーによって自動的に作成され、`ServiceAccount`[Admission Controller](/docs/reference/access-authn-authz/admission-controllers/)を介してクラスター内のPodに関連付けられます。Bearerトークンは、Podのよく知られた場所にマウントされ、これによりクラスター内のプロセスがAPIサーバー通信できるようになります。アカウントは`PodSpec`の`serviceAccountName`フィールドを使って、明示的にPodに関連付けることができます。
 
 {{< note >}}
 自動で行われるため、通常`serviceAccountName`は省略します。
@@ -141,7 +141,7 @@ spec:
         image: nginx:1.14.2
 ```
 
-サービスアカウントのBearerトークンは、クラスタ外で使用するために完全に有効であり、Kubernetes APIと通信したい長期的なジョブのアイデンティティを作成するために使用することができます。サービスアカウントを手動で作成するには、単に `kubectl create serviceaccount (NAME)`コマンドを使用します。これにより、現在の名前空間にサービスアカウントと関連するSecretが作成されます。
+サービスアカウントのBearerトークンは、クラスタ外で使用するために完全に有効であり、Kubernetes APIと通信したい長期的なジョブのアイデンティティを作成するために使用することができます。サービスアカウントを手動で作成するには、単に`kubectl create serviceaccount (NAME)`コマンドを使用します。これにより、現在の名前空間にサービスアカウントと関連するSecretが作成されます。
 
 
 ```bash
@@ -205,7 +205,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 1.  IDプロバイダーにログインします
 2.  IDプロバイダーは、`access_token`、`id_token`、`refresh_token`を提供します
 3.  `kubectl`を使う場合は、`--token`フラグで`id_token`を使うか、`kubeconfig`に直接追加してください
-4.  `kubectl` sends your `id_token` in a header called Authorization to the API server
+4.  `kubectl`は、`id_token`をAuthorizationと呼ばれるヘッダーでAPIサーバーに送ります
 5.  APIサーバーは、設定で指定された証明書と照合することで、JWT署名が有効であることを確認します
 6.  `id_token`の有効期限が切れていないことを確認します
 7.  ユーザーが認可されていることを確認します
@@ -228,7 +228,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 | `--oidc-issuer-url` | APIサーバーが公開署名鍵を発見できるようにするプロバイダーのURLです。 `https://`スキームを使用するURLのみが受け入れられます。これは通常、"https://accounts.google.com"や"https://login.salesforce.com"のようにパスを持たないプロバイダのディスカバリーURLです。このURLは、`.well-known/openid-configuration`の下のレベルを指す必要があります。 | ディスカバリーURLが`https://accounts.google.com/.well-known/openid-configuration`である場合、値は`https://accounts.google.com`とします。 | はい |
 | `--oidc-client-id` | すべてのトークンが発行されなければならないクライアントIDです。 | kubernetes | はい |
 | `--oidc-username-claim` | ユーザー名として使用するJWTのクレームを指定します。デフォルトでは`sub`が使用されますが、これはエンドユーザーの一意の識別子であることが期待されます。管理者はプロバイダーに応じて`email`や`name`などの他のクレームを選択することができます。ただし、他のプラグインとの名前の衝突を防ぐために、`email`以外のクレームには、プレフィックスとして発行者のURLが付けられます。 | sub | いいえ |
-| `--oidc-username-prefix` | 既存の名前(`system:`ユーザーなど)との衝突を防ぐために、ユーザー名の前にプレフィックスを付加します。例えば`oidc:`という値は、`oidc:jane.doe`のようなユーザー名を生成します。このフラグが指定されておらず、`--oidc-username-claim`が`email`以外の値である場合、プレフィックスのデフォルトは`( Issuer URL )#`で、`( Issuer URL )`は`--oidc-issuer-url`の値です。すべてのプレフィックスを無効にするためには、`-`という値を使用できます。 | `oidc:` | いいえ |
+| `--oidc-username-prefix` | 既存の名前(`system:`ユーザーなど)との衝突を防ぐために、ユーザー名の前にプレフィックスを付加します。例えば`oidc:`という値は、`oidc:jane.doe`のようなユーザー名を生成します。このフラグが指定されておらず、`--oidc-username-claim`が`email`以外の値である場合、プレフィックスのデフォルトは`(Issuer URL)#`で、`(Issuer URL)`は`--oidc-issuer-url`の値です。すべてのプレフィックスを無効にするためには、`-`という値を使用できます。 | `oidc:` | いいえ |
 | `--oidc-groups-claim` | ユーザーのグループとして使用するJWTのクレームです。クレームがある場合は、文字列の配列である必要があります。 | groups | いいえ |
 | `--oidc-groups-prefix` | 既存の名前(`system:`グループなど)との衝突を防ぐために、グループ名の前にプレフィックスを付加します。例えば`oidc:`という値は、`oidc:engineering`や`oidc:infra`のようなグループ名を生成します。 | `oidc:` | いいえ |
 | `--oidc-required-claim` | IDトークンの中の必須クレームを記述するkey=valueのペアです。設定されている場合、クレームが一致する値でIDトークンに存在することが検証されます。このフラグを繰り返して複数のクレームを指定します。 | `claim=value` | いいえ |
@@ -236,7 +236,7 @@ Secretは常にbase64でエンコードされるため、これらの値もbase6
 
 重要なのは、APIサーバーはOAuth2クライアントではなく、ある単一の発行者を信頼するようにしか設定できないことです。これにより、サードパーティーに発行されたクレデンシャルを信頼せずに、Googleのようなパブリックプロバイダーを使用することができます。複数のOAuthクライアントを利用したい管理者は、`azp`クレームをサポートしているプロバイダや、あるクライアントが別のクライアントに代わってトークンを発行できるような仕組みを検討する必要があります。
 
-KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry [UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
+KubernetesはOpenID Connect IDプロバイダーを提供していません。既存のパブリックなOpenID Connect IDプロバイダー(Googleや[その他](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)など)を使用できます。もしくは、CoreOS [dex](https://github.com/coreos/dex)、[Keycloak](https://github.com/keycloak/keycloak)、CloudFoundry[UAA](https://github.com/cloudfoundry/uaa)、Tremolo Securityの[OpenUnison](https://github.com/tremolosecurity/openunison)など、独自のIDプロバイダーを実行することもできます。
 
 IDプロバイダーがKubernetesと連携するためには、以下のことが必要です。
 
@@ -257,7 +257,7 @@ IDプロバイダーがKubernetesと連携するためには、以下のこと�
 
 ##### オプション1 - OIDC認証機能
 
-最初のオプションは、kubectlの`oidc`認証機能を利用することです。これはすべてのリクエストのBearerトークンとして` id_token`を設定し、有効期限が切れるとトークンを更新します。プロバイダーにログインした後、kubectlを使って`id_token`、`refresh_token`、`client_id`、`client_secret`を追加してプラグインを設定します。
+最初のオプションは、kubectlの`oidc`認証機能を利用することです。これはすべてのリクエストのBearerトークンとして`id_token`を設定し、有効期限が切れるとトークンを更新します。プロバイダーにログインした後、kubectlを使って`id_token`、`refresh_token`、`client_id`、`client_secret`を追加してプラグインを設定します。
 
 リフレッシュトークンのレスポンスの一部として`id_token`を返さないプロバイダーは、このプラグインではサポートされていないので、以下の"オプション2"を使用してください。
 
@@ -305,7 +305,7 @@ users:
 
 ##### オプション2 - `--token`オプションの使用
 
-`kubectl`コマンドでは、`--token`オプションを使ってトークンを渡すことができる。以下のように、このオプションに `id_token`をコピーして貼り付けるだけです。
+`kubectl`コマンドでは、`--token`オプションを使ってトークンを渡すことができる。以下のように、このオプションに`id_token`をコピーして貼り付けるだけです。
 
 ```bash
 kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo4MDQzL2F1dGgvaWRwL29pZGMiLCJhdWQiOiJrdWJlcm5ldGVzIiwiZXhwIjoxNDc0NTk2NjY5LCJqdGkiOiI2RDUzNXoxUEpFNjJOR3QxaWVyYm9RIiwiaWF0IjoxNDc0NTk2MzY5LCJuYmYiOjE0NzQ1OTYyNDksInN1YiI6Im13aW5kdSIsInVzZXJfcm9sZSI6WyJ1c2VycyIsIm5ldy1uYW1lc3BhY2Utdmlld2VyIl0sImVtYWlsIjoibXdpbmR1QG5vbW9yZWplZGkuY29tIn0.f2As579n9VNoaKzoF-dOQGmXkFKf1FMyNV0-va_B63jn-_n9LGSCca_6IVMP8pO-Zb4KvRqGyTP0r3HkHxYy5c81AnIh8ijarruczl-TK_yF5akjSTHFZD-0gRzlevBDiH8Q79NAr-ky0P4iIXS8lY9Vnjch5MF74Zx0c3alKJHJUnnpjIACByfF2SCaYzbWFMUNat-K1PaUk5-ujMBG7yYnr95xD-63n8CO8teGUAAEMx6zRjzfhnhbzX-ajwZLGwGUBT4WqjMs70-6a7_8gZmLZb2az1cZynkFRj2BaCkVT3A2RrjeEwZEtGXlMqKJ1_I2ulrOVsYx01_yD35-rw get nodes
@@ -332,7 +332,7 @@ clusters:
   - name: name-of-remote-authn-service
     cluster:
       certificate-authority: /path/to/ca.pem         # リモートサービスを検証するためのCA
-      server: https://authn.example.com/authenticate # クエリするリモートサービスの URL。'https'を使用する必要があります。
+      server: https://authn.example.com/authenticate # クエリするリモートサービスのURL。'https'を使用する必要があります。
 
 # usersは、APIサーバーのWebhook設定を指します。
 users:
@@ -413,7 +413,7 @@ APIサーバーは、`X-Remote-User`のようにリクエストヘッダの値�
 これは、リクエストヘッダの値を設定する認証プロキシーと組み合わせて使用するために設計です。
 
 * `--requestheader-username-headers`: 必須であり、大文字小文字を区別しません。ユーザーのIDをチェックするためのヘッダー名を順番に指定します。値を含む最初のヘッダーが、ユーザー名として使われます。
-* `--requestheader-group-headers`: バージョン1.6以降で任意であり、大文字小文字を区別しません。"X-Remote-Group"を推奨します。 ユーザーのグループをチェックするためのヘッダー名を順番に指定します。指定されたヘッダーの全ての値が、グループ名として使われます。
+* `--requestheader-group-headers`: バージョン1.6以降で任意であり、大文字小文字を区別しません。"X-Remote-Group"を推奨します。ユーザーのグループをチェックするためのヘッダー名を順番に指定します。指定されたヘッダーの全ての値が、グループ名として使われます。
 * `--requestheader-extra-headers-prefix` バージョン1.6以降で任意であり、大文字小文字を区別しません。"X-Remote-Extra-"を推奨します。ユーザーに関する追加情報を判断するために検索するヘッダーのプレフィックスです。通常、設定された認可プラグインによって使用されます。指定されたプレフィックスのいずれかで始まるヘッダーは、プレフィックスが削除されます。ヘッダー名の残りの部分は小文字化され[パーセントデコーディング](https://tools.ietf.org/html/rfc3986#section-2.1)されて追加のキーとなり、ヘッダーの値が追加の値となります。
 
 {{< note >}}
@@ -598,7 +598,7 @@ rules:
 以下のようにして、APIに対して認証を行います。
 
 * ユーザーは`kubectl`コマンドを発行します。
-* クレデンシャルプラグインは、LDAP クレデンシャルの入力をユーザーに要求し、クレデンシャルを外部サービスとトークンと交換します。
+* クレデンシャルプラグインは、LDAPクレデンシャルの入力をユーザーに要求し、クレデンシャルを外部サービスとトークンと交換します。
 * クレデンシャルプラグインはトークンを`client-go`に返します。これはAPIサーバーに対するBearerトークンとして使用されます。
 * APIサーバーは、[Webhookトークン認証](#webhook-token-authentication)を使用して、`TokenReview`を外部サービスに送信します。
 * 外部サービスはトークンの署名を検証し、ユーザーのユーザー名とグループを返します。
@@ -696,8 +696,8 @@ Bearerトークンのクレデンシャルを使用するために、プラグ�
 
 オプションで、レスポンスにはRFC3339のタイムスタンプとしてフォーマットされたクレデンシャルの有効期限を含めることができます。有効期限の有無には、以下のような影響あります。
 
-- 有効期限が含まれている場合、BearerトークンとTLSクレデンシャルは有効期限に達するまで、またはサーバーがHTTPステータスコード 401で応答したとき、またはプロセスが終了するまでキャッシュされます。
-- 有効期限が省略された場合、BearerトークンとTLSクレデンシャルはサーバーがHTTPステータスコード 401で応答したとき、またはプロセスが終了するまでキャッシュされます。
+- 有効期限が含まれている場合、BearerトークンとTLSクレデンシャルは有効期限に達するまで、またはサーバーがHTTPステータスコード401で応答したとき、またはプロセスが終了するまでキャッシュされます。
+- 有効期限が省略された場合、BearerトークンとTLSクレデンシャルはサーバーがHTTPステータスコード401で応答したとき、またはプロセスが終了するまでキャッシュされます。
 
 ```json
 {
