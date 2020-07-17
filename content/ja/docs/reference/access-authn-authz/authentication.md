@@ -93,7 +93,7 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 
 API サーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token Authenticatorを有効にする必要があります。TokenCleanerコントローラーを有効にするには、Controller Managerの`--controllers`フラグを使います。`--controllers=*,tokencleaner`のようにして行います。クラスターをブートストラップするために`kubeadm`を使用している場合は、`kubeadm`がこれを代行してくれます。
 
-認証機能は `system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。 ユーザー名とグループは、クラスタのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
+認証機能は`system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。ユーザー名とグループは、クラスタのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
 
 ブートストラップトークンの認証機能やコントローラーについての詳細な説明、`kubeadm`でこれらのトークンを管理する方法については、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)を参照してください。
 
