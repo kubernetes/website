@@ -73,7 +73,7 @@ token,user,uid,"group1,group2,group3"
 
 #### リクエストにBearerトークンを含める {#putting-a-bearer-token-in-a-request}
 
-HTTPクライアントからBearerトークン認証を利用する場合、APIサーバーは`Bearer THETOKEN`という値を持つ `Authorization`ヘッダーを待ち受けます。Bearerトークンは、HTTPのエンコーディングとクォート機能を利用してHTTPヘッダーの値に入れることができる文字列でなければなりません。 例えば、Bearerトークンが `31ada4fd-adec-460c-809a-9e56ceb75269`であれば、HTTPのヘッダを以下のようにします。
+HTTPクライアントからBearerトークン認証を利用する場合、APIサーバーは`Bearer THETOKEN`という値を持つ`Authorization`ヘッダーを待ち受けます。Bearerトークンは、HTTPのエンコーディングとクォート機能を利用してHTTPヘッダーの値に入れることができる文字列でなければなりません。例えば、Bearerトークンが`31ada4fd-adec-460c-809a-9e56ceb75269`であれば、HTTPのヘッダを以下のようにします。
 
 ```http
 Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
