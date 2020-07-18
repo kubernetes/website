@@ -127,7 +127,10 @@ weight: 60
     コマンド出力に記載されているように、証明書キーはクラスターの機密データへのアクセスを提供します。秘密にしてください！
     {{< /caution >}}
 
-1.  Weave CNIプラグインをapplyします:
+1.  使用するCNIプラグインを適用します:  
+    [こちらの手順に従い](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。 Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
+
+    Weave Netを使用する場合の例:
 
     ```sh
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
