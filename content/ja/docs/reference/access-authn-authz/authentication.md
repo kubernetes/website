@@ -40,7 +40,7 @@ Kubernetesは、クライアント証明書、Bearerトークン、認証プロ�
 
 `system:authenticated`グループには、すべての認証済みユーザーのグループのリストが含まれます。
 
-他の認証プロトコル(LDAP、SAML、Kerberos、X509スキームなど)との統合は、[認証プロキシー](#authenticating-proxy)や[認証Webhook](#webhook-token-authentication)
+他の認証プロトコル(LDAP、SAML、Kerberos、X509スキームなど)との統合は、[認証プロキシー](#authenticating-proxy)や[認証Webhook](#webhook-token-authentication)を使用して実施できます。
 
 
 ### X509クライアント証明書
@@ -556,7 +556,7 @@ rules:
   verbs: ["impersonate"]
 ```
 
-偽装ヘッダーの値は、リソースが取る得る`resourceNames`のセットを制限することで、管理することもできます。
+偽装ヘッダーの値は、リソースが取り得る`resourceNames`のセットを制限することで、管理することもできます。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
