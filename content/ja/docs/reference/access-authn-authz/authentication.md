@@ -255,11 +255,11 @@ IDプロバイダーがKubernetesと連携するためには、以下のこと�
 
 #### kubectlの使用
 
-##### オプション1 - OIDC認証機能
+##### 選択肢1 - OIDC認証機能
 
-最初のオプションは、kubectlの`oidc`認証機能を利用することです。これはすべてのリクエストのBearerトークンとして`id_token`を設定し、有効期限が切れるとトークンを更新します。プロバイダーにログインした後、kubectlを使って`id_token`、`refresh_token`、`client_id`、`client_secret`を追加してプラグインを設定します。
+最初の選択肢は、kubectlの`oidc`認証機能を利用することです。これはすべてのリクエストのBearerトークンとして`id_token`を設定し、有効期限が切れるとトークンを更新します。プロバイダーにログインした後、kubectlを使って`id_token`、`refresh_token`、`client_id`、`client_secret`を追加してプラグインを設定します。
 
-リフレッシュトークンのレスポンスの一部として`id_token`を返さないプロバイダーは、このプラグインではサポートされていないので、以下の"オプション2"を使用してください。
+リフレッシュトークンのレスポンスの一部として`id_token`を返さないプロバイダーは、このプラグインではサポートされていないので、以下の"選択肢2"を使用してください。
 
 ```bash
 kubectl config set-credentials USER_NAME \
@@ -303,7 +303,7 @@ users:
 ```
 `id_token`の有効期限が切れると、`kubectl`は`refresh_token`と`client_secret`を用いて`id_token`の更新しようとします。`refresh_token`と`id_token`の新しい値は、`.kube/config`に格納されます。
 
-##### オプション2 - `--token`オプションの使用
+##### 選択肢2 - `--token`オプションの使用
 
 `kubectl`コマンドでは、`--token`オプションを使ってトークンを渡すことができる。以下のように、このオプションに`id_token`をコピーして貼り付けるだけです。
 
