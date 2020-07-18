@@ -6,7 +6,9 @@ weight: 10
 
 <!-- overview -->
 
-ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、マスターコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
+ノードは、以前には `ミニオン` としても知られていた、Kubernetesにおけるワーカーマシンです。
+1つのノードはクラスターの性質にもよりますが、1つのVMまたは物理的なマシンです。
+各ノードには[Pod](/ja/docs/concepts/workloads/pods/pod/)を動かすために必要なサービスが含まれており、コントロールプレーンコンポーネントによって管理されています。ノード上のサービスには[コンテナランタイム](/ja/docs/concepts/overview/components/#container-runtime)、kubelet、kube-proxyが含まれています。詳細については、設計ドキュメントの[Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)セクションをご覧ください。
 
 
 
@@ -115,7 +117,7 @@ Kubernetesは無効なノードのためにオブジェクトを保存し、そ�
 
 ### ノードコントローラー
 
-ノードコントローラーは、ノードのさまざまな側面を管理するKubernetesのマスターコンポーネントです。
+ノードコントローラーは、ノードのさまざまな側面を管理するKubernetesのコントロールプレーンコンポーネントです。
 
 ノードコントローラーは、ノードの存続期間中に複数の役割を果たします。1つ目は、ノードが登録されたときにCIDRブロックをノードに割り当てることです（CIDR割り当てがオンになっている場合）。
 
@@ -140,21 +142,20 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 
 #### 信頼性
 
-
-Kubernetes 1.4では、マスターに問題が発生した場合の対処方法を改善するように、ノードコントローラーのロジックをアップデートしています（マスターのネットワークに問題があるため）
+Kubernetes 1.4では、コントロールプレーンに問題が発生した場合の対処方法を改善するように、ノードコントローラーのロジックをアップデートしています（コントロールプレーンのネットワークに問題があるため）
 バージョン1.4以降、ノードコントローラーは、Podの退役について決定する際に、クラスター内のすべてのノードの状態を調べます。
 
 ほとんどの場合、排除の速度は1秒あたり`--node-eviction-rate`に設定された数値（デフォルトは秒間0.1）です。つまり、10秒間に1つ以上のPodをノードから追い出すことはありません。
 
 特定のアベイラビリティーゾーン内のノードのステータスが異常になると、ノード排除の挙動が変わります。ノードコントローラーは、ゾーン内のノードの何%が異常（NodeReady条件がConditionUnknownまたはConditionFalseである）であるかを同時に確認します。
 異常なノードの割合が少なくとも `--healthy-zone-threshold`に設定した値を下回る場合（デフォルトは0.55）であれば、退役率は低下します。クラスターが小さい場合（すなわち、 `--large-cluster-size-threshold`の設定値よりもノード数が少ない場合。デフォルトは50）、退役は停止し、そうでない場合、退役率は秒間で`--secondary-node-eviction-rate`の設定値（デフォルトは0.01）に減少します。
-これらのポリシーがアベイラビリティーゾーンごとに実装されているのは、1つのアベイラビリティーゾーンがマスターから分割される一方、他のアベイラビリティーゾーンは接続されたままになる可能性があるためです。
+これらのポリシーがアベイラビリティーゾーンごとに実装されているのは、1つのアベイラビリティーゾーンがコントロールプレーンから分割される一方、他のアベイラビリティーゾーンは接続されたままになる可能性があるためです。
 クラスターが複数のクラウドプロバイダーのアベイラビリティーゾーンにまたがっていない場合、アベイラビリティーゾーンは1つだけです（クラスター全体）。
 
 ノードを複数のアベイラビリティゾーンに分散させる主な理由は、1つのゾーン全体が停止したときにワークロードを正常なゾーンに移動できることです。
 したがって、ゾーン内のすべてのノードが異常である場合、ノードコントローラーは通常のレート `--node-eviction-rate`で退役します。
 コーナーケースは、すべてのゾーンが完全にUnhealthyである（すなわち、クラスタ内にHealthyなノードがない）場合です。
-このような場合、ノードコントローラーはマスター接続に問題があると見なし、接続が回復するまですべての退役を停止します。
+このような場合、ノードコントローラーはコントロールプレーン接続に問題があると見なし、接続が回復するまですべての退役を停止します。
 
 Kubernetes 1.6以降では、ノードコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つノード上で実行されているPodを排除する責務もあります。
 さらに、デフォルトで無効になっているアルファ機能として、ノードコントローラーはノードに到達できない、または準備ができていないなどのノードの問題に対応するtaintを追加する責務があります。
@@ -174,7 +175,7 @@ kubeletのフラグ `--register-node`がtrue（デフォルト）のとき、kub
   - `--register-with-taints` - 与えられたtaintのリストでノードを登録します (カンマ区切りの `<key>=<value>:<effect>`). `register-node`がfalseの場合、このオプションは機能しません
   - `--node-ip` - ノードのIPアドレス
   - `--node-labels` - ノードをクラスターに登録するときに追加するラベル（1.13以降の[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)によって適用されるラベルの制限を参照）
-  - `--node-status-update-frequency` - kubeletがノードのステータスをマスターにPOSTする頻度の指定
+  - `--node-status-update-frequency` - kubeletがノードのステータスをコントロールプレーンにPOSTする頻度の指定
 
 [ノード認証モード](/docs/reference/access-authn-authz/node/)および[NodeRestriction許可プラグイン](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)が有効になっている場合、kubeletは自分自身のノードリソースを作成/変更することのみ許可されています。
 

@@ -2,7 +2,7 @@
 title: Kubernetesのコンポーネント
 content_type: concept
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---

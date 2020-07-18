@@ -11,7 +11,7 @@ card:
 <!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
-このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
+このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
 
 
@@ -75,7 +75,7 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 ## 必須ポートの確認
 
-### マスターノード
+### コントロールプレーンノード
 
 | プロトコル | 通信の向き | ポート範囲  | 目的                    | 使用者                    |
 |-----------|------------|------------|-------------------------|---------------------------|
@@ -243,7 +243,7 @@ systemctl enable --now kubelet
 
 kubeadmが何をすべきか指示するまで、kubeletはクラッシュループで数秒ごとに再起動します。
 
-## マスターノードのkubeletによって使用されるcgroupドライバーの設定
+## コントロールプレーンのkubeletによって使用されるcgroupドライバーの設定
 
 Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroupドライバーを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
