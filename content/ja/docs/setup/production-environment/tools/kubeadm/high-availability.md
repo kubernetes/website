@@ -75,37 +75,34 @@ weight: 60
 
 ### 最初のコントロールプレーンノードの手順
 
-1.  最初のコントロールプレーンノードで、`kubeadm-config.yaml`という設定ファイルを作成します:
-
-        apiVersion: kubeadm.k8s.io/v1beta1
-        kind: ClusterConfiguration
-        kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
-        controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
-
-    - `kubernetesVersion`には使用するKubernetesのバージョンを設定します。この例では`stable`を使用しています。
-    - `controlPlaneEndpoint` はロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
-    - kubeadm、kubelet、kubectlとKubernetesのバージョンを一致させることが推奨されます。
-
-1.  ノードがきれいな状態であることを確認します:
+1.  最初のコントロールプレーンノードを初期化します:
 
     ```sh
-    sudo kubeadm init --config=kubeadm-config.yaml
+    sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
     ```
+
+    - `--kubernetes-version`フラグを使用して、使用するKubernetesのバージョンを設定できます。kubeadm、kubelet、kubectl、Kubernetesのバージョンを一致させることが推奨されます。
+    - `--control-plane-endpoint`フラグはロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
+    - `--upload-certs`フラグは全てのコントロールプレーンノードで共有する必要がある証明書をクラスターにアップロードするために使用されます。代わりに、コントロールプレーンノード間で手動あるいは自動化ツールを使用して証明書をコピーしたい場合は、このフラグを削除し、以下の[手動による証明書の配布](#manual-certs)のセクションを参照してください。
+
+    {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
     {{< note >}}CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 
-    このような出力がされます:
+    - このような出力がされます:
 
     ```sh
     ...
-    You can now join any number of machines by running the following on each node
-    as root:
-
-    kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
+    You can now join any number of control-plane node by running the following command on each as a root:
+        kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+    
+    Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+    As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
+    
+    Then you can join any number of worker nodes by running the following on each as root:
+        kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
     ```
+
 
 1.  この出力をテキストファイルにコピーします。あとで、他のコントロールプレーンノードをクラスターに参加させる際に必要になります。
 
