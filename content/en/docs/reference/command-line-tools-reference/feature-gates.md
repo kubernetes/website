@@ -120,8 +120,9 @@ different Kubernetes components.
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | |
 | `MountContainers` | `false` | Alpha | 1.9 | |
-| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18|
+| `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
+| `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | |
@@ -142,7 +143,8 @@ different Kubernetes components.
 | `ServerSideApply` | `true` | Beta | 1.16 | |
 | `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
 | `ServiceAppProtocol` | `false` | Alpha | 1.18 | |
-| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | |
+| `ServiceNodeExclusion` | `false` | Alpha | 1.8 | 1.18 |
+| `ServiceNodeExclusion` | `true` | Beta | 1.19 | |
 | `ServiceTopology` | `false` | Alpha | 1.17 | |
 | `SetHostnameAsFQDN` | `false` | Alpha | 1.19 | |
 | `StartupProbe` | `false` | Alpha | 1.16 | 1.17 |
@@ -466,7 +468,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 - `KubeletPodResources`: Enable the kubelet's pod resources grpc endpoint.
    See [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md) for more details.
-- `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels.
+- `LegacyNodeRoleBehavior`: When disabled, legacy behavior in service load balancers and node disruption will ignore the `node-role.kubernetes.io/master` label in favor of the feature-specific labels provided by `NodeDisruptionExclusion` and `ServiceNodeExclusion`.
 - `LocalStorageCapacityIsolation`: Enable the consumption of [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and also the `sizeLimit` property of an [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation` is enabled for [local ephemeral storage](/docs/concepts/configuration/manage-compute-resources-container/) and the backing filesystem for [emptyDir volumes](/docs/concepts/storage/volumes/#emptydir) supports project quotas and they are enabled, use project quotas to monitor [emptyDir volume](/docs/concepts/storage/volumes/#emptydir) storage consumption rather than filesystem walk for better performance and accuracy.
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
