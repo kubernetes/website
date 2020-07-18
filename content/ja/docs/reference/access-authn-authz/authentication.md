@@ -189,7 +189,7 @@ type: kubernetes.io/service-account-token
 Secretは常にbase64でエンコードされるため、これらの値もbase64でエンコードされています。
 {{< /note >}}
 
-署名されたJWTは、与えられたサービスアカウントとして認証するためのBearerトークンとして使用できます。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。通常、これらのSecretはAPIサーバーへのクラスタ内アクセス用にPodにマウントされますが、クラスタ外からも使用することができます。
+署名されたJWTは、与えられたサービスアカウントとして認証するためのBearerトークンとして使用できます。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。通常、これらのSecretはAPIサーバーへのクラスタ内アクセス用にPodにマウントされますが、クラスター外からも使用することができます。
 
 サービスアカウントは、ユーザー名`system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`で認証され、グループ`system:serviceaccounts`と`system:serviceaccounts:(NAMESPACE)`に割り当てられます。
 
