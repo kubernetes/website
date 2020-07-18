@@ -103,8 +103,29 @@ weight: 60
         kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
     ```
 
+    - この出力をテキストファイルにコピーします。あとで、他のコントロールプレーンノードとワーカーノードをクラスターに参加させる際に必要になります。
 
-1.  この出力をテキストファイルにコピーします。あとで、他のコントロールプレーンノードをクラスターに参加させる際に必要になります。
+    - `--upload-certs`フラグを`kubeadm init`で使用すると、プライマリコントロールプレーンの証明書が暗号化されて、`kubeadm-certs` Secretにアップロードされます。
+
+    - 証明書を再アップロードして新しい復号キーを生成するには、すでにクラスターに参加しているコントロールプレーンノードで次のコマンドを使用します:
+
+    ```sh
+    sudo kubeadm init phase upload-certs --upload-certs
+    ```
+
+    - また、後で`join`で使用できるように、`init`中にカスタムした`--certificate-key`を指定することもできます。このようなキーを生成するには、次のコマンドを使用します:
+
+    ```sh
+    kubeadm alpha certs certificate-key
+    ```
+
+    {{< note >}}
+    `kubeadm-certs`のSecretと復号キーは2時間で期限切れとなります。
+    {{< /note >}}
+
+    {{< caution >}}
+    コマンド出力に記載されているように、証明書キーはクラスターの機密データへのアクセスを提供します。秘密にしてください！
+    {{< /caution >}}
 
 1.  Weave CNIプラグインをapplyします:
 
