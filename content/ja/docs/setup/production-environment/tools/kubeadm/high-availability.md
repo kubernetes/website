@@ -13,9 +13,7 @@ weight: 60
 
 先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/ja/docs/setup/independent/ha-topology/)が、それぞれの利点/欠点について概説しています。
 
-クラスターではKubernetesのバージョン1.12以降を使用する必要があります。また、kubeadmを使用した高可用性クラスターはまだ実験的な段階であり、将来のバージョンではもっとシンプルになることに注意してください。たとえば、クラスターのアップグレードに際し問題に遭遇するかもしれません。両方のアプローチを試し、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)で我々にフィードバックを提供してくれることを推奨します。
-
-alpha feature gateである`HighAvailability`はv1.12で非推奨となり、v1.13で削除されたことに留意してください。
+高可用性クラスターの作成で問題が発生した場合は、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)でフィードバックを提供してください。
 
 [高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
 
