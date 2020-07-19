@@ -106,6 +106,8 @@ GitHub | GitHub (ママ表記)
 registry | レジストリ
 architecture | アーキテクチャ
 secure | セキュア
+stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
+a set of ~ | ～の集合
 
 ### 備考
 
