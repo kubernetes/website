@@ -142,50 +142,8 @@ weight: 60
     kubectl get pod -n kube-system -w
     ```
 
-    - 最初のコントロールプレーンノードが初期化を完了してから、新しいノードを参加させることが推奨されます。
-
-1.  証明書ファイルを最初のコントロールプレーンノードから残りのノードにコピーします:
-
-    以下の例では、`CONTROL_PLANE_IPS`を他のコントロールプレーンノードのIPアドレスで置き換えます。
-    ```sh
-    USER=ubuntu # 変更可能
-    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
-    for host in ${CONTROL_PLANE_IPS}; do
-        scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
-        scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
-        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
-        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
-        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
-        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
-        scp /etc/kubernetes/admin.conf "${USER}"@$host:
-    done
-    ```
-
-{{< caution >}}
-上のリストにある証明書だけをコピーしてください。kubeadmが、参加するコントロールプレーンノード用に、残りの証明書と必要なSANの生成を行います。間違って全ての証明書をコピーしてしまったら、必要なSANがないため、追加ノードの作成は失敗するかもしれません。
-{{< /caution >}}
-
 ### 残りのコントロールプレーンノードの手順
 
-1.  `scp`を使用する手順で作成したファイルを移動します:
-
-    ```sh
-    USER=ubuntu # 変更可能
-    mkdir -p /etc/kubernetes/pki/etcd
-    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
-    mv /home/${USER}/sa.key /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
-    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
-    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
-    mv /home/${USER}/admin.conf /etc/kubernetes/admin.conf
-    ```
-
-    この手順で、`/etc/kubernetes`フォルダーに必要な全てのファイルが書き込まれます。
 
 1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、このノードで`kubeadm join`を開始します。このようなコマンドになるはずです:
 
@@ -314,3 +272,43 @@ Podネットワークをインストールするには、[こちらの手順に�
         ```
         sudo -E -s
         ```
+
+1.  全てのノードでSSHを設定したら、`kubeadm init`を実行した後、最初のコントロールノードプレーンノードで次のスクリプトを実行します。このスクリプトは、最初のコントロールプレーンノードから残りのコントロールプレーンノードへ証明書ファイルをコピーします:
+
+    次の例の、`CONTROL_PLANE_IPS`を他のコントロールプレーンノードのIPアドレスに置き換えます。
+
+    ```sh
+    USER=ubuntu # customizable
+    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
+    for host in ${CONTROL_PLANE_IPS}; do
+        scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
+        scp /etc/kubernetes/pki/ca.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/sa.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/sa.pub "${USER}"@$host:
+        scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
+        scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
+        scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
+        # Quote this line if you are using external etcd
+        scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
+    done
+    ```
+
+    {{< caution >}}
+    上のリストにある証明書だけをコピーしてください。kubeadmが、参加するコントロールプレーンノード用に、残りの証明書と必要なSANの生成を行います。間違って全ての証明書をコピーしてしまったら、必要なSANがないため、追加ノードの作成は失敗するかもしれません。
+    {{< /caution >}}
+
+1.  次に、クラスターに参加させる残りの各コントロールプレーンノードで`kubeadm join`を実行する前に次のスクリプトを実行する必要があります。このスクリプトは、前の手順でコピーした証明書をホームディレクトリから`/etc/kubernetes/pki`へ移動します:
+
+    ```sh
+    USER=ubuntu # customizable
+    mkdir -p /etc/kubernetes/pki/etcd
+    mv /home/${USER}/ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/sa.pub /etc/kubernetes/pki/
+    mv /home/${USER}/sa.key /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
+    mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
+    mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+    # Quote this line if you are using external etcd
+    mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+    ```
