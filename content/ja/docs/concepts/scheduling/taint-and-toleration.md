@@ -1,5 +1,5 @@
 ---
-title: taintとtoleration
+title: TaintとToleration
 content_type: concept
 weight: 40
 ---
@@ -7,9 +7,9 @@ weight: 40
 
 <!-- overview -->
 [_Nodeアフィニティ_](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)は
-{{< glossary_tooltip text="Pod" term_id="pod" >}}の属性であり、ある{{< glossary_tooltip text="Node" term_id="node" >}}群を*引きつけます*（優先条件または必須条件）。 反対に_taint_はNodeがある種のPodを排除できるようにします。
+{{< glossary_tooltip text="Pod" term_id="pod" >}}の属性であり、ある{{< glossary_tooltip text="Node" term_id="node" >}}群を*引きつけます*（優先条件または必須条件）。反対に _taint_ はNodeがある種のPodを排除できるようにします。
 
-_toleration_はPodに適用され、一致するtaintが付与されたNodeへPodがスケジューリングされることを認めるものです。ただしそのNodeへ必ずスケジューリングされるとは限りません。
+_toleration_ はPodに適用され、一致するtaintが付与されたNodeへPodがスケジューリングされることを認めるものです。ただしそのNodeへ必ずスケジューリングされるとは限りません。
 
 taintとtolerationは組になって機能し、Podが不適切なNodeへスケジューリングされないことを保証します。taintはNodeに一つまたは複数個付与することができます。これはそのNodeがtaintを許容しないPodを受け入れるべきではないことを示します。
 
