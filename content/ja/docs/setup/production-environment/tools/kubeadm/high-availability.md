@@ -144,21 +144,21 @@ weight: 60
 
 ### 残りのコントロールプレーンノードの手順
 
+{{< note >}}
+kubeadmバージョン1.15以降、複数のコントロールプレーンノードを並行してクラスターに参加させることができます。
+このバージョンの前は、最初のノードの初期化が完了した後でのみ、新しいコントロールプレーンノードを順番にクラスターに参加させる必要があります。
+{{< /note >}}
 
-1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、このノードで`kubeadm join`を開始します。このようなコマンドになるはずです:
+追加のコントロールプレーンノード毎に、以下の手順を行います。
+
+1.  `kubeadm init`を最初のノードで実行した際に取得したjoinコマンドを使って、新しく追加するコントロールプレーンノードで`kubeadm join`を開始します。このようなコマンドになるはずです:
 
     ```sh
-    sudo kubeadm join 192.168.0.200:6443 --token j04n3m.octy8zely83cy2ts --discovery-token-ca-cert-hash sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f --experimental-control-plane
-    ```
-    - `--experimental-control-plane`フラグが追加されています。このフラグは、コントロールプレーンノードのクラスターへの参加を自動化します。
-
-1.  以下のコマンドをタイプし、コンポーネントのPodが起動するのを確認します:
-
-    ```sh
-    kubectl get pod -n kube-system -w
+    sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
     ```
 
-1.  これらのステップを、残りのコントロールプレーンノードに対して繰り返します。
+    - `--control-plane`フラグによって、`kubeadm join`の実行は新しいコントロールプレーンを作成します。
+    - `-certificate-key ...`を指定したキーを使って、クラスターの`kubeadm-certs` Secretからダウンロードされたコントロールプレーンの証明書が復号されます。
 
 ## 外部のetcdノード
 
