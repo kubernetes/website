@@ -233,14 +233,13 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 
 ## コントロールプレーン起動後の共通タスク
 
-### Podネットワークのインストール
-
-Podネットワークをインストールするには、[こちらの手順に従ってください](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)。master設定ファイルで提供したPod CIDRのどれかに一致することを確認します。
-
 ### workerのインストール
 
-`kubeadm init`コマンドから返されたコマンドを利用して、workerノードをクラスターに参加させることが可能です。workerノードには、`--experimental-control-plane`フラグを追加する必要はありません。
+`kubeadm init`コマンドから返されたコマンドを利用して、workerノードをクラスターに参加させることが可能です。
 
+```sh
+sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
+```
 
 ## 証明書の手動配布 {#manual-certs}
 
