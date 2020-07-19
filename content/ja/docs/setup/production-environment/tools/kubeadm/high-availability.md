@@ -280,7 +280,7 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
     次の例の、`CONTROL_PLANE_IPS`を他のコントロールプレーンノードのIPアドレスに置き換えます。
 
     ```sh
-    USER=ubuntu # customizable
+    USER=ubuntu # 環境に合わせる
     CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
     for host in ${CONTROL_PLANE_IPS}; do
         scp /etc/kubernetes/pki/ca.crt "${USER}"@$host:
@@ -290,7 +290,7 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
         scp /etc/kubernetes/pki/front-proxy-ca.crt "${USER}"@$host:
         scp /etc/kubernetes/pki/front-proxy-ca.key "${USER}"@$host:
         scp /etc/kubernetes/pki/etcd/ca.crt "${USER}"@$host:etcd-ca.crt
-        # Quote this line if you are using external etcd
+        # 外部のetcdノード使用時はこちらのコマンドを実行
         scp /etc/kubernetes/pki/etcd/ca.key "${USER}"@$host:etcd-ca.key
     done
     ```
@@ -302,7 +302,7 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
 1.  次に、クラスターに参加させる残りの各コントロールプレーンノードで`kubeadm join`を実行する前に次のスクリプトを実行する必要があります。このスクリプトは、前の手順でコピーした証明書をホームディレクトリから`/etc/kubernetes/pki`へ移動します:
 
     ```sh
-    USER=ubuntu # customizable
+    USER=ubuntu # 環境に合わせる
     mkdir -p /etc/kubernetes/pki/etcd
     mv /home/${USER}/ca.crt /etc/kubernetes/pki/
     mv /home/${USER}/ca.key /etc/kubernetes/pki/
@@ -311,6 +311,6 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
     mv /home/${USER}/front-proxy-ca.crt /etc/kubernetes/pki/
     mv /home/${USER}/front-proxy-ca.key /etc/kubernetes/pki/
     mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
-    # Quote this line if you are using external etcd
+    # 外部のetcdノード使用時はこちらのコマンドを実行
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
