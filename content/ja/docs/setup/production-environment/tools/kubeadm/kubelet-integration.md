@@ -94,7 +94,7 @@ systemctl daemon-reload && systemctl restart kubelet
 
 kubeletが新たな設定を読み込むと、kubeadmは、KubeConfigファイル`/etc/kubernetes/bootstrap-kubelet.conf`を書き込みます。これは、CA証明書とBootstrap Tokenを含みます。これらはkubeletがTLS Bootstrapを行い`/etc/kubernetes/kubelet.conf`に格納されるユニークなクレデンシャルを取得するために使用されます。ファイルが書き込まれると、kubeletはTLS Bootstrapを終了します。
 
-## kubelet用のsystemdファイル
+## kubelet用のsystemdファイル {#the-kubelet-drop-in-file-for-systemd}
 
 `kubeadm`には、systemdがどのようにkubeletを実行するかを指定した設定ファイルが同梱されています。
 kubeadm CLIコマンドは決してこのsystemdファイルには触れないことに注意してください。
