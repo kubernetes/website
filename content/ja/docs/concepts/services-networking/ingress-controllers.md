@@ -41,7 +41,7 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 
 クラスを定義しない場合、クラウドプロバイダーはデフォルトのIngressコントローラーを使用する場合があります。
 
-理想的には、すべてのIngressコントローラーはこの仕様を満たすべきですが、さまざまなIngressコントローラーはわずかに異なる動作をします。
+理想的には、すべてのIngressコントローラーはこの仕様を満たすべきですが、いくつかのIngressコントローラーはわずかに異なる動作をします。
 
 
 {{< note >}}
@@ -55,5 +55,4 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 
 * [Ingress](/ja/docs/concepts/services-networking/ingress/)の詳細
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
-
 
