@@ -34,7 +34,7 @@
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
 <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  src="{{ "js/jquery-3.3.1.min.js" | relURL }}"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 {{ if and (.Site.Params.offlineSearch) (not .Site.Params.gcs_engine_id) }}
