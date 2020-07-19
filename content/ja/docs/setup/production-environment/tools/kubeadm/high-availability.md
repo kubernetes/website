@@ -162,22 +162,27 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 
 ## 外部のetcdノード
 
+外部のetcdノードを使ったクラスターの設定は、(スタック型etcd)の場合と似ていますが、最初にetcdを設定し、kubeadmの設定ファイルにetcdの情報を渡す必要があります。
+
 ### etcdクラスターの構築
 
-- [こちらの手順](/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
+1. [こちらの手順](/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
 
-### 最初のコントロールプレーンノードの構築
+1. [こちらの手順](#manual-certs)にしたがって、SSHを構築してください。
 
-1.  以下のファイルをetcdクラスターのどれかのノードからこのノードへコピーしてください:
+1. 以下のファイルをクラスター内の任意のetcdノードから最初のコントロールプレーンノードにコピーしてください:
 
     ```sh
     export CONTROL_PLANE="ubuntu@10.0.0.7"
-    +scp /etc/kubernetes/pki/etcd/ca.crt "${CONTROL_PLANE}":
-    +scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${CONTROL_PLANE}":
-    +scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
+    scp /etc/kubernetes/pki/etcd/ca.crt "${CONTROL_PLANE}":
+    scp /etc/kubernetes/pki/apiserver-etcd-client.crt "${CONTROL_PLANE}":
+    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
     ```
 
-    - `CONTROL_PLANE`の値を、このマシンの`user@host`で置き換えます。
+    - `CONTROL_PLANE`の値を、最初のコントロールプレーンノードの`user@host`で置き換えます。
+
+### 最初のコントロールプレーンノードの構築
+
 
 1.  以下の内容で、`kubeadm-config.yaml`という名前の設定ファイルを作成します:
 
