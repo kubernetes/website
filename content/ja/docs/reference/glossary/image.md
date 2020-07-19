@@ -4,13 +4,13 @@ id: image
 date: 2018-04-12
 full_link:
 short_description: >
-  アプリケーションの実行に必要なソフトウェアのセットを保持するコンテナの格納されたインスタンスです。
+  アプリケーションの実行に必要なソフトウェアのセットを持つ、保存されたコンテナの実体です。
 
 aka:
 tags:
 - fundamental
 ---
- アプリケーションの実行に必要なソフトウェアのセットを保持する{{< glossary_tooltip text="コンテナ"  term_id="container" >}}の格納されたインスタンスです。
+ アプリケーションの実行に必要なソフトウェアのセットを持つ、保存された{{< glossary_tooltip text="コンテナ"  term_id="container" >}}の実体です。
 
 <!--more-->
 
