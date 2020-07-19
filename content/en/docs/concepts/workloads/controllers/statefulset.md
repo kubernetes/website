@@ -141,6 +141,18 @@ As each Pod is created, it gets a matching DNS subdomain, taking the form:
 `$(podname).$(governing service domain)`, where the governing service is defined
 by the `serviceName` field on the StatefulSet.
 
+Depending on how DNS is configured in your cluster, you may not be able to look up the DNS
+name for a newly-run Pod immediately. This behavior can occur when other clients in the
+cluster have already sent queries for the hostname of the Pod before it was created.
+Negative caching (normal in DNS) means that the results of previous failed lookups are
+remembered and reused, even after the Pod is running, for at least a few seconds.
+
+If you need to discover Pods promptly after they are created, you have a few options:
+
+- Query the Kubernetes API directly (for example, using a watch) rather than relying on DNS lookups.
+- Decrease the time of caching in your Kubernetes DNS provider (tpyically this means editing the config map for CoreDNS, which currently caches for 30 seconds).
+
+
 As mentioned in the [limitations](#limitations) section, you are responsible for
 creating the [Headless Service](/docs/concepts/services-networking/service/#headless-services)
 responsible for the network identity of the pods.
@@ -277,6 +289,4 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 * Follow an example of [deploying a stateful application](/docs/tutorials/stateful-application/basic-stateful-set/).
 * Follow an example of [deploying Cassandra with Stateful Sets](/docs/tutorials/stateful-application/cassandra/).
 * Follow an example of [running a replicated stateful application](/docs/tasks/run-application/run-replicated-stateful-application/).
-
-
 

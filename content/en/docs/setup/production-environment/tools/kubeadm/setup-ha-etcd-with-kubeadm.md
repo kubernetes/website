@@ -23,21 +23,14 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
-* Each host must [have docker, kubelet, and kubeadm installed][toolbox].
+* Each host must [have docker, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
-
-[toolbox]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
-
-
 
 <!-- steps -->
 

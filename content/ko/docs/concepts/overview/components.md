@@ -1,8 +1,11 @@
 ---
 title: 쿠버네티스 컴포넌트
 content_type: concept
+description: >
+  쿠버네티스 클러스터는 컴퓨터 집합인 노드 컴포넌트와 컨트롤 플레인
+  컴포넌트로 구성된다.
 weight: 20
-card:
+card: 
   name: concepts
   weight: 20
 ---
@@ -96,7 +99,7 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 애드온에 대한 네임스페이스 리소스는 `kube-system` 네임스페이스에 속한다.
 
 선택된 일부 애드온은 아래에 설명하였고, 사용 가능한 전체 확장 애드온 리스트는
-[애드온](/docs/concepts/cluster-administration/addons/)을 참조한다.
+[애드온](/ko/docs/concepts/cluster-administration/addons/)을 참조한다.
 
 ### DNS
 
@@ -117,7 +120,7 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 
 ### 클러스터-레벨 로깅
 
-[클러스터-레벨 로깅](/docs/concepts/cluster-administration/logging/) 메커니즘은
+[클러스터-레벨 로깅](/ko/docs/concepts/cluster-administration/logging/) 메커니즘은
 검색/열람 인터페이스와 함께 중앙 로그 저장소에 컨테이너 로그를 저장하는 책임을 진다.
 
 
@@ -127,4 +130,3 @@ kube-controller-manager와 마찬가지로 cloud-controller-manager는 논리적
 * [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 더 배우기
 * [kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 더 배우기
 * etcd의 공식 [문서](https://etcd.io/docs/) 읽기
-

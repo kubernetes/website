@@ -185,6 +185,10 @@ cd <web-base>
 make docker-serve
 ```
 
+{{< note >}}
+The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
+{{< /note >}}
+
 ## Commit the changes
 
 In `<web-base>` run `git add` and `git commit` to commit the change.

@@ -447,6 +447,6 @@ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 * [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
-* 어떻게 [외부 로드밸런서 생성](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
+* 어떻게 [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
 
 

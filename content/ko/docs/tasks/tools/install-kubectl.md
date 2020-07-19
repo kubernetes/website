@@ -111,34 +111,34 @@ kubectl version --client
 
 1. 최신 릴리스를 다운로드한다.
 
-    ```
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   ```bash
+   curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+   ```
+
+   특정 버전을 다운로드하려면, `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
+
+   예를 들어, macOS에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
+   ```bash
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
 
-    특정 버전을 다운로드하려면, `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
+   kubectl 바이너리를 실행 가능하게 만든다.
 
-    예를 들어, macOS에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
-    ```
-
-2. kubectl 바이너리를 실행 가능하게 만든다.
-
-    ```
-    chmod +x ./kubectl
-    ```
+   ```bash
+   chmod +x ./kubectl
+   ```
 
 3. 바이너리를 PATH가 설정된 디렉터리로 옮긴다.
 
-    ```
-    sudo mv ./kubectl /usr/local/bin/kubectl
-    ```
+   ```bash
+   sudo mv ./kubectl /usr/local/bin/kubectl
+   ```
 
 4. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 ### macOS에서 Homebrew를 사용하여 설치
 
@@ -146,21 +146,21 @@ macOS에서 [Homebrew](https://brew.sh/) 패키지 관리자를 사용하는 경
 
 1. 설치 명령을 실행한다.
 
-    ```
-    brew install kubectl
-    ```
+   ```bash
+   brew install kubectl
+   ```
 
-    또는
+   또는
 
-    ```
-    brew install kubernetes-cli
-    ```
+   ```bash
+   brew install kubernetes-cli
+   ```
 
 2. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 ### macOS에서 Macports를 사용하여 설치
 
@@ -168,117 +168,123 @@ macOS에서 [Macports](https://macports.org/) 패키지 관리자를 사용하�
 
 1. 설치 명령을 실행한다.
 
-    ```
-    sudo port selfupdate
-    sudo port install kubectl
-    ```
+   ```bash
+   sudo port selfupdate
+   sudo port install kubectl
+   ```
 
 2. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
-## Windows에 kubectl 설치
+## 윈도우에 kubectl 설치
 
-### Windows에서 curl을 사용하여 kubectl 바이너리 설치
+### 윈도우에서 curl을 사용하여 kubectl 바이너리 설치
 
 1. [이 링크](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)에서 최신 릴리스 {{< param "fullversion" >}}을 다운로드한다.
 
-    또는 `curl` 을 설치한 경우, 다음 명령을 사용한다.
+   또는 `curl` 을 설치한 경우, 다음 명령을 사용한다.
 
-    ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
-    ```
+   ```bash
+   curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   ```
 
-    최신의 안정 버전(예: 스크립팅을 위한)을 찾으려면, [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)를 참고한다.
+   최신의 안정 버전(예: 스크립팅을 위한)을 찾으려면, [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)를 참고한다.
 
 2. 바이너리를 PATH가 설정된 디렉터리에 추가한다.
 
 3. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```bash
+   kubectl version --client
+   ```
 
 {{< note >}}
-[Windows용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 PATH에 추가한다.
+[윈도우용 도커 데스크톱](https://docs.docker.com/docker-for-windows/#kubernetes)은 자체 버전의 `kubectl` 을 PATH에 추가한다.
 도커 데스크톱을 이전에 설치한 경우, 도커 데스크톱 설치 프로그램에서 추가한 PATH 항목 앞에 PATH 항목을 배치하거나 도커 데스크톱의 `kubectl` 을 제거해야 할 수도 있다.
 {{< /note >}}
 
 ### PSGallery에서 Powershell로 설치
 
-Windows에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지 관리자를 사용하는 경우, Powershell로 kubectl을 설치하고 업데이트할 수 있다.
+윈도우에서 [Powershell Gallery](https://www.powershellgallery.com/) 패키지 관리자를 사용하는 경우, Powershell로 kubectl을 설치하고 업데이트할 수 있다.
 
 1. 설치 명령을 실행한다(`DownloadLocation` 을 지정해야 한다).
 
-    ```
-    Install-Script -Name install-kubectl -Scope CurrentUser -Force
-    install-kubectl.ps1 [-DownloadLocation <path>]
-    ```
+   ```powershell
+   Install-Script -Name install-kubectl -Scope CurrentUser -Force
+   install-kubectl.ps1 [-DownloadLocation <path>]
+   ```
 
-{{< note >}}`DownloadLocation` 을 지정하지 않으면, `kubectl` 은 사용자의 임시 디렉터리에 설치된다.{{< /note >}}
+   {{< note >}}
+   `DownloadLocation` 을 지정하지 않으면, `kubectl` 은 사용자의 임시 디렉터리에 설치된다.
+   {{< /note >}}
 
    설치 프로그램은 `$HOME/.kube` 를 생성하고 구성 파일을 작성하도록 지시한다.
 
 2. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```powershell
+   kubectl version --client
+   ```
 
 {{< note >}}
 설치 업데이트는 1 단계에서 나열한 두 명령을 다시 실행하여 수행한다.
 {{< /note >}}
 
-### Chocolatey 또는 Scoop을 사용하여 Windows에 설치
+### Chocolatey 또는 Scoop을 사용하여 윈도우에 설치
 
-1. Windows에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자나 [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램을 사용할 수 있다.
+1. 윈도우에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자나 [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램을 사용할 수 있다.
 
-{{< tabs name="kubectl_win_install" >}}
-{{% tab name="choco" %}}
-
+   {{< tabs name="kubectl_win_install" >}}
+   {{% tab name="choco" %}}
+   ```powershell
     choco install kubernetes-cli
-
-{{% /tab %}}
-{{% tab name="scoop" %}}
-
+   ```
+   {{% /tab %}}
+   {{% tab name="scoop" %}}
+   ```powershell
     scoop install kubectl
-
-{{% /tab %}}
-{{< /tabs >}}
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
 
 
 2. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```powershell
+   kubectl version --client
+   ```
 
-3. 홈 디렉토리로 이동한다.
+3. 홈 디렉터리로 이동한다.
 
-    ```
-    cd %USERPROFILE%
-    ```
+   ```powershell
+   # cmd.exe를 사용한다면, 다음을 실행한다. cd %USERPROFILE%
+   cd ~
+   ```
+
 4. `.kube` 디렉터리를 생성한다.
 
-    ```
-    mkdir .kube
-    ```
+   ```powershell
+   mkdir .kube
+   ```
 
 5. 금방 생성한 `.kube` 디렉터리로 이동한다.
 
-    ```
-    cd .kube
-    ```
+   ```powershell
+   cd .kube
+   ```
 
 6. 원격 쿠버네티스 클러스터를 사용하도록 kubectl을 구성한다.
 
-    ```
-    New-Item config -type file
-    ```
+   ```powershell
+   New-Item config -type file
+   ```
 
-{{< note >}}메모장과 같은 텍스트 편집기를 선택하여 구성 파일을 편집한다.{{< /note >}}
+{{< note >}}
+메모장과 같은 텍스트 편집기를 선택하여 구성 파일을 편집한다.
+{{< /note >}}
 
 ## Google Cloud SDK의 일부로 다운로드
 
@@ -288,15 +294,15 @@ kubectl을 Google Cloud SDK의 일부로 설치할 수 있다.
 
 2. `kubectl` 설치 명령을 실행한다.
 
-    ```
-    gcloud components install kubectl
-    ```
+   ```shell
+   gcloud components install kubectl
+   ```
 
 3. 설치한 버전이 최신 버전인지 확인한다.
 
-    ```
-    kubectl version --client
-    ```
+   ```shell
+   kubectl version --client
+   ```
 
 ## kubectl 구성 확인
 
@@ -312,7 +318,7 @@ URL 응답이 표시되면, kubectl이 클러스터에 접근하도록 올바르
 
 다음과 비슷한 메시지가 표시되면, kubectl이 올바르게 구성되지 않았거나 쿠버네티스 클러스터에 연결할 수 없다.
 
-```shell
+```
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
@@ -350,7 +356,7 @@ bash-completion은 많은 패키지 관리자에 의해 제공된다([여기](ht
 
 확인하려면, 셸을 다시 로드하고 `type _init_completion` 을 실행한다. 명령이 성공하면, 이미 설정된 상태이고, 그렇지 않으면 `~/.bashrc` 파일에 다음을 추가한다.
 
-```shell
+```bash
 source /usr/share/bash-completion/bash_completion
 ```
 
@@ -362,17 +368,17 @@ source /usr/share/bash-completion/bash_completion
 
 - `~/.bashrc` 파일에서 완성 스크립트를 소싱한다.
 
-    ```shell
-    echo 'source <(kubectl completion bash)' >>~/.bashrc
-    ```
+   ```bash
+   echo 'source <(kubectl completion bash)' >>~/.bashrc
+   ```
 - 완성 스크립트를 `/etc/bash_completion.d` 디렉터리에 추가한다.
 
-    ```shell
-    kubectl completion bash >/etc/bash_completion.d/kubectl
-    ```
+   ```bash
+   kubectl completion bash >/etc/bash_completion.d/kubectl
+   ```
 kubectl에 대한 앨리어스(alias)가 있는 경우, 해당 앨리어스로 작업하도록 셸 완성을 확장할 수 있다.
 
-```shell
+```bash
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
 ```
@@ -403,19 +409,19 @@ bash-completion에는 v1과 v2 두 가지 버전이 있다. v1은 Bash 3.2(macOS
 
 여기의 지침에서는 Bash 4.1 이상을 사용한다고 가정한다. 다음을 실행하여 Bash 버전을 확인할 수 있다.
 
-```shell
+```bash
 echo $BASH_VERSION
 ```
 
 너무 오래된 버전인 경우, Homebrew를 사용하여 설치/업그레이드할 수 있다.
 
-```shell
+```bash
 brew install bash
 ```
 
 셸을 다시 로드하고 원하는 버전을 사용 중인지 확인한다.
 
-```shell
+```bash
 echo $BASH_VERSION $SHELL
 ```
 
@@ -429,13 +435,13 @@ Homebrew는 보통 `/usr/local/bin/bash` 에 설치한다.
 
 bash-completion v2가 이미 설치되어 있는지 `type_init_completion` 으로 확인할 수 있다. 그렇지 않은 경우, Homebrew로 설치할 수 있다.
 
-```shell
+```bash
 brew install bash-completion@2
 ```
 
 이 명령의 출력에 명시된 바와 같이, `~/.bash_profile` 파일에 다음을 추가한다.
 
-```shell
+```bash
 export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 ```
@@ -448,29 +454,29 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 
 - 완성 스크립트를 `~/.bash_profile` 파일에서 소싱한다.
 
-    ```shell
+    ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
 
     ```
 
 - 완성 스크립트를 `/usr/local/etc/bash_completion.d` 디렉터리에 추가한다.
 
-    ```shell
+    ```bash
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
 - kubectl에 대한 앨리어스가 있는 경우, 해당 앨리어스로 작업하기 위해 셸 완성을 확장할 수 있다.
 
-    ```shell
+    ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
     echo 'complete -F __start_kubectl k' >>~/.bash_profile
     ```
 
 - Homebrew로 kubectl을 설치한 경우([위](#macos에서-homebrew를-사용하여-설치)의 설명을 참고), kubectl 완성 스크립트는 이미 `/usr/local/etc/bash_completion.d/kubectl` 에 있어야 한다. 이 경우, 아무 것도 할 필요가 없다.
 
-  {{< note >}}
-  bash-completion v2의 Homebrew 설치는 `BASH_COMPLETION_COMPAT_DIR` 디렉터리의 모든 파일을 소싱하므로, 후자의 두 가지 방법이 적용된다.
-  {{< /note >}}
+   {{< note >}}
+   bash-completion v2의 Homebrew 설치는 `BASH_COMPLETION_COMPAT_DIR` 디렉터리의 모든 파일을 소싱하므로, 후자의 두 가지 방법이 적용된다.
+   {{< /note >}}
 
 어쨌든, 셸을 다시 로드 한 후에, kubectl 완성이 작동해야 한다.
 {{% /tab %}}
@@ -481,13 +487,13 @@ Zsh용 kubectl 완성 스크립트는 `kubectl completion zsh` 명령으로 생�
 
 모든 셸 세션에서 사용하려면, `~/.zshrc` 파일에 다음을 추가한다.
 
-```shell
+```zsh
 source <(kubectl completion zsh)
 ```
 
 kubectl에 대한 앨리어스가 있는 경우, 해당 앨리어스로 작업하도록 셸 완성을 확장할 수 있다.
 
-```shell
+```zsh
 echo 'alias k=kubectl' >>~/.zshrc
 echo 'complete -F __start_kubectl k' >>~/.zshrc
 ```
@@ -496,15 +502,12 @@ echo 'complete -F __start_kubectl k' >>~/.zshrc
 
 `complete:13: command not found: compdef` 와 같은 오류가 발생하면, `~/.zshrc` 파일의 시작 부분에 다음을 추가한다.
 
-```shell
+```zsh
 autoload -Uz compinit
 compinit
 ```
 {{% /tab %}}
 {{< /tabs >}}
-
-
-
 
 ## {{% heading "whatsnext" %}}
 
@@ -513,4 +516,3 @@ compinit
 * [애플리케이션을 시작하고 노출하는 방법에 대해 배운다.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * 직접 생성하지 않은 클러스터에 접근해야하는 경우, [클러스터 접근 공유 문서](/ko/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)를 참고한다.
 * [kubectl 레퍼런스 문서](/docs/reference/kubectl/kubectl/) 읽기
-

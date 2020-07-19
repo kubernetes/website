@@ -1,7 +1,7 @@
 ---
 title: 완료된 리소스를 위한 TTL 컨트롤러
 content_type: concept
-weight: 65
+weight: 70
 ---
 
 <!-- overview -->
@@ -10,7 +10,7 @@ weight: 65
 
 TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 제한하는 TTL (time to live) 메커니즘을 제공한다. TTL 컨트롤러는 현재
-[잡(Job)](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)만
+{{< glossary_tooltip text="잡(Job)" term_id="job" >}}만
 처리하며, 파드와 커스텀 리소스와 같이 실행을 완료할 다른 리소스를
 처리하도록 확장될 수 있다.
 
@@ -29,7 +29,7 @@ kube-apiserver와 kube-controller-manager와 함께
 ## TTL 컨트롤러
 
 현재의 TTL 컨트롤러는 잡만 지원한다. 클러스터 운영자는
-[예시](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
+[예시](/ko/docs/concepts/workloads/controllers/job/#완료된-잡을-자동으로-정리)
 와 같이 `.spec.ttlSecondsAfterFinished` 필드를 명시하여
 완료된 잡(`완료` 또는 `실패`)을 자동으로 정리하기 위해 이 기능을 사용할 수 있다.
 리소스의 작업이 완료된 TTL 초(sec) 후 (다른 말로는, TTL이 만료되었을 때),

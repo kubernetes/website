@@ -49,11 +49,11 @@ En estos momento, las librerías con soporte oficial son:
 
 * [kubelet](/docs/admin/kubelet/) - El principal *agente* que se ejecuta en cada nodo. El kubelet toma un conjunto de PodSpecs y asegura que los contenedores descritos estén funcionando y en buen estado.
 * [kube-apiserver](/docs/admin/kube-apiserver/) - API REST que valida y configura datos para objetos API como pods, servicios, controladores de replicación, ...
-* [kube-controller-manager](/docs/admin/kube-controller-manager/) - Demonio que integra los bucles de control enviados con Kubernetes.
+* [kube-controller-manager](/docs/admin/kube-controller-manager/) - Daemon que integra los bucles de control enviados con Kubernetes.
 * [kube-proxy](/docs/admin/kube-proxy/) - Puede hacer fowarding simple o con round-robin de TCP/UDP a través de un conjunto de back-ends.
 * [kube-scheduler](/docs/admin/kube-scheduler/) - Planificador que gestiona la disponibilidad, el rendimiento y la capacidad.
 * [federation-apiserver](/docs/admin/federation-apiserver/) - Servidor API para clusters federados.
-* [federation-controller-manager](/docs/admin/federation-controller-manager/) - Demonio que integra los bucles de control enviados con la federación Kubernetes.
+* [federation-controller-manager](/docs/admin/federation-controller-manager/) - Proceso que integra los bucles de control enviados con la federación Kubernetes.
 
 ## Documentos de diseño
 

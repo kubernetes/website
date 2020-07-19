@@ -8,7 +8,7 @@ card:
 ---
 
 <!-- overview -->
-Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다. `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다. KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 파일을 지정할 수 있다.
+Kubectl은 쿠버네티스 클러스터를 제어하기 위한 커맨드 라인 도구이다. 구성을 위해, `kubectl` 은 config 파일을 $HOME/.kube 에서 찾는다. KUBECONFIG 환경 변수를 설정하거나 [`--kubeconfig`](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 플래그를 설정하여 다른 [kubeconfig](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/) 파일을 지정할 수 있다.
 
 이 개요는 `kubectl` 구문을 다루고, 커맨드 동작을 설명하며, 일반적인 예제를 제공한다. 지원되는 모든 플래그 및 하위 명령을 포함한 각 명령에 대한 자세한 내용은 [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 참조 문서를 참고한다. 설치 방법에 대해서는 [kubectl 설치](/ko/docs/tasks/tools/install-kubectl/)를 참고한다.
 
@@ -29,11 +29,11 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 * `TYPE`: [리소스 타입](#리소스-타입)을 지정한다. 리소스 타입은 대소문자를 구분하지 않으며 단수형, 복수형 또는 약어 형식을 지정할 수 있다. 예를 들어, 다음의 명령은 동일한 출력 결과를 생성한다.
 
-    ```shell
-    kubectl get pod pod1
-    kubectl get pods pod1
-    kubectl get po pod1
-    ```
+   ```shell
+   kubectl get pod pod1
+   kubectl get pods pod1
+   kubectl get po pod1
+   ```
 
 * `NAME`: 리소스 이름을 지정한다. 이름은 대소문자를 구분한다. 이름을 생략하면, 모든 리소스에 대한 세부 사항이 표시된다. 예: `kubectl get pods`
 
@@ -110,13 +110,13 @@ kubectl [command] [TYPE] [NAME] [flags]
 `version`        | `kubectl version [--client] [flags]` | 클라이언트와 서버에서 실행 중인 쿠버네티스 버전을 표시한다.
 `wait`    | <code>kubectl wait ([-f FILENAME] &#124; resource.group/resource.name &#124; resource.group [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | 실험(experimental) 기능: 하나 이상의 리소스에서 특정 조건을 기다린다.
 
-기억하기: 명령 동작에 대한 자세한 내용은 [kubectl](/docs/user-guide/kubectl/) 참조 문서를 참고한다.
+명령 동작에 대한 자세한 내용을 배우려면 [kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 ## 리소스 타입
 
 다음 표에는 지원되는 모든 리소스 타입과 해당 약어가 나열되어 있다.
 
-(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.13.3 부터 일치한다.)
+(이 출력은 `kubectl api-resources` 에서 확인할 수 있으며, 쿠버네티스 1.13.3 부터 일치했다.)
 
 | 리소스 이름 | 짧은 이름 | API 그룹 | 네임스페이스 | 리소스 종류 |
 |---|---|---|---|---|
@@ -172,7 +172,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ## 출력 옵션
 
-특정 명령의 출력을 서식화하거나 정렬하는 방법에 대한 정보는 다음 섹션을 참고한다. 다양한 출력 옵션을 지원하는 명령에 대한 자세한 내용은 [kubectl](/docs/user-guide/kubectl/) 참조 문서를 참고한다.
+특정 명령의 출력을 서식화하거나 정렬하는 방법에 대한 정보는 다음 섹션을 참고한다. 다양한 출력 옵션을 지원하는 명령에 대한 자세한 내용은 [kubectl](/docs/reference/kubectl/kubectl/) 참조 문서를 참고한다.
 
 ### 출력 서식화
 
@@ -231,9 +231,9 @@ kubectl get pods <pod-name> -o custom-columns-file=template.txt
 NAME          RSRC
 metadata.name metadata.resourceVersion
 ```
-두 명령 중 하나를 실행한 결과는 다음과 같다.
+두 명령 중 하나를 실행한 결과는 다음과 비슷하다.
 
-```shell
+```
 NAME           RSRC
 submit-queue   610995
 ```
@@ -244,7 +244,7 @@ submit-queue   610995
 이는 클라이언트가 출력할 수 있도록, 주어진 리소스에 대해 서버가 해당 리소스와 관련된 열과 행을 반환한다는 것을 의미한다.
 이는 서버가 출력의 세부 사항을 캡슐화하도록 하여, 동일한 클러스터에 대해 사용된 클라이언트에서 사람이 읽을 수 있는 일관된 출력을 허용한다.
 
-이 기능은 기본적으로 `kubectl` 1.11 이상에서 활성화되어 있다. 사용하지 않으려면,
+이 기능은 기본적으로 활성화되어 있다. 사용하지 않으려면,
 `kubectl get` 명령에 `--server-print=false` 플래그를 추가한다.
 
 ##### 예제
@@ -255,9 +255,9 @@ submit-queue   610995
 kubectl get pods <pod-name> --server-print=false
 ```
 
-출력 결과는 다음과 같다.
+출력 결과는 다음과 비슷하다.
 
-```shell
+```
 NAME       AGE
 pod-name   1m
 ```
@@ -402,16 +402,20 @@ cat service.yaml | kubectl diff -f -
 # 어떤 언어로든 간단한 플러그인을 만들고 "kubectl-" 접두사로
 # 시작하도록 실행 파일의 이름을 지정한다.
 cat ./kubectl-hello
-#!/bin/bash
+```
+```shell
+#!/bin/sh
 
 # 이 플러그인은 "hello world"라는 단어를 출력한다
 echo "hello world"
-
-# 작성한 플러그인을 실행 가능하게 한다
-sudo chmod +x ./kubectl-hello
+```
+작성한 플러그인을 실행 가능하게 한다
+```bash
+chmod a+x ./kubectl-hello
 
 # 그리고 PATH의 위치로 옮긴다
 sudo mv ./kubectl-hello /usr/local/bin
+sudo chown root:root /usr/local/bin
 
 # 이제 kubectl 플러그인을 만들고 "설치했다".
 # kubectl에서 플러그인을 일반 명령처럼 호출하여 플러그인을 사용할 수 있다
@@ -422,16 +426,18 @@ hello world
 ```
 
 ```shell
-# PATH에서 플러그인 파일을 간단히 삭제하여, 플러그인을 "제거"할 수 있다
+# 플러그인을 배치한 $PATH의 폴더에서 플러그인을 삭제하여,
+# 플러그인을 "제거"할 수 있다
 sudo rm /usr/local/bin/kubectl-hello
 ```
 
 `kubectl` 에 사용할 수 있는 모든 플러그인을 보려면,
-`kubectl plugin list` 하위 명령을 사용할 수 있다.
+`kubectl plugin list` 하위 명령을 사용한다.
 
 ```shell
 kubectl plugin list
 ```
+출력 결과는 다음과 비슷하다.
 ```
 The following kubectl-compatible plugins are available:
 
@@ -439,11 +445,11 @@ The following kubectl-compatible plugins are available:
 /usr/local/bin/kubectl-foo
 /usr/local/bin/kubectl-bar
 ```
+
+`kubectl plugin list` 는 또한 실행 가능하지 않거나,
+다른 플러그인에 의해 차단된 플러그인에 대해 경고한다. 예를 들면 다음과 같다.
 ```shell
-# 또한, 이 명령은 예를 들어 실행 불가능한 파일이거나,
-# 다른 플러그인에 의해 가려진 플러그인에 대해
-# 경고할 수 있다
-sudo chmod -x /usr/local/bin/kubectl-foo
+sudo chmod -x /usr/local/bin/kubectl-foo # 실행 권한 제거
 kubectl plugin list
 ```
 ```
@@ -462,6 +468,10 @@ error: one plugin warning was found
 
 ```shell
 cat ./kubectl-whoami
+```
+다음 몇 가지 예는 이미 `kubectl-whoami` 에
+다음 내용이 있다고 가정한다.
+```shell
 #!/bin/bash
 
 # 이 플러그인은 현재 선택된 컨텍스트를 기반으로 현재 사용자에 대한
@@ -469,7 +479,7 @@ cat ./kubectl-whoami
 kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
-위의 플러그인을 실행하면 KUBECONFIG 파일에서 현재 선택된 컨텍스트에 대한
+위의 플러그인을 실행하면 KUBECONFIG 파일에서 현재의 컨텍스트에 대한
 사용자가 포함된 출력이 제공된다.
 
 ```shell
@@ -483,11 +493,10 @@ kubectl whoami
 Current user: plugins-user
 ```
 
-플러그인에 대한 자세한 내용은 [cli plugin 예제](https://github.com/kubernetes/sample-cli-plugin)를 참고한다.
 
 
 ## {{% heading "whatsnext" %}}
 
-[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 명령을 사용하여 시작한다.
+* [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) 명령을 사용하여 시작한다.
 
-
+* 플러그인에 대한 자세한 내용은 [cli plugin 예제](https://github.com/kubernetes/sample-cli-plugin)를 참고한다.

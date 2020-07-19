@@ -19,12 +19,12 @@ weight: 10
  - 단지 자신의 컴퓨터에 쿠버네티스를 테스트를 하는지, 또는 고가용성의 멀티 노드 클러스터를 만들려고 하는지에 따라 니즈에 가장 적절한 배포판을 고르자.
  - [구글 쿠버네티스 엔진](https://cloud.google.com/kubernetes-engine/)과 같은 **호스팅된 쿠버네티스 클러스터** 를 사용할 것인지, **자신의 클러스터에 호스팅할 것인지**?
  - 클러스터가 **온프레미스** 인지, 또는 **클라우드(IaaS)** 인지? 쿠버네티스는 하이브리드 클러스터를 직접적으로 지원하지는 않는다. 대신에, 사용자는 여러 클러스터를 구성할 수 있다.
- - **만약 온프레미스에서 쿠버네티스를 구성한다면**, 어떤 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)이 가장 적합한지 고려한다.
+ - **만약 온프레미스에서 쿠버네티스를 구성한다면**, 어떤 [네트워킹 모델](/ko/docs/concepts/cluster-administration/networking/)이 가장 적합한지 고려한다.
  - 쿠버네티스 실행을 **"베어메탈" 하드웨어** 또는, **가상 머신 (VMs)** 중 어디에서 할 것 인지?
  - **단지 클러스터 동작** 만 할 것인지, 아니면 **쿠버네티스 프로젝트 코드의 적극적인 개발** 을 원하는지? 만약 후자의 경우라면,
    적극적으로 개발된 배포판을 선택한다. 몇몇 배포판은 바이너리 릴리스 밖에 없지만,
    매우 다양한 선택권을 제공한다.
- - 스스로 클러스터 구동에 필요한 [구성요소](/docs/admin/cluster-components/)에 익숙해지자.
+ - 스스로 클러스터 구동에 필요한 [구성요소](/ko/docs/concepts/overview/components/)에 익숙해지자.
 
 참고: 모든 배포판이 적극적으로 유지되는 것은 아니다. 최근 버전의 쿠버네티스로 테스트 된 배포판을 선택하자.
 
@@ -38,7 +38,7 @@ weight: 10
 
 ## 클러스터 보안
 
-* [인증서](/docs/concepts/cluster-administration/certificates/)는 다른 툴 체인을 이용하여 인증서를 생성하는 방법을 설명한다.
+* [인증서](/ko/docs/concepts/cluster-administration/certificates/)는 다른 툴 체인을 이용하여 인증서를 생성하는 방법을 설명한다.
 
 * [쿠버네티스 컨테이너 환경](/ko/docs/concepts/containers/container-environment/)은 쿠버네티스 노드에서 Kubelet에 의해 관리되는 컨테이너 환경에 대해 설명한다.
 
@@ -63,6 +63,4 @@ weight: 10
 
 * [DNS 통합](/ko/docs/concepts/services-networking/dns-pod-service/)은 DNS 이름이 쿠버네티스 서비스에 바로 연결되도록 변환하는 방법을 설명한다.
 
-* [클러스터 활동 로깅과 모니터링](/docs/concepts/cluster-administration/logging/)은 쿠버네티스 로깅이 로깅의 작동 방법과 로깅을 어떻게 구현하는지 설명한다.
-
-
+* [클러스터 활동 로깅과 모니터링](/ko/docs/concepts/cluster-administration/logging/)은 쿠버네티스 로깅이 로깅의 작동 방법과 로깅을 어떻게 구현하는지 설명한다.

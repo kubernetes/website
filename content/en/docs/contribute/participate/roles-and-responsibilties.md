@@ -126,9 +126,9 @@ To apply:
 [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
 in the `kubernetes/website` repository.
 
-  {{ note }}
+  {{< note >}}
   If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
-  {{ /note }}
+  {{< /note >}}
 
 2. Assign the PR to one or more SIG-Docs approvers (user names listed under `sig-docs-{language}-owners`).
 
@@ -171,7 +171,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 - Visit the Netlify page preview for a PR to make sure things look good before approving.
 
 - Participate in the [PR Wrangler rotation schedule](https://github.com/kubernetes/website/wiki/PR-Wranglers) for weekly rotations. SIG Docs expects all approvers to participate in this
-rotation. See [Be the PR Wrangler for a week](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)
+rotation. See [PR wranglers](/docs/contribute/participating/pr-wranglers/).
 for more details.
 
 ### Becoming an approver
@@ -182,10 +182,14 @@ To apply:
 
 1. Open a pull request adding yourself to a section of the [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file in the `kubernetes/website` repository.
 
-    {{ note }}
+    {{< note >}}
     If you aren't sure where to add yourself, add yourself to `sig-docs-en-owners`.
-    {{ /note }}
+    {{< /note >}}
 
 2. Assign the PR to one or more current SIG Docs approvers.
 
-If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added, [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
+If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added, [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
+
+## {{% heading "whatsnext" %}}
+
+- Read about [PR wrangling](/docs/contribute/participating/pr-wranglers), a role all approvers take on rotation.

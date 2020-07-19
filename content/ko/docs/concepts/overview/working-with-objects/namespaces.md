@@ -27,7 +27,7 @@ weight: 30
 
 네임스페이스는 클러스터 자원을 ([리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 통해) 여러 사용자 사이에서 나누는 방법이다.
 
-이후 버전의 쿠버네티스에서는 같은 네임스페이스의 오브젝트는 기본적으로 
+이후 버전의 쿠버네티스에서는 같은 네임스페이스의 오브젝트는 기본적으로
 동일한 접근 제어 정책을 갖게 된다.
 
 동일한 소프트웨어의 다른 버전과 같이 약간 다른 리소스를 분리하기 위해
@@ -38,6 +38,10 @@ weight: 30
 
 네임스페이스의 생성과 삭제는 [네임스페이스 관리자 가이드 문서](/docs/tasks/administer-cluster/namespaces/)에
 기술되어 있다.
+
+{{< note >}}
+    쿠버네티스 시스템 네임스페이스용으로 예약되어 있으므로, `kube-` 접두사로 네임스페이스를 생성하지 않는다.
+{{< /note >}}
 
 ### 네임스페이스 조회
 
@@ -54,11 +58,12 @@ kube-public       Active   1d
 kube-system       Active   1d
 ```
 
-쿠버네티스는 처음에 세 개의 초기 네임스페이스를 갖는다.
+쿠버네티스는 처음에 네 개의 초기 네임스페이스를 갖는다.
 
    * `default` 다른 네임스페이스가 없는 오브젝트를 위한 기본 네임스페이스
    * `kube-system` 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스
    * `kube-public` 이 네임스페이스는 자동으로 생성되며 모든 사용자(인증되지 않은 사용자 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
+   * `kube-node-lease` 클러스터가 스케일링될 때 노드 하트비트의 성능을 향상시키는 각 노드와 관련된 리스(lease) 오브젝트에 대한 네임스페이스
 
 ### 요청에 네임스페이스 설정하기
 
@@ -114,6 +119,3 @@ kubectl api-resources --namespaced=false
 
 * [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
 * [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
-
-
-

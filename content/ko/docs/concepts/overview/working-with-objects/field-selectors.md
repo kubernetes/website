@@ -9,7 +9,7 @@ _필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버�
 * `metadata.namespace!=default`
 * `status.phase=Pending`
 
-다음의 `kubectl` 커맨드는 [`status.phase`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) 필드의 값이 `Running` 인 모든 파드를 선택한다.
+다음의 `kubectl` 커맨드는 [`status.phase`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase) 필드의 값이 `Running` 인 모든 파드를 선택한다.
 
 ```shell
 kubectl get pods --field-selector status.phase=Running

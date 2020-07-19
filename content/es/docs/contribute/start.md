@@ -1,7 +1,7 @@
 ---
 title: Empieza a contribuir
 slug: start
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
