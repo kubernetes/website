@@ -183,15 +183,11 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 
 ### 最初のコントロールプレーンノードの構築
 
-
 1.  以下の内容で、`kubeadm-config.yaml`という名前の設定ファイルを作成します:
 
-        apiVersion: kubeadm.k8s.io/v1beta1
+        apiVersion: kubeadm.k8s.io/v1beta2
         kind: ClusterConfiguration
         kubernetesVersion: stable
-        apiServer:
-          certSANs:
-          - "LOAD_BALANCER_DNS"
         controlPlaneEndpoint: "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT"
         etcd:
             external:
@@ -203,7 +199,9 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
                 certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
-    - ここで、積み重なったetcdと外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
+    {{< note >}}
+    ここで、積み重なったetcdと外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
+    {{< /note >}}
 
     -  テンプレート内の以下の変数を、クラスターに合わせて適切な値に置き換えます:
 
@@ -213,11 +211,13 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
         - `ETCD_1_IP`
         - `ETCD_2_IP`
 
-1.  `kubeadm init --config kubeadm-config.yaml`をこのノードで実行します。
+以下の手順は、積み重なったetcdの構築と同様です。
+
+1.  `sudo kubeadm init --config kubeadm-config.yaml --upload-certs`をこのノードで実行します。
 
 1.  表示されたjoinコマンドを、あとで使うためにテキストファイルに書き込みます。
 
-1.  Weave CNIプラグインをapplyします:
+1.  使用するCNIプラグインを適用します。以下はWeave CNIの場合です:
 
     ```sh
     kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
