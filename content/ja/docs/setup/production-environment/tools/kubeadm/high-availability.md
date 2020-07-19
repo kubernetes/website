@@ -128,7 +128,7 @@ weight: 60
     {{< /caution >}}
 
 1.  使用するCNIプラグインを適用します:  
-    [こちらの手順に従い](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。 Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
+    [こちらの手順に従い](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。該当する場合は、kubeadmの設定で指定されたPodのCIDRに対応していることを確認してください。
 
     Weave Netを使用する場合の例:
 
