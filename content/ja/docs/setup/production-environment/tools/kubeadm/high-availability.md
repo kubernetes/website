@@ -81,7 +81,7 @@ weight: 60
     sudo kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs
     ```
 
-    - `--kubernetes-version`フラグを使用して、使用するKubernetesのバージョンを設定できます。kubeadm、kubelet、kubectl、Kubernetesのバージョンを一致させることが推奨されます。
+    - `--kubernetes-version`フラグで使用するKubernetesのバージョンを設定できます。kubeadm、kubelet、kubectl、Kubernetesのバージョンを一致させることが推奨されます。
     - `--control-plane-endpoint`フラグはロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
     - `--upload-certs`フラグは全てのコントロールプレーンノードで共有する必要がある証明書をクラスターにアップロードするために使用されます。代わりに、コントロールプレーンノード間で手動あるいは自動化ツールを使用して証明書をコピーしたい場合は、このフラグを削除し、以下の[証明書の手動配布](#manual-certs)のセクションを参照してください。
 
