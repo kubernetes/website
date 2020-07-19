@@ -41,7 +41,7 @@ term_id="selector" >}} 가 지정되면 EndpointSlice
 서비스 셀렉터와 매치되는 모든 파드들을 포함하고 참조한다. 엔드포인트슬라이스는
 고유한 서비스와 포트 조합을 통해 네트워크 엔드포인트를 그룹화 한다.
 EndpointSlice 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 예를 들어, 여기에 `example` 쿠버네티스 서비스를 위한 EndpointSlice
 리소스 샘플이 있다.
@@ -180,4 +180,3 @@ text="kube-controller-manager" term_id="kube-controller-manager" >}} 플래그�
 
 * [엔드포인트슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices)
 * [애플리케이션을 서비스와 함께 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기
-

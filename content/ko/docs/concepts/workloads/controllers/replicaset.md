@@ -223,7 +223,7 @@ pod2             1/1     Running   0          36s
 API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한다.
 
 레플리카셋 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 레플리카셋도 [`.spec` 섹션](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)이 필요하다.
 
@@ -233,7 +233,7 @@ API 버전에 대해서는 `frontend.yaml` 예제의 첫 번째 줄을 참고한
 우리는 `frontend.yaml` 예제에서 `tier: frontend`이라는 레이블을 하나 가지고 있다.
 이 파드를 다른 컨트롤러가 취하지 않도록 다른 컨트롤러의 셀렉터와 겹치지 않도록 주의해야 한다.
 
-템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 필드인
+템플릿의 [재시작 정책](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책) 필드인
 `.spec.template.spec.restartPolicy`는 기본값인 `Always`만 허용된다.
 
 ### 파드 셀렉터
@@ -250,7 +250,7 @@ matchLabels:
 그렇지 않으면 API에 의해 거부된다.
 
 {{< note >}}
-2개의 레플리카셋이 동일한 `.spec.selector`필드를 지정한 반면, 다른 `.spec.template.metadata.labels`와 `.spec.template.spec` 필드를 명시한 경우, 각 레플리카 셋은 다른 레플리카 셋이 생성한 파드를 무시한다.
+2개의 레플리카셋이 동일한 `.spec.selector`필드를 지정한 반면, 다른 `.spec.template.metadata.labels`와 `.spec.template.spec` 필드를 명시한 경우, 각 레플리카셋은 다른 레플리카셋이 생성한 파드를 무시한다.
 {{< /note >}}
 
 ### 레플리카
@@ -307,7 +307,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 ### 레플리카셋을 Horizontal Pod Autoscaler 대상으로 설정
 
-레플리카 셋은
+레플리카셋은
 [Horizontal Pod Autoscalers (HPA)](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)의 대상이 될 수 있다.
 즉, 레플리카셋은 HPA에 의해 오토스케일될 수 있다.
 다음은 이전에 만든 예시에서 만든 레플리카셋을 대상으로 하는 HPA 예시이다.
@@ -316,7 +316,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 
 이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스
 클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는
-오토스케일 레플리카 셋 HPA가 생성된다.
+오토스케일 레플리카셋 HPA가 생성된다.
 
 ```shell
 kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
@@ -361,5 +361,3 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 이 두 개의 용도는 동일하고, 유사하게 동작하며, 레플리케이션 컨트롤러가 [레이블 사용자 가이드](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)에
 설명된 설정-기반의 셀렉터의 요건을 지원하지 않는다는 점을 제외하면 유사하다.
 따라서 레플리카셋이 레플리케이션 컨트롤러보다 선호된다.
-
-

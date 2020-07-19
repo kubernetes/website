@@ -58,8 +58,8 @@ kubectl config use-context
 ## KUBECONFIG 환경 변수
 
 `KUBECONFIG` 환경 변수는 kubeconfig 파일 목록을 보유한다.
-Linux 및 Mac의 경우 이는 콜론(:)으로 구분된 목록이다.
-Windows는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경 변수가 필수는 아니다.
+리눅스 및 Mac의 경우 이는 콜론(:)으로 구분된 목록이다.
+윈도우는 세미콜론(;)으로 구분한다. `KUBECONFIG` 환경 변수가 필수는 아니다.
 `KUBECONFIG` 환경 변수가 없으면,
 `kubectl`은 기본 kubeconfig 파일인 `$HOME/.kube/config`를 사용한다.
 

@@ -54,6 +54,8 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 
 ## Letting iptables see bridged traffic
 
+Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
+
 As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
 
 ```bash
@@ -63,8 +65,6 @@ net.bridge.bridge-nf-call-iptables = 1
 EOF
 sudo sysctl --system
 ```
-
-Make sure that the `br_netfilter` module is loaded before this step. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
 
 For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
 

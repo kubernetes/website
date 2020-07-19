@@ -78,9 +78,9 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 *  *핵심* (또는 *레거시*라고 불리는) 그룹은 `apiVersion: v1`와 같이 `apiVersion` 필드에 명시되지 않고 REST 경로 `/api/v1`에 있다.
 *  이름이 있는 그룹은 REST 경로 `/apis/$GROUP_NAME/$VERSION`에 있으며 `apiVersion: $GROUP_NAME/$VERSION`을 사용한다
-   (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/docs/reference/)에서 확인할 수 있다.
+   (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/ko/docs/reference/)에서 확인할 수 있다.
 
-[사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
+[사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
 
  - 기본적인 CRUD 요구에는
    [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
@@ -109,6 +109,3 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
 
 {{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
-
-
-

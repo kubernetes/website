@@ -72,7 +72,7 @@ handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 ```
 
 런타임클래스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)어이야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)어이야 한다.
 
 {{< note >}}
 런타임클래스 쓰기 작업(create/update/patch/delete)은
@@ -97,7 +97,7 @@ spec:
 
 이것은 Kubelet이 지명된 런타임클래스를 사용하여 해당 파드를 실행하도록 지시할 것이다.
 만약 지명된 런타임클래스가 없거나, CRI가 상응하는 핸들러를 실행할 수 없는 경우, 파드는
-`Failed` 터미널 [단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)로 들어간다.
+`Failed` 터미널 [단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase)로 들어간다.
 에러 메시지에 상응하는 [이벤트](/docs/tasks/debug-application-cluster/debug-application-introspection/)를
 확인한다.
 
@@ -106,7 +106,7 @@ spec:
 
 ### CRI 구성 {#cri-configuration}
 
-CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/docs/setup/production-environment/container-runtimes/)를 확인한다.
+CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/production-environment/container-runtimes/)를 확인한다.
 
 #### dockershim
 
@@ -155,7 +155,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 파드는 거부된다.
 
 지원되는 노드가 테인트(taint)되어서 다른 런타임클래스 파드가 노드에서 구동되는 것을 막고 있다면,
-`tolerations`를 런타임클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시 
+`tolerations`를 런타임클래스에 추가할 수 있다. `nodeSelector`를 사용하면, 어드미션 시
 해당 톨러레이션(toleration)이 파드의 톨러레이션과 병합되어, 실질적으로 각각에 의해 선택된
 노드의 합집합을 취한다.
 
@@ -183,7 +183,5 @@ PodOverhead를 사용하려면, PodOverhead [기능 게이트](/docs/reference/c
 
 - [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
 - [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
-- [파드 오버헤드](/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
 - [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
-

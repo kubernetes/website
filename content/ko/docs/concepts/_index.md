@@ -41,7 +41,7 @@ weight: 40
 * [데몬셋(DaemonSet)](/ko/docs/concepts/workloads/controllers/daemonset/)
 * [스테이트풀셋(StatefulSet)](/ko/docs/concepts/workloads/controllers/statefulset/)
 * [레플리카셋(ReplicaSet)](/ko/docs/concepts/workloads/controllers/replicaset/)
-* [잡(Job)](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [잡(Job)](/ko/docs/concepts/workloads/controllers/job/)
 
 ## 쿠버네티스 컨트롤 플레인
 
@@ -66,6 +66,5 @@ weight: 40
 
 
 개념 페이지를 작성하기를 원하면,
-개념 페이지 유형에 대한 정보가 있는
-[페이지 컨텐츠 유형](/docs/contribute/style/page-content-types/#concept)을 참조한다.
-
+개념 페이지 타입에 대한 정보가 있는
+[페이지 컨텐츠 타입](/docs/contribute/style/page-content-types/#concept)을 참고한다.

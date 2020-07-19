@@ -190,8 +190,8 @@ kubectl apply -k ./
       응답은 아래와 비슷해야 한다.
 
       ```
-      NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
+      NAME        TYPE            CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      wordpress   LoadBalancer    10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
       {{< note >}}
@@ -237,7 +237,7 @@ kubectl apply -k ./
 
 
 * [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
-* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
+* [잡](/ko/docs/concepts/workloads/controllers/job/)를 알아보자.
 * [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
 * 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
 

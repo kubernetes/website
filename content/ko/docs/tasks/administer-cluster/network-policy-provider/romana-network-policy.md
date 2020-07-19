@@ -39,7 +39,3 @@ Kubeadm을 위한 [컨테이너화된 설치 안내서](https://github.com/roman
 
 
 로마나를 설치한 후에는, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
-
-
-
-
