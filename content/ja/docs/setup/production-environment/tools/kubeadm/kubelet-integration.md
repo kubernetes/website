@@ -99,7 +99,7 @@ kubeletが新たな設定を読み込むと、kubeadmは、KubeConfigファイ�
 `kubeadm`には、systemdがどのようにkubeletを実行するかを指定した設定ファイルが同梱されています。
 kubeadm CLIコマンドは決してこのsystemdファイルには触れないことに注意してください。
 
-このファイルは、kubeadm([DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf)または、[RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf))によって、`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`へインストールされsystemdで使用されます。基本的な`kubelet.service`([RPM用](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service)または、 [DEB用](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service))を拡張します。
+kubeadmの[DEBパッケージ](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf)または[RPMパッケージ](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf)によってインストールされたこの設定ファイルは、`/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`に書き込まれ、systemdで使用されます。基本的な`kubelet.service`([RPM用](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service)または、 [DEB用](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service))を拡張します。
 
 ```none
 [Service]
