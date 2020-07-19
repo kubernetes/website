@@ -11,11 +11,11 @@ weight: 60
 - 積層コントロールプレーンノードを使う方法。こちらのアプローチは、必要なインフラストラクチャーが少ないです。etcdのメンバーと、コントロールプレーンノードは同じ場所に置かれます。
 - 外部のetcdクラスターを使う方法。こちらのアプローチには、より多くのインフラストラクチャーが必要です。コントロールプレーンノードと、etcdのメンバーは分離されます。
 
-先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/ja/docs/setup/independent/ha-topology/)が、それぞれの利点/欠点について概説しています。
+先へ進む前に、どちらのアプローチがアプリケーションの要件と、環境に適合するか、慎重に検討してください。[こちらの比較](/ja/docs/setup/production-environment/tools/kubeadm/ha-topology/)が、それぞれの利点/欠点について概説しています。
 
 高可用性クラスターの作成で問題が発生した場合は、kueadmの[issue tracker](https://github.com/kubernetes/kubeadm/issues/new)でフィードバックを提供してください。
 
-[高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13)も参照してください。
+[高可用性クラスターのアップグレード](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)も参照してください。
 
 {{< caution >}}
 このページはクラウド上でクラスターを構築することには対応していません。ここで説明されているどちらのアプローチも、クラウド上で、LoadBalancerタイプのServiceオブジェクトや、動的なPersistentVolumeを利用して動かすことはできません。
@@ -28,8 +28,8 @@ weight: 60
 
 どちらの方法でも、以下のインフラストラクチャーが必要です:
 
-- master用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
-- worker用に、[kubeadmの最小要件](/ja/docs/setup/independent/install-kubeadm/#before-you-begin)を満たす3台のマシン
+- master用に、[kubeadmの最小要件](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
+- worker用に、[kubeadmの最小要件](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#始める前に)を満たす3台のマシン
 - クラスター内のすべてのマシン間がフルにネットワーク接続可能であること(パブリック、もしくはプライベートネットワーク)
 - すべてのマシンにおいて、sudo権限
 - あるデバイスから、システム内のすべてのノードに対しSSH接続できること
@@ -83,11 +83,11 @@ weight: 60
 
     - `--kubernetes-version`フラグを使用して、使用するKubernetesのバージョンを設定できます。kubeadm、kubelet、kubectl、Kubernetesのバージョンを一致させることが推奨されます。
     - `--control-plane-endpoint`フラグはロードバランサーのアドレスかDNSと、ポートに一致する必要があります。
-    - `--upload-certs`フラグは全てのコントロールプレーンノードで共有する必要がある証明書をクラスターにアップロードするために使用されます。代わりに、コントロールプレーンノード間で手動あるいは自動化ツールを使用して証明書をコピーしたい場合は、このフラグを削除し、以下の[手動による証明書の配布](#manual-certs)のセクションを参照してください。
+    - `--upload-certs`フラグは全てのコントロールプレーンノードで共有する必要がある証明書をクラスターにアップロードするために使用されます。代わりに、コントロールプレーンノード間で手動あるいは自動化ツールを使用して証明書をコピーしたい場合は、このフラグを削除し、以下の[証明書の手動配布](#manual-certs)のセクションを参照してください。
 
     {{< note >}}`kubeadm init`の`--config`フラグと`--certificate-key`フラグは混在させることはできないため、[kubeadm configuration](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)を使用する場合は`certificateKey`フィールドを適切な場所に追加する必要があります(`InitConfiguration`と`JoinConfiguration: controlPlane`の配下)。{{< /note >}}
 
-    {{< note >}}CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/independent/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
+    {{< note >}}CalicoなどのいくつかのCNIネットワークプラグインは`192.168.0.0/16`のようなCIDRを必要としますが、Weaveなどは必要としません。[CNIネットワークドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)を参照してください。PodにCIDRを設定するには、`ClusterConfiguration`の`networking`オブジェクトに`podSubnet: 192.168.0.0/16`フィールドを設定してください。{{< /note >}}
 
     - このような出力がされます:
 
@@ -128,7 +128,7 @@ weight: 60
     {{< /caution >}}
 
 1.  使用するCNIプラグインを適用します:  
-    [こちらの手順に従い](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。 Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
+    [こちらの手順に従い](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)CNIプロバイダーをインストールします。 Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
 
     Weave Netを使用する場合の例:
 
@@ -166,7 +166,7 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
 
 ### etcdクラスターの構築
 
-1. [こちらの手順](/ja/docs/setup/independent/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
+1. [こちらの手順](/ja/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)にしたがって、etcdクラスターを構築してください。
 
 1. [こちらの手順](#manual-certs)にしたがって、SSHを構築してください。
 
