@@ -37,7 +37,7 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 
 ## 複数のIngressコントローラーの使用 {#using-multiple-ingress-controllers}
 
-[任意の数のIngressコントローラー](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers)をクラスターにデプロイできます。Ingressを作成する際には、各Ingressに適切な[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)をアノテーションし、クラスター内に複数のIngressコントローラーが存在する場合には、どのIngressコントローラーを使用するかを示す必要があります。
+[Ingressコントローラーは、好きな数だけ](https://git.k8s.io/ingress-nginx/docs/user-guide/multiple-ingress.md#multiple-ingress-controllers))クラスターにデプロイすることができます。Ingressを作成する際には、クラスター内に複数のIngressコントローラーが存在する場合にどのIngressコントローラーを使用するかを示すために適切な[`ingress.class`](https://git.k8s.io/ingress-gce/docs/faq/README.md#how-do-i-run-multiple-ingress-controllers-in-the-same-cluster)のアノテーションを指定します。
 
 クラスを定義しない場合、クラウドプロバイダーはデフォルトのIngressコントローラーを使用する場合があります。
 
@@ -55,4 +55,3 @@ Ingressコントローラーのドキュメントを確認して、選択する�
 
 * [Ingress](/ja/docs/concepts/services-networking/ingress/)の詳細
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube)
-
