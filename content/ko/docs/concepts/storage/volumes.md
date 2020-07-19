@@ -23,7 +23,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 ## 배경
 
 도커는 다소 느슨하고, 덜 관리되지만
-[볼륨](https://docs.docker.com/engine/admin/volumes/)이라는
+[볼륨](https://docs.docker.com/storage/)이라는
 개념을 가지고 있다. 도커에서 볼륨은 단순한 디스크 내 디렉터리 또는
 다른 컨테이너에 있는 디렉터리다.  수명은 관리되지 않으며 최근까지는
 로컬 디스크 백업 볼륨만 있었다. 도커는 이제 볼륨 드라이버를
@@ -214,7 +214,7 @@ CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 �
 
 {{< note >}}
 전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드 공급자
-구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
+구성에 대해서는 [오픈스택 클라우드 공급자](/ko/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
 {{< /note >}}
 
 `cinder` 는 오픈스택 Cinder 볼륨을 파드에 마운트하는 데 사용한다.

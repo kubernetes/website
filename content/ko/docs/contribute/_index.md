@@ -12,7 +12,7 @@ card:
 
 <!-- overview -->
 
-이 웹사이트는 [쿠버네티스 SIG Docs](/docs/contribute/#get-involved-with-sig-docs)에 의해서 관리됩니다.
+이 웹사이트는 [쿠버네티스 SIG Docs](/ko/docs/contribute/#sig-docs에-참여)에 의해서 관리됩니다.
 
 쿠버네티스 문서 기여자들은
 
@@ -35,7 +35,7 @@ card:
 
 1. CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)에 서명합니다.
 2. [문서 리포지터리](https://github.com/kubernetes/website) 와 웹사이트의 [정적 사이트 생성기](https://gohugo.io)를 숙지합니다.
-3. [풀 리퀘스트 열기](/docs/contribute/new-content/new-content/)와 [변경 검토](/docs/contribute/review/reviewing-prs/)의 기본 프로세스를 이해하도록 합니다.
+3. [풀 리퀘스트 열기](/ko/docs/contribute/new-content/new-content/)와 [변경 검토](/ko/docs/contribute/review/reviewing-prs/)의 기본 프로세스를 이해하도록 합니다.
 
 일부 작업에는 쿠버네티스 조직에서 더 많은 신뢰와 더 많은 접근이 필요할 수 있습니다.
 역할과 권한에 대한 자세한 내용은
@@ -43,16 +43,16 @@ card:
 
 ## 첫 번째 기여
 
-- [기여 개요](/docs/contribute/new-content/overview/)를 읽고 기여할 수 있는 다양한 방법에 대해 알아봅니다.
+- [기여 개요](/ko/docs/contribute/new-content/overview/)를 읽고 기여할 수 있는 다양한 방법에 대해 알아봅니다.
 - [kubernetes/website에 기여하기](https://github.com/kubernetes/website/contribute)를 참조하여 좋은 진입점이 되는 이슈를 찾을 수 있습니다.
-- 기존 문서에 대해 [GitHub을 사용해서 풀 리퀘스트 열거나](/docs/contribute/new-content/new-content/#changes-using-github) GitHub에서의 이슈 제기에 대해 자세히 알아봅니다.
-- 정확성과 언어에 대해 다른 쿠버네티스 커뮤니티 맴버의 [풀 리퀘스트 검토](/docs/contribute/review/reviewing-prs/)를 합니다.
+- 기존 문서에 대해 [GitHub을 사용해서 풀 리퀘스트 열거나](/ko/docs/contribute/new-content/new-content/#github을-사용하여-변경하기) GitHub에서의 이슈 제기에 대해 자세히 알아봅니다.
+- 정확성과 언어에 대해 다른 쿠버네티스 커뮤니티 맴버의 [풀 리퀘스트 검토](/ko/docs/contribute/review/reviewing-prs/)를 합니다.
 - 쿠버네티스 [콘텐츠](/docs/contribute/style/content-guide/)와 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽고 정보에 대한 코멘트를 남길 수 있습니다.
 - [페이지 템플릿 사용](/docs/contribute/style/page-content-types/)과 [휴고(Hugo) 단축코드(shortcodes)](/docs/contribute/style/hugo-shortcodes/)를 사용해서 큰 변경을 하는 방법에 대해 배워봅니다.
 
 ## 다음 단계
 
-- 리포지터리의 [로컬 복제본에서 작업](/docs/contribute/new-content/new-content/#fork-the-repo)하는 방법을 배워봅니다.
+- 리포지터리의 [로컬 복제본에서 작업](/ko/docs/contribute/new-content/new-content/#fork-the-repo)하는 방법을 배워봅니다.
 - [릴리스된 기능](/docs/contribute/new-content/new-features/)을 문서화 합니다.
 - [SIG Docs](/ko/docs/contribute/participating/)에 참여하고, [멤버 또는 검토자](/ko/docs/contribute/participating/#역할과-책임)가 되어봅니다.
 - [현지화](/ko/docs/contribute/localization_ko/)를 시작하거나 도와줍니다.

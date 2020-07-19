@@ -7,6 +7,8 @@ content_type: tutorial
 
 ## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
+
 ## {{% heading "objectives" %}}
 
 <!-- lessoncontent -->

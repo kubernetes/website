@@ -194,7 +194,7 @@ Minikube는 다음과 같은 쿠버네티스의 기능을 제공한다.
 
 클러스터를 시작하기 위해서 `minikube start` 커멘드를 사용할 수 있다.
 이 커멘드는 단일 노드 쿠버네티스 클러스터를 구동하는 가상 머신을 생성하고 구성한다.
-이 커멘드는 또한 [kubectl](/docs/user-guide/kubectl-overview/)도 설정해서 클러스터와 통신할 수 있도록 한다.
+이 커멘드는 또한 [kubectl](/ko/docs/reference/kubectl/overview/)도 설정해서 클러스터와 통신할 수 있도록 한다.
 
 {{< note >}}
 웹 프록시 뒤에 있다면, `minikube start` 커맨드에 해당 정보를 전달해야 한다.
@@ -447,9 +447,9 @@ spec:
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
-| VirtualBox | Linux | /home | /hosthome |
+| VirtualBox | 리눅스 | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
-| VirtualBox | Windows | C://Users | /c/Users |
+| VirtualBox | 윈도우 | C://Users | /c/Users |
 | VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
@@ -505,7 +505,7 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 * **Minikube 빌드**: Minikube를 소스에서 빌드/테스트하는 방법은 [빌드 가이드](https://minikube.sigs.k8s.io/docs/contrib/building/)를 살펴보자.
 * **새 의존성 추가하기**: Minikube에 새 의존성을 추가하는 방법에 대해서는, [의존성 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/drivers/)를 보자.
 * **새 애드온 추가하기**: Minikube에 새 애드온을 추가하는 방법에 대해서는, [애드온 추가 가이드](https://minikube.sigs.k8s.io/docs/contrib/addons/)를 보자.
-* **MicroK8s**: 가상 머신을 사용하지 않으려는 Linux 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
+* **MicroK8s**: 가상 머신을 사용하지 않으려는 리눅스 사용자는 대안으로 [MicroK8s](https://microk8s.io/)를 고려할 수 있다.
 
 ## 커뮤니티
 

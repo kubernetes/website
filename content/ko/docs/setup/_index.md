@@ -36,7 +36,7 @@ card:
 
 |커뮤니티              |생태계     |
 | ------------       | --------     |
-| [Minikube](/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
+| [Minikube](/ko/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
 | [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
 |                     | [MicroK8s](https://microk8s.io/)|
 
@@ -46,5 +46,3 @@ card:
 운영 환경을 위한 솔루션을 평가할 때에는, 쿠버네티스 클러스터 운영에 대한 어떤 측면(또는 _추상적인 개념_)을 스스로 관리하기를 원하는지, 제공자에게 넘기기를 원하는지 고려하자.
 
 [쿠버네티스 파트너](https://kubernetes.io/partners/#conformance)에는 [공인 쿠버네티스](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 공급자 목록이 포함되어 있다.
-
-

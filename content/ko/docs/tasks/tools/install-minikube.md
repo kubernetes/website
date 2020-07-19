@@ -65,7 +65,7 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 
 ### kubectl 설치
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-linux)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#리눅스에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ## 하이퍼바이저(hypervisor) 설치
 
@@ -76,7 +76,7 @@ kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 Minikube는 쿠버네티스 컴포넌트를 VM이 아닌 호스트에서도 동작하도록 `--driver=none` 옵션도 지원한다.
-이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop) 와 Linux 환경이 필요하지만, 하이퍼바이저는 필요하지 않다. 
+이 드라이버를 사용하려면 [도커](https://www.docker.com/products/docker-desktop)와 리눅스 환경이 필요하지만, 하이퍼바이저는 필요하지 않다.
 
 데비안(Debian) 또는 파생된 배포판에서 `none` 드라이버를 사용하는 경우,
 Minikube에서는 동작하지 않는 스냅 패키지 대신 도커용 `.deb` 패키지를 사용한다.
@@ -119,7 +119,7 @@ sudo install minikube /usr/local/bin/
 
 ### Homebrew를 이용해서 Minikube 설치하기
 
-또 다른 대안으로 Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)를 이용해서 Minikube를 설치할 수 있다.
+또 다른 대안으로 리눅스 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)를 이용해서 Minikube를 설치할 수 있다.
 
 ```shell
 brew install minikube
@@ -129,7 +129,7 @@ brew install minikube
 {{% tab name="맥OS" %}}
 ### kubectl 설치
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#macos에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ### 하이퍼바이저(hypervisor) 설치
 
@@ -162,10 +162,10 @@ sudo mv minikube /usr/local/bin
 ```
 
 {{% /tab %}}
-{{% tab name="Windows" %}}
+{{% tab name="윈도우" %}}
 ### kubectl 설치하기
 
-kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/docs/tasks/tools/install-kubectl/#install-kubectl-on-windows)의 요령을 따라서 설치할 수 있다.
+kubectl이 설치되었는지 확인한다. kubectl은 [kubectl 설치하고 설정하기](/ko/docs/tasks/tools/install-kubectl/#windows에-kubectl-설치)의 요령을 따라서 설치할 수 있다.
 
 ### 하이퍼바이저(hypervisor) 설치하기
 
@@ -206,7 +206,7 @@ Minikube 설치를 마친 후, 현재 CLI 세션을 닫고 재시작한다. Mini
 
 {{< note >}}
 
-`minikube start` 시 `--driver` 를 설정하려면, 아래에 `<driver_name>` 로 소문자로 언급된 곳에 설치된 하이퍼바이저의 이름을 입력한다. `--driver` 값의 전체 목록은 [VM driver 문서에서 지정하기](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver)에서 확인할 수 있다.
+`minikube start` 시 `--driver` 를 설정하려면, 아래에 `<driver_name>` 로 소문자로 언급된 곳에 설치된 하이퍼바이저의 이름을 입력한다. `--driver` 값의 전체 목록은 [VM driver 지정하기 문서](/ko/docs/setup/learning-environment/minikube/#vm-드라이버-지정하기)에서 확인할 수 있다.
 
 {{< /note >}}
 

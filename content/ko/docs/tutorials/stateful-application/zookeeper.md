@@ -43,7 +43,7 @@ weight: 40
 -   어떻게 지속적해서 컨피그맵을 이용해서 앙상블을 설정하는가.
 -   어떻게 ZooKeeper 서버 디플로이먼트를 앙상블 안에서 퍼뜨리는가.
 -   어떻게 파드디스룹션버짓을 이용하여 계획된 점검 기간 동안 서비스 가용성을 보장하는가.
-    
+
 
 <!-- lessoncontent -->
 
@@ -132,7 +132,7 @@ zk-2      1/1       Running   0         40s
 for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 ```
 
-스테이트풀셋 컨트롤러는 각 순번 인덱스에 기초하여 각 파드에 고유한 호스트네임을 부여한다. 각 호스트네임은 `<스테이트풀셋 이름>-<순번 인덱스>` 형식을 취한다. `zk` 스테이트풀셋의 `replicas` 필드는 `3`으로 설정되었기 때문에, 그 스테이트풀셋 컨트롤러는 3개 파드의 호스트네임을 `zk-0`, `zk-1`, 
+스테이트풀셋 컨트롤러는 각 순번 인덱스에 기초하여 각 파드에 고유한 호스트네임을 부여한다. 각 호스트네임은 `<스테이트풀셋 이름>-<순번 인덱스>` 형식을 취한다. `zk` 스테이트풀셋의 `replicas` 필드는 `3`으로 설정되었기 때문에, 그 스테이트풀셋 컨트롤러는 3개 파드의 호스트네임을 `zk-0`, `zk-1`,
 `zk-2`로 정한다.
 
 ```shell
@@ -183,9 +183,9 @@ ZooKeeper는 그것의 애플리케이션 환경설정을 `zoo.cfg` 파일에 �
 kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
 ```
 
-아래 파일의  `server.1`, `server.2`, `server.3` 속성에서 
-`1`, `2`, `3`은 ZooKeeper 서버의 `myid` 파일에 구분자와 
-연관된다. 
+아래 파일의  `server.1`, `server.2`, `server.3` 속성에서
+`1`, `2`, `3`은 ZooKeeper 서버의 `myid` 파일에 구분자와
+연관된다.
 이들은 `zk` 스테이트풀셋의 파드의 FQDNS을 설정한다.
 
 ```shell
@@ -302,7 +302,7 @@ ZooKeeper는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상�
 복제된 상태 머신을 이루는 합의 프로토콜에서
 이용하는 일반적인 기법이다.
 
-[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) 명령을 이용하여 
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) 명령을 이용하여
 `zk` 스테이트풀셋을 삭제하자.
 
 ```shell
@@ -448,7 +448,7 @@ ZooKeeper의 서버 디렉터리에 마운트한다.
 [리더 선출 촉진](#리더-선출-촉진)과
 [합의 달성](#합의-달성) 섹션에서 알렸듯이,
 ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 일관된 설정이 필요하다.
-또한 Zab 프로토콜의 일관된 설정도 
+또한 Zab 프로토콜의 일관된 설정도
 네트워크에 걸쳐 올바르게 동작하기 위해서
 필요하다. 이 예시에서는 메니페스트에 구성을 직접 포함시켜서 일관된 구성을
 달성한다.
@@ -496,7 +496,7 @@ ZooKeeper는 [Log4j](http://logging.apache.org/log4j/2.x/)를 이용하며
 kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
 ```
 
-아래 로깅 구성은 ZooKeeper가 모든 로그를 
+아래 로깅 구성은 ZooKeeper가 모든 로그를
 표준 출력 스트림으로 처리하게 한다.
 
 ```shell
@@ -544,7 +544,7 @@ kubectl logs zk-0 --tail 20
 
 쿠버네티스는 더 강력하지만 조금 복잡한 로그 통합을
 [스택드라이버](/docs/tasks/debug-application-cluster/logging-stackdriver/)와
-[Elasticsearch와 Kibana](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)를 지원한다.
+[Elasticsearch와 Kibana](/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/)를 지원한다.
 클러스터 수준의 로그 적재(ship)와 통합을 위해서는 로그 순환과 적재를 위해
 [사이드카](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns) 컨테이너를 배포하는 것을 고려한다.
 
@@ -564,7 +564,7 @@ securityContext:
   fsGroup: 1000
 ```
 
-파드 컨테이너에서 UID 1000은 ZooKeeper 사용자이며, GID 1000은 
+파드 컨테이너에서 UID 1000은 ZooKeeper 사용자이며, GID 1000은
 ZooKeeper의 그룹에 해당한다.
 
 `zk-0` 파드에서 프로세스 정보를 얻어오자.
@@ -866,7 +866,7 @@ kubernetes-node-2g2d
 kubectl get nodes
 ```
 
-[`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)을 이용하여 
+[`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)을 이용하여
 클러스터 내에 4개 노드를 제외하고 다른 모든 노드를 통제해보자.
 
 ```shell
@@ -1093,7 +1093,3 @@ node "kubernetes-node-ixsl" uncordoned
   퍼시스턴트 스토리지 미디어를 삭제하자.
   귀하의 환경과 스토리지 구성과 프로비저닝 방법에서 필요한 절차를 따라서
   모든 스토리지가 재확보되도록 하자.
-
-
-
-

@@ -261,4 +261,4 @@ You can also migrate using the offical CoreDNS
 
 ## {{% heading "whatsnext" %}}
 
-- Read [Debugging DNS Resolution](/docs/tasks/debug-application-cluster/dns-debugging-resolution/)
+- Read [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/)

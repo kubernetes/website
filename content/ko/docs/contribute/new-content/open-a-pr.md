@@ -217,21 +217,39 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 변경 사항을 푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을 로컬에서 미리 보는 것이 좋다. 미리보기를 사용하면 빌드 오류나 마크다운 형식 문제를 알아낼 수 있다.
 
-website의 도커 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
+website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="Hugo 컨테이너" %}}
+
+{{< note >}}
+아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면 `CONTAINER_ENGINE` 환경변수를 설정한다.
+{{< /note >}}
 
 1.  로컬에서 이미지를 빌드한다.
 
       ```bash
       make docker-image
+      # docker 사용(기본값)
+      make container-image
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-image
       ```
 
 2. 로컬에서 `kubernetes-hugo` 이미지를 빌드한 후, 사이트를 빌드하고 서비스한다.
 
       ```bash
       make docker-serve
+      # docker 사용(기본값)
+      make container-serve
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-serve
       ```
 
 3.  웹 브라우저에서 `https://localhost:1313` 로 이동한다. Hugo는
@@ -286,7 +304,7 @@ PR을 연 후, GitHub는 자동 테스트를 실행하고 [Netlify](https://www.
   - Netlify 빌드가 실패하면, 자세한 정보를 위해 **Details** 를 선택한다.
   - Netlify 빌드가 성공하면, **Details** 를 선택하면 변경 사항이 적용된 쿠버네티스 website의 커밋하기 직전의 버전(staged version)이 열린다. 리뷰어가 변경 사항을 확인하는 방법이다.
 
-또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다. 자세한 내용은 [이슈 레이블 추가와 제거](/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels)를 참고한다.
+또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다. 자세한 내용은 [이슈 레이블 추가와 제거](/ko/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거)를 참고한다.
 
 ### 로컬에서 피드백 해결
 
@@ -481,5 +499,3 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
 
 
 - 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/reviewing/revewing-prs)를 읽어본다.
-
-

@@ -277,7 +277,7 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 각 PV에는 스펙과 상태(볼륨의 명세와 상태)가 포함된다.
 퍼시스턴트볼륨 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 ```yaml
 apiVersion: v1
@@ -667,7 +667,7 @@ spec:
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-CSI 볼륨 플러그인만 지원하도록 볼륨 스냅샷 기능이 추가되었다. 자세한 내용은 [볼륨 스냅샷](/docs/concepts/storage/volume-snapshots/)을 참고한다.
+CSI 볼륨 플러그인만 지원하도록 볼륨 스냅샷 기능이 추가되었다. 자세한 내용은 [볼륨 스냅샷](/ko/docs/concepts/storage/volume-snapshots/)을 참고한다.
 
 볼륨 스냅샷 데이터 소스에서 볼륨 복원을 지원하려면 apiserver와 controller-manager에서
 `VolumeSnapshotDataSource` 기능 게이트를 활성화한다.

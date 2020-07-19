@@ -28,7 +28,7 @@ weight: 10
 
 ## kube-scheduler
 
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)는
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)는
 쿠버네티스의 기본 스케줄러이며 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의
 일부로 실행된다.
 kube-scheduler는 원하거나 필요에 따라 자체 스케줄링 컴포넌트를
