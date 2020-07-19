@@ -200,7 +200,7 @@ kubeadmバージョン1.15以降、複数のコントロールプレーンノー
                 keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key
 
     {{< note >}}
-    ここで、積み重なったetcdと外部etcdの違いは、kubeadmコンフィグの`etcd`に`external`フィールドを使用していることです。積み重なったetcdトポロジーの場合、これは自動で管理されます。
+    ここで、積み重なったetcdと外部etcdの違いは、外部etcdの構成では`etcd`の`external`オブジェクトにetcdのエンドポイントが記述された設定ファイルが必要です。積み重なったetcdトポロジーの場合、これは自動で管理されます。
     {{< /note >}}
 
     -  テンプレート内の以下の変数を、クラスターに合わせて適切な値に置き換えます:
