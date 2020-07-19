@@ -77,7 +77,7 @@ PodCondition 배열의 각 요소는 다음 여섯 가지 필드를 가질 수 �
 컨테이너에서 [kubelet](/docs/admin/kubelet/)에 의해 주기적으로 수행되는 진단(diagnostic)이다.
 진단을 수행하기 위해서,
 kubelet은 컨테이너에 의해서 구현된
-[핸들러](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler)를 호출한다.
+[핸들러](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#handler-v1-core)를 호출한다.
 핸들러에는 다음과 같이 세 가지 타입이 있다.
 
 * [ExecAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#execaction-v1-core)
@@ -403,7 +403,6 @@ spec:
   [활성, 준비성 및 스타트업 프로브 설정하기](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
 * [컨테이너 라이프사이클 후크(hook)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배우기.
-
 
 
 

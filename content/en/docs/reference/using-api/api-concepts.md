@@ -756,6 +756,11 @@ quorum read to be served.
 | resourceVersionMatch=NotOlderThan[^1] | limit="n", continue unset     | Invalid               | Any                                       | Not older than                         |
 
 [^1]: If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
+| paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                     | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset       | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="\<token\>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 

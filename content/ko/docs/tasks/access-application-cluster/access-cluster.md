@@ -145,7 +145,7 @@ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 위 예제에서는 `--insecure` flag를 사용했다. 이는 MITM 공격을 받을 수 있는 상태로 
 두는 것이다. kubectl로 클러스터에 접속할 때 저장된 root 인증서와 클라이언트 인증서들을 
 서버 접속에 사용한다.
-(이들은 `~/.kube` 디렉토리에 설치된다.) 
+(이들은 `~/.kube` 디렉터리에 설치된다.) 
 일반적으로 self-signed 인증서가 클러스터 인증서로 사용되므로 당신의 http 클라이언트가 
 root 인증서를 사용하려면 특수한 설정을 필요로 할 것이다.
 
