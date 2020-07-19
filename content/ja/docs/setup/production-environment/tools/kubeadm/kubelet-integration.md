@@ -117,7 +117,7 @@ ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
-このファイルは、kubeadmがkubeletのために管理する全てのファイルのデフォルトの場所を指定します。
+このファイルは、kubeadmがkubelet用に管理する全ファイルが置かれるデフォルトの場所を指定します。
 
 - TLS Bootstrapに使用するKubeConfigファイルは`/etc/kubernetes/bootstrap-kubelet.conf`ですが、`/etc/kubernetes/kubelet.conf`が存在しない場合にのみ使用します。
 - ユニークなkublet識別子を含むKubeConfigファイルは`/etc/kubernetes/kubelet.conf`です。
@@ -136,5 +136,4 @@ Kubernetesに同梱されるDEB、RPMのパッケージは以下の通りです�
 | `kubectl`    | `/usr/bin/kubectl`バイナリをインストールします。 |
 | `kubernetes-cni` | 公式のCNIバイナリを`/opt/cni/bin`ディレクトリにインストールします。 |
 | `cri-tools` | `/usr/bin/crictl`バイナリを[cri-tools gitリポジトリ](https://github.com/kubernetes-incubator/cri-tools)からインストールします。 |
-
 
