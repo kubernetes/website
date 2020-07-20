@@ -17,67 +17,6 @@ weight: 98
 
 <!-- body -->
 
-## 일주일 동안 PR 랭글러(Wrangler) 되기
-
-SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 리포지터리에 대해 1주일 정도씩 [PR을 조정(wrangling)](https://github.com/kubernetes/website/wiki/PR-Wranglers)하는 역할을 맡는다.
-
-PR 랭글러의 임무는 다음과 같다.
-
-- [스타일](/docs/contribute/style/style-guide/)과 [콘텐츠](/docs/contribute/style/content-guide/) 가이드를 준수하는지에 대해 [열린(open) 풀 리퀘스트](https://github.com/kubernetes/website/pulls)를 매일 리뷰한다.
-  - 가장 작은 PR(`size/XS`)을 먼저 리뷰한 다음, 가장 큰(`size/XXL`) PR까지 옮겨가며 리뷰를 반복한다.
-  - 가능한 한 많은 PR을 리뷰한다.
-- 각 기여자가 CLA에 서명했는지 확인한다.
-  - 새로운 기여자가 [CLA](https://github.com/kubernetes/community/blob/master/CLA.md)에 서명하도록 도와준다.
-  - CLA에 서명하지 않은 기여자에게 CLA에 서명하도록 자동으로 알리려면 [이](https://github.com/zparnold/k8s-docs-pr-botherer) 스크립트를 사용한다.
-- 제안된 변경 사항에 대한 피드백을 제공하고 다른 SIG의 멤버로부터의 기술 리뷰가 잘 진행되게 조율한다.
-  - 제안된 콘텐츠 변경에 대해 PR에 인라인 제안(inline suggestion)을 제공한다.
-  - 내용을 확인해야 하는 경우, PR에 코멘트를 달고 자세한 내용을 요청한다.
-  - 관련 `sig/` 레이블을 할당한다.
-  - 필요한 경우, 파일의 머리말(front matter)에 있는 `reviewers:` 블록의 리뷰어를 할당한다.
-  - PR의 리뷰 상태를 표시하기 위해 `Docs Review` 와 `Tech Review` 레이블을 할당한다.
-  - 아직 리뷰되지 않은 PR에 `Needs Doc Review` 나 `Needs Tech Review` 를 할당한다.
-  - 리뷰가 진행되었고, 병합하기 전에 추가 입력이나 조치가 필요한 PR에 `Doc Review: Open Issues` 나 `Tech Review: Open Issues` 를 할당한다.
-  - 병합할 수 있는 PR에 `/lgtm` 과 `/approve` 를 할당한다.
-- PR이 준비가 되면 병합하거나, 수락해서는 안되는 PR을 닫는다.
-  - 콘텐츠가 문서의 [스타일 가이드라인](/docs/contribute/style/style-guide/) 중 일부만 충족하더라도 정확한 기술 콘텐츠를 수락하는 것이 좋다. 스타일 문제를 해결하기 위해 `good first issue` 라는 레이블로 새로운 이슈를 연다.
-- 새로운 이슈를 매일 심사하고 태그를 지정한다. SIG Docs가 메타데이터를 사용하는 방법에 대한 지침은 [이슈 심사 및 분류](/ko/docs/contribute/review/for-approvers/#이슈-심사와-분류)를 참고한다.
-
-## 랭글러에게 유용한 GitHub 쿼리
-
-다음의 쿼리는 랭글러에게 도움이 된다. 이 쿼리들을 수행하여 작업한 후에는, 리뷰할 나머지 PR 목록은
-일반적으로 작다. 이 쿼리들은 특히 현지화 PR을 제외하고, `master` 브랜치만 포함한다(마지막 쿼리는 제외).
-
-- [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
-  CLA에 서명하도록 기여자에게 상기시킨다. 봇과 사람이 이미 알렸다면, PR을 닫고
-  CLA에 서명한 후 PR을 열 수 있음을 알린다.
-  **작성자가 CLA에 서명하지 않은 PR은 리뷰하지 않는다!**
-- [LGTM 필요](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
-  기술 리뷰가 필요한 경우, 봇이 제안한 리뷰어 중 한 명을 지정한다. 문서 리뷰나
-  교정이 필요한 경우, 변경 사항을 제안하거나 교정하는 커밋을 PR에 추가하여 진행한다.
-- [LGTM 보유, 문서 승인 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
-  PR을 병합하기 위해 추가 변경이나 업데이트가 필요한지 여부를 결정한다. PR을 병합할 준비가 되었다고 생각되면, `/approve` 코멘트를 남긴다.
-- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22+): 명확한 결격 사유가 없는 master에 대한 작은 PR인 경우. ([XS, S, M, L, XL, XXL] 크기의 PR을 작업할 때 크기 레이블에서 "XS"를 변경한다)
-- [master 이외의 브랜치에 대한 PR](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): `dev-` 브랜치에 대한 것일 경우, 곧 출시될 예정인 릴리스이다. `/assign @<meister's_github-username>` 을 코멘트로 추가하여 [릴리스 마이스터](https://github.com/kubernetes/sig-release/tree/master/release-team)가 그것에 대해 알고 있는지 확인한다. 오래된 브랜치에 대한 PR인 경우, PR 작성자가 가장 적합한 브랜치를 대상으로 하고 있는지 여부를 파악할 수 있도록 도와준다.
-
-### 풀 리퀘스트를 종료하는 시기
-
-리뷰와 승인은 PR 대기열을 최신 상태로 유지하는 도구 중 하나이다. 또 다른 도구는 종료(closure)이다.
-
-- CLA가 2주 동안 서명되지 않은 모든 PR을 닫는다.
-PR 작성자는 CLA에 서명한 후 PR을 다시 열 수 있으므로, 이는 어떤 것도 CLA 서명없이 병합되지 않게 하는 위험이 적은 방법이다.
-
-- 작성자가 2주 이상 동안 코멘트나 피드백에 응답하지 않은 모든 PR을 닫는다.
-
-풀 리퀘스트를 닫는 것을 두려워하지 말자. 기여자는 진행 중인 작업을 쉽게 다시 열고 다시 시작할 수 있다. 종종 종료 통지는 작성자가 기여를 재개하고 끝내도록 자극하는 것이다.
-
-풀 리퀘스트를 닫으려면, PR에 `/close` 코멘트를 남긴다.
-
-{{< note >}}
-
-[`fejta-bot`](https://github.com/fejta-bot)이라는 자동화 서비스는 90일 동안 활동이 없으면 자동으로 이슈를 오래된 것으로 표시한 다음, 그 상태에서 추가로 30일 동안 활동이 없으면 종료한다. PR 랭글러는 14-30일 동안 활동이 없으면 이슈를 닫아야 한다.
-
-{{< /note >}}
-
 ## 개선 제안
 
 SIG Docs [멤버](/ko/docs/contribute/participating/#멤버)는 개선을 제안할 수 있다.
@@ -245,5 +184,3 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 SIG Docs�
 녹화를 중지하려면, Stop을 클릭한다.
 
 비디오가 자동으로 유튜브에 업로드된다.
-
-

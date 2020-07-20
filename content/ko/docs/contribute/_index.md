@@ -3,6 +3,7 @@ content_type: concept
 title: 쿠버네티스 문서에 기여하기
 linktitle: 기여
 main_menu: true
+no_list: true
 weight: 80
 card:
   name: contribute
@@ -22,8 +23,6 @@ card:
 - 쿠버네티스 릴리스 주기에 맞추어 문서 부분을 관리하고 발행합니다.
 
 쿠버네티스 문서는 새롭고 경험이 풍부한 모든 기여자의 개선을 환영합니다!
-
-
 
 <!-- body -->
 
