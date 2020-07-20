@@ -331,7 +331,7 @@ Currently, this feature has performance implications for the apiserver in the fo
 
 If you're extending the Kubernetes API with the [aggregation
 layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/),
-y ou can also set up audit logging for the aggregated apiserver. To do this,
+you can also set up audit logging for the aggregated apiserver. To do this,
 pass the configuration options in the same format as described above to the
 aggregated apiserver and set up the log ingesting pipeline to pick up audit
 logs. Different apiservers can have different audit configurations and
