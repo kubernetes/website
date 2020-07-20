@@ -317,7 +317,7 @@ kubectl --token=eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL21sYi50cmVtb2xvLmxhbjo
 Webhook認証は、Bearerトークンを検証するためのフックです。
 
 * `--authentication-token-webhook-config-file`: リモートのWebhookサービスへのアクセス方法を記述した設定ファイルです
-* `--authentication-token-webhook-cache-ttl`: 認証決定をキャッシュする時間であり、デフォルトは2分です。
+* `--authentication-token-webhook-cache-ttl`: 認証をキャッシュする時間を決定します。デフォルトは2分です
 
 設定ファイルは、[kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)のファイル形式を使用します。
 ファイル内で、`clusters`はリモートサービスを、`users`はAPIサーバーのWebhookを指します。例えば、以下のようになります。
