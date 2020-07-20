@@ -420,7 +420,7 @@ APIサーバーは、`X-Remote-User`のようにリクエストヘッダの値�
 1.11.3(および1.10.7、1.9.11)よりも前のバージョンでは、追加のキーには[HTTPヘッダーラベルで使用可能な文字](https://tools.ietf.org/html/rfc7230#section-3.2.6)のみを含めることができました。
 {{< /note >}}
 
-例えば、このような設定を行います8。
+例えば、このような設定を行います。
 
 ```
 --requestheader-username-headers=X-Remote-User
