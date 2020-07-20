@@ -6,68 +6,66 @@ weight: 65
 
 <!-- overview -->
 
-Windows applications constitute a large portion of the services and applications that run in many organizations. [Windows containers](https://aka.ms/windowscontainers) provide a modern way to encapsulate processes and package dependencies, making it easier to use DevOps practices and follow cloud native patterns for Windows applications. Kubernetes has become the defacto standard container orchestrator, and the release of Kubernetes 1.14 includes production support for scheduling Windows containers on Windows nodes in a Kubernetes cluster, enabling a vast ecosystem of Windows applications to leverage the power of Kubernetes. Organizations with investments in Windows-based applications and Linux-based applications don't have to look for separate orchestrators to manage their workloads, leading to increased operational efficiencies across their deployments, regardless of operating system.
-
-
+Windowsアプリケーションは、多くの組織で稼働しているサービスやアプリケーションの大部分を占めています。[Windowsコンテナ](https://aka.ms/windowscontainers)は、プロセスとパッケージの依存関係を一つにまとめる最新の方法を提供し、DevOpsプラクティスの使用とWindowsアプリケーションのクラウドネイティブパターンの追求を容易にします。 Kubernetesは事実上、標準的なコンテナオーケストレータになりました。Kubernetes 1.14のリリースでは、Kubernetesクラスター内のWindowsノードでWindowsコンテナをスケジューリングする本番環境サポートが含まれたので、Windowsアプリケーションの広大なエコシステムにおいて、Kubernetesを有効に活用できます。 WindowsベースのアプリケーションとLinuxベースのアプリケーションを投資している組織は、ワークロードを管理する個別のオーケストレーターが不要となるため、オペレーティングシステムに関係なく導入全体の運用効率が向上します。
 
 <!-- body -->
 
-## Windows containers in Kubernetes
+## KubernetesのWindowsコンテナ
 
-To enable the orchestration of Windows containers in Kubernetes, simply include Windows nodes in your existing Linux cluster. Scheduling Windows containers in [Pods](/ja/docs/concepts/workloads/pods/pod-overview/) on Kubernetes is as simple and easy as scheduling Linux-based containers.
+KubernetesでWindowsコンテナのオーケストレーションを有効にするには、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの[Pods](/ja/docs/concepts/workloads/pods/pod-overview/)でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
 
-In order to run Windows containers, your Kubernetes cluster must include multiple operating systems, with control plane nodes running Linux and workers running either Windows or Linux depending on your workload needs. Windows Server 2019 is the only Windows operating system supported, enabling [Kubernetes Node](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) on Windows (including kubelet, [container runtime](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd), and kube-proxy). For a detailed explanation of Windows distribution channels see the [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
+Windowsコンテナを実行するには、Kubernetesクラスターに複数のオペレーティングシステムを含める必要があります。コントロールプレーンノードはLinux、ワーカーノードはワークロードのニーズに応じてWindowsまたはLinuxで実行します。 Windows Server 2019は、サポートされている唯一のWindowsオペレーティングシステムであり、Windows（kubelet、[コンテナランタイム]（https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd）、kube-proxyを含む）で[Kubernetesノード]（https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node ）を有効にします。Windowsディストリビューションチャンネルの詳細については、[Microsoftのドキュメント]（https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19）を参照してください。
 
 {{< note >}}
-The Kubernetes control plane, including the [master components](/ja/docs/concepts/overview/components/), continues to run on Linux. There are no plans to have a Windows-only Kubernetes cluster.
+[マスターコンポーネント](/ja/docs/concepts/overview/components/)を含むKubernetesコントロールプレーンは、Linuxで実行し続けます。WindowsのみのKubernetesクラスターを導入する計画はありません。
 {{< /note >}}
 
 {{< note >}}
-In this document, when we talk about Windows containers we mean Windows containers with process isolation. Windows containers with [Hyper-V isolation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container) is planned for a future release.
+このドキュメントでは、Windowsコンテナについて説明する場合、プロセス分離のWindowsコンテナを意味します。[Hyper-V分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)のWindowsコンテナは、将来のリリースで計画しています。
 {{< /note >}}
 
-## Supported Functionality and Limitations
+## サポートされる機能と制限
 
-### Supported Functionality
+### サポートされている機能
 
-#### Compute
+#### コンピュート
 
-From an API and kubectl perspective, Windows containers behave in much the same way as Linux-based containers. However, there are some notable differences in key functionality which are outlined in the limitation section.
+APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースのコンテナとほとんど同じように動作します。ただし、制限セクションで概説されている主要な機能には、いくつかの顕著な違いがあります。
 
-Let's start with the operating system version. Refer to the following table for Windows operating system support in Kubernetes. A single heterogeneous Kubernetes cluster can have both Windows and Linux worker nodes. Windows containers have to be scheduled on Windows nodes and Linux containers on Linux nodes.
+オペレーティングシステムのバージョンから始めましょう。 KubernetesのWindowsオペレーティングシステムのサポートについては、次の表を参照してください。単一の異種Kubernetesクラスターは、WindowsとLinuxの両方のワーカーノードを持つことができます。WindowsコンテナはWindowsノードで、LinuxコンテナはLinuxノードでスケジュールする必要があります。
 
-| Kubernetes version | Host OS version (Kubernetes Node) | | |
+| Kubernetes バージョン | Host OS バージョン (Kubernetes ノード) | | |
 | --- | --- | --- | --- |
 | | *Windows Server 1709* | *Windows Server 1803* | *Windows Server 1809/Windows Server 2019* |
-| *Kubernetes v1.14* | Not Supported | Not Supported| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
+| *Kubernetes v1.14* | サポートされていません | サポートされていません| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
 
 {{< note >}}
-We don't expect all Windows customers to update the operating system for their apps frequently. Upgrading your applications is what dictates and necessitates upgrading or introducing new nodes to the cluster. For the customers that chose to upgrade their operating system for containers running on Kubernetes, we will offer guidance and step-by-step instructions when we add support for a new operating system version. This guidance will include recommended upgrade procedures for upgrading user applications together with cluster nodes. Windows nodes adhere to Kubernetes [version-skew policy](/ja/docs/setup/release/version-skew-policy/) (node to control plane versioning) the same way as Linux nodes do today.
+すべてのWindowsユーザーがアプリのオペレーティングシステムを頻繁に更新することは望んでいません。アプリケーションのアップグレードは、クラスターに新しいノードをアップグレードまたは導入することを要求する必要があります。Kubernetesで実行されているコンテナのオペレーティングシステムをアップグレードすることを選択したお客様には、新しいオペレーティングシステムバージョンのサポート追加時に、ガイダンスと段階的な指示を提供します。このガイダンスには、クラスターノードと共にアプリケーションをアップグレードするための推奨アップグレード手順が含まれます。 Windowsノードは、現在のLinuxノードと同じように、Kubernetes[バージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/)（ノードからコントロールプレーンのバージョン管理）に準拠しています。
 {{< /note >}}
 {{< note >}}
-The Windows Server Host Operating System is subject to the [Windows Server ](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) licensing. The Windows Container images are subject to the [Supplemental License Terms for Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula).
+Windows Serverホストオペレーティングシステムには、 [Windows Server](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) ライセンスが適用されます。Windowsコンテナイメージには、[Windowsコンテナの追加ライセンス条項](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)ライセンスが提供されます。
 {{< /note >}}
 {{< note >}}
-Windows containers with process isolation have strict compatibility rules, [where the host OS version must match the container base image OS version](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility). Once we support Windows containers with Hyper-V isolation in Kubernetes, the limitation and compatibility rules will change.
+プロセス分離のWindowsコンテナーには、厳格な互換性ルールがあります[ホストOSのバージョンはコンテナーのベースイメージのOSバージョンと一致する必要があります](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)。KubernetesでHyper-V分離のWindowsコンテナをサポートすると、制限と互換性ルールが変更されます。
 {{< /note >}}
 
-Key Kubernetes elements work the same way in Windows as they do in Linux. In this section, we talk about some of the key workload enablers and how they map to Windows.
+Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能します。このセクションでは、主要なワークロードイネーブラーのいくつかと、それらがWindowsにどのようにマップされるかについて説明します。
 
 * [Pods](/ja/docs/concepts/workloads/pods/pod-overview/)
+    
+    Podは、Kubernetesの基本的なビルディングブロックです。作成またはデプロイするKubernetesオブジェクトモデルの最小かつ最も単純なユニットです。次のPod機能、プロパティ、およびイベントがWindowsコンテナでサポートされています。:
 
-    A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. The following Pod capabilities, properties and events are supported with Windows containers:
-
-  * Single or multiple containers per Pod with process isolation and volume sharing
-  * Pod status fields
-  * Readiness and Liveness probes
-  * postStart & preStop container lifecycle events
-  * ConfigMap, Secrets: as environment variables or volumes
+  * プロセス分離とボリューム共有を備えたPodごとの単一または複数のコンテナ
+  * Podステータスフィールド
+  * ReadinessとLiveness Probe
+  * postStartとpreStopコンテナのライフサイクルイベント
+  * ConfigMap, Secrets: 環境変数またはボリュームとして
   * EmptyDir
-  * Named pipe host mounts
-  * Resource limits
+  * 名前付きパイプホストマウント
+  * リソース制限
 * [Controllers](/ja/docs/concepts/workloads/controllers/)
-
-    Kubernetes controllers handle the desired state of Pods. The following workload controllers are supported with Windows containers:
+   
+    Kubernetesコントローラは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナーでサポートされています。:
 
   * ReplicaSet
   * ReplicationController
@@ -78,32 +76,34 @@ Key Kubernetes elements work the same way in Windows as they do in Linux. In thi
   * CronJob
 * [Services](/ja/docs/concepts/services-networking/service/)
 
-    A Kubernetes Service is an abstraction which defines a logical set of Pods and a policy by which to access them - sometimes called a micro-service. You can use services for cross-operating system connectivity. In Windows, services can utilize the following types, properties and capabilities:
+    Kubernetes Serviceは、Podの論理セットとPodにアクセスするためのポリシーを定義する抽象概念です。マイクロサービスと呼ばれることもあります。オペレーティングシステム間の接続にServiceを使用できます。 WindowsでのServiceは、次のタイプ、プロパティと機能を利用できます。:
 
-  * Service Environment variables
+  * サービス環境変数
   * NodePort
   * ClusterIP
   * LoadBalancer
   * ExternalName
   * Headless services
 
-Pods, Controllers and Services are critical elements to managing Windows workloads on Kubernetes. However, on their own they are not enough to enable the proper lifecycle management of Windows workloads in a dynamic cloud native environment. We added support for the following features:
+Pod、Controller、Serviceは、KubernetesでWindowsワークロードを管理するための重要な要素です。ただし、それだけでは、動的なクラウドネイティブ環境でWindowsワークロードの適切なライフサイクル管理を可能にするのに十分ではありません。次の機能のサポートを追加しました：
 
-* Pod and container metrics
-* Horizontal Pod Autoscaler support
+* Podとコンテナのメトリクス
+* Horizontal Pod Autoscalerサポート
 * kubectl Exec
-* Resource Quotas
-* Scheduler preemption
+* リソースクウォータ
+* スケジューラーのプリエンプション
 
-#### Container Runtime
+#### コンテナランタイム
 
-Docker EE-basic 18.09 is required on Windows Server 2019 / 1809 nodes for Kubernetes. This works with the dockershim code included in the kubelet. Additional runtimes such as CRI-ContainerD may be supported in later Kubernetes versions.
+KubernetesのWindows Server 2019/1809ノードでは、Docker EE-basic 18.09が必要です。これは、kubeletに含まれているdockershimコードで動作します。 CRI-ContainerDなどの追加のランタイムは、Kubernetesの以降のバージョンでサポートされる可能性があります。
 
-#### Storage
+#### ストレージ
 
 Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](/ja/docs/concepts/storage/volumes/):
 
-* FlexVolume out-of-tree plugin with [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows) support
+Kubernetesボリュームを使用すると、データの永続性とPodボリューム共有の要求を持つ複雑なアプリケーションをKubernetesにデプロイできます。Windows上のKubernetesは、次のタイプの[ボリューム](/ja/docs/concepts/storage/volumes/)をサポートしています。:
+
+* [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows) をサポートするFlexVolumeのツリー外部にあるプラグイン
 * [azureDisk](/ja/docs/concepts/storage/volumes/#azuredisk)
 * [azureFile](/ja/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/ja/docs/concepts/storage/volumes/#gcepersistentdisk)
