@@ -599,8 +599,11 @@ documentation](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)
 
 ### Seccomp
 
-The use of seccomp profiles in pods can be controlled via annotations on the
-PodSecurityPolicy. Seccomp is an alpha feature in Kubernetes.
+As of Kubernetes v1.19, you can use the `seccompProfile` field in the
+`securityContext` of Pods or containers to [control use of seccomp
+profiles](/docs/tutorials/clusters/seccomp). In prior versions, seccomp was
+controlled by adding annotations to a Pod. The same PodSecurityPolicies can be
+used with either version to enforce how these fields or annotations are applied.
 
 **seccomp.security.alpha.kubernetes.io/defaultProfileName** - Annotation that
 specifies the default seccomp profile to apply to containers. Possible values
@@ -609,11 +612,18 @@ are:
 - `unconfined` - Seccomp is not applied to the container processes (this is the
   default in Kubernetes), if no alternative is provided.
 - `runtime/default` - The default container runtime profile is used.
-- `docker/default` - The Docker default seccomp profile is used. Deprecated as of
-  Kubernetes 1.11. Use `runtime/default` instead.
+- `docker/default` - The Docker default seccomp profile is used. Deprecated as
+  of Kubernetes 1.11. Use `runtime/default` instead.
 - `localhost/<path>` - Specify a profile as a file on the node located at
   `<seccomp_root>/<path>`, where `<seccomp_root>` is defined via the
-  `--seccomp-profile-root` flag on the Kubelet.
+  `--seccomp-profile-root` flag on the Kubelet. If the `--seccomp-profile-root`
+  flag is not defined, the default path will be used, which is
+  `<root-dir>/seccomp` where `<root-dir>` is specified by the `--root-dir` flag.
+
+{{< note >}}
+  The `--seccomp-profile-root` flag is deprecated since Kubernetes
+  v1.19. Users are encouraged to use the default path.
+{{< /note >}}
 
 **seccomp.security.alpha.kubernetes.io/allowedProfileNames** - Annotation that
 specifies which values are allowed for the pod seccomp annotations. Specified as
