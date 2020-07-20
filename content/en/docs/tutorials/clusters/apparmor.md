@@ -1,8 +1,9 @@
 ---
 reviewers:
 - stclair
-title: AppArmor
+title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
+weight: 10
 ---
 
 <!-- overview -->
