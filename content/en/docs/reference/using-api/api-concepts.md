@@ -688,7 +688,7 @@ kubectl apply -f application/ssa/nginx-deployment-replicas-only.yaml --server-si
 
 If the apply results in a conflict with the HPA controller, then do nothing. The
 conflict just indicates the controller has claimed the field earlier in the
-process that it sometimes does.
+process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
 
