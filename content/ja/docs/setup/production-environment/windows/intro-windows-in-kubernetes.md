@@ -19,7 +19,6 @@ Windowsコンテナを実行するには、Kubernetesクラスターに複数の
 {{< note >}}
 [マスターコンポーネント](/ja/docs/concepts/overview/components/)を含むKubernetesコントロールプレーンは、Linuxで実行し続けます。WindowsのみのKubernetesクラスターを導入する計画はありません。
 {{< /note >}}
-
 {{< note >}}
 このドキュメントでは、Windowsコンテナについて説明する場合、プロセス分離のWindowsコンテナを意味します。[Hyper-V分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)のWindowsコンテナは、将来のリリースで計画しています。
 {{< /note >}}
@@ -42,11 +41,9 @@ APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースの�
 {{< note >}}
 すべてのWindowsユーザーがアプリのオペレーティングシステムを頻繁に更新することは望んでいません。アプリケーションのアップグレードは、クラスターに新しいノードをアップグレードまたは導入することを要求する必要があります。Kubernetesで実行されているコンテナのオペレーティングシステムをアップグレードすることを選択したお客様には、新しいオペレーティングシステムバージョンのサポート追加時に、ガイダンスと段階的な指示を提供します。このガイダンスには、クラスターノードと共にアプリケーションをアップグレードするための推奨アップグレード手順が含まれます。 Windowsノードは、現在のLinuxノードと同じように、Kubernetes[バージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/)（ノードからコントロールプレーンのバージョン管理）に準拠しています。
 {{< /note >}}
-
 {{< note >}}
 Windows Serverホストオペレーティングシステムには、 [Windows Server](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing) ライセンスが適用されます。Windowsコンテナイメージには、[Windowsコンテナの追加ライセンス条項](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)ライセンスが提供されます。
 {{< /note >}}
-
 {{< note >}}
 プロセス分離のWindowsコンテナーには、厳格な互換性ルールがあります[ホストOSのバージョンはコンテナーのベースイメージのOSバージョンと一致する必要があります](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)。KubernetesでHyper-V分離のWindowsコンテナをサポートすると、制限と互換性ルールが変更されます。
 {{< /note >}}
