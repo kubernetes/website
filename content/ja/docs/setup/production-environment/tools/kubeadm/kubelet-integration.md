@@ -80,7 +80,7 @@ kubelet起動時に渡されるフラグに加えて、このファイルはcgro
 systemctl daemon-reload && systemctl restart kubelet
 ```
 
-リロードと再起動に成功すると、通常の`kubeadm init`の流れへ続きます。
+リロードと再起動に成功すると、通常の`kubeadm init`のワークフローが続きます。
 
 ### `kubeadm join`実行時の流れ
 
