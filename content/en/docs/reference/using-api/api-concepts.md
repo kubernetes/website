@@ -724,6 +724,52 @@ Another difference is that an applier using Client Side Apply is unable to
 change the API version they are using, but Server Side Apply supports this use
 case.
 
+### Upgrading from client-side apply to server-side apply
+
+Client-side apply users who manage a resource with `kubectl apply` can start
+using server-side apply with the following flag.
+
+```
+kubectl apply --server-side [--dry-run=server]
+```
+
+By default, field management of the object transfers from client-side apply
+to kubectl server-side apply without encountering conflicts.
+
+{{< caution >}}
+Keep the `last-applied-configuration` annotation up to date. The annotation infers client-side apply's managed fields. Any fields not managed by client-side apply raise conflicts.
+
+For example, if you used `kubectl scale` to update the replicas field after client-side apply,
+then this field is not owned by client-side apply and creates conflicts on `kubectl apply --server-side`.
+{{< /caution >}}
+
+This behavior applies to server-side apply with the `kubectl` field manager. As
+an exception, you can opt-out of this behavior by specifying a different,
+non-default field manager, as seen in the following example. The default field manager for kubectl
+server-side apply is `kubectl`.
+
+```
+kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
+```
+
+### Downgrading from server-side apply to client-side apply
+
+If you manage a resource with `kubectl apply --server-side`,
+you can downgrade to client-side apply directly with `kubectl apply`.
+
+Downgrading works because kubectl server-side apply keeps the
+`last-applied-configuration` annotation up-to-date if you use
+`kubectl apply`.
+
+This behavior applies to server-side apply with the `kubectl` field manager. As
+an exception, you can opt-out of this behavior by specifying a different,
+non-default field manager, as seen in the following example. The default field manager for kubectl
+server-side apply is `kubectl`.
+
+```
+kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
+```
+
 ### API Endpoint
 
 With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
