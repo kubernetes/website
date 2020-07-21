@@ -74,7 +74,7 @@ KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 
 kubelet起動時に渡されるフラグに加えて、このファイルはcgroupドライバーや異なるCRIランタイムソケットを使用するかどうか(`--cri-socket`)といった動的なパラメータも含みます。
 
-これら二つのファイルがディスク上に格納されると、systemdを使用している場合、kubeadmは以下の二つのコマンドの実行します。
+これら二つのファイルがディスク上に格納されると、systemdを使用している場合、kubeadmは以下の二つのコマンドを実行します。
 
 ```bash
 systemctl daemon-reload && systemctl restart kubelet
@@ -136,4 +136,3 @@ Kubernetesに同梱されるDEB、RPMのパッケージは以下の通りです�
 | `kubectl`    | `/usr/bin/kubectl`バイナリをインストールします。 |
 | `kubernetes-cni` | 公式のCNIバイナリを`/opt/cni/bin`ディレクトリにインストールします。 |
 | `cri-tools` | `/usr/bin/crictl`バイナリを[cri-tools gitリポジトリ](https://github.com/kubernetes-incubator/cri-tools)からインストールします。 |
-
