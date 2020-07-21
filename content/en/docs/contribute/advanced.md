@@ -13,13 +13,12 @@ This page assumes that you understand how to
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 
-
-
 <!-- body -->
 
 ## Propose improvements
 
-SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members)
+can propose improvements.
 
 After you've been contributing to the Kubernetes documentation for a while, you
 may have ideas for improving the [Style Guide](/docs/contribute/style/style-guide/)
@@ -42,8 +41,8 @@ documentation testing might involve working with sig-testing.
 
 ## Coordinate docs for a Kubernetes release
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can coordinate
-docs for a Kubernetes release.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+can coordinate docs for a Kubernetes release.
 
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release Special Interest Group (SIG). Others on the release team for a given
@@ -73,8 +72,8 @@ rotated among SIG Docs approvers.
 
 ## Serve as a New Contributor Ambassador
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve as
-New Contributor Ambassadors.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+can serve as New Contributor Ambassadors.
 
 New Contributor Ambassadors welcome new contributors to SIG-Docs,
 suggest PRs to new contributors, and mentor new contributors through their first
@@ -92,14 +91,14 @@ Current New Contributor Ambassadors are announced at each SIG-Docs meeting, and 
 
 ## Sponsor a new contributor
 
-SIG Docs [reviewers](/docs/contribute/participating/#reviewers) can sponsor
-new contributors.
+SIG Docs [reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers)
+can sponsor new contributors.
 
 After a new contributor has successfully submitted 5 substantive pull requests
 to one or more Kubernetes repositories, they are eligible to apply for
-[membership](/docs/contribute/participating#members) in the Kubernetes
-organization. The contributor's membership needs to be backed by two sponsors
-who are already reviewers.
+[membership](/docs/contribute/participate/roles-and-responsibilities/#members)
+in the Kubernetes organization. The contributor's membership needs to be
+backed by two sponsors who are already reviewers.
 
 New docs contributors can request sponsors by asking in the #sig-docs channel
 on the [Kubernetes Slack instance](https://kubernetes.slack.com) or on the
@@ -111,7 +110,8 @@ membership in the Kubernetes organization.
 
 ## Serve as a SIG Co-chair
 
-SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term as a co-chair of SIG Docs.
+SIG Docs [approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers)
+can serve a term as a co-chair of SIG Docs.
 
 ### Prerequisites
 
@@ -120,7 +120,12 @@ Approvers must meet the following requirements to be a co-chair:
 - Have been a SIG Docs approver for at least 6 months
 - Have [led a Kubernetes docs release](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) or shadowed two releases
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
-- Understand how other Kubernetes SIGs and repositories affect the SIG Docs workflow, including: [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs), plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
+- Understand how other Kubernetes SIGs and repositories affect the SIG Docs
+  workflow, including:
+  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
+  plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
+  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
 
 ### Responsibilities

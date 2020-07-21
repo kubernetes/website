@@ -15,20 +15,15 @@ like
 [kubectl apply](/docs/reference/generated/kubectl/kubectl-commands#apply) and
 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint).
 This topic does not show how to generate the
-[kubectl](/docs/reference/generated/kubectl/kubectl/)
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)
 options reference page. For instructions on how to generate the kubectl options
 reference page, see
-[Generating Reference Pages for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/).
+[Generating Reference Pages for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/).
 {{< /note >}}
-
-
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "prerequisites-ref-docs.md" >}}
-
-
 
 <!-- steps -->
 
