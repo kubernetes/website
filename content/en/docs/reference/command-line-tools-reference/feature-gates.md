@@ -88,6 +88,7 @@ different Kubernetes components.
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | |
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | |
+| `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.20 |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -420,6 +421,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/api-extension/custom-resources/).
   troubleshoot a running Pod.
+- `DisableAcceleratorUsageMetrics`: [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/monitoring.md).
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/cluster-administration/device-plugins/)
   based resource provisioning on nodes.
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
