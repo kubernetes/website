@@ -33,7 +33,7 @@ APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースの�
 
 オペレーティングシステムのバージョンから始めましょう。 KubernetesのWindowsオペレーティングシステムのサポートについては、次の表を参照してください。単一の異種Kubernetesクラスターは、WindowsとLinuxの両方のワーカーノードを持つことができます。WindowsコンテナはWindowsノードで、LinuxコンテナはLinuxノードでスケジュールする必要があります。
 
-| Kubernetes バージョン | Host OS バージョン (Kubernetes ノード) | | |
+| Kubernetes バージョン | ホストOS バージョン (Kubernetes ノード) | | |
 | --- | --- | --- | --- |
 | | *Windows Server 1709* | *Windows Server 1803* | *Windows Server 1809/Windows Server 2019* |
 | *Kubernetes v1.14* | サポートされていません | サポートされていません| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
@@ -98,8 +98,6 @@ KubernetesのWindows Server 2019/1809ノードでは、Docker EE-basic 18.09が�
 
 #### ストレージ
 
-Kubernetes Volumes enable complex applications with data persistence and Pod volume sharing requirements to be deployed on Kubernetes. Kubernetes on Windows supports the following types of [volumes](/ja/docs/concepts/storage/volumes/):
-
 Kubernetesボリュームを使用すると、データの永続性とPodボリューム共有の要求を持つ複雑なアプリケーションをKubernetesにデプロイできます。Windows上のKubernetesは、次のタイプの[ボリューム](/ja/docs/concepts/storage/volumes/)をサポートしています。:
 
 * [SMB and iSCSI](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows) をサポートするFlexVolumeのツリー外部にあるプラグイン
@@ -107,57 +105,59 @@ Kubernetesボリュームを使用すると、データの永続性とPodボリ�
 * [azureFile](/ja/docs/concepts/storage/volumes/#azurefile)
 * [gcePersistentDisk](/ja/docs/concepts/storage/volumes/#gcepersistentdisk)
 
-#### Networking
+#### ネットワーキング
 
 Networking for Windows containers is exposed through [CNI plugins](/ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
 
-* Virtual networks (including creation of vSwitches)
-* Endpoints / vNICs
-* Namespaces
-* Policies (Packet encapsulations, Load-balancing rules, ACLs, NAT'ing rules, etc.)
+Windowsコンテナのネットワークは、[CNIプラグイン](/ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を通じて公開されます。 Windowsコンテナは、ネットワークに関して仮想マシンと同様に機能します。各コンテナーには、Hyper-V仮想スイッチ（vSwitch）に接続されている仮想ネットワークアダプター（vNIC）があります。Host Network Service（HNS）とHost Compute Service（HCS）は連携してコンテナーを作成し、コンテナvNICをネットワークに接続します。 HCSはコンテナの管理を担当するのに対し、HNSは次のようなネットワークリソースの管理を担当します。：
 
-The following service spec types are supported:
+* 仮想ネットワーク（vSwitchの作成を含む）
+* エンドポイント/ vNIC
+* ネームスペース
+* ポリシー（パケットのカプセル化、負荷分散ルール、ACL、NATルールなど）
+
+次のServiceタイプがサポートされています。：
 
 * NodePort
 * ClusterIP
 * LoadBalancer
 * ExternalName
 
-Windows supports five different networking drivers/modes: L2bridge, L2tunnel, Overlay, Transparent, and NAT. In a heterogeneous cluster with Windows and Linux worker nodes, you need to select a networking solution that is compatible on both Windows and Linux. The following out-of-tree plugins are supported on Windows, with recommendations on when to use each CNI:
+Windowsは、L2bridge、L2tunnel、Overlay、Transparent、NATの5つの異なるネットワークドライバー/モードをサポートしています。 WindowsとLinuxのワーカーノードを持つ異種クラスターでは、WindowsとLinuxの両方で互換性のあるネットワークソリューションを選択する必要があります。以下のツリー外プラグインがWindowsでサポートされており、各CNIをいつ使用するかに関する推奨事項があります。：
 
-| Network Driver | Description | Container Packet Modifications | Network Plugins | Network Plugin Characteristics |
+| ネットワークドライバー | 説明 | コンテナパケットの変更 | ネットワークプラグイン | ネットワークプラグインの特性 |
 | -------------- | ----------- | ------------------------------ | --------------- | ------------------------------ |
-| L2bridge       | Containers are attached to an external vSwitch. Containers are attached to the underlay network, although the physical network doesn't need to learn the container MACs because they are rewritten on ingress/egress. Inter-container traffic is bridged inside the container host. | MAC is rewritten to host MAC, IP remains the same. | [win-bridge](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge), [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md), Flannel host-gateway uses win-bridge | win-bridge uses L2bridge network mode, connects containers to the underlay of hosts, offering best performance. Requires L2 adjacency between container hosts |
-| L2Tunnel | This is a special case of l2bridge, but only used on Azure. All packets are sent to the virtualization host where SDN policy is applied. | MAC rewritten, IP visible on the underlay network | [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) | Azure-CNI allows integration of containers with Azure vNET, and allows them to leverage the set of capabilities that [Azure Virtual Network provides](https://azure.microsoft.com/en-us/services/virtual-network/). For example, securely connect to Azure services or use Azure NSGs. See [azure-cni for some examples](https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking) |
-| Overlay (Overlay networking for Windows in Kubernetes is in *alpha* stage) | Containers are given a vNIC connected to an external vSwitch. Each overlay network gets its own IP subnet, defined by a custom IP prefix.The overlay network driver uses VXLAN encapsulation. | Encapsulated with an outer header, inner packet remains the same. | [Win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay), Flannel VXLAN (uses win-overlay) | win-overlay should be used when virtual container networks are desired to be isolated from underlay of hosts (e.g. for security reasons). Allows for IPs to be re-used for different overlay networks (which have different VNID tags)  if you are restricted on IPs in your datacenter. This option may be used when the container hosts are not L2 adjacent but have L3 connectivity |
-| Transparent (special use case for [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)) | Requires an external vSwitch. Containers are attached to an external vSwitch which enables intra-pod communication via logical networks (logical switches and routers). | Packet is encapsulated either via [GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/) or [STT](https://datatracker.ietf.org/doc/draft-davie-stt/) tunneling to reach pods which are not on the same host.  <br/> Packets are forwarded or dropped via the tunnel metadata information supplied by the ovn network controller. <br/> NAT is done for north-south communication. | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) | [Deploy via ansible](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib). Distributed ACLs can be applied via Kubernetes policies. IPAM support. Load-balancing can be achieved without kube-proxy. NATing is done without using iptables/netsh. |
-| NAT (*not used in Kubernetes*) | Containers are given a vNIC connected to an internal vSwitch. DNS/DHCP is provided using an internal component called [WinNAT](https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/) | MAC and IP is rewritten to host MAC/IP. | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | Included here for completeness |
+| L2bridge       | コンテナーは外部のvSwitchに接続されます。コンテナーはアンダーレイネットワークに接続されますが、物理ネットワークはコンテナのMACを上り/下りで書き換えるため、MACを学習する必要はありません。コンテナ間トラフィックは、コンテナホスト内でブリッジされます。 | MACはホストのMACに書き換えられ、IPは変わりません。| [win-bridge](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge)、[Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)、Flannelホストゲートウェイは、win-bridgeを使用します。 | win-bridgeはL2bridgeネットワークモードを使用して、コンテナーをホストのアンダーレイに接続して、最高のパフォーマンスを提供します。コンテナホスト間のL2隣接が必要です。 |
+| L2Tunnel | これはl2bridgeの特殊なケースですが、Azureでのみ使用されます。すべてのパケットは、SDNポリシーが適用されている仮想化ホストに送信されます。| MACが書き換えられ、IPがアンダーレイネットワークで表示されます。 | [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) | Azure-CNIを使用すると、コンテナーをAzure vNETと統合し、[Azure Virtual Networkが提供](https://azure.microsoft.com/en-us/services/virtual-network/)する一連の機能を活用できます。たとえば、Azureサービスに安全に接続するか、Azure NSGを使用します。[azure-cniのいくつかの例](https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking) を参照してください。|
+| オーバーレイ（KubernetesのWindows用のオーバーレイネットワークは *アルファ* 段階です）| コンテナには、外部のvSwitchに接続されたvNICが付与されます。各オーバーレイネットワークは、カスタムIPプレフィックスで定義された独自のIPサブネットを取得します。オーバーレイネットワークドライバーは、VXLANを使用してカプセル化します。 | 外部ヘッダーでカプセル化され、内部パケットは同じままです。 | [Win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay)、Flannel VXLAN (win-overlayを使用) | win-overlayは、仮想コンテナネットワークをホストのアンダーレイから分離する必要がある場合に使用する必要があります（セキュリティ上の理由など）。データセンター内のIPが制限されている場合に、さまざまなオーバーレイネットワーク（さまざまなVNIDタグを持つ）でIPを再利用できるようにします。このオプションは、コンテナホストがL2隣接していないがL3接続がある場合に使用できます。|
+| 透過的（[ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)の特別な使用例） | 外部のvSwitchが必要です。コンテナーは外部のvSwitchに接続され、論理ネットワーク（論理スイッチおよびルーター）を介したPod内通信を可能にします。 | パケットは、[GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/)または[STT](https://datatracker.ietf.org/doc/draft-davie-stt/)トンネリングを介してカプセル化され、同じホスト上にないポッドに到達します。パケットは、ovnネットワークコントローラーによって提供されるトンネルメタデータ情報を介して転送またはドロップされます。NATは南北通信のために行われます。 | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) | [ansible経由でデプロイ](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib)します。分散ACLは、Kubernetesポリシーを介して適用できます。 IPAMをサポートします。負荷分散は、kube-proxyなしで実現できます。 NATは、ip​​tables/netshを使用せずに行われます。 |
+| NAT（*Kubernetesでは使用されません*） | コンテナには、内部のvSwitchに接続されたvNICが付与されます。DNS/DHCPは、[WinNAT](https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/)と呼ばれる内部コンポーネントを使用して提供されます。 | MACおよびIPはホストMAC/IPに書き換えられます。 | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | 完全を期すためにここに含まれています。 |
 
-As outlined above, the [Flannel](https://github.com/coreos/flannel) CNI [meta plugin](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel) is also supported on [Windows](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental) via the [VXLAN network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) (**alpha support** ; delegates to win-overlay) and [host-gateway network backend](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw) (stable support; delegates to win-bridge). This plugin supports delegating to one of the reference CNI plugins (win-overlay, win-bridge), to work in conjunction with Flannel daemon on Windows (Flanneld) for automatic node subnet lease assignment and HNS network creation. This plugin reads in its own configuration file (net-conf.json), and aggregates it with the environment variables from the FlannelD generated subnet.env file. It then delegates to one of the reference CNI plugins for network plumbing, and sends the correct configuration containing the node-assigned subnet to the IPAM plugin (e.g. host-local).
+上で概説したように、[Flannel](https://github.com/coreos/flannel) CNI[メタプラグイン](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel)は、[VXLANネットワークバックエンド](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)（**アルファサポート**、win-overlayへのデリゲート）および[ホストゲートウェイネットワークバックエンド](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#host-gw)（安定したサポート、win-bridgeへのデリゲート）を介して[Windows](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel#windows-support-experimental)でもサポートされます。このプラグインは、参照CNIプラグイン（win-overlay、win-bridge）の1つへの委任をサポートし、WindowsのFlannelデーモン（Flanneld）と連携して、ノードのサブネットリースの自動割り当てとHNSネットワークの作成を行います。このプラグインは、独自の構成ファイル（net-conf.json）を読み取り、FlannelDで生成されたsubnet.envファイルからの環境変数と統合します。次に、ネットワークプラミング用の参照CNIプラグインの1つに委任し、ノード割り当てサブネットを含む正しい構成をIPAMプラグイン（ホストローカルなど）に送信します。
 
-For the node, pod, and service objects, the following network flows are supported for TCP/UDP traffic:
+Node、Pod、およびServiceオブジェクトの場合、TCP/UDPトラフィックに対して次のネットワークフローがサポートされます。：
 
 * Pod -> Pod (IP)
 * Pod -> Pod (Name)
 * Pod -> Service (Cluster IP)
-* Pod -> Service (PQDN, but only if there are no ".")
+* Pod -> Service (PQDN、ただし、「.」がない場合のみ)
 * Pod -> Service (FQDN)
 * Pod -> External (IP)
 * Pod -> External (DNS)
 * Node -> Pod
 * Pod -> Node
 
-The following IPAM options are supported on Windows:
+Windowsでは、次のIPAMオプションがサポートされています。
 
-* [Host-local](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
-* HNS IPAM (Inbox platform IPAM, this is a fallback when no IPAM is set)
-* [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) (for azure-cni only)
+* [ホストローカル](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
+* HNS IPAM (受信トレイプラットフォームIPAM、これはIPAMが設定されていない場合のフォールバック)
+* [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md) （azure-cniのみ）
 
-### Limitations
+### 制限
 
-#### Control Plane
+#### コントロールプレーン
 
-Windows is only supported as a worker node in the Kubernetes architecture and component matrix. This means that a Kubernetes cluster must always include Linux master nodes, zero or more Linux worker nodes, and zero or more Windows worker nodes.
+Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスタには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
 
 #### Compute
 
