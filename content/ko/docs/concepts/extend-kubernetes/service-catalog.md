@@ -1,21 +1,23 @@
 ---
 title: 서비스 카탈로그
-content_template: templates/concept
+reviewers:
+-
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
+<!-- overview -->
+{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
 
 [오픈 서비스 브로커 API 명세](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md)에 정의된 서비스 브로커는 AWS, GCP 또는 Azure 와 같은 타사 클라우드 공급자에 의해 제공되고 관리되는 매니지드 서비스의 세트에 대한 엔드포인트다.
 매니지드 서비스의 예로 Microsoft Azure Cloud Queue, Amazon Simple Quere Service, Google Cloud Pub/Sub이 있으나 애플리케이션에서 사용할 수 있는 모든 소프트웨어 제품일 수 있다.
 
 {{< glossary_tooltip text="클러스터 오퍼레이터" term_id="cluster-operator" >}}는 서비스 카탈로그를 사용하여 서비스 브로커가 제공하는 매니지드 서비스 목록을 탐색하거나 매니지드 서비스 인스턴스를 프로비저닝 하고, 쿠버네티스 클러스터 내의 애플리케이션에서 사용할 수 있도록 바인딩 할 수 있다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## 유스케이스 예제
 
 한 애플리케이션 개발자가 쿠버네티스 클러스터 내에서 실행되는 응용프로그램 중 일부로 메시지 큐를 사용 하기를 원한다.
@@ -84,7 +86,7 @@ spec:
   # 서비스 브로커의 엔드 포인트를 가리킨다. (이 예시는 동작하지 않는 URL 이다.)
   url:  https://servicebroker.somecloudprovider.com/v1alpha1/projects/service-catalog/brokers/default
   #####
-  # 베어러 토큰 정보 혹은 TLS용 caBundle과 같은 
+  # 베어러 토큰 정보 혹은 TLS용 caBundle과 같은
   # 서비스 브로커와 통신 하는데 사용될 수 있는 값을 여기에 추가 할 수 있다.
   #####
 ```
@@ -162,7 +164,7 @@ spec:
   instanceRef:
     name: cloud-queue-instance
   #####
-  # 서비스 브로커가 사용 할 수 있는 secretName, 서비스 계정 파라미터 등의 
+  # 서비스 브로커가 사용 할 수 있는 secretName, 서비스 계정 파라미터 등의
   # 추가 정보를 여기에 추가 할 수 있다.
   #####
 ```
@@ -185,7 +187,6 @@ spec:
 ![Map connection credentials](/images/docs/service-catalog-map.svg)
 
 #### 파드 구성 파일
-
 
 이 매핑을 수행하는 한 가지 방법은 선언적 파드 구성을 사용하는 것이다.
 
@@ -221,16 +222,17 @@ spec:
                    key: topic
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * If you are familiar with {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, [install Service Catalog using Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/) into your Kubernetes cluster. Alternatively, you can [install Service Catalog using the SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
 * View [svc-cat.io](https://svc-cat.io/docs/).
 
-{{% /capture %}}
+
 
 
 
