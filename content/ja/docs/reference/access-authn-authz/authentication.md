@@ -556,7 +556,7 @@ rules:
   verbs: ["impersonate"]
 ```
 
-偽装ヘッダーの値は、リソースが取り得る`resourceNames`のの集合を制限することで、管理することもできます。
+偽装ヘッダーの値は、リソースが取り得る`resourceNames`の集合を制限することで、管理することもできます。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
