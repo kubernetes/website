@@ -37,7 +37,7 @@ To get involved with documentation:
 3. Make sure you understand the basic processes for [opening a pull request](/docs/contribute/new-content/new-content/) and [reviewing changes](/docs/contribute/review/reviewing-prs/).
 
 Some tasks require more trust and more access in the Kubernetes organization.
-See [Participating in SIG Docs](/docs/contribute/participating/) for more details about
+See [Participating in SIG Docs](/docs/contribute/participate/roles-and-responsibilities/) for more details about
 roles and permissions.
 
 ## Your first contribution
@@ -53,12 +53,12 @@ roles and permissions.
 
 - Learn to [work from a local clone](/docs/contribute/new-content/new-content/#fork-the-repo) of the repository.
 - Document [features in a release](/docs/contribute/new-content/new-features/).
-- Participate in [SIG Docs](/docs/contribute/participating/), and become a [member or reviewer](/docs/contribute/participating/#roles-and-responsibilities).
+- Participate in [SIG Docs](/docs/contribute/participate/), and become a [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
 - Start or help with a [localization](/docs/contribute/localization/).
 
 ## Get involved with SIG Docs
 
-[SIG Docs](/docs/contribute/participating/) is the group of contributors who publish and maintain Kubernetes documentation and the website. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
+[SIG Docs](/docs/contribute/participate/) is the group of contributors who publish and maintain Kubernetes documentation and the website. Getting involved with SIG Docs is a great way for Kubernetes contributors (feature development or otherwise) to have a large impact on the Kubernetes project.
 
 SIG Docs communicates with different methods:
 
