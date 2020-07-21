@@ -79,20 +79,20 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 
 | プロトコル | 通信の向き | ポート範囲  | 目的                    | 使用者                    |
 |-----------|------------|------------|-------------------------|---------------------------|
-| TCP       | Inbound    | 6443*      | Kubernetes API server   | All                       |
-| TCP       | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP       | Inbound    | 10250      | Kubelet API             | Self, Control plane       |
-| TCP       | Inbound    | 10251      | kube-scheduler          | Self                      |
-| TCP       | Inbound    | 10252      | kube-controller-manager | Self                      |
+| TCP       | Inbound    | 6443*      | Kubernetes API server   | 全て                      |
+| TCP       | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver、etcd      |
+| TCP       | Inbound    | 10250      | Kubelet API             | 自身、コントロールプレーン |
+| TCP       | Inbound    | 10251      | kube-scheduler          | 自身                      |
+| TCP       | Inbound    | 10252      | kube-controller-manager | 自身                      |
 
 ### ワーカーノード
 
-| プロトコル | 通信の向き | ポート範囲   | 目的                    | 使用者                  |
-|-----------|------------|-------------|-------------------------|-------------------------|
-| TCP       | Inbound    | 10250       | Kubelet API             | Self, Control plane     |
-| TCP       | Inbound    | 30000-32767 | NodePort Services**     | All                     |
+| プロトコル | 通信の向き | ポート範囲   | 目的                    | 使用者                    |
+|-----------|------------|-------------|-------------------------|---------------------------|
+| TCP       | Inbound    | 10250       | Kubelet API             | 自身、コントロールプレーン |
+| TCP       | Inbound    | 30000-32767 | NodePort Services†     | 全て                      |
 
-** [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
+† [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
 
 \*の項目は書き換え可能です。そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
 
@@ -106,7 +106,7 @@ v1.6.0以降、KubernetesはデフォルトでCRI(Container Runtime Interface)�
 
 また、v1.14.0以降、kubeadmは既知のドメインソケットのリストをスキャンして、Linuxノード上のコンテナランタイムを自動的に検出しようとします。検出可能なランタイムとソケットパスは、以下の表に記載されています。
 
-| ランタイム  | ドメインソケット                   |
+| ランタイム  | ドメインソケット                  |
 |------------|----------------------------------|
 | Docker     | /var/run/docker.sock             |
 | containerd | /run/containerd/containerd.sock  |
