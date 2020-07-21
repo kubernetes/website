@@ -98,6 +98,14 @@ Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. Accor
 
 If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember to remove this metric dependency before upgrading to `1.14`
 
+## Disable accelerator metrics
+
+The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order to perform infrastructure changes (for example, updating the driver), a cluster administrator needed to stop the kubelet agent.
+
+The responsibility for collecting accelerator metrics now belongs to the vendor rather than the kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics service (for example, Prometheus).
+
+The [`DisableAcceleratorUsageMetrics` feature gate](/docs/references/command-line-tools-reference/feature-gate.md#feature-gates-for-alpha-or-beta-features:~:text= DisableAcceleratorUsageMetrics,-false) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
+
 ## Component metrics
 
 ### kube-controller-manager metrics
