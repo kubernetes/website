@@ -31,6 +31,12 @@ This can be useful for a human operator to debug the current status of the Api s
     curl -k https://localhost:6443/livez?verbose
     ```
 
+or from a remote host with authentication:
+
+    ```shell
+    kubectl get --raw='/readyz?verbose'
+    ```
+
 The output will look like this:
 
     [+]ping ok
@@ -82,6 +88,10 @@ The output show that the `etcd` check is excluded:
     [+]poststarthook/apiservice-openapi-controller ok
     [+]shutdown ok
     healthz check passed
+
+## Individual health checks
+
+{{< feature-state state="alpha" >}}
 
 Each individual health check exposes an http endpoint and could can be checked individually.
 The schema for the individual health checks is `/livez/<healthcheck-name>` where `livez` and `readyz` and be used to indicate if you want to check thee liveness or the readiness of the API server.
