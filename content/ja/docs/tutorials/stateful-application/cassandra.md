@@ -1,49 +1,40 @@
 ---
-title: "Example: Deploying Cassandra with a StatefulSet"
-reviewers:
-- ahmetb
+title: "例: StatefulSetを使用したCassandraのデプロイ"
 content_type: tutorial
 weight: 30
 ---
 
 <!-- overview -->
-This tutorial shows you how to run [Apache Cassandra](http://cassandra.apache.org/) on Kubernetes. Cassandra, a database, needs persistent storage to provide data durability (application _state_). In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
+このチュートリアルでは、[Apache Cassandra](http://cassandra.apache.org/)をKubernetes上で実行する方法を紹介します。データベースの一種であるCassandraには、データの耐久性(アプリケーションの*状態*)を提供するために永続ストレージが必要です。この例では、カスタムのCassandraのseed providerにより、Cassandraクラスターに参加した新しいCassandraインスタンスを検出できるようにします。
 
-*StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster. For more information on the features used in this tutorial, see [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+*StatefulSet*を利用すると、ステートフルなアプリケーションをKubernetesクラスターにデプロイするのが簡単になります。このチュートリアルで使われている機能のより詳しい情報は、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を参照してください。
 
 {{< note >}}
-Cassandra and Kubernetes both use the term _node_ to mean a member of a cluster. In this
-tutorial, the Pods that belong to the StatefulSet are Cassandra nodes and are members
-of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernetes cluster,
-the Kubernetes control plane schedules those Pods onto Kubernetes
-{{< glossary_tooltip text="Nodes" term_id="node" >}}.
+CassandraとKubernetesは、ともにクラスターのメンバーを表すために*ノード*という用語を使用しています。このチュートリアルでは、StatefulSetに属するPodはCassandraのノードであり、Cassandraクラスター(*ring*と呼ばれます)のメンバーでもあります。これらのPodがKubernetesクラスター内で実行されるとき、Kubernetesのコントロールプレーンは、PodをKubernetesの{{< glossary_tooltip text="Node" term_id="node" >}}上にスケジュールします。
 
-When a Cassandra node starts, it uses a _seed list_ to bootstrap discovery of other
-nodes in the ring.
-This tutorial deploys a custom Cassandra seed provider that lets the database discover
-new Cassandra Pods as they appear inside your Kubernetes cluster.
+Cassandraノードが開始すると、*シードリスト*を使ってring上の他のノードの検出が始まります。このチュートリアルでは、Kubernetesクラスター内に現れた新しいCassandra Podを検出するカスタムのCassandraのseed providerをデプロイします。
 {{< /note >}}
 
 
 ## {{% heading "objectives" %}}
 
-* Create and validate a Cassandra headless {{< glossary_tooltip text="Service" term_id="service" >}}.
-* Use a {{< glossary_tooltip term_id="StatefulSet" >}} to create a Cassandra ring.
-* Validate the StatefulSet.
-* Modify the StatefulSet.
-* Delete the StatefulSet and its {{< glossary_tooltip text="Pods" term_id="pod" >}}.
+* Cassandraのheadless {{< glossary_tooltip text="Service" term_id="service" >}}を作成して検証する。
+* {{< glossary_tooltip term_id="StatefulSet" >}}を使用してCassandra ringを作成する。
+* StatefulSetを検証する。
+* StatefulSetを編集する。
+* StatefulSetと{{< glossary_tooltip text="Pod" term_id="pod" >}}を削除する。
 
 
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-To complete this tutorial, you should already have a basic familiarity with {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="Services" term_id="service" >}}, and {{< glossary_tooltip text="StatefulSets" term_id="StatefulSet" >}}.
+このチュートリアルを完了するには、{{< glossary_tooltip text="Pod" term_id="pod" >}}、{{< glossary_tooltip text="Service" term_id="service" >}}、{{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}の基本についてすでに知っている必要があります。
 
-### Additional Minikube setup instructions
+### Minikubeのセットアップに関する追加の設定手順
 
 {{< caution >}}
-[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MiB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
+[Minikube](/ja/docs/getting-started-guides/minikube/)は、デフォルトでは1024MiBのメモリと1CPUに設定されます。デフォルトのリソース設定で起動したMinikubeでは、このチュートリアルの実行中にリソース不足のエラーが発生してしまいます。このエラーを回避するためにはMinikubeを次の設定で起動してください。
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -53,88 +44,88 @@ minikube start --memory 5120 --cpus=4
 
 
 <!-- lessoncontent -->
-## Creating a headless Service for Cassandra {#creating-a-cassandra-headless-service}
+## Cassandraのheadless Serviceを作成する {#creating-a-cassandra-headless-service}
 
-In Kubernetes, a {{< glossary_tooltip text="Service" term_id="service" >}} describes a set of {{< glossary_tooltip text="Pods" term_id="pod" >}} that perform the same task.
+Kubernetesでは、{{< glossary_tooltip text="Service" term_id="service" >}}は同じタスクを実行する{{< glossary_tooltip text="Pod" term_id="pod" >}}の集合を表します。
 
-The following Service is used for DNS lookups between Cassandra Pods and clients within your cluster:
+以下のServiceは、Cassandra Podとクラスター内のクライアント間のDNSルックアップに使われます。
 
 {{< codenew file="application/cassandra/cassandra-service.yaml" >}}
 
-Create a Service to track all Cassandra StatefulSet members from the `cassandra-service.yaml` file:
+`cassandra-service.yaml`ファイルから、Cassandra StatefulSetのすべてのメンバーをトラッキングするServiceを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-service.yaml
 ```
 
 
-### Validating (optional) {#validating}
+### 検証 (オプション) {#validating}
 
-Get the Cassandra Service.
+Cassandra Serviceを取得します。
 
 ```shell
 kubectl get svc cassandra
 ```
 
-The response is
+結果は次のようになります。
 
 ```
 NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
-If you don't see a Service named `cassandra`, that means creation failed. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for help troubleshooting common issues.
 
-## Using a StatefulSet to create a Cassandra ring
+`cassandra`という名前のServiceが表示されない場合、作成に失敗しています。よくある問題のトラブルシューティングについては、[Serviceのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-service/)を読んでください。
 
-The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
+## StatefulSetを使ってCassandra ringを作成する
+
+以下に示すStatefulSetマニフェストは、3つのPodからなるCassandra ringを作成します。
 
 {{< note >}}
-This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
+この例ではMinikubeのデフォルトのプロビジョナーを使用しています。クラウドを使用している場合、StatefulSetを更新してください。
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
-Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
+`cassandra-statefulset.yaml`ファイルから、CassandraのStatefulSetを作成します。
 
 ```shell
-# Use this if you are able to apply cassandra-statefulset.yaml unmodified
+# cassandra-statefulset.yaml を編集せずにapplyできる場合は、このコマンドを使用してください
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
-If you need to modify `cassandra-statefulset.yaml` to suit your cluster, download
-https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml and then apply
-that manifest, from the folder you saved the modified version into:
+クラスターに合わせて`cassandra-statefulset.yaml`を編集する必要がある場合、 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml をダウンロードして、修正したバージョンを保存したフォルダからマニフェストを適用してください。
+
 ```shell
-# Use this if you needed to modify cassandra-statefulset.yaml locally
+# cassandra-statefulset.yaml をローカルで編集する必要がある場合、このコマンドを使用してください
 kubectl apply -f cassandra-statefulset.yaml
 ```
 
 
-## Validating the Cassandra StatefulSet
+## CassandraのStatefulSetを検証する
 
-1. Get the Cassandra StatefulSet:
+1. CassandraのStatefulSetを取得します
 
     ```shell
     kubectl get statefulset cassandra
     ```
 
-    The response should be similar to:
+    結果は次のようになるはずです。
 
     ```
     NAME        DESIRED   CURRENT   AGE
     cassandra   3         0         13s
     ```
 
-    The `StatefulSet` resource deploys Pods sequentially.
+    `StatefulSet`リソースがPodを順番にデプロイします。
 
-1. Get the Pods to see the ordered creation status:
+1. Podを取得して順序付きの作成ステータスを確認します
 
     ```shell
     kubectl get pods -l="app=cassandra"
     ```
 
-    The response should be similar to:
+    結果は次のようになるはずです。
 
     ```shell
     NAME          READY     STATUS              RESTARTS   AGE
@@ -142,8 +133,7 @@ kubectl apply -f cassandra-statefulset.yaml
     cassandra-1   0/1       ContainerCreating   0          8s
     ```
 
-    It can take several minutes for all three Pods to deploy. Once they are deployed, the same command
-    returns output similar to:
+    3つすべてのPodのデプロイには数分かかる場合があります。デプロイが完了すると、同じコマンドは次のような結果を返します。
 
     ```
     NAME          READY     STATUS    RESTARTS   AGE
@@ -152,14 +142,13 @@ kubectl apply -f cassandra-statefulset.yaml
     cassandra-2   1/1       Running   0          8m
     ```
 
-3. Run the Cassandra [nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool) inside the first Pod, to
-   display the status of the ring.
+3. 1番目のPodの中でCassandraの[nodetool](https://cwiki.apache.org/confluence/display/CASSANDRA2/NodeTool)を実行して、ringのステータスを表示します。
 
     ```shell
     kubectl exec -it cassandra-0 -- nodetool status
     ```
 
-    The response should look something like:
+    結果は次のようになるはずです。
 
     ```
     Datacenter: DC1-K8Demo
@@ -172,22 +161,22 @@ kubectl apply -f cassandra-statefulset.yaml
     UN  172.17.0.6  84.74 KiB  32           67.1%             a6a1e8c2-3dc5-4417-b1a0-26507af2aaad  Rack1-K8Demo
     ```
 
-## Modifying the Cassandra StatefulSet
+## CassandraのStatefulSetを変更する
 
-Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
+`kubectl edit`を使うと、CassandraのStatefulSetのサイズを変更できます。
 
-1. Run the following command:
+1. 次のコマンドを実行します。
 
     ```shell
     kubectl edit statefulset cassandra
     ```
 
-    This command opens an editor in your terminal. The line you need to change is the `replicas` field. The following sample is an excerpt of the StatefulSet file:
+    このコマンドを実行すると、ターミナルでエディタが起動します。変更が必要な行は`replicas`フィールドです。以下の例は、StatefulSetファイルの抜粋です。
 
     ```yaml
     # Please edit the object below. Lines beginning with a '#' will be ignored,
     # and an empty file will abort the edit. If an error occurs while saving this file will be
-    # reopened with the relevant failures.
+    # reopenedTranslate tutorials/stateful-application/cassandra/ into Japanese with the relevant failures.
     #
     apiVersion: apps/v1
     kind: StatefulSet
@@ -204,17 +193,17 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
       replicas: 3
     ```
 
-1. Change the number of replicas to 4, and then save the manifest.
+1. レプリカ数を4に変更し、マニフェストを保存します。
 
-    The StatefulSet now scales to run with 4 Pods.
+    これで、StatefulSetが4つのPodを実行するようにスケールされました。
 
-1. Get the Cassandra StatefulSet to verify your change:
+1. CassandraのStatefulSetを取得して、変更を確かめます。
 
     ```shell
     kubectl get statefulset cassandra
     ```
 
-    The response should be similar to:
+    結果は次のようになるはずです。
 
     ```
     NAME        DESIRED   CURRENT   AGE
@@ -225,13 +214,13 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 ## {{% heading "cleanup" %}}
 
-Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
+StatefulSetを削除したりスケールダウンしても、StatefulSetに関係するボリュームは削除されません。StatefulSetに関連するすべてのリソースを自動的に破棄するよりも、データの方がより貴重であるため、安全のためにこのような設定になっています。
 
 {{< warning >}}
-Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+ストレージクラスやreclaimポリシーによっては、*PersistentVolumeClaim*を削除すると、関連するボリュームも削除される可能性があります。PersistentVolumeClaimの削除後にもデータにアクセスできるとは決して想定しないでください。
 {{< /warning >}}
 
-1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:
+1. 次のコマンドを実行して(単一のコマンドにまとめています)、CassandraのStatefulSetに含まれるすべてのリソースを削除します。
 
     ```shell
     grace=$(kubectl get pod cassandra-0 -o=jsonpath='{.spec.terminationGracePeriodSeconds}') \
@@ -241,23 +230,19 @@ Depending on the storage class and reclaim policy, deleting the *PersistentVolum
       && kubectl delete persistentvolumeclaim -l app=cassandra
     ```
 
-1. Run the following command to delete the Service you set up for Cassandra:
+1. 次のコマンドを実行して、CassandraをセットアップしたServiceを削除します。
 
     ```shell
     kubectl delete service -l app=cassandra
     ```
 
-## Cassandra container environment variables
+## Cassandraコンテナの環境変数
 
-The Pods in this tutorial use the [`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)
-image from Google's [container registry](https://cloud.google.com/container-registry/docs/).
-The Docker image above is based on [debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)
-and includes OpenJDK 8.
+このチュートリアルのPodでは、Googleの[コンテナレジストリ](https://cloud.google.com/container-registry/docs/)の[`gcr.io/google-samples/cassandra:v13`](https://github.com/kubernetes/examples/blob/master/cassandra/image/Dockerfile)イメージを使用しました。このDockerイメージは[debian-base](https://github.com/kubernetes/kubernetes/tree/master/build/debian-base)をベースにしており、OpenJDK 8が含まれています。
 
-This image includes a standard Cassandra installation from the Apache Debian repo.
-By using environment variables you can change values that are inserted into `cassandra.yaml`.
+このイメージには、Apache Debianリポジトリの標準のCassandraインストールが含まれます。環境変数を利用すると、`cassandra.yaml`に挿入された値を変更できます。
 
-| Environment variable     | Default value    |
+| 環境変数                  | デフォルト値      |
 | ------------------------ |:---------------: |
 | `CASSANDRA_CLUSTER_NAME` | `'Test Cluster'` |
 | `CASSANDRA_NUM_TOKENS`   | `32`             |
@@ -268,9 +253,9 @@ By using environment variables you can change values that are inserted into `cas
 ## {{% heading "whatsnext" %}}
 
 
-* Learn how to [Scale a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about the [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)
-* See more custom [Seed Provider Configurations](https://git.k8s.io/examples/cassandra/java/README.md)
+* [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
+* [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
+* カスタムの[Seed Providerの設定](https://git.k8s.io/examples/cassandra/java/README.md)についてもっと学ぶ。
 
 
 
