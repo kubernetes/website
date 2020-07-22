@@ -176,18 +176,18 @@ MinikubeのサポートするKubernetesの機能:
 
 10. ローカルのMinikubeクラスターを削除します:
 
-   ```shell
-   minikube delete
-   ```
+    ```shell
+    minikube delete
+    ```
 
-   出力はこのようになります:
+    出力はこのようになります:
 
-   ```
-   Deleting "minikube" ...
-   The "minikube" cluster has been deleted.
-   ```
+    ```
+    Deleting "minikube" ...
+    The "minikube" cluster has been deleted.
+    ```
 
-   詳細は[クラスターの削除](#deleting-a-cluster)を参照ください。
+    詳細は[クラスターの削除](#deleting-a-cluster)を参照ください。
 
 ## クラスターの管理
 
