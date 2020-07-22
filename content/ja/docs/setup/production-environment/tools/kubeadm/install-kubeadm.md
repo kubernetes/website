@@ -56,7 +56,7 @@ Linuxでは、カーネルのiptablesサブシステムの最新の代替品と�
 もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
 
 {{< tabs name="iptables_legacy" >}}
-{{% tab name="DebiaまたはUbuntu" %}}
+{{% tab name="DebianまたはUbuntu" %}}
 ```bash
 # レガシーバイナリがインストールされていることを確認してください
 sudo apt-get install -y iptables arptables ebtables
@@ -275,5 +275,4 @@ kubeadmで問題が発生した場合は、[トラブルシューティング](/
 
 
 * [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-
 
