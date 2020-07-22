@@ -92,8 +92,8 @@ MinikubeのサポートするKubernetesの機能:
    `STATUS`に`Running`と表示されている場合、Podは稼働中です:
 
    ```
-   NAME                              READY     STATUS       RESTARTS   AGE
-   hello-minikube-3383150820-vctvh   1/1       Running      0          13s
+   NAME                              READY     STATUS    RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   1/1       Running   0          13s
    ```
 
 5. Serviceの詳細を確認するため、公開したServiceのURLを取得します:
