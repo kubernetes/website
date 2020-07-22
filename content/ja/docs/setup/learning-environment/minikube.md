@@ -276,7 +276,7 @@ minikube start \
 ```
 {{% /tab %}}
 {{% tab name="CRI-O" %}}
-[CRI-O](https://github.com/kubernetes-incubator/cri-o) をコンテナランタイムとして使用するには以下を実行してください:
+[CRI-O](https://cri-o.io/)をコンテナランタイムとして使用するには以下を実行してください:
 
 ```bash
 minikube start \
