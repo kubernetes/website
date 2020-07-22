@@ -168,7 +168,7 @@ ajustan su comportamiento en base a un ConfigMap.
 Para usar un ConfigMap en un volumen en un {{< glossary_tooltip text="Pod" term_id="pod" >}}:
 
 1. Crear un ConfigMap o usar uno que exista. Múltiples {{< glossary_tooltip text="Pods" term_id="pod" >}} pueden utilizar el mismo ConfigMap.
-1. Modifica la configuración del {{< glossary_tooltip text="Pod" term_id="pod" >}} para añadir el volumen en `.spec.volumes[]`. Pon cualquier nombre al {{< glossary_tooltip text="Volumen" term_id="volumen" >}}, y tienes un campo `.spec.volumes[].configMap.name` configurado con referencia al objeto ConfigMap.
+1. Modifica la configuración del {{< glossary_tooltip text="Pod" term_id="pod" >}} para añadir el volumen en `.spec.volumes[]`. Pon cualquier nombre al {{< glossary_tooltip text="Volumen" term_id="volume" >}}, y tienes un campo `.spec.volumes[].configMap.name` configurado con referencia al objeto ConfigMap.
 1. Añade un `.spec.containers[].volumeMounts[]` a cada contenedor que necesite el ConfigMap. Especifica `.spec.containers[].volumeMounts[].readOnly = true` y `.spec.containers[].volumeMounts[].mountPath` en un directorio sin uso donde quieras que aparezca el ConfigMap.
 1. Modifica la imagen o el comando utilizado para que el programa busque los ficheros en el directorio. Cada clave del ConfigMap `data` se convierte en un un fichero en el `mountPath`.
 
@@ -251,4 +251,3 @@ recrear los {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 * Leer [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Leer [The Twelve-Factor App](https://12factor.net/) para entender el motivo de separar
   el código de la configuración.
-
