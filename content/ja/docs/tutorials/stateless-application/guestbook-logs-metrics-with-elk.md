@@ -1,20 +1,18 @@
 ---
-title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
-reviewers:
-- sftim
+title: "例: PHP / Redisを使用したゲストブックの例にロギングとメトリクスを追加する"
 content_type: tutorial
 weight: 21
 card:
   name: tutorials
   weight: 31
-  title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
+  title: "例: PHP / Redisを使用したゲストブックの例にロギングとメトリクスを追加する"
 ---
 
 <!-- overview -->
-This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial. Lightweight log, metric, and network data open source shippers, or *Beats*, from Elastic are deployed in the same Kubernetes cluster as the guestbook. The Beats collect, parse, and index the data into Elasticsearch so that you can view and analyze the resulting operational information in Kibana. This example consists of the following components:
+このチュートリアルは、[Redisを使用したPHPのゲストブック](/ja/docs/tutorials/stateless-application/guestbook)のチュートリアルを前提に作られています。Elasticが開発したログ、メトリクス、ネットワークデータを転送するオープンソースの軽量データシッパーである*Beats*を、ゲストブックと同じKubernetesクラスターにデプロイします。BeatsはElasticsearchに対してデータの収集、分析、インデックス作成を行うため、結果の運用情報をKibana上で表示・分析できるようになります。この例は、以下のコンポーネントから構成されます。
 
-* A running instance of the [PHP Guestbook with Redis tutorial](/docs/tutorials/stateless-application/guestbook)
-* Elasticsearch and Kibana
+* [Redisを使用したPHPのゲストブック](/ja/docs/tutorials/stateless-application/guestbook)の実行中のインスタンス
+* ElasticsearchとKibana
 * Filebeat
 * Metricbeat
 * Packetbeat
@@ -23,11 +21,11 @@ This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/statele
 
 ## {{% heading "objectives" %}}
 
-* Start up the PHP Guestbook with Redis.
-* Install kube-state-metrics.
-* Create a Kubernetes secret.
-* Deploy the Beats.
-* View dashboards of your logs and metrics.
+* Redisを使用したPHPのゲストブックを起動する。
+* kube-state-metricsをインストールする。
+* KubernetesのSecretを作成する。
+* Beatsをデプロイする。
+* ログとメトリクスのダッシュボードを表示する。
 
 
 ## {{% heading "prerequisites" %}}
@@ -36,150 +34,177 @@ This tutorial builds upon the [PHP Guestbook with Redis](/docs/tutorials/statele
 {{< include "task-tutorial-prereqs.md" >}}
 {{< version-check >}}
 
-Additionally you need:
+追加で以下の作業が必要です。
 
-* A running deployment of the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.
+* [Redisを使用したPHPのゲストブック](/ja/docs/tutorials/stateless-application/guestbook)チュートリアルの実行。
 
-* A running Elasticsearch and Kibana deployment.  You can use [Elasticsearch Service in Elastic Cloud](https://cloud.elastic.co), run the [download files](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) on your workstation or servers, or the [Elastic Helm Charts](https://github.com/elastic/helm-charts).
+* ElasticsearchとKibanaのdeploymentの実行。[Elastic Cloud上のElasticsearchサービス](https://cloud.elastic.co)を使用するか、[ファイルをダウンロード](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html)してワークステーションやサーバー上で実行するか、または[Elastic Helm Chart](https://github.com/elastic/helm-charts)が使用できます。
 
 
 
 <!-- lessoncontent -->
 
-## Start up the  PHP Guestbook with Redis
-This tutorial builds on the [PHP Guestbook with Redis](/docs/tutorials/stateless-application/guestbook) tutorial.  If you have the guestbook application running, then you can monitor that.  If you do not have it running then follow the instructions to deploy the guestbook and do not perform the **Cleanup** steps.  Come back to this page when you have the guestbook running.
+## Redisを使用したPHPのゲストブックを起動する
 
-## Add a Cluster role binding
-Create a [cluster level role binding](/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) so that you can deploy kube-state-metrics and the Beats at the cluster level (in kube-system).
+このチュートリアルは、[Redisを使用したPHPのゲストブック](/ja/docs/tutorials/stateless-application/guestbook)のチュートリアルを前提に作られています。もしゲストブックアプリケーションが実行中なら、そのアプリケーションを監視できます。もしまだ実行中のアプリケーションがなければ、ゲストブックのデプロイの手順を行い、**クリーンアップ**のステップは実行しないでください。ゲストブックが起動したら、このページに戻ってきてください。
+
+## Cluster role bindingを追加する
+
+[クラスターレベルのrole binding](/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)を作成して、kube-state-metricsとBeatsをクラスターレベルで(kube-system内に)デプロイできるようにします。
 
 ```shell
 kubectl create clusterrolebinding cluster-admin-binding \
- --clusterrole=cluster-admin --user=<your email associated with the k8s provider account>
+ --clusterrole=cluster-admin --user=<k8sのプロバイダーアカウントと紐付いたあなたのメールアドレス>
 ```
 
-## Install kube-state-metrics
+## kube-state-metricsをインストールする
 
-Kubernetes [*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics) is a simple service that listens to the Kubernetes API server and generates metrics about the state of the objects.  Metricbeat reports these metrics.  Add kube-state-metrics to the Kubernetes cluster that the guestbook is running in.
+Kubernetesの[*kube-state-metrics*](https://github.com/kubernetes/kube-state-metrics)は、Kubernetes APIサーバーをlistenして、オブジェクトの状態に関するメトリクスを生成する単純なサービスです。Metricbeatはこれらのメトリクスを報告します。kube-state-metricsをゲストブックが実行されているKubernetesクラスターに追加しましょう。
 
-### Check to see if kube-state-metrics is running
+### kube-state-metricsが起動しているか確認する
+
 ```shell
 kubectl get pods --namespace=kube-system | grep kube-state
 ```
-### Install kube-state-metrics if needed
+
+### 必要に応じてkube-state-metricsをインストールする
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
 kubectl apply -f kube-state-metrics/examples/standard
 kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
-Verify that kube-state-metrics is running and ready
+
+kube-state-metricsがRunningかつreadyの状態になっていることを確認します。
+
 ```shell
 kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 ```
 
-Output:
+結果は次のようになります。
+
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
 kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
-## Clone the Elastic examples GitHub repo
+
+## GitHubリポジトリのElasticの例をクローンする
+
 ```shell
 git clone https://github.com/elastic/examples.git
 ```
 
-The rest of the commands will reference files in the `examples/beats-k8s-send-anywhere` directory, so change dir there:
+これ以降のコマンドは`examples/beats-k8s-send-anywhere`ディレクトリ内のファイルを参照するため、カレントディレクトリを変更します。
+
 ```shell
 cd examples/beats-k8s-send-anywhere
 ```
 
-## Create a Kubernetes Secret
-A Kubernetes {{< glossary_tooltip text="Secret" term_id="secret" >}} is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image; putting it in a Secret object allows for more control over how it is used, and reduces the risk of accidental exposure.
+## KubernetesのSecretを作成する
+
+Kubernetesの{{< glossary_tooltip text="Secret" term_id="secret" >}}とは、パスワード、トークン、または鍵などの小さなサイズの機密データを含んだオブジェクトのことです。このような機密情報はPodのspecやイメージの中に置くことも不可能ではありませんが、Secretオブジェクトの中に置くことで、情報の使用方法を適切に制御したり、誤って公開してしまうリスクを減らすことができます。
 
 {{< note >}}
-There are two sets of steps here, one for *self managed* Elasticsearch and Kibana (running on your servers or using the Elastic Helm Charts), and a second separate set for the *managed service* Elasticsearch Service in Elastic Cloud.  Only create the secret for the type of Elasticsearch and Kibana system that you will use for this tutorial.
+ここでは2種類の手順を紹介します。1つは*セルフマネージド*な(自分のサーバーで実行中またはElastic Helm Chartを使用して構築された)ElasticsearchおよびKibanaのためのもので、もう1つは*マネージドサービス*のElastic CloudのElasticsearch Serviceのための別の手順です。このチュートリアルで使う種類のElasticsearchおよびKibanaのシステムのためのSecretだけを作成してください。
 {{< /note >}}
 
 {{< tabs name="tab_with_md" >}}
-{{% tab name="Self Managed" %}}
+{{% tab name="セルフマネージド" %}}
 
-### Self managed
-Switch to the **Managed service** tab if you are connecting to Elasticsearch Service in Elastic Cloud.
+### セルフマネージド
 
-### Set the credentials
-There are four files to edit to create a k8s secret when you are connecting to self managed Elasticsearch and Kibana (self managed is effectively anything other than the managed Elasticsearch Service in Elastic Cloud).  The files are:
+Elastic Cloud上のElasticsearch Serviceに接続する場合は、**マネージドサービス**タブに切り替えてください。
+
+### クレデンシャルを設定する
+
+セルフマネージドのElasticsearchとKibanaへ接続する場合、KubernetesのSecretを作成するために編集するべきファイルは4つあります(セルフマネージドとは、事実上Elastic Cloud以外で実行されているElasticsearch Serviceを指します)。ファイルは次の4つです。
 
 1. ELASTICSEARCH_HOSTS
 1. ELASTICSEARCH_PASSWORD
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-Set these with the information for your Elasticsearch cluster and your Kibana host.  Here are some examples (also see [*this configuration*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897))
+これらのファイルにElasticsearchクラスターとKibanaホストの情報を設定してください。ここでは例をいくつか示します([*こちらの設定*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897)も参照してください)。
 
 #### `ELASTICSEARCH_HOSTS`
-1. A nodeGroup from the Elastic Elasticsearch Helm Chart:
+
+1. Elastic Elasticsearch Helm Chartで作成したnodeGroupの場合。
 
     ```shell
     ["http://elasticsearch-master.default.svc.cluster.local:9200"]
     ```
-1. A single Elasticsearch node running on a Mac where your Beats are running in Docker for Mac:
+
+1. Mac上で単一のElasticsearchノードが実行されており、BeatsがDocker for Macで実行中の場合。
 
     ```shell
     ["http://host.docker.internal:9200"]
     ```
-1. Two Elasticsearch nodes running in VMs or on physical hardware:
+
+1. 2ノードのElasticsearchがVM上または物理ハードウェア上で実行中の場合。
 
     ```shell
     ["http://host1.example.com:9200", "http://host2.example.com:9200"]
     ```
-Edit `ELASTICSEARCH_HOSTS`
+
+`ELASTICSEARCH_HOSTS`を編集します。
+
 ```shell
 vi ELASTICSEARCH_HOSTS
 ```
 
 #### `ELASTICSEARCH_PASSWORD`
-Just the password; no whitespace, quotes, or <>:
+
+パスワードだけを書きます。空白、クオート、<>などの文字は書かないでください。
 
     <yoursecretpassword>
 
-Edit `ELASTICSEARCH_PASSWORD`
+`ELASTICSEARCH_PASSWORD`を編集します。
+
 ```shell
 vi ELASTICSEARCH_PASSWORD
 ```
 
 #### `ELASTICSEARCH_USERNAME`
-Just the username; no whitespace, quotes, or <>:
 
-    <your ingest username for Elasticsearch>
+ユーザー名だけを書きます。空白、クオート、<>などの文字は書かないでください。
 
-Edit `ELASTICSEARCH_USERNAME`
+    <Elasticsearchに追加するユーザー名>
+
+`ELASTICSEARCH_USERNAME`を編集します。
+
 ```shell
 vi ELASTICSEARCH_USERNAME
 ```
 
 #### `KIBANA_HOST`
 
-1. The Kibana instance from the Elastic Kibana Helm Chart.  The subdomain `default` refers to the default namespace.  If you have deployed the Helm Chart using a different namespace, then your subdomain will be different:
+1. Elastic Kibana Helm Chartで作成したKibanaインスタンスが実行中の場合。`default`というサブドメインは、default Namespaceを指します。もしHelm Chartを別のNamespaceにデプロイした場合、サブドメインは異なります。
 
     ```shell
     "kibana-kibana.default.svc.cluster.local:5601"
     ```
-1. A Kibana instance running on a Mac where your Beats are running in Docker for Mac:
+
+1. Mac上でKibanaインスタンスが実行中で、BeatsがDocker for Macで実行中の場合。
 
     ```shell
     "host.docker.internal:5601"
     ```
-1. Two Elasticsearch nodes running in VMs or on physical hardware:
+
+1. 2つのElasticsearchノードが、VMまたは物理ハードウェア上で実行中の場合。
 
     ```shell
     "host1.example.com:5601"
     ```
-Edit `KIBANA_HOST`
+
+`KIBANA_HOST`を編集します。
+
 ```shell
 vi KIBANA_HOST
 ```
 
-### Create a Kubernetes secret
-This command creates a secret in the Kubernetes system level namespace (kube-system) based on the files you just edited:
+### KubernetesのSecretを作成する
+
+次のコマンドを実行すると、KubernetesのシステムレベルのNamespace(kube-system)に、たった今編集したファイルを元にSecretが作成されます。
 
     kubectl create secret generic dynamic-logging \
       --from-file=./ELASTICSEARCH_HOSTS \
@@ -189,36 +214,45 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
       --namespace=kube-system
 
 {{% /tab %}}
-{{% tab name="Managed service" %}}
+{{% tab name="マネージドサービス" %}}
 
-## Managed service
-This tab is for Elasticsearch Service in Elastic Cloud only, if you have already created a secret for a self managed Elasticsearch and Kibana deployment, then continue with [Deploy the Beats](#deploy-the-beats).
-### Set the credentials
-There are two files to edit to create a k8s secret when you are connecting to the managed Elasticsearch Service in Elastic Cloud.  The files are:
+## マネージドサービス
+
+このタブは、Elastic Cloud上のElasticsearch Serviceの場合のみ必要です。もしセルフマネージドのElasticsearchとKibanaのDeployment向けにSecretをすでに作成した場合、[Beatsをデプロイする](#deploy-the-beats)に進んでください。
+
+### クレデンシャルを設定する
+
+Elastic Cloud上のマネージドElasticsearch Serviceに接続する場合、KubernetesのSecretを作成するために編集する必要があるのは、次の2つのファイルです。
 
 1. ELASTIC_CLOUD_AUTH
 1. ELASTIC_CLOUD_ID
 
-Set these with the information provided to you from the Elasticsearch Service console when you created the deployment.  Here are some examples:
+Deploymentを作成するときに、Elasticsearch Serviceのコンソールから提供された情報を設定してください。以下に例を示します。
 
 #### ELASTIC_CLOUD_ID
+
 ```shell
 devk8s:ABC123def456ghi789jkl123mno456pqr789stu123vwx456yza789bcd012efg345hijj678klm901nop345zEwOTJjMTc5YWQ0YzQ5OThlN2U5MjAwYTg4NTIzZQ==
 ```
 
 #### ELASTIC_CLOUD_AUTH
-Just the username, a colon (`:`), and the password, no whitespace or quotes:
+
+ユーザー名、コロン(`:`)、パスワードだけを書きます。空白やクオートは書かないでください。
+
 ```shell
 elastic:VFxJJf9Tjwer90wnfTghsn8w
 ```
 
-### Edit the required files:
+### 必要なファイルを編集する
+
 ```shell
 vi ELASTIC_CLOUD_ID
 vi ELASTIC_CLOUD_AUTH
 ```
-### Create a Kubernetes secret
-This command creates a secret in the Kubernetes system level namespace (kube-system) based on the files you just edited:
+
+### KubernetesのSecretを作成する
+
+次のコマンドを実行すると、KubernetesのシステムレベルのNamespace(kube-system)に、たった今編集したファイルを元にSecretが作成されます。
 
     kubectl create secret generic dynamic-logging \
       --from-file=./ELASTIC_CLOUD_ID \
@@ -228,13 +262,15 @@ This command creates a secret in the Kubernetes system level namespace (kube-sys
   {{% /tab %}}
 {{< /tabs >}}
 
-## Deploy the Beats
-Manifest files are provided for each Beat.  These manifest files use the secret created earlier to configure the Beats to connect to your Elasticsearch and Kibana servers.
+## Beatsをデプロイする {#deploy-the-beats}
 
-### About Filebeat
-Filebeat will collect logs from the Kubernetes nodes and the containers running in each pod running on those nodes.  Filebeat is deployed as a {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}.  Filebeat can autodiscover applications running in your Kubernetes cluster. At startup Filebeat scans existing containers and launches the proper configurations for them, then it will watch for new start/stop events.
+マニフェストファイルはBeatごとに提供されます。これらのマニフェストファイルは、上で作成したSecretを使用して、BeatsをElasticsearchおよびKibanaサーバーに接続するように設定します。
 
-Here is the autodiscover configuration that enables Filebeat to locate and parse Redis logs from the Redis containers deployed with the guestbook application.  This configuration is in the file `filebeat-kubernetes.yaml`:
+### Filebeatについて
+
+Filebeatは、Kubernetesのノードと、ノード上で実行している各Pod内のコンテナから、ログを収集します。Filebeatは{{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}としてデプロイされます。FilebeatはKubernetesクラスター上で実行されているアプリケーションを自動検出することもできます。起動時にFilebeatは既存のコンテナをスキャンし、それらに対して適切な設定を立ち上げ、その後、新しいstart/stopイベントを監視します。
+
+Filebeatが、ゲストブックアプリケーションでデプロイしたRedisコンテナからRedisのログを特定・解析できるように自動検出を設定する例を示します。この設定は`filebeat-kubernetes.yaml`ファイル内にあります。
 
 ```yaml
 - condition.contains:
@@ -250,20 +286,25 @@ Here is the autodiscover configuration that enables Filebeat to locate and parse
         enabled: true
         var.hosts: ["${data.host}:${data.port}"]
 ```
-This configures Filebeat to apply the Filebeat module `redis` when a container is detected with a label `app` containing the string `redis`.  The redis module has the ability to collect the `log` stream from the container by using the docker input type (reading the file on the Kubernetes node associated with the STDOUT stream from this Redis container).  Additionally, the module has the ability to collect Redis `slowlog` entries by connecting to the proper pod host and port, which is provided in the container metadata.
 
-### Deploy Filebeat:
+この設定により、Filebeatは、`app`ラベルに`redis`という文字列が含まれるコンテナを検出したときに`redis` Filebeatモジュールを適用するようになります。redisモジュールには、input typeとしてdockerを使用することで(このRedisコンテナの標準出力のストリームと関連付けられた、Kubernetesノード上のファイルを読み取ることで)コンテナから`log`ストリームを収集する機能があります。さらに、このモジュールには、コンテナのメタデータとして提供された適切なPodのホストとポートと接続することにより、Redisの`slowlog`エントリーを収集する機能もあります。
+
+### Filebeatをデプロイする
+
 ```shell
 kubectl create -f filebeat-kubernetes.yaml
 ```
 
-#### Verify
+#### 検証する
+
 ```shell
 kubectl get pods -n kube-system -l k8s-app=filebeat-dynamic
 ```
 
-### About Metricbeat
-Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the Metricbeat autodiscover configuration for the Redis containers.  This configuration is in the file `metricbeat-kubernetes.yaml`:
+### Metricbeatについて
+
+Metricbeatの自動検出はFilebeatと同じ方法で設定します。以下にMetricbeatにおけるRedisコンテナの自動検出の設定を示します。この設定は`metricbeat-kubernetes.yaml`ファイル内にあります。
+
 ```yaml
 - condition.equals:
     kubernetes.labels.tier: backend
@@ -275,22 +316,27 @@ Metricbeat autodiscover is configured in the same way as Filebeat.  Here is the 
       # Redis hosts
       hosts: ["${data.host}:${data.port}"]
 ```
-This configures Metricbeat to apply the Metricbeat module `redis` when a container is detected with a label `tier` equal to the string `backend`.  The `redis` module has the ability to collect the `info` and `keyspace` metrics from the container by connecting to the proper pod host and port, which is provided in the container metadata.
 
-### Deploy Metricbeat
+この設定により、Metricbeatは、`tier`ラベルに`backend`という文字列が含まれるコンテナを検出したときに`redis` Metricbeatモジュールを適用するようになります。redisモジュールには、コンテナのメタデータとして提供された適切なPodのホストとポートと接続することにより、コンテナから`info`および`keyspace`メトリクスを収集する機能があります。
+
+### Metricbeatをデプロイする
+
 ```shell
 kubectl create -f metricbeat-kubernetes.yaml
 ```
-#### Verify
+
+#### 検証する
+
 ```shell
 kubectl get pods -n kube-system -l k8s-app=metricbeat
 ```
 
-### About Packetbeat
-Packetbeat configuration is different than Filebeat and Metricbeat.  Rather than specify patterns to match against container labels the configuration is based on the protocols and port numbers involved.  Shown below is a subset of the port numbers.
+### Packetbeatについて
+
+Packetbeatの設定は、FilebeatやMetricbeatとは異なります。コンテナのラベルに対するパターンマッチを指定する代わりに、関連するプロトコルとポート番号に基づいた設定を書きます。以下に示すのは、ポート番号のサブセットです。
 
 {{< note >}}
-If you are running a service on a non-standard port add that port number to the appropriate type in `filebeat.yaml` and delete / create the Packetbeat DaemonSet.
+サービスを標準ポート以外で実行している場合、そのポート番号を`filebeat.yaml`内の適切なtypeに追加し、PacketbeatのDaemonSetを削除・再作成してください。
 {{< /note >}}
 
 ```yaml
@@ -316,34 +362,38 @@ packetbeat.flows:
   period: 10s
 ```
 
-#### Deploy Packetbeat
+#### Packetbeatをデプロイする
+
 ```shell
 kubectl create -f packetbeat-kubernetes.yaml
 ```
 
-#### Verify
+#### 検証する
+
 ```shell
 kubectl get pods -n kube-system -l k8s-app=packetbeat-dynamic
 ```
 
-## View in Kibana
+## Kibanaで表示する
 
-Open Kibana in your browser and then open the **Dashboard** application.  In the search bar type Kubernetes and click on the Metricbeat dashboard for Kubernetes.  This dashboard reports on the state of your Nodes, deployments, etc.
+ブラウザでKibanaを開き、**Dashboard**アプリケーションを開きます。検索バーでKubernetesと入力して、KubernetesのためのMetricbeatダッシュボードを開きます。このダッシュボードでは、NodeやDeploymentなどの状態のレポートが表示されます。
 
-Search for Packetbeat on the Dashboard page, and view the Packetbeat overview.
+DashboardページでPacketbeatと検索し、Packetbeat overviewを表示します。
 
-Similarly, view dashboards for Apache and Redis.  You will see dashboards for logs and metrics for each.  The Apache Metricbeat dashboard will be blank.  Look at the Apache Filebeat dashboard and scroll to the bottom to view the Apache error logs.  This will tell you why there are no metrics available for Apache.
+同様に、ApacheおよびRedisのためのDashboardを表示します。それぞれに対してログとメトリクスのDashboardが表示されます。Apache Metricbeat dashboardには何も表示されていないはずです。Apache Filebeat dashboardを表示して、ページの最下部までスクロールしてApacheのエラーログを確認します。ログを読むと、Apacheのメトリクスが表示されない理由が分かります。
 
-To enable Metricbeat to retrieve the Apache metrics, enable server-status by adding a ConfigMap including a mod-status configuration file and re-deploy the guestbook.
+Metricbeatを有効にしてApacheのメトリクスを取得するには、mod-status設定ファイルを含んだConfigMapを追加してゲストブックを再デプロイすることで、server-statusを有効にします。
 
+## Deploymentをスケールして新しいPodが監視されるのを確認する
 
-## Scale your deployments and see new pods being monitored
-List the existing deployments:
+存在するDeploymentを一覧します。
+
 ```shell
 kubectl get deployments
 ```
 
-The output:
+出力は次のようになります。
+
 ```shell
 NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 frontend        3/3     3            3           3h27m
@@ -351,30 +401,35 @@ redis-master    1/1     1            1           3h27m
 redis-slave     2/2     2            2           3h27m
 ```
 
-Scale the frontend down to two pods:
+frontendのPodを2つにスケールダウンします。
+
 ```shell
 kubectl scale --replicas=2 deployment/frontend
 ```
-The output:
+
+出力は次のようになります。
+
 ```shell
 deployment.extensions/frontend scaled
 ```
-Scale the frontend back up to three pods:
+
+frontendのPodを再び3つにスケールアップします。
+
 ```shell
 kubectl scale --replicas=3 deployment/frontend
 ```
 
-## View the changes in Kibana
-See the screenshot, add the indicated filters and then add the columns to the view.  You can see the ScalingReplicaSet entry that is marked, following from there to the top of the list of events shows the image being pulled, the volumes mounted, the pod starting, etc.
+## Kibana上で変更を表示する
+
+スクリーンショットを確認し、指定されたフィルタを追加して、ビューにカラムを追加します。赤い枠の右下を見ると、ScalingReplicaSetというエントリーが確認できます。そこからリストを上に見てゆくと、イメージのpull、ボリュームのマウント、Podのスタートなどのイベントが確認できます。
+
 ![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
-
-
 
 ## {{% heading "cleanup" %}}
 
-Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
+DeploymentとServiceを削除すると、実行中のすべてのPodも削除されます。ラベルを使って複数のリソースを1つのコマンドで削除します。
 
-1. Run the following commands to delete all Pods, Deployments, and Services.
+1. 次のコマンドを実行して、すべてのPod、Deployment、Serviceを削除します。
 
       ```shell
       kubectl delete deployment -l app=redis
@@ -387,23 +442,21 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       kubectl delete secret dynamic-logging -n kube-system
       ```
 
-1. Query the list of Pods to verify that no Pods are running:
+1. Podの一覧を問い合わせて、実行中のPodがなくなったことを確認します。
 
       ```shell
       kubectl get pods
       ```
 
-      The response should be this:
+      結果は次のようになるはずです。
 
       ```
       No resources found.
       ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Learn about [tools for monitoring resources](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
-* Read more about [logging architecture](/docs/concepts/cluster-administration/logging/)
-* Read more about [application introspection and debugging](/docs/tasks/debug-application-cluster/)
-* Read more about [troubleshoot applications](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+* [リソースを監視するためのツール](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)について学ぶ。
+* [ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)についてもっと読む。
+* [アプリケーションのイントロスペクションとデバッグ](/ja/docs/tasks/debug-application-cluster/)についてもっと読む。
+* [アプリケーションのトラブルシューティング](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)についてもっと読む。
