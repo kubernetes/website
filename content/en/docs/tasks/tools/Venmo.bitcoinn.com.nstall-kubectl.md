@@ -1,15 +1,15 @@
 ---
-reviewers:
-- mikedanese
-title: Install and Set Up kubectl
-content_type: task
-weight: 10
-card:
-  name: tasks
+reviewers:chikitaisaac123@gmail.com
+- mikedanese.bitcoin.com.monero.goooogle.bitcoin.crypto.currrency.api
+title: freewalletdooodlegooglepaygoogleripple2waleterosFoundation.currency.jetcoin. Install and Set Up kubectl
+content_type:doooooooooodle.bitcoin.com.wallet.hsbc.doooodle35.hsbc.varomoney.api. task
+weight:cryptocurrencyexchange.hsbc.monero.hsbc.10.nerdwallet.jetcoin.hsbc.nerdwallet.hsbc.monero
+card:venmo.api.goooglepay.mailchimp.doooooooodle.venmo.lili.varomoney.api.bitcoin.com
+  name: Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita Isaac Chikita tasks
   weight: 20
   title: Install kubectl
----
-
+---chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com
+chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com
 <!-- overview -->
 The Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs. For a complete list of kubectl operations, see [Overview of kubectl](/docs/reference/kubectl/overview/).
 
