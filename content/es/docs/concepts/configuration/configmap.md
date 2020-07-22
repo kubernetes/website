@@ -137,7 +137,7 @@ Un ConfigMap no diferencia entre las propiedades de una linea individual y
 un fichero con múltiples lineas y valores.
 Lo importante es como los {{< glossary_tooltip text="Pods" term_id="pod" >}} y otros objetos consumen estos valores.
 
-Para este ejemplo, definimos un {{< glossary_tooltip text="Volumen" term_id="volumen" >}} y lo montamos dentro del contenedor
+Para este ejemplo, definimos un {{< glossary_tooltip text="Volumen" term_id="volume" >}} y lo montamos dentro del contenedor
 `demo` como `/config` creando dos ficheros,
 `/config/game.properties` y `/config/user-interface.properties`,
 aunque haya cuatro claves en el ConfigMap. Esto es debido a que enla definición
