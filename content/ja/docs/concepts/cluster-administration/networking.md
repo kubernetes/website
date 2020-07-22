@@ -81,7 +81,7 @@ Details on how the AOS system works can be accessed here: http://www.apstra.com/
 
 [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s)は、Kubernetesクラスター向けの統合されたAWS Virtual Private Cloud(VPC)ネットワーキングを提供します。このCNIプラグインは、高いスループットと可用性、低遅延、および最小のネットワークジッタを提供します。さらに、ユーザーは、Kubernetesクラスターを構築するための既存のAWS VPCネットワーキングとセキュリティのベストプラクティスを適用できます。これには、ネットワークトラフィックの分離にVPCフローログ、VPCルーティングポリシー、およびセキュリティグループを使用する機能が含まれます。
 
-このCNIプラグインを使用すると、Kubernetes PodはVPCネットワーク上と同じIPアドレスをPod内に持つことができます。CNIはAWS Elastic Networking Interfaces(ENI)を各Kubernetesノードに割り当て、ノード上のPodに各ENIのセカンダリIP範囲を使用します。このCNIには、Podの起動時間を短縮するためのENIとIPアドレスの事前割り当ての制御が含まれており、最大2,000ノードの大規模クラスターが可能です。
+このCNIプラグインを使用すると、Kubernetes PodはVPCネットワーク上と同じIPアドレスをPod内に持つことができます。CNIはAWS Elastic Networking Interface(ENI)を各Kubernetesノードに割り当て、ノード上のPodに各ENIのセカンダリIP範囲を使用します。このCNIには、Podの起動時間を短縮するためのENIとIPアドレスの事前割り当ての制御が含まれており、最大2,000ノードの大規模クラスターが可能です。
 
 さらに、このCNIは[ネットワークポリシーの適用のためにCalico](https://docs.aws.amazon.com/ja_jp/eks/latest/userguide/calico.html)と一緒に実行できます。AWS VPC CNIプロジェクトは、[GitHubのドキュメント](https://github.com/aws/amazon-vpc-cni-k8s)とともにオープンソースで公開されています。
 
@@ -288,5 +288,4 @@ to run, and in both cases, the network provides one IP address per pod - as is s
 
 
 ネットワークモデルの初期設計とその根拠、および将来の計画については、[ネットワーク設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)で詳細に説明されています。
-
 
