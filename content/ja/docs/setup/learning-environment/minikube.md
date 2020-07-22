@@ -17,7 +17,7 @@ Minikubeはローカル環境でKubernetesを簡単に実行するためのツ�
 MinikubeのサポートするKubernetesの機能:
 
 * DNS
-* NodePorts
+* NodePort
 * ConfigMapとSecret
 * ダッシュボード
 * コンテナランタイム: Docker、[CRI-O](https://cri-o.io/)および[containerd](https://github.com/containerd/containerd)
