@@ -71,7 +71,7 @@ Podで実行されるアプリケーションコンテナの定義に加えて�
 
 ## Podの用途
 
-Podは、垂直に統合されたアプリケーションスタック(例：LAMP)をホストするために使用できます。
+Podは、垂直に統合されたアプリケーションスタック(例:LAMP)をホストするために使用できます。
 しかし、Podを使う主な動機は、次のように同じ場所に配置され、共に管理されるヘルパープログラムをサポートすることです。
 
 * コンテンツ管理システム(CMS)、ファイルやデータのローダー、ローカルのキャッシュマネージャーなど
@@ -186,5 +186,4 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 PodはKubernetes REST APIのトップレベルのリソースです。
 APIオブジェクトの詳細については、[Pod APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照してください 。
-
 
