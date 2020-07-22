@@ -27,7 +27,7 @@ weight: 10
 - よりよいイントロスペクションのために、オブジェクトの説明をアノテーションに入れましょう。
 
 
-## "真っ裸"のPod に対する ReplicaSet、Deployment、およびJob
+## "真っ裸"のPod に対する ReplicaSet、Deployment、およびJob {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - 可能な限り、"真っ裸"のPod([ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)や[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)にバインドされていないPod)は使わないでください。Nodeに障害が発生した場合、これらのPodは再スケジュールされません。
 
@@ -81,7 +81,7 @@ weight: 10
 - `imagePullPolicy: Never`: 常にローカルでイメージを探そうとします。ない場合にもイメージはpullしません。
 
 {{< note >}}
-コンテナが常に同じバージョンのイメージを使用するようにするためには、そのコンテナイメージの[ダイジェスト](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)を指定することができます(例:`sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)。このダイジェストはイメージの特定のバージョンを一意に識別するため、ダイジェスト値を変更しない限り、Kubernetesによって更新されることはありません。
+コンテナが常に同じバージョンのイメージを使用するようにするためには、そのコンテナイメージの[ダイジェスト](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier)を指定することができます。`<image-name>:<tag>`を`<image-name>@<digest>`で置き換えます(例:`image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`)。このダイジェストはイメージの特定のバージョンを一意に識別するため、ダイジェスト値を変更しない限り、Kubernetesによって更新されることはありません。
 {{< /note >}}
 
 {{< note >}}

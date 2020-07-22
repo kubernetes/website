@@ -202,7 +202,7 @@ myapp-pod   1/1       Running   0          9m
 
 このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#what-s-next)にさらに詳細な使用例に関するリンクがあります。
 
-## Initコンテナのふるまいに関する詳細 {#Detailed behavior}
+## Initコンテナのふるまいに関する詳細 {#detailed-behavior}
 
 Podの起動時において、各Initコンテナはネットワークとボリュームが初期化されたのちに順番に起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
 
