@@ -85,8 +85,8 @@ MinikubeのサポートするKubernetesの機能:
    `STATUS`に`ContainerCreating`と表示されている場合、Podはまだ作成中です:
 
    ```
-   NAME                              READY        STATUS              RESTARTS   AGE
-   hello-minikube-3383150820-vctvh   0/1          ContainerCreating   0          3s
+   NAME                              READY     STATUS              RESTARTS   AGE
+   hello-minikube-3383150820-vctvh   0/1       ContainerCreating   0          3s
    ```
 
    `STATUS`に`Running`と表示されている場合、Podは稼働中です:
