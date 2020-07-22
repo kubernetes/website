@@ -11,7 +11,7 @@ weight: 28
 The kubelet is the primary "node agent" that runs on each node. It can register the node with the apiserver using one of: the hostname; a flag to override the hostname; or specific logic for a cloud provider.
 -->
 
-kubelet 是在每个 Node 节点上运行的主要 “节点代理”。它向 apiserver 注册节点时可以使用主机名（hostname）；可以提供用于覆盖主机名的参数；还可以执行特定于某云服务商的逻辑。
+kubelet 是在每个 Node 节点上运行的主要 “节点代理”。它可以通过以下方式向 apiserver 进行注册：主机名（hostname）；覆盖主机名的参数；某云服务商的特定逻辑。
 
 <!--
 The kubelet works in terms of a PodSpec. A PodSpec is a YAML or JSON object that describes a pod. The kubelet takes a set of PodSpecs that are provided through various mechanisms (primarily through the apiserver) and ensures that the containers described in those PodSpecs are running and healthy. The kubelet doesn't manage containers which were not created by Kubernetes.
