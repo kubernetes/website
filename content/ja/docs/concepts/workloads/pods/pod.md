@@ -103,7 +103,7 @@ _アフィニティ(結合性、親和性)ベースのコンテナの共同ス�
 しかし、リソース共有やIPC、保証された命運の共有、および簡素化された管理といったPodの利点のほとんどは提供されないでしょう。
 
 
-## Podの耐久性(またはその欠如)
+## Podの耐久性(またはその欠如) {#pod-durability}
 
 Podは、耐久性のある存在として扱われることを意図していません。
 スケジューリングの失敗や、Nodeの故障には耐えられません。
@@ -186,4 +186,3 @@ spec.containers[0].securityContext.privileged: forbidden '<*>(0xc20b222db0)true'
 
 PodはKubernetes REST APIのトップレベルのリソースです。
 APIオブジェクトの詳細については、[Pod APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照してください 。
-
