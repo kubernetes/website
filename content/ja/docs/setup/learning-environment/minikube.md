@@ -18,7 +18,7 @@ MinikubeのサポートするKubernetesの機能:
 
 * DNS
 * NodePorts
-* ConfigMapsとSecrets
+* ConfigMapとSecret
 * ダッシュボード
 * コンテナランタイム: Docker、[CRI-O](https://cri-o.io/)および[containerd](https://github.com/containerd/containerd)
 * CNI (Container Network Interface) の有効化
