@@ -302,27 +302,28 @@ minikube start \
 
 ### Dockerデーモンの再利用によるローカルイメージの使用
 
-Kubernetesの単一のVMを使用する場合、Minikube組み込みのDockerデーモンの再利用がおすすめです。ホストマシン上にDockerレジストリを構築してイメージをプッシュする必要がなく、ローカルでの実験を加速させるMinikubeと同じDockerデーモンの中に構築することができます。ただDockerイメージに'latest'以外のタグを付け、そのタグを使用してイメージをプルしてください。イメージのバージョンを指定しなければ、`Always` のプルイメージポリシーにより `:latest` と仮定され、もしデフォルトのDockerレジストリ(通常はDockerHub)にどのバージョンのDockerイメージもまだ存在しない場合には、`ErrImagePull` になる恐れがあります。
+Kubernetesの単一のVMを使用する場合、Minikube組み込みのDockerデーモンの再利用がおすすめです。ホストマシン上にDockerレジストリを構築してイメージをプッシュする必要がなく、ローカルでの実験を加速させるMinikubeと同じDockerデーモンの中に構築することができます。
 
-Mac/LinuxのホストでDockerデーモンを操作できるようにするには、shell内で `docker-env command` を使います:
+{{< note >}}
+Dockerイメージに'latest'以外のタグを付け、そのタグを使用してイメージをプルしてください。イメージのバージョンを指定しなければ`Always`のプルイメージポリシーにより`:latest`と仮定され、もしデフォルトのDockerレジストリ(通常はDockerHub)にどのバージョンのDockerイメージもまだ存在しない場合には、`ErrImagePull`になる恐れがあります。
+{{< /note >}}
 
-```shell
-eval $(minikube docker-env)
-```
+Mac/LinuxのホストでDockerデーモンを操作できるようにするには、`minikube docker-env`を実行します。
 
-これにより、MinikubeのVM内のDockerデーモンと通信しているホストのMac/LinuxマシンのコマンドラインでDockerを使用できるようになっているはずです。
+これにより、MinikubeのVM内のDockerデーモンと通信しているホストのMac/LinuxマシンのコマンドラインでDockerを使用できるようになります:
 
 ```shell
 docker ps
 ```
 
+{{< note >}}
 CentOS 7では、Dockerが以下のエラーを出力することがあります:
 
-```shell
+```
 Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no such file or directory
 ```
 
-修正方法としては、/etc/sysconfig/docker を更新してMinikube環境の変更が確実に反映されるようにすることです:
+修正方法としては、/etc/sysconfig/dockerを更新してMinikube環境の変更が確実に反映されるようにすることです:
 
 ```shell
 < DOCKER_CERT_PATH=/etc/docker
@@ -331,8 +332,7 @@ Could not read CA certificate "/etc/docker/ca.pem": open /etc/docker/ca.pem: no 
 >   DOCKER_CERT_PATH=/etc/docker
 > fi
 ```
-
-imagePullPolicy:Alwaysをオフにすることを忘れないでください: さもなければKubernetesはローカルに構築したイメージを使用しません。
+{{< /note >}}
 
 ### Kubernetesの設定
 
@@ -451,7 +451,7 @@ spec:
 | VirtualBox | Linux | /home | /hosthome |
 | VirtualBox | macOS | /Users | /Users |
 | VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /Users |
+| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
 | Xhyve | macOS | /Users | /Users |
 
 ## プライベートコンテナレジストリ
@@ -489,10 +489,8 @@ export no_proxy=$no_proxy,$(minikube ip)
 ```
 
 ## 既知の問題
-* クラウドプロバイダーを必要とする機能はMinikubeでは動作しません
-  * ロードバランサー
-* 複数ノードを必要とする機能
-  * 高度なスケジューリングポリシー
+
+複数ノードを必要とする機能はMinikubeでは動作しません。
 
 ## 設計
 
