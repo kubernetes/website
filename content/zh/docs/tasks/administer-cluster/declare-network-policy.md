@@ -90,7 +90,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      run: nginx
+      app: nginx
   ingress:
   - from:
     - podSelector:
