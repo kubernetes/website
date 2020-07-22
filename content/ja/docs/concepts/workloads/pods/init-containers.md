@@ -230,7 +230,7 @@ Initコンテナの順序と実行を考えるとき、リソースの使用に�
   * リソースに対する全てのアプリケーションコンテナのリクエスト／リミットの合計
   * リソースに対する有効なinitリクエスト／リミット
 * スケジューリングは有効なリクエスト／リミットに基づいて実行されます。つまり、InitコンテナはPodの生存中には使用されない初期化用のリソースを確保することができます。
-* Podの*有効なQos(quality of service)ティアー* は、Initコンテナとアプリケーションコンテナで同様です。
+* Podの*有効なQoS(quality of service)ティアー* は、Initコンテナとアプリケーションコンテナで同様です。
 
 クォータとリミットは有効なPodリクエストとリミットに基づいて適用されます。
 
@@ -249,5 +249,4 @@ Podレベルのコントロールグループ(cgroups)は、スケジューラ�
 
 * [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
 * [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
-
 
