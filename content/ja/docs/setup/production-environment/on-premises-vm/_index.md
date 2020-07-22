@@ -1,4 +1,4 @@
 ---
 title: オンプレミスVM
-weight: 60
+weight: 40
 ---
