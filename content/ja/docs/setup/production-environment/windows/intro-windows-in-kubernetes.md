@@ -329,7 +329,7 @@ Windowsでは、PodSecurityContextフィールドはどれも機能しません�
 * V1.PodSecurityContext.SupplementalGroups - GIDを提供しますが、Windowsでは使用できません
 * V1.PodSecurityContext.Sysctls - これらはLinuxのsysctlインターフェースの一部です。Windowsには同等のものはありません。
 
-## ヘルプとトラブルシューティング {#troubleshooting} を学ぶ
+## ヘルプとトラブルシューティングを学ぶ {#troubleshooting}
 
 Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、この[セクション](/ja/docs/tasks/debug-application-cluster/troubleshooting/)から始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。 SIG-Windows [ログ収集に関するコントリビュートガイド]（https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs）の指示に従ってください。
 
