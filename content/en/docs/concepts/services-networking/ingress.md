@@ -192,7 +192,7 @@ IngressClass resource will ensure that new Ingresses without an
 If you have more than one IngressClass marked as the default for your cluster,
 the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
-IngressClasess are marked as default in your cluster.
+IngressClasses are marked as default in your cluster.
 {{< /caution >}}
 
 ## Types of Ingress
