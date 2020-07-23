@@ -90,7 +90,7 @@ Pod、Controller、Serviceは、KubernetesでWindowsワークロードを管理�
 * Horizontal Pod Autoscalerサポート
 * kubectl Exec
 * リソースクウォータ
-* スケジューラーのプリエンプション
+* Schedulerのプリエンプション
 
 #### コンテナランタイム
 
@@ -159,102 +159,106 @@ Windowsでは、次のIPAMオプションがサポートされています。
 
 Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスタには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
 
-#### Compute
+#### コンピュート
 
-##### Resource management and process isolation
+##### リソース管理とプロセス分離
 
  Linux cgroups are used as a pod boundary for resource controls in Linux. Containers are created within that boundary for network, process and file system isolation. The cgroups APIs can be used to gather cpu/io/memory stats. In contrast, Windows uses a Job object per container with a system namespace filter to contain all processes in a container and provide logical isolation from the host. There is no way to run a Windows container without the namespace filtering in place. This means that system privileges cannot be asserted in the context of the host, and thus privileged containers are not available on Windows. Containers cannot assume an identity from the host because the Security Account Manager (SAM) is separate.
 
-##### Operating System Restrictions
+ Linux cgroupsは、Linuxのリソースを制御するPodの境界として使用されます。コンテナは、ネットワーク、プロセス、およびファイルシステムを分離するのために、その境界内に作成されます。cgroups APIを使用して、cpu/io/memoryの統計を収集できます。対照的に、Windowsはシステムネームスペースフィルターを備えたコンテナーごとのジョブオブジェクトを使用して、コンテナー内のすべてのプロセスを格納し、ホストからの論理的な分離を提供します。ネームスペースフィルタリングを行わずにWindowsコンテナを実行する方法はありません。これは、ホストの環境ではシステム特権を主張できないため、Windowsでは特権コンテナを使用できないことを意味します。セキュリティアカウントマネージャー（SAM）が独立しているため、コンテナはホストからIDを引き受けることができません。
 
-Windows has strict compatibility rules, where the host OS version must match the container base image OS version. Only Windows containers with a container operating system of Windows Server 2019 are supported. Hyper-V isolation of containers, enabling some backward compatibility of Windows container image versions, is planned for a future release.
+##### オペレーティングシステムの制限
 
-##### Feature Restrictions
+Windowsには厳密な互換性ルールがあり、ホストOSのバージョンとコンテナのベースイメージOSのバージョンは、一致する必要があります。 Windows Server 2019のコンテナオペレーティングシステムを備えたWindowsコンテナのみがサポートされます。Hyper-V分離のコンテナは、Windowsコンテナのイメージバージョンに下位互換性を持たせることは、将来のリリースで計画されています。
 
-* TerminationGracePeriod: not implemented
-* Single file mapping: to be implemented with CRI-ContainerD
-* Termination message: to be implemented with CRI-ContainerD
-* Privileged Containers: not currently supported in Windows containers
-* HugePages: not currently supported in Windows containers
-* The existing node problem detector is Linux-only and requires privileged containers. In general, we don't expect this to be used on Windows because privileged containers are not supported
-* Not all features of shared namespaces are supported (see API section for more details)
+##### 機能制限
 
-##### Memory Reservations and Handling
+* TerminationGracePeriod：実装されていません
+* 単一ファイルのマッピング：CRI-ContainerDで実装されます
+* 終了メッセージ：CRI-ContainerDで実装されます
+* 特権コンテナ：現在Windowsコンテナーではサポートされていません
+* HugePages：現在Windowsコンテナーではサポートされていません
+* 既存のノード問題を検出する機能はLinux専用であり、特権コンテナが必要です。一般的に、特権コンテナはサポートされていないため、これがWindowsで使用されることは想定していません。
+* ネームスペース共有については、すべての機能がサポートされているわけではありません（詳細については、APIセクションを参照してください）
 
-Windows does not have an out-of-memory process killer as Linux does. Windows always treats all user-mode memory allocations as virtual, and pagefiles are mandatory. The net effect is that Windows won't reach out of memory conditions the same way Linux does, and processes page to disk instead of being subject to out of memory (OOM) termination. If memory is over-provisioned and all physical memory is exhausted, then paging can slow down performance.
+##### メモリ予約と処理
 
-Keeping memory usage within reasonable bounds is possible with a two-step process. First, use the kubelet parameters `--kubelet-reserve` and/or `--system-reserve` to account for memory usage on the node (outside of containers). This reduces [NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)). As you deploy workloads, use resource limits (must set only limits or limits must equal requests) on containers. This also subtracts from NodeAllocatable and prevents the scheduler from adding more pods once a node is full.
+Windowsには、Linuxのようなメモリ不足のプロセスキラーはありません。Windowsは常に全ユーザーモードのメモリ割り当てを仮想として扱い、ページファイルは必須です。正味の効果は、WindowsはLinuxのようなメモリ不足の状態にはならず、メモリ不足（OOM）終了の影響を受ける代わりにページをディスクに処理します。メモリが過剰にプロビジョニングされ、物理メモリのすべてが使い果たされると、ページングによってパフォーマンスが低下する可能性があります。
 
-A best practice to avoid over-provisioning is to configure the kubelet with a system reserved memory of at least 2GB to account for Windows, Docker, and Kubernetes processes.
+2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメータ `--kubelet-reserve` や `--system-reserve` を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
+
+過剰なプロビジョニングを回避するためのベストプラクティスは、Windows、Docker、およびKubernetesのプロセスに対応するために、最低2GBのメモリを予約したシステムでkubeletを構成することです。
 
 The behavior of the flags behave differently as described below:
 
-* `--kubelet-reserve`, `--system-reserve` , and `--eviction-hard` flags update Node Allocatable
-* Eviction by using `--enforce-node-allocable` is not implemented
-* Eviction by using `--eviction-hard` and `--eviction-soft` are not implemented
-* MemoryPressure Condition is not implemented
-* There are no OOM eviction actions taken by the kubelet
-* Kubelet running on the windows node does not have memory restrictions. `--kubelet-reserve` and `--system-reserve` do not set limits on kubelet or processes running on the host. This means kubelet or a process on the host could cause memory resource starvation outside the node-allocatable and scheduler
+フラグの振舞いについては、次のような異なる動作をします。：
 
-#### Storage
+* `--kubelet-reserve`、`--system-reserve`、および `--eviction-hard`フラグはノードの割り当て可能数を更新します
+* `--enforce-node-allocable`を使用した排除は実装されていません
+* `--eviction-hard` および `--eviction-soft`を使用した排除は実装されていません
+* MemoryPressureの制約は実装されていません
+* kubeletによって実行されるOOMを排除することはありません
+* Windowsノードで実行されているKubeletにはメモリ制限がありません。`--kubelet-reserve` と `--system-reserve`は、ホストで実行されているkubeletまたはプロセスに制限を設定しません。これは、ホスト上のkubeletまたはプロセスが、NodeAllocatableとSchedulerの外でメモリリソース不足を引き起こす可能性があることを意味します。
 
-Windows has a layered filesystem driver to mount container layers and create a copy filesystem based on NTFS. All file paths in the container are resolved only within the context of that container.
+#### ストレージ
 
-* Volume mounts can only target a directory in the container, and not an individual file
-* Volume mounts cannot project files or directories back to the host filesystem
-* Read-only filesystems are not supported because write access is always required for the Windows registry and SAM database. However, read-only volumes are supported
-* Volume user-masks and permissions are not available. Because the SAM is not shared between the host & container, there's no mapping between them. All permissions are resolved within the context of the container
+Windowsには、コンテナレイヤーをマウントして、NTFSに基づいて複製されたファイルシステムを作るためのレイヤー構造のファイルシステムドライバーがあります。コンテナ内のすべてのファイルパスは、そのコンテナの環境内だけで決められます。
 
-As a result, the following storage functionality is not supported on Windows nodes
+* ボリュームマウントは、コンテナ内のディレクトリのみを対象にすることができ、個別のファイルは対象にできません
+* ボリュームマウントは、ファイルまたはディレクトリをホストファイルシステムに投影することはできません
+* WindowsレジストリとSAMデータベースには常に書き込みアクセスが必要であるため、読み取り専用ファイルシステムはサポートされていません。ただし、読み取り専用ボリュームはサポートされています
+* ボリュームのユーザーマスクと権限は使用できません。 SAMはホストとコンテナ間で共有されないため、それらの間のマッピングはありません。すべての権限はコンテナの環境内で決められます
 
-* Volume subpath mounts. Only the entire volume can be mounted in a Windows container.
-* Subpath volume mounting for Secrets
-* Host mount projection
-* DefaultMode (due to UID/GID dependency)
-* Read-only root filesystem. Mapped volumes still support readOnly
-* Block device mapping
-* Memory as the storage medium
-* CSI plugins which require privileged containers
-* File system features like uui/guid, per-user Linux filesystem permissions
-* NFS based storage/volume support
-* Expanding the mounted volume (resizefs)
+その結果、次のストレージ機能はWindowsノードではサポートされません。
 
-#### Networking
+* ボリュームサブパスのマウント。 Windowsコンテナにマウントできるのはボリューム全体だけです。
+* シークレットのサブパスボリュームのマウント
+* ホストマウントプロジェクション
+* DefaultMode（UID/GID依存関係による）
+* 読み取り専用のルートファイルシステム。マップされたボリュームは引き続き読み取り専用をサポートします
+* ブロックデバイスマッピング
+* 記憶媒体としてのメモリ
+* 特権コンテナを必要とするCSIプラグイン
+* uui/guid、ユーザーごとのLinuxファイルシステム権限などのファイルシステム機能
+* NFSベースのストレージ/ボリュームのサポート
+* マウントされたボリュームの拡張（resizefs）
 
-Windows Container Networking differs in some important ways from Linux networking. The [Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture) contains additional details and background.
+#### ネットワーキング
 
-The Windows host networking networking service and virtual switch implement namespacing and can create virtual NICs as needed for a pod or container. However, many configurations such as DNS, routes, and metrics are stored in the Windows registry database rather than /etc/... files as they are on Linux. The Windows registry for the container is separate from that of the host, so concepts like mapping /etc/resolv.conf from the host into a container don't have the same effect they would on Linux. These must be configured using Windows APIs run in the context of that container. Therefore CNI implementations need to call the HNS instead of relying on file mappings to pass network details into the pod or container.
+Windowsコンテナネットワーキングは、いくつかの重要な点でLinuxネットワーキングと異なります。[Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture)には、追加の詳細と背景があります。
 
-The following networking functionality is not supported on Windows nodes
+Windowsホストネットワーキングサービスと仮想スイッチはネームスペースを実装して、Podまたはコンテナの必要に応じて仮想NICを作成できます。ただし、DNS、ルート、メトリックなどの多くの構成は、Linuxのような/etc/...ファイルではなく、Windowsレジストリデータベースに保存されます。コンテナのWindowsレジストリはホストのレジストリとは別であるため、ホストからコンテナへの/etc/resolv.confのマッピングなどの概念は、Linuxの場合と同じ効果をもたらしません。これらは、そのコンテナの環境で実行されるWindows APIを使用して構成する必要があります。したがって、CNIの実装は、ファイルマッピングに依存する代わりにHNSを呼び出して、ネットワークの詳細をPodまたはコンテナに渡す必要があります。
 
-* Host networking mode is not available for Windows pods
-* Local NodePort access from the node itself fails (works for other nodes or external clients)
-* Accessing service VIPs from nodes will be available with a future release of Windows Server
-* Overlay networking support in kube-proxy is an alpha release. In addition, it requires [KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) to be installed on Windows Server 2019
-* Local Traffic Policy and DSR mode
-* Windows containers connected to l2bridge, l2tunnel, or overlay networks do not support communicating over the IPv6 stack. There is outstanding Windows platform work required to enable these network drivers to consume IPv6 addresses and subsequent Kubernetes work in kubelet, kube-proxy, and CNI plugins.
-* Outbound communication using the ICMP protocol via the win-overlay, win-bridge, and Azure-CNI plugin. Specifically, the Windows data plane ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) doesn't support ICMP packet transpositions. This means:
-  * ICMP packets directed to destinations within the same network (e.g. pod to pod communication via ping) work as expected and without any limitations
-  * TCP/UDP packets work as expected and without any limitations
-  * ICMP packets directed to pass through a remote network (e.g. pod to external internet communication via ping) cannot be transposed and thus will not be routed back to their source
-  * Since TCP/UDP packets can still be transposed, one can substitute `ping <destination>` with `curl <destination>` to be able to debug connectivity to the outside world.
+次のネットワーク機能はWindowsノードではサポートされていません
 
-These features were added in Kubernetes v1.15:
+* ホストネットワーキングモードはWindows Podでは使用できません
+* ノード自体からのローカルNodePortアクセスは失敗します（他のノードまたは外部クライアントで機能）
+* ノードからのService VIPへのアクセスは、Windows Serverの将来のリリースで利用可能になる予定です
+* kube-proxyのオーバーレイネットワーキングサポートはアルファリリースです。さらに、[KB4482887](https://support.microsoft.com/en-us/help/4482887/windows-10-update-kb4482887) がWindows Server 2019にインストールされている必要があります
+* ローカルトラフィックポリシーとDSRモード
+* l2bridge、l2tunnel、またはオーバーレイネットワークに接続されたWindowsコンテナは、IPv6スタックを介した通信をサポートしていません。これらのネットワークドライバーがIPv6アドレスを使用できるようにするために必要な機能として、優れたWindowsプラットフォームの機能があり、それに続いて、kubelet、kube-proxy、およびCNIプラグインといったKubernetesの機能があります。
+* win-overlay、win-bridge、およびAzure-CNIプラグインを介したICMPプロトコルを使用したアウトバウンド通信。具体的には、Windowsデータプレーン ([VFP](https://www.microsoft.com/en-us/research/project/azure-virtual-filtering-platform/)) は、ICMPパケットの置き換えをサポートしていません。これの意味は：
+  * 同じネットワーク内の宛先に向けられたICMPパケット（pingを介したPod間通信など）は期待どおりに機能し、制限はありません
+  * TCP/UDPパケットは期待どおりに機能し、制限はありません
+  * リモートネットワーク（Podからping経由の外部インターネット通信など）を通過するように指示されたICMPパケットは置き換えできないため、ソースにルーティングされません。
+  * TCP/UDPパケットは引き続き置き換えできるため、 `ping <destination>` を `curl <destination>` に置き換えることで、外部への接続をデバッグできます。
+
+これらの機能はKubernetes v1.15で追加されました。
 
 * `kubectl port-forward`
 
-##### CNI Plugins
+##### CNIプラグイン
 
-* Windows reference network plugins win-bridge and win-overlay do not currently implement [CNI spec](https://github.com/containernetworking/cni/blob/master/SPEC.md) v0.4.0 due to missing "CHECK" implementation.
-* The Flannel VXLAN CNI has the following limitations on Windows:
+* Windowsリファレンスネットワークプラグインのwin-bridgeとwin-overlayは、[CNI仕様](https://github.com/containernetworking/cni/blob/master/SPEC.md) v0.4.0において「CHECK」実装がないため、今のところ実装されていません。
+* Flannel VXLAN CNIについては、Windowsで次の制限があります。:
 
-1. Node-pod connectivity isn't possible by design. It's only possible for local pods with Flannel [PR 1096](https://github.com/coreos/flannel/pull/1096)
-2. We are restricted to using VNI 4096 and UDP port 4789. The VNI limitation is being worked on and will be overcome in a future release (open-source flannel changes). See the official [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) backend docs for more details on these parameters.
+1. Node-podの直接間接続は設計上不可能です。 Flannel [PR 1096](https://github.com/coreos/flannel/pull/1096) を使用するローカルPodでのみ可能です
+2. VNI 4096とUDPポート4789の使用に制限されています。VNIの制限は現在取り組んでおり、将来のリリースで解決される予定です（オープンソースのflannelの変更）。これらのパラメーターの詳細については、公式の [Flannel VXLAN](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan) バックエンドのドキュメントをご覧ください。
 
 ##### DNS {#dns-limitations}
 
-* ClusterFirstWithHostNet is not supported for DNS. Windows treats all names with a '.' as a FQDN and skips PQDN resolution
-* On Linux, you have a DNS suffix list, which is used when trying to resolve PQDNs. On Windows, we only have 1 DNS suffix, which is the DNS suffix associated with that pod's namespace (mydns.svc.cluster.local for example). Windows can resolve FQDNs and services or names resolvable with just that suffix. For example, a pod spawned in the default namespace, will have the DNS suffix **default.svc.cluster.local**. On a Windows pod, you can resolve both **kubernetes.default.svc.cluster.local** and **kubernetes**, but not the in-betweens, like **kubernetes.default** or **kubernetes.default.svc**.
+* ClusterFirstWithHostNetは、DNSでサポートされていません。Windowsでは、FQDNとしてすべての名前を「.」で扱い、PQDNでの解決はスキップします。
+* Linuxでは、PQDNを解決しようとするときに使用するDNSサフィックスリストがあります。 Windowsでは、1つのDNSサフィックスしかありません。これは、そのPodのNamespaceに関連付けられているDNSサフィックスです（たとえば、mydns.svc.cluster.local）。 Windowsでは、そのサフィックスだけで解決可能なFQDNおよびServiceまたは名前を解決できます。たとえば、defaultのNamespaceで生成されたPodには、DNSサフィックス**default.svc.cluster.local**が付けられます。WindowsのPodでは、**kubernetes.default.svc.cluster.local**と**kubernetes**の両方を解決できますが、**kubernetes.default**や**kubernetes.default.svc**などの中間での解決はできません。
 
 ##### Security
 
