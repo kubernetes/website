@@ -1,57 +1,40 @@
 ---
-reviewers:
-- vishh
 content_type: concept
-title: Schedule GPUs
-description: Configure and schedule GPUs for use as a resource by nodes in a cluster.
+title: GPUのスケジューリング
+description: クラスター内のノードのリソースとしてGPUを設定してスケジューリングします
 ---
 
 <!-- overview -->
 
 {{< feature-state state="beta" for_k8s_version="v1.10" >}}
 
-Kubernetes includes **experimental** support for managing AMD and NVIDIA GPUs
-(graphical processing units) across several nodes.
+Kubernetesには、複数ノードに搭載されたAMDおよびNVIDIAのGPU(graphical processing unit)を管理するための**実験的な**サポートが含まれています。
 
-This page describes how users can consume GPUs across different Kubernetes versions
-and the current limitations.
-
-
-
+このページでは、異なるバージョンのKubernetesを横断してGPUを使用する方法と、現時点での制限について説明します。
 
 <!-- body -->
 
-## Using device plugins
+## デバイスプラグインを使用する
 
-Kubernetes implements {{< glossary_tooltip text="Device Plugins" term_id="device-plugin" >}}
-to let Pods access specialized hardware features such as GPUs.
+Kubernetesでは、GPUなどの特別なハードウェアの機能にPodがアクセスできるようにするために、{{< glossary_tooltip text="デバイスプラグイン" term_id="device-plugin" >}}が実装されています。
 
-As an administrator, you have to install GPU drivers from the corresponding
-hardware vendor on the nodes and run the corresponding device plugin from the
-GPU vendor:
+管理者として、ノード上に対応するハードウェアベンダーのGPUドライバーをインストールして、以下のような対応するGPUベンダーのデバイスプラグインを実行する必要があります。
 
 * [AMD](#deploying-amd-gpu-device-plugin)
 * [NVIDIA](#deploying-nvidia-gpu-device-plugin)
 
-When the above conditions are true, Kubernetes will expose `amd.com/gpu` or
-`nvidia.com/gpu` as a schedulable resource.
+上記の条件を満たしていれば、Kubernetesは`amd.com/gpu`または`nvidia.com/gpu`をスケジュール可能なリソースとして公開します。
 
-You can consume these GPUs from your containers by requesting
-`<vendor>.com/gpu` just like you request `cpu` or `memory`.
-However, there are some limitations in how you specify the resource requirements
-when using GPUs:
+これらのGPUをコンテナから使用するには、`cpu`や`memory`をリクエストするのと同じように`<vendor>.com/gpu`というリソースをリクエストするだけです。ただし、GPUを使用するときにはリソースのリクエストの指定方法にいくつか制限があります。
 
-- GPUs are only supposed to be specified in the `limits` section, which means:
-  * You can specify GPU `limits` without specifying `requests` because
-    Kubernetes will use the limit as the request value by default.
-  * You can specify GPU in both `limits` and `requests` but these two values
-    must be equal.
-  * You cannot specify GPU `requests` without specifying `limits`.
-- Containers (and Pods) do not share GPUs. There's no overcommitting of GPUs.
-- Each container can request one or more GPUs. It is not possible to request a
-  fraction of a GPU.
+- GPUは`limits`セクションでのみ指定されることが想定されている。この制限は、次のことを意味します。
+  * Kubernetesはデフォルトでlimitの値をrequestの値として使用するため、GPUの`requests`を省略して`limits`を指定できる。
+  * GPUを`limits`と`requests`の両方で指定できるが、これら2つの値は等しくなければならない。
+  * GPUの`limits`を省略して`requests`だけを指定することはできない。
+- コンテナ(およびPod)はGPUを共有しない。GPUのオーバーコミットは起こらない。
+- 各コンテナは1つ以上のGPUをリクエストできる。1つのGPUの一部だけをリクエストすることはできない。
 
-Here's an example:
+以下に例を示します。
 
 ```yaml
 apiVersion: v1
@@ -66,106 +49,90 @@ spec:
       image: "k8s.gcr.io/cuda-vector-add:v0.1"
       resources:
         limits:
-          nvidia.com/gpu: 1 # requesting 1 GPU
+          nvidia.com/gpu: 1 # 1 GPUをリクエストしています
 ```
 
-### Deploying AMD GPU device plugin
+### AMDのGPUデバイスプラグインをデプロイする {#deploying-amd-gpu-device-plugin}
 
-The [official AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-has the following requirements:
+[AMD公式のGPUデバイスプラグイン](https://github.com/RadeonOpenCompute/k8s-device-plugin)には以下の要件があります。
 
-- Kubernetes nodes have to be pre-installed with AMD GPU Linux driver.
+- Kubernetesのノードに、AMDのGPUのLinuxドライバーがあらかじめインストール済みでなければならない。
 
-To deploy the AMD device plugin once your cluster is running and the above
-requirements are satisfied:
+クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでAMDのデバイスプラグインがデプロイできます。
+
 ```shell
 kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
 ```
 
-You can report issues with this third-party device plugin by logging an issue in
-[RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin).
+このサードパーティーのデバイスプラグインに関する問題は、[RadeonOpenCompute/k8s-device-plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)で報告できます。
 
-### Deploying NVIDIA GPU device plugin
+### NVIDIAのGPUデバイスプラグインをデプロイする {#deploying-nvidia-gpu-device-plugin}
 
-There are currently two device plugin implementations for NVIDIA GPUs:
+現在、NVIDIAのGPU向けのデバイスプラグインの実装は2種類あります。
 
-#### Official NVIDIA GPU device plugin
+#### NVIDIA公式のGPUデバイスプラグイン
 
-The [official NVIDIA GPU device plugin](https://github.com/NVIDIA/k8s-device-plugin)
-has the following requirements:
+[NVIDIA公式のGPUデバイスプラグイン](https://github.com/NVIDIA/k8s-device-plugin)には以下の要件があります。
 
-- Kubernetes nodes have to be pre-installed with NVIDIA drivers.
-- Kubernetes nodes have to be pre-installed with [nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)
-- Kubelet must use Docker as its container runtime
-- `nvidia-container-runtime` must be configured as the [default runtime](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)
-  for Docker, instead of runc.
-- The version of the NVIDIA drivers must match the constraint ~= 384.81.
+- Kubernetesのノードに、NVIDIAのドライバーがあらかじめインストール済みでなければならない。
+- Kubernetesのノードに、[nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)があらかじめインストール済みでなければならない。
+- KubeletはコンテナランタイムにDockerを使用しなければならない。
+- `nvidia-container-runtime`の[デフォルトランタイム](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)として、runcの代わりにDockerを設定しなければならない。
+- NVIDIAのmドライバーのバージョンが次の条件を満たさなければならない ~= 384.81。
 
-To deploy the NVIDIA device plugin once your cluster is running and the above
-requirements are satisfied:
+クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでNVIDIAのデバイスプラグインがデプロイできます。
 
 ```shell
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta4/nvidia-device-plugin.yml
 ```
 
-You can report issues with this third-party device plugin by logging an issue in
-[NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin).
+このサードパーティーのデバイスプラグインに関する問題は、[NVIDIA/k8s-device-plugin](https://github.com/NVIDIA/k8s-device-plugin)で報告できます。
 
-#### NVIDIA GPU device plugin used by GCE
+#### GCEで使用されるNVIDIAのGPUデバイスプラグイン
 
-The [NVIDIA GPU device plugin used by GCE](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
-doesn't require using nvidia-docker and should work with any container runtime
-that is compatible with the Kubernetes Container Runtime Interface (CRI). It's tested
-on [Container-Optimized OS](https://cloud.google.com/container-optimized-os/)
-and has experimental code for Ubuntu from 1.9 onwards.
+[GCEで使用されるNVIDIAのGPUデバイスプラグイン](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)は、nvidia-dockerを必要としないため、KubernetesのContainer Runtime Interface(CRI)と互換性のある任意のコンテナランタイムで動作するはずです。このデバイスプラグインは[Container-Optimized OS](https://cloud.google.com/container-optimized-os/)でテストされていて、1.9以降ではUbuntu向けの実験的なコードも含まれています。
 
-You can use the following commands to install the NVIDIA drivers and device plugin:
+以下のコマンドを実行すると、NVIDIAのドライバとデバイスプラグインがインストールできます。
 
 ```shell
-# Install NVIDIA drivers on Container-Optimized OS:
+# NVIDIAドライバーをContainer-Optimized OSにインストールする
 kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/daemonset.yaml
 
-# Install NVIDIA drivers on Ubuntu (experimental):
+# NVIDIAドライバーをUbuntuにインストールする(実験的)
 kubectl create -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/ubuntu/daemonset.yaml
 
-# Install the device plugin:
+# デバイスプラグインをインストールする
 kubectl create -f https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.14/cluster/addons/device-plugins/nvidia-gpu/daemonset.yaml
 ```
 
-You can report issues with using or deploying this third-party device plugin by logging an issue in
-[GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators).
+このサードパーティーのデバイスプラグインの使用やデプロイに関する問題は、[GoogleCloudPlatform/container-engine-accelerators](https://github.com/GoogleCloudPlatform/container-engine-accelerators)で報告できます。
 
-Google publishes its own [instructions](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus) for using NVIDIA GPUs on GKE .
+Googleは、GKE上でNVIDIAのGPUを使用するための[手順](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus)も公開しています。
 
-## Clusters containing different types of GPUs
+## 異なる種類のGPUを搭載するクラスター
 
-If different nodes in your cluster have different types of GPUs, then you
-can use [Node Labels and Node Selectors](/docs/tasks/configure-pod-container/assign-pods-nodes/)
-to schedule pods to appropriate nodes.
+クラスター上の別のノードに異なる種類のGPUが搭載されている場合、 [NodeラベルとNodeセレクター](/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
 
-For example:
+以下に例を示します。
 
 ```shell
-# Label your nodes with the accelerator type they have.
+# アクセラレーターを搭載したノードにラベルを付けます。
 kubectl label nodes <node-with-k80> accelerator=nvidia-tesla-k80
 kubectl label nodes <node-with-p100> accelerator=nvidia-tesla-p100
 ```
 
-## Automatic node labelling {#node-labeller}
+## 自動的なNodeラベルの付加 {#node-labeller}
 
-If you're using AMD GPU devices, you can deploy
-[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller).
-Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
-labels your nodes with GPU device properties.
+AMDのGPUデバイスを使用している場合、[Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)をデプロイできます。Node Labellerは{{< glossary_tooltip text="コントローラー" term_id="controller" >}}の1種で、GPUデバイスのプロパティを持つノードに自動的にラベルを付けてくれます。
 
-At the moment, that controller can add labels for:
+現在は、このコントローラーは以下のプロパティに基づいてラベルを追加できます。
 
-* Device ID (-device-id)
-* VRAM Size (-vram)
-* Number of SIMD (-simd-count)
-* Number of Compute Unit (-cu-count)
-* Firmware and Feature Versions (-firmware)
-* GPU Family, in two letters acronym (-family)
+* デバイスID (-device-id)
+* VRAMのサイズ (-vram)
+* SIMDの数 (-simd-count)
+* Compute Unitの数 (-cu-count)
+* ファームウェアとフィーチャーのバージョン(-firmware)
+* 2文字の頭字語で表されたGPUファミリー(-family)
   * SI - Southern Islands
   * CI - Sea Islands
   * KV - Kaveri
@@ -194,7 +161,7 @@ kubectl describe node cluster-node-23
     …
 ```
 
-With the Node Labeller in use, you can specify the GPU type in the Pod spec:
+Node Labellerを使用すると、GPUの種類をPodのspec内で指定できます。
 
 ```yaml
 apiVersion: v1
@@ -211,10 +178,7 @@ spec:
         limits:
           nvidia.com/gpu: 1
   nodeSelector:
-    accelerator: nvidia-tesla-p100 # or nvidia-tesla-k80 etc.
+    accelerator: nvidia-tesla-p100 # または nvidia-tesla-k80 など
 ```
 
-This will ensure that the Pod will be scheduled to a node that has the GPU type
-you specified.
-
-
+これにより、指定した種類のGPUを搭載したノードにPodがスケジューリングされることを保証できます。
