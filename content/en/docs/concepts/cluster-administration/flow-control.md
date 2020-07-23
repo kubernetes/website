@@ -409,9 +409,12 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
   ```
   The output is similar to this:
   ```
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher, ArriveTime,
-  exempt,            <none>,         <none>,     <none>,              <none>,          <none>,
+  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
+  exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
+  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
   ```
+  
+  In addition to the queued requests, the output includeas one phantom line for each priority level that is exempt from limitation.
 
   You can get a more detailed listing with a command like this:
   ```shell
@@ -419,8 +422,9 @@ When you enable the API Priority and Fairness feature, the kube-apiserver serves
   ```
   The output is similar to this:
   ```
-  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher, ArriveTime, UserName, Verb,   APIPath, Namespace, Name,   APIVersion, Resource, SubResource,
-  exempt,            <none>,         <none>,     <none>,              <none>,          <none>,     <none>,   <none>, <none>,  <none>,    <none>, <none>,     <none>,   <none>,
+  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
+  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
+  system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   ```
   
 ## {{% heading "whatsnext" %}}
