@@ -257,8 +257,8 @@ Windowsホストネットワーキングサービスと仮想スイッチはネ�
 
 ##### DNS {#dns-limitations}
 
-* ClusterFirstWithHostNetは、DNSでサポートされていません。Windowsでは、FQDNとしてすべての名前を「.」で扱い、PQDNでの解決はスキップします。
-* Linuxでは、PQDNを解決しようとするときに使用するDNSサフィックスリストがあります。 Windowsでは、1つのDNSサフィックスしかありません。これは、そのPodのNamespaceに関連付けられているDNSサフィックスです（たとえば、mydns.svc.cluster.local）。 Windowsでは、そのサフィックスだけで解決可能なFQDNおよびServiceまたは名前を解決できます。たとえば、defaultのNamespaceで生成されたPodには、DNSサフィックス**default.svc.cluster.local**が付けられます。WindowsのPodでは、**kubernetes.default.svc.cluster.local**と**kubernetes**の両方を解決できますが、**kubernetes.default**や**kubernetes.default.svc**などの中間での解決はできません。
+* ClusterFirstWithHostNetは、DNSでサポートされていません。Windowsでは、FQDNとしてすべての名前を「.」で扱い、PQDNでの名前解決はスキップします。
+* Linuxでは、PQDNで名前解決しようとするときに使用するDNSサフィックスリストがあります。 Windowsでは、1つのDNSサフィックスしかありません。これは、そのPodのNamespaceに関連付けられているDNSサフィックスです（たとえば、mydns.svc.cluster.local）。 Windowsでは、そのサフィックスだけで名前解決可能なFQDNおよびServiceまたはNameでの名前解決ができます。たとえば、defaultのNamespaceで生成されたPodには、DNSサフィックス**default.svc.cluster.local**が付けられます。WindowsのPodでは、**kubernetes.default.svc.cluster.local**と**kubernetes**の両方を名前解決できますが、**kubernetes.default**や**kubernetes.default.svc**のような中間での名前解決はできません。
 
 ##### Security
 
