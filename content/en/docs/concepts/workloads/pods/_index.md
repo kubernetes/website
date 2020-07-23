@@ -51,9 +51,8 @@ with shared namespaces and shared filesystem volumes.
 
 Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
-If your Pods need to track state, there is a
-{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource intended
-to be the best fit for that use case.
+If your Pods need to track state, consider the 
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
 
 Pods in a Kubernetes cluster are used in two main ways:
 
