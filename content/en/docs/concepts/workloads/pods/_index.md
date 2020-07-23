@@ -12,18 +12,15 @@ card:
 
 <!-- overview -->
 
-_Pods_ are the smallest deployable units of computing that can be created and
-managed in Kubernetes.
+_Pods_ are the smallest deployable units of computing that you can create and manage in Kubernetes.
 
 A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
-{{< glossary_tooltip text="containers" term_id="container" >}} (such as
-Docker containers), with shared storage/network, and a specification
-for how to run the containers.  A Pod's contents are always co-located and
-co-scheduled, and run in a shared context.  A Pod models an
-application-specific "logical host"&mdash;it contains one or more application
-containers which are relatively tightly coupled&mdash;in a pre-container
-world, being executed on the same physical or virtual machine would mean being
-executed on the same logical host.
+{{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage/network resources, and a specification
+for how to run the containers. A Pod's contents are always co-located and
+co-scheduled, and run in a shared context. A Pod models an
+application-specific "logical host": it contains one or more application
+containers which are relatively tightly coupled. 
+In non-cloud contexts, applications executed on the same physical or virtual machine are analogous to cloud applications executed on the same logical host.
 
 As well as application containers, a Pod can contain
 [init containers](/docs/concepts/workloads/pods/init-containers/) that run
@@ -52,26 +49,24 @@ with shared namespaces and shared filesystem volumes.
 
 ## Using Pods
 
-Usually you dont' need to create Pods directly. Instead, you can almost
-always use workload resources such as {{< glossary_tooltip text="Deployment"
-term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}},
-even for singleton Pods.
+Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
+term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
 If your Pods need to track state, there is a
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource intended
 to be the best fit for that use case.
 
-Pods in a Kubernetes cluster can be used in two main ways:
+Pods in a Kubernetes cluster are used in two main ways:
 
 * **Pods that run a single container**. The "one-container-per-Pod" model is the
   most common Kubernetes use case; in this case, you can think of a Pod as a
   wrapper around a single container; Kubernetes manages Pods rather than managing
   the containers directly.
-* **Pods that run multiple containers that need to work together**. A Pod might
+* **Pods that run multiple containers that need to work together**. A Pod can
   encapsulate an application composed of multiple co-located containers that are
-  tightly coupled and need to share resources. These co-located containers might
-  form a single cohesive unit of service—one container serving data stored in a
-  shared volume to the public, while a separate _sidecar_ container refreshes or
-  updates those files.  
+  tightly coupled and need to share resources. These co-located containers
+  form a single cohesive unit of service—for example, one container serving data
+  stored in a shared volume to the public, while a separate _sidecar_ container
+  refreshes or updates those files.  
   The Pod wraps these containers, storage resources, and an ephemeral network
   identity together as a single unit.
 
@@ -154,8 +149,8 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), and
 [DaemonSets](/docs/concepts/workloads/controllers/daemonset/).
 
-Each controller for a workload resource uses the `PodTemplate inside the workload
-object to make actual Pods. The PodTemplate is part of the desired state of whatever
+Each controller for a workload resource uses the `PodTemplate` inside the workload
+object to make actual Pods. The `PodTemplate` is part of the desired state of whatever
 workload resource you used to run your app.
 
 The sample below is a manifest for a simple Job with a `template` that starts one
@@ -179,7 +174,7 @@ spec:
 ```
 
 Modifying the pod template or switching to a new pod template has no effect on the
-Pods that already exist. Pods do not receive template updates directly; instead,
+Pods that already exist. Pods do not receive template updates directly. Instead,
 a new Pod is created to match the revised pod template.
 
 For example, the deployment controller ensures that the running Pods match the current
@@ -275,4 +270,3 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
   * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
   * [Omega](https://research.google/pubs/pub41684/)
   * [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
-
