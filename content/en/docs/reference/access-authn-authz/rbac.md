@@ -801,7 +801,12 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td>None</td>
 <td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
 </tr>
-<tbody>
+<tr>
+<td><b>system:monitoring</b></td>
+<td><b>system:monitoring</b> group</td>
+<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>). Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
+</tr>
+</tbody>
 </table>
 
 ### Roles for built-in controllers {#controller-roles}
