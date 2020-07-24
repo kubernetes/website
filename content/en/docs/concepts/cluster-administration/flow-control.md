@@ -162,6 +162,42 @@ are built in and may not be overwritten:
   that only matches the `catch-all` FlowSchema will be rejected with an HTTP 429
   error.
 
+## Potentially interesting additional configuration
+
+The suggested configuration gives no special treatment to the health
+check requests on kube-apiservers from their local kubelets --- which
+tend to use the secured port but supply no credentials.  With the
+suggested config, these requests get assigned to the `global-default`
+FlowSchema and the corresponding `global-default` priority level,
+where other traffic can crowd them out.
+
+Adding the following additional FlowSchema will cause those requests
+to be exempt from limiting.  Unfortunately, any hostile party could
+submit requests matching this FlowSchema.
+
+```yaml
+apiVersion: flowcontrol.apiserver.k8s.io/v1alpha1
+kind: FlowSchema
+metadata:
+  name: health-for-strangers
+spec:
+  matchingPrecedence: 1000
+  priorityLevelConfiguration:
+    name: exempt
+  rules:
+  - nonResourceRules:
+    - nonResourceURLs:
+      - "/healthz"
+      - "/livez"
+      - "/readyz"
+      verbs:
+      - "*"
+    subjects:
+    - kind: Group
+      group:
+        name: system:unauthenticated
+```
+
 ## Resources
 The flow control API involves two kinds of resources.
 [PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)
