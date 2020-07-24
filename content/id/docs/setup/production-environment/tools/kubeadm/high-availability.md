@@ -200,7 +200,7 @@ pada berkas konfigurasi kubeadm.
 
 ### Memasang klaster etcd
 
-1.  Ikuti [petunjuk berikut](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) untuk membangun klaster etcd.
+1.  Ikuti [petunjuk berikut](/id/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) untuk membangun klaster etcd.
 
 2.  Lakukan pengaturan SSH seperti yang dijelaskan [di sini](#distribusi-sertifikat-manual).
 
