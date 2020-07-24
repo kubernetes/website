@@ -126,25 +126,32 @@ spec:
       configMap:
         # 마운트하려는 컨피그맵의 이름을 제공한다.
         name: game-demo
+        # 컨피그맵에서 파일로 생성할 키 배열
+        items:
+        - key: "game.properties"
+          path: "game.properties"
+        - key: "user-interface.properties"
+          path: "user-interface.properties"
 ```
 
 
 컨피그맵은 단일 라인 속성(single line property) 값과 멀티 라인의 파일과 비슷한(multi-line file-like) 값을
 구분하지 않는다.
 더 중요한 것은 파드와 다른 오브젝트가 이러한 값을 소비하는 방식이다.
+
 이 예제에서, 볼륨을 정의하고 `demo` 컨테이너에
-`/config` 로 마운트하면 4개의 파일이 생성된다.
+`/config` 로 마운트하면 컨피그맵에 4개의 키가 있더라도
+`/config/game.properties` 와 `/config/user-interface.properties`
+2개의 파일이 생성된다. 이것은 파드 정의가
+`volume` 섹션에서 `items` 배열을 지정하기 때문이다.
+`items` 배열을 완전히 생략하면, 컨피그맵의 모든 키가
+키와 이름이 같은 파일이 되고, 4개의 파일을 얻게 된다.
 
-- `/config/player_initial_lives`
-- `/config/ui_properties_file_name`
-- `/config/game.properties`
-- `/config/user-interface.properties`
+## 컨피그맵 사용하기
 
-`/config` 에 `.properties` 확장자를 가진 파일만
-포함시키려면, 두 개의 다른 컨피그맵을 사용하고, 파드에
-대해서는 `spec` 의 두 컨피그맵을 참조한다. 첫 번째 컨피그맵은
-`player_initial_lives` 와 `ui_properties_file_name` 을 정의한다. 두 번째
-컨피그맵은 kubelet이 `/config` 에 넣는 파일을 정의한다.
+컨피그맵은 데이터 볼륨으로 마운트할 수 있다. 컨피그맵은 파드에 직접적으로
+노출되지 않고, 시스템의 다른 부분에서도 사용할 수 있다. 예를 들어,
+컨피그맵은 시스템의 다른 부분이 구성을 위해 사용해야 하는 데이터를 보유할 수 있다.
 
 {{< note >}}
 컨피그맵을 사용하는 가장 일반적인 방법은 동일한 네임스페이스의
@@ -156,12 +163,6 @@ spec:
 {{< glossary_tooltip text="오퍼레이터" term_id="operator-pattern" >}}를
 사용할 수도 있다.
 {{< /note >}}
-
-## 컨피그맵 사용하기
-
-컨피그맵은 데이터 볼륨으로 마운트할 수 있다. 컨피그맵은 파드에 직접적으로
-노출되지 않고, 시스템의 다른 부분에서도 사용할 수 있다. 예를 들어,
-컨피그맵은 시스템의 다른 부분이 구성을 위해 사용해야 하는 데이터를 보유할 수 있다.
 
 ### 파드에서 컨피그맵을 파일로 사용하기
 

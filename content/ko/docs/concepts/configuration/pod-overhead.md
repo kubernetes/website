@@ -11,7 +11,7 @@ weight: 20
 
 노드 위에서 파드를 구동할 때, 파드는 그 자체적으로 많은 시스템 리소스를 사용한다.
 이러한 리소스는 파드 내의 컨테이너들을 구동하기 위한 리소스 이외에 추가적으로 필요한 것이다.
-_파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파드의 인프라에 의해 
+_파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파드의 인프라에 의해
 소비되는 리소스를 계산하는 기능이다.
 
 
@@ -20,25 +20,25 @@ _파드 오버헤드_ 는 컨테이너 리소스 요청과 상한 위에서 파�
 
 <!-- body -->
 
-쿠버네티스에서 파드의 오버헤드는 파드의 
-[런타임클래스](/ko/docs/concepts/containers/runtime-class/) 와 관련된 오버헤드에 따라 
-[어드미션](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 
+쿠버네티스에서 파드의 오버헤드는 파드의
+[런타임클래스](/ko/docs/concepts/containers/runtime-class/) 와 관련된 오버헤드에 따라
+[어드미션](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)
 이 수행될 때 지정된다.
 
-파드 오버헤드가 활성화 되면, 파드를 노드에 스케줄링 할 때 컨테이너 리소스 요청의 합에 
-파드의 오버헤드를 추가해서 스케줄링을 고려한다. 마찬가지로, Kubelet은 파드의 cgroups 크기를 변경하거나 
+파드 오버헤드가 활성화 되면, 파드를 노드에 스케줄링 할 때 컨테이너 리소스 요청의 합에
+파드의 오버헤드를 추가해서 스케줄링을 고려한다. 마찬가지로, Kubelet은 파드의 cgroups 크기를 변경하거나
 파드의 축출 등급을 부여할 때에도 파드의 오버헤드를 포함하여 고려한다.
 
 ## 파드 오버헤드 활성화하기 {#set-up}
 
-기능 활성화를 위해 클러스터에서 
-`PodOverhead` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 가 활성화 되어 있고 (1.18 버전에서는 기본적으로 활성화), 
+기능 활성화를 위해 클러스터에서
+`PodOverhead` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 가 활성화 되어 있고 (1.18 버전에서는 기본적으로 활성화),
 `overhead` 필드를 정의하는 `RuntimeClass` 가 사용되고 있는지 확인해야 한다.
 
 ## 사용 예제
 
 파드 오버헤드 기능을 사용하기 위하여, `overhead` 필드를 정의하는 런타임클래스가 필요하다.
-예를 들어, 가상 머신 및 게스트 OS에 대하여 파드 당 120 MiB를 사용하는 
+예를 들어, 가상 머신 및 게스트 OS에 대하여 파드 당 120 MiB를 사용하는
 가상화 컨테이너 런타임의 런타임클래스의 경우 다음과 같이 정의 할 수 있다.
 
 ```yaml
@@ -54,7 +54,7 @@ overhead:
         cpu: "250m"
 ```
 
-`kata-fc` 런타임클래스 핸들러를 지정하는 워크로드는 리소스 쿼터 계산, 
+`kata-fc` 런타임클래스 핸들러를 지정하는 워크로드는 리소스 쿼터 계산,
 노드 스케줄링 및 파드 cgroup 크기 조정을 위하여 메모리와 CPU 오버헤드를 고려한다.
 
 주어진 예제 워크로드 test-pod의 구동을 고려해보자.
@@ -83,9 +83,9 @@ spec:
         memory: 100Mi
 ```
 
-어드미션 수행 시에, [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)는 
-런타임클래스에 기술된 `overhead` 를 포함하기 위하여 워크로드의 PodSpec 항목을 갱신한다. 만약 PodSpec이 이미 해당 필드에 정의되어 있으면, 
-파드는 거부된다. 주어진 예제에서, 오직 런타임클래스의 이름만이 정의되어 있기 때문에, 어드미션 컨트롤러는 파드가 
+어드미션 수행 시에, [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)는
+런타임클래스에 기술된 `overhead` 를 포함하기 위하여 워크로드의 PodSpec 항목을 갱신한다. 만약 PodSpec이 이미 해당 필드에 정의되어 있으면,
+파드는 거부된다. 주어진 예제에서, 오직 런타임클래스의 이름만이 정의되어 있기 때문에, 어드미션 컨트롤러는 파드가
 `overhead` 를 포함하도록 변경한다.
 
 런타임클래스의 어드미션 수행 후에, 파드의 스펙이 갱신된 것을 확인할 수 있다.
@@ -99,11 +99,11 @@ kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
 map[cpu:250m memory:120Mi]
 ```
 
-만약 리소스쿼터 항목이 정의되어 있다면, 컨테이너의 리소스 요청의 합에는 
+만약 리소스쿼터 항목이 정의되어 있다면, 컨테이너의 리소스 요청의 합에는
 `overhead` 필드도 추가된다.
 
-kube-scheduler 는 어떤 노드에 파드가 기동 되어야 할지를 정할 때, 파드의 `overhead` 와 
-해당 파드에 대한 컨테이너의 리소스 요청의 합을 고려한다. 이 예제에서, 스케줄러는 
+kube-scheduler 는 어떤 노드에 파드가 기동 되어야 할지를 정할 때, 파드의 `overhead` 와
+해당 파드에 대한 컨테이너의 리소스 요청의 합을 고려한다. 이 예제에서, 스케줄러는
 리소스 요청과 파드의 오버헤드를 더하고, 2.25 CPU와 320 MiB 메모리가 사용 가능한 노드를 찾는다.
 
 일단 파드가 특정 노드에 스케줄링 되면, 해당 노드에 있는 kubelet 은 파드에 대한 새로운 {{< glossary_tooltip text="cgroup" term_id="cgroup" >}}을 생성한다.
@@ -142,7 +142,7 @@ CPU 2250m와 메모리 320MiB 가 리소스로 요청되었으며, 이 결과는
 
 ## 파드 cgroup 상한 확인하기
 
-워크로드가 실행 중인 노드에서 파드의 메모리 cgroup들을 확인 해보자. 다음의 예제에서, [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)은 노드에서 사용되며, 
+워크로드가 실행 중인 노드에서 파드의 메모리 cgroup들을 확인 해보자. 다음의 예제에서, [`crictl`](https://github.com/kubernetes-sigs/cri-tools/blob/master/docs/crictl.md)은 노드에서 사용되며,
 CRI-호환 컨테이너 런타임을 위해서 노드에서 사용할 수 있는 CLI 를 제공한다.
 파드의 오버헤드 동작을 보여주는 좋은 예이며,
 사용자가 노드에서 직접 cgroup들을 확인하지 않아도 된다.
@@ -178,8 +178,8 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 ```
 
 ### 관찰성
-`kube_pod_overhead` 항목은 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 
-에서 사용할 수 있어, 파드 오버헤드가 사용되는 시기를 식별하고, 
+`kube_pod_overhead` 항목은 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics)
+에서 사용할 수 있어, 파드 오버헤드가 사용되는 시기를 식별하고,
 정의된 오버헤드로 실행되는 워크로드의 안정성을 관찰할 수 있다.
 이 기능은 kube-state-metrics 의 1.9 릴리스에서는 사용할 수 없지만, 다음 릴리스에서는 가능할 예정이다.
 그 전까지는 소스로부터 kube-state-metric 을 빌드해야 한다.
@@ -191,5 +191,3 @@ sudo crictl inspectp -o=json $POD_ID | grep cgroupsPath
 
 * [런타임클래스](/ko/docs/concepts/containers/runtime-class/)
 * [파드오버헤드 디자인](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
-
