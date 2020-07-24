@@ -116,7 +116,7 @@ Windowsコンテナのネットワークは、[CNIプラグイン](/ja/docs/conc
 * ネームスペース
 * ポリシー（パケットのカプセル化、負荷分散ルール、ACL、NATルールなど）
 
-次のServiceタイプがサポートされています。：
+次のServiceタイプがサポートされています。:
 
 * NodePort
 * ClusterIP
