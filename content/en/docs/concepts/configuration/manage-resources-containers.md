@@ -132,11 +132,9 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
+  - name: app
+    image: super.mycompany.com/app:v4
     env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "password"
     resources:
       requests:
         memory: "64Mi"
@@ -144,8 +142,8 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: super.mycompany.com/log-aggregator:v6
     resources:
       requests:
         memory: "64Mi"
@@ -330,18 +328,15 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
-    env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "password"
+  - name: app
+    image: super.mycompany.com/app:v4
     resources:
       requests:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: super.mycompany.com/log-aggregator:v6
     resources:
       requests:
         ephemeral-storage: "2Gi"
