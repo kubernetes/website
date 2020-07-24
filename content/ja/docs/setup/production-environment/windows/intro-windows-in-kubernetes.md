@@ -112,7 +112,7 @@ Kubernetesボリュームを使用すると、データの永続性とPodボリ�
 Windowsコンテナのネットワークは、[CNIプラグイン](/ja/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を通じて公開されます。Windowsコンテナは、ネットワークに関して仮想マシンと同様に機能します。各コンテナには、Hyper-V仮想スイッチ（vSwitch）に接続されている仮想ネットワークアダプター（vNIC）があります。Host Network Service（HNS）とHost Compute Service（HCS）は連携してコンテナを作成し、コンテナvNICをネットワークに接続します。HCSはコンテナの管理を担当するのに対し、HNSは次のようなネットワークリソースの管理を担当します。:
 
 * 仮想ネットワーク（vSwitchの作成を含む）
-* エンドポイント/ vNIC
+* エンドポイント/vNIC
 * ネームスペース
 * ポリシー（パケットのカプセル化、負荷分散ルール、ACL、NATルールなど）
 
