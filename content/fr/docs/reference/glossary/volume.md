@@ -2,7 +2,11 @@
 title: Volume
 id: volume
 date: 2018-04-12
+<<<<<<< HEAD
 full_link: /fr/docs/concepts/storage/volumes/
+=======
+full_link: /docs/concepts/storage/volumes/
+>>>>>>> Add volume to french glossary
 short_description: >
   Un répertoire contenant des données, accessible aux conteneurs d'un pod.
 
@@ -17,4 +21,8 @@ tags:
 
 Un volume Kubernetes vit aussi longtemps que le pod qui le contient. Par conséquent, un volume survit à tous les conteneurs qui s'exécutent dans le pod, et les données contenues dans le volume sont préservées lors des redémarrages du conteneur.
 
+<<<<<<< HEAD
 Voir [stockage](/fr/docs/concepts/storage/) pour plus d'informations.
+=======
+Voir [storage](https://kubernetes.io/docs/concepts/storage/) pour plus d'informations.
+>>>>>>> Add volume to french glossary
