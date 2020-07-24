@@ -135,9 +135,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-더 자세한 것은 CRI-O의 [설정 문서][100]를 본다.
-
-[100]: https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md
+더 자세한 것은 CRI-O의 [설정 문서](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)를 본다.
 
 ## 스케줄
 
@@ -146,7 +144,8 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 쿠버네티스 v1.16 부터, 런타임 클래스는 `scheduling` 필드를 통해 이종의 클러스터
 지원을 포함한다. 이 필드를 사용하면, 이 런타임 클래스를 갖는 파드가 이를 지원하는
 노드로 스케줄된다는 것을 보장할 수 있다. 이 스케줄링 기능을 사용하려면,
-[런타임 클래스 어드미션(admission) 컨트롤러][]를 활성화(1.16 부터 기본값)해야 한다.
+[런타임 클래스 어드미션(admission) 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/#runtimeclass)를
+활성화(1.16 부터 기본값)해야 한다.
 
 파드가 지정된 런타임클래스를 지원하는 노드에 안착한다는 것을 보장하려면,
 해당 노드들은 `runtimeClass.scheduling.nodeSelector` 필드에서 선택되는 공통 레이블을 가져야한다.
@@ -161,8 +160,6 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 
 노드 셀렉터와 톨러레이션 설정에 대해 더 배우려면
 [노드에 파드 할당](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)을 참고한다.
-
-[런타임클래스 어드미션 컨트롤러]: /docs/reference/access-authn-authz/admission-controllers/#runtimeclass
 
 ### 파드 오버헤드
 
