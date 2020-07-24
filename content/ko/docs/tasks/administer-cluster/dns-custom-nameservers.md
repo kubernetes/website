@@ -258,4 +258,4 @@ kube-dns를 CoreDNS로 교체하여 적용하는 방법에 대한 상세 정보�
 
 ## {{% heading "whatsnext" %}}
 
-- [DNS 변환 디버깅하기](/docs/tasks/debug-application-cluster/dns-debugging-resolution/) 읽기
+- [DNS 변환 디버깅하기](/docs/tasks/administer-cluster/dns-debugging-resolution/) 읽기

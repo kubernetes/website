@@ -20,7 +20,7 @@ weight: 50
 
 를 참조한다. {{< glossary_tooltip text="API 서버" term_id="kube-apiserver" >}} **와**
 {{< glossary_tooltip text="스케줄러" term_id="kube-scheduler" >}}에 대해
-`EvenPodsSpread` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+`EvenPodsSpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
 활성화되어야 한다.
 
 ### 노드 레이블
@@ -244,5 +244,3 @@ profiles:
 
 - 디플로이먼트를 스케일링 다운하면 그 결과로 파드의 분포가 불균형이 될 수 있다.
 - 파드와 일치하는 테인트(taint)가 된 노드가 존중된다. [이슈 80921](https://github.com/kubernetes/kubernetes/issues/80921)을 본다.
-
-
