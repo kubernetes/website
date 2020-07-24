@@ -39,7 +39,7 @@ card:
 문서에 참여하려면
 
 1. CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md)에 서명합니다.
-1. [문서 리포지터리](https://github.com/kubernetes/website) 와 웹사이트의
+1. [문서 리포지터리](https://github.com/kubernetes/website)와 웹사이트의
    [정적 사이트 생성기](https://gohugo.io)를 숙지합니다.
 1. [풀 리퀘스트 열기](/ko/docs/contribute/new-content/new-content/)와
    [변경 검토](/ko/docs/contribute/review/reviewing-prs/)의
