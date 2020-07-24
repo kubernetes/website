@@ -1,5 +1,5 @@
 ---
-title: Assign Extended Resources to a Container
+title: 拡張リソースをコンテナに割り当てる
 content_type: task
 weight: 40
 ---
@@ -8,58 +8,45 @@ weight: 40
 
 {{< feature-state state="stable" >}}
 
-This page shows how to assign extended resources to a Container.
-
-
-
+このページでは、拡張リソースをコンテナに割り当てる方法について説明します。
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Before you do this exercise, do the exercise in
-[Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/).
-That will configure one of your Nodes to advertise a dongle resource.
-
-
-
+この練習を始める前に、[Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)の練習を行ってください。これにより、Nodeの1つがdongleリソースをアドバタイズするように設定されます。
 
 <!-- steps -->
 
-## Assign an extended resource to a Pod
+## 拡張リソースをPodに割り当てる
 
-To request an extended resource, include the `resources:requests` field in your
-Container manifest. Extended resources are fully qualified with any domain outside of
-`*.kubernetes.io/`. Valid extended resource names have the form `example.com/foo` where
-`example.com` is replaced with your organization's domain and `foo` is a
-descriptive resource name.
+拡張リソースをリクエストするには、コンテナのマニフェストに`resources:requests`フィールドを含めます。拡張リソースは、`*.kubernetes.io/`以外の任意のドメインで完全修飾されます。有効な拡張リソース名は、`example.com/foo`という形式になります。ここで、`example.com`はあなたの組織のドメインで、`foo`は記述的なリソース名で置き換えます。
 
-Here is the configuration file for a Pod that has one Container:
+1つのコンテナからなるPodの構成ファイルを示します。
 
 {{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
 
-In the configuration file, you can see that the Container requests 3 dongles.
+構成ファイルでは、コンテナが3つのdongleをリクエストしていることがわかります。
 
-Create a Pod:
+次のコマンドでPodを作成します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod.yaml
 ```
 
-Verify that the Pod is running:
+Podが起動したことを確認します。
 
 ```shell
 kubectl get pod extended-resource-demo
 ```
 
-Describe the Pod:
+Podの説明を表示します。
 
 ```shell
 kubectl describe pod extended-resource-demo
 ```
 
-The output shows dongle requests:
+dongleのリクエストが表示されます。
 
 ```yaml
 Limits:
@@ -68,31 +55,27 @@ Requests:
   example.com/dongle: 3
 ```
 
-## Attempt to create a second Pod
+## 2つ目のPodの作成を試みる
 
-Here is the configuration file for a Pod that has one Container. The Container requests
-two dongles.
+以下に、1つのコンテナを持つPodの構成ファイルを示します。コンテナは2つのdongleをリクエストします。
 
 {{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
 
-Kubernetes will not be able to satisfy the request for two dongles, because the first Pod
-used three of the four available dongles.
+Kubernetesは、2つのdongleのリクエストを満たすことができません。1つ目のPodが、利用可能な4つのdongleのうち3つを使用してしまっているためです。
 
-Attempt to create a Pod:
+Podを作成してみます。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.yaml
 ```
 
-Describe the Pod
+Podの説明を表示します。
 
 ```shell
 kubectl describe pod extended-resource-demo-2
 ```
 
-The output shows that the Pod cannot be scheduled, because there is no Node that has
-2 dongles available:
-
+出力にはPodがスケジュールできないことが示されます。2つのdongleが利用できるNodeが存在しないためです。
 
 ```
 Conditions:
@@ -105,41 +88,37 @@ Events:
 fit failure summary on nodes : Insufficient example.com/dongle (1)
 ```
 
-View the Pod status:
+Podのステータスを表示します。
 
 ```shell
 kubectl get pod extended-resource-demo-2
 ```
 
-The output shows that the Pod was created, but not scheduled to run on a Node.
-It has a status of Pending:
+出力には、Podは作成されたものの、Nodeにスケジュールされなかったことが示されています。PodはPending状態になっています。
 
 ```yaml
 NAME                       READY     STATUS    RESTARTS   AGE
 extended-resource-demo-2   0/1       Pending   0          6m
 ```
 
-## Clean up
+## クリーンアップ
 
-Delete the Pods that you created for this exercise:
+この練習で作成したPodを削除します。
 
 ```shell
 kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
 
+### アプリケーション開発者向け
 
-### For application developers
+* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+### クラスター管理者向け
 
-### For cluster administrators
-
-* [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/)
+* [Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)
 
 
