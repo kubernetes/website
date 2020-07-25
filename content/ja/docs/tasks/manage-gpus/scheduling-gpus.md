@@ -58,7 +58,7 @@ spec:
 
 - Kubernetesのノードに、AMDのGPUのLinuxドライバーがあらかじめインストール済みでなければならない。
 
-クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでAMDのデバイスプラグインがデプロイできます。
+クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでAMDのデバイスプラグインをデプロイできます。
 
 ```shell
 kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device-plugin/v1.10/k8s-ds-amdgpu-dp.yaml
@@ -78,7 +78,7 @@ kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device
 - Kubernetesのノードに、[nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)があらかじめインストール済みでなければならない。
 - KubeletはコンテナランタイムにDockerを使用しなければならない。
 - `nvidia-container-runtime`の[デフォルトランタイム](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)として、runcの代わりにDockerを設定しなければならない。
-- NVIDIAのmドライバーのバージョンが次の条件を満たさなければならない ~= 384.81。
+- NVIDIAのドライバーのバージョンが次の条件を満たさなければならない ~= 384.81。
 
 クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでNVIDIAのデバイスプラグインがデプロイできます。
 
@@ -92,7 +92,7 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0
 
 [GCEで使用されるNVIDIAのGPUデバイスプラグイン](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)は、nvidia-dockerを必要としないため、KubernetesのContainer Runtime Interface(CRI)と互換性のある任意のコンテナランタイムで動作するはずです。このデバイスプラグインは[Container-Optimized OS](https://cloud.google.com/container-optimized-os/)でテストされていて、1.9以降ではUbuntu向けの実験的なコードも含まれています。
 
-以下のコマンドを実行すると、NVIDIAのドライバとデバイスプラグインがインストールできます。
+以下のコマンドを実行すると、NVIDIAのドライバーとデバイスプラグインをインストールできます。
 
 ```shell
 # NVIDIAドライバーをContainer-Optimized OSにインストールする
@@ -111,7 +111,7 @@ Googleは、GKE上でNVIDIAのGPUを使用するための[手順](https://cloud.
 
 ## 異なる種類のGPUを搭載するクラスター
 
-クラスター上の別のノードに異なる種類のGPUが搭載されている場合、 [NodeラベルとNodeセレクター](/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
+クラスター上の別のノードに異なる種類のGPUが搭載されている場合、[NodeラベルとNodeセレクター](/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
 
 以下に例を示します。
 
