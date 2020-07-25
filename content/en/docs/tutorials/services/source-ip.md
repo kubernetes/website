@@ -177,7 +177,7 @@ service/nodeport exposed
 
 ```shell
 NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
 ```
 
 If you're running on a cloud provider, you may need to open up a firewall-rule
