@@ -77,7 +77,7 @@ kubectl create -f https://raw.githubusercontent.com/RadeonOpenCompute/k8s-device
 - Kubernetesのノードに、NVIDIAのドライバーがあらかじめインストール済みでなければならない。
 - Kubernetesのノードに、[nvidia-docker 2.0](https://github.com/NVIDIA/nvidia-docker)があらかじめインストール済みでなければならない。
 - KubeletはコンテナランタイムにDockerを使用しなければならない。
-- `nvidia-container-runtime`の[デフォルトランタイム](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)として、runcの代わりにDockerを設定しなければならない。
+- runcの代わりにDockerの[デフォルトランタイム](https://github.com/NVIDIA/k8s-device-plugin#preparing-your-gpu-nodes)として、`nvidia-container-runtime`を設定しなければならない。
 - NVIDIAのドライバーのバージョンが次の条件を満たさなければならない ~= 384.81。
 
 クラスターが起動して上記の要件が満たされれば、以下のコマンドを実行することでNVIDIAのデバイスプラグインがデプロイできます。
