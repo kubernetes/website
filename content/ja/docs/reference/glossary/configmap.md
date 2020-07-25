@@ -14,4 +14,4 @@ tags:
 
 <!--more-->
 
-ConfigMapを使用すると、環境固有の構成を{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}から分離できるため、アプリケーションを簡単に移植できるようになります。
+ConfigMapを使用すると、環境固有の設定を{{< glossary_tooltip text="コンテナイメージ" term_id="image" >}}から分離できるため、アプリケーションを簡単に移植できるようになります。

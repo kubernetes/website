@@ -16,7 +16,7 @@ ConfigMapは機密性や暗号化を提供しません。保存したいデー�
 
 ## 動機
 
-アプリケーションのコードとは別に構成データを設定するには、ConfigMapを使用します。
+アプリケーションのコードとは別に設定データを設定するには、ConfigMapを使用します。
 
 たとえば、アプリケーションを開発していて、(開発用時には)自分のコンピューター上と、(実際のトラフィックをハンドルするときは)クラウド上とで実行することを想像してみてください。あなたは、`DATABASE_HOST`という名前の環境変数を使用するコードを書きます。ローカルでは、この変数を`localhost`に設定します。クラウド上では、データベースコンポーネントをクラスター内に公開するKubernetesの{{< glossary_tooltip text="Service" term_id="service" >}}を指すように設定します。
 
@@ -185,5 +185,4 @@ immutable: true
 * [Secret](/docs/concepts/configuration/secret/)について読む。
 * [Podを構成してConfigMapを使用する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
 * コードを設定から分離する動機を理解するために[The Twelve-Factor App](https://12factor.net/ja/)を読む。
-
 
