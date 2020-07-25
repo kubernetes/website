@@ -1,6 +1,6 @@
 ---
-title: "Service Catalog"
-description: Install the Service Catalog extension API.
+title: "サービスカタログ"
+description: サービスカタログ拡張APIをインストールする
 weight: 150
 ---
 

@@ -1,83 +1,68 @@
 ---
-title: Install Service Catalog using SC
-reviewers:
-- chenopis
+title: SCを使用したサービスカタログのインストール
 content_type: task
 ---
 
 <!-- overview -->
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
+{{< glossary_definition term_id="service-catalog" length="all" prepend="サービスカタログは" >}}
 
-You can use the GCP [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)
-tool to easily install or uninstall Service Catalog on your Kubernetes cluster, linking it to
-Google Cloud projects.
+GCPの[Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)ツールを使うと、Kubernetesクラスター上にサービスカタログを簡単にインストール・アンインストールして、Google Cloudのプロジェクトに紐付けることもできます。
 
-Service Catalog itself can work with any kind of managed service, not just Google Cloud.
-
-
-
+サービスカタログ自体は、Google Cloudだけではなく、どのような種類のマネージドサービスでも動作します。
 
 ## {{% heading "prerequisites" %}}
 
-* Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
-* Install [Go 1.6+](https://golang.org/dl/) and set the `GOPATH`.
-* Install the [cfssl](https://github.com/cloudflare/cfssl) tool needed for generating SSL artifacts.
-* Service Catalog requires Kubernetes version 1.7+.
-* [Install and setup kubectl](/docs/tasks/tools/install-kubectl/) so that it is configured to connect to a Kubernetes v1.7+ cluster.
-* The kubectl user must be bound to the *cluster-admin* role for it to install Service Catalog. To ensure that this is true, run the following command:
+* [サービスカタログ](/docs/concepts/service-catalog/)の基本概念を理解してください。
+* [Go 1.6+](https://golang.org/dl/)をインストールして、`GOPATH`を設定してください。
+* SSLに関するファイルを生成するために必要な[cfssl](https://github.com/cloudflare/cfssl)ツールをインストールしてください。
+* サービスカタログを使用するには、Kubernetesクラスターのバージョンが1.7以降である必要があります。
+* [kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参考に、v1.7以降のkubectlをインストールし、設定を行ってください。
+* サービスカタログをインストールするためには、kubectlのユーザーが*cluster-admin*ロールにバインドされている必要があります。正しくバインドされていることを確認するには、次のコマンドを実行します。
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
 
-
-
-
 <!-- steps -->
-## Install `sc` in your local environment
+## ローカル環境に`sc`をインストールする
 
-The installer runs on your local computer as a CLI tool named `sc`.
+インストーラーは、ローカルのコンピューター上で`sc`と呼ばれるCLIツールとして実行します。
 
-Install using `go get`:
+`go get`を使用してインストールします。
 
 ```shell
 go get github.com/GoogleCloudPlatform/k8s-service-catalog/installer/cmd/sc
 ```
 
-`sc` should now be installed in your `GOPATH/bin` directory.
+これで、`sc`が`GOPATH/bin`ディレクトリー内にインストールされたはずです。
 
-## Install Service Catalog in your Kubernetes cluster
+## Kubernetesクラスターにサービスカタログをインストールする
 
-First, verify that all dependencies have been installed. Run:
+まず、すべての依存関係がインストールされていることを確認します。次のコマンドを実行してください。
 
 ```shell
 sc check
 ```
 
-If the check is successful, it should return:
+チェックが成功したら、次のように表示されるはずです。
 
 ```
 Dependency check passed. You are good to go.
 ```
 
-Next, run the install command and specify the `storageclass` that you want to use for the backup:
+次に、バックアップに使用したい`storageclass`を指定して、installコマンドを実行します。
 
 ```shell
 sc install --etcd-backup-storageclass "standard"
 ```
 
-## Uninstall Service Catalog
+## サービスカタログのアンインストール
 
-If you would like to uninstall Service Catalog from your Kubernetes cluster using the `sc` tool, run:
+Kubernetesクラスターからサービスカタログをアンインストールしたい場合は、`sc`ツールを使って次のコマンドを実行します。
 
 ```shell
 sc uninstall
 ```
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
-* View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
-* Explore the [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) project.
-
-
+* [サービスブローカーのサンプル](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers)を読む。
+* [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog)プロジェクトを探索する。
