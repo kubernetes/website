@@ -150,7 +150,7 @@ service/nodeport exposed
 
 ```console
 NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }')
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
 ```
 
 如果你的集群运行在一个云服务上，你可能需要为上面报告的 `nodes:nodeport` 开启一条防火墙规则。
