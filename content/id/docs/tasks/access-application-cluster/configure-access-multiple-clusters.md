@@ -320,7 +320,7 @@ contexts:
 ```
 
 Untuk informasi lebih tentang bagaimana berkas Kubeconfig tergabung, lihat
-[Mengatur Akses Cluster Menggunakan Berkas Kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+[Mengatur Akses Cluster Menggunakan Berkas Kubeconfig](/id/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 
 ## Jelajahi direktori $HOME/.kube
 
@@ -372,7 +372,7 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 ## {{% heading "whatsnext" %}}
 
 
-* [Mengatur Akses Cluster Menggunakan Berkas Kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+* [Mengatur Akses Cluster Menggunakan Berkas Kubeconfig](/id/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
 
 
