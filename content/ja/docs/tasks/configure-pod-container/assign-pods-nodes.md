@@ -35,7 +35,7 @@ weight: 120
     kubectl label nodes <your-node-name> disktype=ssd
     ```
 
-    ここで、`<your-node-name>`には選択したノードの名前です。
+    ここで、`<your-node-name>`は選択したノードの名前です。
 
 1. 選択したノードに`disktype=ssd`ラベルがあることを確認します。
 
