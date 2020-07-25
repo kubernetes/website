@@ -8,7 +8,7 @@ weight: 20
 
 Seluruh objek di dalam REST API Kubernetes secara jelas ditandai dengan nama dan UID.
 
-Apabila pengguna ingin memberikan atribut tidak unik, Kubernetes menyediakan [label](/docs/user-guide/labels) dan [anotasi](/docs/concepts/overview/working-with-objects/annotations/).
+Apabila pengguna ingin memberikan atribut tidak unik, Kubernetes menyediakan [label](/docs/user-guide/labels) dan [anotasi](/id/docs/concepts/overview/working-with-objects/annotations/).
 
 Bacalah [dokumentasi desain penanda](https://git.k8s.io/community/contributors/design-proposals/architecture/identifiers.md) agar kamu dapat memahami lebih lanjut sintaks yang digunakan untuk Nama dan UID.
 

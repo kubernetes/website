@@ -19,7 +19,7 @@ _asalkan klaster kamu beroperasi pada lingkungan yang mendukung dan terkonfigura
 
 Untuk informasi mengenai penyediaan dan penggunaan sumber daya Ingress yang dapat memberikan
 servis URL yang dapat dijangkau secara eksternal, penyeimbang beban lalu lintas, terminasi SSL, dll.,
-silahkan cek dokumentasi [Ingress](/docs/concepts/services-networking/ingress/)
+silahkan cek dokumentasi [Ingress](/id/docs/concepts/services-networking/ingress/)
 
 
 
@@ -35,7 +35,7 @@ silahkan cek dokumentasi [Ingress](/docs/concepts/services-networking/ingress/)
 ## Berkas konfigurasi
 
 Untuk membuat _load balancer_ eksternal, tambahkan baris di bawah ini ke
-[berkas konfigurasi Service](/docs/concepts/services-networking/service/#loadbalancer) kamu:
+[berkas konfigurasi Service](/id/docs/concepts/services-networking/service/#loadbalancer) kamu:
 
 ```yaml
     type: LoadBalancer
