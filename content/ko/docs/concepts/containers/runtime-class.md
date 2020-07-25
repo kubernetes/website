@@ -33,7 +33,7 @@ weight: 20
 ## 셋업
 
 런타임클래스 기능 게이트가 활성화(기본값)된 것을 확인한다.
-기능 게이트 활성화에 대한 설명은 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+기능 게이트 활성화에 대한 설명은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 참고한다. `RuntimeClass` 기능 게이트는 apiservers _및_ kubelets에서 활성화되어야 한다.
 
 1. CRI 구현(implementation)을 노드에 설정(런타임에 따라서)
@@ -170,7 +170,7 @@ https://github.com/containerd/cri/blob/master/docs/config.md
 
 파드 실행과 연관되는 _오버헤드_ 리소스를 지정할 수 있다. 오버헤드를 선언하면
 클러스터(스케줄러 포함)가 파드와 리소스에 대한 결정을 내릴 때 처리를 할 수 있다.
-PodOverhead를 사용하려면, PodOverhead [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)
+PodOverhead를 사용하려면, PodOverhead [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
 를 활성화 시켜야 한다. (기본으로 활성화 되어 있다.)
 
 파드 오버헤드는 런타임 클래스에서 `overhead` 필드를 통해 정의된다. 이 필드를 사용하면,
