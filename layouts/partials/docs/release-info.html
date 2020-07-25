@@ -1,0 +1,9 @@
+  <li datetime="{{ .date }}">
+    {{ if .details }}
+    {{  .name | strings.TrimRight "0" | strings.TrimRight ".a" }}
+    {{ else }}
+      {{ .name }}
+    {{ end }}
+    (<a href="https://relnotes.k8s.io/?releaseVersions={{ trim .name "v" }}" hreflang="en">{{ T "release_notes" }}</a>)
+    <span class="release-date">{{ dateFormat (site.Params.time_format_blog) (index ( split .date "T" ) 0 | time ) }}</span>.
+  </li>

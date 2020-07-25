@@ -1,0 +1,45 @@
+{{ define "side-menu" }}
+{{ partial "docs/side-menu.html" . }}
+{{ end }}
+
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ .Content }}
+{{ partial "section-index.html" . }}
+{{- if not $.Site.Params.deprecated }}
+<h2 id="release-list">{{ T "release_list_heading" }}</h2>
+  <details class="release-list">
+  <summary>{{ T "older_releases" }}</summary>
+  <ul>
+  {{ range sort $.Site.Data.releases.legacy "date" "asc"}}
+    {{ partial "docs/release-info.html" . }}
+  {{ end }}
+  {{ range sort $.Site.Data.releases.dates "date" "asc" }}
+    {{- if strings.HasSuffix .name ".0" }}
+      {{- if not (hasPrefix .name (printf "%s." $.Site.Params.latest )) }}
+      {{ partial "docs/release-info.html" . }}
+      {{- end -}}
+    {{- end }}
+  {{ end }}
+  </ul>
+  </details>
+  <hr />
+  <div id="release-current">
+  <ul>
+  {{ range sort $.Site.Data.releases.dates "date" "asc" }}
+    {{- if strings.HasSuffix .name ".0" }}
+      {{- if hasPrefix .name (printf "%s." $.Site.Params.latest ) }}
+      {{ partial "docs/release-info.html" . }}
+      {{- end -}}
+    {{- end }}
+  {{- end }}
+  </ul>
+  </div>
+{{ else }}
+{{ $url := urls.Parse ( printf "%s%s" ( strings.TrimRight "/" $.Site.BaseURL ) ( .Permalink | relURL ) ) }}
+{{ with $url }}
+<p>{{ T "release_information_latest" }}</p>
+<ul id="latest-release-link"><li><a href="{{ . | string }}">{{ $.Site.Params.latest }}</a></li></ul>
+{{ end }}
+{{- end }}
+{{- end }}

@@ -57,6 +57,21 @@ other = "Latest version"
 [docs_version_other_heading]
 other = "Older versions"
 
+[downloads_details]
+other = "Details"
+
+[downloads_link_download_page]
+other = "Downloads"
+
+[downloads_link_github_release]
+other = "Release information"
+
+[downloads_source_code]
+other = "Source code"
+
+[downloads_version]
+other = "Version"
+
 [error_404_were_you_looking_for]
 other = "Were you looking for:"
 
@@ -183,6 +198,9 @@ other = "Note:"
 [objectives_heading]
 other = "Objectives"
 
+[older_releases]
+other = "Older Kubernetes releases"
+
 [options_heading]
 other = "Options"
 
@@ -191,6 +209,27 @@ other = "Create an issue"
 
 [prerequisites_heading]
 other = "Before you begin"
+
+[release_download_info_current]
+other = "This page lists downloads for {{ .version }}, which is the current minor release."
+
+[release_download_info_previous]
+other = "This page lists downloads for {{ .version }}."
+
+[release_download_info_latest]
+other = "The latest Kubernetes release is {{ .version }}."
+
+[release_information_latest]
+other = "For information on all Kubernetes releases, see the current documentation:"
+
+[release_most_recent]
+other = "For Kubernetes {{.minorversion}}, [{{ .version }}](#{{.anchor}}) is the latest patch release."
+
+[release_notes]
+other = "Release notes"
+
+[release_list_heading]
+other = "List of releases"
 
 [seealso_heading]
 other = "See Also"

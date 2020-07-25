@@ -1,0 +1,45 @@
+{{ define "side-menu" }}
+{{ partial "docs/side-menu.html" . }}
+{{ end }}
+
+{{ define "main" }}
+<div class="td-content">
+<h1>{{ .Title }}</h1>
+<p>
+  {{ with (printf "version = \"Kubernetes %s\""  $.Site.Params.version | transform.Unmarshal ) }}
+  {{- if not $.Site.Params.deprecated }}
+    {{ T "release_download_info_current" . }}
+  {{- else }}
+    {{ T "release_download_info_previous" . }}
+    {{ with (printf "version = \"Kubernetes %s\""  $.Site.Params.latest | transform.Unmarshal ) }}
+      {{ T "release_download_info_latest" . }}
+    {{- end }}
+  {{- end }}
+  {{ end }}
+</p>
+    {{ .Content }}
+  {{ partial "section-index.html" . }}
+
+  {{ range last 1 .Site.Data.releases.dates }}
+  {{ with ( printf "minorversion = \"%s\"\nversion = \"%s\"\nanchor = \"download-%s\"" $.Site.Params.version .name ( replace .name "." "-" ) | transform.Unmarshal ) }}
+  <p>{{  T "release_most_recent" . | markdownify }}</p>
+  {{ end }}
+  {{ end }}
+  <div class="release-table-header">
+    <div>{{ T "release_table_header_version" }}</div><div>{{ T "release_table_header_notes" }}</div>
+  </div>
+  <div class="release-table-body">
+    {{ range sort $.Site.Data.releases.dates "date" "desc" }}
+    {{ if hasPrefix .name $.Site.Params.version }}
+    <h2 id="download-{{ replace .name "." "-" }}">
+        {{ .name }}
+    </h2>
+    <p class="download-sourcecode"><a href="https://dl.k8s.io/{{ .name }}/kubernetes-src.tar.gz">{{ T "downloads_source_code" }}</a></p>
+    <div class="download-notes" id="download-{{ replace .name "." "-" }}-notes">
+        {{ .details | markdownify }}
+    </div>
+    {{ end }}
+    {{ end }}
+  </div>
+</div>
+{{ end }}

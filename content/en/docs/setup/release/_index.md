@@ -1,4 +1,7 @@
 ---
-title: "Release notes and version skew"
+layout: releases
+title: "Kubernetes Releases"
 weight: 10
+aliases:
+  - /releases/
 ---

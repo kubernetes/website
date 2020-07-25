@@ -556,6 +556,23 @@ section#announcement ~ .header-hero {
     }
 }
 
+/* DOWNLOADS */
+
+.release-table-body {
+  padding-top: 1.5em;
+}
+.release-table-body :is(h1, h2, h3, h4, h5, h6):not(:first-child) {
+  margin-top: 1em;
+}
+
+.release-table-body .download-notes > * > code:nth-of-type(2)::after {
+  content: "\A";
+  white-space: pre;
+}
+.release-table-body  .download-notes > *:not(:last-child) {
+    display: none; /* Don't show first release notes paragraph */
+}
+
 /* DOCUMENTATION */
 
 /* Don't show lead text */
