@@ -133,7 +133,7 @@ After submitting at least 5 substantial pull requests and meeting the other [req
 2.  Open a GitHub issue in the [`kubernetes/org`](https://github.com/kubernetes/org/) repository. Use the **Organization Membership Request** issue template.
 -->
 1. 找到两个[评审人](#reviewers)或[批准人](#approvers)为你的成员身份提供
-   [担保](/docs/contribute/advanced#sponsor-a-new-contributor)。
+   [担保](/zh/docs/contribute/advanced#sponsor-a-new-contributor)。
 
    通过 [Kubernetes Slack 上的 #sig-docs 频道](https://kubernetes.slack.com) 或者
    [SIG Docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
@@ -277,7 +277,8 @@ in the `kubernetes/website` repository.
 
 2. Assign the PR to one or more SIG-Docs approvers (user names listed under `sig-docs-{language}-owners`).
 
-If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added, [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
+If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added,
+[@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home) assigns and suggests you as a reviewer on new pull requests.
 -->
 1. 发起 PR，将你的 GitHub 用户名添加到 `kubernetes/website` 仓库中
    [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
@@ -291,7 +292,7 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
    下列举的用户名）。
 
 请求被批准之后，SIG Docs Leads 之一会将你添加到合适的 GitHub 团队。
-一旦添加完成， [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
+一旦添加完成， [@k8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
 会在处理未来的 PR 时，将 PR 指派给你或者建议你来评审某 PR。
 
 <!--
@@ -354,7 +355,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
     不小心的合并可能会破坏整个站点。在执行合并操作时，务必小心。
     {{< /warning >}}
 
-- 确保所提议的变更满足[贡献指南](/docs/contribute/style/content-guide/#contributing-content)要求
+- 确保所提议的变更满足[贡献指南](/zh/docs/contribute/style/content-guide/#contributing-content)要求
 
     如果有问题或者疑惑，可以根据需要请他人帮助评审。
 
@@ -366,7 +367,7 @@ Approvers and SIG Docs leads are the only ones who can merge pull requests into 
 
 - 参与 [PR 管理者轮值排班](https://github.com/kubernetes/website/wiki/PR-Wranglers)
   执行时长为一周的 PR 管理。SIG Docs 期望所有批准人都参与到此轮值工作中。
-  更多细节可参见[做一周的 PR 管理者](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week)。
+  更多细节可参见[做一周的 PR 管理者](/zh/docs/contribute/participate/pr-wranglers/)。
 
 <!--
 ### Becoming an approver
@@ -406,4 +407,11 @@ If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added
 请求被批准之后，SIG Docs Leads 之一会将你添加到对应的 GitHub 团队。
 一旦添加完成， [K8s-ci-robot](https://github.com/kubernetes/test-infra/tree/master/prow#bots-home)
 会在处理未来的 PR 时，将 PR 指派给你或者建议你来评审某 PR。
+
+## {{% heading "whatsnext" %}}
+
+<!--
+- Read about [PR wrangling](/docs/contribute/participating/pr-wranglers), a role all approvers take on rotation.
+-->
+- 阅读[管理 PR](/zh/docs/contribute/participate/pr-wranglers/)，了解所有批准人轮值的一个角色。
 
