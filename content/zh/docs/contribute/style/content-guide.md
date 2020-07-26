@@ -60,7 +60,7 @@ Kubernetes 网站（包括其文档）源代码位于
 在 `kubernetes/website/content/<语言代码>/docs` 目录下, 绝大多数 Kubernetes
 文档都是特定于 [Kubernetes 项目](https://github.com/kubernetes/kubernetes)的。
 
-## 可以发布的内容  {#whats-allowed}
+## 可以发布的内容  {#what-s-allowed}
 
 只有当以下条件满足时，Kuberentes 文档才允许第三方项目的内容：
 
