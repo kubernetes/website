@@ -219,11 +219,11 @@
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
 /docs/tasks/administer-cluster/configure-multiple-schedulers/     /docs/tasks/extend-kubernetes/configure-multiple-schedulers/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
-/docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
-/docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
-/docs/tasks/administer-cluster/cpu-memory-limit/     /docs/tasks/administer-cluster/memory-default-namespace/ 301
-/docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/configure-pod-container/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
-/docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/configure-pod-container/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
+/docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/manage-resources/cpu-constraint-namespace/ 301
+/docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/manage-resources/cpu-default-namespace/ 301
+/docs/tasks/administer-cluster/cpu-memory-limit/     /docs/tasks/manage-resources/memory-default-namespace/ 301
+/docs/tasks/administer-cluster/default-cpu-request-limit/     /docs/tasks/manage-resources/assign-cpu-resource/#specify-a-cpu-request-and-a-cpu-limit/ 301
+/docs/tasks/administer-cluster/default-memory-request-limit/     /docs/tasks/manage-resources/assign-memory-resource/#specify-a-memory-request-and-a-memory-limit/ 301
 /docs/tasks/administer-cluster/developing-cloud-controller-manager.md     /docs/tasks/administer-cluster/developing-cloud-controller-manager/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-ha-1-13     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
@@ -231,19 +231,19 @@
 /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15     /docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/ 301
 /docs/tasks/administer-cluster/kubeadm-upgrade-ha/     /docs/tasks/administer-cluster/upgrade-downgrade/kubeadm-upgrade-ha/ 301
 /docs/tasks/administer-cluster/kube-router-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/ 301
-/docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
-/docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-default-namespace/ 301
+/docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/manage-resources/memory-constraint-namespace/ 301
+/docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/manage-resources/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
 /docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
-/docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
-/docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
+/docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/manage-resources/quota-memory-cpu-namespace/ 301
+/docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
 /docs/tasks/administer-cluster/romana-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/ 301
 /docs/tasks/administer-cluster/running-cloud-controller.md     /docs/tasks/administer-cluster/running-cloud-controller/ 301
 /docs/tasks/administer-cluster/share-configuration/     /docs/tasks/access-application-cluster/configure-access-multiple-clusters/ 301
 /docs/tasks/administer-cluster/static-pod/ /docs/tasks/configure-pod-container/static-pod/ 301
 /docs/tasks/administer-cluster/weave-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/ 301
-/docs/tasks/configure-pod-container/apply-resource-quota-limit/     /docs/tasks/administer-cluster/apply-resource-quota-limit/ 301
+/docs/tasks/configure-pod-container/apply-resource-quota-limit/     docs/tasks/manage-resources/quota-api-object/ 301
 /docs/tasks/configure-pod-container/assign-cpu-ram-container/     /docs/tasks/configure-pod-container/assign-memory-resource/ 301
 /docs/tasks/configure-pod-container/calico-network-policy/     /docs/tasks/administer-cluster/calico-network-policy/ 301
 /docs/tasks/configure-pod-container/cilium-network-policy/     /docs/tasks/administer-cluster/cilium-network-policy/ 301
@@ -498,7 +498,10 @@
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
 
 /docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tasks/manage-kubernetes-objects/namespaces-walkthrough/ 301
+docs/tasks/administer-cluster/quota-api-object/   /docs/tasks/manage-resources/quota-api-object/ 301
 /docs/tasks/configure-pod-container/configure-pod-configmap/ /docs/tasks/inject-data-application/configure-pod-configmap/ 301
+/docs/tasks/configure-pod-container/assign-cpu-resource/  /docs/tasks/manage-resources/assign-cpu-resource/ 301
+/docs/tasks/configure-pod-container/assign-memory-resource/  /docs/tasks/manage-resources/assign-memory-resource/ 301
 /docs/tasks/manage-daemon/update-daemon-set/   /docs/tasks/administer-cluster/update-daemon-set/ 301
 /docs/tasks/manage-daemon/rollback-daemon-set/    /docs/tasks/administer-cluster/rollback-daemon-set/ 301
 /docs/tasks/service-catalog/    /docs/tasks/extend-kubernetes/install-service-catalog-using-helm/ 301
@@ -508,4 +511,3 @@
 /docs/tasks/manage-gpus/scheduling-gpus/    /docs/tasks/manage-resources/scheduling-gpus/ 301
 /docs/tasks/manage-hugepages/   /docs/tasks/manage-resources/manage-hugepages/ 301
 /docs/tasks/manage-hugepages/scheduling-hugepages/   /docs/tasks/manage-resources/manage-hugepages/ 301
-

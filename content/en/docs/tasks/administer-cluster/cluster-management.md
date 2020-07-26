@@ -4,6 +4,7 @@ reviewers:
 - thockin
 title: Cluster Management
 content_type: concept
+weight: 10
 ---
 
 <!-- overview -->

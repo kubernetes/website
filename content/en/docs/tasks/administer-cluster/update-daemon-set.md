@@ -3,7 +3,6 @@ reviewers:
 - janetkuo
 title: Perform a Rolling Update on a DaemonSet
 content_type: task
-weight: 10
 ---
 
 <!-- overview -->

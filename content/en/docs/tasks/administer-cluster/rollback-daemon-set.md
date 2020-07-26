@@ -3,7 +3,6 @@ reviewers:
 - janetkuo
 title: Perform a Rollback on a DaemonSet
 content_type: task
-weight: 20
 min-kubernetes-server-version: 1.7
 ---
 
