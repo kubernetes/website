@@ -49,7 +49,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 
 - DNS解決ファイルへのパスは`--resolv-conf`フラグで指定することができますが、オペレーティングシステムや`systemd-resolved`を使用するかどうかによって異なる場合があります。このパスに誤りがある場合、そのNode上でのDNS解決は失敗します。
 - クラウドプロバイダーを使用していない場合、Node APIオブジェクト`.metadata.name`はデフォルトでマシンのホスト名に設定されます。異なるNode名を指定する必要がある場合には、`--hostname-override`フラグによってこの挙動を書き換えることができます。
-- 現在のところ、kubletはCRIランタイムが使用するcgroupドライバを自動で検知することができませんが、kubeletの稼働を保証するためには、`--cgroup-driver`の値はCRIラインタイムが使用するcgroupドライバに一致していなければなりません。
+- 現在のところ、kubletはCRIランタイムが使用するcgroupドライバを自動で検知することができませんが、kubeletの稼働を保証するためには、`--cgroup-driver`の値はCRIランタイムが使用するcgroupドライバに一致していなければなりません。
 - クラスターが使用するCRI runtimeによっては、異なるフラグを指定する必要があるかもしれません。例えば、Dockerを使用している場合には、`--network-plugin=cni`のようなフラグを指定する必要があります。外部のランタイムを使用している場合には、`--container-runtime=remote`と指定し、`--container-runtime-endpoint=<path>`とCRIエンドポイントを指定する必要があります。
 
 これらのフラグは、systemdなどのサービスマネージャー内のkubeletの設定によって指定することができます。
