@@ -84,3 +84,9 @@ docker-internal-linkcheck:
 container-internal-linkcheck: link-checker-image-pull
 	$(CONTAINER_RUN) $(CONTAINER_IMAGE) hugo --config config.toml,linkcheck-config.toml --buildFuture
 	$(CONTAINER_ENGINE) run --mount type=bind,source=$(CURDIR),target=/test --rm wjdp/htmltest htmltest
+
+partial-serve:
+	 hugo server --buildFuture --contentDir content/$(LANG)
+
+container-partial-serve:
+	$(CONTAINER_RUN) --mount type=tmpfs,destination=/src/resources,tmpfs-mode=0755 -p 1313:1313 $(CONTAINER_IMAGE) hugo server --buildFuture --bind 0.0.0.0 --contentDir content/$(LANG)
