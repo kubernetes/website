@@ -80,7 +80,7 @@ GUINEVERE SAENGER: I will say that that entire team was absolutely wonderful, de
 
 **CRAIG BOX: You now work on GitHub's Kubernetes infrastructure. Obviously, there was GitHub before there was a Kubernetes, so a migration happened. What can you tell us about the transition that GitHub made to running on Kubernetes?**
 
-GUINEVERE SAENGER: A disclaimer here-- I was not at GitHub at the time that the transition to Kubernetes was made. However, to the best of my knowledge, the decision to transition to Kubernetes was made and people decided, yes, we want to try Kubernetes. We want to use Kubernetes. And mostly, the only decision left was, which one of our applications should we move over to Kubernetes?
+GUINEVERE SAENGER: A disclaimer here— I was not at GitHub at the time that the transition to Kubernetes was made. However, to the best of my knowledge, the decision to transition to Kubernetes was made and people decided, yes, we want to try Kubernetes. We want to use Kubernetes. And mostly, the only decision left was, which one of our applications should we move over to Kubernetes?
 
 **CRAIG BOX: I thought GitHub was written on Rails, so there was only one application.**
 
@@ -102,23 +102,23 @@ GUINEVERE SAENGER: I'm not sure this is a lesson specifically, but I was on supp
 
 GUINEVERE SAENGER: It should not have affected any customers, I should mention, at this point. But all in all, it took a few of us a few hours to almost completely recover from this event. I think that, without Kubernetes, this would not have been possible.
 
-**CRAIG BOX: Generally, deleting something like that is quite catastrophic. We've seen a number of other vendors suffer large outages when someone's done something to that effect, which is why we get #hugops on Twitter all the time.**
+**CRAIG BOX: Generally, deleting something like that is quite catastrophic. We've seen a number of other vendors suffer large outages when someone's done something to that effect, which is why we get [#hugops](https://twitter.com/hashtag/hugops) on Twitter all the time.**
 
 GUINEVERE SAENGER: People did send me #hugops, that is a thing that happened. But overall, something like this was an interesting stress test and sort of proved that it wasn't nearly as catastrophic as a worst case scenario.
 
 **CRAIG BOX: GitHub [runs its own data centers](https://githubengineering.com/githubs-metal-cloud/). Kubernetes was largely built for running on the cloud, but a lot of people do choose to run it on their own, bare metal. How do you manage clusters and provisioning of the machinery you run?**
 
-GUINEVERE SAENGER: When I started, my onboarding project was to deprovision an old cluster, make sure all the traffic got moved to somewhere where it would keep running, provision a new cluster, and then move website traffic onto the new cluster. That was a really exciting onboarding project. At the time, we provisioned bare metal machines using Puppet. We still do that to a degree, but I believe the team that now runs our computing resources actually inserts virtual machines as an extra layer between the bare metal and the Kubernetes notes.
+GUINEVERE SAENGER: When I started, my onboarding project was to deprovision an old cluster, make sure all the traffic got moved to somewhere where it would keep running, provision a new cluster, and then move website traffic onto the new cluster. That was a really exciting onboarding project. At the time, we provisioned bare metal machines using Puppet. We still do that to a degree, but I believe the team that now runs our computing resources actually inserts virtual machines as an extra layer between the bare metal and the Kubernetes nodes.
 
 Again, I was not intrinsically part of that decision, but my understanding is that it just makes for a greater reliability and reproducibility across the board. We've had some interesting hardware dependency issues come up, and the virtual machines basically avoid those.
 
 **CRAIG BOX: You've been working with Kubernetes for a couple of years now. How did you get involved in the release process?**
 
-GUINEVERE SAENGER: When I first started in the project, I started at the [special interest group for contributor experience](ttps://github.com/kubernetes/community/tree/master/sig-contributor-experience), namely because one of my co-workers at the time, Aaron Crickenberger, was a big Kubernetes community person. Still is.
+GUINEVERE SAENGER: When I first started in the project, I started at the [special interest group for contributor experience](https://github.com/kubernetes/community/tree/master/sig-contributor-experience#readme), namely because one of my co-workers at the time, Aaron Crickenberger, was a big Kubernetes community person. Still is.
 
 **CRAIG BOX: We've [had him on the show](https://kubernetespodcast.com/episode/046-kubernetes-1.14/) for one of these very release interviews!**
 
-GUINEVERE SAENGER: In fact, this is true! So Aaron and I actually go way back to Samsung SDS. Anyway, Aaron suggested that I should write up a contribution to the Kubernetes project, and I said, me? And he said, yes, of course. You will be [speaking at KubeCon](https://www.youtube.com/watch?v=TkCDUFR6xqw), so you should probably get started with a PR or something. So I tried, and it was really, really hard. And I [complained about it in a public GitHub issue](https://github.com/kubernetes/community/issues/141), and people said, yeah. Yeah, we know it's hard. Do you want to help with that?
+GUINEVERE SAENGER: In fact, this is true! So Aaron and I actually go way back to Samsung SDS. Anyway, Aaron suggested that I should write up a contribution to the Kubernetes project, and I said, me? And he said, yes, of course. You will be [speaking at KubeCon](https://www.youtube.com/watch?v=TkCDUFR6xqw), so you should probably get started with a PR or something. So I tried, and it was really, really hard. And I complained about it [in a public GitHub issue](https://github.com/kubernetes/community/issues/141), and people said, yeah. Yeah, we know it's hard. Do you want to help with that?
 
 And so I started getting really involved with the [process for new contributors to get started](https://github.com/kubernetes/community/tree/master/contributors/guide) and have successes, kind of getting a foothold into a project that's as large and varied as Kubernetes. From there on, I began to talk to people, get to know people. The great thing about the Kubernetes community is that there is so much mentorship to go around.
 
@@ -132,7 +132,7 @@ GUINEVERE SAENGER: Yeah.
 
 **CRAIG BOX: But we're friends.**
 
-GUINEVERE SAENGER: But he totally helped me when I didn't know how to get-- patch my borked pull request. So that happened. And eventually, somebody just suggested that I start following along in the release process and shadow someone on their release team role. And that, at the time, was Tim Pepper, who was bug triage lead, and I shadowed him for that role.
+GUINEVERE SAENGER: But he totally helped me when I didn't know how to git patch my borked pull request. So that happened. And eventually, somebody just suggested that I start following along in the release process and shadow someone on their release team role. And that, at the time, was Tim Pepper, who was bug triage lead, and I shadowed him for that role.
 
 **CRAIG BOX: Another [podcast guest](https://kubernetespodcast.com/episode/010-kubernetes-1.11/) on the interview train.**
 
@@ -148,7 +148,7 @@ GUINEVERE SAENGER: We have only a very few new things. The one that I'm most exc
 
 GUINEVERE SAENGER: I don't know!
 
-**CRAIG BOX: [Please see the appendix to this podcast](https://softwareengineering.stackexchange.com/questions/185380/ipv4-to-ipv6-where-is-ipv5) for technical explanations.**
+**CRAIG BOX: Please see [the appendix to this podcast](https://softwareengineering.stackexchange.com/questions/185380/ipv4-to-ipv6-where-is-ipv5) for technical explanations.**
 
 GUINEVERE SAENGER: Having a dual stack configuration obviously enables people to have a much more flexible infrastructure and not have to worry so much about making decisions that will become outdated or that may be over-complicated. This basically means that pods can have dual stack addresses, and nodes can have dual stack addresses. And that basically just makes communication a lot easier.
 
@@ -168,7 +168,7 @@ It has been brought up last year to make the final release more of a stability r
 
 **ADAM GLICK: On top of all of the release work that was going on, there was also KubeCon that happened. And you were involved in the [contributor summit](https://github.com/kubernetes/community/tree/master/events/2019/11-contributor-summit). How was the summit?**
 
-GUINEVERE SAENGER: This was the first contributor summit where we had an organized events team with events organizing leads, and handbooks, and processes. And I have heard from multiple people-- this is just word of mouth-- that it was their favorite contributor summit ever.
+GUINEVERE SAENGER: This was the first contributor summit where we had an organized events team with events organizing leads, and handbooks, and processes. And I have heard from multiple people— this is just word of mouth— that it was their favorite contributor summit ever.
 
 **CRAIG BOX: Was someone allocated to hat production? [Everyone had sailor hats](https://flickr.com/photos/143247548@N03/49093218951/).**
 
@@ -192,7 +192,7 @@ GUINEVERE SAENGER: A release lead has to have served in other roles on the relea
 
 So that was actually really cool to see. And yeah, just getting to see more of the workings of the team, for me, it was exciting. The other big exciting thing, of course, was to see all the changes that were going in and all the efforts that were being made.
 
-**CRAIG BOX: The release lead for 1.18 has just been announced as Jorge Alarcon. What are you going to put in the proverbial envelope as advice for him?**
+**CRAIG BOX: The release lead for 1.18 has just been announced as [Jorge Alarcon](https://twitter.com/alejandrox135). What are you going to put in the proverbial envelope as advice for him?**
 
 GUINEVERE SAENGER: I would want Jorge to be really on top of making sure that every Special Interest Group that enters a change, that has an enhancement for 1.18, is on top of the timelines and is responsive. Communication tends to be a problem. And I had hinted at this earlier, but some enhancements slipped simply because there wasn't enough reviewer bandwidth.
 
@@ -200,7 +200,7 @@ Greater communication of timelines and just giving people more time and space to
 
 **ADAM GLICK: What would your advice be to someone who is hearing your experience and is inspired to get involved with the Kubernetes release or contributer process?**
 
-GUINEVERE SAENGER: Those are two separate questions. So let me tackle the Kubernetes release question first. Kubernetes SIG Release has, in my opinion, a really excellent onboarding program for new members. We have what is called the [Release Team Shadow Program](https://github.com/kubernetes/sig-release/blob/master/release-team/shadows.md). We also have the Release Engineering Shadow Program, or the Release Management Shadow Program. Those are two separate subprojects within SIG Release. And each subproject has a team of roles, and each role can have two to four shadows that are basically people who are part of that role team, and they are learning that role as they are doing it.
+GUINEVERE SAENGER: Those are two separate questions. So let me tackle the Kubernetes release question first. Kubernetes [SIG Release](https://github.com/kubernetes/sig-release/#readme) has, in my opinion, a really excellent onboarding program for new members. We have what is called the [Release Team Shadow Program](https://github.com/kubernetes/sig-release/blob/master/release-team/shadows.md). We also have the Release Engineering Shadow Program, or the Release Management Shadow Program. Those are two separate subprojects within SIG Release. And each subproject has a team of roles, and each role can have two to four shadows that are basically people who are part of that role team, and they are learning that role as they are doing it.
 
 So for example, if I am the lead for bug triage on the release team, I may have two, three or four people that I closely work with on the bug triage tasks. These people are my shadows. And once they have served one release cycle as a shadow, they are now eligible to be lead in that role. We have an application form for this process, and it should probably be going up in January. It usually happens the first week of the release once all the release leads are put together.
 
