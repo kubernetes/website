@@ -1,6 +1,8 @@
 ---
 title: Kubernetes 是什么？
 content_type: concept
+description: >
+  Kubernetes 是一个可移植的，可扩展的开源平台，用于管理容器化的工作负载和服务，方便了声明式配置和自动化。它拥有一个庞大且快速增长的生态系统。Kubernetes 的服务，支持和工具广泛可用。
 weight: 10
 card:
   name: concepts
@@ -74,7 +76,7 @@ Each VM is a full machine running all the components, including its own operatin
 每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
 
 <!--
-**Container deployment era:** 
+**Container deployment era:**
 Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
 -->
 **容器部署时代：**
