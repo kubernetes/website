@@ -54,7 +54,7 @@ When you're done with it, you don't have to relearn how to be an adult in a work
 
 GUINEVERE SAENGER: People tend to really connect the dots when I tell them I used to be a musician. Of course, I still consider myself a musician, because you don't really ever stop being a musician. But they say, 'oh, yeah, music and math', and that's just a similar sort of brain. And that makes so much sense. And I think there's a little bit of a point to that. When you learn a piece of music, you have to start recognizing patterns incredibly quickly, almost intuitively.
 
-And I think that is the main skill that translates into programming-- recognizing patterns, finding the things that work, finding the things that don't work. And for me, especially as a collaborative pianist, it's the communicating with people, the finding out what people really want, where something is going, how to figure out what the general direction is that we want to take, before we start writing the first line of code.
+And I think that is the main skill that translates into programming— recognizing patterns, finding the things that work, finding the things that don't work. And for me, especially as a collaborative pianist, it's the communicating with people, the finding out what people really want, where something is going, how to figure out what the general direction is that we want to take, before we start writing the first line of code.
 
 **CRAIG BOX: In your experience at Ada or with other experiences you've had, have you been able to identify patterns in other backgrounds for people that you'd recommend, 'hey, you're good at music, so therefore you might want to consider doing something like a course in computer science'?**
 
