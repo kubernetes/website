@@ -146,4 +146,4 @@ have revision 1 and 2 in the system, and roll back from revision 2 to revision
 ## Troubleshooting
 
 * See [troubleshooting DaemonSet rolling
-  update](/docs/tasks/manage-daemon/update-daemon-set/#troubleshooting).
+  update](/docs/tasks/administer-cluster/update-daemon-set/#troubleshooting).

@@ -1,7 +1,7 @@
 ---
 title: Expose Pod Information to Containers Through Environment Variables
 content_type: task
-weight: 30
+weight: 50
 ---
 
 <!-- overview -->

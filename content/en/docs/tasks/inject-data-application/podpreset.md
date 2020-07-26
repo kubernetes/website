@@ -4,7 +4,7 @@ reviewers:
 title: Inject Information into Pods Using a PodPreset
 min-kubernetes-server-version: v1.6
 content_type: task
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->

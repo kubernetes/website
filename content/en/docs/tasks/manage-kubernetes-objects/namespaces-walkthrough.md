@@ -20,12 +20,10 @@ Use of multiple namespaces is optional.
 This example demonstrates how to use Kubernetes namespaces to subdivide your cluster.
 
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 
 
@@ -292,8 +290,3 @@ cattle-2263376956-sxpth   1/1       Running   0          34s
 ```
 
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
-
-As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different
-authorization rules for each namespace.
-
-

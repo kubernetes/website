@@ -1,7 +1,6 @@
 ---
 title: Configure RunAsUserName for Windows pods and containers
 content_type: task
-weight: 20
 ---
 
 <!-- overview -->

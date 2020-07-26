@@ -196,9 +196,7 @@ kubectl delete ds fluentd-elasticsearch -n kube-system
 
 ## {{% heading "whatsnext" %}}
 
-
-* See [Task: Performing a rollback on a
-  DaemonSet](/docs/tasks/manage-daemon/rollback-daemon-set/)
-* See [Concepts: Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
+* See [Performing a rollback on a DaemonSet](/docs/tasks/administer-cluster/rollback-daemon-set/)
+* See [Creating a DaemonSet to adopt existing DaemonSet pods](/docs/concepts/workloads/controllers/daemonset/)
 
 

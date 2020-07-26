@@ -1,7 +1,6 @@
 ---
 title: Configure GMSA for Windows Pods and containers
 content_type: task
-weight: 20
 ---
 
 <!-- overview -->

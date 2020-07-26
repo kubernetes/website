@@ -1,7 +1,7 @@
 ---
 title: Distribute Credentials Securely Using Secrets
 content_type: task
-weight: 50
+weight: 30
 min-kubernetes-server-version: v1.6
 ---
 

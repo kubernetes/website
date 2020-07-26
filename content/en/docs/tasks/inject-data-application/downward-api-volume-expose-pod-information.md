@@ -1,7 +1,7 @@
 ---
 title: Expose Pod Information to Containers Through Files
 content_type: task
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->

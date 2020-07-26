@@ -3,6 +3,7 @@ title: Install Service Catalog using Helm
 reviewers:
 - chenopis
 content_type: task
+min-kubernetes-server-version: 1.7
 ---
 
 <!-- overview -->
@@ -15,7 +16,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 
 ## {{% heading "prerequisites" %}}
 
-* Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
+* Understand the key concepts of Service Catalog.
 * Service Catalog requires a Kubernetes cluster running version 1.7 or higher.
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
@@ -46,9 +47,9 @@ helm search service-catalog
 If the installation was successful, the command should output the following:
 
 ```
-NAME                	CHART VERSION	APP VERSION	DESCRIPTION                                                 
-svc-cat/catalog     	0.2.1        	           	service-catalog API server and controller-manager helm chart
-svc-cat/catalog-v0.2	0.2.2        	           	service-catalog API server and controller-manager helm chart
+NAME                    CHART VERSION   APP VERSION     DESCRIPTION
+svc-cat/catalog         0.2.1                           service-catalog API server and controller-manager helm chart
+svc-cat/catalog-v0.2    0.2.2                           service-catalog API server and controller-manager helm chart
 ```
 
 ## Enable RBAC
@@ -113,5 +114,3 @@ helm install svc-cat/catalog --name catalog --namespace catalog
 
 * View [sample service brokers](https://github.com/openservicebrokerapi/servicebroker/blob/master/gettingStarted.md#sample-service-brokers).
 * Explore the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog) project.
-
-
