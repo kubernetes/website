@@ -49,7 +49,7 @@ with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
 * UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings which associate users with a set of commonly grouped users.
+* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users. Common values might be `system:masters` or `devops-team`.
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance
