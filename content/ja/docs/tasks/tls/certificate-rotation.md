@@ -1,83 +1,42 @@
 ---
-reviewers:
-- jcbsmpsn
-- mikedanese
-title: Configure Certificate Rotation for the Kubelet
+title: Kubeletの証明書のローテーションを設定する
 content_type: task
 ---
 
 <!-- overview -->
-This page shows how to enable and configure certificate rotation for the kubelet.
-
+このページでは、kubeletの証明書のローテーションを設定する方法を説明します。
 
 {{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
 ## {{% heading "prerequisites" %}}
 
-
-* Kubernetes version 1.8.0 or later is required
-
-
+* Kubernetesはバージョン1.8.0以降である必要があります。
 
 <!-- steps -->
 
-## Overview
+## 概要
 
-The kubelet uses certificates for authenticating to the Kubernetes API.  By
-default, these certificates are issued with one year expiration so that they do
-not need to be renewed too frequently.
+kubeletは、Kubernetes APIへの認証のために証明書を使用します。デフォルトでは、証明書は1年間の有効期限付きで発行されるため、頻繁に更新する必要はありません。
 
-Kubernetes 1.8 contains [kubelet certificate
-rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/), a beta feature
-that will automatically generate a new key and request a new certificate from
-the Kubernetes API as the current certificate approaches expiration. Once the
-new certificate is available, it will be used for authenticating connections to
-the Kubernetes API.
+Kubernetes 1.8にはベータ機能の[kubelet certificate
+rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)が含まれているため、現在の証明書の有効期限が近づいたときに自動的に新しい鍵を生成して、Kubernetes APIに新しい証明書をリクエストできます。新しい証明書が利用できるようになると、Kubernetes APIへの接続の認証に利用されます。
 
-## Enabling client certificate rotation
+## クライアント証明書のローテーションを有効にする
 
-The `kubelet` process accepts an argument `--rotate-certificates` that controls
-if the kubelet will automatically request a new certificate as the expiration of
-the certificate currently in use approaches.  Since certificate rotation is a
-beta feature, the feature flag must also be enabled with
-`--feature-gates=RotateKubeletClientCertificate=true`.
+`kubelet`プロセスは`--rotate-certificates`という引数を受け付けます。この引数によって、現在使用している証明書の有効期限が近づいたときに、kubeletが自動的に新しい証明書をリクエストするかどうかを制御できます。証明書のローテーションはベータ機能であるため、`--feature-gates=RotateKubeletClientCertificate=true`を使用してフィーチャーフラグを有効にする必要もあります。
 
+`kube-controller-manager`プロセスは、`--experimental-cluster-signing-duration`という引数を受け付け、この引数で証明書が発行される期間を制御できます。
 
-The `kube-controller-manager` process accepts an argument
-`--experimental-cluster-signing-duration` that controls how long certificates
-will be issued for.
+## 証明書のローテーションの設定を理解する
 
-## Understanding the certificate rotation configuration
-
-When a kubelet starts up, if it is configured to bootstrap (using the
-`--bootstrap-kubeconfig` flag), it will use its initial certificate to connect
-to the Kubernetes API and issue a certificate signing request. You can view the
-status of certificate signing requests using:
+kubeletが起動すると、ブートストラップが設定されている場合(`--bootstrap-kubeconfig`フラグを使用した場合)、初期証明書を使用してKubernetes APIに接続して、証明書署名リクエスト(certificate signing request、CSR)を発行します。証明書署名リクエストのステータスは、次のコマンドで表示できます。
 
 ```sh
 kubectl get csr
 ```
 
-Initially a certificate signing request from the kubelet on a node will have a
-status of `Pending`. If the certificate signing requests meets specific
-criteria, it will be auto approved by the controller manager, then it will have
-a status of `Approved`. Next, the controller manager will sign a certificate,
-issued for the duration specified by the
-`--experimental-cluster-signing-duration` parameter, and the signed certificate
-will be attached to the certificate signing requests.
+ノード上のkubeletから発行された証明書署名リクエストは、初めは`Pending`状態です。証明書署名リクエストが特定の条件を満たすと、コントローラーマネージャーに自動的に承認され、`Approved`状態になります。次に、コントローラーマネージャーは`--experimental-cluster-signing-duration`パラメーターで指定された有効期限で発行された証明書に署名を行い、署名された証明書が証明書署名リクエストに添付されます。
 
-The kubelet will retrieve the signed certificate from the Kubernetes API and
-write that to disk, in the location specified by `--cert-dir`. Then the kubelet
-will use the new certificate to connect to the Kubernetes API.
+kubeletは署名された証明書をKubernetes APIから取得し、ディスク上の`--cert-dir`で指定された場所に書き込みます。その後、kubeletは新しい証明書を使用してKubernetes APIに接続するようになります。
 
-As the expiration of the signed certificate approaches, the kubelet will
-automatically issue a new certificate signing request, using the Kubernetes
-API. Again, the controller manager will automatically approve the certificate
-request and attach a signed certificate to the certificate signing request. The
-kubelet will retrieve the new signed certificate from the Kubernetes API and
-write that to disk. Then it will update the connections it has to the
-Kubernetes API to reconnect using the new certificate.
-
-
-
-
+署名された証明書の有効期限が近づくと、kubeletはKubernetes APIを使用して新しい証明書署名リクエストを自動的に発行します。再び、コントローラーマネージャーは証明書のリクエスト自動的に承認し、署名された証明書を証明書署名リクエストに添付します。kubeletは新しい署名された証明書をKubernetes APIから取得してディスクに書き込みます。その後、kubeletは既存のコネクションを更新して、新しい証明書でKubernetes APIに再接続します。

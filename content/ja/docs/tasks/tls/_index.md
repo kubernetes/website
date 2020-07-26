@@ -1,6 +1,6 @@
 ---
 title: "TLS"
 weight: 100
-description: Understand how to protect traffic within your cluster using Transport Layer Security (TLS).
+description: Transport Layer Security(TLS)を使用して、クラスター内のトラフィックを保護する方法について理解します。
 ---
 
