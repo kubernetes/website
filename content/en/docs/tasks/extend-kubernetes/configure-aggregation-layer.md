@@ -5,7 +5,6 @@ reviewers:
 - cheftako
 - chenopis
 content_type: task
-weight: 10
 ---
 
 <!-- overview -->

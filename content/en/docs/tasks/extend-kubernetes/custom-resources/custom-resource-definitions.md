@@ -7,6 +7,7 @@ reviewers:
 - roycaihw
 - sttts
 content_type: task
+min-kubernetes-server-version: 1.16
 weight: 20
 ---
 
@@ -14,15 +15,11 @@ weight: 20
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
-[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
-
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io)
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-* Make sure your Kubernetes cluster has a master version of 1.16.0 or higher to use `apiextensions.k8s.io/v1`, or 1.7.0 or higher for `apiextensions.k8s.io/v1beta1`.
 
 * Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
 

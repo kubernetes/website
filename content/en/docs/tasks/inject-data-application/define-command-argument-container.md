@@ -91,9 +91,9 @@ args: ["$(MESSAGE)"]
 
 This means you can define an argument for a Pod using any of
 the techniques available for defining environment variables, including
-[ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+{{< glossary_tooltip text="ConfigMaps" term_id="configmap" >}}
 and
-[Secrets](/docs/concepts/configuration/secret/).
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
 
 {{< note >}}
 The environment variable appears in parentheses, `"$(VAR)"`. This is

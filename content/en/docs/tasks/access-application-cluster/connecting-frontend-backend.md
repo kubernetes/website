@@ -153,10 +153,11 @@ service/frontend created
 ```
 
 {{< note >}}
-The nginx configuration is baked into the [container
-image](/examples/service/access/Dockerfile). A better way to do this would
-be to use a
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+The nginx configuration is baked into the
+{{< glossary_tooltip text="container image" term_id="image" >}}.
+
+A better way to do this would be to use a
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}
 so that you can change the configuration more easily.
 {{< /note >}}
 
@@ -220,9 +221,8 @@ To delete the Deployments, the ReplicaSets and the Pods that are running the bac
 
 ## {{% heading "whatsnext" %}}
 
-
 * Learn more about [Services](/docs/concepts/services-networking/service/)
-* Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* Learn more about [ConfigMaps](/docs/concepts/configuration/configmap/)
 
 
 

@@ -1,14 +1,15 @@
 ---
 title: Configure a Pod to Use a ConfigMap
 content_type: task
-weight: 150
+weight: 30
+min-kubernetes-server-version: 1.14
 card:
   name: tasks
   weight: 50
 ---
 
 <!-- overview -->
-ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
+A {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} allows you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 
 
 
@@ -685,6 +686,6 @@ data:
 
 ## {{% heading "whatsnext" %}}
 
+* Read about the [ConfigMap concept](/docs/concepts/configuration/configmap/)
 * Follow a real world example of [Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/).
-
 

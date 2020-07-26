@@ -232,7 +232,7 @@ by the kubelet.
 As an example, you could use [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 which uses fluentd as a logging agent. Here are two configuration files that
 you can use to implement this approach. The first file contains
-a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to configure fluentd.
+a {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} to configure fluentd.
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

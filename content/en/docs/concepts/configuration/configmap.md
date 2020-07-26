@@ -249,7 +249,7 @@ these pods.
 
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
-* Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Read [Configure a Pod to Use a ConfigMap](/docs/tasks/inject-data-application/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 

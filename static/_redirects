@@ -498,6 +498,7 @@
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
 
 /docs/tasks/administer-cluster/namespaces-walkthrough/   /docs/tasks/manage-kubernetes-objects/namespaces-walkthrough/ 301
+/docs/tasks/configure-pod-container/configure-pod-configmap/ /docs/tasks/inject-data-application/configure-pod-configmap/ 301
 /docs/tasks/manage-daemon/update-daemon-set/   /docs/tasks/administer-cluster/update-daemon-set/ 301
 /docs/tasks/manage-daemon/rollback-daemon-set/    /docs/tasks/administer-cluster/rollback-daemon-set/ 301
 /docs/tasks/service-catalog/    /docs/tasks/extend-kubernetes/install-service-catalog-using-helm/ 301

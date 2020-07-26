@@ -256,12 +256,12 @@ Beta features must be enabled.
 
 ### configMap {#configmap}
 
-The [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) resource
+The [`configMap`](/docs/concepts/configuration/configmap/) resource
 provides a way to inject configuration data into Pods.
-The data stored in a `ConfigMap` object can be referenced in a volume of type
+The data stored in a ConfigMap can be referenced in a volume of type
 `configMap` and then consumed by containerized applications running in a Pod.
 
-When referencing a `configMap` object, you can simply provide its name in the
+When referencing a ConfigMap object, you can simply provide its name in the
 volume to reference it. You can also customize the path to use for a specific
 entry in the ConfigMap.
 For example, to mount the `log-config` ConfigMap onto a Pod called `configmap-pod`,
@@ -294,7 +294,7 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
 {{< caution >}}
-You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) before you can use it.
+You must create a [ConfigMap](/docs/concepts/configuration/configmap/) before you can use it.
 {{< /caution >}}
 
 {{< note >}}
