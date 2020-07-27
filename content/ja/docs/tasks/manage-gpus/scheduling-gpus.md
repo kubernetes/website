@@ -127,10 +127,10 @@ AMDのGPUデバイスを使用している場合、[Node Labeller](https://githu
 
 現在は、このコントローラーは以下のプロパティに基づいてラベルを追加できます。
 
-* デバイスID (-device-id)
-* VRAMのサイズ (-vram)
-* SIMDの数 (-simd-count)
-* Compute Unitの数 (-cu-count)
+* デバイスID(-device-id)
+* VRAMのサイズ(-vram)
+* SIMDの数(-simd-count)
+* Compute Unitの数(-cu-count)
 * ファームウェアとフィーチャーのバージョン(-firmware)
 * 2文字の頭字語で表されたGPUファミリー(-family)
   * SI - Southern Islands
