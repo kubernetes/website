@@ -73,7 +73,7 @@ Kubernetes pozwala składować i zarządzać informacjami poufnymi, takimi jak h
 
 ## Czym Kubernetes nie jest
 
-Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem PaaS *(Platform as a Service)*. Ponieważ Kubernetes działa w warstwie kontenerów, a nie sprzętu, posiada różne funkcjonalności ogólnego zastosowania, wspólne dla innych rozwiązań PaaS, takie jak: instalacje *(deployments)*, skalowanie, balansowanie ruchu, logowanie i monitoring. Co ważne, Kubernetes nie jest monolitem i te domyślnie dostępne rozwiązania są opcjonalne i działają jako wtyczki. Kubernetes dostarcza elementy, z których może być zbudowana platforma deweloperska, ale pozostawia użytkownikowi wybór i elastyczność tam, gdzie jest to ważne.
+Kubernetes nie jest tradycyjnym, zawierającym wszystko systemem PaaS *(Platform as a Service)*. Ponieważ Kubernetes działa w warstwie kontenerów, a nie sprzętu, posiada różne funkcjonalności ogólnego zastosowania, wspólne dla innych rozwiązań PaaS, takie jak: instalacje *(deployments)*, skalowanie i balansowanie ruchu, umożliwiając użytkownikom integrację rozwiązań służących do logowania, monitoringu i ostrzegania. Co ważne, Kubernetes nie jest monolitem i domyślnie dostępne rozwiązania są opcjonalne i działają jako wtyczki. Kubernetes dostarcza elementy, z których może być zbudowana platforma deweloperska, ale pozostawia użytkownikowi wybór i elastyczność tam, gdzie jest to ważne.
 
 Kubernetes:
 

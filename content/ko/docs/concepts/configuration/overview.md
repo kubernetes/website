@@ -28,16 +28,16 @@ weight: 10
 - 더 나은 인트로스펙션(introspection)을 위해서, 어노테이션에 오브젝트의 설명을 넣는다.
 
 
-## "단독(Naked)" 파드 vs 레플리카 셋, 디플로이먼트, 그리고 잡 {#naked-pods-vs-replicasets-deployments-and-jobs}
+## "단독(Naked)" 파드 vs 레플리카셋(ReplicaSet), 디플로이먼트(Deployment), 그리고 잡(Job) {#naked-pods-vs-replicasets-deployments-and-jobs}
 
-- 가능하다면 단독 파드(즉, [레플리카 셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
+- 가능하다면 단독 파드(즉, [레플리카셋](/ko/docs/concepts/workloads/controllers/replicaset/)이나 [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)에 연결되지 않은 파드)를 사용하지 않는다. 단독 파드는 노드 장애 이벤트가 발생해도 다시 스케줄링되지 않는다.
 
-  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카 셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-롤링-업데이트)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/) 또한 적절할 수 있다.
+  명백하게 [`restartPolicy: Never`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#재시작-정책)를 사용하는 상황을 제외한다면, 의도한 파드의 수가 항상 사용 가능한 상태를 유지하는 레플리카셋을 생성하고, 파드를 교체하는 전략([롤링 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-롤링-업데이트)와 같은)을 명시하는 디플로이먼트는 파드를 직접 생성하기 위해 항상 선호되는 방법이다. [잡](/ko/docs/concepts/workloads/controllers/job/) 또한 적절할 수 있다.
 
 
 ## 서비스
 
-- 서비스에 대응하는 백엔드 워크로드(디플로이먼트 또는 레플리카 셋) 또는 서비스 접근이 필요한 어떠한 워크로드를 생성하기 전에 [서비스](/ko/docs/concepts/services-networking/service/)를 미리 생성한다. 쿠버네티스가 컨테이너를 시작할 때, 쿠버네티스는 컨테이너 시작 당시에 생성되어 있는 모든 서비스를 가리키는 환경 변수를 컨테이너에 제공한다. 예를 들어, `foo` 라는 이름의 서비스가 존재한다면, 모든 컨테이너들은 초기 환경에서 다음의 변수들을 얻을 것이다.
+- 서비스에 대응하는 백엔드 워크로드(디플로이먼트 또는 레플리카셋) 또는 서비스 접근이 필요한 어떠한 워크로드를 생성하기 전에 [서비스](/ko/docs/concepts/services-networking/service/)를 미리 생성한다. 쿠버네티스가 컨테이너를 시작할 때, 쿠버네티스는 컨테이너 시작 당시에 생성되어 있는 모든 서비스를 가리키는 환경 변수를 컨테이너에 제공한다. 예를 들어, `foo` 라는 이름의 서비스가 존재한다면, 모든 컨테이너들은 초기 환경에서 다음의 변수들을 얻을 것이다.
 
   ```shell
   FOO_SERVICE_HOST=<서비스가 동작 중인 호스트>
@@ -46,7 +46,7 @@ weight: 10
 
   *이는 순서를 정하는 일이 요구됨을 암시한다* - `파드`가 접근하기를 원하는 어떠한 `서비스`는 `파드` 스스로가 생성되기 전에 미리 생성되어 있어야 하며, 그렇지 않으면 환경 변수가 설정되지 않을 것이다. DNS는 이러한 제한을 가지고 있지 않다.
 
-- 선택적인(그렇지만 매우 권장되는) [클러스터 애드온](/docs/concepts/cluster-administration/addons/)은 DNS 서버이다.
+- 선택적인(그렇지만 매우 권장되는) [클러스터 애드온](/ko/docs/concepts/cluster-administration/addons/)은 DNS 서버이다.
 DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며, 각 서비스를 위한 DNS 레코드 셋을 생성한다. 만약 DNS가 클러스터에 걸쳐 활성화되어 있다면, 모든 `파드`는 `서비스`의 이름을 자동으로 해석할 수 있어야 한다.
 
 - 반드시 필요한 것이 아니라면 파드에 `hostPort` 를 명시하지 않는다. <`hostIP`, `hostPort`, `protocol`> 조합은 유일해야 하기 때문에, `hostPort`로 바인드하는 것은 파드가 스케줄링될 수 있는 위치의 개수를 제한한다. 만약 `hostIP`와 `protocol`을 뚜렷히 명시하지 않으면, 쿠버네티스는 `hostIP`의 기본 값으로 `0.0.0.0`를, `protocol`의 기본 값으로 `TCP`를 사용한다.
@@ -61,13 +61,13 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 ## 레이블 사용하기
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__ 를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) 앱을 참고한다.
 
 릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)는 생성되어 있는 서비스를 다운타임 없이 수정하기 쉽도록 만든다.
 
 오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가 _적용될_ 경우, 디플로이먼트 컨트롤러는 일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
 
-- 디버깅을 위해 레이블을 조작할 수 있다. (레플리카 셋과 같은) 쿠버네티스 컨트롤러와 서비스는 셀렉터 레이블을 사용해 파드를 선택하기 때문에, 관련된 레이블을 파드에서 삭제하는 것은 컨트롤러로부터 관리되거나 서비스로부터 트래픽을 전달받는 것을 중단시킨다. 만약 이미 존재하는 파드의 레이블을 삭제한다면, 파드의 컨트롤러는 그 자리를 대신할 새로운 파드를 생성한다. 이것은 이전에 "살아 있는" 파드를 "격리된" 환경에서 디버그할 수 있는 유용한 방법이다. 레이블을 상호적으로 추가하고 삭제하기 위해서, [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)를 사용할 수 있다.
+- 디버깅을 위해 레이블을 조작할 수 있다. (레플리카셋과 같은) 쿠버네티스 컨트롤러와 서비스는 셀렉터 레이블을 사용해 파드를 선택하기 때문에, 관련된 레이블을 파드에서 삭제하는 것은 컨트롤러로부터 관리되거나 서비스로부터 트래픽을 전달받는 것을 중단시킨다. 만약 이미 존재하는 파드의 레이블을 삭제한다면, 파드의 컨트롤러는 그 자리를 대신할 새로운 파드를 생성한다. 이것은 이전에 "살아 있는" 파드를 "격리된" 환경에서 디버그할 수 있는 유용한 방법이다. 레이블을 상호적으로 추가하고 삭제하기 위해서, [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)를 사용할 수 있다.
 
 ## 컨테이너 이미지
 
@@ -99,8 +99,6 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 - `kubectl apply -f <디렉터리>`를 사용한다. 이 명령어는 `<디렉터리>` 내부의 모든 `.yaml`, `.yml`, 그리고 `.json` 쿠버네티스 구성 파일을 찾아 `apply`에 전달한다.
 
-- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)를 참고할 수 있다.
+- `get`과 `delete` 동작을 위해 특정 오브젝트의 이름 대신 레이블 셀렉터를 사용한다. [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)와 [효율적으로 레이블 사용하기](/ko/docs/concepts/cluster-administration/manage-deployment/#효과적인-레이블-사용)를 참고할 수 있다.
 
-- 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl run`와 `kubectl expose`를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.
-
-
+- 단일 컨테이너로 구성된 디플로이먼트와 서비스를 빠르게 생성하기 위해 `kubectl create deployment` 와 `kubectl expose` 를 사용한다. [클러스터 내부의 애플리케이션에 접근하기 위한 서비스 사용](/docs/tasks/access-application-cluster/service-access-application-cluster/)에서 예시를 확인할 수 있다.

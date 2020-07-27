@@ -227,7 +227,7 @@ kubelet은 파드의 컨테이너를 시작할 때, CPU와 메모리 제한을
 
 파드는 스크래치 공간, 캐싱 및 로그에 대해 임시 로컬 스토리지를 사용한다.
 kubelet은 로컬 임시 스토리지를 사용하여 컨테이너에
-[`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)
+[`emptyDir`](/ko/docs/concepts/storage/volumes/#emptydir)
 {{< glossary_tooltip term_id="volume" text="볼륨" >}}을 마운트하기 위해 파드에 스크래치 공간을 제공할 수 있다.
 
 kubelet은 이러한 종류의 스토리지를 사용하여
@@ -657,7 +657,7 @@ Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   CPU Requests    CPU Limits    Memory Requests    Memory Limits
   ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+  680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
 위의 출력에서, ​파드가 1120m 이상의 CPU 또는 6.23Gi의 메모리를
@@ -758,5 +758,3 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
 
 * XFS의 [프로젝트 쿼터](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
-
-

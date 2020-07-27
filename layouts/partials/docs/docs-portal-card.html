@@ -19,9 +19,11 @@
         {{ end }}
     {{ end }}
     </ul>
-    <br>
-    <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';" aria-label="{{ .title }}">{{ .button }}</button>
-    <br>
-    <br>
+    {{ if .button }}
+      <br>
+      <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';" aria-label="{{ .title }}">{{ .button }}</button>
+      <br>
+      <br>
+    {{ end }}
 </div>
 {{ end }}

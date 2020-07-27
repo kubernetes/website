@@ -457,7 +457,7 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for
 liveness. Minimum value is 1.
-* `failureThreshold`: When a Pod starts and the probe fails, Kubernetes will
+* `failureThreshold`: When a probe fails, Kubernetes will
 try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
 Defaults to 3. Minimum value is 1.
 -->
@@ -465,7 +465,7 @@ Defaults to 3. Minimum value is 1.
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探测器在失败后，被视为成功的最小连续成功数。默认值是 1。存活探测的这个值必须是 1。最小值是 1。
-* `failureThreshold`：当 Pod 启动了并且探测到失败，Kubernetes 的重试次数。存活探测情况下的放弃就意味着重新启动容器。就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
+* `failureThreshold`：当探测失败时，Kubernetes 的重试次数。存活探测情况下的放弃就意味着重新启动容器。就绪探测情况下的放弃 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
 
 <!--
 [HTTP probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)

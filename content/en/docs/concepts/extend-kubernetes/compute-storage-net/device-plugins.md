@@ -223,7 +223,7 @@ Here are some examples of device plugin implementations:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
 
 
 ## {{% heading "whatsnext" %}}
@@ -232,6 +232,6 @@ Here are some examples of device plugin implementations:
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 
 

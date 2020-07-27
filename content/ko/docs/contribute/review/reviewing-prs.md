@@ -17,7 +17,7 @@ weight: 10
 
 - 적합한 코멘트를 남길 수 있도록 [콘텐츠 가이드](/docs/contribute/style/content-guide/)와
 [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
-- 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/docs/contribute/participating/#roles-and-responsibilities)을 이해한다.
+- 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/ko/docs/contribute/participating/#역할과-책임)을 이해한다.
 
 
 
@@ -44,7 +44,7 @@ weight: 10
     표시된다.
 
 2.  다음 레이블 중 하나 또는 모두를 사용하여 열린 PR을 필터링한다.
-    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/docs/contribute/new-content/overview/#sign-the-cla)을 참고한다.
+    - `cncf-cla: yes`(권장): CLA에 서명하지 않은 기여자가 제출한 PR은 병합할 수 없다. 자세한 내용은 [CLA 서명](/ko/docs/contribute/new-content/overview/#sign-the-cla)을 참고한다.
     - `language/en`(권장): 영어 문서에 대한 PR 전용 필터이다.
     - `size/<size>`: 특정 크기의 PR을 필터링한다. 새로 시작하는 사람이라면, 더 작은 PR로 시작한다.
 
@@ -86,7 +86,7 @@ weight: 10
 
 - 이 PR이 페이지 제목, slug/alias 또는 앵커(anchor) 링크를 변경 또는 제거하는가? 그렇다면, 이 PR의 결과로 끊어진 링크가 있는가? slug를 변경 없이 페이지 제목을 변경하는 등의 다른 옵션이 있는가?
 - PR이 새로운 페이지를 소개하는가? 그렇다면,
-  - 페이지가 올바른 [페이지 템플릿](/docs/contribute/style/page-templates/)과 연관된 Hugo 단축 코드를 사용하는가?
+  - 페이지가 올바른 [페이지 콘텐츠 타입](/docs/contribute/style/page-content-types/)과 연관된 Hugo 단축 코드를 사용하는가?
   - 섹션의 측면 탐색에 페이지가 올바르게 나타나는가?
   - 페이지가 [문서 홈](/ko/docs/home/) 목록에 나타나야 하는가?
 - 변경 사항이 Netlify 미리보기에 표시되는가? 목록, 코드 블록, 표, 메모 및 이미지에 특히 주의한다.
@@ -94,5 +94,3 @@ weight: 10
 ### 기타
 
 오타나 공백과 같은 작은 이슈의 PR인 경우, 코멘트 앞에 `nit:` 를 추가한다. 이를 통해 문서의 저자는 이슈가 긴급하지 않다는 것을 알 수 있다.
-
-

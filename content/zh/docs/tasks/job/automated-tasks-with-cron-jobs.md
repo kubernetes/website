@@ -27,7 +27,7 @@ Cron jobs are useful for creating periodic and recurring tasks, like running bac
 Cron jobs can also schedule individual tasks for a specific time, such as if you want to schedule a job for a low activity period.
 -->
 
-你可以利用 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
+你可以利用 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs) 执行基于时间调度的任务。这些自动化任务和 Linux 或者 Unix 系统的 [Cron](https://en.wikipedia.org/wiki/Cron) 任务类似。
 
 CronJobs 在创建周期性以及重复性的任务时很有帮助，例如执行备份操作或者发送邮件。CronJobs 也可以在特定时间调度单个任务，例如你想调度低活跃周期的任务。
 
@@ -51,7 +51,7 @@ For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-j
 CronJobs 有一些限制和特点。
 例如，在特定状况下，同一个 CronJob 可以创建多个任务。
 因此，任务应该是幂等的。
-查看更多限制，请参考 [CronJobs](/docs/concepts/workloads/controllers/cron-jobs)。
+查看更多限制，请参考 [CronJobs](/zh/docs/concepts/workloads/controllers/cron-jobs)。
 
 
 
@@ -67,7 +67,7 @@ for more), and then restart both the API server and the controller manager
 component.
 -->
 
-* 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/docs/admin/cluster-management/#turn-on-or-off-an-api-version-for-your-cluster)
+* 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/zh/docs/tasks/administer-cluster/cluster-management/#打开或关闭集群的-api-版本)
 ), 然后重启 API 服务器和控制管理器。
 
 
@@ -192,7 +192,7 @@ Deleting the cron job removes all the jobs and pods it created and stops it from
 You can read more about removing jobs in [garbage collection](/docs/concepts/workloads/controllers/garbage-collection/).
 -->
 
-删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅 [垃圾收集](/docs/concepts/workloads/controllers/garbage-collection/)。
+删除 CronJob 会清除它创建的所有任务和 Pod，并阻止它创建额外的任务。你可以查阅 [垃圾收集](/zh/docs/concepts/workloads/controllers/garbage-collection/)。
 
 <!--
 ## Writing a Cron Job Spec
@@ -206,7 +206,7 @@ A cron job config also needs a [`.spec` section](https://git.k8s.io/community/co
 
 ## 编写 CronJob 声明信息
 
-像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、 `kind`、 和 `metadata` 域。配置文件的一般信息，请参考 [部署应用](/docs/user-guide/deploying-applications) 和 [使用 kubectl 管理资源](/docs/user-guide/working-with-resources).
+像 Kubernetes 的其他配置一样，CronJob 需要 `apiVersion`、 `kind`、 和 `metadata` 域。配置文件的一般信息，请参考 [部署应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/) 和 [使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/).
 
 CronJob 配置也需要包括[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 

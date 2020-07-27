@@ -126,8 +126,8 @@ kubectl create --edit -f /tmp/srv.yaml
 
 ## {{% heading "whatsnext" %}}
 
-- [Pengelolaan Objek Kubernetes secara Imperatif dengan Menggunakan Konfigurasi Objek](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+- [Pengelolaan Objek Kubernetes secara Imperatif dengan Menggunakan Konfigurasi Objek](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

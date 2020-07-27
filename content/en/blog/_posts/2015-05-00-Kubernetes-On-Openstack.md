@@ -19,34 +19,20 @@ The entries in the catalog include not just the ability to [start a Kubernetes c
 
 
 
--
-Apache web server
--
-Nginx web server
--
-Crate - The Distributed Database for Docker
--
-GlassFish - Java EE 7 Application Server
--
-Tomcat - An open-source web server and servlet container
--
-InfluxDB - An open-source, distributed, time series database
--
-Grafana - Metrics dashboard for InfluxDB
--
-Jenkins - An extensible open source continuous integration server
--
-MariaDB database
--
-MySql database
--
-Redis - Key-value cache and store
--
-PostgreSQL database
--
-MongoDB NoSQL database
--
-Zend Server - The Complete PHP Application Platform
+- Apache web server
+- Nginx web server
+- Crate - The Distributed Database for Docker
+- GlassFish - Java EE 7 Application Server
+- Tomcat - An open-source web server and servlet container
+- InfluxDB - An open-source, distributed, time series database
+- Grafana - Metrics dashboard for InfluxDB
+- Jenkins - An extensible open source continuous integration server
+- MariaDB database
+- MySql database
+- Redis - Key-value cache and store
+- PostgreSQL database
+- MongoDB NoSQL database
+- Zend Server - The Complete PHP Application Platform
 
 
 

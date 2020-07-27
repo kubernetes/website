@@ -59,7 +59,7 @@ Il master Kubernetes è responsabile della gestione dello stato desiderato per i
 
 ### Kubernetes Nodes
 
-I nodi di un cluster sono le macchine (VM, server fisici, ecc.) Che eseguono i flussi di lavoro delle applicazioni e del cloud. Il master Kubernetes controlla ciascun nodo; raramente interagirai direttamente con i nodi.
+I nodi di un cluster sono le macchine (VM, server fisici, ecc.) che eseguono i flussi di lavoro delle applicazioni e del cloud. Il master Kubernetes controlla ciascun nodo; raramente interagirai direttamente con i nodi.
 
 #### Object Metadata
 

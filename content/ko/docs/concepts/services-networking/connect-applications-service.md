@@ -50,7 +50,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 클러스터의 모든 노드로 ssh 접속하고 두 IP로 curl을 할수 있어야 한다. 컨테이너는 노드의 포트 80을 사용하지 *않으며* , 트래픽을 파드로 라우팅하는 특별한 NAT 규칙도 없다는 것을 참고한다. 이것은 동일한 containerPort를 사용해서 동일한 노드에서 여러 nginx 파드를 실행하고 IP를 사용해서 클러스터의 다른 파드나 노드에서 접근할 수 있다는 의미이다. 도커와 마찬가지로 포트는 여전히 호스트 노드의 인터페이스에 게시될 수 있지만, 네트워킹 모델로 인해 포트의 필요성이 크게 줄어든다.
 
-만약 궁금하다면 [우리가 이것을 달성하는 방법](/docs/concepts/cluster-administration/networking/#how-to-achieve-this)을 자세히 읽어본다.
+만약 궁금하다면 [우리가 이것을 달성하는 방법](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델의-구현-방법)을 자세히 읽어본다.
 
 ## 서비스 생성하기
 
@@ -73,7 +73,7 @@ service/my-nginx exposed
 
 이 사양은 `run: my-nginx` 레이블이 부착된 모든 파드에 TCP 포트 80을
 대상으로 하는 서비스를 만들고 추상화된 서비스 포트에 노출시킨다
-(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는 
+(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는
 추상화된 서비스 포트로 다른 파드들이 서비스에 접속하기위해 사용하는
 모든 포트일 수 있다).
 [서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)의
@@ -198,7 +198,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
 이 섹션의 나머지 부분에서는 수명이 긴 IP의 서비스(my-nginx)와 이 IP
-에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하므로, 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행 중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/docs/tasks/administer-cluster/coredns/#installing-coredns)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
+에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하므로, 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행 중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/ko/docs/tasks/administer-cluster/coredns/#coredns-설치)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -390,8 +390,8 @@ kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
 ```
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   LoadBalancer   10.0.162.149   xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k
@@ -422,5 +422,3 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 * [서비스를 사용해서 클러스터 내 애플리케이션에 접근하기](/docs/tasks/access-application-cluster/service-access-application-cluster/)를 더 자세히 알아본다.
 * [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
 * [외부 로드 밸런서를 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 더 자세히 알아본다.
-
-

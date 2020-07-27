@@ -29,14 +29,14 @@ weight: 40
 * [front-proxy][proxy]를 위한 클라이언트와 서버 인증서
 
 {{< note >}}
-`front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/docs/tasks/access-kubernetes-api/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
+`front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/docs/tasks/extend-kubernetes/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
 {{< /note >}}
 
 etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 
 ## 인증서를 저장하는 위치
 
-만약 쿠버네티스를 kubeadm으로 설치했다면 인증서는 `/etc/kubernets/pki`에 저장된다. 이 문서에 언급된 모든 파일 경로는 그 디렉토리에 상대적이다.
+만약 쿠버네티스를 kubeadm으로 설치했다면 인증서는 `/etc/kubernets/pki`에 저장된다. 이 문서에 언급된 모든 파일 경로는 그 디렉터리에 상대적이다.
 
 ## 인증서 수동 설정
 
@@ -160,6 +160,6 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
+[proxy]: /docs/tasks/extend-kubernetes/configure-aggregation-layer/
 
 

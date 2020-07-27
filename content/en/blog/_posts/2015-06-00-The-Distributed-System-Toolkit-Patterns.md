@@ -12,14 +12,10 @@ In many ways the switch from VMs to containers is like the switch from monolithi
 
 The benefits of thinking in terms of modular containers are enormous, in particular, modular containers provide the following:
 
--
-Speed application development, since containers can be re-used between teams and even larger communities
--
-Codify expert knowledge, since everyone collaborates on a single containerized implementation that reflects best-practices rather than a myriad of different home-grown containers with roughly the same functionality
--
-Enable agile teams, since the container boundary is a natural boundary and contract for team responsibilities
--
-Provide separation of concerns and focus on specific functionality that reduces spaghetti dependencies and un-testable components
+- Speed application development, since containers can be re-used between teams and even larger communities
+- Codify expert knowledge, since everyone collaborates on a single containerized implementation that reflects best-practices rather than a myriad of different home-grown containers with roughly the same functionality
+- Enable agile teams, since the container boundary is a natural boundary and contract for team responsibilities
+- Provide separation of concerns and focus on specific functionality that reduces spaghetti dependencies and un-testable components
 
 Building an application from modular containers means thinking about symbiotic groups of containers that cooperate to provide a service, not one container per service. &nbsp;In Kubernetes, the embodiment of this modular container service is a Pod. &nbsp;A Pod is a group of containers that share resources like file systems, kernel namespaces and an IP address. &nbsp;The Pod is the atomic unit of scheduling in a Kubernetes cluster, precisely because the symbiotic nature of the containers in the Pod require that they be co-scheduled onto the same machine, and the only way to reliably achieve this is by making container groups atomic scheduling units.  
 

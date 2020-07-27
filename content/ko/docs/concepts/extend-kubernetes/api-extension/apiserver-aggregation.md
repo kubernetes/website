@@ -35,9 +35,8 @@ extention API server가 레이턴시 요구 사항을 달성할 수 없는 경�
 ## {{% heading "whatsnext" %}}
 
 
-* 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
-* 다음에, [extension api-server를 구성해서](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.
-* 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)를 배워본다.
+* 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
+* 다음에, [확장 API 서버를 구성해서](/docs/tasks/extend-kubernetes/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.
+* 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)를 배워본다.
 * [API 서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)의 사양을 읽어본다.
-
 

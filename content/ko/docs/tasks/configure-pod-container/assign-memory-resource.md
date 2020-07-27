@@ -25,7 +25,8 @@ weight: 10
 서비스 실행이 필요하다. 이미 실행중인 metrics-server가 있다면
 다음 단계를 건너뛸 수 있다.
 
-Minikube를 사용 중이라면, 다음 명령어를 실행해 metric-server를 활성화 할 수 있다.
+Minikube를 사용 중이라면, 다음 명령어를 실행해 metric-server를
+활성화할 수 있다.
 
 ```shell
 minikube addons enable metrics-server
@@ -52,7 +53,8 @@ v1beta1.metrics.k8s.io
 
 ## 네임스페이스 생성
 
-이 예제에서 생성할 자원과 클러스터 내 나머지를 분리하기 위해 네임스페이스를 생성한다.
+이 예제에서 생성할 자원과 클러스터 내 나머지를 분리하기 위해
+네임스페이스를 생성한다.
 
 ```shell
 kubectl create namespace mem-example
@@ -110,8 +112,9 @@ resources:
 kubectl top pod memory-demo --namespace=mem-example
 ```
 
-출력은 파드가 약 150MiB 해당하는 약 162,900,000 바이트 메모리를 사용하는 것을 보여준다.
-이는 파드의 100 MiB 요청 보다 많으나 파드의 200 MiB 상한보다는 적다.
+출력은 파드가 약 150 MiB 해당하는 약 162,900,000 바이트 메모리를 사용하는 것을 보여준다.
+이는 파드의 100 MiB 요청 보다 많으나
+파드의 200 MiB 상한보다는 적다.
 
 ```
 NAME                        CPU(cores)   MEMORY(bytes)
@@ -138,7 +141,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 
 {{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
-구성 파일의 'args' 섹션에서 컨테이너가
+구성 파일의 `args` 섹션에서 컨테이너가
 100 MiB 상한을 훨씬 초과하는 250 MiB의 메모리를 할당하려는 것을 볼 수 있다.
 
 파드 생성:
@@ -242,7 +245,8 @@ kubectl delete pod memory-demo-2 --namespace=mem-example
 
 이 예제에서는 메모리 요청량이 너무 커 클러스터 내 모든 노드의 용량을 초과하는 파드를 생성한다.
 다음은 클러스터 내 모든 노드의 용량을 초과할 수 있는 1000 GiB 메모리 요청을 포함하는
-컨테이너를 갖는 파드의 구성 파일이다.
+컨테이너를 갖는
+파드의 구성 파일이다.
 
 {{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
@@ -302,8 +306,7 @@ kubectl delete pod memory-demo-3 --namespace=mem-example
 컨테이너에 메모리 상한을 지정하지 않으면 다음 중 하나가 적용된다.
 
 * 컨테이너가 사용할 수 있는 메모리 상한은 없다. 컨테이너가
-실행 중인 노드에서 사용 가능한 모든 메모리를 사용하여 OOM Killer가 실행 될 수 있다. 또한 메모리 부족으로 인한 종료 시 메모리 상한이
-없는 컨테이너가 종료될 가능성이 크다.
+실행 중인 노드에서 사용 가능한 모든 메모리를 사용하여 OOM Killer가 실행될 수 있다. 또한 메모리 부족으로 인한 종료 시 메모리 상한이 없는 컨테이너가 종료될 가능성이 크다.
 
 * 기본 메모리 상한을 갖는 네임스페이스 내에서 실행중인 컨테이너는
 자동으로 기본 메모리 상한이 할당된다. 클러스터 관리자들은
@@ -337,22 +340,20 @@ kubectl delete namespace mem-example
 
 * [CPU 리소스를 컨테이너와 파드에 할당](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [파드에 서비스 품질 설정](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [파드에 서비스 품질 설정](/ko/docs/tasks/configure-pod-container/quality-service-pod/)
 
 ### 클러스터 관리자들을 위한
 
-* [네임스페이스에 기본 메모리 요청량 및 상한을 구성](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [네임스페이스에 기본 메모리 요청량 및 상한을 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [네임스페이스에 기본 CPU 요청량 및 상한을 구성](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [네임스페이스에 기본 CPU 요청량 및 상한을 구성](/ko/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [네임스페이스에 최소 및 최대 메모리 제약 조건 구성](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [네임스페이스에 최소 및 최대 메모리 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [네임스페이스에 최소 및 최대 CPU 제약 조건 구성](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [네임스페이스에 최소 및 최대 CPU 제약 조건 구성](/ko/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
-* [네임스페이스에 메모리 및 CPU 할당량 구성](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [네임스페이스에 메모리 및 CPU 할당량 구성](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [네임스페이스에 파드 할당량 구성](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [네임스페이스에 파드 할당량 구성](/ko/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
-* [API 오브젝트에 할당량 구성 ](/docs/tasks/administer-cluster/quota-api-object/)
-
-
+* [API 오브젝트에 할당량 구성](/docs/tasks/administer-cluster/quota-api-object/)
