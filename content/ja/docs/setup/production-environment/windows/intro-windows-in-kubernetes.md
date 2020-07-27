@@ -54,8 +54,6 @@ Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能し�
 
 * [Pods](/ja/docs/concepts/workloads/pods/pod-overview/)
 
-    A Pod is the basic building block of Kubernetes–the smallest and simplest unit in the Kubernetes object model that you create or deploy. You may not deploy Windows and Linux containers in the same Pod. All containers in a Pod are scheduled onto a single Node where each Node represents a specific platform and architecture. The following Pod capabilities, properties and events are supported with Windows containers:
-
     Podは、Kubernetesの基本的なビルディングブロックです。作成またはデプロイするKubernetesオブジェクトモデルの最小かつ最も単純なユニットです。 WindowsとLinuxのコンテナを同じPodにデプロイすることはできません。Pod内のすべてのコンテナは、各ノードが特定のプラットフォームとアーキテクチャを表す単一のノードにスケジュールされます。次のPod機能、プロパティ、およびイベントがWindowsコンテナでサポートされています。:
 
   * プロセス分離とボリューム共有を備えたPodごとの単一または複数のコンテナ
@@ -128,8 +126,6 @@ In-treeボリュームプラグインに関連付けられたコードは、コ�
 CSIノードプラグイン（特に、ブロックデバイスまたは共有ファイルシステムとして公開された永続ボリュームに関連付けられているプラ​​グイン）は、ディスクデバイスのスキャン、ファイルシステムのマウントなど、さまざまな特権操作を実行する必要があります。これらの操作は、ホストオペレーティングシステムごとに異なります。Linuxワーカーノードの場合、コンテナ化されたCSIノードプラグインは通常、特権コンテナとしてデプロイされます。Windowsワーカーノードの場合、コンテナ化されたCSIノードプラグインの特権操作は、[csi-proxy](https://github.com/kubernetes-csi/csi-proxy)を使用してサポートされます。各Windowsノードにプリインストールされている。詳細については、展開するCSIプラグインの展開ガイドを参照してください。
 
 #### ネットワーキング
-
-Networking for Windows containers is exposed through [CNI plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). Windows containers function similarly to virtual machines in regards to networking. Each container has a virtual network adapter (vNIC) which is connected to a Hyper-V virtual switch (vSwitch). The Host Networking Service (HNS) and the Host Compute Service (HCS) work together to create containers and attach container vNICs to networks. HCS is responsible for the management of containers whereas HNS is responsible for the management of networking resources such as:
 
 Windowsコンテナのネットワークは、[CNIプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を通じて公開されます。 Windowsコンテナは、ネットワークに関して仮想マシンと同様に機能します。各コンテナには、Hyper-V仮想スイッチ（vSwitch）に接続されている仮想ネットワークアダプター（vNIC）があります。Host Network Service（HNS）とHost Compute Service（HCS）は連携してコンテナを作成し、コンテナvNICをネットワークに接続します。HCSはコンテナの管理を担当するのに対し、HNSは次のようなネットワークリソースの管理を担当します。:
 
