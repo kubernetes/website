@@ -1,8 +1,10 @@
 ---
 title: Kubernetes 组件
 content_type: concept
+description: >
+  Kubernetes 集群由代表控制平面的组件和一组称为节点的机器组成。
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
@@ -12,8 +14,11 @@ reviewers:
 - lavalamp
 title: Kubernetes Components
 content_type: concept
+description: >
+  A Kubernetes cluster consists of the components that represent the control plane
+  and a set of machines called nodes
 weight: 20
-card: 
+card:
   name: concepts
   weight: 20
 ---
@@ -43,17 +48,17 @@ Here's the diagram of a Kubernetes cluster with all the components tied together
 
 
 <!-- body -->
-<!-- 
+<!--
 ## Control Plane Components
 -->
 ## 控制平面组件（Control Plane Components）
 
-<!-- 
+<!--
 The Control Plane's components make global decisions about the cluster (for example, scheduling), as well as detecting and responding to cluster events (for example, starting up a new {{< glossary_tooltip text="pod" term_id="pod">}} when a deployment's `replicas` field is unsatisfied).
  -->
 控制平面的组件对集群做出全局决策(比如调度)，以及检测和响应集群事件（例如，当不满足部署的 `replicas` 字段时，启动新的 {{< glossary_tooltip text="pod" term_id="pod">}}）。
 
-<!-- 
+<!--
 Control Plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all Control Plane components on
 the same machine, and do not run user containers on this machine. See
@@ -233,4 +238,3 @@ saving container logs to a central log store with search/browsing interface.
 * 进一步了解 [Nodes](/docs/concepts/architecture/nodes/)
 * 进一步了解 [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * 阅读 etcd 官方[文档](https://etcd.io/docs/)
-
