@@ -97,10 +97,12 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 ### 로컬 클론 생성 및 업스트림 설정
 
-3. 터미널 창에서, 포크를 클론한다.
+3. 터미널 창에서, 포크를 클론하고 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 업데이트한다.
 
     ```bash
     git clone git@github.com/<github_username>/website
+    cd website
+    git submodule update --init --recursive --depth 1
     ```
 
 4. 새 `website` 디렉터리로 이동한다. `kubernetes/website` 리포지터리를 `upstream` 원격으로 설정한다.
@@ -217,21 +219,39 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 변경 사항을 푸시하거나 풀 리퀘스트를 열기 전에 변경 사항을 로컬에서 미리 보는 것이 좋다. 미리보기를 사용하면 빌드 오류나 마크다운 형식 문제를 알아낼 수 있다.
 
-website의 도커 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
+website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할 수 있다. 도커 이미지 빌드는 느리지만 [Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 표시하므로, 디버깅에 유용할 수 있다.
 
 {{< tabs name="tab_with_hugo" >}}
 {{% tab name="Hugo 컨테이너" %}}
+
+{{< note >}}
+아래 명령은 도커를 기본 컨테이너 엔진으로 사용한다. 이 동작을 무시하려면 `CONTAINER_ENGINE` 환경변수를 설정한다.
+{{< /note >}}
 
 1.  로컬에서 이미지를 빌드한다.
 
       ```bash
       make docker-image
+      # docker 사용(기본값)
+      make container-image
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-image
       ```
 
 2. 로컬에서 `kubernetes-hugo` 이미지를 빌드한 후, 사이트를 빌드하고 서비스한다.
 
       ```bash
       make docker-serve
+      # docker 사용(기본값)
+      make container-serve
+
+      ### 또는 ###
+
+      # podman 사용
+      CONTAINER_ENGINE=podman make container-serve
       ```
 
 3.  웹 브라우저에서 `https://localhost:1313` 로 이동한다. Hugo는
@@ -245,18 +265,26 @@ website의 도커 이미지를 만들거나 Hugo를 로컬에서 실행할 수 �
 
 또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
 
-5.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
+1.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
 
-6.  터미널에서, 쿠버네티스 website 리포지터리로 이동하여 Hugo 서버를 시작한다.
+2.  website 리포지터리를 업데이트하지 않았다면, `website/themes/docsy` 디렉터리가 비어 있다.
+테마의 로컬 복제본이 없으면 사이트를 빌드할 수 없다. website 테마를 업데이트하려면, 다음을 실행한다.
+
+    ```bash
+    git submodule update --init --recursive --depth 1
+    ```
+
+3.  터미널에서, 쿠버네티스 website 리포지터리로 이동하여 Hugo 서버를 시작한다.
 
       ```bash
       cd <path_to_your_repo>/website
-      hugo server
+      hugo server --buildFuture
       ```
 
-7.  브라우저의 주소 표시줄에 `https://localhost:1313` 을 입력한다.
+4.  웹 브라우저에서 `https://localhost:1313` 으로 이동한다. Hugo는
+    변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
 
-8.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
+5.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
     터미널 창을 닫는다.
 
 {{% /tab %}}
@@ -286,7 +314,7 @@ PR을 연 후, GitHub는 자동 테스트를 실행하고 [Netlify](https://www.
   - Netlify 빌드가 실패하면, 자세한 정보를 위해 **Details** 를 선택한다.
   - Netlify 빌드가 성공하면, **Details** 를 선택하면 변경 사항이 적용된 쿠버네티스 website의 커밋하기 직전의 버전(staged version)이 열린다. 리뷰어가 변경 사항을 확인하는 방법이다.
 
-또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다. 자세한 내용은 [이슈 레이블 추가와 제거](/docs/contribute/review/for-approvers/#adding-and-removing-issue-labels)를 참고한다.
+또한 GitHub는 리뷰어에게 도움을 주기 위해 PR에 레이블을 자동으로 할당한다. 필요한 경우 직접 추가할 수도 있다. 자세한 내용은 [이슈 레이블 추가와 제거](/ko/docs/contribute/review/for-approvers/#이슈-레이블-추가와-제거)를 참고한다.
 
 ### 로컬에서 피드백 해결
 
@@ -480,6 +508,4 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
 ## {{% heading "whatsnext" %}}
 
 
-- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/reviewing/revewing-prs)를 읽어본다.
-
-
+- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/review/reviewing-prs)를 읽어본다.

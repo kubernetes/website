@@ -61,11 +61,11 @@ _리밋레인지_ 는 다음과 같은 제약 조건을 제공한다.
 
 제한의 사용에 대한 예시는 다음을 참조한다.
 
-- [네임스페이스당 최소 및 최대 CPU 제약 조건을 설정하는 방법](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
-- [네임스페이스당 최소 및 최대 메모리 제약 조건을 설정하는 방법](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
-- [네임스페이스당 기본 CPU 요청과 제한을 설정하는 방법](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
-- [네임스페이스당 기본 메모리 요청과 제한을 설정하는 방법](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
+- [네임스페이스당 최소 및 최대 CPU 제약 조건을 설정하는 방법](/ko/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/).
+- [네임스페이스당 최소 및 최대 메모리 제약 조건을 설정하는 방법](/ko/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/).
+- [네임스페이스당 기본 CPU 요청과 제한을 설정하는 방법](/ko/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/).
+- [네임스페이스당 기본 메모리 요청과 제한을 설정하는 방법](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
 - [네임스페이스당 최소 및 최대 스토리지 사용량을 설정하는 방법](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
-- [네임스페이스당 할당량을 설정하는 자세한 예시](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/).
+- [네임스페이스당 할당량을 설정하는 자세한 예시](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
 
 

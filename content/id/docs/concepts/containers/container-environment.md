@@ -17,7 +17,7 @@ Laman ini menjelaskan berbagai *resource* yang tersedia di dalam Kontainer pada 
 
 *Environment* Kontainer pada Kubernetes menyediakan beberapa *resource* penting yang tersedia di dalam Kontainer:
 
-* Sebuah *Filesystem*, yang merupakan kombinasi antara [image](/docs/concepts/containers/images/) dan satu atau banyak [*volumes*](/docs/concepts/storage/volumes/).
+* Sebuah *Filesystem*, yang merupakan kombinasi antara [image](/id/docs/concepts/containers/images/) dan satu atau banyak [*volumes*](/id/docs/concepts/storage/volumes/).
 * Informasi tentang Kontainer tersebut.
 * Informasi tentang objek-objek lain di dalam klaster.
 
@@ -53,7 +53,7 @@ jika [*addon* DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/a
 ## {{% heading "whatsnext" %}}
 
 
-* Pelajari lebih lanjut tentang [berbagai *hook* pada *lifecycle* Kontainer](/docs/concepts/containers/container-lifecycle-hooks/).
+* Pelajari lebih lanjut tentang [berbagai *hook* pada *lifecycle* Kontainer](/id/docs/concepts/containers/container-lifecycle-hooks/).
 * Dapatkan pengalaman praktis soal
   [memberikan *handler* untuk *event* dari *lifecycle* Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 

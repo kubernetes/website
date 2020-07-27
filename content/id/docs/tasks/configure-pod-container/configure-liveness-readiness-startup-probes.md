@@ -1,10 +1,10 @@
 ---
 title: Mengatur Probe Liveness, Readiness dan Startup
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini memperlihatkan bagaimana cara untuk mengatur _probe liveness_, _readiness_, dan
 _startup_ untuk Container.
@@ -26,15 +26,16 @@ berhasil, kamu harus memastikan _probe_ tersebut tidak mengganggu _startup_ dari
 Mekanisme ini dapat digunakan untuk mengadopsi pemeriksaan _liveness_ pada saat memulai Container yang lambat,
 untuk menghindari Container dimatikan oleh kubelet sebelum Container mulai dan berjalan.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mendefinisikan perintah liveness
 
@@ -358,9 +359,10 @@ Untuk _probe_ TCP, kubelet membuat koneksi _probe_ pada Node, tidak pada Pod, ya
 kamu tidak menggunakan nama Service di dalam parameter `host` karena kubelet tidak bisa
 me-_resolve_-nya.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Pelajari lebih lanjut tentang
 [Probe Container](/id/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
@@ -371,4 +373,4 @@ Kamu juga dapat membaca rujukan API untuk:
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
 
-{{% /capture %}}
+

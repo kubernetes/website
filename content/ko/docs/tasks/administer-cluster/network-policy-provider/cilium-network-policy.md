@@ -48,7 +48,7 @@ Minikube에서 실리움의 데몬셋 구성과 적절한 RBAC 설정을 포함�
 간단한 ``올인원`` YAML 파일로 배포할 수 있다.
 
 ```shell
-kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
+kubectl create -f  https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
 ```
 ```
 configmap/cilium-config created

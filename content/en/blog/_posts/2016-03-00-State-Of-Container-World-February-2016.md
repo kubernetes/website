@@ -11,15 +11,12 @@ Hello, and welcome to the second installment of the Kubernetes state of the cont
 In January, 71% of respondents were currently using containers, in February, 89% of respondents were currently using containers. The percentage of users not even considering containers also shrank from 4% in January to a surprising 0% in February. Will see if that holds consistent in March.Likewise, the usage of containers continued to march across the dev/canary/prod lifecycle. In all parts of the lifecycle, container usage increased:  
 
 
--
-Development: 80% -\> 88%
--
-Test: 67% -\> 72%
--
-Pre production: 41% -\> 55%
--
-Production: 50% -\> 62%
-What is striking in this is that pre-production growth continued, even as workloads were clearly transitioned into true production. Likewise the share of people considering containers for production rose from 78% in January to 82% in February. Again we’ll see if the trend continues into March.  
+- Development: 80% -\> 88%
+- Test: 67% -\> 72%
+- Pre production: 41% -\> 55%
+- Production: 50% -\> 62%
+
+What is striking in this is that pre-production growth continued, even as workloads were clearly transitioned into true production. Likewise the share of people considering containers for production rose from 78% in January to 82% in February. Again we’ll see if the trend continues into March.
 
 ## Container and cluster sizes
 

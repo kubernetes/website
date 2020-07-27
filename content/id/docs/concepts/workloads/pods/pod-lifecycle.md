@@ -52,7 +52,7 @@ Suatu Pod memiliki sebuah PodStatus, yang merupakan _array_ dari [PodConditions]
 
   * `PodScheduled`: Pod telah dijadwalkan masuk ke node;
   * `Ready`: Pod sudah mampu menerima _request_ masuk dan seharusnya sudah ditambahkan ke daftar pembagian beban kerja untuk servis yang sama;
-  * `Initialized`:  Semua [init containers](/docs/concepts/workloads/pods/init-containers) telah berjalan sempurna.
+  * `Initialized`:  Semua [init containers](/id/docs/concepts/workloads/pods/init-containers) telah berjalan sempurna.
   * `Unschedulable`: _scheduler_ belum dapat menjadwalkan Pod saat ini, sebagai contoh karena kekurangan _resources_ atau ada batasan-batasan lain.
   * `ContainersReady`: Semua kontainer di dalam Pod telah siap.
 
@@ -191,7 +191,7 @@ status:
 ...
 ```
 
-Kondisi Pod yang baru harus memenuhi [format label](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) pada Kubernetes.
+Kondisi Pod yang baru harus memenuhi [format label](/id/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) pada Kubernetes.
 Sejak perintah `kubectl patch` belum mendukung perubahan status objek, kondisi Pod yang baru harus mengubah melalui aksi `PATCH` dengan menggunakan
 salah satu dari [KubeClient _libraries_](/docs/reference/using-api/client-libraries/).
 
@@ -232,13 +232,13 @@ Tiga tipe pengontrol yang tersedia yaitu:
   sebagai contoh, penghitungan dalam jumlah banyak. Jobs hanyak cocok untuk Pod dengan `restartPolicy` yang
   bernilai OnFailure atau Never.
 
-- Menggunakan sebuah [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), atau
-  [Deployment](/docs/concepts/workloads/controllers/deployment/) untuk Pod yang tidak diharapkan untuk berakhir,
+- Menggunakan sebuah [ReplicationController](/id/docs/concepts/workloads/controllers/replicationcontroller/),
+  [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/), atau
+  [Deployment](/id/docs/concepts/workloads/controllers/deployment/) untuk Pod yang tidak diharapkan untuk berakhir,
   sebagai contoh, _web servers_. ReplicationControllers hanya cocok digunakan pada Pod dengan `restartPolicy`
   yang bernilai Always.
 
-- Menggunakan sebuah [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) untuk Pod yang akan berjalan
+- Menggunakan sebuah [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/) untuk Pod yang akan berjalan
   hanya satu untuk setiap mesin, karena menyediakan servis yang spesifik untuk suatu mesin.
 
 
@@ -346,7 +346,7 @@ spec:
 * Dapatkan pengalaman langsung mengenai
   [pengaturan _liveness_ dan _readiness probes_](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
 
-* Pelajari lebih lanjut mengenai [_lifecycle hooks_ pada kontainer](/docs/concepts/containers/container-lifecycle-hooks/).
+* Pelajari lebih lanjut mengenai [_lifecycle hooks_ pada kontainer](/id/docs/concepts/containers/container-lifecycle-hooks/).
 
 
 

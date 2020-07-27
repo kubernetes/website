@@ -28,6 +28,9 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+[deprecation_title]
+other = "您正在查看 Kubernetes 版本的文档："
+
 [deprecation_warning]
 other = " 版本的文档已不再维护。您现在看到的版本来自于一份静态的快照。如需查阅最新文档，请点击"
 
@@ -46,6 +49,9 @@ other = "我是..."
 [docs_label_users]
 other = "用户"
 
+[examples_heading]
+other = "示例"
+
 [feedback_heading]
 other = "反馈"
 
@@ -57,6 +63,9 @@ other = "此页是否对您有帮助？"
 
 [feedback_yes]
 other = "是"
+
+[input_placeholder_email_address]
+other = "电子邮件地址"
 
 [latest_version]
 other = "最新版本。"
@@ -169,11 +178,20 @@ other = "说明："
 [objectives_heading]
 other = "教程目标"
 
+[options_heading]
+other = "选项"
+
 [prerequisites_heading]
 other = "准备开始"
 
+[seealso_heading]
+other = "另请参见"
+
 [subscribe_button]
 other = "订阅"
+
+[synopsis_heading]
+other = "简介"
 
 [ui_search_placeholder]
 other = "搜索"
@@ -192,6 +210,3 @@ other = "警告："
 
 [whatsnext_heading]
 other = "接下来"
-
-[input_placeholder_email_address]
-other = "电子邮件地址"

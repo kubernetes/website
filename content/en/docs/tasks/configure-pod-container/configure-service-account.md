@@ -316,7 +316,7 @@ kubectl create -f https://k8s.io/examples/pods/pod-projected-svc-token.yaml
 The kubelet will request and store the token on behalf of the pod, make the
 token available to the pod at a configurable file path, and refresh the token as it approaches expiration. Kubelet proactively rotates the token if it is older than 80% of its total TTL, or if the token is older than 24 hours.
 
-The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most usecases.
+The application is responsible for reloading the token when it rotates. Periodic reloading (e.g. once every 5 minutes) is sufficient for most use cases.
 
 ## Service Account Issuer Discovery
 

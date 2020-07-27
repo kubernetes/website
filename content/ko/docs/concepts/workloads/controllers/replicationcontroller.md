@@ -114,7 +114,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 
 다른 모든 쿠버네티스 컨피그와 마찬가지로 레플리케이션 컨트롤러는 `apiVersion`, `kind`, `metadata` 와 같은 필드가 필요하다.
 레플리케이션 컨트롤러 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 컨피그 파일의 동작에 관련된 일반적인 정보는 다음을 참조하라 [쿠버네티스 오브젝트 관리 ](/ko/docs/concepts/overview/working-with-objects/object-management/).
 
 레플리케이션 컨트롤러는 또한 [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 도 필요하다.
@@ -123,7 +123,7 @@ nginx-3ntk0 nginx-4ok8v nginx-qrm3m
 
 `.spec.template` 는 오직 `.spec` 필드에서 요구되는 것이다.
 
-`.spec.template` 는 [파드 개요](/ko/docs/concepts/workloads/pods/pod-overview/#pod-templates) 이다. 정확하게 [파드](/ko/docs/concepts/workloads/pods/pod/) 스키마와 동일하나, 중첩되어 있고 `apiVersion` 혹은 `kind`를 갖지 않는다.
+`.spec.template` 는 [파드 개요](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿) 이다. 정확하게 [파드](/ko/docs/concepts/workloads/pods/pod/) 스키마와 동일하나, 중첩되어 있고 `apiVersion` 혹은 `kind`를 갖지 않는다.
 
 파드에 필요한 필드 외에도 레플리케이션 컨트롤러의 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 지정해야 한다. 레이블의 경우 다른 컨트롤러와
 중첩되지 않도록 하라. [파드 셀렉터](#파드-셀렉터)를 참조하라.
@@ -255,7 +255,7 @@ API 오브젝트에 대한 더 자세한 것은
 
 [`레플리카셋`](/ko/docs/concepts/workloads/controllers/replicaset/)은 새로운 [집합성 기준 레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#집합성-기준-요건) 이다.
 이것은 주로 [`디플로이먼트`](/ko/docs/concepts/workloads/controllers/deployment/) 에 의해 파드의 생성, 삭제 및 업데이트를 오케스트레이션 하는 메커니즘으로 사용된다.
-사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카 셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
+사용자 지정 업데이트 조정이 필요하거나 업데이트가 필요하지 않은 경우가 아니면 레플리카셋을 직접 사용하는 대신 디플로이먼트를 사용하는 것이 좋다.
 
 
 ### 디플로이먼트 (권장되는)
