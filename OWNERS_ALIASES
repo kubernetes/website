@@ -192,6 +192,7 @@ aliases:
     - potapy4
     - dianaabv
   sig-docs-ru-reviews: # PR reviews for Russian content
+    - Arhell
     - msheldyakov
     - aisonaku
     - potapy4

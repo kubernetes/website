@@ -25,8 +25,8 @@ Lihat [Pengelolaan Objek Kubernetes](/docs/concepts/overview/object-management-k
 Konfigurasi objek secara deklaratif membutuhkan pemahaman yang baik
 tentang definisi dan konfigurasi objek-objek Kubernetes. Jika belum pernah, kamu disarankan untuk membaca terlebih dulu dokumen-dokumen berikut:
 
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes Menggunakan File Konfigurasi Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Pengelolaan Objek Kubernetes Menggunakan File Konfigurasi Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
 
 Berikut adalah beberapa defnisi dari istilah-istilah yang digunakan
 dalam dokumen ini:
@@ -862,8 +862,8 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

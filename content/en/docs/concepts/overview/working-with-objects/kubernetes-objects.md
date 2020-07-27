@@ -92,7 +92,7 @@ and the `spec` format for a Deployment can be found in
 ## {{% heading "whatsnext" %}}
 
 * [Kubernetes API overview](/docs/reference/using-api/api-overview/) explains some more API concepts
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
+* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/).
 * Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
 
 

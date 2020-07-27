@@ -14,7 +14,7 @@ _Custom Resource_ adalah ekstensi dari Kubernetes API. Laman ini mendiskusikan k
 
 ## _Custom Resource_
 
-Sebuah sumber daya adalah sebuah *endpoint* pada [Kubernetes API](/docs/reference/using-api/api-overview/) yang menyimpan sebuah koleksi [objek API](/docs/concepts/overview/working-with-objects/kubernetes-objects/) dari sebuah jenis tertentu. Sebagai contoh, sumber daya bawaan Pod mengandung sebuah koleksi objek-objek Pod.
+Sebuah sumber daya adalah sebuah *endpoint* pada [Kubernetes API](/docs/reference/using-api/api-overview/) yang menyimpan sebuah koleksi [objek API](/id/docs/concepts/overview/working-with-objects/kubernetes-objects/) dari sebuah jenis tertentu. Sebagai contoh, sumber daya bawaan Pod mengandung sebuah koleksi objek-objek Pod.
 
 Sebuah _Custom Resource_ adalah sebuah ekstensi dari Kubernetes API yang tidak seharusnya tersedia pada pemasangan default Kubernetes. Namun, banyak fungsi-fungsi inti Kubernetes yang sekarang dibangun menggunakan _Custom Resource_, membuat Kubernetes lebih modular.
 
@@ -25,7 +25,7 @@ dipasang, pengguna dapat membuat dan mengakses objek-objek _Custom Resource_ men
 
 Dengan sendirinya, _Custom Resource_ memungkinkan kamu untuk menyimpan dan mengambil data terstruktur. Ketika kamu menggabungkan sebuah _Custom Resource_ dengan _controller_ khusus, _Custom Resource_ akan memberikan sebuah API deklaratif yang sebenarnya.
 
-Sebuah [API deklaratif](/docs/concepts/overview/working-with-objects/kubernetes-objects/#memahami-konsep-objek-objek-yang-ada-pada-kubernetes)
+Sebuah [API deklaratif](/id/docs/concepts/overview/working-with-objects/kubernetes-objects/#memahami-konsep-objek-objek-yang-ada-pada-kubernetes)
 memungkinkan kamu untuk mendeklarasikan atau menspesifikasikan keadaan dari sumber daya kamu dan mencoba untuk menjaga agar keadaan saat itu tersinkronisasi dengan keadaan yang diinginkan. *Controller* menginterpretasikan data terstruktur sebagai sebuah rekaman dari keadaan yang diinginkan pengguna, dan secara kontinu menjaga keadaan ini.
 
 Kamu bisa men-_deploy_ dan memperbaharui sebuah _controller_ khusus pada sebuah klaster yang berjalan, secara independen dari siklus hidup klaster itu sendiri. _Controller_ khusus dapat berfungsi dengan sumber daya jenis apapun, tetapi mereka sangat efektif ketika dikombinasikan dengan _Custom Resource_. [_Operator pattern_](https://coreos.com/blog/introducing-operators.html) mengkombinasikan _Custom Resource_ dan _controller_ khusus. Kamu bisa menggunakan _controller_ khusus untuk menyandi pengetahuan domain untuk aplikasi spesifik menjadi sebuah ekstensi dari Kubernetes API.
@@ -40,7 +40,7 @@ Ketika membuat sebuah API baru, pikirkan apakah kamu ingin [mengagregasikan API 
 | Kamu mau tipe baru yang dapat dibaca dan ditulis dengan `kubectl`.| Dukungan `kubectl` tidak diperlukan |
 | Kamu mau melihat tipe baru pada sebuah Kubernetes UI, seperti dasbor, bersama dengan tipe-tipe bawaan. | Dukungan Kubernetes UI tidak diperlukan. |
 | Kamu mengembangkan sebuah API baru. | Kamu memiliki sebuah program yang melayani API kamu dan dapat berkerja dengan baik. |
-| Kamu bersedia menerima pembatasan format yang Kubernetes terapkan pada jalur sumber daya API (Lihat [Ikhtisar API](/docs/concepts/overview/kubernetes-api/).) | Kamu perlu memiliki jalur REST spesifik agar menjadi cocok dengan REST API yang telah didefinisikan. |
+| Kamu bersedia menerima pembatasan format yang Kubernetes terapkan pada jalur sumber daya API (Lihat [Ikhtisar API](/id/docs/concepts/overview/kubernetes-api/).) | Kamu perlu memiliki jalur REST spesifik agar menjadi cocok dengan REST API yang telah didefinisikan. |
 | Sumber daya kamu secara alami mencakup hingga sebuah klaster atau sebuah *namespace* dari sebuah klaster. | Sumber daya yang mencakup klaster atau *namespace* adalah sebuah ketidakcocokan; kamu perlu mengendalikan jalur sumber daya spesifik. |
 | Kamu ingin menggunakan kembali [dukungan fitur Kubernetes API](#fitur-umum).  | Kamu tidak membutuhkan fitur tersebut. |
 
@@ -77,7 +77,7 @@ Gunakan ConfigMap jika salah satu hal berikut berlaku:
 * Kamu ingin melakukan pembaharuan bergulir lewat Deployment, dll, ketika berkas diperbaharui.
 
 {{< note >}}
-Gunakan sebuah [Secret](/docs/concepts/configuration/secret/) untuk data sensitif, yang serupa dengan ConfigMap tetapi lebih aman.
+Gunakan sebuah [Secret](/id/docs/concepts/configuration/secret/) untuk data sensitif, yang serupa dengan ConfigMap tetapi lebih aman.
 {{< /note >}}
 
 Gunakan sebuah _Custom Resource_ (CRD atau _Aggregated API_) jika kebanyakan dari hal berikut berlaku:
@@ -93,11 +93,11 @@ Gunakan sebuah _Custom Resource_ (CRD atau _Aggregated API_) jika kebanyakan dar
 
 Kubernetes menyediakan dua cara untuk menambahkan sumber daya ke klaster kamu:
 - CRD cukup sederhana dan bisa diciptakan tanpa pemrograman apapun.
-- [Agregasi API](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) membutuhkan pemrograman, tetapi memungkinkan kendali lebih terhadap perilaku API seperti bagaimana data disimpan dan perubahan antar versi API.
+- [Agregasi API](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) membutuhkan pemrograman, tetapi memungkinkan kendali lebih terhadap perilaku API seperti bagaimana data disimpan dan perubahan antar versi API.
 
 Kubernetes menyediakan kedua opsi tersebut untuk memenuhi kebutuhan pengguna berbeda, jadi tidak ada kemudahan penggunaan atau fleksibilitas yang dikompromikan.
 
-_Aggregated API_ adalah bawahan dari APIServer yang duduk dibelakang API server utama, yang bertindak sebagai sebuah _proxy_. Pengaturan ini disebut [Agregasi API](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). Untuk pengguna, yang terlihat adalah Kubernetes API yang diperluas.
+_Aggregated API_ adalah bawahan dari APIServer yang duduk dibelakang API server utama, yang bertindak sebagai sebuah _proxy_. Pengaturan ini disebut [Agregasi API](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA). Untuk pengguna, yang terlihat adalah Kubernetes API yang diperluas.
 
 CRD memungkinkan pengguna untuk membuat tipe baru sumber daya tanpa menambahkan APIserver lain. Kamu tidak perlu mengerti Agregasi API untuk menggunakan CRD.
 
@@ -115,7 +115,7 @@ Lihat [contoh *controller* khusus](https://github.com/kubernetes/sample-controll
 
 Biasanya, tiap sumber daya di API Kubernetes membutuhkan kode yang menangani permintaan REST dan mengatur peyimpanan tetap dari objek-objek. Server Kubernetes API utama menangani sumber daya bawaan seperti Pod dan Service, dan juga menangani _Custom Resource_ dalam sebuah cara yang umum melalui [CRD](#customresourcedefinition).
 
-[Lapisan agregasi](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) memungkinkan kamu untuk menyediakan implementasi khusus untuk _Custom Resource_ dengan menulis dan men-_deploy_ API server kamu yang berdiri sendiri. API server utama menlimpahkan permintaan kepada kamu untuk _Custom Resource_ yang kamu tangani, membuat mereka tersedia untuk semua kliennya.
+[Lapisan agregasi](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) memungkinkan kamu untuk menyediakan implementasi khusus untuk _Custom Resource_ dengan menulis dan men-_deploy_ API server kamu yang berdiri sendiri. API server utama menlimpahkan permintaan kepada kamu untuk _Custom Resource_ yang kamu tangani, membuat mereka tersedia untuk semua kliennya.
 
 ## Memilih sebuah metode untuk menambahkan _Custom Resource_
 
@@ -216,7 +216,7 @@ Ketika kamu menambahkan sebuah _Custom Resource_, kamu dapat mengaksesnya dengan
 ## {{% heading "whatsnext" %}}
 
 
-* Belajar bagaimana untuk [Memperluas Kubernetes API dengan lapisan agregasi](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
+* Belajar bagaimana untuk [Memperluas Kubernetes API dengan lapisan agregasi](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 
 * Belajar bagaimana untuk [Memperluas Kubernetes API dengan CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/).
 

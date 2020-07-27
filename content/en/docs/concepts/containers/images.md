@@ -129,7 +129,7 @@ example, run these on your desktop/laptop:
       - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 
 {{< note >}}
-For production clusers, use a configuration management tool so that you can apply this
+For production clusters, use a configuration management tool so that you can apply this
 setting to all the nodes where you need it.
 {{< /note >}}
 

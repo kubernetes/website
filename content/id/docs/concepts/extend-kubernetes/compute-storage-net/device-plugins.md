@@ -37,7 +37,7 @@ Dalam pendaftaran, _plugin_ perangkat perlu mengirim:
   * Nama Unix socket-nya.
   * Versi API Plugin Perangkat yang dipakai.
   * `ResourceName` yang ingin ditunjukkan. `ResourceName` ini harus mengikuti
-    [skema penamaan sumber daya ekstensi](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [skema penamaan sumber daya ekstensi](/id/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     sebagai `vendor-domain/tipe-sumber-daya`.
     (Contohnya, NVIDIA GPU akan dinamai `nvidia.com/gpu`.)
 

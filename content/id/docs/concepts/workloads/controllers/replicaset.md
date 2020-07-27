@@ -197,7 +197,7 @@ Untuk _field_ [_restart policy_](/docs/concepts/workloads/Pods/pod-lifecycle/#re
 
 ### Selektor Pod
 
-_Field_ `.spec.selector` adalah sebuah [selektor labe](/docs/concepts/overview/working-with-objects/labels/). Seperti yang telah dibahas [sebelumnya](#how-a-replicaset-works), _field_ ini adalah label yang digunakan untuk mengidentifikasi Pod yang memungkinkan untuk diakuisisi. Pada contoh `frontend.yaml`, selektornya adalah:
+_Field_ `.spec.selector` adalah sebuah [selektor labe](/id/docs/concepts/overview/working-with-objects/labels/). Seperti yang telah dibahas [sebelumnya](#how-a-replicaset-works), _field_ ini adalah label yang digunakan untuk mengidentifikasi Pod yang memungkinkan untuk diakuisisi. Pada contoh `frontend.yaml`, selektornya adalah:
 ```shell
 matchLabels:
 	tier: frontend
@@ -219,7 +219,7 @@ Jika nilai `.spec.replicas` tidak ditentukan maka akan diatur ke nilai _default_
 
 ### Menghapus ReplicaSet dan Pod-nya
 
-Untuk menghapus sebuah ReplicaSet beserta dengan Pod-nya, gunakan [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). [_Garbage collector_](/docs/concepts/workloads/controllers/garbage-collection/) secara otomatis akan menghapus semua Pod dependen secara _default_.
+Untuk menghapus sebuah ReplicaSet beserta dengan Pod-nya, gunakan [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete). [_Garbage collector_](/id/docs/concepts/workloads/controllers/garbage-collection/) secara otomatis akan menghapus semua Pod dependen secara _default_.
 
 Ketika menggunakan REST API atau _library_ `client-go`, kamu harus mengatur nilai `propagationPolicy` menjadi `Background` atau `Foreground` pada opsi -d.
 Sebagai contoh:
@@ -243,7 +243,7 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 ```
 
 Ketika ReplicaSet yang asli telah dihapus, kamu dapat membuat ReplicaSet baru untuk menggantikannya. Selama _field_ `.spec.selector` yang lama dan baru memilki nilai yang sama, maka ReplicaSet baru akan mengadopsi Pod lama namun tidak serta merta membuat Pod yang sudah ada sama dan sesuai dengan templat Pod yang baru.
-Untuk memperbarui Pod dengan _spec_ baru dapat menggunakan [Deployment](/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) karena ReplicaSet tidak mendukung pembaruan secara langsung.
+Untuk memperbarui Pod dengan _spec_ baru dapat menggunakan [Deployment](/id/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) karena ReplicaSet tidak mendukung pembaruan secara langsung.
 
 ### Mengisolasi Pod dari ReplicaSet
 
@@ -275,7 +275,7 @@ kubectl autoscale rs frontend --max=10
 
 ### Deployment (direkomendasikan)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) adalah sebuah objek yang bisa memiliki ReplicaSet dan memperbarui ReplicaSet dan Pod-nya melalui _rolling update_ deklaratif dan _server-side_.
+[`Deployment`](/id/docs/concepts/workloads/controllers/deployment/) adalah sebuah objek yang bisa memiliki ReplicaSet dan memperbarui ReplicaSet dan Pod-nya melalui _rolling update_ deklaratif dan _server-side_.
 Walaupun ReplicaSet dapat digunakan secara independen, seringkali ReplicaSet digunakan oleh Deployments sebagai mekanisme untuk mengorkestrasi pembuatan, penghapusan dan pembaruan Pod. Ketika kamu menggunakan Deployments kamu tidak perlu khawatir akan pengaturan dari ReplicaSet yang dibuat. Deployments memiliki dan mengatur ReplicaSet-nya sendiri.
 Maka dari itu penggunaan Deployments direkomendasikan jika kamu menginginkan ReplicaSet.
 
@@ -289,9 +289,9 @@ Gunakan [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) alih-al
 
 ### DaemonSet
 
-Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) alih-alih ReplicaSet untuk Pod yang menyediakan fungsi pada level mesin, seperti _monitoring_ mesin atau _logging_ mesin. Pod ini memiliki waktu hidup yang bergantung terhadap waktu hidup mesin: Pod perlu untuk berjalan pada mesin sebelum Pod lain dijalankan, dan aman untuk diterminasi ketika mesin siap untuk di-_reboot_ atau dimatikan. 
+Gunakan [`DaemonSet`](/id/docs/concepts/workloads/controllers/daemonset/) alih-alih ReplicaSet untuk Pod yang menyediakan fungsi pada level mesin, seperti _monitoring_ mesin atau _logging_ mesin. Pod ini memiliki waktu hidup yang bergantung terhadap waktu hidup mesin: Pod perlu untuk berjalan pada mesin sebelum Pod lain dijalankan, dan aman untuk diterminasi ketika mesin siap untuk di-_reboot_ atau dimatikan. 
 
 ### ReplicationController
 
-ReplicaSet adalah suksesor dari [_ReplicationControllers_](/docs/concepts/workloads/controllers/replicationcontroller/). Keduanya memenuhi tujuan yang sama dan memiliki perilaku yang serupa, kecuali bahwa ReplicationController tidak mendukung kebutuhan selektor _set-based_ seperti yang dijelaskan pada [panduan penggunaan label](/docs/concepts/overview/working-with-objects/labels/#label-selectors). Pada kasus tersebut, ReplicaSet lebih direkomendasikan dibandingkan ReplicationController.
+ReplicaSet adalah suksesor dari [_ReplicationControllers_](/id/docs/concepts/workloads/controllers/replicationcontroller/). Keduanya memenuhi tujuan yang sama dan memiliki perilaku yang serupa, kecuali bahwa ReplicationController tidak mendukung kebutuhan selektor _set-based_ seperti yang dijelaskan pada [panduan penggunaan label](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors). Pada kasus tersebut, ReplicaSet lebih direkomendasikan dibandingkan ReplicationController.
 

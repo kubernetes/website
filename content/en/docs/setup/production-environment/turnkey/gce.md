@@ -72,7 +72,7 @@ cluster/kube-up.sh
 If you want more than one cluster running in your project, want to use a different name, or want a different number of worker nodes, see the `<kubernetes>/cluster/gce/config-default.sh` file for more fine-grained configuration before you start up your cluster.
 
 If you run into trouble, please see the section on [troubleshooting](/docs/setup/production-environment/turnkey/gce/#troubleshooting), post to the
-[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on [Slack](/docs/troubleshooting/#slack).
+[Kubernetes Forum](https://discuss.kubernetes.io), or come ask questions on `#gke` Slack channel.
 
 The next few steps will show you:
 
@@ -85,7 +85,7 @@ The next few steps will show you:
 
 The cluster startup script will leave you with a running cluster and a `kubernetes` directory on your workstation.
 
-The [kubectl](/docs/user-guide/kubectl/) tool controls the Kubernetes cluster
+The [kubectl](/docs/reference/kubectl/kubectl/) tool controls the Kubernetes cluster
 manager.  It lets you inspect your cluster resources, create, delete, and update
 components, and much more. You will use it to look at your new cluster and bring
 up example apps.
@@ -98,7 +98,7 @@ gcloud components install kubectl
 
 {{< note >}}
 The kubectl version bundled with `gcloud` may be older than the one
-downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/kubectl/install/)
+downloaded by the get.k8s.io install script. See [Installing kubectl](/docs/tasks/tools/install-kubectl/)
 document to see how you can set up the latest `kubectl` on your workstation.
 {{< /note >}}
 
@@ -112,7 +112,7 @@ Once `kubectl` is in your path, you can use it to look at your cluster. E.g., ru
 kubectl get --all-namespaces services
 ```
 
-should show a set of [services](/docs/user-guide/services) that look something like this:
+should show a set of [services](/docs/concepts/services-networking/service/) that look something like this:
 
 ```shell
 NAMESPACE     NAME          TYPE             CLUSTER_IP       EXTERNAL_IP       PORT(S)        AGE
@@ -122,7 +122,7 @@ kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            
 ...
 ```
 
-Similarly, you can take a look at the set of [pods](/docs/user-guide/pods) that were created during cluster startup.
+Similarly, you can take a look at the set of [pods](/docs/concepts/workloads/pods/pod/) that were created during cluster startup.
 You can do this via the
 
 ```shell
@@ -149,7 +149,7 @@ Some of the pods may take a few seconds to start up (during this time they'll sh
 
 ### Run some examples
 
-Then, see [a simple nginx example](/docs/user-guide/simple-nginx) to try out your new cluster.
+Then, see [a simple nginx example](/docs/tasks/run-application/run-stateless-application-deployment/) to try out your new cluster.
 
 For more complete applications, please look in the [examples directory](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/).  The [guestbook example](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) is a good "getting started" walkthrough.
 
@@ -219,11 +219,5 @@ field values:
 IaaS Provider        | Config. Mgmt | OS     | Networking  | Docs                                              | Conforms | Support Level
 -------------------- | ------------ | ------ | ----------  | ---------------------------------------------     | ---------| ----------------------------
 GCE                  | Saltstack    | Debian | GCE         | [docs](/docs/setup/production-environment/turnkey/gce/)                                    |   | Project
-
-
-## Further reading
-
-Please see the [Kubernetes docs](/docs/) for more details on administering
-and using a Kubernetes cluster.
 
 

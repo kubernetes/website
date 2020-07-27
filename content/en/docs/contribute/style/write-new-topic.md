@@ -11,7 +11,7 @@ This page shows how to create a new topic for the Kubernetes docs.
 ## {{% heading "prerequisites" %}}
 
 Create a fork of the Kubernetes documentation repository as described in
-[Open a PR](/docs/new-content/open-a-pr/).
+[Open a PR](/docs/contribute/new-content/open-a-pr/).
 
 
 <!-- steps -->
@@ -160,7 +160,7 @@ submitted to ensure all examples pass the tests.
 {{< /note >}}
 
 For an example of a topic that uses this technique, see
-[Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
+[Running a Single-Instance Stateful Application](/docs/tasks/run-application/run-single-instance-stateful-application/).
 
 ## Adding images to a topic
 

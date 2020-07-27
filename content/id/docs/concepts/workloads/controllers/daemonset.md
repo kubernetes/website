@@ -48,7 +48,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 Seperti semua konfigurasi Kubernetes lainnya, DaemonSet membutuhkan _field_
 `apiVersion`, `kind`, dan `metadata`.  Untuk informasi umum tentang berkas konfigurasi, lihat dokumen [men-_deploy_ aplikasi](/docs/user-guide/deploying-applications/),
-[pengaturan kontainer](/docs/tasks/), dan [pengelolaan objek dengan kubectl](/docs/concepts/overview/working-with-objects/object-management/).
+[pengaturan kontainer](/docs/tasks/), dan [pengelolaan objek dengan kubectl](/id/docs/concepts/overview/working-with-objects/object-management/).
 
 DaemonSet juga membutuhkan bagian [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -61,7 +61,7 @@ DaemonSet juga membutuhkan bagian [`.spec`](https://git.k8s.io/community/contrib
 Selain _field_ wajib untuk Pod, templat Pod di DaemonSet harus
 menspesifikasikan label yang sesuai (lihat [selektor Pod](#selektor-pod)).
 
-Templat Pod di DaemonSet harus memiliki [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+Templat Pod di DaemonSet harus memiliki [`RestartPolicy`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
 yang bernilai `Always`, atau tidak dispesifikasikan, sehingga _default_ menjadi `Always`.
 DaemonSet dengan nilai `Always` membuat Pod akan selalu di-_restart_ saat kontainer
 keluar/berhenti atau terjadi _crash_.
@@ -77,7 +77,7 @@ Mengubah selektor Pod dapat menyebabkan Pod _orphan_ yang tidak disengaja, dan m
 
 Objek `.spec.selector` memiliki dua _field_:
 
-* `matchLabels` - bekerja seperti `.spec.selector` pada [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
+* `matchLabels` - bekerja seperti `.spec.selector` pada [ReplicationController](/id/docs/concepts/workloads/controllers/replicationcontroller/).
 * `matchExpressions` - bisa digunakan untuk membuat selektor yang lebih canggih
   dengan mendefinisikan _key_, daftar _value_ dan operator yang menyatakan
   hubungan antara _key_ dan _value_.
@@ -97,8 +97,8 @@ membuat Pod dengan nilai yang berbeda di sebuah Node untuk _testing_.
 
 Jika kamu menspesifikasikan `.spec.template.spec.nodeSelector`, maka _controller_ DaemonSet akan
 membuat Pod pada Node yang cocok dengan [selektor
-Node](/docs/concepts/configuration/assign-pod-node/). Demikian juga, jika kamu menspesifikasikan `.spec.template.spec.affinity`,
-maka _controller_ DaemonSet akan membuat Pod pada Node yang cocok dengan [Node affinity](/docs/concepts/configuration/assign-pod-node/).
+Node](/id/docs/concepts/configuration/assign-pod-node/). Demikian juga, jika kamu menspesifikasikan `.spec.template.spec.affinity`,
+maka _controller_ DaemonSet akan membuat Pod pada Node yang cocok dengan [Node affinity](/id/docs/concepts/configuration/assign-pod-node/).
 Jika kamu tidak menspesifikasikan sama sekali, maka _controller_ DaemonSet akan
 membuat Pod pada semua Node.
 
@@ -116,7 +116,7 @@ mendatangkan masalah-masalah berikut:
  * Inkonsistensi perilaku Pod: Pod normal yang menunggu dijadwalkan akan dibuat
    dalam keadaan `Pending`, tapi Pod DaemonSet tidak seperti itu. Ini
    membingungkan untuk pengguna.
- * [Pod preemption](/docs/concepts/configuration/pod-priority-preemption/)
+ * [Pod preemption](/id/docs/concepts/configuration/pod-priority-preemption/)
    ditangani oleh _default scheduler_. Ketika _preemption_ dinyalakan,
    _controller_ DaemonSet akan membuat keputusan penjadwalan tanpa
    memperhitungkan prioritas Pod dan _preemption_.
@@ -148,7 +148,7 @@ mengabaikan Node `unschedulable` ketika menjadwalkan Pod DaemonSet.
 ### _Taint_ dan _Toleration_
 
 Meskipun Pod Daemon menghormati
-[taint dan toleration](/docs/concepts/configuration/taint-and-toleration),
+[taint dan toleration](/id/docs/concepts/configuration/taint-and-toleration),
 _toleration_ berikut ini akan otomatis ditambahkan ke Pod DaemonSet sesuai
 dengan fitur yang bersangkutan.
 
@@ -170,7 +170,7 @@ Beberapa pola yang mungkin digunakan untuk berkomunikasi dengan Pod dalam Daemon
 - **Push**: Pod dalam DaemonSet diatur untuk mengirim pembaruan status ke servis lain,
   contohnya _stats database_. Pod ini tidak memiliki klien.
 - **IP Node dan Konvensi Port**: Pod dalam DaemonSet dapat menggunakan `hostPort`, sehingga Pod dapat diakses menggunakan IP Node. Klien tahu daftar IP Node dengan suatu cara, dan tahu port berdasarkan konvensi.
-- **DNS**: Buat [headless service](/docs/concepts/services-networking/service/#headless-services) dengan Pod selektor yang sama,
+- **DNS**: Buat [headless service](/id/docs/concepts/services-networking/service/#headless-services) dengan Pod selektor yang sama,
   dan temukan DaemonSet menggunakan _resource_ `endpoints` atau mengambil beberapa A _record_ dari DNS.
 - **Service**: Buat Servis dengan Pod selektor yang sama, dan gunakan Servis untuk mengakses _daemon_ pada
   Node random. (Tidak ada cara mengakses spesifik Node)
@@ -223,7 +223,7 @@ _bootstrapping_ klaster.
 
 ### Deployment
 
-DaemonSet mirip dengan [Deployment](/docs/concepts/workloads/controllers/deployment/) sebab mereka
+DaemonSet mirip dengan [Deployment](/id/docs/concepts/workloads/controllers/deployment/) sebab mereka
 sama-sama membuat Pod, dan Pod yang mereka buat punya proses yang seharusnya tidak berhenti (e.g. peladen web,
 peladen penyimpanan)
 

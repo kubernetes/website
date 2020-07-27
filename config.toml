@@ -275,6 +275,7 @@ description = "Production-Grade Container Orchestration"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
+languagedirection = "ltr"
 
 [languages.zh]
 title = "Kubernetes"
@@ -282,6 +283,7 @@ description = "生产级别的容器编排系统"
 languageName = "中文 Chinese"
 weight = 2
 contentDir = "content/zh"
+languagedirection = "ltr"
 
 [languages.zh.params]
 time_format_blog = "2006.01.02"
@@ -293,6 +295,7 @@ description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 Korean"
 weight = 3
 contentDir = "content/ko"
+languagedirection = "ltr"
 
 [languages.ko.params]
 time_format_blog = "2006.01.02"
@@ -304,6 +307,7 @@ description = "プロダクショングレードのコンテナ管理基盤"
 languageName = "日本語 Japanese"
 weight = 4
 contentDir = "content/ja"
+languagedirection = "ltr"
 
 [languages.ja.params]
 time_format_blog = "2006.01.02"
@@ -315,6 +319,7 @@ description = "Solution professionnelle d’orchestration de conteneurs"
 languageName ="Français"
 weight = 5
 contentDir = "content/fr"
+languagedirection = "ltr"
 
 [languages.fr.params]
 time_format_blog = "02.01.2006"
@@ -327,6 +332,7 @@ description = "Orchestrazione di Container in produzione"
 languageName = "Italiano"
 weight = 6
 contentDir = "content/it"
+languagedirection = "ltr"
 
 [languages.it.params]
 time_format_blog = "02.01.2006"
@@ -339,6 +345,7 @@ description = "Production-Grade Container Orchestration"
 languageName ="Norsk"
 weight = 7
 contentDir = "content/no"
+languagedirection = "ltr"
 
 [languages.no.params]
 time_format_blog = "02.01.2006"
@@ -351,6 +358,7 @@ description = "Produktionsreife Container-Orchestrierung"
 languageName ="Deutsch"
 weight = 8
 contentDir = "content/de"
+languagedirection = "ltr"
 
 [languages.de.params]
 time_format_blog = "02.01.2006"
@@ -363,6 +371,7 @@ description = "Orquestación de contenedores para producción"
 languageName ="Español"
 weight = 9
 contentDir = "content/es"
+languagedirection = "ltr"
 
 [languages.es.params]
 time_format_blog = "02.01.2006"
@@ -375,6 +384,7 @@ description = "Orquestração de contêineres em nível de produção"
 languageName ="Português"
 weight = 9
 contentDir = "content/pt"
+languagedirection = "ltr"
 
 [languages.pt.params]
 time_format_blog = "02.01.2006"
@@ -387,6 +397,7 @@ description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
 weight = 10
 contentDir = "content/id"
+languagedirection = "ltr"
 
 [languages.id.params]
 time_format_blog = "02.01.2006"
@@ -399,6 +410,7 @@ description = "Production-Grade Container Orchestration"
 languageName = "Hindi"
 weight = 11
 contentDir = "content/hi"
+languagedirection = "ltr"
 
 [languages.hi.params]
 time_format_blog = "01.02.2006"
@@ -410,6 +422,7 @@ description = "Giải pháp điều phối container trong môi trường produc
 languageName = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 12
+languagedirection = "ltr"
 
 [languages.ru]
 title = "Kubernetes"
@@ -417,6 +430,7 @@ description = "Первоклассная оркестрация контейн�
 languageName = "Русский"
 weight = 12
 contentDir = "content/ru"
+languagedirection = "ltr"
 
 [languages.ru.params]
 time_format_blog = "02.01.2006"
@@ -429,6 +443,7 @@ description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski"
 weight = 13
 contentDir = "content/pl"
+languagedirection = "ltr"
 
 [languages.pl.params]
 time_format_blog = "01.02.2006"
@@ -441,6 +456,7 @@ description = "Довершена система оркестрації конт
 languageName = "Українська"
 weight = 14
 contentDir = "content/uk"
+languagedirection = "ltr"
 
 [languages.uk.params]
 time_format_blog = "02.01.2006"
