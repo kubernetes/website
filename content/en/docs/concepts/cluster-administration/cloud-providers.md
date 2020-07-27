@@ -251,11 +251,9 @@ file:
   values are `v1` or `v2`. Where no value is provided automatic detection will
   select the highest supported version exposed by the underlying OpenStack
   cloud.
-* `use-octavia` (Optional): Used to determine whether to look for and use an
-  Octavia LBaaS V2 service catalog endpoint. Valid values are `true` or `false`.
-  Where `true` is specified and an Octaiva LBaaS V2 entry can not be found, the
-  provider will fall back and attempt to find a Neutron LBaaS V2 endpoint
-  instead. The default value is `false`.
+* `use-octavia`(Optional): Whether or not to use Octavia for LoadBalancer type
+    of Service implementation instead of using Neutron-LBaaS. Default: true
+   Attention: Openstack CCM use Octavia as default load balancer implementation since v1.17.0
 * `subnet-id` (Optional): Used to specify the id of the subnet you want to
   create your loadbalancer on. Can be found at Network > Networks. Click on the
   respective network to get its subnets.
