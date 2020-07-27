@@ -142,12 +142,13 @@ then mount the volumes:
 
 
 ```
-- mountPath: /etc/kubernetes/audit-policy.yaml
-      name: audit
-      readOnly: true
-- mountPath: /var/log/audit.log
-      name: audit-log
-      readOnly: false
+volumeMounts:
+  - mountPath: /etc/kubernetes/audit-policy.yaml
+    name: audit
+    readOnly: true
+  - mountPath: /var/log/audit.log
+    name: audit-log
+    readOnly: false
 ```
 finally the hostPath:
 
