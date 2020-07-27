@@ -134,6 +134,40 @@ log audit backend using the following `kube-apiserver` flags:
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain
 - `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 
+In case kube-apiserver is configured as a Pod,remember to mount the hostPath to the location of the policy file and log file. For example, 
+`
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml
+--audit-log-path=/var/log/audit.log
+`
+then mount the volumes:
+
+
+```
+volumeMounts:
+  - mountPath: /etc/kubernetes/audit-policy.yaml
+    name: audit
+    readOnly: true
+  - mountPath: /var/log/audit.log
+    name: audit-log
+    readOnly: false
+```
+finally the hostPath:
+
+```
+- name: audit
+  hostPath:
+    path: /etc/kubernetes/audit-policy.yaml
+    type: File
+
+- name: audit-log
+  hostPath:
+    path: /var/log/audit.log
+    type: FileOrCreate
+    
+```
+
+
+
 ### Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
