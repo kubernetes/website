@@ -206,7 +206,7 @@ SIG Docs 批准人。下面是合并的工作机制：
 - 所有 Kubernetes 成员可以通过 `/lgtm` 评论添加 `lgtm` 标签。
 - 只有 SIG Docs 批准人可以通过评论 `/approve` 合并 PR。
   某些批准人还会执行一些其他角色，例如
-  [PR 管理者](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) 或
+  [PR 管理者](/zh/docs/contribute/participate/pr-wranglers/) 或
   [SIG Docs 主席](#sig-docs-chairperson)等。
 
 ## {{% heading "whatsnext" %}}
@@ -220,6 +220,6 @@ For more information about contributing to the Kubernetes documentation, see:
 -->
 关于贡献 Kubernetes 文档的更多信息，请参考：
 
-- [贡献新内容](/docs/contribute/overview/)
-- [评阅内容](/docs/contribute/review/reviewing-prs)
-- [文档样式指南](/docs/contribute/style/)
+- [贡献新内容](/zh/docs/contribute/new-content/overview/)
+- [评阅内容](/zh/docs/contribute/review/reviewing-prs)
+- [文档样式指南](/zh/docs/contribute/style/)
