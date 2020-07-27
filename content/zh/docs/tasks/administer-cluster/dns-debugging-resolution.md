@@ -504,7 +504,6 @@ Systemd-resolved 会用一个 stub 文件来覆盖 `/etc/resolv.conf`从而在�
 kubeadm (>= 1.11) 会自动检测`systemd-resolved`并对应的更改 kubelet 的标签。
 
 <!--
-
 Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
@@ -522,9 +521,7 @@ If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly owing to a known issue with Alpine.
 Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
 for more information.
-
 -->
-
 Kubernetes 的安装并不会默认配置节点的 `resolv.conf` 文件来使用集群的 DNS 服务，因为这个配置对于不同的发行版本是不一样的。这个问题应该迟早会被解决的。
 
 Linux 的 libc 会在仅有三个 DNS 的 `nameserver` 和六个 DNS 的`search` 记录时会不可思议的卡死 ([详情请查阅这个2005年的bug](https://bugzilla.redhat.com/show_bug.cgi?id=168253))。Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。这意味着如果一个本地的安装已经使用了三个`nameserver`或者使用了超过三个的 `search`记录，那有些配置很可能会丢失。有一个不完整的解决方案就是在节点上使用`dnsmasq`来提供更多的`nameserver`配置，但是无法提供更多的`search`记录。您也可以使用kubelet 的 `--resolv-conf` 标签来解决这个问题。
@@ -532,24 +529,6 @@ Linux 的 libc 会在仅有三个 DNS 的 `nameserver` 和六个 DNS 的`search`
 如果您是使用 Alpine  3.3 或者更早版本作为您的基础镜像，DNS 可能会由于Alpine 一个已知的问题导致无法正常工作，请查看[这里](https://github.com/kubernetes/kubernetes/issues/30215)获取更多资料。
 
 <!--
-
-## Kubernetes Federation (Multiple Zone support)
-
-Release 1.3 introduced Cluster Federation support for multi-site Kubernetes
-installations. This required some minor (backward-compatible) changes to the
-way the Kubernetes cluster DNS server processes DNS queries, to facilitate
-the lookup of federated services (which span multiple Kubernetes clusters).
-See the [Cluster Federation Administrators' Guide](/docs/concepts/cluster-administration/federation/)
-for more details on Cluster Federation and multi-site support.
-
-## -->
-
-## Kubernetes Federation (支持多区域部署)
-
-自从 1.3 版本支持了多个 Kubernetes 的联邦集群后，集群 DNS 服务在处理 DNS 请求时需要有一些微弱的调整 (这是向下兼容的)，从而可以使用跨越多个 Kubernetes 集群的联邦服务。请看 [联邦集群管理向导](/docs/concepts/cluster-administration/federation/) 获取更多关于联邦集群和多点支持的信息。
-
-<!--
-
 ## References
 
 - [DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/)
@@ -557,10 +536,7 @@ for more details on Cluster Federation and multi-site support.
 
 ## What's next
 - [Autoscaling the DNS Service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-
-
-
-## -->
+-->
 
 ## 参考
 
@@ -570,8 +546,5 @@ for more details on Cluster Federation and multi-site support.
 ## 接下来
 
 - [集群里自动伸缩 DNS Service](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-
-
-
 
 

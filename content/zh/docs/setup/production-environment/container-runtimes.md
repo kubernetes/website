@@ -41,7 +41,7 @@ Please refer to this link for more information about this issue
 我们发现 runc 在运行容器，处理系统文件描述符时存在一个漏洞。
 恶意容器可以利用此漏洞覆盖 runc 二进制文件的内容，并以此在主机系统的容器上运行任意的命令。
 
-请参考此链接以获取有关此问题的更多信息 [cve-2019-5736 : runc vulnerability ] (https://access.redhat.com/security/cve/cve-2019-5736)
+请参考此链接以获取有关此问题的更多信息 [cve-2019-5736 : runc vulnerability ](https://access.redhat.com/security/cve/cve-2019-5736)
 {{< /caution >}}
 
 <!--
@@ -134,7 +134,8 @@ Use the following commands to install Docker on your system:
 使用以下命令在您的系统上安装 Docker：
 
 {{< tabs name="tab-cri-docker-installation" >}}
-{{< tab name="Ubuntu 16.04+" codelang="bash" >}}
+{{% tab name="Ubuntu 16.04+" %}}
+
 <!--
 # Install Docker CE
 ## Set up the repository:
@@ -145,15 +146,19 @@ apt-get update && apt-get install \
 ### Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 -->
+
+```shell
 # 安装 Docker CE
 ## 设置仓库
 ### 安装软件包以允许 apt 通过 HTTPS 使用存储库
 apt-get update && apt-get install \
   apt-transport-https ca-certificates curl software-properties-common
+```
 
+```shell
 ### 新增 Docker 的 官方 GPG 秘钥
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-
+```
 <!--
 ### Add Docker apt repository.
 add-apt-repository \
@@ -181,15 +186,23 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 -->
+```shell
 ### 添加 Docker apt 仓库
 add-apt-repository \
   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) \
   stable"
+```
 
+```shell
 ## 安装 Docker CE
-apt-get update && apt-get install docker-ce=18.06.2~ce~3-0~ubuntu
+apt-get update && apt-get install -y\
+  containerd.io=1.2.13-2 \
+  docker-ce=5:19.03.11~3-0~ubuntu-$(lsb_release -cs) \
+  docker-ce-cli=5:19.03.11~3-0~ubuntu-$(lsb_release -cs)
+```
 
+```shell
 # 设置 daemon
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -201,19 +214,23 @@ cat > /etc/docker/daemon.json <<EOF
   "storage-driver": "overlay2"
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
-
+```
 <!--
 # Restart docker.
 systemctl daemon-reload
 systemctl restart docker
 -->
+```shell
 # 重启 docker.
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 
 <!--
 # Install Docker CE
@@ -252,22 +269,31 @@ EOF
 
 mkdir -p /etc/systemd/system/docker.service.d
 -->
+```shell
 # 安装 Docker CE
 ## 设置仓库
 ### 安装所需包
 yum install yum-utils device-mapper-persistent-data lvm2
+```
 
+```shell
 ### 新增 Docker 仓库。
 yum-config-manager \
   --add-repo \
   https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## 安装 Docker CE.
 yum update && yum install docker-ce-18.06.2.ce
+```
 
+```shell
 ## 创建 /etc/docker 目录。
 mkdir /etc/docker
+```
 
+```shell
 # 设置 daemon。
 cat > /etc/docker/daemon.json <<EOF
 {
@@ -282,24 +308,43 @@ cat > /etc/docker/daemon.json <<EOF
   ]
 }
 EOF
+```
 
+```shell
 mkdir -p /etc/systemd/system/docker.service.d
-
+```
 <!--
 # Restart Docker
 systemctl daemon-reload
 systemctl restart docker
 -->
+```shell
 # 重启 Docker
 systemctl daemon-reload
 systemctl restart docker
-{{< /tab >}}
-{{< /tabs >}}
+```
+{{% /tab %}}
+{{% /tabs %}}
+
+<!--
+If you want the docker service to start on boot, run the following command:
+
+```shell
+sudo systemctl enable docker
+```
+-->
+
+如果你想开机即启动 docker 服务，执行以下命令：
+
+```shell
+sudo systemctl enable docker
+```
 
 <!--
 Refer to the [official Docker installation guides](https://docs.docker.com/engine/installation/)
 for more information.
 -->
+
 请参阅[官方 Docker 安装指南](https://docs.docker.com/engine/installation/)
 来获取更多的信息。
 
@@ -349,7 +394,113 @@ sysctl --system
 ```
 
 {{< tabs name="tab-cri-cri-o-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{% tab name="Debian" %}}
+
+<!--
+```shell
+# Debian Unstable/Sid
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+```
+-->
+
+```shell
+# Debian Unstable/Sid
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Unstable/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Unstable/Release.key -O- | sudo apt-key add -
+```
+
+<!--
+```shell
+# Debian Testing
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
+```
+-->
+
+```shell
+# Debian Testing
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_Testing/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_Testing/Release.key -O- | sudo apt-key add -
+```
+
+<!--
+```shell
+# Debian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+```
+-->
+
+```shell
+# Debian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Debian_10/Release.key -O- | sudo apt-key add -
+```
+
+<!--
+```shell
+# Raspbian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
+```
+-->
+
+```shell
+# Raspbian 10
+echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Raspbian_10/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/Raspbian_10/Release.key -O- | sudo apt-key add -
+```
+
+<!--
+and then install CRI-O:
+```shell
+sudo apt-get install cri-o-1.17
+```
+-->
+
+随后安装 CRI-O:
+
+```shell
+sudo apt-get install cri-o-1.17
+```
+
+{{% /tab %}}
+
+{{% tab name="Ubuntu 18.04, 19.04 and 19.10" %}}
+
+<!--
+```shell
+# Configure package repository
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
+sudo apt-get update
+```
+-->
+
+```shell
+# 配置仓库
+. /etc/os-release
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O- | sudo apt-key add -
+sudo apt-get update
+```
+
+<!--
+```shell
+# Install CRI-O
+sudo apt-get install cri-o-1.17
+```
+-->
+
+```shell
+# 安装 CRI-O
+sudo apt-get install cri-o-1.17
+```
+{{% /tab %}}
+
+{{% tab name="Ubuntu 16.04" %}}
 
 <!--
 # Install prerequisites
@@ -362,6 +513,7 @@ apt-get update
 # Install CRI-O
 apt-get install cri-o-1.15
 -->
+```shell
 # 安装必备软件
 apt-get update
 apt-get install software-properties-common
@@ -371,9 +523,9 @@ apt-get update
 
 # 安装 CRI-O
 apt-get install cri-o-1.15
-
-{{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+```
+{{% /tab %}}
+{{% tab name="CentOS/RHEL 7.4+" codelang="bash" %}}
 
 <!--
 # Install prerequisites
@@ -382,19 +534,33 @@ yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-releas
 # Install CRI-O
 yum install --nogpgcheck cri-o
 -->
+
+```shell
 # 安装必备软件
 yum-config-manager --add-repo=https://cbs.centos.org/repos/paas7-crio-115-release/x86_64/os/
+```
 
+```shell
 # 安装 CRI-O
 yum install --nogpgcheck cri-o
+```
 
-{{< /tab >}}
+{{% /tab %}}
+
+{{% tab name="openSUSE Tumbleweed" %}}
+
+```shell
+sudo zypper install cri-o
+```
+{{% /tab %}}
+
 {{< /tabs >}}
 
 <!--
 ### Start CRI-O
 
 ```
+systemctl daemon-reload
 systemctl start crio
 ```
 
@@ -407,7 +573,7 @@ for more information.
 systemctl start crio
 ```
 
-请参阅[CRI-O 安装指南](https://github.com/kubernetes-sigs/cri-o#getting-started)
+请参阅 [CRI-O 安装指南](https://github.com/kubernetes-sigs/cri-o#getting-started)
 来获取更多的信息。
 
 <!--
@@ -471,103 +637,150 @@ sysctl --system
 ### 安装 containerd
 
 {{< tabs name="tab-cri-containerd-installation" >}}
-{{< tab name="Ubuntu 16.04" codelang="bash" >}}
+{{% tab name="Ubuntu 16.04" %}}
 <!--
+```shell
 # Install containerd
 ## Set up the repository
 ### Install packages to allow apt to use a repository over HTTPS
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
 
+```shell
 ### Add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
+```shell
 ### Add Docker apt repository.
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
+```
 
+```shell
 ## Install containerd
 apt-get update && apt-get install -y containerd.io
+```
 
+```shell
 # Configure containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 -->
+
+```shell
 # 安装 containerd
 ## 设置仓库
 ### 安装软件包以允许 apt 通过 HTTPS 使用存储库
 apt-get update && apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+```
 
+```shell
 ### 安装 Docker 的官方 GPG 密钥
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+```
 
+```shell
 ### 新增 Docker apt 仓库。
 add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
+```
 
+```shell
 ## 安装 containerd
 apt-get update && apt-get install -y containerd.io
+```
 
+```shell
 # 配置 containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 
 <!--
+```shell
 # Restart containerd
 systemctl restart containerd
+```
 -->
+```shell
 # 重启 containerd
 systemctl restart containerd
+```
 {{< /tab >}}
-{{< tab name="CentOS/RHEL 7.4+" codelang="bash" >}}
+{{% tab name="CentOS/RHEL 7.4+" %}}
 <!--
+```shell
 # Install containerd
 ## Set up the repository
 ### Install required packages
 yum install yum-utils device-mapper-persistent-data lvm2
+```
 
+```shell
 ### Add docker repository
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## Install containerd
 yum update && yum install containerd.io
+```
 
+```shell
 # Configure containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
+```
 -->
+
+```shell
 # 安装 containerd
 ## 设置仓库
 ### 安装所需包
 yum install yum-utils device-mapper-persistent-data lvm2
+```
 
+```shell
 ### 新增 Docker 仓库
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
+```
 
+```shell
 ## 安装 containerd
 yum update && yum install containerd.io
+```
 
+```shell
 # 配置 containerd
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
-
+```
 <!--
+```shell
 # Restart containerd
 systemctl restart containerd
+```
 -->
+
+```shell
 # 重启 containerd
 systemctl restart containerd
-{{< /tab >}}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 <!--
+```shell
 ### systemd
 
 To use the `systemd` cgroup driver, set `plugins.cri.systemd_cgroup = true` in `/etc/containerd/config.toml`.
@@ -577,6 +790,7 @@ When using kubeadm, manually configure the
 ## Other CRI runtimes: frakti
 
 Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quickstart) for more information.
+```
 -->
 ### systemd
 
@@ -587,5 +801,3 @@ Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quic
 ## 其他的 CRI 运行时：frakti
 
 请参阅 [Frakti 快速开始指南](https://github.com/kubernetes/frakti#quickstart) 来获取更多的信息。
-
-

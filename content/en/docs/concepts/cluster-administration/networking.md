@@ -12,7 +12,7 @@ understand exactly how it is expected to work.  There are 4 distinct networking
 problems to address:
 
 1. Highly-coupled container-to-container communications: this is solved by
-   [pods](/docs/concepts/workloads/pods/pod/) and `localhost` communications.
+   {{< glossary_tooltip text="Pods" term_id="pod" >}} and `localhost` communications.
 2. Pod-to-Pod communications: this is the primary focus of this document.
 3. Pod-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).
 4. External-to-Service communications: this is covered by [services](/docs/concepts/services-networking/service/).

@@ -167,9 +167,9 @@ This is to protect the secret from being exposed accidentally to an onlooker,
 or from being stored in a terminal log.
 -->
 
-{{< /note >}}
-
 默认情况下，`kubectl get` 和 `kubectl describe` 避免显示密码的内容。 这是为了防止机密被意外地暴露给旁观者或存储在终端日志中。
+
+{{< /note >}}
 
 <!--
 See [decoding a secret](#decoding-a-secret) for how to see the contents of a secret.

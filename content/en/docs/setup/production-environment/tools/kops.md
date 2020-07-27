@@ -140,7 +140,7 @@ you choose for organization reasons (e.g. you are allowed to create records unde
 but not under `example.com`).
 
 Let's assume you're using `dev.example.com` as your hosted zone.  You create that hosted zone using
-the [normal process](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or
+the [normal process](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingNewSubdomain.html), or
 with a command such as `aws route53 create-hosted-zone --name dev.example.com --caller-reference 1`.
 
 You must then set up your NS records in the parent domain, so that records in the domain will resolve.  Here,
@@ -231,9 +231,8 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
 * Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
 * Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
-
 

@@ -13,7 +13,7 @@ weight: 20
 <!-- overview -->
 
 {{< note >}}
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) yang mengonfigurasi [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) sekarang menjadi cara yang direkomendasikan untuk melakukan replikasi.
+[`Deployment`](/id/docs/concepts/workloads/controllers/deployment/) yang mengonfigurasi [`ReplicaSet`](/id/docs/concepts/workloads/controllers/replicaset/) sekarang menjadi cara yang direkomendasikan untuk melakukan replikasi.
 {{< /note >}}
 
 Sebuah _ReplicationController_ memastikan bahwa terdapat sejumlah Pod yang sedang berjalan dalam suatu waktu tertentu. Dengan kata lain, ReplicationController memastikan bahwa sebuah Pod atau sebuah kumpulan Pod yang homogen selalu berjalan dan tersedia. 
@@ -101,7 +101,7 @@ Pada perintah di atas, selektor yang dimaksud adalah selektor yang sama dengan y
 
 Seperti semua konfigurasi Kubernetes lainnya, sebuah ReplicationController membutuhkan _field_ `apiVersion`, `kind`, dan `metadata`.
 
-Untuk informasi umum mengenai berkas konfigurasi, kamu dapat melihat [pengaturan objek](/docs/concepts/overview/working-with-objects/object-management/).
+Untuk informasi umum mengenai berkas konfigurasi, kamu dapat melihat [pengaturan objek](/id/docs/concepts/overview/working-with-objects/object-management/).
 
 Sebuah ReplicationController juga membutuhkan [bagian `.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -109,11 +109,11 @@ Sebuah ReplicationController juga membutuhkan [bagian `.spec`](https://git.k8s.i
 
 `.spec.template` adalah satu-satunya _field_ yang diwajibkan pada `.spec`.
 
-`.spec.template` adalah sebuah [templat Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). Ia memiliki skema yang sama persis dengan sebuah [Pod](/docs/concepts/workloads/pods/pod/), namun dapat berbentuk _nested_ dan tidak memiliki _field_ `apiVersion` ataupun `kind`.
+`.spec.template` adalah sebuah [templat Pod](/id/docs/concepts/workloads/pods/pod-overview/#pod-templates). Ia memiliki skema yang sama persis dengan sebuah [Pod](/id/docs/concepts/workloads/pods/pod/), namun dapat berbentuk _nested_ dan tidak memiliki _field_ `apiVersion` ataupun `kind`.
 
 Selain _field-field_ yang diwajibkan untuk sebuah Pod, templat Pod pada ReplicationController harus menentukan label dan kebijakan pengulangan kembali yang tepat. Untuk label, pastikan untuk tidak tumpang tindih dengan kontroler lain. Lihat [selektor pod](#selektor-pod).
 
-Nilai yang diperbolehkan untuk [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) hanyalah `Always`, yaitu nilai bawaan jika tidak ditentukan.
+Nilai yang diperbolehkan untuk [`.spec.template.spec.restartPolicy`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) hanyalah `Always`, yaitu nilai bawaan jika tidak ditentukan.
 
 Untuk pengulangan kembali dari sebuah kontainer lokal, ReplicationController mendelegasikannya ke agen pada Node, contohnya [Kubelet](/docs/admin/kubelet/) atau Docker.
 
@@ -123,7 +123,7 @@ ReplicationController itu sendiri dapat memiliki label (`.metadata.labels`). Bia
 
 ### Selektor Pod
 
-_Field_ `.spec.selector` adalah sebuah [selektor label](/docs/concepts/overview/working-with-objects/labels/#label-selectors). Sebuah ReplicationController mengatur semua Pod dengan label yang sesuai dengan nilai selektor tersebut. Ia tidak membedakan antara Pod yang ia buat atau hapus atau Pod yang dibuat atau dihapus oleh orang atau proses lain. Hal ini memungkinkan ReplicationController untuk digantikan tanpa memengaruhi Pod-Pod yang sedang berjalan.
+_Field_ `.spec.selector` adalah sebuah [selektor label](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors). Sebuah ReplicationController mengatur semua Pod dengan label yang sesuai dengan nilai selektor tersebut. Ia tidak membedakan antara Pod yang ia buat atau hapus atau Pod yang dibuat atau dihapus oleh orang atau proses lain. Hal ini memungkinkan ReplicationController untuk digantikan tanpa memengaruhi Pod-Pod yang sedang berjalan.
 
 Jika ditentukan, `.spec.template.metadata.labels` harus memiliki nilai yang sama dengan `.spec.selector`, atau akan ditolak oleh API. Jika `.spec.selector` tidak ditentukan, maka akan menggunakan nilai bawaan yaitu `.spec.template.metadata.labels`.
 
@@ -216,13 +216,13 @@ ReplicationController adalah sebuah sumber daya _top-level_ pada REST API Kubern
 
 ### ReplicaSet
 
-[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/) adalah kelanjutan dari ReplicationController yang mendukung selektor [selektor label _set-based_](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement) yang baru. Umumnya digunakan oleh [`Deployment`](/docs/concepts/workloads/controllers/deployment/) sebagai mekanisme untuk mengorkestrasi pembuatan, penghapusan, dan pembaruan Pod.
+[`ReplicaSet`](/id/docs/concepts/workloads/controllers/replicaset/) adalah kelanjutan dari ReplicationController yang mendukung selektor [selektor label _set-based_](/id/docs/concepts/overview/working-with-objects/labels/#set-based-requirement) yang baru. Umumnya digunakan oleh [`Deployment`](/id/docs/concepts/workloads/controllers/deployment/) sebagai mekanisme untuk mengorkestrasi pembuatan, penghapusan, dan pembaruan Pod.
 Perhatikan bahwa kami merekomendasikan untuk menggunakan Deployment sebagai ganti dari menggunakan ReplicaSet secara langsung, kecuali jika kamu membutuhkan orkestrasi pembaruan khusus atau tidak membutuhkan pembaruan sama sekali.
 
 
 ### Deployment (Direkomendasikan)
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) adalah objek API tingkat tinggi yang memperbarui ReplicaSet dan Pod-Pod di bawahnya yang mirip dengan cara kerja `kubectl rolling-update`. Deployment direkomendasikan jika kamu menginginkan fungsionalitas dari pembaruan bergulir ini, karena tidak seperti `kubectl rolling-update`, Deployment memiliki sifat deklaratif, _server-side_, dan memiliki beberapa fitur tambahan lainnya.
+[`Deployment`](/id/docs/concepts/workloads/controllers/deployment/) adalah objek API tingkat tinggi yang memperbarui ReplicaSet dan Pod-Pod di bawahnya yang mirip dengan cara kerja `kubectl rolling-update`. Deployment direkomendasikan jika kamu menginginkan fungsionalitas dari pembaruan bergulir ini, karena tidak seperti `kubectl rolling-update`, Deployment memiliki sifat deklaratif, _server-side_, dan memiliki beberapa fitur tambahan lainnya.
 
 ### Pod sederhana
 
@@ -234,7 +234,7 @@ Gunakan [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) sebagai
 
 ### DaemonSet
 
-Gunakan [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) sebagai ganti ReplicationController untuk Pod-Pod yang menyediakan fungsi pada level mesin, seperti pengamatan mesin atau pencatatan mesin. Pod-Pod ini memiliki waktu hidup yang bergantung dengan waktu hidup mesin: Pod butuh untuk dijalankan di mesin sebelum Pod-Pod lainnya dimulai, dan aman untuk diterminasi ketika mesin sudah siap untuk dinyalakan ulang atau dimatikan.
+Gunakan [`DaemonSet`](/id/docs/concepts/workloads/controllers/daemonset/) sebagai ganti ReplicationController untuk Pod-Pod yang menyediakan fungsi pada level mesin, seperti pengamatan mesin atau pencatatan mesin. Pod-Pod ini memiliki waktu hidup yang bergantung dengan waktu hidup mesin: Pod butuh untuk dijalankan di mesin sebelum Pod-Pod lainnya dimulai, dan aman untuk diterminasi ketika mesin sudah siap untuk dinyalakan ulang atau dimatikan.
 
 ## Informasi lanjutan
 
