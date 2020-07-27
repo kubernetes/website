@@ -779,7 +779,7 @@ iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 서비스 어카운트 토큰의 프로젝션은 쿠버네티스 1.11에 기능이
 도입되었고 1.12에서 베타로 승격되었다.
 1.11에서 이 기능을 활성화 하려면 `TokenRequestProjection`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 True로 명시적인 설정이 필요하다.
 
 #### 시크릿, downward API 그리고 configmap이 있는 파드 예시.
@@ -1197,7 +1197,7 @@ spec:
 
 
 `subPathExpr` 필드를 사용해서 Downward API 환경 변수로부터 `subPath` 디렉터리 이름을 구성한다.
-이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
+이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
 `subPath` 와 `subPathExpr` 속성은 상호 배타적이다.
 
 이 예제는 파드가 `subPathExpr` 을 사용해서 Downward API로부터 파드 이름을 사용해서 hostPath 볼륨 `/var/log/pods` 내에 `pod1` 디렉터리를 생성한다.  호스트 디렉터리 `/var/log/pods/pod1` 은 컨테이너의 `/logs` 에 마운트 된다.
