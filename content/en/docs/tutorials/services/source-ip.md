@@ -1,7 +1,6 @@
 ---
 title: Using Source IP
 content_type: tutorial
-mermaid: true
 min-kubernetes-server-version: v1.5
 ---
 
