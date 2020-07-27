@@ -72,7 +72,7 @@
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
 /docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
-/docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/pod-overview/ 301
+/docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/api-extension/apiserver-aggregation/     /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/ 301
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
 /docs/concepts/containers/overview/     /docs/concepts/containers/ 301
@@ -126,12 +126,14 @@
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
 /docs/concepts/overview/object-management-kubectl/kustomization/         /docs/tasks/manage-kubernetes-objects/kustomization/ 301
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
+/docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
 
 /docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
+/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/pods/pod-overview/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/consumer-guideline/pod-security-coverage/     /docs/concepts/policy/pod-security-policy/ 301
@@ -383,14 +385,14 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/pod-preset/     /docs/tasks/inject-data-application/podpreset/ 301
+/docs/user-guide/pod-preset/     /docs/concepts/workloads/pods/podpreset/ 301
 /docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
-/docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/pod-overview/ 301
+/docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/#pod-templates 301
 /docs/user-guide/pods/     /docs/concepts/workloads/pods/pod/ 301
 /docs/user-guide/pods/init-container/     /docs/concepts/workloads/pods/init-containers/ 301
-/docs/user-guide/pods/multi-container/     /docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/ 301
-/docs/user-guide/pods/single-container/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
+/docs/user-guide/pods/multi-container/     /docs/concepts/workloads/pods/#using-pods 301
+/docs/user-guide/pods/single-container/     /docs/concepts/workloads/pods/#using-pods 301
 /docs/user-guide/prereqs/     /docs/tasks/tools/install-kubectl/ 301
 /docs/user-guide/production-pods/     /docs/tasks/ 301
 /docs/user-guide/projected-volume/     /docs/tasks/configure-pod-container/configure-projected-volume-storage/ 301
