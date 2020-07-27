@@ -26,7 +26,7 @@ even a file with a list of usernames and passwords. In this regard, _Kubernetes
 does not have objects which represent normal user accounts._ Normal users
 cannot be added to a cluster through an API call.
 
-Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
+Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation on a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
