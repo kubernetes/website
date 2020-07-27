@@ -1,5 +1,5 @@
 ---
-title: Podについての概観(Pod Overview)
+title: Podの概観
 content_type: concept
 weight: 10
 card:
@@ -8,7 +8,7 @@ card:
 ---
 
 <!-- overview -->
-このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して概観します。
+このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して説明します。
 
 
 <!-- body -->
