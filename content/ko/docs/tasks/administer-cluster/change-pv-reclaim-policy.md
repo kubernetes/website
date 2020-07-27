@@ -19,15 +19,15 @@ content_type: task
 
 ## 왜 퍼시스턴트볼륨 반환 정책을 변경하는가?
 
-`PersistentVolumes` 은 "Retain(보존)", "Recycle(재활용)", "Delete(삭제)" 를 포함한 
-다양한 반환 정책을 갖는다. 동적으로 프로비저닝 된 `PersistentVolumes` 의 경우 
-기본 반환 정책은 "Delete" 이다. 이는 사용자가 해당 `PersistentVolumeClaim` 을 삭제하면, 
+PersistentVolumes 은 "Retain(보존)", "Recycle(재활용)", "Delete(삭제)" 를 포함한 
+다양한 반환 정책을 갖는다. 동적으로 프로비저닝 된 PersistentVolumes 의 경우 
+기본 반환 정책은 "Delete" 이다. 이는 사용자가 해당 PersistentVolumeClaim 을 삭제하면, 
 동적으로 프로비저닝 된 볼륨이 자동적으로 삭제됨을 의미한다.
 볼륨에 중요한 데이터가 포함된 경우, 이러한 자동 삭제는 부적절 할 수 있다.
 이 경우에는, "Retain" 정책을 사용하는 것이 더 적합하다.
-"Retain" 정책에서, 사용자가 `PersistentVolumeClaim` 을 삭제할 경우 해당하는
-`PersistentVolume` 은 삭제되지 않는다. 
-대신, `Released` 단계로 이동되어, 모든 데이터를 수동으로 복구할 수 있다.
+"Retain" 정책에서, 사용자가 PersistentVolumeClaim 을 삭제할 경우 해당하는
+PersistentVolume 은 삭제되지 않는다. 
+대신, Released 단계로 이동되어, 모든 데이터를 수동으로 복구할 수 있다.
 
 ## 퍼시스턴트볼륨 반환 정책 변경하기
 
