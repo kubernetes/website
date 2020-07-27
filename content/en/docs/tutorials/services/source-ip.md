@@ -1,6 +1,7 @@
 ---
 title: Using Source IP
 content_type: tutorial
+mermaid: true
 min-kubernetes-server-version: v1.5
 ---
 
@@ -206,18 +207,19 @@ Note that these are not the correct client IPs, they're cluster internal IPs. Th
 
 Visually:
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[Node 2];
+  node2-->client;
+  node2-. SNAT .->node1[Node 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(Endpoint);
 
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 To avoid this, Kubernetes has a feature to
 [preserve the client source IP](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip).
@@ -261,17 +263,18 @@ This is what happens:
 
 Visually:
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[Node 1];
+  client(client) --x node2[Node 2];
+  node1 --> endpoint(endpoint);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 
@@ -324,17 +327,7 @@ deliberately failing health checks.
 
 Visually:
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-health check --->   node 1   node 2 <--- health check
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 You can test this by setting the annotation:
 
