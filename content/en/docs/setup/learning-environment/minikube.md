@@ -198,7 +198,7 @@ This brief demo guides you on how to start, use, and delete Minikube locally. Fo
 
 The `minikube start` command can be used to start your cluster.
 This command creates and configures a Virtual Machine that runs a single-node Kubernetes cluster.
-This command also configures your [kubectl](/docs/user-guide/kubectl-overview/) installation to communicate with this cluster.
+This command also configures your [kubectl](/docs/reference/kubectl/overview/) installation to communicate with this cluster.
 
 {{< note >}}
 If you are behind a web proxy, you need to pass this information to the `minikube start` command:
@@ -514,6 +514,6 @@ For more information about Minikube, see the [proposal](https://git.k8s.io/commu
 
 ## Community
 
-Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the #minikube channel (get an invitation [here](http://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
+Contributions, questions, and comments are all welcomed and encouraged! Minikube developers hang out on [Slack](https://kubernetes.slack.com) in the `#minikube` channel (get an invitation [here](https://slack.kubernetes.io/)). We also have the [kubernetes-dev Google Groups mailing list](https://groups.google.com/forum/#!forum/kubernetes-dev). If you are posting to the list please prefix your subject with "minikube: ".
 
 

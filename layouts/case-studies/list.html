@@ -3,11 +3,11 @@
 {{ with site.Params.language_alternatives }}
 {{ range . }}
        {{ with (where $.Translations ".Lang" . ) }}
-       {{ $p := index . 0 }}      
+       {{ $p := index . 0 }}
        {{ $pages = $pages | lang.Merge $p.Pages }}
        {{ end }}
 {{ end }}
-{{ end }}  
+{{ end }}
 {{ $featured := (where $pages "Params.featured" true).ByWeight | first 4 }}
 <section id="mainContent">
 	<div class="main-section">
@@ -59,7 +59,7 @@
 			{{ end }}
 			</a>
 			{{ end }}
-			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case_studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
+			<a target="_blank" href="https://docs.google.com/a/google.com/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform" class="tell-your-story"><img height="127px"src="/images/case-studies/story.svg" alt="{{ T "layouts_case_studies_list_tell" }}"></a>
 		</div>
 	</div>
 </section>

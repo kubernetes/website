@@ -27,7 +27,7 @@ kops는 자동화된 프로비저닝 시스템인데,
 
 * 반드시 64-bit (AMD64 그리고 Intel 64)디바이스 아키텍쳐 위에서 `kops` 를 [설치](https://github.com/kubernetes/kops#installing) 한다.
 
-* [AWS 계정](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)이 있고 [IAM 키](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)를 생성하고 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) 해야 한다.
+* [AWS 계정](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)이 있고 [IAM 키](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)를 생성하고 [구성](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration)해야 한다. IAM 사용자는 [적절한 권한](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user)이 필요하다.
 
 
 

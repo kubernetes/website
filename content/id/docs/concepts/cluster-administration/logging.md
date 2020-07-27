@@ -173,7 +173,7 @@ Menggunakan agen _logging_ di dalam kontainer _sidecar_ dapat berakibat pengguna
 {{< /note >}}
 
 Sebagai contoh, kamu dapat menggunakan [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
-yang menggunakan fluentd sebagai agen _logging_. Berikut ini dua _file_ konfigurasi yang dapat kamu pakai untuk mengimplementasikan cara ini. _File_ yang pertama berisi sebuah [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) untuk mengonfigurasi fluentd.
+yang menggunakan fluentd sebagai agen _logging_. Berikut ini dua _file_ konfigurasi yang dapat kamu pakai untuk mengimplementasikan cara ini. _File_ yang pertama berisi sebuah [ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) untuk mengonfigurasi fluentd.
 
 {{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
 

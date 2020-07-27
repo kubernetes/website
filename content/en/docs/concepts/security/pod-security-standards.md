@@ -236,11 +236,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 				spec.securityContext.supplementalGroups[*]<br>
 				spec.securityContext.fsGroup<br>
 				spec.containers[*].securityContext.runAsGroup<br>
-				spec.containers[*].securityContext.supplementalGroups[*]<br>
-				spec.containers[*].securityContext.fsGroup<br>
 				spec.initContainers[*].securityContext.runAsGroup<br>
-				spec.initContainers[*].securityContext.supplementalGroups[*]<br>
-				spec.initContainers[*].securityContext.fsGroup<br>
 				<br><b>Allowed Values:</b><br>
 				non-zero<br>
 				undefined / nil (except for `*.runAsGroup`)<br>

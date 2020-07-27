@@ -1,7 +1,7 @@
 ---
 title: Pod Topology Spread Constraints
 content_type: concept
-weight: 50
+weight: 40
 ---
 
 <!-- overview -->
