@@ -171,7 +171,7 @@ tolerations:
 사용자 정의 [어드미션 컨트롤러](/docs/reference/access-authn-authz/admission-controllers/)를
 사용하여 톨러레이션를 적용하는 것이 가장 쉬운 방법이다.
 예를 들어, [확장된
-리소스](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)를
+리소스](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
 사용하여 특별한 하드웨어를 나타내고, 확장된 리소스 이름으로
 특별한 하드웨어 노드를 테인트시키고
 [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)

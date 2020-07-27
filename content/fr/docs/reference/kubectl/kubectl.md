@@ -1,6 +1,6 @@
 ---
 title: kubectl
-content_template: templates/tool-reference
+content_type: tool-reference
 description: Référence kubectl
 notitle: true
 ---

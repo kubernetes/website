@@ -1,16 +1,16 @@
 ---
 title: Menjalankan klaster dalam beberapa zona
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Laman ini menjelaskan tentang bagaimana menjalankan sebuah klaster dalam beberapa zona.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pendahuluan
 
@@ -398,4 +398,4 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b k
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
 
-{{% /capture %}}
+

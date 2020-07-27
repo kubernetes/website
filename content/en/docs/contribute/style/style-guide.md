@@ -22,8 +22,11 @@ discussion.
 <!-- body -->
 
 {{< note >}}
-Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
-and representing feature state.
+Kubernetes documentation uses
+[Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
+with some adjustments along with a few
+[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support
+glossary entries, tabs, and representing feature state.
 {{< /note >}}
 
 ## Language
@@ -584,12 +587,8 @@ The Federation feature provides ... | The new Federation feature provides ...
 {{< /table >}}
 
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

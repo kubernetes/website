@@ -179,9 +179,9 @@ CPU에 대한 오토스케일링 지원만 포함하는 안정된 버전은
 새로운 필드는 `autoscaling/v1`로 작업할 때 어노테이션으로 보존된다.
 
 HorizontalPodAutoscaler API 오브젝트 생성시 지정된 이름이 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)인지 확인해야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인해야 한다.
 API 오브젝트에 대한 자세한 내용은
-[HorizontalPodAutoscaler 오브젝트](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object)에서 찾을 수 있다.
+[HorizontalPodAutoscaler 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)에서 찾을 수 있다.
 
 ## kubectl에서 Horizontal Pod Autoscaler 지원
 
@@ -199,9 +199,9 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
+현재 쿠버네티스에서는 기본 레플리카셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
 Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
-디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카 셋의 크기를 결정한다.
+디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카셋의 크기를 결정한다.
 
 Horizontal Pod Autoscaler는 레플리케이션 컨트롤러를 직접 조작하는 롤링 업데이트에서 작동하지 않는다.
 즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수 없다. (예 : `kubectl rolling-update`)
@@ -229,7 +229,7 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 이러한 파라미터 값을 조정할 때 클러스터 운영자는 가능한 결과를 알아야
 한다. 지연(쿨-다운) 값이 너무 길면, Horizontal Pod Autoscaler가
 워크로드 변경에 반응하지 않는다는 불만이 있을 수 있다. 그러나 지연 값을
-너무 짧게 설정하면, 레플리카 셋의 크기가 평소와 같이 계속 스래싱될 수
+너무 짧게 설정하면, 레플리카셋의 크기가 평소와 같이 계속 스래싱될 수
 있다.
 {{< /note >}}
 
@@ -439,5 +439,3 @@ behavior:
 * 디자인 문서: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl 오토스케일 커맨드: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)의 사용 예제.
-
-

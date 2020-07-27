@@ -455,7 +455,7 @@ allowedHostPaths:
 (다른 컨테이너들에 있는 데이터를 읽고, 시스템 서비스의 자격 증명을 어뷰징(abusing)하는 등)할
 수 있도록 만드는 다양한 방법이 있다. 예를 들면, Kubelet과 같다.
 
-쓰기 가능한 hostPath 디렉토리 볼륨을 사용하면, 컨테이너가 `pathPrefix` 외부의
+쓰기 가능한 hostPath 디렉터리 볼륨을 사용하면, 컨테이너가 `pathPrefix` 외부의
 호스트 파일시스템에 대한 통행을 허용하는 방식으로 컨테이너의 파일시스템 쓰기(write)를 허용한다.
 쿠버네티스 1.11 이상 버전에서 사용 가능한 `readOnly: true`는 지정된 `pathPrefix`에 대한
 접근을 효과적으로 제한하기 위해 **모든** `allowedHostPaths`에서 사용해야 한다.
@@ -592,7 +592,7 @@ spec:
 ### AppArmor
 
 파드시큐리티폴리시의 어노테이션을 통해 제어된다. [AppArmor
-문서](/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
+문서](/ko/docs/tutorials/clusters/apparmor/#podsecuritypolicy-annotations)를 참고하길 바란다.
 
 ### Seccomp
 
@@ -636,4 +636,3 @@ spec:
 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
 
 API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
-

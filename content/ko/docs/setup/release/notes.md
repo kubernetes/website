@@ -86,7 +86,7 @@ card:
 
 ### SIG CLI의 kubectl 디버그 소개
 
-SIG CLI는 이미 오랫동안 디버그 유틸리티의 필요성에 대해 논의하고 있었다. [임시(ephemeral) 컨테이너](https://kubernetes.io/ko/docs/concepts/workloads/pods/ephemeral-containers/)가 개발되면서, `kubectl exec` 위에 구축된 도구를 통해 개발자를 지원할 수 있는 방법이 더욱 분명해졌다. `kubectl debug` [커맨드](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 추가(알파이지만 피드백은 언제나 환영)로 개발자는 클러스터 내에서 파드를 쉽게 디버깅할 수 있다. 우리는 이 추가 기능이 매우 유용하다고 생각한다. 이 커맨드를 사용하면 검사하려는 파드 바로 옆에서 실행되는 임시 컨테이너를 만들 수 있고, 대화식 문제 해결을 위해 콘솔에 연결할 수도 있다.
+SIG CLI는 이미 오랫동안 디버그 유틸리티의 필요성에 대해 논의하고 있었다. [임시(ephemeral) 컨테이너](/ko/docs/concepts/workloads/pods/ephemeral-containers/)가 개발되면서, `kubectl exec` 위에 구축된 도구를 통해 개발자를 지원할 수 있는 방법이 더욱 분명해졌다. `kubectl debug` [커맨드](https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/20190805-kubectl-debug.md) 추가(알파이지만 피드백은 언제나 환영)로 개발자는 클러스터 내에서 파드를 쉽게 디버깅할 수 있다. 우리는 이 추가 기능이 매우 유용하다고 생각한다. 이 커맨드를 사용하면 검사하려는 파드 바로 옆에서 실행되는 임시 컨테이너를 만들 수 있고, 대화식 문제 해결을 위해 콘솔에 연결할 수도 있다.
 
 ### 쿠버네티스를 위한 윈도우 CSI 지원 알파 소개
 

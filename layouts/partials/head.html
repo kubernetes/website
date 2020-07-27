@@ -34,7 +34,7 @@
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
 <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  src="{{ "js/jquery-3.3.1.min.js" | relURL }}"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 {{ if and (.Site.Params.offlineSearch) (not .Site.Params.gcs_engine_id) }}
@@ -74,7 +74,6 @@
 <meta property="og:image" content="{{ "/images/kubernetes-horizontal-color.png" | relURL }}">
 {{ end }}
 <meta property="og:type" content="{{ $ogType }}">
-<script src="{{ "js/anchor-4.1.1.min.js" | relURL }}"></script>
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
 <script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 
@@ -84,6 +83,5 @@
 {{ end }}
 
 <script src="{{ "js/script.js" | relURL }}"></script>
-<script src="{{ "js/custom-jekyll/tags.js" | relURL }}"></script>
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}

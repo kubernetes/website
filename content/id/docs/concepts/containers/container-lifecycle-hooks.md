@@ -40,7 +40,7 @@ Hal ini bersifat *blocking*, yang artinya panggilan bersifat sinkron (*synchrono
 untuk menghapus kontainer tersebut.
 Tidak ada parameter yang diberikan pada *handler*.
 
-Penjelasan yang lebih rinci tentang proses terminasi dapat dilihat pada [Terminasi Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+Penjelasan yang lebih rinci tentang proses terminasi dapat dilihat pada [Terminasi Pod](/id/docs/concepts/workloads/pods/pod/#termination-of-pods).
 
 ### Implementasi *handler* untuk *hook*
 
@@ -113,7 +113,7 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 
-* Pelajari lebih lanjut tentang [*environment* Kontainer](/docs/concepts/containers/container-environment-variables/).
+* Pelajari lebih lanjut tentang [*environment* Kontainer](/id/docs/concepts/containers/container-environment-variables/).
 * Pelajari bagaimana caranya
   [melakukan *attach handler* pada *event lifecycle* sebuah Kontainer](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 

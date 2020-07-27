@@ -4,7 +4,6 @@ abstract: "自动化的容器部署、扩展和管理"
 cid: home
 ---
 
-{{< deprecationwarning >}}
 
 {{< blocks/section id="oceanNodes" >}}
 {{% blocks/feature image="flower" %}}

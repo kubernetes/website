@@ -4,11 +4,11 @@ feature:
   title: Horizontal scaling
   description: >
     Scale up dan scale down aplikasimu dengan sebuah perintah yang serderhana, dengan UI, atau otomatis bersadarkan penggunaan CPU.
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 HorizontalPodAutoscaler secara otomatis akan memperbanyak jumlah Pod di dalam ReplicationController, Deployment, 
 ReplicaSet ataupun StatefulSet berdasarkan hasil observasi penggunaan CPU(atau, dengan 
@@ -20,10 +20,10 @@ HorizontalPodAutoscaler diimplementasikan sebagai Kubernetes API *resource* dan 
 Kontroler akan mengubah jumlah replika pada ReplicationController atau pada Deployment untuk menyesuaikan dengan hasil observasi rata-rata
 penggunaan CPU sesuai dengan yang ditentukan oleh pengguna.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Bagaimana cara kerja HorizontalPodAutoscaler?
 
@@ -172,7 +172,7 @@ dapat ditemukan pada `autoscaling/v2beta2`. *Field* yang baru diperkenalkan pada
 `autoscaling/v2beta2` adalah *preserved* sebagai anotasi ketika menggunakan `autoscaling/v1`. 
 
 Ketika kamu membuat sebuah HorizontalPodAutoscaler, pastikan nama yang ditentukan adalah valid
-[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#nama).
+[nama subdomain DNS](/id/docs/concepts/overview/working-with-objects/names#nama).
 Untuk lebih detail tentang objek API ini dapat ditemukan di
 [Objek HorizontalPodAutoscaler](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 
@@ -441,12 +441,13 @@ behavior:
     selectPolicy: Disabled
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Dokumentasi desain [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * Perintah kubectl autoscale [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Contoh penggunaan [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

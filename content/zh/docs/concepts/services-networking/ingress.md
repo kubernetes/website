@@ -4,13 +4,11 @@ content_type: concept
 weight: 40
 ---
 <!--
----
 reviewers:
 - bprashanth
 title: Ingress
 content_type: concept
 weight: 40
----
 -->
 
 <!-- overview -->

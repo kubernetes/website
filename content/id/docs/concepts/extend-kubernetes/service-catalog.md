@@ -46,7 +46,7 @@ untuk berkomunikasi dengan makelar servis, bertindak sebagai perantara untuk API
 merundingkan penyediaan awal dan mengambil kredensial untuk aplikasi bisa menggunakan servis terkelola tersebut.
 
 Ini terimplementasi sebagai ekstensi API Server dan pengontrol, menggunakan etcd sebagai media penyimpanan.
-Ini juga menggunakan [lapisan agregasi](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+Ini juga menggunakan [lapisan agregasi](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 yang tersedia pada Kubernetes versi 1.7+ untuk menampilkan API-nya.
 
 <br>

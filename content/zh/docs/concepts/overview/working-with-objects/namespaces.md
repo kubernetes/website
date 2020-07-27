@@ -78,6 +78,13 @@ for namespaces](/docs/admin/namespaces).
 命名空间的创建和删除已在[命名空间的管理指南文档](/docs/admin/namespaces)中进行了描述。
 
 <!--
+Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+-->
+{{< note >}}
+避免使用前缀 `kube-` 创建命名空间，因为它是为 Kubernetes 系统命名空间保留的。
+{{< /note >}}
+
+<!--
 ### Viewing namespaces
 -->
 ### 查看命名空间
