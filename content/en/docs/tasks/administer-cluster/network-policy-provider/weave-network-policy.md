@@ -23,9 +23,9 @@ You need to have a Kubernetes cluster. Follow the [kubeadm getting started guide
 
 ## Install the Weave Net addon
 
-Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/) guide.
+Follow the [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) guide.
 
-The Weave Net addon for Kubernetes comes with a [Network Policy Controller](https://www.weave.works/docs/net/latest/kube-addon/#npc) that automatically monitors Kubernetes for any NetworkPolicy annotations on all namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
+The Weave Net addon for Kubernetes comes with a [Network Policy Controller](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/#npc) that automatically monitors Kubernetes for any NetworkPolicy annotations on all namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 
 ## Test the installation
 
