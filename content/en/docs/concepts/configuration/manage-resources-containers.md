@@ -133,7 +133,7 @@ metadata:
 spec:
   containers:
   - name: app
-    image: super.mycompany.com/app:v4
+    image: images.my-company.example/app:v4
     env:
     resources:
       requests:
@@ -143,7 +143,7 @@ spec:
         memory: "128Mi"
         cpu: "500m"
   - name: log-aggregator
-    image: super.mycompany.com/log-aggregator:v6
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         memory: "64Mi"
@@ -329,14 +329,14 @@ metadata:
 spec:
   containers:
   - name: app
-    image: super.mycompany.com/app:v4
+    image: images.my-company.example/app:v4
     resources:
       requests:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
   - name: log-aggregator
-    image: super.mycompany.com/log-aggregator:v6
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         ephemeral-storage: "2Gi"
