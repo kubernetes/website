@@ -152,14 +152,15 @@ then mount the volumes:
 finally the hostPath:
 
 ```
-- hostPath:
-      path: /etc/kubernetes/audit-policy.yaml
-      type: File
-    name: audit
-- hostPath:
-      path: /var/log/audit.log
-      type: FileOrCreate
-    name: audit-log
+- name: audit
+  hostPath:
+    path: /etc/kubernetes/audit-policy.yaml
+    type: File
+
+- name: audit-log
+  hostPath:
+    path: /var/log/audit.log
+    type: FileOrCreate
     
 ```
 
