@@ -164,7 +164,7 @@ Field name           | Description
 `lastProbeTime`      | Timestamp of when the Pod condition was last probed.
 `lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
 `reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
-`messsage            | Human-readable message indicating details about the last status transition.
+`message`            | Human-readable message indicating details about the last status transition.
 
 
 ### Pod readiness {#pod-readiness-gate}
