@@ -284,7 +284,7 @@ tracker instead of the kubeadm or kubernetes issue trackers.
 {{< /note >}}
 
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
+support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
 See the list of available
 [networking and network policy add-ons](/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
@@ -578,9 +578,9 @@ options.
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
 * Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
-of Pod network add-ons.
+  of Pod network add-ons.
 * <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
   explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
   control of your Kubernetes cluster.
