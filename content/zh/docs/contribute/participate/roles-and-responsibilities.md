@@ -58,7 +58,7 @@ For more information, see [contributing new content](/docs/contribute/new-conten
   [`kubernetes/website`](https://github.com/kubernetes/website) 上报告 Issue。
 - 对某 PR 给出无约束力的反馈信息
 - 为本地化提供帮助
-- 在 [Slack](http://slack.k8s.io/) 或
+- 在 [Slack](https://slack.k8s.io/) 或
   [SIG Docs 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
   上提出改进建议。
 
