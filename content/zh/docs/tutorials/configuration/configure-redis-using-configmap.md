@@ -136,7 +136,7 @@ the configuration was correctly applied:
 使用 `kubectl exec` 进入 pod 并运行 `redis-cli` 工具来验证配置已正确应用：
 
 ```shell
-kubectl exec -it redis redis-cli
+kubectl exec -it redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"

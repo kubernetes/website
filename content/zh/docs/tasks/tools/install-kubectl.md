@@ -1,20 +1,24 @@
 ---
-reviewers:
-- mikedanese
-title: 安装并设置 kubectl
+title: 安装并配置 kubectl
 content_type: task
 weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: 安装 kubectl
 ---
 <!--
----
 reviewers:
-- bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
 content_type: task
 weight: 10
----
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl
 -->
+
 <!-- overview -->
 <!--
  Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.
@@ -104,7 +108,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 -->
 ## 在 Ubuntu 上使用 snap 安装 kubectl
@@ -120,7 +124,7 @@ If you are on Ubuntu or one of other Linux distributions that support [snap](htt
 2. 测试以确保您安装的版本是最新的：
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 <!--
@@ -137,7 +141,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 -->
 ## <span id = "jump"> 在 macOS 上用 Homebrew 安装 kubectl </span>
@@ -153,7 +157,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 2. 测试以确保您安装的版本是最新的：
    
     ```
-    kubectl version
+    kubectl version --client
     ```
     
 
@@ -171,7 +175,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 -->
 
@@ -188,7 +192,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 2. 测试以确保您安装的版本是最新的：
 
      ```
-    kubectl version
+    kubectl version --client
     ```
 
 <!--
@@ -212,7 +216,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}
@@ -238,7 +242,7 @@ If you are on Windows and using [Powershell Gallery](https://www.powershellgalle
 
 2. 测试以确保您安装的版本是最新的：
     ```
-    kubectl version
+    kubectl version --client
     ```
 
     {{< note >}}
@@ -259,7 +263,7 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
 2. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 3. Change to your %HOME% directory:
 
@@ -300,7 +304,7 @@ If you are on Windows and using [Chocolatey](https://chocolatey.org) package man
 2. 测试以确保您安装的版本是最新的：
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 3. 切换到 %HOME% 目录：
 
@@ -343,7 +347,7 @@ You can install kubectl as part of the Google Cloud SDK.
 3. Test to ensure the version you installed is sufficiently up-to-date:
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 -->
 ## 将 kubectl 作为 Google Cloud SDK 的一部分下载
@@ -360,7 +364,7 @@ kubectl 可以作为 Google Cloud SDK 的一部分进行安装。
 3. 测试以确保您安装的版本是最新的：
 
     ```
-    kubectl version
+    kubectl version --client
     ```
 
 <!--

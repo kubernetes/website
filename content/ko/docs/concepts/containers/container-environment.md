@@ -56,6 +56,7 @@ FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 
 
 * [컨테이너 라이프사이클 훅(hooks)](/ko/docs/concepts/containers/container-lifecycle-hooks/)에 대해 더 배워 보기.
-* [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/) 실제 경험 얻기.
+* [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+  실제 경험 얻기.
 
 

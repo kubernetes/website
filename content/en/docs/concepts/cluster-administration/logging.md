@@ -82,7 +82,8 @@ and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
+up logging for COS image on GCP in the corresponding
+[script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -96,8 +97,6 @@ the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-
 ### System component logs
 
 There are two types of system components: those that run in a container and those
@@ -109,7 +108,7 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [klog][klog]
+bypassing the default logging mechanism. They use the [klog](https://github.com/kubernetes/klog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
@@ -117,8 +116,6 @@ Similarly to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
-
-[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 

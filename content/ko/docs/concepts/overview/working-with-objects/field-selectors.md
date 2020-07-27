@@ -9,19 +9,14 @@ _필드 셀렉터_ 는 한 개 이상의 리소스 필드 값에 따라 [쿠버�
 * `metadata.namespace!=default`
 * `status.phase=Pending`
 
-다음의 `kubectl` 커맨드는 [`status.phase`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) 필드의 값이 `Running` 인 모든 파드를 선택한다.
+다음의 `kubectl` 커맨드는 [`status.phase`](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase) 필드의 값이 `Running` 인 모든 파드를 선택한다.
 
 ```shell
 kubectl get pods --field-selector status.phase=Running
 ```
 
 {{< note >}}
-필드 셀렉터는 본질적으로 리소스 *필터* 이다. 기본적으로 적용되는 셀렉터나 필드는 없으며, 이는 명시된 종류의 모든 리소스가 선택된다는 것을 의미한다. 따라서 다음의 `kubectl` 쿼리들은 동일하다.
-
-```shell
-kubectl get pods
-kubectl get pods --field-selector ""
-```
+필드 셀렉터는 본질적으로 리소스 *필터* 이다. 기본적으로 적용되는 셀렉터나 필드는 없으며, 이는 명시된 종류의 모든 리소스가 선택된다는 것을 의미한다. 여기에 따라오는 `kubectl` 쿼리인 `kubectl get pods` 와 `kubectl get pods --field-selector ""` 는 동일하다.
 {{< /note >}}
 
 ## 사용 가능한 필드
@@ -53,7 +48,7 @@ kubectl get pods --field-selector=status.phase!=Running,spec.restartPolicy=Alway
 
 ## 여러 개의 리소스 종류
 
-필드 셀렉터를 여러 개의 리소스 종류에 걸쳐 사용할 수 있다. 다음의 `kubectl` 커맨드는 `default` 네임스페이스에 속해있지 않은 모든 스테이트풀 셋과 서비스를 선택한다.
+필드 셀렉터를 여러 개의 리소스 종류에 걸쳐 사용할 수 있다. 다음의 `kubectl` 커맨드는 `default` 네임스페이스에 속해있지 않은 모든 스테이트풀셋(StatefulSet)과 서비스를 선택한다.
 
 ```shell
 kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default

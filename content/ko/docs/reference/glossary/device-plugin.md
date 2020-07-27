@@ -24,6 +24,6 @@ tags:
 장치 플러그인을 {{< glossary_tooltip term_id="daemonset" >}}으로 배포하거나,
 각 대상 노드에 직접 장치 플러그인 소프트웨어를 설치할 수 있다.
 
-[장치 플러그인](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+[장치 플러그인](/ko/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 의 더 자세한 정보를
 본다

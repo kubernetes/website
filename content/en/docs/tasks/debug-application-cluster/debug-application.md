@@ -118,7 +118,7 @@ You can view this resource with:
 kubectl get endpoints ${SERVICE_NAME}
 ```
 
-Make sure that the endpoints match up with the number of containers that you expect to be a member of your service.
+Make sure that the endpoints match up with the number of pods that you expect to be members of your service.
 For example, if your Service is for an nginx container with 3 replicas, you would expect to see three different
 IP addresses in the Service's endpoints.
 

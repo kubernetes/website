@@ -3,7 +3,7 @@ title: 理解 Kubernetes 对象
 content_type: concept
 weight: 10
 card: 
-  name: 概念
+  name: concepts
   weight: 40
 ---
 

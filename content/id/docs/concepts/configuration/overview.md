@@ -32,14 +32,14 @@ Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar
 
 ## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
 
-- Jangan gunakan Pods naked (artinya, Pods tidak terikat dengan a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) a [Deployment](/docs/concepts/workloads/controllers/deployment/)) jika kamu bisa menghindarinya. Pod naked tidak akan dijadwal ulang jika terjadi kegagalan pada node.
+- Jangan gunakan Pods naked (artinya, Pods tidak terikat dengan a [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/) a [Deployment](/id/docs/concepts/workloads/controllers/deployment/)) jika kamu bisa menghindarinya. Pod naked tidak akan dijadwal ulang jika terjadi kegagalan pada node.
 
-  Deployment, yang keduanya menciptakan ReplicaSet untuk memastikan bahwa jumlah Pod yang diinginkan selalu tersedia, dan menentukan strategi untuk mengganti Pods (seperti [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), hampir selalu lebih disukai daripada membuat Pods secara langsung, kecuali untuk beberapa yang eksplisit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) banyak skenario . A [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) mungkin juga sesuai.
+  Deployment, yang keduanya menciptakan ReplicaSet untuk memastikan bahwa jumlah Pod yang diinginkan selalu tersedia, dan menentukan strategi untuk mengganti Pods (seperti [RollingUpdate](/id/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), hampir selalu lebih disukai daripada membuat Pods secara langsung, kecuali untuk beberapa yang eksplisit [`restartPolicy: Never`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) banyak skenario . A [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/) mungkin juga sesuai.
 
 
 ## Services
 
-- Buat  [Service](/docs/concepts/services-networking/service/) sebelum workloads backend terkait (Penyebaran atau ReplicaSets), dan sebelum workloads apa pun yang perlu mengaksesnya. Ketika Kubernetes memulai sebuah container, ia menyediakan environment variabel yang menunjuk ke semua Layanan yang berjalan ketika container itu dimulai. Misalnya, jika Layanan bernama `foo` ada, semua container akan mendapatkan variabel berikut di environment awalnya:
+- Buat  [Service](/id/docs/concepts/services-networking/service/) sebelum workloads backend terkait (Penyebaran atau ReplicaSets), dan sebelum workloads apa pun yang perlu mengaksesnya. Ketika Kubernetes memulai sebuah container, ia menyediakan environment variabel yang menunjuk ke semua Layanan yang berjalan ketika container itu dimulai. Misalnya, jika Layanan bernama `foo` ada, semua container akan mendapatkan variabel berikut di environment awalnya:
 
   ```shell
   FOO_SERVICE_HOST=<the host the Service is running on>
@@ -48,26 +48,26 @@ Dokumentasi ini terbuka. Jika Anda menemukan sesuatu yang tidak ada dalam daftar
 
   *Ini menunjukan persyaratan pemesanan * - `Service` apa pun yang ingin diakses oleh` Pod` harus dibuat sebelum `Pod` itu sendiri, atau environment variabel tidak akan diisi. DNS tidak memiliki batasan ini.
 
-- Opsional (meskipun sangat disarankan) [cluster add-on](/docs/concepts/cluster-administration/addons/) adalah server DNS.
+- Opsional (meskipun sangat disarankan) [cluster add-on](/id/docs/concepts/cluster-administration/addons/) adalah server DNS.
 Server DNS melihat API Kubernetes untuk `Service` baru dan membuat satu set catatan DNS untuk masing-masing. Jika DNS telah diaktifkan di seluruh cluster maka semua `Pods` harus dapat melakukan resolusi nama`Service` secara otomatis.
 
 - Jangan tentukan `hostPort` untuk Pod kecuali jika benar-benar diperlukan. Ketika Anda bind Pod ke `hostPort`, hal itu membatasi jumlah tempat Pod dapat dijadwalkan, karena setiap kombinasi <` hostIP`, `hostPort`,` protokol`> harus unik. Jika Anda tidak menentukan `hostIP` dan` protokol` secara eksplisit, Kubernetes akan menggunakan `0.0.0.0` sebagai` hostIP` dan `TCP` sebagai default` protokol`.
 
-  Jika kamu hanya perlu akses ke port untuk keperluan debugging, Anda bisa menggunakan [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) atau [`kubectl port-forward`](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
+  Jika kamu hanya perlu akses ke port untuk keperluan debugging, Anda bisa menggunakan [apiserver proxy](/id/docs/tasks/access-application-cluster/access-cluster/#manually-constructing-apiserver-proxy-urls) atau [`kubectl port-forward`](/id/docs/tasks/access-application-cluster/port-forward-access-application-cluster/).
 
-  Jika Anda secara eksplisit perlu mengekspos port Pod pada node, pertimbangkan untuk menggunakan [NodePort](/docs/concepts/services-networking/service/#nodeport) Service sebelum beralih ke `hostPort`.
+  Jika Anda secara eksplisit perlu mengekspos port Pod pada node, pertimbangkan untuk menggunakan [NodePort](/id/docs/concepts/services-networking/service/#nodeport) Service sebelum beralih ke `hostPort`.
 
 - Hindari menggunakan `hostNetwork`, untuk alasan yang sama seperti` hostPort`.
 
-- Gunakan [headless Services](/docs/concepts/services-networking/service/#headless-
+- Gunakan [headless Services](/id/docs/concepts/services-networking/service/#headless-
 services) (yang memiliki `ClusterIP` dari` None`) untuk Service discovery yang mudah ketika Anda tidak membutuhkan `kube-proxy` load balancing.
 
 ## Menggunakan label
 
-- Deklarasi dan gunakan [labels] (/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen` phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
+- Deklarasi dan gunakan [labels] (/id/docs/concepts/overview/working-with-objects/labels/) untuk identifikasi __semantic attributes__  aplikasi atau Deployment kamu, seperti `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`. Kamu dapat menggunakan label ini untuk memilih Pod yang sesuai untuk sumber daya lainnya; misalnya, Service yang memilih semua `tier: frontend` Pods, atau semua komponen` phase: test` dari `app: myapp`. Lihat [guestbook](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/) aplikasi untuk contoh-contoh pendekatan ini.
 
 
-Service dapat dibuat untuk menjangkau beberapa Penyebaran dengan menghilangkan label khusus rilis dari pemilihnya. [Deployments](/docs/concepts/workloads/controllers/deployment/) membuatnya mudah untuk memperbarui Service yang sedang berjalan tanpa downtime.
+Service dapat dibuat untuk menjangkau beberapa Penyebaran dengan menghilangkan label khusus rilis dari pemilihnya. [Deployments](/id/docs/concepts/workloads/controllers/deployment/) membuatnya mudah untuk memperbarui Service yang sedang berjalan tanpa downtime.
 
 Keadaan objek yang diinginkan dideskripsikan oleh Deployment, dan jika perubahan terhadap spesifikasi tersebut adalah _applied_, Deployment controller mengubah keadaan aktual ke keadaan yang diinginkan pada tingkat yang terkontrol.
 
@@ -75,7 +75,7 @@ Keadaan objek yang diinginkan dideskripsikan oleh Deployment, dan jika perubahan
 
 ## Container Images
 
-Ini [imagePullPolicy](/docs/concepts/containers/images/#updating-images) dan tag dari image mempengaruhi ketika [kubelet](/docs/admin/kubelet/) mencoba menarik image yang ditentukan
+Ini [imagePullPolicy](/id/docs/concepts/containers/images/#updating-images) dan tag dari image mempengaruhi ketika [kubelet](/docs/admin/kubelet/) mencoba menarik image yang ditentukan
 
 - `imagePullPolicy: IfNotPresent`: image ditarik hanya jika belum ada secara lokal.
 
@@ -105,7 +105,7 @@ Semantik caching dari penyedia gambar yang mendasarinya membuat bahkan `imagePul
 
 - Gunakan `kubectl apply -f <directory>`. Ini mencari konfigurasi Kubernetes di semua file `.yaml`,` .yml`, dan `.json` di` <directory> `dan meneruskannya ke` apply`.
 
-- Gunakan label selector untuk operasi `get` dan` delete` alih-alih nama objek tertentu. Lihat bagian di [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) dan [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+- Gunakan label selector untuk operasi `get` dan` delete` alih-alih nama objek tertentu. Lihat bagian di [label selectors](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors) dan [using labels effectively](/id/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
 - Gunakan `kubectl run` dan` kubectl expose` untuk dengan cepat membuat Deployment dan Service single-container. Lihat [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) untuk Contoh.
 

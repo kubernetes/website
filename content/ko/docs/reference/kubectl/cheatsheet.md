@@ -255,7 +255,7 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # 다른 편집기 사용
 ## 리소스 스케일링
 
 ```bash
-kubectl scale --replicas=3 rs/foo                                 # 'foo'라는 레플리카 셋을 3으로 스케일
+kubectl scale --replicas=3 rs/foo                                 # 'foo'라는 레플리카셋을 3으로 스케일
 kubectl scale --replicas=3 -f foo.yaml                            # "foo.yaml"에 지정된 리소스의 크기를 3으로 스케일
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # mysql이라는 디플로이먼트의 현재 크기가 2인 경우, mysql을 3으로 스케일
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 여러 개의 레플리케이션 컨트롤러 스케일
@@ -286,6 +286,11 @@ kubectl logs -f my-pod                              # 실시간 스트림 파드
 kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드 로그(stdout, 멀티-컨테이너 경우)
 kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # 대화형 셸로 파드를 실행
+kubectl run nginx --image=nginx -n
+mynamespace                                         # 특정 네임스페이스에서 nginx 파드 실행
+kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
+--dry-run=client -o yaml > pod.yaml
+
 kubectl attach my-pod -i                            # 실행중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
 kubectl exec my-pod -- ls /                         # 기존 파드에서 명령 실행(한 개 컨테이너 경우)
@@ -310,7 +315,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### 리소스 타입
 
-단축명, [API 그룹](/ko/docs/concepts/overview/kubernetes-api/#api-groups)과 함께 지원되는 모든 리소스 유형들, 그것들의 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces)와 [종류(Kind)](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects)를 나열:
+단축명, [API 그룹](/ko/docs/concepts/overview/kubernetes-api/#api-그룹)과 함께 지원되는 모든 리소스 유형들, 그것들의 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces)와 [종류(Kind)](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects)를 나열:
 
 ```bash
 kubectl api-resources
@@ -385,5 +390,3 @@ Kubectl 로그 상세 레벨(verbosity)은 `-v` 또는`--v` 플래그와 로그 
 * 재사용 스크립트에서 kubectl 사용 방법을 이해하기 위해 [kubectl 사용법](/docs/reference/kubectl/conventions/)을 참고한다.
 
 * 더 많은 [kubectl 치트 시트](https://github.com/dennyzhang/cheatsheet-kubernetes-A4) 커뮤니티 확인
-
-

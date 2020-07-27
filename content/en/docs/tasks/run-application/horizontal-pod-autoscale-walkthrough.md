@@ -47,7 +47,7 @@ The Dockerfile has the following content:
 
 ```
 FROM php:5-apache
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
 ```
 

@@ -22,15 +22,13 @@ and environment. [This comparison topic](/docs/setup/production-environment/tool
 If you encounter issues with setting up the HA cluster, please provide us with feedback
 in the kubeadm [issue tracker](https://github.com/kubernetes/kubeadm/issues/new).
 
-See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade-1-15).
+See also [The upgrade documentation](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/).
 
 {{< caution >}}
 This page does not address running your cluster on a cloud provider. In a cloud
 environment, neither approach documented here works with Service objects of type
 LoadBalancer, or with dynamic PersistentVolumes.
 {{< /caution >}}
-
-
 
 ## {{% heading "prerequisites" %}}
 
@@ -50,8 +48,6 @@ For both methods you need this infrastructure:
 For the external etcd cluster only, you also need:
 
 - Three additional machines for etcd members
-
-
 
 <!-- steps -->
 

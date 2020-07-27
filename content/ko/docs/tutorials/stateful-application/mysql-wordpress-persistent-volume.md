@@ -1,6 +1,5 @@
 ---
 title: "예시: WordPress와 MySQL을 퍼시스턴트 볼륨에 배포하기"
-reviewers:
 content_type: tutorial
 weight: 20
 card: 
@@ -8,6 +7,8 @@ card:
   weight: 40
   title: "스테이트풀셋 예시: Wordpress와 퍼시스턴트 볼륨"
 ---
+
+
 
 <!-- overview -->
 이 튜토리얼은 WordPress 사이트와 MySQL 데이터베이스를 Minikube를 이용하여 어떻게 배포하는지 보여준다. 애플리케이션 둘 다 퍼시스턴트 볼륨과 퍼시스턴트볼륨클레임을 데이터를 저장하기 위해 사용한다.
@@ -189,8 +190,8 @@ kubectl apply -k ./
       응답은 아래와 비슷해야 한다.
 
       ```
-      NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
+      NAME        TYPE            CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      wordpress   LoadBalancer    10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
       {{< note >}}
@@ -236,7 +237,7 @@ kubectl apply -k ./
 
 
 * [인트로스펙션과 디버깅](/docs/tasks/debug-application-cluster/debug-application-introspection/)를 알아보자.
-* [잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)를 알아보자.
+* [잡](/ko/docs/concepts/workloads/controllers/job/)를 알아보자.
 * [포트 포워딩](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 알아보자.
 * 어떻게 [컨테이너에서 셸을 사용하는지](/docs/tasks/debug-application-cluster/get-shell-running-container/)를 알아보자.
 

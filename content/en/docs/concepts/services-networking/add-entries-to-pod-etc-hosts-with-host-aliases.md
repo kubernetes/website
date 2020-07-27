@@ -23,7 +23,7 @@ Modification not using HostAliases is not suggested because the file is managed 
 Start an Nginx Pod which is assigned a Pod IP:
 
 ```shell
-kubectl run nginx --image nginx --generator=run-pod/v1
+kubectl run nginx --image nginx
 ```
 
 ```
@@ -64,14 +64,14 @@ By default, the `hosts` file only includes IPv4 and IPv6 boilerplates like
 ## Adding additional entries with hostAliases
 
 In addition to the default boilerplate, you can add additional entries to the
-`hosts` file.  
+`hosts` file.
 For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`,
 `bar.remote` to `10.1.2.3`, you can configure HostAliases for a Pod under
 `.spec.hostAliases`:
 
 {{< codenew file="service/networking/hostaliases-pod.yaml" >}}
 
-Yoyu can start a Pod with that configuration by running:
+You can start a Pod with that configuration by running:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml

@@ -323,7 +323,7 @@ When load on your application grows or shrinks, it's easy to scale with `kubectl
 kubectl scale deployment/my-nginx --replicas=1
 ```
 ```shell
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Now you only have one pod managed by the deployment.

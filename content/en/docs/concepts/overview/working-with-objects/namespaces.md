@@ -26,7 +26,7 @@ need to create or think about namespaces at all.  Start using namespaces when yo
 need the features they provide.
 
 Namespaces provide a scope for names.  Names of resources need to be unique within a namespace,
-but not across namespaces. Namespaces can not be nested inside one another and each Kubernetes 
+but not across namespaces. Namespaces cannot be nested inside one another and each Kubernetes 
 resource can only be in one namespace.
 
 Namespaces are a way to divide cluster resources between multiple users (via [resource quota](/docs/concepts/policy/resource-quotas/)).
@@ -42,6 +42,10 @@ resources within the same namespace.
 
 Creation and deletion of namespaces are described in the [Admin Guide documentation
 for namespaces](/docs/admin/namespaces).
+
+{{< note >}}
+    Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+{{< /note >}}
 
 ### Viewing namespaces
 

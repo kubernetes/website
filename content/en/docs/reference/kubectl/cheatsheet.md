@@ -166,6 +166,10 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Retrieve the value of a key with dots, e.g. 'ca.crt'
+kubectl get configmap myconfig \
+  -o jsonpath='{.data.ca\.crt}'
+
 # Get all worker nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
@@ -290,10 +294,10 @@ kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
-kubectl run nginx --image=nginx --restart=Never -n 
+kubectl run nginx --image=nginx -n 
 mynamespace                                         # Run pod nginx in a specific namespace
-kubectl run nginx --image=nginx --restart=Never     # Run pod nginx and write its spec into a file called pod.yaml
---dry-run -o yaml > pod.yaml
+kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
+--dry-run=client -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod

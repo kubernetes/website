@@ -110,7 +110,7 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
-#the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
+# the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
 # KUBELET_EXTRA_ARGS should be sourced from this file.
 EnvironmentFile=-/etc/default/kubelet
 ExecStart=
@@ -132,7 +132,8 @@ Kubernetesに同梱されるDEB、RPMのパッケージは以下の通りです�
 | パッケージ名 | 説明        |
 |--------------|-------------|
 | `kubeadm`    | `/usr/bin/kubeadm`CLIツールと、[kubelet用のsystemdファイル](#the-kubelet-drop-in-file-for-systemd)をインストールします。 |
-| `kubelet`    | `/usr/bin/kubelet`バイナリをインストールします。 |
+| `kubelet`    | kubeletバイナリを`/usr/bin`に、CNIバイナリを`/opt/cni/bin`にインストールします。 |
 | `kubectl`    | `/usr/bin/kubectl`バイナリをインストールします。 |
 | `kubernetes-cni` | 公式のCNIバイナリを`/opt/cni/bin`ディレクトリにインストールします。 |
 | `cri-tools` | `/usr/bin/crictl`バイナリを[cri-tools gitリポジトリ](https://github.com/kubernetes-incubator/cri-tools)からインストールします。 |
+
