@@ -106,7 +106,7 @@ Berikut merupakan panduan yang akan menjelaskan masing-masing _resource_ secara 
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
 * [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
 * [Secrets](/docs/tasks/administer-federation/secret/)
-* [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
+* [Services](/id/docs/concepts/cluster-administration/federation-service-discovery/)
 
 
 [Referensi Dokumentasi API](/docs/reference/federation/) memberikan semua daftar

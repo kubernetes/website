@@ -232,7 +232,7 @@ Renders to:
 {{< tabs name="tab_with_file_include" >}}
 {{< tab name="Content File #1" include="example1" />}}
 {{< tab name="Content File #2" include="example2" />}}
-{{< tab name="JSON File" include="podtemplate" />}}
+{{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
 
@@ -242,6 +242,6 @@ Renders to:
 * Learn about [Hugo](https://gohugo.io/).
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [page content types](/docs/contribute/style/page-content-types/).
-* Learn about [creating a pull request](/docs/contribute/new-content/new-content/).
+* Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
 * Learn about [advanced contributing](/docs/contribute/advanced/).
 

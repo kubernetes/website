@@ -7,7 +7,7 @@ weight: 30
 <!-- overview -->
 
 Operator adalah ekstensi perangkat lunak untuk Kubernetes yang memanfaatkan 
-[_custom resource_](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+[_custom resource_](/id/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 untuk mengelola aplikasi dan komponen-komponennya. Operator mengikuti prinsip 
 Kubernetes, khususnya dalam hal [_control loop_](/docs/concepts/#kubernetes-control-plane).
 
@@ -126,7 +126,7 @@ menggunakan bahasa / _runtime_ yang dapat bertindak sebagai
 
 ## {{% heading "whatsnext" %}}
 
-* Memahami lebih lanjut tentang [_custome resources_](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* Memahami lebih lanjut tentang [_custome resources_](/id/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Temukan "ready-made" _operators_ dalam [OperatorHub.io](https://operatorhub.io/) 
   untuk memenuhi use case kamu
 * Menggunakan perangkat yang ada untuk menulis Operator kamu sendiri, misalnya:

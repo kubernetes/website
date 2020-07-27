@@ -45,13 +45,13 @@ Sejak API dari Pod Security Policy (`policy/v1beta1/podsecuritypolicy`) diaktifk
 
 ## Mengizinkan Kebijakan
 
-Saat sebuah sumber daya PodSecurityPolicy dibuat, ia tidak melakukan apa-apa. Untuk menggunakannya, [Service Account](/docs/tasks/configure-pod-container/configure-service-account/) dari pengguna yang memintanya atau target Pod-nya harus diizinkan terlebih dahulu untuk menggunakan kebijakan tersebut, dengan membolehkan kata kerja `use` terhadap kebijakan tersebut.
+Saat sebuah sumber daya PodSecurityPolicy dibuat, ia tidak melakukan apa-apa. Untuk menggunakannya, [Service Account](/id/docs/tasks/configure-pod-container/configure-service-account/) dari pengguna yang memintanya atau target Pod-nya harus diizinkan terlebih dahulu untuk menggunakan kebijakan tersebut, dengan membolehkan kata kerja `use` terhadap kebijakan tersebut.
 
-Kebanyakan Pod Kubernetes tidak dibuat secara langsung oleh pengguna. Sebagai gantinya, mereka biasanya dibuat secara tidak langsung sebagai bagian dari sebuah [Deployment](/docs/concepts/workloads/controllers/deployment/), [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/), atau pengontrol yang sudah ditemplat lainnya melalui Controller Manager. Memberikan akses untuk pengontrol terhadap kebijakan tersebut akan mengizinkan akses untuk *semua* Pod yang dibuat oleh pengontrol tersebut, sehingga metode yang lebih baik untuk mengizinkan kebijakan adalah dengan memberikan akses pada Service Account milik Pod (lihat [contohnya](#run-another-pod)).
+Kebanyakan Pod Kubernetes tidak dibuat secara langsung oleh pengguna. Sebagai gantinya, mereka biasanya dibuat secara tidak langsung sebagai bagian dari sebuah [Deployment](/id/docs/concepts/workloads/controllers/deployment/), [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/), atau pengontrol yang sudah ditemplat lainnya melalui Controller Manager. Memberikan akses untuk pengontrol terhadap kebijakan tersebut akan mengizinkan akses untuk *semua* Pod yang dibuat oleh pengontrol tersebut, sehingga metode yang lebih baik untuk mengizinkan kebijakan adalah dengan memberikan akses pada Service Account milik Pod (lihat [contohnya](#run-another-pod)).
 
 ### Melalui RBAC
 
-[RBAC](/docs/reference/access-authn-authz/rbac/) adalah mode otorisasi standar Kubernetes, dan dapat digunakan dengan mudah untuk mengotorisasi penggunaan kebijakan-kebijakan.
+[RBAC](/id/docs/reference/access-authn-authz/rbac/) adalah mode otorisasi standar Kubernetes, dan dapat digunakan dengan mudah untuk mengotorisasi penggunaan kebijakan-kebijakan.
 
 Pertama-tama, sebuah `Role` atau `ClusterRole` perlu memberikan akses pada kata kerja `use` terhadap kebijakan-kebijakan yang diinginkan. `rules` yang digunakan untuk memberikan akses tersebut terlihat seperti berikut:
 
@@ -103,12 +103,12 @@ Jika sebuah `RoleBinding` (bukan `ClusterRoleBinding`) digunakan, maka ia hanya 
   name: system:authenticated
 ```
 
-Untuk lebih banyak contoh pengikatan RBAC, lihat [Contoh Role Binding](/docs/reference/access-authn-authz/rbac#role-binding-examples).
+Untuk lebih banyak contoh pengikatan RBAC, lihat [Contoh Role Binding](/id/docs/reference/access-authn-authz/rbac#role-binding-examples).
 Untuk contoh lengkap untuk mengotorisasi sebuah PodSecurityPolicy, lihat [di bawah](#contoh).
 
 ### Mengatasi Masalah
 
-- [Controller Manager](/docs/admin/kube-controller-manager/) harus dijalankan terhadap [port API yang telah diamankan](/docs/reference/access-authn-authz/controlling-access/), dan tidak boleh memiliki izin _superuser_, atau semua permintaan akan melewati modul-modul otentikasi dan otorisasi, semua objek PodSecurityPolicy tidak akan diizinkan, dan semua pengguna dapat membuat Container-container yang _privileged_. Untuk lebih detil tentang mengkonfigurasi otorisasi Controller Manager, lihat [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
+- [Controller Manager](/docs/admin/kube-controller-manager/) harus dijalankan terhadap [port API yang telah diamankan](/docs/reference/access-authn-authz/controlling-access/), dan tidak boleh memiliki izin _superuser_, atau semua permintaan akan melewati modul-modul otentikasi dan otorisasi, semua objek PodSecurityPolicy tidak akan diizinkan, dan semua pengguna dapat membuat Container-container yang _privileged_. Untuk lebih detil tentang mengkonfigurasi otorisasi Controller Manager, lihat [Controller Roles](/id/docs/reference/access-authn-authz/rbac/#controller-roles).
 
 ## Urutan Kebijakan
 
@@ -324,7 +324,7 @@ determines if any container in a pod can enable privileged mode.
 
 ### Volume dan _file system_
 
-**Volume** - Menyediakan sebuah daftar putih dari tipe-tipe Volume yang diizinkan. Nilai-nilai yang diizinkan sesuai dengan sumber Volume yang didefinisikan saat membuat sebuah Volume. Untuk daftar lengkap tipe-tipe Volume, lihat [tipe-tipe Volume](/docs/concepts/storage/volumes/#tipe-tipe-volume). Sebagai tambahan, `*` dapat digunakan untuk mengizinkan semua tipe Volume.
+**Volume** - Menyediakan sebuah daftar putih dari tipe-tipe Volume yang diizinkan. Nilai-nilai yang diizinkan sesuai dengan sumber Volume yang didefinisikan saat membuat sebuah Volume. Untuk daftar lengkap tipe-tipe Volume, lihat [tipe-tipe Volume](/id/docs/concepts/storage/volumes/#tipe-tipe-volume). Sebagai tambahan, `*` dapat digunakan untuk mengizinkan semua tipe Volume.
 
 **Kumpulan Volume-volume minimal yang direkomendasikan** untuk PodSecurityPolicy baru adalah sebagai berikut:
 

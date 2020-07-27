@@ -36,12 +36,11 @@ Most of the Kubernetes constructs, such as Pods, Services, Labels, etc. work wit
 |
 What doesn’t work yet?
  |
--
-Pod abstraction is not same due to networking namespaces. Net result is that Windows containers in a single POD cannot communicate over localhost. Linux containers can share networking stack by placing them in the same network namespace.
--
-DNS capabilities are not fully implemented
--
-UDP is not supported inside a container
+
+- Pod abstraction is not same due to networking namespaces. Net result is that Windows containers in a single POD cannot communicate over localhost. Linux containers can share networking stack by placing them in the same network namespace.
+- DNS capabilities are not fully implemented
+- UDP is not supported inside a container
+
  |
 |
 When will it be ready for all production workloads (general availability)?

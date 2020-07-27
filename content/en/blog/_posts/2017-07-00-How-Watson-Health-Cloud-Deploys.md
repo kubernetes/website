@@ -92,14 +92,10 @@ Usage of UCD in the Process Flow:
 
 UCD is used for deployment and the end-to end deployment process is automated here. UCD component process involves the following steps:
 
--
-Download the required artifacts for deployment from the Gitlab.
--
-Login to Bluemix and set the KUBECONFIG based on the Kubernetes cluster used for creating the pods.
--
-Create the application pod in the cluster using kubectl create command.
--
-If needed, run a rolling update to update the existing pod.
+- Download the required artifacts for deployment from the Gitlab.
+- Login to Bluemix and set the KUBECONFIG based on the Kubernetes cluster used for creating the pods.
+- Create the application pod in the cluster using kubectl create command.
+- If needed, run a rolling update to update the existing pod.
 
 
 
@@ -150,13 +146,8 @@ To expose our services to outside the cluster, we used Ingress. In IBM Cloud Kub
 
 
 
--
-Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
--
-Join the community portal for advocates on [K8sPort](http://k8sport.org/)
--
-Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
--
-Connect with the community on [Slack](http://slack.k8s.io/)
--
-Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)
+- Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+- Join the community portal for advocates on [K8sPort](http://k8sport.org/)
+- Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
+- Connect with the community on [Slack](http://slack.k8s.io/)
+- Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)
