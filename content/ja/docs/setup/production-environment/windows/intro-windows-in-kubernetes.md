@@ -38,7 +38,7 @@ APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースの�
 | Kubernetes バージョン | ホストOS バージョン (Kubernetes ノード) | | |
 | --- | --- | --- | --- |
 | | *Windows Server 1709* | *Windows Server 1803* | *Windows Server 1809/Windows Server 2019* |
-| *Kubernetes v1.14* | サポートされていません | サポートされていません| Supported for Windows Server containers Builds 17763.* with Docker EE-basic 18.09 |
+| *Kubernetes v1.14* | サポートされていません | サポートされていません| Windows Server containers Builds 17763.* と Docker EE-basic 18.09 がサポートされています |
 
 {{< note >}}
 すべてのWindowsユーザーがアプリのオペレーティングシステムを頻繁に更新することは望んでいません。アプリケーションのアップグレードは、クラスターに新しいノードをアップグレードまたは導入することを要求する必要があります。Kubernetesで実行されているコンテナのオペレーティングシステムをアップグレードすることを選択したお客様には、新しいオペレーティングシステムバージョンのサポート追加時に、ガイダンスと段階的な指示を提供します。このガイダンスには、クラスターノードと共にアプリケーションをアップグレードするための推奨アップグレード手順が含まれます。Windowsノードは、現在のLinuxノードと同じように、Kubernetes[バージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/)（ノードからコントロールプレーンのバージョン管理）に準拠しています。
