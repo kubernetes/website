@@ -9,7 +9,7 @@ weight: 20
 {{< glossary_definition term_id="configmap" prepend="ConfigMapは、" length="all" >}}
 
 {{< caution >}}
-ConfigMapは機密性や暗号化を提供しません。保存したいデータが機密情報である場合は、ConfigMapの代わりに{{< glossary_tooltip text="Secret" term_id="secret" >}}を使用するか、追加の(サードパーティーの)ツールを使用してデータが非公開になるようにしてください。
+ConfigMapは機密性や暗号化を提供しません。保存したいデータが機密情報である場合は、ConfigMapの代わりに{{< glossary_tooltip text="Secret" term_id="secret" >}}を使用するか、追加の(サードパーティー)ツールを使用してデータが非公開になるようにしてください。
 {{< /caution >}}
 
 <!-- body -->
@@ -30,7 +30,7 @@ ConfigMapの名前は、有効な[DNSのサブドメイン名](/docs/concepts/ov
 
 ## ConfigMapとPod
 
-ConfigMapを参照して、ConfigMap内のデータを元にしてPod内のコンテナを設定するようなPodの`spec`を書くことができます。このとき、PodとConfigMapは同じ{{< glossary_tooltip text="namespace" term_id="namespace" >}}内に存在する必要があります。
+ConfigMapを参照して、ConfigMap内のデータを元にしてPod内のコンテナの設定をするPodの`spec`を書くことができます。このとき、PodとConfigMapは同じ{{< glossary_tooltip text="namespace" term_id="namespace" >}}内に存在する必要があります。
 
 以下に、ConfigMapの例を示します。単一の値を持つキーと、Configuration形式のデータ片のような値を持つキーがあります。
 
@@ -61,9 +61,9 @@ Pod内のコンテナを設定するためにConfigMapを利用する方法に�
 1. 読み取り専用のボリューム内にファイルを追加し、アプリケーションがそのファイルを読み取る
 1. Kubernetes APIを使用してConfigMapを読み込むコードを書き、そのコードをPod内で実行する
 
-これらのさまざまな方法は、消費されるデータをモデル化するさまざまな方法に適しています。最初の3つの方法では、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}は、Podのコンテナの起動時にConfigMapのデータを使用します。
+これらのさまざまな方法は、利用するデータをモデル化するのに役立ちます。最初の3つの方法では、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}がPodのコンテナを起動する時にConfigMapのデータを使用します。
 
-4番目の方法では、ConfigMapとそのデータを読み込むためのコードを自分自身で書く必要があります。しかし、Kubernetes APIを直接使用するため、アプリケーションはConfigMapがいつ変更されても更新を購読でき、変更が発生したときにすぐに反応できます。この手法では、Kubernetes APIに直接アクセスすることで、別の名前空間にあるConfigMapにもアクセスできます。
+4番目の方法では、ConfigMapとそのデータを読み込むためのコードを自分自身で書く必要があります。しかし、Kubernetes APIを直接使用するため、アプリケーションはConfigMapがいつ変更されても更新イベントを受信でき、変更が発生したときにすぐに反応できます。この手法では、Kubernetes APIに直接アクセスすることで、別の名前空間にあるConfigMapにもアクセスできます。
 
 以下に、Podを設定するために`game-demo`から値を使用するPodの例を示します。
 ```yaml
@@ -93,7 +93,7 @@ spec:
         mountPath: "/config"
         readOnly: true
   volumes:
-    # Podレベルでボリュームを設定し、Podの内側でコンテナにマウントします。
+    # Podレベルでボリュームを設定し、Pod内のコンテナにマウントします。
     - name: config
       configMap:
         # マウントしたいConfigMapの名前を指定します。
@@ -185,4 +185,3 @@ immutable: true
 * [Secret](/docs/concepts/configuration/secret/)について読む。
 * [Podを構成してConfigMapを使用する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読む。
 * コードを設定から分離する動機を理解するために[The Twelve-Factor App](https://12factor.net/ja/)を読む。
-
