@@ -190,8 +190,8 @@ Now you can verify that all objects exist.
       The response should be like this:
 
       ```
-      NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
-      wordpress   ClusterIP   10.0.0.89    <pending>     80:32406/TCP   4m
+      NAME        TYPE            CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+      wordpress   LoadBalancer    10.0.0.89    <pending>     80:32406/TCP   4m
       ```
 
       {{< note >}}

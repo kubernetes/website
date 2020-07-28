@@ -37,7 +37,7 @@ Dalam pendaftaran, _plugin_ perangkat perlu mengirim:
   * Nama Unix socket-nya.
   * Versi API Plugin Perangkat yang dipakai.
   * `ResourceName` yang ingin ditunjukkan. `ResourceName` ini harus mengikuti
-    [skema penamaan sumber daya ekstensi](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [skema penamaan sumber daya ekstensi](/id/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
     sebagai `vendor-domain/tipe-sumber-daya`.
     (Contohnya, NVIDIA GPU akan dinamai `nvidia.com/gpu`.)
 
@@ -221,7 +221,7 @@ Berikut beberapa contoh implementasi _plugin_ perangkat:
 * [Plugin perangkat RDMA](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [Plugin perangkat Solarflare](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [Plugin perangkat SR-IOV Network](https://github.com/intel/sriov-network-device-plugin)
-* [Plugin perangkat Xilinx FPGA](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) untuk perangkat Xilinx FPGA
+* [Plugin perangkat Xilinx FPGA](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) untuk perangkat Xilinx FPGA
 
 
 ## {{% heading "whatsnext" %}}

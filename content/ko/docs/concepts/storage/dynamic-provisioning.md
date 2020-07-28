@@ -29,19 +29,19 @@ API 오브젝트를 기반으로 한다. 클러스터 관리자는 볼륨을 프
 클러스터 관리자는 클러스터 내에서 사용자 정의 파라미터 집합을
 사용해서 여러 가지 유형의 스토리지 (같거나 다른 스토리지 시스템들)를
 정의하고 노출시킬 수 있다. 또한 이 디자인을 통해 최종 사용자는
-스토리지 프로비전 방식의 복잡성과 뉘앙스에 대해 걱정할 필요가 없다. 하지만, 
+스토리지 프로비전 방식의 복잡성과 뉘앙스에 대해 걱정할 필요가 없다. 하지만,
 여전히 여러 스토리지 옵션들을 선택할 수 있다.
 
-스토리지 클래스에 대한 자세한 정보는 
-[여기](/docs/concepts/storage/storage-classes/)에서 찾을 수 있다.
+스토리지 클래스에 대한 자세한 정보는
+[여기](/ko/docs/concepts/storage/storage-classes/)에서 찾을 수 있다.
 
 ## 동적 프로비저닝 활성화하기
 
-동적 프로비저닝을 활성화하려면 클러스터 관리자가 사용자를 위해 하나 이상의 StorageClass
+동적 프로비저닝을 활성화하려면 클러스터 관리자가 사용자를 위해 하나 이상의 스토리지클래스(StorageClass)
 오브젝트를 사전 생성해야 한다.
-StorageClass 오브젝트는 동적 프로비저닝이 호출될 때 사용할 프로비저너와
+스토리지클래스 오브젝트는 동적 프로비저닝이 호출될 때 사용할 프로비저너와
 해당 프로비저너에게 전달할 파라미터를 정의한다.
-StorageClass 오브젝트의 이름은 유효한
+스토리지클래스 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 다음 매니페스트는 표준 디스크와 같은 퍼시스턴트 디스크를 프로비전하는
@@ -117,7 +117,7 @@ spec:
 작성하면, `DefaultStorageClass` 어드미션 컨트롤러가 디폴트
 스토리지 클래스를 가리키는 `storageClassName` 필드를 자동으로 추가한다.
 
-클러스터에는 최대 하나의 *default* 스토리지 클래스가 있을 수 있다. 그렇지 않은 경우 
+클러스터에는 최대 하나의 *default* 스토리지 클래스가 있을 수 있다. 그렇지 않은 경우
 `storageClassName` 을 명시적으로 지정하지 않은 `PersistentVolumeClaim` 을
 생성할 수 없다.
 
@@ -125,7 +125,6 @@ spec:
 
 [다중 영역](/ko/docs/setup/best-practices/multiple-zones/) 클러스터에서 파드는 한 지역 내
 여러 영역에 걸쳐 분산될 수 있다. 파드가 예약된 영역에서 단일 영역 스토리지 백엔드를
-프로비전 해야 한다. [볼륨 바인딩 모드](/docs/concepts/storage/storage-classes/#volume-binding-mode)를
+프로비전해야 한다. [볼륨 바인딩 모드](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드)를
 설정해서 수행할 수 있다.
-
 

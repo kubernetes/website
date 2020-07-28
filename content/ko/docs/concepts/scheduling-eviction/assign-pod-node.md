@@ -151,7 +151,7 @@ spec:
 
 예시에서 연산자 `In` 이 사용되고 있는 것을 볼 수 있다. 새로운 노드 어피니티 구문은 다음의 연산자들을 지원한다. `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 `NotIn` 과 `DoesNotExist` 를 사용해서 안티-어피니티를 수행하거나,
-특정 노드에서 파드를 쫓아내는 [노드 테인트(taint)](/docs/concepts/configuration/taint-and-toleration/)를 설정할 수 있다.
+특정 노드에서 파드를 쫓아내는 [노드 테인트(taint)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)를 설정할 수 있다.
 
 `nodeSelector` 와 `nodeAffinity` 를 모두 지정한다면 파드가 후보 노드에 스케줄 되기 위해서는
 *둘 다* 반드시 만족해야 한다.
@@ -206,13 +206,11 @@ spec:
 `preferredDuringSchedulingIgnoredDuringExecution` 이다. 파드 어피니티 규칙에 의하면 키 "security" 와 값
 "S1"인 레이블이 있는 하나 이상의 이미 실행 중인 파드와 동일한 영역에 있는 경우에만 파드를 노드에 스케줄할 수 있다.
 (보다 정확하게는, 클러스터에 키 "security"와 값 "S1"인 레이블을 가지고 있는 실행 중인 파드가 있는 키
-`failure-domain.beta.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고, 노드 N이 키
-`failure-domain.beta.kubernetes.io/zone` 와 일부 값이 V인 레이블을 가진다면 파드는 노드 N에서 실행할 수 있다.)
-파드 안티-어피니티 규칙에 의하면 노드가 이미 키 "security"와 값 "S2"인 레이블을 가진 파드를
-실행하고 있는 파드는 노드에 스케줄되는 것을 선호하지 않는다.
-(만약 `topologyKey` 가 `failure-domain.beta.kubernetes.io/zone` 라면 노드가 키
-"security"와 값 "S2"를 레이블로 가진 파드와
-동일한 영역에 있는 경우, 노드에 파드를 예약할 수 없음을 의미한다.)
+`failure-domain.beta.kubernetes.io/zone` 와 값 V인 노드가 최소 하나 이상 있고,
+노드 N이 키 `failure-domain.beta.kubernetes.io/zone` 와
+일부 값이 V인 레이블을 가진다면 파드는 노드 N에서 실행할 수 있다.)
+파드 안티-어피니티 규칙에 의하면 파드는 키 "security"와 값 "S2"인 레이블을 가진 파드와
+동일한 영역의 노드에 스케줄되지 않는다.
 [디자인 문서](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)를 통해
 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 의
 파드 어피니티와 안티-어피니티에 대한 많은 예시를 맛볼 수 있다.
@@ -222,10 +220,11 @@ spec:
 원칙적으로, `topologyKey` 는 적법한 어느 레이블-키도 될 수 있다.
 하지만, 성능과 보안상의 이유로 topologyKey에는 몇 가지 제약조건이 있다.
 
-1. 어피니티와 `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 대해
-`topologyKey` 가 비어있는 것을 허용하지 않는다.
-2. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를에 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 간단히 이를 비활성화 할 수 있다.
-3. `preferredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티는 `topologyKey` 가 비어있는 것을 허용하지 않는다.
+1. 파드 어피니티에서 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 는
+`topologyKey` 의 빈 값을 허용하지 않는다.
+2. 파드 안티-어피니티에서도 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` 는
+`topologyKey` 의 빈 값을 허용하지 않는다.
+3. `requiredDuringSchedulingIgnoredDuringExecution` 파드 안티-어피니티에서 `topologyKey` 를 `kubernetes.io/hostname` 로 제한하기 위해 어드미션 컨트롤러 `LimitPodHardAntiAffinityTopology` 가 도입되었다. 사용자 지정 토폴로지를 사용할 수 있도록 하려면, 어드미션 컨트롤러를 수정하거나 아니면 간단히 이를 비활성화해야 한다.
 4. 위의 경우를 제외하고, `topologyKey` 는 적법한 어느 레이블-키도 가능하다.
 
 `labelSelector` 와 `topologyKey` 외에도 `labelSelector` 와 일치해야 하는 네임스페이스 목록 `namespaces` 를
@@ -388,7 +387,7 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 
-[테인트](/docs/concepts/configuration/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아내게* 할 수 있다.
+[테인트](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)는 노드가 특정 파드들을 *쫓아낼* 수 있다.
 
 [노드 어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)와
 [파드간 어피니티/안티-어피니티](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)에 대한 디자인 문서에는
@@ -397,5 +396,3 @@ spec:
 파드가 노드에 할당되면 kubelet은 파드를 실행하고 노드의 로컬 리소스를 할당한다.
 [토폴로지 매니저](/docs/tasks/administer-cluster/topology-manager/)는
 노드 수준의 리소스 할당 결정에 참여할 수 있다.
-
-

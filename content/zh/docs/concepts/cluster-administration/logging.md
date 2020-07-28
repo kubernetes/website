@@ -186,7 +186,7 @@ that do not run in a container. For example:
 * The kubelet and container runtime, for example Docker, do not run in containers.
 -->
 * 在容器中运行的 kube-scheduler 和 kube-proxy。
-* 不在容器中运行的 kubelet 和容器运行时（例如 Docker。
+* 不在容器中运行的 kubelet 和容器运行时（例如 Docker）。
 
 <!--
 On machines with systemd, the kubelet and container runtime write to journald. If

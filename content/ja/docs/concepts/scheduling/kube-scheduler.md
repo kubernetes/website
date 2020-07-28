@@ -104,7 +104,7 @@ kube-schedulerは、デフォルトで用意されているスケジューリン
 
 - `ImageLocalityPriority`: すでにPodに対するコンテナイメージをローカルにキャッシュしているNodeを優先します。
 
-- `ServiceSpreadingPriority`: このポリシーの目的は、特定のServiceに対するバックエンドのPodが、それぞれ異なるNodeで実行されるようにすることです。このポリシーではServiceのバックエンドのPodが既に実行されていないNode上にスケジュールするように優先します。これによる結果として、Serviceは単体のNode障害に対してより耐障害性が高まります。
+- `ServiceSpreadingPriority`: このポリシーの目的は、特定のServiceに対するバックエンドのPodが、それぞれ異なるNodeで実行されるようにすることです。このポリシーではServiceのバックエンドのPodがすでに実行されていないNode上にスケジュールするように優先します。これによる結果として、Serviceは単体のNode障害に対してより耐障害性が高まります。
 
 - `CalculateAntiAffinityPriorityMap`: このポリシーは[PodのAnti-Affinity](/ja/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)の実装に役立ちます。
 

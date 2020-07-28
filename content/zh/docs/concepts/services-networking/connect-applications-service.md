@@ -602,15 +602,11 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 
 ## {{% heading "whatsnext" %}}
 
-
 <!--
-Kubernetes also supports Federated Services, which can span multiple
-clusters and cloud providers, to provide increased availability,
-better fault tolerance and greater scalability for your services. See
-the [Federated Services User Guide](/docs/concepts/cluster-administration/federation-service-discovery/)
-for further information.
+* Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-
-Kubernetes 也支持联合 Service，能够跨多个集群和云提供商，为 Service 提供逐步增强的可用性、更优的容错、更好的可伸缩性。
-查看 [联合 Service 用户指南](/docs/concepts/cluster-administration/federation-service-discovery/) 获取更进一步信息。
-
+* 进一步了解如何[使用 Service 访问集群中的应用](/zh/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* 进一步了解如何[使用 Service 将前端连接到后端](/zh/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* 进一步了解如何[创建外部负载均衡器](/zh/docs/tasks/access-application-cluster/create-external-load-balancer/)

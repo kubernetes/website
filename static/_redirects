@@ -20,7 +20,7 @@
 /vi/docs/     /vi/docs/home/ 301!
 /zh/docs/     /zh/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
-/docs/admin/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/admin/     /docs/concepts/cluster-administration/ 301
 /docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
 /docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
@@ -72,10 +72,11 @@
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
 /docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
-/docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/pod-overview/ 301
+/docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/api-extension/apiserver-aggregation/     /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/ 301
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
-/docs/concepts/cluster/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/concepts/containers/overview/     /docs/concepts/containers/ 301
+/docs/concepts/cluster-administration/cluster-administration-overview/     /docs/concepts/cluster-administration/ 301
 /docs/concepts/cluster-administration/access-cluster/     /docs/tasks/access-application-cluster/access-cluster/ 301
 /docs/concepts/cluster-administration/audit/     /docs/tasks/debug-application-cluster/audit/ 301
 /docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig   /docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/ 301
@@ -98,12 +99,13 @@
 /docs/concepts/configuration/scheduler-perf-tuning/      /docs/concepts/scheduling-eviction/scheduler-perf-tuning/    301
 /docs/concepts/configuration/scheduling-framework/     /docs/concepts/scheduling-eviction/scheduling-framework/    301
 /docs/concepts/configuration/taint-and-toleration/     /docs/concepts/scheduling-eviction/taint-and-toleration/ 301
+/docs/concepts/extend-kubernetes/extend-cluster/      /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/jobs/cron-jobs/     /docs/concepts/workloads/controllers/cron-jobs/ 301
 /docs/concepts/jobs/run-to-completion-finite-workloads/      /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/nodes/node/     /docs/concepts/architecture/nodes/ 301
 /docs/concepts/object-metadata/annotations/     /docs/concepts/overview/working-with-objects/annotations/ 301
 /docs/concepts/overview/     /docs/concepts/overview/what-is-kubernetes/ 301
-/docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/extend-cluster/ 301
+/docs/concepts/overview/extending/     /docs/concepts/extend-kubernetes/ 301
 /docs/concepts/policy/container-capabilities/     /docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container/ 301
 /docs/concepts/policy/security-context/     /docs/tasks/configure-pod-container/security-context/ 301
 /docs/concepts/scheduling/kube-scheduler/     /docs/concepts/scheduling-eviction/kube-scheduler/ 301
@@ -124,12 +126,14 @@
 /docs/concepts/overview/object-management-kubectl/imperative-config/     /docs/tasks/manage-kubernetes-objects/imperative-config/ 301
 /docs/concepts/overview/object-management-kubectl/kustomization/         /docs/tasks/manage-kubernetes-objects/kustomization/ 301
 /docs/concepts/workloads/controllers/cron-jobs/deployment/     /docs/concepts/workloads/controllers/cron-jobs/ 301
-/docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/pod/ 301
-/docs/concepts/workloads/controllers/job/     /docs/concepts/workloads/controllers/job/ 301
+/docs/concepts/workloads/controllers/daemonset/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/controllers/deployment/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
+
 /docs/concepts/workloads/controllers/jobs-run-to-completion/ /docs/concepts/workloads/controllers/job/ 301
 /docs/concepts/workloads/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/workloads/controllers/statefulset.md     /docs/concepts/workloads/controllers/statefulset/ 301!
+/docs/concepts/workloads/pods/pod/     /docs/concepts/workloads/pods/ 301
+/docs/concepts/workloads/pods/pod-overview/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/workloads/pods/init-containers/Kubernetes/     /docs/concepts/workloads/pods/init-containers/ 301
 
 /docs/consumer-guideline/pod-security-coverage/     /docs/concepts/policy/pod-security-policy/ 301
@@ -213,6 +217,7 @@
 /docs/tasks/administer-cluster/certificate-rotation/     /docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/ 301
 /docs/tasks/administer-cluster/cilium-network-policy/     /docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/ 301
 /docs/tasks/administer-cluster/configure-namespace-isolation/     /docs/concepts/services-networking/network-policies/ 301
+/docs/tasks/administer-cluster/configure-multiple-schedulers/     /docs/tasks/extend-kubernetes/configure-multiple-schedulers/ 301
 /docs/tasks/administer-cluster/configure-pod-disruption-budget/     /docs/tasks/run-application/configure-pdb/ 301
 /docs/tasks/administer-cluster/cpu-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/ 301
 /docs/tasks/administer-cluster/cpu-default-namespace/     /docs/tasks/administer-cluster/manage-resources/cpu-default-namespace 301
@@ -229,7 +234,7 @@
 /docs/tasks/administer-cluster/memory-constraint-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/ 301
 /docs/tasks/administer-cluster/memory-default-namespace/     /docs/tasks/administer-cluster/manage-resources/memory-default-namespace/ 301
 /docs/tasks/administer-cluster/out-of-resource/memory-available.sh     /docs/tasks/administer-cluster/memory-available.sh 301
-/docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/cluster-administration-overview/ 301
+/docs/tasks/administer-cluster/overview/     /docs/concepts/cluster-administration/ 301
 /docs/tasks/administer-cluster/quota-memory-cpu-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/ 301
 /docs/tasks/administer-cluster/quota-pod-namespace/     /docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/ 301
 /docs/tasks/administer-cluster/reserve-compute-resources/out-of-resource.md     /docs/tasks/administer-cluster/out-of-resource/ 301
@@ -297,7 +302,6 @@
 /docs/tutorials/kubernetes-basics/update-intro/     /docs/tutorials/kubernetes-basics/update/update-intro/ 301
 /ja/docs/tutorials/kubernetes-basics/update-intro/     /ja/docs/tutorials/kubernetes-basics/update/update-intro/ 301
 /ko/docs/tutorials/kubernetes-basics/update-intro/     /ko/docs/tutorials/kubernetes-basics/update/update-intro/ 301
-/docs/tutorials/example-tutorial-template.md -> /example-templates/example-tutorial-template.md 301
 /docs/tutorials/object-management-kubectl/declarative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-command/      /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/tutorials/object-management-kubectl/imperative-object-management-configuration/      /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
@@ -381,14 +385,14 @@
 /docs/user-guide/persistent-volumes/index     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/index.md     /docs/concepts/storage/persistent-volumes/ 301
 /docs/user-guide/persistent-volumes/walkthrough/     /docs/tasks/configure-pod-container/configure-persistent-volume-storage/ 301
-/docs/user-guide/pod-preset/     /docs/tasks/inject-data-application/podpreset/ 301
+/docs/user-guide/pod-preset/     /docs/concepts/workloads/pods/podpreset/ 301
 /docs/user-guide/pod-security-policy/     /docs/concepts/policy/pod-security-policy/ 301
 /docs/user-guide/pod-states/     /docs/concepts/workloads/pods/pod-lifecycle/ 301
-/docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/pod-overview/ 301
+/docs/user-guide/pod-templates/     /docs/concepts/workloads/pods/#pod-templates 301
 /docs/user-guide/pods/     /docs/concepts/workloads/pods/pod/ 301
 /docs/user-guide/pods/init-container/     /docs/concepts/workloads/pods/init-containers/ 301
-/docs/user-guide/pods/multi-container/     /docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/ 301
-/docs/user-guide/pods/single-container/     /docs/tasks/run-application/run-stateless-application-deployment/ 301
+/docs/user-guide/pods/multi-container/     /docs/concepts/workloads/pods/#using-pods 301
+/docs/user-guide/pods/single-container/     /docs/concepts/workloads/pods/#using-pods 301
 /docs/user-guide/prereqs/     /docs/tasks/tools/install-kubectl/ 301
 /docs/user-guide/production-pods/     /docs/tasks/ 301
 /docs/user-guide/projected-volume/     /docs/tasks/configure-pod-container/configure-projected-volume-storage/ 301

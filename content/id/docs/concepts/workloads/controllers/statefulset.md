@@ -31,8 +31,8 @@ Stabil dalam poin-poin di atas memiliki arti yang sama dengan persisten pada
 Pod saat dilakukan _(re)scheduling_. Jika suatu aplikasi tidak membutuhkan 
 identitas yang stabil atau _deployment_ yang memiliki urutan, penghapusan, atau 
 mekanisme _scaling_, kamu harus melakukan _deploy_ aplikasi dengan _controller_ yang menyediakan 
-replika _stateless_. _Controller_ seperti  [Deployment](/docs/concepts/workloads/controllers/deployment/) atau 
-[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) akan lebih sesuai dengan kebutuhan kamu.
+replika _stateless_. _Controller_ seperti  [Deployment](/id/docs/concepts/workloads/controllers/deployment/) atau 
+[ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/) akan lebih sesuai dengan kebutuhan kamu.
 
 ## Keterbatasan
 
@@ -40,7 +40,7 @@ replika _stateless_. _Controller_ seperti  [Deployment](/docs/concepts/workloads
   pada Kubernetes rilis sebelum versi 1.5.
 * Penyimpanan untuk sebuah Pod harus terlebih dahulu di-_provision_ dengan menggunakan sebuah [Provisioner PersistentVolume](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md) berdasarkan `storage class` yang dispesifikasikan, atau sudah ditentukan sebelumnya oleh administrator.
 * Menghapus dan/atau _scaling_ sebuah StatefulSet *tidak akan* menghapus volume yang berkaitan dengan StatefulSet tersebut. Hal ini dilakukan untuk menjamin data yang disimpan, yang secara umum dinilai lebih berhaga dibandingkan dengan mekanisme penghapusan data secara otomatis pada sumber daya terkait.
-* StatefulSet saat ini membutuhkan sebuah [Headless Service](/docs/concepts/services-networking/service/#headless-services) yang nantinya akan bertanggung jawab terhadap pada identitas jaringan pada Pod. Kamulah yang bertanggung jawab untuk membuat Service tersebut.
+* StatefulSet saat ini membutuhkan sebuah [Headless Service](/id/docs/concepts/services-networking/service/#headless-services) yang nantinya akan bertanggung jawab terhadap pada identitas jaringan pada Pod. Kamulah yang bertanggung jawab untuk membuat Service tersebut.
 * StatefulSet tidak menjamin terminasi Pod ketika sebuah StatefulSet dihapus. Untuk mendapatkan terminasi Pod yang terurut dan _graceful_ pada StatefulSet, kita dapat melakukan _scale down_ Pod ke 0 sebelum penghapusan. 
 * Ketika menggunakan [Rolling Update](#mekanisme-strategi-update-rolling-update) dengan 
   [Kebijakan Manajemen Pod](#kebijakan-manajemen-pod) (`OrderedReady`) secara default,
@@ -52,7 +52,7 @@ Contoh di bawah ini akna menunjukkan komponen-komponen penyusun StatefulSet.
 
 * Sebuah Service Headless, dengan nama nginx, digunakan untuk mengontrol domain jaringan.
 * StatefulSet, dengan nama web, memiliki Spek yang mengindikasikan terdapat 3 replika Container yang akan dihidupkan pada Pod yang unik.
-* _Field_ `volumeClaimTemplates` akan menyediakan penyimpanan stabil menggunakan [PersistentVolume](/docs/concepts/storage/persistent-volumes/) yang di-_provision_ oleh sebuah Provisioner PersistentVolume.
+* _Field_ `volumeClaimTemplates` akan menyediakan penyimpanan stabil menggunakan [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) yang di-_provision_ oleh sebuah Provisioner PersistentVolume.
 
 ```yaml
 apiVersion: v1
@@ -124,7 +124,7 @@ Setiap Pod di dalam StatefulSet memiliki _hostname_ diturunkan dari nama Satetul
 serta ordinal Pod tersebut. Pola pada _hostname_ yang terbentuk adalah 
 `$(statefulset name)-$(ordinal)`. Contoh di atas akan menghasilkan tiga Pod 
 dengan nama `web-0,web-1,web-2`.
-Sebuah StatefulSet dapat menggunakan sebuah [Service Headless](/docs/concepts/services-networking/service/#headless-services)
+Sebuah StatefulSet dapat menggunakan sebuah [Service Headless](/id/docs/concepts/services-networking/service/#headless-services)
 untuk mengontrol domain dari Pod yang ada. Domain yang diatur oleh Service ini memiliki format:
 `$(service name).$(namespace).svc.cluster.local`, dimana "cluster.local" merupakan 
 domain klaster.
@@ -133,7 +133,7 @@ Seiring dibuatnya setiap Pod, Pod tersebut akan memiliki subdomain DNS-nya sendi
 _field_ `serviceName` pada StatefulSet.
 
 Seperti sudah disebutkan di dalam bagian [keterbatasan](#keterbatasan), kamulah yang bertanggung jawab 
-untuk membuat [Service Headless](/docs/concepts/services-networking/service/#headless-services)
+untuk membuat [Service Headless](/id/docs/concepts/services-networking/service/#headless-services)
 yang bertanggung jawab terhadap identitas jaringan pada Pod.
 
 Di sini terdapat beberapa contoh penggunaan Domain Klaster, nama Service, 
@@ -147,12 +147,12 @@ Domain Klaster | Service (ns/nama) | StatefulSet (ns/nama)  | Domain StatefulSet
 
 {{< note >}}
 Domain klaster akan diatur menjadi `cluster.local` kecuali
-[nilainya dikonfigurasi](/docs/concepts/services-networking/dns-pod-service/).
+[nilainya dikonfigurasi](/id/docs/concepts/services-networking/dns-pod-service/).
 {{< /note >}}
 
 ### Penyimpanan Stabil
 
-Kubernetes membuat sebuah [PersistentVolume](/docs/concepts/storage/persistent-volumes/) untuk setiap 
+Kubernetes membuat sebuah [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) untuk setiap 
 VolumeClaimTemplate. Pada contoh nginx di atas, setiap Pod akan menerima sebuah PersistentVolume
 dengan StorageClass `my-storage-class` dan penyimpanan senilai 1 Gib yang sudah di-_provisioning_. Jika tidak ada StorageClass
 yang dispesifikasikan, maka StorageClass _default_ akan digunakan. Ketika sebuah Pod dilakukan _(re)schedule_

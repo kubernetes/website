@@ -65,7 +65,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 ## Create a Deployment
 
-A Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) is a group of one or more Containers,
+A Kubernetes [*Pod*](/docs/concepts/workloads/pods/) is a group of one or more Containers,
 tied together for the purposes of administration and networking. The Pod in this
 tutorial has only one Container. A Kubernetes
 [*Deployment*](/docs/concepts/workloads/controllers/deployment/) checks on the health of your

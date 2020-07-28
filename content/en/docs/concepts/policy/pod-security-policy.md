@@ -302,7 +302,7 @@ kubectl-user delete pod pause
 Let's try that again, slightly differently:
 
 ```shell
-kubectl-user run pause --image=k8s.gcr.io/pause
+kubectl-user create deployment pause --image=k8s.gcr.io/pause
 deployment "pause" created
 
 kubectl-user get pods

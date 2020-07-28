@@ -8,8 +8,8 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/ko/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)
-는 쿠버네티스의 기본 스케줄러이다. 그것은 클러스터의
+[kube-scheduler](/ko/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)는
+쿠버네티스의 기본 스케줄러이다. 그것은 클러스터의
 노드에 파드를 배치하는 역할을 한다.
 
 파드의 스케줄링 요건을 충족하는
@@ -19,7 +19,7 @@ weight: 70
 높은 점수를 가진 노드를 선택한다. 이후 스케줄러는 _바인딩_ 이라는 프로세스로
 API 서버에 해당 결정을 통지한다.
 
-본 페이지에서는 상대적으로 큰 규모의 쿠버네티스 클러스터에 대한 성능 튜닝 
+본 페이지에서는 상대적으로 큰 규모의 쿠버네티스 클러스터에 대한 성능 튜닝
 최적화에 대해 설명한다.
 
 
@@ -45,7 +45,7 @@ kube-scheduler 의 `percentageOfNodesToScore` 설정을 통해
 값을 변경하려면, kube-scheduler 구성 파일(이 파일은 `/etc/kubernetes/config/kube-scheduler.yaml`
 일 수 있다)을 편집한 다음 스케줄러를 재시작 한다.
 
-이를 변경한 후에 다음을 실행해서 
+이를 변경한 후에 다음을 실행해서
 ```bash
 kubectl get componentstatuses
 ```
@@ -68,7 +68,7 @@ scheduler            Healthy   ok
 정수 값(숫자)로 변환 한다. 스케줄링 중에 kube-scheduler가 구성된
 비율을 초과 할만큼 충분히 실행 가능한 노드를 식별한 경우, kube-scheduler는
 더 실행 가능한 노드를 찾는 검색을 중지하고
-[스코어링 단계](/ko/docs/concepts/scheduling/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
+[스코어링 단계](/ko/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)를 진행한다.
 
 [스케줄러가 노드 탐색을 반복(iterate)하는 방법](#스케줄러가-노드-탐색을-반복-iterate-하는-방법)
 은 이 프로세스를 자세히 설명한다.
@@ -101,14 +101,15 @@ algorithmSource:
 percentageOfNodesToScore: 50
 ```
 
+
 ### percentageOfNodesToScore 튜닝
 
-`percentageOfNodesToScore`는 1과 100 사이의 값이어야하며 
-기본 값은 클러스터 크기에 따라 계산된다. 또한 50 노드로 하드 코딩된 
-최소 값도 있다. 
+`percentageOfNodesToScore`는 1과 100 사이의 값이어야 하며
+기본값은 클러스터 크기에 따라 계산된다. 또한 50 노드로 하드 코딩된
+최솟값도 있다.
 
-{{< note >}} 클러스터에서 적합한 노드가 50 미만인 경우, 스케줄러는 여전히 
-모든 노드를 확인한다. 그 이유는 스케줄러가 탐색을 조기 중단하기에는 적합한 
+{{< note >}} 클러스터에서 적합한 노드가 50 미만인 경우, 스케줄러는 여전히
+모든 노드를 확인한다. 그 이유는 스케줄러가 탐색을 조기 중단하기에는 적합한
 노드의 수가 충분하지 않기 때문이다.
 
 규모가 작은 클러스터에서는 `percentageOfNodesToScore` 에 낮은 값을 설정하면,
@@ -119,10 +120,10 @@ percentageOfNodesToScore: 50
 성능이 크게 향상되지 않는다.
 {{< /note >}}
 
-이 값을 세팅할 때 중요하고 자세한 사항은, 클러스터에서 
+이 값을 세팅할 때 중요하고 자세한 사항은, 클러스터에서
 적은 수의 노드에 대해서만 적합성을 확인하면, 주어진 파드에 대해서
-일부 노드의 점수는 측정이되지 않는다는 것이다. 결과적으로, 주어진 파드를 실행하는데 
-가장 높은 점수를 가질 가능성이 있는 노드가 점수 측정 단계로 조차 넘어가지 
+일부 노드의 점수는 측정이되지 않는다는 것이다. 결과적으로, 주어진 파드를 실행하는데
+가장 높은 점수를 가질 가능성이 있는 노드가 점수 측정 단계로 조차 넘어가지
 않을 수 있다. 이것은 파드의 이상적인 배치보다 낮은 결과를 초래할 것이다.
 
 `percentageOfNodesToScore` 를 매우 낮게 설정해서 kube-scheduler가
@@ -133,19 +134,19 @@ percentageOfNodesToScore: 50
 
 ## 스케줄러가 노드 탐색을 반복(iterate)하는 방법
 
-이 섹션은 이 특징의 상세한 내부 방식을 이해하고 싶은 사람들을 
+이 섹션은 이 특징의 상세한 내부 방식을 이해하고 싶은 사람들을
 위해 작성되었다.
 
-클러스터의 모든 노드가 파드 실행 대상으로 고려되어 공정한 기회를 
+클러스터의 모든 노드가 파드 실행 대상으로 고려되어 공정한 기회를
 가지도록, 스케줄러는 라운드 로빈(round robin) 방식으로 모든 노드에 대해서 탐색을
-반복한다. 모든 노드가 배열에 나열되어 있다고 생각해보자. 스케줄러는 배열의 
-시작부터 시작하여 `percentageOfNodesToScore`에 명시된 충분한 수의 노드를 
-찾을 때까지 적합성을 확인한다. 그 다음 파드에 대해서는, 스케줄러가 
-이전 파드를 위한 노드 적합성 확인이 마무리된 지점인 노드 배열의 마지막 
+반복한다. 모든 노드가 배열에 나열되어 있다고 생각해보자. 스케줄러는 배열의
+시작부터 시작하여 `percentageOfNodesToScore`에 명시된 충분한 수의 노드를
+찾을 때까지 적합성을 확인한다. 그 다음 파드에 대해서는, 스케줄러가
+이전 파드를 위한 노드 적합성 확인이 마무리된 지점인 노드 배열의 마지막
 포인트부터 확인을 재개한다.
 
-만약 노드들이 다중의 영역(zone)에 있다면, 다른 영역에 있는 노드들이 적합성 
-확인의 대상이 되도록 스케줄러는 다양한 영역에 있는 노드에 대해서 
+만약 노드들이 다중의 영역(zone)에 있다면, 다른 영역에 있는 노드들이 적합성
+확인의 대상이 되도록 스케줄러는 다양한 영역에 있는 노드에 대해서
 탐색을 반복한다. 예제로, 2개의 영역에 있는 6개의 노드를 생각해보자.
 
 ```
@@ -160,5 +161,3 @@ percentageOfNodesToScore: 50
 ```
 
 모든 노드를 검토한 후, 노드 1로 돌아간다.
-
-

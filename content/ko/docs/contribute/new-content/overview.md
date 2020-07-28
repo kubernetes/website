@@ -19,7 +19,7 @@ weight: 5
 
 - 마크다운(Markdown)으로 쿠버네티스 문서를 작성하고 [Hugo](https://gohugo.io/)를 사용하여 쿠버네티스 사이트를 구축한다.
 - 소스는 [GitHub](https://github.com/kubernetes/website)에 있다. 쿠버네티스 문서는 `/content/ko/docs/` 에서 찾을 수 있다. 일부 참조 문서는 `update-imported-docs/` 디렉터리의 스크립트에서 자동으로 생성된다.
-- [페이지 템플릿](/docs/contribute/style/page-templates/)은 Hugo에서 문서 콘텐츠의 프리젠테이션을 제어한다.
+- [페이지 템플릿](/docs/contribute/style/page-content-types/)은 Hugo에서 문서 콘텐츠의 프리젠테이션을 제어한다.
 - 표준 Hugo 단축코드(shortcode) 이외에도 설명서에서 여러 [사용자 정의 Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 사용하여 콘텐츠 표시를 제어한다.
 - 문서 소스는 `/content/` 에서 여러 언어로 제공된다. 각 언어는 [ISO 639-1 표준](https://www.loc.gov/standards/iso639-2/php/code_list.php)에 의해 결정된 2문자 코드가 있는 자체 폴더가 있다. 예를 들어, 한글 문서의 소스는 `/content/ko/docs/` 에 저장된다.
 - 여러 언어로 문서화에 기여하거나 새로운 번역을 시작하는 방법에 대한 자세한 내용은 [현지화](/ko/docs/contribute/localization_ko/)를 참고한다.

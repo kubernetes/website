@@ -57,6 +57,6 @@ Dalam rangka untuk menggunakan Pod Preset di dalam klaster kamu, kamu harus mema
 
 ## {{% heading "whatsnext" %}}
 
-  * [Memasukkan data ke dalam sebuah Pod dengan PodPreset](/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
+  * [Memasukkan data ke dalam sebuah Pod dengan PodPreset](/id/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
 
 

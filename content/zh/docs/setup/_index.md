@@ -5,7 +5,7 @@ main_menu: true
 weight: 20
 content_type: concept
 card:
-  name: 设置
+  name: setup
   weight: 20
   anchors:
   - anchor: "#learning-environment"
@@ -15,7 +15,6 @@ card:
 ---
 
 <!--
----
 reviewers:
 - brendandburns
 - erictune
@@ -33,7 +32,6 @@ card:
     title: Learning environment
   - anchor: "#production-environment"
     title: Production environment  
----
 -->
 
 <!-- overview -->

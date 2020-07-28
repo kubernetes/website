@@ -12,7 +12,7 @@ weight: 30
 
 ## {{% heading "prerequisites" %}}
 
-[`kubectl`](/docs/tasks/tools/install-kubectl/)을 설치한다.
+[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)을 설치한다.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -164,8 +164,8 @@ kubectl create --edit -f /tmp/srv.yaml
 
 ## {{% heading "whatsnext" %}}
 
+
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
 * [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-

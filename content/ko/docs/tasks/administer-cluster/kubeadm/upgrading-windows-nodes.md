@@ -1,5 +1,5 @@
 ---
-title: Windows 노드 업그레이드
+title: 윈도우 노드 업그레이드
 min-kubernetes-server-version: 1.17
 content_type: task
 weight: 40
@@ -9,7 +9,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-이 페이지는 [kubeadm으로 생성된](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes) Windows 노드를 업그레이드하는 방법을 설명한다.
+이 페이지는 [kubeadm으로 생성된](/ko/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes) 윈도우 노드를 업그레이드하는 방법을 설명한다.
 
 
 
@@ -18,7 +18,7 @@ weight: 40
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * [남은 kubeadm 클러스터를 업그레이드하는 프로세스](/ko/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)에
-익숙해져야 한다. Windows 노드를
+익숙해져야 한다. 윈도우 노드를
 업그레이드하기 전에 컨트롤 플레인 노드를 업그레이드해야 한다.
 
 
@@ -30,7 +30,7 @@ weight: 40
 
 ### kubeadm 업그레이드
 
-1.  Windows 노드에서, kubeadm을 업그레이드한다.
+1.  윈도우 노드에서, kubeadm을 업그레이드한다.
 
     ```powershell
     # replace {{< param "fullversion" >}} with your desired version
@@ -56,7 +56,7 @@ weight: 40
 
 ### kubelet 구성 업그레이드
 
-1.  Windows 노드에서, 다음의 명령을 호출하여 새 kubelet 구성을 동기화한다.
+1.  윈도우 노드에서, 다음의 명령을 호출하여 새 kubelet 구성을 동기화한다.
 
     ```powershell
     kubeadm upgrade node
@@ -64,7 +64,7 @@ weight: 40
 
 ### kubelet 업그레이드
 
-1.  Windows 노드에서, kubelet을 업그레이드하고 다시 시작한다.
+1.  윈도우 노드에서, kubelet을 업그레이드하고 다시 시작한다.
 
     ```powershell
     stop-service kubelet

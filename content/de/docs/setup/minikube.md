@@ -38,7 +38,7 @@ Minikube unterstützt die folgenden Treiber:
 * kvm ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm-driver))
 * hyperkit ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * xhyve ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#xhyve-driver)) (deprecated)
-* hyperv ([Treiber installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* hyperv ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperv-driver))
 Beachten Sie, dass die unten angegebene IP-Adresse dynamisch ist und sich ändern kann. Sie kann mit `minikube ip` abgerufen werden.
 * none (Führt die Kubernetes-Komponenten auf dem Host und nicht in einer VM aus. Die Verwendung dieses Treibers erfordert Docker ([Docker installieren](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) und eine Linux-Umgebung)
 

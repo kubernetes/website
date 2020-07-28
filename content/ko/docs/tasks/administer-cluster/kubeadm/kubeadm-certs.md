@@ -241,4 +241,8 @@ CSR에는 인증서 이름, 도메인 및 IP가 포함되지만, 용도를 지�
 [cert-cas]: /ko/docs/setup/best-practices/certificates/#단일-루트-ca
 [cert-table]: /ko/docs/setup/best-practices/certificates/#모든-인증서
 
+## 인증 기관(CA) 순환(rotation) {#certificate-authority-rotation}
 
+Kubeadm은 CA 인증서의 순환이나 교체 기능을 기본적으로 지원하지 않는다.
+
+CA의 수동 순환이나 교체에 대한 보다 상세한 정보는 [CA 인증서 수동 순환](/docs/tasks/tls/manual-rotation-of-ca-certificates/) 문서를 참조한다.

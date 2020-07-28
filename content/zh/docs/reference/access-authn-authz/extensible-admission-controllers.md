@@ -631,9 +631,9 @@ Example of a minimal response from a webhook to allow a request:
 * `allowed`，设置为 `true` 或 `false`
 
 <!--
-Example of a minimal response from a webhook to forbid a request:
+Example of a minimal response from a webhook to allow a request:
 -->
-Webhook 禁止请求的最简单响应示例：
+Webhook 允许请求的最简单响应示例：
 
 {{< tabs name="AdmissionReview_response_allow" >}}
 {{% tab name="admission.k8s.io/v1" %}}
