@@ -1,7 +1,7 @@
 ---
 title: kubeadmのインストール
-content_type: task
-weight: 20
+content_template: templates/task
+weight: 10
 card:
   name: setup
   weight: 20
@@ -14,9 +14,6 @@ card:
 
 このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
-
-
-## {{% heading "prerequisites" %}}
 
 
 * 次のいずれかが動作しているマシンが必要です
@@ -54,11 +51,11 @@ card:
 Linuxノードのiptablesがブリッジを通過するトラフィックを正確に処理する要件として、`net.bridge.bridge-nf-call-iptables`を`sysctl`の設定ファイルで1に設定してください。例えば以下のようにします。
 
 ```bash
-cat <<EOF | cat <<EOF > /etc/sysctl.d/k8s.conf
+cat <<EOF > /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
-sudo sysctl --system
+sysctl --system
 ```
 
 この手順の前に`br_netfilter`モジュールがロードされていることを確認してください。`lsmod | grep br_netfilter`を実行することで確認できます。明示的にロードするには`modprobe br_netfilter`を実行してください。
@@ -120,18 +117,18 @@ etcdポートはコントロールプレーンノードに含まれています�
 
 ## ランタイムのインストール {#installing-runtime}
 
-Podのコンテナを実行するために、Kubernetesは{{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}をコンテナランタイムとして使用します。
+Podのコンテナを実行するために、Kubernetesは{{< glossary_tooltip term_id="container-runtime" text="コンテナランタイム" >}}を使用します。
 
 {{< tabs name="container_runtime" >}}
-{{% tab name="Linux nodes" %}}
+{{% tab name="Linuxノード" %}}
 
 デフォルトでは、Kubernetesは選択されたコンテナランタイムと通信するために{{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)を使用します。
 
-ランタイムを指定しない場合、kubeadmはよく知られたドメインソケットのリストをスキャンすることで、インストールされたコンテナランタイムの検出を試みます。
+ランタイムを指定しない場合、kubeadmはよく知られたUnixドメインソケットのリストをスキャンすることで、インストールされたコンテナランタイムの検出を試みます。
 次の表がコンテナランタイムと関連するソケットのパスリストです。
 
 {{< table caption = "コンテナランタイムとソケットパス" >}}
-| ランタイム  | ドメインソケットのパス        |
+| ランタイム  | Unixドメインソケットのパス        |
 |------------|-----------------------------------|
 | Docker     | `/var/run/docker.sock`            |
 | containerd | `/run/containerd/containerd.sock` |
@@ -145,7 +142,7 @@ kubeletは、組み込まれた`dockershim`CRIを通してDockerと連携しま�
 
 詳細は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
 {{% /tab %}}
-{{% tab name="other operating systems" %}}
+{{% tab name="その他のOS" %}}
 デフォルトでは、kubeadmは{{< glossary_tooltip term_id="docker" >}}をコンテナランタイムとして使用します。
 kubeletは、組み込まれた`dockershim`CRIを通してDockerと連携します。
 
@@ -218,8 +215,6 @@ systemctl enable --now kubelet
     これはコンテナがホストのファイルシステムにアクセスするために必要です。例えば、Podのネットワークに必要とされます。
     kubeletにおけるSELinuxのサポートが改善されるまでは、これを実行しなければなりません。
 
-  - もし、設定する方法を知っていればSELinuxを有効にしたままにもできますが、kubeadmがサポートされない設定が必要になるかもしれません。
-
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
 CNIプラグインをインストーする(ほとんどのPodのネットワークに必要です):
@@ -267,19 +262,15 @@ kubeadmが何をすべきか指示するまで、kubeletはクラッシュルー
 
 Dockerを使用した場合、kubeadmは自動的にkubelet向けのcgroupドライバーを検出し、それを実行時に`/var/lib/kubelet/kubeadm-flags.env`ファイルに設定します。
 
-もしあなたが異なるCRIを使用している場合、ファイル内の`cgroupDriver`の値を以下のように変更する必要があります:
+もしあなたが異なるCRIを使用している場合、`/etc/default/kubelet`(CentOS、RHEL、Fedoraでは`/etc/sysconfig/kubelet`)ファイル内の`cgroup-driver`の値を以下のように変更する必要があります。
 
-```yaml
-apiVersion: kubelet.config.k8s.io/v1beta1
-kind: KubeletConfiguration
-cgroupDriver: <value>
+```bash
+KUBELET_EXTRA_ARGS=--cgroup-driver=<value>
 ```
 
-CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。なぜなら、これは既にkubeletのデフォルト値であるためです。
+このファイルは、kubeletの追加のユーザー定義引数を取得するために、`kubeadm init`および`kubeadm join`によって使用されます。
 
-{{< note >}}
-`--cgroup-driver`フラグがkubeletの非推奨になったため、フラグが`/var/lib/kubelet/kubeadm-flags.env`もしくは`/etc/default/kubelet`(RPMの場合は`/etc/sysconfig/kubelet`)にある場合は削除し、代わりにKubeletConfiguration(デフォルトでは`/var/lib/kubelet/config.yaml`に保管されています)を使用してください。
-{{< /note >}}
+CRIのcgroupドライバーが`cgroupfs`でない場合に**のみ**それを行う必要があることに注意してください。なぜなら、これは既にkubeletのデフォルト値であるためです。
 
 kubeletをリスタートする方法:
 
