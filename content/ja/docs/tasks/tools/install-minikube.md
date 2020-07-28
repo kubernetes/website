@@ -29,7 +29,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
 sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
-出力に`VMX`が表示されている場合（色付けされているはずです）、VT-x機能がマシンで有効になっています。
+出力に`VMX`が表示されている場合(色付けされているはずです)、VT-x機能がマシンで有効になっています。
 {{% /tab %}}
 
 {{% tab name="Windows" %}}
