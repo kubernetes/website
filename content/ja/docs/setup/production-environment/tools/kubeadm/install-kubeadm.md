@@ -1,6 +1,6 @@
 ---
 title: kubeadmのインストール
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: setup
@@ -16,6 +16,7 @@ card:
 
 
 
+## {{% heading "prerequisites" %}}
 
 * 次のいずれかが動作しているマシンが必要です
   - Ubuntu 16.04+
