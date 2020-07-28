@@ -112,7 +112,7 @@ In-treeボリュームプラグインに関連付けられたコードは、コ�
 * [vsphereVolume](/docs/concepts/storage/volumes/#vspherevolume)
 
 ##### FlexVolume Plugins
-[FlexVolume](/docs/concepts/storage/volumes/#flexVolume)プラグインに関連付けられたコードは、ホストに直接デプロイする必要があるout-of-treeのスクリプトまたはバイナリとして出荷されます。FlexVolumeプラグインは、Kubernetesノードとの間のボリュームのアタッチ/デタッチ、およびPod内の個々のコンテナとの間のボリュームのマウント/マウント解除を処理します。FlexVolumeプラグインに関連付けられた永続ボリュームのプロビジョニング/プロビジョニング解除は、通常FlexVolumeプラグインとは別の外部プロビジョニング担当者を通じて処理できます。次のFlexVolume[プラグイン](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)は、Powershellスクリプトとしてホストにデプロイされ、Windowsノードをサポートします。:
+[FlexVolume](/docs/concepts/storage/volumes/#flexVolume)プラグインに関連付けられたコードは、ホストに直接デプロイする必要があるout-of-treeのスクリプトまたはバイナリとして出荷されます。FlexVolumeプラグインは、Kubernetesノードとの間のボリュームのアタッチ/デタッチ、およびPod内の個々のコンテナとの間のボリュームのマウント/マウント解除を処理します。FlexVolumeプラグインに関連付けられた永続ボリュームのプロビジョニング/プロビジョニング解除は、通常FlexVolumeプラグインとは別の外部プロビジョニング担当者を通じて処理できます。次のFlexVolume[プラグイン](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows)は、Powershellスクリプトとしてホストにデプロイされ、Windowsノードをサポートします:
 
 * [SMB](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~smb.cmd)
 * [iSCSI](https://github.com/microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows/plugins/microsoft.com~iscsi.cmd)
