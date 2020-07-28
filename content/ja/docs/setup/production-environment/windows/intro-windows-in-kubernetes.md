@@ -98,7 +98,7 @@ Pod、Controller、Serviceは、KubernetesでWindowsワークロードを管理�
 
 KubernetesのWindows Server 2019/1809ノードでは、Docker EE-basic 18.09が必要です。これは、kubeletに含まれているdockershimコードで動作します。CRI-ContainerDなどの追加のランタイムは、Kubernetesの以降のバージョンでサポートされる可能性があります。
 
-#### 永続化ストレージ
+#### 永続ストレージ
 
 Kubernetes[ボリューム](/docs/concepts/storage/volumes/)を使用すると、データの永続性とPodボリュームの共有要件を備えた複雑なアプリケーションをKubernetesにデプロイできます。特定のストレージバックエンドまたはプロトコルに関連付けられた永続化ボリュームの管理には、ボリュームのプロビジョニング/プロビジョニング解除/サイズ変更、Kubernetesノードへのボリュームのアタッチ/デタッチ、およびデータを永続化する必要があるPod内の個別のコンテナへのボリュームのマウント/マウント解除などのアクションが含まれます。特定のストレージバックエンドまたはプロトコルに対してこれらのボリューム管理アクションを実装するコードは、Kubernetesボリューム[プラグイン](/docs/concepts/storage/volumes/#types-of-volumes)の形式で出荷されます。次の幅広いクラスのKubernetesボリュームプラグインがWindowsでサポートされています。:
 
