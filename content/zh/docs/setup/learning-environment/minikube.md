@@ -60,7 +60,7 @@ Minikube 支持以下 Kubernetes 功能：
 <!--
 See [Installing Minikube](/docs/tasks/tools/install-minikube/).
 -->
-请参阅[安装 Minikube](/docs/tasks/tools/install-minikube/)。
+请参阅[安装 Minikube](/zh/docs/tasks/tools/install-minikube/)。
 
 <!--
 ## Quickstart

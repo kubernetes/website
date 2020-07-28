@@ -8,7 +8,7 @@ weight: 30
 
 This quickstart helps to install a Kubernetes cluster hosted on GCE, Azure, OpenStack, AWS, vSphere, Packet (bare metal), Oracle Cloud Infrastructure (Experimental) or Baremetal with [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 
-Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
+Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md), provisioning tools, and domain knowledge for generic OS/Kubernetes clusters configuration management tasks. Kubespray provides:
 
 * a highly available cluster
 * composable attributes
@@ -21,9 +21,8 @@ Kubespray is a composition of [Ansible](http://docs.ansible.com/) playbooks, [in
   * openSUSE Leap 15
 * continuous integration tests
 
-To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to [kubeadm](/docs/admin/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
-
-
+To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
+[kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) and [kops](/docs/setup/production-environment/tools/kops/).
 
 <!-- body -->
 
@@ -35,7 +34,7 @@ Provision servers with the following [requirements](https://github.com/kubernete
 
 * **Ansible v2.7.8 and python-netaddr is installed on the machine that will run Ansible commands**
 * **Jinja 2.9 (or newer) is required to run the Ansible Playbooks**
-* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
+* The target servers must have access to the Internet in order to pull docker images. Otherwise, additional configuration is required ([See Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/offline-environment.md))
 * The target servers are configured to allow **IPv4 forwarding**
 * **Your ssh key must be copied** to all the servers part of your inventory
 * The **firewalls are not managed**, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall
@@ -50,7 +49,7 @@ Kubespray provides the following utilities to help provision your environment:
 
 ### (2/5) Compose an inventory file
 
-After you provision your servers, create an [inventory file for Ansible](http://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
+After you provision your servers, create an [inventory file for Ansible](https://docs.ansible.com/ansible/intro_inventory.html). You can do this manually or via a dynamic inventory script. For more information, see "[Building your own inventory](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory)".
 
 ### (3/5) Plan your cluster deployment
 
@@ -68,7 +67,7 @@ Kubespray provides the ability to customize many aspects of the deployment:
   * {{< glossary_tooltip term_id="cri-o" >}}
 * Certificate generation methods
 
-Kubespray customizations can be made to a [variable file](http://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
+Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/playbooks_variables.html). If you are just getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 
 ### (4/5) Deploy a Cluster
 
@@ -110,10 +109,8 @@ When running the reset playbook, be sure not to accidentally target your product
 
 ## Feedback
 
-* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](http://slack.k8s.io/))
+* Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/))
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues)
-
-
 
 ## {{% heading "whatsnext" %}}
 

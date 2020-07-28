@@ -50,7 +50,7 @@ Extensions are software components that extend and deeply integrate with Kuberne
 They adapt it to support new types and new kinds of hardware.
 
 Most cluster administrators will use a hosted or distribution
-instance of Kubernetes. As a result, most Kubernetes users will need to
+instance of Kubernetes. As a result, most Kubernetes users will not need to
 install extensions and fewer will need to author new ones.
 
 ## Extension Patterns

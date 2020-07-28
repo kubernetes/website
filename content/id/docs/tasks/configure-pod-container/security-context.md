@@ -1,10 +1,10 @@
 ---
 title: Mengonfigurasi Konteks Keamanan untuk Pod atau Container
-content_template: templates/task
+content_type: task
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Konteks keamanan (_security context_) menentukan wewenang (_privilege_) dan aturan kontrol akses untuk sebuah Pod 
 atau Container. Aturan konteks keamanan meliputi hal-hal berikut ini namun tidak terbatas pada hal-hal tersebut:
@@ -31,15 +31,16 @@ Poin-poin di atas bukanlah sekumpulan lengkap dari aturan konteks keamanan - sil
 Untuk informasi lebih lanjut tentang mekanisme keamanan pada Linux, silahkan lihat
 [ikhtisar fitur keamanan pada Kernel Linux](https://www.linux.com/learn/overview-linux-kernel-security-features)
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Mengatur konteks keamanan untuk Pod
 
@@ -401,16 +402,17 @@ kubectl delete pod security-context-demo-3
 kubectl delete pod security-context-demo-4
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{<param"version">}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{<param"version">}}/#securitycontext-v1-core)
 * [Menyetel Docker dengan peningkatan keamanan terbaru](https://opensource.com/business/15/3/docker-security-tuning)
 * [Dokumen desain konteks keamanan](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Dokumen desain manajemen kepemilikan](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Kebijakan keamanan Pod](/docs/concepts/policy/pod-security-policy/)
+* [Kebijakan keamanan Pod](/id/docs/concepts/policy/pod-security-policy/)
 * [Dokumen desain AllowPrivilegeEscalation](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
 
-{{% /capture %}}
+

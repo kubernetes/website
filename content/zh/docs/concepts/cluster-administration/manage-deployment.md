@@ -631,7 +631,7 @@ Let's say you were running version 1.7.9 of nginx:
 假设您正运行的是 1.7.9 版本的 nginx：
 
 ```shell
-kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+kubectl create deployment my-nginx --image=nginx:1.7.9
 ```
 ```shell
 deployment.apps/my-nginx created

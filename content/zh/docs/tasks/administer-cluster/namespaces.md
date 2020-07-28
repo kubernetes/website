@@ -127,6 +127,13 @@ See the [design doc](https://git.k8s.io/community/contributors/design-proposals/
 
 ## 创建命名空间
 
+<!--
+Avoid creating namespace with prefix `kube-`, since it is reserved for Kubernetes system namespaces.
+-->
+{{< note >}}
+避免使用前缀 `kube-` 创建命名空间，因为它是为 Kubernetes 系统命名空间保留的。
+{{< /note >}}
+
 <!-- 1. Create a new YAML file called `my-namespace.yaml` with the contents: -->
 
 1. 新建一个名为 `my-namespace.yaml` 的 YAML 文件，并写入下列内容：

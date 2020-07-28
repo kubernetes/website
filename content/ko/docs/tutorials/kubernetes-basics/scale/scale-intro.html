@@ -30,7 +30,7 @@ weight: 10
                 <p>지난 모듈에서 <a href="/ko/docs/concepts/workloads/controllers/deployment/"> 디플로이먼트</a>를 만들고,
                     <a href="/docs/concepts/services-networking/service/">서비스</a>를
                     통해서 디플로이먼트를 외부에 노출시켜 봤다. 해당 디플로이먼트는 애플리케이션을 구동하기 위해 단
-                    하나의 파드(Pod)만을 생성했었다. 트래픽이 증가하면, 사용자 요청에 맞추어 애플리케이션의 규모를
+                    하나의 파드만을 생성했었다. 트래픽이 증가하면, 사용자 요청에 맞추어 애플리케이션의 규모를
                     조정할 필요가 있다.</p>
 
                 <p>디플로이먼트의 복제 수를 변경하면 <b>스케일링</b>이 수행된다</p>
@@ -44,7 +44,7 @@ weight: 10
                     </ul>
                 </div>
                 <div class="content__box content__box_fill">
-                    <p><i> kubectl run 명령에 --replicas 파라미터를 사용해서 처음부터 복수의 인스턴스로 구동되는
+                    <p><i> kubectl create deployment 명령에 --replicas 파라미터를 사용해서 처음부터 복수의 인스턴스로 구동되는
                         디플로이먼트를 만들 수도 있다 </i></p>
                 </div>
             </div>

@@ -10,8 +10,6 @@ weight: 10
 ---
 
 
-
-
 <!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
@@ -74,7 +72,7 @@ _서비스_ 로 들어가보자.
 마찬가지로, 서비스 정의를 API 서버에 `POST`하여
 새 인스턴스를 생성할 수 있다.
 서비스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 예를 들어, 각각 TCP 포트 9376에서 수신하고
 `app=MyApp` 레이블을 가지고 있는 파드 세트가 있다고 가정해 보자.
@@ -170,7 +168,7 @@ subsets:
 ```
 
 엔드포인트 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
 
 {{< note >}}
 엔드포인트 IP는 루프백(loopback) (IPv4의 경우 127.0.0.0/8, IPv6의 경우 ::1/128), 또는
@@ -242,7 +240,8 @@ DNS 레코드를 구성하고, 라운드-로빈 이름 확인 방식을
 추가와 제거를 감시한다. 각 서비스는 로컬 노드에서
 포트(임의로 선택됨)를 연다. 이 "프록시 포트"에 대한 모든
 연결은 (엔드포인트를 통해 보고된대로) 서비스의 백엔드 파드 중 하나로
-프록시된다. kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
+프록시된다.
+kube-proxy는 사용할 백엔드 파드를 결정할 때 서비스의
 `SessionAffinity` 설정을 고려한다.
 
 마지막으로, 유저-스페이스 프록시는 서비스의
@@ -273,7 +272,7 @@ kube-proxy가 iptables 모드에서 실행 중이고 선택된 첫 번째 파드
 다르다. 해당 시나리오에서는, kube-proxy는 첫 번째
 파드에 대한 연결이 실패했음을 감지하고 다른 백엔드 파드로 자동으로 재시도한다.
 
-파드 [준비성 프로브(readiness probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)를 사용하여
+파드 [준비성 프로브(readiness probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 사용하여
 백엔드 파드가 제대로 작동하는지 확인할 수 있으므로, iptables 모드의 kube-proxy는
 정상으로 테스트된 백엔드만 볼 수 있다. 이렇게 하면 트래픽이 kube-proxy를 통해
 실패한 것으로 알려진 파드로 전송되는 것을 막을 수 있다.
@@ -419,7 +418,7 @@ DNS 만 사용하여 서비스의 클러스터 IP를 검색하는 경우, 이 �
 
 ### DNS
 
-[애드-온](/docs/concepts/cluster-administration/addons/)을 사용하여 쿠버네티스
+[애드-온](/ko/docs/concepts/cluster-administration/addons/)을 사용하여 쿠버네티스
 클러스터의 DNS 서비스를 설정할 수(대개는 필수적임) 있다.
 
 CoreDNS와 같은, 클러스터-인식 DNS 서버는 새로운 서비스를 위해 쿠버네티스 API를 감시하고
@@ -497,14 +496,14 @@ API에서 `엔드포인트` 레코드를 생성하고, DNS 구성을 수정하�
      서비스를 외부에 노출시킨다. 외부 로드 밸런서가 라우팅되는
      `NodePort`와 `ClusterIP` 서비스가 자동으로 생성된다.
    * [`ExternalName`](#externalname): 값과 함께 CNAME 레코드를 리턴하여, 서비스를
-     `externalName` 필드의 컨텐츠 (예:`foo.bar.example.com`)에
-     맵핑한다. 어떤 종류의 프록시도 설정되어 있지 않다.
+     `externalName` 필드의 콘텐츠 (예:`foo.bar.example.com`)에
+     매핑한다.
+     어떤 종류의 프록시도 설정되어 있지 않다.
      {{< note >}}
      `ExternalName` 유형을 사용하려면 kube-dns 버전 1.7 또는 CoreDNS 버전 1.7 이상이 필요하다.
      {{< /note >}}
 
 [인그레스](/ko/docs/concepts/services-networking/ingress/)를 사용하여 서비스를 노출시킬 수도 있다. 인그레스는 서비스 유형이 아니지만, 클러스터의 진입점 역할을 한다. 동일한 IP 주소로 여러 서비스를 노출시킬 수 있기 때문에 라우팅 규칙을 단일 리소스로 통합할 수 있다.
-
 
 ### NodePort 유형 {#nodeport}
 
@@ -686,7 +685,7 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
@@ -1095,7 +1094,7 @@ IP 주소를 정리한다.
 
 실제로 고정된 목적지로 라우팅되는 파드 IP 주소와 달리,
 서비스 IP는 실제로 단일 호스트에서 응답하지 않는다. 대신에, kube-proxy는
-iptables (Linux의 패킷 처리 로직)를 필요에 따라
+iptables (리눅스의 패킷 처리 로직)를 필요에 따라
 명백하게 리다이렉션되는 _가상_ IP 주소를 정의하기 위해 사용한다. 클라이언트가 VIP에
 연결하면, 트래픽이 자동으로 적절한 엔드포인트로 전송된다.
 환경 변수와 서비스 용 DNS는 실제로 서비스의
@@ -1177,7 +1176,7 @@ HTTP / HTTPS 서비스를 노출할 수도 있다.
 
 ### PROXY 프로토콜
 
-클라우드 공급자가 지원하는 경우에 (예: [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+클라우드 공급자가 지원하는 경우에 (예: [AWS](/ko/docs/concepts/cluster-administration/cloud-providers/#aws)),
 LoadBalancer 모드의 서비스를 사용하여 쿠버네티스 자체 외부에
 로드 밸런서를 구성할 수 있으며, 이때 접두사가
 [PROXY 프로토콜](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt) 인 연결을 전달하게 된다.
@@ -1214,10 +1213,10 @@ PROXY TCP4 192.0.2.202 10.0.42.7 12345 7\r\n
 클라우드 공급자의 로드 밸런서 구현이 프로토콜로서 SCTP를 지원하는 경우에만 LoadBalancer `유형`과 SCTP `프로토콜`을 사용하여 서비스를 생성할 수 있다. 그렇지 않으면, 서비스 생성 요청이 거부된다. 현재 클라우드 로드 밸런서 공급자 세트 (Azure, AWS, CloudStack, GCE, OpenStack)는 모두 SCTP에 대한 지원이 없다.
 {{< /warning >}}
 
-##### Windows {#caveat-sctp-windows-os}
+##### 윈도우 {#caveat-sctp-windows-os}
 
 {{< warning >}}
-SCTP는 Windows 기반 노드를 지원하지 않는다.
+SCTP는 윈도우 기반 노드를 지원하지 않는다.
 {{< /warning >}}
 
 ##### 유저스페이스 kube-proxy {#caveat-sctp-kube-proxy-userspace}
@@ -1234,5 +1233,3 @@ kube-proxy는 유저스페이스 모드에 있을 때 SCTP 연결 관리를 지�
 * [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
 * [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에 대해 알아보기
-
-

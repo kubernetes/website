@@ -303,6 +303,9 @@ to get a mapping of UIDs to names for both FlowSchemas and
 PriorityLevelConfigurations.
 
 ## Observability
+
+### Metrics
+
 When you enable the API Priority and Fairness feature, the kube-apiserver
 exports additional metrics. Monitoring these can help you determine whether your
 configuration is inappropriately throttling important traffic, or find
@@ -365,9 +368,65 @@ poorly-behaved workloads that may be harming system health.
   long requests took to actually execute, grouped by the FlowSchema that matched the
   request and the PriorityLevel to which it was assigned.
 
+### Debug endpoints
 
+When you enable the API Priority and Fairness feature, the kube-apiserver serves the following additional paths at its HTTP[S] ports.
 
+- `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of all the priority levels and the current state of each.  You can fetch like this:
+  ```shell
+  kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels
+  ```
+  The output is similar to this:
+  ```
+  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
+  workload-low,      0,            true,   false,       0,               0,
+  global-default,    0,            true,   false,       0,               0,
+  exempt,            <none>,       <none>, <none>,      <none>,          <none>,
+  catch-all,         0,            true,   false,       0,               0,
+  system,            0,            true,   false,       0,               0,
+  leader-election,   0,            true,   false,       0,               0,
+  workload-high,     0,            true,   false,       0,               0,
+  ```
 
+- `/debug/api_priority_and_fairness/dump_queues` - a listing of all the queues and their current state.  You can fetch like this:
+  ```shell
+  kubectl get --raw /debug/api_priority_and_fairness/dump_queues
+  ```
+  The output is similar to this:
+  ```
+  PriorityLevelName, Index,  PendingRequests, ExecutingRequests, VirtualStart,
+  workload-high,     0,      0,               0,                 0.0000,
+  workload-high,     1,      0,               0,                 0.0000,
+  workload-high,     2,      0,               0,                 0.0000,
+  ...
+  leader-election,   14,     0,               0,                 0.0000,
+  leader-election,   15,     0,               0,                 0.0000,
+  ```
+
+- `/debug/api_priority_and_fairness/dump_requests` - a listing of all the requests that are currently waiting in a queue.  You can fetch like this:
+  ```shell
+  kubectl get --raw /debug/api_priority_and_fairness/dump_requests
+  ```
+  The output is similar to this:
+  ```
+  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,
+  exempt,            <none>,         <none>,     <none>,              <none>,                <none>,
+  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:26:57.179170694Z,
+  ```
+  
+  In addition to the queued requests, the output includeas one phantom line for each priority level that is exempt from limitation.
+
+  You can get a more detailed listing with a command like this:
+  ```shell
+  kubectl get --raw '/debug/api_priority_and_fairness/dump_requests?includeRequestDetails=1'
+  ```
+  The output is similar to this:
+  ```
+  PriorityLevelName, FlowSchemaName, QueueIndex, RequestIndexInQueue, FlowDistingsher,       ArriveTime,                     UserName,              Verb,   APIPath,                                                     Namespace, Name,   APIVersion, Resource, SubResource,
+  system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
+  system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
+  ```
+  
 ## {{% heading "whatsnext" %}}
 
 

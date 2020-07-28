@@ -10,10 +10,10 @@ untuk memahami persis bagaimana mengharapkannya bisa bekerja.
 Ada 4 masalah yang berbeda untuk diatasi:
 
 1. Komunikasi antar kontainer yang sangat erat: hal ini diselesaikan oleh
-   [Pod](/docs/concepts/workloads/pods/pod/) dan komunikasi `localhost`.
+   [Pod](/id/docs/concepts/workloads/pods/pod/) dan komunikasi `localhost`.
 2. Komunikasi antar Pod: ini adalah fokus utama dari dokumen ini.
-3. Komunikasi Pod dengan Service: ini terdapat di [Service](/docs/concepts/services-networking/service/).
-4. Komunikasi eksternal dengan Service: ini terdapat di [Service](/docs/concepts/services-networking/service/).
+3. Komunikasi Pod dengan Service: ini terdapat di [Service](/id/docs/concepts/services-networking/service/).
+4. Komunikasi eksternal dengan Service: ini terdapat di [Service](/id/docs/concepts/services-networking/service/).
 
 
 
@@ -213,7 +213,7 @@ Calico juga dapat dijalankan dalam mode penegakan kebijakan bersama dengan solus
 
 ### Romana
 
-[Romana](http://romana.io) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
+[Romana](http://romana.io) adalah jaringan sumber terbuka dan solusi otomasi keamanan yang memungkinkan kamu menggunakan Kubernetes tanpa jaringan hamparan. Romana mendukung Kubernetes [Kebijakan Jaringan](/id/docs/concepts/services-networking/network-policies/) untuk memberikan isolasi di seluruh ruang nama jaringan.
 
 ### Weave Net dari Weaveworks
 

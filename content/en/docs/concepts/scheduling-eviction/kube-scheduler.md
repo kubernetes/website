@@ -28,7 +28,7 @@ page will help you learn about scheduling.
 
 ## kube-scheduler
 
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 is the default scheduler for Kubernetes and runs as part of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 kube-scheduler is designed so that, if you want and need to, you can
@@ -95,4 +95,3 @@ of the scheduler:
 * Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
-

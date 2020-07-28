@@ -12,7 +12,7 @@ content_type: concept
 <!-- body -->
 ## Kubectl
 
-[`kubectl`](/docs/tasks/tools/install-kubectl/)은 쿠버네티스를 위한 커맨드라인 툴이며, 쿠버네티스 클러스터 매니저을 제어한다.
+[`kubectl`](/ko/docs/tasks/tools/install-kubectl/)은 쿠버네티스를 위한 커맨드라인 툴이며, 쿠버네티스 클러스터 매니저을 제어한다.
 
 ## Kubeadm
 
@@ -20,7 +20,7 @@ content_type: concept
 
 ## Minikube
 
-[`minikube`](/ko/docs/tasks/tools/install-minikube/)는 개발과 테스팅 목적으로 하는 
+[`minikube`](/ko/docs/tasks/tools/install-minikube/)는 개발과 테스팅 목적으로 하는
 단일 노드 쿠버네티스 클러스터를 로컬 워크스테이션에서
 쉽게 구동시키는 도구이다.
 
@@ -51,4 +51,3 @@ Kompose의 용도
 * 도커 컴포즈 파일을 쿠버네티스 오브젝트로 변환
 * 로컬 도커 개발 환경에서 나의 애플리케이션을 쿠버네티스를 통해 관리하도록 이전
 * V1 또는 V2 도커 컴포즈 `yaml` 파일 또는 [분산 애플리케이션 번들](https://docs.docker.com/compose/bundles/)을 변환
-

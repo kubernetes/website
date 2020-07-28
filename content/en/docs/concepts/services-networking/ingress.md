@@ -91,7 +91,7 @@ Different [Ingress controller](/docs/concepts/services-networking/ingress-contro
 The Ingress [spec](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 has all the information needed to configure a load balancer or proxy server. Most importantly, it
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
-for directing HTTP traffic.
+for directing HTTP(S) traffic.
 
 ### Ingress rules
 
@@ -192,7 +192,7 @@ IngressClass resource will ensure that new Ingresses without an
 If you have more than one IngressClass marked as the default for your cluster,
 the admission controller prevents creating new Ingress objects that don't have
 an `ingressClassName` specified. You can resolve this by ensuring that at most 1
-IngressClasess are marked as default in your cluster.
+IngressClasses are marked as default in your cluster.
 {{< /caution >}}
 
 ## Types of Ingress

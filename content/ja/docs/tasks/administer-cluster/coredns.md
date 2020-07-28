@@ -39,7 +39,7 @@ kubeadm upgrade apply v1.11.0 --feature-gates=CoreDNS=true
 
 Kubernetesバージョン1.13以降では、`CoreDNS`フィーチャーゲートが削除され、CoreDNSがデフォルトで使用されます。アップグレードしたクラスターでkube-dnsを使用する場合は、[こちら](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon)のガイドに従ってください。
 
-1.11以前のバージョンでは、Corefileはアップグレード中に作成されたものによって**上書き**されます。**カスタマイズしている場合は、既存のConfigMapを保存する必要があります。**新しいConfigMapが稼働したら、カスタマイズを再適用できます。
+1.11以前のバージョンでは、Corefileはアップグレード中に作成されたものによって**上書き**されます。**カスタマイズしている場合は、既存のConfigMapを保存する必要があります。** 新しいConfigMapが稼働したら、カスタマイズを再適用できます。
 
 Kubernetesバージョン1.11以降でCoreDNSを実行している場合、アップグレード中、既存のCorefileは保持されます。
 

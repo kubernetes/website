@@ -211,7 +211,7 @@ PodアフィニティとPodアンチアフィニティで使用できるオペ�
 
 #### 実際的なユースケース
 
-Pod間アフィニティとアンチアフィニティは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用すると更に有用です。
+Pod間アフィニティとアンチアフィニティは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用するとさらに有用です。
 Workloadが、Node等の定義された同じトポロジーに共存させるよう、簡単に設定できます。
 
 

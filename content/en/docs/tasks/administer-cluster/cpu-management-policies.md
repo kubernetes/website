@@ -36,7 +36,7 @@ By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completel
 to enforce pod CPU limits.  When the node runs many CPU-bound pods,
 the workload can move to different CPU cores depending on
 whether the pod is throttled and which CPU cores are available at
-scheduling time.  Many workloads are not sensitive to this migration and thus
+scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 
 However, in workloads where CPU cache affinity and scheduling latency

@@ -67,7 +67,7 @@ APIが宣言的ではない兆候として、次のものがあります:
  - APIをオブジェクトとして簡単に表現できない
  - 停止している処理を処理ID、もしくは処理オブジェクトで表現することを選択している
 
-## ConfigMapとカスタムリソースのどちらを使うべきか?
+## ConfigMapとカスタムリソースのどちらを使うべきか？
 
 下記のいずれかに該当する場合は、ConfigMapを使ってください:
 
@@ -99,7 +99,7 @@ Kubernetesは、クラスターへカスタムリソースを追加する2つの
 
 Kubernetesは、さまざまなユーザーのニーズを満たすためにこれら2つのオプションを提供しており、使いやすさや柔軟性が損なわれることはありません。
 
-アグリゲートAPIは、プロキシーとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) (AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
+アグリゲートAPIは、プロキシーとして機能するプライマリAPIサーバーの背後にある、下位のAPIServerです。このような配置は[APIアグリゲーション](/ja/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)(AA)と呼ばれています。ユーザーにとっては、単にAPIサーバーが拡張されているように見えます。
 
 CRDでは、APIサーバーの追加なしに、ユーザーが新しい種類のリソースを作成できます。CRDを使うには、APIアグリゲーションを理解する必要はありません。
 
@@ -156,7 +156,7 @@ CRDは、アグリゲートAPIと比べ、簡単に作れます。
 | その他のサブリソース | "logs"や"exec"のような、CRUD以外の処理の追加 | いいえ | はい |
 | strategic-merge-patch |`Content-Type: application/strategic-merge-patch+json`で、PATCHをサポートする新しいエンドポイント。ローカル、サーバー、どちらでも更新されうるオブジェクトに有用。さらなる情報は["APIオブジェクトをkubectl patchで決まった場所で更新"](/docs/tasks/run-application/update-api-object-kubectl-patch/)を参照 | いいえ | はい |
 | プロトコルバッファ | プロトコルバッファを使用するクライアントをサポートする新しいリソース | いいえ | はい |
-| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI(スワッガー)スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか(言い換えると、「文字列」フィールドに「int」を入れさせない) | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) スキーマがベース(1.16でGA) | はい |
+| OpenAPIスキーマ | サーバーから動的に取得できる型のOpenAPI(Swagger)スキーマはあるか、許可されたフィールドのみが設定されるようにすることで、ユーザーはフィールド名のスペルミスから保護されているか、型は強制されているか(言い換えると、「文字列」フィールドに「int」を入れさせない) | はい、[OpenAPI v3.0 validation](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/#validation) スキーマがベース(1.16でGA) | はい |
 
 ### 一般的な機能
 
@@ -185,7 +185,7 @@ CRD、またはアグリゲートAPI、どちらを使ってカスタムリソ�
 
 ### サードパーティのコードと新しい障害点
 
-CRDを作成しても、勝手に新しい障害点が追加されてしまうことはありませんが（たとえば、サードパーティのコードをAPIサーバーで実行することによって）、パッケージ（たとえば、チャート）またはその他のインストールバンドルには、多くの場合、CRDと新しいカスタムリソースのビジネスロジックを実装するサードパーティコードが入ったDeploymentが含まれます。
+CRDを作成しても、勝手に新しい障害点が追加されてしまうことはありませんが(たとえば、サードパーティのコードをAPIサーバーで実行することによって)、パッケージ(たとえば、Chart)またはその他のインストールバンドルには、多くの場合、CRDと新しいカスタムリソースのビジネスロジックを実装するサードパーティコードが入ったDeploymentが含まれます。
 
 アグリゲートAPIサーバーのインストールすると、常に新しいDeploymentが付いてきます。
 
