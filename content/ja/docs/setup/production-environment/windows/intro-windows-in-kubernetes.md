@@ -14,7 +14,7 @@ Windowsアプリケーションは、多くの組織で実行されているサ�
 
 ## KubernetesのWindowsコンテナ
 
-KubernetesでWindowsコンテナのオーケストレーションを有効にするには、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
+KubernetesでWindowsコンテナのオーケストレーションを有効にする方法は、既存のLinuxクラスターにWindowsノードを含めるだけです。Kubernetesの[Pod](/ja/docs/concepts/workloads/pods/pod-overview/)でWindowsコンテナをスケジュールすることは、Linuxベースのコンテナをスケジュールするのと同じくらいシンプルで簡単です。
 
 Windowsコンテナを実行するには、Kubernetesクラスターに複数のオペレーティングシステムを含める必要があります。コントロールプレーンノードはLinux、ワーカーノードはワークロードのニーズに応じてWindowsまたはLinuxで実行します。Windows Server 2019は、サポートされている唯一のWindowsオペレーティングシステムであり、Windows（kubelet、[コンテナランタイム](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/containerd)、kube-proxyを含む）で[Kubernetesノード](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)を有効にします。Windowsディストリビューションチャンネルの詳細については、[Microsoftのドキュメント](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19)を参照してください。
 
