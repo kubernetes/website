@@ -238,7 +238,7 @@ Windowsには、コンテナレイヤーをマウントして、NTFSに基づい
 
 #### ネットワーキング
 
-Windowsコンテナネットワーキングは、いくつかの重要な点でLinuxネットワーキングと異なります。[Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture)には、追加の詳細と背景があります。
+Windowsコンテナネットワーキングは、Linuxネットワーキングとはいくつかの重要な実装方法の違いがあります。[Microsoft documentation for Windows Container Networking](https://docs.microsoft.com/en-us/virtualization/windowscontainers/container-networking/architecture)には、追加の詳細と背景があります。
 
 Windowsホストネットワーキングサービスと仮想スイッチはネームスペースを実装して、Podまたはコンテナの必要に応じて仮想NICを作成できます。ただし、DNS、ルート、メトリックなどの多くの構成は、Linuxのような/etc/...ファイルではなく、Windowsレジストリデータベースに保存されます。コンテナのWindowsレジストリはホストのレジストリとは別であるため、ホストからコンテナへの/etc/resolv.confのマッピングなどの概念は、Linuxの場合と同じ効果をもたらしません。これらは、そのコンテナの環境で実行されるWindows APIを使用して構成する必要があります。したがって、CNIの実装は、ファイルマッピングに依存する代わりにHNSを呼び出して、ネットワークの詳細をPodまたはコンテナに渡す必要があります。
 
