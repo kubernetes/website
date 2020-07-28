@@ -186,7 +186,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
     ```
 
-    最新の安定版を入手する際は（たとえばスクリプトで使用する場合）、[https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)を参照してください。
+    最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)を参照してください。
 
 2. バイナリをPATHに追加します
 3. `kubectl`のバージョンがダウンロードしたものと同じであることを確認してください:
@@ -202,7 +202,7 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 
 Windowsで[Powershell Gallery](https://www.powershellgallery.com/)パッケージマネージャーを使用していれば、Powershellでkubectlをインストールおよびアップデートすることもできます。
 
-1. インストールコマンドを実行してください（必ず`DownloadLocation`を指定してください）:
+1. インストールコマンドを実行してください(必ず`DownloadLocation`を指定してください):
 
     ```
     Install-Script -Name install-kubectl -Scope CurrentUser -Force
@@ -301,7 +301,7 @@ URLのレスポンスが表示されている場合は、kubectlはクラスタ�
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-たとえば、ラップトップ上（ローカル環境）でKubernetesクラスターを起動するような場合、Minikubeなどのツールを最初にインストールしてから、上記のコマンドを再実行する必要があります。
+たとえば、ラップトップ上(ローカル環境)でKubernetesクラスターを起動するような場合、Minikubeなどのツールを最初にインストールしてから、上記のコマンドを再実行する必要があります。
 
 kubectl cluster-infoがURLレスポンスを返したにもかかわらずクラスターにアクセスできない場合は、次のコマンドで設定が正しいことを確認してください:
 
@@ -315,7 +315,7 @@ kubectl cluster-info dump
 
 kubectlはBashおよびZshの自動補完を提供しています。これにより、入力を大幅に削減することができます。
 
-以下にBash（LinuxとmacOSの違いも含む）およびZshの自動補完の設定手順を示します。
+以下にBash(LinuxとmacOSの違いも含む)およびZshの自動補完の設定手順を示します。
 
 {{< tabs name="kubectl_autocompletion" >}}
 
@@ -325,11 +325,11 @@ kubectlはBashおよびZshの自動補完を提供しています。これによ
 
 Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コマンドで生成できます。シェル内で補完スクリプトをsourceすることでkubectlの自動補完が有効になります。
 
-ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、このソフトウェアを最初にインストールしておく必要があります（`type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます）。
+ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、このソフトウェアを最初にインストールしておく必要があります(`type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます)。
 
 ### bash-completionをインストールする
 
-bash-completionは多くのパッケージマネージャーから提供されています（[こちら](https://github.com/scop/bash-completion#installation)を参照してください）。`apt-get install bash-completion`または`yum install bash-completion`などでインストールできます。
+bash-completionは多くのパッケージマネージャーから提供されています([こちら](https://github.com/scop/bash-completion#installation)を参照してください)。`apt-get install bash-completion`または`yum install bash-completion`などでインストールできます。
 
 上記のコマンドでbash-completionの主要スクリプトである`/usr/share/bash-completion/bash_completion`が作成されます。パッケージマネージャーによっては、このファイルを`~/.bashrc`にて手動でsourceする必要があります。
 
@@ -382,7 +382,7 @@ Bashにおけるkubectlの補完スクリプトは`kubectl completion bash`コ�
 ただし、補完スクリプトは[**bash-completion**](https://github.com/scop/bash-completion)に依存しているため、事前にインストールする必要があります。
 
 {{< warning>}}
-bash-completionにはv1とv2のバージョンがあり、v1はBash 3.2（macOSのデフォルト）用で、v2はBash 4.1以降向けです。kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。**bash-completion v2**および**Bash 4.1**が必要になります。したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。以下の手順では、Bash4.1以降（Bashのバージョンが4.1またはそれより新しいことを指します）を使用することを前提とします。
+bash-completionにはv1とv2のバージョンがあり、v1はBash 3.2(macOSのデフォルト)用で、v2はBash 4.1以降向けです。kubectlの補完スクリプトはbash-completionのv1とBash 3.2では正しく**動作しません**。**bash-completion v2**および**Bash 4.1**が必要になります。したがって、macOSで正常にkubectlの補完を使用するには、Bash 4.1以降をインストールする必要があります([*手順*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba))。以下の手順では、Bash4.1以降(Bashのバージョンが4.1またはそれより新しいことを指します)を使用することを前提とします。
 {{< /warning >}}
 
 ### bashのアップグレード
@@ -410,7 +410,7 @@ Homebrewは通常、`/usr/local/bin/bash`にインストールします。
 ### bash-completionをインストールする
 
 {{< note >}}
-前述のとおり、この手順ではBash 4.1以降であることが前提のため、bash-completion v2をインストールすることになります（これとは逆に、Bash 3.2およびbash-completion v1の場合ではkubectlの補完は動作しません）。
+前述のとおり、この手順ではBash 4.1以降であることが前提のため、bash-completion v2をインストールすることになります(これとは逆に、Bash 3.2およびbash-completion v1の場合ではkubectlの補完は動作しません)。
 {{< /note >}}
 
 `type _init_completion`を実行することで、bash-completionがすでにインストールされていることを確認できます。ない場合は、Homebrewを使用してインストールすることもできます:
@@ -452,7 +452,7 @@ export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
     echo 'complete -F __start_kubectl k' >>~/.bashrc
     ```
 
-- kubectlをHomwbrewでインストールした場合（[前述](#homebrewを使用してmacosへインストールする)のとおり）、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょう。この場合、なにも操作する必要はありません。
+- kubectlをHomwbrewでインストールした場合([前述](#homebrewを使用してmacosへインストールする)のとおり)、kubectlの補完スクリプトはすでに`/usr/local/etc/bash_completion.d/kubectl`に格納されているでしょう。この場合、なにも操作する必要はありません。
 
 {{< note >}}
 Homebrewでインストールしたbash-completion v2は`BASH_COMPLETION_COMPAT_DIR`ディレクトリ内のすべてのファイルをsourceするため、後者の2つの方法が機能します。

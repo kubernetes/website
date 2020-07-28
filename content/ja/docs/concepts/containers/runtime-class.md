@@ -29,7 +29,7 @@ RuntimeClassはコンテナランタイムの設定を選択するための機�
 RuntimeClass機能のフィーチャーゲートが有効になっていることを確認してください(デフォルトで有効です)。フィーチャーゲートを有効にする方法については、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
 その`RuntimeClass`のフィーチャーゲートはApiServerとkubeletのどちらも有効になっていなければなりません。
 
-1. ノード上でCRI実装を設定する。（ランタイムに依存）
+1. ノード上でCRI実装を設定する。(ランタイムに依存)
 2. 対応するRuntimeClassリソースを作成する。
 
 #### 1. ノード上でCRI実装を設定する。
@@ -129,7 +129,7 @@ CRI-Oの[設定に関するドキュメント][100]の詳細は下記を参照�
 
 Kubernetes 1.16では、RuntimeClassは`scheduling`フィールドを使ったクラスター内での異なる設定をサポートしています。
 このフィールドによって、設定されたRuntimeClassをサポートするノードに対してPodがスケジュールされることを保証できます。
-スケジューリングをサポートするためにはRuntimeClass [アドミッションコントローラー][]を有効にしなければなりません。（1.16ではデフォルトです）
+スケジューリングをサポートするためにはRuntimeClass [アドミッションコントローラー][]を有効にしなければなりません。(1.16ではデフォルトです)
 
 特定のRuntimeClassをサポートしているノードへPodが配置されることを保証するために、各ノードは`runtimeclass.scheduling.nodeSelector`フィールドによって選択される共通のラベルを持つべきです。
 RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSelectorに統合され、効率よくノードを選択します。
@@ -147,7 +147,7 @@ RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSele
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
 Kubernetes 1.16ではRuntimeClassは[`PodOverhead`](/docs/concepts/configuration/pod-overhead/)機能の一部である、Podが稼働する時に関連するオーバーヘッドを指定することをサポートしています。
-`PodOverhead`を使うためには、PodOverhead[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしなければなりません。（デフォルトではoffです）
+`PodOverhead`を使うためには、PodOverhead[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしなければなりません。(デフォルトではoffです)
 
 PodのオーバーヘッドはRuntimeClass内の`Overhead`フィールドによって定義されます。
 このフィールドを使用することで、RuntimeClassを使用して稼働するPodのオーバーヘッドを指定することができ、Kubernetes内部で使用されるオーバーヘッドを確保することができます。
