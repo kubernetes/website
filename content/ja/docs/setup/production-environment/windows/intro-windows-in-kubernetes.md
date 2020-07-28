@@ -276,7 +276,7 @@ Windowsホストネットワーキングサービスと仮想スイッチはネ�
 
 ##### セキュリティ
 
-Sevretはノードのボリュームにクリアテキストで書き込まれます（Linuxのtmpfs/in-memoryの比較として）。これはカスタマーが2つのことを行う必要があります
+Secretはノードのボリュームに平文テキストで書き込まれます（Linuxのtmpfs/in-memoryの比較として）。これはカスタマーが2つのことを行う必要があります
 
 1. ファイルACLを使用してSecretファイルの場所を保護する
 2.  [BitLocker](https://docs.microsoft.com/en-us/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)を使って、ボリュームレベルの暗号化を使用する
