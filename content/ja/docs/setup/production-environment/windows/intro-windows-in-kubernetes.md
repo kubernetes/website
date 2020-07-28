@@ -33,7 +33,7 @@ Windowsコンテナを実行するには、Kubernetesクラスターに複数の
 
 APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースのコンテナとほとんど同じように動作します。ただし、制限セクションで概説されている主要な機能には、いくつかの顕著な違いがあります。
 
-オペレーティングシステムのバージョンから始めましょう。KubernetesのWindowsオペレーティングシステムのサポートについては、次の表を参照してください。単一の異種Kubernetesクラスターは、WindowsとLinuxの両方のワーカーノードを持つことができます。WindowsコンテナはWindowsノードで、LinuxコンテナはLinuxノードでスケジュールする必要があります。
+オペレーティングシステムのバージョンから始めましょう。KubernetesのWindowsオペレーティングシステムのサポートについては、次の表を参照してください。単一の混成Kubernetesクラスターは、WindowsとLinuxの両方のワーカーノードを持つことができます。WindowsコンテナはWindowsノードで、LinuxコンテナはLinuxノードでスケジュールする必要があります。
 
 | Kubernetes バージョン | ホストOS バージョン (Kubernetes ノード) | | |
 | --- | --- | --- | --- |
