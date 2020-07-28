@@ -25,7 +25,7 @@ Windowsコンテナを実行するには、Kubernetesクラスターに複数の
 このドキュメントでは、Windowsコンテナについて説明する場合、プロセス分離のWindowsコンテナを意味します。[Hyper-V分離](https://docs.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container)のWindowsコンテナは、将来リリースが計画されています。
 {{< /note >}}
 
-## サポートされる機能と制限
+## サポートされている機能と制限
 
 ### サポートされている機能
 
