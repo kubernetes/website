@@ -218,7 +218,7 @@ systemctl enable --now kubelet
 
 {{% /tab %}}
 {{% tab name="Container Linux" %}}
-CNIプラグインをインストーする(ほとんどのPodのネットワークに必要です):
+CNIプラグインをインストールする(ほとんどのPodのネットワークに必要です):
 
 ```bash
 CNI_VERSION="v0.8.2"
@@ -290,4 +290,3 @@ kubeadmで問題が発生した場合は、[トラブルシューティング](/
 
 
 * [kubeadmを使用したシングルコントロールプレーンクラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-
