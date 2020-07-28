@@ -23,7 +23,7 @@ kubectl get nodes
 
 ## Nodeの1つで新しい拡張リソースをアドバタイズする
 
-Node上の新しい拡張リソースをアドバタイズするには、HTTPのPATCHリクエストをKubernetes APIサーバーに送ります。たとえば、Nodeの1つに4つのドングルが接続されているとします。以下に、4つのdongleリソースをNodeにアドバタイズするPATCHリクエストの例を示します。
+Node上の新しい拡張リソースをアドバタイズするには、HTTPのPATCHリクエストをKubernetes APIサーバーに送ります。たとえば、Nodeの1つに4つのドングルが接続されているとします。以下に、4つのドングルリソースをNodeにアドバタイズするPATCHリクエストの例を示します。
 
 ```shell
 PATCH /api/v1/nodes/<選択したNodeの名前>/status HTTP/1.1
@@ -40,7 +40,7 @@ Host: k8s-master:8080
 ]
 ```
 
-Kubernetesは、dongleとは何かも、dongleが何に利用できるのかを知る必要もないことに注意してください。上のPATCHリクエストは、ただNodeが4つのdongleと呼ばれるものを持っているとKubernetesに教えているだけです。
+Kubernetesは、ドングルとは何かも、ドングルが何に利用できるのかを知る必要もないことに注意してください。上のPATCHリクエストは、ただNodeが4つのドングルと呼ばれるものを持っているとKubernetesに教えているだけです。
 
 Kubernetes APIサーバーに簡単にリクエストを送れるように、プロキシーを実行します。
 
