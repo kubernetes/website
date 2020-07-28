@@ -73,7 +73,7 @@ In general a pod has the following DNS resolution:
 `pod-ip-address.my-namespace.pod.cluster-domain.example`.
 
 For example, if a pod in the `default` namespace has the IP address 172.17.0.3, 
-its DNS name is:
+and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
 
 `172-17-0-3.default.pod.cluster.local`.
 
@@ -285,4 +285,3 @@ The availability of Pod DNS Config and DNS Policy "`None`" is shown as below.
 
 For guidance on administering DNS configurations, check
 [Configure DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers/)
-
