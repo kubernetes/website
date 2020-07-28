@@ -68,10 +68,19 @@ of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`
 
 ### A/AAAA records
 
-Any pods created by a Deployment or DaemonSet have the following
-DNS resolution available:
+In general a pod has the following DNS resolution:
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+
+For example, if a pod in the `default` namespace has the IP address 172.17.0.3, 
+its DNS name is:
+
+`172-17-0-3.default.pod.cluster.local`.
+
+Any pods created by a Deployment or DaemonSet exposed by a service have the 
+following DNS resolution available:
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 
 ### Pod's hostname and subdomain fields
 
