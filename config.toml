@@ -230,7 +230,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 
 [[params.links.user]]
 	name = "Calendar"
-	url = "https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fas fa-calendar-alt"
   desc = "Google Calendar for Kubernetes"
 
