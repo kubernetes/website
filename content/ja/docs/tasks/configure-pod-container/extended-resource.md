@@ -14,7 +14,7 @@ weight: 40
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-この練習を始める前に、[Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)の練習を行ってください。これにより、Nodeの1つがdongleリソースをアドバタイズするように設定されます。
+この練習を始める前に、[Nodeに拡張リソースをアドバタイズする](/docs/tasks/administer-cluster/extended-resource-node/)の練習を行ってください。これにより、Nodeの1つがドングルリソースをアドバタイズするように設定されます。
 
 <!-- steps -->
 
