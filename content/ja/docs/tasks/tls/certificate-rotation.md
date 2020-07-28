@@ -18,8 +18,7 @@ content_type: task
 
 kubeletは、Kubernetes APIへの認証のために証明書を使用します。デフォルトでは、証明書は1年間の有効期限付きで発行されるため、頻繁に更新する必要はありません。
 
-Kubernetes 1.8にはベータ機能の[kubelet certificate
-rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)が含まれているため、現在の証明書の有効期限が近づいたときに自動的に新しい鍵を生成して、Kubernetes APIに新しい証明書をリクエストできます。新しい証明書が利用できるようになると、Kubernetes APIへの接続の認証に利用されます。
+Kubernetes 1.8にはベータ機能の[kubelet certificate rotation](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)が含まれているため、現在の証明書の有効期限が近づいたときに自動的に新しい鍵を生成して、Kubernetes APIに新しい証明書をリクエストできます。新しい証明書が利用できるようになると、Kubernetes APIへの接続の認証に利用されます。
 
 ## クライアント証明書のローテーションを有効にする
 
