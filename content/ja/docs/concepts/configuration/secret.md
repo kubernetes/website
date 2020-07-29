@@ -676,7 +676,7 @@ Secretを広範に利用しているクラスター（Podにマウントされ�
 - 意図しない（または望まない）変更によってアプリケーションの停止を引き起こすことを防ぎます
 - 不変であると設定されたSecretの監視を停止することにより、kube-apiserverの負荷が著しく軽減され、クラスターのパフォーマンスが改善されます
 
-この機能を利用するには、`ImmutableEphemeralVolumes`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、SecretまたはConfigMapの`immutable`フィールドに`true`を指定します。例えば、次のようにします。
+この機能を利用するには、`ImmutableEphemeralVolumes`[feature gate](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、SecretまたはConfigMapの`immutable`フィールドに`true`を指定します。例えば、次のようにします。
 
 ```yaml
 apiVersion: v1
@@ -694,7 +694,7 @@ Secretを削除して、再生成することだけができます。
 既存のPodは削除されたSecretへのマウントポイントを持ち続けるため、Podを再生成することが推奨されます。
 {{< /note >}}
 
-### Secretを環境変数として使用する
+### Secretを環境変数として使用する {#using-secrets-as-environment-variables}
 
 SecretをPodの{{< glossary_tooltip text="環境変数" term_id="container-env-variables" >}}として使用するには、
 
@@ -753,7 +753,7 @@ echo $SECRET_PASSWORD
 1f2d1e2e67df
 ```
 
-### imagePullSecretsを使用する
+### imagePullSecretsを使用する {#using-imagepullsecrets}
 
 `imagePullSecrets`フィールドは同一のネームスペース内のSecretの参照のリストです。
 kubeletにDockerやその他のイメージレジストリのパスワードを渡すために、`imagePullSecrets`にそれを含むSecretを指定することができます。
@@ -1153,5 +1153,5 @@ Podに複数のコンテナが含まれることもあります。しかし、Po
  - Secretをマニフェストファイル（JSONまたはYAML）を介して設定する場合、それはBase64エンコードされた機密情報を含んでいるので、ファイルを共有したりソースリポジトリに入れることは秘密が侵害されることを意味します。Base64エンコーディングは暗号化手段では _なく_ 、平文と同様であると判断すべきです。
  - アプリケーションはボリュームからSecretの値を読み取った後も、その値を保護する必要があります。例えば意図せずログに出力する、信用できない相手に送信するようなことがないようにです。
  - Secretを利用するPodを作成できるユーザーはSecretの値を見ることができます。たとえAPIサーバーのポリシーがユーザーにSecretの読み取りを許可していなくても、ユーザーはSecretを晒すPodを実行することができます。
- - 現在、いずれかのNodeでルート権限を持つ人は誰でも、kubeletに偽装することで _いずれの_ SecretもAPIサーバーから読み取ることができます。
- 単一のNodeのルート権限を不正に取得された場合の影響を抑えるため、実際に必要としているNodeに対してのみSecretを送る機能が計画されています。
+ - 現在、任意のノードでルート権限を持つ人は誰でも、kubeletに偽装することで _任意の_ SecretをAPIサーバーから読み取ることができます。
+ 単一のノードのルート権限を不正に取得された場合の影響を抑えるため、実際に必要としているNodeに対してのみSecretを送る機能が計画されています。
