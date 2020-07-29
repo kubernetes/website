@@ -56,7 +56,7 @@ echo -n '1f2d1e2e67df' > ./password.txt
 ```
 
 `kubectl create secret`コマンドはそれらのファイルをSecretに格納して、APIサーバー上でオブジェクトを作成します。
-Secretオブジェクトの名称は正当な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+Secretオブジェクトの名称は正当な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
 
 ```shell
 kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
