@@ -30,7 +30,7 @@ ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts
 
 ## ConfigMapとPod
 
-ConfigMapを参照して、ConfigMap内のデータを元にしてPod内のコンテナの設定をするPodの`spec`を書くことができます。このとき、PodとConfigMapは同じ{{< glossary_tooltip text="namespace" term_id="namespace" >}}内に存在する必要があります。
+ConfigMapを参照して、ConfigMap内のデータを元にしてPod内のコンテナの設定をするPodの`spec`を書くことができます。このとき、PodとConfigMapは同じ{{< glossary_tooltip text="名前空間" term_id="namespace" >}}内に存在する必要があります。
 
 以下に、ConfigMapの例を示します。単一の値を持つキーと、Configuration形式のデータ片のような値を持つキーがあります。
 
