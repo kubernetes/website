@@ -41,7 +41,7 @@ metadata:
   name: game-demo
 data:
   # プロパティーに似たキー。各キーは単純な値にマッピングされている
-  player_initial_lives: 3
+  player_initial_lives: "3"
   ui_properties_file_name: "user-interface.properties"
   #
   # ファイルに似たキー
@@ -66,6 +66,7 @@ ConfigMapを利用してPod内のコンテナを設定する方法には、次�
 4番目の方法では、ConfigMapとそのデータを読み込むためのコードを自分自身で書く必要があります。しかし、Kubernetes APIを直接使用するため、アプリケーションはConfigMapがいつ変更されても更新イベントを受信でき、変更が発生したときにすぐに反応できます。この手法では、Kubernetes APIに直接アクセスすることで、別の名前空間にあるConfigMapにもアクセスできます。
 
 以下に、Podを設定するために`game-demo`から値を使用するPodの例を示します。
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -98,26 +99,29 @@ spec:
       configMap:
         # マウントしたいConfigMapの名前を指定します。
         name: game-demo
+        # ファイルとして作成するConfigMapのキーの配列
+        items:
+        - key: "game.properties"
+          path: "game.properties"
+        - key: "user-interface.properties"
+          path: "user-interface.properties"
 ```
 
-ConfigMapは1行のプロパティの値と複数行のファイルに似た形式の値を区別しません。問題となるのは、Podや他のオブジェクトによる値の使用方法です。この例では、ボリュームを定義して、`demo`コンテナの内部で`/config`にマウントすることにより、次の4つのファイルが作成されます。
+ConfigMapは1行のプロパティの値と複数行のファイルに似た形式の値を区別しません。問題となるのは、Podや他のオブジェクトによる値の使用方法です。
 
-- `/config/player_initial_lives`
-- `/config/ui_properties_file_name`
-- `/config/game.properties`
-- `/config/user-interface.properties`
+この例では、ボリュームを定義して、`demo`コンテナの内部で`/config`にマウントしています。これにより、ConfigMap内には4つのキーがあるにもかかわらず、2つのファイル`/config/game.properties`および`/config/user-interface.properties`だけが作成されます。
 
-`/config`の中に`.properties`拡張子が付いたファイルだけを配置したい場合、2つの別のConfigMapを使用して、両方のConfigMapをPodの`spec`内で参照するようにします。1つ目のConfigMapでは`player_initial_lives`と`ui_properties_file_name`を定義し、2つ目のConfigMapでは、kubeletが`/config`の中に配置するファイルを定義します。
+これは、Podの定義が`volumes`セクションで`items`という配列を指定しているためです。もし`items`の配列を完全に省略すれば、ConfigMap内の各キーがキーと同じ名前のファイルになり、4つのファイルが作成されます。
+
+## ConfigMapを使う
+
+ConfigMapは、データボリュームとしてマウントできます。ConfigMapは、Podへ直接公開せずにシステムの他の部品として使うこともできます。たとえば、ConfigMapには、システムの他の一部が設定のために使用するデータを保存できます。
 
 {{< note >}}
 ConfigMapの最も一般的な使い方では、同じ名前空間にあるPod内で実行されているコンテナに設定を構成します。ConfigMapを独立して使用することもできます。
 
 たとえば、ConfigMapに基づいて動作を調整する{{< glossary_tooltip text="アドオン" term_id="addons" >}}や{{< glossary_tooltip text="オペレーター" term_id="operator-pattern" >}}を見かけることがあるかもしれません。
 {{< /note >}}
-
-## ConfigMapを使う
-
-ConfigMapは、データボリュームとしてマウントできます。ConfigMapは、Podへ直接公開せずにシステムの他の部品として使うこともできます。たとえば、ConfigMapには、システムの他の一部が設定のために使用するデータを保存できます。
 
 ### ConfigMapをPodからファイルとして使う
 
