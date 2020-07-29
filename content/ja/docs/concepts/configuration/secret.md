@@ -131,7 +131,7 @@ Secretの内容を参照する方法は[Secretのデコード](#decoding-a-secre
 #### 手動でSecretを作成する
 
 SecretをJSONまたはYAMLフォーマットのファイルで作成し、その後オブジェクトを作成することができます。
-Secretオブジェクトの名称は正当な[DNSサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
+Secretオブジェクトの名称は正当な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
 [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)は、`data`と`stringData`の2つの連想配列を持ちます。
 `data`フィールドは任意のデータの保存に使われ、Base64でエンコードされています。
 `stringData`は利便性のために存在するもので、機密データをエンコードされない文字列で扱えます。
