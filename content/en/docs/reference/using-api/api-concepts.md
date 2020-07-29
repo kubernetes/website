@@ -596,7 +596,11 @@ more information about how an object's schema is used to make decisions when
 merging, see
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
-A number of markers were added in Kubernetes 1.16 and 1.17, to allow API developers to describe the merge strategy supported by lists, maps, and structs. These markers can be applied to objects of the respective type, in Go files or OpenAPI specs.
+A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
+developers to describe the merge strategy supported by lists, maps, and
+structs. These markers can be applied to objects of the respective type,
+in Go files or in the [OpenAPI schema definition of the
+CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |---|---|---|---|---|
@@ -609,8 +613,12 @@ A number of markers were added in Kubernetes 1.16 and 1.17, to allow API develop
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
-If the validation field is specified in the Custom Resource Definition, it is
-used when merging objects of this type.
+
+If the Custom Resource Definition defines a
+[schema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
+that contains annotations as defined in the previous "Merge Strategy"
+section, these annotations will be used when merging objects of this
+type.
 
 ### Using Server-Side Apply in a controller
 
