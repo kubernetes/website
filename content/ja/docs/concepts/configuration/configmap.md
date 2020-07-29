@@ -24,9 +24,9 @@ ConfigMapは機密性や暗号化を提供しません。保存したいデー�
 
 ## ConfigMapオブジェクト
 
-ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapにはアイテム(キー)と値を保存するための`data`セクションがあります。
+ConfigMapは、他のオブジェクトが使うための設定を保存できるAPI[オブジェクト](/ja/docs/concepts/overview/working-with-objects/kubernetes-objects/)です。ほとんどのKubernetesオブジェクトに`spec`セクションがあるのとは違い、ConfigMapにはアイテム(キー)と値を保存するための`data`セクションがあります。
 
-ConfigMapの名前は、有効な[DNSのサブドメイン名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
+ConfigMapの名前は、有効な[DNSのサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
 ## ConfigMapとPod
 
