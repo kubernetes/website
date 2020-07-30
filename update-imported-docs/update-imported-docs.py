@@ -18,7 +18,7 @@
 # This work_dir will temporarily become the GOPATH.
 #
 # To execute the script from the website/update-imported-docs directory:
-# ./update-imported-docs.py <config_file> <k8s_release> <rc_num>
+# ./update-imported-docs.py <config_file> <k8s_release> --rc <rc_num>
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
@@ -161,7 +161,7 @@ def parse_input_args():
     'config_file' is the first argument; it should be one of the YAML
     files in this same directory
     'k8s_release' is the second argument; provide the release version
-    'rc_num' is the third argument (optional); provide the rc number
+    'rc' is an optional argument; provide the release candidate number
     :return: parsed argument
     """
     parser = argparse.ArgumentParser()
@@ -172,8 +172,7 @@ def parse_input_args():
     parser.add_argument('k8s_release', type=str,
                         help="k8s release version, ex: 1.17"
                         )
-    parser.add_argument('rc_num', type=str,
-                        default=0,
+    parser.add_argument("--rc", type=str,
                         help="k8s release candidate number, ex: 3"
                         )
     return parser.parse_args()
@@ -196,7 +195,9 @@ def main():
     print("k8s_release is {}".format(k8s_release))
 
     # third parse input argument
-    rc_num = in_args.rc_num
+    rc_num = 0
+    if in_args.rc:
+        rc_num = in_args.rc
     print("rc_num is {}".format(rc_num))
 
     curr_dir = os.path.dirname(os.path.abspath(__file__))

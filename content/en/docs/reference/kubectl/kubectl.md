@@ -7,7 +7,6 @@ weight: 30
 ## {{% heading "synopsis" %}}
 
 
-
 kubectl controls the Kubernetes cluster manager.
 
  Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
@@ -16,10 +15,7 @@ kubectl controls the Kubernetes cluster manager.
 kubectl [flags]
 ```
 
-
-
 ## {{% heading "options" %}}
-
 
    <table style="width: 100%; table-layout: fixed;">
 <colgroup>
@@ -32,7 +28,7 @@ kubectl [flags]
 <td colspan="2">--add-dir-header</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, adds the file directory to the header</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, adds the file directory to the header of the log messages</td>
 </tr>
 
 <tr>
@@ -78,10 +74,10 @@ kubectl [flags]
 </tr>
 
 <tr>
-<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/http-cache"</td>
+<td colspan="2">--cache-dir string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "$HOME/.kube/cache"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Default HTTP cache directory</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Default cache directory</td>
 </tr>
 
 <tr>
@@ -186,7 +182,7 @@ kubectl [flags]
 <td colspan="2">--docker-env-metadata-whitelist string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">a comma-separated list of environment variable keys that needs to be collected for docker containers</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">a comma-separated list of environment variable keys matched with specified prefix that needs to be collected for docker containers</td>
 </tr>
 
 <tr>
@@ -379,6 +375,13 @@ kubectl [flags]
 </tr>
 
 <tr>
+<td colspan="2">--referenced-reset-interval uint</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Reset interval for referenced bytes (container_referenced_bytes metric), number of measurement cycles after which referenced bytes are cleared, if set to 0 referenced bytes are never cleared (default: 0)</td>
+</tr>
+
+<tr>
 <td colspan="2">--request-timeout string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "0"</td>
 </tr>
 <tr>
@@ -518,15 +521,19 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">comma-separated list of pattern=N settings for file-filtered logging</td>
 </tr>
 
+<tr>
+<td colspan="2">--warnings-as-errors</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Treat warnings received from the server as errors and exit with a non-zero exit code</td>
+</tr>
+
 </tbody>
 </table>
 
 
 
-
-
 ## {{% heading "seealso" %}}
-
 
 * [kubectl alpha](/docs/reference/generated/kubectl/kubectl-commands#alpha)	 - Commands for features in alpha
 * [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands#annotate)	 - Update the annotations on a resource
@@ -571,6 +578,4 @@ kubectl [flags]
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - Mark node as schedulable
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - Print the client and server version information
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - Experimental: Wait for a specific condition on one or many resources.
-
-
 
