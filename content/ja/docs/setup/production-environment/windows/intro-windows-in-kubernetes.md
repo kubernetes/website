@@ -91,7 +91,7 @@ Pod、Controller、Serviceは、KubernetesでWindowsワークロードを管理�
 * Podとコンテナのメトリクス
 * Horizontal Pod Autoscalerサポート
 * kubectl Exec
-* リソースクウォータ
+* リソースクォータ
 * Schedulerのプリエンプション
 
 #### コンテナランタイム
