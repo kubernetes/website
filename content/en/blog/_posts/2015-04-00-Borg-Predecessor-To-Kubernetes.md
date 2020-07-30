@@ -16,7 +16,7 @@ To give you a flavor, here are four Kubernetes features that came from our exper
 
 
 
-1) [Pods](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/pods.md). A pod is the unit of scheduling in Kubernetes. It is a resource envelope in which one or more containers run. Containers that are part of the same pod are guaranteed to be scheduled together onto the same machine, and can share state via local volumes.
+1) [Pods](https://kubernetes.io/docs/concepts/workloads/pods/). A pod is the unit of scheduling in Kubernetes. It is a resource envelope in which one or more containers run. Containers that are part of the same pod are guaranteed to be scheduled together onto the same machine, and can share state via local volumes.
 
 
 
@@ -24,7 +24,7 @@ Borg has a similar abstraction, called an alloc (short for “resource allocatio
 
 
 
-2) [Services](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/services.md). Although Borg’s primary role is to manage the lifecycles of tasks and machines, the applications that run on Borg benefit from many other cluster services, including naming and load balancing. Kubernetes supports naming and load balancing using the service abstraction: a service has a name and maps to a dynamic set of pods defined by a label selector (see next section). Any container in the cluster can connect to the service using the service name. Under the covers, Kubernetes automatically load-balances connections to the service among the pods that match the label selector, and keeps track of where the pods are running as they get rescheduled over time due to failures.
+2) [Services](https://kubernetes.io/docs/concepts/services-networking/service/). Although Borg’s primary role is to manage the lifecycles of tasks and machines, the applications that run on Borg benefit from many other cluster services, including naming and load balancing. Kubernetes supports naming and load balancing using the service abstraction: a service has a name and maps to a dynamic set of pods defined by a label selector (see next section). Any container in the cluster can connect to the service using the service name. Under the covers, Kubernetes automatically load-balances connections to the service among the pods that match the label selector, and keeps track of where the pods are running as they get rescheduled over time due to failures.
 
 
 
@@ -32,7 +32,7 @@ Borg has a similar abstraction, called an alloc (short for “resource allocatio
 
 
 
-Kubernetes supports more flexible collections than Borg by organizing pods using labels, which are arbitrary key/value pairs that users attach to pods (and in fact to any object in the system). Users can create groupings equivalent to Borg Jobs by using a “job:\<jobname\>” label on their pods, but they can also use additional labels to tag the service name, service instance (production, staging, test), and in general, any subset of their pods. A label query (called a “label selector”) is used to select which set of pods an operation should be applied to. Taken together, labels and [replication controllers](https://github.com/GoogleCloudPlatform/kubernetes/blob/master/docs/replication-controller.md) allow for very flexible update semantics, as well as for operations that span the equivalent of Borg Jobs.
+Kubernetes supports more flexible collections than Borg by organizing pods using labels, which are arbitrary key/value pairs that users attach to pods (and in fact to any object in the system). Users can create groupings equivalent to Borg Jobs by using a “job:\<jobname\>” label on their pods, but they can also use additional labels to tag the service name, service instance (production, staging, test), and in general, any subset of their pods. A label query (called a “label selector”) is used to select which set of pods an operation should be applied to. Taken together, labels and [replication controllers](https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/) allow for very flexible update semantics, as well as for operations that span the equivalent of Borg Jobs.
 
 
 
