@@ -47,7 +47,7 @@ APIとkubectlの観点から見ると、WindowsコンテナはLinuxベースの�
 Windows Serverホストオペレーティングシステムには、[Windows Server](https://www.microsoft.com/en-us/cloud-platform/windows-server-pricing)ライセンスが適用されます。Windowsコンテナイメージには、[Windowsコンテナの追加ライセンス条項](https://docs.microsoft.com/en-us/virtualization/windowscontainers/images-eula)ライセンスが提供されます。
 {{< /note >}}
 {{< note >}}
-プロセス分離のWindowsコンテナには、厳格な互換性ルールがあります[ホストOSのバージョンはコンテナのベースイメージのOSバージョンと一致する必要があります](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)。KubernetesでHyper-V分離のWindowsコンテナをサポートすると、制限と互換性ルールが変更されます。
+プロセス分離のWindowsコンテナには、[ホストOSのバージョンはコンテナのベースイメージのOSバージョンと一致する必要がある](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility)という厳格な互換性ルールがあります。KubernetesでHyper-V分離のWindowsコンテナをサポートする際には、制限と互換性ルールが変更されます。
 {{< /note >}}
 
 Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能します。このセクションでは、主要なワークロードイネーブラーのいくつかと、それらがWindowsにどのようにマップされるかについて説明します。
