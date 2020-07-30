@@ -10,8 +10,12 @@
   gtag('config', 'UA-36037335-10');
 </script>
 
-<!-- Docsy head.html begins here -->
+<!-- alternative translations -->
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
 
+<!-- Docsy head.html begins here -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {{ hugo.Generator }}
