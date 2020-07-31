@@ -71,9 +71,9 @@ Applications within a Pod also have access to shared {{< glossary_tooltip text="
 as part of a Pod and are made available to be mounted into each application's
 filesystem.
 -->
-Pod 中的所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 互相发现。他们也能通过标准的进程间通信（如 SystemV 信号量或 POSIX 共享内存）方式进行互相通信。不同 Pod 中的容器的 IP 地址互不相同，没有 [特殊配置](/docs/concepts/policy/pod-security-policy/) 就不能使用 IPC 进行通信。这些容器之间经常通过 Pod IP 地址进行通信。
+Pod 中的所有容器共享一个 IP 地址和端口空间，并且可以通过 `localhost` 互相发现。他们也能通过标准的进程间通信（如 SystemV 信号量或 POSIX 共享内存）方式进行互相通信。不同 Pod 中的容器的 IP 地址互不相同，没有[特殊配置](/docs/concepts/policy/pod-security-policy/) 就不能使用 IPC 进行通信。这些容器之间经常通过 Pod IP 地址进行通信。
 
-Pod 中的应用也能访问共享 {{< glossary_tooltip text="卷" term_id="volume" >}}，共享卷是 Pod 定义的一部分，可被用来挂载到每个应用的文件系统上。
+Pod 中的应用也能访问共享{{< glossary_tooltip text="卷" term_id="volume" >}}，共享卷是 Pod 定义的一部分，可被用来挂载到每个应用的文件系统上。
 
 <!--
 In terms of [Docker](https://www.docker.com/) constructs, a Pod is modelled as
@@ -93,8 +93,7 @@ scheduled for deletion, after a timeout period. A given Pod (as defined by a UID
 with even the same name if desired, but with a new UID (see [replication
 controller](/docs/concepts/workloads/controllers/replicationcontroller/) for more details).
 -->
-与单个应用程序容器一样，Pod 被认为是相对短暂的（而不是持久的）实体。如 [Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/) 所讨论的那样：Pod 被创建、给它指定一个唯一 ID （UID）、被调度到节点、在节点上存续直到终止（取决于重启策略）或被删除。如果 {{< glossary_tooltip term_id="node" >}} 宕机，调度到该节点上的 Pod 会在一个超时周期后被安排删除。给定 Pod （由 UID 定义）不会重新调度到新节点；相反，它会被一个完全相同的 Pod 替换掉，如果需要甚至连 Pod 名称都可以一样，除了 UID 是新的(更多信息请查阅 [副本控制器（replication
-controller）](/docs/concepts/workloads/controllers/replicationcontroller/)。
+与单个应用程序容器一样，Pod 被认为是相对短暂的（而不是持久的）实体。如 [Pod 的生命周期](/docs/concepts/workloads/pods/pod-lifecycle/) 所讨论的那样：Pod 被创建、给它指定一个唯一 ID（UID）、被调度到节点、在节点上存续直到终止（取决于重启策略）或被删除。如果 {{< glossary_tooltip term_id="node" >}} 宕机，调度到该节点上的 Pod 会在一个超时周期后被安排删除。给定 Pod （由 UID 定义）不会重新调度到新节点；相反，它会被一个完全相同的 Pod 替换掉，如果需要甚至连 Pod 名称都可以一样，除了 UID 是新的（更多信息请查阅[副本控制器](/docs/concepts/workloads/controllers/replicationcontroller/)）。
 
 <!--
 When something is said to have the same lifetime as a Pod, such as a volume,
@@ -203,7 +202,7 @@ For a longer explanation, see [The Distributed System ToolKit: Patterns for
 Composite
 Containers](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns).
 -->
-有关详细说明，请参考 [分布式系统工具包：组合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)。
+有关详细说明，请参考[分布式系统工具包：组合容器的模式](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)。
 
 <!--
 ## Alternatives considered
