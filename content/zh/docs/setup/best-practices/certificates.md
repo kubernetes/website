@@ -280,4 +280,3 @@ These files are used as follows:
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
