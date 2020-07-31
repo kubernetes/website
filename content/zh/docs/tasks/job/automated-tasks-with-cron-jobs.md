@@ -68,7 +68,7 @@ component.
 -->
 
 * 你需要一个版本 >=1.8 且工作正常的 Kubernetes 集群。对于更早的版本（ <1.8 ），你需要对 API 服务器设置 `--runtime-config=batch/v2alpha1=true` 来开启 `batch/v2alpha1` API，(更多信息请查看 [为你的集群开启或关闭 API 版本](/zh/docs/tasks/administer-cluster/cluster-management/#打开或关闭集群的-api-版本)
-), 然后重启 API 服务器和控制管理器。
+), 然后重启 apiserver 和 controller manager。
 
 
 
