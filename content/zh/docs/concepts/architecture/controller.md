@@ -53,7 +53,7 @@ detail.
 
 一个控制器至少追踪一种类型的 Kubernetes 资源。这些[对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)有一个代表期望状态的指定字段。控制器负责确保其追踪的资源对象的当前状态接近期望状态。
 
-控制器可能会自行执行操作；在 Kubernetes 中更常见的是一个控制器会发送信息给 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}，这会有副作用。看下面这个例子。
+控制器可能会自行执行操作；在 Kubernetes 中更常见的是一个控制器会发送信息给 {{< glossary_tooltip text="apiserver" term_id="kube-apiserver" >}}，这会有副作用。看下面这个例子。
 
 {{< comment >}}
 一些内置的控制器，比如命名空间控制器，针对没有指定命名空间的对象。为了简单起见，这篇文章没有详细介绍这些细节。
