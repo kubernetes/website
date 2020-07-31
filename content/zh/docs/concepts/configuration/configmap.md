@@ -19,7 +19,6 @@ ConfigMap 并不提供保密或者加密功能。如果你想存储的数据是�
 {{< /caution >}}
 
 
-
 <!-- body -->
 <!--
 ## Motivation
@@ -59,9 +58,11 @@ The name of a ConfigMap must be a valid
 -->
 ## ConfigMap 对象
 
-ConfigMap 是一个 API [对象](/docs/concepts/overview/working-with-objects/kubernetes-objects/)，让你可以存储其他对象所需要使用的配置。和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 块来存储元素（键名）和它们的值。
+ConfigMap 是一个 API [对象](/zh/docs/concepts/overview/working-with-objects/kubernetes-objects/)，
+让你可以存储其他对象所需要使用的配置。
+和其他 Kubernetes 对象都有一个 `spec` 不同的是，ConfigMap 使用 `data` 块来存储元素（键名）和它们的值。
 
-ConfigMap 的名字必须是一个合法的 [DNS 子域名](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+ConfigMap 的名字必须是一个合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
 ## ConfigMaps and Pods
@@ -216,15 +217,14 @@ ConfigMap 最常见的用法是为同一命名空间里某 Pod 中运行的容�
 
 ## {{% heading "whatsnext" %}}
 
-
 <!--
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
 -->
-* 阅读 [Secret](/docs/concepts/configuration/secret/)。
-* 阅读 [配置 Pod 来使用 ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)。
+* 阅读 [Secret](/zh/docs/concepts/configuration/secret/)。
+* 阅读 [配置 Pod 来使用 ConfigMap](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 * 阅读 [Twelve-Factor 应用](https://12factor.net/) 来了解将代码和配置分开的动机。
 
 
