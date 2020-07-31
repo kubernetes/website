@@ -308,12 +308,12 @@ exports additional metrics. Monitoring these can help you determine whether your
 configuration is inappropriately throttling important traffic, or find
 poorly-behaved workloads that may be harming system health.
 
-* `apiserver_flowcontrol_rejected_requests_total` is a vector of
-  counters (cumulative since server start) of requests that were
-  rejected, broken down by the labels `flowSchema` (indicating the one
-  that matched the request), `priorityLevel` (indicating the one to
-  which ithe request was assigned), and `reason`.  The `reason` label
-  will be have one of the following values:
+* `apiserver_flowcontrol_rejected_requests_total` is a counter vector
+  (cumulative since server start) of requests that were rejected,
+  broken down by the labels `flowSchema` (indicating the one that
+  matched the request), `priorityLevel` (indicating the one to which
+  the request was assigned), and `reason`.  The `reason` label will be
+  have one of the following values:
     * `queue-full`, indicating that too many requests were already
       queued,
     * `concurrency-limit`, indicating that the
@@ -322,13 +322,13 @@ poorly-behaved workloads that may be harming system health.
     * `time-out`, indicating that the request was still in the queue
       when its queuing time limit expired.
 
-* `apiserver_flowcontrol_dispatched_requests_total` is a vector of
-  counters (cumulative since server start) of requests that began
+* `apiserver_flowcontrol_dispatched_requests_total` is a counter
+  vector (cumulative since server start) of requests that began
   executing, broken down by the labels `flowSchema` (indicating the
   one that matched the request) and `priorityLevel` (indicating the
-  one to which ithe request was assigned).
+  one to which the request was assigned).
 
-* `apiserver_current_inqueue_requests` is a vector gauges of recent
+* `apiserver_current_inqueue_requests` is a gauge vector of recent
   high water marks of the number of queued requests, grouped by a
   label named `request_kind` whose value is `mutating` or `readOnly`.
   These high water marks describe the largest number seen in the one
@@ -338,14 +338,14 @@ poorly-behaved workloads that may be harming system health.
   served.
 
 * `apiserver_flowcontrol_read_vs_write_request_count_samples` is a
-  vector of histograms of observations of the then-current number of
+  histogram vector of observations of the then-current number of
   requests, broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`).  The observations ae made
+  the values `mutating` and `readOnly`).  The observations are made
   periodically at a high rate.
 
 * `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
-  vector of histograms of high or low water marks of the number of
+  histogram vector of high or low water marks of the number of
   requests broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `request_kind` (which takes on
   the values `mutating` and `readOnly`); the label `mark` takes on
@@ -354,18 +354,17 @@ poorly-behaved workloads that may be harming system health.
   `apiserver_flowcontrol_read_vs_write_request_count_samples`.  These
   water marks show the range of values that occurred between samples.
 
-* `apiserver_flowcontrol_current_inqueue_requests` is a vector of
-  gauges holding the instantaneous number of queued (not executing)
-  requests, broken down by the labels `priorityLevel` and
-  `flowSchema`.
+* `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
+  holding the instantaneous number of queued (not executing) requests,
+  broken down by the labels `priorityLevel` and `flowSchema`.
 
-* `apiserver_flowcontrol_current_executing_requests` is a vector of
-  gauges holding the instantaneous number of executing (not waiting in
-  a queue) requests, broken down by the labels `priorityLevel` and
+* `apiserver_flowcontrol_current_executing_requests` is a gauge vector
+  holding the instantaneous number of executing (not waiting in a
+  queue) requests, broken down by the labels `priorityLevel` and
   `flowSchema`.
 
 * `apiserver_flowcontrol_priority_level_request_count_samples` is a
-  vector of histograms of observations of the then-current number of
+  histogram vector of observations of the then-current number of
   requests broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `priorityLevel`.  Each
   histogram gets observations taken periodically, up through the last
@@ -373,7 +372,7 @@ poorly-behaved workloads that may be harming system health.
   rate.
 
 * `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
-  vector of histograms of high or low water marks of the number of
+  histogram vector of high or low water marks of the number of
   requests broken down by the labels `phase` (which takes on the
   values `waiting` and `executing`) and `priorityLevel`; the label
   `mark` takes on values `high` and `low`.  The water marks are
@@ -383,7 +382,7 @@ poorly-behaved workloads that may be harming system health.
   water marks show the range of values that occurred between samples.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
-  vector of histograms of queue lengths for the queues, broken down by
+  histogram vector of queue lengths for the queues, broken down by
   the labels `priorityLevel` and `flowSchema`, as sampled by the
   enqueued requests.  Each request that gets queued contributes one
   sample to its histogram, reporting the length of the queue just
@@ -398,15 +397,15 @@ poorly-behaved workloads that may be harming system health.
     to increase that PriorityLevelConfiguration's concurrency shares.
     {{< /note >}}
 
-* `apiserver_flowcontrol_request_concurrency_limit` is a vector of
-  gauges hoding the computed concurrency limit (based on the API
-  server's total concurrency limit and PriorityLevelConfigurations'
-  concurrency shares), broken down by the label `priorityLevel`.
+* `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
+  hoding the computed concurrency limit (based on the API server's
+  total concurrency limit and PriorityLevelConfigurations' concurrency
+  shares), broken down by the label `priorityLevel`.
 
-* `apiserver_flowcontrol_request_wait_duration_seconds` is a vector of
-  histograms of how long requests spent queued, broken down by the
-  labels `flowSchema` (indicating which one matched the request),
-  `priorityLevel` (indicating the one to which ithe request was
+* `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
+  vector of how long requests spent queued, broken down by the labels
+  `flowSchema` (indicating which one matched the request),
+  `priorityLevel` (indicating the one to which the request was
   assigned), and `execute` (indicating whether the request started
   executing).
     {{< note >}}
@@ -416,11 +415,11 @@ poorly-behaved workloads that may be harming system health.
     requests assigned to that priority level.
     {{< /note >}}
 
-* `apiserver_flowcontrol_request_execution_seconds` is a vector of
-  histograms of how long requests took to actually execute, broken
-  down by the labels `flowSchema` (indicating which one matched the
-  request), `priorityLevel` (indicating the one to which the request
-  was assigned).
+* `apiserver_flowcontrol_request_execution_seconds` is a histogram
+  vector of how long requests took to actually execute, broken down by
+  the labels `flowSchema` (indicating which one matched the request)
+  and `priorityLevel` (indicating the one to which the request was
+  assigned).
 
 
 
