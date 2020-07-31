@@ -208,12 +208,12 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
    [kubectl 插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/)能够扩展 kubectl 程序的行为。
    这些插件只会影响到每个用户的本地环境，因此无法用来强制实施整个站点范围的策略。
 
-2. API 服务器处理所有请求。API 服务器中的几种扩展点能够使用户对请求执行身份认证、
+2. apiserver 处理所有请求。apiserver 中的几种扩展点能够使用户对请求执行身份认证、
    基于其内容阻止请求、编辑请求内容、处理删除操作等等。
    这些扩展点在 [API 访问扩展](/zh/docs/concepts/overview/extending#api-access-extensions)
    节详述。
 
-3. API 服务器向外提供不同类型的*资源（resources）*。
+3. apiserver 向外提供不同类型的*资源（resources）*。
    *内置的资源类型*，如 `pods`，是由 Kubernetes 项目所定义的，无法改变。
    你也可以添加自己定义的或者其他项目所定义的称作*自定义资源（Custom Resources）*
    的资源，正如[自定义资源](/zh/docs/concepts/overview/extending#user-defined-types)节所描述的那样。
@@ -223,7 +223,7 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
    有几种方式来扩展调度行为。这些方法将在
    [调度器扩展](/zh/docs/concepts/overview/extending#scheduler-extensions)节中展开。
 
-5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，这些程序也都是 API 服务器
+5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，这些程序也都是 apiserver 
    的客户端。控制器常常与自定义资源结合使用。
 
 6. 组件 kubelet 运行在各个节点上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。
