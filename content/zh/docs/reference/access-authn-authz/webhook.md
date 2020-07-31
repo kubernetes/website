@@ -140,7 +140,7 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`). 
 -->
-需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都服从[版本兼容规则](/docs/concepts/overview/kubernetes-api/)。实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
+需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样,同样都服从[版本兼容规则](/docs/concepts/overview/kubernetes-api/)。实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
 <!-- 
 An example request body: 
