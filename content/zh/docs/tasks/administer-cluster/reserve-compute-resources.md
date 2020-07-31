@@ -33,9 +33,12 @@ compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure `Node Allocatable` based on their workload density
 on each node.
 -->
-Kubernetes 的节点可以按照 `Capacity` 调度。默认情况下 pod 能够使用节点全部可用容量。这是个问题，因为节点自己通常运行了不少驱动 OS 和 Kubernetes 的系统守护进程。除非为这些系统守护进程留出资源，否则它们将与 pod 争夺资源并导致节点资源短缺问题。
+Kubernetes 的节点可以按照 `Capacity` 调度。默认情况下 pod 能够使用节点全部可用容量。
+这是个问题，因为节点自己通常运行了不少驱动 OS 和 Kubernetes 的系统守护进程。
+除非为这些系统守护进程留出资源，否则它们将与 pod 争夺资源并导致节点资源短缺问题。
 
-`kubelet` 公开了一个名为 `Node Allocatable` 的特性，有助于为系统守护进程预留计算资源。Kubernetes 推荐集群管理员按照每个节点上的工作负载密度配置 `Node Allocatable`。
+`kubelet` 公开了一个名为 `Node Allocatable` 的特性，有助于为系统守护进程预留计算资源。
+Kubernetes 推荐集群管理员按照每个节点上的工作负载密度配置 `Node Allocatable`。
 
 ## {{% heading "prerequisites" %}}
 
@@ -46,7 +49,7 @@ Your Kubernetes server must be at or later than version 1.17 to use
 the kubelet command line option `--reserved-cpus` to set an
 [explicitly reserved CPU list](#explicitly-reserved-cpu-list).
 -->
-您的 kubernetes 服务器版本必须高于 1.17 版本，才能使用 kubelet 命令行选项 `--reserved-cpus` 来设置 [显式 CPU 保留列表](#explicitly-reserved-cpu-list)
+您的 kubernetes 服务器版本必须至少是 1.17 版本，才能使用 kubelet 命令行选项 `--reserved-cpus` 来设置 [显式 CPU 保留列表](#explicitly-reserved-cpu-list)
 
 <!-- steps -->
 
@@ -98,7 +101,8 @@ Resources can be reserved for two categories of system daemons in the `kubelet`.
 ---------------------------
 ```
 
-Kubernetes 节点上的 `Allocatable` 被定义为 pod 可用计算资源量。调度器不会超额申请 `Allocatable`。目前支持 `CPU`, `memory` 和 `ephemeral-storage` 这几个参数。
+Kubernetes 节点上的 `Allocatable` 被定义为 pod 可用计算资源量。调度器不会超额申请 `Allocatable`。
+目前支持 `CPU`, `memory` 和 `ephemeral-storage` 这几个参数。
 
 可分配的节点暴露为 API 中 `v1.Node` 对象的一部分，也是 CLI 中 `kubectl describe node` 的一部分。
 
@@ -114,7 +118,8 @@ under a cgroup hierarchy managed by the `kubelet`.
 -->
 ### 启用 QoS 和 Pod 级别的 cgroups
 
-为了恰当的在节点范围实施 node allocatable，您必须通过 `--cgroups-per-qos` 标志启用新的 cgroup 层次结构。这个标志是默认启用的。启用后，`kubelet` 将在其管理的 cgroup 层次结构中创建所有终端用户的 pod。
+为了恰当的在节点范围实施 node allocatable，您必须通过 `--cgroups-per-qos` 标志启用新的 cgroup 层次结构。
+这个标志是默认启用的。启用后，`kubelet` 将在其管理的 cgroup 层次结构中创建所有终端用户的 Pod。
 
 <!--
 ### Configuring a cgroup driver
@@ -145,7 +150,8 @@ be configured to use the `systemd` cgroup driver.
 * `cgroupfs` 是默认的驱动，在主机上直接操作 cgroup 文件系统以对 cgroup 沙箱进行管理。
 * `systemd` 是可选的驱动，使用 init 系统支持的资源的瞬时切片管理 cgroup 沙箱。
 
-取决于相关容器运行时的配置，操作员可能需要选择一个特定的 cgroup 驱动来保证系统正常运行。例如如果操作员使用 `docker` 运行时提供的 `systemd` cgroup 驱动时，必须配置 `kubelet` 使用 `systemd` cgroup 驱动。
+取决于相关容器运行时的配置，操作员可能需要选择一个特定的 cgroup 驱动来保证系统正常运行。
+例如如果操作员使用 `docker` 运行时提供的 `systemd` cgroup 驱动时，必须配置 `kubelet` 使用 `systemd` cgroup 驱动。
 
 <!--
 ### Kube Reserved
@@ -188,7 +194,9 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 
 要选择性的在系统守护进程上执行 `kube-reserved`，需要把 kubelet 的 `--kube-reserved-cgroup` 标志的值设置为 kube 守护进程的父控制组。
 
-推荐将 kubernetes 系统守护进程放置于顶级控制组之下（例如 systemd 机器上的 `runtime.slice`）。理想情况下每个系统守护进程都应该在其自己的子控制组中运行。请参考[这篇文档](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)，获取更过关于推荐控制组层次结构的细节。
+推荐将 kubernetes 系统守护进程放置于顶级控制组之下（例如 systemd 机器上的 `runtime.slice`）。
+理想情况下每个系统守护进程都应该在其自己的子控制组中运行。
+请参考[这篇文档](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md#recommended-cgroups-setup)，获取更过关于推荐控制组层次结构的细节。
 
 请注意，如果 `--kube-reserved-cgroup` 不存在，Kubelet 将**不会**创建它。如果指定了一个无效的 cgroup，Kubelet 将会失败。
 
@@ -239,7 +247,7 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 <!--
 ### Explicitly Reserved CPU List
 -->
-### 显式保留的 CPU 列表
+### 显式保留的 CPU 列表 {#explicitly-reserved-cpu-list}
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 - **Kubelet Flag**: `--reserved-cpus=0-3`
@@ -268,7 +276,10 @@ defined by this option, other mechanism outside Kubernetes should be used.
 For example: in Centos, you can do this using the tuned toolset.
 -->
 此选项是专门为 Telco 或 NFV 用例设计的，在这些用例中不受控制的中断或计时器可能会影响其工作负载性能。
-可以使用此选项为系统或 kubernetes 守护程序以及中断或计时器定义显式的 cpuset，因此系统上的其余 CPU 可以专门用于工作负载，而不受不受控制的中断或计时器的影响较小。要将系统守护程序、kubernetes 守护程序和中断或计时器移动到此选项定义的显式 cpuset 上，应使用 Kubernetes 之外的其他机制。
+可以使用此选项为系统或 kubernetes 守护程序以及中断或计时器定义显式的 cpuset，因此系统上的
+其余 CPU 可以专门用于工作负载，而不受不受控制的中断或计时器的影响较小。
+要将系统守护程序、kubernetes 守护程序和中断或计时器移动到此选项定义的显式 cpuset 上，
+应使用 Kubernetes 之外的其他机制。
 例如：在 Centos 系统中，可以使用 tuned 工具集来执行此操作。
 
 <!--
@@ -292,7 +303,9 @@ available for pods.
 - **Kubelet Flag**: `--eviction-hard=[memory.available<500Mi]`
 
 节点级别的内存压力将导致系统内存不足，这将影响到整个节点及其上运行的所有 pod。节点可以暂时离线直到内存已经回收为止。
-为了防止（或减少可能性）系统内存不足，kubelet 提供了[资源不足](/docs/tasks/administer-cluster/out-of-resource/)管理。驱逐操作只支持 `memory` 和 `ephemeral-storage`。
+为了防止（或减少可能性）系统内存不足，kubelet 提供了
+[资源不足](/zh/docs/tasks/administer-cluster/out-of-resource/)管理。
+驱逐操作只支持 `memory` 和 `ephemeral-storage`。
 通过 `--eviction-hard` 标志预留一些内存后，当节点上的可用内存降至保留值以下时，`kubelet` 将尝试`驱逐` pod。
 假设，如果节点上不存在系统守护进程，pod 将不能使用超过 `capacity-eviction-hard` 的资源。因此，为驱逐而预留的资源对 pod 是不可用的。
 
@@ -322,9 +335,14 @@ respectively.
 
 调度器将 `Allocatable` 按 pod 的可用 `capacity` 对待。
 
-`kubelet` 默认在 pod 中执行 `Allocatable`。无论何时，如果所有 pod 的总用量超过了 `Allocatable`，驱逐 pod 的措施将被执行。有关驱逐策略的更多细节可以在[这里](/docs/tasks/administer-cluster/out-of-resource/#eviction-policy).找到。请通过设置 kubelet `--enforce-node-allocatable` 标志值为 `pods` 控制这个措施。
+`kubelet` 默认在 Pod 中执行 `Allocatable`。无论何时，如果所有 pod 的总用量超过了 `Allocatable`，
+驱逐 pod 的措施将被执行。有关驱逐策略的更多细节可以在
+[这里](/zh/docs/tasks/administer-cluster/out-of-resource/#eviction-policy).找到。
+请通过设置 kubelet `--enforce-node-allocatable` 标志值为 `pods` 控制这个措施。
 
-可选的，通过在相同标志中同时指定 `kube-reserved` 和 `system-reserved` 值能够使 `kubelet` 执行 `kube-reserved` 和 `system-reserved`。请注意，要想执行 `kube-reserved` 或者 `system-reserved` 时，需要分别指定 `--kube-reserved-cgroup` 或者 `--system-reserved-cgroup`。
+可选的，通过在相同标志中同时指定 `kube-reserved` 和 `system-reserved` 值能够使 `kubelet` 
+执行 `kube-reserved` 和 `system-reserved`。请注意，要想执行 `kube-reserved` 或者 `system-reserved` 时，
+需要分别指定 `--kube-reserved-cgroup` 或者 `--system-reserved-cgroup`。
 
 <!--
 ## General Guidelines
@@ -355,17 +373,23 @@ So expect a drop in `Allocatable` capacity in future releases.
 -->
 ## 一般原则
 
-系统守护进程期望被按照类似 `Guaranteed` pod 一样对待。系统守护进程可以在其范围控制组中爆发式增长，您需要将这个行为作为 kubernetes 部署的一部分进行管理。
-例如，`kubelet` 应该有它自己的控制组并和容器运行时共享 `Kube-reserved` 资源。然而，如果执行了 `kube-reserved`，则 kubelet 不能突然爆发并耗尽节点的所有可用资源。
+系统守护进程期望被按照类似 `Guaranteed` pod 一样对待。系统守护进程可以在其范围控制组中爆发式增长，
+您需要将这个行为作为 kubernetes 部署的一部分进行管理。
+例如，`kubelet` 应该有它自己的控制组并和容器运行时共享 `Kube-reserved` 资源。
+然而，如果执行了 `kube-reserved`，则 kubelet 不能突然爆发并耗尽节点的所有可用资源。
 
-在执行 `system-reserved` 预留操作时请加倍小心，因为它可能导致节点上的关键系统服务 CPU 资源短缺或因为内存不足而被终止。
-建议只有当用户详尽地描述了他们的节点以得出精确的估计时才强制执行 `system-reserved`，并且如果该组中的任何进程都是 oom_killed，则对他们恢复的能力充满信心。
+在执行 `system-reserved` 预留操作时请加倍小心，因为它可能导致节点上的关键系统服务 CPU 资源短缺
+或因为内存不足而被终止。
+建议只有当用户详尽地描述了他们的节点以得出精确的估计时才强制执行 `system-reserved`，
+并且如果该组中的任何进程都是 oom_killed，则对他们恢复的能力充满信心。
 
 * 在 `pods` 上执行 `Allocatable` 作为开始。
 * 一旦足够用于追踪系统守护进程的监控和告警的机制到位，请尝试基于用量探索方式执行 `kube-reserved`。
 * 随着时间推进，如果绝对必要，可以执行 `system-reserved`。
 
-随着时间的增长以及越来越多特性的加入，kube 系统守护进程对资源的需求可能也会增加。以后 kubernetes 项目将尝试减少对节点系统守护进程的利用，但目前那并不是优先事项。所以，请期待在将来的发布中将 `Allocatable` 容量降低。
+随着时间的增长以及越来越多特性的加入，kube 系统守护进程对资源的需求可能也会增加。
+以后 kubernetes 项目将尝试减少对节点系统守护进程的利用，但目前那并不是优先事项。
+所以，请期待在将来的发布中将 `Allocatable` 容量降低。
 
 
 
@@ -404,6 +428,8 @@ usage is higher than `31.5Gi` or `storage` is greater than `90Gi`
 
 在这个场景下，`Allocatable` 将会是 `14.5 CPUs`、`28.5Gi` 内存以及 `88Gi` 本地存储。
 调度器保证这个节点上的所有 pod `请求`的内存总量不超过 `28.5Gi`，存储不超过 `88Gi`。
-当 pod 的内存使用总量超过 `28.5Gi` 或者磁盘使用总量超过 `88Gi` 时，Kubelet 将会驱逐它们。如果节点上的所有进程都尽可能多的使用 CPU，则 pod 加起来不能使用超过 `14.5 CPUs` 的资源。
+当 pod 的内存使用总量超过 `28.5Gi` 或者磁盘使用总量超过 `88Gi` 时，Kubelet 将会驱逐它们。
+如果节点上的所有进程都尽可能多的使用 CPU，则 pod 加起来不能使用超过 `14.5 CPUs` 的资源。
 
-当没有执行 `kube-reserved` 和/或 `system-reserved` 且系统守护进程使用量超过其预留时，如果节点内存用量高于 `31.5Gi` 或`存储`大于 `90Gi`，kubelet 将会驱逐 pod。
+当没有执行 `kube-reserved` 和/或 `system-reserved` 且系统守护进程使用量超过其预留时，
+如果节点内存用量高于 `31.5Gi` 或`存储`大于 `90Gi`，kubelet 将会驱逐 pod。
