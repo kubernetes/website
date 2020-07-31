@@ -1,6 +1,5 @@
 ---
 title: 发起拉取请求（PR）
-slug: new-content
 content_type: concept
 weight: 10
 card:
@@ -9,7 +8,6 @@ card:
 ---
 <!--
 title: Opening a pull request
-slug: new-content
 content_type: concept
 weight: 10
 card:
