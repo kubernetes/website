@@ -138,8 +138,6 @@ field of the returned object is the result of the query.
 
 ```bash
 kubectl create -f - -o yaml << EOF
-```
-```
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 spec:
@@ -149,7 +147,10 @@ spec:
     verb: create
     namespace: dev
 EOF
+```
 
+The generated `SelfSubjectAccessReview` is:
+```
 apiVersion: authorization.k8s.io/v1
 kind: SelfSubjectAccessReview
 metadata:
