@@ -67,7 +67,6 @@ Kubernetes 是开源系统，可以自由地部署在企业内部，私有云、
     <button id="desktopShowVideoButton" onclick="kub.showVideo()">Watch Video</button>
     <br>
     <br>
-    <br>
     <!-- <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/" button id="desktopKCButton">Attend KubeCon in Shanghai on Nov. 13-15, 2018</a> -->
     <a href="https://www.lfasiallc.com/events/kubecon-cloudnativecon-china-2018/" button id="desktopKCButton">参加11月13日到15日的上海 KubeCon</a>
     <br>
