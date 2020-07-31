@@ -82,13 +82,13 @@ Kubernetes 版本发布协调文档工作。
 <!--
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release Special Interest Group (SIG). Others on the release team for a given
-release include an overall release lead, as well as representatives from sig-pm,
-sig-testing, and others. To find out more about Kubernetes release processes,
+release include an overall release lead, as well as representatives from
+sig-testing and others. To find out more about Kubernetes release processes,
 refer to
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 -->
 每一个 Kubernetes 版本都是由参与 sig-release 的 SIG（特别兴趣小组）的一个团队协调的。
-指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-pm、sig-testing 的代表等。
+指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-testing 的代表等。
 要了解更多关于 Kubernetes 版本发布的流程，请参考
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release)。
 
