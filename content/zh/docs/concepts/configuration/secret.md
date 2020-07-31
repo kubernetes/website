@@ -244,10 +244,9 @@ You can also create a Secret in a file first, in JSON or YAML format,
 and then create that object.
 The name of a Secret object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-
-he
-[Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core) contains two maps:
-data and stringData. The data field is used to store arbitrary data, encoded using
+The [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+contains two maps:
+`data` and `stringData`. The `data` field is used to store arbitrary data, encoded using
 base64. The stringData field is provided for convenience, and allows you to provide
 secret data as unencoded strings.
 -->
@@ -255,7 +254,7 @@ secret data as unencoded strings.
 
 您也可以先以 JSON 或 YAML 格式文件创建一个 Secret，然后创建该对象。
 Secret 对象的名称必须是合法的 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
-[Secret](/docs/reference/generated/kubernetes-api/v1.12/#secret-v1-core)
+[Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
 包含两个映射：`data` 和 `stringData`。
 `data` 字段用于存储使用 base64 编码的任意数据。
 提供 `stringData` 字段是为了方便，允许您用未编码的字符串提供机密数据。
@@ -1237,7 +1236,7 @@ See [Injecting Information into Pods Using a PodPreset](/docs/tasks/inject-data-
 
 手动创建的 Secret（例如包含用于访问 GitHub 帐户令牌的 Secret）可以
 根据其服务帐户自动附加到 Pod。
-请参阅[使用 PodPreset 向 Pod 中注入信息](/zh/docs/tasks/run-application/podpreset/)
+请参阅[使用 PodPreset 向 Pod 中注入信息](/zh/docs/tasks/inject-data-application/podpreset/)
 以获取该过程的详细说明。
 
 <!--
@@ -1872,7 +1871,7 @@ Secrets are protected when transmitted over these channels.
 You can enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
 for secret data, so that the secrets are not stored in the clear into {{< glossary_tooltip term_id="etcd" >}}.
 -->
-你可以为 Secret 数据开启[静态加密](//zhdocs/tasks/administer-cluster/encrypt-data/)，
+你可以为 Secret 数据开启[静态加密](/zh/docs/tasks/administer-cluster/encrypt-data/)，
 这样 Secret 数据就不会以明文形式存储到{{< glossary_tooltip term_id="etcd" >}} 中。
 
 <!--

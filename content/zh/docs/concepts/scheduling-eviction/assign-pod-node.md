@@ -285,7 +285,10 @@ You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, o
 [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to repel pods from specific nodes.
 -->
 
-你可以在上面的例子中看到 `In` 操作符的使用。新的节点亲和语法支持下面的操作符： `In`，`NotIn`，`Exists`，`DoesNotExist`，`Gt`，`Lt`。你可以使用 `NotIn` 和 `DoesNotExist` 来实现节点反亲和行为，或者使用[节点污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)将 pod 从特定节点中驱逐。
+你可以在上面的例子中看到 `In` 操作符的使用。新的节点亲和语法支持下面的操作符：
+`In`，`NotIn`，`Exists`，`DoesNotExist`，`Gt`，`Lt`。
+你可以使用 `NotIn` 和 `DoesNotExist` 来实现节点反亲和行为，或者使用
+[节点污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)将 pod 从特定节点中驱逐。
 
 <!--
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
@@ -599,7 +602,10 @@ no two instances are located on the same host.
 See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 -->
-上面的例子使用 `PodAntiAffinity` 规则和 `topologyKey: "kubernetes.io/hostname"` 来部署 redis 集群以便在同一主机上没有两个实例。参阅 [ZooKeeper 教程](/zh/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)，以获取配置反亲和来达到高可用性的 StatefulSet 的样例（使用了相同的技巧）。
+上面的例子使用 `PodAntiAffinity` 规则和 `topologyKey: "kubernetes.io/hostname"`
+来部署 redis 集群以便在同一主机上没有两个实例。
+参阅 [ZooKeeper 教程](/zh/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)，
+以获取配置反亲和来达到高可用性的 StatefulSet 的样例（使用了相同的技巧）。
 
 ## nodeName
 
@@ -660,7 +666,7 @@ The above pod will run on the node kube-01.
 [Taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
 -->
 
-[污点](/docs/concepts/scheduling-eviction/taint-and-toleration/)允许节点*排斥*一组 pod。
+[污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)允许节点*排斥*一组 pod。
 
 <!--
 The design documents for
@@ -668,7 +674,8 @@ The design documents for
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 -->
 
-[节点亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)与 [pod 间亲和/反亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)的设计文档包含这些功能的其他背景信息。
+[节点亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)与
+[pod 间亲和/反亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)的设计文档包含这些功能的其他背景信息。
 
 <!--
 Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
@@ -676,8 +683,7 @@ The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can tak
 resource allocation decisions.
 -->
 
-一旦 pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。
-[拓扑管理](/zh/docs/tasks/administer-cluster/topology-manager/)
+一旦 Pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。
+[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
 可以参与到节点级别的资源分配决定中。
-
 
