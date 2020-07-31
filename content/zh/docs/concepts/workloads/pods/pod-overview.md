@@ -44,7 +44,7 @@ A *Pod* is the basic execution unit of a Kubernetes application--the smallest an
 A Pod encapsulates an application's container (or, in some cases, multiple containers), storage resources, a unique network IP, and options that govern how the container(s) should run. A Pod represents a unit of deployment: *a single instance of an application in Kubernetes*, which might consist of either a single {{< glossary_tooltip text="container" term_id="container" >}} or a small number of containers that are tightly coupled and that share resources.
 -->
 Pod 封装了应用程序容器（或者在某些情况下封装多个容器）、存储资源、唯一网络 IP 以及控制容器应该如何运行的选项。
-Pod 表示部署单元：*Kubernetes 中应用程序的单个实例*，它可能由单个 {{< glossary_tooltip text="容器" term_id="container" >}} 或少量紧密耦合并共享资源的容器组成。
+Pod 表示部署单元：*Kubernetes 中应用程序的单个实例*，它可能由单个{{< glossary_tooltip text="容器" term_id="container" >}}或少量紧密耦合并共享资源的容器组成。
 
 <!--
 [Docker](https://www.docker.com) is the most common container runtime used in a Kubernetes Pod, but Pods support other [container runtimes](/docs/setup/production-environment/container-runtimes/) as well.
@@ -110,7 +110,7 @@ Note that grouping multiple co-located and co-managed containers in a single Pod
 <!--
 Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
 -->
-有些 Pod 具有 {{< glossary_tooltip text="初始容器" term_id="init-container" >}} 和 {{< glossary_tooltip text="应用容器" term_id="app-container" >}}。初始容器会在启动应用容器之前运行并完成。
+有些 Pod 具有{{< glossary_tooltip text="初始容器" term_id="init-container" >}}和{{< glossary_tooltip text="应用容器" term_id="app-container" >}}。初始容器会在启动应用容器之前运行并完成。
 
 <!--
 Pods provide two kinds of shared resources for their constituent containers: *networking* and *storage*.
