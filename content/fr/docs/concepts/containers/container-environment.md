@@ -1,6 +1,6 @@
 ---
-title: Les variables d’environnement du conteneur
-description: Variables d'environnement pour conteneur Kubernetes
+title: L'environnement du conteneur
+description: L'environnement du conteneur Kubernetes
 content_type: concept
 weight: 20
 ---
