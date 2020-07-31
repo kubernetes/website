@@ -8,7 +8,7 @@ weight: 40
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-Vous pouvez utiliser des  _contraintes de propagation de topologie_ pour contrôler comment les {{< glossary_tooltip text="Pods" term_id="Pod" >}} sont propagés à travers votre cluster parmi les domaines de défaillance comme les régions, zones, noeuds et autres domaines de topologie définis par l'utilisateur. Ceci peut aider à créer de la haute disponibilité et à utiliser efficacement les ressources.
+Vous pouvez utiliser des  _contraintes de propagation de topologie_ pour contrôler comment les {{< glossary_tooltip text="Pods" term_id="Pod" >}} sont propagés à travers votre cluster parmi les domaines de défaillance comme les régions, zones, noeuds et autres domaines de topologie définis par l'utilisateur. Ceci peut aider à mettre en place de la haute disponibilité et à utiliser efficacement les ressources.
 
 
 
@@ -26,7 +26,7 @@ La [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `
 
 Les contraintes de propagation de topologie reposent sur les labels de noeuds pour identifier le ou les domaines de topologie dans lesquels se trouve  chacun des noeuds. Par exemple, un noeud pourrait avoir les labels: `node=node1,zone=us-east-1a,region=us-east-1`
 
-Supposez que vous avec un cluster de 4 noeuds ayant les labels suivants:
+Supposons que vous ayez un cluster de 4 noeuds ayant les labels suivants:
 
 ```
 NAME    STATUS   ROLES    AGE     VERSION   LABELS
@@ -76,11 +76,11 @@ Vous pouvez définir une ou plusieurs `topologySpreadConstraint` pour indiquer a
   - `ScheduleAnyway` indique au scheduler de le programmer, tout en priorisant les noeuds minimisant le biais (*skew*).
 - **labelSelector** est utilisé pour touver les Pods correspondants. Les Pods correspondants à ce sélecteur de labels sont comptés pour déterminer le nombre de Pods dans leurs domaines de topologie correspodants. Voir [Sélecteurs de labels](/docs/concepts/overview/working-with-objects/labels/#label-selectors) pour plus de détails.
 
-Vous pouvez en savoir plus sur ce champ en exécutant `kubectl explain Pod.spec.topologySpreadConstraints`.
+Vous pouvez en savoir plus sur ces champ en exécutant `kubectl explain Pod.spec.topologySpreadConstraints`.
 
 ### Exemple : Une TopologySpreadConstraint
 
-Supposez que vous avez un cluster de 4 noeuds où 3 Pods étiquettés `foo:bar` sont placés sur node1, node2 et node3 respectivement (`P` représente un Pod) :
+Supposons que vous ayez un cluster de 4 noeuds où 3 Pods étiquettés `foo:bar` sont placés sur node1, node2 et node3 respectivement (`P` représente un Pod) :
 
 ```
 +---------------+---------------+
@@ -96,9 +96,9 @@ Si nous voulons qu'un nouveau Pod soit uniformément réparti avec les Pods exis
 
 {{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
 
-`topologyKey: zone` implies the even distribution will only be applied to the nodes which have label pair "zone:&lt;any value&gt;" present. `whenUnsatisfiable: DoNotSchedule` tells the scheduler to let it stay pending if the incoming Pod can’t satisfy the constraint.
+`topologyKey: zone` implique que la distribution uniforme sera uniquement appliquée pour les noeuds ayant le label "zone:&lt;any value&gt;" présent. `whenUnsatisfiable: DoNotSchedule` indique au scheduler de laisser le Pod dans l'état Pending si le Pod entrant ne peut pas satisfaire la contrainte.
 
-If the scheduler placed this incoming Pod into "zoneA", the Pods distribution would become [3, 1], hence the actual skew is 2 (3 - 1) - which violates `maxSkew: 1`. In this example, the incoming Pod can only be placed onto "zoneB":
+Si le scheduler plaçait ce Pod entrant dans "zoneA", la distribution des Pods deviendrait [3, 1], et le biais serait de 2 (3 - 1) - ce qui va à l'encontre de `maxSkew: 1`. Dans cet exemple, le Pod entrant peut uniquement être placé dans "zoneB":
 
 ```
 +---------------+---------------+      +---------------+---------------+
@@ -110,15 +110,15 @@ If the scheduler placed this incoming Pod into "zoneA", the Pods distribution wo
 +-------+-------+-------+-------+      +-------+-------+-------+-------+
 ```
 
-You can tweak the Pod spec to meet various kinds of requirements:
+Vous pouvez ajuster la spec du Pod pour pour répondre à divers types d'exigences :
 
-- Change `maxSkew` to a bigger value like "2" so that the incoming Pod can be placed onto "zoneA" as well.
-- Change `topologyKey` to "node" so as to distribute the Pods evenly across nodes instead of zones. In the above example, if `maxSkew` remains "1", the incoming Pod can only be placed onto "node4".
-- Change `whenUnsatisfiable: DoNotSchedule` to `whenUnsatisfiable: ScheduleAnyway` to ensure the incoming Pod to be always schedulable (suppose other scheduling APIs are satisfied). However, it’s preferred to be placed onto the topology domain which has fewer matching Pods. (Be aware that this preferability is jointly normalized with other internal scheduling priorities like resource usage ratio, etc.)
+- Changez `maxSkew` pour une valeur plus grande comme "2" pour que le Pod entrant puisse aussi être placé dans la "zoneA".
+- Changez `topologyKey` pour "node" pour distribuer les Pods uniformément à travers les noeuds et non plus les zones. Dans l'exemple ci-dessus, si `maxSkew` reste à "1", le Pod entrant peut être uniquement placé dans "node4".
+- Changez `whenUnsatisfiable: DoNotSchedule` en `whenUnsatisfiable: ScheduleAnyway` pour s'assurer que le Pod est toujours programmable (en supposant que les autres APIs de scheduling soient satisfaites). Cependant, il sera de préférence placé dans la topologie de domaine ayant le moins de Pods correspondants. (Prenez note que cette préférence est normalisée conjointement avec d'autres priorités de scheduling interne comme le ratio d'usage de ressources, etc.)
 
-### Example: Multiple TopologySpreadConstraints
+### Example: Plusieurs TopologySpreadConstraints
 
-This builds upon the previous example. Suppose you have a 4-node cluster where 3 Pods labeled `foo:bar` are located in node1, node2 and node3 respectively (`P` represents Pod):
+Cela s'appuie sur l'exemple précédent. Supposons que vous ayez un cluster de 4 noeuds où 3 Pods étiquetés `foo:bar` sont placés sur node1, node2 et node3 respectivement (`P` représente un Pod):
 
 ```
 +---------------+---------------+
@@ -130,13 +130,13 @@ This builds upon the previous example. Suppose you have a 4-node cluster where 3
 +-------+-------+-------+-------+
 ```
 
-You can use 2 TopologySpreadConstraints to control the Pods spreading on both zone and node:
+Vous pouvez utiliser 2 TopologySpreadConstraints pour contrôler la répartition des Pods aussi bien dans les zones que dans les noeuds :
 
 {{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
 
-In this case, to match the first constraint, the incoming Pod can only be placed onto "zoneB"; while in terms of the second constraint, the incoming Pod can only be placed onto "node4". Then the results of 2 constraints are ANDed, so the only viable option is to place on "node4".
+Dans ce cas, pour satisfaire la première contrainte, le Pod entrant peut uniquement être placé dans "zoneB" ; alors que pour satisfaire la seconde contrainte, le Pod entrant peut uniquement être placé dans "node4". Le résultat étant l'intersection des résultats des 2 contraintes, l'unique option possible est de placer le Pod entrant dans "node4".
 
-Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster across 2 zones:
+Plusieurs contraintes peuvent entraîner des conflits. Supposons que vous ayez un cluster de 3 noeuds couvrant 2 zones :
 
 ```
 +---------------+-------+
@@ -148,26 +148,26 @@ Multiple constraints can lead to conflicts. Suppose you have a 3-node cluster ac
 +-------+-------+-------+
 ```
 
-If you apply "two-constraints.yaml" to this cluster, you will notice "mypod" stays in `Pending` state. This is because: to satisfy the first constraint, "mypod" can only be put to "zoneB"; while in terms of the second constraint, "mypod" can only put to "node2". Then a joint result of "zoneB" and "node2" returns nothing.
+Si vous appliquez "two-constraints.yaml" à ce cluster, vous noterez que "mypod" reste dans l'état `Pending`. Cela parce que : pour satisfaire la première contrainte, "mypod" peut uniquement être placé dans "zoneB"; alors que pour satisfaire la seconde contrainte, "mypod" peut uniquement être placé sur "node2". Ainsi, le résultat de l'intersection entre "zoneB" et "node2" ne retourne rien.
 
-To overcome this situation, you can either increase the `maxSkew` or modify one of the constraints to use `whenUnsatisfiable: ScheduleAnyway`.
+Pour surmonter cette situation, vous pouvez soit augmenter `maxSkew`, soit modifier une des contraintes pour qu'elle utilise `whenUnsatisfiable: ScheduleAnyway`.
 
 ### Conventions
 
-There are some implicit conventions worth noting here:
+Il existe quelques conventions implicites qu'il est intéressant de noter ici :
 
-- Only the Pods holding the same namespace as the incoming Pod can be matching candidates.
+- Seuls le Pods du même espace de noms que le Pod entrant peuvent être des candidats pour la correspondance.
 
-- Nodes without `topologySpreadConstraints[*].topologyKey` present will be bypassed. It implies that:
+- Les noeuds sans label  `topologySpreadConstraints[*].topologyKey` seront ignorés. Cela induit que :
 
-  1. the Pods located on those nodes do not impact `maxSkew` calculation - in the above example, suppose "node1" does not have label "zone", then the 2 Pods will be disregarded, hence the incomingPod will be scheduled into "zoneA".
-  2. the incoming Pod has no chances to be scheduled onto this kind of nodes - in the above example, suppose a "node5" carrying label `{zone-typo: zoneC}` joins the cluster, it will be bypassed due to the absence of label key "zone".
+  1. les Pods localisés sur ces noeuds n'impactent pas le calcul de `maxSkew` - dans l'exemple ci-dessus, supposons que "node1" n'a pas de label "zone", alors les 2 Pods ne seront pas comptés, et le Pod entrant sera placé dans "zoneA".
+  2. le Pod entrant n'a aucune chance d'être programmé sur ce type de noeuds - dans l'exemple ci-dessus, supposons qu'un "node5" portant un label `{zone-typo: zoneC}` joigne le cluster ; il sera ignoré, en raison de l'absence de label "zone".
 
-- Be aware of what will happen if the incomingPod’s `topologySpreadConstraints[*].labelSelector` doesn’t match its own labels. In the above example, if we remove the incoming Pod’s labels, it can still be placed onto "zoneB" since the constraints are still satisfied. However, after the placement, the degree of imbalance of the cluster remains unchanged - it’s still zoneA having 2 Pods which hold label {foo:bar}, and zoneB having 1 Pod which holds label {foo:bar}. So if this is not what you expect, we recommend the workload’s `topologySpreadConstraints[*].labelSelector` to match its own labels.
+- Faites attention à ce qui arrive lorsque le `topologySpreadConstraints[*].labelSelector`  du Pod entrant ne correspond pas à ses propres labels. Dans l'exemple ci-dessus, si nous supprimons les labels du Pod entrant, il sera toujours placé dans "zoneB" car les contraintes sont toujours satisfaites. Cependant, après le placement, le degré de déséquilibre du cluster reste inchangé - zoneA contient toujours 2 Pods ayant le label {foo:bar}, et zoneB contient 1 Pod cayant le label {foo:bar}. Si ce n'est pas ce que vous attendez, nous recommandons que `topologySpreadConstraints[*].labelSelector` du workload corresponde à ses propres labels.
 
-- If the incoming Pod has `spec.nodeSelector` or `spec.affinity.nodeAffinity` defined, nodes not matching them will be bypassed.
+- Si le Pod entrant a défini `spec.nodeSelector` ou `spec.affinity.nodeAffinity`, les noeuds non correspondants seront ignorés.
 
-    Suppose you have a 5-node cluster ranging from zoneA to zoneC:
+    Supposons que vous ayez un cluster de 5 noeuds allant de zoneA à zoneC :
 
     ```
     +---------------+---------------+-------+
@@ -179,27 +179,26 @@ There are some implicit conventions worth noting here:
     +-------+-------+-------+-------+-------+
     ```
 
-    and you know that "zoneC" must be excluded. In this case, you can compose the yaml as below, so that "mypod" will be placed onto "zoneB" instead of "zoneC". Similarly `spec.nodeSelector` is also respected.
+    et vous savez que "zoneC" doit être exclue. Dans ce cas, vous pouvez écrire le yaml ci-dessous, pour que "mypod" soit placé dans "zoneB" plutôt que dans "zoneC". `spec.nodeSelector` est pris en compte de la même manière.
 
     {{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
 
-### Cluster-level default constraints
+### Contraintes par défaut au niveau du cluster
 
 {{< feature-state for_k8s_version="v1.18" state="alpha" >}}
 
-It is possible to set default topology spread constraints for a cluster. Default
-topology spread constraints are applied to a Pod if, and only if:
+Il est possible de définir des contraintes de propagation de topologie par défaut pour un cluster. Les contraintes de propagation de topologie sont appliquées à un Pod si et seulement si :
 
-- It doesn't define any constraints in its `.spec.topologySpreadConstraints`.
-- It belongs to a service, replication controller, replica set or stateful set.
+- Il ne définit aucune contrainte dans son `.spec.topologySpreadConstraints`.
+- Il appartient à un service, replication controller, replica set ou stateful set.
 
-Default constraints can be set as part of the `PodTopologySpread` plugin args
-in a [scheduling profile](/docs/reference/scheduling/profiles).
-The constraints are specified with the same [API above](#api), except that
-`labelSelector` must be empty. The selectors are calculated from the services,
-replication controllers, replica sets or stateful sets that the Pod belongs to.
+Les contraintes par défaut peuvent être définies comme arguments du plugin `PodTopologySpread`
+dans un [profil de scheduling](/docs/reference/scheduling/profiles).
+Les contraintes sont spécifiées avec la même [API ci-dessus](#api), à l'exception que
+`labelSelector` doit être vide. Les sélecteurs sont calculés à partir des services,
+replication controllers, replica sets ou stateful sets auxquels le Pod appartient.
 
-An example configuration might look like follows:
+Un exemple de configuration pourrait ressembler à :
 
 ```yaml
 apiVersion: kubescheduler.config.k8s.io/v1alpha2
@@ -216,32 +215,26 @@ profiles:
 ```
 
 {{< note >}}
-The score produced by default scheduling constraints might conflict with the
-score produced by the
-[`DefaultPodTopologySpread` plugin](/docs/reference/scheduling/profiles/#scheduling-plugins).
-It is recommended that you disable this plugin in the scheduling profile when
-using default constraints for `PodTopologySpread`.
+Le score produit par les contraintes de scheduling par défaut peuvent rentrer en conflit avec le score
+produit par le [plugin `DefaultPodTopologySpread`](/docs/reference/scheduling/profiles/#scheduling-plugins).
+Il est recommandé de désactiver ce plugin dans le profil de scheduling lorsque vous utilisez des contraintes
+par défaut pour `PodTopologySpread`.
 {{< /note >}}
 
-## Comparison with PodAffinity/PodAntiAffinity
+## Comparaison avec PodAffinity/PodAntiAffinity
 
-In Kubernetes, directives related to "Affinity" control how Pods are
-scheduled - more packed or more scattered.
+Dans Kubernetes, les directives relatives aux "Affinités" contrôlent comment les Pods sont
+programmés - plus regroupés ou plus dispersés.
 
-- For `PodAffinity`, you can try to pack any number of Pods into qualifying
-  topology domain(s)
-- For `PodAntiAffinity`, only one Pod can be scheduled into a
-  single topology domain.
+- Pour `PodAffinity`, vous pouvez essayer de regrouper un certain nombre de Pods dans des domaines de topologie qualifiés,
+- Pour `PodAntiAffinity`, seulement un Pod peut être programmé dans un domaine de topologie unique.
 
-The "EvenPodsSpread" feature provides flexible options to distribute Pods evenly across different
-topology domains - to achieve high availability or cost-saving. This can also help on rolling update
-workloads and scaling out replicas smoothly. See [Motivation](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) for more details.
+La fonctionnalité "EvenPodsSpread" fournit des options flexibles pour distribuer des Pods uniformément sur différents domaines de topologie - pour mettre en place de la haute disponibilité ou réduire les coûts. Cela peut aussi aider
+au rolling update des charges de travail et à la mise à l'échelle de réplicas. Voir [Motivations](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/895-pod-topology-spread#motivation) pour plus de détails.
 
-## Known Limitations
+## Limitations connues
 
-As of 1.18, at which this feature is Beta, there are some known limitations:
+En version 1.18, pour laquelle cette fonctionnalité est en Beta, il y a quelques limitations connues :
 
-- Scaling down a Deployment may result in imbalanced Pods distribution.
-- Pods matched on tainted nodes are respected. See [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
-
-
+- Réduire un Déploiement peut résulter en une distrubution désiquilibrée des Pods.
+- Les Pods correspondants sur des noeuds taintés sont respectés. Voir [Issue 80921](https://github.com/kubernetes/kubernetes/issues/80921)
