@@ -400,7 +400,11 @@ systemctl restart containerd
 
 ### systemd
 
-`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 `plugins.cri.systemd_cgroup = true`을 설정한다.
+`systemd` cgroup driver를 사용하려면, `/etc/containerd/config.toml`의 
+
+`[plugins.cri]`
+
+`systemd_cgroup = true`을 설정한다.
 kubeadm을 사용하는 경우에도 마찬가지로, 수동으로
 [kubelet을 위한 cgroup 드라이버](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)를 설정한다.
 
