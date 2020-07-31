@@ -319,8 +319,8 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Berbagai Tipe Sumber Daya
 
-Mendapatkan seluruh daftar tipe sumber daya yang didukung lengkap dengan singkatan pendeknya, [grup API](/docs/concepts/overview/kubernetes-api/#api-groups),
-apakah sumber daya merupakan sumber daya yang berada di dalam Namespace atau tidak, serta [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+Mendapatkan seluruh daftar tipe sumber daya yang didukung lengkap dengan singkatan pendeknya, [grup API](/id/docs/concepts/overview/kubernetes-api/#api-groups),
+apakah sumber daya merupakan sumber daya yang berada di dalam Namespace atau tidak, serta [Kind](/id/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources

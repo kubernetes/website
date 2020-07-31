@@ -185,20 +185,22 @@ cd <web-base>
 make docker-serve
 ```
 
+{{< note >}}
+The use of `make docker-serve` is deprecated. Please use `make container-serve` instead.
+{{< /note >}}
+
 ## Commit the changes
 
 In `<web-base>` run `git add` and `git commit` to commit the change.
 
 Submit your changes as a
-[pull request](/docs/contribute/start/) to the
+[pull request](/docs/contribute/new-content/open-a-pr/) to the
 [kubernetes/website](https://github.com/kubernetes/website) repository.
 Monitor your pull request, and respond to reviewer comments as needed. Continue
 to monitor your pull request until it has been merged.
 
 
-
 ## {{% heading "whatsnext" %}}
-
 
 * [Generating Reference Documentation Quickstart](/docs/contribute/generate-ref-docs/quickstart/)
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/contribute/generate-ref-docs/kubernetes-components/)

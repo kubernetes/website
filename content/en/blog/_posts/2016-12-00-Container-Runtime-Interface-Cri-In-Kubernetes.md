@@ -215,14 +215,10 @@ CRI is being actively developed and maintained by the Kubernetes [SIG-Node](http
 
 
 
--
-Post issues or feature requests on [GitHub](https://github.com/kubernetes/kubernetes)
--
-Join the #sig-node channel on [Slack](https://kubernetes.slack.com/)
--
-Subscribe to the [SIG-Node mailing list](mailto:kubernetes-sig-node@googlegroups.com)
--
-Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
+- Post issues or feature requests on [GitHub](https://github.com/kubernetes/kubernetes)
+- Join the #sig-node channel on [Slack](https://kubernetes.slack.com/)
+- Subscribe to the [SIG-Node mailing list](mailto:kubernetes-sig-node@googlegroups.com)
+- Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
 
 
 

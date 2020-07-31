@@ -87,7 +87,7 @@ actions initiated by the application owner and those initiated by a Cluster
 Administrator.  Typical application owner actions include:
 -->
 
-我们称其他情况为*自愿干扰*。包括由应用程序所有者发起的操作和由集群管理员发起的操作。典型的应用程序所有者的
+我们称其他情况为*自愿干扰*。包括由应用程序所有者发起的操作和由集群管理员发起的操作。典型的应用程序所有者的操
 作包括：
 
 <!--

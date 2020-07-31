@@ -1,10 +1,10 @@
 ---
 title: Membuat sebuah klaster dengan control-plane tunggal menggunakan kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Perkakas <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm` membantu kamu membuat sebuah klaster Kubernetes minimum yang layak dan sesuai dengan _best practice_. Bahkan, kamu dapat menggunakan `kubeadm` untuk membuat sebuah klaster yang lolos [uji Kubernetes Conformance](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
 `kubeadm` juga mendukung fungsi siklus hidup (_lifecycle_)
@@ -22,9 +22,10 @@ server di _cloud_, sebuah Raspberry Pi, dan lain-lain. Baik itu men-_deploy_ pad
 _cloud_ ataupun _on-premise_, kamu dapat mengintegrasikan `kubeadm` pada sistem _provisioning_ seperti
 Ansible atau Terraform.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Untuk mengikuti panduan ini, kamu membutuhkan:
 
@@ -51,9 +52,9 @@ sedikit seiring dengan berevolusinya kubeadm, namun secara umum implementasinya 
 Semua perintah di dalam `kubeadm alpha`, sesuai definisi, didukung pada level _alpha_.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Tujuan
 
@@ -65,7 +66,7 @@ Semua perintah di dalam `kubeadm alpha`, sesuai definisi, didukung pada level _a
 
 ### Menginstal kubeadm pada hos
 
-Lihat ["Menginstal kubeadm"](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+Lihat ["Menginstal kubeadm"](/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 
 {{< note >}}
 Jika kamu sudah menginstal kubeadm sebelumnya, jalankan `apt-get update &&
@@ -93,7 +94,7 @@ yang spesifik pada penyedia tertentu. Lihat [Menginstal _add-on_ jaringan Pod](#
 3. (Opsional) Sejak versi 1.14, `kubeadm` mencoba untuk mendeteksi _runtime_ kontainer pada Linux
 dengan menggunakan daftar _domain socket path_ yang umum diketahui. Untuk menggunakan _runtime_ kontainer yang berbeda atau
 jika ada lebih dari satu yang terpasang pada Node yang digunakan, tentukan argumen `--cri-socket`
-pada `kubeadm init`. Lihat [Menginstal _runtime_](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
+pada `kubeadm init`. Lihat [Menginstal _runtime_](/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 4. (Opsional) Kecuali ditentukan sebelumnya, `kubeadm` akan menggunakan antarmuka jaringan yang diasosiasikan
 dengan _default gateway_ untuk mengatur alamat _advertise_ untuk API Server pada Node _control-plane_ ini.
 Untuk menggunakan antarmuka jaringan yang berbeda, tentukan argumen `--apiserver-advertise-address=<ip-address>` 
@@ -261,7 +262,7 @@ DNS klaster (CoreDNS) tidak akan menyala sebelum jaringan dipasangkan.**
   `--pod-network-cidr`, atau sebagai penggantinya pada YAML _plugin_ jaringan kamu).
 
 - Secara bawaan, `kubeadm` mengatur klastermu untuk menggunakan dan melaksanakan penggunaan
-  [RBAC](/docs/reference/access-authn-authz/rbac/) (_role based access control_).  
+  [RBAC](/id/docs/reference/access-authn-authz/rbac/) (_role based access control_).  
   Pastikan _plugin_ jaringan Pod mendukung RBAC, dan begitu juga seluruh manifes
   yang kamu gunakan untuk men-_deploy_-nya.
 
@@ -559,9 +560,9 @@ Lihat dokumentasi referensi [`kubeadm reset`](/docs/reference/setup-tools/kubead
 untuk informasi lebih lanjut mengenai sub-perintah ini dan
 opsinya.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Selanjutnya
 
@@ -570,14 +571,14 @@ opsinya.
   untuk detail mengenai pembaruan klaster menggunakan `kubeadm`.
 * Pelajari penggunaan `kubeadm` lebih lanjut pada [dokumentasi referensi kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm)
 * Pelajari lebih lanjut mengenai [konsep-konsep](/docs/concepts/) Kubernetes dan [`kubectl`](/docs/user-guide/kubectl-overview/).
-* Lihat halaman [Cluster Networking](/docs/concepts/cluster-administration/networking/) untuk daftar
+* Lihat halaman [Cluster Networking](/id/docs/concepts/cluster-administration/networking/) untuk daftar
 _add-on_ jaringan Pod yang lebih banyak.
-* <a id="other-addons" />Lihat [daftar _add-on_](/docs/concepts/cluster-administration/addons/) untuk
+* <a id="other-addons" />Lihat [daftar _add-on_](/id/docs/concepts/cluster-administration/addons/) untuk
   mengeksplor _add-on_ lainnya, termasuk perkakas untuk _logging_, _monitoring_, _network policy_, visualisasi &amp;
   pengendalian klaster Kubernetes.
 * Atur bagaimana klaster mengelola log untuk peristiwa-peristiwa klaster dan dari
   aplikasi-aplikasi yang berjalan pada Pod.
-  Lihat [Arsitektur Logging](/docs/concepts/cluster-administration/logging/) untuk
+  Lihat [Arsitektur Logging](/id/docs/concepts/cluster-administration/logging/) untuk
   gambaran umum tentang hal-hal yang terlibat.
 
 ### Umpan balik
@@ -601,7 +602,7 @@ Karena kita tidak dapat memprediksi masa depan, CLI kubeadm v{{< skew latestVers
 Sumber daya ini menyediakan informasi lebih lanjut mengenai _version skew_ yang didukung antara kubelet dan _control plane_, serta komponen Kubernetes lainnya:
 
 * [Kebijakan versi and version-skew Kubernetes](/docs/setup/release/version-skew-policy/)
-* [Panduan instalasi](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) spesifik untuk kubeadm
+* [Panduan instalasi](/id/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl) spesifik untuk kubeadm
 
 ## Keterbatasan
 
@@ -635,4 +636,4 @@ mendukung platform pilihanmu.
 
 Jika kamu menemui kesulitan dengan kubeadm, silakan merujuk pada [dokumen penyelesaian masalah](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
 
-{{% /capture %}}
+

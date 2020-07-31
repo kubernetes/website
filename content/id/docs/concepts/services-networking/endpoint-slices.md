@@ -45,7 +45,7 @@ term_id="selector" >}} dituliskan. EndpointSlice tersebut akan memiliki
 referensi-referensi menuju Pod manapun yang cocok dengan selektor pada Service tersebut. EndpointSlice mengelompokkan
 _endpoint_ jaringan berdasarkan kombinasi Service dan Port yang unik.
 Nama dari sebuah objek EndpointSlice haruslah berupa
-[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang sah.
+[nama subdomain DNS](/id/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang sah.
 
 Sebagai contoh, berikut merupakan sampel sumber daya EndpointSlice untuk sebuah Service Kubernetes 
 yang bernama `example`.
@@ -180,6 +180,6 @@ bersangkutan.
 
 
 * [Mengaktifkan EndpointSlice](/docs/tasks/administer-cluster/enabling-endpointslices)
-* Baca [Menghubungkan Aplikasi dengan Service](/docs/concepts/services-networking/connect-applications-service/)
+* Baca [Menghubungkan Aplikasi dengan Service](/id/docs/concepts/services-networking/connect-applications-service/)
 
 

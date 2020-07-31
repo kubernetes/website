@@ -1,7 +1,6 @@
 ---
 title: Docs smoke test page
 main_menu: false
-mermaid: true
 ---
 
 This page serves two purposes:
@@ -235,7 +234,6 @@ link target in parentheses. [Link to Kubernetes.io](https://kubernetes.io/) or
 You can also use HTML, but it is not preferred.
 <a href="https://kubernetes.io/">Link to Kubernetes.io</a>
 
-
 ## Images
 
 To format an image, use similar syntax to [links](#links), but add a leading `!`
@@ -298,7 +296,8 @@ tables, use HTML instead.
 
 ## Visualizations with Mermaid
 
-Add `mermaid: true` to the [front matter](https://gohugo.io/content-management/front-matter/) of any page to enable [Mermaid JS](https://mermaidjs.github.io) visualizations. The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
+The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
 
 ```
 {{</* mermaid */>}}

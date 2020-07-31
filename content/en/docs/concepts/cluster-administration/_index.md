@@ -7,6 +7,7 @@ weight: 100
 content_type: concept
 description: >
   Lower-level detail relevant to creating or administering a Kubernetes cluster.
+no_list: true
 ---
 
 <!-- overview -->
@@ -63,7 +64,7 @@ Before choosing a guide, here are some considerations:
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
-  * [Master-Node communication](/docs/concepts/architecture/master-node-communication/)
+  * [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
   * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
   * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
 

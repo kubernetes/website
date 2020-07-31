@@ -91,6 +91,7 @@ $feature-box-div-width: 45%;
         max-width: 25%;
         max-height: 100%;
         transform: translateY(-50%);
+        width: 100%;
       }
 
       &:nth-child(odd) {
@@ -98,6 +99,7 @@ $feature-box-div-width: 45%;
 
         .image-wrapper {
           right: 0;
+          text-align: right;
         }
       }
 
@@ -106,6 +108,7 @@ $feature-box-div-width: 45%;
 
         .image-wrapper {
           left: 0;
+          text-align: left;
         }
       }
 

@@ -39,7 +39,7 @@ dan bisa saling berkomunikasi melalui `localhost`. Komunikasi tersebut mengunaka
 standar _inter-process communications_ (IPC) seperti SystemV semaphores 
 atau POSIX shared memory. Kontainer pada Pod yang berbeda memiliki alamat IP 
 yang berbeda dan tidak dapat berkomunikasi menggunakan IPC tanpa 
-[pengaturan khusus](/docs/concepts/policy/pod-security-policy/). Kontainer ini
+[pengaturan khusus](/id/docs/concepts/policy/pod-security-policy/). Kontainer ini
 biasa berkomunikasi dengan yang lain menggunakan alamat IP setiap Pod.
 
 Aplikasi dalam suatu Pod juga memiliki akses ke {{< glossary_tooltip text="ruang penyimpanan" term_id="volume" >}} bersama, 
@@ -51,14 +51,14 @@ gabungan dari kontainer Docker yang berbagi _namespace_ dan ruang penyimpanan _f
 
 Layaknya aplikasi dengan kontainer, Pod dianggap sebagai entitas yang relatif tidak kekal 
 (tidak bertahan lama). Seperti yang didiskusikan dalam 
-[siklus hidup Pod](/docs/concepts/workloads/pods/pod-lifecycle/), Pod dibuat, diberikan
+[siklus hidup Pod](/id/docs/concepts/workloads/pods/pod-lifecycle/), Pod dibuat, diberikan
 ID unik (UID), dan dijadwalkan pada suatu mesin dan akan tetap disana hingga dihentikan
 (bergantung pada aturan _restart_) atau dihapus. Jika {{< glossary_tooltip text="mesin" term_id="node" >}}
 mati, maka semua Pod pada mesin tersebut akan dijadwalkan untuk dihapus, namun setelah 
 suatu batas waktu. Suatu Pod tertentu (sesuai dengan ID unik) tidak akan dijadwalkan ulang
 ke mesin baru, namun akan digantikan oleh Pod yang identik, bahkan jika dibutuhkan bisa 
 dengan nama yang sama, tapi dengan ID unik yang baru 
-(baca [_replication controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 
+(baca [_replication controller_](/id/docs/concepts/workloads/controllers/replicationcontroller/) 
 untuk info lebih lanjut)
 
 Ketika sesuatu dikatakan memiliki umur yang sama dengan Pod, misalnya saja ruang penyimpanan,
@@ -96,7 +96,7 @@ dan Pod lain dalam jaringan yang sama.
 
 Kontainer dalam suatu Pod melihat _hostname_ sistem sebagai sesuatu yang sama
 dengan konfigurasi `name` pada Pod. Informasi lebih lanjut terdapat dibagian
-[jaringan](/docs/concepts/cluster-administration/networking/).
+[jaringan](/id/docs/concepts/cluster-administration/networking/).
 
 Sebagai tambahan dalam mendefinisikan kontainer aplikasi yang berjalan dalam Pod,
 Pod memberikan sepaket sistem penyimpanan bersama. Sistem penyimpanan memungkinkan
@@ -153,10 +153,10 @@ kasus mesin sedang dalam pemeliharaan.
 
 Secara umum, pengguna tidak seharusnya butuh membuat Pod secara langsung. Mereka 
 seharusnya selalu menggunakan pengontrol, sekalipun untuk yang tunggal, misalnya,
-[_Deployment_](/docs/concepts/workloads/controllers/deployment/). Pengontrol
+[_Deployment_](/id/docs/concepts/workloads/controllers/deployment/). Pengontrol
 menyediakan penyembuhan diri dengan ruang lingkup kelompok, begitu juga dengan
 pengelolaan replikasi dan penluncuran. 
-Pengontrol seperti [_StatefulSet_](/docs/concepts/workloads/controllers/statefulset.md)
+Pengontrol seperti [_StatefulSet_](/id/docs/concepts/workloads/controllers/statefulset.md)
 bisa memberikan dukungan terhadap Pod yang _stateful_.
 
 Penggunaan API kolektif sebagai _user-facing primitive_ utama adalah hal yang
@@ -202,7 +202,7 @@ bersama dengan masa tenggang.
 1. (bersamaan dengan poin 3) Ketika Kubelet melihat Pod sudah ditandai sebagai 
 "Terminating" karena waktu pada poin 2 sudah diatur, ini memulai proses penghentian Pod
 	1. Jika salah satu kontainer pada Pod memiliki 
-	[preStop _hook_](/docs/concepts/containers/container-lifecycle-hooks/#hook-details), 
+	[preStop _hook_](/id/docs/concepts/containers/container-lifecycle-hooks/#hook-details), 
 	maka akan dipanggil di dalam kontainer. Jika `preStop` _hook_ masih berjalan
 	setelah masa tenggang habis, langkah 2 akan dipanggil dengan tambahan masa tenggang
 	yang sedikit, 2 detik.
@@ -223,7 +223,7 @@ Secara _default_, semua penghapusan akan berjalan normal selama 30 detik. Perint
 `kubectl delete` mendukung opsi `--grace-period=<waktu dalam detik>` yang akan
 memperbolehkan pengguna untuk menimpa nilai awal dan memberikan nilai sesuai keinginan
 pengguna. Nilai `0` akan membuat Pod
-[dihapus paksa](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods).
+[dihapus paksa](/id/docs/concepts/workloads/pods/pod/#force-deletion-of-pods).
 Kamu harus memberikan opsi tambahan `--force` bersamaan dengan `--grace-period=0`
 untuk melakukan penghapusan paksa.
 
@@ -243,7 +243,7 @@ dokumentasi untuk [penghentian Pod dari StatefulSet](/docs/tasks/run-application
 ## Hak istimewa untuk kontainer pada Pod
 
 Setiap kontainer dalam Pod dapat mengaktifkan hak istimewa (mode _privileged_), dengan menggunakan tanda
-`privileged` pada [konteks keamanan](/docs/tasks/configure-pod-container/security-context/)
+`privileged` pada [konteks keamanan](/id/docs/tasks/configure-pod-container/security-context/)
 pada spesifikasi kontainer. Ini akan berguna untuk kontainer yang ingin menggunakan 
 kapabilitas Linux seperti memanipulasi jaringan dan mengakses perangkat. Proses dalam
 kontainer mendapatkan hak istimewa yang hampir sama dengan proses di luar kontainer.

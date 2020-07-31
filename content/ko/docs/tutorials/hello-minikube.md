@@ -118,7 +118,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```
 
 {{< note >}}
-    `kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/docs/user-guide/kubectl-overview/)을 살펴보자.
+    `kubectl` 명령어에 관해 자세히 알기 원하면 [kubectl 개요](/ko/docs/reference/kubectl/overview/)을 살펴보자.
 {{< /note >}}
 
 ## 서비스 만들기

@@ -63,10 +63,8 @@ du tableau de PodCondition a six champs possibles :
   * `PodScheduled` : le Pod a été affecté à un nœud ;
   * `Ready` : le Pod est prêt à servir des requêtes et doit être rajouté aux équilibreurs
     de charge de tous les Services correspondants ;
-  * `Initialized` : tous les [init containers](/docs/concepts/workloads/pods/init-containers)
+  * `Initialized` : tous les [init containers](/fr/docs/concepts/workloads/pods/init-containers)
     ont démarré correctement ;
-  * `Unschedulable` : le scheduler ne peut pas affecter le Pod pour l'instant, par exemple
-    par manque de ressources ou en raison d'autres contraintes ;
   * `ContainersReady` : tous les conteneurs du Pod sont prêts.
 
 
@@ -98,12 +96,12 @@ Chaque sonde a un résultat parmi ces trois :
 * Failure: Le Conteneur a échoué au diagnostic.
 * Unknown: L'exécution du diagnostic a échoué, et donc aucune action ne peut être prise.
 
-kubelet peut optionnellement exécuter et réagir à deux types de sondes sur des conteneurs
+kubelet peut optionnellement exécuter et réagir à trois types de sondes sur des conteneurs
 en cours d'exécution :
 
 * `livenessProbe` : Indique si le Conteneur est en cours d'exécution. Si
    la liveness probe échoue, kubelet tue le Conteneur et le Conteneur
-   est soumis à sa [politique de redémarrage](#restart-policy) (restart policy).
+   est soumis à sa [politique de redémarrage](#politique-de-redemarrage) (restart policy).
    Si un Conteneur ne fournit pas de liveness probe, l'état par défaut est `Success`.
 
 * `readinessProbe` : Indique si le Conteneur est prêt à servir des requêtes.
@@ -113,7 +111,13 @@ en cours d'exécution :
    `Failure`. Si le Conteneur ne fournit pas de readiness probe, l'état par
    défaut est `Success`.
 
-### Quand devez-vous utiliser une liveness ou une readiness probe ?
+* `startupProbe`: Indique si l'application à l'intérieur du conteneur a démarré.
+   Toutes les autres probes sont désactivées si une starup probe est fournie,
+   jusqu'à ce qu'elle réponde avec succès. Si la startup probe échoue, le kubelet
+   tue le conteneur, et le conteneur est assujetti à sa [politique de redémarrage](#politique-de-redemarrage).
+   Si un conteneur ne fournit pas de startup probe, l'état par défaut est `Success`.
+
+### Quand devez-vous utiliser une liveness probe ?
 
 Si le process de votre Conteneur est capable de crasher de lui-même lorsqu'il
 rencontre un problème ou devient inopérant, vous n'avez pas forcément besoin
@@ -123,6 +127,10 @@ en accord avec la politique de redémarrage (`restartPolicy`) du Pod.
 Si vous désirez que votre Conteneur soit tué et redémarré si une sonde échoue, alors
 spécifiez une liveness probe et indiquez une valeur pour `restartPolicy` à Always
 ou OnFailure.
+
+### Quand devez-vous utiliser une readiness probe ?
+
+{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 Si vous voulez commencer à envoyer du trafic à un Pod seulement lorsqu'une sonde
 réussit, spécifiez une readiness probe. Dans ce cas, la readiness probe peut être
@@ -142,8 +150,16 @@ de sa suppression, le Pod se met automatiquement dans un état non prêt, que la
 readiness probe existe ou non.
 Le Pod reste dans le statut non prêt le temps que les Conteneurs du Pod s'arrêtent.
 
-Pour plus d'informations sur la manière de mettre en place une liveness ou readiness probe,
-voir [Configurer des Liveness et Readiness Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+### Quand devez-vous utiliser une startup probe ?
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+Si votre conteneur démarre habituellement en plus de `initialDelaySeconds + failureThreshold × periodSeconds`, 
+vous devriez spécifier une startup probe qui vérifie le même point de terminaison que la liveness probe. La valeur par défaut pour `periodSeconds` est 30s.
+Vous devriez alors mettre sa valeur `failureThreshold` suffisamment haute pour permettre au conteneur de démarrer, sans changer les valeurs par défaut de la liveness probe. Ceci aide à se protéger de deadlocks.
+
+Pour plus d'informations sur la manière de mettre en place une liveness, readiness ou startup probe,
+voir [Configurer des Liveness, Readiness et Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 ## Statut d'un Pod et d'un Conteneur
 
@@ -172,9 +188,7 @@ d'informations.
    ...
    ```
 
-* `Running` : Indique que le conteneur s'exécute sans problème. Une fois qu'un centeneur est
-dans l'état Running, le hook `postStart` est exécuté (s'il existe). Cet état affiche aussi
-le moment auquel le conteneur est entré dans l'état Running.
+* `Running` : Indique que le conteneur s'exécute sans problème. Le hook `postStart` (s'il existe) est exécuté avant que le conteneur entre dans l'état Running. Cet état affiche aussi le moment auquel le conteneur est entré dans l'état Running.
 
    ```yaml
    ...
@@ -199,27 +213,30 @@ dans l'état Terminated, le hook `preStop` est exécuté (s'il existe).
     ...
    ```
 
-## Pod readiness gate
+## Pod readiness {#pod-readiness-gate}
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-Afin d'étendre la readiness d'un Pod en autorisant l'injection de données
-supplémentaires ou des signaux dans `PodStatus`, Kubernetes 1.11 a introduit
-une fonctionnalité appelée [Pod ready++](https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready%2B%2B.md).
-Vous pouvez utiliser le nouveau champ `ReadinessGate` dans `PodSpec`
-pour spécifier des conditions additionnelles à évaluer pour la readiness d'un Pod.
-Si Kubernetes ne peut pas trouver une telle condition dans le champ `status.conditions`
-d'un Pod, le statut de la condition est "`False`" par défaut. Voici un exemple :
+Votre application peut injecter des données dans `PodStatus`.
+
+_Pod readiness_. Pour utiliser cette fonctionnalité, remplissez `readinessGates` dans le PodSpec avec
+une liste de conditions supplémentaires que le kubelet évalue pour la disponibilité du Pod.
+
+Les Readiness gates sont déterminées par l'état courant des champs `status.condition` du Pod.
+Si Kubernetes ne peut pas trouver une telle condition dans le champs `status.conditions` d'un Pod, the statut de la condition
+est mise par défaut à "`False`".
+
+Voici un exemple :
 
 ```yaml
-Kind: Pod
+kind: Pod
 ...
 spec:
   readinessGates:
     - conditionType: "www.example.com/feature-1"
 status:
   conditions:
-    - type: Ready  # ceci est une builtin PodCondition
+    - type: Ready  # une PodCondition intégrée
       status: "False"
       lastProbeTime: null
       lastTransitionTime: 2018-01-01T00:00:00Z
@@ -233,27 +250,26 @@ status:
 ...
 ```
 
-Les nouvelles conditions du Pod doivent être conformes au [format des étiquettes](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) de Kubernetes.
-La commande `kubectl patch` ne prenant pas encore en charge la modifictaion du statut
-des objets, les nouvelles conditions du Pod doivent être injectées avec
-l'action `PATCH` en utilisant une des [bibliothèques KubeClient](/docs/reference/using-api/client-libraries/).
+Les conditions du Pod que vous ajoutez doivent avoir des noms qui sont conformes au [format des étiquettes](/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set) de Kubernetes.
 
-Avec l'introduction de nouvelles conditions d'un Pod, un Pod est considéré comme prêt
-**seulement** lorsque les deux déclarations suivantes sont vraies :
+### Statut de la disponibilité d'un Pod {#statut-pod-disponibilité}
+
+La commande `kubectl patch` ne peut pas patcher le statut d'un objet.
+Pour renseigner ces `status.conditions` pour le pod, les applications et
+{{< glossary_tooltip term_id="operator-pattern" text="operators">}} doivent utiliser l'action `PATCH`.
+Vous pouvez utiliser une [bibliothèque client Kubernetes](/docs/reference/using-api/client-libraries/) pour
+écrire du code qui renseigne les conditions particulières pour la disponibilité dun Pod.
+
+Pour un Pod utilisant des conditions particulières, ce Pod est considéré prêt **seulement**
+lorsque les deux déclarations ci-dessous sont vraies :
 
 * Tous les conteneurs du Pod sont prêts.
-* Toutes les conditions spécifiées dans `ReadinessGates` sont à "`True`".
+* Toutes les conditions spécifiées dans `ReadinessGates` sont `True`.
 
-Pour faciliter le changement de l'évaluation de la readiness d'un Pod,
-une nouvelle condition de Pod `ContainersReady` est introduite pour capturer
-l'ancienne condition `Ready` d'un Pod.
+Lorsque les conteneurs d'un Pod sont prêts mais qu'au moins une condition particulière
+est manquante ou `False`, le kubelet renseigne la condition du Pod à `ContainersReady`.
 
-Avec K8s 1.11, en tant que fonctionnalité alpha, "Pod Ready++" doit être explicitement activé en mettant la [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `PodReadinessGates`
-à true.
-
-Avec K8s 1.12, la fonctionnalité est activée par défaut.
-
-## Restart policy
+## Politique de redémarrage
 
 La structure PodSpec a un champ `restartPolicy` avec comme valeur possible
 Always, OnFailure et Never. La valeur par défaut est Always.
@@ -267,33 +283,30 @@ une fois attaché à un nœud, un Pod ne sera jamais rattaché à un autre nœud
 
 ## Durée de vie d'un Pod
 
-En général, un Pod ne disparaît pas avant que quelqu'un le détruise. Ceci peut être
-un humain ou un contrôleur. La seule exception à cette règle est pour les Pods ayant
-une `phase` Succeeded ou Failed depuis une durée donnée (déterminée
-par `terminated-pod-gc-threshold` sur le master), qui expireront et seront
-automatiquement détruits.
+En général, les Pods restent jusqu'à ce qu'un humain ou un process de
+{{< glossary_tooltip term_id="controller" text="contrôleur" >}} les supprime explicitement.
 
-Trois types de contrôleurs sont disponibles :
+Le plan de contrôle nettoie les Pods terminés (avec une phase à `Succeeded` ou
+`Failed`), lorsque le nombre de Pods excède le seuil configuré
+(determiné par `terminated-pod-gc-threshold` dans le kube-controller-manager).
+Ceci empêche une fuite de ressources lorsque les Pods sont créés et supprimés au fil du temps.
 
-- Utilisez un [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) pour des
-Pods qui doivent se terminer, par exemple des calculs par batch. Les Jobs sont appropriés
+Il y a différents types de ressources pour créer des Pods :
+
+- Utilisez un {{< glossary_tooltip term_id="deployment" >}},
+  {{< glossary_tooltip term_id="replica-set" >}} ou {{< glossary_tooltip term_id="statefulset" >}}
+  pour les Pods qui ne sont pas censés terminer, par exemple des serveurs web.
+
+- Utilisez un {{< glossary_tooltip term_id="job" >}}
+  pour les Pods qui sont censés se terminer une fois leur tâche accomplie. Les Jobs sont appropriés
 seulement pour des Pods ayant `restartPolicy` égal à OnFailure ou Never.
 
-- Utilisez un [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/),
-  [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) ou
-  [Deployment](/docs/concepts/workloads/controllers/deployment/)
-  pour des Pods qui ne doivent pas s'arrêter, par exemple des serveurs web.
-  ReplicationControllers sont appropriés pour des Pods ayant `restartPolicy` égal à
-  Always.
+- Utilisez un {{< glossary_tooltip term_id="daemonset" >}}
+  pour les Pods qui doivent s'exécuter sur chaque noeud éligible.
 
-- Utilisez un [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) pour des Pods
-  qui doivent s'exécuter une fois par machine, car ils fournissent un service système
-  au niveau de la machine.
-
-Les trois types de contrôleurs contiennent un PodTemplate. Il est recommandé
-de créer le contrôleur approprié et de le laisser créer les Pods, plutôt que de
-créer directement les Pods vous-même. Ceci car les Pods seuls ne sont pas résilients
-aux pannes machines, alors que les contrôleurs le sont.
+Toutes les ressources de charges de travail contiennent une PodSpec. Il est recommandé de créer
+la ressource de charges de travail appropriée et laisser le contrôleur de la ressource créer les Pods
+pour vous, plutôt que de créer directement les Pods vous-même.
 
 Si un nœud meurt ou est déconnecté du reste du cluster, Kubernetes applique
 une politique pour mettre la `phase` de tous les Pods du nœud perdu à Failed.
@@ -391,7 +404,7 @@ spec:
   [attacher des handlers à des événements de cycle de vie d'un conteneur](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
 * Apprenez par la pratique
-  [configurer des liveness et readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/).
+  [configurer des liveness, readiness et startup probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 
 * En apprendre plus sur les [hooks de cycle de vie d'un Conteneur](/docs/concepts/containers/container-lifecycle-hooks/).
 

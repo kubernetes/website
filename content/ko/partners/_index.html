@@ -7,79 +7,90 @@ cid: partners
 ---
 
 <section id="users">
-    <main class="main-section">
-        <h5>쿠버네티스는 파트너와 협력하여 다양하게 보완하는 플랫폼을 지원하는 강력하고 활기찬 코드베이스를 만들어갑니다.</h5>
-        <div class="col-container">
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>공인 쿠버네티스 서비스 공급자(Kubernetes Certified Service Providers, KCSP)</b>
-              </h5>
-              <br>기업들이 쿠버네티스를 성공적으로 채택하도록 도와주는 풍부한 경험을 가진 노련한 서비스 공급자입니다.
-              <br><br><br>
-              <button id="kcsp" class="button" onClick="updateSrc(this.id)">KCSP 파트너 보기</button>
-              <br><br><a href="https://www.cncf.io/certification/kcsp/">KCSP</a>에 관심이 있으신가요?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5>
-                <b>공인 쿠버네티스 배포, 호스트된 플랫폼 그리고 설치 프로그램</b>
-              </h5>소프트웨어 적합성은 모든 벤더의 쿠버네티스 버전이 필요한 API를 지원하도록 보장합니다.
-              <br><br><br>
-              <button id="conformance" class="button" onClick="updateSrc(this.id)">적합한 파트너 보기</button>
-              <br><br><a href="https://www.cncf.io/certification/software-conformance/">공인 쿠버네티스</a>에 관심이 있으신가요?
-            </center>
-          </div>
-          <div class="col-nav">
-            <center>
-              <h5><b>쿠버네티스 교육 파트너(Kubernetes Training Partners, KTP)</b></h5>
-              <br>클라우드 네이티브 기술 교육 경험이 풍부하고 노련한 교육 공급자입니다.
-              <br><br><br><br>
-              <button id="ktp" class="button" onClick="updateSrc(this.id)">KTP 파트너 보기</button>
-              <br><br><a href="https://www.cncf.io/certification/training/">KTP</a>에 관심이 있으신가요?
-            </center>
-          </div>
-        </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script type="text/javascript">
+  <main class="main-section">
+    <h5>쿠버네티스는 파트너와 협력하여 다양하게 보완하는 플랫폼을 지원하는 강력하고 활기찬 코드베이스를 만들어갑니다.</h5>
+    <div class="col-container">
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>공인 쿠버네티스 서비스 공급자(Kubernetes Certified Service Providers, KCSP)</b>
+          </h5>
+          <br>기업들이 쿠버네티스를 성공적으로 채택하도록 도와주는 풍부한 경험을 가진 노련한 서비스 공급자입니다.
+          <br><br><br>
+          <button id="kcsp" class="button" onClick="updateSrc(this.id)">KCSP 파트너 보기</button>
+          <br><br><a href="https://www.cncf.io/certification/kcsp/">KCSP</a>에
+	  관심이 있으신가요?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>공인 쿠버네티스 배포, 호스트된 플랫폼 그리고 설치 프로그램</b>
+          </h5>소프트웨어 적합성은 모든 벤더의 쿠버네티스 버전이 필요한 API를 지원하도록 보장합니다.
+          <br><br><br>
+          <button id="conformance" class="button" onClick="updateSrc(this.id)">적합한 파트너 보기</button>
+          <br><br><a href="https://www.cncf.io/certification/software-conformance/">공인 쿠버네티스</a>에
+	  관심이 있으신가요?
+        </center>
+      </div>
+      <div class="col-nav">
+        <center>
+          <h5>
+            <b>쿠버네티스 교육 파트너(Kubernetes Training Partners, KTP)</b>
+	  </h5>
+          <br>클라우드 네이티브 기술 교육 경험이 풍부하고 노련한 교육 공급자입니다.
+          <br><br><br>
+          <button id="ktp" class="button" onClick="updateSrc(this.id)">KTP 파트너 보기</button>
+          <br><br><a href="https://www.cncf.io/certification/training/">KTP</a>에
+	  관심이 있으신가요?
+        </center>
+      </div>
+    </div>
+    <script crossorigin="anonymous" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
 
-			var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
-			var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
+      var defaultLink = "https://landscape.cncf.io/category=kubernetes-certified-service-provider&format=card-mode&grouping=category&embed=yes";
+      var firstLink = "https://landscape.cncf.io/category=certified-kubernetes-distribution,certified-kubernetes-hosted,certified-kubernetes-installer&format=card-mode&grouping=category&embed=yes";
       var secondLink = "https://landscape.cncf.io/category=kubernetes-training-partner&format=card-mode&grouping=category&embed=yes";
 
       function updateSrc(buttonId) {
-      	if (buttonId == "kcsp") {
-        		$("#landscape").attr("src",defaultLink);
-            window.location.hash = "#kcsp";
+        if (buttonId == "kcsp") {
+          $("#landscape").attr("src", defaultLink);
+          window.location.hash = "#kcsp";
         }
         if (buttonId == "conformance") {
-         		$("#landscape").attr("src",firstLink);
-            window.location.hash = "#conformance";
+          $("#landscape").attr("src", firstLink);
+          window.location.hash = "#conformance";
         }
         if (buttonId == "ktp") {
-        		$("#landscape").attr("src",secondLink);
-            window.location.hash = "#ktp";
+          $("#landscape").attr("src", secondLink);
+          window.location.hash = "#ktp";
         }
       }
 
       // Automatically load the correct iframe based on the URL fragment
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function() {
         var showContent = "kcsp";
         if (window.location.hash) {
-          console.log('hash is:', window.location.hash.substring(1));
-          showContent = window.location.hash.substring(1);
+          console.log("hash is:", window
+            .location
+            .hash
+            .substring(1));
+          showContent = window
+            .location
+            .hash
+            .substring(1);
         }
         updateSrc(showContent);
       });
-</script>
-<body>
-    <div id="frameHolder">
-      <iframe id="landscape" title="CNCF Landscape" frameBorder="0" scrolling="no" style="width: 1px; min-width: 100%" src=""></iframe>
-      <script src="https://landscape.cncf.io/iframeResizer.js"></script>
-    </div>
-</body>
-    </main>
+    </script>
+    <body>
+      <div id="frameHolder">
+        <iframe frameborder="0" id="landscape" scrolling="no" src="" style="width: 1px; min-width: 100%" title="CNCF Landscape"></iframe>
+        <script src="https://landscape.cncf.io/iframeResizer.js"></script>
+      </div>
+    </body>
+  </main>
 </section>
 
 <style>

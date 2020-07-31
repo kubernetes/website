@@ -80,7 +80,7 @@ pun, sehingga sulit untuk memecahkan masalah _image distroless_ dengan
 menggunakan `kubectl exec` saja.
 
 Saat menggunakan kontainer sementara, akan sangat membantu untuk mengaktifkan
-[_process namespace sharing_](/docs/tasks/configure-pod-container/share-process-namespace/)
+[_process namespace sharing_](/id/docs/tasks/configure-pod-container/share-process-namespace/)
 sehingga kamu dapat melihat proses pada kontainer lain.
 
 ### Contoh

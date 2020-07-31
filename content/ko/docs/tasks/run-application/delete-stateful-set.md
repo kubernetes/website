@@ -52,7 +52,7 @@ kubectl delete pods -l app=myapp
 
 ### 퍼시스턴트볼륨(PersistentVolume)
 
-스테이트풀셋의 파드들을 삭제하는 것이 연결된 볼륨을 삭제하는 것은 아니다. 이것은 볼륨을 삭제하기 전에 볼륨에서 데이터를 복사할 수 있는 기회를 준다. 파드들이 [terminating 상태](/ko/docs/concepts/workloads/pods/pod/#termination-of-pods)가 된 후 PVC를 삭제하는 것은 스토리지클래스(StorageClass) 와 반환 정책에 따라 백업 퍼시스턴트볼륨이 삭제될 수도 있다. 클레임 삭제 후 볼륨에 접근할 수 있다고 가정하면 안된다.
+스테이트풀셋의 파드들을 삭제하는 것이 연결된 볼륨을 삭제하는 것은 아니다. 이것은 볼륨을 삭제하기 전에 볼륨에서 데이터를 복사할 수 있는 기회를 준다. 파드들이 [terminating 상태](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)가 된 후 PVC를 삭제하는 것은 스토리지클래스(StorageClass) 와 반환 정책에 따라 백업 퍼시스턴트볼륨이 삭제될 수도 있다. 클레임 삭제 후 볼륨에 접근할 수 있다고 가정하면 안된다.
 
 {{< note >}}
 PVC를 삭제할 때 데이터 손실될 수 있음에 주의하자.
@@ -82,7 +82,3 @@ kubectl delete pvc -l app=myapp
 
 
 [스테이트풀셋 파드 강제 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 알아보기.
-
-
-
-

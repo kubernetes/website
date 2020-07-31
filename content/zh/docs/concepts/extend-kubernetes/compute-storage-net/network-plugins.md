@@ -14,9 +14,9 @@ weight: 10
 
 {{< feature-state state="alpha" >}}
 <!--
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+{{< caution >}}Alpha features can change rapidly. {{< /caution >}}
 -->
-{{< warning >}}Alpha 特性迅速变化。{{< /warning >}}
+{{< caution >}}Alpha 特性可能很快会变化。{{< /caution >}}
 
 <!--
 Network plugins in Kubernetes come in a few flavors:
@@ -36,7 +36,7 @@ Kubernetes中的网络插件有几种类型：
 <!--
 ## Installation
 
-The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it found, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
+The kubelet has a single default network plugin, and a default network common to the entire cluster. It probes for plugins when it starts up, remembers what it finds, and executes the selected plugin at appropriate times in the pod lifecycle (this is only true for Docker, as rkt manages its own CNI plugins). There are two Kubelet command line parameters to keep in mind when using plugins:
 
 * `cni-bin-dir`: Kubelet probes this directory for plugins on startup
 * `network-plugin`: The network plugin to use from `cni-bin-dir`.  It must match the name reported by a plugin probed from the plugin directory.  For CNI plugins, this is simply "cni".
@@ -71,7 +71,7 @@ iptables 代理显然依赖于 iptables，插件可能需要确保 iptables 能�
 
 The CNI plugin is selected by passing Kubelet the `--network-plugin=cni` command-line option.  Kubelet reads a file from `--cni-conf-dir` (default `/etc/cni/net.d`) and uses the CNI configuration from that file to set up each pod's network.  The CNI configuration file must match the [CNI specification](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration), and any required CNI plugins referenced by the configuration must be present in `--cni-bin-dir` (default `/opt/cni/bin`).
 
-If there are multiple CNI configuration files in the directory, the first one in lexicographic order of file name is used.
+If there are multiple CNI configuration files in the directory, the kubelet uses the configuration file that comes first by name in lexicographic order.
 
 In addition to the CNI plugin specified by the configuration file, Kubernetes requires the standard CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) plugin, at minimum version 0.2.0
 -->
@@ -81,7 +81,7 @@ In addition to the CNI plugin specified by the configuration file, Kubernetes re
 Kubelet 从 `--cni-conf-dir` （默认是 `/etc/cni/net.d`） 读取文件并使用该文件中的 CNI 配置来设置每个 pod 的网络。
 CNI 配置文件必须与 [CNI 规约](https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration)匹配，并且配置引用的任何所需的 CNI 插件都必须存在于 `--cni-bin-dir`（默认是 `/opt/cni/bin`）。
 
-如果这个目录中有多个 CNI 配置文件，则使用按文件名的字典顺序排列的第一个配置文件。
+如果这个目录中有多个 CNI 配置文件，kubelet 将会使用按文件名的字典顺序排列的第一个作为配置文件。
 
 除了配置文件指定的 CNI 插件外，Kubernetes 还需要标准的 CNI [`lo`](https://github.com/containernetworking/plugins/blob/master/plugins/main/loopback/loopback.go) 插件，最低版本是0.2.0。
 
@@ -134,20 +134,24 @@ CNI 网络插件支持 `hostPort`。 您可以使用官方 [portmap](https://git
 <!--
 #### Support traffic shaping
 
+**Experimental Feature**
+
 The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
 
-If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
-(default `/etc/cni/net.d`).
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 -->
 #### 支持流量整形
+
+**实验功能**
 
 CNI 网络插件还支持 pod 入口和出口流量整形。
 您可以使用 CNI 插件团队提供的 [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth) 插件，
 也可以使用您自己的具有带宽控制功能的插件。
 
 如果您想要启用流量整形支持，你必须将 `bandwidth` 插件添加到 CNI 配置文件
-（默认是 `/etc/cni/net.d`）。
+（默认是 `/etc/cni/net.d`）并保证该可执行文件包含在您的 CNI 的 bin 文件夹内 (默认为 `/opt/cni/bin`)。
 
 ```json
 {
