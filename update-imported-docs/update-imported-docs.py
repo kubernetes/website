@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ##
-# This script was tested with Python 3.7.4, Go 1.13+, and PyYAML 5.1.2
+# This script was tested with Python 3.7.4, Go 1.14.4+, and PyYAML 5.1.2
 # installed in a virtual environment.
 # This script assumes you have the Python package manager 'pip' installed.
 #
@@ -18,11 +18,12 @@
 # This work_dir will temporarily become the GOPATH.
 #
 # To execute the script from the website/update-imported-docs directory:
-# ./update-imported-docs.py <config_file> <k8s_release>
+# ./update-imported-docs.py <config_file> <k8s_release> --rc <rc_num>
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
 # K8S_RELEASE: provide the release version such as, 1.17
+# RC_NUM: optional, provide the release candidate number, such as 3
 ##
 
 import argparse
@@ -160,14 +161,19 @@ def parse_input_args():
     'config_file' is the first argument; it should be one of the YAML
     files in this same directory
     'k8s_release' is the second argument; provide the release version
+    'rc' is an optional argument; provide the release candidate number
     :return: parsed argument
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('config_file', type=str,
                         help="reference.yml to generate reference docs; "
                              "release.yml to generate release notes")
+
     parser.add_argument('k8s_release', type=str,
                         help="k8s release version, ex: 1.17"
+                        )
+    parser.add_argument("--rc", type=str,
+                        help="k8s release candidate number, ex: 3"
                         )
     return parser.parse_args()
 
@@ -187,6 +193,12 @@ def main():
     # second parse input argument
     k8s_release = in_args.k8s_release
     print("k8s_release is {}".format(k8s_release))
+
+    # third parse input argument
+    rc_num = 0
+    if in_args.rc:
+        rc_num = in_args.rc
+    print("rc_num is {}".format(rc_num))
 
     curr_dir = os.path.dirname(os.path.abspath(__file__))
     print("curr_dir {}".format(curr_dir))
@@ -246,11 +258,32 @@ def main():
         os.chdir(repo_path)
         if "generate-command" in repo:
             gen_cmd = repo["generate-command"]
-            gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
-                "export GOPATH=" + work_dir + "\n" + \
-                "export K8S_ROOT=" + work_dir + \
-                "/src/k8s.io/kubernetes" + "\n" + \
-                "export K8S_WEBROOT=" + root_dir + "\n" + gen_cmd
+            gen_clone = repo["generate-clone"]
+
+            if rc_num != 0:
+                if "generate-clone-rc" in repo:
+                    gen_clone = repo["generate-clone-rc"]
+                    gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
+                    "export GOPATH=" + work_dir + "\n" + \
+                    "export K8S_ROOT=" + work_dir + \
+                    "/src/k8s.io/kubernetes" + "\n" + \
+                    "export K8S_WEBROOT=" + root_dir + "\n" + \
+                    "export RC_NUM=" + rc_num + "\n" + gen_clone + gen_cmd
+                else:
+                    print("[Error] generate-clone-rc missing in configuration")
+                    continue
+            else:
+                if "generate-clone" in repo:
+                    gen_clone = repo["generate-clone"]
+                    gen_cmd = "export K8S_RELEASE=" + k8s_release + "\n" + \
+                    "export GOPATH=" + work_dir + "\n" + \
+                    "export K8S_ROOT=" + work_dir + \
+                    "/src/k8s.io/kubernetes" + "\n" + \
+                    "export K8S_WEBROOT=" + root_dir + "\n" + gen_clone + gen_cmd
+                else:
+                    print("[Error] generate-clone missing in configuration")
+                    continue
+
             print("Generating docs for {} with {}".format(repo_name, gen_cmd))
             res = subprocess.call(gen_cmd, shell=True)
             if res != 0:
