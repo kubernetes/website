@@ -1,8 +1,8 @@
-—-
+---
 layout: blog
 title: "Physics, politics and Pull Requests: the Kubernetes 1.18 release interview"
 date: 2020-08-03
-—-
+---
 
 **Author**: Craig Box (Google)
 
@@ -14,7 +14,7 @@ If you'd rather enjoy the "audiobook version", including another interview when 
 
 In the last few weeks, we've talked to long-time Kubernetes contributors and SIG leads [David Oppenheimer](https://kubernetespodcast.com/episode/114-scheduling/), [David Ashpole](https://kubernetespodcast.com/episode/113-instrumentation-and-cadvisor/) and [Wojciech Tyczynski](https://kubernetespodcast.com/episode/111-scalability/). All are worth taking the dog for a longer walk to listen to!
 
-—-
+---
 
 **ADAM GLICK: You're a former physicist. I have to ask, what kind of physics did you work on?**
 
@@ -208,7 +208,7 @@ JORGE ALARCÓN: Yeah, it's a fun job. To be honest, it can be really stressing. 
 
 But the job itself, it is definitely fun. And at some distant point in the future, if for some reason it was a possibility, I will think about it. But definitely, as you mentioned, one thing that we try to do is cycle out, because I can have fun in it, and that's all good and nice. And hopefully I can help another release go out the door. But providing the opportunity for other people to learn I think is a lot more important than just being the lead itself.
 
-—-
+---
 
 _[Jorge Alarcón](https://twitter.com/alejandrox135) is a site reliability engineer with Searchable AI and served as the Kubernetes 1.18 release team lead._
 
