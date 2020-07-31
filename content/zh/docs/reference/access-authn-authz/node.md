@@ -43,7 +43,7 @@ Read operations:
 * endpoints
 * nodes
 * pods
-* secrets、configmaps、以及绑定到 kubelet 的节点的 pod 的持久卷申领和持久卷 
+* secrets、configmaps、pvcs 以及绑定到 kubelet 节点的与 pod 相关的持久卷 
 
 <!-- 
 * services
