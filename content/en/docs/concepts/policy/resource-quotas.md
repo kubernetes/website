@@ -35,7 +35,7 @@ Resource quotas work like this:
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
 
 The name of a `ResourceQuota` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -554,7 +554,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -573,7 +573,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
