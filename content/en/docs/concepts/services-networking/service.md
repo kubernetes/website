@@ -20,8 +20,6 @@ With Kubernetes you don't need to modify your application to use an unfamiliar s
 Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods,
 and can load-balance across them.
 
-
-
 <!-- body -->
 
 ## Motivation
@@ -390,7 +388,7 @@ variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service.  It supports both [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
 and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
 
@@ -754,7 +752,7 @@ In the above example, if the Service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
 
-From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
+From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
 
 ```bash
@@ -889,7 +887,7 @@ To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernet
 ```
 
 {{< note >}}
-NLB only works with certain instance classes; see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+NLB only works with certain instance classes; see the [AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 on Elastic Load Balancing for a list of supported instance types.
 {{< /note >}}
 
@@ -1046,9 +1044,9 @@ spec:
 ## Shortcomings
 
 Using the userspace proxy for VIPs, work at small to medium scale, but will
-not scale to very large clusters with thousands of Services.  The [original
-design proposal for portals](http://issue.k8s.io/1107) has more details on
-this.
+not scale to very large clusters with thousands of Services.  The
+[original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
+has more details on this.
 
 Using the userspace proxy obscures the source IP address of a packet accessing
 a Service.

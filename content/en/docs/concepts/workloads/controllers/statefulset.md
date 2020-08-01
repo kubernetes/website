@@ -200,7 +200,7 @@ The StatefulSet should not specify a `pod.Spec.TerminationGracePeriodSeconds` of
 
 When the nginx example above is created, three Pods will be deployed in the order
 web-0, web-1, web-2. web-1 will not be deployed before web-0 is
-[Running and Ready](/docs/user-guide/pod-states/), and web-2 will not be deployed until
+[Running and Ready](/docs/concepts/workloads/pods/pod-lifecycle/), and web-2 will not be deployed until
 web-1 is Running and Ready. If web-0 should fail, after web-1 is Running and Ready, but before
 web-2 is launched, web-2 will not be launched until web-0 is successfully relaunched and
 becomes Running and Ready.
