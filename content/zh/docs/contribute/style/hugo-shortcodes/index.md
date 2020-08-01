@@ -358,7 +358,7 @@ println "This is tab 2."
 {{< tabs name="tab_with_file_include" >}}
 {{< tab name="Content File #1" include="example1" />}}
 {{< tab name="Content File #2" include="example2" />}}
-{{< tab name="JSON File" include="podtemplate" />}}
+{{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
@@ -367,11 +367,13 @@ println "This is tab 2."
 * Learn about [Hugo](https://gohugo.io/).
 * Learn about [writing a new topic](/docs/home/contribute/style/write-new-topic/).
 * Learn about [page content types](/docs/home/contribute/style/page-content-types/).
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
+* Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
+* Learn about [advanced contributing](/docs/contribute/advanced/).
 -->
 
 * 了解 [Hugo](https://gohugo.io/)。
-* 了解 [撰写新的话题](/zh/docs/contribute/write-new-topic/)。
-* 了解 [使用页面类型](/zh/docs/contribute/style/page-content-types/)。
-* 了解 [发起 PR](/zh/docs/contribute/new-content/create-a-pr/)。
+* 了解[撰写新的话题](/zh/docs/contribute/style/write-new-topic/)。
+* 了解[使用页面内容类型](/zh/docs/contribute/style/page-content-types/)。
+* 了解[发起 PR](/zh/docs/contribute/new-content/open-a-pr/)。
+* 了解[高级贡献](/zh/docs/contribute/advanced/)。
 

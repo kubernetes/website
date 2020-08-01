@@ -22,5 +22,5 @@ To build the reference documentation, see the following guide:
 本节的主题是描述如何生成 Kubernetes 参考指南。
 要生成参考文档，请参考下面的指南：
 
-* [生成参考文档快速入门](/docs/contribute/generate-ref-docs/quickstart/)
+* [生成参考文档快速入门](/zh/docs/contribute/generate-ref-docs/quickstart/)
 
