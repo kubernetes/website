@@ -24,9 +24,6 @@ due to a node hardware failure or a node reboot).
 
 You can also use a Job to run multiple Pods in parallel.
 
-
-
-
 <!-- body -->
 
 ## Running an example Job
@@ -121,6 +118,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`.
+
 
 The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 
@@ -450,7 +448,7 @@ requires only a single Pod.
 
 ### Replication Controller
 
-Jobs are complementary to [Replication Controllers](/docs/user-guide/replication-controller).
+Jobs are complementary to [Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/).
 A Replication Controller manages Pods which are not expected to terminate (e.g. web servers), and a Job
 manages Pods that are expected to terminate (e.g. batch tasks).
 

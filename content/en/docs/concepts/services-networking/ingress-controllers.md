@@ -26,7 +26,7 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 * [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
   controller with [community](https://www.getambassador.io/docs) or 
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
-* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](http://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
+* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](https://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
 * [AWS ALB Ingress Controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller) enables ingress using the [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/).
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller
   provided and supported by VMware.

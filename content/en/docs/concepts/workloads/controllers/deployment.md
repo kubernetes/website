@@ -22,7 +22,6 @@ You describe a _desired state_ in a Deployment, and the Deployment {{< glossary_
 Do not manage ReplicaSets owned by a Deployment. Consider opening an issue in the main Kubernetes repository if your use case is not covered below.
 {{< /note >}}
 
-
 <!-- body -->
 
 ## Use Case
@@ -1040,7 +1039,8 @@ can create multiple Deployments, one for each release, following the canary patt
 ## Writing a Deployment Spec
 
 As with all other Kubernetes configs, a Deployment needs `.apiVersion`, `.kind`, and `.metadata` fields.
-For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
+For general information about working with config files, see
+[deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 The name of a Deployment object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
