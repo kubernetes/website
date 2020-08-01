@@ -1,23 +1,15 @@
 ---
-title: Installing Kubernetes with Kind
+title: Kindを使用してKubernetesをインストールする
 weight: 40
 content_type: concept
 ---
 
 <!-- overview -->
 
-Kind is a tool for running local Kubernetes clusters using Docker container "nodes".
-
-
+Kindは、Dockerコンテナをノードとして使用して、ローカルのKubernetesクラスターを実行するためのツールです。
 
 <!-- body -->
 
-## Installation
+## インストール
 
-See [Installing Kind](https://kind.sigs.k8s.io/docs/user/quick-start/).
-
-
-
-
-
-
+[Kindをインストールする](https://kind.sigs.k8s.io/docs/user/quick-start/)を参照してください。
