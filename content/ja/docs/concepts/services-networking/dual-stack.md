@@ -1,14 +1,9 @@
 ---
-reviewers:
-- lachie83
-- khenidak
-- aramase
-title: IPv4/IPv6 dual-stack
+title: IPv4/IPv6デュアルスタック
 feature:
-  title: IPv4/IPv6 dual-stack
+  title: IPv4/IPv6デュアルスタック
   description: >
-    Allocation of IPv4 and IPv6 addresses to Pods and Services
-
+    IPv4およびIPv6のアドレスをPodとServiceに割り当てる
 content_type: concept
 weight: 70
 ---
@@ -17,33 +12,31 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
- IPv4/IPv6 dual-stack enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
+ IPv4/IPv6デュアルスタックを有効にすると、IPv4とIPv6のアドレスの両方を{{< glossary_tooltip text="Pod" term_id="pod" >}}および{{< glossary_tooltip text="Service" term_id="service" >}}に指定できるようになります。
 
-If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
-
-
+ KubernetesクラスターでIPv4/IPv6デュアルスタックのネットワークを有効にすれば、クラスターはIPv4とIPv6のアドレスの両方を同時に割り当てることをサポートするようになります。
 
 <!-- body -->
 
-## Supported Features
+## サポートされている機能
 
-Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
+KubernetesクラスターでIPv4/IPv6デュアルスタックを有効にすると、以下の機能が提供されます。
 
-   * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
-   * IPv4 and IPv6 enabled Services (each Service must be for a single address family)
-   * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
+   * デュアルスタックのPodネットワーク(PodごとにIPv4とIPv6のアドレスが1つずつ割り当てられます)
+   * IPv4およびIPv6が有効化されたService(各Serviceは1つのアドレスファミリーでなければなりません)
+   * IPv4およびIPv6インターフェイスを経由したPodのクラスター外向きの(たとえば、インターネットへの)ルーティング
 
-## Prerequisites
+## 前提条件
 
-The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
+IPv4/IPv6デュアルスタックのKubernetesクラスターを利用するには、以下の前提条件を満たす必要があります。
 
-   * Kubernetes 1.16 or later
-   * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * A network plugin that supports dual-stack (such as Kubenet or Calico)
+   * Kubernetesのバージョンが1.16以降である
+   * プロバイダーがデュアルスタックのネットワークをサポートしている(クラウドプロバイダーなどが、ルーティング可能なIPv4/IPv6ネットワークインターフェイスが搭載されたKubernetesを提供可能である)
+   * ネットワークプラグインがデュアルスタックに対応している(KubenetやCalicoなど)
 
-## Enable IPv4/IPv6 dual-stack
+## IPv4/IPv6デュアルスタックを有効にする
 
-To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
+IPv4/IPv6デュアルスタックを有効にするには、クラスターの関連コンポーネントで`IPv6DualStack`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にして、デュアルスタックのクラスターネットワークの割り当てを以下のように設定します。
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
@@ -51,7 +44,7 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` デフォルトのサイズは、IPv4では/24、IPv6では/64です
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
@@ -59,55 +52,49 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
       * `--feature-gates="IPv6DualStack=true"`
 
 {{< note >}}
-An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
+IPv4 CIDRの例: `10.244.0.0/16` (自分のクラスターのアドレス範囲を指定してください)
 
-An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
+IPv6 CIDRの例: `fdXY:IJKL:MNOP:15::/64` (これはフォーマットを示すための例であり、有効なアドレスではありません。詳しくは[RFC 4193](https://tools.ietf.org/html/rfc4193)を参照してください)
 
 {{< /note >}}
 
-## Services
+## Service
 
-If your cluster has IPv4/IPv6 dual-stack networking enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} with either an IPv4 or an IPv6 address. You can choose the address family for the Service's cluster IP by setting a field, `.spec.ipFamily`, on that Service.
-You can only set this field when creating a new Service. Setting the `.spec.ipFamily` field is optional and should only be used if you plan to enable IPv4 and IPv6 {{< glossary_tooltip text="Services" term_id="service" >}} and {{< glossary_tooltip text="Ingresses" term_id="ingress" >}} on your cluster. The configuration of this field not a requirement for [egress](#egress-traffic) traffic.
+クラスターでIPv4/IPv6デュアルスタックのネットワークを有効にした場合、IPv4またはIPv6のいずれかのアドレスを持つ{{< glossary_tooltip text="Service" term_id="service" >}}を作成できます。Serviceのcluster IPのアドレスファミリーは、Service上に`.spec.ipFamily`フィールドを設定することで選択できます。このフィールドを設定できるのは、新しいServiceの作成時のみです。`.spec.ipFamily`フィールドの指定はオプションであり、{{< glossary_tooltip text="Service" term_id="service" >}}と{{< glossary_tooltip text="Ingress" term_id="ingress" >}}でIPv4のIPv6を有効にする予定がある場合にのみ使用するべきです。[外向きのトラフィック](#egress-traffic)に対する要件には、このフィールドの設定は含まれません。
 
 {{< note >}}
-The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller-manager.
+クラスターのデフォルトのアドレスファミリーは、kube-controller-managerに`--service-cluster-ip-range`フラグで設定した、最初のservice cluster IPの範囲のアドレスファミリーです。
 {{< /note >}}
 
-You can set `.spec.ipFamily` to either:
+`.spec.ipFamily`は、次のいずれかに設定できます。
 
-   * `IPv4`: The API server will assign an IP from a `service-cluster-ip-range` that is `ipv4`
-   * `IPv6`: The API server will assign an IP from a `service-cluster-ip-range` that is `ipv6`
+   * `IPv4`: APIサーバーは`ipv4`の`service-cluster-ip-range`の範囲からIPアドレスを割り当てます
+   * `IPv6`: APIサーバーは`ipv6`の`service-cluster-ip-range`の範囲からIPアドレスを割り当てます
 
-The following Service specification does not include the `ipFamily` field. Kubernetes will assign an IP address (also known as a "cluster IP") from the first configured `service-cluster-ip-range` to this Service.
+次のServiceのspecには`ipFamily`フィールドが含まれていません。Kubernetesは、最初に設定した`service-cluster-ip-range`の範囲からこのServiceにIPアドレス(別名「cluster IP」)を割り当てます。
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-The following Service specification includes the `ipFamily` field. Kubernetes will assign an IPv6 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
+次のServiceのspecには`isFamily`フィールドが含まれています。Kubernetesは、最初に設定した`service-cluster-ip-range`の範囲からこのServiceにIPv6のアドレス(別名「cluster IP」)を割り当てます。
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
-For comparison, the following Service specification will be assigned an IPv4 address (also known as a "cluster IP") from the configured `service-cluster-ip-range` to this Service.
+比較として次のServiceのspecを見ると、このServiceには最初に設定した`service-cluster-ip-range`の範囲からIPv4のアドレス(別名「cluster IP」)が割り当てられます。
 
 {{< codenew file="service/networking/dual-stack-ipv4-svc.yaml" >}}
 
 ### Type LoadBalancer
 
-On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` in additional to setting `ipFamily` field to `IPv6` provisions a cloud load balancer for your Service.
+IPv6が有効になった外部ロードバランサーをサポートしているクラウドプロバイダーでは、`type`フィールドに`LoadBalancer`を指定し、`ipFamily`フィールドに`IPv6`を指定することにより、クラウドロードバランサーをService向けにプロビジョニングできます。
 
-## Egress Traffic
+## 外向きのトラフィック
 
-The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying {{< glossary_tooltip text="CNI" term_id="cni" >}} provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
+パブリックおよび非パブリックでのルーティングが可能なIPv6アドレスのブロックを利用するためには、クラスターがベースにしている{{< glossary_tooltip text="CNI" term_id="cni" >}}プロバイダーがIPv6の転送を実装している必要があります。もし非パブリックでのルーティングが可能なIPv6アドレスを使用するPodがあり、そのPodをクラスター外の送信先(例:パブリックインターネット)に到達させたい場合、外向きのトラフィックと応答の受信のためにIPマスカレードを設定する必要があります。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent)はデュアルスタックに対応しているため、デュアルスタックのクラスター上でのIPマスカレードにはip-masq-agentが利用できます。
 
-## Known Issues
+## 既知の問題
 
-   * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
-
-
+   * Kubenetは、IPv4,IPv6の順番にIPを報告することを強制します(--cluster-cidr)
 
 ## {{% heading "whatsnext" %}}
 
-
-* [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
-
-
+* [IPv4/IPv6デュアルスタックのネットワークを検証する](/docs/tasks/network/validate-dual-stack)
