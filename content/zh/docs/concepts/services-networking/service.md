@@ -1461,7 +1461,7 @@ the NLB Target Group's health check on the auto-assigned
 
 <!--
 In order to achieve even traffic, either use a DaemonSet, or specify a
-[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+[pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
 You can also use NLB Services with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
@@ -1472,7 +1472,7 @@ groups are modified with the following IP rules:
 -->
 
 为了获得均衡流量，请使用 DaemonSet 或指定
-[Pod 反亲和性](/zh/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+[Pod 反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 使其不在同一节点上。
 
 你还可以将 NLB 服务与[内部负载平衡器](/zh/docs/concepts/services-networking/service/#internal-load-balancer)
