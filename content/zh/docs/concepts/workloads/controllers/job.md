@@ -497,7 +497,7 @@ cleaned up by CronJobs based on the specified capacity-based cleanup policy.
 
 ### TTL mechanism for finished Jobs
 -->
-## 自动清理完成的 Job
+## 自动清理完成的 Job   {#clean-up-finished-jobs-automatically}
 
 完成的 Job 通常不需要留存在系统中。在系统中一直保留它们会给 API
 服务器带来额外的压力。
