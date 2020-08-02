@@ -1,5 +1,5 @@
 ---
-title: Kubernetes v1.9 公开 Windows 服务器容器的 Beta 支持
+title: Kubernetes v1.9 Beta 发布版开始支持 Windows 容器
 date: 2018-01-09
 slug: kubernetes-v19-beta-windows-support
 url: /blog/2018/01/Kubernetes-V19-Beta-Windows-Support
@@ -81,7 +81,7 @@ Even though you have to continue running the Kubernetes Control Plane and Master
 A lot of work went into this beta release, but the community realizes there are more areas of investment needed before we can release Windows support as GA (General Availability) for production workloads. Some keys areas of focus for the first two quarters of 2018 include:  
 --->
 ### 接下来还会有什么
-这个 Beta 版本进行了大量工作，但是社区意识到在将 Windows 支持作为生产工作负载发布为 GA（General Availability）之前，我们需要更多领域的投资。2018年半年的重点关注领域包括：
+这个 Beta 版本进行了大量工作，但是社区意识到在将 Windows 支持作为生产工作负载发布为 GA（General Availability）之前，我们需要更多领域的投资。2018年前两个季度的重点关注领域包括：
 
 <!--
 1. Continue to make progress in the area of networking. Additional CNI plugins are under development and nearing completion
