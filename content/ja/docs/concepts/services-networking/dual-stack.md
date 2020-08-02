@@ -12,7 +12,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
- IPv4/IPv6デュアルスタックを有効にすると、IPv4とIPv6のアドレスの両方を{{< glossary_tooltip text="Pod" term_id="pod" >}}および{{< glossary_tooltip text="Service" term_id="service" >}}に指定できるようになります。
+ IPv4/IPv6デュアルスタックを利用すると、IPv4とIPv6のアドレスの両方を{{< glossary_tooltip text="Pod" term_id="pod" >}}および{{< glossary_tooltip text="Service" term_id="service" >}}に指定できるようになります。
 
  KubernetesクラスターでIPv4/IPv6デュアルスタックのネットワークを有効にすれば、クラスターはIPv4とIPv6のアドレスの両方を同時に割り当てることをサポートするようになります。
 
@@ -60,7 +60,7 @@ IPv6 CIDRの例: `fdXY:IJKL:MNOP:15::/64` (これはフォーマットを示す�
 
 ## Service
 
-クラスターでIPv4/IPv6デュアルスタックのネットワークを有効にした場合、IPv4またはIPv6のいずれかのアドレスを持つ{{< glossary_tooltip text="Service" term_id="service" >}}を作成できます。Serviceのcluster IPのアドレスファミリーは、Service上に`.spec.ipFamily`フィールドを設定することで選択できます。このフィールドを設定できるのは、新しいServiceの作成時のみです。`.spec.ipFamily`フィールドの指定はオプションであり、{{< glossary_tooltip text="Service" term_id="service" >}}と{{< glossary_tooltip text="Ingress" term_id="ingress" >}}でIPv4のIPv6を有効にする予定がある場合にのみ使用するべきです。[外向きのトラフィック](#egress-traffic)に対する要件には、このフィールドの設定は含まれません。
+クラスターでIPv4/IPv6デュアルスタックのネットワークを有効にした場合、IPv4またはIPv6のいずれかのアドレスを持つ{{< glossary_tooltip text="Service" term_id="service" >}}を作成できます。Serviceのcluster IPのアドレスファミリーは、Service上に`.spec.ipFamily`フィールドを設定することで選択できます。このフィールドを設定できるのは、新しいServiceの作成時のみです。`.spec.ipFamily`フィールドの指定はオプションであり、{{< glossary_tooltip text="Service" term_id="service" >}}と{{< glossary_tooltip text="Ingress" term_id="ingress" >}}でIPv4とIPv6を有効にする予定がある場合にのみ使用するべきです。このフィールドの設定は、[外向きのトラフィック](#egress-traffic)に対する要件には含まれません。
 
 {{< note >}}
 クラスターのデフォルトのアドレスファミリーは、kube-controller-managerに`--service-cluster-ip-range`フラグで設定した、最初のservice cluster IPの範囲のアドレスファミリーです。
@@ -87,7 +87,7 @@ IPv6 CIDRの例: `fdXY:IJKL:MNOP:15::/64` (これはフォーマットを示す�
 
 IPv6が有効になった外部ロードバランサーをサポートしているクラウドプロバイダーでは、`type`フィールドに`LoadBalancer`を指定し、`ipFamily`フィールドに`IPv6`を指定することにより、クラウドロードバランサーをService向けにプロビジョニングできます。
 
-## 外向きのトラフィック
+## 外向きのトラフィック {#egress-traffic}
 
 パブリックおよび非パブリックでのルーティングが可能なIPv6アドレスのブロックを利用するためには、クラスターがベースにしている{{< glossary_tooltip text="CNI" term_id="cni" >}}プロバイダーがIPv6の転送を実装している必要があります。もし非パブリックでのルーティングが可能なIPv6アドレスを使用するPodがあり、そのPodをクラスター外の送信先(例:パブリックインターネット)に到達させたい場合、外向きのトラフィックと応答の受信のためにIPマスカレードを設定する必要があります。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent)はデュアルスタックに対応しているため、デュアルスタックのクラスター上でのIPマスカレードにはip-masq-agentが利用できます。
 
