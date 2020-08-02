@@ -25,13 +25,13 @@ weight: 10
 
 ## Serviceトポロジーを利用する
 
-クラスターのServiceトポロジーが有効になっていれば、Serviceのspecに`topologyKeys`フィールドを指定することで、Serviceのトラフィックのルーティングを制御できます。このフィールドは、Nodeラベルの優先順位リストで、このServiceにアクセスするときにエンドポイントをソートするために使われます。Traffic will be directed to a Node whose value for the first label matches the originating Node's value for that label.一致したノード上にServiceに対応するバックエンドが存在しなかった場合は、2つ目のラベルについて検討が行われ、同様に、残っているラベルが順番に検討されまます。
+クラスターのServiceトポロジーが有効になっていれば、Serviceのspecに`topologyKeys`フィールドを指定することで、Serviceのトラフィックのルーティングを制御できます。このフィールドは、Nodeラベルの優先順位リストで、このServiceにアクセスするときにエンドポイントをソートするために使われます。トラフィックは、最初のラベルの値が送信元Nodeのものと一致するNodeに送信されます。一致したノード上にServiceに対応するバックエンドが存在しなかった場合は、2つ目のラベルについて検討が行われ、同様に、残っているラベルが順番に検討されまます。
 
 一致するキーが1つも見つからなかった場合、トラフィックは、Serviceに対応するバックエンドが存在しなかったかのように拒否されます。言い換えると、エンドポイントは、利用可能なバックエンドが存在する最初のトポロジーキーに基づいて選択されます。このフィールドが指定され、すべてのエントリーでクライアントのトポロジーに一致するバックエンドが存在しない場合、そのクライアントに対するバックエンドが存在しないものとしてコネクションが失敗します。「任意のトポロジー」を意味する特別な値`"*"`を指定することもできます。任意の値にマッチするこの値に意味があるのは、リストの最後の値として使った場合だけです。
 
 `topologyKeys`が未指定または空の場合、トポロジーの制約は適用されません。
 
-ホスト名、ゾーン名、リージョン名のラベルが付いたノードを持つクラスターについて考えてみましょう。このとき、Serviceの`topologyKeys`の値を設定することで、トラフィックの向きを以下のように制御できます。
+ホスト名、ゾーン名、リージョン名のラベルが付いたNodeを持つクラスターについて考えてみましょう。このとき、Serviceの`topologyKeys`の値を設定することで、トラフィックの向きを以下のように制御できます。
 
 * トラフィックを同じノード上のエンドポイントのみに向け、同じノード上にエンドポイントが1つも存在しない場合には失敗するようにする: `["kubernetes.io/hostname"]`。
 * 同一ノード上のエンドポイントを優先し、失敗した場合には同一ゾーン上のエンドポイント、同一リージョンゾーンのエンドポイントへとフォールバックし、それ以外の場合には失敗する: `["kubernetes.io/hostname", "topology.kubernetes.io/zone", "topology.kubernetes.io/region"]`。これは、たとえばデータのローカリティが非常に重要である場合などに役に立ちます。
@@ -140,6 +140,5 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * [Serviceトポトジーを有効にする](/docs/tasks/administer-cluster/enabling-service-topology)を読む。
-* [アプリケーションをServiceと接続する](/ja/docs/concepts/services-networking/connect-applications-service/)を読む。
-
+* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む。
 
