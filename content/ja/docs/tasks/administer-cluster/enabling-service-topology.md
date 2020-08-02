@@ -38,7 +38,7 @@ Serviceトポロジーを有効にするには、すべてのKubernetesコンポ
 
 ## {{% heading "whatsnext" %}}
 
-* [Serviceトポロジー](/docs/concepts/services-networking/service-topology)のコンセプトについて読む
+* [Serviceトポロジー](/ja/docs/concepts/services-networking/service-topology)のコンセプトについて読む
 * [Endpoint Slice](/docs/concepts/services-networking/endpoint-slices)について読む
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
 
