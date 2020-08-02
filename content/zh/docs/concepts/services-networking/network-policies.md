@@ -5,16 +5,10 @@ weight: 50
 ---
 
 <!-- 
----
-reviewers:
-- thockin
-- caseydavenport
-- danwinship
 title: Network Policies
 content_type: concept
 weight: 50
----
- -->
+-->
 
 {{< toc >}}
 
@@ -30,8 +24,6 @@ NetworkPolicy resources use {{< glossary_tooltip text="labels" term_id="label">}
 
 NetworkPolicy 资源使用 {{< glossary_tooltip text="标签" term_id="label">}} 选择 Pod，并定义选定 Pod 所允许的通信规则。
 
-
-
 <!-- body -->
 
 <!--
@@ -42,7 +34,9 @@ Network policies are implemented by the [network plugin](/docs/concepts/extend-k
 
 ## 前提
 
-网络策略通过[网络插件](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)来实现。要使用网络策略，用户必须使用支持 NetworkPolicy 的网络解决方案。创建一个资源对象，而没有控制器来使它生效的话，是没有任何作用的。
+网络策略通过[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+来实现。要使用网络策略，用户必须使用支持 NetworkPolicy 的网络解决方案。
+创建一个资源对象，而没有控制器来使它生效的话，是没有任何作用的。
 
 <!--
 ## Isolated and Non-isolated Pods
@@ -53,14 +47,17 @@ Pods become isolated by having a NetworkPolicy that selects them. Once there is 
 
 Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
 -->
-
 ## 隔离和非隔离的 Pod
 
 默认情况下，Pod 是非隔离的，它们接受任何来源的流量。
 
-Pod 可以通过相关的网络策略进行隔离。一旦命名空间中有网络策略选择了特定的 Pod，该 Pod 会拒绝网络策略所不允许的连接。 (命名空间下其他未被网络策略所选择的 Pod 会继续接收所有的流量)
+Pod 可以通过相关的网络策略进行隔离。一旦命名空间中有网络策略选择了特定的 Pod，
+该 Pod 会拒绝网络策略所不允许的连接。 
+（命名空间下其他未被网络策略所选择的 Pod 会继续接收所有的流量）
 
-网络策略不会冲突，它们是附加的。如果任何一个或多个策略选择了一个 Pod, 则该 Pod 受限于这些策略的 ingress/egress 规则的并集。因此评估的顺序并不会影响策略的结果。
+网络策略不会冲突，它们是累积的。
+如果任何一个或多个策略选择了一个 Pod, 则该 Pod 受限于这些策略的
+ingress/egress 规则的并集。因此评估的顺序并不会影响策略的结果。
 
 <!--
 ## The NetworkPolicy resource {#networkpolicy-resource}
@@ -72,7 +69,7 @@ An example NetworkPolicy might look like this:
 
 ## NetworkPolicy 资源 {#networkpolicy-resource}
 
-查看 [网络策略](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) 来了解完整的资源定义。
+查看 [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) 来了解完整的资源定义。
 
 下面是一个 NetworkPolicy 的示例:
 
@@ -138,8 +135,9 @@ __ingress__: Each NetworkPolicy may include a list of whitelist `ingress` rules.
 __egress__: Each NetworkPolicy may include a list of whitelist `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
 -->
 
-__必填字段__: 与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、 `kind` 和 `metadata` 字段。 关于配置文件操作的一般信息，请参考 [使用 ConfigMap 配置容器](/docs/tasks/configure-pod-container/configure-pod-configmap/),
-和 [对象管理](/docs/concepts/overview/working-with-objects/object-management)。
+__必填字段__: 与所有其他的 Kubernetes 配置一样，NetworkPolicy 需要 `apiVersion`、`kind` 和 `metadata` 字段。
+  关于配置文件操作的一般信息，请参考 [使用 ConfigMap 配置容器](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/),
+  和[对象管理](/zh/docs/concepts/overview/working-with-objects/object-management)。
 
 __spec__: NetworkPolicy [规约](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 中包含了在一个命名空间中定义特定网络策略所需的所有信息。
 
@@ -175,7 +173,7 @@ See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-
   * IP 地址范围为 172.17.0.0–172.17.0.255 和 172.17.2.0–172.17.255.255（即，除了 172.17.1.0/24 之外的所有 172.17.0.0/16）
 3. （Egress 规则）允许从带有 "role=db" 标签的命名空间下的任何 Pod 到 CIDR 10.0.0.0/24 下 5978 TCP 端口的连接。
 
-查看 [声明网络策略](/docs/getting-started-guides/network-policy/walkthrough) 来进行更多的示例演练。
+查看[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/) 来进行更多的示例演练。
 
 <!--
 ## Behavior of `to` and `from` selectors
@@ -362,7 +360,9 @@ This ensures that even pods that aren't selected by any other NetworkPolicy will
 To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.
 When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 -->
-要启用此特性，你（或你的集群管理员）需要通过为 API server 指定 `--feature-gates=SCTPSupport=true,…` 来启用 `SCTPSupport` [特性开关](/docs/reference/command-line-tools-reference/feature-gates/)。启用该特性开关后，用户可以将 NetworkPolicy 的 `protocol` 字段设置为 `SCTP`。
+要启用此特性，你（或你的集群管理员）需要通过为 API server 指定 `--feature-gates=SCTPSupport=true,…`
+来启用 `SCTPSupport` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
+启用该特性开关后，用户可以将 NetworkPolicy 的 `protocol` 字段设置为 `SCTP`。
 
 <!-- 
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
@@ -371,11 +371,7 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 必须使用支持 SCTP 协议网络策略的 {{< glossary_tooltip text="CNI" term_id="cni" >}} 插件。
 {{< /note >}}
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 - See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
@@ -383,8 +379,8 @@ You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin tha
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
 -->
 
-- 查看 [声明网络策略](/docs/tasks/administer-cluster/declare-network-policy/)
+- 查看 [声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
   来进行更多的示例演练
-- 有关 NetworkPolicy 资源启用的常见场景的更多信息，请参见 [指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。
-
+- 有关 NetworkPolicy 资源启用的常见场景的更多信息，请参见
+  [此指南](https://github.com/ahmetb/kubernetes-network-policy-recipes)。
 
