@@ -4,7 +4,7 @@ content_type: task
 ---
 
 <!-- overview -->
-このページでは、Kubernetes上でServiceトロポジーを有効にする方法の概要について説明します。
+このページでは、Kubernetes上でServiceトポロジーを有効にする方法の概要について説明します。
 
 
 ## {{% heading "prerequisites" %}}
@@ -30,7 +30,7 @@ content_type: task
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
-Serviceトポロジーを有効にするには、すべてのKubernetesコンポーネントで`ServiceTopology`と`EndpointSlice`フィーチャーを有効にする必要があります。
+Serviceトポロジーを有効にするには、すべてのKubernetesコンポーネントで`ServiceTopology`と`EndpointSlice`フィーチャーゲートを有効にする必要があります。
 
 ```
 --feature-gates="ServiceTopology=true,EndpointSlice=true"
@@ -41,5 +41,4 @@ Serviceトポロジーを有効にするには、すべてのKubernetesコンポ
 * [Serviceトポロジー](/docs/concepts/services-networking/service-topology)のコンセプトについて読む
 * [Endpoint Slice](/docs/concepts/services-networking/endpoint-slices)について読む
 * [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
-
 
