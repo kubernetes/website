@@ -40,6 +40,6 @@ Serviceトポロジーを有効にするには、すべてのKubernetesコンポ
 
 * [Serviceトポロジー](/docs/concepts/services-networking/service-topology)のコンセプトについて読む
 * [Endpoint Slice](/docs/concepts/services-networking/endpoint-slices)について読む
-* [アプリケーションをServiceに接続する](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
+* [サービスとアプリケーションの接続](/ja/docs/concepts/services-networking/connect-applications-service/)を読む
 
 
