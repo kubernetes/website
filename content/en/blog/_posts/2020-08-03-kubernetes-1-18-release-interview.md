@@ -184,7 +184,7 @@ JORGE ALARCÓN: Yeah, definitely.
 
 JORGE ALARCÓN: I actually got to choose the lead. The practice is the current lead for the release team is going to look at people and see, first off, who's interested and out of the people interested, who can do the job, who's comfortable enough with the release team, with the Kubernetes community at large who can actually commit the amount of hours throughout the next, hopefully, three months.
 
-And for one, I think Taylor has been part of my team. So there is the release team. Then the release team has multiple subgroups. One of those subgroups is actually just for me and my shadows. So for this release, it was Mr. Bobby Tables and Taylor. And Taylor volunteered to take over 1.19, and I'm sure that he will do an amazing job.
+And for one, I think Taylor has been part of my team. So there is the release team. Then the release team has multiple subgroups. One of those subgroups is actually just for me and my shadows. So for this release, it was mrbobbytables and Taylor. And Taylor volunteered to take over 1.19, and I'm sure that he will do an amazing job.
 
 **ADAM GLICK: I am as well. What advice will you give Taylor?**
 
