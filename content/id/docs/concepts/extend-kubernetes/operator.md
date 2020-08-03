@@ -9,7 +9,7 @@ weight: 30
 Operator adalah ekstensi perangkat lunak untuk Kubernetes yang memanfaatkan 
 [_custom resource_](/id/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 untuk mengelola aplikasi dan komponen-komponennya. Operator mengikuti prinsip 
-Kubernetes, khususnya dalam hal [_control loop_](/docs/concepts/#kubernetes-control-plane).
+Kubernetes, khususnya dalam hal [_control loop_](/docs/reference/glossary/?all=true#term-control-plane).
 
 
 
