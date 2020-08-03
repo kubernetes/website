@@ -3,22 +3,24 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: guestbook
+    app.kubernetes.io/name: guestbook
+    app.kubernetes.io/component: frontend
 spec:
   selector:
     matchLabels:
-      app: guestbook
-      tier: frontend
+      app.kubernetes.io/name: guestbook
+      app.kubernetes.io/component: frontend
   replicas: 3
   template:
     metadata:
       labels:
-        app: guestbook
-        tier: frontend
+        app.kubernetes.io/name: guestbook
+        app.kubernetes.io/component: frontend
     spec:
       containers:
-      - name: php-redis
-        image: gcr.io/google-samples/gb-frontend:v4
+      - name: guestbook
+        image: paulczar/gb-frontend:v5
+        # image: gcr.io/google-samples/gb-frontend:v4
         resources:
           requests:
             cpu: 100m
@@ -26,13 +28,5 @@ spec:
         env:
         - name: GET_HOSTS_FROM
           value: dns
-          # Using `GET_HOSTS_FROM=dns` requires your cluster to
-          # provide a dns service. As of Kubernetes 1.3, DNS is a built-in
-          # service launched automatically. However, if the cluster you are using
-          # does not have a built-in DNS service, you can instead
-          # access an environment variable to find the master
-          # service's host. To do so, comment out the 'value: dns' line above, and
-          # uncomment the line below:
-          # value: env
         ports:
         - containerPort: 80
