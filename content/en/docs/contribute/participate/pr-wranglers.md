@@ -47,6 +47,19 @@ These queries exclude localization PRs. All queries are against the main branch 
 - [Quick Wins](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22): Lists PRs against the main branch with no clear blockers. (change "XS" in the size label as you work through the PRs [XS, S, M, L, XL, XXL]).
 - [Not against the main branch](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amaster): If the PR is against a `dev-` branch, it's for an upcoming release. Assign the [docs release manager](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles) using: `/assign @<manager's_github-username>`. If the PR is against an old branch, help the author figure out whether it's targeted against the best branch.
 
+### Helpful Prow commands for wranglers
+
+```
+# add English label
+/language en
+
+# add squash label to PR if more than one commit
+/label tide/merge-method-squash
+
+# retitle a PR via Prow (such as a work-in-progress [WIP] or better detail of PR)
+/retitle [WIP] <TITLE>
+```
+
 ### When to close Pull Requests
 
 Reviews and approvals are one tool to keep our PR queue short and current. Another tool is closure.
