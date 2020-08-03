@@ -231,7 +231,7 @@ or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
 * Read about the [Kubernetes control plane](/docs/reference/glossary/?all=true#term-control-plane)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/#kubernetes-objects)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
 -->
@@ -249,7 +249,7 @@ Deployment 控制器和 Job 控制器是 Kubernetes 内置控制器的典型例�
 ## {{% heading "whatsnext" %}}
 
 * 请阅读 [Kubernetes 控制平面](/docs/reference/glossary/?all=true#term-control-plane)
-* 了解一些基本的 [Kubernetes 对象](/docs/concepts/#kubernetes-objects)
+* 了解一些基本的 [Kubernetes 对象](/docs/concepts/overview/working-with-objects)
 * 学习更多的 [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * 如果你想写自己的控制器，请看 Kubernetes 的[扩展模式](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)。
 
