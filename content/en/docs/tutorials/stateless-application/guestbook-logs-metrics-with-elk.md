@@ -8,6 +8,8 @@ card:
   name: tutorials
   weight: 31
   title: "Example: Add logging and metrics to the PHP / Redis Guestbook example"
+# setting to draft as this needs to be rewritten/updated for Mongo
+draft: true
 ---
 
 <!-- overview -->
