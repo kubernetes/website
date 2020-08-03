@@ -14,10 +14,10 @@ Laman ini menjelaskan bagaimana cara menginjeksi data sensitif, seperti kata san
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-### Mengubah data rahasia kamu ke representasi Base64
+### Mengubah data rahasia kamu ke dalam representasi Base64
 
 Misalnya kamu mempunyai dua buah data rahasia: sebuah nama pengguna `my-app` dan kata sandi
-`39528$vdg7Jb`. Pertama, gunakan alat penyandian Base64 untuk mengubah nama pengguna kamu dan kata sandi menjadi representasi Base64. Berikut ini contoh menggunakan program Base64 yang umum digunakan:
+`39528$vdg7Jb`. Pertama, gunakan alat penyandian Base64 untuk mengubah nama pengguna kamu dan kata sandi ke dalam representasi Base64. Berikut ini contoh menggunakan program Base64 yang umum digunakan:
 
 ```shell
 echo -n 'my-app' | base64
@@ -88,7 +88,7 @@ Jika kamu ingin melompati langkah penyandian dengan Base64, kamu dapat langsung 
 kubectl create secret generic test-secret --from-literal='username=my-app' --from-literal='password=39528$vdg7Jb'
 ```
 
-Tentu saja ini lebih mudah. Pendekatan yang mendetil setiap langkah di atas bertujuan untuk mendemonstrasikan apa yang sebenarnya terjadi.
+Tentu saja ini lebih mudah. Pendekatan yang mendetil setiap langkah di atas bertujuan untuk mendemonstrasikan apa yang sebenarnya terjadi pada setiap langkah.
 
 
 ## Membuat Pod yang memiliki akses ke data Secret melalui Volume
@@ -176,7 +176,7 @@ Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Pod:
    backend-admin
    ```
 
-### Mendefinisikan variabel lingkungan Container dengan data dari banyak Secret
+### Mendefinisikan variabel lingkungan Container dengan data dari multipel Secret
 
 *  Seperti contoh sebelumnya, buat Secret terlebih dahulu.
 
@@ -210,7 +210,7 @@ Berikut ini adalah berkas konfigurasi yang dapat kamu gunakan untuk membuat Pod:
 ## Mengonfigurasi semua pasangan _key-value_ di dalam Secret sebagai variabel lingkungan Container
 
 {{< note >}}
-Fitur ini tersedia mulai dari Kubernetes v1.6 dan lebih baru.
+Fitur ini tersedia mulai dari Kubernetes v1.6 dan yang lebih baru.
 {{< /note >}}
 
 *  Membuat Secret yang berisi banyak pasangan _key-value_
@@ -249,5 +249,5 @@ Fitur ini tersedia mulai dari Kubernetes v1.6 dan lebih baru.
 
 ## {{% heading "whatsnext" %}}
 
-* Pelajari lebih lanjut [Secrets](/docs/concepts/configuration/secret/).
-* Pelajari lebih lanjut [Volumes](/docs/concepts/storage/volumes/).
+* Pelajari lebih lanjut [Secret](/id/docs/concepts/configuration/secret/).
+* Pelajari lebih lanjut [Volume](/id/docs/concepts/storage/volumes/).
