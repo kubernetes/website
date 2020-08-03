@@ -169,7 +169,7 @@ Windowsでは、次のIPAMオプションがサポートされています。
 
 * [ホストローカル](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/host-local)
 * HNS IPAM (受信トレイプラットフォームIPAM、これはIPAMが設定されていない場合のフォールバック)
-* [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md)（azure-cniのみ）
+* [Azure-vnet-ipam](https://github.com/Azure/azure-container-networking/blob/master/docs/ipam.md)(azure-cniのみ)
 
 ### 制限
 
