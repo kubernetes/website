@@ -33,7 +33,7 @@ The `image` property of a container supports the same syntax as the `docker` com
 <!--
 ## Updating Images
 -->
-## 升级镜像
+## 更新镜像  {#updating-images}
 
 <!--
 The default pull policy is `IfNotPresent` which causes the Kubelet to skip

@@ -5,7 +5,6 @@ date: 2020-06-30
 slug: sig-windows-spotlight-2020
 ---
 
-# SIG-Windows Spotlight
 _This post tells the story of how Kubernetes contributors work together to provide a container orchestrator that works for both Linux and Windows._
 
 <img alt="Image of a computer with Kubernetes logo" width="30%" src="KubernetesComputer_transparent.png">

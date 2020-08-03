@@ -31,7 +31,7 @@ This page shows how to use an HTTP proxy to access the Kubernetes API.
 * 如果您的集群中还没有任何应用，使用如下命令启动一个 Hello World 应用：
 
 ```shell
-kubectl run node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
+kubectl create deployment node-hello --image=gcr.io/google-samples/node-hello:1.0 --port=8080
 ```
 
 
