@@ -173,7 +173,7 @@ khusus itu lakukan.
 ## {{% heading "whatsnext" %}}
 
 * Silahkan baca tentang [_control plane_ Kubernetes](/docs/reference/glossary/?all=true#term-control-plane)
-* Temukan beberapa dasar tentang [objek-objek Kubernetes](/docs/concepts/#kubernetes-objects)
+* Temukan beberapa dasar tentang [objek-objek Kubernetes](/docs/concepts/overview/working-with-objects)
 * Pelajari lebih lanjut tentang [Kubernetes API](/id/docs/concepts/overview/kubernetes-api/)
 * Apabila kamu ingin membuat _controller_ sendiri, silakan lihat [pola perluasan](/id/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) dalam memperluas Kubernetes.
 

@@ -84,7 +84,7 @@ Al fine di estendere Kubernetes, si possono avere _controller_ in esecuzione al 
 
 ## {{% heading "whatsnext" %}}
 * Leggi in merito [Kubernetes control plane](/docs/reference/glossary/?all=true#term-control-plane)
-* Scopri alcune delle basi degli [oggetti di Kubernetes](/docs/concepts/#kubernetes-objects)
+* Scopri alcune delle basi degli [oggetti di Kubernetes](/docs/concepts/overview/working-with-objects)
 * Per saperne di più riguardo alle [API di Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se vuoi creare un tuo _controller_, guarda [i modelli per l'estensibilità](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Estendere Kubernetes.
 
