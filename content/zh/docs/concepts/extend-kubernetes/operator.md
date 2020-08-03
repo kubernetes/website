@@ -5,11 +5,9 @@ weight: 30
 ---
 
 <!--
----
 title: Operator pattern
 content_type: concept
 weight: 30
----
 -->
 
 <!-- overview -->
@@ -21,9 +19,9 @@ to manage applications and their components. Operators follow
 Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-control-plane).
 -->
 
-Operator 是 Kubernetes 的扩展软件，它利用[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
-Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/docs/concepts/#kubernetes-control-plane)方面。
-
+Operator 是 Kubernetes 的扩展软件，它利用
+[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
+Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/zh/docs/concepts/#kubernetes-control-plane)方面。
 
 
 <!-- body -->
@@ -40,7 +38,6 @@ People who run workloads on Kubernetes often like to use automation to take
 care of repeatable tasks. The Operator pattern captures how you can write
 code to automate a task beyond what Kubernetes itself provides.
 -->
-
 ## 初衷
 
 Operator 模式旨在捕获（正在管理一个或一组服务的）运维人员的关键目标。
@@ -62,14 +59,14 @@ of Kubernetes itself.
 Operators are clients of the Kubernetes API that act as controllers for
 a [Custom Resource](/docs/concepts/api-extension/custom-resources/).
 -->
-
 ## Kubernetes 上的 Operator
 
 Kubernetes 为自动化而生。无需任何修改，您即可以从 Kubernetes 核心中获得许多内置的自动化功能。
 您可以使用 Kubernetes 自动化部署和运行工作负载， *甚至* 可以自动化 Kubernetes 自身。
 
 Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}} 使您无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。
-Operator 是 Kubernetes API 的客户端，充当[自定义资源](/docs/concepts/api-extension/custom-resources/)的控制器。
+Operator 是 Kubernetes API 的客户端，充当
+[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)的控制器。
 
 <!--
 ## An example Operator {#example}
@@ -86,7 +83,6 @@ Some of the things that you can use an operator to automate include:
 * choosing a leader for a distributed application without an internal
   member election process
 -->
-
 ## Operator 示例 {#example}
 
 使用 Operator 可以自动化的事情包括：
@@ -147,7 +143,6 @@ The Controller will normally run outside of the
 much as you would run any containerized application.
 For example, you can run the controller in your cluster as a Deployment.
 -->
-
 ## 部署 Operator
 
 部署 Operator 最常见的方法是将自定义资源及其关联的控制器添加到您的集群中。跟运行容器化应用一样，Controller 通常会运行在 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}} 之外。例如，您可以在集群中将控制器作为 Deployment 运行。
@@ -198,12 +193,10 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 
 如果生态系统中没可以实现您目标的 Operator，您可以自己编写代码。在[接下来](#what-s-next)一节中，您会找到编写自己的云原生 Operator 需要的库和工具的链接。
 
-您还可以使用任何支持 [Kubernetes API 客户端](/docs/reference/using-api/client-libraries/)的语言或运行时来实现 Operator（即控制器）。
-
-
+您还可以使用任何支持 [Kubernetes API 客户端](/zh/docs/reference/using-api/client-libraries/)
+的语言或运行时来实现 Operator（即控制器）。
 
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 * Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
@@ -219,7 +212,7 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 -->
 
-* 详细了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合您的 Operator
 * 借助已有的工具来编写您自己的 Operator，例如：
   * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)
@@ -228,6 +221,7 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
   * [Operator 框架](https://github.com/operator-framework/getting-started)
 * [发布](https://operatorhub.io/)您的 Operator，让别人也可以使用
 * 阅读 [CoreOS 原文](https://coreos.com/blog/introducing-operators.html)，其介绍了 Operator 介绍
-* 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的[文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
+* 阅读这篇来自谷歌云的关于构建 Operator 最佳实践的
+  [文章](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
 
 

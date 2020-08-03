@@ -61,20 +61,20 @@ Customization approaches can be broadly divided into *configuration*, which only
 
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/).
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 -->
 
 ## Configuration
 
 *配置文件*和*参数标志*的说明位于在线文档的参考章节，按可执行文件组织：
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/).
+* [kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-apiserver](/zh/docs/reference/command-line-tools-reference/kube-apiserver/)
+* [kube-controller-manager](/zh/docs/reference/command-line-tools-reference/kube-controller-manager/)
+* [kube-scheduler](/zh/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 <!--
 Flags and configuration files may not always be changeable in a hosted Kubernetes service or a distribution with managed installation. When they are changeable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
@@ -97,7 +97,7 @@ API 通常用于托管的 Kubernetes 服务和受控的 Kubernetes 安装环境�
 这些 API 是声明式的，与 Pod 这类其他 Kubernetes 资源遵从相同的约定，所以
 新的集群配置是可复用的，并且可以当作应用程序来管理。
 此外，对于稳定版本的 API 而言，它们与其他 Kubernetes API 一样，采纳的是
-一种[预定义的支持策略](/zh/docs/reference/deprecation-policy/)。
+一种[预定义的支持策略](/zh/docs/reference/using-api/deprecation-policy/)。
 出于以上原因，在条件允许的情况下，基于 API 的方案应该优先于*配置文件*和*参数标志*。
 
 <!--
@@ -171,7 +171,7 @@ Kubernetes control plane.
 在*可执行文件插件（Binary Plugin）*模式中，Kubernetes 执行某个可执行文件（程序）。
 可执行文件插件在 kubelet （例如，
 [FlexVolume 插件](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-和[网络插件](/zh/docs/concepts/cluster-administration/network-plugins/)）
+和[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)）
 和 kubectl 中使用。
 
 下面的示意图中展示了这些扩展点如何与 Kubernetes 控制面交互。
@@ -210,28 +210,28 @@ If you are unsure where to start, this flowchart can help. Note that some soluti
 
 2. API 服务器处理所有请求。API 服务器中的几种扩展点能够使用户对请求执行身份认证、
    基于其内容阻止请求、编辑请求内容、处理删除操作等等。
-   这些扩展点在 [API 访问扩展](/zh/docs/concepts/overview/extending#api-access-extensions)
+   这些扩展点在 [API 访问扩展](#api-access-extensions)
    节详述。
 
 3. API 服务器向外提供不同类型的*资源（resources）*。
    *内置的资源类型*，如 `pods`，是由 Kubernetes 项目所定义的，无法改变。
    你也可以添加自己定义的或者其他项目所定义的称作*自定义资源（Custom Resources）*
-   的资源，正如[自定义资源](/zh/docs/concepts/overview/extending#user-defined-types)节所描述的那样。
+   的资源，正如[自定义资源](#user-defined-types)节所描述的那样。
    自定义资源通常与 API 访问扩展点结合使用。
 
 4. Kubernetes 调度器负责决定 Pod 要放置到哪些节点上执行。
    有几种方式来扩展调度行为。这些方法将在
-   [调度器扩展](/zh/docs/concepts/overview/extending#scheduler-extensions)节中展开。
+   [调度器扩展](#scheduler-extensions)节中展开。
 
 5. Kubernetes 中的很多行为都是通过称为控制器（Controllers）的程序来实现的，这些程序也都是 API 服务器
    的客户端。控制器常常与自定义资源结合使用。
 
 6. 组件 kubelet 运行在各个节点上，帮助 Pod 展现为虚拟的服务器并在集群网络中拥有自己的 IP。
-   [网络插件](/zh/docs/concepts/overview/extending#network-plugins)使得 Kubernetes 能够采用
+   [网络插件](#network-plugins)使得 Kubernetes 能够采用
    不同实现技术来连接 Pod 网络。
 
 7. 组件 kubelet 也会为容器增加或解除存储卷的挂载。
-   通过[存储插件](/zh/docs/concepts/overview/extending#storage-plugins)，可以支持新的存储类型。
+   通过[存储插件](#storage-plugins)，可以支持新的存储类型。
 
 如果你无法确定从何处入手，下面的流程图可能对你有些帮助。
 注意，某些方案可能需要同时采用几种类型的扩展。
@@ -248,7 +248,7 @@ Consider adding a Custom Resource to Kubernetes if you want to define new contro
 
 Do not use a Custom Resource as data storage for application, user, or monitoring data.
 
-For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
+For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 -->
 ## API 扩展  {#api-extensions}
 
@@ -259,7 +259,7 @@ For more about Custom Resources, see the [Custom Resources concept guide](/docs/
 
 不要使用自定义资源来充当应用、用户或者监控数据的数据存储。
 
-关于自定义资源的更多信息，可参见[自定义资源概念指南](/zh/docs/concepts/api-extension/custom-resources/)。
+关于自定义资源的更多信息，可参见[自定义资源概念指南](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 
 <!--
 ### Combining New APIs with Automation
@@ -333,7 +333,7 @@ Kubernetes 提供若干种内置的认证方法，以及
 -->
 ### 鉴权    {#authorization}
 
-[鉴权](/docs/reference/access-authn-authz/webhook/)操作负责确定特定的用户
+[鉴权](/zh/docs/reference/access-authn-authz/webhook/)操作负责确定特定的用户
 是否可以读、写 API 资源或对其执行其他操作。
 此操作仅在整个资源集合的层面进行。
 换言之，它不会基于对象的特定字段作出不同的判决。
@@ -392,12 +392,12 @@ Different networking fabrics can be supported via node-level [Network Plugins](/
 -->
 ### 设备插件    {#device-plugins}
 
-使用[设备插件](/zh/docs/concepts/cluster-administration/device-plugins/)，
+使用[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)，
 节点能够发现新的节点资源（除了内置的类似 CPU 和内存这类资源）。
 
 ### 网络插件   {#network-plugins}
 
-通过节点层面的[网络插件](/docs/admin/network-plugins/)，可以支持
+通过节点层面的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，可以支持
 不同的网络设施。
 
 <!--
@@ -435,7 +435,7 @@ the nodes chosen for a pod.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
+* Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
   * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
@@ -443,11 +443,11 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
-* 进一步了解[自定义资源](/zh/docs/concepts/api-extension/custom-resources/)
+* 进一步了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 进一步了解基础设施扩展
-  * [网络插件](/zh/docs/concepts/cluster-administration/network-plugins/)
-  * [设备插件](/zh/docs/concepts/cluster-administration/device-plugins/)
+  * [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  * [设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * 了解 [kubectl 插件](/zh/docs/tasks/extend-kubectl/kubectl-plugins/)
 * 了解 [Operator 模式](/zh/docs/concepts/extend-kubernetes/operator/)
 
