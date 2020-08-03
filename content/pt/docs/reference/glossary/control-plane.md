@@ -1,5 +1,5 @@
 ---
-title: Control Plane
+title: Ambiente de gerenciamento
 id: control-plane
 date: 2020-04-19
 full_link:
