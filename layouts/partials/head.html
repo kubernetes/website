@@ -10,8 +10,12 @@
   gtag('config', 'UA-36037335-10');
 </script>
 
-<!-- Docsy head.html begins here -->
+<!-- alternative translations -->
+{{ range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{ end -}}
 
+<!-- Docsy head.html begins here -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {{ hugo.Generator }}
@@ -77,7 +81,7 @@
 <script src="{{ "js/jquery-ui-1.12.1.min.js" | relURL }}"></script>
 <script src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
 
-{{ if eq .Params.mermaid true }}
+{{ if .HasShortcode "mermaid" }}
 <!-- Copied from https://unpkg.com/mermaid@8.5.0/dist/mermaid.min.js -->
 <script async src="{{ "js/mermaid.min.js" | relURL }}"></script>
 {{ end }}

@@ -1,13 +1,14 @@
 ---
-reviewers:
-- jsafrane
-- saad-ali
-- thockin
-- msau42
-title: Storage Classes
+title: 存储类
 content_type: concept
 weight: 30
 ---
+
+<!--
+title: Storage Classes
+content_type: concept
+weight: 30
+-->
 
 <!-- overview -->
 
@@ -16,10 +17,8 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
-本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/docs/concepts/storage/volumes/) 和
-[持久卷](/docs/concepts/storage/persistent-volumes) 的概念。
-
-
+本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/zh/docs/concepts/storage/volumes/) 和
+[持久卷](/zh/docs/concepts/storage/persistent-volumes) 的概念。
 
 <!-- body -->
 
@@ -67,7 +66,8 @@ request any particular class to bind to: see the
 for details.
  -->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
-更多详情请参阅 [PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+更多详情请参阅
+[PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -134,7 +134,8 @@ the specification. Some external provisioners are listed under the repository
 [kubernetes-incubator/external-storage](https://github.com/kubernetes-incubator/external-storage).
  -->
 您不限于指定此处列出的 "内置" 分配器（其名称前缀为 "kubernetes.io" 并打包在 Kubernetes 中）。
-您还可以运行和指定外部分配器，这些独立的程序遵循由 Kubernetes 定义的 [规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
+您还可以运行和指定外部分配器，这些独立的程序遵循由 Kubernetes 定义的
+[规范](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)。
 外部供应商的作者完全可以自由决定他们的代码保存于何处、打包方式、运行方式、使用的插件（包括 Flex）等。
 代码仓库 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
 包含一个用于为外部分配器编写功能实现的类库。可以通过下面的代码仓库，查看外部分配器列表。
@@ -182,7 +183,6 @@ allows the users to resize the volume by editing the corresponding PVC object.
 The following types of volumes support volume expansion, when the underlying
 Storage Class has the field `allowVolumeExpansion` set to true.
 -->
-
 PersistentVolume 可以配置为可扩展。将此功能设置为 `true` 时，允许用户通过编辑相应的 PVC 对象来调整卷大小。
 
 当基础存储类的 `allowVolumeExpansion` 字段设置为 true 时，以下类型的卷支持卷扩展。
@@ -207,10 +207,10 @@ Volume type | Required Kubernetes version
 
 {{< /table >}}
 
-{{< note >}}
 <!--
 You can only use the volume expansion feature to grow a Volume, not to shrink it.
 -->
+{{< note >}}
 此功能仅可用于扩容卷，不能用于缩小卷。
 {{< /note >}}
 
@@ -240,7 +240,7 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
  -->
-`volumeBindingMode` 字段控制了 [卷绑定和动态分配](/docs/concepts/storage/persistent-volumes/#provisioning)
+`volumeBindingMode` 字段控制了[卷绑定和动态分配](/zh/docs/concepts/storage/persistent-volumes/#provisioning)
 应该发生在什么时候。
 
 <!--
@@ -266,10 +266,11 @@ and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
 -->
 集群管理员可以通过指定 `WaitForFirstConsumer` 模式来解决此问题。
 该模式将延迟 PersistentVolume 的绑定和分配，直到使用该 PersistentVolumeClaim 的 Pod 被创建。
-PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或分配。这些包括但不限于 [资源需求](/docs/concepts/configuration/manage-compute-resources-container)，
-[节点筛选器](/docs/concepts/configuration/assign-pod-node/#nodeselector)，
-[pod 亲和性和互斥性](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity),
-以及 [污点和容忍度](/docs/concepts/configuration/taint-and-toleration).
+PersistentVolume 会根据 Pod 调度约束指定的拓扑来选择或分配。这些包括但不限于
+[资源需求](/zh/docs/concepts/configuration/manage-resources-containers/)、
+[节点筛选器](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector)、
+[pod 亲和性和互斥性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)、
+以及[污点和容忍度](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 
 <!--
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
@@ -302,14 +303,13 @@ The following plugins support `WaitForFirstConsumer` with pre-created Persistent
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
 -->
-
-动态配置和预先创建的 PV 也支持 [CSI卷](/docs/concepts/storage/volumes/#csi)，
+动态配置和预先创建的 PV 也支持 [CSI卷](/zh/docs/concepts/storage/volumes/#csi)，
 但是您需要查看特定 CSI 驱动程序的文档以查看其支持的拓扑键名和例子。
 
 <!--
 ### Allowed Topologies
 -->
-### 允许的拓扑结构
+### 允许的拓扑结构  {#allowed-topologies}
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
 <!--
@@ -402,14 +402,22 @@ parameters:
   encrypting the volume. If none is supplied but `encrypted` is true, a key is
   generated by AWS. See AWS docs for valid ARN value.
 -->
-* `type`：`io1`，`gp2`，`sc1`，`st1`。详细信息参见 [AWS 文档](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。默认值：`gp2`。
-* `zone`(弃用)：AWS 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
-* `zones`(弃用)：以逗号分隔的 AWS 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone`和`zones`参数不能同时使用。
-* `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，并将其限制在 20 000 IOPS（AWS 支持的最高值，请参阅 [AWS 文档](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
+* `type`：`io1`，`gp2`，`sc1`，`st1`。详细信息参见
+  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。默认值：`gp2`。
+* `zone`(弃用)：AWS 区域。如果没有指定 `zone` 和 `zones`，
+  通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
+* `zones`(弃用)：以逗号分隔的 AWS 区域列表。
+  如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone`和`zones`参数不能同时使用。
+* `iopsPerGB`：只适用于 `io1` 卷。每 GiB 每秒 I/O 操作。
+  AWS 卷插件将其与请求卷的大小相乘以计算 IOPS 的容量，
+  并将其限制在 20000 IOPS（AWS 支持的最高值，请参阅
+  [AWS 文档](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)。
   这里需要输入一个字符串，即 `"10"`，而不是 `10`。
 * `fsType`：受 Kubernetes 支持的文件类型。默认值：`"ext4"`。
-* `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。这里需要输入字符串，即 `"true"`, 而非 `true`。
-* `kmsKeyId`：可选。加密卷时使用密钥的完整 Amazon 资源名称。如果没有提供，但 `encrypted` 值为 true，AWS 生成一个密钥。关于有效的 ARN 值，请参阅 AWS 文档。
+* `encrypted`：指定 EBS 卷是否应该被加密。合法值为 `"true"` 或者 `"false"`。
+  这里需要输入字符串，即 `"true"`, 而非 `true`。
+* `kmsKeyId`：可选。加密卷时使用密钥的完整 Amazon 资源名称。
+  如果没有提供，但 `encrypted` 值为 true，AWS 生成一个密钥。关于有效的 ARN 值，请参阅 AWS 文档。
 
 {{< note >}}
 <!--
@@ -445,8 +453,12 @@ parameters:
 * `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 * `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
-* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。`zone` 和 `zones` 参数不能同时使用。
-* `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。`zone` 和 `zones` 参数不能同时使用。
+* `zone`(弃用)：GCE 区域。如果没有指定 `zone` 和 `zones`，通常
+  卷会在 Kubernetes 集群节点所在的活动区域中轮询调度分配。
+  `zone` 和 `zones` 参数不能同时使用。
+* `zones`(弃用)：逗号分隔的 GCE 区域列表。如果没有指定 `zone` 和 `zones`，
+  通常卷会在 Kubernetes 集群节点所在的活动区域中轮询调度（round-robin）分配。
+  `zone` 和 `zones` 参数不能同时使用。
 * `fstype`: `ext4` 或 `xfs`。 默认: `ext4`。宿主机操作系统必须支持所定义的文件系统类型。
 * `replication-type`：`none` 或者 `regional-pd`。默认值：`none`。
 
@@ -465,14 +477,18 @@ specified, Kubernetes will arbitrarily choose among the specified zones. If the
 `zones` parameter is omitted, Kubernetes will arbitrarily choose among zones
 managed by the cluster.
 -->
-如果 `replication-type` 设置为 `regional-pd`，会分配一个 [区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。在这种情况下，用户必须使用 `zones` 而非 `zone` 来指定期望的复制区域（zone）。如果指定来两个特定的区域，区域性持久化磁盘会在这两个区域里分配。如果指定了多于两个的区域，Kubernetes 会选择其中任意两个区域。如果省略了 `zones` 参数，Kubernetes 会在集群管理的区域中任意选择。
-
-{{< note >}}
+如果 `replication-type` 设置为 `regional-pd`，会分配一个
+[区域性持久化磁盘（Regional Persistent Disk）](https://cloud.google.com/compute/docs/disks/#repds)。
+在这种情况下，用户必须使用 `zones` 而非 `zone` 来指定期望的复制区域（zone）。
+如果指定来两个特定的区域，区域性持久化磁盘会在这两个区域里分配。
+如果指定了多于两个的区域，Kubernetes 会选择其中任意两个区域。
+如果省略了 `zones` 参数，Kubernetes 会在集群管理的区域中任意选择。
 
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
 [allowedTopologies](#allowed-topologies)
 -->
+{{< note >}}
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
 {{< /note >}}
 
@@ -516,11 +532,14 @@ parameters:
 -->
 * `resturl`：分配 gluster 卷的需求的 Gluster REST 服务/Heketi 服务 url。
   通用格式应该是 `IPaddress:Port`，这是 GlusterFS 动态分配器的必需参数。
-  如果 Heketi 服务在 openshift/kubernetes 中安装并暴露为可路由服务，则可以使用类似于
+  如果 Heketi 服务在 OpenShift/kubernetes 中安装并暴露为可路由服务，则可以使用类似于
   `http://heketi-storage-project.cloudapps.mystorage.com` 的格式，其中 fqdn 是可解析的 heketi 服务网址。
-* `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。此选项已弃用，当在指定 `restuser`，`restuserkey`，`secretName` 或  `secretNamespace` 时，身份验证被启用。
+* `restauthenabled`：Gluster REST 服务身份验证布尔值，用于启用对 REST 服务器的身份验证。
+  如果此值为 'true'，则必须填写 `restuser` 和 `restuserkey` 或 `secretNamespace` + `secretName`。
+  此选项已弃用，当在指定 `restuser`、`restuserkey`、`secretName` 或  `secretNamespace` 时，身份验证被启用。
 * `restuser`：在 Gluster 可信池中有权创建卷的 Gluster REST服务/Heketi 用户。
-* `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
+* `restuserkey`：Gluster REST 服务/Heketi 用户的密码将被用于对 REST 服务器进行身份验证。
+  此参数已弃用，取而代之的是 `secretNamespace` + `secretName`。
 
 <!--
 * `secretNamespace`, `secretName` : Identification of Secret instance that
@@ -539,7 +558,8 @@ parameters:
     [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml).
 -->
 * `secretNamespace`，`secretName`：Secret 实例的标识，包含与 Gluster REST 服务交互时使用的用户密码。
-  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
+  这些参数是可选的，`secretNamespace` 和 `secretName` 都省略时使用空密码。
+  所提供的 Secret 必须将类型设置为 "kubernetes.io/glusterfs"，例如以这种方式创建：
 
     ```
     kubectl create secret generic heketi-secret \
@@ -547,7 +567,7 @@ parameters:
       --namespace=default
     ```
 
-    secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
+  Secret 的例子可以在 [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml) 中找到。
 
 <!--
 * `clusterid`: `630372ccdc720a92c681fb928f27b53f` is the ID of the cluster
@@ -561,9 +581,12 @@ parameters:
   specified, the volume will be provisioned with a value between 2000-2147483647
   which are defaults for gidMin and gidMax respectively.
 -->
-* `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当分配卷时，Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
+* `clusterid`：`630372ccdc720a92c681fb928f27b53f` 是集群的 ID，当分配卷时，
+  Heketi 将会使用这个文件。它也可以是一个 clusterid 列表，例如：
   `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`。这个是可选参数。
-* `gidMin`，`gidMax`：storage class GID 范围的最小值和最大值。在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态分配卷。这些是可选的值。如果不指定，卷将被分配一个 2000-2147483647 之间的值，这是 gidMin 和 gidMax 的默认值。
+* `gidMin`，`gidMax`：storage class GID 范围的最小值和最大值。
+  在此范围（gidMin-gidMax）内的唯一值（GID）将用于动态分配卷。这些是可选的值。
+  如果不指定，卷将被分配一个 2000-2147483647 之间的值，这是 gidMin 和 gidMax 的默认值。
 
 <!--
 * `volumetype` : The volume type and its parameters can be configured with this
@@ -587,17 +610,17 @@ parameters:
     deleted when the persistent volume claim is deleted.
 -->
 * `volumetype`：卷的类型及其参数可以用这个可选值进行配置。如果未声明卷类型，则由分配器决定卷的类型。
+   例如：
 
-    例如：
-    'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量.
-    'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量.
-    'Distribute volume': `volumetype: none`
+   * 'Replica volume': `volumetype: replicate:3` 其中 '3' 是 replica 数量.
+   * 'Disperse/EC volume': `volumetype: disperse:4:2` 其中 '4' 是数据，'2' 是冗余数量.
+   * 'Distribute volume': `volumetype: none`
 
-    有关可用的卷类型和管理选项，请参阅 [管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
+  有关可用的卷类型和管理选项，请参阅 [管理指南](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)。
 
-    更多相关的参考信息，请参阅 [如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
+  更多相关的参考信息，请参阅 [如何配置 Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)。
 
-    当动态分配持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>` 的端点和 headless service。在 PVC 被删除时动态端点和 headless service 会自动被删除。
+  当动态分配持久卷时，Gluster 插件自动创建名为 `gluster-dynamic-<claimname>` 的端点和 headless service。在 PVC 被删除时动态端点和 headless service 会自动被删除。
 
 ### OpenStack Cinder
 
@@ -674,7 +697,11 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
     specified in the vSphere config file used to initialize the vSphere Cloud
     Provider.
 -->
-    `datastore`：用户也可以在 StorageClass 中指定数据存储。卷将在 storage class 中指定的数据存储上创建，在这种情况下是 `VSANDatastore`。该字段是可选的。如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere 配置文件中指定的数据存储上创建该卷。
+    `datastore`：用户也可以在 StorageClass 中指定数据存储。
+    卷将在 storage class 中指定的数据存储上创建，在这种情况下是 `VSANDatastore`。
+    该字段是可选的。
+    如果未指定数据存储，则将在用于初始化 vSphere Cloud Provider 的 vSphere 
+    配置文件中指定的数据存储上创建该卷。
 
 <!--
 3. Storage Policy Management inside kubernetes
@@ -697,7 +724,10 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
 -->
     * 使用现有的 vCenter SPBM 策略
 
-        vSphere 用于存储管理的最重要特性之一是基于策略的管理。基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的跨越广泛的数据服务和存储解决方案。 SPBM 使能 vSphere 管理员克服先期的存储配置挑战，如容量规划，差异化服务等级和管理容量空间。
+        vSphere 用于存储管理的最重要特性之一是基于策略的管理。
+        基于存储策略的管理（SPBM）是一个存储策略框架，提供单一的统一控制平面的
+        跨越广泛的数据服务和存储解决方案。
+        SPBM 使能 vSphere 管理员克服先期的存储配置挑战，如容量规划，差异化服务等级和管理容量空间。
 
         SPBM 策略可以在 StorageClass 中使用 `storagePolicyName` 参数声明。
 
@@ -719,7 +749,10 @@ OpenStack 的内部驱动程序已经被弃用。请使用 [OpenStack 的外部�
 -->
     * Kubernetes 内的 Virtual SAN 策略支持
 
-        Vsphere Infrastructure（VI）管理员将能够在动态卷配置期间指定自定义 Virtual SAN 存储功能。您现在可以定义存储需求，例如性能和可用性，当动态卷供分配时会以存储功能的形式提供。存储功能需求会转换为 Virtual SAN 策略，然后当 persistent volume（虚拟磁盘）在创建时，会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
+        Vsphere Infrastructure（VI）管理员将能够在动态卷配置期间指定自定义 Virtual SAN
+        存储功能。您现在可以定义存储需求，例如性能和可用性，当动态卷供分配时会以存储功能的形式提供。
+        存储功能需求会转换为 Virtual SAN 策略，然后当持久卷（虚拟磁盘）在创建时，
+        会将其推送到 Virtual SAN 层。虚拟磁盘分布在 Virtual SAN 数据存储中以满足要求。
 
         更多有关 persistent volume 管理的存储策略的详细信息，
         您可以参考 [基于存储策略的动态分配卷管理](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)。
@@ -955,7 +988,8 @@ parameters:
 * `kind`：可能的值是 `shared`（默认）、`dedicated` 和 `managed`。
   当 `kind` 的值是 `shared` 时，所有非托管磁盘都在集群的同一个资源组中的几个共享存储帐户中创建。
   当 `kind` 的值是 `dedicated` 时，将为在集群的同一个资源组中新的非托管磁盘创建新的专用存储帐户。
-* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
+* `resourceGroup`: 指定要创建 Azure 磁盘所属的资源组。必须是已存在的资源组名称。
+  若未指定资源组，磁盘会默认放入与当前 Kubernetes 集群相同的资源组中。
 <!--
 - Premium VM can attach both Standard_LRS and Premium_LRS disks, while Standard
   VM can only attach Standard_LRS disks.
@@ -1015,7 +1049,8 @@ mounting credentials. If the cluster has enabled both
 add the `create` permission of resource `secret` for clusterrole
 `system:controller:persistent-volume-binder`.
 -->
-在存储分配期间，为挂载凭证创建一个名为 `secretName` 的 secret。如果集群同时启用了 [RBAC](/docs/admin/authorization/rbac/) 和 [Controller Roles](/docs/admin/authorization/rbac/#controller-roles)，
+在存储分配期间，为挂载凭证创建一个名为 `secretName` 的 Secret。如果集群同时启用了
+[RBAC](/zh/docs/reference/access-authn-authz/rbac/) 和 [控制器角色](/zh/docs/reference/access-authn-authz/rbac/#controller-roles)，
 为 `system:controller:persistent-volume-binder` 的 clusterrole 添加 `secret` 资源的 `create` 权限。
 
 <!--
@@ -1075,7 +1110,8 @@ parameters:
 * `aggregation_level`：指定卷分配到的块数量，0 表示一个非聚合卷（默认：`0`）。
   这里需要填写字符串，即，是 `"0"` 而不是 `0`。
 * `ephemeral`：指定卷在卸载后进行清理还是持久化。 `emptyDir` 的使用场景可以将这个值设置为 true ，
-  `persistent volumes` 的使用场景可以将这个值设置为 false（例如 Cassandra 这样的数据库）`true/false`（默认为 `false`）。这里需要填写字符串，即，是 `"true"` 而不是 `true`。
+  `persistent volumes` 的使用场景可以将这个值设置为 false（例如 Cassandra 这样的数据库）
+  `true/false`（默认为 `false`）。这里需要填写字符串，即，是 `"true"` 而不是 `true`。
 
 ### ScaleIO
 
@@ -1136,8 +1172,8 @@ secret 必须用 `kubernetes.io/scaleio` 类型创建，并与引用它的 PVC �
 
 ```shell
 kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
---from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
---namespace=default
+  --from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
+  --namespace=default
 ```
 
 ### StorageOS

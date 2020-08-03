@@ -23,8 +23,6 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 
-
-
 <!-- body -->
 
 ## Management
@@ -195,7 +193,7 @@ The node lifecycle controller automatically creates
 The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
 Pods can also have tolerations which let them tolerate a Node's taints.
 
-See [Taint Nodes by Condition](/docs/concepts/configuration/taint-and-toleration/#taint-nodes-by-condition)
+See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
 
 ### Capacity and Allocatable {#capacity}
@@ -339,6 +337,6 @@ for more information.
 * Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 * Read the [Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/configuration/taint-and-toleration/).
+* Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * Read about [cluster autoscaling](/docs/tasks/administer-cluster/cluster-management/#cluster-autoscaling).
 

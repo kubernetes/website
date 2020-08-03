@@ -9,7 +9,6 @@ feature:
 ---
 
 <!--
----
 title: Managing Resources for Containers
 content_type: concept
 weight: 40
@@ -17,7 +16,6 @@ feature:
   title: Automatic binpacking
   description: >
     Automatically places containers based on their resource requirements and other constraints, while not sacrificing availability. Mix critical and best-effort workloads in order to drive up utilization and save even more resources.
----
 -->
 
 <!-- overview -->
@@ -35,7 +33,7 @@ at least the _request_ amount of that system resource specifically for that cont
 to use.
 -->
 
-当你定义 {{< glossary_tooltip term_id="pod" >}} 时可以选择性地为每个
+当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 时可以选择性地为每个
 {{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
 最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
@@ -138,8 +136,8 @@ through the Kubernetes API server.
 
 CPU 和内存统称为*计算资源*，或简称为*资源*。
 计算资源的数量是可测量的，可以被请求、被分配、被消耗。
-它们与 [API 资源](/docs/concepts/overview/kubernetes-api/) 不同。
-API 资源（如 Pod 和 [Service](/docs/concepts/services-networking/service/)）是可通过
+它们与 [API 资源](/zh/docs/concepts/overview/kubernetes-api/) 不同。
+API 资源（如 Pod 和 [Service](/zh/docs/concepts/services-networking/service/)）是可通过
 Kubernetes API 服务器读取和修改的对象。
 
 <!--
@@ -249,8 +247,8 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
+  - name: app
+    image: images.my-company.example/app:v4
     env:
     - name: MYSQL_ROOT_PASSWORD
       value: "password"
@@ -261,8 +259,8 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         memory: "64Mi"
@@ -388,9 +386,9 @@ directly or from your monitoring tools.
 Pod 的资源使用情况是作为 Pod 状态的一部分来报告的。
 
 如果为集群配置了可选的
-[监控工具](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，
+[监控工具](/zh/docs/tasks/debug-application-cluster/resource-usage-monitoring/)，
 则可以直接从
-[指标 API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 
+[指标 API](/zh/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api) 
 或者监控工具获得 Pod 的资源使用情况。
 
 <!--
@@ -417,7 +415,7 @@ mount [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir
 
 Pods 通常可以使用临时性本地存储来实现缓冲区、保存日志等功能。
 kubelet 可以为使用本地临时存储的 Pods 提供这种存储空间，允许后者使用
-[`emptyDir`](/docs/concepts/storage/volumes/#emptydir) 类型的
+[`emptyDir`](/zh/docs/concepts/storage/volumes/#emptydir) 类型的
 {{< glossary_tooltip term_id="volume" text="卷" >}}将其挂载到容器中。
 
 <!--
@@ -436,7 +434,7 @@ of ephemeral local storage a Pod can consume.
 -->
 
 kubelet 也使用此类存储来保存
-[节点层面的容器日志](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
+[节点层面的容器日志](/zh/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
 容器镜像文件、以及运行中容器的可写入层。
 
 {{< caution >}}
@@ -474,7 +472,7 @@ Kubernetes 有两种方式支持节点上配置本地临时性存储：
 （kubelet）来保存数据的。
 
 kubelet 也会生成
-[节点层面的容器日志](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
+[节点层面的容器日志](/zh/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)，
 并按临时性本地存储的方式对待之。
 
 <!--
@@ -525,7 +523,7 @@ as you like.
 无关的其他系统日志）；这个文件系统还可以是根文件系统。
 
 kubelet 也将
-[节点层面的容器日志](/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
+[节点层面的容器日志](/zh/docs/concepts/cluster-administration/logging/#logging-at-the-node-level)
 写入到第一个文件系统中，并按临时性本地存储的方式对待之。
 
 同时你使用另一个由不同逻辑存储设备支持的文件系统。在这种配置下，你会告诉
@@ -558,7 +556,7 @@ than as local ephemeral storage.
 
 kubelet 能够度量其本地存储的用量。实现度量机制的前提是：
 
-- `LocalStorageCapacityIsolation` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)被启用（默认状态），并且
+- `LocalStorageCapacityIsolation` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)被启用（默认状态），并且
 - 你已经对节点进行了配置，使之使用所支持的本地临时性储存配置方式之一
 
 如果你的节点配置不同于以上预期，kubelet 就无法对临时性本地存储的资源约束实施限制。
@@ -617,18 +615,15 @@ metadata:
   name: frontend
 spec:
   containers:
-  - name: db
-    image: mysql
-    env:
-    - name: MYSQL_ROOT_PASSWORD
-      value: "password"
+  - name: app
+    image: images.my-company.example/app:v4
     resources:
       requests:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
-  - name: wp
-    image: wordpress
+  - name: log-aggregator
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         ephemeral-storage: "2Gi"
@@ -650,7 +645,7 @@ The scheduler ensures that the sum of the resource requests of the scheduled Con
 当你创建一个 Pod 时，Kubernetes 调度器会为 Pod 选择一个节点来运行之。
 每个节点都有一个本地临时性存储的上限，是其可提供给 Pods 使用的总量。
 欲了解更多信息，可参考
-[节点可分配资源](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
+[节点可分配资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 节。
 
 调度器会确保所调度的 Containers 的资源请求总和不会超出节点的资源容量。
@@ -838,7 +833,7 @@ If you want to use project quotas, you should:
 如果你希望使用项目配额，你需要：
 
 * 在 kubelet 配置中启用 `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)。
+  [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)。
 
 * 确保根文件系统（或者可选的运行时文件系统）启用了项目配额。所有 XFS
   文件系统都支持项目配额。
@@ -896,7 +891,8 @@ for how to advertise device plugin managed resources on each node.
 
 ##### 设备插件管理的资源
 
-有关如何颁布在各节点上由设备插件所管理的资源，请参阅[设备插件](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
+有关如何颁布在各节点上由设备插件所管理的资源，请参阅
+[设备插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。
 
 <!--
 ##### Other resources
@@ -1198,11 +1194,11 @@ with namespaces, it can prevent one team from hogging all the resources.
 通过查看 `Pods` 部分，您将看到哪些 Pod 占用了节点上的资源。
 
 可供 Pod 使用的资源量小于节点容量，因为系统守护程序也会使用一部分可用资源。
-[NodeStatus](/docs/resources-reference/{{< param "version" >}}/#nodestatus-v1-core)
+[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 的 `allocatable` 字段给出了可用于 Pod 的资源量。
 有关更多信息，请参阅 [节点可分配资源](https://git.k8s.io/community/contributors/design-proposals/node-allocatable.md)。
 
-可以配置 [资源配额](/docs/concepts/policy/resource-quotas/) 功能特性以限制可以使用的资源总量。
+可以配置 [资源配额](/zh/docs/concepts/policy/resource-quotas/) 功能特性以限制可以使用的资源总量。
 如果与名字空间配合一起使用，就可以防止一个团队占用所有资源。
 
 <!--
@@ -1301,10 +1297,10 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 * Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
 -->
 
-* 获取将 [分配内存资源给容器和 Pod ](/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
-* 获取将 [分配 CPU 资源给容器和 Pod ](/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
+* 获取将 [分配内存资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
+* 获取将 [分配 CPU 资源给容器和 Pod ](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
 * 关于请求和约束之间的区别，细节信息可参见[资源服务质量](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)
 * 阅读 API 参考文档中 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) 部分。
 * 阅读 API 参考文档中 [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) 部分。
-* 阅读 XFS 中关于 [项目配额](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 的文档。
+* 阅读 XFS 中关于 [项目配额](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) 的文档。
 

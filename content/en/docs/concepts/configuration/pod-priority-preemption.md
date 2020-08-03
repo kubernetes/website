@@ -11,7 +11,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
+[Pods](/docs/concepts/workloads/pods/pod/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.

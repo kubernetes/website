@@ -34,9 +34,9 @@ Before reviewing, it's a good idea to:
 
 在评阅之前，可以考虑：
 
-- 阅读[内容指南](/docs/contribute/style/content-guide/)和 
-  [样式指南](/docs/contribute/style/style-guide/)以便给出有价值的评论。
-- 了解 Kubernetes 文档社区中不同的[角色和职责](/docs/contribute/participating/#roles-and-responsibilities)。
+- 阅读[内容指南](/zh/docs/contribute/style/content-guide/)和 
+  [样式指南](/zh/docs/contribute/style/style-guide/)以便给出有价值的评论。
+- 了解 Kubernetes 文档社区中不同的[角色和职责](/zh/docs/contribute/participate/roles-and-responsibilities/)。
 
 <!-- body -->
 <!--
@@ -90,7 +90,7 @@ In general, review pull requests for content and style in English.
 2. 使用以下标签（组合）对待处理 PRs 进行过滤：
 
     - `cncf-cla: yes` （建议）：由尚未签署 CLA 的贡献者所发起的 PRs 不可以合并。
-      参考[签署 CLA](/docs/contribute/new-content/overview/#sign-the-cla) 以了解更多信息。
+      参考[签署 CLA](/zh/docs/contribute/new-content/overview/#sign-the-cla) 以了解更多信息。
     - `language/en` （建议）：仅查看英语语言的 PRs。
     - `size/<尺寸>`：过滤特定尺寸（规模）的 PRs。如果你刚入门，可以从较小的 PR 开始。
 
@@ -153,7 +153,7 @@ When reviewing, use the following as a starting point.
 - 是否存在明显的语言或语法错误？对某事的描述有更好的方式？
 - 是否存在一些过于复杂晦涩的用词，本可以用简单词汇来代替？
 - 是否有些用词、术语或短语可以用不带歧视性的表达方式代替？
-- 用词和大小写方面是否遵从了[样式指南](/docs/contribute/style/style-guide/)？
+- 用词和大小写方面是否遵从了[样式指南](/zh/docs/contribute/style/style-guide/)？
 - 是否有些句子太长，可以改得更短、更简单？
 - 是否某些段落过长，可以考虑使用列表或者表格来表达？
 
@@ -188,10 +188,10 @@ For small issues with a PR, like typos or whitespace, prefix your comments with 
   如果是这样，PR 是否会导致出现新的失效链接？
   是否有其他的办法，比如改变页面标题但不改变其 slug？
 - PR 是否引入新的页面？如果是：
-  - 该页面是否使用了正确的[页面内容类型](/docs/contribute/style/page-content-types/)
+  - 该页面是否使用了正确的[页面内容类型](/zh/docs/contribute/style/page-content-types/)
     及相关联的 Hugo 短代码（shortcodes）？
   - 该页面能否在对应章节的侧面导航中显示？显示得正确么？
-  - 该页面是否应出现在[网站主页面](/docs/home/)的列表中？
+  - 该页面是否应出现在[网站主页面](/zh/docs/home/)的列表中？
 - 变更是否正确出现在 Netlify 预览中了？
   要对列表、代码段、表格、注释和图像等元素格外留心
 

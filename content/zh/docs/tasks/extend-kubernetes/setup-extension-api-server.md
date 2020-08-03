@@ -78,7 +78,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. Create a Kubernetes cluster role binding from the service account in your namespace to the `system:auth-delegator` cluster role to delegate auth decisions to the Kubernetes core API server.
 1. Create a Kubernetes role binding from the service account in your namespace to the `extension-apiserver-authentication-reader` role. This allows your extension api-server to access the `extension-apiserver-authentication` configmap.
 1. Create a Kubernetes apiservice. The CA cert above should be base64 encoded, stripped of new lines and used as the spec.caBundle in the apiservice. This should not be namespaced. If using the [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/), only pass in the PEM encoded CA bundle because the base 64 encoding is done for you.
-1. Use kubectl to get your resource. It should return "No resources found." Which means that everything worked but you currently have no objects of that resource type created yet.
+1. Use kubectl to get your resource. When run, kubectl should return "No resources found.". This message indicates that everything worked but you currently have no objects of that resource type created.
 -->
 1. 确保启用了 APIService API（检查 `--runtime-config`）。默认应该是启用的，除非被特意关闭了。
 1. 您可能需要制定一个 RBAC 规则，以允许您添加 APIService 对象，或让您的集群管理员创建一个。（由于 API 扩展会影响整个集群，因此不建议在实时集群中对 API 扩展进行测试/开发/调试）
@@ -94,7 +94,7 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 1. 以您命令空间中的 service account 创建一个 Kubernetes 集群角色绑定，绑定到 `system:auth-delegator` 集群角色，以将 auth 决策委派给 Kubernetes 核心 API 服务器。
 1. 以您命令空间中的 service account 创建一个 Kubernetes 集群角色绑定，绑定到 `extension-apiserver-authentication-reader` 角色。这将让您的扩展 api-server 能够访问 `extension-apiserver-authentication` configmap。
 1. 创建一个 Kubernetes apiservice。上述的 CA 证书应该使用 base64 编码，剥离新行并用作 apiservice 中的 spec.caBundle。这不应该是命名空间化的。如果使用了 [kube-aggregator API](https://github.com/kubernetes/kube-aggregator/)，那么只需要传入 PEM 编码的 CA 绑定，因为 base 64 编码已经完成了。
-1. 使用 kubectl 来获得您的资源。它应该返回 "找不到资源"。这意味着一切正常，但您目前还没有创建该资源类型的对象。
+1. 使用 kubectl 来获得您的资源。它应该返回 "找不到资源"。此消息表示一切正常，但您目前还没有创建该资源类型的对象。
 
 
 
@@ -109,8 +109,3 @@ Alternatively, you can use an existing 3rd party solution, such as [apiserver-bu
 * 如果你还未配置，请 [配置聚合层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 并启用 apiserver 的相关参数。
 * 高级概述，请参阅 [使用聚合层扩展 Kubernetes API](/docs/concepts/api-extension/apiserver-aggregation)。
 * 了解如何 [使用 Custom Resource Definition 扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
-
-
-
-
-
