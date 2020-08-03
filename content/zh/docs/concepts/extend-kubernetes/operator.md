@@ -18,11 +18,11 @@ weight: 30
 Operators are software extensions to Kubernetes that make use of [custom
 resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 to manage applications and their components. Operators follow
-Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-control-plane).
+Kubernetes principles, notably the [control loop](/docs/reference/glossary/?all=true#term-control-plane).
 -->
 
 Operator 是 Kubernetes 的扩展软件，它利用[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
-Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/docs/concepts/#kubernetes-control-plane)方面。
+Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/docs/reference/glossary/?all=true#term-control-plane)方面。
 
 
 

@@ -150,7 +150,7 @@ controlador faz em particular.
 
 ## {{% heading "whatsnext" %}}
 
-* Leia mais sobre o [plano de controle do Kubernetes](/docs/concepts/#kubernetes-control-plane)
+* Leia mais sobre o [plano de controle do Kubernetes](/docs/reference/glossary/?all=true#term-control-plane)
 * Descubra alguns dos [objetos Kubernetes](/docs/concepts/#kubernetes-objects) básicos.
 * Aprenda mais sobre [API do Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se pretender escrever o seu próprio controlador, veja [Padrões de Extensão](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns)
