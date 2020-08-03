@@ -1,21 +1,21 @@
-apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: guestbook
-    tier: frontend
+    app.kubernetes.io/name: guestbook
+    app.kubernetes.io/component: frontend
 spec:
   selector:
     matchLabels:
-      app: guestbook
-      tier: frontend
+      app.kubernetes.io/name: guestbook
+      app.kubernetes.io/component: frontend
   replicas: 3
   template:
     metadata:
       labels:
-        app: guestbook
-        tier: frontend
+        app.kubernetes.io/name: guestbook
+        app.kubernetes.io/component: frontend
     spec:
       containers:
       - name: guestbook

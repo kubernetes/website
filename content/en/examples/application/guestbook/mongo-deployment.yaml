@@ -1,21 +1,21 @@
-apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
   labels:
-    app: mongo
-    tier: backend
+    app.kubernetes.io/name: mongo
+    app.kubernetes.io/component: backend
 spec:
   selector:
     matchLabels:
-      app: mongo
-      tier: backend
+      app.kubernetes.io/name: mongo
+      app.kubernetes.io/component: backend
   replicas: 1
   template:
     metadata:
       labels:
-        app: mongo
-        tier: backend
+        app.kubernetes.io/name: mongo
+        app.kubernetes.io/component: backend
     spec:
       containers:
       - name: mongo

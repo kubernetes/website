@@ -8,10 +8,11 @@ card:
   name: tutorials
   weight: 30
   title: "Stateless Example: PHP Guestbook with MongoDB"
+min-kubernetes-server-version: v1.14
 ---
 
 <!-- overview -->
-This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
+This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
 * A single-instance [MongoDB](https://www.mongodb.com/) to store guestbook entries
 * Multiple web frontend instances
@@ -52,6 +53,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
       kubectl apply -f https://k8s.io/examples/application/guestbook/mongo-deployment.yaml
       ```
 <!---
+for local testing of the content via relative file path
 kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.yaml
 -->
 
@@ -68,7 +70,7 @@ kubectl apply -f ./content/en/examples/application/guestbook/mongo-deployment.ya
       mongo-5cfd459dd4-lrcjb          1/1       Running   0          28s
       ```
 
-1. Run the following command to view the logs from the MongoDB Pod:
+1. Run the following command to view the logs from the MongoDB Deployment:
 
      ```shell
      kubectl logs -f deployment/mongo
@@ -87,6 +89,7 @@ The guestbook application needs to communicate to the MongoDB to write its data.
       ```
 
 <!---
+for local testing of the content via relative file path
 kubectl apply -f ./content/en/examples/application/guestbook/mongo-service.yaml
 -->
 
@@ -124,6 +127,7 @@ The guestbook application has a web frontend serving the HTTP requests written i
       ```
 
 <!---
+for local testing of the content via relative file path
 kubectl apply -f ./content/en/examples/application/guestbook/frontend-deployment.yaml
 -->
 
@@ -161,6 +165,7 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
       ```
 
 <!---
+for local testing of the content via relative file path
 kubectl apply -f ./content/en/examples/application/guestbook/frontend-service.yaml
 -->
 
@@ -273,10 +278,10 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 1. Run the following commands to delete all Pods, Deployments, and Services.
 
       ```shell
-      kubectl delete deployment -l app=mongo
-      kubectl delete service -l app=mongo
-      kubectl delete deployment -l app=guestbook
-      kubectl delete service -l app=guestbook
+      kubectl delete deployment -l app.kubernetes.io/name=mongo
+      kubectl delete service -l app.kubernetes.io/name=mongo
+      kubectl delete deployment -l app.kubernetes.io/name=guestbook
+      kubectl delete service -l app.kubernetes.io/name=guestbook
       ```
 
       The responses should be:
@@ -304,8 +309,6 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 ## {{% heading "whatsnext" %}}
 
-<!--- todo - verify the guestbooks logs/metrics with mongo changes --->
-<!--- * Add [ELK logging and monitoring](../guestbook-logs-metrics-with-elk/) to your Guestbook application --->
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
