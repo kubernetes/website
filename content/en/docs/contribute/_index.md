@@ -53,7 +53,7 @@ roles and permissions.
 
 - Read the [Contribution overview](/docs/contribute/new-content/overview/) to
   learn about the different ways you can contribute.
-- Check [kubernetes/website issues list](/https://github.com/kubernetes/website/issues/)
+- Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
   for issues that make good entry points.
 - [Open a pull request using GitHub](/docs/contribute/new-content/open-a-pr/#changes-using-github)
   to existing documentation and learn more about filing issues in GitHub.
