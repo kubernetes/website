@@ -556,7 +556,7 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 {{< tabs name="CustomResourceDefinition_versioning_example_4" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
-apiVersion: apiextensions.k8s.io/v1b
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 ...
 spec:
