@@ -317,6 +317,6 @@ restrict privileged permissions is lessened when the workload is isolated from t
 kernel. This allows for workloads requiring heightened permissions to still be isolated.
 
 Additionally, the protection of sandboxed workloads is highly dependent on the method of
-sandboxing. As such, no single ‘recommended’ policy is recommended for all sandboxed workloads.
+sandboxing. As such, no single recommended policy is recommended for all sandboxed workloads.
 
 

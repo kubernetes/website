@@ -94,7 +94,7 @@ __egress__: Each NetworkPolicy may include a list of allowed `egress` rules.  Ea
 So, the example NetworkPolicy:
 
 1. isolates "role=db" pods in the "default" namespace for both ingress and egress traffic (if they weren't already isolated)
-2. (Ingress rules) allows connections to all pods in the “default” namespace with the label “role=db” on TCP port 6379 from:
+2. (Ingress rules) allows connections to all pods in the "default" namespace with the label "role=db" on TCP port 6379 from:
 
    * any pod in the "default" namespace with the label "role=frontend"
    * any pod in a namespace with the label "project=myproject"

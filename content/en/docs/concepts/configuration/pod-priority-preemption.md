@@ -359,7 +359,7 @@ The only component that considers both QoS and Pod priority is
 [kubelet out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
 The kubelet ranks Pods for eviction first by whether or not their usage of the
 starved resource exceeds requests, then by Priority, and then by the consumption
-of the starved compute resource relative to the Pods’ scheduling requests.
+of the starved compute resource relative to the Pods' scheduling requests.
 See
 [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
 for more details.
