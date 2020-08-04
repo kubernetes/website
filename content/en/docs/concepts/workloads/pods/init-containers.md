@@ -280,7 +280,7 @@ containers.
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 
-### Resources
+### Resources {#resources}
 
 Given the ordering and execution for init containers, the following rules
 for resource usage apply:
@@ -303,7 +303,7 @@ Pod level control groups (cgroups) are based on the effective Pod request and
 limit, the same as the scheduler.
 
 
-### Pod restart reasons
+### Pod restart reasons {#pod-restart-reasons}
 
 A Pod can restart, causing re-execution of init containers, for the following
 reasons:
@@ -320,7 +320,7 @@ reasons:
 
 
 
-## {{% heading "whatsnext" %}}
+## {{% heading "whatsnext" %}} {#whats-next}
 
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
