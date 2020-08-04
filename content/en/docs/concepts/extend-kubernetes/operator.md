@@ -9,7 +9,7 @@ weight: 30
 Operators are software extensions to Kubernetes that make use of
 [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 to manage applications and their components. Operators follow
-Kubernetes principles, notably the [control loop](/docs/reference/glossary/?all=true#term-control-plane).
+Kubernetes principles, notably the [control loop](/docs/concepts/architecture/controller/).
 
 <!-- body -->
 
@@ -126,4 +126,3 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * [Publish](https://operatorhub.io/) your operator for other people to use
 * Read [CoreOS' original article](https://coreos.com/blog/introducing-operators.html) that introduced the Operator pattern
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
-
