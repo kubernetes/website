@@ -1,8 +1,5 @@
 ---
-reviewers:
-- rickypai
-- thockin
-title: Adding entries to Pod /etc/hosts with HostAliases
+title: HostAliasesを使用してPodの/etc/hostsにエントリーを追加する
 content_type: concept
 weight: 60
 min-kubernetes-server-version: 1.7
@@ -11,16 +8,16 @@ min-kubernetes-server-version: 1.7
 
 <!-- overview -->
 
-Adding entries to a Pod's `/etc/hosts` file provides Pod-level override of hostname resolution when DNS and other options are not applicable. You can add these custom entries with the HostAliases field in PodSpec.
+Podの`/etc/hosts`ファイルにエントリーを追加すると、DNSやその他の選択肢が利用できない場合に、Podレベルでホスト名の名前解決が上書きできるようになります。このようなカスタムエントリーは、PodSpecのHostAliasesフィールドに追加できます。
 
-Modification not using HostAliases is not suggested because the file is managed by the kubelet and can be overwritten on during Pod creation/restart.
+HostAliasesを使用せずにファイルを修正することはおすすめできません。このファイルはkubeletが管理しており、Podの作成や再起動時に上書きされる可能性があるためです。
 
 
 <!-- body -->
 
-## Default hosts file content
+## デフォルトのhostsファイルの内容
 
-Start an Nginx Pod which is assigned a Pod IP:
+Nginx Podを実行すると、Pod IPが割り当てられます。
 
 ```shell
 kubectl run nginx --image nginx
@@ -30,7 +27,7 @@ kubectl run nginx --image nginx
 pod/nginx created
 ```
 
-Examine a Pod IP:
+Pod IPを確認します。
 
 ```shell
 kubectl get pods --output=wide
@@ -41,7 +38,7 @@ NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
 nginx    1/1       Running   0          13s    10.200.0.4   worker0
 ```
 
-The hosts file content would look like this:
+hostsファイルの内容は次のようになります。
 
 ```shell
 kubectl exec nginx -- cat /etc/hosts
@@ -58,20 +55,15 @@ fe00::2	ip6-allrouters
 10.200.0.4	nginx
 ```
 
-By default, the `hosts` file only includes IPv4 and IPv6 boilerplates like
-`localhost` and its own hostname.
+デフォルトでは、`hosts`ファイルには、`localhost`やPod自身のホスト名などのIPv4とIPv6のボイラープレートだけが含まれています。
 
-## Adding additional entries with hostAliases
+## 追加エントリーをhostAliasesに追加する
 
-In addition to the default boilerplate, you can add additional entries to the
-`hosts` file.
-For example: to resolve `foo.local`, `bar.local` to `127.0.0.1` and `foo.remote`,
-`bar.remote` to `10.1.2.3`, you can configure HostAliases for a Pod under
-`.spec.hostAliases`:
+デフォルトのボイラープレートに加えて、`hosts`ファイルに追加エントリーを追加できます。たとえば、`foo.local`と`bar.local`を`127.0.0.1`に、`foo.remote`と`bar.remote`を`10.1.2.3`にそれぞれ解決するためには、PodのHostAliasesを`.spec.hostAliases`以下に設定します。
 
 {{< codenew file="service/networking/hostaliases-pod.yaml" >}}
 
-You can start a Pod with that configuration by running:
+この設定を使用したPodを開始するには、次のコマンドを実行します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml
@@ -81,7 +73,7 @@ kubectl apply -f https://k8s.io/examples/service/networking/hostaliases-pod.yaml
 pod/hostaliases-pod created
 ```
 
-Examine a Pod's details to see its IPv4 address and its status:
+Podの詳細情報を表示して、IPv4アドレスと状態を確認します。
 
 ```shell
 kubectl get pod --output=wide
@@ -92,7 +84,7 @@ NAME                           READY     STATUS      RESTARTS   AGE       IP    
 hostaliases-pod                0/1       Completed   0          6s        10.200.0.5      worker0
 ```
 
-The `hosts` file content looks like this:
+`hosts`ファイルの内容は次のようになります。
 
 ```shell
 kubectl logs hostaliases-pod
@@ -113,18 +105,14 @@ fe00::2	ip6-allrouters
 10.1.2.3	foo.remote	bar.remote
 ```
 
-with the additional entries specified at the bottom.
+ファイルの最後に追加エントリーが指定されています。
 
-## Why does the kubelet manage the hosts file? {#why-does-kubelet-manage-the-hosts-file}
+## kubeletがhostsファイルを管理するのはなぜですか？ {#why-does-kubelet-manage-the-hosts-file}
 
-The kubelet [manages](https://github.com/kubernetes/kubernetes/issues/14633) the
-`hosts` file for each container of the Pod to prevent Docker from
-[modifying](https://github.com/moby/moby/issues/17190) the file after the
-containers have already been started.
+kubeletがPodの各コンテナの`hosts`ファイルを[管理する](https://github.com/kubernetes/kubernetes/issues/14633)のは、コンテナがすでに起動した後にDockerがファイルを[編集する](https://github.com/moby/moby/issues/17190)のを防ぐためです。
 
 {{< caution >}}
-Avoid making manual changes to the hosts file inside a container.
+コンテナ内部でhostsファイルを手動で変更するのは控えてください。
 
-If you make manual changes to the hosts file,
-those changes are lost when the container exits.
+hostsファイルを手動で変更すると、コンテナが終了したときに変更が失われてしまいます。
 {{< /caution >}}
