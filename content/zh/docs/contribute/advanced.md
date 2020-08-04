@@ -30,11 +30,11 @@ client and other tools for some of these tasks.
 <!--
 ## Propose improvements
 
-SIG Docs [members](/docs/contribute/participating/#members) can propose improvements.
+SIG Docs [members](/docs/contribute/participate/roles-and-responsibilities/#members) can propose improvements.
 -->
 ## 提出改进建议
 
-SIG Docs 的 [成员](/zh/docs/contribute/participating/#members) 可以提出改进建议。
+SIG Docs 的 [成员](/zh/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
 
 <!--
 After you've been contributing to the Kubernetes documentation for a while, you
@@ -82,13 +82,13 @@ Kubernetes 版本发布协调文档工作。
 <!--
 Each Kubernetes release is coordinated by a team of people participating in the
 sig-release Special Interest Group (SIG). Others on the release team for a given
-release include an overall release lead, as well as representatives from sig-pm,
-sig-testing, and others. To find out more about Kubernetes release processes,
+release include an overall release lead, as well as representatives from
+sig-testing and others. To find out more about Kubernetes release processes,
 refer to
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release).
 -->
 每一个 Kubernetes 版本都是由参与 sig-release 的 SIG（特别兴趣小组）的一个团队协调的。
-指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-pm、sig-testing 的代表等。
+指定版本的发布团队中还包括总体发布牵头人，以及来自 sig-testing 的代表等。
 要了解更多关于 Kubernetes 版本发布的流程，请参考
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release)。
 
@@ -185,7 +185,7 @@ organization. The contributor's membership needs to be backed by two sponsors
 who are already reviewers.
 -->
 新的贡献者针对一个或多个 Kubernetes 项目仓库成功提交了 5 个实质性 PR 之后，
-就有资格申请 Kubernetes 组织的[成员身份](/zh/docs/contribute/participating#members)。
+就有资格申请 Kubernetes 组织的[成员身份](/zh/docs/contribute/participate/roles-and-responsibilities/#members)。
 贡献者的成员资格需要同时得到两位评审人的保荐。
 
 <!--
@@ -211,7 +211,7 @@ SIG Docs [approvers](/docs/contribute/participating/#approvers) can serve a term
 -->
 ## 担任 SIG 联合主席
 
-SIG Docs [批准人（Approvers）](/zh/docs/contribute/participating/#approvers)
+SIG Docs [批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)
 可以担任 SIG Docs 的联合主席。
 
 ### 前提条件

@@ -393,7 +393,7 @@ a Service.
 
 It's also worth noting that even though health checks are not exposed directly
 through the Ingress, there exist parallel concepts in Kubernetes such as
-[readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
+[readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
 that allow you to achieve the same end result. Please review the controller
 specific documentation to see how they handle health checks (for example:
 [nginx](https://git.k8s.io/ingress-nginx/README.md), or

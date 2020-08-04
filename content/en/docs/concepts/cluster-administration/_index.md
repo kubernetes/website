@@ -34,14 +34,14 @@ Before choosing a guide, here are some considerations:
  - Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
    latter, choose an actively-developed distro. Some distros only use binary releases, but
    offer a greater variety of choices.
- - Familiarize yourself with the [components](/docs/admin/cluster-components/) needed to run a cluster.
+ - Familiarize yourself with the [components](/docs/concepts/overview/components/) needed to run a cluster.
 
 
 ## Managing a cluster
 
 * [Managing a cluster](/docs/tasks/administer-cluster/cluster-management/) describes several topics related to the lifecycle of a cluster: creating a new cluster, upgrading your cluster’s master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a running cluster.
 
-* Learn how to [manage nodes](/docs/concepts/nodes/node/).
+* Learn how to [manage nodes](/docs/concepts/architecture/nodes/).
 
 * Learn how to set up and manage the [resource quota](/docs/concepts/policy/resource-quotas/) for shared clusters.
 
@@ -59,14 +59,14 @@ Before choosing a guide, here are some considerations:
 
 * [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/) explains plug-ins which intercepts requests to the Kubernetes API server after authentication and authorization.
 
-* [Using Sysctls in a Kubernetes Cluster](/docs/concepts/cluster-administration/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
+* [Using Sysctls in a Kubernetes Cluster](/docs/tasks/administer-cluster/sysctl-cluster/) describes to an administrator how to use the `sysctl` command-line tool to set kernel parameters .
 
 * [Auditing](/docs/tasks/debug-application-cluster/audit/) describes how to interact with Kubernetes' audit logs.
 
 ### Securing the kubelet
   * [Control Plane-Node communication](/docs/concepts/architecture/control-plane-node-communication/)
   * [TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-  * [Kubelet authentication/authorization](/docs/admin/kubelet-authentication-authorization/)
+  * [Kubelet authentication/authorization](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 
 ## Optional Cluster Services
 

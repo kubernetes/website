@@ -8,8 +8,6 @@ weight: 30
 This page explains how to manage Kubernetes running on a specific
 cloud provider.
 
-
-
 <!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) is a popular option for creating kubernetes clusters.
@@ -46,8 +44,10 @@ controllerManager:
 ```
 
 The in-tree cloud providers typically need both `--cloud-provider` and `--cloud-config` specified in the command lines
-for the [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) and the
-[kubelet](/docs/admin/kubelet/). The contents of the file specified in `--cloud-config` for each provider is documented below as well.
+for the [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/),
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) and the
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/).
+The contents of the file specified in `--cloud-config` for each provider is documented below as well.
 
 For all external cloud providers, please follow the instructions on the individual repositories,
 which are listed under their headings below, or one may view [the list of all repositories](https://github.com/kubernetes?q=cloud-provider-&type=&language=)
@@ -94,7 +94,7 @@ Different settings can be applied to a load balancer service in AWS using _annot
 * `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`: Used to specify access log s3 bucket prefix.
 * `service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags`: Used on the service to specify a comma-separated list of key-value pairs which will be recorded as additional tags in the ELB. For example: `"Key1=Val1,Key2=Val2,KeyNoVal1=,KeyNoVal2"`.
 * `service.beta.kubernetes.io/aws-load-balancer-backend-protocol`: Used on the service to specify the protocol spoken by the backend (pod) behind a listener. If `http` (default) or `https`, an HTTPS listener that terminates the connection and parses headers is created. If set to `ssl` or `tcp`, a "raw" SSL listener is used. If set to `http` and `aws-load-balancer-ssl-cert` is not used then a HTTP listener is used.
-* `service.beta.kubernetes.io/aws-load-balancer-ssl-cert`: Used on the service to request a secure listener. Value is a valid certificate ARN. For more, see [ELB Listener Config](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN is an IAM or CM certificate ARN, for example `arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012`.
+* `service.beta.kubernetes.io/aws-load-balancer-ssl-cert`: Used on the service to request a secure listener. Value is a valid certificate ARN. For more, see [ELB Listener Config](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN is an IAM or CM certificate ARN, for example `arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012`.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled`: Used on the service to enable or disable connection draining.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`: Used on the service to specify a connection draining timeout.
 * `service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout`: Used on the service to specify the idle connection timeout.
@@ -358,12 +358,9 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
   the `extraroutes` extension then use `router-id` to specify a router to add
   routes to.  The router chosen must span the private networks containing your
   cluster nodes (typically there is only one node network, and this value should be
-  the default router for the node network).  This value is required to use [kubenet]
+  the default router for the node network).  This value is required to use
+  [kubenet](/docs/concepts/cluster-administration/network-plugins/#kubenet)
   on OpenStack.
-
-[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
-
-
 
 ## OVirt
 

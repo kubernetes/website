@@ -5,17 +5,10 @@ weight: 50
 ---
 
 <!--
----
-reviewers:
-- davidopp
-- kevin-wangzefeng
-- bsalamat
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 50
----
 -->
-
 
 <!-- overview -->
 
@@ -26,14 +19,12 @@ There are several ways to do this, and the recommended approaches all use
 [label selectors](/docs/concepts/overview/working-with-objects/labels/) to make the selection.
 Generally such constraints are unnecessary, as the scheduler will automatically do a reasonable placement
 (e.g. spread your pods across nodes, not place the pod on a node with insufficient free resources, etc.)
-but there are some circumstances where you may want more control on a node where a pod lands, e.g. to ensure
+but there are some circumstances where you may want more control on a node where a pod lands, for example to ensure
 that a pod ends up on a machine with an SSD attached to it, or to co-locate pods from two different
 services that communicate a lot into the same availability zone.
 -->
 
-你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
-
-
+你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 只能在特定的 {{< glossary_tooltip text="Node(s)" term_id="node" >}} 上运行，或者优先运行在特定的节点上。有几种方法可以实现这点，推荐的方法都是用[标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/)来进行选择。通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 pod 分散到节点上，而不是将 pod 放置在可用资源不足的节点上等等），但在某些情况下，你可以需要更多控制 pod 停靠的节点，例如，确保 pod 最终落在连接了 SSD 的机器上，或者将来自两个不同的服务且有大量通信的 pod 放置在同一个可用区。
 
 <!-- body -->
 
@@ -46,7 +37,8 @@ to run on a node, the node must have each of the indicated key-value pairs as la
 additional labels as well). The most common usage is one key-value pair.
 -->
 
-`nodeSelector` 是节点选择约束的最简单推荐形式。`nodeSelector` 是 PodSpec 的一个字段。它指定键值对的映射。为了使 pod 可以在节点上运行，节点必须具有每个指定的键值对作为标签（它也可以具有其他标签）。最常用的是一对键值对。
+`nodeSelector` 是节点选择约束的最简单推荐形式。`nodeSelector` 是 PodSpec 的一个字段。
+它包含键值对的映射。为了使 pod 可以在某个节点上运行，该节点的标签中必须包含这里的每个键值对（它也可以具有其他标签）。最常见的用法的是一对键值对。
 
 <!--
 Let's walk through an example of how to use `nodeSelector`.
@@ -63,38 +55,40 @@ Let's walk through an example of how to use `nodeSelector`.
 <!--
 This example assumes that you have a basic understanding of Kubernetes pods and that you have [set up a Kubernetes cluster](/docs/setup/).
 -->
-
-本示例假设你已基本了解 Kubernetes 的 pod 并且已经[建立一个 Kubernetes 集群](/docs/setup/)。
+本示例假设你已基本了解 Kubernetes 的 Pod 并且已经[建立一个 Kubernetes 集群](/zh/docs/setup/)。
 
 <!--
 ### Step One: Attach label to the node
 -->
-
-### 步骤一：添加标签到节点
+### 步骤一：添加标签到节点 {#attach-labels-to-node}
 
 <!--
 Run `kubectl get nodes` to get the names of your cluster's nodes. Pick out the one that you want to add a label to, and then run `kubectl label nodes <node-name> <label-key>=<label-value>` to add a label to the node you've chosen. For example, if my node name is 'kubernetes-foo-node-1.c.a-robinson.internal' and my desired label is 'disktype=ssd', then I can run `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd`.
 -->
 
-执行 `kubectl get nodes` 命令获取集群的节点名称。选择一个你要增加标签的节点，然后执行 `kubectl label nodes <node-name> <label-key>=<label-value>` 命令将标签添加到你所选择的节点上。例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal' 并且想要的标签是 'disktype=ssd'，则可以执行 `kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 命令。
+执行 `kubectl get nodes` 命令获取集群的节点名称。
+选择一个你要增加标签的节点，然后执行 `kubectl label nodes <node-name> <label-key>=<label-value>` 
+命令将标签添加到你所选择的节点上。
+例如，如果你的节点名称为 'kubernetes-foo-node-1.c.a-robinson.internal' 
+并且想要的标签是 'disktype=ssd'，则可以执行
+`kubectl label nodes kubernetes-foo-node-1.c.a-robinson.internal disktype=ssd` 命令。
 
 <!--
-You can verify that it worked by re-running `kubectl get nodes --show-labels` and checking that the node now has a label. You can also use `kubectl describe node "nodename"` to see the full list of labels of the given node.
+You can verify that it worked by re-running `kubectl get nodes -show-labels` and checking that the node now has a label. You can also use `kubectl describe node "nodename"` to see the full list of labels of the given node.
 -->
-
-你可以通过重新运行 `kubectl get nodes --show-labels` 并且查看节点当前具有了一个标签来验证它是否有效。你也可以使用 `kubectl describe node "nodename"` 命令查看指定节点的标签完整列表。
+你可以通过重新运行 `kubectl get nodes --show-labels`，查看节点当前具有了所指定的标签来验证它是否有效。
+你也可以使用 `kubectl describe node "nodename"` 命令查看指定节点的标签完整列表。
 
 <!--
 ### Step Two: Add a nodeSelector field to your pod configuration
 -->
-
-### 步骤二：添加 nodeSelector 字段到 pod 配置中
+### 步骤二：添加 nodeSelector 字段到 Pod 配置中
 
 <!--
 Take whatever pod config file you want to run, and add a nodeSelector section to it, like this. For example, if this is my pod config:
 -->
-
-拿任意一个你想运行的 pod 的配置文件，并且在其中添加一个 nodeSelector 部分。例如，如果下面是我的 pod 配置：
+选择任何一个你想运行的 Pod 的配置文件，并且在其中添加一个 nodeSelector 部分。
+例如，如果下面是我的 pod 配置：
 
 ```yaml
 apiVersion: v1
@@ -123,32 +117,30 @@ the Pod will get scheduled on the node that you attached the label to. You can
 verify that it worked by running `kubectl get pods -o wide` and looking at the
 "NODE" that the Pod was assigned to.
 -->
-
-当你之后运行 `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml` 命令，pod 将会调度到将标签添加到的节点上。你可以通过运行 `kubectl get pods -o wide` 并查看分配给 pod 的 “NODE” 来验证其是否有效。
+当你之后运行 `kubectl apply -f https://k8s.io/examples/pods/pod-nginx.yaml` 命令，
+Pod 将会调度到将标签添加到的节点上。你可以通过运行 `kubectl get pods -o wide` 并查看分配给 pod 的 “NODE” 来验证其是否有效。
 
 <!--
 ## Interlude: built-in node labels {#built-in-node-labels}
 -->
 
-## 插曲：内置的节点标签 {#内置的节点标签}
+## 插曲：内置的节点标签 {#built-in-node-labels}
 
 <!--
 In addition to labels you [attach](#step-one-attach-label-to-the-node), nodes come pre-populated
 with a standard set of labels. These labels are
 -->
+除了你[附加](#attach-labels-to-node)的标签外，节点还预先填充了一组标准标签。这些标签是
 
-除了你[附加](#添加标签到节点)的标签外，节点还预先填充了一组标准标签。这些标签是
-
-* [`kubernetes.io/hostname`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
-* [`failure-domain.beta.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
-* [`failure-domain.beta.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
-* [`topology.kubernetes.io/zone`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`topology.kubernetes.io/region`](/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
-* [`beta.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
-* [`node.kubernetes.io/instance-type`](/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
-* [`kubernetes.io/os`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
-* [`kubernetes.io/arch`](/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
-
+* [`kubernetes.io/hostname`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-hostname)
+* [`failure-domain.beta.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesiozone)
+* [`failure-domain.beta.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#failure-domainbetakubernetesioregion)
+* [`topology.kubernetes.io/zone`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+* [`topology.kubernetes.io/region`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#topologykubernetesiozone)
+* [`beta.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#beta-kubernetes-io-instance-type)
+* [`node.kubernetes.io/instance-type`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#nodekubernetesioinstance-type)
+* [`kubernetes.io/os`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-os)
+* [`kubernetes.io/arch`](/zh/docs/reference/kubernetes-api/labels-annotations-taints/#kubernetes-io-arch)
 
 {{< note >}}
 <!--
@@ -190,7 +182,8 @@ For example, `example.com.node-restriction.kubernetes.io/fips=true` or `example.
 -->
 
 1. 检查是否在使用 Kubernetes v1.11+，以便 NodeRestriction 功能可用。
-2. 确保你在使用[节点授权](/docs/reference/access-authn-authz/node/)并且已经_启用_ [NodeRestriction 准入插件](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
+2. 确保你在使用[节点授权](/zh/docs/reference/access-authn-authz/node/)并且已经_启用_ 
+   [NodeRestriction 准入插件](/zh/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
 3. 将 `node-restriction.kubernetes.io/` 前缀下的标签添加到 Node 对象，然后在节点选择器中使用这些标签。例如，`example.com.node-restriction.kubernetes.io/fips=true` 或 `example.com.node-restriction.kubernetes.io/pci-dss=true`。
 
 <!--
@@ -289,10 +282,13 @@ value is `another-node-label-value` should be preferred.
 <!--
 You can see the operator `In` being used in the example. The new node affinity syntax supports the following operators: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`.
 You can use `NotIn` and `DoesNotExist` to achieve node anti-affinity behavior, or use
-[node taints](/docs/concepts/configuration/taint-and-toleration/) to repel pods from specific nodes.
+[node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) to repel pods from specific nodes.
 -->
 
-你可以在上面的例子中看到 `In` 操作符的使用。新的节点亲和语法支持下面的操作符： `In`，`NotIn`，`Exists`，`DoesNotExist`，`Gt`，`Lt`。你可以使用 `NotIn` 和 `DoesNotExist` 来实现节点反亲和行为，或者使用[节点污点](/docs/concepts/configuration/taint-and-toleration/)将 pod 从特定节点中驱逐。
+你可以在上面的例子中看到 `In` 操作符的使用。新的节点亲和语法支持下面的操作符：
+`In`，`NotIn`，`Exists`，`DoesNotExist`，`Gt`，`Lt`。
+你可以使用 `NotIn` 和 `DoesNotExist` 来实现节点反亲和行为，或者使用
+[节点污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)将 pod 从特定节点中驱逐。
 
 <!--
 If you specify both `nodeSelector` and `nodeAffinity`, *both* must be satisfied for the pod
@@ -343,7 +339,7 @@ key for the node label that the system uses to denote such a topology domain, e.
 in the section [Interlude: built-in node labels](#built-in-node-labels).
 -->
 
-pod 间亲和与反亲和使你可以*基于已经在节点上运行的 pod 的标签*来约束 pod 可以调度到的节点，而不是基于节点上的标签。规则的格式为“如果 X 节点上已经运行了一个或多个 满足规则 Y 的pod，则这个 pod 应该（或者在非亲和的情况下不应该）运行在 X 节点”。Y 表示一个具有可选的关联命令空间列表的 LabelSelector；与节点不同，因为 pod 是命名空间限定的（因此 pod 上的标签也是命名空间限定的），因此作用于 pod 标签的标签选择器必须指定选择器应用在哪个命名空间。从概念上讲，X 是一个拓扑域，如节点，机架，云供应商地区，云供应商区域等。你可以使用 `topologyKey` 来表示它，`topologyKey` 是节点标签的键以便系统用来表示这样的拓扑域。请参阅上面[插曲：内置的节点标签](#内置的节点标签)部分中列出的标签键。
+pod 间亲和与反亲和使你可以*基于已经在节点上运行的 pod 的标签*来约束 pod 可以调度到的节点，而不是基于节点上的标签。规则的格式为“如果 X 节点上已经运行了一个或多个 满足规则 Y 的pod，则这个 pod 应该（或者在非亲和的情况下不应该）运行在 X 节点”。Y 表示一个具有可选的关联命令空间列表的 LabelSelector；与节点不同，因为 pod 是命名空间限定的（因此 pod 上的标签也是命名空间限定的），因此作用于 pod 标签的标签选择器必须指定选择器应用在哪个命名空间。从概念上讲，X 是一个拓扑域，如节点，机架，云供应商地区，云供应商区域等。你可以使用 `topologyKey` 来表示它，`topologyKey` 是节点标签的键以便系统用来表示这样的拓扑域。请参阅上面[插曲：内置的节点标签](#built-in-node-labels)部分中列出的标签键。
 
 {{< note >}}
 <!--
@@ -578,10 +574,12 @@ As you can see, all the 3 replicas of the `web-server` are automatically co-loca
 ```
 kubectl get pods -o wide
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于如下内容：
+
 ```
 NAME                           READY     STATUS    RESTARTS   AGE       IP           NODE
 redis-cache-1450370735-6dzlj   1/1       Running   0          8m        10.192.4.2   kube-node-3
@@ -604,8 +602,10 @@ no two instances are located on the same host.
 See [ZooKeeper tutorial](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)
 for an example of a StatefulSet configured with anti-affinity for high availability, using the same technique.
 -->
-
-上面的例子使用 `PodAntiAffinity` 规则和 `topologyKey: "kubernetes.io/hostname"` 来部署 redis 集群以便在同一主机上没有两个实例。参阅 [ZooKeeper 教程](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)，以获取配置反亲和来达到高可用性的 StatefulSet 的样例（使用了相同的技巧）。
+上面的例子使用 `PodAntiAffinity` 规则和 `topologyKey: "kubernetes.io/hostname"`
+来部署 redis 集群以便在同一主机上没有两个实例。
+参阅 [ZooKeeper 教程](/zh/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)，
+以获取配置反亲和来达到高可用性的 StatefulSet 的样例（使用了相同的技巧）。
 
 ## nodeName
 
@@ -617,13 +617,11 @@ kubelet running on the named node tries to run the pod.  Thus, if
 `nodeName` is provided in the PodSpec, it takes precedence over the
 above methods for node selection.
 -->
-
 `nodeName` 是节点选择约束的最简单方法，但是由于其自身限制，通常不使用它。`nodeName` 是 PodSpec 的一个字段。如果它不为空，调度器将忽略 pod，并且运行在它指定节点上的 kubelet 进程尝试运行该 pod。因此，如果 `nodeName` 在 PodSpec 中指定了，则它优先于上面的节点选择方法。
 
 <!--
 Some of the limitations of using `nodeName` to select nodes are:
 -->
-
 使用 `nodeName` 来选择节点的一些限制：
 
 <!--
@@ -635,7 +633,6 @@ Some of the limitations of using `nodeName` to select nodes are:
 -   Node names in cloud environments are not always predictable or
     stable.
 -->
-
 -   如果指定的节点不存在，
 -   如果指定的节点没有资源来容纳 pod，pod 将会调度失败并且其原因将显示为，比如 OutOfmemory 或 OutOfcpu。
 -   云环境中的节点名称并非总是可预测或稳定的。
@@ -643,7 +640,6 @@ Some of the limitations of using `nodeName` to select nodes are:
 <!--
 Here is an example of a pod config file using the `nodeName` field:
 -->
-
 下面的是使用 `nodeName` 字段的 pod 配置文件的例子：
 
 ```yaml
@@ -664,16 +660,13 @@ The above pod will run on the node kube-01.
 
 上面的 pod 将运行在 kube-01 节点上。
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 <!--
-[Taints](/docs/concepts/configuration/taint-and-toleration/) allow a Node to *repel* a set of Pods.
+[Taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) allow a Node to *repel* a set of Pods.
 -->
 
-[污点](/docs/concepts/configuration/taint-and-toleration/)允许节点*排斥*一组 pod。
+[污点](/zh/docs/concepts/scheduling-eviction/taint-and-toleration/)允许节点*排斥*一组 pod。
 
 <!--
 The design documents for
@@ -681,7 +674,8 @@ The design documents for
 and for [inter-pod affinity/anti-affinity](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md) contain extra background information about these features.
 -->
 
-[节点亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)与 [pod 间亲和/反亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)的设计文档包含这些功能的其他背景信息。
+[节点亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/nodeaffinity.md)与
+[pod 间亲和/反亲和](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md)的设计文档包含这些功能的其他背景信息。
 
 <!--
 Once a Pod is assigned to a Node, the kubelet runs the Pod and allocates node-local resources.
@@ -689,6 +683,7 @@ The [topology manager](/docs/tasks/administer-cluster/topology-manager/) can tak
 resource allocation decisions.
 -->
 
-一旦 pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。[拓扑管理](/docs/tasks/administer-cluster/topology-manager/)
-
+一旦 Pod 分配给 节点，kubelet 应用将运行该 pod 并且分配节点本地资源。
+[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
+可以参与到节点级别的资源分配决定中。
 
