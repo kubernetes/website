@@ -124,7 +124,7 @@ about when the container entered the `Running` state.
 
 ### `Terminated` {#container-state-terminated}
 
-A container in the `Terminated` state has begin execution and has then either run to
+A container in the `Terminated` state had began execution and then has either run to
 completion or has failed for some reason. When you use `kubectl` to query a Pod with
 a container that is `Terminated`, you see a reason, and exit code, and the start and
 finish time for that container's period of execution.
