@@ -16,7 +16,6 @@ what types of disruptions can happen to Pods.
 It is also for cluster administrators who want to perform automated
 cluster actions, like upgrading and autoscaling clusters.
 
-
 <!-- body -->
 
 ## Voluntary and involuntary disruptions
@@ -70,15 +69,15 @@ deleting deployments or pods bypasses Pod Disruption Budgets.
 
 Here are some ways to mitigate involuntary disruptions:
 
-- Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-cpu-ram-container) it needs.
+- Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-memory-resource) it needs.
 - Replicate your application if you need higher availability.  (Learn about running replicated
-[stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
-and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
+  [stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
+  and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
-spread applications across racks (using
-[anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
-or across zones (if using a
-[multi-zone cluster](/docs/setup/multiple-zones).)
+  spread applications across racks (using
+  [anti-affinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature))
+  or across zones (if using a
+  [multi-zone cluster](/docs/setup/multiple-zones).)
 
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
 no voluntary disruptions at all.  However, your cluster administrator or hosting provider

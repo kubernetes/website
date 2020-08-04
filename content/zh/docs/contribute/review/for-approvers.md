@@ -15,7 +15,7 @@ weight: 20
 
 <!-- overview -->
 <!--
-SIG Docs [Reviewers](/docs/contribute/participating/#reviewers) and [Approvers](/docs/contribute/participating/#approvers) do a few extra things when reviewing a change.
+SIG Docs [Reviewers](/docs/contribute/participate/roles-and-responsibilities/#reviewers) and [Approvers](/docs/contribute/participate/roles-and-responsibilities/#approvers) do a few extra things when reviewing a change.
 
 Every week a specific docs approver volunteers to triage
 and review pull requests. This
@@ -26,8 +26,9 @@ requests (PRs) that are not already under active review.
 In addition to the rotation, a bot assigns reviewers and approvers
 for the PR based on the owners for the affected files.
 -->
-SIG Docs [评阅人（Reviewers）](/docs/contribute/participating/#reviewers)
-和[批准人（Approvers）](/docs/contribute/participating/#approvers)
+SIG Docs
+[评阅人（Reviewers）](/zh/docs/contribute/participate/roles-and-responsibilities/#reviewers)
+和[批准人（Approvers）](/zh/docs/contribute/participate/roles-and-responsibilities/#approvers)
 在对变更进行评审时需要做一些额外的事情。
 
 每周都有一个特定的文档批准人自愿负责对 PR 进行分类和评阅。
@@ -50,7 +51,7 @@ Everything described in [Reviewing a pull request](/docs/contribute/review/revie
 
 Kubernetes 文档遵循 [Kubernetes 代码评阅流程](https://github.com/kubernetes/community/blob/master/contributors/guide/owners.md#the-code-review-process)。
 
-[评阅 PR](/docs/contribute/review/reviewing-prs) 文档中所描述的所有规程都适用，
+[评阅 PR](/zh/docs/contribute/review/reviewing-prs/) 文档中所描述的所有规程都适用，
 不过评阅人和批准人还要做以下工作：
 
 <!--
@@ -73,7 +74,7 @@ when it comes to requesting technical review from code contributors.
   你可以查看 Markdown 文件的文件头，其中的 `reviewers` 字段给出了哪些人可以为文档提供技术审核。
   {{< /note >}}
 
-- 确保 PR 遵从[内容指南](/docs/contribute/style/content-guide/)和[样式指南](/docs/contribute/style/style-guide/)；
+- 确保 PR 遵从[内容指南](/zh/docs/contribute/style/content-guide/)和[样式指南](/zh/docs/contribute/style/style-guide/)；
   如果 PR 没有达到要求，指引作者阅读指南中的相关部分。
 - 适当的时候使用 GitHub **Request Changes** 选项，建议 PR 作者实施所建议的修改。
 - 当你所提供的建议被采纳后，在 GitHub 中使用 `/approve` 或 `/lgtm` Prow 命令，改变评审状态。
@@ -406,9 +407,9 @@ Sample response to a request for support:
 This issue sounds more like a request for support and less
 like an issue specifically for docs. I encourage you to bring
 your question to the `#kubernetes-users` channel in
-[Kubernetes slack](http://slack.k8s.io/). You can also search
+[Kubernetes slack](https://slack.k8s.io/). You can also search
 resources like
-[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+[Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)
 for answers to similar questions.
 
 You can also open issues for Kubernetes functionality in

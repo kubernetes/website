@@ -19,9 +19,6 @@ weight: 20
 
 This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
-
-
-
 <!-- body -->
 
 ## Introduction
@@ -148,7 +145,11 @@ The `Recycle` reclaim policy is deprecated. Instead, the recommended approach is
 
 If supported by the underlying volume plugin, the `Recycle` reclaim policy performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
-However, an administrator can configure a custom recycler Pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler Pod template must contain a `volumes` specification, as shown in the example below:
+However, an administrator can configure a custom recycler Pod template using
+the Kubernetes controller manager command line arguments as described in the
+[reference](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+The custom recycler Pod template must contain a `volumes` specification, as
+shown in the example below:
 
 ```yaml
 apiVersion: v1

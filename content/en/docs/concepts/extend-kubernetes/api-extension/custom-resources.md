@@ -13,8 +13,6 @@ weight: 10
 resource to your Kubernetes cluster and when to use a standalone service. It describes the two
 methods for adding custom resources and how to choose between them.
 
-
-
 <!-- body -->
 ## Custom resources
 
@@ -28,7 +26,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/user-guide/kubectl-overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
 *Pods*.
 
 ## Custom controllers
@@ -52,7 +50,9 @@ for specific applications into an extension of the Kubernetes API.
 
 ## Should I add a custom resource to my Kubernetes Cluster?
 
-When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
+When creating a new API, consider whether to
+[aggregate your API with the Kubernetes cluster APIs](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+or let your API stand alone.
 
 | Consider API aggregation if: | Prefer a stand-alone API if: |
 | ---------------------------- | ---------------------------- |

@@ -40,7 +40,7 @@ Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes clust
 * 您必须启用 Kubernetes 集群的 DNS 功能。
     * 如果使用基于云的 Kubernetes 集群或 {{< glossary_tooltip text="Minikube" term_id="minikube" >}}，则可能已经启用了集群 DNS。
     * 如果您正在使用 `hack/local-up-cluster.sh`，请确保设置了 `KUBE_ENABLE_CLUSTER_DNS` 环境变量，然后运行安装脚本。
-* [安装和设置 v1.7 或更高版本的 kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)，确保将其配置为连接到 Kubernetes 集群。
+* [安装和设置 v1.7 或更高版本的 kubectl](/zh/docs/tasks/tools/install-kubectl/)，确保将其配置为连接到 Kubernetes 集群。
 * 安装 v2.7.0 或更高版本的 [Helm](http://helm.sh/)。
     * 遵照 [Helm 安装说明](https://github.com/kubernetes/helm/blob/master/docs/install.md)。
     * 如果已经安装了适当版本的 Helm，请执行 `helm init` 来安装 Helm 的服务器端组件 Tiller。
@@ -142,7 +142,7 @@ Install Service Catalog from the root of the Helm repository using the following
 -->
 使用以下命令从 Helm 存储库的根目录安装 Service Catalog：
 
-{{< tabs name="helm-versions" >}} 
+{{< tabs name="helm-versions" >}}
 {{% tab name="Helm version 3" %}}
 ```shell
 helm install catalog svc-cat/catalog --namespace catalog
@@ -163,5 +163,3 @@ helm install svc-cat/catalog --name catalog --namespace catalog
 -->
 * 查看[示例服务代理](https://github.com/openservicebrokerapi/servicebroker/blob/mastergettingStarted.md#sample-service-brokers)。
 * 探索 [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) 项目。
-
-

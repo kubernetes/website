@@ -1,11 +1,3 @@
-function addAnchorTags() {
-  anchors.options = {
-    visible: 'touch'
-  }
-
-  anchors.add('#docsContent h2, #docsContent h3, #docsContent h4, #docsContent h5, #docsContent h6');
-}
-
 //modal close button
 (function(){
     //π.modalCloseButton = function(closingFunction){
@@ -517,9 +509,6 @@ var pushmenu = (function(){
 })();
 
 $(function() {
-  addAnchorTags();
-
-
     // If vendor strip doesn't exist add className
     if ( !$('#vendorStrip').length > 0 ) {
         $('.header-hero').addClass('bot-bar');

@@ -38,12 +38,14 @@ discussion.
 
 <!-- body -->
 <!--
-Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
+Kubernetes documentation uses [Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
+with some adjustments along with a few
+[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support glossary entries, tabs,
 and representing feature state.
 -->
 {{< note >}}
-Kubernetes 文档 [Blackfriday Markdown 解释器](https://github.com/russross/blackfriday)
-和一些 [Hugo 短代码](/zh/docs/home/contribute/includes/) 来支持词汇表项、Tab
+Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github.com/yuin/goldmark/)
+和一些 [Hugo 短代码](/zh/docs/contribute/style/hugo-shortcodes/) 来支持词汇表项、Tab
 页以及特性门控标注。
 {{< /note >}}
 
