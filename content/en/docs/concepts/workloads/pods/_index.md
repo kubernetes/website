@@ -190,7 +190,7 @@ changing existing code.
 ## Resource sharing and communication
 
 Pods enable data sharing and communication among their constituent
-containters.
+containers.
 
 ### Storage in Pods {#pod-storage}
 
