@@ -1,8 +1,37 @@
 #!/bin/bash
 
 # set K8S_WEBSITE in your env to your docs website root
+# or rely on this script to determine it automatically
+# You must run the script inside the repository for that to work
+#
 # Note: website/content/<lang>/docs
-CONTENT_DIR=${K8S_WEBSITE}/content
+
+find_content_dir() {
+  local self
+  local top
+  if command git rev-parse --is-inside-work-tree > /dev/null 2>&1 ; then
+    self="$0"
+    top="$(command git rev-parse --show-toplevel)"
+    while ( cd "${top}/.." && command git rev-parse --is-inside-work-tree> /dev/null 2>&1 ); do
+      top="$( cd "${top}/.." && "${self}" )"
+    done
+    printf "%s/content" "${top}"
+  else
+    printf "Could not autodetect CONTENT_DIR\n" 1>&2
+    exit 1
+  fi
+}
+
+if [ -z ${K8S_WEBSITE+x} ]; then
+    CONTENT_DIR="$( find_content_dir )"
+else
+    CONTENT_DIR=${K8S_WEBSITE}/content
+fi
+
+if ! [ -d "${CONTENT_DIR}" ]; then
+    printf "Directory %s not found\n" "${CONTENT_DIR}" 1>&2
+    exit 1
+fi
 
 # 16 langs
 # de en es fr hi id it ja ko no pl pt ru uk vi zh
