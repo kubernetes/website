@@ -209,11 +209,11 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Privilege Escalation</td>
 			<td>
-				Privilege escalation to root should not be allowed.<br>
+				Privilege escalation (typically via SUID/SGID file permission bits) should not be allowed.<br>
 				<br><b>Restricted Fields:</b><br>
-				spec.containers[*].securityContext.privileged<br>
-				spec.initContainers[*].securityContext.privileged<br>
-				<br><b>Allowed Values:</b> false, undefined/nil<br>
+				spec.containers[*].securityContext.allowPrivilegeEscalation<br>
+				spec.initContainers[*].securityContext.allowPrivilegeEscalation<br>
+				<br><b>Allowed Values:</b> false<br>
 			</td>
 		</tr>
 		<tr>
