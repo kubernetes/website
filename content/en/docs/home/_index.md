@@ -53,7 +53,7 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: Contribute to the docs
-  description: Anyone can contribute, whether you’re new to the project or you’ve been around a long time.
+  description: Anyone can contribute, whether you're new to the project or you've been around a long time.
   button: Contribute to the docs
   button_path: /docs/contribute
 - name: release-notes

@@ -72,12 +72,12 @@ In general a pod has the following DNS resolution:
 
 `pod-ip-address.my-namespace.pod.cluster-domain.example`.
 
-For example, if a pod in the `default` namespace has the IP address 172.17.0.3, 
+For example, if a pod in the `default` namespace has the IP address 172.17.0.3,
 and the domain name for your cluster is `cluster.local`, then the Pod has a DNS name:
 
 `172-17-0-3.default.pod.cluster.local`.
 
-Any pods created by a Deployment or DaemonSet exposed by a Service have the 
+Any pods created by a Deployment or DaemonSet exposed by a Service have the
 following DNS resolution available:
 
 `pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
@@ -191,7 +191,7 @@ following pod-specific DNS policies. These policies are specified in the
 
 {{< note >}}
 "Default" is not the default DNS policy. If `dnsPolicy` is not
-explicitly specified, then “ClusterFirst” is used.
+explicitly specified, then "ClusterFirst" is used.
 {{< /note >}}
 
 

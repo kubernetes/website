@@ -243,7 +243,7 @@ This setting is for your safety because your data is more valuable than automati
 
 {{< warning >}}
 Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
-to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
 {{< /warning >}}
 
 1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:

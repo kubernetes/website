@@ -54,7 +54,7 @@ Some resource types require their names to be able to be safely encoded as a
 path segment. In other words, the name may not be "." or ".." and the name may
 not contain "/" or "%".
 
-Here’s an example manifest for a Pod named `nginx-demo`.
+Here's an example manifest for a Pod named `nginx-demo`.
 
 ```yaml
 apiVersion: v1

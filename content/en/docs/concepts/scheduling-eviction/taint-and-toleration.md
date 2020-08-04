@@ -62,7 +62,7 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-Here’s an example of a pod that uses tolerations:
+Here's an example of a pod that uses tolerations:
 
 {{< codenew file="pods/pod-with-toleration.yaml" >}}
 
