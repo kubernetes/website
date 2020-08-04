@@ -912,7 +912,7 @@ Create the Secret:
 kubectl apply -f mysecret.yaml
 ```
 
-Use `envFrom` to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+Use `envFrom` to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 
 ```yaml
 apiVersion: v1

@@ -69,7 +69,7 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-For example, here’s the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
+For example, here's the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 
 ```yaml
 
@@ -85,7 +85,7 @@ spec:
     image: nginx:1.14.2
     ports:
     - containerPort: 80
-          
+
 ```
 
 

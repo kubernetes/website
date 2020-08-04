@@ -191,7 +191,7 @@ affect the HTTP liveness probe.
 A third type of liveness probe uses a TCP socket. With this configuration, the
 kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
-can’t it is considered a failure.
+can't it is considered a failure.
 
 {{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
 
@@ -284,7 +284,7 @@ Sometimes, applications are temporarily unable to serve traffic.
 For example, an application might need to load large data or configuration
 files during startup, or depend on external services after startup.
 In such cases, you don't want to kill the application,
-but you don’t want to send it requests either. Kubernetes provides
+but you don't want to send it requests either. Kubernetes provides
 readiness probes to detect and mitigate these situations. A pod with containers
 reporting that they are not ready does not receive traffic through Kubernetes
 Services.
@@ -348,7 +348,7 @@ set "Host" in httpHeaders instead.
 in the range 1 to 65535.
 
 For an HTTP probe, the kubelet sends an HTTP request to the specified path and
-port to perform the check. The kubelet sends the probe to the pod’s IP address,
+port to perform the check. The kubelet sends the probe to the pod's IP address,
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.
