@@ -83,8 +83,8 @@ Kubernetes consente di eseguire un _piano di controllo_(_control plane_) resilie
 Al fine di estendere Kubernetes, si possono avere _controller_ in esecuzione al di fuori del piano di controllo. Oppure, se si desidera, è possibile scriversi un nuovo _controller_. È possibile eseguire il proprio controller come una serie di _Pod_, oppure esternamente rispetto a Kubernetes. Quale sia la soluzione migliore, dipende dalla responsabilità di un dato controller.
 
 ## {{% heading "whatsnext" %}}
-* Leggi in merito [Kubernetes control plane](/docs/reference/glossary/?all=true#term-control-plane)
-* Scopri alcune delle basi degli [oggetti di Kubernetes](/docs/concepts/overview/working-with-objects)
+* Leggi in merito [Kubernetes control plane](/docs/concepts/#kubernetes-control-plane)
+* Scopri alcune delle basi degli [oggetti di Kubernetes](/docs/concepts/#kubernetes-objects)
 * Per saperne di più riguardo alle [API di Kubernetes](/docs/concepts/overview/kubernetes-api/)
 * Se vuoi creare un tuo _controller_, guarda [i modelli per l'estensibilità](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Estendere Kubernetes.
 
