@@ -129,45 +129,8 @@ If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` 
 ```
 kubectl edit clusterrole system:kube-scheduler
 ```
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  annotations:
-    rbac.authorization.kubernetes.io/autoupdate: "true"
-  labels:
-    kubernetes.io/bootstrapping: rbac-defaults
-  name: system:kube-scheduler
-rules:
-- apiGroups:
-  - coordination.k8s.io
-  resources:
-  - leases
-  verbs:
-  - create
-- apiGroups:
-  - coordination.k8s.io
-  resourceNames:
-  - kube-scheduler
-  - my-scheduler
-  resources:
-  - leases
-  verbs:
-  - get
-  - update
-- apiGroups:
-  - ""
-  resourceNames:
-  - kube-scheduler
-  - my-scheduler
-  resources:
-  - endpoints
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-```
+
+{{< codenew file="admin/sched/clusterrole.yaml" >}}
 
 ## Specify schedulers for pods
 

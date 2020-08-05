@@ -15,8 +15,6 @@ This document describes the concept of a StorageClass in Kubernetes. Familiarity
 with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 
-
-
 <!-- body -->
 
 ## Introduction
@@ -168,11 +166,11 @@ A cluster administrator can address this issue by specifying the `WaitForFirstCo
 will delay the binding and provisioning of a PersistentVolume until a Pod using the PersistentVolumeClaim is created.
 PersistentVolumes will be selected or provisioned conforming to the topology that is
 specified by the Pod's scheduling constraints. These include, but are not limited to, [resource
-requirements](/docs/concepts/configuration/manage-compute-resources-container),
+requirements](/docs/concepts/configuration/manage-resources-containers/),
 [node selectors](/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector),
 [pod affinity and
 anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity),
-and [taints and tolerations](/docs/concepts/configuration/taint-and-toleration).
+and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration).
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 
@@ -244,7 +242,7 @@ parameters:
 ```
 
 * `type`: `io1`, `gp2`, `sc1`, `st1`. See
-  [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   for details. Default: `gp2`.
 * `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
   generally round-robin-ed across all active zones where Kubernetes cluster
@@ -256,7 +254,7 @@ parameters:
 * `iopsPerGB`: only for `io1` volumes. I/O operations per second per GiB. AWS
   volume plugin multiplies this with size of requested volume to compute IOPS
   of the volume and caps it at 20 000 IOPS (maximum supported by AWS, see
-  [AWS docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
   A string is expected here, i.e. `"10"`, not `10`.
 * `fsType`: fsType that is supported by kubernetes. Default: `"ext4"`.
 * `encrypted`: denotes whether the EBS volume should be encrypted or not.

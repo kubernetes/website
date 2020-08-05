@@ -49,19 +49,19 @@ untuk penjelasan yang lebih mendetail.
 
 Objek mendasar Kubernetes termasuk:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](/id/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/id/docs/concepts/services-networking/service/)
+* [Volume](/id/docs/concepts/storage/volumes/)
+* [Namespace](/id/docs/concepts/overview/working-with-objects/namespaces/)
 
 Sebagai tambahan, Kubernetes memiliki beberapa abstraksi yang lebih tinggi yang disebut kontroler.
 Kontroler merupakan objek mendasar dengan fungsi tambahan, contoh dari kontroler ini adalah:
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
-* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/)
+* [Deployment](/id/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/)
+* [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## *Control Plane* Kubernetes
 
@@ -95,7 +95,7 @@ dengan *node* secara langsung.
 #### Metadata objek
 
 
-* [Anotasi](/docs/concepts/overview/working-with-objects/annotations/)
+* [Anotasi](/id/docs/concepts/overview/working-with-objects/annotations/)
 
 
 

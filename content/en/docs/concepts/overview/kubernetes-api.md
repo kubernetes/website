@@ -24,9 +24,6 @@ The Kubernetes API lets you query and manipulate the state of objects in the Kub
 
 API endpoints, resource types and samples are described in the [API Reference](/docs/reference/kubernetes-api/).
 
-
-
-
 <!-- body -->
 
 ## API changes
@@ -87,7 +84,7 @@ Kubernetes implements an alternative Protobuf based serialization format for the
 
 To make it easier to eliminate fields or restructure resource representations, Kubernetes supports
 multiple API versions, each at a different API path, such as `/api/v1` or
-`/apis/extensions/v1beta1`.
+`/apis/rbac.authorization.k8s.io/v1alpha1`.
 
 Versioning is done at the API level rather than at the resource or field level to ensure that the
 API presents a clear, consistent view of system resources and behavior, and to enable controlling
@@ -137,7 +134,7 @@ There are several API groups in a cluster:
    (e.g. `apiVersion: batch/v1`). The Kubernetes [API reference](/docs/reference/kubernetes-api/) has a
    full list of available API groups.
 
-There are two paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
+There are two paths to extending the API with [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/):
 
 1. [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    lets you declaratively define how the API server should provide your chosen resource API.
@@ -156,14 +153,6 @@ The flag accepts comma separated set of key=value pairs describing runtime confi
 
 {{< note >}}Enabling or disabling groups or resources requires restarting the kube-apiserver and the
 kube-controller-manager to pick up the `--runtime-config` changes.{{< /note >}}
-
-## Enabling specific resources in the extensions/v1beta1 group
-
-DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
-For example: to enable deployments and daemonsets, set
-`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
-
-{{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}
 
 ## Persistence
 

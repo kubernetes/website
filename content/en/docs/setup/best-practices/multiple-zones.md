@@ -78,7 +78,7 @@ federation support).
 a single master node by default.  While services are highly
 available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
-plane should follow the [high availability](/docs/admin/high-availability) instructions.
+plane should follow the [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) instructions.
 
 ### Volume limitations
 The following limitations are addressed with [topology-aware volume binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).

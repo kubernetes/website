@@ -172,7 +172,7 @@ dapat ditemukan pada `autoscaling/v2beta2`. *Field* yang baru diperkenalkan pada
 `autoscaling/v2beta2` adalah *preserved* sebagai anotasi ketika menggunakan `autoscaling/v1`. 
 
 Ketika kamu membuat sebuah HorizontalPodAutoscaler, pastikan nama yang ditentukan adalah valid
-[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#nama).
+[nama subdomain DNS](/id/docs/concepts/overview/working-with-objects/names#nama).
 Untuk lebih detail tentang objek API ini dapat ditemukan di
 [Objek HorizontalPodAutoscaler](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object).
 

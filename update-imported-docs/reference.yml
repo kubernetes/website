@@ -7,10 +7,10 @@ repos:
   generate-command: |
     cd $GOPATH
     # set the branch, ex: v1.17.0 while K8S_RELEASE=1.17
-    # CAUTION: The script won't work if you set K8S_RELEASE=1.18 before 1.18 is formally released.
-    # The `v${K8S_RELEASE}.0` string must be a valid tag name from the kubernetes repo, which
+    # CAUTION: The script won't work if you set K8S_RELEASE=1.18.0 before 1.18 is formally released.
+    # The `v${K8S_RELEASE}` string must be a valid tag name from the kubernetes repo, which
     # is only created after the formal release.
-    git clone --depth=1 --single-branch --branch v${K8S_RELEASE}.0 https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
+    git clone --depth=1 --single-branch --branch v${K8S_RELEASE} https://github.com/kubernetes/kubernetes.git src/k8s.io/kubernetes
     cd src/k8s.io/kubernetes
     make generated_files
     cp -L -R vendor $GOPATH/src
@@ -24,7 +24,7 @@ repos:
     cd $GOPATH
     go get -v github.com/kubernetes-sigs/reference-docs/gen-kubectldocs
     cd src/github.com/kubernetes-sigs/reference-docs/
-    # create versioned dirs if needed and fetch v${K8S_RELEASE}.0:swagger.json
+    # create versioned dirs if needed and fetch v${K8S_RELEASE}:swagger.json
     make updateapispec
     # generate kubectl cmd reference
     make copycli

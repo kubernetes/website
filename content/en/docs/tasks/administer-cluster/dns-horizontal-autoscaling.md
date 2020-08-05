@@ -160,7 +160,7 @@ kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
 
 The output is:
 
-    deployment.extensions/dns-autoscaler scaled
+    deployment.apps/dns-autoscaler scaled
 
 Verify that the replica count is zero:
 

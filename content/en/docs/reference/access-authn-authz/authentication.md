@@ -26,7 +26,7 @@ even a file with a list of usernames and passwords. In this regard, _Kubernetes
 does not have objects which represent normal user accounts._ Normal users
 cannot be added to a cluster through an API call.
 
-Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
+Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation on a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
@@ -49,7 +49,7 @@ with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
 * UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings which associate users with a set of commonly grouped users.
+* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users. Common values might be `system:masters` or `devops-team`.
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance

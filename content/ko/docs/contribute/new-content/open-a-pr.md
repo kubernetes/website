@@ -97,10 +97,12 @@ git에 익숙하거나, 변경 사항이 몇 줄보다 클 경우,
 
 ### 로컬 클론 생성 및 업스트림 설정
 
-3. 터미널 창에서, 포크를 클론한다.
+3. 터미널 창에서, 포크를 클론하고 [Docsy Hugo 테마](https://github.com/google/docsy#readme)를 업데이트한다.
 
     ```bash
     git clone git@github.com/<github_username>/website
+    cd website
+    git submodule update --init --recursive --depth 1
     ```
 
 4. 새 `website` 디렉터리로 이동한다. `kubernetes/website` 리포지터리를 `upstream` 원격으로 설정한다.
@@ -263,18 +265,26 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 또는, 컴퓨터에 `hugo` 명령을 설치하여 사용한다.
 
-5.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
+1.  [`website/netlify.toml`](https://raw.githubusercontent.com/kubernetes/website/master/netlify.toml)에 지정된 [Hugo](https://gohugo.io/getting-started/installing/) 버전을 설치한다.
 
-6.  터미널에서, 쿠버네티스 website 리포지터리로 이동하여 Hugo 서버를 시작한다.
+2.  website 리포지터리를 업데이트하지 않았다면, `website/themes/docsy` 디렉터리가 비어 있다.
+테마의 로컬 복제본이 없으면 사이트를 빌드할 수 없다. website 테마를 업데이트하려면, 다음을 실행한다.
+
+    ```bash
+    git submodule update --init --recursive --depth 1
+    ```
+
+3.  터미널에서, 쿠버네티스 website 리포지터리로 이동하여 Hugo 서버를 시작한다.
 
       ```bash
       cd <path_to_your_repo>/website
-      hugo server
+      hugo server --buildFuture
       ```
 
-7.  브라우저의 주소 표시줄에 `https://localhost:1313` 을 입력한다.
+4.  웹 브라우저에서 `https://localhost:1313` 으로 이동한다. Hugo는
+    변경 사항을 보고 필요에 따라 사이트를 다시 구축한다.
 
-8.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
+5.  로컬의 Hugo 인스턴스를 중지하려면, 터미널로 돌아가서 `Ctrl+C` 를 입력하거나,
     터미널 창을 닫는다.
 
 {{% /tab %}}
@@ -498,4 +508,4 @@ PR에 여러 커밋이 있는 경우, PR을 병합하기 전에 해당 커밋을
 ## {{% heading "whatsnext" %}}
 
 
-- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/reviewing/revewing-prs)를 읽어본다.
+- 리뷰 프로세스에 대한 자세한 내용은 [리뷰하기](/ko/docs/contribute/review/reviewing-prs)를 읽어본다.

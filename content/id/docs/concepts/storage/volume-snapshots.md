@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
-Laman ini menjelaskan tentang fitur VolumeSnapshot pada Kubernetes. Sebelum lanjut membaca, sangat disarankan untuk memahami [PersistentVolume](/docs/concepts/storage/persistent-volumes/) terlebih dahulu.
+Laman ini menjelaskan tentang fitur VolumeSnapshot pada Kubernetes. Sebelum lanjut membaca, sangat disarankan untuk memahami [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) terlebih dahulu.
 
 
 
@@ -48,7 +48,7 @@ Seorang adminstrator klaster membuat beberapa VolumeSnapshotContent, yang masing
 #### Dinamis
 Ketika VolumeSnapshotContent yang dibuat oleh administrator tidak ada yang sesuai dengan VolumeSnapshot yang dibuat pengguna, klaster bisa saja
 mencoba untuk menyediakan sebuah VolumeSnapshot secara dinamis, khususnya untuk objek VolumeSnapshot.
-Proses penyediaan ini berdasarkan VolumeSnapshotClasses: VolumeSnapshot harus meminta sebuah [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
+Proses penyediaan ini berdasarkan VolumeSnapshotClasses: VolumeSnapshot harus meminta sebuah [VolumeSnapshotClass](/id/docs/concepts/storage/volume-snapshot-classes/)
 dan administrator harus membuat serta mengatur _class_ tersebut supaya penyediaan dinamis bisa terjadi.
 
 ### Ikatan (_Binding_)
@@ -93,7 +93,7 @@ spec:
 ### _Class_
 
 Suatu VolumeSnapshotContent dapat memiliki suatu _class_, yang didapat dengan mengatur atribut
-`snapshotClassName` dengan nama dari [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/).
+`snapshotClassName` dengan nama dari [VolumeSnapshotClass](/id/docs/concepts/storage/volume-snapshot-classes/).
 VolumeSnapshotContent dari _class_ tertentu hanya dapat terikat (_bound_) dengan VolumeSnapshot yang
 "meminta" _class_ tersebut. VolumeSnapshotContent tanpa `snapshotClassName` tidak memiliki _class_ dan hanya dapat
 terikat (_bound_) dengan VolumeSnapshot yang "meminta" untuk tidak menggunakan _class_.
@@ -117,7 +117,7 @@ spec:
 ### _Class_
 
 Suatu VolumeSnapshot dapat meminta sebuah _class_ tertentu dengan mengatur nama dari
-[VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/)
+[VolumeSnapshotClass](/id/docs/concepts/storage/volume-snapshot-classes/)
 menggunakan atribut `snapshotClassName`.
 Hanya VolumeSnapshotContent dari _class_ yang diminta, memiliki `snapshotClassName` yang sama
 dengan VolumeSnapshot, dapat terikat (_bound_) dengan VolumeSnapshot tersebut.
@@ -127,6 +127,6 @@ dengan VolumeSnapshot, dapat terikat (_bound_) dengan VolumeSnapshot tersebut.
 Kamu dapat menyediakan sebuah volume baru, yang telah terisi dengan data dari suatu _snapshot_, dengan
 menggunakan _field_ `dataSource` pada objek PersistentVolumeClaim.
 
-Untuk detailnya bisa dilihat pada [VolumeSnapshot and Mengembalikan Volume dari _Snapshot_](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
+Untuk detailnya bisa dilihat pada [VolumeSnapshot and Mengembalikan Volume dari _Snapshot_](/id/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
 

@@ -99,7 +99,7 @@ debes utilizar el nombre cualificado completo de dominio (FQDN).
 La mayoría de los recursos de Kubernetes (ej. pods, services, replication controllers, y otros) están
 en algunos espacios de nombres.  Sin embargo, los recursos que representan a los propios
  espacios de nombres no están a su vez en espacios de nombres.
-De forma similar, los recursos de bajo nivel, como los nodos [nodos](/docs/admin/node) y
+De forma similar, los recursos de bajo nivel, como los [nodos](/docs/admin/node) y
 los volúmenes persistentes, no están en ningún espacio de nombres.
 
 Para comprobar qué recursos de Kubernetes están y no están en un espacio de nombres:
