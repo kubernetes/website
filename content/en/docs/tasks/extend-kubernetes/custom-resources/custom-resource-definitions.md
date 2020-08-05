@@ -673,7 +673,7 @@ spec:
                 cronSpec:
                   type: string
                   pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
-                 image:
+                image:
                   type: string
                 replicas:
                   type: integer
