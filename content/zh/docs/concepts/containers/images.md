@@ -4,43 +4,99 @@ content_type: concept
 weight: 10
 ---
 <!--
----
 reviewers:
 - erictune
 - thockin
 title: Images
 content_type: concept
 weight: 10
----
 -->
 
 <!-- overview -->
 
 <!--
-You create your Docker image and push it to a registry before referring to it in a Kubernetes pod.
+A container image represents binary data that encapsulates an application and all its
+software dependencies. Container images are executable software bundles that can run
+standalone and that make very well defined assumptions about their runtime environment.
 
-The `image` property of a container supports the same syntax as the `docker` command does, including private registries and tags.
+You typically create a container image of your application and push it to a registry
+before referring to it in a
+{{< glossary_tooltip text="Pod" term_id="pod" >}}
+
+This page provides an outline of the container image concept.
 -->
-创建 Docker 镜像并将其推送到仓库，然后在 Kubernetes pod 中引用它。
+容器镜像（Image）所承载的是封装了应用程序及其所有软件依赖的二进制数据。
+容器镜像是可执行的软件包，可以单独运行；该软件包对所处的运行时环境具有
+良定（Well Defined）的假定。
 
-容器的 `image` 属性支持与 `docker` 命令相同的语法，包括私有仓库和标签。
+你通常会创建应用的容器镜像并将其推送到某仓库，然后在
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 中引用它。
 
-
-
+本页概要介绍容器镜像的概念。
 
 <!-- body -->
 
 <!--
-## Updating Images
+## Image names
+
+Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
+Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
+and possible a port number as well; for example: `fictional.registry.example:10443/imagename`.
+
+If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+
+After the image name part you can add a _tag_ (as also using with commands such
+as `docker` and `podman`).
+Tags let you identify different versions of the same series of images.
 -->
-## 更新镜像  {#updating-images}
+## 镜像名称    {#image-names}
+
+容器镜像通常会被赋予 `pause`、`example/mycontainer` 或者 `kube-apiserver` 这类的名称。
+镜像名称也可以包含所在仓库的主机名。例如：`fictional.registry.example/imagename`。
+还可以包含仓库的端口号，例如：`fictional.registry.example:10443/imagename`。
+
+如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
+
+在镜像名称之后，你可以添加一个 _标签（Tag）_ （就像在 `docker` 或 `podman`
+中也在用的那样）。
+使用标签能让你辨识同一镜像序列中的不同版本。
 
 <!--
+Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
+periods (`.`), and dashes (`-`).  
+There are additional rules about where you can place the separator
+characters (`_`, `-`, and `.`) inside an image tag.  
+If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
+-->
+镜像标签可以包含小写字母、大写字符、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
+关于在镜像标签中何处可以使用分隔字符（`_`、`-` 和 `.`）还有一些额外的规则。
+如果你不指定标签，Kubernetes 认为你想使用标签 `latest`。
+
+<!--
+You should avoid using the `latest` tag when deploying containers in production,
+as it is harder to track which version of the image is running and more difficult
+to roll back to a working version.
+
+Instead, specify a meaningful tag such as `v1.42.0`.
+-->
+{{< caution >}}
+你要避免在生产环境中使用 `latest` 标签，因为这会使得跟踪所运行的镜像版本变得
+非常困难，同时也很难会滚到之前运行良好的版本。
+
+正确的做法恰恰相反，你应该指定一个有意义的标签，如 `v1.42.0`。
+{{< /caution >}}
+
+<!--
+## Updating Images
+
 The default pull policy is `IfNotPresent` which causes the Kubelet to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
 -->
-默认的镜像拉取策略是 `IfNotPresent`，在镜像已经存在的情况下，kubelet 将不再去拉取镜像。如果总是想要拉取镜像，您可以执行以下操作：
+## 更新镜像  {#updating-images}
+
+默认的镜像拉取策略是 `IfNotPresent`：在镜像已经存在的情况下，`kubelet` 将不再去拉取镜像。
+如果希望强制总是拉取镜像，你可以执行以下操作之一：
 
 <!--
 - set the `imagePullPolicy` of the container to `Always`.
@@ -51,363 +107,178 @@ you can do one of the following:
 - 设置容器的 `imagePullPolicy` 为 `Always`。
 - 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签。
 - 省略 `imagePullPolicy` 和要使用的镜像标签。
-- 启用 [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) 准入控制器（admission controller）。
+- 启用 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  准入控制器（Admission Controller）。
 
 <!--
-Note that you should avoid using `:latest` tag, see [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images) for more information.
+When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
 -->
-注意应避免使用 `:latest` 标签，参见[配置镜像最佳实践](/docs/concepts/configuration/overview/#container-images) 获取更多信息。
+如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
 
 <!--
 ## Building Multi-architecture Images with Manifests
+
+As well as providing binary images, a container registry can also serve a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 -->
 ## 使用清单（manifest）构建多架构镜像
 
-<!--
-Docker CLI now supports the following command `docker manifest` with sub commands like `create`, `annotate` and `push`. These commands can be used to build and push the manifests. You can use `docker manifest inspect` to view the manifest.
--->
-Docker CLI 现在支持以下命令 `docker manifest` 以及 `create`、`annotate`、`push` 等子命令。这些命令可用于构建和推送清单。您可以使用 `docker manifest inspect` 来查看清单。
+除了提供二进制的镜像之外，容器仓库也可以提供
+[容器镜像清单](https://github.com/opencontainers/image-spec/blob/master/manifest.md)。
+清单文件（Manifest）可以为特定于体系结构的镜像版本引用其镜像清单。
+这背后的理念是让你可以为镜像命名（例如：`pause`、`example/mycontainer`、`kube-apiserver`）
+的同时，允许不同的系统基于它们所使用的机器体系结构取回正确的二进制镜像。
 
-<!--
-Please see docker documentation here:
-https://docs.docker.com/edge/engine/reference/commandline/manifest/
--->
-请在此处查看 docker 清单文档：
-https://docs.docker.com/edge/engine/reference/commandline/manifest/
-
-<!--
-See examples on how we use this in our build harness:
-https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
--->
-查看有关如何在构建工具中使用清单的示例：
-https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
-
-<!--
-These commands rely on and are implemented purely on the Docker CLI. You will need to either edit the `$HOME/.docker/config.json` and set `experimental` key to `enabled` or you can just set `DOCKER_CLI_EXPERIMENTAL` environment variable to `enabled` when you call the CLI commands.
--->
-这些命令依赖于 Docker CLI 并仅在 Docker CLI 上实现。需要编辑 `$HOME/.docker/config.json` 并将 `experimental` 设置为 `enabled`，或者仅在调用 CLI 命令时将 `DOCKER_CLI_EXPERIMENTAL` 环境变量设置为 `enabled`。
-
-{{< note >}}
-<!--
-Please use Docker *18.06 or above*, versions below that either have bugs or do not support the experimental command line option. Example https://github.com/docker/cli/issues/1135 causes problems under containerd.
--->
-请使用 Docker *18.06 或更高版本*，低版本存在错误或不支持实验性命令行选项。导致容器问题示例 https://github.com/docker/cli/issues/1135。
-{{< /note >}}
-
-<!--
-If you run into trouble with uploading stale manifests, just clean up the older manifests in `$HOME/.docker/manifests` to start fresh.
--->
-如果在上传旧清单时遇到麻烦，只需删除 `$HOME/.docker/manifests` 中旧的清单即可重新开始。
-
-<!--
-For Kubernetes, we have typically used images with suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
--->
-对于 Kubernetes，通常使用带有后缀 `-$(ARCH)` 的镜像。为了向后兼容，请生成带有后缀的旧镜像。想法是生成具有所有 arch(es) 清单的 `pause` 镜像，并生成 `pause-amd64` 镜像，该镜像向后兼容较早的配置或者可能已对带有后缀的镜像进行硬编码的 YAML 文件。
+Kubernetes 自身通常在命名容器镜像时添加后缀 `-$(ARCH)`。
+为了向前兼容，请在生成较老的镜像时也提供后缀。
+这里的理念是为某镜像（如 `pause`）生成针对所有平台都适用的清单时，
+生成 `pause-amd64` 这类镜像，以便较老的配置文件或者将镜像后缀影编码到其中的
+YAML 文件也能兼容。
 
 <!--
 ## Using a Private Registry
--->
-## 使用私有仓库
 
-<!--
 Private registries may require keys to read images from them.
 Credentials can be provided in several ways:
 -->
+## 使用私有仓库  {#using-a-private-registry}
+
 从私有仓库读取镜像时可能需要密钥。
-凭证可以用以下方式提供:
-
-  <!--
-  - Using Google Container Registry
-    - Per-cluster
-    - automatically configured on Google Compute Engine or Google Kubernetes Engine
-    - all pods can read the project's private registry
-  - Using Amazon Elastic Container Registry (ECR)
-    - use IAM roles and policies to control access to ECR repositories
-    - automatically refreshes ECR login credentials
-  - Using Oracle Cloud Infrastructure Registry (OCIR)
-    - use IAM roles and policies to control access to OCIR repositories
-  - Using Azure Container Registry (ACR)
-  - Using IBM Cloud Container Registry
-  - Configuring Nodes to Authenticate to a Private Registry
-    - all pods can read any configured private registries
-    - requires node configuration by cluster administrator
-  - Pre-pulled Images
-    - all pods can use any images cached on a node
-    - requires root access to all nodes to setup
-  - Specifying ImagePullSecrets on a Pod
-    - only pods which provide own keys can access the private registry
-  -->
-  - 使用 Google Container Registry
-    - 每个集群
-    - 在 Google Compute Engine 或 Google Kubernetes Engine 上自动配置
-    - 所有 Pod 均可读取项目的私有仓库
-  - 使用 Amazon Elastic Container Registry（ECR）
-    - 使用 IAM 角色和策略来控制对 ECR 仓库的访问
-    - 自动刷新 ECR 登录凭据
-  - 使用 Oracle Cloud Infrastructure Registry（OCIR）
-    - 使用 IAM 角色和策略来控制对 OCIR 仓库的访问
-  - 使用 Azure Container Registry (ACR)
-  - 使用 IBM Cloud Container Registry
-  - 配置节点用于私有仓库进行身份验证
-    - 所有 Pod 均可读取任何已配置的私有仓库
-    - 需要集群管理员配置节点
-  - 预拉镜像
-    - 所有 Pod 都可以使用节点上缓存的任何镜像
-    - 需要所有节点的 root 访问权限才能进行设置
-  - 在 Pod 上指定 ImagePullSecrets
-    - 只有提供自己密钥的 Pod 才能访问私有仓库
+凭据信息可以用以下方式提供:
 
 <!--
-Each option is described in more detail below.
+- Configuring Nodes to Authenticate to a Private Registry
+  - all pods can read any configured private registries
+  - requires node configuration by cluster administrator
+- Pre-pulled Images
+  - all pods can use any images cached on a node
+  - requires root access to all nodes to setup
+- Specifying ImagePullSecrets on a Pod
+  - only pods which provide own keys can access the private registry
+- Vendor-specific or local extensions
+  - if you're using a custom node configuration, you (or your cloud
+    provider) can implement your mechanism for authenticating the node
+    to the container registry.
 -->
-下面将详细描述每一项。
-
+- 配置节点向私有仓库进行身份验证
+  - 所有 Pod 均可读取任何已配置的私有仓库
+  - 需要集群管理员配置节点
+- 预拉镜像
+  - 所有 Pod 都可以使用节点上缓存的所有镜像
+  - 需要所有节点的 root 访问权限才能进行设置
+- 在 Pod 中设置 ImagePullSecrets
+  - 只有提供自己密钥的 Pod 才能访问私有仓库
+- 特定于厂商的扩展或者本地扩展
+  - 如果你在使用定制的节点配置，你（或者云平台提供商）可以实现让节点
+    向容器仓库认证的机制
 
 <!--
-### Using Google Container Registry
+These options are explained in more detail below.
 -->
-### 使用 Google Container Registry
+下面将详细描述每一种方案。
 
 <!--
-Kubernetes has native support for the [Google Container
-Registry (GCR)](https://cloud.google.com/tools/container-registry/), when running on Google Compute
-Engine (GCE).  If you are running your cluster on GCE or Google Kubernetes Engine, simply
-use the full image name (e.g. gcr.io/my_project/image:tag).
--->
-Kuberetes 运行在 Google Compute Engine (GCE) 时原生支持 [Google Container
-Registry (GCR)](https://cloud.google.com/tools/container-registry/)。如果 kubernetes 集群运行在 GCE 或者 Google Kubernetes Engine，使用镜像全名(例如 gcr.io/my_project/image:tag) 即可。
+### Configuring Nodes to authenticate to a Private Registry
 
-<!--
-All pods in a cluster will have read access to images in this registry.
--->
-集群中所有 pod 都会有读取这个仓库镜像的权限。
+If you run Docker on your nodes, you can configure the Docker container
+runtime to authenticate to a private container registry.
 
-<!--
-The kubelet will authenticate to GCR using the instance's
-Google service account.  The service account on the instance
-will have a `https://www.googleapis.com/auth/devstorage.read_only`,
-so it can pull from the project's GCR, but not push.
--->
-kubelet 将使用实例的 Google service account 向 GCR 认证。实例的 Google service account 拥有 `https://www.googleapis.com/auth/devstorage.read_only`，所以它可以从项目的 GCR 拉取，但不能推送。
-
-<!--
-### Using Amazon Elastic Container Registry
--->
-### 使用 Amazon Elastic Container Registry
-
-<!--
-Kubernetes has native support for the [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), when nodes are AWS EC2 instances.
-
-Simply use the full image name (e.g. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
-in the Pod definition.
--->
-当 Node 是 AWS EC2 实例时，Kubernetes 原生支持 [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/)。
-
-在 pod 定义中，使用镜像全名即可 (例如 `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`)
-
-<!--
-All users of the cluster who can create pods will be able to run pods that use any of the
-images in the ECR registry.
-
-The kubelet will fetch and periodically refresh ECR credentials.  It needs the following permissions to do this:
--->
-集群中所有可以创建 Pod 的用户都将能够运行使用 ECR 仓库中任何镜像的 Pod。
-
-kubelet 将获取并定期刷新 ECR 凭据。它需要以下权限才能执行此操作：
-
-- `ecr:GetAuthorizationToken`
-- `ecr:BatchCheckLayerAvailability`
-- `ecr:GetDownloadUrlForLayer`
-- `ecr:GetRepositoryPolicy`
-- `ecr:DescribeRepositories`
-- `ecr:ListImages`
-- `ecr:BatchGetImage`
-
-<!--
-Requirements:
-
-- You must be using kubelet version `v1.2.0` or newer.  (e.g. run `/usr/bin/kubelet --version=true`).
-- If your nodes are in region A and your registry is in a different region B, you need version `v1.3.0` or newer.
-- ECR must be offered in your region
--->
-要求：
-
-- 必须使用 kubelet `v1.2.0` 及以上版本。（例如 运行 `/usr/bin/kubelet --version=true`）。
-- 如果 Node 在区域 A，而镜像仓库在另一个区域 B，需要 `v1.3.0` 及以上版本。
-- 区域中必须提供 ECR。
-
-<!--
-Troubleshooting:
-
-- Verify all requirements above.
-- Get $REGION (e.g. `us-west-2`) credentials on your workstation. SSH into the host and run Docker manually with those creds. Does it work?
-- Verify kubelet is running with `--cloud-provider=aws`.
-- Check kubelet logs (e.g. `journalctl -u kubelet`) for log lines like:
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
--->
-故障排除：
-
-- 验证是否满足以上要求。
-- 获取工作站的 $REGION (例如 `us-west-2`) 凭证，使用凭证 SSH 到主机手动运行 Docker。它行得通吗？
-- 验证 kubelet 是否使用参数 `--cloud-provider=aws` 运行。
-- 检查 kubelet 日志(例如 `journalctl -u kubelet`)是否有类似的行：
-  - `plugins.go:56] Registering credential provider: aws-ecr-key`
-  - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
-
-<!--
-### Using Azure Container Registry (ACR)
--->
-### 使用 Azure Container Registry (ACR)
-
-<!--
-When using [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/)
-you can authenticate using either an admin user or a service principal.
-In either case, authentication is done via standard Docker authentication.  These instructions assume the
-[azure-cli](https://github.com/azure/azure-cli) command line tool.
--->
-当使用 [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) 时，可以使用管理员用户或者 service principal 进行身份验证。任何一种情况，认证都通过标准的 Docker 授权完成。本指南假设使用 [azure-cli](https://github.com/azure/azure-cli) 命令行工具。
-
-<!--
-You first need to create a registry and generate credentials, complete documentation for this can be found in
-the [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
--->
-首先，需要创建仓库并获取凭证，完整的文档请参考 [Azure container registry 文档](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli)。
-
-<!--
-Once you have created your container registry, you will use the following credentials to login:
-
-   * `DOCKER_USER` : service principal, or admin username
-   * `DOCKER_PASSWORD`: service principal password, or admin user password
-   * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
-   * `DOCKER_EMAIL`: `${some-email-address}`
--->
-创建好容器仓库后，可以使用以下凭证登录：
-
-   * `DOCKER_USER` : service principal，或管理员用户名称
-   * `DOCKER_PASSWORD`: service principal 密码，或管理员用户密码
-   * `DOCKER_REGISTRY_SERVER`: `${some-registry-name}.azurecr.io`
-   * `DOCKER_EMAIL`: `${some-email-address}`
-
-<!--
-Once you have those variables filled in you can
-[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
--->
-填写以上变量后，就可以
-[配置 Kubernetes Secret 并使用它来部署 Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)。
-
-<!--
-### Using IBM Cloud Container Registry
-IBM Cloud Container Registry provides a multi-tenant private image registry that you can use to safely store and share your Docker images. By default, images in your private registry are scanned by the integrated Vulnerability Advisor to detect security issues and potential vulnerabilities. Users in your IBM Cloud account can access your images, or you can create a token to grant access to registry namespaces.
--->
-### 使用 IBM Cloud Container Registry
-IBM Cloud Container Registry 提供了一个多租户私有镜像仓库，可以使用它来安全地存储和共享 Docker 仓库。默认情况下，集成的 Vulnerability Advisor 会扫描私有仓库中的镜像，以检测安全问题和潜在的漏洞。IBM Cloud 帐户中的用户可以访问您的镜像，也可以创建令牌来授予对仓库命名空间的访问权限。
-
-<!--
-To install the IBM Cloud Container Registry CLI plug-in and create a namespace for your images, see [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index).
--->
-要安装 IBM Cloud Container Registry CLI 插件并为镜像创建命名空间，请参阅 [IBM Cloud Container Registry 入门](https://cloud.ibm.com/docs/services/Registry?topic=registry-index#index)。
-
-<!--
-You can use the IBM Cloud Container Registry to deploy containers from [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) and your private images into the `default` namespace of your IBM Cloud Kubernetes Service cluster. To deploy a container into other namespaces, or to use an image from a different IBM Cloud Container Registry region or IBM Cloud account, create a Kubernetes `imagePullSecret`. For more information, see [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images#images).
--->
-可以使用 IBM Cloud Container Registry 将容器从 [IBM Cloud 公共镜像](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images#public_images) 和私有镜像部署到 IBM Cloud Kubernetes Service 集群的默认命名空间。要将容器部署到其他命名空间，或使用来自其他 IBM Cloud Container 的仓库区域或 IBM Cloud 帐户的镜像，请创建 Kubernetes `imagePullSecret`。有关更多信息，请参阅[从镜像构建容器](https://cloud.ibm.com/docs/containers?topic=containers-images#images)。
-
-<!--
-### Configuring Nodes to Authenticate to a Private Registry
+This approach is suitable if you can control node configuration.
 -->
 ### 配置 Node 对私有仓库认证
 
-{{< note >}}
-<!--
-If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
--->
-如果在 Google Kubernetes Engine 上运行集群，每个节点上都会有 `.dockercfg` 文件，它包含 Google Container Registry 的凭证。不需要使用以下方法。
-{{< /note >}}
+如果你在节点上运行的是 Docker，你可以配置 Docker
+容器运行时来向私有容器仓库认证身份。
 
-{{< note >}}
-<!--
-If you are running on AWS EC2 and are using the EC2 Container Registry (ECR), the kubelet on each node will
-manage and update the ECR login credentials. You cannot use this approach.
--->
-如果在 AWS EC2 上运行集群且准备使用 EC2 Container Registry (ECR)，每个 node 上的 kubelet 会管理和更新 ECR 的登录凭证。不需要使用以下方法。
-{{< /note >}}
+此方法适用于能够对节点进行配置的场合。
 
-{{< note >}}
 <!--
-This approach is suitable if you can control node configuration.  It
-will not work reliably on GCE, and any other cloud provider that does automatic
-node replacement.
+Kubernetes as only supports the `auths` and `HttpHeaders` section in Docker configuration.
+Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
 -->
-该方法适用于能够对节点进行配置的情况。该方法在 GCE 及在其它能自动配置节点的云平台上并不适合。
-{{< /note >}}
-
 {{< note >}}
-<!--
-Kubernetes as of now only supports the `auths` and `HttpHeaders` section of docker config. This means credential helpers (`credHelpers` or `credsStore`) are not supported.
--->
-截至目前，Kubernetes 仅支持 docker config 的 `auths` 和 `HttpHeaders` 部分。这意味着不支持凭据助手（`credHelpers` 或 `credsStore`）。
+Kubernetes 仅支持 Docker 配置中的 `auths` 和 `HttpHeaders` 部分，
+不支持 Docker 凭据辅助程序（`credHelpers` 或 `credsStore`）。
 {{< /note >}}
 
 <!--
 Docker stores keys for private registries in the `$HOME/.dockercfg` or `$HOME/.docker/config.json` file.  If you put the same file
 in the search paths list below, kubelet uses it as the credential provider when pulling images.
-
-*   `{--root-dir:-/var/lib/kubelet}/config.json`
-*   `{cwd of kubelet}/config.json`
-*   `${HOME}/.docker/config.json`
-*   `/.docker/config.json`
-*   `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-*   `{cwd of kubelet}/.dockercfg`
-*   `${HOME}/.dockercfg`
-*   `/.dockercfg`
 -->
-Docker 将私有仓库的密钥存放在 `$HOME/.dockercfg` 或 `$HOME/.docker/config.json` 文件中。Kubelet 上，docker 会使用 root 用户 `$HOME` 路径下的密钥。
+Docker 将私有仓库的密钥保存在 `$HOME/.dockercfg` 或 `$HOME/.docker/config.json`
+文件中。如果你将相同的文件放在下面所列的搜索路径中，`kubelet` 会在拉取镜像时将其用作凭据
+数据来源：
 
-*   `{--root-dir:-/var/lib/kubelet}/config.json`
-*   `{cwd of kubelet}/config.json`
-*   `${HOME}/.docker/config.json`
-*   `/.docker/config.json`
-*   `{--root-dir:-/var/lib/kubelet}/.dockercfg`
-*   `{cwd of kubelet}/.dockercfg`
-*   `${HOME}/.dockercfg`
-*   `/.dockercfg`
-
-{{< note >}}
 <!--
-You may have to set `HOME=/root` explicitly in your environment file for kubelet.
+* `{--root-dir:-/var/lib/kubelet}/config.json`
+* `{cwd of kubelet}/config.json`
+* `${HOME}/.docker/config.json`
+* `/.docker/config.json`
+* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
+* `{cwd of kubelet}/.dockercfg`
+* `${HOME}/.dockercfg`
+* `/.dockercfg`
 -->
-可能必须在环境变量文件中为 kubelet 显式设置 `HOME=/root`。
+* `{--root-dir:-/var/lib/kubelet}/config.json`
+* `{kubelet 当前工作目录}/config.json`
+* `${HOME}/.docker/config.json`
+* `/.docker/config.json`
+* `{--root-dir:-/var/lib/kubelet}/.dockercfg`
+* `{kubelet 当前工作目录}/.dockercfg`
+* `${HOME}/.dockercfg`
+* `/.dockercfg`
+
+<!--
+You may have to set `HOME=/root` explicitly in the environment of the kubelet process.
+-->
+{{< note >}}
+你可能不得不为 `kubelet` 进程显式地设置 `HOME=/root` 环境变量。
 {{< /note >}}
 
 <!--
 Here are the recommended steps to configuring your nodes to use a private registry.  In this
 example, run these on your desktop/laptop:
-
-   1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json`.
-   1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
-   1. Get a list of your nodes, for example:
-      - if you want the names: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-      - if you want to get the IPs: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   1. Copy your local `.docker/config.json` to one of the search paths list above.
-      - for example: `for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done`
 -->
-推荐如下步骤来为 node 配置私有仓库。以下示例在 PC 或笔记本电脑中操作：
-
-   1. 对于想要使用的每一种凭证，运行 `docker login [server]`，它会更新 `$HOME/.docker/config.json`。
-   2. 使用编辑器查看 `$HOME/.docker/config.json`，保证文件中包含了想要使用的凭证。
-   3. 获取 node 列表，例如
-      - 如果想要 node 名称，`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
-      - 如果想要 node IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
-   4. 将本地的 `.docker/config.json` 拷贝到每个节点 root 用户目录下
-      - 例如： `for n in $nodes; do scp ~/.docker/config.json root@$n:/root/.docker/config.json; done`
+推荐采用如下步骤来配置节点以便访问私有仓库。以下示例中，在 PC 或笔记本电脑中操作：
 
 <!--
-Verify by creating a pod that uses a private image, e.g.:
+1. Run `docker login [server]` for each set of credentials you want to use.  This updates `$HOME/.docker/config.json` on your PC.
+1. View `$HOME/.docker/config.json` in an editor to ensure it contains just the credentials you want to use.
+1. Get a list of your nodes; for example:
+      - if you want the names: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
+      - if you want to get the IP addresses: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
+1. Copy your local `.docker/config.json` to one of the search paths list above.
+      - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 -->
-创建使用私有仓库的 pod 来验证，例如：
+1. 针对你要使用的每组凭据，运行 `docker login [服务器]` 命令。这会更新
+   你本地环境中的 `$HOME/.docker/config.json` 文件。
+1. 在编辑器中打开查看 `$HOME/.docker/config.json` 文件，确保其中仅包含你要
+   使用的凭据信息。
+1. 获得节点列表；例如：
 
-```yaml
+   - 如果想要节点名称：`nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
+
+   - 如果想要节点 IP ，`nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
+
+1. 将本地的 `.docker/config.json` 拷贝到所有节点，放入如上所列的目录之一：
+   - 例如，可以试一下：`for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+
+<!--
+For production clusters, use a configuration management tool so that you can apply this
+setting to all the nodes where you need it.
+-->
+{{< note >}}
+对于产品环境的集群，可以使用配置管理工具来将这些设置应用到
+你所期望的节点上。
+{{< /note >}}
+
+<!--
+Verify by creating a Pod that uses a private image; for example:
+-->
+创建使用私有镜像的 Pod 来验证。例如：
+
+```shell
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
@@ -420,26 +291,44 @@ spec:
       imagePullPolicy: Always
       command: [ "echo", "SUCCESS" ]
 EOF
+```
+
+输出类似于：
+
+```
 pod/private-image-test-1 created
 ```
 
 <!--
-If everything is working, then, after a few moments, you should see:
+If everything is working, then, after a few moments, you can run:
 -->
-如果一切正常，一段时间后，可以看到:
+如果一切正常，一段时间后，可以运行:
 
 ```shell
 kubectl logs private-image-test-1
+```
+
+并看到命令输出为：
+
+```
 SUCCESS
 ```
 
 <!--
-If it failed, then you will see:
+If you suspect that the command failed, you can run:
 -->
-如果失败，则可以看到：
+如果你怀疑命令失败了，你可以运行：
 
 ```shell
-kubectl describe pods/private-image-test-1 | grep "Failed"
+kubectl describe pods/private-image-test-1 | grep 'Failed'
+```
+
+<!--
+In case of failure, the output is similar to:
+-->
+如果命令确实失败，输出类似于：
+
+```
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
@@ -447,42 +336,40 @@ kubectl describe pods/private-image-test-1 | grep "Failed"
 You must ensure all nodes in the cluster have the same `.docker/config.json`.  Otherwise, pods will run on
 some nodes and fail to run on others.  For example, if you use node autoscaling, then each instance
 template needs to include the `.docker/config.json` or mount a drive that contains it.
--->
-必须保证集群中所有的节点都有相同的 `.docker/config.json` 文件。否则, pod 会在一些节点上正常运行而在另一些节点上无法启动。例如，如果使用 node 自动缩放，那么每个实例模板都需要包含 `.docker/config.json`，或者挂载一个包含这个文件的驱动器。
 
-<!--
 All pods will have read access to images in any private registry once private
 registry keys are added to the `.docker/config.json`.
 -->
-在 `.docker/config.json` 中配置了私有仓库密钥后，所有 pod 都会能读取私有仓库中的镜像。
+你必须确保集群中所有节点的 `.docker/config.json` 文件内容相同。
+否则，Pod 会能在一些节点上正常运行而无法在另一些节点上启动。
+例如，如果使用节点自动扩缩，那么每个实例模板都需要包含 `.docker/config.json`，
+或者挂载一个包含该文件的驱动器。
+
+在 `.docker/config.json` 中配置了私有仓库密钥后，所有 Pod 都将能读取私有仓库中的镜像。
 
 <!--
 ### Pre-pulled Images
 -->
-### 提前拉取镜像
+### 提前拉取镜像   {#pre-pulled-images}
 
-{{< note >}}
-<!--
-If you are running on Google Kubernetes Engine, there will already be a `.dockercfg` on each node with credentials for Google Container Registry.  You cannot use this approach.
--->
-如果在 Google Kubernetes Engine 上运行集群，每个节点上都会有 `.dockercfg` 文件，它包含 Google Container Registry 的凭证。不需要使用以下方法。
-{{< /note >}}
-
-{{< note >}}
 <!--
 This approach is suitable if you can control node configuration.  It
-will not work reliably on GCE, and any other cloud provider that does automatic
-node replacement.
+will not work reliably if your cloud provider manages nodes and replaces
+them automatically.
 -->
-该方法适用于能够对节点进行配置的情况。该方法在 GCE 及在其它能自动配置节点的云平台上并不适合。
+{{< note >}}
+该方法适用于你能够控制节点配置的场合。
+如果你的云供应商负责管理节点并自动置换节点，这一方案无法可靠地工作。
 {{< /note >}}
 
 <!--
-By default, the kubelet will try to pull each image from the specified registry.
+By default, the kubelet tries to pull each image from the specified registry.
 However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
 then a local image is used (preferentially or exclusively, respectively).
 -->
-默认情况下，kubelet 会尝试从指定的仓库拉取每一个镜像。但是，如果容器属性 `imagePullPolicy` 设置为 `IfNotPresent `或者 `Never`，则会使用本地镜像（优先、唯一、分别）。
+默认情况下，`kubelet` 会尝试从指定的仓库拉取每个镜像。
+但是，如果容器属性 `imagePullPolicy` 设置为 `IfNotPresent` 或者 `Never`，
+则会优先使用（对应 `IfNotPresent`）或者一定使用（对应 `Never`）本地镜像。
 
 <!--
 If you want to rely on pre-pulled images as a substitute for registry authentication,
@@ -492,72 +379,89 @@ This can be used to preload certain images for speed or as an alternative to aut
 
 All pods will have read access to any pre-pulled images.
 -->
-如果依赖提前拉取镜像代替仓库认证，必须保证集群所有的节点提前拉取的镜像是相同的。
+如果你希望使用提前拉取镜像的方法代替仓库认证，就必须保证集群中所有节点提前拉取的镜像是相同的。
 
-可以用于提前载入指定的镜像以提高速度，或者作为私有仓库认证的一种替代方案。
+这一方案可以用来提前载入指定的镜像以提高速度，或者作为向私有仓库执行身份认证的一种替代方案。
 
-所有的 pod 都可以使用 node 上缓存的镜像。
+所有的 Pod 都可以使用节点上提前拉取的镜像。
 
 <!--
 ### Specifying ImagePullSecrets on a Pod
 -->
-### 在 pod 上指定 ImagePullSecrets
+### 为 Pod 设置 ImagePullSecrets
 
-{{< note >}}
 <!--
-This approach is currently the recommended approach for Google Kubernetes Engine, GCE, and any cloud-providers
-where node creation is automated.
+This is the recommended approach to run containers based on images
+in private registries.
 -->
-Google Kubernetes Engine、GCE 及其他自动创建 node 的云平台上，推荐使用本方法。
+{{< note >}}
+运行使用私有仓库中镜像的容器时，建议使用这种方法。
 {{< /note >}}
 
 <!--
-Kubernetes supports specifying registry keys on a pod.
+Kubernetes supports specifying container image registry keys on a Pod.
 -->
-Kubernetes 支持在 pod 中指定仓库密钥。
+Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 
 <!--
 #### Creating a Secret with a Docker Config
--->
-#### 使用 Docker Config 创建 Secret
 
-<!--
 Run the following command, substituting the appropriate uppercase values:
 -->
-运行以下命令，将大写字母代替为合适的值：
+#### 创建包含 Docker 配置的Secret
+
+将大写字母代替为合适的值，运行以下命令：
 
 ```shell
-kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <名称> \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
 ```
 
 <!--
 If you already have a Docker credentials file then, rather than using the above
-command, you can import the credentials file as a Kubernetes secret.
+command, you can import the credentials file as a Kubernetes
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
-This is particularly useful if you are using multiple private container
-registries, as `kubectl create secret docker-registry` creates a Secret that will
-only work with a single private registry.
 -->
-如果已经有 Docker 凭证文件，则可以将凭证文件作为 Kubernetes secret 导入而不是使用上面的命令。[根据现有 Docker 凭证创建 Secret](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) 解释了如何安装。如果使用多个私有容器仓库，这将特别有用，因为 `kubectl create secret docker-registry` 创建了一个仅适用于单个私有仓库的 Secret。
+如果你已经有 Docker 凭据文件，则可以将凭据文件导入为 Kubernetes
+{{< glossary_tooltip text="Secret" term_id="secret" >}}，
+而不是执行上面的命令。
+[基于已有的 Docker 凭据创建 Secret](/zh/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
+解释了如何完成这一操作。
 
-{{< note >}}
+<!--
+This is particularly useful if you are using multiple private container
+registries, as `kubectl create secret docker-registry` creates a Secret that
+only works with a single private registry.
+-->
+如果你在使用多个私有容器仓库，这种技术将特别有用。
+原因是 `kubectl create secret docker-registry` 创建的是仅适用于某个私有仓库的 Secret。
+
 <!--
 Pods can only reference image pull secrets in their own namespace,
 so this process needs to be done one time per namespace.
 -->
-Pod 只能引用和它相同命名空间的 ImagePullSecrets，所以需要为每一个命名空间做配置。
+{{< note >}}
+Pod 只能引用位于自身所在名字空间中的 Secret，因此需要针对每个名字空间
+重复执行上述过程。
 {{< /note >}}
 
 <!--
 #### Referring to an imagePullSecrets on a Pod
--->
-#### 引用 Pod 上的 imagePullSecrets
 
-<!--
 Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a pod definition.
+section to a Pod definition.
+
+For example:
 -->
-现在，在创建 pod 时，可以在 pod 定义中增加 `imagePullSecrets` 部分来引用 secret。
+#### 在 Pod 中引用 ImagePullSecrets
+
+现在，在创建 Pod 时，可以在 Pod 定义中增加 `imagePullSecrets` 部分来引用该 Secret。
+
+例如：
 
 ```shell
 cat <<EOF > pod.yaml
@@ -581,43 +485,46 @@ EOF
 ```
 
 <!--
-This needs to be done for each pod that is using a private registry.
+This needs to be done for each pod that is using a private registry.  
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [serviceAccount](/docs/user-guide/service-accounts) resource.
+in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-accounts/) resource.
+
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
--->
-对每一个使用私有仓库的 pod，都需要做以上操作。
 
-但是，可以通过在 [serviceAccount](/docs/user-guide/service-accounts) 资源中设置 imagePullSecrets 来自动设置 `imagePullSecrets`。检查 [将 ImagePullSecrets 添加 Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) 以获取详细说明。
-
-<!--
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
-will be merged.  This approach will work on Google Kubernetes Engine.
+will be merged.
 -->
-可以将其与每个节点 `.docker/config.json` 结合使用。凭据将被合并。这种方法适用于 Google Kubernetes Engine。
+你需要对使用私有仓库的每个 Pod 执行以上操作。
+不过，设置该字段的过程也可以通过为
+[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)
+资源设置 `imagePullSecrets` 来自动完成。
+有关详细指令可参见
+[将 ImagePullSecrets 添加到服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)。
+
+你也可以将此方法与节点级别的 `.docker/config.json` 配置结合使用。
+来自不同来源的凭据会被合并。
 
 <!--
 ### Use Cases
--->
-### 使用场景
 
-<!--
 There are a number of solutions for configuring private registries.  Here are some
 common use cases and suggested solutions.
 -->
+### 使用案例  {#use-cases}
+
 配置私有仓库有多种方案，以下是一些常用场景和建议的解决方案。
 
 <!--
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images on the Docker hub.
      - No configuration required.
-     - On GCE/Google Kubernetes Engine, a local mirror is automatically used for improved speed and availability.
+     - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
 -->
-1. 集群运行非专有（例如 开源镜像）镜像。镜像不需要隐藏。
-   - 使用 Docker hub 上的公有镜像
-    - 无需配置
-    - 在 GCE/GKE 上会自动使用高稳定性和高速的 Docker hub 的本地 mirror
+1. 集群运行非专有镜像（例如，开源镜像）。镜像不需要隐藏。
+   - 使用 Docker hub 上的公开镜像
+     - 无需配置
+     - 某些云厂商会自动为公开镜像提供高速缓存，以便提升可用性并缩短拉取镜像所需时间
 
 <!--
 1. Cluster running some proprietary images which should be hidden to those outside the company, but
@@ -627,46 +534,54 @@ common use cases and suggested solutions.
      - Manually configure .docker/config.json on each node as described above.
    - Or, run an internal private registry behind your firewall with open read access.
      - No Kubernetes configuration is required.
-   - Or, when on GCE/Google Kubernetes Engine, use the project's Google Container Registry.
+   - Use a hosted container image registry service that controls image access
      - It will work better with cluster autoscaling than manual node configuration.
    - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
 -->
-2. 集群运行一些专有镜像，这些镜像对外部公司需要隐藏，对集群用户可见
-   - 使用自主的私有 [Docker registry](https://docs.docker.com/registry/)。
-     - 可以放置在 [Docker Hub](https://hub.docker.com/account/signup/),或者其他地方。
-	   - 按照上面的描述，在每个节点手动配置 .docker/config.json。
-   - 或者，在防火墙内运行一个内置的私有仓库，并开放读取权限。
-     - 不需要配置 Kubenretes。
-   - 或者，在 GCE/GKE 上时，使用项目的 Google Container Registry。
-     - 使用集群自动伸缩比手动配置 node 工作的更好。
-   - 或者，在更改集群 node 配置不方便时，使用 `imagePullSecrets`。
+2. 集群运行一些专有镜像，这些镜像需要对公司外部隐藏，对所有集群用户可见
+   - 使用托管的私有 [Docker 仓库](https://docs.docker.com/registry/)。
+     - 可以托管在 [Docker Hub](https://hub.docker.com/account/signup/) 或者其他地方
+     - 按照上面的描述，在每个节点上手动配置 `.docker/config.json` 文件
+   - 或者，在防火墙内运行一个组织内部的私有仓库，并开放读取权限
+     - 不需要配置 Kubenretes
+   - 使用控制镜像访问的托管容器镜像仓库服务
+     - 与手动配置节点相比，这种方案能更好地处理集群自动扩缩容
+   - 或者，在不方便更改节点配置的集群中，使用 `imagePullSecrets`
 
 <!--
-3. Cluster with proprietary images, a few of which require stricter access control.
+1. Cluster with proprietary images, a few of which require stricter access control.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 -->
-3. 使用专有镜像的集群，有更严格的访问控制。
-   - 保证开启 [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有的 pod 都可以使用镜像。
-   - 将敏感数据存储在 "Secret" 资源中，而不是打包在镜像里。
+3. 集群使用专有镜像，且有些镜像需要更严格的访问控制
+   - 确保 [AlwaysPullImages 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)被启用。否则，所有 Pod 都可以使用所有镜像。
+   - 确保将敏感数据存储在 Secret 资源中，而不是将其打包在镜像里
 
 <!--
-4. A multi-tenant cluster where each tenant needs own private registry.
+1. A multi-tenant cluster where each tenant needs own private registry.
    - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
    - Run a private registry with authorization required.
    - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 -->
-4. 多租户集群下，每个租户需要自己的私有仓库。
-   - 开启保证 [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 pod 都可以使用镜像。
-   - 私有仓库开启认证。
-   - 为每个租户获取仓库凭证，放置在 secret 中，并发布到每个租户的命名空间下。
-   - 租户将 secret 增加到每个命名空间下的 imagePullSecrets 中。
-
-
+4. 集群是多租户的并且每个租户需要自己的私有仓库
+   - 确保 [AlwaysPullImages 准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。否则，所有租户的所有的 Pod 都可以使用所有镜像。
+   - 为私有仓库启用鉴权
+   - 为每个租户生成访问仓库的凭据，放置在 Secret 中，并将 Secrert 发布到各租户的命名空间下。
+   - 租户将 Secret 添加到每个名字空间中的 imagePullSecrets
 
 <!--
 If you need access to multiple registries, you can create one secret for each registry.
 Kubelet will merge any `imagePullSecrets` into a single virtual `.docker/config.json`
 -->
-如果需要访问多个仓库，则可以为每个仓库创建一个 secret。Kubelet 将任何 `imagePullSecrets` 合并为单个虚拟 `.docker/config.json` 文件。
+如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
+`kubelet` 将所有 `imagePullSecrets` 合并为一个虚拟的 `.docker/config.json` 文件。
+
+
+## {{% heading "whatsnext" %}}
+
+<!--
+* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+-->
+* 阅读 [OCI Image Manifest 规范](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+
