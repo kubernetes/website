@@ -7,7 +7,7 @@ weight: 30
 <!-- overview -->
 
 オペレーターはサードパーティのアプリケーション、コンポーネントを管理するためのリソースを活用する、Kubernetesへのソフトウェア拡張です。
-オペレーターは、特に[制御ループ](/docs/reference/glossary/?all=true#term-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
+オペレーターは、特に[制御ループ](/docs/concepts/#kubernetes-control-plane)のようなKubernetesが持つ仕組みに準拠しています。
 
 
 
