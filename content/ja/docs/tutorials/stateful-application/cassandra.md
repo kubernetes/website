@@ -176,7 +176,7 @@ kubectl apply -f cassandra-statefulset.yaml
     ```yaml
     # Please edit the object below. Lines beginning with a '#' will be ignored,
     # and an empty file will abort the edit. If an error occurs while saving this file will be
-    # reopenedTranslate tutorials/stateful-application/cassandra/ into Japanese with the relevant failures.
+    # reopened with the relevant failures.
     #
     apiVersion: apps/v1
     kind: StatefulSet
