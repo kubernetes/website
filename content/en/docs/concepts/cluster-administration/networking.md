@@ -79,7 +79,7 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 
-Where available, simplified / one-line installation instructions are provided here to simplify lab installations. For real-world and production installation, please follow the projects official documentation.
+Where available, simplified installation instructions are provided for lab environments. For production installations, follow the project's official documentation.
 
 ### ACI
 
@@ -94,7 +94,6 @@ Thanks to the "programmable" characteristic of Open vSwitch, Antrea is able to i
 
 * `NodeIPAMController` must be enabled in the Kubernetes cluster. 
   When deploying a cluster with kubeadm the `--pod-network-cidr <cidr>` option must be specified.
-* Open vSwitch kernel module must be present on every Kubernetes node.
 
 To deploy the latest version of Antrea (built from the master branch), use the
 checked-in [deployment
