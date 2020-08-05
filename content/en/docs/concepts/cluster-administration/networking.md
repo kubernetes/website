@@ -94,8 +94,9 @@ Thanks to the "programmable" characteristic of Open vSwitch, Antrea is able to i
 
 * `NodeIPAMController` must be enabled in the Kubernetes cluster. 
   When deploying a cluster with kubeadm the `--pod-network-cidr <cidr>` option must be specified.
+* Open vSwitch kernel module must be present on every Kubernetes node.
 
-To deploy the latest version of Antrea (built from the master branch), use the
+To deploy the latest version of Antrea, use the
 checked-in [deployment
 yaml](https://github.com/vmware-tanzu/antrea/blob/master/build/yamls/antrea.yml):
 
