@@ -79,6 +79,8 @@ as an introduction to various technologies and serves as a jumping-off point.
 The following networking options are sorted alphabetically - the order does not
 imply any preferential status.
 
+Where available, simplified / one-line installation instructions are provided here to simplify lab installations. For real-world and production installation, please follow the projects official documentation.
+
 ### ACI
 
 [Cisco Application Centric Infrastructure](https://www.cisco.com/c/en/us/solutions/data-center-virtualization/application-centric-infrastructure/index.html) offers an integrated overlay and underlay SDN solution that supports containers, virtual machines, and bare metal servers. [ACI](https://www.github.com/noironetworks/aci-containers) provides container networking integration for ACI. An overview of the integration is provided [here](https://www.cisco.com/c/dam/en/us/solutions/collateral/data-center-virtualization/application-centric-infrastructure/solution-overview-c22-739493.pdf).
@@ -87,6 +89,24 @@ imply any preferential status.
 
 Project [Antrea](https://github.com/vmware-tanzu/antrea) is an opensource Kubernetes networking solution intended to be Kubernetes native. It leverages Open vSwitch as the networking data plane. Open vSwitch is a high-performance programmable virtual switch that supports both Linux and Windows. Open vSwitch enables Antrea to implement Kubernetes Network Policies in a high-performance and efficient manner.
 Thanks to the "programmable" characteristic of Open vSwitch, Antrea is able to implement an extensive set of networking and security features and services on top of Open vSwitch.
+
+**Quick Start Install**
+
+* `NodeIPAMController` must be enabled in the Kubernetes cluster. 
+  When deploying a cluster with kubeadm the `--pod-network-cidr <cidr>` option must be specified.
+* Open vSwitch kernel module must be present on every Kubernetes node.
+
+To deploy the latest version of Antrea (built from the master branch), use the
+checked-in [deployment
+yaml](https://github.com/vmware-tanzu/antrea/blob/master/build/yamls/antrea.yml):
+
+```shell
+kubectl apply -f
+https://raw.githubusercontent.com/vmware-tanzu/antrea/master/build/yamls/antrea.yml
+```
+If you want to add Windows Nodes to your cluster, please refer to the
+installation instructions in
+[windows.md](https://github.com/vmware-tanzu/antrea/blob/master/docs/windows.md).
 
 ### AOS from Apstra
 
@@ -107,6 +127,33 @@ The [AWS VPC CNI](https://github.com/aws/amazon-vpc-cni-k8s) offers integrated A
 Using this CNI plugin allows Kubernetes pods to have the same IP address inside the pod as they do on the VPC network. The CNI allocates AWS Elastic Networking Interfaces (ENIs) to each Kubernetes node and using the secondary IP range from each ENI for pods on the node. The CNI includes controls for pre-allocation of ENIs and IP addresses for fast pod startup times and enables large clusters of up to 2,000 nodes.
 
 Additionally, the CNI can be run alongside [Calico for network policy enforcement](https://docs.aws.amazon.com/eks/latest/userguide/calico.html). The AWS VPC CNI project is open source with [documentation on GitHub](https://github.com/aws/amazon-vpc-cni-k8s).
+
+**Quick Start Install**
+
+Download the latest version of the
+[yaml](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/config) and apply it the cluster.
+
+```shell
+kubectl apply -f aws-k8s-cni.yaml
+```
+Launch kubelet with network plugins set to cni (`--network-plugin=cni`), the cni
+directories configured (`--cni-config-dir` and `--cni-bin-dir`) and node ip set to
+the primary IPv4 address of the primary ENI for the instance (`--node-ip=$(curl
+http://169.254.169.254/latest/meta-data/local-ipv4)`). It is also recommended to
+set `--max-pods` equal to *(the number of ENIs for the instance type × (the number
+of IPs per ENI - 1)) + 2;* for details, see
+[vpc_ip_resource_limit.go](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/pkg/awsutils/vpc_ip_resource_limit.go). Setting
+`--max-pods` will prevent scheduling that exceeds the IP address resources
+available to the kubelet.
+
+The default manifest expects `--cni-conf-dir=/etc/cni/net.d` and
+`--cni-bin-dir=/opt/cni/bin`.
+
+L-IPAM requires an [IAM
+policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) as detailed in the above project documentation
+
+Alternatively there is also a [Helm](https://helm.sh/) chart:
+[eks/aws-vpc-cni](https://github.com/aws/eks-charts/tree/master/stable/aws-vpc-cni)
 
 ### Azure CNI for Kubernetes
 [Azure CNI](https://docs.microsoft.com/en-us/azure/virtual-network/container-networking-overview) is an [open source](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) plugin that integrates Kubernetes Pods with an Azure Virtual Network (also known as VNet) providing network performance at par with VMs. Pods can connect to peered VNet and to on-premises over Express Route or site-to-site VPN and are also directly reachable from these networks. Pods can access Azure services, such as storage and SQL, that are protected by Service Endpoints or Private Link. You can use VNet security policies and routing to filter Pod traffic. The plugin assigns VNet IPs to Pods by utilizing a pool of secondary IPs pre-configured on the Network Interface of a Kubernetes node.
@@ -130,11 +177,28 @@ containers. Cilium is L7/HTTP aware and can enforce network policies on L3-L7
 using an identity based security model that is decoupled from network
 addressing, and it can be used in combination with other CNI plugins.
 
+**Quick Start Install**
+
+To deploy Cilium you just need to run:
+
+```shell
+kubectl create -f
+https://raw.githubusercontent.com/cilium/cilium/1.8.2/install/kubernetes/quick-install.yaml
+```
+
 ### CNI-Genie from Huawei
 
 [CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](https://docs.projectcalico.org/), [Romana](https://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
+
+**Quick Start Install**
+
+```shell
+kubeadm init --pod-network-cidr=10.244.0.0/16
+kubectl apply -f
+https://raw.githubusercontent.com/Huawei-PaaS/CNI-Genie/master/conf/1.8/genie-complete.yaml
+```
 
 ### cni-ipvlan-vpc-k8s
 [cni-ipvlan-vpc-k8s](https://github.com/lyft/cni-ipvlan-vpc-k8s) contains a set
@@ -155,6 +219,9 @@ network complexity required to deploy Kubernetes at scale within AWS.
 ### Contiv
 
 [Contiv](https://github.com/contiv/netplugin) provides configurable networking (native l3 using BGP, overlay using vxlan,  classic l2, or Cisco-SDN/ACI) for various use cases. [Contiv](https://contiv.io) is all open sourced.
+
+Please check the [project install
+pages](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md) for the latest full information on installing Contiv.
 
 ### Contrail / Tungsten Fabric
 
@@ -177,6 +244,13 @@ With this toolset DANM is able to provide multiple separated network interfaces,
 [Flannel](https://github.com/coreos/flannel#flannel) is a very simple overlay
 network that satisfies the Kubernetes requirements. Many
 people have reported success with Flannel and Kubernetes.
+
+**Quick Start Install**
+
+```shell
+kubectl apply -f
+https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+```
 
 ### Google Compute Engine (GCE)
 
@@ -237,9 +311,30 @@ traffic to the internet.
 
 [Kube-OVN](https://github.com/alauda/kube-ovn) is an OVN-based kubernetes network fabric for enterprises. With the help of OVN/OVS, it provides some advanced overlay network features like subnet, QoS, static IP allocation, traffic mirroring, gateway, openflow-based network policy and service proxy.
 
+**Quick Start Install**
+
+Kube-OVN provides a one script install to easily install a high-available,
+production-ready Kube-OVN
+
+```shell
+wget
+https://raw.githubusercontent.com/alauda/kube-ovn/release-1.3/dist/images/install.sh
+```
+Edit the script variables to meet your requirement
+
+Execute the script
+```shell
+bash install.sh
+```
+
 ### Kube-router
 
 [Kube-router](https://github.com/cloudnativelabs/kube-router) is a purpose-built networking solution for Kubernetes that aims to provide high performance and operational simplicity. Kube-router provides a Linux [LVS/IPVS](https://www.linuxvirtualserver.org/software/ipvs.html)-based service proxy, a Linux kernel forwarding-based pod-to-pod networking solution with no overlays, and iptables/ipset-based network policy enforcer.
+
+For information on using the `kubeadm` tool to set up a Kubernetes cluster with
+Kube-router, please see the official [setup
+guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
+
 
 ### L2 networks and linux bridging
 
@@ -258,6 +353,16 @@ Lars Kellogg-Stedman.
 [Multus](https://github.com/Intel-Corp/multus-cni) is a Multi CNI plugin to support the Multi Networking feature in Kubernetes using CRD based network objects in Kubernetes.
 
 Multus supports all [reference plugins](https://github.com/containernetworking/plugins) (eg. [Flannel](https://github.com/containernetworking/plugins/tree/master/plugins/meta/flannel), [DHCP](https://github.com/containernetworking/plugins/tree/master/plugins/ipam/dhcp), [Macvlan](https://github.com/containernetworking/plugins/tree/master/plugins/main/macvlan)) that implement the CNI specification and 3rd party plugins (eg. [Calico](https://github.com/projectcalico/cni-plugin), [Weave](https://github.com/weaveworks/weave), [Cilium](https://github.com/cilium/cilium), [Contiv](https://github.com/contiv/netplugin)). In addition to it, Multus supports [SRIOV](https://github.com/hustcat/sriov-cni), [DPDK](https://github.com/Intel-Corp/sriov-cni), [OVS-DPDK & VPP](https://github.com/intel/vhost-user-net-plugin) workloads in Kubernetes with both cloud native and NFV based applications in Kubernetes.
+
+**Quick Start Install**
+
+Clone the above GitHub repository, then apply the daemonset which installs Multus
+using to kubectl from this repo. From the root directory of the clone, apply the
+daemonset YAML file:
+
+```shell
+$ cat ./images/multus-daemonset.yml | kubectl apply -f -
+```
 
 ### OVN4NFV-K8s-Plugin (OVN based CNI controller & plugin)
 
@@ -297,9 +402,26 @@ Calico provides a highly scalable networking and network policy solution for con
 
 Calico can also be run in policy enforcement mode in conjunction with other networking solutions such as Flannel, aka [canal](https://github.com/tigera/canal), or native GCE, AWS or Azure networking.
 
+**Quick Start Install**
+
+Calico will automatically detect which IP address range to use for pod IPs based
+on the value provided via the `--pod-network-cidr` flag or via kubeadm's
+configuration.
+
+```shell
+kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
+```
+
 ### Romana
 
 [Romana](https://romana.io) is an open source network and security automation solution that lets you deploy Kubernetes without an overlay network. Romana supports Kubernetes [Network Policy](/docs/concepts/services-networking/network-policies/) to provide isolation across network namespaces.
+
+**Quick Start Install**
+
+```shell
+kubectl apply -f
+https://raw.githubusercontent.com/romana/romana/master/docs/kubernetes/romana-kubeadm.yml
+```
 
 ### Weave Net from Weaveworks
 
@@ -308,6 +430,16 @@ resilient and simple to use network for Kubernetes and its hosted applications.
 Weave Net runs as a [CNI plug-in](https://www.weave.works/docs/net/latest/cni-plugin/)
 or stand-alone.  In either version, it doesn't require any configuration or extra code
 to run, and in both cases, the network provides one IP address per pod - as is standard for Kubernetes.
+
+**Quick Start Install**
+
+For more information on setting up your Kubernetes cluster with Weave Net,
+please see [Integrating Kubernetes via the
+Addon](https://www.weave.works/docs/net/latest/kube-addon/).
+
+```shell
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+```
 
 ## {{% heading "whatsnext" %}}
 
