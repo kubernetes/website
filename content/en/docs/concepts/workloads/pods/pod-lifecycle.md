@@ -146,7 +146,7 @@ that container.
 
 ## Pod conditions
 
-A Pod has a PodStatus, which has an array of
+Apart from the single general value in Pod Phase field, the PodStatus includes an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
 through which the Pod has or has not passed:
 
@@ -159,7 +159,7 @@ through which the Pod has or has not passed:
 
 Field name           | Description
 :--------------------|:-----------
-`type`               | Name of this Pod condition.
+`type`               | Name of this Pod condition (one from the above list).
 `status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
 `lastProbeTime`      | Timestamp of when the Pod condition was last probed.
 `lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
