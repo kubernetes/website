@@ -1,38 +1,33 @@
 ---
-reviewers:
-- thockin
-- caseydavenport
-- danwinship
-title: Network Policies
+title: ネットワークポリシー
 content_type: concept
 weight: 50
 ---
 
 <!-- overview -->
-A network policy is a specification of how groups of {{< glossary_tooltip text="pods" term_id="pod">}} are allowed to communicate with each other and other network endpoints.
 
-NetworkPolicy resources use {{< glossary_tooltip text="labels" term_id="label">}} to select pods and define rules which specify what traffic is allowed to the selected pods.
+ネットワークポリシーは、{{< glossary_tooltip text="Pod" term_id="pod">}}のグループが、Pod相互や他のネットワークエンドポイントと通信する場合に許可を与える方法を指定するための仕様です。
 
-
+NetworkPolicyリソースは、{{< glossary_tooltip text="ラベル" term_id="label">}}を使用してPodを選択し、選択したPodに対してどんなトラフィックを許可するかを指定するルールを定義します。
 
 <!-- body -->
-## Prerequisites
+## 前提条件
 
-Network policies are implemented by the [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/). To use network policies, you must be using a networking solution which supports NetworkPolicy. Creating a NetworkPolicy resource without a controller that implements it will have no effect.
+ネットワークポリシーは、[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)により実装されます。ネットワークポリシーを使用するには、NetworkPolicyをサポートするネットワークソリューションを使用しなければなりません。ネットワークポリシーを実装したコントローラーを使用せずにNetworkPolicyリソースを作成した場合は、何も効果はありません。
 
-## Isolated and Non-isolated Pods
+## 分離されたPodと分離されていないPod
 
-By default, pods are non-isolated; they accept traffic from any source.
+デフォルトでは、Podは分離されていない状態(non-isolated)となるため、すべてのソースからのトラフィックを受信します。
 
-Pods become isolated by having a NetworkPolicy that selects them. Once there is any NetworkPolicy in a namespace selecting a particular pod, that pod will reject any connections that are not allowed by any NetworkPolicy. (Other pods in the namespace that are not selected by any NetworkPolicy will continue to accept all traffic.)
+Podを選択するNetworkPolicyが存在すると、Podは分離されるようになります。名前空間内に特定のPodを選択するNetworkPolicyが1つでも存在すると、そのPodはいずれかのNetworkPolicyで許可されていないすべての接続を拒否するようになります。
 
-Network policies do not conflict; they are additive. If any policy or policies select a pod, the pod is restricted to what is allowed by the union of those policies' ingress/egress rules. Thus, order of evaluation does not affect the policy result.
+ネットワークポリシーは追加式であるため、競合することはありません。複数のポリシーがPodを選択する場合、そのPodに許可されるトラフィックは、それらのポリシーのingress/egressルールの和集合で制限されます。
 
-## The NetworkPolicy resource {#networkpolicy-resource}
+## NetworkPolicyリソース {#networkpolicy-resource}
 
-See the [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io) reference for a full definition of the resource.
+リソースの完全な定義については、リファレンスの[NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#networkpolicy-v1-networking-k8s-io)のセクションを参照してください。
 
-An example NetworkPolicy might look like this:
+以下は、NetworkPolicyの一例です。
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -72,46 +67,42 @@ spec:
 ```
 
 {{< note >}}
-POSTing this to the API server for your cluster will have no effect unless your chosen networking solution supports network policy.
+選択したネットワークソリューションがネットワークポリシーをサポートしていない場合には、これをクラスターのAPIサーバーにPOSTしても効果はありません。
 {{< /note >}}
 
-__Mandatory Fields__: As with all other Kubernetes config, a NetworkPolicy
-needs `apiVersion`, `kind`, and `metadata` fields.  For general information
-about working with config files, see
-[Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
-and [Object Management](/docs/concepts/overview/working-with-objects/object-management).
+__必須フィールド__: 他のKubernetesの設定と同様に、NetworkPolicyにも`apiVersion`、`kind`、`metadata`フィールドが必須です。設定ファイルの扱い方に関する一般的な情報については、[ConfigMapを使用してコンテナを構成する](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)と[オブジェクト管理](/ja/docs/concepts/overview/working-with-objects/object-management)を参照してください。
 
-__spec__: NetworkPolicy [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) has all the information needed to define a particular network policy in the given namespace.
+__spec__: NetworkPolicyの[spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を見ると、指定した名前空間内で特定のネットワークポリシーを定義するのに必要なすべての情報が確認できます。
 
-__podSelector__: Each NetworkPolicy includes a `podSelector` which selects the grouping of pods to which the policy applies. The example policy selects pods with the label "role=db". An empty `podSelector` selects all pods in the namespace.
+__podSelector__: 各NetworkPolicyには、ポリシーを適用するPodのグループを選択する`podSelector`が含まれます。ポリシーの例では、ラベル"role=db"を持つPodを選択しています。`podSelector`を空にすると、名前空間内のすべてのPodが選択されます。
 
-__policyTypes__: Each NetworkPolicy includes a `policyTypes` list which may include either `Ingress`, `Egress`, or both. The `policyTypes` field indicates whether or not the given policy applies to ingress traffic to selected pod, egress traffic from selected pods, or both. If no `policyTypes` are specified on a NetworkPolicy then by default `Ingress` will always be set and `Egress` will be set if the NetworkPolicy has any egress rules.
+__policyTypes__: 各NetworkPolicyには、`policyTypes`として、`Ingress`、`Egress`、またはその両方からなるリストが含まれます。`policyTypes`フィールドでは、指定したポリシーがどの種類のトラフィックに適用されるかを定めます。トラフィックの種類としては、選択したPodへの内向きのトラフィック(Ingress)、選択したPodからの外向きのトラフィック(Egress)、またはその両方を指定します。`policyTypes`を指定しなかった場合、デフォルトで常に
+`Ingress`が指定され、NetworkPolicyにegressルールが1つでもあれば`Egress`も設定されます。
 
-__ingress__: Each NetworkPolicy may include a list of allowed `ingress` rules.  Each rule allows traffic which matches both the `from` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port, from one of three sources, the first specified via an `ipBlock`, the second via a `namespaceSelector` and the third via a `podSelector`.
+__ingress__: 各NetworkPolicyには、許可する`ingress`ルールのリストを指定できます。各ルールは、`from`および`ports`セクションの両方に一致するトラフィックを許可します。ポリシーの例には1つのルールが含まれ、このルールは、3つのソースのいずれかから送信された1つのポート上のトラフィックに一致します。1つ目のソースは`ipBlock`で、2つ目のソースは`namespaceSelector`で、3つ目のソースは`podSelector`でそれぞれ定められます。
 
-__egress__: Each NetworkPolicy may include a list of allowed `egress` rules.  Each rule allows traffic which matches both the `to` and `ports` sections. The example policy contains a single rule, which matches traffic on a single port to any destination in `10.0.0.0/24`.
+__egress__: 各NetworkPolicyには、許可する`egress`ルールのリストを指定できます。各ルールは、`from`および`ports`セクションの両方に一致するトラフィックを許可します。ポリシーの例には1つのルールが含まれ、このルールは、1つのポート上で`10.0.0.0/24`の範囲内の任意の送信先へ送られるトラフィックに一致します。
 
-So, the example NetworkPolicy:
+したがって、上のNetworkPolicyの例では、次のようにネットワークポリシーを適用します。
 
-1. isolates "role=db" pods in the "default" namespace for both ingress and egress traffic (if they weren't already isolated)
-2. (Ingress rules) allows connections to all pods in the “default” namespace with the label “role=db” on TCP port 6379 from:
+1. "default"名前空間内にある"role=db"のPodを、内向きと外向きのトラフィックに対して分離する(すでに分離されていなければ)
+2. (Ingressルール) "default"名前空間内の"role=db"ラベルが付いたすべてのPodのTCPの6379番ポートへの接続のうち、次の送信元からのものを許可する
+   * "default"名前空間内のラベル"role=frontend"が付いたすべてのPod
+   * ラベル"project=myproject"が付いた名前空間内のすべてのPod
+   * 172.17.0.0–172.17.0.255および172.17.2.0–172.17.255.255(言い換えれば、172.17.1.0/24の範囲を除く172.17.0.0/16)の範囲内のすべてのIPアドレス
+3. (Egressルール) "role=db"というラベルが付いた"default"名前空間内のすべてのPodからの、TCPの5978番ポート上でのCIDR 10.0.0.0/24への接続を許可する
 
-   * any pod in the "default" namespace with the label "role=frontend"
-   * any pod in a namespace with the label "project=myproject"
-   * IP addresses in the ranges 172.17.0.0–172.17.0.255 and 172.17.2.0–172.17.255.255 (ie, all of 172.17.0.0/16 except 172.17.1.0/24)
-3. (Egress rules) allows connections from any pod in the "default" namespace with the label "role=db" to CIDR 10.0.0.0/24 on TCP port 5978
+追加の例については、[ネットワークポリシーを宣言する](/ja/docs/tasks/administer-cluster/declare-network-policy/)の説明を参照してください。
 
-See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) walkthrough for further examples.
+## `to`と`from`のセレクターの振る舞い
 
-## Behavior of `to` and `from` selectors
+`ingress`の`from`セクションまたは`egress`の`to`セクションに指定できるセレクターは4種類あります。
 
-There are four kinds of selectors that can be specified in an `ingress` `from` section or `egress` `to` section:
+__podSelector__: NetworkPolicyと同じ名前空間内の特定のPodを選択して、ingressの送信元またはegressの送信先を許可します。
 
-__podSelector__: This selects particular Pods in the same namespace as the NetworkPolicy which should be allowed as ingress sources or egress destinations.
+__namespaceSelector__: 特定の名前空間を選択して、その名前空間内のすべてのPodについて、ingressの送信元またはegressの送信先を許可します。
 
-__namespaceSelector__: This selects particular namespaces for which all Pods should be allowed as ingress sources or egress destinations.
-
-__namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that specifies both `namespaceSelector` and `podSelector` selects particular Pods within particular namespaces. Be careful to use correct YAML syntax; this policy:
+__namespaceSelector__ *および* __podSelector__: 1つの`to`または`from`エントリーで`namespaceSelector`と`podSelector`の両方を指定して、特定の名前空間内の特定のPodを選択します。正しいYAMLの構文を使うように気をつけてください。このポリシーの例を以下に示します。
 
 ```yaml
   ...
@@ -126,7 +117,7 @@ __namespaceSelector__ *and* __podSelector__: A single `to`/`from` entry that spe
   ...
 ```
 
-contains a single `from` element allowing connections from Pods with the label `role=client` in namespaces with the label `user=alice`. But *this* policy:
+このポリシーには、1つの`from`要素があり、ラベル`user=alice`の付いた名前空間内にある、ラベル`role=client`の追加Podからの接続を許可します。しかし、*以下の*ポリシーには注意が必要です。
 
 ```yaml
   ...
@@ -141,85 +132,69 @@ contains a single `from` element allowing connections from Pods with the label `
   ...
 ```
 
-contains two elements in the `from` array, and allows connections from Pods in the local Namespace with the label `role=client`, *or* from any Pod in any namespace with the label `user=alice`.
+このポリシーには、`from`配列の中に2つの要素があります。そのため、ラベル`role=client`の付いた名前空間内にあるすべてのPodからの接続、*または*、任意の名前空間内にあるラベル`user=alice`の付いたすべてのPodからの接続を許可します。
 
-When in doubt, use `kubectl describe` to see how Kubernetes has interpreted the policy.
+正しいルールになっているか自信がないときは、`kubectl describe`を使用すると、Kubernetesがどのようにポリシーを解釈したのかを確認できます。
 
-__ipBlock__: This selects particular IP CIDR ranges to allow as ingress sources or egress destinations. These should be cluster-external IPs, since Pod IPs are ephemeral and unpredictable.
+__ipBlock__: 特定のIPのCIDRの範囲を選択して、ingressの送信元またはegressの送信先を許可します。PodのIPは一時的なもので予測できないため、ここにはクラスター外のIPを指定するべきです。
 
-Cluster ingress and egress mechanisms often require rewriting the source or destination IP
-of packets. In cases where this happens, it is not defined whether this happens before or
-after NetworkPolicy processing, and the behavior may be different for different
-combinations of network plugin, cloud provider, `Service` implementation, etc.
+クラスターのingressとegressの仕組みはパケットの送信元IPや送信先IPの書き換えを必要とすることがよくあります。その場合、NetworkPolicyの処理がIPの書き換えの前後どちらで行われるのかは定義されていません。そのため、ネットワークプラグイン、クラウドプロバイダー、`Service`の実装などの組み合わせによっては、動作が異なる可能性があります。
 
-In the case of ingress, this means that in some cases you may be able to filter incoming
-packets based on the actual original source IP, while in other cases, the "source IP" that
-the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node, etc.
+内向きのトラフィックの場合は、実際のオリジナルの送信元IPに基づいてパケットをフィルタリングできる可能性もあれば、NetworkPolicyが対象とする「送信元IP」が`LoadBalancer`やPodのノードなどのIPになってしまっている可能性もあることになります。
 
-For egress, this means that connections from pods to `Service` IPs that get rewritten to
-cluster-external IPs may or may not be subject to `ipBlock`-based policies.
+外向きのトラフィックの場合は、クラスター外のIPに書き換えられたPodから`Service`のIPへの接続は、`ipBlock`ベースのポリシーの対象になる場合とならない場合があることになります。
 
-## Default policies
+## デフォルトのポリシー
 
-By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace. The following examples let you change the default behavior
-in that namespace.
+デフォルトでは、名前空間にポリシーが存在しない場合、その名前空間内のPodの内向きと外向きのトラフィックはすべて許可されます。以下の例を利用すると、その名前空間内でのデフォルトの振る舞いを変更できます。
 
-### Default deny all ingress traffic
+### デフォルトですべての内向きのトラフィックを拒否する
 
-You can create a "default" isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any ingress traffic to those pods.
+すべてのPodを選択して、そのPodへのすべての内向きのトラフィックを許可しないNetworkPolicyを作成すると、その名前空間に対する「デフォルト」の分離ポリシーを作成できます。
 
 {{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
 
-This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated. This policy does not change the default egress isolation behavior.
+このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも分離されることを保証できます。このポリシーは、デフォルトの外向きの分離の振る舞いを変更しません。
 
-### Default allow all ingress traffic
+### デフォルトで内向きのすべてのトラフィックを許可する
 
-If you want to allow all traffic to all pods in a namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all traffic in that namespace.
+(たとえPodを「分離されたもの」として扱うポリシーが追加された場合でも)名前空間内のすべてのPodへのすべてのトラフィックを許可したい場合には、その名前空間内のすべてのトラフィックを明示的に許可するポリシーを作成できます。
 
 {{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
 
-### Default deny all egress traffic
+### デフォルトで外向きのすべてのトラフィックを拒否する
 
-You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy that selects all pods but does not allow any egress traffic from those pods.
+すべてのPodを選択して、そのPodからのすべての外向きのトラフィックを許可しないNetworkPolicyを作成すると、その名前空間に対する「デフォルト」の外向きの分離ポリシーを作成できます。
 
 {{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
 
-This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed egress traffic. This policy does not
-change the default ingress isolation behavior.
+このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも、外向きのトラフィックが許可されないことを保証できます。このポリシーは、デフォルトの内向きの分離の振る舞いを変更しません。
 
-### Default allow all egress traffic
+### デフォルトで外向きのすべてのトラフィックを許可する
 
-If you want to allow all traffic from all pods in a namespace (even if policies are added that cause some pods to be treated as "isolated"), you can create a policy that explicitly allows all egress traffic in that namespace.
+(たとえPodを「分離されたもの」として扱うポリシーが追加された場合でも)名前空間内のすべてのPodからのすべてのトラフィックを許可したい場合には、その名前空間内のすべての外向きのトラフィックを明示的に許可するポリシーを作成できます。
 
 {{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
 
-### Default deny all ingress and all egress traffic
+### デフォルトで内向きと外向きのすべてのトラフィックを拒否する
 
-You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by creating the following NetworkPolicy in that namespace.
+名前空間内に以下のNetworkPolicyを作成すると、その名前空間で内向きと外向きのすべてのトラフィックを拒否する「デフォルト」のポリシーを作成できます。
 
 {{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
 
-This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed ingress or egress traffic.
+このポリシーを利用すれば、他のいかなるNetworkPolicyにも選択されなかったPodでも、内向きと外向きのトラフィックが許可されないことを保証できます。
 
-## SCTP support
+## SCTPのサポート
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-To use this feature, you (or your cluster administrator) will need to enable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=true,…`.
-When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
+この機能を利用するには、クラスター管理者がAPIサーバーで`--feature-gates=SCTPSupport=true,…`と指定して、`SCTPSupport`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。フィーチャーゲートが有効になれば、NetworkPolicyの`protocol`フィールドに`SCTP`が指定できるようになります。
 
 {{< note >}}
-You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
+SCTPプロトコルのネットワークポリシーをサポートする{{< glossary_tooltip text="CNI" term_id="cni" >}}プラグインを使用している必要があります。
 {{< /note >}}
-
-
-
 
 ## {{% heading "whatsnext" %}}
 
-
-- See the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
-  walkthrough for further examples.
-- See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common scenarios enabled by the NetworkPolicy resource.
-
-
+- [ネットワークポリシーを宣言する](/ja/docs/tasks/administer-cluster/declare-network-policy/)で追加の例の説明を読む。
+- NetworkPolicyリソースで実現できるよくあるシナリオのためのさまざまな[レシピ](https://github.com/ahmetb/kubernetes-network-policy-recipes)を確認する。
