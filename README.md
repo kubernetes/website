@@ -12,6 +12,7 @@ You can run the website locally using Hugo (Extended version), or you can run it
 
 To use this repository, you need the following installed locally:
 
+- [npm](https://www.npmjs.com/)
 - [Go](https://golang.org/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
@@ -48,6 +49,8 @@ Make sure to install the Hugo extended version specified by the `HUGO_VERSION` e
 To build and test the site locally, run:
 
 ```bash
+# install dependencies
+npm ci
 make serve
 ```
 
