@@ -209,7 +209,7 @@ well as lower-trust users.The following listed controls should be enforced/disal
 		<tr>
 			<td>Privilege Escalation</td>
 			<td>
-				Privilege escalation (typically via SUID/SGID file permission bits) should not be allowed.<br>
+				Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.<br>
 				<br><b>Restricted Fields:</b><br>
 				spec.containers[*].securityContext.allowPrivilegeEscalation<br>
 				spec.initContainers[*].securityContext.allowPrivilegeEscalation<br>
