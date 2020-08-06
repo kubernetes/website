@@ -75,7 +75,7 @@ IPv6 CIDRの例: `fdXY:IJKL:MNOP:15::/64` (これはフォーマットを示す�
 
 {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
 
-次のServiceのspecには`isFamily`フィールドが含まれています。Kubernetesは、最初に設定した`service-cluster-ip-range`の範囲からこのServiceにIPv6のアドレス(別名「cluster IP」)を割り当てます。
+次のServiceのspecには`ipFamily`フィールドが含まれています。Kubernetesは、最初に設定した`service-cluster-ip-range`の範囲からこのServiceにIPv6のアドレス(別名「cluster IP」)を割り当てます。
 
 {{< codenew file="service/networking/dual-stack-ipv6-svc.yaml" >}}
 
