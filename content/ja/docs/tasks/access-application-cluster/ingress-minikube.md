@@ -1,15 +1,14 @@
 ---
-title: Set up Ingress on Minikube with the NGINX Ingress Controller
+title: Minikube上でNGINX Ingressコントローラーを使用してIngressをセットアップする
 content_type: task
 weight: 100
 ---
 
 <!-- overview -->
 
-An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
-to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress.
+[Ingress](/ja/docs/concepts/services-networking/ingress/)とは、クラスター内のServiceに外部からのアクセスを許可するルールを定義するAPIオブジェクトです。[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)はIngress内に設定されたルールを満たすように動作します。
 
-This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
+このページでは、簡単なIngressをセットアップして、HTTPのURIに応じてwebまたはweb2というServiceにリクエストをルーティングする方法を説明します。
 
 
 
@@ -22,35 +21,37 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 
 <!-- steps -->
 
-## Create a Minikube cluster
+## Minikubeクラスターを作成する
 
-1. Click **Launch Terminal**
+1. **Launch Terminal**をクリックします。
 
     {{< kat-button >}}
 
-1. (Optional) If you installed Minikube locally, run the following command:
+1. (オプション) Minikubeをローカル環境にインストールした場合は、次のコマンドを実行します。
 
     ```shell
     minikube start
     ```
 
-## Enable the Ingress controller
+## Ingressコントローラーを有効化する
 
-1. To enable the NGINX Ingress controller, run the following command:
+1. NGINX Ingressコントローラーを有効にするために、次のコマンドを実行します。
 
     ```shell
     minikube addons enable ingress
     ```
-      
-1. Verify that the NGINX Ingress controller is running
+
+1. NGINX Ingressコントローラーが起動したことを確認します。
 
     ```shell
     kubectl get pods -n kube-system
     ```
 
-    {{< note >}}This can take up to a minute.{{< /note >}}
+    {{< note >}}
+    このコマンドの実行には数分かかる場合があります。
+    {{< /note >}}
 
-    Output:
+    出力は次のようになります。
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
@@ -62,171 +63,181 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     storage-provisioner                         1/1       Running   0          2m
     ```
 
-## Deploy a hello, world app
+## Hello Worldアプリをデプロイする
 
-1. Create a Deployment using the following command:
+1. 次のコマンドを実行して、Deploymentを作成します。
 
     ```shell
     kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0
     ```
 
-    Output:
-    
+    出力は次のようになります。
+
     ```shell
     deployment.apps/web created
     ```
 
-1. Expose the Deployment: 
+1. Deploymentを公開します。
 
     ```shell
     kubectl expose deployment web --type=NodePort --port=8080
     ```
-    
-    Output: 
-    
+
+    出力は次のようになります。
+
     ```shell
     service/web exposed
     ```
-    
-1. Verify the Service is created and is available on a node port:
+
+1. Serviceが作成され、NodePort上で利用できるようになったことを確認します。
 
     ```shell
     kubectl get service web
-    ``` 
-    
-    Output:
-    
+    ```
+
+    出力は次のようになります。
+
     ```shell
     NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
     web       NodePort   10.104.133.249   <none>        8080:31637/TCP   12m
     ```
 
-1. Visit the service via NodePort:
+1. NodePort経由でServiceを訪問します。
 
     ```shell
     minikube service web --url
     ```
-    
-    Output:
-    
+
+    出力は次のようになります。
+
     ```shell
     http://172.17.0.15:31637
     ```
-    
-    {{< note >}}Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**.{{< /note >}}
-    
-    Output:
-    
+
+    {{< note >}}
+    Katacoda環境の場合のみ: 上部のterminalパネルでプラスのアイコンをクリックして、**Select port to view on Host 1**(Host 1を表示するポートを選択)をクリックします。NodePort(上の例では`31637`)を入力して、**Display Port**(ポートを表示)をクリックしてください。
+    {{< /note >}}
+
+    出力は次のようになります。
+
     ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
     ```
-    
-    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access 
-    the app using the Ingress resource.
 
-## Create an Ingress resource
+    これで、MinikubeのIPアドレスとNodePort経由で、サンプルアプリにアクセスできるようになりました。次のステップでは、Ingressリソースを使用してアプリにアクセスできるように設定します。
 
-The following file is an Ingress resource that sends traffic to your Service via hello-world.info.
+## Ingressリソースを作成する
 
-1. Create `example-ingress.yaml` from the following file:
+以下に示すファイルは、hello-world.info経由で送られたトラフィックをServiceに送信するIngressリソースです。
 
-        apiVersion: networking.k8s.io/v1beta1
-        kind: Ingress
-        metadata:
-          name: example-ingress
-          annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /$1
-        spec:
-          rules:
-          - host: hello-world.info
-            http:
-              paths:
-              - path: /
-                backend:
-                  serviceName: web
-                  servicePort: 8080
+1. 以下の内容で`example-ingress.yaml`を作成します。
 
-1. Create the Ingress resource by running the following command:
-    
+    ```yaml
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    metadata:
+      name: example-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+    spec:
+      rules:
+      - host: hello-world.info
+        http:
+          paths:
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: 8080
+    ```
+
+1. 次のコマンドを実行して、Ingressリソースを作成します。
+
     ```shell
     kubectl apply -f example-ingress.yaml
     ```
-    
-    Output:
-    
+
+    出力は次のようになります。
+
     ```shell
     ingress.networking.k8s.io/example-ingress created
     ```
 
-1. Verify the IP address is set: 
+1. 次のコマンドで、IPアドレスが設定されていることを確認します。
 
-    ```shell 
+    ```shell
     kubectl get ingress
     ```
 
-    {{< note >}}This can take a couple of minutes.{{< /note >}}
+    {{< note >}}
+    このコマンドの実行には数分かかる場合があります。
+    {{< /note >}}
 
     ```shell
     NAME              HOSTS              ADDRESS       PORTS     AGE
     example-ingress   hello-world.info   172.17.0.15   80        38s
     ```
 
-1. Add the following line to the bottom of the `/etc/hosts` file. 
+1. 次の行を`/etc/hosts`ファイルの最後に書きます。
 
-    {{< note >}}If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.{{< /note >}}
+    {{< note >}}
+    Minikubeをローカル環境で実行している場合、`minikube ip`コマンドを使用すると外部のIPが取得できます。Ingressのリスト内に表示されるIPアドレスは、内部のIPになるはずです。
+    {{< /note >}}
 
     ```
     172.17.0.15 hello-world.info
     ```
 
-    This sends requests from hello-world.info to Minikube.
+    この設定により、リクエストがhello-world.infoからMinikubeに送信されるようになります。
 
-1. Verify that the Ingress controller is directing traffic:
+1. Ingressコントローラーがトラフィックを制御していることを確認します。
 
     ```shell
     curl hello-world.info
     ```
 
-    Output:
-    
+    出力は次のようになります。
+
     ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
     ```
 
-    {{< note >}}If you are running Minikube locally, you can visit hello-world.info from your browser.{{< /note >}}
+    {{< note >}}
+    Minikubeをローカル環境で実行している場合、ブラウザからhello-world.infoにアクセスできます。
+    {{< /note >}}
 
-## Create Second Deployment
+## 2番目のDeploymentを作成する
 
-1. Create a v2 Deployment using the following command:
+1. 次のコマンドを実行して、v2のDeploymentを作成します。
 
     ```shell
     kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
     ```
-    Output:
-    
+
+    出力は次のようになります。
+
     ```shell
     deployment.apps/web2 created
     ```
-    
-1. Expose the Deployment:
+
+1. Deploymentを公開します。
 
     ```shell
     kubectl expose deployment web2 --port=8080 --type=NodePort
     ```
 
-    Output: 
-    
+    出力は次のようになります。
+
     ```shell
     service/web2 exposed
     ```
-    
-## Edit Ingress
 
-1. Edit the existing `example-ingress.yaml` and add the following lines:  
+## Ingressを編集する
+
+1. 既存の`example-ingress.yaml`を編集して、以下の行を追加します。
 
     ```yaml
           - path: /v2
@@ -235,55 +246,60 @@ The following file is an Ingress resource that sends traffic to your Service via
               servicePort: 8080
     ```
 
-1. Apply the changes:
+1. 次のコマンドで変更を適用します。
 
     ```shell
     kubectl apply -f example-ingress.yaml
     ```
 
-    Output: 
+    出力は次のようになります。
+
     ```shell
     ingress.networking/example-ingress configured
     ```
 
-## Test Your Ingress
+## Ingressを試す
 
-1. Access the 1st version of the Hello World app.
+1. Hello Worldアプリの1番目のバージョンにアクセスします。
 
     ```shell
     curl hello-world.info
     ```
 
-    Output:
+    出力は次のようになります。
+
     ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
     ```
 
-1. Access the 2nd version of the Hello World app.
+1. Hello Worldアプリの2番目のバージョンにアクセスします。
 
     ```shell
     curl hello-world.info/v2
     ```
 
-    Output:
+    出力は次のようになります。
+
     ```shell
     Hello, world!
     Version: 2.0.0
     Hostname: web2-75cd47646f-t8cjk
     ```
 
-    {{< note >}}If you are running Minikube locally, you can visit hello-world.info and hello-world.info/v2 from your browser.{{< /note >}}
+    {{< note >}}
+    Minikubeをローカル環境で実行している場合、ブラウザからhello-world.infoおよびhello-world.info/v2にアクセスできます。
+    {{< /note >}}
 
 
 
 
 ## {{% heading "whatsnext" %}}
 
-* Read more about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read more about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
-* Read more about [Services](/docs/concepts/services-networking/service/)
+* [Ingress](/ja/docs/concepts/services-networking/ingress/)についてさらに学ぶ。
+* [Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)についてさらに学ぶ。
+* [Service](/ja/docs/concepts/services-networking/service/)についてさらに学ぶ。
 
 
 
