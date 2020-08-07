@@ -90,7 +90,7 @@ kubelet은 컨테이너에 의해서 구현된
 
 * [HTTPGetAction](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
   은 지정한 포트 및 경로에서 컨테이너의 IP주소에
-  대한 HTTP Get 요청을 수행한다. 응답의 상태 코드가 200보다 크고 400보다 작으면
+  대한 HTTP Get 요청을 수행한다. 응답의 상태 코드가 200 이상 400 미만이면
   진단이 성공한 것으로 간주한다.
 
 각 probe는 다음 세 가지 결과 중 하나를 가진다.

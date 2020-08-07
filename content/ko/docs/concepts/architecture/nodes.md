@@ -324,7 +324,7 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 `TopologyManager`
-[기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 활성화 시켜두면, kubelet이 리소스 할당 결정을 할 때 토폴로지 힌트를 사용할 수 있다.
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
