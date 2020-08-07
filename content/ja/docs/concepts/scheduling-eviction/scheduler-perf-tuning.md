@@ -8,7 +8,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="1.14" state="beta" >}}
 
-[kube-scheduler](/docs/concepts/scheduling/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。クラスター内のノード上にPodを割り当てる責務があります。
+[kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)はKubernetesのデフォルトのスケジューラーです。クラスター内のノード上にPodを割り当てる責務があります。
 
 クラスター内に存在するノードで、Podのスケジューリング要求を満たすものはPodに対して*割り当て可能*なノードと呼ばれます。スケジューラーはPodに対する割り当て可能なノードをみつけ、それらの割り当て可能なノードにスコアをつけます。その中から最も高いスコアのノードを選択し、Podに割り当てるためのいくつかの関数を実行します。スケジューラーは*Binding*と呼ばれる処理中において、APIサーバーに対して割り当てが決まったノードの情報を通知します。
 
