@@ -137,7 +137,7 @@ curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/dow
 ### 윈도우 워커 노드 조인(joining)
 {{< note >}}
 `Containers` 기능을 설치하고 도커를 설치해야 한다.
-[윈도우 서버에 Docker Engine - Enterprise 설치](https://docs.docker.com/ee/docker-ee/windows/docker-ee/#install-docker-engine---enterprise)에서 설치에 대한 내용을 참고할 수 있다.
+[윈도우 서버에 Docker Engine - Enterprise 설치](https://docs.mirantis.com/docker-enterprise/v3.1/dockeree-products/docker-engine-enterprise/dee-windows.html)에서 설치에 대한 내용을 참고할 수 있다.
 {{< /note >}}
 
 {{< note >}}
@@ -181,5 +181,3 @@ flannel 파드가 실행되면, 노드는 `Ready` 상태가 되고 워크로드�
 
 
 - [윈도우 kubeadm 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes)
-
-

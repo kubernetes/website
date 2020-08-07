@@ -65,10 +65,19 @@ SRV 레코드는 노멀 서비스 또는
 
 ### A/AAAA 레코드
 
-디플로이먼트나 데몬셋으로 생성되는 파드는 다음과 같은
-DNS 주소를 갖게 된다.
+일반적으로 파드에는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+
+예를 들어, `default` 네임스페이스의 파드에 IP 주소 172.17.0.3이 있고,
+클러스터의 도메인 이름이 `cluster.local` 이면, 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`172-17-0-3.default.pod.cluster.local`.
+
+서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
+모든 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
