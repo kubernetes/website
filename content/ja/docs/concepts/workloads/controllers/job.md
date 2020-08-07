@@ -82,7 +82,7 @@ Events:
 
 Jobの完了したPodを表示するには、`kubectl get pods`を使います。
 
-あるJobに属するすべてのPodの一覧を機械可読形式で出力するには、次のようなコマンドを使います。
+あるJobに属するすべてのPodの一覧を機械可読な形式で出力するには、次のようなコマンドを使います。
 
 ```shell
 pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
