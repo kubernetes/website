@@ -32,7 +32,7 @@ weight: 30
 
 Jobは、1つ以上の{{< glossary_tooltip term_id="pod" >}}を起動して、タスクを実行した後に停止する、Kubernetesのリソースです。
 
-(1度[スケジュール](/docs/concepts/scheduling-eviction/)されると、Podオブジェクトはkubeletに対する目的の状態の一部になります。)
+(1度[スケジュール](/ja/docs/concepts/scheduling-eviction/)されると、Podオブジェクトはkubeletに対する目的の状態の一部になります。)
 
 Jobコントローラーが新しいタスクを見つけると、その処理が完了するように、クラスター上のどこかで、一連のNode上のkubeletが正しい数のPodを実行することを保証します。ただし、Jobコントローラーは、自分自身でPodやコンテナを実行することはありません。代わりに、APIサーバーに対してPodの作成や削除を依頼します。{{< glossary_tooltip text="コントロールプレーン" term_id="control-plane" >}}上の他のコンポーネントが(スケジュールして実行するべき新しいPodが存在するという)新しい情報を基に動作することによって、最終的に目的の処理が完了します。
 
