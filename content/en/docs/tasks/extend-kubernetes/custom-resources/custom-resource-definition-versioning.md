@@ -13,18 +13,14 @@ This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You should have a initial understanding of [custom resources](/docs/concepts/api-extension/custom-resources/).
+You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -291,7 +287,9 @@ conversions that call an external service in case a conversion is required. For 
 * Watch is created in one version but the changed object is stored in another version.
 * custom resource PUT request is in a different version than storage version.
 
-To cover all of these cases and to optimize conversion by the API server, the conversion requests may contain multiple objects in order to minimize the external calls. The webhook should perform these conversions independently.
+To cover all of these cases and to optimize conversion by the API server, 
+the conversion requests may contain multiple objects in order to minimize the external calls.
+The webhook should perform these conversions independently.
 
 ### Write a conversion webhook server
 
@@ -302,7 +300,12 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
-The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go) that leaves only [one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) to be implemented for different conversions.
+The example server is organized in a way to be reused for other conversions.
+Most of the common code are located in the
+[framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)
+that leaves only
+[one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
@@ -315,12 +318,17 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 
 #### Permissible mutations
 
-A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.  
+A conversion webhook must not mutate anything inside of `metadata` of the converted object
+other than `labels` and `annotations`.
+Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
+which caused the conversion. All other changes are just ignored.  
 
 ### Deploy the conversion webhook service
 
-Documentation for deploying the conversion webhook is the same as for the [admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
-The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
+Documentation for deploying the conversion webhook is the same as for the
+[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
+The assumption for next sections is that the conversion webhook server is deployed to a service
+named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 
 {{< note >}}
 When the webhook server is deployed into the Kubernetes cluster as a
