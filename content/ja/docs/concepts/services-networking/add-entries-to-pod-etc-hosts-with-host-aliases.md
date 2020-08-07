@@ -8,7 +8,7 @@ min-kubernetes-server-version: 1.7
 
 <!-- overview -->
 
-Podの`/etc/hosts`ファイルにエントリーを追加すると、DNSやその他の選択肢が利用できない場合に、Podレベルでホスト名の名前解決が上書きできるようになります。このようなカスタムエントリーは、PodSpecのHostAliasesフィールドに追加できます。
+Podの`/etc/hosts`ファイルにエントリーを追加すると、DNSやその他の選択肢を利用できない場合に、Podレベルでホスト名の名前解決を上書きできるようになります。このようなカスタムエントリーは、PodSpecのHostAliasesフィールドに追加できます。
 
 HostAliasesを使用せずにファイルを修正することはおすすめできません。このファイルはkubeletが管理しており、Podの作成や再起動時に上書きされる可能性があるためです。
 
@@ -109,7 +109,7 @@ fe00::2	ip6-allrouters
 
 ## kubeletがhostsファイルを管理するのはなぜですか？ {#why-does-kubelet-manage-the-hosts-file}
 
-kubeletがPodの各コンテナの`hosts`ファイルを[管理する](https://github.com/kubernetes/kubernetes/issues/14633)のは、コンテナがすでに起動した後にDockerがファイルを[編集する](https://github.com/moby/moby/issues/17190)のを防ぐためです。
+kubeletがPodの各コンテナの`hosts`ファイルを[管理する](https://github.com/kubernetes/kubernetes/issues/14633)のは、コンテナ起動後にDockerがファイルを[編集する](https://github.com/moby/moby/issues/17190)のを防ぐためです。
 
 {{< caution >}}
 コンテナ内部でhostsファイルを手動で変更するのは控えてください。
