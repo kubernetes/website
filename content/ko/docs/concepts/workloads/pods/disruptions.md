@@ -12,9 +12,6 @@ weight: 60
 또한 클러스터의 업그레이드와 오토스케일링과 같은
 클러스터의 자동화 작업을 하려는 관리자를 위한 것이다.
 
-
-
-
 <!-- body -->
 
 ## 자발적 중단과 비자발적 중단
@@ -44,7 +41,7 @@ weight: 60
 - 재시작을 유발하는 디플로이먼트의 파드 템플릿 업데이트
 - 파드를 직접 삭제(예: 우연히)
 
-클러스터 관리자의 작업:
+클러스터 관리자의 작업은 다음을 포함한다.
 
 - 복구 또는 업그레이드를 위한 [노드 드레이닝](/docs/tasks/administer-cluster/safely-drain-node/).
 - 클러스터의 스케일 축소를 위한
@@ -68,7 +65,7 @@ weight: 60
 
 비자발적인 중단으로 인한 영향을 경감하기 위한 몇 가지 방법은 다음과 같다.
 
-- 파드가 필요로 하는 [리소스를 요청](/docs/tasks/configure-pod-container/assign-cpu-ram-container)하는지 확인한다.
+- 파드가 필요로 하는 [리소스를 요청](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다.
   (복제된 [스테이트리스](/docs/tasks/run-application/run-stateless-application-deployment/) 및
   [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
@@ -86,58 +83,57 @@ weight: 60
 클러스터 관리자 또는 호스팅 공급자는
 예측 가능한 자발적 중단 수준에 대해 문서화해야 한다.
 
-쿠버네티스는 자주 발생하는 자발적 중단에도 고가용성 애플리케이션을
-실행 할 수 있는 기능을 제공한다.
-우리는 이 기능을 *Disruption Budgets* 이라 부른다.
-
-
-## Disruption Budgets의 작동 방식
+## 파드 disruption budgets
 
 {{< feature-state for_k8s_version="v1.5" state="beta" >}}
 
-애플리케이션 소유자는 각 애플리케이션에 대해 `PodDisruptionBudget` 오브젝트(PDB)를 만들 수 있다.
+쿠버네티스는 자발적인 중단이 자주 발생하는 경우에도 고 가용성 애플리케이션을
+실행하는 데 도움이 되는 기능을 제공한다.
+
+애플리케이션 소유자로써, 사용자는 각 애플리케이션에 대해 PodDisruptionBudget(PDB)을 만들 수 있다.
 PDB는 자발적 중단으로
 일시에 중지되는 복제된 애플리케이션 파드의 수를 제한한다.
-예를 들어 정족수 기반의 애플리케이션이
+예를 들어, 정족수 기반의 애플리케이션이
 실행 중인 레플리카의 수가 정족수 이하로 떨어지지 않도록 한다.
 웹 프런트 엔드는 부하를 처리하는 레플리카의 수가
 일정 비율 이하로 떨어지지 않도록 보장할 수 있다.
 
 클러스터 관리자와 호스팅 공급자는 직접적으로 파드나 디플로이먼트를 제거하는 대신
 [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)로
-불리는 Pod Disruption Budget을 준수하는 도구를 이용해야 한다.
-예를 들어 `kubectl drain` 명령어나 Kubernetes-on-GCE 클러스터 업그레이드 스크립트(`cluster/gce/upgrade.sh`)이다.
+불리는 PodDisruptionBudget을 준수하는 도구를 이용해야 한다.
 
-클러스터 관리자가 노드를 비우고자 할 경우에는 `kubectl drain` 명령어를 사용한다.
-해당 도구는 머신에 존재하는 모든 파드를 축출하려는 시도를 한다.
+예를 들어, `kubectl drain` 하위 명령을 사용하면 노드를 서비스 중단으로 표시할 수
+있다. `kubectl drain` 을 실행하면, 도구는 사용자가 서비스를 중단하는 노드의
+모든 파드를 축출하려고 한다. `kubectl` 이 사용자를 대신하여 수행하는
 축출 요청은 일시적으로 거부될 수 있으며,
-도구는 모든 파드가 종료되거나
+도구는 대상 노드의 모든 파드가 종료되거나
 설정 가능한 타임아웃이 도래할 때까지 주기적으로 모든 실패된 요청을 다시 시도한다.
 
 PDB는 애플리케이션이 필요로 하는 레플리카의 수에 상대적으로, 용인할 수 있는 레플리카의 수를 지정한다.
 예를 들어 `.spec.replicas: 5` 의 값을 갖는 디플로이먼트는 어느 시점에든 5개의 파드를 가져야 한다.
 만약 해당 디플로이먼트의 PDB가 특정 시점에 파드를 4개 허용한다면,
-Eviction API는 한 번에 2개의 파드가 아닌, 1개의 파드의 자발적인 중단을 허용한다.
+Eviction API는 한 번에 1개(2개의 파드가 아닌)의 파드의 자발적인 중단을 허용한다.
 
 파드 그룹은 레이블 셀렉터를 사용해서 지정한 애플리케이션으로 구성되며
 애플리케이션 컨트롤러(디플로이먼트, 스테이트풀셋 등)를 사용한 것과 같다.
 
-파드의 "의도"하는 수량은 파드 컨트롤러의 `.spec.replicas` 를 기반으로 계산한다.
-컨트롤러는 오브젝트의 `.metadata.ownerReferences` 를 사용해서 파드를 발견한다.
+파드의 "의도"하는 수량은 해당 파드를 관리하는 워크로드 리소스의 `.spec.replicas` 를
+기반으로 계산한다. 컨트롤 플레인은 파드의 `.metadata.ownerReferences` 를 검사하여
+소유하는 워크로드 리소스를 발견한다.
 
 PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생하는 것을 막을 수는 없지만,
 버짓이 차감된다.
 
 애플리케이션의 롤링 업그레이드로 파드가 삭제되거나 사용할 수 없는 경우 중단 버짓에 영향을 준다.
-그러나 컨트롤러(디플로이먼트, 스테이트풀셋과 같은)는
-롤링 업데이트시 PDB의 제한을 받지 않는다.
-애플리케이션 업데이트 진행 중 발생하는 중단 처리는 컨트롤러 사양에 구성되어있다.
-([디플로이먼트 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-업데이트)에 대해 알아보기.)
+그러나 워크로드 리소스(디플로이먼트, 스테이트풀셋과 같은)는
+롤링 업데이트 시 PDB의 제한을 받지 않는다. 대신, 애플리케이션 업데이트 중
+실패 처리는 특정 워크로드 리소스에 대한 명세에서 구성된다.
 
-파드를 Eviction API로 축출하면 정상적으로 종료된다.
-([파드사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)에서 `terminationGracePeriodSeconds` 를 참조.)
+Eviction API를 사용하여 파드를 축출하면,
+[PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)의
+`terminationGracePeriodSeconds` 설정을 준수하여 정상적으로 [종료됨](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료) 상태가 된다.)
 
-## PDB 예시
+## PodDisruptionBudget 예시 {#pdb-example}
 
 `node-1` 부터 `node-3` 까지 3개의 노드가 있는 클러스터가 있다고 하자.
 클러스터에는 여러 애플리케이션을 실행하고 있다.
@@ -267,3 +263,6 @@ Pod Disruption Budget을 사용할 필요가 없다.
 * [Pod Disruption Budget 설정하기](/docs/tasks/run-application/configure-pdb/)의 단계를 따라서 애플리케이션을 보호한다.
 
 * [노드 비우기](/docs/tasks/administer-cluster/safely-drain-node/)에 대해 자세히 알아보기
+
+* 롤아웃 중에 가용성을 유지하는 단계를 포함하여
+  [디플로이먼트 업데이트](/ko/docs/concepts/workloads/controllers/deployment/#디플로이먼트-업데이트)에 대해 알아보기

@@ -8,9 +8,6 @@ weight: 40
 
 애플리케이션을 배포하고 서비스를 통해 노출했다. 이제 무엇을 해야 할까? 쿠버네티스는 확장과 업데이트를 포함하여, 애플리케이션 배포를 관리하는 데 도움이 되는 여러 도구를 제공한다. 더 자세히 설명할 기능 중에는 [구성 파일](/ko/docs/concepts/configuration/overview/)과 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)이 있다.
 
-
-
-
 <!-- body -->
 
 ## 리소스 구성 구성하기
@@ -321,7 +318,7 @@ metadata:
 kubectl scale deployment/my-nginx --replicas=1
 ```
 ```shell
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 이제 디플로이먼트가 관리하는 파드가 하나만 있다.
@@ -354,7 +351,8 @@ horizontalpodautoscaler.autoscaling/my-nginx autoscaled
 
 ### kubectl apply
 
-구성 파일 셋을 소스 제어에서 유지하는 것이 좋으며([코드로서의 구성](http://martinfowler.com/bliki/InfrastructureAsCode.html) 참조),
+구성 파일 셋을 소스 제어에서 유지하는 것이 좋으며
+([코드로서의 구성](https://martinfowler.com/bliki/InfrastructureAsCode.html) 참조),
 그렇게 하면 구성하는 리소스에 대한 코드와 함께 버전을 지정하고 유지할 수 있다.
 그런 다음, [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)를 사용하여 구성 변경 사항을 클러스터로 푸시할 수 있다.
 
