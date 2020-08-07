@@ -185,7 +185,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
 すでに言及したように、*集合ベース* の要件は、*等価ベース* の要件より表現力があります。  
-例えば、値に対する_OR_ オペレーターを実装して以下のように書けます。  
+例えば、値に対する _OR_ オペレーターを実装して以下のように書けます。  
 
 ```shell
 kubectl get pods -l 'environment in (production, qa)'
