@@ -15,10 +15,8 @@ content_type: task
 
 This page shows how to investigate problems related to the execution of
 Init Containers. The example command lines below refer to the Pod as
-  `<pod-name>` and the Init Containers as `<init-container-1>` and
-  `<init-container-2>`.
-
-
+`<pod-name>` and the Init Containers as `<init-container-1>` and
+`<init-container-2>`.
 
 ## {{% heading "prerequisites" %}}
 
@@ -26,10 +24,8 @@ Init Containers. The example command lines below refer to the Pod as
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * You should be familiar with the basics of
-  [Init Containers](/docs/concepts/abstractions/init-containers/).
+  [Init Containers](/docs/concepts/workloads/pods/init-containers/).
 * You should have [Configured an Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container/).
-
-
 
 <!-- steps -->
 

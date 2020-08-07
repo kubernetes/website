@@ -11,14 +11,13 @@ title: Troubleshooting
 Sometimes things go wrong. This guide is aimed at making them right. It has
 two sections:
 
-   * [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Useful for users who are deploying code into Kubernetes and wondering why it is not working.
-   * [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful for cluster administrators and people whose Kubernetes cluster is unhappy.
+* [Troubleshooting your application](/docs/tasks/debug-application-cluster/debug-application/) - Useful
+  for users who are deploying code into Kubernetes and wondering why it is not working.
+* [Troubleshooting your cluster](/docs/tasks/debug-application-cluster/debug-cluster/) - Useful
+  for cluster administrators and people whose Kubernetes cluster is unhappy.
 
 You should also check the known issues for the [release](https://github.com/kubernetes/kubernetes/releases)
 you're using.
-
-
-
 
 <!-- body -->
 
@@ -37,12 +36,12 @@ accomplish commonly used tasks, and [Tutorials](/docs/tutorials/) are more
 comprehensive walkthroughs of real-world, industry-specific, or end-to-end
 development scenarios. The [Reference](/docs/reference/) section provides
 detailed documentation on the [Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-and command-line interfaces (CLIs), such as [`kubectl`](/docs/user-guide/kubectl-overview/).
+and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/overview/).
 
 You may also find the Stack Overflow topics relevant:
 
-   * [Kubernetes](http://stackoverflow.com/questions/tagged/kubernetes)
-   * [Google Kubernetes Engine](http://stackoverflow.com/questions/tagged/google-container-engine)
+* [Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes)
+* [Google Kubernetes Engine](https://stackoverflow.com/questions/tagged/google-container-engine)
 
 ## Help! My question isn't covered!  I need help now!
 
@@ -50,15 +49,16 @@ You may also find the Stack Overflow topics relevant:
 
 Someone else from the community may have already asked a similar question or may
 be able to help with your problem. The Kubernetes team will also monitor
-[posts tagged Kubernetes](http://stackoverflow.com/questions/tagged/kubernetes).
-If there aren't any existing questions that help, please [ask a new one](http://stackoverflow.com/questions/ask?tags=kubernetes)!
+[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
+If there aren't any existing questions that help, please
+[ask a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
 
 ### Slack
 
 The Kubernetes team hangs out on Slack in the `#kubernetes-users` channel. You
 can participate in discussion with the Kubernetes team [here](https://kubernetes.slack.com).
 Slack requires registration, but the Kubernetes team is open invitation to
-anyone to register [here](http://slack.kubernetes.io). Feel free to come and ask
+anyone to register [here](https://slack.kubernetes.io). Feel free to come and ask
 any and all questions.
 
 Once registered, browse the growing list of channels for various subjects of
