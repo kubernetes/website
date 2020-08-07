@@ -71,7 +71,7 @@ Resource quotas work like this:
 The name of a `ResourceQuota` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 -->
-ResouorceQuota 对象的名称必须时合法的
+ResourceQuota 对象的名称必须时合法的
 [DNS 子域名](/zh/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
 <!--
@@ -886,4 +886,3 @@ See a [detailed example for how to use resource quota](/docs/tasks/administer-cl
 -->
 - 查看[资源配额设计文档](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)
   了解更多信息。
-
