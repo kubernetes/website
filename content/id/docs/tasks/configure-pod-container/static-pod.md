@@ -6,7 +6,7 @@ content_type: task
 
 <!-- overview -->
 
-Pod statis dikelola langsung oleh kubelet daemon pada suatu Node spesifik,
+Pod statis dikelola langsung oleh _daemon_ kubelet pada suatu Node spesifik,
 tanpa {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 mengobservasi mereka.
 Tidak seperti Pod yang dikelola oleh _control plane_ (contohnya,
@@ -88,7 +88,7 @@ Sebagai contoh, ini cara untuk memulai server web sederhana sebagai Pod statis:
     EOF
     ```
 
-3. Atur kubelet pada Node untuk menggunakan direktori ini dengan menjalankan menggunakan argumen `--pod-manifest-path=/etc/kubelet.d/`. Untuk Fedora ubah `/etc/kubernetes/kubelet` untuk menambahkan baris berikut:
+3. Atur kubelet pada Node untuk menggunakan direktori ini dengan menjalankannya menggunakan argumen `--pod-manifest-path=/etc/kubelet.d/`. Pada Fedora, ubah berkas `/etc/kubernetes/kubelet` dengan menambahkan baris berikut:
 
     ```
     KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --pod-manifest-path=/etc/kubelet.d/"
@@ -104,9 +104,9 @@ Sebagai contoh, ini cara untuk memulai server web sederhana sebagai Pod statis:
 
 ### Manifes Pod statis pada Web {#konfigurasi-melalui-http}
 
-Berkas yang ditentukan pada argumen `--manifest-utl=<URL>` akan diunduh oleh kubelet secara berkala
-dan kubelet akan menginterpretasikannya sebagai sebuah berkas JSON/YAML yang berisikan definisi Pod.
-Mirip dengan cara kerja [manifes pada filesystem](##konfigurasi-melalui-berkas-sistem),
+Berkas yang ditentukan pada argumen `--manifest-url=<URL>` akan diunduh oleh kubelet secara berkala
+dan kubelet akan menginterpretasinya sebagai sebuah berkas JSON/YAML yang berisikan definisi Pod.
+Mirip dengan cara kerja [manifes pada _filesystem_](##konfigurasi-melalui-berkas-sistem),
 kubelet akan mengambil manifes berdasarkan jadwal. Jika ada perubahan pada daftar
 Pod statis, maka kubelet akan menerapkannya.
 
@@ -156,14 +156,14 @@ Kamu dapat melihat Container yang berjalan (termasuk Pod statis) dengan menjalan
 docker ps
 ```
 
-Hasilnya akan seperti berikut:
+Keluarannya kira-kira seperti berikut:
 
 ```
 CONTAINER ID IMAGE         COMMAND  CREATED        STATUS         PORTS     NAMES
 f6d05272b57e nginx:latest  "nginx"  8 minutes ago  Up 8 minutes             k8s_web.6f802af4_static-web-fk-node1_default_67e24ed9466ba55986d120c867395f3c_378e5f3c
 ```
 
-Kamu dapat melihat mirror Pod pada API server:
+Kamu dapat melihat Pod _mirror_ tersebut pada API server:
 
 ```shell
 kubectl get pods
@@ -174,18 +174,18 @@ static-web-my-node1        1/1       Running   0          2m
 ```
 
 {{< note >}}
-Pastikan kubelet memiliki izin untuk membuat Pod mirror pada server API. Jika tidak,
+Pastikan kubelet memiliki izin untuk membuat Pod _mirror_ pada server API. Jika tidak,
 pembuatannya akan ditolak oleh API server. Lihat
 [PodSecurityPolicy](/id/docs/concepts/policy/pod-security-policy/).
 {{< /note >}}
 
 
 {{< glossary_tooltip term_id="label" text="Label" >}} dari Pod statis
-akan dibuat juga pada mirror Pod. Kamu dapat menggunakan label tersebut
-seperti biasa menggunakan {{< glossary_tooltip term_id="selector" text="selectors" >}},
+akan dibuat juga pada Pod _mirror_. Kamu dapat menggunakan label tersebut
+seperti biasa menggunakan {{< glossary_tooltip term_id="selector" text="selector-selector" >}},
 atau yang lainnya.
 
-Kamu dapat mencoba untuk menggunakan kubelet untuk menghapus mirror Pod pada API server,
+Kamu dapat mencoba untuk menggunakan kubelet untuk menghapus Pod _mirror_ tersebut pada API server,
 namun kubelet tidak akan menghapus Pod statis:
 
 ```shell
@@ -194,7 +194,7 @@ kubectl delete pod static-web-my-node1
 ```
 pod "static-web-my-node1" deleted
 ```
-Kamu akan melihat Pod tetap berjalan:
+Kamu akan melihat bahwa Pod tersebut tetap berjalan:
 ```shell
 kubectl get pods
 ```
@@ -226,7 +226,7 @@ untuk melakukan perubahan dan penambahan/pengurangan
 Pod sesuai dengan penambahan/pengurangan berkas pada direktori tersebut.
 
 ```shell
-# Ini mengasumsikan kamu menggunakan konfigurasi Pod statis pada filesystem
+# Ini mengasumsikan kamu menggunakan konfigurasi Pod statis pada _filesystem_
 # Jalankan perintah ini pada Node tempat kubelet berjalan
 #
 mv /etc/kubelet.d/static-web.yaml /tmp
@@ -241,4 +241,3 @@ docker ps
 CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
-
