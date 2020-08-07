@@ -1,6 +1,5 @@
 ---
 title: 풀 리퀘스트 열기
-slug: new-content
 content_type: concept
 weight: 10
 card:
