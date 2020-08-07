@@ -8,14 +8,13 @@ content_type: task
 <!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}  
 
-Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster. Up to date information on this process can be found at the [kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md) repo.
-
-
-
+Use [Helm](https://helm.sh/) to install Service Catalog on your Kubernetes cluster.
+Up to date information on this process can be found at the
+[kubernetes-sigs/service-catalog](https://github.com/kubernetes-sigs/service-catalog/blob/master/docs/install.md) repo.
 
 ## {{% heading "prerequisites" %}}
 
-* Understand the key concepts of [Service Catalog](/docs/concepts/service-catalog/).
+* Understand the key concepts of [Service Catalog](/docs/concepts/extend-kubernetes/service-catalog/).
 * Service Catalog requires a Kubernetes cluster running version 1.7 or higher.
 * You must have a Kubernetes cluster with cluster DNS enabled.
     * If you are using a cloud-based Kubernetes cluster or {{< glossary_tooltip text="Minikube" term_id="minikube" >}}, you may already have cluster DNS enabled.
