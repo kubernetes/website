@@ -832,7 +832,7 @@ deployment.apps "dev-my-nginx" deleted
 
 * [Kustomize](https://github.com/kubernetes-sigs/kustomize)
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 
