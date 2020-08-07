@@ -589,7 +589,7 @@ Example of a response to forbid a request, customizing the HTTP status code and 
 When allowing a request, a mutating admission webhook may optionally modify the incoming object as well.
 This is done using the `patch` and `patchType` fields in the response.
 The only currently supported `patchType` is `JSONPatch`.
-See [JSON patch](http://jsonpatch.com/) documentation for more details.
+See [JSON patch](https://jsonpatch.com/) documentation for more details.
 For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of JSON patch operations.
 
 As an example, a single patch operation that would set `spec.replicas` would be `[{"op": "add", "path": "/spec/replicas", "value": 3}]`

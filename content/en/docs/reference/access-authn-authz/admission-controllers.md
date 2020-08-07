@@ -25,8 +25,8 @@ is authenticated and authorized.  The controllers consist of the
 `kube-apiserver` binary, and may only be configured by the cluster
 administrator. In that list, there are two special controllers:
 MutatingAdmissionWebhook and ValidatingAdmissionWebhook.  These execute the
-mutating and validating (respectively) [admission control
-webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+mutating and validating (respectively)
+[admission control webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
 which are configured in the API.
 
 Admission controllers may be "validating", "mutating", or both. Mutating
@@ -351,7 +351,10 @@ plugins:
 {{% /tab %}}
 {{< /tabs >}}
 
-The ImagePolicyWebhook config file must reference a [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) formatted file which sets up the connection to the backend. It is required that the backend communicate over TLS.
+The ImagePolicyWebhook config file must reference a
+[kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+formatted file which sets up the connection to the backend.
+It is required that the backend communicate over TLS.
 
 The kubeconfig file's cluster field must point to the remote service, and the user field must contain the returned authorizer.
 
@@ -371,7 +374,8 @@ users:
     client-key: /path/to/key.pem          # key matching the cert
 ```
 
-For additional HTTP configuration, refer to the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) documentation.
+For additional HTTP configuration, refer to the
+[kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation.
 
 #### Request Payloads
 
@@ -454,7 +458,8 @@ your Kubernetes deployment, you MUST use this admission controller to enforce th
 be used to apply default resource requests to Pods that don't specify any; currently, the default LimitRanger
 applies a 0.1 CPU requirement to all Pods in the `default` namespace.
 
-See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md) and the [example of Limit Range](/docs/tasks/configure-pod-container/limit-range/) for more details.
+See the [limitRange design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+and the [example of Limit Range](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/) for more details.
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
 
@@ -731,16 +736,30 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-This admission controller will deny any pod that attempts to set certain escalating [SecurityContext](/docs/user-guide/security-context) fields. This should be enabled if a cluster doesn't utilize [pod security policies](/docs/user-guide/pod-security-policy) to restrict the set of values a security context can take.
+This admission controller will deny any pod that attempts to set certain escalating
+[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
+fields, as shown in the
+[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
+task.
+This should be enabled if a cluster doesn't utilize 
+[pod security policies](/docs/concepts/policy/pod-security-policy/)
+to restrict the set of values a security context can take.
 
 ### ServiceAccount {#serviceaccount}
 
-This admission controller implements automation for [serviceAccounts](/docs/user-guide/service-accounts).
+This admission controller implements automation for
+[serviceAccounts](/docs/tasks/configure-pod-container/configure-service-account/).
 We strongly recommend using this admission controller if you intend to make use of Kubernetes `ServiceAccount` objects.
 
 ### StorageObjectInUseProtection
 
-The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection` finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV). In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed from the PVC or PV by PVC or PV Protection Controller. Refer to the [Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection) for more detailed information.
+The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection`
+finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV).
+In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed
+from the PVC or PV by PVC or PV Protection Controller. 
+Refer to the
+[Storage Object in Use Protection](/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)
+for more detailed information.
 
 ### TaintNodesByCondition {#taintnodesbycondition}
 
