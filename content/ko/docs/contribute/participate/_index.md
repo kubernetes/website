@@ -106,7 +106,7 @@ PR 소유자에게 조언하는데 활용된다.
 - 모든 쿠버네티스 멤버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
 - SIG Docs 승인자들만이 코멘트에 `/approve` 를
   추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
-  [PR Wrangler](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기) 또는 [SIG Docs 의장](#sig-docs-의장)과
+  [PR Wrangler](/ko/docs/contribute/participate/pr-wranglers/) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
 

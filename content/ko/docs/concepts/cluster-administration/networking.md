@@ -10,13 +10,10 @@ weight: 50
 문제가 있다.
 
 1. 고도로 결합된 컨테이너 간의 통신: 이 문제는
-   [파드](/ko/docs/concepts/workloads/pods/pod/)와 `localhost` 통신으로 해결된다.
+   {{< glossary_tooltip text="파드" term_id="pod" >}}와 `localhost` 통신으로 해결된다.
 2. 파드 간 통신: 이 문제가 이 문서의 주요 초점이다.
 3. 파드와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
 4. 외부와 서비스 간 통신: 이 문제는 [서비스](/ko/docs/concepts/services-networking/service/)에서 다룬다.
-
-
-
 
 <!-- body -->
 
@@ -91,7 +88,7 @@ Antrea는 Open vSwitch의 "프로그래밍이 가능한" 특성으로 인해 Ope
 
 ### Apstra의 AOS
 
-[AOS](http://www.apstra.com/products/aos/)는 단순한 통합 플랫폼에서 복잡한 데이터센터 환경을 만들고 관리하는 의도기반(Intent-Based) 네트워킹 시스템이다. AOS는 확장성이 뛰어난 분산 설계를 활용하여 네트워크 중단을 제거하면서 비용을 최소화한다.
+[AOS](https://www.apstra.com/products/aos/)는 단순한 통합 플랫폼에서 복잡한 데이터센터 환경을 만들고 관리하는 의도기반(Intent-Based) 네트워킹 시스템이다. AOS는 확장성이 뛰어난 분산 설계를 활용하여 네트워크 중단을 제거하면서 비용을 최소화한다.
 
 AOS 레퍼런스 디자인은 현재 레거시 Layer-2 스위칭 문제를 제거하는 Layer-3 연결 호스트를 지원한다. 이 Layer-3 호스트는 리눅스 서버(Debian, Ubuntu, CentOS)일 수 있으며 랙 상단 스위치(TOR)와 직접 BGP 인접 관계를 만든다. AOS는 라우팅 인접성을 자동화한 다음 쿠버네티스 디플로이먼트에서 일반적으로 사용되는 RHI(Route Health Injection)에 대한 세밀한 제어를 제공한다.
 
@@ -99,7 +96,7 @@ AOS는 쿠버네티스가 애플리케이션 요구 사항에 따라 네트워�
 
 AOS는 Cisco, Arista, Dell, Mellanox, HPE 그리고 Microsoft SONiC, Dell OPX 및 Cumulus Linux와 같은 개방형 네트워크 운영체제와 수많은 화이트-박스 시스템을 포함한 제조업체의 일반적인 벤더 장비 사용을 지원한다.
 
-AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다. http://www.apstra.com/products/how-it-works/
+AOS 시스템 작동 방식에 대한 자세한 내용은 다음을 참고한다. https://www.apstra.com/products/how-it-works/
 
 ### 쿠버네티스용 AWS VPC CNI
 
@@ -121,7 +118,7 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 빅 클라우드 패브릭의 가상 파드 멀티 테넌트 아키텍처를 통해 쿠버네티스, RedHat OpenShift, Mesosphere DC/OS 및 Docker Swarm과 같은 컨테이너 오케스트레이션 시스템은 VMware, OpenStack 및 Nutanix와 같은 VM 오케스트레이션 시스템과 함께 네이티브로 통합된다. 고객은 원하는 수의 클러스터를 안전하게 상호 연결할 수 있으며 필요한 경우 이들 사이의 테넌트 간 통신을 활성화할 수 있다.
 
-가트너는 최신의 [매직 쿼드런트(Magic Quadrant)](http://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html)에서 BCF를 비저너리(Visionary)로 인정했다. BCF 쿠버네티스 온-프레미스 디플로이먼트 중 하나(지리적으로 다른 리전에 걸쳐 여러 DC에서 실행되는 쿠버네티스, DC/OS 및 VMware 포함)도 [여기](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)에서 사례로 참조된다.
+가트너는 최신의 [매직 쿼드런트(Magic Quadrant)](https://go.bigswitch.com/17GatedDocuments-MagicQuadrantforDataCenterNetworking_Reg.html)에서 BCF를 비저너리(Visionary)로 인정했다. BCF 쿠버네티스 온-프레미스 디플로이먼트 중 하나(지리적으로 다른 리전에 걸쳐 여러 DC에서 실행되는 쿠버네티스, DC/OS 및 VMware 포함)도 [여기](https://portworx.com/architects-corner-kubernetes-satya-komala-nio/)에서 사례로 참조된다.
 
 ### 실리움(Cilium)
 
@@ -133,7 +130,7 @@ Azure CNI는 [Azure 쿠버네티스 서비스(Azure Kubernetes Service, AKS)](ht
 
 ### 화웨이의 CNI-Genie
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](http://docs.projectcalico.org/), [로마나(Romana)](http://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie)는 쿠버네티스가 런타임 시 [쿠버네티스 네트워크 모델](https://github.com/kubernetes/website/blob/master/content/en/docs/concepts/cluster-administration/networking.md#the-kubernetes-network-model)의 [서로 다른 구현에 동시에 접근](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables)할 수 있는 CNI 플러그인이다. 여기에는 [플라넬(Flannel)](https://github.com/coreos/flannel#flannel), [캘리코](https://docs.projectcalico.org/), [로마나(Romana)](https://romana.io), [위브넷(Weave-net)](https://www.weave.works/products/weave-net/)과 같은 [CNI 플러그인](https://github.com/containernetworking/cni#3rd-party-plugins)으로 실행되는 모든 구현이 포함된다.
 
 CNI-Genie는 각각 다른 CNI 플러그인에서 [하나의 파드에 여러 IP 주소를 할당](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod)하는 것도 지원한다.
 
@@ -155,11 +152,11 @@ VPC 라우팅 테이블을 조정하여 각 호스트에 인스턴스별 서브�
 
 ### 콘티브(Contiv)
 
-[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다. [콘티브](http://contiv.io)는 모두 오픈소스이다.
+[콘티브](https://github.com/contiv/netplugin)는 다양한 적용 사례에서 구성 가능한 네트워킹(BGP를 사용하는 네이티브 L3, vxlan을 사용하는 오버레이, 클래식 L2 또는 Cisco-SDN/ACI)을 제공한다. [콘티브](https://contiv.io)는 모두 오픈소스이다.
 
 ### 콘트레일(Contrail) / 텅스텐 패브릭(Tungsten Fabric)
 
-[텅스텐 패브릭](https://tungsten.io)을 기반으로 하는 [콘트레일](http://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)은 진정한 개방형 멀티 클라우드 네트워크 가상화 및 정책 관리 플랫폼이다. 콘트레일 및 텅스텐 패브릭은 쿠버네티스, OpenShift, OpenStack 및 Mesos와 같은 다양한 오케스트레이션 시스템과 통합되어 있으며, 가상 머신, 컨테이너/파드 및 베어메탈 워크로드에 대해 서로 다른 격리 모드를 제공한다.
+[텅스텐 패브릭](https://tungsten.io)을 기반으로 하는 [콘트레일](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/)은 진정한 개방형 멀티 클라우드 네트워크 가상화 및 정책 관리 플랫폼이다. 콘트레일 및 텅스텐 패브릭은 쿠버네티스, OpenShift, OpenStack 및 Mesos와 같은 다양한 오케스트레이션 시스템과 통합되어 있으며, 가상 머신, 컨테이너/파드 및 베어메탈 워크로드에 대해 서로 다른 격리 모드를 제공한다.
 
 ### DANM
 
@@ -240,7 +237,7 @@ sysctl net.ipv4.ip_forward=1
 
 ### Kube-router
 
-[kube-router](https://github.com/cloudnativelabs/kube-router)는 쿠버네티스를 위한 특수 목적의 네트워킹 솔루션으로 고성능 및 운영 단순성을 제공한다. 큐브 라우터는 리눅스 [LVS/IPVS](http://www.linuxvirtualserver.org/software/ipvs.html) 기반 서비스 프록시, 오버레이가 없는 리눅스 커널 포워딩 기반의 파드 간 네트워킹 솔루션 그리고 iptables/ipset 기반 네트워크 정책 집행도구를 제공한다.
+[kube-router](https://github.com/cloudnativelabs/kube-router)는 쿠버네티스를 위한 특수 목적의 네트워킹 솔루션으로 고성능 및 운영 단순성을 제공한다. 큐브 라우터는 리눅스 [LVS/IPVS](https://www.linuxvirtualserver.org/software/ipvs.html) 기반 서비스 프록시, 오버레이가 없는 리눅스 커널 포워딩 기반의 파드 간 네트워킹 솔루션 그리고 iptables/ipset 기반 네트워크 정책 집행도구를 제공한다.
 
 ### L2 네트워크 및 리눅스 브릿지
 
@@ -250,8 +247,8 @@ sysctl net.ipv4.ip_forward=1
 철저히 테스트되지 않았다. 이 기술을 사용하여
 프로세스를 완료한 경우, 알려주길 바란다.
 
-Lars Kellogg-Stedman이 제공하는 [이 훌륭한
-튜토리얼](http://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)의
+Lars Kellogg-Stedman이 제공하는
+[이 훌륭한 튜토리얼](https://blog.oddbit.com/2014/08/11/four-ways-to-connect-a-docker/)의
 "With Linux Bridge devices" 섹션을 참고한다.
 
 ### Multus(멀티 네트워크 플러그인)
@@ -272,7 +269,7 @@ Multus는 CNI 명세를 구현하는 모든 [레퍼런스 플러그인](https://
 
 ### Nuage Networks VCS(가상 클라우드 서비스)
 
-[Nuage](http://www.nuagenetworks.net)는 확장성이 뛰어난 정책 기반의 소프트웨어 정의 네트워킹(SDN) 플랫폼을 제공한다. Nuage는 개방형 표준을 기반으로 구축된 풍부한 기능의 SDN 컨트롤러와 함께 데이터 플레인용 오픈소스 Open vSwitch를 사용한다.
+[Nuage](https://www.nuagenetworks.net)는 확장성이 뛰어난 정책 기반의 소프트웨어 정의 네트워킹(SDN) 플랫폼을 제공한다. Nuage는 개방형 표준을 기반으로 구축된 풍부한 기능의 SDN 컨트롤러와 함께 데이터 플레인용 오픈소스 Open vSwitch를 사용한다.
 
 Nuage 플랫폼은 오버레이를 사용하여 쿠버네티스 파드와 쿠버네티스가 아닌 환경(VM 및 베어메탈 서버) 간에 완벽한 정책 기반의 네트워킹을 제공한다. Nuage의 정책 추상화 모델은 애플리케이션을 염두에 두고 설계되었으며 애플리케이션에 대한 세분화된 정책을 쉽게 선언할 수 있도록 한다. 플랫폼의 실시간 분석 엔진을 통해 쿠버네티스 애플리케이션에 대한 가시성과 보안 모니터링이 가능하다.
 
@@ -292,7 +289,7 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 
 ### 프로젝트 캘리코
 
-[프로젝트 캘리코](http://docs.projectcalico.org/)는 오픈소스 컨테이너 네트워킹 공급자 및 네트워크 정책 엔진이다.
+[프로젝트 캘리코](https://docs.projectcalico.org/)는 오픈소스 컨테이너 네트워킹 공급자 및 네트워크 정책 엔진이다.
 
 캘리코는 리눅스(오픈소스)와 윈도우(독점 - [Tigera](https://www.tigera.io/essentials/)에서 사용 가능) 모두에서 인터넷과 동일한 IP 네트워킹 원칙을 기반으로 쿠버네티스 파드를 연결하기 위한 확장성이 뛰어난 네트워킹 및 네트워크 정책 솔루션을 제공한다. 캘리코는 캡슐화나 오버레이 없이 구축되어 고성능의 대규모 데이터센터 네트워킹을 제공할 수 있다. 또한 캘리코는 분산 방화벽을 통해 쿠버네티스 파드에 대해 세분화된 의도기반의 네트워크 보안 정책을 제공한다.
 
@@ -300,7 +297,7 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 
 ### 로마나
 
-[로마나](http://romana.io)는 오버레이 네트워크 없이 쿠버네티스를 배포할 수 있는 오픈소스 네트워크 및 보안 자동화 솔루션이다. 로마나는 쿠버네티스 [네트워크 폴리시](/ko/docs/concepts/services-networking/network-policies/)를 지원하여 네트워크 네임스페이스에서 격리를 제공한다.
+[로마나](https://romana.io)는 오버레이 네트워크 없이 쿠버네티스를 배포할 수 있는 오픈소스 네트워크 및 보안 자동화 솔루션이다. 로마나는 쿠버네티스 [네트워크 폴리시](/ko/docs/concepts/services-networking/network-policies/)를 지원하여 네트워크 네임스페이스에서 격리를 제공한다.
 
 ### Weaveworks의 위브넷
 
@@ -310,13 +307,9 @@ OVN은 Open vSwitch 커뮤니티에서 개발한 오픈소스 네트워크
 독립형으로 실행된다. 두 버전에서, 실행하기 위해 구성이나 추가 코드가 필요하지 않으며,
 두 경우 모두, 쿠버네티스의 표준과 같이 네트워크에서 파드별로 하나의 IP 주소를 제공한다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 네트워크 모델의 초기 설계와 그 근거 및 미래의 계획은
 [네트워킹 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/network/networking.md)에
 자세히 설명되어 있다.
-
 

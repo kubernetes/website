@@ -11,9 +11,6 @@ weight: 20
 파드 시큐리티 폴리시를 사용하면 파드 생성 및 업데이트에 대한 세분화된 권한을
 부여할 수 있다.
 
-
-
-
 <!-- body -->
 
 ## 파드 시큐리티 폴리시란?
@@ -140,7 +137,7 @@ RBAC 바인딩에 대한 자세한 예는,
 
 ### 문제 해결
 
-- [컨트롤러 관리자](/docs/admin/kube-controller-manager/)는
+- [컨트롤러 관리자](/docs/reference/command-line-tools-reference/kube-controller-manager/)는
 [보안 API 포트](/docs/reference/access-authn-authz/controlling-access/)에 대해 실행해야 하며,
 슈퍼유저 권한이 없어야 한다. 그렇지 않으면 요청이 인증 및 권한 부여 모듈을 우회하고,
 모든 파드시큐리티폴리시 오브젝트가 허용되며
@@ -626,13 +623,9 @@ spec:
 - `allowedUnsafeSysctls` - `forbiddenSysctls`에 나열되지 않는 한 기본 목록에서 허용하지 않은 특정 sysctls를 허용한다.
 
 [Sysctl 문서](
-/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy)를 참고하길 바란다.
-
-
+/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)를 참고하길 바란다.
 
 ## {{% heading "whatsnext" %}}
 
-
-폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
-
-API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.
+- 폴리시 권장 사항에 대해서는 [파드 보안 표준](/docs/concepts/security/pod-security-standards/)을 참조한다.
+- API 세부 정보는 [파드 시큐리티 폴리시 레퍼런스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) 참조한다.

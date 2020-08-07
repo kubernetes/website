@@ -10,8 +10,6 @@ weight: 30
 [볼륨](/ko/docs/concepts/storage/volumes/)과
 [퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes)에 익숙해지는 것을 권장한다.
 
-
-
 <!-- body -->
 
 ## 소개

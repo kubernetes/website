@@ -6,12 +6,9 @@ weight: 10
 
 <!-- overview -->
 
-기본적으로 컨테이너는 쿠버네티스 클러스터에서 무제한 [컴퓨팅 리소스](/docs/user-guide/compute-resources)로 실행된다.
+기본적으로 컨테이너는 쿠버네티스 클러스터에서 무제한 [컴퓨팅 리소스](/ko/docs/concepts/configuration/manage-resources-containers/)로 실행된다.
 리소스 쿼터을 사용하면 클러스터 관리자는 {{< glossary_tooltip text="네임스페이스" term_id="namespace" >}}별로 리소스 사용과 생성을 제한할 수 있다.
 네임스페이스 내에서 파드나 컨테이너는 네임스페이스의 리소스 쿼터에 정의된 만큼의 CPU와 메모리를 사용할 수 있다. 하나의 파드 또는 컨테이너가 사용 가능한 모든 리소스를 독점할 수 있다는 우려가 있다. 리밋레인지는 네임스페이스에서 리소스 할당(파드 또는 컨테이너)을 제한하는 정책이다.
-
-
-
 
 <!-- body -->
 
@@ -52,10 +49,7 @@ _리밋레인지_ 는 다음과 같은 제약 조건을 제공한다.
 
 경합이나 리밋레인지 변경은 이미 생성된 리소스에 영향을 미치지 않는다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 자세한 내용은 [LimitRanger 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)를 참조한다.
 
@@ -67,5 +61,3 @@ _리밋레인지_ 는 다음과 같은 제약 조건을 제공한다.
 - [네임스페이스당 기본 메모리 요청과 제한을 설정하는 방법](/ko/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/).
 - [네임스페이스당 최소 및 최대 스토리지 사용량을 설정하는 방법](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage).
 - [네임스페이스당 할당량을 설정하는 자세한 예시](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/).
-
-

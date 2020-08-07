@@ -1,6 +1,4 @@
 ---
-
-
 title: 디플로이먼트
 feature:
   title: 자동화된 롤아웃과 롤백
@@ -13,17 +11,14 @@ weight: 30
 
 <!-- overview -->
 
-_디플로이먼트_ 는 [파드](/ko/docs/concepts/workloads/pods/pod/)와
-[레플리카셋](/ko/docs/concepts/workloads/controllers/replicaset/)에 대한 선언적 업데이트를 제공한다.
+_디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id="pod" >}}와
+{{< glossary_tooltip term_id="replica-set" text="레플리카셋(ReplicaSet)" >}}에 대한 선언적 업데이트를 제공한다.
 
-디플로이먼트에서 _의도하는 상태_ 를 설명하고, 디플로이먼트 {{< glossary_tooltip term_id="controller" >}} 는 현재 상태에서 의도하는 상태로 비율을 조정하며 변경한다. 새 레플리카셋을 생성하는 디플로이먼트를 정의하거나 기존 디플로이먼트를 제거하고, 모든 리소스를 새 디플로이먼트에 적용할 수 있다.
+디플로이먼트에서 _의도하는 상태_ 를 설명하고, 디플로이먼트 {{< glossary_tooltip term_id="controller" >}}는 현재 상태에서 의도하는 상태로 비율을 조정하며 변경한다. 새 레플리카셋을 생성하는 디플로이먼트를 정의하거나 기존 디플로이먼트를 제거하고, 모든 리소스를 새 디플로이먼트에 적용할 수 있다.
 
 {{< note >}}
 디플로이먼트가 소유하는 레플리카셋은 관리하지 말아야 한다. 사용자의 유스케이스가 다음에 포함되지 않는 경우 쿠버네티스 리포지터리에 이슈를 올릴 수 있다.
 {{< /note >}}
-
-
-
 
 <!-- body -->
 
@@ -1042,7 +1037,8 @@ echo $?
 ## 디플로이먼트 사양 작성
 
 다른 모든 쿠버네티스 설정과 마찬가지로 디플로이먼트에는 `.apiVersion`, `.kind` 그리고 `.metadata` 필드가 필요하다.
-설정 파일 작업에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
+설정 파일 작업에 대한 일반적인 내용은
+[애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/),
 컨테이너 구성하기 그리고 [kubectl을 사용해서 리소스 관리하기](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참조한다.
 디플로이먼트 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
@@ -1053,8 +1049,8 @@ echo $?
 
 `.spec.template` 과 `.spec.selector` 은 `.spec` 에서 유일한 필수 필드이다.
 
-`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿)이다.
-이것은 [파드](/ko/docs/concepts/workloads/pods/pod/)와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
+`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
+이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
 
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
 레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
@@ -1154,10 +1150,6 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 용할 수 있도록 준비되어야 하는 최소 시간(초)을 지정하는 선택적 필드이다.
 이 기본 값은 0이다(파드는 준비되는 즉시 사용할 수 있는 것으로 간주됨).
 파드가 준비되었다고 간주되는 시기에 대한 자세한 내용은 [컨테이너 프로브](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참조한다.
-
-### 롤백 대상
-
-`.spec.rollbackTo` 필드는 API 버전 `extensions/v1beta1` 과 `apps/v1beta1` 에서 사용되지 않는다. `apps/v1beta2` 로 시작하는 API 버전에서는 더 이상 지원되지 않는다. 대신, [이전 수정 버전으로 롤백](#이전-수정-버전으로-롤백)에서 소개한 `kubectl rollout undo` 를 사용해야 한다.
 
 ### 수정 버전 기록 제한
 

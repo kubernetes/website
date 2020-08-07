@@ -224,7 +224,7 @@ kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최�
 - 애플리케이션 중단을 일으킬 수 있는 우발적(또는 원하지 않는) 업데이트로부터 보호
 - immutable로 표시된 컨피그맵에 대한 감시를 중단하여, kube-apiserver의 부하를 크게 줄임으로써 클러스터의 성능을 향상시킴
 
-이 기능을 사용하려면 `ImmutableEmphemeralVolumes`
+이 기능을 사용하려면 `ImmutableEphemeralVolumes`
 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하고
 시크릿 또는 컨피그맵의 `immutable` 필드를 `true` 로 한다. 다음은 예시이다.
 ```yaml

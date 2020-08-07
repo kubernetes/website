@@ -22,9 +22,6 @@ card:
 
 API 엔드포인트, 리소스 타입과 샘플은 [API Reference](/ko/docs/reference)에 기술되어 있다.
 
-
-
-
 <!-- body -->
 
 ## API 변경
@@ -84,7 +81,7 @@ OpenAPI 규격은 `/openapi/v2` 엔드포인트에서만 제공된다.
 ## API 버전 규칙
 
 필드를 없애거나 리소스 표현을 재구성하기 쉽도록,
-쿠버네티스는 `/api/v1`이나 `/apis/extensions/v1beta1`과 같이
+쿠버네티스는 `/api/v1`이나 `/apis/rbac.authorization.k8s.io/v1alpha1`과 같이
 각각 다른 API 경로에서 복수의 API 버전을 지원한다.
 
 버전 관리는 API가 시스템 리소스와 동작에 대해 명확하고 일관된 보기를
@@ -155,14 +152,6 @@ API 그룹은 REST 경로와 직렬화된 객체의 `apiVersion` 필드에 명�
 
 {{< note >}}그룹이나 리소스를 활성화 또는 비활성화하려면 kube-apiserver와
 controller-manager를 재시작해서 `--runtime-config` 변경 사항을 반영해야 한다. {{< /note >}}
-
-## extensions/v1beta1 그룹 내 특정 리소스 활성화하기
-
-데몬셋, 디플로이먼트, 스테이트풀셋, 네트워크폴리시, 파드시큐리티폴리시 그리고 레플리카셋은 `extensions/v1beta1` API 그룹에서 기본적으로 비활성화되어있다.
-예시: 디플로이먼트와 데몬셋의 활성화 설정은
-`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
-
-{{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}
 
 ## 지속성
 

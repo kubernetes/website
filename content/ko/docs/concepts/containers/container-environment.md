@@ -25,7 +25,7 @@ weight: 20
 
 컨테이너의 *호스트네임* 은 컨테이너가 동작 중인 파드의 이름과 같다.
 그것은 `hostname` 커맨드 또는 libc의 
-[`gethostname`](http://man7.org/linux/man-pages/man2/gethostname.2.html) 
+[`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) 
 함수 호출을 통해서 구할 수 있다.
 
 파드 이름과 네임스페이스는 
@@ -48,7 +48,7 @@ FOO_SERVICE_HOST=<서비스가 동작 중인 호스트>
 FOO_SERVICE_PORT=<서비스가 동작 중인 포트>
 ```
 
-서비스에 지정된 IP 주소가 있고 [DNS 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
+서비스에 지정된 IP 주소가 있고 [DNS 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/)이 활성화된 경우, DNS를 통해서 컨테이너가 서비스를 사용할 수 있다.
 
 
 

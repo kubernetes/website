@@ -11,9 +11,6 @@ weight: 10
 
 리소스 쿼터는 관리자가 이 문제를 해결하기 위한 도구이다.
 
-
-
-
 <!-- body -->
 
 `ResourceQuota` 오브젝트로 정의된 리소스 쿼터는 네임스페이스별 총 리소스 사용을 제한하는
@@ -25,15 +22,21 @@ weight: 10
 
 - 다른 팀은 다른 네임스페이스에서 작동한다. 현재 이것은 자발적이지만 ACL을 통해 이 필수 사항을
   적용하기 위한 지원이 계획되어 있다.
+
 - 관리자는 각 네임스페이스에 대해 하나의 `ResourceQuota`를 생성한다.
+
 - 사용자는 네임스페이스에서 리소스(파드, 서비스 등)를 생성하고 쿼터 시스템은
   사용량을 추적하여 `ResourceQuota`에 정의된 하드(hard) 리소스 제한을 초과하지 않도록 한다.
+
 - 리소스를 생성하거나 업데이트할 때 쿼터 제약 조건을 위반하면 위반된 제약 조건을 설명하는
   메시지와 함께 HTTP 상태 코드 `403 FORBIDDEN`으로 요청이 실패한다.
+
 - `cpu`, `memory`와 같은 컴퓨트 리소스에 대해 네임스페이스에서 쿼터가 활성화된 경우
   사용자는 해당값에 대한 요청 또는 제한을 지정해야 한다. 그렇지 않으면 쿼터 시스템이
   파드 생성을 거부할 수 있다. 힌트: 컴퓨트 리소스 요구 사항이 없는 파드를 기본값으로 설정하려면 `LimitRanger` 어드미션 컨트롤러를 사용하자.
-  이 문제를 회피하는 방법에 대한 예제는 [연습](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)을 참고하길 바란다.
+
+  이 문제를 회피하는 방법에 대한 예제는
+  [연습](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)을 참고하길 바란다.
 
 `ResourceQuota` 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-서브도메인-이름)이어야 한다.
@@ -61,7 +64,7 @@ API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 
 ## 컴퓨트 리소스 쿼터
 
-지정된 네임스페이스에서 요청할 수 있는 총 [컴퓨트 리소스](/docs/user-guide/compute-resources) 합을 제한할 수 있다.
+지정된 네임스페이스에서 요청할 수 있는 총 [컴퓨트 리소스](/ko/docs/concepts/configuration/manage-resources-containers/) 합을 제한할 수 있다.
 
 다음과 같은 리소스 유형이 지원된다.
 
@@ -594,9 +597,6 @@ plugins:
 
 [리소스 쿼터를 사용하는 방법에 대한 자세한 예](/docs/tasks/administer-cluster/quota-api-object/)를 참고하길 바란다.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
+- 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.

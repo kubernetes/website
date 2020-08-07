@@ -26,7 +26,7 @@ card:
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
     ```
 
     특정 버전을 다운로드하려면, `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.

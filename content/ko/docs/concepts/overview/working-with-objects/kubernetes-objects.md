@@ -92,5 +92,5 @@ deployment.apps/nginx-deployment created
 ## {{% heading "whatsnext" %}}
 
 * API 개념의 더 많은 설명은 [Kubernetes API 개요](/ko/docs/reference/using-api/api-overview/)를 본다.
-* [파드](/ko/docs/concepts/workloads/pods/pod-overview/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
+* [파드](/ko/docs/concepts/workloads/pods/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
 * 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.

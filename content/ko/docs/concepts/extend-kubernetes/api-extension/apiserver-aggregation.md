@@ -11,8 +11,6 @@ weight: 10
 
 애그리게이션 레이어는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)와는 다르며, 애그리게이션 레이어는 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} 가 새로운 종류의 오브젝트를 인식하도록 하는 방법이다.
 
-
-
 <!-- body -->
 
 ## 애그리게이션 레이어
@@ -30,10 +28,7 @@ extention API server가 레이턴시 요구 사항을 달성할 수 없는 경�
 `EnableAggregatedDiscoveryTimeout=false` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 설정해서 타임아웃
 제한을 비활성화 할 수 있다. 이 사용 중단(deprecated)된 기능 게이트는 향후 릴리스에서 제거될 예정이다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 * 다음에, [확장 API 서버를 구성해서](/docs/tasks/extend-kubernetes/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.

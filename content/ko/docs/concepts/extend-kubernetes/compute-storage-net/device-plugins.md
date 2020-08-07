@@ -18,8 +18,6 @@ weight: 20
 및 공급 업체별 초기화 및 설정이 필요할 수 있는 기타 유사한 컴퓨팅 리소스가
 포함된다.
 
-
-
 <!-- body -->
 
 ## 장치 플러그인 등록
@@ -38,9 +36,9 @@ service Registration {
   * 유닉스 소켓의 이름.
   * 빌드된 장치 플러그인 API 버전.
   * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
-	  [확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
-		`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
-		(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
+	[확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
+	`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
+	(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
 성공적으로 등록하고 나면, 장치 플러그인은 kubelet이 관리하는
 장치 목록을 전송한 다음, kubelet은 kubelet 노드 상태 업데이트의 일부로

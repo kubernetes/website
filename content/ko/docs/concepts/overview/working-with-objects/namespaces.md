@@ -9,9 +9,6 @@ weight: 30
 쿠버네티스는 동일한 물리 클러스터를 기반으로 하는 여러 가상 클러스터를 지원한다.
 이런 가상 클러스터를 네임스페이스라고 한다.
 
-
-
-
 <!-- body -->
 
 ## 여러 개의 네임스페이스를 사용하는 경우
@@ -32,12 +29,13 @@ weight: 30
 
 동일한 소프트웨어의 다른 버전과 같이 약간 다른 리소스를 분리하기 위해
 여러 네임스페이스를 사용할 필요는 없다. 동일한 네임스페이스 내에서 리소스를
-구별하기 위해 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 사용한다.
+구별하기 위해 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을
+사용한다.
 
 ## 네임스페이스 다루기
 
-네임스페이스의 생성과 삭제는 [네임스페이스 관리자 가이드 문서](/docs/tasks/administer-cluster/namespaces/)에
-기술되어 있다.
+네임스페이스의 생성과 삭제는
+[네임스페이스 관리자 가이드 문서](/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
 
 {{< note >}}
     쿠버네티스 시스템 네임스페이스용으로 예약되어 있으므로, `kube-` 접두사로 네임스페이스를 생성하지 않는다.
@@ -89,7 +87,7 @@ kubectl config view --minify | grep namespace:
 
 ## 네임스페이스와 DNS
 
-[서비스](/docs/user-guide/services)를 생성하면 해당
+[서비스](/ko/docs/concepts/services-networking/service/)를 생성하면 해당
 [DNS 엔트리](/ko/docs/concepts/services-networking/dns-pod-service/)가 생성된다.
 이 엔트리는 `<서비스-이름>.<네임스페이스-이름>.svc.cluster.local`의 형식을 갖는데,
 이는 컨테이너가 `<서비스-이름>`만 사용하는 경우, 네임스페이스 내에 국한된 서비스로 연결된다.
@@ -100,7 +98,8 @@ kubectl config view --minify | grep namespace:
 
 대부분의 쿠버네티스 리소스(예를 들어, 파드, 서비스, 레플리케이션 컨트롤러 외)는
 네임스페이스에 속한다. 하지만 네임스페이스 리소스 자체는 네임스페이스에 속하지 않는다.
-그리고 [노드](/ko/docs/concepts/architecture/nodes/)나 퍼시스턴트 볼륨과 같은 저수준 리소스는 어느
+그리고 [노드](/ko/docs/concepts/architecture/nodes/)나
+퍼시스턴트 볼륨과 같은 저수준 리소스는 어느
 네임스페이스에도 속하지 않는다.
 
 다음은 네임스페이스에 속하지 않는 쿠버네티스 리소스를 조회하는 방법이다.
@@ -112,8 +111,6 @@ kubectl api-resources --namespaced=true
 # 네임스페이스에 속하지 않는 리소스
 kubectl api-resources --namespaced=false
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 

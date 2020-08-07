@@ -43,7 +43,7 @@ API 서버에서 kubelet으로의 연결은 다음의 용도로 사용된다.
 
 이 연결을 확인하려면, `--kubelet-certificate-authority` 플래그를 사용하여 API 서버에 kubelet의 서빙 인증서를 확인하는 데 사용할 루트 인증서 번들을 제공한다.
 
-이것이 가능하지 않은 경우, 신뢰할 수 없는 네트워크 또는 공용 네트워크를 통한 연결을 피하기 위해 필요한 경우 API 서버와 kubelet 사이에 [SSH 터널링](/ko/docs/concepts/architecture/control-plane-node-communication/#ssh-터널)을
+이것이 가능하지 않은 경우, 신뢰할 수 없는 네트워크 또는 공용 네트워크를 통한 연결을 피하기 위해 필요한 경우 API 서버와 kubelet 사이에 [SSH 터널링](#ssh-터널)을
 사용한다.
 
 마지막으로, kubelet API를 보호하려면 [Kubelet 인증 및/또는 권한 부여](/docs/admin/kubelet-authentication-authorization/)를 활성화해야 한다.

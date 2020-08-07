@@ -45,12 +45,13 @@ weight: 60
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
    앞의 명령은
-   [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)
+   {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}
    오브젝트와 연관된
-   [레플리카셋(ReplicaSet)](/ko/docs/concepts/workloads/controllers/replicaset/)
+   {{< glossary_tooltip term_id="replica-set" text="레플리카셋(ReplicaSet)" >}}
    오브젝트를 생성한다. 레플리카셋은 두 개의
-   [파드](/ko/docs/concepts/workloads/pods/pod/)를 갖고,
+   {{< glossary_tooltip text="파드" term_id="pod" >}}를 갖고,
    각각은 Hello World 애플리케이션을 실행한다.
+
 
 1. 디플로이먼트에 대한 정보를 보여준다.
    ```shell
@@ -155,4 +156,3 @@ weight: 60
 
 [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에
 대해 더 알아본다.
-

@@ -8,8 +8,6 @@ weight: 30
 이 페이지에서는 특정 클라우드 제공자에서 실행 중인 쿠버네티스를 관리하는 방법에
 대해 설명한다.
 
-
-
 <!-- body -->
 ### kubeadm
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)은 쿠버네티스 클러스터를 생성하는 데 많이 사용하는 옵션이다.
@@ -45,8 +43,10 @@ controllerManager:
     mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
-인-트리 클라우드 제공자는 일반적으로 [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/)
-및 [kubelet](/docs/admin/kubelet/)의 커맨드 라인에 지정된 `--cloud-provider` 와 `--cloud-config` 가 모두 필요하다.
+인-트리 클라우드 제공자는 일반적으로
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/),
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+및 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)의 커맨드 라인에 지정된 `--cloud-provider` 와 `--cloud-config` 가 모두 필요하다.
 각 제공자에 대해 `--cloud-config` 에 지정된 파일의 내용도 아래에 설명되어 있다.
 
 모든 외부 클라우드 제공자의 경우, 아래 제공자에 대한 제목 아래에 있는 개별 리포지터리의 지침을 따르거나,
@@ -358,12 +358,9 @@ OpenStack 제공자에 대한 다음의 구성 옵션은 [kubenet]
   `extraroutes` 확장을 지원하는 경우 경로를 추가할 라우터를 지정하는 데 `router-id`
   를 사용한다. 선택한 라우터는 클러스터 노드를 포함하는 프라이빗 네트워크에
   걸쳐 있어야 한다(일반적으로 하나의 노드 네트워크만 있으며, 이 값은
-  노드 네트워크의 기본 라우터여야 한다). 이 값은 OpenStack에서 [kubenet]을 사용하는 데
-  필요하다.
-
-[kubenet]: /ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#kubenet
-
-
+  노드 네트워크의 기본 라우터여야 한다). 이 값은 OpenStack에서
+  [kubenet](/ko/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#kubenet)을
+  사용하는 데 필요하다.
 
 ## OVirt
 

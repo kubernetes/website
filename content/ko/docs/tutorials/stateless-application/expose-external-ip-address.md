@@ -52,11 +52,11 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 
 위의 명령어는
-    [디플로이먼트(Deployment)](/ko/docs/concepts/workloads/controllers/deployment/)
+    {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}}
     오브젝트와 관련된
-    [레플리카셋(ReplicaSet)](/ko/docs/concepts/workloads/controllers/replicaset/)
+    {{< glossary_tooltip term_id="replica-set" text="레플리카셋(ReplicaSet)" >}}
     오브젝트를 생성한다. 레플리카셋은 다섯 개의
-    [파드](/ko/docs/concepts/workloads/pods/pod/)가 있으며,
+    {{< glossary_tooltip text="파드" term_id="pod" >}}가 있으며,
     각 파드는 Hello World 애플리케이션을 실행한다.
 
 1. 디플로이먼트에 대한 정보를 확인한다.

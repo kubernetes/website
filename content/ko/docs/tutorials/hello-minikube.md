@@ -59,13 +59,13 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     minikube dashboard
     ```
 
-3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1**를 클릭
+3. Katacoda 환경에서는: 터미널 패널의 상단에서 플러스를 클릭하고, 이어서 **Select port to view on Host 1** 을 클릭
 
-4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port**을 클릭.
+4. Katacoda 환경에서는: 30000 을 입력하고 **Display Port** 를 클릭.
 
 ## 디플로이먼트 만들기
 
-쿠버네티스 [*파드*](/ko/docs/concepts/workloads/pods/pod/)는 관리와
+쿠버네티스 [*파드*](/ko/docs/concepts/workloads/pods/)는 관리와
 네트워킹 목적으로 함께 묶여 있는 하나 이상의 컨테이너 그룹이다.
 이 튜토리얼의 파드에는 단 하나의 컨테이너만 있다. 쿠버네티스
 [*디플로이먼트*](/ko/docs/concepts/workloads/controllers/deployment/)는 파드의
@@ -97,7 +97,7 @@ Katacode는 무료로 브라우저에서 쿠버네티스 환경을 제공한다.
     ```shell
     kubectl get pods
     ```
-    
+
     다음과 유사하게 출력된다.
 
     ```
@@ -282,5 +282,3 @@ minikube delete
 * [디플로이먼트 오브젝트](/ko/docs/concepts/workloads/controllers/deployment/)에 대해서 더 배워 본다.
 * [애플리케이션 배포](/docs/tasks/run-application/run-stateless-application-deployment/)에 대해서 더 배워 본다.
 * [서비스 오브젝트](/ko/docs/concepts/services-networking/service/)에 대해서 더 배워 본다.
-
-

@@ -26,7 +26,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 * [Ambassador](https://www.getambassador.io/) API 게이트웨이는 [Datawire](https://www.datawire.io/)의
   [커뮤니티](https://www.getambassador.io/docs) 혹은 [상업적](https://www.getambassador.io/pro/) 지원을 제공하는
   [Envoy](https://www.envoyproxy.io) 기반 인그레스 컨트롤러다.
-* [AppsCode Inc.](https://appscode.com) 는 가장 널리 사용되는 [HAProxy](http://www.haproxy.org/) 기반 인그레스 컨트롤러인 [Voyager](https://appscode.com/products/voyager)에 대한 지원 및 유지 보수를 제공한다.
+* [AppsCode Inc.](https://appscode.com) 는 가장 널리 사용되는 [HAProxy](https://www.haproxy.org/) 기반 인그레스 컨트롤러인 [Voyager](https://appscode.com/products/voyager)에 대한 지원 및 유지 보수를 제공한다.
 * [AWS ALB 인그레스 컨트롤러](https://github.com/kubernetes-sigs/aws-alb-ingress-controller)는 [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/)를 사용하여 인그레스를 활성화한다.
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러로
   VMware에서 제공하고 지원한다.

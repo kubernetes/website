@@ -10,7 +10,6 @@ weight: 15
 제공한다. Kubectl로 오브젝트 관리하기에 대한 자세한 설명은
 [Kubectl 서적](https://kubectl.docs.kubernetes.io)에서 확인한다.
 
-
 <!-- body -->
 
 ## 관리 기법
@@ -167,10 +166,7 @@ kubectl apply -R -f configs/
 - 선언형 오브젝트 구성은 예상치 못한 결과를 디버깅하고 이해하기가 더 어렵다.
 - diff를 사용한 부분 업데이트는 복잡한 병합 및 패치 작업을 일으킨다.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 - [명령형 커맨드를 이용한 쿠버네티스 오브젝트 관리하기](/ko/docs/tasks/manage-kubernetes-objects/imperative-command/)
 - [오브젝트 구성을 이용한 쿠버네티스 오브젝트 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)

@@ -509,6 +509,4 @@ Minikube에 대한 더 자세한 정보는, [제안](https://git.k8s.io/communit
 
 ## 커뮤니티
 
-컨트리뷰션, 질문과 의견은 모두 환영하며 격려한다! Minikube 개발자는 [슬랙](https://kubernetes.slack.com)에 #minikube 채널(초청받으려면 [여기](http://slack.kubernetes.io/))에 상주하고 있다. 또한 [kubernetes-dev 구글 그룹 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-dev)도 있다. 메일링 리스트에 포스팅한다면 제목에 "minikube: "라는 접두어를 사용하자.
-
-
+컨트리뷰션, 질문과 의견은 모두 환영하며 격려한다! Minikube 개발자는 [슬랙](https://kubernetes.slack.com)에 `#minikube` 채널(초청받으려면 [여기](https://slack.kubernetes.io/))에 상주하고 있다. 또한 [kubernetes-dev 구글 그룹 메일링 리스트](https://groups.google.com/forum/#!forum/kubernetes-dev)도 있다. 메일링 리스트에 포스팅한다면 제목에 "minikube: "라는 접두어를 사용하자.

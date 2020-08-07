@@ -252,7 +252,7 @@ spec:
 #### 선점 피해자의 정상적인 종료
 
 파드가 축출되면, 축출된 피해자 파드는
-[정상적인 종료 기간](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)을 가진다.
+[정상적인 종료 기간](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료)을 가진다.
 피해자 파드는 작업을 종료하고 빠져나가는 데(exit) 많은 시간을 가진다. 그렇지 않으면,
 파드는 강제종료(kill) 된다. 이 정상적인 종료 기간은 스케줄러가 파드를 축출하는
 지점과 보류 중인 파드(P)를 노드(N)에서 스케줄링할 수 있는 시점 사이의
@@ -265,7 +265,7 @@ spec:
 
 #### PodDisruptionBudget을 지원하지만, 보장하지 않음
 
-[Pod Disruption Budget(PDB)](/ko/docs/concepts/workloads/pods/disruptions/)은
+[Pod Disruption Budget](/ko/docs/concepts/workloads/pods/disruptions/)(PDB)은
 애플리케이션 소유자가 자발적 중단에서 동시에 다운된 복제된
 애플리케이션의 파드 수를 제한할 수 있다. 쿠버네티스는 파드를
 선점할 때 PDB를 지원하지만, PDB를 따르는 것이 최선의 노력이다. 스케줄러는

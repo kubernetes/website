@@ -18,8 +18,6 @@ weight: 10
 쿠버네티스는 파드에게 고유한 IP 주소와 파드 집합에 대한 단일 DNS 명을 부여하고,
 그것들 간에 로드-밸런스를 수행할 수 있다.
 
-
-
 <!-- body -->
 
 ## 동기
@@ -388,7 +386,7 @@ CIDR 범위 내의 유효한 IPv4 또는 IPv6 주소여야 한다.
 파드가 노드에서 실행될 때, kubelet은 각 활성화된 서비스에 대해
 환경 변수 세트를 추가한다. [도커 링크
 호환](https://docs.docker.com/userguide/dockerlinks/) 변수
-([makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49) 참조)와
+([makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49) 참조)와
 보다 간단한 `{SVCNAME}_SERVICE_HOST` 및 `{SVCNAME}_SERVICE_PORT` 변수를 지원하고,
 이때 서비스 이름은 대문자이고 대시는 밑줄로 변환된다.
 
@@ -752,7 +750,7 @@ TCP 및 SSL은 4 계층 프록시를 선택한다. ELB는 헤더를 수정하지
 `443`, `8443`은 SSL 인증서를 사용하지만, `80`은 단순히
 프록시만 하는 HTTP이다.
 
-쿠버네티스 v1.9부터는 서비스에 대한 HTTPS 또는 SSL 리스너와 함께 [사전에 정의된 AWS SSL 정책](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)을 사용할 수 있다.
+쿠버네티스 v1.9부터는 서비스에 대한 HTTPS 또는 SSL 리스너와 함께 [사전에 정의된 AWS SSL 정책](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)을 사용할 수 있다.
 사용 가능한 정책을 확인하려면, `aws` 커맨드라인 툴을 사용한다.
 
 ```bash
@@ -887,7 +885,7 @@ AWS에서 네트워크 로드 밸런서를 사용하려면, `nlb` 값이 설정�
 ```
 
 {{< note >}}
-NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스턴스 유형 목록은 엘라스틱 로드 밸런싱에 대한 [AWS 문서](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+NLB는 특정 인스턴스 클래스에서만 작동한다. 지원되는 인스턴스 유형 목록은 엘라스틱 로드 밸런싱에 대한 [AWS 문서](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 를 참고한다.
 {{< /note >}}
 
@@ -1044,8 +1042,8 @@ spec:
 ## 단점
 
 VIP용으로 유저스페이스 프록시를 사용하면, 중소 급 스케일에서는 동작하지만, 수천 개의
-서비스가 포함된 대규모 클러스터로는 확장되지 않는다. [포털에 대한
-독창적인 설계 제안](http://issue.k8s.io/1107)에 이에 대한 자세한 내용이
+서비스가 포함된 대규모 클러스터로는 확장되지 않는다.
+[포털에 대한 독창적인 설계 제안](https://github.com/kubernetes/kubernetes/issues/1107)에 이에 대한 자세한 내용이
 있다.
 
 유저스페이스 프록시를 사용하면 서비스에 접근하는 패킷의 소스 IP 주소가
