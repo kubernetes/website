@@ -21,9 +21,6 @@ weight: 70
 
 잡을 사용하면 여러 파드를 병렬로 실행할 수도 있다.
 
-
-
-
 <!-- body -->
 
 ## 예시 잡 실행하기
@@ -119,7 +116,7 @@ kubectl logs $pods
 
 `.spec.template` 은 `.spec` 의 유일한 필수 필드이다.
 
-`.spec.template` 은 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿)이다. 이것은 `apiVersion` 또는 `kind` 가 없다는 것을 제외한다면 [파드](/ko/docs/concepts/workloads/pods/pod/)와 정확하게 같은 스키마를 가지고 있다.
+`.spec.template` 은 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 `apiVersion` 또는 `kind` 가 없다는 것을 제외한다면 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 같은 스키마를 가지고 있다.
 
 추가로 파드의 필수 필드 외에도 잡의 파드 템플릿은 적절한
 레이블([파드 셀렉터](#파드-셀렉터)를 본다)과 적절한 재시작 정책을 명시해야 한다.
@@ -211,7 +208,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 이렇게 하려면 `.spec.backoffLimit` 에 잡을 실패로 간주하기 이전에
 재시도할 횟수를 설정한다. 백오프 제한은 기본적으로 6으로 설정되어 있다. 잡과
 관련한 실패한 파드는 최대 6분안에서 기하급수적으로 증가하는 백-오프 지연 (10초, 20초, 40초 ...)
-한도가 되어 잡 컨트롤러에 의해 재생성된다. 잡의 파드가 삭제되거나 
+한도가 되어 잡 컨트롤러에 의해 재생성된다. 잡의 파드가 삭제되거나
 해당 시간 동안 잡에 대한 다른 파드가 실패 없이 성공했을 때 백 오프
 카운트가 재설정된다.
 

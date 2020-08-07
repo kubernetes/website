@@ -71,7 +71,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 ## 컨테이너 이미지
 
-[imagePullPolicy](/ko/docs/concepts/containers/images/#이미지-업데이트)와 이미지의 태그는 [kubelet](/docs/admin/kubelet/)이 명시된 이미지를 풀(pull) 하려고 시도할 때 영향을 미친다.
+[imagePullPolicy](/ko/docs/concepts/containers/images/#이미지-업데이트)와 이미지의 태그는 [kubelet](/docs/reference/command-line-tools-reference/kubelet/)이 명시된 이미지를 풀(pull) 하려고 시도할 때 영향을 미친다.
 
 - `imagePullPolicy: IfNotPresent`: 이미지가 로컬에 이미 존재하지 않으면 이미지가 풀(Pull) 된다.
 
