@@ -17,24 +17,19 @@ from a task queue, completes it, deletes it from the queue, and exits.
 Here is an overview of the steps in this example:
 
 1. **Start a message queue service.**  In this example, we use RabbitMQ, but you could use another
-  one.  In practice you would set up a message queue service once and reuse it for many jobs.
+   one.  In practice you would set up a message queue service once and reuse it for many jobs.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-  this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is just an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-  one task from the message queue, processes it, and repeats until the end of the queue is reached.
-
-
-
+   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
 ## {{% heading "prerequisites" %}}
 
 
 Be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -304,7 +299,7 @@ do not need to modify your "worker" program to be aware that there is a work que
 
 It does require that you run a message queue service.
 If running a queue service is inconvenient, you may
-want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+want to consider one of the other [job patterns](/docs/concepts/workloads/controllers/job/#job-patterns).
 
 This approach creates a pod for every work item.  If your work items only take a few seconds,
 though, creating a Pod for every work item may add a lot of overhead.  Consider another
