@@ -18,21 +18,12 @@
 {{ errorf "[%s] %q not found in %q" site.Language.Lang $fileDir.File $bundlePath }}
 {{ end }}
 {{ with $.Scratch.Get "content" }}
-<table class="includecode" id="{{ $file | anchorize }}">
-    <thead>
-        <tr>
-            <th>
-                {{ with $ghlink }}<a href="{{ . }}" download="{{ $file }}">{{ end }}
-                    <code>{{ $file }}</code>
-                {{ if $ghlink }}</a>{{ end }}
-                <img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ highlight . $codelang "" }}  </td>
-        </tr>
-    </tbody>
-</table>
-{{ end }}
+<div class="highlight">
+    <div class="includecode" style="text-align: right" id="{{- $file | anchorize -}}">
+        {{- with $ghlink -}}<a href="{{ . }}" download="{{ $file }}">{{- end -}}
+            <code>{{ $file }}</code>
+        {{ if $ghlink }}</a>{{ end }}<img src="{{ "images/copycode.svg" | relURL }}" style="max-height:24px; cursor: pointer" onclick="copyCode('{{ $file | anchorize }}')" title="Copy {{ $file }} to clipboard">
+    </div>
+{{ highlight . $codelang "" }}
+</div>
+{{- end -}}
