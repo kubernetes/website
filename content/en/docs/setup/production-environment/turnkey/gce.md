@@ -122,7 +122,7 @@ kube-system   kube-ui       ClusterIP        10.0.0.3         <none>            
 ...
 ```
 
-Similarly, you can take a look at the set of [pods](/docs/concepts/workloads/pods/pod/) that were created during cluster startup.
+Similarly, you can take a look at the set of [pods](/docs/concepts/workloads/pods/) that were created during cluster startup.
 You can do this via the
 
 ```shell
