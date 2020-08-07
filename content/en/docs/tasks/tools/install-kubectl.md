@@ -310,7 +310,12 @@ You can install kubectl as part of the Google Cloud SDK.
 
 ## Verifying kubectl configuration
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
+In order for kubectl to find and access a Kubernetes cluster, it needs a
+[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
+which is created automatically when you create a cluster using
+[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
+or successfully deploy a Minikube cluster.
+By default, kubectl configuration is located at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 
@@ -518,5 +523,7 @@ compinit
 * [Install Minikube](/docs/tasks/tools/install-minikube/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* If you need access to a cluster you didn't create, see the
+  [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
+

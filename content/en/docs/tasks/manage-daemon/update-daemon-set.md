@@ -10,16 +10,9 @@ weight: 10
 
 This page shows how to perform a rolling update on a DaemonSet.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 * The DaemonSet rolling update feature is only supported in Kubernetes version 1.6 or later.
-
-
-
 
 <!-- steps -->
 
@@ -164,7 +157,7 @@ make room for new DaemonSet pods.
 
 {{< note >}}
 This will cause service disruption when deleted pods are not controlled by any controllers or pods are not
-replicated. This does not respect [PodDisruptionBudget](/docs/tasks/configure-pod-container/configure-pod-disruption-budget/)
+replicated. This does not respect [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/)
 either.
 {{< /note >}}
 

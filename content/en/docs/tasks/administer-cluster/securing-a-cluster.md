@@ -56,7 +56,9 @@ an integrated [Role-Based Access Control (RBAC)](/docs/reference/access-authn-au
 set of permissions bundled into roles. These permissions combine verbs (get, create, delete) with
 resources (pods, services, nodes) and can be namespace or cluster scoped. A set of out of the box
 roles are provided that offer reasonable default separation of responsibility depending on what
-actions a client might want to perform. It is recommended that you use the [Node](/docs/reference/access-authn-authz/node/) and [RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
+actions a client might want to perform. It is recommended that you use the
+[Node](/docs/reference/access-authn-authz/node/) and
+[RBAC](/docs/reference/access-authn-authz/rbac/) authorizers together, in combination with the
 [NodeRestriction](/docs/reference/access-authn-authz/admission-controllers/#noderestriction) admission plugin.
 
 As with authentication, simple and broad roles may be appropriate for smaller clusters, but as
@@ -79,7 +81,7 @@ Kubelets expose HTTPS endpoints which grant powerful control over the node and c
 
 Production clusters should enable Kubelet authentication and authorization.
 
-Consult the [Kubelet authentication/authorization reference](/docs/admin/kubelet-authentication-authorization) for more information.
+Consult the [Kubelet authentication/authorization reference](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization) for more information.
 
 ## Controlling the capabilities of a workload or user at runtime
 
@@ -252,9 +254,8 @@ are not encrypted or an attacker gains read access to etcd.
 ### Receiving alerts for security updates and reporting vulnerabilities
 
 Join the [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
-group for emails about security announcements. See the [security reporting](/security/)
+group for emails about security announcements. See the
+[security reporting](/docs/reference/issues-security/security/)
 page for more on how to report vulnerabilities.
-
-
 
 

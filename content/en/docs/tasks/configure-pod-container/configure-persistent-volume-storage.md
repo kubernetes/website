@@ -29,12 +29,10 @@ PersistentVolume.
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
-[Minikube](/docs/getting-started-guides/minikube).
+[Minikube](/docs/setup/learning-environment/minikube/).
 
 * Familiarize yourself with the material in
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
-
-
 
 <!-- steps -->
 
