@@ -392,7 +392,7 @@ An example flow:
 ### Forced Pod termination {#pod-termination-forced}
 
 {{< caution >}}
-Forced deletions can be potentially disruptiove for some workloads and their Pods.
+Forced deletions can be potentially disruptive for some workloads and their Pods.
 {{< /caution >}}
 
 By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
