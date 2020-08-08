@@ -48,12 +48,14 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 
 ## Running the website locally using Hugo
 
+Windows 10, make is not available by default. To run hugo without container support,
 Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
 
 To build and test the site locally, run:
 
 ```bash
-make serve
+hugo server --buildFuture
+#Listens on port 1313, 
 ```
 
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
