@@ -268,22 +268,34 @@ main {
 
 // blockquotes and callouts
 
-blockquote {
-  padding: 0.4rem 0.4rem 0.4rem 1rem !important;
-}
+.td-content, body {
+  blockquote.callout {
+    padding: 0.4rem 0.4rem 0.4rem 1rem;
+    border: 1px solid #eee;
+    border-left-width: 0.5em;
+    background: #fff;
+    color: #000;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  blockquote.callout {
+    border-radius: calc(1em/3);
+  }
+  .callout.caution {
+    border-left-color: #f0ad4e;
+  }
 
-// callouts are contained in static CSS as well. these require override.
+  .callout.note {
+    border-left-color: #428bca;
+  }
 
-.caution {
-  border-left-color: #f0ad4e !important;
-}
+  .callout.warning {
+    border-left-color: #d9534f;
+  }
 
-.note {
-  border-left-color: #428bca !important;
-}
-
-.warning {
-  border-left-color: #d9534f !important;
+  h1:first-of-type + blockquote.callout {
+    margin-top: 1.5em;
+  }
 }
 
 .deprecation-warning {
