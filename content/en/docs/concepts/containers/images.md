@@ -259,7 +259,7 @@ EOF
 This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-accounts/) resource.
+in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 
