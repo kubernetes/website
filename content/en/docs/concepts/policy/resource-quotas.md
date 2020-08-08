@@ -200,7 +200,7 @@ The `Terminating`, `NotTerminating`, and `NotBestEffort` scopes restrict a quota
 
 ### Resource Quota Per PriorityClass
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+feature-state(for_k8s_version="v1.12",state="beta")
 
 Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
@@ -546,7 +546,7 @@ To enforce this, kube-apiserver flag `--admission-control-config-file` should be
 
 {{< tabs name="example1" >}}
 {{% tab name="apiserver.config.k8s.io/v1" %}}
-```yaml
+```ç
 apiVersion: apiserver.config.k8s.io/v1
 kind: AdmissionConfiguration
 plugins:
@@ -599,7 +599,7 @@ See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and 
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-## {{% heading "whatsnext" %}}
+## Whatsnext
 
 - See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
 
