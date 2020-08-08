@@ -284,6 +284,82 @@ blockquote {
   border-left-color: #d9534f !important;
 }
 
+.deprecation-warning {
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #faf5b6;
+    color: #000;
+}
+
+body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
+    border-radius: 3px;
+}
+
+body.td-home #deprecation-warning {
+    max-width: 1000px;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    background-color: #326ce5; // Kubernetes blue
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+}
+#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning {
+    padding-top: 32px;
+}
+body.cid-partners > #deprecation-warning {
+    padding: 0;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100vw;
+}
+body.cid-partners > #deprecation-warning > .content {
+    width: 100%;
+    max-width: initial;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+body.cid-community > #deprecation-warning > .deprecation-warning {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #faf5b6;
+    background-color: inherit;
+}
+body.cid-community > #deprecation-warning > .deprecation-warning > * {
+    color: inherit;
+    background-color: inherit;
+}
+
+#caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
+    color: inherit;
+    background: inherit;
+    width: 80%;
+    margin: 0;
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: initial;
+}
+#deprecation-warning > .deprecation-warning a {
+    background: transparent;
+    color: inherit;
+    text-decoration: underline;
+}
+
 // search & sidebar
 .td-sidebar {
   @media only screen and (min-width: 768px) {
