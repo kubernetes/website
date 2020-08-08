@@ -3,7 +3,7 @@
   <head>
     {{ partial "head.html" . }}
   </head>
-  <body class="td-{{ .Kind }}">
+  <body class="td-{{ .Kind }}{{- if ne .Params.cid "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
     <header>
       {{ partial "navbar.html" . }}
     </header>
@@ -27,7 +27,7 @@
 		</section>
 		{{ block "post-hero" . }}
       {{ block "deprecated" . }}
-        {{ if .IsHome }}
+        {{ if or .IsHome ( eq .Params.cid "partners" ) ( eq .Params.cid "community" ) }}
           {{ partial "deprecation-warning.html" . }}
         {{ end }}
       {{ end }}

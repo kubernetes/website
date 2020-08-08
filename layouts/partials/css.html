@@ -21,9 +21,6 @@
 {{- if .Site.Params.announcement }}
 <link rel="stylesheet" href="{{ "css/announcement.css" | relURL }}">
 {{- end }}
-{{- if .Site.Params.deprecated }}
-<link rel="stylesheet" href="{{ "css/deprecation-warning.css" | relURL }}">
-{{- end }}
 
 {{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
   <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
