@@ -9,12 +9,12 @@ weight: 20
 <!-- overview -->
 This command initializes a Kubernetes control-plane node.
 
-
 <!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
 ### Init workflow {#init-workflow}
+
 `kubeadm init` bootstraps a Kubernetes control-plane node by executing the
 following steps:
 
@@ -166,7 +166,7 @@ to download the certificates when additional control-plane nodes are joining, by
 
 The following phase command can be used to re-upload the certificates after expiration:
 
-```
+```shell
 kubeadm init phase upload-certs --upload-certs --certificate-key=SOME_VALUE --config=SOME_YAML_FILE
 ```
 
@@ -175,7 +175,7 @@ If the flag `--certificate-key` is not passed to `kubeadm init` and
 
 The following command can be used to generate a new key on demand:
 
-```
+```shell
 kubeadm alpha certs certificate-key
 ```
 
@@ -226,26 +226,26 @@ token distribution for easier automation. To implement this automation, you must
 know the IP address that the control-plane node will have after it is started,
 or use a DNS name or an address of a load balancer.
 
-1.  Generate a token. This token must have the form  `<6 character string>.<16
-    character string>`. More formally, it must match the regex:
-    `[a-z0-9]{6}\.[a-z0-9]{16}`.
+1. Generate a token. This token must have the form  `<6 character string>.<16
+   character string>`. More formally, it must match the regex:
+   `[a-z0-9]{6}\.[a-z0-9]{16}`.
 
-    kubeadm can generate a token for you:
+   kubeadm can generate a token for you:
 
-    ```shell
+   ```shell
     kubeadm token generate
-    ```
+   ```
 
-1.  Start both the control-plane node and the worker nodes concurrently with this token.
-    As they come up they should find each other and form the cluster.  The same
-    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
+1. Start both the control-plane node and the worker nodes concurrently with this token.
+   As they come up they should find each other and form the cluster.  The same
+   `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
-1.  Similar can be done for `--certificate-key` when joining additional control-plane
-    nodes. The key can be generated using:
+1. Similar can be done for `--certificate-key` when joining additional control-plane
+   nodes. The key can be generated using:
 
-    ```shell
-    kubeadm alpha certs certificate-key
-    ```
+   ```shell
+   kubeadm alpha certs certificate-key
+   ```
 
 Once the cluster is up, you can grab the admin credentials from the control-plane node
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
@@ -255,8 +255,6 @@ it does not allow the root CA hash to be validated with
 `--discovery-token-ca-cert-hash` (since it's not generated when the nodes are
 provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/).
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
@@ -264,4 +262,3 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/) to upgrade a Kubernetes cluster to a newer version
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-
