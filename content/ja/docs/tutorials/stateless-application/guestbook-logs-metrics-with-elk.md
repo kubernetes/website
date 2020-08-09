@@ -154,7 +154,7 @@ vi ELASTICSEARCH_HOSTS
 
 #### `ELASTICSEARCH_PASSWORD`
 
-パスワードだけを書きます。空白、クオート、<>などの文字は書かないでください。
+パスワードだけを書きます。空白、クォート、<>などの文字は書かないでください。
 
     <yoursecretpassword>
 
@@ -421,7 +421,7 @@ kubectl scale --replicas=3 deployment/frontend
 
 ## Kibana上で変更を表示する
 
-スクリーンショットを確認し、指定されたフィルタを追加して、ビューにカラムを追加します。赤い枠の右下を見ると、ScalingReplicaSetというエントリーが確認できます。そこからリストを上に見てゆくと、イメージのpull、ボリュームのマウント、Podのスタートなどのイベントが確認できます。
+スクリーンショットを確認し、指定されたフィルターを追加して、ビューにカラムを追加します。赤い枠の右下を見ると、ScalingReplicaSetというエントリーが確認できます。そこからリストを上に見てゆくと、イメージのpull、ボリュームのマウント、Podのスタートなどのイベントが確認できます。
 
 ![Kibana Discover](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
