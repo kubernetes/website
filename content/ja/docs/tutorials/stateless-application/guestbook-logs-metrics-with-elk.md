@@ -166,7 +166,7 @@ vi ELASTICSEARCH_PASSWORD
 
 #### `ELASTICSEARCH_USERNAME`
 
-ユーザー名だけを書きます。空白、クオート、<>などの文字は書かないでください。
+ユーザー名だけを書きます。空白、クォート、<>などの文字は書かないでください。
 
     <Elasticsearchに追加するユーザー名>
 
@@ -237,7 +237,7 @@ devk8s:ABC123def456ghi789jkl123mno456pqr789stu123vwx456yza789bcd012efg345hijj678
 
 #### ELASTIC_CLOUD_AUTH
 
-ユーザー名、コロン(`:`)、パスワードだけを書きます。空白やクオートは書かないでください。
+ユーザー名、コロン(`:`)、パスワードだけを書きます。空白やクォートは書かないでください。
 
 ```shell
 elastic:VFxJJf9Tjwer90wnfTghsn8w
