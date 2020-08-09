@@ -1,21 +1,17 @@
 ---
-reviewers:
-- caseydavenport
-- danwinship
-title: Declare Network Policy
+title: ネットワークポリシーを宣言する
 min-kubernetes-server-version: v1.8
 content_type: task
 ---
-<!-- overview -->
-This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 
+<!-- overview -->
+このドキュメントでは、Pod同士の通信を制御するネットワークポリシーを定義するための、Kubernetesの[NetworkPolicy API](/docs/concepts/services-networking/network-policies/)を使い始める手助けをします。
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-Make sure you've configured a network provider with network policy support. There are a number of network providers that support NetworkPolicy, including:
+ネットワークポリシーをサポートしているネットワークプロバイダーが設定済みであることを確認してください。さまざまなネットワークプロバイダーがNetworkPolicyをサポートしています。次に挙げるのは一例です。
 
 * [Calico](/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
@@ -24,15 +20,15 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 {{< note >}}
-The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
+上記のリストは製品名のアルファベット順にソートされていて、推奨順や好ましい順にソートされているわけではありません。このページの例は、Kubernetesクラスターでこれらのどのプロバイダーを使用していても有効です。
 {{< /note >}}
 
 
 <!-- steps -->
 
-## Create an `nginx` deployment and expose it via a service
+## `nginx` Deploymentを作成してService経由で公開する
 
-To see how Kubernetes network policy works, start off by creating an `nginx` Deployment.
+Kubernetesのネットワークポリシーの仕組みを理解するために、まずは`nginx` Deploymentを作成することから始めましょう。
 
 ```console
 kubectl create deployment nginx --image=nginx
@@ -41,7 +37,7 @@ kubectl create deployment nginx --image=nginx
 deployment.apps/nginx created
 ```
 
-Expose the Deployment through a Service called `nginx`.
+`nginx`という名前のService経由でDeploymentを公開します。
 
 ```console
 kubectl expose deployment nginx --port=80
@@ -51,7 +47,7 @@ kubectl expose deployment nginx --port=80
 service/nginx exposed
 ```
 
-The above commands create a Deployment with an nginx Pod and expose the Deployment through a Service named `nginx`. The `nginx` Pod and Deployment are found in the `default` namespace.
+上記のコマンドを実行すると、nginx Podを持つDeploymentが作成され、そのDeploymentが`nginx`という名前のService経由で公開されます。`nginx`のPodおよびDeploymentは`default`名前空間の中にあります。
 
 ```console
 kubectl get svc,pod
@@ -66,15 +62,15 @@ NAME                        READY         STATUS        RESTARTS   AGE
 pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 ```
 
-## Test the service by accessing it from another Pod
+## もう1つのPodからアクセスしてServiceを検証する
 
-You should be able to access the new `nginx` service from other Pods. To access the `nginx` Service from another Pod in the `default` namespace, start a busybox container:
+これで、新しい`nginx`サービスに他のPodからアクセスできるようになったはずです。`default`名前空間内の他のPodから`nginx` Serviceにアクセスするために、busyboxコンテナを起動します。
 
 ```console
 kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-In your shell, run the following command:
+シェルの中で、次のコマンドを実行します。
 
 ```shell
 wget --spider --timeout=1 nginx
@@ -85,22 +81,21 @@ Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
 
-## Limit access to the `nginx` service
+## `nginx` Serviceへのアクセスを制限する
 
-To limit the access to the `nginx` service so that only Pods with the label `access: true` can query it, create a NetworkPolicy object as follows:
+`nginx` Serviceへのアクセスを制限するために、`access: true`というラベルが付いたPodだけがクエリできるようにします。次の内容でNetworkPolicyオブジェクトを作成してください。
 
 {{< codenew file="service/networking/nginx-policy.yaml" >}}
 
-The name of a NetworkPolicy object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+NetworkPolicyオブジェクトの名前は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)でなければなりません。
 
 {{< note >}}
-NetworkPolicy includes a `podSelector` which selects the grouping of Pods to which the policy applies. You can see this policy selects Pods with the label `app=nginx`. The label was automatically added to the Pod in the `nginx` Deployment. An empty `podSelector` selects all pods in the namespace.
+このNetworkPolicyには、ポリシーを適用するPodのグループを選択するための`podSelector`が含まれています。このポリシーは、ラベル`app=nginx`の付いたPodを選択していることがわかります。このラベルは、`nginx` Deployment内のPodに自動的に追加されたものです。空の`podSelector`は、その名前空間内のすべてのPodを選択します。
 {{< /note >}}
 
-## Assign the policy to the service
+## Serviceにポリシーを割り当てる
 
-Use kubectl to create a NetworkPolicy from the above `nginx-policy.yaml` file:
+kubectlを使って、上記の`nginx-policy.yaml`ファイルからNetworkPolicyを作成します。
 
 ```console
 kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
@@ -110,14 +105,15 @@ kubectl apply -f https://k8s.io/examples/service/networking/nginx-policy.yaml
 networkpolicy.networking.k8s.io/access-nginx created
 ```
 
-## Test access to the service when access label is not defined
-When you attempt to access the `nginx` Service from a Pod without the correct labels, the request times out:
+## accessラベルが定義されていない状態でServiceへのアクセスをテストする
+
+`nginx` Serviceに正しいラベルが付いていないPodからアクセスを試してみると、リクエストがタイムアウトします。
 
 ```console
 kubectl run busybox --rm -ti --image=busybox -- /bin/sh
 ```
 
-In your shell, run the command:
+シェルの中で、次のコマンドを実行します。
 
 ```shell
 wget --spider --timeout=1 nginx
@@ -128,15 +124,15 @@ Connecting to nginx (10.100.0.16:80)
 wget: download timed out
 ```
 
-## Define access label and test again
+## accessラベルを定義して再テストする
 
-You can create a Pod with the correct labels to see that the request is allowed:
+正しいラベルが付いたPodを作成すると、リクエストが許可されるようになるのがわかります。
 
 ```console
 kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
 ```
 
-In your shell, run the command:
+シェルの中で、次のコマンドを実行します。
 
 ```shell
 wget --spider --timeout=1 nginx
@@ -146,5 +142,3 @@ wget --spider --timeout=1 nginx
 Connecting to nginx (10.100.0.16:80)
 remote file exists
 ```
-
-
