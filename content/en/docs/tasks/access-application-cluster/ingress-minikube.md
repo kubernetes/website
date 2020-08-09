@@ -145,9 +145,9 @@ The following file is an Ingress resource that sends traffic to your Service via
         http:
           paths:
           - path: /
-        backend:
-          serviceName: web
-          servicePort: 8080
+            backend:
+              serviceName: web
+              servicePort: 8080
     ```
 
 1. Create the Ingress resource by running the following command:
