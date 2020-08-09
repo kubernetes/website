@@ -48,8 +48,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 
 ## Running the website locally using Hugo
 
-Windows 10, make is not available by default. To run hugo without container support,
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+You can run Hugo directly (not inside a container). You need to install the version ofHugo that is specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
 
 To build and test the site locally, run:
 
