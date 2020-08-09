@@ -15,7 +15,6 @@ However, it might not be obvious _how_ kubeadm does that.
 
 This document provides additional details on what happen under the hood, with the aim of sharing knowledge on Kubernetes cluster best practices.
 
-
 <!-- body -->
 ## Core design principles
 
@@ -518,6 +517,7 @@ Please note that:
 - The automatic CSR approval is managed by the csrapprover controller, according with configuration done the `kubeadm init` process
 
 ### (optional) Write init kubelet configuration
+
 {{< feature-state for_k8s_version="v1.9" state="alpha" >}}
 
 If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
@@ -530,5 +530,3 @@ If kubeadm is invoked with `--feature-gates=DynamicKubeletConfig`:
 Please note that:
 
 1. To make dynamic kubelet configuration work, flag `--dynamic-config-dir=/var/lib/kubelet/config/dynamic` should be specified in `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`
-
-
