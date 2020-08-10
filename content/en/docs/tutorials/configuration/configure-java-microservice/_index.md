@@ -1,5 +1,5 @@
 ---
-title: "Configuring a Java Microservice"
+title: "Example: Configuring a Java Microservice"
 weight: 10
 ---
 
