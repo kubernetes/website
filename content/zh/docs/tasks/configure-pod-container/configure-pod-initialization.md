@@ -19,13 +19,9 @@ application Container runs.
 -->
 本文介绍在应用容器运行前，怎样利用 Init 容器初始化 Pod。
 
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -38,8 +34,7 @@ container starts.
 
 Here is the configuration file for the Pod:
 -->
-
-## 创建一个包含 Init 容器的 Pod
+## 创建一个包含 Init 容器的 Pod  {#creating-a-pod-that-has-an-init-container}
 
 本例中您将创建一个包含一个应用容器和一个 Init 容器的 Pod。Init 容器在应用容器启动前运行完成。
 
