@@ -566,7 +566,7 @@ the desired Pods. If the Deployment is updated, the existing ReplicaSet that con
 match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 -->
-每当 Deployment 控制器观察到新 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。如果更新了 Deployment，则缩小旧的 ReplicaSet。旧 ReplicaSet 所控制的 Pods 标签匹配 `.spec.selector`，但模版不匹配 `.spec.template`。最终，新的 ReplicaSet 缩放为 `.spec.replicas`，所有旧 ReplicaSets 缩放为 0。
+每当 Deployment 控制器观察到新 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。如果更新了 Deployment，则缩容旧的 ReplicaSet。旧 ReplicaSet 所控制的 Pods 标签匹配 `.spec.selector`，但模版不匹配 `.spec.template`。最终，新的 ReplicaSet 缩放为 `.spec.replicas`，所有旧 ReplicaSets 缩放为 0。
 
 <!--
  If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
