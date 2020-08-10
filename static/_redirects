@@ -442,7 +442,8 @@
 /docs/admin/kubeadm/     /docs/reference/generated/kubeadm/ 301
 /docs/admin/kubelet/      /docs/reference/generated/kubelet/ 301
 
-/docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/kubeadm/ 301
+/docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/ 301
+/docs/reference/setup-tools/kubeadm/kubeadm/     /docs/reference/setup-tools/kubeadm/ 301
 
 /editdocs/     /docs/contribute/     301
 /docs/home/editdocs/  /docs/contribute/ 301
