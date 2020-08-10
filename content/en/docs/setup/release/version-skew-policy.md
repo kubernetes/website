@@ -21,7 +21,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 ## Supported versions
 
 Kubernetes versions are expressed as **x.y.z**,
-where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](http://semver.org/) terminology.
+where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning).
 
 The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
@@ -146,3 +146,16 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 * they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
 * it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
 {{</ warning >}}
+
+### kube-proxy
+
+* `kube-proxy` must be the same minor version as `kubelet` on the node.
+* `kube-proxy` must not be newer than `kube-apiserver`.
+* `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
+
+Example:
+
+If `kube-proxy` version is **{{< skew latestVersion >}}**:
+
+* `kubelet` version must be at the same minor version as **{{< skew latestVersion >}}**.
+* `kube-apiserver` version must be between **{{< skew oldestMinorVersion >}}** and **{{< skew latestVersion >}}**, inclusive.

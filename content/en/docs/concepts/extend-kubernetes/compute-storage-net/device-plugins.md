@@ -19,8 +19,6 @@ The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adap
 and other similar computing resources that may require vendor specific initialization
 and setup.
 
-
-
 <!-- body -->
 
 ## Device plugin registration
@@ -39,7 +37,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-container/#extended-resources)
     as `vendor-domain/resourcetype`.
     (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
@@ -223,7 +221,7 @@ Here are some examples of device plugin implementations:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
 
 
 ## {{% heading "whatsnext" %}}
@@ -232,6 +230,6 @@ Here are some examples of device plugin implementations:
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 
 

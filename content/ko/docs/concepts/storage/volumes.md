@@ -23,7 +23,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 ## 배경
 
 도커는 다소 느슨하고, 덜 관리되지만
-[볼륨](https://docs.docker.com/engine/admin/volumes/)이라는
+[볼륨](https://docs.docker.com/storage/)이라는
 개념을 가지고 있다. 도커에서 볼륨은 단순한 디스크 내 디렉터리 또는
 다른 컨테이너에 있는 디렉터리다.  수명은 관리되지 않으며 최근까지는
 로컬 디스크 백업 볼륨만 있었다. 도커는 이제 볼륨 드라이버를
@@ -214,7 +214,7 @@ CephFS를 사용하기 위해선 먼저 Ceph 서버를 실행하고 공유를 �
 
 {{< note >}}
 전제 조건: 오픈스택 클라우드 공급자로 구성된 쿠버네티스. 클라우드 공급자
-구성에 대해서는 [오픈스택 클라우드 공급자](/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
+구성에 대해서는 [오픈스택 클라우드 공급자](/ko/docs/concepts/cluster-administration/cloud-providers/#openstack)를 참조한다.
 {{< /note >}}
 
 `cinder` 는 오픈스택 Cinder 볼륨을 파드에 마운트하는 데 사용한다.
@@ -451,15 +451,13 @@ spec:
 ```
 
 #### 지역(Regional) 퍼시스턴트 디스크
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
-
 [지역(Regional) 퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks/#repds) 기능을 사용하면 동일한 영역 내의 두 영역에서 사용할 수 있는 퍼시스턴트 디스크를 생성할 수 있다. 이 기능을 사용하려면 볼륨을 퍼시스턴트볼륨으로 프로비저닝 해야 한다. 파드에서 직접 볼륨을 참조하는 것은 지원되지 않는다.
 
 #### 지역(Regional) PD 퍼시스턴트볼륨을 수동으로 프로비저닝하기
-[GCE PD 용 StorageClass](/docs/concepts/storage/storage-classes/#gce) 를 사용해서 동적 프로비저닝이 가능하다.
+[GCE PD용 스토리지클래스](/ko/docs/concepts/storage/storage-classes/#gce-pd)를 사용해서 동적 프로비저닝이 가능하다.
 PersistentVolume을 생성하기 전에 PD를 생성해야만 한다.
 ```shell
-gcloud beta compute disks create --size=500GB my-data-disk
+gcloud compute disks create --size=500GB my-data-disk
     --region us-central1
     --replica-zones us-central1-a,us-central1-b
 ```
@@ -470,8 +468,6 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: test-volume
-  labels:
-    failure-domain.beta.kubernetes.io/zone: us-central1-a__us-central1-b
 spec:
   capacity:
     storage: 400Gi
@@ -480,6 +476,15 @@ spec:
   gcePersistentDisk:
     pdName: my-data-disk
     fsType: ext4
+      nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: failure-domain.beta.kubernetes.io/zone
+          operator: In
+          values:
+          - us-central1-a
+          - us-central1-b
 ```
 
 #### CSI 마이그레이션
@@ -574,12 +579,13 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
 다음과 같은 이유로 이 유형의 볼륨 사용시 주의해야 한다.
 
 * 동일한 구성(파드템플릿으로 생성한 것과 같은)을
-  가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있음
+  가진 파드는 노드에 있는 파일이 다르기 때문에 노드마다 다르게 동작할 수 있다.
 * 쿠버네티스가 계획한 대로 리소스 인식 스케줄링을 추가하면 `hostPath` 에서
-  사용되는 리소스를 설명할 수 없음
-* 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다. 프로세스를
-  [특권 컨테이너](/docs/user-guide/security-context) 에서 루트로 실행하거나
-  `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 함
+  사용되는 리소스를 설명할 수 없다.
+* 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
+  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/user-guide/security-context)에서
+  루트로 실행하거나
+  `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 한다.
 
 #### 파드 예시
 
@@ -714,7 +720,7 @@ spec:
 
 로컬 볼륨을 사용할 때는 `volumeBindingMode` 가 `WaitForFirstConsumer` 로 설정된
 스토리지클래스(StorageClass)를 생성하는 것을 권장한다.
-[예시](/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키는 것은
+[예시](/ko/docs/concepts/storage/storage-classes/#local)를 본다. 볼륨 바인딩을 지연시키는 것은
 퍼시스턴트볼륨클래임 바인딩 결정도 노드 리소스 요구사항, 노드 셀렉터,
 파드 어피니티 그리고 파드 안티 어피니티와
 같이 파드가 가질 수 있는 다른 노드 제약 조건으로 평가되도록 만든다.
@@ -773,7 +779,7 @@ iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 서비스 어카운트 토큰의 프로젝션은 쿠버네티스 1.11에 기능이
 도입되었고 1.12에서 베타로 승격되었다.
 1.11에서 이 기능을 활성화 하려면 `TokenRequestProjection`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 True로 명시적인 설정이 필요하다.
 
 #### 시크릿, downward API 그리고 configmap이 있는 파드 예시.
@@ -1191,7 +1197,7 @@ spec:
 
 
 `subPathExpr` 필드를 사용해서 Downward API 환경 변수로부터 `subPath` 디렉터리 이름을 구성한다.
-이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
+이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
 `subPath` 와 `subPathExpr` 속성은 상호 배타적이다.
 
 이 예제는 파드가 `subPathExpr` 을 사용해서 Downward API로부터 파드 이름을 사용해서 hostPath 볼륨 `/var/log/pods` 내에 `pod1` 디렉터리를 생성한다.  호스트 디렉터리 `/var/log/pods/pod1` 은 컨테이너의 `/logs` 에 마운트 된다.
@@ -1473,4 +1479,3 @@ sudo systemctl restart docker
 ## {{% heading "whatsnext" %}}
 
 * [퍼시스턴트 볼륨과 함께 워드프레스와 MySQL 배포하기](/ko/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/)의 예시를 따른다.
-

@@ -19,9 +19,6 @@ weight: 20
 
 This document describes the current state of _persistent volumes_ in Kubernetes. Familiarity with [volumes](/docs/concepts/storage/volumes/) is suggested.
 
-
-
-
 <!-- body -->
 
 ## Introduction
@@ -30,7 +27,7 @@ Managing storage is a distinct problem from managing compute instances. The Pers
 
 A _PersistentVolume_ (PV) is a piece of storage in the cluster that has been provisioned by an administrator or dynamically provisioned using [Storage Classes](/docs/concepts/storage/storage-classes/). It is a resource in the cluster just like a node is a cluster resource. PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV. This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system.
 
-A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted once read/write or many times read-only).
+A _PersistentVolumeClaim_ (PVC) is a request for storage by a user. It is similar to a Pod. Pods consume node resources and PVCs consume PV resources. Pods can request specific levels of resources (CPU and Memory).  Claims can request specific size and access modes (e.g., they can be mounted ReadWriteOnce, ReadOnlyMany or ReadWriteMany, see [AccessModes](#access-modes)).
 
 While PersistentVolumeClaims allow a user to consume abstract storage resources, it is common that users need PersistentVolumes with varying properties, such as performance, for different problems. Cluster administrators need to be able to offer a variety of PersistentVolumes that differ in more ways than just size and access modes, without exposing users to the details of how those volumes are implemented. For these needs, there is the _StorageClass_ resource.
 
@@ -148,7 +145,11 @@ The `Recycle` reclaim policy is deprecated. Instead, the recommended approach is
 
 If supported by the underlying volume plugin, the `Recycle` reclaim policy performs a basic scrub (`rm -rf /thevolume/*`) on the volume and makes it available again for a new claim.
 
-However, an administrator can configure a custom recycler Pod template using the Kubernetes controller manager command line arguments as described [here](/docs/admin/kube-controller-manager/). The custom recycler Pod template must contain a `volumes` specification, as shown in the example below:
+However, an administrator can configure a custom recycler Pod template using
+the Kubernetes controller manager command line arguments as described in the
+[reference](/docs/reference/command-line-tools-reference/kube-controller-manager/).
+The custom recycler Pod template must contain a `volumes` specification, as
+shown in the example below:
 
 ```yaml
 apiVersion: v1
@@ -252,6 +253,16 @@ FlexVolume resize is possible only when the underlying driver supports resize.
 {{< note >}}
 Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
 {{< /note >}}
+
+#### Recovering from Failure when Expanding Volumes
+
+If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
+
+1. Mark the PersistentVolume(PV) that is bound to the PersistentVolumeClaim(PVC) with `Retain` reclaim policy.
+2. Delete the PVC. Since PV has `Retain` reclaim policy - we will not loose any data when we recreate the PVC.
+3. Delete the `claimRef` entry from PV specs, so as new PVC can bind to it. This should make the PV `Available`.
+4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
+5. Don't forget to restore the reclaim policy of the PV.
 
 
 ## Types of Persistent Volumes

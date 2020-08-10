@@ -10,8 +10,6 @@ In Kubernetes, _scheduling_ refers to making sure that {{< glossary_tooltip text
 are matched to {{< glossary_tooltip text="Nodes" term_id="node" >}} so that
 {{< glossary_tooltip term_id="kubelet" >}} can run them.
 
-
-
 <!-- body -->
 
 ## Scheduling overview {#scheduling}
@@ -28,7 +26,7 @@ page will help you learn about scheduling.
 
 ## kube-scheduler
 
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 is the default scheduler for Kubernetes and runs as part of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 kube-scheduler is designed so that, if you want and need to, you can
@@ -92,7 +90,6 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
-

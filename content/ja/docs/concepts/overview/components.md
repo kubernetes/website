@@ -67,7 +67,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
   * サービスコントローラー：クラウドプロバイダーのロードバランサーの作成、更新、削除を行います。
   * ボリュームコントローラー：ボリュームを作成、アタッチ、マウントしたり、クラウドプロバイダーとやり取りしてボリュームを調整したりします。
 
-## ノードコンポーネント
+## ノードコンポーネント {#node-components}
 
 ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。
 
@@ -116,6 +116,6 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 * [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
 * [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
-* [kube-scheduler](/ja/docs/concepts/scheduling/kube-scheduler/)について学ぶ
+* [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
 * etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
 

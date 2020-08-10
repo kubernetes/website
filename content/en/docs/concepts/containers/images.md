@@ -10,7 +10,7 @@ weight: 10
 <!-- overview -->
 
 A container image represents binary data that encapsulates an application and all its
-software depencies. Container images are executable software bundles that can run
+software dependencies. Container images are executable software bundles that can run
 standalone and that make very well defined assumptions about their runtime environment.
 
 You typically create a container image of your application and push it to a registry
@@ -18,8 +18,6 @@ before referring to it in a
 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 
 This page provides an outline of the container image concept.
-
-
 
 <!-- body -->
 
@@ -65,7 +63,7 @@ When `imagePullPolicy` is defined without a specific value, it is also set to `A
 
 ## Multi-architecture Images with Manifests
 
-As well as providing binary images, a container registry can also server a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+As well as providing binary images, a container registry can also serve a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
 
 Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
 
@@ -91,7 +89,7 @@ These options are explaind in more detail below.
 ### Configuring Nodes to authenticate to a Private Registry
 
 If you run Docker on your nodes, you can configure the Docker container
-runtuime to authenticate to a private container registry.
+runtime to authenticate to a private container registry.
 
 This approach is suitable if you can control node configuration.
 
@@ -129,7 +127,7 @@ example, run these on your desktop/laptop:
       - for example, to test this out: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 
 {{< note >}}
-For production clusers, use a configuration management tool so that you can apply this
+For production clusters, use a configuration management tool so that you can apply this
 setting to all the nodes where you need it.
 {{< /note >}}
 
@@ -261,7 +259,7 @@ EOF
 This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [ServiceAccount](/docs/user-guide/service-accounts) resource.
+in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 

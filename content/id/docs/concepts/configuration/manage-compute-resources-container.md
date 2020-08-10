@@ -10,7 +10,7 @@ feature:
 
 <!-- overview -->
 
-Saat kamu membuat spesifikasi sebuah [Pod](/docs/concepts/workloads/pods/pod/), kamu
+Saat kamu membuat spesifikasi sebuah [Pod](/id/docs/concepts/workloads/pods/pod/), kamu
 dapat secara opsional menentukan seberapa banyak CPU dan memori (RAM) yang dibutuhkan
 oleh setiap Container. Saat Container-Container menentukan _request_ (permintaan) sumber daya,
 scheduler dapat membuat keputusan yang lebih baik mengenai Node mana yang akan dipilih
@@ -42,8 +42,8 @@ Hal ini berbeda dari sumber daya `memory` dan `cpu` (yang dapat di-_overcommit_)
 
 CPU dan memori secara kolektif disebut sebagai _sumber daya komputasi_, atau cukup
 _sumber daya_ saja. Sumber daya komputasi adalah jumlah yang dapat diminta, dialokasikan,
-dan dikonsumsi. Mereka berbeda dengan [sumber daya API](/docs/concepts/overview/kubernetes-api/).
-Sumber daya API, seperti Pod dan [Service](/docs/concepts/services-networking/service/) adalah
+dan dikonsumsi. Mereka berbeda dengan [sumber daya API](/id/docs/concepts/overview/kubernetes-api/).
+Sumber daya API, seperti Pod dan [Service](/id/docs/concepts/services-networking/service/) adalah
 objek-objek yang dapat dibaca dan diubah melalui Kubernetes API Server.
 
 ## Request dan Limit Sumber daya dari Pod dan Container
@@ -270,7 +270,7 @@ _daemon_ sistem menggunakan sebagian dari sumber daya yang ada. Kolom `allocatab
 memberikan jumlah sumber daya yang tersedia untuk Pod-Pod. Untuk lebih lanjut, lihat
 [Sumber daya Node yang dapat dialokasikan](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
 
-Fitur [kuota sumber daya](/docs/concepts/policy/resource-quotas/) dapat disetel untuk
+Fitur [kuota sumber daya](/id/docs/concepts/policy/resource-quotas/) dapat disetel untuk
 membatasi jumlah sumber daya yang dapat digunakan. Jika dipakai bersama dengan Namespace,
 kuota sumber daya dapat mencegah suatu tim menghabiskan semua sumber daya.
 
@@ -489,7 +489,7 @@ Sumber daya yang diperluas pada tingkat Node terikat pada Node.
 ##### Sumber daya Device Plugin yang dikelola
 
 Lihat [Device
-Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) untuk
+Plugin](/id/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) untuk
 cara menyatakan sumber daya _device plugin_ yang dikelola pada setiap node.
 
 ##### Sumber daya lainnya

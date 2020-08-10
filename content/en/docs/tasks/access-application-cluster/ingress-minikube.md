@@ -6,7 +6,7 @@ weight: 100
 
 <!-- overview -->
 
-An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access 
+An [Ingress](/docs/concepts/services-networking/ingress/) is an API object that defines rules which allow external access
 to services in a cluster. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers/) fulfills the rules set in the Ingress.
 
 This page shows you how to set up a simple Ingress which routes requests to Service web or web2 depending on the HTTP URI.
@@ -41,7 +41,7 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     ```shell
     minikube addons enable ingress
     ```
-      
+
 1. Verify that the NGINX Ingress controller is running
 
     ```shell
@@ -71,31 +71,31 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     ```
 
     Output:
-    
+
     ```shell
     deployment.apps/web created
     ```
 
-1. Expose the Deployment: 
+1. Expose the Deployment:
 
     ```shell
     kubectl expose deployment web --type=NodePort --port=8080
     ```
-    
-    Output: 
-    
+
+    Output:
+
     ```shell
     service/web exposed
     ```
-    
+
 1. Verify the Service is created and is available on a node port:
 
     ```shell
     kubectl get service web
-    ``` 
-    
+    ```
+
     Output:
-    
+
     ```shell
     NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
     web       NodePort   10.104.133.249   <none>        8080:31637/TCP   12m
@@ -106,24 +106,24 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
     ```shell
     minikube service web --url
     ```
-    
+
     Output:
-    
+
     ```shell
     http://172.17.0.15:31637
     ```
-    
+
     {{< note >}}Katacoda environment only: at the top of the terminal panel, click the plus sign, and then click **Select port to view on Host 1**. Enter the NodePort, in this case `31637`, and then click **Display Port**.{{< /note >}}
-    
+
     Output:
-    
+
     ```shell
     Hello, world!
     Version: 1.0.0
     Hostname: web-55b8c6998d-8k564
     ```
-    
-    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access 
+
+    You can now access the sample app via the Minikube IP address and NodePort. The next step lets you access
     the app using the Ingress resource.
 
 ## Create an Ingress resource
@@ -132,37 +132,39 @@ The following file is an Ingress resource that sends traffic to your Service via
 
 1. Create `example-ingress.yaml` from the following file:
 
-        apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
-        kind: Ingress
-        metadata:
-          name: example-ingress
-          annotations:
-            nginx.ingress.kubernetes.io/rewrite-target: /$1
-        spec:
-          rules:
-          - host: hello-world.info
-            http:
-              paths:
-              - path: /
-                backend:
-                  serviceName: web
-                  servicePort: 8080
+    ```yaml
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    metadata:
+      name: example-ingress
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+    spec:
+      rules:
+      - host: hello-world.info
+        http:
+          paths:
+          - path: /
+        backend:
+          serviceName: web
+          servicePort: 8080
+    ```
 
 1. Create the Ingress resource by running the following command:
-    
+
     ```shell
     kubectl apply -f example-ingress.yaml
     ```
-    
+
     Output:
-    
+
     ```shell
     ingress.networking.k8s.io/example-ingress created
     ```
 
-1. Verify the IP address is set: 
+1. Verify the IP address is set:
 
-    ```shell 
+    ```shell
     kubectl get ingress
     ```
 
@@ -173,7 +175,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     example-ingress   hello-world.info   172.17.0.15   80        38s
     ```
 
-1. Add the following line to the bottom of the `/etc/hosts` file. 
+1. Add the following line to the bottom of the `/etc/hosts` file.
 
     {{< note >}}If you are running Minikube locally, use `minikube ip` to get the external IP. The IP address displayed within the ingress list will be the internal IP.{{< /note >}}
 
@@ -190,7 +192,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     ```
 
     Output:
-    
+
     ```shell
     Hello, world!
     Version: 1.0.0
@@ -207,26 +209,26 @@ The following file is an Ingress resource that sends traffic to your Service via
     kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0
     ```
     Output:
-    
+
     ```shell
     deployment.apps/web2 created
     ```
-    
+
 1. Expose the Deployment:
 
     ```shell
     kubectl expose deployment web2 --port=8080 --type=NodePort
     ```
 
-    Output: 
-    
+    Output:
+
     ```shell
     service/web2 exposed
     ```
-    
+
 ## Edit Ingress
 
-1. Edit the existing `example-ingress.yaml` and add the following lines:  
+1. Edit the existing `example-ingress.yaml` and add the following lines:
 
     ```yaml
           - path: /v2
@@ -241,9 +243,10 @@ The following file is an Ingress resource that sends traffic to your Service via
     kubectl apply -f example-ingress.yaml
     ```
 
-    Output: 
+    Output:
+
     ```shell
-    ingress.extensions/example-ingress configured
+    ingress.networking/example-ingress configured
     ```
 
 ## Test Your Ingress
@@ -255,6 +258,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     ```
 
     Output:
+
     ```shell
     Hello, world!
     Version: 1.0.0
@@ -268,6 +272,7 @@ The following file is an Ingress resource that sends traffic to your Service via
     ```
 
     Output:
+
     ```shell
     Hello, world!
     Version: 2.0.0

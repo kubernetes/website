@@ -8,7 +8,9 @@ weight: 20
 
 <!-- overview -->
 
-SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자](/ko/docs/contribute/participating/#승인자)는 변경 사항을 리뷰할 때 몇 가지 추가 작업을 수행한다.
+SIG Docs [리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/#리뷰어)와
+[승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는 변경 사항을
+리뷰할 때 몇 가지 추가 작업을 수행한다.
 
 매주 특정 문서 승인자 역할의 지원자가
 풀 리퀘스트를 심사하고 리뷰한다. 이
@@ -18,9 +20,6 @@ SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)와 [승인자
 
 로테이션 외에도, 봇은 영향을 받는 파일의 소유자를 기반으로
 PR에 대한 리뷰어와 승인자를 할당한다.
-
-
-
 
 <!-- body -->
 
@@ -201,9 +200,9 @@ SIG Docs가 처리 방법을 문서화할 정도로 다음과 같은 유형의 �
 ```none
 이 이슈는 지원 요청과 비슷하지만
 문서 관련 이슈와는 관련이 없는 것 같습니다.
-[쿠버네티스 슬랙](http://slack.k8s.io/)의
+[쿠버네티스 슬랙](https://slack.k8s.io/)의
 `#kubernetes-users` 채널에서 질문을 하시기 바랍니다. 또한,
-[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)와
+[Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes)와
 같은 리소스를 검색하여 유사한 질문에 대한 답변을
 얻을 수도 있습니다.
 

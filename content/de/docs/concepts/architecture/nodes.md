@@ -123,7 +123,7 @@ Wenn Sie beispielsweise versuchen, einen Node aus folgendem Inhalt zu erstellen:
 ```
 
 
-Kubernetes erstellt intern ein Node-Oject (die Darstellung) und validiert den Node durch Zustandsprüfung basierend auf dem Feld `metadata.name`.
+Kubernetes erstellt intern ein Node-Objekt (die Darstellung) und validiert den Node durch Zustandsprüfung basierend auf dem Feld `metadata.name`.
 Wenn der Node gültig ist, d.h. wenn alle notwendigen Dienste ausgeführt werden, ist er berechtigt, einen Pod auszuführen.
 Andernfalls wird er für alle Clusteraktivitäten ignoriert, bis er gültig wird.
 

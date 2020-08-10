@@ -13,8 +13,6 @@ weight: 10
 resource to your Kubernetes cluster and when to use a standalone service. It describes the two
 methods for adding custom resources and how to choose between them.
 
-
-
 <!-- body -->
 ## Custom resources
 
@@ -28,7 +26,7 @@ many core Kubernetes functions are now built using custom resources, making Kube
 Custom resources can appear and disappear in a running cluster through dynamic registration,
 and cluster admins can update custom resources independently of the cluster itself.
 Once a custom resource is installed, users can create and access its objects using
-[kubectl](/docs/user-guide/kubectl-overview/), just as they do for built-in resources like
+[kubectl](/docs/reference/kubectl/overview/), just as they do for built-in resources like
 *Pods*.
 
 ## Custom controllers
@@ -52,7 +50,9 @@ for specific applications into an extension of the Kubernetes API.
 
 ## Should I add a custom resource to my Kubernetes Cluster?
 
-When creating a new API, consider whether to [aggregate your API with the Kubernetes cluster APIs](/docs/concepts/api-extension/apiserver-aggregation/) or let your API stand alone.
+When creating a new API, consider whether to
+[aggregate your API with the Kubernetes cluster APIs](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+or let your API stand alone.
 
 | Consider API aggregation if: | Prefer a stand-alone API if: |
 | ---------------------------- | ---------------------------- |
@@ -178,7 +178,7 @@ Aggregated APIs offer more advanced API features and customization of other feat
 
 | Feature | Description | CRDs | Aggregated API |
 | ------- | ----------- | ---- | -------------- |
-| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/extend-api-custom-resource-definitions/#validation).  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
+| Validation | Help users prevent errors and allow you to evolve your API independently of your clients. These features are most useful when there are many clients who can't all update at the same time. | Yes.  Most validation can be specified in the CRD using [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation).  Any other validations supported by addition of a [Validating Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9). | Yes, arbitrary validation checks |
 | Defaulting | See above | Yes, either via [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting) `default` keyword (GA in 1.17), or via a [Mutating Webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook) (though this will not be run when reading from etcd for old objects). | Yes |
 | Multi-versioning | Allows serving the same object through two API versions. Can help ease API changes like renaming fields. Less important if you control your client versions. | [Yes](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | Yes |
 | Custom Storage | If you need storage with a different performance mode (for example, a time-series database instead of key-value store) or isolation for security (for example, encryption of sensitive information, etc.) | No | Yes |

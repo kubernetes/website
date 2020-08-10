@@ -17,12 +17,10 @@ The sample Jobs process each item simply by printing a string then pausing.
 See [using Jobs in real workloads](#using-jobs-in-real-workloads) to learn about how
 this pattern fits more realistic use cases.
 
-
 ## {{% heading "prerequisites" %}}
 
-
 You should be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -33,11 +31,10 @@ To follow the advanced templating example, you need a working installation of
 library for Python.
 
 Once you have Python set up, you can install Jinja2 by running:
+
 ```shell
 pip install --user jinja2
 ```
-
-
 
 <!-- steps -->
 
@@ -305,7 +302,7 @@ If you plan to create a large number of Job objects, you may find that:
   on Jobs: the API server permanently rejects some of your requests
   when you create a great deal of work in one batch.
 
-There are other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns)
+There are other [job patterns](/docs/concepts/workloads/controllers/job/#job-patterns)
 that you can use to process large amounts of work without creating very many Job
 objects.
 

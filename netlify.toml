@@ -4,11 +4,12 @@
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
-command = "git submodule update --init --recursive && make non-production-build"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
 [build.environment]
-HUGO_VERSION = "0.70.0"
+HUGO_VERSION = "0.74.3"
 NODE_VERSION = "10.20.0"
+RUBY_VERSION = "2.7.1"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
@@ -16,13 +17,13 @@ HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
 [context.deploy-preview]
-command = "git submodule update --init --recursive && make deploy-preview"
+command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
 
 [context.branch-deploy]
-command = "git submodule update --init --recursive && make deploy-preview"
+command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
 
 [context.master]
 # This context is triggered by the `master` branch and allows search indexing
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
-command = "git submodule update --init --recursive && make production-build"
+command = "git submodule update --init --recursive --depth 1 && make production-build"

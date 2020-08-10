@@ -1,5 +1,5 @@
 ---
-title: 인그레스
+title: 인그레스(Ingress)
 content_type: concept
 weight: 40
 ---
@@ -15,11 +15,11 @@ weight: 40
 
 이 가이드는 용어의 명확성을 위해 다음과 같이 정의한다.
 
-노드(Node): 클러스터의 일부이며, 쿠버네티스에 속한 워커 머신.
-클러스터(Cluster): 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 퍼블릭 인터넷의 일부가 아니다.
-에지 라우터(Edge router): 클러스터에 방화벽 정책을 적용하는 라우터. 이것은 클라우드 공급자 또는 물리적 하드웨어의 일부에서 관리하는 게이트웨이일 수 있다.
-클러스터 네트워크(Cluster network): 쿠버네티스 [네트워킹 모델](/docs/concepts/cluster-administration/networking/)에 따라 클러스터 내부에서 통신을 용이하게 하는 논리적 또는 물리적 링크 집합.
-서비스(Service): {{< glossary_tooltip text="레이블" term_id="label" >}} 셀렉터를 사용해서 파드 집합을 식별하는 쿠버네티스 {{< glossary_tooltip term_id="service" >}}. 달리 언급하지 않으면 서비스는 클러스터 네트워크 내에서만 라우팅 가능한 가상 IP를 가지고 있다고 가정한다.
+* 노드(Node): 클러스터의 일부이며, 쿠버네티스에 속한 워커 머신.
+* 클러스터(Cluster): 쿠버네티스에서 관리되는 컨테이너화 된 애플리케이션을 실행하는 노드 집합. 이 예시와 대부분의 일반적인 쿠버네티스 배포에서 클러스터에 속한 노드는 퍼블릭 인터넷의 일부가 아니다.
+* 에지 라우터(Edge router): 클러스터에 방화벽 정책을 적용하는 라우터. 이것은 클라우드 공급자 또는 물리적 하드웨어의 일부에서 관리하는 게이트웨이일 수 있다.
+* 클러스터 네트워크(Cluster network): 쿠버네티스 [네트워킹 모델](/ko/docs/concepts/cluster-administration/networking/)에 따라 클러스터 내부에서 통신을 용이하게 하는 논리적 또는 물리적 링크 집합.
+* 서비스: {{< glossary_tooltip text="레이블" term_id="label" >}} 셀렉터를 사용해서 파드 집합을 식별하는 쿠버네티스 {{< glossary_tooltip text="서비스" term_id="service" >}}. 달리 언급하지 않으면 서비스는 클러스터 네트워크 내에서만 라우팅 가능한 가상 IP를 가지고 있다고 가정한다.
 
 ## 인그레스란?
 
@@ -79,8 +79,8 @@ spec:
 
 다른 모든 쿠버네티스 리소스와 마찬가지로 인그레스에는 `apiVersion`, `kind`, 그리고 `metadata` 필드가 필요하다.
 인그레스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름들)이어야 한다.
-설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.
+설정 파일의 작성에 대한 일반적인 내용은 [애플리케이션 배포하기](/docs/tasks/run-application/run-stateless-application-deployment/), [컨테이너 구성하기](/docs/tasks/configure-pod-container/configure-pod-configmap/), [리소스 관리하기](/ko/docs/concepts/cluster-administration/manage-deployment/)를 참조한다.
  인그레스는 종종 어노테이션을 이용해서 인그레스 컨트롤러에 따라 몇 가지 옵션을 구성하는데,
  그 예시는 [재작성-타겟 어노테이션](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)이다.
 다른 [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers)는 다른 어노테이션을 지원한다.
@@ -88,7 +88,7 @@ spec:
 
 인그레스 [사양](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
 에는 로드 밸런서 또는 프록시 서버를 구성하는데 필요한 모든 정보가 있다. 가장 중요한 것은,
-들어오는 요청과 일치하는 규칙 목록을 포함하는 것이다. 인그레스 리소스는 HTTP 트래픽을
+들어오는 요청과 일치하는 규칙 목록을 포함하는 것이다. 인그레스 리소스는 HTTP(S) 트래픽을
 지시하는 규칙만 지원한다.
 
 ### 인그레스 규칙
@@ -134,8 +134,7 @@ spec:
   요청은 _p_ 경로에 일치한다.
 
   {{< note >}}
-  경로의 마지막 요소가 요청 경로에 있는 마지막 요소의 하위 문자열인 경우에는 일치하지 않는다(예시: 
-  `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
+  경로의 마지막 요소가 요청 경로에 있는 마지막 요소의 하위 문자열인 경우에는 일치하지 않는다(예시: `/foo/bar` 와 `/foo/bar/baz` 와 일치하지만, `/foo/barbaz` 는 일치하지 않는다).
   {{< /note >}}
 
 #### 다중 일치
@@ -216,7 +215,7 @@ NAME           HOSTS     ADDRESS           PORTS     AGE
 test-ingress   *         203.0.113.123   80        59s
 ```
 
-여기서 `203.0.113.123` 는 인그레스 컨트롤러가 인그레스를 충족시키기 위해 
+여기서 `203.0.113.123` 는 인그레스 컨트롤러가 인그레스를 충족시키기 위해
 할당한 IP 이다.
 
 {{< note >}}
@@ -548,4 +547,3 @@ Events:
 * [인그레스] API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
 * [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube)
-

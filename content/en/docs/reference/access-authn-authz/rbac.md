@@ -606,12 +606,15 @@ either do not manually edit the role, or disable auto-reconciliation.
 
 <table>
 <caption>Kubernetes RBAC API discovery roles</caption>
-<colgroup><col width="25%" /><col width="25%" /><col /></colgroup>
+<colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
+<thead>
 <tr>
 <th>Default ClusterRole</th>
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><b>system:basic-user</b></td>
 <td><b>system:authenticated</b> group</td>
@@ -627,6 +630,7 @@ either do not manually edit the role, or disable auto-reconciliation.
 <td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
 <td>Allows read-only access to non-sensitive information about the cluster. Introduced in Kubernetes v1.14.</td>
 </tr>
+</tbody>
 </table>
 
 ### User-facing roles
@@ -649,12 +653,15 @@ metadata:
 ```
 
 <table>
-<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
+<thead>
 <tr>
 <th>Default ClusterRole</th>
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><b>cluster-admin</b></td>
 <td><b>system:masters</b> group</td>
@@ -691,17 +698,21 @@ the contents of Secrets enables access to ServiceAccount credentials
 in the namespace, which would allow API access as any ServiceAccount
 in the namespace (a form of privilege escalation).</td>
 </tr>
+</tbody>
 </table>
 
 ### Core component roles
 
 <table>
-<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
+<thead>
 <tr>
 <th>Default ClusterRole</th>
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><b>system:kube-scheduler</b></td>
 <td><b>system:kube-scheduler</b> user</td>
@@ -733,17 +744,21 @@ The <tt>system:node</tt> role only exists for compatibility with Kubernetes clus
 <td><b>system:kube-proxy</b> user</td>
 <td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} component.</td>
 </tr>
+</tbody>
 </table>
 
 ### Other component roles
 
 <table>
-<colgroup><col width="25%"><col width="25%"><col></colgroup>
+<colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
+<thead>
 <tr>
 <th>Default ClusterRole</th>
 <th>Default ClusterRoleBinding</th>
 <th>Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><b>system:auth-delegator</b></td>
 <td>None</td>
@@ -786,6 +801,7 @@ This is commonly used by add-on API servers for unified authentication and autho
 <td>None</td>
 <td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>.</td>
 </tr>
+<tbody>
 </table>
 
 ### Roles for built-in controllers {#controller-roles}

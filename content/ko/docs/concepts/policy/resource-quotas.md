@@ -33,7 +33,7 @@ weight: 10
 - `cpu`, `memory`와 같은 컴퓨트 리소스에 대해 네임스페이스에서 쿼터가 활성화된 경우
   사용자는 해당값에 대한 요청 또는 제한을 지정해야 한다. 그렇지 않으면 쿼터 시스템이
   파드 생성을 거부할 수 있다. 힌트: 컴퓨트 리소스 요구 사항이 없는 파드를 기본값으로 설정하려면 `LimitRanger` 어드미션 컨트롤러를 사용하자.
-  이 문제를 회피하는 방법에 대한 예제는 [연습](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)을 참고하길 바란다.
+  이 문제를 회피하는 방법에 대한 예제는 [연습](/ko/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)을 참고하길 바란다.
 
 `ResourceQuota` 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names#dns-서브도메인-이름)이어야 한다.
@@ -56,7 +56,8 @@ weight: 10
 API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 `ResourceQuota`가 있는 경우 활성화된다.
 
-해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에 리소스 쿼터가 적용된다.
+해당 네임스페이스에 `ResourceQuota`가 있는 경우 특정 네임스페이스에
+리소스 쿼터가 적용된다.
 
 ## 컴퓨트 리소스 쿼터
 
@@ -74,7 +75,7 @@ API 서버 `--enable-admission-plugins=` 플래그의 인수 중 하나로
 ### 확장된 리소스에 대한 리소스 쿼터
 
 위에서 언급한 리소스 외에도 릴리스 1.10에서는
-[확장된 리소스](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)에 대한 쿼터 지원이 추가되었다.
+[확장된 리소스](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)에 대한 쿼터 지원이 추가되었다.
 
 확장된 리소스에는 오버커밋(overcommit)이 허용되지 않으므로 하나의 쿼터에서
 동일한 확장된 리소스에 대한 `requests`와 `limits`을 모두 지정하는 것은 의미가 없다. 따라서 확장된
@@ -160,9 +161,10 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 | `services.nodeports` | 네임스페이스에 존재할 수 있는 노드 포트 유형의 총 서비스 수 |
 | `secrets` | 네임스페이스에 존재할 수 있는 총 시크릿 수 |
 
-예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를 계산하고 최대값을 적용한다.
-사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP 공급이 고갈되는 경우를 피하기 위해
-네임스페이스에 `pods` 쿼터를 설정할 수 있다.
+예를 들어, `pods` 쿼터는 터미널이 아닌 단일 네임스페이스에서 생성된 `pods` 수를
+계산하고 최댓값을 적용한다. 사용자가 작은 파드를 많이 생성하여 클러스터의 파드 IP
+공급이 고갈되는 경우를 피하기 위해 네임스페이스에
+`pods` 쿼터를 설정할 수 있다.
 
 ## 쿼터 범위
 
@@ -195,7 +197,7 @@ GPU 리소스를 다음과 같이 쿼터를 정의할 수 있다.
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
-특정 [우선 순위](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)로 파드를 생성할 수 있다.
+특정 [우선 순위](/ko/docs/concepts/configuration/pod-priority-preemption/#파드-우선순위)로 파드를 생성할 수 있다.
 쿼터 스펙의 `scopeSelector` 필드를 사용하여 파드의 우선 순위에 따라 파드의 시스템 리소스 사용을
 제어할 수 있다.
 
@@ -598,5 +600,3 @@ plugins:
 
 
 자세한 내용은 [리소스쿼터 디자인 문서](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md)를 참고하길 바란다.
-
-

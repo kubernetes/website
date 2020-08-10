@@ -1,12 +1,12 @@
 ---
 title: kube-proxy
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 30
 ---
 <!-- 
 ---
 title: kube-proxy
-content_template: templates/tool-reference
+content_type: tool-reference
 weight: 28
 --- 
 -->

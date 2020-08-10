@@ -11,7 +11,7 @@ weight: 70
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-[Pods](/docs/user-guide/pods) can have _priority_. Priority indicates the
+[Pods](/docs/concepts/workloads/pods/pod/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
@@ -255,7 +255,7 @@ makes Pod P eligible to preempt Pods on another Node.
 #### Graceful termination of preemption victims
 
 When Pods are preempted, the victims get their
-[graceful termination period](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[graceful termination period](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 They have that much time to finish their work and exit. If they don't, they are
 killed. This graceful termination period creates a time gap between the point
 that the scheduler preempts Pods and the time when the pending Pod (P) can be
@@ -268,7 +268,7 @@ priority Pods to zero or a small number.
 
 #### PodDisruptionBudget is supported, but not guaranteed
 
-A [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/)
+A [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB)
 allows application owners to limit the number of Pods of a replicated application
 that are down simultaneously from voluntary disruptions. Kubernetes supports
 PDB when preempting Pods, but respecting PDB is best effort. The scheduler tries

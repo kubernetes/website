@@ -1,18 +1,17 @@
 ---
 title: HugePages 관리
-content_template: templates/task
+content_type: task
+description: 클러스터에서 huge page를 스케줄할 수 있는 리소스로 구성하고 관리한다.
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state state="stable" >}}
 
-쿠버네티스는 **GA** 기능으로 파드의 애플리케이션에 미리 할당된
-huge page의 할당과 사용을 지원한다. 이 페이지에서는 사용자가
-huge page를 사용하는 방법과 현재의 제약 사항에 대해 설명한다.
+쿠버네티스는 파드의 애플리케이션에 미리 할당된
+huge page의 할당과 사용을 지원한다. 이 페이지에서는 사용자가 huge page를 사용하는 방법에 대해 설명한다.
 
-{{% /capture %}}
+## {{% heading "prerequisites" %}}
 
-{{% capture prerequisites %}}
 
 1. 쿠버네티스 노드는 노드에 대한 huge page 용량을 보고하기 위해
    huge page를 미리 할당해야 한다. 노드는 여러 크기의 huge page를 미리 할당할 수
@@ -21,9 +20,9 @@ huge page를 사용하는 방법과 현재의 제약 사항에 대해 설명한�
 노드는 모든 huge page 리소스를 스케줄 가능한 리소스로 자동 검색하고
 보고한다.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## API
 
@@ -116,11 +115,4 @@ glossary_tooltip text="kubelet" term_id="kubelet" >}} 및 {{<
 glossary_tooltip text="kube-apiserver"
 term_id="kube-apiserver" >}} (`--feature-gates=HugePageStorageMediumSize=true`)의
 `HugePageStorageMediumSize` [기능
-게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 활성화할 수 있다.
-
-## 향후 버전
-
-- NUMA 지역성(locality)은 서비스 품질(QoS)의 기능으로 보장할 예정이다.
-- 리밋레인지(LimitRange)를 지원할 예정이다.
-
-{{% /capture %}}
+게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 사용하여 활성화할 수 있다.

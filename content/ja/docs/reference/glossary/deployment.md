@@ -4,7 +4,7 @@ id: deployment
 date: 2018-04-12
 full_link: /ja/docs/concepts/workloads/controllers/deployment/
 short_description: >
-  複製されたアプリケーションを管理するAPIオブジェクト。
+  複製されたアプリケーションを管理するAPIオブジェクトです。
 
 aka: 
 tags:
@@ -12,7 +12,7 @@ tags:
 - core-object
 - workload
 ---
- 複製されたアプリケーションを管理するAPIオブジェクト。
+ 複製されたアプリケーションを管理するAPIオブジェクトです。
 
 <!--more--> 
 

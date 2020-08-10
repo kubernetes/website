@@ -27,7 +27,7 @@ Extension-apiserver는 kube-apiserver로 오가는 연결의 레이턴시가 낮
 kube-apiserver로 부터의 디스커버리 요청은 왕복 레이턴시가 5초 이내여야 한다.
 
 extention API server가 레이턴시 요구 사항을 달성할 수 없는 경우 이를 충족할 수 있도록 변경하는 것을 고려한다.
-`EnableAggregatedDiscoveryTimeout=false` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 설정해서 타임아웃
+`EnableAggregatedDiscoveryTimeout=false` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 설정해서 타임아웃
 제한을 비활성화 할 수 있다. 이 사용 중단(deprecated)된 기능 게이트는 향후 릴리스에서 제거될 예정이다.
 
 
@@ -35,9 +35,7 @@ extention API server가 레이턴시 요구 사항을 달성할 수 없는 경�
 ## {{% heading "whatsnext" %}}
 
 
-* 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
-* 다음에, [extension api-server를 구성해서](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.
-* 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)를 배워본다.
+* 사용자의 환경에서 Aggregator를 동작시키려면, [애그리게이션 레이어를 설정한다](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
+* 다음에, [확장 API 서버를 구성해서](/docs/tasks/extend-kubernetes/setup-extension-api-server/) 애그리게이션 레이어와 연계한다.
+* 또한, 어떻게 [쿠버네티스 API를 커스텀 리소스 데피니션으로 확장하는지](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)를 배워본다.
 * [API 서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)의 사양을 읽어본다.
-
-

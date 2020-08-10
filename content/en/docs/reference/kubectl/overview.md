@@ -10,11 +10,16 @@ card:
 ---
 
 <!-- overview -->
-The kubectl command line tool lets you control Kubernetes clusters. For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory. You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) files by setting the KUBECONFIG environment variable or by setting the [`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
+The kubectl command line tool lets you control Kubernetes clusters.
+For configuration, `kubectl` looks for a file named `config` in the `$HOME/.kube` directory.
+You can specify other [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+files by setting the KUBECONFIG environment variable or by setting the
+[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) flag.
 
-This overview covers `kubectl` syntax, describes the command operations, and provides common examples. For details about each command, including all the supported flags and subcommands, see the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation. For installation instructions see [installing kubectl](/docs/tasks/kubectl/install/).
-
-
+This overview covers `kubectl` syntax, describes the command operations, and provides common examples.
+For details about each command, including all the supported flags and subcommands, see the
+[kubectl](/docs/reference/generated/kubectl/kubectl-commands/) reference documentation.
+For installation instructions see [installing kubectl](/docs/tasks/tools/install-kubectl/).
 
 <!-- body -->
 
@@ -28,9 +33,12 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 where `command`, `TYPE`, `NAME`, and `flags` are:
 
-* `command`: Specifies the operation that you want to perform on one or more resources, for example `create`, `get`, `describe`, `delete`.
+* `command`: Specifies the operation that you want to perform on one or more resources, 
+for example `create`, `get`, `describe`, `delete`.
 
-* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and you can specify the singular, plural, or abbreviated forms. For example, the following commands produce the same output:
+* `TYPE`: Specifies the [resource type](#resource-types). Resource types are case-insensitive and
+  you can specify the singular, plural, or abbreviated forms.
+  For example, the following commands produce the same output:
 
    ```shell
    kubectl get pod pod1
@@ -208,11 +216,13 @@ In this example, the following command outputs the details for a single pod as a
 kubectl get pod web-pod-13je7 -o yaml
 ```
 
-Remember: See the [kubectl](/docs/user-guide/kubectl/) reference documentation for details about which output format is supported by each command.
+Remember: See the [kubectl](/docs/reference/kubectl/kubectl/) reference documentation
+for details about which output format is supported by each command.
 
 #### Custom columns
 
-To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option. You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
+To define custom columns and output only the details that you want into a table, you can use the `custom-columns` option.
+You can choose to define the custom columns inline or use a template file: `-o custom-columns=<spec>` or `-o custom-columns-file=<filename>`.
 
 ##### Examples
 
@@ -496,11 +506,7 @@ kubectl whoami
 Current user: plugins-user
 ```
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Start using the [kubectl](/docs/reference/generated/kubectl/kubectl-commands/) commands.
 

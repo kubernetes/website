@@ -229,9 +229,24 @@ other = "ICH BIN..."
 ```
 Durch die Lokalisierung von Website-Zeichenfolgen kannst du Website-weiten Text und Funktionen anpassen: z. B. den gesetzlichen Copyright-Text in der Fußzeile auf jeder Seite.
 
-### Sprachspezifischer Styleguide und Glossar
+## Sprachspezifischer Styleguide
 
 Einige Sprachteams haben ihren eigenen sprachspezifischen Styleguide und ihr eigenes Glossar. Siehe zum Beispiel den [Leitfaden zur koreanischen Lokalisierung](/ko/docs/contribute/localization_ko/).
+
+### Informale Schreibweise
+Für die deutsche Übersetzungen verwenden wir eine informelle Schreibweise und der Ansprache per `Du`. Allerdings werden keine Jargon, Slang, Wortspiele, Redewendungen oder kulturspezifische Bezüge eingebracht.
+
+### Datums und Maßeinheiten
+Wenn notwendig sollten Datumsangaben in das in Deutschland übliche dd.mm.yyyy überführt werden. Alternativ können diese auch in den Textfluss eingebunden werden: "... am 24. April ....".
+
+### Abkürzungen 
+Abkürzungen sollten nach Möglichkeit nicht verwendet werden und entweder ausgeschrieben oder anderweitig umgangen werden.
+
+### Zusammengesetzte Wörter
+Durch die Übersetzung werden oft Nomen aneinandergereiht, diese Wortketten müssen durch Bindestriche verbunden werden. Dies ist auch möglich wenn ein Teil ins Deutsche übersetzt wird ein weiterer jedoch im Englischen bestehen bleibt. Als Richtlinie gilt hier der [Duden](https://www.duden.de/sprachwissen/rechtschreibregeln/bindestrich).
+
+### Anglizismen
+Die Verwendung von Anglizismen ist dann wünschenswert, wenn die Verwendung eines deutschen Wortes, vor allem für technische Begriffe, nicht eindeutig ist oder zu Unklarheiten führt. 
 
 ## Branching Strategie
 

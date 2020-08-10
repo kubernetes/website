@@ -1,9 +1,10 @@
 ---
-reviewers:
 title: 네트워크 폴리시로 큐브 라우터(Kube-router) 사용하기
 content_type: task
 weight: 30
 ---
+
+
 
 <!-- overview -->
 이 페이지는 네트워크 폴리시(NetworkPolicy)로 [큐브 라우터(Kube-router)](https://github.com/cloudnativelabs/kube-router)를 사용하는 방법을 살펴본다.
@@ -21,7 +22,4 @@ weight: 30
 
 ## {{% heading "whatsnext" %}}
 
-큐브 라우터 애드온을 설치한 후에는, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
-
-
-
+큐브 라우터 애드온을 설치한 후에는, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/ko/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.

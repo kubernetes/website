@@ -17,7 +17,8 @@ This page shows how to debug Pods and ReplicationControllers.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * You should be familiar with the basics of
-  [Pods](/docs/concepts/workloads/pods/pod/) and [Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
+  {{< glossary_tooltip text="Pods" term_id="pod" >}} and with 
+  Pods' [lifecycles](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 
 
