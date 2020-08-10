@@ -48,7 +48,7 @@ Open up your browser to http://localhost:1313 to view the website. As you make c
 
 ## Running the website locally using Hugo
 
-You can run Hugo directly (not inside a container). You need to install the version ofHugo that is specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+You can run Hugo directly (not inside a container). You need to install the version of Hugo that is specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
 
 To build and test the site locally, run:
 
