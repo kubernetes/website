@@ -72,7 +72,7 @@ Follow the steps given below to create the above Deployment:
 1. Create the Deployment by running the following command:
 
    ```shell
-   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+   kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --record=true
    ```
 
   {{< note >}}
