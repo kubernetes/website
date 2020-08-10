@@ -94,14 +94,14 @@ using the attribute `volumeSnapshotClassName`. If nothing is set, then the defau
 
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
 
-```
+```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: test-snapshot
 spec:
   source:
-        volumeSnapshotContentName: test-content
+    volumeSnapshotContentName: test-content
 ```
 
 ## Volume Snapshot Contents
