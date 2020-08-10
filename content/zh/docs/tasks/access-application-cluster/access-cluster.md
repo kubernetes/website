@@ -319,7 +319,7 @@ their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a 
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
 -->
-## 访问集群中正在运行的服务
+## 访问集群中正在运行的服务  {#accessing-services-running-on-the-cluster}
 
 上一节介绍了如何连接 Kubernetes API 服务。本节介绍如何连接到 Kubernetes 集群上运行的其他服务。
 在 Kubernetes 中，[节点](/docs/admin/node)，[pods](/docs/user-guide/pods) 和 [服务](/docs/user-guide/services) 都有自己的 IP。
