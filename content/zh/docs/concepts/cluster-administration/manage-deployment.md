@@ -495,7 +495,7 @@ For more information, please see [kubectl scale](/docs/reference/generated/kubec
 
 Sometimes it's necessary to make narrow, non-disruptive updates to resources you've created.
  -->
-## 就地更新资源
+## 就地更新资源  {#in-place-updates-of-resources}
 
 有时，有必要对您所创建的资源进行小范围、无干扰地更新。
 
