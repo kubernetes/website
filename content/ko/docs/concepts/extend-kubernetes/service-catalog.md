@@ -1,7 +1,5 @@
 ---
 title: 서비스 카탈로그
-reviewers:
--
 content_type: concept
 weight: 40
 ---
@@ -20,8 +18,8 @@ weight: 40
 <!-- body -->
 ## 유스케이스 예제
 
-한 애플리케이션 개발자가 쿠버네티스 클러스터 내에서 실행되는 응용프로그램 중 일부로 메시지 큐를 사용 하기를 원한다.
-그러나 그러한 서비스를 설정하고 관리하는 노력을 원하지는 않는다.
+한 {{< glossary_tooltip text="애플리케이션 개발자" term_id="application-developer" >}}가 쿠버네티스 클러스터 내에서 실행되는 애플리케이션 중 일부로 메시지 큐를 사용 하기를 원한다.
+그러나 그러한 서비스에 대한 설정과 관리에는 부담이 따른다.
 다행히 서비스 브로커를 통해 메시지 큐를 매니지드 서비스로 제공하는 클라우드 공급자가 있다.
 
 클러스터 운영자는 서비스 카탈로그를 설정하고 이를 이용하여 클라우드 공급자의 서비스 브로커와 통신하여 메시지 큐 서비스의 인스턴스를 프로비저닝 하고 쿠버네티스 클러스터 내의 애플리케이션에서 사용할 수 있게 한다.
@@ -32,7 +30,7 @@ weight: 40
 
 서비스 카탈로그는 [오픈 서비스 브로커 API](https://github.com/openservicebrokerapi/servicebroker)를 사용하여 쿠버네티스 API 서버가 초기 프로비저닝을 협상하고 애플리케이션이 매니지드 서비스를 사용 하는데 필요한 자격 증명을 검색하는 중개자 역할을 하는 서비스 브로커와 통신한다.
 
-스토리지에 etcd를 사용하여 확장 API 서버와 컨트롤러로 구현된다. 또한 쿠버네티스 1.7 이상에서 제공하는 [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하여 API를 제공한다.
+스토리지에 etcd를 사용하여 확장 API 서버와 컨트롤러로 구현된다. 또한 쿠버네티스 1.7 이상에서 제공하는 [애그리게이션 레이어(aggregation layer)](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하여 API를 제공한다.
 
 <br>
 
@@ -41,41 +39,41 @@ weight: 40
 
 ### API 리소스
 
-서비스 카탈로그는 `servicecatalog.k8s.io` API를 설치하고 다음 쿠버네티스 리소스를 제공합니다.
+서비스 카탈로그는 `servicecatalog.k8s.io` API를 설치하고 다음 쿠버네티스 리소스를 제공한다.
 
-* `ClusterServiceBroker`: 서버 연결 내부 사항을 캡슐화한, 서비스 브로커의 클러스터 내부 대표.
+* `ClusterServiceBroker`: 서버 연결 세부 사항을 캡슐화한, 서비스 브로커의 클러스터 내부 대표.
 이들은 클러스터 내에서 새로운 유형의 매니지드 서비스를 사용 할 수 있도록 하려는 클러스터 운영자가 만들고 관리한다.
 `ClusterServiceClass`: 특정 서비스 브로커가 제공하는 매니지드 서비스.
-새로운 `ClusterServiceBroker` 자원이 클러스터에 추가되면 서비스 카탈로그 컨트롤러는 서비스 브로커에 연결해서 사용 가능한 매니지드 서비스 목록을 얻는다. 그 다음 각 매니지드 서비스에 해당하는 새로운 `ClusterServiceClass` 리소스를 만든다.
-`ClusterServicePlan`: 매니지드 서비스의 특별 요청. 예를 들어, 매니지드 서비스는 무료 혹은 유료 티어와 같이 사용 가능한 다른 계획이 있거나, SSD 스토리지를 사용하거나 더 많은 리소스를 갖는 등 다른 구성 옵션을 가질 수 있다. `ClusterServiceClass`와 유사하게, 새로운 `ClusterServiceBroker`가 클러스터에 추가되면, 서비스 카탈로그는 각 매니지드 서비스에 사용 가능한 서비스 플랜에 해당하는 새로운 `ClusterServicePlan` 자원을 작성한다.
+새로운 `ClusterServiceBroker` 리소스가 클러스터에 추가되면 서비스 카탈로그 컨트롤러는 서비스 브로커에 연결해서 사용 가능한 매니지드 서비스 목록을 얻는다. 그 다음 각 매니지드 서비스에 해당하는 새로운 `ClusterServiceClass` 리소스를 만든다.
+`ClusterServicePlan`: 매니지드 서비스의 특별 요청. 예를 들어, 매니지드 서비스는 무료 혹은 유료 티어와 같이 사용 가능한 서로 다른 상품이 있거나, SSD 스토리지를 사용하거나 더 많은 리소스를 갖는 등 다른 구성 옵션을 가질 수 있다. `ClusterServiceClass`와 유사하게, 새로운 `ClusterServiceBroker`가 클러스터에 추가되면, 서비스 카탈로그는 각 매니지드 서비스에 사용 가능한 서비스 플랜에 해당하는 새로운 `ClusterServicePlan` 리소스를 작성한다.
 `ServiceInstance`: `ClusterServiceClass`의 프로비저닝 된 인스턴스.
 클러스터 운영자가 하나 이상의 클러스터 애플리케이션에서 사용할 수 있도록 매니지드 서비스의 특정 인스턴스를 사용하기 위해 생성한다.
-새로운 `ServiceInstance`자원이 생성되면, 서비스 카탈로그 컨트롤러는 해당 서비스 브로커에 연결하여 서비스 인스턴스를 프로비저닝하도록 지시한다.
+새로운 `ServiceInstance`리소스가 생성되면, 서비스 카탈로그 컨트롤러는 해당 서비스 브로커에 연결하여 서비스 인스턴스를 프로비저닝하도록 지시한다.
 `ServiceBinding`: `ServiceInstance`에 대한 자격 증명에 액세스한다.
 자신의 애플리케이션이 `ServiceInstance`를 사용하기를 원하는 클러스터 운영자가 이들을 생성한다.
-서비스 카탈로그 컨트롤러는 생성시 파드에 마운트 될 수 있는 서비스 인스턴스에 대한 연결 세부 정보와 자격 증명이 포함된 쿠버네티스 '시크릿'을 생성한다.
+서비스 카탈로그 컨트롤러는 생성시 파드(pod)에 마운트 될 수 있는 서비스 인스턴스에 대한 연결 세부 정보와 자격 증명이 포함된 쿠버네티스 '시크릿(secret)'을 생성한다.
 
 ### 인증
 
-서비스 카탈로그는 다음의 인증 방법을 지원한다:
+서비스 카탈로그는 다음의 인증 방법을 지원한다.
 
 * 기본 (username/password)
 * [OAuth 2.0 Bearer Token](https://tools.ietf.org/html/rfc6750)
 
 ## 사용법
 
-클러스터 운영자는 서비스 카탈로그 API 리소스를 사용하여 매니지드 서비스를 프로비저닝하여 쿠버네티스 클러스터 내에서 사용할 수 있게 한다. 관련 단계는 다음과 같다:
+클러스터 운영자는 서비스 카탈로그 API 리소스를 사용하여 매니지드 서비스를 프로비저닝하여 쿠버네티스 클러스터 내에서 사용할 수 있게 한다. 관련 단계는 다음과 같다.
 
-1. 서비스 브로커에서 사용 가능한 매니지드 서비스와 서비스 플랜을 나열한다.
+1. 서비스 브로커에서 사용 가능한 매니지드 서비스와 서비스 플랜을 나열.
 1. 매니지드 서비스의 새 인스턴스 프로비저닝.
 1. 연결 자격 증명을 반환하는 매니지드 서비스에 바인딩.
 1. 연결 자격 증명을 애플리케이션에 매핑.
 
 ### 매니지드 서비스와 서비스 플랜 나열
 
-먼저, 클러스터 운영자는 `servicecatalog.k8s.io` 그룹 내에 `ClusterServiceBroker` 리소스를 생성해야 한다. 이 자원은 서비스 브로커 엔드포인트에 접근하는데 필요한 URL과 연결 세부 사항이 포함한다.
+먼저, 클러스터 운영자는 `servicecatalog.k8s.io` 그룹 내에 `ClusterServiceBroker` 리소스를 생성해야 한다. 이 리소스는 서비스 브로커 엔드포인트에 접근하는데 필요한 URL과 연결 세부 사항을 포함한다.
 
-다음은 `ClusterServiceBroker` 리소스 예시이다:
+다음은 `ClusterServiceBroker` 리소스 예시이다.
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -86,32 +84,32 @@ spec:
   # 서비스 브로커의 엔드 포인트를 가리킨다. (이 예시는 동작하지 않는 URL 이다.)
   url:  https://servicebroker.somecloudprovider.com/v1alpha1/projects/service-catalog/brokers/default
   #####
-  # 베어러 토큰 정보 혹은 TLS용 caBundle과 같은
+  # bearer 토큰 정보 혹은 TLS용 caBundle과 같은
   # 서비스 브로커와 통신 하는데 사용될 수 있는 값을 여기에 추가 할 수 있다.
   #####
 ```
 
-다음은 서비스 브로커에서 사용 가능한 매니지드 서비스와 플랜을 나열하는 단계를 설명하는 시퀀스 다이어그램이다:
+다음은 서비스 브로커에서 사용 가능한 매니지드 서비스와 플랜을 나열하는 단계를 설명하는 시퀀스 다이어그램이다.
 
 ![List Services](/images/docs/service-catalog-list.svg)
 
-1. `ClusterServiceBroker` 자원이 서비스 카탈로그에 추가되면, 사용 가능한 서비스 목록에 대한 외부 서비스 브로커에 대한 호출을 발생시킵니다.
-1. 서비스 브로커는 사용 가능한 매니지드 서비스 목록과 서비스 플랜 목록을 반환한다. 이 목록은 각각 로컬 `ClusterServiceClass`와 `ClusterServicePlan` 리소스로 캐시됩니다.
-1. 그런 다음 클러스터 운영자는 다음의 명령어를 사용하여 가용한 관리 서비스 목록을 얻을 수 있다:
+1. `ClusterServiceBroker` 리소스가 서비스 카탈로그에 추가되면, 사용 가능한 서비스 목록에 대한 외부 서비스 브로커에 대한 호출을 발생시킨다.
+1. 서비스 브로커는 사용 가능한 매니지드 서비스 목록과 서비스 플랜 목록을 반환한다. 이 목록은 각각 로컬 `ClusterServiceClass`와 `ClusterServicePlan` 리소스로 캐시된다.
+1. 그런 다음 클러스터 운영자는 다음의 명령어를 사용하여 가용한 관리 서비스 목록을 얻을 수 있다.
 
         kubectl get clusterserviceclasses -o=custom-columns=SERVICE\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
 
-    아래와 같은 형태의 서비스 이름 목록이 출력된다:
+    아래와 같은 형태의 서비스 이름 목록이 출력된다.
 
         SERVICE NAME                           EXTERNAL NAME
         4f6e6cf6-ffdd-425f-a2c7-3c9258ad2468   cloud-provider-service
         ...                                    ...
 
-    또한 다음의 명령어를 사용하여 가용한 서비스 플랜을 볼 수 있다:
+    또한 다음의 명령어를 사용하여 가용한 서비스 플랜을 볼 수 있다.
 
         kubectl get clusterserviceplans -o=custom-columns=PLAN\ NAME:.metadata.name,EXTERNAL\ NAME:.spec.externalName
 
-    아래와 같은 형태의 플랜 이름 목록이 출력된다:
+    아래와 같은 형태의 플랜 이름 목록이 출력된다.
 
         PLAN NAME                              EXTERNAL NAME
         86064792-7ea2-467b-af93-ac9694d96d52   service-plan-name
@@ -122,7 +120,7 @@ spec:
 
 클러스터 운영자는 `ServiceInstance` 리소스를 생성하여 새 인스턴스 프로비져닝을 시작할 수 있다.
 
-다음은 `ServiceInstance` 리소스의 예시이다:
+다음은 `ServiceInstance` 리소스의 예시이다.
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -140,19 +138,19 @@ spec:
   #####
 ```
 
-다음의 시퀀스 다이어그램은 매니지드 서비스의 새 인스턴스 프로비져닝과 관련된 일련의 단계를 보여준다:
+다음의 시퀀스 다이어그램은 매니지드 서비스의 새 인스턴스 프로비져닝과 관련된 일련의 단계를 보여준다.
 
 ![Provision a Service](/images/docs/service-catalog-provision.svg)
 
 1. `ServiceInstance` 리소스가 생성되면, 서비스 카탈로그는 서비스 인스턴스를 프로비저닝 하기 위해 외부의 서비스 브로커 호출을 초기화 한다.
-1. 서비스 브로커는 새로운 매니지드 서비스 인스턴스를 생성하고 HHTP 응답을 리턴한다.
+1. 서비스 브로커는 새로운 매니지드 서비스 인스턴스를 생성하고 HTTP 응답을 리턴한다.
 1. 그 후 클러스터 운영자는 인스턴스 상태가 준비 되었는지 점검 할 수 있다.
 
 ### 매니지드 서비스에 바인딩
 
 새 인스턴스가 프로비저닝 된 후, 클러스터 운영자는 애플리케이션이 서비스를 사용 하는데 필요한 자격 증명을 얻기 위해 매니지드 서비스에 바인드 해야 한다. 이것은 `ServiceBinding` 리소스를 생성하는 것으로 이루어진다.
 
-다음은 `ServiceBinding` 리소스의 예시다:
+다음은 `ServiceBinding` 리소스의 예시다.
 
 ```yaml
 apiVersion: servicecatalog.k8s.io/v1beta1
@@ -169,7 +167,7 @@ spec:
   #####
 ```
 
-다음의 시퀀스 다이어그램은 매니지드 서비스 인스턴스에 바인딩하는 단계를 보여준다:
+다음의 시퀀스 다이어그램은 매니지드 서비스 인스턴스에 바인딩하는 단계를 보여준다.
 
 ![Bind to a managed service](/images/docs/service-catalog-bind.svg)
 
@@ -180,7 +178,7 @@ spec:
 ### 연결 자격 증명 매핑
 
 바인딩 후 마지막 단계는 연결 자격 증명과 서비스 특화 정보를 애플리케이션에 매핑 하는 것이다.
-이런 정보는 클러스터의 애플리케이션이 액세시 하여 매니지드 서비스와 직접 연결 하는데 사용 할 수 있는 시크릿(Secret)으로 저장된다.
+이런 정보는 클러스터의 애플리케이션이 액세시 하여 매니지드 서비스와 직접 연결 하는데 사용 할 수 있는 시크릿으로 저장된다.
 
 <br>
 
