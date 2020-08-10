@@ -104,7 +104,13 @@ to handle this automatically.
 ## Enabling storage capacity tracking
 
 Storage capacity tracking is an *alpha feature* and only enabled when
-the `CSIStorageCapacity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled. A quick check
+the `CSIStorageCapacity` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/) and
+the `storage.k8s.io/v1alpha1` API group are enabled. For details on
+that, see the `--feature-gates` and `--runtime-config` [apiserver
+parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
+
+A quick check
 whether a Kubernetes cluster supports the feature is to list
 CSIStorageCapacity objects with:
 ```shell
