@@ -8,7 +8,7 @@ reviewers:
 - smarterclayton
 title: StatefulSets
 content_type: concept
-weight: 40
+weight: 30
 ---
 
 <!-- overview -->

@@ -5,7 +5,7 @@ reviewers:
 - madhusudancs
 title: ReplicaSet
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
