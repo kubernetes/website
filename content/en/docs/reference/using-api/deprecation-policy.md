@@ -289,8 +289,7 @@ API versions are supported in a series of subsequent releases.
 ### REST resources (aka API objects)
 
 Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We
-[document](/docs/reference/deprecation-policy/) and
+in the above timeline, and which needs to be deprecated.  We document and
 [announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
 deprecation in sync with release X+1.  The Widget resource still exists in API
 version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to

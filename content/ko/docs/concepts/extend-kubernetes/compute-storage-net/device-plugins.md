@@ -38,7 +38,7 @@ service Registration {
   * 유닉스 소켓의 이름.
   * 빌드된 장치 플러그인 API 버전.
   * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
-	  [확장된 리소스 네이밍 체계](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)를
+	  [확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
 		`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
 		(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
@@ -158,7 +158,7 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 현�
 장치 플러그인에서 제공하는 리소스를 모니터링하려면, 모니터링 에이전트가
 노드에서 사용 중인 장치 셋을 검색하고 메트릭과 연관될 컨테이너를 설명하는
 메타데이터를 얻을 수 있어야 한다. 장치 모니터링 에이전트에 의해 노출된
-[프로메테우스(Prometheus)](https://prometheus.io/) 지표는
+[프로메테우스](https://prometheus.io/) 지표는
 [쿠버네티스 Instrumentation 가이드라인](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/instrumentation.md)을 따라
 `pod`, `namespace` 및 `container` 프로메테우스 레이블을 사용하여 컨테이너를 식별해야 한다.
 
@@ -181,7 +181,7 @@ gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 �
 `/var/lib/kubelet/pod-resources` 를
 {{< glossary_tooltip text="볼륨" term_id="volume" >}}으로 마운트해야 한다.
 
-"PodResources 서비스"를 지원하려면 `KubeletPodResources` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 쿠버네티스 1.15부터 기본적으로 활성화되어 있다.
+"PodResources 서비스"를 지원하려면 `KubeletPodResources` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 쿠버네티스 1.15부터 기본적으로 활성화되어 있다.
 
 ## 토폴로지 관리자와 장치 플러그인 통합
 
@@ -222,15 +222,13 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * [RDMA 장치 플러그인](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [Solarflare 장치 플러그인](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 네트워크 장치 플러그인](https://github.com/intel/sriov-network-device-plugin)
-* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk)
+* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
-* 노드에서의 [확장 리소스 알리기](/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
+* 장치 플러그인을 사용한 [GPU 리소스 스케줄링](/ko/docs/tasks/manage-gpus/scheduling-gpus/)에 대해 알아보기
+* 노드에서의 [확장 리소스 알리기](/ko/docs/tasks/administer-cluster/extended-resource-node/)에 대해 배우기
 * 쿠버네티스에서 [TLS 수신에 하드웨어 가속](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 사용에 대해 읽기
 * [토폴로지 관리자](/docs/tasks/adminster-cluster/topology-manager/)에 대해 알아보기
-
-

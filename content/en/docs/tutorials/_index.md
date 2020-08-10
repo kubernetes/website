@@ -1,6 +1,7 @@
 ---
 title: Tutorials
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -13,8 +14,6 @@ A tutorial shows how to accomplish a goal that is larger than a single
 each of which has a sequence of steps.
 Before walking through each tutorial, you may want to bookmark the
 [Standardized Glossary](/docs/reference/glossary/) page for later references.
-
-
 
 <!-- body -->
 
@@ -64,13 +63,8 @@ Before walking through each tutorial, you may want to bookmark the
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 If you would like to write a tutorial, see
 [Content Page Types](/docs/contribute/style/page-content-types/)
 for information about the tutorial page type.
-
-

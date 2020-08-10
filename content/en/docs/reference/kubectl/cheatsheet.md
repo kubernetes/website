@@ -166,6 +166,10 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Retrieve the value of a key with dots, e.g. 'ca.crt'
+kubectl get configmap myconfig \
+  -o jsonpath='{.data.ca\.crt}'
+
 # Get all worker nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
@@ -200,6 +204,13 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
+
+# Produce a period-delimited tree of all keys returned for nodes
+# Helpful when locating a key within a complex nested JSON structure
+kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# Produce a period-delimited tree of all keys returned for pods, etc
+kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 ```
 
 ## Updating Resources

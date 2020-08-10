@@ -28,7 +28,7 @@ weight: 10
 
 ## kube-scheduler
 
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)는
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)는
 쿠버네티스의 기본 스케줄러이며 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의
 일부로 실행된다.
 kube-scheduler는 원하거나 필요에 따라 자체 스케줄링 컴포넌트를
@@ -89,10 +89,9 @@ _스코어링_ 단계에서 스케줄러는 목록에 남아있는 노드의 순
 
 ## {{% heading "whatsnext" %}}
 
-* [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling/scheduler-perf-tuning/)에 대해 읽기
+* [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)에 대해 읽기
 * [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽기
 * kube-scheduler의 [레퍼런스 문서](/docs/reference/command-line-tools-reference/kube-scheduler/) 읽기
 * [멀티 스케줄러 구성하기](/docs/tasks/administer-cluster/configure-multiple-schedulers/)에 대해 배우기
 * [토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)에 대해 배우기
-* [파드 오버헤드](/docs/concepts/configuration/pod-overhead/)에 대해 배우기
-
+* [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/)에 대해 배우기

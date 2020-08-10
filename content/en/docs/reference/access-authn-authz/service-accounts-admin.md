@@ -10,8 +10,8 @@ weight: 50
 ---
 
 <!-- overview -->
-This is a Cluster Administrator guide to service accounts. It assumes knowledge of
-the [User Guide to Service Accounts](/docs/user-guide/service-accounts).
+This is a Cluster Administrator guide to service accounts. You should be familiar with 
+[configuring Kubernetes service accounts](/docs/tasks/configure-pod-container/configure-service-account/).
 
 Support for authorization and user accounts is planned but incomplete.  Sometimes
 incomplete features are referred to in order to better describe service accounts.

@@ -39,7 +39,7 @@ IPv4/IPv6 이중 스택 쿠버네티스 클러스터를 활용하려면 다음�
 
 ## IPv4/IPv6 이중 스택 활성화
 
-IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요소에 대해 `IPv6DualStack` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 를 활성화 하고, 이중 스택 클러스터 네트워크 할당을 설정한다.
+IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요소에 대해 `IPv6DualStack` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 를 활성화 하고, 이중 스택 클러스터 네트워크 할당을 설정한다.
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
@@ -47,7 +47,7 @@ IPv4/IPv6 이중 스택을 활성화 하려면, 클러스터의 관련 구성요
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64이다.
+      * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` IPv4의 기본값은 /24 이고 IPv6의 기본값은 /64 이다.
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
@@ -105,5 +105,3 @@ IPv6가 활성화된 외부 로드 밸런서를 지원하는 클라우드 공급
 
 
 * [IPv4/IPv6 이중 스택 확인](/docs/tasks/network/validate-dual-stack) 네트워킹
-
-

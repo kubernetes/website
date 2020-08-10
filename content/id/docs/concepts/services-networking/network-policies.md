@@ -80,7 +80,7 @@ kecuali penyedia jaringan mendukung network policy.
 **_Field-field_ yang bersifat wajib**: Sama dengan seluruh _config_ Kubernetes lainnya, sebuah `NetworkPolicy`
 membutuhkan _field-field_ `apiVersion`, `kind`, dan `metadata`.  Informasi generik mengenai
 bagaimana bekerja dengan _file_ `config`, dapat dilihat di
-[Konfigurasi Kontainer menggunakan `ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[Konfigurasi Kontainer menggunakan `ConfigMap`](/id/docs/tasks/configure-pod-container/configure-pod-configmap/),
 serta [Manajemen Objek](/docs/concepts/overview/object-management-kubectl/overview/).
 
 **spec**: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) memiliki semua informasi yang harus diberikan untuk memberikan definisi _network policy_ yang ada pada _namespace_ tertentu.

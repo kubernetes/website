@@ -1,7 +1,6 @@
 # Kubernetesのドキュメント
 
-[![Build Status](https://api.travis-ci.org/kubernetes/website.svg?branch=master)](https://travis-ci.org/kubernetes/website)
-[![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 このリポジトリには、[KubernetesのWebサイトとドキュメント](https://kubernetes.io/)をビルドするために必要な全アセットが格納されています。貢献に興味を持っていただきありがとうございます！
 
@@ -14,7 +13,20 @@ Hugoがインストールできたら、以下のコマンドを使ってWebサ�
 ```bash
 git clone https://github.com/kubernetes/website.git
 cd website
-git submodule update --init --recursive
+git submodule update --init --recursive --depth 1
+```
+
+**注意:** Kubernetesのウェブサイトでは[DocsyというHugoのテーマ](https://github.com/google/docsy#readme)を使用しています。リポジトリを更新していない場合、 `website/themes/docsy`ディレクトリは空です。 このサイトはテーマのローカルコピーなしでは構築できません。
+
+テーマをアップデートするには以下のコマンドを実行します:
+
+```bash
+git submodule update --init --recursive --depth 1
+```
+
+サイトをローカルでビルドしてテストするには以下のコマンドを実行します:
+
+```bash
 hugo server --buildFuture
 ```
 
@@ -33,11 +45,11 @@ hugo server --buildFuture
 
 GitHubの画面右上にある**Fork**ボタンをクリックすると、お使いのGitHubアカウントに紐付いた本リポジトリのコピーが作成され、このコピーのことを*フォーク*と呼びます。フォークリポジトリの中ではお好きなように変更を加えていただいて構いません。加えた変更をこのリポジトリに追加したい任意のタイミングにて、フォークリポジトリからPull Reqeustを作成してください。
 
-Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。
-Pull Requestの所有者は作成者であるため、**ご自身で作成したPull Requestを編集し、フィードバックに対応するのはご自身の役目です。**
+Pull Requestが作成されると、レビュー担当者が責任を持って明確かつ実用的なフィードバックを返します。Pull Requestの所有者は作成者であるため、**ご自身で作成したPull Requestを編集し、フィードバックに対応するのはご自身の役目です。**
+
 また、状況によっては2人以上のレビュアーからフィードバックが返されたり、アサインされていないレビュー担当者からのフィードバックが来ることがある点もご注意ください。
-さらに、特定のケースにおいては、レビュー担当者がKubernetesの技術的なレビュアーに対してレビューを依頼することもあります。
-レビュー担当者はタイムリーにフィードバックを提供するために最善を尽くしますが、応答時間は状況に応じて異なる場合があります。
+
+さらに、特定のケースにおいては、レビュー担当者がKubernetesの技術的なレビュアーに対してレビューを依頼することもあります。レビュー担当者はタイムリーにフィードバックを提供するために最善を尽くしますが、応答時間は状況に応じて異なる場合があります。
 
 Kubernetesのドキュメントへの貢献に関する詳細については以下のページをご覧ください:
 

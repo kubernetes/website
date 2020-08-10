@@ -13,9 +13,6 @@ there is a concern that one team could use more than its fair share of resources
 
 Resource quotas are a tool for administrators to address this concern.
 
-
-
-
 <!-- body -->
 
 A resource quota, defined by a `ResourceQuota` object, provides constraints that limit
@@ -27,15 +24,21 @@ Resource quotas work like this:
 
 - Different teams work in different namespaces.  Currently this is voluntary, but
   support for making this mandatory via ACLs is planned.
+
 - The administrator creates one `ResourceQuota` for each namespace.
+
 - Users create resources (pods, services, etc.) in the namespace, and the quota system
   tracks usage to ensure it does not exceed hard resource limits defined in a `ResourceQuota`.
+
 - If creating or updating a resource violates a quota constraint, the request will fail with HTTP
   status code `403 FORBIDDEN` with a message explaining the constraint that would have been violated.
+
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+
+  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+  for an example of how to avoid this problem.
 
 The name of a `ResourceQuota` object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -63,7 +66,7 @@ A resource quota is enforced in a particular namespace when there is a
 
 ## Compute Resource Quota
 
-You can limit the total sum of [compute resources](/docs/user-guide/compute-resources) that can be requested in a given namespace.
+You can limit the total sum of [compute resources](/docs/concepts/configuration/manage-resources-containers/) that can be requested in a given namespace.
 
 The following resource types are supported:
 
@@ -77,7 +80,7 @@ The following resource types are supported:
 ### Resource Quota For Extended Resources
 
 In addition to the resources mentioned above, in release 1.10, quota support for
-[extended resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources) is added.
+[extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources) is added.
 
 As overcommit is not allowed for extended resources, it makes no sense to specify both `requests`
 and `limits` for the same extended resource in a quota. So for extended resources, only quota items
@@ -554,7 +557,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -573,7 +576,7 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: PriorityClass 
+      - scopeName: PriorityClass
         operator: In
         values: ["cluster-services"]
 ```
@@ -596,11 +599,7 @@ See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765) and 
 
 See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
-
+- See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
 

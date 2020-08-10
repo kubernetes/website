@@ -8,7 +8,7 @@ weight: 30
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">The `kubeadm` tool helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).  
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">The `kubeadm` tool helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
 `kubeadm` also supports other cluster
 lifecycle functions, such as [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
@@ -42,7 +42,7 @@ To follow this guide, you need:
 You also need to use a version of `kubeadm` that can deploy the version
 of Kubernetes that you want to use in your new cluster.
 
-[Kubernetes' version and version skew support policy](https://kubernetes.io/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
+[Kubernetes' version and version skew support policy](/docs/setup/release/version-skew-policy/#supported-versions) applies to `kubeadm` as well as to Kubernetes overall.
 Check that policy to learn about what versions of Kubernetes and `kubeadm`
 are supported. This page is written for Kubernetes {{< param "version" >}}.
 
@@ -254,11 +254,11 @@ Read all of this advice carefully before proceeding.
 
 **You must deploy a
 {{< glossary_tooltip text="Container Network Interface" term_id="cni" >}}
-(CNI) based Pod network add-on so that your Pods can communicate with each other.  
+(CNI) based Pod network add-on so that your Pods can communicate with each other.
 Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 - Take care that your Pod network must not overlap with any of the host
-  networks: you are likely to see problems if there is any overlap.  
+  networks: you are likely to see problems if there is any overlap.
   (If you find a collision between your network plugin’s preferred Pod
   network and some of your host networks, you should think of a suitable
   CIDR block to use instead, then use that during `kubeadm init` with
@@ -266,13 +266,13 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 - By default, `kubeadm` sets up your cluster to use and enforce use of
   [RBAC](/docs/reference/access-authn-authz/rbac/) (role based access
-  control).  
+  control).
   Make sure that your Pod network plugin supports RBAC, and so do any manifests
   that you use to deploy it.
 
 - If you want to use IPv6--either dual-stack, or single-stack IPv6 only
   networking--for your cluster, make sure that your Pod network plugin
-  supports IPv6.  
+  supports IPv6.
   IPv6 support was added to CNI in [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 
 {{< /caution >}}
@@ -284,10 +284,10 @@ tracker instead of the kubeadm or kubernetes issue trackers.
 {{< /note >}}
 
 Several external projects provide Kubernetes Pod networks using CNI, some of which also
-support [Network Policy](/docs/concepts/services-networking/networkpolicies/).
+support [Network Policy](/docs/concepts/services-networking/network-policies/).
 
-See the list of available
-[networking and network policy add-ons](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy).
+See a list of add-ons that implement the
+[Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 
 You can install a Pod network add-on with the following command on the
 control-plane node or a node that has the kubeconfig credentials:
@@ -297,79 +297,6 @@ kubectl apply -f <add-on.yaml>
 ```
 
 You can install only one Pod network per cluster.
-Below you can find installation instructions for some popular Pod network plugins:
-
-{{< tabs name="tabs-pod-install" >}}
-
-{{% tab name="Calico" %}}
-[Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer. Calico works on several architectures, including `amd64`, `arm64`, and `ppc64le`.
-
-Calico will automatically detect which IP address range to use for pod IPs based on the value provided via the `--pod-network-cidr` flag or via kubeadm's configuration.
-
-```shell
-kubectl apply -f https://docs.projectcalico.org/v3.14/manifests/calico.yaml
-```
-
-{{% /tab %}}
-
-{{% tab name="Cilium" %}}
-
-To deploy Cilium you just need to run:
-
-```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.8/install/kubernetes/quick-install.yaml
-```
-
-Once all Cilium Pods are marked as `READY`, you start using your cluster.
-
-```shell
-kubectl get pods -n kube-system --selector=k8s-app=cilium
-```
-The output is similar to this:
-```
-NAME           READY   STATUS    RESTARTS   AGE
-cilium-drxkl   1/1     Running   0          18m
-```
-
-Cilium can be used as a replacement for kube-proxy, see [Kubernetes without kube-proxy](https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free).
-
-For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
-
-{{% /tab %}}
-
-{{% tab name="Contiv-VPP" %}}
-[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
-offering feature-rich & high-performance cloud-native networking and services.
-
-It implements k8s services and network policies in the user space (on VPP).
-
-Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
-{{% /tab %}}
-
-{{% tab name="Kube-router" %}}
-
-Kube-router relies on kube-controller-manager to allocate Pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
-
-Kube-router provides Pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
-
-For information on using the `kubeadm` tool to set up a Kubernetes cluster with Kube-router, please see the official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
-{{% /tab %}}
-
-{{% tab name="Weave Net" %}}
-
-For more information on setting up your Kubernetes cluster with Weave Net, please see [Integrating Kubernetes via the Addon](https://www.weave.works/docs/net/latest/kube-addon/).
-
-Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` platforms without any extra action required.
-Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
-if they don't know their PodIP.
-
-```shell
-kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-```
-{{% /tab %}}
-
-{{< /tabs >}}
-
 
 Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
@@ -531,10 +458,9 @@ Talking to the control-plane node with the appropriate credentials, run:
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
-kubectl delete node <node name>
 ```
 
-Then, on the node being removed, reset all `kubeadm` installed state:
+Before removing the node, reset the state installed by `kubeadm`:
 
 ```bash
 kubeadm reset
@@ -550,6 +476,11 @@ If you want to reset the IPVS tables, you must run the following command:
 
 ```bash
 ipvsadm -C
+```
+
+Now remove the node:
+```bash
+kubectl delete node <node name>
 ```
 
 If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
@@ -574,9 +505,9 @@ options.
 * <a id="lifecycle" />See [Upgrading kubeadm clusters](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)
   for details about upgrading your cluster using `kubeadm`.
 * Learn about advanced `kubeadm` usage in the [kubeadm reference documentation](/docs/reference/setup-tools/kubeadm/kubeadm)
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/user-guide/kubectl-overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
 * See the [Cluster Networking](/docs/concepts/cluster-administration/networking/) page for a bigger list
-of Pod network add-ons.
+  of Pod network add-ons.
 * <a id="other-addons" />See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to
   explore other add-ons, including tools for logging, monitoring, network policy, visualization &amp;
   control of your Kubernetes cluster.
@@ -640,5 +571,3 @@ supports your chosen platform.
 ## Troubleshooting {#troubleshooting}
 
 If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
-
-

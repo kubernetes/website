@@ -3,7 +3,7 @@ title: Deployment
 feature:
   title: 自動化されたロールアウトとロールバック
   description: >
-    Kubernetesはアプリケーションや設定への変更を段階的に行い、アプリケーションの状態を監視しながら、全てのインスタンスが同時停止しないようにします。更新に問題が起きたとき、Kubernetesは変更のロールバックを行います。進化を続けるDeploymnetのエコシステムを活用してください。
+    Kubernetesはアプリケーションや設定への変更を段階的に行い、アプリケーションの状態を監視しながら、全てのインスタンスが同時停止しないようにします。更新に問題が起きたとき、Kubernetesは変更のロールバックを行います。進化を続けるDeploymentのエコシステムを活用してください。
 
 content_type: concept
 weight: 30
@@ -1001,7 +1001,7 @@ Deploymentのセレクターに一致するラベルを持つPodを直接作成�
 
 Deploymentのリビジョン履歴は、Deploymentが管理するReplicaSetに保持されています。
 
-`.spec.revisionHistoryLimit`はオプションのフィールドで、ロールバック可能な古いReplicaSetの数を指定します。この古いReplicaSetは`etcd`内のリソースを消費し、`kubectl get rs`の出力結果を見にくくします。Deploymentの各リビジョンの設定はReplicaSetに保持されます。このため一度古いReplicaSetが削除されると、そのリビジョンのDeploymentにロールバックすることができなくなります。デフォルトでは10もの古いReplicaSetが保持されます。しかし、この値の最適値は新しいDeploymnetの更新頻度と安定性に依存します。
+`.spec.revisionHistoryLimit`はオプションのフィールドで、ロールバック可能な古いReplicaSetの数を指定します。この古いReplicaSetは`etcd`内のリソースを消費し、`kubectl get rs`の出力結果を見にくくします。Deploymentの各リビジョンの設定はReplicaSetに保持されます。このため一度古いReplicaSetが削除されると、そのリビジョンのDeploymentにロールバックすることができなくなります。デフォルトでは10もの古いReplicaSetが保持されます。しかし、この値の最適値は新しいDeploymentの更新頻度と安定性に依存します。
 
 さらに詳しく言うと、この値を0にすると、0のレプリカを持つ古い全てのReplicaSetが削除されます。このケースでは、リビジョン履歴が完全に削除されているため新しいDeploymentのロールアウトを完了することができません。
 

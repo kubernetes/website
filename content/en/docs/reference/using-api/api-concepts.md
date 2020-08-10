@@ -596,7 +596,11 @@ more information about how an object's schema is used to make decisions when
 merging, see
 [sigs.k8s.io/structured-merge-diff](https://sigs.k8s.io/structured-merge-diff).
 
-A number of markers were added in Kubernetes 1.16 and 1.17, to allow API developers to describe the merge strategy supported by lists, maps, and structs. These markers can be applied to objects of the respective type, in Go files or OpenAPI specs.
+A number of markers were added in Kubernetes 1.16 and 1.17, to allow API
+developers to describe the merge strategy supported by lists, maps, and
+structs. These markers can be applied to objects of the respective type,
+in Go files or in the [OpenAPI schema definition of the
+CRD](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io):
 
 | Golang marker | OpenAPI extension | Accepted values | Description | Introduced in |
 |---|---|---|---|---|
@@ -609,8 +613,12 @@ A number of markers were added in Kubernetes 1.16 and 1.17, to allow API develop
 
 By default, Server Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
-If the validation field is specified in the Custom Resource Definition, it is
-used when merging objects of this type.
+
+If the Custom Resource Definition defines a
+[schema](/docs/reference/generated/kubernetes-api/{{< param "version" >}}#jsonschemaprops-v1-apiextensions-k8s-io)
+that contains annotations as defined in the previous "Merge Strategy"
+section, these annotations will be used when merging objects of this
+type.
 
 ### Using Server-Side Apply in a controller
 
@@ -706,9 +714,9 @@ Resource versions are strings that identify the server's internal version of an 
 
 Clients find resource versions in resources, including the resources in watch events, and list responses returned from the server:
 
-[v1.meta/ObjectMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
+[v1.meta/ObjectMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta) - The `metadata.resourceVersion` of a resource instance identifies the resource version the instance was last modified at.
 
-[v1.meta/ListMeta](https://kubernetes.io/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
+[v1.meta/ListMeta](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#listmeta-v1-meta) - The `metadata.resourceVersion` of a resource collection (i.e. a list response) identifies the resource version at which the list response was constructed.
 
 ### The ResourceVersion Parameter
 
@@ -726,11 +734,11 @@ For get and list, the semantics of resource version are:
 
 **List:**
 
-| paging                        | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
-|-------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
-| limit unset                   | Most Recent           | Any                                            | Not older than                         |
-| limit="n", continue unset     | Most Recent           | Any                                            | Exact                                  |
-| limit="n", continue="<token>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
+| paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
+|---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
+| limit unset                     | Most Recent           | Any                                            | Not older than                         |
+| limit="n", continue unset       | Most Recent           | Any                                            | Exact                                  |
+| limit="n", continue="\<token\>" | Continue Token, Exact | Invalid, but treated as Continue Token, Exact  | Invalid, HTTP `400 Bad Request`        |
 
 The meaning of the get and list semantics are:
 

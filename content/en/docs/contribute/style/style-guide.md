@@ -22,8 +22,11 @@ discussion.
 <!-- body -->
 
 {{< note >}}
-Kubernetes documentation uses [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) along with a few [Hugo Shortcodes](/docs/home/contribute/includes/) to support glossary entries, tabs,
-and representing feature state.
+Kubernetes documentation uses
+[Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
+with some adjustments along with a few
+[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support
+glossary entries, tabs, and representing feature state.
 {{< /note >}}
 
 ## Language
@@ -121,7 +124,7 @@ document, use the backtick (`` ` ``).
 {{< table caption = "Do and Don't - Use code style for inline code and commands" >}}
 Do | Don't
 :--| :-----
-The `kubectl run`command creates a Deployment. | The "kubectl run" command creates a Deployment.
+The `kubectl run`command creates a Pod. | The "kubectl run" command creates a Pod.
 For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
 Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
 Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
@@ -496,7 +499,7 @@ Do | Don't
 :--| :-----
 You can explore the API using a browser. | The API can be explored using a browser.
 The YAML file specifies the replica count. | The replica count is specified in the YAML file.
-{{< /table >}}  
+{{< /table >}}
 
 
 Exception: Use passive voice if active voice leads to an awkward construction.
@@ -511,7 +514,7 @@ Do | Don't
 To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
 See the configuration file. | Please see the configuration file.
 View the Pods. | With this next command, we'll view the Pods.
-{{< /table >}}  
+{{< /table >}}
 
 ### Address the reader as "you"
 
@@ -520,7 +523,7 @@ Do | Don't
 :--| :-----
 You can create a Deployment by ... | We'll create a Deployment by ...
 In the preceding output, you can see... | In the preceding output, we can see ...
-{{< /table >}}  
+{{< /table >}}
 
 
 ### Avoid Latin phrases
@@ -532,7 +535,7 @@ Do | Don't
 :--| :-----
 For example, ... | e.g., ...
 That is, ...| i.e., ...
-{{< /table >}}   
+{{< /table >}}
 
 
 Exception: Use "etc." for et cetera.
@@ -550,7 +553,7 @@ Do | Don't
 Version 1.4 includes ... | In version 1.4, we have added ...
 Kubernetes provides a new feature for ... | We provide a new feature ...
 This page teaches you how to use Pods. | In this page, we are going to learn about Pods.
-{{< /table >}}   
+{{< /table >}}
 
 
 ### Avoid jargon and idioms
@@ -562,7 +565,7 @@ Do | Don't
 :--| :-----
 Internally, ... | Under the hood, ...
 Create a new cluster. | Turn up a new cluster.
-{{< /table >}}   
+{{< /table >}}
 
 
 ### Avoid statements about the future
@@ -581,15 +584,11 @@ Do | Don't
 :--| :-----
 In version 1.4, ... | In the current version, ...
 The Federation feature provides ... | The new Federation feature provides ...
-{{< /table >}}  
-
-
+{{< /table >}}
 
 
 ## {{% heading "whatsnext" %}}
 
-
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
-* Learn about [staging your changes](/docs/contribute/stage-documentation-changes/)
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

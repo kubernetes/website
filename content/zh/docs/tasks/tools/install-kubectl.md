@@ -1,20 +1,24 @@
 ---
-reviewers:
-- mikedanese
-title: 安装并设置 kubectl
+title: 安装并配置 kubectl
 content_type: task
 weight: 10
+card:
+  name: tasks
+  weight: 20
+  title: 安装 kubectl
 ---
 <!--
----
 reviewers:
-- bgrant0607
 - mikedanese
 title: Install and Set Up kubectl
 content_type: task
 weight: 10
----
+card:
+  name: tasks
+  weight: 20
+  title: Install kubectl
 -->
+
 <!-- overview -->
 <!--
  Use the Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; look at your new cluster; and bring up example apps.

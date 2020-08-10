@@ -23,9 +23,7 @@ To create a Kubernetes cluster on AWS, you will need an Access Key ID and a Secr
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - Production Grade K8s Installation, Upgrades, and Management. Supports running Debian, Ubuntu, CentOS, and RHEL in AWS.
 
-* [CoreOS Tectonic](https://coreos.com/tectonic/) includes the open-source [Tectonic Installer](https://github.com/coreos/tectonic-installer) that creates Kubernetes clusters with Container Linux nodes on AWS.
-
-* CoreOS originated and the Kubernetes Incubator maintains [a CLI tool, kube-aws](https://github.com/kubernetes-incubator/kube-aws), that creates and manages Kubernetes clusters with [Container Linux](https://coreos.com/why/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
+* [kube-aws](https://github.com/kubernetes-incubator/kube-aws), creates and manages Kubernetes clusters with [Flatcar Linux](https://www.flatcar-linux.org/) nodes, using AWS tools: EC2, CloudFormation and Autoscaling.
 
 * [KubeOne](https://github.com/kubermatic/kubeone) is an open source cluster lifecycle management tool that creates, upgrades and manages Kubernetes Highly-Available clusters.
 
@@ -50,7 +48,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/darwin/amd64:$PATH
 export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 ```
 
-An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/user-guide/kubectl/)
+An up-to-date documentation page for this tool is available here: [kubectl manual](/docs/reference/kubectl/kubectl/)
 
 By default, `kubectl` will use the `kubeconfig` file generated during the cluster startup for authenticating against the API.
 For more information, please read [kubeconfig files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
@@ -65,7 +63,8 @@ For more complete applications, please look in the [examples directory](https://
 
 ## Scaling the cluster
 
-Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the [Auto Scaling Group](http://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
+Adding and removing nodes through `kubectl` is not supported. You can still scale the amount of nodes manually through adjustments of the 'Desired' and 'Max' properties within the
+[Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-manual-scaling.html), which was created during the installation.
 
 ## Tearing down the cluster
 
@@ -82,13 +81,8 @@ cluster/kube-down.sh
 IaaS Provider        | Config. Mgmt | OS            | Networking  | Docs                                          | Conforms | Support Level
 -------------------- | ------------ | ------------- | ----------  | --------------------------------------------- | ---------| ----------------------------
 AWS                  | kops         | Debian        | k8s (VPC)   | [docs](https://github.com/kubernetes/kops)    |          | Community ([@justinsb](https://github.com/justinsb))
-AWS                  | CoreOS       | CoreOS        | flannel     | [docs](/docs/getting-started-guides/aws)      |          | Community
-AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | [docs](/docs/getting-started-guides/ubuntu)      | 100%     | Commercial, Community
+AWS                  | CoreOS       | CoreOS        | flannel     | -  |          | Community
+AWS                  | Juju         | Ubuntu        | flannel, calico, canal     | - | 100%     | Commercial, Community
 AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weavenet     | [docs](https://github.com/kubermatic/kubeone)      | 100%    | Commercial, Community
-
-## Further reading
-
-Please see the [Kubernetes docs](/docs/) for more details on administering
-and using a Kubernetes cluster.
 
 

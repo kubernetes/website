@@ -17,7 +17,7 @@ DNS resolution process in your cluster.
 {{< include "task-tutorial-prereqs.md" >}}
 
 Your cluster must be running the CoreDNS add-on.
-[Migrating to CoreDNS](https://kubernetes.io/docs/tasks/administer-cluster/coredns/#migrating-to-coredns)
+[Migrating to CoreDNS](/docs/tasks/administer-cluster/coredns/#migrating-to-coredns)
 explains how to use `kubeadm` to migrate from `kube-dns`.
 
 {{% version-check %}}
@@ -50,7 +50,7 @@ and more. For more information, see [DNS for Services and Pods](/docs/concepts/s
 If a Pod's `dnsPolicy` is set to `default`, it inherits the name resolution
 configuration from the node that the Pod runs on. The Pod's DNS resolution
 should behave the same as the node.
-But see [Known issues](/docs/tasks/debug-application-cluster/dns-debugging-resolution/#known-issues).
+But see [Known issues](/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues).
 
 If you don't want this, or if you want a different DNS config for pods, you can
 use the kubelet's `--resolv-conf` flag.  Set this flag to "" to prevent Pods from
@@ -117,7 +117,7 @@ You can modify the default CoreDNS behavior by modifying the ConfigMap.
 
 ### Configuration of Stub-domain and upstream nameserver using CoreDNS
 
-CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/). 
+CoreDNS has the ability to configure stubdomains and upstream nameservers using the [forward plugin](https://coredns.io/plugins/forward/).
 
 #### Example
 If a cluster operator has a [Consul](https://www.consul.io/) domain server located at 10.150.0.1, and all Consul names have the suffix .consul.local. To configure it in CoreDNS, the cluster administrator creates the following stanza in the CoreDNS ConfigMap.
@@ -261,4 +261,4 @@ You can also migrate using the offical CoreDNS
 
 ## {{% heading "whatsnext" %}}
 
-- Read [Debugging DNS Resolution](/docs/tasks/debug-application-cluster/dns-debugging-resolution/)
+- Read [Debugging DNS Resolution](/docs/tasks/administer-cluster/dns-debugging-resolution/)

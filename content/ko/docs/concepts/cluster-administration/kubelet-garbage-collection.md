@@ -78,7 +78,6 @@ kubelet이 관리하지 않는 컨테이너는 컨테이너 가비지 수집 대
 
 
 
-
 ## {{% heading "whatsnext" %}}
 
 

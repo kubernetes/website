@@ -38,7 +38,7 @@ Minikube unterstützt die folgenden Treiber:
 * kvm ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#kvm-driver))
 * hyperkit ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperkit-driver))
 * xhyve ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#xhyve-driver)) (deprecated)
-* hyperv ([Treiber installation](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperv-driver))
+* hyperv ([Treiber installation](https://minikube.sigs.k8s.io/docs/drivers/#hyperv-driver))
 Beachten Sie, dass die unten angegebene IP-Adresse dynamisch ist und sich ändern kann. Sie kann mit `minikube ip` abgerufen werden.
 * none (Führt die Kubernetes-Komponenten auf dem Host und nicht in einer VM aus. Die Verwendung dieses Treibers erfordert Docker ([Docker installieren](https://docs.docker.com/install/linux/docker-ce/ubuntu/)) und eine Linux-Umgebung)
 
@@ -428,11 +428,11 @@ Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/c
 
 ## Zusätzliche Links
 
-* **Ziele und Nichtziele**: Die Ziele und Nichtziele des Minikube-Projekts finden Sie in unserer [Roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
+* **Ziele und Nichtziele**: Die Ziele und Nichtziele des Minikube-Projekts finden Sie in unserer [Roadmap](https://minikube.sigs.k8s.io/docs/contrib/roadmap/).
 * **Entwicklungshandbuch**: Lesen Sie [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) für einen Überblick über das Senden von Pull-Requests.
-* **Minikube bauen**: Anweisungen zum Erstellen/Testen von Minikube aus dem Quellcode finden Sie im [build Handbuch](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
+* **Minikube bauen**: Anweisungen zum Erstellen/Testen von Minikube aus dem Quellcode finden Sie im [build Handbuch](https://minikube.sigs.k8s.io/docs/contrib/building/).
 * **Neue Abhängigkeit hinzufügen**: Anweisungen zum Hinzufügen einer neuen Abhängigkeit zu Minikube finden Sie in der [Anleitung zum Hinzufügen von Abhängigkeiten](https://minikube.sigs.k8s.io/docs/drivers/).
-* **Neues Addon hinzufügen**: Anweisungen zum Hinzufügen eines neuen Addons für Minikube finden Sie im [Anleitung zum Hinzufügen eines Addons](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Neues Addon hinzufügen**: Anweisungen zum Hinzufügen eines neuen Addons für Minikube finden Sie im [Anleitung zum Hinzufügen eines Addons](https://minikube.sigs.k8s.io/docs/handbook/addons/).
 * **MicroK8s**: Linux-Benutzer, die die Ausführung einer virtuellen Maschine vermeiden möchten, sollten [MicroK8s](https://microk8s.io/) als Alternative in Betracht ziehen.
 
 ## Community

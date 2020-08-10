@@ -119,14 +119,14 @@ Sebuah Job juga membutuhkan sebuah [bagian `.spec`](https://git.k8s.io/community
 
 _Field_ `.spec.template` merupakan satu-satunya _field_ wajib pada `.spec`.
 
-_Field_  `.spec.template` merupakan sebuah [templat Pod](/docs/concepts/workloads/pods/pod-overview/#pod-templates). _Field_ ini memiliki skema yang sama dengan yang ada pada [Pod](/docs/user-guide/pods), 
+_Field_  `.spec.template` merupakan sebuah [templat Pod](/id/docs/concepts/workloads/pods/pod-overview/#pod-templates). _Field_ ini memiliki skema yang sama dengan yang ada pada [Pod](/docs/user-guide/pods), 
 kecuali _field_ ini bersifat _nested_ dan tidak memiliki _field_ `apiVersion` atau _field_ `kind`.
 
 Sebagai tambahan dari _field_ wajib pada sebuah Job, sebuah tempat pod pada Job 
 haruslah menspesifikasikan label yang sesuai (perhatikan [selektor pod](#pod-selektor)) 
 dan sebuah mekanisme _restart_ yang sesuai.
 
-Hanya sebuah [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) yang sesuai dengan `Never` atau `OnFailure` yang bersifat valid.
+Hanya sebuah [`RestartPolicy`](/id/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) yang sesuai dengan `Never` atau `OnFailure` yang bersifat valid.
 
 ### Selektor Pod
 
@@ -194,7 +194,7 @@ Jika hal ini terjadi, dan `.spec.template.spec.restartPolicy = "OnFailure"`, mak
 akan tetap ada di dalam node, tetapi Container tersebut akan dijalankan kembali. Dengan demikian, 
 program kamu harus dapat mengatasi kasus dimana program tersebut di-_restart_ secara lokal, atau jika 
 tidak maka spesifikasikan `.spec.template.spec.restartPolicy = "Never"`. Perhatikan 
-[_lifecycle_ pod](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) untuk informasi lebih lanjut mengenai `restartPolicy`.
+[_lifecycle_ pod](/id/docs/concepts/workloads/pods/pod-lifecycle/#example-states) untuk informasi lebih lanjut mengenai `restartPolicy`.
 
 Sebuah Pod juga dapat gagal secara menyeluruh, untuk beberapa alasan yang mungkin, misalnya saja, 
 ketika Pod tersebut dipindahkan dari Node (ketika Node diperbarui, di-_restart_, dihapus, dsb.), atau 
@@ -288,7 +288,7 @@ Pastikan kamu telah menspesifikasikan nilai tersebut pada level yang dibutuhkan.
 Job yang sudah selesai biasanya tidak lagi dibutuhkan di dalam sistem. Tetap menjaga keberadaan 
 objek-objek tersebut di dalam sistem akan memberikan tekanan tambahan pada API server. Jika sebuah Job 
 yang diatur secara langsung oleh _controller_ dengan level yang lebih tinggi, seperti 
-[CronJob](/docs/concepts/workloads/controllers/cron-jobs/), maka Job ini dapat 
+[CronJob](/id/docs/concepts/workloads/controllers/cron-jobs/), maka Job ini dapat 
 di-_clean up_ oleh CronJob berdasarkan _policy_ berbasis kapasitas yang dispesifikasikan.
 
 ### Mekanisme TTL untuk Job yang Telah Selesai Dijalankan
@@ -298,7 +298,7 @@ di-_clean up_ oleh CronJob berdasarkan _policy_ berbasis kapasitas yang dispesif
 Salah satu cara untuk melakukan _clean up_ Job yang telah selesai dijalankan
 (baik dengan status `Complete` atau `Failed`) secara otomatis adalah dengan 
 menerapkan mekanisme TTL yang disediakan oleh 
-[_controller_ TTL](/docs/concepts/workloads/controllers/ttlafterfinished/) untuk 
+[_controller_ TTL](/id/docs/concepts/workloads/controllers/ttlafterfinished/) untuk 
 sumber daya yang telah selesai digunakan, dengan cara menspesifikasikan 
 _field_ `.spec.ttlSecondsAfterFinished` dari Job tersebut.
 
@@ -334,7 +334,7 @@ maka Job ini tidak akan dihapus oleh _controller_ TTL setelah Job ini selesai di
 
 Perhatikan bahwa mekanisme TTL ini merupakan fitur alpha, dengan gerbang fitur `TTLAfterFinished`. 
 Untuk informasi lebih lanjut, kamu dapat membaca dokumentasi untuk 
-[_controller_ TTL](/docs/concepts/workloads/controllers/ttlafterfinished/) untuk 
+[_controller_ TTL](/id/docs/concepts/workloads/controllers/ttlafterfinished/) untuk 
 sumber daya yang telah selesai dijalankan.
 
 ## Pola Job
@@ -478,7 +478,7 @@ Job merupakan komplemen dari [Replication Controller](/docs/user-guide/replicati
 Sebuah Replication Controller mengatur Pod yang diharapkan untuk tidak dihentikan (misalnya, _web server_), dan sebuah Job
 mengatur Pod yang diharapkan untuk berhenti (misalnya, _batch task_).
 
-Seperti yang sudah dibahas pada [_Lifecycle_ Pod](/docs/concepts/workloads/pods/pod-lifecycle/), `Job` *hanya* pantas 
+Seperti yang sudah dibahas pada [_Lifecycle_ Pod](/id/docs/concepts/workloads/pods/pod-lifecycle/), `Job` *hanya* pantas 
 digunakan untuk Pod dengan `RestartPolicy` yang sama dengan `OnFailure` atau `Never`.
 (Perhatikan bahwa: Jika `RestartPolicy` tidak dispesifikasikan, nilai defaultnya adalah `Always`.)
 
@@ -499,7 +499,7 @@ dari sebuah Job, tetapi kontrol secara mutlak atas Pod yang dibuat serta tugas y
 
 ## CronJob {#cron-jobs}
 
-Kamu dapat menggunakan [`CronJob`](/docs/concepts/workloads/controllers/cron-jobs/) untuk membuat Job yang akan 
+Kamu dapat menggunakan [`CronJob`](/id/docs/concepts/workloads/controllers/cron-jobs/) untuk membuat Job yang akan 
 dijalankan pada waktu/tanggal yang spesifik, mirip dengan perangkat lunak `cron` yang ada pada Unix.
 
 

@@ -3,26 +3,19 @@ title: IPv4/IPv6 双协议栈
 feature:
   title: IPv4/IPv6 双协议栈
   description: >
-    Allocation of IPv4 and IPv6 addresses to Pods and Services
-
+    为 Pod 和 Service 分配 IPv4 和 IPv6 地址
 content_type: concept
 weight: 70
 ---
+
 <!--
----
-reviewers:
-- lachie83
-- khenidak
-- aramase
 title: IPv4/IPv6 dual-stack
 feature:
   title: IPv4/IPv6 dual-stack
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
-
 content_type: concept
 weight: 70
----
 -->
 
 <!-- overview -->
@@ -32,14 +25,15 @@ weight: 70
 <!--
  IPv4/IPv6 dual-stack enables the allocation of both IPv4 and IPv6 addresses to {{< glossary_tooltip text="Pods" term_id="pod" >}} and {{< glossary_tooltip text="Services" term_id="service" >}}.
 -->
-IPv4/IPv6 双协议栈能够将 IPv4 和 IPv6 地址分配给 {{< glossary_tooltip text="Pods" term_id="pod" >}} 和 {{< glossary_tooltip text="Services" term_id="service" >}}。
+IPv4/IPv6 双协议栈能够将 IPv4 和 IPv6 地址分配给
+{{< glossary_tooltip text="Pod" term_id="pod" >}} 和
+{{< glossary_tooltip text="Service" term_id="service" >}}。
 
 <!--
 If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 -->
-如果你为 Kubernetes 集群启用了 IPv4/IPv6 双协议栈网络，则该集群将支持同时分配 IPv4 和 IPv6 地址。
-
-
+如果你为 Kubernetes 集群启用了 IPv4/IPv6 双协议栈网络，
+则该集群将支持同时分配 IPv4 和 IPv6 地址。
 
 <!-- body -->
 
@@ -89,7 +83,9 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 <!--
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 -->
-要启用 IPv4/IPv6 双协议栈，为集群的相关组件启用 `IPv6DualStack` [特性门控](/docs/reference/command-line-tools-reference/feature-gates/)，并且设置双协议栈的集群网络分配：
+要启用 IPv4/IPv6 双协议栈，为集群的相关组件启用 `IPv6DualStack`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)，
+并且设置双协议栈的集群网络分配：
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
@@ -113,13 +109,20 @@ To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/
 If your cluster has IPv4/IPv6 dual-stack networking enabled, you can create {{< glossary_tooltip text="Services" term_id="service" >}} with either an IPv4 or an IPv6 address. You can choose the address family for the Service's cluster IP by setting a field, `.spec.ipFamily`, on that Service.
 You can only set this field when creating a new Service. Setting the `.spec.ipFamily` field is optional and should only be used if you plan to enable IPv4 and IPv6 {{< glossary_tooltip text="Services" term_id="service" >}} and {{< glossary_tooltip text="Ingresses" term_id="ingress" >}} on your cluster. The configuration of this field not a requirement for [egress](#egress-traffic) traffic.
 -->
-如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建 {{< glossary_tooltip text="Services" term_id="service" >}}。你可以通过设置服务的 `.spec.ipFamily` 字段来选择服务的集群 IP 的地址族。你只能在创建新服务时设置该字段。`.spec.ipFamily` 字段的设置是可选的，并且仅当你计划在集群上启用 IPv4 和 IPv6 的 {{< glossary_tooltip text="Services" term_id="service" >}} 和 {{< glossary_tooltip text="Ingresses" term_id="ingress" >}}。对于[出口](#出口流量)流量，该字段的配置不是必须的。
+如果你的集群启用了 IPv4/IPv6 双协议栈网络，则可以使用 IPv4 或 IPv6 地址来创建
+{{< glossary_tooltip text="Service" term_id="service" >}}。
+你可以通过设置服务的 `.spec.ipFamily` 字段来选择服务的集群 IP 的地址族。
+你只能在创建新服务时设置该字段。`.spec.ipFamily` 字段的设置是可选的，
+并且仅当你计划在集群上启用 IPv4 和 IPv6 的 {{< glossary_tooltip text="Service" term_id="service" >}}
+和 {{< glossary_tooltip text="Ingress" term_id="ingress" >}}。
+对于[出口](#出口流量)流量，该字段的配置不是必须的。
 
 <!--
-The default address family for your cluster is the address family of the first service cluster IP range configured via the `--service-cluster-ip-range` flag to the kube-controller-manager.
+The default address family for your cluster is the address family of the first service cluster IP range configured via the `-service-cluster-ip-range` flag to the kube-controller-manager.
 -->
 {{< note >}}
-集群的默认地址族是第一个服务集群 IP 范围的地址族，该地址范围通过 kube-controller-manager 上的 `--service-cluster-ip-range` 标志设置。
+集群的默认地址族是第一个服务集群 IP 范围的地址族，该地址范围通过
+`kube-controller-manager` 上的 `--service-cluster-ip-range` 标志设置。
 {{< /note >}}
 
 <!--
@@ -158,12 +161,13 @@ For comparison, the following Service specification will be assigned an IPV4 add
 <!--
 ### Type LoadBalancer
 -->
-### 负载均衡器类型
+### LoadBalancer 类型
 
 <!--
 On cloud providers which support IPv6 enabled external load balancers, setting the `type` field to `LoadBalancer` in additional to setting `ipFamily` field to `IPv6` provisions a cloud load balancer for your Service.
 -->
-在支持启用了 IPv6 的外部服务均衡器的云驱动上，除了将 `ipFamily` 字段设置为 `IPv6`，将 `type` 字段设置为 `LoadBalancer`，为你的服务提供云负载均衡。
+在支持启用了 IPv6 的外部服务均衡器的云驱动上，除了将 `ipFamily` 字段设置为 `IPv6`，
+将 `type` 字段设置为 `LoadBalancer`，为你的服务提供云负载均衡。
 
 <!--
 ## Egress Traffic
@@ -173,7 +177,12 @@ On cloud providers which support IPv6 enabled external load balancers, setting t
 <!--
 The use of publicly routable and non-publicly routable IPv6 address blocks is acceptable provided the underlying {{< glossary_tooltip text="CNI" term_id="cni" >}} provider is able to implement the transport. If you have a Pod that uses non-publicly routable IPv6 and want that Pod to reach off-cluster destinations (eg. the public Internet), you must set up IP masquerading for the egress traffic and any replies. The [ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) is dual-stack aware, so you can use ip-masq-agent for IP masquerading on dual-stack clusters.
 -->
-公共路由和非公共路由的 IPv6 地址块的使用是可以的。提供底层 {{< glossary_tooltip text="CNI" term_id="cni" >}} 的提供程序可以实现这种传输。如果你拥有使用非公共路由 IPv6 地址的 Pod，并且希望该 Pod 到达集群外目的（比如，公共网络），你必须为出口流量和任何响应消息设置 IP 伪装。[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 可以感知双栈，所以你可以在双栈集群中使用 ip-masq-agent 来进行 IP 伪装。
+公共路由和非公共路由的 IPv6 地址块的使用是可以的。提供底层
+{{< glossary_tooltip text="CNI" term_id="cni" >}} 的提供程序可以实现这种传输。
+如果你拥有使用非公共路由 IPv6 地址的 Pod，并且希望该 Pod 到达集群外目的
+（比如，公共网络），你必须为出口流量和任何响应消息设置 IP 伪装。
+[ip-masq-agent](https://github.com/kubernetes-incubator/ip-masq-agent) 可以感知双栈，
+所以你可以在双栈集群中使用 ip-masq-agent 来进行 IP 伪装。
 
 <!--
 ## Known Issues
@@ -181,19 +190,15 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 ## 已知问题
 
 <!--
-   * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
+   * Kubenet forces IPv4,IPv6 positional reporting of IPs (-cluster-cidr)
 -->
-   * Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (--cluster-cidr)
-
-
+   * Kubenet 强制 IPv4，IPv6 的 IPs 位置报告 (`--cluster-cidr`)
 
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 -->
-* [验证 IPv4/IPv6 双协议栈](/docs/tasks/network/validate-dual-stack)网络
-
+* [验证 IPv4/IPv6 双协议栈](/zh/docs/tasks/network/validate-dual-stack)网络
 
 

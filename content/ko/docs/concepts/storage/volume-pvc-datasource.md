@@ -6,8 +6,7 @@ weight: 30
 
 <!-- overview -->
 
-이 문서에서는 쿠버네티스의 기존 CSI 볼륨 복제의 개념을 설명한다.  [볼륨]
-(/ko/docs/concepts/storage/volumes)을 숙지하는 것을 추천한다.
+이 문서에서는 쿠버네티스의 기존 CSI 볼륨 복제의 개념을 설명한다. [볼륨](/ko/docs/concepts/storage/volumes)을 숙지하는 것을 추천한다.
 
 
 

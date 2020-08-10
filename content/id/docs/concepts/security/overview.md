@@ -107,11 +107,11 @@ Kebanyakan dari saran yang disebut di atas dapat diotomasi di dalam _delivery pi
 ## {{% heading "whatsnext" %}}
 
 
-* Pelajari tentang [Network Policy untuk Pod](/docs/concepts/services-networking/network-policies/)
+* Pelajari tentang [Network Policy untuk Pod](/id/docs/concepts/services-networking/network-policies/)
 * Pelajari tentang [mengamankan klaster kamu](/docs/tasks/administer-cluster/securing-a-cluster/)
 * Pelajari tentang [kontrol akses API](/docs/reference/access-authn-authz/controlling-access/)
-* Pelajari tentang [enkripsi data saat transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+* Pelajari tentang [enkripsi data saat transit](/id/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * Pelajari tentang [enkripsi data saat diam](/docs/tasks/administer-cluster/encrypt-data/)
-* Pelajari tentang [Secret (data sensitif) pada Kubernetes](/docs/concepts/configuration/secret/)
+* Pelajari tentang [Secret (data sensitif) pada Kubernetes](/id/docs/concepts/configuration/secret/)
 
 

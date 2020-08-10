@@ -30,7 +30,7 @@ weight: 20
 
 이 예제에서, 한 개의 컨테이너를 실행하는 파드를 생성한다. 파드를 위한 구성
 파일은 `DEMO_GREETING` 이라는 이름과 `"Hello from the environment"`이라는
-값을 가지는 환경 변수를 정의한다. 다음은 파드를 위한 구성 파일
+값을 가지는 환경 변수를 정의한다. 다음은 파드를 위한 구성 매니페스트 
 예시이다.
 
 {{< codenew file="pods/inject/envars.yaml" >}}
@@ -63,7 +63,8 @@ weight: 20
 1. 셸 안에서, 환경 변수를 나열하기 위해 `printenv` 커맨드를 실행한다.
 
     ```shell
-    root@envar-demo:/# printenv
+    # 컨테이너 내 셸에서 다음을 실행한다.
+    printenv
     ```
 
     출력은 아래와 비슷할 것이다.
@@ -81,12 +82,24 @@ weight: 20
 
 {{< note >}}
 `env` 나 `envFrom` 필드를 이용해 설정된 환경 변수들은 컨테이너 이미지 
-안에서 명시된 어떠한 환경 변수들보다 더 우선시된다.
+안에서 명시된 모든 환경 변수들을 오버라이딩한다.
+{{< /note >}}
+
+{{< note >}}
+환경 변수는 서로를 참조할 수 있으며 사이클이 가능하다. 
+사용하기 전에 순서에 주의한다.
 {{< /note >}}
 
 ## 설정 안에서 환경 변수 사용하기
 
-파드의 구성 파일 안에서 정의한 환경 변수는 파드의 컨테이너를 위해 설정하는 커맨드들과 인자들과 같이, 구성 파일 안의 다른 곳에서 사용할 수 있다. 아래의 구성 파일 예시에서, `GREETING`, `HONORIFIC`, 그리고 `NAME` 환경 변수들이 각각 `Warm greetings to`, `The Most honorable`, 그리고 `Kubernetes`로 설정되어 있다. 이들 환경 변수들은 이후 `env-print-demo` 컨테이너에 전달되어 CLI 인자에서 사용된다.
+파드의 구성 파일 안에서 정의한 환경 변수는 
+파드의 컨테이너를 위해 설정하는 커맨드와 인자들과 같이, 
+구성 파일 안의 다른 곳에서 사용할 수 있다. 
+아래의 구성 파일 예시에서, `GREETING`, `HONORIFIC`, 그리고 
+`NAME` 환경 변수들이 각각 `Warm greetings to`, `The Most honorable`, 
+그리고 `Kubernetes`로 설정되어 있다. 이 환경 변수들은 
+이후 `env-print-demo` 컨테이너에 전달되어 CLI 인자에서 
+사용된다.
 
 ```yaml
 apiVersion: v1
