@@ -558,7 +558,7 @@ up to 3 replicas, as well as scaling down the old ReplicaSet to 0 replicas.
 <!--
  ### Rollover (aka multiple updates in-flight)
 -->
-### 翻转（多 Deployment 动态更新）
+### 滚动更新（多版本在线更新）
 
 <!--
  Each time a new Deployment is observed by the Deployment controller, a ReplicaSet is created to bring up
@@ -566,7 +566,7 @@ the desired Pods. If the Deployment is updated, the existing ReplicaSet that con
 match `.spec.selector` but whose template does not match `.spec.template` are scaled down. Eventually, the new
 ReplicaSet is scaled to `.spec.replicas` and all old ReplicaSets is scaled to 0.
 -->
-每次 Deployment 控制器观察新 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。如果更新了 Deployment ，则控制其标签的 Pods 的现有 ReplicaSet 匹配 `.spec.selector`，但其模板不匹配 `.spec.template` 被缩小。最终，新的 ReplicaSet 缩放为 `.spec.replicas`，所有旧 ReplicaSets 缩放为 0。
+每当 Deployment 控制器观察到新 Deployment 时，都会创建一个 ReplicaSet 以启动所需的 Pods。如果更新了 Deployment，则缩小旧的 ReplicaSet。旧 ReplicaSet 所控制的 Pods 标签匹配 `.spec.selector`，但模版不匹配 `.spec.template`。最终，新的 ReplicaSet 缩放为 `.spec.replicas`，所有旧 ReplicaSets 缩放为 0。
 
 <!--
  If you update a Deployment while an existing rollout is in progress, the Deployment creates a new ReplicaSet
