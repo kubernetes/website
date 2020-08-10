@@ -1,30 +1,30 @@
 ---
-title: Guide for scheduling Windows containers in Kubernetes
+title: KubernetesでWindowsコンテナーをスケジュールするためのガイド
 content_type: concept
 weight: 75
 ---
 
 <!-- overview -->
 
-Windows applications constitute a large portion of the services and applications that run in many organizations. This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
+Windowsアプリケーションは、多くの組織で実行されるサービスとアプリケーションの大部分を占めます。このガイドでは、KubernetesでWindowsコンテナを構成してデプロイする手順について説明します。
 
 
 
 <!-- body -->
 
-## Objectives
+## 目的
 
-* Configure an example deployment to run Windows containers on the Windows node
-* (Optional) Configure an Active Directory Identity for your Pod using Group Managed Service Accounts (GMSA)
+* WindowsノードでWindowsコンテナを実行するサンプルのDeploymentを構成します
+* (オプション)Group Managed Service Accounts(GMSA)を使用してPodのActive Directory IDを構成します
 
-## Before you begin
+## 始める前に
 
-* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)
-* It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
+* [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)を含むKubernetesクラスターを作成します
+* Kubernetes上にServiceとワークロードを作成してデプロイすることは、LinuxコンテナとWindowsコンテナ共に、ほぼ同じように動作することに注意してください。クラスターとのインタフェースとなる[Kubectlコマンド](/docs/reference/kubectl/overview/)も同じです。Windowsコンテナをすぐに体験できる例を以下セクションに用意しています。
 
-## Getting Started: Deploying a Windows container
+## はじめに:Windowsコンテナーのデプロイ
 
-To deploy a Windows container on Kubernetes, you must first create an example application. The example YAML file below creates a simple webserver application. Create a service spec named `win-webserver.yaml` with the contents below:
+WindowsコンテナをKubernetesにデプロイするには、最初にサンプルアプリケーションを作成する必要があります。以下のYAMLファイルの例では、簡単なウェブサーバーアプリケーションを作成しています。以下の内容で「win-webserver.yaml」という名前のサービススペックを作成します。:
 
 ```yaml
 apiVersion: v1
@@ -35,7 +35,7 @@ metadata:
     app: win-webserver
 spec:
   ports:
-    # the port that this service should serve on
+    # このサービスが提供するポート
     - port: 80
       targetPort: 80
   selector:
@@ -71,37 +71,38 @@ spec:
 ```
 
 {{< note >}}
-Port mapping is also supported, but for simplicity in this example the container port 80 is exposed directly to the service.
+ポートマッピングもサポートされていますが、この例では簡単にするために、コンテナポート80がサービスに直接公開されています。
 {{< /note >}}
 
-1. Check that all nodes are healthy:
+1. すべてのノードが正常であることを確認します。:
 
     ```bash
     kubectl get nodes
     ```
 
-1. Deploy the service and watch for pod updates:
+1. Serviceをデプロイして、Podの更新を確認します。:
 
     ```bash
     kubectl apply -f win-webserver.yaml
     kubectl get pods -o wide -w
     ```
 
-    When the service is deployed correctly both Pods are marked as Ready. To exit the watch command, press Ctrl+C.
+    Serviceが正しくデプロイされると、両方のPodがReadyとして表示されます。watch状態のコマンドを終了するには、Ctrl + Cを押します。
 
-1. Check that the deployment succeeded. To verify:
+1. デプロイが成功したことを確認します。検証するために行うこと:
 
-    * Two containers per pod on the Windows node, use `docker ps`
-    * Two pods listed from the Linux master, use `kubectl get pods`
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux master to check for a web server response
-    * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node) using docker exec or kubectl exec
-    * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`) from the Linux master and from individual pods
-    * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)
+    * WindowsノードのPodごとの2つのコンテナに`docker ps`します
+    * Linuxマスターからリストされた2つのPodに`kubectl get pods`します
+    * ネットワークを介したノードとPod間通信、LinuxマスターからのPod IPのポート80に向けて`curl`して、ウェブサーバーの応答をチェックします
+    * docker execまたはkubectl execを使用したPod間通信、Pod間(および複数のWindowsノードがある場合はホスト間)へのpingします
+    * ServiceからPodへの通信、Linuxマスターおよび個々のPodからの仮想Service IP(`kubectl get services`で表示される)に`curl`します
+    * サービスディスカバリ、Kuberntesの[default DNS suffix](/ja/docs/concepts/services-networking/dns-pod-service/#services)と共にService名に`curl`します
     * Inbound connectivity, `curl` the NodePort from the Linux master or machines outside of the cluster
-    * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+    * インバウンド接続、Linuxマスターまたはクラスター外のマシンからNodePortに`curl`します
+    * アウトバウンド接続、kubectl execを使用したPod内からの外部IPに`curl`します
 
 {{< note >}}
-Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows pods are able to access service IPs.
+今のところ、Windowsネットワークスタックのプラットフォーム制限のため、Windowsコンテナホストは、ホストされているサービスのIPにアクセスできません。Service IPにアクセスできるのは、Windows Podだけです。
 {{< /note >}}
 
 ## Observability
