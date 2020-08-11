@@ -13,9 +13,6 @@ upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
 
-
-
-
 <!-- body -->
 
 ## Creating and configuring a Cluster
@@ -81,24 +78,33 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
-To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) page.
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the
+[Skewed versions](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) page.
 
 ## Resizing a cluster
 
-If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
-If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
+If your cluster runs short on resources you can easily add more machines to it if your cluster
+is running in [Node self-registration mode](/docs/concepts/architecture/nodes/#self-registration-of-nodes).
+If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes.
+It can be accomplished by modifying number of instances on
+`Compute > Compute Engine > Instance groups > your group > Edit group`
+[Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
-The Instance Group will take care of putting appropriate image on new machines and starting them, while the Kubelet will register its Node with the API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
+The Instance Group will take care of putting appropriate image on new machines and starting them,
+while the Kubelet will register its Node with the API server to make it available for scheduling.
+If you scale the instance group down, system will randomly choose Nodes to kill.
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 
 ### Resizing an Azure Kubernetes Service (AKS) cluster
 
-Azure Kubernetes Service enables user-initiated resizing of the cluster from either the CLI or the Azure Portal and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/scale-cluster).
+Azure Kubernetes Service enables user-initiated resizing of the cluster from either the CLI or
+the Azure Portal and is described in the
+[Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/scale-cluster).
 
 
 ### Cluster autoscaling
@@ -106,7 +112,8 @@ Azure Kubernetes Service enables user-initiated resizing of the cluster from eit
 If you are using GCE or Google Kubernetes Engine, you can configure your cluster so that it is automatically rescaled based on
 pod needs.
 
-As described in [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/), users can reserve how much CPU and memory is allocated to pods.
+As described in [Compute Resource](/docs/concepts/configuration/manage-resources-containers/),
+users can reserve how much CPU and memory is allocated to pods.
 This information is used by the Kubernetes scheduler to find a place to run the pod. If there is
 no node that has enough free capacity (or doesn't match other pod requirements) then the pod has
 to wait until some pods are terminated or a new node is added.
@@ -185,7 +192,8 @@ kubectl uncordon $NODENAME
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
 be created automatically (if you're using a cloud provider that supports
-node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/docs/admin/node) for more details.
+node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register).
+See [Node](/docs/concepts/architecture/nodes/) for more details.
 
 ## Advanced Topics
 

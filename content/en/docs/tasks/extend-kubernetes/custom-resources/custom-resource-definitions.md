@@ -16,7 +16,6 @@ This page shows how to install a
 into the Kubernetes API by creating a
 [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
 
-
 ## {{% heading "prerequisites" %}}
 
 
@@ -24,9 +23,7 @@ into the Kubernetes API by creating a
 
 * Make sure your Kubernetes cluster has a master version of 1.16.0 or higher to use `apiextensions.k8s.io/v1`, or 1.7.0 or higher for `apiextensions.k8s.io/v1beta1`.
 
-* Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
-
-
+* Read about [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 <!-- steps -->
 
@@ -427,7 +424,9 @@ spec:
 
 The field `someRandomField` has been pruned.
 
-Note that the `kubectl create` call uses `--validate=false` to skip client-side validation. Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2) to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
+Note that the `kubectl create` call uses `--validate=false` to skip client-side validation.
+Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
 
 ### Controlling pruning
 
@@ -533,11 +532,14 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2), `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
+In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2),
+`x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
 
-RawExtensions (as in `runtime.RawExtension` defined in [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)) holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
+RawExtensions (as in `runtime.RawExtension` defined in
+[k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94))
+holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
 
@@ -568,8 +570,6 @@ With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metad
 See [Custom resource definition versioning](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
-
-
 
 <!-- discussion -->
 ## Advanced topics

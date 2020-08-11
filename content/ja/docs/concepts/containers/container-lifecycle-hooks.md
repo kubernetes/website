@@ -30,7 +30,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 
 `PreStop`
 
-このフックは、liveness probeの失敗、プリエンプション、リソース競合などのAPI要求または管理イベントが原因でコンテナが終了する直前に呼び出されます。コンテナが既に終了状態または完了状態にある場合、preStopフックの呼び出しは失敗します。
+このフックは、liveness probeの失敗、プリエンプション、リソース競合などのAPI要求または管理イベントが原因でコンテナが終了する直前に呼び出されます。コンテナがすでに終了状態または完了状態にある場合、preStopフックの呼び出しは失敗します。
 これはブロッキング、つまり同期的であるため、コンテナを削除するための呼び出しを送信する前に完了する必要があります。
 ハンドラーにパラメーターは渡されません。
 
@@ -80,7 +80,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubobjectPath          Type      Reason               Message
+  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
   ---------  --------  -----  ----                                                   -------------          --------  ------               -------
   1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
   1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"

@@ -83,7 +83,7 @@ reglas de red en el anfitrión y haciendo reenvío de conexiones.
 
 ### Runtime de contenedores
 
-El {{< glossary_definition term_id="container-runtime" text="runtime de los contenedores" >}} es el software responsable de ejecutar los contenedores. Kubernetes soporta varios de
+El {{< glossary_tooltip term_id="container-runtime" text="runtime de los contenedores" >}} es el software responsable de ejecutar los contenedores. Kubernetes soporta varios de
 ellos: [Docker](http://www.docker.com), [containerd](https://containerd.io), [cri-o](https://cri-o.io/), [rktlet](https://github.com/kubernetes-incubator/rktlet) y cualquier implementación de la interfaz de runtime de contenedores de Kubernetes, o [Kubernetes CRI](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/container-runtime-interface.md).
 
 ## Addons

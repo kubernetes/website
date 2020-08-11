@@ -84,7 +84,7 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`). You can find the full list of supported API groups in [Kubernetes API reference](/docs/reference/).
 
-The two paths that support extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
+The two paths that support extending the API with [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) are:
 
  - [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    for basic CRUD needs.
