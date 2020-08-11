@@ -99,7 +99,7 @@ assigns a Pod to a Node, the kubelet starts creating containers for that Pod
 using a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 There are three possible container states: `Waiting`, `Running`, and `Terminated`.
 
-To the check state of a Pod's containers, you can use
+To check the state of a Pod's containers, you can use
 `kubectl describe pod <name-of-pod>`. The output shows the state for each container
 within that Pod.
 
