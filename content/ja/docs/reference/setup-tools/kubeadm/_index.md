@@ -8,23 +8,23 @@ card:
   weight: 40
 ---
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Kubeadm is a tool built to provide `kubeadm init` and `kubeadm join` as best-practice “fast paths” for creating Kubernetes clusters.
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">kubeadmは、`kubeadm init`や`kubeadm join`などのコマンドを提供するツールで、Kubernetesクラスターを構築する上でのベストプラクティスを反映した「近道」を提供するものとして開発されました。
 
-kubeadm performs the actions necessary to get a minimum viable cluster up and running. By design, it cares only about bootstrapping, not about provisioning machines. Likewise, installing various nice-to-have addons, like the Kubernetes Dashboard, monitoring solutions, and cloud-specific addons, is not in scope.
+kubeadmは実用最小限のクラスターをセットアップするための処理を実行します。設計上、kubeadmはブートストラップのみを行い、マシンのプロビジョニングは行いません。同様に、Kubernetesダッシュボード、モニタリングソリューション、クラウド向けのアドオンなど、あれば便利でもなくても支障のない各種アドオンのインストールも範囲外です。
 
-Instead, we expect higher-level and more tailored tooling to be built on top of kubeadm, and ideally, using kubeadm as the basis of all deployments will make it easier to create conformant clusters.
+その代わりに、高度な特定用途向けのツールはkubeadmをベースに構築されることが期待されています。理想的には、すべてのデプロイのベースとしてkubeadmを使用することで、適合テストに通るクラスターを簡単に作れるようになります。
 
-## How to install
+## インストール方法
 
-To install kubeadm, see the [installation guide](/docs/setup/production-environment/tools/kubeadm/install-kubeadm).
+kubeadmをインストールするには、[インストールガイド](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm)を参照してください。
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init) to bootstrap a Kubernetes control-plane node
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join) to bootstrap a Kubernetes worker node and join it to the cluster
-* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade) to upgrade a Kubernetes cluster to a newer version
-* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token) to manage tokens for `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
-* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version) to print the kubeadm version
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha) to preview a set of features made available for gathering feedback from the community
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init)を使用して、Kubernetesのコントロールプレーンノードをブートストラップする
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join)を使用して、Kubernetesのワーカーノードをブートストラップし、クラスターに参加させる
+* [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade)で、Kubernetesクラスターを新しいバージョンにアップグレードする
+* [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config)を使用して、kubeadm v1.7.x以前で初期化されたクラスターを、`kubeadm upgrade`を利用できるように設定する
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token)で、`kubeadm join`のためのトークンを管理する
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset)を使用して、`kubeadm init`または`kubeadm join`でホストに行われた変更をリバートする
+* [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version)で、kubeadmのバージョンを表示する
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha)で、コミュニティーからのフィードバックを集めるために有効にされた各種機能を試用する
