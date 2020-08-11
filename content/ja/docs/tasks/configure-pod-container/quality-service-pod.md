@@ -75,7 +75,8 @@ spec:
       requests:
         cpu: 700m
         memory: 200Mi
-...
+  ...
+status:
   qosClass: Guaranteed
 ```
 
@@ -125,7 +126,8 @@ spec:
         memory: 200Mi
       requests:
         memory: 100Mi
-...
+  ...
+status:
   qosClass: Burstable
 ```
 
@@ -163,6 +165,7 @@ spec:
     ...
     resources: {}
   ...
+status:
   qosClass: BestEffort
 ```
 
@@ -206,6 +209,7 @@ spec:
     name: qos-demo-4-ctr-2
     resources: {}
     ...
+status:
   qosClass: Burstable
 ```
 
