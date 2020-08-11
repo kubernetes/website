@@ -58,7 +58,7 @@
 {{- if not .Site.Params.deprecated }}
     "potentialAction": {
       "@type": "SearchAction",
-      "target": {{ printf "%s%s" ("/docs/search/" | absURL) "?q={search_term_string}" }},
+      "target": {{ printf "%s%s" ("search/" | absURL) "?q={search_term_string}" }},
       "query-input": "required name=search_term_string"
     }
 {{ end }}
