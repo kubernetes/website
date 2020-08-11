@@ -33,7 +33,7 @@ Once you have Minikube working, you can use it to
 ## kind
 
 Like Minikube, [kind](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local compute. Unlike Minikuke, kind only works with a single container runtime:
+your local computer. Unlike Minikube, kind only works with a single container runtime:
 it requires that you have [Docker](https://docs.docker.com/get-docker/) installed
 and configured.
 
