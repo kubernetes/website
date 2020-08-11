@@ -8,7 +8,7 @@ weight: 40
 
 <!-- overview -->
 
-アプリケーションをデプロイし、Serviceを介して外部への公開できました。さて、どうしますか? Kubernetesは、スケーリングや更新など、アプリケーションのデプロイを管理するための多くのツールを提供します。
+アプリケーションをデプロイし、Serviceを介して外部への公開できました。さて、どうしますか？Kubernetesは、スケーリングや更新など、アプリケーションのデプロイを管理するための多くのツールを提供します。
 我々が取り上げる機能についての詳細は[設定ファイル](/ja/docs/concepts/configuration/overview/)や[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)で確認できます。
 
 
@@ -48,7 +48,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f htt
 kubectl apply -f https://k8s.io/examples/application/nginx/
 ```
 
-`kubectl`は`.yaml`, `.yml`, `.json`といったサフィックスの付くファイルを読み込みます。
+`kubectl`は`.yaml`、`.yml`、`.json`といったサフィックスの付くファイルを読み込みます。
 
 同じマイクロサービス、アプリケーションティアーのリソースは同一のファイルにまとめ、アプリケーションに関するファイルをグループ化するために、それらのファイルを同一のディレクトリに配備するのを推奨します。アプリケーションのティアーがDNSを通じて互いにバインドされると、アプリケーションスタックの全てのコンポーネントをひとまとめにして簡単にデプロイできます。
 
