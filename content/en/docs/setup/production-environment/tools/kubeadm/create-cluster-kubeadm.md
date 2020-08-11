@@ -298,6 +298,11 @@ kubectl apply -f <add-on.yaml>
 
 You can install only one Pod network per cluster.
 
+Apply the CNI plugin of your choice: Follow these instructions to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the kubeadm configuration file if applicable.
+
+In this example we are using Weave Net:
+```kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"```
+
 Once a Pod network has been installed, you can confirm that it is working by
 checking that the CoreDNS Pod is `Running` in the output of `kubectl get pods --all-namespaces`.
 And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
