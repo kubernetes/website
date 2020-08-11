@@ -1,4 +1,4 @@
 ---
-title: Setup tools reference
+title: セットアップツールのリファレンス
 weight: 50
 ---
