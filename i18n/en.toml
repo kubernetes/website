@@ -207,6 +207,10 @@ other = "Subscribe"
 [synopsis_heading]
 other = "Synopsis"
 
+
+[thirdparty_message]
+other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects. This page follows <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> by listing projects alphabetically. To add a project to this list, read the <a href="/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change."""
+
 [ui_search_placeholder]
 other = "Search"
 
