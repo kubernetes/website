@@ -1,8 +1,4 @@
 ---
-reviewers:
-- Kashomon
-- bprashanth
-- madhusudancs
 title: ReplicaSet
 content_type: concept
 weight: 10
@@ -11,19 +7,59 @@ weight: 10
 <!-- overview -->
 
 <!--
-ReplicaSet is the next-generation Replication Controller. The only difference
-between a _ReplicaSet_ and a
-[_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
-the selector support. ReplicaSet supports the new set-based selector requirements
-as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-whereas a Replication Controller only supports equality-based selector requirements.
+A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
+used to guarantee the availability of a specified number of identical Pods.
 -->
 
-ReplicaSet 是下一代的 Replication Controller。 _ReplicaSet_ 和 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 的唯一区别是选择器的支持。ReplicaSet 支持新的基于集合的选择器需求，这在[标签用户指南](/docs/concepts/overview/working-with-objects/labels/#label-selectors)中有描述。而 Replication Controller 仅支持基于相等选择器的需求。
-
-
+ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。
+因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。
 
 <!-- body -->
+<!--
+## How a ReplicaSet works
+
+A ReplicaSet is defined with fields, including a selector that specifies how
+to identify Pods it can acquire, a number of replicas indicating how many Pods
+it should be maintaining, and a pod template specifying the data of new Pods
+it should create to meet the number of replicas criteria. A ReplicaSet then
+fulfills its purpose by creating and deleting Pods as needed to reach the
+desired number. When a ReplicaSet needs to create new Pods, it uses its Pod
+template.
+-->
+## ReplicaSet 的工作原理 {#how-a-replicaset-works}
+
+RepicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
+的集合的选择算符，一个用来标明应该维护的副本个数的数值，一个用来指定应该创建新 Pod
+以满足副本个数条件时要使用的 Pod 模板等等。每个 ReplicaSet 都通过根据需要创建和
+删除 Pod 以使得副本个数达到期望值，进而实现其存在价值。当 ReplicaSet 需要创建
+新的 Pod 时，会使用所提供的 Pod 模板。
+
+<!--
+A ReplicaSet is linked to its Pods via the Pods'
+[metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+field, which specifies what resource the current object is owned by. All Pods
+acquired by a ReplicaSet have their owning ReplicaSet's identifying
+information within their ownerReferences field. It's through this link that
+the ReplicaSet knows of the state of the Pods it is maintaining and plans
+accordingly.
+-->
+ReplicaSet 通过 Pod 上的
+[metadata.ownerReferences](/zh/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+字段连接到附属 Pod，该字段给出当前对象的属主资源。
+ReplicaSet 所获得的 Pod 都在其 ownerReferences 字段中包含了属主 ReplicaSet
+的标识信息。正是通过这一连接，ReplicaSet 知道它所维护的 Pod 集合的状态，
+并据此计划其操作行为。
+
+<!--
+A ReplicaSet identifies new Pods to acquire by using its selector. If there is
+a Pod that has no OwnerReference or the OwnerReference is not a {{<
+glossary_tooltip term_id="controller" >}} and it matches a ReplicaSet's
+selector, it will be immediately acquired by said ReplicaSet.
+-->
+ReplicaSet 使用其选择算符来辨识要获得的 Pod 集合。如果某个 Pod 没有
+OwnerReference 或者其 OwnerReference 不是一个 
+{{< glossary_tooltip text="控制器" term_id="controller" >}}，且其匹配到
+某 ReplicaSet 的选择算符，则该 Pod 立即被此 ReplicaSet 获得。
 
 <!--
 ## How to use a ReplicaSet
@@ -43,8 +79,7 @@ creation, deletion and updates. When you use Deployments you don't have to worry
 about managing the ReplicaSets that they create. Deployments own and manage
 their ReplicaSets.
 -->
-
-## 怎样使用 ReplicaSet
+## 怎样使用 ReplicaSet   {#how-to-use-a-replicaset}
 
 大多数支持 Replication Controllers 的[`kubectl`](/docs/user-guide/kubectl/)命令也支持 ReplicaSets。但[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个例外。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
 

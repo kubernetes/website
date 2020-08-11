@@ -72,7 +72,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: クラスターに接続するIPおよびDNS名（ [kubeadm][kubeadm]を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）
+[1]: クラスターに接続するIPおよびDNS名( [kubeadm][kubeadm]を使用する場合と同様、ロードバランサーのIPおよびDNS名、`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、`kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`)
 
 `kind`は下記の[x509の鍵用途][usage]のタイプにマッピングされます:
 
@@ -82,7 +82,7 @@ CAの秘密鍵をクラスターにコピーしたくない場合、自身で全
 | client | digital signature, key encipherment, client auth                                |
 
 {{< note >}}
-上記に挙げられたホスト名（SAN）は、クラスターを動作させるために推奨されるものです。
+上記に挙げられたホスト名(SAN)は、クラスターを動作させるために推奨されるものです。
 特別なセットアップが求められる場合、全てのサーバー証明書にSANを追加する事ができます。
 {{< /note >}}
 
