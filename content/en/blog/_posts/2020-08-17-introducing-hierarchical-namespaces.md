@@ -10,7 +10,7 @@ Safely hosting large numbers of users on a single Kubernetes cluster has always
 been a troublesome task. One key reason for this is that different organizations
 use Kubernetes in different ways, and so no one tenancy model is likely to suit
 everyone. Instead, Kubernetes offers you building blocks to create your own
-tenancy solution, such as Role Based Access Control (RBAC) and Network Policies;
+tenancy solution, such as Role Based Access Control (RBAC) and NetworkPolicies;
 the better these building blocks, the easier it is to safely build a multitenant
 cluster.
 
@@ -18,8 +18,8 @@ cluster.
 
 By far the most important of these building blocks is the namespace, which forms
 the backbone of almost all Kubernetes control plane security and sharing
-policies. For example, RBAC, Network Policies and Resource Quotas all respect
-namespaces by default, and objects such as Secrets, Service Accounts and
+policies. For example, RBAC, NetworkPolicies and ResourceQuotas all respect
+namespaces by default, and objects such as Secrets, ServiceAccounts and
 Ingresses are freely usable _within_ any one namespace, but fully segregated
 from _other_ namespaces.
 
@@ -70,7 +70,7 @@ ownership _across_ namespaces, not just _within_ them.
 This concept of ownership enables two additional types of behaviours:
 
 * **Policy inheritance:** if one namespace is a child of another, policy objects
-  such as RBAC role bindings are [copied from the parent to the
+  such as RBAC RoleBindings are [copied from the parent to the
   child](https://github.com/kubernetes-sigs/multi-tenancy/blob/master/incubator/hnc/docs/user-guide/concepts.md#basic-propagation).
 * **Delegated creation:** you usually need cluster-level privileges to create a
   namespace, but hierarchical namespaces adds an alternative:
@@ -103,7 +103,7 @@ Let’s see HNC in action. Imagine that I do not have namespace creation
 privileges, but I can view the namespace `team-a` and create subnamespaces
 within it<sup>[1](#note-1)</sup>. Using the plugin, I can now say:
 
-```
+```bash
 $ kubectl hns create svc1-team-a -n team-a
 ```
 
@@ -113,7 +113,7 @@ unique.
 
 I can view the structure of these namespaces by asking for a tree view:
 
-```
+```bash
 $ kubectl hns tree team-a
 # Output:
 team-a
@@ -125,7 +125,7 @@ child as well<sup>[2](#note-2)</sup>. For example, let’s say that `team-a` had
 an RBAC RoleBinding called `sres`. This rolebinding will also be present in the
 subnamespace:
 
-```
+```bash
 $ kubectl describe rolebinding sres -n svc1-team-a
 # Output:
 Name:         sres
@@ -139,9 +139,9 @@ Subjects: ...
 
 Finally, HNC adds labels to these namespaces with useful information about the
 hierarchy which you can use to apply other policies. For example, you can create
-the following Network Policy:
+the following NetworkPolicy:
 
-```
+```yaml
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -167,7 +167,7 @@ guide](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/hn
 
 If you think that hierarchical namespaces can work for your organization, [HNC
 v0.5.1 is available on
-Github](https://github.com/kubernetes-sigs/multi-tenancy/releases/tag/hnc-v0.5.1).
+GitHub](https://github.com/kubernetes-sigs/multi-tenancy/releases/tag/hnc-v0.5.1).
 We’d love to know what you think of it, what problems you’re using it to solve
 and what features you’d most like to see added. As with all early software, you
 should be cautious about using HNC in production environments, but the more
