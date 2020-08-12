@@ -192,6 +192,15 @@ necessary soon anyway. Rolling updates of Deployments also provide a natural
 repacking of EndpointSlices with all Pods and their corresponding endpoints
 getting replaced.
 
+### Duplicate endpoints
+
+Due to the nature of EndpointSlice changes, endpoints may be represented in more
+than one EndpointSlice at the same time. This naturally occurs as changes to
+different EndpointSlice objects can arrive at the Kubernetes client watch/cache
+at different times. Implementations using EndpointSlice must be able to have the
+endpoint appear in more than one slice. A reference implementation of how to
+perform endpoint deduplication can be found in the `EndpointSliceCache`
+implementation in `kube-proxy`.
 
 ## {{% heading "whatsnext" %}}
 
