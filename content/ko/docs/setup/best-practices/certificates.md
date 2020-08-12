@@ -26,7 +26,7 @@ weight: 40
 * API 서버에서 etcd 간의 통신을 위한 클라이언트 인증서
 * 컨트롤러 매니저와 API 서버 간의 통신을 위한 클라이언트 인증서/kubeconfig
 * 스케줄러와 API 서버간 통신을 위한 클라이언트 인증서/kubeconfig
-* [front-proxy][proxy]를 위한 클라이언트와 서버 인증서
+* [front-proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/)를 위한 클라이언트와 서버 인증서
 
 {{< note >}}
 `front-proxy` 인증서는 kube-proxy에서 [API 서버 확장](/docs/tasks/extend-kubernetes/setup-extension-api-server/)을 지원할 때만 kube-proxy에서 필요하다.
@@ -52,7 +52,7 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | 쿠버네티스 일반 CA               |
 | etcd/ca.crt,key        | etcd-ca                   | 모든 etcd 관련 기능을 위해서     |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy][proxy] 위해서  |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | [front-end proxy](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 위해서  |
 
 위의 CA외에도, 서비스 계정 관리를 위한 공개/개인 키 쌍인 `sa.key` 와 `sa.pub` 을 얻는 것이 필요하다.
 
@@ -72,10 +72,10 @@ etcd 역시 클라이언트와 피어 간에 상호 TLS 인증을 구현한다.
 | kube-apiserver-kubelet-client | kubernetes-ca             | system:masters | client                                 |                                             |
 | front-proxy-client            | kubernetes-front-proxy-ca |                | client                                 |                                             |
 
-[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm][kubeadm] 이 사용하는 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
+[1]: 클러스터에 접속한 다른 IP 또는 DNS 이름([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) 이 사용하는 로드 밸런서 안정 IP 또는 DNS 이름, `kubernetes`, `kubernetes.default`, `kubernetes.default.svc`,
 `kubernetes.default.svc.cluster`, `kubernetes.default.svc.cluster.local`)
 
-`kind`는 하나 이상의 [x509 키 사용][usage] 종류를 가진다.
+`kind`는 하나 이상의 [x509 키 사용](https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage) 종류를 가진다.
 
 | 종류   | 키 사용                                                                         |
 |--------|---------------------------------------------------------------------------------|
@@ -97,7 +97,7 @@ kubeadm 사용자만 해당:
 
 ### 인증서 파일 경로
 
-인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm][kubeadm]에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정되야 한다.
+인증서는 권고하는 파일 경로에 존재해야 한다([kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)에서 사용되는 것처럼). 경로는 위치에 관계없이 주어진 파라미터를 사용하여 지정되야 한다.
 
 | 기본 CN                      | 권고되는 키 파일 경로         | 권고하는 인증서 파일 경로   | 명령어         | 키 파라미터                  | 인증서 파라미터                           |
 |------------------------------|------------------------------|-----------------------------|----------------|------------------------------|-------------------------------------------|
@@ -157,9 +157,4 @@ KUBECONFIG=<filename> kubectl config use-context default-system
 | kubelet.conf            | kubelet                 | 클러스터 각 노드를 위해 필요하다.                            |
 | controller-manager.conf | kube-controller-manager | 반드시 매니페스트를 `manifests/kube-controller-manager.yaml`에 추가해야한다. |
 | scheduler.conf          | kube-scheduler          | 반드시 매니페스트를 `manifests/kube-scheduler.yaml`에 추가해야한다.          |
-
-[usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
-[kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/extend-kubernetes/configure-aggregation-layer/
-
 

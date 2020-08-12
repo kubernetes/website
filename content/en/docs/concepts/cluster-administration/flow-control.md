@@ -162,6 +162,31 @@ are built in and may not be overwritten:
   that only matches the `catch-all` FlowSchema will be rejected with an HTTP 429
   error.
 
+## Health check concurrency exemption
+
+The suggested configuration gives no special treatment to the health
+check requests on kube-apiservers from their local kubelets --- which
+tend to use the secured port but supply no credentials.  With the
+suggested config, these requests get assigned to the `global-default`
+FlowSchema and the corresponding `global-default` priority level,
+where other traffic can crowd them out.
+
+If you add the following additional FlowSchema, this exempts those
+requests from rate limiting.
+
+{{< caution >}}
+
+Making this change also allows any hostile party to then send
+health-check requests that match this FlowSchema, at any volume they
+like.  If you have a web traffic filter or similar external security
+mechanism to protect your cluster's API server from general internet
+traffic, you can configure rules to block any health check requests
+that originate from outside your cluster.
+
+{{< /caution >}}
+
+{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
+
 ## Resources
 The flow control API involves two kinds of resources.
 [PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1alpha1-flowcontrol-apiserver-k8s-io)

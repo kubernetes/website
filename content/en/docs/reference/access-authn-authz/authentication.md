@@ -20,13 +20,24 @@ This page provides an overview of authenticating.
 All Kubernetes clusters have two categories of users: service accounts managed
 by Kubernetes, and normal users.
 
-Normal users are assumed to be managed by an outside, independent service. An
-admin distributing private keys, a user store like Keystone or Google Accounts,
-even a file with a list of usernames and passwords. In this regard, _Kubernetes
-does not have objects which represent normal user accounts._ Normal users
-cannot be added to a cluster through an API call.
+It is assumed that a cluster-independent service manages normal users in the following ways:
 
-Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation on a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
+- an administrator distributing private keys
+- a user store like Keystone or Google Accounts
+- a file with a list of usernames and passwords
+
+In this regard, _Kubernetes does not have objects which represent normal user
+accounts._ Normal users cannot be added to a cluster through an API call.
+
+Even though normal user cannot be added via an API call, but any user that
+presents a valid certificate signed by the cluster’s certificate authority
+(CA) is considered authenticated. In this configuration, Kubernetes determines
+the username from the common name field in the ‘subject’ of the cert (e.g.,
+“/CN=bob”). From there, the role based access control (RBAC) sub-system would
+determine whether the user is authorized to perform a specific operation on a
+resource. For more details, refer to the normal users topic in
+[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+for more details about this.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
@@ -315,8 +326,12 @@ wish to utilize multiple OAuth clients should explore providers which support th
 tokens on behalf of another.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+You can use an existing public OpenID Connect Identity Provider (such as Google, or
+[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
+[Keycloak](https://github.com/keycloak/keycloak), 
+CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
+Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
 For an identity provider to work with Kubernetes it must:
 
@@ -400,7 +415,7 @@ Webhook authentication is a hook for verifying bearer tokens.
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
-The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 

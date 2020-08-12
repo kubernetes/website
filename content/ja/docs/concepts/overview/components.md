@@ -9,7 +9,7 @@ card:
 
 <!-- overview -->
 Kubernetesをデプロイすると、クラスターが展開されます。
-{{< glossary_definition term_id="cluster" length="all" prepend="クラスターは、">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetesクラスターは、">}}
 
 このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
 
@@ -21,12 +21,11 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 <!-- body -->
 
-## マスターコンポーネント
+## コントロールプレーンコンポーネント
 
-マスターコンポーネントは、クラスターのコントロールプレーンを提供します。
-マスターコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="pod" term_id="pod">}} を起動する等)。
+コントロールプレーンコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="Pod" term_id="pod">}} を起動する等)。
 
-マスターコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのマスターコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
+コントロールプレーンコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのコントロールプレーンコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
 マルチマスター VMセットアップの例については、[高可用性クラスターの構築](/docs/admin/high-availability/) を参照してください。
 
 ### kube-apiserver
@@ -68,7 +67,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
   * サービスコントローラー：クラウドプロバイダーのロードバランサーの作成、更新、削除を行います。
   * ボリュームコントローラー：ボリュームを作成、アタッチ、マウントしたり、クラウドプロバイダーとやり取りしてボリュームを調整したりします。
 
-## ノードコンポーネント
+## ノードコンポーネント {#node-components}
 
 ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。
 
@@ -117,6 +116,6 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 * [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
 * [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
-* [kube-scheduler](/ja/docs/concepts/scheduling/kube-scheduler/)について学ぶ
+* [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
 * etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
 

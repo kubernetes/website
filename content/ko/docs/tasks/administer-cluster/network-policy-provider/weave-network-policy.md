@@ -52,8 +52,4 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 ## {{% heading "whatsnext" %}}
 
 
-위브넷 애드온을 설치하고 나서, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다. 질문이 있으면 [슬랙 #weave-community 이나 Weave 유저그룹](https://github.com/weaveworks/weave#getting-help)에 연락한다.
-
-
-
-
+위브넷 애드온을 설치하고 나서, 쿠버네티스 네트워크 폴리시를 시도하기 위해 [네트워크 폴리시 선언하기](/ko/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다. 질문이 있으면 [슬랙 #weave-community 이나 Weave 유저그룹](https://github.com/weaveworks/weave#getting-help)에 연락한다.

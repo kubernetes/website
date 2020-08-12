@@ -102,9 +102,6 @@ cilium-6rxbd    1/1     Running   0          1m
 
 클러스터가 동작하면,
 실리움으로 쿠버네티스 네트워크 폴리시를 시도하기 위해
-[네트워크 폴리시 선언하기](/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
+[네트워크 폴리시 선언하기](/ko/docs/tasks/administer-cluster/declare-network-policy/)를 따라 할 수 있다.
 재미있게 즐기고, 질문이 있다면
 [실리움 슬랙 채널](https://cilium.herokuapp.com/)을 이용하여 연락한다.
-
-
-
