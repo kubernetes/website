@@ -172,7 +172,7 @@ Node Score:
 
 intel.com/foo  = resourceScoringFunction((2+2),8)
                =  (100 - ((8-4)*100/8)
-               =  (100 - 25)
+               =  (100 - 50)
                =  50
                =  rawScoringFunction(50)
                = 5
