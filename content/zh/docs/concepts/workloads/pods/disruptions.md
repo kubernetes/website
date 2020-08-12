@@ -147,7 +147,7 @@ or across zones (if using a
   和[有状态](/zh/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
 - 为了在运行复制应用程序时获得更高的可用性，请跨机架（使用
   [反亲和性](/zh/docs/concepts/scheduling-eviction/assign-pod-node/)）或跨区域
-  （如果使用[多区域集群](/zh/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
+  （如果使用[多区域集群](/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
@@ -204,7 +204,7 @@ instead of directly deleting pods or deployments.  Examples are the `kubectl dra
 and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 -->
 集群管理员和托管提供商应该使用遵循 Pod Disruption Budgets 的接口
-（通过调用[Eviction API](/zh/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
+（通过调用[Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
 而不是直接删除 Pod 或 Deployment。
 
 <!--
@@ -497,7 +497,7 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
-* 进一步了解[排空节点](/zh/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+* 进一步了解[排空节点](/docs/tasks/administer-cluster/safely-drain-node/)的信息。
 * 了解[更新 Deployment](/zh/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
 
