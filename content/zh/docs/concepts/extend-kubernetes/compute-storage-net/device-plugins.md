@@ -58,7 +58,7 @@ to advertise that the node has 2 “Foo” devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
   
-* 设备插件的 Unix 套接字。s
+* 设备插件的 Unix 套接字。
 * 设备插件的 API 版本。
 * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循
   [扩展资源命名方案](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
