@@ -352,6 +352,8 @@ NAME                             TYPE                                  DATA     
 db-user-pass-96mffmfh4k          Opaque                                2         51s
 ```
 
+You can view a description of the secret:
+
 ```shell
 kubectl describe secrets/db-user-pass-96mffmfh4k
 ```
@@ -1001,6 +1003,8 @@ The output is similar to:
 ```
 secret "prod-db-secret" created
 ```
+
+You can also create a secret for test environment credentials.
 
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
