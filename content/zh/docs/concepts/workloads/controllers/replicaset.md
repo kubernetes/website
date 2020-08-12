@@ -195,13 +195,13 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Pod 模版
 
-`.spec.template` 是 `.spec` 唯一需要的字段。`.spec.template` 是 [Pod 模版](/docs/concepts/workloads/pods/pod-overview/#pod-templates)。它和 [Pod](/docs/concepts/workloads/pods/pod/) 的语法几乎完全一样，除了它是嵌套的并没有 `apiVersion` 和 `kind`。
+`.spec.template` 是 `.spec` 唯一需要的字段。`.spec.template` 是 [Pod 模版](/zh/docs/concepts/workloads/pods/pod-overview/#pod-templates)。它和 [Pod](/zh/docs/concepts/workloads/pods/) 的语法几乎完全一样，除了它是嵌套的并没有 `apiVersion` 和 `kind`。
 
 除了所需的 Pod 字段之外，ReplicaSet 中的 Pod 模板必须指定适当的标签和适当的重启策略。
 
 对于标签，请确保不要与其他控制器重叠。更多信息请参考 [Pod 选择器](#pod-selector)。
 
-对于 [重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
+对于 [重启策略](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
 
 对于本地容器重新启动，ReplicaSet 委托给了节点上的代理去执行，例如[Kubelet](/docs/admin/kubelet/) 或 Docker 去执行。
 

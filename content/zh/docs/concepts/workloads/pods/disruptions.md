@@ -267,7 +267,7 @@ hornoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).)
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
-[终止](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
+[终止](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，期间会
 参考 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 中的 `terminationGracePeriodSeconds` 配置值。
 

@@ -325,7 +325,7 @@ Disadvantages compared to imperative object configuration:
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 - [使用命令式命令管理 Kubernetes 对象](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [使用对象配置管理 Kubernetes 对象（命令式）](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [使用对象配置管理 Kubernetes 对象（命令式）](/zh/docs/tasks/manage-kubernetes-objects/imperative-config/)
 - [使用对象配置管理 Kubernetes 对象（声明式）](/docs/tasks/manage-kubernetes-objects/declarative-config/)
 - [使用 Kustomize（声明式）管理 Kubernetes 对象](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
