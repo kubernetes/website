@@ -378,7 +378,7 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
 -->
 * 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
-* 查看在上如何[公布节点上的扩展资源](/docs/tasks/administer-cluster/extended-resource-node/)
+* 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
 * 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
 * 学习[拓扑管理器](/zh/docs/tasks/adminster-cluster/topology-manager/)
 
