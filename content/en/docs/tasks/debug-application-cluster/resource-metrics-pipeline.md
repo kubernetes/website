@@ -13,9 +13,6 @@ are available in Kubernetes through the Metrics API. These metrics can be either
 by user, for example by using `kubectl top` command, or used by a controller in the cluster, e.g.
 Horizontal Pod Autoscaler, to make decisions.
 
-
-
-
 <!-- body -->
 
 ## The Metrics API
@@ -41,11 +38,19 @@ The API requires metrics server to be deployed in the cluster. Otherwise it will
 
 ### CPU
 
-CPU is reported as the average usage, in [CPU cores](/docs/concepts/configuration/manage-compute-resources-container/#meaning-of-cpu), over a period of time. This value is derived by taking a rate over a cumulative CPU counter provided by the kernel (in both Linux and Windows kernels). The kubelet chooses the window  for the rate calculation.
+CPU is reported as the average usage, in
+[CPU cores](/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu),
+over a period of time. This value is derived by taking a rate over a cumulative CPU counter
+provided by the kernel (in both Linux and Windows kernels).
+The kubelet chooses the window for the rate calculation.
 
 ### Memory
 
-Memory is reported as the working set, in bytes, at the instant the metric was collected. In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure.  However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate.  It includes all anonymous (non-file-backed) memory since kubernetes does not support swap. The metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim such pages.
+Memory is reported as the working set, in bytes, at the instant the metric was collected.
+In an ideal world, the "working set" is the amount of memory in-use that cannot be freed under memory pressure.
+However, calculation of the working set varies by host OS, and generally makes heavy use of heuristics to produce an estimate.
+It includes all anonymous (non-file-backed) memory since kubernetes does not support swap.
+The metric typically also includes some cached (file-backed) memory, because the host OS cannot always reclaim such pages.
 
 ## Metrics Server
 
@@ -54,9 +59,12 @@ It is deployed by default in clusters created by `kube-up.sh` script
 as a Deployment object. If you use a different Kubernetes setup mechanism you can deploy it using the provided
 [deployment components.yaml](https://github.com/kubernetes-sigs/metrics-server/releases) file.
 
-Metric server collects metrics from the Summary API, exposed by [Kubelet](/docs/admin/kubelet/) on each node.
+Metric server collects metrics from the Summary API, exposed by
+[Kubelet](/docs/reference/command-line-tools-reference/kubelet/) on each node.
 
 Metrics Server is registered with the main API server through
-[Kubernetes aggregator](/docs/concepts/api-extension/apiserver-aggregation/).
+[Kubernetes aggregator](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 
-Learn more about the metrics server in [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+Learn more about the metrics server in
+[the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
+

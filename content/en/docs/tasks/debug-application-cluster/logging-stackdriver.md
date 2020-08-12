@@ -317,8 +317,8 @@ After some time, Stackdriver Logging agent pods will be restarted with the new c
 ### Changing fluentd parameters
 
 Fluentd configuration is stored in the `ConfigMap` object. It is effectively a set of configuration
-files that are merged together. You can learn about fluentd configuration on the [official
-site](http://docs.fluentd.org).
+files that are merged together. You can learn about fluentd configuration on the
+[official site](https://docs.fluentd.org).
 
 Imagine you want to add a new parsing logic to the configuration, so that fluentd can understand
 default Python logging format. An appropriate fluentd filter looks similar to this:
@@ -356,7 +356,7 @@ using [guide above](#changing-daemonset-parameters).
 ### Adding fluentd plugins
 
 Fluentd is written in Ruby and allows to extend its capabilities using
-[plugins](http://www.fluentd.org/plugins). If you want to use a plugin, which is not included
+[plugins](https://www.fluentd.org/plugins). If you want to use a plugin, which is not included
 in the default Stackdriver Logging container image, you have to build a custom image. Imagine
 you want to add Kafka sink for messages from a particular container for additional processing.
 You can re-use the default [container image sources](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
