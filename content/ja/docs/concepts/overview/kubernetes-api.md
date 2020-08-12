@@ -3,7 +3,7 @@ reviewers:
 title: Kubernetes API
 content_type: concept
 weight: 30
-card: 
+card:
   name: concepts
   weight: 30
 ---
@@ -16,7 +16,7 @@ APIエンドポイント、リソースタイプ、そしてサンプルは[API�
 
 APIへの外部からのアクセスは、[APIアクセス制御ドキュメント](/docs/reference/access-authn-authz/controlling-access/)に記載されています。
 
-Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することが出来ます。 
+Kubernetes APIは、システムの宣言的設定スキーマの基礎としても機能します。[kubectl](/docs/reference/kubectl/overview/)コマンドラインツールから、APIオブジェクトを作成、更新、削除、取得することができます。
 
 また、Kubernetesは、シリアライズされた状態を(現在は[etcd](https://coreos.com/docs/distributed-configuration/getting-started-with-etcd/)に)APIリソースの単位で保存しています。
 
@@ -30,7 +30,7 @@ Kubernetesそれ自身は複数のコンポーネントから構成されてお�
 
 我々の経験上、成功を収めているどのようなシステムも、新しいユースケースへの対応、既存の変更に合わせ、成長し変わっていく必要があります。したがって、Kubernetesにも継続的に変化、成長することを期待しています。一方で、長期間にわたり、既存のクライアントとの互換性を損なわないようにする予定です。一般的に、新しいAPIリソースとリソースフィールドは頻繁に追加されることが予想されます。リソース、フィールドの削除は、[API廃止ポリシー](/docs/reference/using-api/deprecation-policy/)への準拠を必要とします。
 
-何が互換性のある変更を意味するか、またAPIをどのように変更するかは、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/api_changes.md)に詳解されています。
+何が互換性のある変更を意味するか、またAPIをどのように変更するかは、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md)に詳解されています。
 
 ## OpenAPIとSwaggerの定義
 
@@ -41,10 +41,10 @@ Kubernetes 1.10から、KubernetesAPIサーバーは`/openapi/v2`のエンドポ
 
 ヘッダ | 設定可能な値
 ------ | ---------------
-Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` （デフォルトのcontent-typeは、`*/*`に対して`application/json`か、もしくはこのヘッダーを送信しません）
-Accept-Encoding | `gzip` （このヘッダーを送信しないことも許容されています）
+Accept | `application/json`, `application/com.github.proto-openapi.spec.v2@v1.0+protobuf` (デフォルトのcontent-typeは、`*/*`に対して`application/json`か、もしくはこのヘッダーを送信しません)
+Accept-Encoding | `gzip` (このヘッダーを送信しないことも許容されています)
 
-1.14より前のバージョンでは、フォーマット分離エンドポイント（`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`）が、OpenAPI仕様を違うフォーマットで提供しています。これらのエンドポイントは非推奨となっており、Kubernetes1.14で削除される予定です。
+1.14より前のバージョンでは、フォーマット分離エンドポイント(`/swagger.json`, `/swagger-2.0.0.json`, `/swagger-2.0.0.pb-v1`, `/swagger-2.0.0.pb-v1.gz`)が、OpenAPI仕様を違うフォーマットで提供しています。これらのエンドポイントは非推奨となっており、Kubernetes1.14で削除されました。
 
 **OpenAPI仕様の取得サンプル**:
 
@@ -57,7 +57,7 @@ GET /swagger-2.0.0.pb-v1.gz | GET /openapi/v2 **Accept**: application/com.github
 Kubernetesは、他の手段として主にクラスター間の連携用途向けのAPIに、Protocol buffersをベースにしたシリアライズフォーマットを実装しており、そのフォーマットの概要は[デザイン提案](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/protobuf.md)に記載されています。また各スキーマのIDFファイルは、APIオブジェクトを定義しているGoパッケージ内に配置されています。
 
 また、1.14より前のバージョンのKubernetesAPIサーバーでは、[Swagger v1.2](http://swagger.io/)をベースにしたKubernetes仕様を、`/swaggerapi`で公開しています。
-このエンドポイントは非推奨となっており、Kubernetes1.14で削除される予定です。
+このエンドポイントは非推奨となっており、Kubernetes1.14で削除されました。
 
 ## APIバージョニング
 
@@ -67,16 +67,16 @@ APIが、システムリソースと動作について明確かつ一貫した�
 
 APIとソフトウエアのバージョニングは、間接的にしか関連していないことに注意してください。[APIとリリースバージョニング提案](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md)で、APIとソフトウェアのバージョニングの関連について記載しています。
 
-異なるバージョンのAPIは、異なるレベル（版）の安定性とサポートを持っています。それぞれのレベル（版）の基準は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に詳細が記載されています。下記に簡潔にまとめます:
+異なるバージョンのAPIでは、安定性やサポートのレベルも変わります。各レベルの詳細な条件は、[API変更ドキュメント](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions)に記載されています。下記に簡潔にまとめます:
 
-- アルファレベル（版）:
-  - バージョン名に`alpha`を含みます（例、`v1alpha1`）。
+- アルファレベル(版):
+  - バージョン名に`alpha`を含みます(例、`v1alpha1`)。
   - バグが多いかもしれません。アルファ機能の有効化がバグを顕在化させるかもしれません。デフォルトでは無効となっています。
   - アルファ機能のサポートは、いつでも通知無しに取りやめられる可能性があります。
   - ソフトウェアリリース後、APIが通知無しに互換性が無い形で変更される可能性があります。
   - バグが増えるリスク、また長期サポートが無いことから、短期間のテスト用クラスターでの利用を推奨します。
-- ベータレベル（版）:
-  - バージョン名に`beta`を含みます（例、`v2beta3`）。
+- ベータレベル(版):
+  - バージョン名に`beta`を含みます(例、`v2beta3`)。
   - コードは十分にテストされています。ベータ機能の有効化は安全だと考えられます。デフォルトで有効化されています。
   - 全体的な機能のサポートは取りやめられませんが、詳細は変更される可能性があります。
   - オブジェクトのスキーマ、意味はその後のベータ、安定版リリースで互換性が無い形で変更される可能性があります。その場合、次のバージョンへアップデートするための手順を提供します。その手順ではAPIオブジェクトの削除、修正、再作成が必要になるかもしれません。修正のプロセスは多少の検討が必要になるかもしれません。これは、この機能を利用しているアプリケーションでダウンタイムが必要になる可能性があるためです。
@@ -93,24 +93,24 @@ APIグループは、RESTのパスとシリアライズされたオブジェク�
 
 現在、いくつかのAPIグループが利用されています:
 
-1. *core* グループ（度々、*legacy group* と呼ばれます）は、`/api/v1`というRESTのパスで、`apiVersion: v1`を使います。
+1. *core* グループ(たびたび、*legacy group* と呼ばれます)は、`/api/v1`というRESTのパスで、`apiVersion: v1`を使います。
 
-1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`（例、`apiVersion: batch/v1`）を使います。サポートされているAPIグループの全リストは、[Kubernetes APIリファレンス](/docs/reference/)を参照してください。
+1. 名前付きのグループは、`/apis/$GROUP_NAME/$VERSION`というRESTのパスで、`apiVersion: $GROUP_NAME/$VERSION`(例、`apiVersion: batch/v1`)を使います。サポートされているAPIグループの全リストは、[Kubernetes APIリファレンス](/docs/reference/)を参照してください。
 
 [カスタムリソース](/docs/concepts/api-extension/custom-resources/)でAPIを拡張するために、2つの方法がサポートされています:
 
 1. [カスタムリソース定義](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)は、とても基本的なCRUDが必要なユーザー向けです。
 1. 独自のAPIサーバーを実装可能な、フルセットのKubernetes APIが必要なユーザーは、[アグリゲーター](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)を使い、クライアントにシームレスな形で拡張を行います。
 
-## APIグループの有効化
+## APIグループの有効化、無効化
 
 いくつかのリソースとAPIグループはデフォルトで有効になっています。それらは、APIサーバーの`--runtime-config`設定で、有効化、無効化できます。`--runtime-config`は、カンマ区切りの複数の値を設定可能です。例えば、batch/v1を無効化する場合、`--runtime-config=batch/v1=false`をセットし、batch/v2alpha1を有効化する場合、`--runtime-config=batch/v2alpha1`をセットします。このフラグは、APIサーバーのランタイム設定を表すkey=valueのペアを、カンマ区切りで指定したセットを指定可能です。
 
-重要: APIグループ、リソースの有効化、無効化は、`--runtime-config`の変更を反映するため、APIサーバーとコントローラーマネージャーの再起動が必要です。
+{{< note >}}APIグループ、リソースの有効化、無効化は、`--runtime-config`の変更を反映するため、APIサーバーとコントローラーマネージャーの再起動が必要です。{{< /note >}}
 
-## APIグループのリソースの有効化
+## APIグループextensions/v1beta1に含まれる特定のリソースの有効化
 
-DaemonSets、Deployments、HorizontalPodAutoscalers、Ingresses、JobsReplicaSets、そしてReplicaSetsはデフォルトで有効です。
-その他の拡張リソースは、APIサーバーの`--runtime-config`を設定することで有効化できます。`--runtime-config`はカンマ区切りの複数の値を設定可能です。例えば、deploymentsとingressを無効化する場合、`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`と設定します。
+APIグループ`extensions/v1beta1`に含まれるDaemonSets、Deployments、StatefulSet、NetworkPolicies、PodSecurityPolicies、ReplicaSetsはデフォルトで無効にされています。
+例えば、deploymentとdaemonsetを有効にするには、`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`と設定します。
 
-
+{{< note >}}リソースを個別に有効化、無効化することは歴史的な理由によりAPIグループ`extensions/v1beta1`に含まれるリソースに限りサポートされています。{{< /note >}}

@@ -1,6 +1,7 @@
 ---
 title: kubeadm upgrade phase
 weight: 90
+content_type: concept
 ---
 In v1.15.0, kubeadm introduced preliminary support for `kubeadm upgrade node` phases.
 Phases for other `kubeadm upgrade` sub-commands such as `apply`, could be added in the
@@ -18,7 +19,8 @@ be called on a primary control-plane node.
 {{< tab name="kubelet-config" include="generated/kubeadm_upgrade_node_phase_kubelet-config.md" />}}
 {{< /tabs >}}
 
-## What's next
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

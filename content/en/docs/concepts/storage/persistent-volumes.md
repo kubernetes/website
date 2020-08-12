@@ -254,6 +254,16 @@ FlexVolume resize is possible only when the underlying driver supports resize.
 Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume quota of one modification every 6 hours.
 {{< /note >}}
 
+#### Recovering from Failure when Expanding Volumes
+
+If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
+
+1. Mark the PersistentVolume(PV) that is bound to the PersistentVolumeClaim(PVC) with `Retain` reclaim policy.
+2. Delete the PVC. Since PV has `Retain` reclaim policy - we will not loose any data when we recreate the PVC.
+3. Delete the `claimRef` entry from PV specs, so as new PVC can bind to it. This should make the PV `Available`.
+4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
+5. Don't forget to restore the reclaim policy of the PV.
+
 
 ## Types of Persistent Volumes
 

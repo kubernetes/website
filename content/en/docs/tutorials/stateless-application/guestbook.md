@@ -365,7 +365,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 
 ## {{% heading "whatsnext" %}}
 
-* Add [ELK logging and monitoring](../guestbook-logs-metrics-with-elk/) to your Guestbook application
+* Add [ELK logging and monitoring](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/) to your Guestbook application
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)

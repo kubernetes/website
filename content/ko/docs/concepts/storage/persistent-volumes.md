@@ -132,7 +132,7 @@ Events:            <none>
 
 #### Delete(삭제)
 
-`Delete` 반환 정책을 지원하는 볼륨 플러그인의 경우, 삭제는 쿠버네티스에서 퍼시스턴트볼륨 오브젝트와 외부 인프라(예: AWS EBS, GCE PD, Azure Disk 또는 Cinder 볼륨)의 관련 스토리지 자산을 모두 삭제한다. 동적으로 프로비저닝된 볼륨은 [스토리지클래스의 반환 정책](#반환-정책)을 상속하며 기본값은 `Delete`이다. 관리자는 사용자의 기대에 따라 스토리지클래스를 구성해야 한다. 그렇지 않으면 PV를 생성한 후 PV를 수정하거나 패치해야 한다. [퍼시스턴트볼륨의 반환 정책 변경](/docs/tasks/administer-cluster/change-pv-reclaim-policy/)을 참고하길 바란다.
+`Delete` 반환 정책을 지원하는 볼륨 플러그인의 경우, 삭제는 쿠버네티스에서 퍼시스턴트볼륨 오브젝트와 외부 인프라(예: AWS EBS, GCE PD, Azure Disk 또는 Cinder 볼륨)의 관련 스토리지 자산을 모두 삭제한다. 동적으로 프로비저닝된 볼륨은 [스토리지클래스의 반환 정책](#반환-정책)을 상속하며 기본값은 `Delete`이다. 관리자는 사용자의 기대에 따라 스토리지클래스를 구성해야 한다. 그렇지 않으면 PV를 생성한 후 PV를 수정하거나 패치해야 한다. [퍼시스턴트볼륨의 반환 정책 변경](/ko/docs/tasks/administer-cluster/change-pv-reclaim-policy/)을 참고하길 바란다.
 
 #### Recycle(재활용)
 
@@ -228,7 +228,7 @@ FlexVolume은 파드 재시작 시 크기를 조정할 수 있다.
 {{< feature-state for_k8s_version="v1.15" state="beta" >}}
 
 {{< note >}}
-사용 중인 PVC 확장은 쿠버네티스 1.15 이후 버전에서는 베타로, 1.11 이후 버전에서는 알파로 제공된다. `ExpandInUsePersistentVolumes` 기능을 사용하도록 설정해야 한다. 베타 기능의 경우 여러 클러스터에서 자동으로 적용된다. 자세한 내용은 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참고한다.
+사용 중인 PVC 확장은 쿠버네티스 1.15 이후 버전에서는 베타로, 1.11 이후 버전에서는 알파로 제공된다. `ExpandInUsePersistentVolumes` 기능을 사용하도록 설정해야 한다. 베타 기능의 경우 여러 클러스터에서 자동으로 적용된다. 자세한 내용은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참고한다.
 {{< /note >}}
 
 이 경우 기존 PVC를 사용하는 파드 또는 디플로이먼트를 삭제하고 다시 만들 필요가 없다.
