@@ -22,7 +22,7 @@ automatically provisions storage when it is requested by users.
 -->
 动态卷供应允许按需创建存储卷。
 如果没有动态供应，集群管理员必须手动地联系他们的云或存储提供商来创建新的存储卷，
-然后在 Kubernetes 集群创建 [`PersistentVolume` 对象](/zh/docs/concepts/storage/persistent-volumes/)来表示这些卷。
+然后在 Kubernetes 集群创建 [`PersistentVolume` 对象](/docs/concepts/storage/persistent-volumes/)来表示这些卷。
 动态供应功能消除了集群管理员预先配置存储的需要。 相反，它在用户请求时自动供应存储。
 
 <!-- body -->
@@ -199,7 +199,7 @@ Zones in a Region. Single-Zone storage backends should be provisioned in the Zon
 Pods are scheduled. This can be accomplished by setting the [Volume Binding
 Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 -->
-在[多区域](/zh/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到多个区域。
+在[多区域](/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到多个区域。
 单区域存储后端应该被供应到 Pod 被调度到的区域。
 这可以通过设置[卷绑定模式](/zh/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
 

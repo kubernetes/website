@@ -20,7 +20,7 @@ A _Cron Job_ creates [Jobs](/docs/concepts/workloads/controllers/jobs-run-to-com
 One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
 on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
-_Cron Job_ 创建基于时间调度的 [Jobs](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/)。
+_Cron Job_ 创建基于时间调度的 [Jobs](/zh/docs/concepts/workloads/controllers/job/)。
 
 一个 CronJob 对象就像 _crontab_ (cron table) 文件中的一行。
 它用 [Cron](https://en.wikipedia.org/wiki/Cron) 格式进行编写，

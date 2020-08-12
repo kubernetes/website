@@ -140,7 +140,7 @@ spec:
 * 名为 `nginx` 的 Headless Service 用来控制网络域名。
 * 名为 `web` 的 StatefulSet 有一个 Spec，它表明将在独立的 3 个 Pod 副本中启动 nginx 容器。
 * `volumeClaimTemplates` 将通过 PersistentVolumes 驱动提供的
-  [PersistentVolumes](/zh/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
+  [PersistentVolumes](/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
 <!--
 ## Pod Selector
@@ -232,7 +232,7 @@ This must be done manually.
 -->
 ### 稳定的存储  {#stable-storage}
 
-Kubernetes 为每个 VolumeClaimTemplate 创建一个 [PersistentVolume](/zh/docs/concepts/storage/persistent-volumes/)。
+Kubernetes 为每个 VolumeClaimTemplate 创建一个 [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)。
 在上面的 nginx 示例中，每个 Pod 将会得到基于 StorageClass `my-storage-class` 提供的
 1 Gib 的 PersistentVolume。如果没有声明 StorageClass，就会使用默认的 StorageClass。
 当一个 Pod 被调度（重新调度）到节点上时，它的 `volumeMounts` 会挂载与其 

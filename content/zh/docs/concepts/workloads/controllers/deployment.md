@@ -1030,7 +1030,7 @@ deployment.apps/nginx-deployment scaled
 in your cluster, you can setup an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 -->
-假设启用[水平自动缩放 Pod](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)在集群中，可以为 Deployment 设置自动缩放器，并选择最小和最大
+假设启用[水平自动缩放 Pod](/zh/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)在集群中，可以为 Deployment 设置自动缩放器，并选择最小和最大
 要基于现有 Pods 的 CPU 利用率运行的 Pods。
 
 ```shell
@@ -1738,7 +1738,7 @@ can create multiple Deployments, one for each release, following the canary patt
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 -->
-同其他 Kubernetes 配置， Deployment 需要 `apiVersion`， `kind`， 和 `metadata` 字段。有关配置文件的其他信息，参考 [应用 Deployment ](/docs/tutorials/stateless-application/run-stateless-application-deployment/)，配置容器，和 [使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/) 相关文档。
+同其他 Kubernetes 配置， Deployment 需要 `apiVersion`， `kind`， 和 `metadata` 字段。有关配置文件的其他信息，参考 [应用 Deployment ](/zh/docs/tasks/run-application/run-stateless-application-deployment/)，配置容器，和 [使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/) 相关文档。
 
 <!--
  A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
@@ -1792,7 +1792,7 @@ allowed, which is the default if not specified.
  `.spec.selector` is an required field that specifies a [label selector](/docs/concepts/overview/working-with-objects/labels/)
 for the Pods targeted by this Deployment.
 -->
-`.spec.selector` 是指定本次 Deployment  Pods [标签选择器](/docs/concepts/overview/working-with-objects/labels/)的必要字段。
+`.spec.selector` 是指定本次 Deployment  Pods [标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/)的必要字段。
 
 <!--
  `.spec.selector` must match `.spec.template.metadata.labels`, or it will be rejected by the API.
@@ -1857,7 +1857,7 @@ the default value.
 fashion when `.spec.strategy.type==RollingUpdate`. You can specify `maxUnavailable` and `maxSurge` to control
 the rolling update process.
 -->
- Deployment 会在 `.spec.strategy.type==RollingUpdate`时，采取 [滚动更新](/docs/tasks/run-application/rolling-update-replication-controller/)的方式更新Pods。可以指定 `maxUnavailable` 和 `maxSurge` 来控制滚动更新操作。
+ Deployment 会在 `.spec.strategy.type==RollingUpdate`时，采取滚动更新的方式更新Pods。可以指定 `maxUnavailable` 和 `maxSurge` 来控制滚动更新操作。
 
 <!--
  ##### Max Unavailable

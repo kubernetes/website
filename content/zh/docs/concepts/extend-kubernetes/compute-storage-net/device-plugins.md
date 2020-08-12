@@ -58,10 +58,10 @@ to advertise that the node has 2 “Foo” devices installed and available.
 -->
 设备插件可以通过此 gRPC 服务在 kubelet 进行注册。在注册期间，设备插件需要发送下面几样内容：
   
-* 设备插件的 Unix 套接字。
+* 设备插件的 Unix 套接字。s
 * 设备插件的 API 版本。
 * `ResourceName` 是需要公布的。这里 `ResourceName` 需要遵循
-  [扩展资源命名方案](/zh/docs/concepts/configuration/manage-resources-container/#extended-resources)，
+  [扩展资源命名方案](/zh/docs/concepts/configuration/manage-resources-containers/#extended-resources)，
   类似于 `vendor-domain/resourcetype`。（比如 NVIDIA GPU 就被公布为 `nvidia.com/gpu`。）
 
 成功注册后，设备插件就向 kubelet 发送他所管理的设备列表，然后 kubelet 负责将这些资源发布到 API 服务器，作为 kubelet 节点状态更新的一部分。
@@ -380,6 +380,6 @@ Here are some examples of device plugin implementations:
 * 查看[调度 GPU 资源](/zh/docs/tasks/manage-gpus/scheduling-gpus/) 来学习使用设备插件
 * 查看在上如何[公布节点上的扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
 * 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) 
-* 学习[拓扑管理器](/zh/docs/tasks/adminster-cluster/topology-manager/)
+* 学习[拓扑管理器](/zh/docs/tasks/administer-cluster/topology-manager/)
 
 
