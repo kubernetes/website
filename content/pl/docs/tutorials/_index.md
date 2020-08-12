@@ -14,8 +14,6 @@ z których każda zawiera sekwencję odpowiednich kroków.
 Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 [słownika](/docs/reference/glossary/), aby móc się później do niego na bieżąco odwoływać.
 
-
-
 <!-- body -->
 
 ## Podstawy
@@ -64,13 +62,8 @@ Przed zapoznaniem się z samouczkami warto stworzyć zakładkę do
 
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 Jeśli chciałbyś napisać nowy samouczek, odwiedź
 [Content Page Types](/docs/contribute/style/page-content-types/),
 gdzie znajdziesz dodatkowe informacje o tym typie strony.
-
-
