@@ -21,7 +21,7 @@ A _Deployment_ controller provides declarative updates for [Pods](/docs/concepts
 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/).
 
 -->
-一个 _Deployment_ 控制器为 [Pods](/docs/concepts/workloads/pods/pod/)和 [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/)提供描述性的更新方式。
+一个 _Deployment_ 控制器为 [Pods](/zh/docs/concepts/workloads/pods/)和 [ReplicaSets](/zh/docs/concepts/workloads/controllers/replicaset/)提供描述性的更新方式。
 
 <!--
 
@@ -1726,7 +1726,7 @@ thus that Deployment will not be able to roll back.
 can create multiple Deployments, one for each release, following the canary pattern described in
 [managing resources](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments).
 -->
-如果要使用 Deployment 向用户或服务器子集展开版本，则可以创建多个 Deployments ，每个版本一个，遵循[资源管理](/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)。
+如果要使用 Deployment 向用户或服务器子集展开版本，则可以创建多个 Deployments ，每个版本一个，遵循[资源管理](/zh/docs/concepts/cluster-administration/manage-deployment/#canary-deployments)。
 
 <!--
  ## Writing a Deployment Spec
@@ -1738,7 +1738,7 @@ can create multiple Deployments, one for each release, following the canary patt
 For general information about working with config files, see [deploying applications](/docs/tutorials/stateless-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 -->
-同其他 Kubernetes 配置， Deployment 需要 `apiVersion`， `kind`， 和 `metadata` 字段。有关配置文件的其他信息，参考 [应用 Deployment ](/docs/tutorials/stateless-application/run-stateless-application-deployment/)，配置容器，和 [使用 kubectl 管理资源](/docs/concepts/overview/working-with-objects/object-management/) 相关文档。
+同其他 Kubernetes 配置， Deployment 需要 `apiVersion`， `kind`， 和 `metadata` 字段。有关配置文件的其他信息，参考 [应用 Deployment ](/docs/tutorials/stateless-application/run-stateless-application-deployment/)，配置容器，和 [使用 kubectl 管理资源](/zh/docs/concepts/overview/working-with-objects/object-management/) 相关文档。
 
 <!--
  A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
@@ -1759,7 +1759,7 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
  The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/pod-overview/#pod-templates). It has exactly the same schema as a [Pod](/docs/concepts/workloads/pods/pod/), except it is nested and does not have an
 `apiVersion` or `kind`.
 -->
-`.spec.template` 是一个 [Pod 示例](/docs/concepts/workloads/pods/pod-overview/#pod-templates)。它和 [Pod](/docs/concepts/workloads/pods/pod/)的约束完全相同，除了它是嵌套的，而且没有 `apiVersion` 或 `kind`。
+`.spec.template` 是一个 [Pod 示例](/zh/docs/concepts/workloads/pods/#pod-templates)。它和 [Pod](/zh/docs/concepts/workloads/pods)的约束完全相同，除了它是嵌套的，而且没有 `apiVersion` 或 `kind`。
 
 <!--
  In addition to required fields for a Pod, a Pod template in a Deployment must specify appropriate
@@ -1768,10 +1768,10 @@ labels and an appropriate restart policy. For labels, make sure not to overlap w
 除了 Pod 的必填字段外， Deployment 中的 Pod 模板必须指定适当的标签和适当的重新启动策略。对于标签，请确保不要与其他控制器重叠。请参考[选择器](#selector))。
 
 <!--
- Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
+ Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.
 -->
-只有 [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 等于 `Always` 被允许，这是在没有指定时的默认设置。
+只有 [`.spec.template.spec.restartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 等于 `Always` 被允许，这是在没有指定时的默认设置。
 
 <!--
  ### Replicas
@@ -1932,7 +1932,7 @@ created Pod should be ready without any of its containers crashing, for it to be
 This defaults to 0 (the Pod will be considered available as soon as it is ready). To learn more about when
 a Pod is considered ready, see [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 -->
-`.spec.minReadySeconds` 是一个可选字段，用于指定新创建的 Pod 在没有任意容器崩溃情况下的最小就绪时间，以便将其视为可用。默认值为 0（Pod 在准备就绪后立即将被视为可用）。了解有关何时Pod 被视为已准备就绪，参考[容器探针](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
+`.spec.minReadySeconds` 是一个可选字段，用于指定新创建的 Pod 在没有任意容器崩溃情况下的最小就绪时间，以便将其视为可用。默认值为 0（Pod 在准备就绪后立即将被视为可用）。了解有关何时Pod 被视为已准备就绪，参考[容器探针](/zh/docs/concepts/workloads/pods/pod-lifecycle/#container-probes)。
 
 <!--
  ### Rollback To
