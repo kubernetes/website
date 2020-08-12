@@ -10,7 +10,7 @@ weight: 10
 
 アプリケーションのコンテナイメージを作成し、一般的には{{< glossary_tooltip text="Pod" term_id="pod" >}}で参照する前にレジストリへPushします。
 
-このページではコンテナイメージのコンセプト概要を説明します。
+このページではコンテナイメージの概要を説明します。
 
 <!-- body -->
 
@@ -41,10 +41,10 @@ weight: 10
 デフォルトのpull policyでは、{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}はイメージを既に取得済みの場合、イメージのPullをスキップさせる`IfNotPresent`が設定されています。
 常にPullを強制させたい場合は、次のいずれかの方法で実行できます。
 
-- コンテナの`imagePullPolicy`に`Always`を設定します。
-- `imagePullPolicy`を省略し、使用するイメージに`:latest`タグを使用します。
-- `imagePullPolicy`と使用するイメージのタグを省略します。
-- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)アドミッションコントローラーを有効にします。
+- コンテナの`imagePullPolicy`に`Always`を設定する
+- `imagePullPolicy`を省略し、使用するイメージに`:latest`タグを使用する
+- `imagePullPolicy`と使用するイメージのタグを省略する
+- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)アドミッションコントローラーを有効にする
 
 `imagePullPolicy`が値なしで定義された場合、この場合も`Always`が設定されます。
 
@@ -61,15 +61,15 @@ Kubernetes自身は、通常コンテナイメージに`-$(ARCH)`のサフィッ
 認証情報はいくつかの方法で提供できます。
 
   - プライベートレジストリへの認証をNodeに設定する
-    - すべてのPodがプライベートレジストリを読み取ることができます。
-    - クラスター管理者によるNodeの設定が必要です。
+    - すべてのPodがプライベートレジストリを読み取ることができる
+    - クラスター管理者によるNodeの設定が必要
   - 事前にPullされたイメージ
-    - すべてのPodがNode上にキャッシュされたイメージを利用できます。
-    - セットアップするためにはすべてのNodeに対するrootアクセスが必要です。
+    - すべてのPodがNode上にキャッシュされたイメージを利用できる
+    - セットアップするためにはすべてのNodeに対するrootアクセスが必要
   - PodでImagePullSecretsを指定する
-    - キーを提供したPodのみがプライベートレジストリへアクセスできる。
+    - キーを提供したPodのみがプライベートレジストリへアクセスできる
   - ベンダー固有またはローカルエクステンション
-    - カスタムNode構成を使っている場合、あなた(または、あなたのクラウドプロバイダー)はコンテナレジストリーへの認証の仕組みを組み込むことができます。
+    - カスタムNode構成を使っている場合、あなた(または、あなたのクラウドプロバイダー)はコンテナレジストリーへの認証の仕組みを組み込むことができる
 
 これらのオプションについて、以下で詳しく説明します。
 
@@ -104,19 +104,19 @@ kubeletプロセスの環境では、明示的に`HOME=/root`を設定する必�
 
 以下は、プライベートレジストリを使用する為にNodeを構成する推奨の手順です。この例では、デスクトップ/ノートPC上で実行します。
 
-   1. 使用したい認証情報のセット毎に `docker login [server]`を実行します。これであなたのPC上の`$HOME/.docker/config.json`が更新されます。
-   1. 使用したい認証情報が含まれているかを確認するため、エディターで`$HOME/.docker/config.json`を見ます。
-   1. Nodeの一覧を取得します。例:
+   1. 使用したい認証情報のセット毎に `docker login [server]`を実行する。これであなたのPC上の`$HOME/.docker/config.json`が更新される
+   1. 使用したい認証情報が含まれているかを確認するため、エディターで`$HOME/.docker/config.json`を見る
+   1. Nodeの一覧を取得 例:
       - 名称が必要な場合: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - IPアドレスを取得したい場合: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
-   1. ローカルの`.docker/config.json`を上記の検索パスのいずれかにコピーします。
-      - 例えば、これでテストします: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+   1. ローカルの`.docker/config.json`を上記の検索パスのいずれかにコピーする
+      - 例えば、これでテスト実施: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 
 {{< note >}}
 本番環境用クラスターでは、構成管理ツールを使用して必要なすべてのNodeに設定を反映してください。
 {{< /note >}}
 
-プライベートイメージを使用するPodを作成して確認します。
+プライベートイメージを使用するPodを作成し確認します。
 例:
 
 ```shell
@@ -243,27 +243,27 @@ EOF
 
 プライベートレジストリを設定するためのソリューションはいくつかあります。ここでは、いくつかの一般的なユースケースと推奨される解決方法を示します。
 
-1. クラスターに独自仕様でない(例えば、オープンソース)イメージだけを実行します。イメージを非公開にする必要がありません。
-   - Docker hubのパブリックイメージを利用します。
-     - 設定は不要です。
-     - クラウドプロバイダーによっては、可用性の向上とイメージをPullする時間を短くする為に、自動的にキャッシュやミラーされたパプリックイメージを提供します。
-1. 社外には非公開の必要があるが、すべてのクラスター利用者には見せてよい独自仕様のイメージをクラスターで実行しています。
-   - ホストされたプライペートな [Dockerレジストリ](https://docs.docker.com/registry/)を使用する.
-     - [Docker Hub](https://hub.docker.com/signup)または他の場所の上でホストされている場合があります。
-     - 上記のように各Node上のdocker/config.jsonを手動で構成します。
-   - または、オープンな読み取りアクセスを許可したファイヤーウォールの背後で内部向けプライベートレジストリを実行します。
-     - Kubernetesの設定は必要ありません。
-   - イメージへのアクセスを制御できるホストされたコンテナイメージレジストリサービスを利用します。
-     - Nodeを手動設定するよりもクラスターのオートスケーリングのほうがうまく機能します。
-   - また、Node設定変更を自由にできないクラスターでは`imagePullSecrets`を使用します。
-1. 独自仕様のイメージを含むクラスターで、いくつかは厳格なアクセス制御が必要である。
-   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化かを確認してください。さもないと、全部のPodがすべてのイメージへのアクセスができてしまう可能性があります。
-   - 機密のデータはイメージに含めてしまうのではなく、"Secret"リソースに移行してください。
-1. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである。
-   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化を確認してください。さもないと、すべてのテナントの全Podが全部のイメージにアクセスできてしまう可能性があります。
-   - 認証が必要なプライベートレジストリを実行します。
-   - それぞれのテナントでレジストリ認証を生成し、Secretへ設定し、各テナントのNamespaceに追加します。
-   - テナントは、Secretを各NamespaceのimagePullSecretsへ追加します。
+1. クラスターに独自仕様でない(例えば、オープンソース)イメージだけを実行する。イメージを非公開にする必要がない
+   - Docker hubのパブリックイメージを利用する
+     - 設定は不要
+     - クラウドプロバイダーによっては、可用性の向上とイメージをPullする時間を短くする為に、自動的にキャッシュやミラーされたパプリックイメージが提供される
+1. 社外には非公開の必要があるが、すべてのクラスター利用者には見せてよい独自仕様のイメージをクラスターで実行している
+   - ホストされたプライペートな [Dockerレジストリ](https://docs.docker.com/registry/)を使用
+     - [Docker Hub](https://hub.docker.com/signup)または他の場所の上でホストされている場合がある
+     - 上記のように各Node上のdocker/config.jsonを手動で構成する
+   - または、オープンな読み取りアクセスを許可したファイヤーウォールの背後で内部向けプライベートレジストリを実行する
+     - Kubernetesの設定は必要ない
+   - イメージへのアクセスを制御できるホストされたコンテナイメージレジストリサービスを利用する
+     - Nodeを手動設定するよりもクラスターのオートスケーリングのほうがうまく機能する
+   - また、Node設定変更を自由にできないクラスターでは`imagePullSecrets`を使用する
+1. 独自仕様のイメージを含むクラスターで、いくつかは厳格なアクセス制御が必要である
+   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化かを確認する必要あり。さもないと、全部のPodがすべてのイメージへのアクセスができてしまう可能性がある
+   - 機密のデータはイメージに含めてしまうのではなく、"Secret"リソースに移行する
+1. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである
+   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化を確認する必要あり。さもないと、すべてのテナントの全Podが全部のイメージにアクセスできてしまう可能性がある
+   - 認証が必要なプライベートレジストリを実行する
+   - それぞれのテナントでレジストリ認証を生成し、Secretへ設定し、各テナントのNamespaceに追加する
+   - テナントは、Secretを各NamespaceのimagePullSecretsへ追加する
 
 複数のレジストリへのアクセスが必要な場合、それぞれのレジストリ毎にひとつのSecretを作成する事ができます。
 Kubeletは複数の`imagePullSecrets`を単一の仮想的な`.docker/config.json`にマージします。
