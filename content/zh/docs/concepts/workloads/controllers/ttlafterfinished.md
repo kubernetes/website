@@ -48,7 +48,7 @@ up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 
 TTL 控制器现在只支持 Job。集群操作员可以通过指定 Job 的 `.spec.ttlSecondsAfterFinished`
 字段来自动清理已结束的作业（`Complete` 或 `Failed`），如
-[示例](/zh/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
+[示例](/zh/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 所示。
 
 <!--
