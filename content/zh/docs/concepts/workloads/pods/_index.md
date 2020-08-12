@@ -286,7 +286,7 @@ PodTemplates are specifications for creating Pods, and are included in workload 
 
 Pod 模板是包含在工作负载对象中的规范，用来创建 Pod。这类负载资源包括
 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/)、
-[Job](/zh/docs/concepts/workloads/containers/job/) 和
+[Job](/zh/docs/concepts/workloads/controllers/job/) 和
 [DaemonSets](/zh/docs/concepts/workloads/controllers/daemonset/)等。
 
 <!--
@@ -431,7 +431,7 @@ Processes within a privileged container get almost the same privileges that are 
 ## 容器的特权模式     {#rivileged-mode-for-containers}
 
 Pod 中的任何容器都可以使用容器规约中的
-[安全性上下文](/zh/docs/tasks/configure-pod-container/security-context/)中的
+[安全性上下文](/docs/tasks/configure-pod-container/security-context/)中的
 `privileged` 参数启用特权模式。
 这对于想要使用使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问设备）
 的容器很有用。
@@ -516,7 +516,7 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
 或 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 封装通用的 Pod API，相关的背景信息可以在前人的研究中找到。具体包括：
 
-  * [Aurora](http://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+  * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
   * [Borg](https://research.google.com/pubs/pub43438.html)
   * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
   * [Omega](https://research.google/pubs/pub41684/)

@@ -57,7 +57,7 @@ Kubernetes 项目的目标是 _不要_ 引发现有客户端的兼容性问题�
 
 一般而言，新的 API 资源和新的资源字段可以被频繁地添加进来。
 删除资源或者字段则要遵从
-[API 废弃策略](/zh/docs/reference/using-api/deprecation-policy/)。
+[API 废弃策略](/docs/reference/using-api/deprecation-policy/)。
 
 关于什么是兼容性的变更，如何变更 API 等详细信息，可参考
 [API 变更](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)。
@@ -281,9 +281,9 @@ There are two paths to extending the API with [custom resources](/docs/concepts/
    to make it seamless for clients.
 -->
 有两种途径来扩展 Kubernetes API 以支持
-[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)：
+[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)：
 
-1. 使用 [CustomResourceDefinition](/zh/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)，
+1. 使用 [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)，
    你可以用声明式方式来定义 API 如何提供你所选择的资源 API。 
 
 1. 你也可以选择[实现自己的扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)
