@@ -27,4 +27,4 @@ kubeadmをインストールするには、[インストールガイド](/ja/doc
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token)で、`kubeadm join`のためのトークンを管理する
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset)を使用して、`kubeadm init`または`kubeadm join`でホストに行われた変更を元に戻す
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version)で、kubeadmのバージョンを表示する
-* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha)で、コミュニティーからのフィードバックを集めるために有効にされた各種機能を試用する
+* [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha)で、コミュニティからのフィードバックを集めるために有効にされた各種機能を試用する
