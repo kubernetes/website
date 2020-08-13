@@ -1,5 +1,5 @@
 ---
-title: KubernetesでWindowsコンテナーをスケジュールするためのガイド
+title: KubernetesでWindowsコンテナをスケジュールするためのガイド
 content_type: concept
 weight: 75
 ---
@@ -22,9 +22,9 @@ Windowsアプリケーションは、多くの組織で実行されるサービ�
 * [Windows Serverを実行するマスターノードとワーカーノード](/ja/docs/setup/production-environment/windows/user-guide-windows-nodes/)を含むKubernetesクラスターを作成します
 * Kubernetes上にServiceとワークロードを作成してデプロイすることは、LinuxコンテナとWindowsコンテナ共に、ほぼ同じように動作することに注意してください。クラスターとのインタフェースとなる[Kubectlコマンド](/docs/reference/kubectl/overview/)も同じです。Windowsコンテナをすぐに体験できる例を以下セクションに用意しています。
 
-## はじめに:Windowsコンテナーのデプロイ
+## はじめに:Windowsコンテナのデプロイ
 
-WindowsコンテナをKubernetesにデプロイするには、最初にサンプルアプリケーションを作成する必要があります。以下のYAMLファイルの例では、簡単なウェブサーバーアプリケーションを作成しています。以下の内容で「win-webserver.yaml」という名前のサービススペックを作成します。:
+WindowsコンテナをKubernetesにデプロイするには、最初にサンプルアプリケーションを作成する必要があります。以下のYAMLファイルの例では、簡単なウェブサーバーアプリケーションを作成しています。以下の内容で`win-webserver.yaml`という名前のサービススペックを作成します。:
 
 ```yaml
 apiVersion: v1
@@ -105,40 +105,40 @@ spec:
 今のところ、Windowsネットワークスタックのプラットフォーム制限のため、Windowsコンテナホストは、ホストされているサービスのIPにアクセスできません。Service IPにアクセスできるのは、Windows Podだけです。
 {{< /note >}}
 
-## Observability
+## 可観測性
 
-### Capturing logs from workloads
+### ワークロードからのログキャプチャ
 
-Logs are an important element of observability; they enable users to gain insights into the operational aspect of workloads and are a key ingredient to troubleshooting issues. Because Windows containers and workloads inside Windows containers behave differently from Linux containers, users had a hard time collecting logs, limiting operational visibility. Windows workloads for example are usually configured to log to ETW (Event Tracing for Windows) or push entries to the application event log. [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), an open source tool by Microsoft, is the recommended way to monitor configured log sources inside a Windows container. LogMonitor supports monitoring event logs, ETW providers, and custom application logs, piping them to STDOUT for consumption by `kubectl logs <pod>`.
+ログは可観測性の重要な要素です。これにより、ユーザーはワークロードの運用面に関する洞察を得ることができ、問題のトラブルシューティングの主要な要素になります。WindowsコンテナとWindowsコンテナ内のワークロードの動作はLinuxコンテナとは異なるため、ユーザーはログの収集に苦労し、運用の可視性が制限されていました。たとえば、Windowsワークロードは通常、ETW(Windowsのイベントトレース)にログを記録するか、アプリケーションイベントログにエントリをプッシュするように構成されます。Microsoftのオープンソースツールである[LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)は、Windowsコンテナ内の構成されたログソースを監視するための推奨方法です。LogMonitorは、イベントログ、ETWプロバイダー、カスタムアプリケーションログのモニタリングをサポートしており、それらをSTDOUTにパイプして、`kubectl logs <pod>`で使用できます。
 
-Follow the instructions in the LogMonitor GitHub page to copy its binaries and configuration files to all your containers and add the necessary entrypoints for LogMonitor to push your logs to STDOUT.
+LogMonitor GitHubページの指示に従って、バイナリと構成ファイルをすべてのコンテナにコピーして、LogMonitorがログをSTDOUTにプッシュするために必要なエントリポイントを追加します。
 
-## Using configurable Container usernames
+## 構成可能なコンテナのユーザー名の使用
 
-Starting with Kubernetes v1.16, Windows containers can be configured to run their entrypoints and processes with different usernames than the image defaults. The way this is achieved is a bit different from the way it is done for Linux containers. Learn more about it [here](/docs/tasks/configure-pod-container/configure-runasusername/).
+Kubernetes v1.16以降、Windowsコンテナは、イメージのデフォルトとは異なるユーザー名でエントリポイントとプロセスを実行するように構成できます。これが達成される方法は、Linuxコンテナで行われる方法とは少し異なります。詳しくは[こちら](/docs/tasks/configure-pod-container/configure-runasusername/).
 
-## Managing Workload Identity with Group Managed Service Accounts
+## Group Managed Service AccountsによるワークロードIDの管理
 
-Starting with Kubernetes v1.14, Windows container workloads can be configured to use Group Managed Service Accounts (GMSA). Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers. Containers configured with a GMSA can access external Active Directory Domain resources while carrying the identity configured with the GMSA. Learn more about configuring and using GMSA for Windows containers [here](/docs/tasks/configure-pod-container/configure-gmsa/).
+Kubernetes v1.14以降、Windowsコンテナワークロードは、Group Managed Service Accounts(GMSA)を使用するように構成できます。Group Managed Service Accountsは、自動パスワード管理、簡略化されたサービスプリンシパル名（SPN）管理、および複数のサーバー間で他の管理者に管理を委任する機能を提供する特定の種類のActive Directoryアカウントです。GMSAで構成されたコンテナは、GMSAで構成されたIDを保持しながら、外部Active Directoryドメインリソースにアクセスできます。Windowsコンテナ用のGMSAの構成と使用の詳細は[こちら](/docs/tasks/configure-pod-container/configure-gmsa/)。
 
-## Taints and Tolerations
+## TaintsとTolerations
 
-Users today need to use some combination of taints and node selectors in order to keep Linux and Windows workloads on their respective OS-specific nodes. This likely imposes a burden only on Windows users. The recommended approach is outlined below, with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
+今日のユーザーは、LinuxとWindowsのワークロードをそれぞれのOS固有のノードで維持するために、Taintsとノードセレクターのいくつかの組み合わせを使用する必要があります。これはおそらくWindowsユーザーにのみ負担をかけます。推奨されるアプローチの概要を以下に示します。主な目標の1つは、このアプローチによって既存のLinuxワークロードの互換性が損なわれないようにすることです。
 
-### Ensuring OS-specific workloads land on the appropriate container host
+### OS固有のワークロードが適切なコンテナホストに確実に到達するようにする
 
-Users can ensure Windows containers can be scheduled on the appropriate host using Taints and Tolerations. All Kubernetes nodes today have the following default labels:
+ユーザーは、TaintsとTolerationsを使用して、Windowsコンテナを適切なホストでスケジュールできるようにすることができます。現在、すべてのKubernetesノードには次のデフォルトラベルがあります。:
 
 * kubernetes.io/os = [windows|linux]
 * kubernetes.io/arch = [amd64|arm64|...]
 
-If a Pod specification does not specify a nodeSelector like `"kubernetes.io/os": windows`, it is possible the Pod can be scheduled on any host, Windows or Linux. This can be problematic since a Windows container can only run on Windows and a Linux container can only run on Linux. The best practice is to use a nodeSelector.
+Podの仕様で`"kubernetes.io/os": windows`のようなnodeSelectorが指定されていない場合、PodをWindowsまたはLinuxの任意のホストでスケジュールすることができます。WindowsコンテナはWindowsでのみ実行でき、LinuxコンテナはLinuxでのみ実行できるため、これは問題になる可能性があります。ベストプラクティスは、nodeSelectorを使用することです。
 
-However, we understand that in many cases users have a pre-existing large number of deployments for Linux containers, as well as an ecosystem of off-the-shelf configurations, such as community Helm charts, and programmatic Pod generation cases, such as with Operators. In those situations, you may be hesitant to make the configuration change to add nodeSelectors. The alternative is to use Taints. Because the kubelet can set Taints during registration, it could easily be modified to automatically add a taint when running on Windows only.
+ただし、多くの場合、ユーザーには既存の多数のLinuxコンテナのdepolyment、およびコミュニティHelmチャートのような既成構成のエコシステムやOperatorのようなプログラム的にPodを生成するケースがあることを理解しています。このような状況では、nodeSelectorsを追加するための構成変更をためらう可能性があります。代替策は、Taintsを使用することです。kubeletは登録中にTaintsを設定できるため、Windowsだけで実行する時に自動的にTaintを追加するように簡単に変更できます。
 
-For example:  `--register-with-taints='os=windows:NoSchedule'`
+例:`--register-with-taints='os=windows:NoSchedule'`
 
-By adding a taint to all Windows nodes, nothing will be scheduled on them (that includes existing Linux Pods). In order for a Windows Pod to be scheduled on a Windows node, it would need both the nodeSelector to choose Windows, and the appropriate matching toleration.
+すべてのWindowsノードにTaintを追加することにより、それらには何もスケジュールされません（既存のLinuxPodを含む）。Windows PodがWindowsノードでスケジュールされるためには、nodeSelectorがWindowsを選択することと、適切にマッチするTolerationが必要です。
 
 ```yaml
 nodeSelector:
@@ -151,28 +151,27 @@ tolerations:
       effect: "NoSchedule"
 ```
 
-### Handling multiple Windows versions in the same cluster
+### 同じクラスター内の複数Windowsバージョンの管理
 
-The Windows Server version used by each pod must match that of the node. If you want to use multiple Windows
-Server versions in the same cluster, then you should set additional node labels and nodeSelectors.
+各Podで使用されるWindows Serverのバージョンは、ノードのバージョンと一致している必要があります。
+同じクラスター内で複数のWindows Serverバージョンを使用したい場合は、追加のノードラベルとnodeSelectorsを設定する必要があります。
 
-Kubernetes 1.17 automatically adds a new label `node.kubernetes.io/windows-build` to simplify this. If you're running an older version, then it's recommended to add this label manually to Windows nodes.
+Kubernetes 1.17では、これを簡単するために新しいラベル`node.kubernetes.io/windows-build`が自動的に追加されます。古いバージョンを実行している場合は、このラベルをWindowsノードに手動で追加することをお勧めします。
 
-This label reflects the Windows major, minor, and build number that need to match for compatibility. Here are values used today for each Windows Server version.
+このラベルは、互換性のために一致する必要があるWindowsのメジャー、マイナー、およびビルド番号を反映しています。以下は、Windows Serverの各バージョンで現在使用されている値です。
 
-| Product Name                         |   Build Number(s)      |
+| 製品番号                         　　 |   ビルド番号            |
 |--------------------------------------|------------------------|
 | Windows Server 2019                  | 10.0.17763             |
 | Windows Server version 1809          | 10.0.17763             |
 | Windows Server version 1903          | 10.0.18362             |
 
 
-### Simplifying with RuntimeClass
+### RuntimeClassによる簡素化
 
-[RuntimeClass] can be used to simplify the process of using taints and tolerations. A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
+[RuntimeClass]は、TaintsとTolerationsを使用するプロセスを簡略化するために使用できます。クラスター管理者は、これらのTaintsとTolerationsをカプセル化するために使用する`RuntimeClass`オブジェクトを作成できます。
 
-
-1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector` for the Windows OS, architecture, and version.
+1. このファイルを`runtimeClasses.yml`に保存します。これには、Windows OS、アーキテクチャ、およびバージョンに適切な`nodeSelector`が含まれています。
 
 ```yaml
 apiVersion: node.k8s.io/v1beta1
@@ -192,10 +191,10 @@ scheduling:
     value: "windows"
 ```
 
-1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
-1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
+1. クラスター管理者として使用する`kubectl create -f runtimeClasses.yml`を実行します
+1. Podの仕様に応じて`runtimeClassName: windows-2019`を追加します
 
-For example:
+例:
 
 ```yaml
 apiVersion: apps/v1
