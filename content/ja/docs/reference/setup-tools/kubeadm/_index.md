@@ -25,6 +25,6 @@ kubeadmをインストールするには、[インストールガイド](/ja/doc
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade)で、Kubernetesクラスターを新しいバージョンにアップグレードする
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config)を使用して、kubeadm v1.7.x以前で初期化されたクラスターを、`kubeadm upgrade`を利用できるように設定する
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token)で、`kubeadm join`のためのトークンを管理する
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset)を使用して、`kubeadm init`または`kubeadm join`でホストに行われた変更をリバートする
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset)を使用して、`kubeadm init`または`kubeadm join`でホストに行われた変更を元に戻す
 * [kubeadm version](/docs/reference/setup-tools/kubeadm/kubeadm-version)で、kubeadmのバージョンを表示する
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha)で、コミュニティーからのフィードバックを集めるために有効にされた各種機能を試用する
