@@ -7,7 +7,6 @@ Run this command in order to set up the Kubernetes control plane
 The "init" command executes the following phases:
 ```
 preflight                    Run pre-flight checks
-kubelet-start                Write kubelet settings and (re)start the kubelet
 certs                        Certificate generation
   /ca                          Generate the self-signed Kubernetes CA to provision identities for other Kubernetes components
   /apiserver                   Generate the certificate for serving the Kubernetes API
@@ -25,6 +24,7 @@ kubeconfig                   Generate all kubeconfig files necessary to establis
   /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
   /controller-manager          Generate a kubeconfig file for the controller manager to use
   /scheduler                   Generate a kubeconfig file for the scheduler to use
+kubelet-start                Write kubelet settings and (re)start the kubelet
 control-plane                Generate all static Pod manifest files necessary to establish the control plane
   /apiserver                   Generates the kube-apiserver static Pod manifest
   /controller-manager          Generates the kube-controller-manager static Pod manifest
@@ -122,10 +122,10 @@ kubeadm init [flags]
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</td>
 </tr>
 
 <tr>
