@@ -98,7 +98,7 @@ container | コンテナ
 directory | ディレクトリ
 binary | バイナリ
 controller | コントローラー
-opeartor | オペレーター
+operator | オペレーター
 Aggregation Layer | アグリゲーションレイヤー
 Issue | Issue (ママ表記)
 Pull Request | Pull Request (ママ表記)
@@ -108,6 +108,7 @@ architecture | アーキテクチャ
 secure | セキュア
 stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 a set of ~ | ～の集合
+community | コミュニティ
 
 ### 備考
 
