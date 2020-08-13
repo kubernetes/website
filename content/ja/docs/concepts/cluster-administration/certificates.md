@@ -125,13 +125,13 @@ weight: 20
         chmod +x cfssljson
         curl -L https://github.com/cloudflare/cfssl/releases/download/v1.4.1/cfssl-certinfo_1.4.1_linux_amd64 -o cfssl-certinfo
         chmod +x cfssl-certinfo
-2.  アーティファクトを保持するディレクトリーを生成し、cfsslを初期化します。
+1.  アーティファクトを保持するディレクトリーを生成し、cfsslを初期化します。
 
         mkdir cert
         cd cert
         ../cfssl print-defaults config > config.json
         ../cfssl print-defaults csr > csr.json
-3.  CAファイルを生成するためのJSON設定ファイル(例: `ca-config.json`)を生成します。
+1.  CAファイルを生成するためのJSON設定ファイル(例: `ca-config.json`)を生成します。
 
         {
           "signing": {
@@ -151,7 +151,7 @@ weight: 20
             }
           }
         }
-4.  CA証明書署名要求(CSR)用のJSON設定ファイル(例: `ca-csr.json`)を生成します。
+1.  CA証明書署名要求(CSR)用のJSON設定ファイル(例: `ca-csr.json`)を生成します。
     かぎ括弧で囲まれた値は、必ず使用したい実際の値に置き換えてください。
 
         {
@@ -168,10 +168,10 @@ weight: 20
             "OU": "<organization unit>"
           }]
         }
-5.  CA鍵(`ca-key.pem`)と証明書(`ca.pem`)を生成します。
+1.  CA鍵(`ca-key.pem`)と証明書(`ca.pem`)を生成します。
 
         ../cfssl gencert -initca ca-csr.json | ../cfssljson -bare ca
-6.  APIサーバーの鍵と証明書を生成するためのJSON設定ファイル(例: `server-csr.json`)を生成します。
+1.  APIサーバーの鍵と証明書を生成するためのJSON設定ファイル(例: `server-csr.json`)を生成します。
     かぎ括弧で囲まれた値は、必ず使用したい実際の値に置き換えてください。
     `MASTER_CLUSTER_IP`の値は、前節で説明したAPIサーバーのサービスクラスターIPです。
     以下の例は、デフォルトのDNSドメイン名として`cluster.local`を使用していることを前提とします。
@@ -200,7 +200,7 @@ weight: 20
             "OU": "<organization unit>"
           }]
         }
-7.  APIサーバーの鍵と証明書を生成します。デフォルトでは、それぞれ`server-key.pem`と`server.pem`というファイルに保存されます。
+1.  APIサーバーの鍵と証明書を生成します。デフォルトでは、それぞれ`server-key.pem`と`server.pem`というファイルに保存されます。
 
         ../cfssl gencert -ca=ca.pem -ca-key=ca-key.pem \
         --config=ca-config.json -profile=kubernetes \
