@@ -108,6 +108,7 @@ architecture | アーキテクチャ
 secure | セキュア
 stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 a set of ~ | ～の集合
+community | コミュニティ
 
 ### 備考
 
