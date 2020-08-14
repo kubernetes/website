@@ -108,14 +108,4 @@ kubectl get secrets -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.
 ```
 {{< /note >}}
 
-{{< note >}}
-
-JSONPath RegEx are currently not supported. You must use jq or similar.
-Example currently not supported
-
-```shell
-kubectl get secrets -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
-```
-{{< /note >}}
-
 
