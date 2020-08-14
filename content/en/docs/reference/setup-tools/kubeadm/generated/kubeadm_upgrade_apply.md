@@ -60,10 +60,10 @@ kubeadm upgrade apply [version]
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</td>
 </tr>
 
 <tr>
@@ -92,13 +92,6 @@ kubeadm upgrade apply [version]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
-</tr>
-
-<tr>
-<td colspan="2">--image-pull-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 15m0s</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The maximum amount of time to wait for the control plane pods to be downloaded.</td>
 </tr>
 
 <tr>

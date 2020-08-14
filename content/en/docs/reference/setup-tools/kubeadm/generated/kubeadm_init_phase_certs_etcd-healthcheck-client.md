@@ -36,20 +36,6 @@ kubeadm init phase certs etcd-healthcheck-client [flags]
 </tr>
 
 <tr>
-<td colspan="2">--csr-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path to output the CSRs and private keys to</td>
-</tr>
-
-<tr>
-<td colspan="2">--csr-only</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Create CSRs instead of generating certificates</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>

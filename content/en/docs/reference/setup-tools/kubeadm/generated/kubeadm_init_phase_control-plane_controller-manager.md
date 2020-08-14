@@ -39,13 +39,6 @@ kubeadm init phase control-plane controller-manager [flags]
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
-</tr>
-
-<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
