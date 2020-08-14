@@ -1,4 +1,4 @@
 ---
-title: _Deploy_ Aplikasi
+title: Menyebarkan (Deploy) Aplikasi
 weight: 20
 ---
