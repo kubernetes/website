@@ -259,7 +259,7 @@ Expanding EBS volumes is a time-consuming operation. Also, there is a per-volume
 If expanding underlying storage fails, the cluster administrator can manually recover the Persistent Volume Claim (PVC) state and cancel the resize requests. Otherwise, the resize requests are continuously retried by the controller without administrator intervention.
 
 1. Mark the PersistentVolume(PV) that is bound to the PersistentVolumeClaim(PVC) with `Retain` reclaim policy.
-2. Delete the PVC. Since PV has `Retain` reclaim policy - we will not loose any data when we recreate the PVC.
+2. Delete the PVC. Since PV has `Retain` reclaim policy - we will not lose any data when we recreate the PVC.
 3. Delete the `claimRef` entry from PV specs, so as new PVC can bind to it. This should make the PV `Available`.
 4. Re-create the PVC with smaller size than PV and set `volumeName` field of the PVC to the name of the PV. This should bind new PVC to existing PV.
 5. Don't forget to restore the reclaim policy of the PV.
