@@ -159,6 +159,20 @@ the NetworkPolicy acts on may be the IP of a `LoadBalancer` or of the Pod's node
 For egress, this means that connections from pods to `Service` IPs that get rewritten to
 cluster-external IPs may or may not be subject to `ipBlock`-based policies.
 
+__[]__: The 'empty map' matches all traffic from/to <Any>, and is intended to permit all traffic.
+ 
+ An example of permitting all traffic from all Namespaces, Pods, and CIDR ranges to TCP port 80:
+  
+```yaml
+  ...
+  ingress:
+  - from: []
+    ports:
+    - protocol: TCP
+      port: 80
+  ...
+```
+
 ## Default policies
 
 By default, if no policies exist in a namespace, then all ingress and egress traffic is allowed to and from pods in that namespace. The following examples let you change the default behavior
