@@ -6,7 +6,7 @@ weight: 30
 
 <!-- overview -->
 This page explains how to manage Kubernetes running on a specific
-cloud provider.
+cloud provider. There are many other third-party cloud provider projects, but this list is specific to projects embedded within, or relied upon by Kubernetes itself.
 
 <!-- body -->
 ### kubeadm
@@ -116,15 +116,6 @@ If you wish to use the external cloud provider, its repository is [kubernetes/cl
 The Azure cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
 Note that the Kubernetes Node name must match the Azure VM name.
 
-## CloudStack
-
-If you wish to use the external cloud provider, its repository is [apache/cloudstack-kubernetes-provider](https://github.com/apache/cloudstack-kubernetes-provider)
-
-### Node Name
-
-The CloudStack cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the CloudStack VM name.
-
 ## GCE
 
 If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-gcp](https://github.com/kubernetes/cloud-provider-gcp#readme)
@@ -137,11 +128,6 @@ Note that the first segment of the Kubernetes Node name must match the GCE insta
 ## HUAWEI CLOUD
 
 If you wish to use the external cloud provider, its repository is [kubernetes-sigs/cloud-provider-huaweicloud](https://github.com/kubernetes-sigs/cloud-provider-huaweicloud).
-
-### Node Name
-
-The HUAWEI CLOUD provider needs the private IP address of the node as the name of the Kubernetes Node object.
-Please make sure indicating `--hostname-override=<node private IP>` when starting kubelet on the node.
 
 ## OpenStack
 This section describes all the possible configurations which can
@@ -362,19 +348,7 @@ Kubernetes network plugin and should appear in the `[Route]` section of the
   [kubenet](/docs/concepts/cluster-administration/network-plugins/#kubenet)
   on OpenStack.
 
-## OVirt
-
-### Node Name
-
-The OVirt cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the VM FQDN (reported by OVirt under `<vm><guest_info><fqdn>...</fqdn></guest_info></vm>`)
-
-## Photon
-
-### Node Name
-
-The Photon cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the Photon VM name (or if `overrideIP` is set to true in the `--cloud-config`, the Kubernetes Node name must match the Photon VM IP address).
+[kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
 ## vSphere
 
@@ -388,46 +362,3 @@ If you are running vSphere < 6.7U3, the in-tree vSphere cloud provider is recomm
 {{< /tabs >}}
 
 For in-depth documentation on the vSphere cloud provider, visit the [vSphere cloud provider docs site](https://cloud-provider-vsphere.sigs.k8s.io).
-
-## IBM Cloud Kubernetes Service
-
-### Compute nodes
-By using the IBM Cloud Kubernetes Service provider, you can create clusters with a mixture of virtual and physical (bare metal) nodes in a single zone or across multiple zones in a region. For more information, see [Planning your cluster and worker node setup](https://cloud.ibm.com/docs/containers?topic=containers-planning_worker_nodes).
-
-The name of the Kubernetes Node object is the private IP address of the IBM Cloud Kubernetes Service worker node instance.
-
-### Networking
-The IBM Cloud Kubernetes Service provider provides VLANs for quality network performance and network isolation for nodes. You can set up custom firewalls and Calico network policies to add an extra layer of security for your cluster, or connect your cluster to your on-prem data center via VPN. For more information, see [Planning your cluster network setup](https://cloud.ibm.com/docs/containers?topic=containers-plan_clusters).
-
-To expose apps to the public or within the cluster, you can leverage NodePort, LoadBalancer, or Ingress services. You can also customize the Ingress application load balancer with annotations. For more information, see [Choosing an app exposure service](https://cloud.ibm.com/docs/containers?topic=containers-cs_network_planning#cs_network_planning).
-
-### Storage
-The IBM Cloud Kubernetes Service provider leverages Kubernetes-native persistent volumes to enable users to mount file, block, and cloud object storage to their apps. You can also use database-as-a-service and third-party add-ons for persistent storage of your data. For more information, see [Planning highly available persistent storage](https://cloud.ibm.com/docs/containers?topic=containers-storage_planning#storage_planning).
-
-## Baidu Cloud Container Engine
-
-### Node Name
-
-The Baidu cloud provider uses the private IP address of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the Baidu VM private IP.
-
-## Tencent Kubernetes Engine
-
-If you wish to use the external cloud provider, its repository is [TencentCloud/tencentcloud-cloud-controller-manager](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager).
-
-### Node Name
-
-The Tencent cloud provider uses the hostname of the node (as determined by the kubelet or overridden with `--hostname-override`) as the name of the Kubernetes Node object.
-Note that the Kubernetes Node name must match the Tencent VM private IP.
-
-## Alibaba Cloud Kubernetes  
-
- If you wish to use the external cloud provider, its repository is [kubernetes/cloud-provider-alibaba-cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud).   
-
-### Node Name  
-
-Alibaba Cloud does not require the format of node name, but the kubelet needs to add `--provider-id=${REGION_ID}.${INSTANCE_ID}`. The parameter `${REGION_ID}` represents the region id of the Kubernetes and `${INSTANCE_ID}` denotes the Alibaba ECS (Elastic Compute Service) ID.  
-
-### Load Balancers  
-
-You can setup external load balancers to use specific features in Alibaba Cloud by configuring the [annotations](https://www.alibabacloud.com/help/en/doc-detail/86531.htm) .
