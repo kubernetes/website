@@ -1,9 +1,7 @@
 ---
-title: Documentation style overview
+title: ドキュメントスタイルの概要
 main_menu: true
 weight: 80
 ---
 
-The topics in this section provide guidance on writing style, content formatting
-and organization, and using Hugo customizations specific to Kubernetes
-documentation.
+このセクション内のトピックでは、文章のスタイル、コンテンツの形式や構成、特にKubernetesのドキュメント特有のHugoカスタマイズの使用方法に関するガイダンスを提供します。
