@@ -1,98 +1,89 @@
 ---
-title: Content organization
+title: コンテンツの構成
 content_type: concept
 weight: 40
 ---
 
-
 <!-- overview -->
 
-This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
-
-
+このサイトではHugoを使用しています。Hugoでは、[コンテンツの構成](https://gohugo.io/content-management/organization/)がコアコンセプトとなっています。
 
 <!-- body -->
 
 {{% note %}}
-**Hugo Tip:** Start Hugo with `hugo server --navigateToChanged` for content edit-sessions.
+**Hugoのヒント:** コンテンツの編集を始めるときは、`hugo server --navigateToChanged`コマンドを使用してHugoを実行してください。
 {{% /note %}}
 
-## Page Lists
+## ページの一覧
 
-### Page Order
+### ページの順序
 
-The documentation side menu, the documentation page browser etc. are listed using Hugo's default sort order, which sorts by weight (from 1), date (newest first), and finally by the link title.
+ドキュメントのサイドメニューやページブラウザーなどでは、Hugoのデフォルトのソート順序を使用して一覧を作成しています。デフォルトでは、weight(1から開始)、日付(最新のものが1番目)、最後にリンクのタイトルの順でソートされます。
 
-Given that, if you want to move a page or a section up, set a weight in the page's front matter:
+そのため、特定のページやセッションを上に移動したい場合には、ページのフロントマター内のweightを設定します。
 
 ```yaml
 title: My Page
 weight: 10
 ```
 
-
 {{% note %}}
-For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
+ページのweightについては、1、2、3…などの値を使用せず、10、20、30…のように一定の間隔を空けた方が賢明です。こうすることで、後で別のページを間に挿入できるようになります。
 {{% /note %}}
 
+### ドキュメントのメインメニュー
 
-### Documentation Main Menu
-
-The `Documentation` main menu is built from the sections below `docs/` with the `main_menu` flag set in front matter of the `_index.md` section content file:
+ドキュメントのメインメニューは、`docs/`以下に置かれたセクションのコンテンツファイル`_index.md`のフロントマター内に`main_menu`フラグが設定されたものから生成されます。
 
 ```yaml
 main_menu: true
 ```
 
-
-Note that the link title is fetched from the page's `linkTitle`, so if you want it to be something different than the title, change it in the content file:
-
+リンクのタイトルは、ページの`linkTitle`から取得されることに注意してください。そのため、ページのタイトルとは異なるリンクテキストにしたい場合、コンテンツファイル内の値を以下のように設定します。
 
 ```yaml
 main_menu: true
-title: Page Title
-linkTitle: Title used in links
+title: ページタイトル
+linkTitle: リンク内で使われるタイトル
 ```
-
 
 {{% note %}}
-The above needs to be done per language. If you don't see your section in the menu, it is probably because it is not identified as a section by Hugo. Create a `_index.md` content file in the section folder.
+上記の設定は言語ごとに行う必要があります。メニュー上にセクションが表示されないときは、Hugoからセクションとして認識されていないためである可能性が高いです。セクションフォルダー内に`_index.md`コンテンツファイルを作成してください。
 {{% /note %}}
 
-### Documentation Side Menu
+### ドキュメントのサイドメニュー
 
-The documentation side-bar menu is built from the _current section tree_ starting below `docs/`.
+ドキュメントのサイドバーメニューは、`docs/`以下の*現在のセクションツリー*から生成されます。
 
-It will show all sections and their pages.
+セクションと、そのセクション内のページがすべて表示されます。
 
-If you don't want to list a section or page, set the `toc_hide` flag to `true` in front matter:
-
-```yaml
-toc_hide: true
-```
-
-When you navigate to a section that has content, the specific section or page (e.g. `_index.md`) is shown. Else, the first page inside that section is shown.
-
-### Documentation Browser
-
-The page browser on the documentation home page is built using all the sections and pages that are directly below the `docs section`.
-
-If you don't want to list a section or page, set the `toc_hide` flag to `true` in front matter:
+特定のセクションやページをリストに表示したくない場合、フロントマター内の`toc_hide`フラグを`true`に設定してください。
 
 ```yaml
 toc_hide: true
 ```
 
-### The Main Menu
+コンテンツが存在するセクションに移動すると、特定のセクションまたはページ(例:`index.md`)が表示されます。それ以外の場合、そのセクションの最初のページが表示されます。
 
-The site links in the top-right menu -- and also in the footer -- are built by page-lookups. This is to make sure that the page actually exists. So, if the `case-studies` section does not exist in a site (language), it will not be linked to.
+### ドキュメントのブラウザー
 
+ドキュメントのホームページのページブラウザーは、`docs`セクション直下のすべてのセクションとページを使用して生成されています。
 
-## Page Bundles
+特定のセクションやページを表示したくない場合、フロントマターの`toc_hide`フラグを`true`に設定してください。
 
-In addition to standalone content pages (Markdown files), Hugo supports [Page Bundles](https://gohugo.io/content-management/page-bundles/).
+```yaml
+toc_hide: true
+```
 
-One example is [Custom Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/). It is considered a `leaf bundle`. Everything below the directory, including the `index.md`, will be part of the bundle. This also includes page-relative links, images that can be processed etc.:
+### メインメニュー
+
+右上のメニュー(およびフッター)にあるサイトリンクは、page-lookupの機能を使用して実装されています。これにより、ページが実際に存在することを保証しています。そのため、たとえば`case-studies`のセクションが特定の言語のサイトに存在しない場合、メニューにはケーススタディのリンクが表示されません。
+
+## Page Bundle
+
+スタンドアローンのコンテンツページ(Markdownファイル)に加えて、Hugoでは、[Page Bundles](https://gohugo.io/content-management/page-bundles/)がサポートされています。
+
+Page Bundleの1つの例は、[カスタムのHugo Shortcode](/docs/contribute/style/hugo-shortcodes/)です。これは、`leaf bundle`であると見做されます。ディレクトリ内のすべてのファイルは、`index.md`を含めてバンドルの一部となります。これには、ページからの相対リンク、処理可能な画像なども含まれます。
 
 ```bash
 en/docs/home/contribute/includes
@@ -102,7 +93,7 @@ en/docs/home/contribute/includes
 └── podtemplate.json
 ```
 
-Another widely used example is the `includes` bundle. It sets `headless: true` in front matter, which means that it does not get its own URL. It is only used in other pages.
+もう1つのPage Bundleがよく使われる例は、`includes`バンドルです。フロントマターに`headless: true`を設定すると、自分自身のURLを持たなくなり、他のページ内でのみ使用されるようになります。
 
 ```bash
 en/includes
@@ -115,24 +106,18 @@ en/includes
 └── user-guide-migration-notice.md
 ```
 
-Some important notes to the files in the bundles:
+バンドル内のファイルに関して、いくつか重要な注意点があります。
 
-* For translated bundles, any missing non-content files will be inherited from languages above. This avoids duplication.
-* All the files in a bundle are what Hugo calls `Resources` and you can provide metadata per language, such as parameters and title, even if it does not supports front matter (YAML files etc.). See [Page Resources Metadata](https://gohugo.io/content-management/page-resources/#page-resources-metadata).
-* The value you get from `.RelPermalink` of a `Resource` is page-relative. See [Permalinks](https://gohugo.io/content-management/urls/#permalinks).
+* 翻訳されたバンドルに対しては、コンテンツ以外の見つからなかったファイルは上位の言語から継承されます。これにより重複が回避できます。
+* バンドル内のすべてのファイルは、Hugoが`Resources`と呼ぶファイルになり、フロントマター(YAMLファイルなど)をサポートしていない場合であっても、言語ごとにパラメーターやタイトルなどのメタデータを提供できます。詳しくは、[Page Resourcesメタデータ](https://gohugo.io/content-management/page-resources/#page-resources-metadata)を参照してください。
+* `Resource`の`.RelPermalink`から取得した値は、ページからの相対的なものとなっています。詳しくは、[Permalinks](https://gohugo.io/content-management/urls/#permalinks)を参照してください。
 
+## スタイル
 
-## Styles
-
-The [SASS](https://sass-lang.com/) source of the stylesheets for this site is stored in `assets/sass` and is automatically built by Hugo.
-
-
+このサイトのスタイルシートの[SASS](https://sass-lang.com/)のソースは、`assets/sass`に置かれていて、Hugoによって自動的にビルドされます。
 
 ## {{% heading "whatsnext" %}}
 
-
-* Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
-* Learn about the [Style guide](/docs/contribute/style/style-guide)
-* Learn about the [Content guide](/docs/contribute/style/content-guide)
-
-
+* [カスタムのHugo shortcode](/docs/contribute/style/hugo-shortcodes/)について学ぶ
+* [スタイルガイド](/docs/contribute/style/style-guide)について学ぶ
+* [コンテンツガイド](/docs/contribute/style/content-guide)について学ぶ
