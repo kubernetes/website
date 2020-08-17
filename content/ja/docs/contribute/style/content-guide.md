@@ -1,77 +1,62 @@
 ---
-title: Documentation Content Guide
-linktitle: Content guide
+title: ドキュメントコンテンツガイド
+linktitle: コンテンツガイド
 content_type: concept
 weight: 10
 ---
 
 <!-- overview -->
 
-This page contains guidelines for Kubernetes documentation.
+このページでは、Kubernetesのドキュメント上のコンテンツのガイドラインを説明します。
 
-If you have questions about what's allowed, join the #sig-docs channel in
-[Kubernetes Slack](https://slack.k8s.io/) and ask!
+許可されるコンテンツに関して疑問がある場合は、[Kubernetes Slack](https://slack.k8s.io/)の#sig-docsチャンネルに参加して質問してください！
 
-You can register for Kubernetes Slack at https://slack.k8s.io/.
+Kubernetes Slackには、<https://slack.k8s.io/> から参加登録ができます。
 
-For information on creating new content for the Kubernetes
-docs, follow the [style guide](/docs/contribute/style/style-guide).
-
-
+Kubernetesドキュメントの新しいコンテンツの作成に関する情報については、[スタイルガイド](/docs/contribute/style/style-guide)に従ってください。
 
 <!-- body -->
 
-## Overview
+## 概要
 
-Source for the Kubernetes website, including the docs, resides in the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
+ドキュメントを含むKubernetesのウェブサイトのソースは、[kubernetes/website](https://github.com/kubernetes/website)リポジトリに置かれています。
 
-Located in the `kubernetes/website/content/<language_code>/docs` folder, the
-majority of Kubernetes documentation is specific to the [Kubernetes
-project](https://github.com/kubernetes/kubernetes).
+Kubernetesの主要なドキュメントは`kubernetes/website/content/<language_code>/docs`フォルダに置かれており、これらは[Kubernetesプロジェクト](https://github.com/kubernetes/kubernetes)を対象としています。
 
-## What's allowed
+## 許可されるコンテンツ
 
-Kubernetes docs allow content for third-party projects only when:
+Kubernetesのドキュメントにサードパーティーのコンテンツを掲載することが許されるのは、次の場合のみです。
 
-- Content documents software in the Kubernetes project
-- Content documents software that's out of project but necessary for Kubernetes to function
-- Content is canonical on kubernetes.io, or links to canonical content elsewhere
+- コンテンツがKubernetesプロジェクト内のソフトウェアのドキュメントとなる場合
+- コンテンツがプロジェクト外のソフトウェアのドキュメントとなるが、Kubernetesを機能させるために必要である場合
+-  コンテンツがkubernetes.ioの正規のコンテンツであるか、他の場所の正規のコンテンツへのリンクである場合
 
-### Third party content
+### サードパーティーのコンテンツ
 
-Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
-[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
+Kubernetesのドキュメントには、Kubernetesプロジェクト（[kubernetes](https://github.com/kubernetes)および[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizationsに存在するプロジェクト）の適用例が含まれています。
 
-Links to active content in the Kubernetes project are always allowed.
+Kubernetesプロジェクト内のアクティブなコンテンツへのリンクは常に許可されます。
 
-Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
+Kubernetesを機能させるためには、一部サードパーティーのコンテンツが必要です。たとえば、コンテナランタイム(containerd、CRI-O、Docker)、[ネットワークポリシー](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)(CNI plugin)、[Ingressコントローラー](/ja/docs/concepts/services-networking/ingress-controllers/)、[ロギング](/docs/concepts/cluster-administration/logging/)などです。
 
-Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
+ドキュメント内で、Kubernetesプロジェクト外のサードパーティーのオープンソースソフトウェア(OSS)にリンクすることができるのは、Kubernetesを機能させるために必要な場合のみです。
 
-### Dual sourced content
+### 情報源が重複するコンテンツ
 
-Wherever possible, Kubernetes docs link to canonical sources instead of hosting
-dual-sourced content.
+可能な限り、Kubernetesのドキュメントは正規の情報源にリンクするようにし、情報源が重複してしまうようなホスティングは行いません。
 
-Dual-sourced content requires double the effort (or more!) to maintain
-and grows stale more quickly.
+情報源が重複したコンテンツは、メンテナンスするために2倍の労力(あるいはそれ以上！)が必要になり、より早く情報が古くなってしまいます。
 
 {{< note >}}
 
-If you're a maintainer for a Kubernetes project and need help hosting your own docs,
-ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
+あなたがKubernetesのプロジェクトのメンテナーであり、ドキュメントのホスティングに関して手助けが必要なときは、[Kubernetes Slackの#sig-docs](https://kubernetes.slack.com/messages/C1J0BPD2M/)で教えてください。
 
 {{< /note >}}
 
-### More information
+### その他の情報
 
-If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
-
-
+許可されるコンテンツに関して疑問がある場合は、[Kubernetes Slack](https://slack.k8s.io/)の#sig-docsチャンネルに参加して質問してください！
 
 ## {{% heading "whatsnext" %}}
 
-
-* Read the [Style guide](/docs/contribute/style/style-guide).
+* [スタイルガイド](/docs/contribute/style/style-guide)を読む
