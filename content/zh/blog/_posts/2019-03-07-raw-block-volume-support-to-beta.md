@@ -97,7 +97,7 @@ Secondly, when using a raw block volume in your Pods, you must specify a `Volume
 
 Applications open, read, and write to the device node inside the container just like they would interact with any block device on a system in a non-containerized or virtualized context.
 --->
-其次，在 Pod 中使用 raw block volume 时，必须在 `PodSpec` 的 Container 部分指定一个 `VolumeDevice` ，而不是 `VolumeMount`。`VolumeDevices` 具备 `devicePaths` 而不是 `mountPaths`，在容器中，应用程序将看到位于该路径的设备，而不是装入的文件系统的设备。
+其次，在 Pod 中使用原生数据块卷时，必须在 `PodSpec` 的 Container 部分指定一个 `VolumeDevice`，而不是 `VolumeMount`。`VolumeDevices` 具备 `devicePaths` 而不是 `mountPaths`，在容器中，应用程序将看到位于该路径的设备，而不是挂载了的文件系统。
 
 应用程序打开、读取和写入容器内的设备节点，就像它们在非容器化或虚拟环境中与系统上的任何块设备交互一样。
 
