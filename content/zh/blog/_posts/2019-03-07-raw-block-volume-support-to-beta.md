@@ -106,7 +106,7 @@ Applications open, read, and write to the device node inside the container just 
 
 First, ensure that the provisioner associated with the storage class you choose is one that support raw blocks. Then create the PVC.
 --->
-## 创建一个新的 raw block PVC
+## 创建一个新的原生块设备 PVC
 
 首先，请确保与您选择的存储类关联的配置程序支持 raw block。然后创建 PVC。
 
