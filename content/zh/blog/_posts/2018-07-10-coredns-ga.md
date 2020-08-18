@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "用于 Kubernetes 集群 DNS 的 CoreDNS GA"
+title: "用于 Kubernetes 集群 DNS 的 CoreDNS GA 正式发布"
 date: 2018-07-10
 ---
 <!--
@@ -108,7 +108,7 @@ There are several open issues with kube-dns that are resolved in CoreDNS, either
   * [dns#190 - kube-dns cannot run as non-root user](https://github.com/kubernetes/dns/issues/190). This issue is solved today by using a non-default image, but it will be made the default CoreDNS behavior in a future release.
   * [dns#232 - fix pod hostname to be podname for dns srv records](https://github.com/kubernetes/dns/issues/232) is an enhancement that is supported through the "endpoint_pod_names" feature described below.
 --->
-  * [dns#55 - kube-dns 的自定义 DNS 条目](https://github.com/kubernetes/dns/issues/55) 可以使用 [kubernetes 插件](https://coredns.io/plugins/kubernetes) 中的 "应急" 机制，使用 [rewrite 插件](https://coredns.io/plugins/rewrite)，或者分区使用不同的插件，例如 [file 插件](https://coredns.io/plugins/file)。
+  * [dns#55 - kube-dns 的自定义 DNS 条目](https://github.com/kubernetes/dns/issues/55) 可以使用 [kubernetes 插件](https://coredns.io/plugins/kubernetes) 中的 "fallthrough" 机制，使用 [rewrite 插件](https://coredns.io/plugins/rewrite)，或者分区使用不同的插件，例如 [file 插件](https://coredns.io/plugins/file)。
   
   * [dns#116 - 对具有相同主机名的、提供无头服务服务的 Pod 仅设置了一个 A 记录](https://github.com/kubernetes/dns/issues/116)。无需任何其他配置即可解决此问题。
   * [dns#131 - externalName 未使用 stubDomains 设置](https://github.com/kubernetes/dns/issues/131)。无需任何其他配置即可解决此问题。
