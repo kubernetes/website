@@ -62,7 +62,7 @@ As of the publishing of this blog, the following in-tree volumes types support r
 --->
 ## 哪些卷插件支持 raw block？
 
-在发布此博客时，以下 in-tree 卷类型支持 raw block：
+在发布此博客时，以下 in-tree 卷类型支持原生块设备：
 
 - AWS EBS
 - Azure Disk
