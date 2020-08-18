@@ -130,7 +130,7 @@ spec:
 
 When you use the PVC in a pod definition, you get to choose the device path for the block device rather than the mount path for the file system.
 --->
-## 使用 raw block PVC
+## 使用原生块 PVC
 
 在 Pod 定义中使用 PVC 时，需要选择块设备的设备路径，而不是文件系统的安装路径。
 
