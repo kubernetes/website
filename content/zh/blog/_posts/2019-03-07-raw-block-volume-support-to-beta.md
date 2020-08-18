@@ -77,7 +77,7 @@ As of the publishing of this blog, the following in-tree volumes types support r
 <!--
 Out-of-tree [CSI volume drivers](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) may also support raw block volumes. Kubernetes CSI support for raw block volumes is currently alpha. See documentation [here](https://kubernetes-csi.github.io/docs/raw-block.html).
 --->
-Out-of-tree [CSI 卷驱动程序](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) 可能也支持 raw block volume。 Kubernetes CSI 对 raw block volume 的支持目前为 alpha 版本。参考 [这篇](https://kubernetes-csi.github.io/docs/raw-block.html) 文档。
+Out-of-tree [CSI 卷驱动程序](https://kubernetes.io/blog/2019/01/15/container-storage-interface-ga/) 可能也支持原生数据块卷。Kubernetes CSI 对原生数据块卷的支持目前为 alpha 阶段。参考 [这篇](https://kubernetes-csi.github.io/docs/raw-block.html) 文档。
 
 <!--
 ## Kubernetes raw block volume API
