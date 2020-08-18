@@ -124,9 +124,9 @@ about when the container entered the `Running` state.
 
 ### `Terminated` {#container-state-terminated}
 
-A container in the `Terminated` state had began execution and then has either run to
-completion or has failed for some reason. When you use `kubectl` to query a Pod with
-a container that is `Terminated`, you see a reason, and exit code, and the start and
+A container in the `Terminated` state began execution and then either ran to
+completion or failed for some reason. When you use `kubectl` to query a Pod with
+a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
 If a container has a `preStop` hook configured, that runs before the container enters
@@ -442,4 +442,3 @@ This avoids a resource leak as Pods are created and terminated over time.
 * For detailed information about Pod / Container status in the API, see [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
-
