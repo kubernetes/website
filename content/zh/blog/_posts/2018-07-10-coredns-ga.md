@@ -165,7 +165,7 @@ all endpoints for the service:
 --->
 ### 基于 Pod 名称的端点名称
 
-在 kube-dns 中，使用外设服务时，可以使用 SRV 请求获取该服务的所有端点的列表：
+在 kube-dns 中，使用无头服务时，可以使用 SRV 请求获取该服务的所有端点的列表：
 
 ```
 dnstools# host -t srv headless
