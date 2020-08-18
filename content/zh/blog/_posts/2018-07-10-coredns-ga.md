@@ -36,7 +36,8 @@ CoreDNS is a general-purpose, authoritative DNS server that provides a backwards
 
 In this article, you will learn about the differences in the implementations of kube-dns and CoreDNS, and some of the helpful extensions offered by CoreDNS.
 --->
-很久以来，基于 DNS 的服务发现在 kube-dns 集群插件中一直是 Kubernetes 的一部分。通常，此方法运行平稳，但对于实现的可靠性、灵活性和安全性仍存在一些问题。
+很久以来， kube-dns 集群插件一直是 Kubernetes 的一部分，用来实现基于 DNS 的服务发现。
+通常，此插件运行平稳，但对于实现的可靠性、灵活性和安全性仍存在一些疑虑。
 
 CoreDNS 是通用的、权威的 DNS 服务器，提供与 Kubernetes 向后兼容但可扩展的集成。它解决了 kube-dns 遇到的问题，并提供了许多独特的功能，可以解决各种用例。
 
@@ -303,4 +304,3 @@ More resources can be found:
 - Blog: <https://blog.coredns.io>
 - Twitter: [@corednsio](https://twitter.com/corednsio)
 - Mailing list/group: <coredns-discuss@googlegroups.com>
-
