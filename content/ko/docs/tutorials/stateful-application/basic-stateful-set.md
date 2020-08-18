@@ -92,6 +92,7 @@ nginx     ClusterIP    None         <none>        80/TCP    12s
 ```shell
 kubectl get statefulset web
 ```
+```
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
 ```
