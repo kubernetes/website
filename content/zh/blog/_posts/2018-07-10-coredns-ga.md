@@ -74,7 +74,7 @@ features such as serving stub domains, modifying upstream nameservers, and enabl
 --->
 ## 配置 CoreDNS
 
-在 kube-dns 中，您可以 [修改 ConfigMap](https://kubernetes.io/blog/2017/04/configuring-private-dns-zones-upstream-nameservers-kubernetes/) 来更改服务发现的性能。这允许添加诸如为存根域提供服务，修改上游名称服务器以及启用联盟之类的功能。
+在 kube-dns 中，您可以 [修改 ConfigMap](https://kubernetes.io/blog/2017/04/configuring-private-dns-zones-upstream-nameservers-kubernetes/) 来更改服务发现的行为。用户可以添加诸如为存根域提供服务、修改上游名称服务器以及启用联盟之类的功能。
 
 <!--
 In CoreDNS, you similarly can modify the ConfigMap for the CoreDNS [Corefile](https://coredns.io/2017/07/23/corefile-explained/) to change how service discovery
