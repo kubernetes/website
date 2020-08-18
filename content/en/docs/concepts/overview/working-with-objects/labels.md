@@ -22,10 +22,9 @@ Each object can have a set of key/value labels defined. Each Key must be unique 
 }
 ```
 
-Labels allow for efficient queries and watches and are ideal for use in UIs and CLIs. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
-
-
-
+Labels allow for efficient queries and watches and are ideal for use in UIs
+and CLIs. Non-identifying information should be recorded using
+[annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
 <!-- body -->
 
@@ -77,7 +76,7 @@ spec:
 
 ## Label selectors
 
-Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
@@ -186,7 +185,10 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/)
+and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationcontroller/),
+also use label selectors to specify sets of other resources, such as
+[pods](/docs/concepts/workloads/pods/pod/).
 
 #### Service and ReplicationController
 
@@ -210,7 +212,11 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/jobs-run-to-completion/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/job/),
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/),
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and
+[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/),
+support _set-based_ requirements as well.
 
 ```yaml
 selector:
@@ -227,5 +233,4 @@ selector:
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
 See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
-
 

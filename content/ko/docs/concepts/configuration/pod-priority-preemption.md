@@ -160,7 +160,7 @@ description: "이 프라이어리티 클래스는 XYZ 서비스 파드에만 사
 해당 프라이어리티클래스의 파드는 비-선점될 것이다.
 
 `PreemptionPolicy` 필드를 사용하려면 `NonPreemptingPriority`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)가
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
 활성화되어야 한다.
 
 예제 유스케이스는 데이터 과학 관련 워크로드이다.
@@ -408,4 +408,3 @@ kubelet 리소스 부족 축출은 사용량이 요청을 초과하지 않는 �
 ## {{% heading "whatsnext" %}}
 
 * 프라이어리티클래스와 관련하여 리소스쿼터 사용에 대해 [기본적으로 프라이어리티 클래스 소비 제한](/ko/docs/concepts/policy/resource-quotas/#기본적으로-우선-순위-클래스-소비-제한)을 읽어보자.
-

@@ -38,15 +38,6 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 -->
 [`kubeadm`](/docs/tasks/tools/install-kubeadm/) 是一个命令行工具，可以用来在物理机、云服务器或虚拟机（目前处于 alpha 阶段）上轻松部署一个安全可靠的 Kubernetes 集群。
 
-## Kubefed
-
-<!--
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the command line tool
-to help you administrate your federated clusters.
--->
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) 是一个命令行工具，可以用来帮助用户管理联邦集群。
-
-
 ## Minikube
 
 <!--

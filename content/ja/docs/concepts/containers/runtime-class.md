@@ -26,11 +26,10 @@ RuntimeClassはコンテナランタイムの設定を選択するための機�
 
 ### セットアップ
 
-RuntimeClass機能のFeature Gateが有効になっていることを確認してください(デフォルトで有効です)。Feature Gateを有効にする方法については、[Feature
-Gates](/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
-その`RuntimeClass`のFeature GateはApiServerとkubeletのどちらも有効になっていなければなりません。
+RuntimeClass機能のフィーチャーゲートが有効になっていることを確認してください(デフォルトで有効です)。フィーチャーゲートを有効にする方法については、[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を参照してください。
+その`RuntimeClass`のフィーチャーゲートはApiServerとkubeletのどちらも有効になっていなければなりません。
 
-1. ノード上でCRI実装を設定する。（ランタイムに依存）
+1. ノード上でCRI実装を設定する。(ランタイムに依存)
 2. 対応するRuntimeClassリソースを作成する。
 
 #### 1. ノード上でCRI実装を設定する。
@@ -39,8 +38,8 @@ RuntimeClassを通じて利用可能な設定はContainer Runtime Interface (CRI
 ユーザーの環境のCRI実装の設定方法は、対応するドキュメント([下記](#cri-configuration))を参照ください。
 
 {{< note >}}
-RuntimeClassは現時点において、クラスター全体で同じ種類のNode設定であることを仮定しています。(これは全てのNodeがコンテナランタイムに関して同じ方法で構成されていることを意味します)。
-設定が異なるNodeに関しては、スケジューリング機能を通じてRuntimeClassとは独立して管理されなくてはなりません。([PodをNodeに割り当てる方法](/ja/docs/concepts/configuration/assign-pod-node/)を参照して下さい)。
+RuntimeClassは、クラスター全体で同じ種類のノード設定であることを仮定しています。(これは全てのノードがコンテナランタイムに関して同じ方法で構成されていることを意味します)。
+設定が異なるノードをサポートするには、[スケジューリング](#scheduling)を参照してください。
 {{< /note >}}
 
 RuntimeClassの設定は、RuntimeClassによって参照される`ハンドラー`名を持ちます。そのハンドラーは正式なDNS-1123に準拠する形式のラベルでなくてはなりません(英数字 + `-`の文字で構成されます)。
@@ -59,6 +58,9 @@ metadata:
   # RuntimeClassはネームスペースなしのリソースです。
 handler: myconfiguration  # 対応するCRI設定
 ```
+
+RuntimeClassオブジェクトの名前は[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)に従う必要があります。
+
 
 {{< note >}}
 RuntimeClassの書き込み操作(create/update/patch/delete)はクラスター管理者のみに制限されることを推奨します。
@@ -94,7 +96,7 @@ CRIランタイムのセットアップに関するさらなる詳細は、[CRI�
 
 Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラーをサポートしていません。
 
-#### [containerd](https://containerd.io/)
+#### {{< glossary_tooltip term_id="containerd" >}}
 
 ランタイムハンドラーは、`/etc/containerd/config.toml`にあるcontainerdの設定ファイルにより設定されます。
 正しいハンドラーは、その`runtime`セクションで設定されます。
@@ -106,20 +108,49 @@ Kubernetesのビルトインのdockershim CRIは、ランタイムハンドラ�
 containerdの設定に関する詳細なドキュメントは下記を参照してください。  
 https://github.com/containerd/cri/blob/master/docs/config.md
 
-#### [cri-o](https://cri-o.io/)
+#### {{< glossary_tooltip term_id="cri-o" >}}
 
-ランタイムハンドラーは、`/etc/crio/crio.conf`にあるcri-oの設定ファイルにより設定されます。
+ランタイムハンドラーは、`/etc/crio/crio.conf`にあるCRI-Oの設定ファイルにより設定されます。
 正しいハンドラーは[crio.runtime
-table](https://github.com/kubernetes-sigs/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)で設定されます。
+table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table)で設定されます。
 
 ```
 [crio.runtime.runtimes.${HANDLER_NAME}]
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-cri-oの設定に関する詳細なドキュメントは下記を参照してください。  
-https://github.com/kubernetes-sigs/cri-o/blob/master/cmd/crio/config.go
+CRI-Oの[設定に関するドキュメント][100]の詳細は下記を参照してください。
 
+[100]: https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md
+
+### スケジューリング {#scheduling}
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+Kubernetes 1.16では、RuntimeClassは`scheduling`フィールドを使ったクラスター内での異なる設定をサポートしています。
+このフィールドによって、設定されたRuntimeClassをサポートするノードに対してPodがスケジュールされることを保証できます。
+スケジューリングをサポートするためにはRuntimeClass [アドミッションコントローラー][]を有効にしなければなりません。(1.16ではデフォルトです)
+
+特定のRuntimeClassをサポートしているノードへPodが配置されることを保証するために、各ノードは`runtimeclass.scheduling.nodeSelector`フィールドによって選択される共通のラベルを持つべきです。
+RuntimeClassのnodeSelectorはアドミッション機能によりPodのnodeSelectorに統合され、効率よくノードを選択します。
+もし設定が衝突した場合は、Pod作成は拒否されるでしょう。
+
+もしサポートされているノードが他のRuntimeClassのPodが稼働しないようにtaint付与されていた場合、RuntimeClassに対して`tolerations`を付与することができます。
+`nodeSelector`と同様に、tolerationsはPodのtolerationsにアドミッション機能によって統合され、効率よく許容されたノードを選択します。
+
+ノードの選択とtolerationsについての詳細は[ノード上へのPodのスケジューリング](/ja/docs/concepts/configuration/assign-pod-node/)を参照してください。
+
+[アドミッションコントローラー]: /docs/reference/access-authn-authz/admission-controllers/
+
+### Podオーバーヘッド
+
+{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
+
+Kubernetes 1.16ではRuntimeClassは[`PodOverhead`](/docs/concepts/configuration/pod-overhead/)機能の一部である、Podが稼働する時に関連するオーバーヘッドを指定することをサポートしています。
+`PodOverhead`を使うためには、PodOverhead[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にしなければなりません。(デフォルトではoffです)
+
+PodのオーバーヘッドはRuntimeClass内の`Overhead`フィールドによって定義されます。
+このフィールドを使用することで、RuntimeClassを使用して稼働するPodのオーバーヘッドを指定することができ、Kubernetes内部で使用されるオーバーヘッドを確保することができます。
 
 ### RutimeClassをα版からβ版にアップグレードする
 
@@ -140,3 +171,9 @@ RuntimeClassのβ版の機能は、下記の変更点を含みます。
 - `runtimeHandler`の指定がないか、もしくは空文字の場合や、ハンドラー名に`.`文字列が使われている場合はα版のRuntimeClassにおいてもはや有効ではありません。正しい形式のハンドラー設定に変更しなくてはなりません(先ほど記載した内容を確認ください)。
 
 
+### 参考文献
+
+- [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
+- [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
+- [Podオーバーヘッド](/docs/concepts/configuration/pod-overhead/)のコンセプトを読む
+- [PodOverhead機能デザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)

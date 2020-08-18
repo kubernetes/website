@@ -18,4 +18,5 @@
 
 - You need to know how to create a pull request to a GitHub repository.
   This involves creating your own fork of the repository. For more
-  information, see [Work from a local clone](/docs/contribute/intermediate/#work_from_a_local_clone).
+  information, see [Work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo).
+

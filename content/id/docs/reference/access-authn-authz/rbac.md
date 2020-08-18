@@ -24,7 +24,7 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 ## Objek API  {#api-overview}
 
 API RBAC mendeklarasikan empat jenis objek Kubernetes: Role, ClusterRole,
-RoleBinding and ClusterRoleBinding. kamu bisa [mendeskripsikan beberapa objek](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects), atau mengubahnya menggunakan alat seperti `kubectl`, seperti objek Kubernetes lain.
+RoleBinding and ClusterRoleBinding. kamu bisa [mendeskripsikan beberapa objek](/id/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects), atau mengubahnya menggunakan alat seperti `kubectl`, seperti objek Kubernetes lain.
 
 {{< caution >}}
 Objek-objek ini, dengan disengaja, memaksakan pembatasan akses. Jika kamu melakukan perubahan
@@ -100,7 +100,7 @@ rules:
   verbs: ["get", "watch", "list"]
 ```
 
-Nama objek Role dan ClusterRole harus menggunakan [nama _path segment_](/docs/concepts/overview/working-with-objects/names#path-segment-names) yang valid.
+Nama objek Role dan ClusterRole harus menggunakan [nama _path segment_](/id/docs/concepts/overview/working-with-objects/names#path-segment-names) yang valid.
 
 ### RoleBinding dan ClusterRoleBinding
 
@@ -116,7 +116,7 @@ Jika kamu ingin memasangkan ClusterRole ke semua Namespace di klaster kamu, kamu
 ClusterRoleBinding.
 
 Nama objek RoleBinding atau ClusterRoleBinding harus valid menggunakan
-[nama _path segment_](/docs/concepts/overview/working-with-objects/names#path-segment-names) yang valid.
+[nama _path segment_](/id/docs/concepts/overview/working-with-objects/names#path-segment-names) yang valid.
 
 #### Contoh RoleBinding
 
@@ -456,7 +456,7 @@ Di Kubernetes, modul otentikasi menyediakan informasi grup.
 Grup, seperti halnya pengguna, direpresentasikan sebagai string, dan string tersebut tidak memiliki format tertentu,
 selain awalan `system:` yang sudah direservasi.
 
-[ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) memiliki nama yang diawali dengan `system:serviceaccount:`, dan menjadi milik grup yang diawali dengan nama `system:serviceaccounts:`.
+[ServiceAccount](/id/docs/tasks/configure-pod-container/configure-service-account/) memiliki nama yang diawali dengan `system:serviceaccount:`, dan menjadi milik grup yang diawali dengan nama `system:serviceaccounts:`.
 
 {{< note >}}
 - `system:serviceaccount:` (tunggal) adalah awalan untuk ServiceAccount _username_.
@@ -1077,7 +1077,7 @@ In order from most secure to least secure, the approaches are:
       --namespace=my-namespace
     ```
 
-    Many [add-ons](/docs/concepts/cluster-administration/addons/) run as the
+    Many [add-ons](/id/docs/concepts/cluster-administration/addons/) run as the
     "default" service account in the `kube-system` namespace.
     To allow those add-ons to run with super-user access, grant cluster-admin
     permissions to the "default" service account in the `kube-system` namespace.

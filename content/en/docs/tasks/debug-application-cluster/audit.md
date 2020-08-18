@@ -134,6 +134,40 @@ log audit backend using the following `kube-apiserver` flags:
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain
 - `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 
+In case kube-apiserver is configured as a Pod,remember to mount the hostPath to the location of the policy file and log file. For example, 
+`
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml
+--audit-log-path=/var/log/audit.log
+`
+then mount the volumes:
+
+
+```
+volumeMounts:
+  - mountPath: /etc/kubernetes/audit-policy.yaml
+    name: audit
+    readOnly: true
+  - mountPath: /var/log/audit.log
+    name: audit-log
+    readOnly: false
+```
+finally the hostPath:
+
+```
+- name: audit
+  hostPath:
+    path: /etc/kubernetes/audit-policy.yaml
+    type: File
+
+- name: audit-log
+  hostPath:
+    path: /var/log/audit.log
+    type: FileOrCreate
+    
+```
+
+
+
 ### Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
@@ -331,7 +365,7 @@ Currently, this feature has performance implications for the apiserver in the fo
 
 If you're extending the Kubernetes API with the [aggregation
 layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/),
-y ou can also set up audit logging for the aggregated apiserver. To do this,
+you can also set up audit logging for the aggregated apiserver. To do this,
 pass the configuration options in the same format as described above to the
 aggregated apiserver and set up the log ingesting pipeline to pick up audit
 logs. Different apiservers can have different audit configurations and
@@ -341,7 +375,7 @@ different audit policies.
 
 ### Use fluentd to collect and distribute audit events from log file
 
-[Fluentd](http://www.fluentd.org/) is an open source data collector for unified logging layer.
+[Fluentd](https://www.fluentd.org/) is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
 {{< note >}}
@@ -469,7 +503,7 @@ different users into different files.
     bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
     ```
 
-1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) for kube-apiserver webhook audit backend
 
         cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
@@ -503,9 +537,5 @@ plugin which supports full-text search and analytics.
 
 ## {{% heading "whatsnext" %}}
 
-
-Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
-
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
-
 

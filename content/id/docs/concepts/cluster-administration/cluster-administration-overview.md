@@ -20,10 +20,10 @@ Lihat panduan di [Persiapan](/docs/setup) untuk mempelajari beberapa contoh tent
 Sebelum memilih panduan, berikut adalah beberapa hal yang perlu dipertimbangkan:
 
  - Apakah kamu hanya ingin mencoba Kubernetes pada komputermu, atau kamu ingin membuat sebuah klaster dengan *high-availability*, *multi-node*? Pilihlah distro yang paling sesuai dengan kebutuhanmu.
- - **Jika kamu merencanakan klaster dengan _high-availability_**, pelajari bagaimana cara mengonfigurasi [klaster pada *multiple zone*](/docs/concepts/cluster-administration/federation/).
+ - **Jika kamu merencanakan klaster dengan _high-availability_**, pelajari bagaimana cara mengonfigurasi [klaster pada *multiple zone*](/id/docs/concepts/cluster-administration/federation/).
  - Apakah kamu akan menggunakan **Kubernetes klaster di _hosting_**, seperti [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/), atau **_hosting_ sendiri klastermu**?
  - Apakah klastermu berada pada **_on-premises_**, atau **di cloud (IaaS)**? Kubernetes belum mendukung secara langsung klaster hibrid. Sebagai gantinya, kamu dapat membuat beberapa klaster.
- - **Jika kamu ingin mengonfigurasi Kubernetes _on-premises_**, pertimbangkan [model jaringan](/docs/concepts/cluster-administration/networking/) yang paling sesuai.
+ - **Jika kamu ingin mengonfigurasi Kubernetes _on-premises_**, pertimbangkan [model jaringan](/id/docs/concepts/cluster-administration/networking/) yang paling sesuai.
  - Apakah kamu ingin menjalankan Kubernetes pada **"bare metal" _hardware_** atau pada **_virtual machines_ (VM)**?
  - Apakah kamu **hanya ingin mencoba klaster Kubernetes**, atau kamu ingin ikut aktif melakukan **pengembangan kode dari proyek Kubernetes**? Jika jawabannya yang terakhir, pilihlah distro yang aktif dikembangkan. Beberapa distro hanya menggunakan rilis *binary*, namun menawarkan lebih banyak variasi pilihan.
  - Pastikan kamu paham dan terbiasa dengan beberapa [komponen](/docs/admin/cluster-components/) yang dibutuhkan untuk menjalankan sebuah klaster.
@@ -36,13 +36,13 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 * Pelajari bagaimana cara [mengatur *node*](/docs/concepts/nodes/node/).
 
-* Pelajari bagaimana cara membuat dan mengatur kuota resource [(*resource quota*)](/docs/concepts/policy/resource-quotas/) untuk *shared* klaster.
+* Pelajari bagaimana cara membuat dan mengatur kuota resource [(*resource quota*)](/id/docs/concepts/policy/resource-quotas/) untuk *shared* klaster.
 
 ## Mengamankan Klaster
 
-* [Sertifikat (*certificate*)](/docs/concepts/cluster-administration/certificates/) akan menjabarkan langkah-langkah untuk membuat sertifikat menggunakan beberapa *tool chains*.
+* [Sertifikat (*certificate*)](/id/docs/concepts/cluster-administration/certificates/) akan menjabarkan langkah-langkah untuk membuat sertifikat menggunakan beberapa *tool chains*.
 
-* [Kubernetes *Container Environment*](/docs/concepts/containers/container-environment-variables/) akan menjelaskan *environment* untuk kontainer yang dikelola oleh Kubelet pada Kubernetes *node*.
+* [Kubernetes *Container Environment*](/id/docs/concepts/containers/container-environment-variables/) akan menjelaskan *environment* untuk kontainer yang dikelola oleh Kubelet pada Kubernetes *node*.
 
 * [Mengontrol Akses ke Kubernetes API](/docs/reference/access-authn-authz/controlling-access/) akan menjabarkan bagaimana cara mengatur izin (*permission*) untuk akun pengguna dan *service account*.
 
@@ -63,9 +63,9 @@ Catatan: Tidak semua distro aktif dikelola. Pilihlah distro yang telah diuji den
 
 ## Layanan Tambahan Klaster
 
-* [Integrasi DNS](/docs/concepts/services-networking/dns-pod-service/) akan menjelaskan bagaimana cara *resolve* suatu nama DNS langsung pada *service* Kubernetes.
+* [Integrasi DNS](/id/docs/concepts/services-networking/dns-pod-service/) akan menjelaskan bagaimana cara *resolve* suatu nama DNS langsung pada *service* Kubernetes.
 
-* [*Logging* dan *Monitoring* Aktivitas Klaster](/docs/concepts/cluster-administration/logging/) akan menjelaskan bagaimana cara *logging* bekerja di Kubernetes serta bagaimana cara mengimplementasikannya.
+* [*Logging* dan *Monitoring* Aktivitas Klaster](/id/docs/concepts/cluster-administration/logging/) akan menjelaskan bagaimana cara *logging* bekerja di Kubernetes serta bagaimana cara mengimplementasikannya.
 
 
 

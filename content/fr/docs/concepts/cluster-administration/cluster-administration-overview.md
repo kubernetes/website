@@ -40,7 +40,7 @@ A noter: Toutes les distributions ne sont pas activement maintenues. Choisissez 
 
 * La rubrique [Certificats](/docs/concepts/cluster-administration/certificates/) décrit les étapes à suivre pour générer des certificats à l’aide de différentes suites d'outils.
 
-* L' [Environnement de conteneur dans Kubernetes](/docs/concepts/containers/container-environment-variables/) décrit l'environnement des conteneurs gérés par la Kubelet sur un nœud Kubernetes.
+* L' [Environnement de conteneur dans Kubernetes](/docs/concepts/containers/container-environment/) décrit l'environnement des conteneurs gérés par Kubelet sur un nœud Kubernetes.
 
 * Le [Contrôle de l'accès à l'API Kubernetes](/docs/reference/access-authn-authz/controlling-access/) explique comment configurer les autorisations pour les utilisateurs et les comptes de service.
 
@@ -64,4 +64,3 @@ A noter: Toutes les distributions ne sont pas activement maintenues. Choisissez 
 * [Integration DNS](/docs/concepts/services-networking/dns-pod-service/) décrit comment résoudre un nom DNS directement vers un service Kubernetes.
 
 * [Journalisation des évènements et surveillance de l'activité du cluster](/docs/concepts/cluster-administration/logging/) explique le fonctionnement de la journalisation des évènements dans Kubernetes et son implémentation.
-

@@ -186,5 +186,5 @@ spec:
 
 
 * Baca tentang [mengaktifkan topologi Service](/docs/tasks/administer-cluster/enabling-service-topology)
-* Baca [menghubungkan aplikasi dengan Service](/docs/concepts/services-networking/connect-applications-service/)
+* Baca [menghubungkan aplikasi dengan Service](/id/docs/concepts/services-networking/connect-applications-service/)
 

@@ -8,9 +8,9 @@ weight: 80
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
-이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는 
-트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip text="파드" term_id="pod" >}} 에서 
-임시적으로 실행된다. 사용자는 애플리케이션 빌드보다는 서비스를 점검할 때 임시 
+이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는
+트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip text="파드" term_id="pod" >}} 에서
+임시적으로 실행된다. 사용자는 애플리케이션 빌드보다는 서비스를 점검할 때 임시
 컨테이너를 사용한다.
 
 {{< warning >}}
@@ -82,7 +82,7 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 {{< note >}}
 이 섹션의 예시는 `EphemeralContainers` [기능
-게이트](/docs/reference/command-line-tools-reference/feature-gates/)의
+게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)의
 활성화를 필요로 하고, 쿠버네티스 클라이언트와 서버는 v1.16 또는 이후의 버전이어야 한다.
 {{< /note >}}
 

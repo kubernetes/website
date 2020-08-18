@@ -322,4 +322,4 @@ myapp-pod   1/1       Running   0          9m
 
 
 * [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
-* [초기화 컨테이너 디버깅](/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기
+* [초기화 컨테이너 디버깅](/ko/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기

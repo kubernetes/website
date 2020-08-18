@@ -78,7 +78,8 @@ kubectl logs counter
 전자의 접근 방식은 다른 환경에서 사용된다. 두 경우 모두,
 기본적으로 로그 파일이 10MB를 초과하면 로테이션이 되도록 구성된다.
 
-예를 들어, `kube-up.sh` 가 해당 [스크립트][cosConfigureHelper]에서
+예를 들어, `kube-up.sh` 가 해당
+[스크립트](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)에서
 GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를 찾을 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
@@ -93,8 +94,6 @@ GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를
 그 후 `kubectl logs` 는 빈 응답을 반환한다.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-
 ### 시스템 컴포넌트 로그
 
 시스템 컴포넌트에는 컨테이너에서 실행되는 것과 컨테이너에서 실행되지 않는 두 가지 유형이 있다.
@@ -106,7 +105,7 @@ GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를
 systemd를 사용하는 시스템에서, kubelet과 컨테이너 런타임은 journald에 작성한다.
 systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 작성한다.
 컨테이너 내부의 시스템 컴포넌트는 기본 로깅 메커니즘을 무시하고,
-항상 `/var/log` 디렉터리에 기록한다. 그것은 [klog][klog]
+항상 `/var/log` 디렉터리에 기록한다. 그것은 [klog](https://github.com/kubernetes/klog)
 로깅 라이브러리를 사용한다. [로깅에 대한 개발 문서](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)에서
 해당 컴포넌트의 로깅 심각도(severity)에 대한 규칙을 찾을 수 있다.
 
@@ -114,8 +113,6 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 로테이트해야 한다. `kube-up.sh` 스크립트로 구축한 쿠버네티스 클러스터에서
 로그는 매일 또는 크기가 100MB를 초과하면
 `logrotate` 도구에 의해 로테이트가 되도록 구성된다.
-
-[klog]: https://github.com/kubernetes/klog
 
 ## 클러스터 레벨 로깅 아키텍처
 

@@ -14,7 +14,9 @@ RUN apk add --no-cache \
     openssh-client \
     rsync \
     build-base \
-    libc6-compat
+    libc6-compat \
+    npm && \
+    npm install -G autoprefixer postcss-cli
 
 ARG HUGO_VERSION
 

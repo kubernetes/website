@@ -84,7 +84,7 @@ metadata:
 EOF
 ```
 
-Nama dari objek ServiceAccount haruslah sebuah [nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang valid.
+Nama dari objek ServiceAccount haruslah sebuah [nama subdomain DNS](/id/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang valid.
 
 Jika kamu mendapatkan objek ServiceAccount secara komplit, seperti ini:
 
@@ -108,7 +108,7 @@ secrets:
 
 maka kamu dapat melihat bahwa _token_ telah dibuat secara otomatis dan dirujuk oleh ServiceAccount.
 
-Kamu dapat menggunakan _plugin_ otorisasi untuk [mengatur hak akses dari ServiceAccount](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
+Kamu dapat menggunakan _plugin_ otorisasi untuk [mengatur hak akses dari ServiceAccount](/id/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 Untuk menggunakan ServiceAccount selain nilai standar, atur _field_ `spec.serviceAccountName` dari Pod menjadi nama dari ServiceAccount yang hendak kamu gunakan.
 
@@ -280,7 +280,7 @@ ServiceAccountTokenVolumeProjection masih dalam tahap __beta__ untuk versi 1.12 
 
 Kubelet juga dapat memproyeksikan _token_ ServiceAccount ke Pod. Kamu dapat menentukan properti yang diinginkan dari _token_ seperti target pengguna dan durasi validitas. Properti tersebut tidak dapat diubah pada _token_ ServiceAccount standar. _Token_ ServiceAccount juga akan menjadi tidak valid terhadap API ketika Pod atau ServiceAccount dihapus.
 
-Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/docs/concepts/storage/volumes/#projected). Untuk memungkinkan Pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
+Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/id/docs/concepts/storage/volumes/#projected). Untuk memungkinkan Pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
 
 {{< codenew file="pods/pod-projected-svc-token.yaml" >}}
 

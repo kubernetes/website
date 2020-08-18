@@ -589,7 +589,7 @@ Example of a response to forbid a request, customizing the HTTP status code and 
 When allowing a request, a mutating admission webhook may optionally modify the incoming object as well.
 This is done using the `patch` and `patchType` fields in the response.
 The only currently supported `patchType` is `JSONPatch`.
-See [JSON patch](http://jsonpatch.com/) documentation for more details.
+See [JSON patch](https://jsonpatch.com/) documentation for more details.
 For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of JSON patch operations.
 
 As an example, a single patch operation that would set `spec.replicas` would be `[{"op": "add", "path": "/spec/replicas", "value": 3}]`
@@ -949,7 +949,7 @@ See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for
 ### Matching requests: matchPolicy
 
 API servers can make objects available via multiple API groups or versions.
-For example, the Kubernetes API server allows creating and modifying `Deployment` objects
+For example, the Kubernetes API server may allow creating and modifying `Deployment` objects
 via `extensions/v1beta1`, `apps/v1beta1`, `apps/v1beta2`, and `apps/v1` APIs.
 
 For example, if a webhook only specified a rule for some API groups/versions (like `apiGroups:["apps"], apiVersions:["v1","v1beta1"]`),

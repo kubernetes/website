@@ -91,7 +91,7 @@ extension points:
 - `NodeResourcesFit`: Checks if the node has all the resources that the Pod is
   requesting.
   Extension points: `PreFilter`, `Filter`.
-- `NodeResourcesBallancedAllocation`: Favors nodes that would obtain a more
+- `NodeResourcesBalancedAllocation`: Favors nodes that would obtain a more
   balanced resource usage if the Pod is scheduled there.
   Extension points: `Score`.
 - `NodeResourcesLeastAllocated`: Favors nodes that have a low allocation of

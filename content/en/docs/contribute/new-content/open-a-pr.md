@@ -1,6 +1,5 @@
 ---
 title: Opening a pull request
-slug: new-content
 content_type: concept
 weight: 10
 card:

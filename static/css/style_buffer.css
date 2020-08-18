@@ -45,7 +45,7 @@ h1 {
   padding-bottom:0.5%;
   padding-left:9.9%;
   font-size:32px;
-  background: url('/images/CaseStudy_buffer_banner3.jpg');
+  background: url('/images/case-studies/buffer/banner3.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
 }
@@ -75,7 +75,7 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_buffer_banner1.jpg');
+  background: url('/images/case-studies/buffer/banner1.jpg');
   background-size:100% auto;
 }
 
@@ -88,7 +88,7 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_buffer_banner4.jpg');
+  background: url('/images/case-studies/buffer/banner4.jpg');
   background-size:100% auto;
 }
 
@@ -259,7 +259,7 @@ h4 {
   .logo {
     width:8%;
   }
-  
+
   .col1 {
     width: 100%;
     padding-left:5%;
@@ -295,7 +295,7 @@ h4 {
     padding-bottom:2%;
     padding-left:10%;
     font-size:18px;
-    background: url('/images/CaseStudy_buffer_banner3.jpg');
+    background: url('/images/case-studies/buffer/banner3.jpg');
     background-size:100% auto;
   }
 
@@ -328,7 +328,7 @@ h4 {
     padding-left:15%;
     padding-right:10%;
     float:left;
-    background: url('/images/CaseStudy_buffer_banner1.jpg');
+    background: url('/images/case-studies/buffer/banner1.jpg');
   }
 
   .banner4 {
@@ -342,7 +342,7 @@ h4 {
     line-height:24px;
     width:100%;
     float:left;
-    background: url('/images/CaseStudy_buffer_banner4.jpg');
+    background: url('/images/case-studies/buffer/banner4.jpg');
   }
 
   .banner5 {

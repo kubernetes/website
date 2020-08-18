@@ -1,6 +1,6 @@
 {{/* Link directly to documentation etc., if possible. */}}
 {{ $langPage := cond (gt (len .Translations) 0) . .Site.Home }}
-<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	{{ $langPage.Language.LanguageName }}
 </a>
 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">

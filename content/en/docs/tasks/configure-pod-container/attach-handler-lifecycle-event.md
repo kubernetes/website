@@ -75,7 +75,7 @@ set to RUNNING until the postStart handler completes.
 Kubernetes sends the preStop event immediately before the Container is terminated.
 Kubernetes' management of the Container blocks until the preStop handler completes,
 unless the Pod's grace period expires. For more details, see
-[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[Pod Lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 {{< note >}}
 Kubernetes only sends the preStop event when a Pod is *terminated*.

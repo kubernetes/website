@@ -11,7 +11,7 @@ card:
 <!-- overview -->
 
 <img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Laman ini menunjukkan cara untuk menginstal `kubeadm`.
-Untuk informasi mengenai cara membuat sebuah klaster dengan kubeadm setelah kamu melakukan proses instalasi ini, lihat laman [Menggunakan kubeadm untuk Membuat Sebuah Klaster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+Untuk informasi mengenai cara membuat sebuah klaster dengan kubeadm setelah kamu melakukan proses instalasi ini, lihat laman [Menggunakan kubeadm untuk Membuat Sebuah Klaster](/id/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
 
 
 
@@ -132,14 +132,14 @@ Jika ditemukan selain dari kedua _runtime_ Container tersebut, kubeadm akan berh
 
 Komponen kubelet berintegrasi dengan Docker melalui implementasi CRI `dockershim` bawaannya.
 
-Lihat [_runtime_ Container](/docs/setup/production-environment/container-runtimes/)
+Lihat [_runtime_ Container](/id/docs/setup/production-environment/container-runtimes/)
 untuk informasi lebih lanjut.
 {{% /tab %}}
 {{% tab name="sistem operasi lainnya" %}}
 Secara bawaan, kubeadm menggunakan {{< glossary_tooltip term_id="docker" >}} sebagai _runtime_ Container.
 Komponen kubelet berintegrasi dengan Docker melalui implementasi CRI `dockershim` bawaannya.
 
-Lihat [_runtime_ Container](/docs/setup/production-environment/container-runtimes/)
+Lihat [_runtime_ Container](/id/docs/setup/production-environment/container-runtimes/)
 untuk informasi lebih lanjut.
 {{% /tab %}}
 {{< /tabs >}}
@@ -174,7 +174,7 @@ Hal ini karena kubeadm dan Kubernetes membutuhkan
 Untuk informasi lebih lanjut mengenai _version skew_, lihat:
 
 * [Kebijakan _version-skew_ dan versi Kubernetes](/docs/setup/release/version-skew-policy/)
-* [Kebijakan _version skew_](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy) yang spesifik untuk kubeadm
+* [Kebijakan _version skew_](/id/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#version-skew-policy) yang spesifik untuk kubeadm
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu, Debian atau HypriotOS" %}}
@@ -304,4 +304,4 @@ Jika kamu menemui kesulitan dengan kubeadm, silakan merujuk pada [dokumen penyel
 ## {{% heading "whatsnext" %}}
 
 
-* [Menggunakan kubeadm untuk Membuat Sebuah Klaster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+* [Menggunakan kubeadm untuk Membuat Sebuah Klaster](/id/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)

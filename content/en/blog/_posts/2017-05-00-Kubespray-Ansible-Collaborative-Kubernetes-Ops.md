@@ -113,11 +113,7 @@ _-- Rob Hirschfeld, co-founder of RackN and co-chair of the Cluster Ops SIG_
 
 
 
--
-Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)
--
-Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
--
-Connect with the community on [Slack](http://slack.k8s.io/)
--
-Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
+- Get involved with the Kubernetes project on [GitHub](https://github.com/kubernetes/kubernetes)
+- Post questions (or answer questions) on [Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+- Connect with the community on [Slack](http://slack.k8s.io/)
+- Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates

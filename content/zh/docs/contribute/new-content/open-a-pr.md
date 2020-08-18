@@ -1,6 +1,5 @@
 ---
 title: 发起拉取请求（PR）
-slug: new-content
 content_type: concept
 weight: 10
 card:
@@ -9,7 +8,6 @@ card:
 ---
 <!--
 title: Opening a pull request
-slug: new-content
 content_type: concept
 weight: 10
 card:
@@ -879,5 +877,5 @@ PR，也可以添加对它们的链接。你可以多少了解该团队的流程
 <!--
 - Read [Reviewing](/docs/contribute/reviewing/revewing-prs) to learn more about the review process.
 -->
-- 阅读[评阅](/zh/docs/contribute/review/revewing-prs)节，学习评阅过程。
+- 阅读[评阅](/zh/docs/contribute/review/reviewing-prs)节，学习评阅过程。
 

@@ -428,11 +428,11 @@ Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/c
 
 ## Zusätzliche Links
 
-* **Ziele und Nichtziele**: Die Ziele und Nichtziele des Minikube-Projekts finden Sie in unserer [Roadmap](https://git.k8s.io/minikube/docs/contributors/roadmap.md).
+* **Ziele und Nichtziele**: Die Ziele und Nichtziele des Minikube-Projekts finden Sie in unserer [Roadmap](https://minikube.sigs.k8s.io/docs/contrib/roadmap/).
 * **Entwicklungshandbuch**: Lesen Sie [CONTRIBUTING.md](https://git.k8s.io/minikube/CONTRIBUTING.md) für einen Überblick über das Senden von Pull-Requests.
-* **Minikube bauen**: Anweisungen zum Erstellen/Testen von Minikube aus dem Quellcode finden Sie im [build Handbuch](https://git.k8s.io/minikube/docs/contributors/build_guide.md).
+* **Minikube bauen**: Anweisungen zum Erstellen/Testen von Minikube aus dem Quellcode finden Sie im [build Handbuch](https://minikube.sigs.k8s.io/docs/contrib/building/).
 * **Neue Abhängigkeit hinzufügen**: Anweisungen zum Hinzufügen einer neuen Abhängigkeit zu Minikube finden Sie in der [Anleitung zum Hinzufügen von Abhängigkeiten](https://minikube.sigs.k8s.io/docs/drivers/).
-* **Neues Addon hinzufügen**: Anweisungen zum Hinzufügen eines neuen Addons für Minikube finden Sie im [Anleitung zum Hinzufügen eines Addons](https://git.k8s.io/minikube/docs/contributors/adding_an_addon.md).
+* **Neues Addon hinzufügen**: Anweisungen zum Hinzufügen eines neuen Addons für Minikube finden Sie im [Anleitung zum Hinzufügen eines Addons](https://minikube.sigs.k8s.io/docs/handbook/addons/).
 * **MicroK8s**: Linux-Benutzer, die die Ausführung einer virtuellen Maschine vermeiden möchten, sollten [MicroK8s](https://microk8s.io/) als Alternative in Betracht ziehen.
 
 ## Community

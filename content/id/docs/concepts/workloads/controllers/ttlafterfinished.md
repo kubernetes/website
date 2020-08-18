@@ -10,7 +10,7 @@ weight: 65
 
 Pengendali TTL menyediakan mekanisme TTL yang membatasi umur dari suatu
 objek sumber daya yang telah selesai digunakan. Pengendali TTL untuk saat ini hanya menangani
-[Jobs](/docs/concepts/workloads/controllers/jobs-run-to-completion/),
+[Jobs](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/),
 dan nantinya bisa saja digunakan untuk sumber daya lain yang telah selesai digunakan
 misalnya saja Pod atau sumber daya khusus (_custom resource_) lainnya.
 
@@ -32,7 +32,7 @@ Pengendali TTL untuk saat ini hanya mendukung Job. Sebuah operator klaster
 dapat menggunakan fitur ini untuk membersihkan Job yang telah dieksekusi (baik
 `Complete` atau `Failed`) secara otomatis dengan menentukan _field_
 `.spec.ttlSecondsAfterFinished` pada Job, seperti yang tertera di
-[contoh](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
+[contoh](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically).
 Pengendali TTL akan berasumsi bahwa sebuah sumber daya dapat dihapus apabila
 TTL dari sumber daya tersebut telah habis. Proses dihapusnya sumber daya ini
 dilakukan secara berantai, dimana sumber daya lain yang
@@ -83,7 +83,7 @@ Perhatikan bahwa hal ini dapat terjadi apabila TTL diaktifkan dengan nilai selai
 ## {{% heading "whatsnext" %}}
 
 
-[Membersikan Job secara Otomatis](/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
+[Membersikan Job secara Otomatis](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/#clean-up-finished-jobs-automatically)
 
 [Dokumentasi Rancangan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 

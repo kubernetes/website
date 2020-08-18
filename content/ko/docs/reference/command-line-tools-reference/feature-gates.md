@@ -129,12 +129,14 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 | `RuntimeClass` | `false` | 알파 | 1.12 | 1.13 |
 | `RuntimeClass` | `true` | 베타 | 1.14 | |
 | `SCTPSupport` | `false` | 알파 | 1.12 | |
-| `ServiceAppProtocol` | `false` | 알파 | 1.18 | |
 | `ServerSideApply` | `false` | 알파 | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | 베타 | 1.16 | |
+| `ServiceAccountIssuerDiscovery` | `false` | Alpha | 1.18 | |
+| `ServiceAppProtocol` | `false` | 알파 | 1.18 | |
 | `ServiceNodeExclusion` | `false` | 알파 | 1.8 | |
 | `ServiceTopology` | `false` | 알파 | 1.17 | |
-| `StartupProbe` | `false` | 알파 | 1.16 | |
+| `StartupProbe` | `false` | 알파 | 1.16 | 1.17 |
+| `StartupProbe` | `true` | 베타 | 1.18 | |
 | `StorageVersionHash` | `false` | 알파 | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | 베타 | 1.15 | |
 | `StreamingProxyRedirects` | `false` | 베타 | 1.5 | 1.5 |
@@ -412,7 +414,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ExperimentalCriticalPodAnnotation`: 특정 파드에 *critical* 로 어노테이션을 달아서 [스케줄링이 보장되도록](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/) 한다.
   이 기능은 v1.13부터 파드 우선 순위 및 선점으로 인해 사용 중단되었다.
 - `ExperimentalHostUserNamespaceDefaultingGate`: 사용자 네임스페이스를 호스트로
-  기본 활성화한다. 이것은 다른 호스트 네임스페이스, 호스트 마운트, 
+  기본 활성화한다. 이것은 다른 호스트 네임스페이스, 호스트 마운트,
   권한이 있는 컨테이너 또는 특정 비-네임스페이스(non-namespaced) 기능(예: `MKNODE`, `SYS_MODULE` 등)을
   사용하는 컨테이너를 위한 것이다. 도커 데몬에서 사용자 네임스페이스
   재 매핑이 활성화된 경우에만 활성화해야 한다.
@@ -472,6 +474,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
 - `ScheduleDaemonSetPods`: 데몬셋(DaemonSet) 컨트롤러 대신 기본 스케줄러로 데몬셋 파드를 스케줄링할 수 있다.
 - `SCTPSupport`: SCTP를 `Service`, `Endpoint`, `NetworkPolicy` 및 `Pod` 정의에서 `protocol` 값으로 사용하는 것을 활성화한다.
 - `ServerSideApply`: API 서버에서 [SSA(Sever Side Apply)](/docs/reference/using-api/api-concepts/#server-side-apply) 경로를 활성화한다.
+- `ServiceAccountIssuerDiscovery`: API 서버에서 서비스 어카운트 발행자에 대해 OIDC 디스커버리 엔드포인트(발급자 및 JWKS URL)를 활성화한다. 자세한 내용은 [파드의 서비스 어카운트 구성](/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)을 참고한다.
 - `ServiceAppProtocol`: 서비스와 엔드포인트에서 `AppProtocol` 필드를 활성화한다.
 - `ServiceLoadBalancerFinalizer`: 서비스 로드 밸런서에 대한 Finalizer 보호를 활성화한다.
 - `ServiceNodeExclusion`: 클라우드 제공자가 생성한 로드 밸런서에서 노드를 제외할 수 있다.

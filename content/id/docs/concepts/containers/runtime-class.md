@@ -45,7 +45,7 @@ soal bagaimana melakukan konfigurasi untuk implementasi CRI yang kamu miliki.
 Untuk saat ini, RuntimeClass berasumsi bahwa semua _node_ di dalam klaster punya
 konfigurasi yang sama (homogen). Jika ada _node_ yang punya konfigurasi berbeda dari
 yang lain (heterogen), maka perbedaan ini harus diatur secara independen di luar RuntimeClass
-melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/docs/concepts/configuration/assign-pod-node/)).
+melalui fitur _scheduling_ (lihat [Menempatkan Pod pada Node](/id/docs/concepts/configuration/assign-pod-node/)).
 {{< /note >}}
 
 Seluruh konfigurasi memiliki nama `handler` yang terkait, dijadikan referensi oleh RuntimeClass.
@@ -91,7 +91,7 @@ spec:
 
 Kubelet akan mendapat instruksi untuk menggunakan RuntimeClass dengan nama yang sudah ditentukan tersebut
 untuk menjalankan Pod ini. Jika RuntimeClass dengan nama tersebut tidak ditemukan, atau CRI tidak dapat
-menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) `Failed`.
+menjalankan _handler_ yang terkait, maka Pod akan memasuki [tahap](/id/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) `Failed`.
 Lihat [_event_](/docs/tasks/debug-application-cluster/debug-application-introspection/) untuk mengetahui pesan error yang terkait.
 
 Jika tidak ada `runtimeClassName` yang ditentukan di dalam Pod, maka RuntimeHandler yang _default_ akan digunakan.

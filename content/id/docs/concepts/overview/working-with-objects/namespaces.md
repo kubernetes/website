@@ -19,7 +19,7 @@ Kubernetes mendukung banyak klaster virtual di dalam satu klaster fisik. Klaster
 
 *Namespace* menyediakan ruang untuk nama objek. Nama dari *resource* atau objek harus berbeda di dalam sebuah *namespace*, tetapi boleh sama jika berbeda *namespace*. *Namespace* tidak bisa dibuat di dalam *namespace* lain dan setiap *resource* atau objek Kubernetes hanya dapat berada di dalam satu *namespace*.
 
-*Namespace* merupakan cara yang digunakan untuk memisahkan *resource* klaster untuk beberapa pengguna (dengan [*resource quota*](/docs/concepts/policy/resource-quotas/)).
+*Namespace* merupakan cara yang digunakan untuk memisahkan *resource* klaster untuk beberapa pengguna (dengan [*resource quota*](/id/docs/concepts/policy/resource-quotas/)).
 
 Dalam versi Kubernetes yang akan datang, objek di dalam satu *namespace* akan mempunyai *access control policies* yang sama secara *default*.
 
@@ -74,7 +74,7 @@ kubectl config view | grep namespace:
 
 ## Namespace dan DNS
 
-Saat kamu membuat sebuah [Service](/docs/user-guide/services), Kubernetes membuat [Entri DNS](/docs/concepts/services-networking/dns-pod-service/) untuk *service* tersebut. Entri *DNS* ini berformat `<service-name>.<namespace-name>.svc.cluster.local`, yang berarti jika sebuah kontainer hanya menggunakan `<service-name>`, kontainer tersebut akan berkomunikasi dengan *service* yang berada di dalam satu *namespace*. Ini berguna untuk menggunakan konfigurasi yang sama di beberapa *namespace* seperti *Development*, *Staging*, dan *Production*. Jika kamu ingin berkomunikasi antar *namespace*, kamu harus menggunakan seluruh *fully qualified domain name (FQDN)*.
+Saat kamu membuat sebuah [Service](/docs/user-guide/services), Kubernetes membuat [Entri DNS](/id/docs/concepts/services-networking/dns-pod-service/) untuk *service* tersebut. Entri *DNS* ini berformat `<service-name>.<namespace-name>.svc.cluster.local`, yang berarti jika sebuah kontainer hanya menggunakan `<service-name>`, kontainer tersebut akan berkomunikasi dengan *service* yang berada di dalam satu *namespace*. Ini berguna untuk menggunakan konfigurasi yang sama di beberapa *namespace* seperti *Development*, *Staging*, dan *Production*. Jika kamu ingin berkomunikasi antar *namespace*, kamu harus menggunakan seluruh *fully qualified domain name (FQDN)*.
 
 
 ## Tidak semua objek di dalam Namespace

@@ -224,7 +224,7 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for config maps marked as immutable.
 
-To use this feature, enable the `ImmutableEmphemeralVolumes`
+To use this feature, enable the `ImmutableEphemeralVolumes`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
 your Secret or ConfigMap `immutable` field to `true`. For example:
 ```yaml

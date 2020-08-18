@@ -35,7 +35,7 @@ kubectl create configmap <map-name> <data-source>
 
 di mana \<map-name> merupakan nama yang ingin kamu berikan pada ConfigMap tersebut dan \<data-source> adalah direktori, berkas, atau nilai harfiah yang digunakan sebagai sumber data.
 Nama dari sebuah objek ConfigMap haruslah berupa
-[nama subdomain DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang sah.
+[nama subdomain DNS](/id/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) yang sah.
 
 Ketika kamu membuat ConfigMap dari sebuah berkas, secara bawaan, _basename_ dari berkas tersebut akan menjadi kunci pada \<data-source>, dan isi dari berkas tersebut akan menjadi nilai dari kunci tersebut.
 
@@ -615,14 +615,14 @@ Seperti sebelumnya, semua berkas yang sebelumnya berada pada direktori `/etc/con
 ### Memproyeksikan kunci ke jalur dan perizinan berkas tertentu
 
 Kamu dapat memproyeksikan kunci ke jalur dan perizinan tertentu pada setiap
-berkas. Panduan pengguna [Secret](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) menjelaskan mengenai sintaks-sintaksnya.
+berkas. Panduan pengguna [Secret](/id/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) menjelaskan mengenai sintaks-sintaksnya.
 
 ### ConfigMap yang dipasang akan diperbarui secara otomatis
 
 Ketika sebuah ConfigMap yang sudah dipasang pada sebuah volume diperbarui, kunci-kunci yang diproyeksikan akan turut diperbarui. Kubelet akan memeriksa apakah ConfigMap yang dipasang merupakan yang terbaru pada sinkronisasi berkala. Namun, ConfigMap menggunakan _cache_ lokal berbasis ttl (_time-to-live_) miliknya untuk mendapatkan nilai dari ConfigMap saat ini. Hasilnya, keseluruhan penundaan dari saat ketika ConfigMap diperbarui sampai saat ketika kunci-kunci baru diproyeksikan ke pada Pod bisa selama periode sinkronisasi kubelet (secara bawaan selama 1 menit) + ttl dari _cache_ ConfigMap (secara bawaan selama 1 menit) pada kubelet. Kamu dapat memicu pembaruan langsung dengan memperbarui salah satu dari anotasi Pod.
 
 {{< note >}}
-Kontainer yang menggunakan ConfigMap sebagai volume [subPath](/docs/concepts/storage/volumes/#using-subpath) tidak akan menerima pembaruan ConfigMap.
+Kontainer yang menggunakan ConfigMap sebagai volume [subPath](/id/docs/concepts/storage/volumes/#using-subpath) tidak akan menerima pembaruan ConfigMap.
 {{< /note >}}
 
 
@@ -631,10 +631,10 @@ Kontainer yang menggunakan ConfigMap sebagai volume [subPath](/docs/concepts/sto
 
 ## Memahami ConfigMap dan Pod
 
-Sumber daya API ConfigMap menyimpan data konfigurasi sebagai pasangan kunci-nilai. Data tersebut dapat dikonsumsi oleh Pod atau sebagai penyedia konfigurasi untuk komponen-komponen sistem seperti kontroler. ConfigMap mirip dengan [Secret](/docs/concepts/configuration/secret/), tetapi ConfigMap dimaksudkan untuk mengolah tulisan yang tidak memiliki informasi yang sensitif. Baik pengguna maupun komponen sistem dapat menyimpan data konfigurasi pada ConfigMap.
+Sumber daya API ConfigMap menyimpan data konfigurasi sebagai pasangan kunci-nilai. Data tersebut dapat dikonsumsi oleh Pod atau sebagai penyedia konfigurasi untuk komponen-komponen sistem seperti kontroler. ConfigMap mirip dengan [Secret](/id/docs/concepts/configuration/secret/), tetapi ConfigMap dimaksudkan untuk mengolah tulisan yang tidak memiliki informasi yang sensitif. Baik pengguna maupun komponen sistem dapat menyimpan data konfigurasi pada ConfigMap.
 
 {{< note >}}
-ConfigMap harus mereferensikan berkas-berkas properti, bukan menggantikannya. Anggaplah ConfigMap sebagai sesuatu yang merepresentasikan direktori `/etc` beserta isinya pada Linux. Sebagai contoh, jika kamu membuat sebuah [Volume Kubernetes](/docs/concepts/storage/volumes/) dari ConfigMap, tiap butir data pada ConfigMap direpresentasikan sebagai sebuah berkas pada volume.
+ConfigMap harus mereferensikan berkas-berkas properti, bukan menggantikannya. Anggaplah ConfigMap sebagai sesuatu yang merepresentasikan direktori `/etc` beserta isinya pada Linux. Sebagai contoh, jika kamu membuat sebuah [Volume Kubernetes](/id/docs/concepts/storage/volumes/) dari ConfigMap, tiap butir data pada ConfigMap direpresentasikan sebagai sebuah berkas pada volume.
 {{< /note >}}
 
 Kolom `data` pada ConfigMap berisi data konfigurasi. Seperti pada contoh di bawah, hal ini bisa berupa sesuatu yang sederhana -- seperti properti individual yang ditentukan menggunakan `--from-literal` -- atau sesuatu yang kompleks -- seperti berkas konfigurasi atau _blob_ JSON yang ditentukan dengan `--from-file`.

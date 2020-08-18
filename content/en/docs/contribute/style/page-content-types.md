@@ -191,7 +191,7 @@ Within each section, write your content. Use the following guidelines:
   interested in reading next.
 
 An example of a published tutorial topic is
-[Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/).
+[Running a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
 
 ### Reference
 

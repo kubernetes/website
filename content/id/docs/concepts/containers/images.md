@@ -26,7 +26,7 @@ selalu diunduh, kamu bisa melakukan salah satu dari berikut:
 - buang `imagePullPolicy` dan juga _tag_ untuk _image_.
 - aktifkan [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) _admission controller_.
 
-Harap diingat kamu sebaiknya hindari penggunaan _tag_ `:latest`, lihat [panduan konfigurasi](/docs/concepts/configuration/overview/#container-images) untuk informasi lebih lanjut.
+Harap diingat kamu sebaiknya hindari penggunaan _tag_ `:latest`, lihat [panduan konfigurasi](/id/docs/concepts/configuration/overview/#container-images) untuk informasi lebih lanjut.
 
 ## Membuat Image Multi-arsitektur dengan Manifest
 
@@ -142,7 +142,7 @@ Setelah kamu membuat registri, kamu akan menggunakan kredensial berikut untuk lo
    * `DOCKER_EMAIL`: `${some-email-address}`
 
 Ketika kamu sudah memiliki variabel-variabel di atas, kamu dapat
-[mengkonfigurasi sebuah Kubernetes Secret dan menggunakannya untuk _deploy_ sebuah Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+[mengkonfigurasi sebuah Kubernetes Secret dan menggunakannya untuk _deploy_ sebuah Pod](/id/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 ### Menggunakan IBM Cloud Container Registry
 IBM Cloud Container Registry menyediakan sebuah registri _image_ privat yang _multi-tenant_, dapat kamu gunakan untuk menyimpan dan membagikan _image-image_ secara aman. Secara _default_, _image-image_ di dalam registri privat kamu akan dipindai (_scan_) oleh Vulnerability Advisor terintegrasi untuk deteksi isu
@@ -291,7 +291,7 @@ kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SER
 
 Jika kamu sudah memiliki berkas kredensial Docker, daripada menggunakan perintah di atas,
 kamu dapat mengimpor berkas kredensial sebagai Kubernetes Secret.
-[Membuat sebuah Secret berbasiskan pada kredensial Docker yang sudah ada](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) menjelaskan bagaimana mengatur ini.
+[Membuat sebuah Secret berbasiskan pada kredensial Docker yang sudah ada](/id/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) menjelaskan bagaimana mengatur ini.
 Cara ini berguna khususnya jika kamu menggunakan beberapa registri kontainer privat,
 perintah `kubectl create secret docker-registry` akan membuat sebuah Secret yang akan
 hanya bekerja menggunakan satu registri privat.
@@ -331,7 +331,7 @@ Cara ini perlu untuk diselesaikan untuk setiap Pod yang mengguunakan registri pr
 
 Hanya saja, mengatur _field_ ini dapat diotomasi dengan mengatur imagePullSecrets di dalam
 sumber daya [serviceAccount](/docs/user-guide/service-accounts).
-Periksa [Tambahan ImagePullSecrets untuk sebuah Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) untuk instruksi yang lebih detail.
+Periksa [Tambahan ImagePullSecrets untuk sebuah Service Account](/id/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) untuk instruksi yang lebih detail.
 
 Kamu dapat menggunakan cara ini bersama `.docker/config.json` pada setiap Node. Kredensial-kredensial
 akan dapat di-_merged_. Cara ini akan dapat bekerja pada Google Kubernetes Engine.

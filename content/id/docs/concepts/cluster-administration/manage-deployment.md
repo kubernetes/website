@@ -6,7 +6,7 @@ weight: 40
 
 <!-- overview -->
 
-Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur mekanisme _deploy_ aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/docs/concepts/configuration/overview/) dan [label](/docs/concepts/overview/working-with-objects/labels/).
+Kamu telah melakukan _deploy_ pada aplikasimu dan mengeksposnya melalui sebuah _service_. Lalu? Kubernetes menyediakan berbagai peralatan untuk membantu mengatur mekanisme _deploy_ aplikasi, termasuk pengaturan kapasitas dan pembaruan. Diantara fitur yang akan didiskusikan lebih mendalam yaitu [berkas konfigurasi](/id/docs/concepts/configuration/overview/) dan [label](/id/docs/concepts/overview/working-with-objects/labels/).
 
 
 
@@ -290,7 +290,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 Akan muncul semua _pod_ dengan "app=nginx" dan sebuah kolom label tambahan yaitu tier (ditentukan dengan `-L` atau `--label-columns`).
 
-Untuk informasi lebih lanjut, silahkan baca [label](/docs/concepts/overview/working-with-objects/labels/) dan [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
+Untuk informasi lebih lanjut, silahkan baca [label](/id/docs/concepts/overview/working-with-objects/labels/) dan [kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label).
 
 ## Memperbarui anotasi
 
@@ -309,7 +309,7 @@ metadata:
 ...
 ```
 
-Untuk informasi lebih lanjut, silahkan lihat laman [annotations](/docs/concepts/overview/working-with-objects/annotations/) dan [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate).
+Untuk informasi lebih lanjut, silahkan lihat laman [annotations](/id/docs/concepts/overview/working-with-objects/annotations/) dan [kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate).
 
 ## Memperbesar dan memperkecil aplikasi kamu
 
@@ -432,7 +432,7 @@ Untuk memperbarui versi ke 1.9.1, ganti `.spec.template.spec.containers[0].image
 kubectl edit deployment/my-nginx
 ```
 
-Selesai! Deployment akan memperbarui aplikasi nginx yang terdeploy secara berangsur di belakang. Dia akan menjamin hanya ada sekian replika lama yang akan down selagi pembaruan berjalan dan hanya ada sekian replika baru akan dibuat melebihi jumlah pod. Untuk mempelajari lebih lanjut, kunjungi [laman Deployment](/docs/concepts/workloads/controllers/deployment/).
+Selesai! Deployment akan memperbarui aplikasi nginx yang terdeploy secara berangsur di belakang. Dia akan menjamin hanya ada sekian replika lama yang akan down selagi pembaruan berjalan dan hanya ada sekian replika baru akan dibuat melebihi jumlah pod. Untuk mempelajari lebih lanjut, kunjungi [laman Deployment](/id/docs/concepts/workloads/controllers/deployment/).
 
 
 
@@ -440,6 +440,6 @@ Selesai! Deployment akan memperbarui aplikasi nginx yang terdeploy secara berang
 
 
 - [Pelajari tentang bagaimana memakai `kubectl` untuk memeriksa dan _debug_ aplikasi.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Praktik Terbaik dan Tips Konfigurasi](/docs/concepts/configuration/overview/)
+- [Praktik Terbaik dan Tips Konfigurasi](/id/docs/concepts/configuration/overview/)
 
 

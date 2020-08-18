@@ -31,7 +31,7 @@ kube-controller-manager 바이너리의 일부로 실행되는 컨트롤러의 �
 * [Contour](https://projectcontour.io/)는 [Envoy](https://www.envoyproxy.io/) 기반 인그레스 컨트롤러로
   VMware에서 제공하고 지원한다.
 * Citrix는 [베어메탈](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal)과 [클라우드](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) 배포를 위해 하드웨어 (MPX), 가상화 (VPX) 및 [무료 컨테이너화 (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html)를 위한 [인그레스 컨트롤러](https://github.com/citrix/citrix-k8s-ingress-controller)를 제공한다.
-* F5 Networks는 [쿠버네티스를 위한 F5 BIG-IP 컨트롤러](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)에 대한
+* F5 Networks는 [쿠버네티스를 위한 F5 BIG-IP 컨테이너 인그레스 서비스](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest)에 대한
   [지원과 유지 보수](https://support.f5.com/csp/article/K86859508)를 제공한다.
 * [Gloo](https://gloo.solo.io)는 [solo.io](https://www.solo.io)의 엔터프라이즈 지원과 함께 API 게이트웨이 기능을 제공하는 [Envoy](https://www.envoyproxy.io) 기반의 오픈 소스 인그레스 컨트롤러다.
 * [HAProxy 인그레스](https://haproxy-ingress.github.io)는 HAProxy를 위한 고도로 커스터마이징 가능한 커뮤니티 주도형 인그레스 컨트롤러다.

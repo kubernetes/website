@@ -14,7 +14,7 @@ Fitur ini telah keluar dari trek Beta sejak versi 1.6. Init Container dapat disp
 
 ## Memahami Init Container
 
-Sebuah [Pod](/docs/concepts/workloads/pods/pod-overview/) dapat memiliki beberapa Container yang berjalan di dalamnya, dan dapat juga memiliki satu atau lebih Init Container, yang akan berjalan sebelum Container aplikasi dijalankan.
+Sebuah [Pod](/id/docs/concepts/workloads/pods/pod-overview/) dapat memiliki beberapa Container yang berjalan di dalamnya, dan dapat juga memiliki satu atau lebih Init Container, yang akan berjalan sebelum Container aplikasi dijalankan.
 
 Init Container sama saja seperti Container biasa, kecuali:
 
@@ -59,7 +59,7 @@ Berikut beberapa contoh kasus penggunaan Init Container:
 * Mengklon sebuah _git repository_ ke dalam sebuah _volume_.
 * Menaruh nilai-nilai tertentu ke dalam sebuah _file_ konfigurasi dan menjalankan peralatan _template_ untuk membuat _file_ konfigurasi secara dinamis untuk Container aplikasi utama. Misalnya, untuk menaruh nilai POD_IP ke dalam sebuah konfigurasi dan membuat konfigurasi aplikasi utama menggunakan Jinja.
 
-Contoh-contoh penggunaan yang lebih detail dapat dilihat pada [dokumentasi StatefulSet](/docs/concepts/workloads/controllers/statefulset/) dan [petunjuk Produksi Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/).
+Contoh-contoh penggunaan yang lebih detail dapat dilihat pada [dokumentasi StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/) dan [petunjuk Produksi Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/).
 
 ### Menggunakan Init Container
 

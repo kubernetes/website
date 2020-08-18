@@ -16,10 +16,9 @@ weight: 10
 리뷰하기 전에, 다음을 수행하는 것이 좋다.
 
 - 적합한 코멘트를 남길 수 있도록 [콘텐츠 가이드](/docs/contribute/style/content-guide/)와
-[스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
-- 쿠버네티스 문서화 커뮤니티의 다양한 [역할과 책임](/ko/docs/contribute/participating/#역할과-책임)을 이해한다.
-
-
+  [스타일 가이드](/docs/contribute/style/style-guide/)를 읽는다.
+- 쿠버네티스 문서화 커뮤니티의 다양한
+  [역할과 책임](/ko/docs/contribute/participating/#역할과-책임)을 이해한다.
 
 <!-- body -->
 

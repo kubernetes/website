@@ -1,7 +1,6 @@
 ---
 title: Docs smoke test page
 main_menu: false
-mermaid: true
 ---
 
 This page serves two purposes:
@@ -297,7 +296,8 @@ tables, use HTML instead.
 
 ## Visualizations with Mermaid
 
-Add `mermaid: true` to the [front matter](https://gohugo.io/content-management/front-matter/) of any page to enable [Mermaid JS](https://mermaidjs.github.io) visualizations. The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
+You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
+The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/master/layouts/partials/head.html)
 
 ```
 {{</* mermaid */>}}

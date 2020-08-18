@@ -33,7 +33,7 @@ klaster saat ini mendekati keadaan yang diinginkan.
 
 Sebuah _controller_ melacak sekurang-kurangnya satu jenis sumber daya dari 
 Kubernetes.
-[objek-objek](/docs/concepts/overview/working-with-objects/kubernetes-objects/) ini
+[objek-objek](/id/docs/concepts/overview/working-with-objects/kubernetes-objects/) ini
 memiliki *spec field* yang merepresentasikan keadaan yang diinginkan. Satu atau 
 lebih _controller_ untuk *resource* tersebut bertanggung jawab untuk membuat 
 keadaan sekarang mendekati keadaan yang diinginkan.
@@ -174,6 +174,6 @@ khusus itu lakukan.
 
 * Silahkan baca tentang [_control plane_ Kubernetes](/docs/concepts/#kubernetes-control-plane)
 * Temukan beberapa dasar tentang [objek-objek Kubernetes](/docs/concepts/#kubernetes-objects)
-* Pelajari lebih lanjut tentang [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* Apabila kamu ingin membuat _controller_ sendiri, silakan lihat [pola perluasan](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) dalam memperluas Kubernetes.
+* Pelajari lebih lanjut tentang [Kubernetes API](/id/docs/concepts/overview/kubernetes-api/)
+* Apabila kamu ingin membuat _controller_ sendiri, silakan lihat [pola perluasan](/id/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) dalam memperluas Kubernetes.
 

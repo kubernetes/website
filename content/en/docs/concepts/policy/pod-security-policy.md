@@ -14,9 +14,6 @@ weight: 20
 Pod Security Policies enable fine-grained authorization of pod creation and
 updates.
 
-
-
-
 <!-- body -->
 
 ## What is a Pod Security Policy?
@@ -143,13 +140,13 @@ For a complete example of authorizing a PodSecurityPolicy, see
 
 ### Troubleshooting
 
-- The [Controller Manager](/docs/admin/kube-controller-manager/) must be run
+- The [Controller Manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) must be run
 against [the secured API port](/docs/reference/access-authn-authz/controlling-access/),
 and must not have superuser permissions. Otherwise requests would bypass
 authentication and authorization modules, all PodSecurityPolicy objects would be
 allowed, and users would be able to create privileged containers. For more details
-on configuring Controller Manager authorization, see [Controller
-Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
+on configuring Controller Manager authorization, see
+[Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles).
 
 ## Policy Order
 
@@ -629,15 +626,12 @@ By default, all safe sysctls are allowed.
 - `allowedUnsafeSysctls` - allows specific sysctls that had been disallowed by the default list, so long as these are not listed in `forbiddenSysctls`.
 
 Refer to the [Sysctl documentation](
-/docs/concepts/cluster-administration/sysctl-cluster/#podsecuritypolicy).
-
-
+/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy).
 
 ## {{% heading "whatsnext" %}}
 
+- See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
 
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for policy recommendations.
-
-Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
+- Refer to [Pod Security Policy Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritypolicy-v1beta1-policy) for the api details.
 
 

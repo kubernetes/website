@@ -10,14 +10,9 @@ This page shows how to use the `update-imported-docs` script to generate
 the Kubernetes reference documentation. The script automates
 the build setup and generates the reference documentation for a release.
 
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "prerequisites-ref-docs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -87,7 +82,7 @@ The `update-imported-docs` script performs the following steps:
    the sections in the `kubectl` command reference.
 
 When the generated files are in your local clone of the `<web-base>`
-repository, you can submit them in a [pull request](/docs/contribute/start/)
+repository, you can submit them in a [pull request](/docs/contribute/new-content/open-a-pr/)
 to `<web-base>`.
 
 ## Configuration file format

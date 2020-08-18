@@ -108,8 +108,8 @@ template:
 
 ## {{% heading "whatsnext" %}}
 
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

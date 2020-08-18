@@ -99,7 +99,7 @@ __egress__: 각 네트워크폴리시에는 화이트리스트 `egress` 규칙�
    * 172.17.0.0–172.17.0.255 와 172.17.2.0–172.17.255.255 의 범위를 가지는 IP 주소(예: 172.17.0.0/16 전체에서 172.17.1.0/24 를 제외)
 3. (이그레스 규칙)은 "role=db" 레이블이 있는 "default" 네임스페이스의 모든 파드에서 TCP 포트 5978의 CIDR 10.0.0.0/24 로의 연결을 허용한다.
 
-자세한 설명과 추가 예시는 [네트워크 정책 선언](/docs/tasks/administer-cluster/declare-network-policy/)을 본다.
+자세한 설명과 추가 예시는 [네트워크 정책 선언](/ko/docs/tasks/administer-cluster/declare-network-policy/)을 본다.
 
 ## `to` 및 `from` 셀럭터의 동작
 
@@ -203,7 +203,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-이 기능을 사용하려면 사용자(또는 클러스터 관리자가) API 서버에 `--feature-gates=SCTPSupport=true,…` 를 사용해서 `SCTPSupport` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다.
+이 기능을 사용하려면 사용자(또는 클러스터 관리자가) API 서버에 `--feature-gates=SCTPSupport=true,…` 를 사용해서 `SCTPSupport` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다.
 기능 게이트가 활셩화 되면, 네트워크폴리시의 `protocol` 필드를 `SCTP` 로 설정할 수 있다.
 
 {{< note >}}
@@ -217,5 +217,5 @@ SCTP 프로토콜 네트워크폴리시를 지원하는 {{< glossary_tooltip tex
 
 
 - 자세한 설명과 추가 예시는
-  [네트워크 정책 선언](/docs/tasks/administer-cluster/declare-network-policy/)을 본다.
+  [네트워크 정책 선언](/ko/docs/tasks/administer-cluster/declare-network-policy/)을 본다.
 - 네트워크폴리시 리소스에서 사용되는 일반적인 시나리오는 [레시피](https://github.com/ahmetb/kubernetes-network-policy-recipes)를 본다.

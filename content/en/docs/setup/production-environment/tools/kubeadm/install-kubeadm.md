@@ -274,13 +274,15 @@ kubeadm to tell it what to do.
 When using Docker, kubeadm will automatically detect the cgroup driver for the kubelet
 and set it in the `/var/lib/kubelet/config.yaml` file during runtime.
 
-If you are using a different CRI, you have to modify the file with your `cgroupDriver` value, like so:
+If you are using a different CRI, you must pass your `cgroupDriver` value to `kubeadm init`, like so:
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
 cgroupDriver: <value>
 ```
+
+For further details, please read [Using kubeadm init with a configuration file](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
 
 Please mind, that you **only** have to do that if the cgroup driver of your CRI
 is not `cgroupfs`, because that is the default value in the kubelet already.

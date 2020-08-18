@@ -44,7 +44,7 @@ h1 {
   padding-bottom:0.5%;
   padding-left:10%;
   font-size:32px;
-  background: url('/images/CaseStudy_peardeck_banner3.jpg');
+  background: url('/images/case-studies/peardeck/banner3.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
 }
@@ -74,7 +74,7 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_peardeck_banner1.jpg');
+  background: url('/images/case-studies/peardeck/banner1.jpg');
   background-size:100% auto;
 }
 
@@ -87,7 +87,7 @@ h1 {
   font-size:21px;
   letter-spacing:0.03em;
   line-height:32px;
-  background: url('/images/CaseStudy_peardeck_banner2.jpg');
+  background: url('/images/case-studies/peardeck/banner2.jpg');
   background-size:100% auto;
 }
 
@@ -294,7 +294,7 @@ h4 {
     padding-bottom:2%;
     padding-left:10%;
     font-size:18px;
-    background: url('/images/CaseStudy_peardeck_banner1.jpg');
+    background: url('/images/case-studies/peardeck/banner1.jpg');
     background-size:100% auto;
   }
 
@@ -327,7 +327,7 @@ h4 {
     padding-left:15%;
     padding-right:10%;
     float:left;
-    background: url('/images/CaseStudy_peardeck_banner3.jpg');
+    background: url('/images/case-studies/peardeck/banner3.jpg');
   }
 
   .banner4 {
@@ -341,7 +341,7 @@ h4 {
     line-height:24px;
     width:100%;
     float:left;
-    background: url('/images/CaseStudy_peardeck_banner2.jpg');
+    background: url('/images/case-studies/peardeck/banner2.jpg');
   }
 
   .banner5 {

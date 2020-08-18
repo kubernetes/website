@@ -69,17 +69,17 @@ Tekan tombol **CREATE** di pojok kanan atas di laman apapun untuk memulai.
 
 _Deploy wizard_ meminta kamu untuk menyediakan informasi sebagai berikut:
 
-- **App name** (wajib): Nama dari aplikasi kamu. Sebuah [label](/docs/concepts/overview/working-with-objects/labels/) dengan nama tersebut akan ditambahkan ke Deployment dan Service, jika ada, akan di-_deploy_.
+- **App name** (wajib): Nama dari aplikasi kamu. Sebuah [label](/id/docs/concepts/overview/working-with-objects/labels/) dengan nama tersebut akan ditambahkan ke Deployment dan Service, jika ada, akan di-_deploy_.
 
   Nama aplikasi harus unik di dalam [Namespace](/docs/tasks/administer-cluster/namespaces/) Kubernetes yang kamu pilih. Nama tersebut harus dimulai dengan huruf kecil, dan diakhiri dengan huruf kecil atau angka, dan hanya berisi huruf kecil, angka dan tanda hubung (-). Nama tersebut juga dibatasi hanya 24 karakter. Spasi di depan dan belakang nama tersebut diabaikan.
 
-- **Container image** (wajib): Tautan publik dari sebuah [_image_](/docs/concepts/containers/images/) kontainer Docker pada _registry_ apapun, atau sebuah _image_ privat (biasanya di-_hosting_ di Google Container Registry atau Docker Hub). Spesifikasi _image_ kontainer tersebut harus diakhiri dengan titik dua.
+- **Container image** (wajib): Tautan publik dari sebuah [_image_](/id/docs/concepts/containers/images/) kontainer Docker pada _registry_ apapun, atau sebuah _image_ privat (biasanya di-_hosting_ di Google Container Registry atau Docker Hub). Spesifikasi _image_ kontainer tersebut harus diakhiri dengan titik dua.
 
 - **Number of pods** (wajib): Berapa banyak Pod yang kamu inginkan untuk men-_deploy_ aplikasimu. Nilainya haruslah sebuah bilangan bulat positif.
 
-  Sebuah [Deployment](/docs/concepts/workloads/controllers/deployment/) akan terbuat untuk mempertahankan jumlah Pod di klaster kamu.
+  Sebuah [Deployment](/id/docs/concepts/workloads/controllers/deployment/) akan terbuat untuk mempertahankan jumlah Pod di klaster kamu.
 
-- **Service** (opsional): Untuk beberapa aplikasi (misalnya aplikasi _frontend_) kamu mungkin akan mengekspos sebuah [Service](/docs/concepts/services-networking/service/) ke alamat IP publik yang mungkin berada diluar klaster kamu(Service eksternal). Untuk Service eksternal, kamu mungkin perlu membuka lebih dari satu porta jaringan untuk mengeksposnya. Lihat lebih lanjut [di sini](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
+- **Service** (opsional): Untuk beberapa aplikasi (misalnya aplikasi _frontend_) kamu mungkin akan mengekspos sebuah [Service](/id/docs/concepts/services-networking/service/) ke alamat IP publik yang mungkin berada diluar klaster kamu(Service eksternal). Untuk Service eksternal, kamu mungkin perlu membuka lebih dari satu porta jaringan untuk mengeksposnya. Lihat lebih lanjut [di sini](/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/).
 
   Service lainnya yang hanya dapat diakses dari dalam klaster disebut Service internal.
 
@@ -87,9 +87,9 @@ _Deploy wizard_ meminta kamu untuk menyediakan informasi sebagai berikut:
 
 Jika membutuhkan, kamu dapat membuka bagian **Advanced options** di mana kamu dapat menyetel lebih banyak pengaturan:
 
-- **Description**: Tels yang kamu masukkan ke sini akan ditambahkan sebagai sebuah [anotasi](/docs/concepts/overview/working-with-objects/annotations/) ke Deployment dan akan ditampilkan di detail aplikasi.
+- **Description**: Tels yang kamu masukkan ke sini akan ditambahkan sebagai sebuah [anotasi](/id/docs/concepts/overview/working-with-objects/annotations/) ke Deployment dan akan ditampilkan di detail aplikasi.
 
-- **Labels**: [Label-label](/docs/concepts/overview/working-with-objects/labels/) bawaan yang akan digunakan untuk aplikasi kamu adalah `name` dan `version` aplikasi. Kamu dapat menentukan label lain untuk diterapkan ke Deployment, Service (jika ada), dan Pod, seperti `release`, `environment`, `tier`, `partition`, dan `track` rilis.
+- **Labels**: [Label-label](/id/docs/concepts/overview/working-with-objects/labels/) bawaan yang akan digunakan untuk aplikasi kamu adalah `name` dan `version` aplikasi. Kamu dapat menentukan label lain untuk diterapkan ke Deployment, Service (jika ada), dan Pod, seperti `release`, `environment`, `tier`, `partition`, dan `track` rilis.
 
   Contoh:
 
@@ -107,9 +107,9 @@ track=stable
 
   Jika pembuatan Namespace berhasil, Namespace tersebut akan dipilih secara bawaan. Jika pembuatannya gagal, maka Namespace yang pertama akan terpilih.
 
-- **_Image Pull Secret_**: Jika kamu menggunakan _image_ kontainer Docker yang privat, mungkin diperlukan kredensial [_pull secret_](/docs/concepts/configuration/secret/).
+- **_Image Pull Secret_**: Jika kamu menggunakan _image_ kontainer Docker yang privat, mungkin diperlukan kredensial [_pull secret_](/id/docs/concepts/configuration/secret/).
 
-  Dashboard menampilkan semua _secret_ yang tersedia dengan daftar _dropdown_, dan mengizinkan kamu untuk membuat _secret_ baru. Nama _secret_ tersebut harus mengikuti aturan Nama DNS, misalnya `new.image-pull.secret`. Isi dari sebuah _secret_ harus dienkode dalam bentuk _base64_ dan ditentukan dalam sebuah berkas [`.dockercfg`](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). Nama kredensial dapat berisi maksimal 253 karakter.
+  Dashboard menampilkan semua _secret_ yang tersedia dengan daftar _dropdown_, dan mengizinkan kamu untuk membuat _secret_ baru. Nama _secret_ tersebut harus mengikuti aturan Nama DNS, misalnya `new.image-pull.secret`. Isi dari sebuah _secret_ harus dienkode dalam bentuk _base64_ dan ditentukan dalam sebuah berkas [`.dockercfg`](/id/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod). Nama kredensial dapat berisi maksimal 253 karakter.
 
   Jika pembuatan _image pull secret_ berhasil, _image pull secret_ tersebut akan terpilih secara bawaan. Jika gagal, maka tidak ada _secret_ yang dipilih.
 
@@ -123,7 +123,7 @@ track=stable
 
 ### Menggungah berkas YAML atau JSON
 
-Kubernetes mendukung pengaturan deklaratif. Dengan cara ini, semua pengaturan disimpan dalam bentuk berkas YAML atau JSON menggunakan skema sumber daya [[API](/docs/concepts/overview/kubernetes-api/).
+Kubernetes mendukung pengaturan deklaratif. Dengan cara ini, semua pengaturan disimpan dalam bentuk berkas YAML atau JSON menggunakan skema sumber daya [[API](/id/docs/concepts/overview/kubernetes-api/).
 
 Sebagai alternatif untuk menentukan detail aplikasi di _deploy wizard_, kamu dapat menentukan sendiri detail aplikasi kamu dalam berkas YAML atau JSON, dan mengunggah berkas tersebut menggunakan Dashboard.
 

@@ -40,7 +40,7 @@ dan menambahkan sertifikat yang diurai ke `RootCAs` di _struct_
 [`tls.Config`](https://godoc.org/crypto/tls#Config).
 
 Kamu bisa mendistribusikan sertifikat CA sebagai sebuah
-[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap) yang bisa diakses oleh Pod kamu.
+[ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap) yang bisa diakses oleh Pod kamu.
 
 ## Meminta Sertifikat
 

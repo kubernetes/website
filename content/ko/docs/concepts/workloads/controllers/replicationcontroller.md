@@ -269,7 +269,7 @@ API 오브젝트에 대한 더 자세한 것은
 ### 잡
 
 자체적으로 제거될 것으로 예상되는 파드 (즉, 배치 잡)의 경우
-레플리케이션 컨트롤러 대신 [`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/)을 사용하라.
+레플리케이션 컨트롤러 대신 [`잡`](/ko/docs/concepts/workloads/controllers/job/)을 사용하라.
 
 ### 데몬셋
 

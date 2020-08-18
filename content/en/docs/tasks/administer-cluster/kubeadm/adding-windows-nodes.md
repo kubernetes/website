@@ -140,7 +140,7 @@ curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/dow
 ### Joining a Windows worker node
 {{< note >}}
 You must install the `Containers` feature and install Docker. Instructions
-to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.docker.com/ee/docker-ee/windows/docker-ee/#install-docker-engine---enterprise).
+to do so are available at [Install Docker Engine - Enterprise on Windows Servers](https://docs.mirantis.com/docker-enterprise/v3.1/dockeree-products/docker-engine-enterprise/dee-windows.html).
 {{< /note >}}
 
 {{< note >}}

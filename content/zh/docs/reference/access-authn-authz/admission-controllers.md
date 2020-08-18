@@ -83,7 +83,7 @@ other admission controllers.
 
 最后，除了对对象进行变更外，准入控制器还可以有其它作用：将相关资源作为请求处理的一部分进行变更。
 增加使用配额就是一个典型的示例，说明了这样做的必要性。
-此类用法都需要相应的回收或回调过程，因为任一准入控制器都无法确定某个请能否通过所有其它准入控制器。
+此类用法都需要相应的回收或回调过程，因为任一准入控制器都无法确定某个请求能否通过所有其它准入控制器。
 
 <!--
 ## Why do I need them?
@@ -1017,7 +1017,7 @@ for more information.
 -->
 
 该准入控制器根据与 PodPreset 中条件的匹配情况，将指定字段注入一个 pod。
-另请参见 [PodPreset 概念](/docs/concepts/workloads/pods/podpreset/)和[使用 PodPreset 将信息注入 Pod](/docs/tasks/inject-data-application/podpreset) 获取详情。
+另请参见 [PodPreset 概念](/zh/docs/concepts/workloads/pods/podpreset/)和[使用 PodPreset 将信息注入 Pod](/zh/docs/tasks/inject-data-application/podpreset) 获取详情。
 
 ### PodSecurityPolicy {#podsecuritypolicy}
 

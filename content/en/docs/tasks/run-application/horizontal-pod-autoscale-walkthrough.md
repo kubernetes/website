@@ -15,11 +15,9 @@ Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
-
-
-
-
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.
+For more information on how Horizontal Pod Autoscaler behaves, see the 
+[Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,7 +45,7 @@ The Dockerfile has the following content:
 
 ```
 FROM php:5-apache
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
 ```
 
@@ -459,12 +457,12 @@ HorizontalPodAutoscaler.
 ## Appendix: Quantities
 
 All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a *quantity*.  For example,
+a special whole-number notation known in Kubernetes as a
+{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
 the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
+between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 
 ## Appendix: Other possible scenarios
 

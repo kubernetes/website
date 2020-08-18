@@ -29,8 +29,8 @@ API or the `kube-*` components from the upstream code, see the following instruc
 -->
 如果您仅想从上游代码重新生成 Kubernetes API 或 `kube-*` 组件的参考文档。请参考以下说明：
 
-- [生成 Kubernetes API 的参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)
-- [生成 Kubernetes 组件和工具的参考文档](/docs/contribute/generate-ref-docs/kubernetes-components/)
+- [生成 Kubernetes API 的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
+- [生成 Kubernetes 组件和工具的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
 
 ## {{% heading "prerequisites" %}}
 
@@ -395,7 +395,7 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 [published Kubernetes API reference documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 -->
 现在，您可以按照
-[生成 Kubernetes API 的参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)
+[生成 Kubernetes API 的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
 指南来生成
 [已发布的 Kubernetes API 参考文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)。
 
@@ -406,7 +406,7 @@ You are now ready to follow the [Generating Reference Documentation for the Kube
 * [Generating Reference Docs for Kubernetes Components and Tools](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [Generating Reference Documentation for kubectl Commands](/docs/home/contribute/generated-reference/kubectl/)
 -->
-* [生成 Kubernetes API 的参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)
-* [为 Kubernetes 组件和工具生成参考文档](/docs/home/contribute/generated-reference/kubernetes-components/)
-* [生成 kubectl 命令的参考文档](/docs/home/contribute/generated-reference/kubectl/)
+* [生成 Kubernetes API 的参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
+* [为 Kubernetes 组件和工具生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [生成 kubectl 命令的参考文档](/zh/docs/contribute/generate-ref-docs/kubectl/)
 

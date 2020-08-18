@@ -178,7 +178,7 @@ Saat mengakses API dari Pod, pencarian dan autentikasi ke apiserver agak berbeda
 Cara yang disarankan untuk menemukan apiserver di dalam Pod adalah dengan nama DNS `kubernetes.default.svc`, 
 yang akan mengubah kedalam bentuk Service IP yang pada gilirannya akan dialihkan ke apiserver.
 
-Cara yang disarankan untuk mengautentikasi ke apiserver adalah dengan kredensial [akun servis](/docs/tasks/configure-pod-container/configure-service-account/). 
+Cara yang disarankan untuk mengautentikasi ke apiserver adalah dengan kredensial [akun servis](/id/docs/tasks/configure-pod-container/configure-service-account/). 
 Oleh kube-system, Pod dikaitkan dengan sebuah akun servis (_service account_), dan sebuah kredensial (token) untuk akun servis (_service account_) tersebut ditempatkan ke pohon sistem berkas (_file system tree_) dari setiap Container di dalam Pod tersebut, 
 di `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 
@@ -317,7 +317,7 @@ Ada beberapa proksi berbeda yang mungkin kamu temui saat menggunakan Kubernetes:
     - dapat digunakan untuk menjangkau Node, Pod, atau Service
     - melakukan _load balancing_ saat digunakan untuk menjangkau sebuah Service
 
-1.  [kube-proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube-proxy](/id/docs/concepts/services-networking/service/#ips-and-vips):
 
     - berjalan di setiap Node
     - memproksi UDP dan TCP

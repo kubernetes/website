@@ -19,7 +19,7 @@ Tutorial ini menunjukkan bagaimana caranya menjalankan aplikasi sederhana Node.j
 Katacoda menyediakan <i>environment</i> Kubernetes secara gratis di dalam browser.
 
 {{< note >}}
-Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/docs/tasks/tools/install-minikube/) kamu.
+Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/id/docs/tasks/tools/install-minikube/) kamu.
 {{< /note >}}
 
 
@@ -68,9 +68,9 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 ## Membuat sebuah Deployment
 
-Sebuah Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Kontainer,
+Sebuah Kubernetes [*Pod*](/id/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Kontainer,
 saling terhubung untuk kebutuhan administrasi dan jaringan. Pod dalam tutorial ini hanya punya satu Kontainer. Sebuah Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) selalu memeriksa kesehatan
+[*Deployment*](/id/docs/concepts/workloads/controllers/deployment/) selalu memeriksa kesehatan
 Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati. Deployment adalah cara jitu untuk membuat dan mereplikasi Pod.
 
 1. Gunakan perintah `kubectl create` untuk membuat Deployment yang dapat mengatur Pod.
@@ -122,7 +122,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 ## Membuat sebuah Servis
 
 Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam klaster Kubernetes.
-Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
+Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/id/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Ekspos Pod pada internet publik menggunakan perintah `kubectl expose`:
 
@@ -266,8 +266,8 @@ minikube delete
 ## {{% heading "whatsnext" %}}
 
 
-* Pelajari lebih lanjut tentang [Deployment](/docs/concepts/workloads/controllers/deployment/).
+* Pelajari lebih lanjut tentang [Deployment](/id/docs/concepts/workloads/controllers/deployment/).
 * Pelajari lebih lanjut tentang [Deploy aplikasi](/docs/user-guide/deploying-applications/).
-* Pelajari lebih lanjut tentang [Servis](/docs/concepts/services-networking/service/).
+* Pelajari lebih lanjut tentang [Servis](/id/docs/concepts/services-networking/service/).
 
 

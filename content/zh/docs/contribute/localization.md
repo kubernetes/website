@@ -62,7 +62,7 @@ First, [create your own fork](/docs/contribute/start/#improve-existing-content) 
 ### 派生（fork）并且克隆仓库 {#fork-and-clone-the-repo}
 
 首先，为 [kubernetes/website](https://github.com/kubernetes/website) 仓库
-[创建你自己的副本](/zh/docs/contribute/new-content/new-content/#fork-the-repo)。
+[创建你自己的副本](/zh/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
 
 <!--
 Then, clone your fork and `cd` into it:
@@ -359,7 +359,7 @@ Site strings | [All site strings in a new localized TOML file](https://github.co
 -----|-----
 主页 | [所有标题和副标题网址](/zh/docs/home/)
 安装 | [所有标题和副标题网址](/zh/docs/setup/)
-教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/stateless-application/hello-minikube/)
+教程 | [Kubernetes 基础](/zh/docs/tutorials/kubernetes-basics/), [Hello Minikube](/zh/docs/tutorials/hello-minikube/)
 网站字符串 | [新的本地化 TOML 文件中的所有网站字符串](https://github.com/kubernetes/website/tree/master/i18n)
 
 <!-- 
@@ -545,11 +545,11 @@ For more information about working from forks or directly from the repository, s
 <!-- 
 ## Upstream contributions 
 
-SIG Docs welcomes [upstream contributions and corrections](/docs/contribute/intermediate#localize-content) to the English source.  
+SIG Docs welcomes upstream contributions and corrections to the English source.
 -->
 ### 上游贡献 {#upstream-contributions}
 
-Sig Docs 欢迎对英文原文的[上游贡献和修正](/zh/docs/contribute/intermediate#localize-content)。
+Sig Docs 欢迎对英文原文的上游贡献和修正。
 
 <!-- 
 ## Help an existing localization 

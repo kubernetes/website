@@ -12,9 +12,9 @@ weight: 10
 
 <!-- overview -->
 
-[`Pod`](/docs/concepts/workloads/pods/pod/) pada Kubernetes bersifat *mortal*.
+[`Pod`](/id/docs/concepts/workloads/pods/pod/) pada Kubernetes bersifat *mortal*.
 Artinya apabila _pod-pod_ tersebut dibuat dan kemudian mati, _pod-pod_ tersebut
-tidak akan dihidupkan kembali. [`ReplicaSets`](/docs/concepts/workloads/controllers/replicaset/) secara
+tidak akan dihidupkan kembali. [`ReplicaSets`](/id/docs/concepts/workloads/controllers/replicaset/) secara
 khusus bertugas membuat dan menghapus `Pod` secara dinamsi (misalnya, pada proses *scaling out* atau *scaling in*).
 Meskipun setiap `Pod` memiliki alamat IP-nya masing-masing, kamu tidak dapat mengandalkan alamat IP
 yang diberikan pada _pod-pod_ tersebut, karena alamat IP yang diberikan tidak stabil.
@@ -26,7 +26,7 @@ Inilah alasan kenapa `Service` ada.
 
 Sebuah `Service` pada Kubernetes adalah sebuah abstraksi yang memberikan definisi
 set logis yang terdiri beberapa `Pod` serta _policy_ bagaimana cara kamu mengakses sekumpulan `Pod` tadi - seringkali disebut sebagai _microservices_.
-Set `Pod` yang dirujuk oleh suatu `Service` (biasanya) ditentukan oleh sebuah [`Label Selector`](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+Set `Pod` yang dirujuk oleh suatu `Service` (biasanya) ditentukan oleh sebuah [`Label Selector`](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 (lihat penjelasan di bawah untuk mengetahui alasan kenapa kamu mungkin saja membutuhkan `Service` tanpa
 sebuah _selector_).
 
@@ -95,7 +95,7 @@ mereka juga melakukan abstraksi bagi _backend_ lainnya. Misalnya saja:
   * Kamu ingin memiliki sebuah basis data eksternal di _environment_ _production_ tapi pada tahap _test_,
     kamu ingin menggunakan basis datamu sendiri.
   * Kamu ingin merujuk _service_ kamu pada _service_ lainnya yang berada pada
-    [_Namespace_](/docs/concepts/overview/working-with-objects/namespaces/) yang berbeda atau bahkan klaster yang berbeda.
+    [_Namespace_](/id/docs/concepts/overview/working-with-objects/namespaces/) yang berbeda atau bahkan klaster yang berbeda.
   * Kamu melakukan migrasi _workloads_ ke Kubernetes dan beberapa _backend_ yang kamu miliki masih
     berada di luar klaster Kubernetes.
 
@@ -319,7 +319,7 @@ Meskipun begitu, DNS tidak memiliki keterbatasan ini.
 
 ### DNS
 
-Salah satu [_add-on_](/docs/concepts/cluster-administration/addons/) opsional
+Salah satu [_add-on_](/id/docs/concepts/cluster-administration/addons/) opsional
 (meskipun sangat dianjurkan) adalah server DNS. Server DNS bertugas untuk mengamati apakah
 terdapat objek `Service` baru yang dibuat dan kemudian bertugas menyediakan DNS baru untuk
 _Service_ tersebut. Jika DNS ini diaktifkan untuk seluruh klaster, maka semua `Pod` akan secara otomatis
@@ -338,7 +338,7 @@ nomor _port_ yang digunakan oleh _http_.
 
 Server DNS Kubernetes adalah satu-satunya cara untuk mengakses
 _Service_ dengan tipe `ExternalName`. Informasi lebih lanjut tersedia di
-[DNS _Pods_ dan _Services_](/docs/concepts/services-networking/dns-pod-service/).
+[DNS _Pods_ dan _Services_](/id/docs/concepts/services-networking/dns-pod-service/).
 
 ## `Service` _headless_
 
@@ -745,10 +745,10 @@ dan tidak akan menerima trafik apa pun.
 
 Untuk menghasilkan distribusi trafik yang merata, kamu dapat menggunakan
 _DaemonSet_ atau melakukan spesifikasi
-[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
+[pod anti-affinity](/id/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity-beta-feature)
 agar `Pod` tidak di-_assign_ ke _node_ yang sama.
 
-NLB juga dapat digunakan dengan anotasi [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer).
+NLB juga dapat digunakan dengan anotasi [internal load balancer](/id/docs/concepts/services-networking/service/#internal-load-balancer).
 
 Agar trafik klien berhasil mencapai _instances_ dibelakang ELB,
 _security group_ dari _node_ akan diberikan _rules_ IP sebagai berikut:
@@ -1006,7 +1006,7 @@ alternatif penggunaan `Service` untuk HTTP/HTTPS.
 
 {{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
-Apabila penyedia layanan _cloud_ yang kamu gunakan mendukung, (misalnya saja, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+Apabila penyedia layanan _cloud_ yang kamu gunakan mendukung, (misalnya saja, [AWS](/id/docs/concepts/cluster-administration/cloud-providers/#aws)),
 _Service_ dengan _type_ `LoadBalancer` untuk melakukan konfigurasi _load balancer_
 di luar Kubernetes sendiri, serta akan melakukan _forwarding_ koneksi yang memiliki prefiks
 [protokol PROXY](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
