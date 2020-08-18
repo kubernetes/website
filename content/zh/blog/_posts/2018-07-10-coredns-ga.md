@@ -155,7 +155,7 @@ specified namespace with that IP address.
 --->
 ### Pod 验证模式
 
-在 kube-dns 中，Pod 名称记录是 "伪造的"。也就是说，任何 "a-b-c-d.namespace.pod.cluster.local" 查询都将返回 IP 地址 "a.b.c.d"。在某些情况下，这可能会削弱 TLS 提供的身份确认。因此，CoreDNS 提供了一种 "Pod 验证" 的模式，该模式仅在具有该 IP 地址的指定名称空间中存在 Pod 时才返回 IP 地址。
+在 kube-dns 中，Pod 名称记录是 "伪造的"。也就是说，任何 "a-b-c-d.namespace.pod.cluster.local" 查询都将返回 IP 地址 "a.b.c.d"。在某些情况下，这可能会削弱 TLS 提供的身份确认。因此，CoreDNS 提供了一种 "Pod 验证" 的模式，该模式仅在指定名称空间中存在具有该 IP 地址的 Pod 时才返回 IP 地址。
 
 <!--
 ### Endpoint names based on pod names
