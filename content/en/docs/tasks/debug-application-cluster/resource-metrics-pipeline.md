@@ -10,7 +10,7 @@ content_type: concept
 
 Resource usage metrics, such as container CPU and memory usage,
 are available in Kubernetes through the Metrics API. These metrics can be accessed either directly
-by the user, i.e. by using the `kubectl top` command, or by a controller in the cluster, e.g.
+by the user with the `kubectl top` command, or by a controller in the cluster, for example
 Horizontal Pod Autoscaler, to make decisions.
 
 <!-- body -->
@@ -65,4 +65,3 @@ Metrics Server collects metrics from the Summary API, exposed by
 
 Learn more about the metrics server in
 [the design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/metrics-server.md).
-
