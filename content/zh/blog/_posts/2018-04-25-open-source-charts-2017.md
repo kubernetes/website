@@ -46,7 +46,7 @@ Open discussion with ample time for community feedback and review helps build sh
 --->
 ## GitHub 上讨论最多的
 
-2017 年讨论最多的两个回购协议都基于 Kubernetes：
+2017 年讨论最多的两个仓库都是基于 Kubernetes 的：
 
 ！[讨论最多](/images/blog-logging/2018-04-24-open-source-charts-2017/most-discussed.png)
 
