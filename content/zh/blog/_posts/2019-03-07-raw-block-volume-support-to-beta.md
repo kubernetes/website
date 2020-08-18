@@ -88,7 +88,7 @@ There are 2 important differences however. First, to request a raw block `Persis
 --->
 ## Kubernetes raw block volume 的 API
 
-raw block volume 与普通 volume 有很多共同点。这两者都通过创建与 `PersistentVolume` 对象绑定的 `PersistentVolumeClaim` 对象进行请求，并通过将它们加入到 `PodSpec` 的 volume 数组中来连接到 Kubernetes 中的 Pod。
+原生数据块卷与普通存储卷有很多共同点。两者都通过创建与 `PersistentVolume` 对象绑定的 `PersistentVolumeClaim` 对象发起请求，并通过将它们加入到 `PodSpec` 的 volumes 数组中来连接到 Kubernetes 中的 Pod。
 
 但是有两个重要的区别。首先，要请求 raw block 的 `PersistentVolumeClaim`，必须在 `PersistentVolumeClaimSpec` 中设置 `volumeMode = "Block"`。保留 `volumeMode` 为空白，与传统设置方式中的指定 `volumeMode = "Filesystem"` 是一样的。`PersistentVolumes` 在其 `PersistentVolumeSpec` 中也有一个 `volumeMode` 字段，`"Block"` 类型的 PVC 只能绑定到 `"Block"` 类型的 PV 上，而`"Filesystem"` 类型的 PVC 只能绑定到 `"Filesystem"` PV 上。
 
