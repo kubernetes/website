@@ -163,7 +163,7 @@ Raw block support for CSI plugins is still alpha, but support can be added today
 --->
 ## 作为存储供应商，我如何在 CSI 插件中添加对原生块设备的支持？
 
-CSI 插件的 raw block 支持仍然是 alpha 版本，但是现在可以改进了。[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md) 详细说明了如何处理具有 `BlockVolume` 功能而不是 `MountVolume` 功能的卷的请求。CSI 插件可以支持两种类型的卷，也可以支持其中一种或另一种。更多详细信息，请查看 [这个文档](https://kubernetes-csi.github.io/docs/raw-block.html)。
+CSI 插件的原生块支持仍然是 alpha 版本，但是现在可以改进了。[CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md) 详细说明了如何处理具有 `BlockVolume` 能力而不是 `MountVolume` 能力的卷的请求。CSI 插件可以支持两种类型的卷，也可以支持其中一种或另一种。更多详细信息，请查看 [这个文档](https://kubernetes-csi.github.io/docs/raw-block.html)。
 
 
 <!--
