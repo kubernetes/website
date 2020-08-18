@@ -115,7 +115,7 @@ LogMonitor GitHubページの指示に従って、バイナリと構成ファイ
 
 ## 構成可能なコンテナのユーザー名の使用
 
-Kubernetes v1.16以降、Windowsコンテナは、イメージのデフォルトとは異なるユーザー名でエントリポイントとプロセスを実行するように構成できます。これが達成される方法は、Linuxコンテナで行われる方法とは少し異なります。詳しくは[こちら](/docs/tasks/configure-pod-container/configure-runasusername/).
+Kubernetes v1.16以降、Windowsコンテナは、イメージのデフォルトとは異なるユーザー名でエントリーポイントとプロセスを実行するように構成できます。これが達成される方法は、Linuxコンテナで行われる方法とは少し異なります。詳しくは[こちら](/docs/tasks/configure-pod-container/configure-runasusername/).
 
 ## Group Managed Service AccountsによるワークロードIDの管理
 
