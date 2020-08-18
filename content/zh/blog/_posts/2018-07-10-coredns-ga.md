@@ -128,7 +128,7 @@ metrics on the CoreDNS [Prometheus plugin](https://coredns.io/plugins/metrics/) 
 --->
 ## 指标
 
-默认 CoreDNS 配置的功能性能与 kube-dns 相同。但是，您需要知道的不同点是发布的指标是不同的。在 kube-dns 中，您将获得 `dnsmasq` 和 `kubedns` （skydns）的单独指标。在 CoreDNS 中，存在一组完全不同的指标，因为它们都是单独的进程。您可以在 CoreDNS [Prometheus 插件](https://coredns.io/plugins/metrics/) 页面上找到有关这些指标的更多详细信息。
+CoreDNS 默认配置的功能性行为与 kube-dns 相同。但是，你需要了解的差别之一是二者发布的指标是不同的。在 kube-dns 中，您将分别获得 `dnsmasq` 和 `kubedns`（skydns）的度量值。在 CoreDNS 中，存在一组完全不同的指标，因为它们在同一个进程中。您可以在 CoreDNS [Prometheus 插件](https://coredns.io/plugins/metrics/) 页面上找到有关这些指标的更多详细信息。
 
 <!--
 ## Some special features
