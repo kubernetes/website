@@ -50,7 +50,7 @@ menggunakan penjadwalan Round-Robin dari set yang ada.
 ### SRV _record_
 
 SRV _record_ dibuat untuk port bernama yang merupakan bagian dari Service normal maupun [Headless
-Services](/docs/concepts/services-networking/service/#headless-services).
+Services](/id/docs/concepts/services-networking/service/#headless-services).
 Untuk setiap port bernama, SRV _record_ akan memiliki format 
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 Untuk sebuah Service normal, ini akan melakukan resolusi pada nomor port dan 

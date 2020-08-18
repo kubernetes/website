@@ -303,7 +303,7 @@ kubectl get nodes --show-labels
 Create the guestbook-go example, which includes an RC of size 3, running a simple web app:
 
 ```shell
-find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl create -f {}
+find kubernetes/examples/guestbook-go/ -name '*.json' | xargs -I {} kubectl apply -f {}
 ```
 
 The pods should be spread across all 3 zones:

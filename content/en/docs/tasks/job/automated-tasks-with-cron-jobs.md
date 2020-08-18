@@ -128,8 +128,8 @@ You can read more about removing jobs in [garbage collection](/docs/concepts/wor
 ## Writing a Cron Job Spec
 
 As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
-and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
+information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
+and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -142,7 +142,8 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
-The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+The format also includes extended `vixie cron` step values. As explained in the
+[FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
 > Step values can be	used in	conjunction with ranges.  Following a range
 > with `/<number>` specifies skips	of the number's	value through the

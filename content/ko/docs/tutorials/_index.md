@@ -1,6 +1,7 @@
 ---
 title: 튜토리얼
 main_menu: true
+no_list: true
 weight: 60
 content_type: concept
 ---
@@ -13,8 +14,6 @@ content_type: concept
 섹션으로 구성된다.
 각 튜토리얼을 따라하기 전에, 나중에 참조할 수 있도록
 [표준 용어집](/ko/docs/reference/glossary/) 페이지를 북마크하기를 권한다.
-
-
 
 <!-- body -->
 
@@ -64,13 +63,8 @@ content_type: concept
 
 * [소스 IP 주소 이용하기](/ko/docs/tutorials/services/source-ip/)
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 튜토리얼을 작성하고 싶다면, 튜토리얼 페이지 유형에 대한 정보가 있는
 [콘텐츠 페이지 유형](/docs/contribute/style/page-content-types/)
 페이지를 참조한다.
-
-

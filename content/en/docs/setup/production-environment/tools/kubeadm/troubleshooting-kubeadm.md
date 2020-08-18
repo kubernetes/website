@@ -15,10 +15,9 @@ If your problem is not listed below, please follow the following steps:
   - Go to [github.com/kubernetes/kubeadm](https://github.com/kubernetes/kubeadm/issues) and search for existing issues.
   - If no issue exists, please [open one](https://github.com/kubernetes/kubeadm/issues/new) and follow the issue template.
 
-- If you are unsure about how kubeadm works, you can ask on [Slack](http://slack.k8s.io/) in #kubeadm, or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
+- If you are unsure about how kubeadm works, you can ask on [Slack](https://slack.k8s.io/) in `#kubeadm`,
+  or open a question on [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Please include
   relevant tags like `#kubernetes` and `#kubeadm` so folks can help you.
-
-
 
 <!-- body -->
 
@@ -404,4 +403,8 @@ nodeRegistration:
 Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
 be advised that this is modifying a design principle of the Linux distribution.
 
+## `kubeadm upgrade plan` prints out `context deadline exceeded` error message
 
+This error message is shown when upgrading a Kubernetes cluster with `kubeadm` in the case of running an external etcd. This is not a critical bug and happens because older versions of kubeadm perform a version check on the external etcd cluster. You can proceed with `kubeadm upgrade apply ...`. 
+
+This issue is fixed as of version 1.19. 

@@ -36,7 +36,7 @@ _Flag-flag_ dan _berkas-berkas konfigurasi_ didokumentasikan di bagian Referensi
 
 _Flag-flag_ dan berkas-berkas konfigurasi mungkin tidak selalu dapat diubah pada layanan Kubernetes yang _hosted_ atau pada distribusi dengan instalasi yang dikelola. Ketika mereka dapat diubah, mereka biasanya hanya dapat diubah oleh Administrator Klaster. Dan juga, mereka dapat sewaktu-waktu diubah dalam versi Kubernetes di masa depan, dan menyetel mereka mungkin memerlukan proses pengulangan kembali. Oleh karena itu, mereka harus digunakan hanya ketika tidak ada pilihan lain.
 
-*API kebijakan bawaan*, seperti [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes. API biasanya digunakan oleh layanan Kubernetes yang _hosted_ dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber daya Kubernetes lainnya seperti pod-pod, jadi konfigurasi klaster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. Dan, ketika mereka stabil, mereka mendapatkan keuntungan dari [kebijakan pendukung yang jelas](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada _berkas konfigurasi_ dan _flag-flag_ saat mereka cocok dengan situasi yang dibutuhkan.
+*API kebijakan bawaan*, seperti [ResourceQuota](/id/docs/concepts/policy/resource-quotas/), [PodSecurityPolicy](/id/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/id/docs/concepts/services-networking/network-policies/) dan Role-based Access Control ([RBAC](/id/docs/reference/access-authn-authz/rbac/)), adalah API bawaan Kubernetes. API biasanya digunakan oleh layanan Kubernetes yang _hosted_ dan diatur oleh instalasi Kubernetes. Mereka bersifat deklaratif dan menggunakan konvensi yang sama dengan sumber daya Kubernetes lainnya seperti pod-pod, jadi konfigurasi klaster baru dapat diulang-ulang dan dapat diatur dengan cara yang sama dengan aplikasi. Dan, ketika mereka stabil, mereka mendapatkan keuntungan dari [kebijakan pendukung yang jelas](/docs/reference/deprecation-policy/) seperti API Kubernetes lainnya. Oleh karena itu, mereka lebih disukai daripada _berkas konfigurasi_ dan _flag-flag_ saat mereka cocok dengan situasi yang dibutuhkan.
 
 ## Perluasan
 
@@ -107,7 +107,7 @@ Untuk lebih jelasnya tentang Sumber Daya _Custom_, lihat [Panduan Konsep Sumber 
 
 ### Menggabungkan API Baru dengan Otomasi
 
-Kombinasi antara sebuah API sumber daya _custom_ dan _loop_ kontrol disebut [Pola Operator](/docs/concepts/extend-kubernetes/operator/). Pola Operator digunakan untuk mengelola aplikasi yang spesifik dan biasanya _stateful_. API-API _custom_ dan _loop_ kontrol ini dapat digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan-kebijakan.
+Kombinasi antara sebuah API sumber daya _custom_ dan _loop_ kontrol disebut [Pola Operator](/id/docs/concepts/extend-kubernetes/operator/). Pola Operator digunakan untuk mengelola aplikasi yang spesifik dan biasanya _stateful_. API-API _custom_ dan _loop_ kontrol ini dapat digunakan untuk mengatur sumber daya lainnya, seperti penyimpanan dan kebijakan-kebijakan.
 
 ### Mengubah Sumber Daya Bawaan
 
@@ -173,6 +173,6 @@ Penjadwal juga mendukung [_webhook_](https://github.com/kubernetes/community/blo
   * [_Plugin_ Jaringan](/docs/concepts/cluster-administration/network-plugins/)
   * [_Plugin_ Perangkat](/docs/concepts/cluster-administration/device-plugins/)
 * Pelajari tentang [_Plugin_ kubectl](/docs/tasks/extend-kubectl/kubectl-plugins/)
-* Pelajari tentang [Pola Operator](/docs/concepts/extend-kubernetes/operator/)
+* Pelajari tentang [Pola Operator](/id/docs/concepts/extend-kubernetes/operator/)
 
 

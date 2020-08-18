@@ -24,9 +24,6 @@ their work environment. Developers who are prospective {{< glossary_tooltip text
 useful as an introduction to what extension points and patterns
 exist, and their trade-offs and limitations.
 
-
-
-
 <!-- body -->
 
 ## Overview
@@ -37,14 +34,14 @@ Customization approaches can be broadly divided into *configuration*, which only
 
 *Configuration files* and *flags* are documented in the Reference section of the online documentation, under each binary:
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/).
+* [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 Flags and configuration files may not always be changeable in a hosted Kubernetes service or a distribution with managed installation. When they are changeable, they are usually only changeable by the cluster administrator. Also, they are subject to change in future Kubernetes versions, and setting them may require restarting processes. For those reasons, they should be used only when there are no other options.
 
-*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
+*Built-in Policy APIs*, such as [ResourceQuota](/docs/concepts/policy/resource-quotas/), [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/), [NetworkPolicy](/docs/concepts/services-networking/network-policies/) and Role-based Access Control ([RBAC](/docs/reference/access-authn-authz/rbac/)), are built-in Kubernetes APIs. APIs are typically used with hosted Kubernetes services and with managed Kubernetes installations. They are declarative and use the same conventions as other Kubernetes resources like pods, so new cluster configuration can be repeatable and be managed the same way as applications. And, where they are stable, they enjoy a [defined support policy](/docs/reference/using-api/deprecation-policy/) like other Kubernetes APIs. For these reasons, they are preferred over *configuration files* and *flags* where suitable.
 
 ## Extensions
 
@@ -75,10 +72,9 @@ failure.
 
 In the webhook model, Kubernetes makes a network request to a remote service.
 In the *Binary Plugin* model, Kubernetes executes a binary (program).
-Binary plugins are used by the kubelet (e.g. [Flex Volume
-Plugins](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md)
-and [Network
-Plugins](/docs/concepts/cluster-administration/network-plugins/))
+Binary plugins are used by the kubelet (e.g.
+[Flex Volume Plugins](/docs/concepts/storage/volumes/#flexVolume)
+and [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/))
 and by kubectl.
 
 Below is a diagram showing how the extension points interact with the
@@ -98,12 +94,12 @@ This diagram shows the extension points in a Kubernetes system.
 <!-- image source diagrams: https://docs.google.com/drawings/d/1k2YdJgNTtNfW7_A8moIIkij-DmVgEhNrn3y2OODwqQQ/view -->
 
 1.   Users often interact with the Kubernetes API using `kubectl`. [Kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/) extend the kubectl binary. They only affect the individual user's local environment, and so cannot enforce site-wide policies.
-2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](/docs/concepts/overview/extending#api-access-extensions) section.
-3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](/docs/concepts/overview/extending#user-defined-types) section. Custom Resources are often used with API Access Extensions.
-4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](/docs/concepts/overview/extending#scheduler-extensions) section.
+2.   The apiserver handles all requests. Several types of extension points in the apiserver allow authenticating requests, or blocking them based on their content, editing content, and handling deletion. These are described in the [API Access Extensions](#api-access-extensions) section.
+3.   The apiserver serves various kinds of *resources*. *Built-in resource kinds*, like `pods`, are defined by the Kubernetes project and can't be changed. You can also add resources that you define, or that other projects have defined, called *Custom Resources*, as explained in the [Custom Resources](#user-defined-types) section. Custom Resources are often used with API Access Extensions.
+4.   The Kubernetes scheduler decides which nodes to place pods on. There are several ways to extend scheduling. These are described in the [Scheduler Extensions](#scheduler-extensions) section.
 5.   Much of the behavior of Kubernetes is implemented by programs called Controllers which are clients of the API-Server. Controllers are often used in conjunction with Custom Resources.
-6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](/docs/concepts/overview/extending#network-plugins) allow for different implementations of pod networking.
-7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](/docs/concepts/overview/extending#storage-plugins).
+6.   The kubelet runs on servers, and helps pods appear like virtual servers with their own IPs on the cluster network. [Network Plugins](#network-plugins) allow for different implementations of pod networking.
+7.  The kubelet also mounts and unmounts volumes for containers. New types of storage can be supported via [Storage Plugins](#storage-plugins).
 
 If you are unsure where to start, this flowchart can help. Note that some solutions may involve several types of extensions.
 
@@ -119,7 +115,7 @@ Consider adding a Custom Resource to Kubernetes if you want to define new contro
 
 Do not use a Custom Resource as data storage for application, user, or monitoring data.
 
-For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/api-extension/custom-resources/).
+For more about Custom Resources, see the [Custom Resources concept guide](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 
 ### Combining New APIs with Automation
@@ -172,20 +168,21 @@ Kubelet call a Binary Plugin to mount the volume.
 ### Device Plugins
 
 Device plugins allow a node to discover new Node resources (in addition to the
-builtin ones like cpu and memory) via a [Device
-Plugin](/docs/concepts/cluster-administration/device-plugins/).
+builtin ones like cpu and memory) via a
+[Device Plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/).
 
 
 ### Network Plugins
 
-Different networking fabrics can be supported via node-level [Network Plugins](/docs/admin/network-plugins/).
+Different networking fabrics can be supported via node-level
+[Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/).
 
 ### Scheduler Extensions
 
 The scheduler is a special type of controller that watches pods, and assigns
 pods to nodes. The default scheduler can be replaced entirely, while
-continuing to use other Kubernetes components, or [multiple
-schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+continuing to use other Kubernetes components, or
+[multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 can run at the same time.
 
 This is a significant undertaking, and almost all Kubernetes users find they
@@ -196,18 +193,14 @@ The scheduler also supports a
 that permits a webhook backend (scheduler extension) to filter and prioritize
 the nodes chosen for a pod.
 
-
-
-
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Custom Resources](/docs/concepts/api-extension/custom-resources/)
+* Learn more about [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Learn about [Dynamic admission control](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * Learn more about Infrastructure extensions
-  * [Network Plugins](/docs/concepts/cluster-administration/network-plugins/)
-  * [Device Plugins](/docs/concepts/cluster-administration/device-plugins/)
+  * [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
+  * [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
-
 

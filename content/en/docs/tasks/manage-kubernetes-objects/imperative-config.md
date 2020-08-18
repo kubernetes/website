@@ -150,7 +150,7 @@ template:
 
 * [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
 * [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl/)
+* [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
 

@@ -3,9 +3,6 @@
   <hr/>
 
   <div class="issue-button-container">
-    <p>
-      <a href=""><img alt="Analytics" src="https://kubernetes-site.appspot.com/UA-36037335-10/GitHub/{{ .Path }}?pixel"/></a>
-    </p>
     {{ if and (ne .Kind "404") (not (strings.Contains .Path "search")) }}
       {{ if not .Params.no_issue }}
         <script type="text/javascript">

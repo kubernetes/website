@@ -71,7 +71,7 @@ Pastikan kamu sudah terlebih dahulu memahami dokumentasi kontroler Ingress yang 
 ## {{% heading "whatsnext" %}}
 
 
-* Pelajari [Ingress](/docs/concepts/services-networking/ingress/) lebih lanjut.
+* Pelajari [Ingress](/id/docs/concepts/services-networking/ingress/) lebih lanjut.
 * [Melakukan konfigurasi Ingress pada Minikube dengan kontroler NGINX](/docs/tasks/access-application-cluster/ingress-minikube)
 
 

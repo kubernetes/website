@@ -5,7 +5,7 @@ reviewers:
 - madhusudancs
 title: ReplicaSet
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -245,9 +245,10 @@ For the template's [restart policy](/docs/concepts/workloads/Pods/pod-lifecycle/
 The `.spec.selector` field is a [label selector](/docs/concepts/overview/working-with-objects/labels/). As discussed
 [earlier](#how-a-replicaset-works) these are the labels used to identify potential Pods to acquire. In our
 `frontend.yaml` example, the selector was:
-```shell
+
+```yaml
 matchLabels:
-	tier: frontend
+  tier: frontend
 ```
 
 In the ReplicaSet, `.spec.template.metadata.labels` must match `spec.selector`, or it will

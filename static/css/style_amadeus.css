@@ -50,7 +50,7 @@ h1 {
   padding-bottom:0.5%;
   padding-left:10%;
   font-size:32px;
-  background: url('/images/CaseStudy_amadeus_banner1.jpg');
+  background: url('/images/case-studies/amadeus/banner1.jpg');
   background-size:100% auto;
   background-repeat:no-repeat;
 }
@@ -82,7 +82,7 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
-  background: url('/images/CaseStudy_amadeus_banner3.jpg');
+  background: url('/images/case-studies/amadeus/banner3.jpg');
   background-size:100% auto;
 }
 
@@ -95,7 +95,7 @@ h1 {
   font-size:24px;
   letter-spacing:0.03em;
   line-height:34px;
-  background: url('/images/CaseStudy_amadeus_banner4.jpg');
+  background: url('/images/case-studies/amadeus/banner4.jpg');
   background-size:100% auto;
 }
 
@@ -276,7 +276,7 @@ h4 {
   .logo {
       width:8%;
   }
-  
+
   .col1 {
     width: 95%;
     padding-right:8%;
@@ -310,7 +310,7 @@ h4 {
     padding-bottom:2%;
     padding-left:10%;
     font-size:18px;
-    background: url('/images/CaseStudy_amadeus_banner1.jpg');
+    background: url('/images/case-studies/amadeus/banner1.jpg');
     background-size:100% auto;
   }
 
@@ -340,7 +340,7 @@ h4 {
     line-height:23px;
     width:90%;
     float:left;
-    background: url('/images/CaseStudy_amadeus_banner3.jpg');
+    background: url('/images/case-studies/amadeus/banner3.jpg');
   }
 
   .banner4 {
@@ -354,7 +354,7 @@ h4 {
     line-height:24px;
     width:100%;
     float:left;
-    background: url('/images/CaseStudy_amadeus_banner4.jpg');
+    background: url('/images/case-studies/amadeus/banner4.jpg');
   }
 
   .banner5 {
@@ -439,7 +439,7 @@ h4 {
 } /* End Media 910px */
 
 @media screen and (max-width: 580px){
-  
+
   .header_logo {
     width:60%;
     margin-bottom:1%;
@@ -448,6 +448,6 @@ h4 {
   }
 
   .banner1 {
-    background: url('/images/CaseStudy_amadeus_banner_mobile.jpg');
+    background: url('/images/case-studies/amadeus/banner_mobile.jpg');
   }
 }

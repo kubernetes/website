@@ -22,7 +22,7 @@ _Pod Overhead_ adalah fitur yang berfungsi untuk menghitung sumber daya digunaka
 
 Pada Kubernetes, Overhead Pod ditentukan pada
 [saat admisi](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) sesuai dengan Overhead yang ditentukan di dalam
-[RuntimeClass](/docs/concepts/containers/runtime-class/) milik Pod.
+[RuntimeClass](/id/docs/concepts/containers/runtime-class/) milik Pod.
 
 Ketika Overhead Pod diaktifkan, Overhead akan dipertimbangkan sebagai tambahan terhadap jumlah permintaan sumber daya Container
 saat menjadwalkan Pod. Begitu pula Kubelet, yang akan memasukkan Overhead Pod saat menentukan ukuran
@@ -49,7 +49,7 @@ Lihat [Ringkasan Otorisasi](/docs/reference/access-authn-authz/authorization/) u
 ## {{% heading "whatsnext" %}}
 
 
-* [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* [RuntimeClass](/id/docs/concepts/containers/runtime-class/)
 * [Desain PodOverhead](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
 
 

@@ -7,7 +7,7 @@ weight: 30
 
 <!-- overview -->
 
-Kamu dapat memaksa sebuah [pod](/docs/concepts/workloads/pods/pod/) untuk hanya dapat berjalan pada [node](/docs/concepts/architecture/nodes/) tertentu atau mengajukannya agar berjalan pada node tertentu. Ada beberapa cara untuk melakukan hal tersebut. Semua cara yang direkomendasikan adalah dengan menggunakan [_selector_ label](/docs/concepts/overview/working-with-objects/labels/) untuk menetapkan pilihan yang kamu inginkan. Pada umumnya, pembatasan ini tidak dibutuhkan, sebagaimana _scheduler_ akan melakukan penempatan yang proporsional dengan otomatis (seperti contohnya menyebar pod di node-node, tidak menempatkan pod pada node dengan sumber daya yang tidak memadai, dst.) tetapi ada keadaan-keadaan tertentu yang membuat kamu memiliki kendali lebih  terhadap node yang menjadi tempat pod dijalankan, contohnya untuk memastikan pod dijalankan pada mesin yang telah terpasang SSD, atau untuk menempatkan pod-pod dari dua servis yang berbeda yang sering berkomunikasi bersamaan ke dalam zona ketersediaan yang sama.
+Kamu dapat memaksa sebuah [pod](/id/docs/concepts/workloads/pods/pod/) untuk hanya dapat berjalan pada [node](/id/docs/concepts/architecture/nodes/) tertentu atau mengajukannya agar berjalan pada node tertentu. Ada beberapa cara untuk melakukan hal tersebut. Semua cara yang direkomendasikan adalah dengan menggunakan [_selector_ label](/id/docs/concepts/overview/working-with-objects/labels/) untuk menetapkan pilihan yang kamu inginkan. Pada umumnya, pembatasan ini tidak dibutuhkan, sebagaimana _scheduler_ akan melakukan penempatan yang proporsional dengan otomatis (seperti contohnya menyebar pod di node-node, tidak menempatkan pod pada node dengan sumber daya yang tidak memadai, dst.) tetapi ada keadaan-keadaan tertentu yang membuat kamu memiliki kendali lebih  terhadap node yang menjadi tempat pod dijalankan, contohnya untuk memastikan pod dijalankan pada mesin yang telah terpasang SSD, atau untuk menempatkan pod-pod dari dua servis yang berbeda yang sering berkomunikasi bersamaan ke dalam zona ketersediaan yang sama.
 
 Kamu dapat menemukan semua berkas untuk contoh-contoh berikut pada [dokumentasi yang kami sediakan di sini](https://github.com/kubernetes/website/tree/{{< param "docsbranch" >}}/content/en/docs/concepts/configuration/)
 
@@ -114,7 +114,7 @@ Berikut ini contoh dari pod yang menggunakan afinitas node:
 
 Aturan afinitas node tersebut menyatakan pod hanya bisa ditugaskan pada node dengan label yang memiliki kunci `kubernetes.io/e2e-az-name` dan bernilai `e2e-az1` atau `e2e-az2`. Selain itu, dari semua node yang memenuhi kriteria tersebut, mode dengan label dengan kunci `another-node-label-key` and bernilai `another-node-label-value` harus lebih diutamakan.
 
-Kamu dapat meilhat operator `In` digunakan dalam contoh berikut. Sitaksis afinitas node yang baru mendukung operator-operator berikut: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`. Kamu dapat menggunakan `NotIn` dan `DoesNotExist` untuk mewujudkan perilaku node anti-afinitas, atau menggunakan [node taints](/docs/concepts/configuration/taint-and-toleration/) untuk menolak pod dari node tertentu.
+Kamu dapat meilhat operator `In` digunakan dalam contoh berikut. Sitaksis afinitas node yang baru mendukung operator-operator berikut: `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, `Lt`. Kamu dapat menggunakan `NotIn` dan `DoesNotExist` untuk mewujudkan perilaku node anti-afinitas, atau menggunakan [node taints](/id/docs/concepts/configuration/taint-and-toleration/) untuk menolak pod dari node tertentu.
 
 Jika kamu menyatakan `nodeSelector` dan `nodeAffinity`. *keduanya* harus dipenuhi agar pod dapat dijadwalkan pada node kandidat.
 
@@ -284,7 +284,7 @@ Lihat [tutorial ZooKeeper](/docs/tutorials/stateful-application/zookeeper/#toler
 
 Untuk informasi lebih lanjut tentang afinitas/anti-afinitas antar pod, lihat [design doc](https://git.k8s.io/community/contributors/design-proposals/scheduling/podaffinity.md).
 
-Kamu juga dapat mengecek [Taints](/docs/concepts/configuration/taint-and-toleration/), yang memungkinkan sebuah *node* untuk *menolak* sekumpulan pod.
+Kamu juga dapat mengecek [Taints](/id/docs/concepts/configuration/taint-and-toleration/), yang memungkinkan sebuah *node* untuk *menolak* sekumpulan pod.
 
 ## nodeName
 

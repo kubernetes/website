@@ -19,13 +19,13 @@ You can use a client library for the programming language you are using.
 Client libraries often handle common tasks such as authentication for you.
 Most client libraries can discover and use the Kubernetes Service Account to
 authenticate if the API client is running inside the Kubernetes cluster, or can
-understand the [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/)
+understand the [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 format to read the credentials and the API Server address.
 
 ## Officially-supported Kubernetes client libraries
 
-The following client libraries are officially maintained by [Kubernetes SIG API
-Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
+The following client libraries are officially maintained by
+[Kubernetes SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 
 
 | Language | Client Library | Sample Programs |

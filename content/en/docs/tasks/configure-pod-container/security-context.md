@@ -243,7 +243,7 @@ exit
 
 ## Set capabilities for a Container
 
-With [Linux capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html),
+With [Linux capabilities](https://man7.org/linux/man-pages/man7/capabilities.7.html),
 you can grant certain privileges to a process without granting all the privileges
 of the root user. To add or remove Linux capabilities for a Container, include the
 `capabilities` field in the `securityContext` section of the Container manifest.

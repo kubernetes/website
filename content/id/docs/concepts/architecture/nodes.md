@@ -8,8 +8,8 @@ weight: 10
 
 Node merupakan sebuah mesin <i>worker</i> di dalam Kubernetes, yang sebelumnya dinamakan `minion`.
 Sebuah node bisa berupa VM ataupun mesin fisik, tergantung dari klaster-nya.
-Masing-masing node berisi beberapa servis yang berguna untuk menjalankan banyak [pod](/docs/concepts/workloads/pods/pod/) dan diatur oleh komponen-komponen yang dimiliki oleh master.
-Servis-servis di dalam sebuah node terdiri dari [runtime kontainer](/docs/concepts/overview/components/#node-components), kubelet dan kube-proxy.
+Masing-masing node berisi beberapa servis yang berguna untuk menjalankan banyak [pod](/id/docs/concepts/workloads/pods/pod/) dan diatur oleh komponen-komponen yang dimiliki oleh master.
+Servis-servis di dalam sebuah node terdiri dari [runtime kontainer](/id/docs/concepts/overview/components/#node-components), kubelet dan kube-proxy.
 Untuk lebih detail, lihat dokumentasi desain arsitektur pada [Node Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node).
 
 
@@ -67,12 +67,12 @@ Pada kasus tertentu ketika node terputus jaringannya, apiserver tidak dapat berk
 Keputusan untuk menghilangkan pod tidak dapat diberitahukan pada kubelet, sampai komunikasi dengan apiserver terhubung kembali.
 Sementara itu, pod-pod akan terus berjalan pada node yang sudah terputus, walaupun mendapati <i>schedule</i> untuk dihilangkan.
 
-Pada versi Kubernetes sebelum 1.5, kontroler node dapat menghilangkan dengan paksa ([force delete](/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)) pod-pod yang terputus dari apiserver.
+Pada versi Kubernetes sebelum 1.5, kontroler node dapat menghilangkan dengan paksa ([force delete](/id/docs/concepts/workloads/pods/pod/#force-deletion-of-pods)) pod-pod yang terputus dari apiserver.
 Namun, pada versi 1.5 dan seterusnya, kontroler node tidak menghilangkan pod dengan paksa, sampai ada konfirmasi bahwa pod tersebut sudah berhenti jalan di dalam klaster.
 Pada kasus dimana Kubernetes tidak bisa menarik kesimpulan bahwa ada node yang telah meninggalkan klaster, admin klaster mungkin perlu untuk menghilangkan node secara manual.
 Menghilangkan obyek node dari Kubernetes akan membuat semua pod yang berjalan pada node tersebut dihilangkan oleh apiserver, dan membebaskan nama-namanya agar bisa digunakan kembali.
 
-Pada versi 1.12, fitur `TaintNodesByCondition` telah dipromosikan ke beta, sehingga kontroler <i>lifecycle</i> node secara otomatis membuat [taints](/docs/concepts/configuration/taint-and-toleration/) yang merepresentasikan <i>conditions</i>.
+Pada versi 1.12, fitur `TaintNodesByCondition` telah dipromosikan ke beta, sehingga kontroler <i>lifecycle</i> node secara otomatis membuat [taints](/id/docs/concepts/configuration/taint-and-toleration/) yang merepresentasikan <i>conditions</i>.
 Akibatnya, <i>scheduler</i> menghiraukan <i>conditions</i> ketika mempertimbangkan sebuah Node; <i>scheduler</i> akan melihat pada <i>taints</i> sebuah Node dan <i>tolerations</i> sebuah Pod.
 
 Sekarang, para pengguna dapat memilih antara model <i>scheduling</i> yang lama dan model <i>scheduling</i> yang lebih fleksibel.
@@ -93,7 +93,7 @@ Informasi ini dikumpulkan oleh Kubelet di dalam node.
 
 ## Manajemen
 
-Tidak seperti [pod](/docs/concepts/workloads/pods/pod/) dan [service](/docs/concepts/services-networking/service/), sebuah node tidaklah dibuat dan dikonfigurasi oleh Kubernetes: tapi node dibuat di luar klaster oleh penyedia layanan cloud, seperti Google Compute Engine, atau <i>pool</i> mesin fisik ataupun virtual (VM) yang kamu punya.
+Tidak seperti [pod](/id/docs/concepts/workloads/pods/pod/) dan [service](/id/docs/concepts/services-networking/service/), sebuah node tidaklah dibuat dan dikonfigurasi oleh Kubernetes: tapi node dibuat di luar klaster oleh penyedia layanan cloud, seperti Google Compute Engine, atau <i>pool</i> mesin fisik ataupun virtual (VM) yang kamu punya.
 Jadi ketika Kubernetes membuat sebuah node, obyek yang merepresentasikan node tersebut akan dibuat.
 Setelah pembuatan, Kubernetes memeriksa apakah node tersebut valid atau tidak.
 Contohnya, jika kamu mencoba untuk membuat node dari konten berikut:
@@ -164,7 +164,7 @@ Pada kasus ini, kontroler node berasumsi ada masalah pada jaringan master, dan m
 
 Mulai dari Kubernetes 1.6, kontroler node juga bertanggung jawab untuk melakukan <i>eviction</i> pada pod-pod yang berjalan di atas node dengan <i>taints</i> `NoExecute`, ketika pod-pod tersebut sudah tidak lagi <i>tolerate</i> terhadap <i>taints</i>.
 Sebagai tambahan, hal ini di-nonaktifkan secara <i>default</i> pada fitur alpha, kontroler node bertanggung jawab untuk menambahkan <i>taints</i> yang berhubungan dengan masalah pada node, seperti terputus atau `NotReady`.
-Lihat [dokumentasi ini](/docs/concepts/configuration/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
+Lihat [dokumentasi ini](/id/docs/concepts/configuration/taint-and-toleration/) untuk bahasan detail tentang <i>taints</i> `NoExecute` dan fitur alpha.
 
 Mulai dari versi 1.8, kontroler node bisa diatur untuk bertanggung jawab pada pembuatan <i>taints</i> yang merepresentasikan node <i>condition</i>.
 Ini merupakan fitur alpha untuk versi 1.8.
@@ -218,7 +218,7 @@ Jika kamu melakukan [administrasi node manual](#manual-node-administration), mak
 
 <i>Scheduler</i> Kubernetes memastikan kalau ada <i>resource</i> yang cukup untuk menjalankan semua pod di dalam sebuah node.
 Kubernetes memeriksa jumlah semua <i>request</i> untuk kontainer pada sebuah node tidak lebih besar daripada kapasitas node.
-Hal ini termasuk semua kontainer yang dijalankan oleh kubelet. Namun, ini tidak termasuk kontainer-kontainer yang dijalankan secara langsung oleh [runtime kontainer](/docs/concepts/overview/components/#node-components) ataupun <i>process</i> yang ada di luar kontainer.
+Hal ini termasuk semua kontainer yang dijalankan oleh kubelet. Namun, ini tidak termasuk kontainer-kontainer yang dijalankan secara langsung oleh [runtime kontainer](/id/docs/concepts/overview/components/#node-components) ataupun <i>process</i> yang ada di luar kontainer.
 
 Kalau kamu ingin secara eksplisit menyimpan <i>resource</i> cadangan untuk menjalankan <i>process-process</i> selain Pod, ikut tutorial [menyimpan resource cadangan untuk <i>system daemon</i>](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved).
 

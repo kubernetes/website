@@ -12,17 +12,11 @@ card:
 
 <!-- overview -->
 
-See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
-
-This page is an overview of the `kubectl` command.
-
-
+This page contains a list of commonly used `kubectl` commands and flags.
 
 <!-- body -->
 
-# kubectl - Cheat Sheet
-
-## Kubectl Autocomplete
+## Kubectl autocomplete
 
 ### BASH
 
@@ -31,7 +25,7 @@ source <(kubectl completion bash) # setup autocomplete in bash into the current 
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
-You can also use a shorthand alias for `kubectl` that also works with completion: 
+You can also use a shorthand alias for `kubectl` that also works with completion:
 
 ```bash
 alias k=kubectl
@@ -45,7 +39,7 @@ source <(kubectl completion zsh)  # setup autocomplete in zsh into the current s
 echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 
-## Kubectl Context and Configuration
+## Kubectl context and configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
@@ -77,14 +71,15 @@ kubectl config set-context --current --namespace=ggckad-s2
 # set a context utilizing a specific username and namespace.
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
- 
+
 kubectl config unset users.foo                       # delete user foo
 ```
 
-## Apply
+## Kubectl apply
+
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 
-## Creating Objects
+## Creating objects
 
 Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
 `.yml`, and `.json` can be used.
@@ -138,7 +133,7 @@ EOF
 
 ```
 
-## Viewing, Finding Resources
+## Viewing, finding resources
 
 ```bash
 # Get commands with basic output
@@ -204,10 +199,16 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
+
+# Produce a period-delimited tree of all keys returned for nodes
+# Helpful when locating a key within a complex nested JSON structure
+kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+
+# Produce a period-delimited tree of all keys returned for pods, etc
+kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
 ```
 
-## Updating Resources
-
+## Updating resources
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
@@ -234,7 +235,7 @@ kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annota
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 
-## Patching Resources
+## Patching resources
 
 ```bash
 # Partially update a node
@@ -253,7 +254,8 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
-## Editing Resources
+## Editing resources
+
 Edit any API resource in your preferred editor.
 
 ```bash
@@ -261,7 +263,7 @@ kubectl edit svc/docker-registry                      # Edit the service named d
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
 ```
 
-## Scaling Resources
+## Scaling resources
 
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # Scale a replicaset named 'foo' to 3
@@ -270,7 +272,7 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deplo
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
 ```
 
-## Deleting Resources
+## Deleting resources
 
 ```bash
 kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
@@ -306,7 +308,7 @@ kubectl exec my-pod -c my-container -- ls /         # Run command in existing po
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 ```
 
-## Interacting with Nodes and Cluster
+## Interacting with Nodes and cluster
 
 ```bash
 kubectl cordon my-node                                                # Mark my-node as unschedulable
@@ -386,17 +388,12 @@ Verbosity | Description
 `--v=8` | Display HTTP request contents.
 `--v=9` | Display HTTP request contents without truncation of contents.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
+* Read the [kubectl overview](/docs/reference/kubectl/overview/) and learn about [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
 
-* Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+* Also read [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use kubectl in reusable scripts.
 
 * See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
-
-

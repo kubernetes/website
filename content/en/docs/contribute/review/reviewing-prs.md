@@ -16,10 +16,10 @@ It helps you learn the code base and build trust with other contributors.
 Before reviewing, it's a good idea to:
 
 - Read the  [content guide](/docs/contribute/style/content-guide/) and
-[style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Understand the different [roles and responsibilities](/docs/contribute/participating/#roles-and-responsibilities) in the Kubernetes documentation community.
-
-
+  [style guide](/docs/contribute/style/style-guide/) so you can leave informed comments.
+- Understand the different
+  [roles and responsibilities](/docs/contribute/participate/roles-and-responsibilities/)
+  in the Kubernetes documentation community.
 
 <!-- body -->
 

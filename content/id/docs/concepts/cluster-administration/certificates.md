@@ -245,6 +245,6 @@ done.
 
 Kamu dapat menggunakan API `Certificate.k8s.io` untuk menyediakan
 sertifikat x509 yang digunakan untuk autentikasi seperti yang didokumentasikan
-[di sini](/docs/tasks/tls/managing-tls-in-a-cluster).
+[di sini](/id/docs/tasks/tls/managing-tls-in-a-cluster).
 
 

@@ -412,7 +412,7 @@ kubectl delete pod security-context-demo-4
 * [Menyetel Docker dengan peningkatan keamanan terbaru](https://opensource.com/business/15/3/docker-security-tuning)
 * [Dokumen desain konteks keamanan](https://git.k8s.io/community/contributors/design-proposals/auth/security_context.md)
 * [Dokumen desain manajemen kepemilikan](https://git.k8s.io/community/contributors/design-proposals/storage/volume-ownership-management.md)
-* [Kebijakan keamanan Pod](/docs/concepts/policy/pod-security-policy/)
+* [Kebijakan keamanan Pod](/id/docs/concepts/policy/pod-security-policy/)
 * [Dokumen desain AllowPrivilegeEscalation](https://git.k8s.io/community/contributors/design-proposals/auth/no-new-privs.md)
 
 

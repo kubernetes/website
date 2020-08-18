@@ -80,5 +80,5 @@ Prefiks `kubernetes.io/` dan `k8s.io/` merupakan reservasi dari komponen inti Ku
 
 ## {{% heading "whatsnext" %}}
 
-Pelajari lebih lanjut tentang [Label dan Selektor](/docs/concepts/overview/working-with-objects/labels/).
+Pelajari lebih lanjut tentang [Label dan Selektor](/id/docs/concepts/overview/working-with-objects/labels/).
 

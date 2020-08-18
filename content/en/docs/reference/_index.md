@@ -35,7 +35,7 @@ client libraries:
 ## CLI Reference
 
 * [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
 ## Components Reference
@@ -50,6 +50,8 @@ client libraries:
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+An archive of the design docs for Kubernetes functionality. Good starting points are
+[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
 

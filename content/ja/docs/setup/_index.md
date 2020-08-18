@@ -49,6 +49,6 @@ Kubernetesについて学んでいる場合、Dockerベースのソリューシ�
 
 本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
 
-[Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes)プロバイダーの一覧については、"[Partners](https://kubernetes.io/partners/#conformance)"を参照してください。 
+[Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes)プロバイダーの一覧については、「[パートナー](https://kubernetes.io/ja/partners/#conformance)」を参照してください。
 
 

@@ -9,7 +9,6 @@ weight: 60
 <!-- overview -->
 Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`.
 
-
 <!-- body -->
 {{< include "generated/kubeadm_reset.md" >}}
 
@@ -36,9 +35,7 @@ etcdctl del "" --prefix
 
 See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more information.
 
-
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-

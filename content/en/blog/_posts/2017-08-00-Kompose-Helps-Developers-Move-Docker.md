@@ -129,14 +129,10 @@ With our graduation, comes the release of Kompose 1.0.0, here’s what’s new:
 
 
 
--
-Docker Compose Version 3: Kompose now supports Docker Compose Version 3. New keys such as ‘deploy’ now convert to their Kubernetes equivalent.
--
-Docker Push and Build Support: When you supply a ‘build’ key within your `docker-compose.yaml` file, Kompose will automatically build and push the image to the respective Docker repository for Kubernetes to consume.
--
-New Keys: With the addition of version 3 support, new keys such as pid and deploy are supported. For full details on what Kompose supports, view our [conversion document](http://kompose.io/conversion/).
--
-Bug Fixes: In every release we fix any bugs related to edge-cases when converting. This release fixes issues relating to converting volumes with ‘./’ in the target name.
+- Docker Compose Version 3: Kompose now supports Docker Compose Version 3. New keys such as ‘deploy’ now convert to their Kubernetes equivalent.
+- Docker Push and Build Support: When you supply a ‘build’ key within your `docker-compose.yaml` file, Kompose will automatically build and push the image to the respective Docker repository for Kubernetes to consume.
+- New Keys: With the addition of version 3 support, new keys such as pid and deploy are supported. For full details on what Kompose supports, view our [conversion document](http://kompose.io/conversion/).
+- Bug Fixes: In every release we fix any bugs related to edge-cases when converting. This release fixes issues relating to converting volumes with ‘./’ in the target name.
 
 
 
@@ -145,28 +141,18 @@ What’s ahead?
 As we continue development, we will strive to convert as many Docker Compose keys as possible for all future and current Docker Compose releases, converting each one to their Kubernetes equivalent. All future releases will be backwards-compatible.  
 
 
--
-[Install Kompose](https://github.com/kubernetes/kompose/blob/master/docs/installation.md)
--
-[Kompose Quick Start Guide](https://github.com/kubernetes/kompose/blob/master/docs/installation.md)
--
-[Kompose Web Site](http://kompose.io/)
--
-[Kompose Documentation](https://github.com/kubernetes/kompose/tree/master/docs)
+- [Install Kompose](https://github.com/kubernetes/kompose/blob/master/docs/installation.md)
+- [Kompose Quick Start Guide](https://github.com/kubernetes/kompose/blob/master/docs/installation.md)
+- [Kompose Web Site](http://kompose.io/)
+- [Kompose Documentation](https://github.com/kubernetes/kompose/tree/master/docs)
 
 
 
 --Charlie Drage, Software Engineer, Red Hat
 
 
--
-Post questions (or answer questions) on[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
--
-Join the community portal for advocates on[K8sPort](http://k8sport.org/)
--
-Follow us on Twitter[@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
--
-Connect with the community on[Slack](http://slack.k8s.io/)
--
-Get involved with the Kubernetes project on[GitHub](https://github.com/kubernetes/kubernetes)
--   
+- Post questions (or answer questions) on[Stack Overflow](http://stackoverflow.com/questions/tagged/kubernetes)
+- Join the community portal for advocates on[K8sPort](http://k8sport.org/)
+- Follow us on Twitter[@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
+- Connect with the community on[Slack](http://slack.k8s.io/)
+- Get involved with the Kubernetes project on[GitHub](https://github.com/kubernetes/kubernetes)

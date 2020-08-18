@@ -56,7 +56,7 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menjalankan
 Penyedia layanan cloud AWS menggunakan nama DNS privat dari *instance* AWS sebagai nama dari objek Kubernetes Node.
 
 ### *Load Balancer*
-Kamu dapat mengatur [load balancers eksternal](/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
+Kamu dapat mengatur [load balancers eksternal](/id/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
 
 ```yaml
 apiVersion: v1

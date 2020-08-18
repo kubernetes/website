@@ -10,9 +10,9 @@ weight: 10
 This page contains guidelines for Kubernetes documentation.
 
 If you have questions about what's allowed, join the #sig-docs channel in
-[Kubernetes Slack](http://slack.k8s.io/) and ask!
+[Kubernetes Slack](https://slack.k8s.io/) and ask!
 
-You can register for Kubernetes Slack at http://slack.k8s.io/.
+You can register for Kubernetes Slack at https://slack.k8s.io/.
 
 For information on creating new content for the Kubernetes
 docs, follow the [style guide](/docs/contribute/style/style-guide).
@@ -67,7 +67,7 @@ ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/mes
 
 ### More information
 
-If you have questions about allowed content, join the [Kubernetes Slack](http://slack.k8s.io/) #sig-docs channel and ask!
+If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
 
 
 

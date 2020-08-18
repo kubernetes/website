@@ -284,7 +284,7 @@ Kamu dapat menginstal `kubectl` sebagai bagian dari Google Cloud SDK.
 
 ## Memeriksa konfigurasi kubectl
 
-Agar `kubectl` dapat mengakses klaster Kubernetes, dibutuhkan sebuah [berkas kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), yang akan otomatis dibuat ketika kamu membuat klaster baru menggunakan [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) atau setelah berhasil men-_deploy_ klaster Minikube. Secara bawaan, konfigurasi `kubectl` disimpan di `~/.kube/config`.
+Agar `kubectl` dapat mengakses klaster Kubernetes, dibutuhkan sebuah [berkas kubeconfig](/id/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), yang akan otomatis dibuat ketika kamu membuat klaster baru menggunakan [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) atau setelah berhasil men-_deploy_ klaster Minikube. Secara bawaan, konfigurasi `kubectl` disimpan di `~/.kube/config`.
 
 Kamu dapat memeriksa apakah konfigurasi `kubectl` sudah benar dengan mengambil keadaan klaster:
 
@@ -490,9 +490,9 @@ compinit
 
 ## {{% heading "whatsnext" %}}
 
-* [Menginstal Minikube.](/docs/tasks/tools/install-minikube/)
+* [Menginstal Minikube.](/id/docs/tasks/tools/install-minikube/)
 * Lihat [panduan persiapan](/docs/setup/) untuk mencari tahu tentang pembuatan klaster. 
 * [Pelajari cara untuk menjalankan dan mengekspos aplikasimu.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Jika kamu membutuhkan akses ke klaster yang tidak kamu buat, lihat [dokumen Berbagi Akses Klaster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* Jika kamu membutuhkan akses ke klaster yang tidak kamu buat, lihat [dokumen Berbagi Akses Klaster](/id/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Baca [dokumen referensi kubectl](/docs/reference/kubectl/kubectl/)
 

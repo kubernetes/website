@@ -4,7 +4,7 @@
 {{- $prepend := .Get "prepend" }}
 {{- $glossaryBundle := site.GetPage "page" "docs/reference/glossary" -}}
 {{- $glossaryItems :=  $glossaryBundle.Resources.ByType "page" -}}
-{{- $term_info := $glossaryItems.GetMatch (printf "%s*" $id ) -}}
+{{- $term_info := $glossaryItems.GetMatch (printf "%s.md" $id ) -}}
 {{- if not $term_info -}}
 {{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" site.Language.Lang .Page.Path $id -}}
 {{- end -}}

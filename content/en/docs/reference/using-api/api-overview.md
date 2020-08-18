@@ -33,7 +33,7 @@ if you are writing an application using the Kubernetes API.
 
 To eliminate fields or restructure resource representations, Kubernetes supports
 multiple API versions, each at a different API path. For example: `/api/v1` or
-`/apis/extensions/v1beta1`.
+`/apis/rbac.authorization.k8s.io/v1alpha1`.
 
 The version is set at the API level rather than at the resource or field level to:
 
@@ -84,7 +84,7 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`). You can find the full list of supported API groups in [Kubernetes API reference](/docs/reference/).
 
-The two paths that support extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
+The two paths that support extending the API with [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) are:
 
  - [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    for basic CRUD needs.
@@ -106,10 +106,3 @@ When you enable or disable groups or resources, you need to restart the apiserve
 to pick up the `--runtime-config` changes.
 {{< /note >}}
 
-## Enabling specific resources in the extensions/v1beta1 group
-
-DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
-For example: to enable deployments and daemonsets, set
-`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
-
-{{< note >}}Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.{{< /note >}}

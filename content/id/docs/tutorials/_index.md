@@ -24,7 +24,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 * [Pengenalan Kubernetes (edX)](https://www.edx.org/course/introduction-kubernetes-linuxfoundationx-lfs158x#)
 
-* [Halo Minikube](/docs/tutorials/hello-minikube/)
+* [Halo Minikube](/id/docs/tutorials/hello-minikube/)
 
 ## Konfigurasi
 
@@ -32,7 +32,7 @@ Sebelum melangkah lebih lanjut ke tutorial, sebaiknya tandai dulu halaman [Kamus
 
 ## Aplikasi Stateless
 
-* [Memberi Akses Aplikasi di dalam Klaster melalui IP Eksternal](/docs/tutorials/stateless-application/expose-external-ip-address/)
+* [Memberi Akses Aplikasi di dalam Klaster melalui IP Eksternal](/id/docs/tutorials/stateless-application/expose-external-ip-address/)
 
 * [Contoh: Deploy aplikasi Guestbook PHP dengan Redis](/docs/tutorials/stateless-application/guestbook/)
 

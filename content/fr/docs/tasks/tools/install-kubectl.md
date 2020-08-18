@@ -121,7 +121,7 @@ kubectl version --client
     curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
 
-2. Rendrez le binaire kubectl exécutable.
+2. Rendez le binaire kubectl exécutable.
 
     ```
     chmod +x ./kubectl

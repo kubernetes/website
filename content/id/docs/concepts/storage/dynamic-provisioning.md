@@ -8,7 +8,7 @@ weight: 40
 
 Penyediaan volume dinamis memungkinkan volume penyimpanan untuk dibuat sesuai permintaan (_on-demand_).
 Tanpa adanya penyediaan dinamis (_dynamic provisioning_), untuk membuat volume penyimpanan baru, admin klaster secara manual harus
-memanggil penyedia layanan cloud atau layanan penyimpanan, dan kemudian membuat [objek PersistentVolume](/docs/concepts/storage/persistent-volumes/)
+memanggil penyedia layanan cloud atau layanan penyimpanan, dan kemudian membuat [objek PersistentVolume](/id/docs/concepts/storage/persistent-volumes/)
 sebagai representasi di Kubernetes. Fitur penyediaan dinamis menghilangkan kebutuhan admin klaster untuk menyediakan
 penyimpanan sebelumnya (_pre-provision_). Dengan demikian, penyimpanan akan tersedia secara otomatis
 ketika diminta oleh pengguna.
@@ -32,7 +32,7 @@ kumpulan parameter tertentu. Desain ini memastikan bahwa pengguna tidak perlu kh
 rumitnya mekanisme penyediaan penyimpanan, tapi tetap memiliki kemampuan untuk
 memilih berbagai macam pilihan penyimpanan.
 
-Info lebih lanjut mengenai _storage class_ dapat dilihat [di sini](/docs/concepts/storage/storage-classes/).
+Info lebih lanjut mengenai _storage class_ dapat dilihat [di sini](/id/docs/concepts/storage/storage-classes/).
 
 ## Mengaktifkan Penyediaan Dinamis (_Dynamic Provisioning_)
 
@@ -123,6 +123,6 @@ tidak bisa terbuat.
 Pada klaster [Multi-Zona](/docs/setup/multiple-zones), Pod dapat tersebar di banyak Zona
 pada sebuah Region. Penyimpanan dengan *backend* Zona-Tunggal seharusnya disediakan pada
 Zona-Zona dimana Pod dijalankan. Hal ini dapat dicapai dengan mengatur
-[Mode Volume Binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+[Mode Volume Binding](/id/docs/concepts/storage/storage-classes/#volume-binding-mode).
 
 

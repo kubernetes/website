@@ -23,7 +23,7 @@ $main-nav-left-button-size: 50px;
 $main-nav-left-button-font-size: 18px;
 
 // hero
-$hero-padding-top: 136px;
+$hero-padding-top: 116px;
 $headline-wrapper-margin-bottom: 40px;
 $quickstart-button-padding: 0 50px;
 $vendor-strip-font-size: 16px;
@@ -91,6 +91,7 @@ $feature-box-div-width: 45%;
         max-width: 25%;
         max-height: 100%;
         transform: translateY(-50%);
+        width: 100%;
       }
 
       &:nth-child(odd) {
@@ -98,6 +99,7 @@ $feature-box-div-width: 45%;
 
         .image-wrapper {
           right: 0;
+          text-align: right;
         }
       }
 
@@ -106,6 +108,7 @@ $feature-box-div-width: 45%;
 
         .image-wrapper {
           left: 0;
+          text-align: left;
         }
       }
 

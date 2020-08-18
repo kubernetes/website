@@ -16,8 +16,8 @@ Untuk memudahkan, di awal akan dijelaskan beberapa terminologi yang sering dipak
 * Node: Sebuah mesin fisik atau virtual yang berada di dalam klaster Kubernetes.
 * Klaster: Sekelompok node yang merupakan *resource* komputasi primer yang diatur oleh Kubernetes, biasanya diproteksi dari internet dengan menggunakan *firewall*.
 * *Edge router*: Sebuah *router* mengatur *policy firewall* pada klaster kamu. *Router* ini bisa saja berupa *gateway* yang diatur oleh penyedia layanan *cloud* maupun perangkat keras.
-* Jaringan klaster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam klaster berdasarkan [model jaringan Kubernetes](/docs/concepts/cluster-administration/networking/).
-* *Service*: Sebuah [*Service*](/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, semua *Service* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan klaster.
+* Jaringan klaster: Seperangkat *links* baik logis maupus fisik, yang memfasilitasi komunikasi di dalam klaster berdasarkan [model jaringan Kubernetes](/id/docs/concepts/cluster-administration/networking/).
+* *Service*: Sebuah [*Service*](/id/docs/concepts/services-networking/service/) yang mengidentifikasi beberapa *Pod* dengan menggunakan *selector label*. Secara umum, semua *Service* diasumsikan hanya memiliki IP virtual yang hanya dapat diakses dari dalam jaringan klaster.
 
 ## Apakah *Ingress* itu?
 
@@ -34,11 +34,11 @@ Mekanisme *routing* trafik dikendalikan oleh aturan-aturan yang didefinisikan pa
 ```
 
 Sebuah *Ingress* dapat dikonfigurasi agar berbagai *Service* memiliki URL yang dapat diakses dari eksternal (luar klaster), melakukan *load balance* pada trafik, terminasi SSL, serta Virtual Host berbasis Nama.
-Sebuah [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontend* tambahan untuk menerima trafik.
+Sebuah [kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) bertanggung jawab untuk menjalankan fungsi Ingress yaitu sebagai *loadbalancer*, meskipun dapat juga digunakan untuk mengatur *edge router* atau *frontend* tambahan untuk menerima trafik.
 
 Sebuah *Ingress* tidak mengekspos sembarang *port* atau protokol. Mengekspos *Service* untuk protokol selain HTTP ke HTTPS internet biasanya dilakukan dengan menggunakan
-*service* dengan tipe [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport) atau
-[Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+*service* dengan tipe [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#nodeport) atau
+[Service.Type=LoadBalancer](/id/docs/concepts/services-networking/service/#loadbalancer).
 
 ## Prasyarat
 
@@ -47,7 +47,7 @@ Sebuah *Ingress* tidak mengekspos sembarang *port* atau protokol. Mengekspos *Se
 Sebelum kamu mulai menggunakan *Ingress*, ada beberapa hal yang perlu kamu ketahui sebelumnya. *Ingress* merupakan *resource* dengan tipe beta.
 
 {{< note >}}
-Kamu harus terlebih dahulu memiliki [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) untuk dapat memenuhi *Ingress*. Membuat sebuah *Ingress* tanpa adanya kontroler *Ingres* tidak akan berdampak apa pun.
+Kamu harus terlebih dahulu memiliki [kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) untuk dapat memenuhi *Ingress*. Membuat sebuah *Ingress* tanpa adanya kontroler *Ingres* tidak akan berdampak apa pun.
 {{< /note >}}
 
 GCE/Google Kubernetes Engine melakukan deploy kontroler *Ingress* pada *master*. Perhatikan laman berikut
@@ -56,7 +56,7 @@ kontroler ini jika kamu menggunakan GCE/GKE.
 
 Jika kamu menggunakan *environment* selain GCE/Google Kubernetes Engine, kemungkinan besar kamu harus
 [melakukan proses deploy kontroler ingress kamu sendiri](https://kubernetes.github.io/ingress-nginx/deploy/). Terdapat beberapa jenis
-[kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang bisa kamu pilih.
+[kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) yang bisa kamu pilih.
 
 ### Sebelum kamu memulai
 
@@ -89,10 +89,10 @@ spec:
 ```
 
  Seperti layaknya *resource* Kubernetes yang lain, sebuah Ingress membutuhkan *field* `apiVersion`, `kind`, dan `metadata`.
- Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi kontainer](/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/docs/concepts/cluster-administration/manage-deployment/).
+ Untuk informasi umum soal bagaimana cara bekerja dengan menggunakan file konfigurasi, silahkan merujuk pada [melakukan deploy aplikasi](/docs/tasks/run-application/run-stateless-application-deployment/), [konfigurasi kontainer](/id/docs/tasks/configure-pod-container/configure-pod-configmap/), [mengatur *resource*](/id/docs/concepts/cluster-administration/manage-deployment/).
  Ingress seringkali menggunakan anotasi untuk melakukan konfigurasi beberapa opsi yang ada bergantung pada kontroler Ingress yang digunakan, sebagai contohnya
  adalah [anotasi rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
- [Kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi
+ [Kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) yang berbeda memiliki jenis anotasi yang berbeda. Pastikan kamu sudah terlebih dahulu memahami dokumentasi
  kontroler Ingress yang akan kamu pakai untuk mengetahui jenis anotasi apa sajakah yang disediakan.
 
 [Spesifikasi](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) Ingress
@@ -111,7 +111,7 @@ Setiap *rule* HTTP mengandung informasi berikut:
   dan `servicePort`. Baik *host* dan *path* harus sesuai dengan konten dari *request* yang masuk sebelum
   *loadbalancer* akan mengarahkan trafik pada *service* yang sesuai.
 * Suatu *backend* adalah kombinasi *service* dan *port* seperti yang dideskripsikan di
-  [dokumentasi *Service*](/docs/concepts/services-networking/service/). *Request* HTTP (dan HTTPS) yang sesuai dengan
+  [dokumentasi *Service*](/id/docs/concepts/services-networking/service/). *Request* HTTP (dan HTTPS) yang sesuai dengan
   *host* dan *path* yang ada pada *rule* akan diteruskan pada *backend* terkait.
 
 *Backend default* seringkali dikonfigurasi pada kontroler kontroler Ingress, tugas *backend default* ini adalah
@@ -120,7 +120,7 @@ Setiap *rule* HTTP mengandung informasi berikut:
 ### *Backend Default*
 
 Sebuah Ingress yang tidak memiliki *rules* akan mengarahkan semua trafik pada sebuah *backend default*. *Backend default* inilah yang
-biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) dan tidak dimasukkan dalam spesifikasi *resource* Ingress.
+biasanya bisa dimasukkan sebagai salah satu opsi konfigurasi dari [kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) dan tidak dimasukkan dalam spesifikasi *resource* Ingress.
 
 Jika tidak ada *host* atau *path* yang sesuai dengan *request* HTTP pada objek Ingress, maka trafik tersebut
 akan diarahkan pada *backend default*.
@@ -218,8 +218,8 @@ Apabila *Ingress* selesai dibuat, maka kamu dapat melihat alamat IP dari berbaga
 pada kolom `address`.
 
 {{< note >}}
-Kamu mungkin saja membutuhkan konfigurasi default-http-backend [Service](/docs/concepts/services-networking/service/)
-bergantung pada [kontroler Ingress](/docs/concepts/services-networking/ingress-controllers) yang kamu pakai.
+Kamu mungkin saja membutuhkan konfigurasi default-http-backend [Service](/id/docs/concepts/services-networking/service/)
+bergantung pada [kontroler Ingress](/id/docs/concepts/services-networking/ingress-controllers) yang kamu pakai.
 {{< /note >}}
 
 ### Virtual Host berbasis Nama
@@ -291,7 +291,7 @@ spec:
 
 ### TLS
 
-Kamu dapat mengamankan *Ingress* yang kamu miliki dengan memberikan spesifikasi [secret](/docs/concepts/configuration/secret)
+Kamu dapat mengamankan *Ingress* yang kamu miliki dengan memberikan spesifikasi [secret](/id/docs/concepts/configuration/secret)
 yang mengandung *private key* dan sertifikat TLS. Saat ini, Ingress hanya
 memiliki fitur untuk melakukan konfigurasi *single TLS port*, yaitu 443, serta melakukan terminasi TLS.
 Jika *section* TLS pada Ingress memiliki spesifikasi *host* yang berbeda,
@@ -448,8 +448,8 @@ Ingress yang ingin diubah.
 ## Mekanisme *failing* pada beberapa zona *availability*
 
 Teknik untuk menyeimbangkan persebaran trafik pada *failure domain* berbeda antar penyedia layanan *cloud*.
-Kamu dapat mempelajari dokumentasi yang relevan bagi [kontoler Ingress](/docs/concepts/services-networking/ingress-controllers)
-untuk informasi yang lebih detail. Kamu juga dapat mempelajari [dokumentasi federasi](/docs/concepts/cluster-administration/federation/)
+Kamu dapat mempelajari dokumentasi yang relevan bagi [kontoler Ingress](/id/docs/concepts/services-networking/ingress-controllers)
+untuk informasi yang lebih detail. Kamu juga dapat mempelajari [dokumentasi federasi](/id/docs/concepts/cluster-administration/federation/)
 untuk informasi lebih detail soal bagaimana melakukan *deploy* untuk federasi klaster.
 
 ## Pengembangan selanjutnya
@@ -463,8 +463,8 @@ soal perubahan berbagai kontroler.
 
 Kamu dapat mengekspos sebuah *Service* dalam berbagai cara, tanpa harus menggunakan *resource* Ingress, dengan menggunakan:
 
-* [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer)
-* [Service.Type=NodePort](/docs/concepts/services-networking/service/#nodeport)
+* [Service.Type=LoadBalancer](/id/docs/concepts/services-networking/service/#loadbalancer)
+* [Service.Type=NodePort](/id/docs/concepts/services-networking/service/#nodeport)
 * [Port Proxy](https://git.k8s.io/contrib/for-demos/proxy-to-service)
 
 

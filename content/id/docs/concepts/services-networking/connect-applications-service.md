@@ -47,7 +47,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 Kamu dapat melakukan akses dengan *ssh* ke dalam *node* di dalam klaster dan mengakses IP *Pod* tersebut menggunakan *curl*. Perlu dicatat bahwa kontainer tersebut tidak menggunakan *port* 80 di dalam *node*, atau aturan *NAT* khusus untuk merutekan trafik ke dalam *Pod*. Ini berarti kamu dapat menjalankan banyak *nginx Pod* di *node* yang sama dimana setiap *Pod* dapat menggunakan *containerPort* yang sama, kamu dapat mengakses semua itu dari *Pod* lain ataupun dari *node* di dalam klaster menggunakan IP. Seperti *Docker*, *port* masih dapat di publikasi ke dalam * interface node*, tetapi kebutuhan seperti ini sudah berkurang karena model jaringannya.
 
-Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
+Kamu dapat membaca lebih detail [bagaimana kita melakukan ini](/id/docs/concepts/cluster-administration/networking/#how-to-achieve-this) jika kamu penasaran.
 
 ## Membuat Service
 
@@ -107,7 +107,7 @@ NAME       ENDPOINTS                     AGE
 my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 ```
 
-Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di klaster. Perlu dicatat bahwa *Service IP* adalah IP virtual, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+Kamu sekarang dapat melakukan *curl* ke dalam *nginx Service* di `<CLUSTER-IP>:<PORT>` dari *node* manapun di klaster. Perlu dicatat bahwa *Service IP* adalah IP virtual, IP tersebut tidak pernah ada di *interface node* manapun. Jika kamu penasaran bagaimana konsep ini bekerja, kamu dapat membaca lebih lanjut tentang [service proxy](/id/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
 
 ## Mengakses Service
 
@@ -194,7 +194,7 @@ Hingga sekarang kita hanya mengakses *nginx* server dari dalam klaster. Sebelum 
 
 * *Self signed certificates* untuk *https* (kecuali jika kamu sudah mempunyai *identity certificate*)
 * Sebuah server *nginx* yang terkonfigurasi untuk menggunakan *certificate* tersebut
-* Sebuah [secret](/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
+* Sebuah [secret](/id/docs/concepts/configuration/secret/) yang membuat setifikat tersebut dapat diakses oleh *pod*
 
 
 Kamu dapat melihat semua itu di [contoh nginx https](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/https-nginx/). Contoh ini mengaharuskan kamu melakukan instalasi *go* dan *make*. Jika kamu tidak ingin melakukan instalasi tersebut, ikuti langkah-langkah manualnya nanti, singkatnya:
@@ -362,6 +362,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ## {{% heading "whatsnext" %}}
 
 
-Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak klaster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
+Kubernetes juga mendukung *Federated Service*, yang bisa mempengaruhi banyak klaster dan penyedia layanan *cloud*, untuk meningkatkan ketersediaan, peningkatan toleransi kesalahan, dan pengembangan dari *Service* kamu. Lihat [Panduan Federated Service](/id/docs/concepts/cluster-administration/federation-service-discovery/) untuk informasi lebih lanjut.
 
 

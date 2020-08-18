@@ -15,6 +15,9 @@ other = "Limpieza de recursos"
 [prerequisites_heading]
 other = "Antes de empezar"
 
+[subscribe_button]
+other = "Suscribir"
+
 [whatsnext_heading]
 other = "Siguientes pasos"
 

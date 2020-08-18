@@ -63,7 +63,7 @@ kubectl create deployment nginx --image nginx
 
 ## 命令型オブジェクト設定
 
-命令型オブジェクト設定では、kubectlコマンドに処理内容（create、replaceなど）、任意のフラグ、そして最低1つのファイル名を指定します。
+命令型オブジェクト設定では、kubectlコマンドに処理内容(create、replaceなど)、任意のフラグ、そして最低1つのファイル名を指定します。
 指定されたファイルは、YAMLまたはJSON形式でオブジェクトの全ての定義情報を含んでいなければいけません。
 
 オブジェクト定義の詳細は、[APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)を参照してください。
@@ -150,7 +150,7 @@ kubectl apply -R -f configs/
 命令型オブジェクト設定手法に対する長所:
 
 - 現行オブジェクトに直接行われた変更が、それらが設定ファイルに反映されていなかったとしても、保持されます
-- 宣言型オブジェクト設定は、ディレクトリごとの処理をより良くサポートしており、自動的にオブジェクトごとに操作のタイプ（作成、パッチ、削除）を検出します
+- 宣言型オブジェクト設定は、ディレクトリごとの処理をより良くサポートしており、自動的にオブジェクトごとに操作のタイプ(作成、パッチ、削除)を検出します
 
 命令型オブジェクト設定手法に対する短所:
 
@@ -163,9 +163,9 @@ kubectl apply -R -f configs/
 
 
 - [命令型コマンドを利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [オブジェクト設定（命令型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [オブジェクト設定（宣言型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Kustomize（宣言型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [オブジェクト設定(命令型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [オブジェクト設定(宣言型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Kustomize(宣言型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectlコマンドリファレンス](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

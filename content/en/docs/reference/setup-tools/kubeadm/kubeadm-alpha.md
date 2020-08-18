@@ -3,8 +3,10 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm alpha
+content_type: concept
 weight: 90
 ---
+
 {{< caution >}}
 `kubeadm alpha` provides a preview of a set of features made available for gathering feedback
  from the community. Please try it out and give us feedback!
@@ -67,7 +69,6 @@ Use the following command to enable the DynamicKubeletConfiguration feature.
 {{< tab name="enable-dynamic" include="generated/kubeadm_alpha_kubelet_config_enable-dynamic.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm alpha selfhosting pivot {#cmd-selfhosting}
 
 The subcommand `pivot` can be used to convert a static Pod-hosted control plane into a self-hosted one.
@@ -79,8 +80,8 @@ The subcommand `pivot` can be used to convert a static Pod-hosted control plane 
 {{< tab name="pivot" include="generated/kubeadm_alpha_selfhosting_pivot.md" />}}
 {{< /tabs >}}
 
+## {{% heading "whatsnext" %}}
 
-## What's next
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

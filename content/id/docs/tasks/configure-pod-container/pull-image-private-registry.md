@@ -206,7 +206,7 @@ kubectl get pod private-reg
 
 * Pelajari lebih lanjut tentang [Secret](/id/docs/concepts/configuration/secret/).
 * Pelajari lebih lanjut tentang [menggunakan register pribadi](/id/docs/concepts/containers/images/#menggunakan-register-privat).
-* Pelajari lebih lanjut tentang [menambahkan Secret untuk menarik _image_ ke dalam sebuah akun service](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
+* Pelajari lebih lanjut tentang [menambahkan Secret untuk menarik _image_ ke dalam sebuah akun service](/id/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
 * Lihatlah [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * Lihatlah [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core).
 * Lihatlah bidang `imagePullSecrets` dari [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).

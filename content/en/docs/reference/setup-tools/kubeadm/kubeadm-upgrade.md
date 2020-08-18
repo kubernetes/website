@@ -47,8 +47,6 @@ reports of unexpected results.
 {{< include "generated/kubeadm_upgrade_node.md" >}}
 
 
-
 ## {{% heading "whatsnext" %}}
 
 * [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/) if you initialized your cluster using kubeadm v1.7.x or lower, to configure your cluster for `kubeadm upgrade`
-

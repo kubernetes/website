@@ -79,7 +79,7 @@ Jumlah Pod yang "diharapkan" dihitung dari `.spec.replicas` dari pengendali Pod 
 
 PDB tidak dapat mencegah [disrupsi yang tidak disengaja](#disrupsi-yang-disengaja-dan-tidak-disengaja), tapi disrupsi ini akan dihitung terhadap bujet PDB.
 
-Pod yang dihapus atau tidak tersetia dikarenakan pembaruan bertahap juga dihitung terhadap bujet PDB, tetapi pengendali (seperti Deployment dan StatefulSet) tidak dibatasi oleh PDB ketika melakukan pembaruan bertahap; Penanganan kerusakan saat pembaruan aplikasi dikonfigurasikan pada spesifikasi pengendali. (Pelajari tentang [memperbarui sebuah Deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
+Pod yang dihapus atau tidak tersetia dikarenakan pembaruan bertahap juga dihitung terhadap bujet PDB, tetapi pengendali (seperti Deployment dan StatefulSet) tidak dibatasi oleh PDB ketika melakukan pembaruan bertahap; Penanganan kerusakan saat pembaruan aplikasi dikonfigurasikan pada spesifikasi pengendali. (Pelajari tentang [memperbarui sebuah Deployment](/id/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
 
 Saat sebuah Pod diusir menggunakan _eviction API_, Pod tersebut akan dihapus secara _graceful_ (lihat `terminationGracePeriodSeconds` pada [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#Podspec-v1-core).))
 

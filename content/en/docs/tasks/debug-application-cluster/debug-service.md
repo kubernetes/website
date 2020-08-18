@@ -13,9 +13,6 @@ Deployment (or other workload controller) and created a Service, but you
 get no response when you try to access it.  This document will hopefully help
 you to figure out what's going wrong.
 
-
-
-
 <!-- body -->
 
 ## Running commands in a Pod
@@ -658,7 +655,7 @@ This might sound unlikely, but it does happen and it is supposed to work.
 This can happen when the network is not properly configured for "hairpin"
 traffic, usually when `kube-proxy` is running in `iptables` mode and Pods
 are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
-[flag](/docs/admin/kubelet/) that allows endpoints of a Service to loadbalance
+[flag](/docs/reference/command-line-tools-reference/kubelet/) that allows endpoints of a Service to loadbalance
 back to themselves if they try to access their own Service VIP. The
 `hairpin-mode` flag must either be set to `hairpin-veth` or
 `promiscuous-bridge`.
@@ -724,15 +721,13 @@ Service is not working.  Please let us know what is going on, so we can help
 investigate!
 
 Contact us on
-[Slack](/docs/troubleshooting/#slack) or
+[Slack](/docs/tasks/debug-application-cluster/troubleshooting/#slack) or
 [Forum](https://discuss.kubernetes.io) or
 [GitHub](https://github.com/kubernetes/kubernetes).
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-Visit [troubleshooting document](/docs/troubleshooting/) for more information.
+Visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/)
+for more information.
 
 

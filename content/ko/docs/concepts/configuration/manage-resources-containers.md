@@ -292,7 +292,7 @@ kubelet은 사용 중인 로컬 스토리지 양을 측정할 수 있다. 이것
 제공한다.
 
 - `LocalStorageCapacityIsolation`
-  [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)(이
+  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)(이
   기능이 기본적으로 설정되어 있음)를 활성화하고,
 - 로컬 임시 스토리지에 대한 지원되는 구성 중 하나를
   사용하여 노드를 설정한다.
@@ -441,7 +441,7 @@ kubelet은 각 `emptyDir` 볼륨, 컨테이너 로그 디렉터리 및 쓰기 �
 프로젝트 쿼터를 사용하려면, 다음을 수행해야 한다.
 
 * kubelet 구성에서 `LocalStorageCapacityIsolationFSQuotaMonitoring=true`
-  [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
   활성화한다.
 
 * 루트 파일시스템(또는 선택적인 런타임 파일시스템)에
@@ -657,7 +657,7 @@ Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
   CPU Requests    CPU Limits    Memory Requests    Memory Limits
   ------------    ----------    ---------------    -------------
-  680m (34%)      400m (20%)    920Mi (12%)        1070Mi (14%)
+  680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
 위의 출력에서, ​파드가 1120m 이상의 CPU 또는 6.23Gi의 메모리를
@@ -758,5 +758,3 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 * [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API 레퍼런스 읽어보기
 
 * XFS의 [프로젝트 쿼터](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html)에 대해 읽어보기
-
-

@@ -21,7 +21,7 @@ ini membuat penyebaran lebih mudah di lingkungan cloud atau OS yang berbeda.
 
 ## Image-Image Kontainer
 
-[Kontainer image](/docs/concepts/containers/images/) meruapakan paket perangkat lunak 
+[Kontainer image](/id/docs/concepts/containers/images/) meruapakan paket perangkat lunak 
 yang siap dijalankan, mengandung semua yang diperlukan untuk menjalankan 
 sebuah aplikasi: kode dan setiap *runtime* yang dibutuhkan, *library* dari 
 aplikasi dan sistem, dan nilai *default* untuk penganturan yang penting.

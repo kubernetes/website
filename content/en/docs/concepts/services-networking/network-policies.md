@@ -8,8 +8,6 @@ content_type: concept
 weight: 50
 ---
 
-{{< toc >}}
-
 <!-- overview -->
 A network policy is a specification of how groups of {{< glossary_tooltip text="pods" term_id="pod">}} are allowed to communicate with each other and other network endpoints.
 
