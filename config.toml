@@ -112,6 +112,8 @@ copyright_linux =  "Copyright © 2020 The Linux Foundation ®."
 version_menu = "Versions"
 
 time_format_blog = "Monday, January 02, 2006"
+time_format_default = "January 02, 2006 at 3:04 PM PST"
+
 description = "Production-Grade Container Orchestration"
 showedit = true
 
@@ -124,8 +126,12 @@ docsbranch = "master"
 deprecated = false
 currentUrl = "https://kubernetes.io/docs/home/"
 nextUrl = "https://kubernetes-io-vnext-staging.netlify.com/"
-githubWebsiteRepo = "github.com/kubernetes/website"
+
+# See codenew shortcode
 githubWebsiteRaw = "raw.githubusercontent.com/kubernetes/website"
+
+# GitHub repository link for editing a page and opening issues.
+github_repo = "https://github.com/kubernetes/website"
 
 # param for displaying an announcement block on every page.
 # See /i18n/en.toml for message text and title.
