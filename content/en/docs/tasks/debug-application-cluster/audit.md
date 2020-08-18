@@ -24,9 +24,10 @@ answer the following questions:
 
 <!-- body -->
 
-[Kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
-performs auditing. Each request on each stage
-of its execution generates an event, which is then pre-processed according to
+Audit records begin their lifecycle inside the
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+component. Each request on each stage
+of its execution generates an audit event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
 include logs files and webhooks.
@@ -92,7 +93,7 @@ script, which generates the audit policy file. You can see most of the audit pol
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides two backends:
+Out of the box, the kube-apiserver provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
