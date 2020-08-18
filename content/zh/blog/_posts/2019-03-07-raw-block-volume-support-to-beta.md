@@ -108,7 +108,7 @@ First, ensure that the provisioner associated with the storage class you choose 
 --->
 ## 创建一个新的原生块设备 PVC
 
-首先，请确保与您选择的存储类关联的配置程序支持 raw block。然后创建 PVC。
+首先，请确保与您选择的存储类关联的驱动支持原生块设备。然后创建 PVC。
 
 ```
 apiVersion: v1
