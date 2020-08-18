@@ -18,7 +18,7 @@ Kubernetes v1.13 moves raw block volume support to beta. This feature allows per
 **作者：**
 Ben Swartzlander (NetApp), Saad Ali (Google)
 
-Kubernetes v1.13 中的 raw block volume 开始支持 Beta 版本。此功能允许将持久卷作为块设备而不是作为已安装的文件系统公开在容器内部。
+Kubernetes v1.13 中对原生数据块卷（Raw Block Volume）的支持进入 Beta 阶段。此功能允许将持久卷作为块设备而不是作为已挂载的文件系统暴露在容器内部。
 
 <!--
 ## What are block devices?
