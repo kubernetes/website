@@ -53,7 +53,7 @@ As it becomes more common to run database software and storage infrastructure so
 --->
 从程序员的角度来看，块设备是一个非常大的字节数组，具有某种最小读写粒度，通常为 512 个字节，大部分情况为 4K 或更大。
 
-随着在 Kubernetes 中运行数据库软件和存储基础架构软件变得越来越普遍，在 Kubernetes 中对 raw block 设备支持的需求变得越来越重要。
+随着在 Kubernetes 中运行数据库软件和存储基础架构软件变得越来越普遍，在 Kubernetes 中支持原生块设备的需求变得越来越重要。
 
 <!--
 ## Which volume plugins support raw blocks?
