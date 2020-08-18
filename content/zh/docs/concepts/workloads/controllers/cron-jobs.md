@@ -136,9 +136,8 @@ For example, suppose a CronJob is set to schedule a new Job every one minute beg
 `startingDeadlineSeconds` field is not set. If the CronJob controller happens to
 be down from `08:29:00` to `10:21:00`, the job will not start as the number of missed jobs which missed their schedule is greater than 100.
 -->
-例如，假设一个 CronJob 被设置为 `08:30:00` 准时开始，它的 `startingDeadlineSeconds`
-字段被设置为 10，如果在 `08:29:00` 时将 CronJob 控制器的时间改为 `08:42:00`，Job 将不会启动。
-如果觉得晚些开始比没有启动好，那请设置一个较长的 `startingDeadlineSeconds`。
+例如，假设一个 CronJob 被设置为从 `08:30:00` 开始每隔一分钟创建一个新的 Job，并且它的 `startingDeadlineSeconds` 字段
+未被设置。如果 CronJob 控制器从 `08:29:00` 到 `10:21:00` 终止运行，则该 Job 将不会启动，因为其错过的调度次数超过了100。
 
 <!--
 To illustrate this concept further, suppose a CronJob is set to schedule a new Job every one minute beginning at `08:30:00`, and its
