@@ -193,7 +193,7 @@ headless.default.svc.cluster.local has SRV record 0 25 443 172-17-0-9.headless.d
 For some applications, it is desirable to have the pod name for this, rather than the pod IP
 address (see for example [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) and [coredns#1190](https://github.com/coredns/coredns/pull/1190)). To enable this in CoreDNS, you specify the "endpoint_pod_names" option in your Corefile, which results in this:
 --->
-对于某些应用程序，需要具有容器名称，而不是容器 IP 地址（例如，参见 [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) 和 [coredns#1190](https://github.com/coredns/coredns/pull/1190)）。要在 CoreDNS 中启用此功能，请在 Corefile 中指定 "endpoint_pod_names" 选项，结果如下：
+对于某些应用程序，你会希望在这里使用 Pod 名称，而不是 Pod IP 地址（例如，参见 [kubernetes#47992](https://github.com/kubernetes/kubernetes/issues/47992) 和 [coredns#1190](https://github.com/coredns/coredns/pull/1190)）。要在 CoreDNS 中启用此功能，请在 Corefile 中指定 "endpoint_pod_names" 选项，结果如下：
 
 ```
 dnstools# host -t srv headless
