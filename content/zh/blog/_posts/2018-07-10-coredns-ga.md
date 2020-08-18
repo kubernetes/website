@@ -179,7 +179,7 @@ dnstools#
 However, the endpoint DNS names are (for practical purposes) random. In CoreDNS, by default, you get endpoint
 DNS names based upon the endpoint IP address:
 --->
-但是，端点 DNS 名称（出于实际目的）是随机的。在 CoreDNS 中，默认情况下，您会根据端点 IP 地址获得端点 DNS 名称：
+但是，端点 DNS 名称（出于实际目的）是随机的。在 CoreDNS 中，默认情况下，您所获得的端点 DNS 名称是基于端点 IP 地址生成的：
 
 ```
 dnstools# host -t srv headless
