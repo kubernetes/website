@@ -240,7 +240,7 @@ debugging your services as well as importing the cluster zone into other DNS ser
 
 You can also filter by namespaces or a label selector. This can allow you to run specific CoreDNS instances that will only server records that match the filters, exposing only a limited set of your services via DNS.
 --->
-### 其他一些 Kubernetes 的特定功能
+### 其他一些特定于 Kubernetes 的功能
 
 在 CoreDNS 中，您可以使用标准 DNS 区域传输来导出整个 DNS 记录集。这对于调试服务以及将集群区导入其他 DNS 服务器很有用。
 
