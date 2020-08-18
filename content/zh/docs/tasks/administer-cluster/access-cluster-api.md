@@ -2,106 +2,124 @@
 title: 使用 Kubernetes API 访问集群
 content_type: task
 ---
-<!-- ---
+<!--
 title: Access Clusters Using the Kubernetes API
 content_type: task
---- -->
+-->
+
 <!-- overview -->
-<!-- This page shows how to access clusters using the Kubernetes API. -->
+
+<!--
+This page shows how to access clusters using the Kubernetes API.
+-->
 本页展示了如何使用 Kubernetes API 访问集群
 
-
 ## {{% heading "prerequisites" %}}
-
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 
 <!-- steps -->
 
-<!-- ## Accessing the cluster API -->
+<!--
+## Accessing the cluster API
 
+### Accessing for the first time with kubectl
+-->
 ## 访问集群 API
-
-<!-- ### Accessing for the first time with kubectl -->
 
 ### 使用 kubectl 进行首次访问
 
-<!-- When accessing the Kubernetes API for the first time, use the
-Kubernetes command-line tool, `kubectl`. -->
-
+<!--
+When accessing the Kubernetes API for the first time, use the
+Kubernetes command-line tool, `kubectl`.
+-->
 首次访问 Kubernetes API 时，请使用 Kubernetes 命令行工具 `kubectl` 。
 
-<!-- To access a cluster, you need to know the location of the cluster and have credentials
+<!--
+To access a cluster, you need to know the location of the cluster and have credentials
 to access it. Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location. -->
+or someone else setup the cluster and provided you with credentials and a location.
+-->
+要访问集群，你需要知道集群位置并拥有访问它的凭证。
+通常，当你完成[入门指南](/zh/docs/setup/)时，这会自动设置完成，或者由其他人设置好集群并将凭证和位置提供给你。
 
-要访问集群，您需要知道集群位置并拥有访问它的凭证。通常，当您完成[入门指南](/docs/setup/)时，这会自动设置完成，或者由其他人设置好集群并将凭证和位置提供给您。
-
-<!-- Check the location and credentials that kubectl knows about with this command: -->
-
+<!--
+Check the location and credentials that kubectl knows about with this command:
+-->
 使用此命令检查 kubectl 已知的位置和凭证：
 
 ```shell
 kubectl config view
 ```
 
-<!-- Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
-kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/). -->
+<!--
+Many of the [examples](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/) provide an introduction to using
+kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
+-->
 
-许多[样例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/docs/reference/kubectl/overview/)。
+许多[样例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)
+提供了使用 kubectl 的介绍。完整文档请见 [kubectl 手册](/zh/docs/reference/kubectl/overview/)。
 
-<!-- ### Directly accessing the REST API -->
+<!--
+### Directly accessing the REST API
 
+kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an http client like
+`curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the API server:
+-->
 ### 直接访问 REST API
 
-<!-- kubectl handles locating and authenticating to the API server. If you want to directly access the REST API with an http client like
-`curl` or `wget`, or a browser, there are multiple ways you can locate and authenticate against the API server: -->
+kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 http 客户端（如 `curl` 或 `wget`，或浏览器）直接访问 REST API，你可以通过多种方式对 API 服务器进行定位和身份验证：
 
-kubectl 处理对 API 服务器的定位和身份验证。如果您想通过 http 客户端（如 `curl` 或 `wget`，或浏览器）直接访问 REST API，您可以通过多种方式对 API 服务器进行定位和身份验证：
+ <!--
+1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
+ 1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
+-->
+1. 以代理模式运行 kubectl（推荐）。 
+   推荐使用此方法，因为它用存储的 apiserver 位置并使用自签名证书验证 API 服务器的标识。
+   使用这种方法无法进行中间人（MITM）攻击。
+2. 另外，你可以直接为 HTTP 客户端提供位置和身份认证。
+   这适用于被代理混淆的客户端代码。
+   为防止中间人攻击，你需要将根证书导入浏览器。
 
- <!-- 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
- 1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser. -->
+<!--
+Using the Go or Python client libraries provides accessing kubectl in proxy mode.
+-->
+使用 Go 或 Python 客户端库可以在代理模式下访问 kubectl。
 
- 1. 以代理模式运行 kubectl（推荐）。 推荐使用此方法，因为它用存储的 apiserver 位置并使用自签名证书验证 API 服务器的标识。使用这种方法无法进行中间人（MITM）攻击。
- 2. 另外，您可以直接为 http 客户端提供位置和身份认证。这适用于被代理混淆的客户端代码。为防止中间人攻击，您需要将根证书导入浏览器。
+<!--
+#### Using kubectl proxy
 
- <!-- Using the Go or Python client libraries provides accessing kubectl in proxy mode. -->
-
- 使用 Go 或 Python 客户端库可以在代理模式下访问 kubectl。
-
-<!-- #### Using kubectl proxy -->
-
+The following command runs kubectl in a mode where it acts as a reverse proxy. It handles
+locating the API server and authenticating.
+-->
 #### 使用 kubectl 代理
-
-<!-- The following command runs kubectl in a mode where it acts as a reverse proxy. It handles
-locating the API server and authenticating. -->
 
 下列命令使 kubectl 运行在反向代理模式下。它处理 API 服务器的定位和身份认证。
 
 <!-- Run it like this: -->
-
 像这样运行它：
 
 ```shell
 kubectl proxy --port=8080 &
 ```
 
-<!-- See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details. -->
-
+<!--
+See [kubectl proxy](/docs/reference/generated/kubectl/kubectl-commands/#proxy) for more details.
+-->
 参见 [kubectl 代理](/docs/reference/generated/kubectl/kubectl-commands/#proxy) 获取更多细节。
 
-<!-- Then you can explore the API with curl, wget, or a browser, like so: -->
-
-然后您可以通过 curl，wget，或浏览器浏览 API，像这样：
+<!--
+Then you can explore the API with curl, wget, or a browser, like so:
+-->
+然后你可以通过 curl，wget，或浏览器浏览 API，像这样：
 
 ```shell
 curl http://localhost:8080/api/
 ```
 
 <!-- The output is similar to this: -->
-
 输出类似如下：
 
 ```json
@@ -118,38 +136,38 @@ curl http://localhost:8080/api/
 }
 ```
 
-<!-- #### Without kubectl proxy -->
+<!--
+#### Without kubectl proxy
 
-#### 不使用 kubectl 代理
-
-<!-- It is possible to avoid using kubectl proxy by passing an authentication token
+It is possible to avoid using kubectl proxy by passing an authentication token
 directly to the API server, like this:
 
-Using `grep/cut` approach: -->
+Using `grep/cut` approach:
+-->
+#### 不使用 kubectl 代理
 
 通过将身份认证令牌直接传给 API 服务器，可以避免使用 kubectl 代理，像这样：
 
 使用 `grep/cut` 方式：
 
 ```shell
-# Check all possible clusters, as you .KUBECONFIG may have multiple contexts:
+# 查看所有的集群，因为你的 .kubeconfig 文件中可能包含多个上下文
 kubectl config view -o jsonpath='{"Cluster name\tServer\n"}{range .clusters[*]}{.name}{"\t"}{.cluster.server}{"\n"}{end}'
 
-# Select name of cluster you want to interact with from above output:
+# 从上述命令输出中选择你要与之交互的集群的名称
 export CLUSTER_NAME="some_server_name"
 
-# Point to the API server refering the cluster name
+# 指向引用该集群名称的 API 服务器
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
-# Gets the token value
+# 获得令牌
 TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 -d)
 
-# Explore the API with TOKEN
+# 使用令牌玩转 API
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
 <!-- The output is similar to this: -->
-
 输出类似如下：
 
 ```json
@@ -168,13 +186,15 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
 <!-- Using `jsonpath` approach: -->
-
 使用 `jsonpath` 方式：
 
+```shell
+APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
+TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
+curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
-$ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-$ TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-$ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
+
+```json
 {
   "kind": "APIVersions",
   "versions": [
@@ -189,46 +209,72 @@ $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 }
 ```
 
-<!-- The above example uses the `--insecure` flag. This leaves it subject to MITM
+<!--
+The above example uses the `--insecure` flag. This leaves it subject to MITM
 attacks. When kubectl accesses the cluster it uses a stored root certificate
 and client certificates to access the server. (These are installed in the
 `~/.kube` directory). Since cluster certificates are typically self-signed, it
 may take special configuration to get your http client to use root
-certificate. -->
+certificate.
+-->
+上面例子使用了 `--insecure` 标志位。这使它易受到 MITM 攻击。
+当 kubectl 访问集群时，它使用存储的根证书和客户端证书访问服务器。
+（已安装在 `~/.kube` 目录下）。
+由于集群认证通常是自签名的，因此可能需要特殊设置才能让你的 http 客户端使用根证书。
 
-上面例子使用了 `--insecure` 标志位。这使它易受到 MITM 攻击。当 kubectl 访问集群时，它使用存储的根证书和客户端证书访问服务器。（已安装在 `~/.kube` 目录下）。由于集群认证通常是自签名的，因此可能需要特殊设置才能让你的 http 客户端使用根证书。
-
-<!-- On some clusters, the API server does not require authentication; it may serve
+<!--
+On some clusters, the API server does not require authentication; it may serve
 on localhost, or be protected by a firewall. There is not a standard
 for this. [Configuring Access to the API](/docs/reference/access-authn-authz/controlling-access/)
 describes how a cluster admin can configure this. Such approaches may conflict
-with future high-availability support. -->
+with future high-availability support.
+-->
+在一些集群中，API 服务器不需要身份认证；它运行在本地，或由防火墙保护着。
+对此并没有一个标准。
+[配置对 API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)
+阐述了一个集群管理员如何对此进行配置。这种方法可能与未来的高可用性支持发生冲突。
 
-在一些集群中，API 服务器不需要身份认证；它运行在本地，或由防火墙保护着。对此并没有一个标准。[配置对 API 的访问](/docs/reference/access-authn-authz/controlling-access/) 阐述了一个集群管理员如何对此进行配置。这种方法可能与未来的高可用性支持发生冲突。
+<!--
+### Programmatic access to the API
 
-<!-- ### Programmatic access to the API -->
-
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
+-->
 ### 编程方式访问 API
 
-<!-- Kubernetes officially supports client libraries for [Go](#go-client) and
-[Python](#python-client). -->
-
-Kubernetes 官方支持 [Go](#go-客户端) 和 [Python](#python-客户端) 的客户端库.
+Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#java-client)、
+[dotnet](#dotnet-client)、[Javascript](#javascript-client) 和 [Haskell](#haskell-client)
+语言的客户端库。还有一些其他客户端库由对应作者而非 Kubernetes 团队提供并维护。
+参考[客户端库](/zh/docs/reference/using-api/client-libraries/)了解如何使用其他语言
+来访问 API 以及如何执行身份认证。
 
 <!-- #### Go client -->
 
-#### Go 客户端
+#### Go 客户端  {#go-client}
 
-<!-- * To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
-* Write an application atop of the client-go clients. Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/1.4/pkg/api/v1"` is correct. -->
+<!--
+* To get the library, run the following command: `go get k8s.io/client-go/<version number>/kubernetes` See [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) to see which versions are supported.
+* Write an application atop of the client-go clients.-->
 
-* 要获取库，运行下列命令：`go get k8s.io/client-go/<version number>/kubernetes` 参见 [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) 查看受支持的版本。
-* 基于 client-go 客户端编写应用程序。注意 client-go 定义了自己的 API 对象，因此如果需要，请从 client-go 而不是主仓库导入 API 定义，例如 `import "k8s.io/client-go/1.4/pkg/api/v1"` 是正确做法。
+* 要获取库，运行下列命令：`go get k8s.io/client-go/<版本号>/kubernetes`，
+  参见 [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go) 查看受支持的版本。
+* 基于 client-go 客户端编写应用程序。
 
-<!-- The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go): -->
+<!--
+Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/kubernetes"` is correct.
+-->
+{{< note >}}
+注意 client-go 定义了自己的 API 对象，因此如果需要，请从 client-go 而不是主仓库导入
+API 定义，例如 `import "k8s.io/client-go/kubernetes"` 是正确做法。
+{{< /note >}}
 
-Go 客户端可以使用与 kubectl 命令行工具相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 定位和验证 API 服务器。参见这个 [例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
+<!--
+The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
+-->
+Go 客户端可以使用与 kubectl 命令行工具相同的
+[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+定位和验证 API 服务器。参见这个
+[例子](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)：
 
 ```golang
 import (
@@ -237,33 +283,43 @@ import (
    "k8s.io/client-go/1.4/pkg/api/v1"
    "k8s.io/client-go/1.4/tools/clientcmd"
 )
-...
-   // uses the current context in kubeconfig
-   config, _ := clientcmd.BuildConfigFromFlags("", "path to kubeconfig")
-   // creates the clientset
-   clientset, _:= kubernetes.NewForConfig(config)
-   // access the API to list pods
-   pods, _:= clientset.CoreV1().Pods("").List(v1.ListOptions{})
-   fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
-...
+
+func main() {
+  // uses the current context in kubeconfig
+  // path-to-kubeconfig -- for example, /root/.kube/config
+  config, _ := clientcmd.BuildConfigFromFlags("", "<path-to-kubeconfig>")
+  // creates the clientset
+  clientset, _ := kubernetes.NewForConfig(config)
+  // access the API to list pods
+  pods, _ := clientset.CoreV1().Pods("").List(v1.ListOptions{})
+  fmt.Printf("There are %d pods in the cluster\n", len(pods.Items))
+}
 ```
 
-<!-- If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod). -->
-
-如果该应用程序部署为集群中的一个 Pod，请参阅 [下一节](#从-pod-中访问-api)。
+<!--
+If the application is deployed as a Pod in the cluster, please refer to the [next section](#accessing-the-api-from-a-pod).
+-->
+如果该应用程序部署为集群中的一个
+Pod，请参阅[下一节](#accessing-the-api-from-within-accessing-the-api-from-within-a-pod)。
 
 <!-- #### Python client -->
+#### Python 客户端 {#python-client}
 
-#### Python 客户端
+<!--
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
+-->
+要使用 [Python 客户端](https://github.com/kubernetes-client/python)，运行下列命令：
+`pip install kubernetes`。
+参见 [Python 客户端库主页](https://github.com/kubernetes-client/python) 了解更多安装选项。
 
-<!-- To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options. -->
-
-要使用 [Python 客户端](https://github.com/kubernetes-client/python)，运行下列命令：`pip install kubernetes` 参见 [Python 客户端库主页](https://github.com/kubernetes-client/python) 查看更多安装选项。
-
-<!-- The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py): -->
-
-Python 客户端可以使用与 kubectl 命令行工具相同的 [kubeconfig 文件](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/) 定位和验证 API 服务器。参见这个 [例子](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)：
+<!--
+The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
+-->
+Python 客户端可以使用与 kubectl 命令行工具相同的
+[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+定位和验证 API 服务器。参见这个
+[例子](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py)：
 
 ```python
 from kubernetes import client, config
@@ -277,77 +333,351 @@ for i in ret.items:
     print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
 ```
 
-<!-- #### Other languages -->
+<!-- #### Java client -->
+#### Java 客户端    {#java-client}
 
-#### 其他语言
+<!--
+* To install the [Java Client](https://github.com/kubernetes-client/java), simply execute :
+-->
+* 要安装 [Java 客户端](https://github.com/kubernetes-client/java)，只需执行：
 
-<!-- There are [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages. See documentation for other libraries for how they authenticate. -->
+```shell
+# 克隆 Java 库
+git clone --recursive https://github.com/kubernetes-client/java
 
-有许多 [客户端库](/docs/reference/using-api/client-libraries/) 可以用于从其他语言访问 API。请参阅其他库的文档了解它们的身份验证方式。
+# 安装项目文件、POM 等
+cd java
+mvn install
+```
 
-<!-- ### Accessing the API from a Pod -->
+<!--
+See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
 
+The Java client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+-->
+参阅[https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases)
+了解当前支持的版本。
+
+Java 客户端可以使用 kubectl 命令行所使用的
+[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+以定位 API 服务器并向其认证身份。
+参看此[示例](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java)：
+
+```java
+package io.kubernetes.client.examples;
+
+import io.kubernetes.client.ApiClient;
+import io.kubernetes.client.ApiException;
+import io.kubernetes.client.Configuration;
+import io.kubernetes.client.apis.CoreV1Api;
+import io.kubernetes.client.models.V1Pod;
+import io.kubernetes.client.models.V1PodList;
+import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.util.KubeConfig;
+import java.io.FileReader;
+import java.io.IOException;
+
+/**
+ * A simple example of how to use the Java API from an application outside a kubernetes cluster
+ *
+ * <p>Easiest way to run this: mvn exec:java
+ * -Dexec.mainClass="io.kubernetes.client.examples.KubeConfigFileClientExample"
+ *
+ */
+public class KubeConfigFileClientExample {
+  public static void main(String[] args) throws IOException, ApiException {
+
+    // file path to your KubeConfig
+    String kubeConfigPath = "~/.kube/config";
+
+    // loading the out-of-cluster config, a kubeconfig from file-system
+    ApiClient client =
+        ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
+
+    // set the global default api-client to the in-cluster one from above
+    Configuration.setDefaultApiClient(client);
+
+    // the CoreV1Api loads default api-client from global configuration.
+    CoreV1Api api = new CoreV1Api();
+
+    // invokes the CoreV1Api client
+    V1PodList list = api.listPodForAllNamespaces(null, null, null, null, null, null, null, null, null);
+    System.out.println("Listing all pods: ");
+    for (V1Pod item : list.getItems()) {
+      System.out.println(item.getMetadata().getName());
+    }
+  }
+}
+```
+
+<!--
+#### dotnet client
+
+To use [dotnet client](https://github.com/kubernetes-client/csharp), run the following command: `dotnet add package KubernetesClient --version 1.6.1` See [dotnet Client Library page](https://github.com/kubernetes-client/csharp) for more installation options. See [https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases) to see which versions are supported.
+
+The dotnet client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/csharp/blob/master/examples/simple/PodList.cs):
+-->
+#### .Net 客户端    {#dotnet-client}
+
+要使用 [.Net 客户端](https://github.com/kubernetes-client/csharp)，运行下面的命令：
+`dotnet add package KubernetesClient --version 1.6.1`。
+参见 [.Net 客户端库页面](https://github.com/kubernetes-client/csharp)了解更多安装选项。
+关于可支持的版本，参见[https://github.com/kubernetes-client/csharp/releases](https://github.com/kubernetes-client/csharp/releases)。
+
+```csharp
+using System;
+using k8s;
+
+namespace simple
+{
+    internal class PodList
+    {
+        private static void Main(string[] args)
+        {
+            var config = KubernetesClientConfiguration.BuildDefaultConfig();
+            IKubernetes client = new Kubernetes(config);
+            Console.WriteLine("Starting Request!");
+
+            var list = client.ListNamespacedPod("default");
+            foreach (var item in list.Items)
+            {
+                Console.WriteLine(item.Metadata.Name);
+            }
+            if (list.Items.Count == 0)
+            {
+                Console.WriteLine("Empty!");
+            }
+        }
+    }
+}
+```
+
+<!--
+#### JavaScript client
+
+To install [JavaScript client](https://github.com/kubernetes-client/javascript), run the following command: `npm install @kubernetes/client-node`. See [https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases) to see which versions are supported.
+
+The JavaScript client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js):
+-->
+#### JavaScript 客户端    {#javascript-client}
+
+要安装 [JavaScript 客户端](https://github.com/kubernetes-client/javascript)，运行下面的命令：
+`npm install @kubernetes/client-node`。
+参考[https://github.com/kubernetes-client/javascript/releases](https://github.com/kubernetes-client/javascript/releases)了解可支持的版本。
+
+JavaScript 客户端可以使用 kubectl 命令行所使用的
+[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+以定位 API 服务器并向其认证身份。
+参见[此例](https://github.com/kubernetes-client/javascript/blob/master/examples/example.js)：
+
+```javascript
+const k8s = require('@kubernetes/client-node');
+
+const kc = new k8s.KubeConfig();
+kc.loadFromDefault();
+
+const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+
+k8sApi.listNamespacedPod('default').then((res) => {
+    console.log(res.body);
+});
+```
+
+<!--
+#### Haskell client
+
+See [https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases) to see which versions are supported.
+
+The [Haskell client](https://github.com/kubernetes-client/haskell) can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs):
+-->
+#### Haskell 客户端    {#haskell-client}
+
+参考 [https://github.com/kubernetes-client/haskell/releases](https://github.com/kubernetes-client/haskell/releases) 了解支持的版本。
+
+[Haskell 客户端](https://github.com/kubernetes-client/haskell)
+可以使用 kubectl 命令行所使用的
+[kubeconfig 文件](/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
+以定位 API 服务器并向其认证身份。
+参见[此例](https://github.com/kubernetes-client/haskell/blob/master/kubernetes-client/example/App.hs)：
+
+```haskell
+exampleWithKubeConfig :: IO ()
+exampleWithKubeConfig = do
+    oidcCache <- atomically $ newTVar $ Map.fromList []
+    (mgr, kcfg) <- mkKubeClientConfig oidcCache $ KubeConfigFile "/path/to/kubeconfig"
+    dispatchMime
+            mgr
+            kcfg
+            (CoreV1.listPodForAllNamespaces (Accept MimeJSON))
+        >>= print
+```
+
+
+<!--
+### Accessing the API from within a Pod
+
+When accessing the API from within a Pod, locating and authenticating
+to the API server are slightly different to the external client case described above.
+-->
 ### 从 Pod 中访问 API
 
-<!-- When accessing the API from a Pod, locating and authenticating
-to the API server are somewhat different. -->
+从 Pod 内部访问 API 时，定位 API 服务器和向服务器认证身份的操作
+与上面描述的外部客户场景不同。
 
-从 Pod 访问 API 时，对 API 服务器的定位和身份验证会有所不同。
-
-<!-- The easiest way to use the Kubernetes API from a Pod is to use
+<!--
+The easiest way to use the Kubernetes API from a Pod is to use
 one of the official [client libraries](/docs/reference/using-api/client-libraries/). These
-libraries can automatically discover the API server and authenticate. -->
+libraries can automatically discover the API server and authenticate.
+-->
+从 Pod 使用 Kubernetes API 的最简单的方法就是使用官方的
+[客户端库](/zh/docs/reference/using-api/client-libraries/)。
+这些库可以自动发现 API 服务器并进行身份验证。
 
-从 Pod 使用 Kubernetes API 的最简单的方法就是使用一个官方的 [客户端库](/docs/reference/using-api/client-libraries/)。这些库可以自动发现 API 服务器并进行身份验证。
+<!--
+#### Using Official Client Libraries
 
-<!-- While running in a Pod, the Kubernetes apiserver is accessible via a Service named
+From within a Pod, the recommended ways to connect to the Kubernetes API are:
+
+  - For a Go client, use the official [Go client library](https://github.com/kubernetes/client-go/).
+    The `rest.InClusterConfig()` function handles API host discovery and authentication automatically.
+    See [an example here](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go).
+
+  - For a Python client, use the official [Python client library](https://github.com/kubernetes-client/python/).
+    The `config.load_incluster_config()` function handles API host discovery and authentication automatically.
+    See [an example here](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py).
+
+  - There are a number of other libraries available, please refer to the [Client Libraries](/docs/reference/using-api/client-libraries/) page.
+
+In each case, the service account credentials of the Pod are used to communicate
+securely with the API server.
+-->
+#### 使用官方客户端库
+
+从一个 Pod 内部连接到 Kubernetes API 的推荐方式为：
+
+- 对于 Go 语言客户端，使用官方的 [Go 客户端库](https://github.com/kubernetes/client-go/)。
+  函数 `rest.InClusterConfig()` 自动处理 API 主机发现和身份认证。
+  参见[这里的一个例子](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)。
+
+- 对于 Python 客户端，使用官方的 [Python 客户端库](https://github.com/kubernetes-client/python/)。
+  函数 `config.load_incluster_config()` 自动处理 API 主机的发现和身份认证。
+  参见[这里的一个例子](https://github.com/kubernetes-client/python/blob/master/examples/in_cluster_config.py)。
+
+- 还有一些其他可用的客户端库，请参阅[客户端库](/zh/docs/reference/using-api/client-libraries/)页面。
+
+在以上场景中，客户端库都使用 Pod 的服务账号凭据来与 API 服务器安全地通信。
+
+<!--
+#### Directly accessing the REST API
+
+While running in a Pod, the Kubernetes apiserver is accessible via a Service named
 `kubernetes` in the `default` namespace. Therefore, Pods can use the 
 `kubernetes.default.svc` hostname to query the API server. Official client libraries
-do this automatically. -->
+do this automatically.
+-->
+#### 直接访问 REST API
 
-在运行在 Pod 中时，可以通过 `default` 命名空间中的名为 `kubernetes` 的服务访问 Kubernetes apiserver。也就是说，Pods 可以使用 `kubernetes.default.svc` 主机名来查询 API 服务器。官方客户端库自动完成这个工作。
+在运行在 Pod 中时，可以通过 `default` 命名空间中的名为 `kubernetes` 的服务访问
+Kubernetes API 服务器。也就是说，Pod 可以使用 `kubernetes.default.svc` 主机名
+来查询 API 服务器。官方客户端库自动完成这个工作。
 
-<!-- From within a Pod, the recommended way to authenticate to the API server is with a
+<!--
+The recommended way to authenticate to the API server is with a
 [service account](/docs/user-guide/service-accounts) credential. By default, a Pod
 is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that Pod,
-at `/var/run/secrets/kubernetes.io/serviceaccount/token`. -->
+at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
+-->
+向 API 服务器进行身份认证的推荐做法是使用
+[服务账号](/zh/docs/tasks/configure-pod-container/configure-service-account/)凭据。
+默认情况下，每个 Pod 与一个服务账号关联，该服务账户的凭证（令牌）放置在此 Pod 中
+每个容器的文件系统树中的 `/var/run/secrets/kubernetes.io/serviceaccount/token` 处。
 
-从一个 Pod 内，向 API 服务器进行身份认证的推荐的做法是使用 [服务账号](/docs/user-guide/service-accounts) 凭证。默认的，一个 Pod 与一个服务账号关联，该服务账户的凭证（令牌）放置在此 Pod 中每个容器的文件系统树中的 `/var/run/secrets/kubernetes.io/serviceaccount/token` 处。
-
-<!-- If available, a certificate bundle is placed into the filesystem tree of each
+<!--
+If available, a certificate bundle is placed into the filesystem tree of each
 container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
-used to verify the serving certificate of the API server. -->
+used to verify the serving certificate of the API server.
+-->
+如果由证书包可用，则凭证包被放入每个容器的文件系统树中的
+`/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` 处，
+且将被用于验证 API 服务器的服务证书。
 
-如果可用，凭证包被放入每个容器的文件系统树中的 `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt` 处，并且将被用于验证 API 服务器的服务证书。
+<!--
+Finally, the default namespace to be used for namespaced API operations is placed in a file
+at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
+-->
+最后，用于命名空间域 API 操作的默认命名空间放置在每个容器中的
+`/var/run/secrets/kubernetes.io/serviceaccount/namespace` 文件中。
 
-<!-- Finally, the default namespace to be used for namespaced API operations is placed in a file
-at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container. -->
+<!--
+#### Using kubectl proxy
 
-最后，用于命名空间 API 操作的默认的命名空间放置在每个容器中的 `/var/run/secrets/kubernetes.io/serviceaccount/namespace` 文件中。
+If you would like to query the API without an official client library, you can run `kubectl proxy`
+as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
+of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate
+to the API and expose it on the `localhost` interface of the Pod, so that other containers
+in the Pod can use it directly.
+-->
+#### 使用 kubectl proxy   {#use-kubectl-proxy}
 
-<!-- From within a Pod, the recommended ways to connect to the Kubernetes API are: -->
+如果你希望不实用官方客户端库就完成 API 查询，可以将 `kubectl proxy` 作为
+[command](/zh/docs/tasks/inject-data-application/define-command-argument-container/)
+在 Pod 启动一个边车（Sidecar）容器。这样，`kubectl proxy` 自动完成对 API
+的身份认证，并将其暴露到 Pod 的 `localhost` 接口，从而 Pod 中的其他容器可以
+直接使用 API。
 
-从一个 Pod 内，连接 Kubernetes API 的推荐方法是：
+<!--
+#### Without using a proxy
 
-<!--   - Use one of the official [client libraries](/docs/reference/using-api/client-libraries/)
-    as they handle API host discovery and authentication automatically.
-    For Go client, the `rest.InClusterConfig()` function assists with this.
-    See [an example here](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go). -->
+It is possible to avoid using the kubectl proxy by passing the authentication token
+directly to the API server.  The internal certificate secures the connection.
+-->
+#### 不使用代理  {#without-using-a-proxy}
 
-  - 使用官方的 [客户端库](/docs/reference/using-api/client-libraries/) 因为他们会自动地完成 API 主机发现和身份认证。以 Go 客户端来说，`rest.InClusterConfig()` 可以帮助解决这个问题。参见 [这里的一个例子](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)。
+通过将认证令牌直接发送到 API 服务器，也可以避免运行 kubectl proxy 命令。
+内部的证书机制能够为链接提供保护。
 
-<!--   - If you would like to query the API without an official client library, you can run `kubectl proxy`
-    as the [command](/docs/tasks/inject-data-application/define-command-argument-container/)
-    of a new sidecar container in the Pod. This way, `kubectl proxy` will authenticate
-    to the API and expose it on the `localhost` interface of the Pod, so that other containers
-    in the Pod can use it directly. -->
+```shell
+# 指向内部 API 服务器的主机名
+APISERVER=https://kubernetes.default.svc
 
-  - 如果您想要在没有官方客户端库的情况下查询 API，可以在 Pod 里以一个新的边车容器的 [命令](/docs/tasks/inject-data-application/define-command-argument-container/)的方式运行 `kubectl proxy` 。此方式下，`kubectl proxy` 将对 API 进行身份验证并将其公开在 Pod 的 `localhost` 接口上，以便 Pod 中的其他容器可以直接使用它。
+# 服务账号令牌的路径
+SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
 
-<!-- In each case, the service account credentials of the Pod are used to communicate
-securely with the API server. -->
+# 读取 Pod 的名字空间
+NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
 
-在每种情况下，Pod 的服务账号凭证被用于与 API 服务器的安全通信。
+# 读取服务账号的持有者令牌
+TOKEN=$(cat ${SERVICEACCOUNT}/token)
 
+# 引用内部整数机构（CA）
+CACERT=${SERVICEACCOUNT}/ca.crt
+
+# 使用令牌访问 API
+curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api
+```
+
+<!--
+The output will be similar to this:
+-->
+输出类似于：
+
+```json
+{
+  "kind": "APIVersions",
+  "versions": [
+    "v1"
+  ],
+  "serverAddressByClientCIDRs": [
+    {
+      "clientCIDR": "0.0.0.0/0",
+      "serverAddress": "10.0.1.149:443"
+    }
+  ]
+}
+```
 
