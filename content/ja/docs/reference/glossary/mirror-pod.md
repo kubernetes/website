@@ -1,21 +1,18 @@
 ---
-title: Mirror Pod
+title: ミラーPod
 id: mirror-pod
 date: 2019-08-06
 short_description: >
-  An object in the API server that tracks a static pod on a kubelet.
+  kubelet上のstatic Podを追跡するAPIサーバー内のオブジェクトです。
 
 aka: 
 tags:
 - fundamental
 ---
- A {{< glossary_tooltip text="pod" term_id="pod" >}} object that a kubelet uses
- to represent a {{< glossary_tooltip text="static pod" term_id="static-pod" >}}
+kubeletが{{< glossary_tooltip text="static Pod" term_id="static-pod" >}}を代表するために使用する{{< glossary_tooltip text="Pod" term_id="pod" >}}オブジェクトです。
 
 <!--more--> 
 
-When the kubelet finds a static pod in its configuration, it automatically tries to
-create a Pod object on the Kubernetes API server for it. This means that the pod
-will be visible on the API server, but cannot be controlled from there.
+kubeletが設定の中にstatic Podを発見すると、static Podに対応するPodオブジェクトをKubernetes APIサーバー上に自動的に作成しようとします。つまり、APIサーバーからはPodが見えていますが、制御まではできないということです。
 
-(For example, removing a mirror pod will not stop the kubelet daemon from running it).
+(たとえば、ミラーPodを削除しても、kubeletデーモンが対応するPodの実行を停止することはありません。)
