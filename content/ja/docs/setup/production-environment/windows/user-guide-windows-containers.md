@@ -111,7 +111,7 @@ spec:
 
 ログは可観測性の重要な要素です。これにより、ユーザーはワークロードの運用面に関する洞察を得ることができ、問題のトラブルシューティングの主要な要素になります。WindowsコンテナとWindowsコンテナ内のワークロードの動作はLinuxコンテナとは異なるため、ユーザーはログの収集に苦労し、運用の可視性が制限されていました。たとえば、Windowsワークロードは通常、ETW(Windowsのイベントトレース)にログを記録するか、アプリケーションイベントログにエントリをプッシュするように構成されます。Microsoftのオープンソースツールである[LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor)は、Windowsコンテナ内の構成されたログソースを監視するための推奨方法です。LogMonitorは、イベントログ、ETWプロバイダー、カスタムアプリケーションログのモニタリングをサポートしており、それらをSTDOUTにパイプして、`kubectl logs <pod>`で使用できます。
 
-LogMonitor GitHubページの指示に従って、バイナリと構成ファイルをすべてのコンテナにコピーして、LogMonitorがログをSTDOUTにプッシュするために必要なエントリポイントを追加します。
+LogMonitor GitHubページの指示に従って、バイナリと構成ファイルをすべてのコンテナにコピーして、LogMonitorがログをSTDOUTにプッシュするために必要なエントリーポイントを追加します。
 
 ## 構成可能なコンテナのユーザー名の使用
 
