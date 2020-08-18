@@ -214,7 +214,7 @@ requiring a roundtrip from the client to kube-dns each time (actually to `dnsmas
 --->
 ### 自动路径
 
-CoreDNS 还具有一项特殊功能，可以改善 DNS 中外部名称请求的延迟。在 Kubernetes 中，Pod 的 DNS 搜索路径指定了一长串后缀。可以在群集中请求服务时使用短名称 - 例如，上面的 "headless"，而不是 "headless.default.svc.cluster.local"。但是，当请求一个外部名称（例如 "infoblox.com"）时，客户端会进行几个无效的 DNS 查询，每次都需要从客户端到 kube-dns 往返（实际上是到 `dnsmasq`，然后到 `kubedns`） ，因为 [禁用了负缓存](https://github.com/kubernetes/dns/issues/121)）
+CoreDNS 还具有一项特殊功能，可以改善 DNS 中外部名称请求的延迟。在 Kubernetes 中，Pod 的 DNS 搜索路径指定了一长串后缀。这一特点使得你可以针对集群中服务使用短名称 - 例如，上面的 "headless"，而不是 "headless.default.svc.cluster.local"。但是，当请求一个外部名称（例如 "infoblox.com"）时，客户端会进行几个无效的 DNS 查询，每次都需要从客户端到 kube-dns 往返（实际上是到 `dnsmasq`，然后到 `kubedns`），因为 [禁用了负缓存](https://github.com/kubernetes/dns/issues/121)）
 
   * infoblox.com.default.svc.cluster.local -> NXDOMAIN
   * infoblox.com.svc.cluster.local -> NXDOMAIN
