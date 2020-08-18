@@ -51,7 +51,7 @@ container watches the Kubernetes API and serves DNS records based on the [Kubern
 --->
 ## 实现差异
 
-在 kube-dns 中，单个容器会使用多个 Pod： `kubedns`、 `dnsmasq`、和 `sidecar`。`kubedns` 容器监视 Kubernetes API 并根据 [Kubernetes DNS 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md) 提供 DNS 记录，`dnsmasq` 提供缓存和存根域支持，`sidecar` 提供指标和健康检查。
+在 kube-dns 中，一个 Pod 中使用多个 容器：`kubedns`、`dnsmasq`、和 `sidecar`。`kubedns` 容器监视 Kubernetes API 并根据 [Kubernetes DNS 规范](https://github.com/kubernetes/dns/blob/master/docs/specification.md) 提供 DNS 记录，`dnsmasq` 提供缓存和存根域支持，`sidecar` 提供指标和健康检查。
 
 <!--
 This setup leads to a few issues that have been seen over time. For one, security vulnerabilities in `dnsmasq` have led to the need
