@@ -85,6 +85,8 @@ statefulset.apps/web created
 
 ```shell
 kubectl get service nginx
+```
+```
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
 ```
