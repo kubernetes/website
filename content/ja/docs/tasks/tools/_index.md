@@ -1,41 +1,28 @@
 ---
 title: "ツールのインストール"
-description: Set up Kubernetes tools on your computer.
+description: Kubernetesのツールをローカルのコンピュータ上にセットアップします。
 weight: 10
 no_list: true
 ---
 
 ## kubectl
 
-The Kubernetes command-line tool, `kubectl`, allows you to run commands against
-Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage
-cluster resources, and view logs.
+Kubernetesのコマンドラインツール`kubectl`を使用すると、Kubernetesクラスターに対してコマンドを実行できるようになります。kubectlは、アプリケーションのデプロイ、クラスターリソースの調査と管理、ログの表示などに使用できます。
 
-See [Install and Set Up kubectl](/docs/tasks/tools/install-kubectl/) for information about how to
-download and install `kubectl` and set it up for accessing your cluster.
+`kubectl`のダウンロードとインストールを行い、クラスターへのアクセスをセットアップする方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)を参照してください。
 
-You can also read the [`kubectl` reference documentation](/docs/reference/kubectl/).
+また、[`kubectl`リファレンスドキュメント](/ja/docs/reference/kubectl/)も参照できます。
 
 ## Minikube
 
-[Minikube](https://minikube.sigs.k8s.io/) is a tool that lets you run
-Kubernetes locally. Minikube runs a single-node Kubernetes cluster on your personal
-computer (including Windows, macOS and Linux PCs) so that you can try out Kubernetes,
-or for daily development work.
+[Minikube](https://minikube.sigs.k8s.io/)は、Kubernetesをローカルで実行するツールです。MinikubeはシングルノードのKubernetesクラスターをパーソナルコンピューター上(Windows、macOS、Linux PCを含む)で実行することで、Kubernetesを試したり、日常的な開発作業のために利用できます。
 
-You can follow the official [Get Started!](https://minikube.sigs.k8s.io/docs/start/)
-guide, or read [Install Minikube](/docs/tasks/tools/install-minikube/) if your focus
-is on getting the tool installed.
+ツールのインストールについて知りたい場合は、公式の[Get Started!](https://minikube.sigs.k8s.io/docs/start/)のガイドに従うか、[Minikubeのインストール](/ja/docs/tasks/tools/install-minikube/)を読んでください。
 
-Once you have Minikube working, you can use it to
-[run a sample application](/docs/tutorials/hello-minikube/).
+Minikubeが起動したら、[サンプルアプリケーションの実行](/ja/docs/tutorials/hello-minikube/)を試すことができます。
 
 ## kind
 
-Like Minikube, [kind](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local compute. Unlike Minikuke, kind only works with a single container runtime:
-it requires that you have [Docker](https://docs.docker.com/get-docker/) installed
-and configured.
+Minikubeと同じように、[kind](https://kind.sigs.k8s.io/docs/)もローカルコンピューター上でKubernetesを実行するツールです。Minikubeとは違い、kindは1種類のコンテナランタイム上でしか動作しません。実行には[Docker](https://docs.docker.com/get-docker/)のインストールと設定が必要です。
 
-[Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) shows you what you
-need to do to get up and running with kind.
+[Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/)に、kindの起動に必要な手順が説明されています。
