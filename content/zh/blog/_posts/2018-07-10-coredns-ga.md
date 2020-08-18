@@ -231,7 +231,7 @@ In CoreDNS, an optional feature called [autopath](https://coredns.io/plugins/aut
 and it will walk this search list until it gets a valid answer. Since the first 3 of these are resolved internally
 within CoreDNS itself, it cuts out all of the back and forth between the client and server, reducing latency.
 --->
-在 CoreDNS 中，可以启用 [自动路径](https://coredns.io/plugins/autopath) 的可选功能，该功能使搜索路径存在于 *服务器中*。也就是说，CoreDNS 将从源 IP 地址中找出客户端 Pod 所在的命名空间，并且遍历此搜索列表，直到获得有效答案为止。由于其中的前三个是在 CoreDNS 本身内部解决的，因此它消除了客户端和服务器之间所有的来回通信，从而减少了延迟。
+在 CoreDNS 中，可以启用 [autopath](https://coredns.io/plugins/autopath) 的可选功能，该功能使搜索路径在 *服务器端* 遍历。也就是说，CoreDNS 将基于源 IP 地址判断客户端 Pod 所在的命名空间，并且遍历此搜索列表，直到获得有效答案为止。由于其中的前三个是在 CoreDNS 本身内部解决的，因此它消除了客户端和服务器之间所有的来回通信，从而减少了延迟。
 
 <!--
 ### A few other Kubernetes specific features
