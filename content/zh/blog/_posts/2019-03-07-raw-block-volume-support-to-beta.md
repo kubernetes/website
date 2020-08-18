@@ -44,7 +44,7 @@ There are some specialized applications that require direct access to a block de
 --->
 ## 为什么要将 raw block volume 添加到 kubernetes？
 
-有些特殊的应用程序需要直接访问块设备，例如，文件系统层会引入不必要的开销。最常见的情况是数据库，通常会直接在底层存储上形成数据。Raw block 设备还通常由能自己实现某种存储服务的软件（软件定义的存储系统）使用。
+有些特殊的应用程序需要直接访问块设备，原因例如，文件系统层会引入不必要的开销。最常见的情况是数据库，通常会直接在底层存储上组织数据。原生的块设备（Raw Block Devices）还通常由能自己实现某种存储服务的软件（软件定义的存储系统）使用。
 
 <!--
 From a programmer's perspective, a block device is a very large array of bytes, usually with some minimum granularity for reads and writes, often 512 bytes, but frequently 4K or larger.
