@@ -150,7 +150,7 @@ ip addr
 
 …then use `wget` to query the local webserver
 ```shell
-# Replace 10.0.170.92 with the Pod's IPv4 address
+# Replace "10.0.170.92" with the IPv4 address of the Service named "clusterip"
 wget -qO - 10.0.170.92
 ```
 ```
