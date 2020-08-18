@@ -288,7 +288,7 @@ We're most active on Slack (and GitHub):
 --->
 ### 参与 CoreDNS
 
-CoreDNS 是一个孵化的 [CNCF](https:://cncf.io) 项目。
+CoreDNS 是一个 [CNCF](https:://cncf.io) 孵化项目。
 
 我们在 Slack（和 GitHub）上最活跃：
 
