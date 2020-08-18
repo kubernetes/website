@@ -1,6 +1,6 @@
 ---
 title: "Einen Cluster verwalten"
-description: Lernen Sie gemeinsame Aufgaben zum eines Clusters verwalten.
+description: Lerne allgemeine Aufgaben zur Verwaltung eines Clusters kennen.
 weight: 20
 ---
 
