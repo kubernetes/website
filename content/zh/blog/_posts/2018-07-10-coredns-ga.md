@@ -64,7 +64,7 @@ different plugins that are enabled replicate (and enhance) the functionality fou
 --->
 随着时间的推移，此设置会导致一些问题。一方面，以往 `dnsmasq` 中的安全漏洞需要通过发布 Kubernetes 的安全补丁来解决。但是，由于 `dnsmasq` 处理存根域，而 `kubedns` 处理外部服务，因此您不能在外部服务中使用存根域，导致这个功能具有局限性（请参阅 [dns#131](https://github.com/kubernetes/dns/issues/131)）。
 
-所有这些功能都是在 CoreDNS 的单个容器中完成的，该容器正在运行用 Go 编写的进程。启用的不同插件可复制（并增强）在 kube-dns 中发现的功能。
+在 CoreDNS 中，所有这些功能都是在一个容器中完成的，该容器运行用 Go 编写的进程。所启用的不同插件可复制（并增强）在 kube-dns 中存在的功能。
 
 <!--
 ## Configuring CoreDNS
