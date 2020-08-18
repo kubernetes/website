@@ -259,7 +259,7 @@ Many other interesting extensions have been added, which you will find on the [E
 
 除了上述功能之外，CoreDNS 还可轻松扩展，构建包含您独有的功能的自定义版本的 CoreDNS。例如，这一能力已被用于扩展 CoreDNS 来使用 [unbound 插件](https://coredns.io/explugins/unbound) 进行递归解析、使用 [pdsql 插件](https://coredns.io/explugins/pdsql) 直接从数据库提供记录，以及使用 [redisc 插件](https://coredns.io/explugins/redisc) 与多个 CoreDNS 实例共享一个公共的 2 级缓存。
 
-添加了许多其他有趣的扩展，您可以在 CoreDNS 站点的 [外部插件](https://coredns.io/explugins/) 页面上找到这些扩展。Kubernetes 和 Istio 用户真正感兴趣的是 [kubernetai 插件](https://coredns.io/explugins/kubernetai)，它允许单个 CoreDNS 实例连接到多个 Kubernetes 集群并在所有集群中提供服务发现 。
+已添加的还有许多其他有趣的扩展，您可以在 CoreDNS 站点的 [外部插件](https://coredns.io/explugins/) 页面上找到这些扩展。Kubernetes 和 Istio 用户真正感兴趣的是 [kubernetai 插件](https://coredns.io/explugins/kubernetai)，它允许单个 CoreDNS 实例连接到多个 Kubernetes 集群并在所有集群中提供服务发现 。
 
 <!--
 ## What's Next?
