@@ -111,7 +111,7 @@ There are several open issues with kube-dns that are resolved in CoreDNS, either
   * [dns#55 - kube-dns 的自定义 DNS 条目](https://github.com/kubernetes/dns/issues/55) 可以使用 [kubernetes 插件](https://coredns.io/plugins/kubernetes) 中的 "应急" 机制，使用 [rewrite 插件](https://coredns.io/plugins/rewrite)，或者分区使用不同的插件，例如 [file 插件](https://coredns.io/plugins/file)。
   
   * [dns#116 - 对具有相同主机名的、提供无头服务服务的 Pod 仅设置了一个 A 记录](https://github.com/kubernetes/dns/issues/116)。无需任何其他配置即可解决此问题。
-  * [dns#131 - externalName 不使用 stubDomains 设置](https://github.com/kubernetes/dns/issues/131)。无需任何其他配置即可解决此问题。
+  * [dns#131 - externalName 未使用 stubDomains 设置](https://github.com/kubernetes/dns/issues/131)。无需任何其他配置即可解决此问题。
   * [dns#167 - 启用 skyDNS 循环 A/AAAA 记录](https://github.com/kubernetes/dns/issues/167)。可以使用 [负载均衡插件](https://coredns.io/plugins/loadbalance) 配置等效功能。
   * [dns#190 - kube-dns 无法以非 root 用户身份运行](https://github.com/kubernetes/dns/issues/190)。今天，通过使用 non-default 镜像解决了此问题，但是在将来的版本中，它将成为默认的 CoreDNS 行为。
   * [dns#232 - 在 dns srv 记录中修复 pod hostname 为 podname](https://github.com/kubernetes/dns/issues/232) 是通过下面提到的 "endpoint_pod_names" 功能进行支持的增强功能。
