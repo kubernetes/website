@@ -8,8 +8,8 @@ weight: 40
 
 <!-- overview -->
 
-アプリケーションをデプロイし、Serviceを介して外部への公開できました。さて、どうしますか？Kubernetesは、スケーリングや更新など、アプリケーションのデプロイを管理するための多くのツールを提供します。
-我々が取り上げる機能についての詳細は[設定ファイル](/ja/docs/concepts/configuration/overview/)や[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)で確認できます。
+アプリケーションをデプロイし、Serviceを介して外部に公開できました。さて、どうしますか？Kubernetesは、スケーリングや更新など、アプリケーションのデプロイを管理するための多くのツールを提供します。
+我々が取り上げる機能についての詳細は[設定ファイル](/ja/docs/concepts/configuration/overview/)と[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)について詳細に説明します。
 
 
 
@@ -18,7 +18,7 @@ weight: 40
 
 ## リソースの設定を管理する
 
-多くのアプリケーションではDeploymentやServiceなど複数のリソースの作成を要求します。複数のリソースの管理は、同一のファイルにひとまとめにしてグループ化すると簡単になります。(YAMLファイル内で`---`で区切る)。
+多くのアプリケーションではDeploymentやServiceなど複数のリソースの作成を要求します。複数のリソースの管理は、同一のファイルにひとまとめにしてグループ化すると簡単になります(YAMLファイル内で`---`で区切る)。
 例えば:
 
 {{< codenew file="application/nginx-app.yaml" >}}
@@ -34,7 +34,7 @@ service/my-nginx-svc created
 deployment.apps/my-nginx created
 ```
 
-リソースは、ファイル内に記述されている順番通りに作成されます。そのため、Serviceを最初に指定するのが理想です。スケジューラがServiceに関連するPodを、Deploymentなどのコントローラによって作成されるときに確実に拡散できるようにするためです。
+リソースは、ファイル内に記述されている順番通りに作成されます。そのため、Serviceを最初に指定するのが理想です。スケジューラーがServiceに関連するPodを、Deploymentなどのコントローラーによって作成されるときに確実に拡散できるようにするためです。
 
 `kubectl apply`もまた、複数の`-f`による引数指定を許可しています。
 
@@ -42,7 +42,7 @@ deployment.apps/my-nginx created
 kubectl apply -f https://k8s.io/examples/application/nginx/nginx-svc.yaml -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml
 ```
 
-個別のファイルに加えて、-fの引数としてディレクトリ名も指定できます。:
+個別のファイルに加えて、-fの引数としてディレクトリ名も指定できます:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/nginx/
@@ -52,7 +52,7 @@ kubectl apply -f https://k8s.io/examples/application/nginx/
 
 同じマイクロサービス、アプリケーションティアーのリソースは同一のファイルにまとめ、アプリケーションに関するファイルをグループ化するために、それらのファイルを同一のディレクトリに配備するのを推奨します。アプリケーションのティアーがDNSを通じて互いにバインドされると、アプリケーションスタックの全てのコンポーネントをひとまとめにして簡単にデプロイできます。
 
-リソースの設定ソースとして、URLも指定できます。githubから取得した設定ファイルから直接手軽にデプロイができます。:
+リソースの設定ソースとして、URLも指定できます。githubから取得した設定ファイルから直接手軽にデプロイができます:
 
 ```shell
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/nginx/nginx-deployment.yaml
@@ -81,7 +81,7 @@ service "my-nginx-svc" deleted
 kubectl delete deployments/my-nginx services/my-nginx-svc
 ```
 
-さらに多くのリソースに対する操作では、リソースをラベルでフィルターするために`-l`や`--selector`を使ってセレクター(ラベルクエリ)を指定するのが簡単です。:
+さらに多くのリソースに対する操作では、リソースをラベルでフィルターするために`-l`や`--selector`を使ってセレクター(ラベルクエリ)を指定するのが簡単です:
 
 ```shell
 kubectl delete deployment,services -l app=nginx
@@ -92,7 +92,7 @@ deployment.apps "my-nginx" deleted
 service "my-nginx-svc" deleted
 ```
 
-`kubectl`は同様のシンタックスでリソース名を出力するので、`$()`や`xargs`を使ってパイプで操作するのが容易です。:
+`kubectl`は同様のシンタックスでリソース名を出力するので、`$()`や`xargs`を使ってパイプで操作するのが容易です:
 
 ```shell
 kubectl get $(kubectl create -f docs/concepts/cluster-administration/nginx/ -o name | grep service)
@@ -103,9 +103,9 @@ NAME           TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)      AGE
 my-nginx-svc   LoadBalancer   10.0.0.208   <pending>     80/TCP       0s
 ```
 
-上記のコマンドで、最初に`examples/application/nginx/`配下でリソースを作成し、`-o name`という出力フォーマットにより、作成されたリソースの名前を表示します(各シロースをresource/nameという形式で表示)。そして"service"のみ`grep`し、`kubectl get`を使って表示させます。
+上記のコマンドで、最初に`examples/application/nginx/`配下でリソースを作成し、`-o name`という出力フォーマットにより、作成されたリソースの名前を表示します(各リソースをresource/nameという形式で表示)。そして"service"のみ`grep`し、`kubectl get`を使って表示させます。
 
-あるディレクトリー内の複数のサブディレクトリーをまたいでリソースを管理するような場合、`--filename,-f`フラグと合わせて`--recursive`や`-R`を指定することでサブディレクトリーに対しても再帰的に操作が可能です。
+あるディレクトリ内の複数のサブディレクトリをまたいでリソースを管理するような場合、`--filename,-f`フラグと合わせて`--recursive`や`-R`を指定することでサブディレクトリに対しても再帰的に操作が可能です。
 
 例えば、開発環境用に必要な全ての{{< glossary_tooltip text="マニフェスト" term_id="manifest" >}}をリソースタイプによって整理している`project/k8s/development`というディレクトリがあると仮定します。
 
@@ -119,7 +119,7 @@ project/k8s/development
     └── my-pvc.yaml
 ```
 
-デフォルトでは、`project/k8s/development`における一括操作は、どのサブディレクトリーも処理せず、ディレクトリーの第1階層で処理が止まります。下記のコマンドによってこのディレクトリー配下でリソースを作成しようとすると、エラーが発生します。
+デフォルトでは、`project/k8s/development`における一括操作は、どのサブディレクトリも処理せず、ディレクトリの第1階層で処理が止まります。下記のコマンドによってこのディレクトリ配下でリソースを作成しようとすると、エラーが発生します。
 
 ```shell
 kubectl apply -f project/k8s/development
@@ -129,7 +129,7 @@ kubectl apply -f project/k8s/development
 error: you must provide one or more resources by argument or filename (.json|.yaml|.yml|stdin)
 ```
 
-代わりに、下記のように`--filename,-f`フラグと合わせて`--recursive`や`-R`を指定してください。:
+代わりに、下記のように`--filename,-f`フラグと合わせて`--recursive`や`-R`を指定してください:
 
 ```shell
 kubectl apply -f project/k8s/development --recursive
