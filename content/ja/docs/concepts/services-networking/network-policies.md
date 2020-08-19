@@ -85,7 +85,7 @@ __egress__: 各NetworkPolicyには、許可する`egress`ルールのリスト�
 
 したがって、上のNetworkPolicyの例では、次のようにネットワークポリシーを適用します。
 
-1. "default"名前空間内にある"role=db"のPodを、内向きと外向きのトラフィックに対して分離する(すでに分離されていなければ)
+1. "default"名前空間内にある"role=db"のPodを、内向きと外向きのトラフィックに対して分離する(まだ分離されていない場合)
 2. (Ingressルール) "default"名前空間内の"role=db"ラベルが付いたすべてのPodのTCPの6379番ポートへの接続のうち、次の送信元からのものを許可する
    * "default"名前空間内のラベル"role=frontend"が付いたすべてのPod
    * ラベル"project=myproject"が付いた名前空間内のすべてのPod
