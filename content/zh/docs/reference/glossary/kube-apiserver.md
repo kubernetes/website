@@ -2,7 +2,7 @@
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /docs/concepts/overview/components/#kube-apiserver
 short_description: >
   主节点上负责提供 Kubernetes API 服务的组件；它是 Kubernetes 控制面的前端。
 

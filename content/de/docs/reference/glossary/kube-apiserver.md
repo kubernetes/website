@@ -2,7 +2,7 @@
 title: kube-apiserver
 id: kube-apiserver
 date: 2018-04-12
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /docs/concepts/overview/components/#kube-apiserver
 short_description: >
   Komponente auf dem Master, der die Kubernetes-API verfügbar macht. Es ist das Frontend für die Kubernetes-Steuerebene.
 

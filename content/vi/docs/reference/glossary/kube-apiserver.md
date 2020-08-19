@@ -2,7 +2,7 @@
 title: API server
 id: kube-apiserver
 date: 2020-02-26
-full_link: /docs/reference/generated/kube-apiserver/
+full_link: /docs/concepts/overview/components/#kube-apiserver
 short_description: >
   Thành phần tầng điểu khiển (control plane), được dùng để phục vụ Kubernetes API.
 
