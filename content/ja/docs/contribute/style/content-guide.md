@@ -29,11 +29,11 @@ Kubernetesのドキュメントにサードパーティーのコンテンツを�
 
 - コンテンツがKubernetesプロジェクト内のソフトウェアのドキュメントとなる場合
 - コンテンツがプロジェクト外のソフトウェアのドキュメントとなるが、Kubernetesを機能させるために必要である場合
--  コンテンツがkubernetes.ioの正規のコンテンツであるか、他の場所の正規のコンテンツへのリンクである場合
+- コンテンツがkubernetes.ioの正規のコンテンツであるか、他の場所の正規のコンテンツへのリンクである場合
 
 ### サードパーティーのコンテンツ
 
-Kubernetesのドキュメントには、Kubernetesプロジェクト（[kubernetes](https://github.com/kubernetes)および[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizationsに存在するプロジェクト）の適用例が含まれています。
+Kubernetesのドキュメントには、Kubernetesプロジェクト([kubernetes](https://github.com/kubernetes)および[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizationsに存在するプロジェクト)の適用例が含まれています。
 
 Kubernetesプロジェクト内のアクティブなコンテンツへのリンクは常に許可されます。
 
