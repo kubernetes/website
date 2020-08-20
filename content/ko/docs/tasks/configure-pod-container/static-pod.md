@@ -14,7 +14,7 @@ content_template: task
 직접 관리된다.
 컨트롤 플레인에 의해 관리되는 파드(예를 들어 {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}})와는 달리,
 kubelet 이 각각의 스태틱 파드를 감시한다.
-(만약 충돌이 날 경우 다시 구동한다.)
+(만약 실패할 경우 다시 구동한다.)
 
 스태틱 파드는 항상 특정 노드에 있는 하나의 {{< glossary_tooltip term_id="kubelet" >}}에 매여 있다.
 
