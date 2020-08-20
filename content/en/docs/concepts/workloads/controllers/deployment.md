@@ -84,7 +84,7 @@ Follow the steps given below to create the above Deployment:
 2. Run `kubectl get deployments` to check if the Deployment was created.
 
    If the Deployment is still being created, the output is similar to the following:
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   0/3     0            0           1s
    ```
@@ -100,21 +100,21 @@ Follow the steps given below to create the above Deployment:
 3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`.
 
    The output is similar to:
-   ```shell
+   ```
    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
    deployment.apps/nginx-deployment successfully rolled out
    ```
 
 4. Run the `kubectl get deployments` again a few seconds later.
    The output is similar to this:
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   3/3     3            3           18s
    ```
    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
 
 5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
-   ```shell
+   ```
    NAME                          DESIRED   CURRENT   READY   AGE
    nginx-deployment-75675f5897   3         3         3       18s
    ```
@@ -131,7 +131,7 @@ Follow the steps given below to create the above Deployment:
 
 6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
    The output is similar to:
-   ```shell
+   ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
