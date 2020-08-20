@@ -5,7 +5,7 @@ weight: 40
 ---
 
 <!-- overview -->
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
+{{< glossary_definition term_id="service-catalog" length="all" prepend="서비스 카탈로그는" >}}
 
 [오픈 서비스 브로커 API 명세](https://github.com/openservicebrokerapi/servicebroker/blob/v2.13/spec.md)에 정의된 서비스 브로커는 AWS, GCP 또는 Azure와 같은 타사 클라우드 공급자에 의해 제공되고 관리되는 매니지드 서비스의 세트에 대한 엔드포인트다.
 매니지드 서비스의 예로 Microsoft Azure Cloud Queue, Amazon Simple Quere Service, Google Cloud Pub/Sub이 있으나 애플리케이션에서 사용할 수 있는 모든 소프트웨어 제품일 수 있다.
@@ -43,15 +43,15 @@ weight: 40
 
 * `ClusterServiceBroker`: 서버 연결 세부 사항을 캡슐화한, 서비스 브로커의 클러스터 내부 대표.
 이들은 클러스터 내에서 새로운 유형의 매니지드 서비스를 사용할 수 있도록 하려는 클러스터 운영자가 만들고 관리한다.
-`ClusterServiceClass`: 특정 서비스 브로커가 제공하는 매니지드 서비스.
+* `ClusterServiceClass`: 특정 서비스 브로커가 제공하는 매니지드 서비스.
 새로운 `ClusterServiceBroker` 리소스가 클러스터에 추가되면 서비스 카탈로그 컨트롤러는 서비스 브로커에 연결해서 사용 가능한 매니지드 서비스 목록을 얻는다. 그 다음 각 매니지드 서비스에 해당하는 새로운 `ClusterServiceClass` 리소스를 만든다.
-`ClusterServicePlan`: 매니지드 서비스의 특별 요청. 예를 들어, 매니지드 서비스는 무료 혹은 유료 티어와 같이 사용 가능한 서로 다른 상품이 있거나, SSD 스토리지를 사용하거나 더 많은 리소스를 갖는 등 다른 구성 옵션을 가질 수 있다. `ClusterServiceClass`와 유사하게, 새로운 `ClusterServiceBroker`가 클러스터에 추가되면, 서비스 카탈로그는 각 매니지드 서비스에 사용 가능한 서비스 플랜에 해당하는 새로운 `ClusterServicePlan` 리소스를 작성한다.
-`ServiceInstance`: `ClusterServiceClass`의 프로비저닝된 인스턴스.
+* `ClusterServicePlan`: 매니지드 서비스의 특별 요청. 예를 들어, 매니지드 서비스는 무료 혹은 유료 티어와 같이 사용 가능한 서로 다른 상품이 있거나, SSD 스토리지를 사용하거나 더 많은 리소스를 갖는 등 다른 구성 옵션을 가질 수 있다. `ClusterServiceClass`와 유사하게, 새로운 `ClusterServiceBroker`가 클러스터에 추가되면, 서비스 카탈로그는 각 매니지드 서비스에 사용 가능한 서비스 플랜에 해당하는 새로운 `ClusterServicePlan` 리소스를 작성한다.
+* `ServiceInstance`: `ClusterServiceClass`의 프로비저닝된 인스턴스.
 클러스터 운영자가 하나 이상의 클러스터 애플리케이션에서 사용할 수 있도록 매니지드 서비스의 특정 인스턴스를 사용하기 위해 생성한다.
 새로운 `ServiceInstance`리소스가 생성되면, 서비스 카탈로그 컨트롤러는 해당 서비스 브로커에 연결하여 서비스 인스턴스를 프로비저닝하도록 지시한다.
-`ServiceBinding`: `ServiceInstance`에 대한 자격 증명에 액세스한다.
+* `ServiceBinding`: `ServiceInstance`에 대한 자격 증명에 액세스한다.
 자신의 애플리케이션이 `ServiceInstance`를 사용하기를 원하는 클러스터 운영자가 이들을 생성한다.
-서비스 카탈로그 컨트롤러는 생성 시 파드(pod)에 마운트될 수 있는 서비스 인스턴스에 대한 연결 세부 정보와 자격 증명이 포함된 쿠버네티스 '시크릿(secret)'을 생성한다.
+서비스 카탈로그 컨트롤러는 생성 시 파드에 마운트될 수 있는 서비스 인스턴스에 대한 연결 세부 정보와 자격 증명이 포함된 쿠버네티스 '시크릿(secret)'을 생성한다.
 
 ### 인증
 
