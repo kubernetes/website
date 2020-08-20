@@ -44,7 +44,7 @@ weight: 10
 
 - `CheckVolumeBinding`: 파드가 요청한 볼륨에 적합할 수 있는지 평가한다. 이는 바운드된 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}와 바운드되지 않은 PVC 모두에 적용된다.
 
-## 우선순위(Priorities)
+## 우선순위(Priorities) {#priorities}
 
 다음 *우선순위(priorities)*는 스코어링(scoring)을 구현한다.
 
