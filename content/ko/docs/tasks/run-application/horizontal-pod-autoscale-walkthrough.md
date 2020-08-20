@@ -42,7 +42,7 @@ Dockerfile은 다음과 같다.
 
 ```
 FROM php:5-apache
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
 ```
 
@@ -481,5 +481,3 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 ```
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
-
-

@@ -36,17 +36,30 @@ PR 랭글러는 일주일 간 매일 다음의 일을 해야 한다.
 이 쿼리들을 수행하여 작업한 후에는, 리뷰할 나머지 PR 목록은 일반적으로 작다.
 이 쿼리들은 특히 현지화 PR을 제외한다. 모든 쿼리는 마지막 쿼리를 제외하고 메인 브렌치를 대상으로 한다.
 
-- [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge+label%3Alanguage%2Fen):
+- [CLA 서명 없음, 병합할 수 없음](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3A%22cncf-cla%3A+no%22+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3Alanguage%2Fen):
   CLA에 서명하도록 기여자에게 상기시킨다. 봇과 사람이 이미 알렸다면, PR을 닫고
   CLA에 서명한 후 PR을 열 수 있음을 알린다.
   **작성자가 CLA에 서명하지 않은 PR은 리뷰하지 않는다!**
-- [LGTM 필요](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-label%3Algtm+):
+- [LGTM 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3A%22cncf-cla%3A+no%22+-label%3Ado-not-merge%2Fwork-in-progress+-label%3Ado-not-merge%2Fhold+label%3Alanguage%2Fen+-label%3Algtm):
   멤버의 LGTM이 필요한 PR을 나열한다. PR에 기술 리뷰가 필요한 경우, 봇이 제안한 리뷰어 중 한 명을
   지정한다. 콘텐츠에 대한 작업이 필요하다면, 제안하거나 인라인 피드백을 추가한다.
-- [LGTM 보유, 문서 승인 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+label%3Algtm):
+- [LGTM 보유, 문서 승인 필요](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+-label%3Ado-not-merge%2Fwork-in-progress+-label%3Ado-not-merge%2Fhold+label%3Alanguage%2Fen+label%3Algtm+):
   병합을 위해 `/approve` 코멘트가 필요한 PR을 나열한다.
-- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22+): 명확한 결격 사유가 없는 메인 브랜치에 대한 PR을 나열한다. ([XS, S, M, L, XL, XXL] 크기의 PR을 작업할 때 크기 레이블에서 "XS"를 변경한다)
-- [메인 브랜치이외의 브랜치에 대한 PR](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Aopen+is%3Apr+-label%3Ado-not-merge+label%3Alanguage%2Fen+-base%3Amaster): `dev-` 브랜치에 대한 것일 경우, 곧 출시될 예정인 릴리스이다. `/assign @<meister's_github-username>` 을 사용하여 [문서 릴리스 관리자](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)를 할당한다. 오래된 브랜치에 대한 PR인 경우, PR 작성자가 가장 적합한 브랜치를 대상으로 하고 있는지 여부를 파악할 수 있도록 도와준다.
+- [퀵윈(Quick Wins)](https://github.com/kubernetes/website/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aopen+base%3Amaster+-label%3A%22do-not-merge%2Fwork-in-progress%22+-label%3A%22do-not-merge%2Fhold%22+label%3A%22cncf-cla%3A+yes%22+label%3A%22size%2FXS%22+label%3A%22language%2Fen%22): 명확한 결격 사유가 없는 메인 브랜치에 대한 PR을 나열한다. ([XS, S, M, L, XL, XXL] 크기의 PR을 작업할 때 크기 레이블에서 "XS"를 변경한다)
+- [메인 브랜치이외의 브랜치에 대한 PR](https://github.com/kubernetes/website/pulls?q=is%3Aopen+is%3Apr+label%3Alanguage%2Fen+-base%3Amaster): `dev-` 브랜치에 대한 것일 경우, 곧 출시될 예정인 릴리스이다. `/assign @<meister's_github-username>` 을 사용하여 [문서 릴리스 관리자](https://github.com/kubernetes/sig-release/tree/master/release-team#kubernetes-release-team-roles)를 할당한다. 오래된 브랜치에 대한 PR인 경우, PR 작성자가 가장 적합한 브랜치를 대상으로 하고 있는지 여부를 파악할 수 있도록 도와준다.
+
+### 랭글러를 위한 유용한 Prow 명령어
+
+```
+# 한글 레이블 추가
+/language ko
+
+# 둘 이상의 커밋인 경우 PR에 스쿼시 레이블 추가
+/label tide/merge-method-squash
+
+# Prow를 통해 PR 제목 변경(예: 진행 중인 작업(work-in-progress) [WIP] 또는 PR의 더 상세한 내용)
+/retitle [WIP] <TITLE>
+```
 
 ### 풀 리퀘스트를 종료하는 시기
 
