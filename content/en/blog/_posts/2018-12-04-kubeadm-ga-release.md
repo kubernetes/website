@@ -23,7 +23,7 @@ To keep kubeadm lean, focused, and vendor/infrastructure agnostic, the following
 - Non-critical add-ons, e.g. for monitoring, logging, and visualization
 - Specific cloud provider integrations
 
-Infrastructure provisioning, for example, is left to other SIG Cluster Lifecycle projects, such as the [Cluster API](https://github.com/kubernetes-sigs/cluster-api). Instead, kubeadm covers only the common denominator in every Kubernetes cluster: the [control plane](/docs/concepts/#kubernetes-control-plane). The user may install their preferred networking solution and other add-ons on top of Kubernetes *after* cluster creation.
+Infrastructure provisioning, for example, is left to other SIG Cluster Lifecycle projects, such as the [Cluster API](https://github.com/kubernetes-sigs/cluster-api). Instead, kubeadm covers only the common denominator in every Kubernetes cluster: the [control plane](/docs/concepts/overview/components/#control-plane-components). The user may install their preferred networking solution and other add-ons on top of Kubernetes *after* cluster creation.
 
 ### What kubeadm's GA release means
 
