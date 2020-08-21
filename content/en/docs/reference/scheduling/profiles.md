@@ -15,8 +15,8 @@ by implementing one or more of these extension points.
 
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the component config APIs
-([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
-or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@{{< param "fullversion" >}}/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
+([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
+or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
 The `v1alpha2` API allows you to configure kube-scheduler to run
 [multiple profiles](#multiple-profiles).
 
@@ -53,7 +53,7 @@ extension points:
    a Pod has been bound.
 1. `UnReserve`: This is an informational extension point that is called if
    a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
-   
+
 ## Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
@@ -123,7 +123,7 @@ extension points:
   Extension points: `QueueSort`.
 - `DefaultBinder`: Provides the default binding mechanism.
   Extension points: `Bind`.
-  
+
 You can also enable the following plugins, through the component config APIs,
 that are not enabled by default:
 
@@ -146,7 +146,7 @@ that are not enabled by default:
   configured labels. This plugin also favors spreading the Pods belonging to a
   Service across nodes.
   Extension points: `PreFilter`, `Filter`, `Score`.
-  
+
 ## Multiple profiles
 
 When using the component config API v1alpha2, a scheduler can be configured to
@@ -179,4 +179,3 @@ only has one pending pods queue.
 ## {{% heading "whatsnext" %}}
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-
