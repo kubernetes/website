@@ -14,7 +14,7 @@ weight: 20
 
 ### easyrsa
 
-**easyrsa**はクラスターの証明書を手動で生成できます。
+**easyrsa**を用いると、クラスターの証明書を手動で生成できます。
 
 1.  パッチを当てたバージョンのeasyrsa3をダウンロードして解凍し、初期化します。
 
@@ -229,4 +229,3 @@ done.
 ## 証明書API
 
 `certificates.k8s.io`APIを用いることで、[こちら](/ja/docs/tasks/tls/managing-tls-in-a-cluster)のドキュメントにあるように、認証に使用するx509証明書をプロビジョニングすることができます。
-
