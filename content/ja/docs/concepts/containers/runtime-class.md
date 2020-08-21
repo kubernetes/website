@@ -147,7 +147,7 @@ PodのオーバーヘッドはRuntimeClass内の`overhead`フィールドによ�
 このフィールドを使用することで、RuntimeClassを使用して稼働するPodのオーバーヘッドを指定することができ、Kubernetes内部で使用されるオーバーヘッドを確保することができます。
 
 
-## {{% heading "次の項目" %}}
+## {{% heading "whatsnext" %}}
 
 - [RuntimeClassデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class.md)
 - [RuntimeClassスケジューリングデザイン](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/runtime-class-scheduling.md)
