@@ -42,7 +42,7 @@
       {{ .GitInfo.AuthorDate.Format "January 02, 2006 at 3:04 PM PST" }}
       {{ T "main_by" }}
       <a href="https://github.com/kubernetes/website/commit/{{ .GitInfo.Hash }}/">{{ .GitInfo.Subject }}</a>
-      (<a href="https://github.com/kubernetes/website/commits/master/content/en/{{ .File.Path }}">{{ T "main_page_history" }}</a>)
+      (<a href="https://github.com/kubernetes/website/commits/master/content/{{ site.Language.Lang }}/{{ .File.Path }}">{{ T "main_page_history" }}</a>)
     </div>
   {{ end }}
 </div>
