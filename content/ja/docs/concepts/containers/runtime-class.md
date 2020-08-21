@@ -117,7 +117,7 @@ table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntim
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-CRI-Oの[設定に関するドキュメント](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)の詳細は下記を参照してください。
+詳細はCRI-Oの[設定に関するドキュメント](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)を参照してください。
 
 ## スケジューリング {#scheduling}
 
