@@ -30,7 +30,7 @@ RuntimeClass機能のフィーチャーゲートが有効になっているこ�
 1. ノード上でCRI実装を設定する。(ランタイムに依存)
 2. 対応するRuntimeClassリソースを作成する。
 
-### 1. ノード上でCRI実装を設定する。
+### 1. ノード上でCRI実装を設定する
 
 RuntimeClassを通じて利用可能な設定はContainer Runtime Interface (CRI)の実装依存となります。
 ユーザーの環境のCRI実装の設定方法は、対応するドキュメント([下記](#cri-configuration))を参照ください。
