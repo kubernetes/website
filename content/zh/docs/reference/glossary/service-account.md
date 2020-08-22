@@ -17,7 +17,7 @@ tags:
 title: Service Account
 id: service-account
 date: 2018-04-12
-full_link: /docs/tasks/configure-pod-container/configure-service-account/
+full_link: /zh/docs/tasks/configure-pod-container/configure-service-account/
 short_description: >
   Provides an identity for processes that run in a Pod.
 
