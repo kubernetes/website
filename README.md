@@ -73,7 +73,7 @@ Try checking the current limit for open files:
 
 Then run the following commands:
 
-```
+```shell
 #!/bin/sh
 
 # These are the original gist links, linking to my gists now.
