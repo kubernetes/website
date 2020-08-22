@@ -2,7 +2,7 @@
 title: 云供应商
 id: cloud-provider
 date: 2018-04-12
-full_link: /docs/concepts/cluster-administration/cloud-providers
+full_link: /zh/docs/concepts/cluster-administration/cloud-providers
 short_description: >
   云供应商是提供可以用来运行 Kubernetes 集群的云计算平台的公司。
 
@@ -16,7 +16,7 @@ tags:
 title: Cloud Provider
 id: cloud-provider
 date: 2018-04-12
-full_link: /docs/concepts/cluster-administration/cloud-providers
+full_link: /zh/docs/concepts/cluster-administration/cloud-providers
 short_description: >
   Cloud provider is a company that offers cloud computing platform that can run Kubernetes clusters.
 
