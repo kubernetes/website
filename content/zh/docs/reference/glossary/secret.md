@@ -17,7 +17,7 @@ tags:
 title: Secret
 id: secret
 date: 2018-04-12
-full_link: /docs/concepts/configuration/secret/
+full_link: /zh/docs/concepts/configuration/secret/
 short_description: >
   Stores sensitive information, such as passwords, OAuth tokens, and ssh keys.
 
