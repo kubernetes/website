@@ -17,21 +17,21 @@ Kubernetesを使用する際に、いくつかのプロキシーを使用する�
 1. [kubectlのプロキシー](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - ユーザーのデスクトップ上かPod内で稼働します
-    - ローカルホストのアドレスからKubernetes api-serverへのプロキシーを行います
+    - ローカルホストのアドレスからKubernetes apiserverへのプロキシーを行います
     - クライアントからプロキシー間ではHTTPを使用します
-    - プロキシーからapi-serverへはHTTPSを使用します
-    - api-serverの場所を示します
+    - プロキシーからapiserverへはHTTPSを使用します
+    - apiserverの場所を示します
     - 認証用のヘッダーを追加します
 
-1. [api-serverのプロキシー](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1. [apiserverのプロキシー](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
-    - api-server内で動作する防壁となります
+    - apiserver内で動作する踏み台となります
     - これがなければ到達不可能であるクラスターIPへ、クラスターの外部からのユーザーを接続します
-    - api-serverのプロセス内で稼働します
-    - クライアントからプロキシー間ではHTTPSを使用します(api-serverの設定により、HTTPを使用します)
+    - apiserverのプロセス内で稼働します
+    - クライアントからプロキシー間ではHTTPSを使用します(apiserverの設定により、HTTPを使用します)
     - プロキシーからターゲット間では利用可能な情報を使用して、プロキシーによって選択されたHTTPかHTTPSのいずれかを使用します
     - Node、Pod、Serviceへ到達可能です
-    - Serviceへ到達するとき負荷分散を行います
+    - Serviceへ到達するときは負荷分散を行います
 
 1.  [kube proxy](/ja/docs/concepts/services-networking/service/#ips-and-vips):
 
@@ -41,11 +41,11 @@ Kubernetesを使用する際に、いくつかのプロキシーを使用する�
     - 負荷分散機能を提供します
     - Serviceへ到達させるためのみに使用されます
 
-1.  api-serverの前段にあるプロキシー/ロードバランサー:
+1.  apiserverの前段にあるプロキシー/ロードバランサー:
 
     - 実際に存在するかどうかと実装はクラスターごとに異なります(例: nginx)
-    - 全てのクライアント間と、1つ以上のapi-serverの間に位置します
-    - 複数のapi-serverがあるときロードバランサーとして稼働します
+    - 全てのクライアント間と、1つ以上のapiserverの間に位置します
+    - 複数のapiserverがあるときロードバランサーとして稼働します
 
 1.  外部サービス上で稼働するクラウドロードバランサー:
 
