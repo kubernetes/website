@@ -2,7 +2,7 @@
 title: 卷
 id: volume
 date: 2018-04-12
-full_link: /docs/concepts/storage/volumes/
+full_link: /zh/docs/concepts/storage/volumes/
 short_description: >
   包含可被 Pod 中容器访问的数据的目录。
 
@@ -16,7 +16,7 @@ tags:
 title: Volume
 id: volume
 date: 2018-04-12
-full_link: /docs/concepts/storage/volumes/
+full_link: /zh/docs/concepts/storage/volumes/
 short_description: >
   A directory containing data, accessible to the containers in a pod.
 

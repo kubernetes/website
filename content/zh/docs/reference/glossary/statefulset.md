@@ -2,7 +2,7 @@
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/statefulset/
+full_link: /zh/docs/concepts/workloads/controllers/statefulset/
 short_description: >
  StatefulSet 用来管理 Deployment 和伸缩一组 Pod，并且能为这些 Pod 提供*序号和唯一性保证*。
 aka: 
@@ -18,7 +18,7 @@ tags:
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/statefulset/
+full_link: /zh/docs/concepts/workloads/controllers/statefulset/
 short_description: >
   Manages the deployment and scaling of a set of Pods, *and provides guarantees about the ordering and uniqueness* of these Pods.
 

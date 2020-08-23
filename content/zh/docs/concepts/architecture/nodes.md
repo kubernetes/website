@@ -252,7 +252,7 @@ kubectl describe node <节点名称>
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 -->
-### 地址  {#addresses}
+### 地址   {#addresses}
 
 这些字段的用法取决于你的云服务商或者物理机配置。
 

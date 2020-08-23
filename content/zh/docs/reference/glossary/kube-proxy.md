@@ -2,7 +2,7 @@
 title: kube-proxy
 id: kube-proxy
 date: 2018-04-12
-full_link: /docs/reference/command-line-tools-reference/kube-proxy/
+full_link: /zh/docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` 是集群中每个节点上运行的网络代理。
 
@@ -15,7 +15,7 @@ tags:
 title: kube-proxy
 id: kube-proxy
 date: 2018-04-12
-full_link: /docs/reference/command-line-tools-reference/kube-proxy/
+full_link: /zh/docs/reference/command-line-tools-reference/kube-proxy/
 short_description: >
   `kube-proxy` is a network proxy that runs on each node in the cluster.
 
