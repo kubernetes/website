@@ -100,8 +100,6 @@ These controllers include:
 <!--
 ### cloud-controller-manager
 
-{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
-
 The cloud-controller-manager only runs controllers that are specific to your cloud provider.
 If you are running Kubernetes on your own premises, or in a learning environment inside your
 own PC, the cluster does not have a cloud controller manager.
@@ -117,6 +115,8 @@ The following controllers can have cloud provider dependencies:
   * Service controller: For creating, updating and deleting cloud provider load balancers
 -->
 ### cloud-controller-manager
+
+{{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
 `cloud-controller-manager` 进运行特定于云平台的控制回路。
 如果你在自己的环境中运行 Kubernetes，或者在本地计算机中运行学习环境，
