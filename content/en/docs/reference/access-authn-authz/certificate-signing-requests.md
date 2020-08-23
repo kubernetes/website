@@ -304,7 +304,7 @@ kubectl create rolebinding developer-binding-john --role=developer --user=john
 
 The last step is to add this user into the KubeConfig. We assume the key and crt files are located here "/home/vagrant/work/".
 
-First, export the issued Certificate
+First, export the issued certificate from the CertificateSigningRequest:
 
 ```
 kubectl get csr john -o jsonpath='{.status.certificate}'| base64 -d > /home/vagrant/work/john.crt
