@@ -28,7 +28,7 @@ API 오브젝트로 취급되고,
 ## API 버전 규칙
 
 필드를 없애거나 리소스 표현을 재구성하기 쉽도록,
-쿠버네티스는 `/api/v1`이나 `/apis/extensions/v1beta1`과 같이
+쿠버네티스는 `/api/v1`이나 `/apis/rbac.authorization.k8s.io/v1alpha1`과 같이
 각각 다른 API 경로에서 복수의 API 버전을 지원한다.
 
 아래를 위해 버전은 리소스나 필드 수준보다는 API 수준에서 설정된다.
@@ -76,7 +76,7 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 현재 다음과 같은 다양한 API 그룹이 사용되고 있다:
 
-*  *핵심* (또는 *레거시*라고 불리는) 그룹은 `apiVersion: v1`와 같이 `apiVersion` 필드에 명시되지 않고 REST 경로 `/api/v1`에 있다.
+*  *핵심* (또는 *레거시* 라고 불리는) 그룹은 `apiVersion: v1`와 같이 `apiVersion` 필드에 명시되지 않고 REST 경로 `/api/v1`에 있다.
 *  이름이 있는 그룹은 REST 경로 `/apis/$GROUP_NAME/$VERSION`에 있으며 `apiVersion: $GROUP_NAME/$VERSION`을 사용한다
    (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/ko/docs/reference/)에서 확인할 수 있다.
 
@@ -101,11 +101,3 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 그룹이나 리소스를 활성화 또는 비활성화하려면, apiserver와 controller-manager를 재시작하여
 `--runtime-config` 변경을 반영해야 한다.
 {{< /note >}}
-
-## extensions/v1beta1 그룹 내 특정 리소스 활성화 하기
-
-데몬셋, 디플로이먼트, 스테이트풀셋, 네트워크정책, 파드보안정책 그리고 레플리카셋은 `extensions/v1beta1` API 그룹에서 기본적으로 비활성화되어있다.
-예시: 디플로이먼트와 데몬셋의 활성화 설정은
-`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true` 를 입력한다.
-
-{{< note >}}개별 리소스의 활성화/비활성화는 레거시 문제로 `extensions/v1beta1` API 그룹에서만 지원된다. {{< /note >}}

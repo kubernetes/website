@@ -669,7 +669,7 @@ rules:
 ```
 
 Extra fields are evaluated as sub-resources of the resource "userextras". To
-allow a user to use impersonation headers for the extra field "scopes," a user
+allow a user to use impersonation headers for the extra field "scopes", a user
 should be granted the following role:
 
 ```yaml

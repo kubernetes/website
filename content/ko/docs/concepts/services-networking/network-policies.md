@@ -4,8 +4,6 @@ content_type: concept
 weight: 50
 ---
 
-{{< toc >}}
-
 <!-- overview -->
 네트워크 정책은 {{< glossary_tooltip text="파드" term_id="pod">}} 그룹이 서로 간에 또는 다른 네트워크 엔드포인트와 통신할 수 있도록 허용하는 방법에 대한 명세이다.
 

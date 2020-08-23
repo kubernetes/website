@@ -199,7 +199,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 -->
 ### 仅在某些节点上运行 Pod
 
-如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet Controller 将在能够与 [Node Selector](/docs/concepts/configuration/assign-pod-node/) 匹配的节点上创建 Pod。类似这种情况，可以指定 `.spec.template.spec.affinity`，然后 DaemonSet Controller 将在能够与 [node Affinity](/docs/concepts/configuration/assign-pod-node/) 匹配的节点上创建 Pod。
+如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet Controller 将在能够与 [Node Selector](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。类似这种情况，可以指定 `.spec.template.spec.affinity`，然后 DaemonSet Controller 将在能够与 [node Affinity](/zh/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。
 如果根本就没有指定，则 DaemonSet Controller 将在所有节点上创建 Pod。
 
 <!--
@@ -232,7 +232,7 @@ DaemonSet 确保所有符合条件的节点都运行该 Pod 的一个副本。
 
 * Pod 行为的不一致性：正常 Pod 在被创建后等待调度时处于 `Pending` 状态，
   DaemonSet Pods 创建后不会处于 `Pending` 状态下。这使用户感到困惑。
-* [Pod 抢占](/zh/docs/concepts/configuration/pod-priority-preemption/)
+* [Pod 抢占](/docs/concepts/configuration/pod-priority-preemption/)
   由默认调度器处理。启用抢占后，DaemonSet 控制器将在不考虑 Pod 优先级和抢占
   的情况下制定调度决策。
 

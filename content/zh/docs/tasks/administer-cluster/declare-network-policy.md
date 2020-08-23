@@ -1,5 +1,6 @@
 ---
 title: 声明网络策略
+min-kubernetes-server-version: v1.8
 content_type: task
 ---
 <!--
@@ -16,7 +17,9 @@ content_type: task
 <!--
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
 -->
-本文可以帮助您开始使用 Kubernetes 的 [NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/) 声明网络策略去管理 Pod 之间的通信
+本文可以帮助你开始使用 Kubernetes 的
+[NetworkPolicy API](/zh/docs/concepts/services-networking/network-policies/)
+声明网络策略去管理 Pod 之间的通信
 
 ## {{% heading "prerequisites" %}}
 
@@ -31,13 +34,13 @@ Make sure you've configured a network provider with network policy support. Ther
 * [Romana](/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
 * [Weave Net](/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 -->
-您首先需要有一个支持网络策略的 Kubernetes 集群。已经有许多支持 NetworkPolicy 的网络提供商，包括：
+你首先需要有一个支持网络策略的 Kubernetes 集群。已经有许多支持 NetworkPolicy 的网络提供商，包括：
 
-* [Calico](/zh/docs/tasks/configure-pod-container/calico-network-policy/)
+* [Calico](/zh/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/)
 * [Cilium](/zh/docs/tasks/administer-cluster/network-policy-provider/cilium-network-policy/)
 * [Kube-router](/zh/docs/tasks/administer-cluster/network-policy-provider/kube-router-network-policy/)
-* [Romana](/zh/docs/tasks/configure-pod-container/romana-network-policy/)
-* [Weave 网络](/zh/docs/tasks/configure-pod-container/weave-network-policy/)
+* [Romana](/zh/docs/tasks/administer-cluster/network-policy-provider/romana-network-policy/)
+* [Weave 网络](/zh/docs/tasks/administer-cluster/network-policy-provider/weave-network-policy/)
 
 <!--
 The above list is sorted alphabetically by product name, not by recommendation or preference. This example is valid for a Kubernetes cluster using any of these providers.
@@ -56,13 +59,14 @@ To see how Kubernetes network policy works, start off by creating an `nginx` Dep
 -->
 ## 创建一个`nginx` Deployment 并且通过服务将其暴露
 
-为了查看 Kubernetes 网络策略是怎样工作的，可以从创建一个`nginx` deployment 并且通过服务将其暴露开始
+为了查看 Kubernetes 网络策略是怎样工作的，可以从创建一个`nginx` Deployment 并且通过服务将其暴露开始
 
-```console
+```shell
 kubectl create deployment nginx --image=nginx
 ```
+
 ```none
-deployment "nginx" created
+deployment.apps/nginx created
 ```
 
 <!--
@@ -73,8 +77,9 @@ Expose the Deployment through a Service called `nginx`.
 ```console
 kubectl expose deployment nginx --port=80
 ```
+
 ```none
-service "nginx" exposed
+service/nginx exposed
 ```
 
 <!--
@@ -103,7 +108,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 -->
 ## 通过从 Pod 访问服务对其进行测试
 
-您应该可以从其它的 Pod 访问这个新的 `nginx` 服务。
+你应该可以从其它的 Pod 访问这个新的 `nginx` 服务。
 要从 default 命名空间中的其它s Pod 来访问该服务。可以启动一个 busybox 容器：
 
 ```console
@@ -118,6 +123,7 @@ In your shell, run the following command:
 ```shell
 wget --spider --timeout=1 nginx
 ```
+
 ```none
 Connecting to nginx (10.100.0.16:80)
 remote file exists

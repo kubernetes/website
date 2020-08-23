@@ -2,7 +2,7 @@
 title: 标签
 id: label
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/labels
+full_link: /zh/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   用来为对象设置可标识的属性标记；这些标记对用户而言是有意义且重要的。
 
@@ -15,7 +15,7 @@ tags:
 title: Label
 id: label
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/labels
+full_link: /zh/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Tags objects with identifying attributes that are meaningful and relevant to users.
 

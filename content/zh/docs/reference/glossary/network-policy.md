@@ -2,7 +2,7 @@
 title: 网络策略
 id: network-policy
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/network-policies/
+full_link: /zh/docs/concepts/services-networking/network-policies/
 short_description: >
   网络策略是一种规范，规定了允许 Pod 组之间、Pod 与其他网络端点之间以怎样的方式进行通信。
 
@@ -18,7 +18,7 @@ tags:
 title: Network Policy
 id: network-policy
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/network-policies/
+full_link: /zh/docs/concepts/services-networking/network-policies/
 short_description: >
   A specification of how groups of Pods are allowed to communicate with each other and with other network endpoints.
 

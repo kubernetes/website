@@ -13,7 +13,17 @@ file and passing its path as a command line argument.
 
 <!-- body -->
 
-## Minimal Configuration
+A scheduling Profile allows you to configure the different stages of scheduling
+in the {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}.
+Each stage is exposed in a extension point. Plugins provide scheduling behaviors
+by implementing one or more of these extension points.
+
+You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
+using the component config APIs
+([`v1alpha1`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha1?tab=doc#KubeSchedulerConfiguration)
+or [`v1alpha2`](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1alpha2?tab=doc#KubeSchedulerConfiguration)).
+The `v1alpha2` API allows you to configure kube-scheduler to run
+[multiple profiles](#multiple-profiles).
 
 A minimal configuration looks as follows:
 
@@ -90,6 +100,10 @@ for that extension point. This can also be used to rearrange plugins order, if
 desired.
    
 ### Scheduling plugins
+1. `UnReserve`: This is an informational extension point that is called if
+   a Pod is rejected after being reserved and put on hold by a `Permit` plugin.
+
+## Scheduling plugins
 
 The following plugins, enabled by default, implement one or more of these
 extension points:
@@ -236,4 +250,3 @@ only has one pending pods queue.
 
 * Read the [kube-scheduler reference](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-

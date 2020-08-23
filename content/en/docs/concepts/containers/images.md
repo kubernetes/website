@@ -94,7 +94,7 @@ runtime to authenticate to a private container registry.
 This approach is suitable if you can control node configuration.
 
 {{< note >}}
-Kubernetes as only supports the `auths` and `HttpHeaders` section in Docker configuration.
+Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
 Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
 {{< /note >}}
 
