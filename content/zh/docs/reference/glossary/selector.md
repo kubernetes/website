@@ -2,7 +2,7 @@
 title: 选择算符
 id: selector
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/labels/
+full_link: /zh/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   选择算符允许用户通过标签对一组资源对象进行筛选过滤。
 
@@ -16,7 +16,7 @@ tags:
 title: Selector
 id: selector
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/labels/
+full_link: /zh/docs/concepts/overview/working-with-objects/labels/
 short_description: >
   Allows users to filter a list of resources based on labels.
 

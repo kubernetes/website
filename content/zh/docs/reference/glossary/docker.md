@@ -2,7 +2,7 @@
 title: docker
 id: docker
 date: 2018-04-12
-full_link: /docs/reference/kubectl/docker-cli-to-kubectl/
+full_link: /zh/docs/reference/kubectl/docker-cli-to-kubectl/
 short_description: >
   Docker 是一种可以提供操作系统级别虚拟化（也称作容器）的软件技术。
 
@@ -16,7 +16,7 @@ tags:
 title: docker
 id: docker
 date: 2018-04-12
-full_link: /docs/reference/kubectl/docker-cli-to-kubectl/
+full_link: /zh/docs/reference/kubectl/docker-cli-to-kubectl/
 short_description: >
   Docker is a software technology providing operating-system-level virtualization also known as containers.
 

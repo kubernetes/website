@@ -2,7 +2,7 @@
 title: Pod 安全策略
 id: pod-security-policy
 date: 2018-04-12
-full_link: /docs/concepts/policy/pod-security-policy/
+full_link: /zh/docs/concepts/policy/pod-security-policy/
 short_description: >
   为 Pod 的创建和更新操作启用细粒度的授权。
 
@@ -17,7 +17,7 @@ tags:
 title: Pod Security Policy
 id: pod-security-policy
 date: 2018-04-12
-full_link: /docs/concepts/policy/pod-security-policy/
+full_link: /zh/docs/concepts/policy/pod-security-policy/
 short_description: >
   Enables fine-grained authorization of pod creation and updates.
 

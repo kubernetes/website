@@ -2,7 +2,7 @@
 title: 扩展组件
 id: Extensions
 date: 2019-02-01
-full_link: /docs/concepts/extend-kubernetes/extend-cluster/#extensions
+full_link: /zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions
 short_description: >
   扩展组件是扩展并与 Kubernetes 深度集成以支持新型硬件的软件组件。
 aka:
@@ -17,7 +17,7 @@ tags:
 title: Extensions
 id: Extensions
 date: 2019-02-01
-full_link: /docs/concepts/extend-kubernetes/extend-cluster/#extensions
+full_link: /zh/docs/concepts/extend-kubernetes/extend-cluster/#extensions
 short_description: >
   Extensions are software components that extend and deeply integrate with Kubernetes to support new types of hardware.
 
