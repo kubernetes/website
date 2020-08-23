@@ -17,26 +17,15 @@ card:
 <!-- overview -->
 
 Ten rozdział poświęcony jest różnym metodom konfiguracji i uruchomienia Kubernetesa.
+Instalując Kubernetesa, przy wyborze platformy kieruj się: łatwością w utrzymaniu, spełnianymi wymogami bezpieczeństwa, poziomem sterowania, dostępnością zasobów oraz doświadczeniem wymaganym do zarządzania klastrem.
 
-Istnieje wiele rozwiązań dopasowanych do różnych potrzeb użytkowników: łatwości w utrzymaniu, wymagań bezpieczeństwa, poziomu sterowania, dostępności zasobów oraz niezbędnego doświadczenia do zarządzania klastrem.
-
-Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w prywatnym centrum obliczeniowym albo skorzystać z klastra Kubernetes udostępnianego jako usługa. Inną możliwością jest budowa własnego rozwiązania opartego o różnych dostawców usług chmurowych, bądź bazującego bezpośrednio na sprzęcie fizycznym.
-
-W dużym uproszczeniu, możesz zbudować klaster Kubernetes zarówno w środowisku szkoleniowym, jak i na potrzeby produkcyjne.
+Klaster Kubernetes możesz zainstalować na lokalnym komputerze, w chmurze czy w prywatnym centrum obliczeniowym albo skorzystać z klastra Kubernetes udostępnianego jako usługa. Inną możliwością jest budowa własnego systemu opartego o różnych dostawców usług chmurowych, bądź bazującego bezpośrednio na sprzęcie fizycznym.
 
 <!-- body -->
 
 ## Środowisko do nauki {#srodowisko-do-nauki}
 
-Aby uruchomić klaster Kubernetes do nauki na lokalnym komputerze, skorzystaj z rozwiązań opartych o Dockera — z narzędzi wspieranych przez społeczność Kubernetesa, bądź innych narzędzi dostępnych w ekosystemie.
-
-{{< table caption="Tabela z rozwiązaniami pozwalającymi na uruchomienie Kubernetesa na komputerze lokalnym - wspieranymi przez społeczność lub innymi dostępnymi w ekosystemie" >}}
-
-|Społeczność           |Ekosystem     |
-| ------------       | --------     |
-| [Minikube](/docs/setup/learning-environment/minikube/) | [Docker Desktop](https://www.docker.com/products/docker-desktop)|
-| [kind (Kubernetes IN Docker)](/docs/setup/learning-environment/kind/) | [Minishift](https://docs.okd.io/latest/minishift/)|
-|                     | [MicroK8s](https://microk8s.io/)|
+Do nauki Kubernetesa wykorzystaj narzędzia wspierane przez społeczność Kubernetesa lub inne narzędzia dostępne w ekosystemie, aby uruchomić klaster Kubernetesa na swoim komputerze lokalnym.
 
 ## Środowisko produkcyjne {#srodowisko-produkcyjne}
 

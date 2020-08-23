@@ -43,16 +43,6 @@ content_type: concept
 
 * [Запуск ZooKeeper, A CP Distributed System](/docs/tutorials/stateful-application/zookeeper/)
 
-## Конвейерная обработка CI/CD
-
-* [Настройка конвейера CI/CD с Kubernetes Часть 1: Обзор](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
-* [Настройка конвейера CI/CD с подом Jenkins в Kubernetes (Часть 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
-* [Запуск и масштабирование приложения распределённого кроссворда с CI/CD  в Kubernetes (Часть 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
-* [Настройка CI/CD для приложения распределённого кроссворда в Kubernetes (Часть 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## Кластеры
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)

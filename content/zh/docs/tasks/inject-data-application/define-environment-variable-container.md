@@ -1,14 +1,13 @@
 ---
 title: 为容器设置环境变量
 content_type: task
+weight: 20
 ---
 
 <!--
----
 title: Define Environment Variables for a Container
 content_type: task
 weight: 20
----
 -->
 
 <!-- overview -->
@@ -17,26 +16,17 @@ weight: 20
 This page shows how to define environment variables for a container
 in a Kubernetes Pod. 
 -->
-
 本页将展示如何为 kubernetes Pod 下的容器设置环境变量。
-
-
-
 
 ## {{% heading "prerequisites" %}}
 
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
 <!--
 ## Define an environment variable for a container
 -->
-
 ## 为容器设置一个环境变量
 
 <!--
@@ -44,7 +34,6 @@ When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 -->
-
 创建 Pod 时，可以为其下的容器设置环境变量。通过配置文件的 `env` 或者 `envFrom` 字段来设置环境变量。
 
 <!--
@@ -53,7 +42,6 @@ file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration file for the
 Pod:
 -->
-
 本示例中，将创建一个只包含单个容器的 Pod。Pod 的配置文件中设置环境变量的名称为 `DEMO_GREETING`，
 其值为 `"Hello from the environment"`。下面是 Pod 的配置文件内容：
 
@@ -172,10 +160,7 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 -->
 创建后，命令 `echo Warm greetings to The Most Honorable Kubernetes` 将在容器中运行。
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 * Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
@@ -183,8 +168,7 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 * See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
 -->
 
-* 有关环境变量的更多信息，请参阅[这里](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)。
-* 有关如何通过环境变量来使用 Secret，请参阅[这里](/docs/user-guide/secrets/#using-secrets-as-environment-variables)。
+* 进一步了解[环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+* 进一步了解[通过环境变量来使用 Secret](/zh/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 * 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
-
 

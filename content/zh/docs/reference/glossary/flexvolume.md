@@ -2,7 +2,7 @@
 title: FlexVolume
 id: flexvolume
 date: 2018-06-25
-full_link: /docs/concepts/storage/volumes/#flexvolume
+full_link: /zh/docs/concepts/storage/volumes/#flexvolume
 short_description: >
     Flexvolume 是创建 out-of-tree 卷插件的一种接口。 {{< glossary_tooltip text="容器存储接口（CSI）" term_id="csi" >}} 是比 Flexvolume 更新的接口，它解决了 Flexvolumes 的一些问题。
 
@@ -16,7 +16,7 @@ tags:
 title: FlexVolume
 id: flexvolume
 date: 2018-06-25
-full_link: /docs/concepts/storage/volumes/#flexvolume
+full_link: /zh/docs/concepts/storage/volumes/#flexvolume
 short_description: >
     FlexVolume is an interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface which addresses several problems with FlexVolumes.
 

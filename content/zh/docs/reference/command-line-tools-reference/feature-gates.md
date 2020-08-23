@@ -576,7 +576,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `EnableAggregatedDiscoveryTimeout` （ *已弃用* ）：对聚集的发现调用启用五秒钟超时设置。
 - `EnableEquivalenceClassCache`：调度 Pod 时，使 scheduler 缓存节点的等效项。
 - `EphemeralContainers`：启用添加 {{< glossary_tooltip text="临时容器" term_id="ephemeral-container" >}} 到正在运行的 Pod 的特性。
-- `EvenPodsSpread`：使 Pod 能够在拓扑域之间平衡调度。请参阅 [Pod 拓扑扩展约束](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
+- `EvenPodsSpread`：使 Pod 能够在拓扑域之间平衡调度。请参阅 [Pod 拓扑扩展约束](/zh/docs/concepts/workloads/pods/pod-topology-spread-constraints/)。
 - `ExpandInUsePersistentVolumes`：启用扩展使用中的 PVC。请查阅 [调整使用中的 PersistentVolumeClaim 的大小](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim)。
 - `ExpandPersistentVolumes`：启用持久卷的扩展。请查阅[扩展永久卷声明](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims)。
 - `ExperimentalCriticalPodAnnotation`：启用将特定 Pod 注解为 *critical* 的方式，用于[确保其调度](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。从 v1.13 开始，Pod 优先级和抢占功能已弃用此特性。
@@ -650,7 +650,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PersistentLocalVolumes`：在 Pod 中启用 “本地” 卷类型的使用。如果请求 “本地” 卷，则必须指定 Pod 亲和力。
 - `PodOverhead`：启用 [PodOverhead](/docs/concepts/configuration/pod-overhead/) 特性以解决 Pod 开销。
 - `PodPriority`：根据[优先级](/docs/concepts/configuration/pod-priority-preemption/)启用 Pod 的调度和抢占。
-- `PodReadinessGates`：启用 `PodReadinessGate` 字段的设置以扩展 Pod 准备状态评估。有关更多详细信息，请参见 [Pod readiness 特性门控](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
+- `PodReadinessGates`：启用 `PodReadinessGate` 字段的设置以扩展 Pod 准备状态评估。有关更多详细信息，请参见 [Pod readiness 特性门控](/zh/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)。
 
 <!--
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
@@ -710,7 +710,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ServiceLoadBalancerFinalizer`：为服务负载均衡启用终结器保护。
 - `ServiceNodeExclusion`：启用从云提供商创建的负载均衡中排除节点。如果节点标记有 `alpha.service-controller.kubernetes.io/exclude-balancer` 键或 `node.kubernetes.io/exclude-from-external-load-balancers`，则可以排除节点。
 - `ServiceTopology`: 启用服务拓扑可以让一个服务基于集群的节点拓扑进行流量路由。有关更多详细信息，请参见[Service 拓扑](https://kubernetes.io/zh/docs/concepts/services-networking/service-topology/)
-- `StartupProbe`：在 kubelet 中启用 [startup](/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) 探针。
+- `StartupProbe`：在 kubelet 中启用 [startup](/zh/docs/concepts/workloads/pods/pod-lifecycle/#when-should-you-use-a-startup-probe) 探针。
 - `StorageObjectInUseProtection`：如果仍在使用 PersistentVolume 或 PersistentVolumeClaim 对象，则将其推迟。
 
 <!--

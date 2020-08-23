@@ -4,18 +4,11 @@
     {{ partial "head.html" . }}
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
   </head>
-  <body class="td-{{ .Kind }}">
+  <body class="td-{{ .Kind }} td-documentation">
     <header>
       {{ partial "navbar.html" . }}
       {{ partial "announcement.html" . }}
-      <section class="header-hero text-center text-white font-bold pb-4">
-        <h1>
-          {{ $sectionHeading := .Site.GetPage "section" .Section }}
-          {{ with $sectionHeading }}
-            {{ .Title }}
-          {{ end }}
-        </h1>
-      </section>
+      <div class="header-filler"></div>
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
@@ -25,6 +18,9 @@
           </div>
           <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
             {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+            {{ block "deprecated" . }}
+              {{ partial "deprecation-warning.html" . }}
+            {{ end }}
               {{ block "main" . }}{{ end }}
             {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
               {{ partial "feedback.html" .Site.Params.ui.feedback }}

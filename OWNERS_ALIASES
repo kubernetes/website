@@ -107,10 +107,12 @@ aliases:
     - danninov
   sig-docs-it-owners: # Admins for Italian content
     - fabriziopandini
+    - Fale
     - mattiaperi
     - micheleberardi
   sig-docs-it-reviews: # PR reviews for Italian content
     - fabriziopandini
+    - Fale
     - mattiaperi
     - micheleberardi
   sig-docs-ja-owners: # Admins for Japanese content
@@ -138,6 +140,7 @@ aliases:
     - ianychoi
     - seokho-son
     - ysyukr
+    - pjhwa
   sig-docs-leads: # Website chairs and tech leads
     - jimangel
     - kbarnard10

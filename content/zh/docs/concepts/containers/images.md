@@ -89,34 +89,34 @@ Instead, specify a meaningful tag such as `v1.42.0`.
 <!--
 ## Updating Images
 
-The default pull policy is `IfNotPresent` which causes the Kubelet to skip
+The default pull policy is `IfNotPresent` which causes the
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip
 pulling an image if it already exists. If you would like to always force a pull,
 you can do one of the following:
--->
-## 更新镜像  {#updating-images}
 
-默认的镜像拉取策略是 `IfNotPresent`：在镜像已经存在的情况下，`kubelet` 将不再去拉取镜像。
-如果希望强制总是拉取镜像，你可以执行以下操作之一：
-
-<!--
 - set the `imagePullPolicy` of the container to `Always`.
 - omit the `imagePullPolicy` and use `:latest` as the tag for the image to use.
 - omit the `imagePullPolicy` and the tag for the image to use.
 - enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+
+When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
 -->
+## 更新镜像  {#updating-images}
+
+默认的镜像拉取策略是 `IfNotPresent`：在镜像已经存在的情况下，
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 将不再去拉取镜像。
+如果希望强制总是拉取镜像，你可以执行以下操作之一：
+
 - 设置容器的 `imagePullPolicy` 为 `Always`。
 - 省略 `imagePullPolicy`，并使用 `:latest` 作为要使用的镜像的标签。
 - 省略 `imagePullPolicy` 和要使用的镜像标签。
 - 启用 [AlwaysPullImages](/zh/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
   准入控制器（Admission Controller）。
 
-<!--
-When `imagePullPolicy` is defined without a specific value, it is also set to `Always`.
--->
 如果 `imagePullPolicy` 未被定义为特定的值，也会被设置为 `Always`。
 
 <!--
-## Building Multi-architecture Images with Manifests
+## Multi-architecture Images with Manifests
 
 As well as providing binary images, a container registry can also serve a [container image manifest](https://github.com/opencontainers/image-spec/blob/master/manifest.md). A manifest can reference image manifests for architecture-specific versions of an container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
 
@@ -139,27 +139,27 @@ YAML 文件也能兼容。
 <!--
 ## Using a Private Registry
 
-Private registries may require keys to read images from them.
+Private registries may require keys to read images from them.  
 Credentials can be provided in several ways:
 -->
-## 使用私有仓库  {#using-a-private-registry}
+## 使用私有仓库   {#using-a-private-registry}
 
 从私有仓库读取镜像时可能需要密钥。
-凭据信息可以用以下方式提供:
+凭证可以用以下方式提供:
 
 <!--
-- Configuring Nodes to Authenticate to a Private Registry
-  - all pods can read any configured private registries
-  - requires node configuration by cluster administrator
-- Pre-pulled Images
-  - all pods can use any images cached on a node
-  - requires root access to all nodes to setup
-- Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
-- Vendor-specific or local extensions
-  - if you're using a custom node configuration, you (or your cloud
-    provider) can implement your mechanism for authenticating the node
-    to the container registry.
+  - Configuring Nodes to Authenticate to a Private Registry
+    - all pods can read any configured private registries
+    - requires node configuration by cluster administrator
+  - Pre-pulled Images
+    - all pods can use any images cached on a node
+    - requires root access to all nodes to setup
+  - Specifying ImagePullSecrets on a Pod
+    - only pods which provide own keys can access the private registry
+  - Vendor-specific or local extensions
+    - if you're using a custom node configuration, you (or your cloud
+      provider) can implement your mechanism for authenticating the node
+      to the container registry.
 -->
 - 配置节点向私有仓库进行身份验证
   - 所有 Pod 均可读取任何已配置的私有仓库
@@ -174,9 +174,9 @@ Credentials can be provided in several ways:
     向容器仓库认证的机制
 
 <!--
-These options are explained in more detail below.
+These options are explaind in more detail below.
 -->
-下面将详细描述每一种方案。
+下面将详细描述每一项。
 
 <!--
 ### Configuring Nodes to authenticate to a Private Registry
@@ -300,21 +300,6 @@ pod/private-image-test-1 created
 ```
 
 <!--
-If everything is working, then, after a few moments, you can run:
--->
-如果一切正常，一段时间后，可以运行:
-
-```shell
-kubectl logs private-image-test-1
-```
-
-并看到命令输出为：
-
-```
-SUCCESS
-```
-
-<!--
 If you suspect that the command failed, you can run:
 -->
 如果你怀疑命令失败了，你可以运行：
@@ -388,7 +373,7 @@ All pods will have read access to any pre-pulled images.
 <!--
 ### Specifying ImagePullSecrets on a Pod
 -->
-### 为 Pod 设置 ImagePullSecrets
+### 在 Pod 上指定 ImagePullSecrets   {#specifying-imagepullsecrets-on-a-pod}
 
 <!--
 This is the recommended approach to run containers based on images
@@ -408,9 +393,9 @@ Kubernetes 支持在 Pod 中设置容器镜像仓库的密钥。
 
 Run the following command, substituting the appropriate uppercase values:
 -->
-#### 创建包含 Docker 配置的Secret
+#### 使用 Docker Config 创建 Secret   {#creating-a-secret-with-docker-config}
 
-将大写字母代替为合适的值，运行以下命令：
+运行以下命令，将大写字母代替为合适的值：
 
 ```shell
 kubectl create secret docker-registry <名称> \

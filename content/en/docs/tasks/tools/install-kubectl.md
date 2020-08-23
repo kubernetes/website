@@ -11,13 +11,18 @@ card:
 ---
 
 <!-- overview -->
-The Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs. For a complete list of kubectl operations, see [Overview of kubectl](/docs/reference/kubectl/overview/).
+The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
+you to run commands against Kubernetes clusters.
+You can use kubectl to deploy applications, inspect and manage cluster resources,
+and view logs. For a complete list of kubectl operations, see
+[Overview of kubectl](/docs/reference/kubectl/overview/).
 
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
-
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
 
 <!-- steps -->
 

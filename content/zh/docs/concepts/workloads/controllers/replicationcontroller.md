@@ -211,7 +211,7 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 只允许 [`.spec.template.spec.restartPolicy`](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) 等于 `Always`，如果没有指定，这是默认值。
 
 对于本地容器重启，ReplicationController 委托给节点上的代理，
-例如 [Kubelet](/docs/reference/command-line-toolls-reference/kubelet/) 或 Docker。
+例如 [Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 或 Docker。
 
 <!--
 ### Labels on the ReplicationController
@@ -546,7 +546,7 @@ Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead o
 ### Job
 
 对于预期会自行终止的 Pod (即批处理任务)，使用
-[`Job`](/docs/concepts/workloads/controllers/job/) 而不是 ReplicationController。
+[`Job`](/zh/docs/concepts/workloads/controllers/job/) 而不是 ReplicationController。
 
 <!--
 ### DaemonSet

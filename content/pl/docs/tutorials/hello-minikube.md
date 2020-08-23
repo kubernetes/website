@@ -63,7 +63,7 @@ W tym samouczku wykorzystamy obraz kontenera, który korzysta z NGINX, aby wyśw
 
 ## Stwórz Deployment
 
-[*Pod*](/docs/concepts/workloads/pods/pod/) w Kubernetes to grupa jednego lub wielu kontenerów
+[*Pod*](/docs/concepts/workloads/pods/) w Kubernetes to grupa jednego lub wielu kontenerów
 połączonych ze sobą na potrzeby administrowania i dostępu sieci. W tym samouczku Pod 
 zawiera tylko jeden kontener. [*Deployment*](/docs/concepts/workloads/controllers/deployment/)
 w Kubernetes monitoruje stan twojego Poda
@@ -115,7 +115,9 @@ wykorzystując podany obraz Dockera.
     kubectl config view
     ```
 
-    {{< note >}}Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
+    {{< note >}}
+    Więcej informacji na temat polecenia `kubectl` znajdziesz w [przeglądzie kubectl](/docs/reference/kubectl/overview/).
+    {{< /note >}}
 
 ## Stwórz Serwis
 

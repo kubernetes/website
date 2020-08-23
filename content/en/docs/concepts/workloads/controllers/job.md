@@ -8,7 +8,7 @@ feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
-weight: 60
+weight: 50
 ---
 
 <!-- overview -->

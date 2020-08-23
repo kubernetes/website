@@ -55,14 +55,14 @@ no_list: true
 
 * [어드미션 컨트롤러 사용하기](/docs/reference/access-authn-authz/admission-controllers/)는 인증과 권한 부여 후 쿠버네티스 API 서버에 대한 요청을 가로채는 플러그인에 대해 설명한다.
 
-* [쿠버네티스 클러스터에서 Sysctls 사용하기](/docs/concepts/cluster-administration/sysctl-cluster/)는 관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다.
+* [쿠버네티스 클러스터에서 Sysctls 사용하기](/docs/tasks/administer-cluster/sysctl-cluster/)는 관리자가 `sysctl` 커맨드라인 도구를 사용하여 커널 파라미터를 설정하는 방법에 대해 설명한다.
 
 * [감사(audit)](/docs/tasks/debug-application-cluster/audit/)는 쿠버네티스의 감사 로그를 다루는 방법에 대해 설명한다.
 
 ### kubelet 보안
-  * [마스터-노드 통신](/ko/docs/concepts/architecture/control-plane-node-communication/)
+  * [컨트롤 플레인-노드 통신](/ko/docs/concepts/architecture/control-plane-node-communication/)
   * [TLS 부트스트래핑(bootstrapping)](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-  * [Kubelet 인증/인가](/docs/admin/kubelet-authentication-authorization/)
+  * [Kubelet 인증/인가](/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 
 ## 선택적 클러스터 서비스
 

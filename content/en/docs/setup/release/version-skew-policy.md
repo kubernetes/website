@@ -155,7 +155,7 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 
 Example:
 
-If `kube-proxy` version is **{{< skew latestVersion >}}**:
+If `kube-proxy` version is **{{< skew oldestMinorVersion >}}**:
 
-* `kubelet` version must be at the same minor version as **{{< skew latestVersion >}}**.
+* `kubelet` version must be at the same minor version as **{{< skew oldestMinorVersion >}}**.
 * `kube-apiserver` version must be between **{{< skew oldestMinorVersion >}}** and **{{< skew latestVersion >}}**, inclusive.

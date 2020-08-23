@@ -374,12 +374,10 @@ minikube start --kubernetes-version {{< param "fullversion" >}}
 ```
 <!--
 #### Specifying the VM driver
--->
-#### 指定 VM 驱动程序
 
-<!--
 You can change the VM driver by adding the `--vm-driver=<enter_driver_name>` flag to `minikube start`.
 -->
+#### 指定 VM 驱动程序 {#specifying-the-vm-driver}
 
 您可以通过将 `--vm-driver=<enter_driver_name>` 参数添加到 `minikube start` 来更改 VM 驱动程序。
 <!--
