@@ -268,7 +268,7 @@ is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 -->
-### 从 Pod 中访问 API
+### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
 
 当你从 Pod 中访问 API 时，定位和验证 apiserver 会有些许不同。
 
