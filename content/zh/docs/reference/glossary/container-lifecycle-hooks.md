@@ -2,7 +2,7 @@
 title: 容器生命周期钩子
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: /docs/concepts/containers/container-lifecycle-hooks/
+full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   生命周期钩子暴露容器管理生命周期中的事件，允许用户在事件发生时运行代码。
 
@@ -15,7 +15,7 @@ tags:
 title: Container Lifecycle Hooks
 id: container-lifecycle-hooks
 date: 2018-10-08
-full_link: /docs/concepts/containers/container-lifecycle-hooks/
+full_link: /zh/docs/concepts/containers/container-lifecycle-hooks/
 short_description: >
   The lifecycle hooks expose events in the container management lifecycle and let the user run code when the events occur.
 

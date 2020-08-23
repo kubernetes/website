@@ -2,7 +2,7 @@
 title: 云控制器管理器
 id: cloud-controller-manager
 date: 2018-04-12
-full_link: /docs/tasks/administer-cluster/running-cloud-controller/
+full_link: /zh/docs/tasks/administer-cluster/running-cloud-controller/
 short_description: >
   云控制器管理器是 1.8 的 alpha 特性。在未来发布的版本中，这是将 Kubernetes 与任何其他云集成的最佳方式。
 
@@ -18,7 +18,7 @@ tags:
 title: Cloud Controller Manager
 id: cloud-controller-manager
 date: 2018-04-12
-full_link: /docs/tasks/administer-cluster/running-cloud-controller/
+full_link: /zh/docs/tasks/administer-cluster/running-cloud-controller/
 short_description: >
   Cloud Controller Manager is an alpha feature in 1.8. In upcoming releases it will be the preferred way to integrate Kubernetes with any cloud.
 
