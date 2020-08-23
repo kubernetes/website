@@ -171,32 +171,25 @@ docsbranch = "release-1.18"
 url = "https://v1-18.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.4"
+fullversion = "v1.17.11"
 version = "v1.17"
-githubbranch = "v1.17.4"
+githubbranch = "v1.17.11"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.16.8"
+fullversion = "v1.16.14"
 version = "v1.16"
-githubbranch = "v1.16.8"
+githubbranch = "v1.16.14"
 docsbranch = "release-1.16"
 url = "https://v1-16.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.15.11"
+fullversion = "v1.15.12"
 version = "v1.15"
-githubbranch = "v1.15.11"
+githubbranch = "v1.15.12"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
-
-[[params.versions]]
-fullversion = "v1.14.10"
-version = "v1.14"
-githubbranch = "v1.14.10"
-docsbranch = "release-1.14"
-url = "https://v1-14.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
