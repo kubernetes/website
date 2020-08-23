@@ -20,9 +20,6 @@ _데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도
 더 복잡한 구성에서는 단일 유형의 데몬에 여러 데몬셋을 사용할 수 있지만,
 각기 다른 하드웨어 유형에 따라 서로 다른 플래그, 메모리, CPU 요구가 달라진다.
 
-
-
-
 <!-- body -->
 
 ## 데몬셋 사양 작성
@@ -42,7 +39,8 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 필수 필드
 
 다른 모든 쿠버네티스 설정과 마찬가지로 데몬셋에는 `apiVersion`, `kind` 그리고 `metadata` 필드가 필요하다.
-일반적인 설정파일 작업에 대한 정보는 [애플리케이션 배포하기](/docs/user-guide/deploying-applications/),
+일반적인 설정파일 작업에 대한 정보는
+[스테이트리스 애플리케이션 실행하기](/docs/tasks/run-application/run-stateless-application-deployment/),
 [컨테이너 구성하기](/ko/docs/tasks/) 그리고 [kubectl을 사용한 오브젝트 관리](/ko/docs/concepts/overview/working-with-objects/object-management/) 문서를 참고한다.
 
 데몬셋 오브젝트의 이름은 유효한
@@ -54,7 +52,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 
 `.spec.template` 는 `.spec` 의 필수 필드 중 하나이다.
 
-`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/pod-overview/#파드-템플릿)이다. 이것은 중첩되어 있다는 점과 `apiVersion` 또는 `kind` 를 가지지 않는 것을 제외하면 [파드](/ko/docs/concepts/workloads/pods/pod/)와 정확히 같은 스키마를 가진다.
+`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 중첩되어 있다는 점과 `apiVersion` 또는 `kind` 를 가지지 않는 것을 제외하면 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확히 같은 스키마를 가진다.
 
 데몬셋의 파드 템플릿에는 파드의 필수 필드 외에도 적절한 레이블이 명시되어야
 한다([파드 셀렉터](#파드-셀렉터)를 본다).
@@ -65,7 +63,7 @@ kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ### 파드 셀렉터
 
 `.spec.selector` 필드는 파드 셀렉터이다. 이것은
-[잡](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/)의 `.spec.selector` 와 같은 동작을 한다.
+[잡](/ko/docs/concepts/workloads/controllers/job/)의 `.spec.selector` 와 같은 동작을 한다.
 
 쿠버네티스 1.8 부터는 레이블이 `.spec.template` 와 일치하는 파드 셀렉터를 명시해야 한다.
 파드 셀렉터는 비워두면 더 이상 기본 값이 설정이 되지 않는다.

@@ -2,6 +2,9 @@
 title: API Kubernetes
 content_type: concept
 weight: 30
+description: >
+  API Kubernetesa służy do odpytywania i zmiany stanu obiektów Kubernetesa.
+  Sercem warstwy sterowania Kubernetesa jest serwer API i udostępniane przez niego HTTP API. Przez ten serwer odbywa się komunikacja pomiędzy użytkownikami, różnymi częściami składowymi klastra oraz komponentami zewnętrznymi.
 card:
   name: concepts
   weight: 30
@@ -16,9 +19,6 @@ API poprzez HTTP, umożliwiając wzajemną komunikację pomiędzy użytkownikami
 API Kubernetes pozwala na sprawdzanie i zmianę stanu obiektów (przykładowo: pody, _Namespaces_, _ConfigMaps_, _Events_).
 
 Punkt dostępowe _(endpoints)_ API, typy zasobów i przykłady opisane są w [API Reference](/docs/reference/kubernetes-api/).
-
-
-
 
 <!-- body -->
 
@@ -80,7 +80,7 @@ W Kubernetes zaimplementowany jest alternatywny format serializacji na potrzeby 
 
 Aby ułatwić usuwanie poszczególnych pól lub restrukturyzację reprezentacji zasobów, Kubernetes obsługuje
 równocześnie wiele wersji API, każde poprzez osobną ścieżkę API, na przykład: `/api/v1` lub
-`/apis/extensions/v1beta1`.
+`/apis/rbac.authorization.k8s.io/v1alpha1`.
 
 Zdecydowaliśmy się na rozdział wersji na poziomie całego API, a nie na poziomie poszczególnych zasobów lub pól, aby być pewnym,
 że API odzwierciedla w sposób przejrzysty i spójny zasoby systemowe i ich zachowania i pozwala
@@ -127,7 +127,7 @@ Obecne w użyciu jest kilka grup API:
 1. Nazwane grupy udostępnione są przez ścieżkę REST `/apis/$GROUP_NAME/$VERSION` i używają `apiVersion: $GROUP_NAME/$VERSION`
    (np. `apiVersion: batch/v1`). Pełna lista wpieranych grup API jest dostępna w [Kubernetes API reference](/pl/docs/reference/).
 
-API może być rozbudowane na dwa sposoby przy użyciu [custom resources](/docs/concepts/api-extension/custom-resources/):
+API może być rozbudowane na dwa sposoby przy użyciu [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/):
 
 1. [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
    jest przewidziana dla użytkowników z minimalnymi wymaganiami CRUD.
@@ -147,19 +147,10 @@ Ta opcja przyjmuje rozdzielony przecinkami zbiór par klucz=wartość, który op
 {{< note >}}Włączenie lub wyłączenie grup lub zasobów wymaga restartu kube-apiserver i kube-controller-manager,
 aby zmiany w `--runtime-config` zostały wprowadzone.{{< /note >}}
 
-## Dostęp do grup zasobów _extensions/v1beta1_
-
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingresses, Jobs i ReplicaSets znajdują się w grupie API `extensions/v1beta1` i są domyślnie wyłączone.
-Przykładowo: aby włączyć deployments i daemonsets, ustaw
-`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
-
-{{< note >}}Włączanie i wyłączanie pojedynczych zasobów możliwe jest jedynie w ramach grupy API `extensions/v1beta1` z przyczyn historycznych{{< /note >}}
-
 ## Trwałość
 
 Kubernetes przechowuje swój stan w postaci serializowanej jako zasoby API zapisywane w
 {{< glossary_tooltip term_id="etcd" >}}.
-
 
 ## {{% heading "whatsnext" %}}
 

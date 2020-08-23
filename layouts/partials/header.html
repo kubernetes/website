@@ -7,7 +7,7 @@
         <ul class="global-nav">
             {{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
             {{ range $sections }}
-            {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}} data-proofer-ignore>{{ .LinkTitle }}</a></li>{{ end }}
+            {{ with site.GetPage "section" . }}<li><a href="{{ .RelPermalink }}"{{ if eq .Section $.Section }} class="active"{{ end}} data-proofer-ignore>{{ .Title }}</a></li>{{ end }}
             {{ end }}
             {{/* Link directly to documentation etc., if possible. */}}
             {{ $langPage := cond (gt (len .Translations) 0) . site.Home }}

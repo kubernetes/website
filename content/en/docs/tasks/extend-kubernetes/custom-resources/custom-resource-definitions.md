@@ -673,6 +673,8 @@ spec:
                 cronSpec:
                   type: string
                   pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+                image:
+                  type: string
                 replicas:
                   type: integer
                   minimum: 1
@@ -720,6 +722,8 @@ spec:
             cronSpec:
               type: string
               pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+            image:
+              type: string
             replicas:
               type: integer
               minimum: 1

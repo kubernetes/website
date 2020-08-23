@@ -916,7 +916,7 @@ Watch out when using this type of volume, because:
 * 具有相同配置（例如从 podTemplate 创建）的多个 Pod 会由于节点上文件的不同而在不同节点上有不同的行为。
 * 当 Kubernetes 按照计划添加资源感知的调度时，这类调度机制将无法考虑由 `hostPath` 使用的资源。
 * 基础主机上创建的文件或目录只能由 root 用户写入。您需要在
-[特权容器](/zh/docs/tasks/configure-pod-container/security-context/)
+[特权容器](/docs/tasks/configure-pod-container/security-context/)
 中以 root 身份运行进程，或者修改主机上的文件权限以便容器能够写入 `hostPath` 卷。
 
 <!--
@@ -1190,7 +1190,7 @@ A `persistentVolumeClaim` volume is used to mount a
 way for users to "claim" durable storage (such as a GCE PersistentDisk or an
 iSCSI volume) without knowing the details of the particular cloud environment.
 -->
-`persistentVolumeClaim` 卷用来将[持久卷](/zh/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
+`persistentVolumeClaim` 卷用来将[持久卷](/docs/concepts/storage/persistent-volumes/)（PersistentVolume）挂载到 Pod 中。
 持久卷是用户在不知道特定云环境细节的情况下"申领"持久存储（例如 GCE PersistentDisk 或者 iSCSI 卷）的一种方法。
 
 <!--
@@ -1198,7 +1198,7 @@ See the [PersistentVolumes example](/docs/concepts/storage/persistent-volumes/) 
 details.
 -->
 
-更多详情请参考[持久卷示例](/zh/docs/concepts/storage/persistent-volumes/)
+更多详情请参考[持久卷示例](/docs/concepts/storage/persistent-volumes/)
 
 ### projected {#projected}
 
@@ -1887,7 +1887,7 @@ specification, and to select the type of media to use, for clusters that have
 several media types.
 -->
 将来，我们希望 `emptyDir` 卷和 `hostPath` 卷能够使用
-[resource](/zh/docs/concepts/configuration/manage-compute-resources-containers/)
+[resource](/zh/docs/concepts/configuration/manage-resources-containers/)
 规约来请求一定量的空间，
 并且能够为具有多种介质类型的集群选择要使用的介质类型。
 
@@ -2115,7 +2115,7 @@ CSI块卷支持功能已启用，但默认情况下启用。必须为此功能�
 Learn how to
 [setup your PV/PVC with raw block volume support](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 -->
-学习怎样[安装您的带有块卷支持的 PV/PVC](/zh/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
+学习怎样[安装您的带有块卷支持的 PV/PVC](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)。
 
 <!--
 #### CSI ephemeral volumes

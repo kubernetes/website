@@ -82,7 +82,7 @@ kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 이는 `zk-hs` 헤드리스 서비스, `zk-cs` 서비스,
 `zk-pdb` PodDisruptionBudget과 `zk` 스테이트풀셋을 생성한다.
 
-```shell
+```
 service/zk-hs created
 service/zk-cs created
 poddisruptionbudget.policy/zk-pdb created
@@ -98,7 +98,7 @@ kubectl get pods -w -l app=zk
 
 `zk-2` 파드가 Running and Ready 상태가 되면, `CTRL-C`를 눌러 kubectl을 종료하자.
 
-```shell
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      0/1       Pending   0          0s
 zk-0      0/1       Pending   0         0s
@@ -135,7 +135,7 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 스테이트풀셋 컨트롤러는 각 순번 인덱스에 기초하여 각 파드에 고유한 호스트네임을 부여한다. 각 호스트네임은 `<스테이트풀셋 이름>-<순번 인덱스>` 형식을 취한다. `zk` 스테이트풀셋의 `replicas` 필드는 `3`으로 설정되었기 때문에, 그 스테이트풀셋 컨트롤러는 3개 파드의 호스트네임을 `zk-0`, `zk-1`,
 `zk-2`로 정한다.
 
-```shell
+```
 zk-0
 zk-1
 zk-2
@@ -151,7 +151,7 @@ for i in 0 1 2; do echo "myid zk-$i";kubectl exec zk-$i -- cat /var/lib/zookeepe
 
 식별자는 자연수이고, 순번 인덱스들도 음수가 아니므로, 순번에 1을 더하여 순번을 만들 수 있다.
 
-```shell
+```
 myid zk-0
 1
 myid zk-1
@@ -169,7 +169,7 @@ for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 `zk-hs` 서비스는 모든 파드를 위한 도메인인
 `zk-hs.default.svc.cluster.local`을 만든다.
 
-```shell
+```
 zk-0.zk-hs.default.svc.cluster.local
 zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
@@ -188,7 +188,7 @@ kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
 연관된다.
 이들은 `zk` 스테이트풀셋의 파드의 FQDNS을 설정한다.
 
-```shell
+```
 clientPort=2181
 dataDir=/var/lib/zookeeper/data
 dataLogDir=/var/lib/zookeeper/log
@@ -212,7 +212,9 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 합의 프로토콜에서 각 참여자의 식별자는 고유해야 한다. Zab 프로토콜에 두 참여자가 동일한 고유 식별자로 요청해서는 안된다. 이는 시스템 프로세스가 어떤 프로세스가 어떤 데이터를 커밋했는지 동의하도록 하기 위해 필수적이다. 동일 순번으로 두 개의 파드가 실행했다면 두 ZooKeeper 서버는 모두 동일한 서버로 식별된다.
 ```shell
 kubectl get pods -w -l app=zk
+```
 
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      0/1       Pending   0          0s
 zk-0      0/1       Pending   0         0s
@@ -236,7 +238,7 @@ ZooKeeper 서버의 FQDN은 단일 엔드포인트로 확인되고
 해당 엔드포인트는 `myid` 파일에 구성된 식별자를 가진
 고유한 ZooKeeper 서버가 된다.
 
-```shell
+```
 zk-0.zk-hs.default.svc.cluster.local
 zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
@@ -244,7 +246,7 @@ zk-2.zk-hs.default.svc.cluster.local
 
 이것은 ZooKeeper의 `zoo.cfg` 파일에 `servers` 속성이 정확히 구성된 앙상블로 나타나는 것을 보증한다.
 
-```shell
+```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
 server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
@@ -260,7 +262,8 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 
 ```shell
 kubectl exec zk-0 zkCli.sh create /hello world
-
+```
+```
 WATCHER::
 
 WatchedEvent state:SyncConnected type:None path:null
@@ -276,7 +279,7 @@ kubectl exec zk-1 zkCli.sh get /hello
 `zk-0`에서 생성한 그 데이터는 앙상블 내에 모든 서버에서
 사용할 수 있다.
 
-```shell
+```
 WATCHER::
 
 WatchedEvent state:SyncConnected type:None path:null
@@ -307,6 +310,9 @@ ZooKeeper는 모든 항목을 내구성있는 WAL에 커밋하고 메모리 상�
 
 ```shell
 kubectl delete statefulset zk
+```
+
+```
 statefulset.apps "zk" deleted
 ```
 
@@ -318,7 +324,7 @@ kubectl get pods -w -l app=zk
 
 `zk-0`이 완전히 종료되면 `CTRL-C`를 이용해 kubectl을 종료하자.
 
-```shell
+```
 zk-2      1/1       Terminating   0         9m
 zk-0      1/1       Terminating   0         11m
 zk-1      1/1       Terminating   0         10m
@@ -349,7 +355,7 @@ kubectl get pods -w -l app=zk
 
 `zk-2` 파드가 Running과 Ready가 되면 `CTRL-C`를 이용하여 kubectl을 종료한다.
 
-```shell
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      0/1       Pending   0          0s
 zk-0      0/1       Pending   0         0s
@@ -377,7 +383,7 @@ kubectl exec zk-2 zkCli.sh get /hello
 
 `zk` 스테이트풀셋의 모든 파드를 종료하고 재생성했음에도, 앙상블은 여전히 원래 값을 돌려준다.
 
-```shell
+```
 WATCHER::
 
 WatchedEvent state:SyncConnected type:None path:null
@@ -422,7 +428,7 @@ kubectl get pvc -l app=zk
 
 `스테이트풀셋`의 파드를 재생성할 때에 파드의 퍼시스턴트볼륨도 다시 마운트한다.
 
-```shell
+```
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
 datadir-zk-0   Bound     pvc-bed742cd-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
 datadir-zk-1   Bound     pvc-bedd27d2-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
@@ -457,6 +463,8 @@ ZooKeeper 앙상블에 서버는 리더 선출과 쿼럼을 구성하기 위한 
 
 ```shell
 kubectl get sts zk -o yaml
+```
+```
 …
 command:
       - sh
@@ -499,7 +507,7 @@ kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
 아래 로깅 구성은 ZooKeeper가 모든 로그를
 표준 출력 스트림으로 처리하게 한다.
 
-```shell
+```
 zookeeper.root.logger=CONSOLE
 zookeeper.console.threshold=INFO
 log4j.rootLogger=${zookeeper.root.logger}
@@ -519,7 +527,7 @@ kubectl logs zk-0 --tail 20
 
 `kubectl logs`를 이용하거나 쿠버네티스 대시보드에서 표준 출력과 표준 오류로 쓰인 애플리케이션 로그를 볼 수 있다.
 
-```shell
+```
 2016-12-06 19:34:16,236 [myid:1] - INFO  [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@827] - Processing ruok command from /127.0.0.1:52740
 2016-12-06 19:34:16,237 [myid:1] - INFO  [Thread-1136:NIOServerCnxn@1008] - Closed socket connection for client /127.0.0.1:52740 (no session established for client)
 2016-12-06 19:34:26,155 [myid:1] - INFO  [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxnFactory@192] - Accepted socket connection from /127.0.0.1:52749
@@ -575,7 +583,7 @@ kubectl exec zk-0 -- ps -elf
 
 `securityContext` 오브젝트의 `runAsUser` 필드 값이 1000 이므로
 루트 사용자로 실행하는 대신 ZooKeeper 프로세스는 ZooKeeper 사용자로 실행된다.
-```shell
+```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 4 S zookeep+     1     0  0  80   0 -  1127 -      20:46 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
 0 S zookeep+    27     1  0  80   0 - 1155556 -    20:46 ?        00:00:19 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
@@ -591,7 +599,7 @@ kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 
 `securityContext` 오브젝트의 `fsGroup` 필드 값이 1000 이므로, 파드의 퍼시스턴트 볼륨의 소유권은 ZooKeeper 그룹으로 지정되어 ZooKeeper 프로세스에서 읽고 쓸 수 있다.
 
-```shell
+```
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ```
 
@@ -613,7 +621,8 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
-
+```
+```
 statefulset.apps/zk patched
 ```
 
@@ -621,7 +630,8 @@ statefulset.apps/zk patched
 
 ```shell
 kubectl rollout status sts/zk
-
+```
+```
 waiting for statefulset rolling update to complete 0 pods at revision zk-5db4499664...
 Waiting for 1 pods to be ready...
 Waiting for 1 pods to be ready...
@@ -640,7 +650,9 @@ statefulset rolling update complete 3 pods at revision zk-5db4499664...
 
 ```shell
 kubectl rollout history sts/zk
+```
 
+```
 statefulsets "zk"
 REVISION
 1
@@ -651,7 +663,9 @@ REVISION
 
 ```shell
 kubectl rollout undo sts/zk
+```
 
+```
 statefulset.apps/zk rolled back
 ```
 
@@ -671,7 +685,7 @@ kubectl exec zk-0 -- ps -ef
 
 컨테이너의 엔트리 포인트로 PID 1 인 명령이 사용되었으며
 ZooKeeper 프로세스는 엔트리 포인트의 자식 프로세스로 PID 27 이다.
-```shell
+```
 UID        PID  PPID  C STIME TTY          TIME CMD
 zookeep+     1     0  0 15:03 ?        00:00:00 sh -c zkGenConfig.sh && zkServer.sh start-foreground
 zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
@@ -691,7 +705,7 @@ kubectl exec zk-0 -- pkill java
 
 ZooKeeper 프로세스의 종료는 부모 프로세스의 종료를 일으킨다. 컨테이너 `재시작정책`이 Always이기 때문에 부모 프로세스를 재시작했다.
 
-```shell
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   0          21m
 zk-1      1/1       Running   0          20m
@@ -731,7 +745,7 @@ zk-0      1/1       Running   1         29m
 검사는 ZooKeeper의 `ruok` 4 글자 단어를 이용해서 서버의 건강을 테스트하는
 배쉬 스크립트를 호출한다.
 
-```bash
+```
 OK=$(echo ruok | nc 127.0.0.1 $1)
 if [ "$OK" == "imok" ]; then
     exit 0
@@ -758,7 +772,9 @@ ZooKeeper의 활성도 검사에 실패하면,
 
 ```shell
 kubectl get pod -w -l app=zk
+```
 
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   0          1h
 zk-1      1/1       Running   0          1h
@@ -823,7 +839,7 @@ for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo "";
 
 `zk` `스테이트풀셋`에 모든 파드는 다른 노드에 배포된다.
 
-```shell
+```
 kubernetes-node-cxpk
 kubernetes-node-a5aq
 kubernetes-node-2g2d
@@ -882,7 +898,7 @@ kubectl get pdb zk-pdb
 `max-unavailable` 필드는 쿠버네티스가 `zk` `스테이트풀셋`에서 최대 1개의 파드는
 언제든지 가용하지 않을 수 있음을 나타낸다.
 
-```shell
+```
 NAME      MIN-AVAILABLE   MAX-UNAVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    N/A             1                 1
 ```
@@ -897,7 +913,9 @@ kubectl get pods -w -l app=zk
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
+```
 
+```
 kubernetes-node-pb41
 kubernetes-node-ixsl
 kubernetes-node-i4c4
@@ -908,6 +926,9 @@ kubernetes-node-i4c4
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+```
+
+```
 node "kubernetes-node-group-pb41" cordoned
 
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-group-pb41, kube-proxy-kubernetes-node-group-pb41; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-o5elz
@@ -918,7 +939,7 @@ node "kubernetes-node-group-pb41" drained
 클러스터에 4개 노드가 있기 때문에 `kubectl drain`이 성공하여
 `zk-0`을 다른 노드로 재스케쥴링 된다.
 
-```shell
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   2          1h
 zk-1      1/1       Running   0          1h
@@ -940,7 +961,9 @@ zk-0      1/1       Running   0         1m
 
 ```shell
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data "kubernetes-node-ixsl" cordoned
+```
 
+```
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-ixsl, kube-proxy-kubernetes-node-ixsl; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-voc74
 pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
@@ -950,7 +973,9 @@ node "kubernetes-node-ixsl" drained
 
 ```shell
 kubectl get pods -w -l app=zk
+```
 
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   2          1h
 zk-1      1/1       Running   0          1h
@@ -978,6 +1003,8 @@ zk-1      0/1       Pending   0         0s
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
+```
+```
 node "kubernetes-node-i4c4" cordoned
 
 WARNING: Deleting pods not managed by ReplicationController, ReplicaSet, Job, or DaemonSet: fluentd-cloud-logging-kubernetes-node-i4c4, kube-proxy-kubernetes-node-i4c4; Ignoring DaemonSet-managed pods: node-problem-detector-v0.1-dyrog
@@ -999,7 +1026,7 @@ kubectl exec zk-0 zkCli.sh get /hello
 
 `PodDisruptionBudget`이 존중되기 때문에 서비스는 여전히 가용하다.
 
-```shell
+```
 WatchedEvent state:SyncConnected type:None path:null
 world
 cZxid = 0x200000002
@@ -1019,7 +1046,8 @@ numChildren = 0
 
 ```shell
 kubectl uncordon kubernetes-node-pb41
-
+```
+```
 node "kubernetes-node-pb41" uncordoned
 ```
 
@@ -1027,7 +1055,8 @@ node "kubernetes-node-pb41" uncordoned
 
 ```shell
 kubectl get pods -w -l app=zk
-
+```
+```
 NAME      READY     STATUS    RESTARTS   AGE
 zk-0      1/1       Running   2          1h
 zk-1      1/1       Running   0          1h

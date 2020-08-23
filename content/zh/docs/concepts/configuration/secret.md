@@ -473,7 +473,7 @@ you can create the Secret on the API server with `kubectl apply`.
 -->
 #### 从生成器创建 Secret
 
-Kubectl 从 1.14 版本开始支持[使用 Kustomize 管理对象](/zh/docs/tasks/manage-kubernetes-objects/kustomization/)。
+Kubectl 从 1.14 版本开始支持[使用 Kustomize 管理对象](/docs/tasks/manage-kubernetes-objects/kustomization/)。
 Kustomize 提供资源生成器创建 Secret 和 ConfigMaps。
 Kustomize 生成器要在当前目录内的 `kustomization.yaml` 中指定。
 生成 Secret 之后，使用 `kubectl apply` 在 API 服务器上创建对象。

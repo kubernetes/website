@@ -1017,7 +1017,7 @@ for more information.
 -->
 
 该准入控制器根据与 PodPreset 中条件的匹配情况，将指定字段注入一个 pod。
-另请参见 [PodPreset 概念](/docs/concepts/workloads/pods/podpreset/)和[使用 PodPreset 将信息注入 Pod](/docs/tasks/inject-data-application/podpreset) 获取详情。
+另请参见 [PodPreset 概念](/zh/docs/concepts/workloads/pods/podpreset/)和[使用 PodPreset 将信息注入 Pod](/zh/docs/tasks/inject-data-application/podpreset) 获取详情。
 
 ### PodSecurityPolicy {#podsecuritypolicy}
 

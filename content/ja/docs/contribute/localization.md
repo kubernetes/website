@@ -86,28 +86,29 @@ card:
 
 英語 | 日本語
 --------- | ---------
+Addon/Add-on|アドオン
+Aggregation Layer | アグリゲーションレイヤー
+architecture | アーキテクチャ
+binary | バイナリ
 cluster|クラスター
+community | コミュニティ
+container | コンテナ
+controller | コントローラー
+Deployment/Deploy|KubernetesリソースとしてのDeploymentはママ表記、一般的な用語としてのdeployの場合は、デプロイ
+directory | ディレクトリ
+For more information|さらなる情報(一時的)
+GitHub | GitHub (ママ表記)
+Issue | Issue (ママ表記)
+operator | オペレーター
 orchestrate(動詞)|オーケストレーションする
 Persistent Volume|KubernetesリソースとしてのPersistentVolumeはママ表記、一般的な用語としての場合は、永続ボリューム
-Deployment/Deploy|KubernetesリソースとしてのDeploymentはママ表記、一般的な用語としてのdeployの場合は、デプロイ
-Addon/Add-on|アドオン
-Quota|クォータ
-For more information|さらなる情報(一時的)
 prefix | プレフィックス
-container | コンテナ
-directory | ディレクトリ
-binary | バイナリ
-controller | コントローラー
-opeartor | オペレーター
-Aggregation Layer | アグリゲーションレイヤー
-Issue | Issue (ママ表記)
 Pull Request | Pull Request (ママ表記)
-GitHub | GitHub (ママ表記)
+Quota|クォータ
 registry | レジストリ
-architecture | アーキテクチャ
 secure | セキュア
-stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 a set of ~ | ～の集合
+stacked | 積層(例: stacked etcd clusterは積層etcdクラスター)
 
 ### 備考
 

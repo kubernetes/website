@@ -33,7 +33,7 @@ biblioteki to:
 ## Dokumentacja poleceń tekstowych *(CLI)*
 
 * [kubectl](/docs/reference/kubectl/overview/) - Główne narzędzie tekstowe (linii poleceń) do zarządzania klastrem Kubernetes.
-  * [JSONPath](/docs/reference/kubectl/jsonpath/) - Podręcznik składni [wyrażeń JSONPath](http://goessner.net/articles/JsonPath/) dla kubectl.
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - Podręcznik składni [wyrażeń JSONPath](https://goessner.net/articles/JsonPath/) dla kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - Narzędzie tekstowe do łatwego budowania klastra Kubernetes spełniającego niezbędne wymogi bezpieczeństwa.
 
 ## Dokumentacja komponentów
@@ -48,6 +48,6 @@ biblioteki to:
 
 ## Dokumentacja projektowa
 
-Archiwum dokumentacji projektowej różnych funkcjonalności Kubernetes. Warto zacząć od [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) oraz [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
-
-
+Archiwum dokumentacji projektowej różnych funkcjonalności Kubernetes. Warto zacząć od
+[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) oraz
+[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).

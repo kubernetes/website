@@ -43,16 +43,6 @@ Antes de iniciar um tutorial, é interessante que vocẽ salve a página de [Glo
 
 * [Executando ZooKeeper no Kubernetes](/docs/tutorials/stateful-application/zookeeper/)
 
-## Pipelines de CI/CD
-
-* [Configurando um Pipeline CI/CD com Kubernetes Parte 1: Visão Geral](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
-* [Configurando um Pipeline CI/CD com um Pod Jenkins no Kubernetes (Parte 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
-* [Executando e escalando um aplicativo distribuído de palavras cruzadas com CI/CD no Kubernetes (Parte 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
-* [Configurando um CI/CD para um aplicativo distribuído de palavras cruzadas no Kubernetes (Parte 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## Clusters
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)

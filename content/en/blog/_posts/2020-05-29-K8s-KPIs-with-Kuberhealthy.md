@@ -175,7 +175,7 @@ We calculate this by measuring Kuberhealthy's [deployment check](https://github.
 
 - PromQL Query (Availability % over the past 30 days): 
   ```promql
-  1 - (sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="0"}[30d])) OR vector(0))/(sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="1"}[30d])) * 100)
+  1 - (sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="0"}[30d])) OR vector(0)) / sum(count_over_time(kuberhealthy_check{check="kuberhealthy/deployment", status="1"}[30d]))
   ```
 
 *Utilization*
