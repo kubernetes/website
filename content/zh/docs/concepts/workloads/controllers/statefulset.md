@@ -254,14 +254,14 @@ the StatefulSet.
 
 <!--
 ## Deployment and Scaling Guarantees
--->
+
 ## 部署和扩缩保证  {#deployment-and-scaling-guarantees}
 
 * For a StatefulSet with N replicas, when Pods are being deployed, they are created sequentially, in order from {0..N-1}.
 * When Pods are being deleted, they are terminated in reverse order, from {N-1..0}.
 * Before a scaling operation is applied to a Pod, all of its predecessors must be Running and Ready.
-* Before a Pod is terminated, all of its successors must be completely shutdown.
--->
+* Before a Pod is terminated, all of its successors must be completely shutdown.-->
+
 ## 部署和扩缩保证   {#deployment-and-scaling-guarantees}
 
 * 对于包含 N 个 副本的 StatefulSet，当部署 Pod 时，它们是依次创建的，顺序为 `0..N-1`。
