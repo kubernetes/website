@@ -8,7 +8,7 @@ feature:
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
 
 content_type: concept
-weight: 30
+weight: 10
 ---
 
 <!-- overview -->
@@ -84,7 +84,7 @@ Follow the steps given below to create the above Deployment:
 2. Run `kubectl get deployments` to check if the Deployment was created.
 
    If the Deployment is still being created, the output is similar to the following:
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   0/3     0            0           1s
    ```
@@ -100,21 +100,21 @@ Follow the steps given below to create the above Deployment:
 3. To see the Deployment rollout status, run `kubectl rollout status deployment.v1.apps/nginx-deployment`.
 
    The output is similar to:
-   ```shell
+   ```
    Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
    deployment.apps/nginx-deployment successfully rolled out
    ```
 
 4. Run the `kubectl get deployments` again a few seconds later.
    The output is similar to this:
-   ```shell
+   ```
    NAME               READY   UP-TO-DATE   AVAILABLE   AGE
    nginx-deployment   3/3     3            3           18s
    ```
    Notice that the Deployment has created all three replicas, and all replicas are up-to-date (they contain the latest Pod template) and available.
 
 5. To see the ReplicaSet (`rs`) created by the Deployment, run `kubectl get rs`. The output is similar to this:
-   ```shell
+   ```
    NAME                          DESIRED   CURRENT   READY   AGE
    nginx-deployment-75675f5897   3         3         3       18s
    ```
@@ -131,7 +131,7 @@ Follow the steps given below to create the above Deployment:
 
 6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
    The output is similar to:
-   ```shell
+   ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
    nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
    nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
@@ -1054,7 +1054,7 @@ The `.spec.template` and `.spec.selector` are the only required field of the `.s
 The `.spec.template` is a [Pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a Pod template in a Deployment must specify appropriate
-labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
+labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector).
 
 Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is
 allowed, which is the default if not specified.

@@ -2,7 +2,7 @@
 title: 命名空间
 id: namespace
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/namespaces
+full_link: /zh/docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   命名空间是 Kubernetes 为了在同一物理集群上支持多个虚拟集群而使用的一种抽象。
 
@@ -16,7 +16,7 @@ tags:
 title: Namespace
 id: namespace
 date: 2018-04-12
-full_link: /docs/concepts/overview/working-with-objects/namespaces
+full_link: /zh/docs/concepts/overview/working-with-objects/namespaces/
 short_description: >
   An abstraction used by Kubernetes to support multiple virtual clusters on the same physical cluster.
 

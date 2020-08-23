@@ -124,9 +124,9 @@ about when the container entered the `Running` state.
 
 ### `Terminated` {#container-state-terminated}
 
-A container in the `Terminated` state has begin execution and has then either run to
-completion or has failed for some reason. When you use `kubectl` to query a Pod with
-a container that is `Terminated`, you see a reason, and exit code, and the start and
+A container in the `Terminated` state began execution and then either ran to
+completion or failed for some reason. When you use `kubectl` to query a Pod with
+a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
 If a container has a `preStop` hook configured, that runs before the container enters
@@ -341,8 +341,8 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, the container runtime sends a a TERM signal is sent to the main process in each
-container. Once the grace period has expired, the KILL signal is sent to any remainig
+Typically, the container runtime sends a TERM signal to the main process in each
+container. Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -442,4 +442,3 @@ This avoids a resource leak as Pods are created and terminated over time.
 * For detailed information about Pod / Container status in the API, see [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
-

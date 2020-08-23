@@ -21,7 +21,7 @@
 }
 
 #announcement {
-  padding-top: 125px;
+  padding-top: 105px;
   padding-bottom: 25px;
 }
 
@@ -29,11 +29,14 @@
   padding-top: 40px;
 }
 
-#fp-announcement {
-  min-height: 30vh;
+/* Extra announcement height only for landscape viewports */
+@media (min-aspect-ratio: 8/9) {
+  #fp-announcement {
+    min-height: 25vh;
+  }
 }
 
 #fp-announcement aside {
-  padding-top: 125px;
-  padding-bottom: 35px;
+  padding-top: 115px;
+  padding-bottom: 25px;
 }

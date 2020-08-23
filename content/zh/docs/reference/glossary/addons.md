@@ -2,7 +2,7 @@
 title: 附加组件
 id: addons
 date: 2019-12-15
-full_link: /docs/concepts/cluster-administration/addons/
+full_link: /zh/docs/concepts/cluster-administration/addons/
 short_description: >
   扩展 Kubernetes 功能的资源。
 
@@ -17,7 +17,7 @@ tags:
 title: Add-ons
 id: addons
 date: 2019-12-15
-full_link: /docs/concepts/cluster-administration/addons/
+full_link: /zh/docs/concepts/cluster-administration/addons/
 short_description: >
   Resources that extend the functionality of Kubernetes.
 

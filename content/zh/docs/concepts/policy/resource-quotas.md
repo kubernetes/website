@@ -190,7 +190,7 @@ In addition, you can limit consumption of storage resources based on associated 
 -->
 ## 存储资源配额
 
-用户可以对给定命名空间下的[存储资源](/zh/docs/concepts/storage/persistent-volumes/)总量进行限制。
+用户可以对给定命名空间下的[存储资源](/docs/concepts/storage/persistent-volumes/)总量进行限制。
 
 此外，还可以根据相关的存储类（Storage Class）来限制存储资源的消耗。
 
@@ -205,9 +205,9 @@ In addition, you can limit consumption of storage resources based on associated 
 | 资源名称 | 描述 |
 | --------------------- | ----------------------------------------------------------- |
 | `requests.storage` | 所有 PVC，存储资源的需求总量不能超过该值。 |
-| `persistentvolumeclaims` | 在该命名空间中所允许的 [PVC](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 总量。 |
+| `persistentvolumeclaims` | 在该命名空间中所允许的 [PVC](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 总量。 |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | 在所有与 storage-class-name 相关的持久卷声明中，存储请求的总和不能超过该值。 |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` |  在与 storage-class-name 相关的所有持久卷声明中，命名空间中可以存在的[持久卷申领](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)总数。 |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` |  在与 storage-class-name 相关的所有持久卷声明中，命名空间中可以存在的[持久卷申领](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)总数。 |
 
 <!--
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
@@ -307,7 +307,7 @@ The following types are supported:
 | 资源名称 | 描述 |
 | ------------------------------- | ------------------------------------------------- |
 | `configmaps` | 在该命名空间中允许存在的 ConfigMap 总数上限。 |
-| `persistentvolumeclaims` | 在该命名空间中允许存在的 [PVC](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 的总数上限。 |
+| `persistentvolumeclaims` | 在该命名空间中允许存在的 [PVC](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) 的总数上限。 |
 | `pods` | 在该命名空间中允许存在的非终止状态的 pod 总数上限。Pod 终止状态等价于 Pod 的 `.status.phase in (Failed, Succeeded)` = true |
 | `replicationcontrollers` | 在该命名空间中允许存在的 RC 总数上限。 |
 | `resourcequotas` | 在该命名空间中允许存在的资源配额总数上限。 |
@@ -387,7 +387,7 @@ Pods can be created at a specific [priority](/docs/concepts/configuration/pod-pr
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 -->
-Pod 可以创建为特定的[优先级](/zh/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
+Pod 可以创建为特定的[优先级](/docs/concepts/configuration/pod-priority-preemption/#pod-priority)。
 通过使用配额规约中的 `scopeSelector` 字段，用户可以根据 Pod 的优先级控制其系统资源消耗。
 
 <!--

@@ -6,24 +6,21 @@ content_type: task
 ---
 
 <!--
----
 title: Install Service Catalog using SC
 reviewers:
 - chenopis
 content_type: task
----
 -->
 
 <!-- overview -->
-{{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog is" >}}
+{{< glossary_definition term_id="service-catalog" length="all" prepend="服务目录（Service Catalog）是" >}}
 
 <!--
 Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation) tool to easily install or uninstall Service Catalog on your Kubernetes cluster. This CLI tool is installed as `sc` in your local environment.
 -->
-使用[服务目录安装程序](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)工具可以轻松地在 Kubernetes 集群上安装或卸载服务目录。
+使用[服务目录安装程序](https://github.com/GoogleCloudPlatform/k8s-service-catalog#installation)
+工具可以轻松地在 Kubernetes 集群上安装或卸载服务目录。
 这个 CLI 工具以 `sc` 命令形式被安装在您的本地环境中。
-
-
 
 
 ## {{% heading "prerequisites" %}}
@@ -38,27 +35,25 @@ Use the [Service Catalog Installer](https://github.com/GoogleCloudPlatform/k8s-s
 
         kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
 -->
-* 了解[服务目录](/docs/concepts/service-catalog/)的主要概念。
+* 了解[服务目录](/zh/docs/concepts/service-catalog/)的主要概念。
 * 安装 [Go 1.6+](https://golang.org/dl/) 以及设置 `GOPATH`。
 * 安装生成 SSL 工件所需的 [cfssl](https://github.com/cloudflare/cfssl) 工具。
 * 服务目录需要 Kubernetes 1.7+ 版本。
-* [安装和设置 kubectl](/docs/tasks/tools/install-kubectl/)，以便将其配置为连接到 Kubernetes v1.7+ 集群。
+* [安装和设置 kubectl](/zh/docs/tasks/tools/install-kubectl/)，以便将其配置为连接到 Kubernetes v1.7+ 集群。
 * 要安装服务目录，kubectl 用户必须绑定到 *cluster-admin* 角色。为了确保这是正确的，请运行以下命令：
 
-        kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
-
-
-
+  ```
+  kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=<user-name>
+  ```
 
 <!-- steps -->
 <!--
 ## Install `sc` in your local environment
+
+Install the `sc` CLI tool using the `go get` command:
 -->
 ## 在本地环境中安装 `sc`
 
-<!--
-Install the `sc` CLI tool using the `go get` command:
--->
 使用 `go get` 命令安装 `sc` CLI 工具：
 
 ```Go
@@ -72,12 +67,11 @@ After running the above command, `sc` should be installed in your `GOPATH/bin` d
 
 <!--
 ## Install Service Catalog in your Kubernetes cluster
+
+First, verify that all dependencies have been installed. Run:
 -->
 ## 在 Kubernetes 集群中安装服务目录
 
-<!--
-First, verify that all dependencies have been installed. Run:
--->
 首先，检查是否已经安装了所有依赖项。运行：
 
 ```shell
@@ -104,19 +98,16 @@ sc install --etcd-backup-storageclass "standard"
 
 <!--
 ## Uninstall Service Catalog
+
+If you would like to uninstall Service Catalog from your Kubernetes cluster using the `sc` tool, run:
 -->
 ## 卸载服务目录
 
-<!--
-If you would like to uninstall Service Catalog from your Kubernetes cluster using the `sc` tool, run:
--->
 如果您想使用 `sc` 工具从 Kubernetes 集群卸载服务目录，请运行：
 
 ```shell
 sc uninstall
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 

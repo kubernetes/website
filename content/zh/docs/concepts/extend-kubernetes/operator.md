@@ -20,7 +20,7 @@ Kubernetes principles, notably the [control loop](/docs/concepts/#kubernetes-con
 -->
 
 Operator 是 Kubernetes 的扩展软件，它利用
-[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
+[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)管理应用及其组件。
 Operator 遵循 Kubernetes 的理念，特别是在[控制回路](/zh/docs/concepts/#kubernetes-control-plane)方面。
 
 
@@ -66,7 +66,7 @@ Kubernetes 为自动化而生。无需任何修改，您即可以从 Kubernetes 
 
 Kubernetes {{< glossary_tooltip text="控制器" term_id="controller" >}} 使您无需修改 Kubernetes 自身的代码，即可以扩展集群的行为。
 Operator 是 Kubernetes API 的客户端，充当
-[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)的控制器。
+[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)的控制器。
 
 <!--
 ## An example Operator {#example}
@@ -212,7 +212,7 @@ that can act as a [client for the Kubernetes API](/docs/reference/using-api/clie
 * Read an [article](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps) from Google Cloud about best practices for building Operators
 -->
 
-* 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 在 [OperatorHub.io](https://operatorhub.io/) 上找到现成的、适合您的 Operator
 * 借助已有的工具来编写您自己的 Operator，例如：
   * [KUDO](https://kudo.dev/) (Kubernetes 通用声明式 Operator)

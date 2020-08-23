@@ -89,7 +89,7 @@ Flags and configuration files may not always be changeable in a hosted Kubernete
 它们是声明性的，并使用与其他 Kubernetes 资源（如 Pod ）相同的约定，所以新的集群配置可以重复使用，
 并以与应用程序相同的方式进行管理。
 而且，当它们变稳定后，也遵循和其他 Kubernetes API 一样的
-[支持政策](/zh/docs/reference/using-api/deprecation-policy/)。
+[支持政策](/docs/reference/using-api/deprecation-policy/)。
 出于这些原因，在合适的情况下它们优先于 *配置文件* 和 *标志* 被使用。
 
 <!--
@@ -243,7 +243,7 @@ For more about Custom Resources, see the [Custom Resources concept guide](/docs/
 不要使用自定义资源作为应用、用户或者监控数据的数据存储。
 
 有关自定义资源的更多信息，请查看
-[自定义资源概念指南](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+[自定义资源概念指南](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
 
 <!--
 ### Combining New APIs with Automation
@@ -288,7 +288,7 @@ Kubernetes has several built-in authentication methods that it supports. It can 
 
 Kubernetes 有几个它支持的内置认证方法。它还可以位于身份验证代理之后，并将 Authorziation 头部
 中的令牌发送给远程服务（webhook）进行验证。所有这些方法都在
-[身份验证文档](/zh/docs/reference/access-authn-authz/authentication/)中介绍。
+[身份验证文档](/docs/reference/access-authn-authz/authentication/)中介绍。
 
 <!--
 ### Authentication
@@ -299,11 +299,11 @@ Kubernetes provides several built-in authentication methods, and an [Authenticat
 -->
 ### 身份认证  {#authentication}
 
-[身份认证](/zh/docs/reference/access-authn-authz/authentication/)
+[身份认证](/docs/reference/access-authn-authz/authentication/)
 将所有请求中的头部字段或证书映射为发出请求的客户端的用户名。
 
 Kubernetes 提供了几种内置的身份认证方法，如果这些方法不符合你的需求，可以使用
-[身份认证 Webhook](/zh/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 方法。
+[身份认证 Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) 方法。
 
 <!--
 ### Authorization
@@ -420,7 +420,7 @@ the nodes chosen for a pod.
 * Learn about [kubectl plugins](/docs/tasks/extend-kubectl/kubectl-plugins/)
 * Learn about the [Operator pattern](/docs/concepts/extend-kubernetes/operator/)
 -->
-* 详细了解[自定义资源](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+* 详细了解[自定义资源](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * 了解[动态准入控制](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/)
 * 详细了解基础设施扩展
   * [网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)

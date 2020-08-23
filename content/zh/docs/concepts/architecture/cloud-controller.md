@@ -265,7 +265,7 @@ The implementation of the four shared controllers highlighted above, and some sc
 For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
  -->
 
-有关开发插件的更多信息，请参阅[开发云控制器管理器](/docs/tasks/administer-cluster/developing-cloud-controller-manager/)。
+有关开发插件的更多信息，请参阅[开发云控制器管理器](/zh/docs/tasks/administer-cluster/developing-cloud-controller-manager/)。
 
 <!--
 ## Authorization
@@ -494,7 +494,7 @@ Complete instructions for configuring and running the CCM are provided
 [here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 -->
 
-[这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
+[这里](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 
 
 

@@ -29,7 +29,7 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://romana.io) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy API](/docs/concepts/services-networking/network-policies/). Kubeadm add-on installation details available [here](https://github.com/romana/romana/tree/master/containerize).
-* [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
+* [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/) provides networking and network policy, will carry on working on both sides of a network partition, and does not require an external database.
 
 ## Service Discovery
 
@@ -49,5 +49,3 @@ Add-ons in each section are sorted alphabetically - the ordering does not imply 
 There are several other add-ons documented in the deprecated [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons) directory.
 
 Well-maintained ones should be linked to here. PRs welcome!
-
-

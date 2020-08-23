@@ -251,7 +251,7 @@ different audit policies.
 
 ### Use fluentd to collect and distribute audit events from log file
 
-[Fluentd](http://www.fluentd.org/) is an open source data collector for unified logging layer.
+[Fluentd](https://www.fluentd.org/) is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
 {{< note >}}
@@ -379,7 +379,7 @@ different users into different files.
     bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
     ```
 
-1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) for kube-apiserver webhook audit backend
 
         cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
@@ -413,9 +413,5 @@ plugin which supports full-text search and analytics.
 
 ## {{% heading "whatsnext" %}}
 
-
-Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
-
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
-
 

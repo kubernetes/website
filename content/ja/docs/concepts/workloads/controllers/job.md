@@ -92,7 +92,7 @@ echo $pods
 pi-5rwd7
 ```
 
-ここでのセレクターは、Jobのセレクターと同じです。`--output = jsonpath`オプションは、返されたリストの各Podから名前だけを取得する式を指定します。
+ここでのセレクターは、Jobのセレクターと同じです。`--output=jsonpath`オプションは、返されたリストの各Podから名前だけを取得する式を指定します。
 
 
 いずれかのPodの標準出力を表示します。
@@ -107,7 +107,7 @@ kubectl logs $pods
 
 ## Jobの仕様の作成
 
-他のすべてのKubernetesの設定と同様に、Jobには`apiVersion`、` kind`、および`metadata`フィールドが必要です。
+他のすべてのKubernetesの設定と同様に、Jobには`apiVersion`、`kind`、および`metadata`フィールドが必要です。
 その名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
 Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。

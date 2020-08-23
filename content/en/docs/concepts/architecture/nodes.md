@@ -98,7 +98,7 @@ You can modify Node objects regardless of the setting of `--register-node`.
 For example, you can set labels on an existing Node, or mark it unschedulable.
 
 You can use labels on Nodes in conjunction with node selectors on Pods to control
-scheduling. For example, you can to constrain a Pod to only be eligible to run on
+scheduling. For example, you can constrain a Pod to only be eligible to run on
 a subset of the available nodes.
 
 Marking a node as unschedulable prevents the scheduler from placing new pods onto

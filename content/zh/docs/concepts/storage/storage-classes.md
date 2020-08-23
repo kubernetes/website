@@ -18,7 +18,7 @@ with [volumes](/docs/concepts/storage/volumes/) and
 [persistent volumes](/docs/concepts/storage/persistent-volumes) is suggested.
 -->
 本文描述了 Kubernetes 中 StorageClass 的概念。建议先熟悉 [卷](/zh/docs/concepts/storage/volumes/) 和
-[持久卷](/zh/docs/concepts/storage/persistent-volumes) 的概念。
+[持久卷](/docs/concepts/storage/persistent-volumes) 的概念。
 
 <!-- body -->
 
@@ -67,7 +67,7 @@ for details.
  -->
 管理员可以为没有申请绑定到特定 StorageClass 的 PVC 指定一个默认的存储类 ：
 更多详情请参阅
-[PersistentVolumeClaim 章节](/zh/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
+[PersistentVolumeClaim 章节](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -240,7 +240,7 @@ the class or PV, so mount of the PV will simply fail if one is invalid.
 The `volumeBindingMode` field controls when [volume binding and dynamic
 provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur.
  -->
-`volumeBindingMode` 字段控制了[卷绑定和动态分配](/zh/docs/concepts/storage/persistent-volumes/#provisioning)
+`volumeBindingMode` 字段控制了[卷绑定和动态分配](/docs/concepts/storage/persistent-volumes/#provisioning)
 应该发生在什么时候。
 
 <!--

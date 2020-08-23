@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		{{ partial "navbar.html" . }}
+		{{ partial "deprecation-warning.html" . }}
 		{{ block "main" . }}{{ end }}
 		{{ partialCached "footer.html" . }}
 		<!-- Disabling this as elements queries do not appear to exist on case studies -->

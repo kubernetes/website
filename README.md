@@ -58,6 +58,43 @@ make serve
 
 This will start the local Hugo server on port 1313. Open up your browser to http://localhost:1313 to view the website. As you make changes to the source files, Hugo updates the website and forces a browser refresh.
 
+### Troubleshooting macOS for too many open files
+
+If you run `make serve` on macOS and receive the following error:
+
+```
+ERROR 2020/08/01 19:09:18 Error: listen tcp 127.0.0.1:1313: socket: too many open files
+make: *** [serve] Error 1
+```
+
+Try checking the current limit for open files:
+
+`launchctl limit maxfiles`
+
+Then run the following commands:
+
+```
+#!/bin/sh
+
+# These are the original gist links, linking to my gists now.
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxfiles.plist
+# curl -O https://gist.githubusercontent.com/a2ikm/761c2ab02b7b3935679e55af5d81786a/raw/ab644cb92f216c019a2f032bbf25e258b01d87f9/limit.maxproc.plist
+
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxfiles.plist
+curl -O https://gist.githubusercontent.com/tombigel/d503800a282fcadbee14b537735d202c/raw/ed73cacf82906fdde59976a0c8248cce8b44f906/limit.maxproc.plist
+
+sudo mv limit.maxfiles.plist /Library/LaunchDaemons
+sudo mv limit.maxproc.plist /Library/LaunchDaemons
+
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxfiles.plist
+sudo chown root:wheel /Library/LaunchDaemons/limit.maxproc.plist
+
+sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+```
+
+This works for Catalina as well as Mojave macOS.
+
+
 # Get involved with SIG Docs
 
 Learn more about SIG Docs Kubernetes community and meetings on the [community page](https://github.com/kubernetes/community/tree/master/sig-docs#meetings).

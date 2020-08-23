@@ -18,7 +18,7 @@ weight: 20
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 -->
 在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes
-的 [持久卷](/zh/docs/concepts/storage/persistent-volumes/)。
+的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
 
 <!-- body -->
 
@@ -260,5 +260,5 @@ the *dataSource* field in the `PersistentVolumeClaim` object.
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 -->
-更多详细信息，请参阅 [卷快照和从快照还原卷](/zh/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
+更多详细信息，请参阅 [卷快照和从快照还原卷](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
 

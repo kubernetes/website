@@ -1,7 +1,7 @@
 ---
 title: 파드 토폴로지 분배 제약 조건
 content_type: concept
-weight: 50
+weight: 40
 ---
 
 <!-- overview -->
