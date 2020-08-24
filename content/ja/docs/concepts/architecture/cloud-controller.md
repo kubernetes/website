@@ -8,7 +8,7 @@ weight: 40
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
-クラウドインフラストラクチャ技術により、パブリック、プライベート、ハイブリッドクラウド上でKubernetesを動かすことができます。Kubernetesは、コンポーネント間の密なつながりが不要な自動化されたAPI駆動インフラストラクチャーであると考えられています。
+クラウドインフラストラクチャー技術により、パブリック、プライベート、ハイブリッドクラウド上でKubernetesを動かすことができます。Kubernetesは、コンポーネント間の密なつながりが不要な自動化されたAPI駆動インフラストラクチャーであると考えられています。
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="cloud-controller-managerは">}}
 
@@ -20,7 +20,7 @@ cloud-controller-managerは、プラグインメカニズムを用い、異な�
 
 ## 設計
 
-![Kubernetes components](/images/docs/components-of-kubernetes.png)
+![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
 
 クラウドコントローラーマネージャーは、複製されたプロセスのセットとしてコントロールプレーンで実行されます。（通常、Pod内のコンテナとなります）各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
 
