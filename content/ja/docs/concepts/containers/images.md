@@ -69,13 +69,13 @@ Kubernetes自身は、通常コンテナイメージに`-$(ARCH)`のサフィッ
   - PodでImagePullSecretsを指定する
     - キーを提供したPodのみがプライベートレジストリへアクセスできる
   - ベンダー固有またはローカルエクステンション
-    - カスタムNode構成を使っている場合、あなた(または、あなたのクラウドプロバイダー)はコンテナレジストリーへの認証の仕組みを組み込むことができる
+    - カスタムNode構成を使っている場合、あなた(または、あなたのクラウドプロバイダー)はコンテナレジストリへの認証の仕組みを組み込むことができる
 
 これらのオプションについて、以下で詳しく説明します。
 
 ### プライベートレジストリへの認証をNodeに設定する
 
-Node上でDockerを実行している場合、プライベートコンテナリポジトリへの認証をDockerコンテナランタイムに設定できます。
+Node上でDockerを実行している場合、プライベートコンテナレジストリへの認証をDockerコンテナランタイムに設定できます。
 
 Node構成を制御できる場合は、この方法が適しています。
 
@@ -110,7 +110,7 @@ kubeletプロセスの環境では、明示的に`HOME=/root`を設定する必�
       - 名称が必要な場合: `nodes=$( kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}' )`
       - IPアドレスを取得したい場合: `nodes=$( kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}' )`
    1. ローカルの`.docker/config.json`を上記の検索パスのいずれかにコピーする
-      - 例えば、これでテスト実施: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
+      - 例えば、これでテストを実施する: `for n in $nodes; do scp ~/.docker/config.json root@"$n":/var/lib/kubelet/config.json; done`
 
 {{< note >}}
 本番環境用クラスターでは、構成管理ツールを使用して必要なすべてのNodeに設定を反映してください。
@@ -161,7 +161,7 @@ kubectl describe pods/private-image-test-1 | grep 'Failed'
 そうでない場合、Podは一部のNodeで実行できますが他のNodeでは実行に失敗します。
 例えば、Nodeのオートスケールを使用している場合、各インスタンスのテンプレートに`.docker/config.json`が含まれている、またはこのファイルが含まれているドライブをマウントする必要があります。
 
-プライベートレジストリーキーを`.docker/config.json`に追加した時点で、すべてのPodがプライベートレジストリのイメージに読み取りアクセス権も持つようになります。
+プライベートレジストリキーを`.docker/config.json`に追加した時点で、すべてのPodがプライベートレジストリのイメージに読み取りアクセス権も持つようになります。
 
 ### 事前にPullしたイメージ
 
@@ -171,7 +171,7 @@ Node構成を制御できる場合、この方法が適しています。
 {{< /note >}}
 
 デフォルトでは、kubeletは指定されたレジストリからそれぞれのイメージをPullしようとします。
-しかしながら、コンテナの`imagePullPolicy`プロパティに`IfNotPresent`や`Never`が設定されている場合、ローカルのイメージが使用されます。(それぞれに対して、優先的またはか排他的に)
+また一方では、コンテナの`imagePullPolicy`プロパティに`IfNotPresent`や`Never`が設定されている場合、ローカルのイメージが使用されます。(それぞれに対して、優先的またはか排他的に)
 
 レジストリ認証の代替として事前にPullしたイメージを利用したい場合、クラスターのすべてのNodeが同じ事前にPullしたイメージを持っていることを確認する必要があります。
 
@@ -187,7 +187,7 @@ Node構成を制御できる場合、この方法が適しています。
 
 KubernetesはPodでのコンテナイメージレジストリキーの指定をサポートしています。
 
-#### Docker ConfigでSecretを作成する。
+#### Docker Configを利用してSecretを作成する。
 
 適切な大文字の値を置き換えて、次のコマンドを実行します。
 
@@ -198,7 +198,7 @@ kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SER
 既にDocker認証情報ファイルを持っている場合は、上記のコマンドの代わりに、認証情報ファイルをKubernetes {{< glossary_tooltip text="Secrets" term_id="secret" >}}としてインポートすることができます。
 [既存のDocker認証情報に基づいてSecretを作成する](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) で、この設定方法を説明します.
 
-これは複数のプライベートコンテナレジストリを使用している場合に特に有効です。`kubectl create secret docker-registry`はひとつのプライベートリポジトリーにのみ機能するSecretを作成するからです。
+これは複数のプライベートコンテナレジストリを使用している場合に特に有効です。`kubectl create secret docker-registry`はひとつのプライベートレジストリにのみ機能するSecretを作成するからです。
 
 {{< note >}}
 Podは自分自身のNamespace内にあるimage pull secretsのみが参照可能であるため、この作業はNemespace毎に1回行う必要があります。
@@ -245,7 +245,7 @@ EOF
 
 1. クラスターに独自仕様でない(例えば、オープンソース)イメージだけを実行する。イメージを非公開にする必要がない
    - Docker hubのパブリックイメージを利用する
-     - 設定は不要
+     - 設定は必要ない
      - クラウドプロバイダーによっては、可用性の向上とイメージをPullする時間を短くする為に、自動的にキャッシュやミラーされたパプリックイメージが提供される
 1. 社外には非公開の必要があるが、すべてのクラスター利用者には見せてよい独自仕様のイメージをクラスターで実行している
    - ホストされたプライペートな [Dockerレジストリ](https://docs.docker.com/registry/)を使用
@@ -260,7 +260,7 @@ EOF
    - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化かを確認する必要がある。さもないと、全部のPodがすべてのイメージへのアクセスができてしまう可能性がある
    - 機密データはイメージに含めてしまうのではなく、"Secret"リソースに移行する
 1. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである
-   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化を確認する必要あり。さもないと、すべてのテナントの全Podが全部のイメージにアクセスできてしまう可能性がある
+   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化を確認する必要がある。さもないと、すべてのテナントの全Podが全部のイメージにアクセスできてしまう可能性がある
    - 認証が必要なプライベートレジストリを実行する
    - それぞれのテナントでレジストリ認証を生成し、Secretへ設定し、各テナントのNamespaceに追加する
    - テナントは、Secretを各NamespaceのimagePullSecretsへ追加する
