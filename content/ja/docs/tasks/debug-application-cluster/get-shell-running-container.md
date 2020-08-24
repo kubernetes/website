@@ -139,14 +139,13 @@ kubectl exec -i -t my-pod --container main-app -- /bin/bash
 ```
 
 {{< note >}}
-ショートオプションの `-i` と `-t` は、ロングオプションの `--stdin` と `--tty` と同様です。
+ショートオプションの`-i`と`-t`は、ロングオプションの`--stdin`と`--tty`と同様です。
 {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
 
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)について読む。
-
 
 
 
