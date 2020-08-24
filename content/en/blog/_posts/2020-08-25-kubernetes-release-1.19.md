@@ -1,8 +1,8 @@
 ---
 layout: blog 
-title: 'Kubernetes  1.19: <NAME>'
+title: 'Kubernetes  1.19: Accentuate the Paw-sitive'
 date: 2020-08-25 
-slug: kubernetes-release-1.19-<NAME>
+slug: kubernetes-release-1.19-accentuate-the-paw-sitive
 ---
 
 **Authors:** [Kubernetes 1.19 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.19/release_team.md)
@@ -17,7 +17,7 @@ Contributors are the heart of Kubernetes, not the other way around. The Kubernet
 ### Increase Kubernetes support window to one year
 
 A survey conducted in early 2019 by the working group (WG) Long Term Support (LTS) showed that a significant subset of Kubernetes end-users fail to upgrade within the current 9-month support period. 
-This, and other responses from the survey, suggest that this 30% of users would better be able to keep their deployments on supported versions if the patch support period were extended to 12-14 months. This appears to be true regardless of whether the users are on self build or commercially vendored distributions. An extension would thus lead to more than 80% of users being on supported versions, instead of the 50-60% we have now.
+This, and other responses from the survey, suggest that 30% of users would be able to keep their deployments on supported versions if the patch support period were extended to 12-14 months. This appears to be true regardless of whether the users are on self build or commercially vendored distributions. An extension would thus lead to more than 80% of users being on supported versions, instead of the 50-60% we have now.
 A yearly support period provides the cushion end-users appear to desire, and is more in harmony with familiar annual planning cycles.
 From Kubernetes version 1.19 on, the support window will be extended to one year.
 
@@ -89,6 +89,7 @@ The milestone until which contributors implement the features was extended from 
 * The CNCF grants Zalando, Europe’s leading online platform for fashion and lifestyle, the [Top End User Award](https://www.cncf.io/announcement/2020/08/20/cloud-native-computing-foundation-grants-zalando-the-top-end-user-award/). Zalando leverages numerous CNCF projects and open sourced multiple of their own development.
 
 ## Ecosystem Updates
+* The CNCF just concluded it’s very first Virtual KubeCon. All talks are [on-demand]( https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/) for anyone registered, it's not too late!
 * The [Certified Kubernetes Security Specialist](https://www.cncf.io/blog/2020/07/15/certified-kubernetes-security-specialist-cks-coming-in-november/) (CKS) coming in November! CKS focuses on cluster & system hardening, minimizing microservice vulnerabilities and the security of the supply chain.
 * CNCF published the second [State of Cloud Native Development](https://www.cncf.io/blog/2020/08/14/state-of-cloud-native-development/), showing the massively growing number of cloud native developer using container and serverless technology.
 * [Kubernetes.dev](https://www.kubernetes.dev), a Kubernetes contributor focused website has been launched. It brings the  contributor documentation, resources and project event information into one central location.  
