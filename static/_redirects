@@ -497,3 +497,6 @@
 /docs/setup/cluster-large/     /docs/setup/best-practices/cluster-large/   301
 /docs/setup/node-conformance/     /docs/setup/best-practices/node-conformance/   301
 /docs/setup/certificates/     /docs/setup/best-practices/certificates/   301
+/concepts/configuration/resource-bin-packages.md /concepts/scheduling-eviction/resource-bin-packages.md 301
+
+
