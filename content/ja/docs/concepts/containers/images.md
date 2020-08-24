@@ -257,7 +257,7 @@ EOF
      - Nodeを手動設定するよりもクラスターのオートスケーリングのほうがうまく機能する
    - また、Node設定変更を自由にできないクラスターでは`imagePullSecrets`を使用する
 1. 独自仕様のイメージを含むクラスターで、いくつかは厳格なアクセス制御が必要である
-   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化かを確認する必要あり。さもないと、全部のPodがすべてのイメージへのアクセスができてしまう可能性がある
+   - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化かを確認する必要がある。さもないと、全部のPodがすべてのイメージへのアクセスができてしまう可能性がある
    - 機密データはイメージに含めてしまうのではなく、"Secret"リソースに移行する
 1. それぞれのテナントが独自のプライベートレジストリを必要とするマルチテナントのクラスターである
    - [AlwaysPullImagesアドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)が有効化を確認する必要あり。さもないと、すべてのテナントの全Podが全部のイメージにアクセスできてしまう可能性がある
