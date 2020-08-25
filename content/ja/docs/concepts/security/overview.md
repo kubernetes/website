@@ -73,7 +73,7 @@ Kubernetesを保護する為には２つの懸念事項があります。
 
 ### クラスターのコンポーネント {#cluster-components}
 
-想定外または悪意のあるアクセスからクラスターを保護して適切なプラクティスを採用したい場合、[クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)に関するアドバイスを読み、従ってください。
+想定外または悪意のあるアクセスからクラスターを保護して適切なプラクティスを採用したい場合、[クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)に関するアドバイスを読み従ってください。
 
 ### クラスター内のコンポーネント(アプリケーション) {#cluster-applications}
 
@@ -85,9 +85,9 @@ Kubernetesを保護する為には２つの懸念事項があります。
 RBAC認可(Kubernetes APIへのアクセス) | https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 認証 | https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/ |
 アプリケーションのSecret管理(およびetcdへの保存時に暗号化) | https://kubernetes.io/ja/docs/concepts/configuration/secret/ <br> https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/ |
-Pod Security Policies | https://kubernetes.io/docs/concepts/policy/pod-security-policy/ |
+PodSecurityPolicy | https://kubernetes.io/docs/concepts/policy/pod-security-policy/ |
 Quality of Service (およびクラスターリソース管理) | https://kubernetes.io/ja/docs/tasks/configure-pod-container/quality-service-pod/ |
-Network Policies | https://kubernetes.io/docs/concepts/services-networking/network-policies/ |
+NetworkPolicy | https://kubernetes.io/docs/concepts/services-networking/network-policies/ |
 Kubernetes IngressのTLS | https://kubernetes.io/ja/docs/concepts/services-networking/ingress/#tls |
 
 
@@ -124,9 +124,9 @@ TLS経由のアクセスのみ | コードがTCP通信を必要とする場合�
 関連するKubernetesセキュリティについて学びます。
 
 * [Podのセキュリティ基準](/docs/concepts/security/pod-security-standards/)
-* [PodのNetwork policies](/docs/concepts/services-networking/network-policies/)
+* [PodのNetworkPolicy](/docs/concepts/services-networking/network-policies/)
 * [クラスターの保護](/docs/tasks/administer-cluster/securing-a-cluster/)
 * [APIアクセスコントロール](/docs/reference/access-authn-authz/controlling-access/)
 * コントロールプレーンとの[通信時のデータ暗号化](/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [保存時のデータ暗号化](/docs/tasks/administer-cluster/encrypt-data/)
-* [Kubernetes Secrets](/ja/docs/concepts/configuration/secret/)
+* [Kubernetes Secret](/ja/docs/concepts/configuration/secret/)
