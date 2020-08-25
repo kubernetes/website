@@ -9,7 +9,7 @@ slug: kubernetes-release-1.19-accentuate-the-paw-sitive
 
 Finally, we have arrived with Kubernetes 1.19, the second release for 2020, and by far the longest release cycle lasting 20 weeks in total. It consists of 33 enhancements: 12 enhancements are moving to stable, 18 enhancements in beta, and 13 enhancements in alpha. 
 
-The 1.19 release was quite different from a regular release due to COVID-19, George Floyd protests, and several other global events that we experienced as a release team. Due to these events, we made the decision to adjust our timeline and allow SIGs, Working Groups, and contributors more time to get things done. The extra time also allowed for people to take time to focus on their lives outside of the Kubernetes project, and ensure their mental wellbeing was in a good place. 
+The 1.19 release was quite different from a regular release due to COVID-19, the George Floyd protests, and several other global events that we experienced as a release team. Due to these events, we made the decision to adjust our timeline and allow the SIGs, Working Groups, and contributors more time to get things done. The extra time also allowed for people to take time to focus on their lives outside of the Kubernetes project, and ensure their mental wellbeing was in a good place. 
 
 Contributors are the heart of Kubernetes, not the other way around. The Kubernetes code of conduct asks that people be excellent to one another and despite the unrest in our world, we saw nothing but greatness and humility from the community. 
 
