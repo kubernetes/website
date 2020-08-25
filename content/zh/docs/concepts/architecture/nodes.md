@@ -284,6 +284,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `PIDPressure`    | `True` if pressure exists on the processes - that is, if there are too many processes on the node; otherwise `False` |
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
 -->
+
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
 | 节点状况       | 描述        |
 |----------------|-------------|
