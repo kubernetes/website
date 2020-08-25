@@ -95,7 +95,7 @@ The milestone until which contributors implement the features was extended from 
 * [Kubernetes.dev](https://www.kubernetes.dev), a Kubernetes contributor focused website has been launched. It brings the  contributor documentation, resources and project event information into one central location.  
 
 ## Project Velocity
-The [K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1) illustrates the breakdown of contributions from major company contributors, as well as an impressive set of preconfigured reports on everything from individual contributors to pull request lifecycle times. If you want to gether numbers, facts and figures from Kubernetes and the CNCF community it is the best place to start. 
+The [Kubernetes DevStats dashboard](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1) illustrates the breakdown of contributions from major company contributors, as well as an impressive set of preconfigured reports on everything from individual contributors to pull request lifecycle times. If you want to gather numbers, facts and figures from Kubernetes and the CNCF community it is the best place to start. 
 
 During this release cycle from April till August, 382 different companies and over 2,464 individuals contributed to Kubernetes. [Check out DevStats](https://k8s.devstats.cncf.io/d/11/companies-contributing-in-repository-groups?orgId=1&var-period=m&var-repogroup_name=All&from=1585692000000&to=1598392799000) to learn more about the overall velocity of the Kubernetes project and community.
 
