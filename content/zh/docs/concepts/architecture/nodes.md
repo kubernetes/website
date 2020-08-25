@@ -285,6 +285,7 @@ The `conditions` field describes the status of all `Running` nodes. Examples of 
 | `NetworkUnavailable`    | `True` if the network for the node is not correctly configured, otherwise `False` |
 -->
 {{< table caption = "节点状况及每种状况适用场景的描述" >}}
+
 | 节点状况       | 描述        |
 |----------------|-------------|
 | `Ready` | 如节点是健康的并已经准备好接收 Pod 则为 `True`；`False` 表示节点不健康而且不能接收 Pod；`Unknown` 表示节点控制器在最近 `node-monitor-grace-period` 期间（默认 40 秒）没有收到节点的消息 |
