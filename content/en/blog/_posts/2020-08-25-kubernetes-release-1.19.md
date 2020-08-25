@@ -103,7 +103,7 @@ During this release cycle from April till August, 382 different companies and ov
 Join the members of the Kubernetes 1.19 release team on September 25th, 2020 to learn about the major features in this release including storage capacity tracking, structured logging, Ingress V1 GA, and many more. Register here: https://www.cncf.io/webinars/kubernetes-1-19/.
 
 ## Get Involved
-The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our weekly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
+The simplest way to get involved with Kubernetes is by joining one of the many [Special Interest Groups](https://github.com/kubernetes/community/blob/master/sig-list.md) (SIGs) that align with your interests. Have something you’d like to broadcast to the Kubernetes community? Share your voice at our monthly [community meeting](https://github.com/kubernetes/community/tree/master/communication), and through the channels below. Thank you for your continued feedback and support.
 
 * Find out more about contributing to Kubernetes at the new [Kubernetes Contributor website](https://www.kubernetes.dev/)
 * Follow us on Twitter [@Kubernetesio](https://twitter.com/kubernetesio) for latest updates
