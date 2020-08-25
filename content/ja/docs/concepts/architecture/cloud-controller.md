@@ -12,7 +12,7 @@ weight: 40
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="cloud-controller-managerは">}}
 
-cloud-controller-managerは、プラグインメカニズムを用い、異なるクラウドプロバイダーに対してそれぞれのプラットフォームとKubernetesの結合を可能にする構成になっています。
+cloud-controller-managerは、プラグイン機構を用い、異なるクラウドプロバイダーに対してそれぞれのプラットフォームとKubernetesの結合を可能にする構成になっています。
 
 
 
@@ -22,7 +22,7 @@ cloud-controller-managerは、プラグインメカニズムを用い、異な�
 
 ![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
 
-クラウドコントローラーマネージャーは、複製されたプロセスのセットとしてコントロールプレーンで実行されます。（通常、Pod内のコンテナとなります）各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
+クラウドコントローラーマネージャーは、複製されたプロセスの集合としてコントロールプレーンで実行されます。（通常、Pod内のコンテナとなります）各cloud-controller-managerは、シングルプロセスで複数の{{< glossary_tooltip text="controllers" term_id="controller" >}}を実装します。
 
 
 {{< note >}}
@@ -182,7 +182,7 @@ rules:
 
 どのようにあなた自身のクラウドコントローラーマネージャーが実装されるのか、もしくは既存プロジェクトの拡張について知りたいですか？
 
-クラウドコントローラーマネージェーは、いかなるクラウドからもプラグインとしての実装を許可するためにGoインターフェースを使います。具体的には、 [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)の [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)で定義されている`CloudProvider`を使います。
+クラウドコントローラーマネージャーは、いかなるクラウドからもプラグインとしての実装を許可するためにGoインターフェースを使います。具体的には、 [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)の [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)で定義されている`CloudProvider`を使います。
 
 本ドキュメントでハイライトした共有コントローラー（Node、Route、Service）の実装と共有クラウドプロバイダーインターフェースに沿ったいくつかの足場は、Kubernetesコアの一部です。クラウドプロバイダに特化した実装は、Kubernetesのコアの外部として、また`CloudProvider`インターフェースを実装します。
 
