@@ -21,7 +21,7 @@ weight: 30
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * {{< include "default-storage-class-prereqs.md" >}}
-* このチュートリアルは、あなたが[PersistentVolume](/docs/concepts/storage/persistent-volumes/)
+* このチュートリアルは、あなたが[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
   と[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、
   さらには[Pod](/ja/docs/concepts/workloads/pods/)、
   [Service](/ja/docs/concepts/services-networking/service/)、
