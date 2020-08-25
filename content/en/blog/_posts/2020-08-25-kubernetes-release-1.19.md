@@ -36,11 +36,14 @@ The alpha version of CSI health monitoring is being released with Kubernetes 1.1
 
 ### Graduate Ingress to V1
 In terms of moving the Ingress API towards GA, the API itself has been available in beta for so long that it has attained defacto GA status through usage and adoption (both by users and by load balancer / ingress controller providers). Abandoning it without a full replacement is not a viable approach. It is clearly a useful API and captures a non-trivial set of use cases. At this point, it seems more prudent to declare the current API as something the community will support as a V1, codifying its status, while working on either a V2 Ingress API or an entirely different API with a superset of features. 
-Structured Logging
+
+### Structured Logging
 Current logging in the Kubernetes control plane doesn’t guarantee any uniform structure for log messages and references to Kubernetes objects in those logs. This makes parsing, processing, storing, querying and analyzing logs hard and forces administrators and developers to rely on ad-hoc solutions in most cases based on some regular expressions. Due to those problems any analytical solution based on those logs is hard to implement and maintain.
-New klog methods
+
+#### New klog methods
 To enforce a new log message structure we want to introduce new methods to the klog library which will provide a more structured interface for formatting log messages compared to current methods based on fmt format strings. For each format method (`Infof`, `Errorf`) we will add a matching structured method (`InfoS`, `ErrorS`). Each of those methods accept log messages as a first argument and a list of key-values pairs as a variadic second argument. This approach allows incremental adoption of structured logging without converting ALL of kubernetes to a new API at one time.
-Kubelet Client TLS Certificate Rotation
+
+### Kubelet Client TLS Certificate Rotation
 
 Currently, a kubelet has a certificate/key pair that authenticates the kubelet to the kube-apiserver. The certificate is supplied to the kubelet when it is first booted, via an out of cluster mechanism. This enhancement covers a process for obtaining the initial cert/key pair and rotating it as expiration of the certificate approaches. 
 
