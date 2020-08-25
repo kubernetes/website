@@ -72,7 +72,7 @@ When an expiration approaches the cert manager takes care of providing the corre
 * [Immutable Secrets and ConfigMaps](https://github.com/kubernetes/enhancements/issues/1412)
 
 ## Release Notes
-Check out the full details of the Kubernetes 1.19 release in our release notes.
+Check out the full details of the Kubernetes 1.19 release in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.19.md).
 
 ## Availability
 
