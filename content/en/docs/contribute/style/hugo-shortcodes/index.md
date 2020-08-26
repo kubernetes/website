@@ -90,18 +90,38 @@ Renders to:
 
 ## Glossary
 
+There are two glossary tooltips.
+
 You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
 using the online documentation, the glossary entry displays a tooltip.
 
+As well as inclusions with tooltips, you can reuse the definitions from the glossary in
+page content.
+
 The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
 
-### Glossary Demo
+### Glossary demo
 
 For example, the following include within the markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 
-```liquid
+```
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
 ```
+
+Here's a short glossary definition:
+
+```
+{{</* glossary_definition prepend="A cluster is" term_id="cluster" length="short" */>}}
+```
+which renders as:
+{{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
+
+You can also include a full definition:
+```
+{{</* glossary_definition term_id="cluster" length="all" */>}}
+```
+which renders as:
+{{< glossary_definition term_id="cluster" length="all" >}}
 
 ## Table captions
 
