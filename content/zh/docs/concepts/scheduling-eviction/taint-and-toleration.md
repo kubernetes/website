@@ -52,10 +52,6 @@ kubectl taint nodes node1 key=value:NoSchedule
 places a taint on node `node1`. The taint has key `key`, value `value`, and taint effect `NoSchedule`.
 This means that no pod will be able to schedule onto `node1` unless it has a matching toleration.
 
-```shell
-kubectl taint nodes node1 key:NoSchedule
-```
-
 To remove the taint added by the command above, you can run:
 ```shell
 kubectl taint nodes node1 key:NoSchedule-
@@ -63,10 +59,6 @@ kubectl taint nodes node1 key:NoSchedule-
 -->
 给节点 `node1` 增加一个污点，它的键名是 `key`，键值是 `value`，效果是 `NoSchedule`。
 这表示只有拥有和这个污点相匹配的容忍度的 Pod 才能够被分配到 `node1` 这个节点。
-
-```shell
-kubectl taint nodes node1 key:NoSchedule-
-```
 
 若要移除上述命令所添加的污点，你可以执行：
 
