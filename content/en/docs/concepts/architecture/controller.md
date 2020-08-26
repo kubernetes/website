@@ -140,7 +140,7 @@ the {{< glossary_tooltip term_id="kube-controller-manager" >}}. These
 built-in controllers provide important core behaviors.
 
 The Deployment controller and Job controller are examples of controllers that
-come as part of Kubernetes itself (“built-in” controllers).
+come as part of Kubernetes itself ("built-in" controllers).
 Kubernetes lets you run a resilient control plane, so that if any of the built-in
 controllers were to fail, another part of the control plane will take over the work.
 
