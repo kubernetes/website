@@ -28,11 +28,14 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
-[deprecation_warning]
-other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
-
 [deprecation_file_warning]
 other = "廃止予定"
+
+[deprecation_title]
+other = "現在表示しているのは、次のバージョン向けのドキュメントです。Kubernetesバージョン:"
+
+[deprecation_warning]
+other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
 
 [docs_label_browse]
 other = "ドキュメントの参照"
