@@ -86,6 +86,9 @@ As the Kubernetes community has grown, our release process represents an amazing
 ## Release Logo
 All of you inspired this Kubernetes 1.19 release logo! This release was a bit more of a marathon and a testament to when the world is a wild place, we can come together and do unbelievable things. 
 
+![Kubernetes 1.19 Release Logo](/images/blog/2020-08-26-kubernetes-1.19-release-announcement/accentuate.png)
+
+
 "Accentuate the Paw-sitive" was chosen as the release theme because it captures the positive outlook that the release team had, despite the state of the world. The characters pictured in the 1.19 logo represent everyone's personalities on our release team, from emo to peppy, and beyond! 
 
 About the designer: Hannabeth Lagerlof is a Visual Designer based in Los Angeles, California, and she has an extensive background in Environments and Graphic Design. Hannabeth creates art and user experiences that inspire connection. You can find Hannabeth on Twitter as @emanate_design.
