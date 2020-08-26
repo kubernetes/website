@@ -176,6 +176,9 @@ other = "Objetivos"
 [prerequisites_heading]
 other = "Antes de você começar"
 
+[subscribe_button]
+other = "Se inscrever"
+
 [ui_search_placeholder]
 other = "Procurar"
 
