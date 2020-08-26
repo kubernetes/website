@@ -102,7 +102,7 @@ on control plane nodes when using `kubeadm init` and `kubeadm join --control-pla
 <!--
 ![Stacked etcd topology](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 -->
-！[堆叠的 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
+![堆叠的 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-stacked-etcd.svg)
 
 <!--
 ## External etcd topology
@@ -136,7 +136,7 @@ A minimum of three hosts for control plane nodes and three hosts for etcd nodes 
 <!--
 ![External etcd topology](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 -->
-！[外部 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
+![外部 etcd 拓扑](/images/kubeadm/kubeadm-ha-topology-external-etcd.svg)
 
 
 
