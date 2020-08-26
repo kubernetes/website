@@ -1,7 +1,7 @@
 ---
 layout: blog 
 title: 'Kubernetes  1.19: Accentuate the Paw-sitive'
-date: 2020-08-25 
+date: 2020-08-26 
 slug: kubernetes-release-1.19-accentuate-the-paw-sitive
 ---
 
