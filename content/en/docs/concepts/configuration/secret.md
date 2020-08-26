@@ -717,9 +717,9 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:

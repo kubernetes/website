@@ -51,40 +51,6 @@ Kubernetes already ships with two PriorityClasses:
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
 {{< /note >}}
 
-## How to disable preemption
-
-{{< caution >}}
-Critical pods rely on scheduler preemption to be scheduled when a cluster
-is under resource pressure. For this reason, it is not recommended to
-disable preemption.
-{{< /caution >}}
-
-{{< note >}}
-In Kubernetes 1.15 and later, if the feature `NonPreemptingPriority` is enabled,
-PriorityClasses have the option to set `preemptionPolicy: Never`.
-This will prevent pods of that PriorityClass from preempting other pods.
-{{< /note >}}
-
-Preemption is controlled by a kube-scheduler flag `disablePreemption`, which is
-set to `false` by default.
-If you want to disable preemption despite the above note, you can set
-`disablePreemption` to `true`.
-
-This option is available in component configs only and is not available in
-old-style command line options. Below is a sample component config to disable
-preemption:
-
-```yaml
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
-kind: KubeSchedulerConfiguration
-algorithmSource:
-  provider: DefaultProvider
-
-...
-
-disablePreemption: true
-```
-
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a
@@ -138,7 +104,7 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
@@ -161,10 +127,6 @@ which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
 If `PreemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
-
-The use of the `PreemptionPolicy` field requires the `NonPreemptingPriority`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to be enabled.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,

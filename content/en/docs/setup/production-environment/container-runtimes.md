@@ -441,6 +441,32 @@ containerd config default > /etc/containerd/config.toml
 systemctl restart containerd
 ```
 {{% /tab %}}
+{{% tab name="Windows (PowerShell)" %}}
+```powershell
+# (Install containerd)
+# download containerd
+cmd /c curl -OL https://github.com/containerd/containerd/releases/download/v1.4.0-beta.2/containerd-1.4.0-beta.2-windows-amd64.tar.gz
+cmd /c tar xvf .\containerd-1.4.0-beta.2-windows-amd64.tar.gz
+```
+
+```powershell
+# extract and configure
+Copy-Item -Path ".\bin\" -Destination "$Env:ProgramFiles\containerd" -Recurse -Force
+cd $Env:ProgramFiles\containerd\
+.\containerd.exe config default | Out-File config.toml -Encoding ascii
+
+# review the configuration. depending on setup you may want to adjust:
+# - the sandbox_image (kubernetes pause image)
+# - cni bin_dir and conf_dir locations
+Get-Content config.toml
+```
+
+```powershell
+# start containerd
+.\containerd.exe --register-service
+Start-Service containerd
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 ### systemd

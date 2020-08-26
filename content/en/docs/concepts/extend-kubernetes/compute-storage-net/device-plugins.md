@@ -92,6 +92,9 @@ The general workflow of a device plugin includes the following steps:
 
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions returns options to be communicated with Device Manager.
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch returns a stream of List of Devices
         // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
@@ -101,8 +104,29 @@ The general workflow of a device plugin includes the following steps:
         // Plugin can run device specific operations and instruct Kubelet
         // of the steps to make the Device available in the container
         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // GetPreferredAllocation returns a preferred set of devices to allocate
+        // from a list of available ones. The resulting preferred allocation is not
+        // guaranteed to be the allocation ultimately performed by the
+        // devicemanager. It is only designed to help the devicemanager make a more
+        // informed allocation decision when possible.
+        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+
+        // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+        // before each container start. Device plugin can run device specific operations
+        // such as resetting the device before making devices available to the container.
+        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
   }
   ```
+
+  {{< note >}}
+  Plugins are not required to provide useful implementations for
+  `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating which
+  (if any) of these calls are available should be set in the `DevicePluginOptions`
+  message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
+  always call `GetDevicePluginOptions()` to see which optional functions are
+  available, before calling any of them directly.
+  {{< /note >}}
 
 * The plugin registers itself with the kubelet through the Unix socket at host
   path `/var/lib/kubelet/device-plugins/kubelet.sock`.
@@ -184,7 +208,7 @@ Support for the "PodResources service" requires `KubeletPodResources` [feature g
 
 ## Device Plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 

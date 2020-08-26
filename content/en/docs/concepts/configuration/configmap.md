@@ -213,9 +213,9 @@ when new keys are projected to the Pod can be as long as the kubelet sync period
 propagation delay, where the cache propagation delay depends on the chosen cache type
 (it equals to watch propagation delay, ttl of cache, or zero correspondingly).
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use ConfigMaps
 (at least tens of thousands of unique ConfigMap to Pod mounts), preventing changes to their
 data has the following advantages:
