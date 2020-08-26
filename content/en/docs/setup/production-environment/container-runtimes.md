@@ -81,7 +81,7 @@ apt-get update && apt-get install -y \
 ```
 
 ```shell
-# Add Docker’s official GPG key:
+# Add Docker's official GPG key:
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 ```
 
@@ -381,7 +381,7 @@ apt-get update && apt-get install -y apt-transport-https ca-certificates curl so
 ```
 
 ```shell
-## Add Docker’s official GPG key
+## Add Docker's official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 ```
 

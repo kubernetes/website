@@ -30,10 +30,10 @@ In this regard, _Kubernetes does not have objects which represent normal user
 accounts._ Normal users cannot be added to a cluster through an API call.
 
 Even though normal user cannot be added via an API call, but any user that
-presents a valid certificate signed by the cluster’s certificate authority
+presents a valid certificate signed by the cluster's certificate authority
 (CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the ‘subject’ of the cert (e.g.,
-“/CN=bob”). From there, the role based access control (RBAC) sub-system would
+the username from the common name field in the 'subject' of the cert (e.g.,
+"/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
 resource. For more details, refer to the normal users topic in
 [certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
@@ -329,7 +329,7 @@ Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
 Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
-[Keycloak](https://github.com/keycloak/keycloak), 
+[Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 

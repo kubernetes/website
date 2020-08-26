@@ -90,7 +90,7 @@ Before using `--driver=none`, consult [this documentation](https://minikube.sigs
 Minikube also supports a `vm-driver=podman` similar to the Docker driver. Podman run as superuser privilege (root user) is the best way to ensure that your containers have full access to any feature available on your system.
 
 {{< caution >}}
-The `podman` driver requires running the containers as root because regular user accounts don’t have full access to all operating system features that their containers might need to run.
+The `podman` driver requires running the containers as root because regular user accounts don't have full access to all operating system features that their containers might need to run.
 {{< /caution >}}
 
 ### Install Minikube using a package

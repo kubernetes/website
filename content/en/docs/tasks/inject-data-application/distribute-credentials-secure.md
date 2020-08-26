@@ -223,7 +223,7 @@ This functionality is available in Kubernetes v1.6 and later.
    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
    ```
 
-*  Use envFrom to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+*  Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 
     {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
 
