@@ -79,8 +79,8 @@ of the scheduler:
 
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
   configure _Predicates_ for filtering and _Priorities_ for scoring.
-1. [Scheduling Profiles](/docs/reference/scheduling/profiles) allow you to
-  configure Plugins that implement different scheduling stages, including:
+1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you
+  to configure Plugins that implement different scheduling stages, including:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
 
@@ -93,3 +93,7 @@ of the scheduler:
 * Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* Learn about scheduling of Pods that use volumes in:
+  * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  * [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)
+  * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)

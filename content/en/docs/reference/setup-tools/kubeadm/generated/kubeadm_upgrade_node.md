@@ -6,6 +6,7 @@ Upgrade commands for a node in the cluster
 
 The "node" command executes the following phases:
 ```
+preflight       Run upgrade node pre-flight checks
 control-plane   Upgrade the control plane instance deployed on this node, if any
 kubelet-config  Upgrade the kubelet configuration for this node
 ```
@@ -46,10 +47,10 @@ kubeadm upgrade node [flags]
 </tr>
 
 <tr>
-<td colspan="2">-k, --experimental-kustomize string</td>
+<td colspan="2">--experimental-patches string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The path where kustomize patches for static pod manifests are stored.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</td>
 </tr>
 
 <tr>
@@ -57,6 +58,13 @@ kubeadm upgrade node [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">help for node</td>
+</tr>
+
+<tr>
+<td colspan="2">--ignore-preflight-errors stringSlice</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedUser,Swap'. Value 'all' ignores errors from all checks.</td>
 </tr>
 
 <tr>

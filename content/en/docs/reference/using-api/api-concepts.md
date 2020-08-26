@@ -414,12 +414,6 @@ object or is [combined](#merge-strategy), by the server, with the existing objec
 
 The system supports multiple appliers collaborating on a single object.
 
-This model of specifying intent makes it difficult to remove existing fields.
-When a field is removed from one's config and applied, the value will be kept
-(the system assumes that you don't care about that value anymore). If an item is
-removed from a list or a map, it will be removed if no other appliers care about
-its presence.
-
 Changes to an object's fields are tracked through a "[field management](#field-management)"
 mechanism. When a field's value changes, ownership moves from its current
 manager to the manager making the change. When trying to apply an object, fields
@@ -428,8 +422,14 @@ that have a different value and are owned by another manager will result in a
 collaborator's changes. Conflicts can be forced, in which case the value will be
 overridden, and the ownership will be transferred.
 
-It is meant both as a replacement for the original `kubectl apply` and as a
-simpler mechanism to write controllers.
+If you remove a field from a configuration and apply the configuration, server side apply checks
+if there are any other field managers that also own the field.  If the field is
+not owned by any other field managers, it is either deleted from the live
+object or reset to its default value, if it has one. The same rule applies to associative list or
+map items.
+
+Server side apply is meant both as a replacement for the original `kubectl
+apply` and as a simpler mechanism for controllers to enact their changes.
 
 ### Field Management
 
@@ -448,8 +448,12 @@ to the Server Side Apply endpoint. When using Server-Side Apply, trying to
 change a field which is managed by someone else will result in a rejected
 request (if not forced, see [Conflicts](#conflicts)).
 
-Field management is stored in a newly introduced `managedFields` field that is
-part of an object's
+When two or more appliers set a field to the same value, they share ownership of
+that field. Any subsequent attempt to change the value of the shared field, by any of
+the appliers, results in a conflict. Shared field owners may give up ownership
+of a field by removing it from their configuration.
+
+Field management is stored in a`managedFields` field that is part of an object's
 [`metadata`](/docs/reference/generated/kubernetes-api/{{< latest-version >}}/#objectmeta-v1-meta).
 
 A simple example of an object created by Server Side Apply could look like this:
@@ -635,13 +639,88 @@ read-modify-write and/or patch are the following:
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
 
+### Transferring Ownership
+
+In addition to the concurrency controls provided by [conflict
+resolution](#conflicts), Server Side Apply provides ways to perform coordinated
+field ownership transfers from users to controllers.
+
+This is best explained by example. Let's look at how to safely transfer
+ownership of the `replicas` field from a user to a controller while enabling
+automatic horizontal scaling for a Deployment, using the HorizontalPodAutoscaler
+resource and its accompanying controller.
+
+Say a user has defined deployment with `replicas` set to the desired value:
+
+{{< codenew file="application/ssa/nginx-deployment.yaml" >}}
+
+And the user has created the deployment using server side apply like so:
+
+```shell
+kubectl apply -f application/ssa/nginx-deployment.yaml --server-side
+```
+
+Then later, HPA is enabled for the deployment, e.g.:
+
+```
+kubectl autoscale deployment nginx-deployment --cpu-percent=50 --min=1 --max=10
+```
+
+Now, the user would like to remove `replicas` from their configuration, so they
+don't accidentally fight with the HPA controller. However, there is a race: it
+might take some time before HPA feels the need to adjust `replicas`, and if
+the user removes `replicas` before the HPA writes to the field and becomes
+its owner, then apiserver will set `replicas` to 1, its default value. This
+is not what the user wants to happen, even temporarily.
+
+There are two solutions:
+
+- (easy) Leave `replicas` in the configuration; when HPA eventually writes to that
+  field, the system gives the user a conflict over it. At that point, it is safe
+  to remove from the configuration.
+
+- (more advanced) If, however, the user doesn't want to wait, for example
+  because they want to keep the cluster legible to coworkers, then they can take
+  the following steps to make it safe to remove `replicas` from their
+  configuration:
+
+First, the user defines a new configuration containing only the `replicas` field:
+
+{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+
+The user applies that configuration using the field manager name `handover-to-hpa`:
+
+```shell
+kubectl apply -f application/ssa/nginx-deployment-replicas-only.yaml --server-side --field-manager=handover-to-hpa --validate=false
+```
+
+If the apply results in a conflict with the HPA controller, then do nothing. The
+conflict just indicates the controller has claimed the field earlier in the
+process than it sometimes does.
+
+At this point the user may remove the `replicas` field from their configuration.
+
+{{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
+
+Note that whenever the HPA controller sets the `replicas` field to a new value,
+the temporary field manager will no longer own any fields and will be
+automatically deleted. No clean up is required.
+
+### Transferring Ownership Between Users
+
+Users can transfer ownership of a field between each other by setting the field
+to the same value in both of their applied configs, causing them to share
+ownership of the field. Once the users share ownership of the field, one of them
+can remove the field from their applied configuration to give up ownership and
+complete the transfer to the other user.
+
 ### Comparison with Client Side Apply
 
 A consequence of the conflict detection and resolution implemented by Server
 Side Apply is that an applier always has up to date field values in their local
 state. If they don't, they get a conflict the next time they apply. Any of the
-three options to resolve conflicts results in the applied config being an up to
-date subset of the object on the server's fields.
+three options to resolve conflicts results in the applied configuration being an
+up to date subset of the object on the server's fields.
 
 This is different from Client Side Apply, where outdated values which have been
 overwritten by other users are left in an applier's local config. These values
@@ -652,6 +731,52 @@ users' changes.
 Another difference is that an applier using Client Side Apply is unable to
 change the API version they are using, but Server Side Apply supports this use
 case.
+
+### Upgrading from client-side apply to server-side apply
+
+Client-side apply users who manage a resource with `kubectl apply` can start
+using server-side apply with the following flag.
+
+```
+kubectl apply --server-side [--dry-run=server]
+```
+
+By default, field management of the object transfers from client-side apply
+to kubectl server-side apply without encountering conflicts.
+
+{{< caution >}}
+Keep the `last-applied-configuration` annotation up to date. The annotation infers client-side apply's managed fields. Any fields not managed by client-side apply raise conflicts.
+
+For example, if you used `kubectl scale` to update the replicas field after client-side apply,
+then this field is not owned by client-side apply and creates conflicts on `kubectl apply --server-side`.
+{{< /caution >}}
+
+This behavior applies to server-side apply with the `kubectl` field manager. As
+an exception, you can opt-out of this behavior by specifying a different,
+non-default field manager, as seen in the following example. The default field manager for kubectl
+server-side apply is `kubectl`.
+
+```
+kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
+```
+
+### Downgrading from server-side apply to client-side apply
+
+If you manage a resource with `kubectl apply --server-side`,
+you can downgrade to client-side apply directly with `kubectl apply`.
+
+Downgrading works because kubectl server-side apply keeps the
+`last-applied-configuration` annotation up-to-date if you use
+`kubectl apply`.
+
+This behavior applies to server-side apply with the `kubectl` field manager. As
+an exception, you can opt-out of this behavior by specifying a different,
+non-default field manager, as seen in the following example. The default field manager for kubectl
+server-side apply is `kubectl`.
+
+```
+kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
+```
 
 ### API Endpoint
 
@@ -722,18 +847,48 @@ Clients find resource versions in resources, including the resources in watch ev
 
 The get, list and watch operations support the `resourceVersion` parameter.
 
-The exact meaning of this parameter differs depending on the operation and the value of the resource version.
+The exact meaning of this parameter differs depending on the operation and the value of `resourceVersion`.
 
 For get and list, the semantics of resource version are:
 
 **Get:**
 
-| resourceVersion unset | resourceVersion is `0` | resourceVersion is set but not `0` |
-|-----------------------|------------------------|------------------------------------|
-| Most Recent           | Any                    | Not older than                     |
+| resourceVersion unset | resourceVersion="0" | resourceVersion="{value other than 0}" |
+|-----------------------|---------------------|----------------------------------------|
+| Most Recent           | Any                 | Not older than                         |
 
 **List:**
 
+v1.19+ API servers and newer support the `resourceVersionMatch` parameter, which
+determines how resourceVersion is applied to list calls.  It is highly
+recommended that `resourceVersionMatch` be set for list calls where
+`resourceVersion` is set. If `resourceVersion` is unset, `resourceVersionMatch`
+is not allowed.  For backward compatibility, clients must tolerate the server
+ignoring `resourceVersionMatch`:
+- When using `resourceVersionMatch=NotOlderThan` and limit is set, clients must
+  handle HTTP 410 "Gone" responses. For example, the client might retry with a
+  newer `resourceVersion` or fall back to `resourceVersion=""`.
+- When using `resourceVersionMatch=Exact` and `limit` is unset, clients must
+  verify that the `resourceVersion` in the `ListMeta` of the response matches
+  the requested `resourceVersion`, and handle the case where it does not. For
+  example, the client might fall back to a request with `limit` set.
+
+Unless you have strong consistency requirements, using `resourceVersionMatch=NotOlderThan` and
+a known `resourceVersion` is preferable since it can achieve better performance and scalability
+of your cluster than leaving `resourceVersion` and `resourceVersionMatch` unset, which requires
+quorum read to be served.
+
+| resourceVersionMatch param            | paging params                 | resourceVersion unset | resourceVersion="0"                       | resourceVersion="{value other than 0}" |
+|---------------------------------------|-------------------------------|-----------------------|-------------------------------------------|----------------------------------------|
+| resourceVersionMatch unset            | limit unset                   | Most Recent           | Any                                       | Not older than                         |
+| resourceVersionMatch unset            | limit="n", continue unset     | Most Recent           | Any                                       | Exact                                  |
+| resourceVersionMatch unset            | limit="n", continue="<token>" | Continue Token, Exact | Invalid, treated as Continue Token, Exact | Invalid, HTTP `400 Bad Request`        |
+| resourceVersionMatch=Exact[^1]        | limit unset                   | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=Exact[^1]        | limit="n", continue unset     | Invalid               | Invalid                                   | Exact                                  |
+| resourceVersionMatch=NotOlderThan[^1] | limit unset                   | Invalid               | Any                                       | Not older than                         |
+| resourceVersionMatch=NotOlderThan[^1] | limit="n", continue unset     | Invalid               | Any                                       | Not older than                         |
+
+[^1]: If the server does not honor the `resourceVersionMatch` parameter, it is treated as if it is unset.
 | paging                          | resourceVersion unset | resourceVersion="0"                            | resourceVersion="{value other than 0}" |
 |---------------------------------|-----------------------|------------------------------------------------|----------------------------------------|
 | limit unset                     | Most Recent           | Any                                            | Not older than                         |
@@ -742,11 +897,29 @@ For get and list, the semantics of resource version are:
 
 The meaning of the get and list semantics are:
 
-- **Most Recent:** Return data at the most recent resource version. The returned data must be consistent (i.e. served from etcd via a quorum read).
-- **Any:** Return data at any resource version. The newest available resource version is preferred, but strong consistency is not required; data at any resource version may be served. It is possible for the request to return data at a much older resource version that the client has previously observed, particularly in high availabiliy configurations, due to partitions or stale caches. Clients that cannot tolerate this should not use this semantic.
-- **Not older than:** Return data at least as new as the provided resource version. The newest available data is preferred, but any data not older than this resource version may be served. Note that this ensures only that the objects returned are no older than they were at the time of the provided resource version. The resource version in the `ObjectMeta` of individual object may be older than the provide resource version so long it is for the latest modification to the object at the time of the provided resource version.
-- **Exact:** Return data at the exact resource version provided.
-- **Continue Token, Exact:** Return data at the resource version of the initial paginated list call. The returned Continue Tokens are responsible for keeping track of the initially provided resource version for all paginated list calls after the initial paginated list call.
+- **Most Recent:** Return data at the most recent resource version. The returned data must be
+  consistent (i.e. served from etcd via a quorum read).
+- **Any:** Return data at any resource version. The newest available resource version is preferred,
+  but strong consistency is not required; data at any resource version may be served. It is possible
+  for the request to return data at a much older resource version that the client has previously
+  observed, particularly in high availabiliy configurations, due to partitions or stale
+  caches. Clients that cannot tolerate this should not use this semantic.
+- **Not older than:** Return data at least as new as the provided resourceVersion. The newest
+  available data is preferred, but any data not older than the provided resourceVersion may be
+  served.  For list requests to servers that honor the resourceVersionMatch parameter, this
+  guarantees that resourceVersion in the ListMeta is not older than the requested resourceVersion,
+  but does not make any guarantee about the resourceVersion in the ObjectMeta of the list items
+  since ObjectMeta.resourceVersion tracks when an object was last updated, not how up-to-date the
+  object is when served.
+- **Exact:** Return data at the exact resource version provided. If the provided resourceVersion is
+  unavailable, the server responds with HTTP 410 "Gone".  For list requests to servers that honor the
+  resourceVersionMatch parameter, this guarantees that resourceVersion in the ListMeta is the same as
+  the requested resourceVersion, but does not make any guarantee about the resourceVersion in the
+  ObjectMeta of the list items since ObjectMeta.resourceVersion tracks when an object was last
+  updated, not how up-to-date the object is when served.
+- **Continue Token, Exact:** Return data at the resource version of the initial paginated list
+  call. The returned Continue Tokens are responsible for keeping track of the initially provided
+  resource version for all paginated list calls after the initial paginated list call.
 
 For watch, the semantics of resource version are:
 
@@ -758,8 +931,8 @@ For watch, the semantics of resource version are:
 
 The meaning of the watch semantics are:
 
-- **Get State and Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). To establish initial state, the watch begins with synthetic “Added” events of all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
-- **Get State and Start at Any:** Warning: Watches initialize this way may return arbitrarily stale data! Please review this semantic before using it, and favor the other semantics where possible. Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic “Added” events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
+- **Get State and Start at Most Recent:** Start a watch at the most recent resource version, which must be consistent (i.e. served from etcd via a quorum read). To establish initial state, the watch begins with synthetic "Added" events of all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
+- **Get State and Start at Any:** Warning: Watches initialize this way may return arbitrarily stale data! Please review this semantic before using it, and favor the other semantics where possible. Start a watch at any resource version, the most recent resource version available is preferred, but not required; any starting resource version is allowed. It is possible for the watch to start at a much older resource version that the client has previously observed, particularly in high availability configurations, due to partitions or stale caches. Clients that cannot tolerate this should not start a watch with this semantic. To establish initial state, the watch begins with synthetic "Added" events for all resources instances that exist at the starting resource version. All following watch events are for all changes that occurred after the resource version the watch started at.
 - **Start at Exact:** Start a watch at an exact resource version. The watch events are for all changes after the provided resource version. Unlike "Get State and Start at Most Recent" and "Get State and Start at Any", the watch is not started with synthetic "Added" events for the provided resource version. The client is assumed to already have the initial state at the starting resource version since the client provided the resource version.
 
 ### "410 Gone" responses
