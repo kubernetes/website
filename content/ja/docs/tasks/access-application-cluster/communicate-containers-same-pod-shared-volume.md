@@ -100,12 +100,15 @@ nginxコンテナへのシェルを取得します:
 debianコンテナがnginxルートディレクトリに`index.html`ファイルを作成したことを思い出してください。
 `curl`を使用して、GETリクエストをnginxサーバーに送信します:
 
-    root@two-containers:/# curl localhost
+```
+root@two-containers:/# curl localhost
+```
 
 出力は、nginxがdebianコンテナによって書かれたWebページを提供することを示しています:
 
-    Hello from the debian container
-
+```
+Hello from the debian container
+```
 
 
 
