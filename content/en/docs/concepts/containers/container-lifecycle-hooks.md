@@ -38,7 +38,7 @@ No parameters are passed to the handler.
 
 This hook is called immediately before a container is terminated due to an API request or management event such as liveness probe failure, preemption, resource contention and others. A call to the preStop hook fails if the container is already in terminated or completed state.
 It is blocking, meaning it is synchronous,
-so it must complete before the signal to stop the Container can be sent.
+so it must complete before the signal to stop the container can be sent.
 No parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
@@ -130,5 +130,4 @@ Events:
 * Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
-
 
