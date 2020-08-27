@@ -45,7 +45,7 @@ higher-level abstraction, called a
 managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name i
+that Pod can be replaced by a new, near-identical Pod, with even the same name if
 desired, but with a different UID.
 
 When something is said to have the same lifetime as a Pod, such as a
