@@ -4,7 +4,7 @@ id: configmap
 date: 2018-04-12
 full_link: /docs/concepts/configuration/configmap/
 short_description: >
-  An API object used to store non-confidential data in key-value pairs. Can be consumed as environment variables, command-line arguments, or configuraton files in a volume.
+  An API object used to store non-confidential data in key-value pairs. Can be consumed as environment variables, command-line arguments, or configuration files in a volume.
 
 aka: 
 tags:
