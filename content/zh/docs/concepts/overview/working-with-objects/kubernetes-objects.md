@@ -82,7 +82,7 @@ supplied.
 -->
 `status` 描述了对象的 _当前状态（Current State）_，它是由 Kubernetes 系统和组件
 设置并更新的。在任何时刻，Kubernetes 
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}
 都一直积极地管理着对象的实际状态，以使之与期望状态相匹配。
 
 <!--
@@ -195,7 +195,7 @@ and the `spec` format for a `Deployment` can be found
 * Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/pod-overview/).
 * Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes
 -->
-* [Kubernetes API 概述](/zh/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
+* [Kubernetes API 总览](/zh/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
 * 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh/docs/concepts/workloads/pods/)
 * 了解 Kubernetes 中的[控制器](/zh/docs/concepts/architecture/controller/)
 
