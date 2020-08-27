@@ -44,7 +44,7 @@ biblioteki to:
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Przekazuje bezpośrednio dane przepływające w transmisji TCP/UDP lub dystrybuuje ruch TCP/UDP zgodnie ze schematem *round-robin* pomiędzy usługi back-endu.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler odpowiada za dostępność, wydajność i zasoby.
 * [kube-scheduler Policies](/docs/reference/scheduling/policies)
-* [kube-scheduler Profiles](/docs/reference/scheduling/profiles)
+* [kube-scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
 ## Dokumentacja projektowa
 
