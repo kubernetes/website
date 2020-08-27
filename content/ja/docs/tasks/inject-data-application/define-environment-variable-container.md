@@ -22,11 +22,11 @@ weight: 20
 
 Podを作成するとき、そのPodで実行するコンテナに環境変数を設定することができます。環境変数を設定するには、設定ファイルに `env` または `envFrom` フィールドを含めます。
 
-この演習では、1つのコンテナを実行するPodを作成します。Podの設定ファイルには、名前 `DEMO_GREETING`、値 `"Hello from the environment"`を持つ環境変数が定義されています。Podの設定ファイルを以下に示します:
+この演習では、1つのコンテナを実行するPodを作成します。Podの設定ファイルには、名前 `DEMO_GREETING`、値 `"Hello from the environment"`を持つ環境変数が定義されています。Podの設定マニフェストを以下に示します:
 
 {{< codenew file="pods/inject/envars.yaml" >}}
 
-1. YAML設定ファイルに基づいてPodを作成します:
+1. マニフェストに基づいてPodを作成します:
 
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
@@ -54,7 +54,8 @@ Podを作成するとき、そのPodで実行するコンテナに環境変数�
 1. シェルで`printenv`コマンドを実行すると、環境変数の一覧が表示されます。
 
     ```shell
-    root@envar-demo:/# printenv
+    # コンテナ内のシェルで以下のコマンドを実行します
+    printenv
     ```
 
     出力は以下のようになります:
@@ -72,6 +73,10 @@ Podを作成するとき、そのPodで実行するコンテナに環境変数�
 
 {{< note >}}
 `env`または`envFrom`フィールドを使用して設定された環境変数は、コンテナイメージで指定された環境変数を上書きします。
+{{< /note >}}
+
+{{< note >}}
+環境変数は相互に参照でき、循環して使用可能です。使用する前に順序に注意してください。
 {{< /note >}}
 
 ## 設定の中で環境変数を使用する {#using-environment-variables-inside-of-your-config}
