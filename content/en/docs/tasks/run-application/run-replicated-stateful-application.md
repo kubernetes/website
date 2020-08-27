@@ -15,8 +15,9 @@ weight: 30
 
 This page shows how to run a replicated stateful application using a
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
-The example is a MySQL single-primary topology with multiple replicas running
-asynchronous replication.
+This application is a replicated MySQL database. The example topology has a
+single primary server and multiple replicas, using asynchronous row-based
+replication.
 
 {{< note >}}
 **This is not a production configuration**. MySQL settings remain on insecure defaults to keep the focus
