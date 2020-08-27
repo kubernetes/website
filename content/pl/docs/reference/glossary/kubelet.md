@@ -6,7 +6,7 @@ full_link: /docs/reference/generated/kubelet
 short_description: >
   Agent, który działa na każdym węźle klastra. Odpowiada za uruchamianie kontenerów w ramach poda.
 
-aka: 
+aka:
 tags:
 - fundamental
 - core-object
@@ -15,4 +15,4 @@ tags:
 
 <!--more-->
 
-Kubelet korzysta z dostarczanych na różne sposoby PodSpecs i gwarantuje, że kontenery opisane przez te PodSpecs są uruchomione i działają poprawnie. Kubelet nie zarządza kontenerami, które nie zostały utworzone przez Kubernetes.
+Kubelet korzysta z dostarczanych (różnymi metodami) _PodSpecs_ i gwarantuje, że kontenery opisane przez te PodSpecs są uruchomione i działają poprawnie. Kubelet nie zarządza kontenerami, które nie zostały utworzone przez Kubernetesa.
