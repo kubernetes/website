@@ -199,7 +199,7 @@ Use the following commands to install CRI-O on your system:
 
 {{< note >}}
 The CRI-O major and minor versions must match the Kubernetes major and minor versions.
-For more information, see the [CRI-O compatiblity matrix](https://github.com/cri-o/cri-o).
+For more information, see the [CRI-O compatibility matrix](https://github.com/cri-o/cri-o).
 {{< /note >}}
 
 ### Prerequisites
