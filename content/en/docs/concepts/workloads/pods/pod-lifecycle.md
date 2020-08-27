@@ -118,7 +118,7 @@ a Reason field to summarize why the container is in that state.
 ### `Running` {#container-state-running}
 
 The `Running` status indicates that a container is executing without issues. If there
-was a `postStart` hook configured, it has already executed and executed. When you use
+was a `postStart` hook configured, it has already executed and finished. When you use
 `kubectl` to query a Pod with a container that is `Running`, you also see information
 about when the container entered the `Running` state.
 
