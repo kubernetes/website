@@ -55,7 +55,7 @@ Kubernetes 对象是 “目标性记录” —— 一旦创建对象，Kubernete
 [Kubernetes API](/zh/docs/concepts/overview/kubernetes-api)。
 比如，当使用 `kubectl` 命令行接口时，CLI 会执行必要的 Kubernetes API 调用，
 也可以在程序中使用
-[客户端库](/zh/docs/reference/using-api/client-libraries/) 直接调用 Kubernetes API。
+[客户端库](/zh/docs/reference/using-api/client-libraries/)直接调用 Kubernetes API。
 
 <!--
 ### Object Spec and Status
@@ -197,5 +197,5 @@ and the `spec` format for a `Deployment` can be found
 -->
 * [Kubernetes API 总览](/zh/docs/reference/using-api/api-overview/) 提供关于 API 概念的进一步阐述
 * 了解最重要的 Kubernetes 基本对象，例如 [Pod](/zh/docs/concepts/workloads/pods/)
-* 了解 Kubernetes 中的 [控制器](/zh/docs/concepts/architecture/controller/)
+* 了解 Kubernetes 中的[控制器](/zh/docs/concepts/architecture/controller/)
 
