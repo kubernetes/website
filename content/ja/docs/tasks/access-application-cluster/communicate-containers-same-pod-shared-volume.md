@@ -6,7 +6,7 @@ weight: 110
 
 <!-- overview -->
 
-このページでは、ボリュームを使用して、同じPodで実行されている2つのコンテナ間で通信する方法を示します。
+このページでは、ボリュームを使用して、同じPodで実行されている2つのコンテナ間で通信する方法を示します。 
 コンテナ間で[プロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)ことにより、プロセスが通信できるようにする方法も参照してください。
 
 
@@ -100,12 +100,15 @@ nginxコンテナへのシェルを取得します:
 debianコンテナがnginxルートディレクトリに`index.html`ファイルを作成したことを思い出してください。
 `curl`を使用して、GETリクエストをnginxサーバーに送信します:
 
-    root@two-containers:/# curl localhost
+```
+root@two-containers:/# curl localhost
+```
 
 出力は、nginxがdebianコンテナによって書かれたWebページを提供することを示しています:
 
-    Hello from the debian container
-
+```
+Hello from the debian container
+```
 
 
 
