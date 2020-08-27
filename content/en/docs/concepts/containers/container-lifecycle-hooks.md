@@ -65,7 +65,7 @@ However, if the hook takes too long to run or hangs,
 the Container cannot reach a `running` state.
 
 `PreStop` hooks are not executed asynchronously from the signal
-to stop the Container–they hook must complete its execution before
+to stop the Container; the hook must complete its execution before
 the signal can be sent.
 If a `PreStop` hook hangs during execution,
 the Pod phase stays in a `Terminating` state and is killed after its `terminationGracePeriodSeconds` expires.
