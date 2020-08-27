@@ -107,7 +107,7 @@ Each state has a specific meaning:
 
 ### `Waiting` {#container-state-waiting}
 
-If a container is not in either the `Running` or `Terminated` state, it's `Waiting`.
+If a container is not in either the `Running` or `Terminated` state, it is `Waiting`.
 A container in the `Waiting` state is still running the operations it requires in
 order to complete start up: for example, pulling the container image from a container
 image registry, or applying {{< glossary_tooltip text="Secret" term_id="secret" >}}
