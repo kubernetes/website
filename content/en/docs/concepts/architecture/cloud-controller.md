@@ -23,7 +23,7 @@ mechanism that allows different cloud providers to integrate their platforms wit
 
 ## Design
 
-![Kubernetes components](/images/docs/components-of-kubernetes.png)
+![Kubernetes components](/images/docs/components-of-kubernetes.svg)
 
 The cloud controller manager runs in the control plane as a replicated set of processes
 (usually, these are containers in Pods). Each cloud-controller-manager implements
