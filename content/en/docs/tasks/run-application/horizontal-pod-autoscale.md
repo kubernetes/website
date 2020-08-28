@@ -234,6 +234,66 @@ the delay value is set too short, the scale of the replicas set may keep thrashi
 usual.
 {{< /note >}}
 
+## Support for resource metrics
+
+Any HPA target can be scaled based on the resource usage of the pods in the scaling target.
+When definining the pod specification the resource requests like `cpu` and `memory` should
+be specified. This is used to determine the resource utilization and used by the HPA controller
+to scale the target up or down. To use resource utilization based scaling specify a metric source
+like this:
+
+```yaml
+type: Resource
+resource:
+  name: cpu
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+With this metric the HPA controller will keep the average utilization of the pods in the scaling
+target at 60%. Utilization is the ratio between the current usage of resource to the requested
+resources of the pod. See [Algorithm](#algorithm-details) for more details about how the utilization
+is calculated and averaged.
+
+{{< note >}}
+Since the resource usages of all the containers are summed up the total pod utilization may not
+accurately represent the individual container resource usage. This could lead to situations where
+a single container might be running with high usage and the HPA will not scale out because the overall
+pod usage is still within acceptable limits.
+{{< /note >}}
+
+### Container Resource Metrics
+
+{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+
+The HPA spec also supports a container metric source where the HPA can use the resource usage of
+individual containers to scale the target. The advantage of this approach is that different containers
+in the pod could use different scaling thresholds. However when a new container is added to the pod
+specification the HPA needs to be updated if the newly added container should also be used for
+scaling. If the specified container in the metric source is not present or only present in a subset
+of the pods then those pods are ignored and the recommendation is recalculated. See [Algorithm](#algorithm-details)
+for more details about the calculation. To use container resources for autoscaling define a metric
+source as follows:
+```yaml
+type: ContainerResource
+containerResource:
+  name: cpu
+  container: application
+  target:
+    type: Utilization
+    averageUtilization: 60
+```
+
+In the above example the HPA controller scales the target such that the average utilization of the cpu
+in the `application` container of all the pods is 60%.
+
+{{< note >}}
+In case the name of a container targetted by an HPA has to be changed, it is recommended that before
+the deployment the HPA is updated to have both the new and old container names. This way HPA will always
+be able to able to calculate a recommendation for the scaling target. Once the rollout is done the old
+container name can be dropped from the HPA.
+{{< /note >}}
+
 ## Support for multiple metrics
 
 Kubernetes 1.6 adds support for scaling based on multiple metrics. You can use the `autoscaling/v2beta2` API
