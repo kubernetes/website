@@ -96,7 +96,7 @@ Kubernetes Deploymentオブジェクトを作成することでアプリケー�
 
 ## Deploymentの更新
 
-新しいYAMLファイルを適用してDeploymentを更新できます。このYAMLファイルは、Deploymentを更新してnginx 1.8を使用するように指定しています。
+新しいYAMLファイルを適用してDeploymentを更新できます。このYAMLファイルは、Deploymentを更新してnginx 1.16.1を使用するように指定しています。
 
 {{< codenew file="application/deployment-update.yaml" >}}
 
