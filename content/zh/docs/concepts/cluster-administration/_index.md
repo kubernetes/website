@@ -62,9 +62,9 @@ Before choosing a guide, here are some considerations:
 -->
 - 你是打算在你的计算机上尝试 Kubernetes，还是要构建一个高可用的多节点集群？请选择最适合你需求的发行版。
 - 您正在使用类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 这样的**被托管的 Kubernetes 集群**, 还是**管理您自己的集群**？
-- 你的集群是在**本地**还是**云（IaaS）**上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
+- 你的集群是在**本地**还是**云（IaaS）** 上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
 - **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/zh/docs/concepts/cluster-administration/networking/)最适合。
-- 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）**上运行？
+- 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）** 上运行？
 - 你**只想运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？如果是后者，请选择一个处于开发状态的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
 - 让你自己熟悉运行一个集群所需的[组件](/zh/docs/concepts/overview/components/)。
 
