@@ -1178,7 +1178,7 @@ to expose HTTP / HTTPS Services.
 
 ### PROXY protocol
 
-If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
+If your cloud provider supports it,
 you can use a Service in LoadBalancer mode to configure a load balancer outside
 of Kubernetes itself, that will forward connections prefixed with
 [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt).
