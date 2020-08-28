@@ -44,7 +44,7 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### When to use camel case for API objects
 
-When you refer specifically to interacting with an API object, use [camel case](https://en.wikipedia.org/wiki/Camel_case). When you are generally discussing an API object, use [sentence capitalization]().
+When you refer specifically to interacting with an API object, use [CamelCase](https://en.wikipedia.org/wiki/Camel_case). When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
@@ -56,7 +56,7 @@ leads to an awkward construction.
 Do | Don't
 :--| :-----
 The pod has two containers. | The Pod has two containers.
-The deployment is responsible for ... | The Deployment object is responsible for ...
+The HorizontalPodAutoscaler is responsible for ... | The HorizontalPodAutoscaler object is responsible for ...
 A PodList is a list of pods. | A Pod List is a list of pods.
 The two ContainerPorts ... | The two ContainerPort objects ...
 The two ContainerStateTerminated objects ... | The two ContainerStateTerminateds ...
