@@ -44,7 +44,7 @@ The English-language documentation uses U.S. English spelling and grammar.
 
 ### When to use camel case for API objects
 
-When you are specifically referring to interacting with an API object, use [camel case](https://en.wikipedia.org/wiki/Camel_case). When you are generally discussing an API object, use sentence capitalization.
+When you refer specifically to interacting with an API object, use [camel case](https://en.wikipedia.org/wiki/Camel_case). When you are generally discussing an API object, use [sentence capitalization]().
 
 Don't split the API object name into separate words. For example, use
 PodTemplateList, not Pod Template List.
