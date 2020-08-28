@@ -45,7 +45,7 @@ Support for [dynamic maximum volume count](https://github.com/kubernetes/feature
 
 The StorageObjectInUseProtection feature is now stable and prevents the removal of both [Persistent Volumes](https://github.com/kubernetes/features/issues/499) that are bound to a Persistent Volume Claim, and [Persistent Volume Claims](https://github.com/kubernetes/features/issues/498) that are being used by a pod. This safeguard will help prevent issues from deleting a PV or a PVC that is currently tied to an active pod.
 
-Each Special Interest Group (SIG) within the community continues to deliver the most-requested enhancements, fixes, and functionality for their respective specialty areas. For a complete list of inclusions by SIG, please visit the [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md#111-release-notes).
+Each Special Interest Group (SIG) within the community continues to deliver the most-requested enhancements, fixes, and functionality for their respective specialty areas. For a complete list of inclusions by SIG, please visit the [release notes](https://github.com/kubernetes/kubernetes/blob/release-1.11/CHANGELOG-1.11.md#111-release-notes).
 
 ## Availability
 
@@ -88,7 +88,7 @@ Is Kubernetes helping your team? Share your story with the community.
 * The CNCF recently expanded its certification offerings to include a Certified Kubernetes Application Developer exam. The CKAD exam certifies an individual's ability to design, build, configure, and expose cloud native applications for Kubernetes. More information can be found [here](https://www.cncf.io/blog/2018/03/16/cncf-announces-ckad-exam/).
 * The CNCF recently added a new partner category, Kubernetes Training Partners (KTP). KTPs are a tier of vetted training providers who have deep experience in cloud native technology training. View partners and learn more [here](https://www.cncf.io/certification/training/).
 * CNCF also offers [online training](https://www.cncf.io/certification/training/) that teaches the skills needed to create and configure a real-world Kubernetes cluster.
-* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.  
+* Kubernetes documentation now features [user journeys](https://k8s.io/docs/home/): specific pathways for learning based on who readers are and what readers want to do. Learning Kubernetes is easier than ever for beginners, and more experienced users can find task journeys specific to cluster admins and application developers.
 
 ## KubeCon
 
