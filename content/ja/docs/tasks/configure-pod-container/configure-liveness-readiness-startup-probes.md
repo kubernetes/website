@@ -8,7 +8,7 @@ weight: 110
 
 このページでは、Liveness Probe、Readiness ProbeおよびStartup Probeの使用方法について説明します。
 
-[kubelet](/docs/admin/kubelet/)は、Liveness Probeを使用して、コンテナをいつ再起動するかを認識します。
+[kubelet](/docs/reference/command-line-tools-reference/kubelet/)は、Liveness Probeを使用して、コンテナをいつ再起動するかを認識します。
 例えば、アプリケーション自体は起動しているが、処理を継続することができないデッドロック状態を検知することができます。
 このような状態のコンテナを再起動することで、バグがある場合でもアプリケーションの可用性を高めることができます。
 
@@ -296,7 +296,7 @@ Liveness ProbeおよびReadiness Probeのチェック動作をより正確に制
 * `timeoutSeconds`: Probeがタイムアウトになるまでの秒数。デフォルトは1秒。最小値は1。
 * `successThreshold`: 一度Probeが失敗した後、次のProbeが成功したとみなされるための最小連続成功数。
 デフォルトは1。Liveness Probeには1を設定する必要があります。最小値は1。
-* `failureThreshold`: Podが開始してProbeが失敗した場合、Kubernetesは`failureThreshold`に設定した回数までProbeを試行します。
+* `failureThreshold`: Probeが失敗した場合、Kubernetesは`failureThreshold`に設定した回数までProbeを試行します。
 Liveness Probeにおいて、試行回数に到達することはコンテナを再起動することを意味します。
 Readiness Probeの場合は、Podが準備できていない状態として通知されます。デフォルトは3。最小値は1。
 
