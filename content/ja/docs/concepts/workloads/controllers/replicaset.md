@@ -2,7 +2,7 @@
 reviewers:
 title: ReplicaSet
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -207,9 +207,9 @@ ReplicaSetオブジェクトの名前は、有効な
 `.spec.selector`フィールドは[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/)です。
 [先ほど](#how-a-replicaset-works)議論したように、ReplicaSetが所有するPodを指定するためにそのラベルが使用されます。
 先ほどの`frontend.yaml`の例では、そのセレクターは下記のようになっていました
-```shell
+```yaml
 matchLabels:
-	tier: frontend
+  tier: frontend
 ```
 
 そのReplicaSetにおいて、`.spec.template.metadata.labels`フィールドの値は`spec.selector`と一致しなくてはならず、一致しない場合はAPIによって拒否されます。
@@ -281,7 +281,7 @@ kubectl apply -f https://k8s.io/examples/controllers/hpa-rs.yaml
 同様のことを行うための代替案として、`kubectl autoscale`コマンドも使用できます。(こちらの方がより簡単です。)
 
 ```shell
-kubectl autoscale rs frontend --max=10
+kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 ```
 
 ## ReplicaSetの代替案
