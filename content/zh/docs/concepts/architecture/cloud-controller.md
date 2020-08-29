@@ -1,19 +1,19 @@
 ---
 title: 云控制器管理器的基础概念
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 <!--
 ---
 title: Concepts Underlying the Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The cloud controller manager (CCM) concept (not to be confused with the binary) was originally created to allow cloud specific vendor code and the Kubernetes core to evolve independent of one another. The cloud controller manager runs alongside other master components such as the Kubernetes controller manager, the API server, and scheduler. It can also be started as a Kubernetes addon, in which case it runs on top of Kubernetes.
@@ -45,10 +45,10 @@ Here's the architecture of a Kubernetes cluster without the cloud controller man
 
 ![没有云控制器管理器的 Kubernetes 架构](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Design
@@ -235,19 +235,13 @@ The Service controller is responsible for listening to service create, update, a
 The Node controller contains the cloud-dependent functionality of the kubelet. Prior to the introduction of the CCM, the kubelet was responsible for initializing a node with cloud-specific details such as IP addresses, region/zone labels and instance type information. The introduction of the CCM has moved this initialization operation from the kubelet into the CCM.
 -->
 
-节点控制器包含 kubelet 中依赖于云的功能，在引入 CCM 之前，kubelet 负责使用特定于云的详细信息（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
+节点控制器包含 kubelet 中云依赖的功能，在引入 CCM 之前，kubelet 负责使用特定于云平台的功能特性（如 IP 地址，域/区标签和实例类型信息）初始化节点。CCM 的引入已将此初始化操作从 kubelet 转移到 CCM 中。
 
 <!--
 In this new model, the kubelet initializes a node without cloud-specific information. However, it adds a taint to the newly created node that makes the node unschedulable until the CCM initializes the node with cloud-specific information. It then removes this taint.
 -->
 
-在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
-
-<!--
-## Plugin mechanism
--->
-
-在这个新模型中，kubelet 初始化一个没有特定于云的信息的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用特定于云的信息初始化节点后，才会清除这种污点，便得该节点可被调度。
+在这个新模型中，kubelet 初始化一个没有特定于云平台的功能特性的节点。但是，它会为新创建的节点添加污点，使节点不可调度，直到 CCM 使用云的规格信息初始化节点后，才会清除这种污点，便得该节点可被调度。
 
 <!--
 ## Plugin mechanism
@@ -271,7 +265,7 @@ The implementation of the four shared controllers highlighted above, and some sc
 For more information about developing plugins, see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
  -->
 
-有关开发插件的更多信息，请参阅[开发云控制器管理器](/docs/tasks/administer-cluster/developing-cloud-controller-manager/)。
+有关开发插件的更多信息，请参阅[开发云控制器管理器](/zh/docs/tasks/administer-cluster/developing-cloud-controller-manager/)。
 
 <!--
 ## Authorization
@@ -479,7 +473,7 @@ The following cloud providers have implemented CCMs:
 * [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
 * [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
 -->
-
+* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)  
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
 * [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
@@ -500,7 +494,7 @@ Complete instructions for configuring and running the CCM are provided
 [here](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager).
 -->
 
-[这里](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
+[这里](/zh/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)提供了有关配置和运行 CCM 的完整说明。
 
-{{% /capture %}}
+
 

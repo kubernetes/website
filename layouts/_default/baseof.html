@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html id="{{ .Params.cid }}" lang="{{ .Language }}" class="{{ .Params.class }}">
-	<head>
-		{{ partial "head.html" . }}
-	</head>
-	<body class="page">
-		{{ partial "header.html" . }}
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="td-{{ .Kind }}{{- if ne .Params.cid "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
+    <header>
+      {{ partial "navbar.html" . }}
+    </header>
+    {{ block "announcement" . }}
+      {{ if .IsHome }}
+        {{ partial "frontpage-announcement.html" . }}
+      {{ else }}
+        {{ partial "announcement.html" . }}
+      {{ end }}
+    {{ end }}
 		{{ block "hero" . }}
 		<!--  HERO  -->
-		<section id="hero" class="light-text">
+		<section class="header-hero text-white pb-4 light-text">
 			<div class="main-section">
 				<div id="headlineWrapper">
 					<h1>{{ block "hero-title" . }}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
@@ -16,16 +25,20 @@
 				{{ block "hero-more" . }}{{ end }}
 			</div>
 		</section>
-		{{ block "post-hero" . }}{{ end }}
+		{{ block "post-hero" . }}
+      {{ block "deprecated" . }}
+        {{ if or .IsHome ( eq .Params.cid "partners" ) ( eq .Params.cid "community" ) }}
+          {{ partial "deprecation-warning.html" . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
 		{{ end }}
-	
-	<main>
-		<article class="page-content">
-		  {{ block "main" . }}{{ end }}
-		</article>
-	</main>
-
-		{{ partialCached "footer.html" . }}
-		{{ partialCached "footer-scripts.html" . }}
-	</body>
+    <div class="td-outer">
+      <main role="main" class="td-main">
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partialCached "scripts.html" . }}
+  </body>
 </html>

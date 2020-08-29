@@ -1,24 +1,25 @@
 ---
 title: 実行中のコンテナへのシェルを取得する
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 このページは`kubectl exec`を使用して実行中のコンテナへのシェルを取得する方法を説明します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## コンテナへのシェルの取得
 
@@ -30,7 +31,7 @@ content_template: templates/task
 Podを作成します:
 
 ```shell
-kubectl create -f https://k8s.io/examples/application/shell-demo.yaml
+kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
 コンテナが実行中であることを確認します:
@@ -46,7 +47,7 @@ kubectl exec -it shell-demo -- /bin/bash
 ```
 {{< note >}}
 
-ダブルダッシュの記号 "--" はコマンドに渡す引数とkubectlの引数を分離します。
+ダブルダッシュの記号 `--` はコマンドに渡す引数とkubectlの引数を分離します。
 
 {{< /note >}}
 
@@ -115,9 +116,9 @@ kubectl exec shell-demo ls /
 kubectl exec shell-demo cat /proc/1/mounts
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Podが1つ以上のコンテナを持つ場合にシェルを開く
 
@@ -129,14 +130,15 @@ Podが1つ以上のコンテナを持つ場合、`--container`か`-c`を使用�
 kubectl exec -it my-pod --container main-app -- /bin/bash
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
 
-{{% /capture %}}
+
 
 
 

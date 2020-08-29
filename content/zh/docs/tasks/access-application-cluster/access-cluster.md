@@ -1,29 +1,29 @@
 ﻿---
 title: 访问集群
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
 ---
 title: Accessing Clusters
 weight: 20
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This topic discusses multiple ways to interact with clusters.
 -->
 本文阐述多种与集群交互的方法。
 
-{{% /capture %}}
+
 
 {{< toc >}}
 
-{{% capture body %}}
+<!-- body -->
 
 <!--
 ## Accessing for the first time with kubectl
@@ -145,7 +145,7 @@ In Kubernetes version 1.3 or later, `kubectl config view` no longer displays the
 
 ```shell
 $ APISERVER=$(kubectl config view | grep server | cut -f 2- -d ":" | tr -d " ")
-$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d '\t')
+$ TOKEN=$(kubectl describe secret $(kubectl get secrets | grep default | cut -f1 -d ' ') | grep -E '^token' | cut -f2 -d':' | tr -d ' ')
 $ curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
@@ -268,7 +268,7 @@ is associated with a service account, and a credential (token) for that
 service account is placed into the filesystem tree of each container in that pod,
 at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
 -->
-### 从 Pod 中访问 API
+### 从 Pod 中访问 API   {#accessing-the-api-from-a-pod}
 
 当你从 Pod 中访问 API 时，定位和验证 apiserver 会有些许不同。
 
@@ -319,7 +319,7 @@ their own IPs.  In many cases, the node IPs, pod IPs, and some service IPs on a 
 routable, so they will not be reachable from a machine outside the cluster,
 such as your desktop machine.
 -->
-## 访问集群中正在运行的服务
+## 访问集群中正在运行的服务  {#accessing-services-running-on-the-cluster}
 
 上一节介绍了如何连接 Kubernetes API 服务。本节介绍如何连接到 Kubernetes 集群上运行的其他服务。
 在 Kubernetes 中，[节点](/docs/admin/node)，[pods](/docs/user-guide/pods) 和 [服务](/docs/user-guide/services) 都有自己的 IP。
@@ -600,4 +600,4 @@ will typically ensure that the latter types are setup correctly.
 
 除了前两种类型之外，Kubernetes 用户通常不需要担心任何其他问题。集群管理员通常会确保后者的正确配置。
 
-{{% /capture %}}
+

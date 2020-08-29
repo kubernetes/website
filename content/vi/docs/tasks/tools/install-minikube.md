@@ -1,19 +1,20 @@
 ---
 title: Cài đặt Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tài liệu này sẽ hướng dẫn các bạn cách cài đặt [Minikube](/docs/tutorials/hello-minikube), một công cụ chạy một Kubernetes cluster chỉ gồm một node trong một máy ảo (VM) trên máy tính của bạn.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# Cài đặt minikube
+<!-- steps -->
+
+## Cài đặt minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -184,13 +185,7 @@ Sau khi Minikube hoàn tất việc cài đặt, hãy đóng CLI hiện tại v�
 {{< /tabs >}}
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-
-* [Chạy Kubernetes trên local thông qua Minikube](/docs/setup/learning-environment/minikube/)
-
-{{% /capture %}}
 
 ## Dọn dẹp local state {#cleanup-local-state}
 
@@ -208,3 +203,9 @@ thì tiếp theo bạn cần xóa bỏ local state của minikube:
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Chạy Kubernetes trên local thông qua Minikube](/docs/setup/learning-environment/minikube/)
+

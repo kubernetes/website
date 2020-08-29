@@ -1,16 +1,16 @@
 ---
 title: CoreOS sur AWS ou GCE
 description: Installation Kubernetes CoreOS sur AWS GCE
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Il existe plusieurs guides permettant d'utiliser Kubernetes avec [CoreOS](https://coreos.com/kubernetes/docs/latest/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Guides officiels CoreOS
 
@@ -87,4 +87,4 @@ Ces guides sont maintenus par des membres de la communauté et couvrent des beso
 
 Pour le niveau de support de toutes les solutions se référer au [Tableau des solutions](/docs/getting-started-guides/#table-of-solutions).
 
-{{% /capture %}}
+

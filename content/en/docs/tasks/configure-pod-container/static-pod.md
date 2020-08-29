@@ -3,10 +3,10 @@ reviewers:
 - jsafrane
 title: Create static Pods
 weight: 170
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 *Static Pods* are managed directly by the kubelet daemon on a specific node,
@@ -14,7 +14,7 @@ without the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 observing them.
 Unlike Pods that are managed by the control plane (for example, a
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}});
-instead, the kubelet watches each static Pod (and restarts it if it crashes).
+instead, the kubelet watches each static Pod (and restarts it if it fails).
 
 Static Pods are always bound to one {{< glossary_tooltip term_id="kubelet" >}} on a specific node.
 
@@ -30,9 +30,10 @@ Pods to run a Pod on every node, you should probably be using a
 instead.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -41,10 +42,10 @@ and that your nodes are running the Fedora operating system.
 Instructions for other distributions or Kubernetes installations may vary.
 
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Create a static pod {#static-pod-creation}
 
@@ -63,7 +64,7 @@ For example, this is how to start a simple web server as a static Pod:
     ssh my-node1
     ```
 
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, for example `/etc/kubelet.d/static-web.yaml`:
 
     ```shell
     # Run this command on the node where kubelet is running
@@ -236,4 +237,4 @@ CONTAINER ID        IMAGE         COMMAND                CREATED           ...
 e7a62e3427f1        nginx:latest  "nginx -g 'daemon of   27 seconds ago
 ```
 
-{{% /capture %}}
+

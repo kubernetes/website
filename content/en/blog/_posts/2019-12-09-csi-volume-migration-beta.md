@@ -92,7 +92,7 @@ Verify that the pod is RUNNING after some time
 kubectl get pods web-server
 ```
 
-```shell
+```
 NAME         READY   STATUS    RESTARTS   AGE
 web-server   1/1     Running   0          39s
 ```
@@ -103,7 +103,7 @@ To confirm that the CSI driver is actually serving your requests it may be prude
 kubectl logs {CSIdriverPodName} --container={CSIdriverContainerName}
 ```
 
-```shell
+```
 /csi.v1.Controller/ControllerPublishVolume called with request: ...
 Attaching disk ... to ...
 ControllerPublishVolume succeeded for disk ... to instance ...

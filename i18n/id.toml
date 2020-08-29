@@ -137,3 +137,6 @@ other = "Kalender acara"
 # UI elements
 [ui_search_placeholder]
 other = "Cari"
+
+[input_placeholder_email_address]
+other = "Alamat email"

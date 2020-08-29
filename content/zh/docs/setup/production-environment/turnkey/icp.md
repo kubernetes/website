@@ -157,6 +157,6 @@ The IBM Cloud Private Hosted service automatically deploys IBM Cloud Private Hos
 IBM Cloud Private Hosted 服务会自动在您的 VMware vCenter Server 实例上部署 IBM Cloud Private Hosted。此服务将微服务和容器的功能带到 IBM Cloud上的VMware 环境中。使用此服务，您可以将同样熟悉的 VMware 和 IBM Cloud Private 操作模型和工具从本地扩展到 IBM Cloud。
 
 <!--
-For more information, see [IBM Cloud Private Hosted service](https://cloud.ibm.com/docs/services/vmwaresolutions/vmonic?topic=vmware-solutions-prod_overview#ibm-cloud-private-hosted).
+For more information, see [IBM Cloud Private Hosted service](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-icp_overview).
 -->
-有关更多信息，请参阅 [IBM Cloud Private Hosted 服务](https://cloud.ibm.com/docs/services/vmwaresolutions/vmonic?topic=vmware-solutions-prod_overview#ibm-cloud-private-hosted)。
+有关更多信息，请参阅 [IBM Cloud Private Hosted 服务](https://cloud.ibm.com/docs/vmwaresolutions?topic=vmwaresolutions-icp_overview)。

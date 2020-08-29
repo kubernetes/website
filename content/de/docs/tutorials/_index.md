@@ -2,19 +2,19 @@
 title: Tutorials
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Dieser Abschnitt der Kubernetes-Dokumentation enthält Tutorials.
 Ein Tutorial zeigt, wie Sie ein Ziel erreichen, das größer ist als eine einzelne [Aufgabe](/docs/tasks/).
 Ein Tutorial besteht normalerweise aus mehreren Abschnitten, die jeweils eine Abfolge von Schritten haben.
 Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise ein Lesezeichen zur Seite mit dem [Standardisierten Glossar](/docs/reference/glossary/) setzen um später Informationen nachzuschlagen.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Grundlagen
 
@@ -46,16 +46,6 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 * [ZooKeeper, ein verteiltes CP-System](/docs/tutorials/stateful-application/zookeeper/)
 
-## CI/CD Pipeline
-
-* [Einrichten einer CI/CD-Pipeline mit Kubernetes Teil 1: Übersicht](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
-* [Einrichten einer CI/CD-Pipeline mit einem Jenkins-Pod in Kubernetes (Teil 2)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
-* [Ausführen und Skalieren einer verteilten Kreuzworträtsel-App mit CI/CD auf Kubernetes (Teil 3)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
-* [CI/CD für eine verteilte Kreuzworträtsel-App auf Kubernetes einrichten (Teil 4)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## Clusters
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
@@ -64,12 +54,13 @@ Bevor Sie die einzelnen Lernprogramme durchgehen, möchten Sie möglicherweise e
 
 * [Source IP verwenden](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Wenn Sie ein Tutorial schreiben möchten, lesen Sie
 [Seitenvorlagen verwenden](/docs/home/contribute/page-templates/)
 für weitere Informationen zum Typ der Tutorial-Seite und zur Tutorial-Vorlage.
 
-{{% /capture %}}
+

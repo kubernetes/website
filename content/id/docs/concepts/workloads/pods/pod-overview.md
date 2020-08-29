@@ -1,18 +1,18 @@
 ---
 title: Pengenalan Pod
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyajikan ikhtisar dari `Pod`, objek terkecil yang dapat di *deploy* di dalam objek model Kubernetes.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Pod
 
 Sebuah *Pod* adalah unit dasar di Kubernetes--unit terkecil dan paling sederhana di dalam objek model Kubernetes yang dapat dibuat dan di *deploy*. Sebuah *Pod* merepresentasikan suatu proses yang berjalan di dalam klaster.
@@ -47,7 +47,7 @@ Setiap *Pod* diberikan sebuah alamat *IP* unik. Setiap kontainer di dalam *Pod* 
 
 #### Penyimpanan
 
-*Pod* dapat menentukan penyimpanan bersama yaitu *volumes*. Semua kontainer di dalam *Pod* dapat mengakses *volumes* ini, mengizinkan kontainer untuk berbagi data. *Volumes* juga memungkinkan data di *Pod* untuk bertahan jika salah satu kontainer perlu melakukan proses *restart*. Lihat *[Volumes](/docs/concepts/storage/volumes/)* untuk informasi lebih lanjut bagaimana Kubernetes mengimplementasikan penyimpanan di dalam *Pod*.
+*Pod* dapat menentukan penyimpanan bersama yaitu *volumes*. Semua kontainer di dalam *Pod* dapat mengakses *volumes* ini, mengizinkan kontainer untuk berbagi data. *Volumes* juga memungkinkan data di *Pod* untuk bertahan jika salah satu kontainer perlu melakukan proses *restart*. Lihat *[Volumes](/id/docs/concepts/storage/volumes/)* untuk informasi lebih lanjut bagaimana Kubernetes mengimplementasikan penyimpanan di dalam *Pod*.
 
 
 ## Bekerja dengan Pod
@@ -66,16 +66,16 @@ Kontroler dapat membuat dan mengelola banyak *Pod* untuk kamu, menangani replika
 
 Beberapa contoh  kontroler yang berisi satu atau lebih *Pod* meliputi:
 
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
+* [Deployment](/id/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/)
 
 Secara umum, kontroler menggunakan templat *Pod* yang kamu sediakan untuk membuat *Pod*.
 
 ## Templat Pod
 
 Templat *Pod* adalah spesifikasi dari *Pod* yang termasuk di dalam objek lain seperti
-[Replication Controllers](/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), dan [DaemonSets](/docs/concepts/workloads/controllers/daemonset/). Kontroler menggunakan templat *Pod* untuk membuat *Pod*.
+[Replication Controllers](/id/docs/concepts/workloads/controllers/replicationcontroller/), [Jobs](/docs/concepts/jobs/run-to-completion-finite-workloads/), dan [DaemonSets](/id/docs/concepts/workloads/controllers/daemonset/). Kontroler menggunakan templat *Pod* untuk membuat *Pod*.
 
 Contoh di bawah merupakan manifestasi sederhana untuk *Pod* yang berisi kontainer yang membuat sebuah pesan.
 
@@ -97,10 +97,11 @@ spec:
 Perubahan yang terjadi pada templat atau berganti ke templat yang baru tidak memiliki efek langsung pada *Pod* yang sudah dibuat. *Pod* yang dibuat oleh *replication controller* dapat diperbarui secara langsung.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Pelajari lebih lanjut tentang perilaku *Pod*:
-  * [Terminasi Pod](/docs/concepts/workloads/pods/pod/#termination-of-pods)
-  * [Lifecycle Pod](/docs/concepts/workloads/pods/pod-lifecycle/)
-{{% /capture %}}
+  * [Terminasi Pod](/id/docs/concepts/workloads/pods/pod/#termination-of-pods)
+  * [Lifecycle Pod](/id/docs/concepts/workloads/pods/pod-lifecycle/)
+

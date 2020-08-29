@@ -3,10 +3,10 @@ reviewers:
 - piosz
 - x13n
 title: Logging Using Stackdriver
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Before reading this page, it's highly recommended to familiarize yourself
 with the [overview of logging in Kubernetes](/docs/concepts/cluster-administration/logging).
@@ -18,10 +18,10 @@ see the [sidecar approach](/docs/concepts/cluster-administration/logging#sidecar
 in the Kubernetes logging overview.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Deploying
 
@@ -317,8 +317,8 @@ After some time, Stackdriver Logging agent pods will be restarted with the new c
 ### Changing fluentd parameters
 
 Fluentd configuration is stored in the `ConfigMap` object. It is effectively a set of configuration
-files that are merged together. You can learn about fluentd configuration on the [official
-site](http://docs.fluentd.org).
+files that are merged together. You can learn about fluentd configuration on the
+[official site](https://docs.fluentd.org).
 
 Imagine you want to add a new parsing logic to the configuration, so that fluentd can understand
 default Python logging format. An appropriate fluentd filter looks similar to this:
@@ -356,16 +356,16 @@ using [guide above](#changing-daemonset-parameters).
 ### Adding fluentd plugins
 
 Fluentd is written in Ruby and allows to extend its capabilities using
-[plugins](http://www.fluentd.org/plugins). If you want to use a plugin, which is not included
+[plugins](https://www.fluentd.org/plugins). If you want to use a plugin, which is not included
 in the default Stackdriver Logging container image, you have to build a custom image. Imagine
 you want to add Kafka sink for messages from a particular container for additional processing.
 You can re-use the default [container image sources](https://git.k8s.io/contrib/fluentd/fluentd-gcp-image)
 with minor changes:
 
-* Change Makefile to point to your container repository, e.g. `PREFIX=gcr.io/<your-project-id>`.
+* Change Makefile to point to your container repository, for example `PREFIX=gcr.io/<your-project-id>`.
 * Add your dependency to the Gemfile, for example `gem 'fluent-plugin-kafka'`.
 
 Then run `make build push` from this directory. After updating `DaemonSet` to pick up the
 new image, you can use the plugin you installed in the fluentd configuration.
 
-{{% /capture %}}
+

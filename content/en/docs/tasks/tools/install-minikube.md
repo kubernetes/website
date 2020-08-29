@@ -1,19 +1,20 @@
 ---
 title: Install Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows you how to install [Minikube](/docs/tutorials/hello-minikube), a tool that runs a single-node Kubernetes cluster in a virtual machine on your personal computer.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< tabs name="minikube_before_you_begin" >}}
 {{% tab name="Linux" %}}
@@ -26,7 +27,7 @@ grep -E --color 'vmx|svm' /proc/cpuinfo
 {{% tab name="macOS" %}}
 To check if virtualization is supported on macOS, run the following command on your terminal.
 ```
-sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
+sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 If you see `VMX` in the output (should be colored), the VT-x feature is enabled in your machine.
 {{% /tab %}}
@@ -53,11 +54,11 @@ Hyper-V Requirements:     A hypervisor has been detected. Features required for 
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
 
-# Installing minikube
+<!-- steps -->
+
+## Installing minikube
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="Linux" %}}
@@ -74,9 +75,23 @@ If you do not already have a hypervisor installed, install one of these now:
 
 • [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-{{< note >}}
-Minikube also supports a `--vm-driver=none` option that runs the Kubernetes components on the host and not in a VM. Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor. It is recommended to use the apt installation of docker from [Docker](https://www.docker.com/products/docker-desktop), when using the none driver. The snap installation of docker does not work with minikube.
-{{< /note >}}
+Minikube also supports a `--driver=none` option that runs the Kubernetes components on the host and not in a VM.
+Using this driver requires [Docker](https://www.docker.com/products/docker-desktop) and a Linux environment but not a hypervisor.
+
+If you're using the `none` driver in Debian or a derivative, use the `.deb` packages for
+Docker rather than the snap package, which does not work with Minikube.
+You can download `.deb` packages from [Docker](https://www.docker.com/products/docker-desktop).
+
+{{< caution >}}
+The `none` VM driver can result in security and data loss issues.
+Before using `--driver=none`, consult [this documentation](https://minikube.sigs.k8s.io/docs/reference/drivers/none/) for more information.
+{{< /caution >}}
+
+Minikube also supports a `vm-driver=podman` similar to the Docker driver. Podman run as superuser privilege (root user) is the best way to ensure that your containers have full access to any feature available on your system.
+
+{{< caution >}}
+The `podman` driver requires running the containers as root because regular user accounts don't have full access to all operating system features that their containers might need to run.
+{{< /caution >}}
 
 ### Install Minikube using a package
 
@@ -185,27 +200,22 @@ To install Minikube manually on Windows, download [`minikube-windows-amd64`](htt
 {{% /tab %}}
 {{< /tabs >}}
 
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)
-
-{{% /capture %}}
-
 ## Confirm Installation
 
 To confirm successful installation of both a hypervisor and Minikube, you can run the following command to start up a local Kubernetes cluster:
 
 {{< note >}}
 
-For setting the `--vm-driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--vm-driver` values is available in [specifying the VM driver documentation](https://kubernetes.io/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
+For setting the `--driver` with `minikube start`, enter the name of the hypervisor you installed in lowercase letters where `<driver_name>` is mentioned below. A full list of `--driver` values is available in [specifying the VM driver documentation](/docs/setup/learning-environment/minikube/#specifying-the-vm-driver).
 
 {{< /note >}}
 
+{{< caution >}}
+When using KVM, note that libvirt's default QEMU URI under Debian and some other systems is `qemu:///session` whereas Minikube's default QEMU URI is `qemu:///system`. If this is the case for your system, you will need to pass `--kvm-qemu-uri qemu:///session` to `minikube start`.
+{{< /caution >}}
+
 ```shell
-minikube start --vm-driver=<driver_name>
+minikube start --driver=<driver_name>
 ```
 
 Once `minikube start` finishes, run the command below to check the status of the cluster:
@@ -245,3 +255,8 @@ then you need to clear minikube's local state:
 ```shell
 minikube delete
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Running Kubernetes Locally via Minikube](/docs/setup/learning-environment/minikube/)

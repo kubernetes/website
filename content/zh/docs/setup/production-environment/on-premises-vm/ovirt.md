@@ -1,6 +1,6 @@
 ---
 title: oVirt
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
@@ -8,11 +8,11 @@ reviewers:
 - caesarxuchao
 - erictune
 title: oVirt
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 oVirt is a virtual datacenter manager that delivers powerful management of multiple virtual machines on multiple hosts. Using KVM and libvirt, oVirt can be installed on Fedora, CentOS, or Red Hat Enterprise Linux hosts to set up and manage your virtual data center.
@@ -20,9 +20,9 @@ oVirt is a virtual datacenter manager that delivers powerful management of multi
 oVirt 是一个虚拟数据中心管理器，可以对多个主机上的多个虚拟机进行强大的管理。
 使用 KVM 和 libvirt ，可以将 oVirt 安装在 Fedora、CentOS 或者 Red Hat Enterprise Linux 主机上，以部署和管理您的虚拟数据中心。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## oVirt Cloud Provider Deployment
@@ -131,5 +131,5 @@ IaaS 提供商        | 配置管理 | OS     | 联网  | 文件                
 oVirt | | | | [文件](/docs/setup/production-environment/on-premises-vm/ovirt/) | | 社区 ([@simon3z](https://github.com/simon3z))
 
 
-{{% /capture %}}
+
 

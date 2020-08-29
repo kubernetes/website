@@ -3,24 +3,25 @@ title: Extend kubectl with plugins
 reviewers:
 - juanvallejo
 - soltysh
-description: With kubectl plugins, you can extend the functionality of the kubectl command by adding new subcommands.
-content_template: templates/task
+description: Extend kubectl by creating and installing kubectl plugins.
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This guide demonstrates how to install and write extensions for [kubectl](/docs/reference/kubectl/kubectl/). By thinking of core `kubectl` commands as essential building blocks for interacting with a Kubernetes cluster, a cluster administrator can think
 of plugins as a means of utilizing these building blocks to create more complex behavior. Plugins extend `kubectl` with new sub-commands, allowing for new and custom features not included in the main distribution of `kubectl`.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 You need to have a working `kubectl` binary installed.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Installing kubectl plugins
 
@@ -364,7 +365,7 @@ on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
 As a plugin author, if you pick this option then you also have the burden
-of updating your kubectl plugin’s distribution package across multiple
+of updating your kubectl plugin's distribution package across multiple
 platforms for each release.
 
 ### Source code {#distributing-source-code}
@@ -375,9 +376,10 @@ set up a build environment (if it needs compiling), and deploy the plugin.
 If you also make compiled packages available, or use Krew, that will make
 installs easier.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Check the Sample CLI Plugin repository for a
   [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
@@ -386,4 +388,4 @@ installs easier.
   [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
 
-{{% /capture %}}
+

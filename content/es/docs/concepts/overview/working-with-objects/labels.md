@@ -1,10 +1,10 @@
 ---
 title: Etiquetas y Selectores
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Las _etiquetas_ son pares de clave/valor que se asocian a los objetos, como los pods.
 El propósito de las etiquetas es permitir identificar atributos de los objetos que son relevantes y significativos para los usuarios, pero que no tienen significado para el sistema principal.
@@ -22,10 +22,10 @@ Cada objeto puede tener un conjunto de etiquetas clave/valor definidas, donde ca
 
 Las etiquetas permiten consultar y monitorizar los objetos de forma más eficiente y son ideales para su uso en UIs y CLIs. El resto de información no identificada debe ser registrada usando [anotaciones](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Motivación
 
@@ -201,4 +201,4 @@ selector:
 Un caso de uso de selección basada en etiquetas es la posibilidad de limitar los nodos en los que un pod puede desplegarse.
 Ver la documentación sobre [selección de nodo](/docs/concepts/configuration/assign-pod-node/) para más información.
 
-{{% /capture %}}
+

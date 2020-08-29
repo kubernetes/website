@@ -3,11 +3,11 @@ reviewers:
 - bprashanth
 - davidopp
 title: 配置你的云平台防火墙
-content_template: templates/task
+content_type: task
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Many cloud providers (e.g. Google Compute Engine) define firewalls that help prevent inadvertent
@@ -18,16 +18,17 @@ well as any provider specific details that may be necessary.
 许多云服务提供商（比如 谷歌计算引擎）定义防火墙以防止服务无意间暴露到互联网上。
 当暴露服务给外网时，你可能需要在防火墙上开启一个或者更多的端口来支持服务。
 本文描述了这个过程，以及其他云服务商的具体信息。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Restrict Access For LoadBalancer Service
 -->
@@ -159,4 +160,4 @@ the wilds of the internet.
 
 {{< /note >}}
 
-{{% /capture %}}
+

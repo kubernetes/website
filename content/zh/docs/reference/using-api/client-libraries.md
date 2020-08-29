@@ -1,6 +1,6 @@
 ---
 title: 客户端库
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
@@ -9,20 +9,20 @@ weight: 30
 title: Client Libraries
 reviewers:
 - ahmetb
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page contains an overview of the client libraries for using the Kubernetes
 API from various programming languages.
 -->
 本页面包含基于各种编程语言使用 Kubernetes API 的客户端库概述。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 To write applications using the [Kubernetes REST API](/docs/reference/using-api/api-overview/),
 you do not need to implement the API calls and request/response types yourself.
@@ -144,6 +144,6 @@ their authors, not the Kubernetes team.
 | DotNet (RestSharp)   | [github.com/masroorhasan/Kubernetes.DotNet](https://github.com/masroorhasan/Kubernetes.DotNet) |
 | Elixir               | [github.com/obmarg/kazan](https://github.com/obmarg/kazan/) |
 | Haskell              | [github.com/soundcloud/haskell-kubernetes](https://github.com/soundcloud/haskell-kubernetes) |
-{{% /capture %}}
+
 
 

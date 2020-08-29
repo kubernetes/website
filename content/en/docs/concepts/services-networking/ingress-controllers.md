@@ -1,11 +1,11 @@
 ---
 title: Ingress Controllers
 reviewers:
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In order for the Ingress resource to work, the cluster must have an ingress controller running. 
 
@@ -16,9 +16,9 @@ that best fits your cluster.
 Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.io/ingress-gce/README.md) and
   [nginx](https://git.k8s.io/ingress-nginx/README.md) controllers.
   
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Additional controllers
 
@@ -26,13 +26,13 @@ Kubernetes as a project currently supports and maintains [GCE](https://git.k8s.i
 * [Ambassador](https://www.getambassador.io/) API Gateway is an [Envoy](https://www.envoyproxy.io) based ingress 
   controller with [community](https://www.getambassador.io/docs) or 
   [commercial](https://www.getambassador.io/pro/) support from [Datawire](https://www.datawire.io/).
-* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](http://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
+* [AppsCode Inc.](https://appscode.com) offers support and maintenance for the most widely used [HAProxy](https://www.haproxy.org/) based ingress controller [Voyager](https://appscode.com/products/voyager). 
 * [AWS ALB Ingress Controller](https://github.com/kubernetes-sigs/aws-alb-ingress-controller) enables ingress using the [AWS Application Load Balancer](https://aws.amazon.com/elasticloadbalancing/).
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller
   provided and supported by VMware.
 * Citrix provides an [Ingress Controller](https://github.com/citrix/citrix-k8s-ingress-controller) for its hardware (MPX), virtualized (VPX) and [free containerized (CPX) ADC](https://www.citrix.com/products/citrix-adc/cpx-express.html) for [baremetal](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment/baremetal) and [cloud](https://github.com/citrix/citrix-k8s-ingress-controller/tree/master/deployment) deployments.
 * F5 Networks provides [support and maintenance](https://support.f5.com/csp/article/K86859508)
-  for the [F5 BIG-IP Controller for Kubernetes](http://clouddocs.f5.com/products/connectors/k8s-bigip-ctlr/latest).
+  for the [F5 BIG-IP Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/).
 * [Gloo](https://gloo.solo.io) is an open-source ingress controller based on [Envoy](https://www.envoyproxy.io) which offers API Gateway functionality with enterprise support from [solo.io](https://www.solo.io).  
 * [HAProxy Ingress](https://haproxy-ingress.github.io) is a highly customizable community-driven ingress controller for HAProxy.
 * [HAProxy Technologies](https://www.haproxy.com/) offers support and maintenance for the [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress). See the [official documentation](https://www.haproxy.com/documentation/hapee/1-9r1/traffic-management/kubernetes-ingress-controller/).
@@ -64,11 +64,12 @@ controllers operate slightly differently.
 Make sure you review your ingress controller's documentation to understand the caveats of choosing it.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [Ingress](/docs/concepts/services-networking/ingress/).
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube).
 
-{{% /capture %}}
+

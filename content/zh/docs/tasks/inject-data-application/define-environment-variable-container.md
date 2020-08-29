@@ -1,64 +1,101 @@
 ---
 title: 为容器设置环境变量
-content_template: templates/task
+content_type: task
+weight: 20
 ---
 
-{{% capture overview %}}
+<!--
+title: Define Environment Variables for a Container
+content_type: task
+weight: 20
+-->
 
+<!-- overview -->
+
+<!--
+This page shows how to define environment variables for a container
+in a Kubernetes Pod. 
+-->
 本页将展示如何为 kubernetes Pod 下的容器设置环境变量。
 
-{{% /capture %}}
+## {{% heading "prerequisites" %}}
 
+{{< include "task-tutorial-prereqs.md" >}}
 
-{{% capture prerequisites %}}
+<!-- steps -->
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
-
-
-{{% capture steps %}}
-
+<!--
+## Define an environment variable for a container
+-->
 ## 为容器设置一个环境变量
 
+<!--
+When you create a Pod, you can set environment variables for the containers
+that run in the Pod. To set environment variables, include the `env` or
+`envFrom` field in the configuration file.
+-->
 创建 Pod 时，可以为其下的容器设置环境变量。通过配置文件的 `env` 或者 `envFrom` 字段来设置环境变量。
 
+<!--
+In this exercise, you create a Pod that runs one container. The configuration
+file for the Pod defines an environment variable with name `DEMO_GREETING` and
+value `"Hello from the environment"`. Here is the configuration file for the
+Pod:
+-->
 本示例中，将创建一个只包含单个容器的 Pod。Pod 的配置文件中设置环境变量的名称为 `DEMO_GREETING`，
 其值为 `"Hello from the environment"`。下面是 Pod 的配置文件内容：
 
 {{< codenew file="pods/inject/envars.yaml" >}}
 
+<!--
+1. Create a Pod based on the YAML configuration file:
+-->
 1. 基于 YAML 文件创建一个 Pod：
 
     ```shell
     kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
     ```
-       
+
+<!--
+1. List the running Pods:
+-->
 1. 获取一下当前正在运行的 Pods 信息：
 
     ```shell
     kubectl get pods -l purpose=demonstrate-envars
     ```
-       
+
+    <!--
+    The output is similar to this:
+    -->
     查询结果应为：
     
     ```shell
     NAME            READY     STATUS    RESTARTS   AGE
     envar-demo      1/1       Running   0          9s
     ```
-      
+
+<!--
+1. Get a shell to the container running in your Pod:
+-->
 1. 进入该 Pod 下的容器并打开一个命令终端：
     
     ```shell
     kubectl exec -it envar-demo -- /bin/bash
     ```
 
+<!--
+1. In your shell, run the `printenv` command to list the environment variables.
+-->
 1. 在命令终端中通过执行 `printenv` 打印出环境变量。
 
     ```shell
     root@envar-demo:/# printenv
     ```
     
+    <!--
+    The output is similar to this:
+    -->
     打印结果应为：
     
     ```shell
@@ -69,7 +106,10 @@ content_template: templates/task
     DEMO_GREETING=Hello from the environment
     DEMO_FAREWELL=Such a sweet sorrow
     ```
-        
+
+<!--
+1. To exit the shell, enter `exit`.
+-->
 1. 通过键入 `exit` 退出命令终端。
 
 <!--
@@ -80,6 +120,10 @@ will override any environment variables specified in the container image.
 -->
 {{< note >}}
 通过 `env` 或 `envFrom` 字段设置的环境变量将覆盖容器镜像中指定的所有环境变量。
+{{< /note >}}
+
+{{< note >}}
+环境变量之间可能出现互相依赖或者循环引用的情况，使用之前需注意引用顺序
 {{< /note >}}
 
 <!--
@@ -116,15 +160,15 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 -->
 创建后，命令 `echo Warm greetings to The Most Honorable Kubernetes` 将在容器中运行。
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
-{{% capture whatsnext %}}
+<!--
+* Learn more about [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+* Learn about [using secrets as environment variables](/docs/user-guide/secrets/#using-secrets-as-environment-variables).
+* See [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core).
+-->
 
-* 有关环境变量的更多信息，请参阅[这里](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)。
-* 有关如何通过环境变量来使用 Secret，请参阅[这里](/docs/user-guide/secrets/#using-secrets-as-environment-variables)。
+* 进一步了解[环境变量](/zh/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
+* 进一步了解[通过环境变量来使用 Secret](/zh/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 * 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
-
-{{% /capture %}}
-
-
 

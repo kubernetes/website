@@ -5,16 +5,16 @@ reviewers:
 - quinton-hoole
 title: Running in multiple zones
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how to run a cluster in multiple zones.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -78,7 +78,7 @@ federation support).
 a single master node by default.  While services are highly
 available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
-plane should follow the [high availability](/docs/admin/high-availability) instructions.
+plane should follow the [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) instructions.
 
 ### Volume limitations
 The following limitations are addressed with [topology-aware volume binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
@@ -188,7 +188,7 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
-```json
+```bash
 kubectl apply -f - <<EOF
 {
   "apiVersion": "v1",
@@ -401,4 +401,4 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b k
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
 
-{{% /capture %}}
+

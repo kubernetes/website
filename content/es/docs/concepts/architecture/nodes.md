@@ -2,18 +2,18 @@
 reviewers:
 - glo-pena
 title: Nodos
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Un nodo es una máquina de trabajo en Kubernetes, previamente conocida como `minion`. Un nodo puede ser una máquina virtual o física, dependiendo del tipo de clúster. Cada nodo está gestionado por el componente máster y contiene los servicios necesarios para ejecutar [pods](/docs/concepts/workloads/pods/pod). Los servicios en un nodo incluyen el [container runtime](/docs/concepts/overview/components/#node-components), kubelet y el kube-proxy. Accede a la sección [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) en el documento de diseño de arquitectura para más detalle.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Estado del Nodo
 
@@ -111,7 +111,7 @@ El controlador juega múltiples papeles en la vida de un nodo. El primero es asi
 
 El segundo es mantener actualizada la lista interna del controlador con la lista de máquinas disponibles a través del proveedor de servicios en la nube. Cuando Kubernetes se ejecuta en la nube, si un nodo deja de responder, el controlador del nodo preguntará al proveedor si la máquina virtual de dicho nodo continúa estando disponible. Si no lo está, el controlador borrará dicho nodo de su lista interna.
 
-El tercero es el de monitorizar la salud de los nodos. El controlador de nodos es el responsable de actualizar la condición `NodeReady` del campo `NodeStatus` a `ConditionUnknown` cuando un nodo deja de estar accesible (por ejemplo, si deja de recibir señales de vida del nodo indicando que está disponible, conocidas como latidos o `hearbeats` en inglés) y, también es responsable de posteriormente desalojar todos los pods del nodo si este continúa estando inalcanzable. Por defecto, cuando un nodo deja de responder, el controlador sigue re-intentando contactar con el nodo durante 40 segundos antes de marcar el nodo con `ConditionUnknown` y, si el nodo no se recupera de ese estado pasados 5 minutos, empezará a drenar los pods del nodo para desplegarlos en otro nodo que esté disponible. El controlador comprueba el estado de cada nodo cada `--node-monitor-period` segundos.
+El tercero es el de monitorizar la salud de los nodos. El controlador de nodos es el responsable de actualizar la condición `NodeReady` del campo `NodeStatus` a `ConditionUnknown` cuando un nodo deja de estar accesible (por ejemplo, si deja de recibir señales de vida del nodo indicando que está disponible, conocidas como latidos o `hearbeats` en inglés) y, también es responsable de posteriormente desalojar todos los pods del nodo si este continúa estando inalcanzable. Por defecto, cuando un nodo deja de responder, el controlador sigue reintentando contactar con el nodo durante 40 segundos antes de marcar el nodo con `ConditionUnknown` y, si el nodo no se recupera de ese estado pasados 5 minutos, empezará a drenar los pods del nodo para desplegarlos en otro nodo que esté disponible. El controlador comprueba el estado de cada nodo cada `--node-monitor-period` segundos.
 
 En versiones de Kubernetes previas a 1.13, `NodeStatus` es el `heartbeat` del nodo. Empezando con 1.13 la funcionalidad de `node lease` se introduce como alfa (`NodeLease`,
 [KEP-0009](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/0009-node-heartbeat.md)). Cuando la funcionalidad está habilitada, cada nodo tiene un objeto `Lease` asociado en el namespace `kube-node-lease` que se renueva periódicamente y ambos, el `NodeStatus` y el `Lease` son considerados como `hearbeats` del nodo. `Node leases` se renuevan con frecuencia, mientras que `NodeStatus` se transmite desde el nodo al máster únicamente si hay cambios o si ha pasado cierto tiempo (por defecto, 1 minuto, que es más que la cuenta atrás por defecto de 40 segundos que marca un nodo como inalcanzable). Al ser los `node lease` más ligeros que `NodeStatus`, los `hearbeats` resultan más económicos desde las perspectivas de escalabilidad y de rendimiento.
@@ -123,7 +123,7 @@ En la mayoría de los casos, el controlador de nodos limita el ritmo de desalojo
 El comportamiento de desalojo de nodos cambia cuando un nodo en una zona de disponibilidad tiene problemas. El controlador de nodos comprobará qué porcentaje de nodos en la zona no se encuentran en buen estado (es decir, que su condición `NodeReady` tiene un valor `ConditionUnknown` o `ConditionFalse`) al mismo tiempo. Si la fracción de nodos con problemas es de al menos `--unhealthy-zone-threshold` (0.55 por defecto) entonces se reduce el ratio de desalojos: si el clúster es pequeño (por ejemplo, tiene menos o los mismos nodos que `--large-cluster-size-threshold` - 50 por defecto) entonces los desalojos se paran. Sino, el ratio se reduce a `--secondary-node-eviction-rate` (0.01 por defecto) por segundo. La razón por la que estas políticas se implementan por zonas de disponibilidad es debido a que una zona puede quedarse aislada del nodo máster mientras que las demás continúan conectadas. Si un clúster no comprende más de una zona, todo el clúster se considera una única zona.
 
 La razón principal por la que se distribuyen nodos entre varias zonas de disponibilidad es para que el volumen de trabajo se transfiera a aquellas zonas que se encuentren en buen estado cuando una de las zonas se caiga.
-Por consiguiente, si todos los nodos de una zona se encuentran en mal estado, el nodo controlador desaloja al ritmo normal `--node-eviction-rate`. En el caso extremo de que todas las zonas se encuentran en mal estado (es decir, no responda ningún nodo del clúster), el controlador de nodos asume que hay algún tipo de problema con la conectividad del nodo máster y paraliza todos los desalojos hasta que se re-establece la conectividad.
+Por consiguiente, si todos los nodos de una zona se encuentran en mal estado, el nodo controlador desaloja al ritmo normal `--node-eviction-rate`. En el caso extremo de que todas las zonas se encuentran en mal estado (es decir, no responda ningún nodo del clúster), el controlador de nodos asume que hay algún tipo de problema con la conectividad del nodo máster y paraliza todos los desalojos hasta que se restablezca la conectividad.
 
 Desde la versión 1.6 de Kubernetes el controlador de nodos también es el responsable de desalojar pods que están ejecutándose en nodos con `NoExecute` taints, cuando los pods no permiten dichos taints. De forma adicional, como una funcionalidad alfa que permanece deshabilitada por defecto, el `NodeController` es responsable de añadir taints que se corresponden con problemas en los nodos del tipo nodo inalcanzable o nodo no preparado. En [esta sección de la documentación](/docs/concepts/configuration/taint-and-toleration/) hay más detalles acerca de los taints `NoExecute` y de la funcionalidad alfa.
 
@@ -180,4 +180,4 @@ Para reservar explícitamente recursos en la máquina huésped para procesos no 
 Un nodo es un recurso principal dentro de la REST API de Kubernetes. Más detalles sobre el objeto en la  API se puede encontrar en: [Object Node API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
 
 
-{{% /capture %}}
+

@@ -1,43 +1,50 @@
 ---
 title: Serviceを利用したクラスター内のアプリケーションへのアクセス
-content_template: templates/tutorial
+content_type: tutorial
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 ここでは、クラスター内で稼働しているアプリケーションに外部からアクセスするために、KubernetesのServiceオブジェクトを作成する方法を紹介します。
 例として、2つのインスタンスから成るアプリケーションへのロードバランシングを扱います。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
 
-* 2つのHellow Worldアプリケーションを稼働させる。
+## {{% heading "objectives" %}}
+
+
+* 2つのHello Worldアプリケーションを稼働させる。
 * Nodeのポートを公開するServiceオブジェクトを作成する。
 * 稼働しているアプリケーションにアクセスするためにServiceオブジェクトを使用する。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 2つのPodから成るアプリケーションのServiceを作成
 
+アプリケーションDeploymentの設定ファイルは以下の通りです:
+
+{{< codenew file="service/access/hello-application.yaml" >}}
+
 1. クラスタでHello Worldアプリケーションを稼働させます:
+   上記のファイルを使用し、アプリケーションのDeploymentを作成します:
    ```shell
-   kubectl run hello-world --replicas=2 --labels="run=load-balancer-example" --image=gcr.io/google-samples/node-hello:1.0  --port=8080
+   kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
     このコマンドは
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
+    [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)
     オブジェクトとそれに紐付く
     [ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)
     オブジェクトを作成します。ReplicaSetは、Hello Worldアプリケーションが稼働している2つの
@@ -115,13 +122,14 @@ weight: 60
 ## service configuration fileの利用
 
 `kubectl expose`コマンドの代わりに、
-[service configuration file](/docs/concepts/services-networking/service/)
+[service configuration file](/ja/docs/concepts/services-networking/service/)
 を使用してServiceを作成することもできます。
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 Serviceを削除するには、以下のコマンドを実行します:
 
@@ -131,12 +139,13 @@ Hello Worldアプリケーションが稼働しているDeployment、ReplicaSet�
 
     kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 詳細は
 [serviceを利用してアプリケーションと接続する](/docs/concepts/services-networking/connect-applications-service/)
 を確認してください。
-{{% /capture %}}
+

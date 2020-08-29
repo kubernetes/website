@@ -1,18 +1,18 @@
 ---
 title: Memahami Konsep Objek-Objek yang ada pada Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini menjelaskan bagaimana objek-objek Kubernetes direpresentasikan di dalam API Kubernetes,
 dan bagaimana kamu dapat merepresentasikannya di dalam format `.yaml`.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Konsep Objek-Objek yang Ada pada Kubernetes
 
 Objek-objek Kubernetes adalah entitas persisten di dalam sistem Kubernetes.
@@ -30,7 +30,7 @@ memberikan informasi pada sistem Kubernetes mengenai perilaku apakah yang kamu i
 dengan kata lain ini merupakan definisi _state_ klaster yang kamu inginkan.
 
 Untuk menggunakan objek-objek Kubernetes--baik membuat, mengubah, atau menghapus objek-objek tersebut--kamu
-harus menggunakan [API Kubernetes](/docs/concepts/overview/kubernetes-api/).
+harus menggunakan [API Kubernetes](/id/docs/concepts/overview/kubernetes-api/).
 Ketika kamu menggunakan perintah `kubectl`, perintah ini akan melakukan _API call_ untuk perintah
 yang kamu berikan. Kamu juga dapat menggunakan API Kubernetes secara langsung pada program yang kamu miliki
 menggunakan salah satu [_library_ klien](/docs/reference/using-api/client-libraries/) yang disediakan.
@@ -99,10 +99,11 @@ untuk _Pod_ dapat kamu temukan [di sini](/docs/reference/generated/kubernetes-ap
 dan format _spec_ untuk _Deployment_ dapat ditemukan
 [di sini](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deploymentspec-v1-apps).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/docs/concepts/workloads/pods/pod-overview/).
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* Pelajari lebih lanjut mengenai dasar-dasar penting bagi objek Kubernetes, seperti [Pod](/id/docs/concepts/workloads/pods/pod-overview/).
+
 
 

@@ -1,10 +1,10 @@
 ---
 title: ラベル(Labels)とセレクター(Selectors)
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキーとバリューのペアです。  
 ラベルはユーザーに関連した意味のあるオブジェクトの属性を指定するために使われることを目的としています。しかしKubernetesのコアシステムに対して直接的にその意味を暗示するものではありません。  
@@ -20,12 +20,12 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 ```
 
 ラベルは効率的な検索・閲覧を可能にし、UIやCLI上での利用に最適です。 
-識別用途でない情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
-
-{{% /capture %}}
+識別用途でない情報は、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/)を用いて記録されるべきです。  
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## ラベルを使う動機
 
@@ -45,7 +45,7 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 これらは単によく使われるラベルの例です。ユーザーは自由に規約を決めることができます。
 ラベルのキーは、ある1つのオブジェクトに対してユニークである必要があることは覚えておかなくてはなりません。  
 
-## 構文と文字セット
+## 構文と文字セット {#syntax-and-character-set}
 
 ラベルは、キーとバリューのベアです。正しいラベルキーは2つのセグメントを持ちます。  
 それは`/`によって分割されたオプショナルなプレフィックスと名前です。  
@@ -59,7 +59,27 @@ _ラベル(Labels)_ はPodなどのオブジェクトに割り当てられたキ
 
 正しいラベル値は63文字以下の長さで、空文字か、もしくは開始と終了が英数字(`[a-z0-9A-Z]`)で、文字列の間がダッシュ(`-`)、アンダースコア(`_`)、ドット(`.`)と英数字である文字列を使うことができます。  
 
-## ラベルセレクター
+例えば、`environment: production`と`app: nginx`の2つのラベルを持つPodの設定ファイルは下記のようになります。
+
+```yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-demo
+  labels:
+    environment: production
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+
+```
+
+## ラベルセレクター {#label-selectors}
 
 [名前とUID](/docs/user-guide/identifiers)とは異なり、ラベルはユニーク性を提供しません。通常、多くのオブジェクトが同じラベルを保持することを想定します。
 
@@ -76,6 +96,10 @@ Kubernetes APIは現在2タイプのセレクターをサポートしていま�
 {{< note >}}
 ReplicaSetなど、いくつかのAPIタイプにおいて、2つのインスタンスのラベルセレクターは単一の名前空間において重複してはいけません。重複していると、コントローラがそれらのラベルセレクターがコンフリクトした操作とみなし、どれだけの数のレプリカを稼働させるべきか決めることができなくなります。
 {{< /note >}}
+
+{{< caution >}}
+等価ベース、集合ベースともに、論理OR (`||`) オペレーターは存在しません。フィルターステートメントが意図した通りになっていることを確認してください。
+{{< /caution >}}
 
 ### *等価ベース(Equality-based)* の要件(requirement)
 
@@ -116,7 +140,7 @@ spec:
 
 ### *集合ベース(Set-based)* の要件(requirement)
 
-*集合ベース(Set-based)* のラベルの要件は値のセットによってキーをフィルタリングします。  
+*集合ベース(Set-based)* のラベルの要件は値のセットによってキーをフィルタリングします。  
 `in`、`notin`、`exists`の3つのオペレーターをサポートしています(キーを特定するのみ)。    
 
 例えば:  
@@ -161,7 +185,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
 すでに言及したように、*集合ベース* の要件は、*等価ベース* の要件より表現力があります。  
-例えば、値に対する_OR_ オペレーターを実装して以下のように書けます。  
+例えば、値に対する _OR_ オペレーターを実装して以下のように書けます。  
 
 ```shell
 kubectl get pods -l 'environment in (production, qa)'
@@ -174,7 +198,7 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 ```
 
 ### APIオブジェクトに参照を設定する
-[`Service`](/docs/user-guide/services) と [`ReplicationController`](/docs/user-guide/replication-controller)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/docs/user-guide/pods)のような他のリソースのセットを指定するのにも使われます。  
+[`Service`](/ja/docs/concepts/services-networking/service/) と [`ReplicationController`](/docs/concepts/workloads/controllers/replicationcontroller/)のような、いくつかのKubernetesオブジェクトでは、ラベルセレクターを[Pod](/ja/docs/concepts/workloads/pods/pod/)のような他のリソースのセットを指定するのにも使われます。  
 
 #### ServiceとReplicationController
 `Service`が対象とするPodの集合は、ラベルセレクターによって定義されます。  
@@ -198,7 +222,7 @@ selector:
 
 #### *集合ベース* の要件指定をサポートするリソース
 
-[`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/)や[`Deployment`](/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
+[`Job`](/docs/concepts/workloads/controllers/jobs-run-to-completion/)や[`Deployment`](/ja/docs/concepts/workloads/controllers/deployment/)、[`ReplicaSet`](/ja/docs/concepts/workloads/controllers/replicaset/)や[`DaemonSet`](/ja/docs/concepts/workloads/controllers/daemonset/)などの比較的新しいリソースは、*集合ベース* での要件指定もサポートしています。  
 ```yaml
 selector:
   matchLabels:
@@ -214,6 +238,6 @@ selector:
 
 #### Nodeのセットを選択する  
 ラベルを選択するための1つのユースケースはPodがスケジュールできるNodeのセットを制限することです。  
-さらなる情報に関しては、[Node選定](/docs/concepts/configuration/assign-pod-node/) のドキュメントを参照してください。 
+さらなる情報に関しては、[Node選定](/ja/docs/concepts/configuration/assign-pod-node/) のドキュメントを参照してください。 
 
-{{% /capture %}}
+

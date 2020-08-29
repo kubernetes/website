@@ -1,23 +1,23 @@
 ---
 title: Images
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
-{{% capture overview %}}
+<!-- overview -->
 
-Sie erstellen ihr Docker Image und laden es in eine Registry hoch bevor es in einem Kubernetes Pod referenziert werden kann.
+Sie erstellen ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
 
 Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die des `docker` Kommandos, inklusive privater Registries und Tags.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Aktualisieren von Images
 
-Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu das dass Kubelet Images überspringt die bereits auf einem Node vorliegen.
-Wenn sie stattdessen möchten das ein Image immer forciert heruntergeladen wird, können sie folgendes tun:
+Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu, dass das Kubelet Images überspringt, die bereits auf einem Node vorliegen.
+Wenn sie stattdessen möchten, dass ein Image immer forciert heruntergeladen wird, können sie folgendes tun:
 
 
 - Die `imagePullPolicy` des Containers auf `Always` setzen.
@@ -25,7 +25,7 @@ Wenn sie stattdessen möchten das ein Image immer forciert heruntergeladen wird,
 - Die `imagePullPolicy` und den Tag des Images auslassen.
 - Den [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) Admission Controller aktivieren.
 
-Beachten Sie das die die Nutzung des `:latest` Tags vermeiden sollten, weitere Informationen siehe: [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images).
+Beachten Sie, dass Sie die Nutzung des `:latest` Tags vermeiden sollten. Für weitere Informationen siehe: [Best Practices for Configuration](/docs/concepts/configuration/overview/#container-images).
 
 ## Multi-Architektur Images mit Manifesten bauen
 
@@ -38,17 +38,17 @@ https://docs.docker.com/edge/engine/reference/commandline/manifest/
 Hier einige Beispiele wie wir dies in unserem Build - Prozess nutzen:
 https://cs.k8s.io/?q=docker%20manifest%20(create%7Cpush%7Cannotate)&i=nope&files=&repos=
 
-Diese Kommandos basieren rein auf dem Docker Kommandozeileninterface und werden auch damit ausgeführt. Sie sollten entweder die Datei `$HOME/.docker/config.json` bearbeiten und den `experimental` Schlüssel auf `enabled`setzen, oder einfach die Umgebungsvariable `DOCKER_CLI_EXPERIMENTAL` auf `enabled`setzen wenn Sie das Docker Kommandozeileninterface aufrufen.
+Diese Kommandos basieren rein auf dem Docker Kommandozeileninterface und werden auch damit ausgeführt. Sie sollten entweder die Datei `$HOME/.docker/config.json` bearbeiten und den `experimental` Schlüssel auf `enabled` setzen, oder einfach die Umgebungsvariable `DOCKER_CLI_EXPERIMENTAL` auf `enabled` setzen, wenn Sie das Docker Kommandozeileninterface aufrufen.
 
 
 {{< note >}}
-Nutzen die bitte Docker *18.06 oder neuer*, ältere Versionen haben entweder bugs oder unterstützen die experimentelle Kommandozeilenoption nicht. Beispiel: https://github.com/docker/cli/issues/1135 verursacht Probleme unter containerd.
+Nutzen die bitte Docker *18.06 oder neuer*, ältere Versionen haben entweder Bugs oder unterstützen die experimentelle Kommandozeilenoption nicht. Beispiel: https://github.com/docker/cli/issues/1135 verursacht Probleme unter containerd.
 
 {{< /note >}}
 
-Wenn mit alten Manifesten Probleme auftreten können sie die alten Manifeste in  `$HOME/.docker/manifests` entfernen um von vorne zu beginnen.
+Wenn mit alten Manifesten Probleme auftreten, können sie die alten Manifeste in `$HOME/.docker/manifests` entfernen, um von vorne zu beginnen.
 
-Für Kubernetes selbst haben wir typischerweise Images mit dem Suffix `-$(ARCH)` genutzt. Um die Abwärtskompatibilität zu erhalten bitten wir Sie die älteren Images mit diesen Suffixen zu generieren. Die Idee dahinter ist z.B. das `pause` image zu generieren, welches  das Manifest für alle Architekturen hat, `pause-amd64` wäre dann abwärtskompatibel zu älteren Konfigurationen, oder YAML - Dateien die ein Image mit Suffixen hart kodiert haben.
+Für Kubernetes selbst nutzen wir typischerweise Images mit dem Suffix `-$(ARCH)`. Um die Abwärtskompatibilität zu erhalten, bitten wir Sie, die älteren Images mit diesen Suffixen zu generieren. Die Idee dahinter ist z.B., das `pause` image zu generieren, welches das Manifest für alle Architekturen hat, `pause-amd64` wäre dann abwärtskompatibel zu älteren Konfigurationen, oder YAML - Dateien, die ein Image mit Suffixen hart kodiert enthalten.
 
 
 ## Nutzung einer privaten Registry
@@ -73,32 +73,32 @@ Authentifizierungsdaten können auf verschiedene Weisen hinterlegt werden:
     - Setzt die Konfiguration der Nodes durch einen Cluster - Aministrator voraus
   - Im Voraus heruntergeladene Images
     - Alle Pods können jedes gecachte Image auf einem Node nutzen
-    - Setzt root - Zugriff auf allen Nodes zum einrichten voraus
-  - Spezifizieren eines ImagePullSecrets bei einem Pod
-    - Nur Pods die eigene Schlüssel vorhalten haben Zugriff auf eine private Registry
+    - Setzt root - Zugriff auf allen Nodes zum Einrichten voraus
+  - Spezifizieren eines ImagePullSecrets auf einem Pod
+    - Nur Pods, die eigene Secret tragen, haben Zugriff auf eine private Registry
 
-Jeder Option wird im Folgenden im Detail beschrieben
+Jede Option wird im Folgenden im Detail beschrieben
 
 
 ### Bei Nutzung der Google Container Registry
 
 Kubernetes hat eine native Unterstützung für die [Google Container
 Registry (GCR)](https://cloud.google.com/tools/container-registry/) wenn es auf der Google Compute
-Engine (GCE) läuft. Wenn Sie ihren Cluster auf GCE oder der Google Kubernetes Engine betreiben, genügt es einfach den vollen Image Namen zu nutzen (z.B. gcr.io/my_project/image:tag ).
+Engine (GCE) läuft. Wenn Sie ihren Cluster auf GCE oder der Google Kubernetes Engine betreiben, genügt es, einfach den vollen Image Namen zu nutzen (z.B. gcr.io/my_project/image:tag ).
 
-Alle Pods in einem Cluster haben dann lesenden Zugriff auf Images in dieser Registry.
+Alle Pods in einem Cluster haben dann Lesezugriff auf Images in dieser Registry.
 
 Das Kubelet authentifiziert sich bei GCR mit Nutzung des Google service Kontos der jeweiligen Instanz.
-Das Google service Konto der Instanz hat einen `https://www.googleapis.com/auth/devstorage.read_only`, so kann es vom GCR des Projektes hochladen, aber nicht herunterladen.
+Das Google Servicekonto der Instanz hat einen `https://www.googleapis.com/auth/devstorage.read_only`, so kann es vom GCR des Projektes herunter, aber nicht hochladen.
 
 
 ### Bei Nutzung der Amazon Elastic Container Registry
 
-Kubernetes eine native Unterstützung für die [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/) wenn Knoten AWS EC2 Instanzen sind.
+Kubernetes bietet native Unterstützung für die [Amazon Elastic Container Registry](https://aws.amazon.com/ecr/), wenn Knoten AWS EC2 Instanzen sind.
 
-Es muss einfah nur der komplette Image Name (z.B. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`) in der Pod - Definition genutzt werden.
+Es muss einfach nur der komplette Image Name (z.B. `ACCOUNT.dkr.ecr.REGION.amazonaws.com/imagename:tag`) in der Pod - Definition genutzt werden.
 
-Alle Benutzer eines Clusters die Pods erstellen dürfen können dann jedes der Images in der ECR Registry zum Ausführen von Pods nutzen.
+Alle Benutzer eines Clusters, die Pods erstellen dürfen, können dann jedes der Images in der ECR Registry zum Ausführen von Pods nutzen.
 
 Das Kubelet wird periodisch ECR Zugriffsdaten herunterladen und auffrischen, es benötigt hierfür die folgenden Berechtigungen:
 
@@ -126,12 +126,12 @@ Fehlerbehebung:
   - `provider.go:91] Refreshing cache for provider: *aws_credentials.ecrProvider`
 
 ### Bei Nutzung der Azure Container Registry (ACR)
-Bei Nutzung der [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) können sie sich entweder als ein administrativer Nutzer, oder als ein Service Principal authentifizieren
+Bei Nutzung der [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/) können sie sich entweder als ein administrativer Nutzer, oder als ein Service Principal authentifizieren.
 In jedem Fall wird die Authentifizierung über die Standard - Docker Authentifizierung ausgeführt. Diese Anleitung bezieht sich auf das [azure-cli](https://github.com/azure/azure-cli) Kommandozeilenwerkzeug.
 
 Sie müssen zunächst eine Registry und Authentifizierungsdaten erstellen, eine komplette Dokumentation dazu finden sie hier: [Azure container registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli).
 
-Sobald sie ihre Container Registry erstelt haben, nutzen sie die folgenden Authentifizierungsdaten:
+Sobald sie ihre Container Registry erstellt haben, nutzen sie die folgenden Authentifizierungsdaten:
 
    * `DOCKER_USER` : Service Principal oder Administratorbenutzername
    * `DOCKER_PASSWORD`: Service Principal Password oder Administratorpasswort
@@ -139,37 +139,37 @@ Sobald sie ihre Container Registry erstelt haben, nutzen sie die folgenden Authe
    * `DOCKER_EMAIL`: `${some-email-address}`
 
 Wenn sie diese Variablen befüllt haben, können sie:
-[configure a Kubernetes Secret and use it to deploy a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+[Kubernetes konfigurieren und damit einen Pod deployen](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
 ### Bei Nutzung der IBM Cloud Container Registry
-Die IBM Cloud Container Registry bietet eine mandantenfähige Private Image Registry die Sie nutzen können um ihre Docker Images sicher speichern und teilen zu können.
-Im Standard werden Images in ihrer Private Registry vom integrierten Schwachstellenscaner durchsucht um Sicherheitsprobleme und potentielle Schwachstellen zu finden. Benutzer können ihren IBM Cloud Account nutzen um Zugang zu ihren Images zu erhalten, oder um einen Token zu gernerieren, der Zugriff auf die Registry Namespaces erlaubt.
+Die IBM Cloud Container Registry bietet eine mandantenfähige Private Image Registry, die Sie nutzen können, um ihre Docker Images sicher zu speichern und zu teilen.
+Standardmäßig werden Images in ihrer Private Registry vom integrierten Schwachstellenscaner durchsucht, um Sicherheitsprobleme und potentielle Schwachstellen zu finden. Benutzer können ihren IBM Cloud Account nutzen, um Zugang zu ihren Images zu erhalten, oder um einen Token zu generieren, der Zugriff auf die Registry Namespaces erlaubt.
 
 Um das IBM Cloud Container Registry Kommandozeilenwerkzeug zu installieren und einen Namespace für ihre Images zu erstellen, folgen sie dieser Dokumentation [Getting started with IBM Cloud Container Registry](https://cloud.ibm.com/docs/services/Registry?topic=registry-getting-started).
 
-Sie können die IBM Cloud Container Registry nutzen um Container aus [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) und ihren eigenen Images in den `default` Namespace ihres IBM Cloud Kubernetes Service Clusters zu deployen.
+Sie können die IBM Cloud Container Registry nutzen, um Container aus [IBM Cloud public images](https://cloud.ibm.com/docs/services/Registry?topic=registry-public_images) und ihren eigenen Images in den `default` Namespace ihres IBM Cloud Kubernetes Service Clusters zu deployen.
 Um einen Container in einen anderen Namespace, oder um ein Image aus einer anderen IBM Cloud Container Registry Region oder einem IBM Cloud account zu deployen, erstellen sie ein Kubernetes `imagePullSecret`.
 Weitere Informationen finden sie unter: [Building containers from images](https://cloud.ibm.com/docs/containers?topic=containers-images).
 
 ### Knoten für die Nutzung einer Private Registry konfigurieren
 
 {{< note >}}
-Wenn sie auf  Google Kubernetes Engine laufen gibt es schon eine `.dockercfg` auf jedem Knoten die Zugriffsdaten für ihre Google Container Registry beinhaltet. Dann kann die folgende Vorgehensweise nicht angewendet werden.
+Wenn sie   Google Kubernetes Engine verwenden, gibt es schon eine `.dockercfg` auf jedem Knoten, die Zugriffsdaten für ihre Google Container Registry beinhaltet. Dann kann die folgende Vorgehensweise nicht angewendet werden.
 {{< /note >}}
 
 {{< note >}}
-Wenn sie auf AWS EC2 laufen und die EC2 Container Registry (ECR) nutzen, wird das Kubelet auf jedem Knoten die ECR Zugriffsdaten verwalten und aktualisieren. Dann kann die folgende Vorgehensweise nicht angewendet werden.
+Wenn sie  AWS EC2 verwenden und die EC2 Container Registry (ECR) nutzen, wird das Kubelet auf jedem Knoten die ECR Zugriffsdaten verwalten und aktualisieren. Dann kann die folgende Vorgehensweise nicht angewendet werden.
 {{< /note >}}
 
 {{< note >}}
-Diese Vorgehensweise ist anwendbar wenn sie ihre Knoten - Konfiguration ändern können, sie wird nicht zuverlässig auf GCE other einem anderen Cloud - Provider funktionieren der automatisch Knoten ersetzt.
+Diese Vorgehensweise ist anwendbar, wenn sie ihre Knoten-Konfiguration ändern können; Sie wird nicht zuverlässig auf GCE oder einem anderen Cloud - Provider funktionieren, der automatisch Knoten ersetzt.
 {{< /note >}}
 
 {{< note >}}
-Kubernetes unterstützt zur Zeit nur die `auths` und `HttpHeaders` Sektionen der Docker Konfiguration . Das bedeutet das die Hilfswerkzeuge (`credHelpers` ooderr `credsStore`) nicht unterstützt werden.
+Kubernetes unterstützt zurzeit nur die `auths` und `HttpHeaders` Abschnitte der Dockerkonfiguration. Das bedeutet, dass die Hilfswerkzeuge (`credHelpers` ooderr `credsStore`) nicht unterstützt werden.
 {{< /note >}}
 
-Docker speichert Schlüssel für eigene Registries in der Datei `$HOME/.dockercfg` oder `$HOME/.docker/config.json`. Wenn sie die gleiche Datei in einen der unten aufgeführten Suchpfade ablegen wird Kubelet sie als Hilfswerkzeug für Zugriffsdaten nutzen wenn es Images bezieht.
+Docker speichert Schlüssel für eigene Registries entweder unter `$HOME/.dockercfg` oder `$HOME/.docker/config.json`. Wenn sie die gleiche Datei in einen der unten aufgeführten Suchpfade speichern, wird Kubelet sie als Hilfswerkzeug für Zugriffsdaten beim Beziehen von Images nutzen.
 
 
 *   `{--root-dir:-/var/lib/kubelet}/config.json`
@@ -182,20 +182,21 @@ Docker speichert Schlüssel für eigene Registries in der Datei `$HOME/.dockercf
 *   `/.dockercfg`
 
 {{< note >}}
-Eventuell müssen sie `HOME=/root` in ihrer Umgebungsvariablendatei setzen 
+Eventuell müssen sie `HOME=/root` in ihrer Umgebungsvariablendatei setzen.
 {{< /note >}}
 
-Dies sind die empfohlenen Schritte um ihre Knoten für eine Nutzung einer eigenen Registry zu konfigurieren, in diesem Beispiel führen sie folgende Schritte auf ihrem Desktop/Laptop aus:
+Dies sind die empfohlenen Schritte, um ihre Knoten für eine Nutzung einer eigenen Registry zu konfigurieren.
+In diesem Beispiel führen sie folgende Schritte auf ihrem Desktop/Laptop aus:
 
    1. Führen sie `docker login [server]` für jeden Satz ihrer Zugriffsdaten aus.  Dies aktualisiert `$HOME/.docker/config.json`.
-   2. Prüfen Sie `$HOME/.docker/config.json` in einem Editor darauf ob dort nur Zugriffsdaten enthalten sind die Sie nutzen möchten.
+   2. Prüfen Sie `$HOME/.docker/config.json` in einem Editor darauf, ob dort nur Zugriffsdaten enthalten sind, die Sie nutzen möchten.
    3. Erhalten sie eine Liste ihrer Knoten:
       - Wenn sie die Namen benötigen: `nodes=$(kubectl get nodes -o jsonpath='{range.items[*].metadata}{.name} {end}')`
       - Wenn sie die IP - Adressen benötigen: `nodes=$(kubectl get nodes -o jsonpath='{range .items[*].status.addresses[?(@.type=="ExternalIP")]}{.address} {end}')`
    4. Kopieren sie ihre lokale `.docker/config.json` in einen der oben genannten Suchpfade.
       - Zum Beispiel: `for n in $nodes; do scp ~/.docker/config.json root@$n:/var/lib/kubelet/config.json; done`
 
-Prüfen durch das Erstellen eines Pods der ein eigenes Image nutzt, z.B.:
+Prüfen durch das Erstellen eines Pods, der ein eigenes Image nutzt, z.B.:
 
 ```yaml
 kubectl apply -f - <<EOF
@@ -212,7 +213,7 @@ spec:
 EOF
 pod/private-image-test-1 created
 ```
-Wenn alles funktioniert sollten sie nach einigen Momenten folgendes sehen:
+Wenn alles funktioniert, sollten sie nach einigen Momenten folgendes sehen:
 
 ```shell
 kubectl logs private-image-test-1
@@ -225,27 +226,27 @@ kubectl describe pods/private-image-test-1 | grep "Failed"
   Fri, 26 Jun 2015 15:36:13 -0700    Fri, 26 Jun 2015 15:39:13 -0700    19    {kubelet node-i2hq}    spec.containers{uses-private-image}    failed        Failed to pull image "user/privaterepo:v1": Error: image user/privaterepo:v1 not found
 ```
 
-Sie müssen sich darum kümmern das alle Knoten im Cluster die gleiche `.docker/config.json` haben, anderenfalls werden Pods auf einigen Knoten starten, auf anderen jedoch nicht.
-Wenn sie zum Beispiel Knoten automatisch Skalieren lassen, sollte dann jedes Instanztemplate die `.docker/config.json` beinhalten, oder ein Laufwerk einhängen die diese beinhaltet.
+Sie müssen sich darum kümmern, dass alle Knoten im Cluster die gleiche `.docker/config.json` haben, andernfalls werden Pods auf einigen Knoten starten, auf anderen jedoch nicht.
+Wenn sie zum Beispiel Knoten automatisch skalieren lassen, sollte dann jedes Instanztemplate die `.docker/config.json` beinhalten, oder ein Laufwerk einhängen, das diese beinhaltet.
 
-Alle Pods haben Lesezugriff auf jedes Image in ihrer eigenen Registry sobald die Registry - Schlüssel zur `.docker/config.json` hinzugefügt wurden.
+Alle Pods haben Lesezugriff auf jedes Image in ihrer eigenen Registry, sobald die Registry - Schlüssel zur `.docker/config.json` hinzugefügt wurden.
 
 ### Im Voraus heruntergeladene Images
 
 {{< note >}}
-Wenn sie auf  Google Kubernetes Engine laufen gibt es schon eine `.dockercfg` auf jedem Knoten die Zugriffsdaten für ihre Google Container Registry beinhaltet. Dann kann die folgende Vorgehensweise nicht angewendet werden.
+Wenn sie  Google Kubernetes Engine verwenden, gibt es schon eine `.dockercfg` auf jedem Knoten die Zugriffsdaten für ihre Google Container Registry beinhaltet. Dann kann die folgende Vorgehensweise nicht angewendet werden.
 {{< /note >}}
 
 {{< note >}}
-Diese Vorgehensweise ist anwendbar wenn sie ihre Knoten - Konfiguration ändern können, sie wird nicht zuverlässig auf GCE other einem anderen Cloud - Provider funktionieren der automatisch Knoten ersetzt.
+Diese Vorgehensweise ist anwendbar, wenn sie ihre Knoten-Konfiguration ändern können; Sie wird nicht zuverlässig auf GCE oder einem anderen Cloud - Provider funktionieren, der automatisch Knoten ersetzt.
 {{< /note >}}
 
-Im Standard wird das Kubelet versuchen jedes Image von der spezifizierten Registry herunterzuladen.
-Falls jedoch die `imagePullPolicy` Eigenschaft der Containers auf `IfNotPresent` oder `Never` gesetzt wurde, wird ein lokales Image genutzt (präferiert oder exklusiv, je nach dem).
+Standardmäßig wird das Kubelet versuchen, jedes Image von der spezifizierten Registry herunterzuladen.
+Falls jedoch die `imagePullPolicy` Eigenschaft der Containers auf `IfNotPresent` oder `Never` gesetzt wurde, wird ein lokales Image genutzt (präferiert oder exklusiv, jenachdem).
 
-Wenn Sie sich auf im Voraus heruntergeladene Images als Ersatz für eine Registry - Authentifizierung verlassen möchten, müssen sie sicherstellen das alle Knoten die gleichen im voraus heruntergeladenen Images aufweisen.
+Wenn Sie sich auf im Voraus heruntergeladene Images als Ersatz für eine Registry - Authentifizierung verlassen möchten, müssen sie sicherstellen, dass alle Knoten die gleichen, im Voraus heruntergeladenen Images aufweisen.
 
-Diese Medthode kann dazu genutzt werden bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
+Diese Medthode kann dazu genutzt werden, bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
 
 Alle Pods haben Leserechte auf alle im Voraus geladenen Images.
 
@@ -259,24 +260,24 @@ Kubernetes unterstützt die Spezifikation von Registrierungsschlüsseln für ein
 
 #### Erstellung eines Secrets mit einer Docker Konfiguration
 
-Führen sie foldenen Befehl mit Ersetzung der groß geschriebenen Werte aus:
+Führen sie folgenden Befehl mit Ersetzung der groß geschriebenen Werte aus:
 
 ```shell
 kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
 ```
 
-Wenn sie bereits eine Datei mit Docker Zugriffsdaten haben, könenn sie die Zugriffsdaten als ein Kubernetes Secret importieren:
+Wenn Sie bereits eine Datei mit Docker-Zugriffsdaten haben, können Sie die Zugriffsdaten als ein Kubernetes Secret importieren:
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) beschreibt die Erstellung.
-Dies ist insbesondere dann sinnvoll wenn sie mehrere eigene Container Registries nutzen, da `kubectl create secret docker-registry` ein Secret erstellt das nur mit einer einzelnen eigenen Registry funktioniert.
+Dies ist insbesondere dann sinnvoll, wenn sie mehrere eigene Container Registries nutzen, da `kubectl create secret docker-registry` ein Secret erstellt, das nur mit einer einzelnen eigenen Registry funktioniert.
 
 {{< note >}}
-Pods können nur eigene Image Pull Secret in ihrem eigenen Namespace referenzieren, somit muss dieser Prozess jedes mal einzeln für je Namespace angewendet werden.
+Pods können nur eigene Image Pull Secret in ihrem eigenen Namespace referenzieren, somit muss dieser Prozess jedes mal einzeln für jeden Namespace angewendet werden.
 
 {{< /note >}}
 
 #### Referenzierung eines imagePullSecrets bei einem Pod
 
-Nun können sie Pods erstellen die dieses Secret referenzieren indem sie eine `imagePullSecrets` Sektion zu ihrer Pod - Definition hinzufügen.
+Nun können Sie Pods erstellen, die dieses Secret referenzieren, indem Sie einen Aschnitt `imagePullSecrets` zu ihrer Pod - Definition hinzufügen.
 
 ```shell
 cat <<EOF > pod.yaml
@@ -299,9 +300,9 @@ resources:
 EOF
 ```
 
-Dies muss für jeden Pod getan werden der eine eigene Registry nutzt.
+Dies muss für jeden Pod getan werden, der eine eigene Registry nutzt.
 
-Die Erstellung dieser Sektion kann jedoch automatisiert werden indem man imagePullSecrets einer serviceAccount](/docs/user-guide/service-accounts) Ressource hinzufügt.
+Die Erstellung dieser Sektion kann jedoch automatisiert werden, indem man imagePullSecrets einer [serviceAccount](/docs/user-guide/service-accounts) Ressource hinzufügt.
 [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) bietet detaillierte Anweisungen hierzu.
 
 Sie können dies in Verbindung mit einer auf jedem Knoten genutzten `.docker/config.json` benutzen, die Zugriffsdaten werden dann zusammengeführt. Dieser Vorgehensweise wird in der Google Kubernetes Engine funktionieren.
@@ -333,7 +334,7 @@ Es gibt eine Anzahl an Lösungen um eigene Registries zu konfigurieren, hier sin
    - Generieren die Registry - Zugriffsdaten für jeden Mandanten, abgelegt in einem Secret das in jedem Mandanten - Namespace vorhanden ist.
    - Der Mandant fügt dieses Sercret zu den imagePullSecrets in jedem seiner Namespace hinzu.
 
-{{% /capture %}}
+
 
 Falls die Zugriff auf mehrere Registries benötigen, können sie ein Secret für jede Registry erstellen, Kubelet wird jedwede `imagePullSecrets` in einer einzelnen `.docker/config.json` zusammenfassen.
 

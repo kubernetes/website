@@ -4,24 +4,24 @@ reviewers:
 - freehan
 - thockin
 title: Network Plugins
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="alpha" >}}
-{{< warning >}}Alpha features change rapidly. {{< /warning >}}
+{{< caution >}}Alpha features can change rapidly. {{< /caution >}}
 
 Network plugins in Kubernetes come in a few flavors:
 
 * CNI plugins: adhere to the appc/CNI specification, designed for interoperability.
 * Kubenet plugin: implements basic `cbr0` using the `bridge` and `host-local` CNI plugins
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Installation
 
@@ -83,11 +83,13 @@ For example:
 
 #### Support traffic shaping
 
+**Experimental Feature**
+
 The CNI networking plugin also supports pod ingress and egress traffic shaping. You can use the official [bandwidth](https://github.com/containernetworking/plugins/tree/master/plugins/meta/bandwidth)
 plugin offered by the CNI plugin team or use your own plugin with bandwidth control functionality.
 
-If you want to enable traffic shaping support, you must add a `bandwidth` plugin to your CNI configuration file
-(default `/etc/cni/net.d`).
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file
+(default `/etc/cni/net.d`) and ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 
 ```json
 {
@@ -154,7 +156,7 @@ most network plugins.
 
 Where needed, you can specify the MTU explicitly with the `network-plugin-mtu` kubelet option.  For example,
 on AWS the `eth0` MTU is typically 9001, so you might specify `--network-plugin-mtu=9001`.  If you're using IPSEC you
-might reduce it to allow for encapsulation overhead e.g. `--network-plugin-mtu=8873`.
+might reduce it to allow for encapsulation overhead; for example: `--network-plugin-mtu=8873`.
 
 This option is provided to the network-plugin; currently **only kubenet supports `network-plugin-mtu`**.
 
@@ -164,8 +166,9 @@ This option is provided to the network-plugin; currently **only kubenet supports
 * `--network-plugin=kubenet` specifies that we use the `kubenet` network plugin with CNI `bridge` and `host-local` plugins placed in `/opt/cni/bin` or `cni-bin-dir`.
 * `--network-plugin-mtu=9001` specifies the MTU to use, currently only used by the `kubenet` network plugin.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+
+

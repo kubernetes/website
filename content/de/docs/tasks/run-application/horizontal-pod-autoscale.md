@@ -5,11 +5,11 @@ feature:
   description: >
     Skaliere deine Anwendung mit einem einfachen Befehl, über die Benutzeroberfläche oder automatisch, basierend auf der CPU-Auslastung.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Der Horizontal Pod Autoscaler skaliert automatisch die Anzahl der Pods eines Replication Controller, Deployment oder Replikat Set basierend auf der beobachteten CPU-Auslastung (oder, mit Unterstützung von [benutzerdefinierter Metriken](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), von der Anwendung bereitgestellten Metriken). Beachte, dass die horizontale Pod Autoskalierung nicht für Objekte gilt, die nicht skaliert werden können, z. B. DaemonSets.
 
@@ -17,9 +17,9 @@ Der Horizontal Pod Autoscaler ist als Kubernetes API-Ressource und einem Control
 Die Ressource bestimmt das Verhalten des Controllers.
 Der Controller passt die Anzahl der Replikate eines Replication Controller oder Deployments regelmäßig an, um die beobachtete durchschnittliche CPU-Auslastung an das vom Benutzer angegebene Ziel anzupassen.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Wie funktioniert der Horizontal Pod Autoscaler?
 
@@ -161,12 +161,13 @@ Standardmäßig ruft der HorizontalPodAutoscaler Controller Metriken aus einer R
 
 * Das Flag `--horizontal-pod-autoscaler-use-rest-clients` ist auf `true` oder ungesetzt. Wird dies auf `false` gesetzt wird die Heapster basierte Autoskalierung aktiviert, welche veraltet ist.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Design Dokument [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale Befehl: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Verwenden des [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 
-{{% /capture %}}
+

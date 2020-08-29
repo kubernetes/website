@@ -1,0 +1,7 @@
+Atualmente, esse recurso está no estado *alpha*, o que significa:
+
+* Os nomes das versões contêm alfa (ex. v1alpha1).
+* Pode estar com bugs. A ativação do recurso pode expor bugs. Desabilitado por padrão.
+* O suporte ao recurso pode ser retirado a qualquer momento sem aviso prévio.
+* A API pode mudar de maneiras incompatíveis em uma versão de software posterior sem aviso prévio.
+* Recomendado para uso apenas em clusters de teste de curta duração, devido ao aumento do risco de erros e falta de suporte a longo prazo.

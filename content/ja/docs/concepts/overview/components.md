@@ -1,24 +1,31 @@
 ---
 title: Kubernetesのコンポーネント
-content_template: templates/concept
+content_type: concept
 weight: 20
 card: 
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+Kubernetesをデプロイすると、クラスターが展開されます。
+{{< glossary_definition term_id="cluster" length="all" prepend="Kubernetesクラスターは、">}}
+
 このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
-{{% /capture %}}
 
-{{% capture body %}}
+すべてのコンポーネントが結び付けられたKubernetesクラスターの図を次に示します。
 
-## マスターコンポーネント
+![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.png)
 
-マスターコンポーネントは、クラスターのコントロールプレーンを提供します。
-マスターコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replica`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="pod" term_id="pod">}} を起動する等)。
 
-マスターコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのマスターコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
+
+<!-- body -->
+
+## コントロールプレーンコンポーネント
+
+コントロールプレーンコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="Pod" term_id="pod">}} を起動する等)。
+
+コントロールプレーンコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのコントロールプレーンコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
 マルチマスター VMセットアップの例については、[高可用性クラスターの構築](/docs/admin/high-availability/) を参照してください。
 
 ### kube-apiserver
@@ -60,7 +67,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
   * サービスコントローラー：クラウドプロバイダーのロードバランサーの作成、更新、削除を行います。
   * ボリュームコントローラー：ボリュームを作成、アタッチ、マウントしたり、クラウドプロバイダーとやり取りしてボリュームを調整したりします。
 
-## ノードコンポーネント
+## ノードコンポーネント {#node-components}
 
 ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。
 
@@ -72,7 +79,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
 
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
-### コンテナランタイム
+### コンテナランタイム {#container-runtime}
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
@@ -85,7 +92,7 @@ cloud-controller-managerを使用すると、クラウドベンダーのコー�
 
 ### DNS
 
-クラスターDNS以外のアドオンは必須ではありませんが、すべてのKubernetesクラスターは[クラスターDNS](/docs/concepts/services-networking/dns-pod-service/)を持つべきです。多くの使用例がクラスターDNSを前提としています。
+クラスターDNS以外のアドオンは必須ではありませんが、すべてのKubernetesクラスターは[クラスターDNS](/ja/docs/concepts/services-networking/dns-pod-service/)を持つべきです。多くの使用例がクラスターDNSを前提としています。
 
 クラスターDNSは、環境内の他のDNSサーバーに加えて、KubernetesサービスのDNSレコードを提供するDNSサーバーです。
 
@@ -94,7 +101,7 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 ### Web UI (ダッシュボード)
 
-[ダッシュボード](/docs/tasks/access-application-cluster/web-ui-dashboard/)は、Kubernetesクラスター用の汎用WebベースUIです。これによりユーザーはクラスターおよびクラスター内で実行されているアプリケーションについて、管理およびトラブルシューティングを行うことができます。
+[ダッシュボード](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、Kubernetesクラスター用の汎用WebベースUIです。これによりユーザーはクラスターおよびクラスター内で実行されているアプリケーションについて、管理およびトラブルシューティングを行うことができます。
 
 ### コンテナリソース監視
 
@@ -104,9 +111,11 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 [クラスターレベルログ](/docs/concepts/cluster-administration/logging/)メカニズムは、コンテナのログを、検索／参照インターフェイスを備えた中央ログストアに保存します。
 
-{{% /capture %}}
-{{% capture whatsnext %}}
-* [ノード](/docs/concepts/architecture/nodes/) について学ぶ
-* [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/) について学ぶ
-* etcdの公式 [ドキュメント](https://etcd.io/docs/) を読む
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* [ノード](/ja/docs/concepts/architecture/nodes/)について学ぶ
+* [コントローラー](/docs/concepts/architecture/controller/)について学ぶ
+* [kube-scheduler](/ja/docs/concepts/scheduling-eviction/kube-scheduler/)について学ぶ
+* etcdの公式 [ドキュメント](https://etcd.io/docs/)を読む
+

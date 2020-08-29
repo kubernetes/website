@@ -3,7 +3,7 @@ reviewers:
 - michmike
 - patricklang
 title: Kubernetes 中调度 Windows 容器的指南
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 <!--
@@ -12,21 +12,21 @@ reviewers:
 - michmike
 - patricklang
 title: Guide for scheduling Windows containers in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Windows applications constitute a large portion of the services and applications that run in many organizations. This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 -->
 Windows 应用程序构成了许多组织中运行的服务和应用程序的很大一部分。本指南将引导您完成在 Kubernetes 中配置和部署 Windows 容器的步骤。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Objectives
@@ -100,7 +100,7 @@ spec:
         - -command
         - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
      nodeSelector:
-      beta.kubernetes.io/os: windows
+      kubernetes.io/os: windows
 ```
 
 {{< note >}}
@@ -363,6 +363,6 @@ spec:
 ```
 
 
-{{% /capture %}}
+
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

@@ -15,6 +15,9 @@ other = "정리하기"
 [prerequisites_heading]
 other = "시작하기 전에"
 
+[subscribe_button]
+other = "구독"
+
 [whatsnext_heading]
 other = "다음 내용"
 
@@ -188,8 +191,11 @@ other = "Stack Overflow"
 [community_forum_name]
 other = "Forum"
 [community_events_calendar]
-other = "Events Calendar"
+other = "이벤트 캘린더"
 
 # UI elements
 [ui_search_placeholder]
 other = "검색하기"
+
+[input_placeholder_email_address]
+other = "전자 우편 주소"

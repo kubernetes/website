@@ -1,5 +1,5 @@
 ---
-title: "Storage"
+title: "ストレージ"
 weight: 70
 ---
 

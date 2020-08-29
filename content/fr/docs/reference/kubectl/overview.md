@@ -1,22 +1,22 @@
 ---
 title: Aperçu de kubectl
 description: kubectl référence
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: reference
   weight: 20
 ---
 
-{{% capture overview %}}
-Kubectl est une interface en ligne de commande qui permet d'exécuter des commandes sur des clusters Kubernetes. `kubectl` recherche un fichier appelé config dans le répertoire $HOME/.kube. Vous pouvez spécifier d'autres fichiers [kubeconfig](https://kube
+<!-- overview -->
+Kubectl est un outil en ligne de commande pour contrôler des clusters Kubernetes. `kubectl` recherche un fichier appelé config dans le répertoire $HOME/.kube. Vous pouvez spécifier d'autres fichiers [kubeconfig](https://kube
 rnetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) en définissant la variable d'environnement  KUBECONFIG ou en utilisant le paramètre [`--kubeconfig`](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
 
 Cet aperçu couvre la syntaxe `kubectl`, décrit les opérations et fournit des exemples classiques. Pour des détails sur chaque commande, incluant toutes les options et sous-commandes autorisées, voir la documentation de référence de [kubectl](/docs/reference/generated/kubectl/kubectl-commands/). Pour des instructions d'installation, voir [installer kubectl](/docs/tasks/kubectl/install/).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Syntaxe
 
@@ -67,34 +67,51 @@ Si vous avez besoin d'aide, exécutez `kubectl help` depuis la fenêtre de termi
 
 Le tableau suivant inclut une courte description et la syntaxe générale pour chaque opération `kubectl` :
 
-Opération       | Syntaxe    |       Description
--------------------- | -------------------- | --------------------
-`annotate`      | `kubectl annotate (-f FICHIER \| TYPE NOM \| TYPE/NOM) CLE_1=VAL_1 ... CLE_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]`        | Ajoute ou modifie les annotations d'une ou plusieurs ressources.
+Opération       | Syntaxe                                                                                                                                                  | Description
+----------------| ---------------------------------------------------------------------------------------------------------------------------------------------------------| --------------------
+`alpha`         | `kubectl alpha SOUS-COMMANDE [flags]`                                                                                                                    | Liste les commandes disponibles qui correspondent à des fonctionnalités alpha, qui ne sont pas activées par défaut dans les clusters Kubernetes.
+`annotate`      | <code>kubectl annotate (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) CLE_1=VAL_1 ... CLE_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Ajoute ou modifie les annotations d'une ou plusieurs ressources.
+`api-resources` | `kubectl api-resources [flags]`                                                                                                                          | Liste les ressources d'API disponibles.
 `api-versions`  | `kubectl api-versions [flags]`                                                                                                                           | Liste les versions d'API disponibles.
 `apply`         | `kubectl apply -f FICHIER [flags]`                                                                                                                       | Applique un changement de configuration à une ressource depuis un fichier ou stdin.
 `attach`        | `kubectl attach POD -c CONTENEUR [-i] [-t] [flags]`                                                                                                      | Attache à un conteneur en cours d'exécution soit pour voir la sortie standard soit pour interagir avec le conteneur (stdin).
-`autoscale`     | `kubectl autoscale (-f FICHIER \| TYPE NOM \| TYPE/NOM) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]`                                       | Scale automatiquement l'ensemble des pods gérés par un replication controller.
+`auth`          | `kubectl auth [flags] [options]`                                                                                                                         | Inspecte les autorisations.
+`autoscale`     | <code>kubectl autoscale (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) [--min=MINPODS] --max=MAXPODS [--cpu-percent=CPU] [flags]</code>                    | Scale automatiquement l'ensemble des pods gérés par un replication controller.
+`certificate`   | `kubectl certificate SOUS-COMMANDE [options]`                                                                                                            | Modifie les ressources de type certificat.
 `cluster-info`  | `kubectl cluster-info [flags]`                                                                                                                           | Affiche les informations des endpoints du master et des services du cluster.
+`completion`    | `kubectl completion SHELL [options]`                                                                                                                     | Affiche le code de complétion pour le shell spécifié (bash ou zsh).
 `config`        | `kubectl config SOUS-COMMANDE [flags]`                                                                                                                   | Modifie les fichiers kubeconfig. Voir les sous-commandes individuelles pour plus de détails.
+`convert`       | `kubectl convert -f FICHIER [options]`                                                                                                                   | Convertit des fichiers de configuration entre différentes versions d'API. Les formats YAML et JSON sont acceptés.
+`cordon`        | `kubectl cordon NOEUD [options]`                                                                                                                         | Marque un nœud comme non programmable.
+`cp`            | `kubectl cp <ficher-src> <fichier-dest> [options]`                                                                                                       | Copie des fichiers et des répertoires vers et depuis des conteneurs.
 `create`        | `kubectl create -f FICHIER [flags]`                                                                                                                      | Crée une ou plusieurs ressources depuis un fichier ou stdin.
-`delete`        | `kubectl delete (-f FICHIER \| TYPE [NOM \| /NOM \| -l label \| --all]) [flags]`                                                                         | Supprime des ressources soit depuis un fichier ou stdin, ou en indiquant des sélecteurs de label, des noms, des sélecteurs de ressources ou des ressources.
-`describe`      | `kubectl describe (-f FICHIER \| TYPE [PREFIXE_NOM \| /NOM \| -l label]) [flags]`                                                                        | Affiche l'état détaillé d'une ou plusieurs ressources.
-`diff`          | `kubectl diff -f FICHIER [flags]`                                                                                                                        | Diff un fichier ou stdin par rapport à la configuration en cours (**BETA**)
-`edit`          | `kubectl edit (-f FICHIER \| TYPE NOM \| TYPE/NOM) [flags]`                                                                                              | Édite et met à jour la définition d'une ou plusieurs ressources sur le serveur en utilisant l'éditeur par défaut.
+`delete`        | <code>kubectl delete (-f FICHIER &#124; TYPE [NOM &#124; /NOM &#124; -l label &#124; --all]) [flags]</code>                                              | Supprime des ressources soit depuis un fichier ou stdin, ou en indiquant des sélecteurs de label, des noms, des sélecteurs de ressources ou des ressources.
+`describe`      | <code>kubectl describe (-f FICHIER &#124; TYPE [PREFIXE_NOM &#124; /NOM &#124; -l label]) [flags]</code>                                                 | Affiche l'état détaillé d'une ou plusieurs ressources.
+`diff`          | `kubectl diff -f FICHIER [flags]`                                                                                                                        | Diff un fichier ou stdin par rapport à la configuration en cours
+`drain`         | `kubectl drain NOEUD [options]`                                                                                                                          | Vide un nœud en préparation de sa mise en maintenance.
+`edit`          | <code>kubectl edit (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) [flags]</code>                                                                           | Édite et met à jour la définition d'une ou plusieurs ressources sur le serveur en utilisant l'éditeur par défaut.
 `exec`          | `kubectl exec POD [-c CONTENEUR] [-i] [-t] [flags] [-- COMMANDE [args...]]`                                                                              | Exécute une commande à l'intérieur d'un conteneur dans un pod.
 `explain`       | `kubectl explain [--recursive=false] [flags]`                                                                             | Obtient des informations sur différentes ressources. Par exemple pods, nœuds, services, etc.
-`expose`        | `kubectl expose (-f FICHIER \| TYPE NOM \| TYPE/NOM) [--port=port] [--protocol=TCP\|UDP] [--target-port=nombre-ou-nom] [--name=nom] [--external-ip=ip-externe-ou-service] [--type=type] [flags]` | Expose un replication controller, service ou pod comme un nouveau service Kubernetes.
-`get`           | `kubectl get (-f FICHIER \| TYPE [NOM \| /NOM \| -l label]) [--watch] [--sort-by=CHAMP] [[-o \| --output]=FORMAT_AFFICHAGE] [flags]`                     | Liste une ou plusieurs ressources.
-`label`         | `kubectl label (-f FICHIER \| TYPE NOM \| TYPE/NOM) CLE_1=VAL_1 ... CLE_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]`        | Ajoute ou met à jour les labels d'une ou plusieurs ressources.
+`expose`        | <code>kubectl expose (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=nombre-ou-nom] [--name=nom] [--external-ip=ip-externe-ou-service] [--type=type] [flags]</code> | Expose un replication controller, service ou pod comme un nouveau service Kubernetes.
+`get`           | <code>kubectl get (-f FICHIER &#124; TYPE [NOM &#124; /NOM &#124; -l label]) [--watch] [--sort-by=CHAMP] [[-o &#124; --output]=FORMAT_AFFICHAGE] [flags]</code> | Liste une ou plusieurs ressources.
+`kustomize`     | `kubectl kustomize <répertoire> [flags] [options]`                                                                                                       | Liste un ensemble de ressources d'API généré à partir d'instructions d'un fichier kustomization.yaml. Le paramètre doit être le chemin d'un répertoire contenant ce fichier, ou l'URL d'un dépôt git incluant un suffixe de chemin par rapport à la racine du dépôt.
+`label`         | <code>kubectl label (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) CLE_1=VAL_1 ... CLE_N=VAL_N [--overwrite] [--all] [--resource-version=version] [flags]</code> | Ajoute ou met à jour les labels d'une ou plusieurs ressources.
 `logs`          | `kubectl logs POD [-c CONTENEUR] [--follow] [flags]`                                                                                                     | Affiche les logs d'un conteneur dans un pod.
-`patch`         | `kubectl patch (-f FICHIER \| TYPE NOM \| TYPE/NOM) --patch PATCH [flags]`                                                                               | Met à jour un ou plusieurs champs d'une resource en utilisant le processus de merge patch stratégique.
+`options`       | `kubectl options`                                                                                                                                        | Liste des options globales, s'appliquant à toutes commandes.
+`patch`         | <code>kubectl patch (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) --patch PATCH [flags]</code>                                                            | Met à jour un ou plusieurs champs d'une resource en utilisant le processus de merge patch stratégique.
+`plugin`        | `kubectl plugin [flags] [options]`                                                                                                                       | Fournit des utilitaires pour interagir avec des plugins.
 `port-forward`  | `kubectl port-forward POD [PORT_LOCAL:]PORT_DISTANT [...[PORT_LOCAL_N:]PORT_DISTANT_N] [flags]`                                                          | Transfère un ou plusieurs ports locaux vers un pod.
 `proxy`         | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]`                                                     | Exécute un proxy vers un API server Kubernetes.
 `replace`       | `kubectl replace -f FICHIER`                                                                                                                             | Remplace une ressource depuis un fichier ou stdin.
-`rolling-update`| `kubectl rolling-update ANCIEN_NOM_CONTROLEUR ([NOUVEAU_NOM_CONTROLEUR] --image=NOUVELLE_IMAGE_CONTENEUR \| -f NOUVELLE_SPEC_CONTROLEUR) [flags]`        | Exécute un rolling update en remplaçant graduellement le replication controller indiqué et ses pods.
-`run`           | `kubectl run NOM --image=image [--env="cle=valeur"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [flags]`        | Exécute dans le cluster l'image indiquée.
-`scale`         | `kubectl scale (-f FICHIER \| TYPE NOM \| TYPE/NOM) --replicas=QUANTITE [--resource-version=version] [--current-replicas=quantité] [flags]`        | Met à jour la taille du replication controller indiqué.
+`rollout`       | `kubectl rollout SOUS-COMMANDE [options]`                                                                                                                | Gère le rollout d'une ressource. Les types de ressources valides sont : deployments, daemonsets et statefulsets.
+`run`           | `kubectl run NOM --image=image [--env="cle=valeur"] [--port=port] [--replicas=replicas] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]`        | Exécute dans le cluster l'image indiquée.
+`scale`         | <code>kubectl scale (-f FICHIER &#124; TYPE NOM &#124; TYPE/NOM) --replicas=QUANTITE [--resource-version=version] [--current-replicas=quantité] [flags]</code> | Met à jour la taille du replication controller indiqué.
+`set`           | `kubectl set SOUS-COMMANDE [options]`                                                                                                                    | Configure les ressources de l'application.
+`taint`         | `kubectl taint NOEUD NNOM CLE_1=VAL_1:EFFET_TAINT_1 ... CLE_N=VAL_N:EFFET_TAINT_N [options]`                                                             | Met à jour les marques (taints) d'un ou plusieurs nœuds.
+`top`           | `kubectl top [flags] [options]`                                                                                                                          | Affiche l'utilisation des ressources (CPU/Mémoire/Stockage).
+`uncordon`      | `kubectl uncordon NOEUD [options]` | Marque un noeud comme programmable.
 `version`       | `kubectl version [--client] [flags]`                                                                                                                     | Affiche la version de Kubernetes du serveur et du client.
+`wait`          | <code>kubectl wait ([-f FICHIER] &#124; ressource.groupe/ressource.nom &#124; ressource.groupe [(-l label &#124; --all)]) [--for=delete&#124;--for condition=available] [options]</code> | Expérimental : Attend un condition spécifique sur une ou plusieurs ressources.
 
 Rappelez-vous : Pour tout savoir sur les opérations, voir la documentation de référence de [kubectl](/docs/user-guide/kubectl/).
 
@@ -105,7 +122,8 @@ Le tableau suivant inclut la liste de tous les types de ressources pris en charg
 (cette sortie peut être obtenue depuis `kubectl api-resources`, et correspond à Kubernetes 1.13.3.)
 
 | Nom de la ressource | Noms abrégés | Groupe API | Par namespace | Genre de la ressource |
-|---|---|---|---|---|
+|---------------------|--------------|------------|---------------|-----------------------|
+| `bindings` | | | true | Binding|
 | `componentstatuses` | `cs` | | false | ComponentStatus |
 | `configmaps` | `cm` | | true | ConfigMap |
 | `endpoints` | `ep` | | true | Endpoints |
@@ -150,6 +168,8 @@ Le tableau suivant inclut la liste de tous les types de ressources pris en charg
 | `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
 | `roles` | | rbac.authorization.k8s.io | true | Role |
 | `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
+| `csidrivers` | | storage.k8s.io | false | CSIDriver |
+| `csinodes` | | storage.k8s.io | false | CSINode |
 | `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
 | `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
 
@@ -242,8 +262,8 @@ kubectl get pods <nom-pod> --server-print=false
 La sortie ressemble à :
 
 ```shell
-NAME       READY     STATUS              RESTARTS   AGE
-nom-pod    1/1       Running             0          1m
+NAME       AGE
+nom-pod    1m
 ```
 
 ### Ordonner les listes d'objets
@@ -297,8 +317,8 @@ $ kubectl get replicationcontroller <nom-rc>
 # Liste ensemble tous les replication controller et les services dans le format de sortie texte.
 $ kubectl get rc,services
 
-# Liste tous les daemon sets, dont ceux non initialisés, dans le format de sortie texte.
-$ kubectl get ds --include-uninitialized
+# Liste tous les daemon sets dans le format de sortie texte.
+kubectl get ds
 
 # Liste tous les pods s'exécutant sur le nœud serveur01
 $ kubectl get pods --field-selector=spec.nodeName=serveur01
@@ -317,8 +337,8 @@ $ kubectl describe pods/<nom-pod>
 # Rappelez-vous : les noms des pods étant créés par un replication controller sont préfixés par le nom du replication controller.
 $ kubectl describe pods <nom-rc>
 
-# Décrit tous les pods, sans inclure les non initialisés
-$ kubectl describe pods --include-uninitialized=false
+# Décrit tous les pods
+$ kubectl describe pods
 ```
 
 {{< note >}}
@@ -332,11 +352,8 @@ Vous pouvez utiliser les options `-w` ou `--watch` pour initier l'écoute des mo
 # Supprime un pod en utilisant le type et le nom spécifiés dans le fichier pod.yaml.
 $ kubectl delete -f pod.yaml
 
-# Supprime tous les pods et services ayant le label name=<label-name>.
-$ kubectl delete pods,services -l name=<label-name>
-
-# Supprime tous les pods et services ayant le label name=<label-name>, en incluant les non initialisés.
-$ kubectl delete pods,services -l name=<label-name> --include-uninitialized
+# Supprime tous les pods et services ayant le label <clé-label>=<valeur-label>
+$ kubectl delete pods,services -l <clé-label>=<valeur-label>
 
 # Supprime tous les pods, en incluant les non initialisés.
 $ kubectl delete pods --all
@@ -346,13 +363,13 @@ $ kubectl delete pods --all
 
 ```shell
 # Affiche la sortie de la commande 'date' depuis le pod <nom-pod>. Par défaut, la sortie se fait depuis le premier conteneur.
-$ kubectl exec <nom-pod> date
+$ kubectl exec <nom-pod> -- date
 
 # Affiche la sortie de la commande 'date' depuis le conteneur <nom-conteneur> du pod <nom-pod>.
-$ kubectl exec <nom-pod> -c <nom-conteneur> date
+$ kubectl exec <nom-pod> -c <nom-conteneur> -- date
 
 # Obtient un TTY interactif et exécute /bin/bash depuis le pod <nom-pod>. Par défaut, la sortie se fait depuis le premier conteneur.
-$ kubectl exec -ti <nom-pod> /bin/bash
+$ kubectl exec -ti <nom-pod> -- /bin/bash
 ```
 
 `kubectl logs` - Affiche les logs d'un conteneur dans un pod.
@@ -363,6 +380,16 @@ $ kubectl logs <nom-pod>
 
 # Commence à streamer les logs du pod <nom-pod>. Ceci est similaire à la commande Linux 'tail -f'.
 $ kubectl logs -f <nom-pod>
+```
+
+`kubectl diff` - Affiche un diff des mises à jour proposées au cluster.
+
+```shell
+# Diff les ressources présentes dans "pod.json".
+kubectl diff -f pod.json
+
+# Diff les ressources présentes dans le fichier lu sur l'entrée standard.
+cat service.yaml | kubectl diff -f -
 ```
 
 ## Exemples : Créer et utiliser des plugins
@@ -428,7 +455,7 @@ $ cat ./kubectl-whoami
 # ce plugin utilise la commande `kubectl config` pour afficher
 # l'information sur l'utilisateur courant, en se basant sur
 # le contexte couramment sélectionné
-kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ .context.user }}{{ end }}{{ end }}'
+kubectl config view --template='{{ range .contexts }}{{ if eq .name "'$(kubectl config current-context)'" }}Current user: {{ printf "%s\n" .context.user }}{{ end }}{{ end }}'
 ```
 
 Exécuter le plugin ci-dessus vous donne une sortie contenant l'utilisateur du contexte couramment sélectionné dans votre fichier KUBECONFIG :
@@ -446,10 +473,11 @@ Current user: plugins-user
 
 Pour en savoir plus sur les plugins, examinez [l'exemple de plugin CLI](https://github.com/kubernetes/sample-cli-plugin).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Commencez à utiliser les commandes [kubectl](/docs/reference/generated/kubectl/kubectl-commands/).
 
-{{% /capture %}}
+

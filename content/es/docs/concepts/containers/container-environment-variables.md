@@ -3,18 +3,18 @@ reviewers:
 - astuky
 - raelga
 title: Variables de entorno de un Container
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta página explica los recursos disponibles para Containers dentro del entorno de un Container.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Entorno del Container
 
@@ -50,11 +50,12 @@ FOO_SERVICE_PORT=<El puerto dónde está funcionando el servicio>
 Los servicios tienen direcciones IP dedicadas y están disponibles para el Container a través de DNS,
 si el [complemento para DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) está habilitado.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Más información sobre cómo ejecutar código en respuesta a los cambios de etapa durante ciclo de vida de un contenedor la puedes encontrar en [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
 * Practica [añadiendo handlers a los lifecycle events de un Container ](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

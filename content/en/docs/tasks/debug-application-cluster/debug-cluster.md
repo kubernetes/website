@@ -2,20 +2,17 @@
 reviewers:
 - davidopp
 title: Troubleshoot Clusters
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This doc is about cluster troubleshooting; we assume you have already ruled out your application as the root cause of the
 problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug-application-cluster/debug-application) for tips on application debugging.
-You may also visit [troubleshooting document](/docs/troubleshooting/) for more information.
+You may also visit [troubleshooting document](/docs/tasks/debug-application-cluster/troubleshooting/) for more information.
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Listing your cluster
 
@@ -29,6 +26,11 @@ kubectl get nodes
 
 And verify that all of the nodes you expect to see are present and that they are all in the `Ready` state.
 
+To get detailed information about the overall health of your cluster, you can run:
+
+```shell
+kubectl cluster-info dump
+```
 ## Looking at logs
 
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
@@ -55,7 +57,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Network partition within cluster, or between cluster and users
   - Crashes in Kubernetes software
   - Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
-  - Operator error, e.g. misconfigured Kubernetes software or application software
+  - Operator error, for example misconfigured Kubernetes software or application software
 
 ### Specific scenarios:
 
@@ -119,7 +121,4 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
-- Action: [Multiple independent clusters](/docs/concepts/cluster-administration/federation/) (and avoid making risky changes to all clusters at once)
-  - Mitigates: Everything listed above.
 
-{{% /capture %}}

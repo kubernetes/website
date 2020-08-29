@@ -3,29 +3,30 @@ reviewers:
 - caesarxuchao
 - mikedanese
 title: Get a Shell to a Running Container
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to use `kubectl exec` to get a shell to a
-running Container.
-
-{{% /capture %}}
+running container.
 
 
-{{% capture prerequisites %}}
-
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-{{% /capture %}}
 
 
-{{% capture steps %}}
+## {{% heading "prerequisites" %}}
 
-## Getting a shell to a Container
 
-In this exercise, you create a Pod that has one Container. The Container
+{{< include "task-tutorial-prereqs.md" >}}
+
+
+
+
+<!-- steps -->
+
+## Getting a shell to a container
+
+In this exercise, you create a Pod that has one container. The container
 runs the nginx image. Here is the configuration file for the Pod:
 
 {{< codenew file="application/shell-demo.yaml" >}}
@@ -36,116 +37,121 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/application/shell-demo.yaml
 ```
 
-Verify that the Container is running:
+Verify that the container is running:
 
 ```shell
 kubectl get pod shell-demo
 ```
 
-Get a shell to the running Container:
+Get a shell to the running container:
 
 ```shell
-kubectl exec -it shell-demo -- /bin/bash
+kubectl exec --stdin --tty shell-demo -- /bin/bash
 ```
+
 {{< note >}}
-
-The double dash symbol "--" is used to separate the arguments you want to pass to the command from the kubectl arguments.
-
+The double dash (`--`) separates the arguments you want to pass to the command from the kubectl arguments.
 {{< /note >}}
 
 In your shell, list the root directory:
 
 ```shell
-root@shell-demo:/# ls /
+# Run this inside the container
+ls /
 ```
 
 In your shell, experiment with other commands. Here are
 some examples:
 
 ```shell
-root@shell-demo:/# ls /
-root@shell-demo:/# cat /proc/mounts
-root@shell-demo:/# cat /proc/1/maps
-root@shell-demo:/# apt-get update
-root@shell-demo:/# apt-get install -y tcpdump
-root@shell-demo:/# tcpdump
-root@shell-demo:/# apt-get install -y lsof
-root@shell-demo:/# lsof
-root@shell-demo:/# apt-get install -y procps
-root@shell-demo:/# ps aux
-root@shell-demo:/# ps aux | grep nginx
+# You can run these example commands inside the container
+ls /
+cat /proc/mounts
+cat /proc/1/maps
+apt-get update
+apt-get install -y tcpdump
+tcpdump
+apt-get install -y lsof
+lsof
+apt-get install -y procps
+ps aux
+ps aux | grep nginx
 ```
 
 ## Writing the root page for nginx
 
 Look again at the configuration file for your Pod. The Pod
-has an `emptyDir` volume, and the Container mounts the volume
+has an `emptyDir` volume, and the container mounts the volume
 at `/usr/share/nginx/html`.
 
 In your shell, create an `index.html` file in the `/usr/share/nginx/html`
 directory:
 
 ```shell
-root@shell-demo:/# echo Hello shell demo > /usr/share/nginx/html/index.html
+# Run this inside the container
+echo 'Hello shell demo' > /usr/share/nginx/html/index.html
 ```
 
 In your shell, send a GET request to the nginx server:
 
 ```shell
-root@shell-demo:/# apt-get update
-root@shell-demo:/# apt-get install curl
-root@shell-demo:/# curl localhost
+# Run this in the shell inside your container
+apt-get update
+apt-get install curl
+curl http://localhost/
 ```
 
 The output shows the text that you wrote to the `index.html` file:
 
-```shell
+```
 Hello shell demo
 ```
 
 When you are finished with your shell, enter `exit`.
 
-## Running individual commands in a Container
+```shell
+exit # To quit the shell in the container
+```
+
+## Running individual commands in a container
 
 In an ordinary command window, not your shell, list the environment
-variables in the running Container:
+variables in the running container:
 
 ```shell
 kubectl exec shell-demo env
 ```
 
-Experiment running other commands. Here are some examples:
+Experiment with running other commands. Here are some examples:
 
 ```shell
-kubectl exec shell-demo ps aux
-kubectl exec shell-demo ls /
-kubectl exec shell-demo cat /proc/1/mounts
+kubectl exec shell-demo -- ps aux
+kubectl exec shell-demo -- ls /
+kubectl exec shell-demo -- cat /proc/1/mounts
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
 
-## Opening a shell when a Pod has more than one Container
+<!-- discussion -->
 
-If a Pod has more than one Container, use `--container` or `-c` to
-specify a Container in the `kubectl exec` command. For example,
+## Opening a shell when a Pod has more than one container
+
+If a Pod has more than one container, use `--container` or `-c` to
+specify a container in the `kubectl exec` command. For example,
 suppose you have a Pod named my-pod, and the Pod has two containers
-named main-app and helper-app. The following command would open a
-shell to the main-app Container.
+named _main-app_ and _helper-app_. The following command would open a
+shell to the _main-app_ container.
 
 ```shell
-kubectl exec -it my-pod --container main-app -- /bin/bash
+kubectl exec -i -t my-pod --container main-app -- /bin/bash
 ```
 
-{{% /capture %}}
+{{< note >}}
+The short options `-i` and `-t` are the same as the long options `--stdin` and `--tty`
+{{< /note >}}
 
 
-{{% capture whatsnext %}}
-
-* [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)
-
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
 
-
+* Read about [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec)

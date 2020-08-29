@@ -29,7 +29,7 @@ weight: 10
 
             <div class="col-md-8">
                 <h2>Kubernetes Pods</h2>
-                <p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker or rkt), and some shared resources for those containers. Those resources include:</p>
+                <p>When you created a Deployment in Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes created a <b>Pod</b> to host your application instance. A Pod is a Kubernetes abstraction that represents a group of one or more application containers (such as Docker), and some shared resources for those containers. Those resources include:</p>
                 <ul>
                     <li>Shared storage, as Volumes</li>
                     <li>Networking, as a unique cluster IP address</li>
@@ -51,7 +51,7 @@ weight: 10
                 </div>
                 <div class="content__box content__box_fill">
                         <p><i>
-                            A Pod is a group of one or more application containers (such as Docker or rkt) and includes shared storage (volumes), IP address and information about how to run them.
+                            A Pod is a group of one or more application containers (such as Docker) and includes shared storage (volumes), IP address and information about how to run them.
                         </i></p>
                 </div>
             </div>
@@ -79,7 +79,7 @@ weight: 10
                 <p>Every Kubernetes Node runs at least:</p>
                 <ul>
                     <li>Kubelet, a process responsible for communication between the Kubernetes Master and the Node; it manages the Pods and the containers running on a machine.</li>
-                    <li>A container runtime (like Docker, rkt) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
+                    <li>A container runtime (like Docker) responsible for pulling the container image from a registry, unpacking the container, and running the application.</li>
                 </ul>
 
             </div>
@@ -108,7 +108,7 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <h2>Troubleshooting with kubectl</h2>
-                <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-intro/">2</a>, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:</p>
+                <p>In Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, you used Kubectl command-line interface. You'll continue to use it in Module 3 to get information about deployed applications and their environments. The most common operations can be done with the following kubectl commands:</p>
                 <ul>
                     <li><b>kubectl get</b> - list resources</li>
                     <li><b>kubectl describe</b> - show detailed information about a resource</li>

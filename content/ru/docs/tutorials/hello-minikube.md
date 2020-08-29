@@ -1,6 +1,6 @@
 ---
-title: Привет Minikube
-content_template: templates/tutorial
+title: Привет, Minikube
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -8,32 +8,34 @@ menu:
     weight: 10
     post: >
       <p>Готовы испачкать руки? Создайте простой кластер Kubernetes с запуском "Hello World" на Node.js</p>
-card: 
+card:
   name: tutorials
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Это руководство покажет вам, как запустить простое Hello World Node.js приложение
 на Kubernetes используя [Minikube](/docs/getting-started-guides/minikube) и Katacoda.
-Katacoda предоставляет бесплатную, встроенную в браузер Kubernetes среду. 
+Katacoda предоставляет бесплатную, встроенную в браузер Kubernetes среду.
 
 {{< note >}}
 Вы также можете следовать этому руководству, если вы установили [Minikube locally](/docs/tasks/tools/install-minikube/).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Разверните hello world приложение в Minikube.
 * Запустите приложение.
 * Посмотрите логи приложения.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Для этого примера создан образ контейнера, собранный на основе следующих файлов:
 
@@ -43,19 +45,19 @@ Katacoda предоставляет бесплатную, встроенную �
 
 Чтобы получить больше информации по запуску команды `docker build`, ознакомьтесь с [документацией по Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Создание кластера Minikube
 
-1. Нажмите **Запуск Терминала** 
+1. Нажмите **Запуск Терминала**
 
     {{< kat-button >}}
 
     {{< note >}}Если у вас локально установлен Minikube, выполните `minikube start`.{{< /note >}}
 
-2. Откройте панель Kubernetes в браузере:
+2. Откройте веб-панель Kubernetes в браузере:
 
     ```shell
     minikube dashboard
@@ -72,7 +74,7 @@ Katacoda предоставляет бесплатную, встроенную �
 1. Используйте команду `kubectl create` для создание деплоймента для управления подом. Под запускает контейнер на основе предоставленного Docker образа.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Посмотреть информацию о Deployment:
@@ -111,7 +113,7 @@ Katacoda предоставляет бесплатную, встроенную �
     ```shell
     kubectl config view
     ```
-  
+
     {{< note >}}Больше информации о командах `kubectl` можно найти по ссылке [обзор kubectl](/docs/user-guide/kubectl-overview/).{{< /note >}}
 
 ## Создание сервиса
@@ -123,7 +125,7 @@ Katacoda предоставляет бесплатную, встроенную �
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
-  
+
     Флаг `--type=LoadBalancer` показывает, что сервис должен быть виден вне кластера.
 
 2. Посмотреть только что созданный сервис:
@@ -150,7 +152,7 @@ Katacoda предоставляет бесплатную, встроенную �
 
 4. Только для окружения Katacoda: Нажмите на знак "Плюс", затем нажмите **Select port to view on Host 1**.
 
-5. Только для окружения Katacoda: Введите `30369` (порт указан рядом с `8080` в выводе сервиса), затем нажмите ???. 
+5. Только для окружения Katacoda: Введите `30369` (порт указан рядом с `8080` в выводе сервиса), затем нажмите ???.
 
     Откроется окно браузера, в котором запущено ваше приложение и будет отображено сообщение "Hello World".
 
@@ -168,28 +170,31 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     addon-manager: enabled
-    coredns: disabled
     dashboard: enabled
     default-storageclass: enabled
     efk: disabled
     freshpod: disabled
+    gvisor: disabled
     heapster: disabled
+    helm-tiller: disabled
     ingress: disabled
-    kube-dns: enabled
+    ingress-dns: disabled
+    logviewer: disabled
     metrics-server: disabled
     nvidia-driver-installer: disabled
     nvidia-gpu-device-plugin: disabled
     registry: disabled
     registry-creds: disabled
     storage-provisioner: enabled
+    storage-provisioner-gluster: disabled
     ```
-   
+
 2. Включить дополнение, например, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
     ```
-  
+
     Вывод:
 
     ```shell
@@ -206,17 +211,21 @@ Katacoda предоставляет бесплатную, встроенную �
 
     ```shell
     NAME                                        READY     STATUS    RESTARTS   AGE
-    pod/metrics-server-6754dbc9df-q8zlg         1/1       Running   0          26s
+    pod/coredns-5644d7b6d9-mh9ll                1/1       Running   0          34m
+    pod/coredns-5644d7b6d9-pqd2t                1/1       Running   0          34m
+    pod/metrics-server-67fb648c5                1/1       Running   0          26s
+    pod/etcd-minikube                           1/1       Running   0          34m
     pod/influxdb-grafana-b29w8                  2/2       Running   0          26s
     pod/kube-addon-manager-minikube             1/1       Running   0          34m
-    pod/kube-dns-6dcb57bcc8-gv7mw               3/3       Running   0          34m
-    pod/kubernetes-dashboard-5498ccf677-cgspw   1/1       Running   0          34m
+    pod/kube-apiserver-minikube                 1/1       Running   0          34m
+    pod/kube-controller-manager-minikube        1/1       Running   0          34m
+    pod/kube-proxy-rnlps                        1/1       Running   0          34m
+    pod/kube-scheduler-minikube                 1/1       Running   0          34m
     pod/storage-provisioner                     1/1       Running   0          34m
 
     NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
-    service/metrics-server         ClusterIP   10.96.94.175    <none>        443/TCP             26s
+    service/metrics-server         ClusterIP   10.96.241.45    <none>        80/TCP              26s
     service/kube-dns               ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP       34m
-    service/kubernetes-dashboard   NodePort    10.109.29.1     <none>        80:30000/TCP        34m
     service/monitoring-grafana     NodePort    10.99.24.54     <none>        80:30002/TCP        26s
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
@@ -226,7 +235,7 @@ Katacoda предоставляет бесплатную, встроенную �
     ```shell
     minikube addons disable metrics-server
     ```
-  
+
     Вывод:
 
     ```shell
@@ -254,12 +263,13 @@ minikube stop
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Больше об [объектах деплоймента](/docs/concepts/workloads/controllers/deployment/).
 * Больше о [развёртывании приложения](/docs/user-guide/deploying-applications/).
 * Больше об [объектах сервиса](/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

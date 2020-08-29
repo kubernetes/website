@@ -1,17 +1,17 @@
 ---
 title: Content organization
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This site uses Hugo. In Hugo, [content organization](https://gohugo.io/content-management/organization/) is a core concept.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{% note %}}
 **Hugo Tip:** Start Hugo with `hugo server --navigateToChanged` for content edit-sessions.
@@ -107,7 +107,6 @@ Another widely used example is the `includes` bundle. It sets `headless: true` i
 ```bash
 en/includes
 ├── default-storage-class-prereqs.md
-├── federated-task-tutorial-prereqs.md
 ├── index.md
 ├── partner-script.js
 ├── partner-style.css
@@ -127,12 +126,13 @@ Some important notes to the files in the bundles:
 
 The [SASS](https://sass-lang.com/) source of the stylesheets for this site is stored in `assets/sass` and is automatically built by Hugo.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn about [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)
 * Learn about the [Style guide](/docs/contribute/style/style-guide)
 * Learn about the [Content guide](/docs/contribute/style/content-guide)
 
-{{% /capture %}}
+

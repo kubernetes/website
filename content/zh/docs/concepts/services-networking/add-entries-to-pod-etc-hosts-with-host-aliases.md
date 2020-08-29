@@ -1,12 +1,12 @@
 ---
 title: 使用 HostAliases 向 Pod /etc/hosts 文件添加条目
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Adding entries to a Pod's /etc/hosts file provides Pod-level override of hostname resolution when DNS and other options are not applicable. In 1.7, users can add these custom entries with the HostAliases field in PodSpec.
@@ -17,9 +17,9 @@ Modification not using HostAliases is not suggested because the file is managed 
 当 DNS 配置以及其它选项不合理的时候，通过向 Pod 的 /etc/hosts 文件中添加条目，可以在 Pod 级别覆盖对主机名的解析。在 1.7 版本，用户可以通过 PodSpec 的 HostAliases 字段来添加这些自定义的条目。
 
 建议通过使用 HostAliases 来进行修改，因为该文件由 Kubelet 管理，并且可以在 Pod 创建/重启过程中被重写。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Default Hosts File Content
@@ -176,5 +176,5 @@ kubelet [管理](https://github.com/kubernetes/kubernetes/issues/14633) Pod 中�
 
 因为该文件是托管性质的文件，无论容器重启或 Pod 重新调度，用户修改该 hosts 文件的任何内容，都会在 Kubelet 重新安装后被覆盖。因此，不建议修改该文件的内容。
 
-{{% /capture %}}
+
 

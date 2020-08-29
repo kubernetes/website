@@ -1,10 +1,10 @@
 ---
 title: 卷快照类
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This document describes the concept of `VolumeSnapshotClass` in Kubernetes. Familiarity
@@ -13,10 +13,10 @@ with [volume snapshots](/docs/concepts/storage/volume-snapshots/) and
 -->
 本文档描述了 Kubernetes 中 `VolumeSnapshotClass` 的概念。 建议熟悉[卷快照（Volume Snapshots）](/docs/concepts/storage/volume-snapshots/)和[存储类（Storage Class）](/docs/concepts/storage/storage-classes)。
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -69,7 +69,7 @@ parameters:
 Volume snapshot classes have a driver that determines what CSI volume plugin is
 used for provisioning VolumeSnapshots. This field must be specified.
 -->
-### 驱动程序（#driver）
+### 驱动程序 {#driver}
 
 卷快照类有一个驱动程序，用于确定配置 VolumeSnapshot 的 CSI 卷插件。 必须指定此字段。
 
@@ -97,4 +97,4 @@ the volume snapshot class. Different parameters may be accepted depending on the
 
 卷快照类具有描述属于该卷快照类的卷快照的参数。 可根据 `driver` 接受不同的参数。
 
-{{% /capture %}}
+

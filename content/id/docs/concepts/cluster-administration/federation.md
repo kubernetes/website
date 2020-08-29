@@ -1,10 +1,10 @@
 ---
 title: Federation
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< deprecationfilewarning >}}
 {{< include "federation-deprecation-warning-note.md" >}}
@@ -12,9 +12,9 @@ weight: 80
 
 Laman ini menjelaskan alasan dan cara penggunaan _federation_ untuk melakukan manajemen
 klaster Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kenapa _Federation_ ?
 
 _Federation_ membuat proses manajemen klaster multipel menjadi lebih mudah.
@@ -106,7 +106,7 @@ Berikut merupakan panduan yang akan menjelaskan masing-masing _resource_ secara 
 * [Namespaces](/docs/tasks/administer-federation/namespaces/)
 * [ReplicaSets](/docs/tasks/administer-federation/replicaset/)
 * [Secrets](/docs/tasks/administer-federation/secret/)
-* [Services](/docs/concepts/cluster-administration/federation-service-discovery/)
+* [Services](/id/docs/concepts/cluster-administration/federation-service-discovery/)
 
 
 [Referensi Dokumentasi API](/docs/reference/federation/) memberikan semua daftar
@@ -181,9 +181,10 @@ Terakhir, jika klaster yang kamu miliki membutuhkan jumlah _node_ yang melebihi 
 maka kamu membutuhkan lebih banyak klaster. Kubernetes v1.3 mampu menangani hingga 1000 node untuk setiap klaster. Kubernetes v1.8
 mampu menangani hingga 5000 node untuk tiap klaster. Baca [Membangun Klaster Besar](/docs/setup/cluster-large/) untuk petunjuk lebih lanjut.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Pelajari lebih lanjut tentang [proposal
   _Federation_](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/multicluster/federation.md).
 * Baca [petunjuk pengaktifan](/docs/tutorials/federation/set-up-cluster-federation-kubefed/) klaster _federation_.
@@ -192,4 +193,4 @@ mampu menangani hingga 5000 node untuk tiap klaster. Baca [Membangun Klaster Bes
 * Lihat [_update_ _sig-multicluster_ pada Kubecon2018 Eropa](https://www.youtube.com/watch?v=vGZo5DaThQU)
 * Lihat [presentasi prototipe _Federation-v2_ pada Kubecon2018 Eropa](https://youtu.be/q27rbaX5Jis?t=7m20s)
 * Lihat [petunjuk penggunaan _Federation-v2_](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md)
-{{% /capture %}}
+

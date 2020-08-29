@@ -1,10 +1,6 @@
 ---
 title: Kubernetes API 总览
-reviewers:
-- erictune
-- lavalamp
-- jbeda
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: reference
@@ -19,7 +15,7 @@ reviewers:
 - erictune
 - lavalamp
 - jbeda
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: reference
@@ -28,16 +24,16 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
-This page provides an overview of the Kubernetes API. 
+This page provides an overview of the Kubernetes API.
 -->
 此页提供 Kubernetes API 的总览
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 The REST API is the fundamental fabric of Kubernetes. All operations and communications between components, and external user commands are REST API calls that the API Server handles. Consequently, everything in the Kubernetes
@@ -85,14 +81,13 @@ The JSON and Protobuf serialization schemas follow the same guidelines for schem
 
 JSON 和 Protobuf 序列化模式在出现模式变更时均遵循这些准则。以下说明同时适用于这两种格式。
 
-{{< note >}}
 <!--
 The API versioning and software versioning are indirectly related.  The [API and release
 versioning proposal](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describes the relationship between API versioning and software versioning.
 -->
 
+{{< note >}}
 API 版本和软件版本是间接相关的。[API 和发布版本建议](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) 描述了 API 版本和软件版本之间的关系。
-
 {{< /note >}}
 
 <!--
@@ -106,7 +101,7 @@ Here's a summary of each level:
   - The support for a feature may be dropped at any time without notice.
   - The API may change in incompatible ways in a later software release without notice.
   - The software is recommended for use only in short-lived testing clusters, due to increased risk of bugs and lack of  long-term support.
-  
+
 - Beta:
   - The version names contain `beta` (for example, `v2beta3`).
   - The software is well tested. Enabling a feature is considered safe. Features are enabled by default.
@@ -125,16 +120,16 @@ Here's a summary of each level:
   - 对功能的支持随时可能被删除，但不另行通知。
   - 在以后的软件版本中，API 可能会以不兼容的方式更改，亦不另行通知。
   - 由于存在更高的错误风险和缺乏长期支持，建议仅在短期测试集群中使用该软件。
-  
+
 - Beta：
   - 版本名称包含`beta`（例如，`v2beta3`）。
   - 该软件已经过充分测试。启用功能被认为是安全的。默认情况下启用功能。
   - 尽管细节可能会发生变更，对应功能不会被废弃。
   - 在随后的 Beta 或稳定版本中，对象的模式和/或语义可能会以不兼容的方式更改。发生这种情况时，将提供迁移说明。迁移时可能需要删除、编辑和重新创建 API 对象。编辑过程可能需要一些思考。对于依赖该功能的应用程序，可能需要停机。
   - 该软件仅建议用于非关键业务用途，因为在后续版本中可能会发生不兼容的更改。如果您有多个可以独立升级的群集，则可以放宽此限制。
- 
+
  {{< note >}}
- 
+
 <!--
 Try the beta features and provide feedback. After the features exit beta, it may not be practical to make more changes.
 -->
@@ -142,8 +137,8 @@ Try the beta features and provide feedback. After the features exit beta, it may
 请试用 Beta 版功能并提供反馈。功能结束 Beta 版之后，再进行变更可能是不切实际的。
 
  {{< /note >}}
- 
-<!-- 
+
+<!--
 - Stable:
   - The version name is `vX` where `X` is an integer.
   - The stable versions of features appear in released software for many subsequent versions.
@@ -184,9 +179,9 @@ The two paths that support extending the API with [custom resources](/docs/conce
 
  - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/) 提供基本的 CRUD 需求。
  - [聚合器（Aggregator）](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)具有完整的 Kubernetes API 语义，用以实现用户自己的 apiserver。
- 
+
 <!--
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default. You can enable or disable them by setting `--runtime-config`
 on the apiserver. `--runtime-config` accepts comma separated values. For example:
@@ -213,21 +208,25 @@ to pick up the `--runtime-config` changes.
 {{< /note >}}
 
 <!--
-## Enabling resources in the groups
+## Enabling specific resources in the extensions/v1beta1 group
 
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-You can enable other extensions resources by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example, to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+DaemonSets, Deployments, StatefulSet, NetworkPolicies, PodSecurityPolicies and ReplicaSets in the `extensions/v1beta1` API group are disabled by default.
+For example: to enable deployments and daemonsets, set
+`--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`.
 -->
 
-## 启用组中的资源
+## 启用 extensions/v1beta1 组中具体资源
 
-默认情况下 DaemonSet、Deployment、Horizo​​ntalPodAutoscalers、Ingress、Jobs 和 ReplicaSets 是被启用的。
-您可以通过在 apiserver 上设置`--runtime-config`来启用其他扩展资源。`--runtime-config`接受逗号分隔的值。
-例如，要禁用 Deployments 和 Jobs，请设置 `--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
+在 `extensions/v1beta1` API 组中，DaemonSets，Deployments，StatefulSet, NetworkPolicies, PodSecurityPolicies 和 ReplicaSets 是默认禁用的。
+例如：要启用 deployments 和 daemonsets，请设置 `--runtime-config=extensions/v1beta1/deployments=true,extensions/v1beta1/daemonsets=true`。
 
-{{% /capture %}}
+{{< note >}}
 
+<!--
+Individual resource enablement/disablement is only supported in the `extensions/v1beta1` API group for legacy reasons.
+-->
+出于遗留原因，仅在 `extensions / v1beta1` API 组中支持各个资源的启用/禁用。
+
+{{< /note >}}
 
 

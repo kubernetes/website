@@ -1,20 +1,20 @@
 ---
 title: Kubernetesクラウドコントローラーマネージャー
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="beta" >}}
 
 Kubernetes v1.6では`cloud-controller-manager`という新しいバイナリが導入されました。`cloud-controller-manager`はクラウド固有の制御ループを組み込むデーモンです。これらのクラウド固有の制御ループはもともと`kube-controller-manager`にありました。クラウドプロバイダーはKubernetesプロジェクトとは異なるペースで開発およびリリースされるため、プロバイダー固有のコードを`cloud-controller-manager`バイナリに抽象化することでクラウドベンダーはKubernetesのコアのコードとは独立して開発が可能となりました。
 
-`cloud-controller-manager`は、[cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)を満たす任意のクラウドプロバイダーと接続できます。下位互換性のためにKubernetesのコアプロジェクトで提供される[cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)は`kube-controller-manager`と同じクラウドライブラリを使用します。Kubernetesのコアリポジトリで既にサポートされているクラウドプロバイダーは、Kubernetesリポジトリにあるcloud-controller-managerを使用してKubernetesのコアから移行することが期待されています。今後のKubernetesのリリースでは、すべてのクラウドコントローラーマネージャーはsigリードまたはクラウドベンダーが管理するKubernetesのコアプロジェクトの外で開発される予定です。
-
-{{% /capture %}}
+`cloud-controller-manager`は、[cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)を満たす任意のクラウドプロバイダーと接続できます。下位互換性のためにKubernetesのコアプロジェクトで提供される[cloud-controller-manager](https://github.com/kubernetes/kubernetes/tree/master/cmd/cloud-controller-manager)は`kube-controller-manager`と同じクラウドライブラリを使用します。Kubernetesのコアリポジトリですでにサポートされているクラウドプロバイダーは、Kubernetesリポジトリにあるcloud-controller-managerを使用してKubernetesのコアから移行することが期待されています。今後のKubernetesのリリースでは、すべてのクラウドコントローラーマネージャーはsigリードまたはクラウドベンダーが管理するKubernetesのコアプロジェクトの外で開発される予定です。
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## 運用
 
@@ -24,7 +24,7 @@ Kubernetes v1.6では`cloud-controller-manager`という新しいバイナリが
 
 * クラウドの認証/認可: クラウドではAPIへのアクセスを許可するためにトークンまたはIAMルールが必要になる場合があります
 * kubernetesの認証/認可: cloud-controller-managerは、kubernetes apiserverと通信するためにRBACルールの設定を必要とする場合があります
-* 高可用性: kube-controller-managerのように、リーダー選出を使用したクラウドコントローラーマネージャーの高可用性のセットアップが必要になる場合があります（デフォルトでオンになっています）。
+* 高可用性: kube-controller-managerのように、リーダー選出を使用したクラウドコントローラーマネージャーの高可用性のセットアップが必要になる場合があります(デフォルトでオンになっています)。
 
 ### cloud-controller-managerを動かす
 
@@ -35,7 +35,7 @@ cloud-controller-managerを正常に実行するにはクラスター構成に�
 
 クラウドコントローラーマネージャーを使用するようにクラスターを設定するとクラスターの動作がいくつか変わることに注意してください。
 
-* `--cloud-provider=external`を指定したkubeletは、初期化時に`NoSchedule`の`node.cloudprovider.kubernetes.io/uninitialized`汚染を追加します。これによりノードは作業をスケジュールする前に外部のコントローラーからの2回目の初期化が必要であるとマークされます。クラウドコントローラーマネージャーが使用できない場合クラスター内の新しいノードはスケジュールできないままになることに注意してください。スケジューラーはリージョンやタイプ（高CPU、GPU、高メモリ、スポットインスタンスなど）などのノードに関するクラウド固有の情報を必要とする場合があるためこの汚染は重要です。
+* `--cloud-provider=external`を指定したkubeletは、初期化時に`NoSchedule`の`node.cloudprovider.kubernetes.io/uninitialized`汚染を追加します。これによりノードは作業をスケジュールする前に外部のコントローラーからの2回目の初期化が必要であるとマークされます。クラウドコントローラーマネージャーが使用できない場合クラスター内の新しいノードはスケジュールできないままになることに注意してください。スケジューラーはリージョンやタイプ(高CPU、GPU、高メモリ、スポットインスタンスなど)などのノードに関するクラウド固有の情報を必要とする場合があるためこの汚染は重要です。
 * クラスター内のノードに関するクラウド情報はローカルメタデータを使用して取得されなくなりましたが、代わりにノード情報を取得するためのすべてのAPI呼び出しはクラウドコントローラーマネージャーを経由して行われるようになります。これはセキュリティを向上させるためにkubeletでクラウドAPIへのアクセスを制限できることを意味します。大規模なクラスターではクラスター内からクラウドのほとんどすべてのAPI呼び出しを行うため、クラウドコントローラーマネージャーがレートリミットに達するかどうかを検討する必要があります。
 
 v1.8の時点でクラウドコントローラーマネージャーは以下を実装できます。
@@ -69,7 +69,7 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 ### ボリュームのサポート
 
-ボリュームの統合にはkubeletとの調整も必要になるためクラウドコントローラーマネージャーは`kube-controller-manager`にあるボリュームコントローラーを実装しません。CSI（コンテナストレージインターフェイス）が進化してFlexボリュームプラグインの強力なサポートが追加されるにつれ、クラウドがボリュームと完全に統合できるようクラウドコントローラーマネージャーに必要なサポートが追加されます。Kubernetesリポジトリの外部にあるCSIボリュームプラグインの詳細については[こちら](https://github.com/kubernetes/features/issues/178)をご覧ください。
+ボリュームの統合にはkubeletとの調整も必要になるためクラウドコントローラーマネージャーは`kube-controller-manager`にあるボリュームコントローラーを実装しません。CSI(コンテナストレージインターフェイス)が進化してFlexボリュームプラグインの強力なサポートが追加されるにつれ、クラウドがボリュームと完全に統合できるようクラウドコントローラーマネージャーに必要なサポートが追加されます。Kubernetesリポジトリの外部にあるCSIボリュームプラグインの詳細については[こちら](https://github.com/kubernetes/features/issues/178)をご覧ください。
 
 ### スケーラビリティ
 
@@ -79,7 +79,7 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 クラウドコントローラーマネージャープロジェクトの目標はKubernetesのコアプロジェクトからクラウドに関する機能の開発を切り離すことです。残念ながら、Kubernetesプロジェクトの多くの面でクラウドプロバイダーの機能がKubernetesプロジェクトに緊密に結びついているという前提があります。そのため、この新しいアーキテクチャを採用するとクラウドプロバイダーの情報を要求する状況が発生する可能性がありますが、クラウドコントローラーマネージャーはクラウドプロバイダーへのリクエストが完了するまでその情報を返すことができない場合があります。
 
-これの良い例は、KubeletのTLSブートストラップ機能です。現在、TLSブートストラップはKubeletがすべてのアドレスタイプ（プライベート、パブリックなど）をクラウドプロバイダー（またはローカルメタデータサービス）に要求する能力を持っていると仮定していますが、クラウドコントローラーマネージャーは最初に初期化されない限りノードのアドレスタイプを設定できないためapiserverと通信するためにはkubeletにTLS証明書が必要です。
+これの良い例は、KubeletのTLSブートストラップ機能です。現在、TLSブートストラップはKubeletがすべてのアドレスタイプ(プライベート、パブリックなど)をクラウドプロバイダー(またはローカルメタデータサービス)に要求する能力を持っていると仮定していますが、クラウドコントローラーマネージャーは最初に初期化されない限りノードのアドレスタイプを設定できないためapiserverと通信するためにはkubeletにTLS証明書が必要です。
 
 このイニシアチブが成熟するに連れ、今後のリリースでこれらの問題に対処するための変更が行われます。
 
@@ -87,4 +87,4 @@ Kubernetesのコアリポジトリにないクラウドコントローラーマ�
 
 独自のクラウドコントローラーマネージャーを構築および開発するには[クラウドコントローラーマネージャーの開発](/docs/tasks/administer-cluster/developing-cloud-controller-manager.md)のドキュメントを参照してください。
 
-{{% /capture %}}
+

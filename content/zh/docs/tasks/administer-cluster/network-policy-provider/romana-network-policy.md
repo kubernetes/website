@@ -1,26 +1,20 @@
 ---
-reviewers:
-- chrismarino
-title: 使用 Romana 作为 NetworkPolicy
-content_template: templates/task
+title: 使用 Romana 提供 NetworkPolicy
+content_type: task
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- This page shows how to use Romana for NetworkPolicy. -->
 本页展示如何使用 Romana 作为 NetworkPolicy。
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 <!-- Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/). -->
-完成[kubeadm 入门指南](/docs/getting-started-guides/kubeadm/)中的1、2、3步。
+完成 [kubeadm 入门指南](/zh/docs/reference/setup-tools/kubeadm/kubeadm/)中的 1、2、3 步。
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 <!--
 ## Installing Romana with kubeadm
 
@@ -36,22 +30,22 @@ To apply network policies use one of the following:
  -->
 ## 使用 kubeadm 安装 Romana
 
-按照[容器化安装指南](https://github.com/romana/romana/tree/master/containerize)获取 kubeadm。
+按照[容器化安装指南](https://github.com/romana/romana/tree/master/containerize)，使用 kubeadm 安装。
 
-## 运用网络策略
+## 应用网络策略
 
-使用以下的一种方式去运用网络策略：
+使用以下的一种方式应用网络策略：
 
 * [Romana 网络策略](https://github.com/romana/romana/wiki/Romana-policies)
     * [Romana 网络策略例子](https://github.com/romana/core/blob/master/doc/policy.md)
 * NetworkPolicy API
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
-{{% capture whatsnext %}}
 <!--
 Once you have installed Romana, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy.
  -->
-Romana 安装完成后，您可以按照[声明 Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)去尝试使用 Kubernetes NetworkPolicy。
+Romana 安装完成后，你可以按照
+[声明网络策略](/zh/docs/tasks/administer-cluster/declare-network-policy/)
+去尝试使用 Kubernetes NetworkPolicy。
 
-{{% /capture %}}

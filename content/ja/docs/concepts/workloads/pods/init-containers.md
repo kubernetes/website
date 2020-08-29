@@ -1,97 +1,75 @@
 ---
-title: Initコンテナ(Init Containers)
-content_template: templates/concept
+title: Initコンテナ
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
-このページでは、Initコンテナについて概観します。Initコンテナとは、アプリケーションコンテナの前に実行され、アプリケーションコンテナのイメージに存在しないセットアップスクリプトやユーティリティーを含んだ特別なコンテナです。
-{{% /capture %}}
+<!-- overview -->
+このページでは、Initコンテナについて概観します。Initコンテナとは、{{< glossary_tooltip text="Pod" term_id="pod" >}}内でアプリケーションコンテナの前に実行される特別なコンテナです。
+Initコンテナにはアプリケーションコンテナのイメージに存在しないセットアップスクリプトやユーティリティーを含めることができます。
 
-この機能はKubernetes1.6からβ版の機能として存在しています。InitコンテナはPodSpec内で、アプリケーションの`containers`という配列と並べて指定されます。そのベータ版のアノテーション値はまだ扱われ、PodSpecのフィールド値を上書きします。しかしながら、それらはKubernetesバージョン1.6と1.7において廃止されました。Kubernetesバージョン1.8からはそのアノテーション値はサポートされず、PodSpecフィールドの値に変換する必要があります。
+Initコンテナは、Podの仕様のうち`containers`という配列(これがアプリケーションコンテナを示します)と並べて指定します。
 
-{{% capture body %}}
-## Initコンテナを理解する
+<!-- body -->
+## Initコンテナを理解する {#understanding-init-containers}
 
-単一の[Pod](/docs/concepts/workloads/pods/pod-overview/)は、Pod内に複数のコンテナを稼働させることができますが、Initコンテナもまた、アプリケーションコンテナが稼働する前に1つまたは複数稼働できます。
+単一の{{< glossary_tooltip text="Pod" term_id="pod" >}}は、Pod内にアプリケーションを実行している複数のコンテナを持つことができますが、同様に、アプリケーションコンテナが起動する前に実行されるInitコンテナも1つ以上持つことができます。
 
 Initコンテナは下記の項目をのぞいて、通常のコンテナと全く同じものとなります。
 
 * Initコンテナは常に完了するまで稼働します。
 * 各Initコンテナは、次のInitコンテナが稼働する前に正常に完了しなくてはなりません。
 
-もしあるPodの単一のInitコンテナが失敗した場合、KubernetesはInitコンテナが成功するまで何度もそのPodを再起動します。しかし、もしそのPodの`restartPolicy`が`Never`の場合、再起動されません。
+もしあるPodの単一のInitコンテナが失敗した場合、KubernetesはInitコンテナが成功するまで何度もそのPodを再起動します。しかし、もしそのPodの`restartPolicy`がNeverの場合、再起動されません。
 
-単一のコンテナをInitコンテナとして指定するためには、PodSpecにそのアプリケーションの`containers`配列と並べて、`initContainers`フィールドを[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)型のオブジェクトのJSON配列として指定してください。
+PodにInitコンテナを指定するためには、Podの仕様にそのアプリケーションの`containers`配列と並べて、`initContainers`フィールドを[Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)型のオブジェクトの配列として指定してください。
 Initコンテナのステータスは、`.status.initContainerStatuses`フィールドにコンテナのステータスの配列として返されます(`.status.containerStatuses`と同様)。
 
-### 通常のコンテナとの違い
+### 通常のコンテナとの違い {#differences-from-regular-containers}
 
-Initコンテナは、リソースリミット、ボリューム、セキュリティ設定などのアプリケーションコンテナの全てのフィールドと機能をサポートしています。しかし、Initコンテナに対するリソースリクエストやリソースリミットの扱いは微妙に異なり、下記の[Resources](#resources)にて説明します。また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`readinessProbe`をサポートしていません。
+Initコンテナは、リソースリミット、ボリューム、セキュリティ設定などのアプリケーションコンテナの全てのフィールドと機能をサポートしています。しかし、Initコンテナに対するリソースリクエストやリソースリミットの扱いは異なります。[リソース](#resources)にて説明します。
 
-もし複数のInitコンテナが単一のPodに対して指定された場合、それらのInitコンテナは1つずつ順番に実行されます。各Initコンテナは次のコンテナが完了できる前に完了しなくてはなりません。全てのInitコンテナが実行完了した時、KubernetesはPodを初期化し、通常通りアプリケーションコンテナを稼働させます。
+また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`readinessProbe`をサポートしていません。
 
-## Initコンテナは何に使用できるか?
+複数のInitコンテナを単一のPodに対して指定した場合、KubeletはそれらのInitコンテナを1つずつ順番に実行します。各Initコンテナは、次のInitコンテナが稼働する前に正常終了しなくてはなりません。全てのInitコンテナの実行が完了すると、KubeletはPodのアプリケーションコンテナを初期化し、通常通り実行します。
 
-Initコンテナはアプリケーションコンテナのイメージとは分離されているため、コンテナの起動に関連したコードにおいていくつかの利点があります。  
+## Initコンテナを使用する {#using-init-containers}
 
-* セキュリティの理由からアプリケーションコンテナのイメージに含めたくないユーティリティーを含んだり実行できます。
-* アプリケーションのイメージに存在していないセットアップ用のユーティリティーやカスタムコードを含むことができます。例えば、セットアップ中に`sed`、`awk`、`python`や、`dig`のようなツールを使うための他のイメージから、アプリケーションのイメージを作る必要がなくなります。
-* アプリケーションイメージをひとまとめにしてビルドすることなく、アプリケーションのイメージ作成と、デプロイ処理を独立して行うことができます。
-* アプリケーションコンテナと別のファイルシステムビューを持つために、Linuxの名前空間を使用します。その結果、アプリケーションコンテナがアクセスできない箇所へのシークレットなアクセス権限を得ることができます。
-* Initコンテナはアプリケーションコンテナの実行の前に完了しますが、その一方で、複数のアプリケーションコンテナは並列に実行されます。そのためInitコンテナはいくつかの前提条件をセットされるまで、アプリケーションコンテナの起動をブロックしたり遅らせることができます。
+Initコンテナはアプリケーションコンテナのイメージとは分離されているため、コンテナの起動に関連したコードにおいていくつかの利点があります。
 
-### 使用例
+* Initコンテナはアプリケーションのイメージに存在しないセットアップ用のユーティリティーやカスタムコードを含むことができます。例えば、セットアップ中に`sed`、`awk`、`python`や、`dig`のようなツールを使うためだけに、別のイメージを元にしてアプリケーションイメージを作る必要がなくなります。
+* アプリケーションイメージをビルドする役割とデプロイする役割は、共同で単一のアプリケーションイメージをビルドする必要がないため、それぞれ独立して実施することができます。
+* Initコンテナは同一Pod内のアプリケーションコンテナと別のファイルシステムビューで稼働することができます。その結果、アプリケーションコンテナがアクセスできない{{< glossary_tooltip text="Secret" term_id="secret" >}}に対するアクセス権限を得ることができます。
+* Initコンテナはアプリケーションコンテナが開始する前に完了するまで実行されるため、Initコンテナを使用することで、特定の前提条件が満たされるまでアプリケーションコンテナの起動をブロックしたり遅らせることができます。前提条件が満たされると、Pod内の全てのアプリケーションコンテナを並行して起動することができます。
+* Initコンテナはアプリケーションコンテナイメージの安全性を低下させるようなユーティリティーやカスタムコードを安全に実行することができます。不必要なツールを分離しておくことで、アプリケーションコンテナイメージのアタックサーフィスを制限することができます。
 
-ここではInitコンテナの使用例を挙げます。  
+### 例 {#examples}
 
-* シェルコマンドを使って単一のServiceが作成されるのを待機します。
+Initコンテナを活用する方法について、いくつかのアイデアを次に示します。
 
-      for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+* シェルコマンドを使って単一の{{< glossary_tooltip text="Service" term_id="service">}}が作成されるのを待機する。
+  ```shell
+  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  ```
 
-* コマンドを使って下位のAPIからこのPodをリモートサーバに登録します。
+* 以下のようなコマンドを使って下位のAPIからPodの情報をリモートサーバに登録する。
+  ```shell
+  curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'
+  ```
 
-      `curl -X POST http://$MANAGEMENT_SERVICE_HOST:$MANAGEMENT_SERVICE_PORT/register -d 'instance=$(<POD_NAME>)&ip=$(<POD_IP>)'`
+* 以下のようなコマンドを使ってアプリケーションコンテナの起動を待機する。
+  ```shell
+  sleep 60
+  ```
 
-* `sleep 60`のようなコマンドを使ってアプリケーションコンテナが起動する前に待機します。
-* ボリュームにあるgitリポジトリをクローンします。
-* メインのアプリケーションコンテナのための設定ファイルを動的に生成するために、いくつかの値を設定ファイルに移してテンプレートツールを稼働させます。例えば、設定ファイルにそのPodのPOD_IPを移して、Jinjaを使ってメインのアプリケーションコンテナの設定ファイルを生成します。
+* gitリポジトリを{{< glossary_tooltip text="Volume" term_id="volume" >}}にクローンする。
 
-さらに詳細な使用例は、[StatefulSetsのドキュメント](/docs/concepts/workloads/controllers/statefulset/)と[Production Pods guide](/docs/tasks/configure-pod-container/configure-pod-initialization/)にまとまっています。
+* いくつかの値を設定ファイルに配置し、メインのアプリケーションコンテナのための設定ファイルを動的に生成するためのテンプレートツールを実行する。例えば、そのPodの`POD_IP`の値を設定ファイルに配置し、Jinjaを使ってメインのアプリケーションコンテナの設定ファイルを生成する。
 
-### Initコンテナの使用
+#### Initコンテナの具体的な使用方法 {#init-containers-in-use}
 
-下記のKubernetes1.5用のyamlファイルは、2つのInitコンテナを含む単一のシンプルなポッドの概要となります。
-最初のInitコンテナの例は、`myservies`、2つ目のInitコンテナは`mydb`の起動をそれぞれ待ちます。2つのコンテナの実行が完了するとPodの起動が始まります。
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: myapp-pod
-  labels:
-    app: myapp
-  annotations:
-    pod.beta.kubernetes.io/init-containers: '[
-        {
-            "name": "init-myservice",
-            "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
-        },
-        {
-            "name": "init-mydb",
-            "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
-        }
-    ]'
-spec:
-  containers:
-  - name: myapp-container
-    image: busybox:1.28
-    command: ['sh', '-c', 'echo The app is running! && sleep 3600']
-```
-
-古いアノテーション構文がKubernetes1.6と1.7において有効ですが、1.6では新しい構文にも対応しています。Kubernetes1.8以降では新しい構文はを使用する必要があります。KubernetesではInitコンテナの宣言を`spec`に移行させました。
+下記の例は2つのInitコンテナを含むシンプルなPodを定義しています。
+1つ目のInitコンテナは`myservies`の起動を、2つ目のInitコンテナは`mydb`の起動をそれぞれ待ちます。両方のInitコンテナの実行が完了すると、Podは`spec`セクションにあるアプリケーションコンテナを実行します。
 
 ```yaml
 apiVersion: v1
@@ -108,39 +86,13 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
-Kubernetes1.5での構文は1.6においても稼働しますが、1.6の構文の使用を推奨します。Kubernetes1.6において、API内でInitコンテナのフィールド作成されます。ベータ版のアノテーションはKubernetes1.6と1.7において有効ですが、1.8以降ではサポートされません。
-
-下記のyamlファイルは`mydb`と`myservice`というServiceの概要です。
-
-```yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: myservice
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9376
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: mydb
-spec:
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9377
-```
-
-このPodは、下記のコマンドによって起動とデバッグすることが可能です。
+次のコマンドを実行して、このPodを開始できます。
 
 ```shell
 kubectl apply -f myapp.yaml
@@ -149,6 +101,7 @@ kubectl apply -f myapp.yaml
 pod/myapp-pod created
 ```
 
+そして次のコマンドでステータスを確認します。
 ```shell
 kubectl get -f myapp.yaml
 ```
@@ -157,6 +110,7 @@ NAME        READY     STATUS     RESTARTS   AGE
 myapp-pod   0/1       Init:0/2   0          6m
 ```
 
+より詳細な情報は次のコマンドで確認します。
 ```shell
 kubectl describe -f myapp.yaml
 ```
@@ -194,12 +148,41 @@ Events:
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
 ```
+
+このPod内のInitコンテナのログを確認するためには、次のコマンドを実行します。
 ```shell
 kubectl logs myapp-pod -c init-myservice # 1つ目のInitコンテナを調査する
 kubectl logs myapp-pod -c init-mydb      # 2つ目のInitコンテナを調査する
 ```
 
-一度`mydq`と`myservice` Serviceを起動させると、Initコンテナが完了して`myapp-pod`が作成されるのを確認できます。
+この時点で、これらのInitコンテナは`mydb`と`myservice`という名前のServiceの検出を待機しています。
+
+これらのServiceを検出させるための構成は以下の通りです。
+
+```yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9376
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mydb
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 9377
+```
+
+`mydb`および`myservice`というServiceを作成するために、以下のコマンドを実行します。
 
 ```shell
 kubectl apply -f services.yaml
@@ -209,68 +192,61 @@ service/myservice created
 service/mydb created
 ```
 
+Initコンテナが完了し、`myapp-pod`というPodがRunning状態に移行したことが確認できます。
+
 ```shell
 kubectl get -f myapp.yaml
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
 ```
 
-この例は非常にシンプルですが、ユーザー独自のInitコンテナを作成するためのインスピレーションを提供するでしょう。
+このシンプルな例を独自のInitコンテナを作成する際の参考にしてください。[次の項目](#what-s-next)にさらに詳細な使用例に関するリンクがあります。
 
-## Initコンテナのふるまいに関する詳細
+## Initコンテナのふるまいに関する詳細 {#detailed-behavior}
 
-単一のPodが起動している間、ネットワークとボリュームが初期化されたのちに、Initコンテナは順番に起動されます。各Initコンテナは次のInitコンテナが起動する前に完了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値をもとにリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、そのInitコンテナの`restartPolicy`は`OnFailure`となります。
+Podの起動時において、各Initコンテナはネットワークとボリュームが初期化されたのちに順番に起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
 
-Podは全てのInitコンテナが完了するまで`Ready`状態となりません。Initコンテナ上のポートはServiceによって集約されません。初期化中のPodのステータスは`Pending`となりますが、`Initializing`という値はtrueとなります。
+Podは全てのInitコンテナが完了するまで`Ready`状態となりません。Initコンテナ上のポートはServiceによって集約されません。初期化中のPodのステータスは`Pending`となりますが、`Initialized`という値はtrueとなります。
 
-もしそのPodが[再起動](#pod-restart-reasons)されたとき、全てのInitコンテナは再度実行されなくてはなりません。
+もしそのPodが[再起動](#pod-restart-reasons)されたとき、全てのInitコンテナは必ず再度実行されます。
 
-Initコンテナのスペックに対する変更はコンテナのイメージフィールドのみに限定されます。
-Initコンテナのイメージフィールド値の変更は、そのPodの再起動することと等しいです。
+Initコンテナの仕様の変更は、コンテナイメージのフィールドのみに制限されています。
+Initコンテナのイメージフィールド値を変更すると、そのPodは再起動されます。
 
-Initコンテナは何度も再起動、リトライ可能なため、べき等(Idempotent)である必要があります。特に、`EmptyDirs`にファイルを書き込むコードは、書き込み先のファイルがすでに存在している可能性を考慮に入れるべきです。
+Initコンテナは何度も再起動およびリトライ可能なため、べき等(Idempotent)である必要があります。特に、`EmptyDirs`にファイルを書き込むコードは、書き込み先のファイルがすでに存在している可能性を考慮に入れる必要があります。
 
-Initコンテナはアプリケーションコンテナの全てのフィールドを持っています。しかしKubernetesは、Initコンテナが完了と異なる状態を定義できないため`readinessProbe`が使用されることを禁止しています。これはバリデーションの際に強要されます。
+Initコンテナはアプリケーションコンテナの全てのフィールドを持っています。しかしKubernetesは、Initコンテナが完了と異なる状態を定義できないため`readinessProbe`が使用されることを禁止しています。これはバリデーションの際に適用されます。
 
-Initコンテナがずっと失敗し続けたままの状態を防ぐために、Podに`activeDeadlineSeconds`、コンテナに`livenessProbe`の設定をそれぞれ使用してください。`activeDeadlineSeconds`の設定はInitコンテナにも適用されます。
+Initコンテナがずっと失敗し続けたままの状態を防ぐために、Podに`activeDeadlineSeconds`を、コンテナに`livenessProbe`をそれぞれ設定してください。`activeDeadlineSeconds`の設定はInitコンテナが実行中の時間にも適用されます。
 
-あるPod内の各アプリケーションコンテナとInitコンテナの名前はユニークである必要があります。他のコンテナと同じ名前を共有していた場合、バリデーションエラーが返されます。
+Pod内の各アプリケーションコンテナとInitコンテナの名前はユニークである必要があります。他のコンテナと同じ名前を共有していた場合、バリデーションエラーが返されます。
 
-### リソース
+### リソース {#resources}
 
 Initコンテナの順序と実行を考えるとき、リソースの使用に関して下記のルールが適用されます。
 
-* 全てのInitコンテナの中で定義された最も高いリソースリクエストとリソースリミットが、*有効なInitリクエストとリミット* になります。
-* Podのリソースの*有効なリクエストとリミット* は、下記の2つの中のどちらか高い方となります。
-  * そのリソースの全てのアプリケーションコンテナのリクエストとリミットの合計
-  * そのリソースの有効なInitリクエストとリミット
-* スケジューリングは有効なリクエストとリミットに基づいて実行されます。これはInitコンテナがそのPodの生存中に使われない初期化のためのリソースを保持することができることを意味しています。
-* Podの*有効なQosティアー* は、Initコンテナとアプリケーションコンテナで同様です。
+* 全てのInitコンテナの中で定義された最も高いリソースリクエストとリソースリミットが、*有効なinitリクエスト／リミット* になります。
+* Podのリソースの*有効なリクエスト／リミット* は、下記の2つの中のどちらか高い方となります。
+  * リソースに対する全てのアプリケーションコンテナのリクエスト／リミットの合計
+  * リソースに対する有効なinitリクエスト／リミット
+* スケジューリングは有効なリクエスト／リミットに基づいて実行されます。つまり、InitコンテナはPodの生存中には使用されない初期化用のリソースを確保することができます。
+* Podの*有効なQoS(quality of service)ティアー* は、Initコンテナとアプリケーションコンテナで同様です。
 
 クォータとリミットは有効なPodリクエストとリミットに基づいて適用されます。
 
-Podレベルのcgroupsは、スケジューラーと同様に、有効なPodリクエストとリミットに基づいています。
+Podレベルのコントロールグループ(cgroups)は、スケジューラーと同様に、有効なPodリクエストとリミットに基づいています。
 
-### Podの再起動の理由
+### Podの再起動の理由 {#pod-restart-reasons}
 
-単一のPodは再起動可能で、Initコンテナの再実行も引き起こします。それらは下記の理由によるものです。
+以下の理由によりPodは再起動し、Initコンテナの再実行も引き起こす可能性があります。
 
-* あるユーザーが、そのPodのInitコンテナのイメージを変更するようにPodSpecを更新する場合。アプリケーションコンテナのイメージの変更はそのアプリケーションコンテナの再起動のみ行われます。
+* ユーザーが、そのPodのInitコンテナのイメージを変更するようにPodの仕様を更新する場合。アプリケーションコンテナのイメージの変更はそのアプリケーションコンテナの再起動のみ行われます。
 * そのPodのインフラストラクチャーコンテナが再起動された場合。これはあまり起きるものでなく、Nodeに対するルート権限を持ったユーザーにより行われることがあります。
-* `restartPolicy`が`Always`と設定されているとき、単一Pod内の全てのコンテナが停止され、再起動が行われた時と、ガーベージコレクションによりInitコンテナの完了記録が失われた場合。
-
-## サポートと互換性
-
-ApiServerのバージョン1.6.0かそれ以上のバージョンのクラスターは、`.spec.initContainers`フィールドを使ったInitコンテナの機能をサポートしています。  
-それ以前のバージョンでは、α版かβ版のアノテーションを使ってInitコンテナを使用できます。また、`.spec.initContainers`フィールドは、Kubernetes1.3.0かそれ以上のバージョンでInitコンテナを使用できるようにするためと、ApiServerバージョン1.6において、1.5.xなどの古いバージョンにロールバックできるようにするために、α版かβ版のアノテーションにミラーされ、存在するPodのInitコンテナの機能が失われることが無いように安全にロールバックできるようにします。
-
-ApiServerとKubeletバージョン1.8.0かそれ以上のバージョンでは、α版とβ版のアノテーションは削除されており、廃止されたアノテーションは`.spec.initContainers`フィールドへの移行が必須となります。
-
-{{% /capture %}}
+* `restartPolicy`が`Always`と設定されているPod内の全てのコンテナが停止され、再起動が行われた場合。およびガーベージコレクションによりInitコンテナの完了記録が失われた場合。
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
-* [Initコンテナを持っているPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+* [Initコンテナを含むPodの作成](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)方法について学ぶ。
+* [Initコンテナのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-init-containers/)を行う方法について学ぶ。
 
-{{% /capture %}}

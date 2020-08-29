@@ -1,49 +1,48 @@
 ---
 title: 임시(Ephemeral) 컨테이너
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state state="alpha" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
-이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는 
-트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip term_id="pod" >}} 에서 
-임시적으로 실행된다. 사용자는 애플리케이션 빌드보다는 서비스를 점검할 때 임시 
+이 페이지는 임시 컨테이너에 대한 개요를 제공한다: 이 특별한 유형의 컨테이너는
+트러블 슈팅과 같은 사용자가 시작한 작업을 완료하기위해 기존 {{< glossary_tooltip text="파드" term_id="pod" >}} 에서
+임시적으로 실행된다. 사용자는 애플리케이션 빌드보다는 서비스를 점검할 때 임시
 컨테이너를 사용한다.
 
 {{< warning >}}
-임시 컨테이너는 초기 알파 상태이며, 프로덕션 클러스터에는 
-적합하지 않다. 사용자는 컨테이너 네임스페이스를 대상으로 하는 경우와 
-같은 어떤 상황에서 기능이 작동하지 않을 것으로 예상해야 한다. [쿠버네티스 
-사용중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라 이 알파 
-기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
+임시 컨테이너는 초기 알파 상태이며,
+프로덕션 클러스터에는 적합하지 않다.
+[쿠버네티스 사용 중단(deprecation) 정책](/docs/reference/using-api/deprecation-policy/)에 따라
+이 알파 기능은 향후 크게 변경되거나, 완전히 제거될 수 있다.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 임시 컨테이너 이해하기
 
-{{< glossary_tooltip text="파드" term_id="pod" >}} 는 쿠버네티스 애플리케이션의 
-기본 구성 요소이다. 파드는 일회용이고, 교체 가능한 것으로 의도되었기 
+{{< glossary_tooltip text="파드" term_id="pod" >}} 는 쿠버네티스 애플리케이션의
+기본 구성 요소이다. 파드는 일회용이고, 교체 가능한 것으로 의도되었기
 때문에, 사용자는 파드가 한번 생성되면, 컨테이너를 추가할 수 없다.
-대신, 사용자는 보통 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}} 를 
+대신, 사용자는 보통 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}} 를
 사용해서 제어하는 방식으로 파드를 삭제하고 교체한다.
 
-그러나 때때로 재현하기 어려운 버그의 문제 해결을 위해 
-기존 파드의 상태를 검사해야할 수 있다. 이 경우 사용자는 
-기존 파드에서 임시 컨테이너를 실행해서 상태를 검사하고, 임의의 명령을 
+그러나 때때로 재현하기 어려운 버그의 문제 해결을 위해
+기존 파드의 상태를 검사해야 할 수 있다. 이 경우 사용자는
+기존 파드에서 임시 컨테이너를 실행해서 상태를 검사하고, 임의의 명령을
 실행할 수 있다.
 
 ### 임시 컨테이너는 무엇인가?
 
-임시 컨테이너는 리소스 또는 실행에 대한 보증이 없다는 점에서 
-다른 컨테이너와 다르며, 결코 자동으로 재시작되지 않는다. 그래서 
-애플리케이션을 만드는데 적합하지 않다. 임시 컨테이너는 
-일반 컨테이너와 동일한 `ContainerSpec` 을 사용해서 명시하지만, 많은 필드가 
+임시 컨테이너는 리소스 또는 실행에 대한 보증이 없다는 점에서
+다른 컨테이너와 다르며, 결코 자동으로 재시작되지 않는다. 그래서
+애플리케이션을 만드는데 적합하지 않다. 임시 컨테이너는
+일반 컨테이너와 동일한 `ContainerSpec` 을 사용해서 명시하지만, 많은 필드가
 호환되지 않으며 임시 컨테이너에는 허용되지 않는다.
 
 - 임시 컨테이너는 포트를 가지지 않을 수 있으므로, `ports`,
@@ -62,33 +61,38 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 ## 임시 컨테이너의 사용
 
 임시 컨테이너는 컨테이너가 충돌 되거나 또는 컨테이너 이미지에
-디버깅 도구가 포함되지 않은 이유로 `kubectl exec` 이 불충분할 때 
+디버깅 도구가 포함되지 않은 이유로 `kubectl exec` 이 불충분할 때
 대화형 문제 해결에 유용하다.
 
 특히, [distroless 이미지](https://github.com/GoogleContainerTools/distroless)
-를 사용하면 공격 표면(attack surface)과 버그 및 취약점의 노출을 줄이는 최소한의 
-컨테이너 이미지를 배포할 수 있다. distroless 이미지는 쉘 또는 어떤 디버깅 도구를 
-포함하지 않기 때문에, `kubectl exec` 만으로는 distroless 
+를 사용하면 공격 표면(attack surface)과 버그 및 취약점의 노출을 줄이는 최소한의
+컨테이너 이미지를 배포할 수 있다. distroless 이미지는 셸 또는 어떤 디버깅 도구를
+포함하지 않기 때문에, `kubectl exec` 만으로는 distroless
 이미지의 문제 해결이 어렵다.
 
-임시 컨테이너 사용시 [프로세스 네임스페이스 
-공유](/docs/tasks/configure-pod-container/share-process-namespace/)를 
+임시 컨테이너 사용 시 [프로세스 네임스페이스
+공유](/docs/tasks/configure-pod-container/share-process-namespace/)를
 활성화하면 다른 컨테이너 안의 프로세스를 보는데 도움이 된다.
 
-### 예시
+임시 컨테이너를 사용해서 문제를 해결하는 예시는
+[임시 디버깅 컨테이너로 디버깅하기]
+(/docs/tasks/debug-application-cluster/debug-running-pod/#debugging-with-ephemeral-debug-container)를 참조한다.
+
+## 임시 컨테이너 API
 
 {{< note >}}
 이 섹션의 예시는 `EphemeralContainers` [기능
-게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 
+게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)의
 활성화를 필요로 하고, 쿠버네티스 클라이언트와 서버는 v1.16 또는 이후의 버전이어야 한다.
 {{< /note >}}
 
-이 섹션의 에시는 임시 컨테이너가 어떻게 API에 나타나는지 
-보여준다. 사용자는 일반적으로 자동화하는 단계의 문제 해결을 위해 `kubectl` 
-플러그인을 사용했을 것이다.
+이 섹션의 예시는 임시 컨테이너가 어떻게 API에 나타나는지
+보여준다. 일반적으로 `kubectl alpha debug` 또는
+다른 `kubectl` [플러그인](/ko/docs/tasks/extend-kubectl/kubectl-plugins/)을
+사용해서 API를 직접 호출하지 않고 이런 단계들을 자동화 한다.
 
-임시 컨테이너는 파드의 `ephemeralcontainers` 하위 리소스를 
-사용해서 생성되며, `kubectl --raw` 를 사용해서 보여준다. 먼저 
+임시 컨테이너는 파드의 `ephemeralcontainers` 하위 리소스를
+사용해서 생성되며, `kubectl --raw` 를 사용해서 보여준다. 먼저
 `EphemeralContainers` 목록으로 추가하는 임시 컨테이너를 명시한다.
 
 ```json
@@ -177,34 +181,10 @@ Ephemeral Containers:
 ...
 ```
 
-사용자는 `kubectl attach` 를 사용해서 새로운 임시 컨테이너에 붙을 수 있다.
+예시와 같이 `kubectl attach`, `kubectl exec`, 그리고 `kubectl logs` 를 사용해서
+다른 컨테이너와 같은 방식으로 새로운 임시 컨테이너와
+상호작용할 수 있다.
 
 ```shell
 kubectl attach -it example-pod -c debugger
 ```
-
-만약 프로세스 네임스페이스를 공유를 활성화하면, 사용자는 해당 파드 안의 모든 컨테이너의 프로세스를 볼 수 있다.
-예를 들어, 임시 컨테이너에 붙은 이후에 디버거 컨테이너에서 `ps` 를 실행한다.
-
-```shell
-ps auxww
-```
-다음과 유사하게 출력된다.
-```
-PID   USER     TIME  COMMAND
-    1 root      0:00 /pause
-    6 root      0:00 nginx: master process nginx -g daemon off;
-   11 101       0:00 nginx: worker process
-   12 101       0:00 nginx: worker process
-   13 101       0:00 nginx: worker process
-   14 101       0:00 nginx: worker process
-   15 101       0:00 nginx: worker process
-   16 101       0:00 nginx: worker process
-   17 101       0:00 nginx: worker process
-   18 101       0:00 nginx: worker process
-   19 root      0:00 /pause
-   24 root      0:00 sh
-   29 root      0:00 ps auxww
-```
-
-{{% /capture %}}

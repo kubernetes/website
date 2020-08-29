@@ -1,20 +1,20 @@
 ---
 title: Berbagai Proxy di Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini menjelaskan berbagai <i>proxy</i> yang ada di dalam Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Berbagai Jenis <i>Proxy</i>
 
 Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes:
 
-1.  [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
+1.  [kubectl proxy](/id/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
 
     - dijalankan pada <i>desktop</i> pengguna atau di dalam sebuah Pod
     - melakukan <i>proxy</i> dari alamat localhost ke apiserver Kubernetes
@@ -23,7 +23,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - mencari lokasi apiserver
     - menambahkan <i>header</i> autentikasi
 
-1.  [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  [apiserver proxy](/id/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
 
     - merupakan sebuah <i>bastion</i> yang ada di dalam apiserver
     - menghubungkan pengguna di luar klaster ke alamat-alamat IP di dalam klaster yang tidak bisa terjangkau
@@ -33,7 +33,7 @@ Ada beberapa jenis <i>proxy</i> yang akan kamu temui saat menggunakan Kubernetes
     - dapat digunakan untuk menghubungi Node, Pod, atau Service
     - melakukan <i>load balancing</i> saat digunakan untuk menjangkau sebuah Service
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/id/docs/concepts/services-networking/service/#ips-and-vips):
 
     - dijalankan pada setiap Node
     - melakukan <i>proxy</i> untuk UDP, TCP dan SCTP
@@ -62,4 +62,4 @@ Untuk <i>proxy-proxy</i> lain di luar ini, admin klaster biasanya akan memastika
 
 <i>Proxy</i> telah menggantikan fungsi <i>redirect</i>. <i>Redirect</i> telah terdeprekasi.
 
-{{% /capture %}}
+

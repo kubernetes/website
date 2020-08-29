@@ -4,7 +4,7 @@ reviewers:
 - erictune
 - lavalamp
 - jbeda
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: reference
@@ -12,11 +12,11 @@ card:
   title: Overview of API
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of the Kubernetes API. 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 The REST API is the fundamental fabric of Kubernetes. All operations and communications between components, and external user commands are REST API calls that the API Server handles. Consequently, everything in the Kubernetes
 platform is treated as an API object and has a corresponding entry in the
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
@@ -33,7 +33,7 @@ if you are writing an application using the Kubernetes API.
 
 To eliminate fields or restructure resource representations, Kubernetes supports
 multiple API versions, each at a different API path. For example: `/api/v1` or
-`/apis/extensions/v1beta1`.
+`/apis/rbac.authorization.k8s.io/v1alpha1`.
 
 The version is set at the API level rather than at the resource or field level to:
 
@@ -84,32 +84,25 @@ Currently, there are several API groups in use:
 *  The named groups are at REST path `/apis/$GROUP_NAME/$VERSION`, and use `apiVersion: $GROUP_NAME/$VERSION`
    (for example, `apiVersion: batch/v1`). You can find the full list of supported API groups in [Kubernetes API reference](/docs/reference/).
 
-The two paths that support extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/) are:
+The two paths that support extending the API with [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/) are:
 
- - [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+ - [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    for basic CRUD needs.
  - [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md) for a full set of Kubernetes API semantics to implement their own apiserver.
  
 
-## Enabling API groups
+## Enabling or disabling API groups
 
 Certain resources and API groups are enabled by default. You can enable or disable them by setting `--runtime-config`
 on the apiserver. `--runtime-config` accepts comma separated values. For example:
+
  - to disable batch/v1, set `--runtime-config=batch/v1=false`
  - to enable batch/v2alpha1, set `--runtime-config=batch/v2alpha1`
+
 The flag accepts comma separated set of key=value pairs describing runtime configuration of the apiserver.
 
 {{< note >}}
 When you enable or disable groups or resources, you need to restart the apiserver and controller-manager
 to pick up the `--runtime-config` changes.
 {{< /note >}}
-
-## Enabling resources in the groups
-
-DaemonSets, Deployments, HorizontalPodAutoscalers, Ingress, Jobs and ReplicaSets are enabled by default.
-You can enable other extensions resources by setting `--runtime-config` on
-apiserver. `--runtime-config` accepts comma separated values. For example, to disable deployments and jobs, set
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/jobs=false`
-{{% /capture %}}
-
 

@@ -26,7 +26,7 @@ Cách được đề xuất để chạy trang web Kubernetes cục bộ là dù
 
 > Nếu bạn làm việc trên môi trường Windows, bạn sẽ cần thêm môt vài công cụ mà bạn có thể cài đặt với [Chocolatey](https://chocolatey.org). `choco install make`
 
-> Nếu bạn không muốn dùng Docker để chạy trang web cục bộ, hãy xem [Chạy website cục bộ dùng Hugo](#Chạy website cục bộ dùng Hugo) dưới đây.
+> Nếu bạn không muốn dùng Docker để chạy trang web cục bộ, hãy xem [Chạy website cục bộ dùng Hugo](#chạy-website-cục-bộ-dùng-hugo) dưới đây.
 
 Nếu bạn có Docker đang [up và running](https://www.docker.com/get-started), build `kubernetes-hugo` Docker image cục bộ:
 

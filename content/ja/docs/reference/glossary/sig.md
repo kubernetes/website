@@ -15,7 +15,7 @@ tags:
 <!--more--> 
 
 SIGのメンバーは、アーキテクチャ、API machinery、ドキュメンテーションといった、特定のエリアの改善に共通の関心をもっています。
-SIGは[SIGガバナンス](https://github.com/kubernetes/community/blob/master/sig-governance.md)ガイドラインに準拠していなければなりませんが、独自の貢献ポリシーやコミュニケーションのチャンネルを持つことが可能です。
+SIGは[ガバナンスガイドライン](https://github.com/kubernetes/community/blob/master/committee-steering/governance/sig-governance.md)に準拠していなければなりませんが、独自の貢献ポリシーやコミュニケーションのチャンネルを持つことが可能です。
 
 さらなる情報は[コミュニティ (kubernetes/community)](https://github.com/kubernetes/community)リポジトリと[SIGとワーキンググループ](https://github.com/kubernetes/community/blob/master/sig-list.md)を参照して下さい。
 

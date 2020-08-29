@@ -1,18 +1,16 @@
 ---
 title: Garbage Collection
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 The role of the Kubernetes garbage collector is to delete certain objects
 that once had an owner, but no longer have an owner.
 
-{{% /capture %}}
 
-
-{{% capture body %}}
+<!-- body -->
 
 ## Owners and dependents
 
@@ -113,12 +111,6 @@ To control the cascading deletion policy, set the `propagationPolicy`
 field on the `deleteOptions` argument when deleting an Object. Possible values include "Orphan",
 "Foreground", or "Background".
 
-Prior to Kubernetes 1.9, the default garbage collection policy for many controller resources was `orphan`.
-This included ReplicationController, ReplicaSet, StatefulSet, DaemonSet, and
-Deployment. For kinds in the `extensions/v1beta1`, `apps/v1beta1`, and `apps/v1beta2` group versions, unless you 
-specify otherwise, dependent objects are orphaned by default. In Kubernetes 1.9, for all kinds in the `apps/v1` 
-group version, dependent objects are deleted by default.
-
 Here's an example that deletes dependents in background:
 
 ```shell
@@ -168,16 +160,11 @@ See [kubeadm/#149](https://github.com/kubernetes/kubeadm/issues/149#issuecomment
 
 Tracked at [#26120](https://github.com/kubernetes/kubernetes/issues/26120)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 [Design Doc 1](https://git.k8s.io/community/contributors/design-proposals/api-machinery/garbage-collection.md)
 
 [Design Doc 2](https://git.k8s.io/community/contributors/design-proposals/api-machinery/synchronous-garbage-collection.md)
-
-{{% /capture %}}
-
-
-

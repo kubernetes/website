@@ -1,10 +1,6 @@
 ---
 title: kubectl 备忘单
-reviewers:
-- erictune
-- krousey
-- clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
@@ -15,42 +11,50 @@ reviewers:
 - erictune
 - krousey
 - clove
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
-<!-- See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath). -->
-也可以看下: [Kubectl 概述](/docs/reference/kubectl/overview/) 和 [JsonPath 指南](/docs/reference/kubectl/jsonpath)。
+<!--
+See also: [Kubectl Overview](/docs/reference/kubectl/overview/) and [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
-<!-- This page is an overview of the `kubectl` command. -->
+This page is an overview of the `kubectl` command.
+-->
+另见: [Kubectl 概述](/docs/reference/kubectl/overview/) 和 [JsonPath 指南](/docs/reference/kubectl/jsonpath)。
+
 本页面是 `kubectl` 命令的概述。
 
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 
-<!-- # kubectl - Cheat Sheet -->
-## kubectl - 备忘单
+<!--
+# kubectl - Cheat Sheet
 
-<!-- ## Kubectl Autocomplete -->
+## Kubectl Autocomplete
+-->
+# kubectl - 备忘单
+
 ## Kubectl 自动补全
 
 ### BASH
 
-<!-- ```bash
+<!--
+```bash
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
-``` -->
+```
+
+You can also use a shorthand alias for `kubectl` that also works with completion:
+-->
 ```bash
 source <(kubectl completion bash) # 在 bash 中设置当前 shell 的自动补全，要先安装 bash-completion 包。
 echo "source <(kubectl completion bash)" >> ~/.bashrc # 在您的 bash shell 中永久的添加自动补全
 ```
 
-<!-- You can also use a shorthand alias for `kubectl` that also works with completion:  -->
 您还可以为 `kubectl` 使用一个速记别名，该别名也可以与 completion 一起使用：
 
 ```bash
@@ -60,25 +64,32 @@ complete -F __start_kubectl k
 
 ### ZSH
 
-<!-- ```bash
+<!--
+```bash
 source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # add autocomplete permanently to your zsh shell
-``` -->
+```
+-->
 ```bash
 source <(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补全
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
 ```
 
-<!-- ## Kubectl Context and Configuration
+<!--
+## Kubectl Context and Configuration
 
 Set which Kubernetes cluster `kubectl` communicates with and modifies configuration
 information. See [Authenticating Across Clusters with kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) documentation for
-detailed config file information. -->
+detailed config file information.
+-->
 ##  Kubectl 上下文和配置
 
-设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看 [使用 kubeconfig 跨集群授权访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) 文档获取详情配置文件信息。
+设置 `kubectl` 与哪个 Kubernetes 集群进行通信并修改配置信息。查看
+[使用 kubeconfig 跨集群授权访问](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+文档获取配置文件详细信息。
 
-<!-- ```bash
+<!-- 
+``bash
 kubectl config view # Show Merged kubeconfig settings.
 
 # use multiple kubeconfig files at the same time and view merged config
@@ -89,9 +100,10 @@ kubectl config view
 # get the password for the e2e user
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config view -o jsonpath='{.users[].name}'    # get a list of users
+kubectl config view -o jsonpath='{.users[].name}'    # display the first user
+kubectl config view -o jsonpath='{.users[*].name}'   # get a list of users
 kubectl config get-contexts                          # display list of contexts 
-kubectl config current-context			               # display the current-context
+kubectl config current-context			     # display the current-context
 kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
 
 # add a new cluster to your kubeconf that supports basic auth
@@ -105,7 +117,8 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
  
 kubectl config unset users.foo                       # delete user foo
-``` -->
+```
+-->
 ```bash
 kubectl config view # 显示合并的 kubeconfig 配置。
 
@@ -115,36 +128,54 @@ KUBECONFIG=~/.kube/config:~/.kube/kubconfig2 kubectl config view
 # 获取 e2e 用户的密码
 kubectl config view -o jsonpath='{.users[?(@.name == "e2e")].user.password}'
 
-kubectl config current-context              # 展示当前所处的上下文
-kubectl config use-context my-cluster-name  # 设置默认的上下文为 my-cluster-name
+kubectl config view -o jsonpath='{.users[].name}'    # 显示第一个用户
+kubectl config view -o jsonpath='{.users[*].name}'   # 获取用户列表
+kubectl config get-contexts                          # 显示上下文列表
+kubectl config current-context                       # 展示当前所处的上下文
+kubectl config use-context my-cluster-name           # 设置默认的上下文为 my-cluster-name
 
-# 添加新的集群配置到 kubeconf 中，使用 basic auth 进行鉴权
+# 添加新的集群配置到 kubeconf 中，使用 basic auth 进行身份认证
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
-# 使用特定的用户名和命名空间设置上下文。
+# 在指定上下文中持久性地保存名字空间，供所有后续 kubectl 命令使用
+kubectl config set-context --current --namespace=ggckad-s2
+
+# 使用特定的用户名和名字空间设置上下文
 kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
+
+kubectl config unset users.foo                       # 删除用户 foo
 ```
 
-<!-- ## Apply
-`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io). -->
+<!--
 ## Apply
-`apply` 通过定义 Kubernetes 资源的文件管理应用程序。它通过运行 `kubectl apply` 在集群中创建和更新资源。这是在生产中管理 Kubernetes 应用程序的推荐方法。查阅 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
+`apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
+-->
+## Apply
+`apply` 通过定义 Kubernetes 资源的文件来管理应用。它通过运行
+`kubectl apply` 在集群中创建和更新资源。
+这是在生产中管理 Kubernetes 应用的推荐方法。
+参见 [Kubectl 文档](https://kubectl.docs.kubernetes.io)。
 
-<!-- ## Creating Objects -->
-## 创建对象
+<!--
+## Creating Objects
 
-<!-- Kubernetes manifests can be defined in json or yaml. The file extension `.yaml`,
-`.yml`, and `.json` can be used. -->
-Kubernetes 配置可以用 json 或 yaml 定义。可以使用的文件扩展名有 `.yaml`，`.yml` 和 `.json`。
+Kubernetes manifests can be defined in YAML or JSON. The file extension `.yaml`,
+`.yml`, and `.json` can be used.
+-->
+## 创建对象 {#creating-objects}
 
-<!-- ```bash
+Kubernetes 配置可以用 YAML 或 JSON 定义。可以使用的文件扩展名有
+`.yaml`、`.yml` 和 `.json`。
+
+<!--
+```bash
 kubectl apply -f ./my-manifest.yaml           # create resource(s)
 kubectl apply -f ./my1.yaml -f ./my2.yaml     # create from multiple files
 kubectl apply -f ./dir                        # create resource(s) in all manifest files in dir
 kubectl apply -f https://git.io/vPieo         # create resource(s) from url
-kubectl create deployment nginx --image=nginx  # start a single instance of nginx
-kubectl explain pods,svc                       # get the documentation for pod and svc manifests
+kubectl create deployment nginx --image=nginx # start a single instance of nginx
+kubectl explain pods                          # get the documentation for pod and svc manifests
 
 # Create multiple YAML objects from stdin
 cat <<EOF | kubectl apply -f -
@@ -184,17 +215,17 @@ data:
   password: $(echo -n "s33msi4" | base64 -w0)
   username: $(echo -n "jane" | base64 -w0)
 EOF
-
-``` -->
+```
+-->
 ```bash
 kubectl apply -f ./my-manifest.yaml           # 创建资源
 kubectl apply -f ./my1.yaml -f ./my2.yaml     # 使用多个文件创建
-kubectl apply -f ./dir                        # 从目录下的全部配置文件创建资源
-kubectl apply -f https://git.io/vPieo         # 从 url 中创建资源
-kubectl create deployment nginx --image=nginx  # 启动单实例 nginx
-kubectl explain pods,svc                       # 获取 pod，svc 配置的文档说明
+kubectl apply -f ./dir                        # 基于目录下的所有清单文件创建资源
+kubectl apply -f https://git.io/vPieo         # 从 URL 中创建资源
+kubectl create deployment nginx --image=nginx # 启动单实例 nginx
+kubectl explain pods,svc                      # 获取 pod 清单的文档说明
 
-# 从标准输入中的多个 YAML 对象中创建
+# 从标准输入创建多个 YAML 对象
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Pod
@@ -232,34 +263,35 @@ data:
   password: $(echo -n "s33msi4" | base64 -w0)
   username: $(echo -n "jane" | base64 -w0)
 EOF
-
 ```
 
-<!-- ## Viewing, Finding Resources -->
-## 获取和查找资源
+<!--
+## Viewing, Finding Resources
+-->
+## 查看和查找资源
 
-<!-- ```bash
+<!--
+```bash
 # Get commands with basic output
 kubectl get services                          # List all services in the namespace
 kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the namespace, with more details
 kubectl get deployment my-dep                 # List a particular deployment
-kubectl get pods --include-uninitialized      # List all pods in the namespace, including uninitialized ones
+kubectl get pods                              # List all pods in the namespace
 kubectl get pod my-pod -o yaml                # Get a pod's YAML
-kubectl get pod my-pod -o yaml --export       # Get a pod's YAML without cluster specific information
 
 # Describe commands with verbose output
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # List Services Sorted by Name
+# List Services Sorted by Name
+kubectl get services --sort-by=.metadata.name
 
 # List pods Sorted by Restart Count
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# List pods in test namespace sorted by capacity 
-
-kubectl get pods -n test --sort-by=.spec.capacity.storage  
+# List PersistentVolumes sorted by capacity
+kubectl get pv --sort-by=.spec.capacity.storage
 
 # Get the version label of all pods with label app=cassandra
 kubectl get pods --selector=app=cassandra -o \
@@ -281,10 +313,6 @@ sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries 
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
 # Show labels for all pods (or any other Kubernetes object that supports labelling)
-# Also uses "jq"
-for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
-
-# Or this command can be used as well to get all the labels associated with pods
 kubectl get pods --show-labels
 
 # Check which nodes are ready
@@ -294,86 +322,91 @@ JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.ty
 # List all Secrets currently in use by a pod
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
+# List all containerIDs of initContainer of all pods
+# Helpful when cleaning up stopped containers, while avoiding removal of initContainers.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
-``` -->
-```bash
-# 使用 get 命令获取基本输出
-kubectl get services                          # 列出当前命名空间下的所有 services
-kubectl get pods --all-namespaces             # 列出所有命名空间下的全部的 pods
-kubectl get pods -o wide                      # 列出当前命名空间下的全部 pods，有更多的详细信息
-kubectl get deployment my-dep                 # 列出某个特定的 deployment
-kubectl get pods --include-uninitialized      # 列出当前命名空间下的全部 pods，包含未初始化的
-kubectl get pod my-pod -o yaml                # 获取一个 pod 的 YAML
-kubectl get pod my-pod -o yaml --export       # 获取一个没有集群特定信息的 YAML
 
-# 使用 describe 命令获取详细输出
+# Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
+kubectl diff -f ./my-manifest.yaml
+```
+-->
+```bash
+# get 命令的基本输出
+kubectl get services                          # 列出当前命名空间下的所有 services
+kubectl get pods --all-namespaces             # 列出所有命名空间下的全部的 Pods
+kubectl get pods -o wide                      # 列出当前命名空间下的全部 Pods，并显示更详细的信息
+kubectl get deployment my-dep                 # 列出某个特定的 Deployment
+kubectl get pods                              # 列出当前命名空间下的全部 Pods
+kubectl get pod my-pod -o yaml                # 获取一个 pod 的 YAML
+
+# describe 命令的详细输出
 kubectl describe nodes my-node
 kubectl describe pods my-pod
 
-kubectl get services --sort-by=.metadata.name # 列出当前命名空间下所有 services，按照名称排序
+# 列出当前名字空间下所有 Services，按名称排序
+kubectl get services --sort-by=.metadata.name
 
-# 列出 pods 按照重启次数进行排序
+# 列出 Pods，按重启次数排序
 kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'
 
-# 列出测试命名空间中的 Pod，按容量排序
-kubectl get pods -n test --sort-by=.spec.capacity.storage  
+# 列举所有 PV 持久卷，按容量排序
+kubectl get pv --sort-by=.spec.capacity.storage
 
-# 获取包含 app=cassandra 标签全部 pods 的 version 标签
+# 获取包含 app=cassandra 标签的所有 Pods 的 version 标签
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
-# 获取所有工作节点(使用选择器以排除标签名称为 'node-role.kubernetes.io/master' 的结果)
+# 获取所有工作节点（使用选择器以排除标签名称为 'node-role.kubernetes.io/master' 的结果）
 kubectl get node --selector='!node-role.kubernetes.io/master'
 
-# 获取当前命名空间中正在运行的 pods
+# 获取当前命名空间中正在运行的 Pods
 kubectl get pods --field-selector=status.phase=Running
 
-# 获取全部 node 的 ExternalIP 地址
+# 获取全部节点的 ExternalIP 地址
 kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
 
-# 列出属于某个特定 RC 的 pods 的名称
-# "jq" 命令对于 jsonpath 过于复杂的转换非常有用，可以在 https://stedolan.github.io/jq/ 找到它。
+# 列出属于某个特定 RC 的 Pods 的名称
+# 在转换对于 jsonpath 过于复杂的场合，"jq" 命令很有用；可以在 https://stedolan.github.io/jq/ 找到它。
 sel=${$(kubectl get rc my-rc --output=json | jq -j '.spec.selector | to_entries | .[] | "\(.key)=\(.value),"')%?}
 echo $(kubectl get pods --selector=$sel --output=jsonpath={.items..metadata.name})
 
-# 显示所有 Pod 的标签(或任何其他支持标签的 Kubernetes 对象)
-# 也可以使用 "jq"
-for item in $( kubectl get pod --output=name); do printf "Labels for %s\n" "$item" | grep --color -E '[^/]+$' && kubectl get "$item" --output=json | jq -r -S '.metadata.labels | to_entries | .[] | " \(.key)=\(.value)"' 2>/dev/null; printf "\n"; done
-
-# 或也可以使用此命令来获取与容器关联的所有标签
+# 显示所有 Pods 的标签（或任何其他支持标签的 Kubernetes 对象）
 kubectl get pods --show-labels
 
-# 检查哪些节点处于 ready
+# 检查哪些节点处于就绪状态
 JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}' \
  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
 
-# 列出被一个 pod 使用的全部 secret
+# 列出被一个 Pod 使用的全部 Secret
 kubectl get pods -o json | jq '.items[].spec.containers[].env[]?.valueFrom.secretKeyRef.name' | grep -v null | sort | uniq
 
-# 列出 events，按照创建时间排序
+# 列举所有 Pods 中初始化容器的容器 ID（containerID）
+# Helpful when cleaning up stopped containers, while avoiding removal of initContainers.
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initContainerStatuses[*]}{.containerID}{"\n"}{end}' | cut -d/ -f3
+
+# 列出事件（Events），按时间戳排序
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# 比较当前的集群状态和假定某清单被应用之后的集群状态
+kubectl diff -f ./my-manifest.yaml
 ```
 
-<!-- ## Updating Resources -->
+<!--
+## Updating Resources
+-->
 ## 更新资源
 
-<!-- As of version 1.11 `rolling-update` have been deprecated (see [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), use `rollout` instead. -->
-从版本 1.11 开始，`rolling-update` 已被弃用（参见 [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md))，请使用 `rollout` 代替。
-
-<!-- ```bash
+<!--
+```bash
 kubectl set image deployment/frontend www=image:v2               # Rolling update "www" containers of "frontend" deployment, updating the image
 kubectl rollout history deployment/frontend                      # Check the history of deployments including the revision 
 kubectl rollout undo deployment/frontend                         # Rollback to the previous deployment
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback to a specific revision
 kubectl rollout status -w deployment/frontend                    # Watch rolling update status of "frontend" deployment until completion
-
-
-# deprecated starting version 1.11
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (deprecated) Rolling update pods of frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (deprecated) Change the name of the resource and update the image
-kubectl rolling-update frontend --image=image:v2                 # (deprecated) Update the pods image of frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (deprecated) Abort existing rollout in progress
+kubectl rollout restart deployment/frontend                      # Rolling restart of the "frontend" deployment
 
 cat pod.json | kubectl replace -f -                              # Replace a pod based on the JSON passed into std
 
@@ -389,41 +422,39 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
-``` -->
+```
+-->
 ```bash
-kubectl set image deployment/frontend www=image:v2               # 滚动更新 "frontend" deployment 的 "www" 容器镜像
-kubectl rollout history deployment/frontend                      # 检查部署的历史记录，包括版本 
+kubectl set image deployment/frontend www=image:v2               # 滚动更新 "frontend" Deployment 的 "www" 容器镜像
+kubectl rollout history deployment/frontend                      # 检查 Deployment 的历史记录，包括版本 
 kubectl rollout undo deployment/frontend                         # 回滚到上次部署版本
 kubectl rollout undo deployment/frontend --to-revision=2         # 回滚到特定部署版本
-kubectl rollout status -w deployment/frontend                    # Watch "frontend" deployment 的滚动升级状态直到完成
+kubectl rollout status -w deployment/frontend                    # 监视 "frontend" Deployment 的滚动升级状态直到完成
+kubectl rollout restart deployment/frontend                      # 轮替重启 "frontend" Deployment
 
-# 从 1.11 版本开始弃用
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (弃用) 滚动升级 frontend-v1 的 pods
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (弃用) 修改资源的名称并更新镜像
-kubectl rolling-update frontend --image=image:v2                 # (弃用) 更新 frontend 的 pods 的镜像
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (弃用) 终止已经进行中的 rollout
+cat pod.json | kubectl replace -f -                              # 通过传入到标准输入的 JSON 来替换 Pod
 
-cat pod.json | kubectl replace -f -                              # 通过传入到标准输入的 JSON 来替换 pod
-
-# 强制进行替换，会删除然后再创建资源，会导致服务不可用。
+# 强制替换，删除后重建资源。会导致服务不可用。
 kubectl replace --force -f ./pod.json
 
 # 为多副本的 nginx 创建服务，使用 80 端口提供服务，连接到容器的 8000 端口。
 kubectl expose rc nginx --port=80 --target-port=8000
 
-# 更新单容器 pod 的镜像标签到 v4
+# 将某单容器 Pod 的镜像版本（标签）更新到 v4
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # 添加标签
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
-kubectl autoscale deployment foo --min=2 --max=10                # 使 "foo" deployment 自动伸缩容
+kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动伸缩容
 ```
 
 <!-- ## Patching Resources -->
-## 局部更新资源
+## 部分更新资源
 
-<!-- ```bash
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # Partially update a node
+<!--
+```bash
+# Partially update a node
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
 
 # Update a container's image; spec.containers[*].name is required because it's a merge key
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
@@ -436,38 +467,48 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 
 # Add a new element to a positional array 
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
-``` -->
+```
+-->
 ```bash
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # 部分更新 node
+# 部分更新某节点
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' 
 
-#更新容器的镜像；spec.containers[*].name 是必须的。因为它是一个合并 key。
+# 更新容器的镜像；spec.containers[*].name 是必须的。因为它是一个合并性质的主键。
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
 
-# 使用带位置数组的 json patch 更新容器的镜像
+# 使用带位置数组的 JSON patch 更新容器的镜像
 kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
 
-# 使用带位置数组的 json patch 禁用 deployment 的 livenessProbe
+# 使用带位置数组的 JSON patch 禁用某 Deployment 的 livenessProbe
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
 # 在带位置数组中添加元素 
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 ```
 
-<!-- ## Editing Resources -->
-## 编辑资源
-<!-- The edit any API resource in an editor. -->
-在编辑器中编辑任何 API 资源
+<!--
+## Editing Resources
 
-<!-- ```bash
+The edit any API resource in an editor.
+-->
+## 编辑资源
+
+使用你偏爱的编辑器编辑 API 资源。
+
+<!--
+```bash
 kubectl edit svc/docker-registry                      # Edit the service named docker-registry
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Use an alternative editor
-``` -->
+```
+-->
 ```bash
-kubectl edit svc/docker-registry                      # 编辑名为 docker-registry 的 service
+kubectl edit svc/docker-registry                      # 编辑名为 docker-registry 的服务
 KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # 使用其他编辑器
 ```
 
-<!-- ## Scaling Resources -->
+<!--
+## Scaling Resources
+-->
 ## 对资源进行伸缩
 
 <!-- ```bash
@@ -475,40 +516,47 @@ kubectl scale --replicas=3 rs/foo                                 # Scale a repl
 kubectl scale --replicas=3 -f foo.yaml                            # Scale a resource specified in "foo.yaml" to 3
 kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # If the deployment named mysql's current size is 2, scale mysql to 3
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Scale multiple replication controllers
-``` -->
+```
+-->
 ```bash
 kubectl scale --replicas=3 rs/foo                                 # 将名为 'foo' 的副本集伸缩到 3 副本
 kubectl scale --replicas=3 -f foo.yaml                            # 将在 "foo.yaml" 中的特定资源伸缩到 3 个副本
-kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # 如果名为 mysql 的 deployment 的副本当前是 2，那么将它伸缩到 3
-kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个 replication controllers
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # 如果名为 mysql 的 Deployment 的副本当前是 2，那么将它伸缩到 3
+kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个副本控制器
 ```
 
-<!-- ## Deleting Resources -->
+<!--
+## Deleting Resources
+-->
 ## 删除资源
 
 <!-- ```bash
 kubectl delete -f ./pod.json                                              # Delete a pod using the type and name specified in pod.json
 kubectl delete pod,service baz foo                                        # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # Delete pods and services, including uninitialized ones, with label name=myLabel
-kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services, including uninitialized ones, in namespace my-ns,
+kubectl delete pods,services -l name=myLabel                              # Delete pods and services with label name=myLabel
+kubectl -n my-ns delete po,svc --all                                      # Delete all pods and services in namespace my-ns,
 # Delete all pods matching the awk pattern1 or pattern2
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
-``` -->
+```
+-->
 ```bash
-kubectl delete -f ./pod.json                                              # 删除在 pod.json 中指定的类型和名称的 pod
-kubectl delete pod,service baz foo                                        # 删除名称为 "baz" 和 "foo" 的 pod 和 service
-kubectl delete pods,services -l name=myLabel                              # 删除包含 name=myLabel 标签的 pods 和 services
-kubectl delete pods,services -l name=myLabel --include-uninitialized      # 删除包含 label name=myLabel 标签的 pods 和 services，包括未初始化的
-kubectl -n my-ns delete po,svc --all                                      # 删除在 my-ns 命名空间中全部的 pods 和 services ，包括未初始化的
-# 删除所有与 pattern1 或 pattern2 匹配的 pod
+kubectl delete -f ./pod.json                                              # 删除在 pod.json 中指定的类型和名称的 Pod
+kubectl delete pod,service baz foo                                        # 删除名称为 "baz" 和 "foo" 的 Pod 和服务
+kubectl delete pods,services -l name=myLabel                              # 删除包含 name=myLabel 标签的 pods 和服务
+kubectl delete pods,services -l name=myLabel --include-uninitialized      # 删除包含 label name=myLabel 标签的 Pods 和服务
+kubectl -n my-ns delete po,svc --all                                      # 删除在 my-ns 名字空间中全部的 Pods 和服务
+# 删除所有与 pattern1 或 pattern2 awk 模式匹配的 Pods
 kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{print $1}' | xargs  kubectl delete -n mynamespace pod
 ```
 
-<!-- ## Interacting with running Pods -->
+<!--
+## Interacting with running Pods
+-->
 ## 与运行中的 Pods 进行交互
 
-<!-- ```bash
+<!--
+```bash
 kubectl logs my-pod                                 # dump pod logs (stdout)
 kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
 kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
@@ -519,34 +567,47 @@ kubectl logs -f my-pod                              # stream pod logs (stdout)
 kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox -- sh  # Run pod as interactive shell
+kubectl run nginx --image=nginx -n 
+mynamespace                                         # Run pod nginx in a specific namespace
+kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
+--dry-run=client -o yaml > pod.yaml
+
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
 kubectl exec my-pod -c my-container -- ls /         # Run command in existing pod (multi-container case)
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
-``` -->
+```
+-->
 ```bash
-kubectl logs my-pod                                 # 获取 pod 日志(标准输出)
-kubectl logs -l name=myLabel                        # 获取 pod label name=myLabel 日志(标准输出)
-kubectl logs my-pod --previous                      # 获取上个容器实例的 pod 日志(标准输出)
-kubectl logs my-pod -c my-container                 # 获取 pod 的容器日志 (标准输出, 多容器的场景)
-kubectl logs -l name=myLabel -c my-container        # 获取 label name=myLabel pod 的容器日志 (标准输出, 多容器的场景)
-kubectl logs my-pod -c my-container --previous      # 获取 pod 的上个容器实例日志 (标准输出, 多容器的场景)
-kubectl logs -f my-pod                              # 流式输出 pod 的日志 (标准输出)
-kubectl logs -f my-pod -c my-container              # 流式输出 pod 容器的日志 (标准输出, 多容器的场景)
-kubectl logs -f -l name=myLabel --all-containers    # 流式输出 label name=myLabel pod 的日志 (标准输出)
-kubectl run -i --tty busybox --image=busybox -- sh  # 以交互式 shell 运行 pod
-kubectl attach my-pod -i                            # 进入到一个运行中的容器中
+kubectl logs my-pod                                 # 获取 pod 日志（标准输出）
+kubectl logs -l name=myLabel                        # 获取含 name=myLabel 标签的 Pods 的日志（标准输出）
+kubectl logs my-pod --previous                      # 获取上个容器实例的 pod 日志（标准输出）
+kubectl logs my-pod -c my-container                 # 获取 Pod 容器的日志（标准输出, 多容器场景）
+kubectl logs -l name=myLabel -c my-container        # 获取含 name=myLabel 标签的 Pod 容器日志（标准输出, 多容器场景）
+kubectl logs my-pod -c my-container --previous      # 获取 Pod 中某容器的上个实例的日志（标准输出, 多容器场景）
+kubectl logs -f my-pod                              # 流式输出 Pod 的日志（标准输出）
+kubectl logs -f my-pod -c my-container              # 流式输出 Pod 容器的日志（标准输出, 多容器场景）
+kubectl logs -f -l name=myLabel --all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
+kubectl run -i --tty busybox --image=busybox -- sh  # 以交互式 Shell 运行 Pod
+kubectl run nginx --image=nginx -n mynamespace      # 在指定名字空间中运行 nginx Pod
+kubectl run nginx --image=nginx                     # 运行 ngins Pod 并将其规约写入到名为 pod.yaml 的文件
+  --dry-run=client -o yaml > pod.yaml
+
+kubectl attach my-pod -i                            # 挂接到一个运行的容器中
 kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
-kubectl exec my-pod -- ls /                         # 在已有的 pod 中运行命令(单容器的场景)
-kubectl exec my-pod -c my-container -- ls /         # 在已有的 pod 中运行命令(多容器的场景)
-kubectl top pod POD_NAME --containers               # 显示给定 pod 和容器的监控数据
+kubectl exec my-pod -- ls /                         # 在已有的 Pod 中运行命令（单容器场景）
+kubectl exec my-pod -c my-container -- ls /         # 在已有的 Pod 中运行命令（多容器场景）
+kubectl top pod POD_NAME --containers               # 显示给定 Pod 和其中容器的监控数据
 ```
 
-<!-- ## Interacting with Nodes and Cluster -->
+<!--
+## Interacting with Nodes and Cluster
+-->
 ## 与节点和集群进行交互
 
-<!-- ```bash
+<!--
+```bash
 kubectl cordon my-node                                                # Mark my-node as unschedulable
 kubectl drain my-node                                                 # Drain my-node in preparation for maintenance
 kubectl uncordon my-node                                              # Mark my-node as schedulable
@@ -557,57 +618,70 @@ kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump cur
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
-``` -->
+```
+-->
 ```bash
-kubectl cordon my-node                                                # 设置 my-node 节点为不可调度
-kubectl drain my-node                                                 # 对 my-node 节点进行驱逐操作，为节点维护做准备
-kubectl uncordon my-node                                              # 设置 my-node 节点为可以调度
-kubectl top node my-node                                              # 显示给定 node 的指标
-kubectl cluster-info                                                  # 显示 master 和 services 的地址
-kubectl cluster-info dump                                             # 将当前集群状态输出到标准输出
+kubectl cordon my-node                                                # 标记 my-node 节点为不可调度
+kubectl drain my-node                                                 # 对 my-node 节点进行清空操作，为节点维护做准备
+kubectl uncordon my-node                                              # 标记 my-node 节点为可以调度
+kubectl top node my-node                                              # 显示给定节点的度量值
+kubectl cluster-info                                                  # 显示主控节点和服务的地址
+kubectl cluster-info dump                                             # 将当前集群状态转储到标准输出
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 将当前集群状态输出到 /path/to/cluster-state
 
-# 如果已存在具有该键和效果的污点，则其值将按指定替换
+# 如果已存在具有指定键和效果的污点，则替换其值为指定值
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
-<!-- ### Resource types -->
+<!--
+### Resource types
+-->
 ### 资源类型
 
-<!-- List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects): -->
-列出全部支持的资源类型和它们的简称, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), 无论它们是否是 [namespaced](/docs/concepts/overview/working-with-objects/namespaces), [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+<!--
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+-->
+列出所支持的全部资源类型和它们的简称、[API 组](/docs/concepts/overview/kubernetes-api/#api-groups), 是否是[名字空间作用域](/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects)。
 
 ```bash
 kubectl api-resources
 ```
 
-<!-- Other operations for exploring API resources: -->
+<!--
+Other operations for exploring API resources:
+-->
 用于探索 API 资源的其他操作：
 
-<!-- ```bash
+<!--
+```bash
 kubectl api-resources --namespaced=true      # All namespaced resources
 kubectl api-resources --namespaced=false     # All non-namespaced resources
 kubectl api-resources -o name                # All resources with simple output (just the resource name)
 kubectl api-resources -o wide                # All resources with expanded (aka "wide") output
 kubectl api-resources --verbs=list,get       # All resources that support the "list" and "get" request verbs
 kubectl api-resources --api-group=extensions # All resources in the "extensions" API group
-``` -->
+```
+-->
 ```bash
-kubectl api-resources --namespaced=true      # 所有在命名空间中的资源
-kubectl api-resources --namespaced=false     # 所有不在命名空间中的资源
-kubectl api-resources -o name                # 输出简单的所有资源（只是资源名称）
-kubectl api-resources -o wide                # 具有扩展（又称 "wide"）输出的所有资源
+kubectl api-resources --namespaced=true      # 所有命名空间作用域的资源
+kubectl api-resources --namespaced=false     # 所有非命名空间作用域的资源
+kubectl api-resources -o name                # 用简单格式列举所有资源（仅显示资源名称）
+kubectl api-resources -o wide                # 用扩展格式列举所有资源（又称 "wide" 格式）
 kubectl api-resources --verbs=list,get       # 支持 "list" 和 "get" 请求动词的所有资源
 kubectl api-resources --api-group=extensions # "extensions" API 组中的所有资源
 ```
 
-<!-- ### Formatting output -->
+<!--
+### Formatting output
+
+To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command.
+-->
 ### 格式化输出
 
-<!-- To output details to your terminal window in a specific format, you can add either the `-o` or `--output` flags to a supported `kubectl` command. -->
 要以特定格式将详细信息输出到终端窗口，可以将 `-o` 或 `--output` 参数添加到支持的 `kubectl` 命令。
 
-<!-- Output format | Description
+<!--O
+utput format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
 `-o=custom-columns-file=<filename>` | Print a table using the custom columns template in the `<filename>` file
@@ -616,25 +690,63 @@ kubectl api-resources --api-group=extensions # "extensions" API 组中的所有�
 `-o=jsonpath-file=<filename>` | Print the fields defined by the [jsonpath](/docs/reference/kubectl/jsonpath) expression in the `<filename>` file
 `-o=name`     | Print only the resource name and nothing else
 `-o=wide`     | Output in the plain-text format with any additional information, and for pods, the node name is included
-`-o=yaml`     | Output a YAML formatted API object -->
-输出格式 | 描述
+`-o=yaml`     | Output a YAML formatted API object
+-->
+输出格式      | 描述
 --------------| -----------
-`-o=custom-columns=<spec>` | 使用逗号分隔的自定义列列表打印表格
+`-o=custom-columns=<spec>` | 使用逗号分隔的自定义列来打印表格
 `-o=custom-columns-file=<filename>` | 使用 `<filename>` 文件中的自定义列模板打印表格
 `-o=json`     | 输出 JSON 格式的 API 对象
 `-o=jsonpath=<template>` | 打印 [jsonpath](/docs/reference/kubectl/jsonpath) 表达式中定义的字段
-`-o=jsonpath-file=<filename>` | 在 `<filename>` 文件中打印由 [jsonpath](/docs/reference/kubectl/jsonpath) 表达式定义的字段。
-`-o=name`     | 仅打印资源名称而不打印任何其他内容
-`-o=wide`     | 使用任何其他信息以纯文本格式输出，对于 pod 来说，包含了节点名称
+`-o=jsonpath-file=<filename>` | 打印在 `<filename>` 文件中定义的 [jsonpath](/docs/reference/kubectl/jsonpath) 表达式所指定的字段。
+`-o=name`     | 仅打印资源名称而不打印其他内容
+`-o=wide`     | 以纯文本格式输出额外信息，对于 Pod 来说，输出中包含了节点名称
 `-o=yaml`     | 输出 YAML 格式的 API 对象
 
-<!-- ### Kubectl output verbosity and debugging -->
+<!--
+Examples using `-o=custom-columns`:
+
+```bash
+# All images running in a cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # All images excluding "k8s.gcr.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# All fields under metadata regardless of name
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/overview/#custom-columns).
+```
+-->
+使用 `-o=custom-columns` 的示例：
+
+```bash
+# 集群中运行着的所有镜像
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+ # 除 "k8s.gcr.io/coredns:1.6.2" 之外的所有镜像
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+
+# 输出 metadata 下面的所有字段，无论 Pod 名字为何
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+有关更多示例，请参看 kubectl [参考文档](/docs/reference/kubectl/overview/#custom-columns)。
+
+<!--
+### Kubectl output verbosity and debugging
+
+Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+-->
 ### Kubectl 日志输出详细程度和调试
 
-<!-- Kubectl verbosity is controlled with the `-v` or `--v` flags followed by an integer representing the log level. General Kubernetes logging conventions and the associated log levels are described [here](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md). -->
-Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟了一个数字表示日志的级别。Kubernetes 通用的日志习惯和相关的日志级别在 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
+Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。
+Kubernetes 通用的日志习惯和相关的日志级别在
+[这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
 
-<!-- Verbosity | Description
+<!--
+Verbosity | Description
 --------------| -----------
 `--v=0` | Generally useful for this to *always* be visible to a cluster operator.
 `--v=1` | A reasonable default log level if you don't want verbosity.
@@ -644,36 +756,30 @@ Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参�
 `--v=6` | Display requested resources.
 `--v=7` | Display HTTP request headers.
 `--v=8` | Display HTTP request contents.
-`--v=9` | Display HTTP request contents without truncation of contents. -->
-详细程度 | 描述
+`--v=9` | Display HTTP request contents without truncation of contents.
+-->
+详细程度      | 描述
 --------------| -----------
-`--v=0` | 通常对此有用，*始终*对运维人员可见。
-`--v=1` | 如果您不想要详细程度，则为合理的默认日志级别。
-`--v=2` | 有关服务的有用稳定状态信息以及可能与系统中的重大更改相关的重要日志消息。这是大多数系统的建议默认日志级别。
-`--v=3` | 有关更改的扩展信息。
-`--v=4` | Debug 级别。
-`--v=6` | 显示请求的资源。
+`--v=0` | 用于那些应该 *始终* 对运维人员可见的信息，因为这些信息一般很有用。
+`--v=1` | 如果您不想要看到冗余信息，此值是一个合理的默认日志级别。
+`--v=2` | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。
+`--v=3` | 包含有关系统状态变化的扩展信息。
+`--v=4` | 包含调试级别的冗余信息。
+`--v=6` | 显示所请求的资源。
 `--v=7` | 显示 HTTP 请求头。
 `--v=8` | 显示 HTTP 请求内容。
-`--v=9` | 显示 HTTP 请求内容而不截断内容。
+`--v=9` | 显示 HTTP 请求内容而且不截断内容。
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
-{{% capture whatsnext %}}
-
-<!-- * Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
-
+<!--
+* Learn more about [Overview of kubectl](/docs/reference/kubectl/overview/).
 * See [kubectl](/docs/reference/kubectl/kubectl/) options.
-
 * Also [kubectl Usage Conventions](/docs/reference/kubectl/conventions/) to understand how to use it in reusable scripts.
+* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
+-->
+* 进一步了解 [kubectl 概述](/docs/reference/kubectl/overview/)。
+* 参阅 [kubectl](/docs/reference/kubectl/kubectl/) 选项.
+* 参阅 [kubectl 使用约定](/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
+* 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
 
-* See more community [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4). -->
-*  学习更多关于 [kubectl 概述](/docs/reference/kubectl/overview/)。
-
-* 查看 [kubectl](/docs/reference/kubectl/kubectl/) 选项.
-
-* 也可以查看 [kubectl 使用约定](/docs/reference/kubectl/conventions/) 来理解如果在可以复用的脚本中使用它。
-
-* 查看更多社区 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
-
-{{% /capture %}}

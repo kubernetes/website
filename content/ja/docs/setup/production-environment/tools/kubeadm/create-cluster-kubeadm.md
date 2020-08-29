@@ -1,157 +1,106 @@
 ---
-title: kubeadmを使用したシングルマスタークラスターの作成
-content_template: templates/task
+title: kubeadmを使用したシングルコントロールプレーンクラスターの作成
+content_type: task
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
-lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/ja/docs/reference/access-authn-authz/bootstrap-tokens/).
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">`kubeadm`ツールは、ベストプラクティスに準拠した実用最小限のKubernetesクラスターをブートストラップする手助けをします。実際、`kubeadm`を使用すれば、[Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification)に通るクラスターをセットアップすることができます。`kubeadm`は、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)やクラスターのアップグレードなどのその他のクラスターのライフサイクルの機能もサポートします。
 
-Because you can install kubeadm on various types of machine (e.g. laptop, server,
-Raspberry Pi, etc.), it's well suited for integration with provisioning systems
-such as Terraform or Ansible.
+`kubeadm`ツールは、次のようなときに適しています。
 
-kubeadm's simplicity means it can serve a wide range of use cases:
+- 新しいユーザーが初めてKubernetesを試すためのシンプルな方法が必要なとき。
+- 既存のユーザーがクラスターのセットアップを自動化し、アプリケーションをテストする方法が必要なとき。
+- より大きなスコープで、他のエコシステムやインストーラーツールのビルディングブロックが必要なとき。
 
-- New users can start with kubeadm to try Kubernetes out for the first time.
-- Users familiar with Kubernetes can spin up clusters with kubeadm and test their applications.
-- Larger projects can include kubeadm as a building block in a more complex system that can also include other installer tools.
+`kubeadm`は、ラップトップ、クラウドのサーバー群、Raspberry Piなどの様々なマシンにインストールして使えます。クラウドとオンプレミスのどちらにデプロイする場合でも、`kubeadm`はAnsibleやTerraformなどのプロビジョニングシステムに統合できます。
 
-kubeadm is designed to be a simple way for new users to start trying
-Kubernetes out, possibly for the first time, a way for existing users to
-test their application on and stitch together a cluster easily, and also to be
-a building block in other ecosystem and/or installer tool with a larger
-scope.
+## {{% heading "prerequisites" %}}
 
-You can install _kubeadm_ very easily on operating systems that support
-installing deb or rpm packages. The responsible SIG for kubeadm,
-[SIG Cluster Lifecycle](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle), provides these packages pre-built for you,
-but you may also build them from source for other OSes.
+このガイドを進めるには、以下の環境が必要です。
 
+- UbuntuやCentOSなど、deb/rpmパッケージと互換性のあるLinux OSが動作している1台以上のマシンがあること。
+- マシンごとに2GiB以上のRAMが搭載されていること。それ以下の場合、アプリ実行用のメモリーがほとんど残りません。
+- コントロールプレーンノードとして使用するマシンには、最低でも2CPU以上あること。
+- クラスター内の全マシン間に完全なネットワーク接続があること。パブリックネットワークとプライベートネットワークのいずれでも使えます。
 
-### kubeadmの成熟度
+また、新しいクラスターで使いたいKubernetesのバージョンをデプロイできるバージョンの`kubeadm`を使用する必要もあります。
 
-| Area                      | Maturity Level |
-|---------------------------|--------------- |
-| Command line UX           | GA             |
-| Implementation            | GA             |
-| Config file API           | Beta           |
-| CoreDNS                   | GA             |
-| kubeadm alpha subcommands | Alpha          |
-| High availability         | Beta           |
-| DynamicKubeletConfig      | Alpha          |
+[Kubernetesのバージョンとバージョンスキューポリシー](/ja/docs/setup/release/version-skew-policy/#supported-versions)は、`kubeadm`にもKubernetes全体と同じように当てはまります。Kubernetesと`kubeadm`がサポートするバージョンを理解するには、上記のポリシーを確認してください。このページは、Kubernetes {{< param "version" >}}向けに書かれています。
+
+kubeadmツールの全体の機能の状態は、一般利用可能(GA)です。一部のサブ機能はまだ活発に開発が行われています。クラスター作成の実装は、ツールの進化に伴ってわずかに変わるかもしれませんが、全体の実装は非常に安定しているはずです。
+
+{{< note >}}
+`kubeadm alpha`以下のすべてのコマンドは、定義通り、アルファレベルでサポートされています。
+{{< /note >}}
 
 
-kubeadm's overall feature state is **GA**. Some sub-features, like the configuration
-file API are still under active development. The implementation of creating the cluster
-may change slightly as the tool evolves, but the overall implementation should be pretty stable.
-Any commands under `kubeadm alpha` are by definition, supported on an alpha level.
 
-
-### サポート期間
-
-Kubernetes releases are generally supported for nine months, and during that
-period a patch release may be issued from the release branch if a severe bug or
-security issue is found. Here are the latest Kubernetes releases and the support
-timeframe; which also applies to `kubeadm`.
-
-| Kubernetes version | Release month  | End-of-life-month |
-|--------------------|----------------|-------------------|
-| v1.6.x             | March 2017     | December 2017     |
-| v1.7.x             | June 2017      | March 2018        |
-| v1.8.x             | September 2017 | June 2018         |
-| v1.9.x             | December 2017  | September 2018    |
-| v1.10.x            | March 2018     | December 2018     |
-| v1.11.x            | June 2018      | March 2019        |
-| v1.12.x            | September 2018 | June 2019         |
-| v1.13.x            | December 2018  | September 2019    |
-| v1.14.x            | March 2019     | December 2019     |
-| v1.15.x            | June 2019      | March 2020        |
-
-{{% /capture %}}
-
-{{% capture prerequisites %}}
-
-- One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
-- 2 GB or more of RAM per machine. Any less leaves little room for your
-   apps.
-- 2 CPUs or more on the control-plane node
-- Full network connectivity among all machines in the cluster. A public or
-   private network is fine.
-
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## 目的
 
-* Install a single master Kubernetes cluster or [high availability cluster](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)
-* Install a Pod network on the cluster so that your Pods can
-  talk to each other
+* シングルコントロールプレーンのKubernetesクラスターまたは[高可用性クラスター](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/)をインストールする
+* クラスター上にPodネットワークをインストールして、Podがお互いに通信できるようにする
 
-## 説明
+## 手順
 
-### kubeadmのインストール
+### ホストへのkubeadmのインストール
 
-See ["Installing kubeadm"](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+「[kubeadmのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)」を読んでください。
 
 {{< note >}}
-If you have already installed kubeadm, run `apt-get update &&
-apt-get upgrade` or `yum update` to get the latest version of kubeadm.
+すでにkubeadmがインストール済みである場合は、最新バージョンのkubeadmを取得するために`apt-get update && apt-get upgrade`や`yum update`を実行してください。
 
-When you upgrade, the kubelet restarts every few seconds as it waits in a crashloop for
-kubeadm to tell it what to do. This crashloop is expected and normal.
-After you initialize your master, the kubelet runs normally.
+アップグレード中、kubeletが数秒ごとに再起動します。これは、kubeadmがkubeletにするべきことを伝えるまで、crashloopの状態で待機するためです。このcrashloopは期待通りの通常の動作です。コントロールプレーンの初期化が完了すれば、kubeletは正常に動作します。
 {{< /note >}}
 
-### マスターの初期化
+### コントロールプレーンノードの初期化
 
-The control-plane node is the machine where the control plane components run, including
-etcd (the cluster database) and the API server (which the kubectl CLI
-communicates with).
+コントロールプレーンノードとは、{{< glossary_tooltip term_id="etcd" >}}(クラスターのデータベース)や{{< glossary_tooltip text="APIサーバー" term_id="kube-apiserver" >}}({{< glossary_tooltip text="kubectl" term_id="kubectl" >}}コマンドラインツールが通信する相手)などのコントロールプレーンのコンポーネントが実行されるマシンです。
 
-1. Choose a pod network add-on, and verify whether it requires any arguments to
-be passed to kubeadm initialization. Depending on which
-third-party provider you choose, you might need to set the `--pod-network-cidr` to
-a provider-specific value. See [Installing a pod network add-on](#pod-network).
-1. (Optional) Since version 1.14, kubeadm will try to detect the container runtime on Linux
-by using a list of well known domain socket paths. To use different container runtime or
-if there are more than one installed on the provisioned node, specify the `--cri-socket`
-argument to `kubeadm init`. See [Installing runtime](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
-1. (Optional) Unless otherwise specified, kubeadm uses the network interface associated
-with the default gateway to advertise the master's IP. To use a different
-network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
-to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
-must specify an IPv6 address, for example `--apiserver-advertise-address=fd00::101`
-1. (Optional) Run `kubeadm config images pull` prior to `kubeadm init` to verify
-connectivity to gcr.io registries.
+1. (推奨)シングルコントロールプレーンの`kubeadm`クラスターを高可用性クラスターにアップグレードする予定がある場合、`--control-plane-endpoint`を指定して、すべてのコントロールプレーンノードとエンドポイントを共有する必要があります。エンドポイントにはDNSネームやロードバランサーのIPアドレスが使用できます。
+1. Podネットワークアドオンを選んで、`kubeadm init`に引数を渡す必要があるかどうか確認してください。選んだサードパーティーのプロバイダーによっては、`--pod-network-cidr`をプロバイダー固有の値に設定する必要がある場合があります。詳しくは、[Podネットワークアドオンのインストール](#pod-network)を参照してください。
+1. (オプション)バージョン1.14から、`kubeadm`はよく知られたドメインソケットのパスリストを用いて、Linux上のコンテナランタイムの検出を試みます。異なるコンテナランタイムを使用する場合やプロビジョニングするノードに2つ以上のランタイムがインストールされている場合、`kubeadm init`に`--cri-socket`引数を指定してください。詳しくは、[ランタイムのインストール](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime)を読んでください。
+1. (オプション)明示的に指定しない限り、`kubeadm`はデフォルトゲートウェイに関連付けられたネットワークインターフェイスを使用して、この特定のコントロールプレーンノードのAPIサーバーのadvertise addressを設定します。異なるネットワークインターフェイスを使用するには、`kubeadm init`に`--apiserver-advertize-address=<ip-address>`引数を指定してください。IPv6アドレスを使用するIPv6 Kubernetesクラスターをデプロイするには、たとえば`--apiserver-advertise-address=fd00::101`のように、IPv6アドレスを指定する必要があります。
+1. (オプション)`kubeadm init`を実行する前に`kubeadm config images pull`を実行して、gcr.ioコンテナイメージレジストリに接続できるかどうかを確認します。
 
-Now run:
+コントロールプレーンノードを初期化するには、次のコマンドを実行します。
 
 ```bash
 kubeadm init <args>
 ```
 
-### 詳細
+### apiserver-advertise-addressとControlPlaneEndpointに関する検討
 
-For more information about `kubeadm init` arguments, see the [kubeadm reference guide](/ja/docs/reference/setup-tools/kubeadm/kubeadm/).
+`--apiserver-advertise-address`は、この特定のコントロールプレーンノードのAPIサーバーへのadvertise addressを設定するために使えますが、`--control-plane-endpoint`は、すべてのコントロールプレーンノード共有のエンドポイントを設定するために使えます。
 
-For a complete list of configuration options, see the [configuration file documentation](/ja/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file).
+`--control-plane-endpoint`はIPアドレスを受け付けますが、IPアドレスへマッピングされるDNSネームも使用できます。利用可能なソリューションをそうしたマッピングの観点から評価するには、ネットワーク管理者に相談してください。
 
-To customize control plane components, including optional IPv6 assignment to liveness probe for control plane components and etcd server, provide extra arguments to each component as documented in [custom arguments](/ja/docs/admin/kubeadm#custom-args).
+以下にマッピングの例を示します。
 
-To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
+```
+192.168.0.102 cluster-endpoint
+```
 
-If you join a node with a different architecture to your cluster, create a separate
-Deployment or DaemonSet for `kube-proxy` and `kube-dns` on the node. This is because the Docker images for these
-components do not currently support multi-architecture.
+ここでは、`192.168.0.102`がこのノードのIPアドレスであり、`cluster-endpoint`がこのIPアドレスへとマッピングされるカスタムDNSネームです。このように設定することで、`--control-plane-endpoint=cluster-endpoint`を`kubeadm init`に渡せるようになり、`kubeadm join`にも同じDNSネームを渡せます。後で`cluster-endpoint`を修正して、高可用性が必要なシナリオでロードバランサーのアドレスを指すようにすることができます。
 
-`kubeadm init` first runs a series of prechecks to ensure that the machine
-is ready to run Kubernetes. These prechecks expose warnings and exit on errors. `kubeadm init`
-then downloads and installs the cluster control plane components. This may take several minutes.
-The output should look like:
+kubeadmでは、`--control-plane-endpoint`を渡さずに構築したシングルコントロールプレーンのクラスターを高可用性クラスターに切り替えることはサポートされていません。
+
+### 詳細な情報
+
+`kubeadm init`の引数のより詳細な情報は、[kubeadmリファレンスガイド](/docs/reference/setup-tools/kubeadm/kubeadm/)を参照してください。
+
+設定オプションの全リストは、[設定ファイルのドキュメント](/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file)で確認できます。
+
+コントロールプレーンコンポーネントやetcdサーバーのliveness probeへのオプションのIPv6の割り当てなど、コントロールプレーンのコンポーネントをカスタマイズしたい場合は、[カスタムの引数](/ja/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)に示されている方法で各コンポーネントに追加の引数を与えてください。
+
+`kubeadm init`を再び実行する場合は、初めに[クラスターの破壊](#tear-down)を行う必要があります。
+
+もし異なるアーキテクチャのノードをクラスターにjoinさせたい場合は、デプロイしたDaemonSetがそのアーキテクチャ向けのコンテナイメージをサポートしているか確認してください。
+
+初めに`kubeadm init`は、マシンがKubernetesを実行する準備ができているかを確認する、一連の事前チェックを行います。これらの事前チェックはエラー発生時には警告を表示して終了します。次に、`kubeadm init`はクラスターのコントロールプレーンのコンポーネントをダウンロードしてインストールします。これには数分掛かるかもしれません。出力は次のようになります。
 
 ```none
 [init] Using Kubernetes version: vX.Y.Z
@@ -165,14 +114,14 @@ The output should look like:
 [certs] Using certificateDir folder "/etc/kubernetes/pki"
 [certs] Generating "etcd/ca" certificate and key
 [certs] Generating "etcd/server" certificate and key
-[certs] etcd/server serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] etcd/server serving cert is signed for DNS names [kubeadm-cp localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
 [certs] Generating "etcd/healthcheck-client" certificate and key
 [certs] Generating "etcd/peer" certificate and key
-[certs] etcd/peer serving cert is signed for DNS names [kubeadm-master localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
+[certs] etcd/peer serving cert is signed for DNS names [kubeadm-cp localhost] and IPs [10.138.0.4 127.0.0.1 ::1]
 [certs] Generating "apiserver-etcd-client" certificate and key
 [certs] Generating "ca" certificate and key
 [certs] Generating "apiserver" certificate and key
-[certs] apiserver serving cert is signed for DNS names [kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
+[certs] apiserver serving cert is signed for DNS names [kubeadm-cp kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 10.138.0.4]
 [certs] Generating "apiserver-kubelet-client" certificate and key
 [certs] Generating "front-proxy-ca" certificate and key
 [certs] Generating "front-proxy-client" certificate and key
@@ -191,9 +140,9 @@ The output should look like:
 [apiclient] All control plane components are healthy after 31.501735 seconds
 [uploadconfig] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
 [kubelet] Creating a ConfigMap "kubelet-config-X.Y" in namespace kube-system with the configuration for the kubelets in the cluster
-[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "kubeadm-master" as an annotation
-[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the label "node-role.kubernetes.io/master=''"
-[mark-control-plane] Marking the node kubeadm-master as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
+[patchnode] Uploading the CRI Socket information "/var/run/dockershim.sock" to the Node API object "kubeadm-cp" as an annotation
+[mark-control-plane] Marking the node kubeadm-cp as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node kubeadm-cp as control-plane by adding the taints [node-role.kubernetes.io/master:NoSchedule]
 [bootstrap-token] Using token: <token>
 [bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
 [bootstraptoken] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
@@ -203,7 +152,7 @@ The output should look like:
 [addons] Applied essential addon: CoreDNS
 [addons] Applied essential addon: kube-proxy
 
-Your Kubernetes master has initialized successfully!
+Your Kubernetes control-plane has initialized successfully!
 
 To start using your cluster, you need to run the following as a regular user:
 
@@ -211,18 +160,17 @@ To start using your cluster, you need to run the following as a regular user:
   sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-You should now deploy a pod network to the cluster.
+You should now deploy a Pod network to the cluster.
 Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
   /docs/concepts/cluster-administration/addons/
 
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join <master-ip>:<master-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
+  kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-To make kubectl work for your non-root user, run these commands, which are
-also part of the `kubeadm init` output:
+kubectlをroot以外のユーザーでも実行できるようにするには、次のコマンドを実行します。これらのコマンドは、`kubectl init`の出力の中にも書かれています。
 
 ```bash
 mkdir -p $HOME/.kube
@@ -230,221 +178,140 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-Alternatively, if you are the `root` user, you can run:
+あなたが`root`ユーザーである場合は、代わりに次のコマンドを実行します。
 
 ```bash
 export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
-Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
-need this command to [join nodes to your cluster](#join-nodes).
+`kubeadm init`が出力した`kubeadm join`コマンドをメモしておいてください。[クラスターにノードを追加する](#join-nodes)ために、このコマンドが必要になります。
 
-The token is used for mutual authentication between the control-plane node and the joining
-nodes. The token included here is secret. Keep it safe, because anyone with this
-token can add authenticated nodes to your cluster. These tokens can be listed,
-created, and deleted with the `kubeadm token` command. See the
-[kubeadm reference guide](/ja/docs/reference/setup-tools/kubeadm/kubeadm-token/).
+トークンは、コントロールプレーンノードと追加ノードの間の相互認証に使用します。ここに含まれるトークンには秘密の情報が含まれます。このトークンを知っていれば、誰でもクラスターに認証済みノードを追加できてしまうため、取り扱いには注意してください。`kubeadm token`コマンドを使用すると、これらのトークンの一覧、作成、削除ができます。詳しくは[kubeadmリファレンスガイド](/docs/reference/setup-tools/kubeadm/kubeadm-token/)を読んでください。
 
 ### Podネットワークアドオンのインストール {#pod-network}
 
 {{< caution >}}
-This section contains important information about installation and deployment order. Read it carefully before proceeding.
+このセクションには、ネットワークのセットアップとデプロイの順序に関する重要な情報が書かれています。先に進む前に以下のすべてのアドバイスを熟読してください。
+
+**Pod同士が通信できるようにするには、{{< glossary_tooltip text="Container Network Interface" term_id="cni" >}}(CNI)をベースとするPodネットワークアドオンをデプロイしなければなりません。ネットワークアドオンをインストールする前には、Cluster DNS(CoreDNS)は起動しません。**
+
+- Podネットワークがホストネットワークと決して重ならないように気をつけてください。もし重なると、様々な問題が起こってしまう可能性があります。(ネットワークプラグインが優先するPodネットワークとホストのネットワークの一部が衝突することが分かった場合、適切な代わりのCIDRを考える必要があります。そして、`kubeadm init`の実行時に`--pod-network-cidr`にそのCIDRを指定し、ネットワークプラグインのYAMLでは代わりにそのCIDRを使用してください)
+
+- デフォルトでは、`kubeadm`は[RBAC](/docs/reference/access-authn-authz/rbac/)(role based access control)の使用を強制します。PodネットワークプラグインがRBACをサポートしていて、またそのデプロイに使用するマニフェストもRBACをサポートしていることを確認してください。
+
+- クラスターでIPv6を使用したい場合、デュアルスタック、IPv6のみのシングルスタックのネットワークのいずれであっても、PodネットワークプラグインがIPv6をサポートしていることを確認してください。IPv6のサポートは、CNIの[v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0)で追加されました。
+
 {{< /caution >}}
 
-You must install a pod network add-on so that your pods can communicate with
-each other.
+CNIを使用するKubernetes Podネットワークを提供する外部のプロジェクトがいくつかあります。一部のプロジェクトでは、[ネットワークポリシー](/docs/concepts/services-networking/networkpolicies/)もサポートしています。
 
-**The network must be deployed before any applications. Also, CoreDNS will not start up before a network is installed.
-kubeadm only supports Container Network Interface (CNI) based networks (and does not support kubenet).**
+利用できる[ネットワークアドオンとネットワークポリシーアドオン](/docs/concepts/cluster-administration/addons/#networking-and-network-policy)のリストを確認してください。
 
-Several projects provide Kubernetes pod networks using CNI, some of which also
-support [Network Policy](/ja/docs/concepts/services-networking/networkpolicies/). See the [add-ons page](/ja/docs/concepts/cluster-administration/addons/) for a complete list of available network add-ons.
-- IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
-- [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9.
-
-Note that kubeadm sets up a more secure cluster by default and enforces use of [RBAC](/ja/docs/reference/access-authn-authz/rbac/).
-Make sure that your network manifest supports RBAC.
-
-Also, beware, that your Pod network must not overlap with any of the host networks as this can cause issues.
-If you find a collision between your network plugin’s preferred Pod network and some of your host networks, you should think of a suitable CIDR replacement and use that during `kubeadm init` with `--pod-network-cidr` and as a replacement in your network plugin’s YAML.
-
-You can install a pod network add-on with the following command:
+Podネットワークアドオンをインストールするには、コントロールプレーンノード上またはkubeconfigクレデンシャルを持っているノード上で、次のコマンドを実行します。
 
 ```bash
 kubectl apply -f <add-on.yaml>
 ```
 
-You can install only one pod network per cluster.
+インストールできるPodネットワークは、クラスターごとに1つだけです。以下の手順で、いくつかのよく使われるPodネットワークプラグインをインストールできます。
 
 {{< tabs name="tabs-pod-install" >}}
-{{% tab name="Choose one..." %}}
-Please select one of the tabs to see installation instructions for the respective third-party Pod Network Provider.
-{{% /tab %}}
-
-{{% tab name="AWS VPC" %}}
-AWS VPC CNI provides native AWS VPC networking to Kubernetes clusters.
-
-For installation, please refer to the [AWS VPC CNI setup guide](https://github.com/aws/amazon-vpc-cni-k8s#setup).
-{{% /tab %}}
 
 {{% tab name="Calico" %}}
-For more information about using Calico, see [Quickstart for Calico on Kubernetes](https://docs.projectcalico.org/latest/getting-started/kubernetes/), [Installing Calico for policy and networking](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/calico), and other related resources.
+[Calico](https://docs.projectcalico.org/latest/introduction/)は、ネットワークとネットワークポリシーのプロバイダーです。Calicoは柔軟なさまざまなネットワークオプションをサポートするため、自分の状況に適した最も効果的なオプションを選択できます。たとえば、ネットワークのオーバーレイの有無や、BGPの有無が選べます。Calicoは、ホスト、Pod、(もしIstioとEnvoyを使っている場合)サービスメッシュレイヤー上のアプリケーションに対してネットワークポリシーを強制するために、同一のエンジンを使用しています。Calicoは、`amd64`、`arm64`、`ppc64le`を含む複数のアーキテクチャで動作します。
 
-For Calico to work correctly, you need to pass `--pod-network-cidr=192.168.0.0/16` to `kubeadm init` or update the `calico.yml` file to match your Pod network. Note that Calico works on `amd64`, `arm64`, and `ppc64le` only.
-
-```shell
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
-```
-
-{{% /tab %}}
-{{% tab name="Canal" %}}
-Canal uses Calico for policy and Flannel for networking. Refer to the Calico documentation for the [official getting started guide](https://docs.projectcalico.org/latest/getting-started/kubernetes/installation/flannel).
-
-For Canal to work correctly, `--pod-network-cidr=10.244.0.0/16` has to be passed to `kubeadm init`. Note that Canal works on `amd64` only.
+デフォルトでは、Calicoは`192.168.0.0/16`をPodネットワークのCIDRとして使いますが、このCIDRはcalico.yamlファイルで設定できます。Calicoを正しく動作させるためには、これと同じCIDRを`--pod-network-cidr=192.168.0.0/16`フラグまたはkubeadmの設定を使って、`kubeadm init`コマンドに渡す必要があります。
 
 ```shell
-kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/canal.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.11/manifests/calico.yaml
 ```
 
 {{% /tab %}}
 
 {{% tab name="Cilium" %}}
-For more information about using Cilium with Kubernetes, see [Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/).
+Ciliumを正しく動作させるためには、`kubeadm init`に `--pod-network-cidr=10.217.0.0/16`を渡さなければなりません。
 
-For Cilium to work correctly, you must pass `--pod-network-cidr=10.217.0.0/16` to `kubeadm init`.
-
-These commands will deploy Cilium with its own etcd managed by etcd operator.
-
-_Note_: If you are running kubeadm in a single node please untaint it so that
-etcd-operator pods can be scheduled in the control-plane node.
+Ciliumのデプロイは、次のコマンドを実行するだけでできます。
 
 ```shell
-kubectl taint nodes <node-name> node-role.kubernetes.io/master:NoSchedule-
+kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.6/install/kubernetes/quick-install.yaml
 ```
 
-To deploy Cilium you just need to run:
-
-```shell
-kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.5/examples/kubernetes/1.14/cilium.yaml
-```
-
-Once all Cilium pods are marked as `READY`, you start using your cluster.
+すべてのCilium Podが`READY`とマークされたら、クラスターを使い始められます。
 
 ```shell
 kubectl get pods -n kube-system --selector=k8s-app=cilium
 ```
-The output is similar to this:
+
+出力は次のようになります。
+
 ```
 NAME           READY   STATUS    RESTARTS   AGE
 cilium-drxkl   1/1     Running   0          18m
 ```
 
+Ciliumはkube-proxyの代わりに利用することもできます。詳しくは[Kubernetes without kube-proxy](https://docs.cilium.io/en/stable/gettingstarted/kubeproxy-free)を読んでください。
+
+KubernetesでのCiliumの使い方に関するより詳しい情報は、[Kubernetes Install guide for Cilium](https://docs.cilium.io/en/stable/kubernetes/)を参照してください。
 {{% /tab %}}
 
 {{% tab name="Contiv-VPP" %}}
-[Contiv-VPP](https://contivpp.io/) employs a programmable CNF vSwitch based on [FD.io VPP](https://fd.io/),
-offering feature-rich & high-performance cloud-native networking and services.
+[Contiv-VPP](https://contivpp.io/)は、[FD.io VPP](https://fd.io/)をベースとするプログラマブルなCNF vSwitchを採用し、機能豊富で高性能なクラウドネイティブなネットワーキングとサービスを提供します。
 
-It implements k8s services and network policies in the user space (on VPP).
+Contiv-VPPは、k8sサービスとネットワークポリシーを(VPP上の)ユーザースペースで実装しています。
 
-Please refer to this installation guide: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
+こちらのインストールガイドを参照してください: [Contiv-VPP Manual Installation](https://github.com/contiv/vpp/blob/master/docs/setup/MANUAL_INSTALL.md)
 {{% /tab %}}
 
 {{% tab name="Flannel" %}}
+`flannel`を正しく動作させるためには、`--pod-network-cidr=10.244.0.0/16`を`kubeadm init`に渡す必要があります。
 
-For `flannel` to work correctly, you must pass `--pod-network-cidr=10.244.0.0/16` to `kubeadm init`.
+オーバーレイネットワークに参加しているすべてのホスト上で、ファイアウォールのルールが、UDPポート8285と8472のトラフィックを許可するように設定されていることを確認してください。この設定に関するより詳しい情報は、Flannelのトラブルシューティングガイドの[Firewall](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls)のセクションを参照してください。
 
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/ja/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
-
-Make sure that your firewall rules allow UDP ports 8285 and 8472 traffic for all hosts participating in the overlay network.
-see [here
-](https://coreos.com/flannel/docs/latest/troubleshooting.html#firewalls).
-
-Note that `flannel` works on `amd64`, `arm`, `arm64`, `ppc64le` and `s390x` under Linux.
-Windows (`amd64`) is claimed as supported in v0.11.0 but the usage is undocumented.
+Flannelは、Linux下の`amd64`、`arm`、`arm64`、`ppc64le`、`s390x`アーキテクチャ上で動作します。Windows(`amd64`)はv0.11.0でサポートされたとされていますが、使用方法はドキュメントに書かれていません。
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/62e44c867a2846fefb68bd5f178daf4da3095ccb/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
 ```
 
-For more information about `flannel`, see [the CoreOS flannel repository on GitHub
-](https://github.com/coreos/flannel).
-{{% /tab %}}
-
-{{% tab name="JuniperContrail/TungstenFabric" %}}
-Provides overlay SDN solution, delivering multicloud networking, hybrid cloud networking,
-simultaneous overlay-underlay support, network policy enforcement, network isolation,
-service chaining and flexible load balancing.
-
-There are multiple, flexible ways to install JuniperContrail/TungstenFabric CNI.
-
-Kindly refer to this quickstart: [TungstenFabric](https://tungstenfabric.github.io/website/)
+`flannel`に関するより詳しい情報は、[GitHub上のCoreOSのflannelリポジトリ](https://github.com/coreos/flannel)を参照してください。
 {{% /tab %}}
 
 {{% tab name="Kube-router" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/ja/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+Kube-routerは、ノードへのPod CIDRの割り当てをkube-controller-managerに依存しています。そのため、`kubeadm init`時に`--pod-network-cidr`フラグを使用する必要があります。
 
-Kube-router relies on kube-controller-manager to allocate pod CIDR for the nodes. Therefore, use `kubeadm init` with the `--pod-network-cidr` flag.
+Kube-routerは、Podネットワーク、ネットワークポリシー、および高性能なIP Virtual Server(IPVS)/Linux Virtual Server(LVS)ベースのサービスプロキシーを提供します。
 
-Kube-router provides pod networking, network policy, and high-performing IP Virtual Server(IPVS)/Linux Virtual Server(LVS) based service proxy.
-
-For information on setting up Kubernetes cluster with Kube-router using kubeadm, please see official [setup guide](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md).
-{{% /tab %}}
-
-{{% tab name="Romana" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/ja/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
-
-The official Romana set-up guide is [here](https://github.com/romana/romana/tree/master/containerize#using-kubeadm).
-
-Romana works on `amd64` only.
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/romana/romana/master/containerize/specs/romana-kubeadm.yml
-```
+Kube-routerを有効にしたKubernetesクラスターをセットアップするために`kubeadm`ツールを使用する方法については、公式の[セットアップガイド](https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md)を参照してください。
 {{% /tab %}}
 
 {{% tab name="Weave Net" %}}
-Set `/proc/sys/net/bridge/bridge-nf-call-iptables` to `1` by running `sysctl net.bridge.bridge-nf-call-iptables=1`
-to pass bridged IPv4 traffic to iptables' chains. This is a requirement for some CNI plugins to work, for more information
-please see [here](/ja/docs/concepts/cluster-administration/network-plugins/#network-plugin-requirements).
+Weave Netを使用してKubernetesクラスターをセットアップするより詳しい情報は、[アドオンを使用してKubernetesを統合する](https://www.weave.works/docs/net/latest/kube-addon/)を読んでください。
 
-The official Weave Net set-up guide is [here](https://www.weave.works/docs/net/latest/kube-addon/).
-
-Weave Net works on `amd64`, `arm`, `arm64` and `ppc64le` without any extra action required.
-Weave Net sets hairpin mode by default. This allows Pods to access themselves via their Service IP address
-if they don't know their PodIP.
+Weave Netは、`amd64`、`arm`、`arm64`、`ppc64le`プラットフォームで追加の操作なしで動作します。Weave Netはデフォルトでharipinモードをセットします。このモードでは、Pod同士はPodIPを知らなくても、Service IPアドレス経由でアクセスできます。
 
 ```shell
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
+
 {{% /tab %}}
 
 {{< /tabs >}}
 
 
-Once a pod network has been installed, you can confirm that it is working by
-checking that the CoreDNS pod is Running in the output of `kubectl get pods --all-namespaces`.
-And once the CoreDNS pod is up and running, you can continue by joining your nodes.
+Podネットワークがインストールされたら、`kubectl get pods --all-namespaces`の出力結果でCoreDNS Podが`Running`状態であることをチェックすることで、ネットワークが動作していることを確認できます。そして、一度CoreDNS Podが動作すれば、続けてノードを追加できます。
 
-If your network is not working or CoreDNS is not in the Running state, checkout our [troubleshooting docs](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+もしネットワークやCoreDNSが`Running`状態にならない場合は、`kubeadm`の[トラブルシューティングガイド](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)をチェックしてください。
 
 ### コントロールプレーンノードの隔離
 
-By default, your cluster will not schedule pods on the control-plane node for security
-reasons. If you want to be able to schedule pods on the control-plane node, e.g. for a
-single-machine Kubernetes cluster for development, run:
+デフォルトでは、セキュリティ上の理由により、クラスターはコントロールプレーンノードにPodをスケジューリングしません。たとえば、開発用のKubernetesシングルマシンのクラスターなどで、Podをコントロールプレーンノードにスケジューリングしたい場合は、次のコマンドを実行します。
 
 ```bash
 kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
-With output looking something like:
+出力は次のようになります。
 
 ```
 node "test-01" untainted
@@ -452,31 +319,29 @@ taint "node-role.kubernetes.io/master:" not found
 taint "node-role.kubernetes.io/master:" not found
 ```
 
-This will remove the `node-role.kubernetes.io/master` taint from any nodes that
-have it, including the control-plane node, meaning that the scheduler will then be able
-to schedule pods everywhere.
+このコマンドは、コントロールプレーンノードを含むすべてのノードから`node-role.kubernetes.io/master`taintを削除します。その結果、スケジューラーはどこにでもPodをスケジューリングできるようになります。
 
 ### ノードの追加 {#join-nodes}
 
-The nodes are where your workloads (containers and pods, etc) run. To add new nodes to your cluster do the following for each machine:
+ノードは、ワークロード(コンテナやPodなど)が実行される場所です。新しいノードをクラスターに追加するためには、各マシンに対して、以下の手順を実行してください。
 
-* SSH to the machine
-* Become root (e.g. `sudo su -`)
-* Run the command that was output by `kubeadm init`. For example:
+* マシンへSSHする
+* rootになる(例: `sudo su -`)
+* `kubeadm init`実行時に出力されたコマンドを実行する。たとえば、次のようなコマンドです。
 
-``` bash
-kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
+```bash
+kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
 ```
 
-If you do not have the token, you can get it by running the following command on the master node:
+トークンがわからない場合は、コントロールプレーンノードで次のコマンドを実行すると取得できます。
 
-``` bash
+```bash
 kubeadm token list
 ```
 
-The output is similar to this:
+出力は次のようになります。
 
-``` console
+```console
 TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION            EXTRA GROUPS
 8ewj1p.9r9hcjoqgajrj4gi  23h  2018-06-12T02:51:28Z authentication,  The default bootstrap  system:
                                                    signing          token generated by     bootstrappers:
@@ -484,197 +349,175 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
                                                                                            default-node-token
 ```
 
-By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
-you can create a new token by running the following command on the master node:
+デフォルトでは、トークンは24時間後に有効期限が切れます。もし現在のトークンの有効期限が切れた後にクラスターにノードを参加させたい場合は、コントロールプレーンノードで次のコマンドを実行することで、新しいトークンを生成できます。
 
-``` bash
+```bash
 kubeadm token create
 ```
 
-The output is similar to this:
+このコマンドの出力は次のようになります。
 
-``` console
+```console
 5didvk.d09sbcov8ph2amjw
 ```
 
-If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the following command chain on the master node:
+もし`--discovery-token-ca-cert-hash`の値がわからない場合は、コントロールプレーンノード上で次のコマンドチェーンを実行することで取得できます。
 
-``` bash
+```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
    openssl dgst -sha256 -hex | sed 's/^.* //'
 ```
 
-The output is similar to this:
+出力は次のようになります。
 
-``` console
+```console
 8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
 {{< note >}}
-To specify an IPv6 tuple for `<master-ip>:<master-port>`, IPv6 address must be enclosed in square brackets, for example: `[fd00::101]:2073`.
+IPv6タプルを`<control-plane-host>:<control-plane-ip>`に指定するためには、IPv6アドレスをブラケットで囲みます。たとえば、`[fd00::101]:2073`のように書きます。
 {{< /note >}}
 
-The output should look something like:
+出力は次のようになります。
 
 ```
 [preflight] Running pre-flight checks
 
-... (log output of join workflow) ...
+... (joinワークフローのログ出力) ...
 
 Node join complete:
-* Certificate signing request sent to master and response
+* Certificate signing request sent to control-plane and response
   received.
 * Kubelet informed of new secure connection details.
 
-Run 'kubectl get nodes' on the master to see this machine join.
+Run 'kubectl get nodes' on control-plane to see this machine join.
 ```
 
-A few seconds later, you should notice this node in the output from `kubectl get
-nodes` when run on the master.
+数秒後、コントロールプレーンノード上で`kubectl get nodes`を実行すると、出力内にこのノードが表示されるはずです。
 
-### (任意) マスター以外のマシンからのクラスター操作
+### (オプション)コントロールプレーンノード以外のマシンからのクラスター操作
 
-In order to get a kubectl on some other computer (e.g. laptop) to talk to your
-cluster, you need to copy the administrator kubeconfig file from your master
-to your workstation like this:
+他のコンピューター(例: ラップトップ)上のkubectlがクラスターと通信できるようにするためには、次のようにして、administratorのkubeconfigファイルをコントロールプレーンノードからそのコンピューター上にコピーする必要があります。
 
-``` bash
-scp root@<master ip>:/etc/kubernetes/admin.conf .
+```bash
+scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-The example above assumes SSH access is enabled for root. If that is not the
-case, you can copy the `admin.conf` file to be accessible by some other user
-and `scp` using that other user instead.
+上の例では、rootユーザーに対するSSH接続が有効であることを仮定しています。もしそうでない場合は、`admin.conf`ファイルを誰か他のユーザーからアクセスできるようにコピーした上で、代わりにそのユーザーを使って`scp`してください。
 
-The `admin.conf` file gives the user _superuser_ privileges over the cluster.
-This file should be used sparingly. For normal users, it's recommended to
-generate an unique credential to which you whitelist privileges. You can do
-this with the `kubeadm alpha kubeconfig user --client-name <CN>`
-command. That command will print out a KubeConfig file to STDOUT which you
-should save to a file and distribute to your user. After that, whitelist
-privileges by using `kubectl create (cluster)rolebinding`.
+`admin.conf`ファイルはユーザーにクラスターに対する _特権ユーザー_ の権限を与えます。そのため、このファイルを使うのは控えめにしなければなりません。通常のユーザーには、一部の権限をホワイトリストに加えたユニークなクレデンシャルを生成することを推奨します。これには、`kubeadm alpha kubeconfig user --client-name <CN>`コマンドが使えます。このコマンドを実行すると、KubeConfigファイルがSTDOUTに出力されるので、ファイルに保存してユーザーに配布します。その後、`kubectl create (cluster)rolebinding`コマンドを使って権限をホワイトリストに加えます。
 {{< /note >}}
 
-### (任意) APIサーバーをlocalhostへプロキシ
+### (オプション)APIサーバーをlocalhostへプロキシする
 
-If you want to connect to the API Server from outside the cluster you can use
-`kubectl proxy`:
+クラスターの外部からAPIサーバーに接続したいときは、次のように`kubectl proxy`コマンドが使えます。
 
 ```bash
-scp root@<master ip>:/etc/kubernetes/admin.conf .
+scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
 
-You can now access the API Server locally at `http://localhost:8001/api/v1`
+これで、ローカルの`http://localhost:8001/api/v1`からAPIサーバーにアクセスできるようになります。
 
-## クラスターの削除 {#tear-down}
+## クリーンアップ {#tear-down}
 
-To undo what kubeadm did, you should first [drain the
-node](/ja/docs/reference/generated/kubectl/kubectl-commands#drain) and make
-sure that the node is empty before shutting it down.
+テストのためにクラスターに破棄可能なサーバーを使用した場合、サーバーのスイッチをオフにすれば、以降のクリーンアップの作業は必要ありません。クラスターのローカルの設定を削除するには、`kubectl config delete-cluster`を実行します。
 
-Talking to the master with the appropriate credentials, run:
+しかし、もしよりきれいにクラスターのプロビジョンをもとに戻したい場合は、初めに[ノードのdrain](/docs/reference/generated/kubectl/kubectl-commands#drain)を行い、ノードが空になっていることを確認した後、ノードの設定を削除する必要があります。
+
+### ノードの削除
+
+適切なクレデンシャルを使用してコントロールプレーンノードに削除することを伝えます。次のコマンドを実行してください。
 
 ```bash
 kubectl drain <node name> --delete-local-data --force --ignore-daemonsets
 kubectl delete node <node name>
 ```
 
-Then, on the node being removed, reset all kubeadm installed state:
+その後、ノードが削除されたら、`kubeadm`のインストール状態をすべてリセットします。
 
 ```bash
 kubeadm reset
 ```
 
-The reset process does not reset or clean up iptables rules or IPVS tables. If you wish to reset iptables, you must do so manually:
+リセットプロセスでは、iptablesのルールやIPVS tablesのリセットやクリーンアップは行われません。iptablesをリセットしたい場合は、次のように手動でコマンドを実行する必要があります。
 
 ```bash
 iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X
 ```
 
-If you want to reset the IPVS tables, you must run the following command:
+IPVS tablesをリセットしたい場合は、次のコマンドを実行する必要があります。
 
 ```bash
 ipvsadm -C
 ```
 
-If you wish to start over simply run `kubeadm init` or `kubeadm join` with the
-appropriate arguments.
+クラスターのセットアップを最初から始めたいときは、`kubeadm init`や`kubeadm join`を適切な引数を付けて実行すればいいだけです。
 
-More options and information about the
-[`kubeadm reset command`](/ja/docs/reference/setup-tools/kubeadm/kubeadm-reset/).
+### コントロールプレーンのクリーンアップ
 
-## クラスターの維持 {#lifecycle}
+コントロールホスト上で`kubeadm reset`を実行すると、ベストエフォートでのクリーンアップが実行できます。
 
-Instructions for maintaining kubeadm clusters (e.g. upgrades,downgrades, etc.) can be found [here.](/ja/docs/tasks/administer-cluster/kubeadm)
+このサブコマンドとオプションに関するより詳しい情報は、[`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)リファレンスドキュメントを読んでください。
 
-## 他アドオンの参照 {#other-addons}
-
-See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to explore other add-ons,
-including tools for logging, monitoring, network policy, visualization &amp;
-control of your Kubernetes cluster.
+<!-- discussion -->
 
 ## 次の手順 {#whats-next}
 
-* Verify that your cluster is running properly with [Sonobuoy](https://github.com/heptio/sonobuoy)
-* Learn about kubeadm's advanced usage in the [kubeadm reference documentation](/ja/docs/reference/setup-tools/kubeadm/kubeadm)
-* Learn more about Kubernetes [concepts](/ja/docs/concepts/) and [`kubectl`](/ja/docs/user-guide/kubectl-overview/).
-* Configure log rotation. You can use **logrotate** for that. When using Docker, you can specify log rotation options for Docker daemon, for example `--log-driver=json-file --log-opt=max-size=10m --log-opt=max-file=5`. See [Configure and troubleshoot the Docker daemon](https://docs.docker.com/engine/admin/) for more details.
+* [Sonobuoy](https://github.com/heptio/sonobuoy)を使用してクラスターが適切に動作しているか検証する。
+* <a id="lifecycle" />`kubeadm`を使用したクラスターをアップグレードする方法について、[kubeadmクラスターをアップグレードする](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)を読む。
+* `kubeadm`の高度な利用方法について[kubeadmリファレンスドキュメント](/docs/reference/setup-tools/kubeadm/kubeadm)で学ぶ。
+* Kubernetesの[コンセプト](/ja/docs/concepts/)や[`kubectl`](/docs/user-guide/kubectl-overview/)についてもっと学ぶ。
+* Podネットワークアドオンのより完全なリストを[クラスターのネットワーク](/docs/concepts/cluster-administration/networking/)で確認する。
+* <a id="other-addons" />ロギング、モニタリング、ネットワークポリシー、仮想化、Kubernetesクラスターの制御のためのツールなど、その他のアドオンについて、[アドオンのリスト](/docs/concepts/cluster-administration/addons/)で確認する。
+* クラスターイベントやPod内で実行中のアプリケーションから送られるログをクラスターがハンドリングする方法を設定する。関係する要素の概要を理解するために、[ロギングのアーキテクチャ](/docs/concepts/cluster-administration/logging/)を読んでください。
 
-## フィードバック {#feedback}
+### フィードバック {#feedback}
 
-* For bugs, visit [kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)
-* For support, visit kubeadm Slack Channel:
-  [#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)
-* General SIG Cluster Lifecycle Development Slack Channel:
+* バグを見つけた場合は、[kubeadm GitHub issue tracker](https://github.com/kubernetes/kubeadm/issues)で報告してください。
+* サポートを受けたい場合は、[#kubeadm](https://kubernetes.slack.com/messages/kubeadm/)Slackチャンネルを訪ねてください。
+* General SIG Cluster Lifecycle development Slackチャンネル:
   [#sig-cluster-lifecycle](https://kubernetes.slack.com/messages/sig-cluster-lifecycle/)
-* SIG Cluster Lifecycle [SIG information](#TODO)
-* SIG Cluster Lifecycle Mailing List:
+* SIG Cluster Lifecycle [SIG information](https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle#readme)
+* SIG Cluster Lifecycleメーリングリスト:
   [kubernetes-sig-cluster-lifecycle](https://groups.google.com/forum/#!forum/kubernetes-sig-cluster-lifecycle)
 
 ## バージョン互換ポリシー {#version-skew-policy}
 
-The kubeadm CLI tool of version vX.Y may deploy clusters with a control plane of version vX.Y or vX.(Y-1).
-kubeadm CLI vX.Y can also upgrade an existing kubeadm-created cluster of version vX.(Y-1).
+バージョンvX.Yの`kubeadm`ツールは、バージョンvX.YまたはvX.(Y-1)のコントロールプレーンを持つクラスターをデプロイできます。また、`kubeadm` vX.Yは、kubeadmで構築された既存のvX.(Y-1)のクラスターをアップグレートできます。
 
-Due to that we can't see into the future, kubeadm CLI vX.Y may or may not be able to deploy vX.(Y+1) clusters.
+未来を見ることはできないため、kubeadm CLI vX.YはvX.(Y+1)をデプロイすることはできません。
 
-Example: kubeadm v1.8 can deploy both v1.7 and v1.8 clusters and upgrade v1.7 kubeadm-created clusters to
-v1.8.
+例: `kubeadm` v1.8は、v1.7とv1.8のクラスターをデプロイでき、v1.7のkubeadmで構築されたクラスターをv1.8にアップグレートできます。
 
-These resources provide more information on supported version skew between kubelets and the control plane, and other Kubernetes components:
+kubeletとコントロールプレーンの間や、他のKubernetesコンポーネント間のバージョンの差異に関する詳しい情報は、以下の資料を確認してください。
 
-* Kubernetes [version and version-skew policy](/ja/docs/setup/release/version-skew-policy/)
-* Kubeadm-specific [installation guide](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
-
-## kubeadmは様々なプラットフォームで動く
-
-kubeadm deb/rpm packages and binaries are built for amd64, arm (32-bit), arm64, ppc64le, and s390x
-following the [multi-platform
-proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md).
-
-Multiplatform container images for the control plane and addons are also supported since v1.12.
-
-Only some of the network providers offer solutions for all platforms. Please consult the list of
-network providers above or the documentation from each provider to figure out whether the provider
-supports your chosen platform.
+* Kubernetes[バージョンスキューサポートポリシー](/ja/docs/setup/release/version-skew-policy/)
+* Kubeadm特有の[インストールガイド](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl)
 
 ## 制限事項 {#limitations}
 
-The cluster created here has a single control-plane node, with a single etcd database
-running on it. This means that if the control-plane node fails, your cluster may lose
-data and may need to be recreated from scratch.
+### クラスターのレジリエンス {#resilience}
 
-Workarounds:
+ここで作られたクラスターは、1つのコントロールプレーンノードと、その上で動作する1つのetcdデータベースしか持ちません。つまり、コントロールプレーンノードが故障した場合、クラスターのデータは失われ、クラスターを最初から作り直す必要があるかもしれないということです。
 
-* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
-  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
+対処方法:
 
-* Use multiple control-plane nodes by completing the
-  [HA setup](/ja/docs/setup/independent/ha-topology) instead.
+* 定期的に[etcdをバックアップ](https://coreos.com/etcd/docs/latest/admin_guide.html)する。kubeadmが設定するetcdのデータディレクトリは、コントロールプレーンノードの`/var/lib/etcd`にあります。
+
+* 複数のコントロールプレーンノードを使用する。[高可用性トポロジーのオプション](/docs/setup/production-environment/tools/kubeadm/ha-topology/)では、より高い可用性を提供するクラスターのトポロジーの選択について説明してます。
+
+### プラットフォームの互換性 {#multi-platform}
+
+kubeadmのdeb/rpmパッケージおよびバイナリは、[multi-platform proposal](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/multi-platform.md)に従い、amd64、arm(32ビット)、arm64、ppc64le、およびs390x向けにビルドされています。
+
+マルチプラットフォームのコントロールプレーンおよびアドオン用のコンテナイメージも、v1.12からサポートされています。
+
+すべてのプラットフォーム向けのソリューションを提供しているネットワークプロバイダーは一部のみです。それぞれのプロバイダーが選択したプラットフォームをサポートしているかどうかを確認するには、前述のネットワークプロバイダーのリストを参照してください。
 
 ## トラブルシューティング {#troubleshooting}
 
-If you are running into difficulties with kubeadm, please consult our [troubleshooting docs](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/).
+kubeadmに関する問題が起きたときは、[トラブルシューティングドキュメント](/ja/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)を確認してください。
+

@@ -1,6 +1,5 @@
 ---
-draft: True
-title: "Cluster Administration"
+title: "Amministrazione del Cluster"
 weight: 100
 ---
 

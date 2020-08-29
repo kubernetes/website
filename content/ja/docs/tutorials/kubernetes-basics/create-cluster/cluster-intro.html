@@ -9,7 +9,7 @@ weight: 10
 
 <body>
 
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -77,14 +77,14 @@ weight: 10
 
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i>マスターはクラスターを管理するために、ノードは実行中のアプリケーションをホストするために使用されます。</i></p>
+                    <p><i>マスターは実行中のアプリケーションをホストするために使用されるノードとクラスターを管理します。</i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>Kubernetesにアプリケーションをデプロイするときは、マスターにアプリケーションコンテナを起動するように指示します。マスターはコンテナがクラスターのノードで実行されるようにスケジュールします。<b>ノードは、マスターが公開しているKubernetes APIを使用してマスターと通信します。</b>エンドユーザーは、Kubernetes APIを直接使用して対話することもできます。</p>
+                <p>Kubernetesにアプリケーションをデプロイするときは、マスターにアプリケーションコンテナを起動するように指示します。マスターはコンテナがクラスターのノードで実行されるようにスケジュールします。<b>ノードは、マスターが公開している<a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a>を使用してマスターと通信します。</b>エンドユーザーは、Kubernetes APIを直接使用して対話することもできます。</p>
 
                 <p>Kubernetesクラスターは、物理マシンまたは仮想マシンのどちらにも配置できます。Kubernetes開発を始めるためにMinikubeを使うことができます。Minikubeは、ローカルマシン上にVMを作成し、1つのノードのみを含む単純なクラスターをデプロイする軽量なKubernetes実装です。Minikubeは、Linux、macOS、およびWindowsシステムで利用可能です。Minikube CLIは、起動、停止、ステータス、削除など、クラスターを操作するための基本的なブートストラップ操作を提供します。ただし、このチュートリアルでは、Minikubeがプリインストールされた状態で提供されているオンラインのターミナルを使用します。</p>
 

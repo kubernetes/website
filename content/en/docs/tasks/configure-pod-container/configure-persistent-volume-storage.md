@@ -1,10 +1,10 @@
 ---
 title: Configure a Pod to Use a PersistentVolume for Storage
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows you how to configure a Pod to use a
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
@@ -20,22 +20,21 @@ PersistentVolume.
 
 1. You create a Pod that uses the above PersistentVolumeClaim for storage.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * You need to have a Kubernetes cluster that has only one Node, and the
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
-[Minikube](/docs/getting-started-guides/minikube).
+[Minikube](/docs/setup/learning-environment/minikube/).
 
 * Familiarize yourself with the material in
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Create an index.html file on your Node
 
@@ -237,10 +236,10 @@ sudo rmdir /mnt/data
 
 You can now close the shell to your Node.
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Access control
 
@@ -261,8 +260,8 @@ metadata:
 ```
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
-Pod’s security context are. Every GID, whether it originates from a PersistentVolume
-annotation or the Pod’s specification, is applied to the first process run in
+Pod's security context are. Every GID, whether it originates from a PersistentVolume
+annotation or the Pod's specification, is applied to the first process run in
 each container.
 
 {{< note >}}
@@ -270,10 +269,11 @@ When a Pod consumes a PersistentVolume, the GIDs associated with the
 PersistentVolume are not present on the Pod resource itself.
 {{< /note >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Read the [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
@@ -285,6 +285,6 @@ PersistentVolume are not present on the Pod resource itself.
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * [PersistentVolumeClaimSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaimspec-v1-core)
 
-{{% /capture %}}
+
 
 

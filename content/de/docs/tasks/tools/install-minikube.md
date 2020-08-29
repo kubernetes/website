@@ -1,28 +1,29 @@
 ---
 title: Installation von Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Diese Seite zeigt Ihnen, wie Sie [Minikube](/docs/tutorials/hello-minikube) installieren, ein Programm, das einen Kubernetes-Cluster mit einem einzigen Node in einer virtuellen Maschine auf Ihrem Laptop ausführt.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Die VT-x- oder AMD-v-Virtualisierung muss im BIOS Ihres Computers aktiviert sein. Um dies unter Linux zu überprüfen, führen Sie Folgendes aus und vergewissern Sie sich, dass die Ausgabe nicht leer ist:
 ```shell
 egrep --color 'vmx|svm' /proc/cpuinfo
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Einen Hypervisor installieren
 
@@ -49,7 +50,7 @@ Minikube unterstützt auch die Option `--vm-driver=none`, mit der die Kubernetes
 Die einfachste Möglichkeit, Minikube unter macOS zu installieren, ist die Verwendung von [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 Sie können es auch auf macOS installieren, indem Sie eine statische Binärdatei herunterladen:
@@ -106,13 +107,6 @@ Schließen Sie nach der Installation von Minikube die aktuelle CLI-Sitzung und s
 
 So installieren Sie Minikube manuell unter Windows mit [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), laden Sie die Datei [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest) und führen Sie den Installer aus.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Kubernetes lokal über Minikube ausführen](/docs/setup/minikube/)
-
-{{% /capture %}}
 
 ## Eine bestehende Installation bereinigen
 
@@ -130,3 +124,8 @@ Müssen Sie die Konfigurationsdateien löschen:
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Kubernetes lokal über Minikube ausführen](/docs/setup/minikube/)

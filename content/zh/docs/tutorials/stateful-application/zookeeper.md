@@ -9,38 +9,40 @@ approvers:
 - smarterclayton
 
 title: 运行 ZooKeeper， 一个 CP 分布式系统
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-本教程展示了在 Kubernetes 上使用 [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
-{{% /capture %}}
+本教程展示了在 Kubernetes 上使用 [PodDisruptionBudgets](/zh/docs/admin/disruptions/#specifying-a-poddisruptionbudget) 和 [PodAntiAffinity](/zh/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature) 特性运行 [Apache Zookeeper](https://zookeeper.apache.org)。
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 在开始本教程前，你应该熟悉以下 Kubernetes 概念。
 
-* [Pods](/docs/user-guide/pods/single-container/)
-* [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-* [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-* [PersistentVolumes](/docs/concepts/storage/volumes/)
+* [Pods](/zh/docs/user-guide/pods/single-container/)
+* [Cluster DNS](/zh/docs/concepts/services-networking/dns-pod-service/)
+* [Headless Services](/zh/docs/concepts/services-networking/service/#headless-services)
+* [PersistentVolumes](/zh/docs/concepts/storage/volumes/)
 * [PersistentVolume Provisioning](http://releases.k8s.io/{{< param "githubbranch" >}}/examples/persistent-volume-provisioning/)
-* [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)
-* [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
-* [PodDisruptionBudgets](/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
-* [PodAntiAffinity](/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
-* [kubectl CLI](/docs/user-guide/kubectl)
+* [ConfigMaps](/zh/docs/tasks/configure-pod-container/configure-pod-configmap/)
+* [StatefulSets](/zh/docs/concepts/abstractions/controllers/statefulsets/)
+* [PodDisruptionBudgets](/zh/docs/admin/disruptions/#specifying-a-poddisruptionbudget)
+* [PodAntiAffinity](/zh/docs/user-guide/node-selection/#inter-pod-affinity-and-anti-affinity-beta-feature)
+* [kubectl CLI](/zh/docs/user-guide/kubectl)
 
 
 
-你需要一个至少包含四个节点的集群，每个节点至少 2 CPUs 和  4 GiB 内存。在本教程中你将会 cordon 和 drain 集群的节点。**这意味着集群节点上所有的 Pods 将会被终止并移除。这些节点也会暂时变为不可调度。**在本教程中你应该使用一个独占的集群，或者保证你造成的干扰不会影响其它租户。
+你需要一个至少包含四个节点的集群，每个节点至少 2 CPUs 和  4 GiB 内存。在本教程中你将会 cordon 和 drain 集群的节点。**这意味着集群节点上所有的 Pods 将会被终止并移除**。**这些节点也会暂时变为不可调度**。在本教程中你应该使用一个独占的集群，或者保证你造成的干扰不会影响其它租户。
 
 
 本教程假设你的集群配置为动态的提供 PersistentVolumes。如果你的集群没有配置成这样，在开始本教程前，你需要手动准备三个 20 GiB 的卷。
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 在学习本教程后，你将熟悉下列内容。
 
@@ -48,9 +50,9 @@ content_template: templates/tutorial
 * 如何使用 ConfigMaps 一致性配置 ensemble。
 * 如何在 ensemble 中 分布 ZooKeeper 服务的部署。
 * 如何在计划维护中使用 PodDisruptionBudgets 确保服务可用性。
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ### ZooKeeper 基础
@@ -69,14 +71,14 @@ ZooKeeper 在内存中保存它们的整个状态机，但是每个改变都被�
 
 
 下面的清单包含一个
-[Headless Service](/docs/concepts/services-networking/service/#headless-services)，
-一个 [Service](/docs/concepts/services-networking/service/)，
-一个 [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget)，
-和一个 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)。
+[Headless Service](/zh/docs/concepts/services-networking/service/#headless-services)，
+一个 [Service](/zh/docs/concepts/services-networking/service/)，
+一个 [PodDisruptionBudget](/zh/docs/concepts/workloads/pods/disruptions//#specifying-a-poddisruptionbudget)，
+和一个 [StatefulSet](/zh/docs/concepts/workloads/controllers/statefulset/)。
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
-打开一个命令行终端，使用 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)
+打开一个命令行终端，使用 [`kubectl apply`](/zh/docs/reference/generated/kubectl/kubectl-commands/#apply)
 创建这个清单。
 
 ```shell
@@ -92,7 +94,7 @@ poddisruptionbudget.policy/zk-pdb created
 statefulset.apps/zk created
 ```
 
-使用 [`kubectl get`](/docs/user-guide/kubectl/{{< param "version" >}}/#get) 查看 StatefulSet 控制器创建的 Pods。
+使用 [`kubectl get`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#get) 查看 StatefulSet 控制器创建的 Pods。
 
 ```shell
 kubectl get pods -w -l app=zk
@@ -130,7 +132,7 @@ StatefulSet 控制器创建了3个 Pods，每个 Pod 包含一个 [ZooKeeper 3.4
 由于在匿名网络中没有用于选举 leader 的终止算法，Zab 要求显式的进行成员关系配置，以执行 leader 选举。Ensemble 中的每个服务都需要具有一个独一无二的标识符，所有的服务均需要知道标识符的全集，并且每个标志都需要和一个网络地址相关联。
 
 
-使用 [`kubectl exec`](/docs/user-guide/kubectl/{{< param "version" >}}/#exec) 获取 `zk` StatefulSet 中 Pods 的主机名。
+使用 [`kubectl exec`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#exec) 获取 `zk` StatefulSet 中 Pods 的主机名。
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
@@ -184,7 +186,7 @@ zk-2.zk-headless.default.svc.cluster.local
 ```
 
 
-[Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) 中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址更新，但 A 记录的名称不会改变。
+[Kubernetes DNS](/zh/docs/concepts/services-networking/dns-pod-service/) 中的 A 记录将 FQDNs 解析成为 Pods 的 IP 地址。如果 Pods 被调度，这个 A 记录将会使用 Pods 的新 IP 地址更新，但 A 记录的名称不会改变。
 
 
 ZooKeeper 在一个名为 `zoo.cfg` 的文件中保存它的应用配置。使用 `kubectl exec` 在  `zk-0` Pod 中查看 `zoo.cfg` 文件的内容。
@@ -320,7 +322,7 @@ numChildren = 0
 如同在 [ZooKeeper 基础](#zookeeper-basics) 一节所提到的，ZooKeeper 提交所有的条目到一个持久 WAL，并周期性的将内存快照写入存储介质。对于使用一致性协议实现一个复制状态机的应用来说，使用 WALs 提供持久化是一种常用的技术，对于普通的存储应用也是如此。
 
 
-使用 [`kubectl delete`](/docs/user-guide/kubectl/{{< param "version" >}}/#delete) 删除 `zk` StatefulSet。
+使用 [`kubectl delete`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#delete) 删除 `zk` StatefulSet。
 
 ```shell
 kubectl delete statefulset zk
@@ -641,7 +643,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-
 这是在容器里安全记录日志的最简单的方法。由于应用的日志被写入标准输出，Kubernetes 将会为你处理日志轮转。Kubernetes 还实现了一个智能保存策略，保证写入标准输出和标准错误流的应用日志不会耗尽本地存储媒介。
 
 
-使用 [`kubectl logs`](/docs/user-guide/kubectl/{{< param "version" >}}/#logs) 从一个 Pod 中取回最后几行日志。
+使用 [`kubectl logs`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#logs) 从一个 Pod 中取回最后几行日志。
 
 ```shell
 kubectl logs zk-0 --tail 20
@@ -679,7 +681,7 @@ kubectl logs zk-0 --tail 20
 ### 配置非特权用户
 
 
-在容器中允许应用以特权用户运行这条最佳实践是值得商讨的。如果你的组织要求应用以非特权用户运行，你可以使用 [SecurityContext](/docs/tasks/configure-pod-container/security-context/) 控制运行容器入口点的用户。
+在容器中允许应用以特权用户运行这条最佳实践是值得商讨的。如果你的组织要求应用以非特权用户运行，你可以使用 [SecurityContext](/zh/docs/tasks/configure-pod-container/security-context/) 控制运行容器入口点的用户。
 
 
 `zk` StatefulSet 的 Pod 的 `template` 包含了一个 SecurityContext。
@@ -736,7 +738,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ### 处理进程故障
 
 
-[Restart Policies](/docs/user-guide/pod-states/#restartpolicy) 控制 Kubernetes 如何处理一个 Pod 中容器入口点的进程故障。对于 StatefulSet 中的 Pods 来说，Always 是唯一合适的 RestartPolicy，这也是默认值。你应该**绝不**覆盖 stateful 应用的默认策略。
+[Restart Policies](/zh/docs/user-guide/pod-states/#restartpolicy) 控制 Kubernetes 如何处理一个 Pod 中容器入口点的进程故障。对于 StatefulSet 中的 Pods 来说，Always 是唯一合适的 RestartPolicy，这也是默认值。你应该**绝不**覆盖 stateful 应用的默认策略。
 
 
 检查 `zk-0` Pod 中运行的 ZooKeeper 服务的进程树。
@@ -947,7 +949,7 @@ kubectl get nodes
 ```
 
 
-使用 [`kubectl cordon`](/docs/user-guide/kubectl/{{< param "version" >}}/#cordon) cordon 你的集群中除4个节点以外的所有节点。
+使用 [`kubectl cordon`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#cordon) cordon 你的集群中除4个节点以外的所有节点。
 
 ```shell
 kubectl cordon < node name >
@@ -987,7 +989,7 @@ kubernetes-minion-group-i4c4
 
 ```
 
-使用 [`kubectl drain`](/docs/user-guide/kubectl/{{< param "version" >}}/#drain) 来 cordon 和 drain `zk-0` Pod 调度的节点。
+使用 [`kubectl drain`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#drain) 来 cordon 和 drain `zk-0` Pod 调度的节点。
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-local-data
@@ -1102,7 +1104,7 @@ numChildren = 0
 ```
 
 
-使用 [`kubectl uncordon`](/docs/user-guide/kubectl/{{< param "version" >}}/#uncordon) 来取消对第一个节点的隔离。
+使用 [`kubectl uncordon`](/zh/docs/user-guide/kubectl/{{< param "version" >}}/#uncordon) 来取消对第一个节点的隔离。
 
 ```shell
 kubectl uncordon kubernetes-minion-group-pb41
@@ -1167,11 +1169,12 @@ node "kubernetes-minion-group-ixsl" uncordoned
 
 你可以同时使用 `kubectl drain` 和 PodDisruptionBudgets 来保证你的服务在维护过程中仍然可用。如果使用 drain 来隔离节点并在此之前删除 pods 使节点进入离线维护状态，如果服务表达了 disruption budget，这个 budget 将被遵守。你应该总是为关键服务分配额外容量，这样它们的 Pods 就能够迅速的重新调度。
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 * 使用 `kubectl uncordon` 解除你集群中所有节点的隔离。
 * 你需要删除在本教程中使用的 PersistentVolumes 的持久存储媒介。请遵循必须的步骤，基于你的环境、存储配置和准备方法，保证回收所有的存储。
-{{% /capture %}}
+
 

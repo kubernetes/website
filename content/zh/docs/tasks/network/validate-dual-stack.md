@@ -3,26 +3,23 @@ reviewers:
 - lachie83
 - khenidak
 title: 验证 IPv4/IPv6 双协议栈
-content_template: templates/task
+content_type: task
 ---
 <!--
----
 reviewers:
 - lachie83
 - khenidak
 title: Validate IPv4/IPv6 dual-stack
-content_template: templates/task
----
+content_type: task
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clusters.
 -->
 这篇文章分享了如何验证 IPv4/IPv6 双协议栈的 Kubernetes 集群。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 <!--
 * Kubernetes 1.16 or later
@@ -33,27 +30,24 @@ This document shares how to validate IPv4/IPv6 dual-stack enabled Kubernetes clu
 -->
 * Kubernetes 1.16 或更高版本
 * 提供程序对双协议栈网络的支持 (云供应商或其他方式必须能够为 Kubernetes 节点提供可路由的 IPv4/IPv6 网络接口)
-* Kubenet 网络插件
+* 一个能够支持双协议栈的[网络插件](/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)，
+  （如 kubenet 或 Calico）。 
 * Kube-proxy 在 IPVS 模式下运行
-* [启用双协议栈](/docs/concepts/services-networking/dual-stack/) 集群
+* [启用双协议栈](/zh/docs/concepts/services-networking/dual-stack/) 集群
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 <!--
 ## Validate addressing
+
+### Validate node addressing
+
+Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges are configured by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
 -->
 ## 验证寻址
 
-<!--
-### Validate node addressing
--->
 ### 验证节点寻址
 
-<!--
-Each dual-stack Node should have a single IPv4 block and a single IPv6 block allocated. Validate that IPv4/IPv6 Pod address ranges are configured by running the following command. Replace the sample node name with a valid dual-stack Node from your cluster. In this example, the Node's name is `k8s-linuxpool1-34450317-0`:
--->
 每个双协议栈节点应分配一个 IPv4 块和一个 IPv6 块。
 通过运行以下命令来验证是否配置了 IPv4/IPv6 Pod 地址范围。
 将示例节点名称替换为集群中的有效双协议栈节点。
@@ -62,10 +56,12 @@ Each dual-stack Node should have a single IPv4 block and a single IPv6 block all
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .spec.podCIDRs}}{{printf "%s\n" .}}{{end}}'
 ```
+
 ```
 10.244.1.0/24
 a00:100::/24
 ```
+
 <!--
 There should be one IPv4 block and one IPv6 block allocated.
 -->
@@ -74,7 +70,9 @@ There should be one IPv4 block and one IPv6 block allocated.
 <!--
 Validate that the node has an IPv4 and IPv6 interface detected (replace node name with a valid node from the cluster. In this example the node name is k8s-linuxpool1-34450317-0): 
 -->
-验证节点是否检测到 IPv4 和 IPv6 接口（用集群中的有效节点替换节点名称。在此示例中，节点名称为 k8s-linuxpool1-34450317-0）：
+验证节点是否检测到 IPv4 和 IPv6 接口（用集群中的有效节点替换节点名称。
+在此示例中，节点名称为 `k8s-linuxpool1-34450317-0`）：
+
 ```shell
 kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .status.addresses}}{{printf "%s: %s \n" .type .address}}{{end}}'
 ```
@@ -86,16 +84,17 @@ InternalIP: 2001:1234:5678:9abc::5
 
 <!--
 ### Validate Pod addressing
+
+Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name with a valid Pod in your cluster. In this example the Pod name is pod01)
 -->
 ### 验证 Pod 寻址
 
-<!--
-Validate that a Pod has an IPv4 and IPv6 address assigned. (replace the Pod name with a valid Pod in your cluster. In this example the Pod name is pod01)
--->
 验证 Pod 已分配了 IPv4 和 IPv6 地址。（用集群中的有效 Pod 替换 Pod 名称。在此示例中， Pod 名称为 pod01）
+
 ```shell
 kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{printf "%s \n" .ip}}{{end}}'
 ```
+
 ```
 10.244.1.4
 a00:100::4
@@ -122,6 +121,7 @@ The following command prints the value of the `MY_POD_IPS` environment variable 
 ```shell
 kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
+
 ```
 MY_POD_IPS=10.244.1.4,a00:100::4
 ```
@@ -134,6 +134,7 @@ Pod 的 IP 地址也将被写入容器内的 `/etc/hosts` 文件中。在双栈 
 ```shell
 kubectl exec -it pod01 -- cat /etc/hosts
 ```
+
 ```
 # Kubernetes-managed hosts file.
 127.0.0.1    localhost
@@ -148,12 +149,11 @@ a00:100::4    pod01
 
 <!--
 ## Validate Services
+
+Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
 -->
 ## 验证服务
 
-<!--
-Create the following Service without the `ipFamily` field set. When this field is not set, the Service gets an IP from the first configured range via `--service-cluster-ip-range` flag on the kube-controller-manager.
--->
 在不设置 `ipFamily` 字段的情况下创建以下服务。
 如果未设置此字段，则服务会通过 kube-controller-manager 上的 `--service-cluster-ip-range` 标志从第一个配置的范围中获取 IP。
 
@@ -162,7 +162,8 @@ Create the following Service without the `ipFamily` field set. When this field i
 <!--
 By viewing the YAML for the Service you can observe that the Service has the `ipFamily` field has set to reflect the address family of the first configured range set via `--service-cluster-ip-range` flag on kube-controller-manager.
 -->
-通过查看该服务的 YAML ，您可以观察到该服务的 `ipFamily` 字段已设置为反映通过 kube-controller-manager 上的 `--service-cluster-ip-range` 标志设置的第一个配置范围的地址族。
+通过查看该服务的 YAML ，您可以观察到该服务的 `ipFamily` 字段已设置为反映通过
+kube-controller-manager 上的 `--service-cluster-ip-range` 标志设置的第一个配置范围的地址族。
 
 ```shell
 kubectl get svc my-service -o yaml
@@ -215,12 +216,11 @@ my-service   ClusterIP   fe80:20d::d06b   <none>        80/TCP    9s
 
 <!--
 ### Create a dual-stack load balanced Service
+
+If the cloud provider supports the provisioning of IPv6 enabled external load balancer, create the following Service with both the `ipFamily` field set to `IPv6` and the `type` field set to `LoadBalancer`
 -->
 ### 创建双协议栈负载均衡服务
 
-<!--
-If the cloud provider supports the provisioning of IPv6 enabled external load balancer, create the following Service with both the `ipFamily` field set to `IPv6` and the `type` field set to `LoadBalancer`
--->
 如果云提供商支持配置启用 IPv6 的外部负载均衡器，则将 `ipFamily` 字段设置为 `IPv6` 并将 `type` 字段设置为 `LoadBalancer`的方式创建以下服务
 
 {{< codenew file="service/networking/dual-stack-ipv6-lb-svc.yaml" >}}
@@ -235,8 +235,4 @@ Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address 
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP                     PORT(S)        AGE
 my-service   ClusterIP   fe80:20d::d06b   2001:db8:f100:4002::9d37:c0d7   80:31868/TCP   30s
 ```
-
-{{% /capture %}}
-
-
 

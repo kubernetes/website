@@ -5,23 +5,22 @@ reviewers:
 - justinsb
 - directxman12
 title: Horizontal Pod Autoscaler Walkthrough
-content_template: templates/task
+content_type: task
 weight: 100
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Horizontal Pod Autoscaler automatically scales the number of pods
 in a replication controller, deployment, replica set or stateful set based on observed CPU utilization
 (or, with beta support, on some other, application-provided metrics).
 
-This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.  For more information on how Horizontal Pod Autoscaler behaves, see the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
+This document walks you through an example of enabling Horizontal Pod Autoscaler for the php-apache server.
+For more information on how Horizontal Pod Autoscaler behaves, see the 
+[Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/).
 
-{{% /capture %}}
+## {{% heading "prerequisites" %}}
 
-
-
-{{% capture prerequisites %}}
 
 This example requires a running Kubernetes cluster and kubectl, version 1.2 or later.
 [metrics-server](https://github.com/kubernetes-incubator/metrics-server/) monitoring needs to be deployed in the cluster
@@ -35,9 +34,9 @@ not related to any Kubernetes object you must have a Kubernetes cluster at versi
 you must be able to communicate with the API server that provides the external metrics API.
 See the [Horizontal Pod Autoscaler user guide](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics) for more details.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Run & expose php-apache server
 
@@ -46,7 +45,7 @@ The Dockerfile has the following content:
 
 ```
 FROM php:5-apache
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
 RUN chmod a+rx index.php
 ```
 
@@ -62,14 +61,19 @@ It defines an index.php page which performs some CPU intensive computations:
 ?>
 ```
 
-First, we will start a deployment running the image and expose it as a service:
+First, we will start a deployment running the image and expose it as a service
+using the following configuration:
 
+{{< codenew file="application/php-apache.yaml" >}}
+
+
+Run the following command:
 ```shell
-kubectl run php-apache --image=k8s.gcr.io/hpa-example --requests=cpu=200m --limits=cpu=500m --expose --port=80
+kubectl apply -f https://k8s.io/examples/application/php-apache.yaml
 ```
 ```
-service/php-apache created
 deployment.apps/php-apache created
+service/php-apache created
 ```
 
 ## Create Horizontal Pod Autoscaler
@@ -80,7 +84,7 @@ The following command will create a Horizontal Pod Autoscaler that maintains bet
 controlled by the php-apache deployment we created in the first step of these instructions.
 Roughly speaking, HPA will increase and decrease the number of replicas
 (via the deployment) to maintain an average CPU utilization across all Pods of 50%
-(since each pod requests 200 milli-cores by [kubectl run](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/docs/user-guide/kubectl/kubectl_run.md), this means average CPU usage of 100 milli-cores).
+(since each pod requests 200 milli-cores by `kubectl run`), this means average CPU usage of 100 milli-cores).
 See [here](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) for more details on the algorithm.
 
 ```shell
@@ -110,11 +114,11 @@ Now, we will see how the autoscaler reacts to increased load.
 We will start a container, and send an infinite loop of queries to the php-apache service (please run it in a different terminal):
 
 ```shell
-kubectl run --generator=run-pod/v1 -it --rm load-generator --image=busybox /bin/sh
+kubectl run -it --rm load-generator --image=busybox /bin/sh
 
 Hit enter for command prompt
 
-while true; do wget -q -O- http://php-apache.default.svc.cluster.local; done
+while true; do wget -q -O- http://php-apache; done
 ```
 
 Within a minute or so, we should see the higher CPU load by executing:
@@ -176,9 +180,9 @@ Here CPU utilization dropped to 0, and so HPA autoscaled the number of replicas 
 Autoscaling the replicas may take a few minutes.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Autoscaling on multiple metrics and custom metrics
 
@@ -198,7 +202,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -234,7 +237,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 
 You can also specify resource metrics in terms of direct values, instead of as percentages of the
-requested value, by using a `target` type of `AverageValue` instead of `AverageUtilization`, and
+requested value, by using a `target.type` of `AverageValue` instead of `Utilization`, and
 setting the corresponding `target.averageValue` field instead of the `target.averageUtilization`.
 
 There are two other types of metrics, both of which are considered *custom metrics*: pod metrics and
@@ -291,7 +294,6 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: php-apache
-  namespace: default
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -364,8 +366,8 @@ label, you can specify the following metric block to scale only on GET requests:
 type: Object
 object:
   metric:
-    name: `http_requests`
-    selector: `verb=GET`
+    name: http_requests
+    selector: {matchLabels: {verb: GET}}
 ```
 
 This selector uses the same syntax as the full Kubernetes label selectors. The monitoring pipeline
@@ -455,12 +457,12 @@ HorizontalPodAutoscaler.
 ## Appendix: Quantities
 
 All metrics in the HorizontalPodAutoscaler and metrics APIs are specified using
-a special whole-number notation known in Kubernetes as a *quantity*.  For example,
+a special whole-number notation known in Kubernetes as a
+{{< glossary_tooltip term_id="quantity" text="quantity">}}.  For example,
 the quantity `10500m` would be written as `10.5` in decimal notation.  The metrics APIs
 will return whole numbers without a suffix when possible, and will generally return
 quantities in milli-units otherwise.  This means you might see your metric value fluctuate
-between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.  See the
-[glossary entry on quantities](/docs/reference/glossary?core-object=true#term-quantity) for more information.
+between `1` and `1500m`, or `1` and `1.5` when written in decimal notation.
 
 ## Appendix: Other possible scenarios
 
@@ -480,4 +482,4 @@ kubectl create -f https://k8s.io/examples/application/hpa/php-apache.yaml
 horizontalpodautoscaler.autoscaling/php-apache created
 ```
 
-{{% /capture %}}
+

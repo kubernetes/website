@@ -2,7 +2,6 @@
 title: " Kubernetes 社区每周聚会笔记- 2015年5月1日 "
 date: 2015-05-11
 slug: weekly-kubernetes-community-hangout
-url: /blog/2015/05/Weekly-Kubernetes-Community-Hangout
 ---
 
 <!--
@@ -33,7 +32,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
 
     * Can also name versions in update (won't do rename at the end).
 
--->  
+-->
 
 * 简单的滚动更新 - Brendan
 
@@ -58,7 +57,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
     * Can run AppContainer and docker containers in same pod.
 
     * Changes are close to merged.
-    
+
 -->
 
 * Rocket 演示 - CoreOS 的伙计们
@@ -88,7 +87,7 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
     *     * Can create new service account with ServiceAccountToken. Controller will create token for it.
 
     * Can create a pod with service account, pods will have service account secret mounted at /var/run/secrets/kubernetes.io/…
-    
+
 -->
 
 * 演示 service accounts 和 secrets 被添加到 pod - Jordan
@@ -106,16 +105,16 @@ Every week the Kubernetes contributing community meet virtually over Google Hang
     *     * 可以使用 ServiceAccountToken 创建新的 service account。控制器将为它创建令牌。
 
     * 可以创建一个带有 service account 的 pod, pod 将在 /var/run/secrets/kubernets.io/…
-    
-<!--    
-    
+
+<!--
+
 * Kubelet running in a container - Paul
 
     * Kubelet successfully ran pod w/ mounted secret.
 
 -->
-    
+
 * Kubelet 在容器中运行 - Paul
 
     * Kubelet 成功地运行了带有 secret 的 pod。
-    
+

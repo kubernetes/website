@@ -7,19 +7,19 @@ reviewers:
 - xing-yang
 - yuxiangqian
 title: Volume Snapshots
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.17" state="beta" >}}
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -29,7 +29,7 @@ A `VolumeSnapshotContent` is a snapshot taken from a volume in the cluster that 
 
 A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is similar to a PersistentVolumeClaim.
 
-`VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
+`VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attributes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 
 Users need to be aware of the following when using this feature:
 
@@ -61,7 +61,9 @@ In the case of pre-provisioned binding, the VolumeSnapshot will remain unbound u
 
 ### Persistent Volume Claim as Snapshot Source Protection
 
-The purpose of this protection is to ensure that in-use PersistentVolumeClaim API objects are not removed from the system while a snapshot is being taken from it (as this may result in data loss).
+The purpose of this protection is to ensure that in-use
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
+API objects are not removed from the system while a snapshot is being taken from it (as this may result in data loss).
 
 While a snapshot is being taken of a PersistentVolumeClaim, that PersistentVolumeClaim is in-use. If you delete a PersistentVolumeClaim API object in active use as a snapshot source, the PersistentVolumeClaim object is not removed immediately. Instead, removal of the PersistentVolumeClaim object is postponed until the snapshot is readyToUse or aborted.
 
@@ -92,14 +94,14 @@ using the attribute `volumeSnapshotClassName`. If nothing is set, then the defau
 
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
 
-```
+```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: test-snapshot
 spec:
   source:
-        volumeSnapshotContentName: test-content
+    volumeSnapshotContentName: test-content
 ```
 
 ## Volume Snapshot Contents
@@ -152,4 +154,4 @@ the *dataSource* field in the `PersistentVolumeClaim` object.
 For more details, see
 [Volume Snapshot and Restore Volume from Snapshot](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support).
 
-{{% /capture %}}
+

@@ -1,0 +1,14 @@
+{{ if .Page.Param "announcement" }}
+<section lang="en" id="fp-announcement" style="background-color:{{ .Page.Param "announcement_bg" }}">
+  <aside >
+    <div class="content announcement main-section" data-nosnippet>
+
+      <h3>
+          {{ T "announcement_title" |  markdownify }}
+      </h3>
+      <p>{{ T "announcement_message" | markdownify }}</p>
+
+    </div>
+  </aside>
+</section>
+{{ end }}

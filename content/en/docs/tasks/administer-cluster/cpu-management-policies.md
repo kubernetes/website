@@ -4,10 +4,10 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.12" state="beta" >}}
 
@@ -18,16 +18,17 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## CPU Management Policies
 
@@ -35,7 +36,7 @@ By default, the kubelet uses [CFS quota](https://en.wikipedia.org/wiki/Completel
 to enforce pod CPU limits.  When the node runs many CPU-bound pods,
 the workload can move to different CPU cores depending on
 whether the pod is throttled and which CPU cores are available at
-scheduling time.  Many workloads are not sensitive to this migration and thus
+scheduling time. Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 
 However, in workloads where CPU cache affinity and scheduling latency
@@ -211,4 +212,4 @@ and `requests` are set equal to `limits` when not explicitly specified. And the
 container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
-{{% /capture %}}
+

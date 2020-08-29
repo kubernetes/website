@@ -1,10 +1,10 @@
 ---
 title: Configurer un pod en utilisant un volume pour le stockage
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment configurer un Pod pour utiliser un Volume pour le stockage.
 
@@ -12,15 +12,16 @@ Le système de fichiers d'un conteneur ne vit que tant que le conteneur vit. Ain
 [Volume](/fr/docs/concepts/storage/volumes/).
 C'est particulièrement important pour les applications Stateful, telles que les key-value stores (comme par exemple Redis) et les bases de données.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configurer un volume pour un Pod
 
@@ -120,9 +121,10 @@ fixé à `Always`.
     kubectl delete pod redis
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Voir [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core).
 
@@ -130,6 +132,6 @@ fixé à `Always`.
 
 * En plus du stockage sur disque local fourni par `emptyDir`, Kubernetes supporte de nombreuses solutions de stockage connectées au réseau, y compris PD sur GCE et EBS sur EC2, qui sont préférés pour les données critiques et qui s'occuperont des autres détails tels que le montage et le démontage sur les nœuds. Voir [Volumes](/fr/docs/concepts/storage/volumes/) pour plus de détails.
 
-{{% /capture %}}
+
 
 

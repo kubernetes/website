@@ -1,20 +1,20 @@
 ---
 title: Init Container
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyediakan ikhtisar untuk Init Container, yaitu Container khusus yang dijalankan sebelum Container aplikasi dan berisi skrip peralatan atau _setup_ yang tidak tersedia di dalam _image_ dari Container aplikasi.
-{{% /capture %}}
+
 
 Fitur ini telah keluar dari trek Beta sejak versi 1.6. Init Container dapat dispesifikasikan di dalam PodSpec bersama dengan _array_ `containers` aplikasi. Nilai anotasi _beta_ akan tetap diperhitungkan dan akan menimpa nilai pada PodSpec, tetapi telah ditandai sebagai kedaluarsa pada versi 1.6 dan 1.7. Pada versi 1.8, anotasi _beta_ tidak didukung lagi dan harus diganti menjadi nilai pada PodSpec.
 
-{{% capture body %}}
+<!-- body -->
 
 ## Memahami Init Container
 
-Sebuah [Pod](/docs/concepts/workloads/pods/pod-overview/) dapat memiliki beberapa Container yang berjalan di dalamnya, dan dapat juga memiliki satu atau lebih Init Container, yang akan berjalan sebelum Container aplikasi dijalankan.
+Sebuah [Pod](/id/docs/concepts/workloads/pods/pod-overview/) dapat memiliki beberapa Container yang berjalan di dalamnya, dan dapat juga memiliki satu atau lebih Init Container, yang akan berjalan sebelum Container aplikasi dijalankan.
 
 Init Container sama saja seperti Container biasa, kecuali:
 
@@ -59,7 +59,7 @@ Berikut beberapa contoh kasus penggunaan Init Container:
 * Mengklon sebuah _git repository_ ke dalam sebuah _volume_.
 * Menaruh nilai-nilai tertentu ke dalam sebuah _file_ konfigurasi dan menjalankan peralatan _template_ untuk membuat _file_ konfigurasi secara dinamis untuk Container aplikasi utama. Misalnya, untuk menaruh nilai POD_IP ke dalam sebuah konfigurasi dan membuat konfigurasi aplikasi utama menggunakan Jinja.
 
-Contoh-contoh penggunaan yang lebih detail dapat dilihat pada [dokumentasi StatefulSet](/docs/concepts/workloads/controllers/statefulset/) dan [petunjuk Produksi Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/).
+Contoh-contoh penggunaan yang lebih detail dapat dilihat pada [dokumentasi StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/) dan [petunjuk Produksi Pod](/docs/tasks/configure-pod-container/configure-pod-initialization/).
 
 ### Menggunakan Init Container
 
@@ -78,12 +78,12 @@ metadata:
         {
             "name": "init-myservice",
             "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup myservice; do echo waiting for myservice; sleep 2; done;"]
+            "command": ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
         },
         {
             "name": "init-mydb",
             "image": "busybox:1.28",
-            "command": ["sh", "-c", "until nslookup mydb; do echo waiting for mydb; sleep 2; done;"]
+            "command": ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
         }
     ]'
 spec:
@@ -271,11 +271,12 @@ Sebuah klaster dengan versi Apiserver 1.6.0 ke atas mendukung Init Container mel
 
 Pada Apiserver dan Kubelet versi 1.8.0 ke atas, dukungan untuk anotasi _alpha_ dan _beta_ telah dihapus, sehingga dibutuhkan konversi (manual) dari anotasi yang telah kedaluwarsa tersebut ke dalam bentuk kolom `.spec.initContainers`.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Membuat Pod yang memiliki Init Container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
 
-{{% /capture %}}
+

@@ -1,13 +1,12 @@
-{{ if .Param "deprecated" }}
-<section id="deprecationWarning">
-  <main>
-    <div class="content deprecation-warning">
-      <h3>
-	 Kubernetes {{ .Param "version" }}
-	 {{ T "deprecation_warning" }}
-	 <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
-      </h3>
-    </div>
-  </main>
+{{ if (.Site.Param "deprecated") }}
+<section id="deprecation-warning">
+  <div class="content deprecation-warning">
+    <h3>
+      {{ T "deprecation_title" }} {{ .Param "version" }}
+    </h3>
+    <p> Kubernetes {{ .Param "version" }} {{ T "deprecation_warning" }}
+      <a href="{{ site.Params.currentUrl }}">{{ T "latest_version" }}</a>
+    </p>
+  </div>
 </section>
 {{ end }}

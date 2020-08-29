@@ -1,0 +1,4 @@
+
+<!--This feature is *deprecated*. For more information on this state, see the [Kubernetes Deprecation Policy](/docs/reference/deprecation-policy/).
+-->
+Цей компонент є *застарілим*. Дізнатися більше про цей статус ви можете зі статті [Політика Kubernetes щодо застарілих компонентів](/docs/reference/deprecation-policy/).

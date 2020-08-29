@@ -1,16 +1,16 @@
 ---
 title: 여러 영역에서 구동
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다. 
+이 페이지는 여러 영역에서 어떻게 클러스터를 구동하는지 설명한다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 소개
 
@@ -74,10 +74,10 @@ federation support).
 a single master node by default.  While services are highly
 available and can tolerate the loss of a zone, the control plane is
 located in a single zone.  Users that want a highly available control
-plane should follow the [high availability](/docs/admin/high-availability) instructions.
+plane should follow the [high availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) instructions.
 
 ### Volume limitations
-The following limitations are addressed with [topology-aware volume binding](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+The following limitations are addressed with [topology-aware volume binding](/ko/docs/concepts/storage/storage-classes/#볼륨-바인딩-모드).
 
 * StatefulSet volume zone spreading when using dynamic provisioning is currently not compatible with
   pod affinity or anti-affinity policies.
@@ -184,7 +184,7 @@ kubernetes-minion-wf8i   Ready                      <none>   2m    v1.13.0      
 
 Create a volume using the dynamic volume creation (only PersistentVolumes are supported for zone affinity):
 
-```json
+```bash
 kubectl apply -f - <<EOF
 {
   "apiVersion": "v1",
@@ -396,5 +396,3 @@ KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2c k
 KUBERNETES_PROVIDER=aws KUBE_USE_EXISTING_MASTER=true KUBE_AWS_ZONE=us-west-2b kubernetes/cluster/kube-down.sh
 KUBERNETES_PROVIDER=aws KUBE_AWS_ZONE=us-west-2a kubernetes/cluster/kube-down.sh
 ```
-
-{{% /capture %}}

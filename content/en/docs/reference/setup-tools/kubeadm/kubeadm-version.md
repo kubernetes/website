@@ -3,13 +3,11 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm version
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
-{{% capture overview %}}
+<!-- overview -->
 This command prints the version of kubeadm.
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 {{< include "generated/kubeadm_version.md" >}}
-{{% /capture %}}

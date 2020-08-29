@@ -1,4 +1,4 @@
-{{ define "content" }}
+{{ define "main" }}
     {{ if not .Params.notitle }}
 	 <h1>{{ .Title }}</h1>
     {{ end }}
@@ -13,37 +13,10 @@
     <p>{{ .Params.overview | safeHTML }}</p>
     <br>
     <div class="launch-cards">
-      {{ template "docs-portal-card" . }}
+      {{ $page := (partial "docs/docs-portal-card" .) }}
+      {{ .Scratch.Set "html" $page }}
+      {{ $page }}
     </div>
   </div>
 </section>
-{{ end }}
-
-{{ define "docs-portal-card" }}
-  {{ range .Params.cards }}
-    <div class="launch-card">
-      <h4>{{ .title }}</h4>
-      <p>{{ .description }}</p>
-      <br>
-      <ul>
-        {{ $name := .name }}
-        {{ range where ($.Site.Pages.ByParam "card.weight") ".Params.card" "!=" nil }}
-          {{ if eq .Params.card.name $name }}
-            {{ $p := . }}
-            {{ if (isset .Params.card "anchors") }}
-              {{ range .Params.card.anchors }}
-                <li><a href="{{ $p.Permalink }}{{ .anchor }}">{{ .title }}</a></li>
-              {{ end }}
-            {{ else }}
-              <li><a href={{ .Permalink }}>
-                {{ if (isset .Params.card "title") }}{{ .Params.card.title }}{{ else }}{{ .LinkTitle }}{{ end }}
-              </a></li>
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      </ul>
-      <br><br>
-      <button id="btn-concepts" class="button" onClick="location.href='{{ .button_path | relLangURL }}';" aria-label="{{ .title }}">{{ .button }}</button>
-    </div>
-  {{ end }}
 {{ end }}

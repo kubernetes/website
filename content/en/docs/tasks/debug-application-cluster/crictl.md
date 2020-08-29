@@ -4,11 +4,11 @@ reviewers:
 - feiskyer
 - mrunalp
 title: Debugging Kubernetes nodes with crictl
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
@@ -17,15 +17,16 @@ You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
 [cri-tools](https://github.com/kubernetes-incubator/cri-tools) repository.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 `crictl` requires a Linux operating system with a CRI runtime.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Installing crictl
 
@@ -347,12 +348,12 @@ CONTAINER ID        IMAGE               CREATED              STATE              
 3e025dd50a72d       busybox             About a minute ago   Running             busybox             0
 ```
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 See [kubernetes-incubator/cri-tools](https://github.com/kubernetes-incubator/cri-tools)
 for more information.
 
-{{% /capture %}}
+

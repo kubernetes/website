@@ -1,20 +1,20 @@
 ---
 reviewers:
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページではPodPresetについて概観します。PodPresetは、Podの作成時にそのPodに対して、Secret、Volume、VolumeMountや環境変数など、特定の情報を注入するためのオブジェクトです。  
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## PodPresetを理解する
 
 `PodPreset`はPodの作成時に追加のランタイム要求を注入するためのAPIリソースです。
-ユーザーはPodPresetを適用する対象のPodを指定するために、[ラベルセレクター](/docs/concepts/overview/working-with-objects/labels/#label-selectors)を使用します。
+ユーザーはPodPresetを適用する対象のPodを指定するために、[ラベルセレクター](/ja/docs/concepts/overview/working-with-objects/labels/#label-selectors)を使用します。
 
 PodPresetの使用により、Podテンプレートの作者はPodにおいて、全ての情報を明示的に指定する必要がなくなります。  
 この方法により、特定のServiceを使っているPodテンプレートの作者は、そのServiceについて全ての詳細を知る必要がなくなります。
@@ -48,13 +48,20 @@ PodPresetによるPodの変更を受け付けたくないようなインスタ�
 ユーザーのクラスター内でPodPresetを使うためには、クラスター内の以下の項目をご確認ください。
 
 1.  `settings.k8s.io/v1alpha1/podpreset`というAPIを有効にします。例えば、これはAPI Serverの `--runtime-config`オプションに`settings.k8s.io/v1alpha1=true`を含むことで可能になります。Minikubeにおいては、クラスターの起動時に`--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true`をつけることで可能です。
-1.  `PodPreset`に対する管理コントローラーを有効にします。これを行うための1つの方法として、API Serverの`--enable-admission-plugins`オプションの値に`PodPreset`を含む方法があります。Minikubeにおいては、クラスターの起動時に`--extra-config=apiserver.enable-admission-plugins=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset`を追加することで可能になります。
+1.  `PodPreset`に対する管理コントローラーを有効にします。これを行うための1つの方法として、API Serverの`--enable-admission-plugins`オプションの値に`PodPreset`を含む方法があります。Minikubeにおいては、クラスターの起動時に
+
+  ```shell
+  --extra-config=apiserver.enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodPreset
+  ```
+
+  を追加することで可能になります。
 1.  ユーザーが使う予定のNamespaceにおいて、`PodPreset`オブジェクトを作成することによりPodPresetを定義します。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [PodPresetを使ったPodへのデータの注入](/docs/tasks/inject-data-application/podpreset/)
 
-{{% /capture %}}
+

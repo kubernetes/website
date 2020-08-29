@@ -1,18 +1,18 @@
 ---
 title: 控制器管理器指标
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 
 <!--
 ---
 title: Controller manager metrics
-content_template: templates/concept
+content_type: concept
 weight: 100
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Controller manager metrics provide important insight into the performance and health of
@@ -21,9 +21,9 @@ the controller manager.
 
 控制器管理器指标为控制器管理器的性能和健康提供了重要的观测手段。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## What are controller manager metrics
@@ -79,4 +79,4 @@ to periodically gather these metrics and make them available in some kind of tim
 
 在生产环境中，您可能想配置 prometheus 或其他一些指标收集工具，以定期收集这些指标数据，并将它们应用到某种时间序列数据库中。
 
-{{% /capture %}}
+

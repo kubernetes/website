@@ -1,17 +1,17 @@
 ---
 title: Pengklonaan Volume CSI
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
-Dokumen ini mendeskripsikan konsep pengklonaan Volume CSI yang telah tersedia di dalam Kubernetes. Pengetahuan tentang [Volume](/docs/concepts/storage/volumes) disarankan.
+Dokumen ini mendeskripsikan konsep pengklonaan Volume CSI yang telah tersedia di dalam Kubernetes. Pengetahuan tentang [Volume](/id/docs/concepts/storage/volumes) disarankan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -59,4 +59,4 @@ Hasilnya adalah sebuah PVC baru dengan nama `clone-of-pvc-1` yang memiliki isi y
 
 Setelah tersedianya PVC baru tersebut, PVC baru yang diklonakan tersebut digunakan sama seperti PVC lainnya. Juga diharapkan pada titik ini bahwa PVC baru tersebut adalah sebuah objek terpisah yang independen. Ia dapat digunakan, diklonakan, di-_snapshot_, atau dihapus secara terpisah dan tanpa perlu memikirkan PVC dataSource aslinya. Hal ini juga berarti bahwa sumber tidak terikat sama sekali dengan klona yang baru dibuat tersebut, dan dapat diubah atau dihapus tanpa memengaruhi klona yang baru dibuat tersebut.
 
-{{% /capture %}}
+

@@ -1,19 +1,19 @@
 ---
 title: 초기화 컨테이너
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 초기화 컨테이너에 대한 개요를 제공한다. 초기화 컨테이너는
 {{< glossary_tooltip text="파드" term_id="pod" >}}의 앱 컨테이너들이 실행되기 전에 실행되는 특수한 컨테이너이며, 앱 이미지에는 없는
 유틸리티 또는 설정 스크립트 등을 포함할 수 있다.
 
 초기화 컨테이너는 `containers` 배열(앱 컨테이너를 기술하는)과 나란히
 파드 스펙에 명시할 수 있다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 초기화 컨테이너 이해하기
 
@@ -27,7 +27,7 @@ weight: 40
 * 각 초기화 컨테이너는 다음 초기화 컨테이너가 시작되기 전에 성공적으로 완료되어야 한다.
 
 만약 파드를 위한 초기화 컨테이너가 실패한다면, 쿠버네티스는 초기화 컨테이너가 성공할 때까지 파드를
-반복적으로 재시작한다. 그러나, 만약 파드의 `restartPolicy`을 절대 하지 않음(Never)으로 설정했다면, 파드는 재시작되지 않는다.
+반복적으로 재시작한다. 그러나, 만약 파드의 `restartPolicy` 를 절대 하지 않음(Never)으로 설정했다면, 파드는 재시작되지 않는다.
 
 컨테이너를 초기화 컨테이너로 지정하기 위해서는,
 파드 스펙에 앱 `containers` 배열과 나란히 `initContainers` 필드를
@@ -44,8 +44,8 @@ weight: 40
 그러나, 초기화 컨테이너를 위한 리소스 요청량과 상한은
 [리소스](#리소스)에 문서화된 것처럼 다르게 처리된다.
 
-또한, 초기화 컨테이너는 준비성 프로브(readiness probe)를 지원하지 않는다. 왜냐하면 초기화 컨테이너는
-파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
+또한, 초기화 컨테이너는 `lifecycle`, `livenessProbe`, `readinessProbe` 또는 `startupProbe` 를 지원하지 않는다.
+왜냐하면 초기화 컨테이너는 파드가 준비 상태가 되기 전에 완료를 목표로 실행되어야 하기 때문이다.
 
 만약 다수의 초기화 컨테이너가 파드에 지정되어 있다면, Kubelet은 해당 초기화 컨테이너들을
 한 번에 하나씩 실행한다. 각 초기화 컨테이너는 다음 컨테이너를 실행하기 전에 꼭 성공해야 한다.
@@ -62,8 +62,8 @@ weight: 40
   다른 이미지로부터(`FROM`) 새로운 이미지를 만들 필요가 없다.
 * 애플리케이션 이미지 빌더와 디플로이어 역할은 독립적으로 동작될 수 있어서
   공동의 단일 앱 이미지 형태로 빌드될 필요가 없다.
-* 초기화 컨테이너는 앱 컨테이너와 다른 파일 시스템 뷰를 가지도록 Linux 네임스페이스를 사용한다.
-  결과적으로, 초기화 컨테이너에는 앱 컨테이너가 가질 수 없는 
+* 초기화 컨테이너는 앱 컨테이너와 다른 파일 시스템 뷰를 가지도록 리눅스 네임스페이스를 사용한다.
+  결과적으로, 초기화 컨테이너에는 앱 컨테이너가 가질 수 없는
   {{< glossary_tooltip text="시크릿" term_id="secret" >}}에 접근 권한이 주어질 수 있다.
 * 앱 컨테이너들은 병렬로 실행되는 반면, 초기화 컨테이너들은 어떠한 앱
   컨테이너라도 시작되기 전에 실행 완료되어야 하므로, 초기화 컨테이너는 사전 조건들이
@@ -102,7 +102,7 @@ weight: 40
 ### 사용 중인 초기화 컨테이너
 
 쿠버네티스 1.5에 대한 다음의 yaml 파일은 두 개의 초기화 컨테이너를 포함한 간단한 파드에 대한 개요를 보여준다.
-첫 번째는 `myservice`를 기다리고 두 번째는 `mydb`를 기다린다. 두 컨테이너들이
+첫 번째는 `myservice` 를 기다리고 두 번째는 `mydb` 를 기다린다. 두 컨테이너들이
 완료되면, 파드가 시작될 것이다.
 
 ```yaml
@@ -120,10 +120,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
 다음 커맨드들을 이용하여 파드를 시작하거나 디버깅할 수 있다.
@@ -190,7 +190,7 @@ kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
 `mydb` 및 `myservice` 서비스를 시작하고 나면, 초기화 컨테이너가 완료되고
-`myapp-pod`가 생성된 것을 볼 수 있다.
+`myapp-pod` 가 생성된 것을 볼 수 있다.
 
 여기에 이 서비스를 보이기 위해 사용할 수 있는 구성이 있다.
 
@@ -217,7 +217,7 @@ spec:
     targetPort: 9377
 ```
 
-`mydb`와 `myservice` 서비스 생성하기.
+`mydb` 와 `myservice` 서비스 생성하기.
 
 ```shell
 kubectl apply -f services.yaml
@@ -227,7 +227,7 @@ service/myservice created
 service/mydb created
 ```
 
-초기화 컨테이너들이 완료되는 것과 `myapp-pod` 파드가 Runnning 상태로
+초기화 컨테이너들이 완료되는 것과 `myapp-pod` 파드가 Running 상태로
 변경되는 것을 볼 것이다.
 
 ```shell
@@ -239,20 +239,23 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 이 간단한 예제는 사용자만의 초기화 컨테이너를 생성하는데
-영감을 줄 것이다. [다음 순서](#what-s-next)에는 더 자세한 예제의 링크가 있다.
+영감을 줄 것이다. [다음 순서](#다음-내용)에는 더 자세한 예제의 링크가 있다.
 
 ## 자세한 동작
 
-파드 시동 시, 네트워크와 볼륨이 초기화되고 나면, 초기화 컨테이너가
-순서대로 시작된다. 각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
-종료되어야 한다. 만약 런타임 문제나 실패 상태로 종료되는 문제로인하여 초기화 컨테이너의 시작이
-실패된다면, 초기화 컨테이너는 파드의 `restartPolicy`에 따라서 재시도 된다. 다만,
-파드의 `restartPolicy`이 항상(Always)으로 설정된 경우, 해당 초기화 컨테이너는
-`restartPolicy`을 실패 시(OnFailure)로 사용한다.
+파드 시작 시에 kubelet은 네트워크와 스토리지가 준비될 때까지
+초기화 컨테이너의 실행을 지연시킨다. 그런 다음 kubelet은 파드 사양에
+나와있는 순서대로 파드의 초기화 컨테이너를 실행한다.
 
-파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready`될 수 없다. 초기화 컨테이너의 포트는
+각 초기화 컨테이너는 다음 컨테이너가 시작되기 전에 성공적으로
+종료되어야 한다. 만약 런타임 문제나 실패 상태로 종료되는 문제로인하여 초기화 컨테이너의 시작이
+실패된다면, 초기화 컨테이너는 파드의 `restartPolicy` 에 따라서 재시도 된다. 다만,
+파드의 `restartPolicy` 가 항상(Always)으로 설정된 경우, 해당 초기화 컨테이너는
+`restartPolicy` 를 실패 시(OnFailure)로 사용한다.
+
+파드는 모든 초기화 컨테이너가 성공되기 전까지 `Ready` 될 수 없다. 초기화 컨테이너의 포트는
 서비스 하에 합쳐지지 않는다. 초기화 중인 파드는 `Pending` 상태이지만
-`Initialized`이 참이 되는 조건을 가져야 한다.
+`Initialized` 가 참이 되는 조건을 가져야 한다.
 
 만약 파드가 [재시작](#파드-재시작-이유)되었다면, 모든 초기화 컨테이너는
 반드시 다시 실행된다.
@@ -261,15 +264,16 @@ myapp-pod   1/1       Running   0          9m
 초기화 컨테이너 이미지 필드를 변경하는 것은 파드를 재시작하는 것과 같다.
 
 초기화 컨테이너는 재시작되거나, 재시도, 또는 재실행 될 수 있기 때문에, 초기화 컨테이너
-코드는 멱등성(indempotent)을 유지해야 한다. 특히, `EmptyDirs`에 있는 파일에 쓰기를 수행하는 코드는
+코드는 멱등성(idempotent)을 유지해야 한다. 특히, `EmptyDirs` 에 있는 파일에 쓰기를 수행하는 코드는
 출력 파일이 이미 존재할 가능성에 대비해야 한다.
 
 초기화 컨테이너는 앱 컨테이너의 필드를 모두 가지고 있다. 그러나, 쿠버네티스는
-`readinessProbe`가 사용되는 것을 금지한다. 초기화 컨테이너가 완료 상태와 준비성을
+`readinessProbe` 가 사용되는 것을 금지한다. 초기화 컨테이너가 완료 상태와 준비성을
 구분해서 정의할 수 없기 때문이다. 이것은 유효성 검사 중에 시행된다.
 
-초기화 컨테이너들이 실패를 영원히 지속하는 상황을 방지하기 위해서
-파드의 `activeDeadlineSeconds`와 컨테이너의 `livenessProbe`를 사용한다.
+초기화 컨테이너들이 실패를
+영원히 지속하는 상황을 방지하기 위해서
+파드의 `activeDeadlineSeconds` 와 컨테이너의 `livenessProbe` 를 사용한다.
 
 파드 내의 각 앱과 초기화 컨테이너의 이름은 유일해야 한다. 어떤
 컨테이너가 다른 컨테이너와 같은 이름을 공유하는 경우 유효성 오류가 발생한다.
@@ -307,16 +311,15 @@ myapp-pod   1/1       Running   0          9m
   이미지의 변경은 앱 컨테이너만 재시작시킨다.
 * 파드 인프라스트럭처 컨테이너가 재시작되었다. 이는 일반적인 상황이 아니며 노드에
   대해서 root 접근 권한을 가진 누군가에 의해서 수행됐을 것이다.
-* 파드 내의 모든 컨테이너들이, 재시작을 강제하는 `restartPolicy`이 항상으로 설정되어 있는,
+* 파드 내의 모든 컨테이너들이, 재시작을 강제하는 `restartPolicy` 가 항상(Always)으로 설정되어 있는,
   동안 종료되었다. 그리고 초기화 컨테이너의 완료 기록이 가비지 수집
   때문에 유실되었다.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [초기화 컨테이너를 가진 파드 생성하기](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
-* [초기화 컨테이너 디버깅](/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+* [초기화 컨테이너를 가진 파드 생성하기](/ko/docs/tasks/configure-pod-container/configure-pod-initialization/#초기화-컨테이너를-갖는-파드-생성)
+* [초기화 컨테이너 디버깅](/ko/docs/tasks/debug-application-cluster/debug-init-containers/) 알아보기

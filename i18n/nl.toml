@@ -189,6 +189,8 @@ other = "Stack Overflow"
 other = "Forum"
 [community_events_calendar]
 other = "Evenementenkalender"
+[community_youtube_name]
+other = "YouTube"
 
 # UI elements
 [ui_search_placeholder]

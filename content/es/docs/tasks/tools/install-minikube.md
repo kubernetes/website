@@ -1,28 +1,29 @@
 ---
 title: Instalar Minikube
-content_template: templates/task
+content_type: task
 weight: 20
 card:
   name: tasks
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta página muestra cómo instalar [Minikube](/docs/tutorials/hello-minikube), una herramienta que despliega un clúster de Kubernetes con un único nodo en una máquina virtual.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 La virtualización VT-x o AMD-v debe estar habilitada en la BIOS de tu ordenador. En Linux, puedes comprobar si la tienes habilitada buscando 'vmx' o 'svm' en el fichero `/proc/cpuinfo`:
 ```shell
 egrep --color 'vmx|svm' /proc/cpuinfo
 ```
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Instalar un Hipervisor
 
@@ -49,7 +50,7 @@ Minikube también soporta una opción `--vm-driver=none` que ejecuta los compone
 La forma más fácil de instalar Minikube en macOS es usar [Homebrew](https://brew.sh):
 
 ```shell
-brew cask install minikube
+brew install minikube
 ```
 
 También puedes instalarlo en macOS descargando un ejecutable autocontenido:
@@ -106,13 +107,6 @@ Para instalar Minikube manualmente en Windows, descarga [`minikube-windows-amd64
 
 Para instalar Minikube manualmente en Windows usando [Windows Installer](https://docs.microsoft.com/en-us/windows/desktop/msi/windows-installer-portal), descarga [`minikube-installer.exe`](https://github.com/kubernetes/minikube/releases/latest) y ejecuta el instalador.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-* [Ejecutar Kubernetes Localmente via Minikube](/docs/setup/minikube/)
-
-{{% /capture %}}
 
 ## Limpiar todo para comenzar de cero
 
@@ -130,3 +124,8 @@ Necesitas eliminar permanentemente los siguientes archivos de configuración:
 ```shell
 rm -rf ~/.minikube
 ```
+
+## {{% heading "whatsnext" %}}
+
+
+* [Ejecutar Kubernetes Localmente via Minikube](/docs/setup/minikube/)

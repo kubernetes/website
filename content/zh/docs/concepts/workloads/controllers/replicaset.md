@@ -1,29 +1,65 @@
 ---
-reviewers:
-- Kashomon
-- bprashanth
-- madhusudancs
 title: ReplicaSet
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
-ReplicaSet is the next-generation Replication Controller. The only difference
-between a _ReplicaSet_ and a
-[_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) right now is
-the selector support. ReplicaSet supports the new set-based selector requirements
-as described in the [labels user guide](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
-whereas a Replication Controller only supports equality-based selector requirements.
+A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often
+used to guarantee the availability of a specified number of identical Pods.
 -->
 
-ReplicaSet 是下一代的 Replication Controller。 _ReplicaSet_ 和 [_Replication Controller_](/docs/concepts/workloads/controllers/replicationcontroller/) 的唯一区别是选择器的支持。ReplicaSet 支持新的基于集合的选择器需求，这在[标签用户指南](/docs/concepts/overview/working-with-objects/labels/#label-selectors)中有描述。而 Replication Controller 仅支持基于相等选择器的需求。
+ReplicaSet 的目的是维护一组在任何时候都处于运行状态的 Pod 副本的稳定集合。
+因此，它通常用来保证给定数量的、完全相同的 Pod 的可用性。
 
-{{% /capture %}}
+<!-- body -->
+<!--
+## How a ReplicaSet works
 
-{{% capture body %}}
+A ReplicaSet is defined with fields, including a selector that specifies how
+to identify Pods it can acquire, a number of replicas indicating how many Pods
+it should be maintaining, and a pod template specifying the data of new Pods
+it should create to meet the number of replicas criteria. A ReplicaSet then
+fulfills its purpose by creating and deleting Pods as needed to reach the
+desired number. When a ReplicaSet needs to create new Pods, it uses its Pod
+template.
+-->
+## ReplicaSet 的工作原理 {#how-a-replicaset-works}
+
+RepicaSet 是通过一组字段来定义的，包括一个用来识别可获得的 Pod
+的集合的选择算符，一个用来标明应该维护的副本个数的数值，一个用来指定应该创建新 Pod
+以满足副本个数条件时要使用的 Pod 模板等等。每个 ReplicaSet 都通过根据需要创建和
+删除 Pod 以使得副本个数达到期望值，进而实现其存在价值。当 ReplicaSet 需要创建
+新的 Pod 时，会使用所提供的 Pod 模板。
+
+<!--
+A ReplicaSet is linked to its Pods via the Pods'
+[metadata.ownerReferences](/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+field, which specifies what resource the current object is owned by. All Pods
+acquired by a ReplicaSet have their owning ReplicaSet's identifying
+information within their ownerReferences field. It's through this link that
+the ReplicaSet knows of the state of the Pods it is maintaining and plans
+accordingly.
+-->
+ReplicaSet 通过 Pod 上的
+[metadata.ownerReferences](/zh/docs/concepts/workloads/controllers/garbage-collection/#owners-and-dependents)
+字段连接到附属 Pod，该字段给出当前对象的属主资源。
+ReplicaSet 所获得的 Pod 都在其 ownerReferences 字段中包含了属主 ReplicaSet
+的标识信息。正是通过这一连接，ReplicaSet 知道它所维护的 Pod 集合的状态，
+并据此计划其操作行为。
+
+<!--
+A ReplicaSet identifies new Pods to acquire by using its selector. If there is
+a Pod that has no OwnerReference or the OwnerReference is not a {{<
+glossary_tooltip term_id="controller" >}} and it matches a ReplicaSet's
+selector, it will be immediately acquired by said ReplicaSet.
+-->
+ReplicaSet 使用其选择算符来辨识要获得的 Pod 集合。如果某个 Pod 没有
+OwnerReference 或者其 OwnerReference 不是一个 
+{{< glossary_tooltip text="控制器" term_id="controller" >}}，且其匹配到
+某 ReplicaSet 的选择算符，则该 Pod 立即被此 ReplicaSet 获得。
 
 <!--
 ## How to use a ReplicaSet
@@ -43,12 +79,11 @@ creation, deletion and updates. When you use Deployments you don't have to worry
 about managing the ReplicaSets that they create. Deployments own and manage
 their ReplicaSets.
 -->
+## 怎样使用 ReplicaSet   {#how-to-use-a-replicaset}
 
-## 怎样使用 ReplicaSet
+大多数支持 Replication Controllers 的[`kubectl`](/zh/docs/reference/kubectl/kubectl/)命令也支持 ReplicaSets。但[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个例外。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
 
-大多数支持 Replication Controllers 的[`kubectl`](/docs/user-guide/kubectl/)命令也支持 ReplicaSets。但[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是个例外。如果您想要滚动更新功能请考虑使用 Deployment。[`rolling-update`](/docs/reference/generated/kubectl/kubectl-commands#rolling-update) 命令是必需的，而 Deployment 是声明性的，因此我们建议通过 [`rollout`](/docs/reference/generated/kubectl/kubectl-commands#rollout)命令使用 Deployment。
-
-虽然 ReplicaSets 可以独立使用，但今天它主要被[Deployments](/docs/concepts/workloads/controllers/deployment/) 用作协调 Pod 创建、删除和更新的机制。
+虽然 ReplicaSets 可以独立使用，但今天它主要被[Deployments](/zh/docs/concepts/workloads/controllers/deployment/) 用作协调 Pod 创建、删除和更新的机制。
 当您使用 Deployment 时，您不必担心还要管理它们创建的 ReplicaSet。Deployment 会拥有并管理它们的 ReplicaSet。
 
 <!--
@@ -136,7 +171,7 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 
 ## 编写 ReplicaSet Spec
 
-与所有其他 Kubernetes API 对象一样，ReplicaSet  也需要 `apiVersion`、`kind`、和 `metadata` 字段。有关使用清单的一般信息，请参见 [使用 kubectl 管理对象](/docs/concepts/overview/object-management-kubectl/overview/)。
+与所有其他 Kubernetes API 对象一样，ReplicaSet  也需要 `apiVersion`、`kind`、和 `metadata` 字段。有关使用清单的一般信息，请参见 [使用 kubectl 管理对象](/zh/docs/concepts/overview/working-with-objects/object-management/)。
 
 ReplicaSet 也需要 [`.spec`](https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status) 部分。
 
@@ -160,15 +195,15 @@ for example the [Kubelet](/docs/admin/kubelet/) or Docker.
 
 ### Pod 模版
 
-`.spec.template` 是 `.spec` 唯一需要的字段。`.spec.template` 是 [Pod 模版](/docs/concepts/workloads/pods/pod-overview/#pod-templates)。它和 [Pod](/docs/concepts/workloads/pods/pod/) 的语法几乎完全一样，除了它是嵌套的并没有 `apiVersion` 和 `kind`。
+`.spec.template` 是 `.spec` 唯一需要的字段。`.spec.template` 是 [Pod 模版](/zh/docs/concepts/workloads/pods/#pod-templates)。它和 [Pod](/zh/docs/concepts/workloads/pods/) 的语法几乎完全一样，除了它是嵌套的并没有 `apiVersion` 和 `kind`。
 
 除了所需的 Pod 字段之外，ReplicaSet 中的 Pod 模板必须指定适当的标签和适当的重启策略。
 
 对于标签，请确保不要与其他控制器重叠。更多信息请参考 [Pod 选择器](#pod-selector)。
 
-对于 [重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
+对于 [重启策略](/zh/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)，`.spec.template.spec.restartPolicy` 唯一允许的取值是 `Always`，这也是默认值.
 
-对于本地容器重新启动，ReplicaSet 委托给了节点上的代理去执行，例如[Kubelet](/docs/admin/kubelet/) 或 Docker 去执行。
+对于本地容器重新启动，ReplicaSet 委托给了节点上的代理去执行，例如[Kubelet](/zh/docs/reference/command-line-tools-reference/kubelet/) 或 Docker 去执行。
 
 <!--
 ### Pod Selector
@@ -186,7 +221,7 @@ In Kubernetes 1.9 the API version `apps/v1` on the ReplicaSet kind is the curren
 
 ### Pod 选择器
 
-`.spec.selector` 字段是[标签选择器](/docs/concepts/overview/working-with-objects/labels/)。ReplicaSet 管理所有标签匹配与标签选择器的 Pod。它不区分自己创建或删除的 Pod 和其他人或进程创建或删除的pod。这允许在不影响运行中的 Pod 的情况下替换副本集。
+`.spec.selector` 字段是[标签选择器](/zh/docs/concepts/overview/working-with-objects/labels/)。ReplicaSet 管理所有标签匹配与标签选择器的 Pod。它不区分自己创建或删除的 Pod 和其他人或进程创建或删除的pod。这允许在不影响运行中的 Pod 的情况下替换副本集。
 
 `.spec.template.metadata.labels` 必须匹配 `.spec.selector`，否则它将被 API 拒绝。
 
@@ -244,13 +279,13 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 ### 删除 ReplicaSet 和它的 Pod
 
 要删除 ReplicaSet 和它的所有 Pod，使用[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands#delete) 命令。
-默认情况下，[垃圾收集器](/docs/concepts/workloads/controllers/garbage-collection/) 自动删除所有依赖的 Pod。
+默认情况下，[垃圾收集器](/zh/docs/concepts/workloads/controllers/garbage-collection/) 自动删除所有依赖的 Pod。
 
 当使用 REST API 或 `client-go` 库时，您必须在删除选项中将 `propagationPolicy` 设置为 `Background` 或 `Foreground`。例如：
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 > -H "Content-Type: application/json"
 ```
@@ -270,7 +305,7 @@ When using the REST API or the `client-go` library, you must set `propagationPol
 
 ```shell
 kubectl proxy --port=8080
-curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
 > -H "Content-Type: application/json"
 ```
@@ -370,9 +405,9 @@ application using a Deployment, please read [Run a Stateless Application Using a
 
 ### Deployment （推荐）
 
-[`Deployment`](/docs/concepts/workloads/controllers/deployment/) 是一个高级 API 对象，它以 `kubectl rolling-update` 的方式更新其底层副本集及其Pod。
+[`Deployment`](/zh/docs/concepts/workloads/controllers/deployment/) 是一个高级 API 对象，它以 `kubectl rolling-update` 的方式更新其底层副本集及其Pod。
 如果您需要滚动更新功能，建议使用 Deployment，因为 Deployment 与 `kubectl rolling-update` 不同的是：它是声明式的、服务器端的、并且具有其他特性。
-有关使用 Deployment 来运行无状态应用的更多信息，请参阅 [使用 Deployment 运行无状态应用](/docs/tasks/run-application/run-stateless-application-deployment/)。
+有关使用 Deployment 来运行无状态应用的更多信息，请参阅 [使用 Deployment 运行无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/)。
 
 <!--
 ### Bare Pods
@@ -396,7 +431,7 @@ Use a [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) instead o
 
 ### Job
 
-使用[`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/) 代替ReplicaSet，可以用于那些期望自行终止的 Pod。
+使用[`Job`](/zh/docs/concepts/workloads/controllers/job/) 代替ReplicaSet，可以用于那些期望自行终止的 Pod。
 
 <!--
 ### DaemonSet
@@ -409,8 +444,8 @@ safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 
 ### DaemonSet
 
-对于管理那些提供主机级别功能（如主机监控和主机日志）的容器，就要用[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) 而不用 ReplicaSet。
+对于管理那些提供主机级别功能（如主机监控和主机日志）的容器，就要用[`DaemonSet`](/zh/docs/concepts/workloads/controllers/daemonset/) 而不用 ReplicaSet。
 这些 Pod 的寿命与主机寿命有关：这些 Pod 需要先于主机上的其他 Pod 运行，并且在机器准备重新启动/关闭时安全地终止。
 
-{{% /capture %}}
+
 

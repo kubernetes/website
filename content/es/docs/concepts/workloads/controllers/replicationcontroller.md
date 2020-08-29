@@ -8,11 +8,11 @@ feature:
     mata los contenedores que no responden a tus pruebas de salud definidas,
     y no los expone a los clientes hasta que no están listo para servirse.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 hoy en día la forma recomendada de configurar la replicación es con un [`Deployment`](/docs/concepts/workloads/controllers/deployment/) que configura un [`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/).
@@ -22,10 +22,10 @@ Un _ReplicationController_ garantiza que un número determinado de réplicas se 
 en todo momento. En otras palabras, un ReplicationController se asegura que un pod o un conjunto homogéneo de pods
 siempre esté arriba y disponible.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cómo Funciona un ReplicationController
 
@@ -281,7 +281,7 @@ Incluso se plantea excluir el mecanismo de creación de pods a granel ([#170](ht
 El ReplicationController está pensado para ser una primitiva de bloques is intended to be a composable building-block primitive. We expect higher-level APIs and/or tools to be built on top of it and other complementary primitives for user convenience in the future. The "macro" operations currently supported by kubectl (run, scale, rolling-update) are proof-of-concept examples of this. For instance, we could imagine something like [Asgard](http://techblog.netflix.com/2012/06/asgard-web-based-cloud-management-and.html) managing ReplicationControllers, auto-scalers, services, scheduling policies, canaries, etc.
 
 
-## Obejto API
+## Objeto API
 
 El ReplicationController es un recurso de alto nivel en la API REST de Kubernetes. Más detalles acerca del
 objeto API se pueden encontrar aquí:
@@ -327,6 +327,6 @@ terminarlo cuando el servidor está listo para reiniciarse/apagarse.
 
 Lee [Ejecutar Aplicaciones sin Estado con un ReplicationController](/docs/tutorials/stateless-application/run-stateless-ap-replication-controller/).
 
-{{% /capture %}}
+
 
 

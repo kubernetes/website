@@ -2,7 +2,6 @@
 title: " Dashboard - Kubernetes 的全功能 Web 界面 "
 date: 2016-07-15
 slug: dashboard-web-interface-for-kubernetes
-url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
 ---
 
 <!--
@@ -17,25 +16,25 @@ url: /blog/2016/07/Dashboard-Web-Interface-For-Kubernetes
 <!--
 _Editor’s note: this post is part of a [series of in-depth articles](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) on what's new in Kubernetes 1.3_
 
-[Kubernetes Dashboard](http://github.com/kubernetes/dashboard) is a project that aims to bring a general purpose monitoring and operational web interface to the Kubernetes world.&nbsp;Three months ago we [released](https://kubernetes.io/blog/2016/04/building-awesome-user-interfaces-for-kubernetes) the first production ready version, and since then the dashboard has made massive improvements. In a single UI, you’re able to perform majority of possible interactions with your Kubernetes clusters without ever leaving your browser. This blog post breaks down new features introduced in the latest release and outlines the roadmap for the future.&nbsp;  
+[Kubernetes Dashboard](http://github.com/kubernetes/dashboard) is a project that aims to bring a general purpose monitoring and operational web interface to the Kubernetes world.&nbsp;Three months ago we [released](https://kubernetes.io/blog/2016/04/building-awesome-user-interfaces-for-kubernetes) the first production ready version, and since then the dashboard has made massive improvements. In a single UI, you’re able to perform majority of possible interactions with your Kubernetes clusters without ever leaving your browser. This blog post breaks down new features introduced in the latest release and outlines the roadmap for the future.&nbsp;
 -->
 
 _编者按：这篇文章是[一系列深入的文章](https://kubernetes.io/blog/2016/07/five-days-of-kubernetes-1-3) 中关于Kubernetes 1.3的新内容的一部分_
 [Kubernetes Dashboard](http://github.com/kubernetes/dashboard)是一个旨在为 Kubernetes 世界带来通用监控和操作 Web 界面的项目。三个月前，我们[发布](https://kubernetes.io/blog/2016/04/building-awesome-user-interfaces-for-kubernetes)第一个面向生产的版本，从那时起 dashboard 已经做了大量的改进。在一个 UI 中，您可以在不离开浏览器的情况下，与 Kubernetes 集群执行大多数可能的交互。这篇博客文章分解了最新版本中引入的新功能，并概述了未来的路线图。
 
 <!--
-**Full-Featured Dashboard**  
+**Full-Featured Dashboard**
 
-Thanks to a large number of contributions from the community and project members, we were able to deliver many new features for [Kubernetes 1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). We have been carefully listening to all the great feedback we have received from our users (see the [summary infographics](http://static.lwy.io/img/kubernetes_dashboard_infographic.png)) and addressed the highest priority requests and pain points.  
+Thanks to a large number of contributions from the community and project members, we were able to deliver many new features for [Kubernetes 1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1.3-bridging-cloud-native-and-enterprise-workloads). We have been carefully listening to all the great feedback we have received from our users (see the [summary infographics](http://static.lwy.io/img/kubernetes_dashboard_infographic.png)) and addressed the highest priority requests and pain points.
 -->
 
-**全功能的 Dashboard** 
+**全功能的 Dashboard**
 
 由于社区和项目成员的大量贡献，我们能够为[Kubernetes 1.3发行版](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)提供许多新功能。我们一直在认真听取用户的反馈(参见[摘要信息图表](http://static.lwy.io/img/kubernetes_dashboard_infographic.png))，并解决了最高优先级的请求和难点。
 -->
 
 <!--
-The Dashboard UI now handles all workload resources. This means that no matter what workload type you run, it is visible in the web interface and you can do operational changes on it. For example, you can modify your stateful MySQL installation with [Pet Sets](/docs/user-guide/petset/), do a rolling update of your web server with Deployments or install cluster monitoring with DaemonSets.&nbsp;  
+The Dashboard UI now handles all workload resources. This means that no matter what workload type you run, it is visible in the web interface and you can do operational changes on it. For example, you can modify your stateful MySQL installation with [Pet Sets](/docs/user-guide/petset/), do a rolling update of your web server with Deployments or install cluster monitoring with DaemonSets.&nbsp;
 
 
 

@@ -1,11 +1,11 @@
 ---
 title: Fine Parallel Processing Using a Work Queue
-content_template: templates/task
+content_type: task
 min-kubernetes-server-version: v1.8
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 In this example, we will run a Kubernetes Job with multiple parallel
 worker processes in a given pod.
@@ -16,32 +16,26 @@ from a task queue, processes it, and repeats until the end of the queue is reach
 Here is an overview of the steps in this example:
 
 1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
-  our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
-  a custom work-queue client library because AMQP does not provide a good way for clients to
-  detect when a finite-length work queue is empty.  In practice you would set up a store such
-  as Redis once and reuse it for the work queues of many jobs, and other things.
+   our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
+   a custom work-queue client library because AMQP does not provide a good way for clients to
+   detect when a finite-length work queue is empty.  In practice you would set up a store such
+   as Redis once and reuse it for the work queues of many jobs, and other things.
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
-  this example, a message is just an integer that we will do a lengthy computation on.
+   this example, a message is just an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-  one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 
-{{% /capture %}}
+## {{% heading "prerequisites" %}}
 
-
-{{% capture prerequisites %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 Be familiar with the basic,
-non-parallel, use of [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+non-parallel, use of [Job](/docs/concepts/workloads/controllers/job/).
 
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Starting Redis
 
@@ -226,18 +220,17 @@ Working on lemon
 
 As you can see, one of our pods worked on several work units.
 
-{{% /capture %}}
-
-{{% capture discussion %}}
+<!-- discussion -->
 
 ## Alternatives
 
 If running a queue service or modifying your containers to use a work queue is inconvenient, you may
-want to consider one of the other [job patterns](/docs/concepts/jobs/run-to-completion-finite-workloads/#job-patterns).
+want to consider one of the other
+[job patterns](/docs/concepts/workloads/controllers/job/#job-patterns).
 
 If you have a continuous stream of background processing work to run, then
 consider running your background workers with a `ReplicaSet` instead,
 and consider running a background processing library such as
 [https://github.com/resque/resque](https://github.com/resque/resque).
 
-{{% /capture %}}
+

@@ -2,7 +2,6 @@
 title: " Kubernetes 社区会议记录 - 20160204 "
 date: 2016-02-09
 slug: kubernetes-community-meeting-notes
-url: /blog/2016/02/Kubernetes-Community-Meeting-Notes
 ---
 <!--
 ---
@@ -37,7 +36,7 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
 -->
 * 书记员：Rob Hirschfeld
 * 演示视频（20分钟）：CoreOS rkt + Kubernetes[Shaya Potter]
-    * 期待在未来几个月内看到与rkt和k8s的整合（“rkt-netes”）。 还没有集成到 v1.2版本中。   
+    * 期待在未来几个月内看到与rkt和k8s的整合（“rkt-netes”）。 还没有集成到 v1.2版本中。
     * Shaya 做了一个演示（8分钟的会议视频参考）
         * rkt的CLI显示了旋转容器
         * [注意：音频在点数上是乱码]
@@ -46,11 +45,11 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
         * Dawn Chen:
             * 将 rkt 与 kubernetes 集成的其余问题：1）cadivsor 2） DNS 3）与日志记录相关的错误
             * 但是需要在 e2e 测试套件上做更多的工作
-<!--    
+<!--
 * Use Case (10 min): eBay k8s on OpenStack and OpenStack on k8s [Ashwin Raveendran]
     * eBay is currently running Kubernetes on OpenStack
     * Goal for eBay is to manage the OpenStack control plane w/ k8s.  Goal would be to achieve upgrades
-    * OpenStack Kolla creates containers for the control plane.  Uses Ansible+Docker for management of the containers.  
+    * OpenStack Kolla creates containers for the control plane.  Uses Ansible+Docker for management of the containers.
     * Working on k8s control plan management - Saltstack is proving to be a management challenge at the scale they want to operate.  Looking for automated management of the k8s control plane.
 -->
 * 用例（10分钟）：在 OpenStack 上的 eBay k8s 和 k8s 上的 OpenStack [Ashwin Raveendran]
@@ -90,7 +89,7 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
        * 我们希望在多个平台上进行测试的共识。
        * 为测试报告提供一个全面转储会很有帮助
        * 可以使用"phone-home"收集异常
-       
+
 
 <!--
 * 1.2 Release Watch
@@ -102,7 +101,7 @@ Kubernetes 贡献社区在每周四 10:00 PT 开会,通过视频会议讨论项�
 * GSoC [Sarah]
 
 <!--
-To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation -- February 11th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].   
+To get involved in the Kubernetes community consider joining our [Slack channel][2], taking a look at the [Kubernetes project][3] on GitHub, or join the [Kubernetes-dev Google group][4]. If you're really excited, you can do all of the above and join us for the next community conversation -- February 11th, 2016. Please add yourself or a topic you want to know about to the [agenda][5] and get a calendar invitation by joining [this group][6].
 -->
 要参与 Kubernetes 社区，请考虑加入我们的[Slack 频道][2]，查看 GitHub上的 [Kubernetes 项目][3]，或加入[Kubernetes-dev Google 小组][4]。如果你真的很兴奋，你可以完成上述所有工作并加入我们的下一次社区对话-2016年2月11日。请将您自己或您想要了解的主题添加到[议程][5]并通过加入[此组][6]来获取日历邀请。
 

@@ -1,11 +1,11 @@
 ---
 title: DC/OS上のKubernetes
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築する為の簡単な選択肢を提供します。それは
+Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築するための簡単な選択肢を提供します。それは
 
 * 純粋なアップストリームのKubernetes
 * シングルクリッククラスター構築
@@ -14,12 +14,12 @@ Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築�
 
 です。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 公式Mesosphereガイド
 
 DC/OS入門の正規のソースは[クイックスタートリポジトリ](https://github.com/mesosphere/dcos-kubernetes-quickstart)にあります。
 
-{{% /capture %}}
+

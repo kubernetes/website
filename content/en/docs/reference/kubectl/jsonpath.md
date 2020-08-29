@@ -1,14 +1,14 @@
 ---
 title: JSONPath Support
-content_template: templates/concept
+content_type: concept
 weight: 25
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Kubectl supports JSONPath template.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 JSONPath template is composed of JSONPath expressions enclosed by curly braces {}.
 Kubectl uses JSONPath expressions to filter on specific fields in the JSON object and format the output.
@@ -89,11 +89,25 @@ kubectl get pods -o=jsonpath="{.items[*]['metadata.name', 'status.capacity']}"
 kubectl get pods -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.startTime}{"\n"}{end}'
 ```
 
+{{< note >}}
 On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
 
 ```cmd
-C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
-C:\> kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{'\t'}{.status.startTime}{'\n'}{end}"
+kubectl get pods -o=jsonpath="{range .items[*]}{.metadata.name}{\"\t\"}{.status.startTime}{\"\n\"}{end}"
 ```
+{{< /note >}}
 
-{{% /capture %}}
+{{< note >}}
+
+JSONPath regular expressions are not supported. If you want to match using regular expressions, you can use a tool such as `jq`.
+
+```shell
+# kubectl does not support regular expressions for JSONpath output
+# The following command does not work
+kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
+
+# The following command achieves the desired result
+kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+```
+{{< /note >}}

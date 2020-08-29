@@ -1,14 +1,14 @@
 ---
 title: Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Objek-objek Kubernetes dapat dibuat, diperbarui, dan dihapus dengan menjalankan perintah `kubectl apply` terhadap file-file konfigurasi objek yang disimpan dalam sebuah direktori secara rekursif sesuai dengan kebutuhan. Perintah `kubectl diff` bisa digunakan untuk menampilkan pratinjau tentang perubahan apa saja yang akan dibuat oleh perintah `kubectil apply`.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kelebihan dan kekurangan
 
@@ -25,8 +25,8 @@ Lihat [Pengelolaan Objek Kubernetes](/docs/concepts/overview/object-management-k
 Konfigurasi objek secara deklaratif membutuhkan pemahaman yang baik
 tentang definisi dan konfigurasi objek-objek Kubernetes. Jika belum pernah, kamu disarankan untuk membaca terlebih dulu dokumen-dokumen berikut:
 
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes Menggunakan File Konfigurasi Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Pengelolaan Objek Kubernetes Menggunakan File Konfigurasi Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
 
 Berikut adalah beberapa defnisi dari istilah-istilah yang digunakan
 dalam dokumen ini:
@@ -860,9 +860,10 @@ template:
       controller-selector: "extensions/v1beta1/deployment/nginx"
 ```
 
-{{% capture whatsnext %}}
-- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/docs/concepts/overview/object-management-kubectl/imperative-command/)
-- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/imperative-config/)
+## {{% heading "whatsnext" %}}
+
+- [Pengelolaan Objek Kubernetes Menggunakan Perintah Imperatif](/id/docs/concepts/overview/object-management-kubectl/imperative-command/)
+- [Pengelolaan Objek Kubernetes secara Imperatif Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Rujukan API Kubernetes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+

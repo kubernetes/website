@@ -1,14 +1,14 @@
 ---
 title: Proxies in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains proxies used with Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Proxies
 
@@ -62,6 +62,6 @@ will typically ensure that the latter types are setup correctly.
 
 Proxies have replaced redirect capabilities.  Redirects have been deprecated.
 
-{{% /capture %}}
+
 
 

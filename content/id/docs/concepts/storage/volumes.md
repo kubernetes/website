@@ -1,22 +1,22 @@
 ---
 title: Volume
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Berkas-berkas yang disimpan di _disk_ di dalam Container bersifat tidak permanen (akan terhapus seiring dengan dihapusnya Container/Pod), yang menimbulkan beberapa masalah untuk aplikasi biasa saat berjalan di dalam Container. Pertama, saat sebuah Container mengalami kegagalan, Kubelet akan memulai kembali Container tersebut, tetapi semua berkas di dalamnya akan hilang - Container berjalan dalam kondisi yang bersih. Kedua, saat menjalankan banyak Container bersamaan di dalam sebuah `Pod`, biasanya diperlukan untuk saling berbagi berkas-berkas di antara Container-container tersebut. Kedua masalah tersebut dipecahkan oleh abstraksi `Volume` pada Kubernetes.
 
 Pengetahuan tentang [Pod](/docs/user-guide/pods) disarankan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Latar Belakang
 
-Docker juga memiliki konsep _[volume]_(https://docs.docker.com/engine/admin/volumes/), walaupun konsepnya Docker agak lebih fleksibel dan kurang dikelola. Pada Docker, sebuah volume adalah sesederhana sebuah direktori pada _disk_ atau  di dalam Container lainnya. _Lifetime_ tidak dikelola dan hingga baru-baru ini hanya ada volume yang didukung _disk_ lokal. Docker sekarang menyediakan _driver_ untuk volume, namun fungsionalitasnya masih sangat terbatas (misalnya hingga Docker 1.7 hanya ada satu _driver_ volume yang diizinkan untuk setiap Container, dan tidak ada cara untuk menyampaikan parameter kepada volume).
+Docker juga memiliki konsep _[volume]_(https://docs.docker.com/storage/), walaupun konsepnya Docker agak lebih fleksibel dan kurang dikelola. Pada Docker, sebuah volume adalah sesederhana sebuah direktori pada _disk_ atau  di dalam Container lainnya. _Lifetime_ tidak dikelola dan hingga baru-baru ini hanya ada volume yang didukung _disk_ lokal. Docker sekarang menyediakan _driver_ untuk volume, namun fungsionalitasnya masih sangat terbatas (misalnya hingga Docker 1.7 hanya ada satu _driver_ volume yang diizinkan untuk setiap Container, dan tidak ada cara untuk menyampaikan parameter kepada volume).
 
 Sebaliknya, sebuah Volume Kubernetes memiliki _lifetime_ yang gamblang - sama dengan _lifetime_ Pod yang berisi Volume tersebut. Oleh karena itu, sebuah Volume bertahan lebih lama dari Container-container yang berjalan di dalam Pod tersebut, dan data di Volum tersebut juga dipertahankan melewati diulangnya Container. Tentu saja, saat sebuah Pod berakhir, Volume tersebut juga akan berakhir/terhapus. Dan mungkin lebih penting lagi, Kubernetes mendukung banyak jenis Volume, dan sebuah Pod dapat menggunakan sebanyak apapun Volume secara bersamaan.
 
@@ -185,7 +185,7 @@ Pada saat fitur migrasi CSI untuk Cinder diaktifkan, fitur ini akan menterjemahk
 
 ### configMap {#configmap}
 
-Sumber daya [`configMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/) memungkinkan kamu untuk menyuntikkan data konfigurasi ke dalam Pod.
+Sumber daya [`configMap`](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) memungkinkan kamu untuk menyuntikkan data konfigurasi ke dalam Pod.
 Data yang ditaruh di dalam sebuah objek `ConfigMap` dapat dirujuk dalam sebuah Volume dengan tipe `configMap` dan kemudian digunakan oleh aplikasi/container yang berjalan di dalam sebuah Pod.
 
 Saat mereferensikan sebuah objek `configMap`, kamu tinggal memasukkan nama ConfigMap tersebut ke dalam rincian Volume yang bersangkutan. Kamu juga dapat mengganti _path_ spesifik yang akan digunakan pada ConfigMap. Misalnya, untuk menambatkan ConfigMap `log-config` pada Pod yang diberi nama `configmap-pod`, kamu dapat menggunakan YAML ini:
@@ -215,7 +215,7 @@ ConfigMap `log-config` ditambatkan sebagai sebuah Volume, dan semua isinya yang 
 Perlu dicatat bahwa _path_ tersebut berasal dari isian `mountPath` pada Volume, dan `path` yang ditunjuk dengan `key` bernama `log_level`.
 
 {{< caution >}}
-Kamu harus membuat sebuah [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) sebelum kamu dapat menggunakannya.
+Kamu harus membuat sebuah [ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) sebelum kamu dapat menggunakannya.
 {{< /caution >}}
 
 {{< note >}}
@@ -346,7 +346,7 @@ Fitur [Regional Persistent Disks](https://cloud.google.com/compute/docs/disks/#r
 
 #### Menyediakan sebuah Regional PD PersistentVolume Secara Manual
 
-Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/docs/concepts/storage/storage-classes/#gce).
+Penyediaan secara dinamis mungkin dilakukan dengan sebuah [StorageClass untuk GCE PD](/id/docs/concepts/storage/storage-classes/#gce).
 Sebelum membuat sebuah PersistentVolume, kamu harus membuat PD-nya:
 
 ```shell
@@ -533,7 +533,7 @@ Kolom `nodeAffinity` ada PersistentVolue dibutuhkan saat menggunakan Volume `loc
 
 Kolom `volumeMode` pada PersistentVolume sekarang dapat disetel menjadi "Block" (menggantikan nilai bawaan "Filesystem") untuk membuka Volume `local` tersebut sebagai media penyimpanan blok mentah. Hal ini membutuhkan diaktifkannya _Alpha feature gate_ `BlockVolume`.
 
-Saat menggunakan Volume `local`, disarankan untuk membuat sebuah StorageClass dengan `volumeBindingMode` yang disetel menjadi `WaitForFirstConsumer`. Lihat[contohnya](/docs/concepts/storage/storage-classes/#local). Menunda pengikatan Volume memastikan bahwa keputusan pengikatan PersistentVolumeClaim juga akan dievaluasi terhadap batasan-batasan Node yang berlaku pada Pod, seperti kebutuhan sumber daya Node, `nodeSelector`, `podAffinity`, dan `podAntiAffinity`.
+Saat menggunakan Volume `local`, disarankan untuk membuat sebuah StorageClass dengan `volumeBindingMode` yang disetel menjadi `WaitForFirstConsumer`. Lihat[contohnya](/id/docs/concepts/storage/storage-classes/#local). Menunda pengikatan Volume memastikan bahwa keputusan pengikatan PersistentVolumeClaim juga akan dievaluasi terhadap batasan-batasan Node yang berlaku pada Pod, seperti kebutuhan sumber daya Node, `nodeSelector`, `podAffinity`, dan `podAntiAffinity`.
 
 Sebuah penyedia statis eksternal dapat berjalan secara terpisah untuk memperbaik pengaturan siklus hidup Volume `local`. Perlu dicatat bahwa penyedia ini belum mendukung _dynamic provisioning_. Untuk contoh bagaimana menjalankan penyedia Volume `local` eksternal, lihat [petunjuk penggunaannya](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner).
 
@@ -554,9 +554,9 @@ Lihat [contoh NFS](https://github.com/kubernetes/examples/tree/{{< param "github
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
-Sebuah Volume `persistentVolumeClaim` digunakan untuk menambatkan sebuah [PersistentVolume](/docs/concepts/storage/persistent-volumes/) ke dalam sebuag Pod. PersistentVolume adalah sebuah cara bagi pengguna untuk "mengklaim" penyimpanan yang _durable_ (seperti sebuah GCE PD atau sebuah volume iSCSI) tanpa mengetahui detil lingkungan _cloud_ yang bersangkutan.
+Sebuah Volume `persistentVolumeClaim` digunakan untuk menambatkan sebuah [PersistentVolume](/id/docs/concepts/storage/persistent-volumes/) ke dalam sebuag Pod. PersistentVolume adalah sebuah cara bagi pengguna untuk "mengklaim" penyimpanan yang _durable_ (seperti sebuah GCE PD atau sebuah volume iSCSI) tanpa mengetahui detil lingkungan _cloud_ yang bersangkutan.
 
-Lihat [contoh PersistentVolumes](/docs/concepts/storage/persistent-volumes/) untuk lebih lanjut.
+Lihat [contoh PersistentVolumes](/id/docs/concepts/storage/persistent-volumes/) untuk lebih lanjut.
 
 ### projected {#projected}
 
@@ -742,7 +742,7 @@ Lihat [contoh RBD](https://github.com/kubernetes/examples/tree/{{< param "github
 
 ### scaleIO {#scaleio}
 
-ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat klaster-klaster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/docs/concepts/storage/persistent-volumes/#scaleio)).
+ScaleIO adalah _platform_ penyimpanan berbasis perangkat lunak yang dapat menggunakan perangkat keras yang sudah tersedia untuk membuat klaster-klaster media penyimpanan terhubung jaringan yang _scalable_. _Plugin_ Volume `scaleIO` memungkinkan Pod-pod yang di-_deploy_ untuk mengakses Volume-volume ScaleIO yang telah tersedia (atau dapat menyediakan volume-volume untuk PersistentVolumeClaim secara dinamis, lihat [Persistent Volume ScaleIO](/id/docs/concepts/storage/persistent-volumes/#scaleio)).
 
 {{< caution >}}
 Kamu harus memiliki klaster ScaleIO yang berjalan dengan volume-volume yang sudah dibuat sebelum kamu dapat menggunakannya.
@@ -1033,7 +1033,7 @@ Dimulai pada versi 1.11, CSI memperkenalkan dukungak untuk volume blok _raw_, ya
 
 Dukungan untuk volume blok CSI bersifat _feature-gate_, tapi secara bawaan diaktifkan. Kedua _feature-gate_ yang harus diaktifkan adalah `BlockVolume` dan `CSIBlockVolume`.
 
-Pelajari cara [menyiapkan PV/PVC dengan dukungan volume blok _raw_](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
+Pelajari cara [menyiapkan PV/PVC dengan dukungan volume blok _raw_](/id/docs/concepts/storage/persistent-volumes/#raw-block-volume-support).
 
 #### Volume CSI Sementara
 
@@ -1144,8 +1144,9 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 
 * Ikuti contoh [memasang WordPress dan MySQL dengan Persistent Volume](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 
-{{% /capture %}}
+

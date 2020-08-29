@@ -2,9 +2,9 @@
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
-full_link: /docs/concepts/workloads/controllers/statefulset/
+full_link: /ja/docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  Manages the deployment and scaling of a set of Pods, *and provides guarantees about the ordering and uniqueness* of these Pods.
+  StatefulSetはDeploymentとPodのセットのスケーリングを管理し、それらのPodの *順序と一意性を保証* します。
 
 aka: 
 tags:
@@ -14,7 +14,7 @@ tags:
 - storage
 ---
 
-StatefulSetはDeploymentと{{< glossary_tooltip text="Pod" term_id="pod" >}}のセットのスケーリングの管理をし、それらのPodの*順序とユニーク性を保証* します。
+StatefulSetはDeploymentと{{< glossary_tooltip text="Pod" term_id="pod" >}}のセットのスケーリングを管理し、それらのPodの*順序と一意性を保証* します。
 
 <!--more--> 
 

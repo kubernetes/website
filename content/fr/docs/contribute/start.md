@@ -2,14 +2,14 @@
 title: Commencez à contribuer
 description: Démarrage contribution Kubernetes
 slug: start
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Si vous souhaitez commencer à contribuer à la documentation de Kubernetes, cette page et les rubriques associées peuvent vous aider à démarrer.
 Vous n'avez pas besoin d'être un développeur ou un rédacteur technique pour avoir un impact important sur la documentation et l'expérience utilisateur de Kubernetes !
@@ -17,9 +17,9 @@ Tout ce dont vous avez besoin pour les sujets de cette page est un compte [GitHu
 
 Si vous recherchez des informations sur la façon de commencer à contribuer aux référentiels de code Kubernetes, reportez-vous à la section sur [les directives de la communauté Kubernetes](https://github.com/kubernetes/community/blob/master/governance.md).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Les bases de notre documentation
 
@@ -70,7 +70,7 @@ Pour plus d'informations sur la contribution à la documentation dans plusieurs 
 
 Si vous souhaitez démarrer une nouvelle traduction, voir ["Traduction"](/docs/contribute/localization/).
 
-## Créer des demander recevables
+## Créer des demandes recevables
 
 Toute personne possédant un compte GitHub peut soumettre un problème (rapport de bogue) à la documentation de Kubernetes.
 Si vous voyez quelque chose qui ne va pas, même si vous ne savez pas comment le réparer, [ouvrez un ticket](#how-to-file-an-issue).
@@ -282,10 +282,11 @@ Elles sont écrites en collaboration avec l'équipe marketing de Kubernetes, qui
 Regardez la source des [études de cas existantes](https://github.com/kubernetes/website/tree/master/content/en/case-studies).
 Utilisez le [Formulaire de soumission d'étude de cas Kubernetes](https://www.cncf.io/people/end-user-community/) pour soumettre votre proposition.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si vous êtes à l'aise avec toutes les tâches décrites dans cette rubrique et que vous souhaitez vous engager plus profondément dans l'équipe de documentation de Kubernetes, lisez le [guide de contribution de la documentation intermédiaire](/docs/contribute/intermediate/).
 
-{{% /capture %}}
+

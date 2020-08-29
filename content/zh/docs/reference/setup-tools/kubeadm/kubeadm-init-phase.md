@@ -26,7 +26,7 @@ and behind the scene both use the same code.
 <!--
 ## kubeadm init phase preflight {#cmd-phase-preflight}
 -->
-## kubeadm 初始化启动前检查阶段 {#cmd-phase-preflight}
+## kubeadm init phase preflight {#cmd-phase-preflight}
 
 <!--
 Using this command you can execute preflight checks on a control-plane node.
@@ -40,7 +40,7 @@ Using this command you can execute preflight checks on a control-plane node.
 <!--
 ## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
 -->
-## kubeadm 初始化启动 kubelet 阶段 {#cmd-phase-kubelet-start}
+## kubeadm init phase kubelet-start {#cmd-phase-kubelet-start}
 
 <!--
 This phase will write the kubelet configuration file and environment file and then start the kubelet.
@@ -54,7 +54,7 @@ This phase will write the kubelet configuration file and environment file and th
 <!--
 ## kubeadm init phase certs {#cmd-phase-certs}
 -->
-## kubeadm 初始化证书阶段 {#cmd-phase-certs}
+## kubeadm init phase certs {#cmd-phase-certs}
 
 <!--
 Can be used to create all required certificates by kubeadm.
@@ -80,7 +80,7 @@ Can be used to create all required certificates by kubeadm.
 <!--
 ## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
 -->
-## kubeadm 初始化 kubeconfig 阶段 {#cmd-phase-kubeconfig}
+## kubeadm init phase kubeconfig {#cmd-phase-kubeconfig}
 
 <!--
 You can create all required kubeconfig files by calling the `all` subcommand or call them individually.
@@ -100,7 +100,7 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 <!--
 ## kubeadm init phase control-plane {#cmd-phase-control-plane}
 -->
-## kubeadm 初始化 control-plane 阶段 {#cmd-phase-control-plane}
+## kubeadm init phase control-plane {#cmd-phase-control-plane}
 
 <!--
 Using this phase you can create all required static Pod files for the control plane components.
@@ -119,7 +119,7 @@ Using this phase you can create all required static Pod files for the control pl
 <!--
 ## kubeadm init phase etcd {#cmd-phase-etcd}
 -->
-## kubeadm 初始化 etcd 阶段 {#cmd-phase-etcd}
+## kubeadm init phase etcd {#cmd-phase-etcd}
 
 <!--
 Use the following phase to create a local etcd instance based on a static Pod file.
@@ -135,7 +135,7 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 <!--
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
 -->
-## kubeadm 初始化上传 config 配置阶段 {#cmd-phase-upload-config}
+## kubeadm init phase upload-config {#cmd-phase-upload-config}
 
 <!--
 You can use this command to upload the kubeadm configuration to your cluster.
@@ -154,7 +154,7 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 <!--
 ## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
 -->
-## kubeadm 初始化上传证书阶段 {#cmd-phase-upload-certs}
+## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
 
 <!--
 Use the following phase to upload control-plane certificates to the cluster.
@@ -170,7 +170,7 @@ By default the certs and encryption key expire after two hours.
 <!--
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 -->
-## kubeadm 初始化标记控制平面阶段 {#cmd-phase-mark-control-plane}
+## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 <!--
 Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
@@ -185,7 +185,7 @@ Use the following phase to label and taint the node with the `node-role.kubernet
 <!--
 ## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
 -->
-## kubeadm 初始化引导令牌阶段 {#cmd-phase-bootstrap-token}
+## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
 
 <!--
 Use the following phase to configure bootstrap tokens.
@@ -200,7 +200,7 @@ Use the following phase to configure bootstrap tokens.
 <!--
 ## kubeadm init phase addon {#cmd-phase-addon}
 -->
-## kubeadm 初始化插件阶段 {#cmd-phase-addon}
+## kubeadm init phase addon {#cmd-phase-addon}
 
 <!--
 You can install all the available addons with the `all` subcommand, or

@@ -8,17 +8,17 @@ cnapprove:
 - fatalc
 <!-- title: Authorization Overview -->
 title: 授权概述
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- Learn more about Kubernetes authorization, including details about creating
 policies using the supported authorization modules. -->
 了解有关 Kubernetes 授权的更多信息，包括使用支持的授权模块创建策略的详细信息。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!-- In Kubernetes, you must be authenticated (logged in) before your request can be
 authorized (granted permission to access). For information about authentication,
 see [Accessing Control Overview](/docs/reference/access-authn-authz/controlling-access/).
@@ -292,13 +292,13 @@ mode.
 并模拟命名空间中的任何服务帐户并执行帐户可以执行的任何操作。
 无论采用何种授权方式，这都适用。
 {{< /caution >}}
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * To learn more about Authentication, see **Authentication** in [Controlling Access to the Kubernetes API](/docs/reference/access-authn-authz/controlling-access/).
 * To learn more about Admission Control, see [Using Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/).
 -->
 * 要了解有关身份验证的更多信息，请参阅 **身份验证** [控制对 Kubernetes API 的访问](/docs/reference/access-authn-authz/controlling-access/)。
 * 要了解有关准入控制的更多信息，请参阅 [使用准入控制器](/docs/reference/access-authn-authz/admission-controllers/)。
-{{% /capture %}}

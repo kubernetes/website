@@ -1,13 +1,13 @@
 ---
 title: Utilisation des modèles de page
-content_template: templates/concept
+content_type: concept
 weight: 30
 card:
   name: contribute
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Lorsque vous ajoutez de nouveaux sujets, appliquez-leur l'un des templates suivants.
 Ceci standardise l'expérience utilisateur d'une page donnée.
@@ -19,9 +19,9 @@ Chaque nouveau sujet doit utiliser un modèle.
 Si vous n'êtes pas sûr du modèle à utiliser pour un nouveau sujet, commencez par un [template concept](#concept-template).
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Concept template
 
@@ -31,7 +31,7 @@ Généralement, les pages conceptuelles n'incluent pas de séquences d'étapes, 
 
 Pour écrire une nouvelle page concept, créez un fichier Markdown dans un sous-répertoire du répertoire `/content/fr/docs/concepts`, avec les caractéristiques suivantes :
 
-- Dans l'entête YAML de la page, définissez `content_template: templates/concept`.
+- Dans l'entête YAML de la page, définissez `content_type: concept`.
 - Dans le corps de la page, définissez les variables `capture` requises et les variables optionnelles que vous voulez inclure :
 
     | Variable      | Required? |
@@ -72,7 +72,7 @@ Les pages de tâches ont une explication minimale, mais fournissent souvent des 
 
 Pour écrire une nouvelle page de tâches, créez un fichier Markdown dans un sous-répertoire du répertoire `/content/fr/docs/tasks`, avec les caractéristiques suivantes :
 
-- Dans l'entête YAML de la page, définissez `content_template: templates/task`.
+- Dans l'entête YAML de la page, définissez `content_type: task`.
 - Dans le corps de la page, définissez les variables `capture` requises et les variables optionnelles que vous voulez inclure :
 
     | Variable      | Required? |
@@ -132,7 +132,7 @@ Les didacticiels peuvent inclure des explications au niveau de la surface, mais 
 
 Pour écrire une nouvelle page de tutoriel, créez un fichier Markdown dans un sous-répertoire du répertoire `/content/fr/docs/tutorials`, avec les caractéristiques suivantes :
 
-- Dans l'entête YAML de la page, définissez `content_template: templates/tutorial`.
+- Dans l'entête YAML de la page, définissez `content_type: tutorial`.
 - Dans le corps de la page, définissez les variables `capture` requises et les variables optionnelles que vous voulez inclure :
 
     | Variable      | Required? |
@@ -187,11 +187,12 @@ Pour écrire une nouvelle page de tutoriel, créez un fichier Markdown dans un s
 
 Voici un exemple de sujet publié qui utilise le modèle de tutoriel [Running a Stateless Application Using a Deployment](/docs/tutorials/stateless-application/run-stateless-application-deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - En savoir plus sur le [style guide](/docs/contribute/style/style-guide/)
 - En savoir plus sur l'[organisation des contenus](/docs/contribute/style/content-organization/)
 
-{{% /capture %}}
+

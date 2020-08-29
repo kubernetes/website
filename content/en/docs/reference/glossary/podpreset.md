@@ -10,9 +10,9 @@ aka:
 tags:
 - operation
 ---
- An API object that injects information such as secrets, volume mounts, and environment variables into pods at creation time.
+ An API object that injects information such as secrets, volume mounts, and environment variables into {{< glossary_tooltip text="Pods" term_id="pod" >}} at creation time.
 
 <!--more--> 
 
-This object chooses the pods to inject information into using standard selectors. This allows the podspec definitions to be nonspecific, decoupling the podspec from environment specific configuration.
+This object chooses the Pods to inject information into using standard selectors. This allows the podspec definitions to be nonspecific, decoupling the podspec from environment specific configuration.
 

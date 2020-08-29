@@ -1,18 +1,18 @@
 ---
 title: Composants de Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Ce document résume les divers composants binaires requis pour livrer
 un cluster Kubernetes fonctionnel.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Composants Master
 
 Les composants Master fournissent le plan de contrôle (control plane) du cluster.
@@ -120,9 +120,10 @@ fournit une interface utilisateur pour parcourir ces données.
 Un mécanisme de [logging au niveau cluster](/docs/concepts/cluster-administration/logging/) est chargé
 de sauvegarder les logs des conteneurs dans un magasin de logs central avec une interface de recherche/navigation.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * En savoir plus sur les [Nœuds](/fr/docs/concepts/architecture/nodes/)
 * En savoir plus sur [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
 * Lire la [documentation officielle d'etcd](https://etcd.io/docs/)
-{{% /capture %}}
+

@@ -1,27 +1,27 @@
 ---
 title: Konsep
 main_menu: true
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Bagian konsep ini membantu kamu belajar tentang bagian-bagian sistem serta abstraksi
 yang digunakan Kubernetes untuk merepresentasikan klaster kamu, serta membantu
 kamu belajar lebih dalam bagaimana cara kerja Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Ikhtisar
 
-Untuk menggunakan Kubernetes, kamu menggunakan obyek-obyek *Kubernetes API* untuk merepresentasikan
+Untuk menggunakan Kubernetes, kamu menggunakan objek-objek *Kubernetes API* untuk merepresentasikan
 *state* yang diinginkan: apa yang aplikasi atau *workload* lain yang ingin kamu
 jalankan, *image* kontainer yang digunakan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, dan lain sebagainya. Kamu membuat *state* yang diinginkan dengan cara membuat
-obyek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
+objek dengan menggunakan API Kubernetes, dan biasanya menggunakan `command-line interface`, yaitu `kubectl`.
 Kamu juga dapat secara langsung berinteraksi dengan klaster untuk membuat atau mengubah
 *state* yang kamu inginkan.
 
@@ -38,43 +38,43 @@ suatu aplikasi, dan lain sebagainya. *Control Plane* Kubernetes terdiri dari sek
   * **[kubelet](/docs/admin/kubelet/)**, yang menjadi perantara komunikasi dengan *master*.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, sebuah *proxy* yang merupakan representasi jaringan yang ada pada setiap *node*.
 
-## Obyek Kubernetes
+## Objek Kubernetes
 
 Kubernetes memiliki beberapa abstraksi yang merepresentasikan *state* dari sistem kamu:
 apa yang aplikasi atau *workload* lain yang ingin kamu jalankan, jaringan atau *resource disk* apa yang ingin
 kamu sediakan, serta beberapa informasi lain terkait apa yang sedang klaster kamu lakukan.
-Abstraksi ini direpresentasikan oleh obyek yang tersedia di API Kubernetes;
-lihat [ikhtisar obyek-obyek Kubernetes](/docs/concepts/abstractions/overview/)
+Abstraksi ini direpresentasikan oleh objek yang tersedia di API Kubernetes;
+lihat [ikhtisar objek-objek Kubernetes](/docs/concepts/abstractions/overview/)
 untuk penjelasan yang lebih mendetail.
 
-Obyek mendasar Kubernetes termasuk:
+Objek mendasar Kubernetes termasuk:
 
-* [Pod](/docs/concepts/workloads/pods/pod-overview/)
-* [Service](/docs/concepts/services-networking/service/)
-* [Volume](/docs/concepts/storage/volumes/)
-* [Namespace](/docs/concepts/overview/working-with-objects/namespaces/)
+* [Pod](/id/docs/concepts/workloads/pods/pod-overview/)
+* [Service](/id/docs/concepts/services-networking/service/)
+* [Volume](/id/docs/concepts/storage/volumes/)
+* [Namespace](/id/docs/concepts/overview/working-with-objects/namespaces/)
 
 Sebagai tambahan, Kubernetes memiliki beberapa abstraksi yang lebih tinggi yang disebut kontroler.
-Kontroler merupakan obyek mendasar dengan fungsi tambahan, contoh dari kontroler ini adalah:
+Kontroler merupakan objek mendasar dengan fungsi tambahan, contoh dari kontroler ini adalah:
 
-* [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-* [Deployment](/docs/concepts/workloads/controllers/deployment/)
-* [StatefulSet](/docs/concepts/workloads/controllers/statefulset/)
-* [DaemonSet](/docs/concepts/workloads/controllers/daemonset/)
-* [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+* [ReplicaSet](/id/docs/concepts/workloads/controllers/replicaset/)
+* [Deployment](/id/docs/concepts/workloads/controllers/deployment/)
+* [StatefulSet](/id/docs/concepts/workloads/controllers/statefulset/)
+* [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/)
+* [Job](/id/docs/concepts/workloads/controllers/jobs-run-to-completion/)
 
 ## *Control Plane* Kubernetes
 
 Berbagai bagian *Control Plane* Kubernetes, seperti *master* dan *process-process* kubelet,
 mengatur bagaimana Kubernetes berkomunikasi dengan klaster kamu. *Control Plane*
-menjaga seluruh *record* dari obyek Kubernetes serta terus menjalankan
-iterasi untuk melakukan manajemen *state* obyek. *Control Plane* akan memberikan respon
+menjaga seluruh *record* dari objek Kubernetes serta terus menjalankan
+iterasi untuk melakukan manajemen *state* objek. *Control Plane* akan memberikan respon
 apabila terdapat perubahan pada klaster kamu dan mengubah *state* saat ini agar sesuai
 dengan *state* yang diinginkan.
 
 Contohnya, ketika kamu menggunakan API Kubernetes untuk membuat sebuah *Deployment*,
 kamu memberikan sebuah *state* baru yang harus dipenuhi oleh sistem. *Control Plane*
-kemudian akan mencatat obyek apa saja yang dibuat, serta menjalankan instruksi yang kamu berikan
+kemudian akan mencatat objek apa saja yang dibuat, serta menjalankan instruksi yang kamu berikan
 dengan cara melakukan `start` aplikasi dan melakukan `scheduling` aplikasi tersebut
 pada *node*, dengan kata lain mengubah *state* saat ini agar sesuai dengan *state* yang diinginkan.
 
@@ -92,17 +92,17 @@ kamu berkomunikasi dengan *master* klaster Kubernetes kamu.
 menjalankan aplikasi kamu. Master mengontrol setiap node; kamu akan jarang berinteraksi
 dengan *node* secara langsung.
 
-#### Metadata obyek
+#### Metadata objek
 
 
-* [Anotasi](/docs/concepts/overview/working-with-objects/annotations/)
+* [Anotasi](/id/docs/concepts/overview/working-with-objects/annotations/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jika kamu ingin menulis halaman konsep, perhatikan
 [cara penggunaan template pada laman](/docs/home/contribute/page-templates/)
 untuk informasi mengenai konsep tipe halaman dan *template* konsep.
 
-{{% /capture %}}

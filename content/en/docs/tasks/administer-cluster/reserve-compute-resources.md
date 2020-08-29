@@ -4,10 +4,11 @@ reviewers:
 - derekwaynecarr
 - dashpole
 title: Reserve Compute Resources for System Daemons
-content_template: templates/task
+content_type: task
+min-kubernetes-server-version: 1.8
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes nodes can be scheduled to `Capacity`. Pods can consume all the
 available capacity on a node by default. This is an issue because nodes
@@ -21,16 +22,20 @@ compute resources for system daemons. Kubernetes recommends cluster
 administrators to configure `Node Allocatable` based on their workload density
 on each node.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+Your Kubernetes server must be at or later than version 1.17 to use
+the kubelet command line option `--reserved-cpus` to set an
+[explicitly reserved CPU list](#explicitly-reserved-cpu-list).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Node Allocatable
 
@@ -94,13 +99,7 @@ be configured to use the `systemd` cgroup driver.
 `kube-reserved` is meant to capture resource reservation for kubernetes system
 daemons like the `kubelet`, `container runtime`, `node problem detector`, etc.
 It is not meant to reserve resources for system daemons that are run as pods.
-`kube-reserved` is typically a function of `pod density` on the nodes. [This
-performance dashboard](http://node-perf-dash.k8s.io/#/builds) exposes `cpu` and
-`memory` usage profiles of `kubelet` and `docker engine` at multiple levels of
-pod density. [This blog
-post](https://kubernetes.io/blog/2016/11/visualize-kubelet-performance-with-node-dashboard)
-explains how the dashboard can be interpreted to come up with a suitable
-`kube-reserved` reservation.
+`kube-reserved` is typically a function of `pod density` on the nodes.
 
 In addition to `cpu`, `memory`, and `ephemeral-storage`, `pid` may be
 specified to reserve the specified number of process IDs for
@@ -152,9 +151,9 @@ exist. Kubelet will fail if an invalid cgroup is specified.
 - **Kubelet Flag**: `--reserved-cpus=0-3`
 
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
-kubernetes system daemons. This option is added in 1.17 release. `reserved-cpus`
-is for systems that do not intent to define separate top level cgroups for
-OS system daemons and kubernetes system daemons with regard to cpuset resource.
+kubernetes system daemons. `reserved-cpus` is for systems that do not intend to
+define separate top level cgroups for OS system daemons and kubernetes system daemons
+with regard to cpuset resource.
 If the Kubelet **does not** have `--system-reserved-cgroup` and `--kube-reserved-cgroup`,
 the explicit cpuset provided by `reserved-cpus` will take precedence over the CPUs
 defined by `--kube-reserved` and `--system-reserved` options.
@@ -175,7 +174,7 @@ For example: in Centos, you can do this using the tuned toolset.
 Memory pressure at the node level leads to System OOMs which affects the entire
 node and all pods running on it. Nodes can go offline temporarily until memory
 has been reclaimed. To avoid (or reduce the probability of) system OOMs kubelet
-provides [`Out of Resource`](./out-of-resource.md) management. Evictions are
+provides [`Out of Resource`](/docs/tasks/administer-cluster/out-of-resource/) management. Evictions are
 supported for `memory` and `ephemeral-storage` only. By reserving some memory via
 `--eviction-hard` flag, the `kubelet` attempts to `evict` pods whenever memory
 availability on the node drops below the reserved value. Hypothetically, if
@@ -192,7 +191,7 @@ The scheduler treats `Allocatable` as the available `capacity` for pods.
 `kubelet` enforce `Allocatable` across pods by default. Enforcement is performed
 by evicting pods whenever the overall usage across all pods exceeds
 `Allocatable`. More details on eviction policy can be found
-[here](./out-of-resource.md#eviction-policy). This enforcement is controlled by
+[here](/docs/tasks/administer-cluster/out-of-resource/#eviction-policy). This enforcement is controlled by
 specifying `pods` value to the kubelet flag `--enforce-node-allocatable`.
 
 
@@ -228,9 +227,9 @@ more features are added. Over time, kubernetes project will attempt to bring
 down utilization of node system daemons, but that is not a priority as of now.
 So expect a drop in `Allocatable` capacity in future releases.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Example Scenario
 
@@ -253,36 +252,3 @@ If `kube-reserved` and/or `system-reserved` is not enforced and system daemons
 exceed their reservation, `kubelet` evicts pods whenever the overall node memory
 usage is higher than `31.5Gi` or `storage` is greater than `90Gi`
 
-## Feature Availability
-
-As of Kubernetes version 1.2, it has been possible to **optionally** specify
-`kube-reserved` and `system-reserved` reservations. The scheduler switched to
-using `Allocatable` instead of `Capacity` when available in the same release.
-
-As of Kubernetes version 1.6, `eviction-thresholds` are being considered by
-computing `Allocatable`. To revert to the old behavior set
-`--experimental-allocatable-ignore-eviction` kubelet flag to `true`.
-
-As of Kubernetes version 1.6, `kubelet` enforces `Allocatable` on pods using
-control groups. To revert to the old behavior unset `--enforce-node-allocatable`
-kubelet flag. Note that unless `--kube-reserved`, or `--system-reserved` or
-`--eviction-hard` flags have non-default values, `Allocatable` enforcement does
-not affect existing deployments.
-
-As of Kubernetes version 1.6, `kubelet` launches pods in their own cgroup
-sandbox in a dedicated part of the cgroup hierarchy it manages. Operators are
-required to drain their nodes prior to upgrade of the `kubelet` from prior
-versions in order to ensure pods and their associated containers are launched in
-the proper part of the cgroup hierarchy.
-
-As of Kubernetes version 1.7, `kubelet` supports specifying `storage` as a resource
-for `kube-reserved` and `system-reserved`.
-
-As of Kubernetes version 1.8, the `storage` key name was changed to `ephemeral-storage`
-for the alpha release.
-
-As of Kubernetes version 1.17, you can optionally specify
-explicit cpuset by `reserved-cpus` as CPUs reserved for OS system
-daemons/interrupts/timers and Kubernetes daemons.
-
-{{% /capture %}}

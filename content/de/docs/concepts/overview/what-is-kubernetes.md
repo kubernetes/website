@@ -1,17 +1,17 @@
 ---
 title: Was ist Kubernetes?
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Diese Seite ist eine Übersicht über Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Kubernetes ist eine portable, erweiterbare Open-Source-Plattform zur Verwaltung von
 containerisierten Arbeitslasten und Services, die sowohl die deklarative Konfiguration als auch die Automatisierung erleichtert.
@@ -160,11 +160,12 @@ Der Name **Kubernetes** stammt aus dem Griechischen, bedeutet *Steuermann* oder
 [cybernetic](http://www.etymonline.com/index.php?term=cybernetics). *K8s*
 ist eine Abkürzung, die durch Ersetzen der 8 Buchstaben "ubernete" mit "8" abgeleitet wird.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 *   [Bereit loszulegen](/docs/setup/)?
 *   Weitere Einzelheiten finden Sie in der [Kubernetes Dokumentation](/docs/home/).
-{{% /capture %}}
+
 
 

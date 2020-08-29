@@ -2,15 +2,15 @@
 reviewers:
 - piosz
 - x13n
-content_template: templates/concept
+content_type: concept
 title: Logging Using Elasticsearch and Kibana
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 On the Google Compute Engine (GCE) platform, the default logging support targets
 [Stackdriver Logging](https://cloud.google.com/logging/), which is described in detail
-in the [Logging With Stackdriver Logging](/docs/user-guide/logging/stackdriver).
+in the [Logging With Stackdriver Logging](/docs/tasks/debug-application-cluster/logging-stackdriver).
 
 This article describes how to set up a cluster to ingest logs into
 [Elasticsearch](https://www.elastic.co/products/elasticsearch) and view
@@ -21,9 +21,9 @@ Stackdriver Logging when running on GCE.
 You cannot automatically deploy Elasticsearch and Kibana in the Kubernetes cluster hosted on Google Kubernetes Engine. You have to deploy them manually.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 To use Elasticsearch and Kibana for cluster logging, you should set the
 following environment variable as shown below when creating your cluster with
@@ -90,7 +90,8 @@ Elasticsearch, and is part of a service named `kibana-logging`.
 
 The Elasticsearch and Kibana services are both in the `kube-system` namespace
 and are not directly exposed via a publicly reachable IP address. To reach them,
-follow the instructions for [Accessing services running in a cluster](/docs/concepts/cluster-administration/access-cluster/#accessing-services-running-on-the-cluster).
+follow the instructions for
+[Accessing services running in a cluster](/docs/tasks/access-application-cluster/access-cluster/#accessing-services-running-on-the-cluster).
 
 If you try accessing the `elasticsearch-logging` service in your browser, you'll
 see a status page that looks something like this:
@@ -102,7 +103,7 @@ like. See [Elasticsearch's documentation](https://www.elastic.co/guide/en/elasti
 for more details on how to do so.
 
 Alternatively, you can view your cluster's logs using Kibana (again using the
-[instructions for accessing a service running in the cluster](/docs/user-guide/accessing-the-cluster/#accessing-services-running-on-the-cluster)).
+[instructions for accessing a service running in the cluster](/docs/tasks/access-application-cluster/access-cluster/#accessing-services-running-on-the-cluster)).
 The first time you visit the Kibana URL you will be presented with a page that
 asks you to configure your view of the ingested logs. Select the option for
 timeseries values and select `@timestamp`. On the following page select the
@@ -114,11 +115,12 @@ Here is a typical view of ingested logs from the Kibana viewer:
 
 ![Kibana logs](/images/docs/kibana-logs.png)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Kibana opens up all sorts of powerful options for exploring your logs! For some
 ideas on how to dig into it, check out [Kibana's documentation](https://www.elastic.co/guide/en/kibana/current/discover.html).
 
-{{% /capture %}}
+

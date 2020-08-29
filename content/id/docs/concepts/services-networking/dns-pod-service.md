@@ -1,13 +1,13 @@
 ---
 title: DNS untuk Service dan Pod
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
-{{% capture overview %}}
+<!-- overview -->
 Laman ini menyediakan ikhtisar dari dukungan DNS oleh Kubernetes.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Pendahuluan
 
@@ -50,7 +50,7 @@ menggunakan penjadwalan Round-Robin dari set yang ada.
 ### SRV _record_
 
 SRV _record_ dibuat untuk port bernama yang merupakan bagian dari Service normal maupun [Headless
-Services](/docs/concepts/services-networking/service/#headless-services).
+Services](/id/docs/concepts/services-networking/service/#headless-services).
 Untuk setiap port bernama, SRV _record_ akan memiliki format 
 `_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 Untuk sebuah Service normal, ini akan melakukan resolusi pada nomor port dan 
@@ -258,11 +258,12 @@ Keberadaan Pod DNS Config dan DNS Policy "`None`"" diilustrasikan pada tabel di 
 | 1.10 | Beta (aktif secara default)|
 | 1.9 | Alpha |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Untuk petunjuk lebih lanjut mengenai administrasi konfigurasi DNS, kamu dapat membaca 
 [Cara Melakukan Konfigurasi Service DNS](/docs/tasks/administer-cluster/dns-custom-nameservers/)
 
-{{% /capture %}}
+

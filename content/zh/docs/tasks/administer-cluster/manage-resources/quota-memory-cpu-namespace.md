@@ -1,18 +1,16 @@
 ---
 title: 为命名空间配置内存和 CPU 配额
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
 <!--
----
 title: Configure Memory and CPU Quotas for a Namespace
-content_template: templates/task
+content_type: task
 weight: 50
----
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to set quotas for the total amount memory and CPU that
@@ -20,28 +18,20 @@ can be used by all Containers running in a namespace. You specify quotas in a
 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
 object.
 -->
-
-本文介绍怎样为命名空间设置容器可用的内存和 CPU 总量。你可以通过 [ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
+本文介绍怎样为命名空间设置容器可用的内存和 CPU 总量。你可以通过
+[ResourceQuota](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcequota-v1-core)
 对象设置配额.
 
-
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
 Each node in your cluster must have at least 1 GiB of memory.
 -->
+集群中每个节点至少有 1 GiB 的内存。
 
-集群中每个节点至少有1 GiB的内存。
-
-{{% /capture %}}
-
-
-{{% capture steps %}}
+<!-- steps -->
 
 <!--
 ## Create a namespace
@@ -63,7 +53,6 @@ kubectl create namespace quota-mem-cpu-example
 
 Here is the configuration file for a ResourceQuota object:
 -->
-
 ## 创建 ResourceQuota
 
 这里给出一个 ResourceQuota 对象的配置文件：
@@ -73,17 +62,15 @@ Here is the configuration file for a ResourceQuota object:
 <!--
 Create the ResourceQuota:
 -->
-
 创建 ResourceQuota
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu.yaml --namespace=quota-mem-cpu-example
 ```
 
 <!--
 View detailed information about the ResourceQuota:
 -->
-
 查看 ResourceQuota 详情：
 
 ```shell
@@ -99,7 +86,6 @@ The ResourceQuota places these requirements on the quota-mem-cpu-example namespa
 * The CPU request total for all Containers must not exceed 1 cpu.
 * The CPU limit total for all Containers must not exceed 2 cpu.
 -->
-
 ResourceQuota 在 quota-mem-cpu-example 命名空间中设置了如下要求：
 
 * 每个容器必须有内存请求和限制，以及 CPU 请求和限制。
@@ -113,28 +99,24 @@ ResourceQuota 在 quota-mem-cpu-example 命名空间中设置了如下要求：
 
 Here is the configuration file for a Pod:
 -->
-
 ## 创建 Pod
 
 这里给出 Pod 的配置文件：
 
 {{< codenew file="admin/resource/quota-mem-cpu-pod.yaml" >}}
 
-
 <!--
 Create the Pod:
 -->
-
 创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod.yaml --namespace=quota-mem-cpu-example
 ```
 
 <!--
 Verify that the Pod's Container is running:
 -->
-
 检查下 Pod 中的容器在运行：
 
 ```
@@ -144,7 +126,6 @@ kubectl get pod quota-mem-cpu-demo --namespace=quota-mem-cpu-example
 <!--
 Once again, view detailed information about the ResourceQuota:
 -->
-
 再查看 ResourceQuota 的详情：
 
 ```
@@ -156,7 +137,6 @@ The output shows the quota along with how much of the quota has been used.
 You can see that the memory and CPU requests and limits for your Pod do not
 exceed the quota.
 -->
-
 输出结果显示了配额以及有多少配额已经被使用。你可以看到 Pod 的内存和 CPU 请求值及限制值没有超过配额。
 
 ```
@@ -178,7 +158,6 @@ status:
 
 Here is the configuration file for a second Pod:
 -->
-
 ## 尝试创建第二个 Pod
 
 这里给出了第二个 Pod 的配置文件：
@@ -193,19 +172,20 @@ request exceeds the memory request quota. 600 MiB + 700 MiB > 1 GiB.
 Attempt to create the Pod:
 -->
 
-配置文件中，你可以看到 Pod 的内存请求为700 MiB。请注意新的内存请求与已经使用的内存请求只和超过了内存请求的配额。600 MiB + 700 MiB > 1 GiB。
+配置文件中，你可以看到 Pod 的内存请求为 700 MiB。
+请注意新的内存请求与已经使用的内存请求只和超过了内存请求的配额。
+600 MiB + 700 MiB > 1 GiB。
 
 尝试创建 Pod：
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
+kubectl apply -f https://k8s.io/examples/admin/resource/quota-mem-cpu-pod-2.yaml --namespace=quota-mem-cpu-example
 ```
 
 <!--
 The second Pod does not get created. The output shows that creating the second Pod
 would cause the memory request total to exceed the memory request quota.
 -->
-
 第二个 Pod 不能被创建成功。输出结果显示创建第二个 Pod 会导致内存请求总量超过内存请求配额。
 
 ```
@@ -224,20 +204,20 @@ You can also restrict the totals for memory limit, cpu request, and cpu limit.
 If you want to restrict individual Containers, instead of totals for all Containers, use a
 [LimitRange](/docs/tasks/administer-cluster/memory-constraint-namespace/).
 -->
-
 ## 讨论
 
-如你在本练习中所见，你可以用 ResourceQuota 限制命名空间中所有容器的内存请求总量。同样你也可以限制内存限制总量、CPU 请求总量、CPU 限制总量。
+如你在本练习中所见，你可以用 ResourceQuota 限制命名空间中所有容器的内存请求总量。
+同样你也可以限制内存限制总量、CPU 请求总量、CPU 限制总量。
 
-如果你想对单个容器而不是所有容器进行限制，就请使用 [LimitRange](/docs/tasks/administer-cluster/memory-constraint-namespace/)。
+如果你想对单个容器而不是所有容器进行限制，就请使用
+[LimitRange](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
 
 <!--
 ## Clean up
 
 Delete your namespace:
 -->
-
-## 数据清理
+## 清理
 
 删除你的命名空间：
 
@@ -245,56 +225,38 @@ Delete your namespace:
 kubectl delete namespace quota-mem-cpu-example
 ```
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 ### For cluster administrators
 
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
-
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
-
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
-
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
-
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
 
 ### 集群管理员参考
 
-* [为命名空间配置默认内存请求和限制](/docs/tasks/administer-cluster/memory-default-namespace/)
-
-* [为命名空间配置内存限制的最小值和最大值](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-
-* [为命名空间配置 CPU 限制的最小值和最大值](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
-
-* [为命名空间配置内存和 CPU 配额](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
-
-* [为命名空间配置 Pod 配额](/docs/tasks/administer-cluster/quota-pod-namespace/)
-
-* [为 API 对象配置配额](/docs/tasks/administer-cluster/quota-api-object/)
+* [为命名空间配置默认内存请求和限制](/zh/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [为命名空间配置内存限制的最小值和最大值](/zh/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [为命名空间配置 CPU 限制的最小值和最大值](/zh/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [为命名空间配置内存和 CPU 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [为命名空间配置 Pod 配额](/zh/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+* [为 API 对象配置配额](/zh/docs/tasks/administer-cluster/quota-api-object/)
 
 <!--
 ### For app developers
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
-
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
-
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 -->
-
 ### 应用开发者参考
 
-* [为容器和 Pod 分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配CPU资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为 Pod 配置 Service 数量](/zh/docs/tasks/configure-pod-container/quality-service-pod/)
 
-* [为容器和 Pod 分配CPU资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
-
-* [为 Pod 配置 Service 数量](/docs/tasks/configure-pod-container/quality-service-pod/)
-
-{{% /capture %}}

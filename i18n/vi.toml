@@ -24,6 +24,9 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+[community_youtube_name]
+other = "YouTube"
+
 [deprecation_warning]
 other = " tài liệu này không còn được duy trì. Phiên bản đang xem hiện tại là một snapshot tĩnh. Để rõ hơn về tài liệu bản cập nhật, xem "
 
@@ -53,6 +56,9 @@ other = "Trang này có hữu ích?"
 
 [feedback_yes]
 other = "Có"
+
+[input_placeholder_email_address]
+other = "địa chỉ email"
 
 [latest_version]
 other = "phiên bản mới nhất."

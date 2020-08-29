@@ -1,10 +1,10 @@
 ---
 title: Mengatur Akses Klaster Menggunakan Berkas kubeconfig
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Gunakan berkas kubeconfig untuk mengatur informasi mengenai klaster, pengguna, 
 _namespace_, dan mekanisme autentikasi. Perintah `kubectl` menggunakan berkas
@@ -24,12 +24,12 @@ tanda [`--kubeconfig`](/docs/reference/generated/kubectl/kubectl/).
 
 Instruksi langkah demi langkah untuk membuat dan menentukan berkas kubeconfig,
 bisa mengacu pada [Mengatur Akses Pada Beberapa Klaster]
-(/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
-
-{{% /capture %}}
+(/id/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Mendukung beberapa klaster, pengguna, dan mekanisme autentikasi
 
@@ -103,7 +103,7 @@ kubeconfig:
      abaikan mereka.
 
    Beberapa contoh pengaturan variabel _environment_ `KUBECONFIG`, bisa melihat pada
-   [pengaturan vaiabel _environment_ KUBECONFIG](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
+   [pengaturan vaiabel _environment_ KUBECONFIG](/id/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable).
 
    Sebaliknya, bisa menggunakan berkas kubeconfig _default_, `$HOME/.kube/config`, 
    tanpa melakukan penggabungan.
@@ -152,14 +152,15 @@ Referensi _file_ pada perintah adalah relatif terhadap direktori kerja saat ini.
 Dalam `$HOME/.kube/config`, _relative path_ akan disimpan secara relatif, dan
 _absolute path_ akan disimpan secara mutlak.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [Mengatur Akses Pada Beberapa Klaster](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
+## {{% heading "whatsnext" %}}
+
+
+* [Mengatur Akses Pada Beberapa Klaster](/id/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 * [`kubectl config`](/docs/reference/generated/kubectl/kubectl-commands#config)
 
-{{% /capture %}}
+
 
 

@@ -1,28 +1,26 @@
 ---
 title: Configure GMSA for Windows Pods and containers
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 This page shows how to configure [Group Managed Service Accounts](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) for Pods and containers that will run on Windows nodes. Group Managed Service Accounts are a specific type of Active Directory account that provides automatic password management, simplified service principal name (SPN) management, and the ability to delegate the management to other administrators across multiple servers.
 
 In Kubernetes, GMSA credential specs are configured at a Kubernetes cluster-wide scope as Custom Resources. Windows Pods, as well as individual containers within a Pod, can be configured to use a GMSA for domain based functions (e.g. Kerberos authentication) when interacting with other Windows services. As of v1.16, the Docker runtime supports GMSA for Windows workloads.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 You need to have a Kubernetes cluster and the `kubectl` command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes. This section covers a set of initial steps required once for each cluster:
 
-### WindowsGMSA feature gate
-The `WindowsGMSA` feature gate (required to pass down GMSA credential specs from the pod specs to the container runtime) is enabled by default on the API server and the kubelet. See [Feature Gates](/docs/reference/command-line-tools-reference/feature-gates/) for an explanation of enabling or disabling feature gates.
-
 ### Install the GMSACredentialSpec CRD
-A [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/)(CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) and save it as gmsa-crd.yaml.
+A [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) for GMSA credential spec resources needs to be configured on the cluster to define the custom resource type `GMSACredentialSpec`. Download the GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) and save it as gmsa-crd.yaml.
 Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 
 ### Install webhooks to validate GMSA users
@@ -42,13 +40,13 @@ Installing the above webhooks and associated objects require the steps below:
 
 1. Create the validating and mutating webhook configurations referring to the deployment. 
 
-A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run``` option to allow you to review the changes that would be made to your cluster.
+A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run=server``` option to allow you to review the changes that would be made to your cluster.
 
 The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Configure GMSAs and Windows nodes in Active Directory
 Before Pods in Kubernetes can be configured to use GMSAs, the desired GMSAs need to be provisioned in Active Directory as described in the [Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). Windows worker nodes (that are part of the Kubernetes cluster) need to be configured in Active Directory to access the secret credentials associated with the desired GMSA as described in the [Windows GMSA documentation](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet)
@@ -132,7 +130,7 @@ roleRef:
 The Pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in Pod specs. This configures all containers in the Pod spec to use the specified GMSA. A sample Pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 
 ```yaml
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -157,13 +155,13 @@ spec:
         imagePullPolicy: Always
         name: iis
       nodeSelector:
-        beta.kubernetes.io/os: windows
+        kubernetes.io/os: windows
 ```
 
 Individual containers in a Pod spec can also specify the desired GMSA credspec using a per-container `securityContext.windowsOptions.gmsaCredentialSpecName` field. For example:
 
 ```yaml
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -188,7 +186,7 @@ spec:
           windowsOptions:
             gmsaCredentialSpecName: gmsa-Webapp1
       nodeSelector:
-        beta.kubernetes.io/os: windows
+        kubernetes.io/os: windows
 ```
 
 As Pod specs with GMSA fields populated (as described above) are applied in a cluster, the following sequence of events take place:
@@ -255,4 +253,5 @@ If the above command corrects the error, you can automate the step by adding the
 
 If you add the `lifecycle` section show above to your Pod spec, the Pod will execute the commands listed to restart the `netlogon` service until the `nltest.exe /query` command exits without error.
 
-{{% /capture %}}
+## GMSA limitations
+When using the [ContainerD runtime for Windows](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#cri-containerd) accessing restricted network shares via the GMSA domain identity fails. The container will recieve the identity of and calls from `nltest.exe /query` will work.  It is recommended to use the [Docker EE runtime](/docs/setup/production-environment/windows/intro-windows-in-kubernetes/#docker-ee) if access to network shares is required.  The Windows Server team is working on resolving the issue in the Windows Kernel and will release a patch to resolve this issue in the future. Look for updates on the [Microsoft Windows Containers issue tracker](https://github.com/microsoft/Windows-Containers/issues/44).

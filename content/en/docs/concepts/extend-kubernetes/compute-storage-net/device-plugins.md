@@ -2,11 +2,11 @@
 reviewers:
 title: Device Plugins
 description: Use the Kubernetes device plugin framework to implement plugins for GPUs, NICs, FPGAs, InfiniBand, and similar resources that require vendor-specific setup.
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
 
 Kubernetes provides a [device plugin framework](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)
@@ -19,9 +19,7 @@ The targeted devices include GPUs, high-performance NICs, FPGAs, InfiniBand adap
 and other similar computing resources that may require vendor specific initialization
 and setup.
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Device plugin registration
 
@@ -39,7 +37,7 @@ During the registration, the device plugin needs to send:
   * The name of its Unix socket.
   * The Device Plugin API version against which it was built.
   * The `ResourceName` it wants to advertise. Here `ResourceName` needs to follow the
-    [extended resource naming scheme](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+    [extended resource naming scheme](/docs/concepts/configuration/manage-resources-container/#extended-resources)
     as `vendor-domain/resourcetype`.
     (For example, an NVIDIA GPU is advertised as `nvidia.com/gpu`.)
 
@@ -48,7 +46,7 @@ list of devices it manages, and the kubelet is then in charge of advertising tho
 resources to the API server as part of the kubelet node status update.
 For example, after a device plugin registers `hardware-vendor.example/foo` with the kubelet
 and reports two healthy devices on a node, the node status is updated
-to advertise that the node has 2 “Foo” devices installed and available.
+to advertise that the node has 2 "Foo" devices installed and available.
 
 Then, users can request devices in a
 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
@@ -94,6 +92,9 @@ The general workflow of a device plugin includes the following steps:
 
   ```gRPC
   service DevicePlugin {
+        // GetDevicePluginOptions returns options to be communicated with Device Manager.
+        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+
         // ListAndWatch returns a stream of List of Devices
         // Whenever a Device state change or a Device disappears, ListAndWatch
         // returns the new list
@@ -103,8 +104,29 @@ The general workflow of a device plugin includes the following steps:
         // Plugin can run device specific operations and instruct Kubelet
         // of the steps to make the Device available in the container
         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+
+        // GetPreferredAllocation returns a preferred set of devices to allocate
+        // from a list of available ones. The resulting preferred allocation is not
+        // guaranteed to be the allocation ultimately performed by the
+        // devicemanager. It is only designed to help the devicemanager make a more
+        // informed allocation decision when possible.
+        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+
+        // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+        // before each container start. Device plugin can run device specific operations
+        // such as resetting the device before making devices available to the container.
+        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
   }
   ```
+
+  {{< note >}}
+  Plugins are not required to provide useful implementations for
+  `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating which
+  (if any) of these calls are available should be set in the `DevicePluginOptions`
+  message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
+  always call `GetDevicePluginOptions()` to see which optional functions are
+  available, before calling any of them directly.
+  {{< /note >}}
 
 * The plugin registers itself with the kubelet through the Unix socket at host
   path `/var/lib/kubelet/device-plugins/kubelet.sock`.
@@ -186,7 +208,7 @@ Support for the "PodResources service" requires `KubeletPodResources` [feature g
 
 ## Device Plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordintated in a Topology aligned manner. In order to do this, the Device Plugin API was extended to include a `TopologyInfo` struct.
 
@@ -223,14 +245,15 @@ Here are some examples of device plugin implementations:
 * The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
-* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin/trunk) for Xilinx FPGA devices
+* The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) for Xilinx FPGA devices
 
-{{% /capture %}}
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
 * Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
 * Read about using [hardware acceleration for TLS ingress](https://kubernetes.io/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
-* Learn about the [Topology Manager] (/docs/tasks/adminster-cluster/topology-manager/)
+* Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 
-{{% /capture %}}
+

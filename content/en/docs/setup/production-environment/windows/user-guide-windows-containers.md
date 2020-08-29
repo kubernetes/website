@@ -3,17 +3,17 @@ reviewers:
 - michmike
 - patricklang
 title: Guide for scheduling Windows containers in Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 75
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Windows applications constitute a large portion of the services and applications that run in many organizations. This guide walks you through the steps to configure and deploy a Windows container in Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Objectives
 
@@ -22,7 +22,7 @@ Windows applications constitute a large portion of the services and applications
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](../user-guide-windows-nodes)
+* Create a Kubernetes cluster that includes a [master and a worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
 * It is important to note that creating and deploying services and workloads on Kubernetes behaves in much the same way for Linux and Windows containers. [Kubectl commands](/docs/reference/kubectl/overview/) to interface with the cluster are identical. The example in the section below is provided simply to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
@@ -70,7 +70,7 @@ spec:
         - -command
         - "<#code used from https://gist.github.com/wagnerandrade/5424431#> ; $$listener = New-Object System.Net.HttpListener ; $$listener.Prefixes.Add('http://*:80/') ; $$listener.Start() ; $$callerCounts = @{} ; Write-Host('Listening at http://*:80/') ; while ($$listener.IsListening) { ;$$context = $$listener.GetContext() ;$$requestUrl = $$context.Request.Url ;$$clientIP = $$context.Request.RemoteEndPoint.Address ;$$response = $$context.Response ;Write-Host '' ;Write-Host('> {0}' -f $$requestUrl) ;  ;$$count = 1 ;$$k=$$callerCounts.Get_Item($$clientIP) ;if ($$k -ne $$null) { $$count += $$k } ;$$callerCounts.Set_Item($$clientIP, $$count) ;$$ip=(Get-NetAdapter | Get-NetIpAddress); $$header='<html><body><H1>Windows Container Web Server</H1>' ;$$callerCountsString='' ;$$callerCounts.Keys | % { $$callerCountsString+='<p>IP {0} callerCount {1} ' -f $$ip[1].IPAddress,$$callerCounts.Item($$_) } ;$$footer='</body></html>' ;$$content='{0}{1}{2}' -f $$header,$$callerCountsString,$$footer ;Write-Output $$content ;$$buffer = [System.Text.Encoding]::UTF8.GetBytes($$content) ;$$response.ContentLength64 = $$buffer.Length ;$$response.OutputStream.Write($$buffer, 0, $$buffer.Length) ;$$response.Close() ;$$responseStatus = $$response.StatusCode ;Write-Host('< {0}' -f $$responseStatus)  } ; "
      nodeSelector:
-      beta.kubernetes.io/os: windows
+      kubernetes.io/os: windows
 ```
 
 {{< note >}}
@@ -106,6 +106,14 @@ Port mapping is also supported, but for simplicity in this example the container
 {{< note >}}
 Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack. Only Windows pods are able to access service IPs.
 {{< /note >}}
+
+## Observability
+
+### Capturing logs from workloads
+
+Logs are an important element of observability; they enable users to gain insights into the operational aspect of workloads and are a key ingredient to troubleshooting issues. Because Windows containers and workloads inside Windows containers behave differently from Linux containers, users had a hard time collecting logs, limiting operational visibility. Windows workloads for example are usually configured to log to ETW (Event Tracing for Windows) or push entries to the application event log. [LogMonitor](https://github.com/microsoft/windows-container-tools/tree/master/LogMonitor), an open source tool by Microsoft, is the recommended way to monitor configured log sources inside a Windows container. LogMonitor supports monitoring event logs, ETW providers, and custom application logs, piping them to STDOUT for consumption by `kubectl logs <pod>`.
+
+Follow the instructions in the LogMonitor GitHub page to copy its binaries and configuration files to all your containers and add the necessary entrypoints for LogMonitor to push your logs to STDOUT.
 
 ## Using configurable Container usernames
 
@@ -237,6 +245,6 @@ spec:
 ```
 
 
-{{% /capture %}}
+
 
 [RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/

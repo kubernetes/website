@@ -1,17 +1,17 @@
 ---
 title: Disrupsi
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Petunjuk ini ditujukan pada pemilik aplikasi yang meninginkan aplikasinya memiliki ketersediaan yang tinggi, sehingga butuh untuk mengerti jenis-jenis Disrupsi yang dapat terjadi pada Pod-pod.
 
 Petunjuk ini juga ditujukan pada administrator klaster yang ingin melakukan berbagai tindakan otomasi pada klaster, seperti pembaruan dan _autoscaling_ klaster.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Disrupsi yang Disengaja dan Tidak Disengaja
 
@@ -79,7 +79,7 @@ Jumlah Pod yang "diharapkan" dihitung dari `.spec.replicas` dari pengendali Pod 
 
 PDB tidak dapat mencegah [disrupsi yang tidak disengaja](#disrupsi-yang-disengaja-dan-tidak-disengaja), tapi disrupsi ini akan dihitung terhadap bujet PDB.
 
-Pod yang dihapus atau tidak tersetia dikarenakan pembaruan bertahap juga dihitung terhadap bujet PDB, tetapi pengendali (seperti Deployment dan StatefulSet) tidak dibatasi oleh PDB ketika melakukan pembaruan bertahap; Penanganan kerusakan saat pembaruan aplikasi dikonfigurasikan pada spesifikasi pengendali. (Pelajari tentang [memperbarui sebuah Deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
+Pod yang dihapus atau tidak tersetia dikarenakan pembaruan bertahap juga dihitung terhadap bujet PDB, tetapi pengendali (seperti Deployment dan StatefulSet) tidak dibatasi oleh PDB ketika melakukan pembaruan bertahap; Penanganan kerusakan saat pembaruan aplikasi dikonfigurasikan pada spesifikasi pengendali. (Pelajari tentang [memperbarui sebuah Deployment](/id/docs/concepts/workloads/controllers/deployment/#updating-a-deployment).)
 
 Saat sebuah Pod diusir menggunakan _eviction API_, Pod tersebut akan dihapus secara _graceful_ (lihat `terminationGracePeriodSeconds` pada [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#Podspec-v1-core).))
 
@@ -174,12 +174,13 @@ Jika kamu adalah Administrator Klaster, maka kamu mesti melakukan tindakan disru
   - Mengizinkan lebih banyak otomasi administrasi klaster.
   - Membuat aplikasi yang toleran terhadap disrupsi agak rumit, tetapi usaha yang dilakukan untuk menoleransi disrupsi yang disengaja kebanyakan beririsan dengan usaha untuk mendukung _autoscaling_ dan menoleransi disrupsi yang tidak disengaja.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Ikuti langkah-langkah untuk melindungi aplikasimu dengan [membuat sebuah PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/).
 
 - Pelajari lebih lanjut mengenai [melakukan _drain_ terhadap node](/docs/tasks/administer-cluster/safely-drain-node/).
 
-{{% /capture %}}
+

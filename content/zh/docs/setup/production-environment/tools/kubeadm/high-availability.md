@@ -2,7 +2,7 @@
 reviewers:
 - sig-cluster-lifecycle
 title: 利用 kubeadm 创建高可用集群
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
@@ -11,12 +11,12 @@ weight: 60
 reviewers:
 - sig-cluster-lifecycle
 title: Creating Highly Available clusters with kubeadm
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page explains two different approaches to setting up a highly available Kubernetes
@@ -57,9 +57,10 @@ LoadBalancer, or with dynamic PersistentVolumes.
 这篇文档没有讲述在云提供商上运行集群的问题。在云环境中，此处记录的方法不适用于类型为 LoadBalancer 的服务对象，或者具有动态的 PersistentVolumes。
 {{< /caution >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 <!--
 For both methods you need this infrastructure:
@@ -92,9 +93,9 @@ For the external etcd cluster only, you also need:
 
 - 给 etcd 成员使用的另外三台机器
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!-- ## First steps for both methods -->
 ## 这两种方法的第一步
@@ -126,10 +127,11 @@ option. Your cluster requirements may need a different configuration.
       on the apiserver port. It must also allow incoming traffic on its
       listening port.
 
-    - [HAProxy](http://www.haproxy.org/) can be used as a load balancer.
-
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
+      
+    - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
+      guide for more details.
 -->
 
 1.  创建一个名为 kube-apiserver 的负载均衡器解析 DNS。
@@ -140,9 +142,9 @@ option. Your cluster requirements may need a different configuration.
 
     - 负载均衡器必须能够在 apiserver 端口上与所有控制平面节点通信。它还必须允许其监听端口的传入流量。
 
-    - [HA代理](http://www.haproxy.org/)可以被用来做一个负载均衡器。
-
     - 确保负载均衡器的地址始终匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
+    
+    - 阅读[软件负载平衡选项指南](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)以获取更多详细信息。
 
 <!--
 1.  Add the first control plane nodes to the load balancer and test the
@@ -730,4 +732,4 @@ the creation of additional nodes could fail due to a lack of required SANs.
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
 
-{{% /capture %}}
+

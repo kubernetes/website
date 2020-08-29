@@ -1,14 +1,14 @@
 ---
 title: Pengelolaan Objek Kubernetes dengan Perintah Imperatif
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Objek-objek Kubernetes bisa dibuat, diperbarui, dan dihapus secara langsung dengan menggunakan perintah-perintah imperatif yang ada pada *command-line* `kubectl`. Dokumen ini menjelaskan cara perintah-perintah tersebut diorganisir dan cara menggunakan perintah-perintah tersebut untuk mengelola objek *live*.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kelebihan dan kekurangan
 
@@ -122,11 +122,12 @@ kubectl create --edit -f /tmp/srv.yaml
 1. Perintah `kubectl create service` membuat konfigurasi untuk objek Service dan menyimpannya di `/tmp/srv.yaml`.
 1. Perintah `kubectl create --edit` membuka file konfigurasi untuk diedit sebelum objek dibuat.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-- [Pengelolaan Objek Kubernetes secara Imperatif dengan Menggunakan Konfigurasi Objek](/docs/concepts/overview/object-management-kubectl/imperative-config/)
-- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/docs/concepts/overview/object-management-kubectl/declarative-config/)
+
+## {{% heading "whatsnext" %}}
+
+- [Pengelolaan Objek Kubernetes secara Imperatif dengan Menggunakan Konfigurasi Objek](/id/docs/concepts/overview/object-management-kubectl/imperative-config/)
+- [Pengelolaan Objek Kubernetes secara Deklaratif dengan Menggunakan File Konfigurasi](/id/docs/concepts/overview/object-management-kubectl/declarative-config/)
 - [Rujukan Perintah Kubectl](/docs/reference/generated/kubectl/kubectl/)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-{{% /capture %}}
+

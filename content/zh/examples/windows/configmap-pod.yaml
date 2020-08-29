@@ -28,4 +28,4 @@ spec:
             name: example-config
             key: example.property.2
   nodeSelector:
-    beta.kubernetes.io/os: windows
+    kubernetes.io/os: windows

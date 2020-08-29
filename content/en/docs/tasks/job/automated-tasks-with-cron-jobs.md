@@ -3,11 +3,11 @@ title: Running Automated Tasks with a CronJob
 min-kubernetes-server-version: v1.8
 reviewers:
 - chenopis
-content_template: templates/task
+content_type: task
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 You can use a {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} to run {{< glossary_tooltip text="Jobs" term_id="job" >}} on a time-based schedule.
 These automated jobs run like [Cron](https://en.wikipedia.org/wiki/Cron) tasks on a Linux or UNIX system.
@@ -21,15 +21,16 @@ Therefore, jobs should be idempotent.
 
 For more limitations, see [CronJobs](/docs/concepts/workloads/controllers/cron-jobs).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Creating a Cron Job
 
@@ -47,12 +48,6 @@ The output is similar to this:
 
 ```
 cronjob.batch/hello created
-```
-
-Alternatively, you can use `kubectl run` to create a cron job without writing a full config:
-
-```shell
-kubectl run --generator=run-pod/v1 hello --schedule="*/1 * * * *" --restart=OnFailure --image=busybox -- /bin/sh -c "date; echo Hello from the Kubernetes cluster"
 ```
 
 After creating the cron job, get its status using this command:
@@ -133,8 +128,8 @@ You can read more about removing jobs in [garbage collection](/docs/concepts/wor
 ## Writing a Cron Job Spec
 
 As with all other Kubernetes configs, a cron job needs `apiVersion`, `kind`, and `metadata` fields. For general
-information about working with config files, see [deploying applications](/docs/user-guide/deploying-applications),
-and [using kubectl to manage resources](/docs/user-guide/working-with-resources) documents.
+information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
+and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
 
 A cron job config also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 
@@ -147,7 +142,8 @@ All modifications to a cron job, especially its `.spec`, are applied only to the
 The `.spec.schedule` is a required field of the `.spec`.
 It takes a [Cron](https://en.wikipedia.org/wiki/Cron) format string, such as `0 * * * *` or `@hourly`, as schedule time of its jobs to be created and executed.
 
-The format also includes extended `vixie cron` step values. As explained in the [FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+The format also includes extended `vixie cron` step values. As explained in the
+[FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
 
 > Step values can be	used in	conjunction with ranges.  Following a range
 > with `/<number>` specifies skips	of the number's	value through the
@@ -163,8 +159,8 @@ A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, t
 ### Job Template
 
 The `.spec.jobTemplate` is the template for the job, and it is required.
-It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/), except that it is nested and does not have an `apiVersion` or `kind`.
-For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/jobs-run-to-completion/#writing-a-job-spec).
+It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that it is nested and does not have an `apiVersion` or `kind`.
+For information about writing a job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
 ### Starting Deadline
 
@@ -213,4 +209,4 @@ The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields
 These fields specify how many completed and failed jobs should be kept.
 By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping none of the corresponding kind of jobs after they finish.
 
-{{% /capture %}}
+

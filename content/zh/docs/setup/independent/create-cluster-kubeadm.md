@@ -1,6 +1,6 @@
 ---
 title: 使用 kubeadm 创建一个单主集群
-content_template: templates/task
+content_type: task
 weight: 30
 ---
 
@@ -8,12 +8,12 @@ weight: 30
 reviewers:
 - sig-cluster-lifecycle
 title: Creating a single master cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 30
 --- -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices.  With kubeadm, your cluster should pass [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification). Kubeadm also supports other cluster
 lifecycle functions, such as upgrades, downgrade, and managing [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).  -->
@@ -126,9 +126,10 @@ Kubernetes 发布的版本通常只维护支持九个月，在维护周期内，
 | v1.11.x            | 2018 年 6 月    | 2019 年 3 月      |
 | v1.12.x            | 2018 年 9 月    | 2019 年 6 月      |
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 <!--
 
 - One or more machines running a deb/rpm-compatible OS, for example Ubuntu or CentOS
@@ -144,8 +145,8 @@ Kubernetes 发布的版本通常只维护支持九个月，在维护周期内，
 - 主节点上 2 CPU 以上
 - 集群里所有的机器有完全的网络连接，公有网络或者私有网络都可以
 
-{{% /capture %}}
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Objectives
 
@@ -181,7 +182,7 @@ After you initialize your master, the kubelet runs normally.
 请查阅[安装 kubeadm](/docs/setup/independent/install-kubeadm/)。
 
 {{< note >}}
-**注意:** 如果您的机器已经安装了 kubeadm, 请运行 `apt-get update &&
+如果您的机器已经安装了 kubeadm, 请运行 `apt-get update &&
 apt-get upgrade` 或者 `yum update` 来升级至最新版本的 kubeadm.
 
 升级过程中，kubelet 会每隔几秒钟重启并陷入了不断循环等待 kubeadm 发布指令的状态。
@@ -387,7 +388,7 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 - IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9. -->
 
-**网络必须在部署任何应用之前部署好。此外，在网络安装之前是 CoreDNS 不会启用的。
+**网络必须在部署任何应用之前部署好。此外，在网络安装之前 CoreDNS 是不会启用的。
 kubeadm 只支持基于容器网络接口（CNI）的网络而且不支持 kubenet 。**
 
 有一些项目为 Kubernetes 提供使用 CNI 的 Pod 网络，其中一些也支持[网络策略](/docs/concepts/services-networking/networkpolicies/).
@@ -849,7 +850,7 @@ A few seconds later, you should notice this node in the output from `kubectl get
 nodes` when run on the master. -->
 
 {{< note >}}
-**注意:** 若需为 `<master-ip>:<master-port>` 参数设定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
+若需为 `<master-ip>:<master-port>` 参数设定一个 IPv6 的元组，地址必须写在一对方括号里面，比如: `[fd00::101]:2073`。
 {{< /note >}}
 
 输出类似这样:
@@ -905,7 +906,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 
 {{< note >}}
-**注意:** 上面的例子生效的前提是 SSH 允许 root 用户连接登录。
+上面的例子生效的前提是 SSH 允许 root 用户连接登录。
 如果root 用户不能连接的话，您可以将 `admin.conf` 复制到允许其他用户访问的其他地方并将 `scp` 命令里的用户改成相对应的用户再复制。
 
 这个 `admin.conf` 文件给予了用户整个集群的超级用户权限，因此这个操作必须小心谨慎。对于普通用户来说，

@@ -3,10 +3,10 @@ no_issue: true
 title: Setup
 main_menu: true
 weight: 30
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 En esta sección encontrarás toda la información necesaria para poder identificar
 **la solución que mejor se adapta a tus necesidades**.
@@ -23,9 +23,9 @@ desplegar una solución parcialmente automatizada que te ofrezca un poco más de
 control o directamente crear tu propio clúster de forma completamente manual
 personalizando y controlando cada componente.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Soluciones para la máquina en local
 
@@ -82,4 +82,4 @@ Deberías elegir una solución de este tipo si:
 Una solución personalizadas proporciona total libertad sobre los clústeres
 pero requiere más conocimiento y experiencia.
 
-{{% /capture %}}
+

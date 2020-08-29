@@ -1,18 +1,16 @@
 ---
 title: 为容器分派扩展资源 
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 <!--
----
 title: Assign Extended Resources to a Container
-content_template: templates/task
+content_type: task
 weight: 40
----
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" >}}
 
@@ -21,12 +19,7 @@ This page shows how to assign extended resources to a Container.
 -->
 本文介绍如何为容器指定扩展资源。
 
-{{< feature-state state="stable" >}}
-
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -35,13 +28,11 @@ Before you do this exercise, do the exercise in
 [Advertise Extended Resources for a Node](/docs/tasks/administer-cluster/extended-resource-node/).
 That will configure one of your Nodes to advertise a dongle resource.
 -->
-在您开始此练习前，请先练习[为节点广播扩展资源](/docs/tasks/administer-cluster/extended-resource-node/)。
-在那个练习中将配置您的一个节点来广播 dongle 资源。
+在你开始此练习前，请先练习
+[为节点广播扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)。
+在那个练习中将配置你的一个节点来广播 dongle 资源。
 
-{{% /capture %}}
-
-
-{{% capture steps %}}
+<!-- steps -->
 
 <!--
 ## Assign an extended resource to a Pod
@@ -56,9 +47,10 @@ Here is the configuration file for a Pod that has one Container:
 -->
 ## 给 Pod 分派扩展资源
 
-要请求扩展资源，需要在您的容器清单中包括 `resources:requests` 字段。
+要请求扩展资源，需要在你的容器清单中包括 `resources:requests` 字段。
 扩展资源可以使用任何完全限定名称，只是不能使用 `*.kubernetes.io/`。
-有效的扩展资源名的格式为 `example.com/foo`，其中 `example.com` 应被替换为您的组织的域名，而 `foo` 则是描述性的资源名称。
+有效的扩展资源名的格式为 `example.com/foo`，其中 `example.com` 应被替换为
+你的组织的域名，而 `foo` 则是描述性的资源名称。
 
 下面是包含一个容器的 Pod 配置文件：
 
@@ -69,7 +61,7 @@ In the configuration file, you can see that the Container requests 3 dongles.
 
 Create a Pod:
 -->
-在配置文件中，您可以看到容器请求了 3 个 dongles。
+在配置文件中，你可以看到容器请求了 3 个 dongles。
 
 创建 Pod：
 
@@ -136,7 +128,7 @@ kubectl apply -f https://k8s.io/examples/pods/resource/extended-resource-pod-2.y
 <!--
 Describe the Pod
 -->
-描述 Pod
+描述 Pod：
 
 ```shell
 kubectl describe pod extended-resource-demo-2
@@ -174,7 +166,7 @@ It has a status of Pending:
 -->
 输出结果表明 Pod 虽然被创建了，但没有被调度到节点上正常运行。Pod 的状态为 Pending：
 
-```yaml
+```
 NAME                       READY     STATUS    RESTARTS   AGE
 extended-resource-demo-2   0/1       Pending   0          6m
 ```
@@ -184,7 +176,7 @@ extended-resource-demo-2   0/1       Pending   0          6m
 
 Delete the Pods that you created for this exercise:
 -->
-## 环境清理
+## 清理
 
 删除本练习中创建的 Pod：
 
@@ -193,9 +185,7 @@ kubectl delete pod extended-resource-demo
 kubectl delete pod extended-resource-demo-2
 ```
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 ### For application developers
@@ -205,8 +195,8 @@ kubectl delete pod extended-resource-demo-2
 -->
 ## 应用开发者参考
 
-* [为容器和 Pod 分配内存资源](/docs/tasks/configure-pod-container/assign-memory-resource/)
-* [为容器和 Pod 分配 CPU 资源](/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [为容器和 Pod 分配内存资源](/zh/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [为容器和 Pod 分配 CPU 资源](/zh/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 <!--
 ### For cluster administrators
@@ -215,7 +205,5 @@ kubectl delete pod extended-resource-demo-2
 -->
 ### 集群管理员参考
 
-* [为节点广播扩展资源](/docs/tasks/administer-cluster/extended-resource-node/)
-
-{{% /capture %}}
+* [为节点广播扩展资源](/zh/docs/tasks/administer-cluster/extended-resource-node/)
 

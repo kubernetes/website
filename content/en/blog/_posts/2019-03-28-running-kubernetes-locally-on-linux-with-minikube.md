@@ -18,7 +18,7 @@ This is post #1 in a series about the local deployment options on Linux, and it 
 
 [Minikube](https://github.com/kubernetes/minikube) is a cross-platform, community-driven [Kubernetes](https://kubernetes.io/) distribution, which is targeted to be used primarily in local environments. It deploys a single-node cluster, which is an excellent option for having a simple Kubernetes cluster up and running on localhost.
 
-Minikube is designed to be used as a virtual machine (VM), and the default VM runtime is [VirtualBox](https://www.virtualbox.org/). At the same time, extensibility is one of the critical benefits of Minikube, so it's possible to use it with [drivers](https://github.com/kubernetes/minikube/blob/master/docs/drivers.md) outside of VirtualBox.
+Minikube is designed to be used as a virtual machine (VM), and the default VM runtime is [VirtualBox](https://www.virtualbox.org/). At the same time, extensibility is one of the critical benefits of Minikube, so it's possible to use it with [drivers](https://minikube.sigs.k8s.io/docs/drivers/) outside of VirtualBox.
 
 By default, Minikube uses Virtualbox as a runtime for running the virtual machine. Virtualbox is a cross-platform solution, which can be used on a variety of operating systems, including GNU/Linux, Windows, and macOS.
 

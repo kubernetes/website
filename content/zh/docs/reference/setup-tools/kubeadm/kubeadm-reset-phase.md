@@ -22,13 +22,13 @@ and behind the scene both use the same code.
 -->
 `kubeadm reset phase` 与 [kubeadm reset 工作流程](/docs/reference/setup-tools/kubeadm/kubeadm-reset/#reset-workflow) 一致，后台都使用相同的代码。
 
-## kubeadm reset 阶段 {#cmd-reset-phase}
+## kubeadm reset phase {#cmd-reset-phase}
 
 {{< tabs name="tab-phase" >}}
 {{< tab name="phase" include="generated/kubeadm_reset_phase.md" />}}
 {{< /tabs >}}
 
-## kubeadm reset 启动前检查阶段 {#cmd-reset-phase-preflight}
+## kubeadm reset phase preflight {#cmd-reset-phase-preflight}
 
 <!--
 Using this phase you can execute preflight checks on a node that is being reset.
@@ -42,7 +42,7 @@ Using this phase you can execute preflight checks on a node that is being reset.
 <!--
 ## kubeadm reset phase update-cluster-status
 -->
-## kubeadm reset 更新集群节点的阶段 {#cmd-reset-phase-update-cluster-status}
+## kubeadm reset phase update-cluster-status {#cmd-reset-phase-update-cluster-status}
 
 <!--
 Using this phase you can remove this control-plane node from the ClusterStatus object.
@@ -54,7 +54,7 @@ Using this phase you can remove this control-plane node from the ClusterStatus o
 {{< /tabs >}}
 
 <!--
-## kubeadm reset 移除 etcd 成员的阶段
+## kubeadm reset phase remove-etcd-member
 -->
 ## kubeadm reset phase remove-etcd-member {#cmd-reset-phase-remove-etcd-member}
 
@@ -70,7 +70,7 @@ Using this phase you can remove this control-plane node's etcd member from the e
 <!--
 ## kubeadm reset phase cleanup-node
 -->
-## kubeadm reset 清理节点阶段工作 {#cmd-reset-phase-cleanup-node}
+## kubeadm reset phase cleanup-node {#cmd-reset-phase-cleanup-node}
 
 <!--
 Using this phase you can perform cleanup on this node.

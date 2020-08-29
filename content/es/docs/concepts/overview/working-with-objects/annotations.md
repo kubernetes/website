@@ -1,14 +1,14 @@
 ---
 title: Anotaciones
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Puedes usar las anotaciones de Kubernetes para adjuntar metadatos arbitrarios a los objetos, de tal forma que clientes como herramientas y librerías puedan obtener fácilmente dichos metadatos.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Adjuntar metadatos a los objetos
 
 Puedes usar las etiquetas o anotaciones para adjuntar metadatos a los objetos de Kubernetes.
@@ -68,10 +68,11 @@ Si se omite el prefijo, la clave de la anotación se entiende que es privada par
 
 Los prefijos `kubernetes.io/` y `k8s.io/` se reservan para el uso exclusivo de los componentes principales de Kubernetes.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 Aprende más acerca de las [Etiquetas y Selectores](/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+
 
 

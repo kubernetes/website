@@ -1,7 +1,7 @@
 ---
 title: 在 Pod 中的容器之间共享进程命名空间
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 <!--
@@ -12,12 +12,12 @@ reviewers:
 - verb
 - yujuhong
 - dchen1107
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
@@ -36,15 +36,16 @@ include debugging utilities like a shell.
 -->
 您可以使用此功能来配置协作容器，比如日志处理 sidecar 容器，或者对那些不包含诸如 shell 等调试实用工具的镜像进行故障排查。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Configure a Pod
@@ -142,9 +143,9 @@ events {
     worker_connections  1024;
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Understanding Process Namespace Sharing
@@ -181,6 +182,6 @@ Pod 共享许多资源，因此它们共享进程命名空间是很有意义的�
 
 3. **容器文件系统通过 `/proc/$pid/root` 链接对 pod 中的其他容器可见。** 这使调试更加容易，但也意味着文件系统安全性只受文件系统权限的保护。
 
-{{% /capture %}}
+
 
 

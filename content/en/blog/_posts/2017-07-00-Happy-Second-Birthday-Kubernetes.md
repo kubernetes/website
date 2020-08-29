@@ -26,87 +26,69 @@ Kubernetes has also earned the trust of many [Fortune 500 companies](https://kub
 
 July 2016
 
--
-Kubernauts celebrated its [first anniversary](https://kubernetes.io/blog/2016/07/happy-k8sbday-1) of the Kubernetes 1.0 launch with 20 [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties hosted worldwide
--
-Kubernetes [v1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)
+- Kubernauts celebrated its [first anniversary](https://kubernetes.io/blog/2016/07/happy-k8sbday-1) of the Kubernetes 1.0 launch with 20 [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties hosted worldwide
+- Kubernetes [v1.3 release](https://kubernetes.io/blog/2016/07/kubernetes-1-3-bridging-cloud-native-and-enterprise-workloads/)
 
 
 
 September 2016
 
--
-Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/)
--
-Launch of [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), a tool that makes Kubernetes dramatically easier to install
--
-[Pokemon Go](https://www.sdxcentral.com/articles/news/google-dealt-pokemon-go-traffic-50-times-beyond-expectations/2016/09/) - one of the largest installs of Kubernetes ever
+- Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/)
+- Launch of [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), a tool that makes Kubernetes dramatically easier to install
+- [Pokemon Go](https://www.sdxcentral.com/articles/news/google-dealt-pokemon-go-traffic-50-times-beyond-expectations/2016/09/) - one of the largest installs of Kubernetes ever
 
 
 
 October 2016
 
--
-Introduced [Kubernetes service partners program](https://kubernetes.io/blog/2016/10/kubernetes-service-technology-partners-program) and a redesigned [partners page](https://kubernetes.io/partners/)
+- Introduced [Kubernetes service partners program](https://kubernetes.io/blog/2016/10/kubernetes-service-technology-partners-program) and a redesigned [partners page](https://kubernetes.io/partners/)
 
 
 
 November 2016
 
--
-CloudNativeCon/KubeCon [Seattle](https://www.cncf.io/blog/2016/11/17/cloudnativeconkubecon-2016-wrap/)
--
-Cloud Native Computing Foundation partners with The Linux Foundation to launch a [new Kubernetes certification, training and managed service provider program](https://www.cncf.io/blog/2016/11/08/cncf-partners-linux-foundation-launch-new-kubernetes-certification-training-managed-service-provider-program/)
+- CloudNativeCon/KubeCon [Seattle](https://www.cncf.io/blog/2016/11/17/cloudnativeconkubecon-2016-wrap/)
+- Cloud Native Computing Foundation partners with The Linux Foundation to launch a [new Kubernetes certification, training and managed service provider program](https://www.cncf.io/blog/2016/11/08/cncf-partners-linux-foundation-launch-new-kubernetes-certification-training-managed-service-provider-program/)
 
 
 
 December 2016
 
--
-Kubernetes [v1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)
+- Kubernetes [v1.5 release](https://kubernetes.io/blog/2016/12/kubernetes-1-5-supporting-production-workloads/)
 
 
 
 January 2017
 
--
-[Survey](https://www.cncf.io/blog/2017/01/17/container-management-trends-kubernetes-moves-testing-production/) from CloudNativeCon + KubeCon Seattle showcases the maturation of Kubernetes deployment
+- [Survey](https://www.cncf.io/blog/2017/01/17/container-management-trends-kubernetes-moves-testing-production/) from CloudNativeCon + KubeCon Seattle showcases the maturation of Kubernetes deployment
 
 
 
 March 2017
 
--
-CloudNativeCon/KubeCon [Europe](https://www.cncf.io/blog/2017/04/17/highlights-cloudnativecon-kubecon-europe-2017/)
--
-Kubernetes[v1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1-6-multi-user-multi-workloads-at-scale)
+- CloudNativeCon/KubeCon [Europe](https://www.cncf.io/blog/2017/04/17/highlights-cloudnativecon-kubecon-europe-2017/)
+- Kubernetes[v1.6 release](https://kubernetes.io/blog/2017/03/kubernetes-1-6-multi-user-multi-workloads-at-scale)
 
 
 
 April 2017
 
--
-The [Battery Open Source Software (BOSS) Index](https://www.battery.com/powered/boss-index-tracking-explosive-growth-open-source-software/) lists Kubernetes as #33 in the top 100 popular open-source software projects
+- The [Battery Open Source Software (BOSS) Index](https://www.battery.com/powered/boss-index-tracking-explosive-growth-open-source-software/) lists Kubernetes as #33 in the top 100 popular open-source software projects
 
 
 
 May 2017
 
--
-[Four Kubernetes projects](https://www.cncf.io/blog/2017/05/04/cncf-brings-kubernetes-coredns-opentracing-prometheus-google-summer-code-2017/) accepted to The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) (GSOC) 2017 program
--
-Stutterstock and Kubernetes appear in [The Wall Street Journal](https://blogs.wsj.com/cio/2017/05/26/shutterstock-ceo-says-new-business-plan-hinged-upon-total-overhaul-of-it/): “On average we [Shutterstock] deploy 45 different releases into production a day using that framework. We use Docker, Kubernetes and Jenkins [to build and run containers and automate development,” said CTO Marty Brodbeck on the company’s IT overhaul and adoption of containerization.
+- [Four Kubernetes projects](https://www.cncf.io/blog/2017/05/04/cncf-brings-kubernetes-coredns-opentracing-prometheus-google-summer-code-2017/) accepted to The [Google Summer of Code](https://developers.google.com/open-source/gsoc/) (GSOC) 2017 program
+- Stutterstock and Kubernetes appear in [The Wall Street Journal](https://blogs.wsj.com/cio/2017/05/26/shutterstock-ceo-says-new-business-plan-hinged-upon-total-overhaul-of-it/): “On average we [Shutterstock] deploy 45 different releases into production a day using that framework. We use Docker, Kubernetes and Jenkins [to build and run containers and automate development,” said CTO Marty Brodbeck on the company’s IT overhaul and adoption of containerization.
 
 
 
 June 2017
 
--
-Kubernetes [v1.7 release](https://kubernetes.io/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates)
--
-[Survey](https://www.cncf.io/blog/2017/06/28/survey-shows-kubernetes-leading-orchestration-platform/) from CloudNativeCon + KubeCon Europe shows Kubernetes leading as the orchestration platform of choice
--
-Kubernetes ranked [#4](https://github.com/cncf/velocity) in the [30 highest velocity open source projects](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects/)
+- Kubernetes [v1.7 release](https://kubernetes.io/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates)
+- [Survey](https://www.cncf.io/blog/2017/06/28/survey-shows-kubernetes-leading-orchestration-platform/) from CloudNativeCon + KubeCon Europe shows Kubernetes leading as the orchestration platform of choice
+- Kubernetes ranked [#4](https://github.com/cncf/velocity) in the [30 highest velocity open source projects](https://www.cncf.io/blog/2017/06/05/30-highest-velocity-open-source-projects/)
 
  ![](https://lh5.googleusercontent.com/tN_M9v5pFyr3uzwAXTliSKofTGz9DUSMotLHWgy2vl2VSsfIfysagv7h5VRkMA5L9TsNBTMX4dWr-V3O1S9d3dw9IctSj4bAyzblXCAe4xjAhnNJEA3vjSq4Cw79SfoRWfnW-zYY)
 
@@ -116,8 +98,7 @@ Figure 2: The 30 highest velocity open source projects. Source: [https://github.
 
 July 2017
 
--
-Kubernauts celebrate the second anniversary of the Kubernetes 1.0 launch with [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties worldwide!
+- Kubernauts celebrate the second anniversary of the Kubernetes 1.0 launch with [#k8sbday](https://twitter.com/search?q=k8sbday&src=typd) parties worldwide!
 
 
 

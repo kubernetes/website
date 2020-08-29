@@ -4,17 +4,17 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm join
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This command initializes a Kubernetes worker node and joins it to the cluster.
 -->
 此命令用来初始化 Kubernetes 工作节点并将其加入集群。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 {{< include "generated/kubeadm_join.md" >}}
 
 <!--
@@ -101,7 +101,7 @@ The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash
 -->
 
 CA 键哈希格式为 `sha256:<hex_encoded_hash>`。
-默认情况下，在 `kubeadm init` 最后打印的 `kubeadm join` 命令或者 `kubeadm token create--print-join-command` 的输出信息中返回哈希值。
+默认情况下，在 `kubeadm init` 最后打印的 `kubeadm join` 命令或者 `kubeadm token create --print-join-command` 的输出信息中返回哈希值。
 它使用标准格式 (请参考 [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) 并且也能通过第三方工具或者驱动系统进行计算。
 例如，使用 OpenSSL CLI：
 
@@ -385,9 +385,10 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 -->
 
 要了解 `JoinConfiguration` 中各个字段的详细信息请参考 [godoc](https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm#JoinConfiguration)。
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes master node
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
@@ -396,4 +397,4 @@ For details on individual fields in `JoinConfiguration` see [the godoc](https://
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 初始化 Kubernetes 主节点
 * [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) 管理 `kubeadm join` 的令牌
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态
-{{% /capture %}}
+

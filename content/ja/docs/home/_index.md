@@ -4,7 +4,7 @@ title: Kubernetesドキュメント
 noedit: true
 cid: docsHome
 layout: docsportal_home
-class: gridPage
+class: gridPage gridPageHome
 linkTitle: "ホーム"
 main_menu: true
 weight: 10
@@ -15,8 +15,10 @@ menu:
     weight: 20
     post: >
       <p>チュートリアル、サンプルやドキュメントのリファレンスを使って Kubernetes の利用方法を学んでください。あなたは<a href="/editdocs/" data-auto-burger-exclude>ドキュメントへコントリビュートをする</a>こともできます!</p>
+description: >
+  Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundationによってホストされています。
 overview: >
-  Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundationによってホストされています（<a href="https://www.cncf.io/about">CNCF</a>）。
+  Kubernetesは、コンテナ化されたアプリケーションの展開、スケーリング、また管理を自動化するためのオープンソースコンテナプラットフォームです。このオープンソースプロジェクトは、Cloud Native Computing Foundationによってホストされています(<a href="https://www.cncf.io/about">CNCF</a>)。
 cards:
 - name: concepts
   title: "基本を理解する"
@@ -38,6 +40,11 @@ cards:
   description: "一般的なタスク、そのタスクを短い手順でどのように実行するかを見てみます。"
   button: "タスクを見る"
   button_path: "/docs/tasks"
+- name: training
+  title: "トレーニング"
+  description: "Kubernetesの資格を取得して、クラウドネイティブプロジェクトを成功させます！"
+  button: "トレーニングを見る"
+  button_path: "/training"
 - name: reference
   title: "リファレンス情報を調べる"
   description: "用語、コマンドラインの構文、APIリソースタイプ、そして構築ツールのドキュメントを見て回ります。"
@@ -45,7 +52,7 @@ cards:
   button_path: /docs/reference
 - name: contribute
   title: "ドキュメントにコントリビュートする"
-  description: "プロジェクトに不慣れでも、長い間関わっていたとしても、誰でもコントリビュートすることが出来ます。"
+  description: "プロジェクトに不慣れでも、長い間関わっていたとしても、誰でもコントリビュートすることができます。"
   button: "ドキュメントにコントリビュートする"
   button_path: /docs/contribute
 - name: download

@@ -1,6 +1,6 @@
 ---
 title: Halo Minikube
-content_template: templates/tutorial
+content_type: tutorial
 weight: 5
 menu:
   main:
@@ -13,26 +13,28 @@ card:
   weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Tutorial ini menunjukkan bagaimana caranya menjalankan aplikasi sederhana Node.js Halo Dunia di Kubernetes, dengan [Minikube](/docs/getting-started-guides/minikube) dan Katacoda.
 Katacoda menyediakan <i>environment</i> Kubernetes secara gratis di dalam browser.
 
 {{< note >}}
-Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/docs/tasks/tools/install-minikube/) kamu.
+Kamupun bisa mengikuti tutorial ini kalau sudah instalasi [Minikube di lokal](/id/docs/tasks/tools/install-minikube/) kamu.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Deploy aplikasi halo dunia pada Minikube.
 * Jalankan aplikasinya.
 * Melihat log aplikasi.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode berikut:
 
@@ -42,9 +44,9 @@ Tutorial ini menyediakan image Kontainer yang dibuat melalui barisan kode beriku
 
 Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docker](https://docs.docker.com/engine/reference/commandline/build/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Membuat sebuah klaster Minikube
 
@@ -66,16 +68,16 @@ Untuk info lebih lanjut tentang perintah `docker build`, baca [dokumentasi Docke
 
 ## Membuat sebuah Deployment
 
-Sebuah Kubernetes [*Pod*](/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Kontainer,
+Sebuah Kubernetes [*Pod*](/id/docs/concepts/workloads/pods/pod/) adalah kumpulan dari satu atau banyak Kontainer,
 saling terhubung untuk kebutuhan administrasi dan jaringan. Pod dalam tutorial ini hanya punya satu Kontainer. Sebuah Kubernetes
-[*Deployment*](/docs/concepts/workloads/controllers/deployment/) selalu memeriksa kesehatan
+[*Deployment*](/id/docs/concepts/workloads/controllers/deployment/) selalu memeriksa kesehatan
 Pod kamu dan melakukan <i>restart</i> saat Kontainer di dalam Pod tersebut mati. Deployment adalah cara jitu untuk membuat dan mereplikasi Pod.
 
 1. Gunakan perintah `kubectl create` untuk membuat Deployment yang dapat mengatur Pod.
 Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 
     ```shell
-    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
     ```
 
 2. Lihat Deployment:
@@ -120,7 +122,7 @@ Pod menjalankan Kontainer sesuai dengan image Docker yang telah diberikan.
 ## Membuat sebuah Servis
 
 Secara <i>default</i>, Pod hanya bisa diakses melalui alamat IP internal di dalam klaster Kubernetes.
-Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/docs/concepts/services-networking/service/) Kubernetes.
+Supaya Kontainer `hello-node` bisa diakses dari luar jaringan virtual Kubernetes, kamu harus ekspos Pod sebagai [*Servis*](/id/docs/concepts/services-networking/service/) Kubernetes.
 
 1. Ekspos Pod pada internet publik menggunakan perintah `kubectl expose`:
 
@@ -259,12 +261,13 @@ Kamu juga boleh menghapus Minikube VM:
 minikube delete
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* Pelajari lebih lanjut tentang [Deployment](/docs/concepts/workloads/controllers/deployment/).
+## {{% heading "whatsnext" %}}
+
+
+* Pelajari lebih lanjut tentang [Deployment](/id/docs/concepts/workloads/controllers/deployment/).
 * Pelajari lebih lanjut tentang [Deploy aplikasi](/docs/user-guide/deploying-applications/).
-* Pelajari lebih lanjut tentang [Servis](/docs/concepts/services-networking/service/).
+* Pelajari lebih lanjut tentang [Servis](/id/docs/concepts/services-networking/service/).
 
-{{% /capture %}}
+

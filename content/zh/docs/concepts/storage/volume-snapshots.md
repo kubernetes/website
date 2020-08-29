@@ -1,36 +1,26 @@
 ---
 title: 卷快照
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
 <!--
----
-reviewers:
-- saad-ali
-- thockin
-- msau42
-- jingxu97
-- xing-yang
-- yuxiangqian
 title: Volume Snapshots
-content_template: templates/concept
+content_type: concept
 weight: 20
----
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.17" state="beta" >}}
 
 <!--
 In Kubernetes, a _VolumeSnapshot_ represents a snapshot of a volume on a storage system. This document assumes that you are already familiar with Kubernetes [persistent volumes](/docs/concepts/storage/persistent-volumes/).
 -->
-在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes 的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
+在 Kubernetes 中，卷快照是一个存储系统上卷的快照，本文假设你已经熟悉了 Kubernetes
+的 [持久卷](/docs/concepts/storage/persistent-volumes/)。
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 <!--
 ## Introduction
@@ -56,7 +46,7 @@ A `VolumeSnapshot` is a request for snapshot of a volume by a user. It is simila
 <!--
 `VolumeSnapshotClass` allows you to specify different attributes belonging to a `VolumeSnapshot`. These attibutes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same `StorageClass` of a `PersistentVolumeClaim`.
 -->
-`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。从存储系统上相同卷上获取的不同快照，这些参数可能会不一样，因此不能用一个 `PersistentVolumeClaim` 的相同 `StorageClass` 来指卷快照。
+`VolumeSnapshotClass` 允许指定属于 `VolumeSnapshot` 的不同属性。在从存储系统的相同卷上获取的快照之间，这些属性可能有所不同，因此不能通过使用与 `PersistentVolumeClaim` 相同的 `StorageClass` 来表示。
 
 <!--
 Users need to be aware of the following when using this feature:
@@ -108,7 +98,9 @@ Instead of using a pre-existing snapshot, you can request that a snapshot to be 
 -->
 #### 动态的 {#dynamic}
 
-可以从一个 `PersistentVolumeClaim` 申请动态的获取一个快照，而不用使用已经存在的快照。在使用快照时，[卷快照类](/docs/concepts/storage/volume-snapshot-classes/)指定确切的存储提供者参数。
+可以从 `PersistentVolumeClaim` 中动态获取快照，而不用使用已经存在的快照。
+在获取快照时，[卷快照类](/zh/docs/concepts/storage/volume-snapshot-classes/)
+指定要用的特定于存储提供程序的参数。
 
 <!--
 ### Binding
@@ -133,7 +125,7 @@ The purpose of this protection is to ensure that in-use PersistentVolumeClaim AP
 -->
 ### 快照源的持久性卷声明保护
 
-这种保护的目的是确保当从 `PersistentVolumeClaim` API 对象中做快照的时候，它不会被从系统中删除（因为这可能会导致数据丢失）。
+这种保护的目的是确保在从系统中获取快照时，不会将正在使用的 `PersistentVolumeClaim` API 对象从系统中删除（因为这可能会导致数据丢失）。
 
 <!--
 
@@ -141,7 +133,7 @@ While a snapshot is being taken of a PersistentVolumeClaim, that PersistentVolum
 -->
 如果一个 PVC 正在被快照用来作为源进行快照创建，则该 PVC 是使用中的。如果用户删除正作为快照源的 PVC API 对象，则 PVC 对象不会立即被删除掉。相反，PVC 对象的删除将推迟到任何快照不在主动使用它为止。当快照的 `Status` 中的 `ReadyToUse`值为 `true` 时，PVC 将不再用作快照源。
 
-当从 `PersistentVolumeClaim` 中生成快照时，`PersistentVolumeClaim` 就在被使用了。如果删除一个作为快照源的 `PersistentVolumeClaim` 对象，这个 `PersistentVolumeClaim` 对象不会立即被删除的。相反，在快照可以被使用或者被放弃之后，才会执行删除 `PersistentVolumeClaim` 对象的动作。
+当从 `PersistentVolumeClaim` 中生成快照时，`PersistentVolumeClaim` 就在被使用了。如果删除一个作为快照源的 `PersistentVolumeClaim` 对象，这个 `PersistentVolumeClaim` 对象不会立即被删除的。相反，删除 `PersistentVolumeClaim` 对象的动作会被放弃，或者推迟到快照的 Status 为 ReadyToUse时再执行。
 
 <!--
 ### Delete
@@ -181,12 +173,14 @@ using the attribute `volumeSnapshotClassName`. If nothing is set, then the defau
 -->
 `persistentVolumeClaimName` 是 `PersistentVolumeClaim` 数据源对快照的名称。这个字段是动态配置快照中的必填字段。
 
-卷快照可以通过指定 [VolumeSnapshotClass](/docs/concepts/storage/volume-snapshot-classes/) 使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
+卷快照可以通过指定 [VolumeSnapshotClass](/zh/docs/concepts/storage/volume-snapshot-classes/)
+使用 `volumeSnapshotClassName` 属性来请求特定类。如果没有设置，那么使用默认类（如果有）。
 
 <!--
 For pre-provisioned snapshots, you need to specify a `volumeSnapshotContentName` as the source for the snapshot as shown in the following example. The `volumeSnapshotContentName` source field is required for pre-provisioned snapshots.
 -->
-对于预配置的快照，像下面的例子一样，需要给快照指定 `volumeSnapshotContentName` 来作为源。对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的
+如下面例子所示，对于预配置的快照，需要给快照指定 `volumeSnapshotContentName` 来作为源。
+对于预配置的快照 `source` 中的`volumeSnapshotContentName` 字段是必填的。
 
 ```
 apiVersion: snapshot.storage.k8s.io/v1beta1
@@ -268,4 +262,3 @@ For more details, see
 -->
 更多详细信息，请参阅 [卷快照和从快照还原卷](/docs/concepts/storage/persistent-volumes/#volume-snapshot-and-restore-volume-from-snapshot-support)。
 
-{{% /capture %}}

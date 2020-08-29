@@ -1,26 +1,27 @@
 ---
 reviewers:
 title: 고가용성 쿠버네티스 클러스터 마스터 설정하기
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 구글 컴퓨트 엔진(Google Compute Engine, 이하 GCE)의 `kube-up`이나 `kube-down` 스크립트에 쿠버네티스 마스터를 복제할 수 있다.
 이 문서는 kube-up/down 스크립트를 사용하여 고가용(HA) 마스터를 관리하는 방법과 GCE와 함께 사용하기 위해 HA 마스터를 구현하는 방법에 관해 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## HA 호환 클러스터 시작
 
@@ -117,9 +118,9 @@ HA 클러스터의 마스터 복제본 중 하나가 실패하면,
 이 작업은 [여기](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration) 기술한 대로
 Etcd 데이터 디렉터리를 마이그레이션하여 속도를 높일 수 있다(향후에 Etcd 데이터 디렉터리 마이그레이션 지원 추가를 고려 중이다).
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 구현 지침
 
@@ -172,4 +173,4 @@ etcd를 클러스터로 구축하려면, etcd 인스턴스간 통신에 필요�
 
 [자동화된 HA 마스터 배포 - 제안 문서](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
 
-{{% /capture %}}
+

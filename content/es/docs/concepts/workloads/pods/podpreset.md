@@ -2,19 +2,19 @@
 reviewers:
 - raelga
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Esta página provee una descripción general de los Pod Presets, los cuales son
 los objetos que se utilizan para inyectar cierta información en los Pods en
 el momento de la creación. Esta información puede incluir secretos, volúmenes,
 montajes de volúmenes y variables de entorno.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Entendiendo los Pod Presets
 
 Un `Pod Preset` es un recurso de la API utilizado para poder inyectar requerimientos
@@ -86,10 +86,11 @@ Con el fin de utilizar los Pod Presets en un clúster debe asegurarse de lo sigu
 3.  Que se han definido los Pod Presets mediante la creación de objetos `PodPreset` en el
     namespace que se utilizará.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Inyectando datos en un Pod usando PodPreset](/docs/tasks/inject-data-application/podpreset/)
 
-{{% /capture %}}
+

@@ -1,24 +1,24 @@
 ---
 title: Kubernetes 在线培训概述
-content_template: templates/concept
+content_type: concept
 ---
 <!--
 ---
 title: Overview of Kubernetes Online Training
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Here are some of the sites that offer online training for Kubernetes:
 -->
 以下是提供 Kubernetes 在线培训的一些网站:
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 * [AIOps Essentials (Autoscaling Kubernetes with Prometheus Metrics) with Hands-On Labs (Linux Academy)](https://linuxacademy.com/devops/training/course/name/using-machine-learning-to-scale-kubernetes-clusters)
@@ -166,5 +166,5 @@ Here are some of the sites that offer online training for Kubernetes:
 -->
 * [自定进度的 Kubernetes 在线课程 (Learnk8s 学院)]
 (https://learnk8s.io/academy)
-{{% /capture %}}
+
 

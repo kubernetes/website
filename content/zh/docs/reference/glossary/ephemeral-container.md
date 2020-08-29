@@ -2,7 +2,7 @@
 title: 临时容器
 id: ephemeral-container
 date: 2019-08-26
-full_link: /docs/concepts/workloads/pods/ephemeral-containers/
+full_link: /zh/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   您可以在 Pod 中临时运行的一种容器类型
 aka:
@@ -16,7 +16,7 @@ tags:
 title: Ephemeral Container
 id: ephemeral-container
 date: 2019-08-26
-full_link: /docs/concepts/workloads/pods/ephemeral-containers/
+full_link: /zh/docs/concepts/workloads/pods/ephemeral-containers/
 short_description: >
   A type of container type that you can temporarily run inside a Pod
 

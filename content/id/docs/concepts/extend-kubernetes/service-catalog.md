@@ -2,11 +2,11 @@
 title: Service Catalog
 reviewers:
 - chenopis
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 {{< glossary_definition term_id="service-catalog" length="all" prepend="Service Catalog adalah" >}}  
 
 Sebuah makelar servis (_service broker_), seperti yang didefinisikan oleh [spesifikasi API makelar servis terbuka]
@@ -22,10 +22,10 @@ seorang {{< glossary_tooltip text="pengelola klaster" term_id="cluster-operator"
 daftar servis terkelola yang ditawarkan oleh makelar servis, melakukan pembuatan terhadap
 sebuah servis terkelola, dan menghubungkan (_bind_) untuk membuat tersedia terhadap aplikasi pada suatu klaster Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ## Contoh kasus penggunaan
 
 Seorang {{< glossary_tooltip text="pengembang aplikasi" term_id="application-developer" >}} ingin menggunakan
@@ -46,7 +46,7 @@ untuk berkomunikasi dengan makelar servis, bertindak sebagai perantara untuk API
 merundingkan penyediaan awal dan mengambil kredensial untuk aplikasi bisa menggunakan servis terkelola tersebut.
 
 Ini terimplementasi sebagai ekstensi API Server dan pengontrol, menggunakan etcd sebagai media penyimpanan.
-Ini juga menggunakan [lapisan agregasi](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
+Ini juga menggunakan [lapisan agregasi](/id/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
 yang tersedia pada Kubernetes versi 1.7+ untuk menampilkan API-nya.
 
 <br>
@@ -265,10 +265,11 @@ dengan nama `topic` ke dalam _environment variable_ `TOPIC`.
                    key: topic
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Jika kamu terbiasa dengan {{< glossary_tooltip text="Helm Charts" term_id="helm-chart" >}}, 
   [pasang Service Catalog menggunakan Helm](/docs/tasks/service-catalog/install-service-catalog-using-helm/)
   ke dalam klaster Kubernetes. Alternatif lain, kamu dapat [memasang Service Catalog dengan SC tool](/docs/tasks/service-catalog/install-service-catalog-using-sc/).
@@ -276,7 +277,7 @@ dengan nama `topic` ke dalam _environment variable_ `TOPIC`.
 * Pelajari mengenai [kubernetes-incubator/service-catalog](https://github.com/kubernetes-incubator/service-catalog) proyek.
 * Lihat [svc-cat.io](https://svc-cat.io/docs/).
 
-{{% /capture %}}
+
 
 
 

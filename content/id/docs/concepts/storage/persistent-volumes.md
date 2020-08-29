@@ -5,18 +5,18 @@ feature:
   description: >
     Secara otomatis memasang sistem penyimpanan pilihanmu, baik dari penyimpanan lokal, penyedia layanan _cloud_ seperti <a href="https://cloud.google.com/storage/">GCP</a> atau <a href="https://aws.amazon.com/products/storage/">AWS</a>, maupun sebuah sistem penyimpanan jaringan seperti NFS, iSCSI, Gluster, Ceph, Cinder, atau Flocker.
 
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Dokumen ini menjelaskan kondisi terkini dari `PersistentVolumes` pada Kubernetes. Disarankan telah memiliki familiaritas dengan [volume](/docs/concepts/storage/volumes/).
-
-{{% /capture %}}
+Dokumen ini menjelaskan kondisi terkini dari `PersistentVolumes` pada Kubernetes. Disarankan telah memiliki familiaritas dengan [volume](/id/docs/concepts/storage/volumes/).
 
 
-{{% capture body %}}
+
+
+<!-- body -->
 
 ## Pengenalan
 
@@ -34,7 +34,7 @@ mode akses, tanpa memaparkan detail-detail bagaimana cara volume tersebut diimpl
 kepada para pengguna. Untuk mengatasi hal ini maka dibutuhkan sumber daya
 `StorageClass`.
 
-Silakan lihat [panduan mendetail dengan contoh-contoh yang sudah berjalan](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
+Silakan lihat [panduan mendetail dengan contoh-contoh yang sudah berjalan](/id/docs/tasks/configure-pod-container/configure-persistent-volume-storage/).
 
 
 ## Siklus hidup dari sebuah volume dan klaim
@@ -296,6 +296,10 @@ spec:
     server: 172.17.0.2
 ```
 
+{{< note >}}
+Program pembantu yang berkaitan dengan tipe volume bisa saja diperlukan untuk mengonsumsi sebuah PersistentVolume di dalam klaster. Contoh ini menggunakan PersistentVolume dengan tipe NFS dan program pembantu /sbin/mount.nfs diperlukan untuk mendukung proses mounting sistem berkas (filesystem) NFS.
+{{< /note >}}
+
 ### Kapasitas
 
 Secara umum, sebuah PV akan memiliki kapasitas _storage_ tertentu.  Hal ini ditentukan menggunakan atribut `capacity` pada PV.  Lihat [Model Sumber Daya](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md) Kubernetes untuk memahami satuan yang diharapkan pada atribut `capacity`.
@@ -356,7 +360,7 @@ Pada CLI, mode-mode akses tersebut disingkat menjadi:
 
 Sebuah PV bisa memiliki sebuah kelas, yang dispesifikasi dalam pengaturan atribut
 `storageClassName` menjadi nama
-[StorageClass](/docs/concepts/storage/storage-classes/).
+[StorageClass](/id/docs/concepts/storage/storage-classes/).
 Sebuah PV dari kelas tertentu hanya dapat terikat dengan PVC yang meminta
 kelas tersebut. Sebuah PV tanpa `storageClassName` tidak memiliki kelas dan hanya dapat terikat
 dengan PVC yang tidak meminta kelas tertentu.
@@ -408,7 +412,7 @@ akan dihilangkan sepenuhnya pada rilis Kubernetes mendatang.
 ### Afinitas Node
 
 {{< note >}}
-Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini secara otomatis terisi untuk tipe blok volume [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) dan [Azure Disk](/docs/concepts/storage/volumes/#azuredisk). Kamu harus mengaturnya secara eksplisit untuk volume [lokal](/docs/concepts/storage/volumes/#local).
+Untuk kebanyakan tipe volume, kamu tidak perlu memasang kolom ini. Kolom ini secara otomatis terisi untuk tipe blok volume [AWS EBS](/id/docs/concepts/storage/volumes/#awselasticblockstore), [GCE PD](/id/docs/concepts/storage/volumes/#gcepersistentdisk) dan [Azure Disk](/id/docs/concepts/storage/volumes/#azuredisk). Kamu harus mengaturnya secara eksplisit untuk volume [lokal](/id/docs/concepts/storage/volumes/#local).
 {{< /note >}}
 
 Sebuah PV dapat menspesifikasi [afinitas node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volumenodeaffinity-v1-core) untuk mendefinisikan batasan yang membatasi _node_ mana saja yang dapat mengakses volume tersebut. _Pod_ yang menggunakan sebuah PV hanya akan bisa dijadwalkan ke _node_ yang dipilih oleh afinitas _node_.
@@ -462,7 +466,7 @@ Klaim, seperti _pod_, bisa meminta sumber daya dengan jumlah tertentu.  Pada kas
 
 ### _Selector_
 
-Klaim dapat menspesifikasi [_label selector_](/docs/concepts/overview/working-with-objects/labels/#label-selectors) untuk memilih serangkaian volume lebih jauh. Hanya volume yang cocok labelnya dengan _selector_ yang dapat terikat dengan klaim. _Selector_ dapat terdiri dari dua kolom:
+Klaim dapat menspesifikasi [_label selector_](/id/docs/concepts/overview/working-with-objects/labels/#label-selectors) untuk memilih serangkaian volume lebih jauh. Hanya volume yang cocok labelnya dengan _selector_ yang dapat terikat dengan klaim. _Selector_ dapat terdiri dari dua kolom:
 
 * `matchLabels` - volume harus memiliki label dengan nilai ini
 * `matchExpressions` - daftar dari persyaratan yang dibuat dengan menentukan kunci, daftar nilai, dan operator yang menghubungkan kunci dengan nilai. Operator yang valid meliputi In, NotIn, Exists, dan DoesNotExist.
@@ -472,7 +476,7 @@ Semua persyaratan tersebut, dari `matchLabels` dan `matchExpressions` akan dilak
 ### Kelas
 
 Sebuah klaim dapat meminta kelas tertentu dengan menspesifikasi nama dari
-[StorageClass](/docs/concepts/storage/storage-classes/)
+[StorageClass](/id/docs/concepts/storage/storage-classes/)
 menggunakan atribut `storageClassName`.
 Hanya PV dari kelas yang diminta, yang memiliki `storageClassName` yang sama dengan PVC, yang dapat
 terikat dengan PVC.
@@ -643,7 +647,7 @@ Hanya volume yang disediakan secara statis yang didukung untuk rilis alfa. Admin
 
 {{< feature-state for_k8s_version="v1.12" state="alpha" >}}
 
-Fitur _volume snapshot_ ditambahkan hanya untuk mendukung _CSI Volume Plugins_. Untuk lebih detail, lihat [_volume snapshots_](/docs/concepts/storage/volume-snapshots/).
+Fitur _volume snapshot_ ditambahkan hanya untuk mendukung _CSI Volume Plugins_. Untuk lebih detail, lihat [_volume snapshots_](/id/docs/concepts/storage/volume-snapshots/).
 
 Untuk mengaktifkan dukungan pemulihan sebuah volume dari sebuah sumber data _volume snapshot_, aktifkan
 gerbang fitur `VolumeSnapshotDataSource` pada apiserver dan _controller-manager_.
@@ -694,4 +698,4 @@ dan membutuhkan _persistent storage_, kami merekomendasikan agar kamu menggunaka
   atau klaster tidak memiliki sistem penyimpanan (di mana penggun tidak dapat membuat
   PVC yang membutuhkan _config_).
 
-{{% /capture %}}
+

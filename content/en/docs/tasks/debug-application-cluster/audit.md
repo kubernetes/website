@@ -3,11 +3,11 @@ reviewers:
 - soltysh
 - sttts
 - ericchiang
-content_template: templates/concept
+content_type: concept
 title: Auditing
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes auditing provides a security-relevant chronological set of records documenting
 the sequence of activities that have affected system by individual users, administrators
@@ -22,13 +22,12 @@ answer the following questions:
  - from where was it initiated?
  - to where was it going?
 
-{{% /capture %}}
+<!-- body -->
 
-
-{{% capture body %}}
-
-[Kube-apiserver][kube-apiserver] performs auditing. Each request on each stage
-of its execution generates an event, which is then pre-processed according to
+Audit records begin their lifecycle inside the
+[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
+component. Each request on each stage
+of its execution generates an audit event, which is then pre-processed according to
 a certain policy and written to a backend. The policy determines what's recorded
 and the backends persist the records. The current backend implementations
 include logs files and webhooks.
@@ -55,7 +54,8 @@ Additionally, memory consumption depends on the audit logging configuration.
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
-[`audit.k8s.io` API group][auditing-api]. When an event is processed, it's
+[`audit.k8s.io` API group](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
+When an event is processed, it's
 compared against the list of rules in order. The first matching rule sets the
 "audit level" of the event. The known audit levels are:
 
@@ -67,7 +67,7 @@ compared against the list of rules in order. The first matching rule sets the
 - `RequestResponse` - log event metadata, request and response bodies.
   This does not apply for non-resource requests.
 
-You can pass a file with the policy to [kube-apiserver][kube-apiserver]
+You can pass a file with the policy to `kube-apiserver`
 using the `--audit-policy-file` flag. If the flag is omitted, no events are logged.
 Note that the `rules` field __must__ be provided in the audit policy file.
 A policy with no (0) rules is treated as illegal.
@@ -86,20 +86,21 @@ rules:
 - level: Metadata
 ```
 
-The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the [configure-helper.sh][configure-helper] script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
+The audit profile used by GCE should be used as reference by admins constructing their own audit profiles. You can check the
+[configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
+script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 ## Audit backends
 
 Audit backends persist audit events to an external storage.
-[Kube-apiserver][kube-apiserver] out of the box provides three backends:
+Out of the box, the kube-apiserver provides two backends:
 
 - Log backend, which writes events to a disk
 - Webhook backend, which sends events to an external API
-- Dynamic backend, which configures webhook backends through an AuditSink API object.
 
 In all cases, audit events structure is defined by the API in the
 `audit.k8s.io` API group. The current version of the API is
-[`v1`][auditing-api].
+[`v1`](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go).
 
 {{< note >}}
 In case of patches, request body is a JSON array with patch operations, not a JSON object
@@ -119,12 +120,13 @@ request to `/apis/batch/v1/namespaces/some-namespace/jobs/some-job-name`.
   }
 ]
 ```
+
 {{< /note >}}
 
 ### Log backend
 
 Log backend writes audit events to a file in JSON format. You can configure
-log audit backend using the following [kube-apiserver][kube-apiserver] flags:
+log audit backend using the following `kube-apiserver` flags:
 
 - `--audit-log-path` specifies the log file path that log backend uses to write
   audit events. Not specifying this flag disables log backend. `-` means standard out
@@ -132,21 +134,54 @@ log audit backend using the following [kube-apiserver][kube-apiserver] flags:
 - `--audit-log-maxbackup` defines the maximum number of audit log files to retain
 - `--audit-log-maxsize` defines the maximum size in megabytes of the audit log file before it gets rotated
 
+In case kube-apiserver is configured as a Pod,remember to mount the hostPath to the location of the policy file and log file. For example, 
+`
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml
+--audit-log-path=/var/log/audit.log
+`
+then mount the volumes:
+
+
+```
+volumeMounts:
+  - mountPath: /etc/kubernetes/audit-policy.yaml
+    name: audit
+    readOnly: true
+  - mountPath: /var/log/audit.log
+    name: audit-log
+    readOnly: false
+```
+finally the hostPath:
+
+```
+- name: audit
+  hostPath:
+    path: /etc/kubernetes/audit-policy.yaml
+    type: File
+
+- name: audit-log
+  hostPath:
+    path: /var/log/audit.log
+    type: FileOrCreate
+    
+```
+
+
+
 ### Webhook backend
 
 Webhook backend sends audit events to a remote API, which is assumed to be the
-same API as [kube-apiserver][kube-apiserver] exposes. You can configure webhook
+same API as `kube-apiserver` exposes. You can configure webhook
 audit backend using the following kube-apiserver flags:
 
 - `--audit-webhook-config-file` specifies the path to a file with a webhook
-  configuration. Webhook configuration is effectively a [kubeconfig][kubeconfig].
+  configuration. Webhook configuration is effectively a
+  [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters).
 - `--audit-webhook-initial-backoff` specifies the amount of time to wait after the first failed
   request before retrying. Subsequent requests are retried with exponential backoff.
 
 The webhook config file uses the kubeconfig format to specify the remote address of
 the service and credentials used to connect to it.
-
-In v1.13 webhook backends can be configured [dynamically](#dynamic-backend).
 
 ### Batching
 
@@ -202,147 +237,33 @@ available for the log backend:
 
 By default truncate is disabled in both `webhook` and `log`, a cluster administrator should set `audit-log-truncate-enabled` or `audit-webhook-truncate-enabled` to enable the feature.
 
-### Dynamic backend
-
-{{< feature-state for_k8s_version="v1.13" state="alpha" >}}
-
-In Kubernetes version 1.13, you can configure dynamic audit webhook backends AuditSink API objects.
-
-To enable dynamic auditing you must set the following apiserver flags:
-
-- `--audit-dynamic-configuration`: the primary switch. When the feature is at GA, the only required flag.
-- `--feature-gates=DynamicAuditing=true`: feature gate at alpha and beta.
-- `--runtime-config=auditregistration.k8s.io/v1alpha1=true`: enable API.
-
-When enabled, an AuditSink object can be provisioned:
-
-```yaml
-apiVersion: auditregistration.k8s.io/v1alpha1
-kind: AuditSink
-metadata:
-  name: mysink
-spec:
-  policy:
-    level: Metadata
-    stages:
-    - ResponseComplete
-  webhook:
-    throttle:
-      qps: 10
-      burst: 15
-    clientConfig:
-      url: "https://audit.app"
-```
-
-For the complete API definition, see [AuditSink](/docs/reference/generated/kubernetes-api/v1.13/#auditsink-v1alpha1-auditregistration). Multiple objects will exist as independent solutions.
-
-Existing static backends that you configure with runtime flags are not affected by this feature. However, the dynamic backends share the truncate options of the static webhook. If webhook truncate options are set with runtime flags, they are applied to all dynamic backends.
-
-#### Policy
-
-The AuditSink policy differs from the legacy audit runtime policy. This is because the API object serves different use cases. The policy will continue to evolve to serve more use cases.
-
-The `level` field applies the given audit level to all requests. The `stages` field is now a whitelist of stages to record.
-
-#### Contacting the webhook
-
-Once the API server has determined a request should be sent to a audit sink webhook,
-it needs to know how to contact the webhook. This is specified in the `clientConfig`
-stanza of the webhook configuration.
-
-Audit sink webhooks can either be called via a URL or a service reference,
-and can optionally include a custom CA bundle to use to verify the TLS connection.
-
-##### URL
-
-`url` gives the location of the webhook, in standard URL form
-(`scheme://host:port/path`).
-
-The `host` should not refer to a service running in the cluster; use
-a service reference by specifying the `service` field instead.
-The host might be resolved via external DNS in some apiservers
-(i.e., `kube-apiserver` cannot resolve in-cluster DNS as that would
-be a layering violation). `host` may also be an IP address.
-
-Please note that using `localhost` or `127.0.0.1` as a `host` is
-risky unless you take great care to run this webhook on all hosts
-which run an apiserver which might need to make calls to this
-webhook. Such installs are likely to be non-portable, i.e., not easy
-to turn up in a new cluster.
-
-The scheme must be "https"; the URL must begin with "https://".
-
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
-Fragments ("#...") and query parameters ("?...") are also not allowed.
-
-Here is an example of a webhook configured to call a URL
-(and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
-
-```yaml
-apiVersion: auditregistration.k8s.io/v1alpha1
-kind: AuditSink
-...
-spec:
-  webhook:
-    clientConfig:
-      url: "https://my-webhook.example.com:9443/my-webhook-path"
-```
-
-##### Service Reference
-
-The `service` stanza inside `clientConfig` is a reference to the service for a audit sink webhook.
-If the webhook is running within the cluster, then you should use `service` instead of `url`.
-The service namespace and name are required. The port is optional and defaults to 443.
-The path is optional and defaults to "/".
-
-Here is an example of a webhook that is configured to call a service on port "1234"
-at the subpath "/my-path", and to verify the TLS connection against the ServerName
-`my-service-name.my-service-namespace.svc` using a custom CA bundle.
-
-```yaml
-apiVersion: auditregistration.k8s.io/v1alpha1
-kind: AuditSink
-...
-spec:
-  webhook:
-    clientConfig:
-      service:
-        namespace: my-service-namespace
-        name: my-service-name
-        path: /my-path
-        port: 1234
-      caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle>...tLS0K"
-```
-
-#### Security
-
-Administrators should be aware that allowing write access to this feature grants read access to all cluster data. Access should be treated as a `cluster-admin` level privilege.
-
-#### Performance
-
-Currently, this feature has performance implications for the apiserver in the form of increased cpu and memory usage. This should be nominal for a small number of sinks, and performance impact testing will be done to understand its scope before the API progresses to beta.
-
 ## Setup for multiple API servers
 
-If you're extending the Kubernetes API with the [aggregation layer][kube-aggregator], you can also
-set up audit logging for the aggregated apiserver. To do this, pass the configuration options in the
-same format as described above to the aggregated apiserver and set up the log ingesting pipeline
-to pick up audit logs. Different apiservers can have different audit configurations and different
-audit policies.
+If you're extending the Kubernetes API with the [aggregation
+layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/),
+you can also set up audit logging for the aggregated apiserver. To do this,
+pass the configuration options in the same format as described above to the
+aggregated apiserver and set up the log ingesting pipeline to pick up audit
+logs. Different apiservers can have different audit configurations and
+different audit policies.
 
 ## Log Collector Examples
 
 ### Use fluentd to collect and distribute audit events from log file
 
-[Fluentd][fluentd] is an open source data collector for unified logging layer.
+[Fluentd](https://www.fluentd.org/) is an open source data collector for unified logging layer.
 In this example, we will use fluentd to split audit events by different namespaces.
 
-1. install [fluentd][fluentd_install_doc],  fluent-plugin-forest and fluent-plugin-rewrite-tag-filter in the kube-apiserver node
 {{< note >}}
-Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluentd. You can get details about plugin installation from [fluentd plugin-management][fluentd_plugin_management_doc].
+The `fluent-plugin-forest` and `fluent-plugin-rewrite-tag-filter` are plugins for fluentd.
+You can get details about plugin installation from
+[fluentd plugin-management](https://docs.fluentd.org/v1.0/articles/plugin-management).
 {{< /note >}}
 
-1. create a config file for fluentd
+1. Install [`fluentd`](https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd),
+   `fluent-plugin-forest` and `fluent-plugin-rewrite-tag-filter` in the kube-apiserver node
+
+1. Create a config file for fluentd
 
     ```
     cat <<'EOF' > /etc/fluentd/config
@@ -397,27 +318,28 @@ Fluent-plugin-forest and fluent-plugin-rewrite-tag-filter are plugins for fluent
     EOF
     ```
 
-1. start fluentd
+1. Start fluentd
 
     ```shell
     fluentd -c /etc/fluentd/config  -vv
     ```
 
-1. start kube-apiserver with the following options:
+1. Start kube-apiserver with the following options:
 
     ```shell
     --audit-policy-file=/etc/kubernetes/audit-policy.yaml --audit-log-path=/var/log/kube-audit --audit-log-format=json
     ```
 
-1. check audits for different namespaces in `/var/log/audit-*.log`
+1. Check audits for different namespaces in `/var/log/audit-*.log`
 
 ### Use logstash to collect and distribute audit events from webhook backend
 
-[Logstash][logstash] is an open source, server-side data processing tool. In this example,
+[Logstash](https://www.elastic.co/products/logstash)
+is an open source, server-side data processing tool. In this example,
 we will use logstash to collect audit events from webhook backend, and save events of
 different users into different files.
 
-1. install [logstash][logstash_install_doc]
+1. install [logstash](https://www.elastic.co/guide/en/logstash/current/installing-logstash.html)
 
 1. create config file for logstash
 
@@ -457,7 +379,7 @@ different users into different files.
     bin/logstash -f /etc/logstash/config --path.settings /etc/logstash/
     ```
 
-1. create a [kubeconfig file](/docs/tasks/access-application-cluster/authenticate-across-clusters-kubeconfig/) for kube-apiserver webhook audit backend
+1. create a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) for kube-apiserver webhook audit backend
 
         cat <<EOF > /etc/kubernetes/audit-webhook-kubeconfig
         apiVersion: v1
@@ -489,24 +411,7 @@ let users route data where they want. For example, users can emit audit events t
 plugin which supports full-text search and analytics.
 
 
-[kube-apiserver]: /docs/admin/kube-apiserver
-[auditing-proposal]: https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/auditing.md
-[auditing-api]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/staging/src/k8s.io/apiserver/pkg/apis/audit/v1/types.go
-[configure-helper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-[kubeconfig]: /docs/tasks/access-application-cluster/configure-access-multiple-clusters/
-[fluentd]: http://www.fluentd.org/
-[fluentd_install_doc]: https://docs.fluentd.org/v1.0/articles/quickstart#step-1:-installing-fluentd
-[fluentd_plugin_management_doc]: https://docs.fluentd.org/v1.0/articles/plugin-management
-[logstash]: https://www.elastic.co/products/logstash
-[logstash_install_doc]: https://www.elastic.co/guide/en/logstash/current/installing-logstash.html
-[kube-aggregator]: /docs/concepts/api-extension/apiserver-aggregation
-
-{{% /capture %}}
-
-{{% capture whatsnext %}}
-
-Visit [Auditing with Falco](/docs/tasks/debug-application-cluster/falco).
+## {{% heading "whatsnext" %}}
 
 Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
 
-{{% /capture %}}

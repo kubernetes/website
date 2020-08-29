@@ -1,19 +1,19 @@
 ---
 title: Komponen-Komponen Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 20
 card:
   name: concepts
   weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Dokumen ini merupakan ikhtisar yang mencakup berbagai komponen
 yang dibutuhkan agar klaster Kubernetes dapat berjalan secara fungsional.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Komponen <i>Master</i>
 
 Komponen <i>master</i> menyediakan <i>control plane</i> bagi klaster.
@@ -120,7 +120,7 @@ Meskipun tidak semua <i>addons</i> dibutuhkan, semua klaster Kubernetes hendakny
 memiliki DNS klaster. Komponen ini penting karena banyak dibutuhkan oleh komponen
 lainnya.
 
-[Klaster DNS](/docs/concepts/cluster-administration/addons/) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
+[Klaster DNS](/id/docs/concepts/cluster-administration/addons/) adalah server DNS, selain beberapa server DNS lain yang sudah ada di
 <i>environment</i> kamu, yang berfungsi sebagai catatan DNS bagi Kubernetes <i>services</i>
 
 Kontainer yang dimulai oleh kubernetes secara otomatis akan memasukkan server DNS ini
@@ -129,7 +129,7 @@ ke dalam mekanisme pencarian DNS yang dimilikinya.
 
 ### <i>Web UI</i> (Dasbor)
 
-[Dasbor](/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada klaster Kubernetes.
+[Dasbor](/id/docs/tasks/access-application-cluster/web-ui-dashboard/) adalah antar muka berbasis web multifungsi yang ada pada klaster Kubernetes.
 Dasbor ini memungkinkan user melakukan manajemen dan <i>troubleshooting</i> klaster maupun
 aplikasi yang ada pada klaster itu sendiri.
 
@@ -143,10 +143,10 @@ untuk melakukan pencarian data yang dibutuhkan.
 
 ### <i>Cluster-level Logging</i>
 
-[Cluster-level logging](/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> kontainer pada
+[Cluster-level logging](/id/docs/concepts/cluster-administration/logging/) bertanggung jawab mencatat <i>log</i> kontainer pada
 penyimpanan <i>log</i> terpusat dengan antar muka yang dapat digunakan untuk melakukan
 pencarian.
 
-{{% /capture %}}
+
 
 

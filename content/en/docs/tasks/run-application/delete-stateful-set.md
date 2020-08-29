@@ -6,23 +6,24 @@ reviewers:
 - janetkuo
 - smarterclayton
 title: Delete a StatefulSet
-content_template: templates/task
+content_type: task
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This task shows you how to delete a {{< glossary_tooltip term_id="StatefulSet" >}}.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * This task assumes you have an application running on your cluster represented by a StatefulSet.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Deleting a StatefulSet
 
@@ -57,7 +58,7 @@ kubectl delete pods -l app=myapp
 
 ### Persistent Volumes
 
-Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have left the [terminating state](/docs/concepts/workloads/pods/pod/#termination-of-pods) might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
+Deleting the Pods in a StatefulSet will not delete the associated volumes. This is to ensure that you have the chance to copy data off the volume before deleting it. Deleting the PVC after the pods have terminated might trigger deletion of the backing Persistent Volumes depending on the storage class and reclaim policy. You should never assume ability to access a volume after claim deletion.
 
 {{< note >}}
 Use caution when deleting a PVC, as it may lead to data loss.
@@ -81,12 +82,13 @@ In the example above, the Pods have the label `app=myapp`; substitute your own l
 
 If you find that some pods in your StatefulSet are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Refer to [Force Delete StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/) for details.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-{{% /capture %}}
+
 
 

@@ -7,25 +7,25 @@ reviewers:
 - liggitt
 - jpbetz
 title: Dynamic Admission Control
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 In addition to [compiled-in admission plugins](/docs/reference/access-authn-authz/admission-controllers/),
 admission plugins can be developed as extensions and run as webhooks configured at runtime.
 This page describes how to build, configure, use, and monitor admission webhooks.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## What are admission webhooks?
 
 Admission webhooks are HTTP callbacks that receive admission requests and do
 something with them. You can define two types of admission webhooks,
-[validating admission Webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+[validating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
 and
 [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook).
-Mutating admission Webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
+Mutating admission webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
 After all object modifications are complete, and after the incoming object is validated by the API server,
 validating admission webhooks are invoked and can reject requests to enforce custom policies.
 
@@ -114,7 +114,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate.>...tLS0K"
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
   timeoutSeconds: 5
@@ -139,7 +139,7 @@ webhooks:
     service:
       namespace: "example-namespace"
       name: "example-service"
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
   admissionReviewVersions: ["v1beta1"]
   timeoutSeconds: 5
 ```
@@ -549,7 +549,7 @@ Example of a minimal response from a webhook to forbid a request:
 
 When rejecting a request, the webhook can customize the http code and message returned to the user using the `status` field.
 The specified status object is returned to the user.
-See the [API documentation](/docs/reference/generated/kubernetes-api/v1.14/#status-v1-meta) for details about the status type.
+See the [API documentation](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#status-v1-meta) for details about the status type.
 Example of a response to forbid a request, customizing the HTTP status code and message presented to the user:
 {{< tabs name="AdmissionReview_response_forbid_details" >}}
 {{% tab name="admission.k8s.io/v1" %}}
@@ -589,7 +589,7 @@ Example of a response to forbid a request, customizing the HTTP status code and 
 When allowing a request, a mutating admission webhook may optionally modify the incoming object as well.
 This is done using the `patch` and `patchType` fields in the response.
 The only currently supported `patchType` is `JSONPatch`.
-See [JSON patch](http://jsonpatch.com/) documentation for more details.
+See [JSON patch](https://jsonpatch.com/) documentation for more details.
 For `patchType: JSONPatch`, the `patch` field contains a base64-encoded array of JSON patch operations.
 
 As an example, a single patch operation that would set `spec.replicas` would be `[{"op": "add", "path": "/spec/replicas", "value": 3}]`
@@ -628,9 +628,59 @@ So a webhook response to add that label would be:
 {{% /tab %}}
 {{< /tabs >}}
 
+Starting in v1.19, admission webhooks can optionally return warning messages that are returned to the requesting client
+in HTTP `Warning` headers with a warning code of 299. Warnings can be sent with allowed or rejected admission responses.
+
+If you're implementing a webhook that returns a warning:
+* Don't include a "Warning:" prefix in the message
+* Use warning messages to describe problems the client making the API request should correct or be aware of
+* Limit warnings to 120 characters if possible
+
+{{< caution >}}
+Individual warning messages over 256 characters may be truncated by the API server before being returned to clients.
+If more than 4096 characters of warning messages are added (from all sources), additional warning messages are ignored.
+{{< /caution >}}
+
+{{< tabs name="AdmissionReview_response_warning" >}}
+{{% tab name="admission.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true,
+    "warnings": [
+      "duplicate envvar entries specified with name MY_ENV",
+      "memory request less than 4MB specified for container mycontainer, which will not start successfully"
+    ]
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="admission.k8s.io/v1beta1" %}}
+```json
+{
+  "apiVersion": "admission.k8s.io/v1beta1",
+  "kind": "AdmissionReview",
+  "response": {
+    "uid": "<value from request.uid>",
+    "allowed": true,
+    "warnings": [
+      "duplicate envvar entries specified with name MY_ENV",
+      "memory request less than 4MB specified for container mycontainer, which will not start successfully"
+    ]
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
 ## Webhook configuration
 
 To register admission webhooks, create `MutatingWebhookConfiguration` or `ValidatingWebhookConfiguration` API objects.
+The name of a `MutatingWebhookConfiguration` or a `ValidatingWebhookConfiguration` object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
 Each configuration can contain one or more webhooks.
 If multiple webhooks are specified in a single configuration, each should be given a unique name.
@@ -947,7 +997,7 @@ See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for
 ### Matching requests: matchPolicy
 
 API servers can make objects available via multiple API groups or versions.
-For example, the Kubernetes API server allows creating and modifying `Deployment` objects
+For example, the Kubernetes API server may allow creating and modifying `Deployment` objects
 via `extensions/v1beta1`, `apps/v1beta1`, `apps/v1beta2`, and `apps/v1` APIs.
 
 For example, if a webhook only specified a rule for some API groups/versions (like `apiGroups:["apps"], apiVersions:["v1","v1beta1"]`),
@@ -969,9 +1019,10 @@ Specifying `Equivalent` is recommended, and ensures that webhooks continue to in
 resources they expect when upgrades enable new versions of the resource in the API server.
 
 When a resource stops being served by the API server, it is no longer considered equivalent to other versions of that resource that are still served.
-For example, deprecated `extensions/v1beta1` deployments are scheduled to stop being served by default in v1.16.
-Once that occurs, a webhook with a `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]` rule
-would no longer intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
+For example, `extensions/v1beta1` deployments were first deprecated and then removed (in Kubernetes v1.16).
+
+Since that removal, a webhook with a `apiGroups:["extensions"], apiVersions:["v1beta1"], resources:["deployments"]` rule
+does not intercept deployments created via `apps/v1` APIs. For that reason, webhooks should prefer registering
 for stable versions of resources.
 
 This example shows a validating webhook that intercepts modifications to deployments (no matter the API group or version),
@@ -1047,7 +1098,7 @@ to turn up in a new cluster.
 
 The scheme must be "https"; the URL must begin with "https://".
 
-Attempting to use a user or basic auth e.g. "user:password@" is not allowed.
+Attempting to use a user or basic auth (for example "user:password@") is not allowed.
 Fragments ("#...") and query parameters ("?...") are also not allowed.
 
 Here is an example of a mutating webhook configured to call a URL
@@ -1119,7 +1170,7 @@ kind: MutatingWebhookConfiguration
 webhooks:
 - name: my-webhook.example.com
   clientConfig:
-    caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+    caBundle: "Ci0tLS0tQk...<`caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate>...tLS0K"
     service:
       namespace: my-service-namespace
       name: my-service-name
@@ -1585,4 +1636,4 @@ If your admission webhooks don't intend to modify the behavior of the Kubernetes
 plane, exclude the `kube-system` namespace from being intercepted using a
 [`namespaceSelector`](#matching-requests-namespaceselector).
 
-{{% /capture %}}
+

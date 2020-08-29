@@ -1,16 +1,16 @@
 ---
 title: Kubernetesオブジェクト管理
-content_template: templates/concept
+content_type: concept
 weight: 15
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 `kubectl`コマンドラインツールは、Kubernetesオブジェクトを作成、管理するためにいくつかの異なる方法をサポートしています。
 このドキュメントでは、それらの異なるアプローチごとの概要を提供します。
 Kubectlを使ったオブジェクト管理の詳細は、[Kubectl book](https://kubectl.docs.kubernetes.io)を参照してください。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 管理手法
 
@@ -63,7 +63,7 @@ kubectl create deployment nginx --image nginx
 
 ## 命令型オブジェクト設定
 
-命令型オブジェクト設定では、kubectlコマンドに処理内容（create、replaceなど）、任意のフラグ、そして最低1つのファイル名を指定します。
+命令型オブジェクト設定では、kubectlコマンドに処理内容(create、replaceなど)、任意のフラグ、そして最低1つのファイル名を指定します。
 指定されたファイルは、YAMLまたはJSON形式でオブジェクトの全ての定義情報を含んでいなければいけません。
 
 オブジェクト定義の詳細は、[APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)を参照してください。
@@ -150,23 +150,24 @@ kubectl apply -R -f configs/
 命令型オブジェクト設定手法に対する長所:
 
 - 現行オブジェクトに直接行われた変更が、それらが設定ファイルに反映されていなかったとしても、保持されます
-- 宣言型オブジェクト設定は、ディレクトリごとの処理をより良くサポートしており、自動的にオブジェクトごとに操作のタイプ（作成、パッチ、削除）を検出します
+- 宣言型オブジェクト設定は、ディレクトリごとの処理をより良くサポートしており、自動的にオブジェクトごとに操作のタイプ(作成、パッチ、削除)を検出します
 
 命令型オブジェクト設定手法に対する短所:
 
 - 宣言型オブジェクト設定は、デバッグ、そして想定外の結果が出たときに理解するのが困難です
 - 差分を利用した一部のみの更新は、複雑なマージ、パッチの操作が必要です
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - [命令型コマンドを利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [オブジェクト設定（命令型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [オブジェクト設定（宣言型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Kustomize（宣言型）を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [オブジェクト設定(命令型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [オブジェクト設定(宣言型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Kustomize(宣言型)を利用したKubernetesオブジェクトの管理](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectlコマンドリファレンス](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes APIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 
-{{% /capture %}}
+

@@ -4,7 +4,7 @@ reviewers:
 translaters:
 - Coffey Gao
 title: 搭建高可用的 Kubernetes Masters
-content_template: templates/task
+content_type: task
 ---
 
 <!--
@@ -12,12 +12,12 @@ content_template: templates/task
 reviewers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
-content_template: templates/task
+content_type: task
 ---
 -->
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.5" state="alpha" >}}
 <!--
@@ -28,16 +28,17 @@ This document describes how to use kube-up/down scripts to manage highly availab
 您可以在谷歌计算引擎（GCE）的 `kubeup` 或 `kube-down` 脚本中复制 Kubernetes Master。
 本文描述了如何使用 kube-up/down 脚本来管理高可用（HA）的 Master，以及如何使用 GCE 实现高可用 Master。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 <!--
 ## Starting an HA-compatible cluster
 
@@ -225,9 +226,9 @@ This operation may be sped up by migrating etcd data directory, as described [he
 （我们正在考虑在未来添加对迁移 etcd 数据存储的支持）。
 
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 <!--
 ## Implementation notes
 
@@ -342,4 +343,4 @@ To make such deployment secure, communication between etcd instances is authoriz
 
 [自动化高可用集群部署 - 设计文档](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
 
-{{% /capture %}}
+

@@ -2,7 +2,6 @@
 title: " Kubernetes 社区每周聚会笔记- 2015年4月24日 "
 date: 2015-04-30
 slug: weekly-kubernetes-community-hangout_29
-url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_29
 ---
 
 <!--
@@ -16,7 +15,7 @@ url: /blog/2015/04/Weekly-Kubernetes-Community-Hangout_29
 -->
 
 <!--
-Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.  
+Every week the Kubernetes contributing community meet virtually over Google Hangouts. We want anyone who's interested to know what's discussed in this forum.
 -->
 每个星期，Kubernetes 贡献者社区几乎都会在谷歌 Hangouts 上聚会。我们希望任何对此感兴趣的人都能了解这个论坛的讨论内容。
 
@@ -85,7 +84,7 @@ Notes:
         * Brendan: 请求，它如何查找重复请求？Cassandra 希望在底层复制数据。向上和向下扩缩是有效的。根据负载动态地创建存储。它的步骤不仅仅是快照——通过编程使用预分配创建副本。
 
         * Tim: 帮助自动配置。
-        
+
 <!--
 
     * Brian: Does flocker requires any other component?

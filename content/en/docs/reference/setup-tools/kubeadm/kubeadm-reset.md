@@ -3,14 +3,13 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm reset
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
-{{% capture overview %}}
+<!-- overview -->
 Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`.
-{{% /capture %}}
 
-{{% capture body %}}
+<!-- body -->
 {{< include "generated/kubeadm_reset.md" >}}
 
 ### Reset workflow {#reset-workflow}
@@ -35,9 +34,8 @@ etcdctl del "" --prefix
 ```
 
 See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more information.
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
-{{% /capture %}}

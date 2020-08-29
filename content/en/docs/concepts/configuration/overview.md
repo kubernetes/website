@@ -2,17 +2,17 @@
 reviewers:
 - mikedanese
 title: Configuration Best Practices
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This document highlights and consolidates configuration best practices that are introduced throughout the user guide, Getting Started documentation, and examples.
 
 This is a living document. If you think of something that is not on this list but might be useful to others, please don't hesitate to file an issue or submit a PR.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## General Configuration Tips
 
 - When defining configurations, specify the latest stable API version.
@@ -30,11 +30,11 @@ This is a living document. If you think of something that is not on this list bu
 - Put object descriptions in annotations, to allow better introspection.
 
 
-## "Naked" Pods vs ReplicaSets, Deployments, and Jobs
+## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or [Deployment](/docs/concepts/workloads/controllers/deployment/)) if you can avoid it. Naked Pods will not be rescheduled in the event of a node failure.
 
-  A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/jobs-run-to-completion/) may also be appropriate.
+  A Deployment, which both creates a ReplicaSet to ensure that the desired number of Pods is always available, and specifies a strategy to replace Pods (such as [RollingUpdate](/docs/concepts/workloads/controllers/deployment/#rolling-update-deployment)), is almost always preferable to creating Pods directly, except for some explicit [`restartPolicy: Never`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) scenarios. A [Job](/docs/concepts/workloads/controllers/job/) may also be appropriate.
 
 
 ## Services
@@ -59,8 +59,7 @@ DNS server watches the Kubernetes API for new `Services` and creates a set of DN
 
 - Avoid using `hostNetwork`, for the same reasons as `hostPort`.
 
-- Use [headless Services](/docs/concepts/services-networking/service/#headless-
-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
+- Use [headless Services](/docs/concepts/services-networking/service/#headless-services) (which have a `ClusterIP` of `None`) for easy service discovery when you don't need `kube-proxy` load balancing.
 
 ## Using Labels
 
@@ -74,11 +73,11 @@ A desired state of an object is described by a Deployment, and if changes to tha
 
 ## Container Images
 
-The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/admin/kubelet/) attempts to pull the specified image.
+The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the tag of the image affect when the [kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull the specified image.
 
 - `imagePullPolicy: IfNotPresent`: the image is pulled only if it is not already present locally.
 
-- `imagePullPolicy: Always`: the image is pulled every time the pod is started.
+- `imagePullPolicy: Always`: every time the kubelet launches a container, the kubelet queries the container image registry to resolve the name to an image digest. If the kubelet has a container image with that exact digest cached locally, the kubelet uses its cached image; otherwise, the kubelet downloads (pulls) the image with the resolved digest, and uses that image to launch the container.
 
 - `imagePullPolicy` is omitted and either the image tag is `:latest` or it is omitted: `Always` is applied.
 
@@ -87,7 +86,7 @@ The [imagePullPolicy](/docs/concepts/containers/images/#updating-images) and the
 - `imagePullPolicy: Never`: the image is assumed to exist locally. No attempt is made to pull the image.
 
 {{< note >}}
-To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier), for example `sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`. The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
+To make sure the container always uses the same version of the image, you can specify its [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier); replace `<image-name>:<tag>` with `<image-name>@<digest>` (for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`). The digest uniquely identifies a specific version of the image, so it is never updated by Kubernetes unless you change the digest value.
 {{< /note >}}
 
 {{< note >}}
@@ -104,8 +103,7 @@ The caching semantics of the underlying image provider make even `imagePullPolic
 
 - Use label selectors for `get` and `delete` operations instead of specific object names. See the sections on [label selectors](/docs/concepts/overview/working-with-objects/labels/#label-selectors) and [using labels effectively](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
 
-- Use `kubectl run` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
+- Use `kubectl create deployment` and `kubectl expose` to quickly create single-container Deployments and Services. See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/) for an example.
 
-{{% /capture %}}
 
 

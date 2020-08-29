@@ -2,11 +2,11 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Set up a High Availability etcd cluster with kubeadm
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< note >}}
 While kubeadm is being used as the management tool for external etcd nodes
@@ -23,22 +23,19 @@ becoming unavailable. This task walks through the process of creating a high
 availability etcd cluster of three members that can be used as an external etcd
 when using kubeadm to set up a kubernetes cluster.
 
-{{% /capture %}}
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 * Three hosts that can talk to each other over ports 2379 and 2380. This
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
-* Each host must [have docker, kubelet, and kubeadm installed][toolbox].
+* Each host must [have docker, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+* Each host should have access to the Kubernetes container image registry (`k8s.gcr.io`) or list/pull the required etcd image using
+`kubeadm config images list/pull`. This guide will setup etcd instances as
+[static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 
-[toolbox]: /docs/setup/production-environment/tools/kubeadm/install-kubeadm/
-
-{{% /capture %}}
-
-{{% capture steps %}}
+<!-- steps -->
 
 ## Setting up the cluster
 
@@ -264,12 +261,13 @@ this example.
     - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`
     - Set `${HOST0}`to the IP address of the host you are testing.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Once you have a working 3 member etcd cluster, you can continue setting up a
 highly available control plane using the [external etcd method with
 kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
-{{% /capture %}}
+

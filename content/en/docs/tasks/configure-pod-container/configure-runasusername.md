@@ -1,24 +1,25 @@
 ---
 title: Configure RunAsUserName for Windows pods and containers
-content_template: templates/task
+content_type: task
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="v1.17" state="beta" >}}
+{{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-This page shows how to enable and use the `RunAsUserName` feature for pods and containers that will run on Windows nodes. This feature is meant to be the Windows equivalent of the Linux-specific `runAsUser` feature, allowing users to run the container entrypoints with a different username that their default ones.
+This page shows how to use the `runAsUserName` setting for Pods and containers that will run on Windows nodes. This is roughly equivalent of the Linux-specific `runAsUser` setting, allowing you to run applications in a container as a different username than the default.
 
-{{< note >}}
-This feature is in beta. The overall functionality for `RunAsUserName` will not change, but there may be some changes regarding the username validation.
-{{< /note >}}
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
+
 
 You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
+
+
+
+<!-- steps -->
 
 ## Set the Username for a Pod
 
@@ -59,7 +60,6 @@ The output should be:
 ```shell
 ContainerUser
 ```
-
 
 ## Set the Username for a Container
 
@@ -115,12 +115,12 @@ Examples of acceptable values for the `runAsUserName` field: `ContainerAdministr
 
 For more information about these limtations, check [here](https://support.microsoft.com/en-us/help/909264/naming-conventions-in-active-directory-for-computers-domains-sites-and) and [here](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.localaccounts/new-localuser?view=powershell-5.1).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Guide for scheduling Windows containers in Kubernetes](/docs/setup/production-environment/windows/user-guide-windows-containers/)
 * [Managing Workload Identity with Group Managed Service Accounts (GMSA)](/docs/setup/production-environment/windows/user-guide-windows-containers/#managing-workload-identity-with-group-managed-service-accounts)
 * [Configure GMSA for Windows pods and containers](/docs/tasks/configure-pod-container/configure-gmsa/)
 
-{{% /capture %}}

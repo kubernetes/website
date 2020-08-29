@@ -3,18 +3,19 @@ reviewers:
 - johnbelamaric
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page describes the CoreDNS upgrade process and how to install CoreDNS instead of kube-dns.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## About CoreDNS
 
@@ -63,6 +64,10 @@ In Kubernetes 1.11, CoreDNS has graduated to General Availability (GA)
 and is installed by default.
 {{< /note >}}
 
+{{< warning >}}
+In Kubernetes 1.18, kube-dns usage with kubeadm has been deprecated and will be removed in a future version.
+{{< /warning >}}
+
 To install kube-dns on versions prior to 1.13, set the `CoreDNS` feature gate
 value to `false`:
 
@@ -72,9 +77,9 @@ kubeadm init --feature-gates=CoreDNS=false
 
 For versions 1.13 and later, follow the guide outlined [here](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase#cmd-phase-addon).
 
-## Upgrading CoreDNS 
+## Upgrading CoreDNS
 
-CoreDNS is available in Kubernetes since v1.9. 
+CoreDNS is available in Kubernetes since v1.9.
 You can check the version of CoreDNS shipped with Kubernetes and the changes made to CoreDNS [here](https://github.com/coredns/deployment/blob/master/kubernetes/CoreDNS-k8s_version.md).
 
 CoreDNS can be upgraded manually in case you want to only upgrade CoreDNS or use your own custom image.
@@ -85,14 +90,15 @@ There is a helpful [guideline and walkthrough](https://github.com/coredns/deploy
 When resource utilisation is a concern, it may be useful to tune the configuration of CoreDNS. For more details, check out the
 [documentation on scaling CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 You can configure [CoreDNS](https://coredns.io) to support many more use cases than
 kube-dns by modifying the `Corefile`. For more information, see the
 [CoreDNS site](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/).
 
-{{% /capture %}}
+
 
 

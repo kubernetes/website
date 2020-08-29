@@ -10,7 +10,7 @@ aka:
 tags:
 - fundamental
 ---
- 컨테이너의 저장된 인스턴스이며, 애플리케이션 구동에 필요한 소프트웨어 집합을 가지고 있다.
+ {{< glossary_tooltip text="컨테이너" term_id="container" >}}의 저장된 인스턴스이며, 애플리케이션 구동에 필요한 소프트웨어 집합을 가지고 있다.
 
 <!--more--> 
 

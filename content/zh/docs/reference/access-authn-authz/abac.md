@@ -5,7 +5,7 @@ approvers:
 - deads2k
 - liggitt
 title: 使用 ABAC 鉴权
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -16,21 +16,21 @@ reviewers:
 - deads2k
 - liggitt
 title: Using ABAC Authorization
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 -->
 基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，其中通过使用将属性组合在一起的策略来向用户授予访问权限。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Policy File Format
@@ -311,5 +311,5 @@ system:serviceaccount:<namespace>:default
 
 需要重新启动 apiserver 以获取新的策略行。
 
-{{% /capture %}}
+
 

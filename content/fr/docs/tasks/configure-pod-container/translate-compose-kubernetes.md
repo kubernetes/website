@@ -1,23 +1,24 @@
 ---
 title: Convertir un fichier Docker Compose en ressources Kubernetes
-content_template: templates/task
+content_type: task
 weight: 200
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 C'est quoi Kompose ? C'est un outil de conversion de tout ce qui compose (notamment Docker Compose) en orchestrateurs de conteneurs (Kubernetes ou OpenShift).
 Vous trouverez plus d'informations sur le site web de Kompose à [http://kompose.io](http:/kompose.io).
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Installer Kompose
 
@@ -192,9 +193,9 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
       $ curl http://192.0.2.89
       ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Guide de l'utilisateur
 
@@ -600,4 +601,4 @@ Kompose supporte les versions Docker Compose : 1, 2 et 3. Nous avons un support 
 
 Une liste complète sur la compatibilité entre les trois versions est donnée dans notre [document de conversion](https://github.com/kubernetes/kompose/blob/master/docs/conversion.md) incluant une liste de toutes les clés Docker Compose incompatibles.
 
-{{% /capture %}}
+

@@ -1,14 +1,14 @@
 ---
 title: Pod Preset
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Halaman ini menyajikan gambaran umum tentang PodPreset, yang merupakan objek untuk memasukkan informasi tertentu ke dalam Pod pada saat waktu penciptaan. Informasi dapat berupa _secret_, _volume_, _volume mount_, dan variabel _environment_.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Memahami Pod Preset
 ---
 
@@ -53,9 +53,10 @@ Dalam rangka untuk menggunakan Pod Preset di dalam klaster kamu, kamu harus mema
     saat menginisialisasi klaster.
 1. Kamu telah membuat objek `PodPreset` pada _namespace_ yang kamu gunakan dengan cara mendefinisikan Pod Preset.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-  * [Memasukkan data ke dalam sebuah Pod dengan PodPreset](/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
+
+  * [Memasukkan data ke dalam sebuah Pod dengan PodPreset](/id/docs/concepts/workloads/pods/pod/#injecting-data-into-a-pod-using-podpreset.md)
+
+

@@ -1,18 +1,19 @@
 ---
 title: Exposing an External IP Address to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to create a Kubernetes Service object that exposes an
 external IP address.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
  * Install [kubectl](/docs/tasks/tools/install-kubectl/).
 
@@ -24,19 +25,20 @@ external IP address.
  * Configure `kubectl` to communicate with your Kubernetes API server. For
  instructions, see the documentation for your cloud provider.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Run five instances of a Hello World application.
 * Create a Service object that exposes an external IP address.
 * Use the Service object to access the running application.
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Creating a service for an application running in five pods
 
@@ -50,11 +52,11 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
 
 The preceding command creates a
-    [Deployment](/docs/concepts/workloads/controllers/deployment/)
-    object and an associated
-    [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)
-    object. The ReplicaSet has five
-    [Pods](/docs/concepts/workloads/pods/pod/),
+    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+    and an associated
+    {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}}.
+    The ReplicaSet has five
+    {{< glossary_tooltip text="Pods" term_id="pod" >}}
     each of which runs the Hello World application.
 
 1. Display information about the Deployment:
@@ -80,8 +82,17 @@ The preceding command creates a
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    Note: If the external IP address is shown as \<pending\>, wait for a minute
-    and enter the same command again.
+    {{< note >}}
+
+    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
+
+    {{< /note >}}
 
 1. Display detailed information about the Service:
 
@@ -139,10 +150,11 @@ The preceding command creates a
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 To delete the Service, enter this command:
 
@@ -153,11 +165,12 @@ the Hello World application, enter this command:
 
     kubectl delete deployment hello-world
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
-{{% /capture %}}
+

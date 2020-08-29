@@ -2,16 +2,16 @@
 approvers:
 - chenopis
 title: Custom Hugo Shortcodes
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page explains the custom Hugo shortcodes that can be used in Kubernetes markdown documentation.
 
 Read more about shortcodes in the [Hugo documentation](https://gohugo.io/content-management/shortcodes).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Feature state
 
@@ -90,18 +90,38 @@ Renders to:
 
 ## Glossary
 
+There are two glossary tooltips.
+
 You can reference glossary terms with an inclusion that automatically updates and replaces content with the relevant links from [our glossary](/docs/reference/glossary/). When the term is moused-over by someone
 using the online documentation, the glossary entry displays a tooltip.
 
+As well as inclusions with tooltips, you can reuse the definitions from the glossary in
+page content.
+
 The raw data for glossary terms is stored at [https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary](https://github.com/kubernetes/website/tree/master/content/en/docs/reference/glossary), with a content file for each glossary term.
 
-### Glossary Demo
+### Glossary demo
 
 For example, the following include within the markdown renders to {{< glossary_tooltip text="cluster" term_id="cluster" >}} with a tooltip:
 
-```liquid
+```
 {{</* glossary_tooltip text="cluster" term_id="cluster" */>}}
 ```
+
+Here's a short glossary definition:
+
+```
+{{</* glossary_definition prepend="A cluster is" term_id="cluster" length="short" */>}}
+```
+which renders as:
+{{< glossary_definition prepend="A cluster is" term_id="cluster" length="short" >}}
+
+You can also include a full definition:
+```
+{{</* glossary_definition term_id="cluster" length="all" */>}}
+```
+which renders as:
+{{< glossary_definition term_id="cluster" length="all" >}}
 
 ## Table captions
 
@@ -232,15 +252,16 @@ Renders to:
 {{< tabs name="tab_with_file_include" >}}
 {{< tab name="Content File #1" include="example1" />}}
 {{< tab name="Content File #2" include="example2" />}}
-{{< tab name="JSON File" include="podtemplate" />}}
+{{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn about [Hugo](https://gohugo.io/).
-* Learn about [writing a new topic](/docs/home/contribute/write-new-topic/).
-* Learn about [using page templates](/docs/home/contribute/page-templates/).
-* Learn about [staging your changes](/docs/home/contribute/stage-documentation-changes/)
-* Learn about [creating a pull request](/docs/home/contribute/create-pull-request/).
-{{% /capture %}}
+* Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
+* Learn about [page content types](/docs/contribute/style/page-content-types/).
+* Learn about [opening a pull request](/docs/contribute/new-content/open-a-pr/).
+* Learn about [advanced contributing](/docs/contribute/advanced/).
+

@@ -1,10 +1,10 @@
 ---
 title: Installer Kubernetes avec Kubespray (on-premises et fournisseurs de cloud)
 description: Installation de Kubernetes avec Kubespray
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette documentation permet d'installer rapidement un cluster Kubernetes hébergé sur GCE, Azure, Openstack, AWS, vSphere, Oracle Cloud Infrastructure (expérimental) ou sur des serveurs physiques (bare metal) grâce à [Kubespray](https://github.com/kubernetes-incubator/kubespray).
 
@@ -23,9 +23,9 @@ Kubespray se base sur des outils de provisioning, des [paramètres](https://gith
 
 Afin de choisir l'outil le mieux adapté à votre besoin, veuillez lire [cette comparaison](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/comparisons.md) avec [kubeadm](/docs/admin/kubeadm/) et [kops](../kops).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Créer un cluster
 
@@ -96,7 +96,7 @@ Kubespray fournit des playbooks supplémentaires qui permettent de gérer votre 
 
 ### Mise à l'échelle du cluster
 
-Vous pouvez ajouter des noeuds à votre cluter en exécutant le playbook `scale`. Pour plus d'informations se référer à [Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes).
+Vous pouvez ajouter des noeuds à votre cluster en exécutant le playbook `scale`. Pour plus d'informations se référer à [Adding nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#adding-nodes).
 vous pouvez retirer des noeuds de votre cluster en exécutant le playbook `remove-node`. Se référer à [Remove nodes](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#remove-nodes).
 
 ### Mise à jour du cluster
@@ -116,10 +116,11 @@ Quand vous utilisez le playbook `reset`, assurez-vous de ne pas cibler accidente
 * Channel Slack: [#kubespray](https://kubernetes.slack.com/messages/kubespray/)
 * [Issues GitHub](https://github.com/kubernetes-incubator/kubespray/issues)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Jetez un oeil aux travaux prévus sur Kubespray: [roadmap](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/roadmap.md).
 
-{{% /capture %}}
+

@@ -3,11 +3,11 @@ reviewers:
 - jpeeler
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to use a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount
 several existing volume sources into the same directory. Currently, `secret`, `configMap`, `downwardAPI`,
 and `serviceAccountToken` volumes can be projected.
@@ -15,13 +15,14 @@ and `serviceAccountToken` volumes can be projected.
 {{< note >}}
 `serviceAccountToken` is not a volume type.
 {{< /note >}}
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 ## Configure a projected volume for a pod
 
 In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
@@ -77,9 +78,10 @@ kubectl delete pod test-projected-volume
 kubectl delete secret user pass
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [`projected`](/docs/concepts/storage/volumes/#projected) volumes.
 * Read the [all-in-one volume](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/node/all-in-one-volume.md) design document.
-{{% /capture %}}
+

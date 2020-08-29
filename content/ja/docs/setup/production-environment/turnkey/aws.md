@@ -1,21 +1,22 @@
 ---
 title: AWS EC2上でKubernetesを動かす
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、AWS上でKubernetesクラスターをインストールする方法について説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 AWS上でKubernetesクラスターを作成するには、AWSからアクセスキーIDおよびシークレットアクセスキーを入手する必要があります。
 
 ### サポートされているプロダクショングレードのツール
 
-* [conjure-up](/docs/getting-started-guides/ubuntu/)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
+* [conjure-up](https://docs.conjure-up.io/stable/en/cni/k8s-and-aws)はUbuntu上でネイティブなAWSインテグレーションを用いてKubernetesクラスターを作成するオープンソースのインストーラーです。
 
 * [Kubernetes Operations](https://github.com/kubernetes/kops) - プロダクショングレードなKubernetesのインストール、アップグレード、管理が可能です。AWS上のDebian、Ubuntu、CentOS、RHELをサポートしています。
 
@@ -25,9 +26,9 @@ AWS上でKubernetesクラスターを作成するには、AWSからアクセス�
 
 * [KubeOne](https://github.com/kubermatic/kubeone)は可用性の高いKubernetesクラスターを作成、アップグレード、管理するための、オープンソースのライフサイクル管理ツールです。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## クラスターの始まり
 
@@ -52,7 +53,7 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 ### 例
 
-新しいクラスターを試すには、[簡単なnginxの例](/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。
+新しいクラスターを試すには、[簡単なnginxの例](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。
 
 "Guestbook"アプリケーションは、Kubernetesを始めるもう一つのポピュラーな例です: [guestbookの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
 
@@ -84,4 +85,4 @@ AWS                  | KubeOne         | Ubuntu, CoreOS, CentOS   | canal, weave
 
 Kubernetesクラスターの利用と管理に関する詳細は、[Kubernetesドキュメント](/ja/docs/)を参照してください。
 
-{{% /capture %}}
+

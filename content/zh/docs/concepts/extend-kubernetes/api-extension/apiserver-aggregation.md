@@ -1,7 +1,7 @@
 ---
 title: 通过聚合层扩展 Kubernetes API
-content_template: templates/concept
-weight: 10
+content_type: concept
+weight: 20
 ---
 <!--
 ---
@@ -10,66 +10,87 @@ reviewers:
 - lavalamp
 - cheftako
 - chenopis
-content_template: templates/concept
-weight: 10
+content_type: concept
+weight: 20
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 The aggregation layer allows Kubernetes to be extended with additional APIs, beyond what is offered by the core Kubernetes APIs.
 -->
-聚合层允许 Kubernetes 通过额外的 API 进行扩展，而不局限于 Kubernetes 核心 API 提供的功能。
-
-{{% /capture %}}
-
-{{% capture body %}}
+使用聚合层（Aggregation Layer），用户可以通过额外的 API 扩展 Kubernetes，
+而不局限于 Kubernetes 核心 API 提供的功能。
 
 <!--
-## Overview
+The additional APIs can either be ready-made solutions such as [service-catalog](/docs/concepts/extend-kubernetes/service-catalog/), or APIs that you develop yourself.
 
-The aggregation layer enables installing additional Kubernetes-style APIs in your cluster. These can either be pre-built, existing 3rd party solutions, such as [service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md), or user-created APIs like [apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md), which can get you started.
+The aggregation layer is different from [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/), which are a way to make the {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} recognise new kinds of object.
 -->
-## 概述
+这里的附加 API 可以是[服务目录](/zh/docs/concepts/extend-kubernetes/service-catalog/)
+这类已经成熟的解决方案，也可以是你自己开发的 API。
 
-聚合层使您的集群可以安装其他 Kubernetes 风格的 API。这些 API 可以是预编译的、第三方的解决方案提供的例如[service-catalog](https://github.com/kubernetes-incubator/service-catalog/blob/master/README.md)、或者用户创建的类似[apiserver-builder](https://github.com/kubernetes-incubator/apiserver-builder/blob/master/README.md)一样的API可以帮助你上手。
+聚合层不同于
+[自定义资源（Custom Resources）](/zh/docs/concepts/extend-kubernetes/api-extension/custom-resources/)。
+后者的目的是让 {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}}
+能够认识新的对象类别（Kind）。
+
+<!-- body -->
 
 <!--
+## Aggregation layer
+
 The aggregation layer runs in-process with the kube-apiserver. Until an extension resource is registered, the aggregation layer will do nothing. To register an API, users must add an APIService object, which "claims" the URL path in the Kubernetes API. At that point, the aggregation layer will proxy anything sent to that API path (e.g. /apis/myextension.mycompany.io/v1/…) to the registered APIService.
 -->
-聚合层在 kube-apiserver 进程内运行。在扩展资源注册之前，聚合层不做任何事情。要注册 API，用户必须添加一个 APIService 对象，用它来申领 Kubernetes API 中的 URL 路径。自此以后，聚合层将会把发给该 API 路径的所有内容（例如 /apis/myextension.mycompany.io/v1/…）代理到已注册的 APIService。
+## 聚合层  {#aggregation-layer}
+
+聚合层在 kube-apiserver 进程内运行。在扩展资源注册之前，聚合层不做任何事情。
+要注册 API，用户必须添加一个 APIService 对象，用它来“申领” Kubernetes API 中的 URL 路径。
+自此以后，聚合层将会把发给该 API 路径的所有内容（例如 `/apis/myextension.mycompany.io/v1/…`）
+转发到已注册的 APIService。
 
 <!--
-Ordinarily, the APIService will be implemented by an *extension-apiserver* in a pod running in the cluster. This extension-apiserver will normally need to be paired with one or more controllers if active management of the added resources is needed. As a result, the apiserver-builder will actually provide a skeleton for both. As another example, when the service-catalog is installed, it provides both the extension-apiserver and controller for the services it provides.
+The most common way to implement the APIService is to run an *extension API server* in Pod(s) that run in your cluster. If you're using the extension API server to manage resources in your cluster, the extension API server (also written as "extension-apiserver") is typically paired with one or more {{< glossary_tooltip text="controllers" term_id="controller" >}}. The apiserver-builder library provides a skeleton for both extension API servers and the associated controller(s).
 -->
-正常情况下，APIService 会实现为运行于集群中某 Pod 内的 extension-apiserver。如果需要对增加的资源进行动态管理，extension-apiserver 经常需要和一个或多个控制器一起使用。因此，apiserver-builder 同时提供用来管理新资源的 API 框架和控制器框架。另外一个例子，当安装了 service-catalog 时，它会为自己提供的服务提供 extension-apiserver 和控制器。
+APIService 的最常见实现方式是在集群中某 Pod 内运行 *扩展 API 服务器*。 
+如果你在使用扩展 API 服务器来管理集群中的资源，该扩展 API 服务器（也被写成“extension-apiserver”）
+一般需要和一个或多个{{< glossary_tooltip text="控制器" term_id="controller" >}}一起使用。
+apiserver-builder 库同时提供构造扩展 API 服务器和控制器框架代码。
+
 
 <!--
-Extension-apiservers should have low latency connections to and from the kube-apiserver.
-In particular, discovery requests are required to round-trip from the kube-apiserver in five seconds or less.
-If your deployment cannot achieve this, you should consider how to change it.  For now, setting the
-`EnableAggregatedDiscoveryTimeout=false` feature gate on the kube-apiserver
-will disable the timeout restriction. It will be removed in a future release.
+### Response latency
+
+Extension API servers should have low latency networking to and from the kube-apiserver.
+Discovery requests are required to round-trip from the kube-apiserver in five seconds or less.
+
+If your extension API server cannot achieve that latency requirement, consider making changes that let you meet it. You can also set the
+`EnableAggregatedDiscoveryTimeout=false` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the kube-apiserver
+to disable the timeout restriction. This deprecated feature gate will be removed in a future release.
 -->
+### 反应延迟  {#response-latency}
 
-extension-apiserver 与 kube-apiserver 之间的连接应具有低延迟。
-特别是，发现请求需要在五秒钟或更短的时间内从 kube-apiserver 往返。
-如果您的部署无法实现此目的，则应考虑如何进行更改。目前，在 kube-apiserver 上设置 `EnableAggregatedDiscoveryTimeout=false` 功能开关将禁用超时限制。它将在将来的版本中被删除。
+扩展 API 服务器与 kube-apiserver 之间需要存在低延迟的网络连接。
+发现请求需要在五秒钟或更短的时间内完成到 kube-apiserver 的往返。
 
-{{% /capture %}}
+如果你的扩展 API 服务器无法满足这一延迟要求，应考虑如何更改配置已满足需要。
+你也可以为 kube-apiserver 设置 `EnableAggregatedDiscoveryTimeout=false`
+[特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+来禁用超时限制。此特性门控已经废弃，将在未来版本中被删除。
 
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 * To get the aggregator working in your environment, [configure the aggregation layer](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/).
 * Then, [setup an extension api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) to work with the aggregation layer.
 * Also, learn how to [extend the Kubernetes API using Custom Resource Definitions](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/).
+* Read the specification for [APIService](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io)
 -->
-* 阅读[配置聚合层](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 文档，了解如何在自己的环境中启用聚合器（aggregator）。
-* 然后[安装扩展的 api-server](/docs/tasks/access-kubernetes-api/setup-extension-api-server/) 来开始使用聚合层。
-* 也可以学习怎样 [使用客户资源定义扩展 Kubernetes API](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)。
-
-{{% /capture %}}
-
+* 阅读[配置聚合层](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 文档，
+  了解如何在自己的环境中启用聚合器。
+* 接下来，了解[安装扩展 API 服务器](/zh/docs/tasks/extend-kubernetes/setup-extension-api-server/)，
+  开始使用聚合层。
+* 也可以学习怎样[使用自定义资源定义扩展 Kubernetes API](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)。
+* 阅读 [APIService](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#apiservice-v1-apiregistration-k8s-io) 的规范
 

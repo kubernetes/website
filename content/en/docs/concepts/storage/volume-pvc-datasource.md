@@ -5,19 +5,18 @@ reviewers:
 - thockin
 - msau42
 title: CSI Volume Cloning
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
 This document describes the concept of cloning existing CSI Volumes in Kubernetes.  Familiarity with [Volumes](/docs/concepts/storage/volumes) is suggested.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Introduction
 
@@ -36,6 +35,7 @@ Users need to be aware of the following when using this feature:
 * Cloning is only supported within the same Storage Class.
     - Destination volume must be the same storage class as the source
     - Default storage class can be used and storageClassName omitted in the spec
+* Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
 
 
 ## Provisioning
@@ -60,10 +60,14 @@ spec:
     name: pvc-1
 ```
 
+{{< note >}}
+You must specify a capacity value for `spec.resources.requests.storage`, and the value you specify must be the same or larger than the capacity of the source volume.
+{{< /note >}}
+
 The result is a new PVC with the name `clone-of-pvc-1` that has the exact same content as the specified source `pvc-1`.
 
 ## Usage
 
 Upon availability of the new PVC, the cloned PVC is consumed the same as other PVC.  It's also expected at this point that the newly created PVC is an independent object.  It can be consumed, cloned, snapshotted, or deleted independently and without consideration for it's original dataSource PVC.  This also implies that the source is not linked in any way to the newly created clone, it may also be modified or deleted without affecting the newly created clone.
 
-{{% /capture %}}
+

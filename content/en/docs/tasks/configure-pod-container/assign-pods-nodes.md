@@ -1,25 +1,26 @@
 ---
 title: Assign Pods to Nodes
-content_template: templates/task
+content_type: task
 weight: 120
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to assign a Kubernetes Pod to a particular node in a
 Kubernetes cluster.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Add a label to a node
 
-1. List the nodes in your cluster, along with their labels:
+1. List the {{< glossary_tooltip term_id="node" text="nodes" >}} in your cluster, along with their labels:
 
     ```shell
     kubectl get nodes --show-labels
@@ -94,10 +95,11 @@ You can also schedule a pod to one specific node via setting `nodeName`.
 
 Use the configuration file to create a pod that will get scheduled on `foo-node` only.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-Learn more about
-[labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
-{{% /capture %}}
+
+## {{% heading "whatsnext" %}}
+
+* Learn more about [labels and selectors](/docs/concepts/overview/working-with-objects/labels/).
+* Learn more about [nodes](/docs/concepts/architecture/nodes/).
+
 

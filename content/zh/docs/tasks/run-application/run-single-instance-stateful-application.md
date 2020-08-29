@@ -1,33 +1,35 @@
 ---
 title: 运行一个单实例有状态应用
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本文介绍在 Kubernetes 中使用 PersistentVolume 和 Deployment 如何运行一个单实例有状态应用. 该应用是 MySQL.
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 在环境中通过磁盘创建一个PersistentVolume.
 * 创建一个MySQL Deployment.
 * 在集群内以一个已知的 DNS 名将 MySQL 暴露给其他 pods.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * {{< include "default-storage-class-prereqs.md" >}}
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 部署MySQL
 
@@ -158,10 +160,11 @@ kubectl delete pv mysql-pv-volume
 如果通过手动的方式分配 PersistentVolume, 那么也需要手动的删除它，以及释放下层资源.
 如果是用过动态分配 PersistentVolume 的方式，在删除 PersistentVolumeClaim 后 PersistentVolume 将被自动的删除. 一些存储服务(比如 EBS 和 PD)也会在 PersistentVolume 被删除时自动回收下层资源.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * 了解更多 Deployment 对象请参考 [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 
@@ -171,6 +174,6 @@ kubectl delete pv mysql-pv-volume
 
 * 卷和持久卷请参考 [Volumes](/docs/concepts/storage/volumes/) 和 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/)
 
-{{% /capture %}}
+
 
 

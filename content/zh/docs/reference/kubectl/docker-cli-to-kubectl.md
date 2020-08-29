@@ -1,6 +1,6 @@
 ---
 title: 适用于 Docker 用户的 kubectl
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
@@ -8,28 +8,27 @@ reviewers:
 <!-- 
 ---
 title: kubectl for Docker Users
-content_template: templates/concept
+content_type: concept
 reviewers:
 - brendandburns
 - thockin
 --- 
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- 
 You can use the Kubernetes command line tool kubectl to interact with the API Server. Using kubectl is straightforward if you are familiar with the Docker command line tool. However, there are a few differences between the docker commands and the kubectl commands. The following sections show a docker sub-command and describe the equivalent kubectl command. 
 -->
 您可以使用 Kubernetes 命令行工具 kubectl 与 API 服务器进行交互。如果您熟悉 Docker 命令行工具，则使用 kubectl 非常简单。但是，docker 命令和 kubectl 命令之间有一些区别。以下显示了 docker 子命令，并描述了等效的 kubectl 命令。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## docker run
 
-<!-- 
-To run an nginx Deployment and expose the Deployment, see [kubectl run](/docs/reference/generated/kubectl/kubectl-commands/#run). 
+<!--
+To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
 -->
-要运行 nginx 部署并将其暴露，请参见 [kubectl 运行](/docs/reference/generated/kubectl/kubectl-commands/#run)。
-
+要运行 nginx 部署并将其暴露，请参见[kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-)
 docker:
 
 ```shell
@@ -57,10 +56,18 @@ kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
 -->
 ```shell
 # 启动运行 nginx 的 Pod
-kubectl run --image=nginx nginx-app --port=80 --env="DOMAIN=cluster"
+kubectl create deployment --image=nginx nginx-app
 ```
 ```
-deployment "nginx-app" created
+deployment.apps/nginx-app created
+```
+
+```
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
+```
+```
+deployment.apps/nginx-app env updated
 ```
 
 {{< note >}}
@@ -89,10 +96,10 @@ By using kubectl, you can create a [Deployment](/docs/concepts/workloads/control
 -->
 在 kubectl 命令中，我们创建了一个 [Deployment](/docs/concepts/workloads/controllers/deployment/)，这将保证有 N 个运行 nginx 的 pod(N 代表 spec 中声明的 replica 数，默认为 1)。我们还创建了一个 [service](/docs/concepts/services-networking/service/)，其选择器与容器标签匹配。查看[使用服务访问群集中的应用程序](/docs/tasks/access-application-cluster/service-access-application-cluster) 获取更多信息。
 
-<!-- 
-By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use: 
+<!--
+By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
 -->
-默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果您想在前台运行，使用:
+默认情况下镜像会在后台运行，与 `docker run -d ...` 类似，如果您想在前台运行，使用 [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) 在前台运行 Pod:
 
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
@@ -487,4 +494,4 @@ Grafana is running at https://108.59.85.141/api/v1/namespaces/kube-system/servic
 Heapster is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 InfluxDB is running at https://108.59.85.141/api/v1/namespaces/kube-system/services/monitoring-influxdb/proxy
 ```
-{{% /capture %}}
+

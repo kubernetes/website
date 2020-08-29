@@ -3,7 +3,6 @@ title: 노드 구성 검증하기
 weight: 30
 ---
 
-{{< toc >}}
 
 ## 노드 적합성 테스트
 
@@ -73,7 +72,7 @@ sudo docker run -it --rm --privileged --net=host \
   k8s.gcr.io/node-test:0.2
 ```
 
-노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/sig-node/e2e-node-tests.md)를 컨테이너화한 버전이다.
+노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)를 컨테이너화한 버전이다.
 기본적으로, 모든 적합성 테스트를 실행한다.
 
 이론적으로, 컨테이너와 필요한 볼륨을 적절히 설정했다면 어떤 노드 e2e 테스트도 수행할 수 있다.

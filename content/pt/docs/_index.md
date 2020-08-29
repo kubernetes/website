@@ -3,18 +3,18 @@ reviewers:
 - raelga
 title: Documentação
 weight: 10
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 **Bem-vindo à documentação do Kubernetes em Português**
 
 Como você pode ver, a maior parte da documentação ainda está disponível apenas em inglês, mas não se preocupe, há uma equipe trabalhando na tradução para o português.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 Se você quiser participar, você pode entrar no canal Slack [#kubernets-docs-pt](http://slack.kubernetes.io/) e fazer parte da equipe por trás da tradução.
 

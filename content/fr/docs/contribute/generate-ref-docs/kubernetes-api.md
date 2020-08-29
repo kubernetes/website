@@ -1,16 +1,17 @@
 ---
 title: Génération de documentation de référence pour l'API Kubernetes
 description: Génération documentation référence API Kubernetes
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment mettre à jour les documents de référence générés automatiquement pour l'API Kubernetes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 Vous devez avoir ces outils installés:
 
@@ -25,9 +26,9 @@ Vous devez savoir comment créer une pull request dans un dépôt GitHub.
 Généralement, cela implique la création d'un fork du dépôt.
 Pour plus d'informations, voir [Créer une Pull Request de documentation](/docs/home/contribute/create-pull-request/) et [GitHub Standard Fork & Pull Request Workflow](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Généralités
 
@@ -327,12 +328,13 @@ Continuez à surveiller votre pull request jusqu'à ce qu'elle ait été mergée
 
 Quelques minutes après que votre pull request soit fusionnée, vos modifications seront visibles dans la [documentation de référence publiée](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Génération de documents de référence pour les composants et les outils Kubernetes](/docs/home/contribute/generated-reference/kubernetes-components/)
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
 * [Génération de documentation de référence pour l'API de fédération Kubernetes](/docs/home/contribute/generated-reference/federation-api/)
 
-{{% /capture %}}
+

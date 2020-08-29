@@ -6,7 +6,6 @@
 | `upstream_changes.py`   | Find what changes occurred between two versions.                                                                                      |
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
-| `hugo-version-check.sh` | This script checks whether your local Hugo version matches the version used in production.                                            |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
 
 
@@ -70,12 +69,6 @@ To run the examples:
 This script checks the headers if you are in a production environment.
 
     ./scripts/check-headers-file.sh
-
-## hugo-version-check.sh
-
-This script checks whether your local Hugo version matches the version used in production.
-
-    ./scripts/hugo-version-check.sh
 
 ## diff_l10n_branches.py
 

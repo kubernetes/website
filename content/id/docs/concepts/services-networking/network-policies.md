@@ -1,20 +1,20 @@
 ---
 title: NetworkPolicy
-content_template: templates/concept
+content_type: concept
 weight: 50
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Sebuah NetworkPolicy adalah spesifikasi dari sekelompok Pod atau _endpoint_ yang diizinkan untuk saling berkomunikasi.
 
 `NetworkPolicy` menggunakan label untuk memilih Pod serta mendefinisikan serangkaian _rule_ yang digunakan
 untuk mendefinisikan trafik yang diizinkan untuk suatu Pod tertentu.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Prasyarat
 
 NetworkPolicy diimplementasikan dengan menggunakan _plugin_ jaringan,
@@ -80,7 +80,7 @@ kecuali penyedia jaringan mendukung network policy.
 **_Field-field_ yang bersifat wajib**: Sama dengan seluruh _config_ Kubernetes lainnya, sebuah `NetworkPolicy`
 membutuhkan _field-field_ `apiVersion`, `kind`, dan `metadata`.  Informasi generik mengenai
 bagaimana bekerja dengan _file_ `config`, dapat dilihat di
-[Konfigurasi Kontainer menggunakan `ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/),
+[Konfigurasi Kontainer menggunakan `ConfigMap`](/id/docs/tasks/configure-pod-container/configure-pod-configmap/),
 serta [Manajemen Objek](/docs/concepts/overview/object-management-kubectl/overview/).
 
 **spec**: `NetworkPolicy` [spec](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) memiliki semua informasi yang harus diberikan untuk memberikan definisi _network policy_ yang ada pada _namespace_ tertentu.
@@ -275,11 +275,12 @@ Kubernetes mendukung SCTP sebagai _value_ `protocol` pada definisi `NetworkPolic
 _Plugin_ CNI harus mendukung SCTP sebagai _value_ dari `protocol` pada `NetworkPolicy`.
 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 - Lihat [Deklarasi _Network Policy_](/docs/tasks/administer-cluster/declare-network-policy/) untuk melihat lebih banyak contoh penggunaan.
 - Baca lebih lanjut soal [panduan](https://github.com/ahmetb/kubernetes-network-policy-recipes) bagi skenario generik _resource_ `NetworkPolicy`.
 
-{{% /capture %}}
+

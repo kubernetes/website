@@ -1,31 +1,29 @@
 ---
 title: Pod内のコンテナ間でプロセス名前空間を共有する
 min-kubernetes-server-version: v1.10
-content_template: templates/task
+content_type: task
 weight: 160
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state state="beta" >}}
+{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 このページでは、プロセス名前空間を共有するPodを構成する方法を示します。
 プロセス名前空間の共有が有効になっている場合、コンテナ内のプロセスは、そのPod内の他のすべてのコンテナに表示されます。
 
 この機能を使用して、ログハンドラーサイドカーコンテナなどの協調コンテナを構成したり、シェルなどのデバッグユーティリティを含まないコンテナイメージをトラブルシューティングしたりできます。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-プロセス名前空間の共有は**ベータ**機能であり、デフォルトで有効になっています。
-`--feature-gates=PodShareProcessNamespace=false`を設定することで無効にできます。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+<!-- steps -->
 
 ## Podを構成する
 
@@ -89,9 +87,9 @@ events {
     worker_connections  1024;
 ```
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## プロセス名前空間の共有について理解する
 
@@ -99,7 +97,7 @@ Podは多くのリソースを共有するため、プロセスの名前空間�
 ただし、一部のコンテナイメージは他のコンテナから分離されることが期待されるため、これらの違いを理解することが重要です:
 
 1. **コンテナプロセスは PID 1ではなくなります。**
-   一部のコンテナイメージは、PID 1なしで起動することを拒否し（たとえば、`systemd`を使用するコンテナ）、`kill -HUP 1`などのコマンドを実行してコンテナプロセスにシグナルを送信します。
+   一部のコンテナイメージは、PID 1なしで起動することを拒否し(たとえば、`systemd`を使用するコンテナ)、`kill -HUP 1`などのコマンドを実行してコンテナプロセスにシグナルを送信します。
    共有プロセス名前空間を持つPodでは、`kill -HUP 1`はPodサンドボックスにシグナルを送ります。(上の例では`/pause`)
 
 1. **プロセスはPod内の他のコンテナに表示されます。**
@@ -109,6 +107,6 @@ Podは多くのリソースを共有するため、プロセスの名前空間�
 1. **コンテナファイルシステムは、`/proc/$pid/root`リンクを介してPod内の他のコンテナに表示されます。**
    これによりデバッグが容易になりますが、ファイルシステム内の秘密情報はファイルシステムのアクセス許可によってのみ保護されることも意味します。
 
-{{% /capture %}}
+
 
 

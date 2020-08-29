@@ -2,20 +2,20 @@
 title: Tareas
 main_menu: true
 weight: 50
-content_template: templates/concept
+content_type: concept
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 
 Esta sección de la documentación de Kubernetes contiene páginas que
 muestran cómo acometer tareas individuales. Cada página de tarea muestra cómo
 realizar una única cosa, típicamente proporcionando una pequeña secuencia de comandos.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Interfaz Web de Usuario (Tablero de Control)
 
@@ -65,23 +65,21 @@ Configura componentes en una federación de clústers.
 
 Realiza tareas comunes de gestión de aplicaciones con estado, incluyendo escalado, borrado y depuración de StatefulSets.
 
-## Demonios del Clúster
+## Daemons del Clúster
 
 Realiza tareas comunes de gestión de un DaemonSet, como llevar a cabo una actualización de lanzamiento.
 
 ## Gestionar GPUs
 
-COnfigura y planifica GPUs de NVIDIA para hacerlas disponibles como recursos a los nodos de un clúster.
+Configura y planifica GPUs de NVIDIA para hacerlas disponibles como recursos a los nodos de un clúster.
 
 ## Gestionar HugePages
 
 Configura y planifica HugePages como un recurso planificado en un clúster.
 
-{{% /capture %}}
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 Si quisieras escribir una página de Tareas, echa un vistazo a
 [Crear una Petición de Subida de Documentación](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

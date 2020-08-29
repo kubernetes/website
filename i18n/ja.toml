@@ -25,6 +25,9 @@ other = "Stack Overflow"
 [community_twitter_name]
 other = "Twitter"
 
+[community_youtube_name]
+other = "YouTube"
+
 [deprecation_warning]
 other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
 
@@ -54,6 +57,9 @@ other = "このページは役に立ちましたか？"
 
 [feedback_yes]
 other = "はい"
+
+[input_placeholder_email_address]
+other = "メールアドレス"
 
 [latest_version]
 other = "最新バージョン"
@@ -169,6 +175,9 @@ other = "目標"
 [prerequisites_heading]
 other = "始める前に"
 
+[subscribe_button]
+other = "購読する"
+
 [ui_search_placeholder]
 other = "検索"
 
@@ -181,8 +190,11 @@ other = "作業するKubernetesサーバーは次のバージョン以降のも�
 [version_check_tocheck]
 other = "バージョンを確認するには次のコマンドを実行してください: "
 
-[whatsnext_heading]
-other = "次の項目"
+[version_menu]
+other = "バージョン"
 
 [warning]
 other = "警告:"
+
+[whatsnext_heading]
+other = "次の項目"

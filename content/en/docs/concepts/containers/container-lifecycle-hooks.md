@@ -3,19 +3,19 @@ reviewers:
 - mikedanese
 - thockin
 title: Container Lifecycle Hooks
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page describes how kubelet managed Containers can use the Container lifecycle hook framework
 to run code triggered by events during their management lifecycle.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Overview
 
@@ -30,7 +30,7 @@ There are two hooks that are exposed to Containers:
 
 `PostStart`
 
-This hook executes immediately after a container is created.
+This hook is executed immediately after a container is created.
 However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
 No parameters are passed to the handler.
 
@@ -42,7 +42,7 @@ so it must complete before the call to delete the container can be sent.
 No parameters are passed to the handler.
 
 A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/concepts/workloads/pods/pod/#termination-of-pods).
+[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Hook handler implementations
 
@@ -112,12 +112,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment-variables/).
+## {{% heading "whatsnext" %}}
+
+
+* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
 * Get hands-on experience
   [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
 
-{{% /capture %}}
+

@@ -1,6 +1,8 @@
 ---
 title: Kubernetes 是什么？
-content_template: templates/concept
+content_type: concept
+description: >
+  Kubernetes 是一个可移植的，可扩展的开源平台，用于管理容器化的工作负载和服务，方便了声明式配置和自动化。它拥有一个庞大且快速增长的生态系统。Kubernetes 的服务，支持和工具广泛可用。
 weight: 10
 card:
   name: concepts
@@ -12,7 +14,7 @@ reviewers:
 - bgrant0607
 - mikedanese
 title: What is Kubernetes
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: concepts
@@ -20,23 +22,23 @@ card:
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This page is an overview of Kubernetes.
 -->
 此页面是 Kubernetes 的概述。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 <!--
 Kubernetes is a portable, extensible, open-source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 -->
 Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes 拥有一个庞大且快速增长的生态系统。Kubernetes 的服务、支持和工具广泛可用。
 
 <!--
-The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://ai.google/research/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
+The name Kubernetes originates from Greek, meaning helmsman or pilot. Google open-sourced the Kubernetes project in 2014. Kubernetes builds upon a [decade and a half of experience that Google has with running production workloads at scale](https://research.google/pubs/pub43438), combined with best-of-breed ideas and practices from the community.
 -->
-名称 **Kubernetes** 源于希腊语，意为 "舵手" 或 "飞行员"。Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在 [Google 在大规模运行生产工作负载方面拥有十几年的经验](https://ai.google/research/pubs/pub43438)的基础上，结合了社区中最好的想法和实践。
+名称 **Kubernetes** 源于希腊语，意为 "舵手" 或 "飞行员"。Google 在 2014 年开源了 Kubernetes 项目。Kubernetes 建立在 [Google 在大规模运行生产工作负载方面拥有十几年的经验](https://research.google/pubs/pub43438)的基础上，结合了社区中最好的想法和实践。
 
 <!--
 ## Going back in time
@@ -74,7 +76,7 @@ Each VM is a full machine running all the components, including its own operatin
 每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
 
 <!--
-**Container deployment era:** 
+**Container deployment era:**
 Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
 -->
 **容器部署时代：**
@@ -111,7 +113,7 @@ Containers are becoming popular because they have many benefits. Some of the con
 <!--
 ## Why you need Kubernetes and what can it do
 -->
-#### 为什么需要 Kubernetes，它能做什么?
+## 为什么需要 Kubernetes，它能做什么?
 
 <!--
 Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
@@ -192,7 +194,7 @@ Kubernetes：
 -->
 * Kubernetes 不限制支持的应用程序类型。Kubernetes 旨在支持极其多种多样的工作负载，包括无状态、有状态和数据处理工作负载。如果应用程序可以在容器中运行，那么它应该可以在 Kubernetes 上很好地运行。
 * Kubernetes 不部署源代码，也不构建您的应用程序。持续集成(CI)、交付和部署（CI/CD）工作流取决于组织的文化和偏好以及技术要求。
-* Kubernetes 不提供应用程序级别的服务作为内置服务，例如中间件（例如，消息中间件）、数据处理框架（例如，Spark）、数据库（例如，mysql）、缓存、集群存储系统（例如，Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在 Kubernetes 上的应用程序通过可移植机制（例如，开放服务代理）来访问。
+* Kubernetes 不提供应用程序级别的服务作为内置服务，例如中间件（例如，消息中间件）、数据处理框架（例如，Spark）、数据库（例如，mysql）、缓存、集群存储系统（例如，Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在 Kubernetes 上的应用程序通过可移植机制（例如，[开放服务代理](https://openservicebrokerapi.org/)）来访问。
 
 <!--
 * Does not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.
@@ -205,13 +207,13 @@ Kubernetes：
 * Kubernetes 不提供也不采用任何全面的机器配置、维护、管理或自我修复系统。
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。编排的技术定义是执行已定义的工作流程：首先执行 A，然后执行 B，再执行 C。相比之下，Kubernetes 包含一组独立的、可组合的控制过程，这些过程连续地将当前状态驱动到所提供的所需状态。从 A 到 C 的方式无关紧要，也不需要集中控制，这使得系统更易于使用且功能更强大、健壮、弹性和可扩展性。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 *   Take a look at the [Kubernetes Components](/docs/concepts/overview/components/)
 *   Ready to [Get Started](/docs/setup/)?
 -->
-*   查阅 [Kubernetes 组件](/docs/concepts/overview/components/)
-*   开始 [Kubernetes 入门](/docs/setup/)?
-{{% /capture %}}
+*   查阅 [Kubernetes 组件](/zh/docs/concepts/overview/components/)
+*   开始 [Kubernetes 入门](/zh/docs/setup/)?

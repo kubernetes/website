@@ -9,11 +9,11 @@ feature:
   description: >
     Allocation of IPv4 and IPv6 addresses to Pods and Services
 
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.16" state="alpha" >}}
 
@@ -21,9 +21,9 @@ weight: 70
 
 If you enable IPv4/IPv6 dual-stack networking for your Kubernetes cluster, the cluster will support the simultaneous assignment of both IPv4 and IPv6 addresses.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Supported Features
 
@@ -31,7 +31,6 @@ Enabling IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following 
 
    * Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
    * IPv4 and IPv6 enabled Services (each Service must be for a single address family)
-   * Kubenet multi address family support (IPv4 and IPv6)
    * Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
 ## Prerequisites
@@ -40,28 +39,32 @@ The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack 
 
    * Kubernetes 1.16 or later
    * Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-   * Kubenet network plugin
-   * Kube-proxy running in mode IPVS
+   * A network plugin that supports dual-stack (such as Kubenet or Calico)
 
 ## Enable IPv4/IPv6 dual-stack
 
 To enable IPv4/IPv6 dual-stack, enable the `IPv6DualStack` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the relevant components of your cluster, and set dual-stack cluster network assignments:
 
+   * kube-apiserver:
+      * `--feature-gates="IPv6DualStack=true"`
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>` eg. `--cluster-cidr=10.244.0.0/16,fc00::/24`
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
    * kubelet:
       * `--feature-gates="IPv6DualStack=true"`
    * kube-proxy:
-      * `--proxy-mode=ipvs`
-      * `--cluster-cidrs=<IPv4 CIDR>,<IPv6 CIDR>` 
+      * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
       * `--feature-gates="IPv6DualStack=true"`
 
-{{< caution >}}
-If you specify an IPv6 address block larger than a /24 via  `--cluster-cidr` on the command line, that assignment will fail.
-{{< /caution >}}
+{{< note >}}
+An example of an IPv4 CIDR: `10.244.0.0/16` (though you would supply your own address range)
+
+An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but is not a valid address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
+
+{{< /note >}}
 
 ## Services
 
@@ -101,10 +104,11 @@ The use of publicly routable and non-publicly routable IPv6 address blocks is ac
 
    * Kubenet forces IPv4,IPv6 positional reporting of IPs (--cluster-cidr)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
 
-{{% /capture %}}
+

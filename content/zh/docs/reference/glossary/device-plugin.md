@@ -2,7 +2,7 @@
 title: 驱动插件
 id: device-plugin
 date: 2019-02-02
-full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
+full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   在 Kubernetes 中运行的容器提供对供应商特定资源的访问权限。
 aka:
@@ -15,7 +15,7 @@ tags:
 title: Device Plugin
 id: device-plugin
 date: 2019-02-02
-full_link: /docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
+full_link: /zh/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/
 short_description: >
   Containers running in Kubernetes that provide access to a vendor specific resource.
 aka:

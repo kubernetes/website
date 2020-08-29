@@ -1,19 +1,22 @@
 ---
 title: Specifying a Disruption Budget for your Application
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
+
+{{< feature-state for_k8s_version="v1.5" state="beta" >}}
 
 This page shows how to limit the number of concurrent disruptions
 that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 * You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
 * You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
@@ -21,9 +24,9 @@ nodes.
 * You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
 * You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Protecting an Application with a PodDisruptionBudget
 
@@ -32,9 +35,9 @@ nodes.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Identify an Application to Protect
 
@@ -49,7 +52,7 @@ specified by one of the built-in Kubernetes controllers:
 In this case, make a note of the controller's `.spec.selector`; the same
 selector goes into the PDBs `.spec.selector`.
 
-From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
 
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
@@ -180,8 +183,8 @@ then you'll see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               0                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               0                     7s
 ```
 
 If there are matching pods (say, 3), then you would see something like this:
@@ -190,11 +193,11 @@ If there are matching pods (say, 3), then you would see something like this:
 kubectl get poddisruptionbudgets
 ```
 ```
-NAME      MIN-AVAILABLE   ALLOWED-DISRUPTIONS   AGE
-zk-pdb    2               1                     7s
+NAME     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+zk-pdb   2               N/A               1                     7s
 ```
 
-The non-zero value for `ALLOWED-DISRUPTIONS` means that the disruption controller has seen the pods,
+The non-zero value for `ALLOWED DISRUPTIONS` means that the disruption controller has seen the pods,
 counted the matching pods, and updated the status of the PDB.
 
 You can get more information about the status of a PDB with this command:
@@ -206,14 +209,15 @@ kubectl get poddisruptionbudgets zk-pdb -o yaml
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  creationTimestamp: 2017-08-28T02:38:26Z
+  annotations:
+…
+  creationTimestamp: "2020-03-04T04:22:56Z"
   generation: 1
   name: zk-pdb
 …
 status:
   currentHealthy: 3
-  desiredHealthy: 3
-  disruptedPods: null
+  desiredHealthy: 2
   disruptionsAllowed: 1
   expectedPods: 3
   observedGeneration: 1
@@ -235,6 +239,6 @@ You can use a selector which selects a subset or superset of the pods belonging 
 controller.  However, when there are multiple PDBs in a namespace, you must be careful not
 to create PDBs whose selectors overlap.
 
-{{% /capture %}}
+
 
 

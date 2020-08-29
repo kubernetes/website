@@ -1,37 +1,39 @@
 ---
 title: クラスター内のアプリケーションにアクセスするために外部IPアドレスを公開する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 10
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、外部IPアドレスを公開するKubernetesのServiceオブジェクトを作成する方法を示します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
 
- * [kubectl](/docs/tasks/tools/install-kubectl/)をインストールしてください。
+## {{% heading "prerequisites" %}}
+
+
+ * [kubectl](/ja/docs/tasks/tools/install-kubectl/)をインストールしてください。
 
  * Kubernetesクラスターを作成する際に、Google Kubernetes EngineやAmazon Web Servicesのようなクラウドプロバイダーを使用します。このチュートリアルでは、クラウドプロバイダーを必要とする[外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を作成します。
 
  * Kubernetes APIサーバーと通信するために、`kubectl`を設定してください。手順については、各クラウドプロバイダーのドキュメントを参照してください。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 5つのインスタンスで実際のアプリケーションを起動します。
 * 外部IPアドレスを公開するServiceオブジェクトを作成します。
 * 起動中のアプリケーションにアクセスするためにServiceオブジェクトを使用します。
 
-{{% /capture %}}
 
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## 5つのPodで起動しているアプリケーションへのServiceの作成
 
@@ -44,7 +46,7 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 ```
 
 
-上記のコマンドにより、[Deployment](/docs/concepts/workloads/controllers/deployment/)オブジェクトを作成し、[ReplicaSet](/docs/concepts/workloads/controllers/replicaset/)オブジェクトを関連づけます。ReplicaSetには5つの[Pod](/docs/concepts/workloads/pods/pod/)があり、それぞれHello Worldアプリケーションが起動しています。
+上記のコマンドにより、[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)オブジェクトを作成し、[ReplicaSet](/ja/docs/concepts/workloads/controllers/replicaset/)オブジェクトを関連づけます。ReplicaSetには5つの[Pod](/ja/docs/concepts/workloads/pods/pod/)があり、それぞれHello Worldアプリケーションが起動しています。
 
 1. Deploymentに関する情報を表示します:
 
@@ -69,7 +71,17 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
         NAME         TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)    AGE
         my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
 
-    注意: 外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+    {{< note >}}
+
+    `type=LoadBalancer`のServiceは外部のクラウドプロバイダーによってサポートされており、ここでは扱いません。詳細は[こちらのページ](/ja/docs/concepts/services-networking/service/#loadbalancer)を参照してください。
+
+    {{< /note >}}
+
+    {{< note >}}
+
+    外部IPアドレスが\<pending\>と表示されている場合は、しばらく待ってから同じコマンドを実行してください。
+
+    {{< /note >}}
 
 1. Serviceに関する詳細な情報を表示します:
 
@@ -124,23 +136,25 @@ kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
 
         Hello Kubernetes!
 
-{{% /capture %}}
 
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 Serviceを削除する場合、次のコマンドを実行します:
 
-        kubectl delete services my-service
+    kubectl delete services my-service
 
 Deployment、ReplicaSet、およびHello Worldアプリケーションが動作しているPodを削除する場合、次のコマンドを実行します:
 
-        kubectl delete deployment hello-world
-
-{{% /capture %}}
+    kubectl delete deployment hello-world
 
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/)にて詳細を学ぶことができます。
-{{% /capture %}}
+

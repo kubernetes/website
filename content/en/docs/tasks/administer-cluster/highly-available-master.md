@@ -2,26 +2,27 @@
 reviewers:
 - jszczepkowski
 title: Set up High-Availability Kubernetes Masters
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.5" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 You can replicate Kubernetes masters in `kube-up` or `kube-down` scripts for Google Compute Engine.
 This document describes how to use kube-up/down scripts to manage highly available (HA) masters and how HA masters are implemented for use with GCE.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Starting an HA-compatible cluster
 
@@ -118,9 +119,9 @@ If the cluster is large, it may take a long time to duplicate its state.
 This operation may be sped up by migrating etcd data directory, as described [here](https://coreos.com/etcd/docs/latest/admin_guide.html#member-migration)
 (we are considering adding support for etcd data dir migration in future).
 
-{{% /capture %}}
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## Implementation notes
 
@@ -173,4 +174,4 @@ To make such deployment secure, communication between etcd instances is authoriz
 
 [Automated HA master deployment - design doc](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/ha_master.md)
 
-{{% /capture %}}
+

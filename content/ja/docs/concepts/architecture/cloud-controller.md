@@ -1,14 +1,14 @@
 ---
 title: クラウドコントローラーマネージャーとそのコンセプト
-content_template: templates/concept
-weight: 30
+content_type: concept
+weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-クラウドコントローラマネージャー(CCM)のコンセプト(バイナリと混同しないでください)は、もともとクラウドベンダー固有のソースコードと、Kubernetesのコアソースコードを独立して進化させることが出来るように作られました。クラウドコントローラーマネージャーは、Kubernetesコントローラーマネージャー、APIサーバー、そしてスケジューラーのような他のマスターコンポーネントと並行して動きます。またKubernetesのアドオンとしても動かすことができ、その場合はKubernetes上で動きます。
+クラウドコントローラマネージャー(CCM)のコンセプト(バイナリと混同しないでください)は、もともとクラウドベンダー固有のソースコードと、Kubernetesのコアソースコードを独立して進化させることができるように作られました。クラウドコントローラーマネージャーは、Kubernetesコントローラーマネージャー、APIサーバー、そしてスケジューラーのような他のマスターコンポーネントと並行して動きます。またKubernetesのアドオンとしても動かすことができ、その場合はKubernetes上で動きます。
 
-クラウドコントローラーマネージャーの設計は「プラグイン機構」をベースにしています。そうすることで、新しいクラウドプロバイダーがプラグインを使ってKubernetesと簡単に統合出来るようになります。新しいクラウドプロバイダーに向けてKubernetesのオンボーディングを行ったり、古いモデルを利用しているクラウドプロバイダーに、新しいCCMモデルに移行させるような計画があります。
+クラウドコントローラーマネージャーの設計は「プラグインメカニズム」をベースにしています。そうすることで、新しいクラウドプロバイダーがプラグインを使ってKubernetesと簡単に統合できるようになります。新しいクラウドプロバイダーに向けてKubernetesのオンボーディングを行ったり、古いモデルを利用しているクラウドプロバイダーに、新しいCCMモデルに移行させるような計画があります。
 
 このドキュメントでは、クラウドコントローラーマネージャーの背景にあるコンセプトと、それに関連する機能の詳細について話します。
 
@@ -16,10 +16,10 @@ weight: 30
 
 ![Pre CCM Kube Arch](/images/docs/pre-ccm-arch.png)
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 設計
 
@@ -52,7 +52,7 @@ CCMは、Kubernetesコントローラーマネージャー(KCM)からいくつ�
 ボリュームコントローラーは、意図的にCCMの一部になっていません。複雑さと、ベンダー固有のボリュームロジックを抽象化するのに費やした労力を考え、CCMの一部に移行しないことが決定されました。
 {{< /note >}}
 
-CCMを使ったボリュームをサポートする元の計画は、プラガブルなボリュームをサポートするため、Flexボリュームを使うことでした。しかし、競合しているCSIとして知られている機能が、Flexを置き換える予定です。
+CCMを使ったボリュームをサポートする元の計画は、プラガブルなボリュームをサポートするため、[Flex](/docs/concepts/storage/volumes/#flexVolume)ボリュームを使うことでした。しかし、競合している[CSI](/docs/concepts/storage/volumes/#csi)として知られている機能が、Flexを置き換える予定です。
 
 これらのダイナミクスを考慮し、我々はCSIが利用できるようになるまで、間を取った暫定措置を取ることにしました。
 
@@ -79,11 +79,11 @@ CCMの大半の機能は、KCMから派生しています。前セクション�
 
 #### ルートコントローラー
 
-ルートコントローラーは、クラスタ内の異なるノード上で稼働しているコンテナが相互に通信出来るように、クラウド内のルートを適切に設定する責務を持ちます。ルートコントローラーはGoogle Compute Engineのクラスターのみに該当します。
+ルートコントローラーは、クラスタ内の異なるノード上で稼働しているコンテナが相互に通信できるように、クラウド内のルートを適切に設定する責務を持ちます。ルートコントローラーはGoogle Compute Engineのクラスターのみに該当します。
 
 #### サービスコントローラー
 
-サービスコントローラーは、サービスの作成、更新、そして削除イベントの待ち受けに責務を持ちます。Kubernetes内のサービスの現在の状態を、クラウド上のロードバランサー(ELB、Google LB、またOracle Cloud Infrastructure LBなど)に反映するための設定を行います。更に、クラウドロードバランサーのバックエンドが最新の状態になっていることを保証します。
+サービスコントローラーは、サービスの作成、更新、そして削除イベントの待ち受けに責務を持ちます。Kubernetes内のサービスの現在の状態を、クラウド上のロードバランサー(ELB、Google LB、またOracle Cloud Infrastructure LBなど)に反映するための設定を行います。さらに、クラウドロードバランサーのバックエンドが最新の状態になっていることを保証します。
 
 ### 2. Kubelet
 
@@ -91,9 +91,9 @@ CCMの大半の機能は、KCMから派生しています。前セクション�
 
 この新しいモデルでは、kubeletはクラウド特有の情報無しでノードを初期化します。しかし、新しく作成されたノードにtaintを付けて、CCMがクラウド特有の情報でノードを初期化するまで、コンテナがスケジュールされないようにします。その後、taintを削除します。
 
-## プラグイン機構
+## プラグインメカニズム
 
-クラウドコントローラーマネージャーは、Goのインターフェースを利用してクラウドの実装をプラグイン化出来るようにしています。具体的には、[こちら](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62)で定義されているクラウドプロバイダーインターフェースを利用しています。
+クラウドコントローラーマネージャーは、Goのインターフェースを利用してクラウドの実装をプラグイン化できるようにしています。具体的には、[こちら](https://github.com/kubernetes/cloud-provider/blob/9b77dc1c384685cb732b3025ed5689dd597a5971/cloud.go#L42-L62)で定義されているクラウドプロバイダーインターフェースを利用しています。
 
 上で強調した4つの共有コントローラーの実装、そしていくつかの共有クラウドプロバイダーインターフェースと一部の連携機能は、Kubernetesのコアにとどまります。クラウドプロバイダー特有の実装はコア機能外で構築され、コア機能内で定義されたインターフェースを実装します。
 
@@ -223,16 +223,21 @@ rules:
 
 下記のクラウドプロバイダーがCCMを実装しています:
 
-* [Digital Ocean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
-* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
-* [Azure](https://github.com/kubernetes/cloud-provider-azure)
-* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Alibaba Cloud](https://github.com/kubernetes/cloud-provider-alibaba-cloud)
 * [AWS](https://github.com/kubernetes/cloud-provider-aws)
+* [Azure](https://github.com/kubernetes/cloud-provider-azure)
 * [BaiduCloud](https://github.com/baidu/cloud-provider-baiducloud)
+* [DigitalOcean](https://github.com/digitalocean/digitalocean-cloud-controller-manager)
+* [GCP](https://github.com/kubernetes/cloud-provider-gcp)
+* [Hetzner](https://github.com/hetznercloud/hcloud-cloud-controller-manager)
 * [Linode](https://github.com/linode/linode-cloud-controller-manager)
+* [OpenStack](https://github.com/kubernetes/cloud-provider-openstack)
+* [Oracle](https://github.com/oracle/oci-cloud-controller-manager)
+* [TencentCloud](https://github.com/TencentCloud/tencentcloud-cloud-controller-manager)
+
 
 ## クラスター管理
 
 CCMを設定、動かすための完全な手順は[こちら](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)で提供されています。
 
-{{% /capture %}}
+

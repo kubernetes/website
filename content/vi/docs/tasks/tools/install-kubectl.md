@@ -2,7 +2,7 @@
 reviewers:
 - truongnh1992
 title: Cài đặt và cấu hình kubectl
-content_template: templates/task
+content_type: task
 weight: 10
 card:
   name: tasks
@@ -10,15 +10,16 @@ card:
   title: Install kubectl
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Công cụ command-line trong Kubernetes, [kubectl](/docs/user-guide/kubectl/), cho phép bạn thực thi các câu lệnh trong Kubernetes clusters. Bạn có thể sử dụng kubectl để triển khai các ứng dụng, theo dõi và quản lý tài nguyên của cluster, và xem log. Để biết các thao tác của kubectl, truy cập tới [Tổng quan về kubectl](/docs/reference/kubectl/overview/).
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 Bạn cần phải sử dụng phiên bản kubectl sai lệch không quá một phiên bản với version của cluster. Ví dụ, một client v1.2 nên được hoạt động với master v1.1, v1.2 và v1.3. Sử dụng phiên bản mới nhất của kubectl giúp tránh được các vấn đề không lường trước được.
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Cài đặt kubectl trên Linux
 
@@ -463,12 +464,13 @@ compinit
 {{% /tab %}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture Tiếp theo %}}
+
+## {{% heading "whatsnext" %}}
+
 * [Cài đặt Minikube](/docs/tasks/tools/install-minikube/)
 * Xem [hướng dẫn bắt đầu](/docs/setup/) để biết thêm về việc tạo cluster.
 * [Tìm hiểu cách khởi chạy và hiển thị ứng dụng của bạn.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Nếu bạn cần quyền truy cập vào một cluster mà bạn không tạo, hãy xem [tài liệu Sharing Cluster Access](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Đọc [tài liệu tham khảo của kubectl](/docs/reference/kubectl/kubectl/)
-{{% /capture %}}
+

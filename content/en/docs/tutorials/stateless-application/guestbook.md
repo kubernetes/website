@@ -2,7 +2,7 @@
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
 - ahmetb
-content_template: templates/tutorial
+content_type: tutorial
 weight: 20
 card:
   name: tutorials
@@ -10,32 +10,34 @@ card:
   title: "Stateless Example: PHP Guestbook with Redis"
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This tutorial shows you how to build and deploy a simple, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
 
 * A single-instance [Redis](https://redis.io/) master to store guestbook entries
 * Multiple [replicated Redis](https://redis.io/topics/replication) instances to serve reads
 * Multiple web frontend instances
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * Start up a Redis master.
 * Start up Redis slaves.
 * Start up the guestbook frontend.
 * Expose and view the Frontend Service.
 * Clean up.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Start up the Redis Master
 
@@ -79,7 +81,7 @@ Replace POD-NAME with the name of your Pod.
 
 ### Creating the Redis Master Service
 
-The guestbook applications needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
+The guestbook application needs to communicate to the Redis master to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis master Pod. A Service defines a policy to access the Pods.
 
 {{< codenew file="application/guestbook/redis-master-service.yaml" >}}
 
@@ -116,7 +118,7 @@ Although the Redis master is a single pod, you can make it highly available to m
 
 Deployments scale based off of the configurations set in the manifest file. In this case, the Deployment object specifies two replicas.
 
-If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas are running, it would scale down until two replicas are running.
+If there are not any replicas running, this Deployment would start the two replicas on your container cluster. Conversely, if there are more than two replicas running, it would scale down until two replicas are running.
 
 {{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
 
@@ -321,9 +323,10 @@ Scaling up or down is easy because your servers are defined as a Service that us
       redis-slave-2005841000-phfv9    1/1       Running   0          1h
       ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
 
 1. Run the following commands to delete all Pods, Deployments, and Services.
@@ -358,12 +361,13 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
-* Add [ELK logging and monitoring](../guestbook-logs-metrics-with-elk/) to your Guestbook application
+
+## {{% heading "whatsnext" %}}
+
+* Add [ELK logging and monitoring](/docs/tutorials/stateless-application/guestbook-logs-metrics-with-elk/) to your Guestbook application
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
 * Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
-{{% /capture %}}
+

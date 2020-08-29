@@ -5,14 +5,15 @@ reviewers:
 - foxish
 - kow3ns
 title: Safely Drain a Node while Respecting the PodDisruptionBudget
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
-This page shows how to safely drain a machine, respecting the PodDisruptionBudget you have defined.
-{{% /capture %}}
+<!-- overview -->
+This page shows how to safely drain a node, respecting the PodDisruptionBudget you have defined.
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 This task assumes that you have met the following prerequisites:
 
@@ -24,16 +25,16 @@ This task assumes that you have met the following prerequisites:
      and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
      applications that need them.
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Use `kubectl drain` to remove a node from service
 
 You can use `kubectl drain` to safely evict all of your pods from a
 node before you perform maintenance on the node (e.g. kernel upgrade,
 hardware maintenance, etc.). Safe evictions allow the pod's containers
-to [gracefully terminate](/docs/concepts/workloads/pods/pod/#termination-of-pods)
+to [gracefully terminate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
 and will respect the `PodDisruptionBudgets` you have specified.
 
 {{< note >}}
@@ -151,12 +152,14 @@ In this case, there are two potential solutions:
 Kubernetes does not specify what the behavior should be in this case; it is up to the
 application owners and cluster owners to establish an agreement on behavior in these cases.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+* Learn more about [maintenance on a node](/docs/tasks/administer-cluster/cluster-management/#maintenance-on-a-node).
 
-{{% /capture %}}
+
 
 

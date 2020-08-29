@@ -8,12 +8,12 @@ feature:
   description: >
     基于集群拓扑的服务流量路由。
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.17" state="alpha" >}}
 
@@ -26,9 +26,9 @@ in the same availability zone.
 
 `Service` 拓扑可以让一个服务基于集群的 `Node` 拓扑进行流量路由。例如，一个服务可以指定流量是被优先路由到一个和客户端在同一个 `Node` 或者在同一可用区域的端点。
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 <!--
 ## Introduction
@@ -176,9 +176,10 @@ traffic as follows.
 
 * 通配符：`"*"`，如果要用，那必须是拓扑键值的最后一个值。 
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!--
 * Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
@@ -188,4 +189,4 @@ traffic as follows.
 * 阅读关于[启用服务拓扑](/docs/tasks/administer-cluster/enabling-service-topology)
 * 阅读[用 `Services` 连接应用程序](/zh/docs/concepts/services-networking/connect-applications-service/)
 
-{{% /capture %}}
+

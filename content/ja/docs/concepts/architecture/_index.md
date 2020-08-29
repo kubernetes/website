@@ -1,4 +1,4 @@
 ---
-title: "Kubernetes アーキテクチャー"
+title: "クラスターのアーキテクチャ"
 weight: 30
 ---

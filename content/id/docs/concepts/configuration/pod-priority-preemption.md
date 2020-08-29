@@ -1,10 +1,10 @@
 ---
 title: Prioritas dan Pemindahan Pod
-content_template: templates/concept
+content_type: concept
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="1.14" state="stable" >}}
 
@@ -24,12 +24,12 @@ Versi Kubernetes | Keadaan Priority and Pemindahan | Dihidupkan secara Bawaan
 1.11               | beta                          | ya
 1.14               | stable                        | ya
 
-{{< warning >}}Pada sebuah klaster di mana tidak semua pengguna dipercaya, seorang pengguna yang berniat jahat dapat membuat Pod-pod dengan prioritas paling tinggi, membuat Pod-pod lainnya dipindahkan/tidak dapat dijadwalkan. Untuk mengatasi masalah ini, [ResourceQuota](/docs/concepts/policy/resource-quotas/) ditambahkan untuk mendukung prioritas Pod. Seorang admin dapat membuat ResourceQuota untuk pengguna-pengguna pada tingkat prioritas tertentu, mencegah mereka untuk membuat Pod-pod pada prioritas tinggi. Fitur ini telah beta sejak Kubernetes 1.12.
+{{< warning >}}Pada sebuah klaster di mana tidak semua pengguna dipercaya, seorang pengguna yang berniat jahat dapat membuat Pod-pod dengan prioritas paling tinggi, membuat Pod-pod lainnya dipindahkan/tidak dapat dijadwalkan. Untuk mengatasi masalah ini, [ResourceQuota](/id/docs/concepts/policy/resource-quotas/) ditambahkan untuk mendukung prioritas Pod. Seorang admin dapat membuat ResourceQuota untuk pengguna-pengguna pada tingkat prioritas tertentu, mencegah mereka untuk membuat Pod-pod pada prioritas tinggi. Fitur ini telah beta sejak Kubernetes 1.12.
 {{< /warning >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Bagaimana cara menggunakan Priority dan pemindahan Pod
 
@@ -178,11 +178,11 @@ Harap catat bahwa Pod P tidak harus dijadwalkan pada "_nominated_ Node" (Node ya
 
 #### Penghentian secara sopan dari korban-korban pemindahan Pod
 
-Saat Pod-pod dipindahkan, korban-korbannya mendapatkan [periode penghentian secara sopan](/docs/concepts/workloads/pods/pod/#penghentian-pod). Mereka memiliki waktu sebanyak itu untuk menyelesaikan pekerjaan merekan dan berhenti. Jika mereka tidak menyelesaikannya sebelum waktu tersebut, mereka akan dihentikan secara paksa. Periode penghentian secara sopan ini membuat sebuah jarak waktu antara saat di mana Scheduler memindahkan Pod-pod dengan waktu saat Pod yang tertunda tersebut (P) dapat dijadwalkan pada Node tersebut (N). Sementara itu, Scheduler akan terus menjadwalkan Pod-pod lain yang tertunda. Oleh karena itu, biasanya ada jarak waktu antara titik di mana Scheduler memindahkan korban-korban dan titik saat Pod P dijadwalkan. Untuk meminimalkan jarak waktu ini, kamu dapat menyetel periode penghentian secara sopan dari Pod-pod dengan prioritas lebih rendah menjadi nol atau sebuah angka yang kecil.
+Saat Pod-pod dipindahkan, korban-korbannya mendapatkan [periode penghentian secara sopan](/id/docs/concepts/workloads/pods/pod/#penghentian-pod). Mereka memiliki waktu sebanyak itu untuk menyelesaikan pekerjaan merekan dan berhenti. Jika mereka tidak menyelesaikannya sebelum waktu tersebut, mereka akan dihentikan secara paksa. Periode penghentian secara sopan ini membuat sebuah jarak waktu antara saat di mana Scheduler memindahkan Pod-pod dengan waktu saat Pod yang tertunda tersebut (P) dapat dijadwalkan pada Node tersebut (N). Sementara itu, Scheduler akan terus menjadwalkan Pod-pod lain yang tertunda. Oleh karena itu, biasanya ada jarak waktu antara titik di mana Scheduler memindahkan korban-korban dan titik saat Pod P dijadwalkan. Untuk meminimalkan jarak waktu ini, kamu dapat menyetel periode penghentian secara sopan dari Pod-pod dengan prioritas lebih rendah menjadi nol atau sebuah angka yang kecil.
 
 #### PodDisruptionBudget didukung, tapi tidak dijamin!
 
-Sebuah [Pod Disruption Budget (PDB)](/docs/concepts/workloads/pods/disruptions/) memungkinkan pemilik-pemilik aplikasi untuk membatasi jumlah Pod-pod dari sebuah aplikasi yang direplikasi yang mati secara bersamaan dikarenakan disrupsi yang disengaja. Kubernetes 1.9 mendukung PDB saat memindahkan Pod-pod, tetapi penghormatan terhadap PDB ini bersifat "usaha terbaik" (_best-effort_). Scheduler akan mencoba mencari korban-korban yang PDB-nya tidak dilanggar oleh pemindahan, tetapi jika tidak ada korban yang ditemukan, pemindahan akan tetap terjadi, dan Pod-pod dengan prioritas lebih rendah akan dihapus/dipindahkan meskipun PDB mereka dilanggar.
+Sebuah [Pod Disruption Budget (PDB)](/id/docs/concepts/workloads/pods/disruptions/) memungkinkan pemilik-pemilik aplikasi untuk membatasi jumlah Pod-pod dari sebuah aplikasi yang direplikasi yang mati secara bersamaan dikarenakan disrupsi yang disengaja. Kubernetes 1.9 mendukung PDB saat memindahkan Pod-pod, tetapi penghormatan terhadap PDB ini bersifat "usaha terbaik" (_best-effort_). Scheduler akan mencoba mencari korban-korban yang PDB-nya tidak dilanggar oleh pemindahan, tetapi jika tidak ada korban yang ditemukan, pemindahan akan tetap terjadi, dan Pod-pod dengan prioritas lebih rendah akan dihapus/dipindahkan meskipun PDB mereka dilanggar.
 
 #### Afinitas antar-Pod pada Pod-pod dengan prioritas lebih rendah
 
@@ -253,4 +253,4 @@ Komponen satu-satunya yang mempertimbangkan baik QoS dan prioritas Pod adalah [p
 Kubelet menggolongkan Pod-pod untuk pengusiran pertama-tama berdasarkan apakah penggunaan sumber daya mereka melebihi `requests` mereka atau tidak, kemudian berdasarkan Priority, dan kemudian berdasarkan penggunaan sumber daya yang terbatas tersebut relatif terhadap `requests` dari Pod-pod tersebut.
 Lihat [Mengusir Pod-pod pengguna](/docs/tasks/administer-cluster/out-of-resource/#mengusir-pod-pod-pengguna) untuk lebih detail. Pengusiran oleh Kubelet karena kehabisan sumber daya tidak mengusir Pod-pod yang memiliki penggunaan sumber daya yang tidak melebihi `requests` mereka. Jika sebuah Pod dengan prioritas lebih rendah tidak melebihi `requests`-nya, ia tidak akan diusir. Pod lain dengan prioritas lebih tinggi yang melebihi `requests`-nya boleh diusir.
 
-{{% /capture %}}
+

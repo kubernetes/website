@@ -1,11 +1,11 @@
 ---
 title: 서비스와 애플리케이션 연결하기
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 ## 컨테이너 연결을 위한 쿠버네티스 모델
 
@@ -13,13 +13,13 @@ weight: 30
 
 기본적으로 도커는 호스트-프라이빗 네트워킹을 사용하기에 컨테이너는 동일한 머신에 있는 경우에만 다른 컨테이너와 통신 할 수 있다. 도커 컨테이너가 노드를 통해 통신하려면 머신 포트에 IP 주소가 할당되어야 컨테이너에 전달되거나 프록시된다. 이것은 컨테이너가 사용하는 포트를 매우 신중하게 조정하거나 포트를 동적으로 할당해야 한다는 의미이다.
 
-여러 개발자에 걸쳐있는 포트를 조정하는 것은 규모면에서 매우 어려우며, 사용자가 제어할 수 없는 클러스터 수준의 문제에 노출된다. 쿠버네티스는 파드가 배치된 호스트와는 무관하게 다른 파드와 통신할 수 있다고 가정한다. 모든 파드에게 자체 클러스터-프라이빗-IP 주소를 제공하기 때문에 파드간에 명시적으로 링크를 만들거나 컨테이너 포트를 호스트 포트에 매핑 할 필요가 없다. 이것은 파드 내의 컨테이너는 모두 로컬호스트에서 서로의 포트에 도달할 수 있으며 클러스터의 모든 파드는 NAT 없이 서로를 볼 수 있다는 의미이다. 이 문서의 나머지 부분에서는 이러한 네트워킹 모델에서 신뢰할 수 있는 서비스를 실행하는 방법에 대해 자세히 설명할 것이다.
+컨테이너를 제공하는 여러 개발자 또는 팀에서 포트를 조정하는 것은 규모면에서 매우 어려우며, 사용자가 제어할 수 없는 클러스터 수준의 문제에 노출된다. 쿠버네티스는 파드가 배치된 호스트와는 무관하게 다른 파드와 통신할 수 있다고 가정한다. 쿠버네티스는 모든 파드에게 자체 클러스터-프라이빗 IP 주소를 제공하기 때문에 파드간에 명시적으로 링크를 만들거나 컨테이너 포트를 호스트 포트에 매핑 할 필요가 없다. 이것은 파드 내의 컨테이너는 모두 로컬호스트에서 서로의 포트에 도달할 수 있으며 클러스터의 모든 파드는 NAT 없이 서로를 볼 수 있다는 의미이다. 이 문서의 나머지 부분에서는 이러한 네트워킹 모델에서 신뢰할 수 있는 서비스를 실행하는 방법에 대해 자세히 설명할 것이다.
 
-이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다. 동일한 원칙이 보다 완전한 [Jenkins CI 애플리케이션](https://kubernetes.io/blog/2015/07/strong-simple-ssl-for-kubernetes)에서 구현된다.
+이 가이드는 간단한 nginx 서버를 사용해서 개념증명을 보여준다.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 파드를 클러스터에 노출하기
 
@@ -50,7 +50,7 @@ kubectl get pods -l run=my-nginx -o yaml | grep podIP
 
 클러스터의 모든 노드로 ssh 접속하고 두 IP로 curl을 할수 있어야 한다. 컨테이너는 노드의 포트 80을 사용하지 *않으며* , 트래픽을 파드로 라우팅하는 특별한 NAT 규칙도 없다는 것을 참고한다. 이것은 동일한 containerPort를 사용해서 동일한 노드에서 여러 nginx 파드를 실행하고 IP를 사용해서 클러스터의 다른 파드나 노드에서 접근할 수 있다는 의미이다. 도커와 마찬가지로 포트는 여전히 호스트 노드의 인터페이스에 게시될 수 있지만, 네트워킹 모델로 인해 포트의 필요성이 크게 줄어든다.
 
-만약 궁금하다면 [우리가 이것을 달성하는 방법](/docs/concepts/cluster-administration/networking/#how-to-achieve-this)을 자세히 읽어본다.
+만약 궁금하다면 [우리가 이것을 달성하는 방법](/ko/docs/concepts/cluster-administration/networking/#쿠버네티스-네트워크-모델의-구현-방법)을 자세히 읽어본다.
 
 ## 서비스 생성하기
 
@@ -73,7 +73,7 @@ service/my-nginx exposed
 
 이 사양은 `run: my-nginx` 레이블이 부착된 모든 파드에 TCP 포트 80을
 대상으로 하는 서비스를 만들고 추상화된 서비스 포트에 노출시킨다
-(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는 
+(`targetPort` 는 컨테이너가 트래픽을 수신하는 포트, `port` 는
 추상화된 서비스 포트로 다른 파드들이 서비스에 접속하기위해 사용하는
 모든 포트일 수 있다).
 [서비스](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)의
@@ -123,13 +123,13 @@ my-nginx   10.244.2.5:80,10.244.3.4:80   1m
 이제 클러스터의 모든 노드에서 `<CLUSTER-IP>:<PORT>` 로 nginx 서비스를
 curl을 할 수 있을 것이다. 서비스 IP는 완전히 가상이므로 외부에서는 절대로 연결되지
 않음에 참고한다. 만약 이것이 어떻게 작동하는지 궁금하다면
-[서비스 프록시](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)에 대해 더 읽어본다.
+[서비스 프록시](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)에 대해 더 읽어본다.
 
 ## 서비스에 접근하기
 
 쿠버네티스는 서비스를 찾는 두 가지 기본 모드인 환경 변수와 DNS를
 지원한다. 전자는 기본적으로 작동하지만 후자는
-[CoreDNS 클러스터 애드온](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)이 필요하다.
+[CoreDNS 클러스터 애드온](https://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/coredns)이 필요하다.
 {{< note >}}
 만약 서비스 환경 변수가 필요하지 않은 경우(소유한 프로그램과의 예상되는 충돌 가능성,
 처리할 변수가 너무 많은 경우, DNS만 사용하는 경우 등) [파드 사양](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)에서
@@ -198,7 +198,7 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
 이 섹션의 나머지 부분에서는 수명이 긴 IP의 서비스(my-nginx)와 이 IP
-에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하므로, 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행 중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/docs/tasks/administer-cluster/coredns/#installing-coredns)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
+에 이름을 할당한 DNS 서버가 있다고 가정한다. 여기서는 CoreDNS 클러스터 애드온(애플리케이션 이름 `kube-dns`)을 사용하므로, 표준 방법(예: `gethostbyname()`)을 사용해서 클러스터의 모든 파드에서 서비스와 통신할 수 있다. 만약 CoreDNS가 실행 중이 아니라면 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) 또는 [CoreDNS 설치](/ko/docs/tasks/administer-cluster/coredns/#coredns-설치)를 참조해서 활성화 할 수 있다. 이것을 테스트하기 위해 다른 curl 애플리케이션을 실행한다.
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -334,7 +334,7 @@ NAME                               READY     STATUS    RESTARTS   AGE
 curl-deployment-1515033274-1410r   1/1       Running   0          1m
 ```
 ```shell
-kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/nginx.crt
+kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert /etc/nginx/ssl/tls.crt
 ...
 <title>Welcome to nginx!</title>
 ...
@@ -390,8 +390,8 @@ kubectl edit svc my-nginx
 kubectl get svc my-nginx
 ```
 ```
-NAME       TYPE        CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
-my-nginx   ClusterIP   10.0.162.149   162.222.184.144    80/TCP,81/TCP,82/TCP  21s
+NAME       TYPE           CLUSTER-IP     EXTERNAL-IP        PORT(S)               AGE
+my-nginx   LoadBalancer   10.0.162.149   xx.xxx.xxx.xxx     8080:30163/TCP        21s
 ```
 ```
 curl https://<EXTERNAL-IP> -k
@@ -414,14 +414,11 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ...
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-게다가 쿠버네티스는 여러 클러스터와 클라우드 공급자들을 포괄하는
-페더레이션 서비스를 지원하여 가용성을 높이고 내결함성을 향상시키며,
-보다 큰 서비스의 확장성을 제공한다. 자세한 내용은 
-[페더레이션 서비스 사용자 가이드](/docs/concepts/cluster-administration/federation-service-discovery/)
-를 본다.
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+* [서비스를 사용해서 클러스터 내 애플리케이션에 접근하기](/docs/tasks/access-application-cluster/service-access-application-cluster/)를 더 자세히 알아본다.
+* [서비스를 사용해서 프론트 엔드부터 백 엔드까지 연결하기](/docs/tasks/access-application-cluster/connecting-frontend-backend/)를 더 자세히 알아본다.
+* [외부 로드 밸런서를 생성하기](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 더 자세히 알아본다.

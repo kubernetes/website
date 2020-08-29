@@ -1,25 +1,26 @@
 ---
 title: 共有ボリュームを使用して同じPod内のコンテナ間で通信する
-content_template: templates/task
+content_type: task
 weight: 110
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、ボリュームを使用して、同じPodで実行されている2つのコンテナ間で通信する方法を示します。
 コンテナ間で[プロセス名前空間を共有する](/ja/docs/tasks/configure-pod-container/share-process-namespace/)ことにより、プロセスが通信できるようにする方法も参照してください。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ##  2つのコンテナを実行するPodの作成
 
@@ -105,10 +106,10 @@ debianコンテナがnginxルートディレクトリに`index.html`ファイル
 
     Hello from the debian container
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 ## 議論
 
@@ -121,10 +122,11 @@ Podが複数のコンテナを持つことができる主な理由は、プラ�
 この演習のボリュームは、コンテナがポッドの寿命中に通信する方法を提供します。
 Podを削除して再作成すると、共有ボリュームに保存されているデータはすべて失われます。
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [複合コンテナのパターン](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns)の詳細
 
@@ -138,7 +140,7 @@ Podを削除して再作成すると、共有ボリュームに保存されて�
 
 * [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)を参照
 
-{{% /capture %}}
+
 
 
 

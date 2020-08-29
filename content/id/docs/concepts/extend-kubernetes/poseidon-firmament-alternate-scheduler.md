@@ -1,18 +1,18 @@
 ---
 title: Poseidon-Firmament - Sebuah Penjadwal Alternatif
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 **Rilis saat ini dari Penjadwal Poseidon-Firmament adalah rilis <code> alpha </code>.**
 
 Penjadwal Poseidon-Firmament adalah penjadwal alternatif yang dapat digunakan bersama penjadwal Kubernetes bawaan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 
 ## Pengenalan	
@@ -111,4 +111,4 @@ Kelemahan dari penjadwal _pod-by-pod_ ini diatasi dengan penjadwalan secara terk
    Silakan merujuk ke [hasil _benchmark_ terbaru](https://github.com/kubernetes-sigs/poseidon/blob/master/docs/benchmark/README.md) untuk hasil uji perbandingan kinerja _throughput_ terperinci antara penjadwal Poseidon-Firmament dan Penjadwal bawaan Kubernetes.
 {{< /note >}}
 
-{{% /capture %}}
+

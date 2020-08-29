@@ -1,6 +1,6 @@
 ---
 title: 运行一个有状态的应用程序
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 ---
 <!-- ---
@@ -12,11 +12,11 @@ reviewers:
 - kow3ns
 - smarterclayton
 title: Run a Replicated Stateful Application
-content_template: templates/tutorial
+content_type: tutorial
 weight: 30
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!-- This page shows how to run a replicated stateful application using a
 [StatefulSet](/docs/concepts/workloads/controllers/statefulset/) controller.
@@ -30,12 +30,12 @@ on general patterns for running stateful applications in Kubernetes. -->
 请注意 **这不是生产配置**。
 重点是， MySQL 设置保留在不安全的默认值上，使重点放在 Kubernetes 中运行有状态应用程序的常规模式。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-<!-- * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* {{< include "default-storage-class-prereqs.md" >}}
+## {{% heading "prerequisites" %}}
+
+
+<!--
 * This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
   and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
@@ -54,9 +54,10 @@ on general patterns for running stateful applications in Kubernetes. -->
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 * 熟悉 MySQL 会有所帮助，但是本教程旨在介绍对其他系统应该有用的常规模式。
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 <!-- * Deploy a replicated MySQL topology with a StatefulSet controller.
 * Send MySQL client traffic.
@@ -67,9 +68,9 @@ on general patterns for running stateful applications in Kubernetes. -->
 * 观察对宕机的抵抗力。
 * 缩放 StatefulSet 的大小。
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 <!-- ## Deploy MySQL -->
 ## 部署 MySQL
@@ -590,9 +591,10 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 
 <!-- 1. Cancel the `SELECT @@server_id` loop by pressing **Ctrl+C** in its terminal,
    or running the following from another terminal: -->
@@ -642,15 +644,16 @@ kubectl delete pvc data-mysql-4
    如果您使用了动态预配器，当得知您删除 PersistentVolumeClaims 时，它将自动删除 PersistentVolumes。
    一些动态预配器(例如用于 EBS 和 PD 的预配器)也会在删除 PersistentVolumes 时释放基础资源。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 <!-- * Look in the [Helm Charts repository](https://github.com/kubernetes/charts)
   for other stateful application examples. -->
 * 在[Helm Charts 存储库](https://github.com/kubernetes/charts)中查找其他有状态的应用程序示例。
 
-{{% /capture %}}
+
 
 
 

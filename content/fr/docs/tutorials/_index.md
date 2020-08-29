@@ -2,10 +2,10 @@
 title: Tutoriels
 main_menu: true
 weight: 60
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette section de la documentation de Kubernetes contient des tutoriels.
 
@@ -13,9 +13,9 @@ Un tutoriel montre comment atteindre un objectif qui est plus grand qu'une simpl
 
 Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet pour le [Glossaire standardisé](/docs/reference/glossary/) pour pouvoir le consulter plus facilement par la suite.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Elémentaires
 
@@ -47,17 +47,6 @@ Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet p
 
 * [Exécuter ZooKeeper, un système distribué CP (EN)](/docs/tutorials/stateful-application/zookeeper/)
 
-## Pipeline d'Intégration continue et de déploiement continu (CI/CD)
-
-* Mettre en place un pipeline CI/CD avec Kubernetes:
- * [1ère partie: Vue d'ensemble (EN)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/5/set-cicd-pipeline-kubernetes-part-1-overview)
-
- * [2ème partie: avec un Pod Jenkins (EN)](https://www.linux.com/blog/learn/chapter/Intro-to-Kubernetes/2017/6/set-cicd-pipeline-jenkins-pod-kubernetes-part-2)
-
- * [3ème partie: Exécuter et mettre à l'échelle une application distribuée de mots croisés (EN)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/run-and-scale-distributed-crossword-puzzle-app-cicd-kubernetes-part-3)
-
- * [4ème partie: mettre en place un pipeline CI/CD pour une application distribuée de mots croisés avec Kubernetes (EN)](https://www.linux.com/blog/learn/chapter/intro-to-kubernetes/2017/6/set-cicd-distributed-crossword-puzzle-app-kubernetes-part-4)
-
 ## Clusters
 
 * [AppArmor (EN)](/docs/tutorials/clusters/apparmor/)
@@ -66,10 +55,11 @@ Avant d'explorer chacun des tutoriels, il peut-être utile de garder un signet p
 
 * [Utiliser Source IP (EN)](/docs/tutorials/services/source-ip/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 Si vous voulez écrire un tutoriel, regardez la section des modèles de page de tutoriel dans l'[Utilisation des modèles de pages ](/docs/home/contribute/page-templates/).
 
-{{% /capture %}}
+

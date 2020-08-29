@@ -3,20 +3,17 @@ reviewers:
 - piosz
 - x13n
 title: Logging Architecture
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 Cluster-level logging architectures are described in assumption that
 a logging backend is present inside or outside of your cluster. If you're
@@ -76,13 +73,14 @@ should set up a solution to address that.
 For example, in Kubernetes clusters, deployed by the `kube-up.sh` script,
 there is a [`logrotate`](https://linux.die.net/man/8/logrotate)
 tool configured to run each hour. You can also set up a container runtime to
-rotate application's logs automatically, e.g. by using Docker's `log-opt`.
+rotate application's logs automatically, for example by using Docker's `log-opt`.
 In the `kube-up.sh` script, the latter approach is used for COS image on GCP,
 and the former approach is used in any other environment. In both cases, by
 default rotation is configured to take place when log file exceeds 10MB.
 
 As an example, you can find detailed information about how `kube-up.sh` sets
-up logging for COS image on GCP in the corresponding [script][cosConfigureHelper].
+up logging for COS image on GCP in the corresponding
+[script](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -97,7 +95,6 @@ the rotation and there are two files, one 10MB in size and one empty,
 {{< /note >}}
 
 [cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-
 ### System component logs
 
 There are two types of system components: those that run in a container and those
@@ -109,7 +106,7 @@ that do not run in a container. For example:
 On machines with systemd, the kubelet and container runtime write to journald. If
 systemd is not present, they write to `.log` files in the `/var/log` directory.
 System components inside containers always write to the `/var/log` directory,
-bypassing the default logging mechanism. They use the [klog][klog]
+bypassing the default logging mechanism. They use the [klog](https://github.com/kubernetes/klog)
 logging library. You can find the conventions for logging severity for those
 components in the [development docs on logging](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
@@ -117,8 +114,6 @@ Similarly to the container logs, system component logs in the `/var/log`
 directory should be rotated. In Kubernetes clusters brought up by
 the `kube-up.sh` script, those logs are configured to be rotated by
 the `logrotate` tool daily or once the size exceeds 100MB.
-
-[klog]: https://github.com/kubernetes/klog
 
 ## Cluster-level logging architectures
 
@@ -138,7 +133,7 @@ Because the logging agent must run on every node, it's common to implement it as
 
 Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, because it creates only one agent per node, and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
 
-Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
+Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/tasks/debug-application-cluster/logging-stackdriver/) for use with Google Cloud Platform, and [Elasticsearch](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/). You can find more information and instructions in the dedicated documents. Both use [fluentd](https://www.fluentd.org/) with custom configuration as an agent on the node.
 
 ### Using a sidecar container with the logging agent
 
@@ -245,7 +240,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 {{< note >}}
 The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
-[official fluentd documentation](http://docs.fluentd.org/).
+[official fluentd documentation](https://docs.fluentd.org/).
 {{< /note >}}
 
 The second file describes a pod that has a sidecar container running fluentd.
@@ -267,4 +262,4 @@ You can implement cluster-level logging by exposing or pushing logs directly fro
 every application; however, the implementation for such a logging mechanism
 is outside the scope of Kubernetes.
 
-{{% /capture %}}
+

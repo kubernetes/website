@@ -2,7 +2,7 @@
 reviewers:
 - janetkuo
 title: 工具
-content_template: templates/concept
+content_type: concept
 ---
 
 <!--
@@ -10,7 +10,7 @@ content_template: templates/concept
 reviewers:
 - janetkuo
 title: Tools
-content_template: templates/concept
+content_type: concept
 ---
 -->
 
@@ -19,11 +19,11 @@ content_template: templates/concept
 <!--
 Kubernetes contains several built-in tools to help you work with the Kubernetes system.
 -->
-{{% capture overview %}}
+<!-- overview -->
 Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernetes 系统。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## Kubectl
 
 <!--
@@ -37,15 +37,6 @@ Kubernetes 包含一些内置工具，可以帮助用户更好的使用 Kubernet
 [`kubeadm`](/docs/tasks/tools/install-kubeadm/) is the command line tool for easily provisioning a secure Kubernetes cluster on top of physical or cloud servers or virtual machines (currently in alpha).
 -->
 [`kubeadm`](/docs/tasks/tools/install-kubeadm/) 是一个命令行工具，可以用来在物理机、云服务器或虚拟机（目前处于 alpha 阶段）上轻松部署一个安全可靠的 Kubernetes 集群。
-
-## Kubefed
-
-<!--
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) is the command line tool
-to help you administrate your federated clusters.
--->
-[`kubefed`](/docs/tasks/federation/set-up-cluster-federation-kubefed/) 是一个命令行工具，可以用来帮助用户管理联邦集群。
-
 
 ## Minikube
 
@@ -109,4 +100,4 @@ Use Kompose to:
 * 将一个 Docker Compose 文件解释成 Kubernetes 对象
 * 将本地 Docker 开发 转变成通过 Kubernetes 来管理
 * 转换 v1 或 v2 Docker Compose `yaml` 文件 或 [分布式应用程序包](https://docs.docker.com/compose/bundles/)
-{{% /capture %}}
+

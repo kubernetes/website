@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 ##
-# This script was tested with Python 3.7.4, Go 1.13+, and PyYAML 5.1.2
+# This script was tested with Python 3.7.4, Go 1.14.4+, and PyYAML 5.1.2
 # installed in a virtual environment.
 # This script assumes you have the Python package manager 'pip' installed.
 #
@@ -22,7 +22,7 @@
 # Config files:
 #     reference.yml  use this to update the reference docs
 #     release.yml    use this to auto-generate/import release notes
-# K8S_RELEASE: provide the release version such as, 1.17
+# K8S_RELEASE: provide a valid release tag such as, 1.17.0
 ##
 
 import argparse
@@ -33,12 +33,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import platform
 
 error_msgs = []
 
 # pip should be installed when Python is installed, but just in case...
-if not shutil.which('pip'):
-    error_msgs.append("Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
+if not (shutil.which('pip') or shutil.which('pip3')):
+    error_msgs.append(
+        "Install pip so you can install PyYAML. https://pip.pypa.io/en/stable/installing")
 
 reqs = subprocess.check_output([sys.executable, '-m', 'pip', 'freeze'])
 installed_packages = [r.decode().split('==')[0] for r in reqs.split()]
@@ -165,7 +167,7 @@ def parse_input_args():
                         help="reference.yml to generate reference docs; "
                              "release.yml to generate release notes")
     parser.add_argument('k8s_release', type=str,
-                        help="k8s release version, ex: 1.17"
+                        help="k8s release version, ex: 1.17.0"
                         )
     return parser.parse_args()
 
@@ -184,9 +186,14 @@ def main():
 
     # second parse input argument
     k8s_release = in_args.k8s_release
-    print("ks8_release is {}".format(k8s_release))
+    print("k8s_release is {}".format(k8s_release))
 
-    curr_dir = os.path.dirname(__file__)
+    # if release string does not contain patch num, add zero
+    if len(k8s_release) == 4:
+        k8s_release = k8s_release + ".0"
+        print("k8s_release updated to {}".format(k8s_release))
+
+    curr_dir = os.path.dirname(os.path.abspath(__file__))
     print("curr_dir {}".format(curr_dir))
     root_dir = os.path.realpath(os.path.join(curr_dir, '..'))
     print("root_dir {}".format(root_dir))
@@ -203,7 +210,9 @@ def main():
     # create the temp work_dir
     try:
         print("Making temp work_dir")
-        work_dir = tempfile.mkdtemp()
+        work_dir = tempfile.mkdtemp(
+            dir='/tmp' if platform.system() == 'Darwin' else tempfile.gettempdir()
+        )
     except OSError as ose:
         print("[Error] Unable to create temp work_dir {}; error: {}"
               .format(work_dir, ose))

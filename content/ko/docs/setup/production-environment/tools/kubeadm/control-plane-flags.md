@@ -1,13 +1,13 @@
 ---
 reviewers:
 title: kubeadm으로 컨트롤 플레인 사용자 정의하기
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.12" state="stable" >}}
+{{< feature-state for_k8s_version="v1.12" state="stable" >}}
 
 kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니저, 스케줄러와 같은 컨트롤 플레인 구성요소에 전달되는 기본 플래그 `extraArgs` 필드를 노출한다. 이 구성요소는 다음 필드를 사용하도록 정의되어 있다.
 
@@ -28,9 +28,9 @@ kubeadm의 `ClusterConfiguration` 오브젝트는 API 서버, 컨트롤러매니
 `kubeadm config print init-defaults`를 실행하고 원하는 파일에 출력을 저장하여 기본값인 `ClusterConfiguration` 오브젝트를 생성할 수 있다.
 {{< /note >}}
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## APIServer 플래그
 
@@ -81,4 +81,4 @@ scheduler:
     kubeconfig: /home/johndoe/kubeconfig.yaml
 ```
 
-{{% /capture %}}
+

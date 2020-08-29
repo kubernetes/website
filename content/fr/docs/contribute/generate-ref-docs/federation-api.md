@@ -1,16 +1,17 @@
 ---
 title: Génération de la documentation de référence pour l'API de fédération Kubernetes
 description: Federation Référence API Kubernetes Documentation
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page montre comment générer automatiquement des pages de référence pour l'API de fédération Kubernetes.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Vous devez avoir [Git](https://git-scm.com/book/fr/v2/D%C3%A9marrage-rapide-Installation-de-Git) installé.
 
@@ -22,9 +23,9 @@ Cette page montre comment générer automatiquement des pages de référence pou
   Généralement, cela implique la création d'un fork du dépôt.
   Pour plus d'informations, voir [Création d'une pull request de documentation](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Exécution du script update-federation-api-docs.sh
 
@@ -64,12 +65,13 @@ Ces fichiers sont publiés à [kubernetes.io/docs/reference](/docs/reference/):
 * [Federation API extensions/v1beta1 Operations](/docs/reference/federation/extensions/v1beta1/operations/)
 * [Federation API extensions/v1beta1 Definitions](/docs/reference/federation/extensions/v1beta1/definitions/)
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Génération de documentation de référence pour l'API Kubernetes](/docs/home/contribute/generated-reference/kubernetes-api/)
 * [Génération de documentation de référence pour les commandes kubectl](/docs/home/contribute/generated-reference/kubectl/)
 * [Génération de pages de référence pour les composants et les outils Kubernetes](/docs/home/contribute/generated-reference/kubernetes-components/)
 
-{{% /capture %}}
+

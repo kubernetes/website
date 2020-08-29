@@ -1,37 +1,30 @@
 ---
 title: 使用服务来访问集群中的应用
-content_template: templates/tutorial
+content_type: tutorial
 weight: 60
 ---
 
 <!--
----
 title: Use a Service to Access an Application in a Cluster
-content_template: templates/tutorial
+content_type: tutorial
 weight: 60
----
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to create a Kubernetes Service object that external
 clients can use to access an application running in a cluster. The Service
 provides load balancing for an application that has two running instances.
 -->
-本文展示如何创建一个 Kubernetes 服务对象，能让外部客户端访问在集群中运行的应用。该服务为一个应用的两个运行实例提供负载均衡。
+本文展示如何创建一个 Kubernetes 服务对象，能让外部客户端访问在集群中运行的应用。
+该服务为一个应用的两个运行实例提供负载均衡。
 
-{{% /capture %}}
-
-
-{{% capture prerequisites %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
-
-
-{{% capture objectives %}}
+## {{% heading "objectives" %}}
 
 <!--
 * Run two instances of a Hello World application.
@@ -42,10 +35,7 @@ provides load balancing for an application that has two running instances.
 * 创建一个服务对象来暴露 node port。
 * 使用服务对象来访问正在运行的应用。
 
-{{% /capture %}}
-
-
-{{% capture lessoncontent %}}
+<!-- lessoncontent -->
 
 <!--
 ## Creating a service for an application running in two pods
@@ -57,6 +47,7 @@ Here is the configuration file for the application Deployment:
 这是应用程序部署的配置文件：
 
 {{< codenew file="service/access/hello-application.yaml" >}}
+
 <!--
 1. Run a Hello World application in your cluster:
    Create the application Deployment using the file above:
@@ -72,17 +63,23 @@ Here is the configuration file for the application Deployment:
    each of which runs the Hello World application.
 -->
 
-1. 在您的集群中运行一个 Hello World 应用：
+1. 在你的集群中运行一个 Hello World 应用：
    使用上面的文件创建应用程序 Deployment：
+
    ```shell
    kubectl apply -f https://k8s.io/examples/service/access/hello-application.yaml
    ```
-   上面的命令创建一个 [Deployment](/docs/concepts/workloads/controllers/deployment/) 对象和一个关联的 [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) 对象。这个 ReplicaSet 有两个 [Pod](/docs/concepts/workloads/pods/pod/)，每个 Pod 都运行着 Hello World 应用。
+
+   上面的命令创建一个 [Deployment](/zh/docs/concepts/workloads/controllers/deployment/) 对象
+   和一个关联的 [ReplicaSet](/zh/docs/concepts/workloads/controllers/replicaset/) 对象。
+   这个 ReplicaSet 有两个 [Pod](/zh/docs/concepts/workloads/pods/)，
+   每个 Pod 都运行着 Hello World 应用。
   
 <!--
 1. Display information about the Deployment:
 -->
-1. 展示 Deployment 的信息：
+2. 展示 Deployment 的信息：
+
    ```shell
    kubectl get deployments hello-world
    kubectl describe deployments hello-world
@@ -91,7 +88,8 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Display information about your ReplicaSet objects:
 -->
-1. 展示您的 ReplicaSet 对象信息：
+3. 展示你的 ReplicaSet 对象信息：
+
    ```shell
    kubectl get replicasets
    kubectl describe replicasets
@@ -100,7 +98,8 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Create a Service object that exposes the deployment:
 -->
-1. 创建一个服务对象来暴露 deployment：
+4. 创建一个服务对象来暴露 Deployment：
+
    ```shell
    kubectl expose deployment hello-world --type=NodePort --name=example-service
    ```
@@ -108,14 +107,17 @@ Here is the configuration file for the application Deployment:
 <!--
 1. Display information about the Service:
 -->
-1. 展示服务信息：
+5. 展示 Service 信息：
+
    ```shell
    kubectl describe services example-service
    ```
-<!--
+
+   <!--
    The output is similar to this:
--->
+   -->
    输出类似于：
+
    ```shell
    Name:                   example-service
    Namespace:              default
@@ -131,23 +133,27 @@ Here is the configuration file for the application Deployment:
    Session Affinity:       None
    Events:                 <none>
    ```
-<!--
+
+   <!--
    Make a note of the NodePort value for the service. For example,
    in the preceding output, the NodePort value is 31496.
--->
+   -->
    注意服务中的 NodePort 值。例如在上面的输出中，NodePort 是 31496。
 
 <!--
 1. List the pods that are running the Hello World application:
 -->
-1. 列出运行 Hello World 应用的 pod：
+7. 列出运行 Hello World 应用的 Pod：
+
    ```shell
    kubectl get pods --selector="run=load-balancer-example" --output=wide
    ```
-<!--
+
+   <!--
    The output is similar to this:
--->
+   -->
    输出类似于：
+
    ```shell
    NAME                           READY   STATUS    ...  IP           NODE
    hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
@@ -169,25 +175,28 @@ Here is the configuration file for the application Deployment:
 
 1. Use the node address and node port to access the Hello World application:
 -->
-1. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于您设置集群的方式。
-   例如，如果您使用的是 Minikube，则可以通过运行 `kubectl cluster-info` 来查看节点地址。
-   如果您使用的是 Google Compute Engine 实例，则可以使用 `gcloud compute instances list` 命令查看节点的公共地址。
+8. 获取运行 Hello World 的 pod 的其中一个节点的公共 IP 地址。如何获得此地址取决于你设置集群的方式。
+   例如，如果你使用的是 Minikube，则可以通过运行 `kubectl cluster-info` 来查看节点地址。
+   如果你使用的是 Google Compute Engine 实例，则可以使用 `gcloud compute instances list` 命令查看节点的公共地址。
 
-1. 在您选择的节点上，创建一个防火墙规则以开放 node port 上的 TCP 流量。
-   例如，如果您的服务的 NodePort 值为 31568，请创建一个防火墙规则以允许 31568 端口上的 TCP 流量。
+9. 在你选择的节点上，创建一个防火墙规则以开放节点端口上的 TCP 流量。
+   例如，如果你的服务的 NodePort 值为 31568，请创建一个防火墙规则以允许 31568 端口上的 TCP 流量。
    不同的云提供商提供了不同方法来配置防火墙规则。
 
-1. 使用节点地址和 node port 来访问 Hello World 应用：
+10. 使用节点地址和 node port 来访问 Hello World 应用：
+
    ```shell
    curl http://<public-node-ip>:<node-port>
    ```
-<!--
+
+   <!--
    where `<public-node-ip>` is the public IP address of your node,
    and `<node-port>` is the NodePort value for your service. The
    response to a successful request is a hello message:
--->
-   这里的 `<public-node-ip>` 是您节点的公共 IP 地址，`<node-port>` 是您服务的 NodePort 值。
+   -->
+   这里的 `<public-node-ip>` 是你节点的公共 IP 地址，`<node-port>` 是你服务的 NodePort 值。
    对于请求成功的响应是一个 hello 消息：
+
    ```shell
    Hello Kubernetes!
    ```
@@ -201,19 +210,19 @@ to create a Service.
 -->
 ## 使用服务配置文件
 
-作为 `kubectl expose` 的替代方法，您可以使用 [服务配置文件](/docs/concepts/services-networking/service/) 来创建服务。
+作为 `kubectl expose` 的替代方法，你可以使用
+[服务配置文件](/zh/docs/concepts/services-networking/service/) 来创建服务。
 
-{{% /capture %}}
-
-
-{{% capture cleanup %}}
+## {{% heading "cleanup" %}}
 
 <!--
 To delete the Service, enter this command:
 -->
 想要删除服务，输入以下命令：
 
-    kubectl delete services example-service
+```shell
+kubectl delete services example-service
+```
 
 <!--
 To delete the Deployment, the ReplicaSet, and the Pods that are running
@@ -221,16 +230,15 @@ the Hello World application, enter this command:
 -->
 想要删除运行 Hello World 应用的 Deployment、ReplicaSet 和 Pod，输入以下命令：
 
-    kubectl delete deployment hello-world
+```shell
+kubectl delete deployment hello-world
+```
 
-{{% /capture %}}
-
-
-{{% capture whatsnext %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 Learn more about
 [connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
 -->
-学习更多关于如何 [通过服务连接应用](/docs/concepts/services-networking/connect-applications-service/)。
-{{% /capture %}}
+- 进一步了解[通过服务连接应用](/zh/docs/concepts/services-networking/connect-applications-service/)。
+

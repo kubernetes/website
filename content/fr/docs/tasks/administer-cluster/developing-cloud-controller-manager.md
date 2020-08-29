@@ -1,9 +1,9 @@
 ---
 title: Développer un Cloud Controller Manager
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< feature-state for_k8s_version="v1.11" state="beta" >}}
 Dans les prochaines versions, Cloud Controller Manager sera le moyen privilégié d’intégrer Kubernetes à n’importe quel cloud.
@@ -17,9 +17,9 @@ La plupart des implémentations de contrôleurs génériques seront au cœur du 
 
 Pour approfondir un peu les détails de la mise en œuvre, tous les gestionnaires de contrôleurs de nuage vont importer des packages à partir de Kubernetes core, la seule différence étant que chaque projet enregistre son propre fournisseur de nuage en appelant [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go#L56-L66) où une variable globale des fournisseurs de cloud disponibles est mise à jour.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Développement
 
@@ -39,4 +39,4 @@ Vous pouvez trouver la liste [ici](/docs/tasks/administer-cluster/running-cloud-
 Pour les cloud in-tree, vous pouvez exécuter le in-tree cloud controller manager comme un [Daemonset](/examples/admin/cloud/ccm-example.yaml) dans votre cluster.
 Voir la [documentation sur l'exécution d'un cloud controller manager](/docs/tasks/administer-cluster/running-cloud-controller.md) pour plus de détails.
 
-{{% /capture %}}
+

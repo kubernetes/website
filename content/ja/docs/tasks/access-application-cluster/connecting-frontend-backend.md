@@ -1,40 +1,42 @@
 ---
 title: Serviceを使用してフロントエンドをバックエンドに接続する
-content_template: templates/tutorial
+content_type: tutorial
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このタスクでは、フロントエンドとバックエンドのマイクロサービスを作成する方法を示します。
 バックエンドのマイクロサービスは挨拶です。
 フロントエンドとバックエンドは、Kubernetes {{< glossary_tooltip term_id="service" >}}オブジェクトを使用して接続されます。
 
-{{% /capture %}}
 
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * {{< glossary_tooltip term_id="deployment" >}}オブジェクトを使用してマイクロサービスを作成および実行します。
 * フロントエンドを経由してトラフィックをバックエンドにルーティングします。
 * Serviceオブジェクトを使用して、フロントエンドアプリケーションをバックエンドアプリケーションに接続します。
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * このタスクでは[Serviceで外部ロードバランサー](/docs/tasks/access-application-cluster/create-external-load-balancer/)を使用しますが、外部ロードバランサーの使用がサポートされている環境である必要があります。
-  ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
-
-{{% /capture %}}
+  ご使用の環境がこれをサポートしていない場合は、代わりにタイプ[NodePort](/ja/docs/concepts/services-networking/service/#nodeport)のServiceを使用できます。
 
 
-{{% capture lessoncontent %}}
 
-### Deploymentを使用したバックエンドの作成
+
+<!-- lessoncontent -->
+
+## Deploymentを使用したバックエンドの作成
 
 バックエンドは、単純な挨拶マイクロサービスです。
 バックエンドのDeploymentの構成ファイルは次のとおりです:
@@ -90,7 +92,7 @@ Events:
 ...
 ```
 
-### バックエンドServiceオブジェクトの作成
+## バックエンドServiceオブジェクトの作成
 
 フロントエンドをバックエンドに接続する鍵は、バックエンドServiceです。
 Serviceは、バックエンドマイクロサービスに常に到達できるように、永続的なIPアドレスとDNS名のエントリを作成します。
@@ -110,7 +112,7 @@ kubectl apply -f https://k8s.io/examples/service/access/hello-service.yaml
 
 この時点で、バックエンドのDeploymentが実行され、そちらにトラフィックをルーティングできるServiceがあります。
 
-### フロントエンドの作成
+## フロントエンドの作成
 
 バックエンドができたので、バックエンドに接続するフロントエンドを作成できます。
 フロントエンドは、バックエンドServiceに指定されたDNS名を使用して、バックエンドワーカーPodに接続します。
@@ -144,7 +146,7 @@ nginxの構成は、[コンテナイメージ](/examples/service/access/Dockerfi
 これを行うためのより良い方法は、[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)を使用して、構成をより簡単に変更できるようにすることです。
 {{< /note >}}
 
-### フロントエンドServiceと対話
+## フロントエンドServiceと対話
 
 LoadBalancerタイプのServiceを作成したら、このコマンドを使用して外部IPを見つけることができます:
 
@@ -169,7 +171,7 @@ frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 
 このIPを使用して、クラスターの外部から`frontend` Serviceとやり取りできるようになりました。
 
-### フロントエンドを介するトラフィック送信
+## フロントエンドを介するトラフィック送信
 
 フロントエンドとバックエンドが接続されました。
 フロントエンドServiceの外部IPに対してcurlコマンドを使用して、エンドポイントにアクセスできます。
@@ -184,14 +186,15 @@ curl http://${EXTERNAL_IP} # これを前に見たEXTERNAL-IPに置き換えま�
 {"message":"Hello"}
 ```
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* [Services](/docs/concepts/services-networking/service/)の詳細
-* [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+* [Service](/ja/docs/concepts/services-networking/service/)の詳細
+* [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
+
+
 
 

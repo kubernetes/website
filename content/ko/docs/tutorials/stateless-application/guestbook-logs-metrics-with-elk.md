@@ -1,7 +1,6 @@
 ---
 title: "예제: PHP / Redis 방명록 예제에 로깅과 메트릭 추가"
-reviewers:
-content_template: templates/tutorial
+content_type: tutorial
 weight: 21
 card:
   name: tutorials
@@ -9,42 +8,44 @@ card:
   title: "예제: PHP / Redis 방명록 예제에 로깅과 메트릭 추가"
 ---
 
-{{% capture overview %}}
-이 튜토리얼은 [Redis를 이용한 PHP 방명록](../guestbook) 튜토리얼을 기반으로 한다. Elastic의 경량 로그, 메트릭, 네트워크 데이터 오픈소스 배송기인 *Beats* 를 방명록과 동일한 쿠버네티스 클러스터에 배포한다. Beats는 데이터를 수집하고 구문분석하여 Elasticsearch에 색인화하므로, Kibana에서 동작 정보를 결과로 보며 분석할 수 있다. 이 예시는 다음과 같이 구성되어 있다.
+<!-- overview -->
+이 튜토리얼은 [Redis를 이용한 PHP 방명록](/ko/docs/tutorials/stateless-application/guestbook) 튜토리얼을 기반으로 한다. Elastic의 경량 로그, 메트릭, 네트워크 데이터 오픈소스 배송기인 *Beats* 를 방명록과 동일한 쿠버네티스 클러스터에 배포한다. Beats는 데이터를 수집하고 구문분석하여 Elasticsearch에 색인화하므로, Kibana에서 동작 정보를 결과로 보며 분석할 수 있다. 이 예시는 다음과 같이 구성되어 있다.
 
-* [Redis를 이용한 PHP 방명록](../guestbook)을 실행한 인스턴스
+* [Redis를 이용한 PHP 방명록](/ko/docs/tutorials/stateless-application/guestbook)을 실행한 인스턴스
 * Elasticsearch와 Kibana
 * Filebeat
 * Metricbeat
 * Packetbeat
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 * Redis를 이용한 PHP 방명록 시작.
 * kube-state-metrics 설치.
 * 쿠버네티스 시크릿 생성.
 * Beats 배포.
 * 로그와 메트릭의 대시보드 보기.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}}
 {{< version-check >}}
 
 추가로 다음이 필요하다.
 
-* 실행 중인 [Redis를 이용한 PHP 방명록](../guestbook) 튜토리얼의 배포본.
+* 실행 중인 [Redis를 이용한 PHP 방명록](/ko/docs/tutorials/stateless-application/guestbook) 튜토리얼의 배포본.
 
 * 실행 중인 Elasticsearch와 Kibana 디플로이먼트. [Elastic Cloud의 Elasticsearch 서비스](https://cloud.elastic.co)를 사용하거나, [파일을 내려받아](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) 워크스테이션이나 서버에서 운영하거나, [Elastic의 Helm 차트](https://github.com/elastic/helm-charts)를 이용한다.
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 ## Redis를 이용한 PHP 방명록 시작
-이 튜토리얼은 [Redis를 이용한 PHP 방명록](../guestbook)을 기반으로 한다. 방명록 애플리케이션을 실행 중이라면, 이를 모니터링할 수 있다. 실행되지 않은 경우라면 지침을 따라 방명록을 배포하고 **정리하기** 단계는 수행하지 말자. 방명록을 실행할 때 이 페이지로 돌아오자.
+이 튜토리얼은 [Redis를 이용한 PHP 방명록](/ko/docs/tutorials/stateless-application/guestbook)을 기반으로 한다. 방명록 애플리케이션을 실행 중이라면, 이를 모니터링할 수 있다. 실행되지 않은 경우라면 지침을 따라 방명록을 배포하고 **정리하기** 단계는 수행하지 말자. 방명록을 실행할 때 이 페이지로 돌아오자.
 
 ## 클러스터 롤 바인딩 추가
 [클러스터 단위 롤 바인딩](/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding)을 생성하여, 클러스터 수준(kube-system 안에)으로 kube-state-metrics와 Beats를 배포할 수 있게 한다.
@@ -66,7 +67,7 @@ kubectl get pods --namespace=kube-system | grep kube-state
 
 ```shell
 git clone https://github.com/kubernetes/kube-state-metrics.git kube-state-metrics
-kubectl create -f examples/standard
+kubectl apply -f kube-state-metrics/examples/standard
 kubectl get pods --namespace=kube-system | grep kube-state-metrics
 ```
 kube-state-metrics이 실행 중이고 준비되었는지 확인한다.
@@ -77,7 +78,7 @@ kubectl get pods -n kube-system -l app.kubernetes.io/name=kube-state-metrics
 출력
 ```shell
 NAME                                 READY   STATUS    RESTARTS   AGE
-kube-state-metrics-89d656bf8-vdthm   2/2     Running     0          21s
+kube-state-metrics-89d656bf8-vdthm   1/1     Running     0          21s
 ```
 ## Elastic의 예제를 GitHub 리포지터리에 클론한다.
 ```shell
@@ -110,7 +111,7 @@ Elastic Cloud의 Elasticsearch 서비스로 연결한다면 **관리 서비스**
 1. ELASTICSEARCH_USERNAME
 1. KIBANA_HOST
 
-이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시가 있다.
+이 정보를 Elasticsearch 클러스터와 Kibana 호스트에 지정한다. 여기 예시(또는 [*이 구성*](https://stackoverflow.com/questions/59892896/how-to-connect-from-minikube-to-elasticsearch-installed-on-host-local-developme/59892897#59892897)을 본다)가 있다.
 
 #### `ELASTICSEARCH_HOSTS`
 1. Elastic의 Elasticsearch Helm 차트에서 노드 그룹(nodeGroup).
@@ -356,14 +357,19 @@ kubectl scale --replicas=2 deployment/frontend
 ```shell
 deployment.extensions/frontend scaled
 ```
+frontend의 파드를 최대 3개의 파드로 확장한다.
+```shell
+kubectl scale --replicas=3 deployment/frontend
+```
 
 ## Kibana에서 변화 확인하기
 스크린 캡처를 확인하여, 표시된 필터를 추가하고 해당 열을 뷰에 추가한다. ScalingReplicaSet 항목이 표시되고, 여기에서 이벤트 목록의 맨 위에 풀링되는 이미지, 마운트된 볼륨, 파드 시작 등을 보여준다.
-![Kibana 디스커버리](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-discover.png)
+![Kibana 디스커버리](https://raw.githubusercontent.com/elastic/examples/master/beats-k8s-send-anywhere/scaling-up.png)
 
-{{% /capture %}}
 
-{{% capture cleanup %}}
+
+## {{% heading "cleanup" %}}
+
 디플로이먼트와 서비스를 삭제하면 실행중인 파드도 삭제된다. 한 커맨드로 여러 개의 리소스를 삭제하기 위해 레이블을 이용한다.
 
 1. 다음 커맨드를 실행하여 모든 파드, 디플로이먼트, 서비스를 삭제한다.
@@ -391,11 +397,11 @@ deployment.extensions/frontend scaled
       No resources found.
       ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * [리소스 모니터링 도구](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)를 공부한다.
-* [로깅 아키텍처](/docs/concepts/cluster-administration/logging/)를 더 읽어본다.
+* [로깅 아키텍처](/ko/docs/concepts/cluster-administration/logging/)를 더 읽어본다.
 * [애플리케이션 검사 및 디버깅](/ko/docs/tasks/debug-application-cluster/)을 더 읽어본다.
 * [애플리케이션 문제 해결](/ko/docs/tasks/debug-application-cluster/resource-usage-monitoring/)을 더 읽어본다.
-{{% /capture %}}

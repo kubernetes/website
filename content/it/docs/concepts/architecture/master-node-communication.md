@@ -1,11 +1,11 @@
 ---
 draft: True
 title: Comunicazione Master-Node
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Questo documento cataloga i percorsi di comunicazione tra il master (in realtà il
 apiserver) e il cluster Kubernetes. L'intento è di consentire agli utenti di
@@ -13,10 +13,10 @@ personalizzare la loro installazione per rafforzare la configurazione di rete in
 il cluster può essere eseguito su una rete non affidabile (o su IP completamente pubblici su a
 fornitore di servizi cloud).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cluster to Master
 
@@ -92,4 +92,4 @@ la connessione verrà crittografata, non fornirà alcuna garanzia di integrità.
 Queste connessioni ** non sono attualmente al sicuro ** da eseguire su non attendibili e / o
 reti pubbliche.
 
-{{% /capture %}}
+

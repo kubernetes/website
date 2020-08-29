@@ -2,23 +2,24 @@
 reviewers:
 - jcbsmpsn
 - mikedanese
-title: Certificate Rotation
-content_template: templates/task
+title: Configure Certificate Rotation for the Kubelet
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to enable and configure certificate rotation for the kubelet.
-{{% /capture %}}
 
-{{< feature-state for_k8s_version="v1.8" state="beta" >}}
 
-{{% capture prerequisites %}}
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Kubernetes version 1.8.0 or later is required
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Overview
 
@@ -37,14 +38,12 @@ the Kubernetes API.
 
 The `kubelet` process accepts an argument `--rotate-certificates` that controls
 if the kubelet will automatically request a new certificate as the expiration of
-the certificate currently in use approaches.  Since certificate rotation is a
-beta feature, the feature flag must also be enabled with
-`--feature-gates=RotateKubeletClientCertificate=true`.
+the certificate currently in use approaches.
 
 
 The `kube-controller-manager` process accepts an argument
-`--experimental-cluster-signing-duration` that controls how long certificates
-will be issued for.
+`--cluster-signing-duration`  (`--experimental-cluster-signing-duration` prior to 1.19)
+that controls how long certificates will be issued for.
 
 ## Understanding the certificate rotation configuration
 
@@ -61,8 +60,8 @@ Initially a certificate signing request from the kubelet on a node will have a
 status of `Pending`. If the certificate signing requests meets specific
 criteria, it will be auto approved by the controller manager, then it will have
 a status of `Approved`. Next, the controller manager will sign a certificate,
-issued for the duration specified by the
-`--experimental-cluster-signing-duration` parameter, and the signed certificate
+issued for the duration specified by the 
+`--cluster-signing-duration` parameter, and the signed certificate
 will be attached to the certificate signing requests.
 
 The kubelet will retrieve the signed certificate from the Kubernetes API and
@@ -77,6 +76,6 @@ kubelet will retrieve the new signed certificate from the Kubernetes API and
 write that to disk. Then it will update the connections it has to the
 Kubernetes API to reconnect using the new certificate.
 
-{{% /capture %}}
+
 
 

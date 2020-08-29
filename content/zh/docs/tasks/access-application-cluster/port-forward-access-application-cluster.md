@@ -1,18 +1,18 @@
 ---
 title: 使用端口转发来访问集群中的应用
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 
 <!--
 ---
 title: Use Port Forwarding to Access Applications in a Cluster
-content_template: templates/task
+content_type: task
 weight: 40
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 This page shows how to use `kubectl port-forward` to connect to a Redis
@@ -20,10 +20,11 @@ server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 -->
 本文展示如何使用 `kubectl port-forward` 连接到在 Kubernetes 集群中运行的 Redis 服务。这种类型的连接对数据库调试很有用。
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
@@ -32,10 +33,10 @@ for database debugging.
 -->
 * 安装 [redis-cli](http://redis.io/topics/rediscli)。
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Creating Redis deployment and service
@@ -210,10 +211,10 @@ for database debugging.
 -->
     成功的 ping 请求应该返回 PONG。
 
-{{% /capture %}}
 
 
-{{% capture discussion %}}
+
+<!-- discussion -->
 
 <!--
 ## Discussion
@@ -236,15 +237,16 @@ The support to UDP protocol is being tracked in
 在 [issue 47862](https://github.com/kubernetes/kubernetes/issues/47862) 中正在跟踪对 UDP 协议的支持。
 {{< /warning >}}
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 Learn more about [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward).
 -->
 学习更多关于 [kubectl port-forward](/docs/reference/generated/kubectl/kubectl-commands/#port-forward)。
-{{% /capture %}}
+
 
 
 

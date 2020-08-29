@@ -1,5 +1,4 @@
 ---
-title: "Install Tools"
+title: "ツールのインストール"
 weight: 10
 ---
-

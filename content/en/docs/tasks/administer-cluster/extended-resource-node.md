@@ -1,26 +1,27 @@
 ---
 title: Advertise Extended Resources for a Node
-content_template: templates/task
+content_type: task
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Get the names of your Nodes
 
@@ -189,10 +190,11 @@ kubectl describe node <your-node-name> | grep dongle
 
 (you should not see any output)
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 ### For application developers
 
@@ -200,8 +202,8 @@ kubectl describe node <your-node-name> | grep dongle
 
 ### For cluster administrators
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
 
-{{% /capture %}}
+

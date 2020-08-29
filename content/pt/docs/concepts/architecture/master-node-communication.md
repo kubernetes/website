@@ -1,14 +1,13 @@
 ---
 reviewers:
 - dchen1107
-- roberthbailey
 - liggitt
 title: Comunicação entre Node e Master
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Este documento cataloga os caminhos de comunicação entre o Master (o
 apiserver) e o cluster Kubernetes. A intenção é permitir que os usuários
@@ -16,10 +15,10 @@ personalizem sua instalação para proteger a configuração de rede
 então o cluster pode ser executado em uma rede não confiável (ou em IPs totalmente públicos em um
 provedor de nuvem).
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Cluster para o Master
 
@@ -103,4 +102,4 @@ os nós estão sendo executados.
 
 Atualmente, os túneis SSH estão obsoletos, portanto, você não deve optar por usá-los, a menos que saiba o que está fazendo. Um substituto para este canal de comunicação está sendo projetado.
 
-{{% /capture %}}
+

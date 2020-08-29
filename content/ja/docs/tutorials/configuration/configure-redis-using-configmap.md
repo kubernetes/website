@@ -1,15 +1,16 @@
 ---
 title: ConfigMapを使ったRedisの設定
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 本ページでは、[ConfigMapを使ったコンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)に基づき、ConfigMapを使ってRedisの設定を行う実践的な例を提供します。
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * 以下の要素を含む`kustomization.yaml`ファイルを作成する:
   * ConfigMapGenerator
@@ -17,17 +18,19 @@ content_template: templates/tutorial
 * `kubectl apply -k ./`コマンドにてディレクトリ全体を適用する
 * 設定が正しく反映されていることを確認する
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+## {{% heading "prerequisites" %}}
+
+
+{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+
 * この例は、バージョン1.14以上での動作を確認しています。
-* [ConfigMapを使ったコンテナの設定](/docs/tasks/configure-pod-container/configure-pod-configmap/)を読んで理解しておいてください。
+* [ConfigMapを使ったコンテナの設定](/ja/docs/tasks/configure-pod-container/configure-pod-configmap/)を読んで理解しておいてください。
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## 実践例: ConfigMapを使ったRedisの設定
@@ -68,7 +71,7 @@ kustomizationディレクトリを反映して、ConfigMapオブジェクトとP
 kubectl apply -k .
 ```
 
-Examine the created objects by
+作成されたオブジェクトを確認します
 ```shell
 > kubectl get -k .
 NAME                                        DATA   AGE
@@ -86,7 +89,7 @@ pod/redis   1/1     Running   0          52s
 `kubectl exec`を使ってPodに入り、`redis-cli`ツールを実行して設定が正しく適用されたことを確認してください:
 
 ```shell
-kubectl exec -it redis redis-cli
+kubectl exec -it redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"
@@ -95,12 +98,15 @@ kubectl exec -it redis redis-cli
 2) "allkeys-lru"
 ```
 
-{{% /capture %}}
+作成したPodを削除します:
+```shell
+kubectl delete pod redis
+```
 
-{{% capture whatsnext %}}
+
+
+## {{% heading "whatsnext" %}}
+
 
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)について学ぶ
-
-{{% /capture %}}
-
 

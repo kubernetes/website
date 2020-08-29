@@ -1,6 +1,6 @@
 ---
 title: kubeadm reset
-content_template: templates/concept
+content_type: concept
 weight: 60
 ---
 <!-- ---
@@ -9,16 +9,16 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm reset
-content_template: templates/concept
+content_type: concept
 weight: 60
 --- -->
 
-{{% capture overview %}}
+<!-- overview -->
 <!-- Performs a best effort revert of changes made by `kubeadm init` or `kubeadm join`. -->
 该命令尽力还原由 `kubeadm init` 或 `kubeadm join` 所做的更改。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 {{< include "generated/kubeadm_reset.md" >}}
 
 <!-- ### Reset workflow {#reset-workflow} -->
@@ -52,11 +52,12 @@ etcdctl del "" --prefix
 
 <!-- See the [etcd documentation](https://github.com/coreos/etcd/tree/master/etcdctl) for more information. -->
 更多详情请参考 [etcd 文档](https://github.com/coreos/etcd/tree/master/etcdctl)。
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!-- * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster -->
 * 参考 [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) 来初始化 Kubernetes 主节点。
 * 参考 [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) 来初始化 Kubernetes 工作节点并加入集群。
-{{% /capture %}}
+

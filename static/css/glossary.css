@@ -6,8 +6,11 @@
   background-image: url(../images/link.png);
   background-repeat: no-repeat;
   display: inline-block;
+  vertical-align: middle;
+  font-size: 0;
   color: transparent;
-  width: 20px;
+  width: 17px;
+  height: 17px;
   margin-left: 10px;
 }
 

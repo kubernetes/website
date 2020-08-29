@@ -2,18 +2,15 @@
 reviewers:
 - janetkuo
 title: Managing Resources
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 You've deployed your application and exposed it via a service. Now what? Kubernetes provides a number of tools to help you manage your application deployment, including scaling and updating. Among the features that we will discuss in more depth are [configuration files](/docs/concepts/configuration/overview/) and [labels](/docs/concepts/overview/working-with-objects/labels/).
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Organizing resource configurations
 
@@ -140,7 +137,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout} etc.`
+The `--recursive` flag works with any operation that accepts the `--filename,-f` flag such as: `kubectl {create,get,delete,describe,rollout}` etc.
 
 The `--recursive` flag also works when multiple `-f` arguments are provided:
 
@@ -323,7 +320,7 @@ When load on your application grows or shrinks, it's easy to scale with `kubectl
 kubectl scale deployment/my-nginx --replicas=1
 ```
 ```shell
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Now you only have one pod managed by the deployment.
@@ -356,7 +353,8 @@ Sometimes it's necessary to make narrow, non-disruptive updates to resources you
 
 ### kubectl apply
 
-It is suggested to maintain a set of configuration files in source control (see [configuration as code](http://martinfowler.com/bliki/InfrastructureAsCode.html)),
+It is suggested to maintain a set of configuration files in source control
+(see [configuration as code](https://martinfowler.com/bliki/InfrastructureAsCode.html)),
 so that they can be maintained and versioned along with the code for the resources they configure.
 Then, you can use [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) to push your configuration changes to the cluster.
 
@@ -402,7 +400,7 @@ For more information, please see [kubectl edit](/docs/reference/generated/kubect
 
 You can use `kubectl patch` to update API objects in place. This command supports JSON patch,
 JSON merge patch, and strategic merge patch. See
-[Update API Objects in Place Using kubectl patch](/docs/tasks/run-application/update-api-object-kubectl-patch/)
+[Update API Objects in Place Using kubectl patch](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 and
 [kubectl patch](/docs/reference/generated/kubectl/kubectl-commands/#patch).
 
@@ -424,16 +422,24 @@ At some point, you'll eventually need to update your deployed application, typic
 
 We'll guide you through how to create and update applications with Deployments.
 
-Let's say you were running version 1.7.9 of nginx:
+Let's say you were running version 1.14.2 of nginx:
 
 ```shell
-kubectl run my-nginx --image=nginx:1.7.9 --replicas=3
+kubectl create deployment my-nginx --image=nginx:1.14.2
 ```
 ```shell
 deployment.apps/my-nginx created
 ```
 
-To update to version 1.9.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.7.9` to `nginx:1.9.1`, with the kubectl commands we learned above.
+with 3 replicas (so the old and new revisions can coexist):
+```shell
+kubectl scale deployment my-nginx --current-replicas=1 --replicas=3
+```
+```
+deployment.apps/my-nginx scaled
+```
+
+To update to version 1.16.1, simply change `.spec.template.spec.containers[0].image` from `nginx:1.14.2` to `nginx:1.16.1`, with the kubectl commands we learned above.
 
 ```shell
 kubectl edit deployment/my-nginx
@@ -441,11 +447,12 @@ kubectl edit deployment/my-nginx
 
 That's it! The Deployment will declaratively update the deployed nginx application progressively behind the scene. It ensures that only a certain number of old replicas may be down while they are being updated, and only a certain number of new replicas may be created above the desired number of pods. To learn more details about it, visit [Deployment page](/docs/concepts/workloads/controllers/deployment/).
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-- [Learn about how to use `kubectl` for application introspection and debugging.](/docs/tasks/debug-application-cluster/debug-application-introspection/)
-- [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/)
+## {{% heading "whatsnext" %}}
 
-{{% /capture %}}
+
+- Learn about [how to use `kubectl` for application introspection and debugging](/docs/tasks/debug-application-cluster/debug-application-introspection/).
+- See [Configuration Best Practices and Tips](/docs/concepts/configuration/overview/).
+
+

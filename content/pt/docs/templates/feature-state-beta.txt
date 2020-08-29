@@ -1,0 +1,8 @@
+Atualmente, esse recurso está no estado *beta*, o que significa:
+
+* Os nomes das versões contêm beta (ex, v2beta3).
+* O código está bem testado. A ativação do recurso é considerada segura. Ativado por padrão.
+* O suporte para o recurso geral não será descartado, embora os detalhes possam mudar.
+* O esquema e/ou semântica dos objetos podem mudar de maneiras incompatíveis em uma versão beta ou estável subsequente. Quando isso acontecer, forneceremos instruções para migrar para a próxima versão. Isso pode exigir a exclusão, edição e recriação de objetos da API. O processo de edição pode exigir alguma reflexão. Isso pode exigir tempo de inatividade para aplicativos que dependem do recurso.
+* Recomendado apenas para usos não comerciais, devido ao potencial de alterações incompatíveis nas versões subsequentes. Se você tiver vários clusters que podem ser atualizados independentemente, poderá relaxar essa restrição.
+* **Por favor, experimente nossos recursos beta e dê um feedback sobre eles! Depois que eles saem da versão beta, pode não ser prático para nós fazer mais alterações.**

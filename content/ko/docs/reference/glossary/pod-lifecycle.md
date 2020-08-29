@@ -9,11 +9,11 @@ related:
 tags:
  - fundamental
 short-description: >
- 파드가 라이프사이클 중 어느 단계(phase)에 있는지 표현하는 고수준의 요약이다.
+  파드가 수명(lifetime) 동안 통과하는 상태의 순서이다.
  
 ---
- 파드가 라이프사이클 중 어느 단계(phase)에 있는지 표현하는 고수준의 요약이다.
+ 파드가 수명(lifetime) 동안 통과하는 상태의 순서이다.
 
 <!--more--> 
  
-[파드 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)은 파드가 라이프사이클 중 어느 단계에 있는지 표현하는 고수준의 요약이다. 파드의 `status` 필드는 [파드 스테이터스](/docs/reference/generated/kubernetes-api/v1.13/#podstatus-v1-core) 오브젝트이다. 그것은 `phase` 필드를 가지며, Running, Pending, Succeeded, Failed, Unknown, Completed, CrashLoopBackOff 중 하나의 단계(phase)를 보여준다.
+[파드 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)은 파드의 라이프사이클에 대한 고수준의 요약이다. 다섯 가지 파드 단계가 있다: Pending, Running, Succeeded, Failed, 그리고 Unknown. [파드 스테이터스](/docs/reference/generated/kubernetes-api/v1.13/#podstatus-v1-core)의 `phase` 필드에 파드 상태에 대한 자세한 설명이 요약되어 있다.

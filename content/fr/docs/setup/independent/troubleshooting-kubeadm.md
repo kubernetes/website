@@ -1,11 +1,11 @@
 ---
 title: Dépanner kubeadm
 description: Diagnostic pannes kubeadm debug
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Comme avec n'importe quel programme, vous pourriez rencontrer une erreur lors de l'installation ou de
  l'exécution de kubeadm.
@@ -25,9 +25,9 @@ dans le canal #kubeadm, ou posez une questions sur
 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes). Merci d'ajouter les tags pertinents
 comme `#kubernetes` et `#kubeadm`, ainsi on pourra vous aider.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## `ebtables` ou un exécutable similaire introuvable lors de l'installation
 
@@ -283,4 +283,4 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 yum install docker-ce-18.06.1.ce-3.el7.x86_64
 ```
 
-{{% /capture %}}
+

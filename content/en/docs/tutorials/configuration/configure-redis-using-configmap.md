@@ -3,16 +3,17 @@ reviewers:
 - eparis
 - pmorie
 title: Configuring Redis using a ConfigMap
-content_template: templates/tutorial
+content_type: tutorial
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
-{{% /capture %}}
 
-{{% capture objectives %}}
+
+## {{% heading "objectives" %}}
+
 
 * Create a `kustomization.yaml` file containing:
   * a ConfigMap generator
@@ -20,18 +21,19 @@ This page provides a real world example of how to configure Redis using a Config
 * Apply the directory by running `kubectl apply -k ./`
 * Verify that the configuration was correctly applied.
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * The example shown on this page works with `kubectl` 1.14 and above.
 * Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-{{% /capture %}}
 
-{{% capture lessoncontent %}}
+
+<!-- lessoncontent -->
 
 
 ## Real World Example: Configuring Redis using a ConfigMap
@@ -91,7 +93,7 @@ Use `kubectl exec` to enter the pod and run the `redis-cli` tool to verify that
 the configuration was correctly applied:
 
 ```shell
-kubectl exec -it redis redis-cli
+kubectl exec -it redis -- redis-cli
 127.0.0.1:6379> CONFIG GET maxmemory
 1) "maxmemory"
 2) "2097152"
@@ -105,12 +107,13 @@ Delete the created pod:
 kubectl delete pod redis
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Learn more about [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
-{{% /capture %}}
+
 
 

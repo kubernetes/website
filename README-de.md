@@ -15,7 +15,7 @@ Weitere Informationen zum Beitrag zur Kubernetes-Dokumentation finden Sie unter:
 
 * [Mitwirkung beginnen](https://kubernetes.io/docs/contribute/start/)
 * [Ihre Dokumentationsänderungen bereitstellen](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [Seitenvorlagen verwenden](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [Seitenvorlagen verwenden](http://kubernetes.io/docs/contribute/style/page-content-types/)
 * [Dokumentationsstil-Handbuch](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [Übersetzung der Kubernetes-Dokumentation](https://kubernetes.io/docs/contribute/localization/)
 

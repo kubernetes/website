@@ -1,18 +1,18 @@
 ---
 title: Sertifikat
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Saat menggunakan autentikasi sertifikat klien, kamu dapat membuat sertifikat
 secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ### easyrsa
 
@@ -245,6 +245,6 @@ done.
 
 Kamu dapat menggunakan API `Certificate.k8s.io` untuk menyediakan
 sertifikat x509 yang digunakan untuk autentikasi seperti yang didokumentasikan
-[di sini](/docs/tasks/tls/managing-tls-in-a-cluster).
+[di sini](/id/docs/tasks/tls/managing-tls-in-a-cluster).
 
-{{% /capture %}}
+

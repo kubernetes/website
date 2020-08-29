@@ -2,21 +2,21 @@
 title: kubectl Cheat Sheet
 reviewers:
 - ngtuna
-content_template: templates/concept
+content_type: concept
 card:
   name: reference
   weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Xem thêm: [Kubectl Overview](/docs/reference/kubectl/overview/) và [JsonPath Guide](/docs/reference/kubectl/jsonpath).
 
 Trang này là trang tổng quan của lệnh `kubectl`.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 # kubectl - Cheat Sheet
 
@@ -197,7 +197,7 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 ## Cập nhật các tài nguyên
 
-Theo như phiên bản 1.11, `rolling-update` đã không còn được dùng nữa (xem [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.11.md)), sử dụng `rollout` thay thế.
+Theo như phiên bản 1.11, `rolling-update` đã không còn được dùng nữa (xem [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), sử dụng `rollout` thay thế.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Cập nhận container "www" của deployment "frontend", cập nhật image
@@ -365,9 +365,10 @@ Verbosity | Description
 `--v=8` | Hiển thị nội dung HTTP request.
 `--v=9` | Hiển thị nội dung HTTP request mà không cắt ngắn nội dung.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * Đọc thêm về [Tổng quan kubectl](/docs/reference/kubectl/overview/).
 
@@ -377,4 +378,4 @@ Verbosity | Description
 
 * Xem thêm bản cộng đồng [kubectl cheatsheets](https://github.com/dennyzhang/cheatsheet-kubernetes-A4).
 
-{{% /capture %}}
+

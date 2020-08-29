@@ -2,7 +2,7 @@
 title: Service
 id: service
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/service/
+full_link: /ja/docs/concepts/services-networking/service/
 short_description: >
   Podの集合で実行されているアプリケーションをネットワークサービスとして公開する方法。
 
@@ -11,7 +11,7 @@ tags:
 - fundamental
 - core-object
 ---
-{{< glossary_tooltip text="Pods" term_id="pod" >}}の集合で実行されているアプリケーションをネットワークサービスとして公開する抽象的な方法。
+{{< glossary_tooltip text="Pod" term_id="pod" >}}の集合で実行されているアプリケーションをネットワークサービスとして公開する抽象的な方法です。
 
 <!--more-->
 

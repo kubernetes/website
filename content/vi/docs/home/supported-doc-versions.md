@@ -1,19 +1,19 @@
 ---
 title: Các phiên bản được hỗ trợ của tài liệu Kubernetes
-content_template: templates/concept
+content_type: concept
 card:
   name: about
   weight: 10
   title: Các phiên bản được hỗ trợ của tài liệu Kubernetes
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Trang web này lưu tài liệu của phiên bản hiện tại và bốn phiên bản trước của Kubernetes.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Phiên bản hiện tại
 
@@ -24,4 +24,4 @@ Phiên bản hiện tại là
 
 {{< versions-other >}}
 
-{{% /capture %}}
+

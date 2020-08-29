@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: mypod
+  labels:
+    foo: bar
+spec:
+  topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: zone
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        foo: bar
+  - maxSkew: 1
+    topologyKey: node
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        foo: bar
+  containers:
+  - name: pause
+    image: k8s.gcr.io/pause:3.1

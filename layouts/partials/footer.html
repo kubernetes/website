@@ -1,37 +1,52 @@
-<footer>
-    <div class="light-text main-section">
-        <nav>
-            {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-            {{ $sections := slice "docs/home" "blog" "partners" "community" "case-studies" }}
-            {{ range $sections }}
-            {{ with site.GetPage "section" . }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-            {{ end }}
-        </nav>
-        <div class="social" role="region" aria-label="Social hyperlinks">
-            <div>
-                <a href="https://twitter.com/kubernetesio" class="twitter"><span>{{ T "community_twitter_name" }}</span></a>
-                <a href="https://github.com/kubernetes/kubernetes" class="github"><span>{{ T "community_github_name" }}</span></a>
-                <a href="https://slack.k8s.io/" class="slack"><span>Slack</span></a>
-            </div>
-            <div>
-                <a href="https://stackoverflow.com/questions/tagged/kubernetes" class="stack-overflow"><span>{{ T "community_stack_overflow_name" }}</span></a>
-                <a href="https://www.youtube.com/kubernetescommunity" class="youtube"><span>{{ T "community_youtube_name" }}</span></a>
-                <a href="https://discuss.kubernetes.io" class="mailing-list"><span>{{ T "community_forum_name" }}</span></a>
-                <a href="https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com" class="calendar"><span>{{ T "community_events_calendar" }}</span></a>
-            </div>
-            <div>
-                {{ with site.GetPage "page" "/docs/setup/pick-right-solution/" }}<a href="{{  .RelPermalink }}" class="button">{{ .LinkTitle }}</a>{{ end }}
-                <a href="https://git.k8s.io/community/contributors/guide" class="button">{{ T "main_contribute" }}</a>
-            </div>
-        </div>
-        <div class="miceType center">
-            &copy; {{ now.Year }} {{ T "main_documentation_license" | safeHTML }}</a>
-        </div>
-        <div class="miceType center">
-            Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}
-        </div>
-        <div class="miceType center">
-            ICP license: 京ICP备17074266号-3
-        </div>
+{{ $links := .Site.Params.links }}
+<footer class="d-print-none">
+  <div class="footer__links">
+    <nav>
+      {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
+      {{ range $sections }}
+      {{ with site.GetPage "section" . }}<a class="text-white" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{ end }}
+    </nav>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-sm-2 text-xs-center order-sm-2">
+        {{ with $links }}
+        {{ with index . "user"}}
+        {{ template "footer-links-block"  . }}
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="col-6 col-sm-2 text-right text-xs-center order-sm-3">
+        {{ with $links }}
+        {{ with index . "developer"}}
+        {{ template "footer-links-block"  . }}
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="col-12 col-sm-8 text-center order-sm-2">
+        {{ with .Site.Params.copyright_k8s }}<small class="text-white">&copy; {{ now.Year}} {{ T "main_documentation_license" | safeHTML }}</small>{{ end }}
+        <br/>
+        {{ with .Site.Params.copyright_linux }}<small class="text-white">Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}</small>{{ end }}
+        <br/>
+        <small class="text-white">ICP license: 京ICP备17074266号-3</small>
+        {{ with .Site.Params.privacy_policy }}<small class="ml-1"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></small>{{ end }}
+        {{ if not .Site.Params.ui.footer_about_disable }}
+          {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
+        {{ end }}
+      </div>
     </div>
+  </div>
 </footer>
+{{ define "footer-links-block" }}
+<ul class="list-inline mb-0">
+  {{ range . }}
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="{{ .name }}" aria-label="{{ .name }}">
+    <a class="text-white" target="_blank" href="{{ .url }}">
+      <i class="{{ .icon }}"></i>
+    </a>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

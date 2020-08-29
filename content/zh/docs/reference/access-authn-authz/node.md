@@ -1,6 +1,6 @@
 ---
 title: 使用 Node 鉴权
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 <!-- 
@@ -11,19 +11,19 @@ reviewers:
 - liggitt
 - ericchiang
 title: Using Node Authorization
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 节点鉴权是一种特殊用途的鉴权模式，专门对 kubelet 发出的 API 请求进行鉴权。
 <!-- 
 Node authorization is a special-purpose authorization mode that specifically authorizes API requests made by kubelets.
 -->
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 ## 概述
 <!-- 
 ## Overview 
@@ -43,7 +43,8 @@ Read operations:
 * endpoints
 * nodes
 * pods
-* secrets、configmaps、以及绑定到 kubelet 的节点的 pod 的持久卷申领和持久卷 
+* secrets、configmaps、pvcs 以及绑定到 kubelet 节点的与 pod 相关的持久卷 
+
 <!-- 
 * services
 * endpoints
@@ -60,6 +61,7 @@ Write operations:
 * 节点和节点状态（启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改自己的节点）
 * Pod 和 Pod 状态 (启用 `NodeRestriction` 准入插件以限制 kubelet 只能修改绑定到自身的 Pod)
 * 事件
+
 <!-- 
 * nodes and node status (enable the `NodeRestriction` admission plugin to limit a kubelet to modify its own node)
 * pods and pod status (enable the `NodeRestriction` admission plugin to limit a kubelet to modify pods bound to itself)
@@ -73,6 +75,7 @@ Auth-related operations:
 
 * 对于基于 TLS 的启动引导过程时使用的 certificationsigningrequests API 的读/写权限
 * 为委派的身份验证/授权检查创建 tokenreviews 和 subjectaccessreviews 的能力
+
 <!-- 
 * read/write access to the certificationsigningrequests API for TLS bootstrapping
 * the ability to create tokenreviews and subjectaccessreviews for delegated authentication/authorization checks 
@@ -198,4 +201,4 @@ In 1.8, the binding will not be created at all.
 When using RBAC, the `system:node` cluster role will continue to be created,
 for compatibility with deployment methods that bind other users or groups to that role. 
 -->
-{{% /capture %}}
+

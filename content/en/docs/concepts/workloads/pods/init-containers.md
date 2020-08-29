@@ -2,20 +2,20 @@
 reviewers:
 - erictune
 title: Init Containers
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page provides an overview of init containers: specialized containers that run
 before app containers in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 Init containers can contain utilities or setup scripts not present in an app image.
 
 You can specify init containers in the Pod specification alongside the `containers`
 array (which describes app containers).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Understanding init containers
 
@@ -46,8 +46,8 @@ including resource limits, volumes, and security settings. However, the
 resource requests and limits for an init container are handled differently,
 as documented in [Resources](#resources).
 
-Also, init containers do not support readiness probes because they must run to
-completion before the Pod can be ready.
+Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
+`startupProbe` because they must run to completion before the Pod can be ready.
 
 If you specify multiple init containers for a Pod, Kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
@@ -71,8 +71,8 @@ have some advantages for start-up related code:
   a mechanism to block or delay app container startup until a set of preconditions are met. Once
   preconditions are met, all of the app containers in a Pod can start in parallel.
 * Init containers can securely run utilities or custom code that would otherwise make an app
-  container image less secure. By keeping unnecessary tools separate you can limit the attack  
-  surface of your app container image. 
+  container image less secure. By keeping unnecessary tools separate you can limit the attack
+  surface of your app container image.
 
 
 ### Examples
@@ -122,10 +122,10 @@ spec:
   initContainers:
   - name: init-myservice
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
   - name: init-mydb
     image: busybox:1.28
-    command: ['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;']
+    command: ['sh', '-c', "until nslookup mydb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
 ```
 
 You can start this Pod by running:
@@ -241,12 +241,15 @@ myapp-pod   1/1       Running   0          9m
 ```
 
 This simple example should provide some inspiration for you to create your own
-init containers. [What's next](#what-s-next) contains a link to a more detailed example.
+init containers. [What's next](#whats-next) contains a link to a more detailed example.
 
 ## Detailed behavior
 
-During the startup of a Pod, each init container starts in order, after the
-network and volumes are initialized. Each container must exit successfully before
+During Pod startup, the kubelet delays running init containers until the networking
+and storage are ready. Then the kubelet runs the Pod's init containers in the order
+they appear in the Pod's spec.
+
+Each init container must exit successfully before
 the next container starts. If a container fails to start due to the runtime or
 exits with failure, it is retried according to the Pod `restartPolicy`. However,
 if the Pod `restartPolicy` is set to Always, the init containers use
@@ -314,12 +317,13 @@ reasons:
   forcing a restart, and the init container completion record has been lost due
   to garbage collection.
 
-{{% /capture %}}
 
 
-{{% capture whatsnext %}}
 
-* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container)
+## {{% heading "whatsnext" %}}
+
+
+* Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug-application-cluster/debug-init-containers/)
 
-{{% /capture %}}
+

@@ -1,18 +1,18 @@
 ---
 title: 컨테이너 라이프사이클 훅(Hook)
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 이 페이지는 kubelet이 관리하는 컨테이너가 관리 라이프사이클 동안의 이벤트에 의해 발동되는 코드를 실행하기 위해서 
 컨테이너 라이프사이클 훅 프레임워크를 사용하는 방법에 대해서 설명한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 개요
 
@@ -39,7 +39,7 @@ Angular와 같이, 컴포넌트 라이프사이클 훅을 가진 많은 프로�
 파라미터는 핸들러에 전달되지 않는다.
 
 종료 동작에 더 자세한 대한 설명은 
-[파드의 종료](/ko/docs/concepts/workloads/pods/pod/#파드의-종료)에서 찾을 수 있다.
+[파드의 종료](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-종료)에서 찾을 수 있다.
 
 ### 훅 핸들러 구현
 
@@ -109,12 +109,13 @@ Events:
   1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
 ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
 
-* [컨테이너 환경](/ko/docs/concepts/containers/container-environment-variables/)에 대해 더 배우기.
+## {{% heading "whatsnext" %}}
+
+
+* [컨테이너 환경](/ko/docs/concepts/containers/container-environment/)에 대해 더 배우기.
 * [컨테이너 라이프사이클 이벤트에 핸들러 부착](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
   실습 경험하기.
 
-{{% /capture %}}
+

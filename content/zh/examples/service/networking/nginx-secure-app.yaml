@@ -35,6 +35,9 @@ spec:
       - name: secret-volume
         secret:
           secretName: nginxsecret
+      - name: configmap-volume
+        configMap:
+          name: nginxconfigmap
       containers:
       - name: nginxhttps
         image: bprashanth/nginxhttps:1.0
@@ -44,3 +47,5 @@ spec:
         volumeMounts:
         - mountPath: /etc/nginx/ssl
           name: secret-volume
+        - mountPath: /etc/nginx/conf.d
+          name: configmap-volume

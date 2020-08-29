@@ -1,16 +1,16 @@
 ---
-title: Ikhtisar Keamanan _Cloud Native_
-content_template: templates/concept
+title: Ikhtisar Keamanan Cloud Native
+content_type: concept
 weight: 1
 ---
 
 {{< toc >}}
 
-{{% capture overview %}}
+<!-- overview -->
 Keamanan Kubernetes (dan keamanan secara umum) adalah sebuah topik sangat luas yang memiliki banyak bagian yang sangat berkaitan satu sama lain. Pada masa sekarang ini di mana perangkat lunak _open source_ telah diintegrasi ke dalam banyak sistem yang membantu berjalannya aplikasi web, ada beberapa konsep menyeluruh yang dapat membantu intuisimu untuk berpikir tentang konsep keamanan secara menyeluruh. Panduan ini akan mendefinisikan sebuah cara/model berpikir untuk beberapa konsep umum mengenai Keamanan _Cloud Native_. Cara berpikir ini sepenuhnya subjektif dan kamu sebaiknya hanya menggunakannya apabila ini membantumu berpikir tentang di mana harus mengamankan _stack_ perangkat lunakmu.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 4C pada Keamanan _Cloud Native_
 
@@ -103,14 +103,15 @@ Serangan Pengamatan (_probing_) Dinamis | Ada sedikit peralatan otomatis yang da
 
 Kebanyakan dari saran yang disebut di atas dapat diotomasi di dalam _delivery pipeline_ kode kamu sebagai bagian dari rangkaian pemeriksaan keamanan. Untuk mempelajari lebih lanjut tentang pendekatan "_Continuous Hacking_" terhadap _delivery_ perangkat lunak, [artikel ini](https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/) menyediakan lebih banyak detail.
 
-{{% /capture %}}
-{{% capture whatsnext %}}
 
-* Pelajari tentang [Network Policy untuk Pod](/docs/concepts/services-networking/network-policies/)
+## {{% heading "whatsnext" %}}
+
+
+* Pelajari tentang [Network Policy untuk Pod](/id/docs/concepts/services-networking/network-policies/)
 * Pelajari tentang [mengamankan klaster kamu](/docs/tasks/administer-cluster/securing-a-cluster/)
 * Pelajari tentang [kontrol akses API](/docs/reference/access-authn-authz/controlling-access/)
-* Pelajari tentang [enkripsi data saat transit](/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
+* Pelajari tentang [enkripsi data saat transit](/id/docs/tasks/tls/managing-tls-in-a-cluster/) for the control plane
 * Pelajari tentang [enkripsi data saat diam](/docs/tasks/administer-cluster/encrypt-data/)
-* Pelajari tentang [Secret (data sensitif) pada Kubernetes](/docs/concepts/configuration/secret/)
+* Pelajari tentang [Secret (data sensitif) pada Kubernetes](/id/docs/concepts/configuration/secret/)
 
-{{% /capture %}}
+

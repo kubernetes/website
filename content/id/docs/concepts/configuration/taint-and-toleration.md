@@ -1,12 +1,12 @@
 ---
 title: Taint dan Toleration
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
 
-{{% capture overview %}}
-Afinitas Node, seperti yang dideskripsikan [di sini](/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
+<!-- overview -->
+Afinitas Node, seperti yang dideskripsikan [di sini](/id/docs/concepts/configuration/assign-pod-node/#node-affinity-beta-feature),
 adalah salah satu properti dari Pod yang menyebabkan pod tersebut memiliki preferensi
 untuk ditempatkan di sekelompok Node tertentu (preferensi ini dapat berupa _soft constraints_ atau
 _hard constraints_ yang harus dipenuhi). _Taint_ merupakan kebalikan dari afinitas --
@@ -16,9 +16,9 @@ _Taint_ dan _toleration_ bekerja sama untuk memastikan Pod dijadwalkan pada Node
 yang sesuai. Satu atau lebih _taint_ akan diterapkan pada suatu node; hal ini akan menyebabkan
 node tidak akan menerima pod yang tidak mengikuti _taint_ yang sudah diterapkan.
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Konsep
 
@@ -193,7 +193,7 @@ khusus (misalnya, `kubectl taint nodes nodename special=true:NoSchedule` atau
 yang sesuai pada _pod_ yang menggunakan _node_ dengan perangkat keras khusus. Seperti halnya pada
 kebutuhan _dedicated_ _node_, hal ini dapat dilakukan dengan mudah dengan cara menulis
 [_admission controller_](/docs/reference/access-authn-authz/admission-controllers/) yang
-bersifat khusus. Misalnya, kita dapat menggunakan [_Extended Resource_](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+bersifat khusus. Misalnya, kita dapat menggunakan [_Extended Resource_](/id/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
 untuk merepresentasikan perangkat keras khusus, kemudian _taint_ _node_ dengan perangkat keras khusus
 dengan nama _extended resource_ dan jalankan _admission controller_
 [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration).
@@ -244,7 +244,7 @@ dan logika normal untuk melakukan _eviction_ pada _pod_ dari suatu _node_ terten
 dari _Ready_ yang ada pada _NodeCondition_ dinonaktifkan.
 
 {{< note >}}
-Untuk menjaga perilaku [_rate limiting_](/docs/concepts/architecture/nodes/) yang
+Untuk menjaga perilaku [_rate limiting_](/id/docs/concepts/architecture/nodes/) yang
 ada pada _eviction_ _pod_ apabila _node_ mengalami masalah, sistem sebenarnya menambahkan
 _taint_ dalam bentuk _rate limiter_. Hal ini mencegah _eviction_ besar-besaran pada _pod_
 pada skenario dimana master menjadi terpisah dari _node_ lainnya.
@@ -280,7 +280,7 @@ _node_ apabila salah satu masalah terdeteksi.
 Kedua _toleration_ _default_ tadi ditambahkan oleh [DefaultTolerationSeconds
 _admission controller_](https://git.k8s.io/kubernetes/plugin/pkg/admission/defaulttolerationseconds).
 
-_Pod-pod_ pada [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) dibuat dengan _toleration_
+_Pod-pod_ pada [DaemonSet](/id/docs/concepts/workloads/controllers/daemonset/) dibuat dengan _toleration_
 `NoExecute` untuk _taint_ tanpa `tolerationSeconds`:
 
   * `node.kubernetes.io/unreachable`

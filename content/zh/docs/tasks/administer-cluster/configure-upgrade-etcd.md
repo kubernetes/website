@@ -3,7 +3,7 @@ reviewers:
 - mml
 - wojtek-t
 title: 为 Kubernetes 运行 etcd 集群
-content_template: templates/task
+content_type: task
 ---
 <!--
 ---
@@ -11,27 +11,28 @@ reviewers:
 - mml
 - wojtek-t
 title: Operating etcd clusters for Kubernetes
-content_template: templates/task
+content_type: task
 ---
 -->
 
-{{% capture overview %}}
+<!-- overview -->
 
 <!--
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd is a ">}}
 -->
 {{< glossary_definition term_id="etcd" length="all" prepend="etcd 是一个">}}
 
-{{% /capture %}}
 
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 <!--
 ## Prerequisites
@@ -477,4 +478,4 @@ See ["kube-apiserver 1.13.x refuses to work when first etcd-server is not availa
 
 请看  ["kube-apiserver 1.13.x refuses to work when first etcd-server is not available"](https://github.com/kubernetes/kubernetes/issues/72102). 
 
-{{% /capture %}}
+

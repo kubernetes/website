@@ -2,11 +2,11 @@
 reviewers:
 - mikedanese
 title: Labels and Selectors
-content_template: templates/concept
+content_type: concept
 weight: 40
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 _Labels_ are key/value pairs that are attached to objects, such as pods.
 Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
@@ -22,12 +22,11 @@ Each object can have a set of key/value labels defined. Each Key must be unique 
 }
 ```
 
-Labels allow for efficient queries and watches and are ideal for use in UIs and CLIs. Non-identifying information should be recorded using [annotations](/docs/concepts/overview/working-with-objects/annotations/).
+Labels allow for efficient queries and watches and are ideal for use in UIs
+and CLIs. Non-identifying information should be recorded using
+[annotations](/docs/concepts/overview/working-with-objects/annotations/).
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Motivation
 
@@ -55,7 +54,7 @@ The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core com
 
 Valid label values must be 63 characters or less and must be empty or begin and end with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
-For example, here’s the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
+For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
 
 ```yaml
 
@@ -69,15 +68,15 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
-    
+
 ```
 
 ## Label selectors
 
-Unlike [names and UIDs](/docs/user-guide/identifiers), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 
 Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
 
@@ -92,7 +91,7 @@ them.
 For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
 {{< /note >}}
 
-{{< caution >}} 
+{{< caution >}}
 For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
 {{< /caution >}}
 
@@ -186,7 +185,10 @@ kubectl get pods -l 'environment,environment notin (frontend)'
 
 ### Set references in API objects
 
-Some Kubernetes objects, such as [`services`](/docs/user-guide/services) and [`replicationcontrollers`](/docs/user-guide/replication-controller), also use label selectors to specify sets of other resources, such as [pods](/docs/user-guide/pods).
+Some Kubernetes objects, such as [`services`](/docs/concepts/services-networking/service/)
+and [`replicationcontrollers`](/docs/concepts/workloads/controllers/replicationcontroller/),
+also use label selectors to specify sets of other resources, such as
+[pods](/docs/concepts/workloads/pods/pod/).
 
 #### Service and ReplicationController
 
@@ -210,7 +212,11 @@ this selector (respectively in `json` or `yaml` format) is equivalent to `compon
 
 #### Resources that support set-based requirements
 
-Newer resources, such as [`Job`](/docs/concepts/jobs/run-to-completion-finite-workloads/), [`Deployment`](/docs/concepts/workloads/controllers/deployment/), [`Replica Set`](/docs/concepts/workloads/controllers/replicaset/), and [`Daemon Set`](/docs/concepts/workloads/controllers/daemonset/), support _set-based_ requirements as well.
+Newer resources, such as [`Job`](/docs/concepts/workloads/controllers/job/),
+[`Deployment`](/docs/concepts/workloads/controllers/deployment/),
+[`ReplicaSet`](/docs/concepts/workloads/controllers/replicaset/), and
+[`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/),
+support _set-based_ requirements as well.
 
 ```yaml
 selector:
@@ -226,6 +232,5 @@ selector:
 #### Selecting sets of nodes
 
 One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/configuration/assign-pod-node/) for more information.
+See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
 
-{{% /capture %}}

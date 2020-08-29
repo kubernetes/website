@@ -5,27 +5,31 @@ feature:
   description: >
     간단한 명령어나 UI를 통해서 또는 CPU 사용량에 따라 자동으로 애플리케이션의 스케일을 업 또는 다운한다.
 
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+
+
+
+
+<!-- overview -->
 
 Horizontal Pod Autoscaler는 CPU 사용량
 (또는 [사용자 정의 메트릭](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md),
 아니면 다른 애플리케이션 지원 메트릭)을 관찰하여 레플리케이션
-컨트롤러, 디플로이먼트, 레플리카 셋 또는 스테이트풀 셋의 파드 개수를 자동으로 스케일한다. Horizontal
-Pod Autoscaler는 크기를 조정할 수 없는 오브젝트(예: 데몬 셋)에는 적용되지 않는다.
+컨트롤러(ReplicationController), 디플로이먼트(Deployment), 레플리카셋(ReplicaSet) 또는 스테이트풀셋(StatefulSet)의 파드 개수를 자동으로 스케일한다. Horizontal
+Pod Autoscaler는 크기를 조정할 수 없는 오브젝트(예: 데몬셋(DaemonSet))에는 적용되지 않는다.
 
 Horizontal Pod Autoscaler는 쿠버네티스 API 리소스 및 컨트롤러로 구현된다.
 리소스는 컨트롤러의 동작을 결정한다.
 컨트롤러는 관찰된 평균 CPU 사용률이 사용자가 지정한 대상과 일치하도록 레플리케이션
 컨트롤러 또는 디플로이먼트에서 레플리카 개수를 주기적으로 조정한다.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Horizontal Pod Autoscaler는 어떻게 작동하는가?
 
@@ -41,37 +45,37 @@ Horizontal Pod Autoscaler는 컨트롤러
 또는 사용자 지정 메트릭 API(다른 모든 메트릭 용)에서 메트릭을 가져온다.
 
 * 파드 단위 리소스 메트릭(예 : CPU)의 경우 컨트롤러는 HorizontalPodAutoscaler가
-대상으로하는 각 파드에 대한 리소스 메트릭 API에서 메트릭을 가져온다.
-그런 다음, 목표 사용률 값이 설정되면, 컨트롤러는 각 파드의
-컨테이너에 대한 동등한 자원 요청을 퍼센트 단위로 하여 사용률 값을
-계산한다. 대상 원시 값이 설정된 경우 원시 메트릭 값이 직접 사용된다.
-그리고, 컨트롤러는 모든 대상 파드에서 사용된 사용률의 평균 또는 원시 값(지정된
-대상 유형에 따라 다름)을 가져와서 원하는 레플리카의 개수를 스케일하는데
-사용되는 비율을 생성한다.
+  대상으로하는 각 파드에 대한 리소스 메트릭 API에서 메트릭을 가져온다.
+  그런 다음, 목표 사용률 값이 설정되면, 컨트롤러는 각 파드의
+  컨테이너에 대한 동등한 자원 요청을 퍼센트 단위로 하여 사용률 값을
+  계산한다. 대상 원시 값이 설정된 경우 원시 메트릭 값이 직접 사용된다.
+  그리고, 컨트롤러는 모든 대상 파드에서 사용된 사용률의 평균 또는 원시 값(지정된
+  대상 유형에 따라 다름)을 가져와서 원하는 레플리카의 개수를 스케일하는데
+  사용되는 비율을 생성한다.
 
-파드의 컨테이너 중 일부에 적절한 리소스 요청이 설정되지 않은 경우,
-파드의 CPU 사용률은 정의되지 않으며, 따라서 오토스케일러는
-해당 메트릭에 대해 아무런 조치도 취하지 않는다. 오토스케일링
-알고리즘의 작동 방식에 대한 자세한 내용은 아래 [알고리즘 세부 정보](#알고리즘-세부-정보)
-섹션을 참조하기 바란다.
+  파드의 컨테이너 중 일부에 적절한 리소스 요청이 설정되지 않은 경우,
+  파드의 CPU 사용률은 정의되지 않으며, 따라서 오토스케일러는
+  해당 메트릭에 대해 아무런 조치도 취하지 않는다. 오토스케일링
+  알고리즘의 작동 방식에 대한 자세한 내용은 아래 [알고리즘 세부 정보](#알고리즘-세부-정보)
+  섹션을 참조하기 바란다.
 
 * 파드 단위 사용자 정의 메트릭의 경우, 컨트롤러는 사용률 값이 아닌 원시 값을 사용한다는 점을
-제외하고는 파드 단위 리소스 메트릭과 유사하게 작동한다.
+  제외하고는 파드 단위 리소스 메트릭과 유사하게 작동한다.
 
 * 오브젝트 메트릭 및 외부 메트릭의 경우, 문제의 오브젝트를 표현하는
-단일 메트릭을 가져온다. 이 메트릭은 목표 값과
-비교되어 위와 같은 비율을 생성한다. `autoscaling/v2beta2` API
-버전에서는, 비교가 이루어지기 전에 해당 값을 파드의 개수로
-선택적으로 나눌 수 있다.
+  단일 메트릭을 가져온다. 이 메트릭은 목표 값과
+  비교되어 위와 같은 비율을 생성한다. `autoscaling/v2beta2` API
+  버전에서는, 비교가 이루어지기 전에 해당 값을 파드의 개수로
+  선택적으로 나눌 수 있다.
 
 HorizontalPodAutoscaler는 보통 일련의 API 집합(`metrics.k8s.io`,
 `custom.metrics.k8s.io`, `external.metrics.k8s.io`)에서 메트릭을 가져온다. `metrics.k8s.io` API는 대개 별도로
 시작해야 하는 메트릭-서버에 의해 제공된다. 가이드는
-[메트릭-서버](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server)를
+[메트릭-서버](/ko/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#메트릭-서버)를
 참조한다. HorizontalPodAutoscaler는 힙스터(Heapster)에서 직접 메트릭을 가져올 수도 있다.
 
 {{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="1.11" >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
 힙스터에서 메트릭 가져오기는 Kubernetes 1.11에서 사용 중단(deprecated)됨.
 {{< /note >}}
 
@@ -154,10 +158,13 @@ HorizontalPodAutoscaler에 여러 메트릭이 지정된 경우, 이 계산은
 큰 값이 선택된다. 이러한 메트릭 중 어떠한 것도 원하는
 레플리카 수로 변환할 수 없는 경우(예 : 메트릭 API에서 메트릭을
 가져오는 중 오류 발생) 스케일을 건너뛴다.
+이는 하나 이상의 메트릭이
+현재 값보다 높은 `desiredReplicas` 을 제공하는 경우
+HPA가 여전히 확장할 수 있음을 의미한다.
 
-마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이 기록된다. 컨트롤러는
-구성 가능한 창(window) 내에서 가장 높은 권장 사항을 선택하도록 해당 창 내의
-모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를 사용하여 설정할 수 있고, 기본 값은 5분이다.
+마지막으로, HPA가 목표를 스케일하기 직전에 스케일 권장 사항이
+기록된다. 컨트롤러는 구성 가능한 창(window) 내에서 가장 높은 권장
+사항을 선택하도록 해당 창 내의 모든 권장 사항을 고려한다. 이 값은 `--horizontal-pod-autoscaler-downscale-stabilization` 플래그를  사용하여 설정할 수 있고, 기본값은 5분이다.
 즉, 스케일 다운이 점진적으로 발생하여 급격히 변동하는 메트릭 값의
 영향을 완만하게 한다.
 
@@ -171,8 +178,10 @@ CPU에 대한 오토스케일링 지원만 포함하는 안정된 버전은
 `autoscaling/v2beta2`에서 확인할 수 있다. `autoscaling/v2beta2`에서 소개된
 새로운 필드는 `autoscaling/v1`로 작업할 때 어노테이션으로 보존된다.
 
+HorizontalPodAutoscaler API 오브젝트 생성시 지정된 이름이 유효한
+[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인해야 한다.
 API 오브젝트에 대한 자세한 내용은
-[HorizontalPodAutoscaler 오브젝트](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object)에서 찾을 수 있다.
+[HorizontalPodAutoscaler 오브젝트](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v1-autoscaling)에서 찾을 수 있다.
 
 ## kubectl에서 Horizontal Pod Autoscaler 지원
 
@@ -190,13 +199,12 @@ Horizontal Pod Autoscaler는 모든 API 리소스와 마찬가지로 `kubectl`�
 
 ## 롤링 업데이트 중 오토스케일링
 
-현재 쿠버네티스에서는 레플리케이션 컨트롤러를 직접 관리하거나,
-기본 레플리카 셋를 관리하는 디플로이먼트 오브젝트를 사용하여 [롤링 업데이트](/docs/tasks/run-application/rolling-update-replication-controller/)를 수행 할 수 있다.
+현재 쿠버네티스에서는 기본 레플리카셋를 관리하는 디플로이먼트 오브젝트를 사용하여 롤링 업데이트를 수행할 수 있다.
 Horizontal Pod Autoscaler는 후자의 방법을 지원한다. Horizontal Pod Autoscaler는 디플로이먼트 오브젝트에 바인딩되고,
-디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카 셋의 크기를 결정한다.
+디플로이먼트 오브젝트를 위한 크기를 설정하며, 디플로이먼트는 기본 레플리카셋의 크기를 결정한다.
 
 Horizontal Pod Autoscaler는 레플리케이션 컨트롤러를 직접 조작하는 롤링 업데이트에서 작동하지 않는다.
-즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수ㄴ 없다. (예 : `kubectl rolling-update`)
+즉, Horizontal Pod Autoscaler를 레플리케이션 컨트롤러에 바인딩하고 롤링 업데이트를 수행할 수 없다. (예 : `kubectl rolling-update`)
 작동하지 않는 이유는 롤링 업데이트에서 새 레플리케이션 컨트롤러를 만들 때,
 Horizontal Pod Autoscaler가 새 레플리케이션 컨트롤러에 바인딩되지 않기 때문이다.
 
@@ -206,8 +214,8 @@ Horizontal Pod Autoscaler를 사용하여 레플리카 그룹의 스케일을 �
 평가된 메트릭의 동적인 특징 때문에 레플리카 수가
 자주 변동할 수 있다. 이것은 때로는 *스래싱 (thrashing)* 이라고도 한다.
 
-v1.6부터 클러스터 운영자는 `kube-controller-manager` 구성
-요소의 플래그로 노출된 글로벌 HPA 설정을 조정하여 이 문제를 완화할 수 있다.
+v1.6 부터 클러스터 운영자는 `kube-controller-manager` 컴포넌트의 플래그로
+노출된 글로벌 HPA 설정을 튜닝하여 이 문제를 완화할 수 있다.
 
 v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대한
 필요성을 제거하였다.
@@ -221,7 +229,7 @@ v1.12부터는 새로운 알고리즘 업데이트가 업스케일 지연에 대
 이러한 파라미터 값을 조정할 때 클러스터 운영자는 가능한 결과를 알아야
 한다. 지연(쿨-다운) 값이 너무 길면, Horizontal Pod Autoscaler가
 워크로드 변경에 반응하지 않는다는 불만이 있을 수 있다. 그러나 지연 값을
-너무 짧게 설정하면, 레플리카 셋의 크기가 평소와 같이 계속 스래싱될 수
+너무 짧게 설정하면, 레플리카셋의 크기가 평소와 같이 계속 스래싱될 수
 있다.
 {{< /note >}}
 
@@ -252,7 +260,7 @@ Horizontal Pod Autoscaler 컨트롤러에서는 더 이상 스케일 할 사용�
 기본적으로 HorizontalPodAutoscaler 컨트롤러는 일련의 API에서 메트릭을 검색한다. 이러한
 API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 
-* [API 집합 레이어](/docs/tasks/access-kubernetes-api/configure-aggregation-layer/) 활성화
+* [API 애그리게이션 레이어](/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 활성화
 
 * 해당 API 등록:
 
@@ -272,15 +280,162 @@ API에 접속하려면 클러스터 관리자는 다음을 확인해야 한다.
 [custom.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/custom-metrics-api.md),
 [external.metrics.k8s.io](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/instrumentation/external-metrics-api.md)를 참조한다.
 
-어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)과
-[외부 메트릭스 사용하는 작업 과정](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)을 참조한다.
+어떻게 사용하는지에 대한 예시는 [커스텀 메트릭 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#다양한-메트릭-및-사용자-정의-메트릭을-기초로한-오토스케일링)과
+[외부 메트릭스 사용하는 작업 과정](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#쿠버네티스-오브젝트와-관련이-없는-메트릭을-기초로한-오토스케일링)을 참조한다.
 
-{{% /capture %}}
+## 구성가능한 스케일링 동작 지원
 
-{{% capture whatsnext %}}
+[v1.18](https://github.com/kubernetes/enhancements/blob/master/keps/sig-autoscaling/20190307-configurable-scale-velocity-for-hpa.md)
+부터 `v2beta2` API는 HPA `behavior` 필드를 통해
+스케일링 동작을 구성할 수 있다.
+동작은 `behavior` 필드 아래의 `scaleUp` 또는 `scaleDown`
+섹션에서 스케일링 업과 다운을 위해 별도로 지정된다. 안정화 윈도우는
+스케일링 대상에서 레플리카 수의 플래핑(flapping)을 방지하는
+양방향에 대해 지정할 수 있다. 마찬가지로 스케일링 정책을 지정하면
+스케일링 중 레플리카 변경 속도를 제어할 수 있다.
+
+### 스케일링 정책
+
+스펙의 `behavior` 섹션에 하나 이상의 스케일링 폴리시를 지정할 수 있다.
+폴리시가 여러 개 지정된 경우 가장 많은 양의 변경을
+허용하는 정책이 기본적으로 선택된 폴리시이다. 다음 예시는 스케일 다운 중 이
+동작을 보여준다.
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Pods
+      value: 4
+      periodSeconds: 60
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+파드 수가 40개를 초과하면 두 번째 폴리시가 스케일링 다운에 사용된다.
+예를 들어 80개의 레플리카가 있고 대상을 10개의 레플리카로 축소해야 하는
+경우 첫 번째 단계에서 8개의 레플리카가 스케일 다운 된다. 레플리카의 수가 72개일 때
+다음 반복에서 파드의 10%는 7.2 이지만, 숫자는 8로 올림된다. 오토스케일러 컨트롤러의
+각 루프에서 변경될 파드의 수는 현재 레플리카의 수에 따라 재계산된다. 레플리카의 수가 40
+미만으로 떨어지면 첫 번째 폴리시 _(파드들)_ 가 적용되고 한번에
+4개의 레플리카가 줄어든다.
+
+`periodSeconds` 는 폴리시가 참(true)으로 유지되어야 하는 기간을 나타낸다.
+첫 번째 정책은 1분 내에 최대 4개의 레플리카를 스케일 다운할 수 있도록 허용한다.
+두 번째 정책은 현재 레플리카의 최대 10%를 1분 내에 스케일 다운할 수 있도록 허용한다.
+
+확장 방향에 대해 `selectPolicy` 필드를 확인하여 폴리시 선택을 변경할 수 있다.
+레플리카의 수를 최소로 변경할 수 있는 폴리시를 선택하는 `최소(Min)`로 값을 설정한다.
+값을 `Disabled` 로 설정하면 해당 방향으로 스케일링이 완전히
+비활성화 된다.
+
+### 안정화 윈도우
+
+안정화 윈도우는 스케일링에 사용되는 메트릭이 계속 변동할 때 레플리카의 플래핑을
+다시 제한하기 위해 사용된다. 안정화 윈도우는 스케일링을 방지하기 위해 과거부터
+계산된 의도한 상태를 고려하는 오토스케일링 알고리즘에 의해 사용된다.
+다음의 예시에서 `scaleDown` 에 대해 안정화 윈도우가 지정되어있다.
+
+```yaml
+scaleDown:
+  stabilizationWindowSeconds: 300
+```
+
+메트릭이 대상을 축소해야하는 것을 나타내는 경우 알고리즘은
+이전에 계산된 의도한 상태를 살펴보고 지정된 간격의 최고 값을 사용한다.
+위의 예시에서 지난 5분 동안 모든 의도한 상태가 고려된다.
+
+### 기본 동작
+
+사용자 지정 스케일링을 사용하려면 일부 필드를 지정해야 한다. 사용자 정의해야
+하는 값만 지정할 수 있다. 이러한 사용자 지정 값은 기본값과 병합된다. 기본값은 HPA
+알고리즘의 기존 동작과 일치한다.
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 300
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+  scaleUp:
+    stabilizationWindowSeconds: 0
+    policies:
+    - type: Percent
+      value: 100
+      periodSeconds: 15
+    - type: Pods
+      value: 4
+      periodSeconds: 15
+    selectPolicy: Max
+```
+안정화 윈도우의 스케일링 다운의 경우 _300_ 초(또는 제공된
+경우`--horizontal-pod-autoscaler-downscale-stabilization` 플래그의 값)이다. 스케일링 다운에서는 현재
+실행 중인 레플리카의 100%를 제거할 수 있는 단일 정책만 있으며, 이는 스케일링
+대상을 최소 허용 레플리카로 축소할 수 있음을 의미한다.
+스케일링 업에는 안정화 윈도우가 없다. 메트릭이 대상을 스케일 업해야 한다고 표시된다면 대상이 즉시 스케일 업된다.
+두 가지 폴리시가 있다. HPA가 정상 상태에 도달 할 때까지 15초 마다
+4개의 파드 또는 현재 실행 중인 레플리카의 100% 가 추가된다.
+
+### 예시: 다운스케일 안정화 윈도우 변경
+
+사용자 지정 다운스케일 안정화 윈도우를 1분 동안 제공하기 위해
+다음 동작이 HPA에 추가된다.
+
+```yaml
+behavior:
+  scaleDown:
+    stabilizationWindowSeconds: 60
+```
+
+### 예시: 스케일 다운 비율 제한
+
+HPA에 의해 파드가 제거되는 속도를 분당 10%로 제한하기 위해
+다음 동작이 HPA에 추가된다.
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+```
+
+마지막으로 5개의 파드를 드롭하기 위해 다른 폴리시를 추가하고, 최소 선택
+전략을 추가할 수 있다.
+
+```yaml
+behavior:
+  scaleDown:
+    policies:
+    - type: Percent
+      value: 10
+      periodSeconds: 60
+    - type: Pods
+      value: 5
+      periodSeconds: 60
+    selectPolicy: Max
+```
+
+### 예시: 스케일 다운 비활성화
+
+`selectPolicy` 의 `Disabled` 값은 주어진 방향으로의 스케일링을 끈다.
+따라서 다운 스케일링을 방지하기 위해 다음 폴리시가 사용된다.
+
+```yaml
+behavior:
+  scaleDown:
+    selectPolicy: Disabled
+```
+
+
+
+## {{% heading "whatsnext" %}}
+
 
 * 디자인 문서: [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl 오토스케일 커맨드: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * [Horizontal Pod Autoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/)의 사용 예제.
-
-{{% /capture %}}

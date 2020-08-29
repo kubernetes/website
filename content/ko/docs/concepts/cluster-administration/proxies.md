@@ -1,20 +1,20 @@
 ---
 title: 쿠버네티스에서 프락시(Proxy)
-content_template: templates/concept
+content_type: concept
 weight: 90
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스에서 함께 사용되는 프락시(Proxy)를 설명한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## 프락시
 
 쿠버네티스를 이용할 때에 사용할 수 있는 여러 프락시가 있다.
 
-1.  [kubectl proxy](/docs/tasks/access-application-cluster/access-cluster/#directly-accessing-the-rest-api):
+1.  [kubectl proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#rest-api에-직접-액세스):
 
     - 사용자의 데스크탑이나 파드 안에서 실행한다.
     - 로컬 호스트 주소에서 쿠버네티스의 API 서버로 프락시한다.
@@ -23,7 +23,7 @@ weight: 90
     - API 서버를 찾는다.
     - 인증 헤더를 추가한다.
 
-1.  [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#빌트인-서비스들의-발견):
 
     - API 서버에 내장된 요새(bastion)이다.
     - 클러스터 외부의 사용자가 도달할 수 없는 클러스터 IP 주소로 연결한다.
@@ -33,7 +33,7 @@ weight: 90
     - 노드, 파드, 서비스에 도달하는데 사용할 수 있다.
     - 서비스에 도달할 때에는 로드 밸런싱을 수행한다.
 
-1.  [kube proxy](/docs/concepts/services-networking/service/#ips-and-vips):
+1.  [kube proxy](/ko/docs/concepts/services-networking/service/#ips-and-vips):
 
     - 각 노드에서 실행한다.
     - UDP, TCP, SCTP를 이용하여 프락시 한다.
@@ -62,6 +62,6 @@ weight: 90
 
 프락시는 리다이렉트 기능을 대체했다. 리다이렉트는 더 이상 사용하지 않는다.
 
-{{% /capture %}}
+
 
 

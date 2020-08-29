@@ -1,32 +1,33 @@
 ---
 title: Change the Reclaim Policy of a PersistentVolume
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 This page shows how to change the reclaim policy of a Kubernetes
 PersistentVolume.
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Why change reclaim policy of a PersistentVolume
 
-`PersistentVolumes` can have various reclaim policies, including "Retain",
-"Recycle", and "Delete". For dynamically provisioned `PersistentVolumes`,
+PersistentVolumes can have various reclaim policies, including "Retain",
+"Recycle", and "Delete". For dynamically provisioned PersistentVolumes,
 the default reclaim policy is "Delete". This means that a dynamically provisioned
 volume is automatically deleted when a user deletes the corresponding
-`PersistentVolumeClaim`. This automatic behavior might be inappropriate if the volume
+PersistentVolumeClaim. This automatic behavior might be inappropriate if the volume
 contains precious data. In that case, it is more appropriate to use the "Retain"
-policy. With the "Retain" policy, if a user deletes a `PersistentVolumeClaim`,
-the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to the
-`Released` phase, where all of its data can be manually recovered.
+policy. With the "Retain" policy, if a user deletes a PersistentVolumeClaim,
+the corresponding PersistentVolume is not be deleted. Instead, it is moved to the
+Released phase, where all of its data can be manually recovered.
 
 ## Changing the reclaim policy of a PersistentVolume
 
@@ -43,7 +44,7 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
         pvc-b95650f8-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim2    manual                     6s
         pvc-bb3ca71d-b7b5-11e6-9d58-0ed433a7dd94   4Gi        RWO           Delete          Bound     default/claim3    manual                     3s
 
-   This list also includes the name of the claims that are bound to each volume
+     This list also includes the name of the claims that are bound to each volume
    for easier identification of dynamically provisioned volumes.
 
 1. Choose one of your PersistentVolumes and change its reclaim policy:
@@ -53,6 +54,15 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     ```
 
     where `<your-pv-name>` is the name of your chosen PersistentVolume.
+
+    {{< note >}}
+    On Windows, you must _double_ quote any JSONPath template that contains spaces (not single quote as shown above for bash). This in turn means that you must use a single quote or escaped double quote around any literals in the template. For example:
+
+```cmd
+kubectl patch pv <your-pv-name> -p "{\"spec\":{\"persistentVolumeReclaimPolicy\":\"Retain\"}}"
+```
+
+    {{< /note >}}
 
 1. Verify that your chosen PersistentVolume has the right policy:
 
@@ -71,9 +81,10 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
     `default/claim3` has reclaim policy `Retain`. It will not be automatically
     deleted when a user deletes claim `default/claim3`.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 * Learn more about [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Learn more about [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 
@@ -82,6 +93,6 @@ the corresponding `PersistentVolume` is not be deleted. Instead, it is moved to 
 * [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
 * [PersistentVolumeClaim](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core)
 * See the `persistentVolumeReclaimPolicy` field of [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumeclaim-v1-core).
-{{% /capture %}}
+
 
 

@@ -3,20 +3,17 @@ reviewers:
 - lavalamp
 - thockin
 title: Cluster Management
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 This document describes several topics related to the lifecycle of a cluster: creating a new cluster,
 upgrading your cluster's
 master and worker nodes, performing node maintenance (e.g. kernel upgrades), and upgrading the Kubernetes API version of a
 running cluster.
 
-{{% /capture %}}
-
-
-{{% capture body %}}
+<!-- body -->
 
 ## Creating and configuring a Cluster
 
@@ -24,7 +21,7 @@ To install Kubernetes on a set of machines, consult one of the existing [Getting
 
 ## Upgrading a cluster
 
-The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG.md), as well as the version specific upgrade notes prior to upgrading their clusters.
+The current state of cluster upgrades is provider dependent, and some releases may require special care when upgrading. It is recommended that administrators consult both the [release notes](https://git.k8s.io/kubernetes/CHANGELOG/README.md), as well as the version specific upgrade notes prior to upgrading their clusters.
 
 ### Upgrading an Azure Kubernetes Service (AKS) cluster
 
@@ -81,24 +78,33 @@ Different providers, and tools, will manage upgrades differently.  It is recomme
 * [Digital Rebar](https://provision.readthedocs.io/en/tip/doc/content-packages/krib.html)
 * ...
 
-To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the [Skewed versions](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) page.
+To upgrade a cluster on a platform not mentioned in the above list, check the order of component upgrade on the
+[Skewed versions](/docs/setup/release/version-skew-policy/#supported-component-upgrade-order) page.
 
 ## Resizing a cluster
 
-If your cluster runs short on resources you can easily add more machines to it if your cluster is running in [Node self-registration mode](/docs/admin/node/#self-registration-of-nodes).
-If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes. It can be accomplished by modifying number of instances on `Compute > Compute Engine > Instance groups > your group > Edit group` [Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
+If your cluster runs short on resources you can easily add more machines to it if your cluster
+is running in [Node self-registration mode](/docs/concepts/architecture/nodes/#self-registration-of-nodes).
+If you're using GCE or Google Kubernetes Engine it's done by resizing the Instance Group managing your Nodes.
+It can be accomplished by modifying number of instances on
+`Compute > Compute Engine > Instance groups > your group > Edit group`
+[Google Cloud Console page](https://console.developers.google.com) or using gcloud CLI:
 
 ```shell
 gcloud compute instance-groups managed resize kubernetes-node-pool --size=42 --zone=$ZONE
 ```
 
-The Instance Group will take care of putting appropriate image on new machines and starting them, while the Kubelet will register its Node with the API server to make it available for scheduling. If you scale the instance group down, system will randomly choose Nodes to kill.
+The Instance Group will take care of putting appropriate image on new machines and starting them,
+while the Kubelet will register its Node with the API server to make it available for scheduling.
+If you scale the instance group down, system will randomly choose Nodes to kill.
 
 In other environments you may need to configure the machine yourself and tell the Kubelet on which machine API server is running.
 
 ### Resizing an Azure Kubernetes Service (AKS) cluster
 
-Azure Kubernetes Service enables user-initiated resizing of the cluster from either the CLI or the Azure Portal and is described in the [Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/scale-cluster).
+Azure Kubernetes Service enables user-initiated resizing of the cluster from either the CLI or
+the Azure Portal and is described in the
+[Azure AKS documentation](https://docs.microsoft.com/en-us/azure/aks/scale-cluster).
 
 
 ### Cluster autoscaling
@@ -106,7 +112,8 @@ Azure Kubernetes Service enables user-initiated resizing of the cluster from eit
 If you are using GCE or Google Kubernetes Engine, you can configure your cluster so that it is automatically rescaled based on
 pod needs.
 
-As described in [Compute Resource](/docs/concepts/configuration/manage-compute-resources-container/), users can reserve how much CPU and memory is allocated to pods.
+As described in [Compute Resource](/docs/concepts/configuration/manage-resources-containers/),
+users can reserve how much CPU and memory is allocated to pods.
 This information is used by the Kubernetes scheduler to find a place to run the pod. If there is
 no node that has enough free capacity (or doesn't match other pod requirements) then the pod has
 to wait until some pods are terminated or a new node is added.
@@ -185,21 +192,10 @@ kubectl uncordon $NODENAME
 
 If you deleted the node's VM instance and created a new one, then a new schedulable node resource will
 be created automatically (if you're using a cloud provider that supports
-node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register). See [Node](/docs/admin/node) for more details.
+node discovery; currently this is only Google Compute Engine, not including CoreOS on Google Compute Engine using kube-register).
+See [Node](/docs/concepts/architecture/nodes/) for more details.
 
 ## Advanced Topics
-
-### Upgrading to a different API version
-
-When a new API version is released, you may need to upgrade a cluster to support the new API version (e.g. switching from 'v1' to 'v2' when 'v2' is launched).
-
-This is an infrequent event, but it requires careful management. There is a sequence of steps to upgrade to a new API version.
-
-   1. Turn on the new API version.
-   1. Upgrade the cluster's storage to use the new version.
-   1. Upgrade all config files. Identify users of the old API version endpoints.
-   1. Update existing objects in the storage to new version by running `cluster/update-storage-objects.sh`.
-   1. Turn off the old API version.
 
 ### Turn on or off an API version for your cluster
 
@@ -224,4 +220,4 @@ kubectl convert -f pod.yaml --output-version v1
 
 For more options, please refer to the usage of [kubectl convert](/docs/reference/generated/kubectl/kubectl-commands#convert) command.
 
-{{% /capture %}}
+

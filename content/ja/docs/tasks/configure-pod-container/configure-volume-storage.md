@@ -1,10 +1,10 @@
 ---
 title: ストレージにボリュームを使用するPodを構成する
-content_template: templates/task
+content_type: task
 weight: 50
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、ストレージにボリュームを使用するPodを構成する方法を示します。
 
@@ -13,15 +13,16 @@ weight: 50
 コンテナに依存しない、より一貫したストレージを実現するには、[ボリューム](/docs/concepts/storage/volumes/)を使用できます。
 これは、キーバリューストア(Redisなど)やデータベースなどのステートフルアプリケーションにとって特に重要です。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Podのボリュームを構成する
 
@@ -86,7 +87,7 @@ weight: 50
     root@redis:/data/redis# kill <pid>
     ```
 
-    ここで`<pid>`はRedisプロセスID（PID）です。
+    ここで`<pid>`はRedisプロセスID(PID)です。
 
 1. 元の端末で、Redis Podへの変更を監視します。最終的には、このようなものが表示されます:
 
@@ -120,9 +121,10 @@ weight: 50
     kubectl delete pod redis
     ```
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)参照
 
@@ -130,6 +132,6 @@ weight: 50
 
 * `emptyDir`によって提供されるローカルディスクストレージに加えて、Kubernetesは、GCEのPDやEC2のEBSなど、さまざまなネットワーク接続ストレージソリューションをサポートします。これらは、重要なデータに好ましく、ノード上のデバイスのマウントやアンマウントなどの詳細を処理します。詳細は[ボリューム](/docs/concepts/storage/volumes/)を参照してください。
 
-{{% /capture %}}
+
 
 

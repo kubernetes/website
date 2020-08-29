@@ -16,5 +16,5 @@ tags:
 
 <!--more--> 
 
-Ingress can provide load balancing, SSL termination and name-based virtual hosting.
+Ingress may provide load balancing, SSL termination and name-based virtual hosting.
 

@@ -7,12 +7,12 @@ feature:
   description: >
     No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
 
-content_template: templates/concept
+content_type: concept
 weight: 10
 ---
 
 
-{{% capture overview %}}
+<!-- overview -->
 
 {{< glossary_definition term_id="service" length="short" >}}
 
@@ -20,9 +20,7 @@ With Kubernetes you don't need to modify your application to use an unfamiliar s
 Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods,
 and can load-balance across them.
 
-{{% /capture %}}
-
-{{% capture body %}}
+<!-- body -->
 
 ## Motivation
 
@@ -35,8 +33,8 @@ Each Pod gets its own IP address, however in a Deployment, the set of Pods
 running in one moment in time could be different from
 the set of Pods running that application a moment later.
 
-This leads to a problem: if some set of Pods (call them “backends”) provides
-functionality to other Pods (call them “frontends”) inside your cluster,
+This leads to a problem: if some set of Pods (call them "backends") provides
+functionality to other Pods (call them "frontends") inside your cluster,
 how do the frontends find out and keep track of which IP address to connect
 to, so that the frontend can use the backend part of the workload?
 
@@ -73,6 +71,8 @@ balancer in between your application and the backend Pods.
 A Service in Kubernetes is a REST object, similar to a Pod.  Like all of the
 REST objects, you can `POST` a Service definition to the API server to create
 a new instance.
+The name of a Service object must be a valid
+[DNS label name](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 For example, suppose you have a set of Pods that each listen on TCP port 9376
 and carry a label `app=MyApp`:
@@ -91,7 +91,7 @@ spec:
       targetPort: 9376
 ```
 
-This specification creates a new Service object named “my-service”, which
+This specification creates a new Service object named "my-service", which
 targets TCP port 9376 on any Pod with the `app=MyApp` label.
 
 Kubernetes assigns this Service an IP address (sometimes called the "cluster IP"),
@@ -100,7 +100,7 @@ which is used by the Service proxies
 
 The controller for the Service selector continuously scans for Pods that
 match its selector, and then POSTs any updates to an Endpoint object
-also named “my-service”.
+also named "my-service".
 
 {{< note >}}
 A Service can map _any_ incoming `port` to a `targetPort`. By default and
@@ -167,6 +167,9 @@ subsets:
       - port: 9376
 ```
 
+The name of the Endpoints object must be a valid
+[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
 {{< note >}}
 The endpoint IPs _must not_ be: loopback (127.0.0.0/8 for IPv4, ::1/128 for IPv6), or
 link-local (169.254.0.0/16 and 224.0.0.0/24 for IPv4, fe80::/64 for IPv6).
@@ -184,18 +187,26 @@ An ExternalName Service is a special case of Service that does not have
 selectors and uses DNS names instead. For more information, see the
 [ExternalName](#externalname) section later in this document.
 
-### Endpoint Slices
+### EndpointSlices
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
-Endpoint Slices are an API resource that can provide a more scalable alternative
-to Endpoints. Although conceptually quite similar to Endpoints, Endpoint Slices
+EndpointSlices are an API resource that can provide a more scalable alternative
+to Endpoints. Although conceptually quite similar to Endpoints, EndpointSlices
 allow for distributing network endpoints across multiple resources. By default,
-an Endpoint Slice is considered "full" once it reaches 100 endpoints, at which
-point additional Endpoint Slices will be created to store any additional
+an EndpointSlice is considered "full" once it reaches 100 endpoints, at which
+point additional EndpointSlices will be created to store any additional
 endpoints.
 
-Endpoint Slices provide additional attributes and functionality which is
-described in detail in [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
+EndpointSlices provide additional attributes and functionality which is
+described in detail in [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/).
+
+### Application protocol
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The AppProtocol field provides a way to specify an application protocol to be
+used for each Service port. The value of this field is mirrored by corresponding
+Endpoints and EndpointSlice resources.
 
 ## Virtual IPs and service proxies
 
@@ -225,7 +236,8 @@ There are a few reasons for using proxying for Services:
 In this mode, kube-proxy watches the Kubernetes master for the addition and
 removal of Service and Endpoint objects. For each Service it opens a
 port (randomly chosen) on the local node.  Any connections to this "proxy port"
-is proxied to one of the Service's backend Pods (as reported via
+are
+proxied to one of the Service's backend Pods (as reported via
 Endpoints). kube-proxy takes the `SessionAffinity` setting of the Service into
 account when deciding which backend Pod to use.
 
@@ -276,9 +288,9 @@ state.
 When accessing a Service, IPVS directs traffic to one of the backend Pods.
 
 The IPVS proxy mode is based on netfilter hook function that is similar to
-iptables mode, but uses hash table as the underlying data structure and works
+iptables mode, but uses a hash table as the underlying data structure and works
 in the kernel space.
-That means kube-proxy in IPVS mode redirects traffic with a lower latency than
+That means kube-proxy in IPVS mode redirects traffic with lower latency than
 kube-proxy in iptables mode, with much better performance when synchronising
 proxy rules. Compared to the other proxy modes, IPVS mode also supports a
 higher throughput of network traffic.
@@ -294,8 +306,8 @@ these are:
 - `nq`: never queue
 
 {{< note >}}
-To run kube-proxy in IPVS mode, you must make the IPVS Linux available on
-the node before you starting kube-proxy.
+To run kube-proxy in IPVS mode, you must make IPVS available on
+the node before starting kube-proxy.
 
 When kube-proxy starts in IPVS proxy mode, it verifies whether IPVS
 kernel modules are available. If the IPVS kernel modules are not detected, then kube-proxy
@@ -304,13 +316,13 @@ falls back to running in iptables proxy mode.
 
 ![Services overview diagram for IPVS proxy](/images/docs/services-ipvs-overview.svg)
 
-In these proxy models, the traffic bound for the Service’s IP:Port is
+In these proxy models, the traffic bound for the Service's IP:Port is
 proxied to an appropriate backend without the clients knowing anything
 about Kubernetes or Services or Pods.
 
 If you want to make sure that connections from a particular client
 are passed to the same Pod each time, you can select the session affinity based
-on client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
+on the client's IP addresses by setting `service.spec.sessionAffinity` to "ClientIP"
 (the default is "None").
 You can also set the maximum session sticky time by setting
 `service.spec.sessionAffinityConfig.clientIP.timeoutSeconds` appropriately.
@@ -373,7 +385,7 @@ variables and DNS.
 When a Pod is run on a Node, the kubelet adds a set of environment variables
 for each active Service.  It supports both [Docker links
 compatible](https://docs.docker.com/userguide/dockerlinks/) variables (see
-[makeLinkVariables](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
+[makeLinkVariables](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L49))
 and simpler `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
 where the Service name is upper-cased and dashes are converted to underscores.
 
@@ -421,7 +433,7 @@ Pods in other Namespaces must qualify the name as `my-service.my-ns`. These name
 will resolve to the cluster IP assigned for the Service.
 
 Kubernetes also supports DNS SRV (Service) records for named ports.  If the
-`"my-service.my-ns"` Service has a port named `"http"` with protocol set to
+`"my-service.my-ns"` Service has a port named `"http"` with the protocol set to
 `TCP`, you can do a DNS SRV query for `_http._tcp.my-service.my-ns` to discover
 the port number for `"http"`, as well as the IP address.
 
@@ -432,7 +444,7 @@ You can find more information about `ExternalName` resolution in
 ## Headless Services
 
 Sometimes you don't need load-balancing and a single Service IP.  In
-this case, you can create what are termed “headless” Services, by explicitly
+this case, you can create what are termed "headless" Services, by explicitly
 specifying `"None"` for the cluster IP (`.spec.clusterIP`).
 
 You can use a headless Service to interface with other service discovery mechanisms,
@@ -506,7 +518,7 @@ For example, if you start kube-proxy with the `--nodeport-addresses=127.0.0.0/8`
 If you want a specific port number, you can specify a value in the `nodePort`
 field. The control plane will either allocate you that port or report that
 the API transaction failed.
-This means that you need to take care about possible port collisions yourself.
+This means that you need to take care of possible port collisions yourself.
 You also have to use a valid port number, one that's inside the range configured
 for NodePort use.
 
@@ -516,6 +528,25 @@ to just expose one or more nodes' IPs directly.
 
 Note that this Service is visible as `<NodeIP>:spec.ports[*].nodePort`
 and `.spec.clusterIP:spec.ports[*].port`. (If the `--nodeport-addresses` flag in kube-proxy is set, <NodeIP> would be filtered NodeIP(s).)
+
+For example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: NodePort
+  selector:
+    app: MyApp
+  ports:
+      # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+    - port: 80
+      targetPort: 80
+      # Optional field
+      # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+      nodePort: 30007
+```
 
 ### Type LoadBalancer {#loadbalancer}
 
@@ -548,6 +579,9 @@ status:
 
 Traffic from the external load balancer is directed at the backend Pods. The cloud provider decides how it is load balanced.
 
+For LoadBalancer type of Services, when there is more than one port defined, all
+ports must have the same protocol and the protocol must be one of `TCP`, `UDP`,
+and `SCTP`.
 
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
@@ -614,6 +648,16 @@ metadata:
 [...]
 ```
 {{% /tab %}}
+{{% tab name="IBM Cloud" %}}
+```yaml
+[...]
+metadata:
+    name: my-service
+    annotations:
+        service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: "private"
+[...]
+```
+{{% /tab %}}
 {{% tab name="OpenStack" %}}
 ```yaml
 [...]
@@ -638,8 +682,17 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
+[...]
+```
+{{% /tab %}}
+{{% tab name="Alibaba Cloud" %}}
+```yaml
+[...]
+metadata:
+  annotations:
+    service.beta.kubernetes.io/alibaba-cloud-loadbalancer-address-type: "intranet"
 [...]
 ```
 {{% /tab %}}
@@ -674,7 +727,7 @@ SSL, the ELB expects the Pod to authenticate itself over the encrypted
 connection, using a certificate.
 
 HTTP and HTTPS selects layer 7 proxying: the ELB terminates
-the connection with the user, parse headers and inject the `X-Forwarded-For`
+the connection with the user, parses headers, and injects the `X-Forwarded-For`
 header with the user's IP address (Pods only see the IP address of the
 ELB at the other end of its connection) when forwarding requests.
 
@@ -696,7 +749,7 @@ In the above example, if the Service contained three ports, `80`, `443`, and
 `8443`, then `443` and `8443` would use the SSL certificate, but `80` would just
 be proxied HTTP.
 
-From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
+From Kubernetes v1.9 onwards you can use [predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html) with HTTPS or SSL listeners for your Services.
 To see which policies are available for use, you can use the `aws` command line tool:
 
 ```bash
@@ -808,6 +861,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
         # The approximate interval, in seconds, between health checks of an
         # individual instance. Defaults to 10, must be between 5 and 300
+
         service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
         # The amount of time, in seconds, during which no response means a failed
         # health check. This value must be less than the service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
@@ -815,6 +869,10 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
 
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
         # A list of additional security groups to be added to the ELB
+
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
+        # A comma separated list of key-value pairs which are used
+        # to select the target nodes for the load balancer
 ```
 
 #### Network Load Balancer support on AWS {#aws-nlb-support}
@@ -831,7 +889,7 @@ To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernet
 ```
 
 {{< note >}}
-NLB only works with certain instance classes; see the [AWS documentation](http://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
+NLB only works with certain instance classes; see the [AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
 on Elastic Load Balancing for a list of supported instance types.
 {{< /note >}}
 
@@ -846,8 +904,8 @@ traffic. Nodes without any Pods for a particular LoadBalancer Service will fail
 the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` and not receive any traffic.
 
-In order to achieve even traffic, either use a DaemonSet, or specify a
-[pod anti-affinity](/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity)
+In order to achieve even traffic, either use a DaemonSet or specify a
+[pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
 You can also use NLB Services with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
@@ -892,25 +950,25 @@ There are other annotations for managing Cloud Load Balancers on TKE as shown be
 
         # ID of an existing load balancer
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-        
+
         # Custom parameters for the load balancer (LB), does not support modification of LB type yet
         service.kubernetes.io/service.extensiveParameters: ""
-        
-        # Custom parameters for the LB listener 
+
+        # Custom parameters for the LB listener
         service.kubernetes.io/service.listenerParameters: ""
-        
+
         # Specifies the type of Load balancer;
         # valid values: classic (Classic Cloud Load Balancer) or application (Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
 
-        # Specifies the public network bandwidth billing method; 
+        # Specifies the public network bandwidth billing method;
         # valid values: TRAFFIC_POSTPAID_BY_HOUR(bill-by-traffic) and BANDWIDTH_POSTPAID_BY_HOUR (bill-by-bandwidth).
         service.kubernetes.io/qcloud-loadbalancer-internet-charge-type: xxxxxx
 
         # Specifies the bandwidth value (value range: [1,2000] Mbps).
         service.kubernetes.io/qcloud-loadbalancer-internet-max-bandwidth-out: "10"
 
-        # When this annotation is set，the loadbalancers will only register nodes 
+        # When this annotation is set，the loadbalancers will only register nodes
         # with pod running on it, otherwise all nodes will be registered.
         service.kubernetes.io/local-svc-only-bind-node-with-pod: true
 ```
@@ -988,9 +1046,9 @@ spec:
 ## Shortcomings
 
 Using the userspace proxy for VIPs, work at small to medium scale, but will
-not scale to very large clusters with thousands of Services.  The [original
-design proposal for portals](http://issue.k8s.io/1107) has more details on
-this.
+not scale to very large clusters with thousands of Services.  The
+[original design proposal for portals](https://github.com/kubernetes/kubernetes/issues/1107)
+has more details on this.
 
 Using the userspace proxy obscures the source IP address of a packet accessing
 a Service.
@@ -1030,7 +1088,7 @@ fail with a message indicating an IP address could not be allocated.
 
 In the control plane, a background controller is responsible for creating that
 map (needed to support migrating from older versions of Kubernetes that used
-in-memory locking). Kubernetes also uses controllers to checking for invalid
+in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (eg due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
 
@@ -1059,7 +1117,7 @@ connections on it.
 
 When a client connects to the Service's virtual IP address, the iptables
 rule kicks in, and redirects the packets to the proxy's own port.
-The “Service proxy” chooses a backend, and starts proxying traffic from the client to the backend.
+The "Service proxy" chooses a backend, and starts proxying traffic from the client to the backend.
 
 This means that Service owners can choose any port they want without risk of
 collision.  Clients can simply connect to an IP and port, without being aware
@@ -1100,20 +1158,14 @@ about the API object at: [Service API object](/docs/reference/generated/kubernet
 
 ### TCP
 
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
-
 You can use TCP for any kind of Service, and it's the default network protocol.
 
 ### UDP
-
-{{< feature-state for_k8s_version="v1.0" state="stable" >}}
 
 You can use UDP for most Services. For type=LoadBalancer Services, UDP support
 depends on the cloud provider offering this facility.
 
 ### HTTP
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it, you can use a Service in LoadBalancer mode
 to set up external HTTP / HTTPS reverse proxying, forwarded to the Endpoints
@@ -1125,8 +1177,6 @@ to expose HTTP / HTTPS Services.
 {{< /note >}}
 
 ### PROXY protocol
-
-{{< feature-state for_k8s_version="v1.1" state="stable" >}}
 
 If your cloud provider supports it (eg, [AWS](/docs/concepts/cluster-administration/cloud-providers/#aws)),
 you can use a Service in LoadBalancer mode to configure a load balancer outside
@@ -1143,11 +1193,11 @@ followed by the data from the client.
 
 ### SCTP
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-Kubernetes supports SCTP as a `protocol` value in Service, Endpoint, NetworkPolicy and Pod definitions as an alpha feature. To enable this feature, the cluster administrator needs to enable the `SCTPSupport` feature gate on the apiserver, for example, `--feature-gates=SCTPSupport=true,…`.
+Kubernetes supports SCTP as a `protocol` value in Service, Endpoints, EndpointSlice, NetworkPolicy and Pod definitions. As a beta feature, this is enabled by default. To disable SCTP at a cluster level, you (or your cluster administrator) will need to disable the `SCTPSupport` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) for the API server with `--feature-gates=SCTPSupport=false,…`.
 
-When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
+When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoints, EndpointSlice, NetworkPolicy or Pod to `SCTP`. Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 #### Warnings {#caveat-sctp-overview}
 
@@ -1177,25 +1227,13 @@ SCTP is not supported on Windows based nodes.
 The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
 {{< /warning >}}
 
-## Future work
-
-In the future, the proxy policy for Services can become more nuanced than
-simple round-robin balancing, for example master-elected or sharded.  We also
-envision that some Services will have "real" load balancers, in which case the
-virtual IP address will simply transport the packets there.
-
-The Kubernetes project intends to improve support for L7 (HTTP) Services.
-
-The Kubernetes project intends to have more flexible ingress modes for Services
-which encompass the current ClusterIP, NodePort, and LoadBalancer modes and more.
 
 
-{{% /capture %}}
+## {{% heading "whatsnext" %}}
 
-{{% capture whatsnext %}}
 
 * Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/)
+* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 
-{{% /capture %}}
+

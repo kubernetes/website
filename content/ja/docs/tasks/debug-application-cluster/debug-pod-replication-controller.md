@@ -1,23 +1,24 @@
 ---
 title: PodとReplicationControllerのデバッグ
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 このページでは、PodとReplicationControllerをデバッグする方法を説明します。
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-* [Pod](/docs/concepts/workloads/pods/pod/)と[Podのライフサイクル](/docs/concepts/workloads/pods/pod-lifecycle/)の基本を理解している必要があります。
+* [Pod](/ja/docs/concepts/workloads/pods/pod/)と[Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)の基本を理解している必要があります。
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Podのデバッグ
 
@@ -113,6 +114,8 @@ kubectl exec ${POD_NAME} -c ${CONTAINER_NAME} -- ${CMD} ${ARG1} ${ARG2} ... ${AR
 kubectl exec cassandra -- cat /var/log/cassandra/system.log
 ```
 
+クラスターで有効にしていれば、 [エフェメラルコンテナ](/docs/concepts/workloads/pods/ephemeral-containers/) を既存のPodに追加することもできます。 新しい一時的なコンテナを利用して、たとえばPod内の問題の診断のために任意のコマンドを実行することができます。利用できる機能を含む詳細については、 [エフェメラルコンテナ](/docs/concepts/workloads/pods/ephemeral-containers/) のページを参照してください。
+
 これらのアプローチがいずれも機能しない場合、Podが実行されているホストマシンを見つけて、そのホストにSSH接続することができます。
 
 ## ReplicationControllerのデバッグ
@@ -122,4 +125,4 @@ Podを作成できない場合は、[上述の手順](#Podのデバッグ)を参
 
 `kubectl describe rc ${CONTROLLER_NAME}`を使用して、レプリケーションコントローラーに関連するイベントを調べることもできます。
 
-{{% /capture %}}
+

@@ -2,7 +2,7 @@
 title: ConfigMap
 id: configmap
 date: 2018-04-12
-full_link: /docs/tasks/configure-pod-container/configure-pod-configmap/
+full_link: /zh/docs/tasks/configure-pod-container/configure-pod-configmap/
 short_description: >
   ConfigMap 是一种 API 对象，用来将非机密性的数据保存到健值对中。使用时可以用作环境变量、命令行参数或者存储卷中的配置文件。
    
@@ -16,7 +16,7 @@ tags:
 title: ConfigMap
 id: configmap
 date: 2018-04-12
-full_link: /docs/tasks/configure-pod-container/configure-pod-configmap/
+full_link: /zh/docs/tasks/configure-pod-container/configure-pod-configmap/
 short_description: >
   An API object used to store non-confidential data in key-value pairs. Can be consumed as environment variables, command-line arguments, or config files in a volume.
 

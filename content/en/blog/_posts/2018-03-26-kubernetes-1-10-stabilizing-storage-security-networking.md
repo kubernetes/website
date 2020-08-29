@@ -76,7 +76,7 @@ Each Special Interest Group (SIG) within the community continues to deliver
 the most-requested enhancements, fixes, and functionality for their respective
 specialty areas. For a complete list of inclusions by SIG, please visit the
 [release
-notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.10.md#110-release-notes).
+notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.10.md#110-release-notes).
 
 ## Availability
 

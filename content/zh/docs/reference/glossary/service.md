@@ -2,9 +2,9 @@
 title: Service
 id: service
 date: 2018-04-12
-full_link: /docs/concepts/services-networking/service/
+full_link: /zh/docs/concepts/services-networking/service/
 short_description: >
-  A way to expose an application running on a set of Pods as a network service.
+  将运行在一组 {{< glossary_tooltip text="Pods" term_id="pod" >}} 上的应用程序公开为网络服务的抽象方法。
 
 aka:
 tags:

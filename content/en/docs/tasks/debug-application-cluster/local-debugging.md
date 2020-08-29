@@ -1,9 +1,9 @@
 ---
 title: Developing and debugging services locally
-content_template: templates/task
+content_type: task
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Kubernetes applications usually consist of multiple, separate services, each running in its own container. Developing and debugging these services on a remote Kubernetes cluster can be cumbersome, requiring you to [get a shell on a running container](/docs/tasks/debug-application-cluster/get-shell-running-container/) and running your tools inside the remote shell.
 
@@ -12,17 +12,18 @@ Kubernetes applications usually consist of multiple, separate services, each run
 This document describes using `telepresence` to develop and debug services running on a remote cluster locally.
 
 
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * Kubernetes cluster is installed
 * `kubectl` is configured to communicate with the cluster
 * [Telepresence](https://www.telepresence.io/reference/install) is installed
 
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## Getting a shell on a remote cluster
 
@@ -46,9 +47,10 @@ where $DEPLOYMENT_NAME is the name of your existing deployment.
 
 Running this command spawns a shell. In the shell, start your service. You can then make edits to the source code locally, save, and see the changes take effect immediately. You can also run your service in a debugger, or any other local development tool.
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 If you're interested in a hands-on tutorial, check out [this tutorial](https://cloud.google.com/community/tutorials/developing-services-with-k8s) that walks through locally developing the Guestbook application on Google Kubernetes Engine.
 
@@ -56,4 +58,4 @@ Telepresence has [numerous proxying options](https://www.telepresence.io/referen
 
 For further reading, visit the [Telepresence website](https://www.telepresence.io).
 
-{{% /capture %}}
+

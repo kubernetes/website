@@ -1,6 +1,6 @@
 ---
 title: 쿠버네티스 API 개요
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: 레퍼런스
@@ -8,27 +8,27 @@ card:
   title: API 개요
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 이 페이지는 쿠버네티스 API에 대한 개요를 제공한다.
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 REST API는 쿠버네티스의 근본적인 구조이다. 모든 조작, 컴포넌트 간의 통신과 외부 사용자의 명령은 API 서버에서 처리할 수 있는 REST API 호출이다. 따라서, 쿠버네티스 플랫폼 안의 모든 것은
 API 오브젝트로 취급되고,
 [API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)에 상응하는 항목이 있다.
 
 대부분의 작업은 API에 의존하고 있는
-[kubectl](/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
+[kubectl](/ko/docs/reference/kubectl/overview/) 커맨드라인 인터페이스 또는
 [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/)과 같은 다른 커맨드라인 툴을 통해 수행할 수 있다.
 그러나, REST 호출 사용을 통해서 API에 직접 접근할 수도 있다.
 
 쿠버네티스 API를 사용하는 애플리케이션을 작성하는 경우
-[클라이언트 라이브러리](/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
+[클라이언트 라이브러리](/ko/docs/reference/using-api/client-libraries/)중 하나의 사용을 고려한다.
 
 ## API 버전 규칙
 
 필드를 없애거나 리소스 표현을 재구성하기 쉽도록,
-쿠버네티스는 `/api/v1`이나 `/apis/extensions/v1beta1`과 같이
+쿠버네티스는 `/api/v1`이나 `/apis/rbac.authorization.k8s.io/v1alpha1`과 같이
 각각 다른 API 경로에서 복수의 API 버전을 지원한다.
 
 아래를 위해 버전은 리소스나 필드 수준보다는 API 수준에서 설정된다.
@@ -76,36 +76,28 @@ API 버전의 차이는 수준의 안정성과 지원의 차이를 나타낸다.
 
 현재 다음과 같은 다양한 API 그룹이 사용되고 있다:
 
-*  *핵심* (또는 *레거시*라고 불리는) 그룹은 `apiVersion: v1`와 같이 `apiVersion` 필드에 명시되지 않고 REST 경로 `/api/v1`에 있다.
+*  *핵심* (또는 *레거시* 라고 불리는) 그룹은 `apiVersion: v1`와 같이 `apiVersion` 필드에 명시되지 않고 REST 경로 `/api/v1`에 있다.
 *  이름이 있는 그룹은 REST 경로 `/apis/$GROUP_NAME/$VERSION`에 있으며 `apiVersion: $GROUP_NAME/$VERSION`을 사용한다
-   (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/docs/reference/)에서 확인할 수 있다.
+   (예를 들어 `apiVersion: batch/v1`).  지원되는 API 그룹 전체의 목록은 [쿠버네티스 API 참조 문서](/ko/docs/reference/)에서 확인할 수 있다.
 
-[사용자 정의 리소스](/docs/concepts/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
+[사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)로 API를 확장하는 경우에는 다음 두 종류의 경로가 지원된다.
 
  - 기본적인 CRUD 요구에는
-   [CustomResourceDefinition](/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)
+   [커스텀리소스데피니션(CustomResourceDefinition)](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
  - 쿠버네티스 API의 의미론적 전체 집합으로 사용자만의 Apiserver를 구현하려는 경우에는 [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)
 
 
-## API 그룹 활성화 시키기
+## API 그룹 활성화 또는 비활성화 하기
 
 특정 리소스와 API 그룹은 기본적으로 활성화되어 있다. 이들은 apiserver에서 `--runtime-config`를 설정해서 활성화하거나
 비활성화 시킬 수 있다. `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어:
+
  - batch/v1을 비활성화하려면 `--runtime-config=batch/v1=false`로 설정
  - batch/v2alpha1을 활성화하려면 `--runtime-config=batch/v2alpha1`로 설정
+
 이 플래그는 apiserver의 런타임 구성을 설명하는 쉼표로 분리된 키=값 쌍의 집합을 허용한다.
 
 {{< note >}}
 그룹이나 리소스를 활성화 또는 비활성화하려면, apiserver와 controller-manager를 재시작하여
 `--runtime-config` 변경을 반영해야 한다.
 {{< /note >}}
-
-## 그룹 내 리소스 활성화 시키기
-
-데몬셋, 디플로이먼트, HorizontalPodAutoscaler, 인그레스, 잡 및 레플리카셋이 기본적으로 활성화되어 있다.
-다른 확장 리소스는 apiserver의 `--runtime-config`를 설정해서
-활성화할 수 있다. `--runtime-config`는 쉼표로 분리된 값을 허용한다. 예를 들어 디플로이먼트와 잡을 비활성화하려면,
-`--runtime-config=extensions/v1beta1/deployments=false,extensions/v1beta1/ingresses=false`와 같이 설정한다.
-{{% /capture %}}
-
-

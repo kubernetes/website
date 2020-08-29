@@ -1,7 +1,7 @@
 ---
 title: Documentation Style Guide
 linktitle: Style guide
-content_template: templates/concept
+content_type: concept
 weight: 10
 card:
   name: contribute
@@ -9,15 +9,15 @@ card:
   title: Documentation Style Guide
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Cette page donne des directives de style d'écriture pour la documentation de Kubernetes.
 Ce sont des lignes directrices, pas des règles.
 Faites preuve de discernement et n'hésitez pas à proposer des modifications à ce document dans le cadre d'une pull request.
 
 Pour plus d'informations sur la création de nouveau contenu pour les documents Kubernetes, suivez les instructions sur[l'utilisation des templates](/fr/docs/contribute/style/page-templates/) et [création d'une pull request de documentation](/fr/docs/contribute/start/#improve-existing-content).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< note >}}
 La documentation de Kubernetes utilise [Blackfriday Markdown Renderer](https://github.com/russross/blackfriday) ainsi que quelques [Hugo Shortcodes](/docs/home/contribute/includes/) pour prendre en charge les entrées de glossaire, les onglets et la représentation de l'état des fonctionnalités.
@@ -403,13 +403,14 @@ Une caractéristique qui est nouvelle aujourd'hui pourrait ne pas être considé
 | Dans la version 1.4, ...            | Dans la version actuelle, ...                         |
 | La fonction de fédération offre ... | La nouvelle fonctionnalité de la Fédération offre ... |
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur [writing a new topic](/docs/home/contribute/write-new-topic/).
 * En savoir plus sur [using page templates](/docs/home/contribute/page-templates/).
 * En savoir plus sur [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * En savoir plus sur [creating a pull request](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

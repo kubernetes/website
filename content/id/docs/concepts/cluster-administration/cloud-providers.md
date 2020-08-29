@@ -1,15 +1,15 @@
 ---
 title: Penyedia Layanan Cloud
-content_template: templates/concept
+content_type: concept
 weight: 30
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 Laman ini akan menjelaskan bagaimana cara mengelola Kubernetes yang berjalan pada penyedia layanan cloud tertentu.
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 ### Kubeadm
 [Kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) merupakan salah satu cara yang banyak digunakan untuk membuat klaster Kubernetes.
 Kubeadm memiliki beragam opsi untuk mengatur konfigurasi spesifik untuk penyedia layanan cloud. Salah satu contoh yang biasa digunakan pada penyedia cloud *in-tree* yang dapat diatur dengan kubeadm adalah sebagai berikut:
@@ -56,7 +56,7 @@ Bagian ini akan menjelaskan semua konfigurasi yang dapat diatur saat menjalankan
 Penyedia layanan cloud AWS menggunakan nama DNS privat dari *instance* AWS sebagai nama dari objek Kubernetes Node.
 
 ### *Load Balancer*
-Kamu dapat mengatur [load balancers eksternal](/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
+Kamu dapat mengatur [load balancers eksternal](/id/docs/tasks/access-application-cluster/create-external-load-balancer/) sehingga dapat menggunakan fitur khusus AWS dengan mengatur anotasi seperti di bawah ini.
 
 ```yaml
 apiVersion: v1
@@ -303,7 +303,7 @@ dan harus berada pada bagian `[Router]` dari *file* `cloud.conf`:
 
 [kubenet]: /docs/concepts/cluster-administration/network-plugins/#kubenet
 
-{{% /capture %}}
+
 
 ## OVirt
 

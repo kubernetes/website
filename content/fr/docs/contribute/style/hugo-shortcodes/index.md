@@ -1,16 +1,16 @@
 ---
 title: Hugo Shortcodes personnalisés
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 Cette page explique les shortcodes Hugo personnalisés pouvant être utilisés dans la documentation de Kubernetes Markdown.
 
 En savoir plus sur shortcodes dans la [documentation Hugo](https://gohugo.io/content-management/shortcodes).
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Etat de la fonctionnalité
 
@@ -208,9 +208,10 @@ Rend à:
 {{< tab name="JSON File" include="podtemplate" />}}
 {{< /tabs >}}
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 * En savoir plus sur [Hugo](https://gohugo.io/).
 * En savoir plus sur [écrire un nouveau sujet](/docs/home/contribute/write-new-topic/).
@@ -218,4 +219,4 @@ Rend à:
 * En savoir plus sur [staging your changes](/docs/home/contribute/stage-documentation-changes/)
 * En savoir plus sur [créer une pull request](/docs/home/contribute/create-pull-request/).
 
-{{% /capture %}}
+

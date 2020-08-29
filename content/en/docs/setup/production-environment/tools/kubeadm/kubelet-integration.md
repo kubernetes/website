@@ -2,33 +2,33 @@
 reviewers:
 - sig-cluster-lifecycle
 title: Configuring each kubelet in your cluster using kubeadm
-content_template: templates/concept
+content_type: concept
 weight: 80
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
-{{< feature-state for_k8s_version="1.11" state="stable" >}}
+{{< feature-state for_k8s_version="v1.11" state="stable" >}}
 
 The lifecycle of the kubeadm CLI tool is decoupled from the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet), which is a daemon that runs
 on each node within the Kubernetes cluster. The kubeadm CLI tool is executed by the user when Kubernetes is
 initialized or upgraded, whereas the kubelet is always running in the background.
 
-Since the kubelet is a daemon, it needs to be maintained by some kind of a init
+Since the kubelet is a daemon, it needs to be maintained by some kind of an init
 system or service manager. When the kubelet is installed using DEBs or RPMs,
 systemd is configured to manage the kubelet. You can use a different service
 manager instead, but you need to configure it manually.
 
 Some kubelet configuration details need to be the same across all kubelets involved in the cluster, while
-other configuration aspects need to be set on a per-kubelet basis, to accommodate the different
-characteristics of a given machine, such as OS, storage, and networking. You can manage the configuration
-of your kubelets manually, but [kubeadm now provides a `KubeletConfiguration` API type for managing your
+other configuration aspects need to be set on a per-kubelet basis to accommodate the different
+characteristics of a given machine (such as OS, storage, and networking). You can manage the configuration
+of your kubelets manually, but kubeadm now provides a `KubeletConfiguration` API type for [managing your
 kubelet configurations centrally](#configure-kubelets-using-kubeadm).
 
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Kubelet configuration patterns
 
@@ -67,7 +67,7 @@ For more details on the ComponentConfig have a look at [this section](#configure
 
 ### Providing instance-specific configuration details
 
-Some hosts require specific kubelet configurations, due to differences in hardware, operating system,
+Some hosts require specific kubelet configurations due to differences in hardware, operating system,
 networking, or other host-specific parameters. The following list provides a few examples.
 
 - The path to the DNS resolution file, as specified by the `--resolv-conf` kubelet
@@ -79,7 +79,7 @@ networking, or other host-specific parameters. The following list provides a few
   unless you are using a cloud provider. You can use the `--hostname-override` flag to override the
   default behavior if you need to specify a Node name different from the machine's hostname.
 
-- Currently, the kubelet cannot automatically detects the cgroup driver used by the CRI runtime,
+- Currently, the kubelet cannot automatically detect the cgroup driver used by the CRI runtime,
   but the value of `--cgroup-driver` must match the cgroup driver used by the CRI runtime to ensure
   the health of the kubelet.
 
@@ -107,7 +107,7 @@ for more information on the individual fields.
 
 When you call `kubeadm init`, the kubelet configuration is marshalled to disk
 at `/var/lib/kubelet/config.yaml`, and also uploaded to a ConfigMap in the cluster. The ConfigMap
-is named `kubelet-config-1.X`, where `.X` is the minor version of the Kubernetes version you are
+is named `kubelet-config-1.X`, where `X` is the minor version of the Kubernetes version you are
 initializing. A kubelet configuration file is also written to `/etc/kubernetes/kubelet.conf` with the
 baseline cluster-wide configuration for all kubelets in the cluster. This configuration file
 points to the client certificates that allow the kubelet to communicate with the API server. This
@@ -157,12 +157,12 @@ has finished performing the TLS Bootstrap.
 
 ##  The kubelet drop-in file for systemd
 
-kubeadm ships with configuration for how systemd should run the kubelet. 
+`kubeadm` ships with configuration for how systemd should run the kubelet.
 Note that the kubeadm CLI command never touches this drop-in file.
 
-This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/10-kubeadm.conf) is written to
+This configuration file installed by the `kubeadm` [DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf) or [RPM package](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubeadm/10-kubeadm.conf) is written to
 `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf` and is used by systemd.
-It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/kubernetes/blob/master/build/rpms/kubelet.service) (resp. [`kubelet.service` for DEB](https://github.com/kubernetes/kubernetes/blob/master/build/debs/kubelet.service))):
+It augments the basic [`kubelet.service` for RPM](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/rpm/kubelet/kubelet.service) or [`kubelet.service` for DEB](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service):
 
 ```none
 [Service]
@@ -173,7 +173,7 @@ Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
-#the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
+# the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
 # KUBELET_EXTRA_ARGS should be sourced from this file.
 EnvironmentFile=-/etc/default/kubelet
 ExecStart=
@@ -198,9 +198,8 @@ The DEB and RPM packages shipped with the Kubernetes releases are:
 | Package name | Description |
 |--------------|-------------|
 | `kubeadm`    | Installs the `/usr/bin/kubeadm` CLI tool and the [kubelet drop-in file](#the-kubelet-drop-in-file-for-systemd) for the kubelet. |
-| `kubelet`    | Installs the `/usr/bin/kubelet` binary. |
+| `kubelet`    | Installs the kubelet binary in `/usr/bin` and CNI binaries in `/opt/cni/bin`. |
 | `kubectl`    | Installs the `/usr/bin/kubectl` binary. |
-| `kubernetes-cni` | Installs the official CNI binaries into the `/opt/cni/bin` directory. |
 | `cri-tools` | Installs the `/usr/bin/crictl` binary from the [cri-tools git repository](https://github.com/kubernetes-incubator/cri-tools). |
 
-{{% /capture %}}
+

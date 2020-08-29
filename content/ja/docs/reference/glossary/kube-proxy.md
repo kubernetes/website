@@ -11,10 +11,10 @@ tags:
 - fundamental
 - networking
 ---
- [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) はクラスター内の各Nodeで動作しているネットワークプロキシで、Kubernetesの{{< glossary_tooltip term_id="service">}}コンセプトの一部を実装しています。
+  kube-proxyはクラスター内の各{{< glossary_tooltip text="node" term_id="node" >}}で動作しているネットワークプロキシで、Kubernetesの{{< glossary_tooltip term_id="service">}}コンセプトの一部を実装しています。
 
 <!--more-->
 
-kube-proxyは、Nodeのネットワークルールをメンテナンスします。これらのネットワークルールにより、クラスターの内部または外部のネットワークセッションからPodへのネットワーク通信が可能になります。
+[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)は、Nodeのネットワークルールをメンテナンスします。これらのネットワークルールにより、クラスターの内部または外部のネットワークセッションからPodへのネットワーク通信が可能になります。
 
 kube-proxyは、オペレーティングシステムにパケットフィルタリング層があり、かつ使用可能な場合、パケットフィルタリング層を使用します。それ以外の場合は自身でトラフィックを転送します。

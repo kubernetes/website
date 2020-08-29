@@ -2,7 +2,6 @@
 title: " 为什么 Kubernetes 不用 libnetwork "
 date: 2016-01-14
 slug: why-kubernetes-doesnt-use-libnetwork
-url: /blog/2016/01/Why-Kubernetes-Doesnt-Use-Libnetwork
 ---
 
 <!-- ---

@@ -1,6 +1,6 @@
 ---
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 
@@ -11,18 +11,18 @@ reviewers:
 - luxas
 - jbeda
 title: kubeadm init
-content_template: templates/concept
+content_type: concept
 weight: 20
 ---
 -->
-{{% capture overview %}}
+<!-- overview -->
 <!--
 This command initializes a Kubernetes control-plane node.
 -->
 此命令初始化一个 Kubernetes 控制平面节点。
-{{% /capture %}}
 
-{{% capture body %}}
+
+<!-- body -->
 
 {{< include "generated/kubeadm_init.md" >}}
 
@@ -461,9 +461,10 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 -->
 注意这种搭建集群的方式在安全保证上会有一些宽松，因为这种方式不允许使用 `--discovery-token-ca-cert-hash` 来验证根 CA 的哈希值（因为当配置节点的时候，它还没有被生成）。获取需更多信息请参阅[kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/)文档。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 <!--
 * [kubeadm init phase](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/) to understand more about
 `kubeadm init` phases
@@ -475,4 +476,4 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/)启动一个 Kubernetes 工作节点并且将其加入到集群
 * [kubeadm upgrade](/docs/reference/setup-tools/kubeadm/kubeadm-upgrade/)将 Kubernetes 集群升级到新版本
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)使用 `kubeadm init` 或 `kubeadm join` 来恢复对节点的变更
-{{% /capture %}}
+

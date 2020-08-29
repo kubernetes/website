@@ -1,9 +1,9 @@
 ---
 title: Instalasi Add-ons
-content_template: templates/concept
+content_type: concept
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 
 
 *Add-ons* berfungsi untuk menambah serta memperluas fungsionalitas dari Kubernetes.
@@ -12,10 +12,10 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 
 *Add-ons* pada setiap bagian akan diurutkan secara alfabet - pengurutan ini tidak dilakukan berdasarkan status preferensi atau keunggulan.
 
-{{% /capture %}}
 
 
-{{% capture body %}}
+
+<!-- body -->
 
 ## Jaringan dan *Policy* Jaringan
 
@@ -32,7 +32,7 @@ Laman ini akan menjabarkan beberapa *add-ons* yang tersedia serta tautan instruk
 * [Multus](https://github.com/Intel-Corp/multus-cni) merupakan sebuah multi *plugin* agar Kubernetes mendukung multipel jaringan secara bersamaan sehingga dapat menggunakan semua *plugin* CNI (contoh: Calico, Cilium, Contiv, Flannel), ditambah pula dengan SRIOV, DPDK, OVS-DPDK dan VPP pada *workload* Kubernetes.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T/2.0/nsxt_20_ncp_kubernetes.pdf) Container Plug-in (NCP) menyediakan integrasi antara VMware NSX-T dan orkestrator kontainer seperti Kubernetes, termasuk juga integrasi antara NSX-T dan platform CaaS/PaaS berbasis kontainer seperti *Pivotal Container Service* (PKS) dan OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) merupakan platform SDN yang menyediakan *policy-based* jaringan antara Kubernetes Pods dan non-Kubernetes *environment* dengan *monitoring* visibilitas dan keamanan.
-* [Romana](http://romana.io) merupakan solusi jaringan  *Layer* 3 untuk jaringan pod yang juga mendukung [*NetworkPolicy* API](/docs/concepts/services-networking/network-policies/). Instalasi Kubeadm *add-on* ini tersedia [di sini](https://github.com/romana/romana/tree/master/containerize).
+* [Romana](http://romana.io) merupakan solusi jaringan  *Layer* 3 untuk jaringan pod yang juga mendukung [*NetworkPolicy* API](/id/docs/concepts/services-networking/network-policies/). Instalasi Kubeadm *add-on* ini tersedia [di sini](https://github.com/romana/romana/tree/master/containerize).
 * [Weave Net](https://www.weave.works/docs/net/latest/kube-addon/) menyediakan jaringan serta *policy* jaringan, yang akan membawa kedua sisi dari partisi jaringan, serta tidak membutuhkan basis data eksternal.
 
 ## _Service Discovery_
@@ -50,4 +50,4 @@ Ada beberapa *add-on* lain yang didokumentasikan pada direktori deprekasi [*clus
 
 *Add-on* lain yang dipelihara dan dikelola dengan baik dapat ditulis di sini. Ditunggu PR-nya!
 
-{{% /capture %}}
+

@@ -1,26 +1,27 @@
 ---
 title: StatefulSet Podの強制削除
-content_template: templates/task
+content_type: task
 weight: 70
 ---
 
-{{% capture overview %}}
+<!-- overview -->
 このページでは、StatefulSetの一部であるPodを削除する方法と、削除する際に考慮すべき事項について説明します。
-{{% /capture %}}
 
-{{% capture prerequisites %}}
+
+## {{% heading "prerequisites" %}}
+
 
 * これはかなり高度なタスクであり、StatefulSetに固有のいくつかの特性に反する可能性があります。
 * 先に進む前に、以下に列挙されている考慮事項をよく理解してください。
-{{% /capture %}}
 
-{{% capture steps %}}
+
+<!-- steps -->
 
 ## StatefulSetに関する考慮事項
 
 StatefulSetの通常の操作では、StatefulSet Podを強制的に削除する必要は**まったく**ありません。StatefulSetコントローラーは、StatefulSetのメンバーの作成、スケール、削除を行います。それは序数0からN-1までの指定された数のPodが生きていて準備ができていることを保証しようとします。StatefulSetは、クラスター内で実行されている特定のIDを持つ最大1つのPodがいつでも存在することを保証します。これは、StatefulSetによって提供される*最大1つの*セマンティクスと呼ばれます。
 
-手動による強制削除は、StatefulSetに固有の最大1つのセマンティクスに違反する可能性があるため、慎重に行う必要があります。StatefulSetを使用して、安定したネットワークIDと安定した記憶域を必要とする分散型およびクラスター型アプリケーションを実行できます。これらのアプリケーションは、固定IDを持つ固定数のメンバーのアンサンブルに依存する構成を持つことがよくあります。同じIDを持つ複数のメンバーを持つことは悲惨なことになり、データの損失につながる可能性があります（例：定足数ベースのシステムでのスプリットブレインシナリオ）。
+手動による強制削除は、StatefulSetに固有の最大1つのセマンティクスに違反する可能性があるため、慎重に行う必要があります。StatefulSetを使用して、安定したネットワークIDと安定した記憶域を必要とする分散型およびクラスター型アプリケーションを実行できます。これらのアプリケーションは、固定IDを持つ固定数のメンバーのアンサンブルに依存する構成を持つことがよくあります。同じIDを持つ複数のメンバーを持つことは悲惨なことになり、データの損失につながる可能性があります(例：定足数ベースのシステムでのスプリットブレインシナリオ)。
 
 ## Podの削除
 
@@ -30,15 +31,15 @@ StatefulSetの通常の操作では、StatefulSet Podを強制的に削除する
 kubectl delete pods <pod>
 ```
 
-上記がグレースフルターミネーションにつながるためには、`pod.Spec.TerminationGracePeriodSeconds`に0を指定しては**いけません**。`pod.Spec.TerminationGracePeriodSeconds`を0秒に設定することは安全ではなく、StatefulSet Podには強くお勧めできません。グレースフル削除は安全で、kubeletがapiserverから名前を削除する前に[Podが適切にシャットダウンする](/docs/user-guide/pods/#termination-of-pods)ことを保証します。
+上記がグレースフルターミネーションにつながるためには、`pod.Spec.TerminationGracePeriodSeconds`に0を指定しては**いけません**。`pod.Spec.TerminationGracePeriodSeconds`を0秒に設定することは安全ではなく、StatefulSet Podには強くお勧めできません。グレースフル削除は安全で、kubeletがapiserverから名前を削除する前に[Podが適切にシャットダウンする](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)ことを保証します。
 
-Kubernetes（バージョン1.5以降）は、Nodeにアクセスできないという理由だけでPodを削除しません。到達不能なNodeで実行されているPodは、[タイムアウト](/docs/admin/node/#node-condition)の後に`Terminating`または`Unknown`状態になります。到達不能なNode上のPodをユーザーが適切に削除しようとすると、Podはこれらの状態に入ることもあります。そのような状態のPodをapiserverから削除することができる唯一の方法は以下の通りです:
+Kubernetes(バージョン1.5以降)は、Nodeにアクセスできないという理由だけでPodを削除しません。到達不能なNodeで実行されているPodは、[タイムアウト](/docs/admin/node/#node-condition)の後に`Terminating`または`Unknown`状態になります。到達不能なNode上のPodをユーザーが適切に削除しようとすると、Podはこれらの状態に入ることもあります。そのような状態のPodをapiserverから削除することができる唯一の方法は以下の通りです:
 
    * (ユーザーまたは[Node Controller](/docs/admin/node)によって)Nodeオブジェクトが削除されます。<br/>
    * 応答していないNodeのkubeletが応答を開始し、Podを終了してapiserverからエントリーを削除します。<br/>
    * ユーザーによりPodを強制削除します。
 
-推奨されるベストプラクティスは、1番目または2番目のアプローチを使用することです。Nodeが死んでいることが確認された（例えば、ネットワークから恒久的に切断された、電源が切られたなど）場合、Nodeオブジェクトを削除します。Nodeがネットワークパーティションに苦しんでいる場合は、これを解決するか、解決するのを待ちます。パーティションが回復すると、kubeletはPodの削除を完了し、apiserverでその名前を解放します。
+推奨されるベストプラクティスは、1番目または2番目のアプローチを使用することです。Nodeが死んでいることが確認された(例えば、ネットワークから恒久的に切断された、電源が切られたなど)場合、Nodeオブジェクトを削除します。Nodeがネットワークパーティションに苦しんでいる場合は、これを解決するか、解決するのを待ちます。パーティションが回復すると、kubeletはPodの削除を完了し、apiserverでその名前を解放します。
 
 通常、PodがNode上で実行されなくなるか、管理者によってそのNodeが削除されると、システムは削除を完了します。あなたはPodを強制的に削除することでこれを無効にすることができます。
 
@@ -68,10 +69,11 @@ kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'
 
 StatefulSet Podの強制削除は、常に慎重に、関連するリスクを完全に把握して実行してください。
 
-{{% /capture %}}
 
-{{% capture whatsnext %}}
+
+## {{% heading "whatsnext" %}}
+
 
 [StatefulSetのデバッグ](/docs/tasks/debug-application-cluster/debug-stateful-set/)の詳細
 
-{{% /capture %}}
+
