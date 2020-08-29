@@ -385,7 +385,7 @@ NAME        ENDPOINTS
 hostnames   10.244.0.5:9376,10.244.0.6:9376,10.244.0.7:9376
 ```
 
-これにより、EndpointsコントローラーがServiceの正しいPodを見つけていることを確認できます。`ENDPOINTS`列が`<none>`の場合、Serviceの`spec.selector`フィールドが実際にPodの`metadata.labels`値を選択していることを確認する必要があります。よくある間違いは、1.18以前のバージョンのように、Serviceが`app=hostnames`を選択しているのに、Deploymentが`run=hostnames`を指定しているなど、タイプミスやその他のエラーがあることや、`kubectl run`によってDeploymentを作成することです。
+これにより、EndpointsコントローラーがServiceの正しいPodを見つけていることを確認できます。`ENDPOINTS`列が`<none>`の場合、Serviceの`spec.selector`フィールドが実際にPodの`metadata.labels`値を選択していることを確認する必要があります。よくある間違いは、タイプミスやその他のエラー、たとえばDeployment作成にも`kubectl run`が使われた1.18以前のバージョンのように、Serviceが`app=hostnames`を選択しているのにDeploymentが`run=hostnames`を指定していることです。
 
 ## Podは機能しているか？
 
