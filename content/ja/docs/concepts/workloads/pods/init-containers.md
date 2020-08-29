@@ -29,7 +29,7 @@ Initコンテナのステータスは、`.status.initContainerStatuses`フィー
 
 Initコンテナは、リソースリミット、ボリューム、セキュリティ設定などのアプリケーションコンテナの全てのフィールドと機能をサポートしています。しかし、Initコンテナに対するリソースリクエストやリソースリミットの扱いは異なります。[リソース](#resources)にて説明します。
 
-また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`readinessProbe`、`livenessProbe`、`readinessProbe`および`startupProbe`をサポートしていません。
+また、InitコンテナはそのPodの準備ができる前に完了しなくてはならないため、`lifecycle`、`livenessProbe`、`readinessProbe`および`startupProbe`をサポートしていません。
 
 複数のInitコンテナを単一のPodに対して指定した場合、KubeletはそれらのInitコンテナを1つずつ順番に実行します。各Initコンテナは、次のInitコンテナが稼働する前に正常終了しなくてはなりません。全てのInitコンテナの実行が完了すると、KubeletはPodのアプリケーションコンテナを初期化し、通常通り実行します。
 
