@@ -49,7 +49,7 @@ Podをスケジュールできない理由に関するスケジューラーか�
 
 * クラスターに[ノードを追加します](/docs/tasks/administer-cluster/cluster-management/#resizing-a-cluster)。
 
-* [不要なPodを終了](docs/concepts/workloads/pods/#pod-termination)して、
+* [不要なPodを終了](/docs/concepts/workloads/pods/#pod-termination)して、
   `Pending`状態のPodのための空きリソースを作ります。
 
 * Podがノードよりも大きくないことを確認します。
@@ -86,8 +86,7 @@ Podが`Waiting`状態となる最も一般的な原因は、イメージをプ�
 
 ### Podがクラッシュする、あるいはUnhealthy状態
 
-Podがスケジュールされると、[Debug Running Pods](
-+/docs/tasks/debug-application-cluster/debug-running-pod/)に説明されている方法がデバッグに使用可能です。
+Podがスケジュールされると、[動作中のPodをデバッグする](/docs/tasks/debug-application-cluster/debug-running-pod/)に説明されている方法がデバッグに使用可能です。
 
 ## ReplicationControllerのデバッグ
 
