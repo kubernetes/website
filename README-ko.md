@@ -15,7 +15,7 @@
 
 * [기여 시작하기](https://kubernetes.io/docs/contribute/start/)
 * [문서화 변경 사항 스테이징하기](http://kubernetes.io/docs/contribute/intermediate#view-your-changes-locally)
-* [페이지 템플릿 사용하기](http://kubernetes.io/docs/contribute/style/page-templates/)
+* [페이지 템플릿 사용하기](https://kubernetes.io/docs/contribute/style/page-content-types/)
 * [문서화 스타일 가이드](http://kubernetes.io/docs/contribute/style/style-guide/)
 * [쿠버네티스 문서화 로컬라이징](https://kubernetes.io/docs/contribute/localization/)
 
