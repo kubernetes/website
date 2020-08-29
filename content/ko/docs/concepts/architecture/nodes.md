@@ -20,8 +20,6 @@ weight: 10
 {{< glossary_tooltip text="컨테이너 런타임" term_id="container-runtime" >}}
 그리고 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}가 포함된다.
 
-
-
 <!-- body -->
 
 ## 관리
@@ -324,7 +322,7 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 
 `TopologyManager`
-[기능 게이트(feature gate)](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 활성화 시켜두면, kubelet이 리소스 할당 결정을 할 때 토폴로지 힌트를 사용할 수 있다.
 자세한 내용은
 [노드의 컨트롤 토폴로지 관리 정책](/docs/tasks/administer-cluster/topology-manager/)을 본다.
@@ -336,5 +334,5 @@ kubelet은 `NodeStatus` 와 리스 오브젝트를 생성하고 업데이트 할
 * [노드에 대한 API 정의](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)를 읽어본다.
 * 아키텍처 디자인 문서의 [노드](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)
   섹션을 읽어본다.
-* [테인트와 톨러레이션](/ko/docs/concepts/configuration/taint-and-toleration/)을 읽어본다.
+* [테인트와 톨러레이션](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)을 읽어본다.
 * [클러스터 오토스케일링](/ko/docs/tasks/administer-cluster/cluster-management/#클러스터-오토스케일링)을 읽어본다.

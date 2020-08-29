@@ -5,7 +5,7 @@ weight: 70
 ---
 
 <!-- overview -->
-このページでは、[`projected`](/docs/concepts/storage/volumes/#projected)（投影）ボリュームを使用して、既存の複数のボリュームソースを同一ディレクトリ内にマウントする方法を説明します。
+このページでは、[`projected`](/docs/concepts/storage/volumes/#projected)(投影)ボリュームを使用して、既存の複数のボリュームソースを同一ディレクトリ内にマウントする方法を説明します。
 現在、`secret`、`configMap`、`downwardAPI`および`serviceAccountToken`ボリュームを投影できます。
 
 {{< note >}}

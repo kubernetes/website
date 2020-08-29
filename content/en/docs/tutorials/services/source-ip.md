@@ -1,7 +1,6 @@
 ---
 title: Using Source IP
 content_type: tutorial
-mermaid: true
 min-kubernetes-server-version: v1.5
 ---
 
@@ -151,7 +150,7 @@ ip addr
 
 …then use `wget` to query the local webserver
 ```shell
-# Replace 10.0.170.92 with the Pod's IPv4 address
+# Replace "10.0.170.92" with the IPv4 address of the Service named "clusterip"
 wget -qO - 10.0.170.92
 ```
 ```
@@ -413,7 +412,7 @@ protocol between the loadbalancer and backend to communicate the true client IP
 such as the HTTP [Forwarded](https://tools.ietf.org/html/rfc7239#section-5.2)
 or [X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
 headers, or the
-[proxy protocol](http://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
+[proxy protocol](https://www.haproxy.org/download/1.5/doc/proxy-protocol.txt).
 Load balancers in the second category can leverage the feature described above
 by creating an HTTP health check pointing at the port stored in
 the `service.spec.healthCheckNodePort` field on the Service.

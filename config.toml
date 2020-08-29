@@ -115,10 +115,10 @@ time_format_blog = "Monday, January 02, 2006"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.18"
+latest = "v1.19"
 
-fullversion = "v1.18.0"
-version = "v1.18"
+fullversion = "v1.19.0"
+version = "v1.19"
 githubbranch = "master"
 docsbranch = "master"
 deprecated = false
@@ -157,39 +157,40 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.18.0"
-version = "v1.18"
-githubbranch = "v1.18.0"
-docsbranch = "release-1.18"
+fullversion = "v1.19.0"
+version = "v1.19"
+githubbranch = "v1.19.0"
+docsbranch = "master"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.17.4"
+fullversion = "v1.18.8"
+version = "v1.18"
+githubbranch = "v1.18.8"
+docsbranch = "release-1.18"
+url = "https://v1-18.docs.kubernetes.io"
+
+[[params.versions]]
+fullversion = "v1.17.11"
 version = "v1.17"
-githubbranch = "v1.17.4"
+githubbranch = "v1.17.11"
 docsbranch = "release-1.17"
 url = "https://v1-17.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.16.8"
+fullversion = "v1.16.14"
 version = "v1.16"
-githubbranch = "v1.16.8"
+githubbranch = "v1.16.14"
 docsbranch = "release-1.16"
 url = "https://v1-16.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.15.11"
+fullversion = "v1.15.12"
 version = "v1.15"
-githubbranch = "v1.15.11"
+githubbranch = "v1.15.12"
 docsbranch = "release-1.15"
 url = "https://v1-15.docs.kubernetes.io"
 
-[[params.versions]]
-fullversion = "v1.14.10"
-version = "v1.14"
-githubbranch = "v1.14.10"
-docsbranch = "release-1.14"
-url = "https://v1-14.docs.kubernetes.io"
 
 # User interface configuration
 [params.ui]
@@ -230,7 +231,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 
 [[params.links.user]]
 	name = "Calendar"
-	url = "https://calendar.google.com/calendar/embed?src=nt2tcnbtbied3l6gi2h29slvc0%40group.calendar.google.com"
+	url = "https://calendar.google.com/calendar/embed?src=calendar%40kubernetes.io"
 	icon = "fas fa-calendar-alt"
   desc = "Google Calendar for Kubernetes"
 

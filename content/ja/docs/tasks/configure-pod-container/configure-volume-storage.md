@@ -87,7 +87,7 @@ weight: 50
     root@redis:/data/redis# kill <pid>
     ```
 
-    ここで`<pid>`はRedisプロセスID（PID）です。
+    ここで`<pid>`はRedisプロセスID(PID)です。
 
 1. 元の端末で、Redis Podへの変更を監視します。最終的には、このようなものが表示されます:
 

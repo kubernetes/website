@@ -1,14 +1,14 @@
 ---
 reviewers:
 - sig-cluster-lifecycle
-title: Creating a single control-plane cluster with kubeadm
+title: Creating a cluster with kubeadm
 content_type: task
 weight: 30
 ---
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">The `kubeadm` tool helps you bootstrap a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">Creating a minimum viable Kubernetes cluster that conforms to best practices. In fact, you can use `kubeadm` to set up a cluster that will pass the [Kubernetes Conformance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification).
 `kubeadm` also supports other cluster
 lifecycle functions, such as [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) and cluster upgrades.
 
@@ -60,7 +60,7 @@ Any commands under `kubeadm alpha` are, by definition, supported on an alpha lev
 
 ## Objectives
 
-* Install a single control-plane Kubernetes cluster or [high-availability cluster](/docs/setup/production-environment/tools/kubeadm/high-availability/)
+* Install a single control-plane Kubernetes cluster
 * Install a Pod network on the cluster so that your Pods can
   talk to each other
 
@@ -259,10 +259,10 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
 
 - Take care that your Pod network must not overlap with any of the host
   networks: you are likely to see problems if there is any overlap.
-  (If you find a collision between your network plugin’s preferred Pod
+  (If you find a collision between your network plugin's preferred Pod
   network and some of your host networks, you should think of a suitable
   CIDR block to use instead, then use that during `kubeadm init` with
-  `--pod-network-cidr` and as a replacement in your network plugin’s YAML).
+  `--pod-network-cidr` and as a replacement in your network plugin's YAML).
 
 - By default, `kubeadm` sets up your cluster to use and enforce use of
   [RBAC](/docs/reference/access-authn-authz/rbac/) (role based access
@@ -554,7 +554,7 @@ Workarounds:
 
 * Use multiple control-plane nodes. You can read
   [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
-  topology that provides higher availabilty.
+  topology that provides [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 
 ### Platform compatibility {#multi-platform}
 

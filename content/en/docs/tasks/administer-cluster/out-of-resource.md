@@ -16,9 +16,6 @@ are low. This is especially important when dealing with incompressible
 compute resources, such as memory or disk space. If such resources are exhausted,
 nodes become unstable.
 
-
-
-
 <!-- body -->
 
 ## Eviction Policy
@@ -53,8 +50,7 @@ like `free -m`. This is important because `free -m` does not work in a
 container, and if users use the [node
 allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) feature, out of resource decisions
 are made local to the end user Pod part of the cgroup hierarchy as well as the
-root node. This
-[script](/docs/tasks/administer-cluster/out-of-resource/memory-available.sh)
+root node. This [script](/docs/tasks/administer-cluster/memory-available.sh)
 reproduces the same set of steps that the `kubelet` performs to calculate
 `memory.available`. The `kubelet` excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that

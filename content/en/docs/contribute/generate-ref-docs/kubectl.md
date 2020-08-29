@@ -127,7 +127,7 @@ Monitor your cherry-pick pull request until it is merged into the release branch
 
 {{< note >}}
 Proposing a cherry pick requires that you have permission to set a label and a
-milestone in your pull request. If you don’t have those permissions, you will
+milestone in your pull request. If you don't have those permissions, you will
 need to work with someone who can set the label and milestone for you.
 {{< /note >}}
 

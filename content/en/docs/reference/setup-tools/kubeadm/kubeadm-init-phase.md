@@ -1,7 +1,9 @@
 ---
 title: kubeadm init phase
 weight: 90
+content_type: concept
 ---
+
 `kubeadm init phase` enables you to invoke atomic steps of the bootstrap process.
 Hence, you can let kubeadm do some of the work and you can fill in the gaps
 if you wish to apply customization.
@@ -80,7 +82,6 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 {{< tab name="local" include="generated/kubeadm_init_phase_etcd_local.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
 
 You can use this command to upload the kubeadm configuration to your cluster.
@@ -93,7 +94,6 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
 
 Use the following phase to upload control-plane certificates to the cluster.
@@ -103,7 +103,6 @@ By default the certs and encryption key expire after two hours.
 {{< tab name="upload-certs" include="generated/kubeadm_init_phase_upload-certs.md" />}}
 {{< /tabs >}}
 
-
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
 Use the following phase to label and taint the node with the `node-role.kubernetes.io/master=""` key-value pair.
@@ -111,7 +110,6 @@ Use the following phase to label and taint the node with the `node-role.kubernet
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
 {{< /tabs >}}
-
 
 ## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}
 
@@ -156,7 +154,8 @@ Please note that kube-dns usage with kubeadm is deprecated as of v1.18 and will 
 For more details on each field in the `v1beta2` configuration you can navigate to our
 [API reference pages.] (https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2)
 
-## What's next
+## {{% heading "whatsnext" %}}
+
 * [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`

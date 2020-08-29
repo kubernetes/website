@@ -2,6 +2,8 @@
 title: Kubernetes 控制面的指标
 content_type: concept
 weight: 60
+aliases:
+- controller-metrics.md
 ---
 
 <!-- overview -->
@@ -11,12 +13,11 @@ System component metrics can give a better look into what is happening inside th
 
 Metrics in Kubernetes control plane are emitted in [prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/) and are human readable.
 -->
-
 系统组件的指标可以让我们更好的看清系统内部究竟发生了什么，尤其对于构建仪表盘和告警都非常有用。
 
-Kubernetes 控制面板中的指标是以 [prometheus](https://prometheus.io/docs/instrumenting/exposition_formats/) 格式发出的，而且是易于阅读的。
-
-
+Kubernetes 控制面板中的指标是以
+[prometheus](https://prometheus.io/docs/instrumenting/exposition_formats/)
+格式发出的，而且是易于阅读的。
 
 <!-- body -->
 
@@ -24,15 +25,14 @@ Kubernetes 控制面板中的指标是以 [prometheus](https://prometheus.io/doc
 ## Metrics in Kubernetes
 In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
 -->
-
 ## Kubernetes 的指标
 
-在大多数情况下，指标在 HTTP 服务器的 `/metrics` 端点使用，对于默认情况下不暴露端点的组件，可以使用 `--bind-address` 参数启用。
+在大多数情况下，指标在 HTTP 服务器的 `/metrics` 端点使用。
+对于默认情况下不暴露端点的组件，可以使用 `--bind-address` 参数启用。
 
 <!--
 Examples of those components:
 -->
-
 举例下面这些组件：
 
 * {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
@@ -50,12 +50,16 @@ Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes
 If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing `/metrics`.
 For example:
 -->
+在生产环境中，你可能需要配置 [Prometheus 服务器](https://prometheus.io/) 
+或其他指标收集器来定期收集这些指标，并使它们在某种时间序列数据库中可用。
 
-在生产环境中，你可能需要配置 [Prometheus Server](https://prometheus.io/) 或其他指标收集器来定期收集这些指标，并使它们在某种时间序列数据库中可用。
+请注意 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 同样在
+`/metrics/cadvisor`、`/metrics/resource` 和 `/metrics/probes`  等端点提供性能指标。
+这些指标的生命周期并不相同。
 
-请注意 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} 同样在 `/metrics/cadvisor`、`/metrics/resource` 和 `/metrics/probes`  等端点提供性能指标。这些指标的生命周期并不相同。
-
-如果你的集群还使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}} ，那读取指标数据的时候，还需要通过具有 ClusterRole 的用户、组或者 ServiceAccount 来进行授权，才有权限访问 `/metrics` 。
+如果你的集群还使用了 {{< glossary_tooltip term_id="rbac" text="RBAC" >}}，
+那读取指标数据的时候，还需要通过具有 ClusterRole 的用户、组或者 ServiceAccount 来进行授权，
+才有权限访问 `/metrics` 。
 
 举例：
 
@@ -79,7 +83,6 @@ Alpha metrics have no stability guarantees; as such they can be modified or dele
 
 Stable metrics can be guaranteed to not change; Specifically, stability means:
 -->
-
 ## 指标的生命周期
 
 内测版指标 → 稳定版指标 → 弃用指标 → 隐藏指标 → 删除
@@ -101,8 +104,8 @@ Deprecated metric signal that the metric will eventually be deleted; to find whi
 
 Before deprecation:
 -->
-
-弃用指标表明这个指标最终将会被删除，要想查找是哪个版本，你需要检查其注释，注释中包括该指标从哪个 kubernetes 版本被弃用。
+弃用指标表明这个指标最终将会被删除，要想查找是哪个版本，你需要检查其注释，
+注释中包括该指标从哪个 kubernetes 版本被弃用。
 
 指标弃用前：
 
@@ -112,10 +115,7 @@ Before deprecation:
 some_counter 0
 ```
 
-<!--
-After deprecation:
--->
-
+<!-- After deprecation: -->
 指标弃用后：
 
 ```
@@ -129,8 +129,8 @@ Once a metric is hidden then by default the metrics is not published for scrapin
 
 Once a metric is deleted, the metric is not published. You cannot change this using an override.
 -->
-
-一个指标一旦被隐藏，默认这个指标是不会发布来被抓取的。如果你想要使用这个隐藏指标，你需要覆盖相关集群组件的配置。
+一个指标一旦被隐藏，默认这个指标是不会发布来被抓取的。
+如果你想要使用这个隐藏指标，你需要覆盖相关集群组件的配置。
 
 一个指标一旦被删除，那这个指标就不会被发布，您也不可以通过覆盖配置来进行更改。
 
@@ -145,14 +145,17 @@ The flag can only take the previous minor version as it's value. All metrics hid
 
 Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics deprecated policy, we can reach the following conclusion:
 -->
-
 ## 显示隐藏指标
 
-综上所述，管理员可以通过在运行可执行文件时添加一些特定的参数来开启一些隐藏的指标。当管理员错过了之前版本的的一些已弃用的指标时，这个可被视作是一个后门。
+综上所述，管理员可以通过在运行可执行文件时添加一些特定的参数来开启一些隐藏的指标。
+当管理员错过了之前版本的的一些已弃用的指标时，这个可被视作是一个后门。
 
-`show-hidden-metrics-for-version` 参数可以指定一个版本，用来显示这个版本中被隐藏的指标。这个版本号形式是x.y，x 是主要版本号，y 是次要版本号。补丁版本并不是必须的，尽管在一些补丁版本中也会有一些指标会被弃用，因为指标弃用策略主要是针对次要版本。
+`show-hidden-metrics-for-version` 参数可以指定一个版本，用来显示这个版本中被隐藏的指标。
+这个版本号形式是x.y，x 是主要版本号，y 是次要版本号。补丁版本并不是必须的，
+尽管在一些补丁版本中也会有一些指标会被弃用，因为指标弃用策略主要是针对次要版本。
 
-这个参数只能使用上一版本作为其值，如果管理员将上一版本设置为 `show-hidden-metrics-for-version` 的值，那么就会显示上一版本所有被隐藏的指标，太老的版本是不允许的，因为这不符合指标弃用策略。
+这个参数只能使用上一版本作为其值，如果管理员将上一版本设置为 `show-hidden-metrics-for-version` 的值，
+那么就会显示上一版本所有被隐藏的指标，太老的版本是不允许的，因为这不符合指标弃用策略。
 
 以指标 `A` 为例，这里假设 `A` 指标在 1.n 版本中被弃用，根据指标弃用策略，我们可以得出以下结论：
 
@@ -168,7 +171,9 @@ If you're upgrading from release `1.12` to `1.13`, but still depend on a metric 
 * 在 `1.n+1` 版本中，这个指标默认被隐藏，你可以通过设置参数 `show-hidden-metrics-for-version=1.n` 来使它可以被发出.
 * 在 `1.n+2` 版本中，这个指标就被从代码库中删除，也不会再有后门了.
 
-如果你想要从 `1.12` 版本升级到 `1.13` ，但仍然需要依赖指标 `A` ，你可以通过命令行设置隐藏指标 `--show-hidden-metrics=1.12` ，但是在升级到 `1.14`时就必须要删除这个指标的依赖，因为这个版本中这个指标已经被删除了。
+如果你想要从 `1.12` 版本升级到 `1.13` ，但仍然需要依赖指标 `A` ，
+你可以通过命令行设置隐藏指标 `--show-hidden-metrics=1.12`，
+但是在升级到 `1.14`时就必须要删除这个指标的依赖，因为这个版本中这个指标已经被删除了。
 
 <!--
 ## Component metrics
@@ -185,7 +190,6 @@ These metrics can be used to monitor health of persistent volume operations.
 
 For example, for GCE these metrics are called:
 -->
-
 ## 组件指标
 
 ### kube-controller-manager 指标
@@ -205,10 +209,7 @@ cloudprovider_gce_api_request_duration_seconds { request = "detach_disk"}
 cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 ```
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 <!--
 * Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
@@ -218,6 +219,6 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 
 * 了解有关 [Prometheus 指标相关的文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
 * 查看 [Kubernetes 稳定版指标](https://github.com/kubernetes/kubernetes/blob/master/test/instrumentation/testdata/stable-metrics-list.yaml)列表
-* 了解有关 [Kubernetes 指标弃用策略](https://kubernetes.io/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
+* 了解有关 [Kubernetes 指标弃用策略](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior )
 
 

@@ -780,6 +780,6 @@ Verbosity | Description
 -->
 * 进一步了解 [kubectl 概述](/docs/reference/kubectl/overview/)。
 * 参阅 [kubectl](/docs/reference/kubectl/kubectl/) 选项.
-* 参阅 [kubectl 使用约定](/docs/reference/kubectl/conventions/)来理解如果在可复用的脚本中使用它。
+* 参阅 [kubectl 使用约定](/docs/reference/kubectl/conventions/)来理解如何在可复用的脚本中使用它。
 * 查看社区中其他的 [kubectl 备忘单](https://github.com/dennyzhang/cheatsheet-kubernetes-A4)。
 

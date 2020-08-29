@@ -5,9 +5,6 @@ weight: 20
 ---
 
 <!--
-reviewers:
-- dchen1107
-- liggitt
 title: Control Plane-Node Communication
 content_type: concept
 weight: 20
@@ -20,8 +17,7 @@ aliases:
 <!--
 This document catalogs the communication paths between the control plane (really the apiserver) and the Kubernetes cluster. The intent is to allow users to customize their installation to harden the network configuration such that the cluster can be run on an untrusted network (or on fully public IPs on a cloud provider).
 -->
-
-本文对控制面节点（确切说是 apiserver）和 Kubernetes 集群之间的通信路径进行了分类。
+本文列举控制面节点（确切说是 API 服务器）和 Kubernetes 集群之间的通信路径。
 目的是为了让用户能够自定义他们的安装，以实现对网络配置的加固，使得集群能够在不可信的网络上
 （或者在一个云服务商完全公开的 IP 上）运行。
 
@@ -31,24 +27,22 @@ This document catalogs the communication paths between the control plane (really
 Kubernetes has a "hub-and-spoke" API pattern. All API usage from nodes (or the pods they run) terminate at the apiserver (none of the other control plane components are designed to expose remote services). The apiserver is configured to listen for remote connections on a secure HTTPS port (typically 443) with one or more forms of client [authentication](/docs/reference/access-authn-authz/authentication/) enabled.
 One or more forms of [authorization](/docs/reference/access-authn-authz/authorization/) should be enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/authentication/#anonymous-requests) or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens) are allowed.
 -->
-
 ## 节点到控制面
 
 Kubernetes 采用的是中心辐射型（Hub-and-Spoke）API 模式。
 所有从集群（或所运行的 Pods）发出的 API 调用都终止于 apiserver（其它控制面组件都没有被设计为可暴露远程服务）。
 apiserver 被配置为在一个安全的 HTTPS 端口（443）上监听远程连接请求，
 并启用一种或多种形式的客户端[身份认证](/docs/reference/access-authn-authz/authentication/)机制。
-一种或多种客户端[鉴权机制](/docs/reference/access-authn-authz/authorization/)应该被启用，
-特别是在允许使用[匿名请求](/docs/reference/access-authn-autha/authentication/#anonymous-requests)
+一种或多种客户端[鉴权机制](/zh/docs/reference/access-authn-authz/authorization/)应该被启用，
+特别是在允许使用[匿名请求](/docs/reference/access-authn-authz/authentication/#anonymous-requests)
 或[服务账号令牌](/docs/reference/access-authn-authz/authentication/#service-account-tokens)的时候。
 
 <!--
 Nodes should be provisioned with the public root certificate for the cluster such that they can connect securely to the apiserver along with valid client credentials. For example, on a default GKE deployment, the client credentials provided to the kubelet are in the form of a client certificate. See [kubelet TLS bootstrapping](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/) for automated provisioning of kubelet client certificates.
 -->
-
 应该使用集群的公共根证书开通节点，这样它们就能够基于有效的客户端凭据安全地连接 apiserver。
 例如：在一个默认的 GCE 部署中，客户端凭据以客户端证书的形式提供给 kubelet。
-请查看 [kubelet TLS 启动引导](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
+请查看 [kubelet TLS 启动引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
 以了解如何自动提供 kubelet 客户端证书。
 
 <!--
@@ -57,7 +51,6 @@ The `kubernetes` service (in all namespaces) is configured with a virtual IP add
 
 The control plane components also communicate with the cluster apiserver over the secure port.
 -->
-
 想要连接到 apiserver 的 Pod 可以使用服务账号安全地进行连接。
 当 Pod 被实例化时，Kubernetes 自动把公共根证书和一个有效的持有者令牌注入到 Pod 里。
 `kubernetes` 服务（位于所有名字空间中）配置了一个虚拟 IP 地址，用于（通过 kube-proxy）转发
@@ -68,7 +61,6 @@ The control plane components also communicate with the cluster apiserver over th
 <!--
 As a result, the default operating mode for connections from the nodes and pods running on the nodes to the control plane is secured by default and can run over untrusted and/or public networks.
 -->
-
 这样，从集群节点和节点上运行的 Pod 到控制面的连接的缺省操作模式即是安全的，能够在不可信的网络或公网上运行。
 
 <!--
@@ -76,7 +68,6 @@ As a result, the default operating mode for connections from the nodes and pods 
 
 There are two primary communication paths from the control plane (apiserver) to the nodes. The first is from the apiserver to the kubelet process which runs on each node in the cluster. The second is from the apiserver to any node, pod, or service through the apiserver's proxy functionality.
 -->
-
 ## 控制面到节点
 
 从控制面（apiserver）到节点有两种主要的通信路径。
@@ -94,8 +85,7 @@ The connections from the apiserver to the kubelet are used for:
 
 These connections terminate at the kubelet's HTTPS endpoint. By default, the apiserver does not verify the kubelet's serving certificate, which makes the connection subject to man-in-the-middle attacks, and **unsafe** to run over untrusted and/or public networks.
 -->
-
-### apiserver 到 kubelet
+### API 服务器到 kubelet
 
 从 apiserver 到 kubelet 的连接用于：
 
@@ -122,7 +112,8 @@ Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authe
 如果无法实现这点，又要求避免在非受信网络或公共网络上进行连接，可在 apiserver 和
 kubelet 之间使用 [SSH 隧道](#ssh-tunnels)。
 
-最后，应该启用 [Kubelet 用户认证和/或鉴权](/docs/admin/kubelet-authentication-authorization/)来保护 kubelet API。
+最后，应该启用 [Kubelet 用户认证和/或鉴权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
+来保护 kubelet API。
 
 <!--
 ### apiserver to nodes, pods, and services

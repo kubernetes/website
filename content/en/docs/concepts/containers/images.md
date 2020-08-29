@@ -19,8 +19,6 @@ before referring to it in a
 
 This page provides an outline of the container image concept.
 
-
-
 <!-- body -->
 
 ## Image names
@@ -96,7 +94,7 @@ runtime to authenticate to a private container registry.
 This approach is suitable if you can control node configuration.
 
 {{< note >}}
-Kubernetes as only supports the `auths` and `HttpHeaders` section in Docker configuration.
+Default Kubernetes only supports the `auths` and `HttpHeaders` section in Docker configuration.
 Docker credential helpers (`credHelpers` or `credsStore`) are not supported.
 {{< /note >}}
 
@@ -261,7 +259,7 @@ EOF
 This needs to be done for each pod that is using a private registry.
 
 However, setting of this field can be automated by setting the imagePullSecrets
-in a [ServiceAccount](/docs/user-guide/service-accounts) resource.
+in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
 Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
 

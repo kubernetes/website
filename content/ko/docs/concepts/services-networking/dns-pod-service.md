@@ -65,10 +65,19 @@ SRV 레코드는 노멀 서비스 또는
 
 ### A/AAAA 레코드
 
-디플로이먼트나 데몬셋으로 생성되는 파드는 다음과 같은
-DNS 주소를 갖게 된다.
+일반적으로 파드에는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example.`
+`pod-ip-address.my-namespace.pod.cluster-domain.example`.
+
+예를 들어, `default` 네임스페이스의 파드에 IP 주소 172.17.0.3이 있고,
+클러스터의 도메인 이름이 `cluster.local` 이면, 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`172-17-0-3.default.pod.cluster.local`.
+
+서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
+모든 파드는 다음과 같은 DNS 주소를 갖는다.
+
+`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
@@ -162,13 +171,13 @@ DNS 정책은 파드별로 설정할 수 있다.
 
 - "`Default`": 파드는 파드가 실행되고 있는 노드로부터 네임 해석 설정(the name resolution configuration)을 상속받는다.
   자세한 내용은
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
   확인할 수 있다.
 - "`ClusterFirst`": "`www.kubernetes.io`"와 같이 클러스터 도메인 suffix 구성과
   일치하지 않는 DNS 쿼리는 노드에서 상속된 업스트림 네임서버로 전달된다.
   클러스터 관리자는 추가 스텁-도메인(stub-domain)과 업스트림 DNS 서버를 구축할 수 있다.
   그러한 경우 DNS 쿼리를 어떻게 처리하는지에 대한 자세한 내용은
-  [관련 논의](/docs/tasks/administer-cluster/dns-custom-nameservers/#effects-on-pods)에서
+  [관련 논의](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서
   확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
@@ -272,4 +281,4 @@ options ndots:5
 
 
 DNS 구성 관리에 대한 지침은
-[DNS 서비스 구성](/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.
+[DNS 서비스 구성](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.

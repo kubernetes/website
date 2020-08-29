@@ -14,7 +14,6 @@ You can use the Kubernetes command line tool kubectl to interact with the API Se
 ## docker run
 
 To run an nginx Deployment and expose the Deployment, see [kubectl create deployment](/docs/reference/generated/kubectl/kubectl-commands#-em-deployment-em-).
-
 docker:
 
 ```shell
@@ -38,6 +37,10 @@ kubectl:
 # start the pod running nginx
 kubectl create deployment --image=nginx nginx-app
 ```
+
+```shell
+# add env to nginx-app
+kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
 deployment.apps/nginx-app created
 ```
@@ -49,6 +52,7 @@ kubectl set env deployment/nginx-app  DOMAIN=cluster
 ```
 deployment.apps/nginx-app env updated
 ```
+deployment.apps/nginx-app env updated
 
 {{< note >}}
 `kubectl` commands print the type and name of the resource created or mutated, which can then be used in subsequent commands. You can expose a new Service after a Deployment is created.
@@ -65,7 +69,6 @@ service "nginx-http" exposed
 By using kubectl, you can create a [Deployment](/docs/concepts/workloads/controllers/deployment/) to ensure that N pods are running nginx, where N is the number of replicas stated in the spec and defaults to 1. You can also create a [service](/docs/concepts/services-networking/service/) with a selector that matches the pod labels. For more information, see [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster).
 
 By default images run in the background, similar to `docker run -d ...`. To run things in the foreground, use [`kubectl run`](/docs/reference/generated/kubectl/kubectl-commands/#run) to create pod:
-
 ```shell
 kubectl run [-i] [--tty] --attach <name> --image=<image>
 ```

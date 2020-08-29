@@ -354,7 +354,7 @@ An example of a published tutorial topic is
   阅读的主题。
 
 已发布的教程主题的一个例子是
-[使用 Deployment 运行无状态应用](/zh/docs/tutorials/stateless-application/run-stateless-application-deployment/).
+[使用 Deployment 运行无状态应用](/zh/docs/tasks/run-application/run-stateless-application-deployment/).
 
 <!--
 ### Reference

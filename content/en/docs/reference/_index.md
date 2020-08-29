@@ -35,7 +35,7 @@ client libraries:
 ## CLI Reference
 
 * [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](http://goessner.net/articles/JsonPath/) with kubectl.
+    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
 ## Components Reference
@@ -46,10 +46,12 @@ client libraries:
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across a set of back-ends.
 * [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
   * [kube-scheduler Policies](/docs/reference/scheduling/policies)
-  * [kube-scheduler Profiles](/docs/reference/scheduling/profiles)
+  * [kube-scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
 ## Design Docs
 
-An archive of the design docs for Kubernetes functionality. Good starting points are [Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and [Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+An archive of the design docs for Kubernetes functionality. Good starting points are
+[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
 
 

@@ -7,6 +7,7 @@ reviewers:
 - roycaihw
 - sttts
 content_type: task
+min-kubernetes-server-version: 1.16
 weight: 20
 ---
 
@@ -14,19 +15,13 @@ weight: 20
 This page shows how to install a
 [custom resource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 into the Kubernetes API by creating a
-[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions).
-
+[CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-* Make sure your Kubernetes cluster has a master version of 1.16.0 or higher to use `apiextensions.k8s.io/v1`, or 1.7.0 or higher for `apiextensions.k8s.io/v1beta1`.
-
-* Read about [custom resources](/docs/concepts/api-extension/custom-resources/).
-
-
+If you are using an older version of Kubernetes that is still supported, switch to
+the documentation for that version to see advice that is relevant for your cluster.
 
 <!-- steps -->
 
@@ -40,9 +35,6 @@ in that namespace. CustomResourceDefinitions themselves are non-namespaced and
 are available to all namespaces.
 
 For example, if you save the following CustomResourceDefinition to `resourcedefinition.yaml`:
-
-{{< tabs name="CustomResourceDefinition_example_1" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -87,58 +79,7 @@ spec:
     - ct
 ```
 
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-```yaml
-# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  # name must match the spec fields below, and be in the form: <plural>.<group>
-  name: crontabs.stable.example.com
-spec:
-  # group name to use for REST API: /apis/<group>/<version>
-  group: stable.example.com
-  # list of versions supported by this CustomResourceDefinition
-  versions:
-    - name: v1
-      # Each version can be enabled/disabled by Served flag.
-      served: true
-      # One and only one version must be marked as the storage version.
-      storage: true
-  # either Namespaced or Cluster
-  scope: Namespaced
-  names:
-    # plural name to be used in the URL: /apis/<group>/<version>/<plural>
-    plural: crontabs
-    # singular name to be used as an alias on the CLI and for display
-    singular: crontab
-    # kind is normally the CamelCased singular type. Your resource manifests use this.
-    kind: CronTab
-    # shortNames allow shorter string to match your resource on the CLI
-    shortNames:
-    - ct
-  preserveUnknownFields: false
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            cronSpec:
-              type: string
-            image:
-              type: string
-            replicas:
-              type: integer
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-And create it:
+and create it:
 
 ```shell
 kubectl apply -f resourcedefinition.yaml
@@ -249,11 +190,9 @@ If you later recreate the same CustomResourceDefinition, it will start out empty
 
 ## Specifying a structural schema
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
+CustomResources store structured data in custom fiels (alongside the built-in fields `apiVersion`, `kind` and `metadata`, which the API server validates implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
 
-CustomResources traditionally store arbitrary JSON (next to `apiVersion`, `kind` and `metadata`, which is validated by the API server implicitly). With [OpenAPI v3.0 validation](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) a schema can be specified, which is validated during creation and updates, compare below for details and limits of such a schema.
-
-With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions, while in `v1beta1` this is still optional.
+With `apiextensions.k8s.io/v1` the definition of a structural schema is mandatory for CustomResourceDefinitions (in the beta version of CustomResourceDefinition, structural schemas were optional).
 
 A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) which:
 
@@ -265,7 +204,7 @@ A structural schema is an [OpenAPI v3.0 validation schema](/docs/tasks/extend-ku
 4. if `metadata` is specified, then only restrictions on `metadata.name` and `metadata.generateName` are allowed.
 
 
-Non-Structural Example 1:
+Non-structural example 1:
 ```yaml
 allOf:
 - properties:
@@ -283,7 +222,7 @@ allOf:
       ...
 ```
 
-Non-Structural Example 2:
+Non-structural example 2:
 ```yaml
 allOf:
 - items:
@@ -304,7 +243,7 @@ allOf:
         ...
 ```
 
-Non-Structural Example 3:
+Non-structural example 3:
 ```yaml
 properties:
   foo:
@@ -362,34 +301,17 @@ anyOf:
 
 Violations of the structural schema rules are reported in the `NonStructural` condition in the CustomResourceDefinition.
 
-Structural schemas are a requirement for `apiextensions.k8s.io/v1`, and disables the following  features for `apiextensions.k8s.io/v1beta1`:
+### Field pruning
 
-* [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
-* [Webhook Conversion](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/#webhook-conversion)
-* [Pruning](#preserving-unknown-fields)
+CustomResourceDefinitions store validated resource data in the cluster's persistence store, {{< glossary_tooltip term_id="etcd" text="etcd">}}. As with native Kubernetes resources such as {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}, if you specify a field that the API server does not recognize, the unknown field  is _pruned_ (removed) before being persisted.
 
-### Pruning versus preserving unknown fields {#preserving-unknown-fields}
+{{< note >}}
+CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`.
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
+For migrated CustomResourceDefinitions where `spec.preserveUnknownFields` is set, pruning is _not_ enabled and you can store arbitrary data. For best compatibility, you should update customer resources to meet an OpenAPI schema, and you should set `spec.preserveUnknownFields` true for the CustomResourceDefinition itself.
+{{< /note >}}
 
-CustomResourceDefinitions traditionally store any (possibly validated) JSON as is in etcd. This means that unspecified fields (if there is a [OpenAPI v3.0 validation schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation) at all) are persisted. This is in contrast to native Kubernetes resources such as a pod where unknown fields are dropped before being persisted to etcd. We call this "pruning" of unknown fields.
-
-{{< tabs name="CustomResourceDefinition_pruning" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
-
-For CustomResourceDefinitions created in `apiextensions.k8s.io/v1`, [structural OpenAPI v3 validation schemas](#specifying-a-structural-schema) are required and pruning is enabled and cannot be disabled (note that CRDs converted from `apiextensions.k8s.io/v1beta1` to `apiextensions.k8s.io/v1` might lack structural schemas, and `spec.preserveUnknownFields` might be `true`).
-
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-For CustomResourceDefinitions created in `apiextensions.k8s.io/v1beta1`, if a [structural OpenAPI v3 validation schema](#specifying-a-structural-schema) is defined (either in the global `spec.validation.openAPIV3Schema` in `apiextensions.k8s.io/v1beta1` or for each version) in a CustomResourceDefinition, pruning can be enabled by setting `spec.preserveUnknownFields` to `false`.
-
-{{% /tab %}}
-{{% /tabs %}}
-
-If pruning is enabled, unspecified fields in CustomResources on creation and on update are dropped.
-
-Compare the CustomResourceDefinition `crontabs.stable.example.com` above. It has pruning enabled (both in `apiextensions.k8s.io/v1` and `apiextensions.k8s.io/v1beta1`). Hence, if you save the following YAML to `my-crontab.yaml`:
+If you save the following YAML to `my-crontab.yaml`:
 
 ```yaml
 apiVersion: "stable.example.com/v1"
@@ -408,7 +330,7 @@ and create it:
 kubectl create --validate=false -f my-crontab.yaml -o yaml
 ```
 
-you should get:
+your output is similar to:
 
 ```console
 apiVersion: stable.example.com/v1
@@ -425,13 +347,16 @@ spec:
   image: my-awesome-cron-image
 ```
 
-The field `someRandomField` has been pruned.
+Notice that the field `someRandomField` was pruned.
 
-Note that the `kubectl create` call uses `--validate=false` to skip client-side validation. Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2) to kubectl, it will also check for unknown fields and reject those objects long before they are sent to the API server.
+This example turned off client-side validation to demonstrate the API server's behavior, by adding the `--validate=false` command line option.
+Because the [OpenAPI validation schemas are also published](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2)
+to clients, `kubectl` also checks for unknown fields and rejects those objects well before they would be sent to the API server.
 
-### Controlling pruning
+#### Controlling pruning
 
-If pruning is enabled (enforced in `apiextensions.k8s.io/v1`, or as opt-in via `spec.preserveUnknownField: false` in `apiextensions.k8s.io/v1beta1`) in the CustomResourceDefinition, all unspecified fields in custom resources of that type and in all versions are pruned. It is possible though to opt-out of that for JSON sub-trees via `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema):
+By default, all unspecified fields for a custom resource, across all versions, are pruned. It is possible though to opt-out of that for specifc sub-trees fof fields by adding `x-kubernetes-preserve-unknown-fields: true` in the [structural OpenAPI v3 validation schema](#specifying-a-structural-schema).  
+For example:
 
 ```yaml
 type: object
@@ -442,7 +367,7 @@ properties:
 
 The field `json` can store any JSON value, without anything being pruned.
 
-It is possible to partially specify the permitted JSON, e.g.:
+You can also partially specify the permitted JSON; for example:
 
 ```yaml
 type: object
@@ -453,7 +378,7 @@ properties:
     description: this is arbitrary JSON
 ```
 
-With this only object type values are allowed.
+With this, only `object` type values are allowed.
 
 Pruning is enabled again for each specified property (or `additionalProperties`):
 
@@ -533,11 +458,14 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/extend-api-custom-resource-definitions/#publish-validation-schema-in-openapi-v2), `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
+In [Validation Schema Publishing](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#publish-validation-schema-in-openapi-v2),
+`x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
 
-RawExtensions (as in `runtime.RawExtension` defined in [k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94)) holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
+RawExtensions (as in `runtime.RawExtension` defined in
+[k8s.io/apimachinery](https://github.com/kubernetes/apimachinery/blob/03ac7a9ade429d715a1a46ceaa3724c18ebae54f/pkg/runtime/types.go#L94))
+holds complete Kubernetes objects, i.e. with `apiVersion` and `kind` fields.
 
 It is possible to specify those embedded objects (both completely without constraints or partially specified) by setting `x-kubernetes-embedded-resource: true`. For example:
 
@@ -568,8 +496,6 @@ With `x-kubernetes-embedded-resource: true`, the `apiVersion`, `kind` and `metad
 See [Custom resource definition versioning](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/)
 for more information about serving multiple versions of your
 CustomResourceDefinition and migrating your objects from one version to another.
-
-
 
 <!-- discussion -->
 ## Advanced topics
@@ -610,10 +536,8 @@ meaning all finalizers have been executed.
 
 ### Validation
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
-
-Validation of custom objects is possible via
-[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) or [validatingadmissionwebhook](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook). In `apiextensions.k8s.io/v1` schemas are required, in `apiextensions.k8s.io/v1beta1` they are optional.
+Custom resources are validated via
+[OpenAPI v3 schemas](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md#schemaObject) and you can add additional validation using [admission webhooks](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook).
 
 Additionally, the following restrictions are applied to the schema:
 
@@ -628,13 +552,13 @@ Additionally, the following restrictions are applied to the schema:
   - `writeOnly`,
   - `xml`,
   - `$ref`.
-- The field `uniqueItems` cannot be set to true.
-- The field `additionalProperties` cannot be set to false.
+- The field `uniqueItems` cannot be set to _true_.
+- The field `additionalProperties` cannot be set to _false_.
 - The field `additionalProperties` is mutually exclusive with `properties`.
 
 These fields can only be set with specific features enabled:
 
-- `default`: can be set for `apiextensions.k8s.io/v1` CustomResourceDefinitions. Defaulting is in GA since 1.17 (beta since 1.16 with the `CustomResourceDefaulting` feature gate to be enabled, which is the case automatically for many clusters for beta features). Compare [Validation Schema Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting).
+You can also use [Validation Schema Defaulting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting) to apply default values.
 
 {{< note >}}
 Compare with [structural schemas](#specifying-a-structural-schema) for further restriction required for certain CustomResourceDefinition features.
@@ -647,9 +571,6 @@ CustomResourceDefinition applies the following validations on the custom object:
 - `spec.replicas` must be an integer and must have a minimum value of 1 and a maximum value of 10.
 
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
-
-{{< tabs name="CustomResourceDefinition_validation" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -673,6 +594,8 @@ spec:
                 cronSpec:
                   type: string
                   pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
+                image:
+                  type: string
                 replicas:
                   type: integer
                   minimum: 1
@@ -686,56 +609,13 @@ spec:
     - ct
 ```
 
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-```yaml
-# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: crontabs.stable.example.com
-spec:
-  group: stable.example.com
-  versions:
-    - name: v1
-      served: true
-      storage: true
-  version: v1
-  scope: Namespaced
-  names:
-    plural: crontabs
-    singular: crontab
-    kind: CronTab
-    shortNames:
-    - ct
-  validation:
-   # openAPIV3Schema is the schema for validating custom objects.
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            cronSpec:
-              type: string
-              pattern: '^(\d+|\*)(/\d+)?(\s+(\d+|\*)(/\d+)?){4}$'
-            replicas:
-              type: integer
-              minimum: 1
-              maximum: 10
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-And create it:
+and create it:
 
 ```shell
 kubectl apply -f resourcedefinition.yaml
 ```
 
-A request to create a custom object of kind `CronTab` will be rejected if there are invalid values in its fields.
+A request to create a custom object of kind CronTab is rejected if there are invalid values in its fields.
 In the following example, the custom object contains fields with invalid values:
 
 - `spec.cronSpec` does not match the regular expression.
@@ -754,13 +634,13 @@ spec:
   replicas: 15
 ```
 
-and create it:
+and attempt to create it:
 
 ```shell
 kubectl apply -f my-crontab.yaml
 ```
 
-you will get an error:
+then you get an error:
 
 ```console
 The CronTab "my-new-cron-object" is invalid: []: Invalid value: map[string]interface {}{"apiVersion":"stable.example.com/v1", "kind":"CronTab", "metadata":map[string]interface {}{"name":"my-new-cron-object", "namespace":"default", "deletionTimestamp":interface {}(nil), "deletionGracePeriodSeconds":(*int64)(nil), "creationTimestamp":"2017-09-05T05:20:07Z", "uid":"e14d79e7-91f9-11e7-a598-f0761cb232d1", "clusterName":""}, "spec":map[string]interface {}{"cronSpec":"* * * *", "image":"my-awesome-cron-image", "replicas":15}}:
@@ -792,8 +672,6 @@ crontab "my-new-cron-object" created
 ```
 
 ### Defaulting
-
-{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 
 {{< note >}}
 To use defaulting, your CustomResourceDefinition must use API version `apiextensions.k8s.io/v1`.
@@ -878,19 +756,13 @@ Default values for `metadata` fields of `x-kubernetes-embedded-resources: true` 
 
 ### Publish Validation Schema in OpenAPI v2
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
+CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
 
-{{< note >}}
-OpenAPI v2 Publishing is available as beta since 1.15, and as alpha since 1.14. The
-`CustomResourcePublishOpenAPI` feature must be enabled, which is the case automatically for many clusters for beta features. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
-{{< /note >}}
-
-With the OpenAPI v2 Publishing feature enabled, CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are [structural](#specifying-a-structural-schema) and [enable pruning](#preserving-unknown-fields) (opt-in in v1beta1, enabled by default in v1) are published as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) from Kubernetes API server.
-
-[kubectl](/docs/reference/kubectl/overview) consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
+The [kubectl](/docs/reference/kubectl/overview) command-line tool consumes the published schema to perform client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`) on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 
 The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
 show up in `definitions` and `paths` fields in the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
+
 The following modifications are applied during the conversion to keep backwards compatibility with
 kubectl in previous 1.13 version. These modifications prevent kubectl from being over-strict and rejecting
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
@@ -902,15 +774,12 @@ and therefore won't affect [validation](#validation) in the API server.
 
 ### Additional printer columns
 
-Starting with Kubernetes 1.11, kubectl uses server-side printing. The server decides which
-columns are shown by the `kubectl get` command. You can customize these columns using a
+The kubectl tool relies on server-side output formatting. Your cluster's API server decides which
+columns are shown by the `kubectl get` command. You can customize these columns for a
 CustomResourceDefinition. The following example adds the `Spec`, `Replicas`, and `Age`
 columns.
 
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
-
-{{< tabs name="CustomResourceDefinition_printer_columns" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -956,55 +825,6 @@ spec:
       type: date
       jsonPath: .metadata.creationTimestamp
 ```
-
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-```yaml
-# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: crontabs.stable.example.com
-spec:
-  group: stable.example.com
-  version: v1
-  scope: Namespaced
-  names:
-    plural: crontabs
-    singular: crontab
-    kind: CronTab
-    shortNames:
-    - ct
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            cronSpec:
-              type: string
-            image:
-              type: string
-            replicas:
-              type: integer
-  additionalPrinterColumns:
-  - name: Spec
-    type: string
-    description: The cron spec defining the interval a CronJob is run
-    JSONPath: .spec.cronSpec
-  - name: Replicas
-    type: integer
-    description: The number of jobs launched by the CronJob
-    JSONPath: .spec.replicas
-  - name: Age
-    type: date
-    JSONPath: .metadata.creationTimestamp
-```
-
-{{% /tab %}}
-{{< /tabs >}}
 
 Create the CustomResourceDefinition:
 
@@ -1070,16 +890,7 @@ The column's `format` controls the style used when `kubectl` prints the value.
 
 ### Subresources
 
-{{< feature-state state="stable" for_k8s_version="v1.16" >}}
-
 Custom resources support `/status` and `/scale` subresources.
-
-You can disable this feature using the `CustomResourceSubresources` feature gate on
-the [kube-apiserver](/docs/admin/kube-apiserver):
-
-```
---feature-gates=CustomResourceSubresources=false
-```
 
 The status and scale subresources can be optionally enabled by
 defining them in the CustomResourceDefinition.
@@ -1150,9 +961,6 @@ In the following example, both status and scale subresources are enabled.
 
 Save the CustomResourceDefinition to `resourcedefinition.yaml`:
 
-{{< tabs name="CustomResourceDefinition_scale" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
-
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1205,65 +1013,6 @@ spec:
     - ct
 ```
 
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-```yaml
-# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: crontabs.stable.example.com
-spec:
-  group: stable.example.com
-  versions:
-    - name: v1
-      served: true
-      storage: true
-  scope: Namespaced
-  names:
-    plural: crontabs
-    singular: crontab
-    kind: CronTab
-    shortNames:
-    - ct
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            cronSpec:
-              type: string
-            image:
-              type: string
-            replicas:
-              type: integer
-        status:
-          type: object
-          properties:
-            replicas:
-              type: integer
-            labelSelector:
-              type: string
-  # subresources describes the subresources for custom resources.
-  subresources:
-    # status enables the status subresource.
-    status: {}
-    # scale enables the scale subresource.
-    scale:
-      # specReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Spec.Replicas.
-      specReplicasPath: .spec.replicas
-      # statusReplicasPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Replicas.
-      statusReplicasPath: .status.replicas
-      # labelSelectorPath defines the JSONPath inside of a custom resource that corresponds to Scale.Status.Selector.
-      labelSelectorPath: .status.labelSelector
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
 And create it:
 
 ```shell
@@ -1315,21 +1064,20 @@ kubectl get crontabs my-new-cron-object -o jsonpath='{.spec.replicas}'
 5
 ```
 
-You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to protect custom resources that have the scale subresource enabled.
+You can use a [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) to protect custom
+resources that have the scale subresource enabled.
 
 ### Categories
 
+{{< feature-state state="beta" for_k8s_version="v1.10" >}}
+
 Categories is a list of grouped resources the custom resource belongs to (eg. `all`).
 You can use `kubectl get <category-name>` to list the resources belonging to the category.
-This feature is __beta__ and available for custom resources from v1.10.
 
 The following example adds `all` in the list of categories in the CustomResourceDefinition
 and illustrates how to output the custom resource using `kubectl get all`.
 
 Save the following CustomResourceDefinition to `resourcedefinition.yaml`:
-
-{{< tabs name="CustomResourceDefinition_categories" >}}
-{{% tab name="apiextensions.k8s.io/v1" %}}
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -1367,50 +1115,7 @@ spec:
     - all
 ```
 
-{{% /tab %}}
-{{% tab name="apiextensions.k8s.io/v1beta1" %}}
-
-```yaml
-# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: crontabs.stable.example.com
-spec:
-  group: stable.example.com
-  versions:
-    - name: v1
-      served: true
-      storage: true
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            cronSpec:
-              type: string
-            image:
-              type: string
-            replicas:
-              type: integer
-  scope: Namespaced
-  names:
-    plural: crontabs
-    singular: crontab
-    kind: CronTab
-    shortNames:
-    - ct
-    # categories is a list of grouped resources the custom resource belongs to.
-    categories:
-    - all
-```
-
-{{% /tab %}}
-{{< /tabs >}}
-
-And create it:
+and create it:
 
 ```shell
 kubectl apply -f resourcedefinition.yaml
@@ -1453,9 +1158,9 @@ crontabs/my-new-cron-object   3s
 
 ## {{% heading "whatsnext" %}}
 
+* Read about [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 * See [CustomResourceDefinition](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1-apiextensions-k8s-io).
 
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
-

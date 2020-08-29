@@ -10,7 +10,7 @@ weight: 20
 
 ## {{% heading "prerequisites" %}}
 
-[기여 시작하기](/docs/contribute/start/)에 설명된 대로 쿠버네티스
+[PR 열기](/ko/docs/contribute/new-content/open-a-pr/)에 설명된 대로 쿠버네티스
 문서 저장소의 포크(fork)를 생성하자.
 
 

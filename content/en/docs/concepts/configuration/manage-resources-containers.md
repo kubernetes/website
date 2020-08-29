@@ -111,7 +111,7 @@ CPU is always requested as an absolute quantity, never as a relative quantity;
 ### Meaning of memory
 
 Limits and requests for `memory` are measured in bytes. You can express memory as
-a plain integer or as a fixed-point integer using one of these suffixes:
+a plain integer or as a fixed-point number using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
@@ -133,7 +133,7 @@ metadata:
 spec:
   containers:
   - name: app
-    image: super.mycompany.com/app:v4
+    image: images.my-company.example/app:v4
     env:
     resources:
       requests:
@@ -143,7 +143,7 @@ spec:
         memory: "128Mi"
         cpu: "500m"
   - name: log-aggregator
-    image: super.mycompany.com/log-aggregator:v6
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         memory: "64Mi"
@@ -311,7 +311,7 @@ You can use _ephemeral-storage_ for managing local ephemeral storage. Each Conta
 * `spec.containers[].resources.requests.ephemeral-storage`
 
 Limits and requests for `ephemeral-storage` are measured in bytes. You can express storage as
-a plain integer or as a fixed-point integer using one of these suffixes:
+a plain integer or as a fixed-point number using one of these suffixes:
 E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following represent roughly the same value:
 
@@ -329,14 +329,14 @@ metadata:
 spec:
   containers:
   - name: app
-    image: super.mycompany.com/app:v4
+    image: images.my-company.example/app:v4
     resources:
       requests:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
   - name: log-aggregator
-    image: super.mycompany.com/log-aggregator:v6
+    image: images.my-company.example/log-aggregator:v6
     resources:
       requests:
         ephemeral-storage: "2Gi"
@@ -752,4 +752,4 @@ You can see that the Container was terminated because of `reason:OOM Killed`, wh
 
 * Read the [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) API reference
 
-* Read about [project quotas](http://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+* Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS

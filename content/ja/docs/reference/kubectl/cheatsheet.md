@@ -323,7 +323,7 @@ kubectl cluster-info                                                  # Kubernet
 kubectl cluster-info dump                                             # 現在のクラスター状態を標準出力にダンプします
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 現在のクラスター状態を/path/to/cluster-stateにダンプします
 
-# special-userキーとNoScheduleエフェクトを持つTaintが既に存在する場合、その値は指定されたとおりに置き換えられます
+# special-userキーとNoScheduleエフェクトを持つTaintがすでに存在する場合、その値は指定されたとおりに置き換えられます
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 

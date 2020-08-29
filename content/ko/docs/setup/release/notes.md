@@ -62,11 +62,9 @@ card:
 
 ## v1.17.0 이후 체인지로그
 
-릴리스 노트의 전체 체인지로그는 이제 [https://relnotes.k8s.io][1]에서 사용자 정의 가능한
+릴리스 노트의 전체 체인지로그는 이제 [https://relnotes.k8s.io](https://relnotes.k8s.io/?releaseVersions=1.18.0)에서 사용자 정의 가능한
 형식으로 호스팅된다. 확인하고 의견을 보내주기
 바란다!
-
-[1]: https://relnotes.k8s.io/?releaseVersions=1.18.0
 
 ## 새로운 소식 (주요 테마)
 

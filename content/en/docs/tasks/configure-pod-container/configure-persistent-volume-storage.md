@@ -29,12 +29,10 @@ PersistentVolume.
 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
 command-line tool must be configured to communicate with your cluster. If you
 do not already have a single-node cluster, you can create one by using
-[Minikube](/docs/getting-started-guides/minikube).
+[Minikube](/docs/setup/learning-environment/minikube/).
 
 * Familiarize yourself with the material in
 [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
-
-
 
 <!-- steps -->
 
@@ -262,8 +260,8 @@ metadata:
 ```
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
-Pod’s security context are. Every GID, whether it originates from a PersistentVolume
-annotation or the Pod’s specification, is applied to the first process run in
+Pod's security context are. Every GID, whether it originates from a PersistentVolume
+annotation or the Pod's specification, is applied to the first process run in
 each container.
 
 {{< note >}}

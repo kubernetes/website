@@ -18,9 +18,6 @@ on top of the container requests & limits.
 在节点上运行 Pod 时，Pod 本身占用大量系统资源。这些资源是运行 Pod 内容器所需资源的附加资源。
 _POD 开销_ 是一个特性，用于计算 Pod 基础设施在容器请求和限制之上消耗的资源。
 
-
-
-
 <!-- body -->
 
 <!--
@@ -36,8 +33,8 @@ time according to the overhead associated with the Pod's
 [RuntimeClass](/docs/concepts/containers/runtime-class/).
 -->
 
-在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/docs/concepts/containers/runtime-class/) 相关联的开销在
-[准入](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 时设置的。
+在 Kubernetes 中，Pod 的开销是根据与 Pod 的 [RuntimeClass](/zh/docs/concepts/containers/runtime-class/) 相关联的开销在
+[准入](/zh/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks) 时设置的。
 
 <!--
 When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
@@ -56,7 +53,8 @@ You need to make sure that the `PodOverhead`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (it is on by default as of 1.18)
 across your cluster, and a `RuntimeClass` is utilized which defines the `overhead` field.
 -->
-您需要确保在集群中启用了 `PodOverhead` [特性门](/docs/reference/command-line-tools-reference/feature-gates/)（在 1.18 默认是开启的），以及一个用于定义 `overhead` 字段的 `RuntimeClass`。
+您需要确保在集群中启用了 `PodOverhead` [特性门控](/zh/docs/reference/command-line-tools-reference/feature-gates/)
+（在 1.18 默认是开启的），以及一个用于定义 `overhead` 字段的 `RuntimeClass`。
 
 <!-- 
 ## Usage example
@@ -68,7 +66,9 @@ To use the PodOverhead feature, you need a RuntimeClass that defines the `overhe
 an example, you could use the following RuntimeClass definition with a virtualizing container runtime
 that uses around 120MiB per Pod for the virtual machine and the guest OS:
 -->
-要使用 PodOverhead 特性，需要一个定义 `overhead` 字段的 RuntimeClass. 作为例子，可以在虚拟机和来宾操作系统中通过一个虚拟化容器运行时来定义 RuntimeClass 如下，其中每个 Pod 大约使用 120MiB:
+要使用 PodOverhead 特性，需要一个定义 `overhead` 字段的 RuntimeClass。
+作为例子，可以在虚拟机和寄宿操作系统中通过一个虚拟化容器运行时来定义
+RuntimeClass 如下，其中每个 Pod 大约使用 120MiB:
 
 ```yaml
 ---
@@ -123,8 +123,9 @@ updates the workload's PodSpec to include the `overhead` as described in the Run
 the Pod will be rejected. In the given example, since only the RuntimeClass name is specified, the admission controller mutates the Pod
 to include an `overhead`.
 -->
-在准入阶段 RuntimeClass [准入控制器](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) 更新工作负载的 PodSpec 以包含
- RuntimeClass 中定义的 `overhead`. 如果 PodSpec 中该字段已定义，该 Pod 将会被拒绝。在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod, 包含了一个 `overhead`.
+在准入阶段 RuntimeClass [准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers/) 更新工作负载的 PodSpec 以包含
+ RuntimeClass 中定义的 `overhead`. 如果 PodSpec 中该字段已定义，该 Pod 将会被拒绝。
+在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod, 包含了一个 `overhead`.
 
 <!-- 
 After the RuntimeClass admission controller, you can check the updated PodSpec:
@@ -298,12 +299,8 @@ from source in the meantime.
 在 [kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) 中可以通过 `kube_pod_overhead` 指标来协助确定何时使用 PodOverhead 以及协助观察以一个既定开销运行的工作负载的稳定性。
 该特性在 kube-state-metrics 的 1.9 发行版本中不可用，不过预计将在后续版本中发布。在此之前，用户需要从源代码构建 kube-state-metrics. 
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
-* [RuntimeClass](/docs/concepts/containers/runtime-class/)
+* [RuntimeClass](/zh/docs/concepts/containers/runtime-class/)
 * [PodOverhead 设计](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
-
 

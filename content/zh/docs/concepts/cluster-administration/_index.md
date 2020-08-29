@@ -1,5 +1,5 @@
 ---
-title: "集群管理"
+title: 集群管理
 weight: 100
 content_type: concept
 description: >
@@ -58,15 +58,15 @@ Before choosing a guide, here are some considerations:
 - Do you **just want to run a cluster**, or do you expect to do **active development of Kubernetes project code**? If the
   latter, choose an actively-developed distro. Some distros only use binary releases, but
   offer a greater variety of choices.
-- Familiarize yourself with the [components](/docs/admin/cluster-components/) needed to run a cluster.
+- Familiarize yourself with the [components](/docs/concepts/overview/components/) needed to run a cluster.
 -->
 - 你是打算在你的计算机上尝试 Kubernetes，还是要构建一个高可用的多节点集群？请选择最适合你需求的发行版。
 - 您正在使用类似 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) 这样的**被托管的 Kubernetes 集群**, 还是**管理您自己的集群**？
-- 你的集群是在**本地**还是**云（IaaS）**上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
+- 你的集群是在**本地**还是**云（IaaS）** 上？Kubernetes 不能直接支持混合集群。作为代替，你可以建立多个集群。
 - **如果你在本地配置 Kubernetes**，需要考虑哪种[网络模型](/zh/docs/concepts/cluster-administration/networking/)最适合。
-- 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）**上运行？
+- 你的 Kubernetes 在**裸金属硬件**上还是**虚拟机（VMs）** 上运行？
 - 你**只想运行一个集群**，还是打算**参与开发 Kubernetes 项目代码**？如果是后者，请选择一个处于开发状态的发行版。某些发行版只提供二进制发布版，但提供更多的选择。
-- 让你自己熟悉运行一个集群所需的[组件](/zh/docs/admin/cluster-components)。
+- 让你自己熟悉运行一个集群所需的[组件](/zh/docs/concepts/overview/components/)。
 
 <!--
 ## Managing a cluster
@@ -82,7 +82,7 @@ Before choosing a guide, here are some considerations:
 * [管理集群](/zh/docs/tasks/administer-cluster/cluster-management/)叙述了和集群生命周期相关的几个主题：
 创建新集群、升级集群的控制节点和工作节点、执行节点维护（例如内核升级）以及升级运行中的集群的 Kubernetes API 版本。
 
-* 学习如何[管理节点](/zh/docs/concepts/nodes/node/)。
+* 学习如何[管理节点](/zh/docs/concepts/architecture/nodes/)。
 
 * 学习如何设定和管理集群共享的[资源配额](/zh/docs/concepts/policy/resource-quotas/) 。
 
@@ -101,12 +101,12 @@ Before choosing a guide, here are some considerations:
 ## 保护集群
 
 * [证书](/zh/docs/concepts/cluster-administration/certificates/)节描述了使用不同的工具链生成证书的步骤。
-* [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment-variables/)描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
+* [Kubernetes 容器环境](/zh/docs/concepts/containers/container-environment/)描述了 Kubernetes 节点上由 Kubelet 管理的容器的环境。
 * [控制到 Kubernetes API 的访问](/zh/docs/reference/access-authn-authz/controlling-access/)描述了如何为用户和 service accounts 建立权限许可。
-* [认证](/zh/docs/reference/access-authn-authz/authentication/)节阐述了 Kubernetes 中的身份认证功能，包括许多认证选项。
-* [鉴权](/zh/docs/admin/authorization/)从认证中分离出来，用于控制如何处理 HTTP 请求。
+* [认证](/docs/reference/access-authn-authz/authentication/)节阐述了 Kubernetes 中的身份认证功能，包括许多认证选项。
+* [鉴权](/zh/docs/reference/access-authn-authz/authorization/)从认证中分离出来，用于控制如何处理 HTTP 请求。
 * [使用准入控制器](/zh/docs/reference/access-authn-authz/admission-controllers) 阐述了在认证和授权之后拦截到 Kubernetes API 服务的请求的插件。
-* [在 Kubernetes 集群中使用 Sysctls](/zh/docs/concepts/cluster-administration/sysctl-cluster/) 描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
+* [在 Kubernetes 集群中使用 Sysctls](/zh/docs/tasks/administer-cluster/sysctl-cluster/) 描述了管理员如何使用 `sysctl` 命令行工具来设置内核参数。
 * [审计](/zh/docs/tasks/debug-application-cluster/audit/)描述了如何与 Kubernetes 的审计日志交互。
 
 <!--
@@ -118,9 +118,9 @@ Before choosing a guide, here are some considerations:
 -->
 ### 保护 kubelet
 
-* [主控节点通信](/zh/docs/concepts/cluster-administration/master-node-communication/)
+* [主控节点通信](/zh/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS 引导](/zh/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/)
-* [Kubelet 认证/授权](/zh/docs/admin/kubelet-authentication-authorization/)
+* [Kubelet 认证/授权](/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/)
 
 <!--
 ## Optional Cluster Services

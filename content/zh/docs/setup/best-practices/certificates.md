@@ -55,7 +55,7 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * API 服务器的客户端证书，用于和 etcd 的会话
 * 控制器管理器的客户端证书/kubeconfig，用于和 API server 的会话
 * 调度器的客户端证书/kubeconfig，用于和 API server 的会话
-* [前端代理][proxy] 的客户端及服务端证书
+* [前端代理](/zh/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
 
 {{< note >}}
 <!--
@@ -280,6 +280,3 @@ These files are used as follows:
 
 [usage]: https://godoc.org/k8s.io/api/certificates/v1beta1#KeyUsage
 [kubeadm]: /docs/reference/setup-tools/kubeadm/kubeadm/
-[proxy]: /docs/tasks/access-kubernetes-api/configure-aggregation-layer/
-
-

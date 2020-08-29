@@ -23,7 +23,7 @@ weight: 60
 ## {{% heading "objectives" %}}
 
 
-* 2つのHellow Worldアプリケーションを稼働させる。
+* 2つのHello Worldアプリケーションを稼働させる。
 * Nodeのポートを公開するServiceオブジェクトを作成する。
 * 稼働しているアプリケーションにアクセスするためにServiceオブジェクトを使用する。
 

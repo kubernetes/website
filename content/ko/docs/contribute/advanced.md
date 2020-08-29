@@ -19,7 +19,8 @@ weight: 98
 
 ## 개선 제안
 
-SIG Docs [멤버](/ko/docs/contribute/participating/#멤버)는 개선을 제안할 수 있다.
+SIG Docs [멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버)는
+개선을 제안할 수 있다.
 
 한 동안 쿠버네티스 문서에 기여한 후에,
 [스타일 가이드](/docs/contribute/style/style-guide/),
@@ -42,12 +43,12 @@ website 스타일, 풀 리퀘스트 리뷰와 병합
 
 ## 쿠버네티스 릴리스를 위한 문서 조정
 
-SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 쿠버네티스
-릴리스에 대한 문서를 조정할 수 있다.
+SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+쿠버네티스 릴리스에 대한 문서를 조정할 수 있다.
 
 각 쿠버네티스 릴리스는 sig-release SIG(Special Interest Group)에 참여하는
 사람들의 팀에 의해 조정된다. 특정 릴리스에 대한 릴리스 팀의 다른 구성원에는
-전체 릴리스 리드와 sig-pm, sig-testing 및 기타 담당자가
+전체 릴리스 리드와 sig-testing 및 기타 담당자가
 포함된다. 쿠버네티스 릴리스 프로세스에 대한 자세한 내용은
 [https://github.com/kubernetes/sig-release](https://github.com/kubernetes/sig-release)를
 참고한다.
@@ -73,8 +74,8 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 쿠버네�
 
 ## 새로운 기여자 홍보대사로 봉사
 
-SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 새로운 기여자
-홍보대사로 활동할 수 있다.
+SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+새로운 기여자 홍보대사로 활동할 수 있다.
 
 새로운 기여자 홍보대사는 SIG-Docs에 기여한 새 기여자를 환영하고,
 새 기여자에게 PR을 제안하고, 첫 몇 번의 PR 제출을 통해
@@ -92,12 +93,12 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 새로운 
 
 ## 새로운 기여자 후원
 
-SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)는 새로운 기여자를
-후원할 수 있다.
+SIG Docs [리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/#리뷰어)는
+새로운 기여자를 후원할 수 있다.
 
 새로운 기여자가 하나 이상의 쿠버네티스 리포지터리에 5개의
 실질적인 풀 리퀘스트를 성공적으로 제출한 후에는
-쿠버네티스 조직의 [멤버십](/ko/docs/contribute/participating#멤버)을
+쿠버네티스 조직의 [멤버십](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버)을
 신청할 수 있다. 기여자의 멤버십은 이미 리뷰어인 두 명의 스폰서가
 후원해야 한다.
 
@@ -111,7 +112,8 @@ SIG Docs [리뷰어](/ko/docs/contribute/participating/#리뷰어)는 새로운 
 
 ## SIG 공동 의장으로 봉사
 
-SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 SIG Docs의 공동 의장 역할을 할 수 있다.
+SIG Docs [승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)는
+SIG Docs의 공동 의장 역할을 할 수 있다.
 
 ### 전제 조건
 
@@ -120,7 +122,12 @@ SIG Docs [승인자](/ko/docs/contribute/participating/#승인자)는 SIG Docs�
 - 6개월 이상 SIG Docs 승인자로 활동한다.
 - [쿠버네티스 문서 릴리스 주도](/ko/docs/contribute/advanced/#쿠버네티스-릴리스를-위한-문서-조정) 또는 두 개의 릴리스에서 섀도잉을 수행한다.
 - SIG Docs 워크플로와 툴링을 이해한다(git, Hugo, 현지화, 블로그 하위 프로젝트).
-- [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), [k/community의 프로세스](https://github.com/kubernetes/community/tree/master/sig-docs), [k/test-infra](https://github.com/kubernetes/test-infra/)의 플러그인 및 [SIG 아키텍처](https://github.com/kubernetes/community/tree/master/sig-architecture)의 역할을 포함하여 다른 쿠버네티스 SIG와 리포지터리가 SIG Docs 워크플로에 미치는 영향을 이해한다.
+- [k/org의 팀](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml),
+  [k/community의 프로세스](https://github.com/kubernetes/community/tree/master/sig-docs),
+  [k/test-infra](https://github.com/kubernetes/test-infra/)의 플러그인 및
+  [SIG 아키텍처](https://github.com/kubernetes/community/tree/master/sig-architecture)의
+  역할을 포함하여 다른 쿠버네티스 SIG와 리포지터리가 SIG Docs 워크플로에 미치는
+  영향을 이해한다.
 - 최소 6개월 동안 일주일에 5시간 이상(대부분 더)을 역할에 책임진다.
 
 ### 책임

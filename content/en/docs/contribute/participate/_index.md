@@ -105,7 +105,7 @@ SIG Docs approvers. Here's how it works.
 - Any Kubernetes member can add the `lgtm` label by adding a `/lgtm` comment.
 - Only SIG Docs approvers can merge a pull request
   by adding an `/approve` comment. Some approvers also perform additional
-  specific roles, such as [PR Wrangler](/docs/contribute/advanced#be-the-pr-wrangler-for-a-week) or
+  specific roles, such as [PR Wrangler](/docs/contribute/participate/pr-wranglers/) or
   [SIG Docs chairperson](#sig-docs-chairperson).
 
 

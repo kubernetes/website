@@ -18,10 +18,7 @@ Container starts with a clean state.  Second, when running Containers together
 in a `Pod` it is often necessary to share files between those Containers.  The
 Kubernetes `Volume` abstraction solves both of these problems.
 
-Familiarity with [Pods](/docs/user-guide/pods) is suggested.
-
-
-
+Familiarity with [Pods](/docs/concepts/workloads/pods/pod/) is suggested.
 
 <!-- body -->
 
@@ -100,7 +97,7 @@ We welcome additional contributions.
 ### awsElasticBlockStore {#awselasticblockstore}
 
 An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS) [EBS
-Volume](http://aws.amazon.com/ebs/) into your Pod.  Unlike
+Volume](https://aws.amazon.com/ebs/) into your Pod.  Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of an EBS
 volume are preserved and the volume is merely unmounted.  This means that an
 EBS volume can be pre-populated with data, and that data can be "handed off"
@@ -173,14 +170,14 @@ More details can be found [here](https://github.com/kubernetes/examples/tree/{{<
 
 #### CSI Migration
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
 The CSI Migration feature for azureDisk, when enabled, shims all plugin operations
 from the existing in-tree plugin to the `disk.csi.azure.com` Container
 Storage Interface (CSI) Driver. In order to use this feature, the [Azure Disk CSI
 Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
 must be installed on the cluster and the `CSIMigration` and `CSIMigrationAzureDisk`
-Alpha features must be enabled.
+features must be enabled.
 
 ### azureFile {#azurefile}
 
@@ -401,8 +398,8 @@ See the [Flocker example](https://github.com/kubernetes/examples/tree/{{< param 
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
-A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE) [Persistent
-Disk](http://cloud.google.com/compute/docs/disks) into your Pod.  Unlike
+A `gcePersistentDisk` volume mounts a Google Compute Engine (GCE)
+[Persistent Disk](https://cloud.google.com/compute/docs/disks) into your Pod.  Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of a PD are
 preserved and the volume is merely unmounted.  This means that a PD can be
 pre-populated with data, and that data can be "handed off" between Pods.
@@ -537,7 +534,7 @@ spec:
 
 ### glusterfs {#glusterfs}
 
-A `glusterfs` volume allows a [Glusterfs](http://www.gluster.org) (an open
+A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
 source networked filesystem) volume to be mounted into your Pod.  Unlike
 `emptyDir`, which is erased when a Pod is removed, the contents of a
 `glusterfs` volume are preserved and the volume is merely unmounted.  This
@@ -589,7 +586,7 @@ Watch out when using this type of volume, because:
   able to account for resources used by a `hostPath`
 * the files or directories created on the underlying hosts are only writable by root. You
   either need to run your process as root in a
-  [privileged Container](/docs/user-guide/security-context) or modify the file
+  [privileged Container](/docs/tasks/configure-pod-container/security-context/) or modify the file
   permissions on the host to be able to write to a `hostPath` volume
 
 #### Example Pod
@@ -952,7 +949,7 @@ More details and examples can be found [here](https://github.com/kubernetes/exam
 
 ### quobyte {#quobyte}
 
-A `quobyte` volume allows an existing [Quobyte](http://www.quobyte.com) volume to
+A `quobyte` volume allows an existing [Quobyte](https://www.quobyte.com) volume to
 be mounted into your Pod.
 
 {{< caution >}}
@@ -966,8 +963,8 @@ GitHub project has [instructions](https://github.com/quobyte/quobyte-csi#quobyte
 
 ### rbd {#rbd}
 
-An `rbd` volume allows a [Rados Block
-Device](http://ceph.com/docs/master/rbd/rbd/) volume to be mounted into your
+An `rbd` volume allows a
+[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/) volume to be mounted into your
 Pod.  Unlike `emptyDir`, which is erased when a Pod is removed, the contents of
 a `rbd` volume are preserved and the volume is merely unmounted.  This
 means that a RBD volume can be pre-populated with data, and that data can
@@ -1044,7 +1041,7 @@ A Container using a Secret as a [subPath](#using-subpath) volume mount will not
 receive Secret updates.
 {{< /note >}}
 
-Secrets are described in more detail [here](/docs/user-guide/secrets).
+Secrets are described in more detail [here](/docs/concepts/configuration/secret/).
 
 ### storageOS {#storageos}
 
@@ -1160,6 +1157,37 @@ spec:
 
 More examples can be found [here](https://github.com/kubernetes/examples/tree/master/staging/volumes/vsphere).
 
+#### CSI migration
+
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+The CSI Migration feature for vsphereVolume, when enabled, shims all plugin operations
+from the existing in-tree plugin to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver. In order to use this feature, the [vSphere CSI
+Driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+must be installed on the cluster and the `CSIMigration` and `CSIMigrationvSphere`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+
+This also requires minimum vSphere vCenter/ESXi Version to be 7.0u1 and minimum HW Version to be VM version 15.
+
+{{< note >}}
+The following StorageClass parameters from the built-in vsphereVolume plugin are not supported by the vSphere CSI driver:
+
+* `diskformat`
+* `hostfailurestotolerate`
+* `forceprovisioning`
+* `cachereservation`
+* `diskstripes`
+* `objectspacereservation`
+* `iopslimit`
+
+Existing volumes created using these parameters will be migrated to the vSphere CSI driver, but new volumes created by the vSphere CSI driver will not be honoring these parameters.
+{{< /note >}}
+
+#### CSI Migration Complete
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+
+To turn off the vsphereVolume plugin from being loaded by controller manager and kubelet, you need to set this feature flag to true. This requires `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver being installed on all worker nodes.
+
 
 ## Using subPath
 
@@ -1203,7 +1231,6 @@ spec:
 
 
 Use the `subPathExpr` field to construct `subPath` directory names from Downward API environment variables.
-This feature requires the `VolumeSubpathEnvExpansion` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled. It is enabled by default starting with Kubernetes 1.15.
 The `subPath` and `subPathExpr` properties are mutually exclusive.
 
 In this example, a Pod uses `subPathExpr` to create a directory `pod1` within the hostPath volume `/var/log/pods`, using the pod name from the Downward API.  The host directory `/var/log/pods/pod1` is mounted at `/logs` in the container.
@@ -1244,11 +1271,12 @@ medium of the filesystem holding the kubelet root dir (typically
 Pods.
 
 In the future, we expect that `emptyDir` and `hostPath` volumes will be able to
-request a certain amount of space using a [resource](/docs/user-guide/compute-resources)
+request a certain amount of space using a [resource](/docs/concepts/configuration/manage-resources-containers/)
 specification, and to select the type of media to use, for clusters that have
 several media types.
 
 ## Out-of-Tree Volume Plugins
+
 The Out-of-tree volume plugins include the Container Storage Interface (CSI)
 and FlexVolume. They enable storage vendors to create custom storage plugins
 without adding them to the Kubernetes repository.
@@ -1292,8 +1320,11 @@ Once a CSI compatible volume driver is deployed on a Kubernetes cluster, users
 may use the `csi` volume type to attach, mount, etc. the volumes exposed by the
 CSI driver.
 
-The `csi` volume type does not support direct reference from Pod and may only be
-referenced in a Pod via a `PersistentVolumeClaim` object.
+A `csi` volume can be used in a pod in three different ways:
+- through a reference to a [`persistentVolumeClaim`](#persistentvolumeclaim)
+- with a [generic ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume) (alpha feature)
+- with a [CSI ephemeral volume](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) if the driver
+  supports that (beta feature)
 
 The following fields are available to storage administrators to configure a CSI
 persistent volume:
@@ -1356,37 +1387,14 @@ as usual, without any CSI specific changes.
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-This feature allows CSI volumes to be directly embedded in the Pod specification instead of a PersistentVolume. Volumes specified in this way are ephemeral and do not persist across Pod restarts.
+You can directly configure CSI volumes within the Pod
+specification. Volumes specified in this way are ephemeral and do not
+persist across Pod restarts. See [Ephemeral
+Volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume)
+for more information.
 
-Example:
+#### {{% heading "whatsnext" %}}
 
-```yaml
-kind: Pod
-apiVersion: v1
-metadata:
-  name: my-csi-app
-spec:
-  containers:
-    - name: my-frontend
-      image: busybox
-      volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-inline-vol
-      command: [ "sleep", "1000000" ]
-  volumes:
-    - name: my-csi-inline-vol
-      csi:
-        driver: inline.storage.kubernetes.io
-        volumeAttributes:
-          foo: bar
-```
-
-This feature requires CSIInlineVolume feature gate to be enabled. It
-is enabled by default starting with Kubernetes 1.16.
-
-CSI ephemeral volumes are only supported by a subset of CSI drivers. Please see the list of CSI drivers [here](https://kubernetes-csi.github.io/docs/drivers.html).
-
-# Developer resources
 For more information on how to develop a CSI driver, refer to the [kubernetes-csi
 documentation](https://kubernetes-csi.github.io/docs/)
 
