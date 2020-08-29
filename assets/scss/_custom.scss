@@ -20,6 +20,15 @@ $announcement-size-adjustment: 8px;
       padding-top: 2rem !important;
     }
   }
+
+  .ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .ui-widget-content a {
+    color: $blue;
+  }
 }
 
 section {
