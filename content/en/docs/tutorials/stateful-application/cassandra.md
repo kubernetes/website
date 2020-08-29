@@ -7,9 +7,13 @@ weight: 30
 ---
 
 <!-- overview -->
-This tutorial shows you how to run [Apache Cassandra](http://cassandra.apache.org/) on Kubernetes. Cassandra, a database, needs persistent storage to provide data durability (application _state_). In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
+This tutorial shows you how to run [Apache Cassandra](https://cassandra.apache.org/) on Kubernetes.
+Cassandra, a database, needs persistent storage to provide data durability (application _state_).
+In this example, a custom Cassandra seed provider lets the database discover new Cassandra instances as they join the Cassandra cluster.
 
-*StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster. For more information on the features used in this tutorial, see [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+*StatefulSets* make it easier to deploy stateful applications into your Kubernetes cluster.
+For more information on the features used in this tutorial, see
+[StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 
 {{< note >}}
 Cassandra and Kubernetes both use the term _node_ to mean a member of a cluster. In this
@@ -38,12 +42,17 @@ new Cassandra Pods as they appear inside your Kubernetes cluster.
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-To complete this tutorial, you should already have a basic familiarity with {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip text="Services" term_id="service" >}}, and {{< glossary_tooltip text="StatefulSets" term_id="StatefulSet" >}}.
+To complete this tutorial, you should already have a basic familiarity with
+{{< glossary_tooltip text="Pods" term_id="pod" >}},
+{{< glossary_tooltip text="Services" term_id="service" >}}, and
+{{< glossary_tooltip text="StatefulSets" term_id="StatefulSet" >}}.
 
 ### Additional Minikube setup instructions
 
 {{< caution >}}
-[Minikube](/docs/getting-started-guides/minikube/) defaults to 1024MiB of memory and 1 CPU. Running Minikube with the default resource configuration results in insufficient resource errors during this tutorial. To avoid these errors, start Minikube with the following settings:
+[Minikube](/docs/setup/learning-environment/minikube/) defaults to 1024MiB of memory and 1 CPU.
+Running Minikube with the default resource configuration results in insufficient resource
+errors during this tutorial. To avoid these errors, start Minikube with the following settings:
 
 ```shell
 minikube start --memory 5120 --cpus=4
@@ -51,11 +60,11 @@ minikube start --memory 5120 --cpus=4
 {{< /caution >}}
 
 
-
 <!-- lessoncontent -->
 ## Creating a headless Service for Cassandra {#creating-a-cassandra-headless-service}
 
-In Kubernetes, a {{< glossary_tooltip text="Service" term_id="service" >}} describes a set of {{< glossary_tooltip text="Pods" term_id="pod" >}} that perform the same task.
+In Kubernetes, a {{< glossary_tooltip text="Service" term_id="service" >}} describes a set of
+{{< glossary_tooltip text="Pods" term_id="pod" >}} that perform the same task.
 
 The following Service is used for DNS lookups between Cassandra Pods and clients within your cluster:
 
@@ -83,14 +92,17 @@ NAME        TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
-If you don't see a Service named `cassandra`, that means creation failed. Read [Debug Services](/docs/tasks/debug-application-cluster/debug-service/) for help troubleshooting common issues.
+If you don't see a Service named `cassandra`, that means creation failed. Read
+[Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
+for help troubleshooting common issues.
 
 ## Using a StatefulSet to create a Cassandra ring
 
 The StatefulSet manifest, included below, creates a Cassandra ring that consists of three Pods.
 
 {{< note >}}
-This example uses the default provisioner for Minikube. Please update the following StatefulSet for the cloud you are working with.
+This example uses the default provisioner for Minikube.
+Please update the following StatefulSet for the cloud you are working with.
 {{< /note >}}
 
 {{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
@@ -182,7 +194,8 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
     kubectl edit statefulset cassandra
     ```
 
-    This command opens an editor in your terminal. The line you need to change is the `replicas` field. The following sample is an excerpt of the StatefulSet file:
+    This command opens an editor in your terminal. The line you need to change is the `replicas` field.
+    The following sample is an excerpt of the StatefulSet file:
 
     ```yaml
     # Please edit the object below. Lines beginning with a '#' will be ignored,
@@ -225,10 +238,12 @@ Use `kubectl edit` to modify the size of a Cassandra StatefulSet.
 
 ## {{% heading "cleanup" %}}
 
-Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet. This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
+Deleting or scaling a StatefulSet down does not delete the volumes associated with the StatefulSet.
+This setting is for your safety because your data is more valuable than automatically purging all related StatefulSet resources.
 
 {{< warning >}}
-Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes to also be deleted. Never assume you’ll be able to access data if its volume claims are deleted.
+Depending on the storage class and reclaim policy, deleting the *PersistentVolumeClaims* may cause the associated volumes
+to also be deleted. Never assume you'll be able to access data if its volume claims are deleted.
 {{< /warning >}}
 
 1. Run the following commands (chained together into a single command) to delete everything in the Cassandra StatefulSet:

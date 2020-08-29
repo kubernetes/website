@@ -47,7 +47,7 @@ kubectl exec -it shell-demo -- /bin/bash
 ```
 {{< note >}}
 
-ダブルダッシュの記号 "--" はコマンドに渡す引数とkubectlの引数を分離します。
+ダブルダッシュの記号 `--` はコマンドに渡す引数とkubectlの引数を分離します。
 
 {{< /note >}}
 

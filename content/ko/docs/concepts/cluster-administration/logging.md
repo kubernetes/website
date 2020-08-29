@@ -10,9 +10,6 @@ weight: 60
 
 그러나, 일반적으로 컨테이너 엔진이나 런타임에서 제공하는 기본 기능은 완전한 로깅 솔루션으로 충분하지 않다. 예를 들어, 컨테이너가 크래시되거나, 파드가 축출되거나, 노드가 종료된 경우에도 여전히 애플리케이션의 로그에 접근하려고 한다. 따라서, 로그는 노드, 파드 또는 컨테이너와는 독립적으로 별도의 스토리지와 라이프사이클을 가져야 한다. 이 개념을 _클러스터-레벨-로깅_ 이라고 한다. 클러스터-레벨 로깅은 로그를 저장하고, 분석하고, 쿼리하기 위해 별도의 백엔드가 필요하다. 쿠버네티스는 로그 데이터를 위한 네이티브 스토리지 솔루션을 제공하지 않지만, 기존의 많은 로깅 솔루션을 쿠버네티스 클러스터에 통합할 수 있다.
 
-
-
-
 <!-- body -->
 
 클러스터-레벨 로깅 아키텍처는 로깅 백엔드가
@@ -78,7 +75,8 @@ kubectl logs counter
 전자의 접근 방식은 다른 환경에서 사용된다. 두 경우 모두,
 기본적으로 로그 파일이 10MB를 초과하면 로테이션이 되도록 구성된다.
 
-예를 들어, `kube-up.sh` 가 해당 [스크립트][cosConfigureHelper]에서
+예를 들어, `kube-up.sh` 가 해당
+[스크립트](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh)에서
 GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를 찾을 수 있다.
 
 기본 로깅 예제에서와 같이 [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs)를
@@ -93,8 +91,6 @@ GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를
 그 후 `kubectl logs` 는 빈 응답을 반환한다.
 {{< /note >}}
 
-[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
-
 ### 시스템 컴포넌트 로그
 
 시스템 컴포넌트에는 컨테이너에서 실행되는 것과 컨테이너에서 실행되지 않는 두 가지 유형이 있다.
@@ -106,7 +102,7 @@ GCP의 COS 이미지 로깅을 설정하는 방법에 대한 자세한 정보를
 systemd를 사용하는 시스템에서, kubelet과 컨테이너 런타임은 journald에 작성한다.
 systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 작성한다.
 컨테이너 내부의 시스템 컴포넌트는 기본 로깅 메커니즘을 무시하고,
-항상 `/var/log` 디렉터리에 기록한다. 그것은 [klog][klog]
+항상 `/var/log` 디렉터리에 기록한다. 그것은 [klog](https://github.com/kubernetes/klog)
 로깅 라이브러리를 사용한다. [로깅에 대한 개발 문서](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)에서
 해당 컴포넌트의 로깅 심각도(severity)에 대한 규칙을 찾을 수 있다.
 
@@ -114,8 +110,6 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 로테이트해야 한다. `kube-up.sh` 스크립트로 구축한 쿠버네티스 클러스터에서
 로그는 매일 또는 크기가 100MB를 초과하면
 `logrotate` 도구에 의해 로테이트가 되도록 구성된다.
-
-[klog]: https://github.com/kubernetes/klog
 
 ## 클러스터 레벨 로깅 아키텍처
 
@@ -135,7 +129,7 @@ systemd를 사용하지 않으면, `/var/log` 디렉터리의 `.log` 파일에 �
 
 쿠버네티스 클러스터는 노드-레벨 로깅 에이전트를 사용하는 것이 가장 일반적이며 권장되는 방법으로, 이는 노드별 하나의 에이전트만 생성하며, 노드에서 실행되는 애플리케이션을 변경할 필요가 없기 때문이다. 그러나, 노드-레벨 로깅은 _애플리케이션의 표준 출력과 표준 에러에 대해서만 작동한다_ .
 
-쿠버네티스는 로깅 에이전트를 지정하지 않지만, 쿠버네티스 릴리스에는 두 가지 선택적인 로깅 에이전트(Google 클라우드 플랫폼과 함께 사용하기 위한 [스택드라이버(Stackdriver) 로깅](/docs/user-guide/logging/stackdriver)과 [엘라스틱서치(Elasticsearch)](/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/))가 패키지로 함께 제공된다. 전용 문서에서 자세한 정보와 지침을 찾을 수 있다. 두 가지 다 사용자 정의 구성이 된 [fluentd](http://www.fluentd.org/)를 에이전트로써 노드에서 사용한다.
+쿠버네티스는 로깅 에이전트를 지정하지 않지만, 쿠버네티스 릴리스에는 두 가지 선택적인 로깅 에이전트(Google 클라우드 플랫폼과 함께 사용하기 위한 [스택드라이버(Stackdriver) 로깅](/docs/tasks/debug-application-cluster/logging-stackdriver/)과 [엘라스틱서치(Elasticsearch)](/ko/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/))가 패키지로 함께 제공된다. 전용 문서에서 자세한 정보와 지침을 찾을 수 있다. 두 가지 다 사용자 정의 구성이 된 [fluentd](http://www.fluentd.org/)를 에이전트로써 노드에서 사용한다.
 
 ### 로깅 에이전트와 함께 사이드카 컨테이너 사용
 
@@ -242,7 +236,7 @@ fluentd를 구성하기 위한 [컨피그맵](/docs/tasks/configure-pod-containe
 {{< note >}}
 fluentd의 구성은 이 문서의 범위를 벗어난다.
 fluentd를 구성하는 것에 대한 자세한 내용은,
-[공식 fluentd 문서](http://docs.fluentd.org/)를 참고한다.
+[공식 fluentd 문서](https://docs.fluentd.org/)를 참고한다.
 {{< /note >}}
 
 두 번째 파일은 fluentd가 실행되는 사이드카 컨테이너가 있는 파드를 설명한다.

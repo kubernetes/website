@@ -1,5 +1,5 @@
 ---
-title: Podについての概観(Pod Overview)
+title: Podの概観
 content_type: concept
 weight: 10
 card:
@@ -8,7 +8,7 @@ card:
 ---
 
 <!-- overview -->
-このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して概観します。
+このページでは、Kubernetesのオブジェクトモデルにおいて、デプロイ可能な最小単位のオブジェクトである`Pod`に関して説明します。
 
 
 <!-- body -->
@@ -62,7 +62,7 @@ Podは、Podによって構成されたコンテナ群のために2種類の共�
 ## Podを利用する
 
 ユーザーはまれに、Kubenetes内で独立したPodを直接作成する場合があります(シングルトンPodなど)。
-これはPodが比較的、一時的な使い捨てエンティティとしてデザインされているためです。Podが作成された時（ユーザーによって直接的、またはコントローラーによって間接的に作成された場合）、ユーザーのクラスター内の単一の{{< glossary_tooltip term_id="node" >}}上で稼働するようにスケジューリングされます。そのPodはプロセスが停止されたり、Podオブジェクトが削除されたり、Podがリソースの欠如のために*追い出され* たり、ノードが故障するまでノード上に残り続けます。
+これはPodが比較的、一時的な使い捨てエンティティとしてデザインされているためです。Podが作成された時(ユーザーによって直接的、またはコントローラーによって間接的に作成された場合)、ユーザーのクラスター内の単一の{{< glossary_tooltip term_id="node" >}}上で稼働するようにスケジューリングされます。そのPodはプロセスが停止されたり、Podオブジェクトが削除されたり、Podがリソースの欠如のために*追い出され* たり、ノードが故障するまでノード上に残り続けます。
 
 {{< note >}}
 単一のPod内でのコンテナを再起動することと、そのPodを再起動することを混同しないでください。Podはそれ自体は実行されませんが、コンテナが実行される環境であり、削除されるまで存在し続けます。
@@ -111,7 +111,7 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [Pod](/ja/docs/concepts/workloads/pods/pod/)について更に学びましょう
+* [Pod](/ja/docs/concepts/workloads/pods/pod/)についてさらに学びましょう
 * Podの振る舞いに関して学ぶには下記を参照してください
    * [Podの停止](/ja/docs/concepts/workloads/pods/pod/#termination-of-pods)
    * [Podのライフサイクル](/ja/docs/concepts/workloads/pods/pod-lifecycle/)

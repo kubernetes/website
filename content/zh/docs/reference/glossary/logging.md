@@ -2,7 +2,7 @@
 title: 日志
 id: logging
 date: 2019-04-04
-full_link: /docs/concepts/cluster-administration/logging/
+full_link: /zh/docs/concepts/cluster-administration/logging/
 short_description: >
   日志是集群或应用程序记录的事件列表。
 
@@ -18,7 +18,7 @@ tags:
 title: Logging
 id: logging
 date: 2019-04-04
-full_link: /docs/concepts/cluster-administration/logging/
+full_link: /zh/docs/concepts/cluster-administration/logging/
 short_description: >
   Logs are the list of events that are logged by cluster or application.
 

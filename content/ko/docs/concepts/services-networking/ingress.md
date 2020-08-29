@@ -429,7 +429,7 @@ TLS 기능을 제공하는 다양한 인그레스 컨트롤러간의 기능
 얻을 수 있다.
 
 또한, 헬스 체크를 인그레스를 통해 직접 노출되지 않더라도, 쿠버네티스에는
-[준비 상태 프로브](/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)와
+[준비 상태 프로브](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)와
 같은 동일한 최종 결과를 얻을 수 있는 병렬 개념이
 있다는 점도 주목할 가치가 있다. 컨트롤러 별
 설명서를 검토하여 헬스 체크를 처리하는 방법을 확인한다(
@@ -544,6 +544,6 @@ Events:
 
 ## {{% heading "whatsnext" %}}
 
-* [인그레스] API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
+* [인그레스 API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#ingress-v1beta1-networking-k8s-io)에 대해 배우기
 * [인그레스 컨트롤러](/ko/docs/concepts/services-networking/ingress-controllers/)에 대해 배우기
 * [NGINX 컨트롤러로 Minikube에서 인그레스 구성하기](/docs/tasks/access-application-cluster/ingress-minikube)

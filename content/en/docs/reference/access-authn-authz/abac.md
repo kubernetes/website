@@ -18,7 +18,7 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 
 To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
 
-The file format is [one JSON object per line](http://jsonlines.org/).  There
+The file format is [one JSON object per line](https://jsonlines.org/).  There
 should be no enclosing list or map, just one map per line.
 
 Each line is a "policy object", where each such object is a map with the following
@@ -127,7 +127,7 @@ up the verbosity:
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
     ```
 
-[Complete file example](http://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[Complete file example](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## A quick note on service accounts
 

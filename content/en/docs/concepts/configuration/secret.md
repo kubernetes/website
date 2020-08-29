@@ -352,6 +352,8 @@ NAME                             TYPE                                  DATA     
 db-user-pass-96mffmfh4k          Opaque                                2         51s
 ```
 
+You can view a description of the secret:
+
 ```shell
 kubectl describe secrets/db-user-pass-96mffmfh4k
 ```
@@ -715,9 +717,9 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -912,7 +914,7 @@ Create the Secret:
 kubectl apply -f mysecret.yaml
 ```
 
-Use `envFrom` to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+Use `envFrom` to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 
 ```yaml
 apiVersion: v1
@@ -1001,6 +1003,8 @@ The output is similar to:
 ```
 secret "prod-db-secret" created
 ```
+
+You can also create a secret for test environment credentials.
 
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests

@@ -29,7 +29,7 @@ TTLコントローラーは、そのリソースが終了したあと指定し�
 TTL秒はいつでもセット可能です。下記はJobの`.spec.ttlSecondsAfterFinished`フィールドのセットに関するいくつかの例です。
 
 * Jobがその終了後にいくつか時間がたった後に自動的にクリーンアップできるように、そのリソースマニフェストにこの値を指定します。
-* この新しい機能を適用させるために、存在していて既に終了したリソースに対してこのフィールドをセットします。
+* この新しい機能を適用させるために、存在していてすでに終了したリソースに対してこのフィールドをセットします。
 * リソース作成時に、このフィールドを動的にセットするために、[管理webhookの変更](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)をさせます。クラスター管理者は、終了したリソースに対して、このTTLポリシーを強制するために使うことができます。
 * リソースが終了した後に、このフィールドを動的にセットしたり、リソースステータスやラベルなどの値に基づいて異なるTTL値を選択するために、[管理webhookの変更](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)をさせます。
 

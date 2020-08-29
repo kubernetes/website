@@ -20,13 +20,24 @@ This page provides an overview of authenticating.
 All Kubernetes clusters have two categories of users: service accounts managed
 by Kubernetes, and normal users.
 
-Normal users are assumed to be managed by an outside, independent service. An
-admin distributing private keys, a user store like Keystone or Google Accounts,
-even a file with a list of usernames and passwords. In this regard, _Kubernetes
-does not have objects which represent normal user accounts._ Normal users
-cannot be added to a cluster through an API call.
+It is assumed that a cluster-independent service manages normal users in the following ways:
 
-Even though normal user cannot be added via an API call, but any user that presents a valid certificate signed by the cluster’s certificate authority (CA) is considered authenticated. In this configuration, Kubernetes determines the username from the common name field in the ‘subject’ of the cert (e.g., “/CN=bob”). From there, the role based access control (RBAC) sub-system would determine whether the user is authorized to perform a specific operation a resource. You can refer to [creating user certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#user-csr) for more details about this.
+- an administrator distributing private keys
+- a user store like Keystone or Google Accounts
+- a file with a list of usernames and passwords
+
+In this regard, _Kubernetes does not have objects which represent normal user
+accounts._ Normal users cannot be added to a cluster through an API call.
+
+Even though normal user cannot be added via an API call, but any user that
+presents a valid certificate signed by the cluster's certificate authority
+(CA) is considered authenticated. In this configuration, Kubernetes determines
+the username from the common name field in the 'subject' of the cert (e.g.,
+"/CN=bob"). From there, the role based access control (RBAC) sub-system would
+determine whether the user is authorized to perform a specific operation on a
+resource. For more details, refer to the normal users topic in
+[certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
+for more details about this.
 
 In contrast, service accounts are users managed by the Kubernetes API. They are
 bound to specific namespaces, and created automatically by the API server or
@@ -49,7 +60,7 @@ with the request:
 
 * Username: a string which identifies the end user. Common values might be `kube-admin` or `jane@example.com`.
 * UID: a string which identifies the end user and attempts to be more consistent and unique than username.
-* Groups: a set of strings which associate users with a set of commonly grouped users.
+* Groups: a set of strings, each of which indicates the user's membership in a named logical collection of users. Common values might be `system:masters` or `devops-team`.
 * Extra fields: a map of strings to list of strings which holds additional information authorizers may find useful.
 
 All values are opaque to the authentication system and only hold significance
@@ -154,26 +165,6 @@ cluster.
 Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
-
-### Static Password File
-
-Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE`
-option to API server. Currently, the basic auth credentials last indefinitely,
-and the password cannot be changed without restarting API server. Note that basic
-authentication is currently supported for convenience while we finish making the
-more secure modes described above easier to use.
-
-The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
-In Kubernetes version 1.6 and later, you can specify an optional fourth column containing
-comma-separated group names. If you have more than one group, you must enclose the fourth
-column value in double quotes ("). See the following example:
-
-```conf
-password,user,uid,"group1,group2,group3"
-```
-
-When using basic authentication from an http client, the API server expects an `Authorization` header
-with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### Service Account Tokens
 
@@ -335,8 +326,12 @@ wish to utilize multiple OAuth clients should explore providers which support th
 tokens on behalf of another.
 
 Kubernetes does not provide an OpenID Connect Identity Provider.
-You can use an existing public OpenID Connect Identity Provider (such as Google, or [others](http://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex), [Keycloak](https://github.com/keycloak/keycloak), CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+You can use an existing public OpenID Connect Identity Provider (such as Google, or
+[others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
+Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
+[Keycloak](https://github.com/keycloak/keycloak),
+CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
+Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
 For an identity provider to work with Kubernetes it must:
 
@@ -420,7 +415,7 @@ Webhook authentication is a hook for verifying bearer tokens.
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
 
-The configuration file uses the [kubeconfig](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 file format. Within the file, `clusters` refers to the remote service and
 `users` refers to the API server webhook. An example would be:
 
@@ -674,7 +669,7 @@ rules:
 ```
 
 Extra fields are evaluated as sub-resources of the resource "userextras". To
-allow a user to use impersonation headers for the extra field "scopes," a user
+allow a user to use impersonation headers for the extra field "scopes", a user
 should be granted the following role:
 
 ```yaml
@@ -777,6 +772,19 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
 clusters:
 - name: my-cluster
   cluster:

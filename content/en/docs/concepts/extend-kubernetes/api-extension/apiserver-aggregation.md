@@ -15,8 +15,6 @@ The additional APIs can either be ready-made solutions such as [service-catalog]
 
 The aggregation layer is different from [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/), which are a way to make the {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} recognise new kinds of object.
 
-
-
 <!-- body -->
 
 ## Aggregation layer
@@ -34,10 +32,7 @@ If your extension API server cannot achieve that latency requirement, consider m
 `EnableAggregatedDiscoveryTimeout=false` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) on the kube-apiserver
 to disable the timeout restriction. This deprecated feature gate will be removed in a future release.
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * To get the aggregator working in your environment, [configure the aggregation layer](/docs/tasks/extend-kubernetes/configure-aggregation-layer/).
 * Then, [setup an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.

@@ -24,7 +24,7 @@ Kubernetes versions are expressed as **x.y.z**,
 where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/release/versioning.md#kubernetes-release-versioning).
 
-The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).
+The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a [regular cadence](https://git.k8s.io/sig-release/releases/patch-releases.md#cadence), plus additional urgent releases, when required.
@@ -155,7 +155,7 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 
 Example:
 
-If `kube-proxy` version is **{{< skew latestVersion >}}**:
+If `kube-proxy` version is **{{< skew oldestMinorVersion >}}**:
 
-* `kubelet` version must be at the same minor version as **{{< skew latestVersion >}}**.
+* `kubelet` version must be at the same minor version as **{{< skew oldestMinorVersion >}}**.
 * `kube-apiserver` version must be between **{{< skew oldestMinorVersion >}}** and **{{< skew latestVersion >}}**, inclusive.

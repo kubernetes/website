@@ -285,7 +285,7 @@ For an example of a topic that uses this technique, see
 [Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
 -->
 有关使用此技术的主题的示例，请参见
-[运行单实例有状态的应用](/zh/docs/tutorials/stateful-application/run-stateful-application/)。
+[运行单实例有状态的应用](/zh/docs/tasks/run-application/run-single-instance-stateful-application/)。
 
 <!--
 ## Adding images to a topic

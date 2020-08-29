@@ -45,7 +45,7 @@ higher-level abstraction, called a
 managing the relatively disposable Pod instances.
 
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
-that Pod can be replaced by a new, near-identical Pod, with even the same name i
+that Pod can be replaced by a new, near-identical Pod, with even the same name if
 desired, but with a different UID.
 
 When something is said to have the same lifetime as a Pod, such as a
@@ -78,7 +78,7 @@ Here are the possible values for `phase`:
 
 Value | Description
 :-----|:-----------
-`Pending` | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to bescheduled as well as the time spent downloading container images over the network.
+`Pending` | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
 `Running` | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
 `Failed` | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
@@ -107,7 +107,7 @@ Each state has a specific meaning:
 
 ### `Waiting` {#container-state-waiting}
 
-If a container is not in either the `Running` or `Terminated` state, it `Waiting`.
+If a container is not in either the `Running` or `Terminated` state, it is `Waiting`.
 A container in the `Waiting` state is still running the operations it requires in
 order to complete start up: for example, pulling the container image from a container
 image registry, or applying {{< glossary_tooltip text="Secret" term_id="secret" >}}
@@ -118,15 +118,15 @@ a Reason field to summarize why the container is in that state.
 ### `Running` {#container-state-running}
 
 The `Running` status indicates that a container is executing without issues. If there
-was a `postStart` hook configured, it has already executed and executed. When you use
+was a `postStart` hook configured, it has already executed and finished. When you use
 `kubectl` to query a Pod with a container that is `Running`, you also see information
 about when the container entered the `Running` state.
 
 ### `Terminated` {#container-state-terminated}
 
-A container in the `Terminated` state has begin execution and has then either run to
-completion or has failed for some reason. When you use `kubectl` to query a Pod with
-a container that is `Terminated`, you see a reason, and exit code, and the start and
+A container in the `Terminated` state began execution and then either ran to
+completion or failed for some reason. When you use `kubectl` to query a Pod with
+a container that is `Terminated`, you see a reason, an exit code, and the start and
 finish time for that container's period of execution.
 
 If a container has a `preStop` hook configured, that runs before the container enters
@@ -164,7 +164,7 @@ Field name           | Description
 `lastProbeTime`      | Timestamp of when the Pod condition was last probed.
 `lastTransitionTime` | Timestamp for when the Pod last transitioned from one status to another.
 `reason`             | Machine-readable, UpperCamelCase text indicating the reason for the condition's last transition.
-`messsage            | Human-readable message indicating details about the last status transition.
+`message`            | Human-readable message indicating details about the last status transition.
 
 
 ### Pod readiness {#pod-readiness-gate}
@@ -341,8 +341,8 @@ before the Pod is allowed to be forcefully killed. With that forceful shutdown t
 place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 
-Typically, the container runtime sends a a TERM signal is sent to the main process in each
-container. Once the grace period has expired, the KILL signal is sent to any remainig
+Typically, the container runtime sends a TERM signal to the main process in each
+container. Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -392,7 +392,7 @@ An example flow:
 ### Forced Pod termination {#pod-termination-forced}
 
 {{< caution >}}
-Forced deletions can be potentially disruptiove for some workloads and their Pods.
+Forced deletions can be potentially disruptive for some workloads and their Pods.
 {{< /caution >}}
 
 By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
@@ -442,4 +442,3 @@ This avoids a resource leak as Pods are created and terminated over time.
 * For detailed information about Pod / Container status in the API, see [PodStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podstatus-v1-core)
 and
 [ContainerStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#containerstatus-v1-core).
-

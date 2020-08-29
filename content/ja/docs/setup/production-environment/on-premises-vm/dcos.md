@@ -5,7 +5,7 @@ content_type: concept
 
 <!-- overview -->
 
-Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築する為の簡単な選択肢を提供します。それは
+Mesosphereは[DC/OS](https://mesosphere.com/product/)上にKubernetesを構築するための簡単な選択肢を提供します。それは
 
 * 純粋なアップストリームのKubernetes
 * シングルクリッククラスター構築

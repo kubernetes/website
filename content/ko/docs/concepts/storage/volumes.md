@@ -15,9 +15,6 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 
 [파드](/ko/docs/concepts/workloads/pods/pod/)에 대해 익숙해지는 것을 추천한다.
 
-
-
-
 <!-- body -->
 
 ## 배경
@@ -95,7 +92,7 @@ kubelet은 컨테이너를 재시작시키지만, 컨테이너는 깨끗한 상�
 ### awsElasticBlockStore {#awselasticblockstore}
 
 `awsElasticBlockStore` 볼륨은 아마존 웹 서비스 (AWS) [EBS
-볼륨](http://aws.amazon.com/ebs/)을 파드에 마운트 한다.  파드를
+볼륨](https://aws.amazon.com/ebs/)을 파드에 마운트 한다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 EBS 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다.  이 의미는 EBS 볼륨에
 데이터를 미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)"
@@ -396,8 +393,8 @@ Flocker는 파드가 스케줄 되어있는 노드에 다시 연결한다. 이�
 
 ### gcePersistentDisk {#gcepersistentdisk}
 
-`gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진 (GCE) [퍼시스턴트
-디스크](http://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
+`gcePersistentDisk` 볼륨은 구글 컴퓨트 엔진 (GCE)
+[퍼시스턴트 디스크](https://cloud.google.com/compute/docs/disks)를 파드에 마운트 한다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 PD의 내용은 유지되고,
 볼륨은 마운트 해제만 된다.  이는 PD에 데이터를
 미리 채울 수 있으며, 파드간에 데이터를 "전달(handed off)" 할 수 있다는 것을 의미한다.
@@ -532,7 +529,7 @@ spec:
 
 ### glusterfs {#glusterfs}
 
-`glusterfs`  볼륨을 사용하면 [Glusterfs](http://www.gluster.org) (오픈
+`glusterfs`  볼륨을 사용하면 [Glusterfs](https://www.gluster.org) (오픈
 소스 네트워크 파일시스템) 볼륨을 파드에 마운트 할수 있다.  파드를
 제거할 때 지워지는 `emptyDir` 와는 다르게 `glusterfs`
 볼륨의 내용은 유지되고, 볼륨은 마운트 해제만 된다. 이 의미는
@@ -583,7 +580,7 @@ glusterfs 볼륨에 데이터를 미리 채울 수 있으며, 파드간에 데�
 * 쿠버네티스가 계획한 대로 리소스 인식 스케줄링을 추가하면 `hostPath` 에서
   사용되는 리소스를 설명할 수 없다.
 * 기본 호스트에 생성된 파일 또는 디렉터리는 root만 쓸 수 있다.
-  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/user-guide/security-context)에서
+  프로세스를 [특권을 가진(privileged) 컨테이너](/docs/tasks/configure-pod-container/security-context/)에서
   루트로 실행하거나
   `hostPath` 볼륨에 쓸 수 있도록 호스트의 파일 권한을 수정해야 한다.
 
@@ -779,7 +776,7 @@ iSCSI 볼륨와 같은)를 "클레임" 할 수 있는 방법이다.
 서비스 어카운트 토큰의 프로젝션은 쿠버네티스 1.11에 기능이
 도입되었고 1.12에서 베타로 승격되었다.
 1.11에서 이 기능을 활성화 하려면 `TokenRequestProjection`
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 True로 명시적인 설정이 필요하다.
 
 #### 시크릿, downward API 그리고 configmap이 있는 파드 예시.
@@ -960,8 +957,8 @@ CSI 는 쿠버네티스 내에서 Quobyte 볼륨을 사용하기 위해 권장�
 
 ### rbd {#rbd}
 
-`rbd` 볼륨을 사용하면 [Rados Block
-Device](http://ceph.com/docs/master/rbd/rbd/)를 파드에 마운트할 수
+`rbd` 볼륨을 사용하면
+[Rados Block Device](https://ceph.com/docs/master/rbd/rbd/)를 파드에 마운트할 수
 있다.  파드를 제거할 때 지워지는 `emptyDir` 와는 다르게 `rbd` 볼륨의
 내용은 유지되고, 볼륨은 마운트 해제만 된다.  이
 의미는 RBD 볼륨에 데이터를 미리 채울 수 있으며, 데이터를
@@ -1038,7 +1035,7 @@ tmpfs(RAM 기반 파일시스템)로 지원되기 때문에 비 휘발성 스토
 업데이트를 수신하지 못한다.
 {{< /note >}}
 
-시크릿에 대해서 [여기](/docs/user-guide/secrets)에 더 자세한 설명이 있다.
+시크릿에 대해서 [여기](/docs/concepts/configuration/secret/)에 더 자세한 설명이 있다.
 
 ### storageOS {#storageos}
 
@@ -1197,7 +1194,7 @@ spec:
 
 
 `subPathExpr` 필드를 사용해서 Downward API 환경 변수로부터 `subPath` 디렉터리 이름을 구성한다.
-이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
+이 기능을 사용하려면 `VolumeSubpathEnvExpansion` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화 해야 한다. 쿠버네티스 1.15에서는 시작 시 기본적으로 활성화되어 있다.
 `subPath` 와 `subPathExpr` 속성은 상호 배타적이다.
 
 이 예제는 파드가 `subPathExpr` 을 사용해서 Downward API로부터 파드 이름을 사용해서 hostPath 볼륨 `/var/log/pods` 내에 `pod1` 디렉터리를 생성한다.  호스트 디렉터리 `/var/log/pods/pod1` 은 컨테이너의 `/logs` 에 마운트 된다.
@@ -1237,12 +1234,13 @@ spec:
 사용할 수 있는 공간의 크기는 제한이 없으며, 컨테이너간 또는 파드간
 격리는 없다.
 
-앞으로 `emptyDir` 과 `hostPath` 볼륨이 [리소스](/docs/user-guide/compute-resources)
+앞으로 `emptyDir` 과 `hostPath` 볼륨이 [리소스](/ko/docs/concepts/configuration/manage-resources-containers/)
 사양을 사용해서 일정량의 공간을 요청하고, 여러 매체 유형이
 있는 클러스터에 사용할 매체 유형을 선택할 수
 있을 것으로 기대한다.
 
 ## 아웃 오브 트리 볼륨 플러그인
+
 아웃 오브 트리 볼륨 플러그인에는 컨테이너 스토리지 인터페이스 (CSI) 그리고
 FlexVolume이 포함된다. 스토리지 벤더들은 이 플러그인을 쿠버네티스 리포지터리에
 추가하지 않고도 사용자 정의 스토리지 플러그인을 만들 수 있다.
@@ -1318,7 +1316,7 @@ CSI 호환 볼륨 드라이버가 쿠버네티스 클러스터에 배포되면
   정의된 대로 CSI 드라이버의 `CreateVolumeResponse` 와 `volume.attributes`
   필드에서 반환되는 매핑과 일치해야 한다.
   이 매핑은 `ControllerPublishVolumeRequest`, `NodeStageVolumeRequest`,
-  그리고 `NodePublishVolumeRequest` 의 `volume_attributes` 필드를
+  그리고 `NodePublishVolumeRequest` 의 `volume_context` 필드를
   통해 CSI 드라이버로 전달된다.
 - `controllerPublishSecretRef`: CSI의 `ControllerPublishVolume`
   그리고 `ControllerUnpublishVolume` 호출을 완료하기 위해 CSI 드라이버에 전달하려는

@@ -10,8 +10,6 @@ In Kubernetes, _scheduling_ refers to making sure that {{< glossary_tooltip text
 are matched to {{< glossary_tooltip text="Nodes" term_id="node" >}} so that
 {{< glossary_tooltip term_id="kubelet" >}} can run them.
 
-
-
 <!-- body -->
 
 ## Scheduling overview {#scheduling}
@@ -81,8 +79,8 @@ of the scheduler:
 
 1. [Scheduling Policies](/docs/reference/scheduling/policies) allow you to
   configure _Predicates_ for filtering and _Priorities_ for scoring.
-1. [Scheduling Profiles](/docs/reference/scheduling/profiles) allow you to
-  configure Plugins that implement different scheduling stages, including:
+1. [Scheduling Profiles](/docs/reference/scheduling/config/#profiles) allow you
+  to configure Plugins that implement different scheduling stages, including:
   `QueueSort`, `Filter`, `Score`, `Bind`, `Reserve`, `Permit`, and others. You
   can also configure the kube-scheduler to run different profiles.
 
@@ -92,6 +90,10 @@ of the scheduler:
 * Read about [scheduler performance tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * Read about [Pod topology spread constraints](/docs/concepts/workloads/pods/pod-topology-spread-constraints/)
 * Read the [reference documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for kube-scheduler
-* Learn about [configuring multiple schedulers](/docs/tasks/administer-cluster/configure-multiple-schedulers/)
+* Learn about [configuring multiple schedulers](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)
 * Learn about [topology management policies](/docs/tasks/administer-cluster/topology-manager/)
 * Learn about [Pod Overhead](/docs/concepts/configuration/pod-overhead/)
+* Learn about scheduling of Pods that use volumes in:
+  * [Volume Topology Support](/docs/concepts/storage/storage-classes/#volume-binding-mode)
+  * [Storage Capacity Tracking](/docs/concepts/storage/storage-capacity/)
+  * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)

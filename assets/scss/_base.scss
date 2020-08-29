@@ -832,3 +832,16 @@ section#cncf {
     font-size: 1rem;
   }
 }
+
+/* DOCUMENTATION */
+
+body.td-documentation {
+    header > .header-filler {
+      height: $hero-padding-top;
+      background-color: black;
+    }
+    /* Special case for if an announcement is active */
+    header section#announcement ~ .header-filler {
+      display: none;
+    }
+}

@@ -39,10 +39,14 @@ When they do, they are authenticated as a particular Service Account (for exampl
 
 When you create a pod, if you do not specify a service account, it is
 automatically assigned the `default` service account in the same namespace.
-If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/<podname> -o yaml`), you can see the `spec.serviceAccountName` field has been [automatically set](/docs/user-guide/working-with-resources/#resources-are-automatically-modified).
+If you get the raw json or yaml for a pod you have created (for example, `kubectl get pods/<podname> -o yaml`),
+you can see the `spec.serviceAccountName` field has been
+[automatically set](/docs/concepts/overview/working-with-objects/object-management/).
 
-You can access the API from inside a pod using automatically mounted service account credentials, as described in [Accessing the Cluster](/docs/user-guide/accessing-the-cluster/#accessing-the-api-from-a-pod).
-The API permissions of the service account depend on the [authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
+You can access the API from inside a pod using automatically mounted service account credentials, as described in
+[Accessing the Cluster](/docs/tasks/access-application-cluster/access-cluster).
+The API permissions of the service account depend on the
+[authorization plugin and policy](/docs/reference/access-authn-authz/authorization/#authorization-modules) in use.
 
 In version 1.6+, you can opt out of automounting API credentials for a service account by setting `automountServiceAccountToken: false` on the service account:
 

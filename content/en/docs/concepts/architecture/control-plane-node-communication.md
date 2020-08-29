@@ -46,7 +46,7 @@ These connections terminate at the kubelet's HTTPS endpoint. By default, the api
 
 To verify this connection, use the `--kubelet-certificate-authority` flag to provide the apiserver with a root certificate bundle to use to verify the kubelet's serving certificate.
 
-If that is not possible, use [SSH tunneling](/docs/concepts/architecture/master-node-communication/#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
+If that is not possible, use [SSH tunneling](#ssh-tunnels) between the apiserver and kubelet if required to avoid connecting over an
 untrusted or public network.
 
 Finally, [Kubelet authentication and/or authorization](/docs/admin/kubelet-authentication-authorization/) should be enabled to secure the kubelet API.

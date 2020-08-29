@@ -24,7 +24,6 @@ The Kubernetes API lets you query and manipulate the state of objects in the Kub
 
 API endpoints, resource types and samples are described in the [API Reference](/docs/reference/kubernetes-api/).
 
-
 <!-- body -->
 
 ## API changes
@@ -135,7 +134,7 @@ There are several API groups in a cluster:
    (e.g. `apiVersion: batch/v1`). The Kubernetes [API reference](/docs/reference/kubernetes-api/) has a
    full list of available API groups.
 
-There are two paths to extending the API with [custom resources](/docs/concepts/api-extension/custom-resources/):
+There are two paths to extending the API with [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/):
 
 1. [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)
    lets you declaratively define how the API server should provide your chosen resource API.

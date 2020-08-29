@@ -177,7 +177,7 @@ service/nodeport exposed
 
 ```shell
 NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services nodeport)
-NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="IPAddress")].address }')
+NODES=$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="InternalIP")].address }')
 ```
 
 클라우드 공급자 상에서 실행한다면,
@@ -199,24 +199,26 @@ client_address=10.240.0.3
 
 * 클라이언트는 `node2:nodePort`로 패킷을 보낸다.
 * `node2`는 소스 IP 주소(SNAT)를 패킷 상에서 자신의 IP 주소로 교체한다.
-* `noee2`는 대상 IP를 패킷 상에서 파드의 IP로 교체한다.
+* `node2`는 대상 IP를 패킷 상에서 파드의 IP로 교체한다.
 * 패킷은 node 1로 라우팅 된 다음 엔드포인트로 라우팅 된다.
 * 파드의 응답은 node2로 다시 라우팅된다.
 * 파드의 응답은 클라이언트로 다시 전송된다.
 
 시각적으로
 
-```
-          client
-             \ ^
-              \ \
-               v \
-   node 1 <--- node 2
-    | ^   SNAT
-    | |   --->
-    v |
- endpoint
-```
+{{< mermaid >}}
+graph LR;
+  client(client)-->node2[Node 2];
+  node2-->client;
+  node2-. SNAT .->node1[Node 1];
+  node1-. SNAT .->node2;
+  node1-->endpoint(Endpoint);
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 이를 피하기 위해 쿠버네티스는
@@ -261,17 +263,18 @@ client_address=104.132.1.79
 
 시각적으로
 
-```
-        client
-       ^ /   \
-      / /     \
-     / v       X
-   node 1     node 2
-    ^ |
-    | |
-    | v
- endpoint
-```
+{{< mermaid >}}
+graph TD;
+  client --> node1[Node 1];
+  client(client) --x node2[Node 2];
+  node1 --> endpoint(endpoint);
+  endpoint --> node1;
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  class node1,node2,endpoint k8s;
+  class client plain;
+{{</ mermaid >}}
 
 
 
@@ -324,17 +327,7 @@ client_address=10.240.0.5
 
 시각적으로:
 
-```
-                      client
-                        |
-                      lb VIP
-                     / ^
-                    v /
-health check --->   node 1   node 2 <--- health check
-        200  <---   ^ |             ---> 500
-                    | V
-                 endpoint
-```
+![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
 이것은 어노테이션을 설정하여 테스트할 수 있다.
 

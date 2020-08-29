@@ -9,12 +9,9 @@ weight: 60
 
 <!-- overview -->
 
-Application and systems logs can help you understand what is happening inside your cluster. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
+Application logs can help you understand what is happening inside your application. The logs are particularly useful for debugging problems and monitoring cluster activity. Most modern applications have some kind of logging mechanism; as such, most container engines are likewise designed to support some kind of logging. The easiest and most embraced logging method for containerized applications is to write to the standard output and standard error streams.
 
 However, the native functionality provided by a container engine or runtime is usually not enough for a complete logging solution. For example, if a container crashes, a pod is evicted, or a node dies, you'll usually still want to access your application's logs. As such, logs should have a separate storage and lifecycle independent of nodes, pods, or containers. This concept is called _cluster-level-logging_. Cluster-level logging requires a separate backend to store, analyze, and query logs. Kubernetes provides no native storage solution for log data, but you can integrate many existing logging solutions into your Kubernetes cluster.
-
-
-
 
 <!-- body -->
 
@@ -97,6 +94,7 @@ the rotation and there are two files, one 10MB in size and one empty,
 `kubectl logs` will return an empty response.
 {{< /note >}}
 
+[cosConfigureHelper]: https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/cluster/gce/gci/configure-helper.sh
 ### System component logs
 
 There are two types of system components: those that run in a container and those
@@ -135,7 +133,7 @@ Because the logging agent must run on every node, it's common to implement it as
 
 Using a node-level logging agent is the most common and encouraged approach for a Kubernetes cluster, because it creates only one agent per node, and it doesn't require any changes to the applications running on the node. However, node-level logging _only works for applications' standard output and standard error_.
 
-Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/user-guide/logging/stackdriver) for use with Google Cloud Platform, and [Elasticsearch](/docs/user-guide/logging/elasticsearch). You can find more information and instructions in the dedicated documents. Both use [fluentd](http://www.fluentd.org/) with custom configuration as an agent on the node.
+Kubernetes doesn't specify a logging agent, but two optional logging agents are packaged with the Kubernetes release: [Stackdriver Logging](/docs/tasks/debug-application-cluster/logging-stackdriver/) for use with Google Cloud Platform, and [Elasticsearch](/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/). You can find more information and instructions in the dedicated documents. Both use [fluentd](https://www.fluentd.org/) with custom configuration as an agent on the node.
 
 ### Using a sidecar container with the logging agent
 
@@ -242,7 +240,7 @@ a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to c
 {{< note >}}
 The configuration of fluentd is beyond the scope of this article. For
 information about configuring fluentd, see the
-[official fluentd documentation](http://docs.fluentd.org/).
+[official fluentd documentation](https://docs.fluentd.org/).
 {{< /note >}}
 
 The second file describes a pod that has a sidecar container running fluentd.

@@ -122,5 +122,5 @@ The following *priorities* implement scoring:
 ## {{% heading "whatsnext" %}}
 
 * Learn about [scheduling](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Learn about [kube-scheduler profiles](/docs/reference/scheduling/profiles/)
+* Learn about [kube-scheduler Configuration](/docs/reference/scheduling/config/)
 

@@ -4,13 +4,11 @@ content_type: concept
 weight: 70
 ---
 <!--
----
 reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
 weight: 70
----
 -->
 
 <!-- overview -->
@@ -22,7 +20,9 @@ weight: 70
 is the Kubernetes default scheduler. It is responsible for placement of Pods
 on Nodes in a cluster.
 -->
-作为 kubernetes 集群的默认调度器，[kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler) 主要负责将 Pod 调度到集群的 Node 上。
+作为 kubernetes 集群的默认调度器，
+[kube-scheduler](/zh/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
+主要负责将 Pod 调度到集群的 Node 上。
 
 <!--
 Nodes in a cluster that meet the scheduling requirements of a Pod are
@@ -32,15 +32,16 @@ picking a Node with the highest score among the feasible ones to run
 the Pod. The scheduler then notifies the API server about this decision
 in a process called _Binding_.
 -->
-在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为 _可调度_ Node。调度器先在集群中找到一个 Pod 的可调度 Node，然后根据一系列函数对这些可调度 Node打分，之后选出其中得分最高的 Node 来运行 Pod。最后，调度器将这个调度决定告知 kube-apiserver，这个过程叫做 _绑定_。
+在一个集群中，满足一个 Pod 调度请求的所有 Node 称之为 _可调度_ Node。
+调度器先在集群中找到一个 Pod 的可调度 Node，然后根据一系列函数对这些可调度 Node 打分，
+之后选出其中得分最高的 Node 来运行 Pod。
+最后，调度器将这个调度决定告知 kube-apiserver，这个过程叫做 _绑定（Binding）_。
 
 <!--
 This page explains performance tuning optimizations that are relevant for
 large Kubernetes clusters.
 -->
 这篇文章将会介绍一些在大规模 Kubernetes 集群下调度器性能优化的方式。
-
-
 
 <!-- body -->
 
@@ -55,7 +56,8 @@ a threshold for scheduling nodes in your cluster.
  -->
 在大规模集群中，你可以调节调度器的表现来平衡调度的延迟（新 Pod 快速就位）和精度（调度器很少做出糟糕的放置决策）。
 
-你可以通过设置 kube-scheduler 的 `percentageOfNodesToScore` 来配置这个调优设置。这个 KubeSchedulerConfiguration 设置决定了调度集群中节点的阈值。
+你可以通过设置 kube-scheduler 的 `percentageOfNodesToScore` 来配置这个调优设置。
+这个 KubeSchedulerConfiguration 设置决定了调度集群中节点的阈值。
 
 <!-- 
 ### Setting the threshold
@@ -117,8 +119,11 @@ enough feasible nodes to exceed the configured percentage, the kube-scheduler
 stops searching for more feasible nodes and moves on to the
 [scoring phase](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation).
  -->
-你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。 kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
-kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，kube-scheduler 将停止继续查找可调度节点并继续进行 [打分阶段](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。
+你可以使用整个集群节点总数的百分比作为阈值来指定需要多少节点就足够。 
+kube-scheduler 会将它转换为节点数的整数值。在调度期间，如果
+kube-scheduler 已确认的可调度节点数足以超过了配置的百分比数量，
+kube-scheduler 将停止继续查找可调度节点并继续进行
+[打分阶段](/zh/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)。
 
 <!-- 
 [How the scheduler iterates over Nodes](#how-the-scheduler-iterates-over-nodes)
@@ -228,7 +233,7 @@ prefer to run the Pod on any Node as long as it is feasible.
 <!--
 ### How the scheduler iterates over Nodes
 -->
-### 调度器做调度选择的时候如何覆盖所有的 Node
+### 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
 
 <!--
 This section is intended for those who want to understand the internal details

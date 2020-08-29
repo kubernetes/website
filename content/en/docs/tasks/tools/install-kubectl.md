@@ -11,13 +11,18 @@ card:
 ---
 
 <!-- overview -->
-The Kubernetes command-line tool, [kubectl](/docs/user-guide/kubectl/), allows you to run commands against Kubernetes clusters. You can use kubectl to deploy applications, inspect and manage cluster resources, and view logs. For a complete list of kubectl operations, see [Overview of kubectl](/docs/reference/kubectl/overview/).
+The Kubernetes command-line tool, [kubectl](/docs/reference/kubectl/kubectl/), allows
+you to run commands against Kubernetes clusters.
+You can use kubectl to deploy applications, inspect and manage cluster resources,
+and view logs. For a complete list of kubectl operations, see
+[Overview of kubectl](/docs/reference/kubectl/overview/).
 
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master. Using the latest version of kubectl helps avoid unforeseen issues.
-
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v1.2 client should work with v1.1, v1.2, and v1.3 master.
+Using the latest version of kubectl helps avoid unforeseen issues.
 
 <!-- steps -->
 
@@ -310,7 +315,12 @@ You can install kubectl as part of the Google Cloud SDK.
 
 ## Verifying kubectl configuration
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a [kubeconfig file](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/), which is created automatically when you create a cluster using [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh) or successfully deploy a Minikube cluster. By default, kubectl configuration is located at `~/.kube/config`.
+In order for kubectl to find and access a Kubernetes cluster, it needs a
+[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
+which is created automatically when you create a cluster using
+[kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
+or successfully deploy a Minikube cluster.
+By default, kubectl configuration is located at `~/.kube/config`.
 
 Check that kubectl is properly configured by getting the cluster state:
 
@@ -518,5 +528,7 @@ compinit
 * [Install Minikube](/docs/tasks/tools/install-minikube/)
 * See the [getting started guides](/docs/setup/) for more about creating clusters.
 * [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
+* If you need access to a cluster you didn't create, see the
+  [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 * Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
+

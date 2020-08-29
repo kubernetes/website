@@ -4,14 +4,14 @@ id: volume
 date: 2018-04-12
 full_link: /docs/concepts/storage/volumes/
 short_description: >
-  Pod内のコンテナからアクセス可能なデータを含むディレクトリ。
+  Pod内のコンテナからアクセス可能なデータを含むディレクトリです。
 
 aka: 
 tags:
 - core-object
 - fundamental
 ---
- {{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能なデータを含むディレクトリ。
+ {{< glossary_tooltip text="Pod" term_id="pod" >}}内の{{< glossary_tooltip text="コンテナ" term_id="container" >}}からアクセス可能なデータを含むディレクトリです。
 
 <!--more--> 
 

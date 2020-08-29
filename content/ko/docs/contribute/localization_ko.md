@@ -187,7 +187,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 
 ### 기능 게이트(feature gate) 한글화 방침
 
-쿠버네티스의 [기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)를
+쿠버네티스의 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
 의미하는 용어는 한글화하지 않고 원문 형태를 유지한다.
 
 기능 게이트의 예시는 다음과 같다.
@@ -198,7 +198,7 @@ API 오브젝트의 필드 이름, 파일 이름, 경로와 같은 내용은 독
 - ...
 
 전체 기능 게이트 목록은
-[여기](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
+[여기](/ko/docs/reference/command-line-tools-reference/feature-gates/#feature-gates)를 참고한다.
 
 {{% note %}}
 단, 해당 원칙에는 예외가 있을 수 있으며, 이 경우에는 가능한

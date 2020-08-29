@@ -162,6 +162,10 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# 예를 들어 'ca.crt'와 같이 점이 있는 키값을 검색한다
+kubectl get configmap myconfig \
+  -o jsonpath='{.data.ca\.crt}'
+
 # 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/master'
 # 으로 명명된 라벨의 결과를 제외)
 kubectl get node --selector='!node-role.kubernetes.io/master'

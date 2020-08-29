@@ -13,18 +13,14 @@ This page explains how to add versioning information to
 [CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
-
-
 ## {{% heading "prerequisites" %}}
 
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-You should have a initial understanding of [custom resources](/docs/concepts/api-extension/custom-resources/).
+You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -274,6 +270,89 @@ version sort order is `v1`, followed by `v1beta1`. This causes the kubectl
 command to use `v1` as the default version unless the provided object specifies
 the version.
 
+### Version deprecation
+
+{{< feature-state state="stable" for_k8s_version="v1.19" >}}
+
+Starting in v1.19, a CustomResourceDefinition can indicate a particular version of the resource it defines is deprecated.
+When API requests to a deprecated version of that resource are made, a warning message is returned in the API response as a header.
+The warning message for each deprecated version of the resource can be customized if desired.
+
+A customized warning message should indicate the deprecated API group, version, and kind,
+and should indicate what API group, version, and kind should be used instead, if applicable.
+
+{{< tabs name="CustomResourceDefinition_versioning_deprecated" >}}
+{{% tab name="apiextensions.k8s.io/v1" %}}
+```yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    # This indicates the v1alpha1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    deprecated: true
+    # This overrides the default warning returned to API clients making v1alpha1 API requests.
+    deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    schema: ...
+  - name: v1beta1
+    served: true
+    # This indicates the v1beta1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    # A default warning message is returned for this version.
+    deprecated: true
+    schema: ...
+  - name: v1
+    served: true
+    storage: true
+    schema: ...
+```
+{{% /tab %}}
+{{% tab name="apiextensions.k8s.io/v1beta1" %}}
+```yaml
+# Deprecated in v1.16 in favor of apiextensions.k8s.io/v1
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: crontabs.example.com
+spec:
+  group: example.com
+  names:
+    plural: crontabs
+    singular: crontab
+    kind: CronTab
+  scope: Namespaced
+  validation: ...
+  versions:
+  - name: v1alpha1
+    served: true
+    # This indicates the v1alpha1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    deprecated: true
+    # This overrides the default warning returned to API clients making v1alpha1 API requests.
+    deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+  - name: v1beta1
+    served: true
+    # This indicates the v1beta1 version of the custom resource is deprecated.
+    # API requests to this version receive a warning header in the server response.
+    # A default warning message is returned for this version.
+    deprecated: true
+  - name: v1
+    served: true
+    storage: true
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
 ## Webhook conversion
 
 {{< feature-state state="stable" for_k8s_version="v1.16" >}}
@@ -291,7 +370,9 @@ conversions that call an external service in case a conversion is required. For 
 * Watch is created in one version but the changed object is stored in another version.
 * custom resource PUT request is in a different version than storage version.
 
-To cover all of these cases and to optimize conversion by the API server, the conversion requests may contain multiple objects in order to minimize the external calls. The webhook should perform these conversions independently.
+To cover all of these cases and to optimize conversion by the API server, 
+the conversion requests may contain multiple objects in order to minimize the external calls.
+The webhook should perform these conversions independently.
 
 ### Write a conversion webhook server
 
@@ -302,7 +383,12 @@ that is validated in a Kubernetes e2e test. The webhook handles the
 results wrapped in `ConversionResponse`. Note that the request
 contains a list of custom resources that need to be converted independently without
 changing the order of objects.
-The example server is organized in a way to be reused for other conversions. Most of the common code are located in the [framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go) that leaves only [one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80) to be implemented for different conversions.
+The example server is organized in a way to be reused for other conversions.
+Most of the common code are located in the
+[framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)
+that leaves only
+[one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
@@ -315,12 +401,17 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 
 #### Permissible mutations
 
-A conversion webhook must not mutate anything inside of `metadata` of the converted object other than `labels` and `annotations`. Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request which caused the conversion. All other changes are just ignored.  
+A conversion webhook must not mutate anything inside of `metadata` of the converted object
+other than `labels` and `annotations`.
+Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
+which caused the conversion. All other changes are just ignored.  
 
 ### Deploy the conversion webhook service
 
-Documentation for deploying the conversion webhook is the same as for the [admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
-The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
+Documentation for deploying the conversion webhook is the same as for the
+[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
+The assumption for next sections is that the conversion webhook server is deployed to a service
+named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 
 {{< note >}}
 When the webhook server is deployed into the Kubernetes cluster as a
@@ -556,7 +647,7 @@ at the subpath "/my-path", and to verify the TLS connection against the ServerNa
 {{< tabs name="CustomResourceDefinition_versioning_example_4" >}}
 {{% tab name="apiextensions.k8s.io/v1" %}}
 ```yaml
-apiVersion: apiextensions.k8s.io/v1b
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 ...
 spec:

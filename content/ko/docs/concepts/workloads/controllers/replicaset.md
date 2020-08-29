@@ -346,7 +346,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 ### 잡
 
-스스로 종료되는 것이 예상되는 파드의 경우에는 레플리카셋 대신 [`잡`](/docs/concepts/jobs/run-to-completion-finite-workloads/)을 이용한다
+스스로 종료되는 것이 예상되는 파드의 경우에는 레플리카셋 대신 [`잡`](/ko/docs/concepts/workloads/controllers/job/)을 이용한다
 (즉, 배치 잡).
 
 ### 데몬셋

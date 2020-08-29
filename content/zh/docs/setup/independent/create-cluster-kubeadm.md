@@ -388,7 +388,7 @@ support [Network Policy](/docs/concepts/services-networking/networkpolicies/). S
 - IPv6 support was added in [CNI v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0).
 - [CNI bridge](https://github.com/containernetworking/plugins/blob/master/plugins/main/bridge/README.md) and [local-ipam](https://github.com/containernetworking/plugins/blob/master/plugins/ipam/host-local/README.md) are the only supported IPv6 network plugins in Kubernetes version 1.9. -->
 
-**网络必须在部署任何应用之前部署好。此外，在网络安装之前是 CoreDNS 不会启用的。
+**网络必须在部署任何应用之前部署好。此外，在网络安装之前 CoreDNS 是不会启用的。
 kubeadm 只支持基于容器网络接口（CNI）的网络而且不支持 kubenet 。**
 
 有一些项目为 Kubernetes 提供使用 CNI 的 Pod 网络，其中一些也支持[网络策略](/docs/concepts/services-networking/networkpolicies/).

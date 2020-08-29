@@ -289,14 +289,27 @@ API versions are supported in a series of subsequent releases.
 ### REST resources (aka API objects)
 
 Consider a hypothetical REST resource named Widget, which was present in API v1
-in the above timeline, and which needs to be deprecated.  We
-[document](/docs/reference/deprecation-policy/) and
+in the above timeline, and which needs to be deprecated.  We document and
 [announce](https://groups.google.com/forum/#!forum/kubernetes-announce) the
 deprecation in sync with release X+1.  The Widget resource still exists in API
 version v1 (deprecated) but not in v2alpha1.  The Widget resource continues to
 exist and function in releases up to and including X+8.  Only in release X+9,
 when API v1 has aged out, does the Widget resource cease to exist, and the
 behavior get removed.
+
+Starting in Kubernetes v1.19, making an API request to a deprecated REST API endpoint:
+
+1. Returns a `Warning` header (as defined in [RFC7234, Section 5.5](https://tools.ietf.org/html/rfc7234#section-5.5)) in the API response.
+2. Adds a `"k8s.io/deprecated":"true"` annotation to the [audit event](/docs/tasks/debug-application-cluster/audit/) recorded for the request.
+3. Sets an `apiserver_requested_deprecated_apis` gauge metric to `1` in the `kube-apiserver` 
+   process. The metric has labels for `group`, `version`, `resource`, `subresource` that can be joined
+   to the `apiserver_request_total` metric, and a `removed_version` label that indicates the 
+   Kubernetes release in which the API will no longer be served. The following Prometheus query
+   returns information about requests made to deprecated APIs which will be removed in v1.22:
+   
+   ```promql
+   apiserver_requested_deprecated_apis{removed_version="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
+   ```
 
 ### Fields of REST resources
 

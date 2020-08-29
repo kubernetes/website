@@ -57,7 +57,7 @@ see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contrib
 
 {{< note>}}
 如果你希望更改构建工具和 API 参考资料，可以阅读
-[上游贡献指南](/docs/contribute/generate-ref-docs/contribute-upstream).
+[上游贡献指南](/zh/docs/contribute/generate-ref-docs/contribute-upstream).
 {{< /note >}}
 
 <!--
@@ -185,7 +185,7 @@ Single page Markdown documents, imported by the tool, must adhere to
 the [Documentation Style Guide](/docs/contribute/style/style-guide/).
 -->
 通过工具导入的单页面的 Markdown 文档必须遵从
-[文档样式指南](/docs/contribute/style/style-guide/)。
+[文档样式指南](/zh/docs/contribute/style/style-guide/)。
 
 <!--
 ## Customizing reference.yml
@@ -385,7 +385,7 @@ topics will be visible in the
 继续监视该 PR 直到其被合并为止。
 
 当你的 PR 被合并几分钟之后，你所做的对参考文档的变更就会出现
-[发布的文档](/docs/home/)上。
+[发布的文档](/zh/docs/home/)上。
 
 ## {{% heading "whatsnext" %}}
 
@@ -399,7 +399,7 @@ running the build targets, see the following guides:
 -->
 要手动设置所需的构造仓库，执行构建目标，以生成各个参考文档，可参考下面的指南：
 
-* [为 Kubernetes 组件和工具生成参考文档](/docs/contribute/generate-ref-docs/kubernetes-components/)
-* [为 kubeclt 命令生成参考文档](/docs/contribute/generate-ref-docs/kubectl/)
-* [为 Kubernetes API 生成参考文档](/docs/contribute/generate-ref-docs/kubernetes-api/)
+* [为 Kubernetes 组件和工具生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-components/)
+* [为 kubeclt 命令生成参考文档](/zh/docs/contribute/generate-ref-docs/kubectl/)
+* [为 Kubernetes API 生成参考文档](/zh/docs/contribute/generate-ref-docs/kubernetes-api/)
 

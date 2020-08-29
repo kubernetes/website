@@ -16,13 +16,7 @@ TTL 컨트롤러는 실행이 완료된 리소스 오브젝트의 수명을
 
 알파(Alpha) 고지 사항: 이 기능은 현재 알파이고,
 kube-apiserver와 kube-controller-manager와 함께
-[기능 게이트](/docs/reference/command-line-tools-reference/feature-gates/)로 `TTLAfterFinished` 를 활성화할 수 있다.
-
-
-
-
-
-
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)로 `TTLAfterFinished` 를 활성화할 수 있다.
 
 <!-- body -->
 
@@ -80,7 +74,6 @@ TTL 컨트롤러는 쿠버네티스 리소스에
 
 ## {{% heading "whatsnext" %}}
 
+* [자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/job/#완료된-잡을-자동으로-정리)
 
-[자동으로 잡 정리](/ko/docs/concepts/workloads/controllers/jobs-run-to-completion/#완료된-잡을-자동으로-정리)
-
-[디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
+* [디자인 문서](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)

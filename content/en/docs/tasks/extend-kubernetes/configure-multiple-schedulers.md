@@ -9,7 +9,8 @@ weight: 20
 
 <!-- overview -->
 
-Kubernetes ships with a default scheduler that is described [here](/docs/admin/kube-scheduler/).
+Kubernetes ships with a default scheduler that is described
+[here](/docs/reference/command-line-tools-reference/kube-scheduler/).
 If the default scheduler does not suit your needs you can implement your own scheduler.
 Not just that, you can even run multiple schedulers simultaneously alongside the default
 scheduler and instruct Kubernetes what scheduler to use for each of your pods. Let's
@@ -20,15 +21,9 @@ document. Please refer to the kube-scheduler implementation in
 [pkg/scheduler](https://github.com/kubernetes/kubernetes/tree/{{< param "githubbranch" >}}/pkg/scheduler)
 in the Kubernetes source directory for a canonical example.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
 
 <!-- steps -->
 
@@ -83,7 +78,7 @@ Note also that we created a dedicated service account `my-scheduler` and bind th
 `system:kube-scheduler` to it so that it can acquire the same privileges as `kube-scheduler`.
 
 Please see the
-[kube-scheduler documentation](/docs/admin/kube-scheduler/) for
+[kube-scheduler documentation](/docs/reference/command-line-tools-reference/kube-scheduler/) for
 detailed description of other command line arguments.
 
 ## Run the second scheduler in the cluster
@@ -100,6 +95,7 @@ Verify that the scheduler pod is running:
 ```shell
 kubectl get pods --namespace=kube-system
 ```
+
 ```
 NAME                                           READY     STATUS    RESTARTS   AGE
 ....
@@ -125,8 +121,10 @@ The control plane creates the lock objects for you, but the namespace must alrea
 You can use the `kube-system` namespace.
 {{< /note >}}
 
-If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role. Add your scheduler name to the resourceNames of the rule applied for `endpoints` and `leases` resources, as in the following example:
-```
+If RBAC is enabled on your cluster, you must update the `system:kube-scheduler` cluster role.
+Add your scheduler name to the resourceNames of the rule applied for `endpoints` and `leases` resources, as in the following example:
+
+```shell
 kubectl edit clusterrole system:kube-scheduler
 ```
 
@@ -134,9 +132,10 @@ kubectl edit clusterrole system:kube-scheduler
 
 ## Specify schedulers for pods
 
-Now that our second scheduler is running, let's create some pods, and direct them to be scheduled by either the default scheduler or the one we just deployed. In order to schedule a given pod using a specific scheduler, we specify the name of the
+Now that our second scheduler is running, let's create some pods, and direct them
+to be scheduled by either the default scheduler or the one we just deployed.
+In order to schedule a given pod using a specific scheduler, we specify the name of the
 scheduler in that pod spec. Let's look at three examples.
-
 
 - Pod spec without any scheduler name
 
@@ -147,9 +146,9 @@ scheduler in that pod spec. Let's look at three examples.
 
   Save this file as `pod1.yaml` and submit it to the Kubernetes cluster.
 
-```shell
-kubectl create -f pod1.yaml
-```
+  ```shell
+  kubectl create -f pod1.yaml
+  ```
 
 - Pod spec with `default-scheduler`
 
@@ -160,9 +159,9 @@ kubectl create -f pod1.yaml
 
   Save this file as `pod2.yaml` and submit it to the Kubernetes cluster.
 
-```shell
-kubectl create -f pod2.yaml
-```
+  ```shell
+  kubectl create -f pod2.yaml
+  ```
 
 - Pod spec with `my-scheduler`
 
@@ -174,17 +173,15 @@ kubectl create -f pod2.yaml
 
   Save this file as `pod3.yaml` and submit it to the Kubernetes cluster.
 
-```shell
-kubectl create -f pod3.yaml
-```
+  ```shell
+  kubectl create -f pod3.yaml
+  ```
 
   Verify that all three pods are running.
 
-```shell
-kubectl get pods
-```
-
-
+  ```shell
+  kubectl get pods
+  ```
 
 <!-- discussion -->
 
@@ -205,5 +202,4 @@ verify that the pods were scheduled by the desired schedulers.
 ```shell
 kubectl get events
 ```
-
 

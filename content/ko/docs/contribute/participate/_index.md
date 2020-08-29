@@ -20,7 +20,9 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 누구나 풀 리퀘스트(PR)를 요청할 수 있고,
 누구나 콘텐츠에 대해 이슈를 등록하거나 진행 중인 풀 리퀘스트에 코멘트를 등록할 수 있다.
 
-[멤버](/ko/docs/contribute/participating/roles-and-responsibilities/#멤버), [리뷰어](/ko/docs/contribute/participating/roles-and-responsibilities/#리뷰어), 또는 [승인자](/ko/docs/contribute/participating/roles-and-responsibilities/#승인자)가 될 수 있다.
+[멤버](/ko/docs/contribute/participate/roles-and-responsibilities/#멤버),
+[리뷰어](/ko/docs/contribute/participate/roles-and-responsibilities/#리뷰어), 또는
+[승인자](/ko/docs/contribute/participate/roles-and-responsibilities/#승인자)가 될 수 있다.
 이런 역할은 변경을 승인하고 커밋할 수 있도록 보다 많은 접근 권한과 이에 상응하는 책임이 수반된다.
 쿠버네티스 커뮤니티 내에서 멤버십이 운영되는 방식에 대한 보다 많은 정보를 확인하려면
 [커뮤니티 멤버십](https://github.com/kubernetes/community/blob/master/community-membership.md)
@@ -29,8 +31,6 @@ SIG Docs는 모든 컨트리뷰터의 콘텐츠와 리뷰를 환영한다.
 문서의 나머지에서는 대외적으로 쿠버네티스를 가장 잘 드러내는 수단 중 하나인 쿠버네티스 웹사이트와
 문서를 관리하는 책임을 가지는 SIG Docs에서,
 이런 체계가 작동하는 특유의 방식에 대한 윤곽을 잡아보겠다.
-
-
 
 <!-- body -->
 
@@ -58,7 +58,8 @@ GitHub의 SIG Docs [팀]에는 두 분류가 있다.
 그룹의 전원과 의사소통하기 위해서
 각각 GitHub 코멘트에서 그룹의 `@name`으로 참조할 수 있다.
 
-가끔은 Prow와 GitHub 팀은 정확히 일치하지 않고 중복된다. 이슈, 풀 리퀘스트를 할당하고, PR 승인을 지원하기 위해서
+가끔은 Prow와 GitHub 팀은 정확히 일치하지 않고 중복된다.
+이슈, 풀 리퀘스트를 할당하고, PR 승인을 지원하기 위해서
 자동화 시스템이 `OWNERS` 파일의 정보를 활용한다.
 
 ### OWNERS 파일과 전문(front-matter)
@@ -105,7 +106,7 @@ PR 소유자에게 조언하는데 활용된다.
 - 모든 쿠버네티스 멤버는 코멘트에 `/lgtm` 을 추가해서 `lgtm` 레이블을 추가할 수 있다.
 - SIG Docs 승인자들만이 코멘트에 `/approve` 를
   추가해서 풀 리퀘스트를 병합할 수 있다. 일부 승인자들은
-  [PR Wrangler](/ko/docs/contribute/advanced/#일주일-동안-pr-랭글러-wrangler-되기) 또는 [SIG Docs 의장](#sig-docs-의장)과
+  [PR Wrangler](/ko/docs/contribute/participate/pr-wranglers/) 또는 [SIG Docs 의장](#sig-docs-의장)과
   같은 특정 역할도 수행한다.
 
 
