@@ -204,7 +204,7 @@ myapp-pod   1/1       Running   0          9m
 
 ## Initコンテナのふるまいに関する詳細 {#detailed-behavior}
 
-Podの起動時、各Initコンテナが起動状態となるまで、kubeletはネットワーキングおよびストレージを利用可能な状態にしません。また、kubeletはPodのspecに定義された順番に従って各Initコンテナを起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
+Podの起動時は各Initコンテナが起動状態となるまで、kubeletはネットワーキングおよびストレージを利用可能な状態にしません。また、kubeletはPodのspecに定義された順番に従って各Initコンテナを起動します。各Initコンテナは次のInitコンテナが起動する前に正常に終了しなくてはなりません。もしあるInitコンテナがランタイムもしくはエラーにより起動失敗した場合、そのPodの`restartPolicy`の値に従ってリトライされます。しかし、もしPodの`restartPolicy`が`Always`に設定されていた場合、Initコンテナの`restartPolicy`は`OnFailure`が適用されます。
 
 Podは全てのInitコンテナが完了するまで`Ready`状態となりません。Initコンテナ上のポートはServiceによって集約されません。初期化中のPodのステータスは`Pending`となりますが、`Initialized`という値はtrueとなります。
 
