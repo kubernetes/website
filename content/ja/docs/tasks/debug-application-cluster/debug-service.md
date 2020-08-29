@@ -45,7 +45,7 @@ deployment.apps/hostnames created
 
 `kubectl`コマンドは作成、変更されたリソースのタイプと名前を出力するため、この後のコマンドで使用することもできます。
 
-Deplymentを3つのreplicaにスケールさせてみましょう。
+Deploymentを3つのレプリカにスケールさせてみましょう。
 
 ```shell
 kubectl scale deployment hostnames --replicas=3
