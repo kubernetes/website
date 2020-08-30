@@ -17,7 +17,7 @@
 
         for(var i = 1; i <= 10; i++){
             if(i > pages) break;
-            pageAnchors += '<a class="bing-page-anchor" href="/docs/search/?q='+searchTerm+'&page='+i+'">';
+            pageAnchors += '<a class="bing-page-anchor" href="/search/?q='+searchTerm+'&page='+i+'">';
             pageAnchors += (currentPage == i) ? '<b>'+i+'</b>' : i;
             pageAnchors += '</a>';
         }
