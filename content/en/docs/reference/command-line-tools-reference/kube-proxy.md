@@ -7,13 +7,15 @@ weight: 30
 ## {{% heading "synopsis" %}}
 
 
-The Kubernetes network proxy runs on each node. This
-reflects services as defined in the Kubernetes API on each node and can do simple
-TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP forwarding across a set of backends.
+A Kubernetes network "proxy" is generally run on all nodes which need to be able to use Kubernete internal services.  It's job is to
+reflect services as defined in the Kubernetes API on each node and can do simple
+TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP to their corresponding backends.
+
 Service cluster IPs and ports are currently found through Docker-links-compatible
 environment variables specifying ports opened by the service proxy. There is an optional
-addon that provides cluster DNS for these cluster IPs. The user must create a service
-with the apiserver API to configure the proxy.
+addon (kube-dns, which is now generally implemented as core-dns), which provides cluster DNS for these cluster IPs.
+
+Note that virtually all of the command line options below are deprecated and represented instead via a the configuration file (typically loaded in a ConfigMap), which is used for modifying the proxy's defaults.  The kube-proxy *does not* automatically reload its configuration if changed in the ConfigMap at this time, so make sure to restart it manually if you need to change its configuration in a running cluster.
 
 ```
 kube-proxy [flags]
