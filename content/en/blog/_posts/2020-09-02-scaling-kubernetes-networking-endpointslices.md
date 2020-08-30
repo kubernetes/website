@@ -24,7 +24,7 @@ The EndpointSlice API was designed to address this issue with an approach simila
 Consider an example where a Service is backed by 15 pods. We'd end up with a single Endpoints resource that tracked all of them. If EndpointSlices were configured to store 5 endpoints each, we'd end up with 3 different EndpointSlices:
 ![EndpointSlices](/images/blog/2020-09-02-scaling-kubernetes-networking-endpointslices/endpoint-slices.png)
 
-By default, EndpointSlices will store as many as 100 endpoints each, though this can be configured with the --max-endpoints-per-slice flag on kube-controller-manager.
+By default, EndpointSlices  store as many as 100 endpoints each, though this can be configured with the `--max-endpoints-per-slice` flag on kube-controller-manager.
 
 ## EndpointSlices provide 10x scalability improvements
 This API dramatically improves networking scalability. Now when a Pod is added or removed, only 1 small EndpointSlice needs to be updated. This difference becomes quite noticeable when hundreds or thousands of Pods are backing a single Service. 
@@ -44,4 +44,3 @@ Topology aware routing will update kube-proxy to prefer routing requests within 
 Although the EndpointSlice API is providing a newer and more scalable alternative to the Endpoints API, the Endpoints API will continue to be considered generally available and stable. The most significant change planned for the Endpoints API will involve beginning to truncate Endpoints that would otherwise run into scalability issues.
 
 Although the Endpoints API is not going away, many new features will be enabled by the EndpointSlice API. To take advantage of the new scalability and functionality that EndpointSlices provide, applications that currently consume Endpoints will likely want to consider switching to EndpointSlices in the future.
-
