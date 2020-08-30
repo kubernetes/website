@@ -31,7 +31,7 @@ This API dramatically improves networking scalability. Now when a Pod is added o
 
 Potentially more significant, now that all Pod IPs for a Service don't need to be stored in a single resource, we don't have to worry about the size limit for objects stored in etcd. EndpointSlices have already been used to scale Services beyond 100,000 network endpoints.
 
-All of this is brought together with some significant performance improvements that have been made in kube-proxy. When using EndpointSlices at scale, significantly less data will be transferred for endpoints updates and kube-proxy should be faster to update iptables or ipvs rules. Beyond that, Services can now scale at least 10x beyond any previous limitations.
+All of this is brought together with some significant performance improvements that have been made in kube-proxy. When using EndpointSlices at scale, significantly less data will be transferred for endpoints updates and kube-proxy should be faster to update iptables or ipvs rules. Beyond that, Services can now scale to at least 10 times any previous limitations.
 
 ## EndpointSlices enable new functionality
 As a new API, EndpointSlices were built to enable some exciting new functionality in future Kubernetes releases. This will include dual-stack Services, topology aware routing, and endpoint subsetting.
