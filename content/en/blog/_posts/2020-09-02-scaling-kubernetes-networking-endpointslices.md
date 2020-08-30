@@ -2,7 +2,7 @@
 layout: blog
 title: 'Scaling Kubernetes Networking With EndpointSlices'
 date: 2020-09-02
-slug: scaling-kubernetes-networking-with-endpointSlices
+slug: scaling-kubernetes-networking-with-endpointslices
 ---
 
 **Author:** Rob Scott (Google)
