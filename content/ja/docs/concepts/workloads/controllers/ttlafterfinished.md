@@ -23,7 +23,7 @@ TTLコントローラーは現在{{< glossary_tooltip text="Jobs" term_id="job" 
 
 ## TTLコントローラー
 
-TTLコントローラーは現在Jobに対してのみサポートされています。クラスターオペレーターはこの[例](#終了したjobの自動クリーンアップ)のように、Jobの`.spec.ttlSecondsAfterFinished`フィールドを指定することにより、終了したJob(`完了した`もしくは`失敗した`)を自動的に削除するためにこの機能を使うことができます。  
+TTLコントローラーは現在Jobに対してのみサポートされています。クラスターオペレーターはこの[例](/ja/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)のように、Jobの`.spec.ttlSecondsAfterFinished`フィールドを指定することにより、終了したJob(`完了した`もしくは`失敗した`)を自動的に削除するためにこの機能を使うことができます。  
 TTLコントローラーは、そのリソースが終了したあと指定したTTLの秒数後に削除できるか推定します。言い換えると、そのTTLが期限切れになると、TTLコントローラーがリソースをクリーンアップするときに、そのリソースに紐づく従属オブジェクトも一緒に連続で削除します。注意点として、リソースが削除されるとき、ファイナライザーのようなライフサイクルに関する保証は尊重されます。
 
 TTL秒はいつでもセット可能です。下記はJobの`.spec.ttlSecondsAfterFinished`フィールドのセットに関するいくつかの例です。
@@ -50,7 +50,7 @@ Kubernetesにおいてタイムスキューを避けるために、全てのNode
 ## {{% heading "whatsnext" %}}
 
 
-[Jobの自動クリーンアップ](#終了したjobの自動クリーンアップ)
+[Jobの自動クリーンアップ](/ja/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 
 [設計ドキュメント](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/0026-ttl-after-finish.md)
 
