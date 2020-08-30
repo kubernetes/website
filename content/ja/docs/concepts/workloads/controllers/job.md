@@ -230,7 +230,7 @@ Job内のJobの仕様と[Podテンプレートの仕様](/ja/docs/concepts/workl
 `restartPolicy`はPodに適用され、Job自体には適用されないことに注意してください。Jobのステータスが`type: Failed`になると、Jobの自動再起動は行われません。
 つまり、 `.spec.activeDeadlineSeconds`と`.spec.backoffLimit`でアクティブ化されるJob終了のメカニズムは、手作業での介入が必要になるような永続的なJobの失敗を引き起こします。
 
-## 終了したJobの自動クリーンアップ
+## 終了したJobの自動クリーンアップ {#clean-up-finished-jobs-automatically}
 
 終了したJobは、通常、もう必要ありません。それらをシステム内に保持すると、APIサーバーに負担がかかります。[CronJobs](/ja/docs/concepts/workloads/controllers/cron-jobs/)などの上位レベルのコントローラーによってJobが直接管理されている場合、指定された容量ベースのクリーンアップポリシーに基づいて、JobをCronJobsでクリーンアップできます。 
 
