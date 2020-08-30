@@ -25,13 +25,13 @@ weight: 100
 
 - `kubectl get pods --all-namespaces`を使用して、すべての名前空間のPodを取得します
 - `-o jsonpath={.. image}`を使用して、コンテナイメージ名のリストのみが含まれるように出力をフォーマットします。これは、返されたjsonの`image`フィールドを再帰的に解析します。
-  - jsonpathの使い方については、[jsonpathリファレンス](/docs/user-guide/jsonpath/)を参照してください。
+  - jsonpathの使い方については、[jsonpathリファレンス](/docs/reference/kubectl/jsonpath/)を参照してください。
 - `tr`、`sort`、`uniq`などの標準ツールを使用して出力をフォーマットします。
   - `tr`を使用してスペースを改行に置換します。
   - `sort`を使用して結果を並べ替えます。
   - `uniq`を使用してイメージ数を集計します。
 
-```sh
+```shell
 kubectl get pods --all-namespaces -o jsonpath="{..image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
@@ -42,7 +42,7 @@ uniq -c
 
 別の方法として、Pod内のimageフィールドへの絶対パスを使用することができます。これにより、フィールド名が繰り返されている場合でも正しいフィールドが取得されます。多くのフィールドは与えられたアイテム内で`name`と呼ばれます:
 
-```sh
+```shell
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
 ```
 
@@ -61,7 +61,7 @@ jsonpathは次のように解釈されます:
 
 `range`を使用して要素を個別に繰り返し処理することにより、フォーマットをさらに制御できます。
 
-```sh
+```shell
 kubectl get pods --all-namespaces -o=jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
 sort
 ```
@@ -70,7 +70,7 @@ sort
 
 特定のラベルに一致するPodのみを対象とするには、-lフラグを使用します。以下は、`app=nginx`に一致するラベルを持つPodのみに一致します。
 
-```sh
+```shell
 kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
 ```
 
@@ -78,7 +78,7 @@ kubectl get pods --all-namespaces -o=jsonpath="{..image}" -l app=nginx
 
 特定の名前空間のPodのみを対象とするには、namespaceフラグを使用します。以下は`kube-system`名前空間のPodのみに一致します。
 
-```sh
+```shell
 kubectl get pods --namespace kube-system -o jsonpath="{..image}"
 ```
 
@@ -87,7 +87,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{..image}"
 jsonpathの代わりに、kubectlは[go-templates](https://golang.org/pkg/text/template/)を使用した出力のフォーマットをサポートしています:
 
 
-```sh
+```shell
 kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{range .spec.containers}}{{.image}} {{end}}{{end}}"
 ```
 
@@ -104,7 +104,7 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 
 ### 参照
 
-* [jsonpath](/docs/user-guide/jsonpath/)参照ガイド
+* [jsonpath](/docs/reference/kubectl/jsonpath/)参照ガイド
 * [Go template](https://golang.org/pkg/text/template/)参照ガイド
 
 
