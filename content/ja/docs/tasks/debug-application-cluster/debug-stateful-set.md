@@ -27,7 +27,7 @@ StatefulSetに属し、ラベル`app=myapp`が設定されているすべてのP
 kubectl get pods -l app=myapp
 ```
 
-Podが長期間`Unknown`または`Terminating`の状態になっていることがわかった場合は、それらを処理する方法について[StatefulSet Podの強制削除](/ja/docs/tasks/run-application/delete-stateful-set/)タスクを参照してください。
+Podが長期間`Unknown`または`Terminating`の状態になっていることがわかった場合は、それらを処理する方法について[StatefulSetの削除](/ja/docs/tasks/run-application/delete-stateful-set/)タスクを参照してください。
 [Podのデバッグ](/docs/tasks/debug-application-cluster/debug-pod-replication-controller/)ガイドを使用して、StatefulSet内の個々のPodをデバッグできます。
 
 
