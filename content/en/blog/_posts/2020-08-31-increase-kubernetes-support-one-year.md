@@ -13,7 +13,7 @@ This is a big change. For many years the Kubernetes project has delivered a new 
 
 A survey conducted in early 2019 by the WG LTS showed that a significant subset of Kubernetes end-users fail to upgrade within the 9-month support period. 
 
-![Versions in Production](/images/blog/2020-08-31-increase-kubernetes-support-one-year/versions-in-production.png)
+![Versions in Production](/images/blog/2020-08-31-increase-kubernetes-support-one-year/versions-in-production-text-2.png)
 
 This, and other responses from the survey, suggest that a considerable portion of our community would better be able to lifecycle manage their deployments on supported versions if the patch support period were extended to 12-14 months. It appears to be true regardless of whether the users are on DIY build or commercially vendored distributions. An extension in the patch support length of time would thus lead to a larger percentage of our user base running supported versions compared to what we have now.
 
@@ -26,6 +26,6 @@ All of these versions still fall under the older “three releases support” mo
 
 For example, 1.19 has been released on the 26th of August 2020, which is 11 months since the release of 1.16. Since 1.16 is still under the old release policy, this means that it is now out of support.
 
-![Support Timeline](/images/blog/2020-08-31-increase-kubernetes-support-one-year/support-timeline)
+![Support Timeline](/images/blog/2020-08-31-increase-kubernetes-support-one-year/support-timeline.png)
 
 If you’ve got thoughts or feedback, we’d love to hear them. Please contact us on #wg-lts on the Kubernetes Slack, or to the [kubernetes-wg-lts mailing list](https://groups.google.com/g/kubernetes-wg-lts).
