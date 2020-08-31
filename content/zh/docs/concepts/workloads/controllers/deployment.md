@@ -212,7 +212,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 2. 运行 `kubectl get deployments` 以检查 Deployment 是否已创建。如果仍在创建 Deployment ，则输出以下内容：
 
-    ```shell
+    ```
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         0         0            0           1s
     ```
@@ -247,7 +247,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 3. 要查看 Deployment 展开状态，运行 `kubectl rollout status deployment.v1.apps/nginx-deployment`。输出：
 
-    ```shell
+    ```
     Waiting for rollout to finish: 2 out of 3 new replicas have been updated...
     deployment.apps/nginx-deployment successfully rolled out
     ```
@@ -257,7 +257,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 4. 几秒钟后再次运行 `kubectl get deployments`。输出：
 
-    ```shell
+    ```
     NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
     nginx-deployment   3         3         3            3           18s
     ```
@@ -271,7 +271,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 5. 要查看 Deployment 创建的 ReplicaSet  （`rs`），运行 `kubectl get rs`。输出：
 
-    ```shell
+    ```
     NAME                          DESIRED   CURRENT   READY   AGE
     nginx-deployment-75675f5897   3         3         3       18s
     ```
@@ -286,7 +286,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 -->
 6. 要查看每个 Pod 自动生成的标签，运行 `kubectl get pods --show-labels`。返回以下输出：
 
-    ```shell
+    ```
     NAME                                READY     STATUS    RESTARTS   AGE       LABELS
     nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
     nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
