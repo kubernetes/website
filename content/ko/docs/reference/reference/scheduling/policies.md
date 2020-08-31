@@ -33,7 +33,8 @@ weight: 10
   파드가 요청하는 {{< glossary_tooltip text="볼륨" term_id="volume" >}}을 노드에서 사용할 수 있는지
   평가한다.
 
-- `NoDiskConflict`: 요청하는 볼륨과 이미 마운트된 볼륨으로 인해 파드가 노드에 적합한 지 평가한다.
+- `NoDiskConflict`: 요청하는 볼륨과 이미 마운트된 볼륨으로 인해
+  파드가 노드에 적합한지 평가한다.
 
 - `MaxCSIVolumeCount`: 연결해야하는 {{< glossary_tooltip text="CSI" term_id="csi" >}} 볼륨의 수와 구성된 제한을 초과하는지 여부를 결정한다.
 
