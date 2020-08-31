@@ -134,7 +134,7 @@ See [this issue](https://github.com/kubernetes/kubernetes/issues/13287) for more
 强烈建议为 `maximum-dead-containers-per-container` 设置一个足够大的值，以便每个预期容器至少保留一个死亡容器。
 由于同样的原因，`maximum-dead-containers` 也建议使用一个足够大的值。
 
-查阅[这个 Issue](https://github.com/kubernetes/kubernetes/issues/13287) 获取更多细节。
+查阅[这个 issue](https://github.com/kubernetes/kubernetes/issues/13287) 获取更多细节。
 
 <!--
 ## Deprecation
