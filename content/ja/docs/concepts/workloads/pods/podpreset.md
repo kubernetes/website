@@ -1,6 +1,6 @@
 ---
 reviewers:
-title: Pod Presets
+title: Pod Preset
 content_type: concept
 weight: 50
 ---
