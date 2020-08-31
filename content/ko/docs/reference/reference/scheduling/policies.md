@@ -76,7 +76,9 @@ weight: 10
   노드에 배치되는 파드가 많고, 해당 파드가 사용하는 리소스가
   많을수록 이 정책이 부여하는 순위가 낮아진다.
 
-- `MostRequestedPriority`: 요청된 리소스가 가장 많은 노드를 선호한다. 이 정책은 전체 워크로드 세트를 실행하는 데 필요한 최소 노드 수에 스케줄된 파드를 맞춘다.
+- `MostRequestedPriority`: 요청된 리소스가 가장 많은 노드를 선호한다.
+  이 정책은 전체 워크로드 세트를 실행하는 데 필요한 최소 노드 수에 스케줄된
+  파드를 맞춘다.
 
 - `RequestedToCapacityRatioPriority`: 기본 리소스 스코어링(scoring) 함수 셰이프(shape)를 사용하여 ResourceAllocationPriority에 기반한 requestedToCapacity를 만든다.
 
