@@ -7,7 +7,7 @@ slug: kubernetes-1-19-feature-one-year-support
 
 **Authors:** Tim Pepper (VMware), Nick Young (VMware)
 
-Starting with Kubernetes 1.19, the support window for Kubernetes versions [will increase from three versions](https://github.com/kubernetes/enhancements/issues/1498) (usually nine months support) to one year. The longer support window is intended to allow organisations to perform major upgrades at whatever time of the year works the best for them.
+Starting with Kubernetes 1.19, the support window for Kubernetes versions [will increase from 9 months to one year](https://github.com/kubernetes/enhancements/issues/1498). The longer support window is intended to allow organizations to perform major upgrades at a time of the year that works the best for them.
 
 This is a big change. For many years the Kubernetes project has delivered a new minor release (e.g.: 1.13 or 1.14) every 3 months. The project provides bugfix support via patch releases (e.g.: 1.13.Y) for three parallel branches of the codebase. Combined, this led to each minor release (e.g.: 1.13) having a patch release stream of support for approximately 9 months. In the end a cluster operator must upgrade at least every 9 months to remain supported. But nine months is an irregular period of time relative to the planning, operations, and financial cycles of most companies.
 
