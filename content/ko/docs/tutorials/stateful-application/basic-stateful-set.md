@@ -85,12 +85,15 @@ statefulset.apps/web created
 
 ```shell
 kubectl get service nginx
+```
+```
 NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 nginx     ClusterIP    None         <none>        80/TCP    12s
 ```
 그리고 `web` 스테이트풀셋 정보를 가져와서 모두 성공적으로 생성되었는지 확인한다.
 ```shell
 kubectl get statefulset web
+```
 ```
 NAME      DESIRED   CURRENT   AGE
 web       2         1         20s
