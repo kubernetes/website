@@ -217,8 +217,8 @@ Same considerations apply for the service account key pair:
 
 | 私钥路径            | 公钥路径            | 命令                 | 参数                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | service-account-private              |
-|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file              |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 <!--
 ## Configure certificates for user accounts
