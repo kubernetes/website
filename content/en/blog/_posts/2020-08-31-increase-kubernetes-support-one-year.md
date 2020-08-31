@@ -21,7 +21,7 @@ A yearly support period provides the cushion end-users appear to desire, and is 
 There are many unknowns about changing the support windows for a project with as many moving parts as Kubernetes. Keeping the change relatively small (relatively being the important word), gives us the chance to find out what those unknowns are in detail and address them.
 From Kubernetes version 1.19 on, the support window will be extended to one year.For Kubernetes versions 1.16, 1.17, and 1.18, the story is more complicated.
 
-All of these versions still fall under the older “three releases support” model, and so will be out of support when 1.19, 1.20 and 1.21 are respectively released. However, because the 1.19 release has been delayed due to the events of 2020, they will end up with close to a year of support (depending on their exact release dates).
+All of these versions still fall under the older “three releases support” model, and will drop out of support when 1.19, 1.20 and 1.21 are respectively released. However, because the 1.19 release has been delayed due to the events of 2020, they will end up with close to a year of support (depending on their exact release dates).
 
 For example, 1.19 has been released on the 26th of August 2020, which is 11 months since the release of 1.16. Since 1.16 is still under the old release policy, this means that it is now out of support.
 
