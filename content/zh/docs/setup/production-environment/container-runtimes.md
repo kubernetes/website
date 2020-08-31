@@ -860,7 +860,11 @@ Refer to the [Frakti QuickStart guide](https://github.com/kubernetes/frakti#quic
 -->
 ### systemd
 
-使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 `plugins.cri.systemd_cgroup = true`。
+使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
+```
+[plugins.cri]
+systemd_cgroup = true
+```
 当使用 kubeadm 时，请手动配置
 [kubelet 的 cgroup 驱动](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-master-node)
 
