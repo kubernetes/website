@@ -72,7 +72,9 @@ weight: 10
 - `InterPodAffinityPriority`: 선호된
   [파드간 어피니티와 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티)을 구현한다.
 
-- `LeastRequestedPriority`: 요청된 리소스가 적은 노드를 선호한다. 즉, 노드에 배치되는 파드가 많고 해당 파드가 사용하는 리소스가 많을수록 정책이 부여하는 순위가 낮아진다.
+- `LeastRequestedPriority`: 요청된 리소스가 적은 노드를 선호한다. 즉,
+  노드에 배치되는 파드가 많고, 해당 파드가 사용하는 리소스가
+  많을수록 이 정책이 부여하는 순위가 낮아진다.
 
 - `MostRequestedPriority`: 요청된 리소스가 가장 많은 노드를 선호한다. 이 정책은 전체 워크로드 세트를 실행하는 데 필요한 최소 노드 수에 스케줄된 파드를 맞춘다.
 
