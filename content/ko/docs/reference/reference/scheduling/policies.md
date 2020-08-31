@@ -39,7 +39,8 @@ weight: 10
 - `MaxCSIVolumeCount`: 연결해야 하는 {{< glossary_tooltip text="CSI" term_id="csi" >}} 볼륨의 수와
   구성된 제한을 초과하는지 여부를 결정한다.
 
-- `CheckNodeMemoryPressure`: 노드가 메모리 압박을 보고하고 구성된 예외가 없는 경우 파드가 스케줄되지 않는다.
+- `CheckNodeMemoryPressure`: 노드가 메모리 압박을 보고하고 있고, 구성된
+  예외가 없는 경우, 파드가 해당 노드에 스케줄되지 않는다.
 
 - `CheckNodePIDPressure`: 노드가 프로세스 ID 부족을 보고하고 구성된 예외가 없는 경우 파드가 스케줄되지 않는다.
 
