@@ -56,7 +56,9 @@ weight: 10
 - `PodToleratesNodeTaints`: 파드의 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}이
   노드의 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 용인할 수 있는지 확인한다.
 
-- `CheckVolumeBinding`: 파드가 요청한 볼륨에 적합할 수 있는지 평가한다. 이는 바운드된 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}와 바운드되지 않은 PVC 모두에 적용된다.
+- `CheckVolumeBinding`: 파드가 요청한 볼륨에 적합할 수 있는지 평가한다.
+  이는 바인딩된 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}와
+  바인딩되지 않은 PVC 모두에 적용된다.
 
 ## 우선순위(Priorities) {#priorities}
 
