@@ -92,7 +92,9 @@ weight: 10
   설정에 따라 노드의 우선순위를 지정한다.
   이에 대한 자세한 내용은 [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)에서 확인할 수 있다.
 
-- `TaintTolerationPriority`: 노드의 용인할 수 없는 테인트수를 기반으로 모든 노드의 우선 순위 목록을 준비한다. 이 정책은 해당 목록을 고려하여 노드의 순위를 조정한다.
+- `TaintTolerationPriority`: 노드에서 용인할 수 없는 테인트 수를 기반으로,
+  모든 노드의 우선순위 목록을 준비한다. 이 정책은 해당 목록을
+  고려하여 노드의 순위를 조정한다.
 
 - `ImageLocalityPriority`: 해당 파드의 {{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}가 이미 로컬로 캐시된 노드를 선호한다.
 
