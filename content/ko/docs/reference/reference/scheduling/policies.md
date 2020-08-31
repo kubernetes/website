@@ -36,7 +36,8 @@ weight: 10
 - `NoDiskConflict`: 요청하는 볼륨과 이미 마운트된 볼륨으로 인해
   파드가 노드에 적합한지 평가한다.
 
-- `MaxCSIVolumeCount`: 연결해야하는 {{< glossary_tooltip text="CSI" term_id="csi" >}} 볼륨의 수와 구성된 제한을 초과하는지 여부를 결정한다.
+- `MaxCSIVolumeCount`: 연결해야 하는 {{< glossary_tooltip text="CSI" term_id="csi" >}} 볼륨의 수와
+  구성된 제한을 초과하는지 여부를 결정한다.
 
 - `CheckNodeMemoryPressure`: 노드가 메모리 압박을 보고하고 구성된 예외가 없는 경우 파드가 스케줄되지 않는다.
 
