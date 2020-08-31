@@ -29,7 +29,9 @@ weight: 10
 - `PodMatchNodeSelector`: 파드의 노드 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}가
   노드의 {{< glossary_tooltip text="레이블" term_id="label" >}}과 일치하는지 확인한다.
 
-- `NoVolumeZoneConflict`: 해당 스토리지에 대한 장애 영역 제한이 주어지면 파드가 요청하는 {{< glossary_tooltip text="볼륨" term_id="volume" >}}을 노드에서 사용할 수 있는지 평가한다.
+- `NoVolumeZoneConflict`: 해당 스토리지에 대한 장애 영역 제한이 주어지면
+  파드가 요청하는 {{< glossary_tooltip text="볼륨" term_id="volume" >}}을 노드에서 사용할 수 있는지
+  평가한다.
 
 - `NoDiskConflict`: 요청하는 볼륨과 이미 마운트된 볼륨으로 인해 파드가 노드에 적합한 지 평가한다.
 
