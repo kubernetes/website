@@ -114,8 +114,8 @@ of the labels with the same names on the corresponding Node.
 Most often, the control plane (specifically, the endpoint slice
 {{< glossary_tooltip text="controller" term_id="controller" >}}) creates and
 manages EndpointSlice objects. There are a variety of other use cases for
-EndpointSlices, such as service mesh implementations, that could result in othe
-rentities or controllers managing additional sets of EndpointSlices.
+EndpointSlices, such as service mesh implementations, that could result in other
+entities or controllers managing additional sets of EndpointSlices.
 
 To ensure that multiple entities can manage EndpointSlices without interfering
 with each other, Kubernetes defines the
