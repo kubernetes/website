@@ -120,8 +120,8 @@ kubeadm 사용자만 해당:
 
 | 개인키 경로             | 공개 키 경로             | 명령어                 | 파라미터                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | service-account-private              |
-|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file              |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 ## 각 사용자 계정을 위한 인증서 설정하기
 
