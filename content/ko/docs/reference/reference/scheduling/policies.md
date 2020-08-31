@@ -64,7 +64,10 @@ weight: 10
 
 다음의 *우선순위(priorities)* 는 스코어링을 구현한다.
 
-- `SelectorSpreadPriority`: 동일한 {{< glossary_tooltip text="서비스" term_id="service" >}}, {{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}} 또는 {{< glossary_tooltip text="레플리카셋" term_id="replica-set" >}}에 속하는 파드를 고려하여 여러 호스트에 파드를 분산한다.
+- `SelectorSpreadPriority`: 동일한 {{< glossary_tooltip text="서비스" term_id="service" >}},
+  {{< glossary_tooltip text="스테이트풀셋(StatefulSet)" term_id="statefulset" >}} 또는
+  {{< glossary_tooltip text="레플리카셋(ReplicaSet)" term_id="replica-set" >}}에 속하는
+  파드를 고려하여, 파드를 여러 호스트에 파드를 분산한다.
 
 - `InterPodAffinityPriority`: 선호된 [파드간 어피니티와 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티)을 구현한다.
 
