@@ -17,7 +17,7 @@ A survey conducted in early 2019 by the WG LTS showed that a significant subset 
 
 This, and other responses from the survey, suggest that a considerable portion of our community would better be able to manage their deployments on supported versions if the patch support period were extended to 12-14 months. It appears to be true regardless of whether the users are on DIY builds or commercially vendored distributions. An extension in the patch support length of time would thus lead to a larger percentage of our user base running supported versions compared to what we have now.
 
-A yearly support period provides the cushion end-users appear to desire, and is more in harmony with familiar annual planning cycles.
+A yearly support period provides the cushion end-users appear to desire, and is more aligned with familiar annual planning cycles.
 We view elongating the patch support window toward 1 year as a relatively minor change, yet is believed viable from an implementation perspective and is a meaningful first response to users.
 There are many unknowns about changing the support windows for a project with as many moving parts as Kubernetes, and keeping the change relatively small (relatively being the important word), gives us the chance to find out what those unknowns are in detail and address them.
 From Kubernetes version 1.19 on, the support window will be extended to one year.For Kubernetes versions 1.16, 1.17, and 1.18, the story is more complicated.
