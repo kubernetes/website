@@ -9,7 +9,7 @@ weight: 50
 ネットワークはKubernetesにおける中心的な部分ですが、どのように動作するかを正確に理解することは難解な場合もあります。
 Kubernetesには、4つの異なる対応すべきネットワークの問題があります:
 
-1. 高度に結合されたコンテナ間の通信: これは、{{< glossary_tooltip text="Pods" term_id="pod" >}}および`localhost`通信によって解決されます。
+1. 高度に結合されたコンテナ間の通信: これは、{{< glossary_tooltip text="Pod" term_id="pod" >}}および`localhost`通信によって解決されます。
 2. Pod間の通信: 本ドキュメントの主な焦点です。
 3. Podからサービスへの通信：これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
 4. 外部からサービスへの通信：これは[Service](/ja/docs/concepts/services-networking/service/)でカバーされています。
@@ -24,7 +24,7 @@ Kubernetesは、言ってしまえばアプリケーション間でマシンを�
 
 動的ポート割り当てはシステムに多くの複雑さをもたらします。すべてのアプリケーションはパラメータとしてポートを管理する必要があり、APIサーバーにて動的なポート番号を設定値として注入する方法が必要となり、各サービスはお互いにお互いを見つける方法が必要です。Kubernetesはこれに対処するのではなく、別のアプローチを取ります。
 
-## Kubernetesのネットワークモデル
+## Kubernetesのネットワークモデル {#the-kubernetes-network-model}
 
 すべての`Pod`は独自のIPアドレスを持ちます。これは、`Pod`間のリンクを明示的に作成する必要がなく、コンテナポートをホストポートにマッピングする必要がほとんどないことを意味します。こうすることで、ポート割り当て、名前解決、サービスディスカバリー、負荷分散、アプリケーション設定、および移行の観点から、`Pod`をVMまたは物理ホストと同様に扱うことができる、クリーンで後方互換性のあるモデルを生み出しています。
 
@@ -109,7 +109,7 @@ addressing, and it can be used in combination with other CNI plugins.
 
 ### CNI-Genie from Huawei
 
-[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#kubernetesのネットワークモデル) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
+[CNI-Genie](https://github.com/Huawei-PaaS/CNI-Genie) is a CNI plugin that enables Kubernetes to [simultaneously have access to different implementations](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-cni-plugins/README.md#what-cni-genie-feature-1-multiple-cni-plugins-enables) of the [Kubernetes network model](/ja/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) in runtime. This includes any implementation that runs as a [CNI plugin](https://github.com/containernetworking/cni#3rd-party-plugins), such as [Flannel](https://github.com/coreos/flannel#flannel), [Calico](http://docs.projectcalico.org/), [Romana](http://romana.io), [Weave-net](https://www.weave.works/products/weave-net/).
 
 CNI-Genie also supports [assigning multiple IP addresses to a pod](https://github.com/Huawei-PaaS/CNI-Genie/blob/master/docs/multiple-ips/README.md#feature-2-extension-cni-genie-multiple-ip-addresses-per-pod), each from a different CNI plugin.
 
