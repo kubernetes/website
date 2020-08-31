@@ -8,7 +8,7 @@ weight: 10
 
 스케줄링 정책을 사용하여 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}가 각각 노드를 필터링하고 스코어링(scoring)하기 위해 실행하는 *단정(predicates)* 및 *우선순위(priorities)* 를 지정할 수 있다.
 
-`kube-scheduler --policy-config-file <filename>` 또는 `kube-scheduler --policy-configmap <ConfigMap>`을 실행하고 [Policy type](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy)을 사용하여 스케줄링 정책을 설정할 수 있다.
+`kube-scheduler --policy-config-file <filename>` 또는 `kube-scheduler --policy-configmap <ConfigMap>`을 실행하고 [정책 유형](https://pkg.go.dev/k8s.io/kube-scheduler@v0.18.0/config/v1?tab=doc#Policy)을 사용하여 스케줄링 정책을 설정할 수 있다.
 
 
 
