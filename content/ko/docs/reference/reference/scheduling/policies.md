@@ -96,7 +96,9 @@ weight: 10
   모든 노드의 우선순위 목록을 준비한다. 이 정책은 해당 목록을
   고려하여 노드의 순위를 조정한다.
 
-- `ImageLocalityPriority`: 해당 파드의 {{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}가 이미 로컬로 캐시된 노드를 선호한다.
+- `ImageLocalityPriority`: 해당 파드의
+  {{< glossary_tooltip text="컨테이너 이미지" term_id="image" >}}가 이미 로컬로 캐시된
+  노드를 선호한다.
 
 - `ServiceSpreadingPriority`: 특정 서비스에 대해, 이 정책은 서비스의 파드가 서로 다른 노드에서 실행되는 것을 목표로 한다. 이미 할당된 서비스에 대한 파드가 없는 노드에 스케줄링 되는 것을 선호한다. 전체적인 결과는 서비스가 단일 노드 장애에 대해 더 탄력적이라는 것이다.
 
