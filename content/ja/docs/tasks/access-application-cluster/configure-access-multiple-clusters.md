@@ -23,7 +23,7 @@ card:
 
 {{< include "task-tutorial-prereqs.md" >}}
 
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスタのAPIサーバの[1つ以内のバージョン](/ja/docs/setup/release/version-skew-policy/#kubectl)である必要があります。
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}がインストールされているか確認するため、`kubectl version --client`を実行してください。kubectlのバージョンは、クラスタのAPIサーバの[1つのマイナーバージョン内](/ja/docs/setup/release/version-skew-policy/#kubectl)にある必要があります。
 
 
 
@@ -337,4 +337,3 @@ $Env:KUBECONFIG=$ENV:KUBECONFIG_SAVED
 
 * [kubeconfigファイルを使ってクラスターへのアクセスを管理する](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 * [kubectl config](/docs/reference/generated/kubectl/kubectl-commands#config)
-
