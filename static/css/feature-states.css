@@ -1,24 +1,3 @@
-/* Callouts */
-.caution, .note, .warning {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
-}
-
-.caution {
-    border-left-color: #f0ad4e;
-}
-
-.note {
-    border-left-color: #428bca;
-}
-
-.warning {
-    border-left-color: #d9534f;
-}
-
 /* Feature States */
 
 .beta, .stable, .alpha, .deprecated {
