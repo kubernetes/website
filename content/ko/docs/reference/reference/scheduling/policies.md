@@ -107,7 +107,8 @@ weight: 10
 
 - `EqualPriority`: 모든 노드에 동일한 가중치를 부여한다.
 
-- `EvenPodsSpreadPriority`: 선호된 [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)을 구현한다.
+- `EvenPodsSpreadPriority`: 선호된
+  [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)을 구현한다.
 
 
 
