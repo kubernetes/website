@@ -16,7 +16,7 @@ weight: 10
 
 ## 단정(Predicates) {#predicates}
 
-다음 *단정(predicates)*은 필터링을 구현한다.
+다음의 *단정(predicates)* 은 필터링을 구현한다.
 
 - `PodFitsHostPorts`: 노드에 파드가 요청하는 파드 포트에 사용 가능한 포트(네트워크 프로토콜 종류)가 있는지 확인한다.
 
