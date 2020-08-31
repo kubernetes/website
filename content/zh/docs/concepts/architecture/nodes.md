@@ -381,7 +381,7 @@ You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) on a Node.
 -->
 可以在学习如何在节点上[预留计算资源](/zh/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-的时了解有关容量和可分配资源的更多信息。
+的时候了解有关容量和可分配资源的更多信息。
 
 <!--
 ### Info
