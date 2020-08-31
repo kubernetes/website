@@ -115,4 +115,4 @@ weight: 10
 ## {{% heading "whatsnext" %}}
 
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 배우기
-* [kube-scheduler profiles](/docs/reference/scheduling/profiles/)에 대해 배우기
+* [kube-scheduler 프로파일](/docs/reference/scheduling/profiles/)에 대해 배우기
