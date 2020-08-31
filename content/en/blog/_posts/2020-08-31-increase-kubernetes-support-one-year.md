@@ -1,6 +1,6 @@
 ---
 layout: blog 
-title: 'Increase Kubernetes Support Window to One Year'
+title: 'Increasing the Kubernetes Support Window to One Year'
 date: 2020-08-31 
 slug: kubernetes-1-19-feature-one-year-support
 ---
@@ -28,4 +28,4 @@ For example, 1.19 has been released on the 26th of August 2020, which is 11 mont
 
 ![Support Timeline](/images/blog/2020-08-31-increase-kubernetes-support-one-year/support-timeline.png)
 
-If you’ve got thoughts or feedback, we’d love to hear them. Please contact us on #wg-lts on the Kubernetes Slack, or to the [kubernetes-wg-lts mailing list](https://groups.google.com/g/kubernetes-wg-lts).
+If you’ve got thoughts or feedback, we’d love to hear them. Please contact us on [#wg-lts](https://kubernetes.slack.com/messages/wg-lts/) on the Kubernetes Slack, or to the [kubernetes-wg-lts mailing list](https://groups.google.com/g/kubernetes-wg-lts).
