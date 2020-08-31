@@ -5,7 +5,7 @@ date: 2020-08-25
 slug: gsoc20-building-operators-for-cluster-addons
 ---
 
-**Author**: Onyekwere Somtochi
+**Author**: Somtochi Onyekwere
 
 # Introduction
 
@@ -116,4 +116,4 @@ If you are interested in cluster addons and finding out more on addon operators,
 
 ---
 
-_[Onyekwere Somtochi](https://twitter.com/SomtochiAma) is a software engineer that loves contributing to open-source and exploring cloud native solutions._
+_[Somtochi Onyekwere](https://twitter.com/SomtochiAma) is a software engineer that loves contributing to open-source and exploring cloud native solutions._
