@@ -88,7 +88,9 @@ weight: 10
   노드의 우선순위를 지정한다. 이를 사용하여 두 개의 다른 파드가
   동일한 노드에서 실행되면 안된다는 힌트를 줄 수 있다.
 
-- `NodeAffinityPriority`: PreferredDuringSchedulingIgnoredDuringExecution에 표시된 노드 어피니티 스케줄링 기본 설정에 따라 노드의 우선 순위를 지정한다. 이에 대한 자세한 내용은 [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)에서 확인할 수 있다.
+- `NodeAffinityPriority`: PreferredDuringSchedulingIgnoredDuringExecution에 표시된 노드 어피니티 스케줄링
+  설정에 따라 노드의 우선순위를 지정한다.
+  이에 대한 자세한 내용은 [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)에서 확인할 수 있다.
 
 - `TaintTolerationPriority`: 노드의 용인할 수 없는 테인트수를 기반으로 모든 노드의 우선 순위 목록을 준비한다. 이 정책은 해당 목록을 고려하여 노드의 순위를 조정한다.
 
