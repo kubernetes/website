@@ -48,7 +48,10 @@ weight: 10
 - `CheckNodeDiskPressure`: 노드가 스토리지 압박(파일시스템이 가득차거나
   거의 꽉 참)을 보고하고 있고, 구성된 예외가 없는 경우, 파드가 해당 노드에 스케줄되지 않는다.
 
-- `CheckNodeCondition`: 노드는 네트워킹을 사용할 수 없거나 kubelet이 파드를 실행할 준비가 되지 않은 완전히 가득 찬 파일 시스템을 보고할 수 있다. 노드에 대해 이러한 조건이 설정되고 구성된 예외가 없는 경우 파드가 스케줄되지 않는다.
+- `CheckNodeCondition`: 노드는 파일시스템이 완전히 가득찼거나,
+  네트워킹을 사용할 수 없거나, kubelet이 파드를 실행할 준비가 되지 않았다고 보고할 수 있다.
+  노드에 대해 이러한 조건이 설정되고, 구성된 예외가 없는 경우, 파드가
+  해당 노드에 스케줄되지 않는다.
 
 - `PodToleratesNodeTaints`: 파드의 {{< glossary_tooltip text="톨러레이션" term_id="toleration" >}}이 노드의 {{< glossary_tooltip text="테인트" term_id="taint" >}}를 용인할 수 있는지 확인한다.
 
