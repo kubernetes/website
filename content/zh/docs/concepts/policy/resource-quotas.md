@@ -794,7 +794,7 @@ It may be desired that pods at a particular priority, eg. "cluster-services", sh
 -->
 ## 默认情况下限制特定优先级的资源消耗
 
-有时候可能希望当且仅当某名字空间中存在匹配的配额对象时，才可以创建特定优先级
+有时候可能希望当且仅当某命名空间中存在匹配的配额对象时，才可以创建特定优先级
 （例如 "cluster-services"）的 Pod。
 
 <!--
