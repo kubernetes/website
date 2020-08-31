@@ -119,8 +119,8 @@ kubeadm利用者のみ：
 
 | 秘密鍵のパス 　　　　            |　公開鍵のパス 　　　           | コマンド                 | 引数                             |
 |------------------------------|-----------------------------|-------------------------|--------------------------------------|
-|  sa.key                      |                             | kube-controller-manager | service-account-private              |
-|                              | sa.pub                      | kube-apiserver          | service-account-key                  |
+|  sa.key                      |                             | kube-controller-manager | --service-account-private-key-file              |
+|                              | sa.pub                      | kube-apiserver          | --service-account-key-file                  |
 
 ## ユーザアカウント用に証明書を設定する
 
