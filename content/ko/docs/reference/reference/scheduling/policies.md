@@ -80,7 +80,7 @@ weight: 10
   이 정책은 전체 워크로드 세트를 실행하는 데 필요한 최소 노드 수에 스케줄된
   파드를 맞춘다.
 
-- `RequestedToCapacityRatioPriority`: 기본 리소스 스코어링(scoring) 함수 셰이프(shape)를 사용하여 ResourceAllocationPriority에 기반한 requestedToCapacity를 만든다.
+- `RequestedToCapacityRatioPriority`: 기본 리소스 스코어링 기능을 사용하여 ResourceAllocationPriority에 기반한 requestedToCapacity를 생성한다.
 
 - `BalancedResourceAllocation`: 균형 잡힌 리소스 사용의 노드를 선호한다.
 
