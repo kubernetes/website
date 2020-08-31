@@ -166,24 +166,18 @@ applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 如果某节点死掉或者与集群中其他节点失联，Kubernetes
 会实施一种策略，将失去的节点上运行的所有 Pod 的 `phase` 设置为 `Failed`。
 
-<!--
-## Container states
+Pod 有一个 PodStatus 对象，其中包含一个 [PodCondition](/docs/resources-reference/v1.7/#podcondition-v1-core) 数组。PodCondition 数组的每个元素都有一个 `type` 字段和一个 `status` 字段。`type` 字段是字符串，可能的值有 PodScheduled、Ready、Initialized 和 Unschedulable。`status` 字段是一个字符串，可能的值有 True、False 和 Unknown。
 
 As well as the [phase](#pod-phase) of the Pod overall, Kubernetes tracks the state of
 each container inside a Pod. You can use
 [container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/) to
 trigger events to run at certain points in a container's lifecycle.
 
-Once the {{< glossary_tooltip text="scheduler" term_id="kube-scheduler" >}}
-assigns a Pod to a Node, the kubelet starts creating containers for that Pod
-using a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
-There are three possible container states: `Waiting`, `Running`, and `Terminated`.
--->
-## 容器状态  {#container-states}
+[探针](/docs/resources-reference/v1.7/#probe-v1-core)是由 [kubelet](/docs/admin/kubelet/) 对容器执行的定期诊断。要执行诊断，kubelet 调用由容器实现的 [Handler](https://godoc.org/k8s.io/kubernetes/pkg/api/v1#Handler)。有三种类型的处理程序：
 
-Kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体上的[阶段](#pod-phase)一样。
-你可以使用[容器生命周期回调](/zh/docs/concepts/containers/container-lifecycle-hooks/) 
-来在容器生命周期中的特定时间点触发事件。
+- [ExecAction](/docs/resources-reference/v1.7/#execaction-v1-core)：在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功。
+- [TCPSocketAction](/docs/resources-reference/v1.7/#tcpsocketaction-v1-core)：对指定端口上的容器的 IP 地址进行 TCP 检查。如果端口打开，则诊断被认为是成功的。
+- [HTTPGetAction](/docs/resources-reference/v1.7/#httpgetaction-v1-core)：对指定的端口和路径上的容器的 IP 地址执行 HTTP Get 请求。如果响应的状态码大于等于 200 且小于 400，则诊断被认为是成功的。
 
 一旦{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}将 Pod
 分派给某个节点，`kubelet` 就通过
@@ -202,7 +196,9 @@ Each state has a specific meaning:
 要检查 Pod 中容器的状态，你可以使用 `kubectl describe pod <pod 名称>`。
 其输出中包含 Pod 中每个容器的状态。
 
-每种状态都有特定的含义：
+- `livenessProbe`：指示容器是否正在运行。如果存活探测失败，则 kubelet 会杀死容器，并且容器将受到其[重启策略](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)的影响。如果容器不提供存活探针，则默认状态为 `Success`。
+- `readinessProbe`：指示容器是否准备好服务请求。如果就绪探测失败，端点控制器将从与 Pod 匹配的所有 Service 的端点中删除该 Pod 的 IP 地址。初始延迟之前的就绪状态默认为 `Failure`。如果容器不提供就绪探针，则默认状态为 `Success`。
+- `startupProbe`: 指示容器中的应用是否已经启动。如果提供了启动探测(startup probe)，则禁用所有其他探测，直到它成功为止。如果启动探测失败，kubelet 将杀死容器，容器服从其重启策略进行重启。如果容器没有提供启动探测，则默认状态为成功`Success`。
 
 <!--
 ### `Waiting` {#container-state-waiting}
@@ -217,15 +213,9 @@ a Reason field to summarize why the container is in that state.
 -->
 ### `Waiting` （等待）  {#container-state-waiting}
 
-如果容器并不处在 `Running` 或 `Terminated` 状态之一，它就处在 `Waiting` 状态。
-处于 `Waiting` 状态的容器仍在运行它完成启动所需要的操作：例如，从某个容器镜像
-仓库拉取容器镜像，或者向容器应用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
-数据等等。
-当你使用 `kubectl` 来查询包含 `Waiting` 状态的容器的 Pod 时，你也会看到一个
-Reason 字段，其中给出了容器处于等待状态的原因。
+如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活探针; kubelet 将根据 Pod 的 `restartPolicy` 自动执行正确的操作。
 
-<!--
-### `Running` {#container-state-running}
+如果您希望容器在探测失败时被杀死并重新启动，那么请指定一个存活探针，并指定 `restartPolicy` 为 Always 或 OnFailure。
 
 The `Running` status indicates that a container is executing without issues. If there
 was a `postStart` hook configured, it has already executed and executed. When you use
@@ -256,8 +246,7 @@ the `Terminated` state.
 如果你使用 `kubectl` 来查询包含 `Terminated` 状态的容器的 Pod 时，你会看到
 容器进入此状态的原因、退出代码以及容器执行期间的起止时间。
 
-如果容器配置了 `preStop` 回调，则该回调会在容器进入 `Terminated`
-状态之前执行。
+PodSpec 中有一个 `restartPolicy` 字段，可能的值为 Always、OnFailure 和 Never。默认为 Always。`restartPolicy` 适用于 Pod 中的所有容器。`restartPolicy` 仅指通过同一节点上的 kubelet 重新启动容器。失败的容器由 kubelet 以五分钟为上限的指数退避延迟（10秒，20秒，40秒...）重新启动，并在成功执行十分钟后重置。如 [Pod 文档](/docs/user-guide/pods/#durability-of-pods-or-lack-thereof)中所述，一旦绑定到一个节点，Pod 将永远不会重新绑定到另一个节点。
 
 <!--
 ## Container restart policy {#restart-policy}
