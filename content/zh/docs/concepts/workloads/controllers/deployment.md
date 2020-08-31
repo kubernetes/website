@@ -1763,9 +1763,9 @@ configuring containers, and [using kubectl to manage resources](/docs/concepts/o
 
 <!--
  In addition to required fields for a Pod, a Pod template in a Deployment must specify appropriate
-labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector)).
+labels and an appropriate restart policy. For labels, make sure not to overlap with other controllers. See [selector](#selector).
 -->
-除了 Pod 的必填字段外， Deployment 中的 Pod 模板必须指定适当的标签和适当的重新启动策略。对于标签，请确保不要与其他控制器重叠。请参考[选择器](#selector))。
+除了 Pod 的必填字段外， Deployment 中的 Pod 模板必须指定适当的标签和适当的重新启动策略。对于标签，请确保不要与其他控制器重叠。请参考[选择器](#selector)。
 
 <!--
  Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/#restart-policy) equal to `Always` is
