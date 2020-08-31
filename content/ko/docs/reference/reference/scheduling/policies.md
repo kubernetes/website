@@ -84,7 +84,9 @@ weight: 10
 
 - `BalancedResourceAllocation`: 균형 잡힌 리소스 사용의 노드를 선호한다.
 
-- `NodePreferAvoidPodsPriority`: 노드 어노테이션 `scheduler.alpha.kubernetes.io/preferAvoidPods`에 따라 노드의 우선순위를 지정한다. 이를 사용하여 두 개의 다른 파드가 동일한 노드에서 실행되면 안된다는 힌트를 얻을 수 있다.
+- `NodePreferAvoidPodsPriority`: 노드 어노테이션 `scheduler.alpha.kubernetes.io/preferAvoidPods`에 따라
+  노드의 우선순위를 지정한다. 이를 사용하여 두 개의 다른 파드가
+  동일한 노드에서 실행되면 안된다는 힌트를 줄 수 있다.
 
 - `NodeAffinityPriority`: PreferredDuringSchedulingIgnoredDuringExecution에 표시된 노드 어피니티 스케줄링 기본 설정에 따라 노드의 우선 순위를 지정한다. 이에 대한 자세한 내용은 [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)에서 확인할 수 있다.
 
