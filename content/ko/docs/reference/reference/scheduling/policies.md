@@ -69,7 +69,8 @@ weight: 10
   {{< glossary_tooltip text="레플리카셋(ReplicaSet)" term_id="replica-set" >}}에 속하는
   파드를 고려하여, 파드를 여러 호스트에 파드를 분산한다.
 
-- `InterPodAffinityPriority`: 선호된 [파드간 어피니티와 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티)을 구현한다.
+- `InterPodAffinityPriority`: 선호된
+  [파드간 어피니티와 안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티)을 구현한다.
 
 - `LeastRequestedPriority`: 요청된 리소스가 적은 노드를 선호한다. 즉, 노드에 배치되는 파드가 많고 해당 파드가 사용하는 리소스가 많을수록 정책이 부여하는 순위가 낮아진다.
 
