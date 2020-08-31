@@ -9,10 +9,10 @@ slug: scaling-kubernetes-networking-with-endpointslices
 
 EndpointSlices are an exciting new API that provides a scalable and extensible alternative to the Endpoints API. EndpointSlices track IP addresses, ports, readiness, and topology information for Pods backing a Service.
 
-In Kubernetes 1.19 this feature will be enabled by default with kube-proxy reading from [EndpointSlices](https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/) instead of Endpoints. Although this will mostly be an invisible change, it should result in noticeable scalability improvements in large clusters. It will also enable significant new features in future Kubernetes releases like Topology Aware Routing.
+In Kubernetes 1.19 this feature is be enabled by default with kube-proxy reading from [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/) instead of Endpoints. Although this will mostly be an invisible change, it should result in noticeable scalability improvements in large clusters. It also enables significant new features in future Kubernetes releases like Topology Aware Routing.
 
 ## Scalability Limitations of the Endpoints API 
-With the Endpoints API, there was only one Endpoint resource for a Service. That meant that it needed to be able to store IP addresses and ports (network endpoints) for every Pod that was backing the corresponding Service. This resulted in huge API resources. To compound this problem, kube-proxy was running on every node and watching for any updates to Endpoints resources. If even a single network endpoint changed in an Endpoints resource, the whole object would have to be sent to each of those instances of kube-proxy.
+With the Endpoints API, there was only one Endpoints resource for a Service. That meant that it needed to be able to store IP addresses and ports (network endpoints) for every Pod that was backing the corresponding Service. This resulted in huge API resources. To compound this problem, kube-proxy was running on every node and watching for any updates to Endpoints resources. If even a single network endpoint changed in an Endpoints resource, the whole object would have to be sent to each of those instances of kube-proxy.
 
 A further limitation of the Endpoints API is that it limits the number of network endpoints that can be tracked for a Service. The default size limit for an object stored in etcd is 1.5MB. In some cases that can limit an Endpoints resource to 5,000 Pod IPs. This is not an issue for most users, but it becomes a significant problem for users with Services approaching this size.
 
@@ -34,7 +34,7 @@ Potentially more significant, now that all Pod IPs for a Service don't need to b
 All of this is brought together with some significant performance improvements that have been made in kube-proxy. When using EndpointSlices at scale, significantly less data will be transferred for endpoints updates and kube-proxy should be faster to update iptables or ipvs rules. Beyond that, Services can now scale to at least 10 times any previous limitations.
 
 ## EndpointSlices enable new functionality
-As a new API, EndpointSlices were built to enable some exciting new functionality in future Kubernetes releases. This will include dual-stack Services, topology aware routing, and endpoint subsetting.
+Introduced as an alpha feature in Kubernetes v1.18, EndpointSlices were built to enable some exciting new functionality in future Kubernetes releases. This could include dual-stack Services, topology aware routing, and endpoint subsetting.
 
 Dual-Stack Services are an exciting new feature that has been in development alongside EndpointSlices. They will utilize both IPv4 and IPv6 addresses for Services and rely on the addressType field on EndpointSlices to track these addresses by IP family. 
 
