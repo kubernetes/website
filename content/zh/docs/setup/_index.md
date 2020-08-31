@@ -100,6 +100,4 @@ When evaluating a solution for a production environment, consider which aspects 
 <!--
 [Kubernetes Partners](https://kubernetes.io/partners/#conformance) includes a list of [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) providers.
 -->
-[Kubernetes 合作伙伴](https://kubernetes.io/partners/#conformance) 包括一个 [已认证的 Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 提供商列表。
-
-
+[Kubernetes 合作伙伴](https://kubernetes.io/zh/partners/#kcsp) 包括一个 [已认证的 Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes) 提供商列表。
