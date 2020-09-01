@@ -126,7 +126,7 @@ the Pod; for changes to `Volume`, Kubernetes modifies the Pod Spec.
 一个 Pod 可能不与任何 Pod Preset 匹配，也可能匹配多个 Pod Preset。 同时，一个 `PodPreset` 
 可能不应用于任何 Pod，也可能应用于多个 Pod。 当 `PodPreset` 应用于一个或多个 Pod 时，Kubernetes
 修改 pod spec。 对于 `Env`、 `EnvFrom` 和 `VolumeMounts` 的改动， Kubernetes 修改 pod
-中所有容器的规格，对于卷的改动，Kubernetes 会修改 Pod 规约。
+中所有容器 spec，对于卷的改动，Kubernetes 会修改 Pod spec。
 
 <!--
 A Pod Preset is capable of modifying the following fields in a Pod spec when appropriate:
