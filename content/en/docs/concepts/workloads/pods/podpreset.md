@@ -37,7 +37,7 @@ In order to use Pod presets in your cluster you must ensure the following:
    the `--runtime-config` option for the API server. In minikube add this flag
    `--extra-config=apiserver.runtime-config=settings.k8s.io/v1alpha1=true` while
    starting the cluster.
-1. You have enabled the admission controller named `PodPreset`. One way to doing this
+1. You have enabled the admission controller named `PodPreset`. One way for doing this
    is to include `PodPreset` in the `--enable-admission-plugins` option value specified
    for the API server. For example, if you use Minikube, add this flag:
 
