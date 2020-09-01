@@ -465,6 +465,7 @@ sudo apt-get install cri-o-1.17
 随后安装 CRI-O:
 
 ```shell
+sudo apt-get update
 sudo apt-get install cri-o-1.17
 ```
 
@@ -499,6 +500,7 @@ sudo apt-get install cri-o-1.17
 
 ```shell
 # 安装 CRI-O
+sudo apt-get update
 sudo apt-get install cri-o-1.17
 ```
 {{% /tab %}}
