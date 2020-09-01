@@ -452,11 +452,11 @@ Host folder sharing is not implemented in the KVM driver yet.
 
 | Driver | OS | HostFolder | VM |
 | --- | --- | --- | --- |
-| VirtualBox | Linux | /home | /hosthome |
-| VirtualBox | macOS | /Users | /Users |
-| VirtualBox | Windows | C://Users | /c/Users |
-| VMware Fusion | macOS | /Users | /mnt/hgfs/Users |
-| Xhyve | macOS | /Users | /Users |
+| VirtualBox | Linux | `/home` | `/hosthome` |
+| VirtualBox | macOS | `/Users` | `/Users` |
+| VirtualBox | Windows | `C://Users` | `/c/Users` |
+| VMware Fusion | macOS | `/Users` | `/mnt/hgfs/Users` |
+| Xhyve | macOS | `/Users` | `/Users` |
 
 ## Private Container Registries
 
