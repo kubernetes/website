@@ -34,7 +34,7 @@ Potentially more significant, now that all Pod IPs for a Service don't need to b
 All of this is brought together with some significant performance improvements that have been made in kube-proxy. When using EndpointSlices at scale, significantly less data will be transferred for endpoints updates and kube-proxy should be faster to update iptables or ipvs rules. Beyond that, Services can now scale to at least 10 times any previous limitations.
 
 ## EndpointSlices enable new functionality
-Introduced as an alpha feature in Kubernetes v1.18, EndpointSlices were built to enable some exciting new functionality in future Kubernetes releases. This could include dual-stack Services, topology aware routing, and endpoint subsetting.
+Introduced as an alpha feature in Kubernetes v1.16, EndpointSlices were built to enable some exciting new functionality in future Kubernetes releases. This could include dual-stack Services, topology aware routing, and endpoint subsetting.
 
 Dual-Stack Services are an exciting new feature that has been in development alongside EndpointSlices. They will utilize both IPv4 and IPv6 addresses for Services and rely on the addressType field on EndpointSlices to track these addresses by IP family. 
 
