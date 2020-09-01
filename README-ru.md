@@ -38,8 +38,8 @@ hugo server --buildFuture
 Узнать подробнее о том, как поучаствовать в документации Kubernetes, вы можете по ссылкам ниже:
 
 * [Начните вносить свой вклад](https://kubernetes.io/docs/contribute/)
-* [Использование шаблонов страниц](http://kubernetes.io/docs/contribute/style/page-templates/)
-* [Руководство по оформлению документации](http://kubernetes.io/docs/contribute/style/style-guide/)
+* [Использование шаблонов страниц](https://kubernetes.io/docs/contribute/style/page-content-types/)
+* [Руководство по оформлению документации](https://kubernetes.io/docs/contribute/style/style-guide/)
 * [Руководство по локализации Kubernetes](https://kubernetes.io/docs/contribute/localization/)
 
 ## Файл `README.md` на других языках
