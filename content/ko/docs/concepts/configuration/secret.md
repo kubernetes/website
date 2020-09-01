@@ -350,6 +350,8 @@ NAME                             TYPE                                  DATA     
 db-user-pass-96mffmfh4k          Opaque                                2         51s
 ```
 
+시크릿에 대한 설명을 볼 수 있다.
+
 ```shell
 kubectl describe secrets/db-user-pass-96mffmfh4k
 ```
@@ -999,6 +1001,8 @@ kubectl create secret generic prod-db-secret --from-literal=username=produser --
 ```
 secret "prod-db-secret" created
 ```
+
+테스트 환경의 자격 증명에 대한 시크릿을 만들 수도 있다.
 
 ```shell
 kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests

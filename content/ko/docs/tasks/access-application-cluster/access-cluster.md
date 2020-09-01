@@ -8,9 +8,6 @@ content_type: concept
 
 여기에서는 클러스터와 통신을 하는 다양한 방식에 대해서 다룰 것이다.
 
-
-
-
 <!-- body -->
 
 ## 처음이라면 kubectl을 사용하여 액세스
@@ -29,8 +26,9 @@ kubectl이 인지하는 위치정보와 인증정보는 다음 커맨드로 확�
 kubectl config view
 ```
 
-많은 [예제들](/ko/docs/reference/kubectl/cheatsheet/)에서 kubectl을 사용하는 것을 소개하고 있으며
-완전한 문서는 [kubectl manual](/docs/user-guide/kubectl-overview)에서 찾아볼 수 있다.
+많은 [예제들](/ko/docs/reference/kubectl/cheatsheet/)에서
+kubectl을 사용하는 것을 소개하고 있으며 완전한 문서는
+[kubectl 매뉴얼](/ko/docs/reference/kubectl/overview/)에서 찾아볼 수 있다.
 
 ## REST API에 직접 액세스
 
@@ -165,7 +163,7 @@ localhost에서 제공되거나 방화벽으로 보호되는 몇몇 클러스터
 * 라이브러리를 취득하려면 `go get k8s.io/client-go@kubernetes-<kubernetes-version-number>` 커맨드를 실행한다. [INSTALL.md](https://github.com/kubernetes/client-go/blob/master/INSTALL.md#for-the-casual-user)에서 상세한 설치 방법을 알 수 있다. [https://github.com/kubernetes/client-go](https://github.com/kubernetes/client-go#compatibility-matrix)에서 어떤 버젼이 지원되는지 확인할 수 있다.
 * client-go 클라이언트 위에 애플리케이션을 작성하자. client-go는 자체적으로 API 오브젝트를 정의하므로 필요하다면 main 레포지터리보다는 client-go에서 API 정의들을 import하기를 바란다. 정확하게 `import "k8s.io/client-go/kubernetes"`로 import하는 것을 예로 들 수 있다.
 
-Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)을 사용할 수 있다.
+Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 사용할 수 있다.
 [예제](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go)를 참고한다.
 
 만약 애플리케이션이 클러스터 내에 파드로 배포되었다면 [다음 장](#파드에서-api-액세스)을 참조하기를 바란다.
@@ -174,7 +172,7 @@ Go 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동�
 
 Python 클라이언트를 사용하려면 `pip install kubernetes` 커맨드를 실행한다. 설치 옵션에 대한 상세 사항은 [Python Client Library page](https://github.com/kubernetes-client/python)를 참조한다.
 
-Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)을 사용할 수 있다.
+Python 클라이언트는 apiserver의 위치지정과 인증에 kubectl CLI와 동일하게 [kubeconfig file](/ko/docs/concepts/configuration/organize-cluster-access-kubeconfig/)을 사용할 수 있다.
 [예제](https://github.com/kubernetes-client/python/tree/master/examples)를 참조한다.
 
 ### 다른 언어
@@ -219,7 +217,9 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
 이전 장은 쿠버네티스 API server 접속에 대한 내용을 다루었다. 이번 장은
 쿠버네티스 클러스터 상에서 실행되는 다른 서비스로의 연결을 다룰 것이다. 쿠버네티스에서
-[노드들](/ko/docs/concepts/architecture/nodes/), [파드들](/ko/docs/concepts/workloads/pods/pod/), [서비스들](/docs/user-guide/services)은
+[노드들](/ko/docs/concepts/architecture/nodes/),
+[파드들](/ko/docs/concepts/workloads/pods/pod/),
+[서비스들](/ko/docs/concepts/services-networking/service/)은
 모두 자신의 IP들을 가진다. 당신의 데스크탑 PC와 같은 클러스터 외부 장비에서는
 클러스터 상의 노드 IP들, 파드 IP들, 서비스 IP들로 라우팅되지 않아서 접근을
 할 수 없을 것이다.
@@ -230,7 +230,7 @@ apiserver의 인증서 제공을 검증하는데 사용되어야 한다.
 
   - 공인 IP를 통해 서비스에 액세스.
     - 클러스터 외부에서 접근할 수 있도록 `NodePort` 또는 `LoadBalancer` 타입의
-      서비스를 사용한다. [서비스](/docs/user-guide/services)와
+      서비스를 사용한다. [서비스](/ko/docs/concepts/services-networking/service/)와
       [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose) 문서를 참조한다.
     - 당신의 클러스터 환경에 따라 회사 네트워크에만 서비스를 노출하거나
       인터넷으로 노출할 수 있다. 이 경우 노출되는 서비스의 보안 여부를 고려해야 한다.

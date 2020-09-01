@@ -5,7 +5,7 @@ feature:
   title: 배치 실행
   description: >
     쿠버네티스는 서비스 외에도 배치와 CI 워크로드를 관리할 수 있으며, 원하는 경우 실패한 컨테이너를 교체할 수 있다.
-weight: 70
+weight: 50
 ---
 
 <!-- overview -->

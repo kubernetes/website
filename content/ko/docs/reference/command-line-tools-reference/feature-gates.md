@@ -437,7 +437,10 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면, 기능 �
    자세한 내용은 [장치 모니터링 지원](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/compute-device-assignment.md)을 참고한다.
 - `LegacyNodeRoleBehavior`: 비활성화되면, 서비스 로드 밸런서 및 노드 중단의 레거시 동작은 기능별 레이블을 대신하여 `node-role.kubernetes.io/master` 레이블을 무시한다.
 - `LocalStorageCapacityIsolation`: [로컬 임시 스토리지](/ko/docs/concepts/configuration/manage-resources-containers/)와 [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir)의 `sizeLimit` 속성을 사용할 수 있게 한다.
-- `LocalStorageCapacityIsolationFSQuotaMonitoring`: [로컬 임시 스토리지](/ko/docs/concepts/configuration/manage-resources-containers/)에 대해 `LocalStorageCapacityIsolation`이 활성화되고 [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir)에 대한 백업 파일시스템이 프로젝트 쿼터를 지원하고 활성화된 경우, 프로젝트 쿼터를 사용하여 파일시스템 사용보다는 [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir) 스토리지 사용을 모니터링하여 성능과 정확성을 향상시킨다.
+- `LocalStorageCapacityIsolationFSQuotaMonitoring`: [로컬 임시 스토리지](/ko/docs/concepts/configuration/manage-resources-containers/)에 대해
+  `LocalStorageCapacityIsolation`이 활성화되고 [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir)에 대한
+  백업 파일시스템이 프로젝트 쿼터를 지원하고 활성화된 경우, 프로젝트 쿼터를 사용하여 파일시스템 사용보다는
+  [emptyDir 볼륨](/ko/docs/concepts/storage/volumes/#emptydir) 스토리지 사용을 모니터링하여 성능과 정확성을 향상시킨다.
 - `MountContainers`: 호스트의 유틸리티 컨테이너를 볼륨 마운터로 사용할 수 있다.
 - `MountPropagation`: 한 컨테이너에서 다른 컨테이너 또는 파드로 마운트된 볼륨을 공유할 수 있다.
   자세한 내용은 [마운트 전파(propagation)](/ko/docs/concepts/storage/volumes/#마운트-전파-propagation)을 참고한다.
