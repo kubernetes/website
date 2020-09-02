@@ -188,7 +188,7 @@ curl http://${EXTERNAL_IP} # これを前に見たEXTERNAL-IPに置き換えま�
 
 ## {{% heading "cleanup" %}}
 
-Serviceを削除するために、このコマンドを入力してください：
+Serviceを削除するには、このコマンドを入力してください：
 
 ```shell
 kubectl delete services frontend hello
@@ -205,7 +205,6 @@ kubectl delete deployment frontend hello
 
 * [Service](/ja/docs/concepts/services-networking/service/)の詳細
 * [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)の詳細
-
 
 
 
