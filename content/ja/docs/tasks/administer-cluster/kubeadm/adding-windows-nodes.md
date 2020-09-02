@@ -103,7 +103,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
     kube-system   kube-flannel-ds-54954                     1/1          Running   0          1m
     ```
 
-1. Windows Flannelとkube-proxy DaemonSetsを追加する
+1. Windows Flannelとkube-proxy DaemonSetを追加する
 
     これで、Windows互換バージョンのFlannelおよびkube-proxyを追加できます。
     順番に互換性のあるバージョンのkube-proxyを確実に入手するには、イメージのタグを代用する必要があります。
