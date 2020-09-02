@@ -577,6 +577,10 @@ SPECIAL_TYPE
 `/etc/config/`ディレクトリに何かファイルがある場合、それらは削除されます。
 {{< /caution >}}
 
+{{< note >}}
+テキストデータはUTF-8文字エンコーディングを使用しているファイルとして公開されます。他の文字エンコーディングを使用する場合は、バイナリデータを使用してください。
+{{< /note >}}
+
 ### ConfigMapデータをボリュームの特定のパスに追加する
 
 `path`フィールドを利用して特定のConfigMapのアイテム向けに希望のファイルパスを指定します。
@@ -665,5 +669,5 @@ data:
 
 
 ## {{% heading "whatsnext" %}}
-* 実践例[Configuring Redis using a ConfigMap](/docs/tutorials/configuration/configure-redis-using-configmap/)を続けて読む。
+* 実践例[ConfigMapを使ったRedisの設定](/ja/docs/tutorials/configuration/configure-redis-using-configmap/)を続けて読む。
 
