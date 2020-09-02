@@ -43,4 +43,4 @@ Topology aware routing will update kube-proxy to prefer routing requests within 
 ## What does this mean for the Endpoints API?
 Although the EndpointSlice API is providing a newer and more scalable alternative to the Endpoints API, the Endpoints API will continue to be considered generally available and stable. The most significant change planned for the Endpoints API will involve beginning to truncate Endpoints that would otherwise run into scalability issues.
 
-The Endpoints API is not going away, but many new features will rely on the EndpointSlice API. To take advantage of the new scalability and functionality that EndpointSlices provide, applications that currently consume Endpoints will likely want to consider switching to EndpointSlices in the future.
+The Endpoints API is not going away, but many new features will rely on the EndpointSlice API. To take advantage of the new scalability and functionality that EndpointSlices provide, applications that currently consume Endpoints will likely want to consider supporting EndpointSlices in the future.
