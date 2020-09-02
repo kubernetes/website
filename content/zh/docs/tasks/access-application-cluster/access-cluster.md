@@ -42,7 +42,7 @@ Check the location and credentials that kubectl knows about with this command:
 
 当您第一次访问 Kubernetes API 的时候，我们建议您使用 Kubernetes CLI，`kubectl`。
 
-访问集群时，您需要知道集群的地址并且拥有访问的凭证。通常，这些在您通过 [Getting started guide](/docs/setup/) 安装集群时都是自动安装好的，或者其他人安装时也应该提供了凭证和集群地址。
+访问集群时，您需要知道集群的地址并且拥有访问的凭证。通常，这些在您通过 [Getting started guide](/zh/docs/setup/) 安装集群时都是自动安装好的，或者其他人安装时也应该提供了凭证和集群地址。
 
 通过以下命令检查 kubectl 是否知道集群地址及凭证：
 
@@ -599,5 +599,3 @@ will typically ensure that the latter types are setup correctly.
     - 具体实现因云提供商而异。
 
 除了前两种类型之外，Kubernetes 用户通常不需要担心任何其他问题。集群管理员通常会确保后者的正确配置。
-
-

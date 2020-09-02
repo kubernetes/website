@@ -717,9 +717,9 @@ A container using a Secret as a
 Secret updates.
 {{< /note >}}
 
-{{< feature-state for_k8s_version="v1.18" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="beta" >}}
 
-The Kubernetes alpha feature _Immutable Secrets and ConfigMaps_ provides an option to set
+The Kubernetes beta feature _Immutable Secrets and ConfigMaps_ provides an option to set
 individual Secrets and ConfigMaps as immutable. For clusters that extensively use Secrets
 (at least tens of thousands of unique Secret to Pod mounts), preventing changes to their
 data has the following advantages:
@@ -728,9 +728,10 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
 closing watches for secrets marked as immutable.
 
-To use this feature, enable the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and set
-your Secret or ConfigMap `immutable` field to `true`. For example:
+This feature is controlled by the `ImmutableEphemeralVolumes` [feature
+gate](/docs/reference/command-line-tools-reference/feature-gates/),
+which is enabled by default since v1.19. You can create an immutable
+Secret by setting the `immutable` field to `true`. For example,
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -914,7 +915,7 @@ Create the Secret:
 kubectl apply -f mysecret.yaml
 ```
 
-Use `envFrom` to define all of the Secret’s data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+Use `envFrom` to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 
 ```yaml
 apiVersion: v1

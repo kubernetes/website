@@ -30,10 +30,10 @@ In this regard, _Kubernetes does not have objects which represent normal user
 accounts._ Normal users cannot be added to a cluster through an API call.
 
 Even though normal user cannot be added via an API call, but any user that
-presents a valid certificate signed by the cluster’s certificate authority
+presents a valid certificate signed by the cluster's certificate authority
 (CA) is considered authenticated. In this configuration, Kubernetes determines
-the username from the common name field in the ‘subject’ of the cert (e.g.,
-“/CN=bob”). From there, the role based access control (RBAC) sub-system would
+the username from the common name field in the 'subject' of the cert (e.g.,
+"/CN=bob"). From there, the role based access control (RBAC) sub-system would
 determine whether the user is authorized to perform a specific operation on a
 resource. For more details, refer to the normal users topic in
 [certificate request](/docs/reference/access-authn-authz/certificate-signing-requests/#normal-user)
@@ -165,26 +165,6 @@ cluster.
 Please see [Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/) for in depth
 documentation on the Bootstrap Token authenticator and controllers along with
 how to manage these tokens with `kubeadm`.
-
-### Static Password File
-
-Basic authentication is enabled by passing the `--basic-auth-file=SOMEFILE`
-option to API server. Currently, the basic auth credentials last indefinitely,
-and the password cannot be changed without restarting API server. Note that basic
-authentication is currently supported for convenience while we finish making the
-more secure modes described above easier to use.
-
-The basic auth file is a csv file with a minimum of 3 columns: password, user name, user id.
-In Kubernetes version 1.6 and later, you can specify an optional fourth column containing
-comma-separated group names. If you have more than one group, you must enclose the fourth
-column value in double quotes ("). See the following example:
-
-```conf
-password,user,uid,"group1,group2,group3"
-```
-
-When using basic authentication from an http client, the API server expects an `Authorization` header
-with a value of `Basic BASE64ENCODED(USER:PASSWORD)`.
 
 ### Service Account Tokens
 
@@ -349,7 +329,7 @@ Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
 Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
-[Keycloak](https://github.com/keycloak/keycloak), 
+[Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
 
@@ -792,6 +772,19 @@ users:
       args:
       - "arg1"
       - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
 clusters:
 - name: my-cluster
   cluster:

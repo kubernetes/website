@@ -30,7 +30,7 @@ kubeadm token list [flags]
 <td colspan="2">-o, --experimental-output string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-file.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Output format. One of: text|json|yaml|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file.</td>
 </tr>
 
 <tr>

@@ -260,8 +260,8 @@ metadata:
 ```
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
-Pod’s security context are. Every GID, whether it originates from a PersistentVolume
-annotation or the Pod’s specification, is applied to the first process run in
+Pod's security context are. Every GID, whether it originates from a PersistentVolume
+annotation or the Pod's specification, is applied to the first process run in
 each container.
 
 {{< note >}}

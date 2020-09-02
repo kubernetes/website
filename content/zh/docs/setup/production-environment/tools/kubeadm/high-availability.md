@@ -77,8 +77,8 @@ For both methods you need this infrastructure:
 -->
 对于这两种方法，您都需要以下基础设施：
 
-- 配置三台机器[kubeadm 的最低要求](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin)给主节点
-- 配置三台机器 [kubeadm 的最低要求](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给工作节点
+- 配置三台机器 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给主节点
+- 配置三台机器 [kubeadm 的最低要求](/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) 给工作节点
 - 在集群中，所有计算机之间的完全网络连接（公网或私网）
 - 所有机器上的 sudo 权限
 - 每台设备对系统中所有节点的 SSH 访问
@@ -129,7 +129,7 @@ option. Your cluster requirements may need a different configuration.
 
     - Make sure the address of the load balancer always matches
       the address of kubeadm's `ControlPlaneEndpoint`.
-      
+
     - Read the [Options for Software Load Balancing](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)
       guide for more details.
 -->
@@ -143,7 +143,7 @@ option. Your cluster requirements may need a different configuration.
     - 负载均衡器必须能够在 apiserver 端口上与所有控制平面节点通信。它还必须允许其监听端口的传入流量。
 
     - 确保负载均衡器的地址始终匹配 kubeadm 的 `ControlPlaneEndpoint` 地址。
-    
+
     - 阅读[软件负载平衡选项指南](https://github.com/kubernetes/kubeadm/blob/master/docs/ha-considerations.md#options-for-software-load-balancing)以获取更多详细信息。
 
 <!--
@@ -731,5 +731,3 @@ the creation of additional nodes could fail due to a lack of required SANs.
     mv /home/${USER}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
     mv /home/${USER}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
     ```
-
-
