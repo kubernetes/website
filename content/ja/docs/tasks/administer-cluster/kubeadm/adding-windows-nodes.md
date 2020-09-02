@@ -168,7 +168,7 @@ kubectl get nodes -o wide
 ```
 
 新しいノードが`NotReady`状態の場合は、flannelイメージがまだダウンロードされている可能性があります。
-`kube-system`名前空間のフランネルポッドを確認することで、以前と同様に進行状況を確認できます:
+`kube-system`名前空間のflannel Podを確認することで、以前と同様に進行状況を確認できます:
 
 ```shell
 kubectl -n kube-system get pods -l app=flannel
