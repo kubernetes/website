@@ -77,7 +77,7 @@ LinuxベースのKubernetesコントロールプレーンノードを取得し�
         }
     ```
 
-    {{< note >}}Linux上のFlannelがWindows上のFlannelと相互運用するには、VNIを4096およびポート4789に設定する必要があります。これらのフィールドの説明については、[VXLANドキュメント](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)を参照。{{< /note >}}
+    {{< note >}}Linux上のFlannelがWindows上のFlannelと相互運用するには、VNIを4096およびポート4789に設定する必要があります。これらのフィールドの説明については、[VXLANドキュメント](https://github.com/coreos/flannel/blob/master/Documentation/backends.md#vxlan)を参照してください。{{< /note >}}
 
     {{< note >}}L2Bridge/Host-gatewayモードを使用するには、代わりに`Type`の値を`"host-gw"`に変更し、`VNI`と`Port`を省略します。{{< /note >}}
 
