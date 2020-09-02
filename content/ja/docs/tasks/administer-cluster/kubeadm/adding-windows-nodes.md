@@ -146,7 +146,7 @@ Windowsセクションのすべてのコードスニペットは、
 Windowsワーカーノードの(管理者)権限を持つPowerShell環境で実行されます。
 {{< /note >}}
 
-1. wins、kubelet、kubeadmのインストールします。
+1. wins、kubelet、kubeadmをインストールします。
 
    ```PowerShell
    curl.exe -LO https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/PrepareNode.ps1
