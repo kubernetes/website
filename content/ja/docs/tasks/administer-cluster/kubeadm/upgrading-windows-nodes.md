@@ -18,7 +18,7 @@ weight: 40
  
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * [残りのkubeadmクラスターをアップグレードするプロセス](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)を理解します。
-Windowsノードをアップグレードする前にコントロールプレーンノードをアップグレードしてほしいです。
+Windowsノードをアップグレードする前にコントロールプレーンノードをアップグレードしたいと思うかもしれません。
 
 
 
@@ -88,6 +88,5 @@ Windowsノードをアップグレードする前にコントロールプレー�
     ```shell
     curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
     ```
-
 
 
