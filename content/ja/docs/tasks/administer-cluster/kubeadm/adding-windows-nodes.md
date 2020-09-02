@@ -167,7 +167,7 @@ Windowsワーカーノードの(管理者)権限を持つPowerShell環境で実�
 kubectl get nodes -o wide
 ```
 
-新しいノードが`NotReady`状態の場合は、flannelイメージがまだダウンロードされている可能性があります。
+新しいノードが`NotReady`状態の場合は、flannelイメージがまだダウンロード中の可能性があります。
 `kube-system`名前空間のflannel Podを確認することで、以前と同様に進行状況を確認できます:
 
 ```shell
