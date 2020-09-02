@@ -1,7 +1,4 @@
 ---
-reviewers:
-- michmike
-- patricklang
 title: Windowsノードの追加
 min-kubernetes-server-version: 1.17
 content_type: tutorial
