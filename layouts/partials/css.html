@@ -2,8 +2,6 @@
 
 {{ $inServerMode := site.IsServer }}
 
-<link rel="stylesheet" href="/css/base_fonts.css">
-
 {{- if .Params.case_study_styles }}
   {{ $cssOutput := "css/case-studies.css" }}
   {{ $caseStudiesCSS := resources.Get "scss/_case-studies.scss" | resources.ToCSS }}
